@@ -48,6 +48,8 @@
         
         <string name="taskList_context_edit">Edit Task</string>
         <string name="taskList_context_delete">Delete Task</string>
+        <string name="taskList_context_startTimer">Start Timer</string>
+        <string name="taskList_context_stopTimer">Stop Timer</string>
         <string name="taskList_filter_title">Filters</string>
         <string name="taskList_filter_hidden">Hidden/Blocked Tasks</string>
         <string name="taskList_filter_done">Completed Tasks</string>

@@ -36,16 +36,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-        
-       <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="5px" />   
-                   
-        <Button android:id="@+id/edit"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/edit_label"/>
 
         <!-- Elapsed Time -->
         <LinearLayout 
@@ -168,6 +158,16 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:colorForeground="@color/view_table_values" /> 
         </LinearLayout>
+        
+       <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5px" />   
+                   
+        <Button android:id="@+id/edit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/edit_label"/>
                    
     </LinearLayout>
 </ScrollView>

@@ -22,10 +22,14 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -45,6 +49,9 @@ import com.timsu.astrid.widget.NumberPickerDialog;
  */
 public class TaskView extends TaskModificationActivity<TaskModelForView> {
     private static final int ACTIVITY_EDIT = 0;
+
+    private static final int       EDIT_ID       = Menu.FIRST;
+    private static final int       DELETE_ID     = Menu.FIRST + 1;
 
     private TextView         name;
     private TextView         elapsed;
@@ -77,6 +84,8 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
             throw new IllegalArgumentException("Can't view null task!");
         return controller.fetchTaskForView(identifier);
     }
+
+    // --- initialization
 
     private void setUpUIComponents() {
         Resources r = getResources();
@@ -115,7 +124,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
             }
         };
 
-        // update the UI
+        // update the timer UI
         updateTimer = new Timer();
         updateTimer.scheduleAtFixedRate(elapsedTimeUpdater, 0, 1000);
     }
@@ -125,10 +134,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TaskView.this, TaskEdit.class);
-                intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN,
-                        model.getTaskIdentifier().getId());
-                startActivityForResult(intent, ACTIVITY_EDIT);
+                editButtonClick();
             }
         });
 
@@ -139,11 +145,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
                     model.setTimerStart(new Date());
                     controller.saveTask(model);
                 } else {
-                    long start = model.getTimerStart().getTime();
-                    model.setTimerStart(null);
-                    long secondsElapsed = (System.currentTimeMillis() - start)/1000;
-                    model.setElapsedSeconds((int) (model.getElapsedSeconds() +
-                            secondsElapsed));
+                    model.stopTimerAndUpdateElapsedTime();
                     controller.saveTask(model);
                 }
 
@@ -197,14 +199,32 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        MenuItem item;
+
+        item = menu.add(Menu.NONE, EDIT_ID, 0, R.string.edit_label);
+        item.setIcon(android.R.drawable.ic_menu_edit);
+        item.setAlphabeticShortcut('s');
+
+        item = menu.add(Menu.NONE, DELETE_ID, 0, R.string.delete_label);
+        item.setIcon(android.R.drawable.ic_menu_delete);
+        item.setAlphabeticShortcut('d');
+
+        return true;
+    }
+
+    // --- event handlers
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode,
             Intent intent) {
-        if(resultCode == RESULT_CANCELED)
-            return;
 
-        // if user edits a task, take them straight to the listing page
-        setResult(resultCode);
-        finish();
+        // if user doesn't click 'back', finish this activity too
+        if(resultCode != RESULT_CANCELED) {
+            setResult(resultCode);
+            finish();
+        }
     }
 
     @Override
@@ -216,6 +236,54 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
     protected void onResume() {
         super.onResume();
         populateFields();
+    }
+
+    @Override
+    /** Cancel the timer thread */
+    protected void onDestroy() {
+        super.onDestroy();
+        updateTimer.cancel();
+    }
+
+    // --- event response methods
+
+    private void editButtonClick() {
+        Intent intent = new Intent(TaskView.this, TaskEdit.class);
+        intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN,
+                model.getTaskIdentifier().getId());
+        startActivityForResult(intent, ACTIVITY_EDIT);
+    }
+
+    private void deleteButtonClick() {
+        new AlertDialog.Builder(this)
+            .setTitle(R.string.delete_title)
+            .setMessage(R.string.delete_this_task_title)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(android.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    controller.deleteTask(model.getTaskIdentifier());
+                    setResult(RESULT_OK);
+                    finish();
+                }
+            })
+            .setNegativeButton(android.R.string.cancel, null)
+            .show();
+    }
+
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        switch(item.getItemId()) {
+        case EDIT_ID:
+            editButtonClick();
+            return true;
+        case DELETE_ID:
+            deleteButtonClick();
+            return true;
+        }
+
+        return super.onMenuItemSelected(featureId, item);
     }
 
     /** Update components that depend on elapsed time */
@@ -252,13 +320,6 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
             name.setBackgroundColor(r.getColor(model.getImportance().getColorResource()));
 
         progressDialog.setInitialValue(model.getProgressPercentage());
-    }
-
-    @Override
-    /** Cancel the timer thread */
-    protected void onDestroy() {
-        super.onDestroy();
-        updateTimer.cancel();
     }
 }
 

@@ -180,4 +180,14 @@ public class TaskModelForList extends AbstractTaskModel {
     public void setProgressPercentage(int progressPercentage) {
         super.setProgressPercentage(progressPercentage);
     }
+
+    @Override
+    public void setTimerStart(Date timerStart) {
+        super.setTimerStart(timerStart);
+    }
+
+    @Override
+    public void stopTimerAndUpdateElapsedTime() {
+        super.stopTimerAndUpdateElapsedTime();
+    }
 }

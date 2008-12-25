@@ -59,9 +59,11 @@ import com.timsu.astrid.widget.NumberPickerDialog;
 import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 
 public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
-    private static final int       SAVE_ID    = Menu.FIRST;
-    private static final int       DISCARD_ID = Menu.FIRST + 1;
-    private static final int       DELETE_ID  = Menu.FIRST + 2;
+    private static final int       SAVE_ID       = Menu.FIRST;
+    private static final int       DISCARD_ID    = Menu.FIRST + 1;
+    private static final int       DELETE_ID     = Menu.FIRST + 2;
+
+    public static final int        RESULT_DELETE = RESULT_FIRST_USER;
 
     private EditText               name;
     private Spinner                importance;
@@ -71,6 +73,8 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
     private DateControlSet         preferredDueDate;
     private DateControlSet         hiddenUntil;
     private EditText               notes;
+
+    private boolean                shouldSaveState = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,6 +120,10 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
     }
 
     private void save() {
+        // usually, user accidentally created a new task
+        if(name.getText().length() == 0)
+            return;
+
         model.setName(name.getText().toString());
         model.setEstimatedSeconds(estimatedDuration.getTimeDurationInSeconds());
         model.setElapsedSeconds(elapsedDuration.getTimeDurationInSeconds());
@@ -162,7 +170,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
 
         ImportanceAdapter importanceAdapter = new ImportanceAdapter(this,
                     android.R.layout.simple_spinner_item,
-                    android.R.layout.simple_spinner_dropdown_item,
+                    R.layout.importance_spinner_dropdown,
                     Importance.values());
         importance.setAdapter(importanceAdapter);
     }
@@ -247,12 +255,12 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
     }
 
     private void saveButtonClick() {
-        save();
         setResult(RESULT_OK);
         finish();
     }
 
     private void discardButtonClick() {
+        shouldSaveState = false;
         setResult(RESULT_CANCELED);
         finish();
     }
@@ -267,7 +275,8 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     controller.deleteTask(model.getTaskIdentifier());
-                    setResult(RESULT_OK);
+                    shouldSaveState = false;
+                    setResult(RESULT_DELETE);
                     finish();
                 }
             })
@@ -301,11 +310,13 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         item.setIcon(android.R.drawable.ic_menu_save);
         item.setAlphabeticShortcut('s');
 
-        item = menu.add(Menu.NONE, DISCARD_ID, 0, R.string.discard_label);
-        item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-        item.setAlphabeticShortcut('c');
+        if(model.getTaskIdentifier() != null) {
+            item = menu.add(Menu.NONE, DISCARD_ID, 0, R.string.discard_label);
+            item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+            item.setAlphabeticShortcut('c');
+        }
 
-        item = menu.add(Menu.NONE, DISCARD_ID, 0, R.string.delete_label);
+        item = menu.add(Menu.NONE, DELETE_ID, 0, R.string.delete_label);
         item.setIcon(android.R.drawable.ic_menu_delete);
         item.setAlphabeticShortcut('d');
 
@@ -313,9 +324,16 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onSaveInstanceState(Bundle outState) {
         save();
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onPause() {
+        if(shouldSaveState)
+            save();
+        super.onPause();
     }
 
     @Override

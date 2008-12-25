@@ -2,6 +2,6 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/android-src.jar"/>
-	<classpathentry kind="lib" path="lib/android.jar" sourcepath="/home/timsu/projects/android-astrid/lib/android-src.jar"/>
+	<classpathentry kind="lib" path="lib/android.jar" sourcepath="lib/android-src.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

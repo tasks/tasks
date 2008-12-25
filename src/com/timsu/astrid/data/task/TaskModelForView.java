@@ -99,7 +99,7 @@ public class TaskModelForView extends AbstractTaskModel {
     }
 
     @Override
-    public void setElapsedSeconds(int elapsedSeconds) {
-        super.setElapsedSeconds(elapsedSeconds);
+    public void stopTimerAndUpdateElapsedTime() {
+        super.stopTimerAndUpdateElapsedTime();
     }
 }

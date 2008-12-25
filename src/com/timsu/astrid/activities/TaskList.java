@@ -18,6 +18,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package com.timsu.astrid.activities;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -70,6 +71,7 @@ public class TaskList extends Activity {
 
     private static final int CONTEXT_EDIT_ID       = Menu.FIRST + 10;
     private static final int CONTEXT_DELETE_ID     = Menu.FIRST + 11;
+    private static final int CONTEXT_TIMER_ID      = Menu.FIRST + 12;
 
     private static final int CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
     private static final int CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
@@ -78,6 +80,7 @@ public class TaskList extends Activity {
     private ListView listView;
     private Button addButton;
 
+    private List<TaskModelForList> taskArray;
     private boolean filterShowHidden = false;
     private boolean filterShowDone = false;
 
@@ -135,8 +138,7 @@ public class TaskList extends Activity {
 
         startManagingCursor(tasksCursor);
         int totalTasks = tasksCursor.getCount();
-        List<TaskModelForList> taskArray =
-            controller.createTaskListFromCursor(tasksCursor, !filterShowHidden);
+        taskArray = controller.createTaskListFromCursor(tasksCursor, !filterShowHidden);
         int hiddenTasks = totalTasks - taskArray.size();
 
         // hide "add" button if we have a few tasks
@@ -266,12 +268,18 @@ public class TaskList extends Activity {
                 public void onCreateContextMenu(ContextMenu menu, View v,
                         ContextMenuInfo menuInfo) {
                     TaskModelForList task = (TaskModelForList)v.getTag();
-                    int id = (int)task.getTaskIdentifier().getId();
 
-                    menu.add(id, CONTEXT_EDIT_ID, Menu.NONE,
+                    menu.add(position, CONTEXT_EDIT_ID, Menu.NONE,
                             R.string.taskList_context_edit);
-                    menu.add(id, CONTEXT_DELETE_ID, Menu.NONE,
+                    menu.add(position, CONTEXT_DELETE_ID, Menu.NONE,
                             R.string.taskList_context_delete);
+
+                    int timerTitle;
+                    if(task.getTimerStart() == null)
+                        timerTitle = R.string.taskList_context_startTimer;
+                    else
+                        timerTitle = R.string.taskList_context_stopTimer;
+                    menu.add(position, CONTEXT_TIMER_ID, Menu.NONE, timerTitle);
 
                     menu.setHeaderTitle(task.getName());
                 }
@@ -329,16 +337,24 @@ public class TaskList extends Activity {
             return true;
 
         case CONTEXT_EDIT_ID:
-            long id = item.getGroupId(); // hackhack =(
-
+            TaskModelForList task = taskArray.get(item.getGroupId());
             Intent intent = new Intent(TaskList.this, TaskEdit.class);
-            intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, id);
+            intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, task.getTaskIdentifier().getId());
             startActivityForResult(intent, ACTIVITY_EDIT);
             return true;
         case CONTEXT_DELETE_ID:
-            id = item.getGroupId();
-
-            deleteTask(new TaskIdentifier(id));
+            task = taskArray.get(item.getGroupId());
+            deleteTask(task.getTaskIdentifier());
+            return true;
+        case CONTEXT_TIMER_ID:
+            task = taskArray.get(item.getGroupId());
+            if(task.getTimerStart() == null)
+                task.setTimerStart(new Date());
+            else {
+                task.stopTimerAndUpdateElapsedTime();
+            }
+            controller.saveTask(task);
+            fillData();
             return true;
 
         case CONTEXT_FILTER_HIDDEN:

@@ -25,8 +25,8 @@
     <color name="view_table_values">#ffbbbbbb</color>    
     <color name="view_table_overdue">#ffff0000</color>
     
-    <color name="importance_1">#ffe36150</color>
-    <color name="importance_2">#ffe3ad50</color>
+    <color name="importance_1">#ffec4a8e</color>
+    <color name="importance_2">#ffffbe33</color>
     <color name="importance_3">#ffffffff</color>
     <color name="importance_4">#ffb5b0a8</color>    
 </resources>

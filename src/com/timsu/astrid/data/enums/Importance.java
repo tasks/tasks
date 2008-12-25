@@ -15,7 +15,7 @@ public enum Importance {
 
 	int label;
 	int color;
-	public static final Importance DEFAULT = LEVEL_2;
+	public static final Importance DEFAULT = LEVEL_3;
 
 	private Importance(int label, int color) {
 	    this.label = label;

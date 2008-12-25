@@ -22,7 +22,7 @@ public abstract class TaskModificationActivity<MODEL_TYPE extends
         // check if we have a TaskIdentifier
         TaskIdentifier identifier = null;
         Bundle extras = getIntent().getExtras();
-        if(savedInstanceState != null) {
+        if(savedInstanceState != null && savedInstanceState.containsKey(LOAD_INSTANCE_TOKEN)) {
             identifier = new TaskIdentifier(savedInstanceState.getLong(
                     LOAD_INSTANCE_TOKEN));
         } else if(extras != null)
@@ -43,6 +43,7 @@ public abstract class TaskModificationActivity<MODEL_TYPE extends
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putLong(LOAD_INSTANCE_TOKEN, model.getTaskIdentifier().getId());
+        if(model.getTaskIdentifier() != null)
+            outState.putLong(LOAD_INSTANCE_TOKEN, model.getTaskIdentifier().getId());
     }
 }

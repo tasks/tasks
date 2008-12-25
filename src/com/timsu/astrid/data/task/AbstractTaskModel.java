@@ -136,6 +136,15 @@ public abstract class AbstractTaskModel extends AbstractModel {
         return getProgressPercentage() >= COMPLETE_PERCENTAGE;
     }
 
+    /** Stops the timer & increments elapsed time. Requires timerStart and
+     * elapsedSeconds */
+    protected void stopTimerAndUpdateElapsedTime() {
+        long start = getTimerStart().getTime();
+        setTimerStart(null);
+        long secondsElapsed = (System.currentTimeMillis() - start)/1000;
+        setElapsedSeconds((int) (getElapsedSeconds() + secondsElapsed));
+    }
+
     // --- task identifier
 
     private TaskIdentifier identifier = null;

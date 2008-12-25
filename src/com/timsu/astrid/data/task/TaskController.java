@@ -1,9 +1,7 @@
 package com.timsu.astrid.data.task;
 
-import java.util.Date;
 import java.util.List;
 
-import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -46,27 +44,16 @@ public class TaskController extends AbstractController {
         return database.delete(TASK_TABLE_NAME, KEY_ROWID + "=" + id, null) > 0;
     }
 
-    /** Sets the timer start time to the given value. Passing in "null"
-     * signifies that the timer is not running. */
-    public boolean startTimer(TaskModelForView task, Date startDate) throws
-            SQLException {
-        task.setTimerStart(startDate);
-
-        long id = task.getTaskIdentifier().getId();
-        ContentValues values = new ContentValues();
-        AbstractTaskModel.putDate(values, AbstractTaskModel.TIMER_START,
-                startDate);
-        return database.update(TASK_TABLE_NAME, values, KEY_ROWID + "=" + id,
-                null) > 0;
-    }
-
     /** Saves the given task to the database. Returns true on success. */
     public boolean saveTask(AbstractTaskModel task) {
         boolean saveSucessful;
 
         if(task.getTaskIdentifier() == null) {
-            saveSucessful = database.insert(TASK_TABLE_NAME, AbstractTaskModel.NAME,
-                    task.getMergedValues()) >= 0;
+            long newRow = database.insert(TASK_TABLE_NAME, AbstractTaskModel.NAME,
+                    task.getMergedValues());
+            task.setTaskIdentifier(new TaskIdentifier(newRow));
+
+            saveSucessful = newRow >= 0;
         } else {
             long id = task.getTaskIdentifier().getId();
             saveSucessful = database.update(TASK_TABLE_NAME, task.getSetValues(),
