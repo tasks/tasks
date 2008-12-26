@@ -143,7 +143,7 @@ public class TagController extends AbstractController {
             return false;
 
         return tagDatabase.delete(TAG_TABLE_NAME,
-                KEY_ROWID + " = " + tagId.toString(), null) > 0;
+                KEY_ROWID + " = " + tagId.idAsString(), null) > 0;
     }
 
     // --- single tag to task operations

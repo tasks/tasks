@@ -28,4 +28,9 @@ public abstract class Identifier {
 
         return ((Identifier)o).getId() == getId();
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + ": " + id;
+    }
 }

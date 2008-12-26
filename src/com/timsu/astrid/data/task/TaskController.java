@@ -55,7 +55,7 @@ public class TaskController extends AbstractController {
         for(int i = 0; i < idList.size(); i++) {
             where.append(KEY_ROWID);
             where.append("=");
-            where.append(idList.get(i).toString());
+            where.append(idList.get(i).idAsString());
             if(i < idList.size()-1)
                 where.append(" OR ");
         }

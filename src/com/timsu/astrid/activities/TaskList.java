@@ -106,15 +106,6 @@ public class TaskList extends Activity {
         tagController = new TagController(this);
         tagController.open();
 
-        tagMap = tagController.getAllTagsAsMap();
-
-        // check if we want to filter by tag
-        Bundle extras = getIntent().getExtras();
-        if(extras != null && extras.containsKey(TAG_TOKEN)) {
-            TagIdentifier identifier = new TagIdentifier(extras.getLong(TAG_TOKEN));
-            filterTag = tagMap.get(identifier);
-        }
-
         listView = (ListView)findViewById(R.id.tasklist);
         addButton = (Button)findViewById(R.id.addtask);
         addButton.setOnClickListener(new
@@ -155,6 +146,14 @@ public class TaskList extends Activity {
         Resources r = getResources();
 
         Cursor tasksCursor;
+
+        // load tags (again)
+        tagMap = tagController.getAllTagsAsMap();
+        Bundle extras = getIntent().getExtras();
+        if(extras != null && extras.containsKey(TAG_TOKEN)) {
+            TagIdentifier identifier = new TagIdentifier(extras.getLong(TAG_TOKEN));
+            filterTag = tagMap.get(identifier);
+        }
 
         // get the array of tasks
         if(filterTag != null) {
