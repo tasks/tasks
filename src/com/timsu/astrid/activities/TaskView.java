@@ -66,6 +66,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
 
     private Handler          handler;
     private Timer            updateTimer;
+    private TimerTask        updateTimerTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,7 +113,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
 
         name.setTextSize(36);
 
-        final TimerTask elapsedTimeUpdater = new TimerTask() {
+        updateTimerTask = new TimerTask() {
             @Override
             public void run() {
                 handler.post(new Runnable() {
@@ -123,10 +124,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
                 });
             }
         };
-
-        // update the timer UI
         updateTimer = new Timer();
-        updateTimer.scheduleAtFixedRate(elapsedTimeUpdater, 0, 1000);
     }
 
     private void setUpListeners() {
@@ -224,25 +222,22 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         if(resultCode != RESULT_CANCELED) {
             setResult(resultCode);
             finish();
+        } else {
+            populateFields();
         }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
+        updateTimer.cancel(); // stop the timer
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         populateFields();
-    }
-
-    @Override
-    /** Cancel the timer thread */
-    protected void onDestroy() {
-        super.onDestroy();
-        updateTimer.cancel();
+        updateTimer.scheduleAtFixedRate(updateTimerTask, 0, 1000); // start timer
     }
 
     // --- event response methods

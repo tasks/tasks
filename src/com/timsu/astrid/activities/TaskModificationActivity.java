@@ -35,8 +35,8 @@ public abstract class TaskModificationActivity<MODEL_TYPE extends
     abstract protected MODEL_TYPE getModel(TaskIdentifier identifier);
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onStop() {
+        super.onStop();
         controller.close();
     }
 
