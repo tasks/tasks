@@ -29,7 +29,7 @@
         android:singleLine="true"/>
         
     <TextView android:id="@+id/text2"
-        android:layout_height="fill_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_width="fill_parent"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:gravity="center_vertical"

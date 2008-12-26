@@ -151,7 +151,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
                     if(!tagsMap.containsKey(id))
                         continue;
 
-                    TagModelForView tag = tagsMap.get(id.getId());
+                    TagModelForView tag = tagsMap.get(id);
                     addTag(tag.getName());
                 }
             }
