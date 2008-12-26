@@ -82,7 +82,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
                 
-            <!-- <TextView android:id="@+id/tags_label"
+            <TextView android:id="@+id/tags_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tags_label"
@@ -92,7 +92,7 @@
                 android:orientation="vertical"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
-            </LinearLayout> -->
+            </LinearLayout>
         </LinearLayout>
             
         <!-- DATES -->

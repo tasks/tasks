@@ -17,6 +17,10 @@
             <item quantity="one">1 Task</item>
             <item quantity="other">%d Tasks</item>
         </plurals>
+        <plurals name="Ntags">
+            <item quantity="one">1 Tag</item>
+            <item quantity="other">%d Tags</item>
+        </plurals>
         <!-- Time Constants -->
         <plurals name="Ndays">
             <item quantity="one">1 Day</item>
@@ -38,6 +42,7 @@
     <!-- TaskList -->
     <skip />
         <string name="taskList_titlePrefix">Astrid: </string>
+        <string name="taskList_titleTagPrefix">Tasks Tagged \"%s\": </string>
         <string name="taskList_hiddenSuffix"> hidden</string>
         <string name="addtask_label">New Task</string>
         
@@ -96,10 +101,18 @@
         <string name="taskView_notes">Task Notes</string>
         <string name="overdue_suffix"> Overdue</string>
         <string name="progress_dialog">% of Task Finished</string>
+        
+        <!-- TaskList -->
+    <skip />
+        <string name="tagList_titlePrefix">Astrid: Tag View: </string>
+        <string name="tagList_context_create">Create Task With Tag</string>
+        <string name="tagList_context_edit">Edit Tag</string>
+        <string name="tagList_context_delete">Delete Tag</string>
       
      <!-- Utilities -->  
     <skip />
         <string name="delete_title">Delete</string>        
         <string name="delete_this_task_title">Delete this task?</string>
+        <string name="delete_this_tag_title">Remove this tag from all tasks?</string>
     
 </resources>

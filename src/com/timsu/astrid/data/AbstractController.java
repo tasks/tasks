@@ -19,20 +19,73 @@
  */
 package com.timsu.astrid.data;
 
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
+import java.lang.reflect.InvocationTargetException;
+import java.util.Iterator;
+
+import android.app.Activity;
+import android.database.Cursor;
+import android.util.Log;
 
 
 abstract public class AbstractController {
 
-    protected Context context;
-    protected SQLiteDatabase database;
+    protected Activity activity;
 
     // special columns
     public static final String KEY_ROWID = "_id";
 
 
-    // database names
+    // database and table names
     protected static final String TASK_TABLE_NAME = "tasks";
+    protected static final String TAG_TABLE_NAME = "tags";
+    protected static final String TAG_TASK_MAP_NAME = "tagTaskMap";
+
+    // cursor iterator
+
+    public static class CursorIterator<TYPE extends AbstractModel> implements Iterator<TYPE> {
+        Cursor cursor;
+        Class<TYPE> cls;
+
+        public CursorIterator(Cursor cursor, Class<TYPE> cls) {
+            this.cursor = cursor;
+            this.cls = cls;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return !cursor.isLast();
+        }
+
+        @Override
+        public TYPE next() {
+            try {
+                TYPE model = cls.getConstructor(Cursor.class).newInstance(cursor);
+                cursor.moveToNext();
+                return model;
+
+            // ugh...
+            } catch (IllegalArgumentException e) {
+                Log.e("CursorIterator", e.toString());
+            } catch (SecurityException e) {
+                Log.e("CursorIterator", e.toString());
+            } catch (InstantiationException e) {
+                Log.e("CursorIterator", e.toString());
+            } catch (IllegalAccessException e) {
+                Log.e("CursorIterator", e.toString());
+            } catch (InvocationTargetException e) {
+                Log.e("CursorIterator", e.toString());
+            } catch (NoSuchMethodException e) {
+                Log.e("CursorIterator", e.toString());
+            }
+
+            return null;
+        }
+
+        @Override
+        public void remove() {
+            throw new UnsupportedOperationException("Can't remove this way");
+        }
+
+    }
 
 }

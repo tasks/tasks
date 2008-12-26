@@ -40,8 +40,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
     static final String                DEFINITE_DUE_DATE   = "definiteDueDate";
     static final String                PREFERRED_DUE_DATE  = "preferredDueDate";
     static final String                HIDDEN_UNTIL        = "hiddenUntil";
+    // reserved fields
     static final String                BLOCKING_ON         = "blockingOn";
     static final String                NOTIFICATIONS       = "notifications";
+    // end reserved fields
     static final String                CREATION_DATE       = "creationDate";
     static final String                COMPLETION_DATE     = "completionDate";
 
@@ -75,10 +77,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
     static class TaskModelDatabaseHelper extends SQLiteOpenHelper {
         String tableName;
 
-        TaskModelDatabaseHelper(Context context, String databaseName) {
+        TaskModelDatabaseHelper(Context context, String databaseName, String tableName) {
             super(context, databaseName, null, VERSION);
 
-            this.tableName = databaseName;
+            this.tableName = tableName;
         }
 
         @Override

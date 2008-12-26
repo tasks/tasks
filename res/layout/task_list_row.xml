@@ -9,6 +9,7 @@
     android:layout_height="wrap_content">
     
     <CheckBox android:id="@+id/cb1"
+        android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="5dip"/>
@@ -18,13 +19,21 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:paddingLeft="5dip"/>
-    
+
     <TextView android:id="@+id/text1"
         android:layout_height="?android:attr/listPreferredItemHeight"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:gravity="center_vertical"
         android:paddingLeft="5dip"
+        android:singleLine="true"/>
+        
+    <TextView android:id="@+id/text2"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:gravity="center_vertical"
+        android:paddingLeft="15dip"            
         android:singleLine="true"/>
         
 </LinearLayout>

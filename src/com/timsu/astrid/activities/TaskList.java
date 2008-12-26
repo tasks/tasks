@@ -19,7 +19,9 @@
  */
 package com.timsu.astrid.activities;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -49,6 +51,9 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.data.tag.TagController;
+import com.timsu.astrid.data.tag.TagIdentifier;
+import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
@@ -61,36 +66,56 @@ import com.timsu.astrid.data.task.TaskModelForList;
  *
  */
 public class TaskList extends Activity {
+
+    // bundle tokens
+    public static final String     TAG_TOKEN       = "tag";
+
+    // activities
     private static final int ACTIVITY_CREATE       = 0;
     private static final int ACTIVITY_VIEW         = 1;
     private static final int ACTIVITY_EDIT         = 2;
+    private static final int ACTIVITY_TAGS         = 3;
 
+    // menu ids
     private static final int INSERT_ID             = Menu.FIRST;
     private static final int FILTERS_ID            = Menu.FIRST + 1;
     private static final int TAGS_ID               = Menu.FIRST + 2;
-
     private static final int CONTEXT_EDIT_ID       = Menu.FIRST + 10;
     private static final int CONTEXT_DELETE_ID     = Menu.FIRST + 11;
     private static final int CONTEXT_TIMER_ID      = Menu.FIRST + 12;
-
     private static final int CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
     private static final int CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
 
+    // ui components
     private TaskController controller;
+    private TagController tagController = null;
     private ListView listView;
     private Button addButton;
 
+    // other instance variables
     private List<TaskModelForList> taskArray;
+    private Map<TagIdentifier, TagModelForView> tagMap;
     private boolean filterShowHidden = false;
     private boolean filterShowDone = false;
+    private TagModelForView filterTag = null;
 
     /** Called when loading up the activity for the first time */
     private void onLoad() {
         controller = new TaskController(this);
         controller.open();
+        tagController = new TagController(this);
+        tagController.open();
+
+        tagMap = tagController.getAllTagsAsMap();
+
+        // check if we want to filter by tag
+        Bundle extras = getIntent().getExtras();
+        if(extras != null && extras.containsKey(TAG_TOKEN)) {
+            TagIdentifier identifier = new TagIdentifier(extras.getLong(TAG_TOKEN));
+            filterTag = tagMap.get(identifier);
+        }
 
         listView = (ListView)findViewById(R.id.tasklist);
-
         addButton = (Button)findViewById(R.id.addtask);
         addButton.setOnClickListener(new
                 View.OnClickListener() {
@@ -129,17 +154,25 @@ public class TaskList extends Activity {
     private void fillData() {
         Resources r = getResources();
 
-        // get the database cursor
         Cursor tasksCursor;
-        if(filterShowDone)
-            tasksCursor = controller.getAllTaskListCursor();
-        else
-            tasksCursor = controller.getActiveTaskListCursor();
+
+        // get the array of tasks
+        if(filterTag != null) {
+            List<TaskIdentifier> tasks = tagController.getTaggedTasks(
+                    filterTag.getTagIdentifier());
+
+            tasksCursor = controller.getTaskListCursorById(tasks);
+        } else {
+            if(filterShowDone)
+                tasksCursor = controller.getAllTaskListCursor();
+            else
+                tasksCursor = controller.getActiveTaskListCursor();
+        }
 
         startManagingCursor(tasksCursor);
-        int totalTasks = tasksCursor.getCount();
-        taskArray = controller.createTaskListFromCursor(tasksCursor, !filterShowHidden);
-        int hiddenTasks = totalTasks - taskArray.size();
+        taskArray = controller.createTaskListFromCursor(tasksCursor,
+                !filterShowHidden);
+        int hiddenTasks = tasksCursor.getCount() - taskArray.size();
 
         // hide "add" button if we have a few tasks
         if(taskArray.size() > 2)
@@ -147,8 +180,12 @@ public class TaskList extends Activity {
 
         // set up the title
         StringBuilder title = new StringBuilder().
-            append(r.getString(R.string.taskList_titlePrefix)).
-            append(" ").append(r.getQuantityString(R.plurals.Ntasks,
+            append(r.getString(R.string.taskList_titlePrefix)).append(" ");
+        if(filterTag != null) {
+            title.append(r.getString(R.string.taskList_titleTagPrefix,
+                    filterTag.getName())).append(" ");
+        }
+        title.append(r.getQuantityString(R.plurals.Ntasks,
                 taskArray.size(), taskArray.size()));
         if(hiddenTasks > 0)
             title.append(" (").append(hiddenTasks).append(" ").
@@ -215,6 +252,7 @@ public class TaskList extends Activity {
 
             // set up basic properties
             final TextView name = ((TextView)view.findViewById(R.id.text1));
+            final TextView properties = ((TextView)view.findViewById(R.id.text2));
             final CheckBox progress = ((CheckBox)view.findViewById(R.id.cb1));
             final ImageView timer = ((ImageView)view.findViewById(R.id.image1));
 
@@ -226,6 +264,21 @@ public class TaskList extends Activity {
             if(task.getTimerStart() != null)
                 timer.setImageDrawable(r.getDrawable(R.drawable.ic_dialog_time));
             progress.setChecked(task.isTaskCompleted());
+
+            List<TagIdentifier> tags = tagController.getTaskTags(
+                    task.getTaskIdentifier());
+            StringBuilder tagString = new StringBuilder();
+            for(Iterator<TagIdentifier> i = tags.iterator(); i.hasNext(); ) {
+                TagModelForView tag = tagMap.get(i.next());
+                tagString.append(tag.getName());
+                if(i.hasNext())
+                    tagString.append(", ");
+            }
+            if(tagString.length() > 0)
+                properties.setText(tagString);
+            else
+                properties.setVisibility(View.GONE);
+
             setTaskAppearance(name, task);
         }
 
@@ -302,8 +355,10 @@ public class TaskList extends Activity {
     // --- ui control handlers
 
     private void createTask() {
-        Intent i = new Intent(this, TaskEdit.class);
-        startActivityForResult(i, ACTIVITY_CREATE);
+        Intent intent = new Intent(this, TaskEdit.class);
+        if(filterTag != null)
+            intent.putExtra(TaskEdit.TAG_NAME_TOKEN, filterTag.getName());
+        startActivityForResult(intent, ACTIVITY_CREATE);
     }
 
     private void deleteTask(final TaskIdentifier taskId) {
@@ -325,6 +380,9 @@ public class TaskList extends Activity {
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
+        Intent intent;
+        TaskModelForList task;
+
         switch(item.getItemId()) {
         case INSERT_ID:
             createTask();
@@ -333,12 +391,17 @@ public class TaskList extends Activity {
             listView.showContextMenu();
             return true;
         case TAGS_ID:
-            // TODO
+            if(filterTag == null) {
+                intent = new Intent(TaskList.this, TagList.class);
+                startActivityForResult(intent, ACTIVITY_TAGS);
+            } else {
+                finish();
+            }
             return true;
 
         case CONTEXT_EDIT_ID:
-            TaskModelForList task = taskArray.get(item.getGroupId());
-            Intent intent = new Intent(TaskList.this, TaskEdit.class);
+            task = taskArray.get(item.getGroupId());
+            intent = new Intent(TaskList.this, TaskEdit.class);
             intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, task.getTaskIdentifier().getId());
             startActivityForResult(intent, ACTIVITY_EDIT);
             return true;
@@ -396,10 +459,10 @@ public class TaskList extends Activity {
         item.setIcon(android.R.drawable.ic_menu_view);
         item.setAlphabeticShortcut('f');
 
-        /*item = menu.add(Menu.NONE, TAGS_ID, Menu.NONE,
+        item = menu.add(Menu.NONE, TAGS_ID, Menu.NONE,
                 R.string.taskList_menu_tags);
         item.setIcon(android.R.drawable.ic_menu_myplaces);
-        item.setAlphabeticShortcut('t');*/
+        item.setAlphabeticShortcut('t');
 
         /*item = menu.add(Menu.NONE, SETTINGS_ID, Menu.NONE,
                 R.string.taskList_menu_settings);
@@ -410,8 +473,10 @@ public class TaskList extends Activity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         controller.close();
+        if(tagController != null)
+            tagController.close();
     }
 }

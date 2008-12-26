@@ -1,10 +1,10 @@
 package com.timsu.astrid.data.task;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import android.database.Cursor;
@@ -30,25 +30,24 @@ public class TaskModelForList extends AbstractTaskModel {
         HIDDEN_UNTIL,
     };
 
-    static List<TaskModelForList> createTaskModelList(Cursor cursor,
-            boolean hideHidden) {
-        ArrayList<TaskModelForList> list = new ArrayList<TaskModelForList>();
+    /** Takes the incoming list of task models and weights it, removing hidden
+     * tasks if desired. This mutates the list */
+    static List<TaskModelForList> sortAndFilterList(
+            List<TaskModelForList> list, boolean hideHidden) {
         final HashMap<TaskModelForList, Integer> weights = new
             HashMap<TaskModelForList, Integer>();
 
         // first, load everything
-        for(int i = 0; i < cursor.getCount(); i++) {
-            cursor.moveToNext();
-            TaskModelForList task = new TaskModelForList(cursor);
-
-            // hide tasks
+        for(Iterator<TaskModelForList> i = list.iterator(); i.hasNext(); ) {
+            TaskModelForList task = i.next();
             if(hideHidden) {
-                if(task.getHiddenUntil() != null &&
-                    task.getHiddenUntil().getTime() > System.currentTimeMillis())
-                continue;
+                if(task.getHiddenUntil() != null && task.getHiddenUntil().
+                        getTime() > System.currentTimeMillis()) {
+                    i.remove();
+                    continue;
+                }
             }
 
-            list.add(task);
             weights.put(task, task.getWeight());
         }
 

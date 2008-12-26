@@ -17,5 +17,7 @@
         
         <activity android:name=".activities.TaskEdit"/>
         
+        <activity android:name=".activities.TagList"/>
+        
     </application>
 </manifest> 

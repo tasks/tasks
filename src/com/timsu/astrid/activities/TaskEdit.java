@@ -1,5 +1,5 @@
 /*
- * ASTRID: Android's Simple Task Recording Dame
+ * ASTRID: Android's Simple Task Recording Dashboard
  *
  * Copyright (c) 2009 Tim Su
  *
@@ -19,19 +19,20 @@
  */
 package com.timsu.astrid.activities;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.TimePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
-import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,32 +40,41 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TimePicker;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.enums.Importance;
+import com.timsu.astrid.data.tag.TagController;
+import com.timsu.astrid.data.tag.TagIdentifier;
+import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForEdit;
-import com.timsu.astrid.utilities.DateUtilities;
-import com.timsu.astrid.widget.NumberPicker;
-import com.timsu.astrid.widget.NumberPickerDialog;
-import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
+import com.timsu.astrid.widget.DateControlSet;
+import com.timsu.astrid.widget.TimeDurationControlSet;
 
 public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
-    private static final int       SAVE_ID       = Menu.FIRST;
-    private static final int       DISCARD_ID    = Menu.FIRST + 1;
-    private static final int       DELETE_ID     = Menu.FIRST + 2;
 
-    public static final int        RESULT_DELETE = RESULT_FIRST_USER;
+    // bundle arguments
+    public static final String     TAG_NAME_TOKEN       = "tag";
 
+    // menu items
+    private static final int       SAVE_ID         = Menu.FIRST;
+    private static final int       DISCARD_ID      = Menu.FIRST + 1;
+    private static final int       DELETE_ID       = Menu.FIRST + 2;
+
+    // activity results
+    public static final int        RESULT_DELETE   = RESULT_FIRST_USER;
+
+    // other constants
+    private static final int       MAX_TAGS        = 5;
+
+    // UI components
     private EditText               name;
     private Spinner                importance;
     private TimeDurationControlSet estimatedDuration;
@@ -73,19 +83,29 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
     private DateControlSet         preferredDueDate;
     private DateControlSet         hiddenUntil;
     private EditText               notes;
+    private LinearLayout           tagsContainer;
 
+    // other instance variables
     private boolean                shouldSaveState = true;
+    private TagController          tagController;
+    private List<TagModelForView> tags;
+    private List<TagIdentifier>    taskTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        tagController = new TagController(this);
+        tagController.open();
         setContentView(R.layout.task_edit);
 
         setUpUIComponents();
 		setUpListeners();
-        populateFields();
-    }
 
+        Bundle extras = getIntent().getExtras();
+        if(extras != null && extras.containsKey(TAG_NAME_TOKEN)) {
+            addTag(extras.getString(TAG_NAME_TOKEN));
+        }
+    }
     @Override
     protected TaskModelForEdit getModel(TaskIdentifier identifier) {
         if (identifier != null)
@@ -94,80 +114,141 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
             return controller.createNewTaskForEdit();
     }
 
-    // --- data saving and retrieving
+    /* ======================================================================
+     * =============================================== model reading / saving
+     * ====================================================================== */
 
     private void populateFields() {
         Resources r = getResources();
+
+        // set UI components based on model variables
         if(model.getCursor() != null)
             startManagingCursor(model.getCursor());
-
         name.setText(model.getName());
         if(model.getName().length() > 0)
             setTitle(new StringBuilder().
                 append(r.getString(R.string.taskEdit_titlePrefix)).
                 append(" ").
                 append(model.getName()));
-
         estimatedDuration.setTimeElapsed(model.getEstimatedSeconds());
         elapsedDuration.setTimeElapsed(model.getElapsedSeconds());
         importance.setSelection(model.getImportance().ordinal());
-
         definiteDueDate.setDate(model.getDefiniteDueDate());
         preferredDueDate.setDate(model.getPreferredDueDate());
         hiddenUntil.setDate(model.getHiddenUntil());
-
         notes.setText(model.getNotes());
+
+        // tags
+        tags = tagController.getAllTags();
+        if(model.getTaskIdentifier() != null) {
+            taskTags = tagController.getTaskTags(model.getTaskIdentifier());
+            if(taskTags.size() > 0) {
+                Map<TagIdentifier, TagModelForView> tagsMap =
+                    new HashMap<TagIdentifier, TagModelForView>();
+                for(TagModelForView tag : tags)
+                    tagsMap.put(tag.getTagIdentifier(), tag);
+                for(TagIdentifier id : taskTags) {
+                    if(!tagsMap.containsKey(id))
+                        continue;
+
+                    TagModelForView tag = tagsMap.get(id.getId());
+                    addTag(tag.getName());
+                }
+            }
+        } else
+            taskTags = new LinkedList<TagIdentifier>();
+
+        addTag("");
     }
 
     private void save() {
-        // usually, user accidentally created a new task
+        // don't save if user accidentally created a new task
         if(name.getText().length() == 0)
             return;
 
         model.setName(name.getText().toString());
         model.setEstimatedSeconds(estimatedDuration.getTimeDurationInSeconds());
         model.setElapsedSeconds(elapsedDuration.getTimeDurationInSeconds());
-        model.setImportance(Importance.values()[importance.getSelectedItemPosition()]);
-
+        model.setImportance(Importance.values()
+                [importance.getSelectedItemPosition()]);
         model.setDefiniteDueDate(definiteDueDate.getDate());
         model.setPreferredDueDate(preferredDueDate.getDate());
         model.setHiddenUntil(hiddenUntil.getDate());
-
         model.setNotes(notes.getText().toString());
 
         try {
-            if(!controller.saveTask(model))
-                throw new RuntimeException("Unable to save task: false");
-        } catch (RuntimeException e) {
-            Log.e(getClass().getSimpleName(), "Error saving task!", e);
+            // write out to database
+            controller.saveTask(model);
+            saveTags();
+        } catch (Exception e) {
+            Log.e(getClass().getSimpleName(), "Error saving task!", e); // TODO
         }
+
     }
 
-    // --- user interface components
+    /** Save task tags. Must be called after task already has an ID */
+    private void saveTags() {
+        Set<TagIdentifier> tagsToDelete;
+        Set<TagIdentifier> tagsToAdd;
 
+        HashSet<String> tagNames = new HashSet<String>();
+        for(int i = 0; i < tagsContainer.getChildCount(); i++) {
+            TextView tagName = (TextView)tagsContainer.getChildAt(i).findViewById(R.id.text1);
+            if(tagName.getText().length() == 0)
+                continue;
+            tagNames.add(tagName.getText().toString());
+        }
+
+        // map names to tag identifiers, creating them if necessary
+        HashSet<TagIdentifier> tagIds = new HashSet<TagIdentifier>();
+        HashMap<String, TagIdentifier> tagsByName = new HashMap<String, TagIdentifier>();
+        for(TagModelForView tag : tags)
+            tagsByName.put(tag.getName(), tag.getTagIdentifier());
+        for(String tagName : tagNames) {
+            if(tagsByName.containsKey(tagName))
+                tagIds.add(tagsByName.get(tagName));
+            else {
+                TagIdentifier newTagId = tagController.createTag(tagName);
+                tagIds.add(newTagId);
+            }
+        }
+
+        tagsToDelete = new HashSet<TagIdentifier>(taskTags);
+        tagsToDelete.removeAll(tagIds);
+        tagsToAdd = tagIds;
+        tagsToAdd.removeAll(taskTags);
+
+        for(TagIdentifier tagId : tagsToDelete)
+            tagController.removeTag(model.getTaskIdentifier(), tagId);
+        for(TagIdentifier tagId : tagsToAdd)
+            tagController.addTag(model.getTaskIdentifier(), tagId);
+    }
+
+    /* ======================================================================
+     * ==================================================== UI initialization
+     * ====================================================================== */
+
+    /** Initialize UI components */
     private void setUpUIComponents() {
         Resources r = getResources();
         setTitle(new StringBuilder()
-            .append(r.getString(R.string.app_name))
-            .append(": ")
             .append(r.getString(R.string.taskEdit_titleGeneric)));
 
+        // populate instance variables
         name = (EditText)findViewById(R.id.name);
         importance = (Spinner)findViewById(R.id.importance);
-
-        estimatedDuration = new TimeDurationControlSet(R.id.estimatedDuration);
-        elapsedDuration = new TimeDurationControlSet(R.id.elapsedDuration);
-        definiteDueDate = new DateControlSet(R.id.definiteDueDate_notnull,
+        tagsContainer = (LinearLayout)findViewById(R.id.tags_container);
+        estimatedDuration = new TimeDurationControlSet(this, R.id.estimatedDuration);
+        elapsedDuration = new TimeDurationControlSet(this, R.id.elapsedDuration);
+        definiteDueDate = new DateControlSet(this, R.id.definiteDueDate_notnull,
                 R.id.definiteDueDate_date, R.id.definiteDueDate_time);
-        preferredDueDate = new DateControlSet(R.id.preferredDueDate_notnull,
+        preferredDueDate = new DateControlSet(this, R.id.preferredDueDate_notnull,
                 R.id.preferredDueDate_date, R.id.preferredDueDate_time);
-        hiddenUntil = new DateControlSet(R.id.hiddenUntil_notnull,
+        hiddenUntil = new DateControlSet(this, R.id.hiddenUntil_notnull,
                 R.id.hiddenUntil_date, R.id.hiddenUntil_time);
-
         notes = (EditText)findViewById(R.id.notes);
 
-        // set up for each field
-
+        // individual ui component initialization
         ImportanceAdapter importanceAdapter = new ImportanceAdapter(this,
                     android.R.layout.simple_spinner_item,
                     R.layout.importance_spinner_dropdown,
@@ -175,61 +256,8 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         importance.setAdapter(importanceAdapter);
     }
 
-    /** Display importance with proper formatting */
-    private class ImportanceAdapter extends ArrayAdapter<Importance> {
-        private int textViewResourceId, dropDownResourceId;
-        private LayoutInflater inflater;
-
-        public ImportanceAdapter(Context context, int textViewResourceId,
-                int dropDownResourceId, Importance[] objects) {
-            super(context, textViewResourceId, objects);
-
-            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            this.textViewResourceId = textViewResourceId;
-            this.dropDownResourceId = dropDownResourceId;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return getView(position, convertView, parent, textViewResourceId, true);
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            return getView(position, convertView, parent, dropDownResourceId, true);
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent,
-                int resource, boolean setColors) {
-            View view;
-            TextView text;
-            Resources r = getResources();
-
-            if (convertView == null) {
-                view = inflater.inflate(resource, parent, false);
-            } else {
-                view = convertView;
-            }
-
-            try {
-                text = (TextView) view;
-            } catch (ClassCastException e) {
-                Log.e("ArrayAdapter", "You must supply a resource ID for a TextView");
-                throw new IllegalStateException(
-                        "ArrayAdapter requires the resource ID to be a TextView", e);
-            }
-
-            text.setText(r.getString(getItem(position).getLabelResource()));
-            if(setColors)
-                text.setBackgroundColor(r.getColor(getItem(position).getColorResource()));
-
-            return view;
-        }
-    }
-
     /** Set up button listeners */
     private void setUpListeners() {
-
         Button saveButton = (Button) findViewById(R.id.save);
         saveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
@@ -247,12 +275,69 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         Button deleteButton = (Button) findViewById(R.id.delete);
         if(model.getTaskIdentifier() == null)
             deleteButton.setVisibility(View.GONE);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                deleteButtonClick();
+        else {
+            deleteButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    deleteButtonClick();
+                }
+            });
+        }
+    }
+
+    /** Adds a tag to the tag field */
+    private boolean addTag(String tagName) {
+        if (tagsContainer.getChildCount() >= MAX_TAGS) {
+            return false;
+        }
+
+        LayoutInflater inflater = getLayoutInflater();
+        final View tagItem = inflater.inflate(R.layout.edit_tag_item, null);
+        tagsContainer.addView(tagItem);
+
+        AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.
+            findViewById(R.id.text1);
+        textView.setText(tagName);
+        ArrayAdapter<TagModelForView> tagsAdapter =
+            new ArrayAdapter<TagModelForView>(this,
+                    android.R.layout.simple_dropdown_item_1line, tags);
+        textView.setAdapter(tagsAdapter);
+        textView.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                    int count) {
+                if(start == 0 && tagsContainer.getChildAt(
+                        tagsContainer.getChildCount()-1) == tagItem) {
+                    addTag("");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                //
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+                //
             }
         });
+
+        ImageButton reminderRemoveButton;
+        reminderRemoveButton = (ImageButton)tagItem.findViewById(R.id.button1);
+        reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                tagsContainer.removeView(tagItem);
+            }
+        });
+
+        return true;
     }
+
+    /* ======================================================================
+     * ======================================================= event handlers
+     * ====================================================================== */
 
     private void saveButtonClick() {
         setResult(RESULT_OK);
@@ -342,136 +427,65 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         populateFields();
     }
 
-    // --- date/time methods and helper classes
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        tagController.close();
+    }
 
-    private class TimeDurationControlSet implements OnNumberPickedListener,
-            View.OnClickListener {
-        private Button timeButton;
-        private int timeDuration;
-        private final NumberPickerDialog dialog =
-            new NumberPickerDialog(TaskEdit.this, this,
-                    getResources().getString(R.string.minutes_dialog),
-                    0, 5, 0, 999);
+    /* ======================================================================
+     * ========================================== UI component helper classes
+     * ====================================================================== */
 
-        public TimeDurationControlSet(int timeButtonId) {
-            timeButton = (Button)findViewById(timeButtonId);
-            timeButton.setOnClickListener(this);
-        }
+    /** Adapter with custom view to display Importance with proper formatting */
+    private class ImportanceAdapter extends ArrayAdapter<Importance> {
+        private int textViewResourceId, dropDownResourceId;
+        private LayoutInflater inflater;
 
-        public int getTimeDurationInSeconds() {
-            return timeDuration;
-        }
+        public ImportanceAdapter(Context context, int textViewResourceId,
+                int dropDownResourceId, Importance[] objects) {
+            super(context, textViewResourceId, objects);
 
-        public void setTimeElapsed(Integer timeDurationInSeconds) {
-            if(timeDurationInSeconds == null)
-                timeDurationInSeconds = 0;
-
-            timeDuration = timeDurationInSeconds;
-
-            Resources r = getResources();
-            if(timeDurationInSeconds == 0) {
-                timeButton.setText(r.getString(R.string.blank_button_title));
-                return;
-            }
-
-            timeButton.setText(DateUtilities.getDurationString(r,
-                    timeDurationInSeconds, 2));
-            dialog.setInitialValue(timeDuration/60);
+            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            this.textViewResourceId = textViewResourceId;
+            this.dropDownResourceId = dropDownResourceId;
         }
 
         @Override
-        /** Called when NumberPicker activity is completed */
-        public void onNumberPicked(NumberPicker view, int value) {
-            setTimeElapsed(value * 60);
+        public View getView(int position, View convertView, ViewGroup parent) {
+            return getView(position, convertView, parent, textViewResourceId, true);
         }
 
-        /** Called when time button is clicked */
-        public void onClick(View v) {
-            dialog.show();
+        @Override
+        public View getDropDownView(int position, View convertView, ViewGroup parent) {
+            return getView(position, convertView, parent, dropDownResourceId, true);
         }
 
+        public View getView(int position, View convertView, ViewGroup parent,
+                int resource, boolean setColors) {
+            View view;
+            TextView text;
+            Resources r = getResources();
 
-    }
-
-    private static final Format dateFormatter = new SimpleDateFormat("EEE, MMM d, yyyy");
-    private static final Format timeFormatter = new SimpleDateFormat("h:mm a");
-
-    private class DateControlSet implements OnTimeSetListener,
-            OnDateSetListener, View.OnClickListener {
-        private CheckBox activatedCheckBox;
-        private Button dateButton;
-        private Button timeButton;
-        private Date date;
-
-        public DateControlSet(int checkBoxId, int dateButtonId, int timeButtonId) {
-            activatedCheckBox = (CheckBox)findViewById(checkBoxId);
-            dateButton = (Button)findViewById(dateButtonId);
-            timeButton = (Button)findViewById(timeButtonId);
-
-            activatedCheckBox.setOnCheckedChangeListener(
-                    new OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView,
-                        boolean isChecked) {
-                    dateButton.setEnabled(isChecked);
-                    timeButton.setEnabled(isChecked);
-                }
-            });
-            dateButton.setOnClickListener(this);
-            timeButton.setOnClickListener(this);
-        }
-
-        public Date getDate() {
-            if(!activatedCheckBox.isChecked())
-                return null;
-            return date;
-        }
-
-        /** Initialize the components for the given date field */
-        public void setDate(Date newDate) {
-            this.date = newDate;
-            if(newDate == null) {
-                date = new Date();
-                date.setMinutes(0);
+            if (convertView == null) {
+                view = inflater.inflate(resource, parent, false);
+            } else {
+                view = convertView;
             }
 
-            activatedCheckBox.setChecked(newDate != null);
-            dateButton.setEnabled(newDate != null);
-            timeButton.setEnabled(newDate != null);
+            try {
+                text = (TextView) view;
+            } catch (ClassCastException e) {
+                Log.e("ArrayAdapter", "You must supply a resource ID for a TextView");
+                throw new IllegalStateException(
+                        "ArrayAdapter requires the resource ID to be a TextView", e);
+            }
 
-            updateDate();
-            updateTime();
-        }
+            text.setText(r.getString(getItem(position).getLabelResource()));
+            if(setColors)
+                text.setBackgroundColor(r.getColor(getItem(position).getColorResource()));
 
-        public void onDateSet(DatePicker view, int year, int month, int monthDay) {
-            date.setYear(year - 1900);
-            date.setMonth(month);
-            date.setDate(monthDay);
-            updateDate();
-        }
-
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            date.setHours(hourOfDay);
-            date.setMinutes(minute);
-            updateTime();
-        }
-
-        public void updateDate() {
-            dateButton.setText(dateFormatter.format(date));
-
-        }
-
-        public void updateTime() {
-            timeButton.setText(timeFormatter.format(date));
-        }
-
-        public void onClick(View v) {
-            if(v == timeButton)
-                new TimePickerDialog(TaskEdit.this, this, date.getHours(),
-                    date.getMinutes(), false).show();
-            else
-                new DatePickerDialog(TaskEdit.this, this, 1900 +
-                        date.getYear(), date.getMonth(), date.getDate()).show();
+            return view;
         }
     }
 }

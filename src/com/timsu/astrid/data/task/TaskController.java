@@ -1,16 +1,20 @@
 package com.timsu.astrid.data.task;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
+import android.app.Activity;
 import android.database.Cursor;
 import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 
 public class TaskController extends AbstractController {
+
+    private SQLiteDatabase database;
 
     // --- task list operations
 
@@ -31,7 +35,38 @@ public class TaskController extends AbstractController {
     /** Create a weighted list of tasks from the db cursor given */
     public List<TaskModelForList> createTaskListFromCursor(Cursor cursor,
             boolean hideHidden) {
-        return TaskModelForList.createTaskModelList(cursor, hideHidden);
+        List<TaskModelForList> list = new ArrayList<TaskModelForList>();
+
+        if(cursor.getCount() == 0)
+            return list;
+
+        do {
+            cursor.moveToNext();
+            list.add(new TaskModelForList(cursor));
+        } while(!cursor.isLast());
+
+        return TaskModelForList.sortAndFilterList(list, hideHidden);
+    }
+
+    /** Create a weighted list of tasks from the db cursor given */
+    public Cursor getTaskListCursorById(List<TaskIdentifier> idList) {
+
+        StringBuilder where = new StringBuilder();
+        for(int i = 0; i < idList.size(); i++) {
+            where.append(KEY_ROWID);
+            where.append("=");
+            where.append(idList.get(i).toString());
+            if(i < idList.size()-1)
+                where.append(" OR ");
+        }
+
+        // hack for empty arrays
+        if(idList.size() == 0)
+            where.append("0");
+
+        return database.query(true, TASK_TABLE_NAME,
+                TaskModelForList.FIELD_LIST, where.toString(), null, null,
+                null, null, null);
     }
 
     // --- single task operations
@@ -74,12 +109,13 @@ public class TaskController extends AbstractController {
     }
 
     /** Returns a TaskModelForEdit corresponding to the given TaskIdentifier */
-    public TaskModelForEdit fetchTaskForEdit(TaskIdentifier taskId) throws SQLException {
+    public TaskModelForEdit fetchTaskForEdit(TaskIdentifier
+            taskId) throws SQLException {
         long id = taskId.getId();
         Cursor cursor = database.query(true, TASK_TABLE_NAME,
                 TaskModelForEdit.FIELD_LIST,
                 KEY_ROWID + "=" + id, null, null, null, null, null);
-
+        activity.startManagingCursor(cursor);
         if (cursor != null) {
             cursor.moveToFirst();
             TaskModelForEdit model = new TaskModelForEdit(taskId, cursor);
@@ -97,7 +133,7 @@ public class TaskController extends AbstractController {
         Cursor cursor = database.query(true, TASK_TABLE_NAME,
                 TaskModelForView.FIELD_LIST,
                 KEY_ROWID + "=" + id, null, null, null, null, null);
-
+        activity.startManagingCursor(cursor);
         if (cursor != null) {
             cursor.moveToFirst();
             TaskModelForView model = new TaskModelForView(taskId, cursor);
@@ -114,8 +150,8 @@ public class TaskController extends AbstractController {
      * Constructor - takes the context to allow the database to be
      * opened/created
      */
-    public TaskController(Context context) {
-        this.context = context;
+    public TaskController(Activity activity) {
+        this.activity = activity;
     }
 
     /**
@@ -129,7 +165,7 @@ public class TaskController extends AbstractController {
      */
     public TaskController open() throws SQLException {
         SQLiteOpenHelper databaseHelper = new TaskModelDatabaseHelper(
-                context, TASK_TABLE_NAME);
+                activity, TASK_TABLE_NAME, TASK_TABLE_NAME);
         database = databaseHelper.getWritableDatabase();
         return this;
     }

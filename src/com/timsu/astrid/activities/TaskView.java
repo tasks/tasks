@@ -1,5 +1,5 @@
 /*
- * ASTRID: Android's Simple Task Recording Dame
+ * ASTRID: Android's Simple Task Recording Dashboard
  *
  * Copyright (c) 2009 Tim Su
  *
@@ -124,7 +124,6 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
                 });
             }
         };
-        updateTimer = new Timer();
     }
 
     private void setUpListeners() {
@@ -237,7 +236,8 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
     protected void onResume() {
         super.onResume();
         populateFields();
-        updateTimer.scheduleAtFixedRate(updateTimerTask, 0, 1000); // start timer
+        updateTimer = new Timer(); // start timer
+        updateTimer.scheduleAtFixedRate(updateTimerTask, 0, 1000);
     }
 
     // --- event response methods
