@@ -65,8 +65,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
     private NumberPickerDialog progressDialog;
 
     private Handler          handler;
-    private Timer            updateTimer;
-    private TimerTask        updateTimerTask;
+    private Timer            updateTimer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -112,18 +111,6 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         }, r.getString(R.string.progress_dialog), 0, 10, 0, 100);
 
         name.setTextSize(36);
-
-        updateTimerTask = new TimerTask() {
-            @Override
-            public void run() {
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        updateElapsedTimeText();
-                    }
-                });
-            }
-        };
     }
 
     private void setUpListeners() {
@@ -230,14 +217,29 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
     protected void onPause() {
         super.onPause();
         updateTimer.cancel(); // stop the timer
+        updateTimer = null;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         populateFields();
+
+        if(updateTimer != null)
+            return;
+
         updateTimer = new Timer(); // start timer
-        updateTimer.scheduleAtFixedRate(updateTimerTask, 0, 1000);
+        updateTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        updateElapsedTimeText();
+                    }
+                });
+            }
+        }, 0, 1000);
     }
 
     // --- event response methods
