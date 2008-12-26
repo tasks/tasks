@@ -1,5 +1,5 @@
 /*
- * ASTRID: Android's Simple Task Recording Dame
+ * ASTRID: Android's Simple Task Recording Dashboard
  *
  * Copyright (c) 2009 Tim Su
  *
@@ -26,7 +26,7 @@ import android.app.Activity;
 import android.database.Cursor;
 import android.util.Log;
 
-
+/** Abstract controller class. Mostly contains some static fields */
 abstract public class AbstractController {
 
     protected Activity activity;

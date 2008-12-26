@@ -1,5 +1,7 @@
 /*
- * ASTRID: Android's Simple Task Recording Dame
+ * ASTRID: Android's Simple Task Recording Dashboard
+ *
+ * Copyright (c) 2009 Tim Su
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

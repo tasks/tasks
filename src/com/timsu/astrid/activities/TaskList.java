@@ -1,5 +1,5 @@
 /*
- * ASTRID: Android's Simple Task Recording Dame
+ * ASTRID: Android's Simple Task Recording Dashboard
  *
  * Copyright (c) 2009 Tim Su
  *

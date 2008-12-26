@@ -1,5 +1,5 @@
 /*
- * ASTRID: Android's Simple Task Recording Dame
+ * ASTRID: Android's Simple Task Recording Dashboard
  *
  * Copyright (c) 2009 Tim Su
  *
@@ -24,6 +24,7 @@ import java.util.Date;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+/** A data object backed by a database */
 public abstract class AbstractModel {
 
     /* Data Source Ordering:

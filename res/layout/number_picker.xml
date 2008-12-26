@@ -16,7 +16,6 @@
 ** limitations under the License.
 */
 -->
-
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
     <com.timsu.astrid.widget.NumberPickerButton android:id="@+id/increment"

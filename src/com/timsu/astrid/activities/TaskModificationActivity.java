@@ -26,6 +26,11 @@ import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 
+/** Abstract activity that operates on a single task. Use the generic parameter
+ * to pass in the model class you are working with.
+ *
+ * @author timsu
+ */
 public abstract class TaskModificationActivity<MODEL_TYPE extends
         AbstractTaskModel> extends Activity {
     public static final String LOAD_INSTANCE_TOKEN = "id";
