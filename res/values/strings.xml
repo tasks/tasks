@@ -67,6 +67,7 @@
         <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
         <string name="taskList_hiddenSuffix"> hidden</string>
         <string name="taskList_dueIn">Due in</string>
+        <string name="taskList_goalPrefix">Goal</string>
         <string name="taskList_overdueBy">Overdue by</string>
         <string name="addtask_label">New Task</string>
         <string name="tags_prefix">Tags: </string>
@@ -162,8 +163,8 @@
     <!-- Notification -->  
     <skip />
         
-        <string name="notif_definiteDueDate">Absolute Deadline Coming Up!</string>
-        <string name="notif_preferredDueDate">Goal Deadline Coming Up!</string>
+        <string name="notif_definiteDueDate">Absolute Deadline!</string>
+        <string name="notif_preferredDueDate">Goal Deadline!</string>
         
     <!-- Error MEssages -->  
     <skip />

@@ -38,7 +38,6 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -109,7 +108,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         final TextView tagsView = ((TextView)view.findViewById(R.id.text_tags));
         final CheckBox progress = ((CheckBox)view.findViewById(R.id.cb1));
         final ImageView timer = ((ImageView)view.findViewById(R.id.image1));
-        final LinearLayout properties = (LinearLayout)view.findViewById(R.id.prop_layout);
+        boolean hasProperties = false;
 
         view.setTag(task);
         progress.setTag(task);
@@ -121,21 +120,29 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
         // due date
         Date dueDate = task.getDefiniteDueDate();
+        String dueString = "";
         if(dueDate == null || (task.getPreferredDueDate() != null &&
-                task.getPreferredDueDate().getTime() < dueDate.getTime()))
+                task.getPreferredDueDate().before(dueDate))) {
+            // only prefix with "goal:" if the real deadline isn't overdue
+            if(task.getDefiniteDueDate() == null || task.getDefiniteDueDate().
+                    after(new Date()))
+                dueString = r.getString(R.string.taskList_goalPrefix) + " ";
             dueDate = task.getPreferredDueDate();
+        }
         if(dueDate != null) {
             int secondsLeft = (int)(dueDate.getTime() -
                     System.currentTimeMillis()) / 1000;
-            String dueString = " " + DateUtilities.getDurationString(r,
-                    Math.abs(secondsLeft), 1);
+
             if(secondsLeft > 0)
-                dueString = r.getString(R.string.taskList_dueIn) + dueString;
+                dueString += r.getString(R.string.taskList_dueIn) + " ";
             else {
-                dueString = r.getString(R.string.taskList_overdueBy) + dueString;
+                dueString += r.getString(R.string.taskList_overdueBy) + " ";
                 dueDateView.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
             }
+
+            dueString += DateUtilities.getDurationString(r, Math.abs(secondsLeft), 1);
             dueDateView.setText(dueString);
+            hasProperties = true;
         } else
             dueDateView.setVisibility(View.GONE);
 
@@ -152,7 +159,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         if(tagString.length() > 0) {
             tagsView.setText(r.getString(R.string.tags_prefix) + " " +
                     tagString);
-        } else {
+        } else if(!hasProperties) {
             tagsView.setText(r.getString(R.string.no_tags));
         }
 

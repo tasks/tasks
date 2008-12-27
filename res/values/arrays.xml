@@ -15,22 +15,20 @@
 -->
 
 <resources>
-    <!-- Choices for the "Reminder minutes" spinner.
-         These must be kept in sync with the reminder_minutes_values array.
-    -->
+    <!-- Make these < 20 chars so the task name is displayed -->
     <string-array name="reminders">
-        <item>Hi there! Have a second?</item>
-        <item>Can I see you for a moment?</item>
+        <item>Hi there! Have a sec?</item>
+        <item>Can I see you for a sec?</item>
         <item>Have a few minutes?</item>
-        <item>I think you forgot to do something...</item>
-        <item>Excuse me?</item>
-        <item>When you have a minute...</item>
-        <item>Look what I dug up!</item>
-        <item>Are you free for a moment?</item>
-        <item>Your friendly neighborhood assistant here!</item>
-        <item>Hi! Can I bother you for a moment?</item>
-        <item>I would like a minute of your time.</item>
-        <item>It\'s a great day to get something done!</item>
+        <item>Did you forget?</item>
+        <item>Excuse me!</item>
+        <item>When you have a minute:</item>
+        <item>On your agenda:</item>
+        <item>Free for a moment?</item>
+        <item>Astrid here!</item>
+        <item>Hi! Can I bug you?</item>
+        <item>A minute of your time?</item>
+        <item>It\'s a great day to</item>
     </string-array>
     
     <!-- Astrid says...  (user should answer yes or no)-->

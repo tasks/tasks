@@ -137,7 +137,9 @@ public class Notifications extends BroadcastReceiver {
                 flags = FLAG_DEFINITE_DEADLINE;
             }
         }
-        if(task.getPreferredDueDate() != null) {
+        // for goal deadlines, once it's overdue, forget about it.
+        if(task.getPreferredDueDate() != null &&
+                task.getPreferredDueDate().getTime() > System.currentTimeMillis()) {
             long deadlineWhen = task.getPreferredDueDate().getTime() -
                 DEADLINE_NOTIFY_SECS * 1000;
             if(when == null || deadlineWhen < when) {
@@ -279,8 +281,8 @@ public class Notifications extends BroadcastReceiver {
                 System.currentTimeMillis());
 
         notification.setLatestEventInfo(context,
-                appName + ": " + reminder,
-                taskName,
+                appName,
+                reminder + " " + taskName,
                 pendingIntent);
 
         notification.defaults = Notification.DEFAULT_ALL;
