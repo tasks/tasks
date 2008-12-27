@@ -207,10 +207,10 @@
                     
             </LinearLayout>
             
-            <TextView android:id="@+id/blockingon_label"
+            <!--<TextView android:id="@+id/blockingon_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/importance_label"
+                android:text="@string/blockingon_label"
                 style="@style/TextAppearance.EditEvent_Label"/>
     
             <LinearLayout
@@ -226,7 +226,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content" />
                     
-            </LinearLayout>
+            </LinearLayout>-->
         </LinearLayout>
 
         <!-- MISC FIELDS -->

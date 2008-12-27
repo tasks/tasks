@@ -58,6 +58,8 @@ public class TagList extends Activity {
     private static final int ACTIVITY_LIST         = 0;
     private static final int ACTIVITY_CREATE       = 1;
 
+    private static final int MENU_SORT_ALPHA_ID    = Menu.FIRST;
+    private static final int MENU_SORT_SIZE_ID     = Menu.FIRST + 1;
     private static final int CONTEXT_CREATE_ID     = Menu.FIRST + 10;
     private static final int CONTEXT_DELETE_ID     = Menu.FIRST + 11;
 
@@ -227,5 +229,24 @@ public class TagList extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         controller.close();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuItem item;
+
+        item = menu.add(Menu.NONE, MENU_SORT_ALPHA_ID, Menu.NONE,
+                R.string.tagList_menu_sortAlpha);
+        item.setIcon(android.R.drawable.ic_menu_sort_alphabetically);
+        item.setAlphabeticShortcut('a');
+
+        item = menu.add(Menu.NONE, MENU_SORT_SIZE_ID, Menu.NONE,
+                R.string.tagList_menu_sortSize);
+        item.setIcon(android.R.drawable.ic_menu_sort_by_size);
+        item.setAlphabeticShortcut('s');
+
+        return true;
     }
 }

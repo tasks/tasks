@@ -94,8 +94,8 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
                 if(separators[i].length() < 3)
                     text.setTextSize(48);
                 else
-                    text.setTextSize(24);
-                text.setGravity(Gravity.CENTER_VERTICAL);
+                    text.setTextSize(20);
+                text.setGravity(Gravity.CENTER);
                 text.setLayoutParams(sepLayout);
                 container.addView(text);
             }

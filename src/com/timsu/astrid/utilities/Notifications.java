@@ -1,9 +1,11 @@
 package com.timsu.astrid.utilities;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -21,53 +23,82 @@ import com.timsu.astrid.data.task.TaskModelForNotify;
 
 public class Notifications extends BroadcastReceiver {
 
-    private static final int MIN_INTERVAL_SECONDS = 60;
+    private static final String ID_KEY = "id";
+    private static final int MIN_INTERVAL_SECONDS = 120;
     private static Random random = new Random();
+
+    /** Something we can create a notification for */
+    public interface Notifiable {
+        public TaskIdentifier getTaskIdentifier();
+        public Integer getNotificationIntervalSeconds();
+        public Date getHiddenUntil();
+    }
 
     @Override
     /** Startup intent */
     public void onReceive(Context context, Intent intent) {
-        NotificationManager nm = (NotificationManager) context.
-            getSystemService(Context.NOTIFICATION_SERVICE);
+        long id = intent.getLongExtra(ID_KEY, 0);
+        Log.e("ALARM", "Alarm triggered id " + id);
+        showNotification(context, id);
+    }
 
-        Notification notification = new Notification(
-                android.R.drawable.stat_notify_chat, "started up",
-                System.currentTimeMillis());
+    // --- alarm manager stuff
 
-        nm.notify(0, notification);
-
+    public static void scheduleAllAlarms(Context context) {
         TaskController controller = new TaskController(context);
         controller.open();
         List<TaskModelForNotify> tasks = controller.getTasksWithNotifications();
 
         for(TaskModelForNotify task : tasks)
-            scheduleNextNotification(context, task);
-    }
-
-    public interface Notifiable {
-        public TaskIdentifier getTaskIdentifier();
-        public Integer getNotificationIntervalSeconds();
+            scheduleNextAlarm(context, task);
     }
 
     /** Schedules the next notification for this task */
-    public static void scheduleNextNotification(Context context,
+    public static void scheduleNextAlarm(Context context,
             Notifiable task) {
         if(task.getNotificationIntervalSeconds() == null ||
                 task.getNotificationIntervalSeconds() == 0 ||
                 task.getTaskIdentifier() == null)
             return;
 
-        // TODO if task is hidden, disregard
+        if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date()))
+            return;
 
-        // add a fudge factor to mix things up a bit
-        int nextSeconds = (int)((random.nextFloat() * 0.2f + 0.8f) *
-            task.getNotificationIntervalSeconds()/60); // TODO remove /60
-        if(nextSeconds < MIN_INTERVAL_SECONDS)
-            nextSeconds = MIN_INTERVAL_SECONDS;
-        long when = System.currentTimeMillis() + nextSeconds * 1000;
-        scheduleNotification(context, task.getTaskIdentifier(), when);
+        // compute, and add a fudge factor to mix things up a bit
+        int interval = task.getNotificationIntervalSeconds();
+        int currentSeconds = (int)(System.currentTimeMillis() / 1000);
+        int untilNextInterval = interval - currentSeconds % interval;
+        untilNextInterval *= 0.2f + random.nextFloat() * 0.6f;
+        if(untilNextInterval < MIN_INTERVAL_SECONDS)
+            untilNextInterval = MIN_INTERVAL_SECONDS;
+        long when = System.currentTimeMillis() + untilNextInterval * 1000;
+        scheduleAlarm(context, task.getTaskIdentifier().getId(), when);
     }
 
+    /** Delete the given alarm */
+    public static void deleteAlarm(Context context, long id) {
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(context, Notifications.class);
+        intent.putExtra(ID_KEY, id);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+        am.cancel(sender);
+    }
+
+    /** Schedules a single alarm */
+    public static void scheduleAlarm(Context context, long id, long when) {
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(context, Notifications.class);
+        intent.putExtra(ID_KEY, id);
+        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
+
+        Log.e("ALARM", "Alarm set for " + new Date(when));
+        am.set(AlarmManager.RTC, when, sender);
+    }
+
+    // --- notification manager stuff
 
     /** Clear notifications associated with this application */
     public static void clearAllNotifications(Context context, TaskIdentifier taskId) {
@@ -77,16 +108,14 @@ public class Notifications extends BroadcastReceiver {
     }
 
     /** Schedule a new notification about the given task */
-    public static void scheduleNotification(Context context,
-            TaskIdentifier taskId, long when) {
+    public static void showNotification(Context context, long id) {
 
         NotificationManager nm = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         Resources r = context.getResources();
 
         Intent notifyIntent = new Intent(context, TaskView.class);
-        notifyIntent.putExtra(TaskView.LOAD_INSTANCE_TOKEN,
-                taskId.getId());
+        notifyIntent.putExtra(TaskView.LOAD_INSTANCE_TOKEN, id);
         notifyIntent.putExtra(TaskView.FROM_NOTIFICATION_TOKEN, true);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 0, notifyIntent, PendingIntent.FLAG_ONE_SHOT);
@@ -98,7 +127,8 @@ public class Notifications extends BroadcastReceiver {
         String reminder = reminders[next];
 
         Notification notification = new Notification(
-                android.R.drawable.stat_notify_chat, reminder, when);
+                android.R.drawable.stat_notify_chat, reminder,
+                System.currentTimeMillis());
 
         notification.setLatestEventInfo(context,
                 appName,
@@ -109,9 +139,8 @@ public class Notifications extends BroadcastReceiver {
         notification.vibrate = new long[] { 300, 50, 50, 300, 100, 300, 100,
             100, 200 };
 
-        Log.w("Notifications", "Logging notification: " + reminder + " for " +
-                (when - System.currentTimeMillis())/1000 + " seconds from now");
-        nm.notify((int)taskId.getId(), notification);
+        Log.w("Notifications", "Logging notification: " + reminder);
+        nm.notify((int)id, notification);
     }
 
 }

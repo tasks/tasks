@@ -141,16 +141,23 @@
         <string name="tagList_context_create">Create Task With Tag</string>
         <string name="tagList_context_edit">Edit Tag</string>
         <string name="tagList_context_delete">Delete Tag</string>
+        
+        <string name="tagList_menu_sortAlpha">Sort A-Z</string>
+        <string name="tagList_menu_sortSize">Sort by Size</string>
       
      <!-- Dialog Boxes -->  
     <skip />
         <string name="question_title">Question</string>
+        <string name="yes">Yes</string>
+        <string name="no">No</string>
         
         <string name="delete_title">Delete</string>        
         <string name="delete_this_task_title">Delete this task?</string>
         <string name="delete_this_tag_title">Remove this tag from all tasks?</string>
         
         <string name="stop_timer_title">Stop the timer?</string>
+        
+        <string name="alarm_toast_title">Next notification time: </string>
         
     
 </resources>

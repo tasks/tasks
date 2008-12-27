@@ -19,6 +19,8 @@
  */
 package com.timsu.astrid.data.task;
 
+import java.util.Date;
+
 import android.database.Cursor;
 
 import com.timsu.astrid.data.AbstractController;
@@ -32,6 +34,7 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
     static String[] FIELD_LIST = new String[] {
         AbstractController.KEY_ROWID,
         NOTIFICATIONS,
+        HIDDEN_UNTIL,
     };
 
     // --- constructors
@@ -39,6 +42,7 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
     public TaskModelForNotify(Cursor cursor) {
         super(cursor);
         getNotificationIntervalSeconds();
+        getHiddenUntil();
     }
 
     // --- getters and setters
@@ -48,4 +52,8 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
         return super.getNotificationIntervalSeconds();
     }
 
+    @Override
+    public Date getHiddenUntil() {
+        return super.getHiddenUntil();
+    }
 }

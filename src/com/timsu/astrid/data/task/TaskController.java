@@ -31,6 +31,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
+import com.timsu.astrid.utilities.Notifications;
 
 /** Controller for task-related operations */
 public class TaskController extends AbstractController {
@@ -118,6 +119,7 @@ public class TaskController extends AbstractController {
         if(taskId == null)
             throw new UnsupportedOperationException("Cannot delete uncreated task!");
         long id = taskId.getId();
+        Notifications.deleteAlarm(context, id);
         return database.delete(TASK_TABLE_NAME, KEY_ROWID + "=" + id, null) > 0;
     }
 

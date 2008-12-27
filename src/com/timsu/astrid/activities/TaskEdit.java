@@ -77,7 +77,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
     private static final int       DELETE_ID       = Menu.FIRST + 2;
 
     // activity results
-    public static final int        RESULT_DELETE   = RESULT_FIRST_USER;
+    public static final int        RESULT_DELETE   = RESULT_FIRST_USER + 10;
 
     // other constants
     private static final int       MAX_TAGS        = 5;
@@ -146,7 +146,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         definiteDueDate.setDate(model.getDefiniteDueDate());
         preferredDueDate.setDate(model.getPreferredDueDate());
         hiddenUntil.setDate(model.getHiddenUntil());
-        blockingOn.setBlockingOn(model.getBlockingOn());
+        // blockingOn.setBlockingOn(model.getBlockingOn());
         notification.setTimeDuration(model.getNotificationIntervalSeconds());
         notes.setText(model.getNotes());
 
@@ -186,7 +186,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         model.setDefiniteDueDate(definiteDueDate.getDate());
         model.setPreferredDueDate(preferredDueDate.getDate());
         model.setHiddenUntil(hiddenUntil.getDate());
-        model.setBlockingOn(blockingOn.getBlockingOn());
+        // model.setBlockingOn(blockingOn.getBlockingOn());
         model.setNotes(notes.getText().toString());
         model.setNotificationIntervalSeconds(notification.getTimeDurationInSeconds());
 
@@ -198,10 +198,8 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
             Log.e(getClass().getSimpleName(), "Error saving task!", e); // TODO
         }
 
-        // recompute task visibility
-
         // set up notification
-        Notifications.scheduleNextNotification(this, model);
+        Notifications.scheduleNextAlarm(this, model);
     }
 
     /** Save task tags. Must be called after task already has an ID */
@@ -264,7 +262,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
                 TimeDurationType.HOURS_MINUTES);
         notification = new TimeDurationControlSet(this, R.id.notification,
                 R.string.notification_prefix, R.string.notification_dialog,
-                TimeDurationType.DAYS_HOURS);
+                TimeDurationType.HOURS_MINUTES);
         definiteDueDate = new DateControlSet(this, R.id.definiteDueDate_notnull,
                 R.id.definiteDueDate_date, R.id.definiteDueDate_time);
         preferredDueDate = new DateControlSet(this, R.id.preferredDueDate_notnull,
@@ -272,8 +270,8 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         hiddenUntil = new DateControlSet(this, R.id.hiddenUntil_notnull,
                 R.id.hiddenUntil_date, R.id.hiddenUntil_time);
         notes = (EditText)findViewById(R.id.notes);
-        blockingOn = new BlockingOnControlSet(R.id.blockingOn_notnull,
-                R.id.blockingon);
+//        blockingOn = new BlockingOnControlSet(R.id.blockingOn_notnull,
+//                R.id.blockingon);
 
         // individual ui component initialization
         ImportanceAdapter importanceAdapter = new ImportanceAdapter(this,

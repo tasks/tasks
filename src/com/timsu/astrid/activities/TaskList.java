@@ -59,20 +59,20 @@ import com.timsu.astrid.data.task.TaskModelForList;
 public class TaskList extends Activity {
 
     // bundle tokens
-    public static final String     TAG_TOKEN       = "tag";
+    public static final String     TAG_TOKEN             = "tag";
 
     // activities
-    private static final int ACTIVITY_CREATE       = 0;
-    private static final int ACTIVITY_VIEW         = 1;
-    private static final int ACTIVITY_EDIT         = 2;
-    private static final int ACTIVITY_TAGS         = 3;
+    private static final int       ACTIVITY_CREATE       = 0;
+    private static final int       ACTIVITY_VIEW         = 1;
+    private static final int       ACTIVITY_EDIT         = 2;
+    private static final int       ACTIVITY_TAGS         = 3;
 
     // menu codes
-    private static final int INSERT_ID             = Menu.FIRST;
-    private static final int FILTERS_ID            = Menu.FIRST + 1;
-    private static final int TAGS_ID               = Menu.FIRST + 2;
-    private static final int CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
-    private static final int CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
+    private static final int       INSERT_ID             = Menu.FIRST;
+    private static final int       FILTERS_ID            = Menu.FIRST + 1;
+    private static final int       TAGS_ID               = Menu.FIRST + 2;
+    private static final int       CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
+    private static final int       CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
 
     // UI components
     private TaskController controller;
@@ -175,7 +175,7 @@ public class TaskList extends Activity {
         title.append(r.getQuantityString(R.plurals.Ntasks,
                 taskArray.size(), taskArray.size()));
         if(hiddenTasks > 0)
-            title.append(" (").append(hiddenTasks).append(" ").
+            title.append(" (+").append(hiddenTasks).append(" ").
             append(r.getString(R.string.taskList_hiddenSuffix)).append(")");
         setTitle(title);
 
@@ -228,6 +228,12 @@ public class TaskList extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
+
+        if(resultCode == TaskView.RESULT_DISMISS) {
+            finish();
+            return;
+        }
+
         fillData();
     }
 

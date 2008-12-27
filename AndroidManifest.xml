@@ -23,7 +23,7 @@
         
         <activity android:name=".activities.TagList"/>
         
-        <receiver android:name=".utilities.Notifications">
+        <receiver android:name=".utilities.StartupReceiver">
             <intent-filter>
                  <action android:name="android.intent.action.BOOT_COMPLETED" />
                  <category android:name="android.intent.category.HOME" />

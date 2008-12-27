@@ -42,6 +42,7 @@ public class TaskModelForView extends AbstractTaskModel implements Notifiable {
         TIMER_START,
         DEFINITE_DUE_DATE,
         PREFERRED_DUE_DATE,
+        HIDDEN_UNTIL,
         CREATION_DATE,
         NOTIFICATIONS,
         NOTES,
@@ -118,6 +119,11 @@ public class TaskModelForView extends AbstractTaskModel implements Notifiable {
     @Override
     public Date getCreationDate() {
         return super.getCreationDate();
+    }
+
+    @Override
+    public Date getHiddenUntil() {
+        return super.getHiddenUntil();
     }
 
     @Override

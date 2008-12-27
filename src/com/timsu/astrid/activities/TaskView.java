@@ -61,6 +61,9 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
     private static final int   EDIT_ID                 = Menu.FIRST;
     private static final int   DELETE_ID               = Menu.FIRST + 1;
 
+    // activity results
+    public static final int    RESULT_DISMISS          = RESULT_FIRST_USER + 20;
+
     // UI components
     private TextView           name;
     private TextView           elapsed;
@@ -105,7 +108,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
 
         // clear residual, schedule the next one
         Notifications.clearAllNotifications(this, model.getTaskIdentifier());
-        Notifications.scheduleNextNotification(this, model);
+        Notifications.scheduleNextAlarm(this, model);
 
         String[] responses = r.getStringArray(R.array.reminder_responses);
         String response = responses[new Random().nextInt(responses.length)];
@@ -113,8 +116,8 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         .setTitle(R.string.taskView_notifyTitle)
         .setMessage(response)
         .setIcon(android.R.drawable.ic_dialog_alert)
-        .setPositiveButton(android.R.string.yes, null)
-        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+        .setPositiveButton(R.string.yes, null)
+        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 setResult(RESULT_CANCELED);
