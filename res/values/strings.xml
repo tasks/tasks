@@ -69,7 +69,8 @@
         <string name="taskList_dueIn">Due in</string>
         <string name="taskList_overdueBy">Overdue by</string>
         <string name="addtask_label">New Task</string>
-        <string name="tags_suffix">Tags: </string>
+        <string name="tags_prefix">Tags: </string>
+        <string name="no_tags">No Tags</string>
         
         <string name="taskList_menu_insert">Add</string>
         <string name="taskList_menu_tags">Tags</string>

@@ -32,6 +32,8 @@ public class TagModelForView extends AbstractTagModel {
         NAME,
     };
 
+    public static TagModelForView UNTAGGED_TASKS = new TagModelForView("[untagged]");
+
     // --- constructors
 
     /** Constructor for creating a new model */

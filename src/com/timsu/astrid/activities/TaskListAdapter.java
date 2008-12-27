@@ -120,7 +120,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         progress.setChecked(task.isTaskCompleted());
 
         // due date
-        boolean hasProperties = false;
         Date dueDate = task.getDefiniteDueDate();
         if(dueDate == null || (task.getPreferredDueDate() != null &&
                 task.getPreferredDueDate().getTime() < dueDate.getTime()))
@@ -132,10 +131,11 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     Math.abs(secondsLeft), 1);
             if(secondsLeft > 0)
                 dueString = r.getString(R.string.taskList_dueIn) + dueString;
-            else
+            else {
                 dueString = r.getString(R.string.taskList_overdueBy) + dueString;
+                dueDateView.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
+            }
             dueDateView.setText(dueString);
-            hasProperties = true;
         } else
             dueDateView.setVisibility(View.GONE);
 
@@ -150,14 +150,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 tagString.append(", ");
         }
         if(tagString.length() > 0) {
-            tagsView.setText(r.getString(R.string.tags_suffix) + tagString);
-            hasProperties = true;
-        }
-
-        if(!hasProperties) { // no properties, old school view
-            properties.setVisibility(View.GONE);
-            name.setTextSize(36);
-            name.setBackgroundColor(r.getColor(R.color.importance_2));
+            tagsView.setText(r.getString(R.string.tags_prefix) + tagString);
+        } else {
+            tagsView.setText(r.getString(R.string.no_tags));
         }
 
         setTaskAppearance(task, name, progress);

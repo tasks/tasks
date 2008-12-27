@@ -25,28 +25,18 @@
         <item name="android:windowBackground">@null</item>
     </style>
 
-    <style name="MonthView_DayLabel">
-        <item name="android:layout_width">29dip</item>
-        <item name="android:layout_height">fill_parent</item>
-        <item name="android:layout_weight">1</item>
-        <item name="android:gravity">center</item>
-        <item name="android:paddingTop">2dip</item>
-        <item name="android:paddingBottom">2dip</item>
-        <item name="android:textAppearance">@style/TextAppearance.MonthView_DayLabel</item>
-    </style>
-    
     <style name="TextAppearance" parent="android:TextAppearance">
     </style>
 
-    <style name="TextAppearance.MonthView_DayLabel">
-        <item name="android:textSize">14sp</item>
+    <style name="TextAppearance.TaskList_Task">
+        <item name="android:textSize">24sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
     
-    <style name="TextAppearance.AgendaView_ValueLabel">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@android:color/black</item>
+    <style name="TextAppearance.TaskList_Detail">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@android:color/white</item>
     </style>
     
     <style name="TextAppearance.EditEvent_Label">
@@ -54,20 +44,5 @@
         <item name="android:textStyle">bold</item>
     </style>
     
-    <style name="TextAppearance.Alert_Title">
-        <item name="android:textSize">18sp</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-    
-    <style name="TextAppearance.Alert_Label">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-    
-    <style name="TextAppearance.Alert_Value">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
 
 </resources>

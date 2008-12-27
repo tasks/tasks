@@ -279,8 +279,8 @@ public class Notifications extends BroadcastReceiver {
                 System.currentTimeMillis());
 
         notification.setLatestEventInfo(context,
-                appName + ": " + taskName,
-                reminder,
+                appName + ": " + reminder,
+                taskName,
                 pendingIntent);
 
         notification.defaults = Notification.DEFAULT_ALL;

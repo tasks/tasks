@@ -49,7 +49,7 @@
         <TextView android:id="@+id/text1"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            style="@style/TextAppearance.TaskList_Task"
             android:gravity="center_vertical"
             android:singleLine="true"/>
             
@@ -60,20 +60,20 @@
             android:layout_height="wrap_content">
         
             <TextView android:id="@+id/text_dueDate"
+                android:gravity="top"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                style="@style/TextAppearance.TaskList_Detail"
                 android:textColor="@color/taskList_dueDate"
-                android:gravity="center_vertical"
-                android:paddingRight="15dip"       
+                android:paddingRight="10dip"       
                 android:singleLine="true"/>
                 
             <TextView android:id="@+id/text_tags"
+                android:gravity="top"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
+                style="@style/TextAppearance.TaskList_Detail"
                 android:textColor="@color/taskList_tags"
-                android:gravity="center_vertical"
                 android:paddingRight="15dip"            
                 android:singleLine="true"/>
         </LinearLayout>

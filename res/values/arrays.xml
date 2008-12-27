@@ -26,18 +26,17 @@
         <item>Excuse me?</item>
         <item>When you have a minute...</item>
         <item>Look what I dug up!</item>
-        <item>You look energetic today!</item>
-        <item>Here's what I got for you...</item>
         <item>Are you free for a moment?</item>
         <item>Your friendly neighborhood assistant here!</item>
+        <item>Hi! Can I bother you for a moment?</item>
         <item>I would like a minute of your time.</item>
-        <item>It's a beautiful day today, isn't it?</item>
+        <item>It's a great day to get something done!</item>
     </string-array>
     
     <!-- Astrid says...  (user should answer yes or no)-->
     <string-array name="reminder_responses">
         <item>I've got something for you!</item>
-        <item>Say hello to my little friend!</item>
+        <item>Ready to put this in the past?</item>
         <item>Why don't you get this done?</item>
         <item>How about it? Ready tiger?</item>
         <item>Ready to do this?</item>
@@ -47,6 +46,7 @@
         <item>Won't you do this today?</item>
         <item>Please finish this, I'm sick of it!</item>
         <item>Can you finish this? Yes you can!</item>
+        <item>Are you ever going to do this?</item>
         <item>Feel good about yourself! Let's go!</item>
         <item>I'm so proud of you! Lets get it done!</item>
         <item>A little snack after you finish this?</item>
