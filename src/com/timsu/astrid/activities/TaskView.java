@@ -108,7 +108,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
 
         // clear residual, schedule the next one
         Notifications.clearAllNotifications(this, model.getTaskIdentifier());
-        Notifications.scheduleNextAlarm(this, model);
+        Notifications.updateAlarm(this, model);
 
         String[] responses = r.getStringArray(R.array.reminder_responses);
         String response = responses[new Random().nextInt(responses.length)];

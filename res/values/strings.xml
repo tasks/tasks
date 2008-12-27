@@ -147,6 +147,7 @@
       
      <!-- Dialog Boxes -->  
     <skip />
+        <string name="information_title">Information</string>
         <string name="question_title">Question</string>
         <string name="yes">Yes</string>
         <string name="no">No</string>
@@ -159,5 +160,10 @@
         
         <string name="alarm_toast_title">Next notification time: </string>
         
+    <!-- Dialog Boxes -->  
+    <skip />
+    
+        <string name="error_opening">Couldn't find this item:</string>
+        <string name="error_saving">Couldn't save:</string>
     
 </resources>

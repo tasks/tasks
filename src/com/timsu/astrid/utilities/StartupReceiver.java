@@ -8,7 +8,7 @@ public class StartupReceiver extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // do nothing...?
+        Notifications.scheduleAllAlarms(context);
     }
 
 }

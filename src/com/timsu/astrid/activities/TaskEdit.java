@@ -195,11 +195,11 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
             controller.saveTask(model);
             saveTags();
         } catch (Exception e) {
-            Log.e(getClass().getSimpleName(), "Error saving task!", e); // TODO
+            showErrorAndFinish(R.string.error_saving, e);
         }
 
         // set up notification
-        Notifications.scheduleNextAlarm(this, model);
+        Notifications.updateAlarm(this, model);
     }
 
     /** Save task tags. Must be called after task already has an ID */
@@ -262,7 +262,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
                 TimeDurationType.HOURS_MINUTES);
         notification = new TimeDurationControlSet(this, R.id.notification,
                 R.string.notification_prefix, R.string.notification_dialog,
-                TimeDurationType.HOURS_MINUTES);
+                TimeDurationType.DAYS_HOURS);
         definiteDueDate = new DateControlSet(this, R.id.definiteDueDate_notnull,
                 R.id.definiteDueDate_date, R.id.definiteDueDate_time);
         preferredDueDate = new DateControlSet(this, R.id.preferredDueDate_notnull,

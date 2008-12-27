@@ -5,7 +5,6 @@
       android:versionName="1.7">
       
     <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
     
     <application android:icon="@drawable/icon" android:label="@string/app_name">
     
@@ -22,6 +21,9 @@
         <activity android:name=".activities.TaskEdit"/>
         
         <activity android:name=".activities.TagList"/>
+        
+        <receiver android:name=".utilities.Notifications">
+        </receiver>
         
         <receiver android:name=".utilities.StartupReceiver">
             <intent-filter>

@@ -41,6 +41,7 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
         HIDDEN_UNTIL,
         BLOCKING_ON,
         NOTIFICATIONS,
+        PROGRESS_PERCENTAGE,
         NOTES,
     };
 
@@ -56,6 +57,11 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
     }
 
     // --- getters and setters
+
+    @Override
+    public boolean isTaskCompleted() {
+        return super.isTaskCompleted();
+    }
 
     @Override
     public Integer getNotificationIntervalSeconds() {

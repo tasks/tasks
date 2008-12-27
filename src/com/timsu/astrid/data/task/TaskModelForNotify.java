@@ -35,6 +35,7 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
         AbstractController.KEY_ROWID,
         NOTIFICATIONS,
         HIDDEN_UNTIL,
+        PROGRESS_PERCENTAGE,
     };
 
     // --- constructors
@@ -43,9 +44,15 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
         super(cursor);
         getNotificationIntervalSeconds();
         getHiddenUntil();
+        isTaskCompleted();
     }
 
     // --- getters and setters
+
+    @Override
+    public boolean isTaskCompleted() {
+        return super.isTaskCompleted();
+    }
 
     @Override
     public Integer getNotificationIntervalSeconds() {

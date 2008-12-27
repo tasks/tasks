@@ -18,7 +18,11 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package com.timsu.astrid.activities;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -26,6 +30,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -46,7 +51,9 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
+import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.data.task.TaskModelForList;
 
 
 /** List all tags and allows a user to see all tasks for a given tag
@@ -64,25 +71,90 @@ public class TagList extends Activity {
     private static final int CONTEXT_DELETE_ID     = Menu.FIRST + 11;
 
     private TagController controller;
+    private TaskController taskController;
     private ListView listView;
 
     private List<TagModelForView> tagArray;
+    private Map<Long, TaskModelForList> taskMap;
+    private Map<TagModelForView, Integer> tagToTaskCount;
+    private SortMode sortMode = SortMode.SIZE;
+    private boolean sortReverse = false;
 
     /** Called when loading up the activity for the first time */
     private void onLoad() {
         controller = new TagController(this);
         controller.open();
+        taskController = new TaskController(this);
+        taskController.open();
 
         listView = (ListView)findViewById(R.id.taglist);
 
         fillData();
     }
 
+    // --- stuff for sorting
+
+    private enum SortMode {
+        ALPHA {
+            @Override
+            int compareTo(TagList self, TagModelForView arg0, TagModelForView arg1) {
+                return arg0.getName().compareTo(arg1.getName());
+            }
+        },
+        SIZE {
+            @Override
+            int compareTo(TagList self, TagModelForView arg0, TagModelForView arg1) {
+                return self.tagToTaskCount.get(arg0) - self.tagToTaskCount.get(arg1);
+            }
+        };
+
+        abstract int compareTo(TagList self, TagModelForView arg0, TagModelForView arg1);
+    };
+
+    private void sortTagArray() {
+        // get all tasks
+        Cursor taskCursor = taskController.getActiveTaskListCursor();
+        startManagingCursor(taskCursor);
+        List<TaskModelForList> taskArray =
+            taskController.createTaskListFromCursor(taskCursor, true);
+        taskMap = new HashMap<Long, TaskModelForList>();
+        for(TaskModelForList task : taskArray)
+            taskMap.put(task.getTaskIdentifier().getId(), task);
+
+        // get accurate task count for each tag
+        tagToTaskCount = new HashMap<TagModelForView, Integer>();
+        for(TagModelForView tag : tagArray) {
+            int count = 0;
+            List<TaskIdentifier> tasks = controller.getTaggedTasks(TagList.this,
+                    tag.getTagIdentifier());
+
+            for(TaskIdentifier taskId : tasks)
+                if(taskMap.containsKey(taskId.getId()))
+                    count++;
+            tagToTaskCount.put(tag, count);
+        }
+
+        // do sort
+        Collections.sort(tagArray, new Comparator<TagModelForView>() {
+            @Override
+            public int compare(TagModelForView arg0, TagModelForView arg1) {
+                return sortMode.compareTo(TagList.this, arg0, arg1);
+            }
+        });
+        if(sortReverse)
+            Collections.reverse(tagArray);
+    }
+
+    // --- fill data
+
     /** Fill in the Tag List with our tags */
     private void fillData() {
         Resources r = getResources();
 
         tagArray = controller.getAllTags(this);
+
+        // perform sort
+        sortTagArray();
 
         // set up the title
         StringBuilder title = new StringBuilder().
@@ -165,12 +237,9 @@ public class TagList extends Activity {
             // set up basic properties
             view.setTag(tag);
 
-            List<TaskIdentifier> tasks = controller.getTaggedTasks(TagList.this,
-                    tag.getTagIdentifier());
-
             final TextView name = ((TextView)view.findViewById(android.R.id.text1));
             name.setText(new StringBuilder(tag.getName()).
-                    append(" (").append(tasks.size()).append(")"));
+                    append(" (").append(tagToTaskCount.get(tag)).append(")"));
         }
     }
 
@@ -202,6 +271,22 @@ public class TagList extends Activity {
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch(item.getItemId()) {
+        case MENU_SORT_ALPHA_ID:
+            if(sortMode == SortMode.ALPHA)
+                sortReverse = !sortReverse;
+            else {
+                sortMode = SortMode.ALPHA;
+                sortReverse = false;
+            }
+            break;
+        case MENU_SORT_SIZE_ID:
+            if(sortMode == SortMode.SIZE)
+                sortReverse = !sortReverse;
+            else {
+                sortMode = SortMode.SIZE;
+                sortReverse = false;
+            }
+            break;
         case CONTEXT_CREATE_ID:
             TagModelForView tag = tagArray.get(item.getGroupId());
             createTask(tag);
@@ -229,6 +314,7 @@ public class TagList extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         controller.close();
+        taskController.close();
     }
 
     @Override
