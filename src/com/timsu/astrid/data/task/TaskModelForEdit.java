@@ -24,11 +24,12 @@ import java.util.Date;
 import android.database.Cursor;
 
 import com.timsu.astrid.data.enums.Importance;
+import com.timsu.astrid.utilities.Notifications.Notifiable;
 
 
 
 /** Fields that you would want to edit in the TaskModel */
-public class TaskModelForEdit extends AbstractTaskModel {
+public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
 
     static String[] FIELD_LIST = new String[] {
         NAME,
@@ -39,6 +40,7 @@ public class TaskModelForEdit extends AbstractTaskModel {
         PREFERRED_DUE_DATE,
         HIDDEN_UNTIL,
         BLOCKING_ON,
+        NOTIFICATIONS,
         NOTES,
     };
 
@@ -54,6 +56,16 @@ public class TaskModelForEdit extends AbstractTaskModel {
     }
 
     // --- getters and setters
+
+    @Override
+    public Integer getNotificationIntervalSeconds() {
+        return super.getNotificationIntervalSeconds();
+    }
+
+    @Override
+    public void setNotificationIntervalSeconds(Integer intervalInSeconds) {
+        super.setNotificationIntervalSeconds(intervalInSeconds);
+    }
 
     @Override
     public Date getDefiniteDueDate() {

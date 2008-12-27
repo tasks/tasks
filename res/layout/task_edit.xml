@@ -49,7 +49,7 @@
                 android:capitalize="words"/>
         </LinearLayout>
         
-        <!-- PROPERTIES -->
+        <!-- VITAL PROPERTIES -->
         <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
@@ -61,16 +61,6 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:padding="5dip">
-            
-            <TextView android:id="@+id/estimatedDuration_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/estimatedDuration_label"
-                style="@style/TextAppearance.EditEvent_Label"/>
-    
-            <Button android:id="@+id/estimatedDuration"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"/>
                 
             <TextView android:id="@+id/importance_label"
                 android:layout_width="wrap_content"
@@ -81,6 +71,26 @@
             <Spinner android:id="@+id/importance"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content" />
+            
+            <TextView android:id="@+id/estimatedDuration_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/estimatedDuration_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+    
+            <Button android:id="@+id/estimatedDuration"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
+            
+            <TextView android:id="@+id/notification_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/notification_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+    
+            <Button android:id="@+id/notification"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"/>
                 
             <TextView android:id="@+id/tags_label"
                 android:layout_width="wrap_content"
@@ -157,6 +167,20 @@
                     android:layout_height="wrap_content"/>
                     
             </LinearLayout>
+        </LinearLayout>
+        
+        <!-- HIDING -->
+        <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@android:drawable/divider_horizontal_dark"
+        />
+        
+        <LinearLayout android:id="@+id/hiding_container"
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dip">
             
             <TextView android:id="@+id/hiddenUntil_label"
                 android:layout_width="wrap_content"
@@ -182,10 +206,29 @@
                     android:layout_height="wrap_content"/>
                     
             </LinearLayout>
+            
+            <TextView android:id="@+id/blockingon_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/importance_label"
+                style="@style/TextAppearance.EditEvent_Label"/>
+    
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                
+                <CheckBox android:id="@+id/blockingOn_notnull"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                    
+                <Spinner android:id="@+id/blockingon"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content" />
+                    
+            </LinearLayout>
         </LinearLayout>
 
-        <!-- TODO: blocking on -->
-        
         <!-- MISC FIELDS -->
         <View
             android:layout_width="fill_parent"
@@ -193,7 +236,7 @@
             android:background="@android:drawable/divider_horizontal_dark"
         />
         
-        <LinearLayout android:id="@+id/dates_container"
+        <LinearLayout android:id="@+id/misc_container"
             android:orientation="vertical"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

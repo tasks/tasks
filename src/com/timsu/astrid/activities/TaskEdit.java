@@ -30,6 +30,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -42,11 +43,15 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.enums.Importance;
@@ -55,8 +60,11 @@ import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForEdit;
+import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.utilities.Notifications;
 import com.timsu.astrid.widget.DateControlSet;
 import com.timsu.astrid.widget.TimeDurationControlSet;
+import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 
 public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
 
@@ -79,9 +87,11 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
     private Spinner                importance;
     private TimeDurationControlSet estimatedDuration;
     private TimeDurationControlSet elapsedDuration;
+    private TimeDurationControlSet notification;
     private DateControlSet         definiteDueDate;
     private DateControlSet         preferredDueDate;
     private DateControlSet         hiddenUntil;
+    private BlockingOnControlSet   blockingOn;
     private EditText               notes;
     private LinearLayout           tagsContainer;
 
@@ -109,7 +119,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
     @Override
     protected TaskModelForEdit getModel(TaskIdentifier identifier) {
         if (identifier != null)
-            return controller.fetchTaskForEdit(identifier);
+            return controller.fetchTaskForEdit(this, identifier);
         else
             return controller.createNewTaskForEdit();
     }
@@ -130,18 +140,20 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
                 append(r.getString(R.string.taskEdit_titlePrefix)).
                 append(" ").
                 append(model.getName()));
-        estimatedDuration.setTimeElapsed(model.getEstimatedSeconds());
-        elapsedDuration.setTimeElapsed(model.getElapsedSeconds());
+        estimatedDuration.setTimeDuration(model.getEstimatedSeconds());
+        elapsedDuration.setTimeDuration(model.getElapsedSeconds());
         importance.setSelection(model.getImportance().ordinal());
         definiteDueDate.setDate(model.getDefiniteDueDate());
         preferredDueDate.setDate(model.getPreferredDueDate());
         hiddenUntil.setDate(model.getHiddenUntil());
+        blockingOn.setBlockingOn(model.getBlockingOn());
+        notification.setTimeDuration(model.getNotificationIntervalSeconds());
         notes.setText(model.getNotes());
 
         // tags
-        tags = tagController.getAllTags();
+        tags = tagController.getAllTags(this);
         if(model.getTaskIdentifier() != null) {
-            taskTags = tagController.getTaskTags(model.getTaskIdentifier());
+            taskTags = tagController.getTaskTags(this, model.getTaskIdentifier());
             if(taskTags.size() > 0) {
                 Map<TagIdentifier, TagModelForView> tagsMap =
                     new HashMap<TagIdentifier, TagModelForView>();
@@ -174,7 +186,9 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         model.setDefiniteDueDate(definiteDueDate.getDate());
         model.setPreferredDueDate(preferredDueDate.getDate());
         model.setHiddenUntil(hiddenUntil.getDate());
+        model.setBlockingOn(blockingOn.getBlockingOn());
         model.setNotes(notes.getText().toString());
+        model.setNotificationIntervalSeconds(notification.getTimeDurationInSeconds());
 
         try {
             // write out to database
@@ -184,6 +198,10 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
             Log.e(getClass().getSimpleName(), "Error saving task!", e); // TODO
         }
 
+        // recompute task visibility
+
+        // set up notification
+        Notifications.scheduleNextNotification(this, model);
     }
 
     /** Save task tags. Must be called after task already has an ID */
@@ -238,8 +256,15 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         name = (EditText)findViewById(R.id.name);
         importance = (Spinner)findViewById(R.id.importance);
         tagsContainer = (LinearLayout)findViewById(R.id.tags_container);
-        estimatedDuration = new TimeDurationControlSet(this, R.id.estimatedDuration);
-        elapsedDuration = new TimeDurationControlSet(this, R.id.elapsedDuration);
+        estimatedDuration = new TimeDurationControlSet(this,
+                R.id.estimatedDuration, 0, R.string.hour_minutes_dialog,
+                TimeDurationType.HOURS_MINUTES);
+        elapsedDuration = new TimeDurationControlSet(this, R.id.elapsedDuration,
+                0, R.string.hour_minutes_dialog,
+                TimeDurationType.HOURS_MINUTES);
+        notification = new TimeDurationControlSet(this, R.id.notification,
+                R.string.notification_prefix, R.string.notification_dialog,
+                TimeDurationType.DAYS_HOURS);
         definiteDueDate = new DateControlSet(this, R.id.definiteDueDate_notnull,
                 R.id.definiteDueDate_date, R.id.definiteDueDate_time);
         preferredDueDate = new DateControlSet(this, R.id.preferredDueDate_notnull,
@@ -247,6 +272,8 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         hiddenUntil = new DateControlSet(this, R.id.hiddenUntil_notnull,
                 R.id.hiddenUntil_date, R.id.hiddenUntil_time);
         notes = (EditText)findViewById(R.id.notes);
+        blockingOn = new BlockingOnControlSet(R.id.blockingOn_notnull,
+                R.id.blockingon);
 
         // individual ui component initialization
         ImportanceAdapter importanceAdapter = new ImportanceAdapter(this,
@@ -486,6 +513,58 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
                 text.setBackgroundColor(r.getColor(getItem(position).getColorResource()));
 
             return view;
+        }
+    }
+
+    public class BlockingOnControlSet  {
+
+        private CheckBox activatedCheckBox;
+        private Spinner taskBox;
+
+        public BlockingOnControlSet(int checkBoxId, int taskBoxId) {
+            activatedCheckBox = (CheckBox)findViewById(checkBoxId);
+            taskBox = (Spinner)findViewById(taskBoxId);
+
+            Cursor tasks = controller.getActiveTaskListCursor();
+            startManagingCursor(tasks);
+            SimpleCursorAdapter tasksAdapter = new SimpleCursorAdapter(TaskEdit.this,
+                    android.R.layout.simple_list_item_1, tasks,
+                    new String[] { TaskModelForList.getNameField() },
+                    new int[] { android.R.id.text1 });
+            taskBox.setAdapter(tasksAdapter);
+
+            activatedCheckBox.setOnCheckedChangeListener(
+                    new OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton buttonView,
+                        boolean isChecked) {
+                    taskBox.setEnabled(isChecked);
+                }
+            });
+
+        }
+
+        public void setBlockingOn(TaskIdentifier value) {
+            activatedCheckBox.setChecked(value != null);
+            if(value == null) {
+                return;
+            }
+
+            for(int i = 0; i < taskBox.getCount(); i++)
+                if(taskBox.getItemIdAtPosition(i) == value.getId()) {
+                    taskBox.setSelection(i);
+                    return;
+                }
+
+            // not found
+            activatedCheckBox.setChecked(false);
+        }
+
+        public TaskIdentifier getBlockingOn() {
+            if(!activatedCheckBox.isChecked())
+                return null;
+
+            return new TaskIdentifier(taskBox.getSelectedItemId());
         }
     }
 }

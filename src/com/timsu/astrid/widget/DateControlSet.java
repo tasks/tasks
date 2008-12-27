@@ -78,6 +78,7 @@ public class DateControlSet implements OnTimeSetListener,
         this.date = newDate;
         if(newDate == null) {
             date = new Date();
+            date.setTime(date.getTime() + 24*3600*1000);
             date.setMinutes(0);
         }
 

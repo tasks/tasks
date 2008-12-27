@@ -259,6 +259,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
         return new TaskIdentifier(value);
     }
 
+    protected Integer getNotificationIntervalSeconds() {
+        return retrieveInteger(NOTIFICATIONS);
+    }
+
     // --- setters
 
     protected void setName(String name) {
@@ -306,7 +310,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
     }
 
     protected void setBlockingOn(TaskIdentifier blockingOn) {
-        if(blockingOn == null)
+        if(blockingOn == null || blockingOn.equals(getTaskIdentifier()))
             setValues.put(BLOCKING_ON, (Integer)null);
         else
             setValues.put(BLOCKING_ON, blockingOn.getId());
@@ -318,6 +322,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
     protected void setCompletionDate(Date completionDate) {
         putDate(setValues, COMPLETION_DATE, completionDate);
+    }
+
+    protected void setNotificationIntervalSeconds(Integer intervalInSeconds) {
+        setValues.put(NOTIFICATIONS, intervalInSeconds);
     }
 
     // --- utility methods

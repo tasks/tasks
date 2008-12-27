@@ -66,7 +66,8 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:padding="5px"
+                android:paddingLeft="5px"
+                android:paddingTop="5px"
                 android:text="@string/taskView_elapsed"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
             <TextView android:id="@+id/cell_elapsed"
@@ -145,6 +146,31 @@
                 android:text="@string/taskView_preferredDueDate"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
             <TextView android:id="@+id/cell_preferredDueDate"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5px"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:colorForeground="@color/view_table_values" />
+        </LinearLayout>
+
+        <!-- Creation Date -->
+        <LinearLayout 
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5px"
+                android:src="@android:drawable/divider_horizontal_bright" />
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5px"
+                android:text="@string/taskView_creationDate"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            <TextView android:id="@+id/cell_creationDate"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5px"

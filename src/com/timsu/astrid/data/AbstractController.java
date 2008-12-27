@@ -22,14 +22,14 @@ package com.timsu.astrid.data;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
-import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
 /** Abstract controller class. Mostly contains some static fields */
 abstract public class AbstractController {
 
-    protected Activity activity;
+    protected Context context;
 
     // special columns
     public static final String KEY_ROWID = "_id";

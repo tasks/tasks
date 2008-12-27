@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+
+<resources>
+    <!-- Choices for the "Reminder minutes" spinner.
+         These must be kept in sync with the reminder_minutes_values array.
+    -->
+    <string-array name="reminders">
+        <item>Hi there! Have a second?</item>
+        <item>Can I see you for a moment?</item>
+        <item>Have a few minutes?</item>
+        <item>I think you forgot to do something...</item>
+        <item>Excuse me?</item>
+        <item>When you have a minute...</item>
+        <item>Look what I dug up!</item>
+        <item>You look energetic today!</item>
+        <item>Here's what I got for you...</item>
+        <item>Are you free for a moment?</item>
+        <item>Your friendly neighborhood assistant here!</item>
+        <item>I would like a minute of your time.</item>
+        <item>It's a beautiful day today, isn't it?</item>
+    </string-array>
+    
+    <!-- Astrid says...  (user should answer yes or no)-->
+    <string-array name="reminder_responses">
+        <item>I've got something for you!</item>
+        <item>Say hello to my little friend!</item>
+        <item>Why don't you get this done?</item>
+        <item>How about it? Ready tiger?</item>
+        <item>Ready to do this?</item>
+        <item>Can you handle this?</item>
+        <item>You can be happy! Just finish this!</item>
+        <item>Feel the rush of productivity!</item>
+        <item>Won't you do this today?</item>
+        <item>Please finish this, I'm sick of it!</item>
+        <item>Can you finish this? Yes you can!</item>
+        <item>Feel good about yourself! Let's go!</item>
+        <item>I'm so proud of you! Lets get it done!</item>
+        <item>A little snack after you finish this?</item>
+        <item>Just this one task? Please?</item>
+        <item>Time to shorten your todo list!</item>
+    </string-array>
+    
+</resources>

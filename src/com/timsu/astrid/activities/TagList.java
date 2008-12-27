@@ -80,7 +80,7 @@ public class TagList extends Activity {
     private void fillData() {
         Resources r = getResources();
 
-        tagArray = controller.getAllTags();
+        tagArray = controller.getAllTags(this);
 
         // set up the title
         StringBuilder title = new StringBuilder().
@@ -163,7 +163,7 @@ public class TagList extends Activity {
             // set up basic properties
             view.setTag(tag);
 
-            List<TaskIdentifier> tasks = controller.getTaggedTasks(
+            List<TaskIdentifier> tasks = controller.getTaggedTasks(TagList.this,
                     tag.getTagIdentifier());
 
             final TextView name = ((TextView)view.findViewById(android.R.id.text1));

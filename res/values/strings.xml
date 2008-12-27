@@ -46,10 +46,12 @@
             <item quantity="one">1 Day</item>
             <item quantity="other">%d Days</item>
         </plurals>
+        <string name="days">D\na\ny\ns</string>
         <plurals name="Nhours">
             <item quantity="one">1 Hour</item>
             <item quantity="other">%d Hours</item>
         </plurals>
+        <string name="hours">H\no\nu\nr\ns</string>
         <plurals name="Nminutes">
             <item quantity="one">1 Minute</item>
             <item quantity="other">%d Minutes</item>
@@ -64,7 +66,10 @@
         <string name="taskList_titlePrefix">Astrid: </string>
         <string name="taskList_titleTagPrefix">Tasks Tagged \"%s\": </string>
         <string name="taskList_hiddenSuffix"> hidden</string>
+        <string name="taskList_dueIn">Due in</string>
+        <string name="taskList_overdueBy">Overdue by</string>
         <string name="addtask_label">New Task</string>
+        <string name="tags_suffix">Tags: </string>
         
         <string name="taskList_menu_insert">Add</string>
         <string name="taskList_menu_tags">Tags</string>
@@ -75,6 +80,7 @@
         <string name="taskList_context_delete">Delete Task</string>
         <string name="taskList_context_startTimer">Start Timer</string>
         <string name="taskList_context_stopTimer">Stop Timer</string>
+        
         <string name="taskList_filter_title">Filters</string>
         <string name="taskList_filter_hidden">Hidden/Blocked Tasks</string>
         <string name="taskList_filter_done">Completed Tasks</string>
@@ -87,17 +93,20 @@
         
         <string name="name_label">What</string>
         <string name="name_hint">Task Description</string>
-        <string name="estimatedDuration_label">Estimated Time Needed</string>
+        <string name="estimatedDuration_label">How Long Will it Take?</string>
         <string name="elapsedDuration_label">Time Already Spent on Task</string>
-        <string name="importance_label">How important is it?</string>
-        <string name="tags_label">Tags</string>
+        <string name="importance_label">How Important is it?</string>
+        <string name="tags_label">Tags:</string>
+        <string name="notification_label">Reminders</string>
+        <string name="notification_prefix">Every</string>
         <string name="definiteDueDate_label">Absolute Deadline</string>
         <string name="preferredDueDate_label">Goal Deadline</string>
         <string name="hiddenUntil_label">Hide Until This Date</string>
-        <string name="blockingOn_label">Blocking On</string>
+        <string name="blockingOn_label">Hide Until This Task is Done</string>
         <string name="notes_label">Notes</string>
         <string name="notes_hint">Enter Task Notes</string>
-        <string name="minutes_dialog">Time (in minutes)</string>
+        <string name="hour_minutes_dialog">Time (hours : minutes)</string>
+        <string name="notification_dialog">Remind Me Every</string>
         
         <string name="save_label">Save</string>
         <string name="discard_label">Discard</string>
@@ -110,6 +119,7 @@
     <skip />
     
         <string name="taskView_title">Astrid: Task Properties</string>
+        <string name="taskView_notifyTitle">Astrid says...</string>
         <string name="startTimer_label">Start Timer</string>
         <string name="stopTimer_label">Stop Timer</string>
         <string name="progress_suffix">% Done</string>
@@ -118,8 +128,11 @@
         <string name="taskView_estimated">Estimated Time</string>
         <string name="taskView_definiteDueDate">Absolute Deadline</string>
         <string name="taskView_preferredDueDate">Goal Deadline</string>
+        <string name="taskView_creationDate">Creation Date</string>
+        <string name="taskView_tags">Tags</string>
         <string name="taskView_notes">Task Notes</string>
         <string name="overdue_suffix"> Overdue</string>
+        <string name="ago_suffix"> Ago</string>
         <string name="progress_dialog">% of Task Finished</string>
         
         <!-- TaskList -->
@@ -129,10 +142,15 @@
         <string name="tagList_context_edit">Edit Tag</string>
         <string name="tagList_context_delete">Delete Tag</string>
       
-     <!-- Utilities -->  
+     <!-- Dialog Boxes -->  
     <skip />
+        <string name="question_title">Question</string>
+        
         <string name="delete_title">Delete</string>        
         <string name="delete_this_task_title">Delete this task?</string>
         <string name="delete_this_tag_title">Remove this tag from all tasks?</string>
+        
+        <string name="stop_timer_title">Stop the timer?</string>
+        
     
 </resources>

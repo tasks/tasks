@@ -116,6 +116,8 @@ public class TaskModelForList extends AbstractTaskModel {
         return weight;
     }
 
+
+
     // --- constructors
 
     public TaskModelForList(Cursor cursor) {
@@ -133,7 +135,7 @@ public class TaskModelForList extends AbstractTaskModel {
         getTimerStart();
     }
 
-    // --- getters and setters
+    // --- exposed getters and setters
 
     @Override
     public boolean isTaskCompleted() {
@@ -207,5 +209,9 @@ public class TaskModelForList extends AbstractTaskModel {
     @Override
     public void stopTimerAndUpdateElapsedTime() {
         super.stopTimerAndUpdateElapsedTime();
+    }
+
+    public static String getNameField() {
+        return NAME;
     }
 }

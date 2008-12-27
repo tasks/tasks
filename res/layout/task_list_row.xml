@@ -29,6 +29,7 @@
     
     <CheckBox android:id="@+id/cb1"
         android:gravity="center_vertical"
+        android:background="@drawable/btn_check0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingLeft="5dip"/>
@@ -39,20 +40,45 @@
         android:layout_height="fill_parent"
         android:paddingLeft="5dip"/>
 
-    <TextView android:id="@+id/text1"
-        android:layout_height="?android:attr/listPreferredItemHeight"
-        android:layout_width="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:gravity="center_vertical"
+    <LinearLayout android:id="@+id/text_layout"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
         android:paddingLeft="5dip"
-        android:singleLine="true"/>
-        
-    <TextView android:id="@+id/text2"
-        android:layout_height="?android:attr/listPreferredItemHeight"
         android:layout_width="fill_parent"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:gravity="center_vertical"
-        android:paddingLeft="15dip"            
-        android:singleLine="true"/>
+        android:layout_height="fill_parent">
+        
+        <TextView android:id="@+id/text1"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:gravity="center_vertical"
+            android:singleLine="true"/>
+            
+        <LinearLayout android:id="@+id/prop_layout"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+        
+            <TextView android:id="@+id/text_dueDate"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/taskList_dueDate"
+                android:gravity="center_vertical"
+                android:paddingRight="15dip"       
+                android:singleLine="true"/>
+                
+            <TextView android:id="@+id/text_tags"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="@color/taskList_tags"
+                android:gravity="center_vertical"
+                android:paddingRight="15dip"            
+                android:singleLine="true"/>
+        </LinearLayout>
+        
+    </LinearLayout>
         
 </LinearLayout>

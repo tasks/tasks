@@ -67,7 +67,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         }
     };
 
-    private int incrementBy;
+    private int incrementBy = 1;
     public void setIncrementBy(int incrementBy) {
         this.incrementBy = incrementBy;
     }
@@ -102,12 +102,12 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private int                                mPrevious;
     private OnChangedListener                  mListener;
     private Formatter                          mFormatter;
-    private long                               mSpeed              = 300;
+    private long                               mSpeed              = 500;
 
     private boolean                            mIncrement;
     private boolean                            mDecrement;
 
-    public NumberPicker(Context context, int incrementBy) {
+    public NumberPicker(Context context) {
         this(context, null);
     }
 

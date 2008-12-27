@@ -23,6 +23,9 @@
     <color name="task_list_overdue">#ffff4444</color>
     <color name="task_list_done">#ffaaaaaa</color>
     
+    <color name="taskList_dueDate">#ffffff44</color>
+    <color name="taskList_tags">#ff888888</color>
+    
     <color name="view_header_done">#ff83ffa9</color>
     <color name="view_table_values">#ffbbbbbb</color>    
     <color name="view_table_overdue">#ffff0000</color>

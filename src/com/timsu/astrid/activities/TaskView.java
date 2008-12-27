@@ -19,6 +19,7 @@
  */
 package com.timsu.astrid.activities;
 import java.util.Date;
+import java.util.Random;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -38,6 +39,7 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForView;
 import com.timsu.astrid.utilities.DateUtilities;
+import com.timsu.astrid.utilities.Notifications;
 import com.timsu.astrid.widget.NumberPicker;
 import com.timsu.astrid.widget.NumberPickerDialog;
 
@@ -48,24 +50,32 @@ import com.timsu.astrid.widget.NumberPickerDialog;
  *
  */
 public class TaskView extends TaskModificationActivity<TaskModelForView> {
-    private static final int ACTIVITY_EDIT = 0;
 
-    private static final int       EDIT_ID       = Menu.FIRST;
-    private static final int       DELETE_ID     = Menu.FIRST + 1;
+    // bundle tokens
+    public static final String FROM_NOTIFICATION_TOKEN = "notify";
 
-    private TextView         name;
-    private TextView         elapsed;
-    private TextView         estimated;
-    private TextView         definiteDueDate;
-    private TextView         preferredDueDate;
-    private TextView         notes;
-    private Button           timerButton;
-    private Button           progress;
+    // activities
+    private static final int   ACTIVITY_EDIT           = 0;
 
+    // menu codes
+    private static final int   EDIT_ID                 = Menu.FIRST;
+    private static final int   DELETE_ID               = Menu.FIRST + 1;
+
+    // UI components
+    private TextView           name;
+    private TextView           elapsed;
+    private TextView           estimated;
+    private TextView           definiteDueDate;
+    private TextView           preferredDueDate;
+    private TextView           creationDate;
+    private TextView           notes;
+    private Button             timerButton;
+    private Button             progress;
     private NumberPickerDialog progressDialog;
 
-    private Handler          handler;
-    private Timer            updateTimer = null;
+    // other instance variables
+    private Handler            handler;
+    private Timer              updateTimer             = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,16 +86,103 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         setUpUIComponents();
         setUpListeners();
         populateFields();
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null && extras.containsKey(FROM_NOTIFICATION_TOKEN))
+            showNotificationAlert();
     }
 
     @Override
     protected TaskModelForView getModel(TaskIdentifier identifier) {
         if(identifier == null)
             throw new IllegalArgumentException("Can't view null task!");
-        return controller.fetchTaskForView(identifier);
+        return controller.fetchTaskForView(this, identifier);
     }
 
-    // --- initialization
+    /** Called when user clicks on a notification to get here */
+    private void showNotificationAlert() {
+        Resources r = getResources();
+
+        // clear residual, schedule the next one
+        Notifications.clearAllNotifications(this, model.getTaskIdentifier());
+        Notifications.scheduleNextNotification(this, model);
+
+        String[] responses = r.getStringArray(R.array.reminder_responses);
+        String response = responses[new Random().nextInt(responses.length)];
+        new AlertDialog.Builder(this)
+        .setTitle(R.string.taskView_notifyTitle)
+        .setMessage(response)
+        .setIcon(android.R.drawable.ic_dialog_alert)
+        .setPositiveButton(android.R.string.yes, null)
+        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                setResult(RESULT_CANCELED);
+                finish();
+            }
+        })
+        .show();
+    }
+
+    /* ======================================================================
+     * =================================================== reading from model
+     * ====================================================================== */
+
+    private void populateFields() {
+        final Resources r = getResources();
+        name.setText(model.getName());
+        estimated.setText(DateUtilities.getDurationString(r,
+                model.getEstimatedSeconds(), 2));
+        elapsed.setText(DateUtilities.getDurationString(r,
+                model.getElapsedSeconds(), 2));
+
+        formatDeadline(model.getDefiniteDueDate(), definiteDueDate);
+        formatDeadline(model.getPreferredDueDate(), preferredDueDate);
+        formatDate(model.getCreationDate(), creationDate);
+
+        updateTimerButtonText();
+        updateProgressComponents();
+
+        if(model.getNotes().length() == 0)
+            ((View)notes.getParent()).setVisibility(View.GONE);
+        else
+            notes.setText(model.getNotes());
+    }
+
+    private void formatDeadline(Date deadline, TextView view) {
+        Resources r = getResources();
+        if(deadline == null || model.isTaskCompleted()) {
+            ((View)view.getParent()).setVisibility(View.GONE);
+            return;
+        }
+
+        int secondsToDeadline = (int) ((deadline.getTime() -
+                System.currentTimeMillis())/1000);
+        String text = DateUtilities.getDurationString(r,
+                Math.abs(secondsToDeadline), 2);
+        if(secondsToDeadline < 0) {
+            view.setTextColor(r.getColor(R.color.view_table_overdue));
+            view.setText(text + r.getString(R.string.overdue_suffix));
+        } else
+            view.setText(text);
+    }
+
+    private void formatDate(Date date, TextView view) {
+        Resources r = getResources();
+        if(date == null || model.isTaskCompleted()) {
+            ((View)view.getParent()).setVisibility(View.GONE);
+            return;
+        }
+
+        int secondsAgo = (int) ((System.currentTimeMillis() - date.getTime())/1000);
+        String text = DateUtilities.getDurationString(r,
+                Math.abs(secondsAgo), 2);
+        view.setText(text + r.getString(R.string.ago_suffix));
+    }
+
+    /* ======================================================================
+     * ==================================================== UI initialization
+     * ====================================================================== */
 
     private void setUpUIComponents() {
         Resources r = getResources();
@@ -96,6 +193,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         estimated = (TextView)findViewById(R.id.cell_estimated);
         definiteDueDate = (TextView)findViewById(R.id.cell_definiteDueDate);
         preferredDueDate = (TextView)findViewById(R.id.cell_preferredDueDate);
+        creationDate = (TextView)findViewById(R.id.cell_creationDate);
         notes = (TextView)findViewById(R.id.cell_notes);
         timerButton = (Button)findViewById(R.id.timerButton);
         progress = (Button)findViewById(R.id.progress);
@@ -108,7 +206,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
                 controller.saveTask(model);
                 updateProgressComponents();
             }
-        }, r.getString(R.string.progress_dialog), 0, 10, 0, 100);
+        }, r.getString(R.string.progress_dialog), 0, 25, 0, 100);
 
         name.setTextSize(36);
     }
@@ -144,44 +242,6 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         });
     }
 
-    private void populateFields() {
-        final Resources r = getResources();
-        name.setText(model.getName());
-        estimated.setText(DateUtilities.getDurationString(r,
-                model.getEstimatedSeconds(), 2));
-        elapsed.setText(DateUtilities.getDurationString(r,
-                model.getElapsedSeconds(), 2));
-
-        formatDeadline(model.getDefiniteDueDate(), definiteDueDate);
-        formatDeadline(model.getPreferredDueDate(), preferredDueDate);
-
-        updateTimerButtonText();
-        updateProgressComponents();
-
-        if(model.getNotes().length() == 0)
-            ((View)notes.getParent()).setVisibility(View.GONE);
-        else
-            notes.setText(model.getNotes());
-    }
-
-    private void formatDeadline(Date deadline, TextView view) {
-        Resources r = getResources();
-        if(deadline == null || model.isTaskCompleted()) {
-            ((View)view.getParent()).setVisibility(View.GONE);
-            return;
-        }
-
-        int secondsToDeadline = (int) ((deadline.getTime() -
-                System.currentTimeMillis())/1000);
-        String text = DateUtilities.getDurationString(r,
-                Math.abs(secondsToDeadline), 2);
-        if(secondsToDeadline < 0) {
-            view.setTextColor(r.getColor(R.color.view_table_overdue));
-            view.setText(text + r.getString(R.string.overdue_suffix));
-        } else
-            view.setText(text);
-    }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
@@ -198,7 +258,9 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         return true;
     }
 
-    // --- event handlers
+    /* ======================================================================
+     * ======================================================= event handlers
+     * ====================================================================== */
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
@@ -242,8 +304,6 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         }, 0, 1000);
     }
 
-    // --- event response methods
-
     private void editButtonClick() {
         Intent intent = new Intent(TaskView.this, TaskEdit.class);
         intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN,
@@ -282,6 +342,10 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
 
         return super.onMenuItemSelected(featureId, item);
     }
+
+    /* ======================================================================
+     * ================================================ UI component updating
+     * ====================================================================== */
 
     /** Update components that depend on elapsed time */
     private void updateElapsedTimeText() {

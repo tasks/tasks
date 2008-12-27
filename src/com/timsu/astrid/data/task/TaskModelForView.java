@@ -25,11 +25,12 @@ import android.database.Cursor;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.enums.Importance;
+import com.timsu.astrid.utilities.Notifications.Notifiable;
 
 
 
 /** Fields that you would want to see in the TaskView activity */
-public class TaskModelForView extends AbstractTaskModel {
+public class TaskModelForView extends AbstractTaskModel implements Notifiable {
 
     static String[] FIELD_LIST = new String[] {
         AbstractController.KEY_ROWID,
@@ -41,6 +42,8 @@ public class TaskModelForView extends AbstractTaskModel {
         TIMER_START,
         DEFINITE_DUE_DATE,
         PREFERRED_DUE_DATE,
+        CREATION_DATE,
+        NOTIFICATIONS,
         NOTES,
     };
 
@@ -51,6 +54,11 @@ public class TaskModelForView extends AbstractTaskModel {
     }
 
     // --- getters and setters
+
+    @Override
+    public Integer getNotificationIntervalSeconds() {
+        return super.getNotificationIntervalSeconds();
+    }
 
     @Override
     public boolean isTaskCompleted() {
@@ -105,6 +113,11 @@ public class TaskModelForView extends AbstractTaskModel {
     @Override
     public Date getTimerStart() {
         return super.getTimerStart();
+    }
+
+    @Override
+    public Date getCreationDate() {
+        return super.getCreationDate();
     }
 
     @Override

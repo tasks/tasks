@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,6 +38,27 @@ public class TaskController extends AbstractController {
     private SQLiteDatabase database;
 
     // --- task list operations
+
+    /** Return a list of all active tasks with notifications */
+    public List<TaskModelForNotify> getTasksWithNotifications() {
+        List<TaskModelForNotify> list = new ArrayList<TaskModelForNotify>();
+        Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForNotify.FIELD_LIST,
+                String.format("%s < %d AND %s != 0",
+                        AbstractTaskModel.PROGRESS_PERCENTAGE,
+                        AbstractTaskModel.COMPLETE_PERCENTAGE,
+                        AbstractTaskModel.NOTIFICATIONS), null, null, null, null, null);
+
+        if(cursor.getCount() == 0)
+            return list;
+
+        do {
+            cursor.moveToNext();
+            list.add(new TaskModelForNotify(cursor));
+        } while(!cursor.isLast());
+
+        cursor.close();
+        return list;
+    }
 
     /** Return a list of all of the tasks with progress < COMPLETE_PERCENTAGE */
     public Cursor getActiveTaskListCursor() {
@@ -129,7 +151,7 @@ public class TaskController extends AbstractController {
     }
 
     /** Returns a TaskModelForEdit corresponding to the given TaskIdentifier */
-    public TaskModelForEdit fetchTaskForEdit(TaskIdentifier
+    public TaskModelForEdit fetchTaskForEdit(Activity activity, TaskIdentifier
             taskId) throws SQLException {
         long id = taskId.getId();
         Cursor cursor = database.query(true, TASK_TABLE_NAME,
@@ -148,7 +170,8 @@ public class TaskController extends AbstractController {
 
 
     /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
-    public TaskModelForView fetchTaskForView(TaskIdentifier taskId) throws SQLException {
+    public TaskModelForView fetchTaskForView(Activity activity,
+            TaskIdentifier taskId) throws SQLException {
         long id = taskId.getId();
         Cursor cursor = database.query(true, TASK_TABLE_NAME,
                 TaskModelForView.FIELD_LIST,
@@ -170,8 +193,8 @@ public class TaskController extends AbstractController {
      * Constructor - takes the context to allow the database to be
      * opened/created
      */
-    public TaskController(Activity activity) {
-        this.activity = activity;
+    public TaskController(Context activity) {
+        this.context = activity;
     }
 
     /**
@@ -185,7 +208,7 @@ public class TaskController extends AbstractController {
      */
     public TaskController open() throws SQLException {
         SQLiteOpenHelper databaseHelper = new TaskModelDatabaseHelper(
-                activity, TASK_TABLE_NAME, TASK_TABLE_NAME);
+                context, TASK_TABLE_NAME, TASK_TABLE_NAME);
         database = databaseHelper.getWritableDatabase();
         return this;
     }

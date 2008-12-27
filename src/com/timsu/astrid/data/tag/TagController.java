@@ -43,7 +43,7 @@ public class TagController extends AbstractController {
     // --- tag batch operations
 
     /** Get a list of all tags */
-    public List<TagModelForView> getAllTags()
+    public List<TagModelForView> getAllTags(Activity activity)
             throws SQLException {
         List<TagModelForView> list = new LinkedList<TagModelForView>();
         Cursor cursor = tagDatabase.query(TAG_TABLE_NAME,
@@ -63,15 +63,15 @@ public class TagController extends AbstractController {
     // --- tag to task map batch operations
 
     /** Get a list of all tags as an id => tag map */
-    public Map<TagIdentifier, TagModelForView> getAllTagsAsMap() throws SQLException {
+    public Map<TagIdentifier, TagModelForView> getAllTagsAsMap(Activity activity) throws SQLException {
         Map<TagIdentifier, TagModelForView> map = new HashMap<TagIdentifier, TagModelForView>();
-        for(TagModelForView tag : getAllTags())
+        for(TagModelForView tag : getAllTags(activity))
             map.put(tag.getTagIdentifier(), tag);
         return map;
     }
 
     /** Get a list of tag identifiers for the given task */
-    public List<TagIdentifier> getTaskTags(TaskIdentifier
+    public List<TagIdentifier> getTaskTags(Activity activity, TaskIdentifier
             taskId) throws SQLException {
         List<TagIdentifier> list = new LinkedList<TagIdentifier>();
         Cursor cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
@@ -90,7 +90,7 @@ public class TagController extends AbstractController {
     }
 
     /** Get a list of task identifiers for the given tag */
-    public List<TaskIdentifier> getTaggedTasks(TagIdentifier
+    public List<TaskIdentifier> getTaggedTasks(Activity activity, TagIdentifier
             tagId) throws SQLException {
         List<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
         Cursor cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
@@ -194,7 +194,7 @@ public class TagController extends AbstractController {
      * opened/created
      */
     public TagController(Activity activity) {
-        this.activity = activity;
+        this.context = activity;
     }
 
     /**
@@ -207,9 +207,9 @@ public class TagController extends AbstractController {
      * @throws SQLException if the database could be neither opened or created
      */
     public TagController open() throws SQLException {
-        tagToTaskMapDatabase = new TagToTaskMappingDatabaseHelper(activity,
+        tagToTaskMapDatabase = new TagToTaskMappingDatabaseHelper(context,
                 TAG_TASK_MAP_NAME, TAG_TASK_MAP_NAME).getWritableDatabase();
-        tagDatabase = new TagModelDatabaseHelper(activity,
+        tagDatabase = new TagModelDatabaseHelper(context,
                 TAG_TABLE_NAME, TAG_TABLE_NAME).getWritableDatabase();
         return this;
     }
