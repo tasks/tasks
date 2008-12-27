@@ -152,7 +152,8 @@ public class Notifications extends BroadcastReceiver {
 
         // snooze if the user just interacted with this item
         if(shouldSnooze) {
-            long snoozeWhen = System.currentTimeMillis() + DEADLINE_REPEAT;
+            long snoozeWhen = System.currentTimeMillis() +
+                DEADLINE_REPEAT * 1000;
             if(when < snoozeWhen)
                 when = snoozeWhen;
         } else if(when < System.currentTimeMillis())
