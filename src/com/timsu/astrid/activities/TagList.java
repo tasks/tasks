@@ -278,6 +278,7 @@ public class TagList extends Activity {
                 sortMode = SortMode.ALPHA;
                 sortReverse = false;
             }
+            fillData();
             break;
         case MENU_SORT_SIZE_ID:
             if(sortMode == SortMode.SIZE)
@@ -286,6 +287,7 @@ public class TagList extends Activity {
                 sortMode = SortMode.SIZE;
                 sortReverse = false;
             }
+            fillData();
             break;
         case CONTEXT_CREATE_ID:
             TagModelForView tag = tagArray.get(item.getGroupId());
