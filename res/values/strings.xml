@@ -99,7 +99,7 @@
         <string name="elapsedDuration_label">Time Already Spent on Task</string>
         <string name="importance_label">How Important is it?</string>
         <string name="tags_label">Tags:</string>
-        <string name="notification_label">Reminders</string>
+        <string name="notification_label">Remind Me At Least</string>
         <string name="notification_prefix">Every</string>
         <string name="definiteDueDate_label">Absolute Deadline</string>
         <string name="preferredDueDate_label">Goal Deadline</string>

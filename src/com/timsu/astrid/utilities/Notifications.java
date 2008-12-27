@@ -87,6 +87,9 @@ public class Notifications extends BroadcastReceiver {
         if(task.isTaskCompleted())
             return false;
 
+        if(task.getNotificationIntervalSeconds() > 0)
+            return false;
+
         return true;
     }
 
