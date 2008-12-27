@@ -117,7 +117,6 @@ public class Notifications extends BroadcastReceiver {
             interval = task.getNotificationIntervalSeconds();
             int currentSeconds = (int)(System.currentTimeMillis() / 1000);
             int untilNextInterval = interval - currentSeconds % interval;
-            untilNextInterval = 60;
             untilNextInterval *= FUDGE_MIN + random.nextFloat() * (FUDGE_MAX - FUDGE_MIN);
             if(untilNextInterval < MIN_INTERVAL_SECONDS)
                 untilNextInterval = MIN_INTERVAL_SECONDS;
