@@ -104,7 +104,7 @@ public class TagList extends Activity {
         SIZE {
             @Override
             int compareTo(TagList self, TagModelForView arg0, TagModelForView arg1) {
-                return self.tagToTaskCount.get(arg0) - self.tagToTaskCount.get(arg1);
+                return self.tagToTaskCount.get(arg1) - self.tagToTaskCount.get(arg0);
             }
         };
 
