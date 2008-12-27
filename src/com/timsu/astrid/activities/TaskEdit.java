@@ -199,7 +199,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         }
 
         // set up notification
-        Notifications.updateAlarm(this, model);
+        Notifications.updateAlarm(this, model, true);
     }
 
     /** Save task tags. Must be called after task already has an ID */

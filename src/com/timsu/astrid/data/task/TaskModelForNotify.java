@@ -36,6 +36,8 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
         NOTIFICATIONS,
         HIDDEN_UNTIL,
         PROGRESS_PERCENTAGE,
+        DEFINITE_DUE_DATE,
+        PREFERRED_DUE_DATE,
     };
 
     // --- constructors
@@ -62,5 +64,15 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
     @Override
     public Date getHiddenUntil() {
         return super.getHiddenUntil();
+    }
+
+    @Override
+    public Date getDefiniteDueDate() {
+        return super.getDefiniteDueDate();
+    }
+
+    @Override
+    public Date getPreferredDueDate() {
+        return super.getPreferredDueDate();
     }
 }

@@ -53,6 +53,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
 
     // bundle tokens
     public static final String FROM_NOTIFICATION_TOKEN = "notify";
+    public static final String NOTIF_FLAGS_TOKEN       = "notif_flags";
 
     // activities
     private static final int   ACTIVITY_EDIT           = 0;
@@ -108,7 +109,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
 
         // clear residual, schedule the next one
         Notifications.clearAllNotifications(this, model.getTaskIdentifier());
-        Notifications.updateAlarm(this, model);
+        Notifications.updateAlarm(this, model, true);
 
         String[] responses = r.getStringArray(R.array.reminder_responses);
         String response = responses[new Random().nextInt(responses.length)];

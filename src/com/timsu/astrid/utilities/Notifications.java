@@ -24,13 +24,25 @@ import com.timsu.astrid.data.task.TaskModelForNotify;
 
 public class Notifications extends BroadcastReceiver {
 
-    private static final String ID_KEY               = "id";
-    private static final int    MIN_INTERVAL_SECONDS = 300;
+    private static final String ID_KEY                  = "id";
+    private static final String FLAGS_KEY               = "flags";
 
-    private static final float  FUDGE_MIN            = 0.2f;
-    private static final float  FUDGE_MAX            = 0.8f;
+    // stuff for scheduling
+    private static final int    MIN_INTERVAL_SECONDS    = 300;
+    private static final float  FUDGE_MIN               = 0.2f;
+    private static final float  FUDGE_MAX               = 0.8f;
+    /** # of seconds before a deadline to notify */
+    private static final int    DEADLINE_NOTIFY_SECS    = 3600;
+    /** # of seconds after now, if a deadline is in the past */
+    private static final int    TIME_IN_PAST_OFFSET     = 60;
+    /** # of seconds after first deadline reminder to repeat */
+    private static final int    DEADLINE_REPEAT         = 600;
 
-    private static Random       random               = new Random();
+    // flags
+    public static final int    FLAG_DEFINITE_DEADLINE   = 1;
+    public static final int    FLAG_PREFERRED_DEADLINE  = 2;
+
+    private static Random       random                  = new Random();
 
     /** Something we can create a notification for */
     public interface Notifiable {
@@ -38,14 +50,27 @@ public class Notifications extends BroadcastReceiver {
         public Integer getNotificationIntervalSeconds();
         public boolean isTaskCompleted();
         public Date getHiddenUntil();
+        public Date getDefiniteDueDate();
+        public Date getPreferredDueDate();
     }
 
     @Override
     /** Alarm intent */
     public void onReceive(Context context, Intent intent) {
         long id = intent.getLongExtra(ID_KEY, 0);
+        int flags = intent.getIntExtra(FLAGS_KEY, 0);
         Log.e("ALARM", "Alarm triggered id " + id);
-        if(!showNotification(context, id)) {
+
+        Resources r = context.getResources();
+        String reminder;
+        if((flags & FLAG_DEFINITE_DEADLINE) > 0)
+            reminder = r.getString(R.string.notif_definiteDueDate);
+        else if((flags & FLAG_PREFERRED_DEADLINE) > 0)
+            reminder = r.getString(R.string.notif_preferredDueDate);
+        else
+            reminder = getRandomReminder(r);
+
+        if(!showNotification(context, id, flags, reminder)) {
             deleteAlarm(context, id);
             NotificationManager nm = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
@@ -55,11 +80,7 @@ public class Notifications extends BroadcastReceiver {
 
     // --- alarm manager stuff
 
-    private static boolean isAlarmEnabled(Notifiable task) {
-        if(task.getNotificationIntervalSeconds() == null ||
-                task.getNotificationIntervalSeconds() == 0)
-            return false;
-
+    private static boolean shouldDeleteAlarm(Notifiable task) {
         if(task.isTaskCompleted())
             return false;
 
@@ -72,37 +93,84 @@ public class Notifications extends BroadcastReceiver {
         List<TaskModelForNotify> tasks = controller.getTasksWithNotifications();
 
         for(TaskModelForNotify task : tasks)
-            updateAlarm(context, task);
+            updateAlarm(context, task, false);
 
         controller.close();
     }
 
     /** Schedules the next notification for this task */
-    public static void updateAlarm(Context context, Notifiable task) {
+    public static void updateAlarm(Context context, Notifiable task,
+            boolean shouldSnooze) {
         if(task.getTaskIdentifier() == null)
             return;
 
-        if(!isAlarmEnabled(task)) {
+        if(!shouldDeleteAlarm(task)) {
             deleteAlarm(context, task.getTaskIdentifier().getId());
             return;
         }
 
-        // compute, and add a fudge factor to mix things up a bit
-        int interval = task.getNotificationIntervalSeconds();
-        int currentSeconds = (int)(System.currentTimeMillis() / 1000);
-        int untilNextInterval = interval - currentSeconds % interval;
-        untilNextInterval *= FUDGE_MIN + random.nextFloat() * (FUDGE_MAX - FUDGE_MIN);
-        if(untilNextInterval < MIN_INTERVAL_SECONDS)
-            untilNextInterval = MIN_INTERVAL_SECONDS;
-        long when = System.currentTimeMillis() + untilNextInterval * 1000;
-        scheduleAlarm(context, task.getTaskIdentifier().getId(), when,
-                interval*1000);
+        Long when = null;    // when to schedule alarm (ms)
+        Integer interval = null; // how often to repeat (s)
+
+        if(task.getNotificationIntervalSeconds() > 0) {
+            // compute, and add a fudge factor to mix things up a bit
+            interval = task.getNotificationIntervalSeconds();
+            int currentSeconds = (int)(System.currentTimeMillis() / 1000);
+            int untilNextInterval = interval - currentSeconds % interval;
+            untilNextInterval = 60;
+            untilNextInterval *= FUDGE_MIN + random.nextFloat() * (FUDGE_MAX - FUDGE_MIN);
+            if(untilNextInterval < MIN_INTERVAL_SECONDS)
+                untilNextInterval = MIN_INTERVAL_SECONDS;
+            when = System.currentTimeMillis() + untilNextInterval * 1000;
+        }
+
+        // if deadlines come before, do that instead
+        int flags = 0;
+        if(task.getDefiniteDueDate() != null) {
+            long deadlineWhen = task.getDefiniteDueDate().getTime() -
+                DEADLINE_NOTIFY_SECS * 1000;
+            if(when == null || deadlineWhen < when) {
+                when = deadlineWhen;
+                interval = DEADLINE_REPEAT;
+                flags = FLAG_DEFINITE_DEADLINE;
+            }
+        }
+        if(task.getPreferredDueDate() != null) {
+            long deadlineWhen = task.getPreferredDueDate().getTime() -
+                DEADLINE_NOTIFY_SECS * 1000;
+            if(when == null || deadlineWhen < when) {
+                when = deadlineWhen;
+                interval = DEADLINE_REPEAT;
+                flags = FLAG_PREFERRED_DEADLINE;
+            }
+        }
+
+        if(when == null) {
+            deleteAlarm(context, task.getTaskIdentifier().getId());
+            return;
+        }
+
+        // snooze if the user just interacted with this item
+        if(shouldSnooze) {
+            long snoozeWhen = System.currentTimeMillis() + DEADLINE_REPEAT;
+            if(when < snoozeWhen)
+                when = snoozeWhen;
+        } else if(when < System.currentTimeMillis())
+            when = System.currentTimeMillis() + TIME_IN_PAST_OFFSET*1000;
+
+        if(interval == null)
+            scheduleAlarm(context, task.getTaskIdentifier().getId(), when, flags);
+        else
+            scheduleRepeatingAlarm(context, task.getTaskIdentifier().getId(),
+                    when, flags, interval*1000);
     }
 
-    private static PendingIntent createPendingIntent(Context context, long id) {
+    private static PendingIntent createPendingIntent(Context context,
+            long id, int flags) {
         Intent intent = new Intent(context, Notifications.class);
         intent.setType(Long.toString(id));
         intent.putExtra(ID_KEY, id);
+        intent.putExtra(FLAGS_KEY, flags);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
 
         return sender;
@@ -112,15 +180,26 @@ public class Notifications extends BroadcastReceiver {
     public static void deleteAlarm(Context context, long id) {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-        am.cancel(createPendingIntent(context, id));
+        am.cancel(createPendingIntent(context, id, 0));
     }
 
-    /** Schedules a recurring alarm for a single task */
-    public static void scheduleAlarm(Context context, long id, long when, long interval) {
+    /** Schedules a single alarm for a single task */
+    public static void scheduleAlarm(Context context, long id, long when,
+            int flags) {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
         Log.e("ALARM", "Alarm set for " + new Date(when));
-        am.setRepeating(AlarmManager.RTC, when, interval, createPendingIntent(context, id));
+        am.set(AlarmManager.RTC_WAKEUP, when, createPendingIntent(context, id, flags));
+    }
+
+    /** Schedules a recurring alarm for a single task */
+    public static void scheduleRepeatingAlarm(Context context, long id, long when,
+            int flags, long interval) {
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+
+        Log.e("ALARM", "Alarm set for " + new Date(when) + " every " + interval);
+        am.setRepeating(AlarmManager.RTC_WAKEUP, when, interval,
+                createPendingIntent(context, id, flags));
     }
 
     // --- notification manager stuff
@@ -132,30 +211,42 @@ public class Notifications extends BroadcastReceiver {
         nm.cancel((int)taskId.getId());
     }
 
+    private static String getRandomReminder(Resources r) {
+        String[] reminders = r.getStringArray(R.array.reminders);
+        int next = random.nextInt(reminders.length);
+        String reminder = reminders[next];
+        return reminder;
+    }
+
     /** Schedule a new notification about the given task. Returns false if there was
      * some sort of error or the alarm should be disabled. */
-    public static boolean showNotification(Context context, long id) {
+    public static boolean showNotification(Context context, long id, int flags,
+            String reminder) {
 
+        String taskName;
         TaskController controller = new TaskController(context);
         try {
             controller.open();
             TaskModelForList task = controller.fetchTaskForList(new TaskIdentifier(id));
 
-            // you're working on it - don't delete
+            // you're working on it - don't sound, don't delete
             if(task.getTimerStart() != null)
                 return true;
 
-            // you're done - delete
+            // you're done - don't sound, do delete
             if(task.isTaskCompleted())
                 return false;
 
-            // it's hidden - don't delete
+            // it's hidden - don't sound, do don't delete
             if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date()))
                 return true;
 
+            taskName = task.getName();
+
         } catch (Exception e) {
             // task could be deleted, for example
-            Log.e(Notifications.class.getSimpleName(), "Error loading task", e);
+            Log.e(Notifications.class.getSimpleName(),
+                    "Error loading task for notification", e);
             return false;
         } finally {
             controller.close();
@@ -168,21 +259,19 @@ public class Notifications extends BroadcastReceiver {
         Intent notifyIntent = new Intent(context, TaskView.class);
         notifyIntent.putExtra(TaskView.LOAD_INSTANCE_TOKEN, id);
         notifyIntent.putExtra(TaskView.FROM_NOTIFICATION_TOKEN, true);
+        notifyIntent.putExtra(TaskView.NOTIF_FLAGS_TOKEN, flags);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 0, notifyIntent, PendingIntent.FLAG_ONE_SHOT);
 
         // notification text
         String appName = r.getString(R.string.app_name);
-        String[] reminders = r.getStringArray(R.array.reminders);
-        int next = random.nextInt(reminders.length);
-        String reminder = reminders[next];
 
         Notification notification = new Notification(
                 android.R.drawable.stat_notify_chat, reminder,
                 System.currentTimeMillis());
 
         notification.setLatestEventInfo(context,
-                appName,
+                appName + ": " + taskName,
                 reminder,
                 pendingIntent);
 

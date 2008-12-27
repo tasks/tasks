@@ -157,10 +157,14 @@
         <string name="delete_this_tag_title">Remove this tag from all tasks?</string>
         
         <string name="stop_timer_title">Stop the timer?</string>
+     
+    <!-- Notification -->  
+    <skip />
         
-        <string name="alarm_toast_title">Next notification time: </string>
+        <string name="notif_definiteDueDate">Absolute Deadline Coming Up!</string>
+        <string name="notif_preferredDueDate">Goal Deadline Coming Up!</string>
         
-    <!-- Dialog Boxes -->  
+    <!-- Error MEssages -->  
     <skip />
     
         <string name="error_opening">Couldn't find this item:</string>

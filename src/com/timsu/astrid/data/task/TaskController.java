@@ -61,6 +61,28 @@ public class TaskController extends AbstractController {
         return list;
     }
 
+    /** Return a list of all active tasks with deadlines */
+    public List<TaskModelForNotify> getTasksWithDeadlines() {
+        List<TaskModelForNotify> list = new ArrayList<TaskModelForNotify>();
+        Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForNotify.FIELD_LIST,
+                String.format("%s < %d AND (%s != 0 OR %s != 0)",
+                        AbstractTaskModel.PROGRESS_PERCENTAGE,
+                        AbstractTaskModel.COMPLETE_PERCENTAGE,
+                        AbstractTaskModel.DEFINITE_DUE_DATE,
+                        AbstractTaskModel.PREFERRED_DUE_DATE), null, null, null, null, null);
+
+        if(cursor.getCount() == 0)
+            return list;
+
+        do {
+            cursor.moveToNext();
+            list.add(new TaskModelForNotify(cursor));
+        } while(!cursor.isLast());
+
+        cursor.close();
+        return list;
+    }
+
     /** Return a list of all of the tasks with progress < COMPLETE_PERCENTAGE */
     public Cursor getActiveTaskListCursor() {
         return database.query(TASK_TABLE_NAME, TaskModelForList.FIELD_LIST,
