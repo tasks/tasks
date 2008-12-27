@@ -356,15 +356,17 @@ public class TaskList extends Activity {
         item.setIcon(android.R.drawable.ic_menu_add);
         item.setAlphabeticShortcut('n');
 
-        item = menu.add(Menu.NONE, FILTERS_ID, Menu.NONE,
-                R.string.taskList_menu_filters);
-        item.setIcon(android.R.drawable.ic_menu_view);
-        item.setAlphabeticShortcut('f');
+        if(filterTag == null) {
+            item = menu.add(Menu.NONE, FILTERS_ID, Menu.NONE,
+                    R.string.taskList_menu_filters);
+            item.setIcon(android.R.drawable.ic_menu_view);
+            item.setAlphabeticShortcut('f');
 
-        item = menu.add(Menu.NONE, TAGS_ID, Menu.NONE,
-                R.string.taskList_menu_tags);
-        item.setIcon(android.R.drawable.ic_menu_myplaces);
-        item.setAlphabeticShortcut('t');
+            item = menu.add(Menu.NONE, TAGS_ID, Menu.NONE,
+                    R.string.taskList_menu_tags);
+            item.setIcon(android.R.drawable.ic_menu_myplaces);
+            item.setAlphabeticShortcut('t');
+        }
 
         /*item = menu.add(Menu.NONE, SETTINGS_ID, Menu.NONE,
                 R.string.taskList_menu_settings);
