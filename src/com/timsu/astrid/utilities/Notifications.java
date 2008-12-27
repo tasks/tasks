@@ -25,7 +25,7 @@ import com.timsu.astrid.data.task.TaskModelForNotify;
 public class Notifications extends BroadcastReceiver {
 
     private static final String ID_KEY               = "id";
-    private static final int    MIN_INTERVAL_SECONDS = 5;//300;
+    private static final int    MIN_INTERVAL_SECONDS = 300;
 
     private static final float  FUDGE_MIN            = 0.2f;
     private static final float  FUDGE_MAX            = 0.8f;
