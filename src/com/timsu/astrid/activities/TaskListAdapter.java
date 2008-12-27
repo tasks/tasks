@@ -150,7 +150,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 tagString.append(", ");
         }
         if(tagString.length() > 0) {
-            tagsView.setText(r.getString(R.string.tags_prefix) + tagString);
+            tagsView.setText(r.getString(R.string.tags_prefix) + " " +
+                    tagString);
         } else {
             tagsView.setText(r.getString(R.string.no_tags));
         }

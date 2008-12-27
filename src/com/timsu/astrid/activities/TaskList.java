@@ -368,11 +368,6 @@ public class TaskList extends Activity {
             item.setAlphabeticShortcut('t');
         }
 
-        /*item = menu.add(Menu.NONE, SETTINGS_ID, Menu.NONE,
-                R.string.taskList_menu_settings);
-        item.setIcon(android.R.drawable.ic_menu_preferences);
-        item.setAlphabeticShortcut('p');*/
-
         return true;
     }
 

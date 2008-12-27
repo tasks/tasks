@@ -64,7 +64,7 @@
     <!-- TaskList -->
     <skip />
         <string name="taskList_titlePrefix">Astrid: </string>
-        <string name="taskList_titleTagPrefix">Tasks Tagged \"%s\": </string>
+        <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
         <string name="taskList_hiddenSuffix"> hidden</string>
         <string name="taskList_dueIn">Due in</string>
         <string name="taskList_overdueBy">Overdue by</string>
