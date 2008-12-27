@@ -87,8 +87,12 @@ public class TaskList extends Activity {
     private boolean filterShowDone = false;
     private TagModelForView filterTag = null;
 
+    static boolean shouldCloseInstance = false;
+
     /** Called when loading up the activity for the first time */
     private void onLoad() {
+        shouldCloseInstance = false;
+
         controller = new TaskController(this);
         controller.open();
         tagController = new TagController(this);
@@ -235,6 +239,19 @@ public class TaskList extends Activity {
         }
 
         fillData();
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        if(hasFocus) { // stuff might have changed...
+            if(shouldCloseInstance) // user wants to quit
+                finish();
+            else
+                fillData();
+            shouldCloseInstance = false;
+        }
     }
 
     // --- list adapter

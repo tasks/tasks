@@ -16,7 +16,7 @@ import android.content.res.Resources;
 import android.util.Log;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.activities.TaskView;
+import com.timsu.astrid.activities.TaskViewNotifier;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
@@ -37,6 +37,9 @@ public class Notifications extends BroadcastReceiver {
     private static final int    TIME_IN_PAST_OFFSET     = 60;
     /** # of seconds after first deadline reminder to repeat */
     private static final int    DEADLINE_REPEAT         = 600;
+    /** Minimum number of seconds before you see a notification on something
+     * you just touched */
+    private static final int    SNOOZE_TIME             = 600;
 
     // flags
     public static final int    FLAG_DEFINITE_DEADLINE   = 1;
@@ -152,7 +155,7 @@ public class Notifications extends BroadcastReceiver {
         // snooze if the user just interacted with this item
         if(shouldSnooze) {
             long snoozeWhen = System.currentTimeMillis() +
-                DEADLINE_REPEAT * 1000;
+                SNOOZE_TIME * 1000;
             if(when < snoozeWhen)
                 when = snoozeWhen;
         } else if(when < System.currentTimeMillis())
@@ -181,6 +184,9 @@ public class Notifications extends BroadcastReceiver {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
         am.cancel(createPendingIntent(context, id, 0));
+
+        // clear current notifications too
+        clearAllNotifications(context, new TaskIdentifier(id));
     }
 
     /** Schedules a single alarm for a single task */
@@ -256,10 +262,12 @@ public class Notifications extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         Resources r = context.getResources();
 
-        Intent notifyIntent = new Intent(context, TaskView.class);
-        notifyIntent.putExtra(TaskView.LOAD_INSTANCE_TOKEN, id);
-        notifyIntent.putExtra(TaskView.FROM_NOTIFICATION_TOKEN, true);
-        notifyIntent.putExtra(TaskView.NOTIF_FLAGS_TOKEN, flags);
+        Intent notifyIntent = new Intent(context, TaskViewNotifier.class);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        notifyIntent.putExtra(TaskViewNotifier.LOAD_INSTANCE_TOKEN, id);
+        notifyIntent.putExtra(TaskViewNotifier.FROM_NOTIFICATION_TOKEN, true);
+        notifyIntent.putExtra(TaskViewNotifier.NOTIF_FLAGS_TOKEN, flags);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 0, notifyIntent, PendingIntent.FLAG_ONE_SHOT);
 

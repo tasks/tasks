@@ -251,6 +251,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         if(task.isTaskCompleted()) {
             name.setBackgroundDrawable(r.getDrawable(R.drawable.strikeout));
             name.setTextColor(r.getColor(R.color.task_list_done));
+            progress.setButtonDrawable(R.drawable.btn_check0);
         } else {
             name.setBackgroundDrawable(null);
             name.setTextColor(r.getColor(task.getTaskColorResource()));

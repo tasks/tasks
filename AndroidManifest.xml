@@ -18,6 +18,12 @@
         
         <activity android:name=".activities.TaskView"/>
         
+        <activity android:name=".activities.TaskViewNotifier"
+                android:excludeFromRecents="true"
+                android:theme="@android:style/Theme.Dialog"
+                android:launchMode="singleTask"
+                android:taskAffinity="@null" />
+        
         <activity android:name=".activities.TaskEdit"/>
         
         <activity android:name=".activities.TagList"/>
