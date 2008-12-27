@@ -19,12 +19,13 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.activities.TaskView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.data.task.TaskModelForNotify;
 
 public class Notifications extends BroadcastReceiver {
 
     private static final String ID_KEY               = "id";
-    private static final int    MIN_INTERVAL_SECONDS = 300;
+    private static final int    MIN_INTERVAL_SECONDS = 5;//300;
 
     private static final float  FUDGE_MIN            = 0.2f;
     private static final float  FUDGE_MAX            = 0.8f;
@@ -44,7 +45,12 @@ public class Notifications extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         long id = intent.getLongExtra(ID_KEY, 0);
         Log.e("ALARM", "Alarm triggered id " + id);
-        showNotification(context, id);
+        if(!showNotification(context, id)) {
+            deleteAlarm(context, id);
+            NotificationManager nm = (NotificationManager)
+                context.getSystemService(Context.NOTIFICATION_SERVICE);
+            nm.cancel((int)id);
+        }
     }
 
     // --- alarm manager stuff
@@ -52,9 +58,6 @@ public class Notifications extends BroadcastReceiver {
     private static boolean isAlarmEnabled(Notifiable task) {
         if(task.getNotificationIntervalSeconds() == null ||
                 task.getNotificationIntervalSeconds() == 0)
-            return false;
-
-        if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date()))
             return false;
 
         if(task.isTaskCompleted())
@@ -70,6 +73,8 @@ public class Notifications extends BroadcastReceiver {
 
         for(TaskModelForNotify task : tasks)
             updateAlarm(context, task);
+
+        controller.close();
     }
 
     /** Schedules the next notification for this task */
@@ -127,8 +132,34 @@ public class Notifications extends BroadcastReceiver {
         nm.cancel((int)taskId.getId());
     }
 
-    /** Schedule a new notification about the given task */
-    public static void showNotification(Context context, long id) {
+    /** Schedule a new notification about the given task. Returns false if there was
+     * some sort of error or the alarm should be disabled. */
+    public static boolean showNotification(Context context, long id) {
+
+        TaskController controller = new TaskController(context);
+        try {
+            controller.open();
+            TaskModelForList task = controller.fetchTaskForList(new TaskIdentifier(id));
+
+            // you're working on it - don't delete
+            if(task.getTimerStart() != null)
+                return true;
+
+            // you're done - delete
+            if(task.isTaskCompleted())
+                return false;
+
+            // it's hidden - don't delete
+            if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date()))
+                return true;
+
+        } catch (Exception e) {
+            // task could be deleted, for example
+            Log.e(Notifications.class.getSimpleName(), "Error loading task", e);
+            return false;
+        } finally {
+            controller.close();
+        }
 
         NotificationManager nm = (NotificationManager) context
                 .getSystemService(Context.NOTIFICATION_SERVICE);
@@ -159,6 +190,8 @@ public class Notifications extends BroadcastReceiver {
 
         Log.w("Notifications", "Logging notification: " + reminder);
         nm.notify((int)id, notification);
+
+        return true;
     }
 
 }

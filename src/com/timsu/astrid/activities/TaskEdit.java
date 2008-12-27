@@ -262,7 +262,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
                 TimeDurationType.HOURS_MINUTES);
         notification = new TimeDurationControlSet(this, R.id.notification,
                 R.string.notification_prefix, R.string.notification_dialog,
-                TimeDurationType.DAYS_HOURS);
+                TimeDurationType.HOURS_MINUTES);
         definiteDueDate = new DateControlSet(this, R.id.definiteDueDate_notnull,
                 R.id.definiteDueDate_date, R.id.definiteDueDate_time);
         preferredDueDate = new DateControlSet(this, R.id.preferredDueDate_notnull,

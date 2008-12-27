@@ -186,7 +186,23 @@ public class TaskController extends AbstractController {
         }
 
         throw new SQLException("Returned empty set!");
+    }
 
+    /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
+    public TaskModelForList fetchTaskForList(TaskIdentifier taskId) throws SQLException {
+        long id = taskId.getId();
+        Cursor cursor = database.query(true, TASK_TABLE_NAME,
+                TaskModelForView.FIELD_LIST,
+                KEY_ROWID + "=" + id, null, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            TaskModelForList model = new TaskModelForList(cursor);
+            cursor.close();
+
+            return model;
+        }
+
+        throw new SQLException("Returned empty set!");
     }
 
     // --- boilerplate
