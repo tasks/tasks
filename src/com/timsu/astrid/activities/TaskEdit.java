@@ -395,15 +395,15 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         item.setIcon(android.R.drawable.ic_menu_save);
         item.setAlphabeticShortcut('s');
 
-        if(model.getTaskIdentifier() != null) {
-            item = menu.add(Menu.NONE, DISCARD_ID, 0, R.string.discard_label);
-            item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-            item.setAlphabeticShortcut('c');
-        }
+        item = menu.add(Menu.NONE, DISCARD_ID, 0, R.string.discard_label);
+        item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        item.setAlphabeticShortcut('c');
 
-        item = menu.add(Menu.NONE, DELETE_ID, 0, R.string.delete_label);
-        item.setIcon(android.R.drawable.ic_menu_delete);
-        item.setAlphabeticShortcut('d');
+        if (model.getTaskIdentifier() != null) {
+            item = menu.add(Menu.NONE, DELETE_ID, 0, R.string.delete_label);
+            item.setIcon(android.R.drawable.ic_menu_delete);
+            item.setAlphabeticShortcut('d');
+        }
 
         return true;
     }
