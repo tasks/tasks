@@ -101,7 +101,7 @@ public class TaskList extends Activity {
         setContentView(R.layout.task_list);
 
         // if we've never been started, do this
-        if(Notifications.areAlarmsSet())
+        if(!Notifications.areAlarmsSet())
             Notifications.scheduleAllAlarms(this);
 
         shouldCloseInstance = false;
