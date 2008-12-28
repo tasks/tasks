@@ -85,12 +85,12 @@ public class Notifications extends BroadcastReceiver {
 
     private static boolean shouldDeleteAlarm(Notifiable task) {
         if(task.isTaskCompleted())
-            return false;
+            return true;
 
-        if(task.getNotificationIntervalSeconds() > 0)
-            return false;
+        if(task.getNotificationIntervalSeconds() == 0)
+            return true;
 
-        return true;
+        return false;
     }
 
     public static void scheduleAllAlarms(Context context) {
@@ -110,7 +110,7 @@ public class Notifications extends BroadcastReceiver {
         if(task.getTaskIdentifier() == null)
             return;
 
-        if(!shouldDeleteAlarm(task)) {
+        if(shouldDeleteAlarm(task)) {
             deleteAlarm(context, task.getTaskIdentifier().getId());
             return;
         }
