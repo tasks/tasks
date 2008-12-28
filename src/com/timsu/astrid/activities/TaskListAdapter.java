@@ -124,8 +124,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         // due date / completion date
         if(task.isTaskCompleted()) {
             if(task.getCompletionDate() != null) {
-                int secondsLeft = (int)(task.getCompletionDate().getTime() -
-                        System.currentTimeMillis()) / 1000;
+                int secondsLeft = (int)((task.getCompletionDate().getTime() -
+                        System.currentTimeMillis()) / 1000);
                 StringBuilder label = new StringBuilder().
                     append(r.getString(R.string.taskList_completedPrefix)).
                     append(" ").
@@ -148,17 +148,17 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 dueDate = task.getPreferredDueDate();
             }
             if(dueDate != null) {
-                int secondsLeft = (int)(dueDate.getTime() -
-                        System.currentTimeMillis()) / 1000;
+                long timeLeft = dueDate.getTime() - System.currentTimeMillis();
 
-                if(secondsLeft > 0)
+                if(timeLeft > 0)
                     dueString += r.getString(R.string.taskList_dueIn) + " ";
                 else {
                     dueString += r.getString(R.string.taskList_overdueBy) + " ";
                     dueDateView.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
                 }
 
-                dueString += DateUtilities.getDurationString(r, Math.abs(secondsLeft), 1);
+                dueString += DateUtilities.getDurationString(r,
+                        (int)Math.abs(timeLeft/1000), 1);
                 dueDateView.setText(dueString);
                 hasProperties = true;
             } else
