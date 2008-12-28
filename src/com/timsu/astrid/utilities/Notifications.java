@@ -42,11 +42,11 @@ public class Notifications extends BroadcastReceiver {
     private static final int    SNOOZE_TIME             = 600;
 
     // flags
-    public static final int    FLAG_DEFINITE_DEADLINE   = 1;
-    public static final int    FLAG_PREFERRED_DEADLINE  = 2;
+    public static final int     FLAG_DEFINITE_DEADLINE  = 1;
+    public static final int     FLAG_PREFERRED_DEADLINE = 2;
 
     private static Random       random                  = new Random();
-    private static boolean alarmsSet = false;
+    private static boolean      alarmsSet               = false;
 
     /** Something we can create a notification for */
     public interface Notifiable {
@@ -105,7 +105,6 @@ public class Notifications extends BroadcastReceiver {
 
         for(TaskModelForNotify task : tasks)
             updateAlarm(context, task, false);
-
         alarmsSet = true;
         controller.close();
     }
