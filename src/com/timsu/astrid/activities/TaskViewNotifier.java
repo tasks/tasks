@@ -29,7 +29,7 @@ public class TaskViewNotifier extends TaskView {
     private void showNotificationAlert() {
         Resources r = getResources();
 
-        // clear residual, schedule the next one
+        // clear notifications
         Notifications.clearAllNotifications(this, model.getTaskIdentifier());
         Notifications.updateAlarm(this, model, true);
 

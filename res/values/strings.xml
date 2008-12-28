@@ -74,6 +74,7 @@
         <string name="taskList_goalPrefix">Goal</string>
         <string name="taskList_completedPrefix">Finished</string>
         <string name="taskList_overdueBy">Overdue by</string>
+        <string name="taskList_hiddenPrefix">H</string>
         <string name="addtask_label">New Task</string>
         <string name="tags_prefix">Tags: </string>
         <string name="no_tags">No Tags</string>

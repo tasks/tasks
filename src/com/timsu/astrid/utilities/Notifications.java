@@ -29,12 +29,12 @@ public class Notifications extends BroadcastReceiver {
 
     // stuff for scheduling
     private static final int    MIN_INTERVAL_SECONDS    = 300;
-    private static final float  FUDGE_MIN               = 0.4f;
-    private static final float  FUDGE_MAX               = 1.1f;
+    private static final int    FUDGE_MIN_SECS          = -1200;
+    private static final int    FUDGE_MAX_SECS          = 1200;
     /** # of seconds before a deadline to notify */
     private static final int    DEADLINE_NOTIFY_SECS    = 3600;
     /** # of seconds after now, if a deadline is in the past */
-    private static final int    TIME_IN_PAST_OFFSET     = 60;
+    private static final int    TIME_IN_PAST_OFFSET     = 120;
     /** # of seconds after first deadline reminder to repeat */
     private static final int    DEADLINE_REPEAT         = 600;
     /** Minimum number of seconds before you see a notification on something
@@ -127,9 +127,9 @@ public class Notifications extends BroadcastReceiver {
             // compute, and add a fudge factor to mix things up a bit
             interval = task.getNotificationIntervalSeconds();
             int currentSeconds = (int)(System.currentTimeMillis() / 1000);
-            int flexyInterval = interval * (int)(FUDGE_MIN + random.nextFloat()
-                    * (FUDGE_MAX - FUDGE_MIN));
-            int untilNextInterval = flexyInterval - currentSeconds % flexyInterval;
+            int untilNextInterval = interval - currentSeconds % interval;
+            untilNextInterval += FUDGE_MIN_SECS + (int)(random.nextFloat()
+                    * (FUDGE_MAX_SECS - FUDGE_MIN_SECS));
             if(untilNextInterval < MIN_INTERVAL_SECONDS)
                 untilNextInterval = MIN_INTERVAL_SECONDS;
             when = System.currentTimeMillis() + untilNextInterval * 1000;

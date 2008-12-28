@@ -113,7 +113,10 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         view.setTag(task);
         progress.setTag(task);
 
-        name.setText(task.getName());
+        String nameValue = task.getName();
+        if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date()))
+            nameValue = "(" + r.getString(R.string.taskList_hiddenPrefix) + ") " + nameValue;
+        name.setText(nameValue);
         if(task.getTimerStart() != null)
             timer.setImageDrawable(r.getDrawable(R.drawable.ic_dialog_time));
         progress.setChecked(task.isTaskCompleted());
