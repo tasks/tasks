@@ -118,33 +118,49 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             timer.setImageDrawable(r.getDrawable(R.drawable.ic_dialog_time));
         progress.setChecked(task.isTaskCompleted());
 
-        // due date
-        Date dueDate = task.getDefiniteDueDate();
-        String dueString = "";
-        if(dueDate == null || (task.getPreferredDueDate() != null &&
-                task.getPreferredDueDate().before(dueDate))) {
-            // only prefix with "goal:" if the real deadline isn't overdue
-            if(task.getDefiniteDueDate() == null || task.getDefiniteDueDate().
-                    after(new Date()))
-                dueString = r.getString(R.string.taskList_goalPrefix) + " ";
-            dueDate = task.getPreferredDueDate();
-        }
-        if(dueDate != null) {
-            int secondsLeft = (int)(dueDate.getTime() -
-                    System.currentTimeMillis()) / 1000;
-
-            if(secondsLeft > 0)
-                dueString += r.getString(R.string.taskList_dueIn) + " ";
-            else {
-                dueString += r.getString(R.string.taskList_overdueBy) + " ";
-                dueDateView.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
+        // due date / completion date
+        if(task.isTaskCompleted()) {
+            if(task.getCompletionDate() != null) {
+                int secondsLeft = (int)(task.getCompletionDate().getTime() -
+                        System.currentTimeMillis()) / 1000;
+                StringBuilder label = new StringBuilder().
+                    append(r.getString(R.string.taskList_completedPrefix)).
+                    append(" ").
+                    append(DateUtilities.getDurationString(r, Math.abs(secondsLeft), 1)).
+                    append(r.getString(R.string.ago_suffix));
+                dueDateView.setText(label);
+                dueDateView.setTextColor(r.getColor(R.color.taskList_completedDate));
+                hasProperties = true;
+            } else
+                dueDateView.setVisibility(View.GONE);
+        } else {
+            Date dueDate = task.getDefiniteDueDate();
+            String dueString = "";
+            if(dueDate == null || (task.getPreferredDueDate() != null &&
+                    task.getPreferredDueDate().before(dueDate))) {
+                // only prefix with "goal:" if the real deadline isn't overdue
+                if(task.getDefiniteDueDate() == null || task.getDefiniteDueDate().
+                        after(new Date()))
+                    dueString = r.getString(R.string.taskList_goalPrefix) + " ";
+                dueDate = task.getPreferredDueDate();
             }
+            if(dueDate != null) {
+                int secondsLeft = (int)(dueDate.getTime() -
+                        System.currentTimeMillis()) / 1000;
 
-            dueString += DateUtilities.getDurationString(r, Math.abs(secondsLeft), 1);
-            dueDateView.setText(dueString);
-            hasProperties = true;
-        } else
-            dueDateView.setVisibility(View.GONE);
+                if(secondsLeft > 0)
+                    dueString += r.getString(R.string.taskList_dueIn) + " ";
+                else {
+                    dueString += r.getString(R.string.taskList_overdueBy) + " ";
+                    dueDateView.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
+                }
+
+                dueString += DateUtilities.getDurationString(r, Math.abs(secondsLeft), 1);
+                dueDateView.setText(dueString);
+                hasProperties = true;
+            } else
+                dueDateView.setVisibility(View.GONE);
+        }
 
         // tags
         List<TagIdentifier> tags = hooks.getTagController().getTaskTags(

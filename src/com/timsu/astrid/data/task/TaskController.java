@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
@@ -157,6 +158,15 @@ public class TaskController extends AbstractController {
             saveSucessful = newRow >= 0;
         } else {
             long id = task.getTaskIdentifier().getId();
+            ContentValues values = task.getSetValues();
+
+            // set completion date
+            if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
+                    values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
+                        == AbstractTaskModel.COMPLETE_PERCENTAGE) {
+                values.put(AbstractTaskModel.COMPLETION_DATE, System.currentTimeMillis());
+            }
+
             saveSucessful = database.update(TASK_TABLE_NAME, task.getSetValues(),
                     KEY_ROWID + "=" + id, null) > 0;
         }
@@ -214,7 +224,7 @@ public class TaskController extends AbstractController {
     public TaskModelForList fetchTaskForList(TaskIdentifier taskId) throws SQLException {
         long id = taskId.getId();
         Cursor cursor = database.query(true, TASK_TABLE_NAME,
-                TaskModelForView.FIELD_LIST,
+                TaskModelForList.FIELD_LIST,
                 KEY_ROWID + "=" + id, null, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();

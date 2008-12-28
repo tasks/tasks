@@ -48,6 +48,7 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.utilities.Notifications;
 
 
 /** Primary view for the Astrid Application. Lists all of the tasks in the
@@ -89,8 +90,20 @@ public class TaskList extends Activity {
 
     static boolean shouldCloseInstance = false;
 
+    /* ======================================================================
+     * ======================================================= initialization
+     * ====================================================================== */
+
+    @Override
     /** Called when loading up the activity for the first time */
-    private void onLoad() {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.task_list);
+
+        // if we've never been started, do this
+        if(Notifications.areAlarmsSet())
+            Notifications.scheduleAllAlarms(this);
+
         shouldCloseInstance = false;
 
         controller = new TaskController(this);
@@ -133,13 +146,43 @@ public class TaskList extends Activity {
         });
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+
+        MenuItem item;
+
+        item = menu.add(Menu.NONE, INSERT_ID, Menu.NONE,
+                R.string.taskList_menu_insert);
+        item.setIcon(android.R.drawable.ic_menu_add);
+        item.setAlphabeticShortcut('n');
+
+        if(filterTag == null) {
+            item = menu.add(Menu.NONE, FILTERS_ID, Menu.NONE,
+                    R.string.taskList_menu_filters);
+            item.setIcon(android.R.drawable.ic_menu_view);
+            item.setAlphabeticShortcut('f');
+
+            item = menu.add(Menu.NONE, TAGS_ID, Menu.NONE,
+                    R.string.taskList_menu_tags);
+            item.setIcon(android.R.drawable.ic_menu_myplaces);
+            item.setAlphabeticShortcut('t');
+        }
+
+        return true;
+    }
+
+    /* ======================================================================
+     * ====================================================== populating list
+     * ====================================================================== */
+
     /** Fill in the Task List with our tasks */
     private void fillData() {
         Resources r = getResources();
 
         Cursor tasksCursor;
 
-        // load tags (again)
+        // load tags (they might've changed)
         tagMap = tagController.getAllTagsAsMap(this);
         Bundle extras = getIntent().getExtras();
         if(extras != null && extras.containsKey(TAG_TOKEN)) {
@@ -229,32 +272,31 @@ public class TaskList extends Activity {
         });
     }
 
+    /* ======================================================================
+     * ======================================================= event handlers
+     * ====================================================================== */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
+        super.onActivityResult(requestCode, resultCode, intent);
 
-        if(resultCode == TaskView.RESULT_DISMISS) {
-            finish();
-            return;
-        }
-
-        fillData();
+        // we would fill the list, but it is already happening on focus change
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        if(hasFocus) { // stuff might have changed...
-            if(shouldCloseInstance) // user wants to quit
+        // refresh, since stuff might have changed...
+        if(hasFocus) {
+            if(shouldCloseInstance) { // user wants to quit
+                shouldCloseInstance = false;
                 finish();
-            else
+            } else
                 fillData();
-            shouldCloseInstance = false;
         }
     }
-
-    // --- list adapter
 
     private void createTask() {
         Intent intent = new Intent(this, TaskEdit.class);
@@ -333,42 +375,6 @@ public class TaskList extends Activity {
         }
 
         return super.onMenuItemSelected(featureId, item);
-    }
-
-    // --- creating stuff
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_list);
-
-        onLoad();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
-        MenuItem item;
-
-        item = menu.add(Menu.NONE, INSERT_ID, Menu.NONE,
-                R.string.taskList_menu_insert);
-        item.setIcon(android.R.drawable.ic_menu_add);
-        item.setAlphabeticShortcut('n');
-
-        if(filterTag == null) {
-            item = menu.add(Menu.NONE, FILTERS_ID, Menu.NONE,
-                    R.string.taskList_menu_filters);
-            item.setIcon(android.R.drawable.ic_menu_view);
-            item.setAlphabeticShortcut('f');
-
-            item = menu.add(Menu.NONE, TAGS_ID, Menu.NONE,
-                    R.string.taskList_menu_tags);
-            item.setIcon(android.R.drawable.ic_menu_myplaces);
-            item.setAlphabeticShortcut('t');
-        }
-
-        return true;
     }
 
     @Override

@@ -68,6 +68,7 @@
         <string name="taskList_hiddenSuffix"> hidden</string>
         <string name="taskList_dueIn">Due in</string>
         <string name="taskList_goalPrefix">Goal</string>
+        <string name="taskList_completedPrefix">Finished</string>
         <string name="taskList_overdueBy">Overdue by</string>
         <string name="addtask_label">New Task</string>
         <string name="tags_prefix">Tags: </string>
@@ -151,8 +152,8 @@
     <skip />
         <string name="information_title">Information</string>
         <string name="question_title">Question</string>
-        <string name="yes">Yes</string>
-        <string name="no">No</string>
+        <string name="notify_yes">Let\'s do it!</string>
+        <string name="notify_no">No, quit.</string>
         
         <string name="delete_title">Delete</string>        
         <string name="delete_this_task_title">Delete this task?</string>

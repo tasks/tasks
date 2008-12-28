@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionCode="16"
-      android:versionName="1.7.7">
+      android:versionCode="17"
+      android:versionName="1.7.8">
       
     <uses-permission android:name="android.permission.VIBRATE"/>
     
@@ -21,8 +21,7 @@
         <activity android:name=".activities.TaskViewNotifier"
                 android:excludeFromRecents="true"
                 android:theme="@android:style/Theme.Dialog"
-                android:launchMode="singleTask"
-                android:taskAffinity="@null" />
+                android:launchMode="singleTask" />
         
         <activity android:name=".activities.TaskEdit"/>
         

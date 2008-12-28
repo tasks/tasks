@@ -166,6 +166,40 @@ public abstract class AbstractTaskModel extends AbstractModel {
         setElapsedSeconds((int) (getElapsedSeconds() + secondsElapsed));
     }
 
+
+    protected void prefetchData(String[] fields) {
+        for(String field : fields) {
+            if(field.equals(NAME))
+                getName();
+            else if(field.equals(NOTES))
+                getNotes();
+            else if(field.equals(PROGRESS_PERCENTAGE))
+                getProgressPercentage();
+            else if(field.equals(IMPORTANCE))
+                getImportance();
+            else if(field.equals(ESTIMATED_SECONDS))
+                getEstimatedSeconds();
+            else if(field.equals(ELAPSED_SECONDS))
+                getElapsedSeconds();
+            else if(field.equals(TIMER_START))
+                getTimerStart();
+            else if(field.equals(DEFINITE_DUE_DATE))
+                getDefiniteDueDate();
+            else if(field.equals(PREFERRED_DUE_DATE))
+                getPreferredDueDate();
+            else if(field.equals(HIDDEN_UNTIL))
+                getHiddenUntil();
+            else if(field.equals(BLOCKING_ON))
+                getBlockingOn();
+            else if(field.equals(NOTIFICATIONS))
+                getNotificationIntervalSeconds();
+            else if(field.equals(CREATION_DATE))
+                getCreationDate();
+            else if(field.equals(COMPLETION_DATE))
+                getCompletionDate();
+        }
+    }
+
     // --- task identifier
 
     private TaskIdentifier identifier = null;
@@ -266,15 +300,15 @@ public abstract class AbstractTaskModel extends AbstractModel {
     // --- setters
 
     protected void setName(String name) {
-        setValues.put(NAME, name);
+        putIfChangedFromDatabase(NAME, name);
     }
 
     protected void setNotes(String notes) {
-        setValues.put(NOTES, notes);
+        putIfChangedFromDatabase(NOTES, notes);
     }
 
     protected void setProgressPercentage(int progressPercentage) {
-        setValues.put(PROGRESS_PERCENTAGE, progressPercentage);
+        putIfChangedFromDatabase(PROGRESS_PERCENTAGE, progressPercentage);
 
         if(getProgressPercentage() != progressPercentage &&
                 progressPercentage == COMPLETE_PERCENTAGE)
@@ -282,58 +316,58 @@ public abstract class AbstractTaskModel extends AbstractModel {
     }
 
     protected void setImportance(Importance importance) {
-        setValues.put(IMPORTANCE, importance.ordinal());
+        putIfChangedFromDatabase(IMPORTANCE, importance.ordinal());
     }
 
     protected void setEstimatedSeconds(Integer estimatedSeconds) {
-        setValues.put(ESTIMATED_SECONDS, estimatedSeconds);
+        putIfChangedFromDatabase(ESTIMATED_SECONDS, estimatedSeconds);
     }
 
     protected void setElapsedSeconds(int elapsedSeconds) {
-        setValues.put(ELAPSED_SECONDS, elapsedSeconds);
+        putIfChangedFromDatabase(ELAPSED_SECONDS, elapsedSeconds);
     }
 
     protected void setTimerStart(Date timerStart) {
-        putDate(setValues, TIMER_START, timerStart);
+        putDate(TIMER_START, timerStart);
     }
 
     protected void setDefiniteDueDate(Date definiteDueDate) {
-        putDate(setValues, DEFINITE_DUE_DATE, definiteDueDate);
+        putDate(DEFINITE_DUE_DATE, definiteDueDate);
     }
 
     protected void setPreferredDueDate(Date preferredDueDate) {
-        putDate(setValues, PREFERRED_DUE_DATE, preferredDueDate);
+        putDate(PREFERRED_DUE_DATE, preferredDueDate);
     }
 
     protected void setHiddenUntil(Date hiddenUntil) {
-        putDate(setValues, HIDDEN_UNTIL, hiddenUntil);
+        putDate(HIDDEN_UNTIL, hiddenUntil);
     }
 
     protected void setBlockingOn(TaskIdentifier blockingOn) {
         if(blockingOn == null || blockingOn.equals(getTaskIdentifier()))
-            setValues.put(BLOCKING_ON, (Integer)null);
+            putIfChangedFromDatabase(BLOCKING_ON, (Integer)null);
         else
-            setValues.put(BLOCKING_ON, blockingOn.getId());
+            putIfChangedFromDatabase(BLOCKING_ON, blockingOn.getId());
     }
 
     protected void setCreationDate(Date creationDate) {
-        putDate(setValues, CREATION_DATE, creationDate);
+        putDate(CREATION_DATE, creationDate);
     }
 
     protected void setCompletionDate(Date completionDate) {
-        putDate(setValues, COMPLETION_DATE, completionDate);
+        putDate(COMPLETION_DATE, completionDate);
     }
 
     protected void setNotificationIntervalSeconds(Integer intervalInSeconds) {
-        setValues.put(NOTIFICATIONS, intervalInSeconds);
+        putIfChangedFromDatabase(NOTIFICATIONS, intervalInSeconds);
     }
 
     // --- utility methods
 
-    static void putDate(ContentValues cv, String fieldName, Date date) {
+    protected void putDate(String fieldName, Date date) {
         if(date == null)
-            cv.put(fieldName, (Long)null);
+            putIfChangedFromDatabase(fieldName, (Long)null);
         else
-            cv.put(fieldName, date.getTime());
+            putIfChangedFromDatabase(fieldName, date.getTime());
     }
 }

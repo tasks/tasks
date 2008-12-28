@@ -39,8 +39,8 @@ public class TaskViewNotifier extends TaskView {
         .setTitle(R.string.taskView_notifyTitle)
         .setMessage(response)
         .setIcon(android.R.drawable.ic_dialog_alert)
-        .setPositiveButton(R.string.yes, null)
-        .setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+        .setPositiveButton(R.string.notify_yes, null)
+        .setNegativeButton(R.string.notify_no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 setResult(RESULT_CANCELED);

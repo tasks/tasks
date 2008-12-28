@@ -36,13 +36,13 @@ public abstract class AbstractModel {
      */
 
     /** User set values */
-    protected ContentValues setValues     = new ContentValues();
+    protected ContentValues setValues = new ContentValues();
 
     /** Cached values from database */
-    private ContentValues   values        = new ContentValues();
+    private ContentValues   values    = new ContentValues();
 
     /** Cursor into the database */
-    private Cursor          cursor        = null;
+    private Cursor          cursor    = null;
 
     // --- constructors
 
@@ -80,6 +80,56 @@ public abstract class AbstractModel {
     /** Return the database cursor */
     public Cursor getCursor() {
         return cursor;
+    }
+
+    // --- checking against cached values
+
+    protected void putIfChangedFromDatabase(String field, String newValue) {
+        if(values.containsKey(field)) {
+            String value = values.getAsString(field);
+            if(value == null) {
+                if(newValue == null)
+                    return;
+            } else if(value.equals(newValue))
+                return;
+        }
+        setValues.put(field, newValue);
+    }
+
+    protected void putIfChangedFromDatabase(String field, Long newValue) {
+        if(values.containsKey(field)) {
+            Long value = values.getAsLong(field);
+            if(value == null) {
+                if(newValue == null)
+                    return;
+            } else if(value.equals(newValue))
+                return;
+        }
+        setValues.put(field, newValue);
+    }
+
+    protected void putIfChangedFromDatabase(String field, Integer newValue) {
+        if(values.containsKey(field)) {
+            Integer value = values.getAsInteger(field);
+            if(value == null) {
+                if(newValue == null)
+                    return;
+            } else if(value.equals(newValue))
+                return;
+        }
+        setValues.put(field, newValue);
+    }
+
+    protected void putIfChangedFromDatabase(String field, Double newValue) {
+        if(values.containsKey(field)) {
+            Double value = values.getAsDouble(field);
+            if(value == null) {
+                if(newValue == null)
+                    return;
+            } else if(value.equals(newValue))
+                return;
+        }
+        setValues.put(field, newValue);
     }
 
     // --- data retrieval for the different object types

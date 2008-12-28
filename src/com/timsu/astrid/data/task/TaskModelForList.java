@@ -46,6 +46,7 @@ public class TaskModelForList extends AbstractTaskModel {
         DEFINITE_DUE_DATE,
         PREFERRED_DUE_DATE,
         PROGRESS_PERCENTAGE,
+        COMPLETION_DATE,
         HIDDEN_UNTIL,
     };
 
@@ -123,16 +124,7 @@ public class TaskModelForList extends AbstractTaskModel {
     public TaskModelForList(Cursor cursor) {
         super(cursor);
 
-        // prefetch every field - we can't lazy load with more than 1
-        getElapsedSeconds();
-        getDefiniteDueDate();
-        getEstimatedSeconds();
-        getHiddenUntil();
-        getImportance();
-        getName();
-        getPreferredDueDate();
-        getProgressPercentage();
-        getTimerStart();
+        prefetchData(FIELD_LIST);
     }
 
     // --- exposed getters and setters
@@ -194,6 +186,11 @@ public class TaskModelForList extends AbstractTaskModel {
     @Override
     public Date getTimerStart() {
         return super.getTimerStart();
+    }
+
+    @Override
+    public Date getCompletionDate() {
+        return super.getCompletionDate();
     }
 
     @Override

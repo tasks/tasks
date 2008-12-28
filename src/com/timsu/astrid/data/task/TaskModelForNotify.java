@@ -44,9 +44,8 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
 
     public TaskModelForNotify(Cursor cursor) {
         super(cursor);
-        getNotificationIntervalSeconds();
-        getHiddenUntil();
-        isTaskCompleted();
+
+        prefetchData(FIELD_LIST);
     }
 
     // --- getters and setters

@@ -46,6 +46,7 @@ public class Notifications extends BroadcastReceiver {
     public static final int    FLAG_PREFERRED_DEADLINE  = 2;
 
     private static Random       random                  = new Random();
+    private static boolean alarmsSet = false;
 
     /** Something we can create a notification for */
     public interface Notifiable {
@@ -93,6 +94,10 @@ public class Notifications extends BroadcastReceiver {
         return false;
     }
 
+    public static boolean areAlarmsSet() {
+        return alarmsSet;
+    }
+
     public static void scheduleAllAlarms(Context context) {
         TaskController controller = new TaskController(context);
         controller.open();
@@ -101,6 +106,7 @@ public class Notifications extends BroadcastReceiver {
         for(TaskModelForNotify task : tasks)
             updateAlarm(context, task, false);
 
+        alarmsSet = true;
         controller.close();
     }
 
@@ -268,8 +274,7 @@ public class Notifications extends BroadcastReceiver {
         Resources r = context.getResources();
 
         Intent notifyIntent = new Intent(context, TaskViewNotifier.class);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
         notifyIntent.putExtra(TaskViewNotifier.LOAD_INSTANCE_TOKEN, id);
         notifyIntent.putExtra(TaskViewNotifier.FROM_NOTIFICATION_TOKEN, true);
         notifyIntent.putExtra(TaskViewNotifier.NOTIF_FLAGS_TOKEN, flags);
