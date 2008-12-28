@@ -160,6 +160,9 @@ public class TaskController extends AbstractController {
             long id = task.getTaskIdentifier().getId();
             ContentValues values = task.getSetValues();
 
+            if(values.size() == 0) // nothing changed
+                return true;
+
             // set completion date
             if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
                     values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
@@ -167,7 +170,7 @@ public class TaskController extends AbstractController {
                 values.put(AbstractTaskModel.COMPLETION_DATE, System.currentTimeMillis());
             }
 
-            saveSucessful = database.update(TASK_TABLE_NAME, task.getSetValues(),
+            saveSucessful = database.update(TASK_TABLE_NAME, values,
                     KEY_ROWID + "=" + id, null) > 0;
         }
 

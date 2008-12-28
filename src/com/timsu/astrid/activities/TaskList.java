@@ -194,7 +194,6 @@ public class TaskList extends Activity {
         if(filterTag != null) {
             List<TaskIdentifier> tasks = tagController.getTaggedTasks(this,
                     filterTag.getTagIdentifier());
-
             tasksCursor = controller.getTaskListCursorById(tasks);
         } else {
             if(filterShowDone)
@@ -202,15 +201,22 @@ public class TaskList extends Activity {
             else
                 tasksCursor = controller.getActiveTaskListCursor();
         }
-
         startManagingCursor(tasksCursor);
+
         taskArray = controller.createTaskListFromCursor(tasksCursor,
                 !filterShowHidden);
         int hiddenTasks = tasksCursor.getCount() - taskArray.size();
+        int doneTasks = 0;
+        for(TaskModelForList task : taskArray)
+            if(task.isTaskCompleted())
+                doneTasks++;
+        int activeTasks = taskArray.size() - doneTasks;
 
         // hide "add" button if we have a few tasks
         if(taskArray.size() > 2)
             addButton.setVisibility(View.GONE);
+        else
+            addButton.setVisibility(View.VISIBLE);
 
         // set up the title
         StringBuilder title = new StringBuilder().
@@ -219,8 +225,13 @@ public class TaskList extends Activity {
             title.append(r.getString(R.string.taskList_titleTagPrefix,
                     filterTag.getName())).append(" ");
         }
-        title.append(r.getQuantityString(R.plurals.Ntasks,
-                taskArray.size(), taskArray.size()));
+
+        if(doneTasks > 0)
+            title.append(r.getQuantityString(R.plurals.NactiveTasks,
+                    activeTasks, activeTasks, taskArray.size()));
+        else
+            title.append(r.getQuantityString(R.plurals.Ntasks,
+                    taskArray.size(), taskArray.size()));
         if(hiddenTasks > 0)
             title.append(" (+").append(hiddenTasks).append(" ").
             append(r.getString(R.string.taskList_hiddenSuffix)).append(")");

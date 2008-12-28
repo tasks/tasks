@@ -21,11 +21,11 @@
 -->
 <resources>
     <color name="task_list_overdue">#F09EA6</color>
-    <color name="task_list_done">#ffaaaaaa</color>
+    <color name="task_list_done">#ff777777</color>
     
     <color name="taskList_dueDateOverdue">#ffFFBF9E</color>
     <color name="taskList_dueDate">#ffF0E89E</color>
-    <color name="taskList_completedDate">#ffccffaa</color>
+    <color name="taskList_completedDate">#ff888888</color>
     <color name="taskList_tags">#ff888888</color>
     
     <color name="view_header_done">#ff83ffa9</color>

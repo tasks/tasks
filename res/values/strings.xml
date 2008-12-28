@@ -37,6 +37,10 @@
             <item quantity="one">1 Task</item>
             <item quantity="other">%d Tasks</item>
         </plurals>
+        <plurals name="NactiveTasks">
+            <item quantity="one">%d / %d Active</item>
+            <item quantity="other">%d / %d Active</item>
+        </plurals>
         <plurals name="Ntags">
             <item quantity="one">1 Tag</item>
             <item quantity="other">%d Tags</item>
