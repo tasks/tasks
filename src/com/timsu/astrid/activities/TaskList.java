@@ -51,7 +51,6 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
-import com.timsu.astrid.utilities.Notifications;
 import com.timsu.astrid.utilities.StartupReceiver;
 
 
@@ -130,8 +129,6 @@ public class TaskList extends Activity {
         });
 
         fillData();
-
-        Notifications.showNotification(this, 1, 0, "haha");
     }
 
     @Override
