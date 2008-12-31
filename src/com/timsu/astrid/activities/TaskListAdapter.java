@@ -245,7 +245,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         hooks.getTaskController().saveTask(task);
 
         // if our timer is on, ask if we want to stop
-        if(task.getTimerStart() != null) {
+        if(progress == 100 && task.getTimerStart() != null) {
             new AlertDialog.Builder(activity)
             .setTitle(R.string.question_title)
             .setMessage(R.string.stop_timer_title)

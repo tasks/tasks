@@ -85,7 +85,7 @@ public abstract class AbstractModel {
     // --- checking against cached values
 
     protected void putIfChangedFromDatabase(String field, String newValue) {
-        if(values.containsKey(field)) {
+        if(!setValues.containsKey(field) && values.containsKey(field)) {
             String value = values.getAsString(field);
             if(value == null) {
                 if(newValue == null)
@@ -97,7 +97,7 @@ public abstract class AbstractModel {
     }
 
     protected void putIfChangedFromDatabase(String field, Long newValue) {
-        if(values.containsKey(field)) {
+        if(!setValues.containsKey(field) && values.containsKey(field)) {
             Long value = values.getAsLong(field);
             if(value == null) {
                 if(newValue == null)
@@ -109,7 +109,7 @@ public abstract class AbstractModel {
     }
 
     protected void putIfChangedFromDatabase(String field, Integer newValue) {
-        if(values.containsKey(field)) {
+        if(!setValues.containsKey(field) && values.containsKey(field)) {
             Integer value = values.getAsInteger(field);
             if(value == null) {
                 if(newValue == null)
@@ -121,7 +121,7 @@ public abstract class AbstractModel {
     }
 
     protected void putIfChangedFromDatabase(String field, Double newValue) {
-        if(values.containsKey(field)) {
+        if(!setValues.containsKey(field) && values.containsKey(field)) {
             Double value = values.getAsDouble(field);
             if(value == null) {
                 if(newValue == null)
