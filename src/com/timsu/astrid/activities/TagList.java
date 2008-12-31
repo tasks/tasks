@@ -69,6 +69,7 @@ public class TagList extends Activity {
     private static final int MENU_SORT_SIZE_ID     = Menu.FIRST + 1;
     private static final int CONTEXT_CREATE_ID     = Menu.FIRST + 10;
     private static final int CONTEXT_DELETE_ID     = Menu.FIRST + 11;
+    private static final int CONTEXT_SHOWHIDE_ID   = Menu.FIRST + 12;
 
     private TagController controller;
     private TaskController taskController;
@@ -116,10 +117,13 @@ public class TagList extends Activity {
         Cursor taskCursor = taskController.getActiveTaskListCursor();
         startManagingCursor(taskCursor);
         List<TaskModelForList> taskArray =
-            taskController.createTaskListFromCursor(taskCursor, true);
+            taskController.createTaskListFromCursor(taskCursor);
         taskMap = new HashMap<Long, TaskModelForList>();
-        for(TaskModelForList task : taskArray)
+        for(TaskModelForList task : taskArray) {
+            if(task.isHidden())
+                continue;
             taskMap.put(task.getTaskIdentifier().getId(), task);
+        }
 
         // get accurate task count for each tag
         tagToTaskCount = new HashMap<TagModelForView, Integer>();
@@ -195,6 +199,12 @@ public class TagList extends Activity {
                 menu.add(position, CONTEXT_DELETE_ID, Menu.NONE,
                         R.string.tagList_context_delete);
 
+                int showHideLabel = R.string.tagList_context_hideTag;
+                if(tagArray.get(position).shouldHideFromMainList())
+                    showHideLabel = R.string.tagList_context_showTag;
+                menu.add(position, CONTEXT_SHOWHIDE_ID, Menu.NONE,
+                        showHideLabel);
+
                 menu.setHeaderTitle(tagArray.get(position).getName());
             }
         });
@@ -203,7 +213,10 @@ public class TagList extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
-        fillData();
+        if(resultCode == TaskList.RESULT_CODE_CLEAR_TAG)
+            finish();
+        else
+            fillData();
     }
 
     // --- list adapter
@@ -234,12 +247,15 @@ public class TagList extends Activity {
         }
 
         public void setupView(View view, final TagModelForView tag) {
-            // set up basic properties
+            Resources r = getResources();
             view.setTag(tag);
 
             final TextView name = ((TextView)view.findViewById(android.R.id.text1));
             name.setText(new StringBuilder(tag.getName()).
                     append(" (").append(tagToTaskCount.get(tag)).append(")"));
+
+            if(tagToTaskCount.get(tag) == 0)
+                name.setTextColor(r.getColor(R.color.task_list_done));
         }
     }
 
@@ -279,7 +295,7 @@ public class TagList extends Activity {
                 sortReverse = false;
             }
             fillData();
-            break;
+            return true;
         case MENU_SORT_SIZE_ID:
             if(sortMode == SortMode.SIZE)
                 sortReverse = !sortReverse;
@@ -288,7 +304,7 @@ public class TagList extends Activity {
                 sortReverse = false;
             }
             fillData();
-            break;
+            return true;
         case CONTEXT_CREATE_ID:
             TagModelForView tag = tagArray.get(item.getGroupId());
             createTask(tag);
@@ -296,6 +312,12 @@ public class TagList extends Activity {
         case CONTEXT_DELETE_ID:
             tag = tagArray.get(item.getGroupId());
             deleteTag(tag.getTagIdentifier());
+            return true;
+        case CONTEXT_SHOWHIDE_ID:
+            tag = tagArray.get(item.getGroupId());
+            tag.toggleHideFromMainList();
+            controller.saveTag(tag);
+            fillData();
             return true;
         }
 

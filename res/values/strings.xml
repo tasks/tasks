@@ -92,6 +92,7 @@
         <string name="taskList_filter_title">Filters</string>
         <string name="taskList_filter_hidden">Hidden/Blocked Tasks</string>
         <string name="taskList_filter_done">Completed Tasks</string>
+        <string name="taskList_filter_tagged">Tagged \'%s\'</string>
 
     <!-- TaskEdit -->
     <skip />
@@ -143,12 +144,14 @@
         <string name="ago_suffix"> Ago</string>
         <string name="progress_dialog">% of Task Finished</string>
         
-        <!-- TaskList -->
+        <!-- Tag List -->
     <skip />
         <string name="tagList_titlePrefix">Astrid: Tag View: </string>
         <string name="tagList_context_create">Create Task With Tag</string>
         <string name="tagList_context_edit">Edit Tag</string>
         <string name="tagList_context_delete">Delete Tag</string>
+        <string name="tagList_context_showTag">Show on Home Page</string>
+        <string name="tagList_context_hideTag">Hide on Home Page</string>
         
         <string name="tagList_menu_sortAlpha">Sort A-Z</string>
         <string name="tagList_menu_sortSize">Sort by Size</string>
@@ -172,10 +175,16 @@
         <string name="notif_definiteDueDate">Absolute Deadline!</string>
         <string name="notif_preferredDueDate">Goal Deadline!</string>
         
-    <!-- Error MEssages -->  
+    <!-- Error Messages -->  
     <skip />
     
         <string name="error_opening">Couldn't find this item:</string>
         <string name="error_saving">Couldn't save:</string>
+    
+    <!-- Preference Keys -->  
+    <skip />
+            <string name="p_notif_quietStart">notif_qstart</string>
+            <string name="p_notif_quietEnd">notif_qend</string>
+    
     
 </resources>

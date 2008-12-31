@@ -19,6 +19,9 @@
  */
 package com.timsu.astrid.activities;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -49,6 +52,7 @@ import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.utilities.Notifications;
+import com.timsu.astrid.utilities.StartupReceiver;
 
 
 /** Primary view for the Astrid Application. Lists all of the tasks in the
@@ -62,6 +66,9 @@ public class TaskList extends Activity {
     // bundle tokens
     public static final String     TAG_TOKEN             = "tag";
 
+    // result codes
+    public static final int        RESULT_CODE_CLEAR_TAG = RESULT_FIRST_USER;
+
     // activities
     private static final int       ACTIVITY_CREATE       = 0;
     private static final int       ACTIVITY_VIEW         = 1;
@@ -72,8 +79,11 @@ public class TaskList extends Activity {
     private static final int       INSERT_ID             = Menu.FIRST;
     private static final int       FILTERS_ID            = Menu.FIRST + 1;
     private static final int       TAGS_ID               = Menu.FIRST + 2;
+    private static final int       SETTINGS_ID           = Menu.FIRST + 3;
+
     private static final int       CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
     private static final int       CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
+    private static final int       CONTEXT_FILTER_TAG    = Menu.FIRST + 22;
 
     // UI components
     private TaskController controller;
@@ -82,8 +92,9 @@ public class TaskList extends Activity {
     private Button addButton;
 
     // other instance variables
-    private List<TaskModelForList> taskArray;
     private Map<TagIdentifier, TagModelForView> tagMap;
+    private List<TaskModelForList> taskArray;
+    private Map<TaskModelForList, List<TagModelForView>> taskTags;
     private boolean filterShowHidden = false;
     private boolean filterShowDone = false;
     private TagModelForView filterTag = null;
@@ -100,10 +111,7 @@ public class TaskList extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.task_list);
 
-        // if we've never been started, do this
-        if(!Notifications.areAlarmsSet())
-            Notifications.scheduleAllAlarms(this);
-
+        StartupReceiver.onStartupApplication(this);
         shouldCloseInstance = false;
 
         controller = new TaskController(this);
@@ -123,27 +131,7 @@ public class TaskList extends Activity {
 
         fillData();
 
-        // filters context menu
-        listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-            @Override
-            public void onCreateContextMenu(ContextMenu menu, View v,
-                    ContextMenuInfo menuInfo) {
-                if(menu.hasVisibleItems())
-                    return;
-
-                MenuItem item = menu.add(Menu.NONE, CONTEXT_FILTER_HIDDEN, Menu.NONE,
-                        R.string.taskList_filter_hidden);
-                item.setCheckable(true);
-                item.setChecked(filterShowHidden);
-
-                item = menu.add(Menu.NONE, CONTEXT_FILTER_DONE, Menu.NONE,
-                        R.string.taskList_filter_done);
-                item.setCheckable(true);
-                item.setChecked(filterShowDone);
-
-                menu.setHeaderTitle(R.string.taskList_filter_title);
-            }
-        });
+        Notifications.showNotification(this, 1, 0, "haha");
     }
 
     @Override
@@ -157,17 +145,20 @@ public class TaskList extends Activity {
         item.setIcon(android.R.drawable.ic_menu_add);
         item.setAlphabeticShortcut('n');
 
-        if(filterTag == null) {
-            item = menu.add(Menu.NONE, FILTERS_ID, Menu.NONE,
-                    R.string.taskList_menu_filters);
-            item.setIcon(android.R.drawable.ic_menu_view);
-            item.setAlphabeticShortcut('f');
+        item = menu.add(Menu.NONE, FILTERS_ID, Menu.NONE,
+                R.string.taskList_menu_filters);
+        item.setIcon(android.R.drawable.ic_menu_view);
+        item.setAlphabeticShortcut('f');
 
-            item = menu.add(Menu.NONE, TAGS_ID, Menu.NONE,
-                    R.string.taskList_menu_tags);
-            item.setIcon(android.R.drawable.ic_menu_myplaces);
-            item.setAlphabeticShortcut('t');
-        }
+        item = menu.add(Menu.NONE, TAGS_ID, Menu.NONE,
+                R.string.taskList_menu_tags);
+        item.setIcon(android.R.drawable.ic_menu_myplaces);
+        item.setAlphabeticShortcut('t');
+
+        item = menu.add(Menu.NONE, SETTINGS_ID, Menu.NONE,
+                R.string.taskList_menu_settings);
+        item.setIcon(android.R.drawable.ic_menu_preferences);
+        item.setAlphabeticShortcut('p');
 
         return true;
     }
@@ -176,11 +167,23 @@ public class TaskList extends Activity {
      * ====================================================== populating list
      * ====================================================================== */
 
+    private boolean isTaskHidden(TaskModelForList task) {
+        if(task.isHidden())
+            return true;
+
+        if(filterTag == null) {
+            for(TagModelForView tags : taskTags.get(task)) {
+                if(tags.shouldHideFromMainList())
+                    return true;
+            }
+        }
+
+        return false;
+    }
+
     /** Fill in the Task List with our tasks */
     private void fillData() {
         Resources r = getResources();
-
-        Cursor tasksCursor;
 
         // load tags (they might've changed)
         tagMap = tagController.getAllTagsAsMap(this);
@@ -190,7 +193,8 @@ public class TaskList extends Activity {
             filterTag = tagMap.get(identifier);
         }
 
-        // get the array of tasks
+        // get a cursor to the task list
+        Cursor tasksCursor;
         if(filterTag != null) {
             List<TaskIdentifier> tasks = tagController.getTaggedTasks(this,
                     filterTag.getTagIdentifier());
@@ -202,18 +206,46 @@ public class TaskList extends Activity {
                 tasksCursor = controller.getActiveTaskListCursor();
         }
         startManagingCursor(tasksCursor);
+        taskArray = controller.createTaskListFromCursor(tasksCursor);
 
-        taskArray = controller.createTaskListFromCursor(tasksCursor,
-                !filterShowHidden);
-        int hiddenTasks = tasksCursor.getCount() - taskArray.size();
-        int doneTasks = 0;
-        for(TaskModelForList task : taskArray)
-            if(task.isTaskCompleted())
-                doneTasks++;
-        int activeTasks = taskArray.size() - doneTasks;
+        // read tags and apply filters
+        int hiddenTasks = 0; // # of tasks hidden
+        int completedTasks = 0; // # of tasks on list that are done
+        taskTags = new HashMap<TaskModelForList, List<TagModelForView>>();
+        for(Iterator<TaskModelForList> i = taskArray.iterator(); i.hasNext();) {
+            TaskModelForList task = i.next();
+
+            if(task.isTaskCompleted()) {
+                if(!filterShowDone) {
+                    i.remove();
+                    continue;
+                } else
+                    completedTasks++;
+            }
+
+            // get list of tags
+            List<TagIdentifier> tagIds = tagController.getTaskTags(this,
+                    task.getTaskIdentifier());
+            List<TagModelForView> tags = new LinkedList<TagModelForView>();
+            for(TagIdentifier tagId : tagIds) {
+                TagModelForView tag = tagMap.get(tagId);
+                tags.add(tag);
+            }
+            taskTags.put(task, tags);
+
+            // hide hidden
+            if(!filterShowHidden) {
+                if(isTaskHidden(task)) {
+                    hiddenTasks++;
+                    i.remove();
+                    continue;
+                }
+            }
+        }
+        int activeTasks = taskArray.size() - completedTasks;
 
         // hide "add" button if we have a few tasks
-        if(taskArray.size() > 2)
+        if(taskArray.size() > 4)
             addButton.setVisibility(View.GONE);
         else
             addButton.setVisibility(View.VISIBLE);
@@ -226,7 +258,7 @@ public class TaskList extends Activity {
                     filterTag.getName())).append(" ");
         }
 
-        if(doneTasks > 0)
+        if(completedTasks > 0)
             title.append(r.getQuantityString(R.plurals.NactiveTasks,
                     activeTasks, activeTasks, taskArray.size()));
         else
@@ -237,7 +269,11 @@ public class TaskList extends Activity {
             append(r.getString(R.string.taskList_hiddenSuffix)).append(")");
         setTitle(title);
 
-        // set up our adapter
+        setUpListUI();
+    }
+
+    private void setUpListUI() {
+     // set up our adapter
         TaskListAdapter tasks = new TaskListAdapter(this, this,
                     R.layout.task_list_row, taskArray, new TaskListAdapterHooks() {
                 @Override
@@ -246,8 +282,9 @@ public class TaskList extends Activity {
                 }
 
                 @Override
-                public Map<TagIdentifier, TagModelForView> getTagMap() {
-                    return tagMap;
+                public List<TagModelForView> getTagsFor(
+                        TaskModelForList task) {
+                    return taskTags.get(task);
                 }
 
                 @Override
@@ -279,6 +316,37 @@ public class TaskList extends Activity {
                 intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, task.
                         getTaskIdentifier().getId());
                 startActivityForResult(intent, ACTIVITY_VIEW);
+            }
+        });
+
+        // filters context menu
+        listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+            @Override
+            public void onCreateContextMenu(ContextMenu menu, View v,
+                    ContextMenuInfo menuInfo) {
+                if(menu.hasVisibleItems())
+                    return;
+                Resources r = getResources();
+
+                MenuItem item = menu.add(Menu.NONE, CONTEXT_FILTER_HIDDEN,
+                        Menu.NONE, R.string.taskList_filter_hidden);
+                item.setCheckable(true);
+                item.setChecked(filterShowHidden);
+
+                item = menu.add(Menu.NONE, CONTEXT_FILTER_DONE, Menu.NONE,
+                        R.string.taskList_filter_done);
+                item.setCheckable(true);
+                item.setChecked(filterShowDone);
+
+                if(filterTag != null) {
+                    item = menu.add(Menu.NONE, CONTEXT_FILTER_TAG, Menu.NONE,
+                            r.getString(R.string.taskList_filter_tagged,
+                                    filterTag.getName()));
+                    item.setCheckable(true);
+                    item.setChecked(true);
+                }
+
+                menu.setHeaderTitle(R.string.taskList_filter_title);
             }
         });
     }
@@ -353,6 +421,9 @@ public class TaskList extends Activity {
                 finish();
             }
             return true;
+        case SETTINGS_ID:
+            startActivity(new Intent(this, EditPreferences.class));
+            return true;
 
         case TaskListAdapter.CONTEXT_EDIT_ID:
             task = taskArray.get(item.getGroupId());
@@ -382,6 +453,10 @@ public class TaskList extends Activity {
         case CONTEXT_FILTER_DONE:
             filterShowDone = !filterShowDone;
             fillData();
+            return true;
+        case CONTEXT_FILTER_TAG:
+            setResult(RESULT_CODE_CLEAR_TAG);
+            finish();
             return true;
         }
 

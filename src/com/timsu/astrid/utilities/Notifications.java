@@ -94,10 +94,6 @@ public class Notifications extends BroadcastReceiver {
         return false;
     }
 
-    public static boolean areAlarmsSet() {
-        return alarmsSet;
-    }
-
     public static void scheduleAllAlarms(Context context) {
         TaskController controller = new TaskController(context);
         controller.open();
@@ -239,6 +235,20 @@ public class Notifications extends BroadcastReceiver {
      * some sort of error or the alarm should be disabled. */
     public static boolean showNotification(Context context, long id, int flags,
             String reminder) {
+
+        // quiet hours?
+        Integer quietHoursStart = Preferences.getQuietHourStart(context);
+        Integer quietHoursEnd = Preferences.getQuietHourEnd(context);
+        if(quietHoursStart != null && quietHoursEnd != null) {
+            int hour = new Date().getHours();
+            if(quietHoursStart < quietHoursEnd) {
+                if(hour >= quietHoursStart && hour < quietHoursEnd)
+                    return true;
+            } else { // wrap across 24/hour boundary
+                if(hour >= quietHoursStart || hour < quietHoursEnd)
+                    return true;
+            }
+        }
 
         String taskName;
         TaskController controller = new TaskController(context);

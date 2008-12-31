@@ -52,21 +52,13 @@ public class TaskModelForList extends AbstractTaskModel {
 
     /** Takes the incoming list of task models and weights it, removing hidden
      * tasks if desired. This mutates the list */
-    static List<TaskModelForList> sortAndFilterList(
-            List<TaskModelForList> list, boolean hideHidden) {
+    static List<TaskModelForList> sortTaskList(List<TaskModelForList> list) {
         final HashMap<TaskModelForList, Integer> weights = new
             HashMap<TaskModelForList, Integer>();
 
         // first, load everything
         for(Iterator<TaskModelForList> i = list.iterator(); i.hasNext(); ) {
             TaskModelForList task = i.next();
-            if(hideHidden) {
-                if(task.getHiddenUntil() != null && task.getHiddenUntil().
-                        getTime() > System.currentTimeMillis()) {
-                    i.remove();
-                    continue;
-                }
-            }
 
             weights.put(task, task.getWeight());
         }
@@ -117,7 +109,10 @@ public class TaskModelForList extends AbstractTaskModel {
         return weight;
     }
 
-
+    @Override
+    public boolean isHidden() {
+        return super.isHidden();
+    }
 
     // --- constructors
 

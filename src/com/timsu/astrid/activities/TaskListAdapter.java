@@ -20,7 +20,6 @@ package com.timsu.astrid.activities;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -43,7 +42,6 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.tag.TagController;
-import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskModelForList;
@@ -68,7 +66,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     public interface TaskListAdapterHooks {
         List<TaskModelForList> getTaskArray();
-        Map<TagIdentifier, TagModelForView> getTagMap();
+        List<TagModelForView> getTagsFor(TaskModelForList task);
         TaskController getTaskController();
         TagController getTagController();
         void performItemClick(View v, int position);
@@ -166,11 +164,10 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         }
 
         // tags
-        List<TagIdentifier> tags = hooks.getTagController().getTaskTags(
-                activity, task.getTaskIdentifier());
+        List<TagModelForView> tags = hooks.getTagsFor(task);
         StringBuilder tagString = new StringBuilder();
-        for(Iterator<TagIdentifier> i = tags.iterator(); i.hasNext(); ) {
-            TagModelForView tag = hooks.getTagMap().get(i.next());
+        for(Iterator<TagModelForView> i = tags.iterator(); i.hasNext(); ) {
+            TagModelForView tag = i.next();
             tagString.append(tag.getName());
             if(i.hasNext())
                 tagString.append(", ");

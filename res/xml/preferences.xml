@@ -1,0 +1,11 @@
+<PreferenceScreen  
+    xmlns:android="http://schemas.android.com/apk/res/android">  
+    <EditTextPreference  
+        android:key="@string/p_notif_quietStart"  
+        android:title="Quiet Hours Start"  
+        android:summary="Starting hour when Astrid should be quiet (e.g. 22)" />  
+    <EditTextPreference  
+        android:key="@string/p_notif_quietEnd"  
+        android:title="Quiet Hours End"  
+        android:summary="Ending hour when Astrid should be quiet (e.g. 08)" />  
+</PreferenceScreen>  

@@ -30,8 +30,8 @@
     <CheckBox android:id="@+id/cb1"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="5dip"/>
+        android:layout_height="fill_parent"
+        android:paddingLeft="5dip" />
         
     <ImageView android:id="@+id/image1"
         android:gravity="center_vertical"

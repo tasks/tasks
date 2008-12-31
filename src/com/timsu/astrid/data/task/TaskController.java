@@ -99,8 +99,7 @@ public class TaskController extends AbstractController {
     }
 
     /** Create a weighted list of tasks from the db cursor given */
-    public List<TaskModelForList> createTaskListFromCursor(Cursor cursor,
-            boolean hideHidden) {
+    public List<TaskModelForList> createTaskListFromCursor(Cursor cursor) {
         List<TaskModelForList> list = new ArrayList<TaskModelForList>();
 
         if(cursor.getCount() == 0)
@@ -111,7 +110,7 @@ public class TaskController extends AbstractController {
             list.add(new TaskModelForList(cursor));
         } while(!cursor.isLast());
 
-        return TaskModelForList.sortAndFilterList(list, hideHidden);
+        return TaskModelForList.sortTaskList(list);
     }
 
     /** Create a weighted list of tasks from the db cursor given */

@@ -160,6 +160,9 @@ public abstract class AbstractTaskModel extends AbstractModel {
     /** Stops the timer & increments elapsed time. Requires timerStart and
      * elapsedSeconds */
     protected void stopTimerAndUpdateElapsedTime() {
+        if(getTimerStart() == null)
+            return;
+
         long start = getTimerStart().getTime();
         setTimerStart(null);
         long secondsElapsed = (System.currentTimeMillis() - start)/1000;
@@ -276,6 +279,12 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
     protected Date getHiddenUntil() {
         return retrieveDate(HIDDEN_UNTIL);
+    }
+
+    protected boolean isHidden() {
+        if(getHiddenUntil() == null)
+            return false;
+        return getHiddenUntil().after(new Date());
     }
 
     protected Date getCreationDate() {
