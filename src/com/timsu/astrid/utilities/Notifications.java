@@ -321,9 +321,12 @@ public class Notifications extends BroadcastReceiver {
                 appName,
                 reminder + " " + taskName,
                 pendingIntent);
-        if(!quietHours) {
+        if(quietHours) {
             notification.vibrate = null;
             notification.sound = null;
+            notification.defaults = Notification.DEFAULT_LIGHTS;
+        } else {
+            notification.defaults = Notification.DEFAULT_ALL;
         }
 
         Log.w("Astrid", "Logging notification: " + reminder);

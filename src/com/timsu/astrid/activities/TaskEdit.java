@@ -547,6 +547,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     protected void onDestroy() {
         super.onDestroy();
         tagController.close();
+        alertController.close();
     }
 
     /* ======================================================================
