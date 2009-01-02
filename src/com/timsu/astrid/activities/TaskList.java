@@ -216,8 +216,7 @@ public class TaskList extends Activity {
                 if(!filterShowDone) {
                     i.remove();
                     continue;
-                } else
-                    completedTasks++;
+                }
             }
 
             // get list of tags
@@ -238,6 +237,9 @@ public class TaskList extends Activity {
                     continue;
                 }
             }
+
+            if(task.isTaskCompleted())
+                completedTasks++;
         }
         int activeTasks = taskArray.size() - completedTasks;
 
