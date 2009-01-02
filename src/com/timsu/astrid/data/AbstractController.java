@@ -39,6 +39,7 @@ abstract public class AbstractController {
     protected static final String TASK_TABLE_NAME = "tasks";
     protected static final String TAG_TABLE_NAME = "tags";
     protected static final String TAG_TASK_MAP_NAME = "tagTaskMap";
+    protected static final String ALERT_TABLE_NAME = "alerts";
 
     // cursor iterator
 

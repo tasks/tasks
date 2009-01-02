@@ -43,31 +43,38 @@ import com.timsu.astrid.data.enums.Importance;
 public abstract class AbstractTaskModel extends AbstractModel {
 
     /** Version number of this model */
-    static final int                   VERSION             = 1;
+    static final int        VERSION                = 2;
 
-    public static final int            COMPLETE_PERCENTAGE = 100;
+    public static final int COMPLETE_PERCENTAGE    = 100;
 
     // field names
 
-    static final String                NAME                = "name";
-    static final String                NOTES               = "notes";
-    static final String                PROGRESS_PERCENTAGE = "progressPercentage";
-    static final String                IMPORTANCE          = "importance";
-    static final String                ESTIMATED_SECONDS   = "estimatedSeconds";
-    static final String                ELAPSED_SECONDS     = "elapsedSeconds";
-    static final String                TIMER_START         = "timerStart";
-    static final String                DEFINITE_DUE_DATE   = "definiteDueDate";
-    static final String                PREFERRED_DUE_DATE  = "preferredDueDate";
-    static final String                HIDDEN_UNTIL        = "hiddenUntil";
+    static final String     NAME                   = "name";
+    static final String     NOTES                  = "notes";
+    static final String     PROGRESS_PERCENTAGE    = "progressPercentage";
+    static final String     IMPORTANCE             = "importance";
+    static final String     ESTIMATED_SECONDS      = "estimatedSeconds";
+    static final String     ELAPSED_SECONDS        = "elapsedSeconds";
+    static final String     TIMER_START            = "timerStart";
+    static final String     DEFINITE_DUE_DATE      = "definiteDueDate";
+    static final String     PREFERRED_DUE_DATE     = "preferredDueDate";
+    static final String     HIDDEN_UNTIL           = "hiddenUntil";
+    static final String     NOTIFICATIONS          = "notifications";
+    static final String     NOTIFICATION_FLAGS     = "notificationFlags";
+    static final String     LAST_NOTIFIED          = "lastNotified";
     // reserved fields
-    static final String                BLOCKING_ON         = "blockingOn";
-    static final String                NOTIFICATIONS       = "notifications";
+    static final String     BLOCKING_ON            = "blockingOn";
     // end reserved fields
-    static final String                CREATION_DATE       = "creationDate";
-    static final String                COMPLETION_DATE     = "completionDate";
+    static final String     CREATION_DATE          = "creationDate";
+    static final String     COMPLETION_DATE        = "completionDate";
+
+    // notification flags
+    public static final int NOTIFY_BEFORE_DEADLINE = 1;
+    public static final int NOTIFY_AT_DEADLINE     = 2;
+    public static final int NOTIFY_AFTER_DEADLINE  = 4;
 
     /** Default values container */
-    private static final ContentValues defaultValues       = new ContentValues();
+    private static final ContentValues defaultValues = new ContentValues();
 
     static {
         defaultValues.put(NAME, "");
@@ -82,6 +89,8 @@ public abstract class AbstractTaskModel extends AbstractModel {
         defaultValues.put(HIDDEN_UNTIL, (Long)null);
         defaultValues.put(BLOCKING_ON, (Long)null);
         defaultValues.put(NOTIFICATIONS, 0);
+        defaultValues.put(NOTIFICATION_FLAGS, NOTIFY_AT_DEADLINE);
+        defaultValues.put(LAST_NOTIFIED, (Long)null);
         defaultValues.put(COMPLETION_DATE, (Long)null);
     }
 
@@ -98,7 +107,6 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
         TaskModelDatabaseHelper(Context context, String databaseName, String tableName) {
             super(context, databaseName, null, VERSION);
-
             this.tableName = tableName;
         }
 
@@ -119,6 +127,8 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 append(HIDDEN_UNTIL).append(" integer,").
                 append(BLOCKING_ON).append(" integer,").
                 append(NOTIFICATIONS).append(" integer,").
+                append(NOTIFICATION_FLAGS).append(" integer,").
+                append(LAST_NOTIFIED).append(" integer,").
                 append(CREATION_DATE).append(" integer,").
                 append(COMPLETION_DATE).append(" integer").
             append(");").toString();
@@ -126,11 +136,23 @@ public abstract class AbstractTaskModel extends AbstractModel {
         }
 
         @Override
+        @SuppressWarnings("fallthrough")
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(getClass().getSimpleName(), "Upgrading database from version " +
                     oldVersion + " to " + newVersion + ".");
 
             switch(oldVersion) {
+            case 1:
+                String sql = new StringBuilder().append("ALTER TABLE ").
+                    append(tableName).append(" ADD COLUMN ").
+                    append(LAST_NOTIFIED).append(" integer").toString();
+                db.execSQL(sql);
+                sql = new StringBuilder().append("ALTER TABLE ").
+                append(tableName).append(" ADD COLUMN ").
+                append(NOTIFICATION_FLAGS).append(" integer").toString();
+                db.execSQL(sql);
+
+                break;
             default:
                 // we don't know how to handle it... do the unfortunate thing
                 Log.e(getClass().getSimpleName(), "Unsupported migration, table dropped!");
@@ -306,6 +328,14 @@ public abstract class AbstractTaskModel extends AbstractModel {
         return retrieveInteger(NOTIFICATIONS);
     }
 
+    protected int getNotificationFlags() {
+        return retrieveInteger(NOTIFICATION_FLAGS);
+    }
+
+    protected Date getLastNotificationDate() {
+        return retrieveDate(LAST_NOTIFIED);
+    }
+
     // --- setters
 
     protected void setName(String name) {
@@ -369,6 +399,14 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
     protected void setNotificationIntervalSeconds(Integer intervalInSeconds) {
         putIfChangedFromDatabase(NOTIFICATIONS, intervalInSeconds);
+    }
+
+    protected void setNotificationFlags(int flags) {
+        putIfChangedFromDatabase(NOTIFICATION_FLAGS, flags);
+    }
+
+    protected void setLastNotificationTime(Date date) {
+        putDate(LAST_NOTIFIED, date);
     }
 
     // --- utility methods

@@ -100,23 +100,39 @@
         <string name="taskEdit_titleGeneric">Astrid: Editing Task</string>
         <string name="taskEdit_titlePrefix">Astrid: Editing </string>
         
+        <string name="task_edit_tab_1">Basic</string>
+        <string name="task_edit_tab_2">Dates</string>
+        <string name="task_edit_tab_3">Alerts</string>
+        
+        <!-- labels -->
         <string name="name_label">What</string>
         <string name="name_hint">Task Description</string>
-        <string name="estimatedDuration_label">How Long Will it Take?</string>
-        <string name="elapsedDuration_label">Time Already Spent on Task</string>
         <string name="importance_label">How Important is it?</string>
         <string name="tags_label">Tags:</string>
-        <string name="notification_label">Remind Me At Least</string>
-        <string name="notification_prefix">Every</string>
+        <string name="notes_label">Notes</string>
+        <string name="notes_hint">Enter Task Notes</string>
+        
+        <string name="estimatedDuration_label">How Long Will it Take?</string>
+        <string name="elapsedDuration_label">Time Already Spent on Task</string>
         <string name="definiteDueDate_label">Absolute Deadline</string>
         <string name="preferredDueDate_label">Goal Deadline</string>
         <string name="hiddenUntil_label">Hide Until This Date</string>
         <string name="blockingOn_label">Hide Until This Task is Done</string>
-        <string name="notes_label">Notes</string>
-        <string name="notes_hint">Enter Task Notes</string>
+        
+        <string name="notification_label">Periodic Reminders</string>
+        <string name="notification_prefix">Every</string>
+        <string name="flags_label">Notify me...</string>
+        <string name="flag_before">As Deadlines Approach</string>
+        <string name="flag_during">At Deadlines</string>
+        <string name="flag_after">After Absolute Deadline Passes</string>
+        <string name="alerts_label">Fixed Reminders</string>
+        <string name="add_alert">Add New Reminder</string>
+        
+        <!-- dialog boxes -->
         <string name="hour_minutes_dialog">Time (hours : minutes)</string>
         <string name="notification_dialog">Remind Me Every</string>
         
+        <!-- buttons -->
         <string name="save_label">Save</string>
         <string name="discard_label">Discard</string>
         <string name="delete_label">Delete</string>

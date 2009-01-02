@@ -30,11 +30,8 @@ import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 public class DateControlSet implements OnTimeSetListener,
         OnDateSetListener, View.OnClickListener {
@@ -42,34 +39,27 @@ public class DateControlSet implements OnTimeSetListener,
     private static final Format dateFormatter = new SimpleDateFormat("EEE, MMM d, yyyy");
     private static final Format timeFormatter = new SimpleDateFormat("h:mm a");
 
-    private final Activity activity;
-    private CheckBox activatedCheckBox;
-    private Button dateButton;
-    private Button timeButton;
-    private Date date;
+    protected final Activity activity;
+    protected Button dateButton;
+    protected Button timeButton;
+    protected Date date;
 
-    public DateControlSet(Activity activity, int checkBoxId, int dateButtonId, int timeButtonId) {
+    protected DateControlSet(Activity activity) {
         this.activity = activity;
-        activatedCheckBox = (CheckBox)activity.findViewById(checkBoxId);
-        dateButton = (Button)activity.findViewById(dateButtonId);
-        timeButton = (Button)activity.findViewById(timeButtonId);
+    }
 
-        activatedCheckBox.setOnCheckedChangeListener(
-                new OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                    boolean isChecked) {
-                dateButton.setEnabled(isChecked);
-                timeButton.setEnabled(isChecked);
-            }
-        });
+    public DateControlSet(Activity activity, Button dateButton, Button timeButton) {
+        this.activity = activity;
+        this.dateButton = dateButton;
+        this.timeButton = timeButton;
+
         dateButton.setOnClickListener(this);
         timeButton.setOnClickListener(this);
+
+        setDate(null);
     }
 
     public Date getDate() {
-        if(!activatedCheckBox.isChecked())
-            return null;
         return date;
     }
 
@@ -81,10 +71,6 @@ public class DateControlSet implements OnTimeSetListener,
             date.setTime(date.getTime() + 24*3600*1000);
             date.setMinutes(0);
         }
-
-        activatedCheckBox.setChecked(newDate != null);
-        dateButton.setEnabled(newDate != null);
-        timeButton.setEnabled(newDate != null);
 
         updateDate();
         updateTime();

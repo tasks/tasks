@@ -19,6 +19,7 @@
  */
 package com.timsu.astrid.activities;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -50,10 +51,12 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
+import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
@@ -63,10 +66,11 @@ import com.timsu.astrid.data.task.TaskModelForEdit;
 import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.utilities.Notifications;
 import com.timsu.astrid.widget.DateControlSet;
+import com.timsu.astrid.widget.DateWithNullControlSet;
 import com.timsu.astrid.widget.TimeDurationControlSet;
 import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 
-public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
+public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     // bundle arguments
     public static final String     TAG_NAME_TOKEN       = "tag";
@@ -81,6 +85,10 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
 
     // other constants
     private static final int       MAX_TAGS        = 5;
+    private static final int       MAX_ALERTS      = 5;
+    private static final String    TAB_BASIC       = "basic";
+    private static final String    TAB_DATES       = "dates";
+    private static final String    TAB_ALERTS      = "alerts";
 
     // UI components
     private EditText               name;
@@ -91,31 +99,50 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
     private DateControlSet         definiteDueDate;
     private DateControlSet         preferredDueDate;
     private DateControlSet         hiddenUntil;
-    private BlockingOnControlSet   blockingOn;
     private EditText               notes;
     private LinearLayout           tagsContainer;
+    private NotificationFlagControlSet flags;
+    private LinearLayout           alertsContainer;
 
     // other instance variables
     private boolean                shouldSaveState = true;
     private TagController          tagController;
-    private List<TagModelForView> tags;
+    private AlertController        alertController;
+    private List<TagModelForView>  tags;
     private List<TagIdentifier>    taskTags;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         tagController = new TagController(this);
         tagController.open();
-        setContentView(R.layout.task_edit);
+        alertController = new AlertController(this);
+        alertController.open();
+
+        TabHost tabHost = getTabHost();
+        Resources r = getResources();
+
+        LayoutInflater.from(this).inflate(R.layout.task_edit,
+                tabHost.getTabContentView(), true);
+
+        tabHost.addTab(tabHost.newTabSpec(TAB_BASIC)
+                .setIndicator("Basic",
+                        r.getDrawable(R.drawable.ic_dialog_info_c))
+                .setContent(R.id.tab_basic));
+        tabHost.addTab(tabHost.newTabSpec(TAB_DATES)
+                .setIndicator("Details",
+                        r.getDrawable(R.drawable.ic_dialog_time_c))
+                .setContent(R.id.tab_dates));
+        tabHost.addTab(tabHost.newTabSpec(TAB_ALERTS)
+                .setIndicator("Alerts",
+                        r.getDrawable(R.drawable.ic_dialog_alert_c))
+                .setContent(R.id.tab_notification));
 
         setUpUIComponents();
 		setUpListeners();
-
-        Bundle extras = getIntent().getExtras();
-        if(extras != null && extras.containsKey(TAG_NAME_TOKEN)) {
-            addTag(extras.getString(TAG_NAME_TOKEN));
-        }
     }
+
     @Override
     protected TaskModelForEdit getModel(TaskIdentifier identifier) {
         if (identifier != null)
@@ -146,8 +173,8 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         definiteDueDate.setDate(model.getDefiniteDueDate());
         preferredDueDate.setDate(model.getPreferredDueDate());
         hiddenUntil.setDate(model.getHiddenUntil());
-        // blockingOn.setBlockingOn(model.getBlockingOn());
         notification.setTimeDuration(model.getNotificationIntervalSeconds());
+        flags.setValue(model.getNotificationFlags());
         notes.setText(model.getNotes());
 
         // tags
@@ -167,10 +194,24 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
                     addTag(tag.getName());
                 }
             }
-        } else
+        } else {
             taskTags = new LinkedList<TagIdentifier>();
 
+            Bundle extras = getIntent().getExtras();
+            if(extras != null && extras.containsKey(TAG_NAME_TOKEN)) {
+                addTag(extras.getString(TAG_NAME_TOKEN));
+            }
+        }
         addTag("");
+
+        // alerts
+        if(model.getTaskIdentifier() != null) {
+            List<Date> alerts = alertController.getTaskAlerts(this,
+                    model.getTaskIdentifier());
+            for(Date alert : alerts) {
+                addAlert(alert);
+            }
+        }
     }
 
     private void save() {
@@ -186,7 +227,7 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         model.setDefiniteDueDate(definiteDueDate.getDate());
         model.setPreferredDueDate(preferredDueDate.getDate());
         model.setHiddenUntil(hiddenUntil.getDate());
-        // model.setBlockingOn(blockingOn.getBlockingOn());
+        model.setNotificationFlags(flags.getValue());
         model.setNotes(notes.getText().toString());
         model.setNotificationIntervalSeconds(notification.getTimeDurationInSeconds());
 
@@ -194,12 +235,11 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
             // write out to database
             controller.saveTask(model);
             saveTags();
+            saveAlerts();
+            Notifications.updateAlarm(this, controller, alertController, model);
         } catch (Exception e) {
-            showErrorAndFinish(R.string.error_saving, e);
+            Log.e("astrid", "Error saving", e);
         }
-
-        // set up notification
-        Notifications.updateAlarm(this, model, true);
     }
 
     /** Save task tags. Must be called after task already has an ID */
@@ -240,6 +280,17 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
             tagController.addTag(model.getTaskIdentifier(), tagId);
     }
 
+    private void saveAlerts() {
+        alertController.removeAlerts(model.getTaskIdentifier());
+
+        for(int i = 0; i < alertsContainer.getChildCount(); i++) {
+            DateControlSet dateControlSet = (DateControlSet)alertsContainer.
+                getChildAt(i).getTag();
+            Date date = dateControlSet.getDate();
+            alertController.addAlert(model.getTaskIdentifier(), date);
+        }
+    }
+
     /* ======================================================================
      * ==================================================== UI initialization
      * ====================================================================== */
@@ -263,15 +314,16 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         notification = new TimeDurationControlSet(this, R.id.notification,
                 R.string.notification_prefix, R.string.notification_dialog,
                 TimeDurationType.DAYS_HOURS);
-        definiteDueDate = new DateControlSet(this, R.id.definiteDueDate_notnull,
+        definiteDueDate = new DateWithNullControlSet(this, R.id.definiteDueDate_notnull,
                 R.id.definiteDueDate_date, R.id.definiteDueDate_time);
-        preferredDueDate = new DateControlSet(this, R.id.preferredDueDate_notnull,
+        preferredDueDate = new DateWithNullControlSet(this, R.id.preferredDueDate_notnull,
                 R.id.preferredDueDate_date, R.id.preferredDueDate_time);
-        hiddenUntil = new DateControlSet(this, R.id.hiddenUntil_notnull,
+        hiddenUntil = new DateWithNullControlSet(this, R.id.hiddenUntil_notnull,
                 R.id.hiddenUntil_date, R.id.hiddenUntil_time);
         notes = (EditText)findViewById(R.id.notes);
-//        blockingOn = new BlockingOnControlSet(R.id.blockingOn_notnull,
-//                R.id.blockingon);
+        flags = new NotificationFlagControlSet(R.id.flag_before,
+                R.id.flag_during, R.id.flag_after);
+        alertsContainer = (LinearLayout)findViewById(R.id.alert_container);
 
         // individual ui component initialization
         ImportanceAdapter importanceAdapter = new ImportanceAdapter(this,
@@ -307,6 +359,40 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
                 }
             });
         }
+
+        Button addAlertButton = (Button) findViewById(R.id.addAlert);
+        addAlertButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                addAlert(null);
+            }
+        });
+
+    }
+
+    /** Adds an alert to the alert field */
+    private boolean addAlert(Date alert) {
+        if(alertsContainer.getChildCount() >= MAX_ALERTS)
+            return false;
+
+        LayoutInflater inflater = getLayoutInflater();
+        final View alertItem = inflater.inflate(R.layout.edit_alert_item, null);
+        alertsContainer.addView(alertItem);
+
+        DateControlSet dcs = new DateControlSet(this,
+                (Button)alertItem.findViewById(R.id.date),
+                (Button)alertItem.findViewById(R.id.time));
+        alertItem.setTag(dcs);
+
+        ImageButton reminderRemoveButton;
+        reminderRemoveButton = (ImageButton)alertItem.findViewById(R.id.button1);
+        reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertsContainer.removeView(alertItem);
+            }
+        });
+
+        return true;
     }
 
     /** Adds a tag to the tag field */
@@ -437,6 +523,10 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
     protected void onSaveInstanceState(Bundle outState) {
         save();
         super.onSaveInstanceState(outState);
+        Bundle extras = getIntent().getExtras();
+        if(extras != null && extras.containsKey(TAG_NAME_TOKEN))
+            outState.putString(TAG_NAME_TOKEN,
+                    extras.getString(TAG_NAME_TOKEN));
     }
 
     @Override
@@ -514,6 +604,39 @@ public class TaskEdit extends TaskModificationActivity<TaskModelForEdit> {
         }
     }
 
+    /** Control set dealing with notification flags */
+    public class NotificationFlagControlSet {
+        private CheckBox before, during, after;
+
+        public NotificationFlagControlSet(int beforeId, int duringId,
+                int afterId) {
+            before = (CheckBox)findViewById(beforeId);
+            during = (CheckBox)findViewById(duringId);
+            after = (CheckBox)findViewById(afterId);
+        }
+
+        public void setValue(int flags) {
+            before.setChecked((flags &
+                    TaskModelForEdit.NOTIFY_BEFORE_DEADLINE) > 0);
+            during.setChecked((flags &
+                    TaskModelForEdit.NOTIFY_AT_DEADLINE) > 0);
+            after.setChecked((flags &
+                    TaskModelForEdit.NOTIFY_AFTER_DEADLINE) > 0);
+        }
+
+        public int getValue() {
+            int value = 0;
+            if(before.isChecked())
+                value |= TaskModelForEdit.NOTIFY_BEFORE_DEADLINE;
+            if(during.isChecked())
+                value |= TaskModelForEdit.NOTIFY_AT_DEADLINE;
+            if(after.isChecked())
+                value |= TaskModelForEdit.NOTIFY_AFTER_DEADLINE;
+            return value;
+        }
+    }
+
+    /** Control set dealing with "blocking on" */
     public class BlockingOnControlSet  {
 
         private CheckBox activatedCheckBox;

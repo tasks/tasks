@@ -20,6 +20,7 @@
 package com.timsu.astrid.data.task;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
@@ -176,6 +177,14 @@ public class TaskController extends AbstractController {
         return saveSucessful;
     }
 
+    /** Set last notification date */
+    public boolean setLastNotificationTime(TaskIdentifier taskId, Date date) {
+        ContentValues values = new ContentValues();
+        values.put(AbstractTaskModel.LAST_NOTIFIED, date.getTime());
+        return database.update(TASK_TABLE_NAME, values,
+                KEY_ROWID + "=" + taskId.getId(), null) > 0;
+    }
+
     // --- fetching different models
 
     /**  Creates a new task and returns the task identifier */
@@ -231,6 +240,23 @@ public class TaskController extends AbstractController {
         if (cursor != null) {
             cursor.moveToFirst();
             TaskModelForList model = new TaskModelForList(cursor);
+            cursor.close();
+
+            return model;
+        }
+
+        throw new SQLException("Returned empty set!");
+    }
+
+    /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
+    public TaskModelForNotify fetchTaskForNotify(TaskIdentifier taskId) throws SQLException {
+        long id = taskId.getId();
+        Cursor cursor = database.query(true, TASK_TABLE_NAME,
+                TaskModelForNotify.FIELD_LIST,
+                KEY_ROWID + "=" + id, null, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            TaskModelForNotify model = new TaskModelForNotify(cursor);
             cursor.close();
 
             return model;

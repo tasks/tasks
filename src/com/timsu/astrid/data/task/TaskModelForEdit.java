@@ -41,6 +41,7 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
         HIDDEN_UNTIL,
         BLOCKING_ON,
         NOTIFICATIONS,
+        NOTIFICATION_FLAGS,
         PROGRESS_PERCENTAGE,
         NOTES,
     };
@@ -119,6 +120,16 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
     }
 
     @Override
+    public int getNotificationFlags() {
+        return super.getNotificationFlags();
+    }
+
+    @Override
+    public Date getLastNotificationDate() {
+        return super.getLastNotificationDate();
+    }
+
+    @Override
     public void setDefiniteDueDate(Date definiteDueDate) {
         super.setDefiniteDueDate(definiteDueDate);
     }
@@ -162,4 +173,10 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
     public void setBlockingOn(TaskIdentifier blockingOn) {
         super.setBlockingOn(blockingOn);
     }
+
+    @Override
+    public void setNotificationFlags(int flags) {
+        super.setNotificationFlags(flags);
+    }
+
 }

@@ -33,7 +33,10 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
 
     static String[] FIELD_LIST = new String[] {
         AbstractController.KEY_ROWID,
+        ESTIMATED_SECONDS,
         NOTIFICATIONS,
+        NOTIFICATION_FLAGS,
+        LAST_NOTIFIED,
         HIDDEN_UNTIL,
         PROGRESS_PERCENTAGE,
         DEFINITE_DUE_DATE,
@@ -48,7 +51,12 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
         prefetchData(FIELD_LIST);
     }
 
-    // --- getters and setters
+    // --- getters
+
+    @Override
+    public Integer getEstimatedSeconds() {
+        return super.getEstimatedSeconds();
+    }
 
     @Override
     public boolean isTaskCompleted() {
@@ -73,5 +81,22 @@ public class TaskModelForNotify extends AbstractTaskModel implements Notifiable 
     @Override
     public Date getPreferredDueDate() {
         return super.getPreferredDueDate();
+    }
+
+    @Override
+    public int getNotificationFlags() {
+        return super.getNotificationFlags();
+    }
+
+    @Override
+    public Date getLastNotificationDate() {
+        return super.getLastNotificationDate();
+    }
+
+    // --- setters
+
+    @Override
+    public void setLastNotificationTime(Date date) {
+        super.setLastNotificationTime(date);
     }
 }

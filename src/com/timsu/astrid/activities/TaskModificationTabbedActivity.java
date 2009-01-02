@@ -19,7 +19,7 @@
  */
 package com.timsu.astrid.activities;
 
-import android.app.Activity;
+import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
@@ -30,14 +30,13 @@ import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.utilities.DialogUtilities;
 
-/** Abstract activity that operates on a single task. Use the generic parameter
- * to pass in the model class you are working with.
+/** Hack hack for tabbed activity. Should provide better interaction
  *
  * @author timsu
  */
-public abstract class TaskModificationActivity<MODEL_TYPE extends
-        AbstractTaskModel> extends Activity {
-    public static final String LOAD_INSTANCE_TOKEN = "id";
+public abstract class TaskModificationTabbedActivity<MODEL_TYPE extends
+        AbstractTaskModel> extends TabActivity {
+    protected static final String LOAD_INSTANCE_TOKEN = TaskModificationActivity.LOAD_INSTANCE_TOKEN;
     protected TaskController controller;
     protected MODEL_TYPE model;
 
