@@ -136,7 +136,6 @@ public abstract class AbstractTaskModel extends AbstractModel {
         }
 
         @Override
-        @SuppressWarnings("fallthrough")
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(getClass().getSimpleName(), "Upgrading database from version " +
                     oldVersion + " to " + newVersion + ".");
@@ -222,6 +221,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 getCreationDate();
             else if(field.equals(COMPLETION_DATE))
                 getCompletionDate();
+            else if(field.equals(NOTIFICATION_FLAGS))
+                getNotificationFlags();
+            else if(field.equals(LAST_NOTIFIED))
+                getLastNotificationDate();
         }
     }
 
