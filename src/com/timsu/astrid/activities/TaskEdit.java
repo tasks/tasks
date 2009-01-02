@@ -381,6 +381,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         DateControlSet dcs = new DateControlSet(this,
                 (Button)alertItem.findViewById(R.id.date),
                 (Button)alertItem.findViewById(R.id.time));
+        dcs.setDate(alert);
         alertItem.setTag(dcs);
 
         ImageButton reminderRemoveButton;

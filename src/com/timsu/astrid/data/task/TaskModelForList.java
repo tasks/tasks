@@ -78,6 +78,13 @@ public class TaskModelForList extends AbstractTaskModel {
     private int getWeight() {
         int weight = 0;
 
+        // bubble completed tasks to the bottom
+        if(isTaskCompleted()) {
+            weight += Math.max(5e6 - (System.currentTimeMillis() -
+                    getCompletionDate().getTime()) / 1000, 5000);
+            return weight;
+        }
+
         // importance
         weight += getImportance().ordinal() * 60;
 
@@ -101,10 +108,6 @@ public class TaskModelForList extends AbstractTaskModel {
             if(hoursLeft < 5*24)
                 weight += (hoursLeft - 5*24)/2;
         }
-
-        // bubble completed tasks to the bottom
-        if(isTaskCompleted())
-            weight += 1000;
 
         return weight;
     }

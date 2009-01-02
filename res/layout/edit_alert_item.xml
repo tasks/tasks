@@ -19,19 +19,18 @@
     android:layout_height="wrap_content">
     
     <Button android:id="@+id/date"
-        android:layout_weight="0.45"
+        android:layout_weight="0.7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
     
     <Button android:id="@+id/time"
-        android:layout_weight="0.45"
+        android:layout_weight="1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
         
     <ImageButton android:id="@+id/button1"
         style="?android:attr/buttonStyleInset"
         android:src="@android:drawable/ic_delete"
-        android:layout_weight="0.1"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_marginTop="2dip"

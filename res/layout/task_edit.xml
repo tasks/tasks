@@ -133,20 +133,23 @@
 
         <LinearLayout
             android:orientation="horizontal"
+            android:paddingRight="10dip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
             
             <CheckBox android:id="@+id/definiteDueDate_notnull"
+                android:layout_marginRight="10dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             
             <Button android:id="@+id/definiteDueDate_date"
-                android:layout_weight="1"
+                android:layout_weight="0.7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             
             <Button android:id="@+id/definiteDueDate_time"
                 android:layout_weight="1"
+                android:layout_marginRight="10dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
                 
@@ -160,20 +163,23 @@
 
         <LinearLayout
             android:orientation="horizontal"
+            android:paddingRight="10dip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
             
             <CheckBox android:id="@+id/preferredDueDate_notnull"
+                android:layout_marginRight="10dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             
             <Button android:id="@+id/preferredDueDate_date"
-                android:layout_weight="1"
+                android:layout_weight="0.7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             
             <Button android:id="@+id/preferredDueDate_time"
                 android:layout_weight="1"
+                android:layout_marginRight="10dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
                 
@@ -187,21 +193,23 @@
 
         <LinearLayout
             android:orientation="horizontal"
+            android:paddingRight="10dip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content">
             
             <CheckBox android:id="@+id/hiddenUntil_notnull"
-                android:layout_weight="0.1"
+                android:layout_marginRight="10dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             
             <Button android:id="@+id/hiddenUntil_date"
-                android:layout_weight="0.45"
+                android:layout_weight="0.7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             
             <Button android:id="@+id/hiddenUntil_time"
-                android:layout_weight="0.45"
+                android:layout_weight="1"
+                android:layout_marginRight="10dip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
                 

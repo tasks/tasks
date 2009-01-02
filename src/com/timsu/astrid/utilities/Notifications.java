@@ -41,6 +41,7 @@ public class Notifications extends BroadcastReceiver {
     public static final int     FLAG_DEFINITE_DEADLINE  = 1;
     public static final int     FLAG_PREFERRED_DEADLINE = 2;
     public static final int     FLAG_OVERDUE            = 4;
+    public static final int     FLAG_FIXED              = 8;
 
     private static Random       random                  = new Random();
 
@@ -95,10 +96,11 @@ public class Notifications extends BroadcastReceiver {
         taskController.open();
         AlertController alertController = new AlertController(context);
         alertController.open();
-        List<TaskModelForNotify> tasks = taskController.getTasksWithNotifications();
 
+        List<TaskModelForNotify> tasks = taskController.getTasksWithNotifications();
         for(TaskModelForNotify task : tasks)
             updateAlarm(context, taskController, alertController, task);
+
         alertController.close();
         taskController.close();
     }
@@ -122,7 +124,7 @@ public class Notifications extends BroadcastReceiver {
             // get or make up a last notification time
             if(task.getLastNotificationDate() == null) {
                 when = System.currentTimeMillis() +
-                    (long)(interval * random.nextFloat());
+                    (long)(interval * (0.3f + 0.7f * random.nextFloat()));
                 taskController.setLastNotificationTime(task.getTaskIdentifier(),
                         new Date(when));
             } else {
@@ -159,11 +161,11 @@ public class Notifications extends BroadcastReceiver {
 
         // fixed alerts
         Cursor cursor = alertController.getTaskAlertsCursor(task.getTaskIdentifier());
-        while(!cursor.isLast()) {
+        while(cursor.getCount() > 0 && !cursor.isLast()) {
             cursor.moveToNext();
             Date alert = new Alert(cursor).getDate();
             scheduleAlarm(context, task.getTaskIdentifier().getId(),
-                    alert.getTime(), 0);
+                    alert.getTime(), FLAG_FIXED);
         }
         cursor.close();
     }
@@ -188,6 +190,7 @@ public class Notifications extends BroadcastReceiver {
             long id, int flags) {
         Intent intent = new Intent(context, Notifications.class);
         intent.setType(Long.toString(id));
+        intent.setAction(Integer.toString(flags));
         intent.putExtra(ID_KEY, id);
         intent.putExtra(FLAGS_KEY, flags);
         PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
@@ -262,12 +265,11 @@ public class Notifications extends BroadcastReceiver {
             if(task.isTaskCompleted())
                 return false;
 
-            // it's hidden - don't sound, do don't delete
+            // it's hidden - don't sound, don't delete
             if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date()))
                 return true;
 
             taskName = task.getName();
-
             controller.setLastNotificationTime(task.getTaskIdentifier(), new Date());
 
         } catch (Exception e) {
@@ -315,10 +317,10 @@ public class Notifications extends BroadcastReceiver {
                 appName,
                 reminder + " " + taskName,
                 pendingIntent);
-        if(!quietHours)
-            notification.defaults = 0;
-        else
-            notification.defaults = Notification.DEFAULT_ALL;
+        if(!quietHours) {
+            notification.vibrate = null;
+            notification.sound = null;
+        }
 
         Log.w("Notifications", "Logging notification: " + reminder);
         nm.notify((int)id, notification);
