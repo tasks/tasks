@@ -217,7 +217,7 @@ public class Notifications extends BroadcastReceiver {
             int flags) {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-        Log.e("ALARM", "Alarm set for " + new Date(when));
+        Log.e("Astrid", "Alarm set for " + new Date(when));
         am.set(AlarmManager.RTC_WAKEUP, when, createPendingIntent(context, id, flags));
     }
 
@@ -229,7 +229,7 @@ public class Notifications extends BroadcastReceiver {
 
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-        Log.e("ALARM", "Alarm set for " + new Date(when) + " every " + interval/1000 + " s");
+        Log.e("Astrid", "Alarm set for " + new Date(when) + " every " + interval/1000 + " s");
         am.setRepeating(AlarmManager.RTC_WAKEUP, when, interval,
                 createPendingIntent(context, id, flags));
     }
@@ -326,7 +326,7 @@ public class Notifications extends BroadcastReceiver {
             notification.sound = null;
         }
 
-        Log.w("Notifications", "Logging notification: " + reminder);
+        Log.w("Astrid", "Logging notification: " + reminder);
         nm.notify((int)id, notification);
 
         return true;
