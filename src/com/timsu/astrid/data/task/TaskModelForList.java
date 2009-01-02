@@ -92,6 +92,7 @@ public class TaskModelForList extends AbstractTaskModel {
                     System.currentTimeMillis())/1000/3600;
             if(hoursLeft < 5*24)
                 weight += (hoursLeft - 5*24);
+            weight -= 20;
         }
 
         // looming preferred deadline
@@ -100,15 +101,16 @@ public class TaskModelForList extends AbstractTaskModel {
                     System.currentTimeMillis())/1000/3600;
             if(hoursLeft < 5*24)
                 weight += (hoursLeft - 5*24)/2;
+            weight -= 10;
         }
 
         // bubble completed tasks to the bottom
         if(isTaskCompleted()) {
             if(getCompletionDate() == null)
-                weight += 5e6;
+                weight += 20000;
             else
-                weight = (int)Math.max(5e6 - (System.currentTimeMillis() -
-                    getCompletionDate().getTime()) / 1000, 5000);
+                weight = (int)Math.max(10000 + (System.currentTimeMillis() -
+                    getCompletionDate().getTime()) / 1000, 10000);
             return weight;
         }
 
