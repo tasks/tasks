@@ -161,9 +161,13 @@ public class Notifications extends BroadcastReceiver {
 
         // fixed alerts
         Cursor cursor = alertController.getTaskAlertsCursor(task.getTaskIdentifier());
+        Date currentDate = new Date();
         while(cursor.getCount() > 0 && !cursor.isLast()) {
             cursor.moveToNext();
             Date alert = new Alert(cursor).getDate();
+            if(alert.before(currentDate))
+                continue;
+
             scheduleAlarm(context, task.getTaskIdentifier().getId(),
                     alert.getTime(), FLAG_FIXED);
         }
