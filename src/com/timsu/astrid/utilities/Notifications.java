@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.net.Uri;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -317,18 +318,25 @@ public class Notifications extends BroadcastReceiver {
         // create notification object
         String appName = r.getString(R.string.app_name);
         Notification notification = new Notification(
-                android.R.drawable.stat_notify_chat, reminder,
+                R.drawable.notification_icon, reminder,
                 System.currentTimeMillis());
         notification.setLatestEventInfo(context,
                 appName,
                 reminder + " " + taskName,
                 pendingIntent);
+        notification.defaults = Notification.DEFAULT_LIGHTS;
         if(quietHours) {
             notification.vibrate = null;
             notification.sound = null;
-            notification.defaults = Notification.DEFAULT_LIGHTS;
         } else {
-            notification.defaults = Notification.DEFAULT_ALL;
+            notification.defaults |= Notification.DEFAULT_VIBRATE;
+            Uri notificationSound = Preferences.getNotificationRingtone(context);
+            if(notificationSound != null &&
+                    !notificationSound.toString().equals("")) {
+                notification.sound = notificationSound;
+            } else {
+                notification.defaults |= Notification.DEFAULT_SOUND;
+            }
         }
 
         Log.w("Astrid", "Logging notification: " + reminder);

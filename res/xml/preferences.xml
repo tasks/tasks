@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen  
     xmlns:android="http://schemas.android.com/apk/res/android">  
     <EditTextPreference  
@@ -8,4 +9,12 @@
         android:key="@string/p_notif_quietEnd"  
         android:title="Quiet Hours End"  
         android:summary="Ending hour when Astrid should be quiet (e.g. 08)" />  
+    <RingtonePreference  
+        android:key="@string/key_notification_ringtone"  
+        android:title="@string/prefs_notification_title"  
+        android:summary="@string/prefs_notification_desc"
+        android:ringtoneType="notification" 
+		android:showDefault="true"
+		android:showSilent="true"
+         />
 </PreferenceScreen>  

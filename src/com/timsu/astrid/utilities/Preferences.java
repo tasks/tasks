@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 
 import com.timsu.astrid.R;
@@ -50,5 +51,17 @@ public class Preferences {
         } catch (Exception e) {
             return null;
         }
+    }
+    
+    public static Uri getNotificationRingtone(Context context) {
+    	Resources r = context.getResources();
+        String value = getPrefs(context).getString(r.getString(
+                R.string.key_notification_ringtone), "");
+
+        try {
+			return Uri.parse(value);
+		} catch (RuntimeException e) {
+			return null;
+		}
     }
 }

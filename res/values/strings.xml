@@ -201,6 +201,9 @@
     <skip />
             <string name="p_notif_quietStart">notif_qstart</string>
             <string name="p_notif_quietEnd">notif_qend</string>
+            <string name="key_notification_ringtone">notification_ringtone</string>
     
     
+<string name="prefs_notification_title">Notification Ringtone</string>
+<string name="prefs_notification_desc">Choose how Astrid alerts you!</string>
 </resources>
