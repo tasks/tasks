@@ -107,7 +107,7 @@ public class TaskModelForList extends AbstractTaskModel {
         // bubble completed tasks to the bottom
         if(isTaskCompleted()) {
             if(getCompletionDate() == null)
-                weight += 20000;
+                weight += 1e6;
             else
                 weight = (int)Math.max(10000 + (System.currentTimeMillis() -
                     getCompletionDate().getTime()) / 1000, 10000);

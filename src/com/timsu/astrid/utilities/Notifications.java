@@ -42,6 +42,7 @@ public class Notifications extends BroadcastReceiver {
     public static final int     FLAG_PREFERRED_DEADLINE = 2;
     public static final int     FLAG_OVERDUE            = 4;
     public static final int     FLAG_FIXED              = 8;
+    // higher bits are for different alerts
 
     private static Random       random                  = new Random();
 
@@ -154,7 +155,7 @@ public class Notifications extends BroadcastReceiver {
                     0, FLAG_PREFERRED_DEADLINE | FLAG_OVERDUE, task);
         }
         if((task.getNotificationFlags() & TaskModelForList.NOTIFY_AFTER_DEADLINE) > 0) {
-            scheduleDeadline(context, task.getDefiniteDueDate(), DEADLINE_REPEAT,
+            scheduleDeadline(context, task.getDefiniteDueDate(), 0,
                     DEADLINE_REPEAT, FLAG_DEFINITE_DEADLINE | FLAG_OVERDUE,
                     task);
         }
@@ -162,6 +163,7 @@ public class Notifications extends BroadcastReceiver {
         // fixed alerts
         Cursor cursor = alertController.getTaskAlertsCursor(task.getTaskIdentifier());
         Date currentDate = new Date();
+        int alertId = 0;
         while(cursor.getCount() > 0 && !cursor.isLast()) {
             cursor.moveToNext();
             Date alert = new Alert(cursor).getDate();
@@ -169,7 +171,7 @@ public class Notifications extends BroadcastReceiver {
                 continue;
 
             scheduleAlarm(context, task.getTaskIdentifier().getId(),
-                    alert.getTime(), FLAG_FIXED);
+                    alert.getTime(), FLAG_FIXED | (alertId++ << 4));
         }
         cursor.close();
     }
