@@ -32,18 +32,22 @@ public class Notifications extends BroadcastReceiver {
     private static final String FLAGS_KEY               = "flags";
 
     // stuff for scheduling
-
-    /** min # of seconds before a deadline to notify */
-    private static final int    DEADLINE_NOTIFY_SECS    = 3600;
-    /** # of seconds after deadline to repeat */
-    private static final int    DEADLINE_REPEAT         = 300;
+    /** minimum # of seconds before a deadline to notify */
+    private static final int    DEADLINE_NOTIFY_SECS    = 60 * 60;
+    /** # of seconds after deadline to repeat reminder*/
+    private static final int    DEADLINE_REPEAT         = 10 * 60;
+    /** # of seconds to snooze */
+    private static final int    SNOOZE_SECONDS          = 10 * 60;
 
     // flags
-    public static final int     FLAG_DEFINITE_DEADLINE  = 1;
-    public static final int     FLAG_PREFERRED_DEADLINE = 2;
-    public static final int     FLAG_OVERDUE            = 4;
-    public static final int     FLAG_FIXED              = 8;
-    // higher bits are for different alerts
+    public static final int     FLAG_DEFINITE_DEADLINE  = 1 << 0;
+    public static final int     FLAG_PREFERRED_DEADLINE = 1 << 1;
+    public static final int     FLAG_OVERDUE            = 1 << 2;
+    public static final int     FLAG_PERIODIC           = 1 << 3;
+    public static final int     FLAG_FIXED              = 1 << 4;
+    public static final int     FLAG_SNOOZE             = 1 << 5;
+    /** # of bits to shift the fixed alert ID */
+    public static final int     FIXED_ID_SHIFT          = 6;
 
     private static Random       random                  = new Random();
 
@@ -136,7 +140,7 @@ public class Notifications extends BroadcastReceiver {
             if(when < System.currentTimeMillis())
                 when += ((System.currentTimeMillis() - when)/interval + 1) * interval;
             scheduleRepeatingAlarm(context, task.getTaskIdentifier().getId(),
-                    when, 0, interval);
+                    when, FLAG_PERIODIC, interval);
         }
 
         // before, during, and after deadlines
@@ -172,11 +176,20 @@ public class Notifications extends BroadcastReceiver {
                 continue;
 
             scheduleAlarm(context, task.getTaskIdentifier().getId(),
-                    alert.getTime(), FLAG_FIXED | (alertId++ << 4));
+                    alert.getTime(), FLAG_FIXED | (alertId++ << FIXED_ID_SHIFT));
         }
         cursor.close();
     }
 
+    /** Schedule an alert around a deadline
+     *
+     * @param context
+     * @param deadline The deadline date. If null, does nothing.
+     * @param offsetSeconds Offset from deadline to schedule
+     * @param intervalSeconds How often to repeat, or zero
+     * @param flags Flags for the alarm
+     * @param task
+     */
     private static void scheduleDeadline(Context context, Date deadline, int
             offsetSeconds, int intervalSeconds, int flags, Notifiable task) {
         if(deadline == null)
@@ -193,6 +206,13 @@ public class Notifications extends BroadcastReceiver {
                     when, flags, intervalSeconds * 1000);
     }
 
+    /** Create a 'snooze' reminder for this task */
+    public static void createSnoozeAlarm(Context context, TaskIdentifier id) {
+        scheduleAlarm(context, id.getId(), System.currentTimeMillis() +
+                SNOOZE_SECONDS * 1000, FLAG_SNOOZE);
+    }
+
+    /** Helper method to create a PendingIntent from an ID & flags */
     private static PendingIntent createPendingIntent(Context context,
             long id, int flags) {
         Intent intent = new Intent(context, Notifications.class);
@@ -277,10 +297,12 @@ public class Notifications extends BroadcastReceiver {
                 return true;
 
             taskName = task.getName();
-            controller.setLastNotificationTime(task.getTaskIdentifier(), new Date());
+            if((flags & FLAG_PERIODIC) > 0)
+                controller.setLastNotificationTime(task.getTaskIdentifier(),
+                        new Date());
 
         } catch (Exception e) {
-            // task could be deleted, for example
+            // task might have been deleted
             Log.e(Notifications.class.getSimpleName(),
                     "Error loading task for notification", e);
             return false;

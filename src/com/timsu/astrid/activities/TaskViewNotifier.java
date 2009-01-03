@@ -38,7 +38,11 @@ public class TaskViewNotifier extends TaskView {
         .setTitle(R.string.taskView_notifyTitle)
         .setMessage(response)
         .setIcon(android.R.drawable.ic_dialog_alert)
+
+        // yes, i will do it: just closes this box
         .setPositiveButton(R.string.notify_yes, null)
+
+        // no, i will ignore: quits application
         .setNegativeButton(R.string.notify_no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -47,6 +51,20 @@ public class TaskViewNotifier extends TaskView {
                 finish();
             }
         })
+
+        // snooze: sets a new temporary alert, closes application
+        .setNeutralButton(R.string.notify_snooze, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Notifications.createSnoozeAlarm(TaskViewNotifier.this,
+                        model.getTaskIdentifier());
+
+                setResult(RESULT_CANCELED);
+                TaskList.shouldCloseInstance = true;
+                finish();
+            }
+        })
+
         .show();
     }
 }

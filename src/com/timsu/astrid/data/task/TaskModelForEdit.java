@@ -42,6 +42,7 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
         BLOCKING_ON,
         NOTIFICATIONS,
         NOTIFICATION_FLAGS,
+        LAST_NOTIFIED,
         PROGRESS_PERCENTAGE,
         NOTES,
     };

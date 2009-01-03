@@ -176,7 +176,8 @@
     <skip />
         <string name="information_title">Information</string>
         <string name="question_title">Question</string>
-        <string name="notify_yes">Let\'s do it!</string>
+        <string name="notify_yes">Let's do it!</string>
+        <string name="notify_snooze">Snooze!</string>
         <string name="notify_no">No, quit.</string>
         
         <string name="delete_title">Delete</string>        
@@ -203,7 +204,6 @@
             <string name="p_notif_quietEnd">notif_qend</string>
             <string name="key_notification_ringtone">notification_ringtone</string>
     
-    
-<string name="prefs_notification_title">Notification Ringtone</string>
-<string name="prefs_notification_desc">Choose how Astrid alerts you!</string>
+        <string name="prefs_notification_title">Notification Ringtone</string>
+        <string name="prefs_notification_desc">Choose how Astrid alerts you!</string>
 </resources>

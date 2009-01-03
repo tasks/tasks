@@ -139,17 +139,27 @@ public abstract class AbstractTaskModel extends AbstractModel {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(getClass().getSimpleName(), "Upgrading database from version " +
                     oldVersion + " to " + newVersion + ".");
+            String sql;
 
             switch(oldVersion) {
             case 1:
-                String sql = new StringBuilder().append("ALTER TABLE ").
+                // for some reason, these don't always go well
+                sql = new StringBuilder().append("ALTER TABLE ").
                     append(tableName).append(" ADD COLUMN ").
                     append(LAST_NOTIFIED).append(" integer").toString();
-                db.execSQL(sql);
+                try {
+                    db.execSQL(sql);
+                } catch (Exception e) {
+                    Log.e("astrid", "Error updating table!", e);
+                }
                 sql = new StringBuilder().append("ALTER TABLE ").
-                append(tableName).append(" ADD COLUMN ").
-                append(NOTIFICATION_FLAGS).append(" integer").toString();
-                db.execSQL(sql);
+                    append(tableName).append(" ADD COLUMN ").
+                    append(NOTIFICATION_FLAGS).append(" integer").toString();
+                try {
+                    db.execSQL(sql);
+                } catch (Exception e) {
+                    Log.e("astrid", "Error updating table!", e);
+                }
 
                 break;
             default:
