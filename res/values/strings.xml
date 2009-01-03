@@ -200,10 +200,17 @@
     
     <!-- Preference Keys -->  
     <skip />
-            <string name="p_notif_quietStart">notif_qstart</string>
-            <string name="p_notif_quietEnd">notif_qend</string>
-            <string name="key_notification_ringtone">notification_ringtone</string>
+        <string name="p_notif_quietStart">notif_qstart</string>
+        <string name="p_notif_quietEnd">notif_qend</string>
+        <string name="p_notif_annoy">notif_annoy</string>
+        <string name="key_notification_ringtone">notification_ringtone</string>
     
+        <string name="prefs_quietStart_title">Quiet Hours Start</string>
+        <string name="prefs_quietStart_desc">Starting hour when Astrid should be quiet (e.g. 22)</string>
+        <string name="prefs_quietEnd_title">Quiet Hours End</string>
+        <string name="prefs_quietEnd_desc">Ending hour when Astrid should be quiet (e.g. 08)</string>  
+        <string name="prefs_annoy_title">Persistence Mode</string>
+        <string name="prefs_annoy_desc">If checked, Astrid will try harder to get your attention.</string>
         <string name="prefs_notification_title">Notification Ringtone</string>
         <string name="prefs_notification_desc">Choose how Astrid alerts you!</string>
 </resources>

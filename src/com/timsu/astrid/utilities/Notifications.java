@@ -293,7 +293,9 @@ public class Notifications extends BroadcastReceiver {
                 return false;
 
             // it's hidden - don't sound, don't delete
-            if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date()))
+            if(task.getHiddenUntil() != null &&
+                    task.getHiddenUntil().after(new Date()) &&
+                    (flags & FLAG_PERIODIC) > 0)
                 return true;
 
             taskName = task.getName();
@@ -310,11 +312,12 @@ public class Notifications extends BroadcastReceiver {
             controller.close();
         }
 
-        // quiet hours?
+        // quiet hours? only for periodic reminders
         boolean quietHours = false;
         Integer quietHoursStart = Preferences.getQuietHourStart(context);
         Integer quietHoursEnd = Preferences.getQuietHourEnd(context);
-        if(quietHoursStart != null && quietHoursEnd != null) {
+        if(quietHoursStart != null && quietHoursEnd != null &&
+                (flags & FLAG_PERIODIC) > 0) {
             int hour = new Date().getHours();
             if(quietHoursStart < quietHoursEnd) {
                 if(hour >= quietHoursStart && hour < quietHoursEnd)
@@ -346,6 +349,8 @@ public class Notifications extends BroadcastReceiver {
                 appName,
                 reminder + " " + taskName,
                 pendingIntent);
+        if(Preferences.isPersistenceMode(context))
+            notification.flags |= Notification.FLAG_NO_CLEAR;
         notification.defaults = Notification.DEFAULT_LIGHTS;
         if(quietHours) {
             notification.vibrate = null;

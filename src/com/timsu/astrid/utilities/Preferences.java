@@ -11,10 +11,25 @@ import com.timsu.astrid.R;
 
 public class Preferences {
 
-    private static String CURRENT_VERSION = "cv";
+    private static final String CURRENT_VERSION = "cv";
+    private static final boolean DEFAULT_PERSISTENCE_MODE = true;
 
     private static SharedPreferences getPrefs(Context context) {
         return  PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    /** Set preference defaults, if unset. called at startup */
+    public static void setPreferenceDefaults(Context context) {
+        SharedPreferences prefs = getPrefs(context);
+        Resources r = context.getResources();
+        Editor editor = prefs.edit();
+
+        if(!prefs.contains(r.getString(R.string.p_notif_annoy))) {
+            editor.putBoolean(r.getString(R.string.p_notif_annoy),
+                    DEFAULT_PERSISTENCE_MODE);
+        }
+
+        editor.commit();
     }
 
     public static int getCurrentVersion(Context context) {
@@ -52,7 +67,8 @@ public class Preferences {
             return null;
         }
     }
-    
+
+    /** Get notification ringtone, or null if not set */
     public static Uri getNotificationRingtone(Context context) {
     	Resources r = context.getResources();
         String value = getPrefs(context).getString(r.getString(
@@ -63,5 +79,12 @@ public class Preferences {
 		} catch (RuntimeException e) {
 			return null;
 		}
+    }
+
+    /** Get perstence mode setting */
+    public static boolean isPersistenceMode(Context context) {
+        Resources r = context.getResources();
+        return getPrefs(context).getBoolean(r.getString(
+                R.string.p_notif_annoy), DEFAULT_PERSISTENCE_MODE);
     }
 }

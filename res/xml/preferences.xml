@@ -3,12 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android">  
     <EditTextPreference  
         android:key="@string/p_notif_quietStart"  
-        android:title="Quiet Hours Start"  
-        android:summary="Starting hour when Astrid should be quiet (e.g. 22)" />  
+        android:title="@string/prefs_quietStart_title"  
+        android:summary="@string/prefs_quietStart_desc" />  
     <EditTextPreference  
         android:key="@string/p_notif_quietEnd"  
-        android:title="Quiet Hours End"  
-        android:summary="Ending hour when Astrid should be quiet (e.g. 08)" />  
+        android:title="@string/prefs_quietEnd_title"  
+        android:summary="@string/prefs_quietEnd_desc" />  
+    <CheckBoxPreference  
+        android:key="@string/p_notif_annoy"  
+        android:title="@string/prefs_annoy_title"  
+        android:summary="@string/prefs_annoy_desc" />  
     <RingtonePreference  
         android:key="@string/key_notification_ringtone"  
         android:title="@string/prefs_notification_title"  

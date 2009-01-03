@@ -20,7 +20,7 @@
  
 -->
 <resources>
-    <color name="task_list_overdue">#F09EA6</color>
+    <color name="task_list_overdue">#FF340A</color>
     <color name="task_list_done">#ff777777</color>
     
     <color name="taskList_dueDateOverdue">#ffFFBF9E</color>
@@ -32,9 +32,9 @@
     <color name="view_table_values">#ffbbbbbb</color>    
     <color name="view_table_overdue">#ffff0000</color>
     
-    <color name="importance_1">#ffcff09e</color>
-    <color name="importance_2">#ffa8dba8</color>
-    <color name="importance_3">#ff79bd9a</color>
-    <color name="importance_4">#ff439898</color>    
+    <color name="importance_1">#fffff75c</color>
+    <color name="importance_2">#ffa1b4ff</color>
+    <color name="importance_3">#ff5274ff</color>
+    <color name="importance_4">#ff0033ff</color>    
 </resources>
 

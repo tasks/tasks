@@ -39,6 +39,8 @@ public class StartupReceiver extends BroadcastReceiver {
             Preferences.setCurrentVersion(context, version);
         }
 
+        Preferences.setPreferenceDefaults(context);
+
         hasStartedUp = true;
     }
 }
