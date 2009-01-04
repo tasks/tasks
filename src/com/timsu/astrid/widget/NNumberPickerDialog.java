@@ -82,8 +82,8 @@ public class NNumberPickerDialog extends AlertDialog implements OnClickListener 
             NumberPicker np = new NumberPicker(context, null);
             np.setIncrementBy(incrementBy[i]);
             np.setLayoutParams(npLayout);
-            np.setCurrent(initialValue[i]);
             np.setRange(start[i], end[i]);
+            np.setCurrent(initialValue[i]);
 
             container.addView(np);
             pickers.add(np);
