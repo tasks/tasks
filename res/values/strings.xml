@@ -179,12 +179,14 @@
         <string name="notify_yes">Let's do it!</string>
         <string name="notify_snooze">Snooze!</string>
         <string name="notify_no">No, quit.</string>
+        <string name="notify_snooze_title">Minutes to snooze?</string>
         
         <string name="delete_title">Delete</string>        
         <string name="delete_this_task_title">Delete this task?</string>
         <string name="delete_this_tag_title">Remove this tag from all tasks?</string>
         
         <string name="stop_timer_title">Stop the timer?</string>
+
      
     <!-- Notification -->  
     <skip />

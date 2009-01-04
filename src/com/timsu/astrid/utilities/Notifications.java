@@ -36,8 +36,6 @@ public class Notifications extends BroadcastReceiver {
     private static final int    DEADLINE_NOTIFY_SECS    = 60 * 60;
     /** # of seconds after deadline to repeat reminder*/
     private static final int    DEADLINE_REPEAT         = 10 * 60;
-    /** # of seconds to snooze */
-    private static final int    SNOOZE_SECONDS          = 10 * 60;
 
     // flags
     public static final int     FLAG_DEFINITE_DEADLINE  = 1 << 0;
@@ -207,9 +205,10 @@ public class Notifications extends BroadcastReceiver {
     }
 
     /** Create a 'snooze' reminder for this task */
-    public static void createSnoozeAlarm(Context context, TaskIdentifier id) {
+    public static void createSnoozeAlarm(Context context, TaskIdentifier id,
+            int secondsToSnooze) {
         scheduleAlarm(context, id.getId(), System.currentTimeMillis() +
-                SNOOZE_SECONDS * 1000, FLAG_SNOOZE);
+                secondsToSnooze * 1000, FLAG_SNOOZE);
     }
 
     /** Helper method to create a PendingIntent from an ID & flags */

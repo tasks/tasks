@@ -37,6 +37,7 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForView;
+import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DateUtilities;
 import com.timsu.astrid.widget.NumberPicker;
 import com.timsu.astrid.widget.NumberPickerDialog;
@@ -55,9 +56,6 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
     // menu codes
     private static final int   EDIT_ID                 = Menu.FIRST;
     private static final int   DELETE_ID               = Menu.FIRST + 1;
-
-    // activity results
-    public static final int    RESULT_DISMISS          = RESULT_FIRST_USER + 20;
 
     // UI components
     private TextView           name;
@@ -232,14 +230,25 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
      * ====================================================================== */
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        if(hasFocus && TaskList.shouldCloseInstance) { // user wants to quit
+            finish();
+        }
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode,
             Intent intent) {
-
-        // if user doesn't click 'back', finish this activity too
-        if(resultCode != RESULT_CANCELED) {
+        switch(resultCode) {
+        case Constants.RESULT_GO_HOME:
+        case RESULT_CANCELED:
             setResult(resultCode);
             finish();
-        } else {
+            break;
+
+        default:
             populateFields();
         }
     }

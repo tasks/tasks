@@ -51,6 +51,7 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.StartupReceiver;
 
 
@@ -64,9 +65,6 @@ public class TaskList extends Activity {
 
     // bundle tokens
     public static final String     TAG_TOKEN             = "tag";
-
-    // result codes
-    public static final int        RESULT_CODE_CLEAR_TAG = RESULT_FIRST_USER;
 
     // activities
     private static final int       ACTIVITY_CREATE       = 0;
@@ -355,14 +353,6 @@ public class TaskList extends Activity {
      * ====================================================================== */
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,
-                                    Intent intent) {
-        super.onActivityResult(requestCode, resultCode, intent);
-
-        // we would fill the list, but it is already happening on focus change
-    }
-
-    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
@@ -454,7 +444,7 @@ public class TaskList extends Activity {
             fillData();
             return true;
         case CONTEXT_FILTER_TAG:
-            setResult(RESULT_CODE_CLEAR_TAG);
+            setResult(Constants.RESULT_GO_HOME);
             finish();
             return true;
         }

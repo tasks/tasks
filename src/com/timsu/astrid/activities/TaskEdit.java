@@ -64,6 +64,7 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForEdit;
 import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.Notifications;
 import com.timsu.astrid.widget.DateControlSet;
 import com.timsu.astrid.widget.DateWithNullControlSet;
@@ -79,9 +80,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     private static final int       SAVE_ID         = Menu.FIRST;
     private static final int       DISCARD_ID      = Menu.FIRST + 1;
     private static final int       DELETE_ID       = Menu.FIRST + 2;
-
-    // activity results
-    public static final int        RESULT_DELETE   = RESULT_FIRST_USER + 10;
 
     // other constants
     private static final int       MAX_TAGS        = 5;
@@ -451,6 +449,15 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
      * ======================================================= event handlers
      * ====================================================================== */
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        if(hasFocus && TaskList.shouldCloseInstance) { // user wants to quit
+            finish();
+        }
+    }
+
     private void saveButtonClick() {
         setResult(RESULT_OK);
         finish();
@@ -473,7 +480,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                 public void onClick(DialogInterface dialog, int which) {
                     controller.deleteTask(model.getTaskIdentifier());
                     shouldSaveState = false;
-                    setResult(RESULT_DELETE);
+                    setResult(Constants.RESULT_GO_HOME);
                     finish();
                 }
             })

@@ -54,6 +54,7 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.utilities.Constants;
 
 
 /** List all tags and allows a user to see all tasks for a given tag
@@ -213,10 +214,23 @@ public class TagList extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
-        if(resultCode == TaskList.RESULT_CODE_CLEAR_TAG)
+        switch(resultCode) {
+        case Constants.RESULT_GO_HOME:
             finish();
-        else
+            break;
+
+        default:
             fillData();
+        }
+    }
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        if(hasFocus && TaskList.shouldCloseInstance) { // user wants to quit
+            finish();
+        }
     }
 
     // --- list adapter

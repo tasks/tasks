@@ -8,7 +8,11 @@ import android.content.res.Resources;
 import android.os.Bundle;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.Notifications;
+import com.timsu.astrid.widget.NumberPicker;
+import com.timsu.astrid.widget.NumberPickerDialog;
+import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 
 public class TaskViewNotifier extends TaskView {
 
@@ -39,14 +43,14 @@ public class TaskViewNotifier extends TaskView {
         .setMessage(response)
         .setIcon(android.R.drawable.ic_dialog_alert)
 
-        // yes, i will do it: just closes this box
+        // yes, i will do it: just closes this dialog
         .setPositiveButton(R.string.notify_yes, null)
 
         // no, i will ignore: quits application
         .setNegativeButton(R.string.notify_no, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                setResult(RESULT_CANCELED);
+                setResult(Constants.RESULT_GO_HOME);
                 TaskList.shouldCloseInstance = true;
                 finish();
             }
@@ -56,15 +60,27 @@ public class TaskViewNotifier extends TaskView {
         .setNeutralButton(R.string.notify_snooze, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Notifications.createSnoozeAlarm(TaskViewNotifier.this,
-                        model.getTaskIdentifier());
-
-                setResult(RESULT_CANCELED);
-                TaskList.shouldCloseInstance = true;
-                finish();
+                snoozeAlert();
             }
         })
 
         .show();
+    }
+
+    private void snoozeAlert() {
+        Resources r = getResources();
+        // ask how long
+        new NumberPickerDialog(this,
+                new OnNumberPickedListener() {
+            @Override
+            public void onNumberPicked(NumberPicker view, int number) {
+                Notifications.createSnoozeAlarm(TaskViewNotifier.this,
+                        model.getTaskIdentifier(), number * 60);
+
+                setResult(Constants.RESULT_GO_HOME);
+                TaskList.shouldCloseInstance = true;
+                finish();
+            }
+        }, r.getString(R.string.notify_snooze_title), 15, 15, 0, 120).show();
     }
 }
