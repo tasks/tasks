@@ -56,8 +56,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
-        
-                <!-- Notes -->
 
         <!-- Elapsed Time -->
         <LinearLayout 
@@ -105,6 +103,7 @@
                 android:colorForeground="@color/view_table_values" />
         </LinearLayout>
         
+        <!-- Notes -->
         <LinearLayout 
             android:orientation="vertical"
             android:layout_width="fill_parent"
