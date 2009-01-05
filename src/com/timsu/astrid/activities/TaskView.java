@@ -103,8 +103,6 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         elapsed.setText(DateUtilities.getDurationString(r,
                 model.getElapsedSeconds(), 2));
 
-        formatDeadline(model.getDefiniteDueDate(), definiteDueDate);
-        formatDeadline(model.getPreferredDueDate(), preferredDueDate);
         formatDate(model.getCreationDate(), creationDate);
 
         updateTimerButtonText();
@@ -359,6 +357,9 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
             name.setBackgroundColor(r.getColor(model.getImportance().getColorResource()));
 
         progressDialog.setInitialValue(model.getProgressPercentage());
+
+        formatDeadline(model.getDefiniteDueDate(), definiteDueDate);
+        formatDeadline(model.getPreferredDueDate(), preferredDueDate);
     }
 }
 

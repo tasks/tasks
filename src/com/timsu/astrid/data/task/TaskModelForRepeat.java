@@ -59,7 +59,11 @@ public class TaskModelForRepeat extends AbstractTaskModel implements Notifiable 
             setPreferredDueDate(repeatInfo.shiftDate(getPreferredDueDate()));
         setProgressPercentage(0);
 
-        // shift fixed alerts?
+        // if no deadlines set, create one (so users don't get confused)
+        if(getDefiniteDueDate() == null && getPreferredDueDate() == null)
+            setPreferredDueDate(repeatInfo.shiftDate(new Date()));
+
+        // shift fixed alerts
         AlertController alertController = new AlertController(context);
         alertController.open();
         List<Date> alerts = alertController.getTaskAlerts(getTaskIdentifier());
