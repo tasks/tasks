@@ -81,6 +81,6 @@ public class TaskViewNotifier extends TaskView {
                 TaskList.shouldCloseInstance = true;
                 finish();
             }
-        }, r.getString(R.string.notify_snooze_title), 15, 15, 0, 120).show();
+        }, r.getString(R.string.notify_snooze_title), 10, 10, 0, 120).show();
     }
 }

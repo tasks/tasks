@@ -45,6 +45,7 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
         LAST_NOTIFIED,
         PROGRESS_PERCENTAGE,
         NOTES,
+        REPEAT,
     };
 
     // --- constructors
@@ -131,6 +132,11 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
     }
 
     @Override
+    public RepeatInfo getRepeat() {
+        return super.getRepeat();
+    }
+
+    @Override
     public void setDefiniteDueDate(Date definiteDueDate) {
         super.setDefiniteDueDate(definiteDueDate);
     }
@@ -180,4 +186,8 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
         super.setNotificationFlags(flags);
     }
 
+    @Override
+    public void setRepeat(RepeatInfo taskRepeat) {
+        super.setRepeat(taskRepeat);
+    }
 }

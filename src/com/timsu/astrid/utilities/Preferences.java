@@ -11,7 +11,11 @@ import com.timsu.astrid.R;
 
 public class Preferences {
 
-    private static final String CURRENT_VERSION = "cv";
+    // pref keys
+    private static final String P_CURRENT_VERSION = "cv";
+    private static final String P_SHOW_REPEAT_HELP = "repeathelp";
+
+    // default values
     private static final boolean DEFAULT_PERSISTENCE_MODE = true;
 
     private static SharedPreferences getPrefs(Context context) {
@@ -32,13 +36,26 @@ public class Preferences {
         editor.commit();
     }
 
+    /** CurrentVersion: the currently installed version of Astrid */
     public static int getCurrentVersion(Context context) {
-        return getPrefs(context).getInt(CURRENT_VERSION, 0);
+        return getPrefs(context).getInt(P_CURRENT_VERSION, 0);
     }
 
+    /** CurrentVersion: the currently installed version of Astrid */
     public static void setCurrentVersion(Context context, int version) {
         Editor editor = getPrefs(context).edit();
-        editor.putInt(CURRENT_VERSION, version);
+        editor.putInt(P_CURRENT_VERSION, version);
+        editor.commit();
+    }
+
+    /** ShowRepeatHelp: whether help dialog should be shown about repeats */
+    public static boolean shouldShowRepeatHelp(Context context) {
+        return getPrefs(context).getBoolean(P_SHOW_REPEAT_HELP, true);
+    }
+
+    public static void setShowRepeatHelp(Context context, boolean setting) {
+        Editor editor = getPrefs(context).edit();
+        editor.putBoolean(P_SHOW_REPEAT_HELP, setting);
         editor.commit();
     }
 

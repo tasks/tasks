@@ -32,6 +32,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.timsu.astrid.utilities.Notifications;
 
@@ -163,11 +164,11 @@ public class TaskController extends AbstractController {
             if(values.size() == 0) // nothing changed
                 return true;
 
-            // set completion date
+            // if this task is completed, perform some handling
             if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
                     values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
                         == AbstractTaskModel.COMPLETE_PERCENTAGE) {
-                values.put(AbstractTaskModel.COMPLETION_DATE, System.currentTimeMillis());
+                onTaskSetCompleted(task, values);
             }
 
             saveSucessful = database.update(TASK_TABLE_NAME, values,
@@ -175,6 +176,24 @@ public class TaskController extends AbstractController {
         }
 
         return saveSucessful;
+    }
+
+    /** Called when this task is set to completed.
+     *
+     * @param task task to process
+     * @param values mutable map of values to save
+     */
+    private void onTaskSetCompleted(AbstractTaskModel task, ContentValues values) {
+        values.put(AbstractTaskModel.COMPLETION_DATE, System.currentTimeMillis());
+
+        // handle repeat
+        Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
+                TaskModelForRepeat.FIELD_LIST);
+        TaskModelForRepeat repeatModel = new TaskModelForRepeat(cursor, values);
+        RepeatInfo repeatInfo = repeatModel.getRepeat();
+        if(repeatInfo != null)
+            repeatModel.repeatTaskBy(repeatInfo);
+        cursor.close();
     }
 
     /** Set last notification date */
@@ -198,71 +217,49 @@ public class TaskController extends AbstractController {
     /** Returns a TaskModelForEdit corresponding to the given TaskIdentifier */
     public TaskModelForEdit fetchTaskForEdit(Activity activity, TaskIdentifier
             taskId) throws SQLException {
-        long id = taskId.getId();
-        Cursor cursor = database.query(true, TASK_TABLE_NAME,
-                TaskModelForEdit.FIELD_LIST,
-                KEY_ROWID + "=" + id, null, null, null, null, null);
+        Cursor cursor = fetchTaskCursor(taskId, TaskModelForEdit.FIELD_LIST);
         activity.startManagingCursor(cursor);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            TaskModelForEdit model = new TaskModelForEdit(taskId, cursor);
-            return model;
-        }
-
-        throw new SQLException("Returned empty set!");
-
+        TaskModelForEdit model = new TaskModelForEdit(taskId, cursor);
+        return model;
     }
 
 
     /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
     public TaskModelForView fetchTaskForView(Activity activity,
             TaskIdentifier taskId) throws SQLException {
-        long id = taskId.getId();
-        Cursor cursor = database.query(true, TASK_TABLE_NAME,
-                TaskModelForView.FIELD_LIST,
-                KEY_ROWID + "=" + id, null, null, null, null, null);
+        Cursor cursor = fetchTaskCursor(taskId, TaskModelForView.FIELD_LIST);
         activity.startManagingCursor(cursor);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            TaskModelForView model = new TaskModelForView(taskId, cursor);
-            return model;
-        }
-
-        throw new SQLException("Returned empty set!");
+        TaskModelForView model = new TaskModelForView(taskId, cursor);
+        return model;
     }
 
     /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
     public TaskModelForList fetchTaskForList(TaskIdentifier taskId) throws SQLException {
-        long id = taskId.getId();
-        Cursor cursor = database.query(true, TASK_TABLE_NAME,
-                TaskModelForList.FIELD_LIST,
-                KEY_ROWID + "=" + id, null, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            TaskModelForList model = new TaskModelForList(cursor);
-            cursor.close();
-
-            return model;
-        }
-
-        throw new SQLException("Returned empty set!");
+        Cursor cursor = fetchTaskCursor(taskId, TaskModelForList.FIELD_LIST);
+        TaskModelForList model = new TaskModelForList(cursor);
+        cursor.close();
+        return model;
     }
 
     /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
     public TaskModelForNotify fetchTaskForNotify(TaskIdentifier taskId) throws SQLException {
+        Cursor cursor = fetchTaskCursor(taskId, TaskModelForNotify.FIELD_LIST);
+        TaskModelForNotify model = new TaskModelForNotify(cursor);
+        cursor.close();
+        return model;
+    }
+
+    /** Returns null if unsuccessful, otherwise moves cursor to the task.
+     * Don't forget to close the cursor when you're done. */
+    private Cursor fetchTaskCursor(TaskIdentifier taskId, String[] fieldList) {
         long id = taskId.getId();
-        Cursor cursor = database.query(true, TASK_TABLE_NAME,
-                TaskModelForNotify.FIELD_LIST,
+        Cursor cursor = database.query(true, TASK_TABLE_NAME, fieldList,
                 KEY_ROWID + "=" + id, null, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            TaskModelForNotify model = new TaskModelForNotify(cursor);
-            cursor.close();
+        if (cursor == null)
+            throw new SQLException("Returned empty set!");
 
-            return model;
-        }
-
-        throw new SQLException("Returned empty set!");
+        cursor.moveToFirst();
+        return cursor;
     }
 
     // --- boilerplate

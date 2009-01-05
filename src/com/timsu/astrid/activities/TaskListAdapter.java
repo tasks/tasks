@@ -184,7 +184,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     private void addListeners(final int position, final View view) {
         final CheckBox progress = ((CheckBox)view.findViewById(R.id.cb1));
-        final TextView name = ((TextView)view.findViewById(R.id.text1));
 
         // clicking the check box
         progress.setOnCheckedChangeListener(new OnCheckedChangeListener() {
@@ -202,7 +201,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
                 if(newProgressPercentage != task.getProgressPercentage()) {
                     setTaskProgress(task, view, newProgressPercentage);
-                    setTaskAppearance(task, name, progress);
+                    setupView(view, task);
                 }
             }
         });

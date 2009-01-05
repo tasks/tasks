@@ -31,6 +31,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -76,7 +77,10 @@ public class TaskList extends Activity {
     private static final int       INSERT_ID             = Menu.FIRST;
     private static final int       FILTERS_ID            = Menu.FIRST + 1;
     private static final int       TAGS_ID               = Menu.FIRST + 2;
-    private static final int       SETTINGS_ID           = Menu.FIRST + 3;
+    private static final int       MORE_ID               = Menu.FIRST + 3;
+
+    private static final int       OPTIONS_SETTINGS_ID   = Menu.FIRST + 10;
+    private static final int       OPTIONS_HELP_ID       = Menu.FIRST + 11;
 
     private static final int       CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
     private static final int       CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
@@ -87,6 +91,7 @@ public class TaskList extends Activity {
     private TagController tagController = null;
     private ListView listView;
     private Button addButton;
+    private View layout;
 
     // other instance variables
     private Map<TagIdentifier, TagModelForView> tagMap;
@@ -126,7 +131,20 @@ public class TaskList extends Activity {
             }
         });
 
+        layout = findViewById(R.id.tasklist_layout);
+        layout.setOnCreateContextMenuListener(
+                new OnCreateContextMenuListener() {
+                    @Override
+                    public void onCreateContextMenu(ContextMenu menu, View v,
+                            ContextMenuInfo menuInfo) {
+                        if(menu.hasVisibleItems())
+                            return;
+                        onCreateMoreOptionsMenu(menu);
+                    }
+                });
+
         fillData();
+        // TODO Synchronizer.authenticate(this);
     }
 
     @Override
@@ -150,10 +168,26 @@ public class TaskList extends Activity {
         item.setIcon(android.R.drawable.ic_menu_myplaces);
         item.setAlphabeticShortcut('t');
 
-        item = menu.add(Menu.NONE, SETTINGS_ID, Menu.NONE,
+        item = menu.add(Menu.NONE, MORE_ID, Menu.NONE,
+                R.string.taskList_menu_more);
+        item.setIcon(android.R.drawable.ic_menu_more);
+        item.setAlphabeticShortcut('m');
+
+        return true;
+    }
+
+    public boolean onCreateMoreOptionsMenu(Menu menu) {
+        MenuItem item;
+
+        item = menu.add(Menu.NONE, OPTIONS_SETTINGS_ID, Menu.NONE,
                 R.string.taskList_menu_settings);
         item.setIcon(android.R.drawable.ic_menu_preferences);
         item.setAlphabeticShortcut('p');
+
+        item = menu.add(Menu.NONE, OPTIONS_HELP_ID, Menu.NONE,
+                R.string.taskList_menu_help);
+        item.setIcon(android.R.drawable.ic_menu_help);
+        item.setAlphabeticShortcut('h');
 
         return true;
     }
@@ -353,6 +387,16 @@ public class TaskList extends Activity {
      * ====================================================================== */
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        /** Handle case where authentication just happened */
+        if(resultCode == Constants.RESULT_SYNCHRONIZE) {
+            // TODO Synchronizer.performSync(this, true);
+        }
+    }
+
+    @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
@@ -410,8 +454,17 @@ public class TaskList extends Activity {
                 finish();
             }
             return true;
-        case SETTINGS_ID:
+        case MORE_ID:
+            layout.showContextMenu();
+            return true;
+
+        case OPTIONS_SETTINGS_ID:
             startActivity(new Intent(this, EditPreferences.class));
+            return true;
+        case OPTIONS_HELP_ID:
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(Constants.HELP_URL));
+            startActivity(browserIntent);
             return true;
 
         case TaskListAdapter.CONTEXT_EDIT_ID:

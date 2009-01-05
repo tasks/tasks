@@ -32,6 +32,11 @@
         <string name="importance_3">It would be nice to do this</string>
         <string name="importance_4">Who cares!</string>
         
+        <!-- Repeat Interval Labels -->
+        <string name="repeat_days">Day(s)</string>
+        <string name="repeat_weeks">Week(s)</string>
+        <string name="repeat_months">Month(s)</string>
+        
         <!-- Plurals -->
         <plurals name="Ntasks">
             <item quantity="one">1 Task</item>
@@ -81,8 +86,10 @@
         
         <string name="taskList_menu_insert">Add</string>
         <string name="taskList_menu_tags">Tags</string>
-        <string name="taskList_menu_settings">Settings</string>
         <string name="taskList_menu_filters">Filters</string>
+        <string name="taskList_menu_more">More</string>
+        <string name="taskList_menu_settings">Settings</string>
+        <string name="taskList_menu_help">Help</string>
         
         <string name="taskList_context_edit">Edit Task</string>
         <string name="taskList_context_delete">Delete Task</string>
@@ -105,19 +112,21 @@
         <string name="task_edit_tab_3">Alerts</string>
         
         <!-- labels -->
-        <string name="name_label">What</string>
+        <string name="name_label">Summary</string>
         <string name="name_hint">Task Description</string>
         <string name="importance_label">How Important is it?</string>
         <string name="tags_label">Tags:</string>
-        <string name="notes_label">Notes</string>
-        <string name="notes_hint">Enter Task Notes</string>
         
         <string name="estimatedDuration_label">How Long Will it Take?</string>
         <string name="elapsedDuration_label">Time Already Spent on Task</string>
         <string name="definiteDueDate_label">Absolute Deadline</string>
         <string name="preferredDueDate_label">Goal Deadline</string>
         <string name="hiddenUntil_label">Hide Until This Date</string>
+        <string name="repeat_label">Repeat Every</string>
+        <string name="repeat_value_unset">No Repeat Set</string>
         <string name="blockingOn_label">Hide Until This Task is Done</string>
+        <string name="notes_label">Notes</string>
+        <string name="notes_hint">Enter Task Notes</string>
         
         <string name="notification_label">Periodic Reminders</string>
         <string name="notification_prefix">Every</string>
@@ -131,6 +140,15 @@
         <!-- dialog boxes -->
         <string name="hour_minutes_dialog">Time (hours : minutes)</string>
         <string name="notification_dialog">Remind Me Every</string>
+        <string name="repeat_picker_title">Repeat Every (0 to disable)</string>
+        <string name="repeat_help_dialog_title">Help: Astrid Repeats</string>
+        <string name="repeat_help_dialog">
+To use repeats, set at least one of the deadlines above. When you complete this task, the deadline will be automatically advanced.
+\n\n
+If you don\'t want to see the new task right after you complete the old one, you should use the "Hide Until" field, which will also be advanced automatically.
+\n
+        </string>
+        <string name="repeat_help_hide">Don't Show Help Anymore</string>
         
         <!-- buttons -->
         <string name="save_label">Save</string>
@@ -212,7 +230,10 @@
         <string name="prefs_quietEnd_title">Quiet Hours End</string>
         <string name="prefs_quietEnd_desc">Ending hour when Astrid should be quiet (e.g. 08)</string>  
         <string name="prefs_annoy_title">Persistence Mode</string>
-        <string name="prefs_annoy_desc">If checked, Astrid will try harder to get your attention.</string>
+        <string name="prefs_annoy_desc">
+If checked, Astrid will try harder to get your attention:
+ - Must view reminders before hiding them
+        </string>
         <string name="prefs_notification_title">Notification Ringtone</string>
         <string name="prefs_notification_desc">Choose how Astrid alerts you!</string>
 </resources>

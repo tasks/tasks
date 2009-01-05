@@ -49,26 +49,34 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.enums.Importance;
+import com.timsu.astrid.data.enums.RepeatInterval;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForEdit;
 import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.Notifications;
+import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.widget.DateControlSet;
 import com.timsu.astrid.widget.DateWithNullControlSet;
+import com.timsu.astrid.widget.NumberPicker;
+import com.timsu.astrid.widget.NumberPickerDialog;
 import com.timsu.astrid.widget.TimeDurationControlSet;
+import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 
 public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
@@ -99,11 +107,14 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     private DateControlSet         hiddenUntil;
     private EditText               notes;
     private LinearLayout           tagsContainer;
-    private NotificationFlagControlSet flags;
+    private NotifyFlagControlSet   flags;
     private LinearLayout           alertsContainer;
+    private Button                 repeatValue;
+    private Spinner                repeatInterval;
 
     // other instance variables
     private boolean                shouldSaveState = true;
+    private boolean                repeatHelpShown = false;
     private TagController          tagController;
     private AlertController        alertController;
     private List<TagModelForView>  tags;
@@ -119,23 +130,29 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         alertController.open();
 
         TabHost tabHost = getTabHost();
+        tabHost.setPadding(0, 4, 0, 0);
         Resources r = getResources();
 
         LayoutInflater.from(this).inflate(R.layout.task_edit,
                 tabHost.getTabContentView(), true);
 
         tabHost.addTab(tabHost.newTabSpec(TAB_BASIC)
-                .setIndicator("Basic",
+                .setIndicator("",
                         r.getDrawable(R.drawable.ic_dialog_info_c))
                 .setContent(R.id.tab_basic));
         tabHost.addTab(tabHost.newTabSpec(TAB_DATES)
-                .setIndicator("Details",
+                .setIndicator("",
                         r.getDrawable(R.drawable.ic_dialog_time_c))
                 .setContent(R.id.tab_dates));
         tabHost.addTab(tabHost.newTabSpec(TAB_ALERTS)
-                .setIndicator("Alerts",
+                .setIndicator("",
                         r.getDrawable(R.drawable.ic_dialog_alert_c))
                 .setContent(R.id.tab_notification));
+        TabWidget tabWidget = tabHost.getTabWidget();
+        for(int i = 0; i < tabWidget.getChildCount(); i++) {
+            RelativeLayout tab = (RelativeLayout)tabWidget.getChildAt(i);
+            tab.getLayoutParams().height = 44;
+        }
 
         setUpUIComponents();
 		setUpListeners();
@@ -210,6 +227,14 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                 addAlert(alert);
             }
         }
+
+        // repeats
+        RepeatInfo repeatInfo = model.getRepeat();
+        if(repeatInfo != null) {
+            setRepeatValue(repeatInfo.getValue());
+            repeatInterval.setSelection(repeatInfo.getInterval().ordinal());
+        } else
+            setRepeatValue(0);
     }
 
     private void save() {
@@ -228,6 +253,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         model.setNotificationFlags(flags.getValue());
         model.setNotes(notes.getText().toString());
         model.setNotificationIntervalSeconds(notification.getTimeDurationInSeconds());
+        model.setRepeat(getRepeatValue());
 
         try {
             // write out to database
@@ -319,9 +345,11 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         hiddenUntil = new DateWithNullControlSet(this, R.id.hiddenUntil_notnull,
                 R.id.hiddenUntil_date, R.id.hiddenUntil_time);
         notes = (EditText)findViewById(R.id.notes);
-        flags = new NotificationFlagControlSet(R.id.flag_before,
+        flags = new NotifyFlagControlSet(R.id.flag_before,
                 R.id.flag_during, R.id.flag_after);
         alertsContainer = (LinearLayout)findViewById(R.id.alert_container);
+        repeatInterval = (Spinner)findViewById(R.id.repeat_interval);
+        repeatValue = (Button)findViewById(R.id.repeat_value);
 
         // individual ui component initialization
         ImportanceAdapter importanceAdapter = new ImportanceAdapter(this,
@@ -329,6 +357,11 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                     R.layout.importance_spinner_dropdown,
                     Importance.values());
         importance.setAdapter(importanceAdapter);
+        ArrayAdapter<String> repeatAdapter = new ArrayAdapter<String>(
+                this, android.R.layout.simple_spinner_item,
+                RepeatInterval.getLabels(getResources()));
+        repeatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        repeatInterval.setAdapter(repeatAdapter);
     }
 
     /** Set up button listeners */
@@ -365,6 +398,29 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             }
         });
 
+        repeatValue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                repeatValueClick();
+            }
+        });
+    }
+
+    /** Set up the repeat value button */
+    private void setRepeatValue(int value) {
+        if(value == 0)
+            repeatValue.setText(R.string.repeat_value_unset);
+        else
+            repeatValue.setText(Integer.toString(value));
+        repeatValue.setTag(value);
+    }
+
+    private RepeatInfo getRepeatValue() {
+        if(repeatValue.getTag().equals(0))
+            return null;
+        return new RepeatInfo(RepeatInterval.values()
+                    [repeatInterval.getSelectedItemPosition()],
+                (Integer)repeatValue.getTag());
     }
 
     /** Adds an alert to the alert field */
@@ -486,6 +542,57 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             })
             .setNegativeButton(android.R.string.cancel, null)
             .show();
+    }
+
+    private void repeatValueClick() {
+        final int tagValue = (Integer)repeatValue.getTag();
+        if(tagValue > 0)
+            repeatHelpShown = true;
+
+        final Runnable openDialogRunnable = new Runnable() {
+            @Override
+            public void run() {
+                repeatHelpShown = true;
+
+                int dialogValue = tagValue;
+                if(dialogValue == 0)
+                    dialogValue = 1;
+
+                new NumberPickerDialog(TaskEdit.this, new OnNumberPickedListener() {
+                    @Override
+                    public void onNumberPicked(NumberPicker view, int number) {
+                        setRepeatValue(number);
+                    }
+                }, getResources().getString(R.string.repeat_picker_title),
+                dialogValue, 1, 0, 31).show();
+            }
+        };
+
+        if(repeatHelpShown || !Preferences.shouldShowRepeatHelp(this)) {
+            openDialogRunnable.run();
+            return;
+        }
+
+        new AlertDialog.Builder(this)
+        .setTitle(R.string.repeat_help_dialog_title)
+        .setMessage(R.string.repeat_help_dialog)
+        .setIcon(android.R.drawable.ic_dialog_info)
+        .setPositiveButton(android.R.string.ok,
+                new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                openDialogRunnable.run();
+            }
+        })
+        .setNeutralButton(R.string.repeat_help_hide,
+                new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Preferences.setShowRepeatHelp(TaskEdit.this, false);
+                openDialogRunnable.run();
+            }
+        })
+        .show();
     }
 
     @Override
@@ -614,10 +721,10 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     }
 
     /** Control set dealing with notification flags */
-    public class NotificationFlagControlSet {
+    public class NotifyFlagControlSet {
         private CheckBox before, during, after;
 
-        public NotificationFlagControlSet(int beforeId, int duringId,
+        public NotifyFlagControlSet(int beforeId, int duringId,
                 int afterId) {
             before = (CheckBox)findViewById(beforeId);
             during = (CheckBox)findViewById(duringId);

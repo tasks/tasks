@@ -32,6 +32,7 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.AbstractModel;
 import com.timsu.astrid.data.enums.Importance;
+import com.timsu.astrid.data.enums.RepeatInterval;
 
 
 /** Abstract model of a task. Subclasses implement the getters and setters
@@ -43,7 +44,7 @@ import com.timsu.astrid.data.enums.Importance;
 public abstract class AbstractTaskModel extends AbstractModel {
 
     /** Version number of this model */
-    static final int        VERSION                = 2;
+    static final int        VERSION                = 3;
 
     public static final int COMPLETE_PERCENTAGE    = 100;
 
@@ -62,16 +63,19 @@ public abstract class AbstractTaskModel extends AbstractModel {
     static final String     NOTIFICATIONS          = "notifications";
     static final String     NOTIFICATION_FLAGS     = "notificationFlags";
     static final String     LAST_NOTIFIED          = "lastNotified";
-    // reserved fields
-    static final String     BLOCKING_ON            = "blockingOn";
-    // end reserved fields
+    static final String     REPEAT                 = "repeat";
     static final String     CREATION_DATE          = "creationDate";
     static final String     COMPLETION_DATE        = "completionDate";
+    // reserved fields ---
+    static final String     BLOCKING_ON            = "blockingOn";
 
     // notification flags
-    public static final int NOTIFY_BEFORE_DEADLINE = 1;
-    public static final int NOTIFY_AT_DEADLINE     = 2;
-    public static final int NOTIFY_AFTER_DEADLINE  = 4;
+    public static final int NOTIFY_BEFORE_DEADLINE = 1 << 0;
+    public static final int NOTIFY_AT_DEADLINE     = 1 << 1;
+    public static final int NOTIFY_AFTER_DEADLINE  = 1 << 2;
+
+    /** Number of bits to shift repeat value by */
+    public static final int REPEAT_VALUE_OFFSET    = 3;
 
     /** Default values container */
     private static final ContentValues defaultValues = new ContentValues();
@@ -91,12 +95,8 @@ public abstract class AbstractTaskModel extends AbstractModel {
         defaultValues.put(NOTIFICATIONS, 0);
         defaultValues.put(NOTIFICATION_FLAGS, NOTIFY_AT_DEADLINE);
         defaultValues.put(LAST_NOTIFIED, (Long)null);
+        defaultValues.put(REPEAT, 0);
         defaultValues.put(COMPLETION_DATE, (Long)null);
-    }
-
-    @Override
-    public ContentValues getDefaultValues() {
-        return defaultValues;
     }
 
     // --- database helper
@@ -129,6 +129,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 append(NOTIFICATIONS).append(" integer,").
                 append(NOTIFICATION_FLAGS).append(" integer,").
                 append(LAST_NOTIFIED).append(" integer,").
+                append(REPEAT).append(" integer,").
                 append(CREATION_DATE).append(" integer,").
                 append(COMPLETION_DATE).append(" integer").
             append(");").toString();
@@ -136,14 +137,16 @@ public abstract class AbstractTaskModel extends AbstractModel {
         }
 
         @Override
+        @SuppressWarnings("fallthrough")
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(getClass().getSimpleName(), "Upgrading database from version " +
                     oldVersion + " to " + newVersion + ".");
             String sql;
 
+            // note: we execute sql statements in their own try block to be more
+            // graceful if an upgrade dies halfway or something
             switch(oldVersion) {
             case 1:
-                // for some reason, these don't always go well
                 sql = new StringBuilder().append("ALTER TABLE ").
                     append(tableName).append(" ADD COLUMN ").
                     append(LAST_NOTIFIED).append(" integer").toString();
@@ -155,6 +158,16 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 sql = new StringBuilder().append("ALTER TABLE ").
                     append(tableName).append(" ADD COLUMN ").
                     append(NOTIFICATION_FLAGS).append(" integer").toString();
+                try {
+                    db.execSQL(sql);
+                } catch (Exception e) {
+                    Log.e("astrid", "Error updating table!", e);
+                }
+
+            case 2:
+                sql = new StringBuilder().append("ALTER TABLE ").
+                append(tableName).append(" ADD COLUMN ").
+                append(REPEAT).append(" integer").toString();
                 try {
                     db.execSQL(sql);
                 } catch (Exception e) {
@@ -200,7 +213,6 @@ public abstract class AbstractTaskModel extends AbstractModel {
         setElapsedSeconds((int) (getElapsedSeconds() + secondsElapsed));
     }
 
-
     protected void prefetchData(String[] fields) {
         for(String field : fields) {
             if(field.equals(NAME))
@@ -235,7 +247,36 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 getNotificationFlags();
             else if(field.equals(LAST_NOTIFIED))
                 getLastNotificationDate();
+            else if(field.equals(REPEAT))
+                getRepeat();
         }
+    }
+
+    // --- helper classes
+
+    public static class RepeatInfo {
+        private RepeatInterval interval;
+        private int value;
+
+        public RepeatInfo(RepeatInterval repeatInterval, int value) {
+            this.interval = repeatInterval;
+            this.value = value;
+        }
+
+        public Date shiftDate(Date input) {
+            Date newDate = (Date)input.clone();
+            interval.offsetDateBy(newDate, value);
+            return newDate;
+        }
+
+        public RepeatInterval getInterval() {
+            return interval;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
     }
 
     // --- task identifier
@@ -250,7 +291,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
         this.identifier = identifier;
     }
 
-    // --- constructor pass-through
+    // --- constructors and abstract methods
 
     AbstractTaskModel() {
         super();
@@ -269,6 +310,11 @@ public abstract class AbstractTaskModel extends AbstractModel {
         super(cursor);
 
         setTaskIdentifier(identifier);
+    }
+
+    @Override
+    public ContentValues getDefaultValues() {
+        return defaultValues;
     }
 
     // --- getters and setters: expose them as you see fit
@@ -349,6 +395,17 @@ public abstract class AbstractTaskModel extends AbstractModel {
         return retrieveDate(LAST_NOTIFIED);
     }
 
+    protected RepeatInfo getRepeat() {
+        int repeat = retrieveInteger(REPEAT);
+        if(repeat == 0)
+            return null;
+        int value = repeat >> REPEAT_VALUE_OFFSET;
+        RepeatInterval interval = RepeatInterval.values()
+            [repeat - (value << REPEAT_VALUE_OFFSET)];
+
+        return new RepeatInfo(interval, value);
+    }
+
     // --- setters
 
     protected void setName(String name) {
@@ -420,6 +477,16 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
     protected void setLastNotificationTime(Date date) {
         putDate(LAST_NOTIFIED, date);
+    }
+
+    protected void setRepeat(RepeatInfo repeatInfo) {
+        int repeat;
+        if(repeatInfo == null)
+            repeat = 0;
+        else
+            repeat = (repeatInfo.value << REPEAT_VALUE_OFFSET) +
+                repeatInfo.interval.ordinal();
+        putIfChangedFromDatabase(REPEAT, repeat);
     }
 
     // --- utility methods
