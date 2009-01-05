@@ -132,6 +132,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 dueDateView.setText(label);
                 dueDateView.setTextColor(r.getColor(R.color.taskList_completedDate));
                 hasProperties = true;
+                dueDateView.setVisibility(View.VISIBLE);
             } else
                 dueDateView.setVisibility(View.GONE);
         } else {
@@ -159,6 +160,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         (int)Math.abs(timeLeft/1000), 1);
                 dueDateView.setText(dueString);
                 hasProperties = true;
+                dueDateView.setVisibility(View.VISIBLE);
             } else
                 dueDateView.setVisibility(View.GONE);
         }
