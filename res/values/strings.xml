@@ -231,8 +231,7 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="prefs_quietEnd_desc">Ending hour when Astrid should be quiet (e.g. 08)</string>  
         <string name="prefs_annoy_title">Persistence Mode</string>
         <string name="prefs_annoy_desc">
-If checked, Astrid will try harder to get your attention:
- - Must view reminders before hiding them
+If checked, Astrid will try a bit harder to get your attention
         </string>
         <string name="prefs_notification_title">Notification Ringtone</string>
         <string name="prefs_notification_desc">Choose how Astrid alerts you!</string>
