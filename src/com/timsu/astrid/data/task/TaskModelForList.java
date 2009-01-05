@@ -88,8 +88,8 @@ public class TaskModelForList extends AbstractTaskModel {
 
         // looming absolute deadline
         if(getDefiniteDueDate() != null) {
-            int hoursLeft = (int) (getDefiniteDueDate().getTime() -
-                    System.currentTimeMillis())/1000/3600;
+            int hoursLeft = (int) ((getDefiniteDueDate().getTime() -
+                    System.currentTimeMillis())/1000/3600);
             if(hoursLeft < 5*24)
                 weight += (hoursLeft - 5*24);
             weight -= 20;
@@ -97,8 +97,8 @@ public class TaskModelForList extends AbstractTaskModel {
 
         // looming preferred deadline
         if(getPreferredDueDate() != null) {
-            int hoursLeft = (int) (getPreferredDueDate().getTime() -
-                    System.currentTimeMillis())/1000/3600;
+            int hoursLeft = (int) ((getPreferredDueDate().getTime() -
+                    System.currentTimeMillis())/1000/3600);
             if(hoursLeft < 5*24)
                 weight += (hoursLeft - 5*24)/2;
             weight -= 10;
