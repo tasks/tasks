@@ -56,6 +56,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
+        
+                <!-- Notes -->
 
         <!-- Elapsed Time -->
         <LinearLayout 
@@ -101,6 +103,32 @@
                 android:paddingLeft="5px"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:colorForeground="@color/view_table_values" />
+        </LinearLayout>
+        
+        <LinearLayout 
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:padding="5px"
+                android:src="@android:drawable/divider_horizontal_bright" />   
+            
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5px"
+                android:text="@string/taskView_notes"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+            
+            <TextView android:id="@+id/cell_notes"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingLeft="5px"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:colorForeground="@color/view_table_values" /> 
         </LinearLayout>
         
         <!-- Absolute Deadline -->
@@ -176,33 +204,6 @@
                 android:paddingLeft="5px"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:colorForeground="@color/view_table_values" />
-        </LinearLayout>
-
-        <!-- Notes -->
-        <LinearLayout 
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-            
-            <ImageView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:padding="5px"
-                android:src="@android:drawable/divider_horizontal_bright" />   
-            
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:paddingLeft="5px"
-                android:text="@string/taskView_notes"
-                android:textAppearance="?android:attr/textAppearanceLarge" />
-            
-            <TextView android:id="@+id/cell_notes"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:paddingLeft="5px"
-                    android:textAppearance="?android:attr/textAppearanceSmall"
-                    android:colorForeground="@color/view_table_values" /> 
         </LinearLayout>
         
        <ImageView
