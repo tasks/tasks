@@ -221,8 +221,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
         // alerts
         if(model.getTaskIdentifier() != null) {
-            List<Date> alerts = alertController.getTaskAlerts(this,
-                    model.getTaskIdentifier());
+            List<Date> alerts = alertController.getTaskAlerts(model.getTaskIdentifier());
             for(Date alert : alerts) {
                 addAlert(alert);
             }

@@ -192,7 +192,7 @@ public class TaskController extends AbstractController {
         TaskModelForRepeat repeatModel = new TaskModelForRepeat(cursor, values);
         RepeatInfo repeatInfo = repeatModel.getRepeat();
         if(repeatInfo != null)
-            repeatModel.repeatTaskBy(repeatInfo);
+            repeatModel.repeatTaskBy(context, this, repeatInfo);
         cursor.close();
     }
 

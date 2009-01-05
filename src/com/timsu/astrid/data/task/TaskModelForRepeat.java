@@ -20,16 +20,21 @@
 package com.timsu.astrid.data.task;
 
 import java.util.Date;
+import java.util.List;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 
 import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.alerts.AlertController;
+import com.timsu.astrid.utilities.Notifications;
+import com.timsu.astrid.utilities.Notifications.Notifiable;
 
 
 
 /** Fields that you would want to edit pertaining to repeats */
-public class TaskModelForRepeat extends AbstractTaskModel {
+public class TaskModelForRepeat extends AbstractTaskModel implements Notifiable {
 
     static String[] FIELD_LIST = new String[] {
         AbstractController.KEY_ROWID,
@@ -38,9 +43,14 @@ public class TaskModelForRepeat extends AbstractTaskModel {
         PREFERRED_DUE_DATE,
         HIDDEN_UNTIL,
         PROGRESS_PERCENTAGE,
+        ESTIMATED_SECONDS,
+        LAST_NOTIFIED,
+        NOTIFICATIONS,
+        NOTIFICATION_FLAGS,
     };
 
-    public void repeatTaskBy(RepeatInfo repeatInfo) {
+    public void repeatTaskBy(Context context, TaskController taskController,
+            RepeatInfo repeatInfo) {
         if(getDefiniteDueDate() != null)
             setDefiniteDueDate(repeatInfo.shiftDate(getDefiniteDueDate()));
         if(getHiddenUntil() != null)
@@ -49,7 +59,18 @@ public class TaskModelForRepeat extends AbstractTaskModel {
             setPreferredDueDate(repeatInfo.shiftDate(getPreferredDueDate()));
         setProgressPercentage(0);
 
-        // TODO shift fixed alerts?
+        // shift fixed alerts?
+        AlertController alertController = new AlertController(context);
+        alertController.open();
+        List<Date> alerts = alertController.getTaskAlerts(getTaskIdentifier());
+        alertController.removeAlerts(getTaskIdentifier());
+        for(int i = 0; i < alerts.size(); i++) {
+            Date newAlert = repeatInfo.shiftDate(alerts.get(i));
+            alertController.addAlert(getTaskIdentifier(), newAlert);
+            alerts.set(i, newAlert);
+        }
+        Notifications.updateAlarm(context, taskController, alertController, this);
+        alertController.close();
     }
 
     // --- constructors
@@ -67,6 +88,45 @@ public class TaskModelForRepeat extends AbstractTaskModel {
     }
 
     @Override
+    public Integer getNotificationIntervalSeconds() {
+        return super.getNotificationIntervalSeconds();
+    }
+
+    @Override
+    public boolean isTaskCompleted() {
+        return super.isTaskCompleted();
+    }
+
+    @Override
+    public Date getDefiniteDueDate() {
+        return super.getDefiniteDueDate();
+    }
+
+    @Override
+    public Integer getEstimatedSeconds() {
+        return super.getEstimatedSeconds();
+    }
+
+    @Override
+    public Date getHiddenUntil() {
+        return super.getHiddenUntil();
+    }
+
+    @Override
+    public Date getPreferredDueDate() {
+        return super.getPreferredDueDate();
+    }
+    @Override
+    public int getNotificationFlags() {
+        return super.getNotificationFlags();
+    }
+
+    @Override
+    public Date getLastNotificationDate() {
+        return super.getLastNotificationDate();
+    }
+
+    @Override
     public void setDefiniteDueDate(Date definiteDueDate) {
         super.setDefiniteDueDate(definiteDueDate);
     }
@@ -80,4 +140,5 @@ public class TaskModelForRepeat extends AbstractTaskModel {
     public void setHiddenUntil(Date hiddenUntil) {
         super.setHiddenUntil(hiddenUntil);
     }
+
 }

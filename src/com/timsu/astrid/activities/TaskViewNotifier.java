@@ -19,14 +19,24 @@ public class TaskViewNotifier extends TaskView {
     // bundle tokens
     public static final String FROM_NOTIFICATION_TOKEN = "notify";
     public static final String NOTIF_FLAGS_TOKEN       = "notif_flags";
+    public static final String NOTIF_REPEAT_TOKEN      = "notif_repeat";
+
+    // properties of the alarm that was triggered
+    private long repeatInterval = 0;
+    private int  flags = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Bundle extras = getIntent().getExtras();
-        if(extras != null && extras.containsKey(FROM_NOTIFICATION_TOKEN))
+        if(extras != null && extras.containsKey(FROM_NOTIFICATION_TOKEN)) {
+            if(extras.containsKey(NOTIF_REPEAT_TOKEN))
+                repeatInterval = extras.getLong(NOTIF_REPEAT_TOKEN);
+            if(extras.containsKey(NOTIF_FLAGS_TOKEN))
+                flags = extras.getInt(NOTIF_FLAGS_TOKEN);
             showNotificationAlert();
+        }
     }
 
     /** Called when user clicks on a notification to get here */
@@ -75,7 +85,8 @@ public class TaskViewNotifier extends TaskView {
             @Override
             public void onNumberPicked(NumberPicker view, int number) {
                 Notifications.createSnoozeAlarm(TaskViewNotifier.this,
-                        model.getTaskIdentifier(), number * 60);
+                        model.getTaskIdentifier(), number * 60, flags,
+                        repeatInterval);
 
                 setResult(Constants.RESULT_GO_HOME);
                 TaskList.shouldCloseInstance = true;

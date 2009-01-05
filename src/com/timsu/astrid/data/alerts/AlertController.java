@@ -23,7 +23,6 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -47,22 +46,25 @@ public class AlertController extends AbstractController {
         return cursor;
     }
     /** Get a list of tag identifiers for the given task */
-    public List<Date> getTaskAlerts(Activity activity, TaskIdentifier
+    public List<Date> getTaskAlerts(TaskIdentifier
             taskId) throws SQLException {
         List<Date> list = new LinkedList<Date>();
         Cursor cursor = alertDatabase.query(ALERT_TABLE_NAME,
                 Alert.FIELD_LIST, Alert.TASK + " = ?",
                 new String[] { taskId.idAsString() }, null, null, null);
-        activity.startManagingCursor(cursor);
 
-        if(cursor.getCount() == 0)
+        try {
+            if(cursor.getCount() == 0)
+                return list;
+            do {
+                cursor.moveToNext();
+                list.add(new Alert(cursor).getDate());
+            } while(!cursor.isLast());
+
             return list;
-        do {
-            cursor.moveToNext();
-            list.add(new Alert(cursor).getDate());
-        } while(!cursor.isLast());
-
-        return list;
+        } finally {
+            cursor.close();
+        }
     }
 
     /** Remove all alerts from the task */
