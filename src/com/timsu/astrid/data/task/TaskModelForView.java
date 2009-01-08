@@ -65,11 +65,6 @@ public class TaskModelForView extends AbstractTaskModel {
     }
 
     @Override
-    public int getTaskColorResource() {
-        return super.getTaskColorResource();
-    }
-
-    @Override
     public int getProgressPercentage() {
         return super.getProgressPercentage();
     }

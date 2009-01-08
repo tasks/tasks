@@ -1,32 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen  
     xmlns:android="http://schemas.android.com/apk/res/android">  
-    <EditTextPreference  
-        android:key="@string/p_notif_quietStart"  
-        android:title="@string/prefs_quietStart_title"  
-        android:summary="@string/prefs_quietStart_desc" />  
-    <EditTextPreference  
-        android:key="@string/p_notif_quietEnd"  
-        android:title="@string/prefs_quietEnd_title"  
-        android:summary="@string/prefs_quietEnd_desc" />  
-    <CheckBoxPreference  
-        android:key="@string/p_notif_annoy"  
-        android:title="@string/prefs_annoy_title"  
-        android:summary="@string/prefs_annoy_desc" />  
-    <RingtonePreference  
-        android:key="@string/key_notification_ringtone"  
-        android:title="@string/prefs_notification_title"  
-        android:summary="@string/prefs_notification_desc"
-        android:ringtoneType="notification" 
-		android:showDefault="true"
-		android:showSilent="true"
-         />
-     <EditTextPreference  
-        android:key="@string/p_fontSize"  
-        android:title="@string/prefs_fontSize_title"  
-        android:summary="@string/prefs_fontSize_desc" /> 
-    <EditTextPreference  
-        android:key="@string/p_deadlineTime"  
-        android:title="@string/prefs_deadlineTime_title"  
-        android:summary="@string/prefs_deadlineTime_desc" /> 
+    
+    <PreferenceCategory
+        android:title="@string/prefs_category_alerts">
+        <EditTextPreference  
+            android:key="@string/p_notif_quietStart"  
+            android:title="@string/prefs_quietStart_title"  
+            android:summary="@string/prefs_quietStart_desc" />  
+        <EditTextPreference  
+            android:key="@string/p_notif_quietEnd"  
+            android:title="@string/prefs_quietEnd_title"  
+            android:summary="@string/prefs_quietEnd_desc" />  
+        <CheckBoxPreference  
+            android:key="@string/p_notif_annoy"  
+            android:title="@string/prefs_annoy_title"  
+            android:summary="@string/prefs_annoy_desc" />  
+        <RingtonePreference  
+            android:key="@string/key_notification_ringtone"  
+            android:title="@string/prefs_notification_title"  
+            android:summary="@string/prefs_notification_desc"
+            android:ringtoneType="notification" 
+    		android:showDefault="true"
+    		android:showSilent="true"
+             />
+     </PreferenceCategory>
+     
+     <PreferenceCategory
+        android:title="@string/prefs_category_appearance">
+         <CheckBoxPreference  
+            android:key="@string/p_colorize"  
+            android:title="@string/prefs_colorize_title"  
+            android:summary="@string/prefs_colorize_desc" />  
+         <EditTextPreference  
+            android:key="@string/p_fontSize"  
+            android:title="@string/prefs_fontSize_title"  
+            android:summary="@string/prefs_fontSize_desc" />
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/prefs_category_other"> 
+        <EditTextPreference  
+            android:key="@string/p_deadlineTime"  
+            android:title="@string/prefs_deadlineTime_title"  
+            android:summary="@string/prefs_deadlineTime_desc" /> 
+    </PreferenceCategory>
 </PreferenceScreen>  

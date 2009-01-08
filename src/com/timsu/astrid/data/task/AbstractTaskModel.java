@@ -33,6 +33,7 @@ import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.AbstractModel;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.enums.RepeatInterval;
+import com.timsu.astrid.utilities.Preferences;
 
 
 /** Abstract model of a task. Subclasses implement the getters and setters
@@ -187,10 +188,12 @@ public abstract class AbstractTaskModel extends AbstractModel {
     // --- utility methods
 
     /** Gets task color. Requires definiteDueDate and importance */
-    protected int getTaskColorResource() {
+    protected int getTaskColorResource(Context context) {
         if(getDefiniteDueDate() != null && getDefiniteDueDate().getTime() <
                 System.currentTimeMillis()) {
             return R.color.task_list_overdue;
+        } else if(Preferences.isColorize(context)) {
+            return getImportance().getTaskListColor();
         } else {
             return R.color.task_list_normal;
         }

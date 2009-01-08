@@ -280,7 +280,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             progress.setButtonDrawable(R.drawable.btn_check0);
         } else {
             name.setBackgroundDrawable(null);
-            name.setTextColor(r.getColor(task.getTaskColorResource()));
+            name.setTextColor(r.getColor(task.getTaskColorResource(getContext())));
 
             if(task.getProgressPercentage() >= 75)
                 progress.setButtonDrawable(R.drawable.btn_check75);

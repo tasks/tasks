@@ -23,6 +23,10 @@
     <color name="task_list_overdue">#FFFB6666</color>
     <color name="task_list_normal">#FFFFFFFF</color>
     <color name="task_list_done">#ff777777</color>
+    <color name="task_list_importance_1">#ffFF8281</color>
+    <color name="task_list_importance_2">#ffF7F1BD</color>
+    <color name="task_list_importance_3">#ff597AFF</color>
+    <color name="task_list_importance_4">#ffB4B4B4</color>   
     
     <color name="taskList_dueDateOverdue">#FFFB6666</color>
     <color name="taskList_dueDate">#ffF0E89E</color>

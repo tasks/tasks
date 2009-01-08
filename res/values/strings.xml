@@ -226,7 +226,9 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="key_notification_ringtone">notification_ringtone</string>
         <string name="p_fontSize">font_size</string>
         <string name="p_deadlineTime">deadline_time</string>
+        <string name="p_colorize">colorize</string>
     
+        <string name="prefs_category_alerts">Notifications</string>
         <string name="prefs_quietStart_title">Quiet Hours Start</string>
         <string name="prefs_quietStart_desc">Starting hour when Astrid should be quiet (e.g. 22)</string>
         <string name="prefs_quietEnd_title">Quiet Hours End</string>
@@ -235,8 +237,14 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="prefs_annoy_desc">If checked, Astrid will try a bit harder to get your attention</string>
         <string name="prefs_notification_title">Notification Ringtone</string>
         <string name="prefs_notification_desc">Choose how Astrid alerts you!</string>
+        
+        <string name="prefs_category_appearance">Appearance</string>
         <string name="prefs_fontSize_title">Task List Font</string>
         <string name="prefs_fontSize_desc">Font on the main listing page (i.e. 22)</string>
-        <string name="prefs_deadlineTime_title">Default Deadline Time</string>
-        <string name="prefs_deadlineTime_desc"># of days from now to set new deadlines (i.e. 7)</string>
+        <string name="prefs_colorize_title">Colorize Task List</string>
+        <string name="prefs_colorize_desc">Different colors for different priorities</string>
+        
+        <string name="prefs_category_other">Other</string>
+        <string name="prefs_deadlineTime_title">Default Deadlines</string>
+        <string name="prefs_deadlineTime_desc"># of days from now to set new deadlines</string>
 </resources>

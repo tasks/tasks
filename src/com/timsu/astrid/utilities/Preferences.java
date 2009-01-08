@@ -17,6 +17,7 @@ public class Preferences {
 
     // default values
     private static final boolean DEFAULT_PERSISTENCE_MODE = true;
+    private static final boolean DEFAULT_COLORIZE = false;
 
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults(Context context) {
@@ -33,6 +34,9 @@ public class Preferences {
         }
         if(!prefs.contains(r.getString(R.string.p_deadlineTime))) {
             editor.putString(r.getString(R.string.p_deadlineTime), "7");
+        }
+        if(!prefs.contains(r.getString(R.string.p_colorize))) {
+            editor.putBoolean(r.getString(R.string.p_colorize), DEFAULT_COLORIZE);
         }
 
         editor.commit();
@@ -99,6 +103,13 @@ public class Preferences {
     /** Return # of days from now to set deadlines by default */
     public static Integer getDefaultDeadlineDays(Context context) {
         return getIntegerValue(context, R.string.p_deadlineTime);
+    }
+
+    /** Get perstence mode setting */
+    public static boolean isColorize(Context context) {
+        Resources r = context.getResources();
+        return getPrefs(context).getBoolean(r.getString(
+                R.string.p_colorize), DEFAULT_COLORIZE);
     }
 
     // --- helper methods

@@ -26,6 +26,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
+import android.content.Context;
 import android.database.Cursor;
 
 import com.timsu.astrid.data.AbstractController;
@@ -140,8 +141,8 @@ public class TaskModelForList extends AbstractTaskModel {
     }
 
     @Override
-    public int getTaskColorResource() {
-        return super.getTaskColorResource();
+    public int getTaskColorResource(Context context) {
+        return super.getTaskColorResource(context);
     }
 
     @Override
