@@ -28,7 +28,6 @@ import java.util.Map;
 import java.util.Set;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -40,7 +39,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -55,6 +54,7 @@ import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.timsu.astrid.R;
@@ -98,7 +98,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     // UI components
     private EditText               name;
-    private Spinner                importance;
+    private ImportanceControlSet   importance;
     private TimeDurationControlSet estimatedDuration;
     private TimeDurationControlSet elapsedDuration;
     private TimeDurationControlSet notification;
@@ -184,7 +184,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                 append(model.getName()));
         estimatedDuration.setTimeDuration(model.getEstimatedSeconds());
         elapsedDuration.setTimeDuration(model.getElapsedSeconds());
-        importance.setSelection(model.getImportance().ordinal());
+        importance.setImportance(model.getImportance());
         definiteDueDate.setDate(model.getDefiniteDueDate());
         preferredDueDate.setDate(model.getPreferredDueDate());
         hiddenUntil.setDate(model.getHiddenUntil());
@@ -244,8 +244,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         model.setName(name.getText().toString());
         model.setEstimatedSeconds(estimatedDuration.getTimeDurationInSeconds());
         model.setElapsedSeconds(elapsedDuration.getTimeDurationInSeconds());
-        model.setImportance(Importance.values()
-                [importance.getSelectedItemPosition()]);
+        model.setImportance(importance.getImportance());
         model.setDefiniteDueDate(definiteDueDate.getDate());
         model.setPreferredDueDate(preferredDueDate.getDate());
         model.setHiddenUntil(hiddenUntil.getDate());
@@ -326,7 +325,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
         // populate instance variables
         name = (EditText)findViewById(R.id.name);
-        importance = (Spinner)findViewById(R.id.importance);
+        importance = new ImportanceControlSet(R.id.importance_container);
         tagsContainer = (LinearLayout)findViewById(R.id.tags_container);
         estimatedDuration = new TimeDurationControlSet(this,
                 R.id.estimatedDuration, 0, R.string.hour_minutes_dialog,
@@ -351,11 +350,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         repeatValue = (Button)findViewById(R.id.repeat_value);
 
         // individual ui component initialization
-        ImportanceAdapter importanceAdapter = new ImportanceAdapter(this,
-                    android.R.layout.simple_spinner_item,
-                    R.layout.importance_spinner_dropdown,
-                    Importance.values());
-        importance.setAdapter(importanceAdapter);
         ArrayAdapter<String> repeatAdapter = new ArrayAdapter<String>(
                 this, android.R.layout.simple_spinner_item,
                 RepeatInterval.getLabels(getResources()));
@@ -667,58 +661,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
      * ========================================== UI component helper classes
      * ====================================================================== */
 
-    /** Adapter with custom view to display Importance with proper formatting */
-    private class ImportanceAdapter extends ArrayAdapter<Importance> {
-        private int textViewResourceId, dropDownResourceId;
-        private LayoutInflater inflater;
-
-        public ImportanceAdapter(Context context, int textViewResourceId,
-                int dropDownResourceId, Importance[] objects) {
-            super(context, textViewResourceId, objects);
-
-            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            this.textViewResourceId = textViewResourceId;
-            this.dropDownResourceId = dropDownResourceId;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            return getView(position, convertView, parent, textViewResourceId, true);
-        }
-
-        @Override
-        public View getDropDownView(int position, View convertView, ViewGroup parent) {
-            return getView(position, convertView, parent, dropDownResourceId, true);
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent,
-                int resource, boolean setColors) {
-            View view;
-            TextView text;
-            Resources r = getResources();
-
-            if (convertView == null) {
-                view = inflater.inflate(resource, parent, false);
-            } else {
-                view = convertView;
-            }
-
-            try {
-                text = (TextView) view;
-            } catch (ClassCastException e) {
-                Log.e("ArrayAdapter", "You must supply a resource ID for a TextView");
-                throw new IllegalStateException(
-                        "ArrayAdapter requires the resource ID to be a TextView", e);
-            }
-
-            text.setText(r.getString(getItem(position).getLabelResource()));
-            if(setColors)
-                text.setBackgroundColor(r.getColor(getItem(position).getColorResource()));
-
-            return view;
-        }
-    }
-
     /** Control set dealing with notification flags */
     public class NotifyFlagControlSet {
         private CheckBox before, during, after;
@@ -748,6 +690,54 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             if(after.isChecked())
                 value |= TaskModelForEdit.NOTIFY_AFTER_DEADLINE;
             return value;
+        }
+    }
+
+    /** Control set dealing with importance */
+    public class ImportanceControlSet {
+        private List<CompoundButton> buttons = new LinkedList<CompoundButton>();
+
+        public ImportanceControlSet(int containerId) {
+            LinearLayout layout = (LinearLayout)findViewById(containerId);
+            Resources r = getResources();
+
+            for(Importance i : Importance.values()) {
+                final ToggleButton button = new ToggleButton(TaskEdit.this);
+                button.setLayoutParams(new LinearLayout.LayoutParams(
+                        LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1));
+                button.setTextColor(r.getColor(i.getColorResource()));
+                button.setTextOff(r.getString(i.getLabelResource()));
+                button.setTextOn(r.getString(i.getLabelResource()));
+                button.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setImportance((Importance)button.getTag());
+                    }
+                });
+                button.setTag(i);
+
+                buttons.add(button);
+                layout.addView(button);
+            }
+        }
+
+        public void setImportance(Importance i) {
+            for(CompoundButton b : buttons) {
+                if(b.getTag() == i) {
+                    b.setTextSize(24);
+                    b.setChecked(true);
+                } else {
+                    b.setTextSize(16);
+                    b.setChecked(false);
+                }
+            }
+        }
+
+        public Importance getImportance() {
+            for(CompoundButton b : buttons)
+                if(b.isChecked())
+                    return (Importance)b.getTag();
+            return Importance.DEFAULT;
         }
     }
 

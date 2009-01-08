@@ -24,21 +24,23 @@ import com.timsu.astrid.R;
 public enum Importance {
     // MOST IMPORTANT
 
-	LEVEL_1(R.string.importance_1, R.color.importance_1),
-	LEVEL_2(R.string.importance_2, R.color.importance_2),
-	LEVEL_3(R.string.importance_3, R.color.importance_3),
-	LEVEL_4(R.string.importance_4, R.color.importance_4),
+	LEVEL_1(R.string.importance_1, R.color.importance_1, R.drawable.bullet_red),
+	LEVEL_2(R.string.importance_2, R.color.importance_2, R.drawable.bullet_orange),
+	LEVEL_3(R.string.importance_3, R.color.importance_3, R.drawable.bullet_blue),
+	LEVEL_4(R.string.importance_4, R.color.importance_4, R.drawable.bullet_white),
 
 	// LEAST IMPORTANT
 	;
 
 	int label;
 	int color;
+	int icon;
 	public static final Importance DEFAULT = LEVEL_3;
 
-	private Importance(int label, int color) {
+	private Importance(int label, int color, int icon) {
 	    this.label = label;
 	    this.color = color;
+	    this.icon = icon;
 	}
 
 	public int getLabelResource() {
@@ -47,5 +49,9 @@ public enum Importance {
 
 	public int getColorResource() {
 	    return color;
+	}
+
+	public int getIconResource() {
+	    return icon;
 	}
 }

@@ -18,10 +18,6 @@ public class Preferences {
     // default values
     private static final boolean DEFAULT_PERSISTENCE_MODE = true;
 
-    private static SharedPreferences getPrefs(Context context) {
-        return  PreferenceManager.getDefaultSharedPreferences(context);
-    }
-
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults(Context context) {
         SharedPreferences prefs = getPrefs(context);
@@ -31,6 +27,12 @@ public class Preferences {
         if(!prefs.contains(r.getString(R.string.p_notif_annoy))) {
             editor.putBoolean(r.getString(R.string.p_notif_annoy),
                     DEFAULT_PERSISTENCE_MODE);
+        }
+        if(!prefs.contains(r.getString(R.string.p_fontSize))) {
+            editor.putString(r.getString(R.string.p_fontSize), "20");
+        }
+        if(!prefs.contains(r.getString(R.string.p_deadlineTime))) {
+            editor.putString(r.getString(R.string.p_deadlineTime), "7");
         }
 
         editor.commit();
@@ -61,28 +63,12 @@ public class Preferences {
 
     /** returns hour at which quiet hours start, or null if not set */
     public static Integer getQuietHourStart(Context context) {
-        Resources r = context.getResources();
-        String value = getPrefs(context).getString(r.getString(
-                R.string.p_notif_quietStart), "");
-
-        try {
-            return Integer.parseInt(value);
-        } catch (Exception e) {
-            return null;
-        }
+        return getIntegerValue(context, R.string.p_notif_quietStart);
     }
 
     /** returns hour at which quiet hours start, or null if not set */
     public static Integer getQuietHourEnd(Context context) {
-        Resources r = context.getResources();
-        String value = getPrefs(context).getString(r.getString(
-                R.string.p_notif_quietEnd), "");
-
-        try {
-            return Integer.parseInt(value);
-        } catch (Exception e) {
-            return null;
-        }
+        return getIntegerValue(context, R.string.p_notif_quietEnd);
     }
 
     /** Get notification ringtone, or null if not set */
@@ -103,5 +89,32 @@ public class Preferences {
         Resources r = context.getResources();
         return getPrefs(context).getBoolean(r.getString(
                 R.string.p_notif_annoy), DEFAULT_PERSISTENCE_MODE);
+    }
+
+    /** returns the font size user wants on the front page */
+    public static Integer getTaskListFontSize(Context context) {
+        return getIntegerValue(context, R.string.p_fontSize);
+    }
+
+    /** Return # of days from now to set deadlines by default */
+    public static Integer getDefaultDeadlineDays(Context context) {
+        return getIntegerValue(context, R.string.p_deadlineTime);
+    }
+
+    // --- helper methods
+
+    private static SharedPreferences getPrefs(Context context) {
+        return PreferenceManager.getDefaultSharedPreferences(context);
+    }
+
+    private static Integer getIntegerValue(Context context, int keyResource) {
+        Resources r = context.getResources();
+        String value = getPrefs(context).getString(r.getString(keyResource), "");
+
+        try {
+            return Integer.parseInt(value);
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

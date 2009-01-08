@@ -51,9 +51,11 @@
             android:text="@string/importance_label"
             style="@style/TextAppearance.EditEvent_Label"/>
 
-        <Spinner android:id="@+id/importance"
+        <LinearLayout android:id="@+id/importance_container"
+            android:orientation="horizontal"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content">
+        </LinearLayout>
         
         <TextView android:id="@+id/estimatedDuration_label"
             android:layout_width="wrap_content"

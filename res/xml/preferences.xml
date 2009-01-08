@@ -21,4 +21,12 @@
 		android:showDefault="true"
 		android:showSilent="true"
          />
+     <EditTextPreference  
+        android:key="@string/p_fontSize"  
+        android:title="@string/prefs_fontSize_title"  
+        android:summary="@string/prefs_fontSize_desc" /> 
+    <EditTextPreference  
+        android:key="@string/p_deadlineTime"  
+        android:title="@string/prefs_deadlineTime_title"  
+        android:summary="@string/prefs_deadlineTime_desc" /> 
 </PreferenceScreen>  

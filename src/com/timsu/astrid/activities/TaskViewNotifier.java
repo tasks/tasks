@@ -10,9 +10,8 @@ import android.os.Bundle;
 import com.timsu.astrid.R;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.Notifications;
-import com.timsu.astrid.widget.NumberPicker;
-import com.timsu.astrid.widget.NumberPickerDialog;
-import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
+import com.timsu.astrid.widget.NNumberPickerDialog;
+import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 
 public class TaskViewNotifier extends TaskView {
 
@@ -80,18 +79,19 @@ public class TaskViewNotifier extends TaskView {
     private void snoozeAlert() {
         Resources r = getResources();
         // ask how long
-        new NumberPickerDialog(this,
-                new OnNumberPickedListener() {
-            @Override
-            public void onNumberPicked(NumberPicker view, int number) {
+        new NNumberPickerDialog(this, new OnNNumberPickedListener() {
+            public void onNumbersPicked(int[] values) {
+                int snoozeSeconds = values[0] * 3600 + values[1] * 60;
                 Notifications.createSnoozeAlarm(TaskViewNotifier.this,
-                        model.getTaskIdentifier(), number * 60, flags,
+                        model.getTaskIdentifier(), snoozeSeconds, flags,
                         repeatInterval);
 
                 setResult(Constants.RESULT_GO_HOME);
                 TaskList.shouldCloseInstance = true;
                 finish();
             }
-        }, r.getString(R.string.notify_snooze_title), 10, 10, 0, 120).show();
+        }, r.getString(R.string.notify_snooze_title),
+        new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
+        new int[] {99, 59}, new String[] {":", null}).show();
     }
 }

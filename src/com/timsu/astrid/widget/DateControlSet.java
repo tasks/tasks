@@ -33,6 +33,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
 
+import com.timsu.astrid.utilities.Preferences;
+
 public class DateControlSet implements OnTimeSetListener,
         OnDateSetListener, View.OnClickListener {
 
@@ -68,7 +70,10 @@ public class DateControlSet implements OnTimeSetListener,
         this.date = newDate;
         if(newDate == null) {
             date = new Date();
-            date.setTime(date.getTime() + 24*3600*1000);
+            Integer days = Preferences.getDefaultDeadlineDays(activity);
+            if(days == null)
+                days = 1;
+            date.setTime(date.getTime() + days*24*3600*1000);
             date.setMinutes(0);
         }
 

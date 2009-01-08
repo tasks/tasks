@@ -46,6 +46,7 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.utilities.DateUtilities;
+import com.timsu.astrid.utilities.Preferences;
 
 /** Adapter for displaying a list of TaskModelForList entities
  *
@@ -105,7 +106,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         final TextView dueDateView = ((TextView)view.findViewById(R.id.text_dueDate));
         final TextView tagsView = ((TextView)view.findViewById(R.id.text_tags));
         final CheckBox progress = ((CheckBox)view.findViewById(R.id.cb1));
-        final ImageView timer = ((ImageView)view.findViewById(R.id.image1));
+        final ImageView timer = ((ImageView)view.findViewById(R.id.imageLeft));
+        final ImageView importance = ((ImageView)view.findViewById(R.id.imageRight));
         boolean hasProperties = false;
 
         view.setTag(task);
@@ -115,8 +117,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date()))
             nameValue = "(" + r.getString(R.string.taskList_hiddenPrefix) + ") " + nameValue;
         name.setText(nameValue);
+        Integer fontSizePreference = Preferences.getTaskListFontSize(getContext());
+        if(fontSizePreference != null && fontSizePreference > 0)
+            name.setTextSize(fontSizePreference);
         if(task.getTimerStart() != null)
             timer.setImageDrawable(r.getDrawable(R.drawable.ic_dialog_time));
+        importance.setImageDrawable(r.getDrawable(task.getImportance().getIconResource()));
         progress.setChecked(task.isTaskCompleted());
 
         // due date / completion date
@@ -241,7 +247,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     }
 
     private void setTaskProgress(final TaskModelForList task, View view, int progress) {
-        final ImageView timer = ((ImageView)view.findViewById(R.id.image1));
+        final ImageView timer = ((ImageView)view.findViewById(R.id.imageLeft));
         task.setProgressPercentage(progress);
         hooks.getTaskController().saveTask(task);
 

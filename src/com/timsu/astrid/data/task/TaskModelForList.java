@@ -85,6 +85,8 @@ public class TaskModelForList extends AbstractTaskModel {
         int secondsLeft = getEstimatedSeconds() - getElapsedSeconds();
         if(secondsLeft > 0)
             weight += secondsLeft / 120;
+        else
+            weight += 3600 / 120; // default if no time set
 
         // looming absolute deadline
         if(getDefiniteDueDate() != null) {

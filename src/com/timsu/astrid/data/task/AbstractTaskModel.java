@@ -192,7 +192,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 System.currentTimeMillis()) {
             return R.color.task_list_overdue;
         } else {
-            return getImportance().getColorResource();
+            return R.color.task_list_normal;
         }
     }
 
