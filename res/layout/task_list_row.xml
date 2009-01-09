@@ -83,8 +83,9 @@
 
     <ImageView android:id="@+id/imageRight"
         android:gravity="center_vertical"
-        android:layout_width="26px"
+        android:layout_width="24px"
         android:layout_height="fill_parent"
-        android:paddingLeft="12dip"/>
+        android:paddingLeft="6dip"
+        android:paddingRight="4dip"/>
         
 </LinearLayout>

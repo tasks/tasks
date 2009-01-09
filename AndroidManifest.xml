@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionCode="45"
-      android:versionName="1.11.1">
+      android:versionCode="46"
+      android:versionName="1.11.2">
       
     <meta-data android:name="com.a0soft.gphone.aTrackDog.webURL"
                android:value="http://www.weloveastrid.com" />

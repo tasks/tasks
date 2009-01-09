@@ -151,7 +151,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         TabWidget tabWidget = tabHost.getTabWidget();
         for(int i = 0; i < tabWidget.getChildCount(); i++) {
             RelativeLayout tab = (RelativeLayout)tabWidget.getChildAt(i);
-            tab.getLayoutParams().height = 44;
+            tab.getLayoutParams().height = 46;
         }
 
         setUpUIComponents();
@@ -191,6 +191,11 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         notification.setTimeDuration(model.getNotificationIntervalSeconds());
         flags.setValue(model.getNotificationFlags());
         notes.setText(model.getNotes());
+        if(model.getTaskIdentifier() == null) {
+            Integer reminder = Preferences.getDefaultReminder(this);
+            if(reminder != null)
+                notification.setTimeDuration(24*3600*reminder);
+        }
 
         // tags
         tags = tagController.getAllTags(this);

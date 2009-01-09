@@ -112,6 +112,11 @@ public class Preferences {
                 R.string.p_colorize), DEFAULT_COLORIZE);
     }
 
+    /** Return # of days to remind by default */
+    public static Integer getDefaultReminder(Context context) {
+        return getIntegerValue(context, R.string.p_notif_defaultRemind);
+    }
+
     // --- helper methods
 
     private static SharedPreferences getPrefs(Context context) {

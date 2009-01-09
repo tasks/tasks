@@ -16,6 +16,10 @@
             android:key="@string/p_notif_annoy"  
             android:title="@string/prefs_annoy_title"  
             android:summary="@string/prefs_annoy_desc" />  
+        <EditTextPreference  
+            android:key="@string/p_notif_defaultRemind"  
+            android:title="@string/prefs_defaultRemind_title"  
+            android:summary="@string/prefs_defaultRemind_desc" />  
         <RingtonePreference  
             android:key="@string/key_notification_ringtone"  
             android:title="@string/prefs_notification_title"  
