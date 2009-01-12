@@ -126,6 +126,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingLeft="5px"
+                android:autoLink="all"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:colorForeground="@color/view_table_values" /> 
         </LinearLayout>

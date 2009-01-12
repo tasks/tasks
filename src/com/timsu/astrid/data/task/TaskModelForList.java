@@ -19,12 +19,7 @@
  */
 package com.timsu.astrid.data.task;
 
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -51,43 +46,12 @@ public class TaskModelForList extends AbstractTaskModel {
         HIDDEN_UNTIL,
     };
 
-    /** Takes the incoming list of task models and weights it, removing hidden
-     * tasks if desired. This mutates the list */
-    static List<TaskModelForList> sortTaskList(List<TaskModelForList> list) {
-        final HashMap<TaskModelForList, Integer> weights = new
-            HashMap<TaskModelForList, Integer>();
-
-        // first, load everything
-        for(Iterator<TaskModelForList> i = list.iterator(); i.hasNext(); ) {
-            TaskModelForList task = i.next();
-
-            weights.put(task, task.getWeight());
-        }
-
-        // now sort
-        Collections.sort(list, new Comparator<TaskModelForList>() {
-            @Override
-            public int compare(TaskModelForList a, TaskModelForList b) {
-                return weights.get(a) - weights.get(b);
-            }
-        });
-
-        return list;
-    }
-
     /** Get the weighted score for this task. Smaller is more important */
-    private int getWeight() {
+    public int getTaskWeight() {
         int weight = 0;
 
         // importance
-        weight += getImportance().ordinal() * 60;
-
-        // estimated time left
-        int secondsLeft = getEstimatedSeconds() - getElapsedSeconds();
-        if(secondsLeft > 0)
-            weight += secondsLeft / 120;
-        else
-            weight += 3600 / 120; // default if no time set
+        weight += getImportance().ordinal() * 80;
 
         // looming absolute deadline
         if(getDefiniteDueDate() != null) {

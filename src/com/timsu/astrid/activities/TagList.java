@@ -33,9 +33,11 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -72,6 +74,8 @@ public class TagList extends Activity {
     private static final int CONTEXT_DELETE_ID     = Menu.FIRST + 11;
     private static final int CONTEXT_SHOWHIDE_ID   = Menu.FIRST + 12;
 
+    private static final int FLING_THRESHOLD       = 50;
+
     private TagController controller;
     private TaskController taskController;
     private ListView listView;
@@ -79,8 +83,10 @@ public class TagList extends Activity {
     private List<TagModelForView> tagArray;
     private Map<Long, TaskModelForList> taskMap;
     private Map<TagModelForView, Integer> tagToTaskCount;
-    private SortMode sortMode = SortMode.SIZE;
-    private boolean sortReverse = false;
+    private GestureDetector gestureDetector;
+
+    private static SortMode sortMode = SortMode.SIZE;
+    private static boolean sortReverse = false;
 
     /** Called when loading up the activity for the first time */
     private void onLoad() {
@@ -92,6 +98,28 @@ public class TagList extends Activity {
         listView = (ListView)findViewById(R.id.taglist);
 
         fillData();
+        gestureDetector = new GestureDetector(new TagListGestureDetector());
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        if (gestureDetector.onTouchEvent(ev)) {
+            return true;
+        }
+        return super.onTouchEvent(ev);
+    }
+
+    class TagListGestureDetector extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if(e1.getX() - e2.getX() > FLING_THRESHOLD) {
+                setResult(RESULT_CANCELED);
+                finish();
+                return true;
+            }
+
+            return false;
+        }
     }
 
     // --- stuff for sorting

@@ -86,7 +86,7 @@
         
         <string name="taskList_menu_insert">Add</string>
         <string name="taskList_menu_tags">Tags</string>
-        <string name="taskList_menu_filters">Filters</string>
+        <string name="taskList_menu_filters">Display</string>
         <string name="taskList_menu_more">More</string>
         <string name="taskList_menu_settings">Settings</string>
         <string name="taskList_menu_help">Help</string>
@@ -96,10 +96,14 @@
         <string name="taskList_context_startTimer">Start Timer</string>
         <string name="taskList_context_stopTimer">Stop Timer</string>
         
-        <string name="taskList_filter_title">Filters</string>
+        <string name="taskList_filter_title">Sort/Filters</string>
         <string name="taskList_filter_hidden">Hidden/Blocked Tasks</string>
         <string name="taskList_filter_done">Completed Tasks</string>
         <string name="taskList_filter_tagged">Tagged \'%s\'</string>
+        <string name="taskList_sort_auto">Auto Sort</string>
+        <string name="taskList_sort_alpha">Sort By Name</string>
+        <string name="taskList_sort_duedate">Sort By Due Date</string>
+        <string name="taskList_sort_reverse">Sort Reverse</string>
 
     <!-- TaskEdit -->
     <skip />

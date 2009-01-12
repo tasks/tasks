@@ -18,6 +18,8 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package com.timsu.astrid.activities;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -34,8 +36,10 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
@@ -85,6 +89,13 @@ public class TaskList extends Activity {
     private static final int       CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
     private static final int       CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
     private static final int       CONTEXT_FILTER_TAG    = Menu.FIRST + 22;
+    private static final int       CONTEXT_SORT_AUTO     = Menu.FIRST + 23;
+    private static final int       CONTEXT_SORT_ALPHA    = Menu.FIRST + 24;
+    private static final int       CONTEXT_SORT_DUEDATE  = Menu.FIRST + 25;
+    private static final int       CONTEXT_SORT_REVERSE  = Menu.FIRST + 26;
+    private static final int       CONTEXT_SORT_GROUP    = Menu.FIRST;
+
+    private static final int       FLING_THRESHOLD       = 50;
 
     // UI components
     private TaskController controller;
@@ -97,9 +108,14 @@ public class TaskList extends Activity {
     private Map<TagIdentifier, TagModelForView> tagMap;
     private List<TaskModelForList> taskArray;
     private Map<TaskModelForList, List<TagModelForView>> taskTags;
-    private boolean filterShowHidden = false;
-    private boolean filterShowDone = false;
-    private TagModelForView filterTag = null;
+    private GestureDetector gestureDetector;
+
+    // display filters
+    private static boolean filterShowHidden = false;
+    private static boolean filterShowDone = false;
+    private static TagModelForView filterTag = null;
+    private static SortMode sortMode = SortMode.AUTO;
+    private static boolean sortReverse = false;
 
     static boolean shouldCloseInstance = false;
 
@@ -145,6 +161,33 @@ public class TaskList extends Activity {
 
         fillData();
         // TODO Synchronizer.authenticate(this);
+
+        gestureDetector = new GestureDetector(new TaskListGestureDetector());
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        if (gestureDetector.onTouchEvent(ev)) {
+            return true;
+        }
+        return super.onTouchEvent(ev);
+    }
+
+    class TaskListGestureDetector extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+            if(e2.getX() - e1.getX() > FLING_THRESHOLD) {
+                showTagsView();
+                return true;
+            } else if(e1.getX() - e2.getX() > FLING_THRESHOLD &&
+                    !isTopLevelActivity()) {
+                setResult(RESULT_CANCELED);
+                finish();
+                return true;
+            }
+
+            return false;
+        }
     }
 
     @Override
@@ -191,6 +234,43 @@ public class TaskList extends Activity {
 
         return true;
     }
+
+    private enum SortMode {
+        ALPHA {
+            @Override
+            int compareTo(TaskModelForList arg0, TaskModelForList arg1) {
+                return arg0.getName().compareTo(arg1.getName());
+            }
+        },
+        DUEDATE {
+            long getDueDate(TaskModelForList task) {
+                Date definite = task.getDefiniteDueDate();
+                Date preferred = task.getPreferredDueDate();
+                if(definite != null && preferred != null) {
+                    if(preferred.before(new Date()))
+                        return definite.getTime();
+                    return preferred.getTime();
+                } else if(definite != null)
+                        return definite.getTime();
+                else if(preferred != null)
+                    return preferred.getTime();
+                else
+                    return new Date(2020,1,1).getTime();
+            }
+            @Override
+            int compareTo(TaskModelForList arg0, TaskModelForList arg1) {
+                return (int)((getDueDate(arg0) - getDueDate(arg1))/1000);
+            }
+        },
+        AUTO {
+            @Override
+            int compareTo(TaskModelForList arg0, TaskModelForList arg1) {
+                return arg0.getTaskWeight() - arg1.getTaskWeight();
+            }
+        };
+
+        abstract int compareTo(TaskModelForList arg0, TaskModelForList arg1);
+    };
 
     /* ======================================================================
      * ====================================================== populating list
@@ -275,6 +355,17 @@ public class TaskList extends Activity {
         }
         int activeTasks = taskArray.size() - completedTasks;
 
+        // sort task list
+        // do sort
+        Collections.sort(taskArray, new Comparator<TaskModelForList>() {
+            @Override
+            public int compare(TaskModelForList arg0, TaskModelForList arg1) {
+                return sortMode.compareTo(arg0, arg1);
+            }
+        });
+        if(sortReverse)
+            Collections.reverse(taskArray);
+
         // hide "add" button if we have a few tasks
         if(taskArray.size() > 4)
             addButton.setVisibility(View.GONE);
@@ -302,6 +393,8 @@ public class TaskList extends Activity {
 
         setUpListUI();
     }
+
+
 
     private void setUpListUI() {
      // set up our adapter
@@ -358,6 +451,7 @@ public class TaskList extends Activity {
                 if(menu.hasVisibleItems())
                     return;
                 Resources r = getResources();
+                menu.setHeaderTitle(R.string.taskList_filter_title);
 
                 MenuItem item = menu.add(Menu.NONE, CONTEXT_FILTER_HIDDEN,
                         Menu.NONE, R.string.taskList_filter_hidden);
@@ -377,7 +471,21 @@ public class TaskList extends Activity {
                     item.setChecked(true);
                 }
 
-                menu.setHeaderTitle(R.string.taskList_filter_title);
+                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_AUTO, Menu.NONE,
+                        R.string.taskList_sort_auto);
+                item.setChecked(sortMode == SortMode.AUTO);
+                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_ALPHA, Menu.NONE,
+                        R.string.taskList_sort_alpha);
+                item.setChecked(sortMode == SortMode.ALPHA);
+                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_DUEDATE, Menu.NONE,
+                        R.string.taskList_sort_duedate);
+                item.setChecked(sortMode == SortMode.DUEDATE);
+                menu.setGroupCheckable(CONTEXT_SORT_GROUP, true, true);
+
+                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_REVERSE, Menu.NONE,
+                        R.string.taskList_sort_reverse);
+                item.setCheckable(true);
+                item.setChecked(sortReverse);
             }
         });
     }
@@ -394,6 +502,9 @@ public class TaskList extends Activity {
         if(resultCode == Constants.RESULT_SYNCHRONIZE) {
             // TODO Synchronizer.performSync(this, true);
         }
+
+        if(requestCode == ACTIVITY_TAGS && resultCode == RESULT_CANCELED)
+            filterTag = null;
     }
 
     @Override
@@ -434,6 +545,20 @@ public class TaskList extends Activity {
             .show();
     }
 
+    public boolean isTopLevelActivity() {
+        return (getIntent().getExtras() == null ||
+                !getIntent().getExtras().containsKey(TAG_TOKEN));
+    }
+
+    public void showTagsView() {
+        if(isTopLevelActivity()) {
+            Intent intent = new Intent(TaskList.this, TagList.class);
+            startActivityForResult(intent, ACTIVITY_TAGS);
+        } else {
+            finish();
+        }
+    }
+
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         Intent intent;
@@ -447,12 +572,7 @@ public class TaskList extends Activity {
             listView.showContextMenu();
             return true;
         case TAGS_ID:
-            if(filterTag == null) {
-                intent = new Intent(TaskList.this, TagList.class);
-                startActivityForResult(intent, ACTIVITY_TAGS);
-            } else {
-                finish();
-            }
+            showTagsView();
             return true;
         case MORE_ID:
             layout.showContextMenu();
@@ -497,8 +617,34 @@ public class TaskList extends Activity {
             fillData();
             return true;
         case CONTEXT_FILTER_TAG:
+            filterTag = null;
             setResult(Constants.RESULT_GO_HOME);
             finish();
+            return true;
+        case CONTEXT_SORT_AUTO:
+            if(sortMode == SortMode.AUTO)
+                return true;
+            sortReverse = false;
+            sortMode = SortMode.AUTO;
+            fillData();
+            return true;
+        case CONTEXT_SORT_ALPHA:
+            if(sortMode == SortMode.ALPHA)
+                return true;
+            sortReverse = false;
+            sortMode = SortMode.ALPHA;
+            fillData();
+            return true;
+        case CONTEXT_SORT_DUEDATE:
+            if(sortMode == SortMode.DUEDATE)
+                return true;
+            sortReverse = false;
+            sortMode = SortMode.DUEDATE;
+            fillData();
+            return true;
+        case CONTEXT_SORT_REVERSE:
+            sortReverse = !sortReverse;
+            fillData();
             return true;
         }
 

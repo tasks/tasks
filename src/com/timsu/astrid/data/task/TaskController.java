@@ -47,10 +47,11 @@ public class TaskController extends AbstractController {
     public List<TaskModelForNotify> getTasksWithNotifications() {
         List<TaskModelForNotify> list = new ArrayList<TaskModelForNotify>();
         Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForNotify.FIELD_LIST,
-                String.format("%s < %d AND %s != 0",
+                String.format("%s < %d AND (%s != 0 OR %s != 0)",
                         AbstractTaskModel.PROGRESS_PERCENTAGE,
                         AbstractTaskModel.COMPLETE_PERCENTAGE,
-                        AbstractTaskModel.NOTIFICATIONS), null, null, null, null, null);
+                        AbstractTaskModel.NOTIFICATIONS,
+                        AbstractTaskModel.NOTIFICATION_FLAGS), null, null, null, null, null);
 
         if(cursor.getCount() == 0)
             return list;
@@ -112,7 +113,7 @@ public class TaskController extends AbstractController {
             list.add(new TaskModelForList(cursor));
         } while(!cursor.isLast());
 
-        return TaskModelForList.sortTaskList(list);
+        return list;
     }
 
     /** Create a weighted list of tasks from the db cursor given */

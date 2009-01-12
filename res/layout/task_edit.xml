@@ -43,6 +43,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:hint="@string/name_hint"
+            android:autoText="true"
             android:capitalize="words"/>
                         
         <TextView android:id="@+id/importance_label"
@@ -100,6 +101,7 @@
             android:scrollbars="vertical"
             android:gravity="top"
             android:hint="@string/notes_hint"
+            android:autoText="true"
             android:capitalize="sentences"
             android:singleLine="false" />
         
