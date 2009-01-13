@@ -35,6 +35,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -95,7 +96,8 @@ public class TaskList extends Activity {
     private static final int       CONTEXT_SORT_REVERSE  = Menu.FIRST + 26;
     private static final int       CONTEXT_SORT_GROUP    = Menu.FIRST;
 
-    private static final int       FLING_THRESHOLD       = 50;
+    public static final int       FLING_DIST_THRESHOLD   = 100;
+    public static final int       FLING_VEL_THRESHOLD    = 300;
 
     // UI components
     private TaskController controller;
@@ -109,6 +111,7 @@ public class TaskList extends Activity {
     private List<TaskModelForList> taskArray;
     private Map<TaskModelForList, List<TagModelForView>> taskTags;
     private GestureDetector gestureDetector;
+    private View.OnTouchListener gestureTouchListener;
 
     // display filters
     private static boolean filterShowHidden = false;
@@ -163,27 +166,40 @@ public class TaskList extends Activity {
         // TODO Synchronizer.authenticate(this);
 
         gestureDetector = new GestureDetector(new TaskListGestureDetector());
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        if (gestureDetector.onTouchEvent(ev)) {
-            return true;
-        }
-        return super.onTouchEvent(ev);
+        gestureTouchListener = new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (gestureDetector.onTouchEvent(event)) {
+                    return true;
+                }
+                return false;
+            }
+        };
     }
 
     class TaskListGestureDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if(e2.getX() - e1.getX() > FLING_THRESHOLD) {
-                showTagsView();
-                return true;
-            } else if(e1.getX() - e2.getX() > FLING_THRESHOLD &&
-                    !isTopLevelActivity()) {
-                setResult(RESULT_CANCELED);
-                finish();
-                return true;
+            try {
+                Log.i("astrid", "Got fling. X: " + (e2.getX() - e1.getX()) +
+                        ", vel: " + velocityX);
+
+                // flick R to L
+                if(e1.getX() - e2.getX() > FLING_DIST_THRESHOLD &&
+                        Math.abs(velocityX) > FLING_VEL_THRESHOLD) {
+                    showTagsView();
+                    return true;
+                }
+
+                // flick L to R
+                else if(e2.getX() - e1.getX() > FLING_DIST_THRESHOLD &&
+                        Math.abs(velocityX) > FLING_VEL_THRESHOLD &&
+                        !isTopLevelActivity()) {
+                    setResult(RESULT_CANCELED);
+                    finish();
+                    return true;
+                }
+            } catch (Exception e) {
+                // ignore!
             }
 
             return false;
@@ -425,6 +441,10 @@ public class TaskList extends Activity {
                 public void performItemClick(View v, int position) {
                     listView.performItemClick(v, position, 0);
                 }
+
+                public void onCreatedTaskListView(View v, TaskModelForList task) {
+                    v.setOnTouchListener(gestureTouchListener);
+                }
         });
         listView.setAdapter(tasks);
         listView.setItemsCanFocus(true);
@@ -488,6 +508,8 @@ public class TaskList extends Activity {
                 item.setChecked(sortReverse);
             }
         });
+
+        listView.setOnTouchListener(gestureTouchListener);
     }
 
     /* ======================================================================
@@ -546,7 +568,8 @@ public class TaskList extends Activity {
     }
 
     public boolean isTopLevelActivity() {
-        return (getIntent().getExtras() == null ||
+        return (getIntent() == null ||
+                getIntent().getExtras() == null ||
                 !getIntent().getExtras().containsKey(TAG_TOKEN));
     }
 
@@ -618,8 +641,7 @@ public class TaskList extends Activity {
             return true;
         case CONTEXT_FILTER_TAG:
             filterTag = null;
-            setResult(Constants.RESULT_GO_HOME);
-            finish();
+            fillData();
             return true;
         case CONTEXT_SORT_AUTO:
             if(sortMode == SortMode.AUTO)

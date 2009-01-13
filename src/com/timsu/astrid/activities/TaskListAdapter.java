@@ -71,6 +71,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         TaskController getTaskController();
         TagController getTagController();
         void performItemClick(View v, int position);
+        void onCreatedTaskListView(View v, TaskModelForList task);
     }
 
     public TaskListAdapter(Activity activity, Context context, int resource,
@@ -188,6 +189,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         }
 
         setTaskAppearance(task, name, progress);
+        hooks.onCreatedTaskListView(view, task);
     }
 
     private void addListeners(final int position, final View view) {

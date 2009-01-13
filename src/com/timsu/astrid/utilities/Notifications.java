@@ -3,6 +3,7 @@ package com.timsu.astrid.utilities;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -97,17 +98,31 @@ public class Notifications extends BroadcastReceiver {
     }
 
     public static void scheduleAllAlarms(Context context) {
-        TaskController taskController = new TaskController(context);
-        taskController.open();
-        AlertController alertController = new AlertController(context);
-        alertController.open();
+        try {
+            TaskController taskController = new TaskController(context);
+            taskController.open();
+            AlertController alertController = new AlertController(context);
+            alertController.open();
 
-        List<TaskModelForNotify> tasks = taskController.getTasksWithNotifications();
-        for(TaskModelForNotify task : tasks)
-            updateAlarm(context, taskController, alertController, task);
+            Set<TaskModelForNotify> tasks = taskController.getTasksWithNotifications();
 
-        alertController.close();
-        taskController.close();
+            Set<TaskIdentifier> tasksWithAlerts = alertController.getTasksWithActiveAlerts();
+            for(TaskIdentifier taskId : tasksWithAlerts) {
+                try {
+                    tasks.add(taskController.fetchTaskForNotify(taskId));
+                } catch (Exception e) {
+                    // task was deleted or something
+                }
+            }
+
+            for(TaskModelForNotify task : tasks)
+                updateAlarm(context, taskController, alertController, task);
+
+            alertController.close();
+            taskController.close();
+        } catch (Exception e) {
+            Log.e("astrid", "Error scheduling alarms", e);
+        }
     }
 
     /** Schedules the next notification for this task */

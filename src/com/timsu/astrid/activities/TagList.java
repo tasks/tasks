@@ -32,6 +32,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
@@ -74,8 +75,6 @@ public class TagList extends Activity {
     private static final int CONTEXT_DELETE_ID     = Menu.FIRST + 11;
     private static final int CONTEXT_SHOWHIDE_ID   = Menu.FIRST + 12;
 
-    private static final int FLING_THRESHOLD       = 50;
-
     private TagController controller;
     private TaskController taskController;
     private ListView listView;
@@ -101,21 +100,22 @@ public class TagList extends Activity {
         gestureDetector = new GestureDetector(new TagListGestureDetector());
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent ev) {
-        if (gestureDetector.onTouchEvent(ev)) {
-            return true;
-        }
-        return super.onTouchEvent(ev);
-    }
-
     class TagListGestureDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            if(e1.getX() - e2.getX() > FLING_THRESHOLD) {
-                setResult(RESULT_CANCELED);
-                finish();
-                return true;
+            try {
+                Log.i("astrid", "Got fling. X: " + (e2.getX() - e1.getX()) +
+                        ", vel: " + velocityX);
+
+                // flick L to R
+                if(e2.getX() - e1.getX() > TaskList.FLING_DIST_THRESHOLD &&
+                        Math.abs(velocityX) > TaskList.FLING_VEL_THRESHOLD) {
+                    setResult(RESULT_CANCELED);
+                    finish();
+                    return true;
+                }
+            } catch (Exception e) {
+                //
             }
 
             return false;
@@ -235,6 +235,16 @@ public class TagList extends Activity {
                         showHideLabel);
 
                 menu.setHeaderTitle(tagArray.get(position).getName());
+            }
+        });
+
+
+        listView.setOnTouchListener(new View.OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                if (gestureDetector.onTouchEvent(event)) {
+                    return true;
+                }
+                return false;
             }
         });
     }

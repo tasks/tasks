@@ -21,7 +21,9 @@ package com.timsu.astrid.data.task;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -44,8 +46,8 @@ public class TaskController extends AbstractController {
     // --- task list operations
 
     /** Return a list of all active tasks with notifications */
-    public List<TaskModelForNotify> getTasksWithNotifications() {
-        List<TaskModelForNotify> list = new ArrayList<TaskModelForNotify>();
+    public Set<TaskModelForNotify> getTasksWithNotifications() {
+        Set<TaskModelForNotify> list = new HashSet<TaskModelForNotify>();
         Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForNotify.FIELD_LIST,
                 String.format("%s < %d AND (%s != 0 OR %s != 0)",
                         AbstractTaskModel.PROGRESS_PERCENTAGE,

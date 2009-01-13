@@ -20,8 +20,10 @@
 package com.timsu.astrid.data.alerts;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -45,7 +47,8 @@ public class AlertController extends AbstractController {
                 new String[] { taskId.idAsString() }, null, null, null);
         return cursor;
     }
-    /** Get a list of tag identifiers for the given task */
+
+    /** Get a list of alerts for the given task */
     public List<Date> getTaskAlerts(TaskIdentifier
             taskId) throws SQLException {
         List<Date> list = new LinkedList<Date>();
@@ -59,6 +62,28 @@ public class AlertController extends AbstractController {
             do {
                 cursor.moveToNext();
                 list.add(new Alert(cursor).getDate());
+            } while(!cursor.isLast());
+
+            return list;
+        } finally {
+            cursor.close();
+        }
+    }
+
+
+    /** Get a list of alerts that are set for the future */
+    public Set<TaskIdentifier> getTasksWithActiveAlerts() throws SQLException {
+        Set<TaskIdentifier> list = new HashSet<TaskIdentifier>();
+        Cursor cursor = alertDatabase.query(ALERT_TABLE_NAME,
+                Alert.FIELD_LIST, Alert.DATE + " > ?",
+                new String[] { Long.toString(System.currentTimeMillis()) }, null, null, null);
+
+        try {
+            if(cursor.getCount() == 0)
+                return list;
+            do {
+                cursor.moveToNext();
+                list.add(new Alert(cursor).getTask());
             } while(!cursor.isLast());
 
             return list;
