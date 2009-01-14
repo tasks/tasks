@@ -88,6 +88,7 @@
         <string name="taskList_menu_tags">Tags</string>
         <string name="taskList_menu_filters">Display</string>
         <string name="taskList_menu_more">More</string>
+        <string name="taskList_menu_sync">Synchronization</string>
         <string name="taskList_menu_settings">Settings</string>
         <string name="taskList_menu_help">Help</string>
         
@@ -182,7 +183,7 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="ago_suffix"> Ago</string>
         <string name="progress_dialog">% of Task Finished</string>
         
-        <!-- Tag List -->
+    <!-- Tag List -->
     <skip />
         <string name="tagList_titlePrefix">Astrid: Tag View: </string>
         <string name="tagList_context_create">Create Task With Tag</string>
@@ -193,12 +194,26 @@ If you don\'t want to see the new task right after you complete the old one, you
         
         <string name="tagList_menu_sortAlpha">Sort A-Z</string>
         <string name="tagList_menu_sortSize">Sort by Size</string>
-      
-     <!-- Dialog Boxes -->  
+    
+    
+    <!-- Synchronization -->  
+    <skip />
+        <string name="p_sync_rtm">sync_rtm</string>
+        <string name="sync_pref_group">Synchronization Services</string>
+        <string name="sync_rtm_title">Remember The Milk</string>
+        <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
+        <string name="sync_error">Sync Error!</string>
+        <string name="sync_auth_request">
+In order to synchronize, please log in to your %s account and authorize Astrid to read your data.
+\n\n
+When finished, restart Astrid.
+</string>
+       
+    <!-- Dialog Boxes -->  
     <skip />
         <string name="information_title">Information</string>
         <string name="question_title">Question</string>
-        <string name="notify_yes">Let's do it!</string>
+        <string name="notify_yes">Let\'s do it!</string>
         <string name="notify_snooze">Snooze!</string>
         <string name="notify_no">No, quit.</string>
         <string name="notify_snooze_title">Hours/minutes to snooze?</string>

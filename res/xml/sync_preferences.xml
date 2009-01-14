@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen  
+    xmlns:android="http://schemas.android.com/apk/res/android">  
+    
+    <PreferenceCategory
+        android:title="@string/sync_pref_group">
+    
+        <CheckBoxPreference  
+            android:key="@string/p_sync_rtm"  
+            android:title="@string/sync_rtm_title"  
+            android:summary="@string/sync_rtm_desc" />  
+
+    </PreferenceCategory>
+
+</PreferenceScreen>  

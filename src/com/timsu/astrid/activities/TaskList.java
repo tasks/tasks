@@ -57,6 +57,7 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.StartupReceiver;
 
@@ -77,6 +78,7 @@ public class TaskList extends Activity {
     private static final int       ACTIVITY_VIEW         = 1;
     private static final int       ACTIVITY_EDIT         = 2;
     private static final int       ACTIVITY_TAGS         = 3;
+    private static final int       ACTIVITY_SYNCHRONIZE  = 4;
 
     // menu codes
     private static final int       INSERT_ID             = Menu.FIRST;
@@ -84,8 +86,9 @@ public class TaskList extends Activity {
     private static final int       TAGS_ID               = Menu.FIRST + 2;
     private static final int       MORE_ID               = Menu.FIRST + 3;
 
-    private static final int       OPTIONS_SETTINGS_ID   = Menu.FIRST + 10;
-    private static final int       OPTIONS_HELP_ID       = Menu.FIRST + 11;
+    private static final int       OPTIONS_SYNC_ID       = Menu.FIRST + 10;
+    private static final int       OPTIONS_SETTINGS_ID   = Menu.FIRST + 11;
+    private static final int       OPTIONS_HELP_ID       = Menu.FIRST + 12;
 
     private static final int       CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
     private static final int       CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
@@ -163,7 +166,7 @@ public class TaskList extends Activity {
                 });
 
         fillData();
-        // TODO Synchronizer.authenticate(this);
+        Synchronizer.synchronize(this);
 
         gestureDetector = new GestureDetector(new TaskListGestureDetector());
         gestureTouchListener = new View.OnTouchListener() {
@@ -238,14 +241,16 @@ public class TaskList extends Activity {
     public boolean onCreateMoreOptionsMenu(Menu menu) {
         MenuItem item;
 
+        item = menu.add(Menu.NONE, OPTIONS_SYNC_ID, Menu.NONE,
+                R.string.taskList_menu_sync);
+        item.setAlphabeticShortcut('s');
+
         item = menu.add(Menu.NONE, OPTIONS_SETTINGS_ID, Menu.NONE,
                 R.string.taskList_menu_settings);
-        item.setIcon(android.R.drawable.ic_menu_preferences);
         item.setAlphabeticShortcut('p');
 
         item = menu.add(Menu.NONE, OPTIONS_HELP_ID, Menu.NONE,
                 R.string.taskList_menu_help);
-        item.setIcon(android.R.drawable.ic_menu_help);
         item.setAlphabeticShortcut('h');
 
         return true;
@@ -520,9 +525,10 @@ public class TaskList extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        /** Handle case where authentication just happened */
-        if(resultCode == Constants.RESULT_SYNCHRONIZE) {
-            // TODO Synchronizer.performSync(this, true);
+        /** Handle synchronization callbacks */
+        if(requestCode == ACTIVITY_SYNCHRONIZE) {
+            Synchronizer.synchronizerStatusUpdated(this);
+            Synchronizer.synchronize(this);
         }
 
         if(requestCode == ACTIVITY_TAGS && resultCode == RESULT_CANCELED)
@@ -601,6 +607,10 @@ public class TaskList extends Activity {
             layout.showContextMenu();
             return true;
 
+        case OPTIONS_SYNC_ID:
+            startActivityForResult(new Intent(this, SyncPreferences.class),
+                    ACTIVITY_SYNCHRONIZE);
+            return true;
         case OPTIONS_SETTINGS_ID:
             startActivity(new Intent(this, EditPreferences.class));
             return true;

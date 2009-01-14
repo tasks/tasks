@@ -14,6 +14,7 @@ public class Preferences {
     // pref keys
     private static final String P_CURRENT_VERSION = "cv";
     private static final String P_SHOW_REPEAT_HELP = "repeathelp";
+    private static final String P_SYNC_RTM_TOKEN = "rtmtoken";
 
     // default values
     private static final boolean DEFAULT_PERSISTENCE_MODE = true;
@@ -117,7 +118,34 @@ public class Preferences {
         return getIntegerValue(context, R.string.p_notif_defaultRemind);
     }
 
+    // --- synchronization preferences
+
+    /** RTM authentication token, or null if doesn't exist */
+    public static String getSyncRTMToken(Context context) {
+        return getPrefs(context).getString(P_SYNC_RTM_TOKEN, null);
+    }
+
+    /** Sets the RTM authentication token. Set to null to clear. */
+    public static void setSyncRTMToken(Context context, String setting) {
+        Editor editor = getPrefs(context).edit();
+        editor.putString(P_SYNC_RTM_TOKEN, setting);
+        editor.commit();
+    }
+
+    /** Should sync with RTM? */
+    public static boolean shouldSyncRTM(Context context) {
+        Resources r = context.getResources();
+        return getPrefs(context).getBoolean(r.getString(
+                R.string.p_sync_rtm), false);
+    }
+
     // --- helper methods
+
+    private static void clearPref(Context context, String key) {
+        Editor editor = getPrefs(context).edit();
+        editor.remove(key);
+        editor.commit();
+    }
 
     private static SharedPreferences getPrefs(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
