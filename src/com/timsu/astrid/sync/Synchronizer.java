@@ -20,9 +20,6 @@ public class Synchronizer {
     /** Synchronize all activated sync services */
     public static void synchronize(final Activity activity) {
 
-        // sync services do cleanup themselves, so currently we only
-        // support one sync service at a time.
-
         // RTM sync
         if(Preferences.shouldSyncRTM(activity)) {
             services.get(SYNC_ID_RTM).synchronizeService(activity);
