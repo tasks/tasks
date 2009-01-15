@@ -401,6 +401,8 @@ public abstract class SynchronizationService {
             if(remoteDeletedTasks > 0)
                 sb.append("\nDeleted: " + remoteDeletedTasks);
 
+            sb.append("\n");
+
             DialogUtilities.okDialog(context, sb.toString(), null);
         }
     }

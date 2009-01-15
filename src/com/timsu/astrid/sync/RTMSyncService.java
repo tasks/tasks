@@ -275,6 +275,10 @@ public class RTMSyncService extends SynchronizationService {
                 rtmService.tasks_uncomplete(timeline, id.listId, id.taskSeriesId,
                         id.taskId);
         }
+        if(task.notes != null && !task.notes.endsWith("\n")) {
+            rtmService.tasks_notes_add(timeline, id.listId, id.taskSeriesId,
+                    id.taskId, "From Astrid", task.notes);
+        }
     }
 
     /** Create a task proxy for the given RtmTaskSeries */
