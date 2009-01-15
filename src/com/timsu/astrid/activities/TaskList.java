@@ -18,6 +18,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package com.timsu.astrid.activities;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -110,8 +111,8 @@ public class TaskList extends Activity {
 
     // other instance variables
     private Map<TagIdentifier, TagModelForView> tagMap;
-    private List<TaskModelForList> taskArray;
-    private Map<TaskModelForList, List<TagModelForView>> taskTags;
+    private ArrayList<TaskModelForList> taskArray;
+    private HashMap<TaskModelForList, LinkedList<TagModelForView>> taskTags;
     private GestureDetector gestureDetector;
     private View.OnTouchListener gestureTouchListener;
 
@@ -339,7 +340,7 @@ public class TaskList extends Activity {
         // read tags and apply filters
         int hiddenTasks = 0; // # of tasks hidden
         int completedTasks = 0; // # of tasks on list that are done
-        taskTags = new HashMap<TaskModelForList, List<TagModelForView>>();
+        taskTags = new HashMap<TaskModelForList, LinkedList<TagModelForView>>();
         for(Iterator<TaskModelForList> i = taskArray.iterator(); i.hasNext();) {
             TaskModelForList task = i.next();
 
@@ -351,9 +352,9 @@ public class TaskList extends Activity {
             }
 
             // get list of tags
-            List<TagIdentifier> tagIds = tagController.getTaskTags(this,
+            LinkedList<TagIdentifier> tagIds = tagController.getTaskTags(this,
                     task.getTaskIdentifier());
-            List<TagModelForView> tags = new LinkedList<TagModelForView>();
+            LinkedList<TagModelForView> tags = new LinkedList<TagModelForView>();
             for(TagIdentifier tagId : tagIds) {
                 TagModelForView tag = tagMap.get(tagId);
                 tags.add(tag);

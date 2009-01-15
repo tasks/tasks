@@ -20,7 +20,6 @@
 package com.timsu.astrid.data.sync;
 
 import java.util.HashSet;
-import java.util.Set;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -60,8 +59,8 @@ public class SyncDataController extends AbstractController {
     // --- sync mapping
 
     /** Get all mappings for the given synchronization service */
-    public Set<SyncMapping> getSyncMapping(int syncServiceId) throws SQLException {
-        Set<SyncMapping> list = new HashSet<SyncMapping>();
+    public HashSet<SyncMapping> getSyncMapping(int syncServiceId) throws SQLException {
+        HashSet<SyncMapping> list = new HashSet<SyncMapping>();
         Cursor cursor = syncDatabase.query(SYNC_TABLE_NAME,
                 SyncMapping.FIELD_LIST,
                 SyncMapping.SYNC_SERVICE + " = " + syncServiceId,

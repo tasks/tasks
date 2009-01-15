@@ -25,7 +25,6 @@ public class SyncPreferences extends PreferenceActivity {
             @Override
             public void onClick(View v) {
                 Synchronizer.synchronize(SyncPreferences.this);
-                finish();
             }
         });
 

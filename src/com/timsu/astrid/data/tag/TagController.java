@@ -21,8 +21,6 @@ package com.timsu.astrid.data.tag;
 
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -43,9 +41,9 @@ public class TagController extends AbstractController {
     // --- tag batch operations
 
     /** Get a list of all tags */
-    public List<TagModelForView> getAllTags(Activity activity)
+    public LinkedList<TagModelForView> getAllTags(Activity activity)
             throws SQLException {
-        List<TagModelForView> list = new LinkedList<TagModelForView>();
+        LinkedList<TagModelForView> list = new LinkedList<TagModelForView>();
         Cursor cursor = tagDatabase.query(TAG_TABLE_NAME,
             TagModelForView.FIELD_LIST, null, null, null, null, null, null);
         activity.startManagingCursor(cursor);
@@ -63,17 +61,17 @@ public class TagController extends AbstractController {
     // --- tag to task map batch operations
 
     /** Get a list of all tags as an id => tag map */
-    public Map<TagIdentifier, TagModelForView> getAllTagsAsMap(Activity activity) throws SQLException {
-        Map<TagIdentifier, TagModelForView> map = new HashMap<TagIdentifier, TagModelForView>();
+    public HashMap<TagIdentifier, TagModelForView> getAllTagsAsMap(Activity activity) throws SQLException {
+        HashMap<TagIdentifier, TagModelForView> map = new HashMap<TagIdentifier, TagModelForView>();
         for(TagModelForView tag : getAllTags(activity))
             map.put(tag.getTagIdentifier(), tag);
         return map;
     }
 
     /** Get a list of tag identifiers for the given task */
-    public List<TagIdentifier> getTaskTags(Activity activity, TaskIdentifier
+    public LinkedList<TagIdentifier> getTaskTags(Activity activity, TaskIdentifier
             taskId) throws SQLException {
-        List<TagIdentifier> list = new LinkedList<TagIdentifier>();
+        LinkedList<TagIdentifier> list = new LinkedList<TagIdentifier>();
         Cursor cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
                 TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TASK + " = ?",
                 new String[] { taskId.idAsString() }, null, null, null);
@@ -90,9 +88,9 @@ public class TagController extends AbstractController {
     }
 
     /** Get a list of task identifiers for the given tag */
-    public List<TaskIdentifier> getTaggedTasks(Activity activity, TagIdentifier
+    public LinkedList<TaskIdentifier> getTaggedTasks(Activity activity, TagIdentifier
             tagId) throws SQLException {
-        List<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
+        LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
         Cursor cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
                 TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TAG + " = ?",
                 new String[] { tagId.idAsString() }, null, null, null);

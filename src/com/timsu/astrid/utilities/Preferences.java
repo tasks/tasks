@@ -145,6 +145,11 @@ public class Preferences {
 
     /** Set RTM Last Successful Sync Date */
     public static void setSyncRTMLastSync(Context context, Date date) {
+        if(date == null) {
+            clearPref(context, P_SYNC_RTM_LAST_SYNC);
+            return;
+        }
+
         Editor editor = getPrefs(context).edit();
         editor.putLong(P_SYNC_RTM_LAST_SYNC, date.getTime());
         editor.commit();

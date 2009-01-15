@@ -23,7 +23,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -47,8 +46,8 @@ public class TaskController extends AbstractController {
     // --- task list operations
 
     /** Return a list of all active tasks with notifications */
-    public Set<TaskModelForNotify> getTasksWithNotifications() {
-        Set<TaskModelForNotify> list = new HashSet<TaskModelForNotify>();
+    public HashSet<TaskModelForNotify> getTasksWithNotifications() {
+        HashSet<TaskModelForNotify> list = new HashSet<TaskModelForNotify>();
         Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForNotify.FIELD_LIST,
                 String.format("%s < %d AND (%s != 0 OR %s != 0)",
                         AbstractTaskModel.PROGRESS_PERCENTAGE,
@@ -69,8 +68,8 @@ public class TaskController extends AbstractController {
     }
 
     /** Return a list of all active tasks with deadlines */
-    public List<TaskModelForNotify> getTasksWithDeadlines() {
-        List<TaskModelForNotify> list = new ArrayList<TaskModelForNotify>();
+    public ArrayList<TaskModelForNotify> getTasksWithDeadlines() {
+        ArrayList<TaskModelForNotify> list = new ArrayList<TaskModelForNotify>();
         Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForNotify.FIELD_LIST,
                 String.format("%s < %d AND (%s != 0 OR %s != 0)",
                         AbstractTaskModel.PROGRESS_PERCENTAGE,
@@ -105,8 +104,8 @@ public class TaskController extends AbstractController {
     }
 
     /** Create a list of tasks from the db cursor given */
-    public List<TaskModelForList> createTaskListFromCursor(Cursor cursor) {
-        List<TaskModelForList> list = new ArrayList<TaskModelForList>();
+    public ArrayList<TaskModelForList> createTaskListFromCursor(Cursor cursor) {
+        ArrayList<TaskModelForList> list = new ArrayList<TaskModelForList>();
 
         if(cursor.getCount() == 0)
             return list;
@@ -120,8 +119,8 @@ public class TaskController extends AbstractController {
     }
 
     /** Get identifiers for all tasks */
-    public Set<TaskIdentifier> getActiveTaskIdentifiers() {
-        Set<TaskIdentifier> list = new HashSet<TaskIdentifier>();
+    public HashSet<TaskIdentifier> getActiveTaskIdentifiers() {
+        HashSet<TaskIdentifier> list = new HashSet<TaskIdentifier>();
         Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
                 AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                 AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null, null, null);

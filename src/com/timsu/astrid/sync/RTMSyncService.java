@@ -51,24 +51,19 @@ public class RTMSyncService extends SynchronizationService {
     }
 
     @Override
-    void synchronizeService(final Activity activity) {
-        Date lastSyncDate = Preferences.getSyncRTMLastSync(activity);
-        if(lastSyncDate == null || true) {
+    protected void synchronize(final Activity activity) {
+        if(Preferences.shouldSyncRTM(activity) &&
+                Preferences.getSyncRTMToken(activity) == null) {
             DialogUtilities.okCancelDialog(activity,
                     activity.getResources().getString(R.string.sync_rtm_notes),
                     new Dialog.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    RTMSyncService.super.synchronizeService(activity);
+                    authenticate(activity);
                 }
             }, null);
         } else
-            super.synchronizeService(activity);
-    }
-
-    @Override
-    protected void synchronize(Activity activity) {
-        authenticate(activity);
+            authenticate(activity);
     }
 
     @Override
@@ -112,23 +107,18 @@ public class RTMSyncService extends SynchronizationService {
                 rtmService = new ServiceImpl(new ApplicationInfo(
                         apiKey, sharedSecret, appName));
                 final String url = rtmService.beginAuthorization(Perms.delete);
-                syncHandler.post(new Runnable() {
+                progressDialog.dismiss();
+                Resources r = activity.getResources();
+                DialogUtilities.okCancelDialog(activity,
+                        r.getString(R.string.sync_auth_request, "RTM"),
+                        new DialogInterface.OnClickListener() {
                     @Override
-                    public void run() {
-                        progressDialog.dismiss();
-                        Resources r = activity.getResources();
-                        DialogUtilities.okCancelDialog(activity,
-                                r.getString(R.string.sync_auth_request, "RTM"),
-                                new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(Intent.ACTION_VIEW,
-                                        Uri.parse(url));
-                                activity.startActivity(intent);
-                            }
-                        }, null);
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(Intent.ACTION_VIEW,
+                                Uri.parse(url));
+                        activity.startActivity(intent);
                     }
-                });
+                }, null);
 
             } else {
                 performSync(activity);
@@ -139,7 +129,17 @@ public class RTMSyncService extends SynchronizationService {
         }
     }
 
-    private void performSync(Activity activity) {
+    private void performSync(final Activity activity) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                performSyncInNewThread(activity);
+                Synchronizer.closeControllers();
+            }
+        }).start();
+    }
+
+    private void performSyncInNewThread(final Activity activity) {
         try {
             syncHandler.post(new Runnable() {
                 @Override

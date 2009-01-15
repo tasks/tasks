@@ -3,9 +3,8 @@ package com.timsu.astrid.sync;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -40,16 +39,28 @@ public abstract class SynchronizationService {
         this.id = id;
     }
 
+    // called off the UI thread. does some setup
     void synchronizeService(final Activity activity) {
-        progressDialog = ProgressDialog.show(activity, "Synchronization",
-                "Checking Authorization...");
-
-        new Thread(new Runnable() {
+        syncHandler.post(new Runnable() {
             @Override
             public void run() {
-                synchronize(activity);
+                progressDialog = new ProgressDialog(activity);
+                progressDialog.setIcon(android.R.drawable.ic_dialog_alert);
+                progressDialog.setTitle("Synchronization");
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressDialog.setMax(100);
+                progressDialog.setMessage("Checking Authorization...");
+                progressDialog.setProgress(0);
+                progressDialog.show();
             }
-        }).start();;
+        });
+        synchronize(activity);
+        syncHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.dismiss();
+            }
+        });
     }
 
     /** Synchronize with the service */
@@ -137,18 +148,18 @@ public abstract class SynchronizationService {
         TagController tagController = Synchronizer.getTagController(activity);
 
         // get data out of the database (note we get non-completed tasks only)
-        Set<SyncMapping> mappings = syncController.getSyncMapping(getId());
-        Set<TaskIdentifier> localTasks = taskController.getActiveTaskIdentifiers();
-        Map<TagIdentifier, TagModelForView> tags =
+        HashSet<SyncMapping> mappings = syncController.getSyncMapping(getId());
+        HashSet<TaskIdentifier> localTasks = taskController.getActiveTaskIdentifiers();
+        HashMap<TagIdentifier, TagModelForView> tags =
             tagController.getAllTagsAsMap(activity);
 
         //  build local maps / lists
-        Map<String, SyncMapping> remoteIdToSyncMapping =
+        HashMap<String, SyncMapping> remoteIdToSyncMapping =
             new HashMap<String, SyncMapping>();
-        Map<TaskIdentifier, SyncMapping> localIdToSyncMapping =
+        HashMap<TaskIdentifier, SyncMapping> localIdToSyncMapping =
             new HashMap<TaskIdentifier, SyncMapping>();
-        Set<SyncMapping> localChanges = new HashSet<SyncMapping>();
-        Set<TaskIdentifier> mappedTasks = new HashSet<TaskIdentifier>();
+        HashSet<SyncMapping> localChanges = new HashSet<SyncMapping>();
+        HashSet<TaskIdentifier> mappedTasks = new HashSet<TaskIdentifier>();
         for(SyncMapping mapping : mappings) {
             if(mapping.isUpdated())
                 localChanges.add(mapping);
@@ -158,7 +169,7 @@ public abstract class SynchronizationService {
         }
 
         // build remote map
-        Map<TaskIdentifier, TaskProxy> remoteChangeMap =
+        HashMap<TaskIdentifier, TaskProxy> remoteChangeMap =
             new HashMap<TaskIdentifier, TaskProxy>();
         for(TaskProxy remoteTask : remoteTasks) {
             if(remoteIdToSyncMapping.containsKey(remoteTask.getRemoteId())) {
@@ -175,11 +186,11 @@ public abstract class SynchronizationService {
                 progressDialog.setProgress(0);
             }
         });
-        Set<TaskIdentifier> newlyCreatedTasks = new HashSet<TaskIdentifier>(
+        HashSet<TaskIdentifier> newlyCreatedTasks = new HashSet<TaskIdentifier>(
                 localTasks);
         newlyCreatedTasks.removeAll(mappedTasks);
         for(TaskIdentifier taskId : newlyCreatedTasks) {
-            List<TagIdentifier> taskTags =
+            LinkedList<TagIdentifier> taskTags =
                 tagController.getTaskTags(activity, taskId);
             String listName = null;
             if(taskTags.size() > 0) {
@@ -212,7 +223,7 @@ public abstract class SynchronizationService {
                 progressDialog.setProgress(0);
             }
         });
-        Set<TaskIdentifier> deletedTasks = new HashSet<TaskIdentifier>(mappedTasks);
+        HashSet<TaskIdentifier> deletedTasks = new HashSet<TaskIdentifier>(mappedTasks);
         deletedTasks.removeAll(localTasks);
         for(TaskIdentifier taskId : deletedTasks) {
             SyncMapping mapping = localIdToSyncMapping.get(taskId);
@@ -349,7 +360,7 @@ public abstract class SynchronizationService {
 
     // --- helper classes
 
-    private class SyncStats {
+    protected class SyncStats {
         int localCreatedTasks = 0;
         int localUpdatedTasks = 0;
         int localDeletedTasks = 0;
@@ -401,7 +412,7 @@ public abstract class SynchronizationService {
             this.outOf = outOf;
         }
         public void run() {
-            progressDialog.setProgress(10000*step/outOf);
+            progressDialog.setProgress(100*step/outOf);
         }
     }
 }
