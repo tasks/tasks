@@ -1,5 +1,7 @@
 package com.timsu.astrid.utilities;
 
+import java.util.Date;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -15,6 +17,7 @@ public class Preferences {
     private static final String P_CURRENT_VERSION = "cv";
     private static final String P_SHOW_REPEAT_HELP = "repeathelp";
     private static final String P_SYNC_RTM_TOKEN = "rtmtoken";
+    private static final String P_SYNC_RTM_LAST_SYNC = "rtmlastsync";
 
     // default values
     private static final boolean DEFAULT_PERSISTENCE_MODE = true;
@@ -130,6 +133,14 @@ public class Preferences {
         Editor editor = getPrefs(context).edit();
         editor.putString(P_SYNC_RTM_TOKEN, setting);
         editor.commit();
+    }
+
+    /** RTM Last Successful Sync Date, or null */
+    public static Date getSyncRTMLastSync(Context context) {
+        Long value = getPrefs(context).getLong(P_SYNC_RTM_LAST_SYNC, 0);
+        if(value == 0)
+            return null;
+        return new Date(value);
     }
 
     /** Should sync with RTM? */

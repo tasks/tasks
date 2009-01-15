@@ -103,7 +103,7 @@ public class TaskController extends AbstractController {
                 null, null, null, null, null, null);
     }
 
-    /** Create a weighted list of tasks from the db cursor given */
+    /** Create a list of tasks from the db cursor given */
     public List<TaskModelForList> createTaskListFromCursor(Cursor cursor) {
         List<TaskModelForList> list = new ArrayList<TaskModelForList>();
 
@@ -113,6 +113,23 @@ public class TaskController extends AbstractController {
         do {
             cursor.moveToNext();
             list.add(new TaskModelForList(cursor));
+        } while(!cursor.isLast());
+
+        return list;
+    }
+
+    /** Get identifiers for all tasks */
+    public Set<TaskIdentifier> getAllTaskIdentifiers() {
+        Set<TaskIdentifier> list = new HashSet<TaskIdentifier>();
+        Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
+                null, null, null, null, null, null);
+        if(cursor.getCount() == 0)
+            return list;
+
+        do {
+            cursor.moveToNext();
+            list.add(new TaskIdentifier(cursor.getInt(
+                    cursor.getColumnIndexOrThrow(KEY_ROWID))));
         } while(!cursor.isLast());
 
         return list;
@@ -240,6 +257,14 @@ public class TaskController extends AbstractController {
     public TaskModelForList fetchTaskForList(TaskIdentifier taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, TaskModelForList.FIELD_LIST);
         TaskModelForList model = new TaskModelForList(cursor);
+        cursor.close();
+        return model;
+    }
+
+    /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
+    public TaskModelForSync fetchTaskForSync(TaskIdentifier taskId) throws SQLException {
+        Cursor cursor = fetchTaskCursor(taskId, TaskModelForSync.FIELD_LIST);
+        TaskModelForSync model = new TaskModelForSync(cursor);
         cursor.close();
         return model;
     }

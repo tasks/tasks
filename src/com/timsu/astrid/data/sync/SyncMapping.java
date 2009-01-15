@@ -17,9 +17,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package com.timsu.astrid.data.alerts;
-
-import java.util.Date;
+package com.timsu.astrid.data.sync;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -31,21 +29,28 @@ import android.util.Log;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.AbstractModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.sync.TaskProxy;
 
 
-/** A single alert on a task */
-public class Alert extends AbstractModel {
+/** A single tag on a task */
+public class SyncMapping extends AbstractModel {
+
 
     /** Version number of this model */
     static final int                   VERSION             = 1;
 
     // field names
 
-    static final String                TASK                = "task";
-    static final String                DATE                = "date";
+    static final String                TASK          = "task";
+    static final String                SYNC_SERVICE  = "service";
+    static final String                REMOTE_ID     = "remoteId";
+    static final String                UPDATED       = "updated";
 
     /** Default values container */
-    private static final ContentValues defaultValues       = new ContentValues();
+    private static final ContentValues defaultValues = new ContentValues();
+    static {
+        defaultValues.put(UPDATED, 0);
+    }
 
     @Override
     public ContentValues getDefaultValues() {
@@ -55,16 +60,18 @@ public class Alert extends AbstractModel {
     static String[] FIELD_LIST = new String[] {
         AbstractController.KEY_ROWID,
         TASK,
-        DATE,
+        SYNC_SERVICE,
+        REMOTE_ID,
+        UPDATED,
     };
 
     // --- database helper
 
     /** Database Helper manages creating new tables and updating old ones */
-    static class AlertDatabaseHelper extends SQLiteOpenHelper {
+    static class SyncMappingDatabaseHelper extends SQLiteOpenHelper {
         String tableName;
 
-        AlertDatabaseHelper(Context context, String databaseName, String tableName) {
+        SyncMappingDatabaseHelper(Context context, String databaseName, String tableName) {
             super(context, databaseName, null, VERSION);
             this.tableName = tableName;
         }
@@ -75,8 +82,10 @@ public class Alert extends AbstractModel {
             append("CREATE TABLE ").append(tableName).append(" (").
                 append(AbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
                 append(TASK).append(" integer not null,").
-                append(DATE).append(" integer not null,").
-                append("unique (").append(TASK).append(",").append(DATE).append(")").
+                append(SYNC_SERVICE).append(" integer not null,").
+                append(REMOTE_ID).append(" text not null,").
+                append(UPDATED).append(" integer not null,").
+                append("unique (").append(TASK).append(",").append(SYNC_SERVICE).append(")").
             append(");").toString();
             db.execSQL(sql);
         }
@@ -99,35 +108,60 @@ public class Alert extends AbstractModel {
 
     // --- constructor pass-through
 
-    Alert(TaskIdentifier task, Date date) {
+    public SyncMapping(TaskIdentifier task, TaskProxy taskProxy) {
+        this(task, taskProxy.getSyncServiceId(), taskProxy.getRemoteId());
+    }
+
+    public SyncMapping(TaskIdentifier task, int syncServiceId, String remoteId) {
         super();
         setTask(task);
-        setDate(date);
+        setSyncServiceId(syncServiceId);
+        setRemoteId(remoteId);
     }
 
-    public Alert(Cursor cursor) {
+    SyncMapping(Cursor cursor) {
         super(cursor);
+        getId();
+        getTask();
+        getSyncServiceId();
+        getRemoteId();
     }
 
-    // --- getters and setters: expose them as you see fit
+    // --- getters and setters
 
-    public boolean isNew() {
-        return getCursor() == null;
+    public long getId() {
+        return retrieveLong(AbstractController.KEY_ROWID);
     }
 
     public TaskIdentifier getTask() {
         return new TaskIdentifier(retrieveLong(TASK));
     }
 
-    public Date getDate() {
-        return new Date(retrieveLong(DATE));
+    public int getSyncServiceId() {
+        return retrieveInteger(SYNC_SERVICE);
+    }
+
+    public String getRemoteId() {
+        return retrieveString(REMOTE_ID);
+    }
+
+    public boolean isUpdated() {
+        return retrieveInteger(UPDATED) == 1;
     }
 
     private void setTask(TaskIdentifier task) {
         setValues.put(TASK, task.getId());
     }
 
-    private void setDate(Date date) {
-        setValues.put(DATE, date.getTime());
+    private void setSyncServiceId(int id) {
+        setValues.put(SYNC_SERVICE, id);
+    }
+
+    private void setRemoteId(String remoteId) {
+        setValues.put(REMOTE_ID, remoteId);
+    }
+
+    private void setUpdated(boolean updated) {
+        setValues.put(UPDATED, updated ? 1 : 0);
     }
 }

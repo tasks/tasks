@@ -19,11 +19,13 @@
  */
 package com.mdt.rtm;
 
+import java.io.IOException;
+
 /**
- * 
+ *
  * @author Will Ross Jun 21, 2007
  */
-public class ServiceException extends Exception {
+public class ServiceException extends IOException {
 
   private static final long serialVersionUID = -6711156026040643361L;
 
