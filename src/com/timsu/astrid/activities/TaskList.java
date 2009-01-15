@@ -57,7 +57,6 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
-import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.StartupReceiver;
 
@@ -166,7 +165,6 @@ public class TaskList extends Activity {
                 });
 
         fillData();
-        Synchronizer.synchronize(this);
 
         gestureDetector = new GestureDetector(new TaskListGestureDetector());
         gestureTouchListener = new View.OnTouchListener() {
@@ -524,12 +522,6 @@ public class TaskList extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
-        /** Handle synchronization callbacks */
-        if(requestCode == ACTIVITY_SYNCHRONIZE) {
-            Synchronizer.synchronizerStatusUpdated(this);
-            Synchronizer.synchronize(this);
-        }
 
         if(requestCode == ACTIVITY_TAGS && resultCode == RESULT_CANCELED)
             filterTag = null;

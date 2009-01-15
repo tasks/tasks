@@ -135,7 +135,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     append(r.getString(R.string.taskList_completedPrefix)).
                     append(" ").
                     append(DateUtilities.getDurationString(r, Math.abs(secondsLeft), 1)).
-                    append(r.getString(R.string.ago_suffix));
+                    append(" " + r.getString(R.string.ago_suffix));
                 dueDateView.setText(label);
                 dueDateView.setTextColor(r.getColor(R.color.taskList_completedDate));
                 hasProperties = true;

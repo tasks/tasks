@@ -200,14 +200,29 @@ If you don\'t want to see the new task right after you complete the old one, you
     <skip />
         <string name="p_sync_rtm">sync_rtm</string>
         <string name="sync_pref_group">Synchronization Services</string>
+        <string name="sync_pref_group_actions">Actions</string>
         <string name="sync_rtm_title">Remember The Milk</string>
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
-        <string name="sync_error">Sync Error!</string>
+        <string name="sync_error">Sync Error! Sorry for the inconvenience! Error:</string>
         <string name="sync_auth_request">
 In order to synchronize, please log in to your %s account and authorize Astrid to read your data.
 \n\n
-When finished, restart Astrid.
-</string>
+When finished, restart Astrid and come back here.
+        </string>
+        <string name="sync_rtm_notes">
+Astrid's RTM sync is not complete!
+
+- RTM tags are not read. Instead, RTM's lists are mapped to Astrid\'s tags.\n
+- Task notes are read from RTM, but changes are not written back.\n
+- Notifications and repeats are not synchronized.\n
+- Moving tasks in RTM to another list and then editing the task name causes duplication.\n
+- Synchronization is SLOW! Be patient.\n
+\n\n
+Wish me luck!\n
+        </string>
+        <string name="sync_now">Synchronize!</string>
+        <string name="sync_forget">Clear Personal Data</string>
+        <string name="sync_forget_confirm">Clear data for selected services?</string>
        
     <!-- Dialog Boxes -->  
     <skip />

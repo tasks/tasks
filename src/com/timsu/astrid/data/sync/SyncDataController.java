@@ -27,6 +27,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.sync.SyncMapping.SyncMappingDatabaseHelper;
@@ -94,6 +95,12 @@ public class SyncDataController extends AbstractController {
                 mapping.getId(), null) > 0;
     }
 
+    /** Deletes the given mapping. Returns true on success */
+    public boolean deleteAllMappings(int syncServiceId) {
+        return syncDatabase.delete(SYNC_TABLE_NAME, SyncMapping.SYNC_SERVICE +
+                "=" + syncServiceId, null) > 0;
+    }
+
     // --- boilerplate
 
     /**
@@ -114,8 +121,9 @@ public class SyncDataController extends AbstractController {
      * @throws SQLException if the database could be neither opened or created
      */
     public SyncDataController open() throws SQLException {
-        syncDatabase = new SyncMappingDatabaseHelper(context,
-                SYNC_TABLE_NAME, SYNC_TABLE_NAME).getWritableDatabase();
+        SQLiteOpenHelper helper = new SyncMappingDatabaseHelper(context,
+                SYNC_TABLE_NAME, SYNC_TABLE_NAME);
+        syncDatabase = helper.getWritableDatabase();
 
         return this;
     }

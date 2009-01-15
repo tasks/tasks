@@ -8,13 +8,19 @@ import java.util.Map;
 import java.util.Set;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.os.Handler;
 import android.util.Log;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.sync.SyncMapping;
+import com.timsu.astrid.data.tag.TagController;
+import com.timsu.astrid.data.tag.TagIdentifier;
+import com.timsu.astrid.data.tag.TagModelForView;
+import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForSync;
 import com.timsu.astrid.utilities.DialogUtilities;
@@ -27,13 +33,27 @@ import com.timsu.astrid.utilities.DialogUtilities;
 public abstract class SynchronizationService {
 
     private int id;
+    protected ProgressDialog progressDialog;
+    protected Handler syncHandler = new Handler();
 
     public SynchronizationService(int id) {
         this.id = id;
     }
 
+    void synchronizeService(final Activity activity) {
+        progressDialog = ProgressDialog.show(activity, "Synchronization",
+                "Checking Authorization...");
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                synchronize(activity);
+            }
+        }).start();;
+    }
+
     /** Synchronize with the service */
-    abstract void synchronize(Activity activity);
+    protected abstract void synchronize(Activity activity);
 
     /** Called when user requests a data clear */
     abstract void clearPersonalData(Activity activity);
@@ -49,16 +69,18 @@ public abstract class SynchronizationService {
     // --- utilities
 
     /** Utility class for showing synchronization errors */
-    static void showError(Context context, Throwable e) {
+    void showError(final Context context, final Throwable e) {
         Log.e("astrid", "Synchronization Error", e);
-
-        Resources r = context.getResources();
-        DialogUtilities.okDialog(context,
-                r.getString(R.string.sync_error) + " " +
-                e.getLocalizedMessage(), new DialogInterface.OnClickListener() {
+        syncHandler.post(new Runnable() {
             @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // do nothing?
+            public void run() {
+                if(progressDialog != null)
+                    progressDialog.dismiss();
+
+                Resources r = context.getResources();
+                DialogUtilities.okDialog(context,
+                        r.getString(R.string.sync_error) + " " +
+                        e.toString() + " - " + e.getStackTrace()[0], null);
             }
         });
     }
@@ -76,9 +98,10 @@ public abstract class SynchronizationService {
 
         /** Create a task on the remote server
          *
+         * @return listName list name to create it on. null -> inbox
          * @return remote id
          */
-        String createTask() throws IOException;
+        String createTask(String listName) throws IOException;
 
         /** Fetch remote task. Used to re-read merged tasks
          *
@@ -105,13 +128,19 @@ public abstract class SynchronizationService {
      * @param remoteTasks remote tasks that have been updated
      * @return local tasks that need to be pushed across
      */
-    protected void synchronizeTasks(Activity activity, List<TaskProxy> remoteTasks,
+    protected void synchronizeTasks(final Activity activity, List<TaskProxy> remoteTasks,
             SynchronizeHelper helper) throws IOException {
-        SyncStats stats = new SyncStats();
+        final SyncStats stats = new SyncStats();
 
-        // get data out of the database
-        Set<SyncMapping> mappings = Synchronizer.getSyncController().getSyncMapping(getId());
-        Set<TaskIdentifier> localTasks = Synchronizer.getTaskController().getAllTaskIdentifiers();
+        SyncDataController syncController = Synchronizer.getSyncController(activity);
+        TaskController taskController = Synchronizer.getTaskController(activity);
+        TagController tagController = Synchronizer.getTagController(activity);
+
+        // get data out of the database (note we get non-completed tasks only)
+        Set<SyncMapping> mappings = syncController.getSyncMapping(getId());
+        Set<TaskIdentifier> localTasks = taskController.getActiveTaskIdentifiers();
+        Map<TagIdentifier, TagModelForView> tags =
+            tagController.getAllTagsAsMap(activity);
 
         //  build local maps / lists
         Map<String, SyncMapping> remoteIdToSyncMapping =
@@ -139,37 +168,80 @@ public abstract class SynchronizationService {
         }
 
         // grab tasks without a sync mapping and create them remotely
-        Set<TaskIdentifier> newlyCreatedTasks = new HashSet<TaskIdentifier>(localTasks);
+        syncHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.setMessage("Sending locally created tasks");
+                progressDialog.setProgress(0);
+            }
+        });
+        Set<TaskIdentifier> newlyCreatedTasks = new HashSet<TaskIdentifier>(
+                localTasks);
         newlyCreatedTasks.removeAll(mappedTasks);
         for(TaskIdentifier taskId : newlyCreatedTasks) {
-            String remoteId = helper.createTask();
-            stats.remoteCreatedTasks++;
+            List<TagIdentifier> taskTags =
+                tagController.getTaskTags(activity, taskId);
+            String listName = null;
+            if(taskTags.size() > 0) {
+                listName = tags.get(taskTags.get(0)).getName();
+                // strip the underline
+                if(listName.startsWith(TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX))
+                    listName = listName.substring(1);
+            }
+            String remoteId = helper.createTask(listName);
             SyncMapping mapping = new SyncMapping(taskId, getId(), remoteId);
-            Synchronizer.getSyncController().saveSyncMapping(mapping);
+            syncController.saveSyncMapping(mapping);
 
-            // add it to data structures
-            localChanges.add(mapping);
+            TaskModelForSync task = taskController.fetchTaskForSync(
+                    mapping.getTask());
+            TaskProxy localTask = new TaskProxy(getId(), remoteId, false);
+            localTask.readFromTaskModel(task);
+            helper.pushTask(localTask, mapping);
+
+            // update stats
+            stats.remoteCreatedTasks++;
+            syncHandler.post(new ProgressUpdater(stats.remoteCreatedTasks,
+                    newlyCreatedTasks.size()));
         }
 
         // find deleted tasks and remove them from the list
+        syncHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.setMessage("Sending locally deleted tasks");
+                progressDialog.setProgress(0);
+            }
+        });
         Set<TaskIdentifier> deletedTasks = new HashSet<TaskIdentifier>(mappedTasks);
         deletedTasks.removeAll(localTasks);
         for(TaskIdentifier taskId : deletedTasks) {
-            stats.remoteDeletedTasks++;
             SyncMapping mapping = localIdToSyncMapping.get(taskId);
-            Synchronizer.getSyncController().deleteSyncMapping(mapping);
+            syncController.deleteSyncMapping(mapping);
             helper.deleteTask(mapping);
 
             // remove it from data structures
             localChanges.remove(mapping);
             remoteIdToSyncMapping.remove(mapping);
             remoteChangeMap.remove(taskId);
+
+            // update stats
+            stats.remoteDeletedTasks++;
+            syncHandler.post(new ProgressUpdater(stats.remoteDeletedTasks,
+                    deletedTasks.size()));
         }
 
         // for each updated local task
+        syncHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.setMessage("Sending locally edited tasks");
+                progressDialog.setProgress(0);
+            }
+        });
         for(SyncMapping mapping : localChanges) {
-            TaskProxy localTask = new TaskProxy(getId(), mapping.getRemoteId(), false);
-            TaskModelForSync task = Synchronizer.getTaskController().fetchTaskForSync(
+            TaskProxy localTask = new TaskProxy(getId(), mapping.getRemoteId(),
+                    false);
+            TaskModelForSync task = taskController.fetchTaskForSync(
                     mapping.getTask());
             localTask.readFromTaskModel(task);
 
@@ -181,7 +253,12 @@ public abstract class SynchronizationService {
                 stats.mergedTasks++;
             }
 
-            helper.pushTask(localTask, mapping);
+            try {
+                helper.pushTask(localTask, mapping);
+            } catch (Exception e) {
+                Log.e("astrid", "Exception pushing task", e);
+                continue;
+            }
 
             // re-fetch remote task
             if(remoteConflict != null) {
@@ -190,8 +267,9 @@ public abstract class SynchronizationService {
                 remoteTasks.add(newTask);
             }
             stats.remoteUpdatedTasks++;
+            syncHandler.post(new ProgressUpdater(stats.remoteUpdatedTasks,
+                    localChanges.size()));
         }
-        stats.remoteUpdatedTasks -= stats.remoteCreatedTasks;
 
         // load remote information
         for(TaskProxy remoteTask : remoteTasks) {
@@ -205,35 +283,68 @@ public abstract class SynchronizationService {
                     continue;
                 }
 
-                task = new TaskModelForSync();
-                stats.localCreatedTasks++;
+                task = taskController.searchForTaskForSync(remoteTask.name);
+                if(task == null) {
+                    task = new TaskModelForSync();
+                } else {
+                    mapping = localIdToSyncMapping.get(task.getTaskIdentifier());
+                }
             } else {
                 mapping = remoteIdToSyncMapping.get(remoteTask.getRemoteId());
                 if(remoteTask.isDeleted()) {
-                    Synchronizer.getTaskController().deleteTask(mapping.getTask());
-                    Synchronizer.getSyncController().deleteSyncMapping(mapping);
+                    taskController.deleteTask(mapping.getTask());
+                    syncController.deleteSyncMapping(mapping);
                     stats.localDeletedTasks++;
                     continue;
                 }
 
-                task = Synchronizer.getTaskController().fetchTaskForSync(
+                task = taskController.fetchTaskForSync(
                         mapping.getTask());
             }
 
             // save the data
             remoteTask.writeToTaskModel(task);
-            Synchronizer.getTaskController().saveTask(task);
+            taskController.saveTask(task);
+
+            // save tag
+            if(remoteTask.tags != null && remoteTask.tags.length > 0) {
+                String tag = remoteTask.tags[0];
+                TagIdentifier tagIdentifier = null;
+                for(TagModelForView tagModel : tags.values()) {
+                    String tagName = tagModel.getName();
+                    if(tagName.startsWith(TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX))
+                        tagName = tagName.substring(1);
+                    if(tagName.equalsIgnoreCase(tag)) {
+                        tagIdentifier = tagModel.getTagIdentifier();
+                        break;
+                    }
+                }
+                try {
+                    if(tagIdentifier == null)
+                        tagIdentifier = tagController.createTag(tag);
+                    tagController.addTag(task.getTaskIdentifier(),
+                            tagIdentifier);
+                } catch (Exception e) {
+                    // tag already exists or something
+                }
+            }
             stats.localUpdatedTasks++;
 
             if(mapping == null) {
                 mapping = new SyncMapping(task.getTaskIdentifier(), remoteTask);
-                Synchronizer.getSyncController().saveSyncMapping(mapping);
+                syncController.saveSyncMapping(mapping);
+                stats.localCreatedTasks++;
             }
         }
         stats.localUpdatedTasks -= stats.localCreatedTasks;
 
-        Synchronizer.getSyncController().clearUpdatedTaskList(getId());
-        stats.showDialog(activity);
+        syncController.clearUpdatedTaskList(getId());
+        syncHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                stats.showDialog(activity);
+            }
+        });
     }
 
     // --- helper classes
@@ -251,12 +362,16 @@ public abstract class SynchronizationService {
 
         /** Display a dialog with statistics */
         public void showDialog(Context context) {
-            if(equals(new SyncStats())) // i.e. no change
+            progressDialog.dismiss();
+
+            if(equals(new SyncStats())) { // i.e. no change
+                DialogUtilities.okDialog(context, "Nothing to do!", null);
                 return;
+            }
 
             StringBuilder sb = new StringBuilder();
             sb.append(getName()).append(" Sync Results:"); // TODO i18n
-            sb.append("\n\nLocal ---");
+            sb.append("\n\n--- Astrid Tasks ---");
             if(localCreatedTasks > 0)
                 sb.append("\nCreated: " + localCreatedTasks);
             if(localUpdatedTasks > 0)
@@ -267,7 +382,7 @@ public abstract class SynchronizationService {
             if(mergedTasks > 0)
                 sb.append("\n\nMerged: " + localCreatedTasks);
 
-            sb.append("\n\nRemote ---");
+            sb.append("\n\n--- Remote Tasks ---");
             if(remoteCreatedTasks > 0)
                 sb.append("\nCreated: " + remoteCreatedTasks);
             if(remoteUpdatedTasks > 0)
@@ -276,6 +391,17 @@ public abstract class SynchronizationService {
                 sb.append("\nDeleted: " + remoteDeletedTasks);
 
             DialogUtilities.okDialog(context, sb.toString(), null);
+        }
+    }
+
+    protected class ProgressUpdater implements Runnable {
+        int step, outOf;
+        public ProgressUpdater(int step, int outOf) {
+            this.step = step;
+            this.outOf = outOf;
+        }
+        public void run() {
+            progressDialog.setProgress(10000*step/outOf);
         }
     }
 }

@@ -96,7 +96,7 @@ public class Invoker {
 
   public static String API_SIG_PARAM = "api_sig";
 
-  public static final long INVOCATION_INTERVAL = 2000;
+  public static final long INVOCATION_INTERVAL = 500;
 
   private long lastInvocation;
 
@@ -277,7 +277,7 @@ public class Invoker {
       // THINK: this method is deprecated, but the only way to get the body as a string, without consuming
       // the body input stream: the HttpMethodBase issues a warning but does not let you call the "setResponseStream()" method!
       final String responseBodyAsString = "";//EntityUtils.toString(response.getEntity());
-      Log.i(TAG, "  Invocation response:\r\n" + responseBodyAsString);
+      // Log.i(TAG, "  Invocation response:\r\n" + responseBodyAsString);
       final Document responseDoc = builder.parse(response.getEntity().getContent());
       final Element wrapperElt = responseDoc.getDocumentElement();
       if (!wrapperElt.getNodeName().equals("rsp"))

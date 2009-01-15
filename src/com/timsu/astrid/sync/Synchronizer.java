@@ -6,6 +6,7 @@ import java.util.Map;
 import android.app.Activity;
 
 import com.timsu.astrid.data.sync.SyncDataController;
+import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.utilities.Preferences;
 
@@ -18,24 +19,19 @@ public class Synchronizer {
 
     /** Synchronize all activated sync services */
     public static void synchronize(final Activity activity) {
-        // kick off a new thread
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // RTM sync
-                if(Preferences.shouldSyncRTM(activity)) {
-                    openControllers(activity);
-                    services.get(SYNC_ID_RTM).synchronize(activity);
-                }
+        // RTM sync
+        if(Preferences.shouldSyncRTM(activity)) {
+            services.get(SYNC_ID_RTM).synchronizeService(activity);
+        }
 
-                closeControllers();
-            }
-        }, "sync").start();
+        closeControllers();
     }
 
     /** Clears tokens if services are disabled */
-    public static void synchronizerStatusUpdated(Activity activity) {
-        // do nothing
+    public static void clearUserData(Activity activity) {
+        if(Preferences.shouldSyncRTM(activity)) {
+            services.get(SYNC_ID_RTM).clearPersonalData(activity);
+        }
     }
 
     // --- package helpers
@@ -47,29 +43,34 @@ public class Synchronizer {
         services.put(SYNC_ID_RTM, new RTMSyncService(SYNC_ID_RTM));
     }
 
-    static SyncDataController getSyncController() {
+    static SyncDataController getSyncController(Activity activity) {
+        if(syncController == null) {
+            syncController = new SyncDataController(activity);
+            syncController.open();
+        }
         return syncController;
     }
 
-    static TaskController getTaskController() {
+    static TaskController getTaskController(Activity activity) {
+        if(taskController == null) {
+            taskController = new TaskController(activity);
+            taskController.open();
+        }
         return taskController;
+    }
+
+    static TagController getTagController(Activity activity) {
+        if(tagController == null) {
+            tagController = new TagController(activity);
+            tagController.open();
+        }
+        return tagController;
     }
 
     // --- controller stuff
     private static SyncDataController syncController = null;
     private static TaskController taskController = null;
-
-    private static void openControllers(Activity activity) {
-        if(syncController == null) {
-            syncController = new SyncDataController(activity);
-            syncController.open();
-        }
-
-        if(taskController == null) {
-            taskController = new TaskController(activity);
-            taskController.open();
-        }
-    }
+    private static TagController tagController = null;
 
     private static void closeControllers() {
         if(syncController != null) {
@@ -80,6 +81,11 @@ public class Synchronizer {
         if(taskController != null) {
             taskController.close();
             taskController = null;
+        }
+
+        if(tagController != null) {
+            tagController.close();
+            tagController = null;
         }
     }
 }

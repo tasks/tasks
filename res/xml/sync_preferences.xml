@@ -11,5 +11,5 @@
             android:summary="@string/sync_rtm_desc" />  
 
     </PreferenceCategory>
-
+    
 </PreferenceScreen>  

@@ -125,6 +125,7 @@ public class SyncMapping extends AbstractModel {
         getTask();
         getSyncServiceId();
         getRemoteId();
+        isUpdated();
     }
 
     // --- getters and setters

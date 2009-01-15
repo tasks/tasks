@@ -143,6 +143,13 @@ public class Preferences {
         return new Date(value);
     }
 
+    /** Set RTM Last Successful Sync Date */
+    public static void setSyncRTMLastSync(Context context, Date date) {
+        Editor editor = getPrefs(context).edit();
+        editor.putLong(P_SYNC_RTM_LAST_SYNC, date.getTime());
+        editor.commit();
+    }
+
     /** Should sync with RTM? */
     public static boolean shouldSyncRTM(Context context) {
         Resources r = context.getResources();
@@ -152,6 +159,7 @@ public class Preferences {
 
     // --- helper methods
 
+    @SuppressWarnings("unused")
     private static void clearPref(Context context, String key) {
         Editor editor = getPrefs(context).edit();
         editor.remove(key);

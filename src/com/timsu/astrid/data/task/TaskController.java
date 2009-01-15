@@ -34,6 +34,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.timsu.astrid.utilities.Notifications;
@@ -119,10 +120,11 @@ public class TaskController extends AbstractController {
     }
 
     /** Get identifiers for all tasks */
-    public Set<TaskIdentifier> getAllTaskIdentifiers() {
+    public Set<TaskIdentifier> getActiveTaskIdentifiers() {
         Set<TaskIdentifier> list = new HashSet<TaskIdentifier>();
         Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
-                null, null, null, null, null, null);
+                AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
+                AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null, null, null);
         if(cursor.getCount() == 0)
             return list;
 
@@ -193,6 +195,13 @@ public class TaskController extends AbstractController {
 
             saveSucessful = database.update(TASK_TABLE_NAME, values,
                     KEY_ROWID + "=" + id, null) > 0;
+
+            if(!(task instanceof TaskModelForSync)) {
+                SyncDataController syncController = new SyncDataController(context);
+                syncController.open();
+                syncController.addToUpdatedList(task.getTaskIdentifier());
+                syncController.close();
+            }
         }
 
         return saveSucessful;
@@ -264,6 +273,18 @@ public class TaskController extends AbstractController {
     /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
     public TaskModelForSync fetchTaskForSync(TaskIdentifier taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, TaskModelForSync.FIELD_LIST);
+        TaskModelForSync model = new TaskModelForSync(cursor);
+        cursor.close();
+        return model;
+    }
+
+    /** Returns a TaskModelForView by name */
+    public TaskModelForSync searchForTaskForSync(String name) throws SQLException {
+        Cursor cursor = database.query(true, TASK_TABLE_NAME, TaskModelForSync.FIELD_LIST,
+                AbstractTaskModel.NAME + " = ?", new String[] { name }, null, null, null, null);
+        if (cursor == null || cursor.getCount() == 0)
+            return null;
+        cursor.moveToFirst();
         TaskModelForSync model = new TaskModelForSync(cursor);
         cursor.close();
         return model;
