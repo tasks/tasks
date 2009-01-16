@@ -151,11 +151,13 @@ public class TaskList extends Activity {
         // auto sync
         Integer autoSyncHours = Preferences.autoSyncFrequency(this);
         if(autoSyncHours != null) {
-            Date lastSync = Preferences.getSyncLastSync(this);
+            final Date lastSync = Preferences.getSyncLastSync(this);
 
             if(lastSync == null || lastSync.getTime() +
                     1000L*3600*autoSyncHours < System.currentTimeMillis()) {
-                Synchronizer.synchronize(this, null);
+                Synchronizer.synchronize(this, new SynchronizationListener() {
+                    show dialog!
+                        });
             }
         }
     }
