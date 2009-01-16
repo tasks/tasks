@@ -151,7 +151,6 @@ public class RTMSyncService extends SynchronizationService {
 
             // get RTM timeline
             final String timeline = rtmService.timelines_create();
-            syncHandler.post(new ProgressUpdater(20, 100));
 
             // load RTM lists
             RtmLists lists = rtmService.lists_getList();
@@ -163,23 +162,39 @@ public class RTMSyncService extends SynchronizationService {
                 if(INBOX_LIST_NAME.equalsIgnoreCase(list.getName()))
                     INBOX_LIST_NAME = list.getName();
             }
-            syncHandler.post(new ProgressUpdater(40, 100));
 
             // read all tasks
+            List<TaskProxy> remoteChanges = new LinkedList<TaskProxy>();
             Date lastSyncDate = Preferences.getSyncRTMLastSync(activity);
             String filter = "";
             if(lastSyncDate == null) // 1st time sync, just uncompleted tasks
             	filter = "status:incomplete";
-            RtmTasks tasks = rtmService.tasks_getList(null, filter, lastSyncDate);
-            syncHandler.post(new ProgressUpdater(100, 100));
-
-            List<TaskProxy> remoteChanges = new LinkedList<TaskProxy>();
-            for(RtmTaskList taskList : tasks.getLists()) {
-                for(RtmTaskSeries taskSeries : taskList.getSeries()) {
-                    TaskProxy remoteTask = parseRemoteTask(taskList.getId(), taskSeries);
-                    remoteChanges.add(remoteTask);
+            int progress = 0;
+            for(final String listId : listIdToNameMap.keySet()) {
+                RtmTasks tasks;
+                try {
+                    tasks = rtmService.tasks_getList(listId, filter, lastSyncDate);
+                } catch (Exception e) {
+                    syncHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            DialogUtilities.okDialog(activity,
+                                    "List " + listIdToNameMap.get(listId) +
+                                    " import failed (too big?)", null);
+                        }
+                    });
+                    continue;
                 }
+
+                for(RtmTaskList taskList : tasks.getLists()) {
+                    for(RtmTaskSeries taskSeries : taskList.getSeries()) {
+                        TaskProxy remoteTask = parseRemoteTask(taskList.getId(), taskSeries);
+                        remoteChanges.add(remoteTask);
+                    }
+                }
+                syncHandler.post(new ProgressUpdater(++progress, listIdToNameMap.size()));
             }
+
 
             synchronizeTasks(activity, remoteChanges, new SynchronizeHelper() {
                 @Override

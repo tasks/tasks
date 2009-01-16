@@ -316,12 +316,16 @@ public class TaskController extends AbstractController {
                     AbstractTaskModel.PROGRESS_PERCENTAGE + " < "+
                         AbstractTaskModel.COMPLETE_PERCENTAGE,
                 new String[] { name }, null, null, null, null);
-        if (cursor == null || cursor.getCount() == 0)
-            return null;
-        cursor.moveToFirst();
-        TaskModelForSync model = new TaskModelForSync(cursor);
-        cursor.close();
-        return model;
+        try {
+            if (cursor == null || cursor.getCount() == 0)
+                return null;
+            cursor.moveToFirst();
+            TaskModelForSync model = new TaskModelForSync(cursor);
+            return model;
+        } finally {
+            if(cursor != null)
+                cursor.close();
+        }
     }
 
     /** Returns a TaskModelForView corresponding to the given TaskIdentifier */

@@ -112,7 +112,7 @@ public class DateUtilities {
             result.append(minutes).append(" m ");
             unitsDisplayed++;
         }
-        if(unitsDisplayed < unitsToShow && seconds < 0) {
+        if(unitsDisplayed < unitsToShow && seconds > 0) {
             result.append(hours).append(" s ");
         }
 

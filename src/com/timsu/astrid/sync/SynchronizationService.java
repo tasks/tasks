@@ -363,13 +363,23 @@ public abstract class SynchronizationService {
             stats.localUpdatedTasks++;
 
             if(mapping == null) {
-                mapping = new SyncMapping(task.getTaskIdentifier(), remoteTask);
-                syncController.saveSyncMapping(mapping);
+                // try looking for this task
+                mapping = localIdToSyncMapping.get(task.getTaskIdentifier());
+                if(mapping == null) {
+                    try {
+                        mapping = new SyncMapping(task.getTaskIdentifier(), remoteTask);
+                        syncController.saveSyncMapping(mapping);
+                    } catch (Exception e) {
+                        // ignore - it'll get merged later
+                    }
+                }
                 stats.localCreatedTasks++;
             }
 
             Notifications.updateAlarm(activity, taskController, alertController,
                     task);
+            syncHandler.post(new ProgressUpdater(stats.localUpdatedTasks,
+                    remoteTasks.size()));
         }
         stats.localUpdatedTasks -= stats.localCreatedTasks;
 

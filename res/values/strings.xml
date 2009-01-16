@@ -225,7 +225,7 @@ Welcome to Astrid\'s RTM sync!
 - Notifications and repeats are not synchronized.\n
 - Moving tasks in RTM to another list and then renaming them causes dupes.\n
 - Deleting tasks in RTM is not detected.\n
-- Synchronization is SLOW!\n
+- Having ~50+ tasks in one list might cause that list to not be imported\n
 Wish me luck!\n
         </string>
         <string name="sync_now">Synchronize Now!</string>

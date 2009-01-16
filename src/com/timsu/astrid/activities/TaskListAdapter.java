@@ -185,14 +185,14 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             if(!task.isTaskCompleted() && task.getEstimatedSeconds() > 0) {
                 int remaining = task.getEstimatedSeconds() - elapsed;
                 remainingString = DateUtilities.getShortDurationString(r,
-                        (int)Math.abs(remaining), 1) + " ";
+                        (int)Math.abs(remaining), 1);
                 if(remaining >= 0)
                     remainingString += r.getString(R.string.taskList_remaining);
                 else
                     remainingString += r.getString(R.string.taskList_overtime);
             } else if(elapsed > 0) {
                 remainingString = DateUtilities.getShortDurationString(r,
-                        (int)Math.abs(elapsed), 1) + " " +
+                        Math.abs(elapsed), 1) +
                         r.getString(R.string.taskList_spent);
             }
 
