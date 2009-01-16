@@ -30,6 +30,7 @@
     
     <color name="taskList_dueDateOverdue">#FFFB6666</color>
     <color name="taskList_dueDate">#ffF0E89E</color>
+    <color name="taskList_remainingTime">#ff88AAFF</color>
     <color name="taskList_completedDate">#ff888888</color>
     <color name="taskList_tags">#ff888888</color>
     

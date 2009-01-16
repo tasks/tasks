@@ -119,15 +119,15 @@ public class SyncDataController extends AbstractController {
      *         initialization call)
      * @throws SQLException if the database could be neither opened or created
      */
-    public SyncDataController open() throws SQLException {
+    @Override
+    public void open() throws SQLException {
         SQLiteOpenHelper helper = new SyncMappingDatabaseHelper(context,
                 SYNC_TABLE_NAME, SYNC_TABLE_NAME);
         syncDatabase = helper.getWritableDatabase();
-
-        return this;
     }
 
     /** Closes database resource */
+    @Override
     public void close() {
         syncDatabase.close();
     }

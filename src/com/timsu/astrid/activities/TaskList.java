@@ -59,7 +59,9 @@ import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.sync.Synchronizer;
+import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.Constants;
+import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.utilities.StartupReceiver;
 
@@ -105,8 +107,6 @@ public class TaskList extends Activity {
     public static final int       FLING_VEL_THRESHOLD    = 300;
 
     // UI components
-    private TaskController controller;
-    private TagController tagController = null;
     private ListView listView;
     private Button addButton;
     private View layout;
@@ -127,6 +127,11 @@ public class TaskList extends Activity {
 
     static boolean shouldCloseInstance = false;
 
+    // database controllers
+    private TaskController taskController;
+    private TagController tagController;
+
+
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
@@ -140,13 +145,15 @@ public class TaskList extends Activity {
         StartupReceiver.onStartupApplication(this);
         shouldCloseInstance = false;
 
-        controller = new TaskController(this);
-        controller.open();
+        taskController = new TaskController(this);
+        taskController.open();
         tagController = new TagController(this);
         tagController.open();
 
+        Synchronizer.setTagController(tagController);
+        Synchronizer.setTaskController(taskController);
+
         setupUIComponents();
-        fillData();
 
         // auto sync
         Integer autoSyncHours = Preferences.autoSyncFrequency(this);
@@ -155,11 +162,10 @@ public class TaskList extends Activity {
 
             if(lastSync == null || lastSync.getTime() +
                     1000L*3600*autoSyncHours < System.currentTimeMillis()) {
-                Synchronizer.synchronize(this, new SynchronizationListener() {
-                    show dialog!
-                        });
+                Synchronizer.synchronize(this, true, null);
             }
-        }
+        } else
+            fillData();
     }
 
     public void setupUIComponents() {
@@ -345,15 +351,15 @@ public class TaskList extends Activity {
         if(filterTag != null) {
             List<TaskIdentifier> tasks = tagController.getTaggedTasks(this,
                     filterTag.getTagIdentifier());
-            tasksCursor = controller.getTaskListCursorById(tasks);
+            tasksCursor = taskController.getTaskListCursorById(tasks);
         } else {
             if(filterShowDone)
-                tasksCursor = controller.getAllTaskListCursor();
+                tasksCursor = taskController.getAllTaskListCursor();
             else
-                tasksCursor = controller.getActiveTaskListCursor();
+                tasksCursor = taskController.getActiveTaskListCursor();
         }
         startManagingCursor(tasksCursor);
-        taskArray = controller.createTaskListFromCursor(tasksCursor);
+        taskArray = taskController.createTaskListFromCursor(tasksCursor);
 
         // read tags and apply filters
         int hiddenTasks = 0; // # of tasks hidden
@@ -456,7 +462,7 @@ public class TaskList extends Activity {
 
                 @Override
                 public TaskController getTaskController() {
-                    return controller;
+                    return taskController;
                 }
 
                 @Override
@@ -542,7 +548,16 @@ public class TaskList extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == ACTIVITY_TAGS && resultCode == RESULT_CANCELED)
+        if(resultCode == Constants.RESULT_SYNCHRONIZE) {
+            Synchronizer.synchronize(this, false, new SynchronizerListener() {
+                @Override
+                public void onSynchronizerFinished(int numServicesSynced) {
+                    if(numServicesSynced == 0)
+                        DialogUtilities.okDialog(TaskList.this, getResources().getString(
+                                R.string.sync_no_synchronizers), null);
+                }
+            });
+        } else if(requestCode == ACTIVITY_TAGS && resultCode == RESULT_CANCELED)
             filterTag = null;
     }
 
@@ -576,7 +591,7 @@ public class TaskList extends Activity {
                     new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    controller.deleteTask(taskId);
+                    taskController.deleteTask(taskId);
                     fillData();
                 }
             })
@@ -648,7 +663,7 @@ public class TaskList extends Activity {
             else {
                 task.stopTimerAndUpdateElapsedTime();
             }
-            controller.saveTask(task);
+            taskController.saveTask(task);
             fillData();
             return true;
 
@@ -697,7 +712,7 @@ public class TaskList extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        controller.close();
+        taskController.close();
         if(tagController != null)
             tagController.close();
     }

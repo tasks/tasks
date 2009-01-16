@@ -14,6 +14,6 @@ public class Constants {
     /** Return to the task list view */
     public static final int RESULT_GO_HOME = Activity.RESULT_FIRST_USER;
 
-    /** Callback from synchronization */
+    /** Callback to force synchronization */
     public static final int RESULT_SYNCHRONIZE = Activity.RESULT_FIRST_USER + 1;
 }

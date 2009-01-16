@@ -105,10 +105,10 @@ public abstract class SynchronizationService {
 
         /** Create a task on the remote server
          *
-         * @return listName list name to create it on. null -> inbox
+         * @return primaryTag primary tag of this task. null if no tags exist.
          * @return remote id
          */
-        String createTask(String listName) throws IOException;
+        String createTask(String primaryTag) throws IOException;
 
         /** Fetch remote task. Used to re-read merged tasks
          *
@@ -153,7 +153,7 @@ public abstract class SynchronizationService {
         TagController tagController = Synchronizer.getTagController(activity);
         AlertController alertController = Synchronizer.getAlertController(activity);
 
-        // get data out of the database
+        // 1. get data out of the database
         HashSet<SyncMapping> mappings = syncController.getSyncMapping(getId());
         HashSet<TaskIdentifier> activeTasks = taskController.
             getActiveTaskIdentifiers();
@@ -162,7 +162,7 @@ public abstract class SynchronizationService {
         HashMap<TagIdentifier, TagModelForView> tags =
             tagController.getAllTagsAsMap(activity);
 
-        //  build local maps / lists
+        //  2. build helper data structures
         HashMap<String, SyncMapping> remoteIdToSyncMapping =
             new HashMap<String, SyncMapping>();
         HashMap<TaskIdentifier, SyncMapping> localIdToSyncMapping =
@@ -177,34 +177,47 @@ public abstract class SynchronizationService {
             mappedTasks.add(mapping.getTask());
         }
 
-        // build remote map
+        // 3. build map of remote tasks
         HashMap<TaskIdentifier, TaskProxy> remoteChangeMap =
             new HashMap<TaskIdentifier, TaskProxy>();
+        HashMap<String, TaskProxy> newRemoteTasks = new HashMap<String, TaskProxy>();
         for(TaskProxy remoteTask : remoteTasks) {
             if(remoteIdToSyncMapping.containsKey(remoteTask.getRemoteId())) {
                 SyncMapping mapping = remoteIdToSyncMapping.get(remoteTask.getRemoteId());
                 remoteChangeMap.put(mapping.getTask(), remoteTask);
+            } else if(remoteTask.name != null){
+                newRemoteTasks.put(remoteTask.name, remoteTask);
             }
         }
 
-        // grab tasks without a sync mapping and create them remotely
+        // 4. CREATE: grab tasks without a sync mapping and create them remotely
         log.append(">> on remote server:\n");
-        syncHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.setMessage("Sending locally created tasks");
-                progressDialog.setProgress(0);
-            }
-        });
+        syncHandler.post(new ProgressLabelUpdater("Sending locally created tasks"));
         HashSet<TaskIdentifier> newlyCreatedTasks = new HashSet<TaskIdentifier>(activeTasks);
         newlyCreatedTasks.removeAll(mappedTasks);
         for(TaskIdentifier taskId : newlyCreatedTasks) {
+            TaskModelForSync task = taskController.fetchTaskForSync(taskId);
+
+            /* If there exists an incoming remote task with the same name and
+             * no mapping, we don't want to create this on the remote server.
+             * Instead, we create a mapping and do an update. */
+            if(newRemoteTasks.containsKey(task.getName())) {
+                TaskProxy remoteTask = newRemoteTasks.get(task.getName());
+                SyncMapping mapping = new SyncMapping(taskId, getId(),
+                        remoteTask.getRemoteId());
+                syncController.saveSyncMapping(mapping);
+                localChanges.add(mapping);
+                remoteChangeMap.put(taskId, remoteTask);
+                localIdToSyncMapping.put(taskId, mapping);
+                continue;
+            }
+
+            // grab the primary tag for this task
             LinkedList<TagIdentifier> taskTags =
                 tagController.getTaskTags(activity, taskId);
             String listName = null;
             if(taskTags.size() > 0) {
                 listName = tags.get(taskTags.get(0)).getName();
-                // strip the underline
                 if(listName.startsWith(TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX))
                     listName = listName.substring(1);
             }
@@ -212,27 +225,19 @@ public abstract class SynchronizationService {
             SyncMapping mapping = new SyncMapping(taskId, getId(), remoteId);
             syncController.saveSyncMapping(mapping);
 
-            TaskModelForSync task = taskController.fetchTaskForSync(
-                    mapping.getTask());
             TaskProxy localTask = new TaskProxy(getId(), remoteId, false);
             localTask.readFromTaskModel(task);
             helper.pushTask(localTask, mapping);
 
             // update stats
-            log.append("add " + task.getName() + "\n");
+            log.append("added " + task.getName() + "\n");
             stats.remoteCreatedTasks++;
             syncHandler.post(new ProgressUpdater(stats.remoteCreatedTasks,
                     newlyCreatedTasks.size()));
         }
 
-        // find deleted tasks and remove them from the list
-        syncHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.setMessage("Sending locally deleted tasks");
-                progressDialog.setProgress(0);
-            }
-        });
+        // 5. DELETE: find deleted tasks and remove them from the list
+        syncHandler.post(new ProgressLabelUpdater("Sending locally deleted tasks"));
         HashSet<TaskIdentifier> deletedTasks = new HashSet<TaskIdentifier>(
                 mappedTasks);
         deletedTasks.removeAll(allTasks);
@@ -247,20 +252,14 @@ public abstract class SynchronizationService {
             remoteChangeMap.remove(taskId);
 
             // update stats
-            log.append("del #" + taskId.getId() + "\n");
+            log.append("deleted id #" + taskId.getId() + "\n");
             stats.remoteDeletedTasks++;
             syncHandler.post(new ProgressUpdater(stats.remoteDeletedTasks,
                     deletedTasks.size()));
         }
 
-        // for each updated local task
-        syncHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.setMessage("Sending locally edited tasks");
-                progressDialog.setProgress(0);
-            }
-        });
+        // 6. UPDATE: for each updated local task
+        syncHandler.post(new ProgressLabelUpdater("Sending locally edited tasks"));
         for(SyncMapping mapping : localChanges) {
             TaskProxy localTask = new TaskProxy(getId(), mapping.getRemoteId(),
                     false);
@@ -274,9 +273,9 @@ public abstract class SynchronizationService {
                 remoteConflict = remoteChangeMap.get(mapping.getTask());
                 localTask.mergeWithOther(remoteConflict);
                 stats.mergedTasks++;
-                log.append("mrg " + task.getName() + "\n");
+                log.append("merged " + task.getName() + "\n");
             } else {
-                log.append("upd " + task.getName() + "\n");
+                log.append("updated " + task.getName() + "\n");
             }
 
             try {
@@ -297,15 +296,9 @@ public abstract class SynchronizationService {
                     localChanges.size()));
         }
 
-        // load remote information
+        // 7. REMOTE SYNC load remote information
         log.append(">> on astrid:\n");
-        syncHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.setMessage("Updating local tasks");
-                progressDialog.setProgress(0);
-            }
-        });
+        syncHandler.post(new ProgressLabelUpdater("Updating local tasks"));
         for(TaskProxy remoteTask : remoteTasks) {
             SyncMapping mapping = null;
             TaskModelForSync task = null;
@@ -321,22 +314,22 @@ public abstract class SynchronizationService {
                 if(task == null) {
                     task = new TaskModelForSync();
                     setupTaskDefaults(activity, task);
-                    log.append("add " + remoteTask.name + "\n");
+                    log.append("added " + remoteTask.name + "\n");
                 } else {
                     mapping = localIdToSyncMapping.get(task.getTaskIdentifier());
-                    log.append("mov " + remoteTask.name + "\n");
+                    log.append("merged " + remoteTask.name + "\n");
                 }
             } else {
                 mapping = remoteIdToSyncMapping.get(remoteTask.getRemoteId());
                 if(remoteTask.isDeleted()) {
                     taskController.deleteTask(mapping.getTask());
                     syncController.deleteSyncMapping(mapping);
-                    log.append("del " + remoteTask.name + "\n");
+                    log.append("deleted " + remoteTask.name + "\n");
                     stats.localDeletedTasks++;
                     continue;
                 }
 
-                log.append("upd " + remoteTask.name + "\n");
+                log.append("updated " + remoteTask.name + "\n");
                 task = taskController.fetchTaskForSync(
                         mapping.getTask());
             }
@@ -424,7 +417,8 @@ public abstract class SynchronizationService {
             if(localCreatedTasks + localUpdatedTasks + localDeletedTasks +
                     mergedTasks + remoteCreatedTasks + remoteDeletedTasks +
                     remoteUpdatedTasks == 0) {
-                DialogUtilities.okDialog(activity, "Sync: Up to date!", finishListener);
+                if(!Synchronizer.isAutoSync())
+                    DialogUtilities.okDialog(activity, "Sync: Up to date!", finishListener);
                 return;
             }
 
@@ -465,6 +459,17 @@ public abstract class SynchronizationService {
         }
         public void run() {
             progressDialog.setProgress(100*step/outOf);
+        }
+    }
+
+    protected class ProgressLabelUpdater implements Runnable {
+        String label;
+        public ProgressLabelUpdater(String label) {
+            this.label = label;
+        }
+        public void run() {
+            progressDialog.setMessage(label);
+            progressDialog.setProgress(0);
         }
     }
 }

@@ -105,6 +105,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         // find UI components
         final TextView name = ((TextView)view.findViewById(R.id.text1));
         final TextView dueDateView = ((TextView)view.findViewById(R.id.text_dueDate));
+        final TextView remainingTimeView = ((TextView)view.findViewById(R.id.text_remainingTime));
         final TextView tagsView = ((TextView)view.findViewById(R.id.text_tags));
         final CheckBox progress = ((CheckBox)view.findViewById(R.id.cb1));
         final ImageView timer = ((ImageView)view.findViewById(R.id.imageLeft));
@@ -114,6 +115,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         view.setTag(task);
         progress.setTag(task);
 
+        // name
         String nameValue = task.getName();
         if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date()))
             nameValue = "(" + r.getString(R.string.taskList_hiddenPrefix) + ") " + nameValue;
@@ -170,6 +172,40 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 dueDateView.setVisibility(View.VISIBLE);
             } else
                 dueDateView.setVisibility(View.GONE);
+        }
+
+        // remaining time
+        if(task.getElapsedSeconds() > 0 || task.getEstimatedSeconds() > 0 ||
+                task.getTimerStart() != null) {
+            remainingTimeView.setVisibility(View.VISIBLE);
+            int elapsed = task.getElapsedSeconds();
+            if(task.getTimerStart() != null)
+                elapsed += ((System.currentTimeMillis() - task.getTimerStart().getTime())/1000);
+            String remainingString = "";
+            if(!task.isTaskCompleted() && task.getEstimatedSeconds() > 0) {
+                int remaining = task.getEstimatedSeconds() - elapsed;
+                remainingString = DateUtilities.getShortDurationString(r,
+                        (int)Math.abs(remaining), 1) + " ";
+                if(remaining >= 0)
+                    remainingString += r.getString(R.string.taskList_remaining);
+                else
+                    remainingString += r.getString(R.string.taskList_overtime);
+            } else if(elapsed > 0) {
+                remainingString = DateUtilities.getShortDurationString(r,
+                        (int)Math.abs(elapsed), 1) + " " +
+                        r.getString(R.string.taskList_spent);
+            }
+
+            if(remainingString.length() == 0) {
+                remainingTimeView.setVisibility(View.GONE);
+            } else {
+                hasProperties = true;
+                remainingTimeView.setText(remainingString);
+                if(task.isTaskCompleted())
+                    remainingTimeView.setTextColor(r.getColor(R.color.taskList_completedDate));
+            }
+        } else {
+            remainingTimeView.setVisibility(View.GONE);
         }
 
         // tags

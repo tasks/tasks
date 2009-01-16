@@ -34,13 +34,15 @@ abstract public class AbstractController {
     // special columns
     public static final String KEY_ROWID = "_id";
 
-
     // database and table names
     protected static final String TASK_TABLE_NAME = "tasks";
     protected static final String TAG_TABLE_NAME = "tags";
     protected static final String TAG_TASK_MAP_NAME = "tagTaskMap";
     protected static final String ALERT_TABLE_NAME = "alerts";
     protected static final String SYNC_TABLE_NAME = "sync";
+
+    abstract public void open();
+    abstract public void close();
 
     // cursor iterator
 

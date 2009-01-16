@@ -130,14 +130,14 @@ public class AlertController extends AbstractController {
      *         initialization call)
      * @throws SQLException if the database could be neither opened or created
      */
-    public AlertController open() throws SQLException {
+    @Override
+    public void open() throws SQLException {
         alertDatabase = new AlertDatabaseHelper(context,
                 ALERT_TABLE_NAME, ALERT_TABLE_NAME).getWritableDatabase();
-
-        return this;
     }
 
     /** Closes database resource */
+    @Override
     public void close() {
         alertDatabase.close();
     }

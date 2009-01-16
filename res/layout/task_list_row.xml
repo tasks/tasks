@@ -69,6 +69,15 @@
                 android:paddingRight="10dip"       
                 android:singleLine="true"/>
                 
+            <TextView android:id="@+id/text_remainingTime"
+                android:gravity="top"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/TextAppearance.TaskList_Detail"
+                android:textColor="@color/taskList_remainingTime"
+                android:paddingRight="10dip"       
+                android:singleLine="true"/>
+                
             <TextView android:id="@+id/text_tags"
                 android:gravity="top"
                 android:layout_height="wrap_content"

@@ -364,14 +364,15 @@ public class TaskController extends AbstractController {
      *         initialization call)
      * @throws SQLException if the database could be neither opened or created
      */
-    public TaskController open() throws SQLException {
+    @Override
+    public void open() throws SQLException {
         SQLiteOpenHelper databaseHelper = new TaskModelDatabaseHelper(
                 context, TASK_TABLE_NAME, TASK_TABLE_NAME);
         database = databaseHelper.getWritableDatabase();
-        return this;
     }
 
     /** Closes database resource */
+    @Override
     public void close() {
         database.close();
     }

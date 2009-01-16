@@ -9,17 +9,16 @@ import android.widget.Button;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.sync.Synchronizer;
-import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
+import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DialogUtilities;
 
 public class SyncPreferences extends PreferenceActivity {
-	
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.sync_preferences);
-        syncFinished = true;
 
         getListView().addFooterView(getLayoutInflater().inflate(
                 R.layout.sync_footer, getListView(), false));
@@ -28,7 +27,7 @@ public class SyncPreferences extends PreferenceActivity {
         syncButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Preferences.setSyncLastSync(SyncPreferences.this, null);
+                setResult(Constants.RESULT_SYNCHRONIZE);
                 finish();
             }
         });

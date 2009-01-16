@@ -84,6 +84,10 @@
         <string name="tags_prefix">Tags: </string>
         <string name="no_tags">No Tags</string>
         
+        <string name="taskList_remaining">Left</string>
+        <string name="taskList_overtime">Over Time</string>
+        <string name="taskList_spent">Spent</string>
+        
         <string name="taskList_menu_insert">Add</string>
         <string name="taskList_menu_tags">Tags</string>
         <string name="taskList_menu_filters">Display</string>
@@ -227,6 +231,7 @@ Wish me luck!\n
         <string name="sync_now">Synchronize Now!</string>
         <string name="sync_forget">Clear Personal Data</string>
         <string name="sync_forget_confirm">Clear data for selected services?</string>
+        <string name="sync_no_synchronizers">No Synchronizers Enabled!</string>
        
     <!-- Dialog Boxes -->  
     <skip />
