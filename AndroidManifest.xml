@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionCode="58"
-      android:versionName="2.0.1-beta">
+      android:versionCode="59"
+      android:versionName="2.0.2-beta">
       
     <meta-data android:name="com.a0soft.gphone.aTrackDog.webURL"
                android:value="http://www.weloveastrid.com" />
     <meta-data android:name="com.a0soft.gphone.aTrackDog.testVersion"
-           android:value="58" />
+           android:value="59" />
       
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>

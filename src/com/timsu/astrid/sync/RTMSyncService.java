@@ -166,8 +166,11 @@ public class RTMSyncService extends SynchronizationService {
             syncHandler.post(new ProgressUpdater(40, 100));
 
             // read all tasks
-            RtmTasks tasks = rtmService.tasks_getList(null, null,
-                    Preferences.getSyncRTMLastSync(activity));
+            Date lastSyncDate = Preferences.getSyncRTMLastSync(activity);
+            String filter = "";
+            if(lastSyncDate == null) // 1st time sync, just uncompleted tasks
+            	filter = "status:incomplete";
+            RtmTasks tasks = rtmService.tasks_getList(null, filter, lastSyncDate);
             syncHandler.post(new ProgressUpdater(100, 100));
 
             List<TaskProxy> remoteChanges = new LinkedList<TaskProxy>();
