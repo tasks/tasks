@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.sync.Synchronizer;
+import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.DialogUtilities;
 
 public class SyncPreferences extends PreferenceActivity {
@@ -21,10 +22,23 @@ public class SyncPreferences extends PreferenceActivity {
         getListView().addFooterView(getLayoutInflater().inflate(
                 R.layout.sync_footer, getListView(), false));
 
-        ((Button)findViewById(R.id.sync)).setOnClickListener(new View.OnClickListener() {
+        final Button syncButton = ((Button)findViewById(R.id.sync));
+        syncButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Synchronizer.synchronize(SyncPreferences.this);
+                syncButton.setEnabled(false);
+                Synchronizer.synchronize(SyncPreferences.this, new SynchronizerListener() {
+                    @Override
+                    public void onSynchronizerFinished(int numServicesSynced) {
+                        syncButton.setEnabled(true);
+                        if(numServicesSynced == 0) {
+                            DialogUtilities.okDialog(SyncPreferences.this,
+                                    "Nothing to do!", null);
+                        } else {
+                            finish();
+                        }
+                    }
+                });
             }
         });
 

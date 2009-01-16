@@ -18,6 +18,7 @@ public class Preferences {
     private static final String P_SHOW_REPEAT_HELP = "repeathelp";
     private static final String P_SYNC_RTM_TOKEN = "rtmtoken";
     private static final String P_SYNC_RTM_LAST_SYNC = "rtmlastsync";
+    private static final String P_SYNC_LAST_SYNC = "lastsync";
 
     // default values
     private static final boolean DEFAULT_PERSISTENCE_MODE = true;
@@ -160,6 +161,31 @@ public class Preferences {
         Resources r = context.getResources();
         return getPrefs(context).getBoolean(r.getString(
                 R.string.p_sync_rtm), false);
+    }
+
+    /** returns the font size user wants on the front page */
+    public static Integer autoSyncFrequency(Context context) {
+        return getIntegerValue(context, R.string.p_sync_every);
+    }
+
+    /** Last Auto-Sync Date, or null */
+    public static Date getSyncLastSync(Context context) {
+        Long value = getPrefs(context).getLong(P_SYNC_LAST_SYNC, 0);
+        if(value == 0)
+            return null;
+        return new Date(value);
+    }
+
+    /** Set Last Auto-Sync Date */
+    public static void setSyncLastSync(Context context, Date date) {
+        if(date == null) {
+            clearPref(context, P_SYNC_LAST_SYNC);
+            return;
+        }
+
+        Editor editor = getPrefs(context).edit();
+        editor.putLong(P_SYNC_LAST_SYNC, date.getTime());
+        editor.commit();
     }
 
     // --- helper methods

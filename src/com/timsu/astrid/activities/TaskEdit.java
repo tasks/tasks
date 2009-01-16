@@ -48,11 +48,9 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
@@ -137,22 +135,22 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                 tabHost.getTabContentView(), true);
 
         tabHost.addTab(tabHost.newTabSpec(TAB_BASIC)
-                .setIndicator("",
+                .setIndicator("Basic",
                         r.getDrawable(R.drawable.ic_dialog_info_c))
                 .setContent(R.id.tab_basic));
         tabHost.addTab(tabHost.newTabSpec(TAB_DATES)
-                .setIndicator("",
+                .setIndicator("Dates",
                         r.getDrawable(R.drawable.ic_dialog_time_c))
                 .setContent(R.id.tab_dates));
         tabHost.addTab(tabHost.newTabSpec(TAB_ALERTS)
-                .setIndicator("",
+                .setIndicator("Alerts",
                         r.getDrawable(R.drawable.ic_dialog_alert_c))
                 .setContent(R.id.tab_notification));
-        TabWidget tabWidget = tabHost.getTabWidget();
-        for(int i = 0; i < tabWidget.getChildCount(); i++) {
-            RelativeLayout tab = (RelativeLayout)tabWidget.getChildAt(i);
-            tab.getLayoutParams().height = 46;
-        }
+//        TabWidget tabWidget = tabHost.getTabWidget();
+//        for(int i = 0; i < tabWidget.getChildCount(); i++) {
+//            RelativeLayout tab = (RelativeLayout)tabWidget.getChildAt(i);
+//            tab.getLayoutParams().height = 46;
+//        }
 
         setUpUIComponents();
 		setUpListeners();

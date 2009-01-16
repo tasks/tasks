@@ -25,11 +25,12 @@ import android.database.Cursor;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.enums.Importance;
+import com.timsu.astrid.utilities.Notifications.Notifiable;
 
 
 
 /** Fields that you would want to synchronize in the TaskModel */
-public class TaskModelForSync extends AbstractTaskModel {
+public class TaskModelForSync extends AbstractTaskModel implements Notifiable {
 
     static String[] FIELD_LIST = new String[] {
         AbstractController.KEY_ROWID,
@@ -46,6 +47,9 @@ public class TaskModelForSync extends AbstractTaskModel {
         COMPLETION_DATE,
         NOTES,
         REPEAT,
+        LAST_NOTIFIED,
+        NOTIFICATIONS,
+        NOTIFICATION_FLAGS,
     };
 
     // --- constructors
@@ -133,6 +137,23 @@ public class TaskModelForSync extends AbstractTaskModel {
     }
 
     @Override
+    public Integer getNotificationIntervalSeconds() {
+        return super.getNotificationIntervalSeconds();
+    }
+
+    @Override
+    public int getNotificationFlags() {
+        return super.getNotificationFlags();
+    }
+
+    @Override
+    public Date getLastNotificationDate() {
+        return super.getLastNotificationDate();
+    }
+
+    // --- setters
+
+    @Override
     public void setDefiniteDueDate(Date definiteDueDate) {
         super.setDefiniteDueDate(definiteDueDate);
     }
@@ -197,6 +218,9 @@ public class TaskModelForSync extends AbstractTaskModel {
         super.setProgressPercentage(progressPercentage);
     }
 
-
+    @Override
+    public void setNotificationIntervalSeconds(Integer intervalInSeconds) {
+        super.setNotificationIntervalSeconds(intervalInSeconds);
+    }
 }
 

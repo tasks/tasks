@@ -144,13 +144,18 @@ public class TagController extends AbstractController {
                 TagModelForView.FIELD_LIST,
                 KEY_ROWID + "=" + id, null, null, null, null, null);
 
-        if (cursor != null) {
-            cursor.moveToFirst();
-            TagModelForView model = new TagModelForView(cursor);
-            return model;
-        }
+        try {
+            if (cursor != null) {
+                cursor.moveToFirst();
+                TagModelForView model = new TagModelForView(cursor);
+                return model;
+            }
 
-        throw new SQLException("Returned empty set!");
+            throw new SQLException("Returned empty set!");
+        } finally {
+            if(cursor != null)
+                cursor.close();
+        }
     }
 
     /** Deletes the tag and removes tag/task mappings */

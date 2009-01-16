@@ -1,10 +1,11 @@
 package com.timsu.astrid.sync;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Date;
 
 import android.app.Activity;
+import android.content.Context;
 
+import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
@@ -12,36 +13,113 @@ import com.timsu.astrid.utilities.Preferences;
 
 public class Synchronizer {
 
-    // Synchronization Service ID's
     private static final int SYNC_ID_RTM = 1;
 
     // --- public interface
 
-    /** Synchronize all activated sync services */
-    public static void synchronize(final Activity activity) {
-
-        // RTM sync
-        if(Preferences.shouldSyncRTM(activity)) {
-            services.get(SYNC_ID_RTM).synchronizeService(activity);
-        }
-
+    public interface SynchronizerListener {
+        void onSynchronizerFinished(int numServicesSynced);
     }
+
+    /** Synchronize all activated sync services */
+    public static void synchronize(Activity activity, SynchronizerListener listener) {
+        currentStep = ServiceWrapper._FIRST_SERVICE.ordinal();
+        servicesSynced = 0;
+        callback = listener;
+        continueSynchronization(activity);
+    }
+
 
     /** Clears tokens if services are disabled */
     public static void clearUserData(Activity activity) {
-        if(Preferences.shouldSyncRTM(activity)) {
-            services.get(SYNC_ID_RTM).clearPersonalData(activity);
+        for(ServiceWrapper serviceWrapper : ServiceWrapper.values()) {
+            if(serviceWrapper.isActivated(activity)) {
+                serviceWrapper.service.clearPersonalData(activity);
+            }
         }
     }
 
-    // --- package helpers
+    // --- internal synchronization logic
 
-    /** Service map */
-    private static Map<Integer, SynchronizationService> services =
-        new HashMap<Integer, SynchronizationService>();
-    static {
-        services.put(SYNC_ID_RTM, new RTMSyncService(SYNC_ID_RTM));
+    /** Synchronization Services enumeration
+     *    note that id must be kept constant!
+     * @author timsu
+     *
+     */
+    private enum ServiceWrapper {
+        _FIRST_SERVICE(null) { // must be first entry
+            @Override
+            boolean isActivated(Context arg0) {
+                return false;
+            }
+        },
+
+        RTM(new RTMSyncService(SYNC_ID_RTM)) {
+            @Override
+            boolean isActivated(Context context) {
+                return Preferences.shouldSyncRTM(context);
+            }
+        },
+
+        _LAST_SERVICE(null) { // must be last entry
+            @Override
+            boolean isActivated(Context arg0) {
+                return false;
+            }
+        };
+
+        private SynchronizationService service;
+
+        private ServiceWrapper(SynchronizationService service) {
+            this.service = service;
+        }
+
+        abstract boolean isActivated(Context context);
     }
+
+    // Internal state for the synchronization process
+
+    /** Current step in the sync process */
+    private static int currentStep;
+
+    /** # of services synchronized */
+    private static int servicesSynced;
+
+    /** On finished callback */
+    private static SynchronizerListener callback;
+
+
+    /** Called to do the next step of synchronization. Run me on the UI thread! */
+    static void continueSynchronization(Activity activity) {
+        ServiceWrapper serviceWrapper =
+            ServiceWrapper.values()[currentStep];
+        currentStep++;
+        switch(serviceWrapper) {
+        case _FIRST_SERVICE:
+            continueSynchronization(activity);
+            break;
+        case RTM:
+            if(Preferences.shouldSyncRTM(activity)) {
+                servicesSynced++;
+                serviceWrapper.service.synchronizeService(activity);
+            } else {
+                continueSynchronization(activity);
+            }
+            break;
+        case _LAST_SERVICE:
+            finishSynchronization(activity);
+        }
+    }
+
+    /** Called at the end of sync. */
+    private static void finishSynchronization(final Activity activity) {
+        closeControllers();
+        Preferences.setSyncLastSync(activity, new Date());
+        if(callback != null)
+            callback.onSynchronizerFinished(servicesSynced);
+    }
+
+    // --- package helpers
 
     static SyncDataController getSyncController(Activity activity) {
         if(syncController == null) {
@@ -67,12 +145,21 @@ public class Synchronizer {
         return tagController;
     }
 
+    static AlertController getAlertController(Activity activity) {
+        if(alertController == null) {
+            alertController = new AlertController(activity);
+            alertController.open();
+        }
+        return alertController;
+    }
+
     // --- controller stuff
     private static SyncDataController syncController = null;
     private static TaskController taskController = null;
     private static TagController tagController = null;
+    private static AlertController alertController = null;
 
-    static void closeControllers() {
+    private static void closeControllers() {
         if(syncController != null) {
             syncController.close();
             syncController = null;
@@ -86,6 +173,11 @@ public class Synchronizer {
         if(tagController != null) {
             tagController.close();
             tagController = null;
+        }
+
+        if(alertController != null) {
+            alertController.close();
+            alertController = null;
         }
     }
 }

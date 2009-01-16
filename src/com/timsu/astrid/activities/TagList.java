@@ -100,6 +100,11 @@ public class TagList extends Activity {
         gestureDetector = new GestureDetector(new TagListGestureDetector());
     }
 
+    @Override
+    public void finish() {
+        super.finish();
+    }
+
     class TagListGestureDetector extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {

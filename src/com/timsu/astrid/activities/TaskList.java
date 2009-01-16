@@ -58,7 +58,9 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
+import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.utilities.StartupReceiver;
 
 
@@ -143,6 +145,22 @@ public class TaskList extends Activity {
         tagController = new TagController(this);
         tagController.open();
 
+        setupUIComponents();
+        fillData();
+
+        // auto sync
+        Integer autoSyncHours = Preferences.autoSyncFrequency(this);
+        if(autoSyncHours != null) {
+            Date lastSync = Preferences.getSyncLastSync(this);
+
+            if(lastSync == null || lastSync.getTime() +
+                    1000L*3600*autoSyncHours < System.currentTimeMillis()) {
+                Synchronizer.synchronize(this, null);
+            }
+        }
+    }
+
+    public void setupUIComponents() {
         listView = (ListView)findViewById(R.id.tasklist);
         addButton = (Button)findViewById(R.id.addtask);
         addButton.setOnClickListener(new
@@ -164,8 +182,6 @@ public class TaskList extends Activity {
                         onCreateMoreOptionsMenu(menu);
                     }
                 });
-
-        fillData();
 
         gestureDetector = new GestureDetector(new TaskListGestureDetector());
         gestureTouchListener = new View.OnTouchListener() {

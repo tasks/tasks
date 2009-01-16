@@ -55,16 +55,18 @@ public class TaskController extends AbstractController {
                         AbstractTaskModel.NOTIFICATIONS,
                         AbstractTaskModel.NOTIFICATION_FLAGS), null, null, null, null, null);
 
-        if(cursor.getCount() == 0)
+        try {
+            if(cursor.getCount() == 0)
+                return list;
+            do {
+                cursor.moveToNext();
+                list.add(new TaskModelForNotify(cursor));
+            } while(!cursor.isLast());
+
             return list;
-
-        do {
-            cursor.moveToNext();
-            list.add(new TaskModelForNotify(cursor));
-        } while(!cursor.isLast());
-
-        cursor.close();
-        return list;
+        } finally {
+            cursor.close();
+        }
     }
 
     /** Return a list of all active tasks with deadlines */
@@ -77,16 +79,19 @@ public class TaskController extends AbstractController {
                         AbstractTaskModel.DEFINITE_DUE_DATE,
                         AbstractTaskModel.PREFERRED_DUE_DATE), null, null, null, null, null);
 
-        if(cursor.getCount() == 0)
+        try {
+            if(cursor.getCount() == 0)
+                return list;
+
+            do {
+                cursor.moveToNext();
+                list.add(new TaskModelForNotify(cursor));
+            } while(!cursor.isLast());
+
             return list;
-
-        do {
-            cursor.moveToNext();
-            list.add(new TaskModelForNotify(cursor));
-        } while(!cursor.isLast());
-
-        cursor.close();
-        return list;
+        } finally {
+            cursor.close();
+        }
     }
 
     /** Return a list of all of the tasks with progress < COMPLETE_PERCENTAGE */
@@ -119,21 +124,48 @@ public class TaskController extends AbstractController {
     }
 
     /** Get identifiers for all tasks */
+    public HashSet<TaskIdentifier> getAllTaskIdentifiers() {
+        HashSet<TaskIdentifier> list = new HashSet<TaskIdentifier>();
+        Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
+                null, null, null, null, null, null);
+
+        try {
+            if(cursor.getCount() == 0)
+                return list;
+
+            do {
+                cursor.moveToNext();
+                list.add(new TaskIdentifier(cursor.getInt(
+                        cursor.getColumnIndexOrThrow(KEY_ROWID))));
+            } while(!cursor.isLast());
+
+            return list;
+        } finally {
+            cursor.close();
+        }
+    }
+
+    /** Get identifiers for all non-completed tasks */
     public HashSet<TaskIdentifier> getActiveTaskIdentifiers() {
         HashSet<TaskIdentifier> list = new HashSet<TaskIdentifier>();
         Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
                 AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                 AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null, null, null);
-        if(cursor.getCount() == 0)
+
+        try {
+            if(cursor.getCount() == 0)
+                return list;
+
+            do {
+                cursor.moveToNext();
+                list.add(new TaskIdentifier(cursor.getInt(
+                        cursor.getColumnIndexOrThrow(KEY_ROWID))));
+            } while(!cursor.isLast());
+
             return list;
-
-        do {
-            cursor.moveToNext();
-            list.add(new TaskIdentifier(cursor.getInt(
-                    cursor.getColumnIndexOrThrow(KEY_ROWID))));
-        } while(!cursor.isLast());
-
-        return list;
+        } finally {
+            cursor.close();
+        }
     }
 
     /** Create a weighted list of tasks from the db cursor given */
@@ -280,7 +312,10 @@ public class TaskController extends AbstractController {
     /** Returns a TaskModelForView by name */
     public TaskModelForSync searchForTaskForSync(String name) throws SQLException {
         Cursor cursor = database.query(true, TASK_TABLE_NAME, TaskModelForSync.FIELD_LIST,
-                AbstractTaskModel.NAME + " = ?", new String[] { name }, null, null, null, null);
+                AbstractTaskModel.NAME + " = ? AND " +
+                    AbstractTaskModel.PROGRESS_PERCENTAGE + " < "+
+                        AbstractTaskModel.COMPLETE_PERCENTAGE,
+                new String[] { name }, null, null, null, null);
         if (cursor == null || cursor.getCount() == 0)
             return null;
         cursor.moveToFirst();

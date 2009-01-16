@@ -134,7 +134,6 @@ public class RTMSyncService extends SynchronizationService {
             @Override
             public void run() {
                 performSyncInNewThread(activity);
-                Synchronizer.closeControllers();
             }
         }).start();
     }
@@ -157,7 +156,7 @@ public class RTMSyncService extends SynchronizationService {
             // load RTM lists
             RtmLists lists = rtmService.lists_getList();
             for(RtmList list : lists.getLists().values()) {
-                listNameToIdMap.put(list.getName(), list.getId());
+                listNameToIdMap.put(list.getName().toLowerCase(), list.getId());
                 listIdToNameMap.put(list.getId(), list.getName());
 
                 // read the name of the inbox with the correct case
@@ -184,16 +183,16 @@ public class RTMSyncService extends SynchronizationService {
                 public String createTask(String listName) throws IOException {
                     if(listName == null)
                         listName = INBOX_LIST_NAME;
-                    if(!listNameToIdMap.containsKey(listName)) {
+                    if(!listNameToIdMap.containsKey(listName.toLowerCase())) {
                         try {
                             String listId =
                                 rtmService.lists_add(timeline, listName).getId();
-                            listNameToIdMap.put(listName, listId);
+                            listNameToIdMap.put(listName.toLowerCase(), listId);
                         } catch (Exception e) {
                             listName = INBOX_LIST_NAME;
                         }
                     }
-                    String listId = listNameToIdMap.get(listName);
+                    String listId = listNameToIdMap.get(listName.toLowerCase());
                     RtmTaskSeries s = rtmService.tasks_add(timeline,
                             listId, "tmp");
                     return new RtmId(listId, s).toString();
@@ -219,7 +218,9 @@ public class RTMSyncService extends SynchronizationService {
                 }
             });
 
-            Preferences.setSyncRTMLastSync(activity, new Date());
+            // add a bit of fudge time so we don't load tasks we just edited
+            Date syncTime = new Date(System.currentTimeMillis() + 1000);
+            Preferences.setSyncRTMLastSync(activity, syncTime);
 
         } catch (Exception e) {
             showError(activity, e);
