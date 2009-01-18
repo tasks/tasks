@@ -1,9 +1,17 @@
 package com.timsu.astrid.sync;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.LinkedList;
+
+import android.app.Activity;
 
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.enums.RepeatInterval;
+import com.timsu.astrid.data.tag.TagController;
+import com.timsu.astrid.data.tag.TagIdentifier;
+import com.timsu.astrid.data.tag.TagModelForView;
+import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForSync;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 
@@ -24,35 +32,35 @@ public class TaskProxy {
 
     // --- fill these out
 
-    String          name                = null;
-    String          notes               = null;
+    String             name                = null;
+    String             notes               = null;
 
-    Importance      importance          = null;
-    Integer         progressPercentage  = null;
+    Importance         importance          = null;
+    Integer            progressPercentage  = null;
 
-    Date            creationDate        = null;
-    Date            completionDate      = null;
+    Date               creationDate        = null;
+    Date               completionDate      = null;
 
-    Date            definiteDueDate     = null;
-    Date            preferredDueDate    = null;
-    Date            hiddenUntil         = null;
+    Date               definiteDueDate     = null;
+    Date               preferredDueDate    = null;
+    Date               hiddenUntil         = null;
 
-    String[]        tags                = null;
+    LinkedList<String> tags                = null;
 
-    Integer         estimatedSeconds    = null;
-    Integer         elapsedSeconds      = null;
-    Integer         repeatEveryNSeconds = null;
+    Integer            estimatedSeconds    = null;
+    Integer            elapsedSeconds      = null;
+    Integer            repeatEveryNSeconds = null;
 
     // --- internal state
 
     /** id of the synchronization service */
-    private int     syncServiceId;
+    private int        syncServiceId;
 
     /** id of this particular remote task */
-    private String  syncTaskId;
+    private String     syncTaskId;
 
     /** was the task deleted on the remote server */
-    private boolean isDeleted           = false;
+    private boolean    isDeleted           = false;
 
     public int getSyncServiceId() {
         return syncServiceId;
@@ -120,6 +128,18 @@ public class TaskProxy {
         }
     }
 
+    /** Read tags from the given tag controller */
+    public void readTagsFromController(Activity activity, TaskIdentifier taskId,
+            TagController tagController, HashMap<TagIdentifier, TagModelForView>
+            tagList) {
+        LinkedList<TagIdentifier> tagIds = tagController.getTaskTags(activity,
+                taskId);
+        tags = new LinkedList<String>();
+        for(TagIdentifier tagId : tagIds) {
+            tags.add(tagList.get(tagId).getName());
+        }
+    }
+
     /** Write to the given task model */
     public void writeToTaskModel(TaskModelForSync task) {
         if(name != null)
@@ -140,8 +160,6 @@ public class TaskProxy {
             task.setPreferredDueDate(preferredDueDate);
         if(hiddenUntil != null)
             task.setHiddenUntil(hiddenUntil);
-
-        // TODO tags
 
         if(estimatedSeconds != null)
             task.setEstimatedSeconds(estimatedSeconds);

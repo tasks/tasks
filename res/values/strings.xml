@@ -75,7 +75,7 @@
         <string name="taskList_titlePrefix">Astrid: </string>
         <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
         <string name="taskList_hiddenSuffix"> hidden</string>
-        <string name="taskList_dueIn">Due in</string>
+        <string name="taskList_dueIn">Due:</string>
         <string name="taskList_goalPrefix">Goal</string>
         <string name="taskList_completedPrefix">Finished</string>
         <string name="taskList_overdueBy">Overdue by</string>
@@ -220,8 +220,7 @@ When finished, restart Astrid and come back here.
         <string name="sync_rtm_notes">
 Welcome to Astrid\'s RTM sync!
 \n\n
-- RTM tags are not read. Instead, RTM's lists are mapped to Astrid\'s tags.\n
-- Task notes are read from RTM, but edits are not written back.\n
+- Task notes are read from RTM, but edits are not sent back.\n
 - Notifications and repeats are not synchronized.\n
 - Moving tasks in RTM to another list and then renaming them causes dupes.\n
 - Deleting tasks in RTM is not detected.\n

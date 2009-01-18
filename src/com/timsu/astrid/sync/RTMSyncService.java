@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
+import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.Dialog;
@@ -31,6 +31,7 @@ import com.mdt.rtm.data.RtmTask.Priority;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.sync.SyncMapping;
+import com.timsu.astrid.data.task.TaskModelForSync;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
 
@@ -45,6 +46,8 @@ public class RTMSyncService extends SynchronizationService {
         super(id);
     }
 
+    // --- abstract methods
+
     @Override
     String getName() {
         return "RTM";
@@ -52,7 +55,7 @@ public class RTMSyncService extends SynchronizationService {
 
     @Override
     protected void synchronize(final Activity activity) {
-        if(Preferences.shouldSyncRTM(activity) &&
+        if(Preferences.shouldSyncRTM(activity) && rtmService == null &&
                 Preferences.getSyncRTMToken(activity) == null) {
             DialogUtilities.okCancelDialog(activity,
                     activity.getResources().getString(R.string.sync_rtm_notes),
@@ -72,6 +75,8 @@ public class RTMSyncService extends SynchronizationService {
         Preferences.setSyncRTMLastSync(activity, null);
         Synchronizer.getSyncController(activity).deleteAllMappings(getId());
     }
+
+    // --- authentication
 
     /** Perform authentication with RTM. Will open the SyncBrowser if necessary */
     private void authenticate(final Activity activity) {
@@ -129,6 +134,8 @@ public class RTMSyncService extends SynchronizationService {
         }
     }
 
+    // --- synchronization!
+
     private void performSync(final Activity activity) {
         new Thread(new Runnable() {
             @Override
@@ -140,14 +147,8 @@ public class RTMSyncService extends SynchronizationService {
 
     private void performSyncInNewThread(final Activity activity) {
         try {
-            syncHandler.post(new Runnable() {
-                @Override
-                public void run() {
-                    progressDialog.show();
-                    progressDialog.setMessage("Reading Remote Information");
-                    progressDialog.setProgress(0);
-                }
-            });
+            syncHandler.post(new ProgressLabelUpdater("Reading remote data"));
+            syncHandler.post(new ProgressUpdater(0, 1));
 
             // get RTM timeline
             final String timeline = rtmService.timelines_create();
@@ -164,77 +165,52 @@ public class RTMSyncService extends SynchronizationService {
             }
 
             // read all tasks
-            List<TaskProxy> remoteChanges = new LinkedList<TaskProxy>();
+            LinkedList<TaskProxy> remoteChanges = new LinkedList<TaskProxy>();
             Date lastSyncDate = Preferences.getSyncRTMLastSync(activity);
-            String filter = "";
-            if(lastSyncDate == null) // 1st time sync, just uncompleted tasks
-            	filter = "status:incomplete";
-            int progress = 0;
-            for(final String listId : listIdToNameMap.keySet()) {
-                RtmTasks tasks;
-                try {
-                    tasks = rtmService.tasks_getList(listId, filter, lastSyncDate);
-                } catch (Exception e) {
-                    syncHandler.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            DialogUtilities.okDialog(activity,
-                                    "List " + listIdToNameMap.get(listId) +
-                                    " import failed (too big?)", null);
-                        }
-                    });
-                    continue;
-                }
+            boolean shouldSyncIndividualLists = false;
+            String filter = null;
+            if(lastSyncDate == null)
+                filter = "status:incomplete"; // 1st time sync: get unfinished tasks
 
-                for(RtmTaskList taskList : tasks.getLists()) {
-                    for(RtmTaskSeries taskSeries : taskList.getSeries()) {
-                        TaskProxy remoteTask = parseRemoteTask(taskList.getId(), taskSeries);
-                        remoteChanges.add(remoteTask);
-                    }
-                }
-                syncHandler.post(new ProgressUpdater(++progress, listIdToNameMap.size()));
+            // try the quick synchronization
+            try {
+                Thread.sleep(1500); // throttle
+                RtmTasks tasks = rtmService.tasks_getList(null, filter, lastSyncDate);
+                syncHandler.post(new ProgressUpdater(1, 1));
+                addTasksToList(tasks, remoteChanges);
+            } catch (Exception e) {
+                remoteChanges.clear();
+                shouldSyncIndividualLists = true;
             }
 
-
-            synchronizeTasks(activity, remoteChanges, new SynchronizeHelper() {
-                @Override
-                public String createTask(String listName) throws IOException {
-                    if(listName == null)
-                        listName = INBOX_LIST_NAME;
-                    if(!listNameToIdMap.containsKey(listName.toLowerCase())) {
-                        try {
-                            String listId =
-                                rtmService.lists_add(timeline, listName).getId();
-                            listNameToIdMap.put(listName.toLowerCase(), listId);
-                        } catch (Exception e) {
-                            listName = INBOX_LIST_NAME;
-                        }
+            if(shouldSyncIndividualLists) {
+                int progress = 0;
+                for(final Entry<String, String> entry : listIdToNameMap.entrySet()) {
+                    syncHandler.post(new ProgressLabelUpdater("Reading " +
+                    		" list: " + entry.getValue()));
+                    syncHandler.post(new ProgressUpdater(progress++,
+                            listIdToNameMap.size()));
+                    try {
+                        Thread.sleep(1500);
+                        RtmTasks tasks = rtmService.tasks_getList(entry.getKey(),
+                                filter, lastSyncDate);
+                        addTasksToList(tasks, remoteChanges);
+                    } catch (Exception e) {
+                        syncHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                DialogUtilities.okDialog(activity,
+                                        "List '" + entry.getValue() +
+                                        "' import failed (too big?)", null);
+                            }
+                        });
+                        continue;
                     }
-                    String listId = listNameToIdMap.get(listName.toLowerCase());
-                    RtmTaskSeries s = rtmService.tasks_add(timeline,
-                            listId, "tmp");
-                    return new RtmId(listId, s).toString();
                 }
-                @Override
-                public void deleteTask(SyncMapping mapping) throws IOException {
-                    RtmId id = new RtmId(mapping.getRemoteId());
-                    rtmService.tasks_delete(timeline, id.listId, id.taskSeriesId,
-                            id.taskId);
-                }
-                @Override
-                public void pushTask(TaskProxy task, SyncMapping mapping) throws IOException {
-                    pushLocalTask(timeline, task, mapping);
-                }
-                @Override
-                public TaskProxy refetchTask(TaskProxy task) throws IOException {
-                    RtmId id = new RtmId(task.getRemoteId());
-                    RtmTaskSeries rtmTask = rtmService.tasks_getTask(id.taskSeriesId,
-                            task.name);
-                    if(rtmTask != null)
-                        return task; // can't fetch
-                    return parseRemoteTask(id.listId, rtmTask);
-                }
-            });
+                syncHandler.post(new ProgressUpdater(1, 1));
+            }
+
+            synchronizeTasks(activity, remoteChanges, new RtmSyncHelper(timeline));
 
             // add a bit of fudge time so we don't load tasks we just edited
             Date syncTime = new Date(System.currentTimeMillis() + 1000);
@@ -242,6 +218,218 @@ public class RTMSyncService extends SynchronizationService {
 
         } catch (Exception e) {
             showError(activity, e);
+        }
+    }
+
+    // --- helper methods
+
+    /** Add the tasks read from RTM to the given list */
+    private void addTasksToList(RtmTasks tasks, LinkedList<TaskProxy> list) {
+        for(RtmTaskList taskList : tasks.getLists()) {
+            for(RtmTaskSeries taskSeries : taskList.getSeries()) {
+                TaskProxy remoteTask =
+                    parseRemoteTask(taskList.getId(), taskSeries);
+                list.add(remoteTask);
+            }
+        }
+    }
+
+    /** Send changes for the given TaskProxy across the wire */
+    private void pushLocalTask(String timeline, TaskProxy task, TaskProxy remoteTask,
+            SyncMapping mapping) throws ServiceException {
+        RtmId id = new RtmId(mapping.getRemoteId());
+
+        // fetch remote task for comparison (won't work if you renamed it)
+        if(remoteTask == null) {
+            RtmTaskSeries rtmTask = rtmService.tasks_getTask(id.taskSeriesId, task.name);
+            if(rtmTask != null)
+                remoteTask = parseRemoteTask(id.listId, rtmTask);
+        }
+        if(remoteTask == null)
+            remoteTask = new TaskProxy(0, "", false);
+
+        if(task.name != null && !task.name.equals(remoteTask.name))
+            rtmService.tasks_setName(timeline, id.listId, id.taskSeriesId,
+                    id.taskId, task.name);
+        if(task.importance != null && !task.importance.equals(remoteTask.importance))
+            rtmService.tasks_setPriority(timeline, id.listId, id.taskSeriesId,
+                    id.taskId, Priority.values()[task.importance.ordinal()]);
+
+        // due date
+        Date dueDate = task.definiteDueDate;
+        if(dueDate == null)
+            dueDate = task.preferredDueDate;
+        if(dueDate != remoteTask.definiteDueDate &&
+                (dueDate == null || !dueDate.equals(remoteTask.definiteDueDate)))
+            rtmService.tasks_setDueDate(timeline, id.listId, id.taskSeriesId,
+                id.taskId, dueDate, dueDate != null);
+
+        // progress
+        if(task.progressPercentage != null && !task.progressPercentage.equals(
+                remoteTask.progressPercentage)) {
+            if(task.progressPercentage == 100)
+                rtmService.tasks_complete(timeline, id.listId, id.taskSeriesId,
+                        id.taskId);
+            else
+                rtmService.tasks_uncomplete(timeline, id.listId, id.taskSeriesId,
+                        id.taskId);
+        }
+
+        // notes
+        if(task.notes != null && task.notes.length() > 0 && !task.equals(remoteTask.notes))
+            rtmService.tasks_notes_add(timeline, id.listId, id.taskSeriesId,
+                    id.taskId, "From Astrid", task.notes);
+
+        // tags
+        if(task.tags != null && !task.tags.equals(remoteTask.tags)) {
+            String listName = listIdToNameMap.get(id.listId);
+            if(task.tags.size() > 0 && listName.equals(task.tags.getFirst()))
+                task.tags.remove(0);
+            rtmService.tasks_setTags(timeline, id.listId, id.taskSeriesId,
+                    id.taskId, task.tags.toArray(new String[task.tags.size()]));
+        }
+
+        // estimated time
+        if(task.estimatedSeconds != null && !task.estimatedSeconds.equals(remoteTask.estimatedSeconds)) {
+            String estimation;
+            int estimatedSeconds = task.estimatedSeconds;
+            if(estimatedSeconds == 0)
+                estimation = "";
+            else if(estimatedSeconds < 3600)
+                estimation = estimatedSeconds/60 + " minutes";
+            else if(estimatedSeconds < 24*3600) {
+                int hours = (estimatedSeconds/3600);
+                estimation = hours+ " hours ";
+                if(hours*3600 != estimatedSeconds)
+                    estimation += estimatedSeconds - hours*3600 + " minutes";
+            } else
+                estimation = estimatedSeconds/3600/24 + " days";
+            rtmService.tasks_setEstimate(timeline, id.listId, id.taskSeriesId,
+                    id.taskId, estimation);
+        }
+    }
+
+    /** Create a task proxy for the given RtmTaskSeries */
+    private TaskProxy parseRemoteTask(String listId, RtmTaskSeries rtmTaskSeries) {
+        TaskProxy task = new TaskProxy(getId(),
+                new RtmId(listId, rtmTaskSeries).toString(),
+                rtmTaskSeries.getTask().getDeleted() != null);
+
+        task.name = rtmTaskSeries.getName();
+
+        // notes
+        StringBuilder sb = new StringBuilder();
+        for(RtmTaskNote note: rtmTaskSeries.getNotes().getNotes()) {
+            sb.append(note.getText() + "\n");
+        }
+        if(sb.length() > 0)
+            task.notes = sb.toString();
+
+        // list / tags
+        LinkedList<String> tagsList = rtmTaskSeries.getTags();
+        String listName = listIdToNameMap.get(listId);
+        if(listName != null && !listName.equals(INBOX_LIST_NAME)) {
+            if(tagsList == null)
+                tagsList = new LinkedList<String>();
+            tagsList.addFirst(listName);
+        }
+        if(tagsList != null)
+            task.tags = tagsList;
+
+        RtmTask rtmTask = rtmTaskSeries.getTask();
+        String estimate = rtmTask.getEstimate();
+        if(estimate != null && estimate.length() > 0) {
+            task.estimatedSeconds = parseEstimate(estimate);
+        }
+        task.creationDate = rtmTaskSeries.getCreated();
+        task.completionDate = rtmTask.getCompleted();
+        if(rtmTask.getDue() != null)
+            task.definiteDueDate = rtmTask.getDue();
+        task.progressPercentage = (rtmTask.getCompleted() == null) ? 0 : 100;
+
+        task.importance = Importance.values()[rtmTask.getPriority().ordinal()];
+
+        return task;
+    }
+
+    /** Parse an estimated time of the format ## {s,m,h,d,w,mo} and return
+     * the duration in seconds. Returns null on failure. */
+    private Integer parseEstimate(String estimate) {
+        try {
+            float total = 0;
+            int position = 0;
+            while(position != -1) {
+                for(; position < estimate.length(); position++) {
+                    char c = estimate.charAt(position);
+                    if(c != '.' && (c < '0' || c > '9'))
+                        break;
+                }
+                float numberPortion = Float.parseFloat(estimate.substring(0, position));
+                String stringPortion = estimate.substring(position).trim();
+                position = stringPortion.indexOf(" ");
+                if(position != -1)
+                    estimate = stringPortion.substring(position+1).trim();
+
+                if(stringPortion.startsWith("mo"))
+                    total += numberPortion * 31 * 24 * 3600;
+                else if(stringPortion.startsWith("w"))
+                    total += numberPortion * 7 * 24 * 3600;
+                else if(stringPortion.startsWith("d"))
+                    total += numberPortion * 24 * 3600;
+                else if(stringPortion.startsWith("h"))
+                    total += numberPortion * 3600;
+                else if(stringPortion.startsWith("m"))
+                    total += numberPortion * 60;
+                else if(stringPortion.startsWith("s"))
+                    total += numberPortion;
+            }
+            return (int)total;
+        } catch (Exception e) { /* */ }
+        return null;
+    }
+
+    // --- helper classes
+
+    /** SynchronizeHelper for remember the milk */
+    private class RtmSyncHelper implements SynchronizeHelper {
+        private String timeline;
+        private String lastCreatedTask = null;
+
+        public RtmSyncHelper(String timeline) {
+            this.timeline = timeline;
+        }
+        @Override
+        public String createTask(TaskModelForSync task) throws IOException {
+            String listId = listNameToIdMap.get(INBOX_LIST_NAME.toLowerCase());
+            RtmTaskSeries s = rtmService.tasks_add(timeline, listId,
+                    task.getName());
+            lastCreatedTask = new RtmId(listId, s).toString();
+            return lastCreatedTask;
+        }
+        @Override
+        public void deleteTask(SyncMapping mapping) throws IOException {
+            RtmId id = new RtmId(mapping.getRemoteId());
+            rtmService.tasks_delete(timeline, id.listId, id.taskSeriesId,
+                    id.taskId);
+        }
+        @Override
+        public void pushTask(TaskProxy task, TaskProxy remoteTask,
+                SyncMapping mapping) throws IOException {
+
+            // don't save the stuff that we already saved by creating the task
+            if(task.getRemoteId().equals(lastCreatedTask))
+                task.name = null;
+
+            pushLocalTask(timeline, task, remoteTask, mapping);
+        }
+        @Override
+        public TaskProxy refetchTask(TaskProxy task) throws IOException {
+            RtmId id = new RtmId(task.getRemoteId());
+            RtmTaskSeries rtmTask = rtmService.tasks_getTask(id.taskSeriesId,
+                    task.name);
+            if(rtmTask == null)
+                return task; // can't fetch
+            return parseRemoteTask(id.listId, rtmTask);
         }
     }
 
@@ -269,64 +457,4 @@ public class RTMSyncService extends SynchronizationService {
             return taskId + "|" + taskSeriesId + "|" + listId;
         }
     }
-
-    /** Send changes for the given TaskProxy across the wire */
-    private void pushLocalTask(String timeline, TaskProxy task, SyncMapping mapping)
-            throws ServiceException {
-        RtmId id = new RtmId(mapping.getRemoteId());
-
-        if(task.name != null)
-            rtmService.tasks_setName(timeline, id.listId, id.taskSeriesId,
-                    id.taskId, task.name);
-        if(task.importance != null)
-            rtmService.tasks_setPriority(timeline, id.listId, id.taskSeriesId,
-                    id.taskId, Priority.values()[task.importance.ordinal()]);
-        Date dueDate = task.definiteDueDate;
-        if(dueDate == null)
-            dueDate = task.preferredDueDate;
-        rtmService.tasks_setDueDate(timeline, id.listId, id.taskSeriesId,
-                id.taskId, dueDate, dueDate != null);
-        if(task.progressPercentage != null) {
-            if(task.progressPercentage == 100)
-                rtmService.tasks_complete(timeline, id.listId, id.taskSeriesId,
-                        id.taskId);
-            else
-                rtmService.tasks_uncomplete(timeline, id.listId, id.taskSeriesId,
-                        id.taskId);
-        }
-        if(task.notes != null && !task.notes.endsWith("\n")) {
-            rtmService.tasks_notes_add(timeline, id.listId, id.taskSeriesId,
-                    id.taskId, "From Astrid", task.notes);
-        }
-    }
-
-    /** Create a task proxy for the given RtmTaskSeries */
-    private TaskProxy parseRemoteTask(String listId, RtmTaskSeries rtmTaskSeries) {
-        TaskProxy task = new TaskProxy(getId(),
-                new RtmId(listId, rtmTaskSeries).toString(),
-                rtmTaskSeries.getTask().getDeleted() != null);
-
-        task.name = rtmTaskSeries.getName();
-        StringBuilder sb = new StringBuilder();
-        for(RtmTaskNote note: rtmTaskSeries.getNotes().getNotes()) {
-            sb.append(note.getText() + "\n");
-        }
-        if(sb.length() > 0)
-            task.notes = sb.toString();
-        String listName = listIdToNameMap.get(listId);
-        if(listName != null && !listName.equals(INBOX_LIST_NAME))
-            task.tags = new String[] { listName };
-
-        RtmTask rtmTask = rtmTaskSeries.getTask();
-        task.creationDate = rtmTaskSeries.getCreated();
-        task.completionDate = rtmTask.getCompleted();
-        if(rtmTask.getDue() != null)
-            task.definiteDueDate = rtmTask.getDue();
-        task.progressPercentage = (rtmTask.getCompleted() == null) ? null : 100;
-
-        task.importance = Importance.values()[rtmTask.getPriority().ordinal()];
-
-        return task;
-    }
-
 }

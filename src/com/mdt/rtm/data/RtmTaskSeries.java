@@ -20,11 +20,14 @@
 package com.mdt.rtm.data;
 
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Logger;
+
 import org.w3c.dom.Element;
 
 /**
- * 
+ *
  * @author Will Ross Jun 22, 2007
  */
 public class RtmTaskSeries extends RtmData {
@@ -43,6 +46,8 @@ public class RtmTaskSeries extends RtmData {
 
   private final RtmTask task;
 
+  private final LinkedList<String> tags;
+
   private final RtmTaskNotes notes;
 
   private final String locationId;
@@ -59,6 +64,7 @@ public class RtmTaskSeries extends RtmData {
     this.locationId = null;
     notes = null;
     url = null;
+    tags = null;
   }
 
   public RtmTaskSeries(Element elt) {
@@ -75,6 +81,19 @@ public class RtmTaskSeries extends RtmData {
     notes = new RtmTaskNotes(child(elt, "notes"));
     locationId = elt.getAttribute("location_id");
     url = elt.getAttribute("url");
+
+    Element elementTags = child(elt, "tags");
+    if(elementTags.getChildNodes().getLength() > 0) {
+        List<Element> elementTagList = children(elementTags, "tag");
+        tags = new LinkedList<String>();
+        for (Element elementTag : elementTagList) {
+            String tag = text(elementTag);
+            if(tag != null)
+                tags.add(tag);
+        }
+    } else {
+        tags = null;
+    }
   }
 
   public String getId() {
@@ -99,6 +118,10 @@ public class RtmTaskSeries extends RtmData {
 
   public RtmTask getTask() {
     return task;
+  }
+
+  public LinkedList<String> getTags() {
+      return tags;
   }
 
   public RtmTaskNotes getNotes()

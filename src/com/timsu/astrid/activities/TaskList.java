@@ -154,6 +154,8 @@ public class TaskList extends Activity {
         Synchronizer.setTaskController(taskController);
 
         setupUIComponents();
+        loadTaskListSort();
+        fillData();
 
         // auto sync
         Integer autoSyncHours = Preferences.autoSyncFrequency(this);
@@ -164,8 +166,7 @@ public class TaskList extends Activity {
                     1000L*3600*autoSyncHours < System.currentTimeMillis()) {
                 Synchronizer.synchronize(this, true, null);
             }
-        } else
-            fillData();
+        }
     }
 
     public void setupUIComponents() {
@@ -555,6 +556,7 @@ public class TaskList extends Activity {
                     if(numServicesSynced == 0)
                         DialogUtilities.okDialog(TaskList.this, getResources().getString(
                                 R.string.sync_no_synchronizers), null);
+                    fillData();
                 }
             });
         } else if(requestCode == ACTIVITY_TAGS && resultCode == RESULT_CANCELED)
@@ -612,6 +614,24 @@ public class TaskList extends Activity {
         } else {
             finish();
         }
+    }
+
+    /** Save the sorting mode to the preferences */
+    private void saveTaskListSort() {
+        int sortId = sortMode.ordinal() + 1;
+        if(sortReverse)
+            sortId *= -1;
+        Preferences.setTaskListSort(this, sortId);
+    }
+
+    /** Save the sorting mode to the preferences */
+    private void loadTaskListSort() {
+        int sortId = Preferences.getTaskListSort(this);
+        if(sortId == 0)
+            return;
+        sortReverse = sortId < 0;
+
+        sortMode = SortMode.values()[Math.abs(sortId)];
     }
 
     @Override
@@ -684,6 +704,7 @@ public class TaskList extends Activity {
                 return true;
             sortReverse = false;
             sortMode = SortMode.AUTO;
+            saveTaskListSort();
             fillData();
             return true;
         case CONTEXT_SORT_ALPHA:
@@ -691,6 +712,7 @@ public class TaskList extends Activity {
                 return true;
             sortReverse = false;
             sortMode = SortMode.ALPHA;
+            saveTaskListSort();
             fillData();
             return true;
         case CONTEXT_SORT_DUEDATE:
@@ -698,10 +720,12 @@ public class TaskList extends Activity {
                 return true;
             sortReverse = false;
             sortMode = SortMode.DUEDATE;
+            saveTaskListSort();
             fillData();
             return true;
         case CONTEXT_SORT_REVERSE:
             sortReverse = !sortReverse;
+            saveTaskListSort();
             fillData();
             return true;
         }
@@ -715,5 +739,7 @@ public class TaskList extends Activity {
         taskController.close();
         if(tagController != null)
             tagController.close();
+        Synchronizer.setTagController(null);
+        Synchronizer.setTaskController(null);
     }
 }

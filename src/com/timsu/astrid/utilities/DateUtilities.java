@@ -113,7 +113,7 @@ public class DateUtilities {
             unitsDisplayed++;
         }
         if(unitsDisplayed < unitsToShow && seconds > 0) {
-            result.append(hours).append(" s ");
+            result.append(seconds).append(" s ");
         }
 
         return result.toString();

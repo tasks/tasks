@@ -35,7 +35,7 @@ import com.mdt.rtm.data.RtmTask.Priority;
 
 /**
  * Represents the Remember the Milk service API.
- * 
+ *
  * @author Will Ross Jun 21, 2007
  */
 public interface Service
@@ -44,7 +44,7 @@ public interface Service
   /**
    * Checks whether the service is authorized to communicate with the RTM server. Depends on the user's login info, and whether or not that user has
    * authorized the service wrapper to communicate with RTM.
-   * 
+   *
    * @return true if the service API has permission to interact with full permissions (including delete) with RTM
    * @throws ServiceException
    *           if there is a problem checking for authorization
@@ -54,7 +54,7 @@ public interface Service
 
   /**
    * Begins the process of obtaining authorization for the service API to communicate with RTM on behalf of a particular user.
-   * 
+   *
    * @return the URL that the user should be prompted to log in to to complete authorization
    * @throws ServiceException
    *           if the authorization process cannot be started
@@ -65,7 +65,7 @@ public interface Service
   /**
    * The same method as the previous {@link #beginAuthorization(com.mdt.rtm.data.RtmAuth.Perms)}, except that you need to invoke yourself the
    * {@link #auth_getFrob()} beforehand.
-   * 
+   *
    * This has been introduced, in order to provide better control over the API.
    */
   String beginAuthorization(RtmFrob frob, RtmAuth.Perms permissions)
@@ -73,10 +73,10 @@ public interface Service
 
   /**
    * Completes the process of obtaining authorization for the service API to communicate with RTM on behalf of a particular user.
-   * 
+   *
    * Once this is called successfully, <code>isServiceAuthorized()</code> should return true until the user goes to RTM and explicitly denies the
    * service access. It also might be possible for authorization to time out, in which case this process would need to be started again.
-   * 
+   *
    * @return the newly created authentication token
    * @throws ServiceException
    *           if the authorization process cannot be completed
@@ -163,7 +163,7 @@ public interface Service
   void tasks_addTags()
       throws ServiceException;
 
-  public RtmTaskSeries tasks_complete(String timelineId, String listId, String taskSeriesId, String taskId)
+  public void tasks_complete(String timelineId, String listId, String taskSeriesId, String taskId)
       throws ServiceException;
 
   void tasks_delete(String timelineId, String listId, String taskSeriesId, String taskId)
@@ -196,28 +196,28 @@ public interface Service
   /**
    * THINK: Would it not be better to have a {@link GregorianCalendar} parameter instead?
    */
-  RtmTaskSeries tasks_setDueDate(String timelineId, String listId, String taskSeriesId, String taskId, Date due, boolean hasDueTime)
+  void tasks_setDueDate(String timelineId, String listId, String taskSeriesId, String taskId, Date due, boolean hasDueTime)
       throws ServiceException;
 
-  void tasks_setEstimate()
+  void tasks_setEstimate(String timelineId, String listId, String taskSeriesId, String taskId, String newEstimate)
       throws ServiceException;
 
-  RtmTaskSeries tasks_setName(String timelineId, String listId, String taskSeriesId, String taskId, String newName)
+  void tasks_setName(String timelineId, String listId, String taskSeriesId, String taskId, String newName)
       throws ServiceException;
 
-  RtmTaskSeries tasks_setPriority(String timelineId, String listId, String taskSeriesId, String taskId, Priority priority)
+  void tasks_setPriority(String timelineId, String listId, String taskSeriesId, String taskId, Priority priority)
       throws ServiceException;
 
   void tasks_setRecurrence()
       throws ServiceException;
 
-  void tasks_setTags()
+  void tasks_setTags(String timelineId, String listId, String taskSeriesId, String taskId, String[] tags)
       throws ServiceException;
 
   void tasks_setURL()
       throws ServiceException;
 
-  RtmTaskSeries tasks_uncomplete(String timelineId, String listId, String taskSeriesId, String taskId)
+  void tasks_uncomplete(String timelineId, String listId, String taskSeriesId, String taskId)
       throws ServiceException;
 
   RtmTaskNote tasks_notes_add(String timelineId, String listId, String taskSeriesId, String taskId, String title, String text)

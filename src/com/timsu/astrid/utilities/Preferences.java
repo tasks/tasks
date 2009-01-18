@@ -16,6 +16,7 @@ public class Preferences {
     // pref keys
     private static final String P_CURRENT_VERSION = "cv";
     private static final String P_SHOW_REPEAT_HELP = "repeathelp";
+    private static final String P_TASK_LIST_SORT = "tlsort";
     private static final String P_SYNC_RTM_TOKEN = "rtmtoken";
     private static final String P_SYNC_RTM_LAST_SYNC = "rtmlastsync";
     private static final String P_SYNC_LAST_SYNC = "lastsync";
@@ -120,6 +121,18 @@ public class Preferences {
     /** Return # of days to remind by default */
     public static Integer getDefaultReminder(Context context) {
         return getIntegerValue(context, R.string.p_notif_defaultRemind);
+    }
+
+    /** TaskListSort: the sorting method for the task list */
+    public static int getTaskListSort(Context context) {
+        return getPrefs(context).getInt(P_TASK_LIST_SORT, 0);
+    }
+
+    /** TaskListSort: the sorting method for the task list */
+    public static void setTaskListSort(Context context, int value) {
+        Editor editor = getPrefs(context).edit();
+        editor.putInt(P_TASK_LIST_SORT, value);
+        editor.commit();
     }
 
     // --- synchronization preferences

@@ -167,6 +167,8 @@ public class Synchronizer {
         }
 
         public void set(TYPE newController) {
+            close();
+
             override = newController != null;
             controller = newController;
         }
