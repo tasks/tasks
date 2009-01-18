@@ -44,6 +44,7 @@ public class TaskModelForList extends AbstractTaskModel {
         PROGRESS_PERCENTAGE,
         COMPLETION_DATE,
         HIDDEN_UNTIL,
+        REPEAT,
     };
 
     /** Get the weighted score for this task. Smaller is more important */
@@ -162,6 +163,13 @@ public class TaskModelForList extends AbstractTaskModel {
     public Date getCompletionDate() {
         return super.getCompletionDate();
     }
+
+    @Override
+    public RepeatInfo getRepeat() {
+        return super.getRepeat();
+    }
+
+    // --- setters
 
     @Override
     public void setProgressPercentage(int progressPercentage) {

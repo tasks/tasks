@@ -148,10 +148,11 @@ public class RTMSyncService extends SynchronizationService {
     private void performSyncInNewThread(final Activity activity) {
         try {
             syncHandler.post(new ProgressLabelUpdater("Reading remote data"));
-            syncHandler.post(new ProgressUpdater(0, 1));
+            syncHandler.post(new ProgressUpdater(0, 5));
 
             // get RTM timeline
             final String timeline = rtmService.timelines_create();
+            syncHandler.post(new ProgressUpdater(1, 5));
 
             // load RTM lists
             RtmLists lists = rtmService.lists_getList();
@@ -163,6 +164,7 @@ public class RTMSyncService extends SynchronizationService {
                 if(INBOX_LIST_NAME.equalsIgnoreCase(list.getName()))
                     INBOX_LIST_NAME = list.getName();
             }
+            syncHandler.post(new ProgressUpdater(2, 5));
 
             // read all tasks
             LinkedList<TaskProxy> remoteChanges = new LinkedList<TaskProxy>();
@@ -174,9 +176,10 @@ public class RTMSyncService extends SynchronizationService {
 
             // try the quick synchronization
             try {
-                Thread.sleep(1500); // throttle
+                Thread.sleep(2000); // throttle
+                syncHandler.post(new ProgressUpdater(3, 5));
                 RtmTasks tasks = rtmService.tasks_getList(null, filter, lastSyncDate);
-                syncHandler.post(new ProgressUpdater(1, 1));
+                syncHandler.post(new ProgressUpdater(5, 5));
                 addTasksToList(tasks, remoteChanges);
             } catch (Exception e) {
                 remoteChanges.clear();

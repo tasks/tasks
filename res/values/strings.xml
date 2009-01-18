@@ -78,14 +78,14 @@
         <string name="taskList_dueIn">Due:</string>
         <string name="taskList_goalPrefix">Goal</string>
         <string name="taskList_completedPrefix">Finished</string>
-        <string name="taskList_overdueBy">Overdue by</string>
+        <string name="taskList_overdueBy">Overdue:</string>
         <string name="taskList_hiddenPrefix">H</string>
         <string name="addtask_label">New Task</string>
         <string name="tags_prefix">Tags: </string>
         <string name="no_tags">No Tags</string>
         
         <string name="taskList_remaining">Left</string>
-        <string name="taskList_overtime">Over Time</string>
+        <string name="taskList_overtime">Overtime</string>
         <string name="taskList_spent">Spent</string>
         
         <string name="taskList_menu_insert">Add</string>
@@ -220,10 +220,8 @@ When finished, restart Astrid and come back here.
         <string name="sync_rtm_notes">
 Welcome to Astrid\'s RTM sync!
 \n\n
-- Task notes are read from RTM, but edits are not sent back.\n
 - Notifications and repeats are not synchronized.\n
-- Moving tasks in RTM to another list and then renaming them causes dupes.\n
-- Deleting tasks in RTM is not detected.\n
+- In RTM, deleting, or moving and then renaming a task, is not detected.\n
 - Having ~50+ tasks in one list might cause that list to not be imported\n
 Wish me luck!\n
         </string>

@@ -182,7 +182,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             if(task.getTimerStart() != null)
                 elapsed += ((System.currentTimeMillis() - task.getTimerStart().getTime())/1000);
             String remainingString = "";
-            if(!task.isTaskCompleted() && task.getEstimatedSeconds() > 0) {
+            if(!task.isTaskCompleted() && task.getEstimatedSeconds() > 0 &&
+                    task.getRepeat() != null) {
                 int remaining = task.getEstimatedSeconds() - elapsed;
                 remainingString = DateUtilities.getShortDurationString(r,
                         (int)Math.abs(remaining), 1);

@@ -174,6 +174,7 @@ public abstract class SynchronizationService {
             String remoteId = helper.createTask(task);
             SyncMapping mapping = new SyncMapping(taskId, getId(), remoteId);
             syncController.saveSyncMapping(mapping);
+            data.localIdToSyncMapping.put(taskId, mapping);
 
             TaskProxy localTask = new TaskProxy(getId(), remoteId, false);
             localTask.readFromTaskModel(task);
@@ -194,6 +195,7 @@ public abstract class SynchronizationService {
 
             // remove it from data structures
             data.localChanges.remove(mapping);
+            data.localIdToSyncMapping.remove(taskId);
             data.remoteIdToSyncMapping.remove(mapping);
             data.remoteChangeMap.remove(taskId);
 
@@ -249,7 +251,7 @@ public abstract class SynchronizationService {
         }
 
         // 4. REMOTE SYNC load remote information
-        log.append(">> on astrid:\n");
+        log.append("\n>> on astrid:\n");
         syncHandler.post(new ProgressUpdater(0, 1));
         for(TaskProxy remoteTask : remoteTasks) {
             if(remoteTask.name != null)
@@ -327,6 +329,8 @@ public abstract class SynchronizationService {
                     try {
                         mapping = new SyncMapping(task.getTaskIdentifier(), remoteTask);
                         syncController.saveSyncMapping(mapping);
+                        data.localIdToSyncMapping.put(task.getTaskIdentifier(),
+                                mapping);
                     } catch (Exception e) {
                         // unique violation: ignore - it'll get merged later
                     }
@@ -456,10 +460,11 @@ public abstract class SynchronizationService {
             }
 
             StringBuilder sb = new StringBuilder();
-            sb.append(getName()).append("Results:"); // TODO i18n
+            sb.append(getName()).append(" Results:"); // TODO i18n
             sb.append("\n\n");
             sb.append(log);
-            sb.append("\nSummary - Astrid Tasks:");
+            if(localCreatedTasks + localUpdatedTasks + localDeletedTasks > 0)
+                sb.append("\nSummary - Astrid Tasks:");
             if(localCreatedTasks > 0)
                 sb.append("\nCreated: " + localCreatedTasks);
             if(localUpdatedTasks > 0)
@@ -470,7 +475,8 @@ public abstract class SynchronizationService {
             if(mergedTasks > 0)
                 sb.append("\n\nMerged: " + localCreatedTasks);
 
-            sb.append("\n\nSummary - Remote Server:");
+            if(remoteCreatedTasks + remoteDeletedTasks + remoteUpdatedTasks > 0)
+                sb.append("\n\nSummary - Remote Server:");
             if(remoteCreatedTasks > 0)
                 sb.append("\nCreated: " + remoteCreatedTasks);
             if(remoteUpdatedTasks > 0)

@@ -32,12 +32,14 @@
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
+        android:drawingCacheQuality="low"
         android:minWidth="41px" />
         
     <ImageView android:id="@+id/imageLeft"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
+        android:drawingCacheQuality="low"
         android:paddingLeft="5dip"/>
 
     <LinearLayout android:id="@+id/text_layout"
@@ -94,6 +96,7 @@
         android:gravity="center_vertical"
         android:layout_width="24px"
         android:layout_height="fill_parent"
+        android:drawingCacheQuality="low"
         android:paddingLeft="6dip"
         android:paddingRight="4dip"/>
         

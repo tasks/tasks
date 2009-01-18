@@ -34,7 +34,7 @@
     <color name="taskList_completedDate">#ff888888</color>
     <color name="taskList_tags">#ff888888</color>
     
-    <color name="view_header_done">#ff83ffa9</color>
+    <color name="view_header_done">#ff44bb66</color>
     <color name="view_table_values">#ffbbbbbb</color>    
     <color name="view_table_overdue">#ffff0000</color>
     
