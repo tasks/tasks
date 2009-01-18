@@ -279,7 +279,8 @@ public class RTMSyncService extends SynchronizationService {
         }
 
         // notes
-        if(task.notes != null && task.notes.length() > 0 && !task.equals(remoteTask.notes))
+        if(task.notes != null && task.notes.length() > 0 &&
+                !task.notes.equals(remoteTask.notes))
             rtmService.tasks_notes_add(timeline, id.listId, id.taskSeriesId,
                     id.taskId, "From Astrid", task.notes);
 
