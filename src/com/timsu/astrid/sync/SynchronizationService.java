@@ -45,7 +45,7 @@ public abstract class SynchronizationService {
     // called off the UI thread. does some setup
     void synchronizeService(final Activity activity) {
         syncHandler = new Handler();
-        progressDialog = new ProgressDialog(activity);
+        SynchronizationService.progressDialog = new ProgressDialog(activity);
         progressDialog.setIcon(android.R.drawable.ic_dialog_alert);
         progressDialog.setTitle("Synchronization");
         progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
@@ -333,6 +333,7 @@ public abstract class SynchronizationService {
                                 mapping);
                     } catch (Exception e) {
                         // unique violation: ignore - it'll get merged later
+                        Log.e("astrid-sync", "Exception creating mapping", e);
                     }
                 }
                 stats.localCreatedTasks++;
@@ -490,7 +491,7 @@ public abstract class SynchronizationService {
         }
     }
 
-    protected class ProgressUpdater implements Runnable {
+    protected static class ProgressUpdater implements Runnable {
         int step, outOf;
         public ProgressUpdater(int step, int outOf) {
             this.step = step;
@@ -501,7 +502,7 @@ public abstract class SynchronizationService {
         }
     }
 
-    protected class ProgressLabelUpdater implements Runnable {
+    protected static class ProgressLabelUpdater implements Runnable {
         String label;
         public ProgressLabelUpdater(String label) {
             this.label = label;

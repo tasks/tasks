@@ -51,6 +51,10 @@ public class TaskModelForList extends AbstractTaskModel {
     public int getTaskWeight() {
         int weight = 0;
 
+        // bubble tasks with timers to the top
+        if(getTimerStart() != null)
+            weight -= 10000;
+
         // importance
         weight += getImportance().ordinal() * 80;
 

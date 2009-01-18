@@ -631,7 +631,7 @@ public class TaskList extends Activity {
             return;
         sortReverse = sortId < 0;
 
-        sortMode = SortMode.values()[Math.abs(sortId)];
+        sortMode = SortMode.values()[Math.abs(sortId - 1)];
     }
 
     @Override
@@ -688,43 +688,43 @@ public class TaskList extends Activity {
             return true;
 
         case CONTEXT_FILTER_HIDDEN:
-            filterShowHidden = !filterShowHidden;
+            TaskList.filterShowHidden = !filterShowHidden;
             fillData();
             return true;
         case CONTEXT_FILTER_DONE:
-            filterShowDone = !filterShowDone;
+            TaskList.filterShowDone = !filterShowDone;
             fillData();
             return true;
         case CONTEXT_FILTER_TAG:
-            filterTag = null;
+            TaskList.filterTag = null;
             fillData();
             return true;
         case CONTEXT_SORT_AUTO:
             if(sortMode == SortMode.AUTO)
                 return true;
-            sortReverse = false;
-            sortMode = SortMode.AUTO;
+            TaskList.sortReverse = false;
+            TaskList.sortMode = SortMode.AUTO;
             saveTaskListSort();
             fillData();
             return true;
         case CONTEXT_SORT_ALPHA:
             if(sortMode == SortMode.ALPHA)
                 return true;
-            sortReverse = false;
-            sortMode = SortMode.ALPHA;
+            TaskList.sortReverse = false;
+            TaskList.sortMode = SortMode.ALPHA;
             saveTaskListSort();
             fillData();
             return true;
         case CONTEXT_SORT_DUEDATE:
             if(sortMode == SortMode.DUEDATE)
                 return true;
-            sortReverse = false;
-            sortMode = SortMode.DUEDATE;
+            TaskList.sortReverse = false;
+            TaskList.sortMode = SortMode.DUEDATE;
             saveTaskListSort();
             fillData();
             return true;
         case CONTEXT_SORT_REVERSE:
-            sortReverse = !sortReverse;
+            TaskList.sortReverse = !sortReverse;
             saveTaskListSort();
             fillData();
             return true;

@@ -21,7 +21,6 @@ package com.mdt.rtm;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.Socket;
 import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -94,7 +93,7 @@ public class Invoker {
 
   public static final String ENCODING = "UTF-8";
 
-  public static String API_SIG_PARAM = "api_sig";
+  public static final String API_SIG_PARAM = "api_sig";
 
   public static final long INVOCATION_INTERVAL = 750;
 
@@ -104,17 +103,7 @@ public class Invoker {
 
   private final MessageDigest digest;
 
-  private String proxyHostName;
-
-  private int proxyPortNumber;
-
-  private String proxyLogin;
-
-  private String proxyPassword;
-
   private String serviceRelativeUri;
-
-  private HttpHost host;
 
   private HttpContext context;
 
@@ -132,7 +121,7 @@ public class Invoker {
       throws ServiceInternalException
   {
     this.serviceRelativeUri = serviceRelativeUri;
-    host = new HttpHost(serverHostName, serverPortNumber);
+    new HttpHost(serverHostName, serverPortNumber);
     context = new BasicHttpContext();
     globalHttpParams = new BasicHttpParams();
     HttpProtocolParams.setVersion(globalHttpParams, HttpVersion.HTTP_1_1);
@@ -162,37 +151,6 @@ public class Invoker {
     catch (NoSuchAlgorithmException e)
     {
       throw new ServiceInternalException("Could not create properly the MD5 digest", e);
-    }
-  }
-
-  public void setHttpProxySettings(String proxyHostName, int proxyPortNumber, String proxyLogin, String proxyPassword)
-  {
-    this.proxyHostName = proxyHostName;
-    this.proxyPortNumber = proxyPortNumber;
-    this.proxyLogin = proxyLogin;
-    this.proxyPassword = proxyPassword;
-  }
-
-  private void prepareConnection()
-      throws ServiceInternalException
-  {
-    connection = new DefaultHttpClientConnection();
-
-    // We open the necessary socket connection
-    try
-    {
-      if (connection.isOpen() == false)
-      {
-        final Socket socket = new Socket(host.getHostName(), host.getPort());
-        connection.bind(socket, globalHttpParams);
-      }
-    }
-    catch (Exception exception)
-    {
-      final StringBuffer message = new StringBuffer("Cannot open a socket connection to '").append(host.getHostName()).append("' on port number ").append(
-          host.getPort()).append(": cannot execute query");
-      Log.e(TAG, message.toString(), exception);
-      throw new ServiceInternalException(message.toString());
     }
   }
 

@@ -32,8 +32,8 @@ public class TagModelForView extends AbstractTagModel {
         NAME,
     };
 
-    public static TagModelForView UNTAGGED_TASKS = new TagModelForView("[untagged]");
-    public static String HIDDEN_FROM_MAIN_LIST_PREFIX = "_";
+    public static final TagModelForView UNTAGGED_TASKS = new TagModelForView("[untagged]");
+    public static final String HIDDEN_FROM_MAIN_LIST_PREFIX = "_";
 
     // --- constructors
 

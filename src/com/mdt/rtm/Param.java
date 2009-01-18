@@ -24,7 +24,7 @@ import java.util.Date;
 import com.mdt.rtm.data.RtmData;
 
 /**
- * 
+ *
  * @author Will Ross Jun 21, 2007
  */
 public class Param

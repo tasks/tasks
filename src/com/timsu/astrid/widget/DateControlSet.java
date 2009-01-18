@@ -67,15 +67,15 @@ public class DateControlSet implements OnTimeSetListener,
 
     /** Initialize the components for the given date field */
     public void setDate(Date newDate) {
-        this.date = newDate;
         if(newDate == null) {
             date = new Date();
             Integer days = Preferences.getDefaultDeadlineDays(activity);
             if(days == null)
                 days = 1;
-            date.setTime(date.getTime() + days*24*3600*1000);
+            date.setTime(date.getTime() + days*24L*3600*1000);
             date.setMinutes(0);
-        }
+        } else
+            this.date = new Date(newDate.getTime());
 
         updateDate();
         updateTime();

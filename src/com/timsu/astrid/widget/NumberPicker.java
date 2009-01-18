@@ -295,7 +295,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         /*
          * When focus is lost check that the text field has valid values.
          */
-        if (!hasFocus) {
+        if (!hasFocus && v instanceof TextView) {
             String str = String.valueOf(((TextView) v).getText());
             if ("".equals(str)) {
 

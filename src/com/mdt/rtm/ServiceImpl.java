@@ -47,6 +47,7 @@ import com.mdt.rtm.data.RtmTask.Priority;
  *
  * @author Will Ross Jun 21, 2007
  * @author Edouard Mercier, since 2008.04.15
+ * @author timsu January 2009
  */
 public class ServiceImpl implements Service
 {
@@ -81,24 +82,6 @@ public class ServiceImpl implements Service
     {
       currentAuthToken = prefs.getAuthToken();
     }
-  }
-
-  /**
-   * If you want to go through an HTTP proxy.
-   *
-   * @param proxyHostName
-   *          the host name of the HTTP proxy machine (if <code>null</code>, no proxy is set, and all parameters are ignored)
-   * @param proxyPortNumber
-   *          the port number the HTTP proxy listens to
-   * @param proxyLogin
-   *          the account identifier against the HTTP proxy: if set to <code>null</code>, no authentication will be performed and the HTTP is
-   *          considered working anonymously, and the last <code>proxyPassword</code> parameter is not taken into account
-   * @param proxyPassword
-   *          the previous identifier related password
-   */
-  public void setHttpProxySettings(String proxyHostName, int proxyPortNumber, String proxyLogin, String proxyPassword)
-  {
-    invoker.setHttpProxySettings(proxyHostName, proxyPortNumber, proxyLogin, proxyPassword);
   }
 
   public boolean isServiceAuthorized()
