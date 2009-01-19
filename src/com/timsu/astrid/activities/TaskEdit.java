@@ -146,11 +146,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                 .setIndicator("Alerts",
                         r.getDrawable(R.drawable.ic_dialog_alert_c))
                 .setContent(R.id.tab_notification));
-//        TabWidget tabWidget = tabHost.getTabWidget();
-//        for(int i = 0; i < tabWidget.getChildCount(); i++) {
-//            RelativeLayout tab = (RelativeLayout)tabWidget.getChildAt(i);
-//            tab.getLayoutParams().height = 46;
-//        }
 
         setUpUIComponents();
 		setUpListeners();
@@ -294,11 +289,13 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             }
         }
 
+        // intersect tags to figure out which we need to add / remove
         tagsToDelete = new HashSet<TagIdentifier>(taskTags);
         tagsToDelete.removeAll(tagIds);
         tagsToAdd = tagIds;
         tagsToAdd.removeAll(taskTags);
 
+        // perform the database updates
         for(TagIdentifier tagId : tagsToDelete)
             tagController.removeTag(model.getTaskIdentifier(), tagId);
         for(TagIdentifier tagId : tagsToAdd)

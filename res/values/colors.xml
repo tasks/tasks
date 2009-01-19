@@ -32,7 +32,7 @@
     <color name="taskList_dueDate">#ffF0E89E</color>
     <color name="taskList_remainingTime">#ff88AAFF</color>
     <color name="taskList_completedDate">#ff888888</color>
-    <color name="taskList_tags">#ff888888</color>
+    <color name="taskList_details">#ff888888</color>
     
     <color name="view_header_done">#ff44bb66</color>
     <color name="view_table_values">#ffbbbbbb</color>    

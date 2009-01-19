@@ -74,19 +74,25 @@ public abstract class SynchronizationService {
 
     // --- utilities
 
-    /** Utility class for showing synchronization errors */
-    void showError(final Context context, final Throwable e) {
+    /** Utility method for showing synchronization errors. If message is null,
+     *  the contents of the throwable is displayed.
+     */
+    void showError(final Context context, Throwable e, String message) {
         Log.e("astrid", "Synchronization Error", e);
+        Resources r = context.getResources();
+        final String messageToDisplay;
+        if(message == null) {
+            messageToDisplay = r.getString(R.string.sync_error) + " " +
+                e.toString() + " - " + e.getStackTrace()[1];
+        } else {
+            messageToDisplay = message;
+        }
         syncHandler.post(new Runnable() {
             @Override
             public void run() {
                 if(progressDialog != null)
                     progressDialog.dismiss();
-
-                Resources r = context.getResources();
-                DialogUtilities.okDialog(context,
-                        r.getString(R.string.sync_error) + " " +
-                        e.toString() + " - " + e.getStackTrace()[0], null);
+                DialogUtilities.okDialog(context, messageToDisplay, null);
             }
         });
     }

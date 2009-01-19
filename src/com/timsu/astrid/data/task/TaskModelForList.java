@@ -41,9 +41,11 @@ public class TaskModelForList extends AbstractTaskModel {
         TIMER_START,
         DEFINITE_DUE_DATE,
         PREFERRED_DUE_DATE,
+        NOTIFICATIONS,
         PROGRESS_PERCENTAGE,
         COMPLETION_DATE,
         HIDDEN_UNTIL,
+        NOTES,
         REPEAT,
     };
 
@@ -169,6 +171,16 @@ public class TaskModelForList extends AbstractTaskModel {
     }
 
     @Override
+    public String getNotes() {
+        return super.getNotes();
+    }
+
+    @Override
+	public Integer getNotificationIntervalSeconds() {
+		return super.getNotificationIntervalSeconds();
+	}
+
+	@Override
     public RepeatInfo getRepeat() {
         return super.getRepeat();
     }

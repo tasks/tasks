@@ -19,6 +19,7 @@ import android.util.Log;
 import com.mdt.rtm.ApplicationInfo;
 import com.mdt.rtm.ServiceException;
 import com.mdt.rtm.ServiceImpl;
+import com.mdt.rtm.ServiceInternalException;
 import com.mdt.rtm.data.RtmList;
 import com.mdt.rtm.data.RtmLists;
 import com.mdt.rtm.data.RtmTask;
@@ -130,7 +131,14 @@ public class RTMSyncService extends SynchronizationService {
             }
 
         } catch (Exception e) {
-            showError(activity, e);
+            // IO Exception
+            if(e instanceof ServiceInternalException &&
+                    ((ServiceInternalException)e).getEnclosedException() instanceof
+                    IOException) {
+                showError(activity, e, "Sync Connection Error! Check your " +
+                		"Internet connection & try again...");
+            } else
+                showError(activity, e, null);
         }
     }
 
@@ -220,7 +228,7 @@ public class RTMSyncService extends SynchronizationService {
             Preferences.setSyncRTMLastSync(activity, syncTime);
 
         } catch (Exception e) {
-            showError(activity, e);
+            showError(activity, e, null);
         }
     }
 

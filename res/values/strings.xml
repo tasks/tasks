@@ -46,6 +46,10 @@
             <item quantity="one">%d / %d Active</item>
             <item quantity="other">%d / %d Active</item>
         </plurals>
+        <plurals name="Nalarms">
+            <item quantity="one">%d Alarm</item>
+            <item quantity="other">%d Alarms</item>
+        </plurals>
         <plurals name="Ntags">
             <item quantity="one">1 Tag</item>
             <item quantity="other">%d Tags</item>
@@ -75,18 +79,20 @@
         <string name="taskList_titlePrefix">Astrid: </string>
         <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
         <string name="taskList_hiddenSuffix"> hidden</string>
-        <string name="taskList_dueIn">Due:</string>
-        <string name="taskList_goalPrefix">Goal</string>
-        <string name="taskList_completedPrefix">Finished</string>
-        <string name="taskList_overdueBy">Overdue:</string>
-        <string name="taskList_hiddenPrefix">H</string>
         <string name="addtask_label">New Task</string>
-        <string name="tags_prefix">Tags: </string>
-        <string name="no_tags">No Tags</string>
         
-        <string name="taskList_remaining">Left</string>
-        <string name="taskList_overtime">Overtime</string>
-        <string name="taskList_spent">Spent</string>
+        <string name="taskList_hiddenPrefix">H</string>
+        <string name="taskList_dueIn">Due in</string>
+        <string name="taskList_goalPrefix">Goal</string>
+        <string name="taskList_overdueBy">Overdue by</string>
+        <string name="taskList_completedPrefix">Finished</string>
+		<string name="taskList_estimatedTimePrefix">Estimated:</string>
+        <string name="taskList_elapsedTimePrefix">Elapsed:</string>
+        <string name="taskList_periodicReminderPrefix">Reminder Every</string>
+        <string name="taskList_repeatPrefix">Repeat Every</string>
+        <string name="taskList_alarmSuffix">Set</string>
+        <string name="taskList_tagsPrefix">Tags:</string>
+        <string name="taskList_notesPrefix">Notes:</string>
         
         <string name="taskList_menu_insert">Add</string>
         <string name="taskList_menu_tags">Tags</string>
@@ -220,9 +226,10 @@ When finished, restart Astrid and come back here.
         <string name="sync_rtm_notes">
 Welcome to Astrid\'s RTM sync!
 \n\n
-- Notifications and repeats are not synchronized.\n
-- In RTM, deleting, or moving and then renaming a task, is not detected.\n
-- Having ~50+ tasks in one list might cause that list to not be imported\n
+Things that don\'t sync:\n
+- Notifications and repeats\n
+- In RTM, deleting, or moving+renaming tasks\n
+\n
 Wish me luck!\n
         </string>
         <string name="sync_now">Synchronize Now!</string>
@@ -290,4 +297,40 @@ Wish me luck!\n
         <string name="prefs_category_other">Other</string>
         <string name="prefs_deadlineTime_title">Default Deadlines</string>
         <string name="prefs_deadlineTime_desc"># of days from now to set new deadlines</string>
+        
+        <string name="displayedFields_PrefScreen_Title">Displayed Fields</string>
+        <string name="displayedFields_PrefScreen_Desc">Select the fields to show in task list</string>
+        
+        <string name="prefs_titleVisible">titleVisible</string> 
+        <string name="prefs_titleVisible_title">Task Title</string>
+        <string name="prefs_titleVisible_desc">Task description</string>
+        <string name="prefs_titleVisible_default">true</string>
+	    <string name="prefs_deadlineVisible">deadlineVisible</string>
+        <string name="prefs_deadlineVisible_title">Dates</string>
+        <string name="prefs_deadlineVisible_desc">Upcoming deadlines / completed date</string>
+        <string name="prefs_deadlineVisible_default">true</string>
+    	<string name="prefs_timeVisible">timeVisible</string>
+        <string name="prefs_timeVisible_title">Times</string>
+        <string name="prefs_timeVisible_desc">Estimated &amp; Elapsed Times</string>
+        <string name="prefs_timeVisible_default">true</string>
+        <string name="prefs_importanceVisible">importanceVisible</string>
+        <string name="prefs_importanceVisible_title">Importance</string>
+        <string name="prefs_importanceVisible_desc">Task importance bubble</string>
+        <string name="prefs_importanceVisible_default">true</string>
+	    <string name="prefs_tagsVisible">tagsVisible</string>
+        <string name="prefs_tagsVisible_title">Tags</string>
+        <string name="prefs_tagsVisible_desc">Tags associated with this task</string>
+        <string name="prefs_tagsVisible_default">true</string>
+	    <string name="prefs_repeatVisible">repeatVisible</string>
+        <string name="prefs_repeatVisible_title">Repeats</string>
+        <string name="prefs_repeatVisible_desc">Task repeat information</string>
+        <string name="prefs_repeatVisible_default">true</string>
+	    <string name="prefs_reminderVisible">reminderVisible</string>
+        <string name="prefs_reminderVisible_title">Reminders</string>
+        <string name="prefs_reminderVisible_desc">Displayed if this task has reminders</string>
+        <string name="prefs_reminderVisible_default">false</string>
+	    <string name="prefs_notesVisible">notesVisible</string>
+        <string name="prefs_notesVisible_title">Notes</string>
+        <string name="prefs_notesVisible_desc">Notes associated with this task</string>
+        <string name="prefs_notesVisible_default">false</string>
 </resources>

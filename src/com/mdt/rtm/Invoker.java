@@ -297,11 +297,11 @@ public class Invoker {
     }
     catch (IOException e)
     {
-      throw new ServiceInternalException("", e);
+      throw new ServiceInternalException("Connection error", e);
     }
     catch (SAXException e)
     {
-      throw new ServiceInternalException("", e);
+      throw new ServiceInternalException("XML Parse Exception", e);
     }
 //    catch (HttpException e)
 //    {

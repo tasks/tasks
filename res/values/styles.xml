@@ -36,7 +36,7 @@
     
     <style name="TextAppearance.TaskList_Detail">
         <item name="android:textSize">12sp</item>
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/taskList_details</item>
     </style>
     
     <style name="TextAppearance.EditEvent_Label">

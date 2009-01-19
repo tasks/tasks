@@ -33,9 +33,9 @@ public class Notifications extends BroadcastReceiver {
 
     // stuff for scheduling
     /** minimum # of seconds before a deadline to notify */
-    private static final int    DEADLINE_NOTIFY_SECS    = 60 * 60;
+    private static final int    DEADLINE_NOTIFY_SECS    = 10; //60 * 60;
     /** # of seconds after deadline to repeat reminder*/
-    private static final int    DEADLINE_REPEAT         = 10 * 60;
+    private static final int    DEADLINE_REPEAT         = 20; //10 * 60;
 
     // flags
     public static final int     FLAG_DEFINITE_DEADLINE  = 1 << 0;
@@ -67,7 +67,6 @@ public class Notifications extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         long id = intent.getLongExtra(ID_KEY, 0);
         int flags = intent.getIntExtra(FLAGS_KEY, 0);
-        Log.e("ALARM", "Alarm triggered id " + id);
 
         Resources r = context.getResources();
         String reminder;
@@ -79,6 +78,8 @@ public class Notifications extends BroadcastReceiver {
             reminder = getRandomReminder(r);
 
         long repeatInterval = intent.getLongExtra(REPEAT_KEY, 0);
+        Log.e("ALARM", "Alarm triggered id " + id +", flags " + flags +
+                ", repeat " + repeatInterval);
 
         if(!showNotification(context, id, flags, repeatInterval, reminder)) {
             deleteAlarm(context, id);
@@ -168,15 +169,15 @@ public class Notifications extends BroadcastReceiver {
                     0, FLAG_PREFERRED_DEADLINE, task);
         }
         if((task.getNotificationFlags() & TaskModelForList.NOTIFY_AT_DEADLINE) > 0) {
-            scheduleDeadline(context, task.getDefiniteDueDate(), 0,
-                    0, FLAG_DEFINITE_DEADLINE | FLAG_OVERDUE, task);
+            if((task.getNotificationFlags() & TaskModelForList.NOTIFY_AFTER_DEADLINE) == 0)
+                scheduleDeadline(context, task.getDefiniteDueDate(), 0,
+                        0, FLAG_DEFINITE_DEADLINE | FLAG_OVERDUE, task);
             scheduleDeadline(context, task.getPreferredDueDate(), 0,
                     0, FLAG_PREFERRED_DEADLINE | FLAG_OVERDUE, task);
         }
         if((task.getNotificationFlags() & TaskModelForList.NOTIFY_AFTER_DEADLINE) > 0) {
             scheduleDeadline(context, task.getDefiniteDueDate(), 0,
-                    DEADLINE_REPEAT, FLAG_DEFINITE_DEADLINE | FLAG_OVERDUE,
-                    task);
+                    DEADLINE_REPEAT, FLAG_DEFINITE_DEADLINE | FLAG_OVERDUE, task);
         }
 
         // fixed alerts

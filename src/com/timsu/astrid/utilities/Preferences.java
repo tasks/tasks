@@ -45,10 +45,47 @@ public class Preferences {
             editor.putBoolean(r.getString(R.string.p_colorize), DEFAULT_COLORIZE);
         }
 
+        setVisibilityPreferences(prefs, editor, r);
+
         editor.commit();
     }
 
-    /** CurrentVersion: the currently installed version of Astrid */
+    private static void setVisibilityPreferences(SharedPreferences p, Editor e, Resources r) {
+    	if(!p.contains(r.getString(R.string.prefs_titleVisible))) {
+            e.putBoolean(r.getString(R.string.prefs_titleVisible),
+            		Boolean.parseBoolean(r.getString(R.string.prefs_titleVisible_default)));
+        }
+    	if(!p.contains(r.getString(R.string.prefs_timeVisible))) {
+            e.putBoolean(r.getString(R.string.prefs_timeVisible),
+            		Boolean.parseBoolean(r.getString(R.string.prefs_timeVisible_default)));
+        }
+    	if(!p.contains(r.getString(R.string.prefs_deadlineVisible))) {
+            e.putBoolean(r.getString(R.string.prefs_deadlineVisible),
+            		Boolean.parseBoolean(r.getString(R.string.prefs_deadlineVisible_default)));
+        }
+    	if(!p.contains(r.getString(R.string.prefs_importanceVisible))) {
+            e.putBoolean(r.getString(R.string.prefs_importanceVisible),
+                    Boolean.parseBoolean(r.getString(R.string.prefs_importanceVisible_default)));
+        }
+    	if(!p.contains(r.getString(R.string.prefs_reminderVisible))) {
+            e.putBoolean(r.getString(R.string.prefs_reminderVisible),
+            		Boolean.parseBoolean(r.getString(R.string.prefs_reminderVisible_default)));
+        }
+    	if(!p.contains(r.getString(R.string.prefs_repeatVisible))) {
+            e.putBoolean(r.getString(R.string.prefs_repeatVisible),
+            		Boolean.parseBoolean(r.getString(R.string.prefs_repeatVisible_default)));
+        }
+    	if(!p.contains(r.getString(R.string.prefs_tagsVisible))) {
+            e.putBoolean(r.getString(R.string.prefs_tagsVisible),
+            		Boolean.parseBoolean(r.getString(R.string.prefs_tagsVisible_default)));
+        }
+    	if(!p.contains(r.getString(R.string.prefs_notesVisible))) {
+            e.putBoolean(r.getString(R.string.prefs_notesVisible),
+            		Boolean.parseBoolean(r.getString(R.string.prefs_notesVisible_default)));
+        }
+	}
+
+	/** CurrentVersion: the currently installed version of Astrid */
     public static int getCurrentVersion(Context context) {
         return getPrefs(context).getInt(P_CURRENT_VERSION, 0);
     }
@@ -203,7 +240,6 @@ public class Preferences {
 
     // --- helper methods
 
-    @SuppressWarnings("unused")
     private static void clearPref(Context context, String key) {
         Editor editor = getPrefs(context).edit();
         editor.remove(key);
@@ -223,5 +259,9 @@ public class Preferences {
         } catch (Exception e) {
             return null;
         }
+    }
+
+    public static TaskFieldsVisibility getTaskFieldsVisibility(Context context) {
+    	return TaskFieldsVisibility.getFromPreferences(context, getPrefs(context));
     }
 }
