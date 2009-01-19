@@ -157,20 +157,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
 
         // importance
+        final ImageView importance = (ImageView)view.findViewById(R.id.importance);
         if(visibleFields.IMPORTANCE) {
-            switch(task.getImportance()) {
-            case LEVEL_1:
-                view.findViewById(R.id.importance_1).setVisibility(View.VISIBLE);
-                break;
-            case LEVEL_2:
-                view.findViewById(R.id.importance_2).setVisibility(View.VISIBLE);
-                break;
-            case LEVEL_3:
-                view.findViewById(R.id.importance_3).setVisibility(View.VISIBLE);                break;
-            case LEVEL_4:
-                view.findViewById(R.id.importance_4).setVisibility(View.VISIBLE);
-            }
-        }
+            importance.setBackgroundColor(r.getColor(
+                    task.getImportance().getColorResource()));
+        } else
+            importance.setVisibility(View.GONE);
 
         // due date / completion date
         final TextView deadlines = ((TextView)view.findViewById(R.id.text_deadlines));
