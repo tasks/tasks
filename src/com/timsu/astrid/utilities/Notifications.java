@@ -33,9 +33,9 @@ public class Notifications extends BroadcastReceiver {
 
     // stuff for scheduling
     /** minimum # of seconds before a deadline to notify */
-    private static final int    DEADLINE_NOTIFY_SECS    = 10; //60 * 60;
+    private static final int    DEADLINE_NOTIFY_SECS    = 60 * 60;
     /** # of seconds after deadline to repeat reminder*/
-    private static final int    DEADLINE_REPEAT         = 20; //10 * 60;
+    private static final int    DEADLINE_REPEAT         = 10 * 60;
 
     // flags
     public static final int     FLAG_DEFINITE_DEADLINE  = 1 << 0;

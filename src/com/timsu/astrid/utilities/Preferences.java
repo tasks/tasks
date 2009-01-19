@@ -122,7 +122,7 @@ public class Preferences {
     public static Uri getNotificationRingtone(Context context) {
     	Resources r = context.getResources();
         String value = getPrefs(context).getString(r.getString(
-                R.string.key_notification_ringtone), "");
+                R.string.p_notification_ringtone), "");
 
         try {
 			return Uri.parse(value);

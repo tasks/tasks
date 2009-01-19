@@ -34,7 +34,6 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:scaleType="center"
-        android:drawingCacheQuality="low"
         android:minWidth="41px" />
         
     <ImageView android:id="@+id/imageLeft"
@@ -42,7 +41,6 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:scaleType="center"
-        android:drawingCacheQuality="low"
         android:paddingLeft="5dip"/>
 
     <!-- all text -->
@@ -58,8 +56,7 @@
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"
             style="@style/TextAppearance.TaskList_Task"
-            android:gravity="center_vertical"
-            android:singleLine="true"/>
+            android:gravity="center_vertical"/>
 
         <!-- absolute / goal deadline -->
        <TextView android:id="@+id/text_deadlines"
@@ -105,11 +102,40 @@
 
     </LinearLayout>
 
-    <ImageView android:id="@+id/imageRight"
+    <!-- importance -->
+    <ImageView android:id="@+id/importance_1"
         android:gravity="center_vertical"
         android:layout_width="24px"
         android:layout_height="fill_parent"
-        android:drawingCacheQuality="low"
+        android:src="@drawable/bubble_red"
+        android:visibility="gone"
+        android:scaleType="center"
+        android:paddingLeft="6dip"
+        android:paddingRight="4dip"/>
+    <ImageView android:id="@+id/importance_2"
+        android:gravity="center_vertical"
+        android:layout_width="24px"
+        android:layout_height="fill_parent"
+        android:src="@drawable/bubble_yellow"
+        android:visibility="gone"
+        android:scaleType="center"
+        android:paddingLeft="6dip"
+        android:paddingRight="4dip"/>
+    <ImageView android:id="@+id/importance_3"
+        android:gravity="center_vertical"
+        android:layout_width="24px"
+        android:layout_height="fill_parent"
+        android:src="@drawable/bubble_blue"
+        android:visibility="gone"
+        android:scaleType="center"
+        android:paddingLeft="6dip"
+        android:paddingRight="4dip"/>
+    <ImageView android:id="@+id/importance_4"
+        android:gravity="center_vertical"
+        android:layout_width="24px"
+        android:layout_height="fill_parent"
+        android:src="@drawable/bubble_gray"
+        android:visibility="gone"
         android:scaleType="center"
         android:paddingLeft="6dip"
         android:paddingRight="4dip"/>

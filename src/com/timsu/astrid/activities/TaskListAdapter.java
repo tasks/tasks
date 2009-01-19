@@ -157,11 +157,20 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
 
         // importance
-        final ImageView importance = ((ImageView)view.findViewById(R.id.imageRight));
-        if(visibleFields.IMPORTANCE)
-            importance.setImageDrawable(r.getDrawable(task.getImportance().getIconResource()));
-        else
-            importance.setVisibility(View.GONE);
+        if(visibleFields.IMPORTANCE) {
+            switch(task.getImportance()) {
+            case LEVEL_1:
+                view.findViewById(R.id.importance_1).setVisibility(View.VISIBLE);
+                break;
+            case LEVEL_2:
+                view.findViewById(R.id.importance_2).setVisibility(View.VISIBLE);
+                break;
+            case LEVEL_3:
+                view.findViewById(R.id.importance_3).setVisibility(View.VISIBLE);                break;
+            case LEVEL_4:
+                view.findViewById(R.id.importance_4).setVisibility(View.VISIBLE);
+            }
+        }
 
         // due date / completion date
         final TextView deadlines = ((TextView)view.findViewById(R.id.text_deadlines));
@@ -177,21 +186,23 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         append(" " + r.getString(R.string.ago_suffix));
                 }
             } else {
+                boolean taskOverdue = false;
                 if(task.getDefiniteDueDate() != null) {
                     long timeLeft = task.getDefiniteDueDate().getTime() -
                         System.currentTimeMillis();
                     if(timeLeft > 0){
                         label.append(r.getString(R.string.taskList_dueIn)).append(" ");
                     } else {
+                        taskOverdue = true;
                         label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
                         deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
                     }
                     label.append(DateUtilities.getDurationString(r,
                             (int)Math.abs(timeLeft/1000), 1));
-                    if(task.getPreferredDueDate() != null)
-                        label.append(" / ");
                 }
-                if(task.getPreferredDueDate() != null) {
+                if(!taskOverdue && task.getPreferredDueDate() != null) {
+                    if(task.getDefiniteDueDate() != null)
+                        label.append(" / ");
                     long timeLeft = task.getPreferredDueDate().getTime() -
                         System.currentTimeMillis();
                     label.append(r.getString(R.string.taskList_goalPrefix)).append(" ");

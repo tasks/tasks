@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionCode="64"
-      android:versionName="2.0.1">
+      android:versionCode="66"
+      android:versionName="2.0.3">
       
     <meta-data android:name="com.a0soft.gphone.aTrackDog.webURL"
                android:value="http://www.weloveastrid.com" />
@@ -29,32 +29,7 @@
                 android:theme="@android:style/Theme.Dialog"
                 android:launchMode="singleTask" />
         
-        <activity android:name=".activities.TaskEdit">
-            <intent-filter label="Astrid, Remind Me! 1">
-                <action android:name="android.intent.action.SEND" />
-                <data android:name="vnd.android.cursor.dir/*" />
-                <category android:name="android.intent.category.ALTERNATIVE" />
-                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
-            </intent-filter>
-            <intent-filter label="Astrid, Remind Me! 2">
-                <action android:name="android.intent.action.SEND" />
-                <data android:name="vnd.android.cursor.item/email" />
-                <category android:name="android.intent.category.ALTERNATIVE" />
-                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
-            </intent-filter>
-            <intent-filter label="Astrid, Remind Me! 3">
-                <action android:name="android.intent.action.SEND" />
-                <data android:name="vnd.android.cursor.item/person" />
-                <category android:name="android.intent.category.ALTERNATIVE" />
-                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
-            </intent-filter>
-            <intent-filter label="Astrid, Remind Me! 4">
-                <action android:name="android.intent.action.SEND" />
-                <data android:name="item/person" />
-                <category android:name="android.intent.category.ALTERNATIVE" />
-                <category android:name="android.intent.category.SELECTED_ALTERNATIVE" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".activities.TaskEdit" />
         
         <activity android:name=".activities.TagList"/>
 

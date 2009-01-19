@@ -72,7 +72,7 @@ public class DateUtilities {
                     seconds)).append(" ");
         }
 
-        return result.toString();
+        return result.toString().trim();
     }
 
     /**

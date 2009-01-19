@@ -24,9 +24,9 @@
     <color name="task_list_normal">#FFFFFFFF</color>
     <color name="task_list_done">#ff777777</color>
     <color name="task_list_importance_1">#ffffffff</color>
-    <color name="task_list_importance_2">#ffc0c4dc</color>
-    <color name="task_list_importance_3">#ff7381c8</color>
-    <color name="task_list_importance_4">#ff446592</color>   
+    <color name="task_list_importance_2">#ffcfcfcf</color>
+    <color name="task_list_importance_3">#ffb8b8b8</color>
+    <color name="task_list_importance_4">#ffa0a0a0</color>   
     
     <color name="taskList_dueDateOverdue">#FFFB6666</color>
     <color name="taskList_dueDate">#ffF0E89E</color>
