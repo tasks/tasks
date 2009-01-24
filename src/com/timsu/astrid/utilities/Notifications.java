@@ -15,6 +15,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.net.Uri;
 import android.util.Log;
 
@@ -404,6 +405,13 @@ public class Notifications extends BroadcastReceiver {
 
         if(nonstopMode && (flags & FLAG_PERIODIC) == 0) {
             notification.flags |= Notification.FLAG_INSISTENT;
+
+            // if you're gonna do this... might as well crank up the volume!
+            AudioManager audioManager = (AudioManager)context.getSystemService(
+                    Context.AUDIO_SERVICE);
+            notification.audioStreamType = AudioManager.STREAM_ALARM;
+            audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
+                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
         }
 
         if(quietHours) {

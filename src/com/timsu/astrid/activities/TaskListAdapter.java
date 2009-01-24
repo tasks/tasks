@@ -163,7 +163,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 String nameValue = task.getName();
                 if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date())) {
                     nameValue = "(" + r.getString(R.string.taskList_hiddenPrefix) + ") " + nameValue;
-                    task.putCachedLabel(KEY_HIDDEN, "");
+                    task.putCachedLabel(KEY_HIDDEN, "y");
                 }
                 cachedResult = nameValue.toString();
                 task.putCachedLabel(KEY_NAME, cachedResult);
@@ -211,7 +211,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         } else {
                             taskOverdue = true;
                             label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
-                            task.putCachedLabel(KEY_OVERDUE, "");
+                            task.putCachedLabel(KEY_OVERDUE, "y");
                         }
                         label.append(DateUtilities.getDurationString(r,
                                 (int)Math.abs(timeLeft/1000), 1));
@@ -401,7 +401,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     timerTitle = R.string.taskList_context_stopTimer;
                 menu.add(position, CONTEXT_TIMER_ID, Menu.NONE, timerTitle);
 
-                menu.add(position, CONTEXT_POSTPONE_ID, Menu.NONE,
+                if(task.getDefiniteDueDate() != null ||
+                        task.getPreferredDueDate() != null)
+                    menu.add(position, CONTEXT_POSTPONE_ID, Menu.NONE,
                         R.string.taskList_context_postpone);
 
                 menu.setHeaderTitle(task.getName());

@@ -59,6 +59,9 @@ public class TaskModelForRepeat extends AbstractTaskModel implements Notifiable 
             setPreferredDueDate(repeatInfo.shiftDate(getPreferredDueDate()));
         setProgressPercentage(0);
 
+        // set elapsed time to 0... yes, we're losing data
+        setElapsedSeconds(0);
+
         // if no deadlines set, create one (so users don't get confused)
         if(getDefiniteDueDate() == null && getPreferredDueDate() == null)
             setPreferredDueDate(repeatInfo.shiftDate(new Date()));
