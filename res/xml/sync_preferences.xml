@@ -24,6 +24,11 @@
             android:key="@string/p_sync_button"  
             android:title="@string/sync_button_title"  
             android:summary="@string/sync_button_desc" />
+            
+        <CheckBoxPreference  
+            android:key="@string/p_sync_quiet"  
+            android:title="@string/sync_quiet_title"  
+            android:summary="@string/sync_quiet_desc" />
 
     </PreferenceCategory>
     

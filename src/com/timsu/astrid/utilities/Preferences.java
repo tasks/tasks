@@ -223,6 +223,13 @@ public class Preferences {
                 R.string.p_sync_button), false);
     }
 
+    /** Should hide sync dialog boxes? */
+    public static boolean shouldSuppressSyncDialogs(Context context) {
+        Resources r = context.getResources();
+        return getPrefs(context).getBoolean(r.getString(
+                R.string.p_sync_quiet), false);
+    }
+
     /** returns the font size user wants on the front page */
     public static Integer autoSyncFrequency(Context context) {
         return getIntegerValue(context, R.string.p_sync_every);

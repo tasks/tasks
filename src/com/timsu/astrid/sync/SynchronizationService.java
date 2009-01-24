@@ -449,6 +449,10 @@ public abstract class SynchronizationService {
         /** Display a dialog with statistics */
         public void showDialog(final Activity activity, String log) {
             progressDialog.hide();
+
+            if(Preferences.shouldSuppressSyncDialogs(activity))
+                return;
+
             Dialog.OnClickListener finishListener = new Dialog.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog,

@@ -226,6 +226,9 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="p_sync_button">sync_button</string>
         <string name="sync_button_title">Main Menu Shortcut</string>
         <string name="sync_button_desc">Show \"Synchronize\" in Astrid\'s menu</string>
+        <string name="p_sync_quiet">sync_dialogs</string>
+        <string name="sync_quiet_title">Hide Dialogs</string>
+        <string name="sync_quiet_desc">Hide the Sync Results dialogs</string>
         <string name="p_sync_background">sync_background</string>
         <string name="sync_background_title">In Background</string>
         <string name="sync_background_desc">Synchronize without bothering you</string>
@@ -335,7 +338,7 @@ Wish me luck!\n
         <string name="prefs_timeVisible_default">true</string>
         <string name="prefs_importanceVisible">importanceVisible</string>
         <string name="prefs_importanceVisible_title">Importance</string>
-        <string name="prefs_importanceVisible_desc">Task importance bubble</string>
+        <string name="prefs_importanceVisible_desc">Task importance indicator</string>
         <string name="prefs_importanceVisible_default">true</string>
 	    <string name="prefs_tagsVisible">tagsVisible</string>
         <string name="prefs_tagsVisible_title">Tags</string>
