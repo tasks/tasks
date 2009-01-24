@@ -9,8 +9,8 @@ import android.os.Bundle;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.utilities.Constants;
+import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Notifications;
-import com.timsu.astrid.widget.NNumberPickerDialog;
 import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 
 public class TaskViewNotifier extends TaskView {
@@ -77,9 +77,9 @@ public class TaskViewNotifier extends TaskView {
     }
 
     private void snoozeAlert() {
-        Resources r = getResources();
-        // ask how long
-        new NNumberPickerDialog(this, new OnNNumberPickedListener() {
+        DialogUtilities.hourMinutePicker(this,
+                getResources().getString(R.string.notify_snooze_title),
+                new OnNNumberPickedListener() {
             public void onNumbersPicked(int[] values) {
                 int snoozeSeconds = values[0] * 3600 + values[1] * 60;
                 Notifications.createSnoozeAlarm(TaskViewNotifier.this,
@@ -90,8 +90,6 @@ public class TaskViewNotifier extends TaskView {
                 TaskList.shouldCloseInstance = true;
                 finish();
             }
-        }, r.getString(R.string.notify_snooze_title),
-        new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
-        new int[] {99, 59}, new String[] {":", null}).show();
+        });
     }
 }

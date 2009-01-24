@@ -41,6 +41,9 @@ public class Preferences {
         if(!prefs.contains(r.getString(R.string.p_deadlineTime))) {
             editor.putString(r.getString(R.string.p_deadlineTime), "7");
         }
+        if(!prefs.contains(r.getString(R.string.p_notif_defaultRemind))) {
+            editor.putString(r.getString(R.string.p_notif_defaultRemind), "7");
+        }
         if(!prefs.contains(r.getString(R.string.p_colorize))) {
             editor.putBoolean(r.getString(R.string.p_colorize), DEFAULT_COLORIZE);
         }
@@ -211,6 +214,13 @@ public class Preferences {
         Resources r = context.getResources();
         return getPrefs(context).getBoolean(r.getString(
                 R.string.p_sync_rtm), false);
+    }
+
+    /** Should display sync shortcut? */
+    public static boolean shouldDisplaySyncButton(Context context) {
+        Resources r = context.getResources();
+        return getPrefs(context).getBoolean(r.getString(
+                R.string.p_sync_button), false);
     }
 
     /** returns the font size user wants on the front page */

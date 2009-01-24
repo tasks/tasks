@@ -60,12 +60,18 @@ public class RTMSyncService extends SynchronizationService {
                 Preferences.getSyncRTMToken(activity) == null) {
             DialogUtilities.okCancelDialog(activity,
                     activity.getResources().getString(R.string.sync_rtm_notes),
-                    new Dialog.OnClickListener() {
+            new Dialog.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            authenticate(activity);
+                        }
+            }, new Dialog.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    authenticate(activity);
+                    if(progressDialog != null)
+                        progressDialog.dismiss();
                 }
-            }, null);
+            });
         } else
             authenticate(activity);
     }
@@ -335,7 +341,7 @@ public class RTMSyncService extends SynchronizationService {
             sb.append(note.getText() + "\n");
         }
         if(sb.length() > 0)
-            task.notes = sb.toString();
+            task.notes = sb.toString().trim();
 
         // list / tags
         LinkedList<String> tagsList = rtmTaskSeries.getTags();
@@ -355,8 +361,18 @@ public class RTMSyncService extends SynchronizationService {
         }
         task.creationDate = rtmTaskSeries.getCreated();
         task.completionDate = rtmTask.getCompleted();
-        if(rtmTask.getDue() != null)
-            task.definiteDueDate = rtmTask.getDue();
+        if(rtmTask.getDue() != null) {
+            Date due = rtmTask.getDue();
+
+            // just a day - set it to midnight
+            if(due.getHours() == 0 && due.getMinutes() == 0 && due.getSeconds() == 0) {
+                due.setHours(23);
+                due.setMinutes(59);
+            }
+
+            task.definiteDueDate = due;
+
+        }
         task.progressPercentage = (rtmTask.getCompleted() == null) ? 0 : 100;
 
         task.importance = Importance.values()[rtmTask.getPriority().ordinal()];

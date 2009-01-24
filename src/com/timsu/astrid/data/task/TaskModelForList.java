@@ -20,6 +20,7 @@
 package com.timsu.astrid.data.task;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -94,6 +95,16 @@ public class TaskModelForList extends AbstractTaskModel {
     @Override
     public boolean isHidden() {
         return super.isHidden();
+    }
+
+    /** map of cached display labels */
+    private HashMap<Integer, String> displayLabels = new HashMap<Integer, String>();
+
+    public String getCachedLabel(int key) {
+        return displayLabels.get(key);
+    }
+    public void putCachedLabel(int key, String value) {
+        displayLabels.put(key, value);
     }
 
     // --- constructors
@@ -204,5 +215,15 @@ public class TaskModelForList extends AbstractTaskModel {
 
     public static String getNameField() {
         return NAME;
+    }
+
+    @Override
+    public void setPreferredDueDate(Date preferredDueDate) {
+        super.setPreferredDueDate(preferredDueDate);
+    }
+
+    @Override
+    public void setDefiniteDueDate(Date definiteDueDate) {
+        super.setDefiniteDueDate(definiteDueDate);
     }
 }

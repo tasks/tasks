@@ -142,7 +142,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         int secondsAgo = (int) ((System.currentTimeMillis() - date.getTime())/1000);
         String text = DateUtilities.getDurationString(r,
                 Math.abs(secondsAgo), 2);
-        view.setText(text + r.getString(R.string.ago_suffix));
+        view.setText(text + " " + r.getString(R.string.ago_suffix));
     }
 
     /* ======================================================================

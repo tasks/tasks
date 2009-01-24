@@ -385,9 +385,13 @@ public class Notifications extends BroadcastReceiver {
                 appName,
                 reminder + " " + taskName,
                 pendingIntent);
-        if(Preferences.isPersistenceMode(context))
-            notification.flags |= Notification.FLAG_NO_CLEAR;
         notification.defaults = Notification.DEFAULT_LIGHTS;
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        if(Preferences.isPersistenceMode(context)) {
+            notification.flags |= Notification.FLAG_NO_CLEAR;
+            notification.ledOffMS = 5000;
+            notification.ledOnMS = 700;
+        }
         if(quietHours) {
             notification.vibrate = null;
             notification.sound = null;

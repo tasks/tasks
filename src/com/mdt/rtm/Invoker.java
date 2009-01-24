@@ -95,7 +95,7 @@ public class Invoker {
 
   public static final String API_SIG_PARAM = "api_sig";
 
-  public static final long INVOCATION_INTERVAL = 750;
+  public static final long INVOCATION_INTERVAL = 300;
 
   private long lastInvocation;
 

@@ -26,6 +26,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -62,6 +63,16 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     public static final int CONTEXT_EDIT_ID       = Menu.FIRST + 50;
     public static final int CONTEXT_DELETE_ID     = Menu.FIRST + 51;
     public static final int CONTEXT_TIMER_ID      = Menu.FIRST + 52;
+    public static final int CONTEXT_POSTPONE_ID   = Menu.FIRST + 53;
+
+    private static final int KEY_NAME      = 0;
+    private static final int KEY_DEADLINE  = 1;
+    private static final int KEY_OVERDUE   = 2;
+    private static final int KEY_REPEAT    = 3;
+    private static final int KEY_REMINDERS = 4;
+    private static final int KEY_TIMES     = 5;
+    private static final int KEY_TAGS      = 6;
+    private static final int KEY_HIDDEN    = 7;
 
     private final Activity activity;
     private List<TaskModelForList> objects;
@@ -71,6 +82,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     private Integer fontSizePreference;
     private AlertController alarmController;
+
+    private TaskModelForList recentlyCompleted = null;
 
     public interface TaskListAdapterHooks {
         List<TaskModelForList> getTaskArray();
@@ -100,9 +113,10 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View view;
+        View view = convertView;
 
-        view = inflater.inflate(resource, parent, false);
+        if(view == null)
+            view = inflater.inflate(resource, parent, false);
         setupView(view, objects.get(position));
         addListeners(position, view);
 
@@ -120,7 +134,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         progress.setTag(task);
 
         if(task.getTimerStart() != null)
-            timer.setImageDrawable(r.getDrawable(R.drawable.ic_dialog_time));
+            timer.setImageDrawable(r.getDrawable(R.drawable.icon_timer));
         progress.setChecked(task.isTaskCompleted());
 
         setFieldContentsAndVisibility(view, task);
@@ -144,12 +158,20 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         // name
         final TextView name = ((TextView)view.findViewById(R.id.task_name));
         if(visibleFields.TITLE) {
-            String nameValue = task.getName();
-            if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date())) {
-                nameValue = "(" + r.getString(R.string.taskList_hiddenPrefix) + ") " + nameValue;
-                name.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
+            String cachedResult = task.getCachedLabel(KEY_NAME);
+            if(cachedResult == null) {
+                String nameValue = task.getName();
+                if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date())) {
+                    nameValue = "(" + r.getString(R.string.taskList_hiddenPrefix) + ") " + nameValue;
+                    task.putCachedLabel(KEY_HIDDEN, "");
+                }
+                cachedResult = nameValue.toString();
+                task.putCachedLabel(KEY_NAME, cachedResult);
             }
-            name.setText(nameValue);
+            name.setText(cachedResult);
+            if(task.getCachedLabel(KEY_HIDDEN) != null)
+                name.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
+
             if(fontSizePreference != null && fontSizePreference > 0)
                 name.setTextSize(fontSizePreference);
         }
@@ -157,7 +179,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
 
         // importance
-        final ImageView importance = (ImageView)view.findViewById(R.id.importance);
+        final View importance = (View)view.findViewById(R.id.importance);
         if(visibleFields.IMPORTANCE) {
             importance.setBackgroundColor(r.getColor(
                     task.getImportance().getColorResource()));
@@ -167,126 +189,156 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         // due date / completion date
         final TextView deadlines = ((TextView)view.findViewById(R.id.text_deadlines));
         if(visibleFields.DEADLINE) {
-            StringBuilder label = new StringBuilder();
-            if(task.isTaskCompleted()) {
-                if(task.getCompletionDate() != null) {
-                    int secondsLeft = (int)((task.getCompletionDate().getTime() -
-                            System.currentTimeMillis()) / 1000);
-                    label.append(r.getString(R.string.taskList_completedPrefix)).
-                        append(" ").
-                        append(DateUtilities.getDurationString(r, Math.abs(secondsLeft), 1)).
-                        append(" " + r.getString(R.string.ago_suffix));
-                }
-            } else {
-                boolean taskOverdue = false;
-                if(task.getDefiniteDueDate() != null) {
-                    long timeLeft = task.getDefiniteDueDate().getTime() -
-                        System.currentTimeMillis();
-                    if(timeLeft > 0){
-                        label.append(r.getString(R.string.taskList_dueIn)).append(" ");
-                    } else {
-                        taskOverdue = true;
-                        label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
-                        deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
+            String cachedResult = task.getCachedLabel(KEY_DEADLINE);
+            if(cachedResult == null) {
+                StringBuilder label = new StringBuilder();
+                if(task.isTaskCompleted()) {
+                    if(task.getCompletionDate() != null) {
+                        int secondsLeft = (int)((task.getCompletionDate().getTime() -
+                                System.currentTimeMillis()) / 1000);
+                        label.append(r.getString(R.string.taskList_completedPrefix)).
+                            append(" ").
+                            append(DateUtilities.getDurationString(r, Math.abs(secondsLeft), 1)).
+                            append(" " + r.getString(R.string.ago_suffix));
                     }
-                    label.append(DateUtilities.getDurationString(r,
-                            (int)Math.abs(timeLeft/1000), 1));
-                }
-                if(!taskOverdue && task.getPreferredDueDate() != null) {
-                    if(task.getDefiniteDueDate() != null)
-                        label.append(" / ");
-                    long timeLeft = task.getPreferredDueDate().getTime() -
-                        System.currentTimeMillis();
-                    label.append(r.getString(R.string.taskList_goalPrefix)).append(" ");
-                    if(timeLeft > 0){
-                        label.append(r.getString(R.string.taskList_dueIn)).append(" ");
-                    } else {
-                        label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
-                        deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
+                } else {
+                    boolean taskOverdue = false;
+                    if(task.getDefiniteDueDate() != null) {
+                        long timeLeft = task.getDefiniteDueDate().getTime() -
+                            System.currentTimeMillis();
+                        if(timeLeft > 0){
+                            label.append(r.getString(R.string.taskList_dueIn)).append(" ");
+                        } else {
+                            taskOverdue = true;
+                            label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
+                            task.putCachedLabel(KEY_OVERDUE, "");
+                        }
+                        label.append(DateUtilities.getDurationString(r,
+                                (int)Math.abs(timeLeft/1000), 1));
                     }
-                    label.append(DateUtilities.getDurationString(r,
-                            (int)Math.abs(timeLeft/1000), 1)).append(" ");
+                    if(!taskOverdue && task.getPreferredDueDate() != null) {
+                        if(task.getDefiniteDueDate() != null)
+                            label.append(" / ");
+                        long timeLeft = task.getPreferredDueDate().getTime() -
+                            System.currentTimeMillis();
+                        label.append(r.getString(R.string.taskList_goalPrefix)).append(" ");
+                        if(timeLeft > 0){
+                            label.append(r.getString(R.string.taskList_dueIn)).append(" ");
+                        } else {
+                            label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
+                            deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
+                        }
+                        label.append(DateUtilities.getDurationString(r,
+                                (int)Math.abs(timeLeft/1000), 1)).append(" ");
+                    }
                 }
+                cachedResult = label.toString();
+                task.putCachedLabel(KEY_DEADLINE, cachedResult);
             }
-            deadlines.setText(label);
+            deadlines.setText(cachedResult);
+            if(task.getCachedLabel(KEY_OVERDUE) != null)
+                deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
         }
         setVisibility(deadlines);
 
         // estimated / elapsed time
         final TextView times = ((TextView)view.findViewById(R.id.text_times));
         if(visibleFields.TIMES) {
-            Integer elapsed = task.getElapsedSeconds();
-            if(task.getTimerStart() != null)
-                elapsed += ((System.currentTimeMillis() - task.getTimerStart().getTime())/1000);
-            Integer estimated = task.getEstimatedSeconds();
-            StringBuilder label = new StringBuilder();
-            if(estimated > 0) {
-                label.append(r.getString(R.string.taskList_estimatedTimePrefix)).
-                    append(" ").
-                    append(DateUtilities.getDurationString(r, estimated, 2));
-                if(elapsed > 0)
-                    label.append(" / ");
+            String cachedResult = task.getCachedLabel(KEY_TIMES);
+            if(cachedResult == null) {
+                Integer elapsed = task.getElapsedSeconds();
+                if(task.getTimerStart() != null)
+                    elapsed += ((System.currentTimeMillis() - task.getTimerStart().getTime())/1000);
+                Integer estimated = task.getEstimatedSeconds();
+                StringBuilder label = new StringBuilder();
+                if(estimated > 0) {
+                    label.append(r.getString(R.string.taskList_estimatedTimePrefix)).
+                        append(" ").
+                        append(DateUtilities.getDurationString(r, estimated, 2));
+                    if(elapsed > 0)
+                        label.append(" / ");
+                }
+                if(elapsed > 0) {
+                    label.append(r.getString(R.string.taskList_elapsedTimePrefix)).
+                        append(" ").
+                        append(DateUtilities.getDurationString(r, elapsed, 2));
+                }
+                cachedResult = label.toString();
+                task.putCachedLabel(KEY_TIMES, cachedResult);
             }
-            if(elapsed > 0) {
-                label.append(r.getString(R.string.taskList_elapsedTimePrefix)).
-                    append(" ").
-                    append(DateUtilities.getDurationString(r, elapsed, 2));
-            }
-            times.setText(label);
+            times.setText(cachedResult);
         }
         setVisibility(times);
 
         // reminders
         final TextView reminders = ((TextView)view.findViewById(R.id.text_reminders));
         if(visibleFields.REMINDERS) {
-            Integer notifyEvery = task.getNotificationIntervalSeconds();
-            StringBuilder label = new StringBuilder();
-            if(notifyEvery != null && notifyEvery > 0) {
-                label.append(r.getString(R.string.taskList_periodicReminderPrefix)).
-            	    append(" ").append(DateUtilities.getDurationString(r, notifyEvery, 1));
-            }
+            String cachedResult = task.getCachedLabel(KEY_REMINDERS);
+            if(cachedResult == null) {
+                Integer notifyEvery = task.getNotificationIntervalSeconds();
+                StringBuilder label = new StringBuilder();
+                if(notifyEvery != null && notifyEvery > 0) {
+                    label.append(r.getString(R.string.taskList_periodicReminderPrefix)).
+                	    append(" ").append(DateUtilities.getDurationString(r, notifyEvery, 1));
+                }
 
-            try {
-                alarmController.open();
-    	        List<Date> alerts = alarmController.getTaskAlerts(task.getTaskIdentifier());
-    	        if(alerts.size() > 0) {
-    	            if(label.length() > 0)
-    	                label.append(". ");
-    	            label.append(r.getQuantityString(R.plurals.Nalarms, alerts.size(),
-    	                    alerts.size())).append(" ").append(r.getString(R.string.taskList_alarmSuffix));
-    	        }
-            } finally {
-                alarmController.close();
+                try {
+                    alarmController.open();
+        	        List<Date> alerts = alarmController.getTaskAlerts(task.getTaskIdentifier());
+        	        if(alerts.size() > 0) {
+        	            if(label.length() > 0)
+        	                label.append(". ");
+        	            label.append(r.getQuantityString(R.plurals.Nalarms, alerts.size(),
+        	                    alerts.size())).append(" ").append(r.getString(R.string.taskList_alarmSuffix));
+        	        }
+                } finally {
+                    alarmController.close();
+                }
+                cachedResult = label.toString();
+                task.putCachedLabel(KEY_REMINDERS, cachedResult);
             }
-            reminders.setText(label);
+            reminders.setText(cachedResult);
         }
         setVisibility(reminders);
 
         // repeats
         final TextView repeats = ((TextView)view.findViewById(R.id.text_repeats));
         if(visibleFields.REPEATS) {
-            RepeatInfo repeatInfo = task.getRepeat();
-            if(repeatInfo != null) {
-                repeats.setText(r.getString(R.string.taskList_repeatPrefix) +
-                        " " + repeatInfo.getValue() + " " +
-                        r.getString(repeatInfo.getInterval().getLabelResource()));
+            String cachedResult = task.getCachedLabel(KEY_REPEAT);
+            if(cachedResult == null) {
+                RepeatInfo repeatInfo = task.getRepeat();
+                if(repeatInfo != null) {
+                    cachedResult = r.getString(R.string.taskList_repeatPrefix) +
+                            " " + repeatInfo.getValue() + " " +
+                            r.getString(repeatInfo.getInterval().getLabelResource());
+                } else
+                    cachedResult = "";
+                task.putCachedLabel(KEY_REPEAT, cachedResult);
             }
+            repeats.setText(cachedResult);
         }
         setVisibility(repeats);
 
         // tags
         final TextView tags = ((TextView)view.findViewById(R.id.text_tags));
         if(visibleFields.TAGS) {
-            List<TagModelForView> alltags = hooks.getTagsFor(task);
-            StringBuilder tagString = new StringBuilder();
-            for(Iterator<TagModelForView> i = alltags.iterator(); i.hasNext(); ) {
-                TagModelForView tag = i.next();
-                tagString.append(tag.getName());
-                if(i.hasNext())
-                    tagString.append(", ");
+            String cachedResult = task.getCachedLabel(KEY_TAGS);
+            if(cachedResult == null) {
+                List<TagModelForView> alltags = hooks.getTagsFor(task);
+                StringBuilder tagString = new StringBuilder();
+                for(Iterator<TagModelForView> i = alltags.iterator(); i.hasNext(); ) {
+                    TagModelForView tag = i.next();
+                    tagString.append(tag.getName());
+                    if(i.hasNext())
+                        tagString.append(", ");
+                }
+                if(alltags.size() > 0)
+                    cachedResult = r.getString(R.string.taskList_tagsPrefix) + " " + tagString;
+                else
+                    cachedResult = "";
+                task.putCachedLabel(KEY_TAGS, cachedResult);
             }
-            if(alltags.size() > 0)
-                tags.setText(r.getString(R.string.taskList_tagsPrefix) + " " + tagString);
+            tags.setText(cachedResult);
         }
         setVisibility(tags);
 
@@ -349,6 +401,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     timerTitle = R.string.taskList_context_stopTimer;
                 menu.add(position, CONTEXT_TIMER_ID, Menu.NONE, timerTitle);
 
+                menu.add(position, CONTEXT_POSTPONE_ID, Menu.NONE,
+                        R.string.taskList_context_postpone);
+
                 menu.setHeaderTitle(task.getName());
             }
         });
@@ -358,6 +413,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         final ImageView timer = ((ImageView)view.findViewById(R.id.imageLeft));
         task.setProgressPercentage(progress);
         hooks.getTaskController().saveTask(task);
+
+        // show this task as completed even if it has repeats
+        if(progress == 100)
+            recentlyCompleted = task;
+        else
+            recentlyCompleted = null;
 
         // if our timer is on, ask if we want to stop
         if(progress == 100 && task.getTimerStart() != null) {
@@ -382,12 +443,13 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private void setTaskAppearance(TaskModelForList task, TextView name, CheckBox progress) {
         Resources r = activity.getResources();
 
-        if(task.isTaskCompleted()) {
-            name.setBackgroundDrawable(r.getDrawable(R.drawable.strikeout));
+        if(task.isTaskCompleted() || task == recentlyCompleted) {
+        	name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             name.setTextColor(r.getColor(R.color.task_list_done));
             progress.setButtonDrawable(R.drawable.btn_check0);
+            progress.setChecked(true);
         } else {
-            name.setBackgroundDrawable(null);
+        	name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             name.setTextColor(r.getColor(task.getTaskColorResource(getContext())));
 
             if(task.getProgressPercentage() >= 75)

@@ -32,7 +32,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 /**
- * 
+ *
  * @author Will Ross Jun 21, 2007
  */
 public abstract class RtmData
@@ -40,8 +40,8 @@ public abstract class RtmData
 
   private static final DateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
-  public RtmData()
-  {
+  public RtmData() {
+      //
   }
 
   /**

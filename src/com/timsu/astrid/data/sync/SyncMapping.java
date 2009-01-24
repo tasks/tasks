@@ -161,8 +161,4 @@ public class SyncMapping extends AbstractModel {
     private void setRemoteId(String remoteId) {
         setValues.put(REMOTE_ID, remoteId);
     }
-
-    private void setUpdated(boolean updated) {
-        setValues.put(UPDATED, updated ? 1 : 0);
-    }
 }

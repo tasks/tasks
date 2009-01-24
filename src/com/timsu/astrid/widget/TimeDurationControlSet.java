@@ -60,8 +60,8 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
                     activity.getResources().getString(titleResource),
                     new int[] {0, 0}, new int[] {1, 1}, new int[] {0, 0},
                     new int[] {31, 23}, new String[] {
-                        r.getString(R.string.days),
-                        r.getString(R.string.hours)
+                        r.getString(R.string.daysVertical),
+                        r.getString(R.string.hoursVertical)
                     });
             break;
         case HOURS_MINUTES:

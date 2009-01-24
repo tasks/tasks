@@ -64,6 +64,7 @@ import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.utilities.StartupReceiver;
+import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 
 
 /** Primary view for the Astrid Application. Lists all of the tasks in the
@@ -88,7 +89,8 @@ public class TaskList extends Activity {
     private static final int       INSERT_ID             = Menu.FIRST;
     private static final int       FILTERS_ID            = Menu.FIRST + 1;
     private static final int       TAGS_ID               = Menu.FIRST + 2;
-    private static final int       MORE_ID               = Menu.FIRST + 3;
+    private static final int       SYNC_ID               = Menu.FIRST + 3;
+    private static final int       MORE_ID               = Menu.FIRST + 4;
 
     private static final int       OPTIONS_SYNC_ID       = Menu.FIRST + 10;
     private static final int       OPTIONS_SETTINGS_ID   = Menu.FIRST + 11;
@@ -103,8 +105,11 @@ public class TaskList extends Activity {
     private static final int       CONTEXT_SORT_REVERSE  = Menu.FIRST + 26;
     private static final int       CONTEXT_SORT_GROUP    = Menu.FIRST;
 
-    public static final int       FLING_DIST_THRESHOLD   = 100;
-    public static final int       FLING_VEL_THRESHOLD    = 300;
+    public static final int        FLING_DIST_THRESHOLD  = 100;
+    public static final int        FLING_VEL_THRESHOLD   = 300;
+
+    private static final int       SORTFLAG_FILTERDONE   = (1 << 5);
+    private static final int       SORTFLAG_FILTERHIDDEN = (1 << 6);
 
     // UI components
     private ListView listView;
@@ -117,6 +122,7 @@ public class TaskList extends Activity {
     private HashMap<TaskModelForList, LinkedList<TagModelForView>> taskTags;
     private GestureDetector gestureDetector;
     private View.OnTouchListener gestureTouchListener;
+    private boolean displaySyncShortcut;
 
     // display filters
     private static boolean filterShowHidden = false;
@@ -254,10 +260,41 @@ public class TaskList extends Activity {
         item.setIcon(android.R.drawable.ic_menu_myplaces);
         item.setAlphabeticShortcut('t');
 
+        if(Preferences.shouldDisplaySyncButton(this)){
+            item = menu.add(Menu.NONE, SYNC_ID, Menu.NONE,
+                    R.string.taskList_menu_syncshortcut);
+            item.setIcon(android.R.drawable.ic_menu_upload);
+            item.setAlphabeticShortcut('s');
+            displaySyncShortcut = true;
+        } else {
+            displaySyncShortcut = false;
+        }
+
         item = menu.add(Menu.NONE, MORE_ID, Menu.NONE,
                 R.string.taskList_menu_more);
         item.setIcon(android.R.drawable.ic_menu_more);
         item.setAlphabeticShortcut('m');
+
+        return true;
+    }
+
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        super.onPrepareOptionsMenu(menu);
+
+        boolean shouldDisplaySyncShortcut = Preferences.shouldDisplaySyncButton(this);
+        if(shouldDisplaySyncShortcut != displaySyncShortcut) {
+            if(shouldDisplaySyncShortcut) {
+                MenuItem item = menu.add(Menu.NONE, SYNC_ID, Menu.NONE,
+                        R.string.taskList_menu_syncshortcut);
+                item.setIcon(android.R.drawable.ic_menu_upload);
+                item.setAlphabeticShortcut('s');
+            } else
+                menu.removeItem(SYNC_ID);
+
+            displaySyncShortcut = shouldDisplaySyncShortcut;
+        }
+
 
         return true;
     }
@@ -619,8 +656,15 @@ public class TaskList extends Activity {
     /** Save the sorting mode to the preferences */
     private void saveTaskListSort() {
         int sortId = sortMode.ordinal() + 1;
+
+        if(filterShowDone)
+            sortId |= SORTFLAG_FILTERDONE;
+        if(filterShowHidden)
+            sortId |= SORTFLAG_FILTERHIDDEN;
+
         if(sortReverse)
             sortId *= -1;
+
         Preferences.setTaskListSort(this, sortId);
     }
 
@@ -630,14 +674,21 @@ public class TaskList extends Activity {
         if(sortId == 0)
             return;
         sortReverse = sortId < 0;
+        sortId = Math.abs(sortId);
 
-        sortMode = SortMode.values()[Math.abs(sortId - 1)];
+        filterShowDone = (sortId & SORTFLAG_FILTERDONE) > 0;
+        filterShowHidden = (sortId & SORTFLAG_FILTERHIDDEN) > 0;
+
+        sortId = sortId & ~(SORTFLAG_FILTERDONE | SORTFLAG_FILTERHIDDEN);
+
+        sortMode = SortMode.values()[sortId - 1];
     }
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         Intent intent;
-        TaskModelForList task;
+        final TaskModelForList task;
+        Resources r = getResources();
 
         switch(item.getItemId()) {
         case INSERT_ID:
@@ -648,6 +699,9 @@ public class TaskList extends Activity {
             return true;
         case TAGS_ID:
             showTagsView();
+            return true;
+        case SYNC_ID:
+            onActivityResult(ACTIVITY_SYNCHRONIZE, Constants.RESULT_SYNCHRONIZE, null);
             return true;
         case MORE_ID:
             layout.showContextMenu();
@@ -686,13 +740,40 @@ public class TaskList extends Activity {
             taskController.saveTask(task);
             fillData();
             return true;
+        case TaskListAdapter.CONTEXT_POSTPONE_ID:
+            task = taskArray.get(item.getGroupId());
+            DialogUtilities.dayHourPicker(this,
+                r.getString(R.string.taskList_postpone_dialog),
+                new OnNNumberPickedListener() {
+                    public void onNumbersPicked(int[] values) {
+                        long postponeMillis = (values[0] * 24 + values[1]) *
+                            3600L * 1000;
+                        Date preferred = task.getPreferredDueDate();
+                        Date definite = task.getDefiniteDueDate();
+                        if(preferred != null) {
+                            preferred = new Date(preferred.getTime() +
+                                    postponeMillis);
+                            task.setPreferredDueDate(preferred);
+                        }
+                        if(definite != null) {
+                            definite = new Date(definite.getTime() +
+                                    postponeMillis);
+                            task.setDefiniteDueDate(definite);
+                        }
+                        taskController.saveTask(task);
+                        fillData();
+                    }
+                });
+            return true;
 
         case CONTEXT_FILTER_HIDDEN:
             TaskList.filterShowHidden = !filterShowHidden;
+            saveTaskListSort();
             fillData();
             return true;
         case CONTEXT_FILTER_DONE:
             TaskList.filterShowDone = !filterShowDone;
+            saveTaskListSort();
             fillData();
             return true;
         case CONTEXT_FILTER_TAG:

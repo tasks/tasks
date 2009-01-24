@@ -18,7 +18,12 @@
         <EditTextPreference  
             android:key="@string/p_sync_every"  
             android:title="@string/sync_every_title"  
-            android:summary="@string/sync_every_desc" />  
+            android:summary="@string/sync_every_desc" />
+            
+        <CheckBoxPreference  
+            android:key="@string/p_sync_button"  
+            android:title="@string/sync_button_title"  
+            android:summary="@string/sync_button_desc" />
 
     </PreferenceCategory>
     

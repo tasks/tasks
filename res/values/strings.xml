@@ -60,12 +60,12 @@
             <item quantity="one">1 Day</item>
             <item quantity="other">%d Days</item>
         </plurals>
-        <string name="days">D\na\ny\ns</string>
+        <string name="daysVertical">D\na\ny\ns</string>
         <plurals name="Nhours">
             <item quantity="one">1 Hour</item>
             <item quantity="other">%d Hours</item>
         </plurals>
-        <string name="hours">H\no\nu\nr\ns</string>
+        <string name="hoursVertical">H\no\nu\nr\ns</string>
         <plurals name="Nminutes">
             <item quantity="one">1 Minute</item>
             <item quantity="other">%d Minutes</item>
@@ -98,6 +98,7 @@
         <string name="taskList_menu_insert">Add</string>
         <string name="taskList_menu_tags">Tags</string>
         <string name="taskList_menu_filters">Display</string>
+        <string name="taskList_menu_syncshortcut">Sync</string>
         <string name="taskList_menu_more">More</string>
         <string name="taskList_menu_sync">Synchronization</string>
         <string name="taskList_menu_settings">Settings</string>
@@ -107,6 +108,7 @@
         <string name="taskList_context_delete">Delete Task</string>
         <string name="taskList_context_startTimer">Start Timer</string>
         <string name="taskList_context_stopTimer">Stop Timer</string>
+        <string name="taskList_context_postpone">Postpone</string>
         
         <string name="taskList_filter_title">Sort/Filters</string>
         <string name="taskList_filter_hidden">Hidden/Blocked Tasks</string>
@@ -116,6 +118,8 @@
         <string name="taskList_sort_alpha">Sort By Name</string>
         <string name="taskList_sort_duedate">Sort By Due Date</string>
         <string name="taskList_sort_reverse">Sort Reverse</string>
+        
+        <string name="taskList_postpone_dialog">Postpone for how long?</string>
 
     <!-- TaskEdit -->
     <skip />
@@ -209,15 +213,21 @@ If you don\'t want to see the new task right after you complete the old one, you
     
     <!-- Synchronization -->  
     <skip />
-        <string name="p_sync_rtm">sync_rtm</string>
-        <string name="p_sync_every">sync_every</string>
         <string name="sync_pref_group">Synchronization Services</string>
         <string name="sync_pref_group_actions">Actions</string>
         <string name="sync_pref_group_options">Options</string>
+        <string name="p_sync_rtm">sync_rtm</string>
         <string name="sync_rtm_title">Remember The Milk</string>
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
+        <string name="p_sync_every">sync_every</string>
         <string name="sync_every_title">Synchronize Frequency</string>
-        <string name="sync_every_desc">If set, sync every # hours when Astrid starts</string>
+        <string name="sync_every_desc">If set, perform sync every # hours</string>
+        <string name="p_sync_button">sync_button</string>
+        <string name="sync_button_title">Main Menu Shortcut</string>
+        <string name="sync_button_desc">Show \"Synchronize\" in Astrid\'s menu</string>
+        <string name="p_sync_background">sync_background</string>
+        <string name="sync_background_title">In Background</string>
+        <string name="sync_background_desc">Synchronize without bothering you</string>
         <string name="sync_error">Sync Error! Sorry for the inconvenience! Error:</string>
         <string name="sync_auth_request">
 In order to synchronize, please log in to your %s account and authorize Astrid to read your data.

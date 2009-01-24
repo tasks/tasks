@@ -480,7 +480,7 @@ public abstract class SynchronizationService {
                 sb.append("\nDeleted: " + localDeletedTasks);
 
             if(mergedTasks > 0)
-                sb.append("\n\nMerged: " + localCreatedTasks);
+                sb.append("\n\nMerged: " + mergedTasks);
 
             if(remoteCreatedTasks + remoteDeletedTasks + remoteUpdatedTasks > 0)
                 sb.append("\n\nSummary - Remote Server:");
