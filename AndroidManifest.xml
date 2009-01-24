@@ -22,8 +22,8 @@
             </intent-filter>
         </activity>
         
-        <activity android:name=".activities.TaskView">
-                android:theme="@android:style/Theme.Dialog"
+        <activity android:name=".activities.TaskView"
+                android:theme="@android:style/Theme.Dialog">
         </activity>
         
         <activity android:name=".activities.TaskViewNotifier"
