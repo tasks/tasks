@@ -154,6 +154,7 @@
         <string name="flag_before">As Deadlines Approach</string>
         <string name="flag_during">At Deadlines</string>
         <string name="flag_after">After Absolute Deadline Passes</string>
+        <string name="flag_nonstop">Nonstop Until I View the Task</string>
         <string name="alerts_label">Fixed Reminders</string>
         <string name="add_alert">Add New Reminder</string>
         

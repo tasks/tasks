@@ -344,7 +344,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                 R.id.hiddenUntil_date, R.id.hiddenUntil_time);
         notes = (EditText)findViewById(R.id.notes);
         flags = new NotifyFlagControlSet(R.id.flag_before,
-                R.id.flag_during, R.id.flag_after);
+                R.id.flag_during, R.id.flag_after, R.id.flag_nonstop);
         alertsContainer = (LinearLayout)findViewById(R.id.alert_container);
         repeatInterval = (Spinner)findViewById(R.id.repeat_interval);
         repeatValue = (Button)findViewById(R.id.repeat_value);
@@ -663,13 +663,14 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     /** Control set dealing with notification flags */
     public class NotifyFlagControlSet {
-        private CheckBox before, during, after;
+        private CheckBox before, during, after, nonstop;
 
         public NotifyFlagControlSet(int beforeId, int duringId,
-                int afterId) {
+                int afterId, int nonstopId) {
             before = (CheckBox)findViewById(beforeId);
             during = (CheckBox)findViewById(duringId);
             after = (CheckBox)findViewById(afterId);
+            nonstop = (CheckBox)findViewById(nonstopId);
         }
 
         public void setValue(int flags) {
@@ -679,6 +680,8 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                     TaskModelForEdit.NOTIFY_AT_DEADLINE) > 0);
             after.setChecked((flags &
                     TaskModelForEdit.NOTIFY_AFTER_DEADLINE) > 0);
+            nonstop.setChecked((flags &
+                    TaskModelForEdit.NOTIFY_NONSTOP) > 0);
         }
 
         public int getValue() {
@@ -689,6 +692,8 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                 value |= TaskModelForEdit.NOTIFY_AT_DEADLINE;
             if(after.isChecked())
                 value |= TaskModelForEdit.NOTIFY_AFTER_DEADLINE;
+            if(nonstop.isChecked())
+                value |= TaskModelForEdit.NOTIFY_NONSTOP;
             return value;
         }
     }

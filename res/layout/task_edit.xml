@@ -335,6 +335,11 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/flag_after"/>
+            
+        <CheckBox android:id="@+id/flag_nonstop"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/flag_nonstop"/>
     </LinearLayout>
 </ScrollView>
 

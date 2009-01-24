@@ -74,6 +74,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
     public static final int NOTIFY_BEFORE_DEADLINE = 1 << 0;
     public static final int NOTIFY_AT_DEADLINE     = 1 << 1;
     public static final int NOTIFY_AFTER_DEADLINE  = 1 << 2;
+    public static final int NOTIFY_NONSTOP         = 1 << 3;
 
     /** Number of bits to shift repeat value by */
     public static final int REPEAT_VALUE_OFFSET    = 3;

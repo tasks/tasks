@@ -14,6 +14,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.net.Uri;
 import android.util.Log;
 
@@ -24,6 +25,7 @@ import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.data.task.TaskModelForNotify;
+import com.timsu.astrid.data.task.TaskModelForReminder;
 
 public class Notifications extends BroadcastReceiver {
 
@@ -315,9 +317,10 @@ public class Notifications extends BroadcastReceiver {
 
         String taskName;
         TaskController controller = new TaskController(context);
+        boolean nonstopMode = false;
         try {
             controller.open();
-            TaskModelForList task = controller.fetchTaskForList(new TaskIdentifier(id));
+            TaskModelForReminder task = controller.fetchTaskForReminder(new TaskIdentifier(id));
 
             // you're working on it - don't sound, don't delete
             if(task.getTimerStart() != null)
@@ -337,6 +340,9 @@ public class Notifications extends BroadcastReceiver {
             if((flags & FLAG_PERIODIC) > 0)
                 controller.setLastNotificationTime(task.getTaskIdentifier(),
                         new Date());
+
+            if((task.getNotificationFlags() & TaskModelForReminder.NOTIFY_NONSTOP) > 0)
+                nonstopMode = true;
 
         } catch (Exception e) {
             // task might have been deleted
@@ -385,13 +391,21 @@ public class Notifications extends BroadcastReceiver {
                 appName,
                 reminder + " " + taskName,
                 pendingIntent);
-        notification.defaults = Notification.DEFAULT_LIGHTS;
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         if(Preferences.isPersistenceMode(context)) {
-            notification.flags |= Notification.FLAG_NO_CLEAR;
+            notification.flags |= Notification.FLAG_NO_CLEAR |
+                Notification.FLAG_SHOW_LIGHTS;
             notification.ledOffMS = 5000;
             notification.ledOnMS = 700;
+            notification.ledARGB = Color.YELLOW;
         }
+        else
+            notification.defaults = Notification.DEFAULT_LIGHTS;
+
+        if(nonstopMode && (flags & FLAG_PERIODIC) == 0) {
+            notification.flags |= Notification.FLAG_INSISTENT;
+        }
+
         if(quietHours) {
             notification.vibrate = null;
             notification.sound = null;
