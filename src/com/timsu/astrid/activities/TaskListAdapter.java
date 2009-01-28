@@ -75,6 +75,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private static final int KEY_HIDDEN    = 7;
 
     private static final String CACHE_TRUE = "y";
+    
+    /** Threshold under which to display a task as red, in millis */
+	private static final long TASK_OVERDUE_THRESHOLD = 30 * 60 * 1000L;
 
     private final Activity activity;
     private List<TaskModelForList> objects;
@@ -208,7 +211,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     if(task.getDefiniteDueDate() != null) {
                         long timeLeft = task.getDefiniteDueDate().getTime() -
                             System.currentTimeMillis();
-                        if(timeLeft > 0){
+                        if(timeLeft > TASK_OVERDUE_THRESHOLD) {
                             label.append(r.getString(R.string.taskList_dueIn)).append(" ");
                         } else {
                             taskOverdue = true;
@@ -224,11 +227,10 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         long timeLeft = task.getPreferredDueDate().getTime() -
                             System.currentTimeMillis();
                         label.append(r.getString(R.string.taskList_goalPrefix)).append(" ");
-                        if(timeLeft > 0){
+                        if(timeLeft > TASK_OVERDUE_THRESHOLD) {
                             label.append(r.getString(R.string.taskList_dueIn)).append(" ");
                         } else {
                             label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
-                            deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
                             task.putCachedLabel(KEY_OVERDUE, CACHE_TRUE);
                         }
                         label.append(DateUtilities.getDurationString(r,
@@ -241,6 +243,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             deadlines.setText(cachedResult);
             if(CACHE_TRUE.equals(task.getCachedLabel(KEY_OVERDUE)))
                 deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
+            else
+            	deadlines.setTextColor(r.getColor(R.color.taskList_details));
         }
         setVisibility(deadlines);
 
