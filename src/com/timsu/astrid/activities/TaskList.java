@@ -749,12 +749,12 @@ public class TaskList extends Activity {
                         long postponeMillis = (values[0] * 24 + values[1]) *
                             3600L * 1000;
                         Date preferred = task.getPreferredDueDate();
-                        Date definite = task.getDefiniteDueDate();
                         if(preferred != null) {
                             preferred = new Date(preferred.getTime() +
                                     postponeMillis);
                             task.setPreferredDueDate(preferred);
                         }
+                        Date definite = task.getDefiniteDueDate();
                         if(definite != null) {
                             definite = new Date(definite.getTime() +
                                     postponeMillis);

@@ -179,7 +179,12 @@ public class Invoker {
     return requestUri;
   }
 
-  public Element invoke(Param... params)
+  /** Call invoke with a false repeat */
+  public Element invoke(Param... params) throws ServiceException {
+      return invoke(false, params);
+  }
+
+  public Element invoke(boolean repeat, Param... params)
       throws ServiceException
   {
     long timeSinceLastInvocation = System.currentTimeMillis() - lastInvocation;
@@ -208,16 +213,6 @@ public class Invoker {
     final HttpGet request = new HttpGet("http://" + ServiceImpl.SERVER_HOST_NAME + requestUri.toString());
     request.setHeader(new BasicHeader(HTTP.CHARSET_PARAM, ENCODING));
     final String methodUri = request.getRequestLine().getUri();
-    // TODO: put that back!
-    // if (proxyHostName != null)
-    // {
-    // // Sets an HTTP proxy and the credentials for authentication
-    // client.getHostConfiguration().setProxy(proxyHostName, proxyPortNumber);
-    // if (proxyLogin != null)
-    // {
-    // client.getState().setProxyCredentials(AuthScope.ANY, new UsernamePasswordCredentials(proxyLogin, proxyPassword));
-    // }
-    // }
 
     Element result;
     try
@@ -229,6 +224,17 @@ public class Invoker {
       if (statusCode != HttpStatus.SC_OK)
       {
         Log.e(TAG, "Method failed: " + response.getStatusLine());
+
+        // Tim: HTTP error. Let's wait a little bit
+        if(!repeat) {
+            try {
+                Thread.sleep(1500);
+            } catch (InterruptedException e) {
+                // ignore
+            }
+            return invoke(true, params);
+        }
+
         throw new ServiceInternalException("method failed: " + response.getStatusLine());
       }
 

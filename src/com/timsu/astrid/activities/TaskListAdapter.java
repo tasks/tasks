@@ -74,6 +74,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private static final int KEY_TAGS      = 6;
     private static final int KEY_HIDDEN    = 7;
 
+    private static final String CACHE_TRUE = "y";
+
     private final Activity activity;
     private List<TaskModelForList> objects;
     private int resource;
@@ -211,7 +213,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         } else {
                             taskOverdue = true;
                             label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
-                            task.putCachedLabel(KEY_OVERDUE, "y");
+                            task.putCachedLabel(KEY_OVERDUE, CACHE_TRUE);
                         }
                         label.append(DateUtilities.getDurationString(r,
                                 (int)Math.abs(timeLeft/1000), 1));
@@ -227,6 +229,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         } else {
                             label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
                             deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
+                            task.putCachedLabel(KEY_OVERDUE, CACHE_TRUE);
                         }
                         label.append(DateUtilities.getDurationString(r,
                                 (int)Math.abs(timeLeft/1000), 1)).append(" ");
@@ -236,7 +239,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 task.putCachedLabel(KEY_DEADLINE, cachedResult);
             }
             deadlines.setText(cachedResult);
-            if(task.getCachedLabel(KEY_OVERDUE) != null)
+            if(CACHE_TRUE.equals(task.getCachedLabel(KEY_OVERDUE)))
                 deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
         }
         setVisibility(deadlines);

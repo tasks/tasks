@@ -31,6 +31,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -76,6 +77,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.task_view);
         handler = new Handler();
 
@@ -124,7 +126,7 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
         int secondsToDeadline = (int) ((deadline.getTime() -
                 System.currentTimeMillis())/1000);
         String text = DateUtilities.getDurationString(r,
-                Math.abs(secondsToDeadline), 2);
+                Math.abs(secondsToDeadline), 2) + " ";
         if(secondsToDeadline < 0) {
             view.setTextColor(r.getColor(R.color.view_table_overdue));
             view.setText(text + r.getString(R.string.overdue_suffix));
@@ -141,8 +143,8 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
 
         int secondsAgo = (int) ((System.currentTimeMillis() - date.getTime())/1000);
         String text = DateUtilities.getDurationString(r,
-                Math.abs(secondsAgo), 2);
-        view.setText(text + " " + r.getString(R.string.ago_suffix));
+                Math.abs(secondsAgo), 2) + " ";
+        view.setText(text + r.getString(R.string.ago_suffix));
     }
 
     /* ======================================================================
@@ -151,7 +153,6 @@ public class TaskView extends TaskModificationActivity<TaskModelForView> {
 
     private void setUpUIComponents() {
         Resources r = getResources();
-        setTitle(r.getString(R.string.taskView_title));
 
         name = (TextView)findViewById(R.id.name);
         elapsed = (TextView)findViewById(R.id.cell_elapsed);
