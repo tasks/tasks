@@ -75,7 +75,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private static final int KEY_HIDDEN    = 7;
 
     private static final String CACHE_TRUE = "y";
-    
+
     /** Threshold under which to display a task as red, in millis */
 	private static final long TASK_OVERDUE_THRESHOLD = 30 * 60 * 1000L;
 
@@ -168,14 +168,17 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 String nameValue = task.getName();
                 if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date())) {
                     nameValue = "(" + r.getString(R.string.taskList_hiddenPrefix) + ") " + nameValue;
-                    task.putCachedLabel(KEY_HIDDEN, "y");
+                    task.putCachedLabel(KEY_HIDDEN, CACHE_TRUE);
                 }
                 cachedResult = nameValue.toString();
                 task.putCachedLabel(KEY_NAME, cachedResult);
             }
             name.setText(cachedResult);
-            if(task.getCachedLabel(KEY_HIDDEN) != null)
+
+            if(CACHE_TRUE.equals(task.getCachedLabel(KEY_HIDDEN)))
                 name.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
+            else if(name.getTypeface().isItalic())
+                name.setTypeface(Typeface.DEFAULT_BOLD);
 
             if(fontSizePreference != null && fontSizePreference > 0)
                 name.setTextSize(fontSizePreference);
