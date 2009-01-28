@@ -476,7 +476,7 @@ public class ServiceImpl implements Service
     StringBuilder tagString = new StringBuilder();
     if(tags != null) {
         for(int i = 0; i < tags.length; i++) {
-            tagString.append(tags[i]);
+            tagString.append(tags[i].replace(" ", "_"));
             if(i < tags.length - 1)
                 tagString.append(",");
         }

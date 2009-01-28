@@ -251,6 +251,15 @@ public class RTMSyncService extends SynchronizationService {
         }
     }
 
+    /** Get a task proxy with default RTM values */
+    private TaskProxy getDefaultTaskProxy() {
+        TaskProxy taskProxy = new TaskProxy(0, "", false);
+        taskProxy.progressPercentage = 0;
+        taskProxy.tags = new LinkedList<String>();
+        taskProxy.notes = "";
+        return taskProxy;
+    }
+
     /** Send changes for the given TaskProxy across the wire */
     private void pushLocalTask(String timeline, TaskProxy task, TaskProxy remoteTask,
             SyncMapping mapping) throws ServiceException {
@@ -263,7 +272,7 @@ public class RTMSyncService extends SynchronizationService {
                 remoteTask = parseRemoteTask(id.listId, rtmTask);
         }
         if(remoteTask == null)
-            remoteTask = new TaskProxy(0, "", false);
+            remoteTask = getDefaultTaskProxy();
 
         if(task.name != null && !task.name.equals(remoteTask.name))
             rtmService.tasks_setName(timeline, id.listId, id.taskSeriesId,
@@ -277,7 +286,7 @@ public class RTMSyncService extends SynchronizationService {
         if(dueDate == null)
             dueDate = task.preferredDueDate;
         if(dueDate != remoteTask.definiteDueDate &&
-                (dueDate == null || !dueDate.equals(remoteTask.definiteDueDate)))
+                !dueDate.equals(remoteTask.definiteDueDate))
             rtmService.tasks_setDueDate(timeline, id.listId, id.taskSeriesId,
                 id.taskId, dueDate, dueDate != null);
 
@@ -308,7 +317,8 @@ public class RTMSyncService extends SynchronizationService {
         }
 
         // estimated time
-        if(task.estimatedSeconds != null && !task.estimatedSeconds.equals(remoteTask.estimatedSeconds)) {
+        if(task.estimatedSeconds != remoteTask.estimatedSeconds &&
+                !task.estimatedSeconds.equals(remoteTask.estimatedSeconds)) {
             String estimation;
             int estimatedSeconds = task.estimatedSeconds;
             if(estimatedSeconds == 0)
