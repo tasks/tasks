@@ -32,6 +32,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,8 +48,8 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.activities.MainActivity.SubActivities;
-import com.timsu.astrid.activities.MainActivity.SubActivity;
+import com.timsu.astrid.activities.TaskList.ActivityCode;
+import com.timsu.astrid.activities.TaskList.SubActivity;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
@@ -61,7 +62,7 @@ import com.timsu.astrid.data.task.TaskModelForList;
  * @author Tim Su (timsu@stanfordalumni.org)
  *
  */
-public class TagList extends SubActivity {
+public class TagListSubActivity extends SubActivity {
     private static final int ACTIVITY_CREATE       = 0;
 
     private static final int MENU_SORT_ALPHA_ID    = Menu.FIRST;
@@ -78,7 +79,7 @@ public class TagList extends SubActivity {
     private static SortMode sortMode = SortMode.SIZE;
     private static boolean sortReverse = false;
     
-    public TagList(MainActivity parent, SubActivities code, View view) {
+    public TagListSubActivity(TaskList parent, ActivityCode code, View view) {
     	super(parent, code, view);
     }
 
@@ -93,18 +94,18 @@ public class TagList extends SubActivity {
     private enum SortMode {
         ALPHA {
             @Override
-            int compareTo(TagList self, TagModelForView arg0, TagModelForView arg1) {
+            int compareTo(TagListSubActivity self, TagModelForView arg0, TagModelForView arg1) {
                 return arg0.getName().compareTo(arg1.getName());
             }
         },
         SIZE {
             @Override
-            int compareTo(TagList self, TagModelForView arg0, TagModelForView arg1) {
+            int compareTo(TagListSubActivity self, TagModelForView arg0, TagModelForView arg1) {
                 return self.tagToTaskCount.get(arg1) - self.tagToTaskCount.get(arg0);
             }
         };
 
-        abstract int compareTo(TagList self, TagModelForView arg0, TagModelForView arg1);
+        abstract int compareTo(TagListSubActivity self, TagModelForView arg0, TagModelForView arg1);
     };
 
     private void sortTagArray() {
@@ -137,7 +138,7 @@ public class TagList extends SubActivity {
         Collections.sort(tagArray, new Comparator<TagModelForView>() {
             @Override
             public int compare(TagModelForView arg0, TagModelForView arg1) {
-                return sortMode.compareTo(TagList.this, arg0, arg1);
+                return sortMode.compareTo(TagListSubActivity.this, arg0, arg1);
             }
         });
         if(sortReverse)
@@ -175,8 +176,8 @@ public class TagList extends SubActivity {
                 TagModelForView tag = (TagModelForView)view.getTag();
 
                 Bundle bundle = new Bundle();
-                bundle.putLong(TaskList.TAG_TOKEN, tag.getTagIdentifier().getId());
-                switchToActivity(SubActivities.TASK_LIST_W_TAG, bundle);
+                bundle.putLong(TaskListSubActivity.TAG_TOKEN, tag.getTagIdentifier().getId());
+                switchToActivity(ActivityCode.TASK_LIST_W_TAG, bundle);
             }
         });
 
@@ -237,9 +238,21 @@ public class TagList extends SubActivity {
             .setNegativeButton(android.R.string.cancel, null)
             .show();
     }
+    
+    @Override
+    /** Handle back button by moving to task list */
+    protected boolean onKeyDown(int keyCode, KeyEvent event) {
+    	if(keyCode == KeyEvent.KEYCODE_BACK) {
+    		switchToActivity(ActivityCode.TASK_LIST, null);
+    		return true;
+    	}
+   	
+    	return false;
+    }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    /** Picked item in the options list */
+    public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch(item.getItemId()) {
         case MENU_SORT_ALPHA_ID:
             if(sortMode == SortMode.ALPHA)
@@ -336,6 +349,8 @@ public class TagList extends SubActivity {
 
             if(tagToTaskCount.get(tag) == 0)
                 name.setTextColor(r.getColor(R.color.task_list_done));
+            else
+            	name.setTextColor(r.getColor(android.R.color.white));            	
         }
     }
 

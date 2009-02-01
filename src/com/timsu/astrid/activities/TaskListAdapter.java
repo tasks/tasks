@@ -29,12 +29,14 @@ import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.view.ContextMenu;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.View.OnKeyListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -44,6 +46,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.alerts.AlertController;
+import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
@@ -101,8 +104,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     public interface TaskListAdapterHooks {
         List<TaskModelForList> getTaskArray();
         List<TagModelForView> getTagsFor(TaskModelForList task);
-        TaskController getTaskController();
-        TagController getTagController();
+        TaskController taskController();
+        TagController tagController();
         void performItemClick(View v, int position);
         void onCreatedTaskListView(View v, TaskModelForList task);
     }
@@ -178,6 +181,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
         if(task.getTimerStart() != null)
             timer.setImageDrawable(r.getDrawable(R.drawable.icon_timer));
+        else
+        	timer.setImageDrawable(null);
         progress.setChecked(task.isTaskCompleted());
 
         setFieldContentsAndVisibility(view, task);
@@ -425,6 +430,24 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 hooks.performItemClick(view, position);
             }
         });
+        
+        view.setOnKeyListener(new OnKeyListener() {
+        	@Override
+        	public boolean onKey(View v, int keyCode, KeyEvent event) {
+        		if(event.getAction() != KeyEvent.ACTION_UP)
+        			return false;
+        		// hotkey to set task priority
+        		 if(keyCode >= KeyEvent.KEYCODE_1 && keyCode <= KeyEvent.KEYCODE_4) {
+        			Importance i = Importance.values()[keyCode - KeyEvent.KEYCODE_1];
+        			TaskModelForList task = (TaskModelForList)v.getTag();
+        			task.setImportance(i);
+        			hooks.taskController().saveTask(task);
+        			setFieldContentsAndVisibility(v, task);
+            		return true;
+            	}
+        		return false;
+        	}
+        });
 
         // long-clicking the text field
         view.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
@@ -458,7 +481,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private void setTaskProgress(final TaskModelForList task, View view, int progress) {
         final ImageView timer = ((ImageView)view.findViewById(R.id.imageLeft));
         task.setProgressPercentage(progress);
-        hooks.getTaskController().saveTask(task);
+        hooks.taskController().saveTask(task);
 
         // show this task as completed even if it has repeats
         if(progress == 100)
@@ -477,7 +500,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     task.stopTimerAndUpdateElapsedTime();
-                    hooks.getTaskController().saveTask(task);
+                    hooks.taskController().saveTask(task);
                     timer.setVisibility(View.GONE);
                 }
             })

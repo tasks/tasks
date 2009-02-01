@@ -24,7 +24,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
-import android.R;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -35,11 +34,15 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.sync.SyncDataController;
-import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.timsu.astrid.utilities.Notifications;
 
-/** Controller for task-related operations */
+/**
+ * Controller for task-related operations
+ *
+ * @author timsu
+ *
+ */
 public class TaskController extends AbstractController {
 
     private SQLiteDatabase database;

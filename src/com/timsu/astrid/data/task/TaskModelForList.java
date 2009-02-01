@@ -232,4 +232,9 @@ public class TaskModelForList extends AbstractTaskModel {
     public void setDefiniteDueDate(Date definiteDueDate) {
         super.setDefiniteDueDate(definiteDueDate);
     }
+    
+    @Override
+    public void setImportance(Importance importance) {
+    	super.setImportance(importance);
+    }
 }

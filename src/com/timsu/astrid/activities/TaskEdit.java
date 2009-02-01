@@ -80,7 +80,8 @@ import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     // bundle arguments
-    public static final String     TAG_NAME_TOKEN       = "tag";
+    public static final String     TAG_NAME_TOKEN       = "t";
+    public static final String     START_CHAR_TOKEN     = "s";
 
     // menu items
     private static final int       SAVE_ID         = Menu.FIRST;
@@ -169,7 +170,12 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         // set UI components based on model variables
         if(model.getCursor() != null)
             startManagingCursor(model.getCursor());
-        name.setText(model.getName());
+        if(model.getTaskIdentifier() == null) {
+        	Bundle extras = getIntent().getExtras();
+        	if(extras != null && extras.containsKey(START_CHAR_TOKEN))
+        		name.setText("" + extras.getChar(START_CHAR_TOKEN));
+        } else
+        	name.setText(model.getName());
         if(model.getName().length() > 0)
             setTitle(new StringBuilder().
                 append(r.getString(R.string.taskEdit_titlePrefix)).
@@ -507,7 +513,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        if(hasFocus && MainActivity.shouldCloseInstance) { // user wants to quit
+        if(hasFocus && TaskList.shouldCloseInstance) { // user wants to quit
             finish();
         }
     }
