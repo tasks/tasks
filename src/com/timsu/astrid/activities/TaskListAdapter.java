@@ -120,14 +120,33 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
 
-        if(view == null)
+        if(view == null) {
             view = inflater.inflate(resource, parent, false);
+            initializeView(view);
+        }
         setupView(view, objects.get(position));
         addListeners(position, view);
 
         return view;
     }
+    
+    /**
+     * Perform initial setup on the row
+     * 
+     * @param view
+     */
+    private void initializeView(View view) {
+    	final TextView name = ((TextView)view.findViewById(R.id.task_name));
+    	if(fontSizePreference != null && fontSizePreference > 0)
+            name.setTextSize(fontSizePreference);
+    }
 
+    /**
+     * Setup the given view for the specified task
+     * 
+     * @param view
+     * @param task
+     */
     private void setupView(View view, final TaskModelForList task) {
         Resources r = activity.getResources();
 
@@ -148,7 +167,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     }
 
     /** Helper method to set the visibility based on if there's stuff inside */
-    private void setVisibility(TextView v) {
+    private static void setVisibility(TextView v) {
         if(v.getText().length() > 0)
             v.setVisibility(View.VISIBLE);
         else
@@ -174,14 +193,10 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 task.putCachedLabel(KEY_NAME, cachedResult);
             }
             name.setText(cachedResult);
-
             if(CACHE_TRUE.equals(task.getCachedLabel(KEY_HIDDEN)))
                 name.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
-            else if(name.getTypeface().isItalic())
+            else
                 name.setTypeface(Typeface.DEFAULT_BOLD);
-
-            if(fontSizePreference != null && fontSizePreference > 0)
-                name.setTextSize(fontSizePreference);
         }
         setVisibility(name);
 

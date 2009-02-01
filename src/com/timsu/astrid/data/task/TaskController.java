@@ -24,6 +24,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
+import android.R;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
@@ -217,12 +218,7 @@ public class TaskController extends AbstractController {
             if(values.size() == 0) // nothing changed
                 return true;
 
-            // if this task is completed, perform some handling
-            if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
-                    values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
-                        == AbstractTaskModel.COMPLETE_PERCENTAGE) {
-                onTaskSetCompleted(task, values);
-            }
+            onTaskSave(task, values);
 
             saveSucessful = database.update(TASK_TABLE_NAME, values,
                     KEY_ROWID + "=" + id, null) > 0;
@@ -238,7 +234,35 @@ public class TaskController extends AbstractController {
         return saveSucessful;
     }
 
-    /** Called when this task is set to completed.
+    /**
+     * Called when the task is saved. Perform some processing on the task.
+     * 
+     * @param task
+     * @param values
+     */
+    private void onTaskSave(AbstractTaskModel task, ContentValues values) {
+    	// task was completed
+        if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
+                values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
+                    == AbstractTaskModel.COMPLETE_PERCENTAGE) {
+            onTaskSetCompleted(task, values);
+        }
+        
+        // task timer was updated
+        if(values.containsKey(AbstractTaskModel.TIMER_START)) {
+        	// show notification bar if timer was started
+        	if(values.get(AbstractTaskModel.TIMER_START) != null) {
+        		Notifications.showTimingNotification(context, 
+        				task.getTaskIdentifier(), task.getName());
+        	} else {
+        		Notifications.clearAllNotifications(context, task.getTaskIdentifier());
+        	}
+        }
+    }
+    
+    
+    /** 
+     * Called when this task is set to completed.
      *
      * @param task task to process
      * @param values mutable map of values to save
@@ -246,14 +270,7 @@ public class TaskController extends AbstractController {
     private void onTaskSetCompleted(AbstractTaskModel task, ContentValues values) {
         values.put(AbstractTaskModel.COMPLETION_DATE, System.currentTimeMillis());
 
-        // handle repeat
-        Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
-                TaskModelForRepeat.FIELD_LIST);
-        TaskModelForRepeat repeatModel = new TaskModelForRepeat(cursor, values);
-        RepeatInfo repeatInfo = repeatModel.getRepeat();
-        if(repeatInfo != null)
-            repeatModel.repeatTaskBy(context, this, repeatInfo);
-        cursor.close();
+        
     }
 
     /** Set last notification date */

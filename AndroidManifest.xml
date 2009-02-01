@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionCode="72"
-      android:versionName="2.1.4">
+      android:versionCode="73"
+      android:versionName="2.2.0">
       
     <meta-data android:name="com.a0soft.gphone.aTrackDog.webURL"
                android:value="http://www.weloveastrid.com" />
@@ -31,7 +31,8 @@
                 android:theme="@android:style/Theme.Dialog"
                 android:launchMode="singleTask" />
         
-        <activity android:name=".activities.TaskEdit" />
+        <activity android:name=".activities.TaskEdit" 
+        		android:label="@string/taskEdit_label"/>
         
         <activity android:name=".activities.TagList"/>
 

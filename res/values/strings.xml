@@ -126,6 +126,7 @@
     
         <string name="taskEdit_titleGeneric">Astrid: Editing Task</string>
         <string name="taskEdit_titlePrefix">Astrid: Editing </string>
+        <string name="taskEdit_label">Astrid: New Task</string>
         
         <string name="task_edit_tab_1">Basic</string>
         <string name="task_edit_tab_2">Dates</string>
@@ -273,6 +274,7 @@ Wish me luck!\n
         
         <string name="notif_definiteDueDate">Absolute Deadline!</string>
         <string name="notif_preferredDueDate">Goal Deadline!</string>
+        <string name="notif_timerStarted">Working on:</string>
         
     <!-- Error Messages -->  
     <skip />

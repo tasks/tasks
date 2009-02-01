@@ -239,6 +239,11 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         if(name.getText().length() == 0)
             return;
 
+        // if we've removed a deadline, delete alarms
+        if((definiteDueDate.getDate() == null && model.getDefiniteDueDate() != null) ||
+        		(preferredDueDate.getDate() == null && model.getPreferredDueDate() != null))
+        	Notifications.deleteAlarm(this, model.getTaskIdentifier().getId());
+        
         model.setName(name.getText().toString());
         model.setEstimatedSeconds(estimatedDuration.getTimeDurationInSeconds());
         model.setElapsedSeconds(elapsedDuration.getTimeDurationInSeconds());

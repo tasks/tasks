@@ -282,11 +282,13 @@ public class RTMSyncService extends SynchronizationService {
                     id.taskId, Priority.values()[task.importance.ordinal()]);
 
         // due date
-        Date dueDate = task.definiteDueDate;
+        Date dueDate = task.dueDate;
+        if(dueDate == null)
+        	dueDate = task.definiteDueDate;
         if(dueDate == null)
             dueDate = task.preferredDueDate;
-        if(dueDate != remoteTask.definiteDueDate &&
-                !dueDate.equals(remoteTask.definiteDueDate))
+        if(dueDate != remoteTask.dueDate &&
+                !dueDate.equals(remoteTask.dueDate))
             rtmService.tasks_setDueDate(timeline, id.listId, id.taskSeriesId,
                 id.taskId, dueDate, dueDate != null);
 
@@ -374,14 +376,12 @@ public class RTMSyncService extends SynchronizationService {
         if(rtmTask.getDue() != null) {
             Date due = rtmTask.getDue();
 
-            // just a day - set it to midnight
+            // if no time is set, set it to midnight
             if(due.getHours() == 0 && due.getMinutes() == 0 && due.getSeconds() == 0) {
                 due.setHours(23);
                 due.setMinutes(59);
             }
-
-            task.definiteDueDate = due;
-
+            task.dueDate = due;
         }
         task.progressPercentage = (rtmTask.getCompleted() == null) ? 0 : 100;
 

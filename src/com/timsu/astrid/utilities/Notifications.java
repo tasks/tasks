@@ -20,6 +20,7 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.activities.TaskView;
 import com.timsu.astrid.activities.TaskViewNotifier;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.task.TaskController;
@@ -135,9 +136,10 @@ public class Notifications extends BroadcastReceiver {
         if(task.getTaskIdentifier() == null)
             return;
 
+        // return if we don't need to go any further 
         if(shouldDeleteAlarm(task)) {
-            deleteAlarm(context, task.getTaskIdentifier().getId());
-            return;
+        	deleteAlarm(context, task.getTaskIdentifier().getId());
+        	return;
         }
 
         // periodic reminders
@@ -386,7 +388,7 @@ public class Notifications extends BroadcastReceiver {
         // create notification object
         String appName = r.getString(R.string.app_name);
         Notification notification = new Notification(
-                R.drawable.notification_icon, reminder,
+                R.drawable.notification_tag_pink, reminder,
                 System.currentTimeMillis());
         notification.setLatestEventInfo(context,
                 appName,
@@ -434,4 +436,39 @@ public class Notifications extends BroadcastReceiver {
         return true;
     }
 
+    /** Show a notification when a user is "on-the-clock" for a given task */
+    public static boolean showTimingNotification(Context context, 
+    		TaskIdentifier taskId, String taskName) {
+
+    	String text = context.getResources().getString(R.string.notif_timerStarted) +
+    		" " + taskName;
+        NotificationManager nm = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        Resources r = context.getResources();
+
+        Intent notifyIntent = new Intent(context, TaskView.class);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+        notifyIntent.putExtra(TaskViewNotifier.LOAD_INSTANCE_TOKEN, taskId.getId());
+        notifyIntent.putExtra(TaskViewNotifier.FROM_NOTIFICATION_TOKEN, true);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,
+                (int)taskId.getId(), notifyIntent, PendingIntent.FLAG_ONE_SHOT);
+
+        // create notification object
+        String appName = r.getString(R.string.app_name);
+        Notification notification = new Notification(
+                R.drawable.notification_clock, text,
+                System.currentTimeMillis());
+        notification.setLatestEventInfo(context,
+                appName,
+                text,
+                pendingIntent);
+        notification.flags |= Notification.FLAG_ONGOING_EVENT;
+
+        Log.w("Astrid", "Logging timing notification: " + text);
+        nm.notify((int)taskId.getId(), notification);
+
+        return true;
+    }
+
+    
 }

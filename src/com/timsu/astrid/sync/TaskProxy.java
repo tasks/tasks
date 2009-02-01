@@ -41,6 +41,7 @@ public class TaskProxy {
     Date               creationDate        = null;
     Date               completionDate      = null;
 
+    Date               dueDate             = null;
     Date               definiteDueDate     = null;
     Date               preferredDueDate    = null;
     Date               hiddenUntil         = null;
@@ -93,6 +94,8 @@ public class TaskProxy {
             creationDate = other.creationDate;
         if(other.completionDate != null)
             completionDate = other.completionDate;
+        if(other.dueDate != null)
+        	dueDate = other.dueDate;
         if(other.definiteDueDate != null)
             definiteDueDate = other.definiteDueDate;
         if(other.preferredDueDate != null)
@@ -119,6 +122,7 @@ public class TaskProxy {
         completionDate = task.getCompletionDate();
         definiteDueDate = task.getDefiniteDueDate();
         preferredDueDate = task.getPreferredDueDate();
+        dueDate = definiteDueDate != null ? definiteDueDate : preferredDueDate; 
         hiddenUntil = task.getHiddenUntil();
         estimatedSeconds = task.getEstimatedSeconds();
         elapsedSeconds = task.getElapsedSeconds();
@@ -154,13 +158,27 @@ public class TaskProxy {
             task.setCreationDate(creationDate);
         if(completionDate != null)
             task.setCompletionDate(completionDate);
-        if(definiteDueDate != null)
-            task.setDefiniteDueDate(definiteDueDate);
-        if(preferredDueDate != null)
-            task.setPreferredDueDate(preferredDueDate);
+        
+        // date handling: if sync service only supports one type of due date,
+        // we have to figure out which field to write to based on what
+        // already has data
+        
+        if(dueDate != null) {
+        	if(task.getDefiniteDueDate() != null)
+        		task.setDefiniteDueDate(dueDate);
+        	else if(task.getPreferredDueDate() != null)
+        		task.setPreferredDueDate(dueDate);
+        	else
+        		task.setDefiniteDueDate(dueDate);        		
+        } else {
+	        if(definiteDueDate != null)
+	            task.setDefiniteDueDate(definiteDueDate);
+	        if(preferredDueDate != null)
+	            task.setPreferredDueDate(preferredDueDate);
+        }
+        
         if(hiddenUntil != null)
             task.setHiddenUntil(hiddenUntil);
-
         if(estimatedSeconds != null)
             task.setEstimatedSeconds(estimatedSeconds);
         if(elapsedSeconds != null)
