@@ -60,7 +60,7 @@ public class TaskViewNotifier extends TaskView {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 setResult(Constants.RESULT_GO_HOME);
-                TaskList.shouldCloseInstance = true;
+                MainActivity.shouldCloseInstance = true;
                 finish();
             }
         })
@@ -87,7 +87,7 @@ public class TaskViewNotifier extends TaskView {
                         repeatInterval);
 
                 setResult(Constants.RESULT_GO_HOME);
-                TaskList.shouldCloseInstance = true;
+                MainActivity.shouldCloseInstance = true;
                 finish();
             }
         });

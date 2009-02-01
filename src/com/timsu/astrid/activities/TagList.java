@@ -24,7 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,13 +31,10 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -51,23 +47,22 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.tag.TagController;
+import com.timsu.astrid.activities.MainActivity.SubActivities;
+import com.timsu.astrid.activities.MainActivity.SubActivity;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
-import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
-import com.timsu.astrid.utilities.Constants;
 
 
-/** List all tags and allows a user to see all tasks for a given tag
+/** 
+ * List all tags and allows a user to see all tasks for a given tag
  *
  * @author Tim Su (timsu@stanfordalumni.org)
  *
  */
-public class TagList extends Activity {
-    private static final int ACTIVITY_LIST         = 0;
-    private static final int ACTIVITY_CREATE       = 1;
+public class TagList extends SubActivity {
+    private static final int ACTIVITY_CREATE       = 0;
 
     private static final int MENU_SORT_ALPHA_ID    = Menu.FIRST;
     private static final int MENU_SORT_SIZE_ID     = Menu.FIRST + 1;
@@ -75,56 +70,22 @@ public class TagList extends Activity {
     private static final int CONTEXT_DELETE_ID     = Menu.FIRST + 11;
     private static final int CONTEXT_SHOWHIDE_ID   = Menu.FIRST + 12;
 
-    private TagController controller;
-    private TaskController taskController;
     private ListView listView;
-
     private List<TagModelForView> tagArray;
     private Map<Long, TaskModelForList> taskMap;
-    private Map<TagModelForView, Integer> tagToTaskCount;
-    private GestureDetector gestureDetector;
+    Map<TagModelForView, Integer> tagToTaskCount;
 
     private static SortMode sortMode = SortMode.SIZE;
     private static boolean sortReverse = false;
-
-    /** Called when loading up the activity for the first time */
-    private void onLoad() {
-        controller = new TagController(this);
-        controller.open();
-        taskController = new TaskController(this);
-        taskController.open();
-
-        listView = (ListView)findViewById(R.id.taglist);
-
-        fillData();
-        gestureDetector = new GestureDetector(new TagListGestureDetector());
+    
+    public TagList(MainActivity parent, SubActivities code, View view) {
+    	super(parent, code, view);
     }
 
     @Override
-    public void finish() {
-        super.finish();
-    }
-
-    class TagListGestureDetector extends GestureDetector.SimpleOnGestureListener {
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            try {
-                Log.i("astrid", "Got fling. X: " + (e2.getX() - e1.getX()) +
-                        ", vel: " + velocityX);
-
-                // flick L to R
-                if(e2.getX() - e1.getX() > TaskList.FLING_DIST_THRESHOLD &&
-                        Math.abs(velocityX) > TaskList.FLING_VEL_THRESHOLD) {
-                    setResult(RESULT_CANCELED);
-                    finish();
-                    return true;
-                }
-            } catch (Exception e) {
-                //
-            }
-
-            return false;
-        }
+    public void onDisplay(Bundle variables) {
+        listView = (ListView)findViewById(R.id.taglist);
+        fillData();
     }
 
     // --- stuff for sorting
@@ -148,10 +109,10 @@ public class TagList extends Activity {
 
     private void sortTagArray() {
         // get all tasks
-        Cursor taskCursor = taskController.getActiveTaskListCursor();
+        Cursor taskCursor = getTaskController().getActiveTaskListCursor();
         startManagingCursor(taskCursor);
         List<TaskModelForList> taskArray =
-            taskController.createTaskListFromCursor(taskCursor);
+        	getTaskController().createTaskListFromCursor(taskCursor);
         taskMap = new HashMap<Long, TaskModelForList>();
         for(TaskModelForList task : taskArray) {
             if(task.isHidden())
@@ -163,8 +124,8 @@ public class TagList extends Activity {
         tagToTaskCount = new HashMap<TagModelForView, Integer>();
         for(TagModelForView tag : tagArray) {
             int count = 0;
-            List<TaskIdentifier> tasks = controller.getTaggedTasks(TagList.this,
-                    tag.getTagIdentifier());
+            List<TaskIdentifier> tasks = getTagController().getTaggedTasks(
+            		getParent(), tag.getTagIdentifier());
 
             for(TaskIdentifier taskId : tasks)
                 if(taskMap.containsKey(taskId.getId()))
@@ -189,7 +150,7 @@ public class TagList extends Activity {
     private void fillData() {
         Resources r = getResources();
 
-        tagArray = controller.getAllTags(this);
+        tagArray = getTagController().getAllTags(getParent());
 
         // perform sort
         sortTagArray();
@@ -202,7 +163,7 @@ public class TagList extends Activity {
         setTitle(title);
 
         // set up our adapter
-        TagListAdapter tagAdapter = new TagListAdapter(this,
+        TagListAdapter tagAdapter = new TagListAdapter(getParent(),
                 android.R.layout.simple_list_item_1, tagArray);
         listView.setAdapter(tagAdapter);
 
@@ -213,10 +174,9 @@ public class TagList extends Activity {
                     int position, long id) {
                 TagModelForView tag = (TagModelForView)view.getTag();
 
-                Intent intent = new Intent(TagList.this, TaskList.class);
-                intent.putExtra(TaskList.TAG_TOKEN, tag.
-                        getTagIdentifier().getId());
-                startActivityForResult(intent, ACTIVITY_LIST);
+                Bundle bundle = new Bundle();
+                bundle.putLong(TaskList.TAG_TOKEN, tag.getTagIdentifier().getId());
+                switchToActivity(SubActivities.TASK_LIST_W_TAG, bundle);
             }
         });
 
@@ -244,88 +204,25 @@ public class TagList extends Activity {
         });
 
 
-        listView.setOnTouchListener(new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                if (gestureDetector.onTouchEvent(event)) {
-                    return true;
-                }
-                return false;
-            }
-        });
+        listView.setOnTouchListener(getGestureListener());
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent intent) {
-        switch(resultCode) {
-        case Constants.RESULT_GO_HOME:
-            finish();
-            break;
-
-        default:
-            fillData();
-        }
-    }
-
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
-        if(hasFocus && TaskList.shouldCloseInstance) { // user wants to quit
-            finish();
-        }
+        fillData();
     }
 
     // --- list adapter
 
-    private class TagListAdapter extends ArrayAdapter<TagModelForView> {
-
-        private List<TagModelForView> objects;
-        private int resource;
-        private LayoutInflater inflater;
-
-        public TagListAdapter(Context context, int resource,
-                List<TagModelForView> objects) {
-            super(context, resource, objects);
-
-            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            this.objects = objects;
-            this.resource = resource;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            View view;
-
-            view = inflater.inflate(resource, parent, false);
-            setupView(view, objects.get(position));
-
-            return view;
-        }
-
-        public void setupView(View view, final TagModelForView tag) {
-            Resources r = getResources();
-            view.setTag(tag);
-
-            final TextView name = ((TextView)view.findViewById(android.R.id.text1));
-            name.setText(new StringBuilder(tag.getName()).
-                    append(" (").append(tagToTaskCount.get(tag)).append(")"));
-
-            if(tagToTaskCount.get(tag) == 0)
-                name.setTextColor(r.getColor(R.color.task_list_done));
-        }
-    }
-
-    // --- ui control handlers
-
     private void createTask(TagModelForView tag) {
-        Intent intent = new Intent(this, TaskEdit.class);
+        Intent intent = new Intent(getParent(), TaskEdit.class);
         intent.putExtra(TaskEdit.TAG_NAME_TOKEN, tag.getName());
-        startActivityForResult(intent, ACTIVITY_CREATE);
+        launchActivity(intent, ACTIVITY_CREATE);
     }
 
     private void deleteTag(final TagIdentifier tagId) {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(getParent())
             .setTitle(R.string.delete_title)
             .setMessage(R.string.delete_this_tag_title)
             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -333,7 +230,7 @@ public class TagList extends Activity {
                     new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    controller.deleteTag(tagId);
+                    getTagController().deleteTag(tagId);
                     fillData();
                 }
             })
@@ -342,7 +239,7 @@ public class TagList extends Activity {
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
         case MENU_SORT_ALPHA_ID:
             if(sortMode == SortMode.ALPHA)
@@ -373,35 +270,18 @@ public class TagList extends Activity {
         case CONTEXT_SHOWHIDE_ID:
             tag = tagArray.get(item.getGroupId());
             tag.toggleHideFromMainList();
-            controller.saveTag(tag);
+            getTagController().saveTag(tag);
             fillData();
             return true;
         }
 
-        return super.onMenuItemSelected(featureId, item);
+        return false;
     }
 
     // --- creating stuff
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.tag_list);
-
-        onLoad();
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        controller.close();
-        taskController.close();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
+    public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem item;
 
         item = menu.add(Menu.NONE, MENU_SORT_ALPHA_ID, Menu.NONE,
@@ -416,4 +296,47 @@ public class TagList extends Activity {
 
         return true;
     }
+    
+    // --------------------------------------------------- tag list adapter
+    
+    private class TagListAdapter extends ArrayAdapter<TagModelForView> {
+
+    	private List<TagModelForView> objects;
+        private int resource;
+        private LayoutInflater inflater;
+
+        public TagListAdapter(Context context, int resource,
+                List<TagModelForView> objects) {
+            super(context, resource, objects);
+
+            inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            this.objects = objects;
+            this.resource = resource;
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+        	View view = convertView;
+
+            if(view == null) {
+                view = inflater.inflate(resource, parent, false);
+            }
+            setupView(view, objects.get(position));
+
+            return view;
+        }
+
+        public void setupView(View view, final TagModelForView tag) {
+            Resources r = getResources();
+            view.setTag(tag);
+
+            final TextView name = ((TextView)view.findViewById(android.R.id.text1));
+            name.setText(new StringBuilder(tag.getName()).
+                    append(" (").append(tagToTaskCount.get(tag)).append(")"));
+
+            if(tagToTaskCount.get(tag) == 0)
+                name.setTextColor(r.getColor(R.color.task_list_done));
+        }
+    }
+
 }

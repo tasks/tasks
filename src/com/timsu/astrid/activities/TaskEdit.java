@@ -507,7 +507,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        if(hasFocus && TaskList.shouldCloseInstance) { // user wants to quit
+        if(hasFocus && MainActivity.shouldCloseInstance) { // user wants to quit
             finish();
         }
     }

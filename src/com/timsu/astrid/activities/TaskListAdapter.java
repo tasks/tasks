@@ -53,7 +53,8 @@ import com.timsu.astrid.utilities.DateUtilities;
 import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.utilities.TaskFieldsVisibility;
 
-/** Adapter for displaying a list of TaskModelForList entities
+/** 
+ * Adapter for displaying a list of TaskModelForList entities
  *
  * @author timsu
  *
@@ -65,6 +66,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     public static final int CONTEXT_TIMER_ID      = Menu.FIRST + 52;
     public static final int CONTEXT_POSTPONE_ID   = Menu.FIRST + 53;
 
+    // keys for caching task properties
     private static final int KEY_NAME      = 0;
     private static final int KEY_DEADLINE  = 1;
     private static final int KEY_OVERDUE   = 2;
@@ -90,6 +92,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     private TaskModelForList recentlyCompleted = null;
 
+    /**
+     * Callback interface for interacting with parent activity
+     * 
+     * @author timsu
+     *
+     */
     public interface TaskListAdapterHooks {
         List<TaskModelForList> getTaskArray();
         List<TagModelForView> getTagsFor(TaskModelForList task);
@@ -99,11 +107,20 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         void onCreatedTaskListView(View v, TaskModelForList task);
     }
 
-    public TaskListAdapter(Activity activity, Context context, int resource,
+    /**
+     * Constructor
+     * 
+     * @param activity
+     * @param context
+     * @param resource
+     * @param objects
+     * @param hooks
+     */
+    public TaskListAdapter(Activity activity, int resource,
             List<TaskModelForList> objects, TaskListAdapterHooks hooks) {
-        super(context, resource, objects);
+        super(activity, resource, objects);
 
-        inflater = (LayoutInflater)context.getSystemService(
+        inflater = (LayoutInflater)activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
         this.objects = objects;
         this.resource = resource;
@@ -114,7 +131,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         alarmController = new AlertController(activity);
     }
 
+    // ----------------------------------------------------------------------
     // --- code for setting up each view
+    // ----------------------------------------------------------------------
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {

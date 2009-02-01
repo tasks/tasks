@@ -28,7 +28,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -36,12 +35,9 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.ContextMenu;
-import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
@@ -51,6 +47,8 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.activities.MainActivity.SubActivities;
+import com.timsu.astrid.activities.MainActivity.SubActivity;
 import com.timsu.astrid.activities.TaskListAdapter.TaskListAdapterHooks;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
@@ -63,17 +61,17 @@ import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
-import com.timsu.astrid.utilities.StartupReceiver;
 import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 
 
-/** Primary view for the Astrid Application. Lists all of the tasks in the
+/** 
+ * Primary view for the Astrid Application. Lists all of the tasks in the
  * system, and allows users to edit them.
  *
  * @author Tim Su (timsu@stanfordalumni.org)
  *
  */
-public class TaskList extends Activity {
+public class TaskList extends SubActivity {
 
     // bundle tokens
     public static final String     TAG_TOKEN             = "tag";
@@ -105,9 +103,6 @@ public class TaskList extends Activity {
     private static final int       CONTEXT_SORT_REVERSE  = Menu.FIRST + 26;
     private static final int       CONTEXT_SORT_GROUP    = Menu.FIRST;
 
-    public static final int        FLING_DIST_THRESHOLD  = 100;
-    public static final int        FLING_VEL_THRESHOLD   = 300;
-
     private static final int       SORTFLAG_FILTERDONE   = (1 << 5);
     private static final int       SORTFLAG_FILTERHIDDEN = (1 << 6);
 
@@ -120,9 +115,6 @@ public class TaskList extends Activity {
     private Map<TagIdentifier, TagModelForView> tagMap;
     private ArrayList<TaskModelForList> taskArray;
     private HashMap<TaskModelForList, LinkedList<TagModelForView>> taskTags;
-    private GestureDetector gestureDetector;
-    private View.OnTouchListener gestureTouchListener;
-    private boolean displaySyncShortcut;
 
     // display filters
     private static boolean filterShowHidden = false;
@@ -131,51 +123,32 @@ public class TaskList extends Activity {
     private static SortMode sortMode = SortMode.AUTO;
     private static boolean sortReverse = false;
 
-    static boolean shouldCloseInstance = false;
-
-    // database controllers
-    private TaskController taskController;
-    private TagController tagController;
-
-
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
-
+    
+    public TaskList(MainActivity parent, SubActivities code, View view) {
+    	super(parent, code, view);
+    }
+    
     @Override
-    /** Called when loading up the activity for the first time */
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.task_list);
-
-        StartupReceiver.onStartupApplication(this);
-        shouldCloseInstance = false;
-
-        taskController = new TaskController(this);
-        taskController.open();
-        tagController = new TagController(this);
-        tagController.open();
-
-        Synchronizer.setTagController(tagController);
-        Synchronizer.setTaskController(taskController);
-
+    /** Called when loading up the activity */
+    public void onDisplay(Bundle variables) {
+    	// load tag map
+        tagMap = getTagController().getAllTagsAsMap(getParent());
+        
+        // process the tag to filter on, if any
+        if(variables != null && variables.containsKey(TAG_TOKEN)) {
+            TagIdentifier identifier = new TagIdentifier(variables.getLong(TAG_TOKEN));
+            filterTag = tagMap.get(identifier);
+        }
+    	
         setupUIComponents();
         loadTaskListSort();
         fillData();
-
-        // auto sync
-        Integer autoSyncHours = Preferences.autoSyncFrequency(this);
-        if(autoSyncHours != null) {
-            final Date lastSync = Preferences.getSyncLastSync(this);
-
-            if(lastSync == null || lastSync.getTime() +
-                    1000L*3600*autoSyncHours < System.currentTimeMillis()) {
-                Synchronizer.synchronize(this, true, null);
-            }
-        }
     }
 
-    public void setupUIComponents() {
+	public void setupUIComponents() {
         listView = (ListView)findViewById(R.id.tasklist);
         addButton = (Button)findViewById(R.id.addtask);
         addButton.setOnClickListener(new
@@ -197,52 +170,10 @@ public class TaskList extends Activity {
                         onCreateMoreOptionsMenu(menu);
                     }
                 });
-
-        gestureDetector = new GestureDetector(new TaskListGestureDetector());
-        gestureTouchListener = new View.OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                if (gestureDetector.onTouchEvent(event)) {
-                    return true;
-                }
-                return false;
-            }
-        };
     }
-
-    class TaskListGestureDetector extends GestureDetector.SimpleOnGestureListener {
-        @Override
-        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            try {
-                Log.i("astrid", "Got fling. X: " + (e2.getX() - e1.getX()) +
-                        ", vel: " + velocityX);
-
-                // flick R to L
-                if(e1.getX() - e2.getX() > FLING_DIST_THRESHOLD &&
-                        Math.abs(velocityX) > FLING_VEL_THRESHOLD) {
-                    showTagsView();
-                    return true;
-                }
-
-                // flick L to R
-                else if(e2.getX() - e1.getX() > FLING_DIST_THRESHOLD &&
-                        Math.abs(velocityX) > FLING_VEL_THRESHOLD &&
-                        !isTopLevelActivity()) {
-                    setResult(RESULT_CANCELED);
-                    finish();
-                    return true;
-                }
-            } catch (Exception e) {
-                // ignore!
-            }
-
-            return false;
-        }
-    }
-
+    
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-
+    public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem item;
 
         item = menu.add(Menu.NONE, INSERT_ID, Menu.NONE,
@@ -260,41 +191,17 @@ public class TaskList extends Activity {
         item.setIcon(android.R.drawable.ic_menu_myplaces);
         item.setAlphabeticShortcut('t');
 
-        if(Preferences.shouldDisplaySyncButton(this)){
+        if(Preferences.shouldDisplaySyncButton(getParent())){
             item = menu.add(Menu.NONE, SYNC_ID, Menu.NONE,
                     R.string.taskList_menu_syncshortcut);
             item.setIcon(android.R.drawable.ic_menu_upload);
             item.setAlphabeticShortcut('s');
-            displaySyncShortcut = true;
-        } else {
-            displaySyncShortcut = false;
         }
 
         item = menu.add(Menu.NONE, MORE_ID, Menu.NONE,
                 R.string.taskList_menu_more);
         item.setIcon(android.R.drawable.ic_menu_more);
         item.setAlphabeticShortcut('m');
-
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        super.onPrepareOptionsMenu(menu);
-
-        boolean shouldDisplaySyncShortcut = Preferences.shouldDisplaySyncButton(this);
-        if(shouldDisplaySyncShortcut != displaySyncShortcut) {
-            if(shouldDisplaySyncShortcut) {
-                MenuItem item = menu.add(Menu.NONE, SYNC_ID, Menu.NONE,
-                        R.string.taskList_menu_syncshortcut);
-                item.setIcon(android.R.drawable.ic_menu_upload);
-                item.setAlphabeticShortcut('s');
-            } else
-                menu.removeItem(SYNC_ID);
-
-            displaySyncShortcut = shouldDisplaySyncShortcut;
-        }
-
 
         return true;
     }
@@ -376,28 +283,20 @@ public class TaskList extends Activity {
     private void fillData() {
         Resources r = getResources();
 
-        // load tags (they might've changed)
-        tagMap = tagController.getAllTagsAsMap(this);
-        Bundle extras = getIntent().getExtras();
-        if(extras != null && extras.containsKey(TAG_TOKEN)) {
-            TagIdentifier identifier = new TagIdentifier(extras.getLong(TAG_TOKEN));
-            filterTag = tagMap.get(identifier);
-        }
-
         // get a cursor to the task list
         Cursor tasksCursor;
         if(filterTag != null) {
-            List<TaskIdentifier> tasks = tagController.getTaggedTasks(this,
+            List<TaskIdentifier> tasks = getTagController().getTaggedTasks(getParent(),
                     filterTag.getTagIdentifier());
-            tasksCursor = taskController.getTaskListCursorById(tasks);
+            tasksCursor = getTaskController().getTaskListCursorById(tasks);
         } else {
             if(filterShowDone)
-                tasksCursor = taskController.getAllTaskListCursor();
+                tasksCursor = getTaskController().getAllTaskListCursor();
             else
-                tasksCursor = taskController.getActiveTaskListCursor();
+                tasksCursor = getTaskController().getActiveTaskListCursor();
         }
         startManagingCursor(tasksCursor);
-        taskArray = taskController.createTaskListFromCursor(tasksCursor);
+        taskArray = getTaskController().createTaskListFromCursor(tasksCursor);
 
         // read tags and apply filters
         int hiddenTasks = 0; // # of tasks hidden
@@ -414,7 +313,7 @@ public class TaskList extends Activity {
             }
 
             // get list of tags
-            LinkedList<TagIdentifier> tagIds = tagController.getTaskTags(this,
+            LinkedList<TagIdentifier> tagIds = getTagController().getTaskTags(getParent(),
                     task.getTaskIdentifier());
             LinkedList<TagModelForView> tags = new LinkedList<TagModelForView>();
             for(TagIdentifier tagId : tagIds) {
@@ -476,15 +375,13 @@ public class TaskList extends Activity {
         setUpListUI();
     }
 
-
-
     private void setUpListUI() {
      // set up our adapter
-        TaskListAdapter tasks = new TaskListAdapter(this, this,
+        TaskListAdapter tasks = new TaskListAdapter(getParent(),
                     R.layout.task_list_row, taskArray, new TaskListAdapterHooks() {
                 @Override
                 public TagController getTagController() {
-                    return tagController;
+                    return getTagController();
                 }
 
                 @Override
@@ -500,7 +397,7 @@ public class TaskList extends Activity {
 
                 @Override
                 public TaskController getTaskController() {
-                    return taskController;
+                    return getTaskController();
                 }
 
                 @Override
@@ -509,7 +406,7 @@ public class TaskList extends Activity {
                 }
 
                 public void onCreatedTaskListView(View v, TaskModelForList task) {
-                    v.setOnTouchListener(gestureTouchListener);
+                    v.setOnTouchListener(getGestureListener());
                 }
         });
         listView.setAdapter(tasks);
@@ -522,10 +419,10 @@ public class TaskList extends Activity {
                     int position, long id) {
                 TaskModelForList task = (TaskModelForList)view.getTag();
 
-                Intent intent = new Intent(TaskList.this, TaskView.class);
+                Intent intent = new Intent(getParent(), TaskView.class);
                 intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, task.
                         getTaskIdentifier().getId());
-                startActivityForResult(intent, ACTIVITY_VIEW);
+                launchActivity(intent, ACTIVITY_VIEW);
             }
         });
 
@@ -575,7 +472,7 @@ public class TaskList extends Activity {
             }
         });
 
-        listView.setOnTouchListener(gestureTouchListener);
+        listView.setOnTouchListener(getGestureListener());
     }
 
     /* ======================================================================
@@ -584,45 +481,37 @@ public class TaskList extends Activity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
         if(resultCode == Constants.RESULT_SYNCHRONIZE) {
-            Synchronizer.synchronize(this, false, new SynchronizerListener() {
+            Synchronizer.synchronize(getParent(), false, new SynchronizerListener() {
                 @Override
                 public void onSynchronizerFinished(int numServicesSynced) {
                     if(numServicesSynced == 0)
-                        DialogUtilities.okDialog(TaskList.this, getResources().getString(
+                        DialogUtilities.okDialog(getParent(), getResources().getString(
                                 R.string.sync_no_synchronizers), null);
                     fillData();
                 }
             });
-        } else if(requestCode == ACTIVITY_TAGS && resultCode == RESULT_CANCELED)
-            filterTag = null;
+        } else if(requestCode == ACTIVITY_TAGS)
+            switchToActivity(SubActivities.TAG_LIST, null);
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-
         // refresh, since stuff might have changed...
         if(hasFocus) {
-            if(shouldCloseInstance) { // user wants to quit
-                shouldCloseInstance = false;
-                finish();
-            } else
-                fillData();
+            fillData();
         }
     }
 
     private void createTask() {
-        Intent intent = new Intent(this, TaskEdit.class);
+        Intent intent = new Intent(getParent(), TaskEdit.class);
         if(filterTag != null)
             intent.putExtra(TaskEdit.TAG_NAME_TOKEN, filterTag.getName());
-        startActivityForResult(intent, ACTIVITY_CREATE);
+        launchActivity(intent, ACTIVITY_CREATE);
     }
 
     private void deleteTask(final TaskIdentifier taskId) {
-        new AlertDialog.Builder(this)
+        new AlertDialog.Builder(getParent())
             .setTitle(R.string.delete_title)
             .setMessage(R.string.delete_this_task_title)
             .setIcon(android.R.drawable.ic_dialog_alert)
@@ -630,7 +519,7 @@ public class TaskList extends Activity {
                     new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    taskController.deleteTask(taskId);
+                    getTaskController().deleteTask(taskId);
                     fillData();
                 }
             })
@@ -638,19 +527,8 @@ public class TaskList extends Activity {
             .show();
     }
 
-    public boolean isTopLevelActivity() {
-        return (getIntent() == null ||
-                getIntent().getExtras() == null ||
-                !getIntent().getExtras().containsKey(TAG_TOKEN));
-    }
-
     public void showTagsView() {
-        if(isTopLevelActivity()) {
-            Intent intent = new Intent(TaskList.this, TagList.class);
-            startActivityForResult(intent, ACTIVITY_TAGS);
-        } else {
-            finish();
-        }
+        switchToActivity(SubActivities.TAG_LIST, null);
     }
 
     /** Save the sorting mode to the preferences */
@@ -665,12 +543,12 @@ public class TaskList extends Activity {
         if(sortReverse)
             sortId *= -1;
 
-        Preferences.setTaskListSort(this, sortId);
+        Preferences.setTaskListSort(getParent(), sortId);
     }
 
     /** Save the sorting mode to the preferences */
     private void loadTaskListSort() {
-        int sortId = Preferences.getTaskListSort(this);
+        int sortId = Preferences.getTaskListSort(getParent());
         if(sortId == 0)
             return;
         sortReverse = sortId < 0;
@@ -685,7 +563,7 @@ public class TaskList extends Activity {
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item) {
         Intent intent;
         final TaskModelForList task;
         Resources r = getResources();
@@ -708,23 +586,23 @@ public class TaskList extends Activity {
             return true;
 
         case OPTIONS_SYNC_ID:
-            startActivityForResult(new Intent(this, SyncPreferences.class),
+            launchActivity(new Intent(getParent(), SyncPreferences.class),
                     ACTIVITY_SYNCHRONIZE);
             return true;
         case OPTIONS_SETTINGS_ID:
-            startActivity(new Intent(this, EditPreferences.class));
+        	launchActivity(new Intent(getParent(), EditPreferences.class), 0);
             return true;
         case OPTIONS_HELP_ID:
             Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(Constants.HELP_URL));
-            startActivity(browserIntent);
+            launchActivity(browserIntent, 0);
             return true;
 
         case TaskListAdapter.CONTEXT_EDIT_ID:
             task = taskArray.get(item.getGroupId());
-            intent = new Intent(TaskList.this, TaskEdit.class);
+            intent = new Intent(getParent(), TaskEdit.class);
             intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, task.getTaskIdentifier().getId());
-            startActivityForResult(intent, ACTIVITY_EDIT);
+            launchActivity(intent, ACTIVITY_EDIT);
             return true;
         case TaskListAdapter.CONTEXT_DELETE_ID:
             task = taskArray.get(item.getGroupId());
@@ -737,12 +615,12 @@ public class TaskList extends Activity {
             else {
                 task.stopTimerAndUpdateElapsedTime();
             }
-            taskController.saveTask(task);
+            getTaskController().saveTask(task);
             fillData();
             return true;
         case TaskListAdapter.CONTEXT_POSTPONE_ID:
             task = taskArray.get(item.getGroupId());
-            DialogUtilities.dayHourPicker(this,
+            DialogUtilities.dayHourPicker(getParent(),
                 r.getString(R.string.taskList_postpone_dialog),
                 new OnNNumberPickedListener() {
                     public void onNumbersPicked(int[] values) {
@@ -760,7 +638,7 @@ public class TaskList extends Activity {
                                     postponeMillis);
                             task.setDefiniteDueDate(definite);
                         }
-                        taskController.saveTask(task);
+                        getTaskController().saveTask(task);
                         fillData();
                     }
                 });
@@ -811,16 +689,6 @@ public class TaskList extends Activity {
             return true;
         }
 
-        return super.onMenuItemSelected(featureId, item);
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        taskController.close();
-        if(tagController != null)
-            tagController.close();
-        Synchronizer.setTagController(null);
-        Synchronizer.setTaskController(null);
+        return false;
     }
 }
