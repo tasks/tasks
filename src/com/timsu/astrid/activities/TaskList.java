@@ -297,9 +297,13 @@ public class TaskList extends Activity {
     	case TASK_LIST:
             viewFlipper.setInAnimation(mInAnimationForward);
             viewFlipper.setOutAnimation(mOutAnimationForward);
-            viewFlipper.showNext();
-            if(activity == ActivityCode.TASK_LIST_W_TAG)
-    			viewFlipper.showNext();
+            switch(activity) {
+            case TAG_LIST:
+            	viewFlipper.showNext();
+            	break;
+            case TASK_LIST_W_TAG:
+            	viewFlipper.setDisplayedChild(taskListWTag.code.ordinal());
+            }
             break;
             
     	case TAG_LIST:
@@ -320,9 +324,13 @@ public class TaskList extends Activity {
     	case TASK_LIST_W_TAG:
             viewFlipper.setInAnimation(mInAnimationBackward);
             viewFlipper.setOutAnimation(mOutAnimationBackward);
-            viewFlipper.showPrevious();
-            if(activity == ActivityCode.TASK_LIST_W_TAG)
-    			viewFlipper.showPrevious();
+            switch(activity) {
+            case TAG_LIST:
+            	viewFlipper.showPrevious();
+            	break;
+            case TASK_LIST:
+            	viewFlipper.setDisplayedChild(taskList.code.ordinal());
+            }
             break;
     	}
     	
