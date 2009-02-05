@@ -151,6 +151,9 @@ public class TaskListSubActivity extends SubActivity {
         // process task that's selected, if any
         if(variables != null && variables.containsKey(LOAD_INSTANCE_TOKEN)) {
             selectedTaskId = variables.getLong(LOAD_INSTANCE_TOKEN);
+        } else {
+            selectedTaskId = null;
+            selectedTask = null;
         }
 
         setupUIComponents();
