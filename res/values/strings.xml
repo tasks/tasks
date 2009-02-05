@@ -56,16 +56,16 @@
             <item quantity="other">%d Tags</item>
         </plurals>
         <!-- Time Constants -->
+        <string name="daysVertical">D\na\ny\ns</string>
+        <string name="hoursVertical">H\no\nu\nr\ns</string>
         <plurals name="Ndays">
             <item quantity="one">1 Day</item>
             <item quantity="other">%d Days</item>
         </plurals>
-        <string name="daysVertical">D\na\ny\ns</string>
         <plurals name="Nhours">
             <item quantity="one">1 Hour</item>
             <item quantity="other">%d Hours</item>
         </plurals>
-        <string name="hoursVertical">H\no\nu\nr\ns</string>
         <plurals name="Nminutes">
             <item quantity="one">1 Minute</item>
             <item quantity="other">%d Minutes</item>
@@ -74,6 +74,19 @@
             <item quantity="one">1 Second</item>
             <item quantity="other">%d Seconds</item>
         </plurals>
+        <plurals name="NhoursShort">
+            <item quantity="one">1 Hr</item>
+            <item quantity="other">%d Hrs</item>
+        </plurals>
+        <plurals name="NminutesShort">
+            <item quantity="one">1 Min</item>
+            <item quantity="other">%d Min</item>
+        </plurals>
+        <plurals name="NsecondsShort">
+            <item quantity="one">1 Sec</item>
+            <item quantity="other">%d Sec</item>
+        </plurals>
+        <string name="ago_suffix">Ago</string>
         
     <!-- TaskList -->
     <skip />
@@ -91,9 +104,10 @@
         <string name="taskList_elapsedTimePrefix">Spent:</string>
         <string name="taskList_periodicReminderPrefix">Reminder Every</string>
         <string name="taskList_repeatPrefix">Repeats Every</string>
-        <string name="taskList_alarmSuffix">Set</string>
+        <string name="taskList_alarmPrefix">Next Alarm:</string>
         <string name="taskList_tagsPrefix">Tags:</string>
         <string name="taskList_notesPrefix">Notes:</string>
+        <string name="taskList_createdPrefix">Created:</string>
         
         <string name="taskList_menu_insert">Add</string>
         <string name="taskList_menu_tags">Tags</string>
@@ -175,30 +189,18 @@ If you don\'t want to see the new task right after you complete the old one, you
         <!-- buttons -->
         <string name="save_label">Save</string>
         <string name="discard_label">Discard</string>
+        <string name="edit_label">Edit</string>
         <string name="delete_label">Delete</string>
         <string name="blank_button_title">Click to Set</string>
+        <string name="startTimer_label">Start Timer</string>
+        <string name="stopTimer_label">Stop Timer</string>
         
         <string name="taskEdit_menu_save">Save</string>
       
     <!-- TaskView  -->
     <skip />
     
-        <string name="taskView_title">Astrid: Task Properties</string>
         <string name="taskView_notifyTitle">Astrid says...</string>
-        <string name="startTimer_label">Start Timer</string>
-        <string name="stopTimer_label">Stop Timer</string>
-        <string name="progress_suffix">% Done</string>
-        <string name="edit_label">Edit Task</string>
-        <string name="taskView_elapsed">Elapsed Time</string>
-        <string name="taskView_estimated">Estimated Time</string>
-        <string name="taskView_definiteDueDate">Absolute Deadline</string>
-        <string name="taskView_preferredDueDate">Goal Deadline</string>
-        <string name="taskView_creationDate">Creation Date</string>
-        <string name="taskView_tags">Tags</string>
-        <string name="taskView_notes">Task Notes</string>
-        <string name="overdue_suffix"> Overdue</string>
-        <string name="ago_suffix"> Ago</string>
-        <string name="progress_dialog">% of Task Finished</string>
         
     <!-- Tag List -->
     <skip />
@@ -257,9 +259,10 @@ Wish me luck!\n
     <skip />
         <string name="information_title">Information</string>
         <string name="question_title">Question</string>
-        <string name="notify_yes">Let\'s do it!</string>
-        <string name="notify_snooze">Snooze!</string>
-        <string name="notify_no">No, quit.</string>
+        <string name="notify_yes">View Task</string>
+        <string name="notify_done">Already Done!</string>
+        <string name="notify_snooze">Snooze</string>
+        <string name="notify_no">Quit</string>
         <string name="notify_snooze_title">Hours/minutes to snooze?</string>
         
         <string name="delete_title">Delete</string>        

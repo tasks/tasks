@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionCode="74"
-      android:versionName="2.2.0">
+      android:versionCode="75"
+      android:versionName="2.2.5">
       
     <meta-data android:name="com.a0soft.gphone.aTrackDog.webURL"
                android:value="http://www.weloveastrid.com" />
@@ -14,22 +14,15 @@
     
     <application android:icon="@drawable/icon" android:label="@string/app_name">
     
-        <activity android:name=".activities.TaskList"
-                  android:label="@string/app_name">
+        <activity android:name=".activities.TaskList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         
-        <activity android:name=".activities.TaskView"
-                android:theme="@android:style/Theme.Dialog">
-        </activity>
-        
-        <activity android:name=".activities.TaskViewNotifier"
-                android:excludeFromRecents="true"
-                android:theme="@android:style/Theme.Dialog"
-                android:launchMode="singleTask" />
+        <activity android:name=".activities.TaskListNotify"
+                  android:launchMode="singleTop" />
         
         <activity android:name=".activities.TaskEdit" 
         		android:label="@string/taskEdit_label"/>

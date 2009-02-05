@@ -42,11 +42,6 @@
         <PreferenceScreen
             android:title="@string/displayedFields_PrefScreen_Title"
             android:summary="@string/displayedFields_PrefScreen_Desc">
-         	<CheckBoxPreference  
-               android:key="@string/prefs_titleVisible"  
-               android:title="@string/prefs_titleVisible_title"
-               android:summary="@string/prefs_titleVisible_desc"
-               android:defaultValue="@string/prefs_titleVisible_default" />  
             <CheckBoxPreference  
                android:key="@string/prefs_deadlineVisible"
                android:title="@string/prefs_deadlineVisible_title"

@@ -17,6 +17,8 @@
  */
 package com.timsu.astrid.activities;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -38,9 +40,11 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
@@ -50,13 +54,14 @@ import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
+import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.utilities.DateUtilities;
 import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.utilities.TaskFieldsVisibility;
 
-/** 
+/**
  * Adapter for displaying a list of TaskModelForList entities
  *
  * @author timsu
@@ -78,8 +83,14 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private static final int KEY_TIMES     = 5;
     private static final int KEY_TAGS      = 6;
     private static final int KEY_HIDDEN    = 7;
+    private static final int KEY_EXPANDED  = 8;
+    private static final int KEY_CREATION  = 9;
 
     private static final String CACHE_TRUE = "y";
+
+    // alarm date formatter
+    private static final Format alarmFormat = new SimpleDateFormat(
+            "MM/dd hh:mm");
 
     /** Threshold under which to display a task as red, in millis */
 	private static final long TASK_OVERDUE_THRESHOLD = 30 * 60 * 1000L;
@@ -96,8 +107,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private TaskModelForList recentlyCompleted = null;
 
     /**
-     * Callback interface for interacting with parent activity
-     * 
+     * Call-back interface for interacting with parent activity
+     *
      * @author timsu
      *
      */
@@ -108,11 +119,15 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         TagController tagController();
         void performItemClick(View v, int position);
         void onCreatedTaskListView(View v, TaskModelForList task);
+
+        void editItem(TaskModelForList task);
+        void toggleTimerOnItem(TaskModelForList task);
+        void setSelectedItem(TaskIdentifier taskId);
     }
 
     /**
      * Constructor
-     * 
+     *
      * @param activity
      * @param context
      * @param resource
@@ -134,6 +149,20 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         alarmController = new AlertController(activity);
     }
 
+    /** Toggle the expanded state of this task */
+    public void toggleExpanded(View view, TaskModelForList task) {
+        if(CACHE_TRUE.equals(task.getCachedLabel(KEY_EXPANDED))) {
+            task.putCachedLabel(KEY_EXPANDED, null);
+            hooks.setSelectedItem(null);
+        } else {
+            task.putCachedLabel(KEY_EXPANDED, CACHE_TRUE);
+            hooks.setSelectedItem(task.getTaskIdentifier());
+        }
+
+        setFieldContentsAndVisibility(view, task);
+        ((ListView)view.getParent()).setSelection(objects.indexOf(task));
+    }
+
     // ----------------------------------------------------------------------
     // --- code for setting up each view
     // ----------------------------------------------------------------------
@@ -145,16 +174,17 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         if(view == null) {
             view = inflater.inflate(resource, parent, false);
             initializeView(view);
+            addListeners(view);
         }
+
         setupView(view, objects.get(position));
-        addListeners(position, view);
 
         return view;
     }
-    
+
     /**
-     * Perform initial setup on the row
-     * 
+     * Perform initial setup on the row, stuff is constant for every row
+     *
      * @param view
      */
     private void initializeView(View view) {
@@ -165,28 +195,31 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     /**
      * Setup the given view for the specified task
-     * 
+     *
      * @param view
      * @param task
      */
     private void setupView(View view, final TaskModelForList task) {
         Resources r = activity.getResources();
 
-        final CheckBox progress = ((CheckBox)view.findViewById(R.id.cb1));
-        final ImageView timer = ((ImageView)view.findViewById(R.id.imageLeft));
-        final TextView name = ((TextView)view.findViewById(R.id.task_name));
-
         view.setTag(task);
-        progress.setTag(task);
+        setFieldContentsAndVisibility(view, task);
 
-        if(task.getTimerStart() != null)
-            timer.setImageDrawable(r.getDrawable(R.drawable.icon_timer));
-        else
-        	timer.setImageDrawable(null);
+        final CheckBox progress = ((CheckBox)view.findViewById(R.id.cb1));
         progress.setChecked(task.isTaskCompleted());
 
-        setFieldContentsAndVisibility(view, task);
+        final ImageView timer = ((ImageView)view.findViewById(R.id.imageLeft));
+        if(task.getTimerStart() != null) {
+            timer.setImageDrawable(r.getDrawable(R.drawable.icon_timer));
+            view.setMinimumHeight(80);
+        } else {
+        	timer.setImageDrawable(null);
+        	view.setMinimumHeight(45);
+        }
+
+        final TextView name = ((TextView)view.findViewById(R.id.task_name));
         setTaskAppearance(task, name, progress);
+
         hooks.onCreatedTaskListView(view, task);
     }
 
@@ -198,14 +231,30 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             v.setVisibility(View.GONE);
     }
 
+    /** Helper method to add a line and maybe a newline */
+    private static void appendLine(StringBuilder sb, String line) {
+        if(line.length() == 0)
+            return;
+
+        if(sb.length() > 0)
+            sb.append("\n");
+        sb.append(line);
+    }
+
     /** Helper method to set the contents and visibility of each field */
     private void setFieldContentsAndVisibility(View view, TaskModelForList task) {
-        TaskFieldsVisibility visibleFields = Preferences.getTaskFieldsVisibility(activity);
         Resources r = getContext().getResources();
+        TaskFieldsVisibility visibleFields = Preferences.getTaskFieldsVisibility(activity);
+        boolean isExpanded = CACHE_TRUE.equals(task.getCachedLabel(KEY_EXPANDED));
+        StringBuilder details = new StringBuilder();
+        StringBuilder expandedDetails = new StringBuilder();
+
+        // expanded container
+        final View expandedContainer = view.findViewById(R.id.expanded_layout);
+        expandedContainer.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
         // name
-        final TextView name = ((TextView)view.findViewById(R.id.task_name));
-        if(visibleFields.TITLE) {
+        final TextView name = ((TextView)view.findViewById(R.id.task_name)); {
             String cachedResult = task.getCachedLabel(KEY_NAME);
             if(cachedResult == null) {
                 String nameValue = task.getName();
@@ -222,8 +271,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             else
                 name.setTypeface(Typeface.DEFAULT_BOLD);
         }
-        setVisibility(name);
-
 
         // importance
         final View importance = (View)view.findViewById(R.id.importance);
@@ -235,7 +282,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
         // due date / completion date
         final TextView deadlines = ((TextView)view.findViewById(R.id.text_deadlines));
-        if(visibleFields.DEADLINE) {
+        if(visibleFields.DEADLINE || isExpanded) {
             String cachedResult = task.getCachedLabel(KEY_DEADLINE);
             if(cachedResult == null) {
                 StringBuilder label = new StringBuilder();
@@ -282,17 +329,21 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 cachedResult = label.toString();
                 task.putCachedLabel(KEY_DEADLINE, cachedResult);
             }
-            deadlines.setText(cachedResult);
-            if(CACHE_TRUE.equals(task.getCachedLabel(KEY_OVERDUE)))
-                deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
-            else
-            	deadlines.setTextColor(r.getColor(R.color.taskList_details));
+
+            if(visibleFields.DEADLINE) {
+                deadlines.setText(cachedResult);
+                if(CACHE_TRUE.equals(task.getCachedLabel(KEY_OVERDUE)))
+                    deadlines.setTextColor(r.getColor(R.color.taskList_dueDateOverdue));
+                else
+                	deadlines.setTextColor(r.getColor(R.color.taskList_details));
+            } else {
+                expandedDetails.append(cachedResult);
+            }
         }
         setVisibility(deadlines);
 
         // estimated / elapsed time
-        final TextView times = ((TextView)view.findViewById(R.id.text_times));
-        if(visibleFields.TIMES) {
+        if(visibleFields.TIMES || isExpanded) {
             String cachedResult = task.getCachedLabel(KEY_TIMES);
             if(cachedResult == null) {
                 Integer elapsed = task.getElapsedSeconds();
@@ -310,18 +361,19 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 if(elapsed > 0) {
                     label.append(r.getString(R.string.taskList_elapsedTimePrefix)).
                         append(" ").
-                        append(DateUtilities.getDurationString(r, elapsed, 2));
+                        append(DateUtilities.getAbbreviatedDurationString(r, elapsed, 2));
                 }
                 cachedResult = label.toString();
                 task.putCachedLabel(KEY_TIMES, cachedResult);
             }
-            times.setText(cachedResult);
+            if(visibleFields.TIMES)
+                appendLine(details, cachedResult);
+            else
+                appendLine(expandedDetails, cachedResult);
         }
-        setVisibility(times);
 
         // reminders
-        final TextView reminders = ((TextView)view.findViewById(R.id.text_reminders));
-        if(visibleFields.REMINDERS) {
+        if(visibleFields.REMINDERS || isExpanded) {
             String cachedResult = task.getCachedLabel(KEY_REMINDERS);
             if(cachedResult == null) {
                 Integer notifyEvery = task.getNotificationIntervalSeconds();
@@ -335,10 +387,21 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     alarmController.open();
         	        List<Date> alerts = alarmController.getTaskAlerts(task.getTaskIdentifier());
         	        if(alerts.size() > 0) {
-        	            if(label.length() > 0)
-        	                label.append(". ");
-        	            label.append(r.getQuantityString(R.plurals.Nalarms, alerts.size(),
-        	                    alerts.size())).append(" ").append(r.getString(R.string.taskList_alarmSuffix));
+        	            Date nextAlarm = null;
+        	            Date now = new Date();
+        	            for(Date alert : alerts) {
+        	                if(alert.after(now) && (nextAlarm == null ||
+        	                        alert.before(nextAlarm)))
+        	                    nextAlarm = alert;
+        	            }
+
+        	            if(nextAlarm != null) {
+            	            if(label.length() > 0)
+            	                label.append(". ");
+            	            String alarmString = alarmFormat.format(nextAlarm);
+            	            label.append(r.getString(R.string.taskList_alarmPrefix) +
+            	                    " " + alarmString);
+        	            }
         	        }
                 } finally {
                     alarmController.close();
@@ -346,13 +409,14 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 cachedResult = label.toString();
                 task.putCachedLabel(KEY_REMINDERS, cachedResult);
             }
-            reminders.setText(cachedResult);
+            if(visibleFields.REMINDERS)
+                appendLine(details, cachedResult);
+            else
+                appendLine(expandedDetails, cachedResult);
         }
-        setVisibility(reminders);
 
         // repeats
-        final TextView repeats = ((TextView)view.findViewById(R.id.text_repeats));
-        if(visibleFields.REPEATS) {
+        if(visibleFields.REPEATS || isExpanded) {
             String cachedResult = task.getCachedLabel(KEY_REPEAT);
             if(cachedResult == null) {
                 RepeatInfo repeatInfo = task.getRepeat();
@@ -364,13 +428,14 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     cachedResult = "";
                 task.putCachedLabel(KEY_REPEAT, cachedResult);
             }
-            repeats.setText(cachedResult);
+            if(visibleFields.REPEATS)
+                appendLine(details, cachedResult);
+            else
+                appendLine(expandedDetails, cachedResult);
         }
-        setVisibility(repeats);
 
         // tags
-        final TextView tags = ((TextView)view.findViewById(R.id.text_tags));
-        if(visibleFields.TAGS) {
+        if(visibleFields.TAGS || isExpanded) {
             String cachedResult = task.getCachedLabel(KEY_TAGS);
             if(cachedResult == null) {
                 List<TagModelForView> alltags = hooks.getTagsFor(task);
@@ -382,24 +447,66 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         tagString.append(", ");
                 }
                 if(alltags.size() > 0)
-                    cachedResult = r.getString(R.string.taskList_tagsPrefix) + " " + tagString;
+                    cachedResult = r.getString(R.string.taskList_tagsPrefix) +
+                        " " + tagString;
                 else
                     cachedResult = "";
                 task.putCachedLabel(KEY_TAGS, cachedResult);
             }
-            tags.setText(cachedResult);
+            if(visibleFields.TAGS)
+                appendLine(details, cachedResult);
+            else
+                appendLine(expandedDetails, cachedResult);
         }
-        setVisibility(tags);
 
         // notes
-        final TextView notes = ((TextView)view.findViewById(R.id.text_notes));
-        if(visibleFields.NOTES) {
-        	notes.setText(r.getString(R.string.taskList_notesPrefix) + " " + task.getNotes());
+        if(visibleFields.NOTES || isExpanded) {
+            if(task.getNotes() != null && task.getNotes().length() > 0) {
+        	    String notes = r.getString(R.string.taskList_notesPrefix) +
+        	        " " + task.getNotes();
+            	if(visibleFields.NOTES)
+            	    appendLine(details, notes);
+                else
+                    appendLine(expandedDetails, notes);
+            }
         }
-        setVisibility(notes);
+
+        final TextView detailsView = ((TextView)view.findViewById(R.id.details));
+        detailsView.setText(details.toString());
+        setVisibility(detailsView);
+
+
+        // expanded-only fields: creation date, ...
+        if(isExpanded) {
+            if(task.getCreationDate() != null) {
+                String cachedResult = task.getCachedLabel(KEY_CREATION);
+                if(cachedResult == null) {
+                    int secondsAgo = (int) ((System.currentTimeMillis() -
+                            task.getCreationDate().getTime())/1000);
+                    cachedResult = r.getString(R.string.taskList_createdPrefix) + " " +
+                        DateUtilities.getDurationString(r, Math.abs(secondsAgo), 1) +
+                        " " + r.getString(R.string.ago_suffix);
+                    task.putCachedLabel(KEY_CREATION, cachedResult);
+                }
+                appendLine(expandedDetails, cachedResult);
+            }
+
+            final Button timerButton =
+                ((Button)view.findViewById(R.id.timer));
+            if(task.getTimerStart() == null)
+                timerButton.setText(r.getString(R.string.startTimer_label));
+            else
+                timerButton.setText(r.getString(R.string.stopTimer_label));
+
+            final TextView expandedDetailsView =
+                ((TextView)view.findViewById(R.id.expanded_details));
+            expandedDetailsView.setText(expandedDetails.toString());
+        }
+
     }
 
-    private void addListeners(final int position, final View view) {
+    /** Set listeners for this view. This is called once total */
+    private void addListeners(View view) {
         final CheckBox progress = ((CheckBox)view.findViewById(R.id.cb1));
 
         // clicking the check box
@@ -407,7 +514,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked) {
-                TaskModelForList task = (TaskModelForList)buttonView.getTag();
+                View parent = (View)buttonView.getParent();
+                TaskModelForList task = (TaskModelForList)parent.getTag();
 
                 int newProgressPercentage;
                 if(isChecked)
@@ -417,8 +525,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     newProgressPercentage = 0;
 
                 if(newProgressPercentage != task.getProgressPercentage()) {
-                    setTaskProgress(task, view, newProgressPercentage);
-                    setupView(view, task);
+                    setTaskProgress(task, parent, newProgressPercentage);
+                    setupView(parent, task);
                 }
             }
         });
@@ -427,16 +535,18 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hooks.performItemClick(view, position);
+                TaskModelForList task = (TaskModelForList)v.getTag();
+                toggleExpanded(v, task);
             }
         });
-        
+
+        // typing while selected something
         view.setOnKeyListener(new OnKeyListener() {
         	@Override
         	public boolean onKey(View v, int keyCode, KeyEvent event) {
         		if(event.getAction() != KeyEvent.ACTION_UP)
         			return false;
-        		// hotkey to set task priority
+        		// hot-key to set task priority
         		 if(keyCode >= KeyEvent.KEYCODE_1 && keyCode <= KeyEvent.KEYCODE_4) {
         			Importance i = Importance.values()[keyCode - KeyEvent.KEYCODE_1];
         			TaskModelForList task = (TaskModelForList)v.getTag();
@@ -455,6 +565,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             public void onCreateContextMenu(ContextMenu menu, View v,
                     ContextMenuInfo menuInfo) {
                 TaskModelForList task = (TaskModelForList)v.getTag();
+                int position = objects.indexOf(task);
 
                 menu.add(position, CONTEXT_EDIT_ID, Menu.NONE,
                         R.string.taskList_context_edit);
@@ -474,6 +585,27 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         R.string.taskList_context_postpone);
 
                 menu.setHeaderTitle(task.getName());
+            }
+        });
+
+        // clicking one of the expanded buttons
+        Button editButton = (Button)view.findViewById(R.id.edit);
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View parent = (View)v.getParent().getParent().getParent().getParent();
+                TaskModelForList task = (TaskModelForList)parent.getTag();
+                hooks.editItem(task);
+            }
+        });
+
+        Button deleteButton = (Button)view.findViewById(R.id.timer);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                View parent = (View)v.getParent().getParent().getParent().getParent();
+                TaskModelForList task = (TaskModelForList)parent.getTag();
+                hooks.toggleTimerOnItem(task);
             }
         });
     }
@@ -521,14 +653,20 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         	name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             name.setTextColor(r.getColor(task.getTaskColorResource(getContext())));
 
-            if(task.getProgressPercentage() >= 75)
-                progress.setButtonDrawable(R.drawable.btn_check75);
-            else if(task.getProgressPercentage() >= 50)
-                progress.setButtonDrawable(R.drawable.btn_check50);
-            else if(task.getProgressPercentage() >= 25)
-                progress.setButtonDrawable(R.drawable.btn_check25);
-            else
+            float completedPercentage = 0;
+            if(task.getEstimatedSeconds() > 0) {
+                completedPercentage = task.getElapsedSeconds() /
+                    task.getEstimatedSeconds();
+            }
+
+            if(completedPercentage < 0.25f)
                 progress.setButtonDrawable(R.drawable.btn_check0);
+            else if(completedPercentage < 0.5f)
+                progress.setButtonDrawable(R.drawable.btn_check25);
+            else if(completedPercentage < 0.75f)
+                progress.setButtonDrawable(R.drawable.btn_check50);
+            else
+                progress.setButtonDrawable(R.drawable.btn_check75);
         }
     }
 

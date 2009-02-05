@@ -46,6 +46,7 @@ public class TaskModelForList extends AbstractTaskModel {
         NOTIFICATION_FLAGS,
         PROGRESS_PERCENTAGE,
         COMPLETION_DATE,
+        CREATION_DATE,
         HIDDEN_UNTIL,
         NOTES,
         REPEAT,
@@ -202,6 +203,11 @@ public class TaskModelForList extends AbstractTaskModel {
 	    return super.getNotificationFlags();
 	}
 
+	@Override
+	public Date getCreationDate() {
+	    return super.getCreationDate();
+	}
+
     // --- setters
 
     @Override
@@ -232,7 +238,7 @@ public class TaskModelForList extends AbstractTaskModel {
     public void setDefiniteDueDate(Date definiteDueDate) {
         super.setDefiniteDueDate(definiteDueDate);
     }
-    
+
     @Override
     public void setImportance(Importance importance) {
     	super.setImportance(importance);

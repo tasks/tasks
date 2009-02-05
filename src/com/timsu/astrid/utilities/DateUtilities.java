@@ -76,6 +76,56 @@ public class DateUtilities {
     }
 
     /**
+     * Format a time into the format: 5 days, 3 hrs, 2 min
+     *
+     * @param r Resources to get strings from
+     * @param timeInSeconds
+     * @param unitsToShow number of units to show (i.e. if 2, then 5 hours
+     *        3 minutes 2 seconds is truncated to 5 hours 3 minutes)
+     * @return
+     */
+    public static String getAbbreviatedDurationString(Resources r, int timeInSeconds,
+            int unitsToShow) {
+        short days, hours, minutes, seconds;
+        short unitsDisplayed = 0;
+
+        if(timeInSeconds == 0)
+            return r.getQuantityString(R.plurals.Nseconds, 0, 0);
+
+        days = (short)(timeInSeconds / 24 / 3600);
+        timeInSeconds -= days*24*3600;
+        hours = (short)(timeInSeconds / 3600);
+        timeInSeconds -= hours * 3600;
+        minutes = (short)(timeInSeconds / 60);
+        timeInSeconds -= minutes * 60;
+        seconds = (short)timeInSeconds;
+
+        StringBuilder result = new StringBuilder();
+        if(days > 0) {
+            result.append(r.getQuantityString(R.plurals.Ndays, days, days)).
+                append(" ");
+            unitsDisplayed++;
+        }
+        if(unitsDisplayed < unitsToShow && hours > 0) {
+            result.append(r.getQuantityString(R.plurals.NhoursShort, hours,
+                    hours)).
+                append(" ");
+            unitsDisplayed++;
+        }
+        if(unitsDisplayed < unitsToShow  && minutes > 0) {
+            result.append(r.getQuantityString(R.plurals.NminutesShort, minutes,
+                    minutes)).append(" ");
+            unitsDisplayed++;
+        }
+        if(unitsDisplayed < unitsToShow && seconds > 0) {
+            result.append(r.getQuantityString(R.plurals.NsecondsShort, seconds,
+                    seconds)).append(" ");
+        }
+
+        return result.toString().trim();
+    }
+
+    /**
      * Format a time into the format: 5 d, 3 h, 2 m
      *
      * @param r Resources to get strings from

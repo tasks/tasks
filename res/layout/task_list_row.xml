@@ -79,39 +79,48 @@
             color="@color/taskList_dueDate"
             android:singleLine="true"/>
             
-        <!-- elapsed / estimated time -->
-        <TextView android:id="@+id/text_times"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.TaskList_Detail"
-            android:singleLine="true"/>
-        
-        <!-- repeats -->
-        <TextView android:id="@+id/text_repeats"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.TaskList_Detail"
-            android:singleLine="true"/>
-        
-        <!-- reminders -->
-        <TextView android:id="@+id/text_reminders"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.TaskList_Detail"
-            android:singleLine="true"/>
-            
-        <!-- tags -->
-        <TextView android:id="@+id/text_tags"
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            style="@style/TextAppearance.TaskList_Detail"
-            android:singleLine="true"/>
-            
-        <!-- notes -->
-        <TextView android:id="@+id/text_notes"
+        <!-- other details (gray) -->
+        <TextView android:id="@+id/details"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             style="@style/TextAppearance.TaskList_Detail"/>
+            
+        <LinearLayout android:id="@+id/expanded_layout"
+            android:orientation="vertical"
+            android:paddingTop="5dip"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+            
+            <View android:background="@android:drawable/divider_horizontal_dark"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"/>
+            
+            <TextView android:id="@+id/expanded_details"
+                android:paddingTop="5dip"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                style="@style/TextAppearance.TaskList_Detail"/>
+            
+            <LinearLayout android:id="@+id/expanded_buttons"
+                android:orientation="horizontal"
+                android:paddingTop="5dip"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                
+                <Button android:id="@+id/timer"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"/>
+                    
+                <Button android:id="@+id/edit"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="@string/edit_label"/>
+                
+            </LinearLayout>
+            
+        </LinearLayout>
 
     </LinearLayout>
 

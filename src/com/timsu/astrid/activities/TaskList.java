@@ -8,14 +8,12 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.ContextMenu;
 import android.view.GestureDetector;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -31,21 +29,21 @@ import com.timsu.astrid.utilities.StartupReceiver;
 
 /**
  * Main activity uses a ViewFlipper to flip between child views.
- * 
+ *
  * @author Tim Su (timsu@stanfordalumni.org)
  */
 public class TaskList extends Activity {
-	
+
     /**
      * Interface for views that are displayed from the main view page
-     * 
+     *
      * @author timsu
      */
     abstract public static class SubActivity {
     	private TaskList parent;
     	private ActivityCode code;
     	private View view;
-    	
+
     	public SubActivity(TaskList parent, ActivityCode code, View view) {
 			this.parent = parent;
 			this.code = code;
@@ -54,105 +52,107 @@ public class TaskList extends Activity {
 		}
 
     	// --- pass-through to activity listeners
-    	
+
     	/** Called when this subactivity is displayed to the user */
     	void onDisplay(Bundle variables) {
     		//
     	}
-    	
+
     	boolean onPrepareOptionsMenu(Menu menu) {
     		return false;
     	}
-    	
+
     	void onActivityResult(int requestCode, int resultCode, Intent data) {
     		//
     	}
-    	
+
     	boolean onMenuItemSelected(int featureId, MenuItem item) {
     		return false;
     	}
-    	
-    	
+
+
     	void onWindowFocusChanged(boolean hasFocus) {
     		//
     	}
-    	
+
     	boolean onKeyDown(int keyCode, KeyEvent event) {
     		return false;
     	}
-    	
+
     	// --- pass-through to activity methods
-    	
+
     	public Resources getResources() {
     		return parent.getResources();
     	}
-    	
+
     	public View findViewById(int id) {
     		return view.findViewById(id);
     	}
-    	
+
     	public void startManagingCursor(Cursor c) {
     		parent.startManagingCursor(c);
     	}
-    	
+
     	public void setTitle(CharSequence title) {
     		parent.setTitle(title);
     	}
-    	
+
     	public void closeActivity() {
     		parent.finish();
     	}
-    	
+
     	public void launchActivity(Intent intent, int requestCode) {
     		parent.startActivityForResult(intent, requestCode);
     	}
-    	
+
     	// --- helper methods
-    	
+
     	public Activity getParent() {
     		return parent;
     	}
-    	
+
     	public TaskController getTaskController() {
     		return parent.taskController;
     	}
-    	
+
     	public TagController getTagController() {
     		return parent.tagController;
     	}
-    	
+
     	public View.OnTouchListener getGestureListener() {
     		return parent.gestureListener;
     	}
-    	
+
     	public void switchToActivity(ActivityCode activity, Bundle state) {
     		parent.switchToActivity(activity, state);
     	}
-    	
+
     	// --- internal methods
-    	
+
     	protected ActivityCode getActivityCode() {
     		return code;
     	}
-    	
+
     	protected View getView() {
 			return view;
 		}
     }
-    
+
     /* ======================================================================
      * ======================================================= internal stuff
      * ====================================================================== */
-	
-    
+
+
     public enum ActivityCode {
     	TASK_LIST,
     	TAG_LIST,
     	TASK_LIST_W_TAG
     };
-    
-    private static final String TAG_LAST_ACTIVITY = "l";
-    private static final String TAG_LAST_BUNDLE = "b";
+
+    private static final String LAST_ACTIVITY_TAG = "l";
+    private static final String LAST_BUNDLE_TAG = "b";
+    public  static final String VARIABLES_TAG = "v";
+
     private static final int FLING_DIST_THRESHOLD = 100;
 	private static final int FLING_VEL_THRESHOLD = 300;
 
@@ -164,20 +164,20 @@ public class TaskList extends Activity {
 	private SubActivity tagList;
 	private SubActivity taskListWTag;
 	private Bundle lastActivityBundle;
-	
+
 	// animations
 	private Animation mInAnimationForward;
     private Animation mOutAnimationForward;
     private Animation mInAnimationBackward;
     private Animation mOutAnimationBackward;
-	
+
 	// data controllers
 	private TaskController taskController;
 	private TagController tagController;
 
 	// static variables
 	static boolean shouldCloseInstance = false;
-	
+
     @Override
     /** Called when loading up the activity for the first time */
     public void onCreate(Bundle savedInstanceState) {
@@ -195,13 +195,16 @@ public class TaskList extends Activity {
         Synchronizer.setTaskController(taskController);
 
         setupUIComponents();
-        
-        if(savedInstanceState != null && savedInstanceState.containsKey(TAG_LAST_ACTIVITY)) {
-        	viewFlipper.setDisplayedChild(savedInstanceState.getInt(TAG_LAST_ACTIVITY));
-        	Bundle variables = savedInstanceState.getBundle(TAG_LAST_BUNDLE);
+
+        if(savedInstanceState != null && savedInstanceState.containsKey(LAST_ACTIVITY_TAG)) {
+        	viewFlipper.setDisplayedChild(savedInstanceState.getInt(LAST_ACTIVITY_TAG));
+        	Bundle variables = savedInstanceState.getBundle(LAST_BUNDLE_TAG);
         	getCurrentSubActivity().onDisplay(variables);
         } else {
-        	getCurrentSubActivity().onDisplay(null);
+            Bundle variables = null;
+            if(getIntent().hasExtra(VARIABLES_TAG))
+                variables = getIntent().getBundleExtra(VARIABLES_TAG);
+        	getCurrentSubActivity().onDisplay(variables);
         }
 
         // auto sync if requested
@@ -215,23 +218,23 @@ public class TaskList extends Activity {
             }
         }
     }
-   
+
     /** Set up user interface components */
     private void setupUIComponents() {
         gestureDetector = new GestureDetector(new AstridGestureDetector());
         viewFlipper = (ViewFlipper)findViewById(R.id.main);
-        taskList = new TaskListSubActivity(this, ActivityCode.TASK_LIST, 
+        taskList = new TaskListSubActivity(this, ActivityCode.TASK_LIST,
         		findViewById(R.id.tasklist_layout));
-        tagList = new TagListSubActivity(this, ActivityCode.TAG_LIST, 
+        tagList = new TagListSubActivity(this, ActivityCode.TAG_LIST,
         		findViewById(R.id.taglist_layout));
-        taskListWTag = new TaskListSubActivity(this, ActivityCode.TASK_LIST_W_TAG, 
+        taskListWTag = new TaskListSubActivity(this, ActivityCode.TASK_LIST_W_TAG,
         		findViewById(R.id.tasklistwtag_layout));
-    	
+
         mInAnimationForward = AnimationUtils.loadAnimation(this, R.anim.slide_left_in);
         mOutAnimationForward = AnimationUtils.loadAnimation(this, R.anim.slide_left_out);
         mInAnimationBackward = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
         mOutAnimationBackward = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
-        
+
         gestureListener = new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
                 if (gestureDetector.onTouchEvent(event)) {
@@ -241,7 +244,7 @@ public class TaskList extends Activity {
             }
         };
     }
-    
+
     private class AstridGestureDetector extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -252,7 +255,7 @@ public class TaskList extends Activity {
                 // flick R to L
                 if(e1.getX() - e2.getX() > FLING_DIST_THRESHOLD &&
                         Math.abs(velocityX) > FLING_VEL_THRESHOLD) {
-                    
+
                 	switch(getCurrentSubActivity().getActivityCode()) {
                 	case TASK_LIST:
                 		switchToActivity(ActivityCode.TAG_LIST, null);
@@ -288,10 +291,10 @@ public class TaskList extends Activity {
     /* ======================================================================
      * ==================================================== subactivity stuff
      * ====================================================================== */
-    
+
     private void switchToActivity(ActivityCode activity, Bundle variables) {
     	closeOptionsMenu();
-    	
+
     	// and flip to them
     	switch(getCurrentSubActivity().getActivityCode()) {
     	case TASK_LIST:
@@ -305,7 +308,7 @@ public class TaskList extends Activity {
             	viewFlipper.setDisplayedChild(taskListWTag.code.ordinal());
             }
             break;
-            
+
     	case TAG_LIST:
     		switch(activity) {
     		case TASK_LIST:
@@ -320,7 +323,7 @@ public class TaskList extends Activity {
     			break;
             }
     		break;
-    		
+
     	case TASK_LIST_W_TAG:
             viewFlipper.setInAnimation(mInAnimationBackward);
             viewFlipper.setOutAnimation(mOutAnimationBackward);
@@ -333,7 +336,7 @@ public class TaskList extends Activity {
             }
             break;
     	}
-    	
+
     	// initialize the components
     	switch(activity) {
     	case TASK_LIST:
@@ -345,25 +348,25 @@ public class TaskList extends Activity {
     	case TASK_LIST_W_TAG:
     		taskListWTag.onDisplay(variables);
     	}
-    	
+
     	lastActivityBundle = variables;
     }
-    
+
     private SubActivity getCurrentSubActivity() {
     	return (SubActivity)viewFlipper.getCurrentView().getTag();
     }
-    
+
     /* ======================================================================
      * ======================================================= event handling
      * ====================================================================== */
-   
+
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(TAG_LAST_ACTIVITY, getCurrentSubActivity().code.ordinal());
-        outState.putBundle(TAG_LAST_BUNDLE, lastActivityBundle);
+        outState.putInt(LAST_ACTIVITY_TAG, getCurrentSubActivity().code.ordinal());
+        outState.putBundle(LAST_BUNDLE_TAG, lastActivityBundle);
     }
-    
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
     	if(getCurrentSubActivity().onKeyDown(keyCode, event))
@@ -371,7 +374,7 @@ public class TaskList extends Activity {
     	else
     		return super.onKeyDown(keyCode, event);
     }
-    
+
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
     	menu.clear();
@@ -381,7 +384,7 @@ public class TaskList extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        
+
         if(resultCode == Constants.RESULT_GO_HOME) {
         	switchToActivity(ActivityCode.TASK_LIST, null);
         } else
@@ -391,13 +394,13 @@ public class TaskList extends Activity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        
+
         if(hasFocus && shouldCloseInstance) { // user wants to quit
         	finish();
         } else
         	getCurrentSubActivity().onWindowFocusChanged(hasFocus);
     }
-    
+
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
     	if(getCurrentSubActivity().onMenuItemSelected(featureId, item))
@@ -405,7 +408,7 @@ public class TaskList extends Activity {
     	else
     		return super.onMenuItemSelected(featureId, item);
     }
-    
+
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (gestureDetector.onTouchEvent(event))

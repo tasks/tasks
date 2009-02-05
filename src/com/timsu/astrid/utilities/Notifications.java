@@ -20,8 +20,8 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.activities.TaskView;
-import com.timsu.astrid.activities.TaskViewNotifier;
+import com.timsu.astrid.activities.TaskListNotify;
+import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
@@ -136,7 +136,7 @@ public class Notifications extends BroadcastReceiver {
         if(task.getTaskIdentifier() == null)
             return;
 
-        // return if we don't need to go any further 
+        // return if we don't need to go any further
         if(shouldDeleteAlarm(task)) {
         	deleteAlarm(context, task.getTaskIdentifier().getId());
         	return;
@@ -376,12 +376,11 @@ public class Notifications extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         Resources r = context.getResources();
 
-        Intent notifyIntent = new Intent(context, TaskViewNotifier.class);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        notifyIntent.putExtra(TaskViewNotifier.LOAD_INSTANCE_TOKEN, id);
-        notifyIntent.putExtra(TaskViewNotifier.FROM_NOTIFICATION_TOKEN, true);
-        notifyIntent.putExtra(TaskViewNotifier.NOTIF_FLAGS_TOKEN, flags);
-        notifyIntent.putExtra(TaskViewNotifier.NOTIF_REPEAT_TOKEN, repeatInterval);
+        Intent notifyIntent = new Intent(context, TaskListNotify.class);
+        notifyIntent.putExtra(TaskListSubActivity.LOAD_INSTANCE_TOKEN, id);
+        notifyIntent.putExtra(TaskListSubActivity.FROM_NOTIFICATION_TOKEN, true);
+        notifyIntent.putExtra(TaskListSubActivity.NOTIF_FLAGS_TOKEN, flags);
+        notifyIntent.putExtra(TaskListSubActivity.NOTIF_REPEAT_TOKEN, repeatInterval);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 (int)id, notifyIntent, PendingIntent.FLAG_ONE_SHOT);
 
@@ -437,7 +436,7 @@ public class Notifications extends BroadcastReceiver {
     }
 
     /** Show a notification when a user is "on-the-clock" for a given task */
-    public static boolean showTimingNotification(Context context, 
+    public static boolean showTimingNotification(Context context,
     		TaskIdentifier taskId, String taskName) {
 
     	String text = context.getResources().getString(R.string.notif_timerStarted) +
@@ -446,10 +445,9 @@ public class Notifications extends BroadcastReceiver {
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         Resources r = context.getResources();
 
-        Intent notifyIntent = new Intent(context, TaskView.class);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        notifyIntent.putExtra(TaskViewNotifier.LOAD_INSTANCE_TOKEN, taskId.getId());
-        notifyIntent.putExtra(TaskViewNotifier.FROM_NOTIFICATION_TOKEN, true);
+        Intent notifyIntent = new Intent(context, TaskListNotify.class);
+        notifyIntent.putExtra(TaskListSubActivity.LOAD_INSTANCE_TOKEN, taskId.getId());
+        notifyIntent.putExtra(TaskListSubActivity.FROM_NOTIFICATION_TOKEN, true);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 (int)taskId.getId(), notifyIntent, PendingIntent.FLAG_ONE_SHOT);
 
@@ -462,7 +460,9 @@ public class Notifications extends BroadcastReceiver {
                 appName,
                 text,
                 pendingIntent);
-        notification.flags |= Notification.FLAG_ONGOING_EVENT;
+        notification.flags |= Notification.FLAG_ONGOING_EVENT |
+            Notification.FLAG_NO_CLEAR;
+        notification.flags &= ~Notification.FLAG_AUTO_CANCEL;
 
         Log.w("Astrid", "Logging timing notification: " + text);
         nm.notify((int)taskId.getId(), notification);
@@ -470,5 +470,5 @@ public class Notifications extends BroadcastReceiver {
         return true;
     }
 
-    
+
 }
