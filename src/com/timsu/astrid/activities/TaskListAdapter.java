@@ -161,9 +161,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 hooks.setSelectedItem(task.getTaskIdentifier());
             }
 
-            setFieldContentsAndVisibility(view, task);
-            ((ListView)view.getParent()).setSelection(objects.indexOf(task));
+            if(view != null) {
+                setFieldContentsAndVisibility(view, task);
+                ((ListView)view.getParent()).setSelection(objects.indexOf(task));
+            }
         } catch (Exception e) {
+            // sometimes our view dies? or other weird stuff happens.
             Log.e("astrid", "Error in toggleExpanded", e);
         }
     }
