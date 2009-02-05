@@ -518,10 +518,10 @@ public class TaskListSubActivity extends SubActivity {
 
                 @Override
                 public void setSelectedItem(TaskIdentifier taskId) {
-                    selectedTask = null;
-                    if(taskId == null)
+                    if(taskId == null) {
                         selectedTaskId = null;
-                    else
+                        selectedTask = null;
+                    } else
                         selectedTaskId = taskId.getId();
                 }
         });
@@ -532,7 +532,7 @@ public class TaskListSubActivity extends SubActivity {
             try {
                 int selectedPosition = tasks.getPosition(selectedTask);
                 View v = listView.getChildAt(selectedPosition);
-                tasks.toggleExpanded(v, selectedTask);
+                tasks.setExpanded(v, selectedTask, true);
                 listView.setSelection(selectedPosition);
             } catch (Exception e) {
                 Log.e("astrid", "error with selected task", e);

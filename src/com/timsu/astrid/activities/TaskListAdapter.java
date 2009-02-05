@@ -150,24 +150,32 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         alarmController = new AlertController(activity);
     }
 
-    /** Toggle the expanded state of this task */
-    public void toggleExpanded(View view, TaskModelForList task) {
+    /** Sets the expanded state as desired */
+    public void setExpanded(View view, TaskModelForList task, boolean state) {
         try {
-            if(CACHE_TRUE.equals(task.getCachedLabel(KEY_EXPANDED))) {
-                task.putCachedLabel(KEY_EXPANDED, null);
-                hooks.setSelectedItem(null);
-            } else {
+            if(state) {
                 task.putCachedLabel(KEY_EXPANDED, CACHE_TRUE);
                 hooks.setSelectedItem(task.getTaskIdentifier());
+            } else {
+                task.putCachedLabel(KEY_EXPANDED, null);
+                hooks.setSelectedItem(null);
             }
 
-            if(view != null) {
+            if(view != null && state == true) {
                 setFieldContentsAndVisibility(view, task);
                 ((ListView)view.getParent()).setSelection(objects.indexOf(task));
             }
         } catch (Exception e) {
-            // sometimes our view dies? or other weird stuff happens.
-            Log.e("astrid", "Error in toggleExpanded", e);
+            Log.e("astrid", "Error in setExpanded", e);
+        }
+    }
+
+    /** Toggle the expanded state of this task */
+    public void toggleExpanded(View view, TaskModelForList task) {
+        if(CACHE_TRUE.equals(task.getCachedLabel(KEY_EXPANDED))) {
+            setExpanded(view, task, false);
+        } else {
+            setExpanded(view, task, true);
         }
     }
 
