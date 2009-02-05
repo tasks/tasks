@@ -30,6 +30,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Paint;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -151,16 +152,20 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     /** Toggle the expanded state of this task */
     public void toggleExpanded(View view, TaskModelForList task) {
-        if(CACHE_TRUE.equals(task.getCachedLabel(KEY_EXPANDED))) {
-            task.putCachedLabel(KEY_EXPANDED, null);
-            hooks.setSelectedItem(null);
-        } else {
-            task.putCachedLabel(KEY_EXPANDED, CACHE_TRUE);
-            hooks.setSelectedItem(task.getTaskIdentifier());
-        }
+        try {
+            if(CACHE_TRUE.equals(task.getCachedLabel(KEY_EXPANDED))) {
+                task.putCachedLabel(KEY_EXPANDED, null);
+                hooks.setSelectedItem(null);
+            } else {
+                task.putCachedLabel(KEY_EXPANDED, CACHE_TRUE);
+                hooks.setSelectedItem(task.getTaskIdentifier());
+            }
 
-        setFieldContentsAndVisibility(view, task);
-        ((ListView)view.getParent()).setSelection(objects.indexOf(task));
+            setFieldContentsAndVisibility(view, task);
+            ((ListView)view.getParent()).setSelection(objects.indexOf(task));
+        } catch (Exception e) {
+            Log.e("astrid", "Error in toggleExpanded", e);
+        }
     }
 
     // ----------------------------------------------------------------------
@@ -514,7 +519,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked) {
-                View parent = (View)buttonView.getParent();
+                View parent = (View)buttonView.getParent().getParent();
                 TaskModelForList task = (TaskModelForList)parent.getTag();
 
                 int newProgressPercentage;

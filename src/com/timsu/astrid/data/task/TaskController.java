@@ -34,6 +34,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.sync.SyncDataController;
+import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.timsu.astrid.utilities.Notifications;
 
@@ -239,7 +240,7 @@ public class TaskController extends AbstractController {
 
     /**
      * Called when the task is saved. Perform some processing on the task.
-     * 
+     *
      * @param task
      * @param values
      */
@@ -250,21 +251,21 @@ public class TaskController extends AbstractController {
                     == AbstractTaskModel.COMPLETE_PERCENTAGE) {
             onTaskSetCompleted(task, values);
         }
-        
+
         // task timer was updated
         if(values.containsKey(AbstractTaskModel.TIMER_START)) {
         	// show notification bar if timer was started
         	if(values.get(AbstractTaskModel.TIMER_START) != null) {
-        		Notifications.showTimingNotification(context, 
+        		Notifications.showTimingNotification(context,
         				task.getTaskIdentifier(), task.getName());
         	} else {
         		Notifications.clearAllNotifications(context, task.getTaskIdentifier());
         	}
         }
     }
-    
-    
-    /** 
+
+
+    /**
      * Called when this task is set to completed.
      *
      * @param task task to process
@@ -273,7 +274,14 @@ public class TaskController extends AbstractController {
     private void onTaskSetCompleted(AbstractTaskModel task, ContentValues values) {
         values.put(AbstractTaskModel.COMPLETION_DATE, System.currentTimeMillis());
 
-        
+        // handle repeat
+        Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
+                TaskModelForRepeat.FIELD_LIST);
+        TaskModelForRepeat repeatModel = new TaskModelForRepeat(cursor, values);
+        RepeatInfo repeatInfo = repeatModel.getRepeat();
+        if(repeatInfo != null)
+            repeatModel.repeatTaskBy(context, this, repeatInfo);
+        cursor.close();
     }
 
     /** Set last notification date */
