@@ -161,7 +161,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 hooks.setSelectedItem(null);
             }
 
-            if(view != null && state == true) {
+            if(view != null) {
                 setFieldContentsAndVisibility(view, task);
                 ((ListView)view.getParent()).setSelection(objects.indexOf(task));
             }
