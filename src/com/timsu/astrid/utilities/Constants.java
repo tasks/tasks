@@ -7,7 +7,11 @@ public class Constants {
 
     // application constants
 
+    /** URL of Astrid Help Page */
     public static final String HELP_URL = "http://code.google.com/p/android-astrid/wiki/UserGuide";
+
+    /** URL of Astrid Feature Survey */
+    public static final String SURVEY_URL = "http://www.haveasec.com/survey/m/detail/welcome/bf25e0/";
 
     // result codes
 

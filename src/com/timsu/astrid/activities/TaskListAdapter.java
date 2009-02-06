@@ -163,7 +163,13 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
             if(view != null) {
                 setFieldContentsAndVisibility(view, task);
-                ((ListView)view.getParent()).setSelection(objects.indexOf(task));
+
+                // if the item is near the bottom of the list, we need to give
+                // it focus so that the list knows there's new stuff down there
+                int position = objects.indexOf(task);
+                if(objects.size() - position < 2)
+                    ((ListView)view.getParent()).setSelection(position);
+                view.requestFocus();
             }
         } catch (Exception e) {
             Log.e("astrid", "Error in setExpanded", e);

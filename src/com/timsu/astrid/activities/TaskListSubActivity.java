@@ -98,6 +98,7 @@ public class TaskListSubActivity extends SubActivity {
     private static final int       OPTIONS_SYNC_ID       = Menu.FIRST + 10;
     private static final int       OPTIONS_SETTINGS_ID   = Menu.FIRST + 11;
     private static final int       OPTIONS_HELP_ID       = Menu.FIRST + 12;
+    private static final int       OPTIONS_SURVEY_ID     = Menu.FIRST + 13;
 
     private static final int       CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
     private static final int       CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
@@ -248,6 +249,10 @@ public class TaskListSubActivity extends SubActivity {
 
         item = menu.add(Menu.NONE, OPTIONS_HELP_ID, Menu.NONE,
                 R.string.taskList_menu_help);
+        item.setAlphabeticShortcut('h');
+
+        item = menu.add(Menu.NONE, OPTIONS_SURVEY_ID, Menu.NONE,
+                R.string.taskList_menu_survey);
         item.setAlphabeticShortcut('h');
 
         return true;
@@ -753,6 +758,11 @@ public class TaskListSubActivity extends SubActivity {
         case OPTIONS_HELP_ID:
             Intent browserIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(Constants.HELP_URL));
+            launchActivity(browserIntent, 0);
+            return true;
+        case OPTIONS_SURVEY_ID:
+            browserIntent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse(Constants.SURVEY_URL));
             launchActivity(browserIntent, 0);
             return true;
 

@@ -16,4 +16,15 @@ public class TaskListNotify extends Activity {
 
         finish();
     }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+
+        Intent taskListIntent = new Intent(this, TaskList.class);
+        taskListIntent.putExtra(TaskList.VARIABLES_TAG, intent.getExtras());
+        startActivity(taskListIntent);
+
+        finish();
+    }
 }

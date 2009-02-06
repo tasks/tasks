@@ -449,7 +449,7 @@ public class Notifications extends BroadcastReceiver {
         notifyIntent.putExtra(TaskListSubActivity.LOAD_INSTANCE_TOKEN, taskId.getId());
         notifyIntent.putExtra(TaskListSubActivity.FROM_NOTIFICATION_TOKEN, true);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                (int)taskId.getId(), notifyIntent, PendingIntent.FLAG_ONE_SHOT);
+                (int)taskId.getId(), notifyIntent, 0);
 
         // create notification object
         String appName = r.getString(R.string.app_name);
