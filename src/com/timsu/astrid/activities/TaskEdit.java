@@ -77,6 +77,14 @@ import com.timsu.astrid.widget.TimeDurationControlSet;
 import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 
+/**
+ * This activity is responsible for creating new tasks and editing existing
+ * ones. It saves a task when it is paused (screen rotated, back button
+ * pressed) as long as the task has a title.
+ *
+ * @author timsu
+ *
+ */
 public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     // bundle arguments
@@ -164,6 +172,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
      * =============================================== model reading / saving
      * ====================================================================== */
 
+    /** Populate UI component values from the model */
     private void populateFields() {
         Resources r = getResources();
 
@@ -240,6 +249,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             setRepeatValue(0);
     }
 
+    /** Save task model from values in UI components */
     private void save() {
         // don't save if user accidentally created a new task
         if(name.getText().length() == 0)
@@ -249,7 +259,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         if((definiteDueDate.getDate() == null && model.getDefiniteDueDate() != null) ||
         		(preferredDueDate.getDate() == null && model.getPreferredDueDate() != null))
         	Notifications.deleteAlarm(this, model.getTaskIdentifier().getId());
-        
+
         model.setName(name.getText().toString());
         model.setEstimatedSeconds(estimatedDuration.getTimeDurationInSeconds());
         model.setElapsedSeconds(elapsedDuration.getTimeDurationInSeconds());
@@ -313,6 +323,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             tagController.addTag(model.getTaskIdentifier(), tagId);
     }
 
+    /** Helper method to save alerts for this task */
     private void saveAlerts() {
         alertController.removeAlerts(model.getTaskIdentifier());
 

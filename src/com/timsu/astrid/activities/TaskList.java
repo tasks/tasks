@@ -1,11 +1,28 @@
+/*
+ * ASTRID: Android's Simple Task Recording Dashboard
+ *
+ * Copyright (c) 2009 Tim Su
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but
+ * WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+ * for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ */
 package com.timsu.astrid.activities;
 
 import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.GestureDetector;
@@ -28,138 +45,40 @@ import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.utilities.StartupReceiver;
 
 /**
- * Main activity uses a ViewFlipper to flip between child views.
+ * TaskList is the main launched activity for Astrid. It uses a ViewFlipper
+ * to flip between child views, which in this case are the TaskListSubActivity
+ * and the TagListSubActivity.
  *
  * @author Tim Su (timsu@stanfordalumni.org)
  */
 public class TaskList extends Activity {
 
-    /**
-     * Interface for views that are displayed from the main view page
-     *
-     * @author timsu
-     */
-    abstract public static class SubActivity {
-    	private TaskList parent;
-    	private ActivityCode code;
-    	private View view;
-
-    	public SubActivity(TaskList parent, ActivityCode code, View view) {
-			this.parent = parent;
-			this.code = code;
-			this.view = view;
-			view.setTag(this);
-		}
-
-    	// --- pass-through to activity listeners
-
-    	/** Called when this subactivity is displayed to the user */
-    	void onDisplay(Bundle variables) {
-    		//
-    	}
-
-    	boolean onPrepareOptionsMenu(Menu menu) {
-    		return false;
-    	}
-
-    	void onActivityResult(int requestCode, int resultCode, Intent data) {
-    		//
-    	}
-
-    	boolean onMenuItemSelected(int featureId, MenuItem item) {
-    		return false;
-    	}
-
-
-    	void onWindowFocusChanged(boolean hasFocus) {
-    		//
-    	}
-
-    	boolean onKeyDown(int keyCode, KeyEvent event) {
-    		return false;
-    	}
-
-    	// --- pass-through to activity methods
-
-    	public Resources getResources() {
-    		return parent.getResources();
-    	}
-
-    	public View findViewById(int id) {
-    		return view.findViewById(id);
-    	}
-
-    	public void startManagingCursor(Cursor c) {
-    		parent.startManagingCursor(c);
-    	}
-
-    	public void setTitle(CharSequence title) {
-    		parent.setTitle(title);
-    	}
-
-    	public void closeActivity() {
-    		parent.finish();
-    	}
-
-    	public void launchActivity(Intent intent, int requestCode) {
-    		parent.startActivityForResult(intent, requestCode);
-    	}
-
-    	// --- helper methods
-
-    	public Activity getParent() {
-    		return parent;
-    	}
-
-    	public TaskController getTaskController() {
-    		return parent.taskController;
-    	}
-
-    	public TagController getTagController() {
-    		return parent.tagController;
-    	}
-
-    	public View.OnTouchListener getGestureListener() {
-    		return parent.gestureListener;
-    	}
-
-    	public void switchToActivity(ActivityCode activity, Bundle state) {
-    		parent.switchToActivity(activity, state);
-    	}
-
-    	// --- internal methods
-
-    	protected ActivityCode getActivityCode() {
-    		return code;
-    	}
-
-    	protected View getView() {
-			return view;
-		}
-    }
-
-    /* ======================================================================
-     * ======================================================= internal stuff
-     * ====================================================================== */
-
-
+    /** Enum for the different pages that we can display */
     public enum ActivityCode {
     	TASK_LIST,
     	TAG_LIST,
     	TASK_LIST_W_TAG
     };
 
+    /** Bundle Key: activity code id of current activity */
     private static final String LAST_ACTIVITY_TAG = "l";
+
+    /** Bundle Key: variables of current activity */
     private static final String LAST_BUNDLE_TAG = "b";
+
+    /** Bundle Key: variables to pass to the subactivity */
     public  static final String VARIABLES_TAG = "v";
 
+    /** Minimum distance a fling must cover to trigger motion */
     private static final int FLING_DIST_THRESHOLD = 100;
+
+    /** Minimum velocity a fling must have to trigger motion */
 	private static final int FLING_VEL_THRESHOLD = 300;
 
 	// view components
 	private ViewFlipper viewFlipper;
 	private GestureDetector gestureDetector;
-	private View.OnTouchListener gestureListener;
+	View.OnTouchListener gestureListener;
 	private SubActivity taskList;
 	private SubActivity tagList;
 	private SubActivity taskListWTag;
@@ -172,10 +91,12 @@ public class TaskList extends Activity {
     private Animation mOutAnimationBackward;
 
 	// data controllers
-	private TaskController taskController;
-	private TagController tagController;
+	TaskController taskController;
+	TagController tagController;
 
 	// static variables
+
+	/** If set, the application will close when this activity gets focus */
 	static boolean shouldCloseInstance = false;
 
     @Override
@@ -245,6 +166,7 @@ public class TaskList extends Activity {
         };
     }
 
+    /** Gesture detector switches between subactivities */
     private class AstridGestureDetector extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
@@ -292,7 +214,8 @@ public class TaskList extends Activity {
      * ==================================================== subactivity stuff
      * ====================================================================== */
 
-    private void switchToActivity(ActivityCode activity, Bundle variables) {
+    /** Switches to another activity, with appropriate animation */
+    void switchToActivity(ActivityCode activity, Bundle variables) {
     	closeOptionsMenu();
 
     	// and flip to them
@@ -352,6 +275,7 @@ public class TaskList extends Activity {
     	lastActivityBundle = variables;
     }
 
+    /** Helper method gets the currently visible subactivity */
     private SubActivity getCurrentSubActivity() {
     	return (SubActivity)viewFlipper.getCurrentView().getTag();
     }

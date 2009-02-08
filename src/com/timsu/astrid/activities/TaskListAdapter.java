@@ -190,6 +190,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     // ----------------------------------------------------------------------
 
     @Override
+    /** Creates or reuses the view for a row in the list */
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
 
@@ -205,7 +206,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     }
 
     /**
-     * Perform initial setup on the row, stuff is constant for every row
+     * Perform initial setup on the row. Called once for the whole list
      *
      * @param view
      */
@@ -216,7 +217,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     }
 
     /**
-     * Setup the given view for the specified task
+     * Setup the given view for the specified task. Called every row
      *
      * @param view
      * @param task
@@ -632,6 +633,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         });
     }
 
+    /** Helper method to set a task's progress and then adjust its appearance
+     *
+     * @param task
+     * @param view
+     * @param progress
+     */
     private void setTaskProgress(final TaskModelForList task, View view, int progress) {
         final ImageView timer = ((ImageView)view.findViewById(R.id.imageLeft));
         task.setProgressPercentage(progress);
@@ -663,6 +670,13 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         }
     }
 
+    /** Helper method to adjust a tasks' apperance if the task is completed or
+     * uncompleted.
+     *
+     * @param task
+     * @param name
+     * @param progress
+     */
     private void setTaskAppearance(TaskModelForList task, TextView name, CheckBox progress) {
         Resources r = activity.getResources();
 

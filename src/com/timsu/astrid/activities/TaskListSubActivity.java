@@ -49,7 +49,6 @@ import android.widget.ListView;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.TaskList.ActivityCode;
-import com.timsu.astrid.activities.TaskList.SubActivity;
 import com.timsu.astrid.activities.TaskListAdapter.TaskListAdapterHooks;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
@@ -68,7 +67,7 @@ import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 
 /**
  * Primary view for the Astrid Application. Lists all of the tasks in the
- * system, and allows users to edit them.
+ * system, and allows users to interact with them.
  *
  * @author Tim Su (timsu@stanfordalumni.org)
  *

@@ -49,7 +49,6 @@ import android.widget.AdapterView.OnItemClickListener;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.TaskList.ActivityCode;
-import com.timsu.astrid.activities.TaskList.SubActivity;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
