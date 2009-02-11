@@ -674,7 +674,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             Long deadlineDate = null;
             if(model.getPreferredDueDate() != null)
                 deadlineDate = model.getPreferredDueDate().getTime();
-            else if(model.getDefaultValues() != null)
+            else if(model.getDefiniteDueDate() != null)
                 deadlineDate = model.getDefiniteDueDate().getTime();
 
             if(deadlineDate != null) {

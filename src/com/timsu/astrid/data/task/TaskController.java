@@ -282,6 +282,8 @@ public class TaskController extends AbstractController {
         if(repeatInfo != null)
             repeatModel.repeatTaskBy(context, this, repeatInfo);
         cursor.close();
+
+        Notifications.deleteAlarm(context, null, task.getTaskIdentifier().getId());
     }
 
     /** Set last notification date */
