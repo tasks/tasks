@@ -28,10 +28,13 @@ import java.util.Map;
 import java.util.Set;
 
 import android.app.AlertDialog;
+import android.content.ContentResolver;
+import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -207,6 +210,8 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             if(reminder != null)
                 notification.setTimeDuration(24*3600*reminder);
         }
+        if(model.getCalendarUri() != null)
+            addToCalendar.setText(r.getString(R.string.showCalendar_label));
 
         // tags
         tags = tagController.getAllTags(this);
@@ -660,37 +665,69 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     @Override
     protected void onPause() {
+        // create calendar event
+        if(addToCalendar.isChecked() && model.getCalendarUri() == null) {
+            Uri uri = Uri.parse("content://calendar/events");
+            ContentResolver cr = getContentResolver();
+
+            ContentValues values = new ContentValues();
+            values.put("title", name.getText().toString());
+            values.put("calendar_id", 1);
+            values.put("description", notes.getText().toString());
+            values.put("hasAlarm", 0);
+            values.put("transparency", 0);
+            values.put("visibility", 0);
+
+            Long deadlineDate = null;
+            if (model.getPreferredDueDate() != null)
+                deadlineDate = model.getPreferredDueDate().getTime();
+            else if (model.getDefiniteDueDate() != null)
+                deadlineDate = model.getDefiniteDueDate().getTime();
+            else
+                deadlineDate = System.currentTimeMillis() + 24*3600*1000L;
+
+            int estimatedTime = DEFAULT_CAL_TIME;
+            if(model.getEstimatedSeconds() != null &&
+                    model.getEstimatedSeconds() > 0) {
+                estimatedTime = model.getEstimatedSeconds();
+            }
+            values.put("dtstart", deadlineDate - estimatedTime * 1000L);
+            values.put("dtend", deadlineDate);
+
+            Uri result = cr.insert(uri, values);
+            if(result != null)
+                model.setCalendarUri(result.toString());
+            else
+                Log.e("astrid", "Error creating calendar event!");
+        }
+
         if(shouldSaveState)
             save();
 
-        // create calendar event
-        if(addToCalendar.isChecked()) {
-            addToCalendar.setChecked(false);
+        if(addToCalendar.isChecked() && model.getCalendarUri() != null) {
+            Uri result = Uri.parse(model.getCalendarUri());
+            Intent intent = new Intent(Intent.ACTION_EDIT, result);
 
-            Intent intent = new Intent(Intent.ACTION_EDIT);
-            intent.setType("vnd.android.cursor.item/event");
-            intent.putExtra("title", name.getText());
-
+            // recalculate dates
             Long deadlineDate = null;
-            if(model.getPreferredDueDate() != null)
+            if (model.getPreferredDueDate() != null)
                 deadlineDate = model.getPreferredDueDate().getTime();
-            else if(model.getDefiniteDueDate() != null)
+            else if (model.getDefiniteDueDate() != null)
                 deadlineDate = model.getDefiniteDueDate().getTime();
+            else
+                deadlineDate = System.currentTimeMillis() + 24*3600*1000L;
 
-            if(deadlineDate != null) {
-                int estimatedTime = DEFAULT_CAL_TIME;
-                if(model.getEstimatedSeconds() != null &&
-                        model.getEstimatedSeconds() > 0)
-                    estimatedTime = model.getEstimatedSeconds();
-
-                intent.putExtra("beginTime", deadlineDate - estimatedTime * 1000L);
-                intent.putExtra("endTime", deadlineDate);
-            } else {
-                intent.putExtra("allDay", true);
+            int estimatedTime = DEFAULT_CAL_TIME;
+            if(model.getEstimatedSeconds() != null &&
+                    model.getEstimatedSeconds() > 0) {
+                estimatedTime = model.getEstimatedSeconds();
             }
+            intent.putExtra("beginTime", deadlineDate - estimatedTime * 1000L);
+            intent.putExtra("endTime", deadlineDate);
 
             startActivity(intent);
         }
+
         super.onPause();
     }
 

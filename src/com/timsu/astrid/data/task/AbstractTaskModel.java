@@ -45,7 +45,7 @@ import com.timsu.astrid.utilities.Preferences;
 public abstract class AbstractTaskModel extends AbstractModel {
 
     /** Version number of this model */
-    static final int        VERSION                = 3;
+    static final int        VERSION                = 4;
 
     public static final int COMPLETE_PERCENTAGE    = 100;
 
@@ -67,6 +67,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
     static final String     REPEAT                 = "repeat";
     static final String     CREATION_DATE          = "creationDate";
     static final String     COMPLETION_DATE        = "completionDate";
+    static final String     CALENDAR_URI           = "calendarUri";
     // reserved fields ---
     static final String     BLOCKING_ON            = "blockingOn";
 
@@ -99,6 +100,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
         defaultValues.put(LAST_NOTIFIED, (Long)null);
         defaultValues.put(REPEAT, 0);
         defaultValues.put(COMPLETION_DATE, (Long)null);
+        defaultValues.put(CALENDAR_URI, (String)null);
     }
 
     // --- database helper
@@ -133,7 +135,8 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 append(LAST_NOTIFIED).append(" integer,").
                 append(REPEAT).append(" integer,").
                 append(CREATION_DATE).append(" integer,").
-                append(COMPLETION_DATE).append(" integer").
+                append(COMPLETION_DATE).append(" integer,").
+                append(CALENDAR_URI).append(" text").
             append(");").toString();
             db.execSQL(sql);
         }
@@ -170,6 +173,16 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 sql = new StringBuilder().append("ALTER TABLE ").
                 append(tableName).append(" ADD COLUMN ").
                 append(REPEAT).append(" integer").toString();
+                try {
+                    db.execSQL(sql);
+                } catch (Exception e) {
+                    Log.e("astrid", "Error updating table!", e);
+                }
+
+            case 3:
+                sql = new StringBuilder().append("ALTER TABLE ").
+                append(tableName).append(" ADD COLUMN ").
+                append(CALENDAR_URI).append(" text").toString();
                 try {
                     db.execSQL(sql);
                 } catch (Exception e) {
@@ -410,6 +423,14 @@ public abstract class AbstractTaskModel extends AbstractModel {
         return new RepeatInfo(interval, value);
     }
 
+    protected String getCalendarUri() {
+        String uri = retrieveString(CALENDAR_URI);
+        if(uri != null && uri.length() == 0)
+            return null;
+        else
+            return uri;
+    }
+
     // --- setters
 
     protected void setName(String name) {
@@ -491,6 +512,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
             repeat = (repeatInfo.value << REPEAT_VALUE_OFFSET) +
                 repeatInfo.interval.ordinal();
         putIfChangedFromDatabase(REPEAT, repeat);
+    }
+
+    protected void setCalendarUri(String uri) {
+        putIfChangedFromDatabase(CALENDAR_URI, uri);
     }
 
     // --- utility methods

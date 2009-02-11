@@ -40,10 +40,10 @@
         android:layout_height="fill_parent">
         
         <CheckBox android:id="@+id/cb1"
-            android:paddingBottom="5px"            
+            android:paddingBottom="5px"
             android:layout_gravity="center_vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_width="48px"
+            android:layout_height="52px"
             android:scaleType="center" />
         
         <ImageView android:id="@+id/imageLeft"

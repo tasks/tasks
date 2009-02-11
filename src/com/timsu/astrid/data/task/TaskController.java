@@ -25,12 +25,15 @@ import java.util.HashSet;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.Uri;
+import android.util.Log;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.sync.SyncDataController;
@@ -201,7 +204,7 @@ public class TaskController extends AbstractController {
         if(taskId == null)
             throw new UnsupportedOperationException("Cannot delete uncreated task!");
         long id = taskId.getId();
-        Notifications.deleteAlarm(context, null, id);
+        cleanupTask(taskId);
         return database.delete(TASK_TABLE_NAME, KEY_ROWID + "=" + id, null) > 0;
     }
 
@@ -283,7 +286,32 @@ public class TaskController extends AbstractController {
             repeatModel.repeatTaskBy(context, this, repeatInfo);
         cursor.close();
 
-        Notifications.deleteAlarm(context, null, task.getTaskIdentifier().getId());
+        cleanupTask(task.getTaskIdentifier());
+    }
+
+    /** Clean up state from a task. Called when deleting or completing it */
+    private void cleanupTask(TaskIdentifier taskId) {
+        // delete notifications & alarms
+        Notifications.deleteAlarm(context, null, taskId.getId());
+
+        // delete calendar event
+        try {
+            Cursor cursor = fetchTaskCursor(taskId, new String[] {
+                AbstractTaskModel.CALENDAR_URI });
+            cursor.moveToFirst();
+            String uri = cursor.getString(0);
+            cursor.close();
+            if(uri != null && uri.length() > 0) {
+                ContentResolver cr = context.getContentResolver();
+                cr.delete(Uri.parse(uri), null, null);
+                ContentValues values = new ContentValues();
+                values.put(AbstractTaskModel.CALENDAR_URI, (String)null);
+                database.update(TASK_TABLE_NAME, values, KEY_ROWID + "=" +
+                        taskId.getId(), null);
+            }
+        } catch (Exception e) {
+            Log.e("astrid", "Error deleting calendar event", e);
+        }
     }
 
     /** Set last notification date */

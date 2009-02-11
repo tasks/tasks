@@ -46,6 +46,7 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
         PROGRESS_PERCENTAGE,
         NOTES,
         REPEAT,
+        CALENDAR_URI,
     };
 
     // --- constructors
@@ -137,6 +138,11 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
     }
 
     @Override
+    public String getCalendarUri() {
+        return super.getCalendarUri();
+    }
+
+    @Override
     public void setDefiniteDueDate(Date definiteDueDate) {
         super.setDefiniteDueDate(definiteDueDate);
     }
@@ -189,5 +195,10 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
     @Override
     public void setRepeat(RepeatInfo taskRepeat) {
         super.setRepeat(taskRepeat);
+    }
+
+    @Override
+    public void setCalendarUri(String uri) {
+        super.setCalendarUri(uri);
     }
 }

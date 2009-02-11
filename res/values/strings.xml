@@ -159,6 +159,7 @@
         <string name="definiteDueDate_label">Absolute Deadline</string>
         <string name="preferredDueDate_label">Goal Deadline</string>
         <string name="addToCalendar_label">Add Task To Calendar</string>
+        <string name="showCalendar_label">Open Calendar Event</string>
         <string name="hiddenUntil_label">Hide Until This Date</string>
         <string name="repeat_label">Repeat Every</string>
         <string name="repeat_value_unset">No Repeat Set</string>
