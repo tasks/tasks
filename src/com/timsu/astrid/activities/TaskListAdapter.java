@@ -43,11 +43,9 @@ import android.view.View.OnKeyListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.alerts.AlertController;
@@ -92,9 +90,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     // alarm date formatter
     private static final Format alarmFormat = new SimpleDateFormat(
             "MM/dd hh:mm");
-
-    /** Threshold under which to display a task as red, in millis */
-	private static final long TASK_OVERDUE_THRESHOLD = 30 * 60 * 1000L;
 
     private final Activity activity;
     private List<TaskModelForList> objects;
@@ -323,7 +318,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     if(task.getDefiniteDueDate() != null) {
                         long timeLeft = task.getDefiniteDueDate().getTime() -
                             System.currentTimeMillis();
-                        if(timeLeft > TASK_OVERDUE_THRESHOLD) {
+                        if(timeLeft > 0) {
                             label.append(r.getString(R.string.taskList_dueIn)).append(" ");
                         } else {
                             taskOverdue = true;
@@ -339,7 +334,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         long timeLeft = task.getPreferredDueDate().getTime() -
                             System.currentTimeMillis();
                         label.append(r.getString(R.string.taskList_goalPrefix)).append(" ");
-                        if(timeLeft > TASK_OVERDUE_THRESHOLD) {
+                        if(timeLeft > 0) {
                             label.append(r.getString(R.string.taskList_dueIn)).append(" ");
                         } else {
                             label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
@@ -533,15 +528,14 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         final CheckBox progress = ((CheckBox)view.findViewById(R.id.cb1));
 
         // clicking the check box
-        progress.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        progress.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                    boolean isChecked) {
-                View parent = (View)buttonView.getParent().getParent();
+            public void onClick(View v) {
+                View parent = (View)v.getParent().getParent();
                 TaskModelForList task = (TaskModelForList)parent.getTag();
 
                 int newProgressPercentage;
-                if(isChecked)
+                if(progress.isChecked())
                     newProgressPercentage =
                         TaskModelForList.getCompletedPercentage();
                 else
@@ -552,6 +546,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     setupView(parent, task);
                 }
             }
+
         });
 
         // clicking the text field
@@ -691,7 +686,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
             float completedPercentage = 0;
             if(task.getEstimatedSeconds() > 0) {
-                completedPercentage = task.getElapsedSeconds() /
+                completedPercentage = 1.0f * task.getElapsedSeconds() /
                     task.getEstimatedSeconds();
             }
 

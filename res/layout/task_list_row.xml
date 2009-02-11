@@ -43,13 +43,13 @@
             android:paddingBottom="5px"            
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:scaleType="center" />
         
         <ImageView android:id="@+id/imageLeft"
             android:layout_gravity="center_vertical"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:scaleType="center"/>
             
     </LinearLayout>

@@ -86,7 +86,7 @@ public class Notifications extends BroadcastReceiver {
                 ", repeat " + repeatInterval);
 
         if(!showNotification(context, id, flags, repeatInterval, reminder)) {
-            deleteAlarm(context, id);
+            deleteAlarm(context, intent, id);
             NotificationManager nm = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel((int)id);
@@ -138,7 +138,7 @@ public class Notifications extends BroadcastReceiver {
 
         // return if we don't need to go any further
         if(shouldDeleteAlarm(task)) {
-        	deleteAlarm(context, task.getTaskIdentifier().getId());
+        	deleteAlarm(context, null, task.getTaskIdentifier().getId());
         	return;
         }
 
@@ -149,8 +149,8 @@ public class Notifications extends BroadcastReceiver {
             long when;
             // get or make up a last notification time
             if(task.getLastNotificationDate() == null) {
-                when = System.currentTimeMillis() +
-                    (long)(interval * (0.3f + 0.7f * random.nextFloat()));
+                when = System.currentTimeMillis() -
+                    (long)(interval * (0.7f * random.nextFloat()));
                 taskController.setLastNotificationTime(task.getTaskIdentifier(),
                         new Date(when));
             } else {
@@ -167,6 +167,12 @@ public class Notifications extends BroadcastReceiver {
         int estimatedDuration = DEADLINE_NOTIFY_SECS;
         if(task.getEstimatedSeconds() != null && task.getEstimatedSeconds() > DEADLINE_NOTIFY_SECS)
             estimatedDuration = (int)(task.getEstimatedSeconds() * 1.5f);
+
+        clearAlarm(context, task.getTaskIdentifier().getId(), FLAG_DEFINITE_DEADLINE);
+        clearAlarm(context, task.getTaskIdentifier().getId(), FLAG_PREFERRED_DEADLINE);
+        clearAlarm(context, task.getTaskIdentifier().getId(), FLAG_DEFINITE_DEADLINE | FLAG_OVERDUE);
+        clearAlarm(context, task.getTaskIdentifier().getId(), FLAG_PREFERRED_DEADLINE | FLAG_OVERDUE);
+
         if((task.getNotificationFlags() & TaskModelForList.NOTIFY_BEFORE_DEADLINE) > 0) {
             scheduleDeadline(context, task.getDefiniteDueDate(), -estimatedDuration,
                     0, FLAG_DEFINITE_DEADLINE, task);
@@ -215,6 +221,7 @@ public class Notifications extends BroadcastReceiver {
      */
     private static void scheduleDeadline(Context context, Date deadline, int
             offsetSeconds, int intervalSeconds, int flags, Notifiable task) {
+        long id = task.getTaskIdentifier().getId();
         if(deadline == null)
             return;
         long when = deadline.getTime() + offsetSeconds * 1000;
@@ -222,10 +229,10 @@ public class Notifications extends BroadcastReceiver {
             return;
 
         if (intervalSeconds == 0)
-            scheduleAlarm(context, task.getTaskIdentifier().getId(), when,
+            scheduleAlarm(context, id, when,
                     flags);
         else
-            scheduleRepeatingAlarm(context, task.getTaskIdentifier().getId(),
+            scheduleRepeatingAlarm(context, id,
                     when, flags, intervalSeconds * 1000);
     }
 
@@ -255,18 +262,25 @@ public class Notifications extends BroadcastReceiver {
     }
 
     /** Delete the given alarm */
-    public static void deleteAlarm(Context context, long id) {
+    public static void deleteAlarm(Context context, Intent trigger, long id) {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
 
-        // clear all possible alarms
-        for(int flag = 0; flag < (6 << FIXED_ID_SHIFT); flag++) {
+        if(trigger != null) {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
-                createAlarmIntent(context, id, flag), 0);
+                trigger, 0);
             am.cancel(pendingIntent);
         }
 
         // clear current notifications too
         clearAllNotifications(context, new TaskIdentifier(id));
+    }
+
+    /** Clear the alarm given by the id and flags */
+    public static void clearAlarm(Context context, long id, int flags) {
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
+                createAlarmIntent(context, id, flags), 0);
+        am.cancel(pendingIntent);
     }
 
     /** Schedules a single alarm for a single task */
@@ -386,9 +400,20 @@ public class Notifications extends BroadcastReceiver {
 
         // create notification object
         String appName = r.getString(R.string.app_name);
+        int icon;
+        switch(Preferences.getNotificationIconTheme(context)) {
+        case PINK:
+            icon = R.drawable.notif_pink_alarm;
+            break;
+        case BORING:
+            icon = R.drawable.notif_boring_alarm;
+            break;
+        default:
+            icon = R.drawable.notif_astrid;
+        }
+
         Notification notification = new Notification(
-                R.drawable.notification_tag_pink, reminder,
-                System.currentTimeMillis());
+                icon, reminder, System.currentTimeMillis());
         notification.setLatestEventInfo(context,
                 appName,
                 reminder + " " + taskName,
@@ -452,10 +477,21 @@ public class Notifications extends BroadcastReceiver {
                 (int)taskId.getId(), notifyIntent, 0);
 
         // create notification object
+        int icon;
+        switch(Preferences.getNotificationIconTheme(context)) {
+        case PINK:
+            icon = R.drawable.notif_pink_working;
+            break;
+        case BORING:
+            icon = R.drawable.notif_boring_working;
+            break;
+        default:
+            icon = R.drawable.notif_astrid;
+        }
+
         String appName = r.getString(R.string.app_name);
         Notification notification = new Notification(
-                R.drawable.notification_clock, text,
-                System.currentTimeMillis());
+                icon, text, System.currentTimeMillis());
         notification.setLatestEventInfo(context,
                 appName,
                 text,

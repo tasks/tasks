@@ -52,4 +52,16 @@
         <item>Time to shorten your todo list!</item>
     </string-array>
     
+    <string-array name="notif_icon_entries">
+        <item>Pink</item>
+        <item>Boring</item>
+        <item>Astrid</item>
+    </string-array>
+    
+    <string-array name="notif_icon_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
 </resources>

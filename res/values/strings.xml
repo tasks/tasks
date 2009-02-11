@@ -116,8 +116,9 @@
         <string name="taskList_menu_more">More</string>
         <string name="taskList_menu_sync">Synchronization</string>
         <string name="taskList_menu_settings">Settings</string>
-        <string name="taskList_menu_help">Help</string>
+        <string name="taskList_menu_help">Online Help</string>
         <string name="taskList_menu_survey">Take Astrid\'s Survey!</string>
+        <string name="taskList_menu_tips">Quick Tips</string>
         
         <string name="taskList_context_edit">Edit Task</string>
         <string name="taskList_context_delete">Delete Task</string>
@@ -157,6 +158,7 @@
         <string name="elapsedDuration_label">Time Already Spent on Task</string>
         <string name="definiteDueDate_label">Absolute Deadline</string>
         <string name="preferredDueDate_label">Goal Deadline</string>
+        <string name="addToCalendar_label">Add Task To Calendar</string>
         <string name="hiddenUntil_label">Hide Until This Date</string>
         <string name="repeat_label">Repeat Every</string>
         <string name="repeat_value_unset">No Repeat Set</string>
@@ -271,6 +273,17 @@ Wish me luck!\n
         <string name="delete_this_tag_title">Remove this tag from all tasks?</string>
         
         <string name="stop_timer_title">Stop the timer?</string>
+        
+        <string name="quick_tips">
+Some things you may not know about Astrid:\n
+\n
+- To create a task, just start typing!\n
+- While editing a task, hit \'back\' to save it\n
+- Select a task &amp; press 1-4 to quickly change it\'s priority\n
+- If a task has a deadline, long-press to postpone it\n
+\n
+Thanks for using Astrid!\n
+        </string>
 
      
     <!-- Notification -->  
@@ -309,7 +322,11 @@ Wish me luck!\n
         
         <string name="p_notification_ringtone">notification_ringtone</string>
         <string name="prefs_notification_title">Notification Ringtone</string>
-        <string name="prefs_notification_desc">Choose how Astrid alerts you!</string>
+        <string name="prefs_notification_desc">Choose a ringtone for Astrid\'s alerts</string>
+
+        <string name="p_notif_icon">notif_theme</string>
+        <string name="prefs_notificon_title">Notification Icons</string>
+        <string name="prefs_notificon_desc">Choose Astrid\'s notification bar icon</string>
         
         <string name="prefs_category_appearance">Appearance</string>
             

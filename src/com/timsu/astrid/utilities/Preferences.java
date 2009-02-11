@@ -21,6 +21,13 @@ public class Preferences {
     private static final String P_SYNC_RTM_LAST_SYNC = "rtmlastsync";
     private static final String P_SYNC_LAST_SYNC = "lastsync";
 
+    // pref values
+    public enum NotificationIconTheme {
+        PINK,
+        BORING,
+        ASTRID
+    }
+
     // default values
     private static final boolean DEFAULT_PERSISTENCE_MODE = true;
     private static final boolean DEFAULT_COLORIZE = false;
@@ -42,7 +49,7 @@ public class Preferences {
             editor.putString(r.getString(R.string.p_deadlineTime), "7");
         }
         if(!prefs.contains(r.getString(R.string.p_notif_defaultRemind))) {
-            editor.putString(r.getString(R.string.p_notif_defaultRemind), "7");
+            editor.putString(r.getString(R.string.p_notif_defaultRemind), "0");
         }
         if(!prefs.contains(r.getString(R.string.p_colorize))) {
             editor.putBoolean(r.getString(R.string.p_colorize), DEFAULT_COLORIZE);
@@ -121,7 +128,15 @@ public class Preferences {
         return getIntegerValue(context, R.string.p_notif_quietEnd);
     }
 
-    /** Get notification ringtone, or null if not set */
+    /** returns hour at which quiet hours start, or null if not set */
+    public static NotificationIconTheme getNotificationIconTheme(Context context) {
+        Integer index = getIntegerValue(context, R.string.p_notif_icon);
+        if(index == null)
+            index = 0;
+        return NotificationIconTheme.values()[index];
+    }
+
+    /** Get notification ring tone, or null if not set */
     public static Uri getNotificationRingtone(Context context) {
     	Resources r = context.getResources();
         String value = getPrefs(context).getString(r.getString(

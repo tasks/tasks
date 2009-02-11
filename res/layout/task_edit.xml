@@ -207,6 +207,11 @@
                 android:layout_height="wrap_content"/>
                 
         </LinearLayout>
+
+        <CheckBox android:id="@+id/add_to_calendar"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/addToCalendar_label"/>
         
         <TextView android:id="@+id/hiddenUntil_label"
             android:layout_width="wrap_content"
@@ -268,8 +273,7 @@
             android:layout_height="1dip"
             android:padding="5dip"
             android:background="@android:drawable/divider_horizontal_dark"
-        />
-            
+        />            
                                 
         <TextView android:id="@+id/elapsedDuration_label"
             android:layout_width="wrap_content"

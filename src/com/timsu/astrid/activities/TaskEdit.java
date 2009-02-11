@@ -29,6 +29,7 @@ import java.util.Set;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -88,20 +89,21 @@ import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     // bundle arguments
-    public static final String     TAG_NAME_TOKEN       = "t";
-    public static final String     START_CHAR_TOKEN     = "s";
+    public static final String     TAG_NAME_TOKEN   = "t";
+    public static final String     START_CHAR_TOKEN = "s";
 
     // menu items
-    private static final int       SAVE_ID         = Menu.FIRST;
-    private static final int       DISCARD_ID      = Menu.FIRST + 1;
-    private static final int       DELETE_ID       = Menu.FIRST + 2;
+    private static final int       SAVE_ID          = Menu.FIRST;
+    private static final int       DISCARD_ID       = Menu.FIRST + 1;
+    private static final int       DELETE_ID        = Menu.FIRST + 2;
 
     // other constants
-    private static final int       MAX_TAGS        = 5;
-    private static final int       MAX_ALERTS      = 5;
-    private static final String    TAB_BASIC       = "basic";
-    private static final String    TAB_DATES       = "dates";
-    private static final String    TAB_ALERTS      = "alerts";
+    private static final int       MAX_TAGS         = 5;
+    private static final int       MAX_ALERTS       = 5;
+    private static final String    TAB_BASIC        = "basic";
+    private static final String    TAB_DATES        = "dates";
+    private static final String    TAB_ALERTS       = "alerts";
+    private static final int       DEFAULT_CAL_TIME = 3600;
 
     // UI components
     private EditText               name;
@@ -118,6 +120,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     private LinearLayout           alertsContainer;
     private Button                 repeatValue;
     private Spinner                repeatInterval;
+    private CheckBox               addToCalendar;
 
     // other instance variables
     private boolean                shouldSaveState = true;
@@ -255,11 +258,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         if(name.getText().length() == 0)
             return;
 
-        // if we've removed a deadline, delete alarms
-        if((definiteDueDate.getDate() == null && model.getDefiniteDueDate() != null) ||
-        		(preferredDueDate.getDate() == null && model.getPreferredDueDate() != null))
-        	Notifications.deleteAlarm(this, model.getTaskIdentifier().getId());
-
         model.setName(name.getText().toString());
         model.setEstimatedSeconds(estimatedDuration.getTimeDurationInSeconds());
         model.setElapsedSeconds(elapsedDuration.getTimeDurationInSeconds());
@@ -370,6 +368,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         alertsContainer = (LinearLayout)findViewById(R.id.alert_container);
         repeatInterval = (Spinner)findViewById(R.id.repeat_interval);
         repeatValue = (Button)findViewById(R.id.repeat_value);
+        addToCalendar = (CheckBox)findViewById(R.id.add_to_calendar);
 
         // individual ui component initialization
         ArrayAdapter<String> repeatAdapter = new ArrayAdapter<String>(
@@ -663,6 +662,35 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     protected void onPause() {
         if(shouldSaveState)
             save();
+
+        // create calendar event
+        if(addToCalendar.isChecked()) {
+            addToCalendar.setChecked(false);
+
+            Intent intent = new Intent(Intent.ACTION_EDIT);
+            intent.setType("vnd.android.cursor.item/event");
+            intent.putExtra("title", name.getText());
+
+            Long deadlineDate = null;
+            if(model.getPreferredDueDate() != null)
+                deadlineDate = model.getPreferredDueDate().getTime();
+            else if(model.getDefaultValues() != null)
+                deadlineDate = model.getDefiniteDueDate().getTime();
+
+            if(deadlineDate != null) {
+                int estimatedTime = DEFAULT_CAL_TIME;
+                if(model.getEstimatedSeconds() != null &&
+                        model.getEstimatedSeconds() > 0)
+                    estimatedTime = model.getEstimatedSeconds();
+
+                intent.putExtra("beginTime", deadlineDate - estimatedTime * 1000L);
+                intent.putExtra("endTime", deadlineDate);
+            } else {
+                intent.putExtra("allDay", true);
+            }
+
+            startActivity(intent);
+        }
         super.onPause();
     }
 

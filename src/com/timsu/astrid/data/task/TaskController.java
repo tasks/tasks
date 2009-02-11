@@ -201,7 +201,7 @@ public class TaskController extends AbstractController {
         if(taskId == null)
             throw new UnsupportedOperationException("Cannot delete uncreated task!");
         long id = taskId.getId();
-        Notifications.deleteAlarm(context, id);
+        Notifications.deleteAlarm(context, null, id);
         return database.delete(TASK_TABLE_NAME, KEY_ROWID + "=" + id, null) > 0;
     }
 

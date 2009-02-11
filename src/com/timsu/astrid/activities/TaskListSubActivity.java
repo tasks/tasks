@@ -98,6 +98,7 @@ public class TaskListSubActivity extends SubActivity {
     private static final int       OPTIONS_SETTINGS_ID   = Menu.FIRST + 11;
     private static final int       OPTIONS_HELP_ID       = Menu.FIRST + 12;
     private static final int       OPTIONS_SURVEY_ID     = Menu.FIRST + 13;
+    private static final int       OPTIONS_QUICK_TIPS    = Menu.FIRST + 14;
 
     private static final int       CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
     private static final int       CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
@@ -246,13 +247,15 @@ public class TaskListSubActivity extends SubActivity {
                 R.string.taskList_menu_settings);
         item.setAlphabeticShortcut('p');
 
+        item = menu.add(Menu.NONE, OPTIONS_QUICK_TIPS, Menu.NONE,
+                R.string.taskList_menu_tips);
+
         item = menu.add(Menu.NONE, OPTIONS_HELP_ID, Menu.NONE,
                 R.string.taskList_menu_help);
         item.setAlphabeticShortcut('h');
 
         item = menu.add(Menu.NONE, OPTIONS_SURVEY_ID, Menu.NONE,
                 R.string.taskList_menu_survey);
-        item.setAlphabeticShortcut('h');
 
         return true;
     }
@@ -763,6 +766,10 @@ public class TaskListSubActivity extends SubActivity {
             browserIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(Constants.SURVEY_URL));
             launchActivity(browserIntent, 0);
+            return true;
+        case OPTIONS_QUICK_TIPS:
+            DialogUtilities.okDialog(getParent(),
+                    r.getString(R.string.quick_tips), null);
             return true;
 
         // --- list context menu items
