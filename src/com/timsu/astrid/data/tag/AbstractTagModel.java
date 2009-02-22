@@ -63,11 +63,11 @@ public abstract class AbstractTagModel extends AbstractModel {
     static {
         defaultValues.put(NAME, "");
         defaultValues.put(NOTES, "");
-        defaultValues.put(ICON, (Integer)null);
-        defaultValues.put(PARENT, (Long)null);
-        defaultValues.put(FLAGS, (Integer)0);
-        defaultValues.put(LOCATION_LAT, (Integer)null);
-        defaultValues.put(LOCATION_LONG, (Integer)null);
+        defaultValues.put(ICON, 0);
+        defaultValues.put(PARENT, 0);
+        defaultValues.put(FLAGS, 0);
+        defaultValues.put(LOCATION_LAT, 0);
+        defaultValues.put(LOCATION_LONG, 0);
         defaultValues.put(NOTIFICATIONS, 0);
     }
 
@@ -92,11 +92,11 @@ public abstract class AbstractTagModel extends AbstractModel {
             String sql = new StringBuilder().
             append("CREATE TABLE ").append(tableName).append(" (").
                 append(AbstractController.KEY_ROWID).append(" integer primary key autoincrement, ").
-                append(NAME).append(" text unique not null,").
-                append(NOTES).append(" text not null,").
+                append(NAME).append(" text unique,").
+                append(NOTES).append(" text,").
                 append(ICON).append(" integer,").
                 append(PARENT).append(" integer,").
-                append(FLAGS).append(" integer not null,").
+                append(FLAGS).append(" integer,").
                 append(LOCATION_LAT).append(" integer,").
                 append(LOCATION_LONG).append(" integer,").
                 append(NOTIFICATIONS).append(" integer,").

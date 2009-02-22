@@ -87,6 +87,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     private static final String CACHE_TRUE = "y";
 
+    /** Number of seconds after which we display the full date deadline */
+    private static final int FULL_DATE_THRESHOLD = 7*24*3600;
+
     // alarm date formatter
     private static final Format alarmFormat = new SimpleDateFormat(
             "MM/dd hh:mm");
@@ -309,39 +312,60 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         int secondsLeft = (int)((task.getCompletionDate().getTime() -
                                 System.currentTimeMillis()) / 1000);
                         label.append(r.getString(R.string.taskList_completedPrefix)).
-                            append(" ").
-                            append(DateUtilities.getDurationString(r, Math.abs(secondsLeft), 1)).
-                            append(" " + r.getString(R.string.ago_suffix));
+                            append(" ");
+                        if(secondsLeft < FULL_DATE_THRESHOLD)
+                            label.append(DateUtilities.getDurationString(r,
+                                    Math.abs(secondsLeft), 1)).
+                                append(" " + r.getString(R.string.ago_suffix));
+                        else
+                            label.append(DateUtilities.getFormattedDate(r,
+                                    task.getCompletionDate()));
                     }
                 } else {
                     boolean taskOverdue = false;
                     if(task.getDefiniteDueDate() != null) {
-                        long timeLeft = task.getDefiniteDueDate().getTime() -
-                            System.currentTimeMillis();
+                        long timeLeft = (task.getDefiniteDueDate().getTime() -
+                            System.currentTimeMillis())/1000;
                         if(timeLeft > 0) {
-                            label.append(r.getString(R.string.taskList_dueIn)).append(" ");
+                            if(timeLeft < FULL_DATE_THRESHOLD)
+                                label.append(r.getString(R.string.taskList_dueRelativeTime)).append(" ");
+                            else
+                                label.append(r.getString(R.string.taskList_dueAbsoluteDate)).append(" ");
                         } else {
                             taskOverdue = true;
                             label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
                             task.putCachedLabel(KEY_OVERDUE, CACHE_TRUE);
                         }
-                        label.append(DateUtilities.getDurationString(r,
+
+                        if(timeLeft < FULL_DATE_THRESHOLD)
+                            label.append(DateUtilities.getDurationString(r,
                                 (int)Math.abs(timeLeft/1000), 1));
+                        else
+                            label.append(DateUtilities.getFormattedDate(r,
+                                    task.getDefiniteDueDate()));
                     }
                     if(!taskOverdue && task.getPreferredDueDate() != null) {
                         if(task.getDefiniteDueDate() != null)
                             label.append(" / ");
-                        long timeLeft = task.getPreferredDueDate().getTime() -
-                            System.currentTimeMillis();
+                        long timeLeft = (task.getPreferredDueDate().getTime() -
+                            System.currentTimeMillis())/1000;
                         label.append(r.getString(R.string.taskList_goalPrefix)).append(" ");
                         if(timeLeft > 0) {
-                            label.append(r.getString(R.string.taskList_dueIn)).append(" ");
+                            if(timeLeft < FULL_DATE_THRESHOLD)
+                                label.append(r.getString(R.string.taskList_dueRelativeTime)).append(" ");
+                            else
+                                label.append(r.getString(R.string.taskList_dueAbsoluteDate)).append(" ");
                         } else {
                             label.append(r.getString(R.string.taskList_overdueBy)).append(" ");
                             task.putCachedLabel(KEY_OVERDUE, CACHE_TRUE);
                         }
-                        label.append(DateUtilities.getDurationString(r,
-                                (int)Math.abs(timeLeft/1000), 1)).append(" ");
+
+                        if(timeLeft < FULL_DATE_THRESHOLD)
+                            label.append(DateUtilities.getDurationString(r,
+                                (int)Math.abs(timeLeft/1000), 1));
+                        else
+                            label.append(DateUtilities.getFormattedDate(r,
+                                    task.getPreferredDueDate()));
                     }
                 }
                 cachedResult = label.toString();

@@ -35,6 +35,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
+import com.timsu.astrid.activities.TaskEdit;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
@@ -204,7 +205,7 @@ public class TaskController extends AbstractController {
         if(taskId == null)
             throw new UnsupportedOperationException("Cannot delete uncreated task!");
         long id = taskId.getId();
-        cleanupTask(taskId);
+        cleanupTask(taskId, false);
         return database.delete(TASK_TABLE_NAME, KEY_ROWID + "=" + id, null) > 0;
     }
 
@@ -255,7 +256,7 @@ public class TaskController extends AbstractController {
             onTaskSetCompleted(task, values);
         }
 
-        // task timer was updated
+        // task timer was updated, update notification bar
         if(values.containsKey(AbstractTaskModel.TIMER_START)) {
         	// show notification bar if timer was started
         	if(values.get(AbstractTaskModel.TIMER_START) != null) {
@@ -264,6 +265,41 @@ public class TaskController extends AbstractController {
         	} else {
         		Notifications.clearAllNotifications(context, task.getTaskIdentifier());
         	}
+        }
+
+        // due date was updated, update calendar event
+        if(values.containsKey(AbstractTaskModel.DEFINITE_DUE_DATE) ||
+                values.containsKey(AbstractTaskModel.PREFERRED_DUE_DATE)) {
+            try {
+                Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
+                        new String[] { AbstractTaskModel.CALENDAR_URI });
+                cursor.moveToFirst();
+                String uriAsString = cursor.getString(0);
+                cursor.close();
+                if(uriAsString != null && uriAsString.length() > 0) {
+                    ContentResolver cr = context.getContentResolver();
+                    Uri uri = Uri.parse(uriAsString);
+
+                    Integer estimated = null;
+                    if(values.containsKey(AbstractTaskModel.ESTIMATED_SECONDS))
+                        estimated = values.getAsInteger(AbstractTaskModel.ESTIMATED_SECONDS);
+                    else { // read from event
+                        Cursor event = cr.query(uri, new String[] {"dtstart", "dtend"},
+                                null, null, null);
+                        event.moveToFirst();
+                        estimated = (event.getInt(1) - event.getInt(0))/1000;
+                    }
+
+                    // create new start and end date for this event
+                    ContentValues newValues = new ContentValues();
+                    TaskEdit.createCalendarStartEndTimes(task.getPreferredDueDate(),
+                            task.getDefiniteDueDate(), estimated, newValues);
+                    cr.update(uri, newValues, null, null);
+                }
+            } catch (Exception e) {
+                // ignore calendar event - event could be deleted or whatever
+                Log.e("astrid", "Error moving calendar event", e);
+            }
         }
     }
 
@@ -286,31 +322,33 @@ public class TaskController extends AbstractController {
             repeatModel.repeatTaskBy(context, this, repeatInfo);
         cursor.close();
 
-        cleanupTask(task.getTaskIdentifier());
+        cleanupTask(task.getTaskIdentifier(), repeatInfo != null);
     }
 
     /** Clean up state from a task. Called when deleting or completing it */
-    private void cleanupTask(TaskIdentifier taskId) {
+    private void cleanupTask(TaskIdentifier taskId, boolean isRepeating) {
         // delete notifications & alarms
         Notifications.deleteAlarm(context, null, taskId.getId());
 
-        // delete calendar event
-        try {
-            Cursor cursor = fetchTaskCursor(taskId, new String[] {
-                AbstractTaskModel.CALENDAR_URI });
-            cursor.moveToFirst();
-            String uri = cursor.getString(0);
-            cursor.close();
-            if(uri != null && uri.length() > 0) {
-                ContentResolver cr = context.getContentResolver();
-                cr.delete(Uri.parse(uri), null, null);
-                ContentValues values = new ContentValues();
-                values.put(AbstractTaskModel.CALENDAR_URI, (String)null);
-                database.update(TASK_TABLE_NAME, values, KEY_ROWID + "=" +
-                        taskId.getId(), null);
+        // delete calendar event if not repeating
+        if(!isRepeating) {
+            try {
+                Cursor cursor = fetchTaskCursor(taskId, new String[] {
+                    AbstractTaskModel.CALENDAR_URI });
+                cursor.moveToFirst();
+                String uri = cursor.getString(0);
+                cursor.close();
+                if(uri != null && uri.length() > 0) {
+                    ContentResolver cr = context.getContentResolver();
+                    cr.delete(Uri.parse(uri), null, null);
+                    ContentValues values = new ContentValues();
+                    values.put(AbstractTaskModel.CALENDAR_URI, (String)null);
+                    database.update(TASK_TABLE_NAME, values, KEY_ROWID + "=" +
+                            taskId.getId(), null);
+                }
+            } catch (Exception e) {
+                Log.e("astrid", "Error deleting calendar event", e);
             }
-        } catch (Exception e) {
-            Log.e("astrid", "Error deleting calendar event", e);
         }
     }
 

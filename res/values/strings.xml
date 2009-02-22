@@ -56,6 +56,7 @@
             <item quantity="other">%d Tags</item>
         </plurals>
         <!-- Time Constants -->
+        <string name="dateFormatter">MMM d</string>
         <string name="daysVertical">D\na\ny\ns</string>
         <string name="hoursVertical">H\no\nu\nr\ns</string>
         <plurals name="Ndays">
@@ -96,7 +97,8 @@
         <string name="addtask_label">New Task</string>
         
         <string name="taskList_hiddenPrefix">H</string>
-        <string name="taskList_dueIn">Due in</string>
+        <string name="taskList_dueRelativeTime">Due in</string>
+        <string name="taskList_dueAbsoluteDate">Due on</string>
         <string name="taskList_goalPrefix">Goal</string>
         <string name="taskList_overdueBy">Overdue by</string>
         <string name="taskList_completedPrefix">Finished</string>

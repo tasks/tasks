@@ -657,10 +657,38 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     protected void onSaveInstanceState(Bundle outState) {
         save();
         super.onSaveInstanceState(outState);
+
+        // save the tag name token for when we rotate the screen
         Bundle extras = getIntent().getExtras();
         if(extras != null && extras.containsKey(TAG_NAME_TOKEN))
             outState.putString(TAG_NAME_TOKEN,
                     extras.getString(TAG_NAME_TOKEN));
+    }
+
+    /** Take the values from the model and set the calendar start and end times
+     * based on these. Sets keys 'dtstart' and 'dtend'.
+     *
+     * @param preferred preferred due date or null
+     * @param definite definite due date or null
+     * @param estimatedSeconds estimated duration or null
+     * @param values
+     */
+    public static void createCalendarStartEndTimes(Date preferred, Date definite,
+            Integer estimatedSeconds, ContentValues values) {
+        Long deadlineDate = null;
+        if (preferred != null && preferred.after(new Date()))
+            deadlineDate = preferred.getTime();
+        else if (definite != null)
+            deadlineDate = definite.getTime();
+        else
+            deadlineDate = System.currentTimeMillis() + 24*3600*1000L;
+
+        int estimatedTime = DEFAULT_CAL_TIME;
+        if(estimatedSeconds != null && estimatedSeconds > 0) {
+            estimatedTime = estimatedSeconds;
+        }
+        values.put("dtstart", deadlineDate - estimatedTime * 1000L);
+        values.put("dtend", deadlineDate);
     }
 
     @Override
@@ -678,21 +706,9 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             values.put("transparency", 0);
             values.put("visibility", 0);
 
-            Long deadlineDate = null;
-            if (model.getPreferredDueDate() != null)
-                deadlineDate = model.getPreferredDueDate().getTime();
-            else if (model.getDefiniteDueDate() != null)
-                deadlineDate = model.getDefiniteDueDate().getTime();
-            else
-                deadlineDate = System.currentTimeMillis() + 24*3600*1000L;
-
-            int estimatedTime = DEFAULT_CAL_TIME;
-            if(model.getEstimatedSeconds() != null &&
-                    model.getEstimatedSeconds() > 0) {
-                estimatedTime = model.getEstimatedSeconds();
-            }
-            values.put("dtstart", deadlineDate - estimatedTime * 1000L);
-            values.put("dtend", deadlineDate);
+            createCalendarStartEndTimes(model.getPreferredDueDate(),
+                    model.getDefiniteDueDate(), model.getEstimatedSeconds(),
+                    values);
 
             Uri result = cr.insert(uri, values);
             if(result != null)
@@ -708,22 +724,13 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             Uri result = Uri.parse(model.getCalendarUri());
             Intent intent = new Intent(Intent.ACTION_EDIT, result);
 
-            // recalculate dates
-            Long deadlineDate = null;
-            if (model.getPreferredDueDate() != null)
-                deadlineDate = model.getPreferredDueDate().getTime();
-            else if (model.getDefiniteDueDate() != null)
-                deadlineDate = model.getDefiniteDueDate().getTime();
-            else
-                deadlineDate = System.currentTimeMillis() + 24*3600*1000L;
+            ContentValues values = new ContentValues();
+            createCalendarStartEndTimes(model.getPreferredDueDate(),
+                    model.getDefiniteDueDate(), model.getEstimatedSeconds(),
+                    values);
 
-            int estimatedTime = DEFAULT_CAL_TIME;
-            if(model.getEstimatedSeconds() != null &&
-                    model.getEstimatedSeconds() > 0) {
-                estimatedTime = model.getEstimatedSeconds();
-            }
-            intent.putExtra("beginTime", deadlineDate - estimatedTime * 1000L);
-            intent.putExtra("endTime", deadlineDate);
+            intent.putExtra("beginTime", values.getAsLong("dtstart"));
+            intent.putExtra("endTime", values.getAsLong("dtend"));
 
             startActivity(intent);
         }

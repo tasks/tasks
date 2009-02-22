@@ -19,11 +19,21 @@
  */
 package com.timsu.astrid.utilities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.content.res.Resources;
 
 import com.timsu.astrid.R;
 
 public class DateUtilities {
+
+    /** Format a time into a medium length absolute format */
+    public static String getFormattedDate(Resources r, Date date) {
+        SimpleDateFormat format = new SimpleDateFormat(r.getString(R.string.dateFormatter));
+        return format.format(date);
+    }
+
 
     /**
      * Format a time into the format: 5 days, 3 hours, 2 minutes
