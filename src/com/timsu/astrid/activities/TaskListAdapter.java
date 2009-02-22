@@ -313,7 +313,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                                 System.currentTimeMillis()) / 1000);
                         label.append(r.getString(R.string.taskList_completedPrefix)).
                             append(" ");
-                        if(secondsLeft < FULL_DATE_THRESHOLD)
+                        if(Math.abs(secondsLeft) < FULL_DATE_THRESHOLD)
                             label.append(DateUtilities.getDurationString(r,
                                     Math.abs(secondsLeft), 1)).
                                 append(" " + r.getString(R.string.ago_suffix));
