@@ -268,8 +268,9 @@ public class TaskController extends AbstractController {
         }
 
         // due date was updated, update calendar event
-        if(values.containsKey(AbstractTaskModel.DEFINITE_DUE_DATE) ||
-                values.containsKey(AbstractTaskModel.PREFERRED_DUE_DATE)) {
+        if((values.containsKey(AbstractTaskModel.DEFINITE_DUE_DATE) ||
+                values.containsKey(AbstractTaskModel.PREFERRED_DUE_DATE)) &&
+                !values.containsKey(AbstractTaskModel.CALENDAR_URI)) {
             try {
                 Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
                         new String[] { AbstractTaskModel.CALENDAR_URI });

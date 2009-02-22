@@ -858,4 +858,12 @@ public class TaskListSubActivity extends SubActivity {
 
         return false;
     }
+
+    /* ======================================================================
+     *===================================================== getters / setters
+     * ====================================================================== */
+
+    public TagModelForView getFilterTag() {
+        return filterTag;
+    }
 }

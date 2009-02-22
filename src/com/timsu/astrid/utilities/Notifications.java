@@ -163,16 +163,18 @@ public class Notifications extends BroadcastReceiver {
                     when, FLAG_PERIODIC, interval);
         }
 
-        // before, during, and after deadlines
+        // notifications at deadlines
         int estimatedDuration = DEADLINE_NOTIFY_SECS;
         if(task.getEstimatedSeconds() != null && task.getEstimatedSeconds() > DEADLINE_NOTIFY_SECS)
             estimatedDuration = (int)(task.getEstimatedSeconds() * 1.5f);
 
+        // we need to clear all alarms in case users removed a deadline
         clearAlarm(context, task.getTaskIdentifier().getId(), FLAG_DEFINITE_DEADLINE);
         clearAlarm(context, task.getTaskIdentifier().getId(), FLAG_PREFERRED_DEADLINE);
         clearAlarm(context, task.getTaskIdentifier().getId(), FLAG_DEFINITE_DEADLINE | FLAG_OVERDUE);
         clearAlarm(context, task.getTaskIdentifier().getId(), FLAG_PREFERRED_DEADLINE | FLAG_OVERDUE);
 
+        // before, during, and after deadlines
         if((task.getNotificationFlags() & TaskModelForList.NOTIFY_BEFORE_DEADLINE) > 0) {
             scheduleDeadline(context, task.getDefiniteDueDate(), -estimatedDuration,
                     0, FLAG_DEFINITE_DEADLINE, task);

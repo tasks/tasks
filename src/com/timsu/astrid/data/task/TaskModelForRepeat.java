@@ -49,8 +49,18 @@ public class TaskModelForRepeat extends AbstractTaskModel implements Notifiable 
         NOTIFICATION_FLAGS,
     };
 
+    /**
+     * This method updates the task to reflect a new repeat iteration. It moves
+     * back the due dates and updates other task properties accordingly.
+     *
+     * @param context
+     * @param taskController
+     * @param repeatInfo
+     */
     public void repeatTaskBy(Context context, TaskController taskController,
             RepeatInfo repeatInfo) {
+
+        // move dates back
         if(getDefiniteDueDate() != null)
             setDefiniteDueDate(repeatInfo.shiftDate(getDefiniteDueDate()));
         if(getHiddenUntil() != null)
@@ -76,6 +86,10 @@ public class TaskModelForRepeat extends AbstractTaskModel implements Notifiable 
             alertController.addAlert(getTaskIdentifier(), newAlert);
             alerts.set(i, newAlert);
         }
+
+        // reset periodic alerts
+        setLastNotificationTime(null);
+
         Notifications.updateAlarm(context, taskController, alertController, this);
         alertController.close();
     }

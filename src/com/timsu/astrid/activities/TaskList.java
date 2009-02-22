@@ -138,6 +138,12 @@ public class TaskList extends Activity {
                 Synchronizer.synchronize(this, true, null);
             }
         }
+
+        // if we have no filter tag, we're not on the last task
+        if(getCurrentSubActivity() == taskListWTag &&
+                ((TaskListSubActivity)taskListWTag).getFilterTag() == null) {
+            switchToActivity(ActivityCode.TASK_LIST, null);
+        }
     }
 
     /** Set up user interface components */
@@ -166,7 +172,7 @@ public class TaskList extends Activity {
         };
     }
 
-    /** Gesture detector switches between subactivities */
+    /** Gesture detector switches between sub-activities */
     private class AstridGestureDetector extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
