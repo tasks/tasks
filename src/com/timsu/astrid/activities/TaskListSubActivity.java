@@ -35,6 +35,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.StaleDataException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -173,7 +174,24 @@ public class TaskListSubActivity extends SubActivity {
             @Override
             public void run() {
                 loadTaskListSort();
-                fillData();
+                try {
+                    fillData();
+                } catch (StaleDataException e) {
+                    // happens when you rotate the screen whiel the thread is
+                    // still running. i don't think it's avoidable?
+                } catch (final Exception e) {
+                    Log.e("astrid", "Error loading task list", e);
+                    handler.post(new Runnable() {
+                        public void run() {
+                            DialogUtilities.okDialog(getParent(),
+                                    "Error loading task list, FYI. If you " +
+                                    "continue to have problems, please let " +
+                                    "me know!\n\n" + e.getClass().getSimpleName() +
+                                    ": " + e.getMessage(),
+                                    null);
+                        }
+                    });
+                }
 
                 // open up reminder box
                 if(variables != null && variables.containsKey(NOTIF_FLAGS_TOKEN) &&
@@ -408,7 +426,7 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     /** Fill in the Task List with our tasks */
-    private synchronized void fillData() {
+    private void fillData() {
         // get a cursor to the task list
         Cursor tasksCursor;
         if(filterTag != null) {
