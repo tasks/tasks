@@ -179,6 +179,7 @@ public class TaskListSubActivity extends SubActivity {
                 } catch (StaleDataException e) {
                     // happens when you rotate the screen whiel the thread is
                     // still running. i don't think it's avoidable?
+                    Log.w("astrid", "StaleDataException", e);
                 } catch (final Exception e) {
                     Log.e("astrid", "Error loading task list", e);
                     handler.post(new Runnable() {
