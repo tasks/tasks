@@ -56,9 +56,12 @@
             <item quantity="one">1 Tag</item>
             <item quantity="other">%d Tags</item>
         </plurals>
+        
         <!-- Time Constants -->
-        <string name="dateFormatter">MMM d</string>
-        <string name="daysVertical">D\na\ny\ns</string>
+        <string name="dateFormatter">MMM d</string> <!-- used for long due 
+            dates. c.f. Java's SimpleDateFormat -->
+        <string name="daysVertical">D\na\ny\ns</string> <!-- vertical labels
+            are used in the number dialogs -->
         <string name="hoursVertical">H\no\nu\nr\ns</string>
         <plurals name="Ndays">
             <item quantity="one">1 Day</item>
@@ -88,21 +91,24 @@
             <item quantity="one">1 Sec</item>
             <item quantity="other">%d Sec</item>
         </plurals>
-        <string name="ago_suffix">Ago</string>
+        <string name="ago_suffix">Ago</string><!-- appended after time
+            constants to show time in past -->
         
     <!-- TaskList -->
     <skip />
+        <!-- title bar -->
         <string name="taskList_titlePrefix">Astrid: </string>
         <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
         <string name="taskList_hiddenSuffix"> hidden</string>
         <string name="addtask_label">New Task</string>
         
-        <string name="taskList_hiddenPrefix">H</string>
-        <string name="taskList_dueRelativeTime">Due in</string>
-        <string name="taskList_dueAbsoluteDate">Due on</string>
-        <string name="taskList_goalPrefix">Goal</string>
+        <!-- text in the actual list -->
+        <string name="taskList_hiddenPrefix">H</string><!-- prefix to show that a task is hidden -->
+        <string name="taskList_dueRelativeTime">Due in</string><!-- i.e. Due in 4 days -->
+        <string name="taskList_dueAbsoluteDate">Due on</string><!-- i.e. Due on Jan 2 -->
+        <string name="taskList_goalPrefix">Goal</string><!-- prefix to deadline -->
         <string name="taskList_overdueBy">Overdue by</string>
-        <string name="taskList_completedPrefix">Finished</string>
+        <string name="taskList_completedPrefix">Finished</string><!-- i.e. Finished 4 days ago -->
 		<string name="taskList_estimatedTimePrefix">Estimated:</string>
         <string name="taskList_elapsedTimePrefix">Spent:</string>
         <string name="taskList_periodicReminderPrefix">Poke Every</string>
@@ -112,6 +118,7 @@
         <string name="taskList_notesPrefix">Notes:</string>
         <string name="taskList_createdPrefix">Created:</string>
         
+        <!-- menu items -->
         <string name="taskList_menu_insert">Add</string>
         <string name="taskList_menu_tags">Tags</string>
         <string name="taskList_menu_filters">Display</string>
@@ -129,6 +136,7 @@
         <string name="taskList_context_stopTimer">Stop Timer</string>
         <string name="taskList_context_postpone">Postpone</string>
         
+        <!-- filter menu -->
         <string name="taskList_filter_title">Sort/Filters</string>
         <string name="taskList_filter_hidden">Hidden/Blocked Tasks</string>
         <string name="taskList_filter_done">Completed Tasks</string>
@@ -142,11 +150,12 @@
 
     <!-- TaskEdit -->
     <skip />
-    
+        <!-- title bar -->
         <string name="taskEdit_titleGeneric">Astrid: Editing Task</string>
         <string name="taskEdit_titlePrefix">Astrid: Editing </string>
         <string name="taskEdit_label">Astrid: New Task</string>
         
+        <!-- tabs -->
         <string name="task_edit_tab_1">Basic</string>
         <string name="task_edit_tab_2">Dates</string>
         <string name="task_edit_tab_3">Alerts</string>
@@ -304,7 +313,7 @@ Thanks for using Astrid!\n
         <string name="error_opening">Couldn't find this item:</string>
         <string name="error_saving">Couldn't save:</string>
     
-    <!-- Preference Keys -->  
+    <!-- Preference Keys. Strings starting with p_* should not be localized -->  
     <skip />
 
         <string name="prefs_category_alerts">Notifications</string>
@@ -352,6 +361,7 @@ Thanks for using Astrid!\n
         <string name="displayedFields_PrefScreen_Title">Displayed Fields</string>
         <string name="displayedFields_PrefScreen_Desc">Select the fields to show in task list</string>
         
+        <!-- notification keys (no title, desc, default suffix) should not be localized -->
         <string name="prefs_titleVisible">titleVisible</string> 
         <string name="prefs_titleVisible_title">Task Title</string>
         <string name="prefs_titleVisible_desc">Task description</string>
