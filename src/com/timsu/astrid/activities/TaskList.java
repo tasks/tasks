@@ -70,6 +70,9 @@ public class TaskList extends Activity {
     /** Minimum distance a fling must cover to trigger motion */
     private static final int FLING_DIST_THRESHOLD = 120;
 
+    /** Maximum distance in the other axis for a fling */
+    private static final int MAX_FLING_OTHER_AXIS = 60;
+
     /** Minimum velocity a fling must have to trigger motion */
 	private static final int FLING_VEL_THRESHOLD = 300;
 
@@ -177,6 +180,9 @@ public class TaskList extends Activity {
             try {
                 Log.i("astrid", "Got fling. X: " + (e2.getX() - e1.getX()) +
                         ", vel: " + velocityX);
+
+                if(Math.abs(e1.getY() - e2.getY()) > MAX_FLING_OTHER_AXIS)
+                    return false;
 
                 // flick R to L
                 if(e1.getX() - e2.getX() > FLING_DIST_THRESHOLD &&
