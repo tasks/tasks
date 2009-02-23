@@ -404,10 +404,10 @@ public class Notifications extends BroadcastReceiver {
         String appName = r.getString(R.string.app_name);
         int icon;
         switch(Preferences.getNotificationIconTheme(context)) {
-        case PINK:
+        case Preferences.ICON_SET_PINK:
             icon = R.drawable.notif_pink_alarm;
             break;
-        case BORING:
+        case Preferences.ICON_SET_BORING:
             icon = R.drawable.notif_boring_alarm;
             break;
         default:
@@ -481,10 +481,10 @@ public class Notifications extends BroadcastReceiver {
         // create notification object
         int icon;
         switch(Preferences.getNotificationIconTheme(context)) {
-        case PINK:
+        case Preferences.ICON_SET_PINK:
             icon = R.drawable.notif_pink_working;
             break;
-        case BORING:
+        case Preferences.ICON_SET_BORING:
             icon = R.drawable.notif_boring_working;
             break;
         default:

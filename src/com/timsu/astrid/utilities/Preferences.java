@@ -22,11 +22,9 @@ public class Preferences {
     private static final String P_SYNC_LAST_SYNC = "lastsync";
 
     // pref values
-    public enum NotificationIconTheme {
-        PINK,
-        BORING,
-        ASTRID
-    }
+    public static final int ICON_SET_PINK = 0;
+    public static final int ICON_SET_BORING = 1;
+    public static final int ICON_SET_ASTRID = 2;
 
     // default values
     private static final boolean DEFAULT_PERSISTENCE_MODE = true;
@@ -129,11 +127,11 @@ public class Preferences {
     }
 
     /** returns hour at which quiet hours start, or null if not set */
-    public static NotificationIconTheme getNotificationIconTheme(Context context) {
+    public static int getNotificationIconTheme(Context context) {
         Integer index = getIntegerValue(context, R.string.p_notif_icon);
         if(index == null)
             index = 0;
-        return NotificationIconTheme.values()[index];
+        return index;
     }
 
     /** Get notification ring tone, or null if not set */
