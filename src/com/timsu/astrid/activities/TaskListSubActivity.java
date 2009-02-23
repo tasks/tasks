@@ -148,7 +148,7 @@ public class TaskListSubActivity extends SubActivity {
 
     @Override
     /** Called when loading up the activity */
-    public void onDisplay(Bundle variables) {
+    public void onDisplay(final Bundle variables) {
         // process tag to filter, if any
         if(variables != null && variables.containsKey(TAG_TOKEN)) {
             TagIdentifier identifier = new TagIdentifier(variables.getLong(TAG_TOKEN));
@@ -172,21 +172,27 @@ public class TaskListSubActivity extends SubActivity {
             public void run() {
                 loadTaskListSort();
                 fillData();
+
+                // open up reminder box
+                if(variables != null && variables.containsKey(NOTIF_FLAGS_TOKEN) &&
+                        selectedTask != null) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            long repeatInterval = 0;
+                            int flags = 0;
+
+                            if(variables.containsKey(NOTIF_REPEAT_TOKEN))
+                                repeatInterval = variables.getLong(NOTIF_REPEAT_TOKEN);
+                            flags = variables.getInt(NOTIF_FLAGS_TOKEN);
+                            showNotificationAlert(selectedTask,
+                                    repeatInterval, flags);
+                        }
+                    });
+                }
             }
         }).start();
 
-        if(variables != null && variables.containsKey(NOTIF_FLAGS_TOKEN)) {
-            long repeatInterval = 0;
-            int flags = 0;
-
-            if(variables.containsKey(NOTIF_REPEAT_TOKEN))
-                repeatInterval = variables.getLong(NOTIF_REPEAT_TOKEN);
-            flags = variables.getInt(NOTIF_FLAGS_TOKEN);
-
-            if(selectedTask != null) {
-                showNotificationAlert(selectedTask, repeatInterval, flags);
-            }
-        }
     }
 
     /** Initialize UI components */

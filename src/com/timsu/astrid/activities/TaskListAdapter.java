@@ -92,7 +92,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     // alarm date formatter
     private static final Format alarmFormat = new SimpleDateFormat(
-            "MM/dd hh:mm");
+            "MM/dd HH:mm");
 
     private final Activity activity;
     private List<TaskModelForList> objects;
