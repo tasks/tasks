@@ -32,7 +32,7 @@ import java.util.Random;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
@@ -483,8 +483,8 @@ public class TaskListSubActivity extends SubActivity {
             public void run() {
                 // hide "add" button if we have too many tasks
                 int threshold = HIDE_ADD_BTN_PORTRAIT;
-                if(getParent().getWindowManager().getDefaultDisplay().getOrientation() ==
-                        ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+                if(getParent().getResources().getConfiguration().orientation ==
+                        Configuration.ORIENTATION_LANDSCAPE)
                     threshold = HIDE_ADD_BTN_LANDSCPE;
 
                 if(taskArray.size() > threshold)
