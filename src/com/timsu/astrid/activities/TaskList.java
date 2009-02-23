@@ -68,10 +68,10 @@ public class TaskList extends Activity {
     public  static final String VARIABLES_TAG = "v";
 
     /** Minimum distance a fling must cover to trigger motion */
-    private static final int FLING_DIST_THRESHOLD = 70;
+    private static final int FLING_DIST_THRESHOLD = 120;
 
     /** Minimum velocity a fling must have to trigger motion */
-	private static final int FLING_VEL_THRESHOLD = 250;
+	private static final int FLING_VEL_THRESHOLD = 300;
 
 	// view components
 	private ViewFlipper viewFlipper;
