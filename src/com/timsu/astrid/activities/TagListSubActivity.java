@@ -32,6 +32,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -160,10 +161,12 @@ public class TagListSubActivity extends SubActivity {
 
     /** Fill in the Tag List with our tags */
     private void fillData() {
-        tagArray = getTagController().getAllTags(getParent());
-
-        // perform sort
-        sortTagArray();
+        try {
+            tagArray = getTagController().getAllTags(getParent());
+            sortTagArray();
+        } catch (Exception e) {
+            Log.e("astrid", "Error loading list", e);
+        }
 
         handler.post(new Runnable() {
             @Override

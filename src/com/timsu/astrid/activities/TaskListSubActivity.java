@@ -132,6 +132,7 @@ public class TaskListSubActivity extends SubActivity {
     private TaskModelForList selectedTask = null;
     private Handler handler = null;
     private Thread loadingThread = null;
+    private Thread reLoadThread = null;
 
     // display filters
     private static boolean filterShowHidden = false;
@@ -169,30 +170,35 @@ public class TaskListSubActivity extends SubActivity {
 
         setupUIComponents();
 
+        reLoadThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                suppressReload = true;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingText.setVisibility(View.VISIBLE);
+                        listView.setAdapter(null);
+                    }
+                });
+
+                fillData();
+            }
+        });
+
         // time to go!
         loadingThread = new Thread(new Runnable() {
             @Override
             public void run() {
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadingText.setVisibility(View.VISIBLE);
+                    }
+                });
+
                 loadTaskListSort();
-                try {
-                    fillData();
-                } catch (StaleDataException e) {
-                    // happens when you rotate the screen whiel the thread is
-                    // still running. i don't think it's avoidable?
-                    Log.w("astrid", "StaleDataException", e);
-                } catch (final Exception e) {
-                    Log.e("astrid", "Error loading task list", e);
-                    handler.post(new Runnable() {
-                        public void run() {
-                            DialogUtilities.okDialog(getParent(),
-                                    "Error loading task list, FYI. If you " +
-                                    "continue to have problems, please let " +
-                                    "me know!\n\n" + e.getClass().getSimpleName() +
-                                    ": " + e.getMessage(),
-                                    null);
-                        }
-                    });
-                }
+                fillData();
 
                 // open up reminder box
                 if(variables != null && variables.containsKey(NOTIF_FLAGS_TOKEN) &&
@@ -216,7 +222,6 @@ public class TaskListSubActivity extends SubActivity {
             }
         });
         loadingThread.start();
-
     }
 
     /** Initialize UI components */
@@ -427,66 +432,87 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     /** Fill in the Task List with our tasks */
-    private void fillData() {
-        // get a cursor to the task list
-        Cursor tasksCursor;
-        if(filterTag != null) {
-            List<TaskIdentifier> tasks = getTagController().getTaggedTasks(getParent(),
-                    filterTag.getTagIdentifier());
-            tasksCursor = getTaskController().getTaskListCursorById(tasks);
-        } else {
-            if(filterShowDone)
-                tasksCursor = getTaskController().getAllTaskListCursor();
-            else
-                tasksCursor = getTaskController().getActiveTaskListCursor();
-        }
-        startManagingCursor(tasksCursor);
-        taskArray = getTaskController().createTaskListFromCursor(tasksCursor);
-
-        // read tags and apply filters
+    private synchronized void fillData() {
         int hiddenTasks = 0; // # of tasks hidden
         int completedTasks = 0; // # of tasks on list that are done
-        tagMap = getTagController().getAllTagsAsMap(getParent());
-        taskTags = new HashMap<TaskModelForList, LinkedList<TagModelForView>>();
 
-        for(Iterator<TaskModelForList> i = taskArray.iterator(); i.hasNext();) {
-            TaskModelForList task = i.next();
+        Log.e("astrid", "fill data called! ", new Throwable("hai")); // XXX
 
-            if(task.isTaskCompleted()) {
-                if(!filterShowDone) {
-                    i.remove();
-                    continue;
+        try {
+            // get a cursor to the task list
+            Cursor tasksCursor;
+            if(filterTag != null) {
+                List<TaskIdentifier> tasks = getTagController().getTaggedTasks(getParent(),
+                        filterTag.getTagIdentifier());
+                tasksCursor = getTaskController().getTaskListCursorById(tasks);
+            } else {
+                if(filterShowDone)
+                    tasksCursor = getTaskController().getAllTaskListCursor();
+                else
+                    tasksCursor = getTaskController().getActiveTaskListCursor();
+            }
+            startManagingCursor(tasksCursor);
+            taskArray = getTaskController().createTaskListFromCursor(tasksCursor);
+
+            // read tags and apply filters
+            tagMap = getTagController().getAllTagsAsMap(getParent());
+            taskTags = new HashMap<TaskModelForList, LinkedList<TagModelForView>>();
+
+            for(Iterator<TaskModelForList> i = taskArray.iterator(); i.hasNext();) {
+                TaskModelForList task = i.next();
+
+                if(task.isTaskCompleted()) {
+                    if(!filterShowDone) {
+                        i.remove();
+                        continue;
+                    }
                 }
-            }
 
-            if(selectedTaskId != null && task.getTaskIdentifier().getId() == selectedTaskId) {
-                selectedTask = task;
-            }
-
-            // get list of tags
-            LinkedList<TagIdentifier> tagIds = getTagController().getTaskTags(getParent(),
-                    task.getTaskIdentifier());
-            LinkedList<TagModelForView> tags = new LinkedList<TagModelForView>();
-            for(TagIdentifier tagId : tagIds) {
-                TagModelForView tag = tagMap.get(tagId);
-                tags.add(tag);
-            }
-            taskTags.put(task, tags);
-
-            // hide hidden
-            if(!filterShowHidden) {
-                if(isTaskHidden(task)) {
-                    hiddenTasks++;
-                    i.remove();
-                    continue;
+                if(selectedTaskId != null && task.getTaskIdentifier().getId() == selectedTaskId) {
+                    selectedTask = task;
                 }
-            }
 
-            if(task.isTaskCompleted())
-                completedTasks++;
+                // get list of tags
+                LinkedList<TagIdentifier> tagIds = getTagController().getTaskTags(getParent(),
+                        task.getTaskIdentifier());
+                LinkedList<TagModelForView> tags = new LinkedList<TagModelForView>();
+                for(TagIdentifier tagId : tagIds) {
+                    TagModelForView tag = tagMap.get(tagId);
+                    tags.add(tag);
+                }
+                taskTags.put(task, tags);
+
+                // hide hidden
+                if(!filterShowHidden) {
+                    if(isTaskHidden(task)) {
+                        hiddenTasks++;
+                        i.remove();
+                        continue;
+                    }
+                }
+
+                if(task.isTaskCompleted())
+                    completedTasks++;
+            }
+        } catch (StaleDataException e) {
+            // happens when you rotate the screen while the thread is
+            // still running. i don't think it's avoidable?
+            Log.w("astrid", "StaleDataException", e);
+        } catch (final Exception e) {
+            Log.e("astrid", "Error loading task list", e);
+            handler.post(new Runnable() {
+                public void run() {
+                    DialogUtilities.okDialog(getParent(),
+                            "Error loading task list, FYI. If you " +
+                            "continue to have problems, please let " +
+                            "me know!\n\n" + e.getClass().getSimpleName() +
+                            ": " + e.getMessage(),
+                            null);
+                }
+            });
         }
-        int activeTasks = taskArray.size() - completedTasks;
 
+        int activeTasks = taskArray.size() - completedTasks;
         // sort task list
         Collections.sort(taskArray, new Comparator<TaskModelForList>() {
             @Override
@@ -722,6 +748,7 @@ public class TaskListSubActivity extends SubActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         // refresh, since stuff might have changed...
         if(hasFocus) {
+            Log.e("astrid", "window focus changed. suppress: " + suppressReload); // XXX
             if(suppressReload) {
                 suppressReload = false;
                 return;
@@ -911,12 +938,12 @@ public class TaskListSubActivity extends SubActivity {
         case CONTEXT_FILTER_HIDDEN:
             TaskListSubActivity.filterShowHidden = !filterShowHidden;
             saveTaskListSort();
-            fillData();
+            reLoadThread.start();
             return true;
         case CONTEXT_FILTER_DONE:
             TaskListSubActivity.filterShowDone = !filterShowDone;
             saveTaskListSort();
-            fillData();
+            reLoadThread.start();
             return true;
         case CONTEXT_FILTER_TAG:
             switchToActivity(TaskList.AC_TASK_LIST, null);
