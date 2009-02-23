@@ -685,12 +685,7 @@ public class TaskListSubActivity extends SubActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         // refresh, since stuff might have changed...
         if(hasFocus) {
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    fillData();
-                }
-            });
+            fillData();
         }
     }
 
