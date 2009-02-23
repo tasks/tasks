@@ -45,6 +45,12 @@ public enum RepeatInterval {
             input.setMonth(input.getMonth() + number);
         }
     },
+    HOURS(R.string.repeat_hours) {
+        @Override
+        public void offsetDateBy(Date input, int number) {
+            input.setHours(input.getHours() + number);
+        }
+    },
 
 	;
 

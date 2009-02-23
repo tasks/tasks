@@ -259,7 +259,7 @@ public class TaskController extends AbstractController {
         // task timer was updated, update notification bar
         if(values.containsKey(AbstractTaskModel.TIMER_START)) {
         	// show notification bar if timer was started
-        	if(values.get(AbstractTaskModel.TIMER_START) != null) {
+        	if(values.getAsLong(AbstractTaskModel.TIMER_START) != 0) {
         		Notifications.showTimingNotification(context,
         				task.getTaskIdentifier(), task.getName());
         	} else {

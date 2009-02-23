@@ -243,4 +243,9 @@ public class TaskModelForList extends AbstractTaskModel {
     public void setImportance(Importance importance) {
     	super.setImportance(importance);
     }
+
+    @Override
+    public void setHiddenUntil(Date hiddenUntil) {
+        super.setHiddenUntil(hiddenUntil);
+    }
 }

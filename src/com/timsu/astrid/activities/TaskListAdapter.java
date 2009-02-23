@@ -279,7 +279,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             String cachedResult = task.getCachedLabel(KEY_NAME);
             if(cachedResult == null) {
                 String nameValue = task.getName();
-                if(task.getHiddenUntil() != null && task.getHiddenUntil().after(new Date())) {
+                if(task.getHiddenUntil() != null && task.getHiddenUntil().getTime() > System.currentTimeMillis()) {
                     nameValue = "(" + r.getString(R.string.taskList_hiddenPrefix) + ") " + nameValue;
                     task.putCachedLabel(KEY_HIDDEN, CACHE_TRUE);
                 }

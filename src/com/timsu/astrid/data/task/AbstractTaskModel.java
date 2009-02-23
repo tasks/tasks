@@ -382,7 +382,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
     protected boolean isHidden() {
         if(getHiddenUntil() == null)
             return false;
-        return getHiddenUntil().after(new Date());
+        return getHiddenUntil().getTime() > System.currentTimeMillis();
     }
 
     protected Date getCreationDate() {
@@ -522,7 +522,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
     protected void putDate(String fieldName, Date date) {
         if(date == null)
-            putIfChangedFromDatabase(fieldName, (Long)null);
+            putIfChangedFromDatabase(fieldName, 0);
         else
             putIfChangedFromDatabase(fieldName, date.getTime());
     }

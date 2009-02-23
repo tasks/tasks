@@ -129,7 +129,8 @@ public class TaskListSubActivity extends SubActivity {
     private HashMap<TaskModelForList, LinkedList<TagModelForView>> taskTags;
     private Long selectedTaskId = null;
     private TaskModelForList selectedTask = null;
-    private Handler handler;
+    private Handler handler = null;
+    private Thread loadingThread = null;
 
     // display filters
     private static boolean filterShowHidden = false;
@@ -137,6 +138,7 @@ public class TaskListSubActivity extends SubActivity {
     private static SortMode sortMode = SortMode.AUTO;
     private static boolean sortReverse = false;
     private TagModelForView filterTag = null;
+    private boolean suppressReload = false;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -167,7 +169,7 @@ public class TaskListSubActivity extends SubActivity {
         setupUIComponents();
 
         // time to go!
-        new Thread(new Runnable() {
+        loadingThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 loadTaskListSort();
@@ -185,13 +187,16 @@ public class TaskListSubActivity extends SubActivity {
                             if(variables.containsKey(NOTIF_REPEAT_TOKEN))
                                 repeatInterval = variables.getLong(NOTIF_REPEAT_TOKEN);
                             flags = variables.getInt(NOTIF_FLAGS_TOKEN);
+                            suppressReload = true;
                             showNotificationAlert(selectedTask,
                                     repeatInterval, flags);
                         }
                     });
                 }
+                loadingThread = null;
             }
-        }).start();
+        });
+        loadingThread.start();
 
     }
 
@@ -295,7 +300,7 @@ public class TaskListSubActivity extends SubActivity {
                 Date definite = task.getDefiniteDueDate();
                 Date preferred = task.getPreferredDueDate();
                 if(definite != null && preferred != null) {
-                    if(preferred.before(new Date()))
+                    if(preferred.getTime() < System.currentTimeMillis())
                         return definite.getTime();
                     return preferred.getTime();
                 } else if(definite != null)
@@ -403,7 +408,7 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     /** Fill in the Task List with our tasks */
-    private void fillData() {
+    private synchronized void fillData() {
         // get a cursor to the task list
         Cursor tasksCursor;
         if(filterTag != null) {
@@ -519,63 +524,73 @@ public class TaskListSubActivity extends SubActivity {
                 loadingText.setVisibility(View.GONE);
             }
         });
+    }
 
+    class TaskListHooks implements TaskListAdapterHooks {
+
+        private HashMap<TaskModelForList, LinkedList<TagModelForView>> myTaskTags;
+        private List<TaskModelForList> myTaskArray;
+
+        public TaskListHooks() {
+            this.myTaskTags = taskTags;
+            this.myTaskArray = taskArray;
+        }
+
+        @Override
+        public TagController tagController() {
+            return getTagController();
+        }
+
+        @Override
+        public List<TagModelForView> getTagsFor(
+                TaskModelForList task) {
+            return myTaskTags.get(task);
+        }
+
+        @Override
+        public List<TaskModelForList> getTaskArray() {
+            return myTaskArray;
+        }
+
+        @Override
+        public TaskController taskController() {
+            return getTaskController();
+        }
+
+        @Override
+        public void performItemClick(View v, int position) {
+            listView.performItemClick(v, position, 0);
+        }
+
+        public void onCreatedTaskListView(View v, TaskModelForList task) {
+            v.setOnTouchListener(getGestureListener());
+        }
+
+        @Override
+        public void editItem(TaskModelForList task) {
+            editTask(task);
+        }
+
+        @Override
+        public void toggleTimerOnItem(TaskModelForList task) {
+            toggleTimer(task);
+        }
+
+        @Override
+        public void setSelectedItem(TaskIdentifier taskId) {
+            if(taskId == null) {
+                selectedTaskId = null;
+                selectedTask = null;
+            } else
+                selectedTaskId = taskId.getId();
+        }
     }
 
     /** Set up the adapter for our task list */
     private void setUpListUI() {
-     // set up our adapter
+        // set up our adapter
         TaskListAdapter tasks = new TaskListAdapter(getParent(),
-                    R.layout.task_list_row, taskArray, new TaskListAdapterHooks() {
-                @Override
-                public TagController tagController() {
-                    return getTagController();
-                }
-
-                @Override
-                public List<TagModelForView> getTagsFor(
-                        TaskModelForList task) {
-                    return taskTags.get(task);
-                }
-
-                @Override
-                public List<TaskModelForList> getTaskArray() {
-                    return taskArray;
-                }
-
-                @Override
-                public TaskController taskController() {
-                    return getTaskController();
-                }
-
-                @Override
-                public void performItemClick(View v, int position) {
-                    listView.performItemClick(v, position, 0);
-                }
-
-                public void onCreatedTaskListView(View v, TaskModelForList task) {
-                    v.setOnTouchListener(getGestureListener());
-                }
-
-                @Override
-                public void editItem(TaskModelForList task) {
-                    editTask(task);
-                }
-
-                @Override
-                public void toggleTimerOnItem(TaskModelForList task) {
-                    toggleTimer(task);
-                }
-
-                @Override
-                public void setSelectedItem(TaskIdentifier taskId) {
-                    if(taskId == null) {
-                        selectedTaskId = null;
-                        selectedTask = null;
-                    } else
-                        selectedTaskId = taskId.getId();
-                }
-        });
+                    R.layout.task_list_row, taskArray, new TaskListHooks());
         listView.setAdapter(tasks);
         listView.setItemsCanFocus(true);
 
@@ -661,20 +676,23 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        if(loadingThread != null)
+            loadingThread.stop();
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Constants.RESULT_SYNCHRONIZE) {
             Synchronizer.synchronize(getParent(), false, new SynchronizerListener() {
                 @Override
                 public void onSynchronizerFinished(int numServicesSynced) {
-                    if(numServicesSynced == 0)
+                    if(numServicesSynced == 0) {
                         DialogUtilities.okDialog(getParent(), getResources().getString(
                                 R.string.sync_no_synchronizers), null);
-                    new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            fillData();
-                        }
-                    });
+                        return;
+                    }
+                    fillData();
                 }
             });
         } else if(requestCode == ACTIVITY_TAGS)
@@ -685,6 +703,11 @@ public class TaskListSubActivity extends SubActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         // refresh, since stuff might have changed...
         if(hasFocus) {
+            if(suppressReload) {
+                suppressReload = false;
+                return;
+            }
+
             fillData();
         }
     }
@@ -772,6 +795,19 @@ public class TaskListSubActivity extends SubActivity {
         sortMode = SortMode.values()[sortId - 1];
     }
 
+    /** Compute date after postponing tasks */
+    private Date computePostponeDate(Date input, long postponeMillis,
+            boolean shiftFromTodayIfPast) {
+        if(input != null) {
+            if(shiftFromTodayIfPast && input.getTime() < System.currentTimeMillis())
+                input = new Date();
+            input = new Date(input.getTime() +
+                    postponeMillis);
+        }
+
+        return input;
+    }
+
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         final TaskModelForList task;
@@ -839,18 +875,13 @@ public class TaskListSubActivity extends SubActivity {
                     public void onNumbersPicked(int[] values) {
                         long postponeMillis = (values[0] * 24 + values[1]) *
                             3600L * 1000;
-                        Date preferred = task.getPreferredDueDate();
-                        if(preferred != null) {
-                            preferred = new Date(preferred.getTime() +
-                                    postponeMillis);
-                            task.setPreferredDueDate(preferred);
-                        }
-                        Date definite = task.getDefiniteDueDate();
-                        if(definite != null) {
-                            definite = new Date(definite.getTime() +
-                                    postponeMillis);
-                            task.setDefiniteDueDate(definite);
-                        }
+                        task.setPreferredDueDate(computePostponeDate(
+                                task.getPreferredDueDate(), postponeMillis, true));
+                        task.setDefiniteDueDate(computePostponeDate(
+                                task.getDefiniteDueDate(), postponeMillis, true));
+                        task.setHiddenUntil(computePostponeDate(
+                                task.getHiddenUntil(), postponeMillis, false));
+
                         getTaskController().saveTask(task);
                         fillData();
                     }

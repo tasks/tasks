@@ -77,6 +77,10 @@ abstract public class SubActivity {
 		return false;
 	}
 
+	void onSaveInstanceState(Bundle outState) {
+	    //
+	}
+
 	// --- pass-through to activity methods
 
 	public Resources getResources() {

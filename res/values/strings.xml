@@ -36,6 +36,7 @@
         <string name="repeat_days">Day(s)</string>
         <string name="repeat_weeks">Week(s)</string>
         <string name="repeat_months">Month(s)</string>
+        <string name="repeat_hours">Hour(s)</string>
         
         <!-- Plurals -->
         <plurals name="Ntasks">
