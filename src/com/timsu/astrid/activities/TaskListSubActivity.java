@@ -32,10 +32,12 @@ import java.util.Random;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
@@ -46,9 +48,9 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.activities.TaskList.ActivityCode;
 import com.timsu.astrid.activities.TaskListAdapter.TaskListAdapterHooks;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
@@ -109,13 +111,17 @@ public class TaskListSubActivity extends SubActivity {
     private static final int       CONTEXT_SORT_REVERSE  = Menu.FIRST + 26;
     private static final int       CONTEXT_SORT_GROUP    = Menu.FIRST;
 
+    // other constants
     private static final int       SORTFLAG_FILTERDONE   = (1 << 5);
     private static final int       SORTFLAG_FILTERHIDDEN = (1 << 6);
+    private static final int       HIDE_ADD_BTN_PORTRAIT = 4;
+    private static final int       HIDE_ADD_BTN_LANDSCPE = 2;
 
     // UI components
     private ListView listView;
     private Button addButton;
     private View layout;
+    private TextView loadingText;
 
     // other instance variables
     private Map<TagIdentifier, TagModelForView> tagMap;
@@ -123,6 +129,7 @@ public class TaskListSubActivity extends SubActivity {
     private HashMap<TaskModelForList, LinkedList<TagModelForView>> taskTags;
     private Long selectedTaskId = null;
     private TaskModelForList selectedTask = null;
+    private Handler handler;
 
     // display filters
     private static boolean filterShowHidden = false;
@@ -135,7 +142,7 @@ public class TaskListSubActivity extends SubActivity {
      * ======================================================= initialization
      * ====================================================================== */
 
-    public TaskListSubActivity(TaskList parent, ActivityCode code, View view) {
+    public TaskListSubActivity(TaskList parent, int code, View view) {
     	super(parent, code, view);
     }
 
@@ -158,8 +165,15 @@ public class TaskListSubActivity extends SubActivity {
         }
 
         setupUIComponents();
-        loadTaskListSort();
-        fillData();
+
+        // time to go!
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                loadTaskListSort();
+                fillData();
+            }
+        }).start();
 
         if(variables != null && variables.containsKey(NOTIF_FLAGS_TOKEN)) {
             long repeatInterval = 0;
@@ -177,7 +191,10 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Initialize UI components */
 	public void setupUIComponents() {
-        listView = (ListView)findViewById(R.id.tasklist);
+	    handler = new Handler();
+
+	    listView = (ListView)findViewById(R.id.tasklist);
+	    loadingText = (TextView)findViewById(R.id.loading);
         addButton = (Button)findViewById(R.id.addtask);
         addButton.setOnClickListener(new
                 View.OnClickListener() {
@@ -381,8 +398,6 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Fill in the Task List with our tasks */
     private void fillData() {
-        Resources r = getResources();
-
         // get a cursor to the task list
         Cursor tasksCursor;
         if(filterTag != null) {
@@ -443,7 +458,6 @@ public class TaskListSubActivity extends SubActivity {
         int activeTasks = taskArray.size() - completedTasks;
 
         // sort task list
-        // do sort
         Collections.sort(taskArray, new Comparator<TaskModelForList>() {
             @Override
             public int compare(TaskModelForList arg0, TaskModelForList arg1) {
@@ -453,32 +467,53 @@ public class TaskListSubActivity extends SubActivity {
         if(sortReverse)
             Collections.reverse(taskArray);
 
-        // hide "add" button if we have a few tasks
-        if(taskArray.size() > 4)
-            addButton.setVisibility(View.GONE);
-        else
-            addButton.setVisibility(View.VISIBLE);
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                // hide "add" button if we have too many tasks
+                int threshold = HIDE_ADD_BTN_PORTRAIT;
+                if(getParent().getWindowManager().getDefaultDisplay().getOrientation() ==
+                        ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE)
+                    threshold = HIDE_ADD_BTN_LANDSCPE;
+
+                if(taskArray.size() > threshold)
+                    addButton.setVisibility(View.GONE);
+                else
+                    addButton.setVisibility(View.VISIBLE);
+            }
+        });
 
         // set up the title
-        StringBuilder title = new StringBuilder().
-            append(r.getString(R.string.taskList_titlePrefix)).append(" ");
-        if(filterTag != null) {
-            title.append(r.getString(R.string.taskList_titleTagPrefix,
-                    filterTag.getName())).append(" ");
-        }
+        final int finalCompleted = completedTasks;
+        final int finalActive = activeTasks;
+        final int finalHidden = hiddenTasks;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Resources r = getResources();
+                StringBuilder title = new StringBuilder().
+                    append(r.getString(R.string.taskList_titlePrefix)).append(" ");
+                if(filterTag != null) {
+                    title.append(r.getString(R.string.taskList_titleTagPrefix,
+                            filterTag.getName())).append(" ");
+                }
 
-        if(completedTasks > 0)
-            title.append(r.getQuantityString(R.plurals.NactiveTasks,
-                    activeTasks, activeTasks, taskArray.size()));
-        else
-            title.append(r.getQuantityString(R.plurals.Ntasks,
-                    taskArray.size(), taskArray.size()));
-        if(hiddenTasks > 0)
-            title.append(" (+").append(hiddenTasks).append(" ").
-            append(r.getString(R.string.taskList_hiddenSuffix)).append(")");
-        setTitle(title);
+                if(finalCompleted > 0)
+                    title.append(r.getQuantityString(R.plurals.NactiveTasks,
+                            finalActive, finalActive, taskArray.size()));
+                else
+                    title.append(r.getQuantityString(R.plurals.Ntasks,
+                            taskArray.size(), taskArray.size()));
+                if(finalHidden > 0)
+                    title.append(" (+").append(finalHidden).append(" ").
+                    append(r.getString(R.string.taskList_hiddenSuffix)).append(")");
 
-        setUpListUI();
+                setTitle(title);
+                setUpListUI();
+                loadingText.setVisibility(View.GONE);
+            }
+        });
+
     }
 
     /** Set up the adapter for our task list */
@@ -628,18 +663,28 @@ public class TaskListSubActivity extends SubActivity {
                     if(numServicesSynced == 0)
                         DialogUtilities.okDialog(getParent(), getResources().getString(
                                 R.string.sync_no_synchronizers), null);
-                    fillData();
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            fillData();
+                        }
+                    });
                 }
             });
         } else if(requestCode == ACTIVITY_TAGS)
-            switchToActivity(ActivityCode.TAG_LIST, null);
+            switchToActivity(TaskList.AC_TAG_LIST, null);
     }
 
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         // refresh, since stuff might have changed...
         if(hasFocus) {
-            fillData();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    fillData();
+                }
+            });
         }
     }
 
@@ -692,7 +737,7 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Show the tags view */
     public void showTagsView() {
-        switchToActivity(ActivityCode.TAG_LIST, null);
+        switchToActivity(TaskList.AC_TAG_LIST, null);
     }
 
     /** Save the sorting mode to the preferences */
@@ -823,7 +868,7 @@ public class TaskListSubActivity extends SubActivity {
             fillData();
             return true;
         case CONTEXT_FILTER_TAG:
-            switchToActivity(ActivityCode.TASK_LIST, null);
+            switchToActivity(TaskList.AC_TASK_LIST, null);
             return true;
         case CONTEXT_SORT_AUTO:
             if(sortMode == SortMode.AUTO)

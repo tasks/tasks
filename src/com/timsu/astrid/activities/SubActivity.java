@@ -29,7 +29,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.timsu.astrid.activities.TaskList.ActivityCode;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
 
@@ -40,10 +39,10 @@ import com.timsu.astrid.data.task.TaskController;
  */
 abstract public class SubActivity {
 	private TaskList parent;
-	ActivityCode code;
+	int code;
 	private View view;
 
-	public SubActivity(TaskList parent, ActivityCode code, View view) {
+	public SubActivity(TaskList parent, int code, View view) {
 		this.parent = parent;
 		this.code = code;
 		this.view = view;
@@ -122,13 +121,13 @@ abstract public class SubActivity {
 		return parent.gestureListener;
 	}
 
-	public void switchToActivity(ActivityCode activity, Bundle state) {
+	public void switchToActivity(int activity, Bundle state) {
 		parent.switchToActivity(activity, state);
 	}
 
 	// --- internal methods
 
-	protected ActivityCode getActivityCode() {
+	protected int getActivityCode() {
 		return code;
 	}
 

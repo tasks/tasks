@@ -29,6 +29,13 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
+            
+        <TextView android:id="@+id/loading"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/loading"
+            style="@style/TextAppearance.TaskList_Task"
+            android:gravity="center_vertical"/>
     
     	<ListView android:id="@+id/tasklist"
             android:layout_weight="1"
@@ -39,6 +46,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
+            android:visibility="gone"
             android:text="@string/addtask_label"/>
     </LinearLayout>
 
@@ -48,11 +56,19 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-    
+            
+        <TextView android:id="@+id/loading"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/loading"
+            style="@style/TextAppearance.TaskList_Task"
+            android:gravity="center_vertical"/>
+                
         <ListView android:id="@+id/taglist"
             android:layout_weight="1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
+            
     </LinearLayout>
     
     <!-- task list w/ tag-->
@@ -60,7 +76,14 @@
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
-    
+            
+        <TextView android:id="@+id/loading"
+            android:layout_height="wrap_content"
+            android:layout_width="fill_parent"
+            android:text="@string/loading"
+            style="@style/TextAppearance.TaskList_Task"
+            android:gravity="center_vertical"/>
+                
         <ListView android:id="@+id/tasklist"
             android:layout_weight="1"
             android:layout_width="fill_parent"

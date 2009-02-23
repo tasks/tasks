@@ -21,8 +21,8 @@ package com.timsu.astrid.activities;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -31,6 +31,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -42,20 +43,20 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.activities.TaskList.ActivityCode;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
 
 
-/** 
+/**
  * List all tags and allows a user to see all tasks for a given tag
  *
  * @author Tim Su (timsu@stanfordalumni.org)
@@ -71,21 +72,32 @@ public class TagListSubActivity extends SubActivity {
     private static final int CONTEXT_SHOWHIDE_ID   = Menu.FIRST + 12;
 
     private ListView listView;
-    private List<TagModelForView> tagArray;
-    private Map<Long, TaskModelForList> taskMap;
-    Map<TagModelForView, Integer> tagToTaskCount;
+    private LinkedList<TagModelForView> tagArray;
+    private HashMap<Long, TaskModelForList> taskMap;
+    HashMap<TagModelForView, Integer> tagToTaskCount;
+    private Handler handler;
+    private TextView loadingText;
 
     private static SortMode sortMode = SortMode.SIZE;
     private static boolean sortReverse = false;
-    
-    public TagListSubActivity(TaskList parent, ActivityCode code, View view) {
+
+    public TagListSubActivity(TaskList parent, int code, View view) {
     	super(parent, code, view);
     }
 
     @Override
     public void onDisplay(Bundle variables) {
         listView = (ListView)findViewById(R.id.taglist);
-        fillData();
+        handler = new Handler();
+        loadingText = (TextView)findViewById(R.id.loading);
+
+        // time to go!
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                fillData();
+            }
+        }).start();
     }
 
     // --- stuff for sorting
@@ -148,24 +160,43 @@ public class TagListSubActivity extends SubActivity {
 
     /** Fill in the Tag List with our tags */
     private void fillData() {
-        Resources r = getResources();
-
         tagArray = getTagController().getAllTags(getParent());
 
         // perform sort
         sortTagArray();
 
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                // set up our adapter
+                final TagListAdapter tagAdapter = new TagListAdapter(getParent(),
+                        android.R.layout.simple_list_item_1, tagArray,
+                        tagToTaskCount);
+
+                // set up ui components
+                setUpListUI(tagAdapter);
+                loadingText.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    /** Set up list handlers and adapter. run on the UI thread */
+    private void setUpListUI(ListAdapter adapter) {
         // set up the title
+        Resources r = getResources();
         StringBuilder title = new StringBuilder().
             append(r.getString(R.string.tagList_titlePrefix)).
             append(" ").append(r.getQuantityString(R.plurals.Ntags,
                 tagArray.size(), tagArray.size()));
-        setTitle(title);
+        final CharSequence finalTitle = title;
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                setTitle(finalTitle);
+            }
+        });
 
-        // set up our adapter
-        TagListAdapter tagAdapter = new TagListAdapter(getParent(),
-                android.R.layout.simple_list_item_1, tagArray);
-        listView.setAdapter(tagAdapter);
+        listView.setAdapter(adapter);
 
         // list view listener
         listView.setOnItemClickListener(new OnItemClickListener() {
@@ -176,7 +207,7 @@ public class TagListSubActivity extends SubActivity {
 
                 Bundle bundle = new Bundle();
                 bundle.putLong(TaskListSubActivity.TAG_TOKEN, tag.getTagIdentifier().getId());
-                switchToActivity(ActivityCode.TASK_LIST_W_TAG, bundle);
+                switchToActivity(TaskList.AC_TASK_LIST_W_TAG, bundle);
             }
         });
 
@@ -237,15 +268,15 @@ public class TagListSubActivity extends SubActivity {
             .setNegativeButton(android.R.string.cancel, null)
             .show();
     }
-    
+
     @Override
     /** Handle back button by moving to task list */
     protected boolean onKeyDown(int keyCode, KeyEvent event) {
     	if(keyCode == KeyEvent.KEYCODE_BACK) {
-    		switchToActivity(ActivityCode.TASK_LIST, null);
+    		switchToActivity(TaskList.AC_TASK_LIST, null);
     		return true;
     	}
-   	
+
     	return false;
     }
 
@@ -308,22 +339,25 @@ public class TagListSubActivity extends SubActivity {
 
         return true;
     }
-    
+
     // --------------------------------------------------- tag list adapter
-    
+
     private class TagListAdapter extends ArrayAdapter<TagModelForView> {
 
     	private List<TagModelForView> objects;
         private int resource;
         private LayoutInflater inflater;
+        private HashMap<TagModelForView, Integer> tagCount;
 
         public TagListAdapter(Context context, int resource,
-                List<TagModelForView> objects) {
+                List<TagModelForView> objects, HashMap<TagModelForView, Integer>
+                tagToTaskCount) {
             super(context, resource, objects);
 
             inflater = (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             this.objects = objects;
             this.resource = resource;
+            this.tagCount = tagToTaskCount;
         }
 
         @Override
@@ -344,12 +378,12 @@ public class TagListSubActivity extends SubActivity {
 
             final TextView name = ((TextView)view.findViewById(android.R.id.text1));
             name.setText(new StringBuilder(tag.getName()).
-                    append(" (").append(tagToTaskCount.get(tag)).append(")"));
+                    append(" (").append(tagCount.get(tag)).append(")"));
 
-            if(tagToTaskCount.get(tag) == 0)
+            if(tagCount.get(tag) == 0)
                 name.setTextColor(r.getColor(R.color.task_list_done));
             else
-            	name.setTextColor(r.getColor(android.R.color.white));            	
+            	name.setTextColor(r.getColor(android.R.color.white));
         }
     }
 

@@ -118,7 +118,7 @@
         <string name="taskList_menu_more">More</string>
         <string name="taskList_menu_sync">Synchronization</string>
         <string name="taskList_menu_settings">Settings</string>
-        <string name="taskList_menu_help">Online Help</string>
+        <string name="taskList_menu_help">Help (opens in Browser)</string>
         <string name="taskList_menu_survey">Take Astrid\'s Survey!</string>
         <string name="taskList_menu_tips">Quick Tips</string>
         
@@ -263,6 +263,7 @@ Wish me luck!\n
        
     <!-- Dialog Boxes -->  
     <skip />
+        <string name="loading">Loading...</string>
         <string name="information_title">Information</string>
         <string name="question_title">Question</string>
         <string name="notify_yes">View Task</string>

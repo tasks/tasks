@@ -53,12 +53,10 @@ import com.timsu.astrid.utilities.StartupReceiver;
  */
 public class TaskList extends Activity {
 
-    /** Enum for the different pages that we can display */
-    public enum ActivityCode {
-    	TASK_LIST,
-    	TAG_LIST,
-    	TASK_LIST_W_TAG
-    };
+    // constants for the different pages that we can display
+    public static final int AC_TASK_LIST = 0;
+    public static final int AC_TAG_LIST = 1;
+    public static final int AC_TASK_LIST_W_TAG = 2;
 
     /** Bundle Key: activity code id of current activity */
     private static final String LAST_ACTIVITY_TAG = "l";
@@ -142,7 +140,7 @@ public class TaskList extends Activity {
         // if we have no filter tag, we're not on the last task
         if(getCurrentSubActivity() == taskListWTag &&
                 ((TaskListSubActivity)taskListWTag).getFilterTag() == null) {
-            switchToActivity(ActivityCode.TASK_LIST, null);
+            switchToActivity(AC_TASK_LIST, null);
         }
     }
 
@@ -150,11 +148,11 @@ public class TaskList extends Activity {
     private void setupUIComponents() {
         gestureDetector = new GestureDetector(new AstridGestureDetector());
         viewFlipper = (ViewFlipper)findViewById(R.id.main);
-        taskList = new TaskListSubActivity(this, ActivityCode.TASK_LIST,
+        taskList = new TaskListSubActivity(this, AC_TASK_LIST,
         		findViewById(R.id.tasklist_layout));
-        tagList = new TagListSubActivity(this, ActivityCode.TAG_LIST,
+        tagList = new TagListSubActivity(this, AC_TAG_LIST,
         		findViewById(R.id.taglist_layout));
-        taskListWTag = new TaskListSubActivity(this, ActivityCode.TASK_LIST_W_TAG,
+        taskListWTag = new TaskListSubActivity(this, AC_TASK_LIST_W_TAG,
         		findViewById(R.id.tasklistwtag_layout));
 
         mInAnimationForward = AnimationUtils.loadAnimation(this, R.anim.slide_left_in);
@@ -185,8 +183,8 @@ public class TaskList extends Activity {
                         Math.abs(velocityX) > FLING_VEL_THRESHOLD) {
 
                 	switch(getCurrentSubActivity().getActivityCode()) {
-                	case TASK_LIST:
-                		switchToActivity(ActivityCode.TAG_LIST, null);
+                	case AC_TASK_LIST:
+                		switchToActivity(AC_TAG_LIST, null);
                 		return true;
             		default:
             			return false;
@@ -198,11 +196,11 @@ public class TaskList extends Activity {
                         Math.abs(velocityX) > FLING_VEL_THRESHOLD) {
 
                 	switch(getCurrentSubActivity().getActivityCode()) {
-                	case TASK_LIST_W_TAG:
-                		switchToActivity(ActivityCode.TAG_LIST, null);
+                	case AC_TASK_LIST_W_TAG:
+                		switchToActivity(AC_TAG_LIST, null);
                 		return true;
-                	case TAG_LIST:
-                		switchToActivity(ActivityCode.TASK_LIST, null);
+                	case AC_TAG_LIST:
+                		switchToActivity(AC_TASK_LIST, null);
                 		return true;
             		default:
             			return false;
@@ -221,31 +219,31 @@ public class TaskList extends Activity {
      * ====================================================================== */
 
     /** Switches to another activity, with appropriate animation */
-    void switchToActivity(ActivityCode activity, Bundle variables) {
+    void switchToActivity(int activity, Bundle variables) {
     	closeOptionsMenu();
 
     	// and flip to them
     	switch(getCurrentSubActivity().getActivityCode()) {
-    	case TASK_LIST:
+    	case AC_TASK_LIST:
             viewFlipper.setInAnimation(mInAnimationForward);
             viewFlipper.setOutAnimation(mOutAnimationForward);
             switch(activity) {
-            case TAG_LIST:
+            case AC_TAG_LIST:
             	viewFlipper.showNext();
             	break;
-            case TASK_LIST_W_TAG:
-            	viewFlipper.setDisplayedChild(taskListWTag.code.ordinal());
+            case AC_TASK_LIST_W_TAG:
+            	viewFlipper.setDisplayedChild(taskListWTag.code);
             }
             break;
 
-    	case TAG_LIST:
+    	case AC_TAG_LIST:
     		switch(activity) {
-    		case TASK_LIST:
+    		case AC_TASK_LIST:
     			viewFlipper.setInAnimation(mInAnimationBackward);
     			viewFlipper.setOutAnimation(mOutAnimationBackward);
     			viewFlipper.showPrevious();
     			break;
-    		case TASK_LIST_W_TAG:
+    		case AC_TASK_LIST_W_TAG:
     			viewFlipper.setInAnimation(mInAnimationForward);
     			viewFlipper.setOutAnimation(mOutAnimationForward);
     			viewFlipper.showNext();
@@ -253,28 +251,28 @@ public class TaskList extends Activity {
             }
     		break;
 
-    	case TASK_LIST_W_TAG:
+    	case AC_TASK_LIST_W_TAG:
             viewFlipper.setInAnimation(mInAnimationBackward);
             viewFlipper.setOutAnimation(mOutAnimationBackward);
             switch(activity) {
-            case TAG_LIST:
+            case AC_TAG_LIST:
             	viewFlipper.showPrevious();
             	break;
-            case TASK_LIST:
-            	viewFlipper.setDisplayedChild(taskList.code.ordinal());
+            case AC_TASK_LIST:
+            	viewFlipper.setDisplayedChild(taskList.code);
             }
             break;
     	}
 
     	// initialize the components
     	switch(activity) {
-    	case TASK_LIST:
+    	case AC_TASK_LIST:
     		taskList.onDisplay(variables);
     		break;
-    	case TAG_LIST:
+    	case AC_TAG_LIST:
     		tagList.onDisplay(variables);
     		break;
-    	case TASK_LIST_W_TAG:
+    	case AC_TASK_LIST_W_TAG:
     		taskListWTag.onDisplay(variables);
     	}
 
@@ -293,7 +291,7 @@ public class TaskList extends Activity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putInt(LAST_ACTIVITY_TAG, getCurrentSubActivity().code.ordinal());
+        outState.putInt(LAST_ACTIVITY_TAG, getCurrentSubActivity().code);
         outState.putBundle(LAST_BUNDLE_TAG, lastActivityBundle);
     }
 
@@ -316,7 +314,7 @@ public class TaskList extends Activity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == Constants.RESULT_GO_HOME) {
-        	switchToActivity(ActivityCode.TASK_LIST, null);
+        	switchToActivity(AC_TASK_LIST, null);
         } else
         	getCurrentSubActivity().onActivityResult(requestCode, resultCode, data);
     }

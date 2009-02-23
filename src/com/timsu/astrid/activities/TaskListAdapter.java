@@ -339,7 +339,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
                         if(timeLeft < FULL_DATE_THRESHOLD)
                             label.append(DateUtilities.getDurationString(r,
-                                (int)Math.abs(timeLeft/1000), 1));
+                                (int)Math.abs(timeLeft), 1));
                         else
                             label.append(DateUtilities.getFormattedDate(r,
                                     task.getDefiniteDueDate()));
@@ -362,7 +362,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
                         if(timeLeft < FULL_DATE_THRESHOLD)
                             label.append(DateUtilities.getDurationString(r,
-                                (int)Math.abs(timeLeft/1000), 1));
+                                (int)Math.abs(timeLeft), 1));
                         else
                             label.append(DateUtilities.getFormattedDate(r,
                                     task.getPreferredDueDate()));
