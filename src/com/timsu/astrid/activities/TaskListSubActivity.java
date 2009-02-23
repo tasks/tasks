@@ -436,8 +436,6 @@ public class TaskListSubActivity extends SubActivity {
         int hiddenTasks = 0; // # of tasks hidden
         int completedTasks = 0; // # of tasks on list that are done
 
-        Log.e("astrid", "fill data called! ", new Throwable("hai")); // XXX
-
         try {
             // get a cursor to the task list
             Cursor tasksCursor;
@@ -498,18 +496,10 @@ public class TaskListSubActivity extends SubActivity {
             // happens when you rotate the screen while the thread is
             // still running. i don't think it's avoidable?
             Log.w("astrid", "StaleDataException", e);
+            return;
         } catch (final Exception e) {
             Log.e("astrid", "Error loading task list", e);
-            handler.post(new Runnable() {
-                public void run() {
-                    DialogUtilities.okDialog(getParent(),
-                            "Error loading task list, FYI. If you " +
-                            "continue to have problems, please let " +
-                            "me know!\n\n" + e.getClass().getSimpleName() +
-                            ": " + e.getMessage(),
-                            null);
-                }
-            });
+            return;
         }
 
         int activeTasks = taskArray.size() - completedTasks;
@@ -748,7 +738,6 @@ public class TaskListSubActivity extends SubActivity {
     public void onWindowFocusChanged(boolean hasFocus) {
         // refresh, since stuff might have changed...
         if(hasFocus) {
-            Log.e("astrid", "window focus changed. suppress: " + suppressReload); // XXX
             if(suppressReload) {
                 suppressReload = false;
                 return;
