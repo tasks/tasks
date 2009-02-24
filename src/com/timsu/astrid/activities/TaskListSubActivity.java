@@ -132,7 +132,8 @@ public class TaskListSubActivity extends SubActivity {
     private TaskModelForList selectedTask = null;
     private Handler handler = null;
     private Thread loadingThread = null;
-    private Thread reLoadThread = null;
+    private Runnable reLoadRunnable = null;
+    private TaskListAdapter listAdapter = null;
 
     // display filters
     private static boolean filterShowHidden = false;
@@ -170,7 +171,7 @@ public class TaskListSubActivity extends SubActivity {
 
         setupUIComponents();
 
-        reLoadThread = new Thread(new Runnable() {
+        reLoadRunnable = new Runnable() {
             @Override
             public void run() {
                 suppressReload = true;
@@ -178,13 +179,12 @@ public class TaskListSubActivity extends SubActivity {
                     @Override
                     public void run() {
                         loadingText.setVisibility(View.VISIBLE);
-                        listView.setAdapter(null);
                     }
                 });
 
                 fillData();
             }
-        });
+        };
 
         // time to go!
         loadingThread = new Thread(new Runnable() {
@@ -218,7 +218,6 @@ public class TaskListSubActivity extends SubActivity {
                         }
                     });
                 }
-                loadingThread = null;
             }
         });
         loadingThread.start();
@@ -624,16 +623,16 @@ public class TaskListSubActivity extends SubActivity {
     /** Set up the adapter for our task list */
     private void setUpListUI() {
         // set up our adapter
-        TaskListAdapter tasks = new TaskListAdapter(getParent(),
+        listAdapter = new TaskListAdapter(getParent(),
                     R.layout.task_list_row, taskArray, new TaskListHooks());
-        listView.setAdapter(tasks);
+        listView.setAdapter(listAdapter);
         listView.setItemsCanFocus(true);
 
         if(selectedTask != null) {
             try {
-                int selectedPosition = tasks.getPosition(selectedTask);
+                int selectedPosition = listAdapter.getPosition(selectedTask);
                 View v = listView.getChildAt(selectedPosition);
-                tasks.setExpanded(v, selectedTask, true);
+                listAdapter.setExpanded(v, selectedTask, true);
                 listView.setSelection(selectedPosition);
             } catch (Exception e) {
                 Log.e("astrid", "error with selected task", e);
@@ -712,7 +711,7 @@ public class TaskListSubActivity extends SubActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if(loadingThread != null)
+        if(loadingThread.isAlive())
             loadingThread.stop();
     }
 
@@ -727,7 +726,8 @@ public class TaskListSubActivity extends SubActivity {
                                 R.string.sync_no_synchronizers), null);
                         return;
                     }
-                    fillData();
+                    loadingThread = new Thread(reLoadRunnable);
+                    loadingThread.start();
                 }
             });
         } else if(requestCode == ACTIVITY_TAGS)
@@ -768,7 +768,8 @@ public class TaskListSubActivity extends SubActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     getTaskController().deleteTask(taskId);
-                    fillData();
+                    loadingThread = new Thread(reLoadRunnable);
+                    loadingThread.start();
                 }
             })
             .setNegativeButton(android.R.string.cancel, null)
@@ -791,12 +792,18 @@ public class TaskListSubActivity extends SubActivity {
             task.stopTimerAndUpdateElapsedTime();
         }
         getTaskController().saveTask(task);
-        fillData();
+        listAdapter.refreshItem(listView, taskArray.indexOf(task));
     }
 
     /** Show the tags view */
     public void showTagsView() {
         switchToActivity(TaskList.AC_TAG_LIST, null);
+    }
+
+    @Override
+    public void launchActivity(Intent intent, int requestCode) {
+        suppressReload = false;
+        super.launchActivity(intent, requestCode);
     }
 
     /** Save the sorting mode to the preferences */
@@ -844,7 +851,7 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     @Override
-    public boolean onMenuItemSelected(int featureId, MenuItem item) {
+    public boolean onMenuItemSelected(int featureId, final MenuItem item) {
         final TaskModelForList task;
         Resources r = getResources();
 
@@ -901,6 +908,7 @@ public class TaskListSubActivity extends SubActivity {
         case TaskListAdapter.CONTEXT_TIMER_ID:
             task = taskArray.get(item.getGroupId());
             toggleTimer(task);
+            suppressReload = true;
             return true;
         case TaskListAdapter.CONTEXT_POSTPONE_ID:
             task = taskArray.get(item.getGroupId());
@@ -918,7 +926,8 @@ public class TaskListSubActivity extends SubActivity {
                                 task.getHiddenUntil(), postponeMillis, false));
 
                         getTaskController().saveTask(task);
-                        fillData();
+                        suppressReload = true;
+                        listAdapter.refreshItem(listView, item.getGroupId());
                     }
                 });
             return true;
@@ -927,12 +936,14 @@ public class TaskListSubActivity extends SubActivity {
         case CONTEXT_FILTER_HIDDEN:
             TaskListSubActivity.filterShowHidden = !filterShowHidden;
             saveTaskListSort();
-            reLoadThread.start();
+            loadingThread = new Thread(reLoadRunnable);
+            loadingThread.start();
             return true;
         case CONTEXT_FILTER_DONE:
             TaskListSubActivity.filterShowDone = !filterShowDone;
             saveTaskListSort();
-            reLoadThread.start();
+            loadingThread = new Thread(reLoadRunnable);
+            loadingThread.start();
             return true;
         case CONTEXT_FILTER_TAG:
             switchToActivity(TaskList.AC_TASK_LIST, null);
@@ -943,7 +954,8 @@ public class TaskListSubActivity extends SubActivity {
             TaskListSubActivity.sortReverse = false;
             TaskListSubActivity.sortMode = SortMode.AUTO;
             saveTaskListSort();
-            fillData();
+            loadingThread = new Thread(reLoadRunnable);
+            loadingThread.start();
             return true;
         case CONTEXT_SORT_ALPHA:
             if(sortMode == SortMode.ALPHA)
@@ -951,7 +963,8 @@ public class TaskListSubActivity extends SubActivity {
             TaskListSubActivity.sortReverse = false;
             TaskListSubActivity.sortMode = SortMode.ALPHA;
             saveTaskListSort();
-            fillData();
+            loadingThread = new Thread(reLoadRunnable);
+            loadingThread.start();
             return true;
         case CONTEXT_SORT_DUEDATE:
             if(sortMode == SortMode.DUEDATE)
@@ -959,12 +972,14 @@ public class TaskListSubActivity extends SubActivity {
             TaskListSubActivity.sortReverse = false;
             TaskListSubActivity.sortMode = SortMode.DUEDATE;
             saveTaskListSort();
-            fillData();
+            loadingThread = new Thread(reLoadRunnable);
+            loadingThread.start();
             return true;
         case CONTEXT_SORT_REVERSE:
             TaskListSubActivity.sortReverse = !sortReverse;
             saveTaskListSort();
-            fillData();
+            loadingThread = new Thread(reLoadRunnable);
+            loadingThread.start();
             return true;
         }
 

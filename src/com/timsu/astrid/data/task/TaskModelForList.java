@@ -108,6 +108,9 @@ public class TaskModelForList extends AbstractTaskModel {
     public void putCachedLabel(int key, String value) {
         displayLabels.put(key, value);
     }
+    public void clearCache() {
+        displayLabels.clear();
+    }
 
     // --- constructors
 

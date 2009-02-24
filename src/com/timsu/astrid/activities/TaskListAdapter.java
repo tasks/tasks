@@ -232,7 +232,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         final ImageView timer = ((ImageView)view.findViewById(R.id.imageLeft));
         if(task.getTimerStart() != null) {
             timer.setImageDrawable(r.getDrawable(R.drawable.icon_timer));
-            view.setMinimumHeight(80);
+            view.setMinimumHeight(90);
         } else {
         	timer.setImageDrawable(null);
         	view.setMinimumHeight(45);
@@ -545,6 +545,14 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             expandedDetailsView.setText(expandedDetails.toString());
         }
 
+    }
+
+    public void refreshItem(ListView listView, int position) {
+        View view = listView.getChildAt(position);
+        TaskModelForList task = hooks.getTaskArray().get(position);
+        task.clearCache();
+
+        setupView(view, task);
     }
 
     /** Set listeners for this view. This is called once total */
