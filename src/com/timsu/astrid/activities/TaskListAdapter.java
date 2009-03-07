@@ -19,8 +19,8 @@ package com.timsu.astrid.activities;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import android.app.Activity;
@@ -51,7 +51,6 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.tag.TagController;
-import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
@@ -95,7 +94,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             "MM/dd HH:mm");
 
     private final Activity activity;
-    private List<TaskModelForList> objects;
+    private ArrayList<TaskModelForList> objects;
     private int resource;
     private LayoutInflater inflater;
     private TaskListAdapterHooks hooks;
@@ -112,8 +111,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
      *
      */
     public interface TaskListAdapterHooks {
-        List<TaskModelForList> getTaskArray();
-        List<TagModelForView> getTagsFor(TaskModelForList task);
+        ArrayList<TaskModelForList> getTaskArray();
+        String getTagsFor(TaskModelForList task);
         TaskController taskController();
         TagController tagController();
         void performItemClick(View v, int position);
@@ -134,7 +133,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
      * @param hooks
      */
     public TaskListAdapter(Activity activity, int resource,
-            List<TaskModelForList> objects, TaskListAdapterHooks hooks) {
+            ArrayList<TaskModelForList> objects, TaskListAdapterHooks hooks) {
         super(activity, resource, objects);
 
         inflater = (LayoutInflater)activity.getSystemService(
@@ -222,6 +221,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
      */
     private void setupView(View view, final TaskModelForList task) {
         Resources r = activity.getResources();
+
+        if(task == null)
+            return;
 
         view.setTag(task);
         setFieldContentsAndVisibility(view, task);
@@ -480,15 +482,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         if(visibleFields.TAGS || isExpanded) {
             String cachedResult = task.getCachedLabel(KEY_TAGS);
             if(cachedResult == null) {
-                List<TagModelForView> alltags = hooks.getTagsFor(task);
-                StringBuilder tagString = new StringBuilder();
-                for(Iterator<TagModelForView> i = alltags.iterator(); i.hasNext(); ) {
-                    TagModelForView tag = i.next();
-                    tagString.append(tag.getName());
-                    if(i.hasNext())
-                        tagString.append(", ");
-                }
-                if(alltags.size() > 0)
+                String tagString = hooks.getTagsFor(task);
+                if(!tagString.equals(""))
                     cachedResult = r.getString(R.string.taskList_tagsPrefix) +
                         " " + tagString;
                 else
@@ -547,6 +542,26 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     }
 
+    /**
+     * Removes the item at the specified position in the list (not reltaed
+     * to task identifier number
+     *
+     * @param listView parent view to refresh
+     * @param position the index of the item
+     */
+    public void removeItem(ListView listView, int position) {
+        View view = listView.getChildAt(position);
+        view.setVisibility(View.GONE);
+        objects.set(position, null);
+    }
+
+    /**
+     * Refresh the item given at the specified position in the list (not
+     * related to task identifier number)
+     *
+     * @param listView the parent view to refresh
+     * @param position the index of the item
+     */
     public void refreshItem(ListView listView, int position) {
         View view = listView.getChildAt(position);
         TaskModelForList task = hooks.getTaskArray().get(position);

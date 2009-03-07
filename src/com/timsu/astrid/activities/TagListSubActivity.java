@@ -55,6 +55,7 @@ import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.utilities.DialogUtilities;
 
 
 /**
@@ -316,7 +317,13 @@ public class TagListSubActivity extends SubActivity {
         case CONTEXT_SHOWHIDE_ID:
             tag = tagArray.get(item.getGroupId());
             tag.toggleHideFromMainList();
-            getTagController().saveTag(tag);
+            try {
+                getTagController().saveTag(tag);
+            } catch (Exception e) {
+                DialogUtilities.okDialog(getParent(), "Error: You probably " +
+                        "already have a tag named '" + tag.getName() + "'!",
+                        null);
+            }
             fillData();
             return true;
         }

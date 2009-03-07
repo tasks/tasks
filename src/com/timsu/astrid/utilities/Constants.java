@@ -13,6 +13,8 @@ public class Constants {
     /** URL of Astrid Feature Survey */
     public static final String SURVEY_URL = "http://www.haveasec.com/survey/m/detail/welcome/bf25e0/";
 
+    public static final boolean DEBUG = false;
+
     // result codes
 
     /** Return to the task list view */
@@ -20,4 +22,5 @@ public class Constants {
 
     /** Callback to force synchronization */
     public static final int RESULT_SYNCHRONIZE = Activity.RESULT_FIRST_USER + 1;
+
 }

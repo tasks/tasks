@@ -127,7 +127,7 @@ public class TaskListSubActivity extends SubActivity {
     // other instance variables
     private Map<TagIdentifier, TagModelForView> tagMap;
     private ArrayList<TaskModelForList> taskArray;
-    private HashMap<TaskModelForList, LinkedList<TagModelForView>> taskTags;
+    private HashMap<TaskModelForList, String> taskTags;
     private Long selectedTaskId = null;
     private TaskModelForList selectedTask = null;
     private Handler handler = null;
@@ -141,7 +141,7 @@ public class TaskListSubActivity extends SubActivity {
     private static SortMode sortMode = SortMode.AUTO;
     private static boolean sortReverse = false;
     private TagModelForView filterTag = null;
-    private boolean suppressReload = false;
+    private int editedObjectPosition = -1;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -174,7 +174,6 @@ public class TaskListSubActivity extends SubActivity {
         reLoadRunnable = new Runnable() {
             @Override
             public void run() {
-                suppressReload = true;
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
@@ -212,7 +211,6 @@ public class TaskListSubActivity extends SubActivity {
                             if(variables.containsKey(NOTIF_REPEAT_TOKEN))
                                 repeatInterval = variables.getLong(NOTIF_REPEAT_TOKEN);
                             flags = variables.getInt(NOTIF_FLAGS_TOKEN);
-                            suppressReload = true;
                             showNotificationAlert(selectedTask,
                                     repeatInterval, flags);
                         }
@@ -421,10 +419,8 @@ public class TaskListSubActivity extends SubActivity {
             return true;
 
         if(filterTag == null) {
-            for(TagModelForView tags : taskTags.get(task)) {
-                if(tags != null && tags.shouldHideFromMainList())
-                    return true;
-            }
+            if(taskTags.get(task).contains(TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX))
+                return true;
         }
 
         return false;
@@ -453,13 +449,13 @@ public class TaskListSubActivity extends SubActivity {
 
             // read tags and apply filters
             tagMap = getTagController().getAllTagsAsMap(getParent());
-            taskTags = new HashMap<TaskModelForList, LinkedList<TagModelForView>>();
-
+            taskTags = new HashMap<TaskModelForList, String>();
+            StringBuilder tagBuilder = new StringBuilder();
             for(Iterator<TaskModelForList> i = taskArray.iterator(); i.hasNext();) {
                 TaskModelForList task = i.next();
 
-                if(task.isTaskCompleted()) {
-                    if(!filterShowDone) {
+                if(!filterShowDone) {
+                    if(task.isTaskCompleted()) {
                         i.remove();
                         continue;
                     }
@@ -472,12 +468,14 @@ public class TaskListSubActivity extends SubActivity {
                 // get list of tags
                 LinkedList<TagIdentifier> tagIds = getTagController().getTaskTags(getParent(),
                         task.getTaskIdentifier());
-                LinkedList<TagModelForView> tags = new LinkedList<TagModelForView>();
-                for(TagIdentifier tagId : tagIds) {
-                    TagModelForView tag = tagMap.get(tagId);
-                    tags.add(tag);
+                tagBuilder.delete(0, tagBuilder.length());
+                for(Iterator<TagIdentifier> j = tagIds.iterator(); j.hasNext(); ) {
+                    TagModelForView tag = tagMap.get(j.next());
+                    tagBuilder.append(tag.getName());
+                    if(j.hasNext())
+                        tagBuilder.append(", ");
                 }
-                taskTags.put(task, tags);
+                taskTags.put(task, tagBuilder.toString());
 
                 // hide hidden
                 if(!filterShowHidden) {
@@ -562,8 +560,8 @@ public class TaskListSubActivity extends SubActivity {
 
     class TaskListHooks implements TaskListAdapterHooks {
 
-        private HashMap<TaskModelForList, LinkedList<TagModelForView>> myTaskTags;
-        private List<TaskModelForList> myTaskArray;
+        private HashMap<TaskModelForList, String> myTaskTags;
+        private ArrayList<TaskModelForList> myTaskArray;
 
         public TaskListHooks() {
             this.myTaskTags = taskTags;
@@ -576,13 +574,12 @@ public class TaskListSubActivity extends SubActivity {
         }
 
         @Override
-        public List<TagModelForView> getTagsFor(
-                TaskModelForList task) {
+        public String getTagsFor(TaskModelForList task) {
             return myTaskTags.get(task);
         }
 
         @Override
-        public List<TaskModelForList> getTaskArray() {
+        public ArrayList<TaskModelForList> getTaskArray() {
             return myTaskArray;
         }
 
@@ -730,20 +727,15 @@ public class TaskListSubActivity extends SubActivity {
                     loadingThread.start();
                 }
             });
-        } else if(requestCode == ACTIVITY_TAGS)
+        } else if(requestCode == ACTIVITY_TAGS) {
             switchToActivity(TaskList.AC_TAG_LIST, null);
-    }
+        } else if(requestCode == ACTIVITY_EDIT && editedObjectPosition != -1) {
+            // refresh, since stuff might have changed...
 
-    @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        // refresh, since stuff might have changed...
-        if(hasFocus) {
-            if(suppressReload) {
-                suppressReload = false;
-                return;
-            }
+            // TODO reload task & tags from database
 
-            fillData();
+            listAdapter.refreshItem(listView, editedObjectPosition);
+            editedObjectPosition = -1;
         }
     }
 
@@ -758,7 +750,7 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     /** Show a dialog box and delete the task specified */
-    private void deleteTask(final TaskIdentifier taskId) {
+    private void deleteTask(final TaskModelForList task, final int position) {
         new AlertDialog.Builder(getParent())
             .setTitle(R.string.delete_title)
             .setMessage(R.string.delete_this_task_title)
@@ -767,9 +759,8 @@ public class TaskListSubActivity extends SubActivity {
                     new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    getTaskController().deleteTask(taskId);
-                    loadingThread = new Thread(reLoadRunnable);
-                    loadingThread.start();
+                    listAdapter.refreshItem(listView, position);
+                    getTaskController().deleteTask(task.getTaskIdentifier());
                 }
             })
             .setNegativeButton(android.R.string.cancel, null)
@@ -778,6 +769,8 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Take you to the task edit page */
     private void editTask(TaskModelForList task) {
+        editedObjectPosition = taskArray.indexOf(task);
+
         Intent intent = new Intent(getParent(), TaskEdit.class);
         intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN,
                 task.getTaskIdentifier().getId());
@@ -802,7 +795,6 @@ public class TaskListSubActivity extends SubActivity {
 
     @Override
     public void launchActivity(Intent intent, int requestCode) {
-        suppressReload = false;
         super.launchActivity(intent, requestCode);
     }
 
@@ -903,12 +895,11 @@ public class TaskListSubActivity extends SubActivity {
             return true;
         case TaskListAdapter.CONTEXT_DELETE_ID:
             task = taskArray.get(item.getGroupId());
-            deleteTask(task.getTaskIdentifier());
+            deleteTask(task, item.getGroupId());
             return true;
         case TaskListAdapter.CONTEXT_TIMER_ID:
             task = taskArray.get(item.getGroupId());
             toggleTimer(task);
-            suppressReload = true;
             return true;
         case TaskListAdapter.CONTEXT_POSTPONE_ID:
             task = taskArray.get(item.getGroupId());
@@ -926,7 +917,6 @@ public class TaskListSubActivity extends SubActivity {
                                 task.getHiddenUntil(), postponeMillis, false));
 
                         getTaskController().saveTask(task);
-                        suppressReload = true;
                         listAdapter.refreshItem(listView, item.getGroupId());
                     }
                 });

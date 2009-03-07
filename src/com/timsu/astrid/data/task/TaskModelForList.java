@@ -43,7 +43,6 @@ public class TaskModelForList extends AbstractTaskModel {
         DEFINITE_DUE_DATE,
         PREFERRED_DUE_DATE,
         NOTIFICATIONS,
-        NOTIFICATION_FLAGS,
         PROGRESS_PERCENTAGE,
         COMPLETION_DATE,
         CREATION_DATE,
@@ -200,11 +199,6 @@ public class TaskModelForList extends AbstractTaskModel {
     public RepeatInfo getRepeat() {
         return super.getRepeat();
     }
-
-	@Override
-	public int getNotificationFlags() {
-	    return super.getNotificationFlags();
-	}
 
 	@Override
 	public Date getCreationDate() {

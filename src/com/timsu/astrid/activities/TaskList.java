@@ -74,7 +74,7 @@ public class TaskList extends Activity {
     private static final int MAX_FLING_OTHER_AXIS = 60;
 
     /** Minimum velocity a fling must have to trigger motion */
-	private static final int FLING_VEL_THRESHOLD = 300;
+	private static final int FLING_VEL_THRESHOLD = 200;
 
 	// view components
 	private ViewFlipper viewFlipper;
@@ -174,11 +174,12 @@ public class TaskList extends Activity {
     }
 
     /** Gesture detector switches between sub-activities */
-    private class AstridGestureDetector extends SimpleOnGestureListener {
+    class AstridGestureDetector extends SimpleOnGestureListener {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             try {
-                Log.i("astrid", "Got fling. X: " + (e2.getX() - e1.getX()) +
+                if(Constants.DEBUG)
+                    Log.i("astrid", "Got fling. X: " + (e2.getX() - e1.getX()) +
                         ", vel: " + velocityX);
 
                 if(Math.abs(e1.getY() - e2.getY()) > MAX_FLING_OTHER_AXIS)
@@ -186,7 +187,7 @@ public class TaskList extends Activity {
 
                 // flick R to L
                 if(e1.getX() - e2.getX() > FLING_DIST_THRESHOLD &&
-                        Math.abs(velocityX) > FLING_VEL_THRESHOLD) {
+                        Math.abs((int)velocityX) > FLING_VEL_THRESHOLD) {
 
                 	switch(getCurrentSubActivity().getActivityCode()) {
                 	case AC_TASK_LIST:
@@ -199,7 +200,7 @@ public class TaskList extends Activity {
 
                 // flick L to R
                 else if(e2.getX() - e1.getX() > FLING_DIST_THRESHOLD &&
-                        Math.abs(velocityX) > FLING_VEL_THRESHOLD) {
+                        Math.abs((int)velocityX) > FLING_VEL_THRESHOLD) {
 
                 	switch(getCurrentSubActivity().getActivityCode()) {
                 	case AC_TASK_LIST_W_TAG:
@@ -231,8 +232,8 @@ public class TaskList extends Activity {
     	// and flip to them
     	switch(getCurrentSubActivity().getActivityCode()) {
     	case AC_TASK_LIST:
-            viewFlipper.setInAnimation(mInAnimationForward);
-            viewFlipper.setOutAnimation(mOutAnimationForward);
+            //viewFlipper.setInAnimation(mInAnimationForward);
+            //viewFlipper.setOutAnimation(mOutAnimationForward);
             switch(activity) {
             case AC_TAG_LIST:
             	viewFlipper.showNext();
@@ -245,21 +246,21 @@ public class TaskList extends Activity {
     	case AC_TAG_LIST:
     		switch(activity) {
     		case AC_TASK_LIST:
-    			viewFlipper.setInAnimation(mInAnimationBackward);
-    			viewFlipper.setOutAnimation(mOutAnimationBackward);
+    			//viewFlipper.setInAnimation(mInAnimationBackward);
+    			//viewFlipper.setOutAnimation(mOutAnimationBackward);
     			viewFlipper.showPrevious();
     			break;
     		case AC_TASK_LIST_W_TAG:
-    			viewFlipper.setInAnimation(mInAnimationForward);
-    			viewFlipper.setOutAnimation(mOutAnimationForward);
+    			//viewFlipper.setInAnimation(mInAnimationForward);
+    			//viewFlipper.setOutAnimation(mOutAnimationForward);
     			viewFlipper.showNext();
     			break;
             }
     		break;
 
     	case AC_TASK_LIST_W_TAG:
-            viewFlipper.setInAnimation(mInAnimationBackward);
-            viewFlipper.setOutAnimation(mOutAnimationBackward);
+            //viewFlipper.setInAnimation(mInAnimationBackward);
+            //viewFlipper.setOutAnimation(mOutAnimationBackward);
             switch(activity) {
             case AC_TAG_LIST:
             	viewFlipper.showPrevious();
@@ -331,8 +332,8 @@ public class TaskList extends Activity {
 
         if(hasFocus && shouldCloseInstance) { // user wants to quit
         	finish();
-        } else
-        	getCurrentSubActivity().onWindowFocusChanged(hasFocus);
+        }/* else
+        	getCurrentSubActivity().onWindowFocusChanged(hasFocus);*/
     }
 
     @Override

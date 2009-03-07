@@ -44,7 +44,7 @@ public class Preferences {
             editor.putString(r.getString(R.string.p_fontSize), "20");
         }
         if(!prefs.contains(r.getString(R.string.p_deadlineTime))) {
-            editor.putString(r.getString(R.string.p_deadlineTime), "7");
+            editor.putString(r.getString(R.string.p_deadlineTime), "1");
         }
         if(!prefs.contains(r.getString(R.string.p_notif_defaultRemind))) {
             editor.putString(r.getString(R.string.p_notif_defaultRemind), "0");
