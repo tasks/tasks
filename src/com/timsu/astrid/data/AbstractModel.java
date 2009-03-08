@@ -20,6 +20,7 @@
 package com.timsu.astrid.data;
 
 import java.util.Date;
+import java.util.HashMap;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -132,6 +133,25 @@ public abstract class AbstractModel {
         setValues.put(field, newValue);
     }
 
+    protected static HashMap<Class<?>, HashMap<String, Integer>>
+        columnIndexCache = new HashMap<Class<?>, HashMap<String, Integer>>();
+    private int getColumnIndex(String field) {
+        HashMap<String, Integer> classCache;
+        classCache = columnIndexCache.get(getClass());
+        if(classCache == null) {
+            classCache = new HashMap<String, Integer>();
+            columnIndexCache.put(getClass(), classCache);
+        }
+
+        Integer index = classCache.get(field);
+        if(index == null) {
+            index = cursor.getColumnIndexOrThrow(field);
+            classCache.put(field, index);
+        }
+
+        return index;
+    }
+
     // --- data retrieval for the different object types
 
     protected String retrieveString(String field) {
@@ -143,7 +163,7 @@ public abstract class AbstractModel {
 
         // if we have a database to hit, do that now
         if(cursor != null) {
-            String value = cursor.getString(cursor.getColumnIndexOrThrow(field));
+            String value = cursor.getString(getColumnIndex(field));
             values.put(field, value);
             return value;
         }
@@ -165,7 +185,7 @@ public abstract class AbstractModel {
 
         // if we have a database to hit, do that now
         if(cursor != null) {
-            Integer value = cursor.getInt(cursor.getColumnIndexOrThrow(field));
+            Integer value = cursor.getInt(getColumnIndex(field));
             values.put(field, value);
             return value;
         }
@@ -187,7 +207,7 @@ public abstract class AbstractModel {
 
         // if we have a database to hit, do that now
         if(cursor != null) {
-            Long value = cursor.getLong(cursor.getColumnIndexOrThrow(field));
+            Long value = cursor.getLong(getColumnIndex(field));
             values.put(field, value);
             return value;
         }
@@ -209,7 +229,7 @@ public abstract class AbstractModel {
 
         // if we have a database to hit, do that now
         if(cursor != null) {
-            Double value = cursor.getDouble(cursor.getColumnIndexOrThrow(field));
+            Double value = cursor.getDouble(getColumnIndex(field));
             values.put(field, value);
             return value;
         }

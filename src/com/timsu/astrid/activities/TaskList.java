@@ -68,7 +68,7 @@ public class TaskList extends Activity {
     public  static final String VARIABLES_TAG = "v";
 
     /** Minimum distance a fling must cover to trigger motion */
-    private static final int FLING_DIST_THRESHOLD = 120;
+    private static final int FLING_DIST_THRESHOLD = 160;
 
     /** Maximum distance in the other axis for a fling */
     private static final int MAX_FLING_OTHER_AXIS = 60;
@@ -86,10 +86,8 @@ public class TaskList extends Activity {
 	private Bundle lastActivityBundle;
 
 	// animations
-	private Animation mInAnimationForward;
-    private Animation mOutAnimationForward;
-    private Animation mInAnimationBackward;
-    private Animation mOutAnimationBackward;
+	private Animation mFadeInAnim;
+    private Animation mFadeOutAnim;
 
 	// data controllers
 	TaskController taskController;
@@ -158,10 +156,10 @@ public class TaskList extends Activity {
         taskListWTag = new TaskListSubActivity(this, AC_TASK_LIST_W_TAG,
         		findViewById(R.id.tasklistwtag_layout));
 
-        mInAnimationForward = AnimationUtils.loadAnimation(this, R.anim.slide_left_in);
-        mOutAnimationForward = AnimationUtils.loadAnimation(this, R.anim.slide_left_out);
-        mInAnimationBackward = AnimationUtils.loadAnimation(this, R.anim.slide_right_in);
-        mOutAnimationBackward = AnimationUtils.loadAnimation(this, R.anim.slide_right_out);
+        mFadeInAnim = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+        mFadeOutAnim = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+        viewFlipper.setInAnimation(mFadeInAnim);
+        viewFlipper.setOutAnimation(mFadeOutAnim);
 
         gestureListener = new View.OnTouchListener() {
             public boolean onTouch(View v, MotionEvent event) {
@@ -178,16 +176,15 @@ public class TaskList extends Activity {
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             try {
-                if(Constants.DEBUG)
-                    Log.i("astrid", "Got fling. X: " + (e2.getX() - e1.getX()) +
-                        ", vel: " + velocityX);
-
                 if(Math.abs(e1.getY() - e2.getY()) > MAX_FLING_OTHER_AXIS)
                     return false;
 
+                Log.i("astrid", "Got fling. X: " + (e2.getX() - e1.getX()) +
+                        ", vel: " + velocityX);
+
                 // flick R to L
                 if(e1.getX() - e2.getX() > FLING_DIST_THRESHOLD &&
-                        Math.abs((int)velocityX) > FLING_VEL_THRESHOLD) {
+                        Math.abs(velocityX) > FLING_VEL_THRESHOLD) {
 
                 	switch(getCurrentSubActivity().getActivityCode()) {
                 	case AC_TASK_LIST:
@@ -200,7 +197,7 @@ public class TaskList extends Activity {
 
                 // flick L to R
                 else if(e2.getX() - e1.getX() > FLING_DIST_THRESHOLD &&
-                        Math.abs((int)velocityX) > FLING_VEL_THRESHOLD) {
+                        Math.abs(velocityX) > FLING_VEL_THRESHOLD) {
 
                 	switch(getCurrentSubActivity().getActivityCode()) {
                 	case AC_TASK_LIST_W_TAG:
@@ -232,8 +229,6 @@ public class TaskList extends Activity {
     	// and flip to them
     	switch(getCurrentSubActivity().getActivityCode()) {
     	case AC_TASK_LIST:
-            //viewFlipper.setInAnimation(mInAnimationForward);
-            //viewFlipper.setOutAnimation(mOutAnimationForward);
             switch(activity) {
             case AC_TAG_LIST:
             	viewFlipper.showNext();
@@ -246,21 +241,15 @@ public class TaskList extends Activity {
     	case AC_TAG_LIST:
     		switch(activity) {
     		case AC_TASK_LIST:
-    			//viewFlipper.setInAnimation(mInAnimationBackward);
-    			//viewFlipper.setOutAnimation(mOutAnimationBackward);
     			viewFlipper.showPrevious();
     			break;
     		case AC_TASK_LIST_W_TAG:
-    			//viewFlipper.setInAnimation(mInAnimationForward);
-    			//viewFlipper.setOutAnimation(mOutAnimationForward);
     			viewFlipper.showNext();
     			break;
             }
     		break;
 
     	case AC_TASK_LIST_W_TAG:
-            //viewFlipper.setInAnimation(mInAnimationBackward);
-            //viewFlipper.setOutAnimation(mOutAnimationBackward);
             switch(activity) {
             case AC_TAG_LIST:
             	viewFlipper.showPrevious();
@@ -332,8 +321,8 @@ public class TaskList extends Activity {
 
         if(hasFocus && shouldCloseInstance) { // user wants to quit
         	finish();
-        }/* else
-        	getCurrentSubActivity().onWindowFocusChanged(hasFocus);*/
+        } else
+        	getCurrentSubActivity().onWindowFocusChanged(hasFocus);
     }
 
     @Override
@@ -350,6 +339,11 @@ public class TaskList extends Activity {
 	        return true;
 	    else
 	    	return false;
+    }
+
+    @Override
+    public Object onRetainNonConfigurationInstance() {
+        return getCurrentSubActivity().onRetainNonConfigurationInstance();
     }
 
     @Override

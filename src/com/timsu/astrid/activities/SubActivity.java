@@ -81,6 +81,10 @@ abstract public class SubActivity {
 	    //
 	}
 
+	Object onRetainNonConfigurationInstance() {
+	    return null;
+	}
+
 	// --- pass-through to activity methods
 
 	public Resources getResources() {
@@ -105,6 +109,10 @@ abstract public class SubActivity {
 
 	public void launchActivity(Intent intent, int requestCode) {
 		parent.startActivityForResult(intent, requestCode);
+	}
+
+	public Object getLastNonConfigurationInstance() {
+	    return parent.getLastNonConfigurationInstance();
 	}
 
 	// --- helper methods

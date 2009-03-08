@@ -51,6 +51,14 @@ public class TaskModelForList extends AbstractTaskModel {
         REPEAT,
     };
 
+    // pre-load the cache for our column keys
+    static {
+        HashMap<String, Integer> indexCache = new HashMap<String, Integer>();
+        columnIndexCache.put(TaskModelForList.class, indexCache);
+        for(int i = 0; i < FIELD_LIST.length; i++)
+            indexCache.put(FIELD_LIST[i], i);
+    }
+
     /** Get the weighted score for this task. Smaller is more important */
     public int getTaskWeight() {
         int weight = 0;

@@ -25,7 +25,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -125,23 +124,27 @@ public class TaskListSubActivity extends SubActivity {
     private TextView loadingText;
 
     // other instance variables
-    private Map<TagIdentifier, TagModelForView> tagMap;
-    private ArrayList<TaskModelForList> taskArray;
-    private HashMap<Long, TaskModelForList> tasksById;
-    private HashMap<TaskModelForList, String> taskTags;
-    private Long selectedTaskId = null;
-    private TaskModelForList selectedTask = null;
-    private Handler handler = null;
-    private Thread loadingThread = null;
-    private Runnable reLoadRunnable = null;
-    private TaskListAdapter listAdapter = null;
+    class TaskListContext {
+        Map<TagIdentifier, TagModelForView> tagMap;
+        ArrayList<TaskModelForList> taskArray;
+        HashMap<Long, TaskModelForList> tasksById;
+        HashMap<TaskModelForList, String> taskTags;
+        TaskModelForList selectedTask = null;
+        Thread loadingThread = null;
+        TaskListAdapter listAdapter = null;
+        TagModelForView filterTag = null;
+        CharSequence windowTitle;
+    }
+    Handler handler = null;
+    Long selectedTaskId = null;
+    Runnable reLoadRunnable = null;
+    private TaskListContext context;
 
     // display filters
     private static boolean filterShowHidden = false;
     private static boolean filterShowDone = false;
     private static SortMode sortMode = SortMode.AUTO;
     private static boolean sortReverse = false;
-    private TagModelForView filterTag = null;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -154,21 +157,12 @@ public class TaskListSubActivity extends SubActivity {
     @Override
     /** Called when loading up the activity */
     public void onDisplay(final Bundle variables) {
-        // process tag to filter, if any
-        if(variables != null && variables.containsKey(TAG_TOKEN)) {
-            TagIdentifier identifier = new TagIdentifier(variables.getLong(TAG_TOKEN));
-            tagMap = getTagController().getAllTagsAsMap(getParent());
-            filterTag = tagMap.get(identifier);
-        }
-
         // process task that's selected, if any
         if(variables != null && variables.containsKey(LOAD_INSTANCE_TOKEN)) {
             selectedTaskId = variables.getLong(LOAD_INSTANCE_TOKEN);
         } else {
             selectedTaskId = null;
-            selectedTask = null;
         }
-
         setupUIComponents();
 
         reLoadRunnable = new Runnable() {
@@ -185,8 +179,26 @@ public class TaskListSubActivity extends SubActivity {
             }
         };
 
+        if(getLastNonConfigurationInstance() != null) {
+            context = (TaskListContext)getLastNonConfigurationInstance();
+            listView.setAdapter(context.listAdapter);
+            onTaskListLoaded();
+            return;
+        }
+
+        context = new TaskListContext();
+        if(selectedTaskId == null)
+            context.selectedTask = null;
+
+        // process tag to filter, if any
+        if(variables != null && variables.containsKey(TAG_TOKEN)) {
+            TagIdentifier identifier = new TagIdentifier(variables.getLong(TAG_TOKEN));
+            context.tagMap = getTagController().getAllTagsAsMap(getParent());
+            context.filterTag = context.tagMap.get(identifier);
+        }
+
         // time to go!
-        loadingThread = new Thread(new Runnable() {
+        context.loadingThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 handler.post(new Runnable() {
@@ -201,7 +213,7 @@ public class TaskListSubActivity extends SubActivity {
 
                 // open up reminder box
                 if(variables != null && variables.containsKey(NOTIF_FLAGS_TOKEN) &&
-                        selectedTask != null) {
+                        context.selectedTask != null) {
                     handler.post(new Runnable() {
                         @Override
                         public void run() {
@@ -211,14 +223,14 @@ public class TaskListSubActivity extends SubActivity {
                             if(variables.containsKey(NOTIF_REPEAT_TOKEN))
                                 repeatInterval = variables.getLong(NOTIF_REPEAT_TOKEN);
                             flags = variables.getInt(NOTIF_FLAGS_TOKEN);
-                            showNotificationAlert(selectedTask,
+                            showNotificationAlert(context.selectedTask,
                                     repeatInterval, flags);
                         }
                     });
                 }
             }
         });
-        loadingThread.start();
+        context.loadingThread.start();
     }
 
     /** Initialize UI components */
@@ -412,14 +424,14 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Helper method returns true if the task is considered 'hidden' */
     private boolean isTaskHidden(TaskModelForList task) {
-        if(task == selectedTask)
+        if(task == context.selectedTask)
             return false;
 
         if(task.isHidden())
             return true;
 
-        if(filterTag == null) {
-            if(taskTags.get(task).contains(TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX))
+        if(context.filterTag == null) {
+            if(context.taskTags.get(task).contains(TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX))
                 return true;
         }
 
@@ -441,9 +453,9 @@ public class TaskListSubActivity extends SubActivity {
         try {
             // get a cursor to the task list
             Cursor tasksCursor;
-            if(filterTag != null) {
-                List<TaskIdentifier> tasks = getTagController().getTaggedTasks(getParent(),
-                        filterTag.getTagIdentifier());
+            if(context.filterTag != null) {
+                LinkedList<TaskIdentifier> tasks = getTagController().getTaggedTasks(getParent(),
+                        context.filterTag.getTagIdentifier());
                 tasksCursor = getTaskController().getTaskListCursorById(tasks);
             } else {
                 if(filterShowDone)
@@ -452,14 +464,14 @@ public class TaskListSubActivity extends SubActivity {
                     tasksCursor = getTaskController().getActiveTaskListCursor();
             }
             startManagingCursor(tasksCursor);
-            taskArray = getTaskController().createTaskListFromCursor(tasksCursor);
+            context.taskArray = getTaskController().createTaskListFromCursor(tasksCursor);
 
             // read tags and apply filters
-            tagMap = getTagController().getAllTagsAsMap(getParent());
-            taskTags = new HashMap<TaskModelForList, String>();
+            context.tagMap = getTagController().getAllTagsAsMap(getParent());
+            context.taskTags = new HashMap<TaskModelForList, String>();
             StringBuilder tagBuilder = new StringBuilder();
-            tasksById = new HashMap<Long, TaskModelForList>();
-            for(Iterator<TaskModelForList> i = taskArray.iterator(); i.hasNext();) {
+            context.tasksById = new HashMap<Long, TaskModelForList>();
+            for(Iterator<TaskModelForList> i = context.taskArray.iterator(); i.hasNext();) {
                 if(Thread.interrupted())
                     return;
 
@@ -473,7 +485,7 @@ public class TaskListSubActivity extends SubActivity {
                 }
 
                 if(selectedTaskId != null && task.getTaskIdentifier().getId() == selectedTaskId) {
-                    selectedTask = task;
+                    context.selectedTask = task;
                 }
 
                 // get list of tags
@@ -481,12 +493,12 @@ public class TaskListSubActivity extends SubActivity {
                         task.getTaskIdentifier());
                 tagBuilder.delete(0, tagBuilder.length());
                 for(Iterator<TagIdentifier> j = tagIds.iterator(); j.hasNext(); ) {
-                    TagModelForView tag = tagMap.get(j.next());
+                    TagModelForView tag = context.tagMap.get(j.next());
                     tagBuilder.append(tag.getName());
                     if(j.hasNext())
                         tagBuilder.append(", ");
                 }
-                taskTags.put(task, tagBuilder.toString());
+                context.taskTags.put(task, tagBuilder.toString());
 
                 // hide hidden
                 if(!filterShowHidden) {
@@ -497,7 +509,7 @@ public class TaskListSubActivity extends SubActivity {
                     }
                 }
 
-                tasksById.put(task.getTaskIdentifier().getId(), task);
+                context.tasksById.put(task.getTaskIdentifier().getId(), task);
 
                 if(task.isTaskCompleted())
                     completedTasks++;
@@ -525,17 +537,50 @@ public class TaskListSubActivity extends SubActivity {
             return;
         }
 
-        int activeTasks = taskArray.size() - completedTasks;
+        int activeTasks = context.taskArray.size() - completedTasks;
         // sort task list
-        Collections.sort(taskArray, new Comparator<TaskModelForList>() {
+        Collections.sort(context.taskArray, new Comparator<TaskModelForList>() {
             @Override
             public int compare(TaskModelForList arg0, TaskModelForList arg1) {
                 return sortMode.compareTo(arg0, arg1);
             }
         });
         if(sortReverse)
-            Collections.reverse(taskArray);
+            Collections.reverse(context.taskArray);
 
+        final int finalCompleted = completedTasks;
+        final int finalActive = activeTasks;
+        final int finalHidden = hiddenTasks;
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                Resources r = getResources();
+                StringBuilder title = new StringBuilder().
+                    append(r.getString(R.string.taskList_titlePrefix)).append(" ");
+                if(context.filterTag != null) {
+                    title.append(r.getString(R.string.taskList_titleTagPrefix,
+                            context.filterTag.getName())).append(" ");
+                }
+
+                if(finalCompleted > 0)
+                    title.append(r.getQuantityString(R.plurals.NactiveTasks,
+                            finalActive, finalActive, context.taskArray.size()));
+                else
+                    title.append(r.getQuantityString(R.plurals.Ntasks,
+                            context.taskArray.size(), context.taskArray.size()));
+                if(finalHidden > 0)
+                    title.append(" (+").append(finalHidden).append(" ").
+                    append(r.getString(R.string.taskList_hiddenSuffix)).append(")");
+                context.windowTitle = title;
+            }
+        });
+
+        onTaskListLoaded();
+    }
+
+    /** Sets up the interface after everything has been loaded */
+    private void onTaskListLoaded() {
         handler.post(new Runnable() {
             @Override
             public void run() {
@@ -545,7 +590,7 @@ public class TaskListSubActivity extends SubActivity {
                         Configuration.ORIENTATION_LANDSCAPE)
                     threshold = HIDE_ADD_BTN_LANDSCPE;
 
-                if(taskArray.size() > threshold)
+                if(context.taskArray.size() > threshold)
                     addButton.setVisibility(View.GONE);
                 else
                     addButton.setVisibility(View.VISIBLE);
@@ -553,31 +598,10 @@ public class TaskListSubActivity extends SubActivity {
         });
 
         // set up the title
-        final int finalCompleted = completedTasks;
-        final int finalActive = activeTasks;
-        final int finalHidden = hiddenTasks;
         handler.post(new Runnable() {
             @Override
             public void run() {
-                Resources r = getResources();
-                StringBuilder title = new StringBuilder().
-                    append(r.getString(R.string.taskList_titlePrefix)).append(" ");
-                if(filterTag != null) {
-                    title.append(r.getString(R.string.taskList_titleTagPrefix,
-                            filterTag.getName())).append(" ");
-                }
-
-                if(finalCompleted > 0)
-                    title.append(r.getQuantityString(R.plurals.NactiveTasks,
-                            finalActive, finalActive, taskArray.size()));
-                else
-                    title.append(r.getQuantityString(R.plurals.Ntasks,
-                            taskArray.size(), taskArray.size()));
-                if(finalHidden > 0)
-                    title.append(" (+").append(finalHidden).append(" ").
-                    append(r.getString(R.string.taskList_hiddenSuffix)).append(")");
-
-                setTitle(title);
+                setTitle(context.windowTitle);
                 setUpListUI();
                 loadingText.setVisibility(View.GONE);
             }
@@ -590,8 +614,8 @@ public class TaskListSubActivity extends SubActivity {
         private ArrayList<TaskModelForList> myTaskArray;
 
         public TaskListHooks() {
-            this.myTaskTags = taskTags;
-            this.myTaskArray = taskArray;
+            this.myTaskTags = context.taskTags;
+            this.myTaskArray = context.taskArray;
         }
 
         @Override
@@ -637,7 +661,7 @@ public class TaskListSubActivity extends SubActivity {
         public void setSelectedItem(TaskIdentifier taskId) {
             if(taskId == null) {
                 selectedTaskId = null;
-                selectedTask = null;
+                context.selectedTask = null;
             } else
                 selectedTaskId = taskId.getId();
         }
@@ -646,16 +670,16 @@ public class TaskListSubActivity extends SubActivity {
     /** Set up the adapter for our task list */
     private void setUpListUI() {
         // set up our adapter
-        listAdapter = new TaskListAdapter(getParent(),
-                    R.layout.task_list_row, taskArray, new TaskListHooks());
-        listView.setAdapter(listAdapter);
+        context.listAdapter = new TaskListAdapter(getParent(),
+                    R.layout.task_list_row, context.taskArray, new TaskListHooks());
+        listView.setAdapter(context.listAdapter);
         listView.setItemsCanFocus(true);
 
-        if(selectedTask != null) {
+        if(context.selectedTask != null) {
             try {
-                int selectedPosition = listAdapter.getPosition(selectedTask);
+                int selectedPosition = context.listAdapter.getPosition(context.selectedTask);
                 View v = listView.getChildAt(selectedPosition);
-                listAdapter.setExpanded(v, selectedTask, true);
+                context.listAdapter.setExpanded(v, context.selectedTask, true);
                 listView.setSelection(selectedPosition);
             } catch (Exception e) {
                 Log.e("astrid", "error with selected task", e);
@@ -682,10 +706,10 @@ public class TaskListSubActivity extends SubActivity {
                 item.setCheckable(true);
                 item.setChecked(filterShowDone);
 
-                if(filterTag != null) {
+                if(context.filterTag != null) {
                     item = menu.add(Menu.NONE, CONTEXT_FILTER_TAG, Menu.NONE,
                             r.getString(R.string.taskList_filter_tagged,
-                                    filterTag.getName()));
+                                    context.filterTag.getName()));
                     item.setCheckable(true);
                     item.setChecked(true);
                 }
@@ -712,12 +736,12 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     private void reloadList() {
-        if(loadingThread != null && loadingThread.isAlive()) {
-            loadingThread.interrupt();
-            loadingThread.stop();
+        if(context.loadingThread != null && context.loadingThread.isAlive()) {
+            context.loadingThread.interrupt();
+            context.loadingThread.stop();
         }
-        loadingThread = new Thread(reLoadRunnable);
-        loadingThread.start();
+        context.loadingThread = new Thread(reLoadRunnable);
+        context.loadingThread.start();
     }
 
     /* ======================================================================
@@ -725,9 +749,14 @@ public class TaskListSubActivity extends SubActivity {
      * ====================================================================== */
 
     @Override
+    protected Object onRetainNonConfigurationInstance() {
+        return context;
+    }
+
+    @Override
     protected boolean onKeyDown(int keyCode, KeyEvent event) {
     	if(keyCode == KeyEvent.KEYCODE_BACK) {
-    		if(filterTag != null) {
+    		if(context.filterTag != null) {
     			showTagsView();
     			return true;
     		}
@@ -743,8 +772,8 @@ public class TaskListSubActivity extends SubActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if(loadingThread != null && loadingThread.isAlive())
-            loadingThread.stop();
+        if(context.loadingThread != null && context.loadingThread.isAlive())
+            context.loadingThread.stop();
     }
 
     @Override
@@ -774,8 +803,8 @@ public class TaskListSubActivity extends SubActivity {
     /** Call an activity to create the given task */
     private void createTask(Character startCharacter) {
         Intent intent = new Intent(getParent(), TaskEdit.class);
-        if(filterTag != null)
-            intent.putExtra(TaskEdit.TAG_NAME_TOKEN, filterTag.getName());
+        if(context.filterTag != null)
+            intent.putExtra(TaskEdit.TAG_NAME_TOKEN, context.filterTag.getName());
         if(startCharacter != null)
         	intent.putExtra(TaskEdit.START_CHAR_TOKEN, startCharacter);
         launchActivity(intent, ACTIVITY_CREATE);
@@ -791,8 +820,8 @@ public class TaskListSubActivity extends SubActivity {
                     new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    listAdapter.remove(task);
-                    taskArray.remove(task);
+                    context.listAdapter.remove(task);
+                    context.taskArray.remove(task);
                     getTaskController().deleteTask(task.getTaskIdentifier());
                 }
             })
@@ -816,7 +845,7 @@ public class TaskListSubActivity extends SubActivity {
             task.stopTimerAndUpdateElapsedTime();
         }
         getTaskController().saveTask(task);
-        listAdapter.refreshItem(listView, taskArray.indexOf(task));
+        context.listAdapter.refreshItem(listView, context.taskArray.indexOf(task));
     }
 
     /** Show the tags view */
@@ -921,19 +950,19 @@ public class TaskListSubActivity extends SubActivity {
 
         // --- list context menu items
         case TaskListAdapter.CONTEXT_EDIT_ID:
-            task = tasksById.get((long)item.getGroupId());
+            task = context.tasksById.get((long)item.getGroupId());
             editTask(task);
             return true;
         case TaskListAdapter.CONTEXT_DELETE_ID:
-            task = tasksById.get((long)item.getGroupId());
+            task = context.tasksById.get((long)item.getGroupId());
             deleteTask(task);
             return true;
         case TaskListAdapter.CONTEXT_TIMER_ID:
-            task = tasksById.get((long)item.getGroupId());
+            task = context.tasksById.get((long)item.getGroupId());
             toggleTimer(task);
             return true;
         case TaskListAdapter.CONTEXT_POSTPONE_ID:
-            task = tasksById.get((long)item.getGroupId());
+            task = context.tasksById.get((long)item.getGroupId());
             DialogUtilities.dayHourPicker(getParent(),
                 r.getString(R.string.taskList_postpone_dialog),
                 new OnNNumberPickedListener() {
@@ -948,7 +977,7 @@ public class TaskListSubActivity extends SubActivity {
                                 task.getHiddenUntil(), postponeMillis, false));
 
                         getTaskController().saveTask(task);
-                        listAdapter.refreshItem(listView, taskArray.indexOf(task));
+                        context.listAdapter.refreshItem(listView, context.taskArray.indexOf(task));
                     }
                 });
             return true;
@@ -1006,6 +1035,6 @@ public class TaskListSubActivity extends SubActivity {
      * ====================================================================== */
 
     public TagModelForView getFilterTag() {
-        return filterTag;
+        return context.filterTag;
     }
 }
