@@ -507,16 +507,19 @@ public class TaskListSubActivity extends SubActivity {
             // still running. i don't think it's avoidable?
             Log.w("astrid", "StaleDataException", e);
             return;
-        } catch (IllegalStateException e) {
+        } catch (final IllegalStateException e) {
             // happens when you run out of memory usually
             Log.e("astrid", "Error loading task list", e);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    if(!e.getMessage().contains("Couldn't init cursor window"))
+                        return;
                     DialogUtilities.okDialog(getParent(), "Ran out of memory! " +
                             "Try restarting Astrid...", null);
                 }
             });
+            return;
         } catch (final Exception e) {
             Log.e("astrid", "Error loading task list", e);
             return;
