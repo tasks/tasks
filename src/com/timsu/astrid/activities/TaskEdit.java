@@ -540,7 +540,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     private void discardButtonClick() {
         shouldSaveState = false;
-        setResult(RESULT_CANCELED);
+        setResult(Constants.RESULT_DISCARD);
         finish();
     }
 

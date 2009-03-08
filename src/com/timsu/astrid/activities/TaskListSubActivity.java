@@ -127,6 +127,7 @@ public class TaskListSubActivity extends SubActivity {
     // other instance variables
     private Map<TagIdentifier, TagModelForView> tagMap;
     private ArrayList<TaskModelForList> taskArray;
+    private HashMap<Long, TaskModelForList> tasksById;
     private HashMap<TaskModelForList, String> taskTags;
     private Long selectedTaskId = null;
     private TaskModelForList selectedTask = null;
@@ -141,7 +142,6 @@ public class TaskListSubActivity extends SubActivity {
     private static SortMode sortMode = SortMode.AUTO;
     private static boolean sortReverse = false;
     private TagModelForView filterTag = null;
-    private int editedObjectPosition = -1;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -177,6 +177,7 @@ public class TaskListSubActivity extends SubActivity {
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
+                        loadingText.setText(getParent().getResources().getString(R.string.updating));
                         loadingText.setVisibility(View.VISIBLE);
                     }
                 });
@@ -451,6 +452,7 @@ public class TaskListSubActivity extends SubActivity {
             tagMap = getTagController().getAllTagsAsMap(getParent());
             taskTags = new HashMap<TaskModelForList, String>();
             StringBuilder tagBuilder = new StringBuilder();
+            tasksById = new HashMap<Long, TaskModelForList>();
             for(Iterator<TaskModelForList> i = taskArray.iterator(); i.hasNext();) {
                 TaskModelForList task = i.next();
 
@@ -485,6 +487,8 @@ public class TaskListSubActivity extends SubActivity {
                         continue;
                     }
                 }
+
+                tasksById.put(task.getTaskIdentifier().getId(), task);
 
                 if(task.isTaskCompleted())
                     completedTasks++;
@@ -729,13 +733,11 @@ public class TaskListSubActivity extends SubActivity {
             });
         } else if(requestCode == ACTIVITY_TAGS) {
             switchToActivity(TaskList.AC_TAG_LIST, null);
-        } else if(requestCode == ACTIVITY_EDIT && editedObjectPosition != -1) {
+        } else if((requestCode == ACTIVITY_EDIT || requestCode == ACTIVITY_CREATE) &&
+                resultCode != Constants.RESULT_DISCARD) {
             // refresh, since stuff might have changed...
-
-            // TODO reload task & tags from database
-
-            listAdapter.refreshItem(listView, editedObjectPosition);
-            editedObjectPosition = -1;
+            loadingThread = new Thread(reLoadRunnable);
+            loadingThread.start();
         }
     }
 
@@ -750,7 +752,7 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     /** Show a dialog box and delete the task specified */
-    private void deleteTask(final TaskModelForList task, final int position) {
+    private void deleteTask(final TaskModelForList task) {
         new AlertDialog.Builder(getParent())
             .setTitle(R.string.delete_title)
             .setMessage(R.string.delete_this_task_title)
@@ -759,7 +761,8 @@ public class TaskListSubActivity extends SubActivity {
                     new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    listAdapter.refreshItem(listView, position);
+                    listAdapter.remove(task);
+                    taskArray.remove(task);
                     getTaskController().deleteTask(task.getTaskIdentifier());
                 }
             })
@@ -769,8 +772,6 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Take you to the task edit page */
     private void editTask(TaskModelForList task) {
-        editedObjectPosition = taskArray.indexOf(task);
-
         Intent intent = new Intent(getParent(), TaskEdit.class);
         intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN,
                 task.getTaskIdentifier().getId());
@@ -890,19 +891,19 @@ public class TaskListSubActivity extends SubActivity {
 
         // --- list context menu items
         case TaskListAdapter.CONTEXT_EDIT_ID:
-            task = taskArray.get(item.getGroupId());
+            task = tasksById.get((long)item.getGroupId());
             editTask(task);
             return true;
         case TaskListAdapter.CONTEXT_DELETE_ID:
-            task = taskArray.get(item.getGroupId());
-            deleteTask(task, item.getGroupId());
+            task = tasksById.get((long)item.getGroupId());
+            deleteTask(task);
             return true;
         case TaskListAdapter.CONTEXT_TIMER_ID:
-            task = taskArray.get(item.getGroupId());
+            task = tasksById.get((long)item.getGroupId());
             toggleTimer(task);
             return true;
         case TaskListAdapter.CONTEXT_POSTPONE_ID:
-            task = taskArray.get(item.getGroupId());
+            task = tasksById.get((long)item.getGroupId());
             DialogUtilities.dayHourPicker(getParent(),
                 r.getString(R.string.taskList_postpone_dialog),
                 new OnNNumberPickedListener() {

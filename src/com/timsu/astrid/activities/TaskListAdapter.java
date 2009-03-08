@@ -98,6 +98,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private int resource;
     private LayoutInflater inflater;
     private TaskListAdapterHooks hooks;
+    private TextView deletedItemView = new TextView(getContext());
 
     private Integer fontSizePreference;
     private AlertController alarmController;
@@ -191,6 +192,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
 
+        if(objects.get(position) == null)
+            return deletedItemView;
+
         if(view == null) {
             view = inflater.inflate(resource, parent, false);
             initializeView(view);
@@ -211,6 +215,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     	final TextView name = ((TextView)view.findViewById(R.id.task_name));
     	if(fontSizePreference != null && fontSizePreference > 0)
             name.setTextSize(fontSizePreference);
+    	deletedItemView.setText(getContext().getResources().getString(R.string.taskList_deleted));
     }
 
     /**
@@ -222,11 +227,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private void setupView(View view, final TaskModelForList task) {
         Resources r = activity.getResources();
 
-        if(task == null)
-            return;
-
         view.setTag(task);
         setFieldContentsAndVisibility(view, task);
+
+        if(task == null) {
+            return;
+        }
 
         final CheckBox progress = ((CheckBox)view.findViewById(R.id.cb1));
         progress.setChecked(task.isTaskCompleted());
@@ -266,6 +272,11 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
     /** Helper method to set the contents and visibility of each field */
     private void setFieldContentsAndVisibility(View view, TaskModelForList task) {
+        if(task == null) {
+            view.setVisibility(View.GONE);
+            return;
+        }
+
         Resources r = getContext().getResources();
         TaskFieldsVisibility visibleFields = Preferences.getTaskFieldsVisibility(activity);
         boolean isExpanded = CACHE_TRUE.equals(task.getCachedLabel(KEY_EXPANDED));
@@ -543,19 +554,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     }
 
     /**
-     * Removes the item at the specified position in the list (not reltaed
-     * to task identifier number
-     *
-     * @param listView parent view to refresh
-     * @param position the index of the item
-     */
-    public void removeItem(ListView listView, int position) {
-        View view = listView.getChildAt(position);
-        view.setVisibility(View.GONE);
-        objects.set(position, null);
-    }
-
-    /**
      * Refresh the item given at the specified position in the list (not
      * related to task identifier number)
      *
@@ -630,11 +628,11 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             public void onCreateContextMenu(ContextMenu menu, View v,
                     ContextMenuInfo menuInfo) {
                 TaskModelForList task = (TaskModelForList)v.getTag();
-                int position = objects.indexOf(task);
+                int id = (int)task.getTaskIdentifier().getId();
 
-                menu.add(position, CONTEXT_EDIT_ID, Menu.NONE,
+                menu.add(id, CONTEXT_EDIT_ID, Menu.NONE,
                         R.string.taskList_context_edit);
-                menu.add(position, CONTEXT_DELETE_ID, Menu.NONE,
+                menu.add(id, CONTEXT_DELETE_ID, Menu.NONE,
                         R.string.taskList_context_delete);
 
                 int timerTitle;
@@ -642,11 +640,11 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     timerTitle = R.string.taskList_context_startTimer;
                 else
                     timerTitle = R.string.taskList_context_stopTimer;
-                menu.add(position, CONTEXT_TIMER_ID, Menu.NONE, timerTitle);
+                menu.add(id, CONTEXT_TIMER_ID, Menu.NONE, timerTitle);
 
                 if(task.getDefiniteDueDate() != null ||
                         task.getPreferredDueDate() != null)
-                    menu.add(position, CONTEXT_POSTPONE_ID, Menu.NONE,
+                    menu.add(id, CONTEXT_POSTPONE_ID, Menu.NONE,
                         R.string.taskList_context_postpone);
 
                 menu.setHeaderTitle(task.getName());
@@ -664,8 +662,8 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             }
         });
 
-        Button deleteButton = (Button)view.findViewById(R.id.timer);
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        Button toggleTimerButton = (Button)view.findViewById(R.id.timer);
+        toggleTimerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 View parent = (View)v.getParent().getParent().getParent().getParent();

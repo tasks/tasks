@@ -18,7 +18,7 @@ public class StartupReceiver extends BroadcastReceiver {
     }
 
     /** Called when this application is started up */
-    public static void onStartupApplication(Context context) {
+    public static void onStartupApplication(final Context context) {
         if(hasStartedUp)
             return;
 
@@ -34,9 +34,18 @@ public class StartupReceiver extends BroadcastReceiver {
 
         // if we just got upgraded, set the alarms
         boolean justUpgraded = latestSetVersion != version;
+        final int finalVersion = version;
         if(justUpgraded) {
-            Notifications.scheduleAllAlarms(context);
-            Preferences.setCurrentVersion(context, version);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    Notifications.scheduleAllAlarms(context);
+
+                    // do this after all alarms are scheduled, so if we're
+                    // interrupted, the thread will resume later
+                    Preferences.setCurrentVersion(context, finalVersion);
+                }
+            }).start();
         }
 
         Preferences.setPreferenceDefaults(context);

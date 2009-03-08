@@ -117,6 +117,7 @@
         <string name="taskList_tagsPrefix">Tags:</string>
         <string name="taskList_notesPrefix">Notes:</string>
         <string name="taskList_createdPrefix">Created:</string>
+        <string name="taskList_deleted">Deleted</string>
         
         <!-- menu items -->
         <string name="taskList_menu_insert">Add</string>
@@ -274,6 +275,7 @@ Wish me luck!\n
     <!-- Dialog Boxes -->  
     <skip />
         <string name="loading">Loading...</string>
+        <string name="updating">Updating List...</string>
         <string name="information_title">Information</string>
         <string name="question_title">Question</string>
         <string name="notify_yes">View Task</string>
