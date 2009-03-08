@@ -225,9 +225,14 @@ public abstract class AbstractModel {
     // --- retrieving composite objects
 
     protected Date retrieveDate(String field) {
-        Long time = retrieveLong(field);
-        if(time == null || time == 0)
+        Long time;
+        try {
+            time = retrieveLong(field);
+            if(time == null || time == 0)
+                return null;
+        } catch (NullPointerException e) {
             return null;
+        }
 
         return new Date(time);
     }

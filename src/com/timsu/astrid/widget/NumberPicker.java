@@ -345,7 +345,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private NumberPickerButton  mIncrementButton;
     private NumberPickerButton  mDecrementButton;
 
-    private class NumberPickerInputFilter implements InputFilter {
+    class NumberPickerInputFilter implements InputFilter {
         public CharSequence filter(CharSequence source, int start, int end,
                 Spanned dest, int dstart, int dend) {
             if (mDisplayedValues == null) {
@@ -367,7 +367,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         }
     }
 
-    private class NumberRangeKeyListener extends NumberKeyListener {
+    class NumberRangeKeyListener extends NumberKeyListener {
 
         @Override
         protected char[] getAcceptedChars() {

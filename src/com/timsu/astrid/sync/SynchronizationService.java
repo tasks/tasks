@@ -390,7 +390,7 @@ public abstract class SynchronizationService {
     // --- helper classes
 
     /** data structure builder */
-    private class SyncData {
+    class SyncData {
         HashSet<SyncMapping> mappings;
         HashSet<TaskIdentifier> activeTasks;
         HashSet<TaskIdentifier> allTasks;

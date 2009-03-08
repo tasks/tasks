@@ -448,7 +448,7 @@ public class RTMSyncService extends SynchronizationService {
     // --- helper classes
 
     /** SynchronizeHelper for remember the milk */
-    private class RtmSyncHelper implements SynchronizeHelper {
+    class RtmSyncHelper implements SynchronizeHelper {
         private String timeline;
         private String lastCreatedTask = null;
 

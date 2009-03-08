@@ -494,7 +494,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             String cachedResult = task.getCachedLabel(KEY_TAGS);
             if(cachedResult == null) {
                 String tagString = hooks.getTagsFor(task);
-                if(!tagString.equals(""))
+                if(tagString != null && !tagString.equals(""))
                     cachedResult = r.getString(R.string.taskList_tagsPrefix) +
                         " " + tagString;
                 else

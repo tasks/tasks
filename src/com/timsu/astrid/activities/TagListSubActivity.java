@@ -30,6 +30,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.database.StaleDataException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -121,7 +122,7 @@ public class TagListSubActivity extends SubActivity {
         abstract int compareTo(TagListSubActivity self, TagModelForView arg0, TagModelForView arg1);
     };
 
-    private void sortTagArray() {
+    private synchronized void sortTagArray() {
         // get all tasks
         Cursor taskCursor = getTaskController().getActiveTaskListCursor();
         startManagingCursor(taskCursor);
@@ -161,10 +162,15 @@ public class TagListSubActivity extends SubActivity {
     // --- fill data
 
     /** Fill in the Tag List with our tags */
-    private void fillData() {
+    private synchronized void fillData() {
         try {
             tagArray = getTagController().getAllTags(getParent());
             sortTagArray();
+        } catch (StaleDataException e) {
+            // happens when you rotate the screen while the thread is
+            // still running. i don't think it's avoidable?
+            Log.w("astrid", "StaleDataException", e);
+            return;
         } catch (Exception e) {
             Log.e("astrid", "Error loading list", e);
         }
@@ -352,7 +358,7 @@ public class TagListSubActivity extends SubActivity {
 
     // --------------------------------------------------- tag list adapter
 
-    private class TagListAdapter extends ArrayAdapter<TagModelForView> {
+    class TagListAdapter extends ArrayAdapter<TagModelForView> {
 
     	private List<TagModelForView> objects;
         private int resource;
@@ -377,23 +383,30 @@ public class TagListSubActivity extends SubActivity {
             if(view == null) {
                 view = inflater.inflate(resource, parent, false);
             }
-            setupView(view, objects.get(position));
+            setupView(view, objects.get(position), false);
 
             return view;
         }
 
-        public void setupView(View view, final TagModelForView tag) {
+        public void setupView(View view, final TagModelForView tag, boolean retry) {
             Resources r = getResources();
             view.setTag(tag);
 
             final TextView name = ((TextView)view.findViewById(android.R.id.text1));
-            name.setText(new StringBuilder(tag.getName()).
-                    append(" (").append(tagCount.get(tag)).append(")"));
+            try {
+                if(tagCount == null)
+                    tagCount = tagToTaskCount;
 
-            if(tagCount.get(tag) == 0)
-                name.setTextColor(r.getColor(R.color.task_list_done));
-            else
-            	name.setTextColor(r.getColor(android.R.color.white));
+                name.setText(new StringBuilder(tag.getName()).
+                        append(" (").append(tagCount.get(tag)).append(")"));
+
+                if(tagCount.get(tag) == 0)
+                    name.setTextColor(r.getColor(R.color.task_list_done));
+                else
+                	name.setTextColor(r.getColor(android.R.color.white));
+            } catch (Exception e) {
+                Log.e("astrid", "Error loading tag list", e);
+            }
         }
     }
 

@@ -82,7 +82,8 @@ public class Notifications extends BroadcastReceiver {
             reminder = getRandomReminder(r);
 
         long repeatInterval = intent.getLongExtra(REPEAT_KEY, 0);
-        Log.e("ALARM", "Alarm triggered id " + id +", flags " + flags +
+        if(Constants.DEBUG)
+            Log.e("ALARM", "Alarm triggered id " + id +", flags " + flags +
                 ", repeat " + repeatInterval);
 
         if(!showNotification(context, id, flags, repeatInterval, reminder)) {
@@ -292,7 +293,8 @@ public class Notifications extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
                 createAlarmIntent(context, id, flags), 0);
 
-        Log.e("Astrid", "Alarm (" + id + ", " + flags + ") set for " + new Date(when));
+        if(Constants.DEBUG)
+            Log.e("Astrid", "Alarm (" + id + ", " + flags + ") set for " + new Date(when));
         am.set(AlarmManager.RTC_WAKEUP, when, pendingIntent);
     }
 
@@ -308,7 +310,8 @@ public class Notifications extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
                 alarmIntent, 0);
 
-        Log.e("Astrid", "Alarm (" + id + ", " + flags + ") set for " +
+        if(Constants.DEBUG)
+            Log.e("Astrid", "Alarm (" + id + ", " + flags + ") set for " +
                 new Date(when) + " every " + interval/1000 + " s");
         am.setRepeating(AlarmManager.RTC_WAKEUP, when, interval, pendingIntent);
     }
@@ -456,7 +459,8 @@ public class Notifications extends BroadcastReceiver {
             }
         }
 
-        Log.w("Astrid", "Logging notification: " + reminder);
+        if(Constants.DEBUG)
+            Log.w("Astrid", "Logging notification: " + reminder);
         nm.notify((int)id, notification);
 
         return true;
@@ -502,7 +506,8 @@ public class Notifications extends BroadcastReceiver {
             Notification.FLAG_NO_CLEAR;
         notification.flags &= ~Notification.FLAG_AUTO_CANCEL;
 
-        Log.w("Astrid", "Logging timing notification: " + text);
+        if(Constants.DEBUG)
+            Log.w("Astrid", "Logging timing notification: " + text);
         nm.notify((int)taskId.getId(), notification);
 
         return true;
