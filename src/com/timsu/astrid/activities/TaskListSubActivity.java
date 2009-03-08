@@ -460,6 +460,9 @@ public class TaskListSubActivity extends SubActivity {
             StringBuilder tagBuilder = new StringBuilder();
             tasksById = new HashMap<Long, TaskModelForList>();
             for(Iterator<TaskModelForList> i = taskArray.iterator(); i.hasNext();) {
+                if(Thread.interrupted())
+                    return;
+
                 TaskModelForList task = i.next();
 
                 if(!filterShowDone) {
@@ -695,6 +698,15 @@ public class TaskListSubActivity extends SubActivity {
         listView.setOnTouchListener(getGestureListener());
     }
 
+    private void reloadList() {
+        if(loadingThread != null && loadingThread.isAlive()) {
+            loadingThread.interrupt();
+            loadingThread.stop();
+        }
+        loadingThread = new Thread(reLoadRunnable);
+        loadingThread.start();
+    }
+
     /* ======================================================================
      * ======================================================= event handlers
      * ====================================================================== */
@@ -718,7 +730,7 @@ public class TaskListSubActivity extends SubActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if(loadingThread.isAlive())
+        if(loadingThread != null && loadingThread.isAlive())
             loadingThread.stop();
     }
 
@@ -733,17 +745,16 @@ public class TaskListSubActivity extends SubActivity {
                                 R.string.sync_no_synchronizers), null);
                         return;
                     }
-                    loadingThread = new Thread(reLoadRunnable);
-                    loadingThread.start();
+                    reloadList();
                 }
             });
         } else if(requestCode == ACTIVITY_TAGS) {
             switchToActivity(TaskList.AC_TAG_LIST, null);
         } else if((requestCode == ACTIVITY_EDIT || requestCode == ACTIVITY_CREATE) &&
                 resultCode != Constants.RESULT_DISCARD) {
+
             // refresh, since stuff might have changed...
-            loadingThread = new Thread(reLoadRunnable);
-            loadingThread.start();
+            reloadList();
         }
     }
 
@@ -933,14 +944,12 @@ public class TaskListSubActivity extends SubActivity {
         case CONTEXT_FILTER_HIDDEN:
             TaskListSubActivity.filterShowHidden = !filterShowHidden;
             saveTaskListSort();
-            loadingThread = new Thread(reLoadRunnable);
-            loadingThread.start();
+            reloadList();
             return true;
         case CONTEXT_FILTER_DONE:
             TaskListSubActivity.filterShowDone = !filterShowDone;
             saveTaskListSort();
-            loadingThread = new Thread(reLoadRunnable);
-            loadingThread.start();
+            reloadList();
             return true;
         case CONTEXT_FILTER_TAG:
             switchToActivity(TaskList.AC_TASK_LIST, null);
@@ -951,8 +960,7 @@ public class TaskListSubActivity extends SubActivity {
             TaskListSubActivity.sortReverse = false;
             TaskListSubActivity.sortMode = SortMode.AUTO;
             saveTaskListSort();
-            loadingThread = new Thread(reLoadRunnable);
-            loadingThread.start();
+            reloadList();
             return true;
         case CONTEXT_SORT_ALPHA:
             if(sortMode == SortMode.ALPHA)
@@ -960,8 +968,7 @@ public class TaskListSubActivity extends SubActivity {
             TaskListSubActivity.sortReverse = false;
             TaskListSubActivity.sortMode = SortMode.ALPHA;
             saveTaskListSort();
-            loadingThread = new Thread(reLoadRunnable);
-            loadingThread.start();
+            reloadList();
             return true;
         case CONTEXT_SORT_DUEDATE:
             if(sortMode == SortMode.DUEDATE)
@@ -969,14 +976,12 @@ public class TaskListSubActivity extends SubActivity {
             TaskListSubActivity.sortReverse = false;
             TaskListSubActivity.sortMode = SortMode.DUEDATE;
             saveTaskListSort();
-            loadingThread = new Thread(reLoadRunnable);
-            loadingThread.start();
+            reloadList();
             return true;
         case CONTEXT_SORT_REVERSE:
             TaskListSubActivity.sortReverse = !sortReverse;
             saveTaskListSort();
-            loadingThread = new Thread(reLoadRunnable);
-            loadingThread.start();
+            reloadList();
             return true;
         }
 
