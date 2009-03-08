@@ -178,7 +178,6 @@ public class TaskListSubActivity extends SubActivity {
                     @Override
                     public void run() {
                         loadingText.setText(getParent().getResources().getString(R.string.updating));
-                        loadingText.setVisibility(View.VISIBLE);
                     }
                 });
 
@@ -431,6 +430,13 @@ public class TaskListSubActivity extends SubActivity {
     private synchronized void fillData() {
         int hiddenTasks = 0; // # of tasks hidden
         int completedTasks = 0; // # of tasks on list that are done
+
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                loadingText.setVisibility(View.VISIBLE);
+            }
+        });
 
         try {
             // get a cursor to the task list
