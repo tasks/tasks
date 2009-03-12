@@ -21,6 +21,7 @@ package com.timsu.astrid.activities;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,7 +31,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.database.StaleDataException;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -127,15 +127,19 @@ public class TagListSubActivity extends SubActivity {
 
     private synchronized void sortTagArray() {
         // get all tasks
-        Cursor taskCursor = getTaskController().getActiveTaskListCursor();
-        startManagingCursor(taskCursor);
+        HashSet<TaskIdentifier> activeTasks =
+            getTaskController().getActiveTaskIdentifiers();
 
         // get task count for each tag
         tagToTaskCount = new HashMap<TagModelForView, Integer>();
         for(TagModelForView tag : tagArray) {
             LinkedList<TaskIdentifier> tasks = getTagController().getTaggedTasks(
             		getParent(), tag.getTagIdentifier());
-            tagToTaskCount.put(tag, tasks.size());
+            int count = 0;
+            for(TaskIdentifier task : tasks)
+                if(activeTasks.contains(task))
+                    count++;
+            tagToTaskCount.put(tag, count);
         }
 
         // do sort
@@ -338,7 +342,7 @@ public class TagListSubActivity extends SubActivity {
             String label = tag.getName();
             if(tag.shouldHideFromMainList())
                 label = label.substring(1);
-            createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, label);
+            createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "@" + label);
             createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON,
                     ((BitmapDrawable)r.getDrawable(R.drawable.icon_tag)).getBitmap());
             createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");

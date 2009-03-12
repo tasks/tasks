@@ -71,10 +71,10 @@ public class TaskList extends Activity {
     private static final int FLING_DIST_THRESHOLD = 160;
 
     /** Maximum distance in the other axis for a fling */
-    private static final int MAX_FLING_OTHER_AXIS = 60;
+    private static final int MAX_FLING_OTHER_AXIS = 100;
 
     /** Minimum velocity a fling must have to trigger motion */
-	private static final int FLING_VEL_THRESHOLD = 200;
+	private static final int FLING_VEL_THRESHOLD = 300;
 
 	// view components
 	private ViewFlipper viewFlipper;
