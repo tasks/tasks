@@ -263,6 +263,9 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         if(name.getText().length() == 0)
             return;
 
+        // tell the task list to update itself
+        TaskListSubActivity.shouldRefreshTaskList = true;
+
         model.setName(name.getText().toString());
         model.setEstimatedSeconds(estimatedDuration.getTimeDurationInSeconds());
         model.setElapsedSeconds(elapsedDuration.getTimeDurationInSeconds());
@@ -553,6 +556,9 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                     new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    // tell the task list to update itself
+                    TaskListSubActivity.shouldRefreshTaskList = true;
+
                     controller.deleteTask(model.getTaskIdentifier());
                     shouldSaveState = false;
                     setResult(Constants.RESULT_GO_HOME);

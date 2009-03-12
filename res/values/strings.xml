@@ -101,6 +101,7 @@
         <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
         <string name="taskList_hiddenSuffix"> hidden</string>
         <string name="addtask_label">New Task</string>
+        <string name="missing_tag">Could Not Find Requested Tag!</string>
         
         <!-- text in the actual list -->
         <string name="taskList_hiddenPrefix">H</string><!-- prefix to show that a task is hidden -->
@@ -227,6 +228,9 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="tagList_context_delete">Delete Tag</string>
         <string name="tagList_context_showTag">Show on Home Page</string>
         <string name="tagList_context_hideTag">Hide on Home Page</string>
+        <string name="tagList_context_shortcut">Create Shortcut</string>
+        <string name="tagList_shortcut_created">Shortcut created on your home screen!</string>
+        <string name="tagList_shortcut_prefix">Tag:</string>
         
         <string name="tagList_menu_sortAlpha">Sort A-Z</string>
         <string name="tagList_menu_sortSize">Sort by Size</string>

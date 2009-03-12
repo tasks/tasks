@@ -25,12 +25,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.StaleDataException;
+import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -48,6 +51,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -55,7 +59,6 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
-import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.utilities.DialogUtilities;
 
 
@@ -73,10 +76,10 @@ public class TagListSubActivity extends SubActivity {
     private static final int CONTEXT_CREATE_ID     = Menu.FIRST + 10;
     private static final int CONTEXT_DELETE_ID     = Menu.FIRST + 11;
     private static final int CONTEXT_SHOWHIDE_ID   = Menu.FIRST + 12;
+    private static final int CONTEXT_SHORTCUT_ID   = Menu.FIRST + 13;
 
     private ListView listView;
     private LinkedList<TagModelForView> tagArray;
-    private HashMap<Long, TaskModelForList> taskMap;
     HashMap<TagModelForView, Integer> tagToTaskCount;
     private Handler handler;
     private TextView loadingText;
@@ -126,26 +129,13 @@ public class TagListSubActivity extends SubActivity {
         // get all tasks
         Cursor taskCursor = getTaskController().getActiveTaskListCursor();
         startManagingCursor(taskCursor);
-        List<TaskModelForList> taskArray =
-        	getTaskController().createTaskListFromCursor(taskCursor);
-        taskMap = new HashMap<Long, TaskModelForList>();
-        for(TaskModelForList task : taskArray) {
-            if(task.isHidden())
-                continue;
-            taskMap.put(task.getTaskIdentifier().getId(), task);
-        }
 
-        // get accurate task count for each tag
+        // get task count for each tag
         tagToTaskCount = new HashMap<TagModelForView, Integer>();
         for(TagModelForView tag : tagArray) {
-            int count = 0;
-            List<TaskIdentifier> tasks = getTagController().getTaggedTasks(
+            LinkedList<TaskIdentifier> tasks = getTagController().getTaggedTasks(
             		getParent(), tag.getTagIdentifier());
-
-            for(TaskIdentifier taskId : tasks)
-                if(taskMap.containsKey(taskId.getId()))
-                    count++;
-            tagToTaskCount.put(tag, count);
+            tagToTaskCount.put(tag, tasks.size());
         }
 
         // do sort
@@ -240,6 +230,9 @@ public class TagListSubActivity extends SubActivity {
                 menu.add(position, CONTEXT_SHOWHIDE_ID, Menu.NONE,
                         showHideLabel);
 
+                menu.add(position, CONTEXT_SHORTCUT_ID, Menu.NONE,
+                        R.string.tagList_context_shortcut);
+
                 menu.setHeaderTitle(tagArray.get(position).getName());
             }
         });
@@ -331,6 +324,27 @@ public class TagListSubActivity extends SubActivity {
                         null);
             }
             fillData();
+            return true;
+        case CONTEXT_SHORTCUT_ID:
+            tag = tagArray.get(item.getGroupId());
+            Resources r = getResources();
+            Intent shortcutIntent = new Intent(Intent.ACTION_VIEW);
+            shortcutIntent.setComponent(new ComponentName(
+                    getParent().getApplicationContext(), TagView.class));
+            shortcutIntent.setData(Uri.parse("tag:" + tag.getTagIdentifier().getId()));
+
+            Intent createShortcutIntent = new Intent();
+            createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+            String label = tag.getName();
+            if(tag.shouldHideFromMainList())
+                label = label.substring(1);
+            createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, label);
+            createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON,
+                    ((BitmapDrawable)r.getDrawable(R.drawable.icon_tag)).getBitmap());
+            createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+
+            getParent().sendBroadcast(createShortcutIntent);
+            Toast.makeText(getParent(), R.string.tagList_shortcut_created, Toast.LENGTH_SHORT).show();
             return true;
         }
 

@@ -13,9 +13,11 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
+    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     
     <application android:icon="@drawable/icon" android:label="@string/app_name">
     
+        <!-- Activity that displays the task list -->
         <activity android:name=".activities.TaskList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,14 +25,32 @@
             </intent-filter>
         </activity>
         
+        <!-- Activity that redirects to a task list, invoked by notifications -->
         <activity android:name=".activities.TaskListNotify"
                   android:launchMode="singleTop" />
         
-        <activity android:name=".activities.TaskEdit" 
-        		android:label="@string/taskEdit_label"/>
+        <!--  Activity that creates or edits tasks -->
+        <activity android:name=".activities.TaskEdit"
+                android:icon="@drawable/icon_add"
+        		android:label="@string/taskEdit_label">
+        	<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </activity>
 
+        <!--  Activity that views tags -->
+        <activity android:name=".activities.TagView">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.HOME" />
+            </intent-filter>
+        </activity>
+
+        <!-- Activity that lets users edit app preferences -->
         <activity android:name=".activities.EditPreferences"/>
         
+        <!-- Activity that les users edit synchronization preferences -->
         <activity android:name=".activities.SyncPreferences"/>
 
         <!-- Receivers -->

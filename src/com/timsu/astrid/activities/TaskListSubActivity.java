@@ -49,6 +49,7 @@ import android.view.View.OnCreateContextMenuListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.TaskListAdapter.TaskListAdapterHooks;
@@ -123,6 +124,10 @@ public class TaskListSubActivity extends SubActivity {
     private View layout;
     private TextView loadingText;
 
+    // indicator flag set if task list should be refreshed (something changed
+    // in another activity)
+    static boolean shouldRefreshTaskList = false;
+
     // other instance variables
     class TaskListContext {
         Map<TagIdentifier, TagModelForView> tagMap;
@@ -194,7 +199,10 @@ public class TaskListSubActivity extends SubActivity {
         if(variables != null && variables.containsKey(TAG_TOKEN)) {
             TagIdentifier identifier = new TagIdentifier(variables.getLong(TAG_TOKEN));
             context.tagMap = getTagController().getAllTagsAsMap(getParent());
-            context.filterTag = context.tagMap.get(identifier);
+            if(context.tagMap.containsKey(identifier))
+                context.filterTag = context.tagMap.get(identifier);
+            else
+                Toast.makeText(getParent(), R.string.missing_tag, Toast.LENGTH_SHORT).show();
         }
 
         // time to go!
@@ -777,6 +785,15 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     @Override
+    void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+
+        if(shouldRefreshTaskList)
+            reloadList();
+        shouldRefreshTaskList = false;
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Constants.RESULT_SYNCHRONIZE) {
             Synchronizer.synchronize(getParent(), false, new SynchronizerListener() {
@@ -792,11 +809,6 @@ public class TaskListSubActivity extends SubActivity {
             });
         } else if(requestCode == ACTIVITY_TAGS) {
             switchToActivity(TaskList.AC_TAG_LIST, null);
-        } else if((requestCode == ACTIVITY_EDIT || requestCode == ACTIVITY_CREATE) &&
-                resultCode != Constants.RESULT_DISCARD) {
-
-            // refresh, since stuff might have changed...
-            reloadList();
         }
     }
 

@@ -24,13 +24,13 @@ import android.content.Intent;
 import android.os.Bundle;
 
 /**
- * This activity is launched when a user opens up a notification from the
- * tray. It launches the appropriate activity based on the passed in parameters.
+ * This activity is launched from a desktop shortcut and takes the user to
+ * view a specific tag
  *
  * @author timsu
  *
  */
-public class TaskListNotify extends Activity {
+public class TagView extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,14 @@ public class TaskListNotify extends Activity {
     }
 
     private void launchTaskList(Intent intent) {
+        String tag = intent.getData().toString();
+        long tagId = Long.parseLong(tag.substring(tag.indexOf(":")+1));
+
+        Bundle variables = new Bundle();
+        variables.putLong(TaskListSubActivity.TAG_TOKEN, tagId);
+
         Intent taskListIntent = new Intent(this, TaskList.class);
-        taskListIntent.putExtra(TaskList.VARIABLES_TAG, intent.getExtras());
+        taskListIntent.putExtra(TaskList.VARIABLES_TAG, variables);
         startActivity(taskListIntent);
 
         finish();
