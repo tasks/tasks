@@ -37,6 +37,7 @@ import android.util.Log;
 
 import com.timsu.astrid.activities.TaskEdit;
 import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
@@ -249,6 +250,7 @@ public class TaskController extends AbstractController {
      * @param values
      */
     private void onTaskSave(AbstractTaskModel task, ContentValues values) {
+
     	// task was completed
         if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
                 values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
@@ -439,6 +441,15 @@ public class TaskController extends AbstractController {
         TaskModelForNotify model = new TaskModelForNotify(cursor);
         cursor.close();
         return model;
+    }
+
+    /** Updates the alarm for the task identified by the given id */
+    public void updateAlarmForTask(TaskIdentifier taskId) throws SQLException {
+        TaskModelForNotify task = fetchTaskForNotify(taskId);
+        AlertController alertController = new AlertController(context);
+        alertController.open();
+        Notifications.updateAlarm(context, this, alertController, task);
+        alertController.close();
     }
 
     /** Returns null if unsuccessful, otherwise moves cursor to the task.

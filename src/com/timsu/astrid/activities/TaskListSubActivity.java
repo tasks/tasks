@@ -977,6 +977,7 @@ public class TaskListSubActivity extends SubActivity {
                                 task.getHiddenUntil(), postponeMillis, false));
 
                         getTaskController().saveTask(task);
+                        getTaskController().updateAlarmForTask(task.getTaskIdentifier());
                         context.listAdapter.refreshItem(listView, context.taskArray.indexOf(task));
                     }
                 });

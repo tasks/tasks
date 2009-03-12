@@ -403,7 +403,7 @@ public class Notifications extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 (int)id, notifyIntent, PendingIntent.FLAG_ONE_SHOT);
 
-        // create notification object
+        // set up properties (name and icon) for the notification
         String appName = r.getString(R.string.app_name);
         int icon;
         switch(Preferences.getNotificationIconTheme(context)) {
@@ -417,6 +417,7 @@ public class Notifications extends BroadcastReceiver {
             icon = R.drawable.notif_astrid;
         }
 
+        // create notification object
         Notification notification = new Notification(
                 icon, reminder, System.currentTimeMillis());
         notification.setLatestEventInfo(context,
@@ -434,10 +435,12 @@ public class Notifications extends BroadcastReceiver {
         else
             notification.defaults = Notification.DEFAULT_LIGHTS;
 
+        // if nonstop mode is activated, set up the flags for insistent
+        // notification, and increase the volume to full volume, so the user
+        // will actually pay attention to the alarm
         if(nonstopMode && (flags & FLAG_PERIODIC) == 0) {
             notification.flags |= Notification.FLAG_INSISTENT;
 
-            // if you're gonna do this... might as well crank up the volume!
             AudioManager audioManager = (AudioManager)context.getSystemService(
                     Context.AUDIO_SERVICE);
             notification.audioStreamType = AudioManager.STREAM_ALARM;
