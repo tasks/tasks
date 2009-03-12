@@ -402,7 +402,7 @@ public class TaskController extends AbstractController {
 
     /** Returns a TaskModelForReminder corresponding to the given TaskIdentifier */
     public TaskModelForReminder fetchTaskForReminder(TaskIdentifier taskId) throws SQLException {
-        Cursor cursor = fetchTaskCursor(taskId, TaskModelForList.FIELD_LIST);
+        Cursor cursor = fetchTaskCursor(taskId, TaskModelForReminder.FIELD_LIST);
         TaskModelForReminder model = new TaskModelForReminder(cursor);
         cursor.close();
         return model;
