@@ -89,6 +89,11 @@
     
     <PreferenceCategory
         android:title="@string/prefs_category_other"> 
+        <CheckBoxPreference  
+           android:key="@string/p_nagging"
+           android:title="@string/prefs_nagging_title"
+           android:summary="@string/prefs_nagging_desc"
+           android:defaultValue="true"  />
         <EditTextPreference  
             android:key="@string/p_deadlineTime"  
             android:title="@string/prefs_deadlineTime_title"  

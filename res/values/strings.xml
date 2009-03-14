@@ -131,6 +131,7 @@
         <string name="taskList_menu_help">Help (opens in Browser)</string>
         <string name="taskList_menu_survey">Take Astrid\'s Survey!</string>
         <string name="taskList_menu_tips">Quick Tips</string>
+        <string name="taskList_menu_cleanup">Clean Up Old Tasks</string>
         
         <string name="taskList_context_edit">Edit Task</string>
         <string name="taskList_context_delete">Delete Task</string>
@@ -148,7 +149,10 @@
         <string name="taskList_sort_duedate">Sort By Due Date</string>
         <string name="taskList_sort_reverse">Sort Reverse</string>
         
+        <string name="taskList_postpone_count">Times You\'ve Postponed: %d</string>
+        <string name="taskList_postpone_firsttime">(Turn off Astrid\'s Hints on the Preferences screen)</string>
         <string name="taskList_postpone_dialog">Postpone for how long?</string>
+        <string name="taskList_cleanup_dialog">"Delete completed tasks older than # days:"</string>
 
     <!-- TaskEdit -->
     <skip />
@@ -359,6 +363,11 @@ Thanks for using Astrid!\n
         <string name="prefs_fontSize_desc">Font on the main listing page (i.e. 22)</string>
 
         <string name="prefs_category_other">Other</string>
+        
+        <string name="p_postponecount">ppcount</string>
+        <string name="p_nagging">nagging</string>
+        <string name="prefs_nagging_title">Nag Messages</string>
+        <string name="prefs_nagging_desc">Astrid\'s little messages help you stay on track</string>
 
         <string name="p_deadlineTime">deadline_time</string>
         <string name="prefs_deadlineTime_title">Default Deadlines</string>

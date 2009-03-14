@@ -46,6 +46,9 @@ public class Preferences {
         if(!prefs.contains(r.getString(R.string.p_deadlineTime))) {
             editor.putString(r.getString(R.string.p_deadlineTime), "1");
         }
+        if(!prefs.contains(r.getString(R.string.p_postponecount))) {
+            editor.putString(r.getString(R.string.p_postponecount), "0");
+        }
         if(!prefs.contains(r.getString(R.string.p_notif_defaultRemind))) {
             editor.putString(r.getString(R.string.p_notif_defaultRemind), "0");
         }
@@ -93,6 +96,8 @@ public class Preferences {
         }
 	}
 
+    // --- sysetm preferences
+
 	/** CurrentVersion: the currently installed version of Astrid */
     public static int getCurrentVersion(Context context) {
         return getPrefs(context).getInt(P_CURRENT_VERSION, 0);
@@ -115,6 +120,8 @@ public class Preferences {
         editor.putBoolean(P_SHOW_REPEAT_HELP, setting);
         editor.commit();
     }
+
+    // --- notification settings
 
     /** returns hour at which quiet hours start, or null if not set */
     public static Integer getQuietHourStart(Context context) {
@@ -154,6 +161,33 @@ public class Preferences {
                 R.string.p_notif_annoy), DEFAULT_PERSISTENCE_MODE);
     }
 
+    /** Return # of days to remind by default */
+    public static Integer getDefaultReminder(Context context) {
+        return getIntegerValue(context, R.string.p_notif_defaultRemind);
+    }
+
+    // --- postpone count & settings
+
+    /** whether nags for postponing and other things should be shown */
+    public static boolean shouldShowNags(Context context) {
+        return getPrefs(context).getBoolean(context.getResources().
+                getString(R.string.p_nagging), true);
+    }
+
+    /** gets # of times user has postponed a task */
+    public static Integer getPostponeCount(Context context) {
+        return getIntegerValue(context, R.string.p_postponecount);
+    }
+
+    /** sets # of times user has postponed a task */
+    public static void setPostponeCount(Context context, int value) {
+        Editor editor = getPrefs(context).edit();
+        editor.putInt(context.getResources().getString(R.string.p_postponecount), value);
+        editor.commit();
+    }
+
+    // --- appearance settings
+
     /** returns the font size user wants on the front page */
     public static Integer getTaskListFontSize(Context context) {
         return getIntegerValue(context, R.string.p_fontSize);
@@ -169,11 +203,6 @@ public class Preferences {
         Resources r = context.getResources();
         return getPrefs(context).getBoolean(r.getString(
                 R.string.p_colorize), DEFAULT_COLORIZE);
-    }
-
-    /** Return # of days to remind by default */
-    public static Integer getDefaultReminder(Context context) {
-        return getIntegerValue(context, R.string.p_notif_defaultRemind);
     }
 
     /** TaskListSort: the sorting method for the task list */
@@ -244,8 +273,8 @@ public class Preferences {
     }
 
     /** returns the font size user wants on the front page */
-    public static Integer autoSyncFrequency(Context context) {
-        return getIntegerValue(context, R.string.p_sync_every);
+    public static Float autoSyncFrequency(Context context) {
+        return getFloatValue(context, R.string.p_sync_every);
     }
 
     /** Last Auto-Sync Date, or null */
@@ -270,22 +299,49 @@ public class Preferences {
 
     // --- helper methods
 
+    /** Clear the given preference */
     private static void clearPref(Context context, String key) {
         Editor editor = getPrefs(context).edit();
         editor.remove(key);
         editor.commit();
     }
 
+    /** Get preferences object from the context */
     private static SharedPreferences getPrefs(Context context) {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
+    /** Gets an integer value from a string resource id. Returns null
+     * if the value is not set or not an integer.
+     *
+     * @param context
+     * @param keyResource resource from string.xml
+     * @return integer value, or null on error
+     */
     private static Integer getIntegerValue(Context context, int keyResource) {
         Resources r = context.getResources();
         String value = getPrefs(context).getString(r.getString(keyResource), "");
 
         try {
             return Integer.parseInt(value);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    /** Gets an float value from a string resource id. Returns null
+     * if the value is not set or not an flat.
+     *
+     * @param context
+     * @param keyResource resource from string.xml
+     * @return
+     */
+    private static Float getFloatValue(Context context, int keyResource) {
+        Resources r = context.getResources();
+        String value = getPrefs(context).getString(r.getString(keyResource), "");
+
+        try {
+            return Float.parseFloat(value);
         } catch (Exception e) {
             return null;
         }

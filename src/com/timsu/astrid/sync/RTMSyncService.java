@@ -49,6 +49,7 @@ import com.mdt.rtm.data.RtmTasks;
 import com.mdt.rtm.data.RtmAuth.Perms;
 import com.mdt.rtm.data.RtmTask.Priority;
 import com.timsu.astrid.R;
+import com.timsu.astrid.activities.TaskList;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.sync.SyncMapping;
 import com.timsu.astrid.data.task.TaskModelForSync;
@@ -145,6 +146,7 @@ public class RTMSyncService extends SynchronizationService {
                         new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        TaskList.synchronizeNow = true;
                         Intent intent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse(url));
                         activity.startActivity(intent);

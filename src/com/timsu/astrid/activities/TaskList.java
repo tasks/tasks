@@ -71,7 +71,7 @@ public class TaskList extends Activity {
     private static final int FLING_DIST_THRESHOLD = 160;
 
     /** Maximum distance in the other axis for a fling */
-    private static final int MAX_FLING_OTHER_AXIS = 100;
+    private static final int MAX_FLING_OTHER_AXIS = 130;
 
     /** Minimum velocity a fling must have to trigger motion */
 	private static final int FLING_VEL_THRESHOLD = 300;
@@ -94,6 +94,7 @@ public class TaskList extends Activity {
 	TagController tagController;
 
 	// static variables
+	public static boolean synchronizeNow = false;
 
 	/** If set, the application will close when this activity gets focus */
 	static boolean shouldCloseInstance = false;
@@ -128,8 +129,11 @@ public class TaskList extends Activity {
         }
 
         // auto sync if requested
-        Integer autoSyncHours = Preferences.autoSyncFrequency(this);
-        if(autoSyncHours != null) {
+        Float autoSyncHours = Preferences.autoSyncFrequency(this);
+        if(synchronizeNow) {
+            synchronizeNow = false;
+            Synchronizer.synchronize(this, true, null);
+        } else if(autoSyncHours != null) {
             final Date lastSync = Preferences.getSyncLastSync(this);
 
             if(lastSync == null || lastSync.getTime() +

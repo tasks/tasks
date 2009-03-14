@@ -118,6 +118,13 @@ public class TaskController extends AbstractController {
                 null, null, null, null, null, null);
     }
 
+    /** Delete all completed tasks with date < older than date */
+    public int deleteCompletedTasksOlderThan(Date olderThanDate) {
+        return database.delete(TASK_TABLE_NAME, String.format("`%s` >= '%d' AND `%s` <= '%d'",
+                AbstractTaskModel.PROGRESS_PERCENTAGE, AbstractTaskModel.COMPLETE_PERCENTAGE,
+                AbstractTaskModel.COMPLETION_DATE, olderThanDate.getTime()), null);
+    }
+
     /** Create a list of tasks from the db cursor given */
     public ArrayList<TaskModelForList> createTaskListFromCursor(Cursor cursor) {
         ArrayList<TaskModelForList> list = new ArrayList<TaskModelForList>();

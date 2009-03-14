@@ -65,8 +65,10 @@ import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Notifications;
 import com.timsu.astrid.utilities.Preferences;
+import com.timsu.astrid.widget.NumberPicker;
+import com.timsu.astrid.widget.NumberPickerDialog;
 import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
-
+import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 
 /**
  * Primary view for the Astrid Application. Lists all of the tasks in the
@@ -100,7 +102,7 @@ public class TaskListSubActivity extends SubActivity {
     private static final int       OPTIONS_SYNC_ID       = Menu.FIRST + 10;
     private static final int       OPTIONS_SETTINGS_ID   = Menu.FIRST + 11;
     private static final int       OPTIONS_HELP_ID       = Menu.FIRST + 12;
-    private static final int       OPTIONS_SURVEY_ID     = Menu.FIRST + 13;
+    private static final int       OPTIONS_CLEANUP_ID    = Menu.FIRST + 13;
     private static final int       OPTIONS_QUICK_TIPS    = Menu.FIRST + 14;
 
     private static final int       CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
@@ -117,6 +119,7 @@ public class TaskListSubActivity extends SubActivity {
     private static final int       SORTFLAG_FILTERHIDDEN = (1 << 6);
     private static final int       HIDE_ADD_BTN_PORTRAIT = 4;
     private static final int       HIDE_ADD_BTN_LANDSCPE = 2;
+    private static final float     POSTPONE_STAT_PCT     = 0.3f;
 
     // UI components
     private ListView listView;
@@ -170,6 +173,8 @@ public class TaskListSubActivity extends SubActivity {
         }
         setupUIComponents();
 
+        // declare the reload runnable, which is called when the task list
+        // wants to reload itself
         reLoadRunnable = new Runnable() {
             @Override
             public void run() {
@@ -184,8 +189,11 @@ public class TaskListSubActivity extends SubActivity {
             }
         };
 
-        if(getLastNonConfigurationInstance() != null) {
-            context = (TaskListContext)getLastNonConfigurationInstance();
+        // if we have a non-configuration instance (i.e. the screen was just
+        // rotated), use that instead of loading the whole task list again.
+        // this makes screen rotation an inexpensive operation
+        if (getLastNonConfigurationInstance() != null) {
+            context = (TaskListContext) getLastNonConfigurationInstance();
             listView.setAdapter(context.listAdapter);
             onTaskListLoaded();
             return;
@@ -205,7 +213,8 @@ public class TaskListSubActivity extends SubActivity {
                 Toast.makeText(getParent(), R.string.missing_tag, Toast.LENGTH_SHORT).show();
         }
 
-        // time to go!
+        // time to go! creates a thread that loads the task list, then
+        // displays the reminder box if it is requested
         context.loadingThread = new Thread(new Runnable() {
             @Override
             public void run() {
@@ -316,6 +325,9 @@ public class TaskListSubActivity extends SubActivity {
                 R.string.taskList_menu_settings);
         item.setAlphabeticShortcut('p');
 
+        item = menu.add(Menu.NONE, OPTIONS_CLEANUP_ID, Menu.NONE,
+                R.string.taskList_menu_cleanup);
+
         item = menu.add(Menu.NONE, OPTIONS_QUICK_TIPS, Menu.NONE,
                 R.string.taskList_menu_tips);
 
@@ -323,12 +335,16 @@ public class TaskListSubActivity extends SubActivity {
                 R.string.taskList_menu_help);
         item.setAlphabeticShortcut('h');
 
-        item = menu.add(Menu.NONE, OPTIONS_SURVEY_ID, Menu.NONE,
-                R.string.taskList_menu_survey);
-
         return true;
     }
 
+    /**
+     * Enum that determines how the task list is sorted. Contains a comparison
+     * method that determines sorting order.
+     *
+     * @author timsu
+     *
+     */
     private enum SortMode {
         ALPHA {
             @Override
@@ -379,8 +395,12 @@ public class TaskListSubActivity extends SubActivity {
         // clear notifications
         Notifications.clearAllNotifications(getParent(), task.getTaskIdentifier());
 
-        String[] responses = r.getStringArray(R.array.reminder_responses);
-        String response = responses[new Random().nextInt(responses.length)];
+        String response;
+        if(Preferences.shouldShowNags(getParent())) {
+            String[] responses = r.getStringArray(R.array.reminder_responses);
+            response = responses[new Random().nextInt(responses.length)];
+        } else
+            response = "";
         new AlertDialog.Builder(getParent())
         .setTitle(R.string.taskView_notifyTitle)
         .setMessage(task.getName() + "\n\n" + response)
@@ -409,6 +429,13 @@ public class TaskListSubActivity extends SubActivity {
         .show();
     }
 
+    /** Helper method to "snooze" an alert (i.e. set a new one for some time
+     * from now.
+     *
+     * @param task
+     * @param repeatInterval
+     * @param flags
+     */
     private void snoozeAlert(final TaskModelForList task,
             final long repeatInterval, final int flags) {
         DialogUtilities.hourMinutePicker(getParent(),
@@ -914,10 +941,75 @@ public class TaskListSubActivity extends SubActivity {
         return input;
     }
 
+    /** Show a dialog box and delete old tasks as requested */
+    private void cleanOldTasks() {
+        final Resources r = getResources();
+        new NumberPickerDialog(getParent(), new OnNumberPickedListener() {
+            @Override
+            public void onNumberPicked(NumberPicker view, int number) {
+                Date date = new Date(System.currentTimeMillis() - 24L*3600*1000*number);
+                int deleted = getTaskController().deleteCompletedTasksOlderThan(date);
+                DialogUtilities.okDialog(getParent(), r.getQuantityString(R.plurals.Ntasks,
+                        deleted, deleted) + " " + r.getString(R.string.taskList_deleted),
+                        null);
+                if(TaskListSubActivity.filterShowDone)
+                    reloadList();
+            }
+        }, r.getString(R.string.taskList_cleanup_dialog),
+        30, 5, 0, 999).show();
+    }
+
+    /** Show a dialog box to postpone your tasks */
+    private void postponeTask(final TaskModelForList task) {
+        final Resources r = getResources();
+        DialogUtilities.dayHourPicker(getParent(), r.getString(R.string.taskList_postpone_dialog),
+            new OnNNumberPickedListener() {
+                public void onNumbersPicked(int[] values) {
+                    long postponeMillis = (values[0] * 24 + values[1]) * 3600L * 1000;
+                    task.setPreferredDueDate(computePostponeDate(task
+                            .getPreferredDueDate(), postponeMillis,
+                            true));
+                    task.setDefiniteDueDate(computePostponeDate(
+                        task.getDefiniteDueDate(), postponeMillis, true));
+                    task.setHiddenUntil(computePostponeDate(task.
+                        getHiddenUntil(), postponeMillis, false));
+
+                    getTaskController().saveTask(task);
+                    getTaskController().updateAlarmForTask(
+                            task.getTaskIdentifier());
+                    context.listAdapter.refreshItem(listView,
+                            context.taskArray.indexOf(task));
+
+                    // show nag
+                    int postponeCount = Preferences.getPostponeCount(getParent());
+                    if(Preferences.shouldShowNags(getParent())) {
+                        Random random = new Random();
+                        final String nagText;
+                        if(postponeCount == 0)
+                            nagText = r.getString(R.string.taskList_postpone_firsttime);
+                        else if(random.nextFloat() < POSTPONE_STAT_PCT)
+                            nagText = r.getString(R.string.taskList_postpone_count,
+                                    postponeCount);
+                        else {
+                            String[] nags = r.getStringArray(R.array.postpone_nags);
+                            nagText = nags[random.nextInt(nags.length)];
+                        }
+
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getParent(), nagText, Toast.LENGTH_LONG).show();
+                            }
+                        });
+                    }
+                    Preferences.setPostponeCount(getParent(), postponeCount + 1);
+                }
+            });
+    }
+
     @Override
     public boolean onMenuItemSelected(int featureId, final MenuItem item) {
         final TaskModelForList task;
-        Resources r = getResources();
 
         switch(item.getItemId()) {
         // --- options menu items
@@ -950,14 +1042,8 @@ public class TaskListSubActivity extends SubActivity {
                     Uri.parse(Constants.HELP_URL));
             launchActivity(browserIntent, 0);
             return true;
-        case OPTIONS_SURVEY_ID:
-            browserIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(Constants.SURVEY_URL));
-            launchActivity(browserIntent, 0);
-            return true;
-        case OPTIONS_QUICK_TIPS:
-            DialogUtilities.okDialog(getParent(),
-                    r.getString(R.string.quick_tips), null);
+        case OPTIONS_CLEANUP_ID:
+            cleanOldTasks();
             return true;
 
         // --- list context menu items
@@ -974,25 +1060,8 @@ public class TaskListSubActivity extends SubActivity {
             toggleTimer(task);
             return true;
         case TaskListAdapter.CONTEXT_POSTPONE_ID:
-            task = context.tasksById.get((long)item.getGroupId());
-            DialogUtilities.dayHourPicker(getParent(),
-                r.getString(R.string.taskList_postpone_dialog),
-                new OnNNumberPickedListener() {
-                    public void onNumbersPicked(int[] values) {
-                        long postponeMillis = (values[0] * 24 + values[1]) *
-                            3600L * 1000;
-                        task.setPreferredDueDate(computePostponeDate(
-                                task.getPreferredDueDate(), postponeMillis, true));
-                        task.setDefiniteDueDate(computePostponeDate(
-                                task.getDefiniteDueDate(), postponeMillis, true));
-                        task.setHiddenUntil(computePostponeDate(
-                                task.getHiddenUntil(), postponeMillis, false));
-
-                        getTaskController().saveTask(task);
-                        getTaskController().updateAlarmForTask(task.getTaskIdentifier());
-                        context.listAdapter.refreshItem(listView, context.taskArray.indexOf(task));
-                    }
-                });
+            task = context.tasksById.get((long) item.getGroupId());
+            postponeTask(task);
             return true;
 
         // --- display context menu items
@@ -1044,7 +1113,7 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     /* ======================================================================
-     *===================================================== getters / setters
+     * ===================================================== getters / setters
      * ====================================================================== */
 
     public TagModelForView getFilterTag() {

@@ -342,7 +342,12 @@ public class TagListSubActivity extends SubActivity {
             String label = tag.getName();
             if(tag.shouldHideFromMainList())
                 label = label.substring(1);
-            createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, "@" + label);
+
+            // add the @ sign if the task starts with a letter, for clarity
+            if(Character.isLetterOrDigit(label.charAt(0)))
+                label = "@" + label;
+
+            createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, label);
             createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON,
                     ((BitmapDrawable)r.getDrawable(R.drawable.icon_tag)).getBitmap());
             createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
