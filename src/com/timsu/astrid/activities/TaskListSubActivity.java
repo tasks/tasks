@@ -119,7 +119,7 @@ public class TaskListSubActivity extends SubActivity {
     private static final int       SORTFLAG_FILTERHIDDEN = (1 << 6);
     private static final int       HIDE_ADD_BTN_PORTRAIT = 4;
     private static final int       HIDE_ADD_BTN_LANDSCPE = 2;
-    private static final float     POSTPONE_STAT_PCT     = 0.3f;
+    private static final float     POSTPONE_STAT_PCT     = 0.2f;
 
     // UI components
     private ListView listView;
@@ -985,7 +985,7 @@ public class TaskListSubActivity extends SubActivity {
                     if(Preferences.shouldShowNags(getParent())) {
                         Random random = new Random();
                         final String nagText;
-                        if(postponeCount == 0)
+                        if(postponeCount == 1 || postponeCount == 5)
                             nagText = r.getString(R.string.taskList_postpone_firsttime);
                         else if(random.nextFloat() < POSTPONE_STAT_PCT)
                             nagText = r.getString(R.string.taskList_postpone_count,

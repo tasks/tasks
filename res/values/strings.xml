@@ -150,7 +150,7 @@
         <string name="taskList_sort_reverse">Sort Reverse</string>
         
         <string name="taskList_postpone_count">Times You\'ve Postponed: %d</string>
-        <string name="taskList_postpone_firsttime">(Turn off Astrid\'s Hints on the Preferences screen)</string>
+        <string name="taskList_postpone_firsttime">(You can turn off Astrid\'s Hints on the Settings screen)</string>
         <string name="taskList_postpone_dialog">Postpone for how long?</string>
         <string name="taskList_cleanup_dialog">"Delete completed tasks older than # days:"</string>
 

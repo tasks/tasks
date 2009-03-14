@@ -47,7 +47,7 @@ public class Preferences {
             editor.putString(r.getString(R.string.p_deadlineTime), "1");
         }
         if(!prefs.contains(r.getString(R.string.p_postponecount))) {
-            editor.putString(r.getString(R.string.p_postponecount), "0");
+            editor.putInt(r.getString(R.string.p_postponecount), 0);
         }
         if(!prefs.contains(r.getString(R.string.p_notif_defaultRemind))) {
             editor.putString(r.getString(R.string.p_notif_defaultRemind), "0");
@@ -175,8 +175,13 @@ public class Preferences {
     }
 
     /** gets # of times user has postponed a task */
-    public static Integer getPostponeCount(Context context) {
-        return getIntegerValue(context, R.string.p_postponecount);
+    public static int getPostponeCount(Context context) {
+        try {
+            return getPrefs(context).getInt(context.getResources().
+                getString(R.string.p_postponecount), 0);
+        } catch (ClassCastException e) {
+            return 0;
+        }
     }
 
     /** sets # of times user has postponed a task */
