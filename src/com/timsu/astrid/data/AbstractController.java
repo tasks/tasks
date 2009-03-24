@@ -55,12 +55,10 @@ abstract public class AbstractController {
             this.cls = cls;
         }
 
-        @Override
         public boolean hasNext() {
             return !cursor.isLast();
         }
 
-        @Override
         public TYPE next() {
             try {
                 TYPE model = cls.getConstructor(Cursor.class).newInstance(cursor);
@@ -85,7 +83,6 @@ abstract public class AbstractController {
             return null;
         }
 
-        @Override
         public void remove() {
             throw new UnsupportedOperationException("Can't remove this way");
         }

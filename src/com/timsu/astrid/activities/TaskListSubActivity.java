@@ -177,10 +177,8 @@ public class TaskListSubActivity extends SubActivity {
         // declare the reload runnable, which is called when the task list
         // wants to reload itself
         reLoadRunnable = new Runnable() {
-            @Override
             public void run() {
                 handler.post(new Runnable() {
-                    @Override
                     public void run() {
                         loadingText.setText(getParent().getResources().getString(R.string.updating));
                     }
@@ -217,10 +215,8 @@ public class TaskListSubActivity extends SubActivity {
         // time to go! creates a thread that loads the task list, then
         // displays the reminder box if it is requested
         context.loadingThread = new Thread(new Runnable() {
-            @Override
             public void run() {
                 handler.post(new Runnable() {
-                    @Override
                     public void run() {
                         loadingText.setVisibility(View.VISIBLE);
                     }
@@ -233,7 +229,6 @@ public class TaskListSubActivity extends SubActivity {
                 if(variables != null && variables.containsKey(NOTIF_FLAGS_TOKEN) &&
                         context.selectedTask != null) {
                     handler.post(new Runnable() {
-                        @Override
                         public void run() {
                             long repeatInterval = 0;
                             int flags = 0;
@@ -260,7 +255,6 @@ public class TaskListSubActivity extends SubActivity {
         addButton = (Button)findViewById(R.id.addtask);
         addButton.setOnClickListener(new
                 View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 createTask(null);
             }
@@ -269,7 +263,6 @@ public class TaskListSubActivity extends SubActivity {
         layout = getView();
         layout.setOnCreateContextMenuListener(
                 new OnCreateContextMenuListener() {
-                    @Override
                     public void onCreateContextMenu(ContextMenu menu, View v,
                             ContextMenuInfo menuInfo) {
                         if(menu.hasVisibleItems())
@@ -412,7 +405,6 @@ public class TaskListSubActivity extends SubActivity {
 
         // no, i will ignore: quits application
         .setNegativeButton(R.string.notify_no, new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 TaskList.shouldCloseInstance = true;
                 closeActivity();
@@ -421,7 +413,6 @@ public class TaskListSubActivity extends SubActivity {
 
         // snooze: sets a new temporary alert, closes application
         .setNeutralButton(R.string.notify_snooze, new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 snoozeAlert(task, repeatInterval, flags);
             }
@@ -480,7 +471,6 @@ public class TaskListSubActivity extends SubActivity {
         int completedTasks = 0; // # of tasks on list that are done
 
         handler.post(new Runnable() {
-            @Override
             public void run() {
                 loadingText.setVisibility(View.VISIBLE);
             }
@@ -559,7 +549,6 @@ public class TaskListSubActivity extends SubActivity {
             // happens when you run out of memory usually
             Log.e("astrid", "Error loading task list", e);
             handler.post(new Runnable() {
-                @Override
                 public void run() {
                     if(!e.getMessage().contains("Couldn't init cursor window"))
                         return;
@@ -576,7 +565,6 @@ public class TaskListSubActivity extends SubActivity {
         int activeTasks = context.taskArray.size() - completedTasks;
         // sort task list
         Collections.sort(context.taskArray, new Comparator<TaskModelForList>() {
-            @Override
             public int compare(TaskModelForList arg0, TaskModelForList arg1) {
                 return sortMode.compareTo(arg0, arg1);
             }
@@ -589,7 +577,6 @@ public class TaskListSubActivity extends SubActivity {
         final int finalHidden = hiddenTasks;
 
         handler.post(new Runnable() {
-            @Override
             public void run() {
                 Resources r = getResources();
                 StringBuilder title = new StringBuilder().
@@ -618,7 +605,6 @@ public class TaskListSubActivity extends SubActivity {
     /** Sets up the interface after everything has been loaded */
     private void onTaskListLoaded() {
         handler.post(new Runnable() {
-            @Override
             public void run() {
                 // hide "add" button if we have too many tasks
                 int threshold = HIDE_ADD_BTN_PORTRAIT;
@@ -635,7 +621,6 @@ public class TaskListSubActivity extends SubActivity {
 
         // set up the title
         handler.post(new Runnable() {
-            @Override
             public void run() {
                 setTitle(context.windowTitle);
                 setUpListUI();
@@ -654,27 +639,22 @@ public class TaskListSubActivity extends SubActivity {
             this.myTaskArray = context.taskArray;
         }
 
-        @Override
         public TagController tagController() {
             return getTagController();
         }
 
-        @Override
         public String getTagsFor(TaskModelForList task) {
             return myTaskTags.get(task);
         }
 
-        @Override
         public ArrayList<TaskModelForList> getTaskArray() {
             return myTaskArray;
         }
 
-        @Override
         public TaskController taskController() {
             return getTaskController();
         }
 
-        @Override
         public void performItemClick(View v, int position) {
             listView.performItemClick(v, position, 0);
         }
@@ -683,17 +663,14 @@ public class TaskListSubActivity extends SubActivity {
             v.setOnTouchListener(getGestureListener());
         }
 
-        @Override
         public void editItem(TaskModelForList task) {
             editTask(task);
         }
 
-        @Override
         public void toggleTimerOnItem(TaskModelForList task) {
             toggleTimer(task);
         }
 
-        @Override
         public void setSelectedItem(TaskIdentifier taskId) {
             if(taskId == null) {
                 selectedTaskId = null;
@@ -724,7 +701,6 @@ public class TaskListSubActivity extends SubActivity {
 
         // filters context menu
         listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-            @Override
             public void onCreateContextMenu(ContextMenu menu, View v,
                     ContextMenuInfo menuInfo) {
                 if(menu.hasVisibleItems())
@@ -840,7 +816,6 @@ public class TaskListSubActivity extends SubActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Constants.RESULT_SYNCHRONIZE) {
             Synchronizer.synchronize(getParent(), false, new SynchronizerListener() {
-                @Override
                 public void onSynchronizerFinished(int numServicesSynced) {
                     if(numServicesSynced == 0) {
                         DialogUtilities.okDialog(getParent(), getResources().getString(
@@ -873,7 +848,6 @@ public class TaskListSubActivity extends SubActivity {
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton(android.R.string.ok,
                     new DialogInterface.OnClickListener() {
-                @Override
                 public void onClick(DialogInterface dialog, int which) {
                     context.listAdapter.remove(task);
                     context.taskArray.remove(task);
@@ -961,7 +935,6 @@ public class TaskListSubActivity extends SubActivity {
     private void cleanOldTasks() {
         final Resources r = getResources();
         new NumberPickerDialog(getParent(), new OnNumberPickedListener() {
-            @Override
             public void onNumberPicked(NumberPicker view, int number) {
                 Date date = new Date(System.currentTimeMillis() - 24L*3600*1000*number);
                 int deleted = getTaskController().deleteCompletedTasksOlderThan(date);
@@ -1008,7 +981,6 @@ public class TaskListSubActivity extends SubActivity {
                         }
 
                         handler.post(new Runnable() {
-                            @Override
                             public void run() {
                                 Toast.makeText(getParent(), nagText, Toast.LENGTH_LONG).show();
                             }

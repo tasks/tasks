@@ -40,7 +40,6 @@ public class DateWithNullControlSet extends DateControlSet {
 
         activatedCheckBox.setOnCheckedChangeListener(
                 new OnCheckedChangeListener() {
-            @Override
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked) {
                 dateButton.setEnabled(isChecked);

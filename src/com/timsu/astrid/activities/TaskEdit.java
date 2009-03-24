@@ -421,7 +421,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         });
 
         repeatValue.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 repeatValueClick();
             }
@@ -463,7 +462,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         ImageButton reminderRemoveButton;
         reminderRemoveButton = (ImageButton)alertItem.findViewById(R.id.button1);
         reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 alertsContainer.removeView(alertItem);
             }
@@ -490,7 +488,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                     android.R.layout.simple_dropdown_item_1line, tags);
         textView.setAdapter(tagsAdapter);
         textView.addTextChangedListener(new TextWatcher() {
-            @Override
             public void onTextChanged(CharSequence s, int start, int before,
                     int count) {
                 if(start == 0 && tagsContainer.getChildAt(
@@ -499,12 +496,10 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                 }
             }
 
-            @Override
             public void afterTextChanged(Editable s) {
                 //
             }
 
-            @Override
             public void beforeTextChanged(CharSequence s, int start, int count,
                     int after) {
                 //
@@ -514,7 +509,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         ImageButton reminderRemoveButton;
         reminderRemoveButton = (ImageButton)tagItem.findViewById(R.id.button1);
         reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 tagsContainer.removeView(tagItem);
             }
@@ -554,7 +548,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton(android.R.string.ok,
                     new DialogInterface.OnClickListener() {
-                @Override
                 public void onClick(DialogInterface dialog, int which) {
                     // tell the task list to update itself
                     TaskListSubActivity.shouldRefreshTaskList = true;
@@ -575,7 +568,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             repeatHelpShown = true;
 
         final Runnable openDialogRunnable = new Runnable() {
-            @Override
             public void run() {
                 repeatHelpShown = true;
 
@@ -584,7 +576,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                     dialogValue = 1;
 
                 new NumberPickerDialog(TaskEdit.this, new OnNumberPickedListener() {
-                    @Override
                     public void onNumberPicked(NumberPicker view, int number) {
                         setRepeatValue(number);
                     }
@@ -604,14 +595,12 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         .setIcon(android.R.drawable.ic_dialog_info)
         .setPositiveButton(android.R.string.ok,
                 new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 openDialogRunnable.run();
             }
         })
         .setNeutralButton(R.string.repeat_help_hide,
                 new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 Preferences.setShowRepeatHelp(TaskEdit.this, false);
                 openDialogRunnable.run();
@@ -814,7 +803,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                 button.setTextOff(r.getString(i.getLabelResource()));
                 button.setTextOn(r.getString(i.getLabelResource()));
                 button.setOnClickListener(new View.OnClickListener() {
-                    @Override
                     public void onClick(View v) {
                         setImportance((Importance)button.getTag());
                     }
@@ -866,7 +854,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
             activatedCheckBox.setOnCheckedChangeListener(
                     new OnCheckedChangeListener() {
-                @Override
                 public void onCheckedChanged(CompoundButton buttonView,
                         boolean isChecked) {
                     taskBox.setEnabled(isChecked);

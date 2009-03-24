@@ -573,7 +573,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
         // clicking the check box
         progress.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 View parent = (View)v.getParent().getParent();
                 TaskModelForList task = (TaskModelForList)parent.getTag();
@@ -595,7 +594,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
         // clicking the text field
         view.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 TaskModelForList task = (TaskModelForList)v.getTag();
                 toggleExpanded(v, task);
@@ -604,7 +602,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
         // typing while selected something
         view.setOnKeyListener(new OnKeyListener() {
-        	@Override
         	public boolean onKey(View v, int keyCode, KeyEvent event) {
         		if(event.getAction() != KeyEvent.ACTION_UP)
         			return false;
@@ -623,7 +620,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
         // long-clicking the text field
         view.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-            @Override
             public void onCreateContextMenu(ContextMenu menu, View v,
                     ContextMenuInfo menuInfo) {
                 TaskModelForList task = (TaskModelForList)v.getTag();
@@ -653,7 +649,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         // clicking one of the expanded buttons
         Button editButton = (Button)view.findViewById(R.id.edit);
         editButton.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 View parent = (View)v.getParent().getParent().getParent().getParent();
                 TaskModelForList task = (TaskModelForList)parent.getTag();
@@ -663,7 +658,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
         Button toggleTimerButton = (Button)view.findViewById(R.id.timer);
         toggleTimerButton.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 View parent = (View)v.getParent().getParent().getParent().getParent();
                 TaskModelForList task = (TaskModelForList)parent.getTag();
@@ -697,7 +691,6 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton(android.R.string.ok,
                     new DialogInterface.OnClickListener() {
-                @Override
                 public void onClick(DialogInterface dialog, int which) {
                     task.stopTimerAndUpdateElapsedTime();
                     hooks.taskController().saveTask(task);

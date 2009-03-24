@@ -68,7 +68,6 @@ public abstract class TaskModificationTabbedActivity<MODEL_TYPE extends
         DialogUtilities.okDialog(this,
                 r.getString(prefix) + " " +
                 e.getLocalizedMessage(), new DialogInterface.OnClickListener() {
-            @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
             }

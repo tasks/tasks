@@ -37,7 +37,6 @@ public class StartupReceiver extends BroadcastReceiver {
         final int finalVersion = version;
         if(justUpgraded) {
             new Thread(new Runnable() {
-                @Override
                 public void run() {
                     Notifications.scheduleAllAlarms(context);
 

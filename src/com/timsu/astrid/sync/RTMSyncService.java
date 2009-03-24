@@ -81,12 +81,10 @@ public class RTMSyncService extends SynchronizationService {
             DialogUtilities.okCancelDialog(activity,
                     activity.getResources().getString(R.string.sync_rtm_notes),
             new Dialog.OnClickListener() {
-                        @Override
                         public void onClick(DialogInterface dialog, int which) {
                             authenticate(activity);
                         }
             }, new Dialog.OnClickListener() {
-                @Override
                 public void onClick(DialogInterface dialog, int which) {
                     if(progressDialog != null)
                         progressDialog.dismiss();
@@ -144,7 +142,6 @@ public class RTMSyncService extends SynchronizationService {
                 DialogUtilities.okCancelDialog(activity,
                         r.getString(R.string.sync_auth_request, "RTM"),
                         new DialogInterface.OnClickListener() {
-                    @Override
                     public void onClick(DialogInterface dialog, int which) {
                         TaskList.synchronizeNow = true;
                         Intent intent = new Intent(Intent.ACTION_VIEW,
@@ -173,7 +170,6 @@ public class RTMSyncService extends SynchronizationService {
 
     private void performSync(final Activity activity) {
         new Thread(new Runnable() {
-            @Override
             public void run() {
                 performSyncInNewThread(activity);
             }
@@ -235,7 +231,6 @@ public class RTMSyncService extends SynchronizationService {
                         addTasksToList(tasks, remoteChanges);
                     } catch (Exception e) {
                         syncHandler.post(new Runnable() {
-                            @Override
                             public void run() {
                                 DialogUtilities.okDialog(activity,
                                         "List '" + entry.getValue() +
@@ -457,7 +452,6 @@ public class RTMSyncService extends SynchronizationService {
         public RtmSyncHelper(String timeline) {
             this.timeline = timeline;
         }
-        @Override
         public String createTask(TaskModelForSync task) throws IOException {
             String listId = listNameToIdMap.get(INBOX_LIST_NAME.toLowerCase());
             RtmTaskSeries s = rtmService.tasks_add(timeline, listId,
@@ -465,13 +459,11 @@ public class RTMSyncService extends SynchronizationService {
             lastCreatedTask = new RtmId(listId, s).toString();
             return lastCreatedTask;
         }
-        @Override
         public void deleteTask(SyncMapping mapping) throws IOException {
             RtmId id = new RtmId(mapping.getRemoteId());
             rtmService.tasks_delete(timeline, id.listId, id.taskSeriesId,
                     id.taskId);
         }
-        @Override
         public void pushTask(TaskProxy task, TaskProxy remoteTask,
                 SyncMapping mapping) throws IOException {
 
@@ -481,7 +473,6 @@ public class RTMSyncService extends SynchronizationService {
 
             pushLocalTask(timeline, task, remoteTask, mapping);
         }
-        @Override
         public TaskProxy refetchTask(TaskProxy task) throws IOException {
             RtmId id = new RtmId(task.getRemoteId());
             RtmTaskSeries rtmTask = rtmService.tasks_getTask(id.taskSeriesId,

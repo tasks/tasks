@@ -51,7 +51,6 @@ public class SyncPreferences extends PreferenceActivity {
 
         Button syncButton = ((Button)findViewById(R.id.sync));
         syncButton.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 setResult(Constants.RESULT_SYNCHRONIZE);
                 finish();
@@ -59,12 +58,10 @@ public class SyncPreferences extends PreferenceActivity {
         });
 
         ((Button)findViewById(R.id.forget)).setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View v) {
                 DialogUtilities.okCancelDialog(SyncPreferences.this,
                         getResources().getString(R.string.sync_forget_confirm),
                         new Dialog.OnClickListener() {
-                    @Override
                     public void onClick(DialogInterface dialog,
                             int which) {
                         Synchronizer.clearUserData(SyncPreferences.this);

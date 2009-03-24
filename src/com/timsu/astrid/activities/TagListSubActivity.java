@@ -99,7 +99,6 @@ public class TagListSubActivity extends SubActivity {
 
         // time to go!
         new Thread(new Runnable() {
-            @Override
             public void run() {
                 fillData();
             }
@@ -144,7 +143,6 @@ public class TagListSubActivity extends SubActivity {
 
         // do sort
         Collections.sort(tagArray, new Comparator<TagModelForView>() {
-            @Override
             public int compare(TagModelForView arg0, TagModelForView arg1) {
                 return sortMode.compareTo(TagListSubActivity.this, arg0, arg1);
             }
@@ -170,7 +168,6 @@ public class TagListSubActivity extends SubActivity {
         }
 
         handler.post(new Runnable() {
-            @Override
             public void run() {
                 // set up our adapter
                 final TagListAdapter tagAdapter = new TagListAdapter(getParent(),
@@ -194,7 +191,6 @@ public class TagListSubActivity extends SubActivity {
                 tagArray.size(), tagArray.size()));
         final CharSequence finalTitle = title;
         handler.post(new Runnable() {
-            @Override
             public void run() {
                 setTitle(finalTitle);
             }
@@ -204,7 +200,6 @@ public class TagListSubActivity extends SubActivity {
 
         // list view listener
         listView.setOnItemClickListener(new OnItemClickListener() {
-            @Override
             public void onItemClick(AdapterView<?> parent, View view,
                     int position, long id) {
                 TagModelForView tag = (TagModelForView)view.getTag();
@@ -216,7 +211,6 @@ public class TagListSubActivity extends SubActivity {
         });
 
         listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-            @Override
             public void onCreateContextMenu(ContextMenu menu, View v,
                     ContextMenuInfo menuInfo) {
                 AdapterContextMenuInfo adapterMenuInfo =
@@ -266,7 +260,6 @@ public class TagListSubActivity extends SubActivity {
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton(android.R.string.ok,
                     new DialogInterface.OnClickListener() {
-                @Override
                 public void onClick(DialogInterface dialog, int which) {
                     getTagController().deleteTag(tagId);
                     fillData();

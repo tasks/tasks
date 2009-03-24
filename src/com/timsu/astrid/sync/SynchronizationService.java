@@ -107,7 +107,6 @@ public abstract class SynchronizationService {
             messageToDisplay = message;
         }
         syncHandler.post(new Runnable() {
-            @Override
             public void run() {
                 if(progressDialog != null)
                     progressDialog.dismiss();
@@ -373,7 +372,6 @@ public abstract class SynchronizationService {
 
         syncController.clearUpdatedTaskList(getId());
         syncHandler.post(new Runnable() {
-            @Override
             public void run() {
                 stats.showDialog(activity, log.toString());
             }
@@ -473,7 +471,6 @@ public abstract class SynchronizationService {
                 return;
 
             Dialog.OnClickListener finishListener = new Dialog.OnClickListener() {
-                @Override
                 public void onClick(DialogInterface dialog,
                         int which) {
                     Synchronizer.continueSynchronization(activity);

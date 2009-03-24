@@ -108,7 +108,6 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         }
     }
 
-    @Override
     /** Called when NumberPicker activity is completed */
     public void onNumbersPicked(int[] values) {
         switch(type) {
