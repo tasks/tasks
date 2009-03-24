@@ -795,6 +795,9 @@ public class TaskListSubActivity extends SubActivity {
     		if(context.filterTag != null) {
     			showTagsView();
     			return true;
+    		} else {
+    		    // close the app
+    		    getParent().finish();
     		}
     	}
 
