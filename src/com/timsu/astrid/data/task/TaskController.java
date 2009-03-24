@@ -450,15 +450,6 @@ public class TaskController extends AbstractController {
         return model;
     }
 
-    /** Updates the alarm for the task identified by the given id */
-    public void updateAlarmForTask(TaskIdentifier taskId) throws SQLException {
-        TaskModelForNotify task = fetchTaskForNotify(taskId);
-        AlertController alertController = new AlertController(context);
-        alertController.open();
-        Notifications.updateAlarm(context, this, alertController, task);
-        alertController.close();
-    }
-
     /** Returns null if unsuccessful, otherwise moves cursor to the task.
      * Don't forget to close the cursor when you're done. */
     private Cursor fetchTaskCursor(TaskIdentifier taskId, String[] fieldList) {
@@ -470,6 +461,33 @@ public class TaskController extends AbstractController {
 
         cursor.moveToFirst();
         return cursor;
+    }
+
+    // --- methods supporting individual features
+
+    /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
+    public int fetchTaskPostponeCount(TaskIdentifier taskId) throws SQLException {
+        Cursor cursor = fetchTaskCursor(taskId, new String[] {AbstractTaskModel.POSTPONE_COUNT});
+        try {
+            if (cursor == null || cursor.getCount() == 0)
+                return 0;
+            cursor.moveToFirst();
+            return cursor.getInt(0);
+        } catch (Exception e) {
+            return 0;
+        } finally {
+            if(cursor != null)
+                cursor.close();
+        }
+    }
+
+    /** Updates the alarm for the task identified by the given id */
+    public void updateAlarmForTask(TaskIdentifier taskId) throws SQLException {
+        TaskModelForNotify task = fetchTaskForNotify(taskId);
+        AlertController alertController = new AlertController(context);
+        alertController.open();
+        Notifications.updateAlarm(context, this, alertController, task);
+        alertController.close();
     }
 
     // --- boilerplate

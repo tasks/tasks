@@ -253,4 +253,9 @@ public class TaskModelForList extends AbstractTaskModel {
     public void setHiddenUntil(Date hiddenUntil) {
         super.setHiddenUntil(hiddenUntil);
     }
+
+    @Override
+    public void setPostponeCount(int postponeCount) {
+        super.setPostponeCount(postponeCount);
+    }
 }

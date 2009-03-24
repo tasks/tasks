@@ -152,6 +152,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     public void setExpanded(View view, TaskModelForList task, boolean state) {
         try {
             if(state) {
+                task.clearCache();
                 task.putCachedLabel(KEY_EXPANDED, CACHE_TRUE);
                 hooks.setSelectedItem(task.getTaskIdentifier());
             } else {
@@ -561,11 +562,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
      * @param position the index of the item
      */
     public void refreshItem(ListView listView, int position) {
-        View view = listView.getChildAt(position);
         TaskModelForList task = hooks.getTaskArray().get(position);
         task.clearCache();
-
-        setupView(view, task);
+        listView.invalidateViews();
     }
 
     /** Set listeners for this view. This is called once total */

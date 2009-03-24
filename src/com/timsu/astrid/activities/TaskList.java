@@ -65,13 +65,13 @@ public class TaskList extends Activity {
     private static final String LAST_BUNDLE_TAG = "b";
 
     /** Bundle Key: variables to pass to the subactivity */
-    public  static final String VARIABLES_TAG = "v";
+    public static final String VARIABLES_TAG = "v";
 
     /** Minimum distance a fling must cover to trigger motion */
-    private static final int FLING_DIST_THRESHOLD = 160;
+    private static final int FLING_DIST_THRESHOLD = 120;
 
     /** Maximum distance in the other axis for a fling */
-    private static final int MAX_FLING_OTHER_AXIS = 130;
+    private static final int MAX_FLING_OTHER_AXIS = 150;
 
     /** Minimum velocity a fling must have to trigger motion */
 	private static final int FLING_VEL_THRESHOLD = 300;

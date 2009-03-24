@@ -46,9 +46,6 @@ public class Preferences {
         if(!prefs.contains(r.getString(R.string.p_deadlineTime))) {
             editor.putString(r.getString(R.string.p_deadlineTime), "1");
         }
-        if(!prefs.contains(r.getString(R.string.p_postponecount))) {
-            editor.putInt(r.getString(R.string.p_postponecount), 0);
-        }
         if(!prefs.contains(r.getString(R.string.p_notif_defaultRemind))) {
             editor.putString(r.getString(R.string.p_notif_defaultRemind), "0");
         }
@@ -172,23 +169,6 @@ public class Preferences {
     public static boolean shouldShowNags(Context context) {
         return getPrefs(context).getBoolean(context.getResources().
                 getString(R.string.p_nagging), true);
-    }
-
-    /** gets # of times user has postponed a task */
-    public static int getPostponeCount(Context context) {
-        try {
-            return getPrefs(context).getInt(context.getResources().
-                getString(R.string.p_postponecount), 0);
-        } catch (ClassCastException e) {
-            return 0;
-        }
-    }
-
-    /** sets # of times user has postponed a task */
-    public static void setPostponeCount(Context context, int value) {
-        Editor editor = getPrefs(context).edit();
-        editor.putInt(context.getResources().getString(R.string.p_postponecount), value);
-        editor.commit();
     }
 
     // --- appearance settings

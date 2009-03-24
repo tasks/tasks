@@ -45,7 +45,7 @@ import com.timsu.astrid.utilities.Preferences;
 public abstract class AbstractTaskModel extends AbstractModel {
 
     /** Version number of this model */
-    static final int        VERSION                = 4;
+    static final int        VERSION                = 5;
 
     public static final int COMPLETE_PERCENTAGE    = 100;
 
@@ -61,6 +61,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
     static final String     DEFINITE_DUE_DATE      = "definiteDueDate";
     static final String     PREFERRED_DUE_DATE     = "preferredDueDate";
     static final String     HIDDEN_UNTIL           = "hiddenUntil";
+    static final String     POSTPONE_COUNT         = "postponeCount";
     static final String     NOTIFICATIONS          = "notifications";
     static final String     NOTIFICATION_FLAGS     = "notificationFlags";
     static final String     LAST_NOTIFIED          = "lastNotified";
@@ -95,6 +96,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
         defaultValues.put(PREFERRED_DUE_DATE, (Long)null);
         defaultValues.put(HIDDEN_UNTIL, (Long)null);
         defaultValues.put(BLOCKING_ON, (Long)null);
+        defaultValues.put(POSTPONE_COUNT, 0);
         defaultValues.put(NOTIFICATIONS, 0);
         defaultValues.put(NOTIFICATION_FLAGS, NOTIFY_AT_DEADLINE);
         defaultValues.put(LAST_NOTIFIED, (Long)null);
@@ -130,6 +132,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 append(PREFERRED_DUE_DATE).append(" integer,").
                 append(HIDDEN_UNTIL).append(" integer,").
                 append(BLOCKING_ON).append(" integer,").
+                append(POSTPONE_COUNT).append(" integer,").
                 append(NOTIFICATIONS).append(" integer,").
                 append(NOTIFICATION_FLAGS).append(" integer,").
                 append(LAST_NOTIFIED).append(" integer,").
@@ -189,7 +192,18 @@ public abstract class AbstractTaskModel extends AbstractModel {
                     Log.e("astrid", "Error updating table!", e);
                 }
 
+            case 4:
+                sql = new StringBuilder().append("ALTER TABLE ").
+                append(tableName).append(" ADD COLUMN ").
+                append(POSTPONE_COUNT).append(" integer").toString();
+                try {
+                    db.execSQL(sql);
+                } catch (Exception e) {
+                    Log.e("astrid", "Error updating table!", e);
+                }
+
                 break;
+
             default:
                 // we don't know how to handle it... do the unfortunate thing
                 Log.e(getClass().getSimpleName(), "Unsupported migration, table dropped!");
@@ -254,6 +268,8 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 getHiddenUntil();
             else if(field.equals(BLOCKING_ON))
                 getBlockingOn();
+            else if(field.equals(POSTPONE_COUNT))
+                getPostponeCount();
             else if(field.equals(NOTIFICATIONS))
                 getNotificationIntervalSeconds();
             else if(field.equals(CREATION_DATE))
@@ -400,6 +416,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
         return new TaskIdentifier(value);
     }
 
+    protected Integer getPostponeCount() {
+        return retrieveInteger(POSTPONE_COUNT);
+    }
+
     protected Integer getNotificationIntervalSeconds() {
         return retrieveInteger(NOTIFICATIONS);
     }
@@ -482,6 +502,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
             putIfChangedFromDatabase(BLOCKING_ON, (Integer)null);
         else
             putIfChangedFromDatabase(BLOCKING_ON, blockingOn.getId());
+    }
+
+    protected void setPostponeCount(int postponeCount) {
+        putIfChangedFromDatabase(POSTPONE_COUNT, postponeCount);
     }
 
     protected void setCreationDate(Date creationDate) {

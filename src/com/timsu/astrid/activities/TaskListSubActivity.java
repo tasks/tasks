@@ -119,7 +119,8 @@ public class TaskListSubActivity extends SubActivity {
     private static final int       SORTFLAG_FILTERHIDDEN = (1 << 6);
     private static final int       HIDE_ADD_BTN_PORTRAIT = 4;
     private static final int       HIDE_ADD_BTN_LANDSCPE = 2;
-    private static final float     POSTPONE_STAT_PCT     = 0.2f;
+    private static final float     POSTPONE_STAT_PCT     = 0.4f;
+    private static final int       AUTO_REFRESH_MAX_LIST_SIZE = 50;
 
     // UI components
     private ListView listView;
@@ -400,7 +401,7 @@ public class TaskListSubActivity extends SubActivity {
             String[] responses = r.getStringArray(R.array.reminder_responses);
             response = responses[new Random().nextInt(responses.length)];
         } else
-            response = "";
+            response = r.getString(R.string.taskList_nonag_reminder);
         new AlertDialog.Builder(getParent())
         .setTitle(R.string.taskView_notifyTitle)
         .setMessage(task.getName() + "\n\n" + response)
@@ -815,8 +816,20 @@ public class TaskListSubActivity extends SubActivity {
     void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
 
-        if(shouldRefreshTaskList)
-            reloadList();
+        if (hasFocus) {
+            if (shouldRefreshTaskList)
+                reloadList();
+            else if (context.taskArray != null &&
+                    context.taskArray.size() > 0 &&
+                    context.taskArray.size() < AUTO_REFRESH_MAX_LIST_SIZE) {
+
+                // invalidate caches
+                for (TaskModelForList task : context.taskArray)
+                    task.clearCache();
+                listView.invalidateViews();
+            }
+        }
+
         shouldRefreshTaskList = false;
     }
 
@@ -966,6 +979,9 @@ public class TaskListSubActivity extends SubActivity {
             new OnNNumberPickedListener() {
                 public void onNumbersPicked(int[] values) {
                     long postponeMillis = (values[0] * 24 + values[1]) * 3600L * 1000;
+                    if(postponeMillis <= 0)
+                        return;
+
                     task.setPreferredDueDate(computePostponeDate(task
                             .getPreferredDueDate(), postponeMillis,
                             true));
@@ -974,23 +990,16 @@ public class TaskListSubActivity extends SubActivity {
                     task.setHiddenUntil(computePostponeDate(task.
                         getHiddenUntil(), postponeMillis, false));
 
-                    getTaskController().saveTask(task);
-                    getTaskController().updateAlarmForTask(
-                            task.getTaskIdentifier());
-                    context.listAdapter.refreshItem(listView,
-                            context.taskArray.indexOf(task));
-
                     // show nag
-                    int postponeCount = Preferences.getPostponeCount(getParent());
+                    int postponeCount = getTaskController().fetchTaskPostponeCount(
+                            task.getTaskIdentifier()) + 1;
                     if(Preferences.shouldShowNags(getParent())) {
                         Random random = new Random();
                         final String nagText;
-                        if(postponeCount == 1 || postponeCount == 5)
-                            nagText = r.getString(R.string.taskList_postpone_firsttime);
-                        else if(random.nextFloat() < POSTPONE_STAT_PCT)
+                        if(postponeCount > 1 && random.nextFloat() < POSTPONE_STAT_PCT) {
                             nagText = r.getString(R.string.taskList_postpone_count,
                                     postponeCount);
-                        else {
+                        } else {
                             String[] nags = r.getStringArray(R.array.postpone_nags);
                             nagText = nags[random.nextInt(nags.length)];
                         }
@@ -1002,7 +1011,13 @@ public class TaskListSubActivity extends SubActivity {
                             }
                         });
                     }
-                    Preferences.setPostponeCount(getParent(), postponeCount + 1);
+                    task.setPostponeCount(postponeCount);
+
+                    getTaskController().saveTask(task);
+                    getTaskController().updateAlarmForTask(
+                            task.getTaskIdentifier());
+                    context.listAdapter.refreshItem(listView,
+                            context.taskArray.indexOf(task));
                 }
             });
     }
