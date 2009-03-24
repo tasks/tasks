@@ -74,7 +74,7 @@ import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
  * Primary view for the Astrid Application. Lists all of the tasks in the
  * system, and allows users to interact with them.
  *
- * @author Tim Su (timsu@stanfordalumni.org)
+ * @author timsu
  *
  */
 public class TaskListSubActivity extends SubActivity {

@@ -49,7 +49,7 @@ import com.timsu.astrid.utilities.StartupReceiver;
  * to flip between child views, which in this case are the TaskListSubActivity
  * and the TagListSubActivity.
  *
- * @author Tim Su (timsu@stanfordalumni.org)
+ * @author timsu
  */
 public class TaskList extends Activity {
 

@@ -65,7 +65,7 @@ import com.timsu.astrid.utilities.DialogUtilities;
 /**
  * List all tags and allows a user to see all tasks for a given tag
  *
- * @author Tim Su (timsu@stanfordalumni.org)
+ * @author timsu
  *
  */
 public class TagListSubActivity extends SubActivity {
