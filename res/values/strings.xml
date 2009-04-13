@@ -218,6 +218,8 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="stopTimer_label">Stop Timer</string>
         
         <string name="taskEdit_menu_save">Save</string>
+        <string name="taskEdit_onTaskSave_Due">Task Saved: due in %s</string>
+        <string name="taskEdit_onTaskSave_notDue">Task Saved</string>
       
     <!-- TaskView  -->
     <skip />
