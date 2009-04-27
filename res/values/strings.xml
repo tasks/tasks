@@ -110,18 +110,18 @@
         <string name="taskList_goalPrefix">Goal</string><!-- prefix to deadline -->
         <string name="taskList_overdueBy">Overdue by</string>
         <string name="taskList_completedPrefix">Finished</string><!-- i.e. Finished 4 days ago -->
-		<string name="taskList_estimatedTimePrefix">Estimated:</string>
-        <string name="taskList_elapsedTimePrefix">Spent:</string>
-        <string name="taskList_periodicReminderPrefix">Poke Every</string>
-        <string name="taskList_repeatPrefix">Repeats Every</string>
+		<string name="taskList_estimatedTimePrefix">Estimated:</string><!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_elapsedTimePrefix">Spent:</string><!-- i.e. Spent  88 minutes on tax. -->
+        <string name="taskList_periodicReminderPrefix">Poke Every</string><!-- time interval to set frequency to remind user -->
+        <string name="taskList_repeatPrefix">Repeats Every</string><!-- time interval to set repeated tasks-->
         <string name="taskList_alarmPrefix">Next Alarm:</string>
         <string name="taskList_tagsPrefix">Tags:</string>
         <string name="taskList_notesPrefix">Notes:</string>
-        <string name="taskList_createdPrefix">Created:</string>
-        <string name="taskList_deleted">Deleted</string>
+        <string name="taskList_createdPrefix">Created:</string><!-- Created: MM/DD/YY -->
+        <string name="taskList_deleted">Deleted</string><!-- Deleted: MM/DD/YY -->
         
         <!-- menu items -->
-        <string name="taskList_menu_insert">Add</string>
+        <string name="taskList_menu_insert">Add</string><!-- Add or Insert -->
         <string name="taskList_menu_tags">Tags</string>
         <string name="taskList_menu_filters">Display</string>
         <string name="taskList_menu_syncshortcut">Sync</string>
@@ -248,7 +248,7 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="sync_pref_group_actions">Actions</string>
         <string name="sync_pref_group_options">Options</string>
         <string name="p_sync_rtm">sync_rtm</string>
-        <string name="sync_rtm_title">Remember The Milk</string>
+        <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate ? -->
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
         <string name="p_sync_every">sync_every</string>
         <string name="sync_every_title">Synchronize Frequency</string>
