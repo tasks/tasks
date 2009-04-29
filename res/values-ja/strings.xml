@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ASTRID: Android's Simple Task Recording Dashboard
+ 
+  Copyright (c) 2009 Tim Su
+ 
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+ 
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+
+  - translate to Japanese by Maimuzo (maimuzo@gmail.com)
+ 
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- application -->
+    <string name="app_name">Astrid</string>
+    
+    <!-- General String Constants -->
+    <skip />
+    
+        <!-- Importance Labels -->
+        <string name="importance_1">!!!!</string>
+        <string name="importance_2">!!!</string>
+        <string name="importance_3">!!</string>
+        <string name="importance_4">!</string>
+        
+        <!-- Repeat Interval Labels -->
+        <string name="repeat_days">毎日</string>
+        <string name="repeat_weeks">毎週</string>
+        <string name="repeat_months">毎月</string>
+        <string name="repeat_hours">毎時</string>
+        
+        <!-- Plurals -->
+        <plurals name="Ntasks">
+            <item quantity="one">1 タスク</item>
+            <item quantity="other">%d タスク</item>
+        </plurals>
+        <plurals name="NactiveTasks">
+            <item quantity="one">%d / %d 有効</item>
+            <item quantity="other">%d / %d 有効</item>
+        </plurals>
+        <plurals name="Nalarms">
+            <item quantity="one">1 アラーム</item>
+            <item quantity="two">2 アラーム</item>
+            <item quantity="other">%d アラーム</item>
+        </plurals>
+        <plurals name="Ntags">
+            <item quantity="one">1 タグ</item>
+            <item quantity="other">%d タグ</item>
+        </plurals>
+        
+        <!-- Time Constants -->
+        <string name="dateFormatter">MMM d</string> <!-- used for long due 
+            dates. c.f. Java's SimpleDateFormat -->
+        <string name="daysVertical">日</string> <!-- vertical labels
+            are used in the number dialogs -->
+        <string name="hoursVertical">時</string>
+        <plurals name="Ndays">
+            <item quantity="one">1 日</item>
+            <item quantity="other">%d 日</item>
+        </plurals>
+        <plurals name="Nhours">
+            <item quantity="one">1 時</item>
+            <item quantity="other">%d 時</item>
+        </plurals>
+        <plurals name="Nminutes">
+            <item quantity="one">1 分</item>
+            <item quantity="other">%d 分</item>
+        </plurals>
+        <plurals name="Nseconds">
+            <item quantity="one">1 秒</item>
+            <item quantity="other">%d 秒</item>
+        </plurals>
+        <plurals name="NhoursShort">
+            <item quantity="one">1 時</item>
+            <item quantity="other">%d 時</item>
+        </plurals>
+        <plurals name="NminutesShort">
+            <item quantity="one">1 分</item>
+            <item quantity="other">%d 分</item>
+        </plurals>
+        <plurals name="NsecondsShort">
+            <item quantity="one">1 秒</item>
+            <item quantity="other">%d 秒</item>
+        </plurals>
+        <string name="ago_suffix">前</string><!-- appended after time
+            constants to show time in past -->
+        
+    <!-- TaskList -->
+    <skip />
+        <!-- title bar -->
+        <string name="taskList_titlePrefix">Astrid: </string>
+        <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
+        <string name="taskList_hiddenSuffix"> 非表示</string>
+        <string name="addtask_label">新規タスク</string>
+        
+        <!-- text in the actual list -->
+        <string name="taskList_hiddenPrefix">隠</string><!-- prefix to show that a task is hidden -->
+        <string name="taskList_dueRelativeTime">予定日まで</string><!-- i.e. Due in 4 days -->
+        <string name="taskList_dueAbsoluteDate">予定日 </string><!-- i.e. Due on Jan 2 -->
+        <string name="taskList_goalPrefix">目標</string><!-- prefix to deadline -->
+        <string name="taskList_overdueBy">遅延</string>
+        <string name="taskList_completedPrefix">完了</string><!-- i.e. Finished 4 days ago -->
+		<string name="taskList_estimatedTimePrefix">概要:</string>
+        <string name="taskList_elapsedTimePrefix">経過:</string>
+        <string name="taskList_periodicReminderPrefix">通知周期</string>
+        <string name="taskList_repeatPrefix">繰り返し周期</string>
+        <string name="taskList_alarmPrefix">次のアラーム:</string>
+        <string name="taskList_tagsPrefix">タグ:</string>
+        <string name="taskList_notesPrefix">メモ:</string>
+        <string name="taskList_createdPrefix">登録:</string>
+        
+        <!-- menu items -->
+        <string name="taskList_menu_insert">追加</string>
+        <string name="taskList_menu_tags">タグ</string>
+        <string name="taskList_menu_filters">表示</string>
+        <string name="taskList_menu_syncshortcut">同期</string>
+        <string name="taskList_menu_more">More</string>
+        <string name="taskList_menu_sync">同期</string>
+        <string name="taskList_menu_settings">設定</string>
+        <string name="taskList_menu_help">ヘルプ (ブラウザで開く)</string>
+        <string name="taskList_menu_survey">Astridの概要!</string>
+        <string name="taskList_menu_tips">ヒント</string>
+        
+        <string name="taskList_context_edit">タスク編集</string>
+        <string name="taskList_context_delete">タスク削除</string>
+        <string name="taskList_context_startTimer">タイマースタート</string>
+        <string name="taskList_context_stopTimer">タイマーストップ</string>
+        <string name="taskList_context_postpone">延期</string>
+        
+        <!-- filter menu -->
+        <string name="taskList_filter_title">ソート/フィルター</string>
+        <string name="taskList_filter_hidden">隠し/処理待ちタスク</string>
+        <string name="taskList_filter_done">完了したタスク</string>
+        <string name="taskList_filter_tagged">タグ \'%s\'</string>
+        <string name="taskList_sort_auto">オートソート</string>
+        <string name="taskList_sort_alpha">名前順</string>
+        <string name="taskList_sort_duedate">予定日順</string>
+        <string name="taskList_sort_reverse">逆順</string>
+        
+        <string name="taskList_postpone_dialog">どの程度の期間延期しますか?</string>
+
+    <!-- TaskEdit -->
+    <skip />
+        <!-- title bar -->
+        <string name="taskEdit_titleGeneric">Astrid: タスク編集中</string>
+        <string name="taskEdit_titlePrefix">Astrid: 編集中 </string>
+        <string name="taskEdit_label">Astrid: 新規タスク</string>
+        
+        <!-- tabs -->
+        <string name="task_edit_tab_1">基本情報</string>
+        <string name="task_edit_tab_2">日付</string>
+        <string name="task_edit_tab_3">アラート</string>
+        
+        <!-- labels -->
+        <string name="name_label">概要</string>
+        <string name="name_hint">タスクの説明</string>
+        <string name="importance_label">どれくらい重要?</string>
+        <string name="tags_label">タグ:</string>
+        
+        <string name="estimatedDuration_label">所要時間は?</string>
+        <string name="elapsedDuration_label">既にタスクに費やした時間</string>
+        <string name="definiteDueDate_label">期限</string>
+        <string name="preferredDueDate_label">目標日時</string>
+        <string name="addToCalendar_label">カレンダーにタスクを追加</string>
+        <string name="showCalendar_label">カレンダーのイベントを開く</string>
+        <string name="hiddenUntil_label">この日時まで隠す</string>
+        <string name="repeat_label">繰り返し周期</string>
+        <string name="repeat_value_unset">繰り返しはしない</string>
+        <string name="blockingOn_label">このタスクが処理されるまで隠す</string>
+        <string name="notes_label">メモ</string>
+        <string name="notes_hint">メモをここに入力します...</string>
+        
+        <string name="notification_label">リマインダー</string>
+        <string name="notification_prefix">周期</string>
+        <string name="flags_label">以下の場合通知する...</string>
+        <string name="flag_before">期限が近づいたとき</string>
+        <string name="flag_during">期限になったとき</string>
+        <string name="flag_after">期限を過ぎた後</string>
+        <string name="flag_nonstop">タスクを確認するまで停止しない</string>
+        <string name="alerts_label">日時指定リマインダー</string>
+        <string name="add_alert">リマインダーの追加</string>
+        
+        <!-- dialog boxes -->
+        <string name="hour_minutes_dialog">時間 (時:分)</string>
+        <string name="notification_dialog">リマインダーの周期</string>
+        <string name="repeat_picker_title">繰り返し周期 (0で無効化)</string>
+        <string name="repeat_help_dialog_title">ヘルプ: Astridの繰り返しについて</string>
+        <string name="repeat_help_dialog">
+繰り返しを使うために、上記の期限のうちの少なくとも1つを決めてください。あなたがこのタスクを完了したタイミングで、期限は自動的に繰り越されます。
+\n\n
+もしあなたが現在のタスクを消化し終えるまで次回のタスクを見たくないならば、「〜まで隠す」の項目を使って自動的に繰り越すべきです。
+\n
+        </string>
+        <string name="repeat_help_hide">もうヘルプを表示しない</string>
+        
+        <!-- buttons -->
+        <string name="save_label">保存</string>
+        <string name="discard_label">破棄</string>
+        <string name="edit_label">編集</string>
+        <string name="delete_label">削除</string>
+        <string name="blank_button_title">指定する</string>
+        <string name="startTimer_label">タイマースタート</string>
+        <string name="stopTimer_label">タイマーストップ</string>
+        
+        <string name="taskEdit_menu_save">保存</string>
+      
+    <!-- TaskView  -->
+    <skip />
+    
+        <string name="taskView_notifyTitle">Astridより...</string>
+        
+    <!-- Tag List -->
+    <skip />
+        <string name="tagList_titlePrefix">Astrid: タグビュー: </string>
+        <string name="tagList_context_create">タグを使ってタスク生成</string>
+        <string name="tagList_context_edit">タグ編集</string>
+        <string name="tagList_context_delete">タグ削除</string>
+        <string name="tagList_context_showTag">ホームページを表示</string>
+        <string name="tagList_context_hideTag">ホームページを隠す</string>
+        
+        <string name="tagList_menu_sortAlpha">A-Z順</string>
+        <string name="tagList_menu_sortSize">サイズ順</string>
+    
+    
+    <!-- Synchronization -->  
+    <skip />
+        <string name="sync_pref_group">同期サービス</string>
+        <string name="sync_pref_group_actions">アクション</string>
+        <string name="sync_pref_group_options">オプション</string>
+        <string name="p_sync_rtm">sync_rtm</string>
+        <string name="sync_rtm_title">Remember The Milk</string>
+        <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
+        <string name="p_sync_every">sync_every</string>
+        <string name="sync_every_title">同期する頻度</string>
+        <string name="sync_every_desc">指定した場合、#時間毎に同期処理を実行します</string>
+        <string name="p_sync_button">sync_button</string>
+        <string name="sync_button_title">メインメニューへのショートカット</string>
+        <string name="sync_button_desc">Astridのメニューの中に\"Synchronize\"を表示します</string>
+        <string name="p_sync_quiet">sync_dialogs</string>
+        <string name="sync_quiet_title">ダイアログの非表示</string>
+        <string name="sync_quiet_desc">同期処理の結果ダイアログを表示しない</string>
+        <string name="p_sync_background">sync_background</string>
+        <string name="sync_background_title">バッググラウンドで</string>
+        <string name="sync_background_desc">簡易同期</string>
+        <string name="sync_error">同期エラー発生! ご迷惑をおかけします! エラー内容:</string>
+        <string name="sync_auth_request">
+同期処理を行うため、あなたの%sアカウントを使ってログインし、Astridにあなたのデータの読み込み許可を与えてください。
+\n\n
+終了したら、Astridを再起動してからこの画面に戻ってきてください。
+        </string>
+        <string name="sync_rtm_notes">
+AstridのRTM同期機能へようこそ!
+\n\n
+同期しないもの：\n
+- 通知と繰り返し\n
+- RTMで、消した、またはリネームして移動したタスク\n
+\n
+幸運を!\n
+        </string>
+        <string name="sync_now">今すぐ同期する!</string>
+        <string name="sync_forget">個人データをクリアする</string>
+        <string name="sync_forget_confirm">選択されたサービスのデータをクリアしますか?</string>
+        <string name="sync_no_synchronizers">同期機能が有効になっていません!</string>
+       
+    <!-- Dialog Boxes -->  
+    <skip />
+        <string name="loading">Loading...</string>
+        <string name="information_title">インフォメーション</string>
+        <string name="question_title">質問</string>
+        <string name="notify_yes">タスク確認</string>
+        <string name="notify_done">既に完了しています!</string>
+        <string name="notify_snooze">スヌーズ</string>
+        <string name="notify_no">終了</string>
+        <string name="notify_snooze_title">スヌーズのための時/分は?</string>
+        
+        <string name="delete_title">削除</string>        
+        <string name="delete_this_task_title">このタスクを削除しますか?</string>
+        <string name="delete_this_tag_title">すべてのタスクからこのタグを削除しますか?</string>
+        
+        <string name="stop_timer_title">タイマーをストップしますか?</string>
+        
+        <string name="quick_tips">
+Astridについて知らないかもしれないいくつかのこと：\n
+\n
+－タスクをつくるためには、ちょっと入力するだけです！\n
+－タスクを編集している時は、戻るボタンを押すことで保存できます。\n
+－素早く優先順位を変えるには、1から4のキーを押してタスクを選択してください。\n
+－タスクに期限があるならば、それを延長するために、長押ししてください。\n
+\n
+Astridを利用してくれてありがとう！\n
+        </string>
+
+     
+    <!-- Notification -->  
+    <skip />
+        
+        <string name="notif_definiteDueDate">期限!</string>
+        <string name="notif_preferredDueDate">目標日時!</string>
+        <string name="notif_timerStarted">タイマー実行中:</string>
+        
+    <!-- Error Messages -->  
+    <skip />
+    
+        <string name="error_opening">この項目が見つかりませんでした:</string>
+        <string name="error_saving">保存できませんでした:</string>
+    
+    <!-- Preference Keys. Strings starting with p_* should not be localized -->  
+    <skip />
+
+        <string name="prefs_category_alerts">通知</string>
+        
+        <string name="p_notif_quietStart">notif_qstart</string>
+        <string name="prefs_quietStart_title">静かにする時間の始まり</string>
+        <string name="prefs_quietStart_desc">Astridが静かにすべき時間の始まり (例:22時)</string>
+        
+        <string name="p_notif_quietEnd">notif_qend</string>
+        <string name="prefs_quietEnd_title">静かにする時間の終わり</string>
+        <string name="prefs_quietEnd_desc">Astridが静かにすべき時間の終わり (例:08時)</string>
+          
+        <string name="p_notif_defaultRemind">notif_default_reminder</string>
+        <string name="prefs_defaultRemind_title">標準リマインダー</string>
+        <string name="prefs_defaultRemind_desc">For new tasks, in days (i.e. 7). Blank to disable</string>
+        
+        <string name="p_notif_annoy">notif_annoy</string>
+        <string name="prefs_annoy_title">継続モード</string>
+        <string name="prefs_annoy_desc">チェックしたなら、それをクリアする前にリマインダーを見なければなりません。(LEDもね)</string>
+        
+        <string name="p_notification_ringtone">notification_ringtone</string>
+        <string name="prefs_notification_title">通知音</string>
+        <string name="prefs_notification_desc">Astridのアラート音を選択</string>
+
+        <string name="p_notif_icon">notif_theme</string>
+        <string name="prefs_notificon_title">通知アイコン</string>
+        <string name="prefs_notificon_desc">Astridの通知用アイコンを選択</string>
+        
+        <string name="prefs_category_appearance">外観</string>
+            
+        <string name="p_colorize">色分け</string>
+        <string name="prefs_colorize_title">色分けしたタスクリスト</string>
+        <string name="prefs_colorize_desc">優先順位毎に色分け</string>
+        
+        <string name="p_fontSize">font_size</string>
+        <string name="prefs_fontSize_title">タスクリストのフォントサイズ</string>
+        <string name="prefs_fontSize_desc">メイン画面のフォントサイズ (例:サイズ22)</string>
+
+        <string name="prefs_category_other">その他</string>
+
+        <string name="p_deadlineTime">deadline_time</string>
+        <string name="prefs_deadlineTime_title">期限の初期値</string>
+        <string name="prefs_deadlineTime_desc">新しい期限を設定するための現在からの日数  #</string>
+        
+        <string name="displayedFields_PrefScreen_Title">表示する項目</string>
+        <string name="displayedFields_PrefScreen_Desc">タスクリストの内表示する項目を選択</string>
+        
+        <!-- notification keys (no title, desc, default suffix) should not be localized -->
+        <string name="prefs_titleVisible">titleVisible</string> 
+        <string name="prefs_titleVisible_title">タスク名</string>
+        <string name="prefs_titleVisible_desc">タスクの説明</string>
+        <string name="prefs_titleVisible_default">true</string>
+	    <string name="prefs_deadlineVisible">deadlineVisible</string>
+        <string name="prefs_deadlineVisible_title">日付</string>
+        <string name="prefs_deadlineVisible_desc">次の期限 / 完了日</string>
+        <string name="prefs_deadlineVisible_default">true</string>
+    	<string name="prefs_timeVisible">timeVisible</string>
+        <string name="prefs_timeVisible_title">時間</string>
+        <string name="prefs_timeVisible_desc">予定日と経過時間</string>
+        <string name="prefs_timeVisible_default">true</string>
+        <string name="prefs_importanceVisible">importanceVisible</string>
+        <string name="prefs_importanceVisible_title">重要性</string>
+        <string name="prefs_importanceVisible_desc">タスクの重要度</string>
+        <string name="prefs_importanceVisible_default">true</string>
+	    <string name="prefs_tagsVisible">tagsVisible</string>
+        <string name="prefs_tagsVisible_title">タグ</string>
+        <string name="prefs_tagsVisible_desc">このタスクの関連タグ</string>
+        <string name="prefs_tagsVisible_default">true</string>
+	    <string name="prefs_repeatVisible">repeatVisible</string>
+        <string name="prefs_repeatVisible_title">繰り返し</string>
+        <string name="prefs_repeatVisible_desc">タスクの繰り返し情報</string>
+        <string name="prefs_repeatVisible_default">true</string>
+	    <string name="prefs_reminderVisible">reminderVisible</string>
+        <string name="prefs_reminderVisible_title">リマインダー</string>
+        <string name="prefs_reminderVisible_desc">このタスクにリマインダーが設定されていれば表示される</string>
+        <string name="prefs_reminderVisible_default">false</string>
+	    <string name="prefs_notesVisible">notesVisible</string>
+        <string name="prefs_notesVisible_title">メモ</string>
+        <string name="prefs_notesVisible_desc">このタスクの関連メモ</string>
+        <string name="prefs_notesVisible_default">false</string>
+</resources>
