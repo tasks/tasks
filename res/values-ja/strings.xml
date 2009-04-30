@@ -103,6 +103,7 @@
         <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
         <string name="taskList_hiddenSuffix"> 非表示</string>
         <string name="addtask_label">新規タスク</string>
+        <string name="missing_tag">Could Not Find Requested Tag!</string>
         
         <!-- text in the actual list -->
         <string name="taskList_hiddenPrefix">隠</string><!-- prefix to show that a task is hidden -->
@@ -131,6 +132,7 @@
         <string name="taskList_menu_help">ヘルプ (ブラウザで開く)</string>
         <string name="taskList_menu_survey">Astridの概要!</string>
         <string name="taskList_menu_tips">ヒント</string>
+        <string name="taskList_menu_cleanup">Clean Up Old Tasks</string>
         
         <string name="taskList_context_edit">タスク編集</string>
         <string name="taskList_context_delete">タスク削除</string>
@@ -148,7 +150,11 @@
         <string name="taskList_sort_duedate">予定日順</string>
         <string name="taskList_sort_reverse">逆順</string>
         
+        <string name="taskList_nonag_reminder">Select an Action:</string>
+        <string name="taskList_postpone_count">Times You\'ve Postponed: %d</string>
         <string name="taskList_postpone_dialog">どの程度の期間延期しますか?</string>
+        <string name="taskList_cleanup_dialog">"Delete completed tasks older than # days:"</string>
+
 
     <!-- TaskEdit -->
     <skip />
@@ -214,6 +220,8 @@
         <string name="stopTimer_label">タイマーストップ</string>
         
         <string name="taskEdit_menu_save">保存</string>
+        <string name="taskEdit_onTaskSave_Due">Task Saved: due in %s</string>
+        <string name="taskEdit_onTaskSave_notDue">Task Saved</string>
       
     <!-- TaskView  -->
     <skip />
@@ -228,6 +236,9 @@
         <string name="tagList_context_delete">タグ削除</string>
         <string name="tagList_context_showTag">ホームページを表示</string>
         <string name="tagList_context_hideTag">ホームページを隠す</string>
+        <string name="tagList_context_shortcut">Create Shortcut</string>
+        <string name="tagList_shortcut_created">Shortcut created on your home screen!</string>
+        <string name="tagList_shortcut_prefix">Tag:</string>
         
         <string name="tagList_menu_sortAlpha">A-Z順</string>
         <string name="tagList_menu_sortSize">サイズ順</string>
@@ -276,6 +287,7 @@ AstridのRTM同期機能へようこそ!
     <!-- Dialog Boxes -->  
     <skip />
         <string name="loading">Loading...</string>
+        <string name="updating">Updating List...</string>
         <string name="information_title">インフォメーション</string>
         <string name="question_title">質問</string>
         <string name="notify_yes">タスク確認</string>
@@ -355,6 +367,10 @@ Astridを利用してくれてありがとう！\n
         <string name="prefs_fontSize_desc">メイン画面のフォントサイズ (例:サイズ22)</string>
 
         <string name="prefs_category_other">その他</string>
+        <string name="p_nagging">nagging</string>
+        <string name="prefs_nagging_title">Nag Messages</string>
+        <string name="prefs_nagging_desc">Show Astrid\'s comments when viewing reminders and postponing tasks?</string>
+
 
         <string name="p_deadlineTime">deadline_time</string>
         <string name="prefs_deadlineTime_title">期限の初期値</string>
