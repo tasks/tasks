@@ -164,10 +164,11 @@ public class Synchronizer {
             typeClass = cls;
         }
 
-        public TYPE get(Activity activity) {
+        @SuppressWarnings("unchecked")
+		public TYPE get(Activity activity) {
             if(controller == null) {
                 try {
-                    controller = typeClass.getConstructors()[0].newInstance(
+                    controller = (TYPE)typeClass.getConstructors()[0].newInstance(
                             activity);
                 } catch (IllegalArgumentException e) {
                     Log.e(getClass().getSimpleName(), e.toString());

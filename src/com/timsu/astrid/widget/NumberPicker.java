@@ -403,6 +403,10 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
                 return filtered;
             }
         }
+
+		public int getInputType() {
+			return 0;
+		}
     }
 
     private int getSelectedPos(String str) {

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry excluding="javax/xml/validation/|javax/xml/transform/dom/|javax/xml/parsers/|org/jaxp/transform/dom/|org/jaxp/transform/sax/|org/jaxp/transform/stax/|org/jaxp/transform/stream/|org/jaxp/stream/events/|org/jaxp/stream/util/|org/jaxp/parsers/|org/jaxp/stream/|org/jaxp/validation/" kind="src" path="src"/>
-	<classpathentry kind="lib" path="lib/android-src.jar"/>
-	<classpathentry kind="lib" path="lib/android.jar" sourcepath="lib/android-src.jar"/>
 	<classpathentry kind="lib" path="lib/commons-codec-1.3.jar"/>
+	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
