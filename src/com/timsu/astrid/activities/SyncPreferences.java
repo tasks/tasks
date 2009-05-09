@@ -94,7 +94,7 @@ public class SyncPreferences extends PreferenceActivity {
         TextView lastAutoSyncLabel = (TextView)findViewById(R.id.last_auto_sync_label);
         Date lastAutoSyncDate = Preferences.getSyncLastSyncAttempt(this);
         if(lastAutoSyncDate != null && (lastSyncDate == null ||
-        		(lastAutoSyncDate.getTime() - lastSyncDate.getTime() < 3600000L)))
+        		(lastAutoSyncDate.getTime() > lastSyncDate.getTime())))
         	syncDate = formatter.format(lastAutoSyncDate);
         if(syncDate != null)
         	lastAutoSyncLabel.setText(r.getString(R.string.sync_last_auto_sync, syncDate));
