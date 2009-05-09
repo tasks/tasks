@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionCode="99"
-      android:versionName="2.6.1">
-      
-    <meta-data android:name="com.a0soft.gphone.aTrackDog.webURL"
-               android:value="http://www.weloveastrid.com" />
-    <meta-data android:name="com.a0soft.gphone.aTrackDog.testVersion"
-           android:value="94" />
+      android:versionCode="100"
+      android:versionName="2.7.0">
       
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+    
+    <uses-sdk android:minSdkVersion="1" />
     
     <application android:icon="@drawable/icon" android:label="@string/app_name">
     
@@ -64,6 +61,10 @@
                  <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </receiver>
+
+        <!-- Services -->
+
+        <service android:name=".sync.SynchronizationService"/>
 
     </application>    
         
