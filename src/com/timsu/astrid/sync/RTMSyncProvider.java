@@ -238,6 +238,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
             Date syncTime = new Date(System.currentTimeMillis() + 1000);
             Preferences.setSyncRTMLastSync(context, syncTime);
 
+            // on with the synchronization
+            Synchronizer.continueSynchronization(context);
+
         } catch (Exception e) {
             showError(context, e, null);
         }

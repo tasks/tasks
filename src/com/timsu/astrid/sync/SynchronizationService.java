@@ -60,14 +60,17 @@ public class SynchronizationService extends Service {
     	// figure out last synchronize time
     	Date lastSyncDate = Preferences.getSyncLastSync(context);
     	Date lastAutoSyncDate = Preferences.getSyncLastSyncAttempt(context);
-    	long latestSyncMillis = 0;
+
+    	// if user never synchronized, give them a full offset period before bg sync
+    	long latestSyncMillis = System.currentTimeMillis();
     	if(lastSyncDate != null)
     		latestSyncMillis = lastSyncDate.getTime();
     	if(lastAutoSyncDate != null && lastAutoSyncDate.getTime() > latestSyncMillis)
     		latestSyncMillis = lastAutoSyncDate.getTime();
     	long offset = 0;
     	if(latestSyncMillis != 0)
-    		offset = Math.max(0, latestSyncMillis + interval - System.currentTimeMillis());
+    		offset = Math.min(offset, Math.max(0, latestSyncMillis + interval -
+    				System.currentTimeMillis()));
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override

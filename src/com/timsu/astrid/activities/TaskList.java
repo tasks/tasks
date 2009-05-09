@@ -127,9 +127,10 @@ public class TaskList extends Activity {
 
         // sync now if requested
         if(synchronizeNow) {
-            Synchronizer.synchronize(this, true, null);
+        	synchronizeNow = false;
+            Synchronizer.synchronize(this, false, null);
         }
-        
+
         // if we have no filter tag, we're not on the last task
         if(getCurrentSubActivity() == taskListWTag &&
                 ((TaskListSubActivity)taskListWTag).getFilterTag() == null) {

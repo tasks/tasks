@@ -114,7 +114,7 @@ public class Synchronizer {
 
     private static boolean autoSync;
 
-    /** Called to do the next step of synchronization. Run me on the UI thread! */
+    /** Called to do the next step of synchronization. */
     static void continueSynchronization(Context context) {
         ServiceWrapper serviceWrapper =
             ServiceWrapper.values()[currentStep];
@@ -124,7 +124,7 @@ public class Synchronizer {
             continueSynchronization(context);
             break;
         case RTM:
-            if(Preferences.shouldSyncRTM(context)) {
+            if(serviceWrapper.isActivated(context)) {
                 servicesSynced++;
                 serviceWrapper.service.synchronizeService(context, autoSync);
             } else {

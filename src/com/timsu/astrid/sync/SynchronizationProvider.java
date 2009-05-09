@@ -27,7 +27,6 @@ import java.util.LinkedList;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.util.Log;
@@ -497,15 +496,11 @@ public abstract class SynchronizationProvider {
             progressDialog.hide();
             Resources r = context.getResources();
 
-            if(Preferences.shouldSuppressSyncDialogs(context))
+            if(Preferences.shouldSuppressSyncDialogs(context)) {
                 return;
+            }
 
-            Dialog.OnClickListener finishListener = new Dialog.OnClickListener() {
-                public void onClick(DialogInterface dialog,
-                        int which) {
-                    Synchronizer.continueSynchronization(context);
-                }
-            };
+            Dialog.OnClickListener finishListener = null;
 
             // nothing updated
             if(localCreatedTasks + localUpdatedTasks + localDeletedTasks +
