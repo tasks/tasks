@@ -55,15 +55,19 @@ public abstract class SynchronizationProvider {
     private int id;
     static ProgressDialog progressDialog;
     private Handler syncHandler;
-    private boolean backgroundSync;
+    protected Synchronizer synchronizer;
 
     public SynchronizationProvider(int id) {
         this.id = id;
     }
 
-    // called off the UI thread. does some setup
-    void synchronizeService(final Context activity, boolean isBackgroundSync) {
-        this.backgroundSync = isBackgroundSync;
+    /** Called off the UI thread. does some setup and then invokes implemented
+     * synchronize method
+     * @param activity
+     * @param caller
+     */
+    void synchronizeService(final Context activity, Synchronizer caller) {
+        this.synchronizer = caller;
 
         if(!isBackgroundService()) {
         	syncHandler = new Handler();
@@ -101,7 +105,7 @@ public abstract class SynchronizationProvider {
      * @return true if it's running as a background service
      */
     protected boolean isBackgroundService() {
-    	return backgroundSync;
+    	return synchronizer.isService();
     }
 
     /** Utility method for showing synchronization errors. If message is null,
@@ -194,10 +198,10 @@ public abstract class SynchronizationProvider {
         final SyncStats stats = new SyncStats();
         final StringBuilder log = new StringBuilder();
 
-        SyncDataController syncController = Synchronizer.getSyncController(context);
-        TaskController taskController = Synchronizer.getTaskController(context);
-        TagController tagController = Synchronizer.getTagController(context);
-        AlertController alertController = Synchronizer.getAlertController(context);
+        SyncDataController syncController = synchronizer.getSyncController(context);
+        TaskController taskController = synchronizer.getTaskController(context);
+        TagController tagController = synchronizer.getTagController(context);
+        AlertController alertController = synchronizer.getAlertController(context);
         SyncData data = new SyncData(context, remoteTasks);
 
         // 1. CREATE: grab tasks without a sync mapping and create them remotely
@@ -437,10 +441,10 @@ public abstract class SynchronizationProvider {
 
         public SyncData(Context context, LinkedList<TaskProxy> remoteTasks) {
             // 1. get data out of the database
-            mappings = Synchronizer.getSyncController(context).getSyncMapping(getId());
-            activeTasks = Synchronizer.getTaskController(context).getActiveTaskIdentifiers();
-            allTasks = Synchronizer.getTaskController(context).getAllTaskIdentifiers();
-            tags = Synchronizer.getTagController(context).getAllTagsAsMap();
+            mappings = synchronizer.getSyncController(context).getSyncMapping(getId());
+            activeTasks = synchronizer.getTaskController(context).getActiveTaskIdentifiers();
+            allTasks = synchronizer.getTaskController(context).getAllTaskIdentifiers();
+            tags = synchronizer.getTagController(context).getAllTagsAsMap();
 
             //  2. build helper data structures
             remoteIdToSyncMapping = new HashMap<String, SyncMapping>();

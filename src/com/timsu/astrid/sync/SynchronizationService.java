@@ -25,6 +25,23 @@ public class SynchronizationService extends Service {
 		SynchronizationService.context = context;
 	}
 
+    // --- utility methods
+
+    public static void start() {
+    	if(Preferences.getSyncAutoSyncFrequency(context) == null)
+    		return;
+
+    	Intent service = new Intent(context, SynchronizationService.class);
+    	context.stopService(service);
+    }
+
+    public static void stop() {
+    	Intent service = new Intent(context, SynchronizationService.class);
+    	context.stopService(service);
+    }
+
+    // ---
+
     @Override
     public IBinder onBind(Intent arg0) {
         return null; // unused
@@ -48,6 +65,9 @@ public class SynchronizationService extends Service {
 
     /** Start the timer that runs the service */
     private void startService() {
+    	if(context == null)
+    		return;
+
     	// figure out synchronization frequency
     	Integer syncFrequencySeconds = Preferences.getSyncAutoSyncFrequency(context);
     	if(syncFrequencySeconds == null) {
@@ -97,6 +117,7 @@ public class SynchronizationService extends Service {
     	Log.i("astrid", "Automatic Synchronize Initiated.");
     	Preferences.setSyncLastSyncAttempt(context, new Date());
 
-    	Synchronizer.synchronize(context, true, null);
+    	Synchronizer sync = new Synchronizer(true);
+    	sync.synchronize(context, null);
     }
 }

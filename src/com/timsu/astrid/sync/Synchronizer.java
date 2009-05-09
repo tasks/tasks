@@ -33,28 +33,46 @@ import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.utilities.Preferences;
 
+/**
+ * Synchronizer is a class that manages a synchronization lifecycle. You would
+ * use it as follows.
+ * <p>
+ * <pre>Synchronizer synchronizer = new Synchronizer(...);
+ * synchronizer.synchronize();</pre>
+ *
+ * @author Tim Su
+ *
+ */
 public class Synchronizer {
 
+	/** identifier for the RTM sync provider */
     private static final int SYNC_ID_RTM = 1;
 
     // --- public interface
+
+    public Synchronizer(boolean isService) {
+    	this.isService = isService;
+    }
 
     public interface SynchronizerListener {
         void onSynchronizerFinished(int numServicesSynced);
     }
 
     /** Synchronize all activated sync services */
-    public synchronized static void synchronize(Context context, boolean isAutoSync,
-            SynchronizerListener listener) {
+    public synchronized void synchronize(Context context, SynchronizerListener listener) {
         currentStep = ServiceWrapper._FIRST_SERVICE.ordinal();
         servicesSynced = 0;
-        autoSync = isAutoSync;
         callback = listener;
+
+        // if we're not the autosync service, stop it
+        if(!isService)
+        	SynchronizationService.stop();
+
         continueSynchronization(context);
     }
 
 
-    /** Clears tokens if services are disabled */
+    /** Clears tokens of activated services */
     public static void clearUserData(Activity activity) {
         for(ServiceWrapper serviceWrapper : ServiceWrapper.values()) {
             if(serviceWrapper.isActivated(activity)) {
@@ -104,18 +122,22 @@ public class Synchronizer {
     // Internal state for the synchronization process
 
     /** Current step in the sync process */
-    private static int currentStep;
+    private int currentStep;
 
     /** # of services synchronized */
-    private static int servicesSynced;
+    private int servicesSynced;
 
     /** On finished callback */
-    private static SynchronizerListener callback;
+    private SynchronizerListener callback;
 
-    private static boolean autoSync;
+    private boolean isService;
+
+    boolean isService() {
+    	return isService;
+    }
 
     /** Called to do the next step of synchronization. */
-    static void continueSynchronization(Context context) {
+    void continueSynchronization(Context context) {
         ServiceWrapper serviceWrapper =
             ServiceWrapper.values()[currentStep];
         currentStep++;
@@ -126,7 +148,7 @@ public class Synchronizer {
         case RTM:
             if(serviceWrapper.isActivated(context)) {
                 servicesSynced++;
-                serviceWrapper.service.synchronizeService(context, autoSync);
+                serviceWrapper.service.synchronizeService(context, this);
             } else {
                 continueSynchronization(context);
             }
@@ -137,14 +159,26 @@ public class Synchronizer {
     }
 
     /** Called at the end of sync. */
-    private static void finishSynchronization(final Context context) {
+    private void finishSynchronization(final Context context) {
         closeControllers();
         Preferences.setSyncLastSync(context, new Date());
         if(callback != null)
             callback.onSynchronizerFinished(servicesSynced);
+
+        if(!isService)
+        	SynchronizationService.start();
     }
 
     // --- controller stuff
+
+    private ControllerWrapper<SyncDataController> syncController =
+        new ControllerWrapper<SyncDataController>(SyncDataController.class);
+    private ControllerWrapper<TaskController> taskController =
+        new ControllerWrapper<TaskController>(TaskController.class);
+    private ControllerWrapper<TagController> tagController =
+        new ControllerWrapper<TagController>(TagController.class);
+    private ControllerWrapper<AlertController> alertController =
+        new ControllerWrapper<AlertController>(AlertController.class);
 
     private static class ControllerWrapper<TYPE extends AbstractController> {
         TYPE controller;
@@ -180,7 +214,8 @@ public class Synchronizer {
         }
 
         public void set(TYPE newController) {
-            close();
+        	if(controller != null && !override)
+        		close();
 
             override = newController != null;
             controller = newController;
@@ -194,40 +229,31 @@ public class Synchronizer {
         }
     }
 
-   private static ControllerWrapper<SyncDataController> syncController =
-        new ControllerWrapper<SyncDataController>(SyncDataController.class);
-    private static ControllerWrapper<TaskController> taskController =
-        new ControllerWrapper<TaskController>(TaskController.class);
-    private static ControllerWrapper<TagController> tagController =
-        new ControllerWrapper<TagController>(TagController.class);
-    private static ControllerWrapper<AlertController> alertController =
-        new ControllerWrapper<AlertController>(AlertController.class);
-
-    static SyncDataController getSyncController(Context context) {
+    SyncDataController getSyncController(Context context) {
         return syncController.get(context);
     }
 
-    static TaskController getTaskController(Context context) {
+    TaskController getTaskController(Context context) {
         return taskController.get(context);
     }
 
-    static TagController getTagController(Context context) {
+    TagController getTagController(Context context) {
         return tagController.get(context);
     }
 
-    static AlertController getAlertController(Context context) {
+    AlertController getAlertController(Context context) {
         return alertController.get(context);
     }
 
-    public static void setTaskController(TaskController taskController) {
-        Synchronizer.taskController.set(taskController);
+    public void setTaskController(TaskController taskController) {
+        this.taskController.set(taskController);
     }
 
-    public static void setTagController(TagController tagController) {
-        Synchronizer.tagController.set(tagController);
+    public void setTagController(TagController tagController) {
+        this.tagController.set(tagController);
     }
 
-    private static void closeControllers() {
+    private void closeControllers() {
         syncController.close();
         taskController.close();
         tagController.close();

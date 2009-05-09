@@ -83,7 +83,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
     public void clearPersonalData(Context context) {
         Preferences.setSyncRTMToken(context, null);
         Preferences.setSyncRTMLastSync(context, null);
-        Synchronizer.getSyncController(context).deleteAllMappings(getId());
+        synchronizer.getSyncController(context).deleteAllMappings(getId());
     }
 
     // --- authentication
@@ -239,7 +239,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
             Preferences.setSyncRTMLastSync(context, syncTime);
 
             // on with the synchronization
-            Synchronizer.continueSynchronization(context);
+            synchronizer.continueSynchronization(context);
 
         } catch (Exception e) {
             showError(context, e, null);

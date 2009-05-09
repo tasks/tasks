@@ -37,6 +37,7 @@ import android.widget.ViewFlipper;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
+import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.StartupReceiver;
@@ -109,8 +110,6 @@ public class TaskList extends Activity {
         taskController.open();
         tagController = new TagController(this);
         tagController.open();
-        Synchronizer.setTagController(tagController);
-        Synchronizer.setTaskController(taskController);
 
         setupUIComponents();
 
@@ -128,7 +127,12 @@ public class TaskList extends Activity {
         // sync now if requested
         if(synchronizeNow) {
         	synchronizeNow = false;
-            Synchronizer.synchronize(this, false, null);
+        	Synchronizer sync = new Synchronizer(false);
+            sync.setTagController(tagController);
+            sync.setTaskController(taskController);
+            sync.synchronize(this, null);
+        } else {
+        	SynchronizationService.start();
         }
 
         // if we have no filter tag, we're not on the last task
@@ -344,7 +348,5 @@ public class TaskList extends Activity {
         super.onDestroy();
     	taskController.close();
         tagController.close();
-        Synchronizer.setTagController(null);
-        Synchronizer.setTaskController(null);
     }
 }

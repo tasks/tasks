@@ -806,9 +806,9 @@ public class TaskListSubActivity extends SubActivity {
             	syncPreferencesOpened = false;
 
 		        // stop & start synchronization service
-	            Intent service = new Intent(getParent(), SynchronizationService.class);
-	            getParent().stopService(service);
-	            getParent().startService(service);
+	            SynchronizationService.stop();
+	            SynchronizationService.start();
+
             } else if (context.taskArray != null &&
                     context.taskArray.size() > 0 &&
                     context.taskArray.size() < AUTO_REFRESH_MAX_LIST_SIZE) {
@@ -826,7 +826,10 @@ public class TaskListSubActivity extends SubActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Constants.RESULT_SYNCHRONIZE) {
-            Synchronizer.synchronize(getParent(), false, new SynchronizerListener() {
+            Synchronizer sync = new Synchronizer(false);
+            sync.setTagController(getTagController());
+            sync.setTaskController(getTaskController());
+            sync.synchronize(getParent(), new SynchronizerListener() {
                 public void onSynchronizerFinished(int numServicesSynced) {
                     if(numServicesSynced == 0) {
                         DialogUtilities.okDialog(getParent(), getResources().getString(
