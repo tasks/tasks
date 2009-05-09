@@ -133,7 +133,7 @@ public class TagListSubActivity extends SubActivity {
         tagToTaskCount = new HashMap<TagModelForView, Integer>();
         for(TagModelForView tag : tagArray) {
             LinkedList<TaskIdentifier> tasks = getTagController().getTaggedTasks(
-            		getParent(), tag.getTagIdentifier());
+            		tag.getTagIdentifier());
             int count = 0;
             for(TaskIdentifier task : tasks)
                 if(activeTasks.contains(task))
@@ -156,7 +156,7 @@ public class TagListSubActivity extends SubActivity {
     /** Fill in the Tag List with our tags */
     private synchronized void fillData() {
         try {
-            tagArray = getTagController().getAllTags(getParent());
+            tagArray = getTagController().getAllTags();
             sortTagArray();
         } catch (StaleDataException e) {
             // happens when you rotate the screen while the thread is

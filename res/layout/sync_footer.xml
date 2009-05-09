@@ -28,8 +28,20 @@
     android:layout_height="wrap_content">
     
     <TextView
+        android:id="@+id/last_sync_label"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:text="@string/sync_pref_group_actions"/>
+    <TextView
+        android:id="@+id/last_auto_sync_label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/sync_pref_group_actions"/>
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="10dip"
         android:paddingBottom="10dip"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:gravity="center_horizontal"

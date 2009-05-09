@@ -41,19 +41,22 @@ public class TagController extends AbstractController {
     // --- tag batch operations
 
     /** Get a list of all tags */
-    public LinkedList<TagModelForView> getAllTags(Activity activity)
+    public LinkedList<TagModelForView> getAllTags()
             throws SQLException {
         LinkedList<TagModelForView> list = new LinkedList<TagModelForView>();
         Cursor cursor = tagDatabase.query(TAG_TABLE_NAME,
             TagModelForView.FIELD_LIST, null, null, null, null, null, null);
-        activity.startManagingCursor(cursor);
 
-        if(cursor.getCount() == 0)
-            return list;
-        do {
-            cursor.moveToNext();
-            list.add(new TagModelForView(cursor));
-        } while(!cursor.isLast());
+        try {
+	        if(cursor.getCount() == 0)
+	            return list;
+	        do {
+	            cursor.moveToNext();
+	            list.add(new TagModelForView(cursor));
+	        } while(!cursor.isLast());
+        } finally {
+        	cursor.close();
+        }
 
         return list;
     }
@@ -61,47 +64,53 @@ public class TagController extends AbstractController {
     // --- tag to task map batch operations
 
     /** Get a list of all tags as an id => tag map */
-    public HashMap<TagIdentifier, TagModelForView> getAllTagsAsMap(Activity activity) throws SQLException {
+    public HashMap<TagIdentifier, TagModelForView> getAllTagsAsMap() throws SQLException {
         HashMap<TagIdentifier, TagModelForView> map = new HashMap<TagIdentifier, TagModelForView>();
-        for(TagModelForView tag : getAllTags(activity))
+        for(TagModelForView tag : getAllTags())
             map.put(tag.getTagIdentifier(), tag);
         return map;
     }
 
     /** Get a list of tag identifiers for the given task */
-    public LinkedList<TagIdentifier> getTaskTags(Activity activity, TaskIdentifier
+    public LinkedList<TagIdentifier> getTaskTags(TaskIdentifier
             taskId) throws SQLException {
         LinkedList<TagIdentifier> list = new LinkedList<TagIdentifier>();
         Cursor cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
                 TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TASK + " = ?",
                 new String[] { taskId.idAsString() }, null, null, null);
-        activity.startManagingCursor(cursor);
 
-        if(cursor.getCount() == 0)
-            return list;
-        do {
-            cursor.moveToNext();
-            list.add(new TagToTaskMapping(cursor).getTag());
-        } while(!cursor.isLast());
+        try {
+	        if(cursor.getCount() == 0)
+	            return list;
+	        do {
+	            cursor.moveToNext();
+	            list.add(new TagToTaskMapping(cursor).getTag());
+	        } while(!cursor.isLast());
+        } finally {
+        	cursor.close();
+        }
 
         return list;
     }
 
     /** Get a list of task identifiers for the given tag */
-    public LinkedList<TaskIdentifier> getTaggedTasks(Activity activity, TagIdentifier
+    public LinkedList<TaskIdentifier> getTaggedTasks(TagIdentifier
             tagId) throws SQLException {
         LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
         Cursor cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
                 TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TAG + " = ?",
                 new String[] { tagId.idAsString() }, null, null, null);
-        activity.startManagingCursor(cursor);
 
-        if(cursor.getCount() == 0)
-            return list;
-        do {
-            cursor.moveToNext();
-            list.add(new TagToTaskMapping(cursor).getTask());
-        } while(!cursor.isLast());
+        try {
+	        if(cursor.getCount() == 0)
+	            return list;
+	        do {
+	            cursor.moveToNext();
+	            list.add(new TagToTaskMapping(cursor).getTask());
+	        } while(!cursor.isLast());
+        } finally {
+        	cursor.close();
+        }
 
         return list;
     }

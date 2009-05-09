@@ -93,4 +93,25 @@
         <item>2</item>
     </string-array>
     
+    <!-- Synchronization Intervals -->
+    <string-array name="sync_interval_entries">
+        <item>disable</item>
+        <item>twice an hour</item>
+        <item>hourly</item>
+        <item>twice a day</item>
+        <item>daily</item>
+        <item>twice a week</item>
+        <item>weekly</item>
+    </string-array>
+    
+    <!-- interval in seconds -->
+    <string-array name="sync_interval_values">
+        <item>0</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>43200</item>
+        <item>86400</item>
+        <item>302400</item>
+        <item>604800</item>
+    </string-array>
 </resources>

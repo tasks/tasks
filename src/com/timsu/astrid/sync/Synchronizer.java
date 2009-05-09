@@ -44,13 +44,13 @@ public class Synchronizer {
     }
 
     /** Synchronize all activated sync services */
-    public static void synchronize(Activity activity, boolean isAutoSync,
+    public synchronized static void synchronize(Context context, boolean isAutoSync,
             SynchronizerListener listener) {
         currentStep = ServiceWrapper._FIRST_SERVICE.ordinal();
         servicesSynced = 0;
         autoSync = isAutoSync;
         callback = listener;
-        continueSynchronization(activity);
+        continueSynchronization(context);
     }
 
 
@@ -78,7 +78,7 @@ public class Synchronizer {
             }
         },
 
-        RTM(new RTMSyncService(SYNC_ID_RTM)) {
+        RTM(new RTMSyncProvider(SYNC_ID_RTM)) {
             @Override
             boolean isActivated(Context context) {
                 return Preferences.shouldSyncRTM(context);
@@ -92,9 +92,9 @@ public class Synchronizer {
             }
         };
 
-        private SynchronizationService service;
+        private SynchronizationProvider service;
 
-        private ServiceWrapper(SynchronizationService service) {
+        private ServiceWrapper(SynchronizationProvider service) {
             this.service = service;
         }
 
@@ -112,43 +112,36 @@ public class Synchronizer {
     /** On finished callback */
     private static SynchronizerListener callback;
 
-    /** If this synchronization was automatically initiated */
     private static boolean autoSync;
 
-
     /** Called to do the next step of synchronization. Run me on the UI thread! */
-    static void continueSynchronization(Activity activity) {
+    static void continueSynchronization(Context context) {
         ServiceWrapper serviceWrapper =
             ServiceWrapper.values()[currentStep];
         currentStep++;
         switch(serviceWrapper) {
         case _FIRST_SERVICE:
-            continueSynchronization(activity);
+            continueSynchronization(context);
             break;
         case RTM:
-            if(Preferences.shouldSyncRTM(activity)) {
+            if(Preferences.shouldSyncRTM(context)) {
                 servicesSynced++;
-                serviceWrapper.service.synchronizeService(activity);
+                serviceWrapper.service.synchronizeService(context, autoSync);
             } else {
-                continueSynchronization(activity);
+                continueSynchronization(context);
             }
             break;
         case _LAST_SERVICE:
-            finishSynchronization(activity);
+            finishSynchronization(context);
         }
     }
 
     /** Called at the end of sync. */
-    private static void finishSynchronization(final Activity activity) {
+    private static void finishSynchronization(final Context context) {
         closeControllers();
-        Preferences.setSyncLastSync(activity, new Date());
+        Preferences.setSyncLastSync(context, new Date());
         if(callback != null)
             callback.onSynchronizerFinished(servicesSynced);
-    }
-
-    /** Was this sync automatically initiated? */
-    static boolean isAutoSync() {
-        return autoSync;
     }
 
     // --- controller stuff
@@ -165,11 +158,11 @@ public class Synchronizer {
         }
 
         @SuppressWarnings("unchecked")
-		public TYPE get(Activity activity) {
+		public TYPE get(Context context) {
             if(controller == null) {
                 try {
                     controller = (TYPE)typeClass.getConstructors()[0].newInstance(
-                            activity);
+                            context);
                 } catch (IllegalArgumentException e) {
                     Log.e(getClass().getSimpleName(), e.toString());
                 } catch (SecurityException e) {
@@ -210,20 +203,20 @@ public class Synchronizer {
     private static ControllerWrapper<AlertController> alertController =
         new ControllerWrapper<AlertController>(AlertController.class);
 
-    static SyncDataController getSyncController(Activity activity) {
-        return syncController.get(activity);
+    static SyncDataController getSyncController(Context context) {
+        return syncController.get(context);
     }
 
-    static TaskController getTaskController(Activity activity) {
-        return taskController.get(activity);
+    static TaskController getTaskController(Context context) {
+        return taskController.get(context);
     }
 
-    static TagController getTagController(Activity activity) {
-        return tagController.get(activity);
+    static TagController getTagController(Context context) {
+        return tagController.get(context);
     }
 
-    static AlertController getAlertController(Activity activity) {
-        return alertController.get(activity);
+    static AlertController getAlertController(Context context) {
+        return alertController.get(context);
     }
 
     public static void setTaskController(TaskController taskController) {

@@ -216,9 +216,9 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             addToCalendar.setText(r.getString(R.string.showCalendar_label));
 
         // tags
-        tags = tagController.getAllTags(this);
+        tags = tagController.getAllTags();
         if(model.getTaskIdentifier() != null) {
-            taskTags = tagController.getTaskTags(this, model.getTaskIdentifier());
+            taskTags = tagController.getTaskTags(model.getTaskIdentifier());
             if(taskTags.size() > 0) {
                 Map<TagIdentifier, TagModelForView> tagsMap =
                     new HashMap<TagIdentifier, TagModelForView>();
@@ -286,7 +286,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             saveTags();
             saveAlerts();
             Notifications.updateAlarm(this, controller, alertController, model);
-            
+
             Date dueDate = model.getPreferredDueDate();
             if (dueDate == null) {
             	dueDate = model.getDefiniteDueDate();
@@ -296,33 +296,33 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             } else {
             	showSaveToast();
             }
-            
+
         } catch (Exception e) {
             Log.e("astrid", "Error saving", e);
         }
     }
 
     /**
-     * Displays a Toast reporting that the selected task has been saved and is 
+     * Displays a Toast reporting that the selected task has been saved and is
      * due in 'x' amount of time, to 2 time-units of precision (e.g. Days + Hours).
-     * @param dueDate the Date when the task is due 
+     * @param dueDate the Date when the task is due
      */
     private void showSaveToast(Date dueDate) {
     	int timeInSeconds = (int)((dueDate.getTime() - System.currentTimeMillis())/1000L);
     	String formattedDate = DateUtilities.getDurationString(getResources(), timeInSeconds, 2);
-    	Toast.makeText(this, 
+    	Toast.makeText(this,
     			getResources().getString(R.string.taskEdit_onTaskSave_Due, formattedDate),
     			Toast.LENGTH_SHORT).show();
     }
-    
+
     /**
      * Displays a Toast reporting that the selected task has been saved.
      * Use this version when no due Date has been set.
      */
     private void showSaveToast() {
     	Toast.makeText(this, R.string.taskEdit_onTaskSave_notDue, Toast.LENGTH_SHORT).show();
-    }    
-    
+    }
+
     /** Save task tags. Must be called after task already has an ID */
     private void saveTags() {
         Set<TagIdentifier> tagsToDelete;

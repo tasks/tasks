@@ -19,17 +19,24 @@
  */
 package com.timsu.astrid.activities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DialogUtilities;
+import com.timsu.astrid.utilities.Preferences;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -40,9 +47,14 @@ import com.timsu.astrid.utilities.DialogUtilities;
  */
 public class SyncPreferences extends PreferenceActivity {
 
+	private boolean rtmSyncPreference;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Resources r = getResources();
+
+        rtmSyncPreference = Preferences.shouldSyncRTM(this);
 
         addPreferencesFromResource(R.xml.sync_preferences);
 
@@ -69,5 +81,38 @@ public class SyncPreferences extends PreferenceActivity {
                 }, null);
             }
         });
+
+        TextView lastSyncLabel = (TextView)findViewById(R.id.last_sync_label);
+        SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
+        String syncDate = r.getString(R.string.sync_date_never);
+        Date lastSyncDate = Preferences.getSyncLastSync(this);
+        if(lastSyncDate != null)
+        	syncDate = formatter.format(lastSyncDate);
+        lastSyncLabel.setText(r.getString(R.string.sync_last_sync, syncDate));
+
+        syncDate = null;
+        TextView lastAutoSyncLabel = (TextView)findViewById(R.id.last_auto_sync_label);
+        Date lastAutoSyncDate = Preferences.getSyncLastSyncAttempt(this);
+        if(lastAutoSyncDate != null && (lastSyncDate == null ||
+        		(lastAutoSyncDate.getTime() - lastSyncDate.getTime() < 3600000L)))
+        	syncDate = formatter.format(lastAutoSyncDate);
+        if(syncDate != null)
+        	lastAutoSyncLabel.setText(r.getString(R.string.sync_last_auto_sync, syncDate));
+        else
+        	lastAutoSyncLabel.setVisibility(View.GONE);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+    	if(keyCode == KeyEvent.KEYCODE_BACK) {
+    		boolean newRtmSyncPreference = Preferences.shouldSyncRTM(this);
+    		if(newRtmSyncPreference != rtmSyncPreference && newRtmSyncPreference) {
+    			setResult(Constants.RESULT_SYNCHRONIZE);
+    		}
+    		finish();
+    		return true;
+    	}
+
+    	return false;
     }
 }

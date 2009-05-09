@@ -23,8 +23,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import android.app.Activity;
-
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.enums.RepeatInterval;
 import com.timsu.astrid.data.tag.TagController;
@@ -141,7 +139,7 @@ public class TaskProxy {
         completionDate = task.getCompletionDate();
         definiteDueDate = task.getDefiniteDueDate();
         preferredDueDate = task.getPreferredDueDate();
-        dueDate = definiteDueDate != null ? definiteDueDate : preferredDueDate; 
+        dueDate = definiteDueDate != null ? definiteDueDate : preferredDueDate;
         hiddenUntil = task.getHiddenUntil();
         estimatedSeconds = task.getEstimatedSeconds();
         elapsedSeconds = task.getElapsedSeconds();
@@ -152,11 +150,10 @@ public class TaskProxy {
     }
 
     /** Read tags from the given tag controller */
-    public void readTagsFromController(Activity activity, TaskIdentifier taskId,
+    public void readTagsFromController(TaskIdentifier taskId,
             TagController tagController, HashMap<TagIdentifier, TagModelForView>
             tagList) {
-        LinkedList<TagIdentifier> tagIds = tagController.getTaskTags(activity,
-                taskId);
+        LinkedList<TagIdentifier> tagIds = tagController.getTaskTags(taskId);
         tags = new LinkedList<String>();
         for(TagIdentifier tagId : tagIds) {
             tags.add(tagList.get(tagId).getName());
@@ -177,25 +174,25 @@ public class TaskProxy {
             task.setCreationDate(creationDate);
         if(completionDate != null)
             task.setCompletionDate(completionDate);
-        
+
         // date handling: if sync service only supports one type of due date,
         // we have to figure out which field to write to based on what
         // already has data
-        
+
         if(dueDate != null) {
         	if(task.getDefiniteDueDate() != null)
         		task.setDefiniteDueDate(dueDate);
         	else if(task.getPreferredDueDate() != null)
         		task.setPreferredDueDate(dueDate);
         	else
-        		task.setDefiniteDueDate(dueDate);        		
+        		task.setDefiniteDueDate(dueDate);
         } else {
 	        if(definiteDueDate != null)
 	            task.setDefiniteDueDate(definiteDueDate);
 	        if(preferredDueDate != null)
 	            task.setPreferredDueDate(preferredDueDate);
         }
-        
+
         if(hiddenUntil != null)
             task.setHiddenUntil(hiddenUntil);
         if(estimatedSeconds != null)

@@ -59,6 +59,7 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.Constants;
@@ -131,6 +132,9 @@ public class TaskListSubActivity extends SubActivity {
     // indicator flag set if task list should be refreshed (something changed
     // in another activity)
     static boolean shouldRefreshTaskList = false;
+
+    // indicator flag set if synchronization window has been opened & closed
+    static boolean syncPreferencesOpened = false;
 
     // other instance variables
     class TaskListContext {
@@ -205,7 +209,7 @@ public class TaskListSubActivity extends SubActivity {
         // process tag to filter, if any
         if(variables != null && variables.containsKey(TAG_TOKEN)) {
             TagIdentifier identifier = new TagIdentifier(variables.getLong(TAG_TOKEN));
-            context.tagMap = getTagController().getAllTagsAsMap(getParent());
+            context.tagMap = getTagController().getAllTagsAsMap();
             if(context.tagMap.containsKey(identifier))
                 context.filterTag = context.tagMap.get(identifier);
             else
@@ -480,7 +484,7 @@ public class TaskListSubActivity extends SubActivity {
             // get a cursor to the task list
             Cursor tasksCursor;
             if(context.filterTag != null) {
-                LinkedList<TaskIdentifier> tasks = getTagController().getTaggedTasks(getParent(),
+                LinkedList<TaskIdentifier> tasks = getTagController().getTaggedTasks(
                         context.filterTag.getTagIdentifier());
                 tasksCursor = getTaskController().getTaskListCursorById(tasks);
             } else {
@@ -493,7 +497,7 @@ public class TaskListSubActivity extends SubActivity {
             context.taskArray = getTaskController().createTaskListFromCursor(tasksCursor);
 
             // read tags and apply filters
-            context.tagMap = getTagController().getAllTagsAsMap(getParent());
+            context.tagMap = getTagController().getAllTagsAsMap();
             context.taskTags = new HashMap<TaskModelForList, String>();
             StringBuilder tagBuilder = new StringBuilder();
             context.tasksById = new HashMap<Long, TaskModelForList>();
@@ -515,7 +519,7 @@ public class TaskListSubActivity extends SubActivity {
                 }
 
                 // get list of tags
-                LinkedList<TagIdentifier> tagIds = getTagController().getTaskTags(getParent(),
+                LinkedList<TagIdentifier> tagIds = getTagController().getTaskTags(
                         task.getTaskIdentifier());
                 tagBuilder.delete(0, tagBuilder.length());
                 for(Iterator<TagIdentifier> j = tagIds.iterator(); j.hasNext(); ) {
@@ -798,7 +802,14 @@ public class TaskListSubActivity extends SubActivity {
         if (hasFocus) {
             if (shouldRefreshTaskList)
                 reloadList();
-            else if (context.taskArray != null &&
+            else if(syncPreferencesOpened) {
+            	syncPreferencesOpened = false;
+
+		        // stop & start synchronization service
+	            Intent service = new Intent(getParent(), SynchronizationService.class);
+	            getParent().stopService(service);
+	            getParent().startService(service);
+            } else if (context.taskArray != null &&
                     context.taskArray.size() > 0 &&
                     context.taskArray.size() < AUTO_REFRESH_MAX_LIST_SIZE) {
 
@@ -1013,7 +1024,7 @@ public class TaskListSubActivity extends SubActivity {
             showTagsView();
             return true;
         case SYNC_ID:
-            onActivityResult(ACTIVITY_SYNCHRONIZE, Constants.RESULT_SYNCHRONIZE, null);
+        	onActivityResult(ACTIVITY_SYNCHRONIZE, Constants.RESULT_SYNCHRONIZE, null);
             return true;
         case MORE_ID:
             layout.showContextMenu();
@@ -1021,6 +1032,7 @@ public class TaskListSubActivity extends SubActivity {
 
         // --- more options menu items
         case OPTIONS_SYNC_ID:
+        	syncPreferencesOpened = true;
             launchActivity(new Intent(getParent(), SyncPreferences.class),
                     ACTIVITY_SYNCHRONIZE);
             return true;

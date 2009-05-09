@@ -15,10 +15,12 @@
     <PreferenceCategory
         android:title="@string/sync_pref_group_options">
     
-        <EditTextPreference  
-            android:key="@string/p_sync_every"  
-            android:title="@string/sync_every_title"  
-            android:summary="@string/sync_every_desc" />
+        <ListPreference  
+            android:key="@string/p_sync_interval"  
+            android:entries="@array/sync_interval_entries"  
+            android:entryValues="@array/sync_interval_values"  
+            android:title="@string/sync_interval_title"  
+            android:summary="@string/sync_interval_desc" />
             
         <CheckBoxPreference  
             android:key="@string/p_sync_button"  

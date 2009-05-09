@@ -248,11 +248,12 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="sync_pref_group_actions">Actions</string>
         <string name="sync_pref_group_options">Options</string>
         <string name="p_sync_rtm">sync_rtm</string>
-        <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate ? -->
+        <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate -->
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
-        <string name="p_sync_every">sync_every</string>
-        <string name="sync_every_title">Synchronize Frequency</string>
-        <string name="sync_every_desc">If set, perform sync every # hours</string>
+        <string name="p_sync_every_old">sync_every</string> <!-- old sync key -->
+        <string name="p_sync_interval">sync_freq</string>
+        <string name="sync_interval_title">Auto-Synchronize</string>
+        <string name="sync_interval_desc">If set, synchronization occurs automatically given interval</string>
         <string name="p_sync_button">sync_button</string>
         <string name="sync_button_title">Main Menu Shortcut</string>
         <string name="sync_button_desc">Show \"Synchronize\" in Astrid\'s menu</string>
@@ -281,6 +282,16 @@ Wish me luck!\n
         <string name="sync_forget">Clear Personal Data</string>
         <string name="sync_forget_confirm">Clear data for selected services?</string>
         <string name="sync_no_synchronizers">No Synchronizers Enabled!</string>
+        <string name="sync_last_sync">Last Sync Date: %s</string>
+        <string name="sync_last_auto_sync">Last AutoSync Attempt: %s</string>
+        <string name="sync_date_never">never</string>
+        <string name="sync_result_title">%s Results</string>
+        <string name="sync_result_local">Summary - Astrid Tasks:</string>
+        <string name="sync_result_remote">Summary - Remote Server:</string>
+        <string name="sync_result_created">Created: %d</string>
+        <string name="sync_result_updated">Updated: %d</string>
+        <string name="sync_result_deleted">Deleted: %d</string>
+        <string name="sync_result_merged">Merged: %d</string>
        
     <!-- Dialog Boxes -->  
     <skip />

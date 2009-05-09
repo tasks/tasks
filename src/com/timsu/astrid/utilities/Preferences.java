@@ -20,6 +20,7 @@ public class Preferences {
     private static final String P_SYNC_RTM_TOKEN = "rtmtoken";
     private static final String P_SYNC_RTM_LAST_SYNC = "rtmlastsync";
     private static final String P_SYNC_LAST_SYNC = "lastsync";
+    private static final String P_SYNC_LAST_SYNC_ATTEMPT = "lastsyncattempt";
 
     // pref values
     public static final int ICON_SET_PINK = 0;
@@ -93,7 +94,7 @@ public class Preferences {
         }
 	}
 
-    // --- sysetm preferences
+    // --- system preferences
 
 	/** CurrentVersion: the currently installed version of Astrid */
     public static int getCurrentVersion(Context context) {
@@ -257,9 +258,26 @@ public class Preferences {
                 R.string.p_sync_quiet), false);
     }
 
-    /** returns the font size user wants on the front page */
-    public static Float autoSyncFrequency(Context context) {
-        return getFloatValue(context, R.string.p_sync_every);
+    /** Reads the frequency, in seconds, auto-sync should occur.
+     * @return seconds duration, or null if not desired */
+    public static Integer getSyncAutoSyncFrequency(Context context) {
+    	Integer time = getIntegerValue(context, R.string.p_sync_interval);
+        if(time != null && time == 0)
+            time = null;
+        return time;
+    }
+
+    /** Reads the old auto */
+    public static Float getSyncOldAutoSyncFrequency(Context context) {
+    	return getFloatValue(context, R.string.p_sync_every_old);
+    }
+
+    /** Sets the auto-sync frequency to the desired value */
+    public static void setSyncAutoSyncFrequency(Context context, int value) {
+    	Editor editor = getPrefs(context).edit();
+        editor.putString(context.getResources().getString(R.string.p_sync_interval),
+        		Integer.toString(value));
+        editor.commit();
     }
 
     /** Last Auto-Sync Date, or null */
@@ -270,7 +288,15 @@ public class Preferences {
         return new Date(value);
     }
 
-    /** Set Last Auto-Sync Date */
+    /** Last Successful Auto-Sync Date, or null */
+    public static Date getSyncLastSyncAttempt(Context context) {
+        Long value = getPrefs(context).getLong(P_SYNC_LAST_SYNC_ATTEMPT, 0);
+        if(value == 0)
+            return null;
+        return new Date(value);
+    }
+
+    /** Set Last Sync Date */
     public static void setSyncLastSync(Context context, Date date) {
         if(date == null) {
             clearPref(context, P_SYNC_LAST_SYNC);
@@ -279,6 +305,13 @@ public class Preferences {
 
         Editor editor = getPrefs(context).edit();
         editor.putLong(P_SYNC_LAST_SYNC, date.getTime());
+        editor.commit();
+    }
+
+    /** Set Last Auto-Sync Attempt Date */
+    public static void setSyncLastSyncAttempt(Context context, Date date) {
+        Editor editor = getPrefs(context).edit();
+        editor.putLong(P_SYNC_LAST_SYNC_ATTEMPT, date.getTime());
         editor.commit();
     }
 

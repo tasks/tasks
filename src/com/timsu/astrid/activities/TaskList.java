@@ -19,8 +19,6 @@
  */
 package com.timsu.astrid.activities;
 
-import java.util.Date;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,7 +39,6 @@ import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
-import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.utilities.StartupReceiver;
 
 /**
@@ -128,20 +125,11 @@ public class TaskList extends Activity {
         	getCurrentSubActivity().onDisplay(variables);
         }
 
-        // auto sync if requested
-        Float autoSyncHours = Preferences.autoSyncFrequency(this);
+        // sync now if requested
         if(synchronizeNow) {
-            synchronizeNow = false;
             Synchronizer.synchronize(this, true, null);
-        } else if(autoSyncHours != null) {
-            final Date lastSync = Preferences.getSyncLastSync(this);
-
-            if(lastSync == null || lastSync.getTime() +
-                    1000L*3600*autoSyncHours < System.currentTimeMillis()) {
-                Synchronizer.synchronize(this, true, null);
-            }
         }
-
+        
         // if we have no filter tag, we're not on the last task
         if(getCurrentSubActivity() == taskListWTag &&
                 ((TaskListSubActivity)taskListWTag).getFilterTag() == null) {

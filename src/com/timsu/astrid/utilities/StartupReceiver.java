@@ -1,5 +1,7 @@
 package com.timsu.astrid.utilities;
 
+import com.timsu.astrid.sync.SynchronizationService;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -36,6 +38,15 @@ public class StartupReceiver extends BroadcastReceiver {
         boolean justUpgraded = latestSetVersion != version;
         final int finalVersion = version;
         if(justUpgraded) {
+        	// perform version-specific processing
+        	if(latestSetVersion <= 99) {
+        		if(Preferences.getSyncOldAutoSyncFrequency(context) != null) {
+        			float value = Preferences.getSyncOldAutoSyncFrequency(context);
+        			Preferences.setSyncAutoSyncFrequency(context, 
+        					Math.round(value * 3600));
+        		}
+        	}
+        	
             new Thread(new Runnable() {
                 public void run() {
                     Notifications.scheduleAllAlarms(context);
@@ -49,6 +60,11 @@ public class StartupReceiver extends BroadcastReceiver {
 
         Preferences.setPreferenceDefaults(context);
 
+        // start synchronization service
+        SynchronizationService.setContext(context);
+        Intent service = new Intent(context, SynchronizationService.class);
+        context.startService(service);
+        
         hasStartedUp = true;
     }
 }

@@ -27,8 +27,7 @@ import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.Map.Entry;
 
-import android.app.Activity;
-import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -56,14 +55,14 @@ import com.timsu.astrid.data.task.TaskModelForSync;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
 
-public class RTMSyncService extends SynchronizationService {
+public class RTMSyncProvider extends SynchronizationProvider {
 
     private ServiceImpl rtmService = null;
     private String INBOX_LIST_NAME = "Inbox";
     Map<String, String> listNameToIdMap = new HashMap<String, String>();
     Map<String, String> listIdToNameMap = new HashMap<String, String>();
 
-    public RTMSyncService(int id) {
+    public RTMSyncProvider(int id) {
         super(id);
     }
 
@@ -75,41 +74,27 @@ public class RTMSyncService extends SynchronizationService {
     }
 
     @Override
-    protected void synchronize(final Activity activity) {
-        if(Preferences.shouldSyncRTM(activity) && rtmService == null &&
-                Preferences.getSyncRTMToken(activity) == null) {
-            DialogUtilities.okCancelDialog(activity,
-                    activity.getResources().getString(R.string.sync_rtm_notes),
-            new Dialog.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            authenticate(activity);
-                        }
-            }, new Dialog.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    if(progressDialog != null)
-                        progressDialog.dismiss();
-                }
-            });
-        } else
-            authenticate(activity);
+    protected void synchronize(final Context activity) {
+    	// authenticate the user. this will automatically call the next step
+        authenticate(activity);
     }
 
     @Override
-    public void clearPersonalData(Activity activity) {
-        Preferences.setSyncRTMToken(activity, null);
-        Preferences.setSyncRTMLastSync(activity, null);
-        Synchronizer.getSyncController(activity).deleteAllMappings(getId());
+    public void clearPersonalData(Context context) {
+        Preferences.setSyncRTMToken(context, null);
+        Preferences.setSyncRTMLastSync(context, null);
+        Synchronizer.getSyncController(context).deleteAllMappings(getId());
     }
 
     // --- authentication
 
     /** Perform authentication with RTM. Will open the SyncBrowser if necessary */
-    private void authenticate(final Activity activity) {
+    private void authenticate(final Context context) {
         try {
             String apiKey = "bd9883b3384a21ead17501da38bb1e68";
             String sharedSecret = "a19b2a020345219b";
             String appName = null;
-            String authToken = Preferences.getSyncRTMToken(activity);
+            String authToken = Preferences.getSyncRTMToken(context);
 
             // check if we have a token & it works
             if(authToken != null) {
@@ -125,8 +110,8 @@ public class RTMSyncService extends SynchronizationService {
                     try {
                         String token = rtmService.completeAuthorization();
                         Log.w("astrid", "got RTM token: " + token);
-                        Preferences.setSyncRTMToken(activity, token);
-                        performSync(activity);
+                        Preferences.setSyncRTMToken(context, token);
+                        performSync(context);
 
                         return;
                     } catch (Exception e) {
@@ -134,24 +119,28 @@ public class RTMSyncService extends SynchronizationService {
                     }
                 }
 
+                // open up a dialog and have the user go to browser
+                if(isBackgroundService())
+                	return;
+
                 rtmService = new ServiceImpl(new ApplicationInfo(
                         apiKey, sharedSecret, appName));
                 final String url = rtmService.beginAuthorization(Perms.delete);
                 progressDialog.dismiss();
-                Resources r = activity.getResources();
-                DialogUtilities.okCancelDialog(activity,
+                Resources r = context.getResources();
+                DialogUtilities.okCancelDialog(context,
                         r.getString(R.string.sync_auth_request, "RTM"),
                         new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int which) {
                         TaskList.synchronizeNow = true;
                         Intent intent = new Intent(Intent.ACTION_VIEW,
                                 Uri.parse(url));
-                        activity.startActivity(intent);
+                        context.startActivity(intent);
                     }
                 }, null);
 
             } else {
-                performSync(activity);
+                performSync(context);
             }
 
         } catch (Exception e) {
@@ -159,31 +148,31 @@ public class RTMSyncService extends SynchronizationService {
             if(e instanceof ServiceInternalException &&
                     ((ServiceInternalException)e).getEnclosedException() instanceof
                     IOException) {
-                showError(activity, e, "Sync Connection Error! Check your " +
+                showError(context, e, "Sync Connection Error! Check your " +
                 		"Internet connection & try again...");
             } else
-                showError(activity, e, null);
+                showError(context, e, null);
         }
     }
 
     // --- synchronization!
 
-    private void performSync(final Activity activity) {
+    private void performSync(final Context context) {
         new Thread(new Runnable() {
             public void run() {
-                performSyncInNewThread(activity);
+                performSyncInNewThread(context);
             }
         }).start();
     }
 
-    private void performSyncInNewThread(final Activity activity) {
+    private void performSyncInNewThread(final Context context) {
         try {
-            syncHandler.post(new ProgressLabelUpdater("Reading remote data"));
-            syncHandler.post(new ProgressUpdater(0, 5));
+            postUpdate(new ProgressLabelUpdater("Reading remote data"));
+            postUpdate(new ProgressUpdater(0, 5));
 
             // get RTM timeline
             final String timeline = rtmService.timelines_create();
-            syncHandler.post(new ProgressUpdater(1, 5));
+            postUpdate(new ProgressUpdater(1, 5));
 
             // load RTM lists
             RtmLists lists = rtmService.lists_getList();
@@ -195,11 +184,11 @@ public class RTMSyncService extends SynchronizationService {
                 if(INBOX_LIST_NAME.equalsIgnoreCase(list.getName()))
                     INBOX_LIST_NAME = list.getName();
             }
-            syncHandler.post(new ProgressUpdater(2, 5));
+            postUpdate(new ProgressUpdater(2, 5));
 
             // read all tasks
             LinkedList<TaskProxy> remoteChanges = new LinkedList<TaskProxy>();
-            Date lastSyncDate = Preferences.getSyncRTMLastSync(activity);
+            Date lastSyncDate = Preferences.getSyncRTMLastSync(context);
             boolean shouldSyncIndividualLists = false;
             String filter = null;
             if(lastSyncDate == null)
@@ -208,9 +197,9 @@ public class RTMSyncService extends SynchronizationService {
             // try the quick synchronization
             try {
                 Thread.sleep(2000); // throttle
-                syncHandler.post(new ProgressUpdater(3, 5));
+                postUpdate(new ProgressUpdater(3, 5));
                 RtmTasks tasks = rtmService.tasks_getList(null, filter, lastSyncDate);
-                syncHandler.post(new ProgressUpdater(5, 5));
+                postUpdate(new ProgressUpdater(5, 5));
                 addTasksToList(tasks, remoteChanges);
             } catch (Exception e) {
                 remoteChanges.clear();
@@ -220,9 +209,9 @@ public class RTMSyncService extends SynchronizationService {
             if(shouldSyncIndividualLists) {
                 int progress = 0;
                 for(final Entry<String, String> entry : listIdToNameMap.entrySet()) {
-                    syncHandler.post(new ProgressLabelUpdater("Reading " +
+                	postUpdate(new ProgressLabelUpdater("Reading " +
                     		" list: " + entry.getValue()));
-                    syncHandler.post(new ProgressUpdater(progress++,
+                	postUpdate(new ProgressUpdater(progress++,
                             listIdToNameMap.size()));
                     try {
                         Thread.sleep(1500);
@@ -230,9 +219,9 @@ public class RTMSyncService extends SynchronizationService {
                                 filter, lastSyncDate);
                         addTasksToList(tasks, remoteChanges);
                     } catch (Exception e) {
-                        syncHandler.post(new Runnable() {
+                    	postUpdate(new Runnable() {
                             public void run() {
-                                DialogUtilities.okDialog(activity,
+                                DialogUtilities.okDialog(context,
                                         "List '" + entry.getValue() +
                                         "' import failed (too big?)", null);
                             }
@@ -240,17 +229,17 @@ public class RTMSyncService extends SynchronizationService {
                         continue;
                     }
                 }
-                syncHandler.post(new ProgressUpdater(1, 1));
+                postUpdate(new ProgressUpdater(1, 1));
             }
 
-            synchronizeTasks(activity, remoteChanges, new RtmSyncHelper(timeline));
+            synchronizeTasks(context, remoteChanges, new RtmSyncHelper(timeline));
 
             // add a bit of fudge time so we don't load tasks we just edited
             Date syncTime = new Date(System.currentTimeMillis() + 1000);
-            Preferences.setSyncRTMLastSync(activity, syncTime);
+            Preferences.setSyncRTMLastSync(context, syncTime);
 
         } catch (Exception e) {
-            showError(activity, e, null);
+            showError(context, e, null);
         }
     }
 
@@ -335,8 +324,8 @@ public class RTMSyncService extends SynchronizationService {
         }
 
         // estimated time
-        if(task.estimatedSeconds != remoteTask.estimatedSeconds &&
-                !task.estimatedSeconds.equals(remoteTask.estimatedSeconds)) {
+        if(task.estimatedSeconds == 0 && remoteTask.estimatedSeconds != null ||
+                task.estimatedSeconds > 0 && remoteTask.estimatedSeconds == null) {
             String estimation;
             int estimatedSeconds = task.estimatedSeconds;
             if(estimatedSeconds == 0)
