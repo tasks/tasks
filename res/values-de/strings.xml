@@ -1,0 +1,414 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ASTRID: Android's Simple Task Recording Dashboard
+ 
+  Copyright (c) 2009 Tim Su
+ 
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+ 
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ 
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <!-- application -->
+    <string name="app_name">Astrid</string>
+    
+    <!-- General String Constants -->
+    <skip />
+    
+        <!-- Importance Labels -->
+        <string name="importance_1">!!!!</string>
+        <string name="importance_2">!!!</string>
+        <string name="importance_3">!!</string>
+        <string name="importance_4">!</string>
+        
+        <!-- Repeat Interval Labels -->
+        <string name="repeat_days">Tag(e)</string>
+        <string name="repeat_weeks">Woche(n)</string>
+        <string name="repeat_months">Monat(e)</string>
+        <string name="repeat_hours">Stunde(n)</string>
+        
+        <!-- Plurals -->
+        <plurals name="Ntasks">
+            <item quantity="one">1 Aufgabe</item>
+            <item quantity="other">%d Aufgaben</item>
+        </plurals>
+        <plurals name="NactiveTasks">
+            <item quantity="one">%d / %d Aktiv</item>
+            <item quantity="other">%d / %d Aktiv</item>
+        </plurals>
+        <plurals name="Nalarms">
+            <item quantity="one">Ein Alarm</item>
+            <item quantity="two">Zwei Alarme</item>
+            <item quantity="other">%d Alarme</item>
+        </plurals>
+        <plurals name="Ntags">
+            <item quantity="one">1 Tag</item>
+            <item quantity="other">%d Tags</item>
+        </plurals>
+        
+        <!-- Time Constants -->
+        <string name="dateFormatter">MMM d</string> <!-- used for long due 
+            dates. c.f. Java's SimpleDateFormat -->
+        <string name="daysVertical">D\na\ny\ns</string> <!-- vertical labels
+            are used in the number dialogs -->
+        <string name="hoursVertical">H\no\nu\nr\ns</string>
+        <plurals name="Ndays">
+            <item quantity="one">1 Tag</item>
+            <item quantity="other">%d Tage</item>
+        </plurals>
+        <plurals name="Nhours">
+            <item quantity="one">1 Stunde</item>
+            <item quantity="other">%d Stunden</item>
+        </plurals>
+        <plurals name="Nminutes">
+            <item quantity="one">1 Minute</item>
+            <item quantity="other">%d Minuten</item>
+        </plurals>
+        <plurals name="Nseconds">
+            <item quantity="one">1 Sekunde</item>
+            <item quantity="other">%d Sekunden</item>
+        </plurals>
+        <plurals name="NhoursShort">
+            <item quantity="one">1 Std</item>
+            <item quantity="other">%d Std</item>
+        </plurals>
+        <plurals name="NminutesShort">
+            <item quantity="one">1 Min</item>
+            <item quantity="other">%d Min</item>
+        </plurals>
+        <plurals name="NsecondsShort">
+            <item quantity="one">1 Sek</item>
+            <item quantity="other">%d Sek</item>
+        </plurals>
+        <string name="ago_suffix">vor</string><!-- appended after time
+            constants to show time in past -->
+        
+    <!-- TaskList -->
+    <skip />
+        <!-- title bar -->
+        <string name="taskList_titlePrefix">Astrid: </string>
+        <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
+        <string name="taskList_hiddenSuffix"> versteckt</string>
+        <string name="addtask_label">Neue Aufgabe</string>
+        <string name="missing_tag">Could Not Find Requested Tag!</string>
+        
+        <!-- text in the actual list -->
+        <string name="taskList_hiddenPrefix">V</string><!-- prefix to show that a task is hidden -->
+        <string name="taskList_dueRelativeTime">Fällig in</string><!-- i.e. Due in 4 days -->
+        <string name="taskList_dueAbsoluteDate">Fällig am</string><!-- i.e. Due on Jan 2 -->
+        <string name="taskList_goalPrefix">Ziel</string><!-- prefix to deadline -->
+        <string name="taskList_overdueBy">Uberfällig seit</string>
+        <string name="taskList_completedPrefix">Erledigt</string><!-- i.e. Finished 4 days ago -->
+		<string name="taskList_estimatedTimePrefix">Zeitschätzung:</string><!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_elapsedTimePrefix">Verbracht:</string><!-- i.e. Spent  88 minutes on tax. -->
+        <string name="taskList_periodicReminderPrefix">Anstubsen jede</string><!-- time interval to set frequency to remind user -->
+        <string name="taskList_repeatPrefix">Wiederholt sich jede</string><!-- time interval to set repeated tasks-->
+        <string name="taskList_alarmPrefix">Nächster Alarm:</string>
+        <string name="taskList_tagsPrefix">Tags:</string>
+        <string name="taskList_notesPrefix">Notizen:</string>
+        <string name="taskList_createdPrefix">Erstellt:</string><!-- Created: MM/DD/YY -->
+        <string name="taskList_deleted">Gelöscht</string><!-- Deleted: MM/DD/YY -->
+        
+        <!-- menu items -->
+        <string name="taskList_menu_insert">Hinzufügen</string><!-- Add or Insert -->
+        <string name="taskList_menu_tags">Tags</string>
+        <string name="taskList_menu_filters">Anzeigen</string>
+        <string name="taskList_menu_syncshortcut">Sync</string>
+        <string name="taskList_menu_more">Mehr</string>
+        <string name="taskList_menu_sync">Synchronisation</string>
+        <string name="taskList_menu_settings">Einstellungen</string>
+        <string name="taskList_menu_help">Hilfe (öffnet im Browser)</string>
+        <string name="taskList_menu_survey">Nimm an Astrids Befragung teil!</string>
+        <string name="taskList_menu_tips">Schnelle Tipps</string>
+        <string name="taskList_menu_cleanup">Alte Aufgaben löschen</string>
+        
+        <string name="taskList_context_edit">Aufgabe bearbeiten</string>
+        <string name="taskList_context_delete">Aufgabe löschen</string>
+        <string name="taskList_context_startTimer">Timer starten</string>
+        <string name="taskList_context_stopTimer">Timer stoppen</string>
+        <string name="taskList_context_postpone">Aufschieben</string>
+        
+        <!-- filter menu -->
+        <string name="taskList_filter_title">Sortieren/Filter</string>
+        <string name="taskList_filter_hidden">Versteckte/Blockierte Aufgaben</string>
+        <string name="taskList_filter_done">Erledigte Aufgaben</string>
+        <string name="taskList_filter_tagged">Tagged \'%s\'</string>
+        <string name="taskList_sort_auto">Automatisch sortieren</string>
+        <string name="taskList_sort_alpha">Nach Name sortieren</string>
+        <string name="taskList_sort_duedate">Nach Datum sortieren</string>
+        <string name="taskList_sort_reverse">umgekehrt sortieren</string>
+        
+        <string name="taskList_nonag_reminder">Wähle eine Aktion:</string>
+        <string name="taskList_postpone_count">Wie oft aufgeschoben: %d</string>
+        <string name="taskList_postpone_dialog">Wie lange aufschieben?</string>
+        <string name="taskList_cleanup_dialog">"Lösche erledigte Aufgaben, die älter sind als # Tage:"</string>
+
+    <!-- TaskEdit -->
+    <skip />
+        <!-- title bar -->
+        <string name="taskEdit_titleGeneric">Astrid: Aufgabe bearbeiten</string>
+        <string name="taskEdit_titlePrefix">Astrid: Bearbeite </string>
+        <string name="taskEdit_label">Astrid: Neue Aufgabe</string>
+        
+        <!-- tabs -->
+        <string name="task_edit_tab_1">Allgemein</string>
+        <string name="task_edit_tab_2">Datum/Zeit</string>
+        <string name="task_edit_tab_3">Erinnerungen</string>
+        
+        <!-- labels -->
+        <string name="name_label">Zusammenfassung</string>
+        <string name="name_hint">Beschreibung der Aufgabe</string>
+        <string name="importance_label">Wie wichtig ist es?</string>
+        <string name="tags_label">Tags:</string>
+        
+        <string name="estimatedDuration_label">Wie lange wird es dauern?</string>
+        <string name="elapsedDuration_label">Für die Aufgabe bereits verbrachte Zeit</string>
+        <string name="definiteDueDate_label">Absolute Frist</string>
+        <string name="preferredDueDate_label">Zielfrist</string>
+        <string name="addToCalendar_label">Aufgabe zum Kalender hinzufügen</string>
+        <string name="showCalendar_label">Zeige Termin im Kalender an</string>
+        <string name="hiddenUntil_label">Bis zu diesem Datum verstecken</string>
+        <string name="repeat_label">Wiederhole jede</string>
+        <string name="repeat_value_unset">Keine Wiederholung eingestellt</string>
+        <string name="blockingOn_label">Verstecken bis diese Aufgabe erledigt ist.</string>
+        <string name="notes_label">Notizen</string>
+        <string name="notes_hint">Aufgaben-Notizen eingeben</string>
+        
+        <string name="notification_label">Regelmäßige Erinnerungen</string>
+        <string name="notification_prefix">Jede</string>
+        <string name="flags_label">Erinnere mich...</string>
+        <string name="flag_before">Beim Nähern an die Frist</string>
+        <string name="flag_during">Beim Erreichen der Frist</string>
+        <string name="flag_after">Nachdem die Absolute Frist vergangen ist</string>
+        <string name="flag_nonstop">Pausenlos bis ich die Aufgabe anschaue</string>
+        <string name="alerts_label">Festgesetzte Eringerung</string>
+        <string name="add_alert">Neue Erinnerung hinzufügen</string>
+        
+        <!-- dialog boxes -->
+        <string name="hour_minutes_dialog">Zeit (Stunden : Minuten)</string>
+        <string name="notification_dialog">Erinnere mich jede</string>
+        <string name="repeat_picker_title">Wiederhole alle (0 zum Deaktivieren)</string>
+        <string name="repeat_help_dialog_title">Hilfe: Astrid Wiederholungen</string>
+        <string name="repeat_help_dialog">
+Stelle oben zu mindest eine Frist ein um Wiederholungen zu nutzen. Wenn Du die Aufgabe erledigst, wird die Frist automatisch verschoben.
+\n\n
+
+Wenn Du die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen willst, solltest Du das Feld nutzen, welches auch autmatisch verschoben wird.
+\n
+        </string>
+        <string name="repeat_help_hide">Diese Hilfe nicht mehr anzeigen</string>
+        
+        <!-- buttons -->
+        <string name="save_label">Speichern</string>
+        <string name="discard_label">Verwerfen</string>
+        <string name="edit_label">Bearbeiten</string>
+        <string name="delete_label">Löschen</string>
+        <string name="blank_button_title">Klicken zum Einstellen</string>
+        <string name="startTimer_label">Timer starten</string>
+        <string name="stopTimer_label">Timer stoppen</string>
+        
+        <string name="taskEdit_menu_save">Speichern</string>
+        <string name="taskEdit_onTaskSave_Due">Aufgabe gespeichert: Fällig in %s</string>
+        <string name="taskEdit_onTaskSave_notDue">Aufgabe gespeichert</string>
+      
+    <!-- TaskView  -->
+    <skip />
+    
+        <string name="taskView_notifyTitle">Astrid sagt...</string>
+        
+    <!-- Tag List -->
+    <skip />
+        <string name="tagList_titlePrefix">Astrid: Tag Ansicht: </string>
+        <string name="tagList_context_create">Aufgabe mit Tag bearbeiten</string>
+        <string name="tagList_context_edit">Aufgabe bearbeiten</string>
+        <string name="tagList_context_delete">Aufgabe löschen</string>
+        <string name="tagList_context_showTag">Auf der Startseite anzeigen</string>
+        <string name="tagList_context_hideTag">Auf der Startseite verstecken</string>
+        <string name="tagList_context_shortcut">Verknüpfung erstellen</string>
+        <string name="tagList_shortcut_created">Verknüpfung wurde auf der Startseite erstellt!</string>
+        <string name="tagList_shortcut_prefix">Tag:</string>
+        
+        <string name="tagList_menu_sortAlpha">Sortiere alphabetisch</string>
+        <string name="tagList_menu_sortSize">Sortiere nach Größe</string>
+    
+    
+    <!-- Synchronization -->  
+    <skip />
+        <string name="sync_pref_group">Synchronisations-Dienst</string>
+        <string name="sync_pref_group_actions">Aktionen</string>
+        <string name="sync_pref_group_options">Optionen</string>
+        <string name="p_sync_rtm">sync_rtm</string>
+        <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate ? -->
+        <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
+        <string name="p_sync_every">sync_every</string>
+        <string name="sync_every_title">Häufigkeit der Synchronisation</string>
+        <string name="sync_every_desc">Falls eingestellt, synchronisiere alle # Stunden</string>
+        <string name="p_sync_button">sync_button</string>
+        <string name="sync_button_title">Hauptmenu-Verknüpfung</string>
+        <string name="sync_button_desc">Zeige \"Synchronisieren\" im Menu von Astrid</string>
+        <string name="p_sync_quiet">sync_dialogs</string>
+        <string name="sync_quiet_title">Fenster verstecken</string>
+        <string name="sync_quiet_desc">Verstecke das Sychronisationsergebnis-Fenster</string>
+        <string name="p_sync_background">sync_background</string>
+        <string name="sync_background_title">Im Hintergrund</string>
+        <string name="sync_background_desc">Synchronisieren ohne dich zu stören</string>
+        <string name="sync_error">Synchronisations-Fehler! Entschuldige die Störung! Fehler:</string>
+        <string name="sync_auth_request">
+Bitte logge dich in dein %s Konto ein und authorisiere Astrid deine Daten zu lesen, um synchronisieren zu können.
+\n\n
+Nach der Fertigstellung, starte Astrid neu und komm hierher zurück.
+        </string>
+        <string name="sync_rtm_notes">
+Wilkommen zur Sunchronisierung von Astrid!
+\n\n
+Nicht synchronisiert werden:\n
+- Erinnerungen und Wiederholungen\n
+- In RTM: Löschen, Verschieben und Umbennen von Aufgaben\n
+\n
+Wünsch mir Glück!\n
+        </string>
+        <string name="sync_now">Synchronisiere jetzt!</string>
+        <string name="sync_forget">Persönliche Daten löschen</string>
+        <string name="sync_forget_confirm">Daten für ausgewähltes Gerät löschen?</string>
+        <string name="sync_no_synchronizers">Keine Synchronisiergerät eingestellt!</string>
+       
+    <!-- Dialog Boxes -->  
+    <skip />
+        <string name="loading">Lade...</string>
+        <string name="updating">Aktualisiere Liste...</string>
+        <string name="information_title">Information</string>
+        <string name="question_title">Frage</string>
+        <string name="notify_yes">Aufgabe anzeigen</string>
+        <string name="notify_done">Schon erledigt!</string>
+        <string name="notify_snooze">Schlummern</string>
+        <string name="notify_no">Schließen</string>
+        <string name="notify_snooze_title">Für wie viele Stunden/Minuten schlummern?</string>
+        
+        <string name="delete_title">Löschen</string>        
+        <string name="delete_this_task_title">Diese Aufgabe löschen?</string>
+        <string name="delete_this_tag_title">Diesen Tag von allen Aufgaben entfernen?</string>
+        
+        <string name="stop_timer_title">Den Timer stoppen?</string>
+        
+        <string name="quick_tips">
+Ein paar Dinge über Astrid, die Du vielleicht noch nicht kennst:\n
+\n
+- Tippe einfach los, um eine Aufgabe zu erstellen!\n
+- Drücke beim Bearbeiten einer Aufgabe auf \'Zurück\' um sie zu speichern\n
+- Wähle die Aufgabe aus &amp; drücke 1-4 um schnell die Priorität zu ändern\n
+- Wenn eine Aufgabe ein Frist hat, dann drücke lange auf sie um sie aufzuschieben\n
+\n
+Danke, dass Du Astrid benutzt!\n
+        </string>
+
+     
+    <!-- Notification -->  
+    <skip />
+        
+        <string name="notif_definiteDueDate">Absolute Frist!</string>
+        <string name="notif_preferredDueDate">Zielfrist!</string>
+        <string name="notif_timerStarted">Arbeite an:</string>
+        
+    <!-- Error Messages -->  
+    <skip />
+    
+        <string name="error_opening">Konnte dieses Element nicht finden:</string>
+        <string name="error_saving">Konnte nicht speichern:</string>
+    
+    <!-- Preference Keys. Strings starting with p_* should not be localized -->  
+    <skip />
+
+        <string name="prefs_category_alerts">Erinnerungen</string>
+        
+        <string name="p_notif_quietStart">notif_qstart</string>
+        <string name="prefs_quietStart_title">Ruhestunden beginnen</string>
+        <string name="prefs_quietStart_desc">Stunde, bei der die Ruhestunden beginnen (z.B. 22)</string>
+        
+        <string name="p_notif_quietEnd">notif_qend</string>
+        <string name="prefs_quietEnd_title">Ruhestunden beenden</string>
+        <string name="prefs_quietEnd_desc">Stunde, bei der Astrid aufhört ruhig zu sein (z.B. 08)</string>
+          
+        <string name="p_notif_defaultRemind">notif_default_reminder</string>
+        <string name="prefs_defaultRemind_title">Standarderinnerungen</string>
+        <string name="prefs_defaultRemind_desc">Für neue Aufgaben, in Tagen (z.B. 7). Zum Deaktiviereen leer lassen</string>
+        
+        <string name="p_notif_annoy">notif_annoy</string>
+        <string name="prefs_annoy_title">Hartnäckiger Modus</string>
+        <string name="prefs_annoy_desc">Wenn eingestellt, musst Du die Erinnerung anschauen, um sie zu entfernen</string>
+        
+        <string name="p_notification_ringtone">notification_ringtone</string>
+        <string name="prefs_notification_title">Erinnerungsklingelton</string>
+        <string name="prefs_notification_desc">Wähle einen Klingelton für Astrids Erinnerungen</string>
+
+        <string name="p_notif_icon">notif_theme</string>
+        <string name="prefs_notificon_title">Erinnerungsicon</string>
+        <string name="prefs_notificon_desc">Wähle Astrids Icon für die Benachrichtigunsleiste</string>
+        
+        <string name="prefs_category_appearance">Erscheinungsbild</string>
+            
+        <string name="p_colorize">colorize</string>
+        <string name="prefs_colorize_title">Färbe die Aufgabenliste</string>
+        <string name="prefs_colorize_desc">Unterschiedliche Farben für unterschiedliche Prioritäten</string>
+        
+        <string name="p_fontSize">font_size</string>
+        <string name="prefs_fontSize_title">Schriftart der Aufgabenliste</string>
+        <string name="prefs_fontSize_desc">Schriftart auf der Hautplistenseite (z.B. 22)</string>
+
+        <string name="prefs_category_other">Weiteres</string>
+        
+        <string name="p_nagging">nagging</string>
+        <string name="prefs_nagging_title">Nörgel-Nachrichten</string>
+        <string name="prefs_nagging_desc">Astrids Kommentare zeigen, wenn Du Erinnerungen anschaust oder Aufgaben aufschiebst?</string>
+
+        <string name="p_deadlineTime">deadline_time</string>
+        <string name="prefs_deadlineTime_title">Standardfrist</string>
+        <string name="prefs_deadlineTime_desc"># der Tage ab heute zum Setzten neuer Fristen</string>
+        
+        <string name="displayedFields_PrefScreen_Title">Angezeigte Felder</string>
+        <string name="displayedFields_PrefScreen_Desc">Wähle die in der Aufgabenliste zu zeigenden Felder aus</string>
+        
+        <!-- notification keys (no title, desc, default suffix) should not be localized -->
+        <string name="prefs_titleVisible">titleVisible</string> 
+        <string name="prefs_titleVisible_title">Task Title</string>
+        <string name="prefs_titleVisible_desc">Task description</string>
+        <string name="prefs_titleVisible_default">true</string>
+	    <string name="prefs_deadlineVisible">deadlineVisible</string>
+        <string name="prefs_deadlineVisible_title">Dates</string>
+        <string name="prefs_deadlineVisible_desc">Upcoming deadlines / completed date</string>
+        <string name="prefs_deadlineVisible_default">true</string>
+    	<string name="prefs_timeVisible">timeVisible</string>
+        <string name="prefs_timeVisible_title">Times</string>
+        <string name="prefs_timeVisible_desc">Estimated &amp; Elapsed Times</string>
+        <string name="prefs_timeVisible_default">true</string>
+        <string name="prefs_importanceVisible">importanceVisible</string>
+        <string name="prefs_importanceVisible_title">Importance</string>
+        <string name="prefs_importanceVisible_desc">Task importance indicator</string>
+        <string name="prefs_importanceVisible_default">true</string>
+	    <string name="prefs_tagsVisible">tagsVisible</string>
+        <string name="prefs_tagsVisible_title">Tags</string>
+        <string name="prefs_tagsVisible_desc">Tags associated with this task</string>
+        <string name="prefs_tagsVisible_default">true</string>
+	    <string name="prefs_repeatVisible">repeatVisible</string>
+        <string name="prefs_repeatVisible_title">Repeats</string>
+        <string name="prefs_repeatVisible_desc">Task repeat information</string>
+        <string name="prefs_repeatVisible_default">true</string>
+	    <string name="prefs_reminderVisible">reminderVisible</string>
+        <string name="prefs_reminderVisible_title">Reminders</string>
+        <string name="prefs_reminderVisible_desc">Displayed if this task has reminders</string>
+        <string name="prefs_reminderVisible_default">false</string>
+	    <string name="prefs_notesVisible">notesVisible</string>
+        <string name="prefs_notesVisible_title">Notes</string>
+        <string name="prefs_notesVisible_desc">Notes associated with this task</string>
+        <string name="prefs_notesVisible_default">false</string>
+</resources>

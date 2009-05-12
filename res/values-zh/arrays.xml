@@ -86,11 +86,4 @@
         <item>Astrid</item>
     </string-array>
     
-    <!-- Corresponding to the constants in Preferences.java -->
-    <string-array name="notif_icon_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    
 </resources>
