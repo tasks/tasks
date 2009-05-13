@@ -1,13 +1,17 @@
 package com.timsu.astrid.utilities;
 
-import com.timsu.astrid.sync.SynchronizationService;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
+
+import com.timsu.astrid.R;
+import com.timsu.astrid.activities.SyncPreferences;
+import com.timsu.astrid.sync.SynchronizationService;
 
 public class StartupReceiver extends BroadcastReceiver {
 
@@ -42,11 +46,18 @@ public class StartupReceiver extends BroadcastReceiver {
         	if(latestSetVersion <= 99) {
         		if(Preferences.getSyncOldAutoSyncFrequency(context) != null) {
         			float value = Preferences.getSyncOldAutoSyncFrequency(context);
-        			Preferences.setSyncAutoSyncFrequency(context, 
+        			Preferences.setSyncAutoSyncFrequency(context,
         					Math.round(value * 3600));
+        			DialogUtilities.okDialog(context, context.getResources().getString(
+        			        R.string.sync_upgrade_v99), new OnClickListener() {
+        			    public void onClick(DialogInterface dialog,
+        			            int which) {
+        			        context.startActivity(new Intent(context, SyncPreferences.class));
+        			    }
+        			});
         		}
         	}
-        	
+
             new Thread(new Runnable() {
                 public void run() {
                     Notifications.scheduleAllAlarms(context);
@@ -64,7 +75,7 @@ public class StartupReceiver extends BroadcastReceiver {
         SynchronizationService.setContext(context);
         Intent service = new Intent(context, SynchronizationService.class);
         context.startService(service);
-        
+
         hasStartedUp = true;
     }
 }

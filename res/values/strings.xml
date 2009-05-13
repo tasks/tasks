@@ -260,23 +260,18 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="p_sync_quiet">sync_dialogs</string>
         <string name="sync_quiet_title">Hide Dialogs</string>
         <string name="sync_quiet_desc">Hide the Sync Results dialogs</string>
-        <string name="p_sync_background">sync_background</string>
-        <string name="sync_background_title">In Background</string>
-        <string name="sync_background_desc">Synchronize without bothering you</string>
+        <string name="sync_bgwifi_title">Auto-Sync Wifi Only</string>
+        <string name="sync_bgwifi_desc">If set, auto-sync only happens when Wifi is active</string>
         <string name="sync_error">Sync Error! Sorry for the inconvenience! Error:</string>
         <string name="sync_auth_request">
 In order to synchronize, please log in to your %s account and authorize Astrid to read your data.
 \n\n
 When finished, restart Astrid and come back here.
         </string>
-        <string name="sync_rtm_notes">
-Welcome to Astrid\'s RTM sync!
-\n\n
-Things that don\'t sync:\n
-- Notifications and repeats\n
-- In RTM, deleting, or moving+renaming tasks\n
-\n
-Wish me luck!\n
+        <string name="sync_upgrade_v99">
+Astrid 2.7 now performs synchronization with RTM in the background. You will 
+be directed to the preferences page to configure how often you want this to
+occur (it is a minor drain on battery).
         </string>
         <string name="sync_now">Synchronize Now!</string>
         <string name="sync_forget">Clear Personal Data</string>

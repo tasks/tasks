@@ -12,6 +12,14 @@ import android.util.Log;
 
 import com.timsu.astrid.utilities.Preferences;
 
+/**
+ * SynchronizationService is the service that performs Astrid's background
+ * synchronization with online task managers. Starting this service launches
+ * the timer, which handles timing for synchronization.
+ *
+ * @author Tim Su
+ *
+ */
 public class SynchronizationService extends Service {
 
     /** Service timer */
@@ -32,7 +40,7 @@ public class SynchronizationService extends Service {
     		return;
 
     	Intent service = new Intent(context, SynchronizationService.class);
-    	context.stopService(service);
+    	context.startService(service);
     }
 
     public static void stop() {
