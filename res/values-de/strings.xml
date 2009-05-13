@@ -162,9 +162,9 @@
         <string name="taskEdit_label">Astrid: Neue Aufgabe</string>
         
         <!-- tabs -->
-        <string name="task_edit_tab_1">Allgemein</string>
-        <string name="task_edit_tab_2">Datum/Zeit</string>
-        <string name="task_edit_tab_3">Erinnerungen</string>
+        <string name="taskEdit_tab_basic">Allgemein</string>
+        <string name="taskEdit_tab_dates">Datum/Zeit</string>
+        <string name="taskEdit_tab_alerts">Erinnerungen</string>
         
         <!-- labels -->
         <string name="name_label">Zusammenfassung</string>

@@ -162,9 +162,9 @@
         <string name="taskEdit_label">Astrid: Ny oppgave</string>
         
         <!-- tabs -->
-        <string name="task_edit_tab_1">Grunndata</string>
-        <string name="task_edit_tab_2">Datoer</string>
-        <string name="task_edit_tab_3">Alarmer</string>
+        <string name="taskEdit_tab_basic">Grunndata</string>
+        <string name="taskEdit_tab_dates">Datoer</string>
+        <string name="taskEdit_tab_alerts">Alarmer</string>
         
         <!-- labels -->
         <string name="name_label">Oppsummering</string>

@@ -162,9 +162,9 @@
         <string name="taskEdit_label">Astrid: New Task</string>
         
         <!-- tabs -->
-        <string name="task_edit_tab_1">Basic</string>
-        <string name="task_edit_tab_2">Dates</string>
-        <string name="task_edit_tab_3">Alerts</string>
+        <string name="taskEdit_tab_basic">Basic</string>
+        <string name="taskEdit_tab_dates">Dates</string>
+        <string name="taskEdit_tab_alerts">Alerts</string>
         
         <!-- labels -->
         <string name="name_label">Summary</string>

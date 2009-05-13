@@ -163,9 +163,9 @@
         <string name="taskEdit_label">Astrid: 新任务</string>
         
         <!-- tabs -->
-        <string name="task_edit_tab_1">细目</string>
-        <string name="task_edit_tab_2">时</string>
-        <string name="task_edit_tab_3">闹钟</string>
+        <string name="taskEdit_tab_basic">细目</string>
+        <string name="taskEdit_tab_dates">时</string>
+        <string name="taskEdit_tab_alerts">闹钟</string>
         
         <!-- labels -->
         <string name="name_label">总结</string>

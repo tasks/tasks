@@ -164,9 +164,9 @@
         <string name="taskEdit_label">Astrid: 新規タスク</string>
         
         <!-- tabs -->
-        <string name="task_edit_tab_1">基本情報</string>
-        <string name="task_edit_tab_2">日付</string>
-        <string name="task_edit_tab_3">アラート</string>
+        <string name="taskEdit_tab_basic">基本情報</string>
+        <string name="taskEdit_tab_dates">日付</string>
+        <string name="taskEdit_tab_alerts">アラート</string>
         
         <!-- labels -->
         <string name="name_label">概要</string>

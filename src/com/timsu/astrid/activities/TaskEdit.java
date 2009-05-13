@@ -152,15 +152,15 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                 tabHost.getTabContentView(), true);
 
         tabHost.addTab(tabHost.newTabSpec(TAB_BASIC)
-                .setIndicator("Basic",
+                .setIndicator(r.getString(R.string.taskEdit_tab_basic),
                         r.getDrawable(R.drawable.ic_dialog_info_c))
                 .setContent(R.id.tab_basic));
         tabHost.addTab(tabHost.newTabSpec(TAB_DATES)
-                .setIndicator("Dates",
+                .setIndicator(r.getString(R.string.taskEdit_tab_dates),
                         r.getDrawable(R.drawable.ic_dialog_time_c))
                 .setContent(R.id.tab_dates));
         tabHost.addTab(tabHost.newTabSpec(TAB_ALERTS)
-                .setIndicator("Alerts",
+                .setIndicator(r.getString(R.string.taskEdit_tab_alerts),
                         r.getDrawable(R.drawable.ic_dialog_alert_c))
                 .setContent(R.id.tab_notification));
 
