@@ -259,7 +259,7 @@ public abstract class SynchronizationProvider {
             // remove it from data structures
             data.localChanges.remove(mapping);
             data.localIdToSyncMapping.remove(taskId);
-            data.remoteIdToSyncMapping.remove(mapping);
+            data.remoteIdToSyncMapping.remove(mapping.getRemoteId());
             data.remoteChangeMap.remove(taskId);
 
             // update stats

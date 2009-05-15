@@ -55,7 +55,7 @@
             dates. c.f. Java's SimpleDateFormat -->
         <string name="daysVertical">T\na\ng\ne</string> <!-- vertical labels
             are used in the number dialogs -->
-        <string name="hoursVertical">S\nt\nu\nn\nd\ne\nn</string>
+        <string name="hoursVertical">U\nh\nr</string>
         <plurals name="Ndays">
             <item quantity="one">1 Tag</item>
             <item quantity="other">%d Tage</item>

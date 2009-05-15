@@ -26,7 +26,7 @@ import org.w3c.dom.Text;
 
 /**
  * Represents a single task note.
- * 
+ *
  * @author Edouard Mercier
  * @since 2008.04.22
  */
@@ -50,14 +50,14 @@ public class RtmTaskNote
     created = parseDate(element.getAttribute("created"));
     modified = parseDate(element.getAttribute("modified"));
     title = element.getAttribute("title");
-    
+
     // The note text itself might be split across multiple children of the
     // note element, so get all of the children.
     for (int i=0; i<element.getChildNodes().getLength(); i++) {
     	Text innerText = (Text) element.getChildNodes().item(i);
-    	
+
     	if (text == null) text = "";
-    	text = text.concat(innerText.getData().toString());
+    	text = text.concat(innerText.getData());
     }
   }
 

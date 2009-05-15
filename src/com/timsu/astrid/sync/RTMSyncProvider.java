@@ -246,8 +246,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
                     	postUpdate(new Runnable() {
                             public void run() {
                                 DialogUtilities.okDialog(context,
-                                        "Sorry, list '" + entry.getValue() +
-                                        "' import failed. Try again later!", null);
+                                        "Sorry, import of list '" + entry.getValue() +
+                                        "' failed. Try again later!", null);
                             }
                         });
                         continue;
@@ -263,6 +263,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
             Preferences.setSyncRTMLastSync(context, syncTime);
 
         } catch (Exception e) {
+            Log.e("rtmsync", "Error in synchronization", e);
             showError(context, e, null);
 
         } finally {
@@ -324,7 +325,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
         if(dueDate != remoteTask.dueDate && dueDate != null &&
                 !dueDate.equals(remoteTask.dueDate))
             rtmService.tasks_setDueDate(timeline, id.listId, id.taskSeriesId,
-                id.taskId, dueDate, dueDate != null);
+                id.taskId, dueDate, true);
 
         // progress
         if(task.progressPercentage != null && !task.progressPercentage.equals(

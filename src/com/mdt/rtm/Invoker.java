@@ -39,7 +39,6 @@ import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.DefaultConnectionReuseStrategy;
-import org.apache.http.impl.DefaultHttpClientConnection;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.params.BasicHttpParams;
@@ -114,8 +113,6 @@ public class Invoker {
   private BasicHttpProcessor httpProcessor;
 
   private HttpClient httpClient;
-
-  private DefaultHttpClientConnection connection;
 
   public Invoker(String serverHostName, int serverPortNumber, String serviceRelativeUri, ApplicationInfo applicationInfo)
       throws ServiceInternalException
@@ -315,18 +312,7 @@ public class Invoker {
 //    }
     finally
     {
-      if (connection != null && (response == null || connectionStrategy.keepAlive(response, context) == false))
-      {
-        try
-        {
-          connection.close();
-        }
-        catch (IOException exception)
-        {
-          Log.w(TAG, new StringBuffer("Could not close properly the socket connection to '").append(connection.getRemoteAddress()).append("' on port ").append(
-              connection.getRemotePort()).toString(), exception);
-        }
-      }
+        httpClient.getConnectionManager().closeExpiredConnections();
     }
 
     lastInvocation = System.currentTimeMillis();

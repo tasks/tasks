@@ -99,7 +99,7 @@ public abstract class RtmData
     return result.toString();
   }
 
-  public static Date parseDate(String s)
+  public synchronized static Date parseDate(String s)
   {
     try
     {
@@ -112,7 +112,7 @@ public abstract class RtmData
     }
   }
 
-  public static String formatDate(Date d)
+  public synchronized static String formatDate(Date d)
   {
     return DATE_FORMAT.format(new Date(d.getTime() - TimeZone.getDefault().getOffset(d.getTime()))) + "Z";
   }

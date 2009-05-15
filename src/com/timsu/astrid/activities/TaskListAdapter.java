@@ -296,7 +296,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     nameValue = "(" + r.getString(R.string.taskList_hiddenPrefix) + ") " + nameValue;
                     task.putCachedLabel(KEY_HIDDEN, CACHE_TRUE);
                 }
-                cachedResult = nameValue.toString();
+                cachedResult = nameValue;
                 task.putCachedLabel(KEY_NAME, cachedResult);
             }
             name.setText(cachedResult);

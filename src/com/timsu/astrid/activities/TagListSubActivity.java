@@ -117,7 +117,9 @@ public class TagListSubActivity extends SubActivity {
         SIZE {
             @Override
             int compareTo(TagListSubActivity self, TagModelForView arg0, TagModelForView arg1) {
-                return self.tagToTaskCount.get(arg1) - self.tagToTaskCount.get(arg0);
+                synchronized(self) {
+                    return self.tagToTaskCount.get(arg1) - self.tagToTaskCount.get(arg0);
+                }
             }
         };
 
@@ -169,13 +171,14 @@ public class TagListSubActivity extends SubActivity {
 
         handler.post(new Runnable() {
             public void run() {
-                // set up our adapter
-                final TagListAdapter tagAdapter = new TagListAdapter(getParent(),
-                        android.R.layout.simple_list_item_1, tagArray,
-                        tagToTaskCount);
-
-                // set up ui components
-                setUpListUI(tagAdapter);
+                synchronized(TagListSubActivity.this) {
+                    // set up our adapter
+                    final TagListAdapter tagAdapter = new TagListAdapter(getParent(),
+                            android.R.layout.simple_list_item_1, tagArray,
+                            tagToTaskCount);
+                    // set up ui components
+                    setUpListUI(tagAdapter);
+                }
                 loadingText.setVisibility(View.GONE);
             }
         });

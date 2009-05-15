@@ -137,7 +137,7 @@ public class TaskListSubActivity extends SubActivity {
     static boolean syncPreferencesOpened = false;
 
     // other instance variables
-    class TaskListContext {
+    static class TaskListContext {
         Map<TagIdentifier, TagModelForView> tagMap;
         ArrayList<TaskModelForList> taskArray;
         HashMap<Long, TaskModelForList> tasksById;

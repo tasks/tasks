@@ -153,7 +153,7 @@ public class TagController extends AbstractController {
                 AbstractTagModel.NAME + " = ?", new String[] {name}, null, null, null, null);
 
         try {
-            if (cursor != null) {
+            if (cursor != null && cursor.getCount() > 0) {
                 cursor.moveToFirst();
                 TagModelForView model = new TagModelForView(cursor);
                 return model;

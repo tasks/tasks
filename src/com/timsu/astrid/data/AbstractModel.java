@@ -133,7 +133,7 @@ public abstract class AbstractModel {
         setValues.put(field, newValue);
     }
 
-    protected static HashMap<Class<?>, HashMap<String, Integer>>
+    protected static final HashMap<Class<?>, HashMap<String, Integer>>
         columnIndexCache = new HashMap<Class<?>, HashMap<String, Integer>>();
     private int getColumnIndex(String field) {
         HashMap<String, Integer> classCache;
