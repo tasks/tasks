@@ -289,6 +289,8 @@ public abstract class SynchronizationProvider {
                 remoteConflict = data.remoteChangeMap.get(mapping.getTask());
                 localTask.mergeWithOther(remoteConflict);
                 stats.mergedTasks++;
+            } else {
+                stats.remoteUpdatedTasks++;
             }
 
             try {
@@ -308,8 +310,7 @@ public abstract class SynchronizationProvider {
                 TaskProxy newTask = helper.refetchTask(remoteConflict);
                 remoteTasks.remove(remoteConflict);
                 remoteTasks.add(newTask);
-            } else
-                stats.remoteUpdatedTasks++;
+            }
         }
 
         // 4. REMOTE SYNC load remote information

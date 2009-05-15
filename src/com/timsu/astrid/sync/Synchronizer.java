@@ -84,11 +84,14 @@ public class Synchronizer {
 
     /** Clears tokens of activated services */
     public static void clearUserData(Activity activity) {
+        Synchronizer synchronizer = new Synchronizer(false);
         for(ServiceWrapper serviceWrapper : ServiceWrapper.values()) {
             if(serviceWrapper.isActivated(activity)) {
+                serviceWrapper.service.synchronizer = synchronizer;
                 serviceWrapper.service.clearPersonalData(activity);
             }
         }
+        synchronizer.closeControllers();
     }
 
     // --- internal synchronization logic
