@@ -26,6 +26,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
+import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
@@ -183,8 +184,10 @@ public class Synchronizer {
 
         if(getSingleTaskForSync() != null)
             Preferences.setSyncLastSync(context, new Date());
-        if(!isService)
+        if(!isService) {
             SynchronizationService.start();
+            TaskListSubActivity.shouldRefreshTaskList = true;
+        }
     }
 
     // --- controller stuff

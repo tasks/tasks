@@ -38,6 +38,7 @@ import com.timsu.astrid.data.sync.SyncMapping;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
+import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForSync;
@@ -326,7 +327,8 @@ public abstract class SynchronizationProvider {
             // if it's new, create a new task model
             if(!data.remoteIdToSyncMapping.containsKey(remoteTask.getRemoteId())) {
                 // if it's new & deleted, forget about it
-                if(remoteTask.isDeleted()) {
+                if(remoteTask.isDeleted() || remoteTask.progressPercentage ==
+                        AbstractTaskModel.COMPLETE_PERCENTAGE) {
                     continue;
                 }
 

@@ -266,7 +266,7 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="sync_auth_request">
 In order to synchronize, please log in to your %s account and authorize Astrid to read your data.
 \n\n
-When finished, restart Astrid and come back here.
+When finished, restart Astrid.
         </string>
         <string name="sync_upgrade_v99">
 Astrid 2.7 now performs synchronization with RTM in the background. You will 

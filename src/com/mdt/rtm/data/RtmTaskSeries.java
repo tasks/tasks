@@ -25,8 +25,6 @@ import java.util.List;
 
 import org.w3c.dom.Element;
 
-import android.util.Log;
-
 /**
  *
  * @author Will Ross Jun 22, 2007
@@ -76,11 +74,19 @@ public class RtmTaskSeries extends RtmData {
         modified = parseDate(elt.getAttribute("modified"));
         name = elt.getAttribute("name");
         source = elt.getAttribute("source");
-        task = new RtmTask(child(elt, "task"));
-
-        if (children(elt, "task").size() > 1) {
-            Log.e("rtmsync", "WARANING: Assumption incorrect: found a " +
-            		"TaskSeries with more than one child Task.");
+        List<Element> children = children(elt, "task");
+        if (children.size() > 1) {
+            // assume it's a repeating task - pick the child with nearest
+            // but not expired due date
+            RtmTask selectedTask = null;
+            for(Element element : children) {
+                RtmTask childTask = new RtmTask(element);
+                if(childTask.getCompleted() == null)
+                    selectedTask = childTask;
+            }
+            task = selectedTask;
+        } else {
+            task = new RtmTask(child(elt, "task"));
         }
         notes = new RtmTaskNotes(child(elt, "notes"));
         locationId = elt.getAttribute("location_id");

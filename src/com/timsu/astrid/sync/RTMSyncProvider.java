@@ -51,6 +51,7 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.activities.TaskList;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.sync.SyncMapping;
+import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskModelForSync;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
@@ -313,7 +314,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
         	dueDate = task.definiteDueDate;
         if(dueDate == null)
             dueDate = task.preferredDueDate;
-        if(dueDate != remoteTask.dueDate &&
+        if(dueDate != remoteTask.dueDate && dueDate != null &&
                 !dueDate.equals(remoteTask.dueDate))
             rtmService.tasks_setDueDate(timeline, id.listId, id.taskSeriesId,
                 id.taskId, dueDate, dueDate != null);
@@ -413,7 +414,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
             }
             task.dueDate = due;
         }
-        task.progressPercentage = (rtmTask.getCompleted() == null) ? 0 : 100;
+        task.progressPercentage = (rtmTask.getCompleted() == null) ? 0 :
+            AbstractTaskModel.COMPLETE_PERCENTAGE;
         task.importance = Importance.values()[rtmTask.getPriority().ordinal()];
 
         return task;
