@@ -246,7 +246,7 @@ public class TaskController extends AbstractController {
             if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
                     values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
                         == AbstractTaskModel.COMPLETE_PERCENTAGE) {
-                onTaskSetCompleted(task, values);
+                onTaskCompleted(task, values);
             }
 
             if(!(task instanceof TaskModelForSync)) {
@@ -267,6 +267,12 @@ public class TaskController extends AbstractController {
      * @param values
      */
     private void onTaskSave(AbstractTaskModel task, ContentValues values) {
+        // save task completed date
+        if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
+                values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
+                    == AbstractTaskModel.COMPLETE_PERCENTAGE) {
+            values.put(AbstractTaskModel.COMPLETION_DATE, System.currentTimeMillis());
+        }
 
         // task timer was updated, update notification bar
         if(values.containsKey(AbstractTaskModel.TIMER_START)) {
@@ -323,8 +329,7 @@ public class TaskController extends AbstractController {
      * @param task task to process
      * @param values mutable map of values to save
      */
-    private void onTaskSetCompleted(AbstractTaskModel task, ContentValues values) {
-        values.put(AbstractTaskModel.COMPLETION_DATE, System.currentTimeMillis());
+    private void onTaskCompleted(AbstractTaskModel task, ContentValues values) {
         Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
                 TaskModelForHandlers.FIELD_LIST);
         TaskModelForHandlers model = new TaskModelForHandlers(cursor, values);
