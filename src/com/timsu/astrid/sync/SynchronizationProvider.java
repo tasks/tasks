@@ -108,6 +108,12 @@ public abstract class SynchronizationProvider {
     	return synchronizer.isService();
     }
 
+    /** Check whether the synchronization request wants to only transmit
+     * one specific task. Returns null if this is not the case */
+    protected TaskIdentifier getSingleTaskForSync() {
+        return synchronizer.getSingleTaskForSync();
+    }
+
     /** Utility method for showing synchronization errors. If message is null,
      *  the contents of the throwable is displayed.
      */
@@ -232,7 +238,7 @@ public abstract class SynchronizationProvider {
             syncController.saveSyncMapping(mapping);
             data.localIdToSyncMapping.put(taskId, mapping);
 
-            TaskProxy localTask = new TaskProxy(getId(), remoteId, false);
+            TaskProxy localTask = new TaskProxy(getId(), remoteId);
             localTask.readFromTaskModel(task);
             localTask.readTagsFromController(taskId, tagController, data.tags);
             helper.pushTask(localTask, null, mapping);
@@ -264,8 +270,7 @@ public abstract class SynchronizationProvider {
 
         // 3. UPDATE: for each updated local task
         for(SyncMapping mapping : data.localChanges) {
-            TaskProxy localTask = new TaskProxy(getId(), mapping.getRemoteId(),
-                    false);
+            TaskProxy localTask = new TaskProxy(getId(), mapping.getRemoteId());
             TaskModelForSync task = taskController.fetchTaskForSync(
                     mapping.getTask());
             localTask.readFromTaskModel(task);
@@ -298,7 +303,7 @@ public abstract class SynchronizationProvider {
             }
 
             // re-fetch remote task
-            if(remoteConflict != null) {
+            if(remoteConflict != null || getSingleTaskForSync() != null) {
                 TaskProxy newTask = helper.refetchTask(remoteConflict);
                 remoteTasks.remove(remoteConflict);
                 remoteTasks.add(newTask);
@@ -441,7 +446,7 @@ public abstract class SynchronizationProvider {
 
         public SyncData(Context context, LinkedList<TaskProxy> remoteTasks) {
             // 1. get data out of the database
-            mappings = synchronizer.getSyncController(context).getSyncMapping(getId());
+            mappings = synchronizer.getSyncController(context).getSyncMappings(getId());
             activeTasks = synchronizer.getTaskController(context).getActiveTaskIdentifiers();
             allTasks = synchronizer.getTaskController(context).getAllTaskIdentifiers();
             tags = synchronizer.getTagController(context).getAllTagsAsMap();
@@ -449,11 +454,8 @@ public abstract class SynchronizationProvider {
             //  2. build helper data structures
             remoteIdToSyncMapping = new HashMap<String, SyncMapping>();
             localIdToSyncMapping = new HashMap<TaskIdentifier, SyncMapping>();
-            localChanges = new HashSet<SyncMapping>();
             mappedTasks = new HashSet<TaskIdentifier>();
             for(SyncMapping mapping : mappings) {
-                if(mapping.isUpdated())
-                    localChanges.add(mapping);
                 remoteIdToSyncMapping.put(mapping.getRemoteId(), mapping);
                 localIdToSyncMapping.put(mapping.getTask(), mapping);
                 mappedTasks.add(mapping.getTask());
@@ -475,10 +477,21 @@ public abstract class SynchronizationProvider {
             }
 
             // 4. build data structures of things to do
-            newlyCreatedTasks = new HashSet<TaskIdentifier>(activeTasks);
-            newlyCreatedTasks.removeAll(mappedTasks);
-            deletedTasks = new HashSet<TaskIdentifier>(mappedTasks);
-            deletedTasks.removeAll(allTasks);
+            if(getSingleTaskForSync() != null) {
+                newlyCreatedTasks = new HashSet<TaskIdentifier>();
+                deletedTasks = new HashSet<TaskIdentifier>();
+                localChanges = new HashSet<SyncMapping>();
+            } else {
+                newlyCreatedTasks = new HashSet<TaskIdentifier>(activeTasks);
+                newlyCreatedTasks.removeAll(mappedTasks);
+                deletedTasks = new HashSet<TaskIdentifier>(mappedTasks);
+                deletedTasks.removeAll(allTasks);
+                localChanges = new HashSet<SyncMapping>();
+                for(SyncMapping mapping : localIdToSyncMapping.values()) {
+                    if(mapping.isUpdated())
+                        localChanges.add(mapping);
+                }
+            }
         }
     }
 
@@ -500,7 +513,8 @@ public abstract class SynchronizationProvider {
             progressDialog.hide();
             Resources r = context.getResources();
 
-            if(Preferences.shouldSuppressSyncDialogs(context)) {
+            if(Preferences.shouldSuppressSyncDialogs(context) ||
+                    getSingleTaskForSync() != null) {
                 return;
             }
 

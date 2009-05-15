@@ -50,6 +50,7 @@ public class TaskModelForSync extends AbstractTaskModel implements Notifiable {
         LAST_NOTIFIED,
         NOTIFICATIONS,
         NOTIFICATION_FLAGS,
+        FLAGS,
     };
 
     // --- constructors
@@ -151,6 +152,11 @@ public class TaskModelForSync extends AbstractTaskModel implements Notifiable {
         return super.getLastNotificationDate();
     }
 
+    @Override
+    public int getFlags() {
+        return super.getFlags();
+    }
+
     // --- setters
 
     @Override
@@ -221,6 +227,11 @@ public class TaskModelForSync extends AbstractTaskModel implements Notifiable {
     @Override
     public void setNotificationIntervalSeconds(Integer intervalInSeconds) {
         super.setNotificationIntervalSeconds(intervalInSeconds);
+    }
+
+    @Override
+    public void setFlags(int flags) {
+        super.setFlags(flags);
     }
 }
 

@@ -36,11 +36,14 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.timsu.astrid.activities.TaskEdit;
+import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
+import com.timsu.astrid.sync.Synchronizer;
+import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.Notifications;
 
 /**
@@ -239,6 +242,13 @@ public class TaskController extends AbstractController {
             saveSucessful = database.update(TASK_TABLE_NAME, values,
                     KEY_ROWID + "=" + id, null) > 0;
 
+            // task was completed
+            if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
+                    values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
+                        == AbstractTaskModel.COMPLETE_PERCENTAGE) {
+                onTaskSetCompleted(task, values);
+            }
+
             if(!(task instanceof TaskModelForSync)) {
                 SyncDataController syncController = new SyncDataController(context);
                 syncController.open();
@@ -257,13 +267,6 @@ public class TaskController extends AbstractController {
      * @param values
      */
     private void onTaskSave(AbstractTaskModel task, ContentValues values) {
-
-    	// task was completed
-        if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
-                values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
-                    == AbstractTaskModel.COMPLETE_PERCENTAGE) {
-            onTaskSetCompleted(task, values);
-        }
 
         // task timer was updated, update notification bar
         if(values.containsKey(AbstractTaskModel.TIMER_START)) {
@@ -322,16 +325,26 @@ public class TaskController extends AbstractController {
      */
     private void onTaskSetCompleted(AbstractTaskModel task, ContentValues values) {
         values.put(AbstractTaskModel.COMPLETION_DATE, System.currentTimeMillis());
+        Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
+                TaskModelForHandlers.FIELD_LIST);
+        TaskModelForHandlers model = new TaskModelForHandlers(cursor, values);
 
         // handle repeat
-        Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
-                TaskModelForRepeat.FIELD_LIST);
-        TaskModelForRepeat repeatModel = new TaskModelForRepeat(cursor, values);
-        RepeatInfo repeatInfo = repeatModel.getRepeat();
+        RepeatInfo repeatInfo = model.getRepeat();
         if(repeatInfo != null)
-            repeatModel.repeatTaskBy(context, this, repeatInfo);
-        cursor.close();
+            model.repeatTaskBy(context, this, repeatInfo);
 
+        // handle sync-on-complete
+        if((model.getFlags() & TaskModelForHandlers.FLAG_SYNC_ON_COMPLETE) > 0) {
+            Synchronizer synchronizer = new Synchronizer(model.getTaskIdentifier());
+            synchronizer.synchronize(context, new SynchronizerListener() {
+                public void onSynchronizerFinished(int numServicesSynced) {
+                    TaskListSubActivity.shouldRefreshTaskList = true;
+                }
+            });
+        }
+
+        cursor.close();
         cleanupTask(task.getTaskIdentifier(), repeatInfo != null);
     }
 

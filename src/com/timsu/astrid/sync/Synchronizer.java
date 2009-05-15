@@ -31,6 +31,7 @@ import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
+import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.utilities.Preferences;
 
 /**
@@ -50,8 +51,16 @@ public class Synchronizer {
 
     // --- public interface
 
+    /** Synchronize all tasks */
     public Synchronizer(boolean isService) {
     	this.isService = isService;
+    	singleTaskForSync = null;
+    }
+
+    /** Synchronize a specific task only */
+    public Synchronizer(TaskIdentifier task) {
+        isService = false;
+        singleTaskForSync = task;
     }
 
     public interface SynchronizerListener {
@@ -122,18 +131,26 @@ public class Synchronizer {
     // Internal state for the synchronization process
 
     /** Current step in the sync process */
-    private int currentStep;
+    private int currentStep = 0;
 
     /** # of services synchronized */
-    private int servicesSynced;
+    private int servicesSynced = 0;
 
     /** On finished callback */
-    private SynchronizerListener callback;
+    private SynchronizerListener callback = null;
 
-    private boolean isService;
+    /** Whether this sync is initiated by a background service */
+    private final boolean isService;
+
+    /** The single task to synchronize, if applicable */
+    private final TaskIdentifier singleTaskForSync;
 
     boolean isService() {
     	return isService;
+    }
+
+    TaskIdentifier getSingleTaskForSync() {
+        return singleTaskForSync;
     }
 
     /** Called to do the next step of synchronization. */
@@ -161,12 +178,13 @@ public class Synchronizer {
     /** Called at the end of sync. */
     private void finishSynchronization(final Context context) {
         closeControllers();
-        Preferences.setSyncLastSync(context, new Date());
         if(callback != null)
             callback.onSynchronizerFinished(servicesSynced);
 
+        if(getSingleTaskForSync() != null)
+            Preferences.setSyncLastSync(context, new Date());
         if(!isService)
-        	SynchronizationService.start();
+            SynchronizationService.start();
     }
 
     // --- controller stuff

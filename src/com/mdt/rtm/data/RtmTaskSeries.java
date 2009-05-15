@@ -22,9 +22,10 @@ package com.mdt.rtm.data;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.w3c.dom.Element;
+
+import android.util.Log;
 
 /**
  *
@@ -32,117 +33,121 @@ import org.w3c.dom.Element;
  */
 public class RtmTaskSeries extends RtmData {
 
-  private static final Logger log = Logger.getLogger("TaskSeries");
+    private final String id;
 
-  private final String id;
+    private final Date created;
 
-  private final Date created;
+    private final Date modified;
 
-  private final Date modified;
+    private final String name;
 
-  private final String name;
+    private final String source;
 
-  private final String source;
+    private final RtmTask task;
 
-  private final RtmTask task;
+    private final LinkedList<String> tags;
 
-  private final LinkedList<String> tags;
+    private final RtmTaskNotes notes;
 
-  private final RtmTaskNotes notes;
+    private final String locationId;
 
-  private final String locationId;
+    private final String url;
 
-  private final String url;
+    private final boolean hasRecurrence;
 
-  public RtmTaskSeries(String id, Date created, Date modified, String name, String source, RtmTask task) {
-    this.id = id;
-    this.created = created;
-    this.modified = modified;
-    this.name = name;
-    this.source = source;
-    this.task = task;
-    this.locationId = null;
-    notes = null;
-    url = null;
-    tags = null;
-  }
-
-  public RtmTaskSeries(Element elt) {
-    id = elt.getAttribute("id");
-    created = parseDate(elt.getAttribute("created"));
-    modified = parseDate(elt.getAttribute("modified"));
-    name = elt.getAttribute("name");
-    source = elt.getAttribute("source");
-    task = new RtmTask(child(elt, "task"));
-
-    if (children(elt, "task").size() > 1) {
-      log.severe("WARANING: Assumption incorrect: found a TaskSeries with more than one child Task.");
-    }
-    notes = new RtmTaskNotes(child(elt, "notes"));
-    locationId = elt.getAttribute("location_id");
-    url = elt.getAttribute("url");
-
-    Element elementTags = child(elt, "tags");
-    if(elementTags.getChildNodes().getLength() > 0) {
-        List<Element> elementTagList = children(elementTags, "tag");
-        tags = new LinkedList<String>();
-        for (Element elementTag : elementTagList) {
-            String tag = text(elementTag);
-            if(tag != null)
-                tags.add(tag);
-        }
-    } else {
+    public RtmTaskSeries(String id, Date created, Date modified, String name,
+            String source, RtmTask task) {
+        this.id = id;
+        this.created = created;
+        this.modified = modified;
+        this.name = name;
+        this.source = source;
+        this.task = task;
+        this.locationId = null;
+        notes = null;
+        url = null;
         tags = null;
+        hasRecurrence = false;
     }
-  }
 
-  public String getId() {
-    return id;
-  }
+    public RtmTaskSeries(Element elt) {
+        id = elt.getAttribute("id");
+        created = parseDate(elt.getAttribute("created"));
+        modified = parseDate(elt.getAttribute("modified"));
+        name = elt.getAttribute("name");
+        source = elt.getAttribute("source");
+        task = new RtmTask(child(elt, "task"));
 
-  public Date getCreated() {
-    return created;
-  }
+        if (children(elt, "task").size() > 1) {
+            Log.e("rtmsync", "WARANING: Assumption incorrect: found a " +
+            		"TaskSeries with more than one child Task.");
+        }
+        notes = new RtmTaskNotes(child(elt, "notes"));
+        locationId = elt.getAttribute("location_id");
+        url = elt.getAttribute("url");
+        hasRecurrence = children(elt, "rrule").size() > 0;
 
-  public Date getModified() {
-    return modified;
-  }
+        Element elementTags = child(elt, "tags");
+        if (elementTags.getChildNodes().getLength() > 0) {
+            List<Element> elementTagList = children(elementTags, "tag");
+            tags = new LinkedList<String>();
+            for (Element elementTag : elementTagList) {
+                String tag = text(elementTag);
+                if (tag != null)
+                    tags.add(tag);
+            }
+        } else {
+            tags = null;
+        }
+    }
 
-  public String getName() {
-    return name;
-  }
+    public String getId() {
+        return id;
+    }
 
-  public String getSource() {
-    return source;
-  }
+    public Date getCreated() {
+        return created;
+    }
 
-  public RtmTask getTask() {
-    return task;
-  }
+    public Date getModified() {
+        return modified;
+    }
 
-  public LinkedList<String> getTags() {
-      return tags;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public RtmTaskNotes getNotes()
-  {
-    return notes;
-  }
+    public String getSource() {
+        return source;
+    }
 
-  public String getLocationId()
-  {
-    return locationId;
-  }
+    public RtmTask getTask() {
+        return task;
+    }
 
-  @Override
-  public String toString()
-  {
-    return "TaskSeries<" + id + "," + name + ">";
-  }
+    public LinkedList<String> getTags() {
+        return tags;
+    }
 
-  public String getURL()
-  {
-    return url;
-  }
+    public RtmTaskNotes getNotes() {
+        return notes;
+    }
+
+    public String getLocationId() {
+        return locationId;
+    }
+
+    @Override
+    public String toString() {
+        return "TaskSeries<" + id + "," + name + ">";
+    }
+
+    public String getURL() {
+        return url;
+    }
+
+    public boolean hasRecurrence() {
+        return hasRecurrence;
+    }
 
 }

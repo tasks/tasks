@@ -59,7 +59,7 @@ public class SyncDataController extends AbstractController {
     // --- sync mapping
 
     /** Get all mappings for the given synchronization service */
-    public HashSet<SyncMapping> getSyncMapping(int syncServiceId) throws SQLException {
+    public HashSet<SyncMapping> getSyncMappings(int syncServiceId) throws SQLException {
         HashSet<SyncMapping> list = new HashSet<SyncMapping>();
         Cursor cursor = syncDatabase.query(SYNC_TABLE_NAME,
                 SyncMapping.FIELD_LIST,
@@ -75,6 +75,26 @@ public class SyncDataController extends AbstractController {
             } while(!cursor.isLast());
 
             return list;
+        } finally {
+            cursor.close();
+        }
+    }
+
+    /** Get mapping for given task */
+    public SyncMapping getSyncMapping(int syncServiceId, TaskIdentifier taskId)
+            throws SQLException {
+        Cursor cursor = syncDatabase.query(SYNC_TABLE_NAME,
+                SyncMapping.FIELD_LIST,
+                SyncMapping.SYNC_SERVICE + " = ? AND " +
+                    SyncMapping.TASK + " = ?",
+                new String[] { "" + syncServiceId, "" + taskId.getId() },
+                null, null, null);
+
+        try {
+            if(cursor.getCount() == 0)
+                return null;
+            cursor.moveToNext();
+            return new SyncMapping(cursor);
         } finally {
             cursor.close();
         }

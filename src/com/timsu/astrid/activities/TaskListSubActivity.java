@@ -131,7 +131,7 @@ public class TaskListSubActivity extends SubActivity {
 
     // indicator flag set if task list should be refreshed (something changed
     // in another activity)
-    static boolean shouldRefreshTaskList = false;
+    public static boolean shouldRefreshTaskList = false;
 
     // indicator flag set if synchronization window has been opened & closed
     static boolean syncPreferencesOpened = false;

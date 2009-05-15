@@ -41,10 +41,12 @@ import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
  */
 public class TaskProxy {
 
-    TaskProxy(int syncServiceId, String syncTaskId, boolean isDeleted) {
+    public static final Date NO_DATE_SET = new Date(0);
+    public static final RepeatInfo NO_REPEAT_SET = new RepeatInfo(RepeatInterval.DAYS, 0);
+
+    TaskProxy(int syncServiceId, String syncTaskId) {
         this.syncServiceId = syncServiceId;
         this.syncTaskId = syncTaskId;
-        this.isDeleted = isDeleted;
     }
 
     // --- fill these out
@@ -67,7 +69,12 @@ public class TaskProxy {
 
     Integer            estimatedSeconds    = null;
     Integer            elapsedSeconds      = null;
-    Integer            repeatEveryNSeconds = null;
+    RepeatInfo         repeatInfo          = null;
+
+    Boolean            syncOnComplete      = null;
+
+    /** was the task deleted on the remote server */
+    boolean            isDeleted           = false;
 
     // --- internal state
 
@@ -77,8 +84,6 @@ public class TaskProxy {
     /** id of this particular remote task */
     private String     syncTaskId;
 
-    /** was the task deleted on the remote server */
-    private boolean    isDeleted           = false;
 
     public int getSyncServiceId() {
         return syncServiceId;
@@ -125,8 +130,10 @@ public class TaskProxy {
             estimatedSeconds = other.estimatedSeconds;
         if(other.elapsedSeconds != null)
             elapsedSeconds = other.elapsedSeconds;
-        if(other.repeatEveryNSeconds != null)
-            repeatEveryNSeconds = other.repeatEveryNSeconds;
+        if(other.repeatInfo != null)
+            repeatInfo = other.repeatInfo;
+        if(other.syncOnComplete != null)
+            syncOnComplete = other.syncOnComplete;
     }
 
     /** Read from the given task model */
@@ -143,10 +150,8 @@ public class TaskProxy {
         hiddenUntil = task.getHiddenUntil();
         estimatedSeconds = task.getEstimatedSeconds();
         elapsedSeconds = task.getElapsedSeconds();
-        RepeatInfo repeatInfo = task.getRepeat();
-        if(repeatInfo != null) {
-            repeatEveryNSeconds = (int)(repeatInfo.shiftDate(new Date(0)).getTime()/1000);
-        }
+        syncOnComplete = (task.getFlags() & TaskModelForSync.FLAG_SYNC_ON_COMPLETE) > 0;
+        repeatInfo = task.getRepeat();
     }
 
     /** Read tags from the given tag controller */
@@ -199,22 +204,15 @@ public class TaskProxy {
             task.setEstimatedSeconds(estimatedSeconds);
         if(elapsedSeconds != null)
             task.setElapsedSeconds(elapsedSeconds);
+        if(syncOnComplete != null)
+            task.setFlags(task.getFlags() | TaskModelForSync.FLAG_SYNC_ON_COMPLETE);
 
         // this is inaccurate. =/
-        if(repeatEveryNSeconds != null) {
-            RepeatInterval repeatInterval;
-            int repeatValue;
-            if(repeatEveryNSeconds < 7 * 24 * 3600) {
-                repeatInterval = RepeatInterval.DAYS;
-                repeatValue = repeatEveryNSeconds / (24 * 3600);
-            } else if(repeatEveryNSeconds < 30 * 24 * 3600) {
-                repeatInterval = RepeatInterval.WEEKS;
-                repeatValue = repeatEveryNSeconds / (7 * 24 * 3600);
-            } else {
-                repeatInterval = RepeatInterval.MONTHS;
-                repeatValue = repeatEveryNSeconds / (30 * 24 * 3600);
-            }
-            task.setRepeat(new RepeatInfo(repeatInterval, repeatValue));
+        if(repeatInfo != null) {
+            if(repeatInfo == NO_REPEAT_SET)
+                task.setRepeat(null);
+            else
+                task.setRepeat(repeatInfo);
         }
     }
 }

@@ -45,7 +45,7 @@ import com.timsu.astrid.utilities.Preferences;
 public abstract class AbstractTaskModel extends AbstractModel {
 
     /** Version number of this model */
-    static final int        VERSION                = 5;
+    static final int        VERSION                = 6;
 
     public static final int COMPLETE_PERCENTAGE    = 100;
 
@@ -69,6 +69,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
     static final String     CREATION_DATE          = "creationDate";
     static final String     COMPLETION_DATE        = "completionDate";
     static final String     CALENDAR_URI           = "calendarUri";
+    static final String     FLAGS                  = "flags";
     // reserved fields ---
     static final String     BLOCKING_ON            = "blockingOn";
 
@@ -77,6 +78,9 @@ public abstract class AbstractTaskModel extends AbstractModel {
     public static final int NOTIFY_AT_DEADLINE     = 1 << 1;
     public static final int NOTIFY_AFTER_DEADLINE  = 1 << 2;
     public static final int NOTIFY_NONSTOP         = 1 << 3;
+
+    // other flags
+    public static final int FLAG_SYNC_ON_COMPLETE  = 1 << 0;
 
     /** Number of bits to shift repeat value by */
     public static final int REPEAT_VALUE_OFFSET    = 3;
@@ -103,6 +107,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
         defaultValues.put(REPEAT, 0);
         defaultValues.put(COMPLETION_DATE, (Long)null);
         defaultValues.put(CALENDAR_URI, (String)null);
+        defaultValues.put(FLAGS, 0);
     }
 
     // --- database helper
@@ -137,6 +142,7 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 append(NOTIFICATION_FLAGS).append(" integer,").
                 append(LAST_NOTIFIED).append(" integer,").
                 append(REPEAT).append(" integer,").
+                append(FLAGS).append(" integer,").
                 append(CREATION_DATE).append(" integer,").
                 append(COMPLETION_DATE).append(" integer,").
                 append(CALENDAR_URI).append(" text").
@@ -202,6 +208,15 @@ public abstract class AbstractTaskModel extends AbstractModel {
                     Log.e("astrid", "Error updating table!", e);
                 }
 
+            case 5:
+                sql = new StringBuilder().append("ALTER TABLE ").
+                append(tableName).append(" ADD COLUMN ").
+                append(FLAGS).append(" integer").toString();
+                try {
+                    db.execSQL(sql);
+                } catch (Exception e) {
+                    Log.e("astrid", "Error updating table!", e);
+                }
                 break;
 
             default:
@@ -282,6 +297,8 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 getLastNotificationDate();
             else if(field.equals(REPEAT))
                 getRepeat();
+            else if(field.equals(FLAGS))
+                getFlags();
         }
     }
 
@@ -451,6 +468,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
             return uri;
     }
 
+    protected int getFlags() {
+        return retrieveInteger(FLAGS);
+    }
+
     // --- setters
 
     protected void setName(String name) {
@@ -540,6 +561,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
     protected void setCalendarUri(String uri) {
         putIfChangedFromDatabase(CALENDAR_URI, uri);
+    }
+
+    protected void setFlags(int flags) {
+        putIfChangedFromDatabase(FLAGS, flags);
     }
 
     // --- utility methods

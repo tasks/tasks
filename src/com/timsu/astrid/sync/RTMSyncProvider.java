@@ -174,6 +174,23 @@ public class RTMSyncProvider extends SynchronizationProvider {
             final String timeline = rtmService.timelines_create();
             postUpdate(new ProgressUpdater(1, 5));
 
+            // push task if single task sync is requested
+            if(getSingleTaskForSync() != null) {
+                SyncMapping mapping = synchronizer.getSyncController(context).
+                    getSyncMapping(getId(), getSingleTaskForSync());
+                if(mapping == null) {
+                    Log.w("astrid-rtm", "Couldn't find sync mapping for updated task");
+                    return;
+                }
+
+                TaskProxy localTask = new TaskProxy(getId(), mapping.getRemoteId());
+                TaskModelForSync task = synchronizer.getTaskController(context).
+                    fetchTaskForSync(getSingleTaskForSync());
+                localTask.readFromTaskModel(task);
+                postUpdate(new ProgressLabelUpdater("Synchronizing repeating task"));
+                pushLocalTask(timeline, localTask, null, mapping);
+            }
+
             // load RTM lists
             RtmLists lists = rtmService.lists_getList();
             for(RtmList list : lists.getLists().values()) {
@@ -238,11 +255,12 @@ public class RTMSyncProvider extends SynchronizationProvider {
             Date syncTime = new Date(System.currentTimeMillis() + 1000);
             Preferences.setSyncRTMLastSync(context, syncTime);
 
-            // on with the synchronization
-            synchronizer.continueSynchronization(context);
-
         } catch (Exception e) {
             showError(context, e, null);
+
+        } finally {
+            // on with the synchronization
+            synchronizer.continueSynchronization(context);
         }
     }
 
@@ -261,7 +279,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     /** Get a task proxy with default RTM values */
     private TaskProxy getDefaultTaskProxy() {
-        TaskProxy taskProxy = new TaskProxy(0, "", false);
+        TaskProxy taskProxy = new TaskProxy(0, "");
         taskProxy.progressPercentage = 0;
         taskProxy.tags = new LinkedList<String>();
         taskProxy.notes = "";
@@ -350,8 +368,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
     /** Create a task proxy for the given RtmTaskSeries */
     private TaskProxy parseRemoteTask(String listId, RtmTaskSeries rtmTaskSeries) {
         TaskProxy task = new TaskProxy(getId(),
-                new RtmId(listId, rtmTaskSeries).toString(),
-                rtmTaskSeries.getTask().getDeleted() != null);
+                new RtmId(listId, rtmTaskSeries).toString());
 
         task.name = rtmTaskSeries.getName();
 
@@ -362,6 +379,10 @@ public class RTMSyncProvider extends SynchronizationProvider {
         }
         if(sb.length() > 0)
             task.notes = sb.toString().trim();
+
+        // repeat
+        if(rtmTaskSeries.hasRecurrence())
+            task.syncOnComplete = true;
 
         // list / tags
         LinkedList<String> tagsList = rtmTaskSeries.getTags();
@@ -381,6 +402,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
         }
         task.creationDate = rtmTaskSeries.getCreated();
         task.completionDate = rtmTask.getCompleted();
+        task.isDeleted = rtmTask.getDeleted() != null;
         if(rtmTask.getDue() != null) {
             Date due = rtmTask.getDue();
 
@@ -392,7 +414,6 @@ public class RTMSyncProvider extends SynchronizationProvider {
             task.dueDate = due;
         }
         task.progressPercentage = (rtmTask.getCompleted() == null) ? 0 : 100;
-
         task.importance = Importance.values()[rtmTask.getPriority().ordinal()];
 
         return task;

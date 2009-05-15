@@ -33,8 +33,9 @@ import com.timsu.astrid.utilities.Notifications.Notifiable;
 
 
 
-/** Fields that you would want to edit pertaining to repeats */
-public class TaskModelForRepeat extends AbstractTaskModel implements Notifiable {
+/** Fields that you would want to read or edit in the onTaskSave and onTaskComplete
+ * event handlers */
+public class TaskModelForHandlers extends AbstractTaskModel implements Notifiable {
 
     static String[] FIELD_LIST = new String[] {
         AbstractController.KEY_ROWID,
@@ -47,6 +48,7 @@ public class TaskModelForRepeat extends AbstractTaskModel implements Notifiable 
         LAST_NOTIFIED,
         NOTIFICATIONS,
         NOTIFICATION_FLAGS,
+        FLAGS,
     };
 
     /**
@@ -96,7 +98,7 @@ public class TaskModelForRepeat extends AbstractTaskModel implements Notifiable 
 
     // --- constructors
 
-    public TaskModelForRepeat(Cursor cursor, ContentValues setValues) {
+    public TaskModelForHandlers(Cursor cursor, ContentValues setValues) {
         super(cursor);
         this.setValues = setValues;
     }
@@ -145,6 +147,11 @@ public class TaskModelForRepeat extends AbstractTaskModel implements Notifiable 
     @Override
     public Date getLastNotificationDate() {
         return super.getLastNotificationDate();
+    }
+
+    @Override
+    public int getFlags() {
+        return super.getFlags();
     }
 
     @Override
