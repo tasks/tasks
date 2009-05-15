@@ -28,9 +28,12 @@ import com.timsu.astrid.R;
 
 public class DateUtilities {
 
+	private static SimpleDateFormat format = null;
+
     /** Format a time into a medium length absolute format */
     public static String getFormattedDate(Resources r, Date date) {
-        SimpleDateFormat format = new SimpleDateFormat(r.getString(R.string.dateFormatter));
+    	if(format == null)
+    		format = new SimpleDateFormat(r.getString(R.string.dateFormatter));
         return format.format(date);
     }
 

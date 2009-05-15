@@ -90,8 +90,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private static final int FULL_DATE_THRESHOLD = 7*24*3600;
 
     // alarm date formatter
-    private static final Format alarmFormat = new SimpleDateFormat(
-            "MM/dd HH:mm");
+    private static Format alarmFormat = null;
 
     private final Activity activity;
     private ArrayList<TaskModelForList> objects;
@@ -304,11 +303,11 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             if(CACHE_TRUE.equals(task.getCachedLabel(KEY_HIDDEN)))
                 name.setTypeface(Typeface.DEFAULT, Typeface.ITALIC);
             else
-                name.setTypeface(Typeface.DEFAULT_BOLD);
+                name.setTypeface(Typeface.DEFAULT, Typeface.BOLD);
         }
 
         // importance
-        final View importance = (View)view.findViewById(R.id.importance);
+        final View importance = view.findViewById(R.id.importance);
         if(visibleFields.IMPORTANCE) {
             importance.setBackgroundColor(r.getColor(
                     task.getImportance().getColorResource()));
@@ -454,6 +453,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         	            if(nextAlarm != null) {
             	            if(label.length() > 0)
             	                label.append(". ");
+            	            if(alarmFormat == null)
+            	            	alarmFormat = new SimpleDateFormat(
+            	            			r.getString(R.string.alarmDateFormatter));
             	            String alarmString = alarmFormat.format(nextAlarm);
             	            label.append(r.getString(R.string.taskList_alarmPrefix) +
             	                    " " + alarmString);

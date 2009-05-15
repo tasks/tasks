@@ -58,7 +58,7 @@
         </plurals>
         
         <!-- Time Constants -->
-        <string name="dateFormatter">MMM d</string> <!-- used for long due 
+        <string name="dateFormatter">d. MMM</string> <!-- used for long due 
             dates. c.f. Java's SimpleDateFormat -->
         <string name="daysVertical">D\na\ny\ns</string> <!-- vertical labels
             are used in the number dialogs -->
