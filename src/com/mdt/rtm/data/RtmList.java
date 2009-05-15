@@ -24,17 +24,19 @@ import org.w3c.dom.Element;
 public class RtmList extends RtmData {
 
   private final String id;
-
+  private final boolean smart;
   private final String name;
 
-  public RtmList(String id, String name) {
+  public RtmList(String id, String name, boolean smart) {
     this.id = id;
     this.name = name;
+    this.smart = smart;
   }
 
   public RtmList(Element elt) {
     id = elt.getAttribute("id");
     name = elt.getAttribute("name");
+    smart = elt.getAttribute("smart") == "1";
   }
 
   public String getId() {
@@ -43,5 +45,9 @@ public class RtmList extends RtmData {
 
   public String getName() {
     return name;
+  }
+
+  public boolean isSmart() {
+      return smart;
   }
 }

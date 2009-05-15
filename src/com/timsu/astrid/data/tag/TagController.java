@@ -146,7 +146,26 @@ public class TagController extends AbstractController {
         return saveSucessful;
     }
 
-    /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
+    /** Returns a TaskModelForView corresponding to the given Tag Name */
+    public TagModelForView fetchTagFromName(String name) throws SQLException {
+        Cursor cursor = tagDatabase.query(true, TAG_TABLE_NAME,
+                TagModelForView.FIELD_LIST,
+                AbstractTagModel.NAME + " = ?", new String[] {name}, null, null, null, null);
+
+        try {
+            if (cursor != null) {
+                cursor.moveToFirst();
+                TagModelForView model = new TagModelForView(cursor);
+                return model;
+            }
+            return null;
+        } finally {
+            if(cursor != null)
+                cursor.close();
+        }
+    }
+
+    /** Returns a TaskModelForView corresponding to the given TagIdentifier */
     public TagModelForView fetchTagForView(TagIdentifier tagId) throws SQLException {
         long id = tagId.getId();
         Cursor cursor = tagDatabase.query(true, TAG_TABLE_NAME,

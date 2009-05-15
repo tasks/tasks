@@ -261,6 +261,7 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="p_sync_quiet">sync_dialogs</string>
         <string name="sync_quiet_title">Hide Dialogs</string>
         <string name="sync_quiet_desc">Hide the Sync Results dialogs</string>
+        <string name="p_sync_bgwifi">sync_bgwifi</string>
         <string name="sync_bgwifi_title">Auto-Sync Wifi Only</string>
         <string name="sync_bgwifi_desc">If set, auto-sync only happens when Wifi is active</string>
         <string name="sync_error">Sync Error! Sorry for the inconvenience! Error:</string>
@@ -276,6 +277,7 @@ occur (it is a minor drain on battery).
         </string>
         <string name="sync_now">Synchronize Now!</string>
         <string name="sync_forget">Clear Personal Data</string>
+        <string name="sync_uptodate">Sync: Up to date!</string>
         <string name="sync_forget_confirm">Clear data for selected services?</string>
         <string name="sync_no_synchronizers">No Synchronizers Enabled!</string>
         <string name="sync_last_sync">Last Sync Date: %s</string>
@@ -288,6 +290,14 @@ occur (it is a minor drain on battery).
         <string name="sync_result_updated">Updated: %d</string>
         <string name="sync_result_deleted">Deleted: %d</string>
         <string name="sync_result_merged">Merged: %d</string>
+        
+        <string name="sync_progress_remote">Reading Remote Data</string>
+        <string name="sync_progress_rxlist">Reading List: %s</string>
+        <string name="sync_progress_repeating">Synchronizing Repeating Task</string>
+        <string name="sync_progress_localtx">Sending Task: %s</string>
+        <string name="sync_progress_localdel">Locally Deleted Tasks</string>
+        <string name="sync_progress_remotetx">Receiving Task: %s</string>
+        
        
     <!-- Dialog Boxes -->  
     <skip />

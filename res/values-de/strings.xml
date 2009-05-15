@@ -1,50 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ASTRID: Android's Simple Task Recording Dashboard
- 
-  Copyright (c) 2009 Tim Su
- 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
- 
-  This program is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-  for more details.
- 
-  You should have received a copy of the GNU General Public License along
-  with this program; if not, write to the Free Software Foundation, Inc.,
-  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- 
--->
+    <!--
+        ASTRID: Android's Simple Task Recording Dashboard Copyright (c) 2009 Tim
+        Su This program is free software; you can redistribute it and/or modify
+        it under the terms of the GNU General Public License as published by the
+        Free Software Foundation; either version 2 of the License, or (at your
+        option) any later version. This program is distributed in the hope that
+        it will be useful, but WITHOUT ANY WARRANTY; without even the implied
+        warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+        GNU General Public License for more details. You should have received a
+        copy of the GNU General Public License along with this program; if not,
+        write to the Free Software Foundation, Inc., 59 Temple Place, Suite 330,
+        Boston, MA 02111-1307 USA
+    -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
     <!-- application -->
     <string name="app_name">Astrid</string>
-    
+
     <!-- General String Constants -->
     <skip />
-    
-        <!-- Importance Labels -->
-        <string name="importance_1">!!!!</string>
-        <string name="importance_2">!!!</string>
-        <string name="importance_3">!!</string>
-        <string name="importance_4">!</string>
-        
-        <!-- Repeat Interval Labels -->
-        <string name="repeat_days">Tag(e)</string>
-        <string name="repeat_weeks">Woche(n)</string>
-        <string name="repeat_months">Monat(e)</string>
-        <string name="repeat_hours">Stunde(n)</string>
-        
-        <!-- Plurals -->
-        <plurals name="Ntasks">
-            <item quantity="one">1 Aufgabe</item>
-            <item quantity="other">%d Aufgaben</item>
-        </plurals>
-        <plurals name="NactiveTasks">
-            <item quantity="one">%d / %d Aktiv</item>
+
+    <!-- Importance Labels -->
+    <string name="importance_1">!!!!</string>
+    <string name="importance_2">!!!</string>
+    <string name="importance_3">!!</string>
+    <string name="importance_4">!</string>
+
+    <!-- Repeat Interval Labels -->
+    <string name="repeat_days">Tag(e)</string>
+    <string name="repeat_weeks">Woche(n)</string>
+    <string name="repeat_months">Monat(e)</string>
+    <string name="repeat_hours">Stunde(n)</string>
+
+    <!-- Plurals -->
+    <plurals name="Ntasks">
+        <item quantity="one">1 Aufgabe</item>
+        <item quantity="other">%d Aufgaben</item>
+    </plurals>
+    <plurals name="NactiveTasks">
+        <item quantity="one">%d / %d Aktiv</item>
             <item quantity="other">%d / %d Aktiv</item>
         </plurals>
         <plurals name="Nalarms">
@@ -58,11 +51,11 @@
         </plurals>
         
         <!-- Time Constants -->
-        <string name="dateFormatter">d. MMM</string> <!-- used for long due 
+        <string name="dateFormatter">d. MMMM</string> <!-- used for long due 
             dates. c.f. Java's SimpleDateFormat -->
-        <string name="daysVertical">D\na\ny\ns</string> <!-- vertical labels
+        <string name="daysVertical">T\na\ng\ne</string> <!-- vertical labels
             are used in the number dialogs -->
-        <string name="hoursVertical">H\no\nu\nr\ns</string>
+        <string name="hoursVertical">S\nt\nu\nn\nd\ne\nn</string>
         <plurals name="Ndays">
             <item quantity="one">1 Tag</item>
             <item quantity="other">%d Tage</item>

@@ -51,6 +51,8 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.activities.TaskList;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.sync.SyncMapping;
+import com.timsu.astrid.data.tag.TagController;
+import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskModelForSync;
 import com.timsu.astrid.utilities.DialogUtilities;
@@ -168,7 +170,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     private void performSyncInNewThread(final Context context) {
         try {
-            postUpdate(new ProgressLabelUpdater("Reading remote data"));
+            postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_remote));
             postUpdate(new ProgressUpdater(0, 5));
 
             // get RTM timeline
@@ -188,13 +190,15 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 TaskModelForSync task = synchronizer.getTaskController(context).
                     fetchTaskForSync(getSingleTaskForSync());
                 localTask.readFromTaskModel(task);
-                postUpdate(new ProgressLabelUpdater("Synchronizing repeating task"));
+                postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_repeating));
                 pushLocalTask(timeline, localTask, null, mapping);
             }
 
             // load RTM lists
             RtmLists lists = rtmService.lists_getList();
             for(RtmList list : lists.getLists().values()) {
+                if(list.isSmart())
+                    continue;
                 listNameToIdMap.put(list.getName().toLowerCase(), list.getId());
                 listIdToNameMap.put(list.getId(), list.getName());
 
@@ -218,8 +222,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 postUpdate(new ProgressUpdater(3, 5));
                 RtmTasks tasks = rtmService.tasks_getList(null, filter, lastSyncDate);
                 postUpdate(new ProgressUpdater(5, 5));
-                addTasksToList(tasks, remoteChanges);
+                addTasksToList(context, tasks, remoteChanges);
             } catch (Exception e) {
+                Log.e("rtmsync", "Error sync-ing list!", e);
                 remoteChanges.clear();
                 shouldSyncIndividualLists = true;
             }
@@ -227,21 +232,22 @@ public class RTMSyncProvider extends SynchronizationProvider {
             if(shouldSyncIndividualLists) {
                 int progress = 0;
                 for(final Entry<String, String> entry : listIdToNameMap.entrySet()) {
-                	postUpdate(new ProgressLabelUpdater("Reading " +
-                    		" list: " + entry.getValue()));
+                	postUpdate(new ProgressLabelUpdater(context,
+                	        R.string.sync_progress_rxlist, entry.getValue()));
                 	postUpdate(new ProgressUpdater(progress++,
                             listIdToNameMap.size()));
                     try {
                         Thread.sleep(1500);
                         RtmTasks tasks = rtmService.tasks_getList(entry.getKey(),
                                 filter, lastSyncDate);
-                        addTasksToList(tasks, remoteChanges);
+                        addTasksToList(context, tasks, remoteChanges);
                     } catch (Exception e) {
+                        Log.e("rtmsync", "Error sync-ing list!", e);
                     	postUpdate(new Runnable() {
                             public void run() {
                                 DialogUtilities.okDialog(context,
-                                        "List '" + entry.getValue() +
-                                        "' import failed (too big?)", null);
+                                        "Sorry, list '" + entry.getValue() +
+                                        "' import failed. Try again later!", null);
                             }
                         });
                         continue;
@@ -250,7 +256,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 postUpdate(new ProgressUpdater(1, 1));
             }
 
-            synchronizeTasks(context, remoteChanges, new RtmSyncHelper(timeline));
+            synchronizeTasks(context, remoteChanges, new RtmSyncHelper(context, timeline));
 
             // add a bit of fudge time so we don't load tasks we just edited
             Date syncTime = new Date(System.currentTimeMillis() + 1000);
@@ -268,11 +274,12 @@ public class RTMSyncProvider extends SynchronizationProvider {
     // --- helper methods
 
     /** Add the tasks read from RTM to the given list */
-    private void addTasksToList(RtmTasks tasks, LinkedList<TaskProxy> list) {
+    private void addTasksToList(Context context, RtmTasks tasks, LinkedList<TaskProxy> list) {
         for(RtmTaskList taskList : tasks.getLists()) {
             for(RtmTaskSeries taskSeries : taskList.getSeries()) {
                 TaskProxy remoteTask =
-                    parseRemoteTask(taskList.getId(), taskSeries);
+                    parseRemoteTask(taskList.getId(), taskSeries,
+                            synchronizer.getTagController(context));
                 list.add(remoteTask);
             }
         }
@@ -296,7 +303,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
         if(remoteTask == null) {
             RtmTaskSeries rtmTask = rtmService.tasks_getTask(id.taskSeriesId, task.name);
             if(rtmTask != null)
-                remoteTask = parseRemoteTask(id.listId, rtmTask);
+                remoteTask = parseRemoteTask(id.listId, rtmTask, null);
         }
         if(remoteTask == null)
             remoteTask = getDefaultTaskProxy();
@@ -339,8 +346,16 @@ public class RTMSyncProvider extends SynchronizationProvider {
         // tags
         if(task.tags != null && !task.tags.equals(remoteTask.tags)) {
             String listName = listIdToNameMap.get(id.listId);
-            if(task.tags.size() > 0 && listName.equals(task.tags.getFirst()))
-                task.tags.remove(0);
+
+            // if the first tag is the list, or _list, remove it
+            if(task.tags.size() > 0) {
+                String firstTag = task.tags.getFirst();
+                if(firstTag.startsWith(TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX))
+                    firstTag = firstTag.substring(TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX.length());
+                if(firstTag.equals(listName))
+                    task.tags.remove(0);
+            }
+
             rtmService.tasks_setTags(timeline, id.listId, id.taskSeriesId,
                     id.taskId, task.tags.toArray(new String[task.tags.size()]));
         }
@@ -367,7 +382,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
     }
 
     /** Create a task proxy for the given RtmTaskSeries */
-    private TaskProxy parseRemoteTask(String listId, RtmTaskSeries rtmTaskSeries) {
+    private TaskProxy parseRemoteTask(String listId, RtmTaskSeries
+            rtmTaskSeries, TagController tagController) {
         TaskProxy task = new TaskProxy(getId(),
                 new RtmId(listId, rtmTaskSeries).toString());
 
@@ -391,7 +407,13 @@ public class RTMSyncProvider extends SynchronizationProvider {
         if(listName != null && !listName.equals(INBOX_LIST_NAME)) {
             if(tagsList == null)
                 tagsList = new LinkedList<String>();
-            tagsList.addFirst(listName);
+
+            // if user has created a hidden version of this tag, use it
+            String hiddenName = TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX + listName;
+            if(tagController != null && tagController.fetchTagFromName(hiddenName) != null)
+                tagsList.addFirst(hiddenName);
+            else
+                tagsList.addFirst(listName);
         }
         if(tagsList != null)
             task.tags = tagsList;
@@ -463,8 +485,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
     class RtmSyncHelper implements SynchronizeHelper {
         private String timeline;
         private String lastCreatedTask = null;
+        private Context context;
 
-        public RtmSyncHelper(String timeline) {
+        public RtmSyncHelper(Context context, String timeline) {
             this.timeline = timeline;
         }
         public String createTask(TaskModelForSync task) throws IOException {
@@ -494,7 +517,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
                     task.name);
             if(rtmTask == null)
                 return task; // can't fetch
-            return parseRemoteTask(id.listId, rtmTask);
+            return parseRemoteTask(id.listId, rtmTask, synchronizer.getTagController(context));
         }
     }
 

@@ -215,7 +215,7 @@ public abstract class SynchronizationProvider {
         log.append(">> on remote server:\n");
         for(TaskIdentifier taskId : data.newlyCreatedTasks) {
             TaskModelForSync task = taskController.fetchTaskForSync(taskId);
-            postUpdate(new ProgressLabelUpdater("Sending local task: " +
+            postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_localtx,
                     task.getName()));
             postUpdate(new ProgressUpdater(stats.remoteCreatedTasks,
                     data.newlyCreatedTasks.size()));
@@ -250,7 +250,7 @@ public abstract class SynchronizationProvider {
         }
 
         // 2. DELETE: find deleted tasks and remove them from the list
-        postUpdate(new ProgressLabelUpdater("Sending locally deleted tasks"));
+        postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_localdel));
         for(TaskIdentifier taskId : data.deletedTasks) {
             SyncMapping mapping = data.localIdToSyncMapping.get(taskId);
             syncController.deleteSyncMapping(mapping);
@@ -278,7 +278,7 @@ public abstract class SynchronizationProvider {
             localTask.readTagsFromController(task.getTaskIdentifier(),
                     tagController, data.tags);
 
-            postUpdate(new ProgressLabelUpdater("Sending local task: " +
+            postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_localtx,
                     task.getName()));
             postUpdate(new ProgressUpdater(stats.remoteUpdatedTasks,
                     data.localChanges.size()));
@@ -317,10 +317,8 @@ public abstract class SynchronizationProvider {
         postUpdate(new ProgressUpdater(0, 1));
         for(TaskProxy remoteTask : remoteTasks) {
             if(remoteTask.name != null)
-            	postUpdate(new ProgressLabelUpdater("Updating local " +
-                		"tasks: " + remoteTask.name));
-            else
-            	postUpdate(new ProgressLabelUpdater("Updating local tasks"));
+                postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_remotetx,
+                        remoteTask.name));
             SyncMapping mapping = null;
             TaskModelForSync task = null;
 
@@ -527,7 +525,8 @@ public abstract class SynchronizationProvider {
                     mergedTasks + remoteCreatedTasks + remoteDeletedTasks +
                     remoteUpdatedTasks == 0) {
                 if(!isBackgroundService())
-                    DialogUtilities.okDialog(context, "Sync: Up to date!", finishListener);
+                    DialogUtilities.okDialog(context, context.getResources().
+                            getString(R.string.sync_uptodate), finishListener);
                 return;
             }
 
@@ -577,8 +576,8 @@ public abstract class SynchronizationProvider {
 
     protected class ProgressLabelUpdater implements Runnable {
         String label;
-        public ProgressLabelUpdater(String label) {
-            this.label = label;
+        public ProgressLabelUpdater(Context context, int id, Object... args) {
+            this.label = context.getResources().getString(id, args);
         }
         public void run() {
         	if(isBackgroundService()) {
