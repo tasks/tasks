@@ -68,6 +68,10 @@
             <item quantity="one">1 Day</item>
             <item quantity="other">%d Days</item>
         </plurals>
+        <plurals name="NdaysPreposition">
+            <item quantity="one">1 Day</item>
+            <item quantity="other">%d Days</item>
+        </plurals>
         <plurals name="Nhours">
             <item quantity="one">1 Hour</item>
             <item quantity="other">%d Hours</item>

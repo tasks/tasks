@@ -352,7 +352,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
                         if(timeLeft < FULL_DATE_THRESHOLD)
                             label.append(DateUtilities.getDurationString(r,
-                                (int)Math.abs(timeLeft), 1));
+                                (int)Math.abs(timeLeft), 1, true));
                         else
                             label.append(DateUtilities.getFormattedDate(r,
                                     task.getDefiniteDueDate()));
@@ -375,7 +375,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
                         if(timeLeft < FULL_DATE_THRESHOLD)
                             label.append(DateUtilities.getDurationString(r,
-                                (int)Math.abs(timeLeft), 1));
+                                (int)Math.abs(timeLeft), 1, true));
                         else
                             label.append(DateUtilities.getFormattedDate(r,
                                     task.getPreferredDueDate()));
@@ -435,7 +435,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 StringBuilder label = new StringBuilder();
                 if(notifyEvery != null && notifyEvery > 0) {
                     label.append(r.getString(R.string.taskList_periodicReminderPrefix)).
-                	    append(" ").append(DateUtilities.getDurationString(r, notifyEvery, 1));
+                	    append(" ").append(DateUtilities.getDurationString(r, notifyEvery, 1, true));
                 }
 
                 try {

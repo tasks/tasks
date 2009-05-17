@@ -51,14 +51,18 @@
         </plurals>
         
         <!-- Time Constants -->
-        <string name="dateFormatter">d. MMMM</string> <!-- used for long due 
+        <string name="dateFormatter">d. MMM.</string> <!-- used for long due 
             dates. c.f. Java's SimpleDateFormat -->
         <string name="daysVertical">T\na\ng\ne</string> <!-- vertical labels
             are used in the number dialogs -->
-        <string name="hoursVertical">U\nh\nr</string>
+        <string name="hoursVertical">S\nt\nd</string>
         <plurals name="Ndays">
             <item quantity="one">1 Tag</item>
             <item quantity="other">%d Tage</item>
+        </plurals>
+        <plurals name="NdaysPreposition">
+            <item quantity="one">1 Tag</item>
+            <item quantity="other">%d Tagen</item>
         </plurals>
         <plurals name="Nhours">
             <item quantity="one">1 Stunde</item>
@@ -244,37 +248,42 @@ Wenn Du die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen wi
         <string name="p_sync_rtm">sync_rtm</string>
         <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate ? -->
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
-        <string name="p_sync_every">sync_every</string>
-        <string name="sync_every_title">Häufigkeit der Synchronisation</string>
-        <string name="sync_every_desc">Falls eingestellt, synchronisiere alle # Stunden</string>
-        <string name="p_sync_button">sync_button</string>
+        <string name="sync_interval_title">Auto-Synchronisieren</string>
+        <string name="sync_interval_desc">Synchronisiert automatisch im fix eingestellten Interval falls ausgewählt</string>
         <string name="sync_button_title">Hauptmenu-Verknüpfung</string>
         <string name="sync_button_desc">Zeige \"Synchronisieren\" im Menu von Astrid</string>
-        <string name="p_sync_quiet">sync_dialogs</string>
         <string name="sync_quiet_title">Fenster verstecken</string>
         <string name="sync_quiet_desc">Verstecke das Sychronisationsergebnis-Fenster</string>
-        <string name="p_sync_background">sync_background</string>
-        <string name="sync_background_title">Im Hintergrund</string>
-        <string name="sync_background_desc">Synchronisieren ohne dich zu stören</string>
+        <string name="sync_bgwifi_title">Auto-Sync nur über WLAN</string>
+        <string name="sync_bgwifi_desc">Synchronisiert im Hintergrund nur über WLAN falls ausgewählt</string>
         <string name="sync_error">Synchronisations-Fehler! Entschuldige die Störung! Fehler:</string>
         <string name="sync_auth_request">
 Bitte logge dich in dein %s Konto ein und authorisiere Astrid deine Daten zu lesen, um synchronisieren zu können.
 \n\n
 Nach der Fertigstellung, starte Astrid neu und komm hierher zurück.
         </string>
-        <string name="sync_rtm_notes">
-Wilkommen zur Sunchronisierung von Astrid!
-\n\n
-Nicht synchronisiert werden:\n
-- Erinnerungen und Wiederholungen\n
-- In RTM: Löschen, Verschieben und Umbennen von Aufgaben\n
-\n
-Wünsch mir Glück!\n
-        </string>
         <string name="sync_now">Synchronisiere jetzt!</string>
         <string name="sync_forget">Persönliche Daten löschen</string>
         <string name="sync_forget_confirm">Daten für ausgewähltes Gerät löschen?</string>
         <string name="sync_no_synchronizers">Keine Synchronisiergerät eingestellt!</string>
+	<string name="sync_last_sync">Zuletzt synchronisiert: %s</string>
+        <string name="sync_last_auto_sync">Letzter Sync-Versuch: %s</string>
+        <string name="sync_date_never">noch nie</string>
+        <string name="sync_result_title">%s Ergebnisse</string>
+        <string name="sync_result_local">Zusammenfassung - Astrid:</string>
+        <string name="sync_result_remote">Zusammenfassung - Server:</string>
+        <string name="sync_result_created">Erstellt: %d</string>
+        <string name="sync_result_updated">Aktualisiert: %d</string>
+        <string name="sync_result_deleted">Gelöscht: %d</string>
+        <string name="sync_result_merged">Zusammengeführt: %d</string>
+        
+        <string name="sync_progress_remote">Empfange Daten vom Server</string>
+        <string name="sync_progress_rxlist">Reading List: %s</string>
+        <string name="sync_progress_repeating">Synchronisiere wiederholende Aufgabe</string>
+        <string name="sync_progress_localtx">Sende Aufgabe:: %s</string>
+        <string name="sync_progress_localdel">Lokal gelöschte Aufgaben</string>
+        <string name="sync_progress_remotetx">Empfange Aufgabe: %s</string>
+
        
     <!-- Dialog Boxes -->  
     <skip />
@@ -324,11 +333,9 @@ Danke, dass Du Astrid benutzt!\n
 
         <string name="prefs_category_alerts">Erinnerungen</string>
         
-        <string name="p_notif_quietStart">notif_qstart</string>
         <string name="prefs_quietStart_title">Ruhestunden beginnen</string>
         <string name="prefs_quietStart_desc">Stunde, bei der die Ruhestunden beginnen (z.B. 22)</string>
         
-        <string name="p_notif_quietEnd">notif_qend</string>
         <string name="prefs_quietEnd_title">Ruhestunden beenden</string>
         <string name="prefs_quietEnd_desc">Stunde, bei der Astrid aufhört ruhig zu sein (z.B. 08)</string>
           
@@ -336,72 +343,48 @@ Danke, dass Du Astrid benutzt!\n
         <string name="prefs_defaultRemind_title">Standarderinnerungen</string>
         <string name="prefs_defaultRemind_desc">Für neue Aufgaben, in Tagen (z.B. 7). Zum Deaktiviereen leer lassen</string>
         
-        <string name="p_notif_annoy">notif_annoy</string>
         <string name="prefs_annoy_title">Hartnäckiger Modus</string>
         <string name="prefs_annoy_desc">Wenn eingestellt, musst Du die Erinnerung anschauen, um sie zu entfernen</string>
         
-        <string name="p_notification_ringtone">notification_ringtone</string>
         <string name="prefs_notification_title">Erinnerungsklingelton</string>
         <string name="prefs_notification_desc">Wähle einen Klingelton für Astrids Erinnerungen</string>
 
-        <string name="p_notif_icon">notif_theme</string>
         <string name="prefs_notificon_title">Erinnerungsicon</string>
         <string name="prefs_notificon_desc">Wähle Astrids Icon für die Benachrichtigunsleiste</string>
         
         <string name="prefs_category_appearance">Erscheinungsbild</string>
             
-        <string name="p_colorize">colorize</string>
         <string name="prefs_colorize_title">Färbe die Aufgabenliste</string>
         <string name="prefs_colorize_desc">Unterschiedliche Farben für unterschiedliche Prioritäten</string>
         
-        <string name="p_fontSize">font_size</string>
         <string name="prefs_fontSize_title">Schriftart der Aufgabenliste</string>
         <string name="prefs_fontSize_desc">Schriftart auf der Hautplistenseite (z.B. 22)</string>
 
         <string name="prefs_category_other">Weiteres</string>
         
-        <string name="p_nagging">nagging</string>
         <string name="prefs_nagging_title">Nörgel-Nachrichten</string>
         <string name="prefs_nagging_desc">Astrids Kommentare zeigen, wenn Du Erinnerungen anschaust oder Aufgaben aufschiebst?</string>
 
-        <string name="p_deadlineTime">deadline_time</string>
         <string name="prefs_deadlineTime_title">Standardfrist</string>
         <string name="prefs_deadlineTime_desc"># der Tage ab heute zum Setzten neuer Fristen</string>
         
         <string name="displayedFields_PrefScreen_Title">Angezeigte Felder</string>
         <string name="displayedFields_PrefScreen_Desc">Wähle die in der Aufgabenliste zu zeigenden Felder aus</string>
         
-        <!-- notification keys (no title, desc, default suffix) should not be localized -->
-        <string name="prefs_titleVisible">titleVisible</string> 
         <string name="prefs_titleVisible_title">Task Title</string>
         <string name="prefs_titleVisible_desc">Task description</string>
-        <string name="prefs_titleVisible_default">true</string>
-	    <string name="prefs_deadlineVisible">deadlineVisible</string>
         <string name="prefs_deadlineVisible_title">Dates</string>
         <string name="prefs_deadlineVisible_desc">Upcoming deadlines / completed date</string>
-        <string name="prefs_deadlineVisible_default">true</string>
-    	<string name="prefs_timeVisible">timeVisible</string>
         <string name="prefs_timeVisible_title">Times</string>
         <string name="prefs_timeVisible_desc">Estimated &amp; Elapsed Times</string>
-        <string name="prefs_timeVisible_default">true</string>
-        <string name="prefs_importanceVisible">importanceVisible</string>
         <string name="prefs_importanceVisible_title">Importance</string>
         <string name="prefs_importanceVisible_desc">Task importance indicator</string>
-        <string name="prefs_importanceVisible_default">true</string>
-	    <string name="prefs_tagsVisible">tagsVisible</string>
         <string name="prefs_tagsVisible_title">Tags</string>
         <string name="prefs_tagsVisible_desc">Tags associated with this task</string>
-        <string name="prefs_tagsVisible_default">true</string>
-	    <string name="prefs_repeatVisible">repeatVisible</string>
         <string name="prefs_repeatVisible_title">Repeats</string>
         <string name="prefs_repeatVisible_desc">Task repeat information</string>
-        <string name="prefs_repeatVisible_default">true</string>
-	    <string name="prefs_reminderVisible">reminderVisible</string>
         <string name="prefs_reminderVisible_title">Reminders</string>
         <string name="prefs_reminderVisible_desc">Displayed if this task has reminders</string>
-        <string name="prefs_reminderVisible_default">false</string>
-	    <string name="prefs_notesVisible">notesVisible</string>
         <string name="prefs_notesVisible_title">Notes</string>
         <string name="prefs_notesVisible_desc">Notes associated with this task</string>
-        <string name="prefs_notesVisible_default">false</string>
 </resources>

@@ -37,6 +37,13 @@ public class DateUtilities {
         return format.format(date);
     }
 
+    /**
+     * Convenience method for dropping the preopsition argument.
+     */
+    public static String getDurationString(Resources r, int timeInSeconds,
+            int unitsToShow) {
+        return getDurationString(r, timeInSeconds, unitsToShow, false);
+    }
 
     /**
      * Format a time into the format: 5 days, 3 hours, 2 minutes
@@ -45,10 +52,11 @@ public class DateUtilities {
      * @param timeInSeconds
      * @param unitsToShow number of units to show (i.e. if 2, then 5 hours
      *        3 minutes 2 seconds is truncated to 5 hours 3 minutes)
+     * @param withPreposition whether there is a preceeding preposition
      * @return
      */
     public static String getDurationString(Resources r, int timeInSeconds,
-            int unitsToShow) {
+            int unitsToShow, boolean withPreposition) {
         short days, hours, minutes, seconds;
         short unitsDisplayed = 0;
 
@@ -65,7 +73,8 @@ public class DateUtilities {
 
         StringBuilder result = new StringBuilder();
         if(days > 0) {
-            result.append(r.getQuantityString(R.plurals.Ndays, days, days)).
+            int daysPlural = withPreposition ? R.plurals.NdaysPreposition : R.plurals.Ndays;
+            result.append(r.getQuantityString(daysPlural, days, days)).
                 append(" ");
             unitsDisplayed++;
         }
