@@ -38,15 +38,12 @@ import org.apache.http.HttpStatus;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.DefaultConnectionReuseStrategy;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpProtocolParams;
-import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.BasicHttpProcessor;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.RequestConnControl;
 import org.apache.http.protocol.RequestContent;
 import org.apache.http.protocol.RequestExpectContinue;
@@ -104,11 +101,7 @@ public class Invoker {
 
   private String serviceRelativeUri;
 
-  private HttpContext context;
-
   private BasicHttpParams globalHttpParams;
-
-  private DefaultConnectionReuseStrategy connectionStrategy;
 
   private BasicHttpProcessor httpProcessor;
 
@@ -119,13 +112,11 @@ public class Invoker {
   {
     this.serviceRelativeUri = serviceRelativeUri;
     new HttpHost(serverHostName, serverPortNumber);
-    context = new BasicHttpContext();
     globalHttpParams = new BasicHttpParams();
     HttpProtocolParams.setVersion(globalHttpParams, HttpVersion.HTTP_1_1);
     HttpProtocolParams.setContentCharset(globalHttpParams, ENCODING);
     HttpProtocolParams.setUserAgent(globalHttpParams, "Jakarta-HttpComponents/1.1");
     HttpProtocolParams.setUseExpectContinue(globalHttpParams, true);
-    connectionStrategy = new DefaultConnectionReuseStrategy();
 
     httpProcessor = new BasicHttpProcessor();
     // Required protocol interceptors

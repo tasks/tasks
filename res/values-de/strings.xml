@@ -111,6 +111,7 @@
         <string name="taskList_elapsedTimePrefix">Verbracht:</string><!-- i.e. Spent  88 minutes on tax. -->
         <string name="taskList_periodicReminderPrefix">Anstubsen jede</string><!-- time interval to set frequency to remind user -->
         <string name="taskList_repeatPrefix">Wiederholt sich jede</string><!-- time interval to set repeated tasks-->
+        <string name="taskList_repeatsRemotely">Wiederholt auf dem Server</string><!-- displayed when repeat is on remote server-->
         <string name="taskList_alarmPrefix">Nächster Alarm:</string>
         <string name="taskList_tagsPrefix">Tags:</string>
         <string name="taskList_notesPrefix">Notizen:</string>
@@ -278,9 +279,9 @@ Nach der Fertigstellung, starte Astrid neu und komm hierher zurück.
         <string name="sync_result_merged">Zusammengeführt: %d</string>
         
         <string name="sync_progress_remote">Empfange Daten vom Server</string>
-        <string name="sync_progress_rxlist">Reading List: %s</string>
+        <string name="sync_progress_rxlist">Empfange Liste: %s</string>
         <string name="sync_progress_repeating">Synchronisiere wiederholende Aufgabe</string>
-        <string name="sync_progress_localtx">Sende Aufgabe:: %s</string>
+        <string name="sync_progress_localtx">Sende Aufgabe: %s</string>
         <string name="sync_progress_localdel">Lokal gelöschte Aufgaben</string>
         <string name="sync_progress_remotetx">Empfange Aufgabe: %s</string>
 

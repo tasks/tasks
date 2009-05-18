@@ -119,6 +119,7 @@
         <string name="taskList_elapsedTimePrefix">Spent:</string><!-- i.e. Spent  88 minutes on tax. -->
         <string name="taskList_periodicReminderPrefix">Poke Every</string><!-- time interval to set frequency to remind user -->
         <string name="taskList_repeatPrefix">Repeats Every</string><!-- time interval to set repeated tasks-->
+        <string name="taskList_repeatsRemotely">Repeats On Remote Server</string><!-- displayed when repeat is on remote server-->
         <string name="taskList_alarmPrefix">Next Alarm:</string>
         <string name="taskList_tagsPrefix">Tags:</string>
         <string name="taskList_notesPrefix">Notes:</string>

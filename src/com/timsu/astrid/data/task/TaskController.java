@@ -407,16 +407,6 @@ public class TaskController extends AbstractController {
         return model;
     }
 
-
-    /** Returns a TaskModelForView corresponding to the given TaskIdentifier */
-    public TaskModelForView fetchTaskForView(Activity activity,
-            TaskIdentifier taskId) throws SQLException {
-        Cursor cursor = fetchTaskCursor(taskId, TaskModelForView.FIELD_LIST);
-        activity.startManagingCursor(cursor);
-        TaskModelForView model = new TaskModelForView(taskId, cursor);
-        return model;
-    }
-
     /** Returns a TaskModelForList corresponding to the given TaskIdentifier */
     public TaskModelForList fetchTaskForList(TaskIdentifier taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, TaskModelForList.FIELD_LIST);

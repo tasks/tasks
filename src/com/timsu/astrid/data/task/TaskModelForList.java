@@ -49,6 +49,7 @@ public class TaskModelForList extends AbstractTaskModel {
         HIDDEN_UNTIL,
         NOTES,
         REPEAT,
+        FLAGS,
     };
 
     // pre-load the cache for our column keys
@@ -211,6 +212,11 @@ public class TaskModelForList extends AbstractTaskModel {
 	@Override
 	public Date getCreationDate() {
 	    return super.getCreationDate();
+	}
+
+	@Override
+	public int getFlags() {
+		return super.getFlags();
 	}
 
     // --- setters

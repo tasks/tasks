@@ -347,7 +347,7 @@ public class TaskListSubActivity extends SubActivity {
         ALPHA {
             @Override
             int compareTo(TaskModelForList arg0, TaskModelForList arg1) {
-                return arg0.getName().compareTo(arg1.getName());
+                return arg0.getName().toLowerCase().compareTo(arg1.getName().toLowerCase());
             }
         },
         DUEDATE {

@@ -477,13 +477,16 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         if(visibleFields.REPEATS || isExpanded) {
             String cachedResult = task.getCachedLabel(KEY_REPEAT);
             if(cachedResult == null) {
-                RepeatInfo repeatInfo = task.getRepeat();
-                if(repeatInfo != null) {
+            	RepeatInfo repeatInfo = task.getRepeat();
+            	if((task.getFlags() & TaskModelForList.FLAG_SYNC_ON_COMPLETE) > 0) {
+            		cachedResult = r.getString(R.string.taskList_repeatsRemotely);
+            	} else if(repeatInfo != null) {
                     cachedResult = r.getString(R.string.taskList_repeatPrefix) +
                             " " + repeatInfo.getValue() + " " +
                             r.getString(repeatInfo.getInterval().getLabelResource());
-                } else
+                } else {
                     cachedResult = "";
+                }
                 task.putCachedLabel(KEY_REPEAT, cachedResult);
             }
             if(visibleFields.REPEATS)
