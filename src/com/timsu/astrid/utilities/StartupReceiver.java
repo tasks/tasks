@@ -73,8 +73,7 @@ public class StartupReceiver extends BroadcastReceiver {
 
         // start synchronization service
         SynchronizationService.setContext(context);
-        Intent service = new Intent(context, SynchronizationService.class);
-        context.startService(service);
+        SynchronizationService.start();
 
         hasStartedUp = true;
     }
