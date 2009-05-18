@@ -336,8 +336,11 @@ public class TaskController extends AbstractController {
 
         // handle repeat
         RepeatInfo repeatInfo = model.getRepeat();
-        if(repeatInfo != null)
+        if(repeatInfo != null) {
             model.repeatTaskBy(context, this, repeatInfo);
+            database.update(TASK_TABLE_NAME, values, KEY_ROWID + "=" +
+            		task.getTaskIdentifier().getId(), null);
+        }
 
         // handle sync-on-complete
         if((model.getFlags() & TaskModelForHandlers.FLAG_SYNC_ON_COMPLETE) > 0) {
