@@ -33,120 +33,115 @@
         <string name="importance_4">!</string>
         
         <!-- Repeat Interval Labels -->
-        <string name="repeat_days">Day(s)</string>
-        <string name="repeat_weeks">Week(s)</string>
-        <string name="repeat_months">Month(s)</string>
-        <string name="repeat_hours">Hour(s)</string>
+        <string name="repeat_days">天</string>
+        <string name="repeat_weeks">星期</string>
+        <string name="repeat_months">月</string>
+        <string name="repeat_hours">小时</string>
         
         <!-- Plurals -->
         <plurals name="Ntasks">
-            <item quantity="one">1 Task</item>
-            <item quantity="other">%d Tasks</item>
+            <item quantity="one">一个任务</item>
+            <item quantity="two">两个任务</item>
+            <item quantity="other">%d个任务</item>
         </plurals>
         <plurals name="NactiveTasks">
-            <item quantity="one">%d / %d Active</item>
-            <item quantity="other">%d / %d Active</item>
+            <item quantity="one">%d / %d 需要作</item>
+            <item quantity="other">%d / %d 需要作</item>
         </plurals>
         <plurals name="Nalarms">
-            <item quantity="one">One Alarm</item>
-            <item quantity="two">Two Alarms</item>
-            <item quantity="other">%d Alarms</item>
+            <item quantity="one">一个闹钟</item>
+            <item quantity="two">两个闹钟</item>
+            <item quantity="other">%d个闹钟</item>
         </plurals>
         <plurals name="Ntags">
-            <item quantity="one">1 Tag</item>
-            <item quantity="other">%d Tags</item>
+            <item quantity="one">一个标签</item>
+            <item quantity="two">两个标签</item>
+            <item quantity="other">%d个标签</item>
         </plurals>
         
         <!-- Time Constants -->
         <string name="dateFormatter">MMM d</string> <!-- used for long due 
             dates. c.f. Java's SimpleDateFormat -->
-        <string name="alarmDateFormatter">M/dd HH:mm</string> <!--  used for alarms -->
-        <string name="daysVertical">D\na\ny\ns</string> <!-- vertical labels
+        <string name="daysVertical">天</string> <!-- vertical labels
             are used in the number dialogs -->
-        <string name="hoursVertical">H\no\nu\nr\ns</string>
+        <string name="hoursVertical">小\n时</string>
         <plurals name="Ndays">
-            <item quantity="one">1 Day</item>
-            <item quantity="other">%d Days</item>
-        </plurals>
-        <plurals name="NdaysPreposition">
-            <item quantity="one">1 Day</item>
-            <item quantity="other">%d Days</item>
+            <item quantity="one">一天</item>
+            <item quantity="other">%d天</item>
         </plurals>
         <plurals name="Nhours">
-            <item quantity="one">1 Hour</item>
-            <item quantity="other">%d Hours</item>
+            <item quantity="one">一小时</item>
+            <item quantity="other">%d小时</item>
         </plurals>
         <plurals name="Nminutes">
-            <item quantity="one">1 Minute</item>
-            <item quantity="other">%d Minutes</item>
+            <item quantity="one">一分钟</item>
+            <item quantity="other">%d分钟</item>
         </plurals>
         <plurals name="Nseconds">
-            <item quantity="one">1 Second</item>
-            <item quantity="other">%d Seconds</item>
+            <item quantity="one">一秒钟</item>
+            <item quantity="other">%d秒钟</item>
         </plurals>
         <plurals name="NhoursShort">
-            <item quantity="one">1 Hr</item>
-            <item quantity="other">%d Hrs</item>
+            <item quantity="one">一小时</item>
+            <item quantity="other">%d小时</item>
         </plurals>
         <plurals name="NminutesShort">
-            <item quantity="one">1 Min</item>
-            <item quantity="other">%d Min</item>
+            <item quantity="one">一分钟</item>
+            <item quantity="other">%d分钟</item>
         </plurals>
         <plurals name="NsecondsShort">
-            <item quantity="one">1 Sec</item>
-            <item quantity="other">%d Sec</item>
+            <item quantity="one">一秒钟</item>
+            <item quantity="other">%d秒钟</item>
         </plurals>
-        <string name="ago_suffix">Ago</string><!-- appended after time
+        <string name="ago_suffix">以前</string><!-- appended after time
             constants to show time in past -->
         
     <!-- TaskList -->
     <skip />
         <!-- title bar -->
         <string name="taskList_titlePrefix">Astrid: </string>
-        <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
-        <string name="taskList_hiddenSuffix"> hidden</string>
-        <string name="addtask_label">New Task</string>
-        <string name="missing_tag">Could Not Find Requested Tag!</string>
+        <string name="taskList_titleTagPrefix">\"%s\"标签: </string>
+        <string name="taskList_hiddenSuffix">藏</string>
+        <string name="addtask_label">新任务</string>
+        <string name="missing_tag">没有这个标签!</string>
         
         <!-- text in the actual list -->
-        <string name="taskList_hiddenPrefix">H</string><!-- prefix to show that a task is hidden -->
-        <string name="taskList_dueRelativeTime">Due in</string><!-- i.e. Due in 4 days -->
-        <string name="taskList_dueAbsoluteDate">Due on</string><!-- i.e. Due on Jan 2 -->
-        <string name="taskList_goalPrefix">Goal</string><!-- prefix to deadline -->
-        <string name="taskList_overdueBy">Overdue by</string>
-        <string name="taskList_completedPrefix">Finished</string><!-- i.e. Finished 4 days ago -->
-		<string name="taskList_estimatedTimePrefix">Estimated:</string><!-- i.e.  Estimated 4: hours -->
-        <string name="taskList_elapsedTimePrefix">Spent:</string><!-- i.e. Spent  88 minutes on tax. -->
+        <string name="taskList_hiddenPrefix">藏</string><!-- prefix to show that a task is hidden -->
+        <string name="taskList_dueRelativeTime">到期还有</string><!-- i.e. Due in 4 days -->
+        <string name="taskList_dueAbsoluteDate">到期在</string><!-- i.e. Due on Jan 2 -->
+        <string name="taskList_goalPrefix">希望</string><!-- prefix to deadline -->
+        <string name="taskList_overdueBy">过期</string>
+        <string name="taskList_completedPrefix">完成了</string><!-- i.e. Finished 4 days ago -->
+		<string name="taskList_estimatedTimePrefix">估计:</string><!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_elapsedTimePrefix">花了:</string><!-- i.e. Spent  88 minutes on tax. -->
         <string name="taskList_periodicReminderPrefix">Poke Every</string><!-- time interval to set frequency to remind user -->
         <string name="taskList_repeatPrefix">Repeats Every</string><!-- time interval to set repeated tasks-->
-        <string name="taskList_repeatsRemotely">Repeats On Remote Server</string><!-- displayed when repeat is on remote server-->
         <string name="taskList_alarmPrefix">Next Alarm:</string>
-        <string name="taskList_tagsPrefix">Tags:</string>
-        <string name="taskList_notesPrefix">Notes:</string>
-        <string name="taskList_createdPrefix">Created:</string><!-- Created: MM/DD/YY -->
-        <string name="taskList_deleted">Deleted</string><!-- Deleted: MM/DD/YY -->
+        <string name="taskList_tagsPrefix">标签:</string>
+        <string name="taskList_notesPrefix">笔记:</string>
+        <string name="taskList_createdPrefix">造时:</string><!-- Created: MM/DD/YY -->
+        <string name="taskList_deleted">删时：</string><!-- Deleted: MM/DD/YY -->
         
         <!-- menu items -->
-        <string name="taskList_menu_insert">Add</string><!-- Add or Insert -->
-        <string name="taskList_menu_tags">Tags</string>
+        <string name="taskList_menu_insert">加</string><!-- Add or Insert -->
+        <string name="taskList_menu_tags">标签</string>
         <string name="taskList_menu_filters">Display</string>
-        <string name="taskList_menu_syncshortcut">Sync</string>
-        <string name="taskList_menu_more">More</string>
-        <string name="taskList_menu_sync">Synchronization</string>
-        <string name="taskList_menu_settings">Settings</string>
-        <string name="taskList_menu_help">Help (opens in Browser)</string>
-        <string name="taskList_menu_survey">Take Astrid\'s Survey!</string>
-        <string name="taskList_menu_tips">Quick Tips</string>
-        <string name="taskList_menu_cleanup">Clean Up Old Tasks</string>
+        <string name="taskList_menu_syncshortcut">同步</string>
+        <string name="taskList_menu_more">。。。</string>
+        <string name="taskList_menu_sync">同步</string>
+        <string name="taskList_menu_settings">设定</string>
+        <string name="taskList_menu_help">帮助</string>
+        <string name="taskList_menu_tips">忠告</string>
+        <string name="taskList_menu_cleanup">打扫老任务</string>
         
-        <string name="taskList_context_edit">Edit Task</string>
-        <string name="taskList_context_delete">Delete Task</string>
-        <string name="taskList_context_startTimer">Start Timer</string>
-        <string name="taskList_context_stopTimer">Stop Timer</string>
-        <string name="taskList_context_postpone">Postpone</string>
+        <string name="taskList_context_edit">编辑</string>
+        <string name="taskList_context_delete">删除</string>
+        <string name="taskList_context_startTimer">计时</string>
+        <string name="taskList_context_stopTimer">停计时</string>
+        <string name="taskList_context_postpone">延期</string>
         
         <!-- filter menu -->
-        <string name="taskList_filter_title">Sort/Filters</string>
+        <string name="taskList_filter_title">分类</string>
         <string name="taskList_filter_hidden">Hidden/Blocked Tasks</string>
         <string name="taskList_filter_done">Completed Tasks</string>
         <string name="taskList_filter_tagged">Tagged \'%s\'</string>
@@ -156,30 +151,30 @@
         <string name="taskList_sort_reverse">Sort Reverse</string>
         
         <string name="taskList_nonag_reminder">Select an Action:</string>
-        <string name="taskList_postpone_count">Times You\'ve Postponed: %d</string>
-        <string name="taskList_postpone_dialog">Postpone for how long?</string>
+        <string name="taskList_postpone_count">延期了%d次</string>
+        <string name="taskList_postpone_dialog">延期多少时间？</string>
         <string name="taskList_cleanup_dialog">"Delete completed tasks older than # days:"</string>
 
     <!-- TaskEdit -->
     <skip />
         <!-- title bar -->
-        <string name="taskEdit_titleGeneric">Astrid: Editing Task</string>
-        <string name="taskEdit_titlePrefix">Astrid: Editing </string>
-        <string name="taskEdit_label">Astrid: New Task</string>
+        <string name="taskEdit_titleGeneric">Astrid: 编辑任务</string>
+        <string name="taskEdit_titlePrefix">Astrid: 编辑</string>
+        <string name="taskEdit_label">Astrid: 新任务</string>
         
         <!-- tabs -->
-        <string name="taskEdit_tab_basic">Basic</string>
-        <string name="taskEdit_tab_dates">Dates</string>
-        <string name="taskEdit_tab_alerts">Alerts</string>
+        <string name="taskEdit_tab_basic">细目</string>
+        <string name="taskEdit_tab_dates">时</string>
+        <string name="taskEdit_tab_alerts">闹钟</string>
         
         <!-- labels -->
-        <string name="name_label">Summary</string>
-        <string name="name_hint">Task Description</string>
-        <string name="importance_label">How Important is it?</string>
-        <string name="tags_label">Tags:</string>
+        <string name="name_label">总结</string>
+        <string name="name_hint">任务总结</string>
+        <string name="importance_label">多少要紧</string>
+        <string name="tags_label">标签:</string>
         
-        <string name="estimatedDuration_label">How Long Will it Take?</string>
-        <string name="elapsedDuration_label">Time Already Spent on Task</string>
+        <string name="estimatedDuration_label">需要多少时间?</string>
+        <string name="elapsedDuration_label">已经花了多少时间？</string>
         <string name="definiteDueDate_label">Absolute Deadline</string>
         <string name="preferredDueDate_label">Goal Deadline</string>
         <string name="addToCalendar_label">Add Task To Calendar</string>
@@ -243,7 +238,7 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="tagList_context_shortcut">Create Shortcut</string>
         <string name="tagList_shortcut_created">Shortcut created on your home screen!</string>
         <string name="tagList_shortcut_prefix">Tag:</string>
-        <string name="tagList_untagged">[untagged]</string>
+        <string name="tagList_untagged">-- Not tagged --</string>
         
         <string name="tagList_menu_sortAlpha">Sort A-Z</string>
         <string name="tagList_menu_sortSize">Sort by Size</string>
@@ -255,55 +250,39 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="sync_pref_group_actions">Actions</string>
         <string name="sync_pref_group_options">Options</string>
         <string name="p_sync_rtm">sync_rtm</string>
-        <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate -->
+        <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate ? -->
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
-        <string name="p_sync_every_old">sync_every</string> <!-- old sync key -->
-        <string name="p_sync_interval">sync_freq</string>
-        <string name="sync_interval_title">Auto-Synchronize</string>
-        <string name="sync_interval_desc">If set, synchronization occurs automatically given interval</string>
+        <string name="p_sync_every">sync_every</string>
+        <string name="sync_every_title">Synchronize Frequency</string>
+        <string name="sync_every_desc">If set, perform sync every # hours</string>
         <string name="p_sync_button">sync_button</string>
         <string name="sync_button_title">Main Menu Shortcut</string>
         <string name="sync_button_desc">Show \"Synchronize\" in Astrid\'s menu</string>
         <string name="p_sync_quiet">sync_dialogs</string>
         <string name="sync_quiet_title">Hide Dialogs</string>
         <string name="sync_quiet_desc">Hide the Sync Results dialogs</string>
-        <string name="p_sync_bgwifi">sync_bgwifi</string>
-        <string name="sync_bgwifi_title">Auto-Sync Wifi Only</string>
-        <string name="sync_bgwifi_desc">If set, auto-sync only happens when Wifi is active</string>
+        <string name="p_sync_background">sync_background</string>
+        <string name="sync_background_title">In Background</string>
+        <string name="sync_background_desc">Synchronize without bothering you</string>
         <string name="sync_error">Sync Error! Sorry for the inconvenience! Error:</string>
         <string name="sync_auth_request">
 In order to synchronize, please log in to your %s account and authorize Astrid to read your data.
 \n\n
-When finished, restart Astrid.
+When finished, restart Astrid and come back here.
         </string>
-        <string name="sync_upgrade_v99">
-Astrid 2.7 now performs synchronization with RTM in the background. You will 
-be directed to the preferences page to configure how often you want this to
-occur (it is a minor drain on battery).
+        <string name="sync_rtm_notes">
+Welcome to Astrid\'s RTM sync!
+\n\n
+Things that don\'t sync:\n
+- Notifications and repeats\n
+- In RTM, deleting, or moving+renaming tasks\n
+\n
+Wish me luck!\n
         </string>
         <string name="sync_now">Synchronize Now!</string>
         <string name="sync_forget">Clear Personal Data</string>
-        <string name="sync_uptodate">Sync: Up to date!</string>
         <string name="sync_forget_confirm">Clear data for selected services?</string>
         <string name="sync_no_synchronizers">No Synchronizers Enabled!</string>
-        <string name="sync_last_sync">Last Sync Date: %s</string>
-        <string name="sync_last_auto_sync">Last AutoSync Attempt: %s</string>
-        <string name="sync_date_never">never</string>
-        <string name="sync_result_title">%s Results</string>
-        <string name="sync_result_local">Summary - Astrid Tasks:</string>
-        <string name="sync_result_remote">Summary - Remote Server:</string>
-        <string name="sync_result_created">Created: %d</string>
-        <string name="sync_result_updated">Updated: %d</string>
-        <string name="sync_result_deleted">Deleted: %d</string>
-        <string name="sync_result_merged">Merged: %d</string>
-        
-        <string name="sync_progress_remote">Reading Remote Data</string>
-        <string name="sync_progress_rxlist">Reading List: %s</string>
-        <string name="sync_progress_repeating">Synchronizing Repeating Task</string>
-        <string name="sync_progress_localtx">Sending Task: %s</string>
-        <string name="sync_progress_localdel">Locally Deleted Tasks</string>
-        <string name="sync_progress_remotetx">Receiving Task: %s</string>
-        
        
     <!-- Dialog Boxes -->  
     <skip />

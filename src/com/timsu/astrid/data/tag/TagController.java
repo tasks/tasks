@@ -20,6 +20,7 @@
 package com.timsu.astrid.data.tag;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import android.app.Activity;
@@ -93,9 +94,11 @@ public class TagController extends AbstractController {
         return list;
     }
 
-    /** Get a list of task identifiers for the given tag */
-    public LinkedList<TaskIdentifier> getTaggedTasks(TagIdentifier
-            tagId) throws SQLException {
+    /** Get a list of task identifiers for the given tag.
+     * This searches for TAGGED tasks only.
+     * Use getUntaggedTasks() to get a list of UNTAGGED tasks **/
+    public LinkedList<TaskIdentifier> getTaggedTasks(TagIdentifier tagId)
+    		throws SQLException {
         LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
         Cursor cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
                 TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TAG + " = ?",
@@ -114,6 +117,40 @@ public class TagController extends AbstractController {
 
         return list;
     }
+
+
+    /** Returns a list of task identifiers in the provided set that are UNtagged.
+     *
+     * The calling SubActivity must provide the set of tasks, since
+     * TagController cannot access the appropriate instance of TaskController.
+     *
+     * The current implementation is not very efficient, because queries
+     * the TagToTask map once for each active task.
+     **/
+    public LinkedList<TaskIdentifier> getUntaggedTasks(HashSet<TaskIdentifier>
+    		activeTasks) throws SQLException {
+
+    	LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
+
+    	for (TaskIdentifier taskId : activeTasks) {
+	    	Cursor cursor;
+	    	cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
+	                TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TASK + " = ?",
+	                new String[] { taskId.idAsString() }, null, null, null);
+
+	    	if (cursor.getCount() == 0) {
+	    		list.add(taskId);
+	    	}
+	    	cursor.close();
+    	}
+
+    	// Equivalent SQL Query:
+		//	SELECT * FROM tasks_tbl LEFT OUTER JOIN mapping_tbl ON tasks_tbl.id =
+		//		mapping_tbl.task_id WHERE mapping_tbl.task_id ISNULL;
+
+    	return list;
+    }
+
 
     // --- single tag operations
 

@@ -236,6 +236,7 @@ Wenn Du die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen wi
         <string name="tagList_context_shortcut">Verknüpfung erstellen</string>
         <string name="tagList_shortcut_created">Verknüpfung wurde auf der Startseite erstellt!</string>
         <string name="tagList_shortcut_prefix">Tag:</string>
+        <string name="tagList_untagged">-- Not tagged --</string>
         
         <string name="tagList_menu_sortAlpha">Sortiere alphabetisch</string>
         <string name="tagList_menu_sortSize">Sortiere nach Größe</string>

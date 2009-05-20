@@ -32,8 +32,36 @@ public class TagModelForView extends AbstractTagModel {
         NAME,
     };
 
-    public static final TagModelForView UNTAGGED_TASKS = new TagModelForView("[untagged]");
+    // negative number, should not conflict with database row #'s
+    public static final TagIdentifier UNTAGGED_IDENTIFIER = new TagIdentifier(Long.MIN_VALUE);
+    public static final String UNTAGGED_DEFAULT_NAME = "[untagged]";
+    private static TagModelForView UNTAGGED_TASKS = new TagModelForView(UNTAGGED_DEFAULT_NAME);
+
     public static final String HIDDEN_FROM_MAIN_LIST_PREFIX = "_";
+
+    /**
+     * Returns a TagModelForView object to represent "Untagged" tasks,
+     * whose Identifier is defined by the static final UNTAGGED_IDENTIFIER.
+     *
+     * Pass in a string to show the "Untagged" name in the desired language.
+     * @param untaggedLabel
+     * @return
+     */
+    public static TagModelForView getUntaggedModel(String untaggedLabel) {
+    	UNTAGGED_TASKS = new TagModelForView(untaggedLabel);
+    	UNTAGGED_TASKS.setTagIdentifier(UNTAGGED_IDENTIFIER);
+    	return UNTAGGED_TASKS;
+    }
+
+    /**
+     * Returns the default/last-used TagModelForView representing "Untagged"
+     * tasks.  Set the localized name using getUntaggedModel(String...)
+     */
+    public static TagModelForView getUntaggedModel() {
+    	UNTAGGED_TASKS.setTagIdentifier(UNTAGGED_IDENTIFIER);
+    	return UNTAGGED_TASKS;
+    }
+
 
     // --- constructors
 

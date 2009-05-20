@@ -23,6 +23,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
@@ -206,12 +207,14 @@ public class TaskListSubActivity extends SubActivity {
         if(selectedTaskId == null)
             context.selectedTask = null;
 
-        // process tag to filter, if any
+        // process tag to filter, if any (intercept UNTAGGED identifier, if applicable)
         if(variables != null && variables.containsKey(TAG_TOKEN)) {
             TagIdentifier identifier = new TagIdentifier(variables.getLong(TAG_TOKEN));
             context.tagMap = getTagController().getAllTagsAsMap();
             if(context.tagMap.containsKey(identifier))
                 context.filterTag = context.tagMap.get(identifier);
+            else if(identifier.equals(TagModelForView.UNTAGGED_IDENTIFIER))
+            	context.filterTag = TagModelForView.getUntaggedModel();
             else
                 Toast.makeText(getParent(), R.string.missing_tag, Toast.LENGTH_SHORT).show();
         }
@@ -483,10 +486,20 @@ public class TaskListSubActivity extends SubActivity {
         try {
             // get a cursor to the task list
             Cursor tasksCursor;
-            if(context.filterTag != null) {
-                LinkedList<TaskIdentifier> tasks = getTagController().getTaggedTasks(
-                        context.filterTag.getTagIdentifier());
-                tasksCursor = getTaskController().getTaskListCursorById(tasks);
+            if(context.filterTag != null) {	// Filter by TAG
+            	LinkedList<TaskIdentifier> tasks;
+
+            	// Check "named" Tag vs. "Untagged"
+            	TagIdentifier tagId = context.filterTag.getTagIdentifier();
+            	if (!tagId.equals(TagModelForView.UNTAGGED_IDENTIFIER)) {
+            		tasks = getTagController().getTaggedTasks(tagId);
+            	} else {
+            		HashSet<TaskIdentifier> activeTasks =
+            			getTaskController().getActiveTaskIdentifiers();
+            		tasks = getTagController().getUntaggedTasks(activeTasks);
+            	}
+            	tasksCursor = getTaskController().getTaskListCursorById(tasks);
+
             } else {
                 if(filterShowDone)
                     tasksCursor = getTaskController().getAllTaskListCursor();

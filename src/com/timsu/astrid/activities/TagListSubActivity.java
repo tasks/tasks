@@ -134,13 +134,25 @@ public class TagListSubActivity extends SubActivity {
         // get task count for each tag
         tagToTaskCount = new HashMap<TagModelForView, Integer>();
         for(TagModelForView tag : tagArray) {
-            LinkedList<TaskIdentifier> tasks = getTagController().getTaggedTasks(
-            		tag.getTagIdentifier());
+        	LinkedList<TaskIdentifier> tasks;
+
+        	// Tagged vs. Untagged tasks
+        	boolean taggedTask = !tag.getTagIdentifier().equals(TagModelForView.UNTAGGED_IDENTIFIER);
+        	if (taggedTask)
+    			tasks = getTagController().getTaggedTasks(tag.getTagIdentifier());
+    		else
+        		tasks = getTagController().getUntaggedTasks(activeTasks);
+
             int count = 0;
             for(TaskIdentifier task : tasks)
                 if(activeTasks.contains(task))
                     count++;
-            tagToTaskCount.put(tag, count);
+
+            // don't show Untagged if there aren't any untagged tasks
+            if (taggedTask || count!=0)
+            	tagToTaskCount.put(tag, count);
+            else
+            	tagArray.remove(tag);
         }
 
         // do sort
@@ -159,7 +171,11 @@ public class TagListSubActivity extends SubActivity {
     private synchronized void fillData() {
         try {
             tagArray = getTagController().getAllTags();
-            sortTagArray();
+
+            // Show "Untagged" as a category, in the proper language/localization
+            String untaggedLabel = getResources().getString(R.string.tagList_untagged);
+            tagArray.add(TagModelForView.getUntaggedModel(untaggedLabel));
+            sortTagArray();  // count and sort each tag
         } catch (StaleDataException e) {
             // happens when you rotate the screen while the thread is
             // still running. i don't think it's avoidable?
