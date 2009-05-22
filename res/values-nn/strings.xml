@@ -206,102 +206,209 @@ For å bruke gjentakelser må du sette minst ett av utløpstidspunktene over. N�
 Hvis du ikke ønsker å se den nye oppgaven rett etter at du fullfører den gamle, bør du bruke "Gjem Til"-feltet, som også vil bli flyttet automatisk.
 \n
         </string>
-        <string name="repeat_help_hide">Skjul hjelp</string>
-        
+  <!--Original value: Don't Show Help Anymore-->
+  <string name="repeat_help_hide">Skjul hjelp</string>
+ 
         <!-- buttons -->
-        <string name="save_label">Lagre</string>
-        <string name="discard_label">Forkast</string>
-        <string name="edit_label">Rediger</string>
-        <string name="delete_label">Slett</string>
-        <string name="blank_button_title">Klikk for å sette</string>
-        <string name="startTimer_label">Start tidtaker</string>
-        <string name="stopTimer_label">Stopp tidtaker</string>
-        
-        <string name="taskEdit_menu_save">Lagre</string>
-        <string name="taskEdit_onTaskSave_Due">Oppgave lagret: utløper om %s</string>
-        <string name="taskEdit_onTaskSave_notDue">Oppgave lagret</string>
-      
-    <!-- TaskView  -->
+  <!--Original value: Save-->
+  <string name="save_label">Lagre</string>
+  <!--Original value: Discard-->
+  <string name="discard_label">Forkast</string>
+  <!--Original value: Edit-->
+  <string name="edit_label">Rediger</string>
+  <!--Original value: Delete-->
+  <string name="delete_label">Slett</string>
+  <!--Original value: Click to Set-->
+  <string name="blank_button_title">Klikk for å sette</string>
+  <!--Original value: Start Timer-->
+  <string name="startTimer_label">Start tidtaker</string>
+  <!--Original value: Stop Timer-->
+  <string name="stopTimer_label">Stopp tidtaker</string>
+  
+  <!--Original value: Save-->
+  <string name="taskEdit_menu_save">Lagre</string>
+  <!--Original value: Task Saved: due in %s-->
+  <string name="taskEdit_onTaskSave_Due">Oppgave lagret: utløper om %s</string>
+  <!--Original value: Task Saved-->
+  <string name="taskEdit_onTaskSave_notDue">Oppgave lagret</string>
+  
+      <!-- TaskView  -->
     <skip />
-    
-        <string name="taskView_notifyTitle">Astrid sier...</string>
-        
-    <!-- Tag List -->
+  <!--Original value: Astrid says...-->
+  <string name="taskView_notifyTitle">Astrid sier...</string>
+  
+      <!-- Tag List -->
     <skip />
-        <string name="tagList_titlePrefix">Astrid: Taggvisning: </string>
-        <string name="tagList_context_create">Opprett oppgave med tagg</string>
-        <string name="tagList_context_edit">Rediger tagg</string>
-        <string name="tagList_context_delete">Slett tagg</string>
-        <string name="tagList_context_showTag">Vis på hovedside</string>
-        <string name="tagList_context_hideTag">Skjul på hovedside</string>
-        <string name="tagList_context_shortcut">Lag snarvei</string>
-        <string name="tagList_shortcut_created">Snarvei opprettet på hovedsiden!</string>
-        <string name="tagList_shortcut_prefix">Tagg:</string>
-        <string name="tagList_untagged">-- Not tagged --</string>
-        
-        <string name="tagList_menu_sortAlpha">Sorter alfabetisk</string>
-        <string name="tagList_menu_sortSize">Sorter etter størrelse</string>
-    
-    
-    <!-- Synchronization -->  
+  <!--Original value: Astrid: Tag View: -->
+  <string name="tagList_titlePrefix">Astrid: Taggvisning: </string>
+  <!--Original value: Create Task With Tag-->
+  <string name="tagList_context_create">Opprett oppgave med tagg</string>
+  <!--Original value: Edit Tag-->
+  <string name="tagList_context_edit">Rediger tagg</string>
+  <!--Original value: Delete Tag-->
+  <string name="tagList_context_delete">Slett tagg</string>
+  <!--Original value: Show on Home Page-->
+  <string name="tagList_context_showTag">Vis på hovedside</string>
+  <!--Original value: Hide on Home Page-->
+  <string name="tagList_context_hideTag">Skjul på hovedside</string>
+  <!--Original value: Create Shortcut-->
+  <string name="tagList_context_shortcut">Lag snarvei</string>
+  <!--Original value: Shortcut created on your home screen!-->
+  <string name="tagList_shortcut_created">Snarvei opprettet på hovedsiden!</string>
+  <!--Original value: Tag:-->
+  <string name="tagList_shortcut_prefix">Tagg:</string>
+  <!--Original value: [untagged]-->
+  <string name="tagList_untagged">-- Not tagged --</string>
+  
+  <!--Original value: Sort A-Z-->
+  <string name="tagList_menu_sortAlpha">Sorter alfabetisk</string>
+  <!--Original value: Sort by Size-->
+  <string name="tagList_menu_sortSize">Sorter etter størrelse</string>
+  
+      <!-- Synchronization -->  
     <skip />
-        <string name="sync_pref_group">Synkroniseringstjenester</string>
-        <string name="sync_pref_group_actions">Handlinger</string>
-        <string name="sync_pref_group_options">Valg</string>
-        <string name="p_sync_rtm">sync_rtm</string>
-        <string name="sync_rtm_title">Remember The Milk</string>
-        <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
-        <string name="p_sync_every">sync_every</string>
-        <string name="sync_every_title">Synkroniseringsfrekvens</string>
-        <string name="sync_every_desc">Hvis satt, utfør synkronisering hver # time(r)</string>
-        <string name="p_sync_button">sync_button</string>
-        <string name="sync_button_title">Hovedmeny-snarvei</string>
-        <string name="sync_button_desc">Vis \"Synkronisér\" i Astrid\'s meny</string>
-        <string name="p_sync_quiet">sync_dialogs</string>
-        <string name="sync_quiet_title">Skjul dialogvinduer</string>
-        <string name="sync_quiet_desc">Skjul dialogvindu med synkroniseringsresultat</string>
-        <string name="p_sync_background">sync_background</string>
-        <string name="sync_background_title">I bakgrunnen</string>
-        <string name="sync_background_desc">Synkroniser uten å mase på deg</string>
-        <string name="sync_error">Synkroniseringsfeil! Beklager ulempen. Feilmelding:</string>
-        <string name="sync_auth_request">
+  <!--Original value: Synchronization Services-->
+  <string name="sync_pref_group">Synkroniseringstjenester</string>
+  <!--Original value: Actions-->
+  <string name="sync_pref_group_actions">Handlinger</string>
+  <!--Original value: Options-->
+  <string name="sync_pref_group_options">Valg</string>
+  <!--Original value: sync_rtm-->
+  <string name="p_sync_rtm">sync_rtm</string>
+  <!--Original value: Remember The Milk-->
+  <string name="sync_rtm_title">Remember The Milk</string>
+  <!--Original value: http://www.rememberthemilk.com-->
+  <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
+  <!--Original value: sync_every-->
+  <string name="p_sync_every_old" />
+  <!--Original value: sync_freq-->
+  <string name="p_sync_interval" />
+  <!--Original value: Auto-Synchronize-->
+  <string name="sync_interval_title">Auto-synkronise</string>
+  <!--Original value: If set, synchronization occurs automatically given interval-->
+  <string name="sync_interval_desc">Dersom dette er satt utføres
+synkronisering automatisk i gitt intervall</string>
+  <!--Original value: sync_button-->
+  <string name="p_sync_button">sync_button</string>
+  <!--Original value: Main Menu Shortcut-->
+  <string name="sync_button_title">Hovedmeny-snarvei</string>
+  <!--Original value: Show \"Synchronize\" in Astrid\'s menu-->
+  <string name="sync_button_desc">Vis \"Synkronisér\" i Astrid\'s meny</string>
+  <!--Original value: sync_dialogs-->
+  <string name="p_sync_quiet">sync_dialogs</string>
+  <!--Original value: Hide Dialogs-->
+  <string name="sync_quiet_title">Skjul dialogvinduer</string>
+  <!--Original value: Hide the Sync Results dialogs-->
+  <string name="sync_quiet_desc">Skjul dialogvindu med synkroniseringsresultat</string>
+  <!--Original value: sync_bgwifi-->
+  <string name="p_sync_bgwifi" />
+  <!--Original value: Auto-Sync Wifi Only-->
+  <string name="sync_bgwifi_title">AutoSynk kun med Wi-Fi</string>
+  <!--Original value: If set, auto-sync only happens when Wifi is active-->
+  <string name="sync_bgwifi_desc">Dersom denne er satt utføres
+synkronisering kun dersom Wi-Fi er aktiv</string>
+  <!--Original value: Sync Error! Sorry for the inconvenience! Error:-->
+  <string name="sync_error">Synkroniseringsfeil! Beklager ulempen. Feilmelding:</string>
+  <!--Original value: 
+In order to synchronize, please log in to your %s account and authorize Astrid to read your data.
+\n\n
+When finished, restart Astrid.
+        -->
+  <string name="sync_auth_request">
 For å kunne synkronisere må du logge deg inn på din %s-konto og autorisere Astrid til å lese dine data.
 \n\n
 Når dette er fullført kan du starte Astrid å komme tilbake hit.
         </string>
-        <string name="sync_rtm_notes">
-Velkommen til Astrid\'s RTM-synkronisering!
-\n\n
-Gjenstander som ikke vil bli synkronisert:
-- Påminnelser og repetisjoner
-- Sletting eller omdøping av oppgaver i RTM
-\n
-Ønsk meg lykke til!\n
-        </string>
-        <string name="sync_now">Synkroniser nå!</string>
-        <string name="sync_forget">Slett personlig data</string>
-        <string name="sync_forget_confirm">Slett data for valgte tjenester?</string>
-        <string name="sync_no_synchronizers">Ingen synkroniserere aktivert!</string>
-       
-    <!-- Dialog Boxes -->  
+  <!--Original value: 
+Astrid 2.7 now performs synchronization with RTM in the background. You will 
+be directed to the preferences page to configure how often you want this to
+occur (it is a minor drain on battery).
+        -->
+  <string name="sync_upgrade_v99" />
+  <!--Original value: Synchronize Now!-->
+  <string name="sync_now">Synkroniser nå!</string>
+  <!--Original value: Clear Personal Data-->
+  <string name="sync_forget">Slett personlig data</string>
+  <!--Original value: Sync: Up to date!-->
+  <string name="sync_uptodate" />
+  <!--Original value: Clear data for selected services?-->
+  <string name="sync_forget_confirm">Slett data for valgte tjenester?</string>
+  <!--Original value: No Synchronizers Enabled!-->
+  <string name="sync_no_synchronizers">Ingen synkroniserere aktivert!</string>
+  <!--Original value: Last Sync Date: %s-->
+  <string name="sync_last_sync" />
+  <!--Original value: Last AutoSync Attempt: %s-->
+  <string name="sync_last_auto_sync" />
+  <!--Original value: never-->
+  <string name="sync_date_never" />
+  <!--Original value: %s Results-->
+  <string name="sync_result_title">%s Resultater</string>
+  <!--Original value: Summary - Astrid Tasks:-->
+  <string name="sync_result_local">Summary - Astrid-oppgaver:</string>
+  <!--Original value: Summary - Remote Server:-->
+  <string name="sync_result_remote">Summary - Tjener:</string>
+  <!--Original value: Created: %d-->
+  <string name="sync_result_created">Opprettet: %d</string>
+  <!--Original value: Updated: %d-->
+  <string name="sync_result_updated">Oppdatert: %d</string>
+  <!--Original value: Deleted: %d-->
+  <string name="sync_result_deleted">Slettet: %d</string>
+  <!--Original value: Merged: %d-->
+  <string name="sync_result_merged">Sammenslått: %d</string>
+  <!--Original value: Reading Remote Data-->
+  <string name="sync_progress_remote">Leser data fra tjener</string>
+  <!--Original value: Reading List: %s-->
+  <string name="sync_progress_rxlist">Leser liste: %s</string>
+  <!--Original value: Synchronizing Repeating Task-->
+  <string name="sync_progress_repeating">Synkroniserer
+repeterende oppgave</string>
+  <!--Original value: Sending Task: %s-->
+  <string name="sync_progress_localtx">Sender oppgave: %s</string>
+  <!--Original value: Locally Deleted Tasks-->
+  <string name="sync_progress_localdel">Lokalt slettede
+oppgaver</string>
+  <!--Original value: Receiving Task: %s-->
+  <string name="sync_progress_remotetx">Mottar oppgaver: %s</string>
+  
+      <!-- Dialog Boxes -->  
     <skip />
-        <string name="loading">Laster...</string>
-        <string name="updating">Laster opp liste...</string>
-        <string name="information_title">Informasjon</string>
-        <string name="question_title">Spørsmål</string>
-        <string name="notify_yes">Vis oppgave</string>
-        <string name="notify_done">Allerede utført!</string>
-        <string name="notify_snooze">Slumre</string>
-        <string name="notify_no">Avslutt</string>
-        <string name="notify_snooze_title">Timer/minutter å slumre?</string>
-        
-        <string name="delete_title">Slett</string>        
-        <string name="delete_this_task_title">Slette denne oppgaven?</string>
-        <string name="delete_this_tag_title">Fjerne denne taggen fra alle oppgaver?</string>
-        
-        <string name="stop_timer_title">Stopp tidtakeren?</string>
-        
-        <string name="quick_tips">
+  <!--Original value: Loading...-->
+  <string name="loading">Laster...</string>
+  <!--Original value: Updating List...-->
+  <string name="updating">Laster opp liste...</string>
+  <!--Original value: Information-->
+  <string name="information_title">Informasjon</string>
+  <!--Original value: Question-->
+  <string name="question_title">Spørsmål</string>
+  <!--Original value: View Task-->
+  <string name="notify_yes">Vis oppgave</string>
+  <!--Original value: Already Done!-->
+  <string name="notify_done">Allerede utført!</string>
+  <!--Original value: Snooze-->
+  <string name="notify_snooze">Slumre</string>
+  <!--Original value: Quit-->
+  <string name="notify_no">Avslutt</string>
+  <!--Original value: Hours/minutes to snooze?-->
+  <string name="notify_snooze_title">Timer/minutter å slumre?</string>
+  <!--Original value: Delete-->
+  <string name="delete_title">Slett</string>
+  <!--Original value: Delete this task?-->
+  <string name="delete_this_task_title">Slette denne oppgaven?</string>
+  <!--Original value: Remove this tag from all tasks?-->
+  <string name="delete_this_tag_title">Fjerne denne taggen fra alle oppgaver?</string>
+  <!--Original value: Stop the timer?-->
+  <string name="stop_timer_title">Stopp tidtakeren?</string>
+  <!--Original value: 
+Some things you may not know about Astrid:\n
+\n
+- To create a task, just start typing!\n
+- While editing a task, hit \'back\' to save it\n
+- Select a task & press 1-4 to quickly change it\'s priority\n
+- If a task has a deadline, long-press to postpone it\n
+\n
+Thanks for using Astrid!\n
+        -->
+  <string name="quick_tips">
 Noen ting du kanskje ikke visste om Astrid:\n
 \n
 - For å opprette en oppgave, bare begynn å skrive!\n
@@ -311,104 +418,137 @@ Noen ting du kanskje ikke visste om Astrid:\n
 \n
 Takk for at du bruker Astrid!\n
         </string>
-
-     
-    <!-- Notification -->  
+  <!--Original value: Absolute Deadline!-->
+  <string name="notif_definiteDueDate">Absolutt utløpsfrist!</string>
+  <!--Original value: Goal Deadline!-->
+  <string name="notif_preferredDueDate">Målfrist!</string>
+  <!--Original value: Working on:-->
+  <string name="notif_timerStarted">Arbeider med:</string>
+  <!--Original value: Couldn't find this item:-->
+  <string name="error_opening">Kunne ikke finne denne gjenstanden!:</string>
+  <!--Original value: Couldn't save:-->
+  <string name="error_saving">Kunne ikke lagre:</string>
+  
+      <!-- Preference Keys. Strings starting with p_* should not be localized -->  
     <skip />
-        
-        <string name="notif_definiteDueDate">Absolutt utløpsfrist!</string>
-        <string name="notif_preferredDueDate">Målfrist!</string>
-        <string name="notif_timerStarted">Arbeider med:</string>
-        
-    <!-- Error Messages -->  
-    <skip />
-    
-        <string name="error_opening">Kunne ikke finne denne gjenstanden!:</string>
-        <string name="error_saving">Kunne ikke lagre:</string>
-    
-    <!-- Preference Keys. Strings starting with p_* should not be localized -->  
-    <skip />
+  
+  <!--Original value: Notifications-->
+  <string name="prefs_category_alerts">Notifications</string>
+ <!--Original value: Quiet Hours Start-->
+  <string name="prefs_quietStart_title">Start på stilletimer</string>
+  <!--Original value: Starting hour when Astrid should be quiet (e.g. 22)-->
+  <string name="prefs_quietStart_desc">Tidspunkt fra når Astrid skal være stille (f.eks. 22)</string>
+<!--Original value: Quiet Hours End-->
+  <string name="prefs_quietEnd_title">Slutt på stilletimer</string>
+  <!--Original value: Ending hour when Astrid should be quiet (e.g. 08)-->
+  <string name="prefs_quietEnd_desc">Tidspunkt fra når Astrid ikke lenger skal være stille (f.eks. 08)</string>
+  <!--Original value: Default Reminders-->
+  <string name="prefs_defaultRemind_title">Standardpåminnelser</string>
+  <!--Original value: For new tasks, in days (i.e. 7). Blank to disable-->
+  <string name="prefs_defaultRemind_desc">For nye oppgaver, i dager (f.eks. 7). Blank for å slå av.</string>
+  <!--Original value: Alarm Clock Mode-->
+  <string name="prefs_annoy_title">Iherdig-modus</string>
+  <!--Original value: If checked, Astrid will interrupt whatever you are doing until you view the reminder-->
+  <string name="prefs_annoy_desc">Dersom denne er avkryssen må du se påminnelser før du kan fjerne dem (gjelder også LED-lampen)</string>
+<!--Original value: Notification Ringtone-->
+  <string name="prefs_notification_title">Ringetone for påminnelser</string>
+  <!--Original value: Choose a ringtone for Astrid\'s alerts-->
+  <string name="prefs_notification_desc">Velg ringetone for Astrid\'s påminnelser</string>
+  <!--Original value: notif_theme-->
+  <string name="p_notif_icon">notif_theme</string>
+  <!--Original value: Notification Icons-->
+  <string name="prefs_notificon_title">Ikon for påminnelser</string>
+  <!--Original value: Choose Astrid\'s notification bar icon-->
+  <string name="prefs_notificon_desc">Choose Astrid\'s notification bar icon</string>
+  <!--Original value: Appearance-->
+  <string name="prefs_category_appearance">Utseende</string>
+  <!--Original value: Colorize Task List-->
+  <string name="prefs_colorize_title">Fargelegg oppgavelisten</string>
+  <!--Original value: Different colors for different priorities-->
+  <string name="prefs_colorize_desc">Ulike farger for ulike prioriteter</string>
+  <!--Original value: font_size-->
+  <string name="prefs_fontSize_title">Font for oppgavelisten</string>
+  <!--Original value: Font on the main listing page (i.e. 22)-->
+  <string name="prefs_fontSize_desc">For på hovedsiden (f.eks. 22)</string>
+  <!--Original value: Other-->
+  <string name="prefs_category_other">Other</string>
 
-        <string name="prefs_category_alerts">Notifications</string>
-        
-        <string name="p_notif_quietStart">notif_qstart</string>
-        <string name="prefs_quietStart_title">Start på stilletimer</string>
-        <string name="prefs_quietStart_desc">Tidspunkt fra når Astrid skal være stille (f.eks. 22)</string>
-        
-        <string name="p_notif_quietEnd">notif_qend</string>
-        <string name="prefs_quietEnd_title">Slutt på stilletimer</string>
-        <string name="prefs_quietEnd_desc">Tidspunkt fra når Astrid ikke lenger skal være stille (f.eks. 08)</string>
-          
-        <string name="p_notif_defaultRemind">notif_default_reminder</string>
-        <string name="prefs_defaultRemind_title">Standardpåminnelser</string>
-        <string name="prefs_defaultRemind_desc">For nye oppgaver, i dager (f.eks. 7). Blank for å slå av.</string>
-        
-        <string name="p_notif_annoy">notif_annoy</string>
-        <string name="prefs_annoy_title">Iherdig-modus</string>
-        <string name="prefs_annoy_desc">Dersom denne er avkryssen må du se påminnelser før du kan fjerne dem (gjelder også LED-lampen)</string>
-        
-        <string name="p_notification_ringtone">notification_ringtone</string>
-        <string name="prefs_notification_title">Ringetone for påminnelser</string>
-        <string name="prefs_notification_desc">Velg ringetone for Astrid\'s påminnelser</string>
-
-        <string name="p_notif_icon">notif_theme</string>
-        <string name="prefs_notificon_title">Ikon for påminnelser</string>
-        <string name="prefs_notificon_desc">Choose Astrid\'s notification bar icon</string> <!-- TODO: Translate -->
-        
-        <string name="prefs_category_appearance">Utseende</string>
-            
-        <string name="p_colorize">colorize</string>
-        <string name="prefs_colorize_title">Fargelegg oppgavelisten</string>
-        <string name="prefs_colorize_desc">Ulike farger for ulike prioriteter</string>
-        
-        <string name="p_fontSize">font_size</string>
-        <string name="prefs_fontSize_title">Font for oppgavelisten</string>
-        <string name="prefs_fontSize_desc">For på hovedsiden (f.eks. 22)</string>
-
-        <string name="prefs_category_other">Other</string>
-        
-        <string name="p_nagging">nagging</string>
-        <string name="prefs_nagging_title">Masemeldinger</string>
-        <string name="prefs_nagging_desc">Vis Astid\'s kommentarer ved visning av påminnere og ved utsettelse av oppgaver?</string>
-
-        <string name="p_deadlineTime">deadline_time</string>
-        <string name="prefs_deadlineTime_title">Standard utløpstidspunkt</string>
-        <string name="prefs_deadlineTime_desc">Utløpstidspunkt blir satt # dager fra nå</string>
-        
-        <string name="displayedFields_PrefScreen_Title">Feltvisning</string>
-        <string name="displayedFields_PrefScreen_Desc">Velg feltene som skal vises i oppgavelisten</string>
-        
-        <!-- notification keys (no title, desc, default suffix) should not be localized -->
-        <string name="prefs_titleVisible">titleVisible</string> 
-        <string name="prefs_titleVisible_title">Task Title</string>
-        <string name="prefs_titleVisible_desc">Task description</string>
-        <string name="prefs_titleVisible_default">true</string>
-	    <string name="prefs_deadlineVisible">deadlineVisible</string>
-        <string name="prefs_deadlineVisible_title">Dates</string>
-        <string name="prefs_deadlineVisible_desc">Upcoming deadlines / completed date</string>
-        <string name="prefs_deadlineVisible_default">true</string>
-    	<string name="prefs_timeVisible">timeVisible</string>
-        <string name="prefs_timeVisible_title">Times</string>
-        <string name="prefs_timeVisible_desc">Estimated &amp; Elapsed Times</string>
-        <string name="prefs_timeVisible_default">true</string>
-        <string name="prefs_importanceVisible">importanceVisible</string>
-        <string name="prefs_importanceVisible_title">Importance</string>
-        <string name="prefs_importanceVisible_desc">Task importance indicator</string>
-        <string name="prefs_importanceVisible_default">true</string>
-	    <string name="prefs_tagsVisible">tagsVisible</string>
-        <string name="prefs_tagsVisible_title">Tags</string>
-        <string name="prefs_tagsVisible_desc">Tags associated with this task</string>
-        <string name="prefs_tagsVisible_default">true</string>
-	    <string name="prefs_repeatVisible">repeatVisible</string>
-        <string name="prefs_repeatVisible_title">Repeats</string>
-        <string name="prefs_repeatVisible_desc">Task repeat information</string>
-        <string name="prefs_repeatVisible_default">true</string>
-	    <string name="prefs_reminderVisible">reminderVisible</string>
-        <string name="prefs_reminderVisible_title">Reminders</string>
-        <string name="prefs_reminderVisible_desc">Displayed if this task has reminders</string>
-        <string name="prefs_reminderVisible_default">false</string>
-	    <string name="prefs_notesVisible">notesVisible</string>
-        <string name="prefs_notesVisible_title">Notes</string>
-        <string name="prefs_notesVisible_desc">Notes associated with this task</string>
-        <string name="prefs_notesVisible_default">false</string>
+  <!--Original value: Nag Messages-->
+  <string name="prefs_nagging_title">Masemeldinger</string>
+  <!--Original value: Show Astrid\'s comments when viewing reminders and postponing tasks?-->
+  <string name="prefs_nagging_desc">Vis Astid\'s kommentarer ved visning av påminnere og ved utsettelse av oppgaver?</string>
+  <!--Original value: Default Deadlines-->
+  <string name="prefs_deadlineTime_title">Standard utløpstidspunkt</string>
+  <!--Original value: # of days from now to set new deadlines-->
+  <string name="prefs_deadlineTime_desc">Utløpstidspunkt blir satt # dager fra nå</string>
+  <!--Original value: Displayed Fields-->
+  <string name="displayedFields_PrefScreen_Title">Feltvisning</string>
+  <!--Original value: Select the fields to show in task list-->
+  <string name="displayedFields_PrefScreen_Desc">Velg feltene som skal vises i oppgavelisten</string>
+  <!--Original value: titleVisible-->
+  <string name="prefs_titleVisible">titleVisible</string>
+  <!--Original value: Task Title-->
+  <string name="prefs_titleVisible_title">Task Title</string>
+  <!--Original value: Task description-->
+  <string name="prefs_titleVisible_desc">Task description</string>
+  <!--Original value: true-->
+  
+  <!-- notification keys (no title, desc, default suffix) should not be localized -->
+  <string name="prefs_titleVisible_default">true</string>
+  <!--Original value: deadlineVisible-->
+  <string name="prefs_deadlineVisible">deadlineVisible</string>
+  <!--Original value: Dates-->
+  <string name="prefs_deadlineVisible_title">Dates</string>
+  <!--Original value: Upcoming deadlines / completed date-->
+  <string name="prefs_deadlineVisible_desc">Upcoming deadlines / completed date</string>
+  <!--Original value: true-->
+  <string name="prefs_deadlineVisible_default">true</string>
+  <!--Original value: timeVisible-->
+  <string name="prefs_timeVisible">timeVisible</string>
+  <!--Original value: Times-->
+  <string name="prefs_timeVisible_title">Times</string>
+  <!--Original value: Estimated & Elapsed Times-->
+  <string name="prefs_timeVisible_desc">Estimated &amp; Elapsed Times</string>
+  <!--Original value: true-->
+  <string name="prefs_timeVisible_default">true</string>
+  <!--Original value: importanceVisible-->
+  <string name="prefs_importanceVisible">importanceVisible</string>
+  <!--Original value: Importance-->
+  <string name="prefs_importanceVisible_title">Importance</string>
+  <!--Original value: Task importance indicator-->
+  <string name="prefs_importanceVisible_desc">Task importance indicator</string>
+  <!--Original value: true-->
+  <string name="prefs_importanceVisible_default">true</string>
+  <!--Original value: tagsVisible-->
+  <string name="prefs_tagsVisible">tagsVisible</string>
+  <!--Original value: Tags-->
+  <string name="prefs_tagsVisible_title">Tags</string>
+  <!--Original value: Tags associated with this task-->
+  <string name="prefs_tagsVisible_desc">Tags associated with this task</string>
+  <!--Original value: true-->
+  <string name="prefs_tagsVisible_default">true</string>
+  <!--Original value: repeatVisible-->
+  <string name="prefs_repeatVisible">repeatVisible</string>
+  <!--Original value: Repeats-->
+  <string name="prefs_repeatVisible_title">Repeats</string>
+  <!--Original value: Task repeat information-->
+  <string name="prefs_repeatVisible_desc">Task repeat information</string>
+  <!--Original value: true-->
+  <string name="prefs_repeatVisible_default">true</string>
+  <!--Original value: reminderVisible-->
+  <string name="prefs_reminderVisible">reminderVisible</string>
+  <!--Original value: Reminders-->
+  <string name="prefs_reminderVisible_title">Reminders</string>
+  <!--Original value: Displayed if this task has reminders-->
+  <string name="prefs_reminderVisible_desc">Displayed if this task has reminders</string>
+  <!--Original value: false-->
+  <string name="prefs_reminderVisible_default">false</string>
+  <!--Original value: notesVisible-->
+  <string name="prefs_notesVisible">notesVisible</string>
+  <!--Original value: Notes-->
+  <string name="prefs_notesVisible_title">Notes</string>
+  <!--Original value: Notes associated with this task-->
+  <string name="prefs_notesVisible_desc">Notes associated with this task</string>
+  <!--Original value: false-->
+  <string name="prefs_notesVisible_default">false</string>
 </resources>
