@@ -45,7 +45,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/name_hint"
             android:autoText="true"
-            android:capitalize="words"/>
+            android:capitalize="sentences"/>
                         
         <TextView android:id="@+id/importance_label"
             android:layout_width="wrap_content"
