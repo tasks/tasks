@@ -366,8 +366,8 @@ Thanks for using Astrid!\n
         <string name="prefs_defaultRemind_desc">For new tasks, in days (i.e. 7). Blank to disable</string>
         
         <string name="p_notif_annoy">notif_annoy</string>
-        <string name="prefs_annoy_title">Persistent Mode</string>
-        <string name="prefs_annoy_desc">If checked, you must view reminders before clearing them (also LED)</string>
+        <string name="prefs_annoy_title">Alarm Clock Mode</string>
+        <string name="prefs_annoy_desc">If checked, Astrid will interrupt whatever you are doing until you view the reminder</string>
         
         <string name="p_notification_ringtone">notification_ringtone</string>
         <string name="prefs_notification_title">Notification Ringtone</string>
