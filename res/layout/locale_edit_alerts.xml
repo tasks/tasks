@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/locale_edit_intro" />
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/locale_border"
+        android:layout_margin="10px">
+
+        <TextView
+            android:paddingTop="5px"
+            android:paddingBottom="10px"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/locale_pick_tag"
+            style="@style/TextAppearance.Locale_Label" />
+            
+        <Spinner
+            android:paddingBottom="10px"
+            android:id="@+id/spinner"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" />
+            
+    </LinearLayout>
+</LinearLayout>

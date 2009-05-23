@@ -197,7 +197,7 @@
         <string name="flag_before">As Deadlines Approach</string>
         <string name="flag_during">At Deadlines</string>
         <string name="flag_after">After Absolute Deadline Passes</string>
-        <string name="flag_nonstop">Nonstop Until I View the Task</string>
+        <string name="flag_nonstop">Alarm Clock Mode</string>
         <string name="alerts_label">Fixed Reminders</string>
         <string name="add_alert">Add New Reminder</string>
         
@@ -334,6 +334,13 @@ Some things you may not know about Astrid:\n
 Thanks for using Astrid!\n
         </string>
 
+    <!-- Locale Plugin -->  
+    <skip />
+        
+        <string name="locale_edit_alerts_title">Astrid Tag Alert</string>
+        <string name="locale_edit_intro">Astrid will send you a reminder 
+        when you have uncompleted tasks with the following criteria:</string>
+        <string name="locale_pick_tag">Tagged with:</string>
      
     <!-- Notification -->  
     <skip />
