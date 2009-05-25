@@ -596,8 +596,12 @@ public class TaskListSubActivity extends SubActivity {
                 StringBuilder title = new StringBuilder().
                     append(r.getString(R.string.taskList_titlePrefix)).append(" ");
                 if(context.filterTag != null) {
-                    title.append(r.getString(R.string.taskList_titleTagPrefix,
-                            context.filterTag.getName())).append(" ");
+                	if(TagModelForView.UNTAGGED_IDENTIFIER.equals(context.filterTag.getTagIdentifier())) {
+                		title.append(r.getString(R.string.taskList_titleUntagged)).append(" ");
+                	} else {
+                		title.append(r.getString(R.string.taskList_titleTagPrefix,
+	                            context.filterTag.getName())).append(" ");
+                	}
                 }
 
                 if(finalCompleted > 0)

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -47,8 +48,9 @@ public class LocaleReceiver extends BroadcastReceiver {
 							new TagIdentifier(tagId));
 					int count = TagListSubActivity.countActiveTasks(activeTasks, tasks);
 					if(count > 0) {
-						String reminder = context.getResources().getString(
-								R.string.notif_tagNotification, count, tagName);
+						Resources r = context.getResources();
+						String reminder = r.getString(R.string.notif_tagNotification,
+								r.getQuantityString(R.plurals.Ntasks, count, count), tagName);
 						Notifications.showTagNotification(context, tagId, reminder);
 					}
 				} finally {

@@ -20,12 +20,12 @@
 package com.timsu.astrid.data.tag;
 
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.CursorJoiner;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -128,7 +128,7 @@ public class TagController extends AbstractController {
      * the TagToTask map once for each active task.
      **/
     public LinkedList<TaskIdentifier> getUntaggedTasks() throws SQLException {
-    	LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
+    	HashSet<Long> ids = new HashSet<Long>();
 
     	String[] tagMapColumns = new String[] { TagToTaskMapping.TASK };
     	Cursor tagMapCursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
@@ -141,30 +141,30 @@ public class TagController extends AbstractController {
     	Cursor taskCursor = taskDatabase.query(TASK_TABLE_NAME, taskColumns,
     			null, null, null, null, KEY_ROWID + " ASC");
 
+    	LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
         try {
-        	CursorJoiner joiner = new CursorJoiner(taskCursor, taskColumns,
-        			tagMapCursor, tagMapColumns);
-        	for (CursorJoiner.Result joinerResult : joiner) {
-				switch (joinerResult) {
-				case LEFT:
-					long taskId = taskCursor.getLong(0);
+        	if(taskCursor.getCount() == 0)
+        		return list;
 
-					// conditional is necessary for handling deleted tasks
-					if(tagMapCursor.isLast() || tagMapCursor.getLong(0) > taskId) {
-						list.add(new TaskIdentifier(taskId));
-					}
-					break;
-				default:
-					// in other cases, do nothing
-					break;
-				}
-			}
+        	do {
+        		taskCursor.moveToNext();
+                ids.add(taskCursor.getLong(0));
+            } while(!taskCursor.isLast());
+
+        	if(tagMapCursor.getCount() > 0) {
+        		do {
+        			tagMapCursor.moveToNext();
+                    ids.remove(tagMapCursor.getLong(0));
+                } while(!tagMapCursor.isLast());
+        	}
         } finally {
         	taskCursor.close();
         	tagMapCursor.close();
         	taskDatabase.close();
         }
 
+        for(Long id : ids)
+        	list.add(new TaskIdentifier(id));
     	return list;
     }
 

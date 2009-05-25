@@ -103,7 +103,8 @@
     <skip />
         <!-- title bar -->
         <string name="taskList_titlePrefix">Astrid: </string>
-        <string name="taskList_titleTagPrefix">Tagged \"%s\": </string>
+        <string name="taskList_titleTagPrefix">Tagged \"%s\":</string>
+        <string name="taskList_titleUntagged">Untagged Tasks:</string>
         <string name="taskList_hiddenSuffix"> hidden</string>
         <string name="addtask_label">New Task</string>
         <string name="missing_tag">Could Not Find Requested Tag!</string>
@@ -343,7 +344,7 @@ Thanks for using Astrid!\n
         <string name="notif_definiteDueDate">Absolute Deadline!</string>
         <string name="notif_preferredDueDate">Goal Deadline!</string>
         <string name="notif_timerStarted">Working on:</string>
-        <string name="notif_tagNotification">You have %d tasks tagged %s!</string>
+        <string name="notif_tagNotification">You have %s tagged %s!</string>
         
     <!-- Error Messages -->  
     <skip />

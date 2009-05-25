@@ -83,6 +83,7 @@ public class TagListSubActivity extends SubActivity {
     HashMap<TagModelForView, Integer> tagToTaskCount;
     private Handler handler;
     private TextView loadingText;
+    private boolean untaggedTagDisplayed;
 
     private static SortMode sortMode = SortMode.SIZE;
     private static boolean sortReverse = false;
@@ -164,9 +165,12 @@ public class TagListSubActivity extends SubActivity {
         // show "untagged" as a category at the top, in the proper language/localization
         String untaggedLabel = getResources().getString(R.string.tagList_untagged);
         TagModelForView untaggedModel = TagModelForView.getUntaggedModel(untaggedLabel);
-        tagArray.addFirst(untaggedModel);
         int count = countActiveTasks(activeTasks, getTagController().getUntaggedTasks());
-        tagToTaskCount.put(untaggedModel, count);
+        if(count > 0) {
+        	untaggedTagDisplayed = true;
+	        tagArray.addFirst(untaggedModel);
+	        tagToTaskCount.put(untaggedModel, count);
+        }
 
         if(sortReverse)
             Collections.reverse(tagArray);
@@ -208,10 +212,13 @@ public class TagListSubActivity extends SubActivity {
     private void setUpListUI(ListAdapter adapter) {
         // set up the title
         Resources r = getResources();
+        int tags = tagArray.size();
+        if(untaggedTagDisplayed)
+        	tags--;
         StringBuilder title = new StringBuilder().
             append(r.getString(R.string.tagList_titlePrefix)).
             append(" ").append(r.getQuantityString(R.plurals.Ntags,
-                tagArray.size(), tagArray.size()));
+                tags, tags));
         final CharSequence finalTitle = title;
         handler.post(new Runnable() {
             public void run() {
@@ -439,7 +446,7 @@ public class TagListSubActivity extends SubActivity {
                 name.setText(new StringBuilder(tag.getName()).
                         append(" (").append(tagCount.get(tag)).append(")"));
 
-                if(tagCount.get(tag) == 0)
+                if(tagCount == null || tagCount.get(tag) == null || tagCount.get(tag) == 0)
                     name.setTextColor(r.getColor(R.color.task_list_done));
                 else
                 	name.setTextColor(r.getColor(android.R.color.white));
