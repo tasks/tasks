@@ -229,6 +229,7 @@ Hvis du ikke ønsker å se den nye oppgaven rett etter at du fullfører den gaml
   <string name="taskEdit_menu_save">Lagre</string>
   <!--Original value: Task Saved: due in %s-->
   <string name="taskEdit_onTaskSave_Due">Oppgave lagret: utløper om %s</string>
+  <string name="taskEdit_onTaskSave_Overdue">Oppgave lagret: utløp for %s siden</string>
   <!--Original value: Task Saved-->
   <string name="taskEdit_onTaskSave_notDue">Oppgave lagret</string>
   

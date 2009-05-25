@@ -393,6 +393,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
         // notes
         StringBuilder sb = new StringBuilder();
         for(RtmTaskNote note: rtmTaskSeries.getNotes().getNotes()) {
+        	sb.append(note.getTitle() + "\n");
             sb.append(note.getText() + "\n");
         }
         if(sb.length() > 0)

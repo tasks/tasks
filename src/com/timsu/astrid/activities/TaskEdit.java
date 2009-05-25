@@ -308,10 +308,19 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
      * @param dueDate the Date when the task is due
      */
     private void showSaveToast(Date dueDate) {
+    	int stringResource;
+
     	int timeInSeconds = (int)((dueDate.getTime() - System.currentTimeMillis())/1000L);
+
+    	if (timeInSeconds < 0) {
+    		timeInSeconds *= -1; // DateUtilities.getDurationString() requires positive integer
+    		stringResource = R.string.taskEdit_onTaskSave_Overdue;
+    	} else {
+    		stringResource = R.string.taskEdit_onTaskSave_Due;
+    	}
     	String formattedDate = DateUtilities.getDurationString(getResources(), timeInSeconds, 2);
     	Toast.makeText(this,
-    			getResources().getString(R.string.taskEdit_onTaskSave_Due, formattedDate),
+    			getResources().getString(stringResource, formattedDate),
     			Toast.LENGTH_SHORT).show();
     }
 

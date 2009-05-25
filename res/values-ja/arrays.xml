@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+     
+     - translate to Japanese by Maimuzo (maimuzo@gmail.com)
+-->
+
+<resources>
+    <!-- Make these < 20 chars so the task name is displayed -->
+    <string-array name="reminders">
+        <item>やぁみんな! ちょっといいかな?</item>
+        <item>ちょっと見ていい?</item>
+        <item>ちょっと時間あるかな?</item>
+        <item>忘れちゃった?</item>
+        <item>ごめんよ!</item>
+        <item>ちょっと時間があるとき:</item>
+        <item>予定上:</item>
+        <item>ちょっとヒマある?</item>
+        <item>Astridだよ!</item>
+        <item>やぁ! ちょっといいかな?</item>
+        <item>ちょっと時間ある?</item>
+        <item>ごきげんよう</item>
+    </string-array>
+    
+    <!-- Astrid says...  (user should answer yes or no)-->
+    <string-array name="reminder_responses">
+        <item>私は、あなたのために何かを持っています！</item>
+        <item>過去にこれを設定していいの？</item>
+        <item>なんでコレしないの?</item>
+        <item>それどう? イケてる?</item>
+        <item>準備できてる?</item>
+        <item>これ管理できる?</item>
+        <item>幸せになれるよ! これを終わらすだけで!</item>
+        <item>これを終えたらあなたの気分が良くなることを約束します!</item>
+        <item>今日はコレしないの?</item>
+        <item>これを終えてください、私はそれにうんざりしています！</item>
+        <item>それやっちゃえる? もちろんできるさ!</item>
+        <item>あなたはこうするつもりですか？</item>
+        <item>調子良さそうじゃん! さぁやろっか!</item>
+        <item>やるじゃん! それもやっちゃえ!</item>
+        <item>これ終わらせておやつにしない?</item>
+        <item>このタスクだけ? やっちゃお?</item>
+        <item>ToDoリストを消化する時間だよ!</item>
+    </string-array>
+    
+    <string-array name="notif_icon_entries">
+        <item>ピンク</item>
+        <item>ボーリング</item>
+        <item>Astrid</item>
+    </string-array>
+       
+</resources>
