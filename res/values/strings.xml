@@ -254,20 +254,14 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="sync_pref_group">Synchronization Services</string>
         <string name="sync_pref_group_actions">Actions</string>
         <string name="sync_pref_group_options">Options</string>
-        <string name="p_sync_rtm">sync_rtm</string>
         <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate -->
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
-        <string name="p_sync_every_old">sync_every</string> <!-- old sync key -->
-        <string name="p_sync_interval">sync_freq</string>
         <string name="sync_interval_title">Auto-Synchronize</string>
         <string name="sync_interval_desc">If set, synchronization occurs automatically given interval</string>
-        <string name="p_sync_button">sync_button</string>
         <string name="sync_button_title">Main Menu Shortcut</string>
         <string name="sync_button_desc">Show \"Synchronize\" in Astrid\'s menu</string>
-        <string name="p_sync_quiet">sync_dialogs</string>
         <string name="sync_quiet_title">Hide Dialogs</string>
         <string name="sync_quiet_desc">Hide the Sync Results dialogs</string>
-        <string name="p_sync_bgwifi">sync_bgwifi</string>
         <string name="sync_bgwifi_title">Auto-Sync Wifi Only</string>
         <string name="sync_bgwifi_desc">If set, auto-sync only happens when Wifi is active</string>
         <string name="sync_error">Sync Error! Sorry for the inconvenience! Error:</string>
@@ -348,96 +342,69 @@ Thanks for using Astrid!\n
         <string name="notif_definiteDueDate">Absolute Deadline!</string>
         <string name="notif_preferredDueDate">Goal Deadline!</string>
         <string name="notif_timerStarted">Working on:</string>
+        <string name="notif_tagNotification">You have %d tasks tagged %s!</string>
         
     <!-- Error Messages -->  
     <skip />
     
         <string name="error_opening">Couldn't find this item:</string>
         <string name="error_saving">Couldn't save:</string>
-    
-    <!-- Preference Keys. Strings starting with p_* should not be localized -->  
+        
     <skip />
 
         <string name="prefs_category_alerts">Notifications</string>
         
-        <string name="p_notif_quietStart">notif_qstart</string>
         <string name="prefs_quietStart_title">Quiet Hours Start</string>
         <string name="prefs_quietStart_desc">Starting hour when Astrid should be quiet (e.g. 22)</string>
         
-        <string name="p_notif_quietEnd">notif_qend</string>
         <string name="prefs_quietEnd_title">Quiet Hours End</string>
         <string name="prefs_quietEnd_desc">Ending hour when Astrid should be quiet (e.g. 08)</string>
           
-        <string name="p_notif_defaultRemind">notif_default_reminder</string>
         <string name="prefs_defaultRemind_title">Default Reminders</string>
         <string name="prefs_defaultRemind_desc">For new tasks, in days (i.e. 7). Blank to disable</string>
         
-        <string name="p_notif_annoy">notif_annoy</string>
         <string name="prefs_annoy_title">Persistent Mode</string>
         <string name="prefs_annoy_desc">If checked, LED and notifications must be cleared one at a time</string>
         
-        <string name="p_notification_ringtone">notification_ringtone</string>
         <string name="prefs_notification_title">Notification Ringtone</string>
         <string name="prefs_notification_desc">Choose a ringtone for Astrid\'s alerts</string>
 
-        <string name="p_notif_icon">notif_theme</string>
         <string name="prefs_notificon_title">Notification Icons</string>
         <string name="prefs_notificon_desc">Choose Astrid\'s notification bar icon</string>
         
         <string name="prefs_category_appearance">Appearance</string>
             
-        <string name="p_colorize">colorize</string>
         <string name="prefs_colorize_title">Colorize Task List</string>
         <string name="prefs_colorize_desc">Different colors for different priorities</string>
         
-        <string name="p_fontSize">font_size</string>
         <string name="prefs_fontSize_title">Task List Font</string>
         <string name="prefs_fontSize_desc">Font on the main listing page (i.e. 22)</string>
 
         <string name="prefs_category_other">Other</string>
         
-        <string name="p_nagging">nagging</string>
         <string name="prefs_nagging_title">Nag Messages</string>
         <string name="prefs_nagging_desc">Show Astrid\'s comments when viewing reminders and postponing tasks?</string>
 
-        <string name="p_deadlineTime">deadline_time</string>
         <string name="prefs_deadlineTime_title">Default Deadlines</string>
         <string name="prefs_deadlineTime_desc"># of days from now to set new deadlines</string>
         
         <string name="displayedFields_PrefScreen_Title">Displayed Fields</string>
         <string name="displayedFields_PrefScreen_Desc">Select the fields to show in task list</string>
         
-        <!-- notification keys (no title, desc, default suffix) should not be localized -->
-        <string name="prefs_titleVisible">titleVisible</string> 
         <string name="prefs_titleVisible_title">Task Title</string>
         <string name="prefs_titleVisible_desc">Task description</string>
-        <string name="prefs_titleVisible_default">true</string>
-	    <string name="prefs_deadlineVisible">deadlineVisible</string>
         <string name="prefs_deadlineVisible_title">Dates</string>
         <string name="prefs_deadlineVisible_desc">Upcoming deadlines / completed date</string>
-        <string name="prefs_deadlineVisible_default">true</string>
-    	<string name="prefs_timeVisible">timeVisible</string>
         <string name="prefs_timeVisible_title">Times</string>
         <string name="prefs_timeVisible_desc">Estimated &amp; Elapsed Times</string>
-        <string name="prefs_timeVisible_default">true</string>
-        <string name="prefs_importanceVisible">importanceVisible</string>
         <string name="prefs_importanceVisible_title">Importance</string>
         <string name="prefs_importanceVisible_desc">Task importance indicator</string>
-        <string name="prefs_importanceVisible_default">true</string>
-	    <string name="prefs_tagsVisible">tagsVisible</string>
         <string name="prefs_tagsVisible_title">Tags</string>
         <string name="prefs_tagsVisible_desc">Tags associated with this task</string>
-        <string name="prefs_tagsVisible_default">true</string>
-	    <string name="prefs_repeatVisible">repeatVisible</string>
         <string name="prefs_repeatVisible_title">Repeats</string>
         <string name="prefs_repeatVisible_desc">Task repeat information</string>
-        <string name="prefs_repeatVisible_default">true</string>
-	    <string name="prefs_reminderVisible">reminderVisible</string>
         <string name="prefs_reminderVisible_title">Reminders</string>
         <string name="prefs_reminderVisible_desc">Displayed if this task has reminders</string>
-        <string name="prefs_reminderVisible_default">false</string>
-	    <string name="prefs_notesVisible">notesVisible</string>
         <string name="prefs_notesVisible_title">Notes</string>
         <string name="prefs_notesVisible_desc">Notes associated with this task</string>
-        <string name="prefs_notesVisible_default">false</string>
 </resources>
