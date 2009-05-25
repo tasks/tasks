@@ -1,0 +1,259 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2009-05-25 13:06-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: res/values/arrays.xml:29(item) 
+msgid "Hi there! Have a sec?"
+msgstr ""
+
+#: res/values/arrays.xml:30(item) 
+msgid "Can I see you for a sec?"
+msgstr ""
+
+#: res/values/arrays.xml:31(item) 
+msgid "Have a few minutes?"
+msgstr ""
+
+#: res/values/arrays.xml:32(item) 
+msgid "Did you forget?"
+msgstr ""
+
+#: res/values/arrays.xml:33(item) 
+msgid "Excuse me!"
+msgstr ""
+
+#: res/values/arrays.xml:34(item) 
+msgid "When you have a minute:"
+msgstr ""
+
+#: res/values/arrays.xml:35(item) 
+msgid "On your agenda:"
+msgstr ""
+
+#: res/values/arrays.xml:36(item) 
+msgid "Free for a moment?"
+msgstr ""
+
+#: res/values/arrays.xml:37(item) 
+msgid "Astrid here!"
+msgstr ""
+
+#: res/values/arrays.xml:38(item) 
+msgid "Hi! Can I bug you?"
+msgstr ""
+
+#: res/values/arrays.xml:39(item) 
+msgid "A minute of your time?"
+msgstr ""
+
+#: res/values/arrays.xml:40(item) 
+msgid "It\\'s a great day to"
+msgstr ""
+
+#: res/values/arrays.xml:45(item) 
+msgid "I\\'ve got something for you!"
+msgstr ""
+
+#: res/values/arrays.xml:46(item) 
+msgid "Ready to put this in the past?"
+msgstr ""
+
+#: res/values/arrays.xml:47(item) 
+msgid "Why don\\'t you get this done?"
+msgstr ""
+
+#: res/values/arrays.xml:48(item) 
+msgid "How about it? Ready tiger?"
+msgstr ""
+
+#: res/values/arrays.xml:49(item) 
+msgid "Ready to do this?"
+msgstr ""
+
+#: res/values/arrays.xml:50(item) 
+msgid "Can you handle this?"
+msgstr ""
+
+#: res/values/arrays.xml:51(item) 
+msgid "You can be happy! Just finish this!"
+msgstr ""
+
+#: res/values/arrays.xml:52(item) 
+msgid "I promise you\\'ll feel better if you finish this!"
+msgstr ""
+
+#: res/values/arrays.xml:53(item) 
+msgid "Won\\'t you do this today?"
+msgstr ""
+
+#: res/values/arrays.xml:54(item) 
+msgid "Please finish this, I\\'m sick of it!"
+msgstr ""
+
+#: res/values/arrays.xml:55(item) 
+msgid "Can you finish this? Yes you can!"
+msgstr ""
+
+#: res/values/arrays.xml:56(item) 
+msgid "Are you ever going to do this?"
+msgstr ""
+
+#: res/values/arrays.xml:57(item) 
+msgid "Feel good about yourself! Let\\'s go!"
+msgstr ""
+
+#: res/values/arrays.xml:58(item) 
+msgid "I'm so proud of you! Lets get it done!"
+msgstr ""
+
+#: res/values/arrays.xml:59(item) 
+msgid "A little snack after you finish this?"
+msgstr ""
+
+#: res/values/arrays.xml:60(item) 
+msgid "Just this one task? Please?"
+msgstr ""
+
+#: res/values/arrays.xml:61(item) 
+msgid "Time to shorten your todo list!"
+msgstr ""
+
+#: res/values/arrays.xml:66(item) 
+msgid "Please tell me it isn\\'t true that you're a procrastinator!"
+msgstr ""
+
+#: res/values/arrays.xml:67(item) 
+msgid "Doesn\\'t being lazy get old sometimes?"
+msgstr ""
+
+#: res/values/arrays.xml:68(item) 
+msgid "Somewhere, someone is depending on you to finish this!"
+msgstr ""
+
+#: res/values/arrays.xml:69(item) 
+msgid "When you said postpone, you really meant \\'I\\'m doing this\\', right?"
+msgstr ""
+
+#: res/values/arrays.xml:70(item) 
+msgid "This is the last time you postpone this, right?"
+msgstr ""
+
+#: res/values/arrays.xml:71(item) 
+msgid "Just finish this today, I won\\'t tell anyone!"
+msgstr ""
+
+#: res/values/arrays.xml:72(item) 
+msgid "Why postpone when you can um... not postpone!"
+msgstr ""
+
+#: res/values/arrays.xml:73(item) 
+msgid "You\\'ll finish this eventually, I presume?"
+msgstr ""
+
+#: res/values/arrays.xml:74(item) 
+msgid "I think you\\'re really great! How about not putting this off?"
+msgstr ""
+
+#: res/values/arrays.xml:75(item) 
+msgid "Will you be able to achieve your goals if you do that?"
+msgstr ""
+
+#: res/values/arrays.xml:76(item) 
+msgid "Postpone, postpone, postpone. When will you change!"
+msgstr ""
+
+#: res/values/arrays.xml:77(item) 
+msgid "I\\'ve had enough with your excuses! Just do it already!"
+msgstr ""
+
+#: res/values/arrays.xml:78(item) 
+msgid "Didn\\'t you make that excuse last time?"
+msgstr ""
+
+#: res/values/arrays.xml:79(item) 
+msgid "I can\\'t help you organize your life if you do that..."
+msgstr ""
+
+#: res/values/arrays.xml:84(item) 
+msgid "Pink"
+msgstr ""
+
+#: res/values/arrays.xml:85(item) 
+msgid "Boring"
+msgstr ""
+
+#: res/values/arrays.xml:86(item) 
+msgid "Astrid"
+msgstr ""
+
+#: res/values/arrays.xml:91(item) res/values/arrays.xml:109(item) 
+msgid "0"
+msgstr ""
+
+#: res/values/arrays.xml:92(item) 
+msgid "1"
+msgstr ""
+
+#: res/values/arrays.xml:93(item) 
+msgid "2"
+msgstr ""
+
+#: res/values/arrays.xml:98(item) 
+msgid "disable"
+msgstr ""
+
+#: res/values/arrays.xml:99(item) 
+msgid "twice an hour"
+msgstr ""
+
+#: res/values/arrays.xml:100(item) 
+msgid "hourly"
+msgstr ""
+
+#: res/values/arrays.xml:101(item) 
+msgid "twice a day"
+msgstr ""
+
+#: res/values/arrays.xml:102(item) 
+msgid "daily"
+msgstr ""
+
+#: res/values/arrays.xml:103(item) 
+msgid "twice a week"
+msgstr ""
+
+#: res/values/arrays.xml:104(item) 
+msgid "weekly"
+msgstr ""
+
+#: res/values/arrays.xml:110(item) 
+msgid "1800"
+msgstr ""
+
+#: res/values/arrays.xml:111(item) 
+msgid "3600"
+msgstr ""
+
+#: res/values/arrays.xml:112(item) 
+msgid "43200"
+msgstr ""
+
+#: res/values/arrays.xml:113(item) 
+msgid "86400"
+msgstr ""
+
+#: res/values/arrays.xml:114(item) 
+msgid "302400"
+msgstr ""
+
+#: res/values/arrays.xml:115(item) 
+msgid "604800"
+msgstr ""
+

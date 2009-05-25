@@ -1,0 +1,1002 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"POT-Creation-Date: 2009-05-25 13:06-0700\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. application
+#: res/values/strings.xml:24(string) 
+msgid "Astrid"
+msgstr ""
+
+#. Importance Labels
+#: res/values/strings.xml:30(string) 
+msgid "!!!!"
+msgstr ""
+
+#: res/values/strings.xml:31(string) 
+msgid "!!!"
+msgstr ""
+
+#: res/values/strings.xml:32(string) 
+msgid "!!"
+msgstr ""
+
+#: res/values/strings.xml:33(string) 
+msgid "!"
+msgstr ""
+
+#. Repeat Interval Labels
+#: res/values/strings.xml:36(string) 
+msgid "Day(s)"
+msgstr ""
+
+#: res/values/strings.xml:37(string) 
+msgid "Week(s)"
+msgstr ""
+
+#: res/values/strings.xml:38(string) 
+msgid "Month(s)"
+msgstr ""
+
+#: res/values/strings.xml:39(string) 
+msgid "Hour(s)"
+msgstr ""
+
+#: res/values/strings.xml:43(item) 
+msgid "1 Task"
+msgstr ""
+
+#: res/values/strings.xml:44(item) 
+msgid "%d Tasks"
+msgstr ""
+
+#: res/values/strings.xml:47(item) res/values/strings.xml:48(item) 
+msgid "%d / %d Active"
+msgstr ""
+
+#: res/values/strings.xml:51(item) 
+msgid "One Alarm"
+msgstr ""
+
+#: res/values/strings.xml:52(item) 
+msgid "Two Alarms"
+msgstr ""
+
+#: res/values/strings.xml:53(item) 
+msgid "%d Alarms"
+msgstr ""
+
+#: res/values/strings.xml:56(item) 
+msgid "1 Tag"
+msgstr ""
+
+#: res/values/strings.xml:57(item) 
+msgid "%d Tags"
+msgstr ""
+
+#. Time Constants
+#: res/values/strings.xml:61(string) 
+msgid "MMM d"
+msgstr ""
+
+#. used for long due 
+#.             dates. c.f. Java's SimpleDateFormat
+#: res/values/strings.xml:63(string) 
+msgid "M/dd HH:mm"
+msgstr ""
+
+#. used for alarms
+#: res/values/strings.xml:64(string) 
+msgid "D\\na\\ny\\ns"
+msgstr ""
+
+#. vertical labels
+#.             are used in the number dialogs
+#: res/values/strings.xml:66(string) 
+msgid "H\\no\\nu\\nr\\ns"
+msgstr ""
+
+#: res/values/strings.xml:68(item) res/values/strings.xml:72(item) 
+msgid "1 Day"
+msgstr ""
+
+#: res/values/strings.xml:69(item) res/values/strings.xml:73(item) 
+msgid "%d Days"
+msgstr ""
+
+#: res/values/strings.xml:76(item) 
+msgid "1 Hour"
+msgstr ""
+
+#: res/values/strings.xml:77(item) 
+msgid "%d Hours"
+msgstr ""
+
+#: res/values/strings.xml:80(item) 
+msgid "1 Minute"
+msgstr ""
+
+#: res/values/strings.xml:81(item) 
+msgid "%d Minutes"
+msgstr ""
+
+#: res/values/strings.xml:84(item) 
+msgid "1 Second"
+msgstr ""
+
+#: res/values/strings.xml:85(item) 
+msgid "%d Seconds"
+msgstr ""
+
+#: res/values/strings.xml:88(item) 
+msgid "1 Hr"
+msgstr ""
+
+#: res/values/strings.xml:89(item) 
+msgid "%d Hrs"
+msgstr ""
+
+#: res/values/strings.xml:92(item) 
+msgid "1 Min"
+msgstr ""
+
+#: res/values/strings.xml:93(item) 
+msgid "%d Min"
+msgstr ""
+
+#: res/values/strings.xml:96(item) 
+msgid "1 Sec"
+msgstr ""
+
+#: res/values/strings.xml:97(item) 
+msgid "%d Sec"
+msgstr ""
+
+#: res/values/strings.xml:99(string) 
+msgid "Ago"
+msgstr ""
+
+#. title bar
+#: res/values/strings.xml:105(string) 
+msgid "Astrid:"
+msgstr ""
+
+#: res/values/strings.xml:106(string) 
+msgid "Tagged \\\"%s\\\":"
+msgstr ""
+
+#: res/values/strings.xml:107(string) 
+msgid "Untagged Tasks:"
+msgstr ""
+
+#: res/values/strings.xml:108(string) 
+msgid "hidden"
+msgstr ""
+
+#: res/values/strings.xml:109(string) 
+msgid "New Task"
+msgstr ""
+
+#: res/values/strings.xml:110(string) 
+msgid "Could Not Find Requested Tag!"
+msgstr ""
+
+#. text in the actual list
+#: res/values/strings.xml:113(string) 
+msgid "H"
+msgstr ""
+
+#. prefix to show that a task is hidden
+#: res/values/strings.xml:114(string) 
+msgid "Due in"
+msgstr ""
+
+#. i.e. Due in 4 days
+#: res/values/strings.xml:115(string) 
+msgid "Due on"
+msgstr ""
+
+#. i.e. Due on Jan 2
+#: res/values/strings.xml:116(string) 
+msgid "Goal"
+msgstr ""
+
+#. prefix to deadline
+#: res/values/strings.xml:117(string) 
+msgid "Overdue by"
+msgstr ""
+
+#: res/values/strings.xml:118(string) 
+msgid "Finished"
+msgstr ""
+
+#. i.e. Finished 4 days ago
+#: res/values/strings.xml:119(string) 
+msgid "Estimated:"
+msgstr ""
+
+#. i.e.  Estimated 4: hours
+#: res/values/strings.xml:120(string) 
+msgid "Spent:"
+msgstr ""
+
+#. i.e. Spent  88 minutes on tax.
+#: res/values/strings.xml:121(string) 
+msgid "Poke Every"
+msgstr ""
+
+#. time interval to set frequency to remind user
+#: res/values/strings.xml:122(string) 
+msgid "Repeats Every"
+msgstr ""
+
+#. time interval to set repeated tasks
+#: res/values/strings.xml:123(string) 
+msgid "Repeats On Remote Server"
+msgstr ""
+
+#. displayed when repeat is on remote server
+#: res/values/strings.xml:124(string) 
+msgid "Next Alarm:"
+msgstr ""
+
+#: res/values/strings.xml:125(string) res/values/strings.xml:180(string) 
+msgid "Tags:"
+msgstr ""
+
+#: res/values/strings.xml:126(string) 
+msgid "Notes:"
+msgstr ""
+
+#: res/values/strings.xml:127(string) 
+msgid "Created:"
+msgstr ""
+
+#. Created: MM/DD/YY
+#: res/values/strings.xml:128(string) 
+msgid "Deleted"
+msgstr ""
+
+#. menu items
+#: res/values/strings.xml:131(string) 
+msgid "Add"
+msgstr ""
+
+#. Add or Insert
+#: res/values/strings.xml:132(string) res/values/strings.xml:404(string) 
+msgid "Tags"
+msgstr ""
+
+#: res/values/strings.xml:133(string) 
+msgid "Display"
+msgstr ""
+
+#: res/values/strings.xml:134(string) 
+msgid "Sync"
+msgstr ""
+
+#: res/values/strings.xml:135(string) 
+msgid "More"
+msgstr ""
+
+#: res/values/strings.xml:136(string) 
+msgid "Synchronization"
+msgstr ""
+
+#: res/values/strings.xml:137(string) 
+msgid "Settings"
+msgstr ""
+
+#: res/values/strings.xml:138(string) 
+msgid "Help (opens in Browser)"
+msgstr ""
+
+#: res/values/strings.xml:139(string) 
+msgid "Take Astrid\\'s Survey!"
+msgstr ""
+
+#: res/values/strings.xml:140(string) 
+msgid "Quick Tips"
+msgstr ""
+
+#: res/values/strings.xml:141(string) 
+msgid "Clean Up Old Tasks"
+msgstr ""
+
+#: res/values/strings.xml:143(string) 
+msgid "Edit Task"
+msgstr ""
+
+#: res/values/strings.xml:144(string) 
+msgid "Delete Task"
+msgstr ""
+
+#: res/values/strings.xml:145(string) res/values/strings.xml:224(string) 
+msgid "Start Timer"
+msgstr ""
+
+#: res/values/strings.xml:146(string) res/values/strings.xml:225(string) 
+msgid "Stop Timer"
+msgstr ""
+
+#: res/values/strings.xml:147(string) 
+msgid "Postpone"
+msgstr ""
+
+#. filter menu
+#: res/values/strings.xml:150(string) 
+msgid "Sort/Filters"
+msgstr ""
+
+#: res/values/strings.xml:151(string) 
+msgid "Hidden/Blocked Tasks"
+msgstr ""
+
+#: res/values/strings.xml:152(string) 
+msgid "Completed Tasks"
+msgstr ""
+
+#: res/values/strings.xml:153(string) 
+msgid "Tagged \\'%s\\'"
+msgstr ""
+
+#: res/values/strings.xml:154(string) 
+msgid "Auto Sort"
+msgstr ""
+
+#: res/values/strings.xml:155(string) 
+msgid "Sort By Name"
+msgstr ""
+
+#: res/values/strings.xml:156(string) 
+msgid "Sort By Due Date"
+msgstr ""
+
+#: res/values/strings.xml:157(string) 
+msgid "Sort Reverse"
+msgstr ""
+
+#: res/values/strings.xml:159(string) 
+msgid "Select an Action:"
+msgstr ""
+
+#: res/values/strings.xml:160(string) 
+msgid "Times You\\'ve Postponed: %d"
+msgstr ""
+
+#: res/values/strings.xml:161(string) 
+msgid "Postpone for how long?"
+msgstr ""
+
+#: res/values/strings.xml:162(string) 
+msgid "\"Delete completed tasks older than # days:\""
+msgstr ""
+
+#. title bar
+#: res/values/strings.xml:167(string) 
+msgid "Astrid: Editing Task"
+msgstr ""
+
+#: res/values/strings.xml:168(string) 
+msgid "Astrid: Editing"
+msgstr ""
+
+#: res/values/strings.xml:169(string) 
+msgid "Astrid: New Task"
+msgstr ""
+
+#. tabs
+#: res/values/strings.xml:172(string) 
+msgid "Basic"
+msgstr ""
+
+#: res/values/strings.xml:173(string) res/values/strings.xml:398(string) 
+msgid "Dates"
+msgstr ""
+
+#: res/values/strings.xml:174(string) 
+msgid "Alerts"
+msgstr ""
+
+#. labels
+#: res/values/strings.xml:177(string) 
+msgid "Summary"
+msgstr ""
+
+#: res/values/strings.xml:178(string) 
+msgid "Task Description"
+msgstr ""
+
+#: res/values/strings.xml:179(string) 
+msgid "How Important is it?"
+msgstr ""
+
+#: res/values/strings.xml:182(string) 
+msgid "How Long Will it Take?"
+msgstr ""
+
+#: res/values/strings.xml:183(string) 
+msgid "Time Already Spent on Task"
+msgstr ""
+
+#: res/values/strings.xml:184(string) 
+msgid "Absolute Deadline"
+msgstr ""
+
+#: res/values/strings.xml:185(string) 
+msgid "Goal Deadline"
+msgstr ""
+
+#: res/values/strings.xml:186(string) 
+msgid "Add Task To Calendar"
+msgstr ""
+
+#: res/values/strings.xml:187(string) 
+msgid "Open Calendar Event"
+msgstr ""
+
+#: res/values/strings.xml:188(string) 
+msgid "Hide Until This Date"
+msgstr ""
+
+#: res/values/strings.xml:189(string) 
+msgid "Repeat Every"
+msgstr ""
+
+#: res/values/strings.xml:190(string) 
+msgid "No Repeat Set"
+msgstr ""
+
+#: res/values/strings.xml:191(string) 
+msgid "Hide Until This Task is Done"
+msgstr ""
+
+#: res/values/strings.xml:192(string) res/values/strings.xml:410(string) 
+msgid "Notes"
+msgstr ""
+
+#: res/values/strings.xml:193(string) 
+msgid "Enter Task Notes"
+msgstr ""
+
+#: res/values/strings.xml:195(string) 
+msgid "Periodic Reminders"
+msgstr ""
+
+#: res/values/strings.xml:196(string) 
+msgid "Every"
+msgstr ""
+
+#: res/values/strings.xml:197(string) 
+msgid "Notify me..."
+msgstr ""
+
+#: res/values/strings.xml:198(string) 
+msgid "As Deadlines Approach"
+msgstr ""
+
+#: res/values/strings.xml:199(string) 
+msgid "At Deadlines"
+msgstr ""
+
+#: res/values/strings.xml:200(string) 
+msgid "After Absolute Deadline Passes"
+msgstr ""
+
+#: res/values/strings.xml:201(string) 
+msgid "Alarm Clock Mode"
+msgstr ""
+
+#: res/values/strings.xml:202(string) 
+msgid "Fixed Reminders"
+msgstr ""
+
+#: res/values/strings.xml:203(string) 
+msgid "Add New Reminder"
+msgstr ""
+
+#. dialog boxes
+#: res/values/strings.xml:206(string) 
+msgid "Time (hours : minutes)"
+msgstr ""
+
+#: res/values/strings.xml:207(string) 
+msgid "Remind Me Every"
+msgstr ""
+
+#: res/values/strings.xml:208(string) 
+msgid "Repeat Every (0 to disable)"
+msgstr ""
+
+#: res/values/strings.xml:209(string) 
+msgid "Help: Astrid Repeats"
+msgstr ""
+
+#: res/values/strings.xml:210(string) 
+msgid "To use repeats, set at least one of the deadlines above. When you complete this task, the deadline will be automatically advanced. \\n\\n If you don\\'t want to see the new task right after you complete the old one, you should use the \"Hide Until\" field, which will also be advanced automatically. \\n"
+msgstr ""
+
+#: res/values/strings.xml:216(string) 
+msgid "Don't Show Help Anymore"
+msgstr ""
+
+#. buttons
+#: res/values/strings.xml:219(string) res/values/strings.xml:227(string) 
+msgid "Save"
+msgstr ""
+
+#: res/values/strings.xml:220(string) 
+msgid "Discard"
+msgstr ""
+
+#: res/values/strings.xml:221(string) 
+msgid "Edit"
+msgstr ""
+
+#: res/values/strings.xml:222(string) res/values/strings.xml:316(string) 
+msgid "Delete"
+msgstr ""
+
+#: res/values/strings.xml:223(string) 
+msgid "Click to Set"
+msgstr ""
+
+#: res/values/strings.xml:228(string) 
+msgid "Task Saved: due in %s"
+msgstr ""
+
+#: res/values/strings.xml:229(string) 
+msgid "Task Saved: due %s ago"
+msgstr ""
+
+#: res/values/strings.xml:230(string) 
+msgid "Task Saved"
+msgstr ""
+
+#: res/values/strings.xml:235(string) 
+msgid "Astrid says..."
+msgstr ""
+
+#: res/values/strings.xml:239(string) 
+msgid "Astrid: Tag View:"
+msgstr ""
+
+#: res/values/strings.xml:240(string) 
+msgid "Create Task With Tag"
+msgstr ""
+
+#: res/values/strings.xml:241(string) 
+msgid "Edit Tag"
+msgstr ""
+
+#: res/values/strings.xml:242(string) 
+msgid "Delete Tag"
+msgstr ""
+
+#: res/values/strings.xml:243(string) 
+msgid "Show on Home Page"
+msgstr ""
+
+#: res/values/strings.xml:244(string) 
+msgid "Hide on Home Page"
+msgstr ""
+
+#: res/values/strings.xml:245(string) 
+msgid "Create Shortcut"
+msgstr ""
+
+#: res/values/strings.xml:246(string) 
+msgid "Shortcut created on your home screen!"
+msgstr ""
+
+#: res/values/strings.xml:247(string) 
+msgid "Tag:"
+msgstr ""
+
+#: res/values/strings.xml:248(string) 
+msgid "[untagged]"
+msgstr ""
+
+#: res/values/strings.xml:250(string) 
+msgid "Sort A-Z"
+msgstr ""
+
+#: res/values/strings.xml:251(string) 
+msgid "Sort by Size"
+msgstr ""
+
+#: res/values/strings.xml:256(string) 
+msgid "Synchronization Services"
+msgstr ""
+
+#: res/values/strings.xml:257(string) 
+msgid "Actions"
+msgstr ""
+
+#: res/values/strings.xml:258(string) 
+msgid "Options"
+msgstr ""
+
+#: res/values/strings.xml:259(string) 
+msgid "Remember The Milk"
+msgstr ""
+
+#. Proper noun - don't translate
+#: res/values/strings.xml:260(string) 
+msgid "http://www.rememberthemilk.com"
+msgstr ""
+
+#: res/values/strings.xml:261(string) 
+msgid "Auto-Synchronize"
+msgstr ""
+
+#: res/values/strings.xml:262(string) 
+msgid "If set, synchronization occurs automatically given interval"
+msgstr ""
+
+#: res/values/strings.xml:263(string) 
+msgid "Main Menu Shortcut"
+msgstr ""
+
+#: res/values/strings.xml:264(string) 
+msgid "Show \\\"Synchronize\\\" in Astrid\\'s menu"
+msgstr ""
+
+#: res/values/strings.xml:265(string) 
+msgid "Hide Dialogs"
+msgstr ""
+
+#: res/values/strings.xml:266(string) 
+msgid "Hide the Sync Results dialogs"
+msgstr ""
+
+#: res/values/strings.xml:267(string) 
+msgid "Auto-Sync Wifi Only"
+msgstr ""
+
+#: res/values/strings.xml:268(string) 
+msgid "If set, auto-sync only happens when Wifi is active"
+msgstr ""
+
+#: res/values/strings.xml:269(string) 
+msgid "Sync Error! Sorry for the inconvenience! Error:"
+msgstr ""
+
+#: res/values/strings.xml:270(string) 
+msgid "In order to synchronize, please log in to your %s account and authorize Astrid to read your data. \\n\\n When finished, restart Astrid."
+msgstr ""
+
+#: res/values/strings.xml:275(string) 
+msgid "Astrid 2.7 now performs synchronization with RTM in the background. You will be directed to the preferences page to configure how often you want this to occur (it is a minor drain on battery)."
+msgstr ""
+
+#: res/values/strings.xml:280(string) 
+msgid "Synchronize Now!"
+msgstr ""
+
+#: res/values/strings.xml:281(string) 
+msgid "Clear Personal Data"
+msgstr ""
+
+#: res/values/strings.xml:282(string) 
+msgid "Sync: Up to date!"
+msgstr ""
+
+#: res/values/strings.xml:283(string) 
+msgid "Clear data for selected services?"
+msgstr ""
+
+#: res/values/strings.xml:284(string) 
+msgid "No Synchronizers Enabled!"
+msgstr ""
+
+#: res/values/strings.xml:285(string) 
+msgid "Last Sync Date: %s"
+msgstr ""
+
+#: res/values/strings.xml:286(string) 
+msgid "Last AutoSync Attempt: %s"
+msgstr ""
+
+#: res/values/strings.xml:287(string) 
+msgid "never"
+msgstr ""
+
+#: res/values/strings.xml:288(string) 
+msgid "%s Results"
+msgstr ""
+
+#: res/values/strings.xml:289(string) 
+msgid "Summary - Astrid Tasks:"
+msgstr ""
+
+#: res/values/strings.xml:290(string) 
+msgid "Summary - Remote Server:"
+msgstr ""
+
+#: res/values/strings.xml:291(string) 
+msgid "Created: %d"
+msgstr ""
+
+#: res/values/strings.xml:292(string) 
+msgid "Updated: %d"
+msgstr ""
+
+#: res/values/strings.xml:293(string) 
+msgid "Deleted: %d"
+msgstr ""
+
+#: res/values/strings.xml:294(string) 
+msgid "Merged: %d"
+msgstr ""
+
+#: res/values/strings.xml:296(string) 
+msgid "Reading Remote Data"
+msgstr ""
+
+#: res/values/strings.xml:297(string) 
+msgid "Reading List: %s"
+msgstr ""
+
+#: res/values/strings.xml:298(string) 
+msgid "Synchronizing Repeating Task"
+msgstr ""
+
+#: res/values/strings.xml:299(string) 
+msgid "Sending Task: %s"
+msgstr ""
+
+#: res/values/strings.xml:300(string) 
+msgid "Locally Deleted Tasks"
+msgstr ""
+
+#: res/values/strings.xml:301(string) 
+msgid "Receiving Task: %s"
+msgstr ""
+
+#: res/values/strings.xml:306(string) 
+msgid "Loading..."
+msgstr ""
+
+#: res/values/strings.xml:307(string) 
+msgid "Updating List..."
+msgstr ""
+
+#: res/values/strings.xml:308(string) 
+msgid "Information"
+msgstr ""
+
+#: res/values/strings.xml:309(string) 
+msgid "Question"
+msgstr ""
+
+#: res/values/strings.xml:310(string) 
+msgid "View Task"
+msgstr ""
+
+#: res/values/strings.xml:311(string) 
+msgid "Already Done!"
+msgstr ""
+
+#: res/values/strings.xml:312(string) 
+msgid "Snooze"
+msgstr ""
+
+#: res/values/strings.xml:313(string) 
+msgid "Quit"
+msgstr ""
+
+#: res/values/strings.xml:314(string) 
+msgid "Hours/minutes to snooze?"
+msgstr ""
+
+#: res/values/strings.xml:317(string) 
+msgid "Delete this task?"
+msgstr ""
+
+#: res/values/strings.xml:318(string) 
+msgid "Remove this tag from all tasks?"
+msgstr ""
+
+#: res/values/strings.xml:320(string) 
+msgid "Stop the timer?"
+msgstr ""
+
+#: res/values/strings.xml:322(string) 
+msgid "Some things you may not know about Astrid:\\n \\n - To create a task, just start typing!\\n - While editing a task, hit \\'back\\' to save it\\n - Select a task &amp; press 1-4 to quickly change it\\'s priority\\n - If a task has a deadline, long-press to postpone it\\n \\n Thanks for using Astrid!\\n"
+msgstr ""
+
+#: res/values/strings.xml:336(string) 
+msgid "Astrid Tag Alert"
+msgstr ""
+
+#: res/values/strings.xml:337(string) 
+msgid "Astrid will send you a reminder when you have uncompleted tasks with the following criteria:"
+msgstr ""
+
+#: res/values/strings.xml:339(string) 
+msgid "Tagged with:"
+msgstr ""
+
+#: res/values/strings.xml:344(string) 
+msgid "Absolute Deadline!"
+msgstr ""
+
+#: res/values/strings.xml:345(string) 
+msgid "Goal Deadline!"
+msgstr ""
+
+#: res/values/strings.xml:346(string) 
+msgid "Working on:"
+msgstr ""
+
+#: res/values/strings.xml:347(string) 
+msgid "You have %s tagged %s!"
+msgstr ""
+
+#: res/values/strings.xml:352(string) 
+msgid "Couldn't find this item:"
+msgstr ""
+
+#: res/values/strings.xml:353(string) 
+msgid "Couldn't save:"
+msgstr ""
+
+#: res/values/strings.xml:357(string) 
+msgid "Notifications"
+msgstr ""
+
+#: res/values/strings.xml:359(string) 
+msgid "Quiet Hours Start"
+msgstr ""
+
+#: res/values/strings.xml:360(string) 
+msgid "Starting hour when Astrid should be quiet (e.g. 22)"
+msgstr ""
+
+#: res/values/strings.xml:362(string) 
+msgid "Quiet Hours End"
+msgstr ""
+
+#: res/values/strings.xml:363(string) 
+msgid "Ending hour when Astrid should be quiet (e.g. 08)"
+msgstr ""
+
+#: res/values/strings.xml:365(string) 
+msgid "Default Reminders"
+msgstr ""
+
+#: res/values/strings.xml:366(string) 
+msgid "For new tasks, in days (i.e. 7). Blank to disable"
+msgstr ""
+
+#: res/values/strings.xml:368(string) 
+msgid "Persistent Mode"
+msgstr ""
+
+#: res/values/strings.xml:369(string) 
+msgid "If checked, LED and notifications must be cleared one at a time"
+msgstr ""
+
+#: res/values/strings.xml:371(string) 
+msgid "Notification Ringtone"
+msgstr ""
+
+#: res/values/strings.xml:372(string) 
+msgid "Choose a ringtone for Astrid\\'s alerts"
+msgstr ""
+
+#: res/values/strings.xml:374(string) 
+msgid "Notification Icons"
+msgstr ""
+
+#: res/values/strings.xml:375(string) 
+msgid "Choose Astrid\\'s notification bar icon"
+msgstr ""
+
+#: res/values/strings.xml:377(string) 
+msgid "Appearance"
+msgstr ""
+
+#: res/values/strings.xml:379(string) 
+msgid "Colorize Task List"
+msgstr ""
+
+#: res/values/strings.xml:380(string) 
+msgid "Different colors for different priorities"
+msgstr ""
+
+#: res/values/strings.xml:382(string) 
+msgid "Task List Font"
+msgstr ""
+
+#: res/values/strings.xml:383(string) 
+msgid "Font on the main listing page (i.e. 22)"
+msgstr ""
+
+#: res/values/strings.xml:385(string) 
+msgid "Other"
+msgstr ""
+
+#: res/values/strings.xml:387(string) 
+msgid "Nag Messages"
+msgstr ""
+
+#: res/values/strings.xml:388(string) 
+msgid "Show Astrid\\'s comments when viewing reminders and postponing tasks?"
+msgstr ""
+
+#: res/values/strings.xml:390(string) 
+msgid "Default Deadlines"
+msgstr ""
+
+#: res/values/strings.xml:391(string) 
+msgid "# of days from now to set new deadlines"
+msgstr ""
+
+#: res/values/strings.xml:393(string) 
+msgid "Displayed Fields"
+msgstr ""
+
+#: res/values/strings.xml:394(string) 
+msgid "Select the fields to show in task list"
+msgstr ""
+
+#: res/values/strings.xml:396(string) 
+msgid "Task Title"
+msgstr ""
+
+#: res/values/strings.xml:397(string) 
+msgid "Task description"
+msgstr ""
+
+#: res/values/strings.xml:399(string) 
+msgid "Upcoming deadlines / completed date"
+msgstr ""
+
+#: res/values/strings.xml:400(string) 
+msgid "Times"
+msgstr ""
+
+#: res/values/strings.xml:401(string) 
+msgid "Estimated &amp; Elapsed Times"
+msgstr ""
+
+#: res/values/strings.xml:402(string) 
+msgid "Importance"
+msgstr ""
+
+#: res/values/strings.xml:403(string) 
+msgid "Task importance indicator"
+msgstr ""
+
+#: res/values/strings.xml:405(string) 
+msgid "Tags associated with this task"
+msgstr ""
+
+#: res/values/strings.xml:406(string) 
+msgid "Repeats"
+msgstr ""
+
+#: res/values/strings.xml:407(string) 
+msgid "Task repeat information"
+msgstr ""
+
+#: res/values/strings.xml:408(string) 
+msgid "Reminders"
+msgstr ""
+
+#: res/values/strings.xml:409(string) 
+msgid "Displayed if this task has reminders"
+msgstr ""
+
+#: res/values/strings.xml:411(string) 
+msgid "Notes associated with this task"
+msgstr ""
+
