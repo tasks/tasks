@@ -28,11 +28,13 @@ import com.timsu.astrid.data.tag.TagModelForView;
 public final class LocaleEditAlerts extends Activity {
 
     /** value for action type for tag alert */
-    public static final String ACTION_TAG_ALERT = "com.timsu.astrid.action.TAG_ALERT";
+    public static final String ACTION_LOCALE_ALERT = "com.timsu.astrid.action.LOCALE_ALERT";
 
-    /** key name for tag name in bundle */
-    public static final String KEY_TAG_NAME = "tag";
+    /** key name for tag id/name in bundle */
+    public static final String KEY_TAG_ID = "tag";
+    public static final String KEY_TAG_NAME = "name";
 
+    private LinkedList<TagModelForView> tags = null;
     private String[] tagNames = null;
 
 	/** Called when the activity is first created. */
@@ -59,7 +61,7 @@ public final class LocaleEditAlerts extends Activity {
 
 		TagController tagController = new TagController(this);
 		tagController.open();
-		LinkedList<TagModelForView> tags = tagController.getAllTags();
+		tags = tagController.getAllTags();
 		tagController.close();
 
 		tagNames = new String[tags.size()];
@@ -91,7 +93,9 @@ public final class LocaleEditAlerts extends Activity {
 	 * Private helper method to persist the Toast message in the return {@code Intent}.
 	 */
 	private void updateResult() {
-		final String tagName = (String)((Spinner) findViewById(R.id.spinner)).getSelectedItem();
+		final int index = ((Spinner) findViewById(R.id.spinner)).getSelectedItemPosition();
+		final String tagName = tagNames[index];
+		final TagModelForView tag = tags.get(index);
 
         /*
          * If the message is of 0 length, then there isn't a setting to save
@@ -101,7 +105,8 @@ public final class LocaleEditAlerts extends Activity {
         } else {
             final Intent intent = new Intent();
             intent.putExtra(com.twofortyfouram.Intent.EXTRA_STRING_ACTION_FIRE,
-                    ACTION_TAG_ALERT);
+            		ACTION_LOCALE_ALERT);
+            intent.putExtra(KEY_TAG_ID, tag.getTagIdentifier().getId());
             intent.putExtra(KEY_TAG_NAME, tagName);
             intent.putExtra(com.twofortyfouram.Intent.EXTRA_STRING_BLURB, tagName);
             setResult(RESULT_OK, intent);

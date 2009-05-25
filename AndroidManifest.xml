@@ -4,9 +4,7 @@
       android:versionCode="101"
       android:versionName="2.7.3">
       
-    <!-- ##############################################################
-           Metadata
-         ############################################################## -->
+    <!-- ============================ Metadata ============================ -->   
       
     <uses-permission android:name="android.permission.VIBRATE"/>
     <uses-permission android:name="android.permission.INTERNET"/>
@@ -18,9 +16,7 @@
     
     <application android:icon="@drawable/icon" android:label="@string/app_name">
     
-        <!-- ##############################################################
-               Activities
-             ############################################################## -->
+        <!-- ======================== Activities ========================= -->
         
         <!-- Activity that displays the task list -->
         <activity android:name=".activities.TaskList">
@@ -70,11 +66,16 @@
                </intent-filter>
          </activity>
 
-        <!-- ##############################################################
-               Receivers
-             ############################################################## -->
+        <!-- ======================== Receivers ========================= -->
              
         <receiver android:name=".utilities.Notifications" />
+        
+        <receiver android:name=".utilities.LocaleReceiver">
+            <intent-filter>
+                 <action android:name="com.timsu.astrid.action.LOCALE_ALERT" />
+                 <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
         
         <receiver android:name=".utilities.StartupReceiver">
             <intent-filter>
@@ -83,9 +84,7 @@
             </intent-filter>
         </receiver>
 
-        <!-- ##############################################################
-               Services
-             ############################################################## -->
+        <!-- ======================== Services ========================== -->
              
         <service android:name=".sync.SynchronizationService"/>
 

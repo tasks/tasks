@@ -51,27 +51,28 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
     // field names
 
-    static final String     NAME                   = "name";
-    static final String     NOTES                  = "notes";
-    static final String     PROGRESS_PERCENTAGE    = "progressPercentage";
-    static final String     IMPORTANCE             = "importance";
-    static final String     ESTIMATED_SECONDS      = "estimatedSeconds";
-    static final String     ELAPSED_SECONDS        = "elapsedSeconds";
-    static final String     TIMER_START            = "timerStart";
-    static final String     DEFINITE_DUE_DATE      = "definiteDueDate";
-    static final String     PREFERRED_DUE_DATE     = "preferredDueDate";
-    static final String     HIDDEN_UNTIL           = "hiddenUntil";
-    static final String     POSTPONE_COUNT         = "postponeCount";
-    static final String     NOTIFICATIONS          = "notifications";
-    static final String     NOTIFICATION_FLAGS     = "notificationFlags";
-    static final String     LAST_NOTIFIED          = "lastNotified";
-    static final String     REPEAT                 = "repeat";
-    static final String     CREATION_DATE          = "creationDate";
-    static final String     COMPLETION_DATE        = "completionDate";
-    static final String     CALENDAR_URI           = "calendarUri";
-    static final String     FLAGS                  = "flags";
+    public static final String     NAME                   = "name";
+    public static final String     NOTES                  = "notes";
+    public static final String     PROGRESS_PERCENTAGE    = "progressPercentage";
+    public static final String     IMPORTANCE             = "importance";
+    public static final String     ESTIMATED_SECONDS      = "estimatedSeconds";
+    public static final String     ELAPSED_SECONDS        = "elapsedSeconds";
+    public static final String     TIMER_START            = "timerStart";
+    public static final String     DEFINITE_DUE_DATE      = "definiteDueDate";
+    public static final String     PREFERRED_DUE_DATE     = "preferredDueDate";
+    public static final String     HIDDEN_UNTIL           = "hiddenUntil";
+    public static final String     POSTPONE_COUNT         = "postponeCount";
+    public static final String     NOTIFICATIONS          = "notifications";
+    public static final String     NOTIFICATION_FLAGS     = "notificationFlags";
+    public static final String     LAST_NOTIFIED          = "lastNotified";
+    public static final String     REPEAT                 = "repeat";
+    public static final String     CREATION_DATE          = "creationDate";
+    public static final String     COMPLETION_DATE        = "completionDate";
+    public static final String     CALENDAR_URI           = "calendarUri";
+    public static final String     FLAGS                  = "flags";
+
     // reserved fields ---
-    static final String     BLOCKING_ON            = "blockingOn";
+    public static final String     BLOCKING_ON            = "blockingOn";
 
     // notification flags
     public static final int NOTIFY_BEFORE_DEADLINE = 1 << 0;
@@ -113,10 +114,10 @@ public abstract class AbstractTaskModel extends AbstractModel {
     // --- database helper
 
     /** Database Helper manages creating new tables and updating old ones */
-    static class TaskModelDatabaseHelper extends SQLiteOpenHelper {
+    public static class TaskModelDatabaseHelper extends SQLiteOpenHelper {
         String tableName;
 
-        TaskModelDatabaseHelper(Context context, String databaseName, String tableName) {
+        public TaskModelDatabaseHelper(Context context, String databaseName, String tableName) {
             super(context, databaseName, null, VERSION);
             this.tableName = tableName;
         }

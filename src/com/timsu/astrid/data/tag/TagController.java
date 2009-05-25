@@ -20,12 +20,12 @@
 package com.timsu.astrid.data.tag;
 
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 
-import android.app.Activity;
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
+import android.database.CursorJoiner;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
@@ -33,6 +33,7 @@ import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.tag.AbstractTagModel.TagModelDatabaseHelper;
 import com.timsu.astrid.data.tag.TagToTaskMapping.TagToTaskMappingDatabaseHelper;
 import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 
 /** Controller for Tag-related operations */
 public class TagController extends AbstractController {
@@ -118,7 +119,6 @@ public class TagController extends AbstractController {
         return list;
     }
 
-
     /** Returns a list of task identifiers in the provided set that are UNtagged.
      *
      * The calling SubActivity must provide the set of tasks, since
@@ -127,26 +127,43 @@ public class TagController extends AbstractController {
      * The current implementation is not very efficient, because queries
      * the TagToTask map once for each active task.
      **/
-    public LinkedList<TaskIdentifier> getUntaggedTasks(HashSet<TaskIdentifier>
-    		activeTasks) throws SQLException {
-
+    public LinkedList<TaskIdentifier> getUntaggedTasks() throws SQLException {
     	LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
 
-    	for (TaskIdentifier taskId : activeTasks) {
-	    	Cursor cursor;
-	    	cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
-	                TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TASK + " = ?",
-	                new String[] { taskId.idAsString() }, null, null, null);
+    	String[] tagMapColumns = new String[] { TagToTaskMapping.TASK };
+    	Cursor tagMapCursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
+    			tagMapColumns, null, null, TagToTaskMapping.TASK, null,
+    			TagToTaskMapping.TASK + " ASC");
 
-	    	if (cursor.getCount() == 0) {
-	    		list.add(taskId);
-	    	}
-	    	cursor.close();
-    	}
+    	SQLiteDatabase taskDatabase = new TaskModelDatabaseHelper(context,
+    			TASK_TABLE_NAME, TASK_TABLE_NAME).getReadableDatabase();
+    	String[] taskColumns = new String[] { KEY_ROWID };
+    	Cursor taskCursor = taskDatabase.query(TASK_TABLE_NAME, taskColumns,
+    			null, null, null, null, KEY_ROWID + " ASC");
 
-    	// Equivalent SQL Query:
-		//	SELECT * FROM tasks_tbl LEFT OUTER JOIN mapping_tbl ON tasks_tbl.id =
-		//		mapping_tbl.task_id WHERE mapping_tbl.task_id ISNULL;
+        try {
+        	CursorJoiner joiner = new CursorJoiner(taskCursor, taskColumns,
+        			tagMapCursor, tagMapColumns);
+        	for (CursorJoiner.Result joinerResult : joiner) {
+				switch (joinerResult) {
+				case LEFT:
+					long taskId = taskCursor.getLong(0);
+
+					// conditional is necessary for handling deleted tasks
+					if(tagMapCursor.isLast() || tagMapCursor.getLong(0) > taskId) {
+						list.add(new TaskIdentifier(taskId));
+					}
+					break;
+				default:
+					// in other cases, do nothing
+					break;
+				}
+			}
+        } finally {
+        	taskCursor.close();
+        	tagMapCursor.close();
+        	taskDatabase.close();
+        }
 
     	return list;
     }
@@ -261,8 +278,8 @@ public class TagController extends AbstractController {
      * Constructor - takes the context to allow the database to be
      * opened/created
      */
-    public TagController(Activity activity) {
-        this.context = activity;
+    public TagController(Context context) {
+        this.context = context;
     }
 
     /**

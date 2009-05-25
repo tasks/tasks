@@ -23,7 +23,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Map;
@@ -494,9 +493,7 @@ public class TaskListSubActivity extends SubActivity {
             	if (!tagId.equals(TagModelForView.UNTAGGED_IDENTIFIER)) {
             		tasks = getTagController().getTaggedTasks(tagId);
             	} else {
-            		HashSet<TaskIdentifier> activeTasks =
-            			getTaskController().getActiveTaskIdentifiers();
-            		tasks = getTagController().getUntaggedTasks(activeTasks);
+            		tasks = getTagController().getUntaggedTasks();
             	}
             	tasksCursor = getTaskController().getTaskListCursorById(tasks);
 

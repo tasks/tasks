@@ -126,33 +126,32 @@ public class TagListSubActivity extends SubActivity {
         abstract int compareTo(TagListSubActivity self, TagModelForView arg0, TagModelForView arg1);
     };
 
+    /** Counts how many tasks appear in active task list */
+    public static int countActiveTasks(HashSet<TaskIdentifier> activeTasks, LinkedList<TaskIdentifier> tasks) {
+        int count = 0;
+        if(tasks != null) {
+            for(TaskIdentifier task : tasks)
+                if(activeTasks.contains(task))
+                    count++;
+        }
+        return count;
+    }
+
     private synchronized void sortTagArray() {
         // get all tasks
         HashSet<TaskIdentifier> activeTasks =
             getTaskController().getActiveTaskIdentifiers();
+        if(activeTasks == null)
+        	activeTasks = new HashSet<TaskIdentifier>();
 
         // get task count for each tag
         tagToTaskCount = new HashMap<TagModelForView, Integer>();
+
         for(TagModelForView tag : tagArray) {
         	LinkedList<TaskIdentifier> tasks;
-
-        	// Tagged vs. Untagged tasks
-        	boolean taggedTask = !tag.getTagIdentifier().equals(TagModelForView.UNTAGGED_IDENTIFIER);
-        	if (taggedTask)
-    			tasks = getTagController().getTaggedTasks(tag.getTagIdentifier());
-    		else
-        		tasks = getTagController().getUntaggedTasks(activeTasks);
-
-            int count = 0;
-            for(TaskIdentifier task : tasks)
-                if(activeTasks.contains(task))
-                    count++;
-
-            // don't show Untagged if there aren't any untagged tasks
-            if (taggedTask || count!=0)
-            	tagToTaskCount.put(tag, count);
-            else
-            	tagArray.remove(tag);
+			tasks = getTagController().getTaggedTasks(tag.getTagIdentifier());
+			int count = countActiveTasks(activeTasks, tasks);
+        	tagToTaskCount.put(tag, count);
         }
 
         // do sort
@@ -161,6 +160,14 @@ public class TagListSubActivity extends SubActivity {
                 return sortMode.compareTo(TagListSubActivity.this, arg0, arg1);
             }
         });
+
+        // show "untagged" as a category at the top, in the proper language/localization
+        String untaggedLabel = getResources().getString(R.string.tagList_untagged);
+        TagModelForView untaggedModel = TagModelForView.getUntaggedModel(untaggedLabel);
+        tagArray.addFirst(untaggedModel);
+        int count = countActiveTasks(activeTasks, getTagController().getUntaggedTasks());
+        tagToTaskCount.put(untaggedModel, count);
+
         if(sortReverse)
             Collections.reverse(tagArray);
     }
@@ -172,9 +179,6 @@ public class TagListSubActivity extends SubActivity {
         try {
             tagArray = getTagController().getAllTags();
 
-            // Show "Untagged" as a category, in the proper language/localization
-            String untaggedLabel = getResources().getString(R.string.tagList_untagged);
-            tagArray.add(TagModelForView.getUntaggedModel(untaggedLabel));
             sortTagArray();  // count and sort each tag
         } catch (StaleDataException e) {
             // happens when you rotate the screen while the thread is

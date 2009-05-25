@@ -34,6 +34,7 @@ public class Notifications extends BroadcastReceiver {
     private static final String ID_KEY                  = "id";
     private static final String FLAGS_KEY               = "flags";
     private static final String REPEAT_KEY              = "repeat";
+    private static final int TAG_ID_OFFSET              = 100000;
 
     // stuff for scheduling
     /** minimum # of seconds before a deadline to notify */
@@ -516,5 +517,68 @@ public class Notifications extends BroadcastReceiver {
         return true;
     }
 
+    /** Schedule a new notification about the given tag. */
+    public static boolean showTagNotification(Context context, long tagId,
+    		String reminder) {
 
+        // quiet hours? only for periodic reminders
+        boolean quietHours = false;
+        Integer quietHoursStart = Preferences.getQuietHourStart(context);
+        Integer quietHoursEnd = Preferences.getQuietHourEnd(context);
+        if(quietHoursStart != null && quietHoursEnd != null) {
+            int hour = new Date().getHours();
+            if(quietHoursStart < quietHoursEnd) {
+                if(hour >= quietHoursStart && hour < quietHoursEnd)
+                    quietHours = true;
+            } else { // wrap across 24/hour boundary
+                if(hour >= quietHoursStart || hour < quietHoursEnd)
+                    quietHours = true;
+            }
+        }
+
+        NotificationManager nm = (NotificationManager) context
+                .getSystemService(Context.NOTIFICATION_SERVICE);
+        Resources r = context.getResources();
+
+        Intent notifyIntent = new Intent(context, TaskListNotify.class);
+        notifyIntent.putExtra(TaskListSubActivity.TAG_TOKEN, tagId);
+        notifyIntent.putExtra(TaskListSubActivity.FROM_NOTIFICATION_TOKEN, true);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context,
+        		TAG_ID_OFFSET + (int)tagId, notifyIntent, PendingIntent.FLAG_ONE_SHOT);
+
+        // set up properties (name and icon) for the notification
+        String appName = r.getString(R.string.app_name);
+        int icon = R.drawable.notif_tag;
+
+        // create notification object
+        Notification notification = new Notification(
+                icon, reminder, System.currentTimeMillis());
+        notification.setLatestEventInfo(context,
+                appName,
+                reminder,
+                pendingIntent);
+        notification.flags |= Notification.FLAG_AUTO_CANCEL;
+        notification.ledARGB = Color.BLUE;
+        notification.defaults = Notification.DEFAULT_LIGHTS;
+
+        if(quietHours) {
+            notification.vibrate = null;
+            notification.sound = null;
+        } else {
+            notification.defaults |= Notification.DEFAULT_VIBRATE;
+            Uri notificationSound = Preferences.getNotificationRingtone(context);
+            if(notificationSound != null &&
+                    !notificationSound.toString().equals("")) {
+                notification.sound = notificationSound;
+            } else {
+                notification.defaults |= Notification.DEFAULT_SOUND;
+            }
+        }
+
+        if(Constants.DEBUG)
+            Log.w("Astrid", "Logging tag notification: " + reminder);
+        nm.notify(TAG_ID_OFFSET + (int)tagId, notification);
+
+        return true;
+    }
 }
