@@ -819,6 +819,11 @@ public class TaskListSubActivity extends SubActivity {
             else if(syncPreferencesOpened) {
             	syncPreferencesOpened = false;
 
+            	if(TaskList.synchronizeNow) {
+            	    synchronize();
+            	    TaskList.synchronizeNow = false;
+            	}
+
 		        // stop & start synchronization service
 	            SynchronizationService.stop();
 	            SynchronizationService.start();
@@ -837,22 +842,27 @@ public class TaskListSubActivity extends SubActivity {
         shouldRefreshTaskList = false;
     }
 
+    /** Invoke synchronizer */
+    private void synchronize() {
+        Synchronizer sync = new Synchronizer(false);
+        sync.setTagController(getTagController());
+        sync.setTaskController(getTaskController());
+        sync.synchronize(getParent(), new SynchronizerListener() {
+            public void onSynchronizerFinished(int numServicesSynced) {
+                if(numServicesSynced == 0) {
+                    DialogUtilities.okDialog(getParent(), getResources().getString(
+                            R.string.sync_no_synchronizers), null);
+                    return;
+                }
+                reloadList();
+            }
+        });
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode == Constants.RESULT_SYNCHRONIZE) {
-            Synchronizer sync = new Synchronizer(false);
-            sync.setTagController(getTagController());
-            sync.setTaskController(getTaskController());
-            sync.synchronize(getParent(), new SynchronizerListener() {
-                public void onSynchronizerFinished(int numServicesSynced) {
-                    if(numServicesSynced == 0) {
-                        DialogUtilities.okDialog(getParent(), getResources().getString(
-                                R.string.sync_no_synchronizers), null);
-                        return;
-                    }
-                    reloadList();
-                }
-            });
+            synchronize();
         } else if(requestCode == ACTIVITY_TAGS) {
             switchToActivity(TaskList.AC_TAG_LIST, null);
         }

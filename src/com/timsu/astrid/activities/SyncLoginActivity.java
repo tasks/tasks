@@ -30,7 +30,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.utilities.Constants;
 
 /**
  * This activity displays a <code>WebView</code> that allows users to log in to the
@@ -118,7 +117,7 @@ public class SyncLoginActivity extends Activity {
                     public void run() {
                         boolean result = callback.verifyLogin(handler);
                         if(result) {
-                            setResult(Constants.RESULT_SYNCHRONIZE);
+                            TaskList.synchronizeNow = true;
                             finish();
                         }
                     }
