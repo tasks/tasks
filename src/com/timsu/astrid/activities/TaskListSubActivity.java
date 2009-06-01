@@ -1071,6 +1071,10 @@ public class TaskListSubActivity extends SubActivity {
                     Uri.parse(Constants.HELP_URL));
             launchActivity(browserIntent, 0);
             return true;
+        case OPTIONS_QUICK_TIPS:
+            DialogUtilities.okDialog(getParent(),
+                    getResources().getString(R.string.quick_tips), null);
+            return true;
         case OPTIONS_CLEANUP_ID:
             cleanOldTasks();
             return true;

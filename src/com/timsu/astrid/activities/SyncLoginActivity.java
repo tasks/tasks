@@ -100,7 +100,7 @@ public class SyncLoginActivity extends Activity {
         });
         webView.getSettings().setJavaScriptEnabled(true);
         webView.getSettings().setSavePassword(false);
-        webView.getSettings().setSupportZoom(false);
+        webView.getSettings().setSupportZoom(true);
         webView.loadUrl(urlParam);
 
         final Handler handler = new Handler();
