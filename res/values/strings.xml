@@ -128,9 +128,9 @@
         <string name="taskList_deleted">Deleted</string><!-- Deleted: MM/DD/YY -->
         
         <!-- menu items -->
-        <string name="taskList_menu_insert">Add</string><!-- Add or Insert -->
+        <string name="taskList_menu_insert">New Task</string><!-- New Tasks, Add or Insert -->
         <string name="taskList_menu_tags">Tags</string>
-        <string name="taskList_menu_filters">Display</string>
+        <string name="taskList_menu_filters">Sort/Filters</string>
         <string name="taskList_menu_syncshortcut">Sync</string>
         <string name="taskList_menu_more">More</string>
         <string name="taskList_menu_sync">Synchronization</string>
