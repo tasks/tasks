@@ -47,6 +47,9 @@
                 <category android:name="android.intent.category.HOME" />
             </intent-filter>
         </activity>
+        
+        <!-- Activity that lets users log in to sync providers -->
+        <activity android:name=".activities.SyncLoginActivity"/>
 
         <!-- Activity that lets users edit app preferences -->
         <activity android:name=".activities.EditPreferences"/>

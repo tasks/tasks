@@ -28,10 +28,9 @@ import java.util.StringTokenizer;
 import java.util.Map.Entry;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.net.Uri;
+import android.os.Handler;
 import android.util.Log;
 
 import com.mdt.rtm.ApplicationInfo;
@@ -48,7 +47,8 @@ import com.mdt.rtm.data.RtmTasks;
 import com.mdt.rtm.data.RtmAuth.Perms;
 import com.mdt.rtm.data.RtmTask.Priority;
 import com.timsu.astrid.R;
-import com.timsu.astrid.activities.TaskList;
+import com.timsu.astrid.activities.SyncLoginActivity;
+import com.timsu.astrid.activities.SyncLoginActivity.SyncLoginCallback;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.sync.SyncMapping;
 import com.timsu.astrid.data.tag.TagController;
@@ -93,6 +93,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     /** Perform authentication with RTM. Will open the SyncBrowser if necessary */
     private void authenticate(final Context context) {
+        final Resources r = context.getResources();
+
         try {
             String apiKey = "bd9883b3384a21ead17501da38bb1e68";
             String sharedSecret = "a19b2a020345219b";
@@ -130,17 +132,40 @@ public class RTMSyncProvider extends SynchronizationProvider {
                         apiKey, sharedSecret, appName));
                 final String url = rtmService.beginAuthorization(Perms.delete);
                 progressDialog.dismiss();
-                Resources r = context.getResources();
-                DialogUtilities.okCancelDialog(context,
-                        r.getString(R.string.sync_auth_request, "RTM"),
-                        new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int which) {
-                        TaskList.synchronizeNow = true;
-                        Intent intent = new Intent(Intent.ACTION_VIEW,
-                                Uri.parse(url));
-                        context.startActivity(intent);
+
+                Intent intent = new Intent(context, SyncLoginActivity.class);
+                SyncLoginActivity.setCallback(new SyncLoginCallback() {
+                    @Override
+                    public boolean verifyLogin(final Handler syncLoginHandler) {
+                        if(rtmService == null) {
+                            Log.e("rtmsync", "Error: sync login activity displayed with no service!");
+                            return true;
+                        }
+
+                        try {
+                            String token = rtmService.completeAuthorization();
+                            Log.w("astrid", "got RTM token: " + token);
+                            Preferences.setSyncRTMToken(context, token);
+                            return true;
+                        } catch (final Exception e) {
+                            // didn't work
+
+                            syncLoginHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    DialogUtilities.okDialog(context,
+                                            r.getString(R.string.rtm_login_error) +
+                                            " " + e.getMessage(), null);
+                                }
+                            });
+
+                            return false;
+                        }
                     }
-                }, null);
+                });
+                intent.putExtra(SyncLoginActivity.URL_TOKEN, url);
+                intent.putExtra(SyncLoginActivity.LABEL_TOKEN, R.string.rtm_login_label);
+                context.startActivity(intent);
 
             } else {
                 performSync(context);

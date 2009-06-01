@@ -77,6 +77,8 @@ public class SyncPreferences extends PreferenceActivity {
                     public void onClick(DialogInterface dialog,
                             int which) {
                         Synchronizer.clearUserData(SyncPreferences.this);
+                        // force a synchronization if sync preference is still set
+                        rtmSyncPreference = false;
                     }
                 }, null);
             }

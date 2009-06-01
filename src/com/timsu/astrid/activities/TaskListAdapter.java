@@ -19,7 +19,6 @@ package com.timsu.astrid.activities;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -93,7 +92,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private static Format alarmFormat = null;
 
     private final Activity activity;
-    private ArrayList<TaskModelForList> objects;
+    private List<TaskModelForList> objects;
     private int resource;
     private LayoutInflater inflater;
     private TaskListAdapterHooks hooks;
@@ -111,7 +110,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
      *
      */
     public interface TaskListAdapterHooks {
-        ArrayList<TaskModelForList> getTaskArray();
+        List<TaskModelForList> getTaskArray();
         String getTagsFor(TaskModelForList task);
         TaskController taskController();
         TagController tagController();
@@ -133,7 +132,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
      * @param hooks
      */
     public TaskListAdapter(Activity activity, int resource,
-            ArrayList<TaskModelForList> objects, TaskListAdapterHooks hooks) {
+            List<TaskModelForList> objects, TaskListAdapterHooks hooks) {
         super(activity, resource, objects);
 
         inflater = (LayoutInflater)activity.getSystemService(

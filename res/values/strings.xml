@@ -175,9 +175,9 @@
         
         <!-- labels -->
         <string name="name_label">Summary</string>
-        <string name="name_hint">Task Description</string>
         <string name="importance_label">How Important is it?</string>
         <string name="tags_label">Tags:</string>
+        <string name="tag_hint">Tag</string>
         
         <string name="estimatedDuration_label">How Long Will it Take?</string>
         <string name="elapsedDuration_label">Time Already Spent on Task</string>
@@ -267,11 +267,6 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="sync_bgwifi_title">Auto-Sync Wifi Only</string>
         <string name="sync_bgwifi_desc">If set, auto-sync only happens when Wifi is active</string>
         <string name="sync_error">Sync Error! Sorry for the inconvenience! Error:</string>
-        <string name="sync_auth_request">
-In order to synchronize, please log in to your %s account and authorize Astrid to read your data.
-\n\n
-When finished, restart Astrid.
-        </string>
         <string name="sync_upgrade_v99">
 Astrid 2.7 now performs synchronization with RTM in the background. You will 
 be directed to the preferences page to configure how often you want this to
@@ -296,9 +291,14 @@ occur (it is a minor drain on battery).
         <string name="sync_progress_remote">Reading Remote Data</string>
         <string name="sync_progress_rxlist">Reading List: %s</string>
         <string name="sync_progress_repeating">Synchronizing Repeating Task</string>
-        <string name="sync_progress_localtx">Sending Task: %s</string>
+        <string name="sync_progress_localtx">Transmitting: %s</string>
         <string name="sync_progress_localdel">Locally Deleted Tasks</string>
-        <string name="sync_progress_remotetx">Receiving Task: %s</string>
+        <string name="sync_progress_remotetx">Receiving: %s</string>
+        
+        <string name="rtm_login_label">Please Log In to RTM...</string>
+        <string name="rtm_login_error">
+Sorry, there was an error verifying your login. Please let us know about this error: 
+        </string>
         
        
     <!-- Dialog Boxes -->  
@@ -307,6 +307,7 @@ occur (it is a minor drain on battery).
         <string name="updating">Updating List...</string>
         <string name="information_title">Information</string>
         <string name="question_title">Question</string>
+        <string name="done_label">Done</string>
         <string name="notify_yes">View Task</string>
         <string name="notify_done">Already Done!</string>
         <string name="notify_snooze">Snooze</string>

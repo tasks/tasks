@@ -18,14 +18,13 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package com.timsu.astrid.activities;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Map;
+import java.util.List;
 import java.util.Random;
 
 import android.app.AlertDialog;
@@ -138,8 +137,8 @@ public class TaskListSubActivity extends SubActivity {
 
     // other instance variables
     static class TaskListContext {
-        Map<TagIdentifier, TagModelForView> tagMap;
-        ArrayList<TaskModelForList> taskArray;
+        HashMap<TagIdentifier, TagModelForView> tagMap;
+        List<TaskModelForList> taskArray;
         HashMap<Long, TaskModelForList> tasksById;
         HashMap<TaskModelForList, String> taskTags;
         TaskModelForList selectedTask = null;
@@ -504,7 +503,8 @@ public class TaskListSubActivity extends SubActivity {
                     tasksCursor = getTaskController().getActiveTaskListCursor();
             }
             startManagingCursor(tasksCursor);
-            context.taskArray = getTaskController().createTaskListFromCursor(tasksCursor);
+            context.taskArray = Collections.synchronizedList(getTaskController().
+                    createTaskListFromCursor(tasksCursor));
 
             // read tags and apply filters
             context.tagMap = getTagController().getAllTagsAsMap();
@@ -650,7 +650,7 @@ public class TaskListSubActivity extends SubActivity {
     class TaskListHooks implements TaskListAdapterHooks {
 
         private HashMap<TaskModelForList, String> myTaskTags;
-        private ArrayList<TaskModelForList> myTaskArray;
+        private List<TaskModelForList> myTaskArray;
 
         public TaskListHooks() {
             this.myTaskTags = context.taskTags;
@@ -665,7 +665,7 @@ public class TaskListSubActivity extends SubActivity {
             return myTaskTags.get(task);
         }
 
-        public ArrayList<TaskModelForList> getTaskArray() {
+        public List<TaskModelForList> getTaskArray() {
             return myTaskArray;
         }
 
