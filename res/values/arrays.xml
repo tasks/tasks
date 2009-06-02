@@ -23,8 +23,12 @@
 
 
 <resources>
+        <!-- Automatically filled in by Launchpad: -->
+        <string name="about_translators">translator-credits</string>
+
     <!-- Make these < 20 chars so the task name is displayed 
             Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
+			
     <string-array name="reminders">
         <item>Hi there! Have a sec?</item>
         <item>Can I see you for a sec?</item>
