@@ -13,6 +13,9 @@ public class Constants {
     /** URL of Astrid Feature Survey */
     public static final String SURVEY_URL = "http://www.haveasec.com/survey/m/detail/welcome/bf25e0/";
 
+    /** Flurry API KEy */
+    public static final String FLURRY_KEY = "T3JAY9TV2JFMJR4YTG16";
+
     public static final boolean DEBUG = true;
 
     // result codes

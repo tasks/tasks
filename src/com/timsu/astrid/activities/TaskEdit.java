@@ -60,6 +60,7 @@ import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.enums.Importance;
@@ -188,11 +189,14 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         if(model.getCursor() != null)
             startManagingCursor(model.getCursor());
         if(model.getTaskIdentifier() == null) {
+            FlurryAgent.onEvent("create-task");
         	Bundle extras = getIntent().getExtras();
         	if(extras != null && extras.containsKey(START_CHAR_TOKEN))
         		name.setText("" + extras.getChar(START_CHAR_TOKEN));
-        } else
+        } else {
+            FlurryAgent.onEvent("edit-task");
         	name.setText(model.getName());
+        }
         if(model.getName().length() > 0)
             setTitle(new StringBuilder().
                 append(r.getString(R.string.taskEdit_titlePrefix)).
@@ -713,6 +717,8 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
      */
     public static void createCalendarStartEndTimes(Date preferred, Date definite,
             Integer estimatedSeconds, ContentValues values) {
+        FlurryAgent.onEvent("create-calendar-event");
+
         Long deadlineDate = null;
         if (preferred != null && preferred.after(new Date()))
             deadlineDate = preferred.getTime();

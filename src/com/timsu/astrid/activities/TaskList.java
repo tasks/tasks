@@ -34,6 +34,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ViewFlipper;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
@@ -140,6 +141,20 @@ public class TaskList extends Activity {
                 ((TaskListSubActivity)taskListWTag).getFilterTag() == null) {
             switchToActivity(AC_TASK_LIST, null);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // set up flurry
+        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 
     /** Set up user interface components */

@@ -24,10 +24,12 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DialogUtilities;
 
 /** Abstract activity that operates on a single task. Use the generic parameter
@@ -62,6 +64,20 @@ public abstract class TaskModificationActivity<MODEL_TYPE extends
         } catch (Exception e) {
             showErrorAndFinish(R.string.error_opening, e);
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // set up flurry
+        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 
     protected void showErrorAndFinish(int prefix, Throwable e) {

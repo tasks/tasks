@@ -50,6 +50,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.TaskListAdapter.TaskListAdapterHooks;
 import com.timsu.astrid.data.tag.TagController;
@@ -233,6 +234,7 @@ public class TaskListSubActivity extends SubActivity {
                 // open up reminder box
                 if(variables != null && variables.containsKey(NOTIF_FLAGS_TOKEN) &&
                         context.selectedTask != null) {
+                    FlurryAgent.onEvent("open-notification");
                     handler.post(new Runnable() {
                         public void run() {
                             long repeatInterval = 0;
@@ -554,12 +556,20 @@ public class TaskListSubActivity extends SubActivity {
                 if(task.isTaskCompleted())
                     completedTasks++;
             }
+
+            HashMap<String, String> args = new HashMap<String, String>();
+            args.put("tasks", Integer.toString(context.taskArray.size()));
+            FlurryAgent.onEvent("loaded-tasks", args);
+
         } catch (StaleDataException e) {
             // happens when you rotate the screen while the thread is
             // still running. i don't think it's avoidable?
             Log.w("astrid", "StaleDataException", e);
             return;
         } catch (final IllegalStateException e) {
+            FlurryAgent.onError("task-list-error", e.toString(),
+                    e.getClass().getSimpleName());
+
             // happens when you run out of memory usually
             Log.e("astrid", "Error loading task list", e);
             handler.post(new Runnable() {
@@ -572,6 +582,9 @@ public class TaskListSubActivity extends SubActivity {
             });
             return;
         } catch (final Exception e) {
+            FlurryAgent.onError("task-list-error", e.toString(),
+                    e.getClass().getSimpleName());
+
             Log.e("astrid", "Error loading task list", e);
             return;
         }
@@ -713,6 +726,8 @@ public class TaskListSubActivity extends SubActivity {
                 context.listAdapter.setExpanded(v, context.selectedTask, true);
                 listView.setSelection(selectedPosition);
             } catch (Exception e) {
+                FlurryAgent.onError("task-list-selected", e.toString(),
+                        e.getClass().getSimpleName());
                 Log.e("astrid", "error with selected task", e);
             }
         }
@@ -906,9 +921,11 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Toggle the timer */
     private void toggleTimer(TaskModelForList task) {
-        if(task.getTimerStart() == null)
+        if(task.getTimerStart() == null) {
+            FlurryAgent.onEvent("start-timer");
             task.setTimerStart(new Date());
-        else {
+        } else {
+            FlurryAgent.onEvent("stop-timer");
             task.stopTimerAndUpdateElapsedTime();
         }
         getTaskController().saveTask(task);
@@ -988,6 +1005,8 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Show a dialog box to postpone your tasks */
     private void postponeTask(final TaskModelForList task) {
+        FlurryAgent.onEvent("postpone-task");
+
         final Resources r = getResources();
         DialogUtilities.dayHourPicker(getParent(), r.getString(R.string.taskList_postpone_dialog),
             new OnNNumberPickedListener() {

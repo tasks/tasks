@@ -32,6 +32,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
@@ -102,6 +103,20 @@ public class SyncPreferences extends PreferenceActivity {
         	lastAutoSyncLabel.setText(r.getString(R.string.sync_last_auto_sync, syncDate));
         else
         	lastAutoSyncLabel.setVisibility(View.GONE);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // set up flurry
+        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 
     @Override

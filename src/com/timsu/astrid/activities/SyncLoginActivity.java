@@ -118,8 +118,8 @@ public class SyncLoginActivity extends Activity {
                         boolean result = callback.verifyLogin(handler);
                         if(result) {
                             TaskList.synchronizeNow = true;
-                            finish();
                         }
+                        finish();
                     }
                 }).start();
             }

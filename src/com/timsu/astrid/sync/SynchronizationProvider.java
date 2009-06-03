@@ -31,6 +31,7 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
@@ -300,6 +301,9 @@ public abstract class SynchronizationProvider {
                 else
                     log.append("updated '" + task.getName() + "'\n");
             } catch (Exception e) {
+                FlurryAgent.onError("sync-error-push-task", e.toString(),
+                        e.getClass().getSimpleName());
+
                 Log.e("astrid", "Exception pushing task", e);
                 log.append("error sending '" + task.getName() + "'\n");
                 continue;
@@ -512,13 +516,23 @@ public abstract class SynchronizationProvider {
         /** Display a dialog with statistics */
         public void showDialog(final Context context, String log) {
             progressDialog.hide();
-            Resources r = context.getResources();
+
+            HashMap<String, String> args = new HashMap<String, String>();
+            args.put("localCreatedTasks", Integer.toString(localCreatedTasks));
+            args.put("localUpdatedTasks", Integer.toString(localUpdatedTasks));
+            args.put("localDeletedTasks", Integer.toString(localDeletedTasks));
+            args.put("mergedTasks", Integer.toString(mergedTasks));
+            args.put("remoteCreatedTasks", Integer.toString(remoteCreatedTasks));
+            args.put("remoteUpdatedTasks", Integer.toString(remoteUpdatedTasks));
+            args.put("remoteDeletedTasks", Integer.toString(remoteDeletedTasks));
+            FlurryAgent.onEvent("sync-finished", args);
 
             if(Preferences.shouldSuppressSyncDialogs(context) ||
                     getSingleTaskForSync() != null) {
                 return;
             }
 
+            Resources r = context.getResources();
             Dialog.OnClickListener finishListener = null;
 
             // nothing updated

@@ -46,6 +46,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.enums.Importance;
@@ -169,6 +170,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 view.requestFocus();
             }
         } catch (Exception e) {
+            FlurryAgent.onError("task-adapter-set-expanded", e.toString(),
+                    e.getClass().getSimpleName());
+
             Log.e("astrid", "Error in setExpanded", e);
         }
     }
@@ -682,10 +686,13 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         hooks.taskController().saveTask(task);
 
         // show this task as completed even if it has repeats
-        if(progress == 100)
+        if(progress == 100) {
             recentlyCompleted = task;
-        else
+            FlurryAgent.onEvent("complete-task");
+        } else {
+            FlurryAgent.onEvent("uncomplete-task");
             recentlyCompleted = null;
+        }
 
         // if our timer is on, ask if we want to stop
         if(progress == 100 && task.getTimerStart() != null) {

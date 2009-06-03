@@ -22,7 +22,9 @@ package com.timsu.astrid.activities;
 import android.os.Bundle;
 import android.preference.PreferenceActivity;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
+import com.timsu.astrid.utilities.Constants;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -36,5 +38,19 @@ public class EditPreferences extends PreferenceActivity {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // set up flurry
+        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 }

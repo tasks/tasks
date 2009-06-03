@@ -15,9 +15,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemSelectedListener;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagModelForView;
+import com.timsu.astrid.utilities.Constants;
 
 /**
  * Activity to edit alerts from Locale
@@ -88,6 +90,20 @@ public final class LocaleEditAlerts extends Activity {
 
 		});
 	}
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        // set up flurry
+        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
+    }
 
 	/**
 	 * Private helper method to persist the Toast message in the return {@code Intent}.

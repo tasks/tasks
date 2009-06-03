@@ -33,6 +33,7 @@ import android.content.res.Resources;
 import android.os.Handler;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
 import com.mdt.rtm.ApplicationInfo;
 import com.mdt.rtm.ServiceException;
 import com.mdt.rtm.ServiceImpl;
@@ -94,6 +95,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
     /** Perform authentication with RTM. Will open the SyncBrowser if necessary */
     private void authenticate(final Context context) {
         final Resources r = context.getResources();
+        FlurryAgent.onEvent("rtm-started");
 
         try {
             String apiKey = "bd9883b3384a21ead17501da38bb1e68";
@@ -128,6 +130,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 if(isBackgroundService())
                 	return;
 
+                FlurryAgent.onEvent("rtm-login-dialog");
+
                 rtmService = new ServiceImpl(new ApplicationInfo(
                         apiKey, sharedSecret, appName));
                 final String url = rtmService.beginAuthorization(Perms.delete);
@@ -149,6 +153,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
                             return true;
                         } catch (final Exception e) {
                             // didn't work
+                            FlurryAgent.onError("rtm-error-verify-login", e.toString(),
+                                    e.getClass().getSimpleName());
 
                             syncLoginHandler.post(new Runnable() {
                                 @Override
@@ -172,6 +178,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
             }
 
         } catch (Exception e) {
+            FlurryAgent.onError("rtm-error-authenticate", e.toString(),
+                    e.getClass().getSimpleName());
+
             // IO Exception
             if(e instanceof ServiceInternalException &&
                     ((ServiceInternalException)e).getEnclosedException() instanceof
@@ -249,6 +258,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 postUpdate(new ProgressUpdater(5, 5));
                 addTasksToList(context, tasks, remoteChanges);
             } catch (Exception e) {
+                FlurryAgent.onError("rtm-error-quick-sync", e.toString(),
+                        e.getClass().getSimpleName());
+
                 Log.e("rtmsync", "Error sync-ing list!", e);
                 remoteChanges.clear();
                 shouldSyncIndividualLists = true;
@@ -267,6 +279,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
                                 filter, lastSyncDate);
                         addTasksToList(context, tasks, remoteChanges);
                     } catch (Exception e) {
+                        FlurryAgent.onError("rtm-error-indiv-sync", e.toString(),
+                                e.getClass().getSimpleName());
+
                         Log.e("rtmsync", "Error sync-ing list!", e);
                     	postUpdate(new Runnable() {
                             public void run() {
@@ -287,7 +302,12 @@ public class RTMSyncProvider extends SynchronizationProvider {
             Date syncTime = new Date(System.currentTimeMillis() + 1000);
             Preferences.setSyncRTMLastSync(context, syncTime);
 
+            FlurryAgent.onEvent("rtm-sync-finished");
+
         } catch (Exception e) {
+            FlurryAgent.onError("rtm-error-sync", e.toString(),
+                    e.getClass().getSimpleName());
+
             Log.e("rtmsync", "Error in synchronization", e);
             showError(context, e, null);
 
