@@ -26,7 +26,7 @@
     <!-- Make these < 20 chars so the task name is displayed 
             Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
     <string-array name="reminders">
-        <item>Heyho! Haste ne Sekunde?</item>
+        <item>Hallo! Haste 'ne Sekunde?</item>
         <item>Kann ich deine Aufmerksamkeit für ein paar Sekunden haben?</item>
         <item>Hast Du n paar Minuten?</item>
         <item>Hast Du's vergessen?</item>

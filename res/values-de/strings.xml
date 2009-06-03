@@ -143,9 +143,9 @@
         <string name="taskList_filter_done">Erledigte Aufgaben</string>
         <string name="taskList_filter_tagged">Tagged \'%s\'</string>
         <string name="taskList_sort_auto">Automatisch sortieren</string>
-        <string name="taskList_sort_alpha">Nach Name sortieren</string>
+        <string name="taskList_sort_alpha">Nach Namen sortieren</string>
         <string name="taskList_sort_duedate">Nach Datum sortieren</string>
-        <string name="taskList_sort_reverse">umgekehrt sortieren</string>
+        <string name="taskList_sort_reverse">Umgekehrt sortieren</string>
         
         <string name="taskList_nonag_reminder">Wähle eine Aktion:</string>
         <string name="taskList_postpone_count">Wie oft aufgeschoben: %d</string>
@@ -177,34 +177,37 @@
         <string name="addToCalendar_label">Aufgabe zum Kalender hinzufügen</string>
         <string name="showCalendar_label">Zeige Termin im Kalender an</string>
         <string name="hiddenUntil_label">Bis zu diesem Datum verstecken</string>
-        <string name="repeat_label">Wiederhole jede</string>
+        <string name="repeat_label">Wiederhole alle</string>
         <string name="repeat_value_unset">Keine Wiederholung eingestellt</string>
-        <string name="blockingOn_label">Verstecken bis diese Aufgabe erledigt ist.</string>
+        <string name="blockingOn_label">Verstecke bis diese Aufgabe erledigt ist.</string>
         <string name="notes_label">Notizen</string>
         <string name="notes_hint">Aufgaben-Notizen eingeben</string>
         
         <string name="notification_label">Regelmäßige Erinnerungen</string>
         <string name="notification_prefix">Jede</string>
         <string name="flags_label">Erinnere mich...</string>
-        <string name="flag_before">Beim Nähern an die Frist</string>
-        <string name="flag_during">Beim Erreichen der Frist</string>
-        <string name="flag_after">Nachdem die Absolute Frist vergangen ist</string>
+        <string name="flag_before">Beim Nähern der Fristen</string>
+        <string name="flag_during">Beim Erreichen der Fristen</string>
+        <string name="flag_after">Nachdem die absolute Frist verstrichen ist</string>
         <string name="flag_nonstop">Pausenlos bis ich die Aufgabe anschaue</string>
-        <string name="alerts_label">Festgesetzte Eringerung</string>
+        <string name="alerts_label">Festgesetzte Erinnerungen</string>
         <string name="add_alert">Neue Erinnerung hinzufügen</string>
         
         <!-- dialog boxes -->
         <string name="hour_minutes_dialog">Zeit (Stunden : Minuten)</string>
-        <string name="notification_dialog">Erinnere mich jede</string>
+        <string name="notification_dialog">Erinnere mich alle</string>
         <string name="repeat_picker_title">Wiederhole alle (0 zum Deaktivieren)</string>
         <string name="repeat_help_dialog_title">Hilfe: Astrid Wiederholungen</string>
         <string name="repeat_help_dialog">
-Stelle oben zu mindest eine Frist ein um Wiederholungen zu nutzen. Wenn Du die Aufgabe erledigst, wird die Frist automatisch verschoben.
+Stelle oben zu mindest eine Frist ein um Wiederholungen zu nutzen. Wenn du die Aufgabe erledigst, wird die Frist automatisch verschoben.
 \n\n
 
-Wenn Du die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen willst, solltest Du das Feld nutzen, welches auch autmatisch verschoben wird.
+Um Wiederholungen zu nutzen, stelle oben zumindes eine Frist ein. Wenn du die Aufgabe erledigst, wird die Frist automatisch verschoben.
+
 \n
-        </string>
+Wenn du die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen willst, solltest du das Feld nutzen, welches auch autmatisch verschoben wird.
+\n
+Wenn du die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen willst, solltest du das Feld "Verstecken bis" nutzen, das auch automatisch verschoben wird.      </string>
         <string name="repeat_help_hide">Diese Hilfe nicht mehr anzeigen</string>
         
         <!-- buttons -->
@@ -228,7 +231,7 @@ Wenn Du die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen wi
     <!-- Tag List -->
     <skip />
         <string name="tagList_titlePrefix">Astrid: Tag Ansicht: </string>
-        <string name="tagList_context_create">Aufgabe mit Tag bearbeiten</string>
+        <string name="tagList_context_create">Aufgabe mit Tag erstellen</string>
         <string name="tagList_context_edit">Aufgabe bearbeiten</string>
         <string name="tagList_context_delete">Aufgabe löschen</string>
         <string name="tagList_context_showTag">Auf der Startseite anzeigen</string>
@@ -238,26 +241,29 @@ Wenn Du die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen wi
         <string name="tagList_shortcut_prefix">Tag:</string>
         <string name="tagList_untagged">-- Not tagged --</string>
         
-        <string name="tagList_menu_sortAlpha">Sortiere alphabetisch</string>
+        <string name="tagList_menu_sortAlpha">Sortiere von A-Z</string>
         <string name="tagList_menu_sortSize">Sortiere nach Größe</string>
-    
+   
     
     <!-- Synchronization -->  
     <skip />
-        <string name="sync_pref_group">Synchronisations-Dienst</string>
+      	<string name="sync_upgrade_v99">Astrid 2.7 führt nun Synchronisationen mit RTM im Hintergrund aus. du wirst zur \"preferences page\" geleitet, um festzulegen, wie oft dies geschehen soll. (Das wirkt sich ein wenig auf die Akkulaufzeit aus.)
+  		</string>
+  		<string name="sync_uptodate"> Sync: Aktualisiert!</string>
+        <string name="sync_pref_group">Synchronisations-Dienste</string>
         <string name="sync_pref_group_actions">Aktionen</string>
         <string name="sync_pref_group_options">Optionen</string>
         <string name="p_sync_rtm">sync_rtm</string>
         <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate ? -->
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
         <string name="sync_interval_title">Auto-Synchronisieren</string>
-        <string name="sync_interval_desc">Synchronisiert automatisch im fix eingestellten Interval falls ausgewählt</string>
+        <string name="sync_interval_desc">Synchronisiert automatisch im eingestellten Interval, falls ausgewählt</string>
         <string name="sync_button_title">Hauptmenu-Verknüpfung</string>
-        <string name="sync_button_desc">Zeige \"Synchronisieren\" im Menu von Astrid</string>
+        <string name="sync_button_desc">Zeige \"Synchronisiere\" im Menu von Astrid</string>
         <string name="sync_quiet_title">Fenster verstecken</string>
-        <string name="sync_quiet_desc">Verstecke das Sychronisationsergebnis-Fenster</string>
+        <string name="sync_quiet_desc">Verstecke das Sync-Fenster</string>
         <string name="sync_bgwifi_title">Auto-Sync nur über WLAN</string>
-        <string name="sync_bgwifi_desc">Synchronisiert im Hintergrund nur über WLAN falls ausgewählt</string>
+        <string name="sync_bgwifi_desc">Synchronisiert nur über WLAN, falls ausgewählt</string>
         <string name="sync_error">Synchronisations-Fehler! Entschuldige die Störung! Fehler:</string>
         <string name="sync_auth_request">
 Bitte logge dich in dein %s Konto ein und authorisiere Astrid deine Daten zu lesen, um synchronisieren zu können.
@@ -266,13 +272,13 @@ Nach der Fertigstellung, starte Astrid neu und komm hierher zurück.
         </string>
         <string name="sync_now">Synchronisiere jetzt!</string>
         <string name="sync_forget">Persönliche Daten löschen</string>
-        <string name="sync_forget_confirm">Daten für ausgewähltes Gerät löschen?</string>
+        <string name="sync_forget_confirm">Daten für ausgewähltes Dienste löschen?</string>  
         <string name="sync_no_synchronizers">Keine Synchronisiergerät eingestellt!</string>
 	<string name="sync_last_sync">Zuletzt synchronisiert: %s</string>
         <string name="sync_last_auto_sync">Letzter Sync-Versuch: %s</string>
-        <string name="sync_date_never">noch nie</string>
+        <string name="sync_date_never">Noch nie</string>
         <string name="sync_result_title">%s Ergebnisse</string>
-        <string name="sync_result_local">Zusammenfassung - Astrid:</string>
+        <string name="sync_result_local">Zusammenfassung - Astrid Aufgaben:</string>
         <string name="sync_result_remote">Zusammenfassung - Server:</string>
         <string name="sync_result_created">Erstellt: %d</string>
         <string name="sync_result_updated">Aktualisiert: %d</string>
@@ -297,7 +303,7 @@ Nach der Fertigstellung, starte Astrid neu und komm hierher zurück.
         <string name="notify_done">Schon erledigt!</string>
         <string name="notify_snooze">Schlummern</string>
         <string name="notify_no">Schließen</string>
-        <string name="notify_snooze_title">Für wie viele Stunden/Minuten schlummern?</string>
+        <string name="notify_snooze_title">Stunden/Minuten zum Schlummern?</string>
         
         <string name="delete_title">Löschen</string>        
         <string name="delete_this_task_title">Diese Aufgabe löschen?</string>
@@ -315,7 +321,9 @@ Ein paar Dinge über Astrid, die Du vielleicht noch nicht kennst:\n
 \n
 Danke, dass Du Astrid benutzt!\n
         </string>
-
+          <string name="locale_edit_alerts_title">Astrid Tag Alarm</string>
+          <string name="locale_edit_intro">Astrid sendet dir eine Erinnerung, solltest du unerledigte Aufgaben haben mit den folgenden Kriterien:</string>
+          <string name="locale_pick_tag">Tagged mit:</string>
      
     <!-- Notification -->  
     <skip />
@@ -336,14 +344,14 @@ Danke, dass Du Astrid benutzt!\n
         <string name="prefs_category_alerts">Erinnerungen</string>
         
         <string name="prefs_quietStart_title">Ruhestunden beginnen</string>
-        <string name="prefs_quietStart_desc">Stunde, bei der die Ruhestunden beginnen (z.B. 22)</string>
+        <string name="prefs_quietStart_desc">Stunde, ab der die Ruhestunden beginnen (z.B. 22)</string>
         
         <string name="prefs_quietEnd_title">Ruhestunden beenden</string>
         <string name="prefs_quietEnd_desc">Stunde, bei der Astrid aufhört ruhig zu sein (z.B. 08)</string>
           
         <string name="p_notif_defaultRemind">notif_default_reminder</string>
         <string name="prefs_defaultRemind_title">Standarderinnerungen</string>
-        <string name="prefs_defaultRemind_desc">Für neue Aufgaben, in Tagen (z.B. 7). Zum Deaktiviereen leer lassen</string>
+        <string name="prefs_defaultRemind_desc">Für neue Aufgaben, in Tagen (z.B. 7). Zum Deaktivieren leer lassen</string>
         
         <string name="prefs_annoy_title">Hartnäckiger Modus</string>
         <string name="prefs_annoy_desc">Wenn eingestellt, musst Du die Erinnerung anschauen, um sie zu entfernen</string>
@@ -360,14 +368,14 @@ Danke, dass Du Astrid benutzt!\n
         <string name="prefs_colorize_desc">Unterschiedliche Farben für unterschiedliche Prioritäten</string>
         
         <string name="prefs_fontSize_title">Schriftart der Aufgabenliste</string>
-        <string name="prefs_fontSize_desc">Schriftart auf der Hautplistenseite (z.B. 22)</string>
+        <string name="prefs_fontSize_desc">Schriftart auf der Hauptlistenseite (z.B. 22)</string>
 
         <string name="prefs_category_other">Weiteres</string>
         
         <string name="prefs_nagging_title">Nörgel-Nachrichten</string>
         <string name="prefs_nagging_desc">Astrids Kommentare zeigen, wenn Du Erinnerungen anschaust oder Aufgaben aufschiebst?</string>
 
-        <string name="prefs_deadlineTime_title">Standardfrist</string>
+        <string name="prefs_deadlineTime_title">Standardfristen</string>
         <string name="prefs_deadlineTime_desc"># der Tage ab heute zum Setzten neuer Fristen</string>
         
         <string name="displayedFields_PrefScreen_Title">Angezeigte Felder</string>
