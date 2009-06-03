@@ -20,9 +20,6 @@
  
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-    
-        <!-- Automatically filled in by Launchpad: -->
-        <string name="about_translators">translator-credits</string>
 
 	<!-- application -->
     <string name="app_name">Astrid</string>
@@ -179,9 +176,10 @@
         
         <!-- labels -->
         <string name="name_label">Summary</string>
+        <string name="name_hint">Task Name</string>
         <string name="importance_label">How Important is it?</string>
         <string name="tags_label">Tags:</string>
-        <string name="tag_hint">Tag</string>
+        <string name="tag_hint">Tag Name</string>
         
         <string name="estimatedDuration_label">How Long Will it Take?</string>
         <string name="elapsedDuration_label">Time Already Spent on Task</string>
@@ -414,4 +412,9 @@ Thanks for using Astrid!\n
         <string name="prefs_reminderVisible_desc">Displayed if this task has reminders</string>
         <string name="prefs_notesVisible_title">Notes</string>
         <string name="prefs_notesVisible_desc">Notes associated with this task</string>
+
+    
+    <!-- Automatically filled in by Launchpad: -->
+    <string name="about_translators">translator-credits</string>
+
 </resources>
