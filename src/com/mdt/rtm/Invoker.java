@@ -115,7 +115,6 @@ public class Invoker {
     globalHttpParams = new BasicHttpParams();
     HttpProtocolParams.setVersion(globalHttpParams, HttpVersion.HTTP_1_1);
     HttpProtocolParams.setContentCharset(globalHttpParams, ENCODING);
-    HttpProtocolParams.setUserAgent(globalHttpParams, "Jakarta-HttpComponents/1.1");
     HttpProtocolParams.setUseExpectContinue(globalHttpParams, true);
 
     httpProcessor = new BasicHttpProcessor();
