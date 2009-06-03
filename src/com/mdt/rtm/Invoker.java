@@ -26,7 +26,6 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -101,6 +100,8 @@ public class Invoker {
 
   private String serviceRelativeUri;
 
+  private BasicHeader basicHeader;
+
   private BasicHttpParams globalHttpParams;
 
   private BasicHttpProcessor httpProcessor;
@@ -116,6 +117,8 @@ public class Invoker {
     HttpProtocolParams.setVersion(globalHttpParams, HttpVersion.HTTP_1_1);
     HttpProtocolParams.setContentCharset(globalHttpParams, ENCODING);
     HttpProtocolParams.setUseExpectContinue(globalHttpParams, true);
+
+    basicHeader = new BasicHeader(HTTP.CHARSET_PARAM, ENCODING);
 
     httpProcessor = new BasicHttpProcessor();
     // Required protocol interceptors
@@ -188,8 +191,6 @@ public class Invoker {
       }
     }
 
-    Log.d(TAG, "Invoker running at " + new Date());
-
     // We prepare the network socket-based connection
     //prepareConnection();
 
@@ -198,7 +199,7 @@ public class Invoker {
     HttpResponse response = null;
 
     final HttpGet request = new HttpGet("http://" + ServiceImpl.SERVER_HOST_NAME + requestUri.toString());
-    request.setHeader(new BasicHeader(HTTP.CHARSET_PARAM, ENCODING));
+    request.setHeader(basicHeader);
     final String methodUri = request.getRequestLine().getUri();
 
     Element result;
