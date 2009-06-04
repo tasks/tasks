@@ -21,6 +21,7 @@ public class Preferences {
     private static final String P_SYNC_RTM_LAST_SYNC = "rtmlastsync";
     private static final String P_SYNC_LAST_SYNC = "lastsync";
     private static final String P_SYNC_LAST_SYNC_ATTEMPT = "lastsyncattempt";
+    private static final String P_LOCALE_LAST_NOTIFY = "locnot";
 
     // pref values
     public static final int ICON_SET_PINK = 0;
@@ -313,6 +314,18 @@ public class Preferences {
         Editor editor = getPrefs(context).edit();
         editor.putLong(P_SYNC_LAST_SYNC_ATTEMPT, date.getTime());
         editor.commit();
+    }
+
+    // --- locale
+
+    public static void setLocaleLastAlertTime(Context context, long tag, long time) {
+        Editor editor = getPrefs(context).edit();
+        editor.putLong(P_LOCALE_LAST_NOTIFY + tag, time);
+        editor.commit();
+    }
+
+    public static long getLocaleLastAlertTime(Context context, long tag) {
+        return getPrefs(context).getLong(P_LOCALE_LAST_NOTIFY + tag, 0);
     }
 
     // --- helper methods

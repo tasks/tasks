@@ -292,7 +292,7 @@ public class TagController extends AbstractController {
      * @throws SQLException if the database could be neither opened or created
      */
     @Override
-    public void open() throws SQLException {
+    public synchronized void open() throws SQLException {
         tagToTaskMapDatabase = new TagToTaskMappingDatabaseHelper(context,
                 TAG_TASK_MAP_NAME, TAG_TASK_MAP_NAME).getWritableDatabase();
         tagDatabase = new TagModelDatabaseHelper(context,

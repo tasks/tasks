@@ -143,12 +143,10 @@ public class TaskController extends AbstractController {
         return list;
     }
 
-    /** Get identifiers for all tasks */
-    public HashSet<TaskIdentifier> getAllTaskIdentifiers() {
+    /** Helper method to take a cursor pointing to a list of id's and generate
+     * a hashset */
+    private HashSet<TaskIdentifier> createTaskIdentifierSet(Cursor cursor) {
         HashSet<TaskIdentifier> list = new HashSet<TaskIdentifier>();
-        Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
-                null, null, null, null, null, null);
-
         try {
             if(cursor.getCount() == 0)
                 return list;
@@ -163,30 +161,33 @@ public class TaskController extends AbstractController {
         } finally {
             cursor.close();
         }
+    }
+
+    /** Get identifiers for all tasks */
+    public HashSet<TaskIdentifier> getAllTaskIdentifiers() {
+        Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
+                null, null, null, null, null, null);
+        return createTaskIdentifierSet(cursor);
     }
 
     /** Get identifiers for all non-completed tasks */
     public HashSet<TaskIdentifier> getActiveTaskIdentifiers() {
-        HashSet<TaskIdentifier> list = new HashSet<TaskIdentifier>();
         Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
                 AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                 AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null, null, null);
-
-        try {
-            if(cursor.getCount() == 0)
-                return list;
-
-            do {
-                cursor.moveToNext();
-                list.add(new TaskIdentifier(cursor.getInt(
-                        cursor.getColumnIndexOrThrow(KEY_ROWID))));
-            } while(!cursor.isLast());
-
-            return list;
-        } finally {
-            cursor.close();
-        }
+        return createTaskIdentifierSet(cursor);
     }
+
+    /** Get identifiers for all non-completed, non-hidden tasks */
+    public HashSet<TaskIdentifier> getActiveVisibleTaskIdentifiers() {
+        Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
+                AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
+                AbstractTaskModel.COMPLETE_PERCENTAGE + " AND " +
+                AbstractTaskModel.HIDDEN_UNTIL + " < " +
+                System.currentTimeMillis(), null, null, null, null, null);
+        return createTaskIdentifierSet(cursor);
+    }
+
 
     /** Create a weighted list of tasks from the db cursor given */
     public Cursor getTaskListCursorById(List<TaskIdentifier> idList) {
@@ -521,7 +522,7 @@ public class TaskController extends AbstractController {
      * @throws SQLException if the database could be neither opened or created
      */
     @Override
-    public void open() throws SQLException {
+    public synchronized void open() throws SQLException {
         SQLiteOpenHelper databaseHelper = new TaskModelDatabaseHelper(
                 context, TASK_TABLE_NAME, TASK_TABLE_NAME);
         database = databaseHelper.getWritableDatabase();
