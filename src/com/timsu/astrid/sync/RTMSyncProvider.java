@@ -173,6 +173,15 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 performSync(context);
             }
 
+        } catch (IllegalStateException e) {
+        	// occurs when application was closed
+
+            FlurryAgent.onError("rtm-authenticate-caught", AstridUtilities.throwableToString(e),
+                    SynchronizationProvider.class.getSimpleName());
+
+            Log.e("rtmsync", "Illegal State during Sync", e);
+
+
         } catch (Exception e) {
             FlurryAgent.onError("rtm-authenticate", AstridUtilities.throwableToString(e),
                     SynchronizationProvider.class.getSimpleName());

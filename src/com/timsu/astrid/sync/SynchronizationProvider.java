@@ -64,32 +64,38 @@ public abstract class SynchronizationProvider {
         this.id = id;
     }
 
-    /** Does some setup and then invokes implemented synchronize method
+    /** Does some setup and then invokes implemented synchronize method. Call me
+     * on the UI thread!
+     *
      * @param activity
      * @param caller
      */
-    void synchronizeService(final Context activity, Synchronizer caller) {
+    void synchronizeService(final Context context, Synchronizer caller) {
         this.synchronizer = caller;
-        this.syncHandler = caller.getHandler();
 
         if(!isBackgroundService()) {
-        	syncHandler.post(new Runnable() {
-        	    @Override
-        	    public void run() {
-        	        SynchronizationProvider.progressDialog = new ProgressDialog(activity);
-        	        progressDialog.setIcon(android.R.drawable.ic_dialog_alert);
-        	        progressDialog.setTitle("Synchronization");
-        	        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        	        progressDialog.setMax(100);
-        	        progressDialog.setMessage("Checking Authorization...");
-        	        progressDialog.setProgress(0);
-        	        progressDialog.setCancelable(false);
-        	        progressDialog.show();
-        	    }
-        	});
+        	try {
+	        	this.syncHandler = new Handler();
+	        	syncHandler.post(new Runnable() {
+	        	    @Override
+	        	    public void run() {
+	        	        SynchronizationProvider.progressDialog = new ProgressDialog(context);
+	        	        progressDialog.setIcon(android.R.drawable.ic_dialog_alert);
+	        	        progressDialog.setTitle("Synchronization");
+	        	        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+	        	        progressDialog.setMax(100);
+	        	        progressDialog.setMessage("Checking Authorization...");
+	        	        progressDialog.setProgress(0);
+	        	        progressDialog.setCancelable(false);
+	        	    }
+	        	});
+        	} catch (IllegalStateException e) {
+        		Log.w("sync", "Wasn't in UI thread when creating handler.");
+        		syncHandler = null;
+        	}
         }
 
-        synchronize(activity);
+        synchronize(context);
     }
 
     /** Synchronize with the service */

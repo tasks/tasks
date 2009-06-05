@@ -24,7 +24,6 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
@@ -81,11 +80,9 @@ public class Synchronizer {
         // if we're not the autosync service, stop it. also create handler
         if(!isService) {
             SynchronizationService.stop();
-            handler = new Handler();
         }
 
-        ServiceWrapper.RTM.service.synchronizeService(context, this);
-        //continueSynchronization(context);
+        continueSynchronization(context);
     }
 
 
@@ -141,9 +138,6 @@ public class Synchronizer {
 
     // Internal state for the synchronization process
 
-    /** Handler for sending jobs to the UI thread */
-    private Handler handler = null;
-
     /** Current step in the sync process */
     private int currentStep = 0;
 
@@ -165,10 +159,6 @@ public class Synchronizer {
 
     TaskIdentifier getSingleTaskForSync() {
         return singleTaskForSync;
-    }
-
-    Handler getHandler() {
-        return handler;
     }
 
     /** Called to do the next step of synchronization. */
