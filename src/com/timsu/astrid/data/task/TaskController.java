@@ -221,8 +221,11 @@ public class TaskController extends AbstractController {
         return database.delete(TASK_TABLE_NAME, KEY_ROWID + "=" + id, null) > 0;
     }
 
-    /** Saves the given task to the database. Returns true on success. */
-    public boolean saveTask(AbstractTaskModel task) {
+    /** Saves the given task to the database. Returns true on success.
+     *
+     * @param duringSync set to true when save is part of a synchronize
+     */
+    public boolean saveTask(AbstractTaskModel task, boolean duringSync) {
         boolean saveSucessful;
 
         if(task.getTaskIdentifier() == null) {
@@ -238,7 +241,7 @@ public class TaskController extends AbstractController {
             if(values.size() == 0) // nothing changed
                 return true;
 
-            onTaskSave(task, values);
+            onTaskSave(task, values, duringSync);
 
             saveSucessful = database.update(TASK_TABLE_NAME, values,
                     KEY_ROWID + "=" + id, null) > 0;
@@ -247,7 +250,7 @@ public class TaskController extends AbstractController {
             if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
                     values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
                         == AbstractTaskModel.COMPLETE_PERCENTAGE) {
-                onTaskCompleted(task, values);
+                onTaskCompleted(task, values, duringSync);
             }
 
             if(!(task instanceof TaskModelForSync)) {
@@ -267,7 +270,7 @@ public class TaskController extends AbstractController {
      * @param task
      * @param values
      */
-    private void onTaskSave(AbstractTaskModel task, ContentValues values) {
+    private void onTaskSave(AbstractTaskModel task, ContentValues values, boolean duringSync) {
         // save task completed date
         if(values.containsKey(AbstractTaskModel.PROGRESS_PERCENTAGE) &&
                 values.getAsInteger(AbstractTaskModel.PROGRESS_PERCENTAGE)
@@ -330,7 +333,7 @@ public class TaskController extends AbstractController {
      * @param task task to process
      * @param values mutable map of values to save
      */
-    private void onTaskCompleted(AbstractTaskModel task, ContentValues values) {
+    private void onTaskCompleted(AbstractTaskModel task, ContentValues values, boolean duringSync) {
         Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
                 TaskModelForHandlers.FIELD_LIST);
         TaskModelForHandlers model = new TaskModelForHandlers(cursor, values);
@@ -344,7 +347,8 @@ public class TaskController extends AbstractController {
         }
 
         // handle sync-on-complete
-        if((model.getFlags() & TaskModelForHandlers.FLAG_SYNC_ON_COMPLETE) > 0) {
+        if((model.getFlags() & TaskModelForHandlers.FLAG_SYNC_ON_COMPLETE) > 0 &&
+        		!duringSync) {
             Synchronizer synchronizer = new Synchronizer(model.getTaskIdentifier());
             synchronizer.synchronize(context, new SynchronizerListener() {
                 public void onSynchronizerFinished(int numServicesSynced) {

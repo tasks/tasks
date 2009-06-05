@@ -70,9 +70,9 @@ public abstract class SynchronizationProvider {
      */
     void synchronizeService(final Context activity, Synchronizer caller) {
         this.synchronizer = caller;
+        this.syncHandler = caller.getHandler();
 
         if(!isBackgroundService()) {
-        	syncHandler = caller.getHandler();
         	syncHandler.post(new Runnable() {
         	    @Override
         	    public void run() {
@@ -368,7 +368,7 @@ public abstract class SynchronizationProvider {
 
             // save the data
             remoteTask.writeToTaskModel(task);
-            taskController.saveTask(task);
+            taskController.saveTask(task, true);
 
             // save tags
             if(remoteTask.tags != null) {

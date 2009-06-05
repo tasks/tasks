@@ -28,6 +28,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
@@ -35,6 +36,7 @@ import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.utilities.AstridUtilities;
 import com.timsu.astrid.utilities.Preferences;
 
 /**
@@ -172,24 +174,34 @@ public class Synchronizer {
 
     /** Called to do the next step of synchronization. */
     void continueSynchronization(Context context) {
-        ServiceWrapper serviceWrapper =
-            ServiceWrapper.values()[currentStep];
-        currentStep++;
-        switch(serviceWrapper) {
-        case _FIRST_SERVICE:
-            continueSynchronization(context);
-            break;
-        case RTM:
-            if(serviceWrapper.isActivated(context)) {
-                servicesSynced++;
-                serviceWrapper.service.synchronizeService(context, this);
-            } else {
-                continueSynchronization(context);
-            }
-            break;
-        case _LAST_SERVICE:
-            finishSynchronization(context);
-        }
+    	try {
+    		if(currentStep > ServiceWrapper.values().length)
+    			currentStep = ServiceWrapper.values().length - 1;
+
+	        ServiceWrapper serviceWrapper =
+	            ServiceWrapper.values()[currentStep];
+	        currentStep++;
+	        switch(serviceWrapper) {
+	        case _FIRST_SERVICE:
+	            continueSynchronization(context);
+	            break;
+	        case RTM:
+	            if(serviceWrapper.isActivated(context)) {
+	                servicesSynced++;
+	                serviceWrapper.service.synchronizeService(context, this);
+	            } else {
+	                continueSynchronization(context);
+	            }
+	            break;
+	        case _LAST_SERVICE:
+	            finishSynchronization(context);
+	        }
+    	} catch (Exception e) {
+    		Log.e("sync", "Error continuing synchronization", e);
+    		FlurryAgent.onError("sync-continue", AstridUtilities.throwableToString(e),
+                    SynchronizationProvider.class.getSimpleName());
+    		finishSynchronization(context);
+    	}
     }
 
     /** Called at the end of sync. */

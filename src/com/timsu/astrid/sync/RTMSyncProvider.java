@@ -127,46 +127,40 @@ public class RTMSyncProvider extends SynchronizationProvider {
                     }
                 }
 
-                // open up a dialog and have the user go to browser
                 if(isBackgroundService())
                 	return;
 
+                // open up a dialog and have the user go to browser
                 FlurryAgent.onEvent("rtm-login-dialog");
 
                 rtmService = new ServiceImpl(new ApplicationInfo(
                         apiKey, sharedSecret, appName));
                 final String url = rtmService.beginAuthorization(Perms.delete);
-                progressDialog.dismiss();
+                if(progressDialog != null)
+                	progressDialog.dismiss();
 
                 Intent intent = new Intent(context, SyncLoginActivity.class);
                 SyncLoginActivity.setCallback(new SyncLoginCallback() {
                     @Override
-                    public boolean verifyLogin(final Handler syncLoginHandler) {
+                    public String verifyLogin(final Handler syncLoginHandler) {
                         if(rtmService == null) {
                             Log.e("rtmsync", "Error: sync login activity displayed with no service!");
-                            return true;
+                            return null;
                         }
 
                         try {
                             String token = rtmService.completeAuthorization();
                             Log.w("astrid", "got RTM token: " + token);
                             Preferences.setSyncRTMToken(context, token);
-                            return true;
+                            return null;
                         } catch (final Exception e) {
                             // didn't work
                             FlurryAgent.onError("rtm-verify-login", AstridUtilities.throwableToString(e),
                                     SynchronizationProvider.class.getSimpleName());
 
-                            syncLoginHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    DialogUtilities.okDialog(context,
-                                            r.getString(R.string.rtm_login_error) +
-                                            " " + e.getMessage(), null);
-                                }
-                            });
-
-                            return false;
+                            rtmService = null;
+                            return r.getString(R.string.rtm_login_error) +
+                            	" " + e.getMessage();
                         }
                     }
                 });
@@ -304,6 +298,13 @@ public class RTMSyncProvider extends SynchronizationProvider {
             Preferences.setSyncRTMLastSync(context, syncTime);
 
             FlurryAgent.onEvent("rtm-sync-finished");
+        } catch (IllegalStateException e) {
+        	// occurs when application was closed
+
+            FlurryAgent.onError("rtm-sync-caught", AstridUtilities.throwableToString(e),
+                    SynchronizationProvider.class.getSimpleName());
+
+            Log.e("rtmsync", "Illegal State during Sync", e);
 
         } catch (Exception e) {
             FlurryAgent.onError("rtm-sync", AstridUtilities.throwableToString(e),

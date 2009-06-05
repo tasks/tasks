@@ -286,7 +286,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
         try {
             // write out to database
-            controller.saveTask(model);
+            controller.saveTask(model, false);
             saveTags();
             saveAlerts();
             Notifications.updateAlarm(this, controller, alertController, model);

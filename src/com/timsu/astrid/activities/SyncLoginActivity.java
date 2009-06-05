@@ -20,6 +20,7 @@
 package com.timsu.astrid.activities;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -30,6 +31,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.utilities.DialogUtilities;
 
 /**
  * This activity displays a <code>WebView</code> that allows users to log in to the
@@ -61,9 +63,9 @@ public class SyncLoginActivity extends Activity {
          * Verifies whether the user's login attempt was successful. Will be
          * called off of the UI thread, use the handler to post messages.
          *
-         * @return true if activity should be dismissed, false otherwise
+         * @return error string, or null if sync was successful
          */
-        public boolean verifyLogin(Handler handler);
+        public String verifyLogin(Handler handler);
     }
 
     private static SyncLoginCallback callback = null;
@@ -84,7 +86,7 @@ public class SyncLoginActivity extends Activity {
         int labelParam = getIntent().getIntExtra(LABEL_TOKEN, 0);
 
         TextView label = (TextView)findViewById(R.id.login_label);
-        WebView webView = (WebView)findViewById(R.id.browser);
+        final WebView webView = (WebView)findViewById(R.id.browser);
         Button done = (Button)findViewById(R.id.done);
         Button cancel = (Button)findViewById(R.id.cancel);
 
@@ -103,11 +105,12 @@ public class SyncLoginActivity extends Activity {
         webView.getSettings().setSupportZoom(true);
         webView.loadUrl(urlParam);
 
-        final Handler handler = new Handler();
         done.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(callback == null) {
+            	final Handler handler = new Handler();
+
+            	if(callback == null) {
                     finish();
                     return;
                 }
@@ -115,11 +118,27 @@ public class SyncLoginActivity extends Activity {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
-                        boolean result = callback.verifyLogin(handler);
-                        if(result) {
-                            TaskList.synchronizeNow = true;
-                        }
-                        finish();
+            			final String result = callback.verifyLogin(handler);
+
+            			webView.destroy();
+            			if(result == null) {
+            				TaskList.synchronizeNow = true;
+            				finish();
+        			    } else {
+        			    	// display the error
+        			    	handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    DialogUtilities.okDialog(SyncLoginActivity.this, result,
+                                    		new DialogInterface.OnClickListener() {
+                                    	public void onClick(DialogInterface arg0, int arg1) {
+                                    		TaskListSubActivity.shouldRefreshTaskList = true;
+                                    		finish();
+                                    	}
+                                    });
+                                }
+        			    	});
+        			    }
                     }
                 }).start();
             }

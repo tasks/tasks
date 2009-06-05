@@ -618,7 +618,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         			Importance i = Importance.values()[keyCode - KeyEvent.KEYCODE_1];
         			TaskModelForList task = (TaskModelForList)v.getTag();
         			task.setImportance(i);
-        			hooks.taskController().saveTask(task);
+        			hooks.taskController().saveTask(task, false);
         			setFieldContentsAndVisibility(v, task);
             		return true;
             	}
@@ -683,7 +683,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private void setTaskProgress(final TaskModelForList task, View view, int progress) {
         final ImageView timer = ((ImageView)view.findViewById(R.id.imageLeft));
         task.setProgressPercentage(progress);
-        hooks.taskController().saveTask(task);
+        hooks.taskController().saveTask(task, false);
 
         // show this task as completed even if it has repeats
         if(progress == 100) {
@@ -704,7 +704,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     task.stopTimerAndUpdateElapsedTime();
-                    hooks.taskController().saveTask(task);
+                    hooks.taskController().saveTask(task, false);
                     timer.setVisibility(View.GONE);
                 }
             })

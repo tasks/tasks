@@ -823,7 +823,6 @@ public class TaskListSubActivity extends SubActivity {
     private void reloadList() {
         if (context.loadingThread != null && context.loadingThread.isAlive()) {
             context.loadingThread.interrupt();
-            context.loadingThread.stop();
         }
         context.loadingThread = new Thread(reLoadRunnable);
         context.loadingThread.start();
@@ -971,7 +970,7 @@ public class TaskListSubActivity extends SubActivity {
             FlurryAgent.onEvent("stop-timer");
             task.stopTimerAndUpdateElapsedTime();
         }
-        getTaskController().saveTask(task);
+        getTaskController().saveTask(task, false);
         context.listAdapter.refreshItem(listView, context.taskArray
                 .indexOf(task));
     }
@@ -1095,7 +1094,7 @@ public class TaskListSubActivity extends SubActivity {
                         }
                         task.setPostponeCount(postponeCount);
 
-                        getTaskController().saveTask(task);
+                        getTaskController().saveTask(task, false);
                         getTaskController().updateAlarmForTask(
                                 task.getTaskIdentifier());
                         context.listAdapter.refreshItem(listView,
@@ -1120,8 +1119,7 @@ public class TaskListSubActivity extends SubActivity {
             showTagsView();
             return true;
         case SYNC_ID:
-            onActivityResult(ACTIVITY_SYNCHRONIZE,
-                    Constants.RESULT_SYNCHRONIZE, null);
+        	synchronize();
             return true;
         case MORE_ID:
             layout.showContextMenu();

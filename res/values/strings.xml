@@ -299,7 +299,9 @@ occur (it is a minor drain on battery).
         
         <string name="rtm_login_label">Please Log In to RTM...</string>
         <string name="rtm_login_error">
-Sorry, there was an error verifying your login. Please let us know about this error: 
+Sorry, there was an error verifying your login. Please try again.
+\n\n
+Error Message: 
         </string>
         
        
