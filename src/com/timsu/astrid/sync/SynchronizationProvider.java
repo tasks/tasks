@@ -43,6 +43,7 @@ import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForSync;
+import com.timsu.astrid.utilities.AstridUtilities;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Notifications;
 import com.timsu.astrid.utilities.Preferences;
@@ -63,8 +64,7 @@ public abstract class SynchronizationProvider {
         this.id = id;
     }
 
-    /** Called off the UI thread. does some setup and then invokes implemented
-     * synchronize method
+    /** Does some setup and then invokes implemented synchronize method
      * @param activity
      * @param caller
      */
@@ -72,16 +72,21 @@ public abstract class SynchronizationProvider {
         this.synchronizer = caller;
 
         if(!isBackgroundService()) {
-        	syncHandler = new Handler();
-	        SynchronizationProvider.progressDialog = new ProgressDialog(activity);
-	        progressDialog.setIcon(android.R.drawable.ic_dialog_alert);
-	        progressDialog.setTitle("Synchronization");
-	        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-	        progressDialog.setMax(100);
-	        progressDialog.setMessage("Checking Authorization...");
-	        progressDialog.setProgress(0);
-	        progressDialog.setCancelable(false);
-	        progressDialog.show();
+        	syncHandler = caller.getHandler();
+        	syncHandler.post(new Runnable() {
+        	    @Override
+        	    public void run() {
+        	        SynchronizationProvider.progressDialog = new ProgressDialog(activity);
+        	        progressDialog.setIcon(android.R.drawable.ic_dialog_alert);
+        	        progressDialog.setTitle("Synchronization");
+        	        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        	        progressDialog.setMax(100);
+        	        progressDialog.setMessage("Checking Authorization...");
+        	        progressDialog.setProgress(0);
+        	        progressDialog.setCancelable(false);
+        	        progressDialog.show();
+        	    }
+        	});
         }
 
         synchronize(activity);
@@ -121,6 +126,8 @@ public abstract class SynchronizationProvider {
      */
     void showError(final Context context, Throwable e, String message) {
         Log.e("astrid", "Synchronization Error", e);
+        FlurryAgent.onError("sync-error", AstridUtilities.throwableToString(e),
+                SynchronizationProvider.class.getSimpleName());
 
         if(isBackgroundService())
         	return;
@@ -146,7 +153,7 @@ public abstract class SynchronizationProvider {
      * to console if we're a background sync.
      */
     protected void postUpdate(Runnable updater) {
-    	if(isBackgroundService()) {
+    	if(isBackgroundService() || syncHandler == null) {
     		// only run jobs if they can actually be processed
     		if(updater instanceof ProgressLabelUpdater)
     			updater.run();
@@ -301,8 +308,8 @@ public abstract class SynchronizationProvider {
                 else
                     log.append("updated '" + task.getName() + "'\n");
             } catch (Exception e) {
-                FlurryAgent.onError("sync-error-push-task", e.toString(),
-                        e.getClass().getSimpleName());
+                FlurryAgent.onError("sync-push-task", AstridUtilities.throwableToString(e),
+                        SynchronizationProvider.class.getSimpleName());
 
                 Log.e("astrid", "Exception pushing task", e);
                 log.append("error sending '" + task.getName() + "'\n");

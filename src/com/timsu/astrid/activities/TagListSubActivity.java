@@ -55,6 +55,7 @@ import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
@@ -104,6 +105,8 @@ public class TagListSubActivity extends SubActivity {
                 fillData();
             }
         }).start();
+
+        FlurryAgent.onEvent("view-tags");
     }
 
     // --- stuff for sorting

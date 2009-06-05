@@ -18,6 +18,7 @@
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
 package com.timsu.astrid.activities;
+
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
@@ -81,97 +82,100 @@ import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 public class TaskListSubActivity extends SubActivity {
 
     // bundle tokens
-    public static final String     TAG_TOKEN               = "tag";
-    public static final String     FROM_NOTIFICATION_TOKEN = "notify";
-    public static final String     NOTIF_FLAGS_TOKEN       = "notif_flags";
-    public static final String     NOTIF_REPEAT_TOKEN      = "notif_repeat";
-    public static final String     LOAD_INSTANCE_TOKEN     = "id";
+    public static final String TAG_TOKEN                  = "tag";
+    public static final String FROM_NOTIFICATION_TOKEN    = "notify";
+    public static final String NOTIF_FLAGS_TOKEN          = "notif_flags";
+    public static final String NOTIF_REPEAT_TOKEN         = "notif_repeat";
+    public static final String LOAD_INSTANCE_TOKEN        = "id";
 
     // activities
-    private static final int       ACTIVITY_CREATE       = 0;
-    private static final int       ACTIVITY_EDIT         = 1;
-    private static final int       ACTIVITY_TAGS         = 2;
-    private static final int       ACTIVITY_SYNCHRONIZE  = 3;
+    private static final int   ACTIVITY_CREATE            = 0;
+    private static final int   ACTIVITY_EDIT              = 1;
+    private static final int   ACTIVITY_TAGS              = 2;
+    private static final int   ACTIVITY_SYNCHRONIZE       = 3;
 
     // menu codes
-    private static final int       INSERT_ID             = Menu.FIRST;
-    private static final int       FILTERS_ID            = Menu.FIRST + 1;
-    private static final int       TAGS_ID               = Menu.FIRST + 2;
-    private static final int       SYNC_ID               = Menu.FIRST + 3;
-    private static final int       MORE_ID               = Menu.FIRST + 4;
+    private static final int   INSERT_ID                  = Menu.FIRST;
+    private static final int   FILTERS_ID                 = Menu.FIRST + 1;
+    private static final int   TAGS_ID                    = Menu.FIRST + 2;
+    private static final int   SYNC_ID                    = Menu.FIRST + 3;
+    private static final int   MORE_ID                    = Menu.FIRST + 4;
 
-    private static final int       OPTIONS_SYNC_ID       = Menu.FIRST + 10;
-    private static final int       OPTIONS_SETTINGS_ID   = Menu.FIRST + 11;
-    private static final int       OPTIONS_HELP_ID       = Menu.FIRST + 12;
-    private static final int       OPTIONS_CLEANUP_ID    = Menu.FIRST + 13;
-    private static final int       OPTIONS_QUICK_TIPS    = Menu.FIRST + 14;
+    private static final int   OPTIONS_SYNC_ID            = Menu.FIRST + 10;
+    private static final int   OPTIONS_SETTINGS_ID        = Menu.FIRST + 11;
+    private static final int   OPTIONS_HELP_ID            = Menu.FIRST + 12;
+    private static final int   OPTIONS_CLEANUP_ID         = Menu.FIRST + 13;
+    private static final int   OPTIONS_QUICK_TIPS         = Menu.FIRST + 14;
 
-    private static final int       CONTEXT_FILTER_HIDDEN = Menu.FIRST + 20;
-    private static final int       CONTEXT_FILTER_DONE   = Menu.FIRST + 21;
-    private static final int       CONTEXT_FILTER_TAG    = Menu.FIRST + 22;
-    private static final int       CONTEXT_SORT_AUTO     = Menu.FIRST + 23;
-    private static final int       CONTEXT_SORT_ALPHA    = Menu.FIRST + 24;
-    private static final int       CONTEXT_SORT_DUEDATE  = Menu.FIRST + 25;
-    private static final int       CONTEXT_SORT_REVERSE  = Menu.FIRST + 26;
-    private static final int       CONTEXT_SORT_GROUP    = Menu.FIRST;
+    private static final int   CONTEXT_FILTER_HIDDEN      = Menu.FIRST + 20;
+    private static final int   CONTEXT_FILTER_DONE        = Menu.FIRST + 21;
+    private static final int   CONTEXT_FILTER_TAG         = Menu.FIRST + 22;
+    private static final int   CONTEXT_SORT_AUTO          = Menu.FIRST + 23;
+    private static final int   CONTEXT_SORT_ALPHA         = Menu.FIRST + 24;
+    private static final int   CONTEXT_SORT_DUEDATE       = Menu.FIRST + 25;
+    private static final int   CONTEXT_SORT_REVERSE       = Menu.FIRST + 26;
+    private static final int   CONTEXT_SORT_GROUP         = Menu.FIRST;
 
     // other constants
-    private static final int       SORTFLAG_FILTERDONE   = (1 << 5);
-    private static final int       SORTFLAG_FILTERHIDDEN = (1 << 6);
-    private static final int       HIDE_ADD_BTN_PORTRAIT = 4;
-    private static final int       HIDE_ADD_BTN_LANDSCPE = 2;
-    private static final float     POSTPONE_STAT_PCT     = 0.4f;
-    private static final int       AUTO_REFRESH_MAX_LIST_SIZE = 50;
+    private static final int   SORTFLAG_FILTERDONE        = (1 << 5);
+    private static final int   SORTFLAG_FILTERHIDDEN      = (1 << 6);
+    private static final int   HIDE_ADD_BTN_PORTRAIT      = 4;
+    private static final int   HIDE_ADD_BTN_LANDSCPE      = 2;
+    private static final float POSTPONE_STAT_PCT          = 0.4f;
+    private static final int   AUTO_REFRESH_MAX_LIST_SIZE = 50;
 
     // UI components
-    private ListView listView;
-    private Button addButton;
-    private View layout;
-    private TextView loadingText;
+    private ListView           listView;
+    private Button             addButton;
+    private View               layout;
+    private TextView           loadingText;
 
     // indicator flag set if task list should be refreshed (something changed
     // in another activity)
-    public static boolean shouldRefreshTaskList = false;
+    public static boolean      shouldRefreshTaskList      = false;
 
     // indicator flag set if synchronization window has been opened & closed
-    static boolean syncPreferencesOpened = false;
+    static boolean             syncPreferencesOpened      = false;
 
     // other instance variables
     static class TaskListContext {
         HashMap<TagIdentifier, TagModelForView> tagMap;
-        List<TaskModelForList> taskArray;
-        HashMap<Long, TaskModelForList> tasksById;
-        HashMap<TaskModelForList, String> taskTags;
-        TaskModelForList selectedTask = null;
-        Thread loadingThread = null;
-        TaskListAdapter listAdapter = null;
-        TagModelForView filterTag = null;
-        CharSequence windowTitle;
+        List<TaskModelForList>                  taskArray;
+        HashMap<Long, TaskModelForList>         tasksById;
+        HashMap<TaskModelForList, String>       taskTags;
+        TaskModelForList                        selectedTask  = null;
+        Thread                                  loadingThread = null;
+        TaskListAdapter                         listAdapter   = null;
+        TagModelForView                         filterTag     = null;
+        CharSequence                            windowTitle;
     }
-    Handler handler = null;
-    Long selectedTaskId = null;
-    Runnable reLoadRunnable = null;
+
+    Handler                 handler          = null;
+    Long                    selectedTaskId   = null;
+    Runnable                reLoadRunnable   = null;
     private TaskListContext context;
 
     // display filters
-    private static boolean filterShowHidden = false;
-    private static boolean filterShowDone = false;
-    private static SortMode sortMode = SortMode.AUTO;
-    private static boolean sortReverse = false;
+    private static boolean  filterShowHidden = false;
+    private static boolean  filterShowDone   = false;
+    private static SortMode sortMode         = SortMode.AUTO;
+    private static boolean  sortReverse      = false;
 
-    /* ======================================================================
+    /*
+     * ======================================================================
      * ======================================================= initialization
-     * ====================================================================== */
+     * ======================================================================
+     */
 
     public TaskListSubActivity(TaskList parent, int code, View view) {
-    	super(parent, code, view);
+        super(parent, code, view);
     }
 
     @Override
-    /** Called when loading up the activity */
+    /*  Called when loading up the activity */
     public void onDisplay(final Bundle variables) {
         // process task that's selected, if any
-        if(variables != null && variables.containsKey(LOAD_INSTANCE_TOKEN)) {
+        if (variables != null && variables.containsKey(LOAD_INSTANCE_TOKEN)) {
             selectedTaskId = variables.getLong(LOAD_INSTANCE_TOKEN);
         } else {
             selectedTaskId = null;
@@ -184,7 +188,8 @@ public class TaskListSubActivity extends SubActivity {
             public void run() {
                 handler.post(new Runnable() {
                     public void run() {
-                        loadingText.setText(getParent().getResources().getString(R.string.updating));
+                        loadingText.setText(getParent().getResources()
+                                .getString(R.string.updating));
                     }
                 });
 
@@ -203,19 +208,24 @@ public class TaskListSubActivity extends SubActivity {
         }
 
         context = new TaskListContext();
-        if(selectedTaskId == null)
+        if (selectedTaskId == null)
             context.selectedTask = null;
 
-        // process tag to filter, if any (intercept UNTAGGED identifier, if applicable)
-        if(variables != null && variables.containsKey(TAG_TOKEN)) {
-            TagIdentifier identifier = new TagIdentifier(variables.getLong(TAG_TOKEN));
+        // process tag to filter, if any (intercept UNTAGGED identifier, if
+        // applicable)
+        if (variables != null && variables.containsKey(TAG_TOKEN)) {
+            TagIdentifier identifier = new TagIdentifier(variables
+                    .getLong(TAG_TOKEN));
             context.tagMap = getTagController().getAllTagsAsMap();
-            if(context.tagMap.containsKey(identifier))
+            if (context.tagMap.containsKey(identifier))
                 context.filterTag = context.tagMap.get(identifier);
-            else if(identifier.equals(TagModelForView.UNTAGGED_IDENTIFIER))
-            	context.filterTag = TagModelForView.getUntaggedModel();
+            else if (identifier.equals(TagModelForView.UNTAGGED_IDENTIFIER))
+                context.filterTag = TagModelForView.getUntaggedModel();
             else
-                Toast.makeText(getParent(), R.string.missing_tag, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getParent(), R.string.missing_tag,
+                        Toast.LENGTH_SHORT).show();
+
+            FlurryAgent.onEvent("filter-by-tag");
         }
 
         // time to go! creates a thread that loads the task list, then
@@ -232,16 +242,18 @@ public class TaskListSubActivity extends SubActivity {
                 fillData();
 
                 // open up reminder box
-                if(variables != null && variables.containsKey(NOTIF_FLAGS_TOKEN) &&
-                        context.selectedTask != null) {
+                if (variables != null
+                    && variables.containsKey(NOTIF_FLAGS_TOKEN)
+                    && context.selectedTask != null) {
                     FlurryAgent.onEvent("open-notification");
                     handler.post(new Runnable() {
                         public void run() {
                             long repeatInterval = 0;
                             int flags = 0;
 
-                            if(variables.containsKey(NOTIF_REPEAT_TOKEN))
-                                repeatInterval = variables.getLong(NOTIF_REPEAT_TOKEN);
+                            if (variables.containsKey(NOTIF_REPEAT_TOKEN))
+                                repeatInterval = variables
+                                        .getLong(NOTIF_REPEAT_TOKEN);
                             flags = variables.getInt(NOTIF_FLAGS_TOKEN);
                             showNotificationAlert(context.selectedTask,
                                     repeatInterval, flags);
@@ -254,25 +266,24 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     /** Initialize UI components */
-	public void setupUIComponents() {
-	    handler = new Handler();
+    public void setupUIComponents() {
+        handler = new Handler();
 
-	    listView = (ListView)findViewById(R.id.tasklist);
-	    loadingText = (TextView)findViewById(R.id.loading);
-        addButton = (Button)findViewById(R.id.addtask);
-        addButton.setOnClickListener(new
-                View.OnClickListener() {
+        listView = (ListView) findViewById(R.id.tasklist);
+        loadingText = (TextView) findViewById(R.id.loading);
+        addButton = (Button) findViewById(R.id.addtask);
+        addButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 createTask(null);
             }
         });
 
         layout = getView();
-        layout.setOnCreateContextMenuListener(
-                new OnCreateContextMenuListener() {
+        layout
+                .setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
                     public void onCreateContextMenu(ContextMenu menu, View v,
                             ContextMenuInfo menuInfo) {
-                        if(menu.hasVisibleItems())
+                        if (menu.hasVisibleItems())
                             return;
                         onCreateMoreOptionsMenu(menu);
                     }
@@ -280,7 +291,7 @@ public class TaskListSubActivity extends SubActivity {
     }
 
     @Override
-    /** Create options menu (displayed when user presses menu key) */
+    /*  Create options menu (displayed when user presses menu key) */
     public boolean onPrepareOptionsMenu(Menu menu) {
         MenuItem item;
 
@@ -299,7 +310,7 @@ public class TaskListSubActivity extends SubActivity {
         item.setIcon(android.R.drawable.ic_menu_myplaces);
         item.setAlphabeticShortcut('t');
 
-        if(Preferences.shouldDisplaySyncButton(getParent())){
+        if (Preferences.shouldDisplaySyncButton(getParent())) {
             item = menu.add(Menu.NONE, SYNC_ID, Menu.NONE,
                     R.string.taskList_menu_syncshortcut);
             item.setIcon(android.R.drawable.ic_menu_upload);
@@ -350,27 +361,29 @@ public class TaskListSubActivity extends SubActivity {
         ALPHA {
             @Override
             int compareTo(TaskModelForList arg0, TaskModelForList arg1) {
-                return arg0.getName().toLowerCase().compareTo(arg1.getName().toLowerCase());
+                return arg0.getName().toLowerCase().compareTo(
+                        arg1.getName().toLowerCase());
             }
         },
         DUEDATE {
             long getDueDate(TaskModelForList task) {
                 Date definite = task.getDefiniteDueDate();
                 Date preferred = task.getPreferredDueDate();
-                if(definite != null && preferred != null) {
-                    if(preferred.getTime() < System.currentTimeMillis())
+                if (definite != null && preferred != null) {
+                    if (preferred.getTime() < System.currentTimeMillis())
                         return definite.getTime();
                     return preferred.getTime();
-                } else if(definite != null)
-                        return definite.getTime();
-                else if(preferred != null)
+                } else if (definite != null)
+                    return definite.getTime();
+                else if (preferred != null)
                     return preferred.getTime();
                 else
-                    return new Date(2020,1,1).getTime();
+                    return new Date(2020, 1, 1).getTime();
             }
+
             @Override
             int compareTo(TaskModelForList arg0, TaskModelForList arg1) {
-                return (int)((getDueDate(arg0) - getDueDate(arg1))/1000);
+                return (int) ((getDueDate(arg0) - getDueDate(arg1)) / 1000);
             }
         },
         AUTO {
@@ -383,10 +396,11 @@ public class TaskListSubActivity extends SubActivity {
         abstract int compareTo(TaskModelForList arg0, TaskModelForList arg1);
     };
 
-
-    /* ======================================================================
+    /*
+     * ======================================================================
      * ======================================================== notifications
-     * ====================================================================== */
+     * ======================================================================
+     */
 
     /** Called when user clicks on a notification to get here */
     private void showNotificationAlert(final TaskModelForList task,
@@ -394,42 +408,48 @@ public class TaskListSubActivity extends SubActivity {
         Resources r = getResources();
 
         // clear notifications
-        Notifications.clearAllNotifications(getParent(), task.getTaskIdentifier());
+        Notifications.clearAllNotifications(getParent(), task
+                .getTaskIdentifier());
 
         String response;
-        if(Preferences.shouldShowNags(getParent())) {
+        if (Preferences.shouldShowNags(getParent())) {
             String[] responses = r.getStringArray(R.array.reminder_responses);
             response = responses[new Random().nextInt(responses.length)];
         } else
             response = r.getString(R.string.taskList_nonag_reminder);
-        new AlertDialog.Builder(getParent())
-        .setTitle(R.string.taskView_notifyTitle)
-        .setMessage(task.getName() + "\n\n" + response)
-        .setIcon(android.R.drawable.ic_dialog_alert)
+        new AlertDialog.Builder(getParent()).setTitle(
+                R.string.taskView_notifyTitle).setMessage(
+                task.getName() + "\n\n" + response).setIcon(
+                android.R.drawable.ic_dialog_alert)
 
         // yes, i will do it: just closes this dialog
-        .setPositiveButton(R.string.notify_yes, null)
+                .setPositiveButton(R.string.notify_yes, null)
 
-        // no, i will ignore: quits application
-        .setNegativeButton(R.string.notify_no, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                TaskList.shouldCloseInstance = true;
-                closeActivity();
-            }
-        })
+                // no, i will ignore: quits application
+                .setNegativeButton(R.string.notify_no,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                TaskList.shouldCloseInstance = true;
+                                closeActivity();
+                            }
+                        })
 
-        // snooze: sets a new temporary alert, closes application
-        .setNeutralButton(R.string.notify_snooze, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                snoozeAlert(task, repeatInterval, flags);
-            }
-        })
+                // snooze: sets a new temporary alert, closes application
+                .setNeutralButton(R.string.notify_snooze,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                snoozeAlert(task, repeatInterval, flags);
+                            }
+                        })
 
-        .show();
+                .show();
     }
 
-    /** Helper method to "snooze" an alert (i.e. set a new one for some time
-     * from now.
+    /**
+     * Helper method to "snooze" an alert (i.e. set a new one for some time from
+     * now.
      *
      * @param task
      * @param repeatInterval
@@ -437,13 +457,12 @@ public class TaskListSubActivity extends SubActivity {
      */
     private void snoozeAlert(final TaskModelForList task,
             final long repeatInterval, final int flags) {
-        DialogUtilities.hourMinutePicker(getParent(),
-                getResources().getString(R.string.notify_snooze_title),
-                new OnNNumberPickedListener() {
+        DialogUtilities.hourMinutePicker(getParent(), getResources().getString(
+                R.string.notify_snooze_title), new OnNNumberPickedListener() {
             public void onNumbersPicked(int[] values) {
                 int snoozeSeconds = values[0] * 3600 + values[1] * 60;
-                Notifications.createSnoozeAlarm(getParent(),
-                        task.getTaskIdentifier(), snoozeSeconds, flags,
+                Notifications.createSnoozeAlarm(getParent(), task
+                        .getTaskIdentifier(), snoozeSeconds, flags,
                         repeatInterval);
 
                 TaskList.shouldCloseInstance = true;
@@ -452,20 +471,23 @@ public class TaskListSubActivity extends SubActivity {
         });
     }
 
-    /* ======================================================================
+    /*
+     * ======================================================================
      * ====================================================== populating list
-     * ====================================================================== */
+     * ======================================================================
+     */
 
     /** Helper method returns true if the task is considered 'hidden' */
     private boolean isTaskHidden(TaskModelForList task) {
-        if(task == context.selectedTask)
+        if (task == context.selectedTask)
             return false;
 
-        if(task.isHidden())
+        if (task.isHidden())
             return true;
 
-        if(context.filterTag == null) {
-            if(context.taskTags.get(task).contains(TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX))
+        if (context.filterTag == null) {
+            if (context.taskTags.get(task).contains(
+                    TagModelForView.HIDDEN_FROM_MAIN_LIST_PREFIX))
                 return true;
         }
 
@@ -486,65 +508,68 @@ public class TaskListSubActivity extends SubActivity {
         try {
             // get a cursor to the task list
             Cursor tasksCursor;
-            if(context.filterTag != null) {	// Filter by TAG
-            	LinkedList<TaskIdentifier> tasks;
+            if (context.filterTag != null) { // Filter by TAG
+                LinkedList<TaskIdentifier> tasks;
 
-            	// Check "named" Tag vs. "Untagged"
-            	TagIdentifier tagId = context.filterTag.getTagIdentifier();
-            	if (!tagId.equals(TagModelForView.UNTAGGED_IDENTIFIER)) {
-            		tasks = getTagController().getTaggedTasks(tagId);
-            	} else {
-            		tasks = getTagController().getUntaggedTasks();
-            	}
-            	tasksCursor = getTaskController().getTaskListCursorById(tasks);
+                // Check "named" Tag vs. "Untagged"
+                TagIdentifier tagId = context.filterTag.getTagIdentifier();
+                if (!tagId.equals(TagModelForView.UNTAGGED_IDENTIFIER)) {
+                    tasks = getTagController().getTaggedTasks(tagId);
+                } else {
+                    tasks = getTagController().getUntaggedTasks();
+                }
+                tasksCursor = getTaskController().getTaskListCursorById(tasks);
 
             } else {
-                if(filterShowDone)
+                if (filterShowDone)
                     tasksCursor = getTaskController().getAllTaskListCursor();
                 else
                     tasksCursor = getTaskController().getActiveTaskListCursor();
             }
             startManagingCursor(tasksCursor);
-            context.taskArray = Collections.synchronizedList(getTaskController().
-                    createTaskListFromCursor(tasksCursor));
+            context.taskArray = Collections
+                    .synchronizedList(getTaskController()
+                            .createTaskListFromCursor(tasksCursor));
 
             // read tags and apply filters
             context.tagMap = getTagController().getAllTagsAsMap();
             context.taskTags = new HashMap<TaskModelForList, String>();
             StringBuilder tagBuilder = new StringBuilder();
             context.tasksById = new HashMap<Long, TaskModelForList>();
-            for(Iterator<TaskModelForList> i = context.taskArray.iterator(); i.hasNext();) {
-                if(Thread.interrupted())
+            for (Iterator<TaskModelForList> i = context.taskArray.iterator(); i
+                    .hasNext();) {
+                if (Thread.interrupted())
                     return;
 
                 TaskModelForList task = i.next();
 
-                if(!filterShowDone) {
-                    if(task.isTaskCompleted()) {
+                if (!filterShowDone) {
+                    if (task.isTaskCompleted()) {
                         i.remove();
                         continue;
                     }
                 }
 
-                if(selectedTaskId != null && task.getTaskIdentifier().getId() == selectedTaskId) {
+                if (selectedTaskId != null
+                    && task.getTaskIdentifier().getId() == selectedTaskId) {
                     context.selectedTask = task;
                 }
 
                 // get list of tags
-                LinkedList<TagIdentifier> tagIds = getTagController().getTaskTags(
-                        task.getTaskIdentifier());
+                LinkedList<TagIdentifier> tagIds = getTagController()
+                        .getTaskTags(task.getTaskIdentifier());
                 tagBuilder.delete(0, tagBuilder.length());
-                for(Iterator<TagIdentifier> j = tagIds.iterator(); j.hasNext(); ) {
+                for (Iterator<TagIdentifier> j = tagIds.iterator(); j.hasNext();) {
                     TagModelForView tag = context.tagMap.get(j.next());
                     tagBuilder.append(tag.getName());
-                    if(j.hasNext())
+                    if (j.hasNext())
                         tagBuilder.append(", ");
                 }
                 context.taskTags.put(task, tagBuilder.toString());
 
                 // hide hidden
-                if(!filterShowHidden) {
-                    if(isTaskHidden(task)) {
+                if (!filterShowHidden) {
+                    if (isTaskHidden(task)) {
                         hiddenTasks++;
                         i.remove();
                         continue;
@@ -553,7 +578,7 @@ public class TaskListSubActivity extends SubActivity {
 
                 context.tasksById.put(task.getTaskIdentifier().getId(), task);
 
-                if(task.isTaskCompleted())
+                if (task.isTaskCompleted())
                     completedTasks++;
             }
 
@@ -567,23 +592,23 @@ public class TaskListSubActivity extends SubActivity {
             Log.w("astrid", "StaleDataException", e);
             return;
         } catch (final IllegalStateException e) {
-            FlurryAgent.onError("task-list-error", e.toString(),
-                    e.getClass().getSimpleName());
+            FlurryAgent.onError("task-list-error", e.toString(), e.getClass()
+                    .getSimpleName());
 
             // happens when you run out of memory usually
             Log.e("astrid", "Error loading task list", e);
             handler.post(new Runnable() {
                 public void run() {
-                    if(!e.getMessage().contains("Couldn't init cursor window"))
+                    if (!e.getMessage().contains("Couldn't init cursor window"))
                         return;
-                    DialogUtilities.okDialog(getParent(), "Ran out of memory! " +
-                            "Try restarting Astrid...", null);
+                    DialogUtilities.okDialog(getParent(), "Ran out of memory! "
+                        + "Try restarting Astrid...", null);
                 }
             });
             return;
         } catch (final Exception e) {
-            FlurryAgent.onError("task-list-error", e.toString(),
-                    e.getClass().getSimpleName());
+            FlurryAgent.onError("task-list-error", e.toString(), e.getClass()
+                    .getSimpleName());
 
             Log.e("astrid", "Error loading task list", e);
             return;
@@ -596,7 +621,7 @@ public class TaskListSubActivity extends SubActivity {
                 return sortMode.compareTo(arg0, arg1);
             }
         });
-        if(sortReverse)
+        if (sortReverse)
             Collections.reverse(context.taskArray);
 
         final int finalCompleted = completedTasks;
@@ -606,26 +631,36 @@ public class TaskListSubActivity extends SubActivity {
         handler.post(new Runnable() {
             public void run() {
                 Resources r = getResources();
-                StringBuilder title = new StringBuilder().
-                    append(r.getString(R.string.taskList_titlePrefix)).append(" ");
-                if(context.filterTag != null) {
-                	if(TagModelForView.UNTAGGED_IDENTIFIER.equals(context.filterTag.getTagIdentifier())) {
-                		title.append(r.getString(R.string.taskList_titleUntagged)).append(" ");
-                	} else {
-                		title.append(r.getString(R.string.taskList_titleTagPrefix,
-	                            context.filterTag.getName())).append(" ");
-                	}
+                StringBuilder title = new StringBuilder().append(
+                        r.getString(R.string.taskList_titlePrefix)).append(" ");
+                if (context.filterTag != null) {
+                    if (TagModelForView.UNTAGGED_IDENTIFIER
+                            .equals(context.filterTag.getTagIdentifier())) {
+                        title.append(
+                                r.getString(R.string.taskList_titleUntagged))
+                                .append(" ");
+                    } else {
+                        title.append(
+                                r.getString(R.string.taskList_titleTagPrefix,
+                                        context.filterTag.getName())).append(
+                                " ");
+                    }
                 }
 
-                if(finalCompleted > 0)
-                    title.append(r.getQuantityString(R.plurals.NactiveTasks,
-                            finalActive, finalActive, context.taskArray.size()));
+                if (finalCompleted > 0)
+                    title
+                            .append(r.getQuantityString(R.plurals.NactiveTasks,
+                                    finalActive, finalActive, context.taskArray
+                                            .size()));
                 else
-                    title.append(r.getQuantityString(R.plurals.Ntasks,
-                            context.taskArray.size(), context.taskArray.size()));
-                if(finalHidden > 0)
-                    title.append(" (+").append(finalHidden).append(" ").
-                    append(r.getString(R.string.taskList_hiddenSuffix)).append(")");
+                    title
+                            .append(r.getQuantityString(R.plurals.Ntasks,
+                                    context.taskArray.size(), context.taskArray
+                                            .size()));
+                if (finalHidden > 0)
+                    title.append(" (+").append(finalHidden).append(" ").append(
+                            r.getString(R.string.taskList_hiddenSuffix))
+                            .append(")");
                 context.windowTitle = title;
             }
         });
@@ -639,11 +674,10 @@ public class TaskListSubActivity extends SubActivity {
             public void run() {
                 // hide "add" button if we have too many tasks
                 int threshold = HIDE_ADD_BTN_PORTRAIT;
-                if(getParent().getResources().getConfiguration().orientation ==
-                        Configuration.ORIENTATION_LANDSCAPE)
+                if (getParent().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
                     threshold = HIDE_ADD_BTN_LANDSCPE;
 
-                if(context.taskArray.size() > threshold)
+                if (context.taskArray.size() > threshold)
                     addButton.setVisibility(View.GONE);
                 else
                     addButton.setVisibility(View.VISIBLE);
@@ -663,7 +697,7 @@ public class TaskListSubActivity extends SubActivity {
     class TaskListHooks implements TaskListAdapterHooks {
 
         private HashMap<TaskModelForList, String> myTaskTags;
-        private List<TaskModelForList> myTaskArray;
+        private List<TaskModelForList>            myTaskArray;
 
         public TaskListHooks() {
             this.myTaskTags = context.taskTags;
@@ -703,7 +737,7 @@ public class TaskListSubActivity extends SubActivity {
         }
 
         public void setSelectedItem(TaskIdentifier taskId) {
-            if(taskId == null) {
+            if (taskId == null) {
                 selectedTaskId = null;
                 context.selectedTask = null;
             } else
@@ -715,73 +749,79 @@ public class TaskListSubActivity extends SubActivity {
     private void setUpListUI() {
         // set up our adapter
         context.listAdapter = new TaskListAdapter(getParent(),
-                    R.layout.task_list_row, context.taskArray, new TaskListHooks());
+                R.layout.task_list_row, context.taskArray, new TaskListHooks());
         listView.setAdapter(context.listAdapter);
         listView.setItemsCanFocus(true);
 
-        if(context.selectedTask != null) {
+        if (context.selectedTask != null) {
             try {
-                int selectedPosition = context.listAdapter.getPosition(context.selectedTask);
+                int selectedPosition = context.listAdapter
+                        .getPosition(context.selectedTask);
                 View v = listView.getChildAt(selectedPosition);
                 context.listAdapter.setExpanded(v, context.selectedTask, true);
                 listView.setSelection(selectedPosition);
             } catch (Exception e) {
-                FlurryAgent.onError("task-list-selected", e.toString(),
-                        e.getClass().getSimpleName());
+                FlurryAgent.onError("task-list-selected", e.toString(), e
+                        .getClass().getSimpleName());
                 Log.e("astrid", "error with selected task", e);
             }
         }
 
         // filters context menu
-        listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-            public void onCreateContextMenu(ContextMenu menu, View v,
-                    ContextMenuInfo menuInfo) {
-                if(menu.hasVisibleItems())
-                    return;
-                Resources r = getResources();
-                menu.setHeaderTitle(R.string.taskList_filter_title);
+        listView
+                .setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+                    public void onCreateContextMenu(ContextMenu menu, View v,
+                            ContextMenuInfo menuInfo) {
+                        if (menu.hasVisibleItems())
+                            return;
+                        Resources r = getResources();
+                        menu.setHeaderTitle(R.string.taskList_filter_title);
 
-                MenuItem item = menu.add(Menu.NONE, CONTEXT_FILTER_HIDDEN,
-                        Menu.NONE, R.string.taskList_filter_hidden);
-                item.setCheckable(true);
-                item.setChecked(filterShowHidden);
+                        MenuItem item = menu.add(Menu.NONE,
+                                CONTEXT_FILTER_HIDDEN, Menu.NONE,
+                                R.string.taskList_filter_hidden);
+                        item.setCheckable(true);
+                        item.setChecked(filterShowHidden);
 
-                item = menu.add(Menu.NONE, CONTEXT_FILTER_DONE, Menu.NONE,
-                        R.string.taskList_filter_done);
-                item.setCheckable(true);
-                item.setChecked(filterShowDone);
+                        item = menu.add(Menu.NONE, CONTEXT_FILTER_DONE,
+                                Menu.NONE, R.string.taskList_filter_done);
+                        item.setCheckable(true);
+                        item.setChecked(filterShowDone);
 
-                if(context.filterTag != null) {
-                    item = menu.add(Menu.NONE, CONTEXT_FILTER_TAG, Menu.NONE,
-                            r.getString(R.string.taskList_filter_tagged,
-                                    context.filterTag.getName()));
-                    item.setCheckable(true);
-                    item.setChecked(true);
-                }
+                        if (context.filterTag != null) {
+                            item = menu.add(Menu.NONE, CONTEXT_FILTER_TAG,
+                                    Menu.NONE, r.getString(
+                                            R.string.taskList_filter_tagged,
+                                            context.filterTag.getName()));
+                            item.setCheckable(true);
+                            item.setChecked(true);
+                        }
 
-                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_AUTO, Menu.NONE,
-                        R.string.taskList_sort_auto);
-                item.setChecked(sortMode == SortMode.AUTO);
-                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_ALPHA, Menu.NONE,
-                        R.string.taskList_sort_alpha);
-                item.setChecked(sortMode == SortMode.ALPHA);
-                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_DUEDATE, Menu.NONE,
-                        R.string.taskList_sort_duedate);
-                item.setChecked(sortMode == SortMode.DUEDATE);
-                menu.setGroupCheckable(CONTEXT_SORT_GROUP, true, true);
+                        item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_AUTO,
+                                Menu.NONE, R.string.taskList_sort_auto);
+                        item.setChecked(sortMode == SortMode.AUTO);
+                        item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_ALPHA,
+                                Menu.NONE, R.string.taskList_sort_alpha);
+                        item.setChecked(sortMode == SortMode.ALPHA);
+                        item = menu.add(CONTEXT_SORT_GROUP,
+                                CONTEXT_SORT_DUEDATE, Menu.NONE,
+                                R.string.taskList_sort_duedate);
+                        item.setChecked(sortMode == SortMode.DUEDATE);
+                        menu.setGroupCheckable(CONTEXT_SORT_GROUP, true, true);
 
-                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_REVERSE, Menu.NONE,
-                        R.string.taskList_sort_reverse);
-                item.setCheckable(true);
-                item.setChecked(sortReverse);
-            }
-        });
+                        item = menu.add(CONTEXT_SORT_GROUP,
+                                CONTEXT_SORT_REVERSE, Menu.NONE,
+                                R.string.taskList_sort_reverse);
+                        item.setCheckable(true);
+                        item.setChecked(sortReverse);
+                    }
+                });
 
         listView.setOnTouchListener(getGestureListener());
     }
 
     private void reloadList() {
-        if(context.loadingThread != null && context.loadingThread.isAlive()) {
+        if (context.loadingThread != null && context.loadingThread.isAlive()) {
             context.loadingThread.interrupt();
             context.loadingThread.stop();
         }
@@ -789,9 +829,11 @@ public class TaskListSubActivity extends SubActivity {
         context.loadingThread.start();
     }
 
-    /* ======================================================================
+    /*
+     * ======================================================================
      * ======================================================= event handlers
-     * ====================================================================== */
+     * ======================================================================
+     */
 
     @Override
     protected Object onRetainNonConfigurationInstance() {
@@ -800,27 +842,27 @@ public class TaskListSubActivity extends SubActivity {
 
     @Override
     protected boolean onKeyDown(int keyCode, KeyEvent event) {
-    	if(keyCode == KeyEvent.KEYCODE_BACK) {
-    		if(context.filterTag != null) {
-    			showTagsView();
-    			return true;
-    		} else {
-    		    // close the app
-    		    getParent().finish();
-    		}
-    	}
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (context.filterTag != null) {
+                showTagsView();
+                return true;
+            } else {
+                // close the app
+                getParent().finish();
+            }
+        }
 
-    	if(keyCode >= KeyEvent.KEYCODE_A && keyCode <= KeyEvent.KEYCODE_Z) {
-    		createTask((char)('A' + (keyCode - KeyEvent.KEYCODE_A)));
-    		return true;
-    	}
+        if (keyCode >= KeyEvent.KEYCODE_A && keyCode <= KeyEvent.KEYCODE_Z) {
+            createTask((char) ('A' + (keyCode - KeyEvent.KEYCODE_A)));
+            return true;
+        }
 
-    	return false;
+        return false;
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        if(context.loadingThread != null && context.loadingThread.isAlive())
+        if (context.loadingThread != null && context.loadingThread.isAlive())
             context.loadingThread.stop();
     }
 
@@ -831,21 +873,21 @@ public class TaskListSubActivity extends SubActivity {
         if (hasFocus) {
             if (shouldRefreshTaskList)
                 reloadList();
-            else if(syncPreferencesOpened) {
-            	syncPreferencesOpened = false;
+            else if (syncPreferencesOpened) {
+                syncPreferencesOpened = false;
 
-            	if(TaskList.synchronizeNow) {
-            	    synchronize();
-            	    TaskList.synchronizeNow = false;
-            	}
+                if (TaskList.synchronizeNow) {
+                    synchronize();
+                    TaskList.synchronizeNow = false;
+                }
 
-		        // stop & start synchronization service
-	            SynchronizationService.stop();
-	            SynchronizationService.start();
+                // stop & start synchronization service
+                SynchronizationService.stop();
+                SynchronizationService.start();
 
-            } else if (context.taskArray != null &&
-                    context.taskArray.size() > 0 &&
-                    context.taskArray.size() < AUTO_REFRESH_MAX_LIST_SIZE) {
+            } else if (context.taskArray != null
+                && context.taskArray.size() > 0
+                && context.taskArray.size() < AUTO_REFRESH_MAX_LIST_SIZE) {
 
                 // invalidate caches
                 for (TaskModelForList task : context.taskArray)
@@ -864,9 +906,9 @@ public class TaskListSubActivity extends SubActivity {
         sync.setTaskController(getTaskController());
         sync.synchronize(getParent(), new SynchronizerListener() {
             public void onSynchronizerFinished(int numServicesSynced) {
-                if(numServicesSynced == 0) {
-                    DialogUtilities.okDialog(getParent(), getResources().getString(
-                            R.string.sync_no_synchronizers), null);
+                if (numServicesSynced == 0) {
+                    DialogUtilities.okDialog(getParent(), getResources()
+                            .getString(R.string.sync_no_synchronizers), null);
                     return;
                 }
                 reloadList();
@@ -876,9 +918,9 @@ public class TaskListSubActivity extends SubActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(resultCode == Constants.RESULT_SYNCHRONIZE) {
+        if (resultCode == Constants.RESULT_SYNCHRONIZE) {
             synchronize();
-        } else if(requestCode == ACTIVITY_TAGS) {
+        } else if (requestCode == ACTIVITY_TAGS) {
             switchToActivity(TaskList.AC_TAG_LIST, null);
         }
     }
@@ -886,42 +928,43 @@ public class TaskListSubActivity extends SubActivity {
     /** Call an activity to create the given task */
     private void createTask(Character startCharacter) {
         Intent intent = new Intent(getParent(), TaskEdit.class);
-        if(context.filterTag != null)
-            intent.putExtra(TaskEdit.TAG_NAME_TOKEN, context.filterTag.getName());
-        if(startCharacter != null)
-        	intent.putExtra(TaskEdit.START_CHAR_TOKEN, startCharacter);
+        if (context.filterTag != null)
+            intent.putExtra(TaskEdit.TAG_NAME_TOKEN, context.filterTag
+                    .getName());
+        if (startCharacter != null)
+            intent.putExtra(TaskEdit.START_CHAR_TOKEN, startCharacter);
         launchActivity(intent, ACTIVITY_CREATE);
     }
 
     /** Show a dialog box and delete the task specified */
     private void deleteTask(final TaskModelForList task) {
-        new AlertDialog.Builder(getParent())
-            .setTitle(R.string.delete_title)
-            .setMessage(R.string.delete_this_task_title)
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .setPositiveButton(android.R.string.ok,
-                    new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    context.listAdapter.remove(task);
-                    context.taskArray.remove(task);
-                    getTaskController().deleteTask(task.getTaskIdentifier());
-                }
-            })
-            .setNegativeButton(android.R.string.cancel, null)
-            .show();
+        new AlertDialog.Builder(getParent()).setTitle(R.string.delete_title)
+                .setMessage(R.string.delete_this_task_title).setIcon(
+                        android.R.drawable.ic_dialog_alert).setPositiveButton(
+                        android.R.string.ok,
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                context.listAdapter.remove(task);
+                                context.taskArray.remove(task);
+                                getTaskController().deleteTask(
+                                        task.getTaskIdentifier());
+                            }
+                        }).setNegativeButton(android.R.string.cancel, null)
+                .show();
     }
 
     /** Take you to the task edit page */
     private void editTask(TaskModelForList task) {
         Intent intent = new Intent(getParent(), TaskEdit.class);
-        intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN,
-                task.getTaskIdentifier().getId());
+        intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, task.getTaskIdentifier()
+                .getId());
         launchActivity(intent, ACTIVITY_EDIT);
     }
 
     /** Toggle the timer */
     private void toggleTimer(TaskModelForList task) {
-        if(task.getTimerStart() == null) {
+        if (task.getTimerStart() == null) {
             FlurryAgent.onEvent("start-timer");
             task.setTimerStart(new Date());
         } else {
@@ -929,7 +972,8 @@ public class TaskListSubActivity extends SubActivity {
             task.stopTimerAndUpdateElapsedTime();
         }
         getTaskController().saveTask(task);
-        context.listAdapter.refreshItem(listView, context.taskArray.indexOf(task));
+        context.listAdapter.refreshItem(listView, context.taskArray
+                .indexOf(task));
     }
 
     /** Show the tags view */
@@ -946,12 +990,12 @@ public class TaskListSubActivity extends SubActivity {
     private void saveTaskListSort() {
         int sortId = sortMode.ordinal() + 1;
 
-        if(filterShowDone)
+        if (filterShowDone)
             sortId |= SORTFLAG_FILTERDONE;
-        if(filterShowHidden)
+        if (filterShowHidden)
             sortId |= SORTFLAG_FILTERHIDDEN;
 
-        if(sortReverse)
+        if (sortReverse)
             sortId *= -1;
 
         Preferences.setTaskListSort(getParent(), sortId);
@@ -960,7 +1004,7 @@ public class TaskListSubActivity extends SubActivity {
     /** Save the sorting mode to the preferences */
     private void loadTaskListSort() {
         int sortId = Preferences.getTaskListSort(getParent());
-        if(sortId == 0)
+        if (sortId == 0)
             return;
         sortReverse = sortId < 0;
         sortId = Math.abs(sortId);
@@ -976,11 +1020,11 @@ public class TaskListSubActivity extends SubActivity {
     /** Compute date after postponing tasks */
     private Date computePostponeDate(Date input, long postponeMillis,
             boolean shiftFromTodayIfPast) {
-        if(input != null) {
-            if(shiftFromTodayIfPast && input.getTime() < System.currentTimeMillis())
+        if (input != null) {
+            if (shiftFromTodayIfPast
+                && input.getTime() < System.currentTimeMillis())
                 input = new Date();
-            input = new Date(input.getTime() +
-                    postponeMillis);
+            input = new Date(input.getTime() + postponeMillis);
         }
 
         return input;
@@ -991,16 +1035,17 @@ public class TaskListSubActivity extends SubActivity {
         final Resources r = getResources();
         new NumberPickerDialog(getParent(), new OnNumberPickedListener() {
             public void onNumberPicked(NumberPicker view, int number) {
-                Date date = new Date(System.currentTimeMillis() - 24L*3600*1000*number);
-                int deleted = getTaskController().deleteCompletedTasksOlderThan(date);
-                DialogUtilities.okDialog(getParent(), r.getQuantityString(R.plurals.Ntasks,
-                        deleted, deleted) + " " + r.getString(R.string.taskList_deleted),
-                        null);
-                if(TaskListSubActivity.filterShowDone)
+                Date date = new Date(System.currentTimeMillis() - 24L * 3600
+                    * 1000 * number);
+                int deleted = getTaskController()
+                        .deleteCompletedTasksOlderThan(date);
+                DialogUtilities.okDialog(getParent(), r.getQuantityString(
+                        R.plurals.Ntasks, deleted, deleted)
+                    + " " + r.getString(R.string.taskList_deleted), null);
+                if (TaskListSubActivity.filterShowDone)
                     reloadList();
             }
-        }, r.getString(R.string.taskList_cleanup_dialog),
-        30, 5, 0, 999).show();
+        }, r.getString(R.string.taskList_cleanup_dialog), 30, 5, 0, 999).show();
     }
 
     /** Show a dialog box to postpone your tasks */
@@ -1008,57 +1053,62 @@ public class TaskListSubActivity extends SubActivity {
         FlurryAgent.onEvent("postpone-task");
 
         final Resources r = getResources();
-        DialogUtilities.dayHourPicker(getParent(), r.getString(R.string.taskList_postpone_dialog),
-            new OnNNumberPickedListener() {
-                public void onNumbersPicked(int[] values) {
-                    long postponeMillis = (values[0] * 24 + values[1]) * 3600L * 1000;
-                    if(postponeMillis <= 0)
-                        return;
+        DialogUtilities.dayHourPicker(getParent(), r
+                .getString(R.string.taskList_postpone_dialog),
+                new OnNNumberPickedListener() {
+                    public void onNumbersPicked(int[] values) {
+                        long postponeMillis = (values[0] * 24 + values[1]) * 3600L * 1000;
+                        if (postponeMillis <= 0)
+                            return;
 
-                    task.setPreferredDueDate(computePostponeDate(task
-                            .getPreferredDueDate(), postponeMillis,
-                            true));
-                    task.setDefiniteDueDate(computePostponeDate(
-                        task.getDefiniteDueDate(), postponeMillis, true));
-                    task.setHiddenUntil(computePostponeDate(task.
-                        getHiddenUntil(), postponeMillis, false));
+                        task.setPreferredDueDate(computePostponeDate(task
+                                .getPreferredDueDate(), postponeMillis, true));
+                        task.setDefiniteDueDate(computePostponeDate(task
+                                .getDefiniteDueDate(), postponeMillis, true));
+                        task.setHiddenUntil(computePostponeDate(task
+                                .getHiddenUntil(), postponeMillis, false));
 
-                    // show nag
-                    int postponeCount = getTaskController().fetchTaskPostponeCount(
-                            task.getTaskIdentifier()) + 1;
-                    if(Preferences.shouldShowNags(getParent())) {
-                        Random random = new Random();
-                        final String nagText;
-                        if(postponeCount > 1 && random.nextFloat() < POSTPONE_STAT_PCT) {
-                            nagText = r.getString(R.string.taskList_postpone_count,
-                                    postponeCount);
-                        } else {
-                            String[] nags = r.getStringArray(R.array.postpone_nags);
-                            nagText = nags[random.nextInt(nags.length)];
-                        }
-
-                        handler.post(new Runnable() {
-                            public void run() {
-                                Toast.makeText(getParent(), nagText, Toast.LENGTH_LONG).show();
+                        // show nag
+                        int postponeCount = getTaskController()
+                                .fetchTaskPostponeCount(
+                                        task.getTaskIdentifier()) + 1;
+                        if (Preferences.shouldShowNags(getParent())) {
+                            Random random = new Random();
+                            final String nagText;
+                            if (postponeCount > 1
+                                && random.nextFloat() < POSTPONE_STAT_PCT) {
+                                nagText = r.getString(
+                                        R.string.taskList_postpone_count,
+                                        postponeCount);
+                            } else {
+                                String[] nags = r
+                                        .getStringArray(R.array.postpone_nags);
+                                nagText = nags[random.nextInt(nags.length)];
                             }
-                        });
-                    }
-                    task.setPostponeCount(postponeCount);
 
-                    getTaskController().saveTask(task);
-                    getTaskController().updateAlarmForTask(
-                            task.getTaskIdentifier());
-                    context.listAdapter.refreshItem(listView,
-                            context.taskArray.indexOf(task));
-                }
-            });
+                            handler.post(new Runnable() {
+                                public void run() {
+                                    Toast.makeText(getParent(), nagText,
+                                            Toast.LENGTH_LONG).show();
+                                }
+                            });
+                        }
+                        task.setPostponeCount(postponeCount);
+
+                        getTaskController().saveTask(task);
+                        getTaskController().updateAlarmForTask(
+                                task.getTaskIdentifier());
+                        context.listAdapter.refreshItem(listView,
+                                context.taskArray.indexOf(task));
+                    }
+                });
     }
 
     @Override
     public boolean onMenuItemSelected(int featureId, final MenuItem item) {
         final TaskModelForList task;
 
-        switch(item.getItemId()) {
+        switch (item.getItemId()) {
         // --- options menu items
         case INSERT_ID:
             createTask(null);
@@ -1070,45 +1120,46 @@ public class TaskListSubActivity extends SubActivity {
             showTagsView();
             return true;
         case SYNC_ID:
-        	onActivityResult(ACTIVITY_SYNCHRONIZE, Constants.RESULT_SYNCHRONIZE, null);
+            onActivityResult(ACTIVITY_SYNCHRONIZE,
+                    Constants.RESULT_SYNCHRONIZE, null);
             return true;
         case MORE_ID:
             layout.showContextMenu();
             return true;
 
-        // --- more options menu items
+            // --- more options menu items
         case OPTIONS_SYNC_ID:
-        	syncPreferencesOpened = true;
+            syncPreferencesOpened = true;
             launchActivity(new Intent(getParent(), SyncPreferences.class),
                     ACTIVITY_SYNCHRONIZE);
             return true;
         case OPTIONS_SETTINGS_ID:
-        	launchActivity(new Intent(getParent(), EditPreferences.class), 0);
+            launchActivity(new Intent(getParent(), EditPreferences.class), 0);
             return true;
         case OPTIONS_HELP_ID:
-            Intent browserIntent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse(Constants.HELP_URL));
+            Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
+                    .parse(Constants.HELP_URL));
             launchActivity(browserIntent, 0);
             return true;
         case OPTIONS_QUICK_TIPS:
-            DialogUtilities.okDialog(getParent(),
-                    getResources().getString(R.string.quick_tips), null);
+            DialogUtilities.okDialog(getParent(), getResources().getString(
+                    R.string.quick_tips), null);
             return true;
         case OPTIONS_CLEANUP_ID:
             cleanOldTasks();
             return true;
 
-        // --- list context menu items
+            // --- list context menu items
         case TaskListAdapter.CONTEXT_EDIT_ID:
-            task = context.tasksById.get((long)item.getGroupId());
+            task = context.tasksById.get((long) item.getGroupId());
             editTask(task);
             return true;
         case TaskListAdapter.CONTEXT_DELETE_ID:
-            task = context.tasksById.get((long)item.getGroupId());
+            task = context.tasksById.get((long) item.getGroupId());
             deleteTask(task);
             return true;
         case TaskListAdapter.CONTEXT_TIMER_ID:
-            task = context.tasksById.get((long)item.getGroupId());
+            task = context.tasksById.get((long) item.getGroupId());
             toggleTimer(task);
             return true;
         case TaskListAdapter.CONTEXT_POSTPONE_ID:
@@ -1116,7 +1167,7 @@ public class TaskListSubActivity extends SubActivity {
             postponeTask(task);
             return true;
 
-        // --- display context menu items
+            // --- display context menu items
         case CONTEXT_FILTER_HIDDEN:
             TaskListSubActivity.filterShowHidden = !filterShowHidden;
             saveTaskListSort();
@@ -1131,7 +1182,7 @@ public class TaskListSubActivity extends SubActivity {
             switchToActivity(TaskList.AC_TASK_LIST, null);
             return true;
         case CONTEXT_SORT_AUTO:
-            if(sortMode == SortMode.AUTO)
+            if (sortMode == SortMode.AUTO)
                 return true;
             TaskListSubActivity.sortReverse = false;
             TaskListSubActivity.sortMode = SortMode.AUTO;
@@ -1139,7 +1190,7 @@ public class TaskListSubActivity extends SubActivity {
             reloadList();
             return true;
         case CONTEXT_SORT_ALPHA:
-            if(sortMode == SortMode.ALPHA)
+            if (sortMode == SortMode.ALPHA)
                 return true;
             TaskListSubActivity.sortReverse = false;
             TaskListSubActivity.sortMode = SortMode.ALPHA;
@@ -1147,7 +1198,7 @@ public class TaskListSubActivity extends SubActivity {
             reloadList();
             return true;
         case CONTEXT_SORT_DUEDATE:
-            if(sortMode == SortMode.DUEDATE)
+            if (sortMode == SortMode.DUEDATE)
                 return true;
             TaskListSubActivity.sortReverse = false;
             TaskListSubActivity.sortMode = SortMode.DUEDATE;
@@ -1164,9 +1215,11 @@ public class TaskListSubActivity extends SubActivity {
         return false;
     }
 
-    /* ======================================================================
+    /*
+     * ======================================================================
      * ===================================================== getters / setters
-     * ====================================================================== */
+     * ======================================================================
+     */
 
     public TagModelForView getFilterTag() {
         return context.filterTag;

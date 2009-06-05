@@ -56,6 +56,7 @@ import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskModelForSync;
+import com.timsu.astrid.utilities.AstridUtilities;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
 
@@ -153,8 +154,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
                             return true;
                         } catch (final Exception e) {
                             // didn't work
-                            FlurryAgent.onError("rtm-error-verify-login", e.toString(),
-                                    e.getClass().getSimpleName());
+                            FlurryAgent.onError("rtm-verify-login", AstridUtilities.throwableToString(e),
+                                    SynchronizationProvider.class.getSimpleName());
 
                             syncLoginHandler.post(new Runnable() {
                                 @Override
@@ -178,8 +179,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
             }
 
         } catch (Exception e) {
-            FlurryAgent.onError("rtm-error-authenticate", e.toString(),
-                    e.getClass().getSimpleName());
+            FlurryAgent.onError("rtm-authenticate", AstridUtilities.throwableToString(e),
+                    SynchronizationProvider.class.getSimpleName());
 
             // IO Exception
             if(e instanceof ServiceInternalException &&
@@ -258,8 +259,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 postUpdate(new ProgressUpdater(5, 5));
                 addTasksToList(context, tasks, remoteChanges);
             } catch (Exception e) {
-                FlurryAgent.onError("rtm-error-quick-sync", e.toString(),
-                        e.getClass().getSimpleName());
+                FlurryAgent.onError("rtm-quick-sync", AstridUtilities.throwableToString(e),
+                        SynchronizationProvider.class.getSimpleName());
 
                 Log.e("rtmsync", "Error sync-ing list!", e);
                 remoteChanges.clear();
@@ -279,8 +280,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
                                 filter, lastSyncDate);
                         addTasksToList(context, tasks, remoteChanges);
                     } catch (Exception e) {
-                        FlurryAgent.onError("rtm-error-indiv-sync", e.toString(),
-                                e.getClass().getSimpleName());
+                        FlurryAgent.onError("rtm-indiv-sync", AstridUtilities.throwableToString(e),
+                                SynchronizationProvider.class.getSimpleName());
 
                         Log.e("rtmsync", "Error sync-ing list!", e);
                     	postUpdate(new Runnable() {
@@ -305,8 +306,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
             FlurryAgent.onEvent("rtm-sync-finished");
 
         } catch (Exception e) {
-            FlurryAgent.onError("rtm-error-sync", e.toString(),
-                    e.getClass().getSimpleName());
+            FlurryAgent.onError("rtm-sync", AstridUtilities.throwableToString(e),
+                    SynchronizationProvider.class.getSimpleName());
 
             Log.e("rtmsync", "Error in synchronization", e);
             showError(context, e, null);

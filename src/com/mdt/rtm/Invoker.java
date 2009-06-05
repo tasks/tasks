@@ -90,7 +90,7 @@ public class Invoker {
 
   public static final String API_SIG_PARAM = "api_sig";
 
-  public static final long INVOCATION_INTERVAL = 300;
+  public static final long INVOCATION_INTERVAL = 400;
 
   private long lastInvocation;
 
@@ -108,248 +108,209 @@ public class Invoker {
 
   private HttpClient httpClient;
 
-  public Invoker(String serverHostName, int serverPortNumber, String serviceRelativeUri, ApplicationInfo applicationInfo)
-      throws ServiceInternalException
-  {
-    this.serviceRelativeUri = serviceRelativeUri;
-    new HttpHost(serverHostName, serverPortNumber);
-    globalHttpParams = new BasicHttpParams();
-    HttpProtocolParams.setVersion(globalHttpParams, HttpVersion.HTTP_1_1);
-    HttpProtocolParams.setContentCharset(globalHttpParams, ENCODING);
-    HttpProtocolParams.setUseExpectContinue(globalHttpParams, true);
+  public Invoker(String serverHostName, int serverPortNumber,
+            String serviceRelativeUri, ApplicationInfo applicationInfo)
+            throws ServiceInternalException {
 
-    basicHeader = new BasicHeader(HTTP.CHARSET_PARAM, ENCODING);
+        this.serviceRelativeUri = serviceRelativeUri;
+        new HttpHost(serverHostName, serverPortNumber);
+        globalHttpParams = new BasicHttpParams();
+        HttpProtocolParams.setVersion(globalHttpParams, HttpVersion.HTTP_1_1);
+        HttpProtocolParams.setContentCharset(globalHttpParams, ENCODING);
+        HttpProtocolParams.setUseExpectContinue(globalHttpParams, true);
 
-    httpProcessor = new BasicHttpProcessor();
-    // Required protocol interceptors
-    httpProcessor.addInterceptor(new RequestContent());
-    httpProcessor.addInterceptor(new RequestTargetHost());
-    // Recommended protocol interceptors
-    httpProcessor.addInterceptor(new RequestConnControl());
-    httpProcessor.addInterceptor(new RequestUserAgent());
-    httpProcessor.addInterceptor(new RequestExpectContinue());
+        basicHeader = new BasicHeader(HTTP.CHARSET_PARAM, ENCODING);
 
-    httpClient = new DefaultHttpClient();
+        httpProcessor = new BasicHttpProcessor();
+        // Required protocol interceptors
+        httpProcessor.addInterceptor(new RequestContent());
+        httpProcessor.addInterceptor(new RequestTargetHost());
+        // Recommended protocol interceptors
+        httpProcessor.addInterceptor(new RequestConnControl());
+        httpProcessor.addInterceptor(new RequestUserAgent());
+        httpProcessor.addInterceptor(new RequestExpectContinue());
 
-    lastInvocation = System.currentTimeMillis();
-    this.applicationInfo = applicationInfo;
+        httpClient = new DefaultHttpClient();
 
-    try
-    {
-      digest = MessageDigest.getInstance("md5");
+        lastInvocation = System.currentTimeMillis();
+        this.applicationInfo = applicationInfo;
+
+        try {
+            digest = MessageDigest.getInstance("md5");
+        } catch (NoSuchAlgorithmException e) {
+            throw new ServiceInternalException(
+                    "Could not create properly the MD5 digest", e);
+        }
     }
-    catch (NoSuchAlgorithmException e)
-    {
-      throw new ServiceInternalException("Could not create properly the MD5 digest", e);
-    }
-  }
 
   private StringBuffer computeRequestUri(Param... params)
-      throws ServiceInternalException
-  {
-    final StringBuffer requestUri = new StringBuffer(serviceRelativeUri);
-    if (params.length > 0)
-    {
-      requestUri.append("?");
+            throws ServiceInternalException {
+        final StringBuffer requestUri = new StringBuffer(serviceRelativeUri);
+        if (params.length > 0) {
+            requestUri.append("?");
+        }
+        for (Param param : params) {
+            try {
+                requestUri.append(param.getName()).append("=").append(
+                        URLEncoder.encode(param.getValue(), ENCODING)).append(
+                        "&");
+            } catch (Exception exception) {
+                final StringBuffer message = new StringBuffer(
+                        "Cannot encode properly the HTTP GET request URI: cannot execute query");
+                Log.e(TAG, message.toString(), exception);
+                throw new ServiceInternalException(message.toString());
+            }
+        }
+        requestUri.append(API_SIG_PARAM).append("=").append(calcApiSig(params));
+        return requestUri;
     }
-    for (Param param : params)
-    {
-      try
-      {
-        requestUri.append(param.getName()).append("=").append(URLEncoder.encode(param.getValue(), ENCODING)).append("&");
-      }
-      catch (Exception exception)
-      {
-        final StringBuffer message = new StringBuffer("Cannot encode properly the HTTP GET request URI: cannot execute query");
-        Log.e(TAG, message.toString(), exception);
-        throw new ServiceInternalException(message.toString());
-      }
-    }
-    requestUri.append(API_SIG_PARAM).append("=").append(calcApiSig(params));
-    return requestUri;
-  }
 
-  /** Call invoke with a false repeat */
-  public Element invoke(Param... params) throws ServiceException {
-      return invoke(false, params);
-  }
+    /** Call invoke with a false repeat */
+    public Element invoke(Param... params) throws ServiceException {
+        return invoke(false, params);
+    }
 
   public Element invoke(boolean repeat, Param... params)
-      throws ServiceException
-  {
-    long timeSinceLastInvocation = System.currentTimeMillis() - lastInvocation;
-    if (timeSinceLastInvocation < INVOCATION_INTERVAL)
-    {
-      // In order not to invoke the RTM service too often
-      try
-      {
-        Thread.sleep(INVOCATION_INTERVAL - timeSinceLastInvocation);
-      }
-      catch (InterruptedException e)
-      {
-        throw new ServiceInternalException("Unexpected interruption while attempting to pause for some time before invoking the RTM service back", e);
-      }
-    }
-
-    // We prepare the network socket-based connection
-    //prepareConnection();
-
-    // We compute the URI
-    final StringBuffer requestUri = computeRequestUri(params);
-    HttpResponse response = null;
-
-    final HttpGet request = new HttpGet("http://" + ServiceImpl.SERVER_HOST_NAME + requestUri.toString());
-    request.setHeader(basicHeader);
-    final String methodUri = request.getRequestLine().getUri();
-
-    Element result;
-    try
-    {
-      Log.i(TAG, "Executing the method:" + methodUri);
-      response =  httpClient.execute(request);
-          // httpExecutor.execute(request, connection, context);
-      final int statusCode = response.getStatusLine().getStatusCode();
-      if (statusCode != HttpStatus.SC_OK)
-      {
-        Log.e(TAG, "Method failed: " + response.getStatusLine());
-
-        // Tim: HTTP error. Let's wait a little bit
-        if(!repeat) {
+            throws ServiceException {
+        long timeSinceLastInvocation = System.currentTimeMillis() -
+            lastInvocation;
+        if (timeSinceLastInvocation < INVOCATION_INTERVAL) {
+            // In order not to invoke the RTM service too often
             try {
-                Thread.sleep(1500);
+                Thread.sleep(INVOCATION_INTERVAL - timeSinceLastInvocation);
             } catch (InterruptedException e) {
-                // ignore
+                return null;
             }
-            return invoke(true, params);
         }
 
-        throw new ServiceInternalException("method failed: " + response.getStatusLine());
-      }
+        // We compute the URI
+        final StringBuffer requestUri = computeRequestUri(params);
+        HttpResponse response = null;
 
-      // THINK: this method is deprecated, but the only way to get the body as a string, without consuming
-      // the body input stream: the HttpMethodBase issues a warning but does not let you call the "setResponseStream()" method!
-      final String responseBodyAsString = "";//EntityUtils.toString(response.getEntity());
-      // Log.i(TAG, "  Invocation response:\r\n" + responseBodyAsString);
-      final Document responseDoc = builder.parse(response.getEntity().getContent());
-      final Element wrapperElt = responseDoc.getDocumentElement();
-      if (!wrapperElt.getNodeName().equals("rsp"))
-      {
-        throw new ServiceInternalException("unexpected response returned by RTM service: " + responseBodyAsString);
-      }
-      else
-      {
-        String stat = wrapperElt.getAttribute("stat");
-        if (stat.equals("fail"))
-        {
-          Node errElt = wrapperElt.getFirstChild();
-          while (errElt != null && (errElt.getNodeType() != Node.ELEMENT_NODE || !errElt.getNodeName().equals("err")))
-          {
-            errElt = errElt.getNextSibling();
-          }
-          if (errElt == null)
-          {
-            throw new ServiceInternalException("unexpected response returned by RTM service: " + responseBodyAsString);
-          }
-          else
-          {
-            throw new ServiceException(Integer.parseInt(((Element) errElt).getAttribute("code")), ((Element) errElt).getAttribute("msg"));
-          }
-        }
-        else
-        {
-          Node dataElt = wrapperElt.getFirstChild();
-          while (dataElt != null && (dataElt.getNodeType() != Node.ELEMENT_NODE || dataElt.getNodeName().equals("transaction") == true))
-          {
-            try
-            {
-              Node nextSibling = dataElt.getNextSibling();
-              if (nextSibling == null)
-              {
-                break;
-              }
-              else
-              {
-                dataElt = nextSibling;
-              }
+        final HttpGet request = new HttpGet("http://"
+            + ServiceImpl.SERVER_HOST_NAME + requestUri.toString());
+        request.setHeader(basicHeader);
+        final String methodUri = request.getRequestLine().getUri();
+
+        Element result;
+        try {
+            Log.i(TAG, "Executing the method:" + methodUri);
+            response = httpClient.execute(request);
+
+            final int statusCode = response.getStatusLine().getStatusCode();
+            if (statusCode != HttpStatus.SC_OK) {
+                Log.e(TAG, "Method failed: " + response.getStatusLine());
+
+                // Tim: HTTP error. Let's wait a little bit
+                if (!repeat) {
+                    try {
+                        Thread.sleep(1500);
+                    } catch (InterruptedException e) {
+                        // ignore
+                    }
+                    return invoke(true, params);
+                }
+
+                throw new ServiceInternalException("method failed: "
+                    + response.getStatusLine());
             }
-            catch (IndexOutOfBoundsException exception)
-            {
-              // Some implementation may throw this exception, instead of returning a null sibling
-              break;
+
+            final Document responseDoc = builder.parse(response.getEntity()
+                    .getContent());
+            final Element wrapperElt = responseDoc.getDocumentElement();
+            if (!wrapperElt.getNodeName().equals("rsp")) {
+                throw new ServiceInternalException(
+                        "unexpected response returned by RTM service: "
+                            + wrapperElt.getNodeName());
+            } else {
+                String stat = wrapperElt.getAttribute("stat");
+                if (stat.equals("fail")) {
+                    Node errElt = wrapperElt.getFirstChild();
+                    while (errElt != null
+                        && (errElt.getNodeType() != Node.ELEMENT_NODE || !errElt
+                                .getNodeName().equals("err"))) {
+                        errElt = errElt.getNextSibling();
+                    }
+                    if (errElt == null) {
+                        throw new ServiceInternalException(
+                                "unexpected response returned by RTM service: "
+                                    + wrapperElt.getNodeValue());
+                    } else {
+                        throw new ServiceException(Integer
+                                .parseInt(((Element) errElt)
+                                        .getAttribute("code")),
+                                ((Element) errElt).getAttribute("msg"));
+                    }
+                } else {
+                    Node dataElt = wrapperElt.getFirstChild();
+                    while (dataElt != null
+                        && (dataElt.getNodeType() != Node.ELEMENT_NODE || dataElt
+                                .getNodeName().equals("transaction") == true)) {
+                        try {
+                            Node nextSibling = dataElt.getNextSibling();
+                            if (nextSibling == null) {
+                                break;
+                            } else {
+                                dataElt = nextSibling;
+                            }
+                        } catch (IndexOutOfBoundsException exception) {
+                            // Some implementation may throw this exception,
+                            // instead of returning a null sibling
+                            break;
+                        }
+                    }
+                    if (dataElt == null) {
+                        throw new ServiceInternalException(
+                                "unexpected response returned by RTM service: "
+                                    + wrapperElt.getNodeValue());
+                    } else {
+                        result = (Element) dataElt;
+                    }
+                }
             }
-          }
-          if (dataElt == null)
-          {
-            throw new ServiceInternalException("unexpected response returned by RTM service: " + responseBodyAsString);
-          }
-          else
-          {
-            result = (Element) dataElt;
-          }
+        } catch (IOException e) {
+            throw new ServiceInternalException("Connection error", e);
+        } catch (SAXException e) {
+            throw new ServiceInternalException("XML Parse Exception", e);
+        } finally {
+            httpClient.getConnectionManager().closeExpiredConnections();
         }
-      }
-    }
-    catch (IOException e)
-    {
-      throw new ServiceInternalException("Connection error", e);
-    }
-    catch (SAXException e)
-    {
-      throw new ServiceInternalException("XML Parse Exception", e);
-    }
-//    catch (HttpException e)
-//    {
-//      throw new ServiceInternalException("", e);
-//    }
-    finally
-    {
-        httpClient.getConnectionManager().closeExpiredConnections();
+
+        lastInvocation = System.currentTimeMillis();
+        return result;
     }
 
-    lastInvocation = System.currentTimeMillis();
-    return result;
-  }
+    final String calcApiSig(Param... params) throws ServiceInternalException {
+        try {
+            digest.reset();
+            digest.update(applicationInfo.getSharedSecret().getBytes(ENCODING));
+            List<Param> sorted = Arrays.asList(params);
+            Collections.sort(sorted);
+            for (Param param : sorted) {
+                digest.update(param.getName().getBytes(ENCODING));
+                digest.update(param.getValue().getBytes(ENCODING));
+            }
+            return convertToHex(digest.digest());
+        } catch (UnsupportedEncodingException e) {
+            throw new ServiceInternalException(
+                    "cannot hahdle properly the encoding", e);
+        }
+    }
 
-  final String calcApiSig(Param... params)
-      throws ServiceInternalException
-  {
-    try
-    {
-      digest.reset();
-      digest.update(applicationInfo.getSharedSecret().getBytes(ENCODING));
-      List<Param> sorted = Arrays.asList(params);
-      Collections.sort(sorted);
-      for (Param param : sorted)
-      {
-        digest.update(param.getName().getBytes(ENCODING));
-        digest.update(param.getValue().getBytes(ENCODING));
-      }
-      return convertToHex(digest.digest());
+    private static String convertToHex(byte[] data) {
+        StringBuffer buf = new StringBuffer();
+        for (int i = 0; i < data.length; i++) {
+            int halfbyte = (data[i] >>> 4) & 0x0F;
+            int two_halfs = 0;
+            do {
+                if ((0 <= halfbyte) && (halfbyte <= 9))
+                    buf.append((char) ('0' + halfbyte));
+                else
+                    buf.append((char) ('a' + (halfbyte - 10)));
+                halfbyte = data[i] & 0x0F;
+            } while (two_halfs++ < 1);
+        }
+        return buf.toString();
     }
-    catch (UnsupportedEncodingException e)
-    {
-      throw new ServiceInternalException("cannot hahdle properly the encoding", e);
-    }
-  }
-
-  private static String convertToHex(byte[] data)
-  {
-    StringBuffer buf = new StringBuffer();
-    for (int i = 0; i < data.length; i++)
-    {
-      int halfbyte = (data[i] >>> 4) & 0x0F;
-      int two_halfs = 0;
-      do
-      {
-        if ((0 <= halfbyte) && (halfbyte <= 9))
-          buf.append((char) ('0' + halfbyte));
-        else
-          buf.append((char) ('a' + (halfbyte - 10)));
-        halfbyte = data[i] & 0x0F;
-      }
-      while (two_halfs++ < 1);
-    }
-    return buf.toString();
-  }
 
 }

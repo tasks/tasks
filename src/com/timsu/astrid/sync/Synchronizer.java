@@ -24,6 +24,8 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 
 import com.timsu.astrid.activities.TaskListSubActivity;
@@ -47,15 +49,15 @@ import com.timsu.astrid.utilities.Preferences;
  */
 public class Synchronizer {
 
-	/** identifier for the RTM sync provider */
+    /** identifier for the RTM sync provider */
     private static final int SYNC_ID_RTM = 1;
 
     // --- public interface
 
     /** Synchronize all tasks */
     public Synchronizer(boolean isService) {
-    	this.isService = isService;
-    	singleTaskForSync = null;
+        this.isService = isService;
+        singleTaskForSync = null;
     }
 
     /** Synchronize a specific task only */
@@ -68,15 +70,19 @@ public class Synchronizer {
         void onSynchronizerFinished(int numServicesSynced);
     }
 
-    /** Synchronize all activated sync services */
-    public synchronized void synchronize(Context context, SynchronizerListener listener) {
+    /** Synchronize all activated sync services. */
+    public synchronized void synchronize(Context context,
+            SynchronizerListener listener) {
         currentStep = ServiceWrapper._FIRST_SERVICE.ordinal();
         servicesSynced = 0;
         callback = listener;
 
-        // if we're not the autosync service, stop it
-        if(!isService)
-        	SynchronizationService.stop();
+        // if we're not the autosync service, stop it. also create handler
+        if(!isService) {
+            SynchronizationService.stop();
+            if(Looper.myLooper() != null)
+                handler = new Handler();
+        }
 
         continueSynchronization(context);
     }
@@ -134,6 +140,9 @@ public class Synchronizer {
 
     // Internal state for the synchronization process
 
+    /** Handler for sending jobs to the UI thread */
+    private Handler handler = null;
+
     /** Current step in the sync process */
     private int currentStep = 0;
 
@@ -150,11 +159,15 @@ public class Synchronizer {
     private final TaskIdentifier singleTaskForSync;
 
     boolean isService() {
-    	return isService;
+        return isService;
     }
 
     TaskIdentifier getSingleTaskForSync() {
         return singleTaskForSync;
+    }
+
+    Handler getHandler() {
+        return handler;
     }
 
     /** Called to do the next step of synchronization. */
@@ -185,12 +198,14 @@ public class Synchronizer {
         if(callback != null)
             callback.onSynchronizerFinished(servicesSynced);
 
-        if(getSingleTaskForSync() != null)
+        if(getSingleTaskForSync() == null)
             Preferences.setSyncLastSync(context, new Date());
         if(!isService) {
             SynchronizationService.start();
             TaskListSubActivity.shouldRefreshTaskList = true;
         }
+
+        Log.i("sync", "Synchronization Service Finished");
     }
 
     // --- controller stuff
@@ -236,8 +251,8 @@ public class Synchronizer {
         }
 
         public void set(TYPE newController) {
-        	if(controller != null && !override)
-        		close();
+            if(controller != null && !override)
+                close();
 
             override = newController != null;
             controller = newController;

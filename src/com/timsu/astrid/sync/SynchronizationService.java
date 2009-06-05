@@ -106,6 +106,7 @@ public class SynchronizationService extends Service {
                 performSynchronization();
             }
         }, offset, interval);
+
         Log.i("astrid", "Synchronization Service Started, Offset: " + offset/1000 +
         		"s Interval: " + interval/1000);
     }
