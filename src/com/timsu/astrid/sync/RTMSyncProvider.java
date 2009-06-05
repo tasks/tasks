@@ -112,6 +112,10 @@ public class RTMSyncProvider extends SynchronizationProvider {
                     authToken = null;
             }
 
+            // don't do anything if you're a background service
+            if(authToken == null && isBackgroundService())
+            	return;
+
             if(authToken == null) {
                 // try completing the authorization if it was partial
                 if(rtmService != null) {
@@ -126,9 +130,6 @@ public class RTMSyncProvider extends SynchronizationProvider {
                         // didn't work. do the process again.
                     }
                 }
-
-                if(isBackgroundService())
-                	return;
 
                 // open up a dialog and have the user go to browser
                 FlurryAgent.onEvent("rtm-login-dialog");

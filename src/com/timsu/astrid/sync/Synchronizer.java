@@ -25,7 +25,6 @@ import java.util.Date;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
@@ -82,11 +81,11 @@ public class Synchronizer {
         // if we're not the autosync service, stop it. also create handler
         if(!isService) {
             SynchronizationService.stop();
-            if(Looper.myLooper() != null)
-                handler = new Handler();
+            handler = new Handler();
         }
 
-        continueSynchronization(context);
+        ServiceWrapper.RTM.service.synchronizeService(context, this);
+        //continueSynchronization(context);
     }
 
 
@@ -175,7 +174,7 @@ public class Synchronizer {
     /** Called to do the next step of synchronization. */
     void continueSynchronization(Context context) {
     	try {
-    		if(currentStep > ServiceWrapper.values().length)
+    		if(currentStep >= ServiceWrapper.values().length)
     			currentStep = ServiceWrapper.values().length - 1;
 
 	        ServiceWrapper serviceWrapper =

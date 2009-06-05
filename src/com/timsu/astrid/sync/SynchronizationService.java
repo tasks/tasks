@@ -22,6 +22,9 @@ import com.timsu.astrid.utilities.Preferences;
  */
 public class SynchronizationService extends Service {
 
+	/** miniumum time before an auto-sync */
+	private static final long AUTO_SYNC_MIN_OFFSET = 5*60*1000L;
+
     /** Service timer */
     private Timer timer = new Timer();
 
@@ -99,6 +102,10 @@ public class SynchronizationService extends Service {
     	if(latestSyncMillis != 0)
     		offset = Math.min(offset, Math.max(0, latestSyncMillis + interval -
     				System.currentTimeMillis()));
+
+    	// give a little padding
+    	offset = Math.max(offset, AUTO_SYNC_MIN_OFFSET);
+    	offset = AUTO_SYNC_MIN_OFFSET;
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override

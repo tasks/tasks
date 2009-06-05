@@ -120,7 +120,6 @@ public class SyncLoginActivity extends Activity {
                     public void run() {
             			final String result = callback.verifyLogin(handler);
 
-            			webView.destroy();
             			if(result == null) {
             				TaskList.synchronizeNow = true;
             				finish();
