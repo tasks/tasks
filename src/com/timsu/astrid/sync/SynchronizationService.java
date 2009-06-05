@@ -100,12 +100,10 @@ public class SynchronizationService extends Service {
     		latestSyncMillis = lastAutoSyncDate.getTime();
     	long offset = 0;
     	if(latestSyncMillis != 0)
-    		offset = Math.min(offset, Math.max(0, latestSyncMillis + interval -
-    				System.currentTimeMillis()));
+    		offset = Math.max(0, latestSyncMillis + interval - System.currentTimeMillis());
 
     	// give a little padding
     	offset = Math.max(offset, AUTO_SYNC_MIN_OFFSET);
-    	offset = AUTO_SYNC_MIN_OFFSET;
 
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
