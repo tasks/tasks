@@ -63,6 +63,7 @@ import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
+import com.timsu.astrid.utilities.AstridUtilities;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Notifications;
@@ -592,8 +593,7 @@ public class TaskListSubActivity extends SubActivity {
             Log.w("astrid", "StaleDataException", e);
             return;
         } catch (final IllegalStateException e) {
-            FlurryAgent.onError("task-list-error", e.toString(), e.getClass()
-                    .getSimpleName());
+            AstridUtilities.reportFlurryError("task-list-error", e);
 
             // happens when you run out of memory usually
             Log.e("astrid", "Error loading task list", e);
@@ -607,8 +607,7 @@ public class TaskListSubActivity extends SubActivity {
             });
             return;
         } catch (final Exception e) {
-            FlurryAgent.onError("task-list-error", e.toString(), e.getClass()
-                    .getSimpleName());
+            AstridUtilities.reportFlurryError("task-list-error", e);
 
             Log.e("astrid", "Error loading task list", e);
             return;
@@ -761,8 +760,7 @@ public class TaskListSubActivity extends SubActivity {
                 context.listAdapter.setExpanded(v, context.selectedTask, true);
                 listView.setSelection(selectedPosition);
             } catch (Exception e) {
-                FlurryAgent.onError("task-list-selected", e.toString(), e
-                        .getClass().getSimpleName());
+                AstridUtilities.reportFlurryError("task-list-selected", e);
                 Log.e("astrid", "error with selected task", e);
             }
         }
@@ -876,8 +874,8 @@ public class TaskListSubActivity extends SubActivity {
                 syncPreferencesOpened = false;
 
                 if (TaskList.synchronizeNow) {
-                    synchronize();
                     TaskList.synchronizeNow = false;
+                    synchronize();
                 }
 
                 // stop & start synchronization service

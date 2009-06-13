@@ -55,6 +55,7 @@ import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
+import com.timsu.astrid.utilities.AstridUtilities;
 import com.timsu.astrid.utilities.DateUtilities;
 import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.utilities.TaskFieldsVisibility;
@@ -170,9 +171,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 view.requestFocus();
             }
         } catch (Exception e) {
-            FlurryAgent.onError("task-adapter-set-expanded", e.toString(),
-                    e.getClass().getSimpleName());
-
+            AstridUtilities.reportFlurryError("task-adapter-set-expanded", e);
             Log.e("astrid", "Error in setExpanded", e);
         }
     }

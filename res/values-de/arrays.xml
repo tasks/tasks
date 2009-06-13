@@ -13,77 +13,105 @@
      See the License for the specific language governing permissions and
      limitations under the License.
 -->
-
 <!-- Translation Note: 
            Guidelines to those translating the resources
             1) Quality over Quantity: the quality of the phrases is important not the number of phrases used in any given 
             languages.
             2) Dynamic Equivalence not necessary literal translation but capture the idea and create the same desired effect
 -->
-
-
 <resources>
-    <!-- Make these < 20 chars so the task name is displayed 
+
+    <!--  
             Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
+			
     <string-array name="reminders">
-        <item>Hallo! Haste 'ne Sekunde?</item>
-        <item>Kann ich deine Aufmerksamkeit für ein paar Sekunden haben?</item>
-        <item>Hast Du n paar Minuten?</item>
-        <item>Hast Du's vergessen?</item>
+        <!-- reminders: Make these < 20 chars so the task name is displayed -->
+        <item>Hallo! Haste mal 'ne Sekunde?</item>
+        <item>Na, 'n paar Sekunden für mich Zeit?</item>
+        <item>Haste mal 'n paar Minuten?</item>
+        <item>Hast du's vergessen?</item>
         <item>Entschuldigung!</item>
-        <item>Falls Du ne Minute hast:</item>
-        <item>Auf Deinem Tagesplan:</item>
-        <item>Einen kurzen Moment Zeit?</item>
-        <item>Astrid hier!</item>
-        <item>Hallo! Kann ich Dich kurz stören?</item>
-        <item>Kann ich eine Minute haben?</item>
-        <item>Es ist ein wunderbarer Tag zum</item>
+        <item>Falls du mal  'ne Minute hast:</item>
+        <item>Auf deinem Tagesplan:</item>
+        <item>Einen Augenblick Zeit?</item>
+        <item>Astrid ist da!</item>
+        <item>Hallo! Kann ich dich kurz nerven?</item>
+        <item>Schenk mir doch mal eine Minute!</item>
+        <item>Es ist ein toller Tag zum</item>
     </string-array>
     
-    <!-- Astrid says...  (user should answer yes or no)  -->
     <string-array name="reminder_responses">
-        <item>Ich habe was für Dich!</item>
-        <item>Bereit folgendes zur Vergangenheit zu machen?</item>
-        <item>Warum erledigst Du das nicht?</item>
-        <item>Wie schaut's aus? Fertig?</item>
-        <item>Bereit das anzugehen?</item>
-        <item>Schaffst Du das?</item>
-        <item>Du kannst glücklich sein! Erledige das!</item>
-        <item>Ich verspreche, dass es Dir besser geht, wenn das erledigt ist!</item>
-        <item>Wirst Du das heute nicht mehr machen?</item>
-        <item>Bitte erledige das, Ich kann es nicht mehr sehen!</item>
-        <item>Kannst Du das erledigen? Ja, kannst Du!</item>
-        <item>Wirst Du das jemals erledigen?</item>
-        <item>Tu was für dein Wohlbefinden! Erledige das!</item>
-        <item>Ich bin stolz auf Dich! Lass uns das abschließen!</item>
-        <item>Eine kleinen Snack wenn das erledigt ist?</item>
+        <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
+        <item>Ich habe was für dich!</item> 
+        <item>Bereit dies in die Vergangenheit zu befördern?</item>
+        <item>Warum erledigst du's nicht?</item>
+        <item>Wie schauts aus? Fertig?</item>
+        <item>Bereit das anzupacken?</item>
+        <item>Nun mach aber mal!</item>
+        <item>Machs einfach! Danach kannst du durchatmen.</item>
+        <item>Ich verspreche dir, du wirst dich besser fühlen, wenn du's erledigt hast!</item>
+        <item>Mal ehrlich, was spricht denn gegen sofort?</item>
+        <item>Nun mach aber mal, langsam stinkts mir!</item>
+        <item>Kannst du das erledigen? Yes, you can!</item>
+        <item>Wirst du das jemals tun?</item>
+        <item>Tu was fürs freie Atmen! Lass knacken!</item>
+        <item>Das beenden wir nun mal. Ich bin stolz auf dich.</item>
+        <item>Einen kleinen Imbiss, wenn das erledigt ist?</item>
         <item>Nur diese eine Aufgabe? Bitte?</item>
-        <item>Es ist Zeit deine Aufgabenliste zu verkleinern!</item>
+        <item>Es ist Zeit deine Aufgabenliste zu verkürzen!</item>
     </string-array>
     
-    <!-- Astrid's nagging when user clicks postpone -->
     <string-array name="postpone_nags">
-        <item>Bitte sag mir, dass Du nicht alles aufschiebst!</item>
+        <!-- Astrid's nagging when user clicks postpone -->
+        <item>Wie, du bist stolz darauf, alles aufzuschieben?</item>
         <item>Ist es nicht manchmal langweilig faul zu sein?</item>
-        <item>Irgendwer, irgendwo vertraut darauf, dass Du das abschließt!</item>
-        <item>Als Du \'verschieben\' gesagt hast, meintest Du eigentlich \'Ich werde es erledigen\', oder?</item>
-        <item>Das ist das letzte Mal, dass Du das hier aufschiebst, richtig?</item>
-        <item>Erledige das einfach heute, und ich sage es niemandem. Ok?!</item>
-        <item>Warum verschieben? Du könntest es doch einfach .. nicht verschieben!</item>
-        <item>Ich nehme an, dass Du das irgendwann mal abschließen wirst?</item>
-        <item>Es läuft doch! Wie wäre es, wenn Du das nicht bis zur letzten Minute aufschiebst?</item>
-        <item>Wirst Du deine Ziele erreichen?</item>
-        <item>Verschieben, verschieben, verschieben. Wann wirst Du dich verändern?</item>
+        <item>Irgendwer, irgendwo vertraut darauf, dass du das abschließt!</item>
+        <item>Als du "verschieben" gesagt hast, meintest du doch eigentlich "Ich werde es erledigen", oder?</item>
+        <item>Das ist das letzte Mal, dass du das hier aufschiebst, okay?</item>
+        <item>Erledige das einfach heute und ich sage es niemandem. Okay?!</item>
+        <item>Warum verschieben? Du könntest es doch einfach ... nicht verschieben!</item>
+        <item>Ich nehme an, dass du das irgendwann mal abschließen wirst?</item>
+        <item>Es läuft doch! Wie wäre es, wenn du das nicht bis zur letzten Minute aufschiebst?</item>
+        <item>Wirst du deine Ziele erreichen, wenn du das tust?</item>
+        <item>Verschieben, verschieben, verschieben. Wann wirst du dich verändern?</item>
         <item>Ich habe genug von deinen Ausreden! Mach es einfach!</item>
         <item>Ist das nicht die gleiche Ausrede wie letztes Mal?</item>
-        <item>Ich kann Dir so anicht helfen dein Leben zu organisieren..</item>
+        <item>Dann kann ich dir auch nicht helfen, dein Leben zu organisieren.</item>
     </string-array>
     
-    <!-- Icons for notification tray -->
     <string-array name="notif_icon_entries">
+        <!-- Icons for notification tray -->
         <item>Rosa</item>
         <item>Langweilig</item>
         <item>Astrid</item>
     </string-array>
-
+    
+    <string-array name="notif_icon_values">
+        <!-- Corresponding to the constants in Preferences.java (do not edit) -->
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
+    <string-array name="sync_interval_entries">
+        <!-- sync_interval_entries: Synchronization Intervals -->
+        <item>Deaktiviere</item>
+        <item>zweimal stündlich</item>
+        <item>stündlich</item>
+        <item>zweimal täglich</item>
+        <item>täglich</item>
+        <item>zweimal wöchentlich</item>
+        <item>wöchentlich</item>
+    </string-array>
+    
+    <string-array name="sync_interval_values">
+        <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
+        <item>0</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>43200</item>
+        <item>86400</item>
+        <item>302400</item>
+        <item>604800</item>
+    </string-array>
 </resources>

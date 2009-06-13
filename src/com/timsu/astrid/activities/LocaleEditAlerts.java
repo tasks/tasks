@@ -109,6 +109,12 @@ public final class LocaleEditAlerts extends Activity {
 	 * Private helper method to persist the Toast message in the return {@code Intent}.
 	 */
 	private void updateResult() {
+	    // no tags, so it's not possible to save
+	    if(tagNames.length == 0) {
+	        setResult(com.twofortyfouram.Intent.RESULT_REMOVE);
+	        return;
+	    }
+
 		final int index = ((Spinner) findViewById(R.id.spinner)).getSelectedItemPosition();
 		final String tagName = tagNames[index];
 		final TagModelForView tag = tags.get(index);

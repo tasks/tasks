@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!-- Translation Note: 
+           Guidelines to those translating the resources
+            1) Quality over Quantity: the quality of the phrases is important not the number of phrases used in any given 
+            languages.
+            2) Dynamic Equivalence not necessary literal translation but capture the idea and create the same desired effect
+-->
+<resources>
+
+    <!--  
+            Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
+			
+    <string-array name="reminders">
+        <!-- reminders: Make these < 20 chars so the task name is displayed -->
+        <item>¡Hola! ¿Tienes un segundo?</item>
+        <item>¿Puedo verte por un segundo?</item>
+        <item>¿Tienes unos minutos?</item>
+        <item>¿Te has olvidado?</item>
+        <item>¡Perdón!</item>
+        <item>Cuando tengas un minuto:</item>
+        <item>En tú agenda:</item>
+        <item>¿Disponible por un momento?</item>
+        <item>¡Aquí Astrid!</item>
+        <item>¡Hola! ¿Puedo molestarte?</item>
+        <item>¿Un minuto de tu tiempo?</item>
+        <item>Es un gran día para</item>
+    </string-array>
+    
+    <string-array name="reminder_responses">
+        <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
+        <item>¡Tengo algo para ti!</item> 
+        <item>¿Listo para poner esto en el pasado?</item>
+        <item>¿Porqué no terminas esto?</item>
+        <item>¿Qué tal? ¿Listo tigre?</item>
+        <item>¿Listo para hacer esto?</item>
+        <item>¿Puedes con esto?</item>
+        <item>¡Puedes ser feliz! ¡Solo termínalo!</item>
+        <item>¡Te prometo que te sentirás mejor si lo terminas!</item>
+        <item>¿Porqué no haces esto hoy?</item>
+        <item>¡Por favor termínalo, esto cansado de ello!</item>
+        <item>¿Puedes terminar esto? ¡Yes you can!</item>
+        <item>¿Vas a hacer esto?</item>
+        <item>¡Sientete mejor contigo mismo! ¡Vamos!</item>
+        <item>¡Estoy muy orgulloso de ti! ¡Termínalo!</item>
+        <item>¿Un descanso después de acabar esto?</item>
+        <item>¿Solo esta tarea? ¿Por favor?</item>
+        <item>¡Hora de acortar tu lista de tarea!</item>
+    </string-array>
+    
+    <string-array name="postpone_nags">
+        <!-- Astrid's nagging when user clicks postpone -->
+        <item>¡Por favor, no me digas que eres un procrastinador!</item>
+        <item>¿Sentirse vago no hace sentirte viejo algunas veces?</item>
+        <item>¡En algún lugar, alguien está esperando que lo acabes!</item>
+        <item>Cuando dices posponer, realmente quieres decir \'estoy haciendo esto\', ¿verdad?</item>
+        <item>Esta es la última vez que lo pospones, ¿verdad?</item>
+        <item>Acábalo hoy, ¡no se lo diré a nadie!</item>
+        <item>Por que posponerlo cuando puedes uhm... ¡no posponerlo!</item>
+        <item>Lo acabarás en cualquier momento, ¿supongo?</item>
+        <item>¡Creo que eres genial! ¿Qué tal no posponerlo?</item>
+        <item>¿Podrás alcanzar tus metas si haces eso?</item>
+        <item>Posponer, posponer, posponer. ¡Cuando cambiarás!</item>
+        <item>¡Ya estoy harto de tus excusas! ¡Hazlo ya!</item>
+        <item>¿Esa no fue la excusa la última vez?</item>
+        <item>No te puedo ayudar a organizar tu vida si haces eso...</item>
+    </string-array>
+    
+    <string-array name="notif_icon_entries">
+        <!-- Icons for notification tray -->
+        <item>Rosa</item>
+        <item>Aburrido</item>
+        <item>Astrid</item>
+    </string-array>
+    
+    <string-array name="notif_icon_values">
+        <!-- Corresponding to the constants in Preferences.java (do not edit) -->
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
+    <string-array name="sync_interval_entries">
+        <!-- sync_interval_entries: Synchronization Intervals -->
+        <item>desactivado</item>
+        <item>cada media hora</item>
+        <item>cada hora</item>
+        <item>dos veces al día</item>
+        <item>diario</item>
+        <item>dos veces a la semana</item>
+        <item>semanalmente</item>
+    </string-array>
+    
+    <string-array name="sync_interval_values">
+        <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
+        <item>0</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>43200</item>
+        <item>86400</item>
+        <item>302400</item>
+        <item>604800</item>
+    </string-array>
+</resources>

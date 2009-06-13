@@ -26,7 +26,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
@@ -187,8 +186,7 @@ public class Synchronizer {
 	        }
     	} catch (Exception e) {
     		Log.e("sync", "Error continuing synchronization", e);
-    		FlurryAgent.onError("sync-continue", AstridUtilities.throwableToString(e),
-                    SynchronizationProvider.class.getSimpleName());
+    		AstridUtilities.reportFlurryError("sync-continue", e);
     		finishSynchronization(context);
     	}
     }

@@ -42,6 +42,7 @@ import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.StartupReceiver;
+import com.timsu.astrid.utilities.AstridUtilities.AstridUncaughtExceptionHandler;
 
 /**
  * TaskList is the main launched activity for Astrid. It uses a ViewFlipper
@@ -103,6 +104,9 @@ public class TaskList extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
+
+        // set uncaught exception handler
+        Thread.setDefaultUncaughtExceptionHandler(new AstridUncaughtExceptionHandler());
 
         // open controllers & perform application startup rituals
         StartupReceiver.onStartupApplication(this);

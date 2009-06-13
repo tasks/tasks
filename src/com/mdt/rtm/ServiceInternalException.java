@@ -23,7 +23,7 @@ package com.mdt.rtm;
 /**
  * Introduced in order to get rid of the {@link RuntimeException}, and have only one time of regular exception to cope with, from the API end-user
  * point of view.
- * 
+ *
  * @author Edouard Mercier
  * @since 2008.04.23
  */
@@ -41,7 +41,7 @@ public class ServiceInternalException
 
   public ServiceInternalException(String message, Exception exception)
   {
-    super(-1, "Service internal exception: " + message);
+    super(-1, message);
     this.enclosedException = exception;
   }
 

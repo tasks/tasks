@@ -156,8 +156,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
                             return null;
                         } catch (final Exception e) {
                             // didn't work
-                            FlurryAgent.onError("rtm-verify-login", AstridUtilities.throwableToString(e),
-                                    SynchronizationProvider.class.getSimpleName());
+                            AstridUtilities.reportFlurryError("rtm-verify-login", e);
 
                             rtmService = null;
                             return r.getString(R.string.rtm_login_error) +
@@ -176,15 +175,13 @@ public class RTMSyncProvider extends SynchronizationProvider {
         } catch (IllegalStateException e) {
         	// occurs when application was closed
 
-            FlurryAgent.onError("rtm-authenticate-caught", AstridUtilities.throwableToString(e),
-                    SynchronizationProvider.class.getSimpleName());
+            AstridUtilities.reportFlurryError("rtm-authenticate-caught", e);
 
             Log.e("rtmsync", "Illegal State during Sync", e);
 
 
         } catch (Exception e) {
-            FlurryAgent.onError("rtm-authenticate", AstridUtilities.throwableToString(e),
-                    SynchronizationProvider.class.getSimpleName());
+            AstridUtilities.reportFlurryError("rtm-authenticate", e);
 
             // IO Exception
             if(e instanceof ServiceInternalException &&
@@ -263,8 +260,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 postUpdate(new ProgressUpdater(5, 5));
                 addTasksToList(context, tasks, remoteChanges);
             } catch (Exception e) {
-                FlurryAgent.onError("rtm-quick-sync", AstridUtilities.throwableToString(e),
-                        SynchronizationProvider.class.getSimpleName());
+                AstridUtilities.reportFlurryError("rtm-quick-sync", e);
 
                 Log.e("rtmsync", "Error sync-ing list!", e);
                 remoteChanges.clear();
@@ -284,8 +280,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
                                 filter, lastSyncDate);
                         addTasksToList(context, tasks, remoteChanges);
                     } catch (Exception e) {
-                        FlurryAgent.onError("rtm-indiv-sync", AstridUtilities.throwableToString(e),
-                                SynchronizationProvider.class.getSimpleName());
+                        AstridUtilities.reportFlurryError("rtm-indiv-sync", e);
 
                         Log.e("rtmsync", "Error sync-ing list!", e);
                     	postUpdate(new Runnable() {
@@ -303,22 +298,19 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
             synchronizeTasks(context, remoteChanges, new RtmSyncHelper(context, timeline));
 
-            // add a bit of fudge time so we don't load tasks we just edited
-            Date syncTime = new Date(System.currentTimeMillis() + 1000);
+            Date syncTime = new Date();
             Preferences.setSyncRTMLastSync(context, syncTime);
 
             FlurryAgent.onEvent("rtm-sync-finished");
         } catch (IllegalStateException e) {
         	// occurs when application was closed
 
-            FlurryAgent.onError("rtm-sync-caught", AstridUtilities.throwableToString(e),
-                    SynchronizationProvider.class.getSimpleName());
+            AstridUtilities.reportFlurryError("rtm-sync-caught", e);
 
             Log.e("rtmsync", "Illegal State during Sync", e);
 
         } catch (Exception e) {
-            FlurryAgent.onError("rtm-sync", AstridUtilities.throwableToString(e),
-                    SynchronizationProvider.class.getSimpleName());
+            AstridUtilities.reportFlurryError("rtm-sync", e);
 
             Log.e("rtmsync", "Error in synchronization", e);
             showError(context, e, null);

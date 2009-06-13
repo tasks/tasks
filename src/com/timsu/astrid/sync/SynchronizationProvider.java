@@ -20,6 +20,8 @@
 package com.timsu.astrid.sync;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -132,8 +134,7 @@ public abstract class SynchronizationProvider {
      */
     void showError(final Context context, Throwable e, String message) {
         Log.e("astrid", "Synchronization Error", e);
-        FlurryAgent.onError("sync-error", AstridUtilities.throwableToString(e),
-                SynchronizationProvider.class.getSimpleName());
+        AstridUtilities.reportFlurryError("sync-error", e);
 
         if(isBackgroundService())
         	return;
@@ -314,8 +315,7 @@ public abstract class SynchronizationProvider {
                 else
                     log.append("updated '" + task.getName() + "'\n");
             } catch (Exception e) {
-                FlurryAgent.onError("sync-push-task", AstridUtilities.throwableToString(e),
-                        SynchronizationProvider.class.getSimpleName());
+                AstridUtilities.reportFlurryError("sync-push-task", e);
 
                 Log.e("astrid", "Exception pushing task", e);
                 log.append("error sending '" + task.getName() + "'\n");
@@ -333,6 +333,33 @@ public abstract class SynchronizationProvider {
         // 4. REMOTE SYNC load remote information
         log.append("\n>> on astrid:\n");
         postUpdate(new ProgressUpdater(0, 1));
+
+        // Rearrange remoteTasks so completed tasks get synchronized first.
+        // This prevents bugs where a repeated task has two copies come down
+        // the wire, the new version and the completed old version. The new
+        // version would get merged, then completed, if done in the wrong order.
+
+        Collections.sort(remoteTasks, new Comparator<TaskProxy>() {
+            @Override
+            public int compare(TaskProxy object1, TaskProxy object2) {
+                if(object1.isDeleted && object2.isDeleted)
+                    return 0;
+                else if(object1.isDeleted)
+                    return -1;
+                else if(object2.isDeleted())
+                    return 1;
+
+                if(object1.completionDate != null && object2.completionDate != null)
+                    return object1.completionDate.compareTo(object2.completionDate);
+                else if(object1.completionDate != null)
+                    return -1;
+                else if(object2.completionDate != null)
+                    return 1;
+
+                return 0;
+            }
+        });
+
         for(TaskProxy remoteTask : remoteTasks) {
             if(remoteTask.name != null)
                 postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_remotetx,
@@ -349,13 +376,21 @@ public abstract class SynchronizationProvider {
                 }
 
                 task = taskController.searchForTaskForSync(remoteTask.name);
+
                 if(task == null) {
                     task = new TaskModelForSync();
                     setupTaskDefaults(context, task);
                     log.append("added " + remoteTask.name + "\n");
                 } else {
-                    mapping = data.localIdToSyncMapping.get(task.getTaskIdentifier());
                     log.append("merged " + remoteTask.name + "\n");
+
+                    // delete old mapping
+                    mapping = data.localIdToSyncMapping.get(task.getTaskIdentifier());
+                    if(mapping != null) {
+                        syncController.deleteSyncMapping(mapping);
+                        data.localIdToSyncMapping.remove(task.getTaskIdentifier());
+                        mapping = null;
+                    }
                 }
             } else {
                 mapping = data.remoteIdToSyncMapping.get(remoteTask.getRemoteId());

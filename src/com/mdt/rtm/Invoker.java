@@ -31,23 +31,13 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.HttpVersion;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHeader;
-import org.apache.http.params.BasicHttpParams;
-import org.apache.http.params.HttpProtocolParams;
-import org.apache.http.protocol.BasicHttpProcessor;
 import org.apache.http.protocol.HTTP;
-import org.apache.http.protocol.RequestConnControl;
-import org.apache.http.protocol.RequestContent;
-import org.apache.http.protocol.RequestExpectContinue;
-import org.apache.http.protocol.RequestTargetHost;
-import org.apache.http.protocol.RequestUserAgent;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -84,13 +74,13 @@ public class Invoker {
     builder = aBuilder;
   }
 
-  public static final String REST_SERVICE_URL_POSTFIX = "/services/rest/";
+  private static final String ENCODING = "UTF-8";
 
-  public static final String ENCODING = "UTF-8";
+  private static final String API_SIG_PARAM = "api_sig";
 
-  public static final String API_SIG_PARAM = "api_sig";
+  private static final long INVOCATION_INTERVAL = 400;
 
-  public static final long INVOCATION_INTERVAL = 400;
+  private static final String USER_AGENT = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)";
 
   private long lastInvocation;
 
@@ -102,10 +92,6 @@ public class Invoker {
 
   private BasicHeader basicHeader;
 
-  private BasicHttpParams globalHttpParams;
-
-  private BasicHttpProcessor httpProcessor;
-
   private HttpClient httpClient;
 
   public Invoker(String serverHostName, int serverPortNumber,
@@ -113,23 +99,8 @@ public class Invoker {
             throws ServiceInternalException {
 
         this.serviceRelativeUri = serviceRelativeUri;
-        new HttpHost(serverHostName, serverPortNumber);
-        globalHttpParams = new BasicHttpParams();
-        HttpProtocolParams.setVersion(globalHttpParams, HttpVersion.HTTP_1_1);
-        HttpProtocolParams.setContentCharset(globalHttpParams, ENCODING);
-        HttpProtocolParams.setUseExpectContinue(globalHttpParams, true);
 
         basicHeader = new BasicHeader(HTTP.CHARSET_PARAM, ENCODING);
-
-        httpProcessor = new BasicHttpProcessor();
-        // Required protocol interceptors
-        httpProcessor.addInterceptor(new RequestContent());
-        httpProcessor.addInterceptor(new RequestTargetHost());
-        // Recommended protocol interceptors
-        httpProcessor.addInterceptor(new RequestConnControl());
-        httpProcessor.addInterceptor(new RequestUserAgent());
-        httpProcessor.addInterceptor(new RequestExpectContinue());
-
         httpClient = new DefaultHttpClient();
 
         lastInvocation = System.currentTimeMillis();
@@ -190,6 +161,7 @@ public class Invoker {
         final HttpGet request = new HttpGet("http://"
             + ServiceImpl.SERVER_HOST_NAME + requestUri.toString());
         request.setHeader(basicHeader);
+        request.addHeader("User-Agent", USER_AGENT);
         final String methodUri = request.getRequestLine().getUri();
 
         Element result;
@@ -269,9 +241,9 @@ public class Invoker {
                 }
             }
         } catch (IOException e) {
-            throw new ServiceInternalException("Connection error", e);
+            throw new ServiceInternalException("IOException: " + e.getMessage(), e);
         } catch (SAXException e) {
-            throw new ServiceInternalException("XML Parse Exception", e);
+            throw new ServiceInternalException("XML Parse: " + e.getMessage(), e);
         } finally {
             httpClient.getConnectionManager().closeExpiredConnections();
         }

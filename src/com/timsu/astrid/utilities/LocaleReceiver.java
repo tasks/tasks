@@ -26,7 +26,7 @@ import com.timsu.astrid.data.task.TaskIdentifier;
 public class LocaleReceiver extends BroadcastReceiver {
 
     /** minimum amount of time between two notifications */
-    private static final long MIN_NOTIFY_INTERVAL = 8*3600*1000L;
+    private static final long MIN_NOTIFY_INTERVAL = 12*3600*1000L;
 
     @Override
     /** Called when the system is started up */

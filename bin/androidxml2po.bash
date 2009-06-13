@@ -22,8 +22,8 @@
 #
 
 #Set the languages here (long version is the android resource append string).
-short_lang=("nl" "de" "fr") #do not include template language ("en" usually).
-long_lang=("nl_rNL" "de" "fr") #do not include template language ("en" usually).
+short_lang=("es" "de" "ja") #do not include template language ("en" usually).
+long_lang=("es" "de" "ja") #do not include template language ("en" usually).
 #Change the dirs where the files are located.
 launchpad_po_files_dir="translations"
 launchpad_pot_file_dir="translations"
@@ -40,7 +40,7 @@ function import_po2xml
             echo "Importing .xml from .po for "${resource_file}-${short_lang[i]}""
             mkdir -p "${android_xml_files_res_dir}"-"${long_lang[i]}"
             ${xml2po} -a -l "${short_lang[i]}" -p "${launchpad_po_files_dir}"/"${resource_file}"-"${short_lang[i]}".po \
-                "${android_xml_files_res_dir}"/"${android_xml_filename}".xml > "${android_xml_files_res_dir}"-"${long_lang[i]}"/"${resource_file}".xml
+                "${android_xml_files_res_dir}"/"${resource_file}".xml > "${android_xml_files_res_dir}"-"${long_lang[i]}"/"${resource_file}".xml
         done
     done
 }

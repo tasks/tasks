@@ -119,7 +119,7 @@ public class SyncLoginActivity extends Activity {
                     @Override
                     public void run() {
             			final String result = callback.verifyLogin(handler);
-
+                        TaskListSubActivity.syncPreferencesOpened = true;
             			if(result == null) {
             				TaskList.synchronizeNow = true;
             				finish();

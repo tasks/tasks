@@ -219,32 +219,34 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         if(model.getCalendarUri() != null)
             addToCalendar.setText(r.getString(R.string.showCalendar_label));
 
-        // tags
-        tags = tagController.getAllTags();
-        if(model.getTaskIdentifier() != null) {
-            taskTags = tagController.getTaskTags(model.getTaskIdentifier());
-            if(taskTags.size() > 0) {
-                Map<TagIdentifier, TagModelForView> tagsMap =
-                    new HashMap<TagIdentifier, TagModelForView>();
-                for(TagModelForView tag : tags)
-                    tagsMap.put(tag.getTagIdentifier(), tag);
-                for(TagIdentifier id : taskTags) {
-                    if(!tagsMap.containsKey(id))
-                        continue;
+        // tags (only configure if not already set)
+        if(tagsContainer.getChildCount() == 0) {
+            tags = tagController.getAllTags();
+            if(model.getTaskIdentifier() != null) {
+                taskTags = tagController.getTaskTags(model.getTaskIdentifier());
+                if(taskTags.size() > 0) {
+                    Map<TagIdentifier, TagModelForView> tagsMap =
+                        new HashMap<TagIdentifier, TagModelForView>();
+                    for(TagModelForView tag : tags)
+                        tagsMap.put(tag.getTagIdentifier(), tag);
+                    for(TagIdentifier id : taskTags) {
+                        if(!tagsMap.containsKey(id))
+                            continue;
 
-                    TagModelForView tag = tagsMap.get(id);
-                    addTag(tag.getName());
+                        TagModelForView tag = tagsMap.get(id);
+                        addTag(tag.getName());
+                    }
+                }
+            } else {
+                taskTags = new LinkedList<TagIdentifier>();
+
+                Bundle extras = getIntent().getExtras();
+                if(extras != null && extras.containsKey(TAG_NAME_TOKEN)) {
+                    addTag(extras.getString(TAG_NAME_TOKEN));
                 }
             }
-        } else {
-            taskTags = new LinkedList<TagIdentifier>();
-
-            Bundle extras = getIntent().getExtras();
-            if(extras != null && extras.containsKey(TAG_NAME_TOKEN)) {
-                addTag(extras.getString(TAG_NAME_TOKEN));
-            }
+            addTag("");
         }
-        addTag("");
 
         // alerts
         if(model.getTaskIdentifier() != null) {
@@ -697,7 +699,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        save();
         super.onSaveInstanceState(outState);
 
         // save the tag name token for when we rotate the screen
