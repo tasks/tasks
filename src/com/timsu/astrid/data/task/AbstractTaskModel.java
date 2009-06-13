@@ -218,6 +218,9 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 } catch (Exception e) {
                     Log.e("astrid", "Error updating table!", e);
                 }
+
+                // --- break point
+
                 break;
 
             default:

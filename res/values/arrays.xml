@@ -24,10 +24,11 @@
 
 <resources>
 
-    <!-- Make these < 20 chars so the task name is displayed 
+    <!--  
             Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
 			
     <string-array name="reminders">
+        <!-- reminders: Make these < 20 chars so the task name is displayed -->
         <item>Hi there! Have a sec?</item>
         <item>Can I see you for a sec?</item>
         <item>Have a few minutes?</item>
@@ -42,9 +43,9 @@
         <item>It\'s a great day to</item>
     </string-array>
     
-    <!-- Astrid says...  (user should answer yes or no)  -->
     <string-array name="reminder_responses">
-        <item>I\'ve got something for you!</item>
+        <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
+        <item>I\'ve got something for you!</item> 
         <item>Ready to put this in the past?</item>
         <item>Why don\'t you get this done?</item>
         <item>How about it? Ready tiger?</item>
@@ -63,8 +64,8 @@
         <item>Time to shorten your todo list!</item>
     </string-array>
     
-    <!-- Astrid's nagging when user clicks postpone -->
     <string-array name="postpone_nags">
+        <!-- Astrid's nagging when user clicks postpone -->
         <item>Please tell me it isn\'t true that you're a procrastinator!</item>
         <item>Doesn\'t being lazy get old sometimes?</item>
         <item>Somewhere, someone is depending on you to finish this!</item>
@@ -81,22 +82,22 @@
         <item>I can\'t help you organize your life if you do that...</item>
     </string-array>
     
-    <!-- Icons for notification tray -->
     <string-array name="notif_icon_entries">
+        <!-- Icons for notification tray -->
         <item>Pink</item>
         <item>Boring</item>
         <item>Astrid</item>
     </string-array>
     
-    <!-- Corresponding to the constants in Preferences.java -->
     <string-array name="notif_icon_values">
+        <!-- Corresponding to the constants in Preferences.java (do not edit) -->
         <item>0</item>
         <item>1</item>
         <item>2</item>
     </string-array>
     
-    <!-- Synchronization Intervals -->
     <string-array name="sync_interval_entries">
+        <!-- sync_interval_entries: Synchronization Intervals -->
         <item>disable</item>
         <item>twice an hour</item>
         <item>hourly</item>
@@ -106,8 +107,8 @@
         <item>weekly</item>
     </string-array>
     
-    <!-- interval in seconds -->
     <string-array name="sync_interval_values">
+        <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
         <item>0</item>
         <item>1800</item>
         <item>3600</item>

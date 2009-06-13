@@ -59,7 +59,7 @@ public class LocaleReceiver extends BroadcastReceiver {
 					if(count > 0) {
 						Resources r = context.getResources();
 						String reminder = r.getString(R.string.notif_tagNotification,
-								r.getQuantityString(R.plurals.Ntasks, count, count), tagName);
+								count, tagName);
 						Notifications.showTagNotification(context, tagId, reminder);
 
 						Preferences.setLocaleLastAlertTime(context, tagId,

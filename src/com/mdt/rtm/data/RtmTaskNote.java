@@ -24,6 +24,8 @@ import java.util.Date;
 import org.w3c.dom.Element;
 import org.w3c.dom.Text;
 
+import android.util.Log;
+
 /**
  * Represents a single task note.
  *
@@ -53,11 +55,20 @@ public class RtmTaskNote
 
     // The note text itself might be split across multiple children of the
     // note element, so get all of the children.
-    for (int i=0; i<element.getChildNodes().getLength(); i++) {
-    	Text innerText = (Text) element.getChildNodes().item(i);
+    for (int i=0; i < element.getChildNodes().getLength(); i++) {
+        Object innerNote = element.getChildNodes().item(i);
+        if(!(innerNote instanceof Text)) {
+            Log.w("rtm-note", "Expected text type, got " + innerNote.getClass());
+            continue;
+        }
 
-    	if (text == null) text = "";
-    	text = text.concat(innerText.getData());
+    	Text innerText = (Text) innerNote;
+
+    	if (text == null)
+    	    text = innerText.getData();
+    	else
+    	    text = text.concat(innerText.getData());
+
     }
   }
 

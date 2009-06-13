@@ -40,60 +40,76 @@
         <string name="repeat_hours">Hour(s)</string>
         
         <!-- Plurals -->
+        
         <plurals name="Ntasks">
+            <!-- plurals: tasks -->
             <item quantity="one">1 Task</item>
             <item quantity="other">%d Tasks</item>
         </plurals>
         <plurals name="NactiveTasks">
+            <!-- plurals: active tasks vs total tasks -->
             <item quantity="one">%d / %d Active</item>
             <item quantity="other">%d / %d Active</item>
         </plurals>
         <plurals name="Nalarms">
+            <!-- plurals: alarms -->
             <item quantity="one">One Alarm</item>
             <item quantity="two">Two Alarms</item>
             <item quantity="other">%d Alarms</item>
         </plurals>
         <plurals name="Ntags">
+            <!-- plurals: tags -->
             <item quantity="one">1 Tag</item>
             <item quantity="other">%d Tags</item>
         </plurals>
         
         <!-- Time Constants -->
-        <string name="dateFormatter">MMM d</string> <!-- used for long due 
-            dates. c.f. Java's SimpleDateFormat -->
-        <string name="alarmDateFormatter">M/dd HH:mm</string> <!--  used for alarms -->
-        <string name="daysVertical">D\na\ny\ns</string> <!-- vertical labels
-            are used in the number dialogs -->
+        
+        <!-- used for long due dates. c.f. Java's SimpleDateFormat -->
+        <string name="dateFormatter">MMM d</string> 
+        <!--  used for alarms -->
+        <string name="alarmDateFormatter">M/dd HH:mm</string>
+        <!-- vertical labels are used in dialog boxes -->
+        <string name="daysVertical">D\na\ny\ns</string> 
         <string name="hoursVertical">H\no\nu\nr\ns</string>
+        
         <plurals name="Ndays">
+            <!-- plurals: days -->
             <item quantity="one">1 Day</item>
             <item quantity="other">%d Days</item>
         </plurals>
         <plurals name="NdaysPreposition">
+            <!-- plurals: days (used after a preopsition, i.e. due in 5 days) -->
             <item quantity="one">1 Day</item>
             <item quantity="other">%d Days</item>
         </plurals>
         <plurals name="Nhours">
+            <!-- plurals: hours -->
             <item quantity="one">1 Hour</item>
             <item quantity="other">%d Hours</item>
         </plurals>
         <plurals name="Nminutes">
+            <!-- plurals: minutes -->
             <item quantity="one">1 Minute</item>
             <item quantity="other">%d Minutes</item>
         </plurals>
         <plurals name="Nseconds">
+            <!-- plurals: seconds -->
             <item quantity="one">1 Second</item>
             <item quantity="other">%d Seconds</item>
         </plurals>
         <plurals name="NhoursShort">
+            <!-- plurals: hours (abbreviated) -->
             <item quantity="one">1 Hr</item>
             <item quantity="other">%d Hrs</item>
         </plurals>
         <plurals name="NminutesShort">
+            <!-- plurals: minutes (abbreviated) -->
             <item quantity="one">1 Min</item>
             <item quantity="other">%d Min</item>
         </plurals>
         <plurals name="NsecondsShort">
+            <!-- plurals: seconds (abbreviated) -->
             <item quantity="one">1 Sec</item>
             <item quantity="other">%d Sec</item>
         </plurals>
@@ -349,7 +365,7 @@ Thanks for using Astrid!\n
         <string name="notif_definiteDueDate">Absolute Deadline!</string>
         <string name="notif_preferredDueDate">Goal Deadline!</string>
         <string name="notif_timerStarted">Working on:</string>
-        <string name="notif_tagNotification">You have %s tagged %s!</string>
+        <string name="notif_tagNotification">You have %d task(s) tagged %s!</string>
         
     <!-- Error Messages -->  
     <skip />
