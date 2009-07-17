@@ -23,7 +23,7 @@ import com.timsu.astrid.utilities.Preferences;
 public class SynchronizationService extends Service {
 
 	/** miniumum time before an auto-sync */
-	private static final long AUTO_SYNC_MIN_OFFSET = 5*60*1000L;
+	private static final long AUTO_SYNC_MIN_OFFSET = 1*60*1000L;
 
     /** Service timer */
     private Timer timer = new Timer();
