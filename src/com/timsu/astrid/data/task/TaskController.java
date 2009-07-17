@@ -253,12 +253,7 @@ public class TaskController extends AbstractController {
                 onTaskCompleted(task, values, duringSync);
             }
 
-            if(!(task instanceof TaskModelForSync)) {
-                SyncDataController syncController = new SyncDataController(context);
-                syncController.open();
-                syncController.addToUpdatedList(task.getTaskIdentifier());
-                syncController.close();
-            }
+            SyncDataController.taskUpdated(context, task);
         }
 
         return saveSucessful;

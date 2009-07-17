@@ -22,6 +22,7 @@ public class Preferences {
     private static final String P_SYNC_LAST_SYNC = "lastsync";
     private static final String P_SYNC_LAST_SYNC_ATTEMPT = "lastsyncattempt";
     private static final String P_LOCALE_LAST_NOTIFY = "locnot";
+    private static final String P_DID_ANDROID_AND_ME_SURVEY = "aamsurvey";
 
     // pref values
     public static final int ICON_SET_PINK = 0;
@@ -326,6 +327,20 @@ public class Preferences {
 
     public static long getLocaleLastAlertTime(Context context, long tag) {
         return getPrefs(context).getLong(P_LOCALE_LAST_NOTIFY + tag, 0);
+    }
+
+    // --- misc
+
+    /** Get setting */
+    public static boolean didAAMSurvey(Context context) {
+        return getPrefs(context).getBoolean(P_DID_ANDROID_AND_ME_SURVEY, false);
+    }
+
+    /** Set setting */
+    public static void setDidAAMSurvey(Context context, boolean value) {
+        Editor editor = getPrefs(context).edit();
+        editor.putBoolean(P_DID_ANDROID_AND_ME_SURVEY, value);
+        editor.commit();
     }
 
     // --- helper methods

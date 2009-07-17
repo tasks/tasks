@@ -130,8 +130,16 @@ public class SyncMapping extends AbstractModel {
 
     // --- getters and setters
 
+    public void setId(long id) {
+        putIfChangedFromDatabase(AbstractController.KEY_ROWID, id);
+    }
+
     public long getId() {
-        return retrieveLong(AbstractController.KEY_ROWID);
+        try {
+            return retrieveLong(AbstractController.KEY_ROWID);
+        } catch (UnsupportedOperationException e) {
+            return 0;
+        }
     }
 
     public TaskIdentifier getTask() {

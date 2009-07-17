@@ -57,7 +57,6 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskModelForSync;
 import com.timsu.astrid.utilities.AstridUtilities;
-import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
 
 public class RTMSyncProvider extends SynchronizationProvider {
@@ -92,6 +91,32 @@ public class RTMSyncProvider extends SynchronizationProvider {
     }
 
     // --- authentication
+
+    /** Helper method that handles RTM methods and may show an error dialog */
+    private void handleRtmException(Context context, String tag, Exception e,
+            boolean showErrorIfNeeded) {
+        // occurs when application was closed
+        if(e instanceof IllegalStateException) {
+            AstridUtilities.reportFlurryError(tag + "-caught", e);
+            Log.e(tag, "Illegal State during Sync", e);
+
+        // occurs when network error
+        } else if(e instanceof ServiceInternalException &&
+                ((ServiceInternalException)e).getEnclosedException() instanceof
+                IOException) {
+            Exception enclosedException = ((ServiceInternalException)e).getEnclosedException();
+            AstridUtilities.reportFlurryError(tag + "-ioexception", enclosedException);
+            if(showErrorIfNeeded)
+                showError(context, enclosedException, "Connection Error! Check your " +
+                    "Internet connection & try again...");
+        } else {
+            if(e instanceof ServiceInternalException)
+                e = ((ServiceInternalException)e).getEnclosedException();
+            AstridUtilities.reportFlurryError(tag + "-unhandled", e);
+            if(showErrorIfNeeded)
+                showError(context, e, null);
+        }
+    }
 
     /** Perform authentication with RTM. Will open the SyncBrowser if necessary */
     private void authenticate(final Context context) {
@@ -154,11 +179,13 @@ public class RTMSyncProvider extends SynchronizationProvider {
                             Log.w("astrid", "got RTM token: " + token);
                             Preferences.setSyncRTMToken(context, token);
                             return null;
-                        } catch (final Exception e) {
+                        } catch (Exception e) {
                             // didn't work
                             AstridUtilities.reportFlurryError("rtm-verify-login", e);
-
                             rtmService = null;
+                            if(e instanceof ServiceInternalException)
+                                e = ((ServiceInternalException)e).getEnclosedException();
+
                             return r.getString(R.string.rtm_login_error) +
                             	" " + e.getMessage();
                         }
@@ -171,26 +198,11 @@ public class RTMSyncProvider extends SynchronizationProvider {
             } else {
                 performSync(context);
             }
-
         } catch (IllegalStateException e) {
         	// occurs when application was closed
-
-            AstridUtilities.reportFlurryError("rtm-authenticate-caught", e);
-
             Log.e("rtmsync", "Illegal State during Sync", e);
-
-
         } catch (Exception e) {
-            AstridUtilities.reportFlurryError("rtm-authenticate", e);
-
-            // IO Exception
-            if(e instanceof ServiceInternalException &&
-                    ((ServiceInternalException)e).getEnclosedException() instanceof
-                    IOException) {
-                showError(context, e, "Sync Connection Error! Check your " +
-                		"Internet connection & try again...");
-            } else
-                showError(context, e, null);
+            handleRtmException(context, "rtm-authenticate", e, true);
         }
     }
 
@@ -260,9 +272,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 postUpdate(new ProgressUpdater(5, 5));
                 addTasksToList(context, tasks, remoteChanges);
             } catch (Exception e) {
-                AstridUtilities.reportFlurryError("rtm-quick-sync", e);
-
-                Log.e("rtmsync", "Error sync-ing list!", e);
+                handleRtmException(context, "rtm-quick-sync", e, false);
                 remoteChanges.clear();
                 shouldSyncIndividualLists = true;
             }
@@ -280,16 +290,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
                                 filter, lastSyncDate);
                         addTasksToList(context, tasks, remoteChanges);
                     } catch (Exception e) {
-                        AstridUtilities.reportFlurryError("rtm-indiv-sync", e);
-
-                        Log.e("rtmsync", "Error sync-ing list!", e);
-                    	postUpdate(new Runnable() {
-                            public void run() {
-                                DialogUtilities.okDialog(context,
-                                        "Sorry, import of list '" + entry.getValue() +
-                                        "' failed. Try again later!", null);
-                            }
-                        });
+                        handleRtmException(context, "rtm-indiv-sync", e, true);
                         continue;
                     }
                 }
@@ -304,16 +305,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
             FlurryAgent.onEvent("rtm-sync-finished");
         } catch (IllegalStateException e) {
         	// occurs when application was closed
-
-            AstridUtilities.reportFlurryError("rtm-sync-caught", e);
-
-            Log.e("rtmsync", "Illegal State during Sync", e);
-
+            Log.w("rtmsync", "Illegal State during Sync", e);
         } catch (Exception e) {
-            AstridUtilities.reportFlurryError("rtm-sync", e);
-
-            Log.e("rtmsync", "Error in synchronization", e);
-            showError(context, e, null);
+            handleRtmException(context, "rtm-sync", e, true);
 
         } finally {
             // on with the synchronization
@@ -470,26 +464,31 @@ public class RTMSyncProvider extends SynchronizationProvider {
             task.tags = tagsList;
 
         RtmTask rtmTask = rtmTaskSeries.getTask();
-        String estimate = rtmTask.getEstimate();
-        if(estimate != null && estimate.length() > 0) {
-            task.estimatedSeconds = parseEstimate(estimate);
-        }
-        task.creationDate = rtmTaskSeries.getCreated();
-        task.completionDate = rtmTask.getCompleted();
-        task.isDeleted = rtmTask.getDeleted() != null;
-        if(rtmTask.getDue() != null) {
-            Date due = rtmTask.getDue();
-
-            // if no time is set, set it to midnight
-            if(due.getHours() == 0 && due.getMinutes() == 0 && due.getSeconds() == 0) {
-                due.setHours(23);
-                due.setMinutes(59);
+        if(rtmTask != null) {
+            String estimate = rtmTask.getEstimate();
+            if(estimate != null && estimate.length() > 0) {
+                task.estimatedSeconds = parseEstimate(estimate);
             }
-            task.dueDate = due;
+            task.creationDate = rtmTaskSeries.getCreated();
+            task.completionDate = rtmTask.getCompleted();
+            task.isDeleted = rtmTask.getDeleted() != null;
+            if(rtmTask.getDue() != null) {
+                Date due = rtmTask.getDue();
+
+                // if no time is set, set it to midnight
+                if(due.getHours() == 0 && due.getMinutes() == 0 && due.getSeconds() == 0) {
+                    due.setHours(23);
+                    due.setMinutes(59);
+                }
+                task.dueDate = due;
+            }
+            task.progressPercentage = (rtmTask.getCompleted() == null) ? 0 :
+                AbstractTaskModel.COMPLETE_PERCENTAGE;
+            task.importance = Importance.values()[rtmTask.getPriority().ordinal()];
+        } else {
+            // error in upstream code, try to handle gracefully
+            Log.e("rtmsync", "Got null task parsing remote task series", new Throwable());
         }
-        task.progressPercentage = (rtmTask.getCompleted() == null) ? 0 :
-            AbstractTaskModel.COMPLETE_PERCENTAGE;
-        task.importance = Importance.values()[rtmTask.getPriority().ordinal()];
 
         return task;
     }
@@ -579,7 +578,11 @@ public class RTMSyncProvider extends SynchronizationProvider {
         String listId;
 
         public RtmId(String listId, RtmTaskSeries taskSeries) {
-            this.taskId = taskSeries.getTask().getId();
+            if(taskSeries.getTask() == null) {
+                Log.w("rtm", "Error - found task with no task id");
+                this.taskId = "";
+            } else
+                this.taskId = taskSeries.getTask().getId();
             this.taskSeriesId = taskSeries.getId();
             this.listId = listId;
         }

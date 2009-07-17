@@ -229,10 +229,11 @@ public class Synchronizer {
             typeClass = cls;
         }
 
+        @SuppressWarnings("unchecked")
         public TYPE get(Context context) {
             if(controller == null) {
                 try {
-                    controller = typeClass.getConstructors()[0].newInstance(context);
+                    controller = (TYPE) typeClass.getConstructors()[0].newInstance(context);
                 } catch (IllegalArgumentException e) {
                     Log.e(getClass().getSimpleName(), e.toString());
                 } catch (SecurityException e) {

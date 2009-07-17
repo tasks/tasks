@@ -45,7 +45,7 @@ import com.timsu.astrid.utilities.Preferences;
 public abstract class AbstractTaskModel extends AbstractModel {
 
     /** Version number of this model */
-    static final int        VERSION                = 6;
+    static final int        VERSION                = 7;
 
     public static final int COMPLETE_PERCENTAGE    = 100;
 
@@ -210,6 +210,11 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 }
 
             case 5:
+            case 6:
+
+                // apparently some people didn't get the flags column
+                // from version 5 to version 6, so we try again
+
                 sql = new StringBuilder().append("ALTER TABLE ").
                 append(tableName).append(" ADD COLUMN ").
                 append(FLAGS).append(" integer").toString();
@@ -218,6 +223,9 @@ public abstract class AbstractTaskModel extends AbstractModel {
                 } catch (Exception e) {
                     Log.e("astrid", "Error updating table!", e);
                 }
+
+
+
 
                 // --- break point
 

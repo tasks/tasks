@@ -166,7 +166,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                 // if the item is near the bottom of the list, we need to give
                 // it focus so that the list knows there's new stuff down there
                 int position = objects.indexOf(task);
-                if(objects.size() - position < 2)
+                if(objects.size() - position < 2 && view.getParent() != null)
                     ((ListView)view.getParent()).setSelection(position);
                 view.requestFocus();
             }

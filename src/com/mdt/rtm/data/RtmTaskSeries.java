@@ -78,11 +78,13 @@ public class RtmTaskSeries extends RtmData {
         if (children.size() > 1) {
             // assume it's a repeating task - pick the child with nearest
             // but not expired due date
-            RtmTask selectedTask = null;
+            RtmTask selectedTask = new RtmTask(children.get(0));
             for(Element element : children) {
                 RtmTask childTask = new RtmTask(element);
-                if(childTask.getCompleted() == null)
+                if(childTask.getCompleted() == null) {
                     selectedTask = childTask;
+                    break;
+                }
             }
             task = selectedTask;
         } else {

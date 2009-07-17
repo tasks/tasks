@@ -185,9 +185,13 @@ public abstract class AbstractModel {
 
         // if we have a database to hit, do that now
         if(cursor != null) {
-            Integer value = cursor.getInt(getColumnIndex(field));
-            values.put(field, value);
-            return value;
+            try {
+                Integer value = cursor.getInt(getColumnIndex(field));
+                values.put(field, value);
+                return value;
+            } catch (Exception e) {
+                // error reading from cursor, try to continue
+            }
         }
 
         // do we have defaults?

@@ -65,6 +65,7 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.enums.RepeatInterval;
+import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
@@ -376,6 +377,9 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             tagController.removeTag(model.getTaskIdentifier(), tagId);
         for(TagIdentifier tagId : tagsToAdd)
             tagController.addTag(model.getTaskIdentifier(), tagId);
+
+        if(tagsToDelete.size() > 0 || tagsToAdd.size() > 0)
+            SyncDataController.taskUpdated(this, model);
     }
 
     /** Helper method to save alerts for this task */

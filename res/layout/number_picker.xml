@@ -28,7 +28,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:singleLine="true"
+            android:inputType="number"
             style="?android:attr/textAppearanceLargeInverse"
             android:textSize="30sp"
             android:background="@drawable/timepicker_input"

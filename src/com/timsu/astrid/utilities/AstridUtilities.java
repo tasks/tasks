@@ -35,13 +35,17 @@ public class AstridUtilities {
 
         // shorten the string
         trace = trace.substring(message.length());
-        trace.replaceAll("android", "A");
-        trace.replaceAll("database", "db");
-        trace.replaceAll(IllegalStateException.class.getName(), "IlStEx");
-        trace.replaceAll(ClassCastException.class.getName(), "ClCaEx");
-        trace.replaceAll(NullPointerException.class.getName(), "NPE");
-        trace.replaceAll(SQLiteException.class.getName(), "SqLiEx");
-        trace.replaceAll("com.timsu.", "");
+        trace = trace.replaceAll("com.timsu.astrid", "!as");
+        trace = trace.replaceAll("com.mdt.rtm", "!rtm");
+        trace = trace.replaceAll("android.database.sqlite", "!sqlite");
+        trace = trace.replaceAll("android", "!A");
+        trace = trace.replaceAll("database", "!db");
+        trace = trace.replaceAll("org.apache.harmony.xml.parsers", "!xmlp");
+        trace = trace.replaceAll(IllegalStateException.class.getName(), "IlStEx");
+        trace = trace.replaceAll(ClassCastException.class.getName(), "ClCaEx");
+        trace = trace.replaceAll(NullPointerException.class.getName(), "NPEx");
+        trace = trace.replaceAll(SQLiteException.class.getName(), "SqLiEx");
+        trace = trace.replaceAll(".java:", ":");
 
         FlurryAgent.onError(name, message, trace);
     }

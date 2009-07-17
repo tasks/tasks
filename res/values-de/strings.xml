@@ -68,10 +68,7 @@
         <!-- used for long due dates. c.f. Java's SimpleDateFormat -->
         <string name="dateFormatter">d MMM</string> 
         <!--  used for alarms -->
-        <string name="alarmDateFormatter">T
-a
-g
-e</string>
+        <string name="alarmDateFormatter">M/dd HH:mm</string>
         <!-- vertical labels are used in dialog boxes -->
         <string name="daysVertical">T
 a
@@ -121,8 +118,9 @@ d</string>
             <item quantity="one">1 Sek</item>
             <item quantity="other">%d Sek</item>
         </plurals>
-        <string name="ago_suffix">Vor</string><!-- appended after time
-            constants to show time in past -->
+        
+        <!-- appended after time constants to show time in past -->
+        <string name="ago_suffix">Vor</string>
         
     <!-- TaskList -->
     <skip/>
@@ -134,26 +132,42 @@ d</string>
         <string name="addtask_label">Neue Aufgabe</string>
         <string name="missing_tag">Konnte gesuchten Tag nicht finden!</string>
         
-        <!-- text in the actual list -->
-        <string name="taskList_hiddenPrefix">V</string><!-- prefix to show that a task is hidden -->
-        <string name="taskList_dueRelativeTime">Fällig in</string><!-- i.e. Due in 4 days -->
-        <string name="taskList_dueAbsoluteDate">Fällig am</string><!-- i.e. Due on Jan 2 -->
-        <string name="taskList_goalPrefix">Ziel</string><!-- prefix to deadline -->
-        <string name="taskList_overdueBy">Uberfällig seit</string>
-        <string name="taskList_completedPrefix">Erledigt</string><!-- i.e. Finished 4 days ago -->
-		<string name="taskList_estimatedTimePrefix">Zeitschätzung:</string><!-- i.e.  Estimated 4: hours -->
-        <string name="taskList_elapsedTimePrefix">Verbracht:</string><!-- i.e. Spent  88 minutes on tax. -->
-        <string name="taskList_periodicReminderPrefix">Anstubsen alle</string><!-- time interval to set frequency to remind user -->
-        <string name="taskList_repeatPrefix">Wiederholt sich alle</string><!-- time interval to set repeated tasks-->
-        <string name="taskList_repeatsRemotely">Wiederholungen auf dem Server</string><!-- displayed when repeat is on remote server-->
+        <!-- text displayed in task list item -->
+        
+        <!-- prefix to show that a task is hidden -->
+        <string name="taskList_hiddenPrefix">V</string>
+        <!-- i.e. Due in 4 days -->
+        <string name="taskList_dueRelativeTime">Fällig in</string>
+        <!-- i.e. Due on Jan 2 -->
+        <string name="taskList_dueAbsoluteDate">Fällig am</string>
+        <!-- prefix to deadline -->
+        <string name="taskList_goalPrefix">Ziel</string>
+        <string name="taskList_overdueBy">Überfällig am</string>
+        <!-- i.e. Finished 4 days ago -->
+        <string name="taskList_completedPrefix">Erledigt</string>
+		<!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_estimatedTimePrefix">Zeitschätzung:</string>
+        <!-- i.e. Spent  88 minutes on tax. -->
+        <string name="taskList_elapsedTimePrefix">Verbracht:</string>
+        <!-- time interval to set frequency to remind user -->
+        <string name="taskList_periodicReminderPrefix">Anstubsen alle</string>
+        
+        <!-- time interval to set repeated tasks-->
+        <string name="taskList_repeatPrefix">Wiederholt sich alle</string>
+        <!-- displayed when repeat is on remote server-->
+        <string name="taskList_repeatsRemotely">Wiederholungen auf dem Server</string>
         <string name="taskList_alarmPrefix">Nächster Alarm:</string>
         <string name="taskList_tagsPrefix">Tags:</string>
         <string name="taskList_notesPrefix">Notizen:</string>
-        <string name="taskList_createdPrefix">Erstellt:</string><!-- Created: MM/DD/YY -->
-        <string name="taskList_deleted">Gelöscht</string><!-- Deleted: MM/DD/YY -->
+        
+        <!-- i.e. Created: 3/5/09 -->
+        <string name="taskList_createdPrefix">Erstellt:</string>
+        
+        <!-- i.e. Deleted: 3/5/09 -->
+        <string name="taskList_deleted">Gelöscht</string>
         
         <!-- menu items -->
-        <string name="taskList_menu_insert">Neue Aufgabe</string><!-- New Tasks, Add or Insert -->
+        <string name="taskList_menu_insert">Neue Aufgabe</string>
         <string name="taskList_menu_tags">Tags</string>
         <string name="taskList_menu_filters">Sortieren/Filter</string>
         <string name="taskList_menu_syncshortcut">Sync</string>
@@ -171,7 +185,7 @@ d</string>
         <string name="taskList_context_stopTimer">Timer stoppen</string>
         <string name="taskList_context_postpone">Aufschieben</string>
         
-        <!-- filter menu -->
+        <!-- filter menu items -->
         <string name="taskList_filter_title">Sortieren/Filter</string>
         <string name="taskList_filter_hidden">Versteckte/Blockierte Aufgaben</string>
         <string name="taskList_filter_done">Erledigte Aufgaben</string>
@@ -277,7 +291,8 @@ d</string>
         <string name="sync_pref_group">Synchronisations-Dienste</string>
         <string name="sync_pref_group_actions">Aktionen</string>
         <string name="sync_pref_group_options">Optionen</string>
-        <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate -->
+        <!-- Proper noun - don't translate -->
+        <string name="sync_rtm_title">Remember The Milk</string>
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
         <string name="sync_interval_title">Auto-Synchronisieren</string>
         <string name="sync_interval_desc">Synchronisiert automatisch im eingestellten Interval, falls ausgewählt</string>
@@ -313,11 +328,7 @@ d</string>
         <string name="sync_progress_remotetx">Empfange: %s</string>
         
         <string name="rtm_login_label">Bitte bei RTM anmelden...</string>
-        <string name="rtm_login_error">
-Sorry, there was an error verifying your login. Please try again.
-\n\n
-Error Message: 
-        </string>
+        <string name="rtm_login_error">Sorry, Fehler bei der Anmeldung. Versuchs noch mal. \n\n Fehlermeldung:</string>
         
        
     <!-- Dialog Boxes -->  
@@ -354,7 +365,7 @@ Error Message:
         <string name="notif_definiteDueDate">Absolute Frist!</string>
         <string name="notif_preferredDueDate">Zielfrist!</string>
         <string name="notif_timerStarted">Arbeite an:</string>
-        <string name="notif_tagNotification">You have %d task(s) tagged %s!</string>
+        <string name="notif_tagNotification">Du hast %d Aufgabe(n) mit Tags versehen %s!</string>
         
     <!-- Error Messages -->  
     <skip/>
@@ -414,12 +425,14 @@ Error Message:
         <string name="prefs_tagsVisible_title">Tags</string>
         <string name="prefs_tagsVisible_desc">Tags, verknüpft mit dieser Aufgabe</string>
         <string name="prefs_repeatVisible_title">Wiederholungen</string>
-        <string name="prefs_repeatVisible_desc">Task repeat information</string>
+        <string name="prefs_repeatVisible_desc">Informationswiederholung der Aufgabe</string>
         <string name="prefs_reminderVisible_title">Erinnerungen</string>
         <string name="prefs_reminderVisible_desc">Anzeige, falls Aufgabenerinnerungen vorhanden</string>
         <string name="prefs_notesVisible_title">Notizen</string>
         <string name="prefs_notesVisible_desc">Notizen, verknüpft mit dieser Aufgabe</string>
 
+    <!-- Translations probably not necessary for the following -->
+    <string name="survey_label">Take Astrid\'s Survey &amp; win a MyTouch 3G!</string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:

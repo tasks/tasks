@@ -30,7 +30,9 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.sync.SyncMapping.SyncMappingDatabaseHelper;
+import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.data.task.TaskModelForSync;
 
 /** Controller for Tag-related operations */
 public class SyncDataController extends AbstractController {
@@ -54,6 +56,15 @@ public class SyncDataController extends AbstractController {
         values.put(SyncMapping.UPDATED, 1);
         return syncDatabase.update(SYNC_TABLE_NAME, values,
                 SyncMapping.TASK + " = " + taskId.getId(), null) > 0;
+    }
+
+    public static void taskUpdated(Context context, AbstractTaskModel task) {
+        if(!(task instanceof TaskModelForSync)) {
+            SyncDataController syncController = new SyncDataController(context);
+            syncController.open();
+            syncController.addToUpdatedList(task.getTaskIdentifier());
+            syncController.close();
+        }
     }
 
     // --- sync mapping
@@ -105,11 +116,17 @@ public class SyncDataController extends AbstractController {
         long newRow = syncDatabase.insert(SYNC_TABLE_NAME, SyncMapping.TASK,
                 mapping.getMergedValues());
 
+        mapping.setId(newRow);
+
         return newRow >= 0;
     }
 
     /** Deletes the given mapping. Returns true on success */
     public boolean deleteSyncMapping(SyncMapping mapping) {
+        // was never saved
+        if(mapping.getId() == 0)
+            return false;
+
         return syncDatabase.delete(SYNC_TABLE_NAME, KEY_ROWID + "=" +
                 mapping.getId(), null) > 0;
     }

@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: astrid-translation\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-06-13 01:16-0700\n"
-"PO-Revision-Date: 2009-06-13 20:21+0000\n"
-"Last-Translator: Tim Su <tim@todoroo.com>\n"
+"PO-Revision-Date: 2009-06-17 11:42+0000\n"
+"Last-Translator: Pablo Ledesma <venraiker@gmail.com>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-06-13 20:28+0000\n"
+"X-Launchpad-Export-Date: 2009-07-17 06:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. application
@@ -292,7 +292,7 @@ msgstr "Ordenar/Filtros"
 
 #: res/values/strings.xml:151( name="taskList_menu_syncshortcut")
 msgid "Sync"
-msgstr "Sinc"
+msgstr "Sincronizar"
 
 #: res/values/strings.xml:152( name="taskList_menu_more")
 msgid "More"
@@ -308,7 +308,7 @@ msgstr "Preferencias"
 
 #: res/values/strings.xml:155( name="taskList_menu_help")
 msgid "Help (opens in Browser)"
-msgstr "Ayuda (se abre en un navegador)"
+msgstr "Ayuda (en nuevo navegador)"
 
 #: res/values/strings.xml:156( name="taskList_menu_survey")
 msgid "Take Astrid\\'s Survey!"
@@ -364,7 +364,7 @@ msgstr "Ordenar por nombre"
 
 #: res/values/strings.xml:173( name="taskList_sort_duedate")
 msgid "Sort By Due Date"
-msgstr "Ordenar por fecha de finalización"
+msgstr "Ordenar fecha finalización"
 
 #: res/values/strings.xml:174( name="taskList_sort_reverse")
 msgid "Sort Reverse"
@@ -423,7 +423,7 @@ msgstr "Nombre de la tarea"
 
 #: res/values/strings.xml:196( name="importance_label")
 msgid "How Important is it?"
-msgstr "¿Cuán impontante es?"
+msgstr "¿Nivel de importancia?"
 
 #: res/values/strings.xml:198( name="tag_hint")
 msgid "Tag Name"
@@ -662,11 +662,11 @@ msgstr "Si está activado la sincronización se hará en el intervalo dado"
 
 #: res/values/strings.xml:281( name="sync_button_title")
 msgid "Main Menu Shortcut"
-msgstr "Acceso directo al menú principal"
+msgstr "Acceso directo al menú"
 
 #: res/values/strings.xml:282( name="sync_button_desc")
 msgid "Show \\\"Synchronize\\\" in Astrid\\'s menu"
-msgstr "Mostrar \\\"Sincronizar\\\" en el menú de Astrid"
+msgstr "Muestra \\\"Sincronizar\\\" en el menú de Astrid"
 
 #: res/values/strings.xml:283( name="sync_quiet_title")
 msgid "Hide Dialogs"
@@ -674,7 +674,7 @@ msgstr "Ocultar dialogos"
 
 #: res/values/strings.xml:284( name="sync_quiet_desc")
 msgid "Hide the Sync Results dialogs"
-msgstr "Ocultar los resultados de la sincronización"
+msgstr "Oculta los resultados de la sincronización"
 
 #: res/values/strings.xml:285( name="sync_bgwifi_title")
 msgid "Auto-Sync Wifi Only"
@@ -709,7 +709,7 @@ msgstr "Borrar datos personales"
 
 #: res/values/strings.xml:295( name="sync_uptodate")
 msgid "Sync: Up to date!"
-msgstr "Sinc: ¡al día!"
+msgstr "¡Sincronización al día!"
 
 #: res/values/strings.xml:296( name="sync_forget_confirm")
 msgid "Clear data for selected services?"
@@ -825,7 +825,7 @@ msgstr "¡Ya acabada!"
 
 #: res/values/strings.xml:333( name="notify_snooze")
 msgid "Snooze"
-msgstr ""
+msgstr "Repetición"
 
 #: res/values/strings.xml:334( name="notify_no")
 msgid "Quit"
@@ -833,7 +833,7 @@ msgstr "Quitar"
 
 #: res/values/strings.xml:335( name="notify_snooze_title")
 msgid "Hours/minutes to snooze?"
-msgstr ""
+msgstr "¿Horas/minutos para repetición?"
 
 #: res/values/strings.xml:338( name="delete_this_task_title")
 msgid "Delete this task?"
@@ -857,10 +857,10 @@ msgid ""
 msgstr ""
 "Algunas cosas que puede que no sepas sobre Astrid:\\n\\n- Para crear una "
 "tarea, ¡solo tienes que empezar a escribir!\\n\r\n"
-"- Mientras editas una tarea, pulsa \\'volver\\' para guardarla\\n- Con una "
-"tarea seleccionada &amp; pulsa 1-4 para cambiar rapidamente de prioridad\\n- "
-"Si una tarea tiene tiempo de finalización, dejala pulsada para posponerla\\"
-"n\\n¡Gracias por usar Astrid!\\n"
+"- Mientras editas una tarea, pulsa \\'volver\\' para guardarla.\\n- Con una "
+"tarea seleccionada pulsa 1-4 para cambiar rapidamente de prioridad.\\n- Si "
+"una tarea tiene tiempo de finalización, dejala pulsada para posponerla.\\n\\"
+"n¡Gracias por usar Astrid!\\n"
 
 #: res/values/strings.xml:357( name="locale_edit_alerts_title")
 msgid "Astrid Tag Alert"
@@ -908,7 +908,7 @@ msgstr "Notificaciones"
 
 #: res/values/strings.xml:380( name="prefs_quietStart_title")
 msgid "Quiet Hours Start"
-msgstr "Comienzo del horario en silencio"
+msgstr "Iniciohorario en silencio"
 
 #: res/values/strings.xml:381( name="prefs_quietStart_desc")
 msgid "Starting hour when Astrid should be quiet (e.g. 22)"
@@ -962,7 +962,7 @@ msgstr "Apariencia"
 
 #: res/values/strings.xml:400( name="prefs_colorize_title")
 msgid "Colorize Task List"
-msgstr "Colorear la lista de tareas"
+msgstr "Colorear lista de tareas"
 
 #: res/values/strings.xml:401( name="prefs_colorize_desc")
 msgid "Different colors for different priorities"
@@ -1063,4 +1063,5 @@ msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Pablo Ledesma https://launchpad.net/~venraiker\n"
-"  Tim Su https://launchpad.net/~tim-todoroo"
+"  Tim Su https://launchpad.net/~tim-todoroo\n"
+"  ninor https://launchpad.net/~subifrisks"

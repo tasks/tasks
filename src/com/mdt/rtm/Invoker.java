@@ -36,8 +36,6 @@ import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.protocol.HTTP;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -80,8 +78,6 @@ public class Invoker {
 
   private static final long INVOCATION_INTERVAL = 400;
 
-  private static final String USER_AGENT = "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.0)";
-
   private long lastInvocation;
 
   private final ApplicationInfo applicationInfo;
@@ -89,8 +85,6 @@ public class Invoker {
   private final MessageDigest digest;
 
   private String serviceRelativeUri;
-
-  private BasicHeader basicHeader;
 
   private HttpClient httpClient;
 
@@ -100,7 +94,6 @@ public class Invoker {
 
         this.serviceRelativeUri = serviceRelativeUri;
 
-        basicHeader = new BasicHeader(HTTP.CHARSET_PARAM, ENCODING);
         httpClient = new DefaultHttpClient();
 
         lastInvocation = System.currentTimeMillis();
@@ -160,14 +153,13 @@ public class Invoker {
 
         final HttpGet request = new HttpGet("http://"
             + ServiceImpl.SERVER_HOST_NAME + requestUri.toString());
-        request.setHeader(basicHeader);
-        request.addHeader("User-Agent", USER_AGENT);
         final String methodUri = request.getRequestLine().getUri();
 
         Element result;
         try {
             Log.i(TAG, "Executing the method:" + methodUri);
             response = httpClient.execute(request);
+            lastInvocation = System.currentTimeMillis();
 
             final int statusCode = response.getStatusLine().getStatusCode();
             if (statusCode != HttpStatus.SC_OK) {
@@ -241,14 +233,19 @@ public class Invoker {
                 }
             }
         } catch (IOException e) {
-            throw new ServiceInternalException("IOException: " + e.getMessage(), e);
+            throw new ServiceInternalException("Error making connection: " +
+                    e.getMessage(), e);
         } catch (SAXException e) {
-            throw new ServiceInternalException("XML Parse: " + e.getMessage(), e);
+            // repeat call if possible.
+            if(!repeat)
+                return invoke(true, params);
+            else
+                throw new ServiceInternalException("Error parsing response. " +
+                		"Please try sync again!", e);
         } finally {
             httpClient.getConnectionManager().closeExpiredConnections();
         }
 
-        lastInvocation = System.currentTimeMillis();
         return result;
     }
 

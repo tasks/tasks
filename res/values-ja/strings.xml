@@ -113,8 +113,9 @@
             <item quantity="one">1 秒</item>
             <item quantity="other">%d 秒</item>
         </plurals>
-        <string name="ago_suffix">前</string><!-- appended after time
-            constants to show time in past -->
+        
+        <!-- appended after time constants to show time in past -->
+        <string name="ago_suffix">前</string>
         
     <!-- TaskList -->
     <skip/>
@@ -126,26 +127,42 @@
         <string name="addtask_label">新規タスク</string>
         <string name="missing_tag">タグが見つかりませんでした!</string>
         
-        <!-- text in the actual list -->
-        <string name="taskList_hiddenPrefix">H</string><!-- prefix to show that a task is hidden -->
-        <string name="taskList_dueRelativeTime">表示まで</string><!-- i.e. Due in 4 days -->
-        <string name="taskList_dueAbsoluteDate">期日まで</string><!-- i.e. Due on Jan 2 -->
-        <string name="taskList_goalPrefix">目標</string><!-- prefix to deadline -->
+        <!-- text displayed in task list item -->
+        
+        <!-- prefix to show that a task is hidden -->
+        <string name="taskList_hiddenPrefix">H</string>
+        <!-- i.e. Due in 4 days -->
+        <string name="taskList_dueRelativeTime">表示まで</string>
+        <!-- i.e. Due on Jan 2 -->
+        <string name="taskList_dueAbsoluteDate">期日まで</string>
+        <!-- prefix to deadline -->
+        <string name="taskList_goalPrefix">目標</string>
         <string name="taskList_overdueBy">遅延</string>
-        <string name="taskList_completedPrefix">完了</string><!-- i.e. Finished 4 days ago -->
-		<string name="taskList_estimatedTimePrefix">概要:</string><!-- i.e.  Estimated 4: hours -->
-        <string name="taskList_elapsedTimePrefix">経過:</string><!-- i.e. Spent  88 minutes on tax. -->
-        <string name="taskList_periodicReminderPrefix">通知周期</string><!-- time interval to set frequency to remind user -->
-        <string name="taskList_repeatPrefix">繰り返し周期</string><!-- time interval to set repeated tasks-->
-        <string name="taskList_repeatsRemotely">サーバーでの周期</string><!-- displayed when repeat is on remote server-->
+        <!-- i.e. Finished 4 days ago -->
+        <string name="taskList_completedPrefix">完了</string>
+		<!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_estimatedTimePrefix">概要:</string>
+        <!-- i.e. Spent  88 minutes on tax. -->
+        <string name="taskList_elapsedTimePrefix">経過:</string>
+        <!-- time interval to set frequency to remind user -->
+        <string name="taskList_periodicReminderPrefix">通知周期</string>
+        
+        <!-- time interval to set repeated tasks-->
+        <string name="taskList_repeatPrefix">繰り返し周期</string>
+        <!-- displayed when repeat is on remote server-->
+        <string name="taskList_repeatsRemotely">サーバーでの周期</string>
         <string name="taskList_alarmPrefix">次のアラーム:</string>
         <string name="taskList_tagsPrefix">タグ:</string>
         <string name="taskList_notesPrefix">メモ:</string>
-        <string name="taskList_createdPrefix">作成日時:</string><!-- Created: MM/DD/YY -->
-        <string name="taskList_deleted">削除済み</string><!-- Deleted: MM/DD/YY -->
+        
+        <!-- i.e. Created: 3/5/09 -->
+        <string name="taskList_createdPrefix">作成日時:</string>
+        
+        <!-- i.e. Deleted: 3/5/09 -->
+        <string name="taskList_deleted">削除済み</string>
         
         <!-- menu items -->
-        <string name="taskList_menu_insert">新規タスク</string><!-- New Tasks, Add or Insert -->
+        <string name="taskList_menu_insert">新規タスク</string>
         <string name="taskList_menu_tags">タグ</string>
         <string name="taskList_menu_filters">ソート/フィルター</string>
         <string name="taskList_menu_syncshortcut">同期する</string>
@@ -163,7 +180,7 @@
         <string name="taskList_context_stopTimer">タイマーを停止</string>
         <string name="taskList_context_postpone">延期する</string>
         
-        <!-- filter menu -->
+        <!-- filter menu items -->
         <string name="taskList_filter_title">ソート/フィルター</string>
         <string name="taskList_filter_hidden">非表示/処理待ちタスク</string>
         <string name="taskList_filter_done">完了したタスク</string>
@@ -269,7 +286,8 @@
         <string name="sync_pref_group">同期サービス</string>
         <string name="sync_pref_group_actions">アクション</string>
         <string name="sync_pref_group_options">オプション</string>
-        <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate -->
+        <!-- Proper noun - don't translate -->
+        <string name="sync_rtm_title">Remember The Milk</string>
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
         <string name="sync_interval_title">自動的に同期する</string>
         <string name="sync_interval_desc">セットすると、自動的に間隔を置いて同期されます</string>
@@ -305,11 +323,7 @@
         <string name="sync_progress_remotetx">受信中: %s</string>
         
         <string name="rtm_login_label">RTMにログインしてください...</string>
-        <string name="rtm_login_error">
-Sorry, there was an error verifying your login. Please try again.
-\n\n
-Error Message: 
-        </string>
+        <string name="rtm_login_error">申し訳ないですが、あなたのログイン状況を確認中にエラーが発生しました。もう一度試してみてください。\n\n エラーメッセージ:</string>
         
        
     <!-- Dialog Boxes -->  
@@ -412,6 +426,8 @@ Error Message:
         <string name="prefs_notesVisible_title">メモ</string>
         <string name="prefs_notesVisible_desc">このタスクの関連メモ</string>
 
+    <!-- Translations probably not necessary for the following -->
+    <string name="survey_label">Take Astrid\'s Survey &amp; win a MyTouch 3G!</string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:

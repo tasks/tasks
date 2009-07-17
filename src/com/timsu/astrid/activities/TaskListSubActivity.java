@@ -35,6 +35,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.StaleDataException;
+import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -280,15 +281,30 @@ public class TaskListSubActivity extends SubActivity {
         });
 
         layout = getView();
-        layout
-                .setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-                    public void onCreateContextMenu(ContextMenu menu, View v,
-                            ContextMenuInfo menuInfo) {
-                        if (menu.hasVisibleItems())
-                            return;
-                        onCreateMoreOptionsMenu(menu);
-                    }
-                });
+        layout.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
+            public void onCreateContextMenu(ContextMenu menu, View v,
+                    ContextMenuInfo menuInfo) {
+                if (menu.hasVisibleItems())
+                    return;
+                onCreateMoreOptionsMenu(menu);
+            }
+        });
+
+        // survey button
+        if(!Preferences.didAAMSurvey(getParent()) && System.currentTimeMillis() <
+                Constants.SURVEY_EXPIRATION) {
+            Button surveyButton = (Button)findViewById(R.id.surveybtn);
+            surveyButton.setVisibility(View.VISIBLE);
+            surveyButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Preferences.setDidAAMSurvey(getParent(), true);
+                    Intent intent = new Intent(Intent.ACTION_VIEW,
+                        Uri.parse(Constants.SURVEY_URL));
+                    launchActivity(intent, 0);
+                }
+            });
+        }
     }
 
     @Override
@@ -537,6 +553,12 @@ public class TaskListSubActivity extends SubActivity {
             context.taskTags = new HashMap<TaskModelForList, String>();
             StringBuilder tagBuilder = new StringBuilder();
             context.tasksById = new HashMap<Long, TaskModelForList>();
+
+            // null may occur when extremely low memory(?)
+            // tsu: i'm not sure why, but we get NPE's from the for loop
+            if(context.taskArray == null)
+                return;
+
             for (Iterator<TaskModelForList> i = context.taskArray.iterator(); i
                     .hasNext();) {
                 if (Thread.interrupted())
@@ -593,22 +615,33 @@ public class TaskListSubActivity extends SubActivity {
             Log.w("astrid", "StaleDataException", e);
             return;
         } catch (final IllegalStateException e) {
-            AstridUtilities.reportFlurryError("task-list-error", e);
 
-            // happens when you run out of memory usually
+            // activity has been closed. suppress error
+            if(e.getMessage().contains("attempt to acquire a reference on a close SQLiteClosable")) {
+                Log.w("astrid", "Caught error", e);
+                AstridUtilities.reportFlurryError("task-list-error-caught", e);
+
+
+            // may happen when you run out of memory usually
+            } else {
+                AstridUtilities.reportFlurryError("task-list-error", e);
+                Log.e("astrid", "Error loading task list", e);
+                handler.post(new Runnable() {
+                    public void run() {
+                        if (!e.getMessage().contains("Couldn't init cursor window"))
+                            return;
+                        DialogUtilities.okDialog(getParent(), "Ran out of memory! "
+                            + "Try restarting Astrid...", null);
+                    }
+                });
+                return;
+            }
+        } catch (SQLiteException e) {
+            // log it but don't throw it
             Log.e("astrid", "Error loading task list", e);
-            handler.post(new Runnable() {
-                public void run() {
-                    if (!e.getMessage().contains("Couldn't init cursor window"))
-                        return;
-                    DialogUtilities.okDialog(getParent(), "Ran out of memory! "
-                        + "Try restarting Astrid...", null);
-                }
-            });
-            return;
+
         } catch (final Exception e) {
             AstridUtilities.reportFlurryError("task-list-error", e);
-
             Log.e("astrid", "Error loading task list", e);
             return;
         }
@@ -631,35 +664,28 @@ public class TaskListSubActivity extends SubActivity {
             public void run() {
                 Resources r = getResources();
                 StringBuilder title = new StringBuilder().append(
-                        r.getString(R.string.taskList_titlePrefix)).append(" ");
+                    r.getString(R.string.taskList_titlePrefix)).append(" ");
                 if (context.filterTag != null) {
-                    if (TagModelForView.UNTAGGED_IDENTIFIER
-                            .equals(context.filterTag.getTagIdentifier())) {
+                    if (TagModelForView.UNTAGGED_IDENTIFIER.equals(context.filterTag.getTagIdentifier())) {
                         title.append(
-                                r.getString(R.string.taskList_titleUntagged))
-                                .append(" ");
+                            r.getString(R.string.taskList_titleUntagged)).append(
+                            " ");
                     } else {
                         title.append(
-                                r.getString(R.string.taskList_titleTagPrefix,
-                                        context.filterTag.getName())).append(
-                                " ");
+                            r.getString(R.string.taskList_titleTagPrefix,
+                                context.filterTag.getName())).append(" ");
                     }
                 }
 
                 if (finalCompleted > 0)
-                    title
-                            .append(r.getQuantityString(R.plurals.NactiveTasks,
-                                    finalActive, finalActive, context.taskArray
-                                            .size()));
+                    title.append(r.getQuantityString(R.plurals.NactiveTasks,
+                        finalActive, finalActive, context.taskArray.size()));
                 else
-                    title
-                            .append(r.getQuantityString(R.plurals.Ntasks,
-                                    context.taskArray.size(), context.taskArray
-                                            .size()));
+                    title.append(r.getQuantityString(R.plurals.Ntasks,
+                        context.taskArray.size(), context.taskArray.size()));
                 if (finalHidden > 0)
                     title.append(" (+").append(finalHidden).append(" ").append(
-                            r.getString(R.string.taskList_hiddenSuffix))
-                            .append(")");
+                        r.getString(R.string.taskList_hiddenSuffix)).append(")");
                 context.windowTitle = title;
             }
         });
@@ -754,8 +780,7 @@ public class TaskListSubActivity extends SubActivity {
 
         if (context.selectedTask != null) {
             try {
-                int selectedPosition = context.listAdapter
-                        .getPosition(context.selectedTask);
+                int selectedPosition = context.listAdapter.getPosition(context.selectedTask);
                 View v = listView.getChildAt(selectedPosition);
                 context.listAdapter.setExpanded(v, context.selectedTask, true);
                 listView.setSelection(selectedPosition);
@@ -766,54 +791,50 @@ public class TaskListSubActivity extends SubActivity {
         }
 
         // filters context menu
-        listView
-                .setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
-                    public void onCreateContextMenu(ContextMenu menu, View v,
-                            ContextMenuInfo menuInfo) {
-                        if (menu.hasVisibleItems())
-                            return;
-                        Resources r = getResources();
-                        menu.setHeaderTitle(R.string.taskList_filter_title);
+        listView.setOnCreateContextMenuListener(new OnCreateContextMenuListener() {
 
-                        MenuItem item = menu.add(Menu.NONE,
-                                CONTEXT_FILTER_HIDDEN, Menu.NONE,
-                                R.string.taskList_filter_hidden);
-                        item.setCheckable(true);
-                        item.setChecked(filterShowHidden);
+            public void onCreateContextMenu(ContextMenu menu, View v,
+                    ContextMenuInfo menuInfo) {
+                if (menu.hasVisibleItems())
+                    return;
+                Resources r = getResources();
+                menu.setHeaderTitle(R.string.taskList_filter_title);
 
-                        item = menu.add(Menu.NONE, CONTEXT_FILTER_DONE,
-                                Menu.NONE, R.string.taskList_filter_done);
-                        item.setCheckable(true);
-                        item.setChecked(filterShowDone);
+                MenuItem item = menu.add(Menu.NONE, CONTEXT_FILTER_HIDDEN,
+                        Menu.NONE, R.string.taskList_filter_hidden);
+                item.setCheckable(true);
+                item.setChecked(filterShowHidden);
 
-                        if (context.filterTag != null) {
-                            item = menu.add(Menu.NONE, CONTEXT_FILTER_TAG,
-                                    Menu.NONE, r.getString(
-                                            R.string.taskList_filter_tagged,
-                                            context.filterTag.getName()));
-                            item.setCheckable(true);
-                            item.setChecked(true);
-                        }
+                item = menu.add(Menu.NONE, CONTEXT_FILTER_DONE, Menu.NONE,
+                        R.string.taskList_filter_done);
+                item.setCheckable(true);
+                item.setChecked(filterShowDone);
 
-                        item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_AUTO,
-                                Menu.NONE, R.string.taskList_sort_auto);
-                        item.setChecked(sortMode == SortMode.AUTO);
-                        item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_ALPHA,
-                                Menu.NONE, R.string.taskList_sort_alpha);
-                        item.setChecked(sortMode == SortMode.ALPHA);
-                        item = menu.add(CONTEXT_SORT_GROUP,
-                                CONTEXT_SORT_DUEDATE, Menu.NONE,
-                                R.string.taskList_sort_duedate);
-                        item.setChecked(sortMode == SortMode.DUEDATE);
-                        menu.setGroupCheckable(CONTEXT_SORT_GROUP, true, true);
+                if (context.filterTag != null) {
+                    item = menu.add(Menu.NONE, CONTEXT_FILTER_TAG, Menu.NONE,
+                            r.getString(R.string.taskList_filter_tagged,
+                                    context.filterTag.getName()));
+                    item.setCheckable(true);
+                    item.setChecked(true);
+                }
 
-                        item = menu.add(CONTEXT_SORT_GROUP,
-                                CONTEXT_SORT_REVERSE, Menu.NONE,
-                                R.string.taskList_sort_reverse);
-                        item.setCheckable(true);
-                        item.setChecked(sortReverse);
-                    }
-                });
+                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_AUTO,
+                        Menu.NONE, R.string.taskList_sort_auto);
+                item.setChecked(sortMode == SortMode.AUTO);
+                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_ALPHA,
+                        Menu.NONE, R.string.taskList_sort_alpha);
+                item.setChecked(sortMode == SortMode.ALPHA);
+                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_DUEDATE,
+                        Menu.NONE, R.string.taskList_sort_duedate);
+                item.setChecked(sortMode == SortMode.DUEDATE);
+                menu.setGroupCheckable(CONTEXT_SORT_GROUP, true, true);
+
+                item = menu.add(CONTEXT_SORT_GROUP, CONTEXT_SORT_REVERSE,
+                        Menu.NONE, R.string.taskList_sort_reverse);
+                item.setCheckable(true);
+                item.setChecked(sortReverse);
+            }
+        });
 
         listView.setOnTouchListener(getGestureListener());
     }

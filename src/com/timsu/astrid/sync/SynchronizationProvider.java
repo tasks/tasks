@@ -130,12 +130,10 @@ public abstract class SynchronizationProvider {
     }
 
     /** Utility method for showing synchronization errors. If message is null,
-     *  the contents of the throwable is displayed.
+     *  the contents of the throwable is displayed. It is assumed that the
+     *  error was logged separately.
      */
     void showError(final Context context, Throwable e, String message) {
-        Log.e("astrid", "Synchronization Error", e);
-        AstridUtilities.reportFlurryError("sync-error", e);
-
         if(isBackgroundService())
         	return;
 

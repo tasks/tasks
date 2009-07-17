@@ -1,0 +1,437 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ASTRID: Android's Simple Task Recording Dashboard
+ 
+  Copyright (c) 2009 Tim Su
+ 
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+ 
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ 
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+	<!-- application -->
+    <string name="app_name">Astrid</string>
+    
+    <!-- General String Constants -->
+    <skip/>
+    
+        <!-- Importance Labels -->
+        <string name="importance_1">!!!!</string>
+        <string name="importance_2">!!!</string>
+        <string name="importance_3">!!</string>
+        <string name="importance_4">!</string>
+        
+        <!-- Repeat Interval Labels -->
+        <string name="repeat_days">дней</string>
+        <string name="repeat_weeks">недель</string>
+        <string name="repeat_months">месяц(ев)</string>
+        <string name="repeat_hours">Час(ов)</string>
+        
+        <!-- Plurals -->
+        
+        <plurals name="Ntasks">
+            <!-- plurals: tasks -->
+            <item quantity="one">1 Задача</item>
+            <item quantity="other">%d Задач</item>
+        </plurals>
+        <plurals name="NactiveTasks">
+            <!-- plurals: active tasks vs total tasks -->
+            <item quantity="one">%d / %d Активных</item>
+            <item quantity="other">%d / %d Активных</item>
+        </plurals>
+        <plurals name="Nalarms">
+            <!-- plurals: alarms -->
+            <item quantity="one">Один будильник</item>
+            <item quantity="two">Два будильника</item>
+            <item quantity="other">%d Будильников</item>
+        </plurals>
+        <plurals name="Ntags">
+            <!-- plurals: tags -->
+            <item quantity="one">1 Метка</item>
+            <item quantity="other">%d Метки</item>
+        </plurals>
+        
+        <!-- Time Constants -->
+        
+        <!-- used for long due dates. c.f. Java's SimpleDateFormat -->
+        <string name="dateFormatter">d MMM</string> 
+        <!--  used for alarms -->
+        <string name="alarmDateFormatter">dd/M HH:mm</string>
+        <!-- vertical labels are used in dialog boxes -->
+        <string name="daysVertical">D\ny\na\ns</string> 
+        <string name="hoursVertical">H\no\nu\nr\ns</string>
+        
+        <plurals name="Ndays">
+            <!-- plurals: days -->
+            <item quantity="one">1 День</item>
+            <item quantity="other">%d Дней</item>
+        </plurals>
+        <plurals name="NdaysPreposition">
+            <!-- plurals: days (used after a preopsition, i.e. due in 5 days) -->
+            <item quantity="one">1 День</item>
+            <item quantity="other">%d Дней</item>
+        </plurals>
+        <plurals name="Nhours">
+            <!-- plurals: hours -->
+            <item quantity="one">1 Час</item>
+            <item quantity="other">%d Часов</item>
+        </plurals>
+        <plurals name="Nminutes">
+            <!-- plurals: minutes -->
+            <item quantity="one">1 Минута</item>
+            <item quantity="other">%d Минут</item>
+        </plurals>
+        <plurals name="Nseconds">
+            <!-- plurals: seconds -->
+            <item quantity="one">1 Секунда</item>
+            <item quantity="other">%d Секунд</item>
+        </plurals>
+        <plurals name="NhoursShort">
+            <!-- plurals: hours (abbreviated) -->
+            <item quantity="one">1 Час</item>
+            <item quantity="other">%d час</item>
+        </plurals>
+        <plurals name="NminutesShort">
+            <!-- plurals: minutes (abbreviated) -->
+            <item quantity="one">1 Мин</item>
+            <item quantity="other">%d Мин</item>
+        </plurals>
+        <plurals name="NsecondsShort">
+            <!-- plurals: seconds (abbreviated) -->
+            <item quantity="one">1 Сек</item>
+            <item quantity="other">%d Сек</item>
+        </plurals>
+        
+        <!-- appended after time constants to show time in past -->
+        <string name="ago_suffix">Назад</string>
+        
+    <!-- TaskList -->
+    <skip/>
+        <!-- title bar -->
+        <string name="taskList_titlePrefix">Astrid:</string>
+        <string name="taskList_titleTagPrefix">Отмечено \"%s\":</string>
+        <string name="taskList_titleUntagged">Задачи без Меток:</string>
+        <string name="taskList_hiddenSuffix">скрытых</string>
+        <string name="addtask_label">Новая задача</string>
+        <string name="missing_tag">Запрошенная Метка не найдена!</string>
+        
+        <!-- text displayed in task list item -->
+        
+        <!-- prefix to show that a task is hidden -->
+        <string name="taskList_hiddenPrefix">С</string>
+        <!-- i.e. Due in 4 days -->
+        <string name="taskList_dueRelativeTime">Выполнить за</string>
+        <!-- i.e. Due on Jan 2 -->
+        <string name="taskList_dueAbsoluteDate">Окончание через</string>
+        <!-- prefix to deadline -->
+        <string name="taskList_goalPrefix">Цель</string>
+        <string name="taskList_overdueBy">Опоздание</string>
+        <!-- i.e. Finished 4 days ago -->
+        <string name="taskList_completedPrefix">Завершена</string>
+		<!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_estimatedTimePrefix">Примерно:</string>
+        <!-- i.e. Spent  88 minutes on tax. -->
+        <string name="taskList_elapsedTimePrefix">Затрачено</string>
+        <!-- time interval to set frequency to remind user -->
+        <string name="taskList_periodicReminderPrefix">Напоминать каждые</string>
+        
+        <!-- time interval to set repeated tasks-->
+        <string name="taskList_repeatPrefix">Повтор каждые</string>
+        <!-- displayed when repeat is on remote server-->
+        <string name="taskList_repeatsRemotely">Повторение на удаленном сервере</string>
+        <string name="taskList_alarmPrefix">Следующий будильник:</string>
+        <string name="taskList_tagsPrefix">Метки:</string>
+        <string name="taskList_notesPrefix">Заметки:</string>
+        
+        <!-- i.e. Created: 3/5/09 -->
+        <string name="taskList_createdPrefix">Создана:</string>
+        
+        <!-- i.e. Deleted: 3/5/09 -->
+        <string name="taskList_deleted">Удалена</string>
+        
+        <!-- menu items -->
+        <string name="taskList_menu_insert">Новая задача</string>
+        <string name="taskList_menu_tags">Метки</string>
+        <string name="taskList_menu_filters">Сорт./Фильтры</string>
+        <string name="taskList_menu_syncshortcut">Синхр.</string>
+        <string name="taskList_menu_more">Еще</string>
+        <string name="taskList_menu_sync">Синхронизация</string>
+        <string name="taskList_menu_settings">Параметры</string>
+        <string name="taskList_menu_help">Справка (в Браузере)</string>
+        <string name="taskList_menu_survey">О возможностях Astrid!</string>
+        <string name="taskList_menu_tips">Подсказки</string>
+        <string name="taskList_menu_cleanup">Удалить старые задачи</string>
+        
+        <string name="taskList_context_edit">Правка задачи</string>
+        <string name="taskList_context_delete">Удалить задачу</string>
+        <string name="taskList_context_startTimer">Пуск таймера</string>
+        <string name="taskList_context_stopTimer">Стоп таймера</string>
+        <string name="taskList_context_postpone">Отложить</string>
+        
+        <!-- filter menu items -->
+        <string name="taskList_filter_title">Сорт./Фильтры</string>
+        <string name="taskList_filter_hidden">Скрытые/Блокированные задачи</string>
+        <string name="taskList_filter_done">Завершенные задачи</string>
+        <string name="taskList_filter_tagged">Отмечено \'%s\'</string>
+        <string name="taskList_sort_auto">Автосортировка</string>
+        <string name="taskList_sort_alpha">Сортировка по имени</string>
+        <string name="taskList_sort_duedate">Сортировка по дате</string>
+        <string name="taskList_sort_reverse">Обратная сортировка</string>
+        
+        <string name="taskList_nonag_reminder">Выбор действия:</string>
+        <string name="taskList_postpone_count">Отложено: %d</string>
+        <string name="taskList_postpone_dialog">Отложить на</string>
+        <string name="taskList_cleanup_dialog">"Удалить выполненные задачи старше # дней:"</string>
+
+    <!-- TaskEdit -->
+    <skip/>
+        <!-- title bar -->
+        <string name="taskEdit_titleGeneric">Astrid: Правка задачи</string>
+        <string name="taskEdit_titlePrefix">Astrid: Правка</string>
+        <string name="taskEdit_label">Astrid: Новая задача</string>
+        
+        <!-- tabs -->
+        <string name="taskEdit_tab_basic">Основное</string>
+        <string name="taskEdit_tab_dates">Даты</string>
+        <string name="taskEdit_tab_alerts">Будильники</string>
+        
+        <!-- labels -->
+        <string name="name_label">Название</string>
+        <string name="name_hint">Название задачи</string>
+        <string name="importance_label">Приоритет задачи</string>
+        <string name="tags_label">Метки:</string>
+        <string name="tag_hint">Метка</string>
+        
+        <string name="estimatedDuration_label">Как много времени займет?</string>
+        <string name="elapsedDuration_label">Уже затрачено времени на задачу</string>
+        <string name="definiteDueDate_label">Срок</string>
+        <string name="preferredDueDate_label">Срок задачи</string>
+        <string name="addToCalendar_label">Добавить задачу в Календарь</string>
+        <string name="showCalendar_label">Открыть Событие календаря</string>
+        <string name="hiddenUntil_label">Скрыть до этой даты</string>
+        <string name="repeat_label">Повторять через</string>
+        <string name="repeat_value_unset">Нет повторов</string>
+        <string name="blockingOn_label">Скрыть до выполнения этой задачи</string>
+        <string name="notes_label">Заметки</string>
+        <string name="notes_hint">Ввод заметок задачи</string>
+        
+        <string name="notification_label">Периодические напоминания</string>
+        <string name="notification_prefix">Через</string>
+        <string name="flags_label">Напоминать...</string>
+        <string name="flag_before">Когда подходит срок</string>
+        <string name="flag_during">При наступлении срока</string>
+        <string name="flag_after">После срока</string>
+        <string name="flag_nonstop">Режим будильника</string>
+        <string name="alerts_label">Заданные напоминания</string>
+        <string name="add_alert">Добавить новое напоминание</string>
+        
+        <!-- dialog boxes -->
+        <string name="hour_minutes_dialog">Время(час : мин)</string>
+        <string name="notification_dialog">Напомнить позже</string>
+        <string name="repeat_picker_title">Повтор каждые (0 - запрет)</string>
+        <string name="repeat_help_dialog_title">Справка: Повторы Astrid</string>
+        <string name="repeat_help_dialog">Для использования повторов, установите хотя бы один из сроков выше. Когда задача будет выполнена, срок будет автоматически перенесен.\n\n Если вы не хотите видеть новую задачу сразу после выполнения предыдущей, используйте поле "Скрыть до", которое также будет автоматически переноситься.\n</string>
+        <string name="repeat_help_hide">Не показывать справку</string>
+        
+        <!-- buttons -->
+        <string name="save_label">Готово</string>
+        <string name="discard_label">Отмена</string>
+        <string name="edit_label">Правка</string>
+        <string name="delete_label">Удалить</string>
+        <string name="blank_button_title">Клик для установки</string>
+        <string name="startTimer_label">Пуск таймера</string>
+        <string name="stopTimer_label">Стоп таймера</string>
+        
+        <string name="taskEdit_menu_save">Готово</string>
+        <string name="taskEdit_onTaskSave_Due">Задача сохранена: завершить через</string>
+        <string name="taskEdit_onTaskSave_Overdue">Задача сохранена: завершена %s назад</string>
+        <string name="taskEdit_onTaskSave_notDue">Задача сохранена</string>
+      
+    <!-- TaskView  -->
+    <skip/>
+    
+        <string name="taskView_notifyTitle">Astrid говорит...</string>
+        
+    <!-- Tag List -->
+    <skip/>
+        <string name="tagList_titlePrefix">Astrid: Просмотр меток:</string>
+        <string name="tagList_context_create">Создать задачу с меткой</string>
+        <string name="tagList_context_edit">Правка метки</string>
+        <string name="tagList_context_delete">Удалить метку</string>
+        <string name="tagList_context_showTag">Показать на Home</string>
+        <string name="tagList_context_hideTag">Убрать с Home</string>
+        <string name="tagList_context_shortcut">Создать ярлык</string>
+        <string name="tagList_shortcut_created">Ярлык создан на Home!</string>
+        <string name="tagList_shortcut_prefix">Метка:</string>
+        <string name="tagList_untagged">[без меток]</string>
+        
+        <string name="tagList_menu_sortAlpha">Сортировка А-Я</string>
+        <string name="tagList_menu_sortSize">Сортировка по размеру</string>
+    
+    
+    <!-- Synchronization -->  
+    <skip/>
+        <string name="sync_pref_group">Сервисы синхронизации</string>
+        <string name="sync_pref_group_actions">Действия</string>
+        <string name="sync_pref_group_options">Параметры</string>
+        <!-- Proper noun - don't translate -->
+        <string name="sync_rtm_title">Remember The Milk</string>
+        <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
+        <string name="sync_interval_title">Автосинхронизация</string>
+        <string name="sync_interval_desc">Если установлено, то синхронизируется автоматически</string>
+        <string name="sync_button_title">Ярлык в Главном меню</string>
+        <string name="sync_button_desc">Показывать \"Синхронизировать\" в меню</string>
+        <string name="sync_quiet_title">Скрыть диалоги</string>
+        <string name="sync_quiet_desc">Скрывать диалоги результата синхронизации</string>
+        <string name="sync_bgwifi_title">Автосинхронизация только по WiFi</string>
+        <string name="sync_bgwifi_desc">Если установлено, то синхронизация только если активен WiFi</string>
+        <string name="sync_error">Ошибка синхронизации! Приносим извинения! Ошибка:</string>
+        <string name="sync_upgrade_v99">Astrid 2.7 будет производить синхронизацию с RTM в фоне. В настройках вы можете настроить как часто это будет происходить.</string>
+        <string name="sync_now">Синхронизировать!</string>
+        <string name="sync_forget">Удалить личные данные</string>
+        <string name="sync_uptodate">Синхронизировано!</string>
+        <string name="sync_forget_confirm">Удалить данные указанных сервисов?</string>
+        <string name="sync_no_synchronizers">Не указаны сервисы синхронизации</string>
+        <string name="sync_last_sync">Дата последней синхронизации: %s</string>
+        <string name="sync_last_auto_sync">Последняя попытка автосинхронизации: %s</string>
+        <string name="sync_date_never">никогда</string>
+        <string name="sync_result_title">%s результатов</string>
+        <string name="sync_result_local">Всего - задач Astrid:</string>
+        <string name="sync_result_remote">Всего - Удаленный сервер:</string>
+        <string name="sync_result_created">Создано: %d</string>
+        <string name="sync_result_updated">Изменено: %d</string>
+        <string name="sync_result_deleted">Удалено: %d</string>
+        <string name="sync_result_merged">Добавлено: %d</string>
+        
+        <string name="sync_progress_remote">Читаем удаленные данные</string>
+        <string name="sync_progress_rxlist">Читаем список: %s</string>
+        <string name="sync_progress_repeating">Синхронизируем повторяющуюся задачу</string>
+        <string name="sync_progress_localtx">Передаем: %s</string>
+        <string name="sync_progress_localdel">Задачи удаленные локально</string>
+        <string name="sync_progress_remotetx">Принимаем: %s</string>
+        
+        <string name="rtm_login_label">Пожалуйста войдите на RTM...</string>
+        <string name="rtm_login_error">Извините, ошибка верификации логина. Попробуйте еще раз. \n\n Сообщение об ошибке:</string>
+        
+       
+    <!-- Dialog Boxes -->  
+    <skip/>
+        <string name="loading">Загрузка...</string>
+        <string name="updating">Обновление списка...</string>
+        <string name="information_title">Информация</string>
+        <string name="question_title">Вопрос</string>
+        <string name="done_label">Готово</string>
+        <string name="notify_yes">Просмотр задачи</string>
+        <string name="notify_done">Уже готово!</string>
+        <string name="notify_snooze">Позже</string>
+        <string name="notify_no">Выход</string>
+        <string name="notify_snooze_title">Часов/минут позже</string>
+        
+        <string name="delete_title">Удалить</string>        
+        <string name="delete_this_task_title">Удалить эту задачу?</string>
+        <string name="delete_this_tag_title">Удалить эту метку из всех задач?</string>
+        
+        <string name="stop_timer_title">Установить таймер?</string>
+        
+        <string name="quick_tips">Вы можете не знать некоторые вещи об Astrid:\n\n - Для создания задачи, просто начните набирать!\n - во время правки задачи "Назад" сохраняет ее\n - у выбранной задачи нажатием 1-4 можно изменить важность\n - если у задачи есть срок, длинное нажатие для переноса\n Спасибо за использование Astrid!\n</string>
+
+    <!-- Locale Plugin -->  
+    <skip/>
+        
+        <string name="locale_edit_alerts_title">Напоминание Astrid</string>
+        <string name="locale_edit_intro">Astrid выдаст вам напоминание когда будут незавершенные задачи с указанными критериями:</string>
+        <string name="locale_pick_tag">Отмечено:</string>
+     
+    <!-- Notification -->  
+    <skip/>
+        
+        <string name="notif_definiteDueDate">Абсолютный срок!</string>
+        <string name="notif_preferredDueDate">Срок цели!</string>
+        <string name="notif_timerStarted">Работаю над:</string>
+        <string name="notif_tagNotification">У вас %d задач отмеченных %s!</string>
+        
+    <!-- Error Messages -->  
+    <skip/>
+    
+        <string name="error_opening">Не могу найти этот элемент:</string>
+        <string name="error_saving">Не могу сохранить:</string>
+        
+    <skip/>
+
+        <string name="prefs_category_alerts">Напоминания</string>
+        
+        <string name="prefs_quietStart_title">Начало тихих часов</string>
+        <string name="prefs_quietStart_desc">Час когда Astrid должен начать быть тихим (например 22)</string>
+        
+        <string name="prefs_quietEnd_title">Конец тихих часов</string>
+        <string name="prefs_quietEnd_desc">Час когда заканчиваются тихие часы (например 08)</string>
+          
+        <string name="prefs_defaultRemind_title">Напоминания по умолчанию</string>
+        <string name="prefs_defaultRemind_desc">Для новых задач, в днях. Очистить для запрета</string>
+        
+        <string name="prefs_annoy_title">Персональный режим</string>
+        <string name="prefs_annoy_desc">Если отмечено, напоминания удаляются по одному.</string>
+        
+        <string name="prefs_notification_title">Мелодия напоминания</string>
+        <string name="prefs_notification_desc">Выбор мелодии будильников Astrid</string>
+
+        <string name="prefs_notificon_title">Иконка напоминания</string>
+        <string name="prefs_notificon_desc">Выбор иконки напоминания Astrid</string>
+        
+        <string name="prefs_category_appearance">Интерфейс</string>
+            
+        <string name="prefs_colorize_title">Цветной список задач</string>
+        <string name="prefs_colorize_desc">Разные цвета для разных приоритетов</string>
+        
+        <string name="prefs_fontSize_title">Шрифт списка задач</string>
+        <string name="prefs_fontSize_desc">Шрифт списка задач</string>
+
+        <string name="prefs_category_other">Другое</string>
+        
+        <string name="prefs_nagging_title">Ворчание Астрида</string>
+        <string name="prefs_nagging_desc">Показывать комментарии Astrid во время просмотра будильников и переносов задач</string>
+
+        <string name="prefs_deadlineTime_title">Крайний срок по умолчанию</string>
+        <string name="prefs_deadlineTime_desc"># дней от текущего для нового крайнего срока</string>
+        
+        <string name="displayedFields_PrefScreen_Title">Отображаемые поля</string>
+        <string name="displayedFields_PrefScreen_Desc">Выберите поля, отображаемые в списке задач</string>
+        
+        <string name="prefs_titleVisible_title">Заголовок задачи</string>
+        <string name="prefs_titleVisible_desc">Описание задачи</string>
+        <string name="prefs_deadlineVisible_title">Даты</string>
+        <string name="prefs_deadlineVisible_desc">Приближающиеся сроки / дата завершения</string>
+        <string name="prefs_timeVisible_title">Таймеры</string>
+        <string name="prefs_timeVisible_desc">Предполагаемое &amp; Затраченное время</string>
+        <string name="prefs_importanceVisible_title">Важность</string>
+        <string name="prefs_importanceVisible_desc">Индикатор важности задачи</string>
+        <string name="prefs_tagsVisible_title">Метки</string>
+        <string name="prefs_tagsVisible_desc">Метки этой задачи</string>
+        <string name="prefs_repeatVisible_title">Повторения</string>
+        <string name="prefs_repeatVisible_desc">Информация о повторах задачи</string>
+        <string name="prefs_reminderVisible_title">Напоминания</string>
+        <string name="prefs_reminderVisible_desc">Показывается если задача имеет напоминания</string>
+        <string name="prefs_notesVisible_title">Заметки</string>
+        <string name="prefs_notesVisible_desc">Заметки, связанные с этой задачей</string>
+
+    <!-- Translations probably not necessary for the following -->
+    <string name="survey_label">Take Astrid\'s Survey &amp; win a MyTouch 3G!</string>
+    
+    <!-- Automatically filled in by Launchpad: -->
+    <string name="about_translators">Launchpad Contributions:
+  Piligrim https://launchpad.net/~piligrim275
+  Prudnikov https://launchpad.net/~prudis</string>
+
+</resources>

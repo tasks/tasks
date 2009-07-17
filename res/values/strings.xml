@@ -113,8 +113,9 @@
             <item quantity="one">1 Sec</item>
             <item quantity="other">%d Sec</item>
         </plurals>
-        <string name="ago_suffix">Ago</string><!-- appended after time
-            constants to show time in past -->
+        
+        <!-- appended after time constants to show time in past -->
+        <string name="ago_suffix">Ago</string>
         
     <!-- TaskList -->
     <skip />
@@ -126,26 +127,42 @@
         <string name="addtask_label">New Task</string>
         <string name="missing_tag">Could Not Find Requested Tag!</string>
         
-        <!-- text in the actual list -->
-        <string name="taskList_hiddenPrefix">H</string><!-- prefix to show that a task is hidden -->
-        <string name="taskList_dueRelativeTime">Due in</string><!-- i.e. Due in 4 days -->
-        <string name="taskList_dueAbsoluteDate">Due on</string><!-- i.e. Due on Jan 2 -->
-        <string name="taskList_goalPrefix">Goal</string><!-- prefix to deadline -->
+        <!-- text displayed in task list item -->
+        
+        <!-- prefix to show that a task is hidden -->
+        <string name="taskList_hiddenPrefix">H</string>
+        <!-- i.e. Due in 4 days -->
+        <string name="taskList_dueRelativeTime">Due in</string>
+        <!-- i.e. Due on Jan 2 -->
+        <string name="taskList_dueAbsoluteDate">Due on</string>
+        <!-- prefix to deadline -->
+        <string name="taskList_goalPrefix">Goal</string>
         <string name="taskList_overdueBy">Overdue by</string>
-        <string name="taskList_completedPrefix">Finished</string><!-- i.e. Finished 4 days ago -->
-		<string name="taskList_estimatedTimePrefix">Estimated:</string><!-- i.e.  Estimated 4: hours -->
-        <string name="taskList_elapsedTimePrefix">Spent:</string><!-- i.e. Spent  88 minutes on tax. -->
-        <string name="taskList_periodicReminderPrefix">Poke Every</string><!-- time interval to set frequency to remind user -->
-        <string name="taskList_repeatPrefix">Repeats Every</string><!-- time interval to set repeated tasks-->
-        <string name="taskList_repeatsRemotely">Repeats On Remote Server</string><!-- displayed when repeat is on remote server-->
+        <!-- i.e. Finished 4 days ago -->
+        <string name="taskList_completedPrefix">Finished</string>
+		<!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_estimatedTimePrefix">Estimated:</string>
+        <!-- i.e. Spent  88 minutes on tax. -->
+        <string name="taskList_elapsedTimePrefix">Spent:</string>
+        <!-- time interval to set frequency to remind user -->
+        <string name="taskList_periodicReminderPrefix">Poke Every</string>
+        
+        <!-- time interval to set repeated tasks-->
+        <string name="taskList_repeatPrefix">Repeats Every</string>
+        <!-- displayed when repeat is on remote server-->
+        <string name="taskList_repeatsRemotely">Repeats On Remote Server</string>
         <string name="taskList_alarmPrefix">Next Alarm:</string>
         <string name="taskList_tagsPrefix">Tags:</string>
         <string name="taskList_notesPrefix">Notes:</string>
-        <string name="taskList_createdPrefix">Created:</string><!-- Created: MM/DD/YY -->
-        <string name="taskList_deleted">Deleted</string><!-- Deleted: MM/DD/YY -->
+        
+        <!-- i.e. Created: <create date> -->
+        <string name="taskList_createdPrefix">Created:</string>
+        
+        <!-- i.e. Deleted: <delete date> -->
+        <string name="taskList_deleted">Deleted</string>
         
         <!-- menu items -->
-        <string name="taskList_menu_insert">New Task</string><!-- New Tasks, Add or Insert -->
+        <string name="taskList_menu_insert">New Task</string>
         <string name="taskList_menu_tags">Tags</string>
         <string name="taskList_menu_filters">Sort/Filters</string>
         <string name="taskList_menu_syncshortcut">Sync</string>
@@ -163,7 +180,7 @@
         <string name="taskList_context_stopTimer">Stop Timer</string>
         <string name="taskList_context_postpone">Postpone</string>
         
-        <!-- filter menu -->
+        <!-- filter menu items -->
         <string name="taskList_filter_title">Sort/Filters</string>
         <string name="taskList_filter_hidden">Hidden/Blocked Tasks</string>
         <string name="taskList_filter_done">Completed Tasks</string>
@@ -274,7 +291,8 @@ If you don\'t want to see the new task right after you complete the old one, you
         <string name="sync_pref_group">Synchronization Services</string>
         <string name="sync_pref_group_actions">Actions</string>
         <string name="sync_pref_group_options">Options</string>
-        <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate -->
+        <!-- Proper noun - don't translate -->
+        <string name="sync_rtm_title">Remember The Milk</string>
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
         <string name="sync_interval_title">Auto-Synchronize</string>
         <string name="sync_interval_desc">If set, synchronization occurs automatically given interval</string>
@@ -431,6 +449,8 @@ Thanks for using Astrid!\n
         <string name="prefs_notesVisible_title">Notes</string>
         <string name="prefs_notesVisible_desc">Notes associated with this task</string>
 
+    <!-- Translations probably not necessary for the following -->
+    <string name="survey_label">Take Astrid\'s Survey &amp; win a MyTouch 3G!</string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">translator-credits</string>

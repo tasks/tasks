@@ -113,8 +113,9 @@
             <item quantity="one">1 Seg</item>
             <item quantity="other">%d Seg</item>
         </plurals>
-        <string name="ago_suffix">Hace</string><!-- appended after time
-            constants to show time in past -->
+        
+        <!-- appended after time constants to show time in past -->
+        <string name="ago_suffix">Hace</string>
         
     <!-- TaskList -->
     <skip/>
@@ -126,33 +127,49 @@
         <string name="addtask_label">Nueva tarea</string>
         <string name="missing_tag">¡No se puede encontrar la etiqueta!</string>
         
-        <!-- text in the actual list -->
-        <string name="taskList_hiddenPrefix">O</string><!-- prefix to show that a task is hidden -->
-        <string name="taskList_dueRelativeTime">Finaliza en</string><!-- i.e. Due in 4 days -->
-        <string name="taskList_dueAbsoluteDate">Finaliza el</string><!-- i.e. Due on Jan 2 -->
-        <string name="taskList_goalPrefix">Meta</string><!-- prefix to deadline -->
+        <!-- text displayed in task list item -->
+        
+        <!-- prefix to show that a task is hidden -->
+        <string name="taskList_hiddenPrefix">O</string>
+        <!-- i.e. Due in 4 days -->
+        <string name="taskList_dueRelativeTime">Finaliza en</string>
+        <!-- i.e. Due on Jan 2 -->
+        <string name="taskList_dueAbsoluteDate">Finaliza el</string>
+        <!-- prefix to deadline -->
+        <string name="taskList_goalPrefix">Meta</string>
         <string name="taskList_overdueBy">Con retraso de</string>
-        <string name="taskList_completedPrefix">Finalizado</string><!-- i.e. Finished 4 days ago -->
-		<string name="taskList_estimatedTimePrefix">Estimado:</string><!-- i.e.  Estimated 4: hours -->
-        <string name="taskList_elapsedTimePrefix">Gastado:</string><!-- i.e. Spent  88 minutes on tax. -->
-        <string name="taskList_periodicReminderPrefix">Molestar cada</string><!-- time interval to set frequency to remind user -->
-        <string name="taskList_repeatPrefix">Repetir cada</string><!-- time interval to set repeated tasks-->
-        <string name="taskList_repeatsRemotely">Repetir en servidor remoto</string><!-- displayed when repeat is on remote server-->
+        <!-- i.e. Finished 4 days ago -->
+        <string name="taskList_completedPrefix">Finalizado</string>
+		<!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_estimatedTimePrefix">Estimado:</string>
+        <!-- i.e. Spent  88 minutes on tax. -->
+        <string name="taskList_elapsedTimePrefix">Gastado:</string>
+        <!-- time interval to set frequency to remind user -->
+        <string name="taskList_periodicReminderPrefix">Molestar cada</string>
+        
+        <!-- time interval to set repeated tasks-->
+        <string name="taskList_repeatPrefix">Repetir cada</string>
+        <!-- displayed when repeat is on remote server-->
+        <string name="taskList_repeatsRemotely">Repetir en servidor remoto</string>
         <string name="taskList_alarmPrefix">Próxima alarma:</string>
         <string name="taskList_tagsPrefix">Etiquetas:</string>
         <string name="taskList_notesPrefix">Notas:</string>
-        <string name="taskList_createdPrefix">Creado:</string><!-- Created: MM/DD/YY -->
-        <string name="taskList_deleted">Borrado</string><!-- Deleted: MM/DD/YY -->
+        
+        <!-- i.e. Created: 3/5/09 -->
+        <string name="taskList_createdPrefix">Creado:</string>
+        
+        <!-- i.e. Deleted: 3/5/09 -->
+        <string name="taskList_deleted">Borrado</string>
         
         <!-- menu items -->
-        <string name="taskList_menu_insert">Nueva tarea</string><!-- New Tasks, Add or Insert -->
+        <string name="taskList_menu_insert">Nueva tarea</string>
         <string name="taskList_menu_tags">Etiquetas</string>
         <string name="taskList_menu_filters">Ordenar/Filtros</string>
-        <string name="taskList_menu_syncshortcut">Sinc</string>
+        <string name="taskList_menu_syncshortcut">Sincronizar</string>
         <string name="taskList_menu_more">Más</string>
         <string name="taskList_menu_sync">Sincronización</string>
         <string name="taskList_menu_settings">Preferencias</string>
-        <string name="taskList_menu_help">Ayuda (se abre en un navegador)</string>
+        <string name="taskList_menu_help">Ayuda (en nuevo navegador)</string>
         <string name="taskList_menu_survey">¡Realizar la encuesta de Astrid!</string>
         <string name="taskList_menu_tips">Consejos rápidos</string>
         <string name="taskList_menu_cleanup">Limpiar antiguas tareas</string>
@@ -163,14 +180,14 @@
         <string name="taskList_context_stopTimer">Parar tiempo</string>
         <string name="taskList_context_postpone">Posponer</string>
         
-        <!-- filter menu -->
+        <!-- filter menu items -->
         <string name="taskList_filter_title">Ordenar/Filtros</string>
         <string name="taskList_filter_hidden">Tareas ocultas/bloqueadas</string>
         <string name="taskList_filter_done">Tareas completadas</string>
         <string name="taskList_filter_tagged">Etiquetado \'%s\'</string>
         <string name="taskList_sort_auto">Auto ordenar</string>
         <string name="taskList_sort_alpha">Ordenar por nombre</string>
-        <string name="taskList_sort_duedate">Ordenar por fecha de finalización</string>
+        <string name="taskList_sort_duedate">Ordenar fecha finalización</string>
         <string name="taskList_sort_reverse">Ordenar al revés</string>
         
         <string name="taskList_nonag_reminder">Elegir una acción:</string>
@@ -193,7 +210,7 @@
         <!-- labels -->
         <string name="name_label">Resumen</string>
         <string name="name_hint">Nombre de la tarea</string>
-        <string name="importance_label">¿Cuán impontante es?</string>
+        <string name="importance_label">¿Nivel de importancia?</string>
         <string name="tags_label">Etiquetas:</string>
         <string name="tag_hint">Nombre de la Etiqueta</string>
         
@@ -269,21 +286,22 @@
         <string name="sync_pref_group">Servicios de sincronización</string>
         <string name="sync_pref_group_actions">Acciones</string>
         <string name="sync_pref_group_options">Opciones</string>
-        <string name="sync_rtm_title">Remember The Milk</string><!-- Proper noun - don't translate -->
+        <!-- Proper noun - don't translate -->
+        <string name="sync_rtm_title">Remember The Milk</string>
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
         <string name="sync_interval_title">Auto-sincronizar</string>
         <string name="sync_interval_desc">Si está activado la sincronización se hará en el intervalo dado</string>
-        <string name="sync_button_title">Acceso directo al menú principal</string>
-        <string name="sync_button_desc">Mostrar \"Sincronizar\" en el menú de Astrid</string>
+        <string name="sync_button_title">Acceso directo al menú</string>
+        <string name="sync_button_desc">Muestra \"Sincronizar\" en el menú de Astrid</string>
         <string name="sync_quiet_title">Ocultar dialogos</string>
-        <string name="sync_quiet_desc">Ocultar los resultados de la sincronización</string>
+        <string name="sync_quiet_desc">Oculta los resultados de la sincronización</string>
         <string name="sync_bgwifi_title">Autosincronizar solo con wifi</string>
         <string name="sync_bgwifi_desc">Si está activado la auto sincronización se hará cuando la Wifi esté activa</string>
         <string name="sync_error">¡Error de sincronización! ¡Siento los problemas! Error:</string>
         <string name="sync_upgrade_v99">Astrid 2.7 sincroniza ahora con RTM en segundo plano. Deberás ir a la página de prefernecias para configurar cada cuanto quieras que esto pase (es un pequeño gasto en la batería).</string>
         <string name="sync_now">¡Sincronizar ahora!</string>
         <string name="sync_forget">Borrar datos personales</string>
-        <string name="sync_uptodate">Sinc: ¡al día!</string>
+        <string name="sync_uptodate">¡Sincronización al día!</string>
         <string name="sync_forget_confirm">¿Borrar datos en los servicios seleccionados?</string>
         <string name="sync_no_synchronizers">¡No hay programas de sincronización activados!</string>
         <string name="sync_last_sync">Última sincronización con fecha: %s</string>
@@ -317,9 +335,9 @@
         <string name="done_label">Listo</string>
         <string name="notify_yes">Ver tarea</string>
         <string name="notify_done">¡Ya acabada!</string>
-        <string name="notify_snooze">Snooze</string>
+        <string name="notify_snooze">Repetición</string>
         <string name="notify_no">Quitar</string>
-        <string name="notify_snooze_title">Hours/minutes to snooze?</string>
+        <string name="notify_snooze_title">¿Horas/minutos para repetición?</string>
         
         <string name="delete_title">Borrar</string>        
         <string name="delete_this_task_title">¿Borrar esta tarea?</string>
@@ -328,7 +346,7 @@
         <string name="stop_timer_title">¿Parar el temporizador?</string>
         
         <string name="quick_tips">Algunas cosas que puede que no sepas sobre Astrid:\n\n- Para crear una tarea, ¡solo tienes que empezar a escribir!\n
-- Mientras editas una tarea, pulsa \'volver\' para guardarla\n- Con una tarea seleccionada &amp; pulsa 1-4 para cambiar rapidamente de prioridad\n- Si una tarea tiene tiempo de finalización, dejala pulsada para posponerla\n\n¡Gracias por usar Astrid!\n</string>
+- Mientras editas una tarea, pulsa \'volver\' para guardarla.\n- Con una tarea seleccionada pulsa 1-4 para cambiar rapidamente de prioridad.\n- Si una tarea tiene tiempo de finalización, dejala pulsada para posponerla.\n\n¡Gracias por usar Astrid!\n</string>
 
     <!-- Locale Plugin -->  
     <skip/>
@@ -355,7 +373,7 @@
 
         <string name="prefs_category_alerts">Notificaciones</string>
         
-        <string name="prefs_quietStart_title">Comienzo del horario en silencio</string>
+        <string name="prefs_quietStart_title">Iniciohorario en silencio</string>
         <string name="prefs_quietStart_desc">Hora de inicio en el cual Astrid estará en silencio (ej. 22)</string>
         
         <string name="prefs_quietEnd_title">Fin del horario en silencio</string>
@@ -375,7 +393,7 @@
         
         <string name="prefs_category_appearance">Apariencia</string>
             
-        <string name="prefs_colorize_title">Colorear la lista de tareas</string>
+        <string name="prefs_colorize_title">Colorear lista de tareas</string>
         <string name="prefs_colorize_desc">Diferentes colores para diferentes prioridades</string>
         
         <string name="prefs_fontSize_title">Fuente para la lista de tareas</string>
@@ -409,10 +427,13 @@
         <string name="prefs_notesVisible_title">Notas</string>
         <string name="prefs_notesVisible_desc">Notas asociadas con esta tarea</string>
 
+    <!-- Translations probably not necessary for the following -->
+    <string name="survey_label">Take Astrid\'s Survey &amp; win a MyTouch 3G!</string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:
   Pablo Ledesma https://launchpad.net/~venraiker
-  Tim Su https://launchpad.net/~tim-todoroo</string>
+  Tim Su https://launchpad.net/~tim-todoroo
+  ninor https://launchpad.net/~subifrisks</string>
 
 </resources>
