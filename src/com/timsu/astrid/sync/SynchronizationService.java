@@ -95,7 +95,8 @@ public class SynchronizationService extends BroadcastReceiver {
         am.cancel(pendingIntent);
 
         // schedule new
-        am.setInexactRepeating(AlarmManager.RTC, offset, interval, pendingIntent);
+        am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + offset,
+                interval, pendingIntent);
     }
 
 
@@ -133,6 +134,7 @@ public class SynchronizationService extends BroadcastReceiver {
         long offset = 0;
         if(latestSyncMillis != 0)
             offset = Math.max(0, latestSyncMillis + interval - System.currentTimeMillis());
+
         return offset;
     }
 

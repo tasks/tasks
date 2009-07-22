@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionName="2.8.8" android:versionCode="115">
+      android:versionName="2.8.8.1" android:versionCode="116">
       
     <!-- ============================ Metadata ============================ -->   
       
