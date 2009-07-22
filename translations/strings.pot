@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-07-22 01:11-0700\n"
+"POT-Creation-Date: 2009-07-22 03:10-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1012,13 +1012,13 @@ msgstr ""
 msgid "Notes associated with this task"
 msgstr ""
 
-#. Translations probably not necessary for the following
-#: res/values/strings.xml:453( name="survey_label") 
-msgid "Take Astrid\\'s Survey &amp; win a MyTouch 3G!"
+#. This string is Astrid's Android Marketplace description. It never appears in the app itself.
+#: res/values/strings.xml:453( name="marketplace_description") 
+msgid "Astrid is the highly-acclaimed open-source task list that is simple enough to not get in your way, powerful enough to help you get stuff done! Tags, reminders, RememberTheMilk sync, Locale plug-in &amp; more!"
 msgstr ""
 
 #. Automatically filled in by Launchpad:
-#: res/values/strings.xml:456( name="about_translators") 
+#: res/values/strings.xml:458( name="about_translators") 
 msgid "translator-credits"
 msgstr ""
 

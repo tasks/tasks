@@ -449,8 +449,10 @@ Thanks for using Astrid!\n
         <string name="prefs_notesVisible_title">Notes</string>
         <string name="prefs_notesVisible_desc">Notes associated with this task</string>
 
-    <!-- Translations probably not necessary for the following -->
-    <string name="survey_label">Take Astrid\'s Survey &amp; win a MyTouch 3G!</string>
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">
+Astrid is the highly-acclaimed open-source task list that is simple enough to not get in your way, powerful enough to help you get stuff done! Tags, reminders, RememberTheMilk sync, Locale plug-in &amp; more!
+    </string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">translator-credits</string>
