@@ -26,8 +26,8 @@ if [ ! -e /usr/bin/gettext ]; then
 fi    
 
 #Set the languages here (long version is the android resource append string).
-short_lang=("ca" "es" "de" "id" "ja" "nb" "ru") #do not include template language ("en" usually).
-long_lang=("ca" "es" "de" "id" "ja" "nb" "ru") #do not include template language ("en" usually).
+short_lang=("ca" "es" "fr" "de" "ja" "ru") #do not include template language ("en" usually).
+long_lang=("ca" "es" "fr" "de" "ja" "ru")
 #Change the dirs where the files are located.
 launchpad_po_files_dir="translations"
 launchpad_pot_file_dir="translations"

@@ -114,8 +114,8 @@
             <item quantity="other">%d 秒</item>
         </plurals>
         
-        <!-- appended after time constants to show time in past -->
-        <string name="ago_suffix">前</string>
+        <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
+        <string name="ago_string">%s 前</string>
         
     <!-- TaskList -->
     <skip/>
@@ -139,10 +139,10 @@
         <string name="taskList_goalPrefix">目標</string>
         <string name="taskList_overdueBy">遅延</string>
         <!-- i.e. Finished 4 days ago -->
-        <string name="taskList_completedPrefix">完了</string>
-		<!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_completedPrefix">Finished %s</string>
+		<!-- i.e.  Estimated: 4 hours -->
         <string name="taskList_estimatedTimePrefix">概要:</string>
-        <!-- i.e. Spent  88 minutes on tax. -->
+        <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
         <string name="taskList_elapsedTimePrefix">経過:</string>
         <!-- time interval to set frequency to remind user -->
         <string name="taskList_periodicReminderPrefix">通知周期</string>
@@ -155,10 +155,10 @@
         <string name="taskList_tagsPrefix">タグ:</string>
         <string name="taskList_notesPrefix">メモ:</string>
         
-        <!-- i.e. Created: 3/5/09 -->
+        <!-- i.e. Created: <create date> -->
         <string name="taskList_createdPrefix">作成日時:</string>
         
-        <!-- i.e. Deleted: 3/5/09 -->
+        <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">削除済み</string>
         
         <!-- menu items -->

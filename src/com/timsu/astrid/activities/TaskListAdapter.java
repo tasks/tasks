@@ -329,9 +329,9 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                         label.append(r.getString(R.string.taskList_completedPrefix)).
                             append(" ");
                         if(Math.abs(secondsLeft) < FULL_DATE_THRESHOLD)
-                            label.append(DateUtilities.getDurationString(r,
-                                    Math.abs(secondsLeft), 1)).
-                                append(" " + r.getString(R.string.ago_suffix));
+                            label.append(r.getString(R.string.ago_string,
+                                    DateUtilities.getDurationString(r,
+                                            Math.abs(secondsLeft), 1)));
                         else
                             label.append(DateUtilities.getFormattedDate(r,
                                     task.getCompletionDate()));
@@ -540,8 +540,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     int secondsAgo = (int) ((System.currentTimeMillis() -
                             task.getCreationDate().getTime())/1000);
                     cachedResult = r.getString(R.string.taskList_createdPrefix) + " " +
-                        DateUtilities.getDurationString(r, Math.abs(secondsAgo), 1) +
-                        " " + r.getString(R.string.ago_suffix);
+                        r.getString(R.string.ago_string, DateUtilities.getDurationString(r, Math.abs(secondsAgo), 1));
                     task.putCachedLabel(KEY_CREATION, cachedResult);
                 }
                 appendLine(expandedDetails, cachedResult);

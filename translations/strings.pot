@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2009-07-17 00:49-0700\n"
+"POT-Creation-Date: 2009-07-22 01:11-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -166,9 +166,9 @@ msgstr ""
 msgid "%d Sec"
 msgstr ""
 
-#. appended after time constants to show time in past
-#: res/values/strings.xml:118( name="ago_suffix") 
-msgid "Ago"
+#. indicates time in past. %s is replaced by time unit i.e. 1 minute
+#: res/values/strings.xml:118( name="ago_string") 
+msgid "%s Ago"
 msgstr ""
 
 #. title bar
@@ -223,15 +223,15 @@ msgstr ""
 
 #. i.e. Finished 4 days ago
 #: res/values/strings.xml:142( name="taskList_completedPrefix") 
-msgid "Finished"
+msgid "Finished %s"
 msgstr ""
 
-#. i.e.  Estimated 4: hours
+#. i.e.  Estimated: 4 hours
 #: res/values/strings.xml:144( name="taskList_estimatedTimePrefix") 
 msgid "Estimated:"
 msgstr ""
 
-#. i.e. Spent  88 minutes on tax.
+#. i.e. Spent: 88 minutes. used to indicate time spent on task
 #: res/values/strings.xml:146( name="taskList_elapsedTimePrefix") 
 msgid "Spent:"
 msgstr ""

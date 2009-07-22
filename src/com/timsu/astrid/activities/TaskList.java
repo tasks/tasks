@@ -38,7 +38,6 @@ import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
-import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.StartupReceiver;
@@ -136,8 +135,6 @@ public class TaskList extends Activity {
             sync.setTagController(tagController);
             sync.setTaskController(taskController);
             sync.synchronize(this, null);
-        } else {
-        	SynchronizationService.start();
         }
 
         // if we have no filter tag, we're not on the last task

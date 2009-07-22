@@ -76,11 +76,6 @@ public class Synchronizer {
         servicesSynced = 0;
         callback = listener;
 
-        // if we're not the autosync service, stop it. also create handler
-        if(!isService) {
-            SynchronizationService.stop();
-        }
-
         continueSynchronization(context);
     }
 
@@ -200,7 +195,6 @@ public class Synchronizer {
         if(getSingleTaskForSync() == null)
             Preferences.setSyncLastSync(context, new Date());
         if(!isService) {
-            SynchronizationService.start();
             TaskListSubActivity.shouldRefreshTaskList = true;
         }
 

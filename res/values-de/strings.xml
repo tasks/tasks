@@ -119,8 +119,8 @@ d</string>
             <item quantity="other">%d Sek</item>
         </plurals>
         
-        <!-- appended after time constants to show time in past -->
-        <string name="ago_suffix">Vor</string>
+        <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
+        <string name="ago_string">vor %s</string>
         
     <!-- TaskList -->
     <skip/>
@@ -144,10 +144,10 @@ d</string>
         <string name="taskList_goalPrefix">Ziel</string>
         <string name="taskList_overdueBy">Überfällig am</string>
         <!-- i.e. Finished 4 days ago -->
-        <string name="taskList_completedPrefix">Erledigt</string>
-		<!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_completedPrefix">Finished %s</string>
+		<!-- i.e.  Estimated: 4 hours -->
         <string name="taskList_estimatedTimePrefix">Zeitschätzung:</string>
-        <!-- i.e. Spent  88 minutes on tax. -->
+        <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
         <string name="taskList_elapsedTimePrefix">Verbracht:</string>
         <!-- time interval to set frequency to remind user -->
         <string name="taskList_periodicReminderPrefix">Anstubsen alle</string>
@@ -160,10 +160,10 @@ d</string>
         <string name="taskList_tagsPrefix">Tags:</string>
         <string name="taskList_notesPrefix">Notizen:</string>
         
-        <!-- i.e. Created: 3/5/09 -->
+        <!-- i.e. Created: <create date> -->
         <string name="taskList_createdPrefix">Erstellt:</string>
         
-        <!-- i.e. Deleted: 3/5/09 -->
+        <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Gelöscht</string>
         
         <!-- menu items -->
@@ -387,7 +387,7 @@ d</string>
         <string name="prefs_defaultRemind_desc">Für neue Aufgaben, in Tagen (z. B. 7). Zum Deaktivieren leer lassen</string>
         
         <string name="prefs_annoy_title">Hartnäckiger Modus</string>
-        <string name="prefs_annoy_desc">Wenn eingestellt, musst du die Erinnerung anschauen, um sie zu entfernen</string>
+        <string name="prefs_annoy_desc">Du musst die Erinnerung anschauen, um sie zu enfternen.</string>
         
         <string name="prefs_notification_title">Erinnerungsklingelton</string>
         <string name="prefs_notification_desc">Wähle einen Klingelton für Astrids Erinnerungen</string>
@@ -406,10 +406,10 @@ d</string>
         <string name="prefs_category_other">Weiteres</string>
         
         <string name="prefs_nagging_title">Nörgel-Nachrichten</string>
-        <string name="prefs_nagging_desc">Astrids Kommentare zeigen, wenn du Erinnerungen anschaust oder Aufgaben aufschiebst?</string>
+        <string name="prefs_nagging_desc">Kommentare zeigen, wenn du Erinnerungen oder Aufgaben aufschiebst?</string>
 
         <string name="prefs_deadlineTime_title">Standardfristen</string>
-        <string name="prefs_deadlineTime_desc"># der Tage ab heute zum Setzen neuer Fristen</string>
+        <string name="prefs_deadlineTime_desc">Anzahl der Tage ab heute zum Setzten neuer Friste</string>
         
         <string name="displayedFields_PrefScreen_Title">Angezeigte Felder</string>
         <string name="displayedFields_PrefScreen_Desc">Wähle die in der Aufgabenliste zu zeigenden Felder aus</string>

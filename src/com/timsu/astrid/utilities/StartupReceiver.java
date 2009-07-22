@@ -72,8 +72,7 @@ public class StartupReceiver extends BroadcastReceiver {
         Preferences.setPreferenceDefaults(context);
 
         // start synchronization service
-        SynchronizationService.setContext(context);
-        SynchronizationService.start();
+        SynchronizationService.scheduleService(context);
 
         hasStartedUp = true;
     }

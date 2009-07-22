@@ -114,8 +114,8 @@
             <item quantity="other">%d Sec</item>
         </plurals>
         
-        <!-- appended after time constants to show time in past -->
-        <string name="ago_suffix">Ago</string>
+        <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
+        <string name="ago_string">%s Ago</string>
         
     <!-- TaskList -->
     <skip />
@@ -139,10 +139,10 @@
         <string name="taskList_goalPrefix">Goal</string>
         <string name="taskList_overdueBy">Overdue by</string>
         <!-- i.e. Finished 4 days ago -->
-        <string name="taskList_completedPrefix">Finished</string>
-		<!-- i.e.  Estimated 4: hours -->
+        <string name="taskList_completedPrefix">Finished %s</string>
+		<!-- i.e.  Estimated: 4 hours -->
         <string name="taskList_estimatedTimePrefix">Estimated:</string>
-        <!-- i.e. Spent  88 minutes on tax. -->
+        <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
         <string name="taskList_elapsedTimePrefix">Spent:</string>
         <!-- time interval to set frequency to remind user -->
         <string name="taskList_periodicReminderPrefix">Poke Every</string>

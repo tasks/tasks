@@ -289,22 +289,6 @@ public class TaskListSubActivity extends SubActivity {
                 onCreateMoreOptionsMenu(menu);
             }
         });
-
-        // survey button
-        if(!Preferences.didAAMSurvey(getParent()) && System.currentTimeMillis() <
-                Constants.SURVEY_EXPIRATION) {
-            Button surveyButton = (Button)findViewById(R.id.surveybtn);
-            surveyButton.setVisibility(View.VISIBLE);
-            surveyButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Preferences.setDidAAMSurvey(getParent(), true);
-                    Intent intent = new Intent(Intent.ACTION_VIEW,
-                        Uri.parse(Constants.SURVEY_URL));
-                    launchActivity(intent, 0);
-                }
-            });
-        }
     }
 
     @Override
@@ -899,9 +883,8 @@ public class TaskListSubActivity extends SubActivity {
                     synchronize();
                 }
 
-                // stop & start synchronization service
-                SynchronizationService.stop();
-                SynchronizationService.start();
+                // schedule synchronization service
+                SynchronizationService.scheduleService(getParent());
 
             } else if (context.taskArray != null
                 && context.taskArray.size() > 0

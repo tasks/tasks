@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!-- Translation Note: 
+           Guidelines to those translating the resources
+            1) Quality over Quantity: the quality of the phrases is important not the number of phrases used in any given 
+            languages.
+            2) Dynamic Equivalence not necessary literal translation but capture the idea and create the same desired effect
+-->
+<resources>
+
+    <!--  
+            Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
+			
+    <string-array name="reminders">
+        <!-- reminders: Make these < 20 chars so the task name is displayed -->
+        <item>Bonjour ! Avez-vous une seconde ?</item>
+        <item>Puis-je vous voir une minute ?</item>
+        <item>Avez-vous quelques minutes ?</item>
+        <item>Aviez-vous oublié ?</item>
+        <item>Excusez moi !</item>
+        <item>Quand vous aurez une minute :</item>
+        <item>Dans votre agenda :</item>
+        <item>Êtes-vous disponible ?</item>
+        <item>C'est Astrid !</item>
+        <item>Salut ! Puis-je vous ennuyer ?</item>
+        <item>Avez-vous une minute ?</item>
+        <item>C\'est le bon jour pour</item>
+    </string-array>
+    
+    <string-array name="reminder_responses">
+        <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
+        <item>J\'ai quelque chose pour vous !</item> 
+        <item>Prêt à oublier ça ?</item>
+        <item>Pourquoi ne faites-vous pas cela ?</item>
+        <item>Et ça ? Vous êtes chaud ?</item>
+        <item>Prêt à faire cela ?</item>
+        <item>Pouvez-vous vous occuper de cela ?</item>
+        <item>Vous ne pourrez être tranquille tant que vous n'aurez pas fini cela !</item>
+        <item>Je vous promets que vous vous sentirez mieux si vous finissez cela !</item>
+        <item>Ne voulez-vous pas faire cela aujourd'hui ?</item>
+        <item>S'il vous plait, finissez cela, je n\'en peux plus !</item>
+        <item>Pouvez-vous finir cela ? Yes you can!</item>
+        <item>Allez-vous faire cela un jour ?</item>
+        <item>Vous vous sentirez mieux après ! C'est parti !</item>
+        <item>Je suis si fière de vous ! Allez, terminez cela !</item>
+        <item>Une petite récompense quand vous aurez fini cela ?</item>
+        <item>Pourriez-vous faire juste cette tâche s'il vous plait ?</item>
+        <item>Il est temps de raccourcir la liste des choses à faire !</item>
+    </string-array>
+    
+    <string-array name="postpone_nags">
+        <!-- Astrid's nagging when user clicks postpone -->
+        <item>Pitié, ne me dites pas que vous êtes un flemmard!</item>
+        <item>Est-ce qu'être parresseux ne rend-il pas vieux parfois ?</item>
+        <item>Quelque part, quelqu'un compte sur vous pour finir ça !</item>
+        <item>Quand vous dîtes "reporter",  vous voulez vraiment dire que vous allez le faire, n'est-ce pas ?</item>
+        <item>C'est la dernière fois que vous décalez, n'est-ce pas ?</item>
+        <item>Finissez cela aujourd'hui, je ne le dirais à personne!</item>
+        <item>Pourquoi reporter quand vous pourriez ... ne pas reporter!</item>
+        <item>Vous finirez par le faire, je suppose?</item>
+        <item>Je pense que vous y allez un peu fort ! Que diriez vous de ne pas le retirer ?</item>
+        <item>Serez-vous capable d'accomplir vos buts si vous faisiez cela ?</item>
+        <item>"Reporter, Reporter, Reporter. Quand changerez-vous !</item>
+        <item>J'en ai marre de vos excuses!  Il suffisait de le faire!</item>
+        <item>N'avez-vous pas donné cette excuse la dernière fois?</item>
+        <item>Je ne peux pas vous aider à organiser votre vie si vous faites ça...</item>
+    </string-array>
+    
+    <string-array name="notif_icon_entries">
+        <!-- Icons for notification tray -->
+        <item>Rose</item>
+        <item>Ennuyeux</item>
+        <item>Astrid</item>
+    </string-array>
+    
+    <string-array name="notif_icon_values">
+        <!-- Corresponding to the constants in Preferences.java (do not edit) -->
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
+    <string-array name="sync_interval_entries">
+        <!-- sync_interval_entries: Synchronization Intervals -->
+        <item>désactiver</item>
+        <item>deux fois par heure</item>
+        <item>chaque heure</item>
+        <item>deux fois par jour</item>
+        <item>quotidien</item>
+        <item>deux fois par semaine</item>
+        <item>hebdomadaire</item>
+    </string-array>
+    
+    <string-array name="sync_interval_values">
+        <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
+        <item>0</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>43200</item>
+        <item>86400</item>
+        <item>302400</item>
+        <item>604800</item>
+    </string-array>
+</resources>
