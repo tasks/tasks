@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    style="@style/WidgetBackground">
+
+    <ImageButton
+    	android:src="@drawable/button_plus" 
+    	android:layout_gravity="right" 
+    	android:layout_width="100px" 
+    	android:layout_height="50px" 
+    	android:background="#00000000" 
+    	android:paddingLeft="38px" 
+    	android:paddingTop="8px"/>
+    	
+    <TextView
+        android:id="@+id/message"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37px"
+        android:padding="10dip"
+        android:gravity="center"
+        android:text="@string/widget_loading"
+        style="@style/Text.Loading" />
+</LinearLayout>

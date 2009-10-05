@@ -31,7 +31,6 @@ import java.util.Random;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.StaleDataException;
@@ -46,8 +45,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +60,7 @@ import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.data.task.TaskModelForEdit;
 import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.sync.Synchronizer;
@@ -121,14 +122,12 @@ public class TaskListSubActivity extends SubActivity {
     // other constants
     private static final int   SORTFLAG_FILTERDONE        = (1 << 5);
     private static final int   SORTFLAG_FILTERHIDDEN      = (1 << 6);
-    private static final int   HIDE_ADD_BTN_PORTRAIT      = 4;
-    private static final int   HIDE_ADD_BTN_LANDSCPE      = 2;
     private static final float POSTPONE_STAT_PCT          = 0.4f;
     private static final int   AUTO_REFRESH_MAX_LIST_SIZE = 50;
 
     // UI components
     private ListView           listView;
-    private Button             addButton;
+    private ImageButton        addButton;
     private View               layout;
     private TextView           loadingText;
 
@@ -273,10 +272,17 @@ public class TaskListSubActivity extends SubActivity {
 
         listView = (ListView) findViewById(R.id.tasklist);
         loadingText = (TextView) findViewById(R.id.loading);
-        addButton = (Button) findViewById(R.id.addtask);
-        addButton.setOnClickListener(new View.OnClickListener() {
+        addButton = (ImageButton) findViewById(R.id.quickAddButton);
+        addButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                createTask(null);
+                TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
+                if(quickAdd.getText().length() > 0) {
+                    quickAddTask(quickAdd.getText().toString());
+                    quickAdd.setText(""); //$NON-NLS-1$
+                    reloadList();
+                } else {
+                    createTask(null);
+                }
             }
         });
 
@@ -289,6 +295,29 @@ public class TaskListSubActivity extends SubActivity {
                 onCreateMoreOptionsMenu(menu);
             }
         });
+    }
+
+    /**
+     * Quick-add a new task
+     * @param title
+     * @return
+     */
+    @SuppressWarnings("nls")
+    protected TaskModelForEdit quickAddTask(String title) {
+        TaskModelForEdit task = getTaskController().createNewTaskForEdit();
+        try {
+            task.setName(title);
+            getTaskController().saveTask(task, false);
+            if (context.filterTag != null) {
+                getTagController().addTag(task.getTaskIdentifier(),
+                        context.filterTag.getTagIdentifier());
+            }
+            return task;
+        } catch (Exception e) {
+            AstridUtilities.reportFlurryError("quick-add-task", e);
+            return task;
+        }
+
     }
 
     @Override
@@ -679,20 +708,6 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Sets up the interface after everything has been loaded */
     private void onTaskListLoaded() {
-        handler.post(new Runnable() {
-            public void run() {
-                // hide "add" button if we have too many tasks
-                int threshold = HIDE_ADD_BTN_PORTRAIT;
-                if (getParent().getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE)
-                    threshold = HIDE_ADD_BTN_LANDSCPE;
-
-                if (context.taskArray.size() > threshold)
-                    addButton.setVisibility(View.GONE);
-                else
-                    addButton.setVisibility(View.VISIBLE);
-            }
-        });
-
         // set up the title
         handler.post(new Runnable() {
             public void run() {
@@ -701,6 +716,8 @@ public class TaskListSubActivity extends SubActivity {
                 loadingText.setVisibility(View.GONE);
             }
         });
+
+        // Export top N tasks to ContentProvider here TODO
     }
 
     class TaskListHooks implements TaskListAdapterHooks {

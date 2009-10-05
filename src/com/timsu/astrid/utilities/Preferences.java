@@ -122,6 +122,30 @@ public class Preferences {
         editor.commit();
     }
 
+    public static boolean is24HourFormat(Context context) {
+        String value = android.provider.Settings.System.getString(context.getContentResolver(),
+        		android.provider.Settings.System.TIME_12_24);
+        boolean b24 =  !(value == null || value.equals("12"));
+        return b24;
+    }
+
+    public static String getTimeFormat(Context context) {
+    	if (is24HourFormat(context)) {
+    		return "H:mm";
+    	} else {
+    		return "h:mm a";
+    	}
+    }
+
+    public static String getDateFormat(Context context) {
+        String value = android.provider.Settings.System.getString(context.getContentResolver(),
+        		android.provider.Settings.System.DATE_FORMAT);
+        if (value == null) {
+            value = "MMM d, yyyy";
+        }
+        return "EEE, " + value;
+    }
+
     // --- notification settings
 
     /** returns hour at which quiet hours start, or null if not set */

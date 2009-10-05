@@ -20,6 +20,8 @@
 package com.timsu.astrid.activities;
 
 import android.app.Activity;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -32,10 +34,12 @@ import android.view.View;
 import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.RemoteViews;
 import android.widget.ViewFlipper;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
+import com.timsu.astrid.appwidget.AstridAppWidgetProvider;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.sync.Synchronizer;
@@ -155,7 +159,18 @@ public class TaskList extends Activity {
     @Override
     protected void onStop() {
         super.onStop();
+        updateWidget();
+
         FlurryAgent.onEndSession(this);
+    }
+
+    private void updateWidget()
+    {
+    	AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+
+    	RemoteViews views = AstridAppWidgetProvider.UpdateService.buildUpdate(this);
+    	ComponentName widgetName = new ComponentName(this, AstridAppWidgetProvider.class);
+    	appWidgetManager.updateAppWidget(widgetName, views);
     }
 
     /** Set up user interface components */

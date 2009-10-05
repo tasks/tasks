@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/widget"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    style="@style/WidgetBackgroundLand">
+
+    <ImageButton
+    	android:id="@+id/widget_button"
+    	android:src="@drawable/button_plus" 
+    	android:layout_gravity="right" 
+    	android:layout_width="100px" 
+    	android:layout_height="50px" 
+    	android:background="#00000000" 
+    	android:paddingLeft="38px" 
+    	android:paddingTop="4px"/>
+    	
+    <LinearLayout 
+    	android:layout_width="fill_parent"
+    	android:layout_height="fill_parent"
+	    android:orientation="vertical">
+    	
+    	<TextView
+	        android:id="@+id/task_1"
+	        android:layout_width="wrap_content" 
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:text="@string/task_name1"
+	        android:singleLine="true"
+	        android:maxWidth="170dip"
+	        style="@style/Text.Loading" 
+	        android:layout_marginLeft="23px"/>
+
+	    <ImageView
+	        android:id="@+id/separator_1"
+	        android:layout_width="wrap_content" 
+	        android:layout_alignParentLeft="true"
+	        android:src="@drawable/separator"
+	    	android:layout_gravity="center_horizontal" 
+	    	android:layout_height="wrap_content" 
+	    	android:layout_marginTop="4px"/>
+
+
+    	<TextView
+	        android:id="@+id/task_2"
+	        android:layout_width="wrap_content" 
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:singleLine="true"
+	        android:maxWidth="170dip"
+	        android:text="@string/task_name2"
+	        style="@style/Text.Loading" 
+	        android:layout_marginLeft="23px"
+	        android:layout_marginTop="4px"/>
+
+	    <ImageView
+	        android:id="@+id/separator_2"
+	        android:layout_width="wrap_content" 
+	        android:layout_alignParentLeft="true"
+	        android:src="@drawable/separator"
+	    	android:layout_gravity="center_horizontal" 
+	    	android:layout_height="wrap_content" 
+	    	android:layout_marginTop="4px"/>
+
+
+    	<TextView
+	        android:id="@+id/task_3"
+	        android:layout_width="wrap_content" 
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:singleLine="true"
+	        android:maxWidth="170dip"
+	        android:text="@string/task_name2"
+	        style="@style/Text.Loading" 
+	        android:layout_marginLeft="23px"
+	        android:layout_marginTop="4px"/>
+	        
+	    <ImageView
+	        android:id="@+id/separator_3"
+	        android:layout_width="wrap_content" 
+	        android:layout_alignParentLeft="true"
+	        android:src="@drawable/separator"
+	    	android:layout_gravity="center_horizontal" 
+	    	android:layout_height="wrap_content" 
+	    	android:layout_marginTop="50px"/>
+
+
+    	<TextView
+	        android:id="@+id/task_4"
+	        android:layout_width="wrap_content" 
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:singleLine="true"
+	        android:maxWidth="170dip"
+	        android:text="@string/task_name2"
+	        style="@style/Text.Loading" 
+	        android:layout_marginLeft="23px"
+	        android:layout_marginTop="4px"/>
+
+	    <ImageView
+	        android:id="@+id/separator_4"
+	        android:layout_width="wrap_content" 
+	        android:layout_alignParentLeft="true"
+	        android:src="@drawable/separator"
+	    	android:layout_gravity="center_horizontal" 
+	    	android:layout_height="wrap_content" 
+	    	android:layout_marginTop="4px"/>
+
+
+    	<TextView
+	        android:id="@+id/task_5"
+	        android:layout_width="wrap_content" 
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:singleLine="true"
+	        android:maxWidth="170dip"
+	        android:text="@string/task_name2"
+	        style="@style/Text.Loading" 
+	        android:layout_marginLeft="23px"
+	        android:layout_marginTop="4px"/>
+    </LinearLayout>
+</LinearLayout>

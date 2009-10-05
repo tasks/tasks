@@ -20,12 +20,16 @@ public class DialogUtilities {
      */
     public static void okDialog(Context context, String text,
             DialogInterface.OnClickListener okListener) {
-        new AlertDialog.Builder(context)
-        .setTitle(R.string.information_title)
-        .setMessage(text)
-        .setIcon(android.R.drawable.ic_dialog_alert)
-        .setPositiveButton(android.R.string.ok, okListener)
-        .show();
+        try {
+            new AlertDialog.Builder(context)
+            .setTitle(R.string.information_title)
+            .setMessage(text)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(android.R.string.ok, okListener)
+            .show();
+        } catch (Exception e) {
+            AstridUtilities.reportFlurryError("show-dialog", e);
+        }
     }
 
     /**
@@ -39,13 +43,17 @@ public class DialogUtilities {
     public static void okCancelDialog(Context context, String text,
             DialogInterface.OnClickListener okListener,
             DialogInterface.OnClickListener cancelListener) {
-        new AlertDialog.Builder(context)
-        .setTitle(R.string.information_title)
-        .setMessage(text)
-        .setIcon(android.R.drawable.ic_dialog_alert)
-        .setPositiveButton(android.R.string.ok, okListener)
-        .setNegativeButton(android.R.string.cancel, cancelListener)
-        .show();
+        try {
+            new AlertDialog.Builder(context)
+            .setTitle(R.string.information_title)
+            .setMessage(text)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(android.R.string.ok, okListener)
+            .setNegativeButton(android.R.string.cancel, cancelListener)
+            .show();
+        } catch (Exception e) {
+            AstridUtilities.reportFlurryError("show-dialog", e);
+        }
     }
 
     /**

@@ -113,21 +113,21 @@
             android:paddingTop="5dip"
             android:baselineAligned="false">
             
-            <Button android:id="@+id/save"
+            <Button android:id="@+id/save_general"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/save_label"
             />
             
-            <Button android:id="@+id/discard"
+            <Button android:id="@+id/discard_general"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/discard_label"
             />
             
-            <Button android:id="@+id/delete"
+            <Button android:id="@+id/delete_general"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -285,6 +285,34 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"/>
 
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dip"
+            android:baselineAligned="false">
+            
+            <Button android:id="@+id/save_dates"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/save_label"
+            />
+            
+            <Button android:id="@+id/discard_dates"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/discard_label"
+            />
+            
+            <Button android:id="@+id/delete_dates"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/delete_label"
+            />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
 
@@ -347,6 +375,35 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/flag_nonstop"/>
+            
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dip"
+            android:baselineAligned="false">
+            
+            <Button android:id="@+id/save_notify"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/save_label"
+            />
+            
+            <Button android:id="@+id/discard_notify"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/discard_label"
+            />
+            
+            <Button android:id="@+id/delete_notify"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/delete_label"
+            />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>
 

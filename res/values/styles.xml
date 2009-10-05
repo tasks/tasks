@@ -49,5 +49,20 @@
         <item name="android:textStyle">bold</item>
     </style>
     
+	<style name="WidgetBackground">
+		<item name="android:background">@drawable/widget_frame_complete</item>
+	</style>
+
+	<style name="WidgetBackgroundLand">
+		<item name="android:background">@drawable/widget_frame_land</item>
+	</style>
+	
+	<style name="Text">
+	</style>
+
+	<style name="Text.Loading">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/black</item>
+	</style>
 
 </resources>

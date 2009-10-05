@@ -38,8 +38,8 @@ import com.timsu.astrid.utilities.Preferences;
 public class DateControlSet implements OnTimeSetListener,
         OnDateSetListener, View.OnClickListener {
 
-    private static final Format dateFormatter = new SimpleDateFormat("EEE, MMM d, yyyy");
-    private static final Format timeFormatter = new SimpleDateFormat("h:mm a");
+    private Format dateFormatter = null;
+    private Format timeFormatter = null;
 
     protected final Activity activity;
     protected Button dateButton;
@@ -48,10 +48,14 @@ public class DateControlSet implements OnTimeSetListener,
 
     protected DateControlSet(Activity activity) {
         this.activity = activity;
+        this.dateFormatter = new SimpleDateFormat(Preferences.getDateFormat(this.activity));
+        this.timeFormatter = new SimpleDateFormat(Preferences.getTimeFormat(this.activity));
     }
 
     public DateControlSet(Activity activity, Button dateButton, Button timeButton) {
         this.activity = activity;
+        this.dateFormatter = new SimpleDateFormat(Preferences.getDateFormat(this.activity));
+        this.timeFormatter = new SimpleDateFormat(Preferences.getTimeFormat(this.activity));
         this.dateButton = dateButton;
         this.timeButton = timeButton;
 
@@ -106,7 +110,7 @@ public class DateControlSet implements OnTimeSetListener,
     public void onClick(View v) {
         if(v == timeButton)
             new TimePickerDialog(activity, this, date.getHours(),
-                date.getMinutes(), false).show();
+                date.getMinutes(), Preferences.is24HourFormat(activity)).show();
         else
             new DatePickerDialog(activity, this, 1900 +
                     date.getYear(), date.getMonth(), date.getDate()).show();

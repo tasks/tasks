@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionCode="118" android:versionName="2.9.0.1">
+      android:versionCode="119" android:versionName="2.9.1">
       
     <!-- ============================ Metadata ============================ -->   
       
@@ -22,7 +22,8 @@
         <!-- ======================== Activities ========================= -->
         
         <!-- Activity that displays the task list -->
-        <activity android:name=".activities.TaskList">
+        <activity android:name=".activities.TaskList"
+                  android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -31,7 +32,7 @@
         
         <!-- Activity that redirects to a task list, invoked by notifications -->
         <activity android:name=".activities.TaskListNotify"
-                  android:launchMode="singleTop" />
+                  android:launchMode="singleTop" /> />
         
         <!--  Activity that creates or edits tasks -->
         <activity android:name=".activities.TaskEdit"
@@ -92,8 +93,19 @@
             </intent-filter>
         </receiver>
 
+		<receiver android:name=".appwidget.AstridAppWidgetProvider" >
+		    <intent-filter>
+		        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+		    </intent-filter>
+		    <meta-data android:name="android.appwidget.provider"
+		               android:resource="@xml/widget_provider_info" />
+		</receiver>
+
+
         <!-- ======================== Services ========================== -->
              
+		<service android:name=".appwidget.AstridAppWidgetProvider$UpdateService"></service>
+
     </application>    
         
 </manifest> 

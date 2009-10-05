@@ -28,6 +28,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -37,6 +38,7 @@ import android.util.Log;
 
 import com.timsu.astrid.activities.TaskEdit;
 import com.timsu.astrid.activities.TaskListSubActivity;
+import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
@@ -254,6 +256,12 @@ public class TaskController extends AbstractController {
             }
 
             SyncDataController.taskUpdated(context, task);
+        }
+
+        // notify widget that something changed
+        if(saveSucessful) {
+            Intent intent = new Intent(context, UpdateService.class);
+            context.startService(intent);
         }
 
         return saveSucessful;
@@ -499,6 +507,30 @@ public class TaskController extends AbstractController {
         alertController.open();
         Notifications.updateAlarm(context, this, alertController, task);
         alertController.close();
+    }
+
+    public ArrayList<TaskModelForWidget> getTasksForWidget(String limit) {
+
+    	Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForList.FIELD_LIST,
+    	        AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
+                AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
+                AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
+                System.currentTimeMillis() + ")", null, null, null,
+                AbstractTaskModel.IMPORTANCE + " * " + (3 * 24 * 3600 * 1000L) +
+                    " + CASE WHEN MAX(" + AbstractTaskModel.DEFINITE_DUE_DATE + "," +
+                    AbstractTaskModel.PREFERRED_DUE_DATE + ") = 0 THEN " +
+                    (System.currentTimeMillis() + 7 * 24 * 3600 * 1000L) +
+                    " ELSE MIN(" + AbstractTaskModel.DEFINITE_DUE_DATE + "," +
+                    AbstractTaskModel.PREFERRED_DUE_DATE + ") END", limit);
+
+    	try {
+            ArrayList<TaskModelForWidget> list = new ArrayList<TaskModelForWidget>();
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+                list.add(new TaskModelForWidget(cursor));
+            return list;
+    	} finally {
+    	    cursor.close();
+    	}
     }
 
     // --- boilerplate

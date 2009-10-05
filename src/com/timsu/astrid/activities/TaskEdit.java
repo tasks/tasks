@@ -43,7 +43,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -138,6 +140,23 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     private List<TagModelForView>  tags;
     private List<TagIdentifier>    taskTags;
     private int nameEditInputType;
+
+    // OnClickListeners for save, discard and delete
+    private View.OnClickListener mSaveListener = new View.OnClickListener() {
+        public void onClick(View v) {
+        	saveButtonClick();
+        }
+    };
+    private View.OnClickListener mDiscardListener = new View.OnClickListener() {
+        public void onClick(View v) {
+        	discardButtonClick();
+        }
+    };
+    private View.OnClickListener mDeleteListener = new View.OnClickListener() {
+        public void onClick(View v) {
+        	deleteButtonClick();
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -449,29 +468,35 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     /** Set up button listeners */
     private void setUpListeners() {
-        Button saveButton = (Button) findViewById(R.id.save);
-        saveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                saveButtonClick();
-            }
-        });
+        Button saveButtonGeneral = (Button) findViewById(R.id.save_general);
+        saveButtonGeneral.setOnClickListener(mSaveListener);
 
-        Button discardButton = (Button) findViewById(R.id.discard);
-        discardButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                discardButtonClick();
-            }
-        });
+        Button saveButtonDates = (Button) findViewById(R.id.save_dates);
+        saveButtonDates.setOnClickListener(mSaveListener);
 
-        Button deleteButton = (Button) findViewById(R.id.delete);
-        if(model.getTaskIdentifier() == null)
-            deleteButton.setVisibility(View.GONE);
-        else {
-            deleteButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    deleteButtonClick();
-                }
-            });
+        Button saveButtonNotify = (Button) findViewById(R.id.save_notify);
+        saveButtonNotify.setOnClickListener(mSaveListener);
+
+        Button discardButtonGeneral = (Button) findViewById(R.id.discard_general);
+        discardButtonGeneral.setOnClickListener(mDiscardListener);
+
+        Button discardButtonDates = (Button) findViewById(R.id.discard_dates);
+        discardButtonDates.setOnClickListener(mDiscardListener);
+
+        Button discardButtonNotify = (Button) findViewById(R.id.discard_notify);
+        discardButtonNotify.setOnClickListener(mDiscardListener);
+
+        Button deleteButtonGeneral = (Button) findViewById(R.id.delete_general);
+        Button deleteButtonDates = (Button) findViewById(R.id.delete_dates);
+        Button deleteButtonNotify = (Button) findViewById(R.id.delete_notify);
+        if(model.getTaskIdentifier() == null) {
+        	deleteButtonGeneral.setVisibility(View.GONE);
+        	deleteButtonDates.setVisibility(View.GONE);
+        	deleteButtonNotify.setVisibility(View.GONE);
+        } else {
+            deleteButtonGeneral.setOnClickListener(mDeleteListener);
+            deleteButtonDates.setOnClickListener(mDeleteListener);
+            deleteButtonNotify.setOnClickListener(mDeleteListener);
         }
 
         Button addAlertButton = (Button) findViewById(R.id.addAlert);
@@ -487,11 +512,11 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             }
         });
 
-        name.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
+        name.setOnTouchListener(new OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
                 name.setInputType(nameEditInputType);
+                name.setOnTouchListener(null);
+                return false;
             }
         });
     }

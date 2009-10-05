@@ -161,6 +161,8 @@
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Deleted</string>
         
+        <string name="quick_add_hint">Add New Task</string>
+        
         <!-- menu items -->
         <string name="taskList_menu_insert">New Task</string>
         <string name="taskList_menu_tags">Tags</string>
@@ -458,4 +460,12 @@ Astrid is the highly-acclaimed open-source task list that is simple enough to no
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">translator-credits</string>
 
+    <!-- Widget text: -->
+	<string name="widget_loading">Loading...</string>
+	<string name="task_name1">This is a task one</string>
+	<string name="task_name2">Task two here</string>
+	<string name="task_name3">This is task number three</string>
+	<string name="task_name4">The fourth task</string>
+	<string name="task_name5">Task five this is</string>
+	
 </resources>
