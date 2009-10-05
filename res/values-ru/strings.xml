@@ -360,7 +360,7 @@
         <string name="notif_definiteDueDate">Абсолютный срок!</string>
         <string name="notif_preferredDueDate">Срок цели!</string>
         <string name="notif_timerStarted">Работаю над:</string>
-        <string name="notif_tagNotification">У вас %d задач отмеченных %s!</string>
+        <string name="notif_tagNotification">У вас $NUM отмеченных $TAG!</string>
         
     <!-- Error Messages -->  
     <skip/>

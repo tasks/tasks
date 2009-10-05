@@ -365,7 +365,7 @@ d</string>
         <string name="notif_definiteDueDate">Absolute Frist!</string>
         <string name="notif_preferredDueDate">Zielfrist!</string>
         <string name="notif_timerStarted">Arbeite an:</string>
-        <string name="notif_tagNotification">Du hast %d Aufgabe(n) mit Tags versehen %s!</string>
+        <string name="notif_tagNotification">Du hast $NUM mit Tags versehen $TAG!</string>
         
     <!-- Error Messages -->  
     <skip/>

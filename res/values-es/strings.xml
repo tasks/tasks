@@ -361,7 +361,7 @@
         <string name="notif_definiteDueDate">¡Fecha límite absoluta!</string>
         <string name="notif_preferredDueDate">¡Fin de fecha límite!</string>
         <string name="notif_timerStarted">Trabajando en:</string>
-        <string name="notif_tagNotification">¡Tienes %d tarea(s) etiquetada(s) %s!</string>
+        <string name="notif_tagNotification">¡Tienes $NUM etiquetada(s) $TAG!</string>
         
     <!-- Error Messages -->  
     <skip/>

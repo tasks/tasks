@@ -37,6 +37,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -136,6 +137,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     private AlertController        alertController;
     private List<TagModelForView>  tags;
     private List<TagIdentifier>    taskTags;
+    private int nameEditInputType;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -168,6 +170,10 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
         setUpUIComponents();
 		setUpListeners();
+
+		// hack to disable name input box until user requests it
+		nameEditInputType = name.getInputType();
+		name.setInputType(InputType.TYPE_NULL);
     }
 
     @Override
@@ -198,6 +204,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             FlurryAgent.onEvent("edit-task");
         	name.setText(model.getName());
         }
+
         if(model.getName().length() > 0)
             setTitle(new StringBuilder().
                 append(r.getString(R.string.taskEdit_titlePrefix)).
@@ -264,6 +271,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             repeatInterval.setSelection(repeatInfo.getInterval().ordinal());
         } else
             setRepeatValue(0);
+
     }
 
     /** Save task model from values in UI components */
@@ -476,6 +484,14 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         repeatValue.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 repeatValueClick();
+            }
+        });
+
+        name.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                name.setInputType(nameEditInputType);
             }
         });
     }

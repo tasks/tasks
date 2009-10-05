@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionName="2.8.8.1" android:versionCode="116">
+      android:versionCode="118" android:versionName="2.9.0.1">
       
     <!-- ============================ Metadata ============================ -->   
       
@@ -39,7 +39,7 @@
         		android:label="@string/taskEdit_label">
         	<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
@@ -47,7 +47,7 @@
         <activity android:name=".activities.TagView">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.HOME" />
+                <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         
@@ -88,7 +88,7 @@
         <receiver android:name=".utilities.StartupReceiver">
             <intent-filter>
                  <action android:name="android.intent.action.BOOT_COMPLETED" />
-                 <category android:name="android.intent.category.HOME" />
+                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
 

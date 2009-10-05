@@ -23,6 +23,7 @@ public class Preferences {
     private static final String P_SYNC_LAST_SYNC_ATTEMPT = "lastsyncattempt";
     private static final String P_LOCALE_LAST_NOTIFY = "locnot";
     private static final String P_DID_ANDROID_AND_ME_SURVEY = "aamsurvey";
+    private static final String P_TAG_LIST_SORT = "tgsort";
 
     // pref values
     public static final int ICON_SET_PINK = 0;
@@ -200,6 +201,18 @@ public class Preferences {
 
     /** TaskListSort: the sorting method for the task list */
     public static void setTaskListSort(Context context, int value) {
+        Editor editor = getPrefs(context).edit();
+        editor.putInt(P_TASK_LIST_SORT, value);
+        editor.commit();
+    }
+
+    /** TagListSort: the sorting method for the tag list */
+    public static int getTagListSort(Context context) {
+        return getPrefs(context).getInt(P_TASK_LIST_SORT, 0);
+    }
+
+    /** TagListSort: the sorting method for the tag list */
+    public static void setTagListSort(Context context, int value) {
         Editor editor = getPrefs(context).edit();
         editor.putInt(P_TASK_LIST_SORT, value);
         editor.commit();

@@ -360,7 +360,7 @@
         <string name="notif_definiteDueDate">Date Limite !</string>
         <string name="notif_preferredDueDate">Date prévue !</string>
         <string name="notif_timerStarted">Travaille sur :</string>
-        <string name="notif_tagNotification">Vous avez %d tâche(s) avec tags %s !</string>
+        <string name="notif_tagNotification">Vous avez $NUM avec tags $TAG!</string>
         
     <!-- Error Messages -->  
     <skip/>

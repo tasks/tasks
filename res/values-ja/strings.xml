@@ -360,7 +360,7 @@
         <string name="notif_definiteDueDate">期日!</string>
         <string name="notif_preferredDueDate">目標日!</string>
         <string name="notif_timerStarted">処理中:</string>
-        <string name="notif_tagNotification">You have %d task(s) tagged %s!</string>
+        <string name="notif_tagNotification">'$TAG'とタグ付けされた$NUMがあります!</string>
         
     <!-- Error Messages -->  
     <skip/>

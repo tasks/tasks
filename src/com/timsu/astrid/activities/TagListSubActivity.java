@@ -61,6 +61,7 @@ import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.utilities.DialogUtilities;
+import com.timsu.astrid.utilities.Preferences;
 
 
 /**
@@ -79,15 +80,15 @@ public class TagListSubActivity extends SubActivity {
     private static final int CONTEXT_SHOWHIDE_ID   = Menu.FIRST + 12;
     private static final int CONTEXT_SHORTCUT_ID   = Menu.FIRST + 13;
 
-    private ListView listView;
-    private LinkedList<TagModelForView> tagArray;
+    protected ListView listView;
+    protected LinkedList<TagModelForView> tagArray;
     HashMap<TagModelForView, Integer> tagToTaskCount;
-    private Handler handler;
-    private TextView loadingText;
-    private boolean untaggedTagDisplayed;
+    protected Handler handler;
+    protected TextView loadingText;
+    protected boolean untaggedTagDisplayed;
 
-    private static SortMode sortMode = SortMode.SIZE;
-    private static boolean sortReverse = false;
+    protected static SortMode sortMode = SortMode.SIZE;
+    protected static boolean sortReverse = false;
 
     public TagListSubActivity(TaskList parent, int code, View view) {
     	super(parent, code, view);
@@ -102,11 +103,12 @@ public class TagListSubActivity extends SubActivity {
         // time to go!
         new Thread(new Runnable() {
             public void run() {
+                loadTagListSort();
                 fillData();
             }
         }).start();
 
-        FlurryAgent.onEvent("view-tags");
+        FlurryAgent.onEvent("view-tags"); //$NON-NLS-1$
     }
 
     // --- stuff for sorting
@@ -179,10 +181,36 @@ public class TagListSubActivity extends SubActivity {
             Collections.reverse(tagArray);
     }
 
+    /** Save the sorting mode to the preferences */
+    private void saveTagListSort() {
+        int sortId = sortMode.ordinal() + 1;
+
+        if (sortReverse)
+            sortId *= -1;
+
+        Preferences.setTagListSort(getParent(), sortId);
+    }
+
+    /** Save the sorting mode to the preferences */
+    protected void loadTagListSort() {
+        try {
+            int sortId = Preferences.getTagListSort(getParent());
+            if (sortId == 0)
+                return;
+            sortReverse = sortId < 0;
+            sortId = Math.abs(sortId) - 1;
+
+            sortMode = SortMode.values()[sortId];
+        } catch (Exception e) {
+            // do nothing
+        }
+    }
+
+
     // --- fill data
 
     /** Fill in the Tag List with our tags */
-    private synchronized void fillData() {
+    protected synchronized void fillData() {
         try {
             tagArray = getTagController().getAllTags();
 
@@ -190,10 +218,10 @@ public class TagListSubActivity extends SubActivity {
         } catch (StaleDataException e) {
             // happens when you rotate the screen while the thread is
             // still running. i don't think it's avoidable?
-            Log.w("astrid", "StaleDataException", e);
+            Log.w("astrid", "StaleDataException", e); //$NON-NLS-1$ //$NON-NLS-2$
             return;
         } catch (Exception e) {
-            Log.e("astrid", "Error loading list", e);
+            Log.e("astrid", "Error loading list", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
 
         handler.post(new Runnable() {
@@ -212,7 +240,7 @@ public class TagListSubActivity extends SubActivity {
     }
 
     /** Set up list handlers and adapter. run on the UI thread */
-    private void setUpListUI(ListAdapter adapter) {
+    protected void setUpListUI(ListAdapter adapter) {
         // set up the title
         Resources r = getResources();
         int tags = tagArray.size();
@@ -324,6 +352,7 @@ public class TagListSubActivity extends SubActivity {
                 sortMode = SortMode.ALPHA;
                 sortReverse = false;
             }
+            saveTagListSort();
             fillData();
             return true;
         case MENU_SORT_SIZE_ID:
@@ -333,6 +362,7 @@ public class TagListSubActivity extends SubActivity {
                 sortMode = SortMode.SIZE;
                 sortReverse = false;
             }
+            saveTagListSort();
             fillData();
             return true;
         case CONTEXT_CREATE_ID:
@@ -361,7 +391,7 @@ public class TagListSubActivity extends SubActivity {
             Intent shortcutIntent = new Intent(Intent.ACTION_VIEW);
             shortcutIntent.setComponent(new ComponentName(
                     getParent().getApplicationContext(), TagView.class));
-            shortcutIntent.setData(Uri.parse("tag:" + tag.getTagIdentifier().getId()));
+            shortcutIntent.setData(Uri.parse("tag:" + tag.getTagIdentifier().getId())); //$NON-NLS-1$
 
             Intent createShortcutIntent = new Intent();
             createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
@@ -371,12 +401,12 @@ public class TagListSubActivity extends SubActivity {
 
             // add the @ sign if the task starts with a letter, for clarity
             if(Character.isLetterOrDigit(label.charAt(0)))
-                label = "@" + label;
+                label = "@" + label; //$NON-NLS-1$
 
             createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, label);
             createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON,
                     ((BitmapDrawable)r.getDrawable(R.drawable.icon_tag)).getBitmap());
-            createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT");
+            createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT"); //$NON-NLS-1$
 
             getParent().sendBroadcast(createShortcutIntent);
             Toast.makeText(getParent(), R.string.tagList_shortcut_created, Toast.LENGTH_SHORT).show();
@@ -454,7 +484,7 @@ public class TagListSubActivity extends SubActivity {
                 else
                 	name.setTextColor(r.getColor(android.R.color.white));
             } catch (Exception e) {
-                Log.e("astrid", "Error loading tag list", e);
+                Log.e("astrid", "Error loading tag list", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
     }

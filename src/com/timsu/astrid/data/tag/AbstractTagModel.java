@@ -174,7 +174,7 @@ public abstract class AbstractTagModel extends AbstractModel {
     // --- setters
 
     protected void setName(String name) {
-        setValues.put(NAME, name);
+        setValues.put(NAME, name.trim());
     }
 
     protected void setNotes(String notes) {

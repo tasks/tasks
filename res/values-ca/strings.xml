@@ -360,7 +360,7 @@
         <string name="notif_definiteDueDate">Termini Absolut!</string>
         <string name="notif_preferredDueDate">Termini Objectiu!</string>
         <string name="notif_timerStarted">Treballant en:</string>
-        <string name="notif_tagNotification">Tens %d Tasques etiquetades com %s!</string>
+        <string name="notif_tagNotification">Tens $NUM etiquetades com $TAG!</string>
         
     <!-- Error Messages -->  
     <skip/>

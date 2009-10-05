@@ -326,15 +326,16 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                     if(task.getCompletionDate() != null) {
                         int secondsLeft = (int)((task.getCompletionDate().getTime() -
                                 System.currentTimeMillis()) / 1000);
-                        label.append(r.getString(R.string.taskList_completedPrefix)).
-                            append(" ");
+                        String finishedTime;
                         if(Math.abs(secondsLeft) < FULL_DATE_THRESHOLD)
-                            label.append(r.getString(R.string.ago_string,
+                            finishedTime = r.getString(R.string.ago_string,
                                     DateUtilities.getDurationString(r,
-                                            Math.abs(secondsLeft), 1)));
+                                            Math.abs(secondsLeft), 1));
                         else
-                            label.append(DateUtilities.getFormattedDate(r,
-                                    task.getCompletionDate()));
+                            finishedTime = DateUtilities.getFormattedDate(r,
+                                    task.getCompletionDate());
+                        label.append(r.getString(R.string.taskList_completedPrefix,
+                                finishedTime));
                     }
                 } else {
                     boolean taskOverdue = false;
