@@ -38,15 +38,19 @@ import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.InputType;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.View.OnTouchListener;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -293,6 +297,18 @@ public class TaskListSubActivity extends SubActivity {
                 if (menu.hasVisibleItems())
                     return;
                 onCreateMoreOptionsMenu(menu);
+            }
+        });
+
+        // disable add text input box until user requests it
+        final EditText quickAdd = (EditText)findViewById(R.id.quickAddText);
+        final int inputType = quickAdd.getInputType();
+        quickAdd.setInputType(InputType.TYPE_NULL);
+        quickAdd.setOnTouchListener(new OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                quickAdd.setInputType(inputType);
+                quickAdd.setOnTouchListener(null);
+                return false;
             }
         });
     }

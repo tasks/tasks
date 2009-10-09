@@ -511,17 +511,15 @@ public class TaskController extends AbstractController {
 
     public ArrayList<TaskModelForWidget> getTasksForWidget(String limit) {
 
-    	Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForList.FIELD_LIST,
+    	Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForWidget.FIELD_LIST,
     	        AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                 AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
                 AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
                 System.currentTimeMillis() + ")", null, null, null,
-                AbstractTaskModel.IMPORTANCE + " * " + (3 * 24 * 3600 * 1000L) +
-                    " + CASE WHEN MAX(" + AbstractTaskModel.DEFINITE_DUE_DATE + "," +
-                    AbstractTaskModel.PREFERRED_DUE_DATE + ") = 0 THEN " +
-                    (System.currentTimeMillis() + 7 * 24 * 3600 * 1000L) +
-                    " ELSE MIN(" + AbstractTaskModel.DEFINITE_DUE_DATE + "," +
-                    AbstractTaskModel.PREFERRED_DUE_DATE + ") END", limit);
+                AbstractTaskModel.IMPORTANCE + " * " + (5 * 24 * 3600 * 1000L) +
+                    " + CASE WHEN MAX(pdd, ddd) = 0 THEN " +
+                    (System.currentTimeMillis() + (7 * 24 * 3600 * 1000L)) +
+                    " ELSE (CASE WHEN pdd = 0 THEN ddd ELSE pdd END) END ASC", limit);
 
     	try {
             ArrayList<TaskModelForWidget> list = new ArrayList<TaskModelForWidget>();

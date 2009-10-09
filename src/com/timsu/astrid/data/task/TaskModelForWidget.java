@@ -36,7 +36,9 @@ public class TaskModelForWidget extends AbstractTaskModel {
         NAME,
         IMPORTANCE,
         PREFERRED_DUE_DATE,
-        DEFINITE_DUE_DATE
+        DEFINITE_DUE_DATE,
+        "COALESCE(" + PREFERRED_DUE_DATE + ", 0) as pdd",
+        "COALESCE(" + DEFINITE_DUE_DATE + ", 0) as ddd"
     };
 
     // --- constructors

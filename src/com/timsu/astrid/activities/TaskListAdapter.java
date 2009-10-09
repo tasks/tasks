@@ -406,7 +406,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             if(cachedResult == null) {
                 Integer elapsed = task.getElapsedSeconds();
                 if(task.getTimerStart() != null)
-                    elapsed += ((System.currentTimeMillis() - task.getTimerStart().getTime())/1000);
+                    elapsed += (int)((System.currentTimeMillis() - task.getTimerStart().getTime())/1000L);
                 Integer estimated = task.getEstimatedSeconds();
                 StringBuilder label = new StringBuilder();
                 if(estimated > 0) {
