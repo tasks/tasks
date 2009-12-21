@@ -299,7 +299,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
             synchronizeTasks(context, remoteChanges, new RtmSyncHelper(context, timeline));
 
-            Date syncTime = new Date();
+            // set sync time in the future so we don't retrieve already
+            // synchronized tasks and try to merge them
+            Date syncTime = new Date(System.currentTimeMillis() + 1000L);
             Preferences.setSyncRTMLastSync(context, syncTime);
 
             FlurryAgent.onEvent("rtm-sync-finished");
@@ -365,10 +367,12 @@ public class RTMSyncProvider extends SynchronizationProvider {
         	dueDate = task.definiteDueDate;
         if(dueDate == null)
             dueDate = task.preferredDueDate;
-        if(dueDate != remoteTask.dueDate && dueDate != null &&
-                !dueDate.equals(remoteTask.dueDate))
+        if(dueDate != remoteTask.dueDate && (dueDate == null ||
+                !dueDate.equals(remoteTask.dueDate))) {
+            // note tha dueDate could be null
             rtmService.tasks_setDueDate(timeline, id.listId, id.taskSeriesId,
-                id.taskId, dueDate, true);
+                    id.taskId, dueDate, dueDate != null);
+        }
 
         // progress
         if(task.progressPercentage != null && !task.progressPercentage.equals(

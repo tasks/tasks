@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!-- Translation Note: 
+           Guidelines to those translating the resources
+            1) Quality over Quantity: the quality of the phrases is important not the number of phrases used in any given 
+            languages.
+            2) Dynamic Equivalence not necessary literal translation but capture the idea and create the same desired effect
+-->
+<resources>
+
+    <!--  
+            Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
+			
+    <string-array name="reminders">
+        <!-- reminders: Make these < 20 chars so the task name is displayed -->
+        <item>Hoi! Mag ik even?</item>
+        <item>Kan ik je even spreken?</item>
+        <item>Heb je een paar minuutjes?</item>
+        <item>Ben je het vergeten?</item>
+        <item>Pardon!</item>
+        <item>Als je een minuutje over hebt:</item>
+        <item>In je agenda:</item>
+        <item>Heb je even niks te doen?</item>
+        <item>Hier is Astrid!</item>
+        <item>Hallo! Mag ik je even storen?</item>
+        <item>Mag ik even de aandacht?</item>
+        <item>Het is een mooie dag om</item>
+    </string-array>
+    
+    <string-array name="reminder_responses">
+        <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
+        <item>Ik heb iets voor je!</item> 
+        <item>Klaar om af te vinken?</item>
+        <item>Waarom is dit niet af?</item>
+        <item>En nu dan, ben je er klaar voor?</item>
+        <item>Klaar voor de start?</item>
+        <item>Kan je dit wel aan?</item>
+        <item>Eeuwige roem lonkt! Maak dit af!</item>
+        <item>Na deze voel je je een held!</item>
+        <item>Waarom doe je dit niet vandaag?</item>
+        <item>Maak dit af, alsjeblieft zeg!</item>
+        <item>Kan dit af? Natuurlijk kan het af!</item>
+        <item>Gaat dit oot afkomen?</item>
+        <item>Voel je goed, zet hem op!</item>
+        <item>Ik ben zo trots! Doe het!</item>
+        <item>Kopje koffie hierna?</item>
+        <item>Aaah, nog eentje dan? Alsjeblieft?</item>
+        <item>Tijd om je todo lijst op te schonen!</item>
+    </string-array>
+    
+    <string-array name="postpone_nags">
+        <!-- Astrid's nagging when user clicks postpone -->
+        <item>Je bent toch geen afhaker?</item>
+        <item>Wordt je niet te moe van het nietsdoen?</item>
+        <item>Maak je onsterfelijk, doe dit!</item>
+        <item>Toen je zei uitstellen, bedoelde je dat je er mee bezig was, toch?</item>
+        <item>Dit is de laatste keer dat je dit uitstelt, oke?</item>
+        <item>Psst, deze moet vandaag nog, ik zal je niet verraden!</item>
+        <item>Waarom uitstellen? Je kan het ook gewoon doen!</item>
+        <item>Ooit zul je dit wel afkrijgen, is het niet?</item>
+        <item>Je bent geweldig! Nu deze nog.</item>
+        <item>Kun je je doelen bereiken als je dit doet?</item>
+        <item>Van uitstel komt afstel. Wanneer leer je nou eens?</item>
+        <item>Ik ben klaar met je smoesjes! Doe dit, NU!</item>
+        <item>Die smoes heb je al gebruikt!</item>
+        <item>Ik kan je alleen maar helpen als jij mij helpt...</item>
+    </string-array>
+    
+    <string-array name="notif_icon_entries">
+        <!-- Icons for notification tray -->
+        <item>Roze</item>
+        <item>Saai</item>
+        <item>Astrid</item>
+    </string-array>
+    
+    <string-array name="notif_icon_values">
+        <!-- Corresponding to the constants in Preferences.java (do not edit) -->
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    
+    <string-array name="sync_interval_entries">
+        <!-- sync_interval_entries: Synchronization Intervals -->
+        <item>uitschakelen</item>
+        <item>twee keer per uur</item>
+        <item>elk uur</item>
+        <item>twee maal daags</item>
+        <item>dagelijks</item>
+        <item>twee keer per week</item>
+        <item>wekelijks</item>
+    </string-array>
+    
+    <string-array name="sync_interval_values">
+        <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
+        <item>0</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>43200</item>
+        <item>86400</item>
+        <item>302400</item>
+        <item>604800</item>
+    </string-array>
+</resources>

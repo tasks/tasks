@@ -140,10 +140,13 @@ public class Preferences {
     public static String getDateFormat(Context context) {
         String value = android.provider.Settings.System.getString(context.getContentResolver(),
         		android.provider.Settings.System.DATE_FORMAT);
-        if (value == null) {
+        if(value == null) {
             value = "MMM d, yyyy";
         }
-        return "EEE, " + value;
+        // if there is not already day-of-week indicator, add this
+        if(!value.contains("E"))
+            value = "EEE, " + value;
+        return value;
     }
 
     // --- notification settings

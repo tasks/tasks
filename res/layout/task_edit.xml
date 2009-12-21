@@ -29,7 +29,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <LinearLayout android:id="@+id/event"
-        android:paddingRight="8px"
+        android:paddingRight="8dip"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">       
@@ -143,7 +143,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <LinearLayout android:id="@+id/event"
-        android:paddingRight="8px"
+        android:paddingRight="8dip"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">
@@ -321,7 +321,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <LinearLayout android:id="@+id/event"
-        android:paddingRight="8px"
+        android:paddingRight="8dip"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent">

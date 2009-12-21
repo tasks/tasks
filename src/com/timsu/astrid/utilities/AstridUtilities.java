@@ -5,6 +5,11 @@ import java.io.StringWriter;
 import java.lang.Thread.UncaughtExceptionHandler;
 
 import android.database.sqlite.SQLiteException;
+import android.text.InputType;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnTouchListener;
+import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
 
@@ -15,6 +20,19 @@ import com.flurry.android.FlurryAgent;
  *
  */
 public class AstridUtilities {
+
+    /** Suppress virtual keyboard until user's first tap */
+    public static void suppressVirtualKeyboard(final TextView editor) {
+        final int inputType = editor.getInputType();
+        editor.setInputType(InputType.TYPE_NULL);
+        editor.setOnTouchListener(new OnTouchListener() {
+            public boolean onTouch(View v, MotionEvent event) {
+                editor.setInputType(inputType);
+                editor.setOnTouchListener(null);
+                return false;
+            }
+        });
+    }
 
     /**
      * Converts a throwable's stack trace into a string

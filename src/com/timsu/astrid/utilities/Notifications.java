@@ -290,6 +290,11 @@ public class Notifications extends BroadcastReceiver {
     /** Schedules a single alarm for a single task */
     public static void scheduleAlarm(Context context, long id, long when,
             int flags) {
+
+        // if alarm occurs in the past, don't trigger it
+        if(when < System.currentTimeMillis())
+            return;
+
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
                 createAlarmIntent(context, id, flags), 0);
@@ -302,8 +307,10 @@ public class Notifications extends BroadcastReceiver {
     /** Schedules a recurring alarm for a single task */
     public static void scheduleRepeatingAlarm(Context context, long id, long when,
             int flags, long interval) {
+
+        // if alarm occurs in the past, trigger it in the future
         if(when < System.currentTimeMillis())
-            return;
+            when = (long)(System.currentTimeMillis() + when * (0.8 + 0.3 * random.nextDouble()));
 
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
         Intent alarmIntent = createAlarmIntent(context, id, flags);
@@ -436,14 +443,14 @@ public class Notifications extends BroadcastReceiver {
         else
             notification.defaults = Notification.DEFAULT_LIGHTS;
 
+        AudioManager audioManager = (AudioManager)context.getSystemService(
+                Context.AUDIO_SERVICE);
+
         // if nonstop mode is activated, set up the flags for insistent
         // notification, and increase the volume to full volume, so the user
         // will actually pay attention to the alarm
         if(nonstopMode && (flags & FLAG_PERIODIC) == 0) {
             notification.flags |= Notification.FLAG_INSISTENT;
-
-            AudioManager audioManager = (AudioManager)context.getSystemService(
-                    Context.AUDIO_SERVICE);
             notification.audioStreamType = AudioManager.STREAM_ALARM;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
                     audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
@@ -453,9 +460,16 @@ public class Notifications extends BroadcastReceiver {
             notification.vibrate = null;
             notification.sound = null;
         } else {
-            notification.defaults |= Notification.DEFAULT_VIBRATE;
+            if(audioManager.getVibrateSetting(AudioManager.STREAM_RING) !=
+                    AudioManager.VIBRATE_SETTING_OFF)
+                notification.defaults |= Notification.DEFAULT_VIBRATE;
+            else
+                notification.vibrate = null;
+
             Uri notificationSound = Preferences.getNotificationRingtone(context);
-            if(notificationSound != null &&
+            if(audioManager.getStreamVolume(AudioManager.STREAM_RING) == 0) {
+                notification.sound = null;
+            } else if(notificationSound != null &&
                     !notificationSound.toString().equals("")) {
                 notification.sound = notificationSound;
             } else {

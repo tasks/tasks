@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: astrid-translation\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-17 00:49-0700\n"
-"PO-Revision-Date: 2009-07-22 07:44+0000\n"
-"Last-Translator: Jon Paris <jon@todoroo.com>\n"
+"POT-Creation-Date: 2009-07-22 03:10-0700\n"
+"PO-Revision-Date: 2009-08-24 20:14+0000\n"
+"Last-Translator: Piligrim <piligrim275@gmail.com>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-07-22 07:56+0000\n"
+"X-Launchpad-Export-Date: 2009-10-31 02:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. application
@@ -42,11 +42,11 @@ msgstr "!"
 #. Repeat Interval Labels
 #: res/values/strings.xml:37( name="repeat_days")
 msgid "Day(s)"
-msgstr "дней"
+msgstr "день(дней)"
 
 #: res/values/strings.xml:38( name="repeat_weeks")
 msgid "Week(s)"
-msgstr "недель"
+msgstr "неделя(ль)"
 
 #: res/values/strings.xml:39( name="repeat_months")
 msgid "Month(s)"
@@ -174,10 +174,10 @@ msgstr "1 Сек"
 msgid "%d Sec"
 msgstr "%d Сек"
 
-#. appended after time constants to show time in past
+#. indicates time in past. %s is replaced by time unit i.e. 1 minute
 #: res/values/strings.xml:118( name="ago_string")
 msgid "%s Ago"
-msgstr "%s Назад"
+msgstr "%s назад"
 
 #. title bar
 #: res/values/strings.xml:123( name="taskList_titlePrefix")
@@ -218,7 +218,7 @@ msgstr "Выполнить за"
 #. i.e. Due on Jan 2
 #: res/values/strings.xml:137( name="taskList_dueAbsoluteDate")
 msgid "Due on"
-msgstr "Окончание через"
+msgstr "Окончание"
 
 #. prefix to deadline
 #: res/values/strings.xml:139( name="taskList_goalPrefix")
@@ -231,15 +231,15 @@ msgstr "Опоздание"
 
 #. i.e. Finished 4 days ago
 #: res/values/strings.xml:142( name="taskList_completedPrefix")
-msgid "Finished"
-msgstr "Завершена"
+msgid "Finished %s"
+msgstr "Завершена %s"
 
-#. i.e.  Estimated 4: hours
+#. i.e.  Estimated: 4 hours
 #: res/values/strings.xml:144( name="taskList_estimatedTimePrefix")
 msgid "Estimated:"
 msgstr "Примерно:"
 
-#. i.e. Spent  88 minutes on tax.
+#. i.e. Spent: 88 minutes. used to indicate time spent on task
 #: res/values/strings.xml:146( name="taskList_elapsedTimePrefix")
 msgid "Spent:"
 msgstr "Затрачено"
@@ -569,7 +569,7 @@ msgstr "Клик для установки"
 
 #: res/values/strings.xml:263( name="taskEdit_onTaskSave_Due")
 msgid "Task Saved: due in %s"
-msgstr "Задача сохранена: завершить через"
+msgstr "Задача сохранена: завершить за %s"
 
 #: res/values/strings.xml:264( name="taskEdit_onTaskSave_Overdue")
 msgid "Task Saved: due %s ago"
@@ -1053,13 +1053,19 @@ msgstr "Показывается если задача имеет напомин
 msgid "Notes associated with this task"
 msgstr "Заметки, связанные с этой задачей"
 
-#. Translations probably not necessary for the following
-#: res/values/strings.xml:453( name="survey_label")
-msgid "Take Astrid\\'s Survey &amp; win a MyTouch 3G!"
+#. This string is Astrid's Android Marketplace description. It never appears in the app itself.
+#: res/values/strings.xml:453( name="marketplace_description")
+msgid ""
+"Astrid is the highly-acclaimed open-source task list that is simple enough "
+"to not get in your way, powerful enough to help you get stuff done! Tags, "
+"reminders, RememberTheMilk sync, Locale plug-in &amp; more!"
 msgstr ""
+"Astrid - это легкий в использовании, с открытыми исходными текстами, "
+"менеждер задач, который достаточно прост, чтобы не мешать, а помочь! Метки, "
+"напоминания, RTM синхронизация, Locale плагин и многое другое!"
 
 #. Automatically filled in by Launchpad:
-#: res/values/strings.xml:456( name="about_translators")
+#: res/values/strings.xml:458( name="about_translators")
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"

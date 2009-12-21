@@ -68,7 +68,7 @@
         <!-- used for long due dates. c.f. Java's SimpleDateFormat -->
         <string name="dateFormatter">d MMM</string> 
         <!--  used for alarms -->
-        <string name="alarmDateFormatter">M/dd HH:mm</string>
+        <string name="alarmDateFormatter">dd/M HH:mm</string>
         <!-- vertical labels are used in dialog boxes -->
         <string name="daysVertical">T
 a
@@ -120,7 +120,7 @@ d</string>
         </plurals>
         
         <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
-        <string name="ago_string">vor %s</string>
+        <string name="ago_string">Vor %s</string>
         
     <!-- TaskList -->
     <skip/>
@@ -142,9 +142,9 @@ d</string>
         <string name="taskList_dueAbsoluteDate">Fällig am</string>
         <!-- prefix to deadline -->
         <string name="taskList_goalPrefix">Ziel</string>
-        <string name="taskList_overdueBy">Überfällig am</string>
+        <string name="taskList_overdueBy">Uberfällig seit</string>
         <!-- i.e. Finished 4 days ago -->
-        <string name="taskList_completedPrefix">Finished %s</string>
+        <string name="taskList_completedPrefix">Vor %s erledigt</string>
 		<!-- i.e.  Estimated: 4 hours -->
         <string name="taskList_estimatedTimePrefix">Zeitschätzung:</string>
         <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
@@ -166,6 +166,8 @@ d</string>
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Gelöscht</string>
         
+        <string name="quick_add_hint">Neue Aufgabe</string>
+        
         <!-- menu items -->
         <string name="taskList_menu_insert">Neue Aufgabe</string>
         <string name="taskList_menu_tags">Tags</string>
@@ -176,7 +178,7 @@ d</string>
         <string name="taskList_menu_settings">Einstellungen</string>
         <string name="taskList_menu_help">Hilfe (öffnet im Browser)</string>
         <string name="taskList_menu_survey">Nimm an Astrids Befragung teil!</string>
-        <string name="taskList_menu_tips">Quick Tips</string>
+        <string name="taskList_menu_tips">Schon gewusst?</string>
         <string name="taskList_menu_cleanup">Alte Aufgaben löschen</string>
         
         <string name="taskList_context_edit">Aufgabe bearbeiten</string>
@@ -187,7 +189,7 @@ d</string>
         
         <!-- filter menu items -->
         <string name="taskList_filter_title">Sortieren/Filter</string>
-        <string name="taskList_filter_hidden">Versteckte/Blockierte Aufgaben</string>
+        <string name="taskList_filter_hidden">Versteckte Aufgaben</string>
         <string name="taskList_filter_done">Erledigte Aufgaben</string>
         <string name="taskList_filter_tagged">Tagged \'%s\'</string>
         <string name="taskList_sort_auto">Automatisch sortieren</string>
@@ -233,7 +235,7 @@ d</string>
         <string name="notes_hint">Notizen zu den Aufgaben eingeben</string>
         
         <string name="notification_label">Regelmäßige Erinnerungen</string>
-        <string name="notification_prefix">Alle</string>
+        <string name="notification_prefix">Jede</string>
         <string name="flags_label">Erinnere mich...</string>
         <string name="flag_before">Beim Nahen der Fristen</string>
         <string name="flag_during">Beim Erreichen der Fristen</string>
@@ -247,7 +249,7 @@ d</string>
         <string name="notification_dialog">Erinnere mich alle</string>
         <string name="repeat_picker_title">Wiederhole alle (0 zum Deaktivieren)</string>
         <string name="repeat_help_dialog_title">Hilfe: Astrid Wiederholungen</string>
-        <string name="repeat_help_dialog">Um Wiederholungen zu nutzen, stelle oben zumindest eine Frist ein. Wenn du die Aufgabe erledigst, wird die Frist automatisch verschoben. \n\n Wenn du die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen willst, solltest du das Feld "Verstecken bis" nutzen, das ebenfalls automatisch verschoben wird. \n</string>
+        <string name="repeat_help_dialog">Wenn du die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen willst, solltest du das Feld "Bis zu diesem Datum verstecken" nutzen, das ebenfalls automatisch verschoben wird.</string>
         <string name="repeat_help_hide">Hilfe nicht mehr anzeigen</string>
         
         <!-- buttons -->
@@ -365,6 +367,7 @@ d</string>
         <string name="notif_definiteDueDate">Absolute Frist!</string>
         <string name="notif_preferredDueDate">Zielfrist!</string>
         <string name="notif_timerStarted">Arbeite an:</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
         <string name="notif_tagNotification">Du hast $NUM mit Tags versehen $TAG!</string>
         
     <!-- Error Messages -->  
@@ -387,7 +390,7 @@ d</string>
         <string name="prefs_defaultRemind_desc">Für neue Aufgaben, in Tagen (z. B. 7). Zum Deaktivieren leer lassen</string>
         
         <string name="prefs_annoy_title">Hartnäckiger Modus</string>
-        <string name="prefs_annoy_desc">Du musst die Erinnerung anschauen, um sie zu enfternen.</string>
+        <string name="prefs_annoy_desc">Wenn eingestellt, musst Du jede Erinnerung einzeln anschauen, um sie zu entfernen</string>
         
         <string name="prefs_notification_title">Erinnerungsklingelton</string>
         <string name="prefs_notification_desc">Wähle einen Klingelton für Astrids Erinnerungen</string>
@@ -406,10 +409,10 @@ d</string>
         <string name="prefs_category_other">Weiteres</string>
         
         <string name="prefs_nagging_title">Nörgel-Nachrichten</string>
-        <string name="prefs_nagging_desc">Kommentare zeigen, wenn du Erinnerungen oder Aufgaben aufschiebst?</string>
+        <string name="prefs_nagging_desc">Kommentare zeigen, wenn du Erinnerungen aufschiebst?</string>
 
         <string name="prefs_deadlineTime_title">Standardfristen</string>
-        <string name="prefs_deadlineTime_desc">Anzahl der Tage ab heute zum Setzten neuer Friste</string>
+        <string name="prefs_deadlineTime_desc">Anzahl der Tage ab heute zum Setzen neuer Fristen</string>
         
         <string name="displayedFields_PrefScreen_Title">Angezeigte Felder</string>
         <string name="displayedFields_PrefScreen_Desc">Wähle die in der Aufgabenliste zu zeigenden Felder aus</string>
@@ -431,13 +434,24 @@ d</string>
         <string name="prefs_notesVisible_title">Notizen</string>
         <string name="prefs_notesVisible_desc">Notizen, verknüpft mit dieser Aufgabe</string>
 
-    <!-- Translations probably not necessary for the following -->
-    <string name="survey_label">Take Astrid\'s Survey &amp; win a MyTouch 3G!</string>
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">Astrid ist die hochgelobte Open Source Aufgabenliste die einfach genug ist, dir nicht in den Weg zu kommen, mächtig genug dir zu helfen Sachen erledigt zu bekommen! Tags, Erinnerungen, RememberTheMilk-Synchronisierung, Sprach-Plugin &amp; mehr!</string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:
   Friedrich https://launchpad.net/~fwulf
   Jon Paris https://launchpad.net/~jon-todoroo
-  Tim Su https://launchpad.net/~tim-todoroo</string>
+  Tim Su https://launchpad.net/~tim-todoroo
+  alain.tuor https://launchpad.net/~alain-tuor
+  artens https://launchpad.net/~jef
+  tikurion https://launchpad.net/~tikurion</string>
 
+    <!-- Widget text: -->
+	<string name="widget_loading">Lade...</string>
+	<string name="task_name1">This is a task one</string>
+	<string name="task_name2">Task two here</string>
+	<string name="task_name3">This is task number three</string>
+	<string name="task_name4">The fourth task</string>
+	<string name="task_name5">Task five this is</string>
+	
 </resources>

@@ -612,15 +612,20 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         	public boolean onKey(View v, int keyCode, KeyEvent event) {
         		if(event.getAction() != KeyEvent.ACTION_UP)
         			return false;
-        		// hot-key to set task priority
-        		 if(keyCode >= KeyEvent.KEYCODE_1 && keyCode <= KeyEvent.KEYCODE_4) {
-        			Importance i = Importance.values()[keyCode - KeyEvent.KEYCODE_1];
+
+        		// hot-key to set task priority - 1-4 or ALT + Q-R
+        		Importance importance = null;
+        		if(event.getNumber() >= '1' && event.getNumber() <= '4')
+        		    importance = Importance.values()[event.getNumber() - '1'];
+
+        		if(importance != null) {
         			TaskModelForList task = (TaskModelForList)v.getTag();
-        			task.setImportance(i);
+        			task.setImportance(importance);
         			hooks.taskController().saveTask(task, false);
         			setFieldContentsAndVisibility(v, task);
             		return true;
             	}
+
         		return false;
         	}
         });

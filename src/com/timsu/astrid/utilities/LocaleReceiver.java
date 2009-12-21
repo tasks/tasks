@@ -43,6 +43,8 @@ public class LocaleReceiver extends BroadcastReceiver {
 				// check if we've already made a notification recently
 			    if(System.currentTimeMillis() - Preferences.
 			            getLocaleLastAlertTime(context, tagId) < MIN_NOTIFY_INTERVAL) {
+			        Log.w("astrid-locale", "Too soon, need " + (MIN_NOTIFY_INTERVAL - System.currentTimeMillis() + Preferences.
+                        getLocaleLastAlertTime(context, tagId))/1000L + " more seconds");
 			        return;
 				}
 
@@ -65,6 +67,8 @@ public class LocaleReceiver extends BroadcastReceiver {
 
 						Preferences.setLocaleLastAlertTime(context, tagId,
 						        System.currentTimeMillis());
+					} else {
+					    Log.w("astrid-locale", "Locale Notification, but no tasks to show");
 					}
 				} finally {
 					taskController.close();

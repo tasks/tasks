@@ -34,8 +34,8 @@
         <string name="importance_4">!</string>
         
         <!-- Repeat Interval Labels -->
-        <string name="repeat_days">дней</string>
-        <string name="repeat_weeks">недель</string>
+        <string name="repeat_days">день(дней)</string>
+        <string name="repeat_weeks">неделя(ль)</string>
         <string name="repeat_months">месяц(ев)</string>
         <string name="repeat_hours">Час(ов)</string>
         
@@ -115,7 +115,7 @@
         </plurals>
         
         <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
-        <string name="ago_string">%s Назад</string>
+        <string name="ago_string">%s назад</string>
         
     <!-- TaskList -->
     <skip/>
@@ -134,12 +134,12 @@
         <!-- i.e. Due in 4 days -->
         <string name="taskList_dueRelativeTime">Выполнить за</string>
         <!-- i.e. Due on Jan 2 -->
-        <string name="taskList_dueAbsoluteDate">Окончание через</string>
+        <string name="taskList_dueAbsoluteDate">Окончание</string>
         <!-- prefix to deadline -->
         <string name="taskList_goalPrefix">Цель</string>
         <string name="taskList_overdueBy">Опоздание</string>
         <!-- i.e. Finished 4 days ago -->
-        <string name="taskList_completedPrefix">Finished %s</string>
+        <string name="taskList_completedPrefix">Завершена %s</string>
 		<!-- i.e.  Estimated: 4 hours -->
         <string name="taskList_estimatedTimePrefix">Примерно:</string>
         <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
@@ -160,6 +160,8 @@
         
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Удалена</string>
+        
+        <string name="quick_add_hint">Новая задача</string>
         
         <!-- menu items -->
         <string name="taskList_menu_insert">Новая задача</string>
@@ -255,7 +257,7 @@
         <string name="stopTimer_label">Стоп таймера</string>
         
         <string name="taskEdit_menu_save">Готово</string>
-        <string name="taskEdit_onTaskSave_Due">Задача сохранена: завершить через</string>
+        <string name="taskEdit_onTaskSave_Due">Задача сохранена: завершить за %s</string>
         <string name="taskEdit_onTaskSave_Overdue">Задача сохранена: завершена %s назад</string>
         <string name="taskEdit_onTaskSave_notDue">Задача сохранена</string>
       
@@ -360,6 +362,7 @@
         <string name="notif_definiteDueDate">Абсолютный срок!</string>
         <string name="notif_preferredDueDate">Срок цели!</string>
         <string name="notif_timerStarted">Работаю над:</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
         <string name="notif_tagNotification">У вас $NUM отмеченных $TAG!</string>
         
     <!-- Error Messages -->  
@@ -426,8 +429,8 @@
         <string name="prefs_notesVisible_title">Заметки</string>
         <string name="prefs_notesVisible_desc">Заметки, связанные с этой задачей</string>
 
-    <!-- Translations probably not necessary for the following -->
-    <string name="survey_label">Take Astrid\'s Survey &amp; win a MyTouch 3G!</string>
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">Astrid - это легкий в использовании, с открытыми исходными текстами, менеждер задач, который достаточно прост, чтобы не мешать, а помочь! Метки, напоминания, RTM синхронизация, Locale плагин и многое другое!</string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:
@@ -435,4 +438,12 @@
   Piligrim https://launchpad.net/~piligrim275
   Prudnikov https://launchpad.net/~prudis</string>
 
+    <!-- Widget text: -->
+	<string name="widget_loading">Загрузка...</string>
+	<string name="task_name1">This is a task one</string>
+	<string name="task_name2">Task two here</string>
+	<string name="task_name3">This is task number three</string>
+	<string name="task_name4">The fourth task</string>
+	<string name="task_name5">Task five this is</string>
+	
 </resources>

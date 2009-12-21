@@ -37,15 +37,12 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -76,6 +73,7 @@ import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForEdit;
 import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
+import com.timsu.astrid.utilities.AstridUtilities;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DateUtilities;
 import com.timsu.astrid.utilities.Notifications;
@@ -139,7 +137,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     private AlertController        alertController;
     private List<TagModelForView>  tags;
     private List<TagIdentifier>    taskTags;
-    private int nameEditInputType;
 
     // OnClickListeners for save, discard and delete
     private View.OnClickListener mSaveListener = new View.OnClickListener() {
@@ -190,9 +187,8 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         setUpUIComponents();
 		setUpListeners();
 
-		// hack to disable name input box until user requests it
-		nameEditInputType = name.getInputType();
-		name.setInputType(InputType.TYPE_NULL);
+		// disable name input box until user requests it
+		AstridUtilities.suppressVirtualKeyboard(name);
     }
 
     @Override
@@ -325,7 +321,7 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
             if (dueDate == null) {
             	dueDate = model.getDefiniteDueDate();
             }
-            if (dueDate != null) {
+            if (dueDate != null && model.getProgressPercentage() != TaskModelForEdit.COMPLETE_PERCENTAGE) {
             	showSaveToast(dueDate);
             } else {
             	showSaveToast();
@@ -509,14 +505,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
         repeatValue.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 repeatValueClick();
-            }
-        });
-
-        name.setOnTouchListener(new OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                name.setInputType(nameEditInputType);
-                name.setOnTouchListener(null);
-                return false;
             }
         });
     }

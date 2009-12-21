@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: astrid-translation\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-17 00:49-0700\n"
-"PO-Revision-Date: 2009-07-22 07:48+0000\n"
-"Last-Translator: Jon Paris <jon@todoroo.com>\n"
+"POT-Creation-Date: 2009-07-22 03:10-0700\n"
+"PO-Revision-Date: 2009-10-07 08:58+0000\n"
+"Last-Translator: cyrilphoenix <Unknown>\n"
 "Language-Team: French <fr@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-07-22 07:56+0000\n"
+"X-Launchpad-Export-Date: 2009-10-31 02:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. application
@@ -73,15 +73,15 @@ msgstr "%d / %d Active(s)"
 #. plurals: alarms
 #: res/values/strings.xml:56( quantity="one")
 msgid "One Alarm"
-msgstr "Une alerte"
+msgstr "Une Alerte"
 
 #: res/values/strings.xml:57( quantity="two")
 msgid "Two Alarms"
-msgstr "Deux alertes"
+msgstr "Deux Alertes"
 
 #: res/values/strings.xml:58( quantity="other")
 msgid "%d Alarms"
-msgstr "%d alertes"
+msgstr "%d Alertes"
 
 #. plurals: tags
 #: res/values/strings.xml:62( quantity="one")
@@ -95,57 +95,57 @@ msgstr "%d Tags"
 #. used for long due dates. c.f. Java's SimpleDateFormat
 #: res/values/strings.xml:69( name="dateFormatter")
 msgid "MMM d"
-msgstr "d MMM"
+msgstr "dd MMM"
 
 #. used for alarms
 #: res/values/strings.xml:71( name="alarmDateFormatter")
 msgid "M/dd HH:mm"
-msgstr "dd/M HH:mm"
+msgstr "dd/MM HH:mm"
 
 #. vertical labels are used in dialog boxes
 #: res/values/strings.xml:73( name="daysVertical")
 msgid "D\\na\\ny\\ns"
-msgstr "J\\no\\nu\\nr\\ns"
+msgstr "j\\no\\nu\\nr\\ns"
 
 #: res/values/strings.xml:74( name="hoursVertical")
 msgid "H\\no\\nu\\nr\\ns"
-msgstr "H\\ne\\nu\\nr\\ne\\ns"
+msgstr "h\\ne\\nu\\nr\\ne\\ns"
 
 #. plurals: days
 #: res/values/strings.xml:78( quantity="one") res/values/strings.xml:83( quantity="one")
 msgid "1 Day"
-msgstr "1 Jour"
+msgstr "1 jour"
 
 #: res/values/strings.xml:79( quantity="other") res/values/strings.xml:84( quantity="other")
 msgid "%d Days"
-msgstr "%d Jours"
+msgstr "%d jours"
 
 #. plurals: hours
 #: res/values/strings.xml:88( quantity="one")
 msgid "1 Hour"
-msgstr "1 Heure"
+msgstr "1 heure"
 
 #: res/values/strings.xml:89( quantity="other")
 msgid "%d Hours"
-msgstr "%d Heures"
+msgstr "%d heures"
 
 #. plurals: minutes
 #: res/values/strings.xml:93( quantity="one")
 msgid "1 Minute"
-msgstr "1 Minute"
+msgstr "1 minute"
 
 #: res/values/strings.xml:94( quantity="other")
 msgid "%d Minutes"
-msgstr "%d Minutes"
+msgstr "%d minutes"
 
 #. plurals: seconds
 #: res/values/strings.xml:98( quantity="one")
 msgid "1 Second"
-msgstr "1 Seconde"
+msgstr "1 seconde"
 
 #: res/values/strings.xml:99( quantity="other")
 msgid "%d Seconds"
-msgstr "%d Secondes"
+msgstr "%d secondes"
 
 #. plurals: hours (abbreviated)
 #: res/values/strings.xml:103( quantity="one")
@@ -174,10 +174,10 @@ msgstr "1 s"
 msgid "%d Sec"
 msgstr "%d s"
 
-#. appended after time constants to show time in past
+#. indicates time in past. %s is replaced by time unit i.e. 1 minute
 #: res/values/strings.xml:118( name="ago_string")
 msgid "%s Ago"
-msgstr "%s de cela"
+msgstr "il y a %s"
 
 #. title bar
 #: res/values/strings.xml:123( name="taskList_titlePrefix")
@@ -186,7 +186,7 @@ msgstr "Astrid :"
 
 #: res/values/strings.xml:124( name="taskList_titleTagPrefix")
 msgid "Tagged \\\"%s\\\":"
-msgstr "Taggée \\\"%s\\\":"
+msgstr "Taguées \\\"%s\\\" :"
 
 #: res/values/strings.xml:125( name="taskList_titleUntagged")
 msgid "Untagged Tasks:"
@@ -199,7 +199,7 @@ msgstr "cachée(s)"
 #. menu items
 #: res/values/strings.xml:127( name="addtask_label") res/values/strings.xml:165( name="taskList_menu_insert")
 msgid "New Task"
-msgstr "Nouvelle Tâche"
+msgstr "Nouvelle tâche"
 
 #: res/values/strings.xml:128( name="missing_tag")
 msgid "Could Not Find Requested Tag!"
@@ -231,15 +231,15 @@ msgstr "En retard de"
 
 #. i.e. Finished 4 days ago
 #: res/values/strings.xml:142( name="taskList_completedPrefix")
-msgid "Finished"
-msgstr "Terminée"
+msgid "Finished %s"
+msgstr "Accomplie %s"
 
-#. i.e.  Estimated 4: hours
+#. i.e.  Estimated: 4 hours
 #: res/values/strings.xml:144( name="taskList_estimatedTimePrefix")
 msgid "Estimated:"
 msgstr "Estimée à"
 
-#. i.e. Spent  88 minutes on tax.
+#. i.e. Spent: 88 minutes. used to indicate time spent on task
 #: res/values/strings.xml:146( name="taskList_elapsedTimePrefix")
 msgid "Spent:"
 msgstr "Temps passé :"
@@ -247,12 +247,12 @@ msgstr "Temps passé :"
 #. time interval to set frequency to remind user
 #: res/values/strings.xml:148( name="taskList_periodicReminderPrefix")
 msgid "Poke Every"
-msgstr "Rappeler chaque"
+msgstr "Rappeller tous les"
 
 #. time interval to set repeated tasks
 #: res/values/strings.xml:151( name="taskList_repeatPrefix")
 msgid "Repeats Every"
-msgstr "Répéter chaque"
+msgstr "Répéter tous les"
 
 #. displayed when repeat is on remote server
 #: res/values/strings.xml:153( name="taskList_repeatsRemotely")
@@ -332,7 +332,7 @@ msgstr "Supprimer la tâche"
 
 #: res/values/strings.xml:179( name="taskList_context_startTimer") res/values/strings.xml:259( name="startTimer_label")
 msgid "Start Timer"
-msgstr "Démarrer le compteur"
+msgstr "Démarrer le chronomètre"
 
 #: res/values/strings.xml:180( name="taskList_context_stopTimer") res/values/strings.xml:260( name="stopTimer_label")
 msgid "Stop Timer"
@@ -348,11 +348,11 @@ msgstr "Tâches masquées / bloquées"
 
 #: res/values/strings.xml:186( name="taskList_filter_done")
 msgid "Completed Tasks"
-msgstr "Tâches terminées"
+msgstr "Tâches accomplies"
 
 #: res/values/strings.xml:187( name="taskList_filter_tagged")
 msgid "Tagged \\'%s\\'"
-msgstr "Tagguée \\'%s\\'"
+msgstr "Taguée \\'%s\\'"
 
 #: res/values/strings.xml:188( name="taskList_sort_auto")
 msgid "Auto Sort"
@@ -360,11 +360,11 @@ msgstr "Tri automatique"
 
 #: res/values/strings.xml:189( name="taskList_sort_alpha")
 msgid "Sort By Name"
-msgstr "Trier par nom"
+msgstr "Tri par nom"
 
 #: res/values/strings.xml:190( name="taskList_sort_duedate")
 msgid "Sort By Due Date"
-msgstr "Trier par date d'échéance"
+msgstr "Tri par date d'échéance"
 
 #: res/values/strings.xml:191( name="taskList_sort_reverse")
 msgid "Sort Reverse"
@@ -393,7 +393,7 @@ msgstr "Astrid : Modification de la tâche"
 
 #: res/values/strings.xml:202( name="taskEdit_titlePrefix")
 msgid "Astrid: Editing"
-msgstr "Astrid : modifier"
+msgstr "Astrid : Modifier"
 
 #: res/values/strings.xml:203( name="taskEdit_label")
 msgid "Astrid: New Task"
@@ -419,11 +419,11 @@ msgstr "Résumé"
 
 #: res/values/strings.xml:212( name="name_hint")
 msgid "Task Name"
-msgstr "Nom de la Tâche"
+msgstr "Nom de la tâche"
 
 #: res/values/strings.xml:213( name="importance_label")
 msgid "How Important is it?"
-msgstr "Quelle est l'importance ?"
+msgstr "Quelle est la priorité ?"
 
 #: res/values/strings.xml:215( name="tag_hint")
 msgid "Tag Name"
@@ -431,7 +431,7 @@ msgstr "Nom du tag"
 
 #: res/values/strings.xml:217( name="estimatedDuration_label")
 msgid "How Long Will it Take?"
-msgstr "Combien de temps cela va prendre ?"
+msgstr "Combien de temps cela va t-il prendre ?"
 
 #: res/values/strings.xml:218( name="elapsedDuration_label")
 msgid "Time Already Spent on Task"
@@ -447,19 +447,19 @@ msgstr "Date prévue"
 
 #: res/values/strings.xml:221( name="addToCalendar_label")
 msgid "Add Task To Calendar"
-msgstr "Ajouter la tâche à l'agenda"
+msgstr "Ajouter la tâche à l\\'agenda"
 
 #: res/values/strings.xml:222( name="showCalendar_label")
 msgid "Open Calendar Event"
-msgstr "Ouvrir l'événement sur l'agenda"
+msgstr "Ouvrir l\\'événement de l\\'agenda"
 
 #: res/values/strings.xml:223( name="hiddenUntil_label")
 msgid "Hide Until This Date"
-msgstr "Masquer jusqu'à cette date"
+msgstr "Masquer jusqu\\'à cette date"
 
 #: res/values/strings.xml:224( name="repeat_label")
 msgid "Repeat Every"
-msgstr "Répeter chaque"
+msgstr "Répéter tous les"
 
 #: res/values/strings.xml:225( name="repeat_value_unset")
 msgid "No Repeat Set"
@@ -467,7 +467,7 @@ msgstr "Pas de répétition"
 
 #: res/values/strings.xml:226( name="blockingOn_label")
 msgid "Hide Until This Task is Done"
-msgstr "Masquer jusqu'à que cette tâche soit accomplie"
+msgstr "Masquer jusqu\\'à que cette tâche soit accomplie"
 
 #: res/values/strings.xml:227( name="notes_label") res/values/strings.xml:449( name="prefs_notesVisible_title")
 msgid "Notes"
@@ -520,11 +520,11 @@ msgstr "Heure (heures:minutes)"
 
 #: res/values/strings.xml:242( name="notification_dialog")
 msgid "Remind Me Every"
-msgstr "Rappelez-moi chaque"
+msgstr "Rappels tous les"
 
 #: res/values/strings.xml:243( name="repeat_picker_title")
 msgid "Repeat Every (0 to disable)"
-msgstr "Répéter chaque (0 pour désactiver)"
+msgstr "Répéter tous les (0 pour désactiver)"
 
 #: res/values/strings.xml:244( name="repeat_help_dialog_title")
 msgid "Help: Astrid Repeats"
@@ -545,7 +545,7 @@ msgstr ""
 
 #: res/values/strings.xml:251( name="repeat_help_hide")
 msgid "Don't Show Help Anymore"
-msgstr "Ne plus afficher l'aide"
+msgstr "Ne plus afficher l\\'aide"
 
 #. buttons
 #: res/values/strings.xml:254( name="save_label") res/values/strings.xml:262( name="taskEdit_menu_save")
@@ -586,7 +586,7 @@ msgstr "Astrid dit ..."
 
 #: res/values/strings.xml:274( name="tagList_titlePrefix")
 msgid "Astrid: Tag View:"
-msgstr "Astrid : Vue par Tags :"
+msgstr "Astrid : Vue par tags :"
 
 #: res/values/strings.xml:275( name="tagList_context_create")
 msgid "Create Task With Tag"
@@ -630,7 +630,7 @@ msgstr "Tri de A à Z"
 
 #: res/values/strings.xml:286( name="tagList_menu_sortSize")
 msgid "Sort by Size"
-msgstr "Trier par nombre"
+msgstr "Tri par nombre"
 
 #: res/values/strings.xml:291( name="sync_pref_group")
 msgid "Synchronization Services"
@@ -660,15 +660,15 @@ msgstr "Synchronisation automatique"
 #: res/values/strings.xml:298( name="sync_interval_desc")
 msgid "If set, synchronization occurs automatically given interval"
 msgstr ""
-"Cochée, la synchronisation a lieu automatiquement à intervalle défini"
+"Activée, la synchronisation a lieu automatiquement à intervalles définis"
 
 #: res/values/strings.xml:299( name="sync_button_title")
 msgid "Main Menu Shortcut"
-msgstr "Raccourci vers le menu principal"
+msgstr "Raccourci dans le menu"
 
 #: res/values/strings.xml:300( name="sync_button_desc")
 msgid "Show \\\"Synchronize\\\" in Astrid\\'s menu"
-msgstr "Afficher \\\"Synchroniser\\\" dans le menu d\\'Astrid"
+msgstr "Afficher \\\"Synchroniser\\\" dans le menu principal d\\'Astrid"
 
 #: res/values/strings.xml:301( name="sync_quiet_title")
 msgid "Hide Dialogs"
@@ -685,12 +685,12 @@ msgstr "Synchro-Auto uniquement par Wi-Fi"
 #: res/values/strings.xml:304( name="sync_bgwifi_desc")
 msgid "If set, auto-sync only happens when Wifi is active"
 msgstr ""
-"Cochée, la synchronisation automatique a lieu uniquement lorsque le Wi-Fi "
-"est activé"
+"Activée, la synchronisation automatique a lieu uniquement lorsque le Wi-Fi "
+"est actif"
 
 #: res/values/strings.xml:305( name="sync_error")
 msgid "Sync Error! Sorry for the inconvenience! Error:"
-msgstr "Erreur de Synchronisation ! Excusez-nous du désagrément ! Erreur :"
+msgstr "Erreur de synchronisation ! Excusez-nous du désagrément ! Erreur :"
 
 #: res/values/strings.xml:306( name="sync_upgrade_v99")
 msgid ""
@@ -879,11 +879,11 @@ msgstr ""
 
 #: res/values/strings.xml:378( name="locale_pick_tag")
 msgid "Tagged with:"
-msgstr "Taggué avec :"
+msgstr "Taguée avec :"
 
 #: res/values/strings.xml:383( name="notif_definiteDueDate")
 msgid "Absolute Deadline!"
-msgstr "Date Limite !"
+msgstr "Date limite !"
 
 #: res/values/strings.xml:384( name="notif_preferredDueDate")
 msgid "Goal Deadline!"
@@ -895,7 +895,7 @@ msgstr "Travaille sur :"
 
 #: res/values/strings.xml:386( name="notif_tagNotification")
 msgid "You have %d task(s) tagged %s!"
-msgstr "Vous avez %d tâche(s) avec tags %s !"
+msgstr "Vous avez %d tâche(s) avec le tag \\\"%s\\\" !"
 
 #: res/values/strings.xml:391( name="error_opening")
 msgid "Couldn't find this item:"
@@ -923,7 +923,7 @@ msgstr "Fin de période silencieuse"
 
 #: res/values/strings.xml:402( name="prefs_quietEnd_desc")
 msgid "Ending hour when Astrid should be quiet (e.g. 08)"
-msgstr "Heure jusqu'à laquelle Astrid ne fera pas de bruit (ex : 08)"
+msgstr "Heure jusqu\\'à laquelle Astrid ne fera pas de bruit (ex : 08)"
 
 #: res/values/strings.xml:404( name="prefs_defaultRemind_title")
 msgid "Default Reminders"
@@ -941,7 +941,7 @@ msgstr "Mode persistant"
 #: res/values/strings.xml:408( name="prefs_annoy_desc")
 msgid "If checked, LED and notifications must be cleared one at a time"
 msgstr ""
-"Cochée, la LED et les notifications doivent être effacées une par une."
+"Activé, la LED et les notifications doivent être effacées une par une."
 
 #: res/values/strings.xml:410( name="prefs_notification_title")
 msgid "Notification Ringtone"
@@ -965,7 +965,7 @@ msgstr "Apparence"
 
 #: res/values/strings.xml:418( name="prefs_colorize_title")
 msgid "Colorize Task List"
-msgstr "Liste des tâches colorisée"
+msgstr "Liste des tâches en couleur"
 
 #: res/values/strings.xml:419( name="prefs_colorize_desc")
 msgid "Different colors for different priorities"
@@ -1027,11 +1027,11 @@ msgstr "Dates limites imminentes / Date d'achèvement"
 
 #: res/values/strings.xml:439( name="prefs_timeVisible_title")
 msgid "Times"
-msgstr "Fois"
+msgstr "Durées"
 
 #: res/values/strings.xml:440( name="prefs_timeVisible_desc")
 msgid "Estimated &amp; Elapsed Times"
-msgstr "Estimée &amp; Temp Passé"
+msgstr "Durée estimée et temps passé"
 
 #: res/values/strings.xml:441( name="prefs_importanceVisible_title")
 msgid "Importance"
@@ -1043,7 +1043,7 @@ msgstr "Indice de priorité de la tâche"
 
 #: res/values/strings.xml:444( name="prefs_tagsVisible_desc")
 msgid "Tags associated with this task"
-msgstr "Tags de cette tâche"
+msgstr "Tags de la tâche"
 
 #: res/values/strings.xml:445( name="prefs_repeatVisible_title")
 msgid "Repeats"
@@ -1065,18 +1065,26 @@ msgstr "Afficher les rappels de la tâche"
 msgid "Notes associated with this task"
 msgstr "Notes associées à la tâche"
 
-#. Translations probably not necessary for the following
-#: res/values/strings.xml:453( name="survey_label")
-msgid "Take Astrid\\'s Survey &amp; win a MyTouch 3G!"
-msgstr "Répondez à l\\'enquête sur Astrid et gagnez un MyTouch 3G !"
+#. This string is Astrid's Android Marketplace description. It never appears in the app itself.
+#: res/values/strings.xml:453( name="marketplace_description")
+msgid ""
+"Astrid is the highly-acclaimed open-source task list that is simple enough "
+"to not get in your way, powerful enough to help you get stuff done! Tags, "
+"reminders, RememberTheMilk sync, Locale plug-in &amp; more!"
+msgstr ""
+"Astrid est le plus populaire gestionnaire de tâches open-source. Très simple "
+"à utiliser, très puissant pour vous organiser ! Tags, rappels, "
+"synchronisation avec RememberTheMilk, plugin pour Locale et bien plus !"
 
 #. Automatically filled in by Launchpad:
-#: res/values/strings.xml:456( name="about_translators")
+#: res/values/strings.xml:458( name="about_translators")
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Arnaud https://launchpad.net/~nekloth\n"
 "  Christophe Paumelle https://launchpad.net/~christophepaumelle\n"
 "  Jon Paris https://launchpad.net/~jon-todoroo\n"
+"  Matthieu Martin https://launchpad.net/~matthieu-martin\n"
 "  SteelStyle https://launchpad.net/~steelstyle\n"
-"  Thomas Grapperon https://launchpad.net/~tgrapperon"
+"  Thomas Grapperon https://launchpad.net/~tgrapperon\n"
+"  cyrilphoenix https://launchpad.net/~phoenix-thenest"

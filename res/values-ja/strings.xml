@@ -161,6 +161,8 @@
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">削除済み</string>
         
+        <string name="quick_add_hint">新規タスク</string>
+        
         <!-- menu items -->
         <string name="taskList_menu_insert">新規タスク</string>
         <string name="taskList_menu_tags">タグ</string>
@@ -360,6 +362,7 @@
         <string name="notif_definiteDueDate">期日!</string>
         <string name="notif_preferredDueDate">目標日!</string>
         <string name="notif_timerStarted">処理中:</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
         <string name="notif_tagNotification">'$TAG'とタグ付けされた$NUMがあります!</string>
         
     <!-- Error Messages -->  
@@ -426,8 +429,10 @@
         <string name="prefs_notesVisible_title">メモ</string>
         <string name="prefs_notesVisible_desc">このタスクの関連メモ</string>
 
-    <!-- Translations probably not necessary for the following -->
-    <string name="survey_label">Take Astrid\'s Survey &amp; win a MyTouch 3G!</string>
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">
+Astrid is the highly-acclaimed open-source task list that is simple enough to not get in your way, powerful enough to help you get stuff done! Tags, reminders, RememberTheMilk sync, Locale plug-in &amp; more!
+    </string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:
@@ -435,4 +440,12 @@
   Tim Su https://launchpad.net/~tim-todoroo
   maimuzo https://launchpad.net/~maimuzo</string>
 
+    <!-- Widget text: -->
+	<string name="widget_loading">読み込み中...</string>
+	<string name="task_name1">This is a task one</string>
+	<string name="task_name2">Task two here</string>
+	<string name="task_name3">This is task number three</string>
+	<string name="task_name4">The fourth task</string>
+	<string name="task_name5">Task five this is</string>
+	
 </resources>

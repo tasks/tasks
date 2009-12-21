@@ -11,6 +11,7 @@ import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.SyncPreferences;
+import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
 import com.timsu.astrid.sync.SynchronizationService;
 
 public class StartupReceiver extends BroadcastReceiver {
@@ -58,21 +59,25 @@ public class StartupReceiver extends BroadcastReceiver {
         		}
         	}
 
-            new Thread(new Runnable() {
-                public void run() {
-                    Notifications.scheduleAllAlarms(context);
-
-                    // do this after all alarms are scheduled, so if we're
-                    // interrupted, the thread will resume later
-                    Preferences.setCurrentVersion(context, finalVersion);
-                }
-            }).start();
+        	Preferences.setCurrentVersion(context, finalVersion);
         }
+
+
+        // schedule alarms in background every time Astrid is run
+        new Thread(new Runnable() {
+            public void run() {
+                Notifications.scheduleAllAlarms(context);
+            }
+        }).start();
 
         Preferences.setPreferenceDefaults(context);
 
         // start synchronization service
         SynchronizationService.scheduleService(context);
+
+        // update widget
+        Intent intent = new Intent(context, UpdateService.class);
+        context.startService(intent);
 
         hasStartedUp = true;
     }

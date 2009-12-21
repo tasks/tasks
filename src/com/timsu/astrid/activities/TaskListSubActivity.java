@@ -38,18 +38,15 @@ import android.database.sqlite.SQLiteException;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.InputType;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.View.OnTouchListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -300,17 +297,9 @@ public class TaskListSubActivity extends SubActivity {
             }
         });
 
-        // disable add text input box until user requests it
-        final EditText quickAdd = (EditText)findViewById(R.id.quickAddText);
-        final int inputType = quickAdd.getInputType();
-        quickAdd.setInputType(InputType.TYPE_NULL);
-        quickAdd.setOnTouchListener(new OnTouchListener() {
-            public boolean onTouch(View v, MotionEvent event) {
-                quickAdd.setInputType(inputType);
-                quickAdd.setOnTouchListener(null);
-                return false;
-            }
-        });
+        // disable quick-add keyboard until user requests it
+        EditText quickAdd = (EditText)findViewById(R.id.quickAddText);
+        AstridUtilities.suppressVirtualKeyboard(quickAdd);
     }
 
     /**
@@ -468,7 +457,7 @@ public class TaskListSubActivity extends SubActivity {
                 task.getName() + "\n\n" + response).setIcon(
                 android.R.drawable.ic_dialog_alert)
 
-        // yes, i will do it: just closes this dialog
+                // yes, i will do it: just closes this dialog
                 .setPositiveButton(R.string.notify_yes, null)
 
                 // no, i will ignore: quits application
@@ -612,7 +601,23 @@ public class TaskListSubActivity extends SubActivity {
                         .getTaskTags(task.getTaskIdentifier());
                 tagBuilder.delete(0, tagBuilder.length());
                 for (Iterator<TagIdentifier> j = tagIds.iterator(); j.hasNext();) {
-                    TagModelForView tag = context.tagMap.get(j.next());
+                    TagIdentifier id = j.next();
+                    if(!context.tagMap.containsKey(id)) {
+                        // tag identifier does not exist anymore
+                        Log.w("task-list", "WARNING: tag id was deleted - " + id);
+                        getTagController().removeTag(task.getTaskIdentifier(), id);
+                        continue;
+                    }
+
+                    TagModelForView tag = context.tagMap.get(id);
+
+                    // bad entry from map (can this ever happen? at least we
+                    // won't crash
+                    if(tag == null) {
+                        Log.w("task-list", "WARNING: tag id was null: " + id);
+                        continue;
+                    }
+
                     tagBuilder.append(tag.getName());
                     if (j.hasNext())
                         tagBuilder.append(", ");
@@ -668,56 +673,64 @@ public class TaskListSubActivity extends SubActivity {
         } catch (SQLiteException e) {
             // log it but don't throw it
             Log.e("astrid", "Error loading task list", e);
+            // DialogUtilities.okDialog(getParent(), "Error loading task list: " + e.getMessage() + ".\n\nOffending line: " + e.getStackTrace()[0], null);
 
         } catch (final Exception e) {
             AstridUtilities.reportFlurryError("task-list-error", e);
             Log.e("astrid", "Error loading task list", e);
+            // DialogUtilities.okDialog(getParent(), "Error loading task list: " + e.getMessage() + ".\n\nOffending line: " + e.getStackTrace()[0], null);
             return;
         }
 
-        int activeTasks = context.taskArray.size() - completedTasks;
-        // sort task list
-        Collections.sort(context.taskArray, new Comparator<TaskModelForList>() {
-            public int compare(TaskModelForList arg0, TaskModelForList arg1) {
-                return sortMode.compareTo(arg0, arg1);
-            }
-        });
-        if (sortReverse)
-            Collections.reverse(context.taskArray);
+        try {
+            int activeTasks = context.taskArray.size() - completedTasks;
 
-        final int finalCompleted = completedTasks;
-        final int finalActive = activeTasks;
-        final int finalHidden = hiddenTasks;
-
-        handler.post(new Runnable() {
-            public void run() {
-                Resources r = getResources();
-                StringBuilder title = new StringBuilder().append(
-                    r.getString(R.string.taskList_titlePrefix)).append(" ");
-                if (context.filterTag != null) {
-                    if (TagModelForView.UNTAGGED_IDENTIFIER.equals(context.filterTag.getTagIdentifier())) {
-                        title.append(
-                            r.getString(R.string.taskList_titleUntagged)).append(
-                            " ");
-                    } else {
-                        title.append(
-                            r.getString(R.string.taskList_titleTagPrefix,
-                                context.filterTag.getName())).append(" ");
-                    }
+            // sort task list
+            Collections.sort(context.taskArray, new Comparator<TaskModelForList>() {
+                public int compare(TaskModelForList arg0, TaskModelForList arg1) {
+                    return sortMode.compareTo(arg0, arg1);
                 }
+            });
+            if (sortReverse)
+                Collections.reverse(context.taskArray);
 
-                if (finalCompleted > 0)
-                    title.append(r.getQuantityString(R.plurals.NactiveTasks,
-                        finalActive, finalActive, context.taskArray.size()));
-                else
-                    title.append(r.getQuantityString(R.plurals.Ntasks,
-                        context.taskArray.size(), context.taskArray.size()));
-                if (finalHidden > 0)
-                    title.append(" (+").append(finalHidden).append(" ").append(
-                        r.getString(R.string.taskList_hiddenSuffix)).append(")");
-                context.windowTitle = title;
-            }
-        });
+            final int finalCompleted = completedTasks;
+            final int finalActive = activeTasks;
+            final int finalHidden = hiddenTasks;
+
+            handler.post(new Runnable() {
+                public void run() {
+                    Resources r = getResources();
+                    StringBuilder title = new StringBuilder().append(
+                        r.getString(R.string.taskList_titlePrefix)).append(" ");
+                    if (context.filterTag != null) {
+                        if (TagModelForView.UNTAGGED_IDENTIFIER.equals(context.filterTag.getTagIdentifier())) {
+                            title.append(
+                                r.getString(R.string.taskList_titleUntagged)).append(
+                                " ");
+                        } else {
+                            title.append(
+                                r.getString(R.string.taskList_titleTagPrefix,
+                                    context.filterTag.getName())).append(" ");
+                        }
+                    }
+
+                    if (finalCompleted > 0)
+                        title.append(r.getQuantityString(R.plurals.NactiveTasks,
+                            finalActive, finalActive, context.taskArray.size()));
+                    else
+                        title.append(r.getQuantityString(R.plurals.Ntasks,
+                            context.taskArray.size(), context.taskArray.size()));
+                    if (finalHidden > 0)
+                        title.append(" (+").append(finalHidden).append(" ").append(
+                            r.getString(R.string.taskList_hiddenSuffix)).append(")");
+                    context.windowTitle = title;
+                }
+            });
+        } catch (Exception e) {
+            AstridUtilities.reportFlurryError("task-list-error-block2", e);
+            Log.e("astrid", "Error loading task list block 2", e);
+        }
 
         onTaskListLoaded();
     }
@@ -732,8 +745,6 @@ public class TaskListSubActivity extends SubActivity {
                 loadingText.setVisibility(View.GONE);
             }
         });
-
-        // Export top N tasks to ContentProvider here TODO
     }
 
     class TaskListHooks implements TaskListAdapterHooks {
@@ -887,8 +898,11 @@ public class TaskListSubActivity extends SubActivity {
             }
         }
 
-        if (keyCode >= KeyEvent.KEYCODE_A && keyCode <= KeyEvent.KEYCODE_Z) {
-            createTask((char) ('A' + (keyCode - KeyEvent.KEYCODE_A)));
+        // if it's a printable character that's not 1..4
+        char character = event.getNumber();
+        if (character >= '!' && (character < '1' || character > '4') &&
+                character <= '~') {
+            createTask(event.getNumber());
             return true;
         }
 

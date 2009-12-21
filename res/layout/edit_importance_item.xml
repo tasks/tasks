@@ -21,6 +21,6 @@
     <ToggleButton android:id="@+id/button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:textSize="18px"
+        android:textSize="18dip"
         android:disabledAlpha="0.3"/>
 </FrameLayout>

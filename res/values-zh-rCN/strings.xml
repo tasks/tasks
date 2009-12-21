@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ASTRID: Android's Simple Task Recording Dashboard
+ 
+  Copyright (c) 2009 Tim Su
+ 
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+ 
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ 
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+	<!-- application -->
+    <string name="app_name">Astrid</string>
+    
+    <!-- General String Constants -->
+    <skip/>
+    
+        <!-- Importance Labels -->
+        <string name="importance_1">!!!!</string>
+        <string name="importance_2">!!!</string>
+        <string name="importance_3">!!</string>
+        <string name="importance_4">!</string>
+        
+        <!-- Repeat Interval Labels -->
+        <string name="repeat_days">日</string>
+        <string name="repeat_weeks">周</string>
+        <string name="repeat_months">月</string>
+        <string name="repeat_hours">小时</string>
+        
+        <!-- Plurals -->
+        
+        <plurals name="Ntasks">
+            <!-- plurals: tasks -->
+            <item quantity="one">1个任务</item>
+            <item quantity="other">%d个任务</item>
+        </plurals>
+        <plurals name="NactiveTasks">
+            <!-- plurals: active tasks vs total tasks -->
+            <item quantity="one">%d / %d 个活动任务</item>
+            <item quantity="other">%d / %d 个活动任务</item>
+        </plurals>
+        <plurals name="Nalarms">
+            <!-- plurals: alarms -->
+            <item quantity="one">1项提醒</item>
+            <item quantity="two">2项提醒</item>
+            <item quantity="other">%d项提醒</item>
+        </plurals>
+        <plurals name="Ntags">
+            <!-- plurals: tags -->
+            <item quantity="one">1个标签</item>
+            <item quantity="other">%d个标签</item>
+        </plurals>
+        
+        <!-- Time Constants -->
+        
+        <!-- used for long due dates. c.f. Java's SimpleDateFormat -->
+        <string name="dateFormatter">MMM d</string> 
+        <!--  used for alarms -->
+        <string name="alarmDateFormatter">M/dd HH:mm</string>
+        <!-- vertical labels are used in dialog boxes -->
+        <string name="daysVertical">D\na\ny\ns</string> 
+        <string name="hoursVertical">H\no\nu\nr\ns</string>
+        
+        <plurals name="Ndays">
+            <!-- plurals: days -->
+            <item quantity="one">1日</item>
+            <item quantity="other">%d日</item>
+        </plurals>
+        <plurals name="NdaysPreposition">
+            <!-- plurals: days (used after a preopsition, i.e. due in 5 days) -->
+            <item quantity="one">1日</item>
+            <item quantity="other">%d日</item>
+        </plurals>
+        <plurals name="Nhours">
+            <!-- plurals: hours -->
+            <item quantity="one">1小时</item>
+            <item quantity="other">%d小时</item>
+        </plurals>
+        <plurals name="Nminutes">
+            <!-- plurals: minutes -->
+            <item quantity="one">1分钟</item>
+            <item quantity="other">%d分钟</item>
+        </plurals>
+        <plurals name="Nseconds">
+            <!-- plurals: seconds -->
+            <item quantity="one">1秒</item>
+            <item quantity="other">%d秒</item>
+        </plurals>
+        <plurals name="NhoursShort">
+            <!-- plurals: hours (abbreviated) -->
+            <item quantity="one">1小时</item>
+            <item quantity="other">%d 小时</item>
+        </plurals>
+        <plurals name="NminutesShort">
+            <!-- plurals: minutes (abbreviated) -->
+            <item quantity="one">1分钟</item>
+            <item quantity="other">%d分钟</item>
+        </plurals>
+        <plurals name="NsecondsShort">
+            <!-- plurals: seconds (abbreviated) -->
+            <item quantity="one">1秒</item>
+            <item quantity="other">%d秒</item>
+        </plurals>
+        
+        <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
+        <string name="ago_string">%s前</string>
+        
+    <!-- TaskList -->
+    <skip/>
+        <!-- title bar -->
+        <string name="taskList_titlePrefix">Astrid:</string>
+        <string name="taskList_titleTagPrefix">标记\"%s\":</string>
+        <string name="taskList_titleUntagged">未标记任务:</string>
+        <string name="taskList_hiddenSuffix">隐藏</string>
+        <string name="addtask_label">新建任务</string>
+        <string name="missing_tag">不能找到所需标记</string>
+        
+        <!-- text displayed in task list item -->
+        
+        <!-- prefix to show that a task is hidden -->
+        <string name="taskList_hiddenPrefix">隐藏</string>
+        <!-- i.e. Due in 4 days -->
+        <string name="taskList_dueRelativeTime">完成需要</string>
+        <!-- i.e. Due on Jan 2 -->
+        <string name="taskList_dueAbsoluteDate">完成在</string>
+        <!-- prefix to deadline -->
+        <string name="taskList_goalPrefix">目标</string>
+        <string name="taskList_overdueBy">过期</string>
+        <!-- i.e. Finished 4 days ago -->
+        <string name="taskList_completedPrefix">%s结束</string>
+		<!-- i.e.  Estimated: 4 hours -->
+        <string name="taskList_estimatedTimePrefix">预计:</string>
+        <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
+        <string name="taskList_elapsedTimePrefix">花费:</string>
+        <!-- time interval to set frequency to remind user -->
+        <string name="taskList_periodicReminderPrefix">每次触摸</string>
+        
+        <!-- time interval to set repeated tasks-->
+        <string name="taskList_repeatPrefix">每次重复</string>
+        <!-- displayed when repeat is on remote server-->
+        <string name="taskList_repeatsRemotely">在远程服务上重复</string>
+        <string name="taskList_alarmPrefix">下次提醒</string>
+        <string name="taskList_tagsPrefix">标签：</string>
+        <string name="taskList_notesPrefix">备注：</string>
+        
+        <!-- i.e. Created: <create date> -->
+        <string name="taskList_createdPrefix">创建:</string>
+        
+        <!-- i.e. Deleted: <delete date> -->
+        <string name="taskList_deleted">已删除</string>
+        
+        <string name="quick_add_hint">新建任务</string>
+        
+        <!-- menu items -->
+        <string name="taskList_menu_insert">新建任务</string>
+        <string name="taskList_menu_tags">标签</string>
+        <string name="taskList_menu_filters">排序/过滤</string>
+        <string name="taskList_menu_syncshortcut">同步</string>
+        <string name="taskList_menu_more">更多</string>
+        <string name="taskList_menu_sync">同步</string>
+        <string name="taskList_menu_settings">设置</string>
+        <string name="taskList_menu_help">帮助(将打开浏览器)</string>
+        <string name="taskList_menu_survey">接受Astrid的调查！</string>
+        <string name="taskList_menu_tips">快速提示</string>
+        <string name="taskList_menu_cleanup">清理旧任务</string>
+        
+        <string name="taskList_context_edit">编辑任务</string>
+        <string name="taskList_context_delete">删除任务</string>
+        <string name="taskList_context_startTimer">启动定时器</string>
+        <string name="taskList_context_stopTimer">停止定时器</string>
+        <string name="taskList_context_postpone">延后</string>
+        
+        <!-- filter menu items -->
+        <string name="taskList_filter_title">排序/过滤</string>
+        <string name="taskList_filter_hidden">隐藏/阻止的任务</string>
+        <string name="taskList_filter_done">已完成任务</string>
+        <string name="taskList_filter_tagged">标签\'%s\'</string>
+        <string name="taskList_sort_auto">自动排序</string>
+        <string name="taskList_sort_alpha">按名称排序</string>
+        <string name="taskList_sort_duedate">按到期日排序</string>
+        <string name="taskList_sort_reverse">反向排序</string>
+        
+        <string name="taskList_nonag_reminder">选择一个操作:</string>
+        <string name="taskList_postpone_count">您推迟的次数: %d</string>
+        <string name="taskList_postpone_dialog">推迟多久？</string>
+        <string name="taskList_cleanup_dialog">删除#天以前的已完成任务</string>
+
+    <!-- TaskEdit -->
+    <skip/>
+        <!-- title bar -->
+        <string name="taskEdit_titleGeneric">Astrid: 编辑任务中</string>
+        <string name="taskEdit_titlePrefix">Astrid: 编辑中</string>
+        <string name="taskEdit_label">Astrid: 新任务</string>
+        
+        <!-- tabs -->
+        <string name="taskEdit_tab_basic">基本</string>
+        <string name="taskEdit_tab_dates">日期</string>
+        <string name="taskEdit_tab_alerts">提醒</string>
+        
+        <!-- labels -->
+        <string name="name_label">摘要</string>
+        <string name="name_hint">任务名称</string>
+        <string name="importance_label">到底有多重要呢?</string>
+        <string name="tags_label">标签：</string>
+        <string name="tag_hint">标签名称</string>
+        
+        <string name="estimatedDuration_label">需要多长时间?</string>
+        <string name="elapsedDuration_label">任务已经耗时</string>
+        <string name="definiteDueDate_label">最后期限</string>
+        <string name="preferredDueDate_label">目标期限</string>
+        <string name="addToCalendar_label">增加任务到日历</string>
+        <string name="showCalendar_label">打开日历事件</string>
+        <string name="hiddenUntil_label">这个日期前隐藏</string>
+        <string name="repeat_label">重复间隔</string>
+        <string name="repeat_value_unset">没有重复设置</string>
+        <string name="blockingOn_label">隐藏直到任务完成</string>
+        <string name="notes_label">备注</string>
+        <string name="notes_hint">输入任务备注</string>
+        
+        <string name="notification_label">定期提醒</string>
+        <string name="notification_prefix">每</string>
+        <string name="flags_label">通知我...</string>
+        <string name="flag_before">临近最后期限</string>
+        <string name="flag_during">在截止日期</string>
+        <string name="flag_after">在限期前通过</string>
+        <string name="flag_nonstop">闹钟模式</string>
+        <string name="alerts_label">定期提醒</string>
+        <string name="add_alert">增加新提醒</string>
+        
+        <!-- dialog boxes -->
+        <string name="hour_minutes_dialog">时间(小时:分钟)</string>
+        <string name="notification_dialog">每次提示我</string>
+        <string name="repeat_picker_title">重复间隔(０不重复)</string>
+        <string name="repeat_help_dialog_title">帮助:Astrid 重复</string>
+        <string name="repeat_help_dialog">若需重复功能，至少设定上面一个最后期限。任务期限会自动在你完成后更新。\n\n 若您不希望在完成旧任务后看到新任务，你需要使用“隐藏直到...”功能，这也能自动进行更新。\n</string>
+        <string name="repeat_help_hide">不再显示帮助</string>
+        
+        <!-- buttons -->
+        <string name="save_label">保存</string>
+        <string name="discard_label">忽略</string>
+        <string name="edit_label">编辑</string>
+        <string name="delete_label">删除</string>
+        <string name="blank_button_title">设置请点击</string>
+        <string name="startTimer_label">启动定时器</string>
+        <string name="stopTimer_label">停止定时器</string>
+        
+        <string name="taskEdit_menu_save">保存</string>
+        <string name="taskEdit_onTaskSave_Due">任务保存:%s到期</string>
+        <string name="taskEdit_onTaskSave_Overdue">任务保存:%s前到期</string>
+        <string name="taskEdit_onTaskSave_notDue">任务保存</string>
+      
+    <!-- TaskView  -->
+    <skip/>
+    
+        <string name="taskView_notifyTitle">Astrid 说...</string>
+        
+    <!-- Tag List -->
+    <skip/>
+        <string name="tagList_titlePrefix">Astrid: 标签视图:</string>
+        <string name="tagList_context_create">创建任务标签</string>
+        <string name="tagList_context_edit">编辑标签</string>
+        <string name="tagList_context_delete">删除标记</string>
+        <string name="tagList_context_showTag">在主页中显示</string>
+        <string name="tagList_context_hideTag">在主页中隐藏</string>
+        <string name="tagList_context_shortcut">创建快捷方式</string>
+        <string name="tagList_shortcut_created">快捷方式创建在你的主屏幕</string>
+        <string name="tagList_shortcut_prefix">标记：</string>
+        <string name="tagList_untagged">[未标记]</string>
+        
+        <string name="tagList_menu_sortAlpha">按A-Z排序</string>
+        <string name="tagList_menu_sortSize">按大小排序</string>
+    
+    
+    <!-- Synchronization -->  
+    <skip/>
+        <string name="sync_pref_group">同步服务</string>
+        <string name="sync_pref_group_actions">动作</string>
+        <string name="sync_pref_group_options">选项</string>
+        <!-- Proper noun - don't translate -->
+        <string name="sync_rtm_title">Remember The Milk</string>
+        <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
+        <string name="sync_interval_title">自动同步</string>
+        <string name="sync_interval_desc">如设置，同步将定期自动进行</string>
+        <string name="sync_button_title">主菜单快捷方式</string>
+        <string name="sync_button_desc">在Astrid\'s 菜单中显示\"同步\"</string>
+        <string name="sync_quiet_title">隐藏对话框</string>
+        <string name="sync_quiet_desc">隐藏同步结果对话框</string>
+        <string name="sync_bgwifi_title">公在wifi时同步</string>
+        <string name="sync_bgwifi_desc">如果设置，自动同步仅发生在Wifi在线时</string>
+        <string name="sync_error">同步错误! 很抱歉给您带来的不便! 错误:</string>
+        <string name="sync_upgrade_v99">现在Astrid 2.7可以在后台与RTM进行同步. 将转向属性页面来设置同步的时间(次数频繁会增加耗电).</string>
+        <string name="sync_now">现在同步!</string>
+        <string name="sync_forget">清除个人数据</string>
+        <string name="sync_uptodate">同步:最新!</string>
+        <string name="sync_forget_confirm">清空选定的服务？</string>
+        <string name="sync_no_synchronizers">没用同步启用!</string>
+        <string name="sync_last_sync">最后同步时间:%s</string>
+        <string name="sync_last_auto_sync">最近自动同步时间: %s</string>
+        <string name="sync_date_never">永不</string>
+        <string name="sync_result_title">%s 结果</string>
+        <string name="sync_result_local">简介- Astrid 任务:</string>
+        <string name="sync_result_remote">简介-远程服务器</string>
+        <string name="sync_result_created">创建: %d</string>
+        <string name="sync_result_updated">更新: %d</string>
+        <string name="sync_result_deleted">删除: %d</string>
+        <string name="sync_result_merged">合并: %d</string>
+        
+        <string name="sync_progress_remote">正在读远程数据</string>
+        <string name="sync_progress_rxlist">读取列表: %s</string>
+        <string name="sync_progress_repeating">正在同步重复任务</string>
+        <string name="sync_progress_localtx">转递中: %s</string>
+        <string name="sync_progress_localdel">本机删除任务</string>
+        <string name="sync_progress_remotetx">接收中: %s</string>
+        
+        <string name="rtm_login_label">请登录到 RTM...</string>
+        <string name="rtm_login_error">很抱歉, 验证你的登录信息时发生错误. 请再试一次. \n\n 错误消息:</string>
+        
+       
+    <!-- Dialog Boxes -->  
+    <skip/>
+        <string name="loading">载入中...</string>
+        <string name="updating">更新清单...</string>
+        <string name="information_title">信息</string>
+        <string name="question_title">问题</string>
+        <string name="done_label">完成</string>
+        <string name="notify_yes">浏览任务</string>
+        <string name="notify_done">已经完成!</string>
+        <string name="notify_snooze">打盹</string>
+        <string name="notify_no">退出</string>
+        <string name="notify_snooze_title">小时/分钟后提醒</string>
+        
+        <string name="delete_title">删除</string>        
+        <string name="delete_this_task_title">删除这项任务</string>
+        <string name="delete_this_tag_title">从全部任务中移除标签</string>
+        
+        <string name="stop_timer_title">停止计时</string>
+        
+        <string name="quick_tips">Astrid小常识：\n \n -直接输入即可创建任务！\n -编辑任务是，按“返回”键即可保存\n - 选定任务按1-4可快速编辑优先级\n - 长按任务可推迟最后期限\n \n 感谢使用Astrid！\n</string>
+
+    <!-- Locale Plugin -->  
+    <skip/>
+        
+        <string name="locale_edit_alerts_title">Astrid标签提醒</string>
+        <string name="locale_edit_intro">若没有按以下标准完成任务，Astrid将给予提示：</string>
+        <string name="locale_pick_tag">标记</string>
+     
+    <!-- Notification -->  
+    <skip/>
+        
+        <string name="notif_definiteDueDate">截止时间</string>
+        <string name="notif_preferredDueDate">目标截止日期</string>
+        <string name="notif_timerStarted">工作在:</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
+        <string name="notif_tagNotification">您有 $NUM 个任务使用标签 $TAG!</string>
+        
+    <!-- Error Messages -->  
+    <skip/>
+    
+        <string name="error_opening">不能找到这个项目</string>
+        <string name="error_saving">不能保存</string>
+        
+    <skip/>
+
+        <string name="prefs_category_alerts">通知</string>
+        
+        <string name="prefs_quietStart_title">静默开始</string>
+        <string name="prefs_quietStart_desc">停止提示响铃时间开始于</string>
+        
+        <string name="prefs_quietEnd_title">静默结束</string>
+        <string name="prefs_quietEnd_desc">停止提示响铃时间结束于</string>
+          
+        <string name="prefs_defaultRemind_title">默认提醒</string>
+        <string name="prefs_defaultRemind_desc">对新任务，默认多少天(例如7天).空白为不启用</string>
+        
+        <string name="prefs_annoy_title">坚持模式</string>
+        <string name="prefs_annoy_desc">如果选择,LED和通知这时必须清除</string>
+        
+        <string name="prefs_notification_title">通知铃声</string>
+        <string name="prefs_notification_desc">为Astrid\'s提醒选择铃声</string>
+
+        <string name="prefs_notificon_title">通知图标</string>
+        <string name="prefs_notificon_desc">选择通告栏的Astrid\'s图标</string>
+        
+        <string name="prefs_category_appearance">外观</string>
+            
+        <string name="prefs_colorize_title">任务列表着色</string>
+        <string name="prefs_colorize_desc">不同优先权颜色不同</string>
+        
+        <string name="prefs_fontSize_title">任务列表字体</string>
+        <string name="prefs_fontSize_desc">主列表页的字体</string>
+
+        <string name="prefs_category_other">其他</string>
+        
+        <string name="prefs_nagging_title">抱怨信息</string>
+        <string name="prefs_nagging_desc">查看任务和推迟任务时显示Astrid的评论？</string>
+
+        <string name="prefs_deadlineTime_title">默认截止日期</string>
+        <string name="prefs_deadlineTime_desc">#天后设定任务期限</string>
+        
+        <string name="displayedFields_PrefScreen_Title">显示字段</string>
+        <string name="displayedFields_PrefScreen_Desc">选择显示在任务列表中的字段</string>
+        
+        <string name="prefs_titleVisible_title">任务标题</string>
+        <string name="prefs_titleVisible_desc">任务描述</string>
+        <string name="prefs_deadlineVisible_title">日期</string>
+        <string name="prefs_deadlineVisible_desc">即将截止的日期/完成日期</string>
+        <string name="prefs_timeVisible_title">时间</string>
+        <string name="prefs_timeVisible_desc">估计逝去时间</string>
+        <string name="prefs_importanceVisible_title">优先级</string>
+        <string name="prefs_importanceVisible_desc">任务优先级指示</string>
+        <string name="prefs_tagsVisible_title">标签</string>
+        <string name="prefs_tagsVisible_desc">任务相关标签</string>
+        <string name="prefs_repeatVisible_title">重复</string>
+        <string name="prefs_repeatVisible_desc">任务重复信息</string>
+        <string name="prefs_reminderVisible_title">提醒</string>
+        <string name="prefs_reminderVisible_desc">显示任务是否含提醒</string>
+        <string name="prefs_notesVisible_title">备注</string>
+        <string name="prefs_notesVisible_desc">任务相关记录</string>
+
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">Astrid是受到高度赞誉的开源任务列表程序，它不仅能简单的记录任务，更有强大的功能帮助你完成他们！标签，提示，RTM同步，区域设置，还有更多！</string>
+    
+    <!-- Automatically filled in by Launchpad: -->
+    <string name="about_translators">Launchpad Contributions:
+  cykor https://launchpad.net/~cykorr
+  edwardciv https://launchpad.net/~judeciv
+  wopalm https://launchpad.net/~wopalm</string>
+
+    <!-- Widget text: -->
+	<string name="widget_loading">载入中...</string>
+	<string name="task_name1">This is a task one</string>
+	<string name="task_name2">Task two here</string>
+	<string name="task_name3">This is task number three</string>
+	<string name="task_name4">The fourth task</string>
+	<string name="task_name5">Task five this is</string>
+	
+</resources>

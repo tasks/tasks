@@ -53,9 +53,9 @@
         </plurals>
         <plurals name="Nalarms">
             <!-- plurals: alarms -->
-            <item quantity="one">Une alerte</item>
-            <item quantity="two">Deux alertes</item>
-            <item quantity="other">%d alertes</item>
+            <item quantity="one">Une Alerte</item>
+            <item quantity="two">Deux Alertes</item>
+            <item quantity="other">%d Alertes</item>
         </plurals>
         <plurals name="Ntags">
             <!-- plurals: tags -->
@@ -66,37 +66,37 @@
         <!-- Time Constants -->
         
         <!-- used for long due dates. c.f. Java's SimpleDateFormat -->
-        <string name="dateFormatter">d MMM</string> 
+        <string name="dateFormatter">dd MMM</string> 
         <!--  used for alarms -->
-        <string name="alarmDateFormatter">dd/M HH:mm</string>
+        <string name="alarmDateFormatter">dd/MM HH:mm</string>
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">J\no\nu\nr\ns</string> 
-        <string name="hoursVertical">H\ne\nu\nr\ne\ns</string>
+        <string name="daysVertical">j\no\nu\nr\ns</string> 
+        <string name="hoursVertical">h\ne\nu\nr\ne\ns</string>
         
         <plurals name="Ndays">
             <!-- plurals: days -->
-            <item quantity="one">1 Jour</item>
-            <item quantity="other">%d Jours</item>
+            <item quantity="one">1 jour</item>
+            <item quantity="other">%d jours</item>
         </plurals>
         <plurals name="NdaysPreposition">
             <!-- plurals: days (used after a preopsition, i.e. due in 5 days) -->
-            <item quantity="one">1 Jour</item>
-            <item quantity="other">%d Jours</item>
+            <item quantity="one">1 jour</item>
+            <item quantity="other">%d jours</item>
         </plurals>
         <plurals name="Nhours">
             <!-- plurals: hours -->
-            <item quantity="one">1 Heure</item>
-            <item quantity="other">%d Heures</item>
+            <item quantity="one">1 heure</item>
+            <item quantity="other">%d heures</item>
         </plurals>
         <plurals name="Nminutes">
             <!-- plurals: minutes -->
-            <item quantity="one">1 Minute</item>
-            <item quantity="other">%d Minutes</item>
+            <item quantity="one">1 minute</item>
+            <item quantity="other">%d minutes</item>
         </plurals>
         <plurals name="Nseconds">
             <!-- plurals: seconds -->
-            <item quantity="one">1 Seconde</item>
-            <item quantity="other">%d Secondes</item>
+            <item quantity="one">1 seconde</item>
+            <item quantity="other">%d secondes</item>
         </plurals>
         <plurals name="NhoursShort">
             <!-- plurals: hours (abbreviated) -->
@@ -115,16 +115,16 @@
         </plurals>
         
         <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
-        <string name="ago_string">%s de cela</string>
+        <string name="ago_string">il y a %s</string>
         
     <!-- TaskList -->
     <skip/>
         <!-- title bar -->
         <string name="taskList_titlePrefix">Astrid :</string>
-        <string name="taskList_titleTagPrefix">Taggée \"%s\":</string>
+        <string name="taskList_titleTagPrefix">Taguées \"%s\" :</string>
         <string name="taskList_titleUntagged">Tâches sans tags :</string>
         <string name="taskList_hiddenSuffix">cachée(s)</string>
-        <string name="addtask_label">Nouvelle Tâche</string>
+        <string name="addtask_label">Nouvelle tâche</string>
         <string name="missing_tag">Impossible de trouver le tag demandé</string>
         
         <!-- text displayed in task list item -->
@@ -139,16 +139,16 @@
         <string name="taskList_goalPrefix">Objectif</string>
         <string name="taskList_overdueBy">En retard de</string>
         <!-- i.e. Finished 4 days ago -->
-        <string name="taskList_completedPrefix">Finished %s</string>
+        <string name="taskList_completedPrefix">Accomplie %s</string>
 		<!-- i.e.  Estimated: 4 hours -->
         <string name="taskList_estimatedTimePrefix">Estimée à</string>
         <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
         <string name="taskList_elapsedTimePrefix">Temps passé :</string>
         <!-- time interval to set frequency to remind user -->
-        <string name="taskList_periodicReminderPrefix">Rappeler chaque</string>
+        <string name="taskList_periodicReminderPrefix">Rappeller tous les</string>
         
         <!-- time interval to set repeated tasks-->
-        <string name="taskList_repeatPrefix">Répéter chaque</string>
+        <string name="taskList_repeatPrefix">Répéter tous les</string>
         <!-- displayed when repeat is on remote server-->
         <string name="taskList_repeatsRemotely">Répétitions sur le serveur distant</string>
         <string name="taskList_alarmPrefix">Prochaine alarme :</string>
@@ -161,8 +161,10 @@
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Supprimée :</string>
         
+        <string name="quick_add_hint">Nouvelle tâche</string>
+        
         <!-- menu items -->
-        <string name="taskList_menu_insert">Nouvelle Tâche</string>
+        <string name="taskList_menu_insert">Nouvelle tâche</string>
         <string name="taskList_menu_tags">Tags</string>
         <string name="taskList_menu_filters">Tri / filtres</string>
         <string name="taskList_menu_syncshortcut">Synchroniser</string>
@@ -176,18 +178,18 @@
         
         <string name="taskList_context_edit">Modifier la tâche</string>
         <string name="taskList_context_delete">Supprimer la tâche</string>
-        <string name="taskList_context_startTimer">Démarrer le compteur</string>
+        <string name="taskList_context_startTimer">Démarrer le chronomètre</string>
         <string name="taskList_context_stopTimer">Arrêter le compteur</string>
         <string name="taskList_context_postpone">Reporter</string>
         
         <!-- filter menu items -->
         <string name="taskList_filter_title">Tri / filtres</string>
         <string name="taskList_filter_hidden">Tâches masquées / bloquées</string>
-        <string name="taskList_filter_done">Tâches terminées</string>
-        <string name="taskList_filter_tagged">Tagguée \'%s\'</string>
+        <string name="taskList_filter_done">Tâches accomplies</string>
+        <string name="taskList_filter_tagged">Taguée \'%s\'</string>
         <string name="taskList_sort_auto">Tri automatique</string>
-        <string name="taskList_sort_alpha">Trier par nom</string>
-        <string name="taskList_sort_duedate">Trier par date d'échéance</string>
+        <string name="taskList_sort_alpha">Tri par nom</string>
+        <string name="taskList_sort_duedate">Tri par date d'échéance</string>
         <string name="taskList_sort_reverse">Tri inverse</string>
         
         <string name="taskList_nonag_reminder">Sélectionner une action :</string>
@@ -199,7 +201,7 @@
     <skip/>
         <!-- title bar -->
         <string name="taskEdit_titleGeneric">Astrid : Modification de la tâche</string>
-        <string name="taskEdit_titlePrefix">Astrid : modifier</string>
+        <string name="taskEdit_titlePrefix">Astrid : Modifier</string>
         <string name="taskEdit_label">Astrid : Nouvelle tâche</string>
         
         <!-- tabs -->
@@ -209,21 +211,21 @@
         
         <!-- labels -->
         <string name="name_label">Résumé</string>
-        <string name="name_hint">Nom de la Tâche</string>
-        <string name="importance_label">Quelle est l'importance ?</string>
+        <string name="name_hint">Nom de la tâche</string>
+        <string name="importance_label">Quelle est la priorité ?</string>
         <string name="tags_label">Tags :</string>
         <string name="tag_hint">Nom du tag</string>
         
-        <string name="estimatedDuration_label">Combien de temps cela va prendre ?</string>
+        <string name="estimatedDuration_label">Combien de temps cela va t-il prendre ?</string>
         <string name="elapsedDuration_label">Temps déjà passé sur cette tâche</string>
         <string name="definiteDueDate_label">Date limite</string>
         <string name="preferredDueDate_label">Date prévue</string>
-        <string name="addToCalendar_label">Ajouter la tâche à l'agenda</string>
-        <string name="showCalendar_label">Ouvrir l'événement sur l'agenda</string>
-        <string name="hiddenUntil_label">Masquer jusqu'à cette date</string>
-        <string name="repeat_label">Répeter chaque</string>
+        <string name="addToCalendar_label">Ajouter la tâche à l\'agenda</string>
+        <string name="showCalendar_label">Ouvrir l\'événement de l\'agenda</string>
+        <string name="hiddenUntil_label">Masquer jusqu\'à cette date</string>
+        <string name="repeat_label">Répéter tous les</string>
         <string name="repeat_value_unset">Pas de répétition</string>
-        <string name="blockingOn_label">Masquer jusqu'à que cette tâche soit accomplie</string>
+        <string name="blockingOn_label">Masquer jusqu\'à que cette tâche soit accomplie</string>
         <string name="notes_label">Notes</string>
         <string name="notes_hint">Entrer les notes sur la tâche</string>
         
@@ -239,11 +241,11 @@
         
         <!-- dialog boxes -->
         <string name="hour_minutes_dialog">Heure (heures:minutes)</string>
-        <string name="notification_dialog">Rappelez-moi chaque</string>
-        <string name="repeat_picker_title">Répéter chaque (0 pour désactiver)</string>
+        <string name="notification_dialog">Rappels tous les</string>
+        <string name="repeat_picker_title">Répéter tous les (0 pour désactiver)</string>
         <string name="repeat_help_dialog_title">Aide : répétitions</string>
         <string name="repeat_help_dialog">Pour utiliser les répétitions, renseignez la date limite et/ou la date prévue. Lorsque cette tâche sera accomplie, la date limite/prévue sera automatiquement avancée. \n\n Si vous ne désirez pas voir la nouvelle tâche juste après avoir accompli la précédente, cochez le champ "Masquez jusqu\'à", qui sera lui aussi avancé automatiquement. \n</string>
-        <string name="repeat_help_hide">Ne plus afficher l'aide</string>
+        <string name="repeat_help_hide">Ne plus afficher l\'aide</string>
         
         <!-- buttons -->
         <string name="save_label">Enregistrer</string>
@@ -251,7 +253,7 @@
         <string name="edit_label">Modifier</string>
         <string name="delete_label">Supprimer</string>
         <string name="blank_button_title">Cliquez pour définir</string>
-        <string name="startTimer_label">Démarrer le compteur</string>
+        <string name="startTimer_label">Démarrer le chronomètre</string>
         <string name="stopTimer_label">Arrêter le compteur</string>
         
         <string name="taskEdit_menu_save">Enregistrer</string>
@@ -266,7 +268,7 @@
         
     <!-- Tag List -->
     <skip/>
-        <string name="tagList_titlePrefix">Astrid : Vue par Tags :</string>
+        <string name="tagList_titlePrefix">Astrid : Vue par tags :</string>
         <string name="tagList_context_create">Créer une tâche avec tag</string>
         <string name="tagList_context_edit">Modifier le tag</string>
         <string name="tagList_context_delete">Effacer le tag</string>
@@ -278,7 +280,7 @@
         <string name="tagList_untagged">[pas de tag]</string>
         
         <string name="tagList_menu_sortAlpha">Tri de A à Z</string>
-        <string name="tagList_menu_sortSize">Trier par nombre</string>
+        <string name="tagList_menu_sortSize">Tri par nombre</string>
     
     
     <!-- Synchronization -->  
@@ -290,14 +292,14 @@
         <string name="sync_rtm_title">Remember The Milk</string>
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
         <string name="sync_interval_title">Synchronisation automatique</string>
-        <string name="sync_interval_desc">Cochée, la synchronisation a lieu automatiquement à intervalle défini</string>
-        <string name="sync_button_title">Raccourci vers le menu principal</string>
-        <string name="sync_button_desc">Afficher \"Synchroniser\" dans le menu d\'Astrid</string>
+        <string name="sync_interval_desc">Activée, la synchronisation a lieu automatiquement à intervalles définis</string>
+        <string name="sync_button_title">Raccourci dans le menu</string>
+        <string name="sync_button_desc">Afficher \"Synchroniser\" dans le menu principal d\'Astrid</string>
         <string name="sync_quiet_title">Masquer les messages</string>
         <string name="sync_quiet_desc">Masquer les messages de synchronisation</string>
         <string name="sync_bgwifi_title">Synchro-Auto uniquement par Wi-Fi</string>
-        <string name="sync_bgwifi_desc">Cochée, la synchronisation automatique a lieu uniquement lorsque le Wi-Fi est activé</string>
-        <string name="sync_error">Erreur de Synchronisation ! Excusez-nous du désagrément ! Erreur :</string>
+        <string name="sync_bgwifi_desc">Activée, la synchronisation automatique a lieu uniquement lorsque le Wi-Fi est actif</string>
+        <string name="sync_error">Erreur de synchronisation ! Excusez-nous du désagrément ! Erreur :</string>
         <string name="sync_upgrade_v99">Astrid 2.7 se synchronise désormais avec RTM en arrière plan. Vous allez devoir choisir la fréquence à laquelle vous voulez que cela se produise (faible cout d'énergie).</string>
         <string name="sync_now">Synchroniser maintenant !</string>
         <string name="sync_forget">Effacer les données personnelles</string>
@@ -352,14 +354,15 @@
         
         <string name="locale_edit_alerts_title">Astrid : Alerte sur tags</string>
         <string name="locale_edit_intro">Astrid vous enverra un rappel quand il y aura des tâches non accomplies avec les critères suivants :</string>
-        <string name="locale_pick_tag">Taggué avec :</string>
+        <string name="locale_pick_tag">Taguée avec :</string>
      
     <!-- Notification -->  
     <skip/>
         
-        <string name="notif_definiteDueDate">Date Limite !</string>
+        <string name="notif_definiteDueDate">Date limite !</string>
         <string name="notif_preferredDueDate">Date prévue !</string>
         <string name="notif_timerStarted">Travaille sur :</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
         <string name="notif_tagNotification">Vous avez $NUM avec tags $TAG!</string>
         
     <!-- Error Messages -->  
@@ -376,13 +379,13 @@
         <string name="prefs_quietStart_desc">Heure à partir de laquelle Astrid ne fera pas de bruit (ex : 22)</string>
         
         <string name="prefs_quietEnd_title">Fin de période silencieuse</string>
-        <string name="prefs_quietEnd_desc">Heure jusqu'à laquelle Astrid ne fera pas de bruit (ex : 08)</string>
+        <string name="prefs_quietEnd_desc">Heure jusqu\'à laquelle Astrid ne fera pas de bruit (ex : 08)</string>
           
         <string name="prefs_defaultRemind_title">Rappels par défaut</string>
         <string name="prefs_defaultRemind_desc">Pour les nouvelles tâches, en jours (ex : 7). Laissez vide pour désactiver.</string>
         
         <string name="prefs_annoy_title">Mode persistant</string>
-        <string name="prefs_annoy_desc">Cochée, la LED et les notifications doivent être effacées une par une.</string>
+        <string name="prefs_annoy_desc">Activé, la LED et les notifications doivent être effacées une par une.</string>
         
         <string name="prefs_notification_title">Sonnerie de notification</string>
         <string name="prefs_notification_desc">Choissisez une sonnerie pour les alertes d\'Astrid</string>
@@ -392,7 +395,7 @@
         
         <string name="prefs_category_appearance">Apparence</string>
             
-        <string name="prefs_colorize_title">Liste des tâches colorisée</string>
+        <string name="prefs_colorize_title">Liste des tâches en couleur</string>
         <string name="prefs_colorize_desc">Différentes couleurs pour différentes priorités</string>
         
         <string name="prefs_fontSize_title">Police de la liste des tâches</string>
@@ -413,12 +416,12 @@
         <string name="prefs_titleVisible_desc">Description de la tâche</string>
         <string name="prefs_deadlineVisible_title">Dates</string>
         <string name="prefs_deadlineVisible_desc">Dates limites imminentes / Date d'achèvement</string>
-        <string name="prefs_timeVisible_title">Fois</string>
-        <string name="prefs_timeVisible_desc">Estimée &amp; Temp Passé</string>
+        <string name="prefs_timeVisible_title">Durées</string>
+        <string name="prefs_timeVisible_desc">Durée estimée et temps passé</string>
         <string name="prefs_importanceVisible_title">Priorité</string>
         <string name="prefs_importanceVisible_desc">Indice de priorité de la tâche</string>
         <string name="prefs_tagsVisible_title">Tags</string>
-        <string name="prefs_tagsVisible_desc">Tags de cette tâche</string>
+        <string name="prefs_tagsVisible_desc">Tags de la tâche</string>
         <string name="prefs_repeatVisible_title">Répétitions</string>
         <string name="prefs_repeatVisible_desc">Information de répétition de la tâche</string>
         <string name="prefs_reminderVisible_title">Rappels</string>
@@ -426,15 +429,25 @@
         <string name="prefs_notesVisible_title">Notes</string>
         <string name="prefs_notesVisible_desc">Notes associées à la tâche</string>
 
-    <!-- Translations probably not necessary for the following -->
-    <string name="survey_label">Répondez à l\'enquête sur Astrid et gagnez un MyTouch 3G !</string>
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">Astrid est le plus populaire gestionnaire de tâches open-source. Très simple à utiliser, très puissant pour vous organiser ! Tags, rappels, synchronisation avec RememberTheMilk, plugin pour Locale et bien plus !</string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:
   Arnaud https://launchpad.net/~nekloth
   Christophe Paumelle https://launchpad.net/~christophepaumelle
   Jon Paris https://launchpad.net/~jon-todoroo
+  Matthieu Martin https://launchpad.net/~matthieu-martin
   SteelStyle https://launchpad.net/~steelstyle
-  Thomas Grapperon https://launchpad.net/~tgrapperon</string>
+  Thomas Grapperon https://launchpad.net/~tgrapperon
+  cyrilphoenix https://launchpad.net/~phoenix-thenest</string>
 
+    <!-- Widget text: -->
+	<string name="widget_loading">Chargement…</string>
+	<string name="task_name1">This is a task one</string>
+	<string name="task_name2">Task two here</string>
+	<string name="task_name3">This is task number three</string>
+	<string name="task_name4">The fourth task</string>
+	<string name="task_name5">Task five this is</string>
+	
 </resources>

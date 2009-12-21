@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
       package="com.timsu.astrid"
-      android:versionCode="120" android:versionName="2.9.2">
+      android:versionCode="122" android:versionName="2.10.1">
       
     <!-- ============================ Metadata ============================ -->   
       
@@ -15,15 +15,16 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     
-    <uses-sdk android:minSdkVersion="3" />
+    <uses-sdk android:minSdkVersion="3"
+              android:targetSdkVersion="4" />
+    <supports-screens />
     
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">  
     
         <!-- ======================== Activities ========================= -->
         
         <!-- Activity that displays the task list -->
-        <activity android:name=".activities.TaskList"
-                  android:launchMode="singleTop">
+        <activity android:name=".activities.TaskList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -32,7 +33,7 @@
         
         <!-- Activity that redirects to a task list, invoked by notifications -->
         <activity android:name=".activities.TaskListNotify"
-                  android:launchMode="singleTop" /> />
+                  android:launchMode="singleTop" />
         
         <!--  Activity that creates or edits tasks -->
         <activity android:name=".activities.TaskEdit"
@@ -69,7 +70,6 @@
                android:exported="true" >
                <intent-filter>
                    <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
-                   <category android:name="android.intent.category.DEFAULT" />
                </intent-filter>
          </activity>
 
@@ -82,7 +82,6 @@
         <receiver android:name=".utilities.LocaleReceiver">
             <intent-filter>
                  <action android:name="com.timsu.astrid.action.LOCALE_ALERT" />
-                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </receiver>
         

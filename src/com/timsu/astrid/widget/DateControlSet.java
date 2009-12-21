@@ -53,12 +53,10 @@ public class DateControlSet implements OnTimeSetListener,
     }
 
     public DateControlSet(Activity activity, Button dateButton, Button timeButton) {
-        this.activity = activity;
-        this.dateFormatter = new SimpleDateFormat(Preferences.getDateFormat(this.activity));
-        this.timeFormatter = new SimpleDateFormat(Preferences.getTimeFormat(this.activity));
+        this(activity);
+
         this.dateButton = dateButton;
         this.timeButton = timeButton;
-
         dateButton.setOnClickListener(this);
         timeButton.setOnClickListener(this);
 

@@ -452,6 +452,8 @@ Thanks for using Astrid!\n
         <string name="prefs_notesVisible_title">Notes</string>
         <string name="prefs_notesVisible_desc">Notes associated with this task</string>
 
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Task/Todo List</string>
     <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
     <string name="marketplace_description">
 Astrid is the highly-acclaimed open-source task list that is simple enough to not get in your way, powerful enough to help you get stuff done! Tags, reminders, RememberTheMilk sync, Locale plug-in &amp; more!
@@ -460,12 +462,7 @@ Astrid is the highly-acclaimed open-source task list that is simple enough to no
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">translator-credits</string>
 
-    <!-- Widget text: -->
+    <!-- Widget text when loading tasks -->
 	<string name="widget_loading">Loading...</string>
-	<string name="task_name1">This is a task one</string>
-	<string name="task_name2">Task two here</string>
-	<string name="task_name3">This is task number three</string>
-	<string name="task_name4">The fourth task</string>
-	<string name="task_name5">Task five this is</string>
-	
+    
 </resources>

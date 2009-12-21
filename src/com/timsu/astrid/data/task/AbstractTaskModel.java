@@ -45,7 +45,7 @@ import com.timsu.astrid.utilities.Preferences;
 public abstract class AbstractTaskModel extends AbstractModel {
 
     /** Version number of this model */
-    static final int        VERSION                = 7;
+    static final int        VERSION                = 8;
 
     public static final int COMPLETE_PERCENTAGE    = 100;
 
@@ -96,17 +96,17 @@ public abstract class AbstractTaskModel extends AbstractModel {
         defaultValues.put(IMPORTANCE, Importance.DEFAULT.ordinal());
         defaultValues.put(ESTIMATED_SECONDS, 0);
         defaultValues.put(ELAPSED_SECONDS, 0);
-        defaultValues.put(TIMER_START, (Long)null);
-        defaultValues.put(DEFINITE_DUE_DATE, (Long)null);
-        defaultValues.put(PREFERRED_DUE_DATE, (Long)null);
-        defaultValues.put(HIDDEN_UNTIL, (Long)null);
-        defaultValues.put(BLOCKING_ON, (Long)null);
+        defaultValues.put(TIMER_START, 0);
+        defaultValues.put(DEFINITE_DUE_DATE, 0);
+        defaultValues.put(PREFERRED_DUE_DATE, 0);
+        defaultValues.put(HIDDEN_UNTIL, 0);
+        defaultValues.put(BLOCKING_ON, 0);
         defaultValues.put(POSTPONE_COUNT, 0);
         defaultValues.put(NOTIFICATIONS, 0);
         defaultValues.put(NOTIFICATION_FLAGS, NOTIFY_AT_DEADLINE);
-        defaultValues.put(LAST_NOTIFIED, (Long)null);
+        defaultValues.put(LAST_NOTIFIED, 0);
         defaultValues.put(REPEAT, 0);
-        defaultValues.put(COMPLETION_DATE, (Long)null);
+        defaultValues.put(COMPLETION_DATE, 0);
         defaultValues.put(CALENDAR_URI, (String)null);
         defaultValues.put(FLAGS, 0);
     }
@@ -211,7 +211,6 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
             case 5:
             case 6:
-
                 // apparently some people didn't get the flags column
                 // from version 5 to version 6, so we try again
 
@@ -224,8 +223,30 @@ public abstract class AbstractTaskModel extends AbstractModel {
                     Log.e("astrid", "Error updating table!", e);
                 }
 
+            case 7:
+                // not a real change, but make sure that columns that are null
+                // are converted into zeros, which was my previous assumption
 
-
+                for(String column : new String[] {
+                        ESTIMATED_SECONDS,
+                        ELAPSED_SECONDS,
+                        TIMER_START,
+                        DEFINITE_DUE_DATE,
+                        PREFERRED_DUE_DATE,
+                        HIDDEN_UNTIL,
+                        POSTPONE_COUNT,
+                        LAST_NOTIFIED,
+                        REPEAT,
+                        CREATION_DATE,
+                        COMPLETION_DATE }) {
+                    sql = String.format("UPDATE %s SET %s = 0 WHERE %s ISNULL",
+                            tableName, column, column);
+                    try {
+                        db.execSQL(sql);
+                    } catch (Exception e) {
+                        Log.e("astrid", "Error updating table!", e);
+                    }
+                }
 
                 // --- break point
 

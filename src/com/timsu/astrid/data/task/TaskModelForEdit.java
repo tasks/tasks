@@ -118,6 +118,11 @@ public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
     }
 
     @Override
+    public int getProgressPercentage() {
+        return super.getProgressPercentage();
+    }
+
+    @Override
     public TaskIdentifier getBlockingOn() {
         return super.getBlockingOn();
     }

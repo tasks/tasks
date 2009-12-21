@@ -25,8 +25,8 @@
     android:focusable="true"
     android:background="@android:drawable/list_selector_background"
     android:paddingLeft="6dip"
-    android:paddingTop="2px"
-    android:paddingBottom="2px"
+    android:paddingTop="2dip"
+    android:paddingBottom="2dip"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:minHeight="45dip" >
@@ -34,16 +34,16 @@
     <!-- icons on the left -->
     <LinearLayout android:id="@+id/icon_layout"
         android:orientation="vertical"
-        android:minWidth="41px"
+        android:minWidth="41dip"
         android:gravity="center_vertical"
         android:layout_width="wrap_content"
         android:layout_height="fill_parent">
         
         <CheckBox android:id="@+id/cb1"
-            android:paddingBottom="5px"
+            android:paddingBottom="5dip"
             android:layout_gravity="center_vertical"
-            android:layout_width="48px"
-            android:layout_height="52px"
+            android:layout_width="48dip"
+            android:layout_height="52dip"
             android:scaleType="center" />
         
         <ImageView android:id="@+id/imageLeft"
@@ -128,7 +128,7 @@
 
     <!-- importance -->
     <View android:id="@+id/importance"
-        android:layout_width="12px"
+        android:layout_width="12dip"
         android:layout_height="fill_parent"
         android:paddingLeft="6dip"/>
         

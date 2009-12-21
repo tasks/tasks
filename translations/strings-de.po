@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Astrid\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2009-07-17 00:49-0700\n"
-"PO-Revision-Date: 2009-07-22 07:50+0000\n"
-"Last-Translator: Jon Paris <jon@todoroo.com>\n"
+"POT-Creation-Date: 2009-07-22 03:10-0700\n"
+"PO-Revision-Date: 2009-10-15 07:39+0000\n"
+"Last-Translator: artens <jef@artens.nl>\n"
 "Language-Team: German <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=iso-8859-2\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-07-22 07:56+0000\n"
+"X-Launchpad-Export-Date: 2009-10-31 02:52+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. application
@@ -95,7 +95,7 @@ msgstr "d MMM"
 #. used for alarms
 #: res/values/strings.xml:71( name="alarmDateFormatter")
 msgid "M/dd HH:mm"
-msgstr "M/dd HH:mm"
+msgstr "dd/M HH:mm"
 
 #. vertical labels are used in dialog boxes
 #: res/values/strings.xml:73( name="daysVertical")
@@ -176,10 +176,10 @@ msgstr "1 Sek"
 msgid "%d Sec"
 msgstr "%d Sek"
 
-#. appended after time constants to show time in past
+#. indicates time in past. %s is replaced by time unit i.e. 1 minute
 #: res/values/strings.xml:118( name="ago_string")
 msgid "%s Ago"
-msgstr "vor %s"
+msgstr "Vor %s"
 
 #. title bar
 #: res/values/strings.xml:123( name="taskList_titlePrefix")
@@ -229,19 +229,19 @@ msgstr "Ziel"
 
 #: res/values/strings.xml:140( name="taskList_overdueBy")
 msgid "Overdue by"
-msgstr "Überfällig am"
+msgstr "Uberfällig seit"
 
 #. i.e. Finished 4 days ago
 #: res/values/strings.xml:142( name="taskList_completedPrefix")
-msgid "Finished"
-msgstr "Erledigt"
+msgid "Finished %s"
+msgstr "Vor %s erledigt"
 
-#. i.e.  Estimated 4: hours
+#. i.e.  Estimated: 4 hours
 #: res/values/strings.xml:144( name="taskList_estimatedTimePrefix")
 msgid "Estimated:"
 msgstr "Zeitschätzung:"
 
-#. i.e. Spent  88 minutes on tax.
+#. i.e. Spent: 88 minutes. used to indicate time spent on task
 #: res/values/strings.xml:146( name="taskList_elapsedTimePrefix")
 msgid "Spent:"
 msgstr "Verbracht:"
@@ -318,7 +318,7 @@ msgstr "Nimm an Astrids Befragung teil!"
 
 #: res/values/strings.xml:174( name="taskList_menu_tips")
 msgid "Quick Tips"
-msgstr "Quick Tips"
+msgstr "Schon gewusst?"
 
 #: res/values/strings.xml:175( name="taskList_menu_cleanup")
 msgid "Clean Up Old Tasks"
@@ -346,7 +346,7 @@ msgstr "Aufschieben"
 
 #: res/values/strings.xml:185( name="taskList_filter_hidden")
 msgid "Hidden/Blocked Tasks"
-msgstr "Versteckte/Blockierte Aufgaben"
+msgstr "Versteckte Aufgaben"
 
 #: res/values/strings.xml:186( name="taskList_filter_done")
 msgid "Completed Tasks"
@@ -485,7 +485,7 @@ msgstr "Regelmäßige Erinnerungen"
 
 #: res/values/strings.xml:231( name="notification_prefix")
 msgid "Every"
-msgstr "Alle"
+msgstr "Jede"
 
 #: res/values/strings.xml:232( name="flags_label")
 msgid "Notify me..."
@@ -539,11 +539,9 @@ msgid ""
 "'t want to see the new task right after you complete the old one, you should "
 "use the \"Hide Until\" field, which will also be advanced automatically. \\n"
 msgstr ""
-"Um Wiederholungen zu nutzen, stelle oben zumindest eine Frist ein. Wenn du "
-"die Aufgabe erledigst, wird die Frist automatisch verschoben. \\n\\n Wenn du "
-"die neue Aufgabe nicht gleich nach der Fertigstellung der alten sehen "
-"willst, solltest du das Feld \"Verstecken bis\" nutzen, das ebenfalls "
-"automatisch verschoben wird. \\n"
+"Wenn du die neue Aufgabe nicht gleich nach der Fertigstellung der alten "
+"sehen willst, solltest du das Feld \"Bis zu diesem Datum verstecken\" "
+"nutzen, das ebenfalls automatisch verschoben wird."
 
 #: res/values/strings.xml:251( name="repeat_help_hide")
 msgid "Don't Show Help Anymore"
@@ -938,7 +936,9 @@ msgstr "Hartnäckiger Modus"
 
 #: res/values/strings.xml:408( name="prefs_annoy_desc")
 msgid "If checked, LED and notifications must be cleared one at a time"
-msgstr "Du musst die Erinnerung anschauen, um sie zu enfternen."
+msgstr ""
+"Wenn eingestellt, musst Du jede Erinnerung einzeln anschauen, um sie zu "
+"entfernen"
 
 #: res/values/strings.xml:410( name="prefs_notification_title")
 msgid "Notification Ringtone"
@@ -986,7 +986,7 @@ msgstr "Nörgel-Nachrichten"
 
 #: res/values/strings.xml:427( name="prefs_nagging_desc")
 msgid "Show Astrid\\'s comments when viewing reminders and postponing tasks?"
-msgstr "Kommentare zeigen, wenn du Erinnerungen oder Aufgaben aufschiebst?"
+msgstr "Kommentare zeigen, wenn du Erinnerungen aufschiebst?"
 
 #: res/values/strings.xml:429( name="prefs_deadlineTime_title")
 msgid "Default Deadlines"
@@ -994,7 +994,7 @@ msgstr "Standardfristen"
 
 #: res/values/strings.xml:430( name="prefs_deadlineTime_desc")
 msgid "# of days from now to set new deadlines"
-msgstr "Anzahl der Tage ab heute zum Setzten neuer Friste"
+msgstr "Anzahl der Tage ab heute zum Setzen neuer Fristen"
 
 #: res/values/strings.xml:432( name="displayedFields_PrefScreen_Title")
 msgid "Displayed Fields"
@@ -1056,16 +1056,29 @@ msgstr "Anzeige, falls Aufgabenerinnerungen vorhanden"
 msgid "Notes associated with this task"
 msgstr "Notizen, verknüpft mit dieser Aufgabe"
 
-#. Translations probably not necessary for the following
-#: res/values/strings.xml:453( name="survey_label")
-msgid "Take Astrid\\'s Survey &amp; win a MyTouch 3G!"
+#. This string is Astrid's Android Marketplace description. It never appears in the app itself.
+#: res/values/strings.xml:453( name="marketplace_description")
+msgid ""
+"Astrid is the highly-acclaimed open-source task list that is simple enough "
+"to not get in your way, powerful enough to help you get stuff done! Tags, "
+"reminders, RememberTheMilk sync, Locale plug-in &amp; more!"
 msgstr ""
+"Astrid ist die hochgelobte Open Source Aufgabenliste die einfach genug ist, "
+"dir nicht in den Weg zu kommen, mächtig genug dir zu helfen Sachen erledigt "
+"zu bekommen! Tags, Erinnerungen, RememberTheMilk-Synchronisierung, Sprach-"
+"Plugin &amp; mehr!"
 
 #. Automatically filled in by Launchpad:
-#: res/values/strings.xml:456( name="about_translators")
+#: res/values/strings.xml:458( name="about_translators")
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  Friedrich https://launchpad.net/~fwulf\n"
 "  Jon Paris https://launchpad.net/~jon-todoroo\n"
-"  Tim Su https://launchpad.net/~tim-todoroo"
+"  Tim Su https://launchpad.net/~tim-todoroo\n"
+"  alain.tuor https://launchpad.net/~alain-tuor\n"
+"  artens https://launchpad.net/~jef\n"
+"  tikurion https://launchpad.net/~tikurion"
+
+#~ msgid "Finished"
+#~ msgstr "Erledigt"

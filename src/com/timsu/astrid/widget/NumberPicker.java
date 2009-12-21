@@ -32,10 +32,12 @@ import android.view.View.OnFocusChangeListener;
 import android.view.View.OnLongClickListener;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.utilities.AstridUtilities;
 
 public class NumberPicker extends LinearLayout implements OnClickListener,
         OnFocusChangeListener, OnLongClickListener {
@@ -86,7 +88,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     };
 
     private final LayoutInflater               mInflater;
-    private final TextView                     mText;
+    private final EditText                     mText;
     private final InputFilter                  mInputFilter;
     private final InputFilter                  mNumberInputFilter;
 
@@ -132,9 +134,12 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mDecrementButton.setOnLongClickListener(this);
         mDecrementButton.setNumberPicker(this);
 
-        mText = (TextView) findViewById(R.id.timepicker_input);
+        mText = (EditText) findViewById(R.id.timepicker_input);
         mText.setOnFocusChangeListener(this);
         mText.setFilters(new InputFilter[] { mInputFilter });
+
+        // disable keyboard until user requests it
+        AstridUtilities.suppressVirtualKeyboard(mText);
 
         mSlideUpOutAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,

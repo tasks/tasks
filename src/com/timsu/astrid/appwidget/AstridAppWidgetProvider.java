@@ -23,7 +23,7 @@ import com.timsu.astrid.data.task.TaskModelForWidget;
 
 public class AstridAppWidgetProvider extends AppWidgetProvider {
 
-    private final static String TAG           = "TestAppWidgetProvider";
+    private final static String TAG           = "AstridAppWidgetProvider";
     public final static int[]   TEXT_IDS      = { R.id.task_1, R.id.task_2,
         R.id.task_3, R.id.task_4, R.id.task_5 };
     public final static int[]   SEPARATOR_IDS = { R.id.separator_1,

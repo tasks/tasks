@@ -82,7 +82,7 @@ public abstract class SynchronizationProvider {
 	        	    @Override
 	        	    public void run() {
 	        	        SynchronizationProvider.progressDialog = new ProgressDialog(context);
-	        	        progressDialog.setIcon(android.R.drawable.ic_dialog_alert);
+	        	        progressDialog.setIcon(android.R.drawable.ic_dialog_info);
 	        	        progressDialog.setTitle("Synchronization");
 	        	        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
 	        	        progressDialog.setMax(100);
@@ -300,7 +300,8 @@ public abstract class SynchronizationProvider {
             TaskProxy remoteConflict = null;
             if(data.remoteChangeMap.containsKey(mapping.getTask())) {
                 remoteConflict = data.remoteChangeMap.get(mapping.getTask());
-                localTask.mergeWithOther(remoteConflict);
+                // merging disabled - seems not to do the right thing
+                // localTask.mergeWithOther(remoteConflict);
                 stats.mergedTasks++;
             } else {
                 stats.remoteUpdatedTasks++;

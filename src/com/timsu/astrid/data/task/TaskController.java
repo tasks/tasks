@@ -184,9 +184,9 @@ public class TaskController extends AbstractController {
     public HashSet<TaskIdentifier> getActiveVisibleTaskIdentifiers() {
         Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
                 AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
-                AbstractTaskModel.COMPLETE_PERCENTAGE + " AND " +
-                AbstractTaskModel.HIDDEN_UNTIL + " < " +
-                System.currentTimeMillis(), null, null, null, null, null);
+                AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
+                AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
+                System.currentTimeMillis() + ")", null, null, null, null, null);
         return createTaskIdentifierSet(cursor);
     }
 

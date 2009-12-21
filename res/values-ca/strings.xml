@@ -115,7 +115,7 @@
         </plurals>
         
         <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
-        <string name="ago_string">%s en el passat</string>
+        <string name="ago_string">%s Ago</string>
         
     <!-- TaskList -->
     <skip/>
@@ -160,6 +160,8 @@
         
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Eliminat:</string>
+        
+        <string name="quick_add_hint">Nova tasca</string>
         
         <!-- menu items -->
         <string name="taskList_menu_insert">Nova tasca</string>
@@ -360,6 +362,7 @@
         <string name="notif_definiteDueDate">Termini Absolut!</string>
         <string name="notif_preferredDueDate">Termini Objectiu!</string>
         <string name="notif_timerStarted">Treballant en:</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
         <string name="notif_tagNotification">Tens $NUM etiquetades com $TAG!</string>
         
     <!-- Error Messages -->  
@@ -426,14 +429,23 @@
         <string name="prefs_notesVisible_title">Notes</string>
         <string name="prefs_notesVisible_desc">Notes associades amb la tasca</string>
 
-    <!-- Translations probably not necessary for the following -->
-    <string name="survey_label">Take Astrid\'s Survey &amp; win a MyTouch 3G!</string>
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">Astrid és la gran aclamada llista de tasques de codi obert que és prou senzilla com per no posar-se en el seu camí, prou potent com per ajudar a fer coses! Etiquetes, recordatoris, sincronització amb RememberTheMilk, plug-ins regionaks i més!</string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:
+  Frins https://launchpad.net/~francesc-bgr
   Jon Paris https://launchpad.net/~jon-todoroo
   Siegfried Gevatter https://launchpad.net/~rainct
   ninor https://launchpad.net/~subifrisks
   rivorra https://launchpad.net/~rivorra</string>
 
+    <!-- Widget text: -->
+	<string name="widget_loading">Carregant...</string>
+	<string name="task_name1">This is a task one</string>
+	<string name="task_name2">Task two here</string>
+	<string name="task_name3">This is task number three</string>
+	<string name="task_name4">The fourth task</string>
+	<string name="task_name5">Task five this is</string>
+	
 </resources>
