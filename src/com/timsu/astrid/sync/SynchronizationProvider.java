@@ -287,6 +287,10 @@ public abstract class SynchronizationProvider {
             TaskProxy localTask = new TaskProxy(getId(), mapping.getRemoteId());
             TaskModelForSync task = taskController.fetchTaskForSync(
                     mapping.getTask());
+            if(task == null) {
+                // sucks... task was deleted i guess.
+                continue;
+            }
             localTask.readFromTaskModel(task);
             localTask.readTagsFromController(task.getTaskIdentifier(),
                     tagController, data.tags);
