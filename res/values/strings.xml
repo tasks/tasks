@@ -465,4 +465,7 @@ Astrid is the highly-acclaimed open-source task list that is simple enough to no
     <!-- Widget text when loading tasks -->
 	<string name="widget_loading">Loading...</string>
     
+    <!--  Permissions -->
+	<string name="read_tasks_permission">Read Astrid tasks</string>
+    
 </resources>

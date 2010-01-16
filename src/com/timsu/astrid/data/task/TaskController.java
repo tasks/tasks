@@ -44,6 +44,7 @@ import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
+import com.timsu.astrid.provider.TasksProvider;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.Notifications;
@@ -220,6 +221,10 @@ public class TaskController extends AbstractController {
             throw new UnsupportedOperationException("Cannot delete uncreated task!");
         long id = taskId.getId();
         cleanupTask(taskId, false);
+
+        // notify modification
+        TasksProvider.notifyDatabaseModification();
+
         return database.delete(TASK_TABLE_NAME, KEY_ROWID + "=" + id, null) > 0;
     }
 
@@ -263,6 +268,9 @@ public class TaskController extends AbstractController {
             Intent intent = new Intent(context, UpdateService.class);
             context.startService(intent);
         }
+
+        // notify modification
+        TasksProvider.notifyDatabaseModification();
 
         return saveSucessful;
     }
@@ -525,6 +533,28 @@ public class TaskController extends AbstractController {
             ArrayList<TaskModelForWidget> list = new ArrayList<TaskModelForWidget>();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
                 list.add(new TaskModelForWidget(cursor));
+            return list;
+    	} finally {
+    	    cursor.close();
+    	}
+    }
+
+    public ArrayList<TaskModelForProvider> getTasksForProvider(String limit) {
+
+    	Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForWidget.FIELD_LIST,
+    	        AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
+                AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
+                AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
+                System.currentTimeMillis() + ")", null, null, null,
+                AbstractTaskModel.IMPORTANCE + " * " + (5 * 24 * 3600 * 1000L) +
+                    " + CASE WHEN MAX(pdd, ddd) = 0 THEN " +
+                    (System.currentTimeMillis() + (7 * 24 * 3600 * 1000L)) +
+                    " ELSE (CASE WHEN pdd = 0 THEN ddd ELSE pdd END) END ASC", limit);
+
+    	try {
+            ArrayList<TaskModelForProvider> list = new ArrayList<TaskModelForProvider>();
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+                list.add(new TaskModelForProvider(cursor));
             return list;
     	} finally {
     	    cursor.close();
