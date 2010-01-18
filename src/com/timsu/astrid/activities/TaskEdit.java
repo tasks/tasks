@@ -159,15 +159,6 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		Intent intent = getIntent();
-		long taskId = 0;
-		try {
-			taskId = intent.getExtras().getLong("id");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-//		Log.d("astrid", "id = " + taskId);
-
 		tagController = new TagController(this);
 		tagController.open();
 		alertController = new AlertController(this);

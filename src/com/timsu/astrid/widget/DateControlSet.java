@@ -20,7 +20,6 @@
 package com.timsu.astrid.widget;
 
 import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Activity;
@@ -48,8 +47,8 @@ public class DateControlSet implements OnTimeSetListener,
 
     protected DateControlSet(Activity activity) {
         this.activity = activity;
-        this.dateFormatter = new SimpleDateFormat(Preferences.getDateFormat(this.activity));
-        this.timeFormatter = new SimpleDateFormat(Preferences.getTimeFormat(this.activity));
+        this.dateFormatter = Preferences.getDateFormat(this.activity);
+        this.timeFormatter = Preferences.getTimeFormat(this.activity);
     }
 
     public DateControlSet(Activity activity, Button dateButton, Button timeButton) {

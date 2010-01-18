@@ -1,5 +1,6 @@
 package com.timsu.astrid.utilities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.content.Context;
@@ -23,7 +24,6 @@ public class Preferences {
     private static final String P_SYNC_LAST_SYNC_ATTEMPT = "lastsyncattempt";
     private static final String P_LOCALE_LAST_NOTIFY = "locnot";
     private static final String P_DID_ANDROID_AND_ME_SURVEY = "aamsurvey";
-    private static final String P_TAG_LIST_SORT = "tgsort";
 
     // pref values
     public static final int ICON_SET_PINK = 0;
@@ -129,24 +129,34 @@ public class Preferences {
         return b24;
     }
 
-    public static String getTimeFormat(Context context) {
+    public static SimpleDateFormat getTimeFormat(Context context) {
+        String value;
     	if (is24HourFormat(context)) {
-    		return "H:mm";
+    		value = "H:mm";
     	} else {
-    		return "h:mm a";
+    		value = "h:mm a";
     	}
+
+    	return new SimpleDateFormat(value);
     }
 
-    public static String getDateFormat(Context context) {
+    public static SimpleDateFormat getDateFormat(Context context) {
         String value = android.provider.Settings.System.getString(context.getContentResolver(),
         		android.provider.Settings.System.DATE_FORMAT);
+
         if(value == null) {
             value = "MMM d, yyyy";
         }
+
         // if there is not already day-of-week indicator, add this
         if(!value.contains("E"))
             value = "EEE, " + value;
-        return value;
+
+        try {
+            return new SimpleDateFormat(value);
+        } catch (IllegalArgumentException e) {
+            return new SimpleDateFormat("EEE, MMM d, yyyy");
+        }
     }
 
     // --- notification settings
