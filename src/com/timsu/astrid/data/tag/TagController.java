@@ -34,6 +34,7 @@ import com.timsu.astrid.data.tag.AbstractTagModel.TagModelDatabaseHelper;
 import com.timsu.astrid.data.tag.TagToTaskMapping.TagToTaskMappingDatabaseHelper;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
+import com.timsu.astrid.provider.TasksProvider;
 
 /** Controller for Tag-related operations */
 public class TagController extends AbstractController {
@@ -247,8 +248,13 @@ public class TagController extends AbstractController {
                 TagToTaskMapping.TAG + " = " + tagId.idAsString(), null) < 0)
             return false;
 
-        return tagDatabase.delete(TAG_TABLE_NAME,
-                KEY_ROWID + " = " + tagId.idAsString(), null) > 0;
+        int res = tagDatabase.delete(TAG_TABLE_NAME,
+                KEY_ROWID + " = " + tagId.idAsString(), null);
+
+        // notify modification
+        TasksProvider.notifyDatabaseModification();
+
+        return res > 0;
     }
 
     // --- single tag to task operations
@@ -256,10 +262,16 @@ public class TagController extends AbstractController {
     /** Remove the given tag from the task */
     public boolean removeTag(TaskIdentifier taskId, TagIdentifier tagId)
             throws SQLException{
-        return tagToTaskMapDatabase.delete(TAG_TASK_MAP_NAME,
+
+    	int res = tagToTaskMapDatabase.delete(TAG_TASK_MAP_NAME,
                 String.format("%s = ? AND %s = ?",
                         TagToTaskMapping.TAG, TagToTaskMapping.TASK),
-                new String[] { tagId.idAsString(), taskId.idAsString() }) > 0;
+                new String[] { tagId.idAsString(), taskId.idAsString() });
+
+        // notify modification
+        TasksProvider.notifyDatabaseModification();
+
+    	return res > 0;
     }
 
     /** Add the given tag to the task */
@@ -268,8 +280,14 @@ public class TagController extends AbstractController {
         ContentValues values = new ContentValues();
         values.put(TagToTaskMapping.TAG, tagId.getId());
         values.put(TagToTaskMapping.TASK, taskId.getId());
-        return tagToTaskMapDatabase.insert(TAG_TASK_MAP_NAME, TagToTaskMapping.TAG,
-                values) >= 0;
+
+        long res = tagToTaskMapDatabase.insert(TAG_TASK_MAP_NAME, TagToTaskMapping.TAG,
+                values);
+
+        // notify modification
+        TasksProvider.notifyDatabaseModification();
+
+        return res >= 0;
     }
 
     // --- boilerplate
