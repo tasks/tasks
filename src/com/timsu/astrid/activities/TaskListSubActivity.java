@@ -47,6 +47,7 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -452,7 +453,7 @@ public class TaskListSubActivity extends SubActivity {
             response = responses[new Random().nextInt(responses.length)];
         } else
             response = r.getString(R.string.taskList_nonag_reminder);
-        new AlertDialog.Builder(getParent()).setTitle(
+        AlertDialog dialog = new AlertDialog.Builder(getParent()).setTitle(
                 R.string.taskView_notifyTitle).setMessage(
                 task.getName() + "\n\n" + response).setIcon(
                 android.R.drawable.ic_dialog_alert)
@@ -463,8 +464,7 @@ public class TaskListSubActivity extends SubActivity {
                 // no, i will ignore: quits application
                 .setNegativeButton(R.string.notify_no,
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                    int which) {
+                            public void onClick(DialogInterface d, int which) {
                                 TaskList.shouldCloseInstance = true;
                                 closeActivity();
                             }
@@ -473,13 +473,22 @@ public class TaskListSubActivity extends SubActivity {
                 // snooze: sets a new temporary alert, closes application
                 .setNeutralButton(R.string.notify_snooze,
                         new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,
-                                    int which) {
+                            public void onClick(DialogInterface d, int which) {
                                 snoozeAlert(task, repeatInterval, flags);
                             }
                         })
-
-                .show();
+                .create();
+        Button button = new Button(getParent());
+        button.setText(R.string.notify_done);
+        button.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                task.setProgressPercentage(TaskModelForList.COMPLETE_PERCENTAGE);
+                getTaskController().saveTask(task, false);
+            }
+        });
+        dialog. addContentView(button, null);
+        dialog.show();
     }
 
     /**
