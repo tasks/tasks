@@ -46,10 +46,10 @@ public abstract class TaskModificationActivity<MODEL_TYPE extends
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        controller = new TaskController(this);
-        controller.open();
-
         try {
+            controller = new TaskController(this);
+            controller.open();
+
             // check if we have a TaskIdentifier
             TaskIdentifier identifier = null;
             Bundle extras = getIntent().getExtras();

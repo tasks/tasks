@@ -121,16 +121,16 @@ public class TaskList extends Activity {
 
         setupUIComponents();
 
+        Bundle variables = new Bundle();
+
         if(savedInstanceState != null && savedInstanceState.containsKey(LAST_ACTIVITY_TAG)) {
         	viewFlipper.setDisplayedChild(savedInstanceState.getInt(LAST_ACTIVITY_TAG));
-        	Bundle variables = savedInstanceState.getBundle(LAST_BUNDLE_TAG);
-        	getCurrentSubActivity().onDisplay(variables);
-        } else {
-            Bundle variables = null;
-            if(getIntent().hasExtra(VARIABLES_TAG))
-                variables = getIntent().getBundleExtra(VARIABLES_TAG);
-        	getCurrentSubActivity().onDisplay(variables);
+        	variables.putAll(savedInstanceState.getBundle(LAST_BUNDLE_TAG));
         }
+        if(getIntent().hasExtra(VARIABLES_TAG))
+            variables.putAll(getIntent().getBundleExtra(VARIABLES_TAG));
+
+        getCurrentSubActivity().onDisplay(variables);
 
         // sync now if requested
         if(synchronizeNow) {
