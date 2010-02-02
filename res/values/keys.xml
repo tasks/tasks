@@ -34,6 +34,8 @@
         <string name="p_notif_defaultRemind">notif_default_reminder</string>
     
         <string name="p_notif_annoy">notif_annoy</string>
+
+        <string name="p_notif_vibrate">notif_vibrate</string>
        
         <string name="p_notification_ringtone">notification_ringtone</string>
        

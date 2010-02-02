@@ -16,6 +16,10 @@
             android:key="@string/p_notif_annoy"  
             android:title="@string/prefs_annoy_title"  
             android:summary="@string/prefs_annoy_desc" />  
+        <CheckBoxPreference  
+            android:key="@string/p_notif_vibrate"  
+            android:title="@string/prefs_vibrate_title"  
+            android:summary="@string/prefs_vibrate_desc" />  
         <EditTextPreference  
             android:key="@string/p_notif_defaultRemind"  
             android:title="@string/prefs_defaultRemind_title"  

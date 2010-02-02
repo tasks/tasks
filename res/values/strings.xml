@@ -416,6 +416,9 @@ Thanks for using Astrid!\n
         <string name="prefs_notificon_title">Notification Icons</string>
         <string name="prefs_notificon_desc">Choose Astrid\'s notification bar icon</string>
         
+        <string name="prefs_vibrate_title">Vibrate on Alert</string>
+        <string name="prefs_vibrate_desc">If checked, Astrid will vibrate when sounding an alarm</string>
+        
         <string name="prefs_category_appearance">Appearance</string>
             
         <string name="prefs_colorize_title">Colorize Task List</string>

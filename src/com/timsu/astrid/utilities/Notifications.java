@@ -460,11 +460,13 @@ public class Notifications extends BroadcastReceiver {
             notification.vibrate = null;
             notification.sound = null;
         } else {
-            if(audioManager.getVibrateSetting(AudioManager.STREAM_RING) !=
-                    AudioManager.VIBRATE_SETTING_OFF)
-                notification.defaults |= Notification.DEFAULT_VIBRATE;
-            else
+            if (Preferences.shouldVibrate(context)
+                && audioManager.getVibrateSetting(AudioManager.STREAM_RING) !=
+                    AudioManager.VIBRATE_SETTING_OFF) {
+                notification.vibrate = new long[] { 2000, 2000, 2000, 2000 };
+            } else {
                 notification.vibrate = null;
+            }
 
             Uri notificationSound = Preferences.getNotificationRingtone(context);
             if(audioManager.getStreamVolume(AudioManager.STREAM_RING) == 0) {

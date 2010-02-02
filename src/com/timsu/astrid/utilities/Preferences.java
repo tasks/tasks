@@ -56,6 +56,9 @@ public class Preferences {
         if(!prefs.contains(r.getString(R.string.p_colorize))) {
             editor.putBoolean(r.getString(R.string.p_colorize), DEFAULT_COLORIZE);
         }
+        if(!prefs.contains(r.getString(R.string.p_notif_vibrate))) {
+            editor.putBoolean(r.getString(R.string.p_notif_vibrate), true);
+        }
 
         setVisibilityPreferences(prefs, editor, r);
 
@@ -197,6 +200,13 @@ public class Preferences {
         Resources r = context.getResources();
         return getPrefs(context).getBoolean(r.getString(
                 R.string.p_notif_annoy), DEFAULT_PERSISTENCE_MODE);
+    }
+
+    /** Get vibration mode setting */
+    public static boolean shouldVibrate(Context context) {
+        Resources r = context.getResources();
+        return getPrefs(context).getBoolean(r.getString(
+                R.string.p_notif_vibrate), true);
     }
 
     /** Return # of days to remind by default */
