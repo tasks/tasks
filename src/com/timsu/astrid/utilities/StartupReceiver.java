@@ -62,8 +62,6 @@ public class StartupReceiver extends BroadcastReceiver {
         		}
         	}
 
-        	showTaskKillerHelp(context);
-
         	Preferences.setCurrentVersion(context, finalVersion);
         }
 
@@ -84,6 +82,9 @@ public class StartupReceiver extends BroadcastReceiver {
         Intent intent = new Intent(context, UpdateService.class);
         context.startService(intent);
 
+        // check for task killers
+        showTaskKillerHelp(context);
+
         hasStartedUp = true;
     }
 
@@ -92,19 +93,31 @@ public class StartupReceiver extends BroadcastReceiver {
             return;
 
         // search for task killers. if they exist, show the help!
-        PackageManager pm = context.getPackageManager();
-        List<PackageInfo> apps = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS);
-        for(PackageInfo app : apps) {
-            for(String permission : app.requestedPermissions) {
-                if(Manifest.permission.RESTART_PACKAGES.equals(permission)) {
-                    DialogUtilities.okDialog(context, context.getString(R.string.task_killer_help), new OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface arg0, int arg1) {
-                            Preferences.setShouldShowTaskKillerHelp(context, true);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                PackageManager pm = context.getPackageManager();
+                List<PackageInfo> apps = pm
+                        .getInstalledPackages(PackageManager.GET_PERMISSIONS);
+                for (PackageInfo app : apps) {
+                    for (String permission : app.requestedPermissions) {
+                        if (Manifest.permission.RESTART_PACKAGES
+                                .equals(permission)) {
+                            DialogUtilities.okDialog(context, context
+                                    .getString(R.string.task_killer_help),
+                                    new OnClickListener() {
+                                        @Override
+                                        public void onClick(
+                                                DialogInterface arg0, int arg1) {
+                                            Preferences
+                                                    .setShouldShowTaskKillerHelp(
+                                                            context, true);
+                                        }
+                                    });
                         }
-                    });
+                    }
                 }
             }
-        }
+        }).start();
     }
 }
