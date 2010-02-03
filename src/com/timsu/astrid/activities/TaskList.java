@@ -125,7 +125,9 @@ public class TaskList extends Activity {
 
         if(savedInstanceState != null && savedInstanceState.containsKey(LAST_ACTIVITY_TAG)) {
         	viewFlipper.setDisplayedChild(savedInstanceState.getInt(LAST_ACTIVITY_TAG));
-        	variables.putAll(savedInstanceState.getBundle(LAST_BUNDLE_TAG));
+        	Bundle lastBundle = savedInstanceState.getBundle(LAST_BUNDLE_TAG);
+        	if(lastBundle != null)
+        	    variables.putAll(lastBundle);
         }
         if(getIntent().hasExtra(VARIABLES_TAG))
             variables.putAll(getIntent().getBundleExtra(VARIABLES_TAG));

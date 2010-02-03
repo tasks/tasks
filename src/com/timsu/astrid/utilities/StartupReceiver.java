@@ -1,5 +1,8 @@
 package com.timsu.astrid.utilities;
 
+import java.util.List;
+
+import android.Manifest;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -59,6 +62,8 @@ public class StartupReceiver extends BroadcastReceiver {
         		}
         	}
 
+        	showTaskKillerHelp(context);
+
         	Preferences.setCurrentVersion(context, finalVersion);
         }
 
@@ -80,5 +85,26 @@ public class StartupReceiver extends BroadcastReceiver {
         context.startService(intent);
 
         hasStartedUp = true;
+    }
+
+    private static void showTaskKillerHelp(final Context context) {
+        if(!Preferences.shouldShowTaskKillerHelp(context))
+            return;
+
+        // search for task killers. if they exist, show the help!
+        PackageManager pm = context.getPackageManager();
+        List<PackageInfo> apps = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS);
+        for(PackageInfo app : apps) {
+            for(String permission : app.requestedPermissions) {
+                if(Manifest.permission.RESTART_PACKAGES.equals(permission)) {
+                    DialogUtilities.okDialog(context, context.getString(R.string.task_killer_help), new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0, int arg1) {
+                            Preferences.setShouldShowTaskKillerHelp(context, true);
+                        }
+                    });
+                }
+            }
+        }
     }
 }

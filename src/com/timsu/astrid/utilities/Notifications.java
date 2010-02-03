@@ -17,6 +17,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.os.Vibrator;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -461,9 +462,9 @@ public class Notifications extends BroadcastReceiver {
             notification.sound = null;
         } else {
             if (Preferences.shouldVibrate(context)
-                && audioManager.getVibrateSetting(AudioManager.STREAM_RING) !=
-                    AudioManager.VIBRATE_SETTING_OFF) {
-                notification.vibrate = new long[] { 2000, 2000, 2000, 2000 };
+                    && audioManager.shouldVibrate(AudioManager.VIBRATE_TYPE_NOTIFICATION)) {
+                Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
+                vibrator.vibrate(new long[] {0, 1000, 500, 1000, 500, 1000}, 0);
             } else {
                 notification.vibrate = null;
             }

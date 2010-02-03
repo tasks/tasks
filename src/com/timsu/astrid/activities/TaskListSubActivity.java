@@ -47,7 +47,6 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -447,48 +446,38 @@ public class TaskListSubActivity extends SubActivity {
         Notifications.clearAllNotifications(getParent(), task
                 .getTaskIdentifier());
 
-        String response;
-        if (Preferences.shouldShowNags(getParent())) {
-            String[] responses = r.getStringArray(R.array.reminder_responses);
-            response = responses[new Random().nextInt(responses.length)];
-        } else
-            response = r.getString(R.string.taskList_nonag_reminder);
-        AlertDialog dialog = new AlertDialog.Builder(getParent()).setTitle(
-                R.string.taskView_notifyTitle).setMessage(
-                task.getName() + "\n\n" + response).setIcon(
-                android.R.drawable.ic_dialog_alert)
+        String[] strings = new String[] {
+            r.getString(R.string.notify_yes),
+            r.getString(R.string.notify_done),
+            r.getString(R.string.notify_snooze),
+            r.getString(R.string.notify_no)
+        };
 
-                // yes, i will do it: just closes this dialog
-                .setPositiveButton(R.string.notify_yes, null)
-
-                // no, i will ignore: quits application
-                .setNegativeButton(R.string.notify_no,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface d, int which) {
-                                TaskList.shouldCloseInstance = true;
-                                closeActivity();
-                            }
-                        })
-
-                // snooze: sets a new temporary alert, closes application
-                .setNeutralButton(R.string.notify_snooze,
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface d, int which) {
-                                snoozeAlert(task, repeatInterval, flags);
-                            }
-                        })
-                .create();
-        Button button = new Button(getParent());
-        button.setText(R.string.notify_done);
-        button.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                task.setProgressPercentage(TaskModelForList.COMPLETE_PERCENTAGE);
-                getTaskController().saveTask(task, false);
-            }
-        });
-        dialog. addContentView(button, null);
-        dialog.show();
+        new AlertDialog.Builder(getParent()).setTitle(
+            task.getName()).setIcon(
+            android.R.drawable.ic_dialog_info)
+            .setSingleChoiceItems(strings, 0, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch(which) {
+                    case 0:
+                        break;
+                    case 1:
+                        task.setProgressPercentage(TaskModelForList.COMPLETE_PERCENTAGE);
+                        getTaskController().saveTask(task, false);
+                        break;
+                    case 2:
+                        snoozeAlert(task, repeatInterval, flags);
+                        break;
+                    case 3:
+                        TaskList.shouldCloseInstance = true;
+                        closeActivity();
+                        break;
+                    }
+                    dialog.dismiss();
+                }
+            })
+            .show();
     }
 
     /**
@@ -591,7 +580,7 @@ public class TaskListSubActivity extends SubActivity {
                 if (Thread.interrupted())
                     return;
 
-                TaskModelForList task = i.next();
+                final TaskModelForList task = i.next();
 
                 if (!filterShowDone) {
                     if (task.isTaskCompleted()) {
@@ -687,7 +676,8 @@ public class TaskListSubActivity extends SubActivity {
         } catch (final Exception e) {
             AstridUtilities.reportFlurryError("task-list-error", e);
             Log.e("astrid", "Error loading task list", e);
-            // DialogUtilities.okDialog(getParent(), "Error loading task list: " + e.getMessage() + ".\n\nOffending line: " + e.getStackTrace()[0], null);
+            DialogUtilities.okDialog(getParent(), "Error loading task list: " + e.getMessage() + ".\n\nOffending line: " + e.getStackTrace()[0], null);
+            onTaskListLoaded();
             return;
         }
 

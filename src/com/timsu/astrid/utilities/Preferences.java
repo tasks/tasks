@@ -24,6 +24,7 @@ public class Preferences {
     private static final String P_SYNC_LAST_SYNC_ATTEMPT = "lastsyncattempt";
     private static final String P_LOCALE_LAST_NOTIFY = "locnot";
     private static final String P_DID_ANDROID_AND_ME_SURVEY = "aamsurvey";
+    private static final String P_TASK_KILLER_HELP = "taskkiller";
 
     // pref values
     public static final int ICON_SET_PINK = 0;
@@ -111,6 +112,18 @@ public class Preferences {
     public static void setCurrentVersion(Context context, int version) {
         Editor editor = getPrefs(context).edit();
         editor.putInt(P_CURRENT_VERSION, version);
+        editor.commit();
+    }
+
+    /** TaskKillerHelp: whether we should show task killer help */
+    public static boolean shouldShowTaskKillerHelp(Context context) {
+        return getPrefs(context).getBoolean(P_TASK_KILLER_HELP, true);
+    }
+
+    /** TaskKillerHelp: whether we should show task killer help */
+    public static void setShouldShowTaskKillerHelp(Context context, boolean state) {
+        Editor editor = getPrefs(context).edit();
+        editor.putBoolean(P_TASK_KILLER_HELP, state);
         editor.commit();
     }
 

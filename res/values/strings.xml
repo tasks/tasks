@@ -348,10 +348,10 @@ Error Message:
         <string name="information_title">Information</string>
         <string name="question_title">Question</string>
         <string name="done_label">Done</string>
-        <string name="notify_yes">View Task</string>
+        <string name="notify_yes">View This Task</string>
         <string name="notify_done">Already Done!</string>
-        <string name="notify_snooze">Snooze</string>
-        <string name="notify_no">Quit</string>
+        <string name="notify_snooze">Snooze...</string>
+        <string name="notify_no">Go Away!</string>
         <string name="notify_snooze_title">Hours/minutes to snooze?</string>
         
         <string name="delete_title">Delete</string>        
@@ -369,6 +369,14 @@ Some things you may not know about Astrid:\n
 - If a task has a deadline, long-press to postpone it\n
 \n
 Thanks for using Astrid!\n
+        </string>
+        
+        <string name="task_killer_help">
+It looks like you are using a task killer application! Please add Astrid to
+the exclusion list for your task killer. Otherwise, if Astrid gets killed,
+it will not let you know when your tasks are due.\n
+\n
+(note: No Astrid\'s were harmed in making this message.)
         </string>
 
     <!-- Locale Plugin -->  
