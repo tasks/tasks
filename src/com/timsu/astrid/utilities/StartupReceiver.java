@@ -3,6 +3,9 @@ package com.timsu.astrid.utilities;
 import java.util.List;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -66,24 +69,29 @@ public class StartupReceiver extends BroadcastReceiver {
         }
 
 
-        // schedule alarms in background every time Astrid is run
+        // perform startup activities in a background thread
         new Thread(new Runnable() {
             public void run() {
+                // schedule alarms
                 Notifications.scheduleAllAlarms(context);
+
+                // start widget updating alarm
+                AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+                Intent intent = new Intent(context, UpdateService.class);
+                PendingIntent pendingIntent = PendingIntent.getService(context,
+                        0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
+                am.setInexactRepeating(AlarmManager.RTC, 0,
+                        Constants.WIDGET_UPDATE_INTERVAL, pendingIntent);
             }
         }).start();
 
         Preferences.setPreferenceDefaults(context);
 
-        // start synchronization service
-        SynchronizationService.scheduleService(context);
-
-        // update widget
-        Intent intent = new Intent(context, UpdateService.class);
-        context.startService(intent);
-
         // check for task killers
         showTaskKillerHelp(context);
+
+        // start synchronization service
+        SynchronizationService.scheduleService(context);
 
         hasStartedUp = true;
     }
@@ -93,31 +101,37 @@ public class StartupReceiver extends BroadcastReceiver {
             return;
 
         // search for task killers. if they exist, show the help!
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                PackageManager pm = context.getPackageManager();
-                List<PackageInfo> apps = pm
-                        .getInstalledPackages(PackageManager.GET_PERMISSIONS);
-                for (PackageInfo app : apps) {
-                    for (String permission : app.requestedPermissions) {
-                        if (Manifest.permission.RESTART_PACKAGES
-                                .equals(permission)) {
-                            DialogUtilities.okDialog(context, context
-                                    .getString(R.string.task_killer_help),
-                                    new OnClickListener() {
-                                        @Override
-                                        public void onClick(
-                                                DialogInterface arg0, int arg1) {
-                                            Preferences
-                                                    .setShouldShowTaskKillerHelp(
-                                                            context, true);
-                                        }
-                                    });
+        PackageManager pm = context.getPackageManager();
+        List<PackageInfo> apps = pm
+                .getInstalledPackages(PackageManager.GET_PERMISSIONS);
+        outer: for (PackageInfo app : apps) {
+            if(app == null || app.requestedPermissions == null)
+                continue;
+            if(app.packageName.startsWith("com.android"))
+                continue;
+            for (String permission : app.requestedPermissions) {
+                if (Manifest.permission.RESTART_PACKAGES.equals(permission)) {
+                    Log.e("astrid", "found task killer: " + app.packageName);
+
+                    OnClickListener listener = new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface arg0,
+                                int arg1) {
+                            Preferences.setShouldShowTaskKillerHelp(
+                                    context, true);
                         }
-                    }
+                    };
+
+                    new AlertDialog.Builder(context)
+                    .setTitle(R.string.information_title)
+                    .setMessage(R.string.task_killer_help)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setPositiveButton(R.string.task_killer_help_ok, listener)
+                    .show();
+
+                    break outer;
                 }
             }
-        }).start();
+        }
     }
 }

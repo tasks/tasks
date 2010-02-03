@@ -84,8 +84,8 @@ public class SynchronizationService extends BroadcastReceiver {
         offset = Math.max(offset, AUTO_SYNC_MIN_OFFSET);
 
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
-                createAlarmIntent(context), 0);
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0,
+                createAlarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
 
         if (Constants.DEBUG)
             Log.e("Astrid", "Autosync set for " + offset / 1000
@@ -95,7 +95,7 @@ public class SynchronizationService extends BroadcastReceiver {
         am.cancel(pendingIntent);
 
         // schedule new
-        am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + offset,
+        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + offset,
                 interval, pendingIntent);
     }
 
@@ -105,8 +105,8 @@ public class SynchronizationService extends BroadcastReceiver {
      */
     public static void unscheduleService(Context context) {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
-                createAlarmIntent(context), 0);
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0,
+                createAlarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
         am.cancel(pendingIntent);
     }
 
