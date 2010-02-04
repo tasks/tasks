@@ -463,8 +463,7 @@ public class Notifications extends BroadcastReceiver {
         } else {
             if (Preferences.shouldVibrate(context)
                     && audioManager.shouldVibrate(AudioManager.VIBRATE_TYPE_NOTIFICATION)) {
-                Vibrator vibrator = (Vibrator)context.getSystemService(Context.VIBRATOR_SERVICE);
-                vibrator.vibrate(new long[] {0, 1000, 500, 1000, 500, 1000}, 0);
+                notification.vibrate = new long[] {0, 1000, 500, 1000, 500, 1000}; 
             } else {
                 notification.vibrate = null;
             }

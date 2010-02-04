@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Random;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -41,17 +42,21 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.KeyEvent;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -453,31 +458,58 @@ public class TaskListSubActivity extends SubActivity {
             r.getString(R.string.notify_no)
         };
 
-        new AlertDialog.Builder(getParent()).setTitle(
-            task.getName()).setIcon(
-            android.R.drawable.ic_dialog_info)
-            .setSingleChoiceItems(strings, 0, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch(which) {
-                    case 0:
-                        break;
-                    case 1:
-                        task.setProgressPercentage(TaskModelForList.COMPLETE_PERCENTAGE);
-                        getTaskController().saveTask(task, false);
-                        break;
-                    case 2:
-                        snoozeAlert(task, repeatInterval, flags);
-                        break;
-                    case 3:
-                        TaskList.shouldCloseInstance = true;
-                        closeActivity();
-                        break;
-                    }
-                    dialog.dismiss();
+        String response;
+        if (Preferences.shouldShowNags(getParent())) {
+            String[] responses = r.getStringArray(R.array.reminder_responses);
+            response = responses[new Random().nextInt(responses.length)];
+        } else
+            response = r.getString(R.string.taskList_nonag_reminder);
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getParent());
+        final AlertDialog dialog;
+
+        LayoutInflater inflater = (LayoutInflater) getParent().getSystemService(
+                Context.LAYOUT_INFLATER_SERVICE);
+        View dialogView = inflater.inflate(R.layout.notification_dialog, null);
+
+        builder.setTitle(task.getName());
+        builder.setIcon(android.R.drawable.ic_dialog_info);
+        builder.setCancelable(true);
+        builder.setView(dialogView);
+        dialog = builder.create();
+
+        TextView message = (TextView)dialogView.findViewById(R.id.message);
+        message.setText(response);
+        message.setTextSize(18);
+
+        ListView items = (ListView)dialogView.findViewById(R.id.items);
+        items.setAdapter(new ArrayAdapter<String>(getParent(),
+                android.R.layout.simple_list_item_checked, strings));
+        items.setFocusableInTouchMode(true);
+        items.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1, int which,
+                    long id) {
+                switch(which) {
+                case 0:
+                    break;
+                case 1:
+                    task.setProgressPercentage(TaskModelForList.COMPLETE_PERCENTAGE);
+                    getTaskController().saveTask(task, false);
+                    break;
+                case 2:
+                    snoozeAlert(task, repeatInterval, flags);
+                    break;
+                case 3:
+                    TaskList.shouldCloseInstance = true;
+                    closeActivity();
+                    break;
                 }
-            })
-            .show();
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     /**

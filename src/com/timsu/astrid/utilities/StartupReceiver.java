@@ -111,6 +111,7 @@ public class StartupReceiver extends BroadcastReceiver {
                 continue;
             for (String permission : app.requestedPermissions) {
                 if (Manifest.permission.RESTART_PACKAGES.equals(permission)) {
+                    CharSequence appName = app.applicationInfo.loadLabel(pm);
                     Log.e("astrid", "found task killer: " + app.packageName);
 
                     OnClickListener listener = new OnClickListener() {
@@ -124,7 +125,8 @@ public class StartupReceiver extends BroadcastReceiver {
 
                     new AlertDialog.Builder(context)
                     .setTitle(R.string.information_title)
-                    .setMessage(R.string.task_killer_help)
+                    .setMessage(context.getString(R.string.task_killer_help,
+                            appName))
                     .setIcon(android.R.drawable.ic_dialog_alert)
                     .setPositiveButton(R.string.task_killer_help_ok, listener)
                     .show();
