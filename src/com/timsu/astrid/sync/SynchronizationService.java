@@ -72,6 +72,7 @@ public class SynchronizationService extends BroadcastReceiver {
         Integer syncFrequencySeconds = Preferences.getSyncAutoSyncFrequency(context);
 
         if(syncFrequencySeconds == null) {
+            Log.w("sync-service", "disabled synchronization service");
     	    unscheduleService(context);
     	    return;
     	}
@@ -95,7 +96,7 @@ public class SynchronizationService extends BroadcastReceiver {
         am.cancel(pendingIntent);
 
         // schedule new
-        am.setInexactRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + offset,
+        am.setRepeating(AlarmManager.RTC_WAKEUP, System.currentTimeMillis() + offset,
                 interval, pendingIntent);
     }
 
