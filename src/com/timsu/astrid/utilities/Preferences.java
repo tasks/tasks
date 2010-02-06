@@ -121,9 +121,9 @@ public class Preferences {
     }
 
     /** TaskKillerHelp: whether we should show task killer help */
-    public static void setShouldShowTaskKillerHelp(Context context, boolean state) {
+    public static void disableTaskKillerHelp(Context context) {
         Editor editor = getPrefs(context).edit();
-        editor.putBoolean(P_TASK_KILLER_HELP, state);
+        editor.putBoolean(P_TASK_KILLER_HELP, false);
         editor.commit();
     }
 

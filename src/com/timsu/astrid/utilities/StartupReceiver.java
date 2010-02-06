@@ -118,8 +118,7 @@ public class StartupReceiver extends BroadcastReceiver {
                         @Override
                         public void onClick(DialogInterface arg0,
                                 int arg1) {
-                            Preferences.setShouldShowTaskKillerHelp(
-                                    context, true);
+                            Preferences.disableTaskKillerHelp(context);
                         }
                     };
 
