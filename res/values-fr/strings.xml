@@ -371,7 +371,7 @@ Astrid might not let you know when your tasks are due.\n
         <string name="notif_preferredDueDate">Date prévue !</string>
         <string name="notif_timerStarted">Travaille sur :</string>
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
-        <string name="notif_tagNotification">Vous avez $NUM avec tags $TAG!</string>
+        <string name="notif_tagNotification">Vous avez $NUM tagué(e,s) $TAG</string>
         
     <!-- Error Messages -->  
     <skip/>
