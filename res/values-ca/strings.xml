@@ -115,7 +115,7 @@
         </plurals>
         
         <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
-        <string name="ago_string">%s Ago</string>
+        <string name="ago_string">Fa %s</string>
         
     <!-- TaskList -->
     <skip/>
@@ -139,7 +139,7 @@
         <string name="taskList_goalPrefix">Objectiu</string>
         <string name="taskList_overdueBy">Amb retard de</string>
         <!-- i.e. Finished 4 days ago -->
-        <string name="taskList_completedPrefix">Finished %s</string>
+        <string name="taskList_completedPrefix">Acabat fa %s</string>
 		<!-- i.e.  Estimated: 4 hours -->
         <string name="taskList_estimatedTimePrefix">Estimat:</string>
         <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
@@ -161,7 +161,7 @@
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Eliminat:</string>
         
-        <string name="quick_add_hint">Nova tasca</string>
+        <string name="quick_add_hint">Afegir nova tasca</string>
         
         <!-- menu items -->
         <string name="taskList_menu_insert">Nova tasca</string>
@@ -348,6 +348,14 @@
         <string name="stop_timer_title">Aturar el temporitzador?</string>
         
         <string name="quick_tips">Algunes coses que potser no sabies sobre Astrid: \n\n - Per crear una tasca, simplement comença a teclejar!\n - Mentre s\'edita una tasca, prem [Enrere] per desar-la\n - Selecciona una tasca i prem 1-4 per canviar ràpidament la seva prioritat\n - Si una tasca té un termini, prem-la continuadament per ajornar-la \n\n Gràcies per utilitzar Astrid!\n</string>
+        
+        <!-- %s => name of the application -->
+        <string name="task_killer_help">
+It looks like you are using an app that can kill processes (%s)! If you can, 
+add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
+Astrid might not let you know when your tasks are due.\n
+        </string>
+        <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
 
     <!-- Locale Plugin -->  
     <skip/>
@@ -393,6 +401,9 @@
         <string name="prefs_notificon_title">Icones de Notificació</string>
         <string name="prefs_notificon_desc">Escull la icona per mostrar a la barra de Notificació</string>
         
+        <string name="prefs_vibrate_title">Vibrate on Alert</string>
+        <string name="prefs_vibrate_desc">If checked, Astrid will vibrate when sounding an alarm</string>
+        
         <string name="prefs_category_appearance">Apariència</string>
             
         <string name="prefs_colorize_title">Colors de la Llista de Tasques</string>
@@ -429,6 +440,8 @@
         <string name="prefs_notesVisible_title">Notes</string>
         <string name="prefs_notesVisible_desc">Notes associades amb la tasca</string>
 
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Task/Todo List</string>
     <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
     <string name="marketplace_description">Astrid és la gran aclamada llista de tasques de codi obert que és prou senzilla com per no posar-se en el seu camí, prou potent com per ajudar a fer coses! Etiquetes, recordatoris, sincronització amb RememberTheMilk, plug-ins regionaks i més!</string>
     
@@ -436,16 +449,16 @@
     <string name="about_translators">Launchpad Contributions:
   Frins https://launchpad.net/~francesc-bgr
   Jon Paris https://launchpad.net/~jon-todoroo
+  MasterChes https://launchpad.net/~chesmaster
   Siegfried Gevatter https://launchpad.net/~rainct
+  alexandre saiz https://launchpad.net/~alexandresaiz
   ninor https://launchpad.net/~subifrisks
   rivorra https://launchpad.net/~rivorra</string>
 
-    <!-- Widget text: -->
+    <!-- Widget text when loading tasks -->
 	<string name="widget_loading">Carregant...</string>
-	<string name="task_name1">This is a task one</string>
-	<string name="task_name2">Task two here</string>
-	<string name="task_name3">This is task number three</string>
-	<string name="task_name4">The fourth task</string>
-	<string name="task_name5">Task five this is</string>
-	
+    
+    <!--  Permissions -->
+	<string name="read_tasks_permission">Read Astrid tasks</string>
+    
 </resources>

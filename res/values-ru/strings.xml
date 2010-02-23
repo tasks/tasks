@@ -34,9 +34,9 @@
         <string name="importance_4">!</string>
         
         <!-- Repeat Interval Labels -->
-        <string name="repeat_days">день(дней)</string>
-        <string name="repeat_weeks">неделя(ль)</string>
-        <string name="repeat_months">месяц(ев)</string>
+        <string name="repeat_days">День(дней)</string>
+        <string name="repeat_weeks">Неделя(ль)</string>
+        <string name="repeat_months">Месяц(ев)</string>
         <string name="repeat_hours">Час(ов)</string>
         
         <!-- Plurals -->
@@ -168,7 +168,7 @@
         <string name="taskList_menu_tags">Метки</string>
         <string name="taskList_menu_filters">Сорт./Фильтры</string>
         <string name="taskList_menu_syncshortcut">Синхр.</string>
-        <string name="taskList_menu_more">Еще</string>
+        <string name="taskList_menu_more">Ещё</string>
         <string name="taskList_menu_sync">Синхронизация</string>
         <string name="taskList_menu_settings">Параметры</string>
         <string name="taskList_menu_help">Справка (в Браузере)</string>
@@ -185,7 +185,7 @@
         <!-- filter menu items -->
         <string name="taskList_filter_title">Сорт./Фильтры</string>
         <string name="taskList_filter_hidden">Скрытые/Блокированные задачи</string>
-        <string name="taskList_filter_done">Завершенные задачи</string>
+        <string name="taskList_filter_done">Завершённые задачи</string>
         <string name="taskList_filter_tagged">Отмечено \'%s\'</string>
         <string name="taskList_sort_auto">Автосортировка</string>
         <string name="taskList_sort_alpha">Сортировка по имени</string>
@@ -240,11 +240,11 @@
         <string name="add_alert">Добавить новое напоминание</string>
         
         <!-- dialog boxes -->
-        <string name="hour_minutes_dialog">Время(час : мин)</string>
+        <string name="hour_minutes_dialog">Время (час : мин)</string>
         <string name="notification_dialog">Напомнить позже</string>
         <string name="repeat_picker_title">Повтор каждые (0 - запрет)</string>
         <string name="repeat_help_dialog_title">Справка: Повторы Astrid</string>
-        <string name="repeat_help_dialog">Для использования повторов, установите хотя бы один из сроков выше. Когда задача будет выполнена, срок будет автоматически перенесен.\n\n Если вы не хотите видеть новую задачу сразу после выполнения предыдущей, используйте поле "Скрыть до", которое также будет автоматически переноситься.\n</string>
+        <string name="repeat_help_dialog">Для использования повторов, установите хотя бы один из сроков выше. Когда задача будет выполнена, срок будет автоматически перенесён.\n\n Если вы не хотите видеть новую задачу сразу после выполнения предыдущей, используйте поле "Скрыть до", которое также будет автоматически переноситься.\n</string>
         <string name="repeat_help_hide">Не показывать справку</string>
         
         <!-- buttons -->
@@ -348,6 +348,14 @@
         <string name="stop_timer_title">Установить таймер?</string>
         
         <string name="quick_tips">Вы можете не знать некоторые вещи об Astrid:\n\n - Для создания задачи, просто начните набирать!\n - во время правки задачи "Назад" сохраняет ее\n - у выбранной задачи нажатием 1-4 можно изменить важность\n - если у задачи есть срок, длинное нажатие для переноса\n Спасибо за использование Astrid!\n</string>
+        
+        <!-- %s => name of the application -->
+        <string name="task_killer_help">
+It looks like you are using an app that can kill processes (%s)! If you can, 
+add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
+Astrid might not let you know when your tasks are due.\n
+        </string>
+        <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
 
     <!-- Locale Plugin -->  
     <skip/>
@@ -363,7 +371,7 @@
         <string name="notif_preferredDueDate">Срок цели!</string>
         <string name="notif_timerStarted">Работаю над:</string>
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
-        <string name="notif_tagNotification">У вас $NUM отмеченных $TAG!</string>
+        <string name="notif_tagNotification">У вас $NUM с меткой $TAG!</string>
         
     <!-- Error Messages -->  
     <skip/>
@@ -392,6 +400,9 @@
 
         <string name="prefs_notificon_title">Иконка напоминания</string>
         <string name="prefs_notificon_desc">Выбор иконки напоминания Astrid</string>
+        
+        <string name="prefs_vibrate_title">Vibrate on Alert</string>
+        <string name="prefs_vibrate_desc">If checked, Astrid will vibrate when sounding an alarm</string>
         
         <string name="prefs_category_appearance">Интерфейс</string>
             
@@ -429,21 +440,23 @@
         <string name="prefs_notesVisible_title">Заметки</string>
         <string name="prefs_notesVisible_desc">Заметки, связанные с этой задачей</string>
 
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Список задач</string>
     <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
-    <string name="marketplace_description">Astrid - это легкий в использовании, с открытыми исходными текстами, менеждер задач, который достаточно прост, чтобы не мешать, а помочь! Метки, напоминания, RTM синхронизация, Locale плагин и многое другое!</string>
+    <string name="marketplace_description">Astrid - это лёгкий в использовании менеджер задач с открытыми исходными текстами, который достаточно прост, чтобы не мешать, а помогать! Метки, напоминания, RTM синхронизация, Locale плагин и многое другое!</string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:
+  Andrey Smolenkov https://launchpad.net/~smol000
   Jon Paris https://launchpad.net/~jon-todoroo
   Piligrim https://launchpad.net/~piligrim275
-  Prudnikov https://launchpad.net/~prudis</string>
+  Prudnikov https://launchpad.net/~prudis
+  Sergey Korolev https://launchpad.net/~knopki</string>
 
-    <!-- Widget text: -->
+    <!-- Widget text when loading tasks -->
 	<string name="widget_loading">Загрузка...</string>
-	<string name="task_name1">This is a task one</string>
-	<string name="task_name2">Task two here</string>
-	<string name="task_name3">This is task number three</string>
-	<string name="task_name4">The fourth task</string>
-	<string name="task_name5">Task five this is</string>
-	
+    
+    <!--  Permissions -->
+	<string name="read_tasks_permission">Read Astrid tasks</string>
+    
 </resources>

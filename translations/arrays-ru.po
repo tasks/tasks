@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: astrid-translation\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-07-22 03:10-0700\n"
-"PO-Revision-Date: 2009-06-16 06:33+0000\n"
-"Last-Translator: Piligrim <piligrim275@gmail.com>\n"
+"PO-Revision-Date: 2009-12-13 18:15+0000\n"
+"Last-Translator: Sergey Korolev <knopki@blipblop.org>\n"
 "Language-Team: Russian <ru@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-31 02:52+0000\n"
+"X-Launchpad-Export-Date: 2010-02-21 02:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. reminders: Make these < 20 chars so the task name is displayed
@@ -164,7 +164,7 @@ msgstr "Заверши это сегодня и я никому не скажу!
 
 #: res/values/arrays.xml:75(item)
 msgid "Why postpone when you can um... not postpone!"
-msgstr "Зачемм переносить, когда можно сделать!"
+msgstr "Зачем переносить, когда можно сделать!"
 
 #: res/values/arrays.xml:76(item)
 msgid "You\\'ll finish this eventually, I presume?"
@@ -176,7 +176,7 @@ msgstr "Я думаю ты реально крут! Может обойдемс�
 
 #: res/values/arrays.xml:78(item)
 msgid "Will you be able to achieve your goals if you do that?"
-msgstr "Ты добьешься целей если сделаешь это?"
+msgstr "Ты добьёшься целей если сделаешь это?"
 
 #: res/values/arrays.xml:79(item)
 msgid "Postpone, postpone, postpone. When will you change!"

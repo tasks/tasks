@@ -161,7 +161,7 @@
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Slettet</string>
         
-        <string name="quick_add_hint">Nye oppgaver</string>
+        <string name="quick_add_hint">Legg til ny oppgave</string>
         
         <!-- menu items -->
         <string name="taskList_menu_insert">Nye oppgaver</string>
@@ -351,6 +351,14 @@ Hvis du ikke ønsker å se den nye oppgaven rett etter at du fullfører den gaml
         <string name="stop_timer_title">Stopp tidtakeren?</string>
         
         <string name="quick_tips">Dette visste du kanskje ikke om Astrid:\n\n - For å opprette en oppgave kan du bare begynne å skrive!\n - Mens du redigerer en oppgave kan du klikke på \'tilbake\'-knappen for å lagre den\n - Velg en oppgave og trykk 1-4 for å raskt endre prioritetsinstillingen\n - Dersom en oppgave har en tidsfrist, trykk på den og hold en stund\n\n Takk for at du bruker Astrid!\n</string>
+        
+        <!-- %s => name of the application -->
+        <string name="task_killer_help">
+It looks like you are using an app that can kill processes (%s)! If you can, 
+add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
+Astrid might not let you know when your tasks are due.\n
+        </string>
+        <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
 
     <!-- Locale Plugin -->  
     <skip/>
@@ -366,7 +374,7 @@ Hvis du ikke ønsker å se den nye oppgaven rett etter at du fullfører den gaml
         <string name="notif_preferredDueDate">Måltidsfrist!</string>
         <string name="notif_timerStarted">Arbeider med:</string>
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
-        <string name="notif_tagNotification">You have $NUM tagged $TAG!</string>
+        <string name="notif_tagNotification">Du har $NUM mekede $TAG!</string>
         
     <!-- Error Messages -->  
     <skip/>
@@ -395,6 +403,9 @@ Hvis du ikke ønsker å se den nye oppgaven rett etter at du fullfører den gaml
 
         <string name="prefs_notificon_title">Meldingsikoner</string>
         <string name="prefs_notificon_desc">Veld Astrid\'s ikon for meldingspanelet</string>
+        
+        <string name="prefs_vibrate_title">Vibrate on Alert</string>
+        <string name="prefs_vibrate_desc">If checked, Astrid will vibrate when sounding an alarm</string>
         
         <string name="prefs_category_appearance">Utseende</string>
             
@@ -432,6 +443,8 @@ Hvis du ikke ønsker å se den nye oppgaven rett etter at du fullfører den gaml
         <string name="prefs_notesVisible_title">Notater</string>
         <string name="prefs_notesVisible_desc">Notater tilhørende denne oppgaven</string>
 
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Oppgave/Ting å gjøre liste</string>
     <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
     <string name="marketplace_description">Astrid er den høyt anerkjente oppgavelisten med åpen kildekode, som er enkel nok til å ikke komme i veien, men kraftig nok til å hjelpe deg å få ting gjort! Tagger, påminnelser, RememberTheMilk-synkroinsering, Locale plug-in og mer!</string>
     
@@ -440,14 +453,13 @@ Hvis du ikke ønsker å se den nye oppgaven rett etter at du fullfører den gaml
   Jon Paris https://launchpad.net/~jon-todoroo
   Roger Kind Kristiansen https://launchpad.net/~rogerkk
   Sheel https://launchpad.net/~joacimeldre
-  Tim Su https://launchpad.net/~tim-todoroo</string>
+  Tim Su https://launchpad.net/~tim-todoroo
+  Tor Syversen https://launchpad.net/~sol-moe</string>
 
-    <!-- Widget text: -->
+    <!-- Widget text when loading tasks -->
 	<string name="widget_loading">Laster ...</string>
-	<string name="task_name1">This is a task one</string>
-	<string name="task_name2">Task two here</string>
-	<string name="task_name3">This is task number three</string>
-	<string name="task_name4">The fourth task</string>
-	<string name="task_name5">Task five this is</string>
-	
+    
+    <!--  Permissions -->
+	<string name="read_tasks_permission">Read Astrid tasks</string>
+    
 </resources>

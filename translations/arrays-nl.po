@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: astrid-translation\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2009-07-22 03:10-0700\n"
-"PO-Revision-Date: 2009-09-07 07:23+0000\n"
+"PO-Revision-Date: 2009-12-16 08:46+0000\n"
 "Last-Translator: artens <jef@artens.nl>\n"
 "Language-Team: Dutch <nl@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-31 02:52+0000\n"
+"X-Launchpad-Export-Date: 2010-02-21 02:56+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. reminders: Make these < 20 chars so the task name is displayed
@@ -32,11 +32,11 @@ msgstr "Heb je een paar minuutjes?"
 
 #: res/values/arrays.xml:35(item)
 msgid "Did you forget?"
-msgstr "Ben je het vergeten?"
+msgstr "Was je dit vergeten?"
 
 #: res/values/arrays.xml:36(item)
 msgid "Excuse me!"
-msgstr "Pardon!"
+msgstr "Eehm...."
 
 #: res/values/arrays.xml:37(item)
 msgid "When you have a minute:"
@@ -64,7 +64,7 @@ msgstr "Mag ik even de aandacht?"
 
 #: res/values/arrays.xml:43(item)
 msgid "It\\'s a great day to"
-msgstr "Het is een mooie dag om"
+msgstr "\\'t is een mooie dag om"
 
 #. reminder_responses: Astrid says...  (user should answer yes or no)
 #: res/values/arrays.xml:48(item)
@@ -77,11 +77,11 @@ msgstr "Klaar om af te vinken?"
 
 #: res/values/arrays.xml:50(item)
 msgid "Why don\\'t you get this done?"
-msgstr "Waarom is dit niet af?"
+msgstr "Waarom regel je dit niet even?"
 
 #: res/values/arrays.xml:51(item)
 msgid "How about it? Ready tiger?"
-msgstr "En nu dan, ben je er klaar voor?"
+msgstr "Hoe is\\'t, ben je er klaar voor?"
 
 #: res/values/arrays.xml:52(item)
 msgid "Ready to do this?"
@@ -89,7 +89,7 @@ msgstr "Klaar voor de start?"
 
 #: res/values/arrays.xml:53(item)
 msgid "Can you handle this?"
-msgstr "Kan je dit wel aan?"
+msgstr "Kun je dit regelen?"
 
 #: res/values/arrays.xml:54(item)
 msgid "You can be happy! Just finish this!"
@@ -97,11 +97,11 @@ msgstr "Eeuwige roem lonkt! Maak dit af!"
 
 #: res/values/arrays.xml:55(item)
 msgid "I promise you\\'ll feel better if you finish this!"
-msgstr "Na deze voel je je een held!"
+msgstr "Na deze actie ben je een held!"
 
 #: res/values/arrays.xml:56(item)
 msgid "Won\\'t you do this today?"
-msgstr "Waarom doe je dit niet vandaag?"
+msgstr "Past dit nog, vandaag?"
 
 #: res/values/arrays.xml:57(item)
 msgid "Please finish this, I\\'m sick of it!"
@@ -113,7 +113,7 @@ msgstr "Kan dit af? Natuurlijk kan het af!"
 
 #: res/values/arrays.xml:59(item)
 msgid "Are you ever going to do this?"
-msgstr "Gaat dit oot afkomen?"
+msgstr "Gaat dit ooit afkomen?"
 
 #: res/values/arrays.xml:60(item)
 msgid "Feel good about yourself! Let\\'s go!"
@@ -142,7 +142,7 @@ msgstr "Je bent toch geen afhaker?"
 
 #: res/values/arrays.xml:70(item)
 msgid "Doesn\\'t being lazy get old sometimes?"
-msgstr "Wordt je niet te moe van het nietsdoen?"
+msgstr "Word je niet te moe van het niksen?"
 
 #: res/values/arrays.xml:71(item)
 msgid "Somewhere, someone is depending on you to finish this!"
@@ -159,7 +159,7 @@ msgstr "Dit is de laatste keer dat je dit uitstelt, oke?"
 
 #: res/values/arrays.xml:74(item)
 msgid "Just finish this today, I won\\'t tell anyone!"
-msgstr "Psst, deze moet vandaag nog, ik zal je niet verraden!"
+msgstr "Psst, maak deze vandaag af, ik vertel het niet verder!"
 
 #: res/values/arrays.xml:75(item)
 msgid "Why postpone when you can um... not postpone!"
@@ -167,7 +167,7 @@ msgstr "Waarom uitstellen? Je kan het ook gewoon doen!"
 
 #: res/values/arrays.xml:76(item)
 msgid "You\\'ll finish this eventually, I presume?"
-msgstr "Ooit zul je dit wel afkrijgen, is het niet?"
+msgstr "Moet ik je hiermee morgen weer lastig vallen? Dacht het niet!"
 
 #: res/values/arrays.xml:77(item)
 msgid "I think you\\'re really great! How about not putting this off?"
@@ -175,7 +175,7 @@ msgstr "Je bent geweldig! Nu deze nog."
 
 #: res/values/arrays.xml:78(item)
 msgid "Will you be able to achieve your goals if you do that?"
-msgstr "Kun je je doelen bereiken als je dit doet?"
+msgstr "Bereik je doel, maak dit af!"
 
 #: res/values/arrays.xml:79(item)
 msgid "Postpone, postpone, postpone. When will you change!"
@@ -222,7 +222,7 @@ msgstr "2"
 #. sync_interval_entries: Synchronization Intervals
 #: res/values/arrays.xml:101(item)
 msgid "disable"
-msgstr "uitschakelen"
+msgstr "uit"
 
 #: res/values/arrays.xml:102(item)
 msgid "twice an hour"

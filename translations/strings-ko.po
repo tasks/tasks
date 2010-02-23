@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: astrid\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-10-30 20:47-0700\n"
-"PO-Revision-Date: 2009-11-03 06:49+0000\n"
-"Last-Translator: Jon Paris <jon@todoroo.com>\n"
+"POT-Creation-Date: 2009-11-08 22:12-0800\n"
+"PO-Revision-Date: 2009-11-17 18:49+0000\n"
+"Last-Translator: hc5duke <Unknown>\n"
 "Language-Team: Korean <ko@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-11-09 06:20+0000\n"
+"X-Launchpad-Export-Date: 2010-02-21 03:00+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. application
@@ -648,11 +648,11 @@ msgstr "옵션"
 #. Proper noun - don't translate
 #: res/values/strings.xml:297( name="sync_rtm_title")
 msgid "Remember The Milk"
-msgstr ""
+msgstr "Remember The Milk"
 
 #: res/values/strings.xml:298( name="sync_rtm_desc")
 msgid "http://www.rememberthemilk.com"
-msgstr ""
+msgstr "http://www.rememberthemilk.com"
 
 #: res/values/strings.xml:299( name="sync_interval_title")
 msgid "Auto-Synchronize"
@@ -793,8 +793,8 @@ msgid ""
 "Error Message:"
 msgstr "죄송합니다, 로그인하는데 에러가 발생하였습니다. 다시 시도해주세요. 에러 메세지:"
 
-#. Widget text:
-#: res/values/strings.xml:346( name="loading") res/values/strings.xml:464( name="widget_loading")
+#. Widget text when loading tasks
+#: res/values/strings.xml:346( name="loading") res/values/strings.xml:466( name="widget_loading")
 msgid "Loading..."
 msgstr "로딩중..."
 
@@ -1049,8 +1049,13 @@ msgstr "할일이 알림이 있으면 보이기"
 msgid "Notes associated with this task"
 msgstr "이 할일과 관련된 노트"
 
+#. This string is Astrid's Android Marketplace title. It never appears in the app itself.
+#: res/values/strings.xml:456( name="marketplace_title")
+msgid "Astrid Task/Todo List"
+msgstr "Astrid Task/Todo List"
+
 #. This string is Astrid's Android Marketplace description. It never appears in the app itself.
-#: res/values/strings.xml:456( name="marketplace_description")
+#: res/values/strings.xml:458( name="marketplace_description")
 msgid ""
 "Astrid is the highly-acclaimed open-source task list that is simple enough "
 "to not get in your way, powerful enough to help you get stuff done! Tags, "
@@ -1060,30 +1065,11 @@ msgstr ""
 "RememberTheMilk sync, Locale plug-in &amp; 그 이상!"
 
 #. Automatically filled in by Launchpad:
-#: res/values/strings.xml:461( name="about_translators")
+#: res/values/strings.xml:463( name="about_translators")
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
 "  DK https://launchpad.net/~hyeonggi\n"
 "  Jon Paris https://launchpad.net/~jon-todoroo\n"
+"  hc5duke https://launchpad.net/~hc5duke\n"
 "  taewoo https://launchpad.net/~kimtaewoo1201"
-
-#: res/values/strings.xml:465( name="task_name1")
-msgid "1"
-msgstr "1"
-
-#: res/values/strings.xml:466( name="task_name2")
-msgid "2"
-msgstr "2"
-
-#: res/values/strings.xml:467( name="task_name3")
-msgid "3"
-msgstr "3"
-
-#: res/values/strings.xml:468( name="task_name4")
-msgid "4"
-msgstr "4"
-
-#: res/values/strings.xml:469( name="task_name5")
-msgid "5"
-msgstr "5"

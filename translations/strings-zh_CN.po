@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: astrid-translation\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-22 03:10-0700\n"
-"PO-Revision-Date: 2009-10-05 10:48+0000\n"
-"Last-Translator: edwardciv <judeciv@gmail.com>\n"
+"POT-Creation-Date: 2009-11-08 22:12-0800\n"
+"PO-Revision-Date: 2009-12-04 06:20+0000\n"
+"Last-Translator: 王英华 <wantinghard@gmail.com>\n"
 "Language-Team: Simplified Chinese <zh_CN@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2009-10-31 02:52+0000\n"
+"X-Launchpad-Export-Date: 2010-02-21 03:00+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. application
@@ -59,11 +59,11 @@ msgstr "小时"
 #. plurals: tasks
 #: res/values/strings.xml:46( quantity="one")
 msgid "1 Task"
-msgstr "1个任务"
+msgstr "1 个任务"
 
 #: res/values/strings.xml:47( quantity="other")
 msgid "%d Tasks"
-msgstr "%d个任务"
+msgstr "%d 个任务"
 
 #. plurals: active tasks vs total tasks
 #: res/values/strings.xml:51( quantity="one") res/values/strings.xml:52( quantity="other")
@@ -73,24 +73,24 @@ msgstr "%d / %d 个活动任务"
 #. plurals: alarms
 #: res/values/strings.xml:56( quantity="one")
 msgid "One Alarm"
-msgstr "1项提醒"
+msgstr "1 项提醒"
 
 #: res/values/strings.xml:57( quantity="two")
 msgid "Two Alarms"
-msgstr "2项提醒"
+msgstr "2 项提醒"
 
 #: res/values/strings.xml:58( quantity="other")
 msgid "%d Alarms"
-msgstr "%d项提醒"
+msgstr "%d 项提醒"
 
 #. plurals: tags
 #: res/values/strings.xml:62( quantity="one")
 msgid "1 Tag"
-msgstr "1个标签"
+msgstr "1 个标签"
 
 #: res/values/strings.xml:63( quantity="other")
 msgid "%d Tags"
-msgstr "%d个标签"
+msgstr "%d 个标签"
 
 #. used for long due dates. c.f. Java's SimpleDateFormat
 #: res/values/strings.xml:69( name="dateFormatter")
@@ -105,52 +105,52 @@ msgstr "M/dd HH:mm"
 #. vertical labels are used in dialog boxes
 #: res/values/strings.xml:73( name="daysVertical")
 msgid "D\\na\\ny\\ns"
-msgstr "D\\na\\ny\\ns"
+msgstr "天"
 
 #: res/values/strings.xml:74( name="hoursVertical")
 msgid "H\\no\\nu\\nr\\ns"
-msgstr "H\\no\\nu\\nr\\ns"
+msgstr "小\\n时"
 
 #. plurals: days
 #: res/values/strings.xml:78( quantity="one") res/values/strings.xml:83( quantity="one")
 msgid "1 Day"
-msgstr "1日"
+msgstr "1 天"
 
 #: res/values/strings.xml:79( quantity="other") res/values/strings.xml:84( quantity="other")
 msgid "%d Days"
-msgstr "%d日"
+msgstr "%d 天"
 
 #. plurals: hours
 #: res/values/strings.xml:88( quantity="one")
 msgid "1 Hour"
-msgstr "1小时"
+msgstr "1 小时"
 
 #: res/values/strings.xml:89( quantity="other")
 msgid "%d Hours"
-msgstr "%d小时"
+msgstr "%d 小时"
 
 #. plurals: minutes
 #: res/values/strings.xml:93( quantity="one")
 msgid "1 Minute"
-msgstr "1分钟"
+msgstr "1 分钟"
 
 #: res/values/strings.xml:94( quantity="other")
 msgid "%d Minutes"
-msgstr "%d分钟"
+msgstr "%d 分钟"
 
 #. plurals: seconds
 #: res/values/strings.xml:98( quantity="one")
 msgid "1 Second"
-msgstr "1秒"
+msgstr "1 秒"
 
 #: res/values/strings.xml:99( quantity="other")
 msgid "%d Seconds"
-msgstr "%d秒"
+msgstr "%d 秒"
 
 #. plurals: hours (abbreviated)
 #: res/values/strings.xml:103( quantity="one")
 msgid "1 Hr"
-msgstr "1小时"
+msgstr "1 小时"
 
 #: res/values/strings.xml:104( quantity="other")
 msgid "%d Hrs"
@@ -159,20 +159,20 @@ msgstr "%d 小时"
 #. plurals: minutes (abbreviated)
 #: res/values/strings.xml:108( quantity="one")
 msgid "1 Min"
-msgstr "1分钟"
+msgstr "1 分钟"
 
 #: res/values/strings.xml:109( quantity="other")
 msgid "%d Min"
-msgstr "%d分钟"
+msgstr "%d 分钟"
 
 #. plurals: seconds (abbreviated)
 #: res/values/strings.xml:113( quantity="one")
 msgid "1 Sec"
-msgstr "1秒"
+msgstr "1 秒"
 
 #: res/values/strings.xml:114( quantity="other")
 msgid "%d Sec"
-msgstr "%d秒"
+msgstr "%d 秒"
 
 #. indicates time in past. %s is replaced by time unit i.e. 1 minute
 #: res/values/strings.xml:118( name="ago_string")
@@ -186,7 +186,7 @@ msgstr "Astrid:"
 
 #: res/values/strings.xml:124( name="taskList_titleTagPrefix")
 msgid "Tagged \\\"%s\\\":"
-msgstr "标记\\\"%s\\\":"
+msgstr "已标签\\\"%s\\\":"
 
 #: res/values/strings.xml:125( name="taskList_titleUntagged")
 msgid "Untagged Tasks:"
@@ -197,18 +197,18 @@ msgid "hidden"
 msgstr "隐藏"
 
 #. menu items
-#: res/values/strings.xml:127( name="addtask_label") res/values/strings.xml:165( name="taskList_menu_insert")
+#: res/values/strings.xml:127( name="addtask_label") res/values/strings.xml:167( name="taskList_menu_insert")
 msgid "New Task"
 msgstr "新建任务"
 
 #: res/values/strings.xml:128( name="missing_tag")
 msgid "Could Not Find Requested Tag!"
-msgstr "不能找到所需标记"
+msgstr "无法找到指定标记"
 
 #. prefix to show that a task is hidden
 #: res/values/strings.xml:133( name="taskList_hiddenPrefix")
 msgid "H"
-msgstr "隐藏"
+msgstr "H"
 
 #. i.e. Due in 4 days
 #: res/values/strings.xml:135( name="taskList_dueRelativeTime")
@@ -247,12 +247,12 @@ msgstr "花费:"
 #. time interval to set frequency to remind user
 #: res/values/strings.xml:148( name="taskList_periodicReminderPrefix")
 msgid "Poke Every"
-msgstr "每次触摸"
+msgstr "提醒间隔"
 
 #. time interval to set repeated tasks
 #: res/values/strings.xml:151( name="taskList_repeatPrefix")
 msgid "Repeats Every"
-msgstr "每次重复"
+msgstr "重复间隔"
 
 #. displayed when repeat is on remote server
 #: res/values/strings.xml:153( name="taskList_repeatsRemotely")
@@ -263,9 +263,9 @@ msgstr "在远程服务上重复"
 msgid "Next Alarm:"
 msgstr "下次提醒"
 
-#: res/values/strings.xml:155( name="taskList_tagsPrefix") res/values/strings.xml:214( name="tags_label")
+#: res/values/strings.xml:155( name="taskList_tagsPrefix") res/values/strings.xml:216( name="tags_label")
 msgid "Tags:"
-msgstr "标签："
+msgstr "标签:"
 
 #: res/values/strings.xml:156( name="taskList_notesPrefix")
 msgid "Notes:"
@@ -274,263 +274,267 @@ msgstr "备注："
 #. i.e. Created: <create date>
 #: res/values/strings.xml:159( name="taskList_createdPrefix")
 msgid "Created:"
-msgstr "创建:"
+msgstr "创建于："
 
 #. i.e. Deleted: <delete date>
 #: res/values/strings.xml:162( name="taskList_deleted")
 msgid "Deleted"
 msgstr "已删除"
 
-#: res/values/strings.xml:166( name="taskList_menu_tags") res/values/strings.xml:443( name="prefs_tagsVisible_title")
+#: res/values/strings.xml:164( name="quick_add_hint")
+msgid "Add New Task"
+msgstr "添加任务"
+
+#: res/values/strings.xml:168( name="taskList_menu_tags") res/values/strings.xml:446( name="prefs_tagsVisible_title")
 msgid "Tags"
 msgstr "标签"
 
 #. filter menu items
-#: res/values/strings.xml:167( name="taskList_menu_filters") res/values/strings.xml:184( name="taskList_filter_title")
+#: res/values/strings.xml:169( name="taskList_menu_filters") res/values/strings.xml:186( name="taskList_filter_title")
 msgid "Sort/Filters"
 msgstr "排序/过滤"
 
-#: res/values/strings.xml:168( name="taskList_menu_syncshortcut")
+#: res/values/strings.xml:170( name="taskList_menu_syncshortcut")
 msgid "Sync"
 msgstr "同步"
 
-#: res/values/strings.xml:169( name="taskList_menu_more")
+#: res/values/strings.xml:171( name="taskList_menu_more")
 msgid "More"
 msgstr "更多"
 
-#: res/values/strings.xml:170( name="taskList_menu_sync")
+#: res/values/strings.xml:172( name="taskList_menu_sync")
 msgid "Synchronization"
 msgstr "同步"
 
-#: res/values/strings.xml:171( name="taskList_menu_settings")
+#: res/values/strings.xml:173( name="taskList_menu_settings")
 msgid "Settings"
 msgstr "设置"
 
-#: res/values/strings.xml:172( name="taskList_menu_help")
+#: res/values/strings.xml:174( name="taskList_menu_help")
 msgid "Help (opens in Browser)"
-msgstr "帮助(将打开浏览器)"
+msgstr "帮助 (在浏览器中打开)"
 
-#: res/values/strings.xml:173( name="taskList_menu_survey")
+#: res/values/strings.xml:175( name="taskList_menu_survey")
 msgid "Take Astrid\\'s Survey!"
-msgstr "接受Astrid的调查！"
+msgstr "接受 Astrid 的调查！"
 
-#: res/values/strings.xml:174( name="taskList_menu_tips")
+#: res/values/strings.xml:176( name="taskList_menu_tips")
 msgid "Quick Tips"
 msgstr "快速提示"
 
-#: res/values/strings.xml:175( name="taskList_menu_cleanup")
+#: res/values/strings.xml:177( name="taskList_menu_cleanup")
 msgid "Clean Up Old Tasks"
 msgstr "清理旧任务"
 
-#: res/values/strings.xml:177( name="taskList_context_edit")
+#: res/values/strings.xml:179( name="taskList_context_edit")
 msgid "Edit Task"
 msgstr "编辑任务"
 
-#: res/values/strings.xml:178( name="taskList_context_delete")
+#: res/values/strings.xml:180( name="taskList_context_delete")
 msgid "Delete Task"
 msgstr "删除任务"
 
-#: res/values/strings.xml:179( name="taskList_context_startTimer") res/values/strings.xml:259( name="startTimer_label")
+#: res/values/strings.xml:181( name="taskList_context_startTimer") res/values/strings.xml:261( name="startTimer_label")
 msgid "Start Timer"
 msgstr "启动定时器"
 
-#: res/values/strings.xml:180( name="taskList_context_stopTimer") res/values/strings.xml:260( name="stopTimer_label")
+#: res/values/strings.xml:182( name="taskList_context_stopTimer") res/values/strings.xml:262( name="stopTimer_label")
 msgid "Stop Timer"
 msgstr "停止定时器"
 
-#: res/values/strings.xml:181( name="taskList_context_postpone")
+#: res/values/strings.xml:183( name="taskList_context_postpone")
 msgid "Postpone"
 msgstr "延后"
 
-#: res/values/strings.xml:185( name="taskList_filter_hidden")
+#: res/values/strings.xml:187( name="taskList_filter_hidden")
 msgid "Hidden/Blocked Tasks"
 msgstr "隐藏/阻止的任务"
 
-#: res/values/strings.xml:186( name="taskList_filter_done")
+#: res/values/strings.xml:188( name="taskList_filter_done")
 msgid "Completed Tasks"
 msgstr "已完成任务"
 
-#: res/values/strings.xml:187( name="taskList_filter_tagged")
+#: res/values/strings.xml:189( name="taskList_filter_tagged")
 msgid "Tagged \\'%s\\'"
-msgstr "标签\\'%s\\'"
+msgstr "已标签\\'%s\\'"
 
-#: res/values/strings.xml:188( name="taskList_sort_auto")
+#: res/values/strings.xml:190( name="taskList_sort_auto")
 msgid "Auto Sort"
 msgstr "自动排序"
 
-#: res/values/strings.xml:189( name="taskList_sort_alpha")
+#: res/values/strings.xml:191( name="taskList_sort_alpha")
 msgid "Sort By Name"
 msgstr "按名称排序"
 
-#: res/values/strings.xml:190( name="taskList_sort_duedate")
+#: res/values/strings.xml:192( name="taskList_sort_duedate")
 msgid "Sort By Due Date"
 msgstr "按到期日排序"
 
-#: res/values/strings.xml:191( name="taskList_sort_reverse")
+#: res/values/strings.xml:193( name="taskList_sort_reverse")
 msgid "Sort Reverse"
 msgstr "反向排序"
 
-#: res/values/strings.xml:193( name="taskList_nonag_reminder")
+#: res/values/strings.xml:195( name="taskList_nonag_reminder")
 msgid "Select an Action:"
 msgstr "选择一个操作:"
 
-#: res/values/strings.xml:194( name="taskList_postpone_count")
+#: res/values/strings.xml:196( name="taskList_postpone_count")
 msgid "Times You\\'ve Postponed: %d"
-msgstr "Times You\\'ve Postponed: %d"
+msgstr "已推迟: %d"
 
-#: res/values/strings.xml:195( name="taskList_postpone_dialog")
+#: res/values/strings.xml:197( name="taskList_postpone_dialog")
 msgid "Postpone for how long?"
 msgstr "推迟多久？"
 
-#: res/values/strings.xml:196( name="taskList_cleanup_dialog")
+#: res/values/strings.xml:198( name="taskList_cleanup_dialog")
 msgid "\"Delete completed tasks older than # days:\""
-msgstr "删除#天以前的已完成任务"
+msgstr "删除 # 天以前的已完成任务"
 
 #. title bar
-#: res/values/strings.xml:201( name="taskEdit_titleGeneric")
+#: res/values/strings.xml:203( name="taskEdit_titleGeneric")
 msgid "Astrid: Editing Task"
-msgstr "Astrid: 编辑任务中"
+msgstr "Astrid: 任务编辑中"
 
-#: res/values/strings.xml:202( name="taskEdit_titlePrefix")
+#: res/values/strings.xml:204( name="taskEdit_titlePrefix")
 msgid "Astrid: Editing"
 msgstr "Astrid: 编辑中"
 
-#: res/values/strings.xml:203( name="taskEdit_label")
+#: res/values/strings.xml:205( name="taskEdit_label")
 msgid "Astrid: New Task"
 msgstr "Astrid: 新任务"
 
 #. tabs
-#: res/values/strings.xml:206( name="taskEdit_tab_basic")
+#: res/values/strings.xml:208( name="taskEdit_tab_basic")
 msgid "Basic"
-msgstr "基本"
+msgstr "一般"
 
-#: res/values/strings.xml:207( name="taskEdit_tab_dates") res/values/strings.xml:437( name="prefs_deadlineVisible_title")
+#: res/values/strings.xml:209( name="taskEdit_tab_dates") res/values/strings.xml:440( name="prefs_deadlineVisible_title")
 msgid "Dates"
 msgstr "日期"
 
-#: res/values/strings.xml:208( name="taskEdit_tab_alerts")
+#: res/values/strings.xml:210( name="taskEdit_tab_alerts")
 msgid "Alerts"
 msgstr "提醒"
 
 #. labels
-#: res/values/strings.xml:211( name="name_label")
+#: res/values/strings.xml:213( name="name_label")
 msgid "Summary"
 msgstr "摘要"
 
-#: res/values/strings.xml:212( name="name_hint")
+#: res/values/strings.xml:214( name="name_hint")
 msgid "Task Name"
 msgstr "任务名称"
 
-#: res/values/strings.xml:213( name="importance_label")
+#: res/values/strings.xml:215( name="importance_label")
 msgid "How Important is it?"
 msgstr "到底有多重要呢?"
 
-#: res/values/strings.xml:215( name="tag_hint")
+#: res/values/strings.xml:217( name="tag_hint")
 msgid "Tag Name"
 msgstr "标签名称"
 
-#: res/values/strings.xml:217( name="estimatedDuration_label")
+#: res/values/strings.xml:219( name="estimatedDuration_label")
 msgid "How Long Will it Take?"
 msgstr "需要多长时间?"
 
-#: res/values/strings.xml:218( name="elapsedDuration_label")
+#: res/values/strings.xml:220( name="elapsedDuration_label")
 msgid "Time Already Spent on Task"
 msgstr "任务已经耗时"
 
-#: res/values/strings.xml:219( name="definiteDueDate_label")
+#: res/values/strings.xml:221( name="definiteDueDate_label")
 msgid "Absolute Deadline"
 msgstr "最后期限"
 
-#: res/values/strings.xml:220( name="preferredDueDate_label")
+#: res/values/strings.xml:222( name="preferredDueDate_label")
 msgid "Goal Deadline"
 msgstr "目标期限"
 
-#: res/values/strings.xml:221( name="addToCalendar_label")
+#: res/values/strings.xml:223( name="addToCalendar_label")
 msgid "Add Task To Calendar"
-msgstr "增加任务到日历"
+msgstr "添加任务到日历"
 
-#: res/values/strings.xml:222( name="showCalendar_label")
+#: res/values/strings.xml:224( name="showCalendar_label")
 msgid "Open Calendar Event"
 msgstr "打开日历事件"
 
-#: res/values/strings.xml:223( name="hiddenUntil_label")
+#: res/values/strings.xml:225( name="hiddenUntil_label")
 msgid "Hide Until This Date"
 msgstr "这个日期前隐藏"
 
-#: res/values/strings.xml:224( name="repeat_label")
+#: res/values/strings.xml:226( name="repeat_label")
 msgid "Repeat Every"
 msgstr "重复间隔"
 
-#: res/values/strings.xml:225( name="repeat_value_unset")
+#: res/values/strings.xml:227( name="repeat_value_unset")
 msgid "No Repeat Set"
 msgstr "没有重复设置"
 
-#: res/values/strings.xml:226( name="blockingOn_label")
+#: res/values/strings.xml:228( name="blockingOn_label")
 msgid "Hide Until This Task is Done"
 msgstr "隐藏直到任务完成"
 
-#: res/values/strings.xml:227( name="notes_label") res/values/strings.xml:449( name="prefs_notesVisible_title")
+#: res/values/strings.xml:229( name="notes_label") res/values/strings.xml:452( name="prefs_notesVisible_title")
 msgid "Notes"
 msgstr "备注"
 
-#: res/values/strings.xml:228( name="notes_hint")
+#: res/values/strings.xml:230( name="notes_hint")
 msgid "Enter Task Notes"
 msgstr "输入任务备注"
 
-#: res/values/strings.xml:230( name="notification_label")
+#: res/values/strings.xml:232( name="notification_label")
 msgid "Periodic Reminders"
 msgstr "定期提醒"
 
-#: res/values/strings.xml:231( name="notification_prefix")
+#: res/values/strings.xml:233( name="notification_prefix")
 msgid "Every"
 msgstr "每"
 
-#: res/values/strings.xml:232( name="flags_label")
+#: res/values/strings.xml:234( name="flags_label")
 msgid "Notify me..."
 msgstr "通知我..."
 
-#: res/values/strings.xml:233( name="flag_before")
+#: res/values/strings.xml:235( name="flag_before")
 msgid "As Deadlines Approach"
-msgstr "临近最后期限"
+msgstr "临近截止日期"
 
-#: res/values/strings.xml:234( name="flag_during")
+#: res/values/strings.xml:236( name="flag_during")
 msgid "At Deadlines"
 msgstr "在截止日期"
 
-#: res/values/strings.xml:235( name="flag_after")
+#: res/values/strings.xml:237( name="flag_after")
 msgid "After Absolute Deadline Passes"
-msgstr "在限期前通过"
+msgstr "在绝对期限过后"
 
-#: res/values/strings.xml:236( name="flag_nonstop")
+#: res/values/strings.xml:238( name="flag_nonstop")
 msgid "Alarm Clock Mode"
 msgstr "闹钟模式"
 
-#: res/values/strings.xml:237( name="alerts_label")
+#: res/values/strings.xml:239( name="alerts_label")
 msgid "Fixed Reminders"
 msgstr "定期提醒"
 
-#: res/values/strings.xml:238( name="add_alert")
+#: res/values/strings.xml:240( name="add_alert")
 msgid "Add New Reminder"
-msgstr "增加新提醒"
+msgstr "添加新提醒"
 
 #. dialog boxes
-#: res/values/strings.xml:241( name="hour_minutes_dialog")
+#: res/values/strings.xml:243( name="hour_minutes_dialog")
 msgid "Time (hours : minutes)"
 msgstr "时间(小时:分钟)"
 
-#: res/values/strings.xml:242( name="notification_dialog")
+#: res/values/strings.xml:244( name="notification_dialog")
 msgid "Remind Me Every"
 msgstr "每次提示我"
 
-#: res/values/strings.xml:243( name="repeat_picker_title")
+#: res/values/strings.xml:245( name="repeat_picker_title")
 msgid "Repeat Every (0 to disable)"
 msgstr "重复间隔(０不重复)"
 
-#: res/values/strings.xml:244( name="repeat_help_dialog_title")
+#: res/values/strings.xml:246( name="repeat_help_dialog_title")
 msgid "Help: Astrid Repeats"
-msgstr "帮助:Astrid 重复"
+msgstr "帮助: Astrid 重复"
 
-#: res/values/strings.xml:245( name="repeat_help_dialog")
+#: res/values/strings.xml:247( name="repeat_help_dialog")
 msgid ""
 "To use repeats, set at least one of the deadlines above. When you complete "
 "this task, the deadline will be automatically advanced. \\n\\n If you don\\"
@@ -540,306 +544,307 @@ msgstr ""
 "若需重复功能，至少设定上面一个最后期限。任务期限会自动在你完成后更新。\\n\\n "
 "若您不希望在完成旧任务后看到新任务，你需要使用“隐藏直到...”功能，这也能自动进行更新。\\n"
 
-#: res/values/strings.xml:251( name="repeat_help_hide")
+#: res/values/strings.xml:253( name="repeat_help_hide")
 msgid "Don't Show Help Anymore"
 msgstr "不再显示帮助"
 
 #. buttons
-#: res/values/strings.xml:254( name="save_label") res/values/strings.xml:262( name="taskEdit_menu_save")
+#: res/values/strings.xml:256( name="save_label") res/values/strings.xml:264( name="taskEdit_menu_save")
 msgid "Save"
 msgstr "保存"
 
-#: res/values/strings.xml:255( name="discard_label")
+#: res/values/strings.xml:257( name="discard_label")
 msgid "Discard"
-msgstr "忽略"
+msgstr "放弃"
 
-#: res/values/strings.xml:256( name="edit_label")
+#: res/values/strings.xml:258( name="edit_label")
 msgid "Edit"
 msgstr "编辑"
 
-#: res/values/strings.xml:257( name="delete_label") res/values/strings.xml:355( name="delete_title")
+#: res/values/strings.xml:259( name="delete_label") res/values/strings.xml:357( name="delete_title")
 msgid "Delete"
 msgstr "删除"
 
-#: res/values/strings.xml:258( name="blank_button_title")
+#: res/values/strings.xml:260( name="blank_button_title")
 msgid "Click to Set"
 msgstr "设置请点击"
 
-#: res/values/strings.xml:263( name="taskEdit_onTaskSave_Due")
+#: res/values/strings.xml:265( name="taskEdit_onTaskSave_Due")
 msgid "Task Saved: due in %s"
-msgstr "任务保存:%s到期"
+msgstr "任务已保存: %s后到期"
 
-#: res/values/strings.xml:264( name="taskEdit_onTaskSave_Overdue")
+#: res/values/strings.xml:266( name="taskEdit_onTaskSave_Overdue")
 msgid "Task Saved: due %s ago"
-msgstr "任务保存:%s前到期"
+msgstr "任务已保存: %s前到期"
 
-#: res/values/strings.xml:265( name="taskEdit_onTaskSave_notDue")
+#: res/values/strings.xml:267( name="taskEdit_onTaskSave_notDue")
 msgid "Task Saved"
-msgstr "任务保存"
+msgstr "任务已保存"
 
-#: res/values/strings.xml:270( name="taskView_notifyTitle")
+#: res/values/strings.xml:272( name="taskView_notifyTitle")
 msgid "Astrid says..."
 msgstr "Astrid 说..."
 
-#: res/values/strings.xml:274( name="tagList_titlePrefix")
+#: res/values/strings.xml:276( name="tagList_titlePrefix")
 msgid "Astrid: Tag View:"
 msgstr "Astrid: 标签视图:"
 
-#: res/values/strings.xml:275( name="tagList_context_create")
+#: res/values/strings.xml:277( name="tagList_context_create")
 msgid "Create Task With Tag"
-msgstr "创建任务标签"
+msgstr "创建任务及标签"
 
-#: res/values/strings.xml:276( name="tagList_context_edit")
+#: res/values/strings.xml:278( name="tagList_context_edit")
 msgid "Edit Tag"
 msgstr "编辑标签"
 
-#: res/values/strings.xml:277( name="tagList_context_delete")
+#: res/values/strings.xml:279( name="tagList_context_delete")
 msgid "Delete Tag"
-msgstr "删除标记"
+msgstr "删除标签"
 
-#: res/values/strings.xml:278( name="tagList_context_showTag")
+#: res/values/strings.xml:280( name="tagList_context_showTag")
 msgid "Show on Home Page"
 msgstr "在主页中显示"
 
-#: res/values/strings.xml:279( name="tagList_context_hideTag")
+#: res/values/strings.xml:281( name="tagList_context_hideTag")
 msgid "Hide on Home Page"
 msgstr "在主页中隐藏"
 
-#: res/values/strings.xml:280( name="tagList_context_shortcut")
+#: res/values/strings.xml:282( name="tagList_context_shortcut")
 msgid "Create Shortcut"
 msgstr "创建快捷方式"
 
-#: res/values/strings.xml:281( name="tagList_shortcut_created")
+#: res/values/strings.xml:283( name="tagList_shortcut_created")
 msgid "Shortcut created on your home screen!"
-msgstr "快捷方式创建在你的主屏幕"
+msgstr "快捷方式已经创建在你的主屏幕上!"
 
-#: res/values/strings.xml:282( name="tagList_shortcut_prefix")
+#: res/values/strings.xml:284( name="tagList_shortcut_prefix")
 msgid "Tag:"
-msgstr "标记："
+msgstr "标签:"
 
-#: res/values/strings.xml:283( name="tagList_untagged")
+#: res/values/strings.xml:285( name="tagList_untagged")
 msgid "[untagged]"
-msgstr "[未标记]"
+msgstr "[无标签]"
 
-#: res/values/strings.xml:285( name="tagList_menu_sortAlpha")
+#: res/values/strings.xml:287( name="tagList_menu_sortAlpha")
 msgid "Sort A-Z"
-msgstr "按A-Z排序"
+msgstr "按 A-Z 排序"
 
-#: res/values/strings.xml:286( name="tagList_menu_sortSize")
+#: res/values/strings.xml:288( name="tagList_menu_sortSize")
 msgid "Sort by Size"
 msgstr "按大小排序"
 
-#: res/values/strings.xml:291( name="sync_pref_group")
+#: res/values/strings.xml:293( name="sync_pref_group")
 msgid "Synchronization Services"
 msgstr "同步服务"
 
-#: res/values/strings.xml:292( name="sync_pref_group_actions")
+#: res/values/strings.xml:294( name="sync_pref_group_actions")
 msgid "Actions"
-msgstr "动作"
+msgstr "操作"
 
-#: res/values/strings.xml:293( name="sync_pref_group_options")
+#: res/values/strings.xml:295( name="sync_pref_group_options")
 msgid "Options"
 msgstr "选项"
 
 #. Proper noun - don't translate
-#: res/values/strings.xml:295( name="sync_rtm_title")
+#: res/values/strings.xml:297( name="sync_rtm_title")
 msgid "Remember The Milk"
 msgstr "Remember The Milk"
 
-#: res/values/strings.xml:296( name="sync_rtm_desc")
+#: res/values/strings.xml:298( name="sync_rtm_desc")
 msgid "http://www.rememberthemilk.com"
 msgstr "http://www.rememberthemilk.com"
 
-#: res/values/strings.xml:297( name="sync_interval_title")
+#: res/values/strings.xml:299( name="sync_interval_title")
 msgid "Auto-Synchronize"
 msgstr "自动同步"
 
-#: res/values/strings.xml:298( name="sync_interval_desc")
+#: res/values/strings.xml:300( name="sync_interval_desc")
 msgid "If set, synchronization occurs automatically given interval"
 msgstr "如设置，同步将定期自动进行"
 
-#: res/values/strings.xml:299( name="sync_button_title")
+#: res/values/strings.xml:301( name="sync_button_title")
 msgid "Main Menu Shortcut"
 msgstr "主菜单快捷方式"
 
-#: res/values/strings.xml:300( name="sync_button_desc")
+#: res/values/strings.xml:302( name="sync_button_desc")
 msgid "Show \\\"Synchronize\\\" in Astrid\\'s menu"
-msgstr "在Astrid\\'s 菜单中显示\\\"同步\\\""
+msgstr "在 Astrid 菜单中显示\\\"同步\\\""
 
-#: res/values/strings.xml:301( name="sync_quiet_title")
+#: res/values/strings.xml:303( name="sync_quiet_title")
 msgid "Hide Dialogs"
 msgstr "隐藏对话框"
 
-#: res/values/strings.xml:302( name="sync_quiet_desc")
+#: res/values/strings.xml:304( name="sync_quiet_desc")
 msgid "Hide the Sync Results dialogs"
 msgstr "隐藏同步结果对话框"
 
-#: res/values/strings.xml:303( name="sync_bgwifi_title")
+#: res/values/strings.xml:305( name="sync_bgwifi_title")
 msgid "Auto-Sync Wifi Only"
-msgstr "公在wifi时同步"
+msgstr "仅进行 Wifi 自动同步"
 
-#: res/values/strings.xml:304( name="sync_bgwifi_desc")
+#: res/values/strings.xml:306( name="sync_bgwifi_desc")
 msgid "If set, auto-sync only happens when Wifi is active"
-msgstr "如果设置，自动同步仅发生在Wifi在线时"
+msgstr "如设置，自动同步仅发生在使用 Wifi 时"
 
-#: res/values/strings.xml:305( name="sync_error")
+#: res/values/strings.xml:307( name="sync_error")
 msgid "Sync Error! Sorry for the inconvenience! Error:"
 msgstr "同步错误! 很抱歉给您带来的不便! 错误:"
 
-#: res/values/strings.xml:306( name="sync_upgrade_v99")
+#: res/values/strings.xml:308( name="sync_upgrade_v99")
 msgid ""
 "Astrid 2.7 now performs synchronization with RTM in the background. You will "
 "be directed to the preferences page to configure how often you want this to "
 "occur (it is a minor drain on battery)."
-msgstr "现在Astrid 2.7可以在后台与RTM进行同步. 将转向属性页面来设置同步的时间(次数频繁会增加耗电)."
+msgstr "现在 Astrid 2.7 可以在后台与 RTM 进行同步. 将转向属性页面来设置同步的时间(次数频繁会增加耗电)."
 
-#: res/values/strings.xml:311( name="sync_now")
+#: res/values/strings.xml:313( name="sync_now")
 msgid "Synchronize Now!"
 msgstr "现在同步!"
 
-#: res/values/strings.xml:312( name="sync_forget")
+#: res/values/strings.xml:314( name="sync_forget")
 msgid "Clear Personal Data"
 msgstr "清除个人数据"
 
-#: res/values/strings.xml:313( name="sync_uptodate")
+#: res/values/strings.xml:315( name="sync_uptodate")
 msgid "Sync: Up to date!"
-msgstr "同步:最新!"
+msgstr "同步: 完成!"
 
-#: res/values/strings.xml:314( name="sync_forget_confirm")
+#: res/values/strings.xml:316( name="sync_forget_confirm")
 msgid "Clear data for selected services?"
 msgstr "清空选定的服务？"
 
-#: res/values/strings.xml:315( name="sync_no_synchronizers")
+#: res/values/strings.xml:317( name="sync_no_synchronizers")
 msgid "No Synchronizers Enabled!"
-msgstr "没用同步启用!"
+msgstr "没用启用同步!"
 
-#: res/values/strings.xml:316( name="sync_last_sync")
+#: res/values/strings.xml:318( name="sync_last_sync")
 msgid "Last Sync Date: %s"
-msgstr "最后同步时间:%s"
+msgstr "最后同步时间: %s"
 
-#: res/values/strings.xml:317( name="sync_last_auto_sync")
+#: res/values/strings.xml:319( name="sync_last_auto_sync")
 msgid "Last AutoSync Attempt: %s"
 msgstr "最近自动同步时间: %s"
 
-#: res/values/strings.xml:318( name="sync_date_never")
+#: res/values/strings.xml:320( name="sync_date_never")
 msgid "never"
-msgstr "永不"
+msgstr "从不"
 
-#: res/values/strings.xml:319( name="sync_result_title")
+#: res/values/strings.xml:321( name="sync_result_title")
 msgid "%s Results"
-msgstr "%s 结果"
+msgstr "%s 个结果"
 
-#: res/values/strings.xml:320( name="sync_result_local")
+#: res/values/strings.xml:322( name="sync_result_local")
 msgid "Summary - Astrid Tasks:"
-msgstr "简介- Astrid 任务:"
+msgstr "简介 - Astrid 任务:"
 
-#: res/values/strings.xml:321( name="sync_result_remote")
+#: res/values/strings.xml:323( name="sync_result_remote")
 msgid "Summary - Remote Server:"
-msgstr "简介-远程服务器"
+msgstr "简介 - 远程服务器:"
 
-#: res/values/strings.xml:322( name="sync_result_created")
+#: res/values/strings.xml:324( name="sync_result_created")
 msgid "Created: %d"
-msgstr "创建: %d"
+msgstr "创建于: %d"
 
-#: res/values/strings.xml:323( name="sync_result_updated")
+#: res/values/strings.xml:325( name="sync_result_updated")
 msgid "Updated: %d"
-msgstr "更新: %d"
+msgstr "更新于: %d"
 
-#: res/values/strings.xml:324( name="sync_result_deleted")
+#: res/values/strings.xml:326( name="sync_result_deleted")
 msgid "Deleted: %d"
-msgstr "删除: %d"
+msgstr "删除于: %d"
 
-#: res/values/strings.xml:325( name="sync_result_merged")
+#: res/values/strings.xml:327( name="sync_result_merged")
 msgid "Merged: %d"
-msgstr "合并: %d"
+msgstr "合并于: %d"
 
-#: res/values/strings.xml:327( name="sync_progress_remote")
+#: res/values/strings.xml:329( name="sync_progress_remote")
 msgid "Reading Remote Data"
 msgstr "正在读远程数据"
 
-#: res/values/strings.xml:328( name="sync_progress_rxlist")
+#: res/values/strings.xml:330( name="sync_progress_rxlist")
 msgid "Reading List: %s"
 msgstr "读取列表: %s"
 
-#: res/values/strings.xml:329( name="sync_progress_repeating")
+#: res/values/strings.xml:331( name="sync_progress_repeating")
 msgid "Synchronizing Repeating Task"
 msgstr "正在同步重复任务"
 
-#: res/values/strings.xml:330( name="sync_progress_localtx")
+#: res/values/strings.xml:332( name="sync_progress_localtx")
 msgid "Transmitting: %s"
 msgstr "转递中: %s"
 
-#: res/values/strings.xml:331( name="sync_progress_localdel")
+#: res/values/strings.xml:333( name="sync_progress_localdel")
 msgid "Locally Deleted Tasks"
-msgstr "本机删除任务"
+msgstr "本机已删除任务"
 
-#: res/values/strings.xml:332( name="sync_progress_remotetx")
+#: res/values/strings.xml:334( name="sync_progress_remotetx")
 msgid "Receiving: %s"
 msgstr "接收中: %s"
 
-#: res/values/strings.xml:334( name="rtm_login_label")
+#: res/values/strings.xml:336( name="rtm_login_label")
 msgid "Please Log In to RTM..."
 msgstr "请登录到 RTM..."
 
-#: res/values/strings.xml:335( name="rtm_login_error")
+#: res/values/strings.xml:337( name="rtm_login_error")
 msgid ""
 "Sorry, there was an error verifying your login. Please try again. \\n\\n "
 "Error Message:"
-msgstr "很抱歉, 验证你的登录信息时发生错误. 请再试一次. \\n\\n 错误消息:"
+msgstr "很抱歉, 验证您的登录信息时发生错误. 请再试一次. \\n\\n 错误消息:"
 
-#: res/values/strings.xml:344( name="loading")
+#. Widget text when loading tasks
+#: res/values/strings.xml:346( name="loading") res/values/strings.xml:466( name="widget_loading")
 msgid "Loading..."
 msgstr "载入中..."
 
-#: res/values/strings.xml:345( name="updating")
+#: res/values/strings.xml:347( name="updating")
 msgid "Updating List..."
-msgstr "更新清单..."
+msgstr "更新列表..."
 
-#: res/values/strings.xml:346( name="information_title")
+#: res/values/strings.xml:348( name="information_title")
 msgid "Information"
 msgstr "信息"
 
-#: res/values/strings.xml:347( name="question_title")
+#: res/values/strings.xml:349( name="question_title")
 msgid "Question"
 msgstr "问题"
 
-#: res/values/strings.xml:348( name="done_label")
+#: res/values/strings.xml:350( name="done_label")
 msgid "Done"
 msgstr "完成"
 
-#: res/values/strings.xml:349( name="notify_yes")
+#: res/values/strings.xml:351( name="notify_yes")
 msgid "View Task"
 msgstr "浏览任务"
 
-#: res/values/strings.xml:350( name="notify_done")
+#: res/values/strings.xml:352( name="notify_done")
 msgid "Already Done!"
 msgstr "已经完成!"
 
-#: res/values/strings.xml:351( name="notify_snooze")
+#: res/values/strings.xml:353( name="notify_snooze")
 msgid "Snooze"
 msgstr "打盹"
 
-#: res/values/strings.xml:352( name="notify_no")
+#: res/values/strings.xml:354( name="notify_no")
 msgid "Quit"
 msgstr "退出"
 
-#: res/values/strings.xml:353( name="notify_snooze_title")
+#: res/values/strings.xml:355( name="notify_snooze_title")
 msgid "Hours/minutes to snooze?"
-msgstr "小时/分钟后提醒"
+msgstr "打盹多少小时/分钟后再次提醒?"
 
-#: res/values/strings.xml:356( name="delete_this_task_title")
+#: res/values/strings.xml:358( name="delete_this_task_title")
 msgid "Delete this task?"
-msgstr "删除这项任务"
+msgstr "删除这项任务?"
 
-#: res/values/strings.xml:357( name="delete_this_tag_title")
+#: res/values/strings.xml:359( name="delete_this_tag_title")
 msgid "Remove this tag from all tasks?"
-msgstr "从全部任务中移除标签"
+msgstr "从全部任务中移除此标签?"
 
-#: res/values/strings.xml:359( name="stop_timer_title")
+#: res/values/strings.xml:361( name="stop_timer_title")
 msgid "Stop the timer?"
-msgstr "停止计时"
+msgstr "停止计时?"
 
-#: res/values/strings.xml:361( name="quick_tips")
+#: res/values/strings.xml:363( name="quick_tips")
 msgid ""
 "Some things you may not know about Astrid:\\n \\n - To create a task, just "
 "start typing!\\n - While editing a task, hit \\'back\\' to save it\\n - "
@@ -847,213 +852,222 @@ msgid ""
 "task has a deadline, long-press to postpone it\\n \\n Thanks for using "
 "Astrid!\\n"
 msgstr ""
-"Astrid小常识：\\n \\n -直接输入即可创建任务！\\n -编辑任务是，按“返回”键即可保存\\n - 选定任务按1-4可快速编辑优先级\\n "
-"- 长按任务可推迟最后期限\\n \\n 感谢使用Astrid！\\n"
+"Astrid 小常识：\\n \\n -直接输入即可创建任务！\\n -编辑任务时，按“返回”键即可保存\\n - 选定任务按 1-4 "
+"可快速编辑优先级\\n - 长按任务可推迟最后期限\\n \\n 感谢使用 Astrid！\\n"
 
-#: res/values/strings.xml:375( name="locale_edit_alerts_title")
+#: res/values/strings.xml:377( name="locale_edit_alerts_title")
 msgid "Astrid Tag Alert"
-msgstr "Astrid标签提醒"
+msgstr "Astrid 标签提醒"
 
-#: res/values/strings.xml:376( name="locale_edit_intro")
+#: res/values/strings.xml:378( name="locale_edit_intro")
 msgid ""
 "Astrid will send you a reminder when you have uncompleted tasks with the "
 "following criteria:"
-msgstr "若没有按以下标准完成任务，Astrid将给予提示："
+msgstr "当您有符合下述条件的未完成任务时，Astrid 将给予提示："
 
-#: res/values/strings.xml:378( name="locale_pick_tag")
+#: res/values/strings.xml:380( name="locale_pick_tag")
 msgid "Tagged with:"
-msgstr "标记"
+msgstr "标签："
 
-#: res/values/strings.xml:383( name="notif_definiteDueDate")
+#: res/values/strings.xml:385( name="notif_definiteDueDate")
 msgid "Absolute Deadline!"
-msgstr "截止时间"
+msgstr "绝对期限!"
 
-#: res/values/strings.xml:384( name="notif_preferredDueDate")
+#: res/values/strings.xml:386( name="notif_preferredDueDate")
 msgid "Goal Deadline!"
-msgstr "目标截止日期"
+msgstr "目标截止日期!"
 
-#: res/values/strings.xml:385( name="notif_timerStarted")
+#: res/values/strings.xml:387( name="notif_timerStarted")
 msgid "Working on:"
 msgstr "工作在:"
 
-#: res/values/strings.xml:386( name="notif_tagNotification")
-msgid "You have %d task(s) tagged %s!"
-msgstr "你有 %d 任务标记为 %s!"
+#. $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name
+#: res/values/strings.xml:389( name="notif_tagNotification")
+msgid "You have $NUM tagged $TAG!"
+msgstr "您有 $NUM 使用了 $TAG 标签!"
 
-#: res/values/strings.xml:391( name="error_opening")
+#: res/values/strings.xml:394( name="error_opening")
 msgid "Couldn't find this item:"
-msgstr "不能找到这个项目"
+msgstr "无法找到该项目:"
 
-#: res/values/strings.xml:392( name="error_saving")
+#: res/values/strings.xml:395( name="error_saving")
 msgid "Couldn't save:"
-msgstr "不能保存"
+msgstr "无法保存:"
 
-#: res/values/strings.xml:396( name="prefs_category_alerts")
+#: res/values/strings.xml:399( name="prefs_category_alerts")
 msgid "Notifications"
 msgstr "通知"
 
-#: res/values/strings.xml:398( name="prefs_quietStart_title")
+#: res/values/strings.xml:401( name="prefs_quietStart_title")
 msgid "Quiet Hours Start"
 msgstr "静默开始"
 
-#: res/values/strings.xml:399( name="prefs_quietStart_desc")
+#: res/values/strings.xml:402( name="prefs_quietStart_desc")
 msgid "Starting hour when Astrid should be quiet (e.g. 22)"
 msgstr "停止提示响铃时间开始于"
 
-#: res/values/strings.xml:401( name="prefs_quietEnd_title")
+#: res/values/strings.xml:404( name="prefs_quietEnd_title")
 msgid "Quiet Hours End"
 msgstr "静默结束"
 
-#: res/values/strings.xml:402( name="prefs_quietEnd_desc")
+#: res/values/strings.xml:405( name="prefs_quietEnd_desc")
 msgid "Ending hour when Astrid should be quiet (e.g. 08)"
 msgstr "停止提示响铃时间结束于"
 
-#: res/values/strings.xml:404( name="prefs_defaultRemind_title")
+#: res/values/strings.xml:407( name="prefs_defaultRemind_title")
 msgid "Default Reminders"
 msgstr "默认提醒"
 
-#: res/values/strings.xml:405( name="prefs_defaultRemind_desc")
+#: res/values/strings.xml:408( name="prefs_defaultRemind_desc")
 msgid "For new tasks, in days (i.e. 7). Blank to disable"
-msgstr "对新任务，默认多少天(例如7天).空白为不启用"
+msgstr "对新任务，默认天数(例如 7 天). 空白为不启用"
 
-#: res/values/strings.xml:407( name="prefs_annoy_title")
+#: res/values/strings.xml:410( name="prefs_annoy_title")
 msgid "Persistent Mode"
 msgstr "坚持模式"
 
-#: res/values/strings.xml:408( name="prefs_annoy_desc")
+#: res/values/strings.xml:411( name="prefs_annoy_desc")
 msgid "If checked, LED and notifications must be cleared one at a time"
-msgstr "如果选择,LED和通知这时必须清除"
+msgstr "如果选中, LED和通知必须一个一个清除"
 
-#: res/values/strings.xml:410( name="prefs_notification_title")
+#: res/values/strings.xml:413( name="prefs_notification_title")
 msgid "Notification Ringtone"
 msgstr "通知铃声"
 
-#: res/values/strings.xml:411( name="prefs_notification_desc")
+#: res/values/strings.xml:414( name="prefs_notification_desc")
 msgid "Choose a ringtone for Astrid\\'s alerts"
-msgstr "为Astrid\\'s提醒选择铃声"
+msgstr "为 Astrid 提醒选择铃声"
 
-#: res/values/strings.xml:413( name="prefs_notificon_title")
+#: res/values/strings.xml:416( name="prefs_notificon_title")
 msgid "Notification Icons"
 msgstr "通知图标"
 
-#: res/values/strings.xml:414( name="prefs_notificon_desc")
+#: res/values/strings.xml:417( name="prefs_notificon_desc")
 msgid "Choose Astrid\\'s notification bar icon"
-msgstr "选择通告栏的Astrid\\'s图标"
+msgstr "选择 Astrid 的提示栏图标"
 
-#: res/values/strings.xml:416( name="prefs_category_appearance")
+#: res/values/strings.xml:419( name="prefs_category_appearance")
 msgid "Appearance"
 msgstr "外观"
 
-#: res/values/strings.xml:418( name="prefs_colorize_title")
+#: res/values/strings.xml:421( name="prefs_colorize_title")
 msgid "Colorize Task List"
 msgstr "任务列表着色"
 
-#: res/values/strings.xml:419( name="prefs_colorize_desc")
+#: res/values/strings.xml:422( name="prefs_colorize_desc")
 msgid "Different colors for different priorities"
-msgstr "不同优先权颜色不同"
+msgstr "不同优先级颜色不同"
 
-#: res/values/strings.xml:421( name="prefs_fontSize_title")
+#: res/values/strings.xml:424( name="prefs_fontSize_title")
 msgid "Task List Font"
 msgstr "任务列表字体"
 
-#: res/values/strings.xml:422( name="prefs_fontSize_desc")
+#: res/values/strings.xml:425( name="prefs_fontSize_desc")
 msgid "Font on the main listing page (i.e. 22)"
 msgstr "主列表页的字体"
 
-#: res/values/strings.xml:424( name="prefs_category_other")
+#: res/values/strings.xml:427( name="prefs_category_other")
 msgid "Other"
 msgstr "其他"
 
-#: res/values/strings.xml:426( name="prefs_nagging_title")
+#: res/values/strings.xml:429( name="prefs_nagging_title")
 msgid "Nag Messages"
 msgstr "抱怨信息"
 
-#: res/values/strings.xml:427( name="prefs_nagging_desc")
+#: res/values/strings.xml:430( name="prefs_nagging_desc")
 msgid "Show Astrid\\'s comments when viewing reminders and postponing tasks?"
-msgstr "查看任务和推迟任务时显示Astrid的评论？"
+msgstr "查看任务和推迟任务时显示 Astrid 的评论？"
 
-#: res/values/strings.xml:429( name="prefs_deadlineTime_title")
+#: res/values/strings.xml:432( name="prefs_deadlineTime_title")
 msgid "Default Deadlines"
 msgstr "默认截止日期"
 
-#: res/values/strings.xml:430( name="prefs_deadlineTime_desc")
+#: res/values/strings.xml:433( name="prefs_deadlineTime_desc")
 msgid "# of days from now to set new deadlines"
-msgstr "#天后设定任务期限"
+msgstr "# 天后设定任务期限"
 
-#: res/values/strings.xml:432( name="displayedFields_PrefScreen_Title")
+#: res/values/strings.xml:435( name="displayedFields_PrefScreen_Title")
 msgid "Displayed Fields"
 msgstr "显示字段"
 
-#: res/values/strings.xml:433( name="displayedFields_PrefScreen_Desc")
+#: res/values/strings.xml:436( name="displayedFields_PrefScreen_Desc")
 msgid "Select the fields to show in task list"
 msgstr "选择显示在任务列表中的字段"
 
-#: res/values/strings.xml:435( name="prefs_titleVisible_title")
+#: res/values/strings.xml:438( name="prefs_titleVisible_title")
 msgid "Task Title"
 msgstr "任务标题"
 
-#: res/values/strings.xml:436( name="prefs_titleVisible_desc")
+#: res/values/strings.xml:439( name="prefs_titleVisible_desc")
 msgid "Task description"
 msgstr "任务描述"
 
-#: res/values/strings.xml:438( name="prefs_deadlineVisible_desc")
+#: res/values/strings.xml:441( name="prefs_deadlineVisible_desc")
 msgid "Upcoming deadlines / completed date"
-msgstr "即将截止的日期/完成日期"
+msgstr "临近中的截止/完成日期"
 
-#: res/values/strings.xml:439( name="prefs_timeVisible_title")
+#: res/values/strings.xml:442( name="prefs_timeVisible_title")
 msgid "Times"
-msgstr "时间"
+msgstr "次数"
 
-#: res/values/strings.xml:440( name="prefs_timeVisible_desc")
+#: res/values/strings.xml:443( name="prefs_timeVisible_desc")
 msgid "Estimated &amp; Elapsed Times"
 msgstr "估计逝去时间"
 
-#: res/values/strings.xml:441( name="prefs_importanceVisible_title")
+#: res/values/strings.xml:444( name="prefs_importanceVisible_title")
 msgid "Importance"
 msgstr "优先级"
 
-#: res/values/strings.xml:442( name="prefs_importanceVisible_desc")
+#: res/values/strings.xml:445( name="prefs_importanceVisible_desc")
 msgid "Task importance indicator"
-msgstr "任务优先级指示"
+msgstr "任务优先级指示器"
 
-#: res/values/strings.xml:444( name="prefs_tagsVisible_desc")
+#: res/values/strings.xml:447( name="prefs_tagsVisible_desc")
 msgid "Tags associated with this task"
 msgstr "任务相关标签"
 
-#: res/values/strings.xml:445( name="prefs_repeatVisible_title")
+#: res/values/strings.xml:448( name="prefs_repeatVisible_title")
 msgid "Repeats"
 msgstr "重复"
 
-#: res/values/strings.xml:446( name="prefs_repeatVisible_desc")
+#: res/values/strings.xml:449( name="prefs_repeatVisible_desc")
 msgid "Task repeat information"
 msgstr "任务重复信息"
 
-#: res/values/strings.xml:447( name="prefs_reminderVisible_title")
+#: res/values/strings.xml:450( name="prefs_reminderVisible_title")
 msgid "Reminders"
 msgstr "提醒"
 
-#: res/values/strings.xml:448( name="prefs_reminderVisible_desc")
+#: res/values/strings.xml:451( name="prefs_reminderVisible_desc")
 msgid "Displayed if this task has reminders"
 msgstr "显示任务是否含提醒"
 
-#: res/values/strings.xml:450( name="prefs_notesVisible_desc")
+#: res/values/strings.xml:453( name="prefs_notesVisible_desc")
 msgid "Notes associated with this task"
 msgstr "任务相关记录"
 
+#. This string is Astrid's Android Marketplace title. It never appears in the app itself.
+#: res/values/strings.xml:456( name="marketplace_title")
+msgid "Astrid Task/Todo List"
+msgstr "Astrid 任务/待办事项列表"
+
 #. This string is Astrid's Android Marketplace description. It never appears in the app itself.
-#: res/values/strings.xml:453( name="marketplace_description")
+#: res/values/strings.xml:458( name="marketplace_description")
 msgid ""
 "Astrid is the highly-acclaimed open-source task list that is simple enough "
 "to not get in your way, powerful enough to help you get stuff done! Tags, "
 "reminders, RememberTheMilk sync, Locale plug-in &amp; more!"
 msgstr ""
-"Astrid是受到高度赞誉的开源任务列表程序，它不仅能简单的记录任务，更有强大的功能帮助你完成他们！标签，提示，RTM同步，区域设置，还有更多！"
+"Astrid 是受到高度赞誉的开源任务列表程序，它不仅能简单的记录任务，更有强大的功能帮助你完成他们！标签，提示，RTM同步，区域设置，还有更多！"
 
 #. Automatically filled in by Launchpad:
-#: res/values/strings.xml:458( name="about_translators")
+#: res/values/strings.xml:463( name="about_translators")
 msgid "translator-credits"
 msgstr ""
 "Launchpad Contributions:\n"
+"  Alexander Chen https://launchpad.net/~zillac\n"
+"  Heling Yao https://launchpad.net/~hyao\n"
 "  cykor https://launchpad.net/~cykorr\n"
 "  edwardciv https://launchpad.net/~judeciv\n"
-"  wopalm https://launchpad.net/~wopalm"
+"  wopalm https://launchpad.net/~wopalm\n"
+"  王英华 https://launchpad.net/~wantinghard"

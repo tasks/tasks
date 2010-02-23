@@ -161,7 +161,7 @@
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Borrado</string>
         
-        <string name="quick_add_hint">Nueva Tarea</string>
+        <string name="quick_add_hint">Add New Task</string>
         
         <!-- menu items -->
         <string name="taskList_menu_insert">Nueva Tarea</string>
@@ -349,6 +349,14 @@
         
         <string name="quick_tips">Algunas cosas que puede que no sepas sobre Astrid:\n \n - Para crear una tarea, ¡solo tienes que empezar a escribir!\n
 - Mientras editas una tarea, pulsa \'Volver\' para guardarla.\n - Con una tarea seleccionada pulsa 1-4 para cambiar rápidamente su prioridad.\n - Si una tarea tiene fecha de finalización, déjala pulsada para posponerla.\n \n ¡Gracias por usar Astrid!\n</string>
+        
+        <!-- %s => name of the application -->
+        <string name="task_killer_help">
+It looks like you are using an app that can kill processes (%s)! If you can, 
+add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
+Astrid might not let you know when your tasks are due.\n
+        </string>
+        <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
 
     <!-- Locale Plugin -->  
     <skip/>
@@ -394,6 +402,9 @@
         <string name="prefs_notificon_title">Iconos de notificación</string>
         <string name="prefs_notificon_desc">Elige el icono para la barra de notificación de Astrid</string>
         
+        <string name="prefs_vibrate_title">Vibrate on Alert</string>
+        <string name="prefs_vibrate_desc">If checked, Astrid will vibrate when sounding an alarm</string>
+        
         <string name="prefs_category_appearance">Apariencia</string>
             
         <string name="prefs_colorize_title">Colorear lista de tareas</string>
@@ -430,6 +441,8 @@
         <string name="prefs_notesVisible_title">Notas</string>
         <string name="prefs_notesVisible_desc">Notas asociadas a esta tarea</string>
 
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Task/Todo List</string>
     <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
     <string name="marketplace_description">!Astrid es la aplicación de tareas libre más aclamada, suficientemente sencilla para no entorpecerle y suficientemente potente para ayudarle a realizar sus tareas! ¡Etiquetas, recordatorios, sincronización con RememberTheMilk, plug-in para Locale y mucho más!</string>
     
@@ -444,12 +457,10 @@
   Tim Su https://launchpad.net/~tim-todoroo
   ninor https://launchpad.net/~subifrisks</string>
 
-    <!-- Widget text: -->
+    <!-- Widget text when loading tasks -->
 	<string name="widget_loading">Cargando...</string>
-	<string name="task_name1">This is a task one</string>
-	<string name="task_name2">Task two here</string>
-	<string name="task_name3">This is task number three</string>
-	<string name="task_name4">The fourth task</string>
-	<string name="task_name5">Task five this is</string>
-	
+    
+    <!--  Permissions -->
+	<string name="read_tasks_permission">Read Astrid tasks</string>
+    
 </resources>

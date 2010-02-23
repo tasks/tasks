@@ -29,31 +29,31 @@
         <item>Hoi! Mag ik even?</item>
         <item>Kan ik je even spreken?</item>
         <item>Heb je een paar minuutjes?</item>
-        <item>Ben je het vergeten?</item>
-        <item>Pardon!</item>
+        <item>Was je dit vergeten?</item>
+        <item>Eehm....</item>
         <item>Als je een minuutje over hebt:</item>
         <item>In je agenda:</item>
         <item>Heb je even niks te doen?</item>
         <item>Hier is Astrid!</item>
         <item>Hallo! Mag ik je even storen?</item>
         <item>Mag ik even de aandacht?</item>
-        <item>Het is een mooie dag om</item>
+        <item>\'t is een mooie dag om</item>
     </string-array>
     
     <string-array name="reminder_responses">
         <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
         <item>Ik heb iets voor je!</item> 
         <item>Klaar om af te vinken?</item>
-        <item>Waarom is dit niet af?</item>
-        <item>En nu dan, ben je er klaar voor?</item>
+        <item>Waarom regel je dit niet even?</item>
+        <item>Hoe is\'t, ben je er klaar voor?</item>
         <item>Klaar voor de start?</item>
-        <item>Kan je dit wel aan?</item>
+        <item>Kun je dit regelen?</item>
         <item>Eeuwige roem lonkt! Maak dit af!</item>
-        <item>Na deze voel je je een held!</item>
-        <item>Waarom doe je dit niet vandaag?</item>
+        <item>Na deze actie ben je een held!</item>
+        <item>Past dit nog, vandaag?</item>
         <item>Maak dit af, alsjeblieft zeg!</item>
         <item>Kan dit af? Natuurlijk kan het af!</item>
-        <item>Gaat dit oot afkomen?</item>
+        <item>Gaat dit ooit afkomen?</item>
         <item>Voel je goed, zet hem op!</item>
         <item>Ik ben zo trots! Doe het!</item>
         <item>Kopje koffie hierna?</item>
@@ -64,15 +64,15 @@
     <string-array name="postpone_nags">
         <!-- Astrid's nagging when user clicks postpone -->
         <item>Je bent toch geen afhaker?</item>
-        <item>Wordt je niet te moe van het nietsdoen?</item>
+        <item>Word je niet te moe van het niksen?</item>
         <item>Maak je onsterfelijk, doe dit!</item>
         <item>Toen je zei uitstellen, bedoelde je dat je er mee bezig was, toch?</item>
         <item>Dit is de laatste keer dat je dit uitstelt, oke?</item>
-        <item>Psst, deze moet vandaag nog, ik zal je niet verraden!</item>
+        <item>Psst, maak deze vandaag af, ik vertel het niet verder!</item>
         <item>Waarom uitstellen? Je kan het ook gewoon doen!</item>
-        <item>Ooit zul je dit wel afkrijgen, is het niet?</item>
+        <item>Moet ik je hiermee morgen weer lastig vallen? Dacht het niet!</item>
         <item>Je bent geweldig! Nu deze nog.</item>
-        <item>Kun je je doelen bereiken als je dit doet?</item>
+        <item>Bereik je doel, maak dit af!</item>
         <item>Van uitstel komt afstel. Wanneer leer je nou eens?</item>
         <item>Ik ben klaar met je smoesjes! Doe dit, NU!</item>
         <item>Die smoes heb je al gebruikt!</item>
@@ -95,7 +95,7 @@
     
     <string-array name="sync_interval_entries">
         <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>uitschakelen</item>
+        <item>uit</item>
         <item>twee keer per uur</item>
         <item>elk uur</item>
         <item>twee maal daags</item>

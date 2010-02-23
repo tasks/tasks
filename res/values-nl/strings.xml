@@ -35,9 +35,9 @@
         
         <!-- Repeat Interval Labels -->
         <string name="repeat_days">Dag(en)</string>
-        <string name="repeat_weeks">We(e)k(en)</string>
+        <string name="repeat_weeks">Week/Weken</string>
         <string name="repeat_months">Maand(en)</string>
-        <string name="repeat_hours">U(u)r(en)</string>
+        <string name="repeat_hours">Uur/Uren</string>
         
         <!-- Plurals -->
         
@@ -132,20 +132,20 @@
         <!-- prefix to show that a task is hidden -->
         <string name="taskList_hiddenPrefix">V</string>
         <!-- i.e. Due in 4 days -->
-        <string name="taskList_dueRelativeTime">Eindigt over</string>
+        <string name="taskList_dueRelativeTime">Verwacht over</string>
         <!-- i.e. Due on Jan 2 -->
-        <string name="taskList_dueAbsoluteDate">Eindigt op</string>
+        <string name="taskList_dueAbsoluteDate">Verwacht op</string>
         <!-- prefix to deadline -->
-        <string name="taskList_goalPrefix">Doel</string>
-        <string name="taskList_overdueBy">Verlaat met</string>
+        <string name="taskList_goalPrefix">Streef</string>
+        <string name="taskList_overdueBy">Over tijd:</string>
         <!-- i.e. Finished 4 days ago -->
         <string name="taskList_completedPrefix">Voltooid %s</string>
 		<!-- i.e.  Estimated: 4 hours -->
-        <string name="taskList_estimatedTimePrefix">Geschat:</string>
+        <string name="taskList_estimatedTimePrefix">Geschat op:</string>
         <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
         <string name="taskList_elapsedTimePrefix">Besteed:</string>
         <!-- time interval to set frequency to remind user -->
-        <string name="taskList_periodicReminderPrefix">Herinner Elke</string>
+        <string name="taskList_periodicReminderPrefix">Sein mij elke</string>
         
         <!-- time interval to set repeated tasks-->
         <string name="taskList_repeatPrefix">Herhaald elke</string>
@@ -156,12 +156,12 @@
         <string name="taskList_notesPrefix">Notities:</string>
         
         <!-- i.e. Created: <create date> -->
-        <string name="taskList_createdPrefix">Aangemaakt:</string>
+        <string name="taskList_createdPrefix">Gemaakt:</string>
         
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Verwijderd</string>
         
-        <string name="quick_add_hint">Nieuwe taak</string>
+        <string name="quick_add_hint">Taak Toevoegen</string>
         
         <!-- menu items -->
         <string name="taskList_menu_insert">Nieuwe taak</string>
@@ -173,14 +173,14 @@
         <string name="taskList_menu_settings">Instellingen</string>
         <string name="taskList_menu_help">Help (Opent in Browser)</string>
         <string name="taskList_menu_survey">Doe de Astrid enquête</string>
-        <string name="taskList_menu_tips">Snelle tips</string>
-        <string name="taskList_menu_cleanup">Ruim Oude Taken Op</string>
+        <string name="taskList_menu_tips">Enkele tips</string>
+        <string name="taskList_menu_cleanup">Oude taken opruimen</string>
         
         <string name="taskList_context_edit">Bewerk taak</string>
         <string name="taskList_context_delete">Verwijder taak</string>
         <string name="taskList_context_startTimer">Start Timer</string>
         <string name="taskList_context_stopTimer">Stop Timer</string>
-        <string name="taskList_context_postpone">Uitstellen</string>
+        <string name="taskList_context_postpone">Later</string>
         
         <!-- filter menu items -->
         <string name="taskList_filter_title">Sorteer/Filters</string>
@@ -205,12 +205,12 @@
         <string name="taskEdit_label">Astrid: Nieuwe Taak</string>
         
         <!-- tabs -->
-        <string name="taskEdit_tab_basic">Standaard</string>
-        <string name="taskEdit_tab_dates">Data</string>
-        <string name="taskEdit_tab_alerts">Waarschuwingen</string>
+        <string name="taskEdit_tab_basic">Wat</string>
+        <string name="taskEdit_tab_dates">Wanneer</string>
+        <string name="taskEdit_tab_alerts">Alarm</string>
         
         <!-- labels -->
-        <string name="name_label">Overzicht</string>
+        <string name="name_label">Onderwerp</string>
         <string name="name_hint">Taak naam</string>
         <string name="importance_label">Hoe belangrijk is het?</string>
         <string name="tags_label">Tags:</string>
@@ -232,10 +232,10 @@
         <string name="notification_label">Periodieke Herinneringen</string>
         <string name="notification_prefix">Elke</string>
         <string name="flags_label">Waarschuw me...</string>
-        <string name="flag_before">Voor de deadlines</string>
-        <string name="flag_during">Op de deadlines</string>
-        <string name="flag_after">Als de echte deadline verloopt</string>
-        <string name="flag_nonstop">Alarm Klok Mode</string>
+        <string name="flag_before">Voor de deadline</string>
+        <string name="flag_during">Tijdens deadline</string>
+        <string name="flag_after">Na afloop deadline</string>
+        <string name="flag_nonstop">Alarm klok modus</string>
         <string name="alerts_label">Vaste Herinneringen</string>
         <string name="add_alert">Voeg nieuwe Herinnering toe</string>
         
@@ -245,14 +245,14 @@
         <string name="repeat_picker_title">Herhaal elke</string>
         <string name="repeat_help_dialog_title">Help: Astrid Herhalingen</string>
         <string name="repeat_help_dialog">Om herhalingen te gebruiken, schakel ten minste een van de deadlines hierboven in. Als je de taak af hebt, zal de deadline automatisch doorschuiven. \n\n Als je niet de volgende deadline wilt zien, direct na het voltooien van de oude taak, gebruik dan de optie "Verberg tot". Deze zal ook automatisch doorschuiven. \n</string>
-        <string name="repeat_help_hide">Verberg de helpfunctie</string>
+        <string name="repeat_help_hide">Verberg dit</string>
         
         <!-- buttons -->
         <string name="save_label">Opslaan</string>
         <string name="discard_label">Annuleren</string>
         <string name="edit_label">Bewerken</string>
         <string name="delete_label">Verwijderen</string>
-        <string name="blank_button_title">Klik om in te stellen</string>
+        <string name="blank_button_title">Stel in</string>
         <string name="startTimer_label">Start Timer</string>
         <string name="stopTimer_label">Stop Timer</string>
         
@@ -292,11 +292,11 @@
         <string name="sync_rtm_title">Remember The Milk</string>
         <string name="sync_rtm_desc">http://www.rememberthemilk.com</string>
         <string name="sync_interval_title">Automatisch Synchroniseren</string>
-        <string name="sync_interval_desc">Als aangevinkt, gebeurt de synchronisatie automatisch met het gegeven interval</string>
+        <string name="sync_interval_desc">Als aangevinkt, gebeurt de synchronisatie automatisch met een opgegeven interval</string>
         <string name="sync_button_title">Shortcut voor Hoofdmenu</string>
         <string name="sync_button_desc">Laat \"Synchronisatie\" zien in Astrid\'s menu</string>
         <string name="sync_quiet_title">Verberg dialoogschermen</string>
-        <string name="sync_quiet_desc">Verberg de SyncResultaten dialogen</string>
+        <string name="sync_quiet_desc">Verberg de SyncResultaten dialoog</string>
         <string name="sync_bgwifi_title">Auto-Sync alleen met WiFi</string>
         <string name="sync_bgwifi_desc">Als aangevinkt wordt auto-sync alleen gebruikt als WiFi actief is.</string>
         <string name="sync_error">Sync Error! Excuses voor het ongemak! Error:</string>
@@ -353,6 +353,14 @@
 - Selecteer een taak en druk op 1-4 (keyboard) om snel de prioriteit in te stellen\n
 - Als een taak een deadline heeft, druk dan lang op de taak om uit te stellen\n\n
 Bedankt voor het gebruiken van Astrid!</string>
+        
+        <!-- %s => name of the application -->
+        <string name="task_killer_help">
+It looks like you are using an app that can kill processes (%s)! If you can, 
+add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
+Astrid might not let you know when your tasks are due.\n
+        </string>
+        <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
 
     <!-- Locale Plugin -->  
     <skip/>
@@ -368,7 +376,7 @@ Bedankt voor het gebruiken van Astrid!</string>
         <string name="notif_preferredDueDate">Doel deadline!</string>
         <string name="notif_timerStarted">Werkt nu aan:</string>
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
-        <string name="notif_tagNotification">You have $NUM tagged $TAG!</string>
+        <string name="notif_tagNotification">Je hebt %NUM getagd als $TAG!</string>
         
     <!-- Error Messages -->  
     <skip/>
@@ -387,16 +395,19 @@ Bedankt voor het gebruiken van Astrid!</string>
         <string name="prefs_quietEnd_desc">Astrid mag u weer lastig vallen vanaf (bijv. 08 uur)</string>
           
         <string name="prefs_defaultRemind_title">Standaard herinneringen</string>
-        <string name="prefs_defaultRemind_desc">Voor nieuwe taken, in dagen (bijv. 7). Leeghouden om uit te schakelen</string>
+        <string name="prefs_defaultRemind_desc">Voor nieuwe taken, in dagen (bijv. 7).Uit te schakelen door niets in te vullen.</string>
         
         <string name="prefs_annoy_title">Doorzeur stand</string>
-        <string name="prefs_annoy_desc">Als aangevinkt, moeten de LED en berichten een voor een afgehandeld worden</string>
+        <string name="prefs_annoy_desc">Als aangevinkt, moeten de LED en de berichten één voor één afgehandeld worden</string>
         
         <string name="prefs_notification_title">Geluid voor herinneringen</string>
         <string name="prefs_notification_desc">Kies een geluid voor de berichten van Astrid</string>
 
-        <string name="prefs_notificon_title">Icon voor herinneringen</string>
-        <string name="prefs_notificon_desc">Kies Astrid\'s status bar icon</string>
+        <string name="prefs_notificon_title">Icoon voor herinneringen</string>
+        <string name="prefs_notificon_desc">Kies Astrid\'s status bar icoon</string>
+        
+        <string name="prefs_vibrate_title">Vibrate on Alert</string>
+        <string name="prefs_vibrate_desc">If checked, Astrid will vibrate when sounding an alarm</string>
         
         <string name="prefs_category_appearance">Uiterlijke kenmerken</string>
             
@@ -412,14 +423,14 @@ Bedankt voor het gebruiken van Astrid!</string>
         <string name="prefs_nagging_desc">Laat Astrid\'s commentaar horen bij het bekijken van berichten en uitstellen van taken</string>
 
         <string name="prefs_deadlineTime_title">Standaard deadlines</string>
-        <string name="prefs_deadlineTime_desc">Nieuwe deadlines beginnen vanaf aantal dagen</string>
+        <string name="prefs_deadlineTime_desc">Nieuwe deadline begint vanaf een x aantal dagen</string>
         
         <string name="displayedFields_PrefScreen_Title">Weergegeven velden</string>
         <string name="displayedFields_PrefScreen_Desc">Selecteer de velden om in de takenlijst weer te geven</string>
         
         <string name="prefs_titleVisible_title">Taak titel</string>
         <string name="prefs_titleVisible_desc">Taak omschrijving</string>
-        <string name="prefs_deadlineVisible_title">Data</string>
+        <string name="prefs_deadlineVisible_title">Wanneer</string>
         <string name="prefs_deadlineVisible_desc">Komende deadlines / einddatum</string>
         <string name="prefs_timeVisible_title">Tijdregistratie</string>
         <string name="prefs_timeVisible_desc">Geschatte &amp; Bestede tijden</string>
@@ -434,6 +445,8 @@ Bedankt voor het gebruiken van Astrid!</string>
         <string name="prefs_notesVisible_title">Notities</string>
         <string name="prefs_notesVisible_desc">Notities die horen bij deze taak</string>
 
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Taak/Todo Lijst</string>
     <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
     <string name="marketplace_description">Astrid is de veelgeprezen open-source takenlijst die simpel genoeg is om je niet te frustreren, en krachtig genoeg om jou te helpen om je zaken gedaan te krijgen. Tags, herinneringen, sychronisatie met \'Remember The Milk\', agenda plug-in &amp; meer!</string>
     
@@ -441,16 +454,15 @@ Bedankt voor het gebruiken van Astrid!</string>
     <string name="about_translators">Launchpad Contributions:
   Clemens Tolboom https://launchpad.net/~clemens-build2be
   Gummie https://launchpad.net/~gummie
+  Yentl https://launchpad.net/~yentlvt
   artens https://launchpad.net/~jef
   cumulus007 https://launchpad.net/~cumulus-007
   spmwinkel https://launchpad.net/~spmwinkel</string>
 
-    <!-- Widget text: -->
+    <!-- Widget text when loading tasks -->
 	<string name="widget_loading">Laden…</string>
-	<string name="task_name1">This is a task one</string>
-	<string name="task_name2">Task two here</string>
-	<string name="task_name3">This is task number three</string>
-	<string name="task_name4">The fourth task</string>
-	<string name="task_name5">Task five this is</string>
-	
+    
+    <!--  Permissions -->
+	<string name="read_tasks_permission">Read Astrid tasks</string>
+    
 </resources>

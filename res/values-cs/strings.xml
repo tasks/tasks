@@ -161,7 +161,7 @@
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Smazáno</string>
         
-        <string name="quick_add_hint">Nový úkol</string>
+        <string name="quick_add_hint">Přidat Nový Úkol</string>
         
         <!-- menu items -->
         <string name="taskList_menu_insert">Nový úkol</string>
@@ -348,6 +348,14 @@
         <string name="stop_timer_title">Přerušit časovač?</string>
         
         <string name="quick_tips">Pár věcí, které možná o Astrid nevíte:\n\n - Pokud chcete vytvořit úkol, jednoduše začněte psát na klávesnici!\n - V průběhu editace stiskněte tlačítko telefonu "Zpět" pro uložení.\n - Vyberte úkol a stiskněte jednu z kláves 1 až 4 pro rychlé nastavení priority.\n - Pokud má úkol konečný termín, dlouhým stiskem ho postunete.\n\n Děkujeme, že používáte Astrid!\n</string>
+        
+        <!-- %s => name of the application -->
+        <string name="task_killer_help">
+It looks like you are using an app that can kill processes (%s)! If you can, 
+add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
+Astrid might not let you know when your tasks are due.\n
+        </string>
+        <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
 
     <!-- Locale Plugin -->  
     <skip/>
@@ -363,7 +371,7 @@
         <string name="notif_preferredDueDate">Konečný termín cíle!</string>
         <string name="notif_timerStarted">Pracuji na:</string>
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
-        <string name="notif_tagNotification">You have $NUM tagged $TAG!</string>
+        <string name="notif_tagNotification">Máte $NUM označené $TAG!</string>
         
     <!-- Error Messages -->  
     <skip/>
@@ -392,6 +400,9 @@
 
         <string name="prefs_notificon_title">Ikony upozornění</string>
         <string name="prefs_notificon_desc">Vyberte obrázek Astrid pro lištu ikon</string>
+        
+        <string name="prefs_vibrate_title">Vibrate on Alert</string>
+        <string name="prefs_vibrate_desc">If checked, Astrid will vibrate when sounding an alarm</string>
         
         <string name="prefs_category_appearance">Vzhled</string>
             
@@ -429,22 +440,23 @@
         <string name="prefs_notesVisible_title">Poznámky</string>
         <string name="prefs_notesVisible_desc">Poznámky připojené k tomuto úkolu</string>
 
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Úkol/Oddo Seznam</string>
     <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
     <string name="marketplace_description">Astrid je vysoce oceňovaný open source úkolovník, jednoduše ovladatelný a přesto velice výkonný, aby Vám pomohl mít vše hotovo. Značky, připomenutí, synchronizace s Remember The Milk, lokalizace a další.</string>
     
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:
+  Konki https://launchpad.net/~pavel-konkol
   Libor Šedivý https://launchpad.net/~liborse
   Sipral https://launchpad.net/~zakyne-xyz
   Uli https://launchpad.net/~jakub-vlasek
   mnemonic https://launchpad.net/~honza</string>
 
-    <!-- Widget text: -->
+    <!-- Widget text when loading tasks -->
 	<string name="widget_loading">Nahrávám...</string>
-	<string name="task_name1">This is a task one</string>
-	<string name="task_name2">Task two here</string>
-	<string name="task_name3">This is task number three</string>
-	<string name="task_name4">The fourth task</string>
-	<string name="task_name5">Task five this is</string>
-	
+    
+    <!--  Permissions -->
+	<string name="read_tasks_permission">Read Astrid tasks</string>
+    
 </resources>
