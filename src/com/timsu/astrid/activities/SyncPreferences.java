@@ -26,7 +26,9 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -48,17 +50,29 @@ import com.timsu.astrid.utilities.Preferences;
  */
 public class SyncPreferences extends PreferenceActivity {
 
-	private boolean rtmSyncPreference;
+    /** whether or not to synchronize with RTM */
+	private boolean oldRtmSyncPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Resources r = getResources();
 
-        rtmSyncPreference = Preferences.shouldSyncRTM(this);
+        oldRtmSyncPreference = Preferences.shouldSyncRTM(this);
 
         addPreferencesFromResource(R.xml.sync_preferences);
 
+        // set up preferences
+        findPreference(getString(R.string.p_sync_interval)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                if(Preferences.getSyncRTMToken(SyncPreferences.this) == null)
+                    setResult(Constants.RESULT_SYNCHRONIZE);
+                return true;
+            }
+        });
+
+        // set up footer
         getListView().addFooterView(getLayoutInflater().inflate(
                 R.layout.sync_footer, getListView(), false));
 
@@ -79,12 +93,13 @@ public class SyncPreferences extends PreferenceActivity {
                             int which) {
                         Synchronizer.clearUserData(SyncPreferences.this);
                         // force a synchronization if sync preference is still set
-                        rtmSyncPreference = false;
+                        oldRtmSyncPreference = false;
                     }
                 }, null);
             }
         });
 
+        // set up labels
         TextView lastSyncLabel = (TextView)findViewById(R.id.last_sync_label);
         SimpleDateFormat formatter = new SimpleDateFormat("MM/dd HH:mm");
         String syncDate = r.getString(R.string.sync_date_never);
@@ -123,13 +138,12 @@ public class SyncPreferences extends PreferenceActivity {
     public boolean onKeyDown(int keyCode, KeyEvent event) {
     	if(keyCode == KeyEvent.KEYCODE_BACK) {
     		boolean newRtmSyncPreference = Preferences.shouldSyncRTM(this);
-    		if(newRtmSyncPreference != rtmSyncPreference && newRtmSyncPreference) {
+    		if(newRtmSyncPreference != oldRtmSyncPreference && newRtmSyncPreference) {
     			setResult(Constants.RESULT_SYNCHRONIZE);
     		}
     		finish();
     		return true;
     	}
-
     	return false;
     }
 }

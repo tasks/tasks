@@ -67,7 +67,7 @@ public class TaskList extends Activity {
     /** Bundle Key: variables of current activity */
     private static final String LAST_BUNDLE_TAG = "b";
 
-    /** Bundle Key: variables to pass to the subactivity */
+    /** Bundle Key: variables to pass to the sub-activity */
     public static final String VARIABLES_TAG = "v";
 
     /** Minimum distance a fling must cover to trigger motion */

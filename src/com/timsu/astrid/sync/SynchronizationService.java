@@ -4,9 +4,10 @@ import java.util.Date;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.IBinder;
 import android.util.Log;
 
 import com.timsu.astrid.utilities.Constants;
@@ -20,7 +21,7 @@ import com.timsu.astrid.utilities.Preferences;
  * @author Tim Su
  *
  */
-public class SynchronizationService extends BroadcastReceiver {
+public class SynchronizationService extends Service {
 
 	/** miniumum time before an auto-sync */
 	private static final long AUTO_SYNC_MIN_OFFSET = 5*60*1000L;
@@ -32,9 +33,10 @@ public class SynchronizationService extends BroadcastReceiver {
 
     /** Receive the alarm - start the synchronize service! */
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onStart(Intent intent, int startId) {
+        Log.i("astrid", "wassup");
         if(intent.getAction().equals(SYNC_ACTION))
-            startSynchronization(context);
+            startSynchronization(this);
     }
 
     /** Start the actual synchronization */
@@ -139,6 +141,9 @@ public class SynchronizationService extends BroadcastReceiver {
         return offset;
     }
 
-
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
 }

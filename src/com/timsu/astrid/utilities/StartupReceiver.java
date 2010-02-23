@@ -82,6 +82,9 @@ public class StartupReceiver extends BroadcastReceiver {
                         0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
                 am.setInexactRepeating(AlarmManager.RTC, 0,
                         Constants.WIDGET_UPDATE_INTERVAL, pendingIntent);
+
+                // start synchronization service
+                SynchronizationService.scheduleService(context);
             }
         }).start();
 
@@ -89,9 +92,6 @@ public class StartupReceiver extends BroadcastReceiver {
 
         // check for task killers
         showTaskKillerHelp(context);
-
-        // start synchronization service
-        SynchronizationService.scheduleService(context);
 
         hasStartedUp = true;
     }

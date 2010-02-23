@@ -13,7 +13,7 @@ public class Constants {
     /** Flurry API KEy */
     public static final String FLURRY_KEY = "T3JAY9TV2JFMJR4YTG16";
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     public static final long WIDGET_UPDATE_INTERVAL = 30 * 60 * 1000L;
 

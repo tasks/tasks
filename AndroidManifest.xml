@@ -46,8 +46,8 @@
         <!--  Activity that creates or edits tasks -->
         <activity android:name=".activities.TaskEdit"
                 android:icon="@drawable/icon_add"
-        		android:label="@string/taskEdit_label">
-        	<intent-filter>
+                android:label="@string/taskEdit_label">
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -92,8 +92,6 @@
              
         <receiver android:name=".utilities.Notifications" />
         
-        <receiver android:name=".sync.SynchronizationService" />
-        
         <receiver android:name=".utilities.LocaleReceiver">
             <intent-filter>
                  <action android:name="com.timsu.astrid.action.LOCALE_ALERT" />
@@ -107,19 +105,20 @@
             </intent-filter>
         </receiver>
 
-		<receiver android:name=".appwidget.AstridAppWidgetProvider" >
-		    <intent-filter>
-		        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-		    </intent-filter>
-		    <meta-data android:name="android.appwidget.provider"
-		               android:resource="@xml/widget_provider_info" />
-		</receiver>
+        <receiver android:name=".appwidget.AstridAppWidgetProvider" >
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                       android:resource="@xml/widget_provider_info" />
+        </receiver>
 
 
         <!-- ======================== Services ========================== -->
              
-		<service android:name=".appwidget.AstridAppWidgetProvider$UpdateService"></service>
-
+        <service android:name=".appwidget.AstridAppWidgetProvider$UpdateService"></service>
+        
+        <service android:name=".sync.SynchronizationService" />
 
         <!-- ======================== Providers ========================== -->
       
