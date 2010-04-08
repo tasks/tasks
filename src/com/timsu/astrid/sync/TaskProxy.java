@@ -171,6 +171,8 @@ public class TaskProxy {
             task.setName(name);
         if(notes != null)
             task.setNotes(notes);
+        else
+            task.setNotes("");
         if(importance != null)
             task.setImportance(importance);
         if(progressPercentage != null)
@@ -192,20 +194,19 @@ public class TaskProxy {
         	else
         		task.setDefiniteDueDate(dueDate);
         } else {
-	        if(definiteDueDate != null)
-	            task.setDefiniteDueDate(definiteDueDate);
-	        if(preferredDueDate != null)
-	            task.setPreferredDueDate(preferredDueDate);
+            task.setDefiniteDueDate(definiteDueDate);
+            task.setPreferredDueDate(preferredDueDate);
         }
 
         if(hiddenUntil != null)
             task.setHiddenUntil(hiddenUntil);
-        if(estimatedSeconds != null)
-            task.setEstimatedSeconds(estimatedSeconds);
+        task.setEstimatedSeconds(estimatedSeconds);
         if(elapsedSeconds != null)
             task.setElapsedSeconds(elapsedSeconds);
         if(syncOnComplete != null)
             task.setFlags(task.getFlags() | TaskModelForSync.FLAG_SYNC_ON_COMPLETE);
+        else
+            task.setFlags(task.getFlags() & ~TaskModelForSync.FLAG_SYNC_ON_COMPLETE);
 
         // this is inaccurate. =/
         if(repeatInfo != null) {

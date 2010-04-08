@@ -428,8 +428,8 @@ public abstract class SynchronizationProvider {
             taskController.saveTask(task, true);
 
             // save tags
+            LinkedList<TagIdentifier> taskTags = tagController.getTaskTags(task.getTaskIdentifier());
             if(remoteTask.tags != null) {
-                LinkedList<TagIdentifier> taskTags = tagController.getTaskTags(task.getTaskIdentifier());
                 HashSet<TagIdentifier> tagsToAdd = new HashSet<TagIdentifier>();
                 for(String tag : remoteTask.tags) {
                     String tagLower = tag.toLowerCase();
@@ -449,6 +449,11 @@ public abstract class SynchronizationProvider {
                     tagController.removeTag(task.getTaskIdentifier(), tagId);
                 for(TagIdentifier tagId : tagsToAdd)
                     tagController.addTag(task.getTaskIdentifier(), tagId);
+            } else {
+            	// remove existing tags
+                for(TagIdentifier tagId : taskTags) {
+                    tagController.removeTag(task.getTaskIdentifier(), tagId);
+                }
             }
             stats.localUpdatedTasks++;
 
