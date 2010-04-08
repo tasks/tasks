@@ -407,13 +407,13 @@ Astrid might not let you know when your tasks are due.\n
         <string name="prefs_category_alerts">Notifications</string>
         
         <string name="prefs_quietStart_title">Quiet Hours Start</string>
-        <string name="prefs_quietStart_desc">Starting hour when Astrid should be quiet (e.g. 22)</string>
+        <string name="prefs_quietStart_desc">Start time to silence notifications for periodic reminders</string>
         
         <string name="prefs_quietEnd_title">Quiet Hours End</string>
-        <string name="prefs_quietEnd_desc">Ending hour when Astrid should be quiet (e.g. 08)</string>
+        <string name="prefs_quietEnd_desc">End time to silence notifications</string>
           
         <string name="prefs_defaultRemind_title">Default Reminders</string>
-        <string name="prefs_defaultRemind_desc">For new tasks, in days (i.e. 7). Blank to disable</string>
+        <string name="prefs_defaultRemind_desc">For new tasks, default reminder in days (i.e. 7). Blank to disable</string>
         
         <string name="prefs_annoy_title">Persistent Mode</string>
         <string name="prefs_annoy_desc">If checked, LED and notifications must be cleared one at a time</string>
@@ -432,8 +432,8 @@ Astrid might not let you know when your tasks are due.\n
         <string name="prefs_colorize_title">Colorize Task List</string>
         <string name="prefs_colorize_desc">Different colors for different priorities</string>
         
-        <string name="prefs_fontSize_title">Task List Font</string>
-        <string name="prefs_fontSize_desc">Font on the main listing page (i.e. 22)</string>
+        <string name="prefs_fontSize_title">Task List Size</string>
+        <string name="prefs_fontSize_desc">Font size on the main listing page</string>
 
         <string name="prefs_category_other">Other</string>
         

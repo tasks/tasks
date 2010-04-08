@@ -244,7 +244,7 @@ public class TagListSubActivity extends SubActivity {
         // set up the title
         Resources r = getResources();
         int tags = tagArray.size();
-        if(untaggedTagDisplayed)
+        if(untaggedTagDisplayed && tags > 0)
         	tags--;
         StringBuilder title = new StringBuilder().
             append(r.getString(R.string.tagList_titlePrefix)).

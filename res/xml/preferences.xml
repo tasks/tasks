@@ -4,12 +4,16 @@
     
     <PreferenceCategory
         android:title="@string/prefs_category_alerts">
-        <EditTextPreference  
+        <ListPreference  
             android:key="@string/p_notif_quietStart"  
+            android:entries="@array/EPr_quiet_hours_start"  
+            android:entryValues="@array/EPr_quiet_hours_start_values"            
             android:title="@string/prefs_quietStart_title"  
             android:summary="@string/prefs_quietStart_desc" />  
-        <EditTextPreference  
+        <ListPreference  
             android:key="@string/p_notif_quietEnd"  
+            android:entries="@array/EPr_quiet_hours_end"  
+            android:entryValues="@array/EPr_quiet_hours_end_values"            
             android:title="@string/prefs_quietEnd_title"  
             android:summary="@string/prefs_quietEnd_desc" />  
         <CheckBoxPreference  
@@ -46,8 +50,10 @@
             android:key="@string/p_colorize"  
             android:title="@string/prefs_colorize_title"  
             android:summary="@string/prefs_colorize_desc" />  
-        <EditTextPreference  
-            android:key="@string/p_fontSize"  
+        <ListPreference  
+            android:key="@string/p_fontSize"
+            android:entries="@array/EPr_font_size"  
+            android:entryValues="@array/EPr_font_size"  
             android:title="@string/prefs_fontSize_title"  
             android:summary="@string/prefs_fontSize_desc" />
         <PreferenceScreen

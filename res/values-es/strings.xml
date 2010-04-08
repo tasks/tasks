@@ -161,7 +161,7 @@
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Borrado</string>
         
-        <string name="quick_add_hint">Add New Task</string>
+        <string name="quick_add_hint">Añadir nueva tarea</string>
         
         <!-- menu items -->
         <string name="taskList_menu_insert">Nueva Tarea</string>
@@ -372,7 +372,7 @@ Astrid might not let you know when your tasks are due.\n
         <string name="notif_preferredDueDate">¡Fecha límite deseada!</string>
         <string name="notif_timerStarted">Trabajando en:</string>
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
-        <string name="notif_tagNotification">¡Tienes $NUM etiquetada(s) $TAG!</string>
+        <string name="notif_tagNotification">Tienes $NUM etiquetada $TAG!</string>
         
     <!-- Error Messages -->  
     <skip/>
@@ -385,13 +385,13 @@ Astrid might not let you know when your tasks are due.\n
         <string name="prefs_category_alerts">Notificaciones</string>
         
         <string name="prefs_quietStart_title">Inicio del horario en silencio</string>
-        <string name="prefs_quietStart_desc">Hora de inicio para que Astrid esté en silencio (ej. 22)</string>
+        <string name="prefs_quietStart_desc">Hora de inicio para que notificaciones esté en silencio</string>
         
         <string name="prefs_quietEnd_title">Fin del horario en silencio</string>
-        <string name="prefs_quietEnd_desc">Hora de finalización para que Astrid esté en silencio (ej. 08)</string>
+        <string name="prefs_quietEnd_desc">Hora de finalización para que notificaciones esté en silencio</string>
           
         <string name="prefs_defaultRemind_title">Recordatorios por defecto</string>
-        <string name="prefs_defaultRemind_desc">Para nuevas tareas, en días (ej. 7). Vacío para desactivar</string>
+        <string name="prefs_defaultRemind_desc">Para nuevas tareas, defecto en días (ej. 7). Vacío para desactivar</string>
         
         <string name="prefs_annoy_title">Modo persistente</string>
         <string name="prefs_annoy_desc">Si está activado, el LED y las notificaciones deberán ser desactivados uno por uno</string>
@@ -402,8 +402,8 @@ Astrid might not let you know when your tasks are due.\n
         <string name="prefs_notificon_title">Iconos de notificación</string>
         <string name="prefs_notificon_desc">Elige el icono para la barra de notificación de Astrid</string>
         
-        <string name="prefs_vibrate_title">Vibrate on Alert</string>
-        <string name="prefs_vibrate_desc">If checked, Astrid will vibrate when sounding an alarm</string>
+        <string name="prefs_vibrate_title">Vibración</string>
+        <string name="prefs_vibrate_desc">Si está activado, Astrid vibrará con las alertas</string>
         
         <string name="prefs_category_appearance">Apariencia</string>
             
@@ -411,7 +411,7 @@ Astrid might not let you know when your tasks are due.\n
         <string name="prefs_colorize_desc">Diferentes colores para diferentes prioridades</string>
         
         <string name="prefs_fontSize_title">Fuente para la lista de tareas</string>
-        <string name="prefs_fontSize_desc">Fuente en el listado principal (ej. 22)</string>
+        <string name="prefs_fontSize_desc">Tamaño de la fuente en el listado principal</string>
 
         <string name="prefs_category_other">Otro</string>
         
@@ -455,6 +455,7 @@ Astrid might not let you know when your tasks are due.\n
   Jon Paris https://launchpad.net/~jon-todoroo
   Pablo Ledesma https://launchpad.net/~venraiker
   Tim Su https://launchpad.net/~tim-todoroo
+  Victor Herrero https://launchpad.net/~victorhera
   ninor https://launchpad.net/~subifrisks</string>
 
     <!-- Widget text when loading tasks -->
