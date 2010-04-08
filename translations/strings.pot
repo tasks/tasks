@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-02-22 21:32-0800\n"
+"POT-Creation-Date: 2010-04-08 01:24-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -884,7 +884,7 @@ msgid "Quiet Hours Start"
 msgstr ""
 
 #: res/values/strings.xml:410( name="prefs_quietStart_desc") 
-msgid "Starting hour when Astrid should be quiet (e.g. 22)"
+msgid "Start time to silence notifications for periodic reminders"
 msgstr ""
 
 #: res/values/strings.xml:412( name="prefs_quietEnd_title") 
@@ -892,7 +892,7 @@ msgid "Quiet Hours End"
 msgstr ""
 
 #: res/values/strings.xml:413( name="prefs_quietEnd_desc") 
-msgid "Ending hour when Astrid should be quiet (e.g. 08)"
+msgid "End time to silence notifications"
 msgstr ""
 
 #: res/values/strings.xml:415( name="prefs_defaultRemind_title") 
@@ -900,7 +900,7 @@ msgid "Default Reminders"
 msgstr ""
 
 #: res/values/strings.xml:416( name="prefs_defaultRemind_desc") 
-msgid "For new tasks, in days (i.e. 7). Blank to disable"
+msgid "For new tasks, default reminder in days (i.e. 7). Blank to disable"
 msgstr ""
 
 #: res/values/strings.xml:418( name="prefs_annoy_title") 
@@ -948,11 +948,11 @@ msgid "Different colors for different priorities"
 msgstr ""
 
 #: res/values/strings.xml:435( name="prefs_fontSize_title") 
-msgid "Task List Font"
+msgid "Task List Size"
 msgstr ""
 
 #: res/values/strings.xml:436( name="prefs_fontSize_desc") 
-msgid "Font on the main listing page (i.e. 22)"
+msgid "Font size on the main listing page"
 msgstr ""
 
 #: res/values/strings.xml:438( name="prefs_category_other") 
