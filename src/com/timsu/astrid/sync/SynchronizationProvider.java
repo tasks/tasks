@@ -284,9 +284,11 @@ public abstract class SynchronizationProvider {
 
         // 3. UPDATE: for each updated local task
         for(SyncMapping mapping : data.localChanges) {
+            TaskProxy localTask = null;
+            TaskModelForSync task = null;
             try {
-                TaskProxy localTask = new TaskProxy(getId(), mapping.getRemoteId());
-                TaskModelForSync task = taskController.fetchTaskForSync(
+                localTask = new TaskProxy(getId(), mapping.getRemoteId());
+                task = taskController.fetchTaskForSync(
                         mapping.getTask());
                 if(task == null) {
                     // sucks... task was deleted i guess.
@@ -300,10 +302,16 @@ public abstract class SynchronizationProvider {
             } catch (Exception e) {
                 AstridUtilities.reportFlurryError("sync-read-local-task", e);
                 Log.e("astrid", "Exception receiving task", e);
-                log.append("error reading local task\n");
+                if(task != null)
+                    log.append("error reading '" + task.getName() + "'\n");
+                else
+                    log.append("error reading local task\n");
+
+                continue;
+            } finally {
+                postUpdate(new ProgressUpdater(stats.remoteUpdatedTasks,
+                        data.localChanges.size()));
             }
-            postUpdate(new ProgressUpdater(stats.remoteUpdatedTasks,
-                    data.localChanges.size()));
 
             // if there is a conflict, merge
             TaskProxy remoteConflict = null;
