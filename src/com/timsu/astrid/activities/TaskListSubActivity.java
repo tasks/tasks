@@ -101,7 +101,8 @@ public class TaskListSubActivity extends SubActivity {
     private static final int   ACTIVITY_CREATE            = 0;
     private static final int   ACTIVITY_EDIT              = 1;
     private static final int   ACTIVITY_TAGS              = 2;
-    private static final int   ACTIVITY_SYNCHRONIZE       = 3;
+    private static final int   ACTIVITY_PREFERENCES       = 3;
+    private static final int   ACTIVITY_SYNCHRONIZE       = 4;
 
     // menu codes
     private static final int   INSERT_ID                  = Menu.FIRST;
@@ -1001,6 +1002,8 @@ public class TaskListSubActivity extends SubActivity {
             synchronize();
         } else if (requestCode == ACTIVITY_TAGS) {
             switchToActivity(TaskList.AC_TAG_LIST, null);
+        } else if(requestCode == ACTIVITY_PREFERENCES) {
+            reloadList();
         }
     }
 
@@ -1212,7 +1215,8 @@ public class TaskListSubActivity extends SubActivity {
                     ACTIVITY_SYNCHRONIZE);
             return true;
         case OPTIONS_SETTINGS_ID:
-            launchActivity(new Intent(getParent(), EditPreferences.class), 0);
+            launchActivity(new Intent(getParent(), EditPreferences.class),
+                    ACTIVITY_PREFERENCES);
             return true;
         case OPTIONS_HELP_ID:
             Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri
