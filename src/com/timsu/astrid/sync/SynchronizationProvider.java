@@ -213,7 +213,7 @@ public abstract class SynchronizationProvider {
      * @param remoteTasks remote tasks that have been updated
      * @return local tasks that need to be pushed across
      */
-    protected void synchronizeTasks(final Context context, LinkedList<TaskProxy>
+    protected synchronized void synchronizeTasks(final Context context, LinkedList<TaskProxy>
             remoteTasks, SynchronizeHelper helper) throws IOException {
         final SyncStats stats = new SyncStats();
         final StringBuilder log = new StringBuilder();
@@ -284,19 +284,24 @@ public abstract class SynchronizationProvider {
 
         // 3. UPDATE: for each updated local task
         for(SyncMapping mapping : data.localChanges) {
-            TaskProxy localTask = new TaskProxy(getId(), mapping.getRemoteId());
-            TaskModelForSync task = taskController.fetchTaskForSync(
-                    mapping.getTask());
-            if(task == null) {
-                // sucks... task was deleted i guess.
-                continue;
+            try {
+                TaskProxy localTask = new TaskProxy(getId(), mapping.getRemoteId());
+                TaskModelForSync task = taskController.fetchTaskForSync(
+                        mapping.getTask());
+                if(task == null) {
+                    // sucks... task was deleted i guess.
+                    continue;
+                }
+                localTask.readFromTaskModel(task);
+                localTask.readTagsFromController(task.getTaskIdentifier(),
+                        tagController, data.tags);
+                postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_localtx,
+                        task.getName()));
+            } catch (Exception e) {
+                AstridUtilities.reportFlurryError("sync-read-local-task", e);
+                Log.e("astrid", "Exception receiving task", e);
+                log.append("error reading local task\n");
             }
-            localTask.readFromTaskModel(task);
-            localTask.readTagsFromController(task.getTaskIdentifier(),
-                    tagController, data.tags);
-
-            postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_localtx,
-                    task.getName()));
             postUpdate(new ProgressUpdater(stats.remoteUpdatedTasks,
                     data.localChanges.size()));
 
