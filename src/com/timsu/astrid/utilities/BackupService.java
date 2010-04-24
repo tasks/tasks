@@ -1,5 +1,8 @@
 package com.timsu.astrid.utilities;
 
+import java.io.File;
+import java.io.FilenameFilter;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
@@ -7,18 +10,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 
-import java.io.File;
-import java.io.FilenameFilter;
-
+/**
+ * Inspired heavily by SynchronizationService
+ */
 public class BackupService extends Service {
-    /* Inspired heavily by SynchronizationService
-    
-     */
 
+    /** when after phone starts to start first back up */
     private static final long BACKUP_OFFSET = 5*60*1000L;
+
+    /** how often to back up */
+    private static final long BACKUP_INTERVAL = AlarmManager.INTERVAL_DAY;
     private static final String BACKUP_ACTION = "backup";
     private static final String BACKUP_FILE_NAME_REGEX = "auto\\.\\d{6}\\-\\d{4}\\.xml";
-    private static final int DAYS_TO_KEEP_BACKUP = 7; 
+    private static final int DAYS_TO_KEEP_BACKUP = 7;
 
 
     @Override
@@ -55,7 +59,7 @@ public class BackupService extends Service {
             return;
         }
         am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + BACKUP_OFFSET,
-                AlarmManager.INTERVAL_DAY, pendingIntent);
+                BACKUP_INTERVAL, pendingIntent);
     }
 
     public static void unscheduleService(Context ctx) {
