@@ -1,7 +1,5 @@
 package com.timsu.astrid.utilities;
 
-import java.util.List;
-
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -9,16 +7,17 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
-
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.SyncPreferences;
 import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
 import com.timsu.astrid.sync.SynchronizationService;
+
+import java.util.List;
 
 public class StartupReceiver extends BroadcastReceiver {
 
@@ -85,6 +84,9 @@ public class StartupReceiver extends BroadcastReceiver {
 
                 // start synchronization service
                 SynchronizationService.scheduleService(context);
+
+                // start backup service
+                BackupService.scheduleService(context);
             }
         }).start();
 

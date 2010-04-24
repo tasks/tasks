@@ -48,6 +48,8 @@
         <string name="p_nagging">nagging</string>
        
         <string name="p_deadlineTime">deadline_time</string>
+
+        <string name="p_backup">backup</string>
        
         <string name="prefs_titleVisible">titleVisible</string> 
         <string name="prefs_titleVisible_default">true</string>

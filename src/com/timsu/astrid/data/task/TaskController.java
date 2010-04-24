@@ -19,11 +19,6 @@
  */
 package com.timsu.astrid.data.task;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -35,7 +30,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
-
 import com.timsu.astrid.activities.TaskEdit;
 import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
@@ -48,6 +42,11 @@ import com.timsu.astrid.provider.TasksProvider;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.Notifications;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
 
 /**
  * Controller for task-related operations
@@ -122,6 +121,14 @@ public class TaskController extends AbstractController {
     public Cursor getAllTaskListCursor() {
         return database.query(TASK_TABLE_NAME, TaskModelForList.FIELD_LIST,
                 null, null, null, null, null, null);
+    }
+
+    /** Return a list of all tasks */
+    public Cursor getBackupTaskListCursor() {
+        return database.query(TASK_TABLE_NAME, TaskModelForXml.FIELD_LIST,
+                AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
+                        AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null,
+                null, null);
     }
 
     /** Delete all completed tasks with date < older than date */
@@ -434,6 +441,31 @@ public class TaskController extends AbstractController {
         return model;
     }
 
+    /** Returns a TaskModelForXml corresponding to the given TaskIdentifier */
+    public TaskModelForXml fetchTaskForXml(TaskIdentifier taskId) throws SQLException {
+        Cursor cursor = fetchTaskCursor(taskId, TaskModelForXml.FIELD_LIST);
+        TaskModelForXml model = new TaskModelForXml(cursor);
+        cursor.close();
+        return model;
+    }
+
+    /* Attempts to return a TaskModelForXml for the given name and creation date */
+    public TaskModelForXml fetchTaskForXml(String name, Date creationDate) {
+        Cursor cursor;
+        try {
+            cursor = fetchTaskCursor(name, "" + creationDate.getTime(),
+                    TaskModelForXml.FIELD_LIST);
+        } catch (SQLException e) {
+            return null;
+        }
+        if (cursor == null || cursor.getCount() == 0) {
+            return null;
+        }
+        TaskModelForXml model = new TaskModelForXml(cursor);
+        cursor.close();
+        return model;
+    }
+
     /** Returns a TaskModelForReminder corresponding to the given TaskIdentifier */
     public TaskModelForReminder fetchTaskForReminder(TaskIdentifier taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, TaskModelForReminder.FIELD_LIST);
@@ -490,6 +522,21 @@ public class TaskController extends AbstractController {
         return cursor;
     }
 
+    /** Returns null if unsuccessful, otherwise moves cursor to the task.
+     * Don't forget to close the cursor when you're done. */
+    private Cursor fetchTaskCursor(String name, String creationDate, String[] fieldList) {
+        final String where = AbstractTaskModel.NAME + " = ? AND "
+                + AbstractTaskModel.CREATION_DATE + " = ?";
+        Cursor cursor = database.query(true, TASK_TABLE_NAME, fieldList,
+                where, new String[] {name, creationDate}, null, null, null, null);
+        if (cursor == null)
+            throw new SQLException("Returned empty set!");
+
+        if (cursor.moveToFirst()) {
+            return cursor;
+        }
+        return null;
+    }
     // --- methods supporting individual features
 
     /** Returns a TaskModelForView corresponding to the given TaskIdentifier */

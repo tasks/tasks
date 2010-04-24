@@ -19,20 +19,19 @@
  */
 package com.timsu.astrid.data.sync;
 
-import java.util.HashSet;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.sync.SyncMapping.SyncMappingDatabaseHelper;
 import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForSync;
+
+import java.util.HashSet;
 
 /** Controller for Tag-related operations */
 public class SyncDataController extends AbstractController {
@@ -76,6 +75,30 @@ public class SyncDataController extends AbstractController {
                 SyncMapping.FIELD_LIST,
                 SyncMapping.SYNC_SERVICE + " = " + syncServiceId,
                 null, null, null, null);
+
+        try {
+            if(cursor.getCount() == 0)
+                return list;
+            do {
+                cursor.moveToNext();
+                list.add(new SyncMapping(cursor));
+            } while(!cursor.isLast());
+
+            return list;
+        } finally {
+            cursor.close();
+        }
+    }
+
+    /** Get all mappings for specified task for all synchronization services */
+    public HashSet<SyncMapping> getSyncMappings(TaskIdentifier taskId)
+            throws SQLException {
+        HashSet<SyncMapping> list = new HashSet<SyncMapping>();
+        Cursor cursor = syncDatabase.query(SYNC_TABLE_NAME,
+                SyncMapping.FIELD_LIST,
+                SyncMapping.TASK + " = ?",
+                new String[] { "" + taskId.getId() },
+                null, null, null);
 
         try {
             if(cursor.getCount() == 0)

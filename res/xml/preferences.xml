@@ -107,6 +107,11 @@
         <EditTextPreference  
             android:key="@string/p_deadlineTime"  
             android:title="@string/prefs_deadlineTime_title"  
-            android:summary="@string/prefs_deadlineTime_desc" /> 
+            android:summary="@string/prefs_deadlineTime_desc" />
+        <CheckBoxPreference
+            android:key="@string/p_backup"
+            android:title="@string/prefs_backup_title"
+            android:summary="@string/prefs_backup_desc"
+            android:defaultValue="true" />
     </PreferenceCategory>
 </PreferenceScreen>  

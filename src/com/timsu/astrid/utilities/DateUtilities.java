@@ -19,16 +19,20 @@
  */
 package com.timsu.astrid.utilities;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.content.res.Resources;
-
+import android.util.Log;
 import com.timsu.astrid.R;
+
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class DateUtilities {
 
 	private static SimpleDateFormat format = null;
+    private static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssz";
 
     /** Format a time into a medium length absolute format */
     public static String getFormattedDate(Resources r, Date date) {
@@ -189,5 +193,52 @@ public class DateUtilities {
         }
 
         return result.toString();
+    }
+
+    /* Format a Date into ISO 8601 Compliant format.
+
+     */
+    public static String getIso8601String(Date d) {
+        SimpleDateFormat sdf = new SimpleDateFormat(ISO_8601_FORMAT);
+        String result = "";
+        if (d != null) {
+            result = sdf.format(d);
+        }
+        return result;
+    }
+
+    /* Take an ISO 8601 string and return a Date object.
+       On failure, returns null.
+    */
+    public static Date getDateFromIso8601String(String s) {
+        SimpleDateFormat df = new SimpleDateFormat(ISO_8601_FORMAT);
+        try {
+            return df.parse(s);
+        } catch (ParseException e) {
+            Log.e("DateUtilities", "Error parsing ISO 8601 date");
+            return null;
+        }
+    }
+
+    /* Get current date and time as a string.
+    Used in TasksXmlExporter
+     */
+    public static String getDateForExport() {
+        DateFormat df = new SimpleDateFormat("yyMMdd-HHmm");
+        return df.format(new Date());
+    }
+
+    public static boolean wasCreatedBefore(String s, int daysAgo) {
+        DateFormat df = new SimpleDateFormat("yyMMdd");
+        Date date;
+        try {
+            date = df.parse(s);
+        } catch (ParseException e) {
+            return false;
+        }
+        Calendar cal = Calendar.getInstance();
+        cal.add(Calendar.DATE, -daysAgo);
+        Date calDate = cal.getTime();
+        return date.before(calDate);
     }
 }

@@ -4,10 +4,12 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
-
 import com.timsu.astrid.R;
+import com.timsu.astrid.widget.FilePickerBuilder;
 import com.timsu.astrid.widget.NNumberPickerDialog;
 import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
+
+import java.io.File;
 
 public class DialogUtilities {
 
@@ -86,5 +88,13 @@ public class DialogUtilities {
         new NNumberPickerDialog(context, listener, title,
         new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
         new int[] {99, 59}, new String[] {":", null}).show();
+    }
+
+    /** Display a dialog box with a list of files to pick.
+     *
+     */
+    public static void filePicker(Context context, String title, File path,
+            FilePickerBuilder.OnFilePickedListener listener) {
+        new FilePickerBuilder(context, title, path, listener).show();
     }
 }

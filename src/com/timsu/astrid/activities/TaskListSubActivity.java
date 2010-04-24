@@ -19,15 +19,6 @@
  */
 package com.timsu.astrid.activities;
 
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Random;
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -40,24 +31,12 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.ContextMenu;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
+import android.view.*;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.TaskListAdapter.TaskListAdapterHooks;
@@ -71,15 +50,14 @@ import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
-import com.timsu.astrid.utilities.AstridUtilities;
-import com.timsu.astrid.utilities.Constants;
-import com.timsu.astrid.utilities.DialogUtilities;
-import com.timsu.astrid.utilities.Notifications;
-import com.timsu.astrid.utilities.Preferences;
+import com.timsu.astrid.utilities.*;
+import com.timsu.astrid.widget.FilePickerBuilder;
+import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 import com.timsu.astrid.widget.NumberPicker;
 import com.timsu.astrid.widget.NumberPickerDialog;
-import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
+
+import java.util.*;
 
 /**
  * Primary view for the Astrid Application. Lists all of the tasks in the
@@ -116,6 +94,8 @@ public class TaskListSubActivity extends SubActivity {
     private static final int   OPTIONS_HELP_ID            = Menu.FIRST + 12;
     private static final int   OPTIONS_CLEANUP_ID         = Menu.FIRST + 13;
     private static final int   OPTIONS_QUICK_TIPS         = Menu.FIRST + 14;
+    private static final int   OPTIONS_EXPORT             = Menu.FIRST + 15;
+    private static final int   OPTIONS_IMPORT             = Menu.FIRST + 16;
 
     private static final int   CONTEXT_FILTER_HIDDEN      = Menu.FIRST + 20;
     private static final int   CONTEXT_FILTER_DONE        = Menu.FIRST + 21;
@@ -383,6 +363,12 @@ public class TaskListSubActivity extends SubActivity {
 
         item = menu.add(Menu.NONE, OPTIONS_QUICK_TIPS, Menu.NONE,
                 R.string.taskList_menu_tips);
+
+        item = menu.add(Menu.NONE, OPTIONS_EXPORT, Menu.NONE,
+                R.string.taskList_menu_export);
+
+        item = menu.add(Menu.NONE, OPTIONS_IMPORT, Menu.NONE,
+                R.string.taskList_menu_import);
 
         item = menu.add(Menu.NONE, OPTIONS_HELP_ID, Menu.NONE,
                 R.string.taskList_menu_help);
@@ -1230,6 +1216,12 @@ public class TaskListSubActivity extends SubActivity {
         case OPTIONS_CLEANUP_ID:
             cleanOldTasks();
             return true;
+        case OPTIONS_EXPORT:
+            exportTasks();
+            return true;
+        case OPTIONS_IMPORT:
+            importTasks();
+            return true;
 
             // --- list context menu items
         case TaskListAdapter.CONTEXT_EDIT_ID:
@@ -1295,6 +1287,33 @@ public class TaskListSubActivity extends SubActivity {
         }
 
         return false;
+    }
+
+    private void importTasks() {
+        final Runnable reloadList = new Runnable() {
+            public void run() {
+                reloadList();
+            }
+        };
+        final Context ctx = this.getParent();
+        FilePickerBuilder.OnFilePickedListener listener = new FilePickerBuilder.OnFilePickedListener() {
+            @Override
+            public void onFilePicked(String filePath) {
+                TasksXmlImporter importer = new TasksXmlImporter(ctx);
+                importer.setInput(filePath);
+                importer.importTasks(reloadList);
+            }
+        };
+        DialogUtilities.filePicker(ctx,
+                ctx.getString(R.string.import_file_prompt),
+                TasksXmlExporter.getExportDirectory(), 
+                listener);
+    }
+
+    private void exportTasks() {
+        TasksXmlExporter exporter = new TasksXmlExporter(false);
+        exporter.setContext(getParent());
+        exporter.exportTasks();
     }
 
     /*

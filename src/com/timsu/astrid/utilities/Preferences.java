@@ -1,16 +1,15 @@
 package com.timsu.astrid.utilities;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-
 import com.timsu.astrid.R;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Preferences {
 
@@ -59,6 +58,9 @@ public class Preferences {
         }
         if(!prefs.contains(r.getString(R.string.p_notif_vibrate))) {
             editor.putBoolean(r.getString(R.string.p_notif_vibrate), true);
+        }
+        if (!prefs.contains(r.getString(R.string.p_backup))) {
+            editor.putBoolean(r.getString(R.string.p_backup), true);
         }
 
         setVisibilityPreferences(prefs, editor, r);
@@ -276,6 +278,12 @@ public class Preferences {
         Editor editor = getPrefs(context).edit();
         editor.putInt(P_TASK_LIST_SORT, value);
         editor.commit();
+    }
+
+    // --- backup preferences
+    public static boolean isBackupEnabled(Context context) {
+        Resources r = context.getResources();
+        return getPrefs(context).getBoolean(r.getString(R.string.p_backup), true);
     }
 
     // --- synchronization preferences
