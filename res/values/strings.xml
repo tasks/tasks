@@ -418,9 +418,10 @@ Skipped %d tasks.\n
     <!-- Error Messages -->  
     <skip />
     
-        <string name="error_opening">Couldn't find this item:</string>
-        <string name="error_saving">Couldn't save:</string>
-        <string name="error_sdcard">Cannot access:</string>
+        <string name="error_opening">Could not find this item: </string>
+        <string name="error_saving">Could not save:s</string>
+        <string name="error_sdcard">Cannot access folder: %s</string>
+        <string name="error_sdcard_general">Cannot access your SD card!</string>
         
     <skip />
 
