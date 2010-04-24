@@ -19,6 +19,11 @@
  */
 package com.timsu.astrid.data.task;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -30,6 +35,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
+
 import com.timsu.astrid.activities.TaskEdit;
 import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
@@ -42,11 +48,6 @@ import com.timsu.astrid.provider.TasksProvider;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.Notifications;
-
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
 
 /**
  * Controller for task-related operations
@@ -453,7 +454,7 @@ public class TaskController extends AbstractController {
     public TaskModelForXml fetchTaskForXml(String name, Date creationDate) {
         Cursor cursor;
         try {
-            cursor = fetchTaskCursor(name, "" + creationDate.getTime(),
+            cursor = fetchTaskCursor(name, creationDate.getTime(),
                     TaskModelForXml.FIELD_LIST);
         } catch (SQLException e) {
             return null;
@@ -509,7 +510,7 @@ public class TaskController extends AbstractController {
         return model;
     }
 
-    /** Returns null if unsuccessful, otherwise moves cursor to the task.
+    /** Moves cursor to the task.
      * Don't forget to close the cursor when you're done. */
     private Cursor fetchTaskCursor(TaskIdentifier taskId, String[] fieldList) {
         long id = taskId.getId();
@@ -524,17 +525,21 @@ public class TaskController extends AbstractController {
 
     /** Returns null if unsuccessful, otherwise moves cursor to the task.
      * Don't forget to close the cursor when you're done. */
-    private Cursor fetchTaskCursor(String name, String creationDate, String[] fieldList) {
+    private Cursor fetchTaskCursor(String name, long creationDate, String[] fieldList) {
+        // truncate millis
         final String where = AbstractTaskModel.NAME + " = ? AND "
-                + AbstractTaskModel.CREATION_DATE + " = ?";
+                + AbstractTaskModel.CREATION_DATE + " LIKE ?";
+
+        String approximateCreationDate = (creationDate / 1000) + "%";
         Cursor cursor = database.query(true, TASK_TABLE_NAME, fieldList,
-                where, new String[] {name, creationDate}, null, null, null, null);
+                where, new String[] {name, approximateCreationDate}, null, null, null, null);
         if (cursor == null)
             throw new SQLException("Returned empty set!");
 
         if (cursor.moveToFirst()) {
             return cursor;
         }
+        cursor.close();
         return null;
     }
     // --- methods supporting individual features
