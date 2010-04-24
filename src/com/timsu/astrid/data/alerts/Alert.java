@@ -31,6 +31,7 @@ import android.util.Log;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.AbstractModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.utilities.DialogUtilities;
 
 
 /** A single alert on a task */
@@ -63,10 +64,12 @@ public class Alert extends AbstractModel {
     /** Database Helper manages creating new tables and updating old ones */
     static class AlertDatabaseHelper extends SQLiteOpenHelper {
         String tableName;
+        Context context;
 
         AlertDatabaseHelper(Context context, String databaseName, String tableName) {
             super(context, databaseName, null, VERSION);
             this.tableName = tableName;
+            this.context = context;
         }
 
         @Override
@@ -88,10 +91,9 @@ public class Alert extends AbstractModel {
 
             switch(oldVersion) {
             default:
-                // we don't know how to handle it... do the unfortunate thing
-                Log.e(getClass().getSimpleName(), "Unsupported migration, table dropped!");
-                db.execSQL("DROP TABLE IF EXISTS " + tableName);
-                onCreate(db);
+                // we don't know how to handle it... show an error
+                Log.e(getClass().getSimpleName(), "Unsupported migration from " + oldVersion + " to " + newVersion);
+                DialogUtilities.okDialog(context, "There was a database error reading from Alerts. Data may have been corrupted.", null);
             }
         }
     }
