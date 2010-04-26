@@ -85,7 +85,7 @@ public class AstridAppWidgetProvider extends AppWidgetProvider {
                 TaskModelForWidget taskModel = (i < taskList.size()) ?
                     taskList.get(i) : null;
                 String textContent = "";
-                int textColor = Color.BLACK;
+                int textColor = Color.WHITE;
 
                 if (taskModel != null) {
                     textContent = taskModel.getName();

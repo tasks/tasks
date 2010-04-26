@@ -11,11 +11,11 @@
     	android:id="@+id/widget_button"
     	android:src="@drawable/button_plus" 
     	android:layout_gravity="right" 
-    	android:layout_width="100dp" 
-    	android:layout_height="50dp" 
+    	android:layout_width="100dip" 
+    	android:layout_height="50dip" 
     	android:background="#00000000" 
-    	android:paddingLeft="38dp" 
-    	android:paddingTop="4dp"/>
+    	android:paddingLeft="38dip" 
+    	android:paddingTop="4dip"/>
     	
     <LinearLayout android:id="@+id/taskbody"
     	android:layout_width="fill_parent"
@@ -31,7 +31,7 @@
 	        android:singleLine="true"
 	        android:maxWidth="170dip"
 	        style="@style/Text.Loading" 
-	        android:layout_marginLeft="23dp"/>
+	        android:layout_marginLeft="23dip"/>
 
 	    <ImageView
 	        android:id="@+id/separator_1"
@@ -42,7 +42,6 @@
 	    	android:layout_height="wrap_content" 
 	    	android:layout_marginTop="4dip"/>
 
-
     	<TextView
 	        android:id="@+id/task_2"
 	        android:layout_width="wrap_content" 
@@ -52,7 +51,7 @@
 	        android:maxWidth="170dip"
 	        android:text="@string/task_name2"
 	        style="@style/Text.Loading" 
-	        android:layout_marginLeft="23dp"
+	        android:layout_marginLeft="23dip"
 	        android:layout_marginTop="4dip"/>
 
 	    <ImageView
@@ -74,7 +73,7 @@
 	        android:maxWidth="170dip"
 	        android:text="@string/task_name2"
 	        style="@style/Text.Loading" 
-	        android:layout_marginLeft="23dp"
+	        android:layout_marginLeft="23dip"
 	        android:layout_marginTop="4dip"/>
 	        
 	    <ImageView
@@ -84,7 +83,7 @@
 	        android:src="@drawable/separator"
 	    	android:layout_gravity="center_horizontal" 
 	    	android:layout_height="wrap_content" 
-	    	android:layout_marginTop="50dp"/>
+	    	android:layout_marginTop="50dip"/>
 
         <!--  note that this separator has a huge margin so that no more tasks are displayed -->
 
@@ -97,7 +96,7 @@
 	        android:maxWidth="170dip"
 	        android:text="@string/task_name2"
 	        style="@style/Text.Loading" 
-	        android:layout_marginLeft="23dp"
+	        android:layout_marginLeft="23dip"
 	        android:layout_marginTop="4dip"/>
 
 	    <ImageView
@@ -119,7 +118,7 @@
 	        android:maxWidth="170dip"
 	        android:text="@string/task_name2"
 	        style="@style/Text.Loading" 
-	        android:layout_marginLeft="23dp"
+	        android:layout_marginLeft="23dip"
 	        android:layout_marginTop="4dip"/>
     </LinearLayout>
 </LinearLayout>

@@ -50,11 +50,11 @@
     </style>
     
 	<style name="WidgetBackground">
-		<item name="android:background">@drawable/widget_frame_complete</item>
+		<item name="android:background">@drawable/widget_frame</item>
 	</style>
 
 	<style name="WidgetBackgroundLand">
-		<item name="android:background">@drawable/widget_frame_land</item>
+		<item name="android:background">@drawable/widget_frame</item>
 	</style>
 	
 	<style name="Text">
