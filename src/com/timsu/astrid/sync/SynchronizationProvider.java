@@ -229,7 +229,7 @@ public abstract class SynchronizationProvider {
         for(TaskIdentifier taskId : data.newlyCreatedTasks) {
             TaskModelForSync task = taskController.fetchTaskForSync(taskId);
             postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_localtx,
-                    task.getName()));
+                    task.getName().replaceAll("%", "%%")));
             postUpdate(new ProgressUpdater(stats.remoteCreatedTasks,
                     data.newlyCreatedTasks.size()));
 
@@ -298,7 +298,7 @@ public abstract class SynchronizationProvider {
                 localTask.readTagsFromController(task.getTaskIdentifier(),
                         tagController, data.tags);
                 postUpdate(new ProgressLabelUpdater(context, R.string.sync_progress_localtx,
-                        task.getName()));
+                        task.getName().replaceAll("%", "%%")));
             } catch (Exception e) {
                 AstridUtilities.reportFlurryError("sync-read-local-task", e);
                 Log.e("astrid", "Exception receiving task", e);
