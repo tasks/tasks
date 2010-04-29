@@ -57,9 +57,14 @@ public class BackupService extends Service {
                             DateUtilities.getFormattedDate(ctx.getResources(), new Date())));
         } catch (Exception e) {
             // unable to backup.
-            Preferences.setBackupSummary(ctx,
+            if(e == null || e.getMessage() == null) {
+                Preferences.setBackupSummary(ctx,
+                        ctx.getString(R.string.prefs_backup_desc_failure_null));
+            } else {
+                Preferences.setBackupSummary(ctx,
                     ctx.getString(R.string.prefs_backup_desc_failure,
-                            e.getMessage()));
+                            e.toString()));
+            }
         }
     }
 
@@ -71,7 +76,7 @@ public class BackupService extends Service {
         if (!Preferences.isBackupEnabled(ctx)) {
             return;
         }
-        am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + BACKUP_OFFSET,
+        am.setRepeating(AlarmManager.RTC, System.currentTimeMillis() + 10000,
                 BACKUP_INTERVAL, pendingIntent);
     }
 
