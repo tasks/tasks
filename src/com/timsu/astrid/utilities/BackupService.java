@@ -76,7 +76,7 @@ public class BackupService extends Service {
         if (!Preferences.isBackupEnabled(ctx)) {
             return;
         }
-        am.setRepeating(AlarmManager.RTC, System.currentTimeMillis() + 10000,
+        am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + BACKUP_OFFSET,
                 BACKUP_INTERVAL, pendingIntent);
     }
 
