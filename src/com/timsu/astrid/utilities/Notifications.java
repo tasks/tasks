@@ -383,12 +383,11 @@ public class Notifications extends BroadcastReceiver {
             controller.close();
         }
 
-        // quiet hours? only for periodic reminders
+        // quiet hours? disabled if alarm clock
         boolean quietHours = false;
         Integer quietHoursStart = Preferences.getQuietHourStart(context);
         Integer quietHoursEnd = Preferences.getQuietHourEnd(context);
-        if(quietHoursStart != null && quietHoursEnd != null &&
-                (flags & FLAG_PERIODIC) > 0) {
+        if(quietHoursStart != null && quietHoursEnd != null && nonstopMode) {
             int hour = new Date().getHours();
             if(quietHoursStart < quietHoursEnd) {
                 if(hour >= quietHoursStart && hour < quietHoursEnd)
@@ -456,17 +455,10 @@ public class Notifications extends BroadcastReceiver {
                     audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
         }
 
+        // quiet hours = no sound
         if(quietHours) {
-            notification.vibrate = null;
             notification.sound = null;
         } else {
-            if (Preferences.shouldVibrate(context)
-                    && audioManager.shouldVibrate(AudioManager.VIBRATE_TYPE_NOTIFICATION)) {
-                notification.vibrate = new long[] {0, 1000, 500, 1000, 500, 1000};
-            } else {
-                notification.vibrate = null;
-            }
-
             Uri notificationSound = Preferences.getNotificationRingtone(context);
             if(audioManager.getStreamVolume(AudioManager.STREAM_RING) == 0) {
                 notification.sound = null;
@@ -475,6 +467,18 @@ public class Notifications extends BroadcastReceiver {
                 notification.sound = notificationSound;
             } else {
                 notification.defaults |= Notification.DEFAULT_SOUND;
+            }
+        }
+
+        // quiet hours + periodic = no vibrate
+        if(quietHours && (flags & FLAG_PERIODIC) > 0) {
+            notification.vibrate = null;
+        } else {
+            if (Preferences.shouldVibrate(context)
+                    && audioManager.shouldVibrate(AudioManager.VIBRATE_TYPE_NOTIFICATION)) {
+                notification.vibrate = new long[] {0, 1000, 500, 1000, 500, 1000};
+            } else {
+                notification.vibrate = null;
             }
         }
 
