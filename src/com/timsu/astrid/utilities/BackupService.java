@@ -44,10 +44,11 @@ public class BackupService extends Service {
         if (ctx == null || ctx.getResources() == null) {
             return;
         }
-        if (!Preferences.isBackupEnabled(ctx)) {
-            return;
-        }
         try {
+            if (!Preferences.isBackupEnabled(ctx)) {
+                return;
+            }
+
             deleteOldBackups();
             TasksXmlExporter exporter = new TasksXmlExporter(true);
             exporter.setContext(ctx);
