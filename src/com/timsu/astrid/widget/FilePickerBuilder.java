@@ -3,6 +3,8 @@ package com.timsu.astrid.widget;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.util.Log;
+import com.timsu.astrid.R;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -30,9 +32,9 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
                 return file.isFile();
             }
         };
+        this.callback = callback;
         setTitle(title);
         setPath(path);
-        this.callback = callback;
     }
 
     public void setFilter(FilenameFilter filter) {
@@ -40,13 +42,18 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
     }
 
     private void setPath(File path) {
-        this.path = path.getAbsolutePath();
-        // Reverse the order of the file list so newest timestamped file is first.
-        List<String> fileList = Arrays.asList(path.list(filter));
-        Collections.sort(fileList);
-        Collections.reverse(fileList);
-        files = (String[])fileList.toArray();
-        setItems(files, this);
+        if (path != null && path.exists()) {
+            this.path = path.getAbsolutePath();
+            // Reverse the order of the file list so newest timestamped file is first.
+            List<String> fileList = Arrays.asList(path.list(filter));
+            Collections.sort(fileList);
+            Collections.reverse(fileList);
+            files = (String[]) fileList.toArray();
+            setItems(files, this);
+        } else {
+            Log.e("FilePicker", "Cannot access sdcard.");
+            setMessage(R.string.error_sdcard + "sdcard");
+        }
     }
 
     @Override
