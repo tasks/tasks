@@ -470,10 +470,10 @@ Skipped %d tasks.\n
         <string name="prefs_backup_desc">Perform daily backups to sdcard.</string>
         
         <!--  backup failure message (%s -> error message) -->
-        <string name="prefs_backup_desc_failure">Backup failed: %s</string>
+        <string name="prefs_backup_desc_failure">Last backup failed: %s</string>
         
         <!--  backup success message (%s -> date) -->
-        <string name="prefs_backup_desc_success">Latest backup: %s</string>
+        <string name="prefs_backup_desc_success">Latest backup was on %s</string>
         
         <string name="displayedFields_PrefScreen_Title">Displayed Fields</string>
         <string name="displayedFields_PrefScreen_Desc">Select the fields to show in task list</string>
