@@ -20,11 +20,13 @@
 package com.timsu.astrid.activities;
 
 import android.os.Bundle;
+import android.preference.Preference;
 import android.preference.PreferenceActivity;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.utilities.Constants;
+import com.timsu.astrid.utilities.Preferences;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -38,6 +40,11 @@ public class EditPreferences extends PreferenceActivity {
         super.onCreate(savedInstanceState);
 
         addPreferencesFromResource(R.xml.preferences);
+
+        Preference backupPreference = findPreference(getString(R.string.p_backup));
+        String backupSummary = Preferences.getBackupSummary(this);
+        if(backupSummary != null && backupPreference != null)
+            backupPreference.setSummary(backupSummary);
     }
 
     @Override

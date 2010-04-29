@@ -2,6 +2,7 @@ package com.timsu.astrid.utilities;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.Date;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -9,6 +10,8 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+
+import com.timsu.astrid.R;
 
 /**
  * Inspired heavily by SynchronizationService
@@ -44,10 +47,20 @@ public class BackupService extends Service {
         if (!Preferences.isBackupEnabled(ctx)) {
             return;
         }
-        deleteOldBackups();
-        TasksXmlExporter exporter = new TasksXmlExporter(true);
-        exporter.setContext(ctx);
-        exporter.exportTasks();
+        try {
+            deleteOldBackups();
+            TasksXmlExporter exporter = new TasksXmlExporter(true);
+            exporter.setContext(ctx);
+            exporter.exportTasks();
+            Preferences.setBackupSummary(ctx,
+                    ctx.getString(R.string.prefs_backup_desc_success,
+                            DateUtilities.getFormattedDate(ctx.getResources(), new Date())));
+        } catch (Exception e) {
+            // unable to backup.
+            Preferences.setBackupSummary(ctx,
+                    ctx.getString(R.string.prefs_backup_desc_failure,
+                            e.getMessage()));
+        }
     }
 
     public static void scheduleService(Context ctx) {

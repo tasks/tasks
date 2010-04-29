@@ -1,15 +1,16 @@
 package com.timsu.astrid.utilities;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
 import android.net.Uri;
 import android.preference.PreferenceManager;
-import com.timsu.astrid.R;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import com.timsu.astrid.R;
 
 public class Preferences {
 
@@ -24,6 +25,7 @@ public class Preferences {
     private static final String P_LOCALE_LAST_NOTIFY = "locnot";
     private static final String P_DID_ANDROID_AND_ME_SURVEY = "aamsurvey";
     private static final String P_TASK_KILLER_HELP = "taskkiller";
+    private static final String P_BACKUP_ERROR = "backupError";
 
     // pref values
     public static final int ICON_SET_PINK = 0;
@@ -61,6 +63,9 @@ public class Preferences {
         }
         if (!prefs.contains(r.getString(R.string.p_backup))) {
             editor.putBoolean(r.getString(R.string.p_backup), true);
+        }
+        if (!prefs.contains(P_BACKUP_ERROR)) {
+            editor.putString(P_BACKUP_ERROR, null);
         }
 
         setVisibilityPreferences(prefs, editor, r);
@@ -281,9 +286,24 @@ public class Preferences {
     }
 
     // --- backup preferences
+
     public static boolean isBackupEnabled(Context context) {
         Resources r = context.getResources();
         return getPrefs(context).getBoolean(r.getString(R.string.p_backup), true);
+    }
+
+    /**
+     * @return error when doing backup, empty string if successful, or null
+     *         if no backup has been attempted
+     */
+    public static String getBackupSummary(Context context) {
+        return getPrefs(context).getString(P_BACKUP_ERROR, null);
+    }
+
+    public static void setBackupSummary(Context context, String newValue) {
+        Editor editor = getPrefs(context).edit();
+        editor.putString(P_BACKUP_ERROR, newValue);
+        editor.commit();
     }
 
     // --- synchronization preferences

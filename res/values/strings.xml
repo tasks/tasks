@@ -465,7 +465,15 @@ Skipped %d tasks.\n
         <string name="prefs_deadlineTime_desc"># of days from now to set new deadlines</string>
 
         <string name="prefs_backup_title">Automatic Backups</string>
+        
+        <!--  backup summary when there is no backup message -->
         <string name="prefs_backup_desc">Perform daily backups to sdcard.</string>
+        
+        <!--  backup failure message (%s -> error message) -->
+        <string name="prefs_backup_desc_failure">Backup failed: %s</string>
+        
+        <!--  backup success message (%s -> date) -->
+        <string name="prefs_backup_desc_success">Latest backup: %s</string>
         
         <string name="displayedFields_PrefScreen_Title">Displayed Fields</string>
         <string name="displayedFields_PrefScreen_Desc">Select the fields to show in task list</string>
