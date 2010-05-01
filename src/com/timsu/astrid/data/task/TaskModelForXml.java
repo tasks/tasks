@@ -1,6 +1,8 @@
 package com.timsu.astrid.data.task;
 
 import android.database.Cursor;
+import android.util.Log;
+import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.enums.RepeatInterval;
@@ -91,8 +93,7 @@ public class TaskModelForXml extends AbstractTaskModel {
         RepeatInfo repeat = getRepeat();
         if (repeat != null) {
             taskAttributesMap.put(REPEAT_VALUE, Integer.toString(repeat.getValue()));
-            taskAttributesMap.put(REPEAT_INTERVAL,
-                    Integer.toString(repeat.getInterval().getLabelResource()));
+            taskAttributesMap.put(REPEAT_INTERVAL, repeat.getInterval().toString());
         }
         taskAttributesMap.put(FLAGS, Integer.toString(getFlags()));
         taskAttributesMap.put(POSTPONE_COUNT, getPostponeCount().toString());
@@ -162,7 +163,30 @@ public class TaskModelForXml extends AbstractTaskModel {
             setLastNotificationTime(DateUtilities.getDateFromIso8601String(value));
         }
         else if(field.equals(REPEAT_INTERVAL)) {
-            setRepeatInterval(RepeatInterval.values()[Integer.parseInt(value)]);
+            try {
+                setRepeatInterval(RepeatInterval.valueOf(value));
+            } catch (Exception e) {
+                RepeatInterval repeatInterval;
+                switch (Integer.parseInt(value)) {
+                    case R.string.repeat_days:
+                        repeatInterval = RepeatInterval.DAYS;
+                        break;
+                    case R.string.repeat_weeks:
+                        repeatInterval = RepeatInterval.WEEKS;
+                        break;
+                    case R.string.repeat_months:
+                        repeatInterval = RepeatInterval.MONTHS;
+                        break;
+                    case R.string.repeat_hours:
+                        repeatInterval = RepeatInterval.HOURS;
+                        break;
+                    default:
+                        Log.e("XmlImport", "Unable to set repeat interval");
+                        repeatInterval = RepeatInterval.DAYS;
+                        break;
+                }
+                setRepeatInterval(repeatInterval);
+            }
         }
         else if(field.equals(REPEAT_VALUE)) {
             setRepeatValue(Integer.parseInt(value));
