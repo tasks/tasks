@@ -136,7 +136,6 @@
         <item>08:00</item>
         <item>09:00</item>
         <item>10:00</item>
-        <item>10:00</item>
         <item>11:00</item>
         <item>12:00</item>
         <item>13:00</item>
@@ -147,6 +146,7 @@
         <item>18:00</item>
         <item>19:00</item>
     </string-array>
+    
     
     <string-array name="EPr_quiet_hours_start_values">
         <!-- quiet_hours_start_values: 24-hour representation of quiet_hour_start -->
@@ -181,7 +181,6 @@
         <!-- quiet_hours_end: options for preference menu -->
         <item>09:00</item>
         <item>10:00</item>
-        <item>10:00</item>
         <item>11:00</item>
         <item>12:00</item>
         <item>13:00</item>
@@ -205,6 +204,8 @@
         <item>07:00</item>
         <item>08:00</item>
     </string-array>
+    
+    
     
     <string-array name="EPr_quiet_hours_end_values">
         <!-- quiet_hours_end_values: 24-hour representation of quiet_hours_end -->
