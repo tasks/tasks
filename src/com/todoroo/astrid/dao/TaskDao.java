@@ -8,19 +8,16 @@ package com.todoroo.astrid.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.Cursor;
 
+import com.thoughtworks.sql.Criterion;
 import com.todoroo.andlib.data.AbstractDao;
 import com.todoroo.andlib.data.AbstractDatabase;
-import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.MetadataDao.MetadataSql;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Task;
 
 /**
@@ -44,76 +41,48 @@ public class TaskDao extends AbstractDao<Task> {
     /**
      * Generates SQL clauses
      */
-    public static class TaskSql {
+    public static class TaskCriteria {
 
     	/** Returns tasks by id */
-    	public static String byId(long id) {
-    	    return String.format("(%s = %d)", Task.ID, //$NON-NLS-1$
-    	            id);
+    	public static Criterion byId(long id) {
+    	    return Task.ID.eq(id);
     	}
 
     	/** Return tasks that have not yet been completed */
-    	public static String isActive() {
-            return String.format("(%s = 0 AND %s = 0)", Task.COMPLETION_DATE, //$NON-NLS-1$
-                    Task.DELETION_DATE);
+    	public static Criterion isActive() {
+    	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
+    	            Task.DELETION_DATE.eq(0));
     	}
 
     	/** Return tasks that are not hidden at given unixtime */
-    	public static String isVisible(int time) {
-            return String.format("(%s < %d)", Task.HIDDEN_UNTIL, time); //$NON-NLS-1$
+    	public static Criterion isVisible(int time) {
+    	    return Task.HIDDEN_UNTIL.lt(time);
         }
 
     	/** Returns tasks that have a due date */
-    	public static String hasDeadlines() {
-    		return String.format("(%s != 0)", Task.DUE_DATE); //$NON-NLS-1$
+    	public static Criterion hasDeadlines() {
+    	    return Task.DUE_DATE.neq(0);
     	}
 
         /** Returns tasks that are due before a certain unixtime */
-        public static String dueBefore(int time) {
-            return String.format("(%s > 0 AND %s <= %d)", Task.DUE_DATE, //$NON-NLS-1$
-                    Task.DUE_DATE, time);
+        public static Criterion dueBefore(int time) {
+            return Criterion.and(Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(time));
         }
 
         /** Returns tasks that are due after a certain unixtime */
-        public static String dueAfter(int time) {
-            return String.format("(%s > %d)", Task.DUE_DATE, time); //$NON-NLS-1$
+        public static Criterion dueAfter(int time) {
+            return Task.DUE_DATE.gt(time);
         }
 
     	/** Returns tasks completed before a given unixtime */
-    	public static String completedBefore(int time) {
-    		return String.format("(%s > 0 AND %s < %d)", Task.COMPLETION_DATE, //$NON-NLS-1$
-    		        Task.COMPLETION_DATE, time);
+    	public static Criterion completedBefore(int time) {
+    	    return Criterion.and(Task.COMPLETION_DATE.gt(0), Task.COMPLETION_DATE.lt(time));
     	}
-
-        public static String hasNoName() {
-            return String.format("(%s = \"\")", Task.TITLE); //$NON-NLS-1$
-        }
 
     }
 
     // --- custom operations
 
-    /**
-     * Return cursor to all tasks matched by given filter
-     *
-     * @param database
-     * @param properties
-     *            properties to read from task
-     * @param filter
-     *            {@link Filter} object to use
-     * @return
-     */
-    public TodorooCursor<Task> fetch(Database database, Property<?>[] properties,
-            Filter filter) {
-
-        String query = String.format(
-                "SELECT %s FROM %s %s ", //$NON-NLS-1$
-                propertiesForSelect(properties, true),
-                Database.TASK_TABLE,
-                filter.sqlQuery);
-        Cursor cursor = database.getDatabase().rawQuery(query, null);
-        return new TodorooCursor<Task>(cursor);
-    }
 
     // --- delete
 
@@ -131,7 +100,7 @@ public class TaskDao extends AbstractDao<Task> {
             return false;
 
         // delete all metadata
-        metadataDao.deleteWhere(database, MetadataSql.byTask(id));
+        metadataDao.deleteWhere(database, MetadataCriteria.byTask(id));
 
         return true;
     }
@@ -149,22 +118,16 @@ public class TaskDao extends AbstractDao<Task> {
 
         if (task.getId() == Task.NO_ID) {
             task.setValue(Task.CREATION_DATE, DateUtilities.now());
-            saveSuccessful = createItem(database, Database.TASK_TABLE, task);
-
-            Context context = ContextManager.getContext();
-            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_CREATED);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            context.sendOrderedBroadcast(broadcastIntent, null);
+            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+            saveSuccessful = createItem(database, Task.TABLE, task);
         } else {
             ContentValues values = task.getSetValues();
-
-            if(values.size() == 0) // nothing changed
+            if(values.size() == 0)
                 return true;
-
+            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
             beforeSave(database, task, values, duringSync);
-            saveSuccessful = saveItem(database, Database.TASK_TABLE, task);
+            saveSuccessful = saveItem(database, Task.TABLE, task);
             afterSave(database, task, values, duringSync);
-
         }
 
         return saveSuccessful;

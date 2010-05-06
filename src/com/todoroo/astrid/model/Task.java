@@ -61,6 +61,10 @@ public class Task extends AbstractModel {
     public static final IntegerProperty CREATION_DATE = new IntegerProperty(
             TABLE, AstridTask.CREATION_DATE);
 
+    /** Unixtime Task was last touched */
+    public static final IntegerProperty MODIFICATION_DATE = new IntegerProperty(
+            TABLE, AstridTask.MODIFICATION_DATE);
+
     /** Unixtime Task was completed. 0 means active */
     public static final IntegerProperty COMPLETION_DATE = new IntegerProperty(
             TABLE, AstridTask.COMPLETION_DATE);

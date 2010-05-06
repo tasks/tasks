@@ -1,14 +1,13 @@
 package com.todoroo.astrid.service;
 
-import com.todoroo.android.data.Property;
-import com.todoroo.android.data.TodorooCursor;
-import com.todoroo.android.service.Autowired;
-import com.todoroo.android.service.DependencyInjectionService;
-import com.todoroo.android.utility.DateUtilities;
+import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.dao.TaskDao.TaskSql;
 import com.todoroo.astrid.model.Task;
 
 /**

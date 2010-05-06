@@ -6,12 +6,14 @@
 package com.todoroo.astrid.dao;
 
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 
-import com.todoroo.android.data.AbstractDao;
-import com.todoroo.android.data.AbstractDatabase;
-import com.todoroo.android.data.Property;
-import com.todoroo.android.data.TodorooCursor;
+import com.thoughtworks.sql.Criterion;
+import com.thoughtworks.sql.Join;
+import com.thoughtworks.sql.Query;
+import com.todoroo.andlib.data.AbstractDao;
+import com.todoroo.andlib.data.AbstractDatabase;
+import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 
@@ -32,18 +34,16 @@ public class MetadataDao extends AbstractDao<Metadata> {
     /**
      * Generates SQL clauses
      */
-    public static class MetadataSql {
+    public static class MetadataCriteria {
 
     	/** Returns all metadata associated with a given task */
-    	public static String byTask(long taskId) {
-    	    return String.format("(%s = %d)", Metadata.TASK, //$NON-NLS-1$
-    	            taskId);
+    	public static Criterion byTask(long taskId) {
+    	    return Metadata.TASK.eq(taskId);
     	}
 
     	/** Returns all metadata associated with a given key */
-    	public static String withKey(String key) {
-    	    return String.format("(%s = %s)", Metadata.KEY, //$NON-NLS-1$
-    	            DatabaseUtils.sqlEscapeString(key));
+    	public static Criterion withKey(String key) {
+    	    return Metadata.KEY.eq(key);
     	}
 
     }
@@ -54,8 +54,9 @@ public class MetadataDao extends AbstractDao<Metadata> {
      * @param where
      * @return # of deleted items
      */
-    public int deleteWhere(AbstractDatabase database, String where) {
-        return database.getDatabase().delete(Database.METADATA_TABLE, where, null);
+    public int deleteWhere(AbstractDatabase database, Criterion where) {
+        return database.getDatabase().delete(Metadata.TABLE.getName(),
+                where.toString(), null);
     }
 
     /**
@@ -65,13 +66,9 @@ public class MetadataDao extends AbstractDao<Metadata> {
      * @return
      */
     public TodorooCursor<Metadata> fetchDangling(AbstractDatabase database, Property<?>[] properties) {
-        String sql = String.format("SELECT %s FROM %s LEFT JOIN %s ON %s.%s = %s.%s WHERE %s.%s ISNULL", //$NON-NLS-1$
-                propertiesForSelect(properties, true),
-                Database.METADATA_TABLE, Database.TASK_TABLE,
-                Database.METADATA_TABLE, Metadata.TASK, Database.TASK_TABLE,
-                    Task.ID,
-                Database.TASK_TABLE, Task.TITLE);
-        Cursor cursor = database.getDatabase().rawQuery(sql, null);
+        Query sql = Query.select(properties).from(Metadata.TABLE).join(Join.left(Task.TABLE,
+                Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull());
+        Cursor cursor = database.getDatabase().rawQuery(sql.toString(), null);
         return new TodorooCursor<Metadata>(cursor);
     }
 
