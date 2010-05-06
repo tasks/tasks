@@ -11,10 +11,10 @@ public class Table extends DBObject<Table> {
     }
 
     @SuppressWarnings("nls")
-    public Field field(String fieldName) {
+    protected String fieldExpression(String fieldName) {
         if (hasAlias()) {
-            return Field.field(alias + "." + fieldName);
+            return alias + "." + fieldName;
         }
-        return Field.field(expression+"."+fieldName);
+        return expression+"."+fieldName;
     }
 }

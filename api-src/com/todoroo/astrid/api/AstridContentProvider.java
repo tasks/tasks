@@ -141,10 +141,12 @@ public class AstridContentProvider {
         /** int: unixtime Task was completed, 0 if task not completed */
         public static final String COMPLETION_DATE = AstridApiConstants.TASK_TABLE
                 + ".completionDate";
-        
+
         /** int: unixtime Task was deleted, 0 if task not deleted */
         public static final String DELETION_DATE = AstridApiConstants.TASK_TABLE
                 + ".deletionDate";
+
+        public static final String MODIFICATION_DATE = null;
 
         // --- urgency settings
 
@@ -164,6 +166,7 @@ public class AstridContentProvider {
         public static final int IMPORTANCE_MUST_DO = 1;
         public static final int IMPORTANCE_SHOULD_DO = 2;
         public static final int IMPORTANCE_NONE = 3;
+
 
     }
 
