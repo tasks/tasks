@@ -1,9 +1,10 @@
 package com.todoroo.astrid.dao;
 
+import com.thoughtworks.sql.Query;
+import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.test.data.Property;
-import com.todoroo.andlib.test.data.TodorooCursor;
-import com.todoroo.astrid.dao.MetadataDao.MetadataSql;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.MetadataService;
@@ -24,8 +25,8 @@ public class MetadataDaoTests extends DatabaseTestCase {
      * Test basic creation, fetch, and save
      */
     public void testCrud() throws Exception {
-        TodorooCursor<Metadata> cursor = metadataDao.fetch(database,
-                MetadataService.idProperty(), null, null);
+        TodorooCursor<Metadata> cursor = metadataDao.query(database,
+                Query.select(MetadataService.idProperty()));
         assertEquals(0, cursor.getCount());
         cursor.close();
 
@@ -33,7 +34,8 @@ public class MetadataDaoTests extends DatabaseTestCase {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "happy");
         assertTrue(metadataDao.save(database, metadata));
-        cursor = metadataDao.fetch(database, MetadataService.idProperty(), null, null);
+        cursor = metadataDao.query(database,
+                Query.select(MetadataService.idProperty()));
         assertEquals(1, cursor.getCount());
         cursor.close();
         long happyId = metadata.getId();
@@ -45,7 +47,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "sad");
         assertTrue(metadataDao.save(database, metadata));
-        cursor = metadataDao.fetch(database, MetadataService.idProperty(), null, null);
+        cursor = metadataDao.query(database, Query.select(MetadataService.idProperty()));
         assertEquals(2, cursor.getCount());
         cursor.close();
 
@@ -54,7 +56,8 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertNotSame(Metadata.NO_ID, sadId);
         metadata.setValue(Metadata.KEY, "melancholy");
         assertTrue(metadataDao.save(database, metadata));
-        cursor = metadataDao.fetch(database, MetadataService.idProperty(), null, null);
+        cursor = metadataDao.query(database,
+                Query.select(MetadataService.idProperty()));
         assertEquals(2, cursor.getCount());
         cursor.close();
 
@@ -66,7 +69,8 @@ public class MetadataDaoTests extends DatabaseTestCase {
 
         // delete sad
         assertTrue(metadataDao.delete(database, sadId));
-        cursor = metadataDao.fetch(database, KEYS, null, null);
+        cursor = metadataDao.query(database,
+                Query.select(KEYS));
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
         metadata.readFromCursor(cursor, KEYS);
@@ -95,8 +99,8 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertTrue(metadataDao.save(database, metadata));
 
 
-        TodorooCursor<Metadata> cursor = metadataDao.fetch(database,
-                KEYS, MetadataSql.byTask(1), null);
+        TodorooCursor<Metadata> cursor = metadataDao.query(database,
+                Query.select(KEYS).where(MetadataCriteria.byTask(1)));
         assertEquals(2, cursor.getCount());
         cursor.moveToFirst();
         metadata.readFromCursor(cursor, KEYS);
@@ -106,15 +110,15 @@ public class MetadataDaoTests extends DatabaseTestCase {
         assertEquals("with1", metadata.getValue(Metadata.KEY));
         cursor.close();
 
-        cursor = metadataDao.fetch(database,
-                MetadataService.idProperty(), MetadataSql.byTask(3), null);
+        cursor = metadataDao.query(database,
+                Query.select(KEYS).where(MetadataCriteria.byTask(3)));
         assertEquals(0, cursor.getCount());
         cursor.close();
 
-        int deleted = metadataDao.deleteWhere(database, MetadataSql.byTask(1));
+        int deleted = metadataDao.deleteWhere(database, MetadataCriteria.byTask(1));
         assertEquals(2, deleted);
-        cursor = metadataDao.fetch(database,
-                MetadataService.idProperty(), null, null);
+        cursor = metadataDao.query(database,
+                Query.select(KEYS));
         assertEquals(1, cursor.getCount());
         cursor.close();
     }

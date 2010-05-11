@@ -1,13 +1,12 @@
 package com.todoroo.astrid.model;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.TreeSet;
 
 import android.content.ContentValues;
 
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.test.utility.DateUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.Preferences;
@@ -76,42 +75,6 @@ public class TaskTests extends DatabaseTestCase {
         assertFalse(task.hasDueDate());
         task.setValue(Task.DUE_DATE, DateUtilities.now() + 1000);
         assertTrue(task.hasDueDate());
-
-        int[] colors = Task.getImportanceColors(getContext());
-        assertEquals(Math.abs(Task.IMPORTANCE_NONE - Task.IMPORTANCE_DO_OR_DIE + 1),
-                colors.length);
-        HashSet<Integer> set = new HashSet<Integer>();
-        for(int i = 0; i < colors.length; i++) {
-            assertFalse(set.contains(colors[i]));
-            set.add(colors[i]);
-        }
     }
 
-    public void checkDueDateInitialization() {
-        assertEquals(0, Task.initializeDueDate(Task.URGENCY_NONE));
-
-        int date = Task.initializeDueDate(Task.URGENCY_THIS_MONTH);
-        assertTrue(date > DateUtilities.now() + 27 * 24 * 3600);
-        assertTrue(date < DateUtilities.now() + 32 * 24 * 3600);
-
-        date = Task.initializeDueDate(Task.URGENCY_THIS_WEEK);
-        assertTrue(date > DateUtilities.now() + 6 * 24 * 3600);
-        assertTrue(date < DateUtilities.now() + 8 * 24 * 3600);
-
-        date = Task.initializeDueDate(Task.URGENCY_TODAY);
-        assertTrue(date > DateUtilities.now() - 60);
-        assertTrue(date < DateUtilities.now() + 24 * 3600);
-
-        date = Task.initializeDueDate(Task.URGENCY_WITHIN_THREE_MONTHS);
-        assertTrue(date > DateUtilities.now() + 85 * 24 * 3600);
-        assertTrue(date < DateUtilities.now() + 95 * 24 * 3600);
-
-        date = Task.initializeDueDate(Task.URGENCY_WITHIN_SIX_MONTHS);
-        assertTrue(date > DateUtilities.now() + 180 * 24 * 3600);
-        assertTrue(date < DateUtilities.now() + 185 * 24 * 3600);
-
-        date = Task.initializeDueDate(Task.URGENCY_WITHIN_A_YEAR);
-        assertTrue(date > DateUtilities.now() + 364 * 24 * 3600);
-        assertTrue(date < DateUtilities.now() + 367 * 24 * 3600);
-    }
 }
