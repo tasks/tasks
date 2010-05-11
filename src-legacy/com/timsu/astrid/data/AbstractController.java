@@ -26,6 +26,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
+
 /** Abstract controller class. Mostly contains some static fields */
 abstract public class AbstractController {
 
@@ -35,11 +38,28 @@ abstract public class AbstractController {
     public static final String KEY_ROWID = "_id";
 
     // database and table names
-    public static final String TASK_TABLE_NAME = "tasks";
-    public static final String TAG_TABLE_NAME = "tags";
-    public static final String TAG_TASK_MAP_NAME = "tagTaskMap";
-    public static final String ALERT_TABLE_NAME = "alerts";
-    public static final String SYNC_TABLE_NAME = "sync";
+
+    @Autowired
+    protected String tasksTable;
+
+    @Autowired
+    protected String tagsTable;
+
+    @Autowired
+    protected String tagTaskTable;
+
+    @Autowired
+    protected String alertsTable;
+
+    @Autowired
+    protected String syncTable;
+
+    // stuff
+
+    public AbstractController(Context context) {
+        this.context = context;
+        DependencyInjectionService.getInstance().inject(this);
+    }
 
     abstract public void open();
     abstract public void close();

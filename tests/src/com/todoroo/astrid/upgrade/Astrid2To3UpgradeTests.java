@@ -30,14 +30,27 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         assertEquals(old.getTime() / 1000L, newDate);
     }
 
-    public void testBasicUpgrades() {
+    public void xtestEmptyUpgrade() {
+        TaskController taskController = new TaskController(getContext());
+        taskController.open();
+        assertEquals(0, taskController.getAllTaskIdentifiers().size());
+
+        // upgrade
+        taskController.close();
+        upgrade2To3();
+
+        TodorooCursor<Task> tasks = taskDao.query(database, Query.select(Task.PROPERTIES));
+        assertEquals(0, tasks.getCount());
+    }
+
+    public void testTaskTableUpgrade() {
         TaskController taskController = new TaskController(getContext());
         taskController.open();
 
         // create some ish
         TaskModelForEdit griffey = new TaskModelForEdit();
         griffey.setName("ken griffey jr");
-        griffey.setDefiniteDueDate(new Date());
+        griffey.setDefiniteDueDate(new Date(1234567L));
         griffey.setImportance(Importance.LEVEL_1);
         griffey.setEstimatedSeconds(3212);
         griffey.setNotes("debut game: 1989");
@@ -54,15 +67,15 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         Date createdDate = new Date();
 
         // assert created
-        assertEquals(2, taskController.getAllTaskIdentifiers());
+        assertEquals(2, taskController.getAllTaskIdentifiers().size());
 
         // upgrade
-        taskController.close();
         upgrade2To3();
 
         // verify that it ain't no more in the legacy table
         taskController.open();
-        assertEquals(0, taskController.getAllTaskIdentifiers());
+        assertEquals(0, taskController.getAllTaskIdentifiers().size());
+        taskController.close();
 
         // verify that data exists in our new table
         TodorooCursor<Task> tasks = taskDao.query(database, Query.select(Task.PROPERTIES));

@@ -33,7 +33,22 @@ public class UnaryCriterion extends Criterion {
 
     @SuppressWarnings("nls")
     protected void afterPopulateOperator(StringBuilder sb) {
-        sb.append(value == null ? "" : value);
+        if(value == null)
+            return;
+        else if(value instanceof String)
+            sb.append("'").append(sanitize((String) value)).append("'");
+        else
+            sb.append(value);
+    }
+
+    /**
+     * Sanitize the given input for SQL
+     * @param input
+     * @return
+     */
+    @SuppressWarnings("nls")
+    public static String sanitize(String input) {
+        return input.replace("\\", "\\\\").replace("'", "\\'");
     }
 
     public static Criterion neq(Field field, Object value) {

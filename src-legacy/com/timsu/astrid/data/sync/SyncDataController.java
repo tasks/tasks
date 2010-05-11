@@ -19,19 +19,20 @@
  */
 package com.timsu.astrid.data.sync;
 
+import java.util.HashSet;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.sync.SyncMapping.SyncMappingDatabaseHelper;
 import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForSync;
-
-import java.util.HashSet;
 
 /** Controller for Tag-related operations */
 public class SyncDataController extends AbstractController {
@@ -45,7 +46,7 @@ public class SyncDataController extends AbstractController {
     public boolean clearUpdatedTaskList(int syncServiceId) throws SQLException {
         ContentValues values = new ContentValues();
         values.put(SyncMapping.UPDATED, 0);
-        return syncDatabase.update(SYNC_TABLE_NAME, values,
+        return syncDatabase.update(syncTable, values,
                 SyncMapping.SYNC_SERVICE + " = " + syncServiceId, null) > 0;
     }
 
@@ -53,7 +54,7 @@ public class SyncDataController extends AbstractController {
     public boolean addToUpdatedList(TaskIdentifier taskId) throws SQLException {
         ContentValues values = new ContentValues();
         values.put(SyncMapping.UPDATED, 1);
-        return syncDatabase.update(SYNC_TABLE_NAME, values,
+        return syncDatabase.update(syncTable, values,
                 SyncMapping.TASK + " = " + taskId.getId(), null) > 0;
     }
 
@@ -71,7 +72,7 @@ public class SyncDataController extends AbstractController {
     /** Get all mappings for the given synchronization service */
     public HashSet<SyncMapping> getSyncMappings(int syncServiceId) throws SQLException {
         HashSet<SyncMapping> list = new HashSet<SyncMapping>();
-        Cursor cursor = syncDatabase.query(SYNC_TABLE_NAME,
+        Cursor cursor = syncDatabase.query(syncTable,
                 SyncMapping.FIELD_LIST,
                 SyncMapping.SYNC_SERVICE + " = " + syncServiceId,
                 null, null, null, null);
@@ -94,7 +95,7 @@ public class SyncDataController extends AbstractController {
     public HashSet<SyncMapping> getSyncMappings(TaskIdentifier taskId)
             throws SQLException {
         HashSet<SyncMapping> list = new HashSet<SyncMapping>();
-        Cursor cursor = syncDatabase.query(SYNC_TABLE_NAME,
+        Cursor cursor = syncDatabase.query(syncTable,
                 SyncMapping.FIELD_LIST,
                 SyncMapping.TASK + " = ?",
                 new String[] { "" + taskId.getId() },
@@ -117,7 +118,7 @@ public class SyncDataController extends AbstractController {
     /** Get mapping for given task */
     public SyncMapping getSyncMapping(int syncServiceId, TaskIdentifier taskId)
             throws SQLException {
-        Cursor cursor = syncDatabase.query(SYNC_TABLE_NAME,
+        Cursor cursor = syncDatabase.query(syncTable,
                 SyncMapping.FIELD_LIST,
                 SyncMapping.SYNC_SERVICE + " = ? AND " +
                     SyncMapping.TASK + " = ?",
@@ -136,7 +137,7 @@ public class SyncDataController extends AbstractController {
 
     /** Saves the given task to the database. Returns true on success. */
     public boolean saveSyncMapping(SyncMapping mapping) {
-        long newRow = syncDatabase.insert(SYNC_TABLE_NAME, SyncMapping.TASK,
+        long newRow = syncDatabase.insert(syncTable, SyncMapping.TASK,
                 mapping.getMergedValues());
 
         mapping.setId(newRow);
@@ -150,13 +151,13 @@ public class SyncDataController extends AbstractController {
         if(mapping.getId() == 0)
             return false;
 
-        return syncDatabase.delete(SYNC_TABLE_NAME, KEY_ROWID + "=" +
+        return syncDatabase.delete(syncTable, KEY_ROWID + "=" +
                 mapping.getId(), null) > 0;
     }
 
     /** Deletes the given mapping. Returns true on success */
     public boolean deleteAllMappings(int syncServiceId) {
-        return syncDatabase.delete(SYNC_TABLE_NAME, SyncMapping.SYNC_SERVICE +
+        return syncDatabase.delete(syncTable, SyncMapping.SYNC_SERVICE +
                 "=" + syncServiceId, null) > 0;
     }
 
@@ -167,7 +168,7 @@ public class SyncDataController extends AbstractController {
      * opened/created
      */
     public SyncDataController(Context context) {
-        this.context = context;
+        super(context);
     }
 
     /**
@@ -182,7 +183,7 @@ public class SyncDataController extends AbstractController {
     @Override
     public synchronized void open() throws SQLException {
         SQLiteOpenHelper helper = new SyncMappingDatabaseHelper(context,
-                SYNC_TABLE_NAME, SYNC_TABLE_NAME);
+                syncTable, syncTable);
         syncDatabase = helper.getWritableDatabase();
     }
 

@@ -25,7 +25,7 @@ import com.todoroo.astrid.model.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class Database extends AbstractDatabase {
+public class Database extends AbstractDatabase {
 
     // --- constants
 
@@ -96,9 +96,8 @@ public final class Database extends AbstractDatabase {
                 sql.append("CREATE TABLE IF NOT EXISTS ").append(table.name).append('(').
                 append(AbstractModel.ID_PROPERTY).append(" INTEGER PRIMARY KEY AUTOINCREMENT");
                 for(Property<?> property : table.getProperties()) {
-                    if(AbstractModel.ID_PROPERTY.equals(property.name))
+                    if(AbstractModel.ID_PROPERTY.name.equals(property.name))
                         continue;
-                    Log.e("haha", table.name + "'s " + property.name);
                     sql.append(',').append(property.accept(sqlVisitor, null));
                 }
                 sql.append(')');

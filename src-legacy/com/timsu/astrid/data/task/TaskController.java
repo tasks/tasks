@@ -64,7 +64,7 @@ public class TaskController extends AbstractController {
     /** Return a list of all active tasks with notifications */
     public HashSet<TaskModelForNotify> getTasksWithNotifications() {
         HashSet<TaskModelForNotify> list = new HashSet<TaskModelForNotify>();
-        Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForNotify.FIELD_LIST,
+        Cursor cursor = database.query(tasksTable, TaskModelForNotify.FIELD_LIST,
                 String.format("%s < %d AND (%s != 0 OR %s != 0)",
                         AbstractTaskModel.PROGRESS_PERCENTAGE,
                         AbstractTaskModel.COMPLETE_PERCENTAGE,
@@ -88,7 +88,7 @@ public class TaskController extends AbstractController {
     /** Return a list of all active tasks with deadlines */
     public ArrayList<TaskModelForNotify> getTasksWithDeadlines() {
         ArrayList<TaskModelForNotify> list = new ArrayList<TaskModelForNotify>();
-        Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForNotify.FIELD_LIST,
+        Cursor cursor = database.query(tasksTable, TaskModelForNotify.FIELD_LIST,
                 String.format("%s < %d AND (%s != 0 OR %s != 0)",
                         AbstractTaskModel.PROGRESS_PERCENTAGE,
                         AbstractTaskModel.COMPLETE_PERCENTAGE,
@@ -112,7 +112,7 @@ public class TaskController extends AbstractController {
 
     /** Return a list of all of the tasks with progress < COMPLETE_PERCENTAGE */
     public Cursor getActiveTaskListCursor() {
-        return database.query(TASK_TABLE_NAME, TaskModelForList.FIELD_LIST,
+        return database.query(tasksTable, TaskModelForList.FIELD_LIST,
             AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                 AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null,
                 null, null);
@@ -120,13 +120,13 @@ public class TaskController extends AbstractController {
 
     /** Return a list of all tasks */
     public Cursor getAllTaskListCursor() {
-        return database.query(TASK_TABLE_NAME, TaskModelForList.FIELD_LIST,
+        return database.query(tasksTable, TaskModelForList.FIELD_LIST,
                 null, null, null, null, null, null);
     }
 
     /** Return a list of all tasks */
     public Cursor getBackupTaskListCursor() {
-        return database.query(TASK_TABLE_NAME, TaskModelForXml.FIELD_LIST,
+        return database.query(tasksTable, TaskModelForXml.FIELD_LIST,
                 AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                         AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null,
                 null, null);
@@ -134,7 +134,7 @@ public class TaskController extends AbstractController {
 
     /** Delete all completed tasks with date < older than date */
     public int deleteCompletedTasksOlderThan(Date olderThanDate) {
-        return database.delete(TASK_TABLE_NAME, String.format("`%s` >= '%d' AND `%s` <= '%d'",
+        return database.delete(tasksTable, String.format("`%s` >= '%d' AND `%s` <= '%d'",
                 AbstractTaskModel.PROGRESS_PERCENTAGE, AbstractTaskModel.COMPLETE_PERCENTAGE,
                 AbstractTaskModel.COMPLETION_DATE, olderThanDate.getTime()), null);
     }
@@ -176,14 +176,14 @@ public class TaskController extends AbstractController {
 
     /** Get identifiers for all tasks */
     public HashSet<TaskIdentifier> getAllTaskIdentifiers() {
-        Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
+        Cursor cursor = database.query(tasksTable, new String[] { KEY_ROWID },
                 null, null, null, null, null, null);
         return createTaskIdentifierSet(cursor);
     }
 
     /** Get identifiers for all non-completed tasks */
     public HashSet<TaskIdentifier> getActiveTaskIdentifiers() {
-        Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
+        Cursor cursor = database.query(tasksTable, new String[] { KEY_ROWID },
                 AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                 AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null, null, null);
         return createTaskIdentifierSet(cursor);
@@ -191,7 +191,7 @@ public class TaskController extends AbstractController {
 
     /** Get identifiers for all non-completed, non-hidden tasks */
     public HashSet<TaskIdentifier> getActiveVisibleTaskIdentifiers() {
-        Cursor cursor = database.query(TASK_TABLE_NAME, new String[] { KEY_ROWID },
+        Cursor cursor = database.query(tasksTable, new String[] { KEY_ROWID },
                 AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                 AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
                 AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
@@ -216,7 +216,7 @@ public class TaskController extends AbstractController {
         if(idList.size() == 0)
             where.append("0");
 
-        return database.query(true, TASK_TABLE_NAME,
+        return database.query(true, tasksTable,
                 TaskModelForList.FIELD_LIST, where.toString(), null, null,
                 null, null, null);
     }
@@ -233,7 +233,7 @@ public class TaskController extends AbstractController {
         // notify modification
         TasksProvider.notifyDatabaseModification();
 
-        return database.delete(TASK_TABLE_NAME, KEY_ROWID + "=" + id, null) > 0;
+        return database.delete(tasksTable, KEY_ROWID + "=" + id, null) > 0;
     }
 
     /** Saves the given task to the database. Returns true on success.
@@ -244,7 +244,7 @@ public class TaskController extends AbstractController {
         boolean saveSucessful;
 
         if(task.getTaskIdentifier() == null) {
-            long newRow = database.insert(TASK_TABLE_NAME, AbstractTaskModel.NAME,
+            long newRow = database.insert(tasksTable, AbstractTaskModel.NAME,
                     task.getMergedValues());
             task.setTaskIdentifier(new TaskIdentifier(newRow));
 
@@ -258,7 +258,7 @@ public class TaskController extends AbstractController {
 
             onTaskSave(task, values, duringSync);
 
-            saveSucessful = database.update(TASK_TABLE_NAME, values,
+            saveSucessful = database.update(tasksTable, values,
                     KEY_ROWID + "=" + id, null) > 0;
 
             // task was completed
@@ -361,7 +361,7 @@ public class TaskController extends AbstractController {
         RepeatInfo repeatInfo = model.getRepeat();
         if(repeatInfo != null) {
             model.repeatTaskBy(context, this, repeatInfo);
-            database.update(TASK_TABLE_NAME, values, KEY_ROWID + "=" +
+            database.update(tasksTable, values, KEY_ROWID + "=" +
             		task.getTaskIdentifier().getId(), null);
         }
 
@@ -398,7 +398,7 @@ public class TaskController extends AbstractController {
                     cr.delete(Uri.parse(uri), null, null);
                     ContentValues values = new ContentValues();
                     values.put(AbstractTaskModel.CALENDAR_URI, (String)null);
-                    database.update(TASK_TABLE_NAME, values, KEY_ROWID + "=" +
+                    database.update(tasksTable, values, KEY_ROWID + "=" +
                             taskId.getId(), null);
                 }
             } catch (Exception e) {
@@ -411,7 +411,7 @@ public class TaskController extends AbstractController {
     public boolean setLastNotificationTime(TaskIdentifier taskId, Date date) {
         ContentValues values = new ContentValues();
         values.put(AbstractTaskModel.LAST_NOTIFIED, date.getTime());
-        return database.update(TASK_TABLE_NAME, values,
+        return database.update(tasksTable, values,
                 KEY_ROWID + "=" + taskId.getId(), null) > 0;
     }
 
@@ -485,7 +485,7 @@ public class TaskController extends AbstractController {
 
     /** Returns a TaskModelForView by name */
     public TaskModelForSync searchForTaskForSync(String name) throws SQLException {
-        Cursor cursor = database.query(true, TASK_TABLE_NAME, TaskModelForSync.FIELD_LIST,
+        Cursor cursor = database.query(true, tasksTable, TaskModelForSync.FIELD_LIST,
                 AbstractTaskModel.NAME + " = ? AND " +
                     AbstractTaskModel.PROGRESS_PERCENTAGE + " < "+
                         AbstractTaskModel.COMPLETE_PERCENTAGE,
@@ -514,7 +514,7 @@ public class TaskController extends AbstractController {
      * Don't forget to close the cursor when you're done. */
     private Cursor fetchTaskCursor(TaskIdentifier taskId, String[] fieldList) {
         long id = taskId.getId();
-        Cursor cursor = database.query(true, TASK_TABLE_NAME, fieldList,
+        Cursor cursor = database.query(true, tasksTable, fieldList,
                 KEY_ROWID + "=" + id, null, null, null, null, null);
         if (cursor == null)
             throw new SQLException("Returned empty set!");
@@ -531,7 +531,7 @@ public class TaskController extends AbstractController {
                 + AbstractTaskModel.CREATION_DATE + " LIKE ?";
 
         String approximateCreationDate = (creationDate / 1000) + "%";
-        Cursor cursor = database.query(true, TASK_TABLE_NAME, fieldList,
+        Cursor cursor = database.query(true, tasksTable, fieldList,
                 where, new String[] {name, approximateCreationDate}, null, null, null, null);
         if (cursor == null)
             throw new SQLException("Returned empty set!");
@@ -571,7 +571,7 @@ public class TaskController extends AbstractController {
 
     public ArrayList<TaskModelForWidget> getTasksForWidget(String limit) {
 
-    	Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForWidget.FIELD_LIST,
+    	Cursor cursor = database.query(tasksTable, TaskModelForWidget.FIELD_LIST,
     	        AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                 AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
                 AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
@@ -593,7 +593,7 @@ public class TaskController extends AbstractController {
 
     public ArrayList<TaskModelForProvider> getTasksForProvider(String limit) {
 
-    	Cursor cursor = database.query(TASK_TABLE_NAME, TaskModelForWidget.FIELD_LIST,
+    	Cursor cursor = database.query(tasksTable, TaskModelForWidget.FIELD_LIST,
     	        AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                 AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
                 AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
@@ -619,8 +619,8 @@ public class TaskController extends AbstractController {
      * Constructor - takes the context to allow the database to be
      * opened/created
      */
-    public TaskController(Context activity) {
-        this.context = activity;
+    public TaskController(Context context) {
+        super(context);
     }
 
     /**
@@ -635,7 +635,7 @@ public class TaskController extends AbstractController {
     @Override
     public synchronized void open() throws SQLException {
         SQLiteOpenHelper databaseHelper = new TaskModelDatabaseHelper(
-                context, TASK_TABLE_NAME, TASK_TABLE_NAME);
+                context, tasksTable, tasksTable);
         database = databaseHelper.getWritableDatabase();
     }
 

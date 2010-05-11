@@ -47,7 +47,7 @@ public class TagController extends AbstractController {
     public LinkedList<TagModelForView> getAllTags()
             throws SQLException {
         LinkedList<TagModelForView> list = new LinkedList<TagModelForView>();
-        Cursor cursor = tagDatabase.query(TAG_TABLE_NAME,
+        Cursor cursor = tagDatabase.query(tagsTable,
             TagModelForView.FIELD_LIST, null, null, null, null, null, null);
 
         try {
@@ -78,7 +78,7 @@ public class TagController extends AbstractController {
     public LinkedList<TagIdentifier> getTaskTags(TaskIdentifier
             taskId) throws SQLException {
         LinkedList<TagIdentifier> list = new LinkedList<TagIdentifier>();
-        Cursor cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
+        Cursor cursor = tagToTaskMapDatabase.query(tagTaskTable,
                 TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TASK + " = ?",
                 new String[] { taskId.idAsString() }, null, null, null);
 
@@ -102,7 +102,7 @@ public class TagController extends AbstractController {
     public LinkedList<TaskIdentifier> getTaggedTasks(TagIdentifier tagId)
     		throws SQLException {
         LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
-        Cursor cursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
+        Cursor cursor = tagToTaskMapDatabase.query(tagTaskTable,
                 TagToTaskMapping.FIELD_LIST, TagToTaskMapping.TAG + " = ?",
                 new String[] { tagId.idAsString() }, null, null, null);
 
@@ -132,14 +132,14 @@ public class TagController extends AbstractController {
     	HashSet<Long> ids = new HashSet<Long>();
 
     	String[] tagMapColumns = new String[] { TagToTaskMapping.TASK };
-    	Cursor tagMapCursor = tagToTaskMapDatabase.query(TAG_TASK_MAP_NAME,
+    	Cursor tagMapCursor = tagToTaskMapDatabase.query(tagTaskTable,
     			tagMapColumns, null, null, TagToTaskMapping.TASK, null,
     			TagToTaskMapping.TASK + " ASC");
 
     	SQLiteDatabase taskDatabase = new TaskModelDatabaseHelper(context,
-    			TASK_TABLE_NAME, TASK_TABLE_NAME).getReadableDatabase();
+    			tasksTable, tasksTable).getReadableDatabase();
     	String[] taskColumns = new String[] { KEY_ROWID };
-    	Cursor taskCursor = taskDatabase.query(TASK_TABLE_NAME, taskColumns,
+    	Cursor taskCursor = taskDatabase.query(tasksTable, taskColumns,
     			null, null, null, null, KEY_ROWID + " ASC");
 
     	LinkedList<TaskIdentifier> list = new LinkedList<TaskIdentifier>();
@@ -177,7 +177,7 @@ public class TagController extends AbstractController {
             throw new NullPointerException("Name can't be null");
 
         TagModelForView newTag = new TagModelForView(name);
-        long row = tagDatabase.insertOrThrow(TAG_TABLE_NAME, AbstractTagModel.NAME,
+        long row = tagDatabase.insertOrThrow(tagsTable, AbstractTagModel.NAME,
                 newTag.getMergedValues());
         return new TagIdentifier(row);
     }
@@ -187,14 +187,14 @@ public class TagController extends AbstractController {
         boolean saveSucessful;
 
         if(tag.getTagIdentifier() == null) {
-            long newRow = tagDatabase.insert(TAG_TABLE_NAME, AbstractTagModel.NAME,
+            long newRow = tagDatabase.insert(tagsTable, AbstractTagModel.NAME,
                     tag.getMergedValues());
             tag.setTagIdentifier(new TagIdentifier(newRow));
 
             saveSucessful = newRow >= 0;
         } else {
             long id = tag.getTagIdentifier().getId();
-            saveSucessful = tagDatabase.update(TAG_TABLE_NAME, tag.getSetValues(),
+            saveSucessful = tagDatabase.update(tagsTable, tag.getSetValues(),
                     KEY_ROWID + "=" + id, null) > 0;
         }
 
@@ -203,7 +203,7 @@ public class TagController extends AbstractController {
 
     /** Returns a TaskModelForView corresponding to the given Tag Name */
     public TagModelForView fetchTagFromName(String name) throws SQLException {
-        Cursor cursor = tagDatabase.query(true, TAG_TABLE_NAME,
+        Cursor cursor = tagDatabase.query(true, tagsTable,
                 TagModelForView.FIELD_LIST,
                 AbstractTagModel.NAME + " = ?", new String[] {name}, null, null, null, null);
 
@@ -223,7 +223,7 @@ public class TagController extends AbstractController {
     /** Returns a TaskModelForView corresponding to the given TagIdentifier */
     public TagModelForView fetchTagForView(TagIdentifier tagId) throws SQLException {
         long id = tagId.getId();
-        Cursor cursor = tagDatabase.query(true, TAG_TABLE_NAME,
+        Cursor cursor = tagDatabase.query(true, tagsTable,
                 TagModelForView.FIELD_LIST,
                 KEY_ROWID + "=" + id, null, null, null, null, null);
 
@@ -244,11 +244,11 @@ public class TagController extends AbstractController {
     /** Deletes the tag and removes tag/task mappings */
     public boolean deleteTag( TagIdentifier tagId)
             throws SQLException{
-        if(tagToTaskMapDatabase.delete(TAG_TASK_MAP_NAME,
+        if(tagToTaskMapDatabase.delete(tagTaskTable,
                 TagToTaskMapping.TAG + " = " + tagId.idAsString(), null) < 0)
             return false;
 
-        int res = tagDatabase.delete(TAG_TABLE_NAME,
+        int res = tagDatabase.delete(tagsTable,
                 KEY_ROWID + " = " + tagId.idAsString(), null);
 
         return res > 0;
@@ -260,7 +260,7 @@ public class TagController extends AbstractController {
     public boolean removeTag(TaskIdentifier taskId, TagIdentifier tagId)
             throws SQLException{
 
-    	int res = tagToTaskMapDatabase.delete(TAG_TASK_MAP_NAME,
+    	int res = tagToTaskMapDatabase.delete(tagTaskTable,
                 String.format("%s = ? AND %s = ?",
                         TagToTaskMapping.TAG, TagToTaskMapping.TASK),
                 new String[] { tagId.idAsString(), taskId.idAsString() });
@@ -278,7 +278,7 @@ public class TagController extends AbstractController {
         values.put(TagToTaskMapping.TAG, tagId.getId());
         values.put(TagToTaskMapping.TASK, taskId.getId());
 
-        long res = tagToTaskMapDatabase.insert(TAG_TASK_MAP_NAME, TagToTaskMapping.TAG,
+        long res = tagToTaskMapDatabase.insert(tagTaskTable, TagToTaskMapping.TAG,
                 values);
 
         return res >= 0;
@@ -291,7 +291,7 @@ public class TagController extends AbstractController {
      * opened/created
      */
     public TagController(Context context) {
-        this.context = context;
+        super(context);
     }
 
     /**
@@ -306,9 +306,9 @@ public class TagController extends AbstractController {
     @Override
     public synchronized void open() throws SQLException {
         tagToTaskMapDatabase = new TagToTaskMappingDatabaseHelper(context,
-                TAG_TASK_MAP_NAME, TAG_TASK_MAP_NAME).getWritableDatabase();
+                tagTaskTable, tagTaskTable).getWritableDatabase();
         tagDatabase = new TagModelDatabaseHelper(context,
-                TAG_TABLE_NAME, TAG_TABLE_NAME).getWritableDatabase();
+                tagsTable, tagsTable).getWritableDatabase();
     }
 
     /** Closes database resource */

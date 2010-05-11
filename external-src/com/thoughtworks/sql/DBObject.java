@@ -42,7 +42,7 @@ public abstract class DBObject<T extends DBObject<?>> {
     }
 
     @Override
-    public String toString() {
+    public final String toString() {
         StringBuilder sb = new StringBuilder(expression);
         if (hasAlias()) {
             sb.append(SPACE).append(AS).append(SPACE).append(alias);
