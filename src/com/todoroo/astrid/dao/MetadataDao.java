@@ -48,16 +48,7 @@ public class MetadataDao extends AbstractDao<Metadata> {
 
     }
 
-    /**
-     * Delete all matching a clause
-     * @param database
-     * @param where
-     * @return # of deleted items
-     */
-    public int deleteWhere(AbstractDatabase database, Criterion where) {
-        return database.getDatabase().delete(Metadata.TABLE.getName(),
-                where.toString(), null);
-    }
+
 
     /**
      * Fetch all metadata that are unattached to the task
