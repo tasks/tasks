@@ -1,8 +1,8 @@
 package com.todoroo.astrid.dao;
 
-import com.todoroo.astrid.test.DatabaseTestCase;
-
 import android.database.sqlite.SQLiteDatabase;
+
+import com.todoroo.astrid.test.DatabaseTestCase;
 
 
 public class BasicDatabaseTests extends DatabaseTestCase {
@@ -12,19 +12,19 @@ public class BasicDatabaseTests extends DatabaseTestCase {
      */
 	public void testOpenMultipleTimes() {
 	    SQLiteDatabase sqlDatabase = database.getDatabase();
-	    database.openForReading(getContext());
+	    database.openForReading();
 	    assertEquals(sqlDatabase, database.getDatabase());
-	    database.openForWriting(getContext());
+	    database.openForWriting();
 		assertEquals(sqlDatabase, database.getDatabase());
-		database.openForReading(getContext());
+		database.openForReading();
 		assertEquals(sqlDatabase, database.getDatabase());
 	}
 
-	
+
 	public void testCloseAndReopen() {
 	    SQLiteDatabase sqlDatabase = database.getDatabase();
 	    database.close();
-	    database.openForReading(getContext());
+	    database.openForReading();
 	    assertNotSame(sqlDatabase, database.getDatabase());
 	}
 }
