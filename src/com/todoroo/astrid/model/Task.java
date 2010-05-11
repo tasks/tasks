@@ -8,6 +8,8 @@ package com.todoroo.astrid.model;
 
 import android.content.ContentValues;
 
+import com.timsu.astrid.data.enums.RepeatInterval;
+import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
@@ -73,22 +75,47 @@ public class Task extends AbstractModel {
     public static final IntegerProperty DELETION_DATE = new IntegerProperty(
             TABLE, AstridTask.DELETION_DATE);
 
-    /** List of all properties for this model */
-    public static final Property<?>[] PROPERTIES = new Property<?>[] {
-        ID,
-        TITLE,
-        URGENCY,
-        IMPORTANCE,
-        DUE_DATE,
-        HIDDEN_UNTIL,
-        CREATION_DATE,
-        COMPLETION_DATE,
-        DELETION_DATE
-    };
+    // --- for migration purposes from astrid 2 (eventually we will want to
+    //     move these into the metadata table and treat them as plug-ins
 
-    static {
-        TABLE.setProperties(PROPERTIES);
-    }
+    public static final StringProperty NOTES = new StringProperty(
+            TABLE, "notes");
+
+    public static final IntegerProperty ESTIMATED_SECONDS = new IntegerProperty(
+            TABLE, "estimatedSeconds");
+
+    public static final IntegerProperty ELAPSED_SECONDS = new IntegerProperty(
+            TABLE, "elapsedSeconds");
+
+    public static final IntegerProperty TIMER_START = new IntegerProperty(
+            TABLE, "timerStart");
+
+    public static final IntegerProperty PREFERRED_DUE_DATE = new IntegerProperty(
+            TABLE, "preferredDueDate");
+
+    public static final IntegerProperty POSTPONE_COUNT = new IntegerProperty(
+            TABLE, "postponeCount");
+
+    public static final IntegerProperty NOTIFICATIONS = new IntegerProperty(
+            TABLE, "notifications");
+
+    public static final IntegerProperty NOTIFICATION_FLAGS = new IntegerProperty(
+            TABLE, "notificationFlags");
+
+    public static final IntegerProperty LAST_NOTIFIED = new IntegerProperty(
+            TABLE, "lastNotified");
+
+    public static final IntegerProperty REPEAT = new IntegerProperty(
+            TABLE, "repeat");
+
+    public static final IntegerProperty FLAGS = new IntegerProperty(
+            TABLE, "flags");
+
+    public static final StringProperty CALENDAR_URI = new StringProperty(
+            TABLE, "calendarUri");
+
+    /** List of all properties for this model */
+    public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
 
     // --- urgency flags
 
@@ -195,6 +222,25 @@ public class Task extends AbstractModel {
     /** Checks whether task is done. Requires DUE_DATE */
     public boolean hasDueDate() {
         return getValue(DUE_DATE) > 0;
+    }
+
+    // --- data access methods for migration properties
+
+    /** Number of bits to shift repeat value by */
+    public static final int REPEAT_VALUE_OFFSET = 3;
+
+    /**
+     * @return RepeatInfo corresponding to
+     */
+    public RepeatInfo getRepeatInfo() {
+        int repeat = getValue(REPEAT);
+        if(repeat == 0)
+            return null;
+        int value = repeat >> REPEAT_VALUE_OFFSET;
+        RepeatInterval interval = RepeatInterval.values()
+            [repeat - (value << REPEAT_VALUE_OFFSET)];
+
+        return new RepeatInfo(interval, value);
     }
 
 }

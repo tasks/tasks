@@ -20,6 +20,6 @@
     "adb shell am instrument -w com.xxx.xxx.tests/android.test.InstrumentationTestRunner"
     -->
     <instrumentation android:name="android.test.InstrumentationTestRunner"
-                     android:targetPackage="com.todoroo.astrid"
+                     android:targetPackage="com.timsu.astrid"
                      android:label="Tests for Astrid"/>
 </manifest>

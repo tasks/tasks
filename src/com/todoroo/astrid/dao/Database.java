@@ -76,7 +76,7 @@ public final class Database extends AbstractDatabase {
      * Default implementation of Astrid database helper
      */
     @SuppressWarnings("nls")
-    public static class AstridSQLiteOpenHelper extends SQLiteOpenHelper {
+    private static class AstridSQLiteOpenHelper extends SQLiteOpenHelper {
 
         public AstridSQLiteOpenHelper(Context context, String name,
                 CursorFactory factory, int version) {
@@ -98,6 +98,7 @@ public final class Database extends AbstractDatabase {
                 for(Property<?> property : table.getProperties()) {
                     if(AbstractModel.ID_PROPERTY.equals(property.name))
                         continue;
+                    Log.e("haha", table.name + "'s " + property.name);
                     sql.append(',').append(property.accept(sqlVisitor, null));
                 }
                 sql.append(')');
