@@ -1,5 +1,6 @@
 package com.todoroo.astrid.service;
 
+import com.thoughtworks.sql.Query;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -8,6 +9,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Task;
 
 /**
@@ -38,18 +40,6 @@ public class TaskService {
     }
 
     // --- service layer
-
-    /**
-     * Return cursor to tasks returned by given {@link Filter}
-     *
-     * @param properties
-     * @param filter
-     * @return
-     */
-    public TodorooCursor<Task> fetchFiltered(Property<?>[] properties,
-            Filter filter) {
-        return taskDao.fetch(database, properties, filter);
-    }
 
     /**
      *
@@ -101,7 +91,8 @@ public class TaskService {
      * Clean up tasks. Typically called on startup
      */
     public void cleanup() {
-        TodorooCursor<Task> cursor = taskDao.fetch(database, idProperties(), TaskSql.hasNoName(), null);
+        TodorooCursor<Task> cursor = taskDao.query(database,
+                Query.select(idProperties()).where(TaskCriteria.hasNoTitle()));
         try {
             if(cursor.getCount() == 0)
                 return;

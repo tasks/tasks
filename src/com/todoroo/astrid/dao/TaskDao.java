@@ -79,6 +79,12 @@ public class TaskDao extends AbstractDao<Task> {
     	    return Criterion.and(Task.COMPLETION_DATE.gt(0), Task.COMPLETION_DATE.lt(time));
     	}
 
+    	/** Returns tasks that have a blank or null title */
+    	@SuppressWarnings("nls")
+        public static Criterion hasNoTitle() {
+    	    return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
+    	}
+
     }
 
     // --- custom operations

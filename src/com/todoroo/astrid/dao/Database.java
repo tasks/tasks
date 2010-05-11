@@ -93,7 +93,7 @@ public final class Database extends AbstractDatabase {
 
             // create tables
             for(Table table : TABLES) {
-                sql.append("CREATE TABLE IF NOT EXISTS ").append(table.getName()).append('(').
+                sql.append("CREATE TABLE IF NOT EXISTS ").append(table.name).append('(').
                 append(AbstractModel.ID_PROPERTY).append(" INTEGER PRIMARY KEY AUTOINCREMENT");
                 for(Property<?> property : table.getProperties()) {
                     if(AbstractModel.ID_PROPERTY.equals(property.name))

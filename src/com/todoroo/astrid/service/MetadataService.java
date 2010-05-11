@@ -1,10 +1,14 @@
 package com.todoroo.astrid.service;
 
-import com.todoroo.android.data.Property;
-import com.todoroo.android.data.TodorooCursor;
-import com.todoroo.android.data.Property.IntegerProperty;
-import com.todoroo.android.service.Autowired;
-import com.todoroo.android.service.DependencyInjectionService;
+import com.thoughtworks.sql.Criterion;
+import com.thoughtworks.sql.Order;
+import com.thoughtworks.sql.Query;
+import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.CountProperty;
+import com.todoroo.andlib.data.Property.IntegerProperty;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.model.Metadata;
@@ -68,16 +72,14 @@ public class MetadataService {
      * @param where SQL where clause
      * @param onlyCountsGreaterThanZero only include items where count > 0
      */
-    public TodorooCursor<Metadata> fetchWithCount(String where, String sort,
+    public TodorooCursor<Metadata> fetchWithCount(Criterion where, Order order,
             boolean onlyCountsGreaterThanZero) {
-        IntegerProperty count = Property.countProperty();
-        String having = null;
+        IntegerProperty count = new CountProperty();
+        Query query = Query.select(Metadata.VALUE, count).
+            where(where).orderBy(order);
         if(onlyCountsGreaterThanZero)
-            having = count.name + " > 0"; //$NON-NLS-1$
-        TodorooCursor<Metadata> cursor = metadataDao.fetch(database, new Property<?>[] {
-                Metadata.VALUE, count },
-                where,
-                Metadata.VALUE.name, having, sort, null);
+            query.having(count.gt(0));
+        TodorooCursor<Metadata> cursor = metadataDao.query(database, query);
         return cursor;
     }
 
@@ -85,7 +87,7 @@ public class MetadataService {
      * Delete from metadata table where rows match a certain condition
      * @param where
      */
-    public void deleteWhere(String where) {
+    public void deleteWhere(Criterion where) {
         metadataDao.deleteWhere(database, where);
     }
 }

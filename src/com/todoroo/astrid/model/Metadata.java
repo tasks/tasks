@@ -30,7 +30,7 @@ public class Metadata extends AbstractModel {
 
     /** ID */
     public static final LongProperty ID = new LongProperty(
-            TABLE, ID_PROPERTY);
+            TABLE, ID_PROPERTY_NAME);
 
     /** Associated Task */
     public static final LongProperty TASK = new LongProperty(
