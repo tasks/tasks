@@ -106,47 +106,34 @@ public class AstridContentProvider {
         // --- columns
 
         /** long: Task id */
-        public static final String ID = AstridApiConstants.TASK_TABLE + "._id";
+        public static final String ID = "_id";
 
         /** String: name of Task */
-        public static final String TITLE = AstridApiConstants.TASK_TABLE
-                + ".title";
+        public static final String TITLE = "title";
 
-        /**
-         * int: Task Urgency setting (see <code>Task.URGENCY_*</code> for
-         * possible values)
-         */
-        public static final String URGENCY = AstridApiConstants.TASK_TABLE
-                + ".urgency";
+        /** int: Task Urgency setting (see <code>Task.URGENCY_*</code>) */
+        public static final String URGENCY = "urgency";
 
-        /**
-         * int: Task Importance setting (see <code>Task.IMPORTANCE_*</code> for
-         * possible values)
-         */
-        public static final String IMPORTANCE = AstridApiConstants.TASK_TABLE
-                + ".importance";
+        /** int: Task Importance setting (see <code>Task.IMPORTANCE_*</code>) */
+        public static final String IMPORTANCE = "importance";
 
         /** int: unixtime Task is due, 0 if not set */
-        public static final String DUE_DATE = AstridApiConstants.TASK_TABLE
-                + ".dueDate";
+        public static final String DUE_DATE = "dueDate";
 
         /** int: unixtime Task should be hidden until, 0 if not set */
-        public static final String HIDDEN_UNTIL = AstridApiConstants.TASK_TABLE
-                + ".hiddenUntil";
+        public static final String HIDDEN_UNTIL = "hiddenUntil";
 
         /** int: unixtime Task was created */
-        public static final String CREATION_DATE = AstridApiConstants.TASK_TABLE
-                + ".creationDate";
+        public static final String CREATION_DATE = "creationDate";
 
         /** int: unixtime Task was completed, 0 if task not completed */
-        public static final String COMPLETION_DATE = AstridApiConstants.TASK_TABLE
-                + ".completionDate";
+        public static final String COMPLETION_DATE = "completionDate";
 
         /** int: unixtime Task was deleted, 0 if task not deleted */
-        public static final String DELETION_DATE = AstridApiConstants.TASK_TABLE
-                + ".deletionDate";
+        public static final String DELETION_DATE = "deletionDate";
 
-        public static final String MODIFICATION_DATE = null;
+        /** int: unixtime Task was modified */
+        public static final String MODIFICATION_DATE = "modificationDate";
 
         // --- urgency settings
 

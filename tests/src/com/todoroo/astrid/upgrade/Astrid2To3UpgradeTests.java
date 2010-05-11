@@ -25,6 +25,8 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     }
 
     public static void assertDatesEqual(Date old, int newDate) {
+        if(old == null)
+            assertEquals(0, newDate);
         assertEquals(old.getTime() / 1000L, newDate);
     }
 
@@ -44,10 +46,12 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         TaskModelForEdit guti = new com.todoroo.astrid.legacy.data.task.TaskModelForEdit();
         guti.setName("franklin gutierrez");
         guti.setPreferredDueDate(new Date(System.currentTimeMillis() + 5000000L));
+        guti.setImportance(Importance.LEVEL_4);
         guti.setHiddenUntil(new Date());
         guti.setRepeat(new RepeatInfo(RepeatInterval.DAYS, 10));
         guti.setElapsedSeconds(500);
         taskController.saveTask(guti, false);
+        Date createdDate = new Date();
 
         // assert created
         assertEquals(2, taskController.getAllTaskIdentifiers());
@@ -62,12 +66,30 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
         // verify that data exists in our new table
         TodorooCursor<Task> tasks = taskDao.query(database, Query.select(Task.PROPERTIES));
+        assertEquals(2, tasks.getCount());
+
         tasks.moveToFirst();
         Task task = new Task(tasks, Task.PROPERTIES);
         assertEquals(griffey.getName(), task.getValue(Task.TITLE));
         assertDatesEqual(griffey.getDefiniteDueDate(), task.getValue(Task.DUE_DATE));
         assertEquals((Integer)Task.IMPORTANCE_SHOULD_DO, task.getValue(Task.IMPORTANCE));
+        assertEquals(griffey.getEstimatedSeconds(), task.getValue(Task.ESTIMATED_SECONDS));
+        assertEquals(griffey.getNotes(), task.getValue(Task.NOTES));
+        assertEquals((Integer)0, task.getValue(Task.LAST_NOTIFIED));
+        assertEquals((Integer)0, task.getValue(Task.HIDDEN_UNTIL));
 
+        tasks.moveToNext();
+        task = new Task(tasks, Task.PROPERTIES);
+        assertEquals(guti.getName(), task.getValue(Task.TITLE));
+        assertDatesEqual(guti.getDefiniteDueDate(), task.getValue(Task.DUE_DATE));
+        assertDatesEqual(guti.getPreferredDueDate(), task.getValue(Task.DUE_DATE));
+        assertDatesEqual(guti.getHiddenUntil(), task.getValue(Task.HIDDEN_UNTIL));
+        assertEquals((Integer)Task.IMPORTANCE_DO_OR_DIE, task.getValue(Task.IMPORTANCE));
+        assertEquals(guti.getRepeat().getValue(), task.getRepeatInfo().getValue());
+        assertEquals(guti.getRepeat().getInterval().ordinal(), task.getRepeatInfo().getInterval().ordinal());
+        assertEquals(guti.getElapsedSeconds(), task.getValue(Task.ELAPSED_SECONDS));
+        assertEquals(createdDate, task.getValue(Task.CREATION_DATE));
+        assertEquals(createdDate, task.getValue(Task.MODIFICATION_DATE));
     }
 
 

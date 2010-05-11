@@ -22,11 +22,11 @@ public class DatabaseTestCase extends TodorooTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-		// create new test database
-		database.clear();
-		database.openForWriting();
+	    super.setUp();
 
-		super.setUp();
+		// create new test database
+        database.clear();
+		database.openForWriting();
 	}
 
 	@Override

@@ -45,16 +45,7 @@ public class Metadata extends AbstractModel {
             TABLE, "value");
 
     /** List of all properties for this model */
-    public static final Property<?>[] PROPERTIES = new Property<?>[] {
-        ID,
-        TASK,
-        KEY,
-        VALUE,
-    };
-
-    static {
-        TABLE.setProperties(PROPERTIES);
-    }
+    public static final Property<?>[] PROPERTIES = generateProperties(Metadata.class);
 
     // --- defaults
 

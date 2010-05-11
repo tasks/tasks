@@ -35,11 +35,11 @@ abstract public class AbstractController {
     public static final String KEY_ROWID = "_id";
 
     // database and table names
-    protected static final String TASK_TABLE_NAME = "tasks";
-    protected static final String TAG_TABLE_NAME = "tags";
-    protected static final String TAG_TASK_MAP_NAME = "tagTaskMap";
-    protected static final String ALERT_TABLE_NAME = "alerts";
-    protected static final String SYNC_TABLE_NAME = "sync";
+    public static final String TASK_TABLE_NAME = "tasks";
+    public static final String TAG_TABLE_NAME = "tags";
+    public static final String TAG_TASK_MAP_NAME = "tagTaskMap";
+    public static final String ALERT_TABLE_NAME = "alerts";
+    public static final String SYNC_TABLE_NAME = "sync";
 
     abstract public void open();
     abstract public void close();
