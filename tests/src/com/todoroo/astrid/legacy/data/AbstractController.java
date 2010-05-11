@@ -22,11 +22,13 @@ package com.todoroo.astrid.legacy.data;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Iterator;
 
-import com.timsu.astrid.data.AbstractModel;
-
 import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
+
+import com.timsu.astrid.data.AbstractModel;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 
 /** Abstract controller class. Mostly contains some static fields */
 abstract public class AbstractController {
@@ -37,11 +39,27 @@ abstract public class AbstractController {
     public static final String KEY_ROWID = "_id";
 
     // database and table names
-    protected static final String TASK_TABLE_NAME = "tasks";
-    protected static final String TAG_TABLE_NAME = "tags";
-    protected static final String TAG_TASK_MAP_NAME = "tagTaskMap";
-    protected static final String ALERT_TABLE_NAME = "alerts";
-    protected static final String SYNC_TABLE_NAME = "sync";
+    @Autowired
+    protected String tasksTable;
+
+    @Autowired
+    protected String tagsTable;
+
+    @Autowired
+    protected String tagTaskTable;
+
+    @Autowired
+    protected String alertsTable;
+
+    @Autowired
+    protected String syncTable;
+
+    // stuff
+
+    public AbstractController(Context context) {
+        this.context = context;
+        DependencyInjectionService.getInstance().inject(this);
+    }
 
     abstract public void open();
     abstract public void close();

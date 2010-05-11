@@ -86,6 +86,13 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
         injectables.put("taskService", TaskService.class);
         injectables.put("metadataService", MetadataService.class);
 
+        // com.timsu.astrid.data
+        injectables.put("tasksTable", "tasks");
+        injectables.put("tagsTable", "tags");
+        injectables.put("tagTaskTable", "tagTaskMap");
+        injectables.put("alertsTable", "alerts");
+        injectables.put("syncTable", "sync");
+
         // these make reference to fields defined above
         injectables.put("errorReporters", new ErrorReporter[] {
                 new AndroidLogReporter(),

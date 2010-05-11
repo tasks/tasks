@@ -17,6 +17,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Task;
@@ -29,6 +30,15 @@ public final class UpgradeService {
 
     @Autowired
     private TaskDao taskDao;
+
+    @Autowired
+    private String tasksTable;
+
+    // --- implementation
+
+    public UpgradeService() {
+        DependencyInjectionService.getInstance().inject(this);
+    }
 
     /**
      * Perform upgrade from one version to the next. Needs to be called
@@ -107,7 +117,7 @@ public final class UpgradeService {
         propertyMap.put(AbstractTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
         propertyMap.put(AbstractTaskModel.CALENDAR_URI, Task.CALENDAR_URI);
         propertyMap.put(AbstractTaskModel.FLAGS, Task.FLAGS);
-        upgradeTasksTable(context, AbstractController.TASK_TABLE_NAME,
+        upgradeTasksTable(context, tasksTable,
                 propertyMap, new Task(), taskDao);
 
         // --- upgrade tags table
@@ -185,7 +195,7 @@ public final class UpgradeService {
             AbstractDao<TYPE> dao) {
 
         SQLiteDatabase upgradeDb = new Astrid2UpgradeHelper(context, legacyTable,
-                null, 0).getReadableDatabase();
+                null, 1).getReadableDatabase();
 
         Cursor cursor = upgradeDb.rawQuery("SELECT * FROM " + legacyTable, null);
         UpgradeVisitorContainer container = new UpgradeVisitorContainer();
@@ -198,7 +208,7 @@ public final class UpgradeService {
                 container.columnIndex = cursor.getColumnIndex(entry.getKey());
                 entry.getValue().accept(visitor, container);
             }
-            dao.save(database, container.model);
+            dao.createItem(database, container.model);
         }
 
         upgradeDb.close();

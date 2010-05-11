@@ -125,14 +125,14 @@ public class TaskDao extends AbstractDao<Task> {
         if (task.getId() == Task.NO_ID) {
             task.setValue(Task.CREATION_DATE, DateUtilities.now());
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
-            saveSuccessful = createItem(database, Task.TABLE, task);
+            saveSuccessful = createItem(database, task);
         } else {
             ContentValues values = task.getSetValues();
             if(values.size() == 0)
                 return true;
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
             beforeSave(database, task, values, duringSync);
-            saveSuccessful = saveItem(database, Task.TABLE, task);
+            saveSuccessful = saveItem(database, task);
             afterSave(database, task, values, duringSync);
         }
 

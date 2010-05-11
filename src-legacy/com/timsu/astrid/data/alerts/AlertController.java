@@ -42,7 +42,7 @@ public class AlertController extends AbstractController {
 
     /** Get a cursor to tag identifiers */
     public Cursor getTaskAlertsCursor(TaskIdentifier taskId) throws SQLException {
-        Cursor cursor = alertDatabase.query(ALERT_TABLE_NAME,
+        Cursor cursor = alertDatabase.query(alertsTable,
                 Alert.FIELD_LIST, Alert.TASK + " = ?",
                 new String[] { taskId.idAsString() }, null, null, null);
         return cursor;
@@ -52,7 +52,7 @@ public class AlertController extends AbstractController {
     public List<Date> getTaskAlerts(TaskIdentifier
             taskId) throws SQLException {
         List<Date> list = new LinkedList<Date>();
-        Cursor cursor = alertDatabase.query(ALERT_TABLE_NAME,
+        Cursor cursor = alertDatabase.query(alertsTable,
                 Alert.FIELD_LIST, Alert.TASK + " = ?",
                 new String[] { taskId.idAsString() }, null, null, null);
 
@@ -74,7 +74,7 @@ public class AlertController extends AbstractController {
     /** Get a list of alerts that are set for the future */
     public Set<TaskIdentifier> getTasksWithActiveAlerts() throws SQLException {
         Set<TaskIdentifier> list = new HashSet<TaskIdentifier>();
-        Cursor cursor = alertDatabase.query(ALERT_TABLE_NAME,
+        Cursor cursor = alertDatabase.query(alertsTable,
                 Alert.FIELD_LIST, Alert.DATE + " > ?",
                 new String[] { Long.toString(System.currentTimeMillis()) }, null, null, null);
 
@@ -95,7 +95,7 @@ public class AlertController extends AbstractController {
     /** Remove all alerts from the task */
     public boolean removeAlerts(TaskIdentifier taskId)
             throws SQLException{
-        return alertDatabase.delete(ALERT_TABLE_NAME,
+        return alertDatabase.delete(alertsTable,
                 String.format("%s = ?",
                         Alert.TASK),
                 new String[] { taskId.idAsString() }) > 0;
@@ -107,7 +107,7 @@ public class AlertController extends AbstractController {
         ContentValues values = new ContentValues();
         values.put(Alert.DATE, date.getTime());
         values.put(Alert.TASK, taskId.getId());
-        return alertDatabase.insert(ALERT_TABLE_NAME, Alert.TASK,
+        return alertDatabase.insert(alertsTable, Alert.TASK,
                 values) >= 0;
     }
 
@@ -118,7 +118,7 @@ public class AlertController extends AbstractController {
      * opened/created
      */
     public AlertController(Context context) {
-        this.context = context;
+        super(context);
     }
 
     /**
@@ -133,7 +133,7 @@ public class AlertController extends AbstractController {
     @Override
     public void open() throws SQLException {
         alertDatabase = new AlertDatabaseHelper(context,
-                ALERT_TABLE_NAME, ALERT_TABLE_NAME).getWritableDatabase();
+                alertsTable, alertsTable).getWritableDatabase();
     }
 
     /** Closes database resource */
