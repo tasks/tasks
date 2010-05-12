@@ -118,7 +118,7 @@ public class Database extends AbstractDatabase {
          */
         @Override
         public synchronized void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.w("database", String.format("Upgrading database from version %d to %d.",
+            Log.w("database-" + NAME, String.format("Upgrading database from version %d to %d.",
                     oldVersion, newVersion));
 
             switch(oldVersion) {

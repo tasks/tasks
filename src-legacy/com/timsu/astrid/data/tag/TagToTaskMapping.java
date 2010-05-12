@@ -91,7 +91,7 @@ public class TagToTaskMapping extends AbstractModel {
             default:
                 // we don't know how to handle it... show an error
                 Log.e(getClass().getSimpleName(), "Unsupported migration from " + oldVersion + " to " + newVersion);
-                DialogUtilities.okDialog(context, "There was a database error reading from Alerts. Data may have been corrupted.", null);
+                DialogUtilities.okDialog(context, "There was a database error reading from Tags. Data may have been corrupted.", null);
             }
         }
     }
