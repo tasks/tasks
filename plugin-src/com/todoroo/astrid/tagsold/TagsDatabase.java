@@ -3,12 +3,10 @@
  * All Rights Reserved
  * http://www.todoroo.com
  */
-package com.todoroo.astrid.dao;
+package com.todoroo.astrid.tagsold;
 
 import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.Task;
 
 /**
  * Database wrapper
@@ -17,7 +15,7 @@ import com.todoroo.astrid.model.Task;
  *
  */
 @SuppressWarnings("nls")
-public class Database extends AbstractDatabase {
+public class TagsDatabase extends AbstractDatabase {
 
     // --- constants
 
@@ -30,15 +28,15 @@ public class Database extends AbstractDatabase {
     /**
      * Database name (must be unique)
      */
-    private static final String NAME = "database";
+    private static final String NAME = "tags";
 
     /**
      * List of table/ If you're adding a new table, add it to this list and
      * also make sure that our SQLite helper does the right thing.
      */
     public static final Table[] TABLES =  new Table[] {
-        Task.TABLE,
-        Metadata.TABLE,
+        Tag.TABLE,
+        TagToTaskMapping.TABLE,
     };
 
     // --- implementation
@@ -61,9 +59,16 @@ public class Database extends AbstractDatabase {
     @Override
     protected void onCreateTables() {
         StringBuilder sql = new StringBuilder();
-        sql.append("CREATE INDEX IF NOT EXISTS md_tid ON ").
-            append(Metadata.TABLE).append('(').
-                append(Metadata.TASK.name).
+        sql.append("CREATE INDEX IF NOT EXISTS tm_tag ON ").
+            append(TagToTaskMapping.TABLE).append('(').
+                append(TagToTaskMapping.TAG.name).
+            append(')');
+        database.execSQL(sql.toString());
+
+        sql.setLength(0);
+        sql.append("CREATE INDEX IF NOT EXISTS tm_task ON ").
+            append(TagToTaskMapping.TABLE).append('(').
+                append(TagToTaskMapping.TASK.name).
             append(')');
         database.execSQL(sql.toString());
     }

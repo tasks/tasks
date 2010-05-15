@@ -10,8 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.thoughtworks.sql.Criterion;
-import com.todoroo.andlib.data.AbstractDao;
-import com.todoroo.andlib.data.AbstractDatabase;
+import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -26,14 +25,18 @@ import com.todoroo.astrid.model.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskDao extends AbstractDao<Task> {
+public class TaskDao extends GenericDao<Task> {
 
     @Autowired
     MetadataDao metadataDao;
 
+    @Autowired
+    Database database;
+
 	public TaskDao() {
         super(Task.class);
         DependencyInjectionService.getInstance().inject(this);
+        setDatabase(database);
     }
 
     // --- SQL clause generators
@@ -100,13 +103,13 @@ public class TaskDao extends AbstractDao<Task> {
      * @return true if delete was successful
      */
     @Override
-    public boolean delete(AbstractDatabase database, long id) {
-        boolean result = super.delete(database, id);
+    public boolean delete(long id) {
+        boolean result = super.delete(id);
         if(!result)
             return false;
 
         // delete all metadata
-        metadataDao.deleteWhere(database, MetadataCriteria.byTask(id));
+        metadataDao.deleteWhere(MetadataCriteria.byTask(id));
 
         return true;
     }
@@ -119,21 +122,21 @@ public class TaskDao extends AbstractDao<Task> {
      *
      * @param duringSync whether this save occurs as part of a sync
      */
-    public boolean save(Database database, Task task, boolean duringSync) {
+    public boolean save(Task task, boolean duringSync) {
         boolean saveSuccessful;
 
         if (task.getId() == Task.NO_ID) {
             task.setValue(Task.CREATION_DATE, DateUtilities.now());
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
-            saveSuccessful = createItem(database, task);
+            saveSuccessful = createItem(task);
         } else {
             ContentValues values = task.getSetValues();
             if(values.size() == 0)
                 return true;
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
-            beforeSave(database, task, values, duringSync);
-            saveSuccessful = saveItem(database, task);
-            afterSave(database, task, values, duringSync);
+            beforeSave(task, values, duringSync);
+            saveSuccessful = saveItem(task);
+            afterSave(task, values, duringSync);
         }
 
         return saveSuccessful;
@@ -153,7 +156,7 @@ public class TaskDao extends AbstractDao<Task> {
      * @param duringSync
      *            whether this save occurs as part of a sync
      */
-    private void beforeSave(Database database, Task task, ContentValues values, boolean duringSync) {
+    private void beforeSave(Task task, ContentValues values, boolean duringSync) {
         //
     }
 
@@ -168,7 +171,7 @@ public class TaskDao extends AbstractDao<Task> {
      * @param values values to be persisted to the database
      * @param duringSync whether this save occurs as part of a sync
      */
-    private void afterSave(Database database, Task task, ContentValues values, boolean duringSync) {
+    private void afterSave(Task task, ContentValues values, boolean duringSync) {
         if(duringSync)
             return;
 

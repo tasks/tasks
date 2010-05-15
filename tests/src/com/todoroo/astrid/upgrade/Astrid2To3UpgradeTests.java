@@ -8,11 +8,15 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.legacy.data.enums.Importance;
 import com.todoroo.astrid.legacy.data.enums.RepeatInterval;
+import com.todoroo.astrid.legacy.data.tag.TagController;
+import com.todoroo.astrid.legacy.data.tag.TagIdentifier;
 import com.todoroo.astrid.legacy.data.task.TaskController;
 import com.todoroo.astrid.legacy.data.task.TaskModelForEdit;
 import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.UpgradeService;
+import com.todoroo.astrid.tagsold.Tag;
+import com.todoroo.astrid.tagsold.TagService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class Astrid2To3UpgradeTests extends DatabaseTestCase {
@@ -39,7 +43,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         taskController.close();
         upgrade2To3();
 
-        TodorooCursor<Task> tasks = taskDao.query(database, Query.select(Task.PROPERTIES));
+        TodorooCursor<Task> tasks = taskDao.query(Query.select(Task.PROPERTIES));
         assertEquals(0, tasks.getCount());
     }
 
@@ -72,13 +76,8 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         // upgrade
         upgrade2To3();
 
-        // verify that it ain't no more in the legacy table
-        taskController.open();
-        assertEquals(0, taskController.getAllTaskIdentifiers().size());
-        taskController.close();
-
         // verify that data exists in our new table
-        TodorooCursor<Task> tasks = taskDao.query(database, Query.select(Task.PROPERTIES));
+        TodorooCursor<Task> tasks = taskDao.query(Query.select(Task.PROPERTIES));
         assertEquals(2, tasks.getCount());
 
         tasks.moveToFirst();
@@ -106,5 +105,40 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     }
 
 
+    public void testTagTableUpgrade() {
+        TaskController taskController = new TaskController(getContext());
+        taskController.open();
+        TagController tagController = new TagController(getContext());
+        tagController.open();
+
+        // create some ish
+        TagIdentifier tasty = tagController.createTag("tasty");
+        TagIdentifier salty = tagController.createTag("salty");
+
+        TaskModelForEdit peanut = new TaskModelForEdit();
+        TaskModelForEdit icecream = new TaskModelForEdit();
+        TaskModelForEdit pickle = new TaskModelForEdit();
+        taskController.saveTask(peanut, false);
+        taskController.saveTask(icecream, false);
+        taskController.saveTask(pickle, false);
+        tagController.addTag(peanut.getTaskIdentifier(), tasty);
+        tagController.addTag(peanut.getTaskIdentifier(), salty);
+        tagController.addTag(icecream.getTaskIdentifier(), tasty);
+
+        // assert created
+        assertEquals(2, tagController.getAllTags().size());
+
+        // upgrade
+        upgrade2To3();
+
+        // verify that data exists in our new table
+        TagService tagService = new TagService();
+        TodorooCursor<Tag> tags = tagService.getAllTags(Tag.NAME);
+        assertEquals(2, tags.getCount());
+
+    }
+
 
 }
+
+

@@ -10,10 +10,11 @@ import android.database.Cursor;
 import com.thoughtworks.sql.Criterion;
 import com.thoughtworks.sql.Join;
 import com.thoughtworks.sql.Query;
-import com.todoroo.andlib.data.AbstractDao;
-import com.todoroo.andlib.data.AbstractDatabase;
+import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 
@@ -23,10 +24,15 @@ import com.todoroo.astrid.model.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class MetadataDao extends AbstractDao<Metadata> {
+public class MetadataDao extends GenericDao<Metadata> {
+
+    @Autowired
+    Database database;
 
 	public MetadataDao() {
         super(Metadata.class);
+        DependencyInjectionService.getInstance().inject(this);
+        setDatabase(database);
     }
 
     // --- SQL clause generators
@@ -56,7 +62,7 @@ public class MetadataDao extends AbstractDao<Metadata> {
      * @param properties
      * @return
      */
-    public TodorooCursor<Metadata> fetchDangling(AbstractDatabase database, Property<?>[] properties) {
+    public TodorooCursor<Metadata> fetchDangling(Property<?>[] properties) {
         Query sql = Query.select(properties).from(Metadata.TABLE).join(Join.left(Task.TABLE,
                 Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull());
         Cursor cursor = database.getDatabase().rawQuery(sql.toString(), null);

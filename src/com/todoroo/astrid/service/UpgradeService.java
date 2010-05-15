@@ -11,28 +11,36 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.task.AbstractTaskModel;
-import com.todoroo.andlib.data.AbstractDao;
 import com.todoroo.andlib.data.AbstractModel;
+import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.tags.DataService;
 
 
 public final class UpgradeService {
 
     @Autowired
-    private Database database;
-
-    @Autowired
     private TaskDao taskDao;
 
     @Autowired
+    private MetadataDao metadataDao;
+
+    @Autowired
     private String tasksTable;
+
+    @Autowired
+    private String tagsTable;
+
+    @Autowired
+    private String tagTaskTable;
 
     // --- implementation
 
@@ -62,7 +70,7 @@ public final class UpgradeService {
     /**
      * Upgrade helper class that reads a database
      */
-    private class Astrid2UpgradeHelper extends SQLiteOpenHelper {
+    private static class Astrid2UpgradeHelper extends SQLiteOpenHelper {
 
         private String name;
 
@@ -117,14 +125,18 @@ public final class UpgradeService {
         propertyMap.put(AbstractTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
         propertyMap.put(AbstractTaskModel.CALENDAR_URI, Task.CALENDAR_URI);
         propertyMap.put(AbstractTaskModel.FLAGS, Task.FLAGS);
-        upgradeTasksTable(context, tasksTable,
+        upgradeTable(context, tasksTable,
                 propertyMap, new Task(), taskDao);
 
-        // --- upgrade tags table
+        // --- upgrade tags tables
+        migrateTagsToMetadata();
+
 
     }
 
-    protected static class UpgradeVisitorContainer {
+    // --- database upgrade helpers
+
+    protected static final class UpgradeVisitorContainer {
         public int columnIndex;
         public Cursor cursor;
         public AbstractModel model;
@@ -135,7 +147,7 @@ public final class UpgradeService {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    protected class ColumnUpgradeVisitor implements PropertyVisitor<Void, UpgradeVisitorContainer> {
+    protected static final class ColumnUpgradeVisitor implements PropertyVisitor<Void, UpgradeVisitorContainer> {
         @Override
         public Void visitDouble(Property<Double> property, UpgradeVisitorContainer data) {
             double value = data.cursor.getDouble(data.columnIndex);
@@ -190,9 +202,9 @@ public final class UpgradeService {
      * @param dao
      */
     @SuppressWarnings("nls")
-    private <TYPE extends AbstractModel> void upgradeTasksTable(Context context, String legacyTable,
+    private static final <TYPE extends AbstractModel> void upgradeTable(Context context, String legacyTable,
             HashMap<String, Property<?>> propertyMap, TYPE model,
-            AbstractDao<TYPE> dao) {
+            GenericDao<TYPE> dao) {
 
         SQLiteDatabase upgradeDb = new Astrid2UpgradeHelper(context, legacyTable,
                 null, 1).getReadableDatabase();
@@ -208,11 +220,58 @@ public final class UpgradeService {
                 container.columnIndex = cursor.getColumnIndex(entry.getKey());
                 entry.getValue().accept(visitor, container);
             }
-            dao.createItem(database, container.model);
+            dao.createItem(container.model);
         }
 
         upgradeDb.close();
-        context.deleteDatabase(legacyTable);
+    }
+
+    /**
+     * Move data from tags tables into metadata table. We do this by looping
+     * through both the tags and tagTaskMap databases, reading data from
+     * both and adding to the Metadata table. This way, we are able to
+     * do everything in one pass without loading too much into memory
+     */
+    @SuppressWarnings("nls")
+    private void migrateTagsToMetadata() {
+        Context context = ContextManager.getContext();
+        SQLiteDatabase tagsDb = new Astrid2UpgradeHelper(context, tagsTable,
+                null, 1).getReadableDatabase();
+        SQLiteDatabase tagTaskDb = new Astrid2UpgradeHelper(context, tagTaskTable,
+                null, 1).getReadableDatabase();
+
+        Cursor tagCursor = tagsDb.rawQuery("SELECT _id, name FROM " + tagsTable +
+                " ORDER BY _id ASC", null);
+        Cursor mapCursor = tagTaskDb.rawQuery("SELECT tag, task FROM " + tagTaskTable +
+                " ORDER BY tag ASC", null);
+
+        if(tagCursor.getCount() == 0)
+            return;
+
+        Metadata metadata = new Metadata();
+        metadata.setValue(Metadata.KEY, DataService.KEY);
+        long tagId = -1;
+        String tag = null;
+        for(mapCursor.moveToFirst(); !mapCursor.isAfterLast(); mapCursor.moveToNext()) {
+            long mapTagId = mapCursor.getLong(1);
+
+            while(mapTagId > tagId && !tagCursor.isLast()) {
+                tagCursor.moveToNext();
+                tagId = tagCursor.getLong(1);
+            }
+
+            if(mapTagId == tagId) {
+                if(tag == null)
+                    tag = tagCursor.getString(2);
+                long task = mapCursor.getLong(2);
+                metadata.setValue(Metadata.TASK, task);
+                metadata.setValue(Metadata.VALUE, tag);
+                metadataDao.createItem(metadata);
+            }
+        }
+
+        tagCursor.close();
+        mapCursor.close();
     }
 
 }

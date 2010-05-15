@@ -6,10 +6,8 @@ import com.thoughtworks.sql.Query;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
-import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.model.Metadata;
 
@@ -20,9 +18,6 @@ import com.todoroo.astrid.model.Metadata;
  *
  */
 public class MetadataService {
-
-    @Autowired
-    private Database database;
 
     @Autowired
     private MetadataDao metadataDao;
@@ -53,14 +48,14 @@ public class MetadataService {
      * Clean up metadata. Typically called on startup
      */
     public void cleanup() {
-        TodorooCursor<Metadata> cursor = metadataDao.fetchDangling(database, idProperty());
+        TodorooCursor<Metadata> cursor = metadataDao.fetchDangling(idProperty());
         try {
             if(cursor.getCount() == 0)
                 return;
 
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long id = cursor.getLong(0);
-                metadataDao.delete(database, id);
+                metadataDao.delete(id);
             }
         } finally {
             cursor.close();
@@ -72,14 +67,13 @@ public class MetadataService {
      * @param where SQL where clause
      * @param onlyCountsGreaterThanZero only include items where count > 0
      */
-    public TodorooCursor<Metadata> fetchWithCount(Criterion where, Order order,
-            boolean onlyCountsGreaterThanZero) {
-        IntegerProperty count = new CountProperty();
+    public TodorooCursor<Metadata> fetchWithCount(CountProperty count,
+            Criterion where, Order order, boolean onlyCountsGreaterThanZero) {
         Query query = Query.select(Metadata.VALUE, count).
             where(where).orderBy(order);
         if(onlyCountsGreaterThanZero)
             query.having(count.gt(0));
-        TodorooCursor<Metadata> cursor = metadataDao.query(database, query);
+        TodorooCursor<Metadata> cursor = metadataDao.query(query);
         return cursor;
     }
 
@@ -88,6 +82,6 @@ public class MetadataService {
      * @param where
      */
     public void deleteWhere(Criterion where) {
-        metadataDao.deleteWhere(database, where);
+        metadataDao.deleteWhere(where);
     }
 }

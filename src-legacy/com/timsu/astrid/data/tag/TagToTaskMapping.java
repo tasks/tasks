@@ -40,8 +40,8 @@ public class TagToTaskMapping extends AbstractModel {
 
     // field names
 
-    static final String                TASK                = "task";
-    static final String                TAG                 = "tag";
+    public static final String                TASK                = "task";
+    public static final String                TAG                 = "tag";
 
     /** Default values container */
     private static final ContentValues defaultValues       = new ContentValues();
