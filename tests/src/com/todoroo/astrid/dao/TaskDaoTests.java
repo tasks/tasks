@@ -24,7 +24,7 @@ public class TaskDaoTests extends DatabaseTestCase {
      * Test basic task creation, fetch, and save
      */
     public void testTaskCreation() throws Exception {
-        TodorooCursor<Task> cursor = taskDao.query(database,
+        TodorooCursor<Task> cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(0, cursor.getCount());
         cursor.close();
@@ -32,21 +32,21 @@ public class TaskDaoTests extends DatabaseTestCase {
         // create task "happy"
         Task task = new Task();
         task.setValue(Task.TITLE, "happy");
-        assertTrue(taskDao.save(database, task, false));
-        cursor = taskDao.query(database,
+        assertTrue(taskDao.save(task, false));
+        cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(1, cursor.getCount());
         cursor.close();
         long happyId = task.getId();
         assertNotSame(Task.NO_ID, happyId);
-        task = taskDao.fetch(database, TITLES, happyId);
+        task = taskDao.fetch(happyId, TITLES);
         assertEquals("happy", task.getValue(Task.TITLE));
 
         // create task "sad"
         task = new Task();
         task.setValue(Task.TITLE, "sad");
-        assertTrue(taskDao.save(database, task, false));
-        cursor = taskDao.query(database,
+        assertTrue(taskDao.save(task, false));
+        cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(2, cursor.getCount());
         cursor.close();
@@ -55,16 +55,16 @@ public class TaskDaoTests extends DatabaseTestCase {
         long sadId = task.getId();
         assertNotSame(Task.NO_ID, sadId);
         task.setValue(Task.TITLE, "melancholy");
-        assertTrue(taskDao.save(database, task, false));
-        cursor = taskDao.query(database,
+        assertTrue(taskDao.save(task, false));
+        cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(2, cursor.getCount());
         cursor.close();
 
         // check state
-        task = taskDao.fetch(database, TITLES, happyId);
+        task = taskDao.fetch(happyId, TITLES);
         assertEquals("happy", task.getValue(Task.TITLE));
-        task = taskDao.fetch(database, TITLES, sadId);
+        task = taskDao.fetch(sadId,TITLES);
         assertEquals("melancholy", task.getValue(Task.TITLE));
     }
 
@@ -75,38 +75,38 @@ public class TaskDaoTests extends DatabaseTestCase {
         // create normal task
         Task task = new Task();
         task.setValue(Task.TITLE, "normal");
-        assertTrue(taskDao.save(database, task, false));
+        assertTrue(taskDao.save(task, false));
 
         // create blank task
         task = new Task();
         task.setValue(Task.TITLE, "");
-        assertTrue(taskDao.save(database, task, false));
+        assertTrue(taskDao.save(task, false));
 
         // create hidden task
         task = new Task();
         task.setValue(Task.TITLE, "hidden");
         task.setValue(Task.HIDDEN_UNTIL, DateUtilities.now() + 10000);
-        assertTrue(taskDao.save(database, task, false));
+        assertTrue(taskDao.save(task, false));
 
         // create task with deadlines
         task = new Task();
         task.setValue(Task.TITLE, "deadlineInFuture");
         task.setValue(Task.DUE_DATE, DateUtilities.now() + 10000);
-        assertTrue(taskDao.save(database, task, false));
+        assertTrue(taskDao.save(task, false));
 
         task = new Task();
         task.setValue(Task.TITLE, "deadlineInPast");
         task.setValue(Task.DUE_DATE, DateUtilities.now() - 10000);
-        assertTrue(taskDao.save(database, task, false));
+        assertTrue(taskDao.save(task, false));
 
         // create completed task
         task = new Task();
         task.setValue(Task.TITLE, "completed");
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now() - 10000);
-        assertTrue(taskDao.save(database, task, false));
+        assertTrue(taskDao.save(task, false));
 
         // check has no name
-        TodorooCursor<Task> cursor = taskDao.query(database,
+        TodorooCursor<Task> cursor = taskDao.query(
                 Query.select(TITLES).where(TaskCriteria.hasNoTitle()));
         assertEquals(1, cursor.getCount());
         cursor.moveToNext();
@@ -114,7 +114,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         cursor.close();
 
         // check has deadlines
-        cursor = taskDao.query(database, Query.select(TITLES).where(
+        cursor = taskDao.query(Query.select(TITLES).where(
                 TaskCriteria.hasDeadlines()).orderBy(Order.asc(Task.DUE_DATE)));
         assertEquals(2, cursor.getCount());
         cursor.moveToNext();
@@ -124,30 +124,30 @@ public class TaskDaoTests extends DatabaseTestCase {
         cursor.close();
 
         // check is active
-        cursor = taskDao.query(database, Query.select(TITLES).where(TaskCriteria.
+        cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
                 isActive()));
         assertEquals(5, cursor.getCount());
         cursor.close();
 
         // check due before / after
-        cursor = taskDao.query(database, Query.select(TITLES).where(TaskCriteria.
+        cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
                 dueBefore(DateUtilities.now())));
         cursor.moveToNext();
         assertEquals(1, cursor.getCount());
         cursor.close();
-        cursor = taskDao.query(database, Query.select(TITLES).where(TaskCriteria.
+        cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
                 dueAfter(DateUtilities.now())));
         assertEquals(1, cursor.getCount());
         cursor.close();
 
         // check completed before
-        cursor = taskDao.query(database, Query.select(TITLES).where(TaskCriteria.
+        cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
                 completedBefore(DateUtilities.now())));
         assertEquals(1, cursor.getCount());
         cursor.close();
 
         // check is visible
-        cursor = taskDao.query(database, Query.select(TITLES).where(TaskCriteria.
+        cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
                 isVisible(DateUtilities.now())));
         assertEquals(5, cursor.getCount());
         cursor.close();
@@ -157,7 +157,7 @@ public class TaskDaoTests extends DatabaseTestCase {
      * Test task deletion
      */
     public void testTDeletion() throws Exception {
-        TodorooCursor<Task> cursor = taskDao.query(database,
+        TodorooCursor<Task> cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(0, cursor.getCount());
         cursor.close();
@@ -165,16 +165,16 @@ public class TaskDaoTests extends DatabaseTestCase {
         // create task "happy"
         Task task = new Task();
         task.setValue(Task.TITLE, "happy");
-        assertTrue(taskDao.save(database, task, false));
-        cursor = taskDao.query(database,
+        assertTrue(taskDao.save(task, false));
+        cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(1, cursor.getCount());
         cursor.close();
 
         // delete
         long happyId = task.getId();
-        assertTrue(taskDao.delete(database, happyId));
-        cursor = taskDao.query(database,
+        assertTrue(taskDao.delete(happyId));
+        cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(0, cursor.getCount());
         cursor.close();
@@ -191,9 +191,9 @@ public class TaskDaoTests extends DatabaseTestCase {
         task.setValue(Task.TITLE, "happy");
         task.setValue(Task.ID, 1L);
 
-        assertFalse(taskDao.save(database, task, false));
+        assertFalse(taskDao.save(task, false));
 
-        cursor = taskDao.query(database,
+        cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(0, cursor.getCount());
         cursor.close();
@@ -205,17 +205,17 @@ public class TaskDaoTests extends DatabaseTestCase {
     public void testInvalidIndex() throws Exception {
         TodorooCursor<Task> cursor;
 
-        cursor = taskDao.query(database,
+        cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(0, cursor.getCount());
         cursor.close();
 
-        assertNull(taskDao.fetch(database, IDS, 1));
+        assertNull(taskDao.fetch(1, IDS));
 
-        assertFalse(taskDao.delete(database, 1));
+        assertFalse(taskDao.delete(1));
 
         // make sure db still works
-        cursor = taskDao.query(database,
+        cursor = taskDao.query(
                 Query.select(IDS));
         assertEquals(0, cursor.getCount());
         cursor.close();

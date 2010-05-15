@@ -5,6 +5,7 @@ import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.tagsold.TagsDatabase;
 
 /**
  * Test case that automatically sets up and tears down a test database
@@ -19,6 +20,7 @@ public class DatabaseTestCase extends TodorooTestCase {
     private static final String TAG_TASK_TEST = "tagtasktest";
     private static final String TAGS_TEST = "tagstest";
     private static final String TASKS_TEST = "taskstest";
+
     @Autowired
 	public Database database;
 
@@ -42,6 +44,10 @@ public class DatabaseTestCase extends TodorooTestCase {
         database.clear();
 		database.openForWriting();
 
+		// and plugin databases too
+		TagsDatabase tagsDatabase = new TagsDatabase();
+		tagsDatabase.clear();
+
 		// clear legacy databases
 		getContext().deleteDatabase(TASKS_TEST);
 		getContext().deleteDatabase(TAGS_TEST);
@@ -55,7 +61,7 @@ public class DatabaseTestCase extends TodorooTestCase {
 		database.close();
 	}
 
-	public static class TestDatabase extends Database {
+	public static class TestDatabase extends TagsDatabase {
 	    private static final String NAME = "databasetest";
 
         @Override
