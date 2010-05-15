@@ -1,9 +1,9 @@
 package com.todoroo.astrid.dao;
 
-import com.thoughtworks.sql.Order;
-import com.thoughtworks.sql.Query;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.sql.Order;
+import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;

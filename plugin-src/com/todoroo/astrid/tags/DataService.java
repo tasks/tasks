@@ -114,9 +114,13 @@ public class DataService {
      */
     public String getTagsAsString(long taskId) {
         StringBuilder tagBuilder = new StringBuilder();
-        String[] tags = getTags(taskId);
-        for (int i = 0; i < tags.length; i++) {
-            tagBuilder.append(tags[i]);
+        TodorooCursor<Metadata> tags = getTags(taskId);
+        int length = tags.getCount();
+        Metadata metadata = new Metadata();
+        for (int i = 0; i < length; i++) {
+            tags.moveToNext();
+            metadata.readFromCursor(tags, PROP)
+            tagBuilder.append(]);
             if (i < tags.length - 1)
                 tagBuilder.append(", ");
         }

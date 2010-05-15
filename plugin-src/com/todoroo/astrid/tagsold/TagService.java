@@ -21,11 +21,11 @@ package com.todoroo.astrid.tagsold;
 
 import android.database.SQLException;
 
-import com.thoughtworks.sql.Join;
-import com.thoughtworks.sql.Query;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.sql.Join;
+import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.astrid.model.Task;
 
 /**

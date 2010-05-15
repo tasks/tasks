@@ -1,8 +1,8 @@
 package com.todoroo.astrid.dao;
 
-import com.thoughtworks.sql.Query;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Metadata;
