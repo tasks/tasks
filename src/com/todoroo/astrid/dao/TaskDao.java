@@ -9,8 +9,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
-import com.thoughtworks.sql.Criterion;
 import com.todoroo.andlib.data.GenericDao;
+import com.todoroo.andlib.data.sql.Criterion;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;

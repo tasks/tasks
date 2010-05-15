@@ -2,8 +2,8 @@ package com.todoroo.astrid.upgrade;
 
 import java.util.Date;
 
-import com.thoughtworks.sql.Query;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.legacy.data.enums.Importance;

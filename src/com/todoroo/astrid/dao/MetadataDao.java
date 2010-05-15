@@ -7,12 +7,12 @@ package com.todoroo.astrid.dao;
 
 import android.database.Cursor;
 
-import com.thoughtworks.sql.Criterion;
-import com.thoughtworks.sql.Join;
-import com.thoughtworks.sql.Query;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.sql.Criterion;
+import com.todoroo.andlib.data.sql.Join;
+import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.model.Metadata;
