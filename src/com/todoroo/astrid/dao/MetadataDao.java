@@ -66,7 +66,7 @@ public class MetadataDao extends GenericDao<Metadata> {
         Query sql = Query.select(properties).from(Metadata.TABLE).join(Join.left(Task.TABLE,
                 Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull());
         Cursor cursor = database.getDatabase().rawQuery(sql.toString(), null);
-        return new TodorooCursor<Metadata>(cursor);
+        return new TodorooCursor<Metadata>(cursor, properties);
     }
 
 }

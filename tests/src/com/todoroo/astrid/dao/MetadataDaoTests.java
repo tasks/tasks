@@ -33,7 +33,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         // create "happy"
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "happy");
-        assertTrue(metadataDao.save(metadata));
+        assertTrue(metadataDao.persist(metadata));
         cursor = metadataDao.query(
                 Query.select(MetadataService.idProperty()));
         assertEquals(1, cursor.getCount());
@@ -46,7 +46,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         // create "sad"
         metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "sad");
-        assertTrue(metadataDao.save(metadata));
+        assertTrue(metadataDao.persist(metadata));
         cursor = metadataDao.query(Query.select(MetadataService.idProperty()));
         assertEquals(2, cursor.getCount());
         cursor.close();
@@ -55,7 +55,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         long sadId = metadata.getId();
         assertNotSame(Metadata.NO_ID, sadId);
         metadata.setValue(Metadata.KEY, "melancholy");
-        assertTrue(metadataDao.save(metadata));
+        assertTrue(metadataDao.persist(metadata));
         cursor = metadataDao.query(
                 Query.select(MetadataService.idProperty()));
         assertEquals(2, cursor.getCount());
@@ -73,7 +73,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
                 Query.select(KEYS));
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
-        metadata.readFromCursor(cursor, KEYS);
+        metadata.readFromCursor(cursor);
         assertEquals("happy", metadata.getValue(Metadata.KEY));
         cursor.close();
     }
@@ -86,27 +86,27 @@ public class MetadataDaoTests extends DatabaseTestCase {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "with1");
         metadata.setValue(Metadata.TASK, 1L);
-        assertTrue(metadataDao.save(metadata));
+        assertTrue(metadataDao.persist(metadata));
 
         metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "with2");
         metadata.setValue(Metadata.TASK, 2L);
-        assertTrue(metadataDao.save(metadata));
+        assertTrue(metadataDao.persist(metadata));
 
         metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "with1");
         metadata.setValue(Metadata.TASK, 1L);
-        assertTrue(metadataDao.save(metadata));
+        assertTrue(metadataDao.persist(metadata));
 
 
         TodorooCursor<Metadata> cursor = metadataDao.query(
                 Query.select(KEYS).where(MetadataCriteria.byTask(1)));
         assertEquals(2, cursor.getCount());
         cursor.moveToFirst();
-        metadata.readFromCursor(cursor, KEYS);
+        metadata.readFromCursor(cursor);
         assertEquals("with1", metadata.getValue(Metadata.KEY));
         cursor.moveToNext();
-        metadata.readFromCursor(cursor, KEYS);
+        metadata.readFromCursor(cursor);
         assertEquals("with1", metadata.getValue(Metadata.KEY));
         cursor.close();
 
@@ -133,11 +133,11 @@ public class MetadataDaoTests extends DatabaseTestCase {
         cursor.close();
 
         Task task1 = new Task();
-        taskDao.save(task1);
+        taskDao.persist(task1);
         Task task2 = new Task();
-        taskDao.save(task2);
+        taskDao.persist(task2);
         Task task3 = new Task();
-        taskDao.save(task3);
+        taskDao.persist(task3);
 
         // fetch with only tasks
         cursor = metadataDao.fetchDangling(KEYS);
@@ -147,17 +147,17 @@ public class MetadataDaoTests extends DatabaseTestCase {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "with1");
         metadata.setValue(Metadata.TASK, task1.getId());
-        assertTrue(metadataDao.save(metadata));
+        assertTrue(metadataDao.persist(metadata));
 
         metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "with2");
         metadata.setValue(Metadata.TASK, task2.getId());
-        assertTrue(metadataDao.save(metadata));
+        assertTrue(metadataDao.persist(metadata));
 
         metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "with3");
         metadata.setValue(Metadata.TASK, task3.getId());
-        assertTrue(metadataDao.save(metadata));
+        assertTrue(metadataDao.persist(metadata));
 
         // fetch with tasks and corresponding metadata
         cursor = metadataDao.fetchDangling(KEYS);
@@ -176,14 +176,14 @@ public class MetadataDaoTests extends DatabaseTestCase {
         metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "with2");
         metadata.setValue(Metadata.TASK, task2Id);
-        assertTrue(metadataDao.save(metadata));
+        assertTrue(metadataDao.persist(metadata));
 
         // but if we simulate something bad happening by creating
         // it manually.. well, what can i say, it should be broken
         cursor = metadataDao.fetchDangling(KEYS);
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
-        metadata.readFromCursor(cursor, KEYS);
+        metadata.readFromCursor(cursor);
         assertEquals("with2", metadata.getValue(Metadata.KEY));
         cursor.close();
     }

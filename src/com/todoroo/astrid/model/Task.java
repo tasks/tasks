@@ -184,18 +184,27 @@ public class Task extends AbstractModel {
         super();
     }
 
-    public Task(TodorooCursor<Task> cursor, Property<?>[] properties) {
+    public Task(TodorooCursor<Task> cursor) {
         this();
-        readPropertiesFromCursor(cursor, properties);
+        readPropertiesFromCursor(cursor);
     }
 
-    public void readFromCursor(TodorooCursor<Task> cursor, Property<?>[] properties) {
-        super.readPropertiesFromCursor(cursor, properties);
+    public void readFromCursor(TodorooCursor<Task> cursor) {
+        super.readPropertiesFromCursor(cursor);
     }
 
     @Override
     public long getId() {
         return getIdHelper(ID);
+    }
+
+    // --- parcelable helpers
+
+    private static final Creator<Task> CREATOR = new ModelCreator<Task>(Task.class);
+
+    @Override
+    protected Creator<? extends AbstractModel> getCreator() {
+        return CREATOR;
     }
 
     // --- data access methods
