@@ -1,5 +1,7 @@
 package com.todoroo.astrid.test;
 
+import java.io.File;
+
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.test.TodorooTestCase;
@@ -44,14 +46,20 @@ public class DatabaseTestCase extends TodorooTestCase {
 		database.openForWriting();
 
 		// clear legacy databases
-		getContext().deleteDatabase(TASKS_TEST);
-		getContext().deleteDatabase(TAGS_TEST);
-		getContext().deleteDatabase(TAG_TASK_TEST);
-		getContext().deleteDatabase(ALERTS_TEST);
-		getContext().deleteDatabase(SYNC_TEST);
+		deleteDatabase(TASKS_TEST);
+		deleteDatabase(TAGS_TEST);
+		deleteDatabase(TAG_TASK_TEST);
+		deleteDatabase(ALERTS_TEST);
+		deleteDatabase(SYNC_TEST);
 	}
 
-	@Override
+	private void deleteDatabase(String database) {
+	    File db = getContext().getDatabasePath(database);
+	    if(db.exists())
+	        db.delete();
+    }
+
+    @Override
 	protected void tearDown() throws Exception {
 		database.close();
 	}
