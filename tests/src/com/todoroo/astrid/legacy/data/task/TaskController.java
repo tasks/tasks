@@ -530,6 +530,7 @@ public class TaskController extends AbstractController {
      */
     public TaskController(Context activity) {
         super(activity);
+        Log.e("HEY", "task table is " + tasksTable);
     }
 
     /**
@@ -546,6 +547,7 @@ public class TaskController extends AbstractController {
         SQLiteOpenHelper databaseHelper = new TaskModelDatabaseHelper(
                 context, tasksTable, tasksTable);
         database = databaseHelper.getWritableDatabase();
+        Log.e("HEY", "task table is " + tasksTable);
     }
 
     /** Closes database resource */

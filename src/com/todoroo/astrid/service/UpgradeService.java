@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.util.Log;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.task.AbstractTaskModel;
@@ -18,6 +19,7 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Metadata;
@@ -32,6 +34,9 @@ public final class UpgradeService {
 
     @Autowired
     private MetadataDao metadataDao;
+
+    @Autowired
+    private Database database;
 
     @Autowired
     private String tasksTable;
@@ -72,21 +77,14 @@ public final class UpgradeService {
      */
     private static class Astrid2UpgradeHelper extends SQLiteOpenHelper {
 
-        private String name;
-
         public Astrid2UpgradeHelper(Context context, String name,
                 CursorFactory factory, int version) {
             super(context, name, factory, version);
-            this.name = name;
         }
 
         @Override
-        @SuppressWarnings("nls")
         public void onCreate(SQLiteDatabase db) {
-            // create empty table with nothing in it
-            String sql = "CREATE TABLE IF NOT EXISTS " + name + " (" +
-                AbstractModel.ID_PROPERTY + " INTEGER);";
-            db.execSQL(sql);
+            // do nothing
         }
 
         @Override
@@ -102,12 +100,14 @@ public final class UpgradeService {
     private void upgrade2To3() {
         Context context = ContextManager.getContext();
 
+        database.openForWriting();
+
         // --- upgrade tasks table
         HashMap<String, Property<?>> propertyMap =
             new HashMap<String, Property<?>>();
         propertyMap.put(AbstractController.KEY_ROWID, Task.ID);
         propertyMap.put(AbstractTaskModel.NAME, Task.TITLE);
-        propertyMap.put(AbstractTaskModel.NOTES, Task.TITLE);
+        propertyMap.put(AbstractTaskModel.NOTES, Task.NOTES);
         // don't update progress percentage, we don't use this anymore
         propertyMap.put(AbstractTaskModel.IMPORTANCE, Task.IMPORTANCE);
         propertyMap.put(AbstractTaskModel.ESTIMATED_SECONDS, Task.ESTIMATED_SECONDS);
@@ -131,6 +131,7 @@ public final class UpgradeService {
         // --- upgrade tags tables
         migrateTagsToMetadata();
 
+        database.close();
 
     }
 
@@ -152,6 +153,7 @@ public final class UpgradeService {
         public Void visitDouble(Property<Double> property, UpgradeVisitorContainer data) {
             double value = data.cursor.getDouble(data.columnIndex);
             data.model.setValue(property, value);
+            Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
             return null;
         }
 
@@ -173,6 +175,7 @@ public final class UpgradeService {
                 value = data.cursor.getInt(data.columnIndex);
 
             data.model.setValue(property, value);
+            Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
             return null;
         }
 
@@ -180,6 +183,7 @@ public final class UpgradeService {
         public Void visitLong(Property<Long> property, UpgradeVisitorContainer data) {
             long value = data.cursor.getLong(data.columnIndex);
             data.model.setValue(property, value);
+            Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
             return null;
         }
 
@@ -187,6 +191,7 @@ public final class UpgradeService {
         public Void visitString(Property<String> property, UpgradeVisitorContainer data) {
             String value = data.cursor.getString(data.columnIndex);
             data.model.setValue(property, value);
+            Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
             return null;
         }
     }
@@ -205,6 +210,9 @@ public final class UpgradeService {
     private static final <TYPE extends AbstractModel> void upgradeTable(Context context, String legacyTable,
             HashMap<String, Property<?>> propertyMap, TYPE model,
             GenericDao<TYPE> dao) {
+
+        if(!checkIfDatabaseExists(context, legacyTable))
+            return;
 
         SQLiteDatabase upgradeDb = new Astrid2UpgradeHelper(context, legacyTable,
                 null, 1).getReadableDatabase();
@@ -226,6 +234,10 @@ public final class UpgradeService {
         upgradeDb.close();
     }
 
+    private static boolean checkIfDatabaseExists(Context context, String legacyTable) {
+        return context.getDatabasePath(legacyTable).exists();
+    }
+
     /**
      * Move data from tags tables into metadata table. We do this by looping
      * through both the tags and tagTaskMap databases, reading data from
@@ -235,6 +247,11 @@ public final class UpgradeService {
     @SuppressWarnings("nls")
     private void migrateTagsToMetadata() {
         Context context = ContextManager.getContext();
+
+        if(!checkIfDatabaseExists(context, tagsTable) ||
+                !checkIfDatabaseExists(context, tagTaskTable))
+            return;
+
         SQLiteDatabase tagsDb = new Astrid2UpgradeHelper(context, tagsTable,
                 null, 1).getReadableDatabase();
         SQLiteDatabase tagTaskDb = new Astrid2UpgradeHelper(context, tagTaskTable,

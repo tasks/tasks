@@ -20,8 +20,13 @@ import com.timsu.astrid.activities.TaskEdit;
 import com.timsu.astrid.activities.TaskList;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskModelForWidget;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 
 public class AstridAppWidgetProvider extends AppWidgetProvider {
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     private final static String TAG           = "AstridAppWidgetProvider";
     public final static int[]   TEXT_IDS      = { R.id.task_1, R.id.task_2,
