@@ -15,8 +15,8 @@ import com.todoroo.astrid.legacy.data.task.TaskModelForEdit;
 import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.UpgradeService;
-import com.todoroo.astrid.tagsold.Tag;
-import com.todoroo.astrid.tagsold.TagService;
+import com.todoroo.astrid.tags.DataService;
+import com.todoroo.astrid.tags.DataService.Tag;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class Astrid2To3UpgradeTests extends DatabaseTestCase {
@@ -81,7 +81,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         assertEquals(2, tasks.getCount());
 
         tasks.moveToFirst();
-        Task task = new Task(tasks, Task.PROPERTIES);
+        Task task = new Task(tasks);
         assertEquals(griffey.getName(), task.getValue(Task.TITLE));
         assertDatesEqual(griffey.getDefiniteDueDate(), task.getValue(Task.DUE_DATE));
         assertEquals((Integer)Task.IMPORTANCE_SHOULD_DO, task.getValue(Task.IMPORTANCE));
@@ -91,7 +91,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         assertEquals((Integer)0, task.getValue(Task.HIDDEN_UNTIL));
 
         tasks.moveToNext();
-        task = new Task(tasks, Task.PROPERTIES);
+        task = new Task(tasks);
         assertEquals(guti.getName(), task.getValue(Task.TITLE));
         assertDatesEqual(guti.getDefiniteDueDate(), task.getValue(Task.DUE_DATE));
         assertDatesEqual(guti.getPreferredDueDate(), task.getValue(Task.DUE_DATE));
@@ -132,9 +132,24 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         upgrade2To3();
 
         // verify that data exists in our new table
-        TagService tagService = new TagService();
-        TodorooCursor<Tag> tags = tagService.getAllTags(Tag.NAME);
-        assertEquals(2, tags.getCount());
+        DataService tagService = new DataService(getContext());
+        Tag[] tags = tagService.getGroupedTags(DataService.GROUPED_TAGS_BY_ALPHA);
+        assertEquals(2, tags.length);
+        assertEquals("salty", tags[0].tag);
+        assertEquals("tasty", tags[0].tag);
+
+        // verify that tags are applied correctly
+        TodorooCursor<Task> tasks = taskDao.query(Query.select(Task.PROPERTIES));
+        assertEquals(3, tasks.getCount());
+        tasks.moveToFirst();
+        Task task = new Task(tasks);
+        assertEquals("tasty,salty", tagService.getTagsAsString(task.getId()));
+        tasks.moveToNext();
+        task.readFromCursor(tasks);
+        assertEquals("tasty", tagService.getTagsAsString(task.getId()));
+        tasks.moveToNext();
+        task.readFromCursor(tasks);
+        assertEquals("", tagService.getTagsAsString(task.getId()));
 
     }
 

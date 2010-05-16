@@ -63,17 +63,27 @@ public class Metadata extends AbstractModel {
         super();
     }
 
-    public Metadata(TodorooCursor<Metadata> cursor, Property<?>[] properties) {
+    public Metadata(TodorooCursor<Metadata> cursor) {
         this();
-        readPropertiesFromCursor(cursor, properties);
+        readPropertiesFromCursor(cursor);
     }
 
-    public void readFromCursor(TodorooCursor<Metadata> cursor, Property<?>[] properties) {
-        super.readPropertiesFromCursor(cursor, properties);
+    public void readFromCursor(TodorooCursor<Metadata> cursor) {
+        super.readPropertiesFromCursor(cursor);
     }
 
     @Override
     public long getId() {
         return getIdHelper(ID);
     };
+
+    // --- parcelable helpers
+
+    private static final Creator<Task> CREATOR = new ModelCreator<Task>(Task.class);
+
+    @Override
+    protected Creator<? extends AbstractModel> getCreator() {
+        return CREATOR;
+    }
+
 }

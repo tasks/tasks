@@ -3,21 +3,20 @@ package com.todoroo.astrid.tags;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.database.DatabaseUtils;
 
-import com.thoughtworks.sql.Criterion;
-import com.thoughtworks.sql.Order;
-import com.thoughtworks.sql.Query;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
+import com.todoroo.andlib.data.sql.Criterion;
+import com.todoroo.andlib.data.sql.Join;
+import com.todoroo.andlib.data.sql.Order;
+import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.AstridContentProvider.AstridTask;
-import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.MetadataService;
 
 /**
@@ -33,9 +32,6 @@ public class DataService {
      * Metadata key for tag data
      */
     public static final String KEY = "tags-tag";
-
-    @Autowired
-    private Database database;
 
     @Autowired
     private MetadataDao metadataDao;
@@ -62,7 +58,7 @@ public class DataService {
      *
      */
     public class Tag {
-        String tag;
+        public String tag;
         int count;
 
         @Override
@@ -119,21 +115,13 @@ public class DataService {
         Metadata metadata = new Metadata();
         for (int i = 0; i < length; i++) {
             tags.moveToNext();
-            metadata.readFromCursor(tags, PROP)
-            tagBuilder.append(]);
-            if (i < tags.length - 1)
+            metadata.readFromCursor(tags);
+            tagBuilder.append(metadata.getValue(Metadata.VALUE));
+            if (i < length - 1)
                 tagBuilder.append(", ");
         }
         return tagBuilder.toString();
     }
-
-    private static final String query = String.format("INNER JOIN %s ON %s = "
-            + "%s WHERE %s = 0 AND %s = '%s' AND %s = ",
-            AstridApiConstants.METADATA_TABLE,
-            AstridTask.ID, Metadata.TASK,
-            AstridTask.COMPLETION_DATE,
-            Metadata.KEY, KEY,
-            Metadata.VALUE);
 
     /**
      * Return SQL selector query for getting tasks with a given tag
@@ -141,24 +129,10 @@ public class DataService {
      * @param tag
      * @return
      */
-    public String getQuery(String tag) {
-        return query + String.format("%s", DatabaseUtils.sqlEscapeString(tag));
-    }
-
-    private static final String newTaskSql = String.format(
-            "INSERT INTO %s (%s, %s, %s) " + "VALUES ($ID,'%s',",
-            AstridApiConstants.METADATA_TABLE,
-            Metadata.TASK.name,
-            Metadata.KEY.name,
-            Metadata.VALUE.name,
-            KEY);
-
-    /**
-     * Return SQL new task creator query
-     * @param tag
-     */
-    public String getNewTaskSql(String tag) {
-        return newTaskSql + String.format("%s)", DatabaseUtils.sqlEscapeString(tag));
+    public Query tasksWithTag(String tag, Property<?>... properties) {
+        return Query.select(properties).join(Join.inner(Metadata.TABLE,
+                Task.ID.eq(Metadata.TASK))).where(Criterion.and(
+                        MetadataCriteria.withKey(KEY), Metadata.VALUE.eq(tag)));
     }
 
     /**
@@ -167,16 +141,15 @@ public class DataService {
      * @param tags
      */
     public void synchronizeTags(long taskId, ArrayList<String> tags) {
-        metadataDao.deleteWhere(database, MetadataSql.byTask(taskId) + " AND " +
-                MetadataSql.withKey(KEY));
+        metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(taskId),
+                MetadataCriteria.withKey(KEY)));
 
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, KEY);
         metadata.setValue(Metadata.TASK, taskId);
         for(String tag : tags) {
             metadata.setValue(Metadata.VALUE, tag.trim());
-            metadataDao.save(database, metadata);
-            metadata.clearValue(Metadata.ID);
+            metadataDao.createItem(metadata);
         }
     }
 }
