@@ -3,10 +3,10 @@ package com.todoroo.astrid.test;
 import java.io.File;
 
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Test case that automatically sets up and tears down a test database
@@ -26,8 +26,7 @@ public class DatabaseTestCase extends TodorooTestCase {
 	public Database database;
 
     static {
-        AstridDependencyInjector.initialize();
-
+        // initialize test dependency injector
         TestDependencyInjector injector = TestDependencyInjector.initialize("db");
         injector.addInjectable("tasksTable", TASKS_TEST);
         injector.addInjectable("tagsTable", TAGS_TEST);
@@ -41,16 +40,17 @@ public class DatabaseTestCase extends TodorooTestCase {
 	protected void setUp() throws Exception {
 	    super.setUp();
 
-		// create new test database
-        database.clear();
-		database.openForWriting();
+	    DependencyInjectionService.getInstance().inject(this);
 
-		// clear legacy databases
+		// empty out test databases
+        database.clear();
 		deleteDatabase(TASKS_TEST);
 		deleteDatabase(TAGS_TEST);
 		deleteDatabase(TAG_TASK_TEST);
 		deleteDatabase(ALERTS_TEST);
 		deleteDatabase(SYNC_TEST);
+
+		database.openForWriting();
 	}
 
 	private void deleteDatabase(String database) {

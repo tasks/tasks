@@ -152,4 +152,5 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
     AstridDependencyInjector() {
         // prevent instantiation
     }
+
 }
