@@ -35,7 +35,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
             assertEquals(old.getTime() / 1000L, newDate);
     }
 
-    public void xtestEmptyUpgrade() {
+    public void testEmptyUpgrade() {
         TaskController taskController = new TaskController(getContext());
         taskController.open();
         assertEquals(0, taskController.getAllTaskIdentifiers().size());
@@ -107,7 +107,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     }
 
 
-    public void xtestTagTableUpgrade() {
+    public void testTagTableUpgrade() {
         TaskController taskController = new TaskController(getContext());
         taskController.open();
         TagController tagController = new TagController(getContext());
