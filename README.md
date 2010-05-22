@@ -12,9 +12,9 @@ Getting Started With Development
 1. Create your own fork of Astrid by clicking on Github's *Fork* button above (you may have to log in first).
 
 2. Install the following: 
- * [git](http://git.or.cz/) 
- * [Eclipse](http://eclipse.org) (preferred: Eclipse IDE for Java Developers)
- * [Android SDK](http://developer.android.com/sdk/index.html)
+ • *[git](http://git.or.cz/)*
+ • *[Eclipse](http://eclipse.org)* (preferred: Eclipse IDE for Java Developers)
+ • *[Android SDK](http://developer.android.com/sdk/index.html)*
 
 3. Use **git** to clone your forked repository (see Github's instructions if you need help).
 
