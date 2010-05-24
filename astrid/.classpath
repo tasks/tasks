@@ -4,7 +4,6 @@
 	<classpathentry kind="src" path="src-legacy"/>
 	<classpathentry kind="src" path="api-src"/>
 	<classpathentry kind="src" path="common-src"/>
-	<classpathentry kind="src" path="external-src"/>
 	<classpathentry kind="src" path="plugin-src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
