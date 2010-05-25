@@ -661,7 +661,12 @@ public abstract class SynchronizationProvider {
     protected class ProgressLabelUpdater implements Runnable {
         String label;
         public ProgressLabelUpdater(Context context, int id, Object... args) {
-            this.label = context.getResources().getString(id, args);
+            try {
+                this.label = context.getResources().getString(id, args);
+            } catch (Exception e) {
+                Log.e("sync-progress", "Error formatting progress label", e);
+                this.label = context.getResources().getString(id);
+            }
         }
         public void run() {
         	if(isBackgroundService()) {
