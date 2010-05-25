@@ -19,7 +19,9 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.activities.SyncPreferences;
 import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
 import com.timsu.astrid.sync.SynchronizationService;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.UpgradeService;
 
 public class StartupReceiver extends BroadcastReceiver {
 
@@ -32,6 +34,7 @@ public class StartupReceiver extends BroadcastReceiver {
     @Override
     /** Called when the system is started up */
     public void onReceive(Context context, Intent intent) {
+        ContextManager.setContext(context);
         Notifications.scheduleAllAlarms(context);
     }
 
@@ -39,6 +42,8 @@ public class StartupReceiver extends BroadcastReceiver {
     public static void onStartupApplication(final Context context) {
         if(hasStartedUp)
             return;
+
+        ContextManager.setContext(context);
 
         int latestSetVersion = Preferences.getCurrentVersion(context);
         int version = 0;
@@ -72,6 +77,7 @@ public class StartupReceiver extends BroadcastReceiver {
 
         	Preferences.setCurrentVersion(context, finalVersion);
         }
+        new UpgradeService().performUpgrade(latestSetVersion, version);
 
 
         // perform startup activities in a background thread

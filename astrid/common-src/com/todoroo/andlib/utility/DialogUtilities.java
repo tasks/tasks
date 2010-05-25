@@ -71,7 +71,7 @@ public class DialogUtilities {
      * @param text
      * @param okListener
      */
-    public void okDialog(final Activity activity, final int icon, final String text,
+    public void okDialog(final Activity activity, final int icon, final CharSequence text,
             final DialogInterface.OnClickListener okListener) {
         activity.runOnUiThread(new Runnable() {
             public void run() {
