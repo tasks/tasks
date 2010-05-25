@@ -766,12 +766,13 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
     protected void onPause() {
         // create calendar event
         if(addToCalendar.isChecked() && model.getCalendarUri() == null) {
+
             Uri uri = Uri.parse("content://calendar/events");
             ContentResolver cr = getContentResolver();
 
             ContentValues values = new ContentValues();
             values.put("title", name.getText().toString());
-            values.put("calendar_id", 1);
+            values.put("calendar_id", Preferences.getDefaultCalendarIDSafe(this));
             values.put("description", notes.getText().toString());
             values.put("hasAlarm", 0);
             values.put("transparency", 0);
@@ -781,11 +782,13 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
                     model.getDefiniteDueDate(), model.getEstimatedSeconds(),
                     values);
 
-            Uri result = cr.insert(uri, values);
-            if(result != null)
-                model.setCalendarUri(result.toString());
-            else
-                Log.e("astrid", "Error creating calendar event!");
+            Uri result = null;
+            try{
+            	result = cr.insert(uri, values);
+            	model.setCalendarUri(result.toString());
+            } catch (IllegalArgumentException e) {
+            	Log.e("astrid", "Error creating calendar event!", e);
+            }
         }
 
         if(shouldSaveState)

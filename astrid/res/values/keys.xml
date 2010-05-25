@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   ASTRID: Android's Simple Task Recording Dashboard
- 
+
   Copyright (c) 2009 Tim Su
- 
+
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License as published by
   the Free Software Foundation; either version 2 of the License, or
   (at your option) any later version.
- 
+
   This program is distributed in the hope that it will be useful, but
   WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
   or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
   for more details.
- 
+
   You should have received a copy of the GNU General Public License along
   with this program; if not, write to the Free Software Foundation, Inc.,
   59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- 
+
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
@@ -30,28 +30,31 @@
 
         <string name="p_notif_quietStart">notif_qstart</string>
         <string name="p_notif_quietEnd">notif_qend</string>
-      
+
         <string name="p_notif_defaultRemind">notif_default_reminder</string>
-    
+
         <string name="p_notif_annoy">notif_annoy</string>
 
         <string name="p_notif_vibrate">notif_vibrate</string>
-       
+
         <string name="p_notification_ringtone">notification_ringtone</string>
-       
+
         <string name="p_notif_icon">notif_theme</string>
-       
+
         <string name="p_colorize">colorize</string>
-       
+
         <string name="p_fontSize">font_size</string>
-       
+
         <string name="p_nagging">nagging</string>
-       
+
         <string name="p_deadlineTime">deadline_time</string>
 
         <string name="p_backup">backup</string>
-       
-        <string name="prefs_titleVisible">titleVisible</string> 
+
+        <string name="prefs_defaultCalendar">default_calendar_id</string>
+        <string name="prefs_defaultCalendar_default">1</string>
+
+        <string name="prefs_titleVisible">titleVisible</string>
         <string name="prefs_titleVisible_default">true</string>
 	    <string name="prefs_deadlineVisible">deadlineVisible</string>
         <string name="prefs_deadlineVisible_default">true</string>
