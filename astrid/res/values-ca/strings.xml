@@ -387,7 +387,7 @@ Astrid might not let you know when your tasks are due.\n
         <string name="prefs_quietStart_desc">Hora inicial en que l\'Astrid s\'ha de posar en Silenci (p.ex 22)</string>
         
         <string name="prefs_quietEnd_title">Final de Silenci</string>
-        <string name="prefs_quietEnd_desc">Hora final que l\'Astrid ha d'estar en Silenci (p.ex 08)</string>
+        <string name="prefs_quietEnd_desc">Hora final que l\'Astrid ha d\'estar en Silenci (p.ex 08)</string>
           
         <string name="prefs_defaultRemind_title">Recordatoris per Defecte</string>
         <string name="prefs_defaultRemind_desc">Per noves tasques, en dies (p.ex 7). En blanc per desactivar</string>

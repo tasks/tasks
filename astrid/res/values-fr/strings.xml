@@ -189,7 +189,7 @@
         <string name="taskList_filter_tagged">Taguée \'%s\'</string>
         <string name="taskList_sort_auto">Tri automatique</string>
         <string name="taskList_sort_alpha">Tri par nom</string>
-        <string name="taskList_sort_duedate">Tri par date d'échéance</string>
+        <string name="taskList_sort_duedate">Tri par date d\'échéance</string>
         <string name="taskList_sort_reverse">Tri inverse</string>
         
         <string name="taskList_nonag_reminder">Sélectionner une action :</string>
@@ -272,10 +272,10 @@
         <string name="tagList_context_create">Créer une tâche avec tag</string>
         <string name="tagList_context_edit">Modifier le tag</string>
         <string name="tagList_context_delete">Effacer le tag</string>
-        <string name="tagList_context_showTag">Afficher sur la page d'accueil</string>
-        <string name="tagList_context_hideTag">Masquer sur la page d'accueil</string>
+        <string name="tagList_context_showTag">Afficher sur la page d\'accueil</string>
+        <string name="tagList_context_hideTag">Masquer sur la page d\'accueil</string>
         <string name="tagList_context_shortcut">Créer un raccourci</string>
-        <string name="tagList_shortcut_created">Raccourci créé sur votre page d'accueil</string>
+        <string name="tagList_shortcut_created">Raccourci créé sur votre page d\'accueil</string>
         <string name="tagList_shortcut_prefix">Tag :</string>
         <string name="tagList_untagged">[pas de tag]</string>
         
@@ -300,7 +300,7 @@
         <string name="sync_bgwifi_title">Synchro-Auto uniquement par Wi-Fi</string>
         <string name="sync_bgwifi_desc">Activée, la synchronisation automatique a lieu uniquement lorsque le Wi-Fi est actif</string>
         <string name="sync_error">Erreur de synchronisation ! Excusez-nous du désagrément ! Erreur :</string>
-        <string name="sync_upgrade_v99">Astrid 2.7 se synchronise désormais avec RTM en arrière plan. Vous allez devoir choisir la fréquence à laquelle vous voulez que cela se produise (faible cout d'énergie).</string>
+        <string name="sync_upgrade_v99">Astrid 2.7 se synchronise désormais avec RTM en arrière plan. Vous allez devoir choisir la fréquence à laquelle vous voulez que cela se produise (faible cout d\'énergie).</string>
         <string name="sync_now">Synchroniser maintenant !</string>
         <string name="sync_forget">Effacer les données personnelles</string>
         <string name="sync_uptodate">Synchronisation : Déjà à jour !</string>
@@ -325,7 +325,7 @@
         <string name="sync_progress_remotetx">Réception : %s</string>
         
         <string name="rtm_login_label">Veuillez vous identifier sur RTM...</string>
-        <string name="rtm_login_error">Désolé, une erreur s'est produite en vérifiant votre identifiant. Veuillez réessayer. \n\n Message d'erreur :</string>
+        <string name="rtm_login_error">Désolé, une erreur s\'est produite en vérifiant votre identifiant. Veuillez réessayer. \n\n Message d\'erreur :</string>
         
        
     <!-- Dialog Boxes -->  
@@ -377,7 +377,7 @@ Astrid might not let you know when your tasks are due.\n
     <skip/>
     
         <string name="error_opening">Impossible de trouver cet élément :</string>
-        <string name="error_saving">Impossible d'enregistrer :</string>
+        <string name="error_saving">Impossible d\'enregistrer :</string>
         
     <skip/>
 
@@ -426,7 +426,7 @@ Astrid might not let you know when your tasks are due.\n
         <string name="prefs_titleVisible_title">Nom de la tâche</string>
         <string name="prefs_titleVisible_desc">Description de la tâche</string>
         <string name="prefs_deadlineVisible_title">Dates</string>
-        <string name="prefs_deadlineVisible_desc">Dates limites imminentes / Date d'achèvement</string>
+        <string name="prefs_deadlineVisible_desc">Dates limites imminentes / Date d\'achèvement</string>
         <string name="prefs_timeVisible_title">Durées</string>
         <string name="prefs_timeVisible_desc">Durée estimée et temps passé</string>
         <string name="prefs_importanceVisible_title">Priorité</string>

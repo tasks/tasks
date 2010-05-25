@@ -26,12 +26,12 @@
 			
     <string-array name="reminders">
         <!-- reminders: Make these < 20 chars so the task name is displayed -->
-        <item>Hallo! Haste mal 'ne Sekunde?</item>
-        <item>Na, 'n paar Sekunden für mich Zeit?</item>
-        <item>Haste mal 'n paar Minuten?</item>
-        <item>Hast du's vergessen?</item>
+        <item>Hallo! Haste mal \'ne Sekunde?</item>
+        <item>Na, \'n paar Sekunden für mich Zeit?</item>
+        <item>Haste mal \'n paar Minuten?</item>
+        <item>Hast du\'s vergessen?</item>
         <item>Entschuldigung!</item>
-        <item>Falls du mal  'ne Minute hast:</item>
+        <item>Falls du mal  \'ne Minute hast:</item>
         <item>Auf deinem Tagesplan:</item>
         <item>Einen Augenblick Zeit?</item>
         <item>Astrid ist da!</item>
@@ -44,12 +44,12 @@
         <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
         <item>Ich habe was für dich!</item> 
         <item>Bereit dies in die Vergangenheit zu befördern?</item>
-        <item>Warum erledigst du's nicht?</item>
+        <item>Warum erledigst du\'s nicht?</item>
         <item>Wie schauts aus? Fertig?</item>
         <item>Bereit das anzupacken?</item>
         <item>Nun mach aber mal!</item>
         <item>Machs einfach! Danach kannst du durchatmen.</item>
-        <item>Ich verspreche dir, du wirst dich besser fühlen, wenn du's erledigt hast!</item>
+        <item>Ich verspreche dir, du wirst dich besser fühlen, wenn du\'s erledigt hast!</item>
         <item>Mal ehrlich, was spricht denn gegen sofort?</item>
         <item>Nun mach aber mal, langsam stinkts mir!</item>
         <item>Kannst du das erledigen? Yes, you can!</item>

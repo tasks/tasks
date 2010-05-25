@@ -125,7 +125,7 @@
         <string name="taskList_titleUntagged">Compiti Non Etichettati:</string>
         <string name="taskList_hiddenSuffix">nascosti</string>
         <string name="addtask_label">Nuovo Compito</string>
-        <string name="missing_tag">Non È Stato Possibile Trovare L'Etichetta Richiesta!</string>
+        <string name="missing_tag">Non È Stato Possibile Trovare L\'Etichetta Richiesta!</string>
         
         <!-- text displayed in task list item -->
         
@@ -192,7 +192,7 @@
         <string name="taskList_sort_duedate">Ordine di scadenza</string>
         <string name="taskList_sort_reverse">Ordine inverso</string>
         
-        <string name="taskList_nonag_reminder">Seleziona un'Azione</string>
+        <string name="taskList_nonag_reminder">Seleziona un\'Azione</string>
         <string name="taskList_postpone_count">Numero Di Volte In Cui Hai Rimandato: %d</string>
         <string name="taskList_postpone_dialog">Rinviare per quanto?</string>
         <string name="taskList_cleanup_dialog">Cancellare le attività più vecchie di # giorni</string>
@@ -217,7 +217,7 @@
         <string name="tag_hint">Nome Etichetta</string>
         
         <string name="estimatedDuration_label">Quanto tempo ci vorrà?</string>
-        <string name="elapsedDuration_label">Tempo già speso per l'attività</string>
+        <string name="elapsedDuration_label">Tempo già speso per l\'attività</string>
         <string name="definiteDueDate_label">Termine assoluto</string>
         <string name="preferredDueDate_label">Scadenza</string>
         <string name="addToCalendar_label">Aggiungi attività al Calendario</string>
@@ -225,9 +225,9 @@
         <string name="hiddenUntil_label">Nascondi fino a questa data</string>
         <string name="repeat_label">Ripeti ogni</string>
         <string name="repeat_value_unset">Non ripetere</string>
-        <string name="blockingOn_label">Nascondi fino a che l'attività non sarà completata</string>
+        <string name="blockingOn_label">Nascondi fino a che l\'attività non sarà completata</string>
         <string name="notes_label">Note</string>
-        <string name="notes_hint">Inserisci note nell'attività</string>
+        <string name="notes_hint">Inserisci note nell\'attività</string>
         
         <string name="notification_label">Promemoria periodico</string>
         <string name="notification_prefix">Ogni</string>
@@ -244,7 +244,7 @@
         <string name="notification_dialog">Ricordamenlo ogni</string>
         <string name="repeat_picker_title">Ripeti ogni (0 per disabilitare)</string>
         <string name="repeat_help_dialog_title">Aiuto: Ripetizioni Astrid</string>
-        <string name="repeat_help_dialog">Per usare le ripetizioni, imposta almeno un termine sopra. Dopo aver completato quest'attività, il termine sarà automaticamente avanzato. \n\n Se tu non vuoi vedere la nuova attività</string>
+        <string name="repeat_help_dialog">Per usare le ripetizioni, imposta almeno un termine sopra. Dopo aver completato quest\'attività, il termine sarà automaticamente avanzato. \n\n Se tu non vuoi vedere la nuova attività</string>
         <string name="repeat_help_hide">Non Mostrare Più gli Aiuti</string>
         
         <!-- buttons -->
@@ -298,8 +298,8 @@
         <string name="sync_quiet_title">Nascondi Finestre</string>
         <string name="sync_quiet_desc">Nascondi la finestra dei Risultati di Sincronizzazione</string>
         <string name="sync_bgwifi_title">Auto-Sync solo con Wifi</string>
-        <string name="sync_bgwifi_desc">Se attivo, l'auto-sync avviene solo col wifi attivo</string>
-        <string name="sync_error">Error sincronizzazione| Spiacente per l'incoveniente! Error:</string>
+        <string name="sync_bgwifi_desc">Se attivo, l\'auto-sync avviene solo col wifi attivo</string>
+        <string name="sync_error">Error sincronizzazione| Spiacente per l\'incoveniente! Error:</string>
         <string name="sync_upgrade_v99">Astrid 2.7 adesso permette la sincronizzazione con RTM in background. Verrai portato alla pagina delle preferenze per configurare ogni quanto vuoi che questo accada (un piccolo impegno per la batteria)</string>
         <string name="sync_now">Sincronizza Ora!</string>
         <string name="sync_forget">Elimina Dati Personali</string>
@@ -325,7 +325,7 @@
         <string name="sync_progress_remotetx">Ricezione: %s</string>
         
         <string name="rtm_login_label">Eseguire il Login su RTM</string>
-        <string name="rtm_login_error">Si è verificato un errore durante il login. Prova ancora. \n\n Messaggio d'errore:</string>
+        <string name="rtm_login_error">Si è verificato un errore durante il login. Prova ancora. \n\n Messaggio d\'errore:</string>
         
        
     <!-- Dialog Boxes -->  
@@ -342,7 +342,7 @@
         <string name="notify_snooze_title">Ore/Minuti per posporre</string>
         
         <string name="delete_title">Elimina</string>        
-        <string name="delete_this_task_title">Rimuovere l'attività?</string>
+        <string name="delete_this_task_title">Rimuovere l\'attività?</string>
         <string name="delete_this_tag_title">Rimuovere questa etichetta da tutte le attività?</string>
         
         <string name="stop_timer_title">Fermare il timer?</string>
@@ -430,13 +430,13 @@ Astrid might not let you know when your tasks are due.\n
         <string name="prefs_timeVisible_title">Tempi</string>
         <string name="prefs_timeVisible_desc">Tempo stimato e trascorso</string>
         <string name="prefs_importanceVisible_title">Importanza</string>
-        <string name="prefs_importanceVisible_desc">Segnalatore di importanza dell'attività</string>
+        <string name="prefs_importanceVisible_desc">Segnalatore di importanza dell\'attività</string>
         <string name="prefs_tagsVisible_title">Etichette</string>
         <string name="prefs_tagsVisible_desc">Etichette associate alla attività</string>
         <string name="prefs_repeatVisible_title">Ripetizioni</string>
-        <string name="prefs_repeatVisible_desc">Informazioni sulla ripetitività dell'attività</string>
+        <string name="prefs_repeatVisible_desc">Informazioni sulla ripetitività dell\'attività</string>
         <string name="prefs_reminderVisible_title">Promemoria</string>
-        <string name="prefs_reminderVisible_desc">Mostrato se l'attività ha dei promemoria</string>
+        <string name="prefs_reminderVisible_desc">Mostrato se l\'attività ha dei promemoria</string>
         <string name="prefs_notesVisible_title">Note</string>
         <string name="prefs_notesVisible_desc">Note associate alla attività</string>
 
