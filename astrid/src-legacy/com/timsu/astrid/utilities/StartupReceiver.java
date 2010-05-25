@@ -76,8 +76,8 @@ public class StartupReceiver extends BroadcastReceiver {
         	}
 
         	Preferences.setCurrentVersion(context, finalVersion);
+        	new UpgradeService().performUpgrade(latestSetVersion, version);
         }
-        new UpgradeService().performUpgrade(latestSetVersion, version);
 
 
         // perform startup activities in a background thread

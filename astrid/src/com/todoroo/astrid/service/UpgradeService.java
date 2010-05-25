@@ -3,14 +3,14 @@ package com.todoroo.astrid.service;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
-import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
-import android.text.Html;
 import android.util.Log;
+import android.webkit.WebView;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
@@ -22,7 +22,6 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -51,9 +50,6 @@ public final class UpgradeService {
     @Autowired
     private String tagTaskTable;
 
-    @Autowired
-    private DialogUtilities dialogUtilities;
-
     // --- implementation
 
     public UpgradeService() {
@@ -69,8 +65,7 @@ public final class UpgradeService {
      * @param to
      */
     public void performUpgrade(int from, int to) {
-        from = 130;
-        if(from == to)
+        if(from >= to || from < 1)
             return;
 
         // display changelog
@@ -87,24 +82,32 @@ public final class UpgradeService {
      */
     @SuppressWarnings("nls")
     public void showChangeLog(int from, int to) {
-        StringBuilder changeLog = new StringBuilder();
+        StringBuilder changeLog = new StringBuilder("<html><body style='color: white'>");
 
         switch(from) {
-        case 130:
         default:
-            newVersionString(changeLog, "2.14.0", new String[] {
-                    "Pick a calendar to 'Add to Calendar' (in Preferences)",
-                    "Fixed crashes with backups & sync"});
+            // came from earlier version
 
-            // came from bizarre version
+        case 130:
+            newVersionString(changeLog, "2.14.0", new String[] {
+                    "Pick a calendar to 'Add to Calendar' (in Settings menu)",
+                    "RTM: archived lists are ignored",
+                    "Fixed user-reported crashes!"});
+
         }
 
-        if(changeLog.length() == 0)
-            return;
+        changeLog.append("</body></html>");
 
-        dialogUtilities.okDialog((Activity)ContextManager.getContext(),
-                R.string.UpS_changelog_title,
-                Html.fromHtml(changeLog.toString()), null);
+        WebView webView = new WebView(ContextManager.getContext());
+        webView.loadData(changeLog.toString(), "text/html", "utf-8");
+        webView.setBackgroundColor(0);
+
+        new AlertDialog.Builder(ContextManager.getContext())
+        .setTitle(R.string.UpS_changelog_title)
+        .setView(webView)
+        .setIcon(android.R.drawable.ic_dialog_info)
+        .setPositiveButton(android.R.string.ok, null)
+        .show();
     }
 
     /**
@@ -115,10 +118,10 @@ public final class UpgradeService {
      */
     @SuppressWarnings("nls")
     private void newVersionString(StringBuilder changeLog, String version, String[] changes) {
-        changeLog.append("<font style='text-align: center' color='#ffaa00'><b>Version ").append(version).append(":</b></font><br>");
+        changeLog.append("<font style='text-align: center; color=#ffaa00'><b>Version ").append(version).append(":</b></font><br><ul>");
         for(String change : changes)
-            changeLog.append("&bull; ").append(change).append("<br>");
-        changeLog.append("<br>");
+            changeLog.append("<li>").append(change).append("</li>\n");
+        changeLog.append("</ul>");
     }
 
     // --- database upgrade logic
