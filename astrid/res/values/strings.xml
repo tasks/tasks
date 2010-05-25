@@ -308,9 +308,11 @@ to the plugin creator for fastest service.
     
     <!-- Button to send e-mail to Todoroo -->
     <string name="HlA_email_us">E-mail Todoroo</string>
+        
+    <!-- ========================== UpdateService ========================== -->
     
-    <!-- Window title -->
-    <string name="HlA_title">Todoroo Help</string>
+    <!-- Change Log Window Title -->
+    <string name="UpS_changelog_title">What\'s New In Astrid?</string>
     
     <!-- ========================= EditPreferences ========================= -->
         

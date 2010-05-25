@@ -19,7 +19,7 @@
   59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  
 -->
-<ViewFlipper android:id="@+id/main" 
+<com.timsu.astrid.widget.ViewFlipper android:id="@+id/main" 
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent" >
@@ -136,4 +136,4 @@
     
         </LinearLayout>
     </LinearLayout>
-</ViewFlipper>
+</com.timsu.astrid.widget.ViewFlipper>

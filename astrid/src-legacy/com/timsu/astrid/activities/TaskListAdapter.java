@@ -194,7 +194,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
 
-        if(objects.get(position) == null)
+        if(objects.size() <= position || objects.get(position) == null)
             return deletedItemView;
 
         if(view == null) {

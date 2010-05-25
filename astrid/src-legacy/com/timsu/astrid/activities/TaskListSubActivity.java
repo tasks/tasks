@@ -19,6 +19,15 @@
  */
 package com.timsu.astrid.activities;
 
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -31,12 +40,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.*;
+import android.view.ContextMenu;
+import android.view.KeyEvent;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.TaskListAdapter.TaskListAdapterHooks;
@@ -50,14 +71,18 @@ import com.timsu.astrid.data.task.TaskModelForList;
 import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
-import com.timsu.astrid.utilities.*;
+import com.timsu.astrid.utilities.AstridUtilities;
+import com.timsu.astrid.utilities.Constants;
+import com.timsu.astrid.utilities.DialogUtilities;
+import com.timsu.astrid.utilities.Notifications;
+import com.timsu.astrid.utilities.Preferences;
+import com.timsu.astrid.utilities.TasksXmlExporter;
+import com.timsu.astrid.utilities.TasksXmlImporter;
 import com.timsu.astrid.widget.FilePickerBuilder;
-import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 import com.timsu.astrid.widget.NumberPicker;
 import com.timsu.astrid.widget.NumberPickerDialog;
+import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
-
-import java.util.*;
 
 /**
  * Primary view for the Astrid Application. Lists all of the tasks in the
@@ -818,9 +843,13 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Set up the adapter for our task list */
     private void setUpListUI() {
+        // if something happened, don't finish setting up the list
+        if(context.taskArray == null)
+            return;
+
         // set up our adapter
         context.listAdapter = new TaskListAdapter(getParent(),
-                R.layout.task_list_row, context.taskArray, new TaskListHooks());
+            R.layout.task_list_row, context.taskArray, new TaskListHooks());
         listView.setAdapter(context.listAdapter);
         listView.setItemsCanFocus(true);
 
@@ -1306,7 +1335,7 @@ public class TaskListSubActivity extends SubActivity {
         };
         DialogUtilities.filePicker(ctx,
                 ctx.getString(R.string.import_file_prompt),
-                TasksXmlExporter.getExportDirectory(), 
+                TasksXmlExporter.getExportDirectory(),
                 listener);
     }
 

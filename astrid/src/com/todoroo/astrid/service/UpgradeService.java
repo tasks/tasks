@@ -3,13 +3,16 @@ package com.todoroo.astrid.service;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import android.app.Activity;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.text.Html;
 import android.util.Log;
 
+import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.todoroo.andlib.data.AbstractModel;
@@ -19,6 +22,7 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -47,6 +51,9 @@ public final class UpgradeService {
     @Autowired
     private String tagTaskTable;
 
+    @Autowired
+    private DialogUtilities dialogUtilities;
+
     // --- implementation
 
     public UpgradeService() {
@@ -62,12 +69,56 @@ public final class UpgradeService {
      * @param to
      */
     public void performUpgrade(int from, int to) {
+        from = 130;
         if(from == to)
             return;
 
-        if(from < 150) {
-            upgrade2To3();
+        // display changelog
+        showChangeLog(from, to);
+    }
+
+    /**
+     * Return a change log string. Releases occur often enough that we don't
+     * expect change sets to be localized.
+     *
+     * @param from
+     * @param to
+     * @return
+     */
+    @SuppressWarnings("nls")
+    public void showChangeLog(int from, int to) {
+        StringBuilder changeLog = new StringBuilder();
+
+        switch(from) {
+        case 130:
+        default:
+            newVersionString(changeLog, "2.14.0", new String[] {
+                    "Pick a calendar to 'Add to Calendar' (in Preferences)",
+                    "Fixed crashes with backups & sync"});
+
+            // came from bizarre version
         }
+
+        if(changeLog.length() == 0)
+            return;
+
+        dialogUtilities.okDialog((Activity)ContextManager.getContext(),
+                R.string.UpS_changelog_title,
+                Html.fromHtml(changeLog.toString()), null);
+    }
+
+    /**
+     * Helper for adding a single version to the changelog
+     * @param changeLog
+     * @param version
+     * @param changes
+     */
+    @SuppressWarnings("nls")
+    private void newVersionString(StringBuilder changeLog, String version, String[] changes) {
+        changeLog.append("<font style='text-align: center' color='#ffaa00'><b>Version ").append(version).append(":</b></font><br>");
+        for(String change : changes)
+            changeLog.append("&bull; ").append(change).append("<br>");
+        changeLog.append("<br>");
     }
 
     // --- database upgrade logic
@@ -97,7 +148,7 @@ public final class UpgradeService {
     /**
      * Perform the upgrade from Astrid 2 to Astrid 3
      */
-    private void upgrade2To3() {
+    public void upgrade2To3() {
         Context context = ContextManager.getContext();
 
         database.openForWriting();
@@ -148,6 +199,7 @@ public final class UpgradeService {
      * @author Tim Su <tim@todoroo.com>
      *
      */
+    @SuppressWarnings("nls")
     protected static final class ColumnUpgradeVisitor implements PropertyVisitor<Void, UpgradeVisitorContainer> {
         @Override
         public Void visitDouble(Property<Double> property, UpgradeVisitorContainer data) {
