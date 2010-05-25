@@ -30,9 +30,10 @@ public class Calendars {
 
 	// Only show calendars that the user can modify. Access level 500
 	// corresponds to Calendars.CONTRIBUTOR_ACCESS
-	private static final String CALENDARS_WHERE = ACCES_LEVEL_COLUMN_NAME + " >= 500";
+	private static final String CALENDARS_WHERE = ACCES_LEVEL_COLUMN_NAME + ">= 500";
 
-	private static final String CALENDARS_WHERE_ID = ACCES_LEVEL_COLUMN_NAME+" >= 500 AND" + ID_COLUMN_NAME +"=?";
+	private static final String CALENDARS_WHERE_ID = ACCES_LEVEL_COLUMN_NAME+
+	    " >= 500 AND " + ID_COLUMN_NAME +"=?";
 
 	private static final String CALENDARS_SORT = "displayName ASC";
 
