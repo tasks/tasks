@@ -476,7 +476,7 @@ Skipped %d tasks.\n
         <string name="prefs_backup_desc_success">Latest backup was on %s</string>
 
         <string name="prefs_defaultCalendar_title">Calendar</string>
-        <string name="prefs_defaultCalendar_desc">Calendar to store the events.</string>
+        <string name="prefs_defaultCalendar_desc">Calendar to use for \"Add to Calendar\".</string>
         <string name="prefs_defaultCalendar_astrid_default">Astrid default</string>
 
 
