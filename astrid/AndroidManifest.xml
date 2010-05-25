@@ -23,15 +23,15 @@
                 android:label="@string/read_tasks_permission"
                 android:description="@string/read_tasks_permission"/>
     <uses-permission android:name="com.timsu.astrid.permission.READ_TASKS"/>
-    
+
     <uses-sdk android:minSdkVersion="3"
               android:targetSdkVersion="4" />
     <supports-screens />
-    
+
     <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="false">
-    
+
         <!-- ======================== Activities ========================= -->
-        
+
         <!-- Activity that displays the task list -->
         <activity android:name=".activities.TaskList">
             <intent-filter>
@@ -39,11 +39,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
+
         <!-- Activity that redirects to a task list, invoked by notifications -->
         <activity android:name=".activities.TaskListNotify"
                   android:launchMode="singleTop" />
-        
+
         <!--  Activity that creates or edits tasks -->
         <activity android:name=".activities.TaskEdit"
                 android:icon="@drawable/icon_add"
@@ -58,7 +58,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
                 <data android:mimeType="vnd.android.cursor.item/task" />
             </intent-filter>
-            
+
         </activity>
 
         <!--  Activity that views tags -->
@@ -68,13 +68,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+
         <!-- Activity that lets users log in to sync providers -->
         <activity android:name=".activities.SyncLoginActivity"/>
 
         <!-- Activity that lets users edit app preferences -->
         <activity android:name=".activities.EditPreferences"/>
-        
+
         <!-- Activity that lets users edit synchronization preferences -->
         <activity android:name=".activities.SyncPreferences"/>
 
@@ -90,15 +90,15 @@
          </activity>
 
         <!-- ======================== Receivers ========================= -->
-             
+
         <receiver android:name=".utilities.Notifications" />
-        
+
         <receiver android:name=".utilities.LocaleReceiver">
             <intent-filter>
                  <action android:name="com.timsu.astrid.action.LOCALE_ALERT" />
             </intent-filter>
         </receiver>
-        
+
         <receiver android:name=".utilities.StartupReceiver">
             <intent-filter>
                  <action android:name="android.intent.action.BOOT_COMPLETED" />
@@ -116,14 +116,14 @@
 
 
         <!-- ======================== Services ========================== -->
-             
+
         <service android:name=".appwidget.AstridAppWidgetProvider$UpdateService"></service>
-        
+
         <service android:name=".sync.SynchronizationService" />
         <service android:name=".utilities.BackupService"/>
 
         <!-- ======================== Providers ========================== -->
-      
+
         <provider
             android:name=".provider.TasksProvider"
             android:authorities="com.timsu.astrid.tasksprovider"
@@ -131,7 +131,7 @@
             android:grantUriPermissions="true"
             android:readPermission="com.timsu.astrid.permission.READ_TASKS"
             />
-            
-    </application>    
-        
-</manifest> 
+
+    </application>
+
+</manifest>

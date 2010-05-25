@@ -20,11 +20,13 @@
 package com.timsu.astrid.activities;
 
 import android.os.Bundle;
+import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
+import com.timsu.astrid.utilities.Calendars;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.Preferences;
 
@@ -45,6 +47,9 @@ public class EditPreferences extends PreferenceActivity {
         String backupSummary = Preferences.getBackupSummary(this);
         if(backupSummary != null && backupPreference != null)
             backupPreference.setSummary(backupSummary);
+
+        ListPreference defaultCalendarPreference = (ListPreference) findPreference(getString(R.string.prefs_defaultCalendar));
+        Calendars.initCalendarsPreference(this, defaultCalendarPreference);
     }
 
     @Override

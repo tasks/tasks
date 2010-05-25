@@ -68,6 +68,8 @@ public class Preferences {
             editor.putString(P_BACKUP_ERROR, null);
         }
 
+        Calendars.ensureValidDefaultCalendarPreference(context);
+
         setVisibilityPreferences(prefs, editor, r);
 
         editor.commit();
@@ -110,7 +112,7 @@ public class Preferences {
 
     // --- system preferences
 
-	/** CurrentVersion: the currently installed version of Astrid */
+    /** CurrentVersion: the currently installed version of Astrid */
     public static int getCurrentVersion(Context context) {
         return getPrefs(context).getInt(P_CURRENT_VERSION, 0);
     }
@@ -441,6 +443,28 @@ public class Preferences {
     public static void setDidAAMSurvey(Context context, boolean value) {
         Editor editor = getPrefs(context).edit();
         editor.putBoolean(P_DID_ANDROID_AND_ME_SURVEY, value);
+        editor.commit();
+    }
+
+    /** Get default calendar id. */
+    public static String getDefaultCalendarID(Context context) {
+        Resources r = context.getResources();
+        return getPrefs(context).getString(
+                r.getString(R.string.prefs_defaultCalendar),
+                r.getString(R.string.prefs_defaultCalendar_default));
+    }
+
+    /** Get default calendar id. Returns default value if the calendar does not exist anymore.*/
+    public static String getDefaultCalendarIDSafe(Context context) {
+        Calendars.ensureValidDefaultCalendarPreference(context);
+        return getDefaultCalendarID(context);
+    }
+
+    /** Set default calendar id */
+    public static void setDefaultCalendarID(Context context, String value) {
+        Resources r = context.getResources();
+        Editor editor = getPrefs(context).edit();
+        editor.putString(r.getString(R.string.prefs_defaultCalendar), value);
         editor.commit();
     }
 
