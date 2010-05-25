@@ -66,8 +66,8 @@
         <item>Per piacere dimmi che non è vero che tu sei un procrastinatore!</item>
         <item>Non diventa vecchio qualche volta essere pigro?</item>
         <item>Da qualche parte, qualcuno dipende da te nel finire ciò!</item>
-        <item>Quando hai detto di rimandare, intendevi davvero \'Sto facendo ciò/', giusto?</item>
-        <item>Questa è l'ultima volta che rimandi ciò, giusto?</item>
+        <item>Quando hai detto di rimandare, intendevi davvero \'Sto facendo ciò\', giusto?</item>
+        <item>Questa è l\'ultima volta che rimandi ciò, giusto?</item>
         <item>Semplicemente finisci ciò oggi, non lo dirò a nessuno!</item>
         <item>Perché rimandare quando puoi uhm... non rimandare!</item>
         <item>Alla fine finirai ciò, immagino</item>
@@ -75,8 +75,8 @@
         <item>Sarai in grado di raggiungere i tuoi obiettivi se fai ciò?</item>
         <item>Rimandare, rimandare, rimandare. Quando cambierai!</item>
         <item>Ne ho abbastanza delle tue scuse! Fallo!</item>
-        <item>Non hai usato questa scusa l'ultima volta?</item>
-        <item>Non posso aiutarti nell'organizzare la tua vita se non fai ciò...</item>
+        <item>Non hai usato questa scusa l\'ultima volta?</item>
+        <item>Non posso aiutarti nell\'organizzare la tua vita se non fai ciò...</item>
     </string-array>
     
     <string-array name="notif_icon_entries">
@@ -96,7 +96,7 @@
     <string-array name="sync_interval_entries">
         <!-- sync_interval_entries: Synchronization Intervals -->
         <item>disabilita</item>
-        <item>due volte all'ora</item>
+        <item>due volte all\'ora</item>
         <item>ogni ora</item>
         <item>due volte al giorno</item>
         <item>giornalmente</item>

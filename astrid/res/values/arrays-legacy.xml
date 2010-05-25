@@ -58,7 +58,7 @@
         <item>Can you finish this? Yes you can!</item>
         <item>Are you ever going to do this?</item>
         <item>Feel good about yourself! Let\'s go!</item>
-        <item>I'm so proud of you! Lets get it done!</item>
+        <item>I\'m so proud of you! Lets get it done!</item>
         <item>A little snack after you finish this?</item>
         <item>Just this one task? Please?</item>
         <item>Time to shorten your todo list!</item>
@@ -66,7 +66,7 @@
     
     <string-array name="postpone_nags">
         <!-- Astrid's nagging when user clicks postpone -->
-        <item>Please tell me it isn\'t true that you're a procrastinator!</item>
+        <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
         <item>Doesn\'t being lazy get old sometimes?</item>
         <item>Somewhere, someone is depending on you to finish this!</item>
         <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>

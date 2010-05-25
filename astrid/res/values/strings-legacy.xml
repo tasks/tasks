@@ -249,7 +249,7 @@ To use repeats, set at least one of the deadlines above. When you complete this 
 If you don\'t want to see the new task right after you complete the old one, you should use the "Hide Until" field, which will also be advanced automatically.
 \n
         </string>
-        <string name="repeat_help_hide">Don't Show Help Anymore</string>
+        <string name="repeat_help_hide">Don\'t Show Help Anymore</string>
 
         <!-- buttons -->
         <string name="save_label">Save</string>

@@ -245,7 +245,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
             // load RTM lists
             RtmLists lists = rtmService.lists_getList();
             for(RtmList list : lists.getLists().values()) {
-                if(list.isSmart())
+                if(list.isSmart() || list.isArchived())
                     continue;
                 listNameToIdMap.put(list.getName().toLowerCase(), list.getId());
                 listIdToNameMap.put(list.getId(), list.getName());
