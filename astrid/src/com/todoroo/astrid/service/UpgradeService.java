@@ -14,6 +14,7 @@ import android.webkit.WebView;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.alerts.Alert;
 import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.GenericDao;
@@ -22,6 +23,8 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.alarms.Alarm;
+import com.todoroo.astrid.alarms.AlarmsDatabase;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -50,6 +53,9 @@ public final class UpgradeService {
     @Autowired
     private String tagTaskTable;
 
+    @Autowired
+    private String alertsTable;
+
     // --- implementation
 
     public UpgradeService() {
@@ -64,12 +70,12 @@ public final class UpgradeService {
      * @param from
      * @param to
      */
-    public void performUpgrade(int from, int to) {
-        if(from >= to || from < 1)
+    public void performUpgrade(int from) {
+        if(from < 1)
             return;
 
         // display changelog
-        showChangeLog(from, to);
+        showChangeLog(from);
     }
 
     /**
@@ -81,7 +87,7 @@ public final class UpgradeService {
      * @return
      */
     @SuppressWarnings("nls")
-    public void showChangeLog(int from, int to) {
+    public void showChangeLog(int from) {
         StringBuilder changeLog = new StringBuilder();
 
         if(from <= 130)
@@ -197,8 +203,20 @@ public final class UpgradeService {
         // --- upgrade tags tables
         migrateTagsToMetadata();
 
-        database.close();
+        // --- upgrade alerts
+        AlarmsDatabase alarmsDatabase = new AlarmsDatabase();
+        alarmsDatabase.openForWriting();
+        propertyMap.clear();
+        propertyMap.put(AbstractController.KEY_ROWID, Alarm.ID);
+        propertyMap.put(Alert.TASK, Alarm.TASK);
+        propertyMap.put(Alert.DATE, Alarm.TIME);
+        upgradeTable(context, alertsTable, propertyMap, new Alarm(),
+                alarmsDatabase.getDao());
+        alarmsDatabase.close();
 
+        // --- upgrade RTM sync mappings (?)
+
+        database.close();
     }
 
     // --- database upgrade helpers
@@ -236,7 +254,8 @@ public final class UpgradeService {
                     property == Task.HIDDEN_UNTIL ||
                     property == Task.LAST_NOTIFIED ||
                     property == Task.MODIFICATION_DATE ||
-                    property == Task.PREFERRED_DUE_DATE)
+                    property == Task.PREFERRED_DUE_DATE ||
+                    property == Alarm.TIME)
                 value = (int) (data.cursor.getLong(data.columnIndex) / 1000L);
             else
                 value = data.cursor.getInt(data.columnIndex);

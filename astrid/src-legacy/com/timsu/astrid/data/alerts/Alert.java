@@ -42,8 +42,8 @@ public class Alert extends AbstractModel {
 
     // field names
 
-    static final String                TASK                = "task";
-    static final String                DATE                = "date";
+    public static final String                TASK                = "task";
+    public static final String                DATE                = "date";
 
     /** Default values container */
     private static final ContentValues defaultValues       = new ContentValues();

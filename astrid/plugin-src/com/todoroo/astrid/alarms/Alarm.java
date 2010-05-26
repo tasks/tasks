@@ -12,7 +12,7 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.astrid.model.Metadata;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.model.Task;
 
 /**
@@ -38,13 +38,17 @@ public class Alarm extends AbstractModel {
     public static final LongProperty TASK = new LongProperty(
             TABLE, "task");
 
-    /** Associated Task */
+    /** Alarm Time (seconds since epoch) */
     public static final IntegerProperty TIME = new IntegerProperty(
             TABLE, "time");
 
-    /** Associated Task */
+    /** Alarm Type (see constants) */
     public static final IntegerProperty TYPE = new IntegerProperty(
             TABLE, "type");
+
+    /** Alarm Ringtone */
+    public static final StringProperty RINGTONE = new StringProperty(
+            TABLE, "ringtone");
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Alarm.class);
@@ -67,6 +71,7 @@ public class Alarm extends AbstractModel {
 
     static {
         defaultValues.put(TYPE.name, TYPE_SINGLE);
+        defaultValues.put(RINGTONE.name, "");
     }
 
     @Override
@@ -80,12 +85,12 @@ public class Alarm extends AbstractModel {
         super();
     }
 
-    public Alarm(TodorooCursor<Metadata> cursor) {
+    public Alarm(TodorooCursor<Alarm> cursor) {
         this();
         readPropertiesFromCursor(cursor);
     }
 
-    public void readFromCursor(TodorooCursor<Metadata> cursor) {
+    public void readFromCursor(TodorooCursor<Alarm> cursor) {
         super.readPropertiesFromCursor(cursor);
     }
 

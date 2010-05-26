@@ -4,6 +4,7 @@ import android.test.AndroidTestCase;
 
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Base test case for Astrid tests
@@ -12,6 +13,10 @@ import com.todoroo.andlib.service.DependencyInjectionService;
  *
  */
 public class TodorooTestCase extends AndroidTestCase {
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     public TodorooTestCase() {
         DependencyInjectionService.getInstance().inject(this);
