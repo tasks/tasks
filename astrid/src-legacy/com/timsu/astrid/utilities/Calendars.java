@@ -86,7 +86,7 @@ public class Calendars {
 
 		int currentSettingIndex = -1;
 
-		if (c == null) {
+		if (c == null || c.getCount() == 0) {
 			// Something went wrong when querying calendars
 			// Let's keep the "Astrid default" only.
 			listPreference
@@ -103,7 +103,6 @@ public class Calendars {
 
 		String[] entries = new String[calendarCount];
 		String[] entryValues = new String[calendarCount];
-
 
 		// Iterate calendars one by one, and fill up the list preference
 		try {
@@ -135,6 +134,8 @@ public class Calendars {
 						.getString(R.string.prefs_defaultCalendar_default) });
 				listPreference.setValueIndex(0);
 				listPreference.setEnabled(true);
+			} else if(currentSettingIndex >= entryValues.length) {
+			    currentSettingIndex = 0;
 			}
 
 			listPreference.setEntries(entries);
