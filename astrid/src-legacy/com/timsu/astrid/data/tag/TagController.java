@@ -320,7 +320,9 @@ public class TagController extends AbstractController {
     /** Closes database resource */
     @Override
     public void close() {
-        tagDatabase.close();
-        tagToTaskMapDatabase.close();
+        if(tagDatabase != null)
+            tagDatabase.close();
+        if(tagToTaskMapDatabase != null)
+            tagToTaskMapDatabase.close();
     }
 }
