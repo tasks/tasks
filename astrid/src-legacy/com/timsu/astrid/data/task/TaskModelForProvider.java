@@ -21,6 +21,7 @@ package com.timsu.astrid.data.task;
 
 import java.util.Date;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.timsu.astrid.data.AbstractController;
@@ -69,5 +70,9 @@ public class TaskModelForProvider extends AbstractTaskModel {
     @Override
     public Date getDefiniteDueDate() {
         return super.getDefiniteDueDate();
+    }
+
+    public void update(ContentValues newValues) {
+        setValues.putAll(newValues);
     }
 }

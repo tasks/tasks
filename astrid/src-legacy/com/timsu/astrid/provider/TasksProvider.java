@@ -46,6 +46,9 @@ public class TasksProvider extends ContentProvider {
 	private final static String IMPORTANCE = "importance";
 	private final static String ID = "id";
 
+	// fake property for updatu=ing that completes a task
+	private final static String COMPLETED = "completed";
+
 	private final static String TAGS_ID = "tags_id";
 
 	static String[] TASK_FIELD_LIST = new String[] { NAME, IMPORTANCE_COLOR, PREFERRED_DUE_DATE, DEFINITE_DUE_DATE,
@@ -198,7 +201,37 @@ public class TasksProvider extends ContentProvider {
 		if (LOGD)
 			Log.d(TAG, "update");
 
-		return 0;
+      switch (URI_MATCHER.match(uri)) {
+
+        case URI_TASKS:
+            int updated = 0;
+
+            // handle the "completed" value separately
+            if(values.containsKey(COMPLETED)) {
+                boolean completed = values.getAsBoolean(COMPLETED);
+                values.remove(COMPLETED);
+                values.put(TaskModelForProvider.PROGRESS_PERCENTAGE,
+                        completed ? TaskModelForProvider.COMPLETE_PERCENTAGE : 0);
+            }
+
+            TaskController taskController = new TaskController(ctx);
+            taskController.open();
+            Cursor c = taskController.getMatchingTasksForProvider(selection, selectionArgs);
+            for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext()) {
+                TaskModelForProvider model = new TaskModelForProvider(c);
+                model.update(values);
+                taskController.saveTask(model, false);
+                updated++;
+            }
+            taskController.close();
+            return updated;
+
+        case URI_TAGS:
+            throw new UnsupportedOperationException("tags updating: not yet");
+
+        default:
+            throw new IllegalStateException("Unrecognized URI:" + uri);
+        }
 	}
 
 	public static void notifyDatabaseModification() {
@@ -207,7 +240,6 @@ public class TasksProvider extends ContentProvider {
 			Log.d(TAG, "notifyDatabaseModification");
 
 		ctx.getContentResolver().notifyChange(CONTENT_URI, null);
-
 	}
 
 }
