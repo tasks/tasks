@@ -17,8 +17,13 @@ import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskModelForProvider;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 
 public class TasksProvider extends ContentProvider {
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
 	private static final String TAG = "MessageProvider";
 

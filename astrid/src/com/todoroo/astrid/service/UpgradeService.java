@@ -84,17 +84,15 @@ public final class UpgradeService {
     public void showChangeLog(int from, int to) {
         StringBuilder changeLog = new StringBuilder("<html><body style='color: white'>");
 
-        switch(from) {
-        default:
-            // came from earlier version
-
-        case 130:
-            newVersionString(changeLog, "2.14.0", new String[] {
+        if(from <= 130)
+            newVersionString(changeLog, "2.14.0 (5/24/10)", new String[] {
                     "Pick a calendar to 'Add to Calendar' (in Settings menu)",
                     "RTM: archived lists are ignored",
                     "Fixed user-reported crashes!"});
-
-        }
+        if(from <= 131)
+            newVersionString(changeLog, "2.14.1 (5/29/10)", new String[] {
+                    "Fixed crash while using PureCalendar widget",
+            });
 
         changeLog.append("</body></html>");
 
