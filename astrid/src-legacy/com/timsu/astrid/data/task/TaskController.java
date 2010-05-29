@@ -118,6 +118,14 @@ public class TaskController extends AbstractController {
                 null, null);
     }
 
+    /** Return a list of all of the tasks matching selection */
+    public Cursor getMatchingTasksForProvider(String selection,
+                String[] selectionArgs) {
+        return database.query(tasksTable, TaskModelForProvider.FIELD_LIST,
+                selection, selectionArgs, null, null,
+                null, null);
+    }
+
     /** Return a list of all tasks */
     public Cursor getAllTaskListCursor() {
         return database.query(tasksTable, TaskModelForList.FIELD_LIST,
@@ -593,7 +601,7 @@ public class TaskController extends AbstractController {
 
     public ArrayList<TaskModelForProvider> getTasksForProvider(String limit) {
 
-    	Cursor cursor = database.query(tasksTable, TaskModelForWidget.FIELD_LIST,
+    	Cursor cursor = database.query(tasksTable, TaskModelForProvider.FIELD_LIST,
     	        AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
                 AbstractTaskModel.COMPLETE_PERCENTAGE + " AND (" +
                 AbstractTaskModel.HIDDEN_UNTIL + " ISNULL OR " + AbstractTaskModel.HIDDEN_UNTIL + " < " +
