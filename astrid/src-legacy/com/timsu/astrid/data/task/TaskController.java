@@ -437,6 +437,8 @@ public class TaskController extends AbstractController {
     public TaskModelForEdit fetchTaskForEdit(Activity activity, TaskIdentifier
             taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, TaskModelForEdit.FIELD_LIST);
+        if(cursor == null)
+            return null;
         activity.startManagingCursor(cursor);
         TaskModelForEdit model = new TaskModelForEdit(taskId, cursor);
         return model;
@@ -445,6 +447,8 @@ public class TaskController extends AbstractController {
     /** Returns a TaskModelForList corresponding to the given TaskIdentifier */
     public TaskModelForList fetchTaskForList(TaskIdentifier taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, TaskModelForList.FIELD_LIST);
+        if(cursor == null)
+            return null;
         TaskModelForList model = new TaskModelForList(cursor);
         cursor.close();
         return model;
@@ -453,6 +457,8 @@ public class TaskController extends AbstractController {
     /** Returns a TaskModelForXml corresponding to the given TaskIdentifier */
     public TaskModelForXml fetchTaskForXml(TaskIdentifier taskId) throws SQLException {
         Cursor cursor = fetchTaskCursor(taskId, TaskModelForXml.FIELD_LIST);
+        if(cursor == null)
+            return null;
         TaskModelForXml model = new TaskModelForXml(cursor);
         cursor.close();
         return model;

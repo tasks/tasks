@@ -96,7 +96,8 @@ abstract public class SubActivity {
 	}
 
 	public void startManagingCursor(Cursor c) {
-		parent.startManagingCursor(c);
+        if(c != null)
+            parent.startManagingCursor(c);
 	}
 
 	public void setTitle(CharSequence title) {
