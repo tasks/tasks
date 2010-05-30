@@ -89,9 +89,13 @@ public final class UpgradeService {
                     "Pick a calendar to 'Add to Calendar' (in Settings menu)",
                     "RTM: archived lists are ignored",
                     "Fixed user-reported crashes!"});
-        if(from <= 131)
+        if(from > 130 && from <= 131)
             newVersionString(changeLog, "2.14.1 (5/29/10)", new String[] {
                     "Fixed crash while using PureCalendar widget",
+            });
+        if(from > 130 && from <= 132)
+            newVersionString(changeLog, "2.14.2 (5/29/10)", new String[] {
+                    "Fixed crash when Polish version views completed tasks",
             });
 
         changeLog.append("</body></html>");

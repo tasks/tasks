@@ -603,6 +603,9 @@ public class TaskListSubActivity extends SubActivity {
                 else
                     tasksCursor = getTaskController().getActiveTaskListCursor();
             }
+            // if internal state is compromised, bail out
+            if(tasksCursor == null)
+                return;
             startManagingCursor(tasksCursor);
             context.taskArray = Collections
                     .synchronizedList(getTaskController()
