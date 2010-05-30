@@ -190,6 +190,7 @@ public class SyncDataController extends AbstractController {
     /** Closes database resource */
     @Override
     public void close() {
-        syncDatabase.close();
+        if(syncDatabase != null)
+            syncDatabase.close();
     }
 }
