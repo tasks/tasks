@@ -139,7 +139,7 @@
         <string name="taskList_goalPrefix">Cel</string>
         <string name="taskList_overdueBy">Zaległe od</string>
         <!-- i.e. Finished 4 days ago -->
-        <string name="taskList_completedPrefix">Ukończone %4</string>
+        <string name="taskList_completedPrefix">Ukończone %s</string>
 		<!-- i.e.  Estimated: 4 hours -->
         <string name="taskList_estimatedTimePrefix">Szacunkowo:</string>
         <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
@@ -322,7 +322,7 @@
         <string name="sync_progress_repeating">Synchronizacja powtarzalnych zadań</string>
         <string name="sync_progress_localtx">Transmisja: %s</string>
         <string name="sync_progress_localdel">Zadania usunięte lokalnie</string>
-        <string name="sync_progress_remotetx">Odbieranie:% s</string>
+        <string name="sync_progress_remotetx">Odbieranie: %s</string>
         
         <string name="rtm_login_label">Zaloguj się do RTM...</string>
         <string name="rtm_login_error">Przepraszamy, wystąpił błąd weryfikacji danych logowania. Spróbuj ponownie. \ N \ n Komunikat o błędzie:</string>
