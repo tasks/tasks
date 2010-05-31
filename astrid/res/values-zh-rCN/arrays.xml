@@ -27,17 +27,17 @@
     <string-array name="reminders">
         <!-- reminders: Make these < 20 chars so the task name is displayed -->
         <item>嗨！有时间吗？</item>
-        <item>我能见你一会儿么？</item>
-        <item>有几分钟吗？</item>
-        <item>你还记得吗？</item>
+        <item>我能和你聊一会儿么？</item>
+        <item>有时间么？</item>
+        <item>你没忘吧？</item>
         <item>劳驾！</item>
         <item>什么时候有时间呢：</item>
         <item>在你的日程表上：</item>
         <item>现在有空么？</item>
         <item>我在这！</item>
-        <item>嗨！我能打扰你么？</item>
+        <item>嗨！能打扰一下么？</item>
         <item>浪费你一点时间？</item>
-        <item>真是一个好日子去完成</item>
+        <item>今天适合去</item>
     </string-array>
     
     <string-array name="reminder_responses">
@@ -49,24 +49,24 @@
         <item>准备好做这个了么？</item>
         <item>你能应付么？</item>
         <item>把这个做完吧！你会很开心的！</item>
-        <item>我保证你做完他会感觉好些的！</item>
+        <item>我保证你做完后会感觉好些的！</item>
         <item>你今天不做这个了么？</item>
-        <item>完成这个吧，我厌烦了！</item>
-        <item>你一定能完成这个任务的！</item>
+        <item>完成这个吧，烦死我了！</item>
+        <item>你能完成这个么？你行！</item>
         <item>你曾经准备做这个么？</item>
         <item>相信自己！我们开始吧！</item>
         <item>我真为你骄傲！我们做完这件事吧！</item>
         <item>这件事完成后来点点心？</item>
         <item>就这一个任务？拜托了...</item>
-        <item>是时候减少该做的任务了！</item>
+        <item>是时候缩短任务清单了！</item>
     </string-array>
     
     <string-array name="postpone_nags">
         <!-- Astrid's nagging when user clicks postpone -->
         <item>不要告诉我你是个拖拖拉拉的人！</item>
         <item>你这么懒不累吗？</item>
-        <item>有些地方有些人在靠你完成这个呢！</item>
-        <item>你推迟的时候就是你正在做这件事情的时候，是么？</item>
+        <item>有人正等着你做完这个呢！</item>
+        <item>其实你说推迟的时候是想搞定它，是吧？</item>
         <item>最后一次推迟这件事了，是吧？</item>
         <item>今天把这件事完成吧，我不会告诉任何人的！</item>
         <item>明明有能力还延迟...不准延迟！</item>
@@ -76,21 +76,14 @@
         <item>推迟，推迟，推迟，什么时候能改啊！</item>
         <item>我受够你的借口了！就开始做这个吧！</item>
         <item>这是你最后一次找借口了吧？</item>
-        <item>如果这样，我真的没办法帮你组织生活...</item>
+        <item>如果这样，我真的没办法帮你安排生活...</item>
     </string-array>
     
     <string-array name="notif_icon_entries">
         <!-- Icons for notification tray -->
         <item>粉色</item>
-        <item>真无聊</item>
+        <item>单调的</item>
         <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="notif_icon_values">
-        <!-- Corresponding to the constants in Preferences.java (do not edit) -->
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
     </string-array>
     
     <string-array name="sync_interval_entries">
@@ -104,14 +97,61 @@
         <item>每周</item>
     </string-array>
     
-    <string-array name="sync_interval_values">
-        <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
-        <item>0</item>
-        <item>1800</item>
-        <item>3600</item>
-        <item>43200</item>
-        <item>86400</item>
-        <item>302400</item>
-        <item>604800</item>
+    <string-array name="EPr_quiet_hours_start">
+        <!-- quiet_hours_start: options for preference menu -->
+        <item>已禁用</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
     </string-array>
+    
+    <string-array name="EPr_quiet_hours_end">
+        <!-- quiet_hours_end: options for preference menu -->
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+    </string-array>
+        
 </resources>

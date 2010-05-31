@@ -86,13 +86,6 @@
         <item>Astrid</item>
     </string-array>
     
-    <string-array name="notif_icon_values">
-        <!-- Corresponding to the constants in Preferences.java (do not edit) -->
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    
     <string-array name="sync_interval_entries">
         <!-- sync_interval_entries: Synchronization Intervals -->
         <item>사용불가</item>
@@ -104,14 +97,61 @@
         <item>매주</item>
     </string-array>
     
-    <string-array name="sync_interval_values">
-        <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
-        <item>0</item>
-        <item>1800</item>
-        <item>3600</item>
-        <item>43200</item>
-        <item>86400</item>
-        <item>302400</item>
-        <item>604800</item>
+    <string-array name="EPr_quiet_hours_start">
+        <!-- quiet_hours_start: options for preference menu -->
+        <item>사용 불가능</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
     </string-array>
+    
+    <string-array name="EPr_quiet_hours_end">
+        <!-- quiet_hours_end: options for preference menu -->
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+    </string-array>
+        
 </resources>
