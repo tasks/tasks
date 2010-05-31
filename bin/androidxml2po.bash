@@ -36,8 +36,8 @@ if [ ! -e /usr/bin/gettext ]; then
 fi    
 
 # Set the languages here (po -> name of .po file. res -> name of res folder)
-po_lang=("ca" "cs" "de" "es" "fr" "id" "it" "ja" "ko" "nb" "nl" "pl" "pt" "ru" "sv" "tr" "zh_CN" "zh_TW")
-res_lang=("${po_lang[@]}")
+po_lang=( "ca" "cs" "de" "es" "fr" "id" "it" "ja" "ko" "nb" "nl" "pl" "pt" "ru" "sv" "tr" "zh_CN"  "zh_TW")
+res_lang=("ca" "cs" "de" "es" "fr" "id" "it" "ja" "ko" "nb" "nl" "pl" "pt" "ru" "sv" "tr" "zh-rCN" "zh-rTW")
 
 #Change the dirs where the files are located.
 launchpad_po_files_dir="translations"

@@ -26,92 +26,132 @@
 			
     <string-array name="reminders">
         <!-- reminders: Make these < 20 chars so the task name is displayed -->
-        <item>Bonjour ! Avez-vous une seconde ?</item>
+        <item>Salut ! Avez-vous une seconde ?</item>
         <item>Puis-je vous voir une minute ?</item>
         <item>Avez-vous quelques minutes ?</item>
-        <item>Aviez-vous oublié ?</item>
-        <item>Excusez moi !</item>
+        <item>Auriez-vous oublié ?</item>
+        <item>Excusez-moi !</item>
         <item>Quand vous aurez une minute :</item>
-        <item>Dans votre agenda :</item>
-        <item>Êtes-vous disponible ?</item>
-        <item>C\'est Astrid !</item>
-        <item>Salut ! Puis-je vous ennuyer ?</item>
-        <item>Avez-vous une minute ?</item>
+        <item>À l'ordre du jour :</item>
+        <item>Avez-vous un instant ?</item>
+        <item>Astrid à l'appareil !</item>
+        <item>Hé, je peux vous embêter une seconde ?</item>
+        <item>Une minute à m'accorder ?</item>
         <item>C\'est le bon jour pour</item>
     </string-array>
     
     <string-array name="reminder_responses">
         <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
         <item>J\'ai quelque chose pour vous !</item> 
-        <item>Prêt à oublier ça ?</item>
-        <item>Pourquoi ne faites-vous pas cela ?</item>
+        <item>On passe à autre chose ?</item>
+        <item>Et si on en finissait ?</item>
         <item>Et ça ? Vous êtes chaud ?</item>
-        <item>Prêt à faire cela ?</item>
+        <item>Prêt(e) à faire ça ?</item>
         <item>Pouvez-vous vous occuper de cela ?</item>
-        <item>Vous ne pourrez être tranquille tant que vous n\'aurez pas fini cela !</item>
-        <item>Je vous promets que vous vous sentirez mieux si vous finissez cela !</item>
-        <item>Ne voulez-vous pas faire cela aujourd\'hui ?</item>
-        <item>S\'il vous plait, finissez cela, je n\'en peux plus !</item>
+        <item>Le bonheur n'est pas loin ! Il faut juste en finir avec ceci !</item>
+        <item>Je vous promets que vous vous sentirez mieux si vous finissez ceci !</item>
+        <item>Ne voulez-vous pas faire cela aujourd'hui ?</item>
+        <item>S'il vous plait, finissez cela, je n\'en peux plus !</item>
         <item>Pouvez-vous finir cela ? Yes you can!</item>
-        <item>Allez-vous faire cela un jour ?</item>
-        <item>Vous vous sentirez mieux après ! C\'est parti !</item>
+        <item>Comptez-vous vous en occuper un jour ?</item>
+        <item>Vous vous sentirez mieux après ! C'est parti !</item>
         <item>Je suis si fière de vous ! Allez, terminez cela !</item>
         <item>Une petite récompense quand vous aurez fini cela ?</item>
-        <item>Pourriez-vous faire juste cette tâche s\'il vous plait ?</item>
+        <item>Juste cette tâche, s'il vous plaît !</item>
         <item>Il est temps de raccourcir la liste des choses à faire !</item>
     </string-array>
     
     <string-array name="postpone_nags">
         <!-- Astrid's nagging when user clicks postpone -->
         <item>Pitié, ne me dites pas que vous êtes un flemmard!</item>
-        <item>Est-ce qu\'être parresseux ne rend-il pas vieux parfois ?</item>
-        <item>Quelque part, quelqu\'un compte sur vous pour finir ça !</item>
-        <item>Quand vous dîtes "reporter",  vous voulez vraiment dire que vous allez le faire, n\'est-ce pas ?</item>
-        <item>C\'est la dernière fois que vous décalez, n\'est-ce pas ?</item>
-        <item>Finissez cela aujourd\'hui, je ne le dirais à personne!</item>
-        <item>Pourquoi reporter quand vous pourriez ... ne pas reporter!</item>
-        <item>Vous finirez par le faire, je suppose?</item>
-        <item>Je pense que vous y allez un peu fort ! Que diriez vous de ne pas le retirer ?</item>
-        <item>Serez-vous capable d\'accomplir vos buts si vous faisiez cela ?</item>
-        <item>"Reporter, Reporter, Reporter. Quand changerez-vous !</item>
-        <item>J\'en ai marre de vos excuses!  Il suffisait de le faire!</item>
-        <item>N\'avez-vous pas donné cette excuse la dernière fois?</item>
-        <item>Je ne peux pas vous aider à organiser votre vie si vous faites ça...</item>
+        <item>Ça ne devient pas fatigant d'être flemmard parfois ?</item>
+        <item>Quelque part, quelqu'un compte sur vous pour terminer ceci !</item>
+        <item>Quand vous dîtes "reporter",  vous voulez vraiment dire que vous allez le faire, n'est-ce pas ?</item>
+        <item>C'est la dernière fois que vous reportez ceci, n'est-ce pas ?</item>
+        <item>Finissez ceci aujourd'hui, je ne le dirai à personne !</item>
+        <item>Pourquoi reporter quand vous pourriez euh… ne pas reporter !</item>
+        <item>Vous finirez bien par le faire, je suppose ?</item>
+        <item>Je vous trouve vraiment génial ! Et si vous ne reportiez pas ça à plus tard ?</item>
+        <item>Serez-vous capable d'accomplir vos buts si vous faites ceci ?</item>
+        <item>Reporter, reporter, reporter. Quand changerez-vous !</item>
+        <item>J'en ai assez de vos excuses !  Finissons-en !</item>
+        <item>N'était-ce pas déjà votre excuse la dernière fois ?</item>
+        <item>Je ne peux pas vous aider à organiser votre vie si vous faites ça…</item>
     </string-array>
     
     <string-array name="notif_icon_entries">
         <!-- Icons for notification tray -->
         <item>Rose</item>
-        <item>Ennuyeux</item>
+        <item>Fatigant</item>
         <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="notif_icon_values">
-        <!-- Corresponding to the constants in Preferences.java (do not edit) -->
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
     </string-array>
     
     <string-array name="sync_interval_entries">
         <!-- sync_interval_entries: Synchronization Intervals -->
         <item>désactiver</item>
         <item>deux fois par heure</item>
-        <item>chaque heure</item>
+        <item>toutes les heures</item>
         <item>deux fois par jour</item>
-        <item>quotidien</item>
+        <item>tous les jours</item>
         <item>deux fois par semaine</item>
-        <item>hebdomadaire</item>
+        <item>toutes les semaines</item>
     </string-array>
     
-    <string-array name="sync_interval_values">
-        <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
-        <item>0</item>
-        <item>1800</item>
-        <item>3600</item>
-        <item>43200</item>
-        <item>86400</item>
-        <item>302400</item>
-        <item>604800</item>
+    <string-array name="EPr_quiet_hours_start">
+        <!-- quiet_hours_start: options for preference menu -->
+        <item>désactiver</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
     </string-array>
+    
+    <string-array name="EPr_quiet_hours_end">
+        <!-- quiet_hours_end: options for preference menu -->
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+    </string-array>
+        
 </resources>

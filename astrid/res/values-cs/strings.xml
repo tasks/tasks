@@ -21,9 +21,6 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-	<!-- application -->
-    <string name="app_name">Astrid</string>
-    
     <!-- General String Constants -->
     <skip/>
     
@@ -62,17 +59,17 @@
             <item quantity="one">1 značka</item>
             <item quantity="other">%d značek</item>
         </plurals>
-        
+
         <!-- Time Constants -->
-        
+
         <!-- used for long due dates. c.f. Java's SimpleDateFormat -->
-        <string name="dateFormatter">d. MMM</string> 
+        <string name="dateFormatter">d. MMM</string>
         <!--  used for alarms -->
         <string name="alarmDateFormatter">dd.M HH:mm</string>
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">D\na\ny\ns</string> 
+        <string name="daysVertical">D\na\ny\ns</string>
         <string name="hoursVertical">H\no\nu\nr\ns</string>
-        
+
         <plurals name="Ndays">
             <!-- plurals: days -->
             <item quantity="one">1 den</item>
@@ -113,10 +110,10 @@
             <item quantity="one">1 s</item>
             <item quantity="other">%d s</item>
         </plurals>
-        
+
         <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
         <string name="ago_string">pře %s</string>
-        
+
     <!-- TaskList -->
     <skip/>
         <!-- title bar -->
@@ -126,9 +123,9 @@
         <string name="taskList_hiddenSuffix">skryté</string>
         <string name="addtask_label">Nový úkol</string>
         <string name="missing_tag">Nemohu najít požadovanou značku!</string>
-        
+
         <!-- text displayed in task list item -->
-        
+
         <!-- prefix to show that a task is hidden -->
         <string name="taskList_hiddenPrefix">H</string>
         <!-- i.e. Due in 4 days -->
@@ -146,7 +143,7 @@
         <string name="taskList_elapsedTimePrefix">Stráveno:</string>
         <!-- time interval to set frequency to remind user -->
         <string name="taskList_periodicReminderPrefix">Připomenout každé</string>
-        
+
         <!-- time interval to set repeated tasks-->
         <string name="taskList_repeatPrefix">Opakovat každé</string>
         <!-- displayed when repeat is on remote server-->
@@ -154,15 +151,15 @@
         <string name="taskList_alarmPrefix">Další budík:</string>
         <string name="taskList_tagsPrefix">Značky:</string>
         <string name="taskList_notesPrefix">Poznámky:</string>
-        
+
         <!-- i.e. Created: <create date> -->
         <string name="taskList_createdPrefix">Vytvořeno:</string>
-        
+
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Smazáno</string>
-        
+
         <string name="quick_add_hint">Přidat Nový Úkol</string>
-        
+
         <!-- menu items -->
         <string name="taskList_menu_insert">Nový úkol</string>
         <string name="taskList_menu_tags">Značky</string>
@@ -175,13 +172,15 @@
         <string name="taskList_menu_survey">Připojte se k průzkumu Astrid!</string>
         <string name="taskList_menu_tips">Rychlé rady</string>
         <string name="taskList_menu_cleanup">Smazat staré úkoly</string>
-        
+        <string name="taskList_menu_export">Backup Tasks</string>
+        <string name="taskList_menu_import">Restore Tasks</string>
+
         <string name="taskList_context_edit">Upravit úkol</string>
         <string name="taskList_context_delete">Smazat úkol</string>
         <string name="taskList_context_startTimer">Spustit časovač</string>
         <string name="taskList_context_stopTimer">Zastavit časovač</string>
         <string name="taskList_context_postpone">Odložit</string>
-        
+
         <!-- filter menu items -->
         <string name="taskList_filter_title">Pořadí/Filtry</string>
         <string name="taskList_filter_hidden">Skryté/Blokované úkoly</string>
@@ -191,7 +190,7 @@
         <string name="taskList_sort_alpha">Řadit podle jména</string>
         <string name="taskList_sort_duedate">Řadit podle termínu splnění</string>
         <string name="taskList_sort_reverse">Řadit opačně</string>
-        
+
         <string name="taskList_nonag_reminder">Zvolte akci:</string>
         <string name="taskList_postpone_count">Počet odložení: %d</string>
         <string name="taskList_postpone_dialog">Odložit na jak dlouho?</string>
@@ -203,19 +202,19 @@
         <string name="taskEdit_titleGeneric">Astrid: Editace úkolu</string>
         <string name="taskEdit_titlePrefix">Astrid: Editace</string>
         <string name="taskEdit_label">Astrid: Nový úkol</string>
-        
+
         <!-- tabs -->
         <string name="taskEdit_tab_basic">Základní</string>
         <string name="taskEdit_tab_dates">Data</string>
         <string name="taskEdit_tab_alerts">Upozornění</string>
-        
+
         <!-- labels -->
         <string name="name_label">Shrnutí</string>
         <string name="name_hint">Název úkolu</string>
         <string name="importance_label">Jak je to důležité?</string>
         <string name="tags_label">Značky:</string>
         <string name="tag_hint">Název značky</string>
-        
+
         <string name="estimatedDuration_label">Jak dlouho to bude trvat?</string>
         <string name="elapsedDuration_label">Čas strávený úkolem</string>
         <string name="definiteDueDate_label">Konečný termín</string>
@@ -228,7 +227,7 @@
         <string name="blockingOn_label">Skrýt až do splnění úkolu</string>
         <string name="notes_label">Poznámky</string>
         <string name="notes_hint">Vložte poznámky k úkolu</string>
-        
+
         <string name="notification_label">Periodická připomenutí</string>
         <string name="notification_prefix">Každé</string>
         <string name="flags_label">Upozorni mě...</string>
@@ -238,7 +237,7 @@
         <string name="flag_nonstop">Režim budíku</string>
         <string name="alerts_label">Pevně stanovená připomenutí</string>
         <string name="add_alert">Přidat nové připomenutí</string>
-        
+
         <!-- dialog boxes -->
         <string name="hour_minutes_dialog">Čas (hodin : minut)</string>
         <string name="notification_dialog">Připomenout každých</string>
@@ -246,7 +245,7 @@
         <string name="repeat_help_dialog_title">Nápověda: opakování v Astrid</string>
         <string name="repeat_help_dialog">Pokud chcete použít opakování, nastavte alespoň jeden konečný termín výše. Když dokončíte tento úkol, konečný termín bude automaticky posunut. \n\n Pokud nechcete zobrazit nový úkol ihned po dokončení starého, zaškrtněte pole "Skrýt dokud", které bude také automaticky posunuto. \n</string>
         <string name="repeat_help_hide">Nezobrazovat již nápovědu</string>
-        
+
         <!-- buttons -->
         <string name="save_label">Uložit</string>
         <string name="discard_label">Zrušit</string>
@@ -255,17 +254,17 @@
         <string name="blank_button_title">Nastavit</string>
         <string name="startTimer_label">Spustit časovač</string>
         <string name="stopTimer_label">Zastavit časovač</string>
-        
+
         <string name="taskEdit_menu_save">Uložit</string>
         <string name="taskEdit_onTaskSave_Due">Úkol uložen: vyprší v %s</string>
         <string name="taskEdit_onTaskSave_Overdue">Úkol uložen: vypršel před %s</string>
         <string name="taskEdit_onTaskSave_notDue">Úkol uložen</string>
-      
+
     <!-- TaskView  -->
     <skip/>
-    
+
         <string name="taskView_notifyTitle">Zpráva Astrid...</string>
-        
+
     <!-- Tag List -->
     <skip/>
         <string name="tagList_titlePrefix">Astrid: Zobrazena značka:</string>
@@ -278,12 +277,12 @@
         <string name="tagList_shortcut_created">Zástupce na domovské stránce byl vytvořen!</string>
         <string name="tagList_shortcut_prefix">Značka</string>
         <string name="tagList_untagged">[bez značky]</string>
-        
+
         <string name="tagList_menu_sortAlpha">Řadit A-Z</string>
         <string name="tagList_menu_sortSize">Řadit podle velikosti</string>
-    
-    
-    <!-- Synchronization -->  
+
+
+    <!-- Synchronization -->
     <skip/>
         <string name="sync_pref_group">Synchronizační služby</string>
         <string name="sync_pref_group_actions">Činnosti</string>
@@ -316,19 +315,19 @@
         <string name="sync_result_updated">Aktualizováno: %d</string>
         <string name="sync_result_deleted">Smazáno: %d</string>
         <string name="sync_result_merged">Sloučeno: %d</string>
-        
+
         <string name="sync_progress_remote">Načítám vzdálená data</string>
         <string name="sync_progress_rxlist">Načítám seznam: %s</string>
         <string name="sync_progress_repeating">Synchronizuji opakované úkoly</string>
         <string name="sync_progress_localtx">Přenáším: %s</string>
         <string name="sync_progress_localdel">Lokálně smazané úkoly</string>
         <string name="sync_progress_remotetx">Přijímám: %s</string>
-        
+
         <string name="rtm_login_label">Přihlašte se prosím do RTM...</string>
         <string name="rtm_login_error">Omlouváme se, ale nastala chyba během ověřování. Zkuste to prosím znovu. \n\n Chybová zpráva:</string>
-        
-       
-    <!-- Dialog Boxes -->  
+
+
+    <!-- Dialog Boxes -->
     <skip/>
         <string name="loading">Nahrávám...</string>
         <string name="updating">Aktualizace seznamu...</string>
@@ -340,89 +339,127 @@
         <string name="notify_snooze">Uspat</string>
         <string name="notify_no">Ukončit</string>
         <string name="notify_snooze_title">Uspat na hodin/minut</string>
-        
-        <string name="delete_title">Smazat</string>        
+
+        <string name="delete_title">Smazat</string>
         <string name="delete_this_task_title">Smazat tento úkol?</string>
         <string name="delete_this_tag_title">Odstanit tuto značku ze všech úkolů?</string>
-        
+
         <string name="stop_timer_title">Přerušit časovač?</string>
-        
+
         <string name="quick_tips">Pár věcí, které možná o Astrid nevíte:\n\n - Pokud chcete vytvořit úkol, jednoduše začněte psát na klávesnici!\n - V průběhu editace stiskněte tlačítko telefonu "Zpět" pro uložení.\n - Vyberte úkol a stiskněte jednu z kláves 1 až 4 pro rychlé nastavení priority.\n - Pokud má úkol konečný termín, dlouhým stiskem ho postunete.\n\n Děkujeme, že používáte Astrid!\n</string>
-        
+
         <!-- %s => name of the application -->
         <string name="task_killer_help">
-It looks like you are using an app that can kill processes (%s)! If you can, 
+It looks like you are using an app that can kill processes (%s)! If you can,
 add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
 Astrid might not let you know when your tasks are due.\n
         </string>
         <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
 
-    <!-- Locale Plugin -->  
+    <!-- Restore/Backup -->
     <skip/>
-        
+
+        <string name="export_toast">Backed Up %s to %s.</string>
+        <string name="import_summary_title">Restore Summary</string>
+        <string name="import_summary_message">
+File %s contained %d tasks.\n
+Restored %d tasks.\n
+Skipped %d tasks.\n
+        </string>
+        <string name="import_progress_title">Restore</string>
+        <string name="import_progress_open">Opening file...</string>
+        <string name="import_progress_opened">File opened...</string>
+        <string name="import_progress_read">Reading task %d...</string>
+        <string name="import_progress_skip">Skipped task %d...</string>
+        <string name="import_progress_add">Restored task %d...</string>
+        <string name="import_file_prompt">Select a File to Restore</string>
+    <!-- Locale Plugin -->
+    <skip/>
+
         <string name="locale_edit_alerts_title">Výstraha značky systému Astrid</string>
         <string name="locale_edit_intro">Astrid Vám zobrazí připomenutí, pokud máte nedokončené úkoly s těmito kritérii:</string>
         <string name="locale_pick_tag">Přidány značky:</string>
-     
-    <!-- Notification -->  
+
+    <!-- Notification -->
     <skip/>
-        
+
         <string name="notif_definiteDueDate">Konečný termín!</string>
         <string name="notif_preferredDueDate">Konečný termín cíle!</string>
         <string name="notif_timerStarted">Pracuji na:</string>
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
         <string name="notif_tagNotification">Máte $NUM označené $TAG!</string>
-        
-    <!-- Error Messages -->  
+
+    <!-- Error Messages -->
     <skip/>
-    
+
         <string name="error_opening">Nemohu najít tuto položku:</string>
         <string name="error_saving">Nepodařilo se uložit:</string>
-        
+        <string name="error_sdcard">Cannot access folder: %s</string>
+        <string name="error_sdcard_general">Cannot access your SD card!</string>
+
     <skip/>
 
         <string name="prefs_category_alerts">Upozornění</string>
-        
+
         <string name="prefs_quietStart_title">Nerušit od</string>
-        <string name="prefs_quietStart_desc">Hodina, OD kdy nemá Astrid vyrušovat ( např.: 22 )</string>
-        
+        <string name="prefs_quietStart_desc">Hodina, OD kdy nemá Astrid vyrušovat</string>
+
         <string name="prefs_quietEnd_title">Nerušit do</string>
-        <string name="prefs_quietEnd_desc">Hodina, DO kdy nemá Astrid vyrušovat ( např.: 8 )</string>
-          
+        <string name="prefs_quietEnd_desc">Hodina, DO kdy nemá Astrid vyrušovat</string>
+
         <string name="prefs_defaultRemind_title">Výchozí připomenutí</string>
-        <string name="prefs_defaultRemind_desc">Uvedeno ve dnech pro nové úkoly (např. 7). Ponechte prázdné pro zakázání.</string>
-        
+        <string name="prefs_defaultRemind_desc">For new tasks, default reminder in days (i.e. 7). Blank to disable</string>
+
         <string name="prefs_annoy_title">Trvalý režim</string>
         <string name="prefs_annoy_desc">Pokud je zvolen, LED i textová upozornění musí být potvrzena jedno po druhém.</string>
-        
+
         <string name="prefs_notification_title">Zvuk upozornění</string>
         <string name="prefs_notification_desc">Zvolte zvuk pro upozornění Astrid.</string>
 
         <string name="prefs_notificon_title">Ikony upozornění</string>
         <string name="prefs_notificon_desc">Vyberte obrázek Astrid pro lištu ikon</string>
-        
+
         <string name="prefs_vibrate_title">Vibrate on Alert</string>
         <string name="prefs_vibrate_desc">If checked, Astrid will vibrate when sounding an alarm</string>
-        
+
         <string name="prefs_category_appearance">Vzhled</string>
-            
+
         <string name="prefs_colorize_title">Obarvit seznam úkolů</string>
         <string name="prefs_colorize_desc">Různé barvy pro různé priority</string>
-        
+
         <string name="prefs_fontSize_title">Písmo seznamu úkolů</string>
-        <string name="prefs_fontSize_desc">Velikost písma seznamu na hlavní stránce ( např. 22 )</string>
+        <string name="prefs_fontSize_desc">Velikost písma seznamu na hlavní stránce </string>
 
         <string name="prefs_category_other">Jiný</string>
-        
+
         <string name="prefs_nagging_title">Vyskakující zprávy</string>
         <string name="prefs_nagging_desc">Zobrazit komentáře Astrid u připomenutí a odkládání úkolů?</string>
 
         <string name="prefs_deadlineTime_title">Výchozí konečný termín</string>
         <string name="prefs_deadlineTime_desc">Počet dní od vytvoření pro nastavení konečného termínu</string>
-        
+
+        <string name="prefs_backup_title">Automatic Backups</string>
+
+        <!--  backup summary when there is no backup message -->
+        <string name="prefs_backup_desc">Perform daily backups to sdcard.</string>
+
+        <!--  backup failure message (%s -> error message) -->
+        <string name="prefs_backup_desc_failure">Last backup failed: %s</string>
+
+        <!--  backup failure error when error message is null -->
+        <string name="prefs_backup_desc_failure_null">Last backup failed, could not read SD card</string>
+
+        <!--  backup success message (%s -> date) -->
+        <string name="prefs_backup_desc_success">Latest backup was on %s</string>
+
+        <string name="prefs_defaultCalendar_title">Calendar</string>
+        <string name="prefs_defaultCalendar_desc">Calendar to use for \"Add to Calendar\".</string>
+        <string name="prefs_defaultCalendar_astrid_default">Astrid default</string>
+
+
         <string name="displayedFields_PrefScreen_Title">Zobrazená pole</string>
         <string name="displayedFields_PrefScreen_Desc">Vyberte pole, která mají být zobrazena v seznamu úkolů</string>
-        
+
         <string name="prefs_titleVisible_title">Název úkolu</string>
         <string name="prefs_titleVisible_desc">Popis úkolu</string>
         <string name="prefs_deadlineVisible_title">Data</string>
@@ -441,22 +478,24 @@ Astrid might not let you know when your tasks are due.\n
         <string name="prefs_notesVisible_desc">Poznámky připojené k tomuto úkolu</string>
 
     <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
-    <string name="marketplace_title">Astrid Úkol/Oddo Seznam</string>
+    <string name="marketplace_title">Astrid Úkol/Todo Seznam</string>
     <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
     <string name="marketplace_description">Astrid je vysoce oceňovaný open source úkolovník, jednoduše ovladatelný a přesto velice výkonný, aby Vám pomohl mít vše hotovo. Značky, připomenutí, synchronizace s Remember The Milk, lokalizace a další.</string>
-    
+
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:
   Konki https://launchpad.net/~pavel-konkol
   Libor Šedivý https://launchpad.net/~liborse
   Sipral https://launchpad.net/~zakyne-xyz
   Uli https://launchpad.net/~jakub-vlasek
+  knappix https://launchpad.net/~knapix
   mnemonic https://launchpad.net/~honza</string>
 
     <!-- Widget text when loading tasks -->
 	<string name="widget_loading">Nahrávám...</string>
-    
+
     <!--  Permissions -->
 	<string name="read_tasks_permission">Read Astrid tasks</string>
-    
+
 </resources>
+n

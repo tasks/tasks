@@ -21,9 +21,6 @@
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-	<!-- application -->
-    <string name="app_name">Astrid</string>
-    
     <!-- General String Constants -->
     <skip/>
     
@@ -62,17 +59,17 @@
             <item quantity="one">1 Etiqueta</item>
             <item quantity="other">%d Etiquetes</item>
         </plurals>
-        
+
         <!-- Time Constants -->
-        
+
         <!-- used for long due dates. c.f. Java's SimpleDateFormat -->
-        <string name="dateFormatter">d MMM</string> 
+        <string name="dateFormatter">d MMM</string>
         <!--  used for alarms -->
         <string name="alarmDateFormatter">HH:mm dd/M</string>
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">D\ni\ne\ns</string> 
+        <string name="daysVertical">D\ni\ne\ns</string>
         <string name="hoursVertical">H\no\nr\ne\ns</string>
-        
+
         <plurals name="Ndays">
             <!-- plurals: days -->
             <item quantity="one">1 Dia</item>
@@ -113,10 +110,10 @@
             <item quantity="one">1 Seg</item>
             <item quantity="other">%d Seg</item>
         </plurals>
-        
+
         <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
         <string name="ago_string">Fa %s</string>
-        
+
     <!-- TaskList -->
     <skip/>
         <!-- title bar -->
@@ -126,9 +123,9 @@
         <string name="taskList_hiddenSuffix">ocult</string>
         <string name="addtask_label">Nova tasca</string>
         <string name="missing_tag">No es troba l\'etiqueta demanada!</string>
-        
+
         <!-- text displayed in task list item -->
-        
+
         <!-- prefix to show that a task is hidden -->
         <string name="taskList_hiddenPrefix">H</string>
         <!-- i.e. Due in 4 days -->
@@ -146,7 +143,7 @@
         <string name="taskList_elapsedTimePrefix">Gastat:</string>
         <!-- time interval to set frequency to remind user -->
         <string name="taskList_periodicReminderPrefix">Avisar Cada</string>
-        
+
         <!-- time interval to set repeated tasks-->
         <string name="taskList_repeatPrefix">Repetir Cada</string>
         <!-- displayed when repeat is on remote server-->
@@ -154,15 +151,15 @@
         <string name="taskList_alarmPrefix">Propera Alarma:</string>
         <string name="taskList_tagsPrefix">Etiquetes:</string>
         <string name="taskList_notesPrefix">Notes:</string>
-        
+
         <!-- i.e. Created: <create date> -->
         <string name="taskList_createdPrefix">Creat:</string>
-        
+
         <!-- i.e. Deleted: <delete date> -->
         <string name="taskList_deleted">Eliminat:</string>
-        
+
         <string name="quick_add_hint">Afegir nova tasca</string>
-        
+
         <!-- menu items -->
         <string name="taskList_menu_insert">Nova tasca</string>
         <string name="taskList_menu_tags">Etiquetes</string>
@@ -175,13 +172,15 @@
         <string name="taskList_menu_survey">Fes l\'Enquesta d\'Astrid!</string>
         <string name="taskList_menu_tips">Consells Ràpids</string>
         <string name="taskList_menu_cleanup">Netejar Tasques Antigues</string>
-        
+        <string name="taskList_menu_export">Backup Tasks</string>
+        <string name="taskList_menu_import">Restore Tasks</string>
+
         <string name="taskList_context_edit">Editar Tasca</string>
         <string name="taskList_context_delete">Eliminar Tasca</string>
         <string name="taskList_context_startTimer">Iniciar Temporitzador</string>
         <string name="taskList_context_stopTimer">Aturar Temporitzador</string>
         <string name="taskList_context_postpone">Ajornar</string>
-        
+
         <!-- filter menu items -->
         <string name="taskList_filter_title">Ordenar/Filtres</string>
         <string name="taskList_filter_hidden">Tasques Ocultes/Bloquejades</string>
@@ -191,7 +190,7 @@
         <string name="taskList_sort_alpha">Ordenar per Nom</string>
         <string name="taskList_sort_duedate">Ordenar per Venciment</string>
         <string name="taskList_sort_reverse">Ordenar a l\'Inversa</string>
-        
+
         <string name="taskList_nonag_reminder">Seleccionar Acció:</string>
         <string name="taskList_postpone_count">Vegades que s\'ha Ajornat: %d</string>
         <string name="taskList_postpone_dialog">Ajornar per quant temps?</string>
@@ -203,19 +202,19 @@
         <string name="taskEdit_titleGeneric">Astrid: Editant Tasca</string>
         <string name="taskEdit_titlePrefix">Astrid: Editant</string>
         <string name="taskEdit_label">Astrid: Nova Tasca</string>
-        
+
         <!-- tabs -->
         <string name="taskEdit_tab_basic">Bàsic</string>
         <string name="taskEdit_tab_dates">Dates</string>
         <string name="taskEdit_tab_alerts">Alertes</string>
-        
+
         <!-- labels -->
         <string name="name_label">Sumari</string>
         <string name="name_hint">Nom de la Tasca</string>
         <string name="importance_label">Com n\'és d\'important?</string>
         <string name="tags_label">Etiquetes:</string>
         <string name="tag_hint">Nom de l\'Etiqueta</string>
-        
+
         <string name="estimatedDuration_label">Quant temps es trigarà?</string>
         <string name="elapsedDuration_label">Temps que ja s\'ha invertit en la Tasca</string>
         <string name="definiteDueDate_label">Termini Absolut</string>
@@ -228,7 +227,7 @@
         <string name="blockingOn_label">Ocultar fins que la Tasca sigui feta</string>
         <string name="notes_label">Notes</string>
         <string name="notes_hint">Introduïr Notes per la Tasca</string>
-        
+
         <string name="notification_label">Recordatoris Periòdics</string>
         <string name="notification_prefix">Cada</string>
         <string name="flags_label">Notifica\'m...</string>
@@ -238,7 +237,7 @@
         <string name="flag_nonstop">Mode de l\'Alarma</string>
         <string name="alerts_label">Recordatoris Fixats</string>
         <string name="add_alert">Afegir Recordatori Nou</string>
-        
+
         <!-- dialog boxes -->
         <string name="hour_minutes_dialog">Temps (hores : minuts)</string>
         <string name="notification_dialog">Recordar Cada</string>
@@ -246,7 +245,7 @@
         <string name="repeat_help_dialog_title">Ajuda: Repeticions Astrid</string>
         <string name="repeat_help_dialog">Per utilitzar repeticions, cal que ajustis com a mínim un dels terminis de sobre. Quan completis la tasca, el termini s\'avançarà automàticament. \n\n Si no vols veure la nova tasca just després de que completis l\'antiga, has d\'utilitzar el camp "Ocultar Fins", el qual també s\'avançarà automàticament. \n</string>
         <string name="repeat_help_hide">No mostrar les Ajudes</string>
-        
+
         <!-- buttons -->
         <string name="save_label">Desar</string>
         <string name="discard_label">Descartar</string>
@@ -255,17 +254,17 @@
         <string name="blank_button_title">Clic per Establir</string>
         <string name="startTimer_label">Iniciar Temporitzador</string>
         <string name="stopTimer_label">Aturar Temporitzador</string>
-        
+
         <string name="taskEdit_menu_save">Desar</string>
         <string name="taskEdit_onTaskSave_Due">Tasca Desada: acaba en %s</string>
         <string name="taskEdit_onTaskSave_Overdue">Tasca Desada: va acabar fa %s</string>
         <string name="taskEdit_onTaskSave_notDue">Tasca Desada</string>
-      
+
     <!-- TaskView  -->
     <skip/>
-    
+
         <string name="taskView_notifyTitle">Astrid diu...</string>
-        
+
     <!-- Tag List -->
     <skip/>
         <string name="tagList_titlePrefix">Astrid: Vista d\'Etiquetes:</string>
@@ -278,12 +277,12 @@
         <string name="tagList_shortcut_created">Drecera creada al teu Escriptori!</string>
         <string name="tagList_shortcut_prefix">Etiqueta:</string>
         <string name="tagList_untagged">[sense_etiqueta]</string>
-        
+
         <string name="tagList_menu_sortAlpha">Ordenar A-Z</string>
         <string name="tagList_menu_sortSize">Ordenar per Mida</string>
-    
-    
-    <!-- Synchronization -->  
+
+
+    <!-- Synchronization -->
     <skip/>
         <string name="sync_pref_group">Serveis de Sincronització</string>
         <string name="sync_pref_group_actions">Accions</string>
@@ -316,19 +315,19 @@
         <string name="sync_result_updated">Actualitzat: %d</string>
         <string name="sync_result_deleted">Eliminat: %d</string>
         <string name="sync_result_merged">Fusionat: %d</string>
-        
+
         <string name="sync_progress_remote">Llegint Dades Remotes</string>
         <string name="sync_progress_rxlist">Llegint Llista: %s</string>
         <string name="sync_progress_repeating">Sincronitzant Tasca Repetitiva</string>
         <string name="sync_progress_localtx">Transmetent: %s</string>
         <string name="sync_progress_localdel">Tasques Eliminades Localment</string>
         <string name="sync_progress_remotetx">Rebent: %s</string>
-        
+
         <string name="rtm_login_label">Si us plau, Entra a RTM...</string>
         <string name="rtm_login_error">Ho sento, hi ha un error verificant les teves dades. Si us plau, torna-ho a provar. \n\n Missatge d\'Error:</string>
-        
-       
-    <!-- Dialog Boxes -->  
+
+
+    <!-- Dialog Boxes -->
     <skip/>
         <string name="loading">Carregant...</string>
         <string name="updating">Actualitzant Llista...</string>
@@ -340,89 +339,127 @@
         <string name="notify_snooze">Repetició</string>
         <string name="notify_no">Sortir</string>
         <string name="notify_snooze_title">Hores/minuts per repetició?</string>
-        
-        <string name="delete_title">Esborra</string>        
+
+        <string name="delete_title">Esborra</string>
         <string name="delete_this_task_title">Eliminar aquesta Tasca?</string>
         <string name="delete_this_tag_title">Eliminar aquesta Etiqueta de totes les Tasques?</string>
-        
+
         <string name="stop_timer_title">Aturar el temporitzador?</string>
-        
+
         <string name="quick_tips">Algunes coses que potser no sabies sobre Astrid: \n\n - Per crear una tasca, simplement comença a teclejar!\n - Mentre s\'edita una tasca, prem [Enrere] per desar-la\n - Selecciona una tasca i prem 1-4 per canviar ràpidament la seva prioritat\n - Si una tasca té un termini, prem-la continuadament per ajornar-la \n\n Gràcies per utilitzar Astrid!\n</string>
-        
+
         <!-- %s => name of the application -->
         <string name="task_killer_help">
-It looks like you are using an app that can kill processes (%s)! If you can, 
+It looks like you are using an app that can kill processes (%s)! If you can,
 add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
 Astrid might not let you know when your tasks are due.\n
         </string>
         <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
 
-    <!-- Locale Plugin -->  
+    <!-- Restore/Backup -->
     <skip/>
-        
+
+        <string name="export_toast">Backed Up %s to %s.</string>
+        <string name="import_summary_title">Restore Summary</string>
+        <string name="import_summary_message">
+File %s contained %d tasks.\n
+Restored %d tasks.\n
+Skipped %d tasks.\n
+        </string>
+        <string name="import_progress_title">Restore</string>
+        <string name="import_progress_open">Opening file...</string>
+        <string name="import_progress_opened">File opened...</string>
+        <string name="import_progress_read">Reading task %d...</string>
+        <string name="import_progress_skip">Skipped task %d...</string>
+        <string name="import_progress_add">Restored task %d...</string>
+        <string name="import_file_prompt">Select a File to Restore</string>
+    <!-- Locale Plugin -->
+    <skip/>
+
         <string name="locale_edit_alerts_title">Alerta d\'Etiqueta Astrid</string>
         <string name="locale_edit_intro">Astrid t\'enviarà un recordatori quan tinguis tasques sense completar segons els criteris següents:</string>
         <string name="locale_pick_tag">Etiquetat amb:</string>
-     
-    <!-- Notification -->  
+
+    <!-- Notification -->
     <skip/>
-        
+
         <string name="notif_definiteDueDate">Termini Absolut!</string>
         <string name="notif_preferredDueDate">Termini Objectiu!</string>
         <string name="notif_timerStarted">Treballant en:</string>
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
         <string name="notif_tagNotification">Tens $NUM etiquetades com $TAG!</string>
-        
-    <!-- Error Messages -->  
+
+    <!-- Error Messages -->
     <skip/>
-    
+
         <string name="error_opening">No es pot trobar aquest element:</string>
         <string name="error_saving">No es pot desar:</string>
-        
+        <string name="error_sdcard">Cannot access folder: %s</string>
+        <string name="error_sdcard_general">Cannot access your SD card!</string>
+
     <skip/>
 
         <string name="prefs_category_alerts">Notificacions</string>
-        
+
         <string name="prefs_quietStart_title">Inici de Silenci</string>
-        <string name="prefs_quietStart_desc">Hora inicial en que l\'Astrid s\'ha de posar en Silenci (p.ex 22)</string>
-        
+        <string name="prefs_quietStart_desc">Hora inicial en que l\'Astrid s\'ha de posar en Silenci</string>
+
         <string name="prefs_quietEnd_title">Final de Silenci</string>
-        <string name="prefs_quietEnd_desc">Hora final que l\'Astrid ha d\'estar en Silenci (p.ex 08)</string>
-          
+        <string name="prefs_quietEnd_desc">Hora final que l\'Astrid ha d\'estar en Silenci</string>
+
         <string name="prefs_defaultRemind_title">Recordatoris per Defecte</string>
         <string name="prefs_defaultRemind_desc">Per noves tasques, en dies (p.ex 7). En blanc per desactivar</string>
-        
+
         <string name="prefs_annoy_title">Mode Persistent</string>
         <string name="prefs_annoy_desc">Si és marcat, el LED i les notificacions s\'han d\'apagar un a un</string>
-        
+
         <string name="prefs_notification_title">So de Notificació</string>
         <string name="prefs_notification_desc">Escull un to per les alertes de l\'Astrid</string>
 
         <string name="prefs_notificon_title">Icones de Notificació</string>
         <string name="prefs_notificon_desc">Escull la icona per mostrar a la barra de Notificació</string>
-        
+
         <string name="prefs_vibrate_title">Vibrate on Alert</string>
         <string name="prefs_vibrate_desc">If checked, Astrid will vibrate when sounding an alarm</string>
-        
+
         <string name="prefs_category_appearance">Apariència</string>
-            
+
         <string name="prefs_colorize_title">Colors de la Llista de Tasques</string>
         <string name="prefs_colorize_desc">Diferents colors per diferents prioritats</string>
-        
+
         <string name="prefs_fontSize_title">Tipografia de la Llista de Tasques</string>
-        <string name="prefs_fontSize_desc">Tipografia de la pàgina principal (p.ex 22)</string>
+        <string name="prefs_fontSize_desc">Tipografia de la pàgina principal</string>
 
         <string name="prefs_category_other">Altres</string>
-        
+
         <string name="prefs_nagging_title">Missatges</string>
         <string name="prefs_nagging_desc">Mostrar els comentaris d\'Astrid mentre es veuen els recordatoris i s\'ajornen tasques?</string>
 
         <string name="prefs_deadlineTime_title">Terminis per Defecte</string>
         <string name="prefs_deadlineTime_desc"># de dies des d\'ara per establir nous terminis</string>
-        
+
+        <string name="prefs_backup_title">Automatic Backups</string>
+
+        <!--  backup summary when there is no backup message -->
+        <string name="prefs_backup_desc">Perform daily backups to sdcard.</string>
+
+        <!--  backup failure message (%s -> error message) -->
+        <string name="prefs_backup_desc_failure">Last backup failed: %s</string>
+
+        <!--  backup failure error when error message is null -->
+        <string name="prefs_backup_desc_failure_null">Last backup failed, could not read SD card</string>
+
+        <!--  backup success message (%s -> date) -->
+        <string name="prefs_backup_desc_success">Latest backup was on %s</string>
+
+        <string name="prefs_defaultCalendar_title">Calendar</string>
+        <string name="prefs_defaultCalendar_desc">Calendar to use for \"Add to Calendar\".</string>
+        <string name="prefs_defaultCalendar_astrid_default">Astrid default</string>
+
+
         <string name="displayedFields_PrefScreen_Title">Camps Mostrats</string>
         <string name="displayedFields_PrefScreen_Desc">Selecciona els camps per mostrar a la llista de tasques</string>
-        
+
         <string name="prefs_titleVisible_title">Títol de Tasca</string>
         <string name="prefs_titleVisible_desc">Descripció de Tasca</string>
         <string name="prefs_deadlineVisible_title">Dates</string>
@@ -444,7 +481,7 @@ Astrid might not let you know when your tasks are due.\n
     <string name="marketplace_title">Astrid Task/Todo List</string>
     <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
     <string name="marketplace_description">Astrid és la gran aclamada llista de tasques de codi obert que és prou senzilla com per no posar-se en el seu camí, prou potent com per ajudar a fer coses! Etiquetes, recordatoris, sincronització amb RememberTheMilk, plug-ins regionaks i més!</string>
-    
+
     <!-- Automatically filled in by Launchpad: -->
     <string name="about_translators">Launchpad Contributions:
   Frins https://launchpad.net/~francesc-bgr
@@ -457,8 +494,8 @@ Astrid might not let you know when your tasks are due.\n
 
     <!-- Widget text when loading tasks -->
 	<string name="widget_loading">Carregant...</string>
-    
+
     <!--  Permissions -->
 	<string name="read_tasks_permission">Read Astrid tasks</string>
-    
+
 </resources>

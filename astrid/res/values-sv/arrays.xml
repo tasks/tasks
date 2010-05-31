@@ -26,80 +26,80 @@
 			
     <string-array name="reminders">
         <!-- reminders: Make these < 20 chars so the task name is displayed -->
-        <item>¡Hola! ¿Tienes un segundo?</item>
-        <item>¿Puedo verte un segundo?</item>
-        <item>¿Tienes unos minutos?</item>
-        <item>¿Te has olvidado?</item>
-        <item>¡Perdón!</item>
-        <item>Cuando tengas un minuto:</item>
-        <item>En tu agenda:</item>
-        <item>¿Tienes un momento libre?</item>
-        <item>¡Astrid esta aquí!</item>
-        <item>¡Hola! ¿Puedo molestarte?</item>
-        <item>¿Me concedes un minuto?</item>
-        <item>Es un gran día para</item>
+        <item>Hej där! Har du en sekund?</item>
+        <item>Får jag träffa dig en sekund?</item>
+        <item>Har du ett par minuter?</item>
+        <item>Har du glömt?</item>
+        <item>Ursäkta mig!</item>
+        <item>När du har en minut:</item>
+        <item>På din agenda:</item>
+        <item>Ledig ett ögonblick?</item>
+        <item>Astrid här!</item>
+        <item>Hej! Får jag störa dig?</item>
+        <item>En minut av din tid?</item>
+        <item>Det är en strålande dag att</item>
     </string-array>
     
     <string-array name="reminder_responses">
         <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
-        <item>¡Tengo algo para ti!</item> 
-        <item>¿Listo para poner esto en el pasado?</item>
-        <item>¿Porqué no terminas esto?</item>
-        <item>¿Qué me dices? ¿Listo tigre?</item>
-        <item>¿Listo para hacer esto?</item>
-        <item>¿Puedes con esto?</item>
-        <item>¡Puedes ser feliz! ¡Solo termínalo!</item>
-        <item>¡Te prometo que te sentirás mejor si lo terminas!</item>
-        <item>¿Por qué no haces esto hoy?</item>
-        <item>Por favor, acaba esto. Me tiene cansado ya.</item>
-        <item>¿Puedes terminar esto? ¡Tu puedes!</item>
-        <item>¿Piensas hacer esto alguna vez?</item>
-        <item>¡Sientete mejor contigo mismo! ¡Vamos!</item>
-        <item>¡Estoy orgulloso de ti! ¡Vamos a acabar esto!</item>
-        <item>¿Un bocadillo cuando termines esto?</item>
-        <item>¿Solo esta tarea? ¿Por favor?</item>
-        <item>¡Es hora de acortar tu lista de tareas!</item>
+        <item>Jag har något för dig!</item> 
+        <item>Redo att lägga detta i det förflutna?</item>
+        <item>Varför kan du inte få detta gjort?</item>
+        <item>Vad sägs? Redo, tiger?</item>
+        <item>Redo att göra detta?</item>
+        <item>Kan du hantera detta?</item>
+        <item>Du kan bli lycklig! Avsluta bara detta!</item>
+        <item>Jag lovar att du mår bättre om du avslutar detta!</item>
+        <item>Kan du inte göra detta idag?</item>
+        <item>Vänligen avsluta detta, jag är trött på det!</item>
+        <item>Kan du avsluta detta? Ja det kan du!</item>
+        <item>Kommer du göra detta?</item>
+        <item>Känn dig duktig! Nu kör vi!</item>
+        <item>I\'m so proud of you! Lets get it done!</item>
+        <item>En liten munsbit efter att du avslutat detta?</item>
+        <item>Bara den här uppgiften? Snälla?</item>
+        <item>Dags att korta ned din att-göra-lista!</item>
     </string-array>
     
     <string-array name="postpone_nags">
         <!-- Astrid's nagging when user clicks postpone -->
-        <item>¡Por favor, no me digas que eres un procrastinador!</item>
-        <item>¿No te cansas a veces de ser vago?</item>
-        <item>¡En algún lugar, alguien está esperando que lo acabes!</item>
-        <item>Con "postponer" querías decir que vas a hacerlo ya, ¿verdad?</item>
-        <item>Ésta es la última vez que lo pospones, ¿verdad?</item>
-        <item>Acábalo hoy, ¡no se lo diré a nadie!</item>
-        <item>Por que posponerlo cuando puedes uhm... ¡no posponerlo!</item>
-        <item>¿Supongo que al final lo acabarás?</item>
-        <item>¡Creo que eres genial! ¿Qué tal no posponerlo?</item>
-        <item>¿Podrás alcanzar tus metas si haces eso?</item>
-        <item>Posponer, posponer, posponer. ¡Cuando cambiarás!</item>
-        <item>¡Me tienes harto con tus excusas! ¡Hazlo ya!</item>
-        <item>¿Esa no fue la excusa la última vez?</item>
-        <item>No te puedo ayudar a organizar tu vida si haces eso...</item>
+        <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
+        <item>Blir inte latheten gammal ibland?</item>
+        <item>Någonstans är någon beroende av att du avslutar detta!</item>
+        <item>När du sa skjut upp, så menade du egentligen \'Jag fixar detta\', eller hur?</item>
+        <item>Det här är sista gången du skjuter upp detta, eller hur?</item>
+        <item>Avsluta detta idag bara, jag ska inte berätta för någon!</item>
+        <item>Varför skjuta upp när du kan eh... inte skjuta upp!</item>
+        <item>Du kommer att avsluta detta förr eller senare, antar jag?</item>
+        <item>Jag tycker verkligen att du är toppen! Vad sägs om att inte skjuta upp detta?</item>
+        <item>Kommer du att kunna uppnå dina mål om du gör sådär?</item>
+        <item>Skjut upp, skjut upp, skjut upp. När ska du förändra dig!</item>
+        <item>Jag har fått nog av dina ursäkter! Bara gör det!</item>
+        <item>Kom du inte med den ursäkten förra gången?</item>
+        <item>Jag kan inte hjälpa dig att organisera ditt liv om du gör sådär...</item>
     </string-array>
     
     <string-array name="notif_icon_entries">
         <!-- Icons for notification tray -->
         <item>Rosa</item>
-        <item>Aburrido</item>
+        <item>Tråkig</item>
         <item>Astrid</item>
     </string-array>
     
     <string-array name="sync_interval_entries">
         <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>desactivar</item>
-        <item>cada media hora</item>
-        <item>cada hora</item>
-        <item>dos veces al día</item>
-        <item>Cada día</item>
-        <item>dos veces a la semana</item>
-        <item>Cada semana</item>
+        <item>inaktivera</item>
+        <item>två gånger i timmen</item>
+        <item>varje timme</item>
+        <item>två gånger per dag</item>
+        <item>varje dag</item>
+        <item>två gånger i veckan</item>
+        <item>varje vecka</item>
     </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
-        <item>deshabilitado</item>
+        <item>inaktiverad</item>
         <item>20:00</item>
         <item>21:00</item>
         <item>22:00</item>
@@ -116,9 +116,9 @@
         <item>09:00</item>
         <item>10:00</item>
         <item>11:00</item>
-        <item>12:00</item>
-        <item>13:00</item>
-        <item>14:00</item>
+        <item>12.00</item>
+        <item>13.00</item>
+        <item>14.00</item>
         <item>15:00</item>
         <item>16:00</item>
         <item>17:00</item>
@@ -131,9 +131,9 @@
         <item>09:00</item>
         <item>10:00</item>
         <item>11:00</item>
-        <item>12:00</item>
-        <item>13:00</item>
-        <item>14:00</item>
+        <item>12.00</item>
+        <item>13.00</item>
+        <item>14.00</item>
         <item>15:00</item>
         <item>16:00</item>
         <item>17:00</item>
