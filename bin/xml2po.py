@@ -230,10 +230,10 @@ def stringForEntity(node):
 
 
 def escapePoString(text):
-    return text.replace('\\','\\\\').replace('"', "\\\"").replace("\n","\\n").replace("\t","\\t")
+    return text.replace('\\','\\\\').replace('"', "\\\"").replace("'","\\'").replace("\n","\\n").replace("\t","\\t")
 
 def unEscapePoString(text):
-    return text.replace('\\"', '"').replace('\\\\','\\')
+    return text.replace('\\"', '"').replace("\\'","'").replace('\\\\','\\')
 
 def getTranslation(text, spacepreserve = 0):
     """Returns a translation via gettext for specified snippet.
