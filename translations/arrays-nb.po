@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: astrid-translation\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2009-07-22 03:10-0700\n"
-"PO-Revision-Date: 2009-12-03 23:51+0000\n"
-"Last-Translator: Roger Kind Kristiansen <Unknown>\n"
+"POT-Creation-Date: 2010-05-01 13:13-0700\n"
+"PO-Revision-Date: 2010-05-03 13:38+0000\n"
+"Last-Translator: Fredrik Sudmann <fsudmann@gmail.com>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-02-21 02:56+0000\n"
+"X-Launchpad-Export-Date: 2010-05-30 00:48+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. reminders: Make these < 20 chars so the task name is displayed
@@ -272,3 +272,231 @@ msgstr "302400"
 #: res/values/arrays.xml:118(item)
 msgid "604800"
 msgstr "604800"
+
+#. quiet_hours_start: options for preference menu
+#: res/values/arrays.xml:123(item)
+msgid "disabled"
+msgstr "deaktivert"
+
+#: res/values/arrays.xml:124(item) res/values/arrays.xml:193(item)
+msgid "20:00"
+msgstr "20:00"
+
+#: res/values/arrays.xml:125(item) res/values/arrays.xml:194(item)
+msgid "21:00"
+msgstr "21:00"
+
+#: res/values/arrays.xml:126(item) res/values/arrays.xml:195(item)
+msgid "22:00"
+msgstr "22:00"
+
+#: res/values/arrays.xml:127(item) res/values/arrays.xml:196(item)
+msgid "23:00"
+msgstr "23:00"
+
+#: res/values/arrays.xml:128(item) res/values/arrays.xml:197(item)
+msgid "00:00"
+msgstr "00:00"
+
+#: res/values/arrays.xml:129(item) res/values/arrays.xml:198(item)
+msgid "01:00"
+msgstr "01:00"
+
+#: res/values/arrays.xml:130(item) res/values/arrays.xml:199(item)
+msgid "02:00"
+msgstr "02:00"
+
+#: res/values/arrays.xml:131(item) res/values/arrays.xml:200(item)
+msgid "03:00"
+msgstr "03:00"
+
+#: res/values/arrays.xml:132(item) res/values/arrays.xml:201(item)
+msgid "04:00"
+msgstr "04:00"
+
+#: res/values/arrays.xml:133(item) res/values/arrays.xml:202(item)
+msgid "05:00"
+msgstr "05:00"
+
+#: res/values/arrays.xml:134(item) res/values/arrays.xml:203(item)
+msgid "06:00"
+msgstr "06:00"
+
+#: res/values/arrays.xml:135(item) res/values/arrays.xml:204(item)
+msgid "07:00"
+msgstr "07:00"
+
+#: res/values/arrays.xml:136(item) res/values/arrays.xml:205(item)
+msgid "08:00"
+msgstr "08:00"
+
+#. quiet_hours_end: options for preference menu
+#: res/values/arrays.xml:137(item) res/values/arrays.xml:182(item)
+msgid "09:00"
+msgstr "09:00"
+
+#: res/values/arrays.xml:138(item) res/values/arrays.xml:183(item)
+msgid "10:00"
+msgstr "10:00"
+
+#: res/values/arrays.xml:139(item) res/values/arrays.xml:184(item)
+msgid "11:00"
+msgstr "11:00"
+
+#: res/values/arrays.xml:140(item) res/values/arrays.xml:185(item)
+msgid "12:00"
+msgstr "12:00"
+
+#: res/values/arrays.xml:141(item) res/values/arrays.xml:186(item)
+msgid "13:00"
+msgstr "13:00"
+
+#: res/values/arrays.xml:142(item) res/values/arrays.xml:187(item)
+msgid "14:00"
+msgstr "14:00"
+
+#: res/values/arrays.xml:143(item) res/values/arrays.xml:188(item)
+msgid "15:00"
+msgstr "15:00"
+
+#: res/values/arrays.xml:144(item) res/values/arrays.xml:189(item)
+msgid "16:00"
+msgstr "16:00"
+
+#: res/values/arrays.xml:145(item) res/values/arrays.xml:190(item)
+msgid "17:00"
+msgstr "17:00"
+
+#: res/values/arrays.xml:146(item) res/values/arrays.xml:191(item)
+msgid "18:00"
+msgstr "18:00"
+
+#: res/values/arrays.xml:147(item) res/values/arrays.xml:192(item)
+msgid "19:00"
+msgstr "19:00"
+
+#: res/values/arrays.xml:154(item) res/values/arrays.xml:223(item) res/values/arrays.xml:243(item)
+msgid "20"
+msgstr "20"
+
+#: res/values/arrays.xml:155(item) res/values/arrays.xml:224(item)
+msgid "21"
+msgstr "21"
+
+#: res/values/arrays.xml:156(item) res/values/arrays.xml:225(item) res/values/arrays.xml:244(item)
+msgid "22"
+msgstr "22"
+
+#: res/values/arrays.xml:157(item) res/values/arrays.xml:226(item)
+msgid "23"
+msgstr "23"
+
+#: res/values/arrays.xml:158(item) res/values/arrays.xml:227(item)
+msgid "00"
+msgstr "00"
+
+#: res/values/arrays.xml:159(item) res/values/arrays.xml:228(item)
+msgid "01"
+msgstr "01"
+
+#: res/values/arrays.xml:160(item) res/values/arrays.xml:229(item)
+msgid "02"
+msgstr "02"
+
+#: res/values/arrays.xml:161(item) res/values/arrays.xml:230(item)
+msgid "03"
+msgstr "03"
+
+#: res/values/arrays.xml:162(item) res/values/arrays.xml:231(item)
+msgid "04"
+msgstr "04"
+
+#: res/values/arrays.xml:163(item) res/values/arrays.xml:232(item)
+msgid "05"
+msgstr "05"
+
+#: res/values/arrays.xml:164(item) res/values/arrays.xml:233(item)
+msgid "06"
+msgstr "06"
+
+#: res/values/arrays.xml:165(item) res/values/arrays.xml:234(item)
+msgid "07"
+msgstr "07"
+
+#: res/values/arrays.xml:166(item) res/values/arrays.xml:235(item)
+msgid "08"
+msgstr "08"
+
+#. quiet_hours_end_values: 24-hour representation of quiet_hours_end
+#: res/values/arrays.xml:167(item) res/values/arrays.xml:212(item)
+msgid "09"
+msgstr "09"
+
+#: res/values/arrays.xml:168(item) res/values/arrays.xml:213(item)
+msgid "10"
+msgstr "10"
+
+#: res/values/arrays.xml:169(item) res/values/arrays.xml:214(item)
+msgid "11"
+msgstr "11"
+
+#: res/values/arrays.xml:170(item) res/values/arrays.xml:215(item)
+msgid "12"
+msgstr "12"
+
+#: res/values/arrays.xml:171(item) res/values/arrays.xml:216(item)
+msgid "13"
+msgstr "13"
+
+#. font_size: options for preference menu
+#: res/values/arrays.xml:172(item) res/values/arrays.xml:217(item) res/values/arrays.xml:240(item)
+msgid "14"
+msgstr "14"
+
+#: res/values/arrays.xml:173(item) res/values/arrays.xml:218(item)
+msgid "15"
+msgstr "15"
+
+#: res/values/arrays.xml:174(item) res/values/arrays.xml:219(item) res/values/arrays.xml:241(item)
+msgid "16"
+msgstr "16"
+
+#: res/values/arrays.xml:175(item) res/values/arrays.xml:220(item)
+msgid "17"
+msgstr "17"
+
+#: res/values/arrays.xml:176(item) res/values/arrays.xml:221(item) res/values/arrays.xml:242(item)
+msgid "18"
+msgstr "18"
+
+#: res/values/arrays.xml:177(item) res/values/arrays.xml:222(item)
+msgid "19"
+msgstr "19"
+
+#: res/values/arrays.xml:245(item)
+msgid "24"
+msgstr "24"
+
+#: res/values/arrays.xml:246(item)
+msgid "26"
+msgstr "26"
+
+#: res/values/arrays.xml:247(item)
+msgid "28"
+msgstr "28"
+
+#: res/values/arrays.xml:248(item)
+msgid "30"
+msgstr "30"
+
+#: res/values/arrays.xml:249(item)
+msgid "32"
+msgstr "32"
+
+#: res/values/arrays.xml:250(item)
+msgid "36"
+msgstr "36"
+
+#: res/values/arrays.xml:251(item)
+msgid "48"
+msgstr "48"
