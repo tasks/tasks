@@ -257,7 +257,7 @@
 
         <string name="taskEdit_menu_save">Guardar</string>
         <string name="taskEdit_onTaskSave_Due">Tarefa Guardada: vence em %s</string>
-        <string name="taskEdit_onTaskSave_Overdue">Tarefa Guardada: venceu %d atrás</string>
+        <string name="taskEdit_onTaskSave_Overdue">Tarefa Guardada: venceu %s atrás</string>
         <string name="taskEdit_onTaskSave_notDue">Tarefa Guardada</string>
 
     <!-- TaskView  -->
@@ -385,7 +385,7 @@
     <skip/>
 
         <string name="error_opening">Não foi possível encontrar este item:</string>
-        <string name="error_saving">Não foi possível gravar: %s</string>
+
         <string name="error_sdcard">Não é possível aceder à pasta: %s</string>
         <string name="error_sdcard_general">Não é possível aceder ao seu cartão SD!</string>
 
@@ -436,7 +436,7 @@
         <string name="prefs_backup_desc">Efectuar cópias de segurança diárias para o cartão SD</string>
 
         <!--  backup failure message (%s -> error message) -->
-        <string name="prefs_backup_desc_failure">A última cópia de segurança falhou</string>
+        <string name="prefs_backup_desc_failure">A última cópia de segurança falhou: %s</string>
 
         <!--  backup failure error when error message is null -->
         <string name="prefs_backup_desc_failure_null">A última cópia de segurança falhou, não foi possível ler o cartão SD</string>

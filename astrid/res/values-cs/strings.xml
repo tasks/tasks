@@ -393,7 +393,7 @@ Skipped %d tasks.\n
     <skip/>
 
         <string name="error_opening">Nemohu najít tuto položku:</string>
-        <string name="error_saving">Nepodařilo se uložit:</string>
+
         <string name="error_sdcard">Cannot access folder: %s</string>
         <string name="error_sdcard_general">Cannot access your SD card!</string>
 
@@ -498,4 +498,3 @@ Skipped %d tasks.\n
 	<string name="read_tasks_permission">Read Astrid tasks</string>
 
 </resources>
-n

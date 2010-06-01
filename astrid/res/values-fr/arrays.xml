@@ -32,11 +32,11 @@
         <item>Auriez-vous oublié ?</item>
         <item>Excusez-moi !</item>
         <item>Quand vous aurez une minute :</item>
-        <item>À l'ordre du jour :</item>
+        <item>À l\'ordre du jour :</item>
         <item>Avez-vous un instant ?</item>
-        <item>Astrid à l'appareil !</item>
+        <item>Astrid à l\'appareil !</item>
         <item>Hé, je peux vous embêter une seconde ?</item>
-        <item>Une minute à m'accorder ?</item>
+        <item>Une minute à m\'accorder ?</item>
         <item>C\'est le bon jour pour</item>
     </string-array>
     
@@ -48,34 +48,34 @@
         <item>Et ça ? Vous êtes chaud ?</item>
         <item>Prêt(e) à faire ça ?</item>
         <item>Pouvez-vous vous occuper de cela ?</item>
-        <item>Le bonheur n'est pas loin ! Il faut juste en finir avec ceci !</item>
+        <item>Le bonheur n\'est pas loin ! Il faut juste en finir avec ceci !</item>
         <item>Je vous promets que vous vous sentirez mieux si vous finissez ceci !</item>
-        <item>Ne voulez-vous pas faire cela aujourd'hui ?</item>
-        <item>S'il vous plait, finissez cela, je n\'en peux plus !</item>
+        <item>Ne voulez-vous pas faire cela aujourd\'hui ?</item>
+        <item>S\'il vous plait, finissez cela, je n\'en peux plus !</item>
         <item>Pouvez-vous finir cela ? Yes you can!</item>
         <item>Comptez-vous vous en occuper un jour ?</item>
-        <item>Vous vous sentirez mieux après ! C'est parti !</item>
+        <item>Vous vous sentirez mieux après ! C\'est parti !</item>
         <item>Je suis si fière de vous ! Allez, terminez cela !</item>
         <item>Une petite récompense quand vous aurez fini cela ?</item>
-        <item>Juste cette tâche, s'il vous plaît !</item>
+        <item>Juste cette tâche, s\'il vous plaît !</item>
         <item>Il est temps de raccourcir la liste des choses à faire !</item>
     </string-array>
     
     <string-array name="postpone_nags">
         <!-- Astrid's nagging when user clicks postpone -->
         <item>Pitié, ne me dites pas que vous êtes un flemmard!</item>
-        <item>Ça ne devient pas fatigant d'être flemmard parfois ?</item>
-        <item>Quelque part, quelqu'un compte sur vous pour terminer ceci !</item>
-        <item>Quand vous dîtes "reporter",  vous voulez vraiment dire que vous allez le faire, n'est-ce pas ?</item>
-        <item>C'est la dernière fois que vous reportez ceci, n'est-ce pas ?</item>
-        <item>Finissez ceci aujourd'hui, je ne le dirai à personne !</item>
+        <item>Ça ne devient pas fatigant d\'être flemmard parfois ?</item>
+        <item>Quelque part, quelqu\'un compte sur vous pour terminer ceci !</item>
+        <item>Quand vous dîtes \"reporter\",  vous voulez vraiment dire que vous allez le faire, n\'est-ce pas ?</item>
+        <item>C\'est la dernière fois que vous reportez ceci, n\'est-ce pas ?</item>
+        <item>Finissez ceci aujourd\'hui, je ne le dirai à personne !</item>
         <item>Pourquoi reporter quand vous pourriez euh… ne pas reporter !</item>
         <item>Vous finirez bien par le faire, je suppose ?</item>
         <item>Je vous trouve vraiment génial ! Et si vous ne reportiez pas ça à plus tard ?</item>
-        <item>Serez-vous capable d'accomplir vos buts si vous faites ceci ?</item>
+        <item>Serez-vous capable d\'accomplir vos buts si vous faites ceci ?</item>
         <item>Reporter, reporter, reporter. Quand changerez-vous !</item>
-        <item>J'en ai assez de vos excuses !  Finissons-en !</item>
-        <item>N'était-ce pas déjà votre excuse la dernière fois ?</item>
+        <item>J\'en ai assez de vos excuses !  Finissons-en !</item>
+        <item>N\'était-ce pas déjà votre excuse la dernière fois ?</item>
         <item>Je ne peux pas vous aider à organiser votre vie si vous faites ça…</item>
     </string-array>
     

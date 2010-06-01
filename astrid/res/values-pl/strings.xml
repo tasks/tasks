@@ -357,7 +357,7 @@
 
         <string name="export_toast">Przywrócono %s jako %s</string>
         <string name="import_summary_title">Odzyskaj podsumowanie</string>
-        <string name="import_summary_message">Plik %s zawierał zadania %s\n. Przywrócono %d zadań \n pominięto %d zadań \n</string>
+        <string name="import_summary_message">Plik %s zawierał zadania %d\n. Przywrócono %d zadań \n pominięto %d zadań \n</string>
         <string name="import_progress_title">Przywróć</string>
         <string name="import_progress_open">Otwieranie pliku...</string>
         <string name="import_progress_opened">Plik otwarty...</string>
@@ -385,7 +385,7 @@
     <skip/>
 
         <string name="error_opening">Nie zdołano znaleźć tego elementu:</string>
-        <string name="error_saving">Nie można zapisać:</string>
+
         <string name="error_sdcard">Nie można otworzyć folderu: %s</string>
         <string name="error_sdcard_general">Nie można otworzyć Twojej karty SD!</string>
 

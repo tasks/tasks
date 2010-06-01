@@ -360,7 +360,7 @@ Hvis du ikke ønsker å se den nye oppgaven rett etter at du fullfører den gaml
 
         <string name="export_toast">Sikkerhetskopierte %s til %s.</string>
         <string name="import_summary_title">Gjennopprettingssammendrag</string>
-        <string name="import_summary_message">Filen %s inneholdt %d gjøremål. \n Gjennopprettet % gjøremål. \n Hoppet over % gjøremål. \n</string>
+        <string name="import_summary_message">Filen %s inneholdt %d gjøremål. \n Gjennopprettet %d gjøremål. \n Hoppet over %d gjøremål. \n</string>
         <string name="import_progress_title">Gjenopprett</string>
         <string name="import_progress_open">Åpner fil …</string>
         <string name="import_progress_opened">Fil åpnet...</string>
@@ -388,7 +388,7 @@ Hvis du ikke ønsker å se den nye oppgaven rett etter at du fullfører den gaml
     <skip/>
 
         <string name="error_opening">Kunne ikke finne dette elementet:</string>
-        <string name="error_saving">Kunne ikke lagre:s</string>
+
         <string name="error_sdcard">Kan ikke aksessere mappe: %s</string>
         <string name="error_sdcard_general">Kunne ikke aksessere ditt SD-kort!</string>
 

@@ -293,7 +293,7 @@
         <string name="sync_interval_title">Otomatik-Senkronizasyon</string>
         <string name="sync_interval_desc">Eğer işaretlenirse, otomatik senkronizasyon belirtilen aralıklarla gerçekleşir</string>
         <string name="sync_button_title">Ana Menü kısayolu</string>
-        <string name="sync_button_desc">\"Senkronizasyon\"\u Astrid menüsünde göster</string>
+        <string name="sync_button_desc">\"Senkronizasyon\" Astrid menüsünde göster</string>
         <string name="sync_quiet_title">Soru kutularını gizle.</string>
         <string name="sync_quiet_desc">Senkronizasyon sonucunu sakla</string>
         <string name="sync_bgwifi_title">Senkronizasyonu sadece Wifi üzerinden yap</string>
@@ -323,7 +323,7 @@
         <string name="sync_progress_localdel">Bu cihazda silinen işler</string>
         <string name="sync_progress_remotetx">İndiriliyor: %s</string>
 
-        <string name="rtm_login_label">Lütfen RTM'ye giriş yapın..</string>
+        <string name="rtm_login_label">Lütfen RTM\'ye giriş yapın..</string>
         <string name="rtm_login_error">Girişinizde bir hata oluştu. \n\n Hata mesajı:</string>
 
 
@@ -349,7 +349,7 @@
         <string name="quick_tips">Astrid hakkında bilmedikleriniz olabilir, mesela: \n \n - Yeni iş belirlemek için doğrudan yazmaya başlayabilirsiniz! \n \n - Bir iş maddesini düzenlerken \'geri\' tuşuna basarak hem kaydedip hem geri dönebilirsiniz. \n - Bir iş seçip 1-4 aralığında bir sayıya basıp öncelik tayin edebilirsiniz. \n Bir işin son tarihi varsa, uzun basarak onu erteleyebilirsiniz. \n \n Astrid\'i tercih ettiğiniz için teşekkürler!\n</string>
 
         <!-- %s => name of the application -->
-        <string name="task_killer_help">Görünüşe bakılırsa arka plan programlarını öldürebilen bir \"aplikasyon\" kullanıyorsunuz!  Mümkünse Astrid\'i istisnalar listesine ekleyin, yoksa uyarı sistemi çalışmayabilir.</string>
+        <string name="task_killer_help">Görünüşe bakılırsa arka plan programlarını öldürebilen bir \"%s\" kullanıyorsunuz!  Mümkünse Astrid\'i istisnalar listesine ekleyin, yoksa uyarı sistemi çalışmayabilir.</string>
         <string name="task_killer_help_ok">Astrid\'i öldürmeyeceğim!</string>
 
     <!-- Restore/Backup -->
@@ -386,8 +386,8 @@
     <skip/>
 
         <string name="error_opening">Could not find this item: </string>
-        <string name="error_saving">%s kaydedilemedi.</string>
-        <string name="error_sdcard">% klasörüne erişilemedi.</string>
+
+        <string name="error_sdcard">%s klasörüne erişilemedi.</string>
         <string name="error_sdcard_general">Hafıza kartına erişemiyorum!</string>
 
     <skip/>

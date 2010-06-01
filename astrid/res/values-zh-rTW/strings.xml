@@ -411,7 +411,7 @@ Skipped %d tasks.\n
     <skip/>
 
         <string name="error_opening">找不到此項目:</string>
-        <string name="error_saving">無法儲存:</string>
+
         <string name="error_sdcard">Cannot access folder: %s</string>
         <string name="error_sdcard_general">Cannot access your SD card!</string>
 

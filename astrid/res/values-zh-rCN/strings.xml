@@ -385,7 +385,7 @@
     <skip/>
 
         <string name="error_opening">无法查找以下任务：</string>
-        <string name="error_saving">无法保存:</string>
+
         <string name="error_sdcard">无法访问文件夹: %s</string>
         <string name="error_sdcard_general">无法访问您的 SD 卡！</string>
 
