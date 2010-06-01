@@ -194,7 +194,7 @@
         <string name="taskList_nonag_reminder">Select an Action:</string>
         <string name="taskList_postpone_count">Times You\'ve Postponed: %d</string>
         <string name="taskList_postpone_dialog">Postpone for how long?</string>
-        <string name="taskList_cleanup_dialog">"Delete completed tasks older than # days:"</string>
+        <string name="taskList_cleanup_dialog">Delete completed tasks older than # days:</string>
 
     <!-- TaskEdit -->
     <skip />
@@ -246,7 +246,7 @@
         <string name="repeat_help_dialog">
 To use repeats, set at least one of the deadlines above. When you complete this task, the deadline will be automatically advanced.
 \n\n
-If you don\'t want to see the new task right after you complete the old one, you should use the "Hide Until" field, which will also be advanced automatically.
+If you don\'t want to see the new task right after you complete the old one, you should use the \"Hide Until\" field, which will also be advanced automatically.
 \n
         </string>
         <string name="repeat_help_hide">Don\'t Show Help Anymore</string>

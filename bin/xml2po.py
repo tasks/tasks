@@ -228,12 +228,17 @@ def stringForEntity(node):
 
     return result
 
-
+# for writing in a po file
 def escapePoString(text):
-    return text.replace('\\','\\\\').replace('"', "\\\"").replace("'","\\'").replace("\n","\\n").replace("\t","\\t")
+    return text.replace("\\'","'").replace('\\','\\\\').replace('\\\\"', '\\"').replace("\n","\\n").replace("\t","\\t")
 
-def unEscapePoString(text):
-    return text.replace('\\"', '"').replace("\\'","'").replace('\\\\','\\')
+# for turning xml into raw resource
+def unEscapeXmlString(text):
+    return text.replace('\\"','"').replace("\\'","'")
+
+# for writing in an xml file
+def escapeXmlString(text):
+    return text.replace('"','\\"').replace("'","\\'")
 
 def getTranslation(text, spacepreserve = 0):
     """Returns a translation via gettext for specified snippet.
@@ -241,7 +246,8 @@ def getTranslation(text, spacepreserve = 0):
     text should be a string to look for, spacepreserve set to 1
     when spaces should be preserved.
     """
-    #print >>sys.stderr,"getTranslation('%s')" % (text.encode('utf-8'))
+    text = unEscapeXmlString(text)
+    # print >>sys.stderr,"getTranslation('%s')" % (text.encode('utf-8'))
     text = normalizeString(text, not spacepreserve)
     if (text.strip() == ''):
         return text
@@ -249,7 +255,6 @@ def getTranslation(text, spacepreserve = 0):
     if gt:
         res = gt.ugettext(text.decode('utf-8'))
         return res
-
     return text
 
 def myAttributeSerialize(node):
@@ -516,7 +521,8 @@ def processElementTag(node, replacements, restart = 0):
         if not translation:
             translation = outtxt.decode('utf-8')
             if worth and mark_untranslated: node.setLang('C')
-
+        translation = escapeXmlString(translation)
+        
         if restart or worth:
             i = 0
             while i < len(myrepl):
@@ -624,9 +630,9 @@ def tryToUpdate(allargs, lang):
     print >>sys.stderr, "OVDI!"
     command = allargs[0]
     args = allargs[1:]
-    opts, args = getopt.getopt(args, 'avhm:ket:o:p:u:',
+    opts, args = getopt.getopt(args, 'avhm:ket:o:p:u:r:',
                                ['automatic-tags','version', 'help', 'keep-entities', 'extract-all-entities', 'merge', 'translation=',
-                                'output=', 'po-file=', 'update-translation=' ])
+                                'output=', 'po-file=', 'update-translation=', "reuse=" ])
     for opt, arg in opts:
         if opt in ('-a', '--automatic-tags'):
             command += " -a"
@@ -634,6 +640,8 @@ def tryToUpdate(allargs, lang):
             command += " -k"
         elif opt in ('-e', '--extract-all-entities'):
             command += " -e"
+        elif opt in ('-r', '--reuse'):
+            origxml = arg
         elif opt in ('-m', '--mode'):
             command += " -m %s" % arg
         elif opt in ('-o', '--output'):

@@ -14,19 +14,18 @@
      limitations under the License.
 -->
 
-<!-- Translation Note: 
-           Guidelines to those translating the resources
-            1) Quality over Quantity: the quality of the phrases is important not the number of phrases used in any given 
-            languages.
-            2) Dynamic Equivalence not necessary literal translation but capture the idea and create the same desired effect
--->
-
+    <!--
+        Translation Note: Guidelines to those translating the resources
+        
+        Dynamic Equivalence not necessary literal translation but
+        capture the idea and create the same desired effect
+        
+        Goal:  Maximize the chance that users will perform the task while 
+               minimizing the annoyance.
+    -->
 
 <resources>
 
-    <!--  
-            Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
-			
     <string-array name="reminders">
         <!-- reminders: Make these < 20 chars so the task name is displayed -->
         <item>Hi there! Have a sec?</item>
