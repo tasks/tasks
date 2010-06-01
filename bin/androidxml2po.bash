@@ -36,8 +36,8 @@ if [ ! -e /usr/bin/gettext ]; then
 fi    
 
 # Set the languages here (po -> name of .po file. res -> name of res folder)
-po_lang=( "ca" "cs" "de" "es" "fr" "id" "it" "ja" "ko" "nb" "nl" "pl" "pt" "ru" "sv" "tr" "zh_CN"  "zh_TW")
-res_lang=("ca" "cs" "de" "es" "fr" "id" "it" "ja" "ko" "nb" "nl" "pl" "pt" "ru" "sv" "tr" "zh-rCN" "zh-rTW")
+po_lang=( "ca" "cs" ) # "de" "es" "fr" "id" "it" "ja" "ko" "nb" "nl" "pl" "pt" "ru" "sv" "tr" "zh_CN"  "zh_TW")
+res_lang=("ca" "cs" ) # "de" "es" "fr" "id" "it" "ja" "ko" "nb" "nl" "pl" "pt" "ru" "sv" "tr" "zh-rCN" "zh-rTW")
 
 #Change the dirs where the files are located.
 launchpad_po_files_dir="translations"
@@ -68,7 +68,24 @@ function export_xml2po
         ${xml2po} -a -l "${po_lang[i]}" -o \
             "${launchpad_pot_file_dir}"/"${resource_file}".pot \
             "${android_xml_files_res_dir}"/"${resource_file}".xml
+
+        for (( i=0 ; i<${#po_lang[*]} ; i=i+1 )); do
+            if [ -e "${launchpad_po_files_dir}"/"${resource_file}"-"${po_lang[i]}".po ] ; then
+                echo "Exporting .xml to updated .po for "${po_lang[i]}""
+                if [ -e "${android_xml_files_res_dir}"-"${res_lang[i]}"/"${resource_file}".xml ] ; then
+                    ${xml2po} -a \
+                        -r "${android_xml_files_res_dir}"-"${res_lang[i]}"/"${resource_file}".xml \
+                        -u "${launchpad_po_files_dir}"/"${resource_file}"-"${po_lang[i]}".po \
+                        "${android_xml_files_res_dir}"/"${resource_file}".xml
+                else
+                    ${xml2po} -a \
+                        -u "${launchpad_po_files_dir}"/"${resource_file}"-"${po_lang[i]}".po \
+                        "${android_xml_files_res_dir}"/"${resource_file}".xml
+                fi
+            fi 
+        done
     done
+
 }
 
 function usage
