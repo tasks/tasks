@@ -392,13 +392,13 @@ Skipped %d tasks.\n
         <string name="notif_preferredDueDate">Doel deadline!</string>
         <string name="notif_timerStarted">Werkt nu aan:</string>
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
-        <string name="notif_tagNotification">Je hebt %NUM getagd als $TAG!</string>
+        <string name="notif_tagNotification">Je hebt $NUM getagd als $TAG!</string>
 
     <!-- Error Messages -->
     <skip/>
 
         <string name="error_opening">Kon dit item niet vinden:</string>
-        <string name="error_saving">Kon dit niet opslaan:</string>
+
         <string name="error_sdcard">Cannot access folder: %s</string>
         <string name="error_sdcard_general">Cannot access your SD card!</string>
 

@@ -118,7 +118,7 @@
     <skip/>
         <!-- title bar -->
         <string name="taskList_titlePrefix">Astrid:</string>
-        <string name="taskList_titleTagPrefix">태그된 할일</string>
+        <string name="taskList_titleTagPrefix">태그된 \"%s\" 할일</string>
         <string name="taskList_titleUntagged">태그 안된 할일</string>
         <string name="taskList_hiddenSuffix">나중에 할일</string>
         <string name="addtask_label">새로운 할일</string>
@@ -393,7 +393,7 @@ Skipped %d tasks.\n
     <skip/>
 
         <string name="error_opening">아이템을 찾을 수 없습니다.</string>
-        <string name="error_saving">저장할 수 없습니다.</string>
+
         <string name="error_sdcard">Cannot access folder: %s</string>
         <string name="error_sdcard_general">Cannot access your SD card!</string>
 

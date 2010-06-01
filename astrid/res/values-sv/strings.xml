@@ -385,7 +385,7 @@
     <skip/>
 
         <string name="error_opening">Kunde inte hitta följande:</string>
-        <string name="error_saving">Kunde inte spara: %s</string>
+
         <string name="error_sdcard">Mappåtkomst nekad: %s</string>
         <string name="error_sdcard_general">SD-kort ej tillgängligt!</string>
 

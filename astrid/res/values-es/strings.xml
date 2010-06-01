@@ -358,7 +358,7 @@
 
         <string name="export_toast">Se recobraron %s tareas en %s.</string>
         <string name="import_summary_title">Resumen de Recuperación</string>
-        <string name="import_summary_message">El archivo contenía %d tareas.\n Se recobraron %d tareas.\n Saltearon %d tareas.\n</string>
+        <string name="import_summary_message">El archivo %s contenía %d tareas.\n Se recobraron %d tareas.\n Saltearon %d tareas.\n</string>
         <string name="import_progress_title">Recobrar</string>
         <string name="import_progress_open">Abriendo archivo...</string>
         <string name="import_progress_opened">Archivo abierto...</string>
@@ -386,7 +386,7 @@
     <skip/>
 
         <string name="error_opening">No pude encontrar este ítem:</string>
-        <string name="error_saving">No pude guardar:s</string>
+
         <string name="error_sdcard">No puedo acceder carpeta: %s</string>
         <string name="error_sdcard_general">¡No puedo acceder a tu tarjeta de memoria!</string>
 
