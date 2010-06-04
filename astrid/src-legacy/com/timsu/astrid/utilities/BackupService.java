@@ -6,7 +6,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
 import com.timsu.astrid.R;
 
 import java.io.File;
@@ -102,11 +101,9 @@ public class BackupService extends Service {
         FilenameFilter filter = new FilenameFilter() {
             @Override
             public boolean accept(File file, String s) {
-                Log.i("deleteOldBackups", s);
                 if (s.matches(BACKUP_FILE_NAME_REGEX)) {
                     String dateString = s.substring(TasksXmlExporter.FILENAME_DATE_BEGIN_INDEX,
                             TasksXmlExporter.FILENAME_DATE_END_INDEX);
-                    Log.i("deleteOldBackups", dateString);
                     return DateUtilities.wasCreatedBefore(dateString, DAYS_TO_KEEP_BACKUP);
                 }
                 return false;
