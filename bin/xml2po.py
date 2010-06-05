@@ -521,7 +521,8 @@ def processElementTag(node, replacements, restart = 0):
         if not translation:
             translation = outtxt.decode('utf-8')
             if worth and mark_untranslated: node.setLang('C')
-        translation = escapeXmlString(translation)
+        else:
+            translation = escapeXmlString(translation)
         
         if restart or worth:
             i = 0
