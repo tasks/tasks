@@ -194,7 +194,7 @@
         <string name="taskList_nonag_reminder">Selecteer een Actie:</string>
         <string name="taskList_postpone_count">Aantal keren Uitgesteld: %d</string>
         <string name="taskList_postpone_dialog">Voor hoe lang uitstellen?</string>
-        <string name="taskList_cleanup_dialog">"Verwijder voltooide taken ouder dan # dagen:"</string>
+        <string name="taskList_cleanup_dialog">Verwijder voltooide taken ouder dan # dagen:</string>
 
     <!-- TaskEdit -->
     <skip/>

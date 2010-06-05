@@ -194,7 +194,7 @@
         <string name="taskList_nonag_reminder">Wybierz Czynność</string>
         <string name="taskList_postpone_count">Odłożono razy: %d</string>
         <string name="taskList_postpone_dialog">Na jak długo odlożyć?</string>
-        <string name="taskList_cleanup_dialog">"Usuń zakończone zadania starsze niż # dni""</string>
+        <string name="taskList_cleanup_dialog">Usuń zakończone zadania starsze niż # dni"</string>
 
     <!-- TaskEdit -->
     <skip/>
