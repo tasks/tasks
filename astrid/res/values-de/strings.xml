@@ -199,7 +199,7 @@ d</string>
         <string name="taskList_nonag_reminder">Wähle eine Aktion:</string>
         <string name="taskList_postpone_count">Wie oft aufgeschoben: %d</string>
         <string name="taskList_postpone_dialog">Wie lange aufschieben?</string>
-        <string name="taskList_cleanup_dialog">"Lösche erledigte Aufgaben, die älter sind als # Tage:"</string>
+        <string name="taskList_cleanup_dialog">Lösche erledigte Aufgaben, die älter sind als # Tage:</string>
 
     <!-- TaskEdit -->
     <skip/>

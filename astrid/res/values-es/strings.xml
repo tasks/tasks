@@ -194,7 +194,7 @@
         <string name="taskList_nonag_reminder">Elegir una acción:</string>
         <string name="taskList_postpone_count">Veces que lo has pospuesto: %d</string>
         <string name="taskList_postpone_dialog">¿Posponer por cuanto?</string>
-        <string name="taskList_cleanup_dialog">"Borrar tareas completadas más antiguas que # días:"</string>
+        <string name="taskList_cleanup_dialog">Borrar tareas completadas más antiguas que # días:</string>
 
     <!-- TaskEdit -->
     <skip/>

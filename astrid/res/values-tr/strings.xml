@@ -194,7 +194,7 @@
         <string name="taskList_nonag_reminder">Bir Eylem Seç:</string>
         <string name="taskList_postpone_count">%d kere ertelemişsiniz</string>
         <string name="taskList_postpone_dialog">Ne kadar süreliğine ertelensin?</string>
-        <string name="taskList_cleanup_dialog">"# günden eski görevleri sil"</string>
+        <string name="taskList_cleanup_dialog"># günden eski görevleri sil</string>
 
     <!-- TaskEdit -->
     <skip/>

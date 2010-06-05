@@ -194,7 +194,7 @@
         <string name="taskList_nonag_reminder">Zvolte akci:</string>
         <string name="taskList_postpone_count">Počet odložení: %d</string>
         <string name="taskList_postpone_dialog">Odložit na jak dlouho?</string>
-        <string name="taskList_cleanup_dialog">"Smazat dokončené úkoly starší než # dnů:"</string>
+        <string name="taskList_cleanup_dialog">Smazat dokončené úkoly starší než # dnů:</string>
 
     <!-- TaskEdit -->
     <skip/>

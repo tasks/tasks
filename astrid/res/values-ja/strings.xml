@@ -194,7 +194,7 @@
         <string name="taskList_nonag_reminder">行動を選択:</string>
         <string name="taskList_postpone_count">延期した時間: %d</string>
         <string name="taskList_postpone_dialog">どの程度の期間延期しますか?</string>
-        <string name="taskList_cleanup_dialog">"完了してから # 日以上経ったタスクを削除:"</string>
+        <string name="taskList_cleanup_dialog">完了してから # 日以上経ったタスクを削除:</string>
 
     <!-- TaskEdit -->
     <skip/>

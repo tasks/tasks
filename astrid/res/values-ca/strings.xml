@@ -194,7 +194,7 @@
         <string name="taskList_nonag_reminder">Seleccionar Acció:</string>
         <string name="taskList_postpone_count">Vegades que s\'ha Ajornat: %d</string>
         <string name="taskList_postpone_dialog">Ajornar per quant temps?</string>
-        <string name="taskList_cleanup_dialog">"Eliminar Tasques completades més antigues de # dies:"</string>
+        <string name="taskList_cleanup_dialog">Eliminar Tasques completades més antigues de # dies:</string>
 
     <!-- TaskEdit -->
     <skip/>

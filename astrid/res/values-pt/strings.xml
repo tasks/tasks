@@ -194,7 +194,7 @@
         <string name="taskList_nonag_reminder">Seleccione uma Acção:</string>
         <string name="taskList_postpone_count">Você Adiou %d vezes</string>
         <string name="taskList_postpone_dialog">Adiar por quanto tempo?</string>
-        <string name="taskList_cleanup_dialog">"Eliminar tarefas terminadas há mais de # dias:"</string>
+        <string name="taskList_cleanup_dialog">Eliminar tarefas terminadas há mais de # dias:</string>
 
     <!-- TaskEdit -->
     <skip/>
