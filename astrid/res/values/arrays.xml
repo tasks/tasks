@@ -100,7 +100,7 @@
     </string-array>
     
     <string-array name="EPr_quiet_hours_start">
-        <!-- quiet_hours_start: options for preference menu -->
+        <!-- quiet_hours_start: options for preference menu. Translate times as approprate. -->
         <item>disabled</item>
         <item>20:00</item>
         <item>21:00</item>
@@ -129,7 +129,7 @@
     </string-array>
     
     <string-array name="EPr_quiet_hours_end">
-        <!-- quiet_hours_end: options for preference menu -->
+        <!-- quiet_hours_end: options for preference menu. Translate times as appropriate -->
         <item>09:00</item>
         <item>10:00</item>
         <item>11:00</item>
