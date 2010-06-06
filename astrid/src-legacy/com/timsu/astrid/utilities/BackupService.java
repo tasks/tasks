@@ -1,27 +1,30 @@
 package com.timsu.astrid.utilities;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.Date;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-
 import com.timsu.astrid.R;
+
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.Date;
 
 /**
  * Inspired heavily by SynchronizationService
  */
 public class BackupService extends Service {
 
-    /** when after phone starts to start first back up */
-    private static final long BACKUP_OFFSET = 5*60*1000L;
+    /**
+     * when after phone starts to start first back up
+     */
+    private static final long BACKUP_OFFSET = 5 * 60 * 1000L;
 
-    /** how often to back up */
+    /**
+     * how often to back up
+     */
     private static final long BACKUP_INTERVAL = AlarmManager.INTERVAL_DAY;
     private static final String BACKUP_ACTION = "backup";
     private static final String BACKUP_FILE_NAME_REGEX = "auto\\.\\d{6}\\-\\d{4}\\.xml";
@@ -58,13 +61,13 @@ public class BackupService extends Service {
                             DateUtilities.getFormattedDate(ctx.getResources(), new Date())));
         } catch (Exception e) {
             // unable to backup.
-            if(e == null || e.getMessage() == null) {
+            if (e == null || e.getMessage() == null) {
                 Preferences.setBackupSummary(ctx,
                         ctx.getString(R.string.prefs_backup_desc_failure_null));
             } else {
                 Preferences.setBackupSummary(ctx,
-                    ctx.getString(R.string.prefs_backup_desc_failure,
-                            e.toString()));
+                        ctx.getString(R.string.prefs_backup_desc_failure,
+                                e.toString()));
             }
         }
     }
@@ -99,7 +102,8 @@ public class BackupService extends Service {
             @Override
             public boolean accept(File file, String s) {
                 if (s.matches(BACKUP_FILE_NAME_REGEX)) {
-                    String dateString = s.substring(12, 18);
+                    String dateString = s.substring(TasksXmlExporter.FILENAME_DATE_BEGIN_INDEX,
+                            TasksXmlExporter.FILENAME_DATE_END_INDEX);
                     return DateUtilities.wasCreatedBefore(dateString, DAYS_TO_KEEP_BACKUP);
                 }
                 return false;
