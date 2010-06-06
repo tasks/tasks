@@ -243,7 +243,7 @@
         <string name="notification_dialog">Påminn mig varje</string>
         <string name="repeat_picker_title">Upprepa varje</string>
         <string name="repeat_help_dialog_title">Hjälp: Astrid upprepningar</string>
-        <string name="repeat_help_dialog">För att använda upprepning av uppgifter, välj minst en av ovanstående deadlines. När du har fullgjort denna uppgift kommer dess deadline flyttas fram automatiskt. \n\n Om du inte vill se den nya uppgiften genast efter att du fullgjort den gamla så kan du använda fältet "Göm tills", som på samma sätt kommer att flyttas fram. \n</string>
+        <string name="repeat_help_dialog">För att använda upprepning av uppgifter, välj minst en av ovanstående deadlines. När du har fullgjort denna uppgift kommer dess deadline flyttas fram automatiskt. \n\n Om du inte vill se den nya uppgiften genast efter att du fullgjort den gamla så kan du använda fältet \"Göm tills\", som på samma sätt kommer att flyttas fram. \n</string>
         <string name="repeat_help_hide">Don\'t Show Help Anymore</string>
 
         <!-- buttons -->

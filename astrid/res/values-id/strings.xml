@@ -243,7 +243,7 @@
         <string name="notification_dialog">Ingatkan Saya Setiap</string>
         <string name="repeat_picker_title">Ulang Setiap (0 tidak difungsikan)</string>
         <string name="repeat_help_dialog_title">Bantuan: Astrid Mengulang</string>
-        <string name="repeat_help_dialog">Untuk menggunakan perulangan, pilih satu dari batas waktu diatas. Jika anda selesai tugas ini, batas waktu akan otomatis dimajukan. \n\n Jika anda tidak ingin melihat tugas baru setelah anda menyelesaikan yang lama, anda harus menggunakan "Sembunyikan Sampai", yang juga akan otomatis dimajukan. \n</string>
+        <string name="repeat_help_dialog">Untuk menggunakan perulangan, pilih satu dari batas waktu diatas. Jika anda selesai tugas ini, batas waktu akan otomatis dimajukan. \n\n Jika anda tidak ingin melihat tugas baru setelah anda menyelesaikan yang lama, anda harus menggunakan \"Sembunyikan Sampai\", yang juga akan otomatis dimajukan. \n</string>
         <string name="repeat_help_hide">Jangan lagi Menampilkan Bantuan</string>
 
         <!-- buttons -->

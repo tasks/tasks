@@ -243,7 +243,7 @@
         <string name="notification_dialog">Herinner mij Elke</string>
         <string name="repeat_picker_title">Herhaal elke</string>
         <string name="repeat_help_dialog_title">Help: Astrid Herhalingen</string>
-        <string name="repeat_help_dialog">Om herhalingen te gebruiken, schakel ten minste een van de deadlines hierboven in. Als je de taak af hebt, zal de deadline automatisch doorschuiven. \n\n Als je niet de volgende deadline wilt zien, direct na het voltooien van de oude taak, gebruik dan de optie "Verberg tot". Deze zal ook automatisch doorschuiven. \n</string>
+        <string name="repeat_help_dialog">Om herhalingen te gebruiken, schakel ten minste een van de deadlines hierboven in. Als je de taak af hebt, zal de deadline automatisch doorschuiven. \n\n Als je niet de volgende deadline wilt zien, direct na het voltooien van de oude taak, gebruik dan de optie \"Verberg tot\". Deze zal ook automatisch doorschuiven. \n</string>
         <string name="repeat_help_hide">Verberg dit</string>
 
         <!-- buttons -->

@@ -243,7 +243,7 @@
         <string name="notification_dialog">Rappels tous les</string>
         <string name="repeat_picker_title">Répéter tous les (0 pour désactiver)</string>
         <string name="repeat_help_dialog_title">Aide : répétitions</string>
-        <string name="repeat_help_dialog">Pour utiliser les répétitions, renseignez la date limite et/ou la date prévue. Lorsque cette tâche sera accomplie, la date limite/prévue sera automatiquement avancée. \n\n Si vous ne désirez pas voir la nouvelle tâche juste après avoir accompli la précédente, cochez le champ "Masquez jusqu\'à", qui sera lui aussi avancé automatiquement. \n</string>
+        <string name="repeat_help_dialog">Pour utiliser les répétitions, renseignez la date limite et/ou la date prévue. Lorsque cette tâche sera accomplie, la date limite/prévue sera automatiquement avancée. \n\n Si vous ne désirez pas voir la nouvelle tâche juste après avoir accompli la précédente, cochez le champ \"Masquez jusqu\'à\", qui sera lui aussi avancé automatiquement. \n</string>
         <string name="repeat_help_hide">Ne plus afficher l\'aide</string>
 
         <!-- buttons -->

@@ -243,7 +243,7 @@
         <string name="notification_dialog">Recordar Cada</string>
         <string name="repeat_picker_title">Repetir Cada</string>
         <string name="repeat_help_dialog_title">Ajuda: Repeticions Astrid</string>
-        <string name="repeat_help_dialog">Per utilitzar repeticions, cal que ajustis com a mínim un dels terminis de sobre. Quan completis la tasca, el termini s\'avançarà automàticament. \n\n Si no vols veure la nova tasca just després de que completis l\'antiga, has d\'utilitzar el camp "Ocultar Fins", el qual també s\'avançarà automàticament. \n</string>
+        <string name="repeat_help_dialog">Per utilitzar repeticions, cal que ajustis com a mínim un dels terminis de sobre. Quan completis la tasca, el termini s\'avançarà automàticament. \n\n Si no vols veure la nova tasca just després de que completis l\'antiga, has d\'utilitzar el camp \"Ocultar Fins\", el qual també s\'avançarà automàticament. \n</string>
         <string name="repeat_help_hide">No mostrar les Ajudes</string>
 
         <!-- buttons -->
