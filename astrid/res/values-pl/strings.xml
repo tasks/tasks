@@ -194,7 +194,7 @@
         <string name="taskList_nonag_reminder">Wybierz Czynność</string>
         <string name="taskList_postpone_count">Odłożono razy: %d</string>
         <string name="taskList_postpone_dialog">Na jak długo odlożyć?</string>
-        <string name="taskList_cleanup_dialog">Usuń zakończone zadania starsze niż # dni"</string>
+        <string name="taskList_cleanup_dialog">Usuń zakończone zadania starsze niż # dni\"</string>
 
     <!-- TaskEdit -->
     <skip/>
@@ -243,7 +243,7 @@
         <string name="notification_dialog">Przypominaj mi co</string>
         <string name="repeat_picker_title">Powtarzaj co (0 aby wyłączyć)</string>
         <string name="repeat_help_dialog_title">Pomoc: Astrid powtarza</string>
-        <string name="repeat_help_dialog">Aby korzystać z powtórzeń, należy ustawić co najmniej jeden z powyższych terminów. Po wypełnieniu tego zadania, termin zostanie automatycznie zaawansowany. \n\n Jeśli nie chcesz zobaczyć nowego zadania po zakończeniu starego, należy użyć pola "Ukryj Do", które będzie również automatycznie zaawansowane. \n</string>
+        <string name="repeat_help_dialog">Aby korzystać z powtórzeń, należy ustawić co najmniej jeden z powyższych terminów. Po wypełnieniu tego zadania, termin zostanie automatycznie zaawansowany. \n\n Jeśli nie chcesz zobaczyć nowego zadania po zakończeniu starego, należy użyć pola \"Ukryj Do\", które będzie również automatycznie zaawansowane. \n</string>
         <string name="repeat_help_hide">Nie Pokazuj Więcej Pomocy</string>
 
         <!-- buttons -->
@@ -293,7 +293,7 @@
         <string name="sync_interval_title">Synchronizuj automatycznie</string>
         <string name="sync_interval_desc">Jeśli jest ustawiona, synchronizacja nastąpi automatycznie w przydzielonym odstępie czasu</string>
         <string name="sync_button_title">Skrót do Głównego Menu</string>
-        <string name="sync_button_desc">Pokaż \ "Synchronizuj\" w  menu Astrid</string>
+        <string name="sync_button_desc">Pokaż \ \"Synchronizuj\" w  menu Astrid</string>
         <string name="sync_quiet_title">Ukryj komunikaty</string>
         <string name="sync_quiet_desc">Ukryj komunikat o synchronizacji</string>
         <string name="sync_bgwifi_title">Automatyczna synchronizacja tylko po Wifi</string>

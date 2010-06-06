@@ -123,7 +123,7 @@ d</string>
     <skip/>
         <!-- title bar -->
         <string name="taskList_titlePrefix">Astrid:</string>
-        <string name="taskList_titleTagPrefix">Tagged "%s":</string>
+        <string name="taskList_titleTagPrefix">Tagged \"%s\":</string>
         <string name="taskList_titleUntagged">Aufgaben ohne Tags:</string>
         <string name="taskList_hiddenSuffix">versteckt</string>
         <string name="addtask_label">Neue Aufgabe</string>
@@ -248,7 +248,7 @@ d</string>
         <string name="notification_dialog">Erinnere mich alle</string>
         <string name="repeat_picker_title">Wiederhole alle (0 zum Deaktivieren)</string>
         <string name="repeat_help_dialog_title">Hilfe: Astrid Wiederholungen</string>
-        <string name="repeat_help_dialog">Stelle oben zumindest eine Frist ein um Wiederholungen zu nutzen. Wenn du die Aufgabe erledigst, wird die Frist automatisch verschoben.\n\n Wenn du die neue Aufgabe nicht gleich nach der Fertigstellung der Alten sehen willst, solltest du das Feld "Verstecken bis" nutzen, das ebenfalls automatisch verschoben wird.</string>
+        <string name="repeat_help_dialog">Stelle oben zumindest eine Frist ein um Wiederholungen zu nutzen. Wenn du die Aufgabe erledigst, wird die Frist automatisch verschoben.\n\n Wenn du die neue Aufgabe nicht gleich nach der Fertigstellung der Alten sehen willst, solltest du das Feld \"Verstecken bis\" nutzen, das ebenfalls automatisch verschoben wird.</string>
         <string name="repeat_help_hide">Hilfe nicht mehr anzeigen</string>
 
         <!-- buttons -->
@@ -361,7 +361,7 @@ d</string>
     <skip/>
 
         <string name="export_toast">%s auf %s gesichert.</string>
-        <string name="import_summary_title">Zusammenfassung "Wiederherstellen"</string>
+        <string name="import_summary_title">Zusammenfassung \"Wiederherstellen\"</string>
         <string name="import_summary_message">Datei %s enthält %d Aufgabe(n).\n %d Aufgabe(n) wiederhergestellt.\n %d Aufgabe(n) übersprungen.\n</string>
         <string name="import_progress_title">Wiederherstellen</string>
         <string name="import_progress_open">Öffne Datei...</string>

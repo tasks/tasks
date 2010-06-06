@@ -243,7 +243,7 @@
         <string name="notification_dialog">Alertar-me cada</string>
         <string name="repeat_picker_title">Alertar cada (0 para desactivar)</string>
         <string name="repeat_help_dialog_title">Ajuda: Repetições em Astrid</string>
-        <string name="repeat_help_dialog">Para usar as repetições, deixe pelo menos um dos "deadlines" acima. Ao concluir essa tarefa, o "deadline" será automaticamente actualizado. \n\n Se você não quer ver a nova tarefa após concluir a antiga, você deve usar a opção "Ocultar Até" , que também será automaticamente actualizada. \n</string>
+        <string name="repeat_help_dialog">Para usar as repetições, deixe pelo menos um dos \"deadlines\" acima. Ao concluir essa tarefa, o \"deadline\" será automaticamente actualizado. \n\n Se você não quer ver a nova tarefa após concluir a antiga, você deve usar a opção \"Ocultar Até\" , que também será automaticamente actualizada. \n</string>
         <string name="repeat_help_hide">Don\'t Show Help Anymore</string>
 
         <!-- buttons -->
