@@ -1,16 +1,19 @@
 package com.timsu.astrid.utilities;
 
+import java.io.File;
+import java.io.FileFilter;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.Date;
+
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import com.timsu.astrid.R;
 
-import java.io.File;
-import java.io.FilenameFilter;
-import java.util.Date;
+import com.timsu.astrid.R;
 
 /**
  * Inspired heavily by SynchronizationService
@@ -98,21 +101,27 @@ public class BackupService extends Service {
     }
 
     private void deleteOldBackups() {
-        FilenameFilter filter = new FilenameFilter() {
+        FileFilter backupFileFilter = new FileFilter() {
             @Override
-            public boolean accept(File file, String s) {
-                if (s.matches(BACKUP_FILE_NAME_REGEX)) {
-                    String dateString = s.substring(TasksXmlExporter.FILENAME_DATE_BEGIN_INDEX,
-                            TasksXmlExporter.FILENAME_DATE_END_INDEX);
-                    return DateUtilities.wasCreatedBefore(dateString, DAYS_TO_KEEP_BACKUP);
+            public boolean accept(File file) {
+                if (file.getName().matches(BACKUP_FILE_NAME_REGEX)) {
+                    return true;
                 }
                 return false;
             }
         };
         File astridDir = TasksXmlExporter.getExportDirectory();
-        String[] files = astridDir.list(filter);
-        for (String file : files) {
-            new File(astridDir, file).delete();
+
+        // grab all backup files, sort by modified date, delete old ones
+        File[] files = astridDir.listFiles(backupFileFilter);
+        Arrays.sort(files, new Comparator<File>() {
+            @Override
+            public int compare(File file1, File file2) {
+                return -Long.valueOf(file1.lastModified()).compareTo(Long.valueOf(file2.lastModified()));
+            }
+        });
+        for(int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {
+            files[i].delete();
         }
     }
 }
