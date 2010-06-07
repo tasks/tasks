@@ -95,7 +95,8 @@ public final class UpgradeService {
             });
         if(from > 130 && from <= 132)
             newVersionString(changeLog, "2.14.2 (5/29/10)", new String[] {
-                    "Fixed crash when Polish version views completed tasks",
+                    "Fixed crashes occuring with certain languages (Spanish, Polish)",
+                    "Fixed backup service deleting too many old days backups",
             });
 
         changeLog.append("</body></html>");
