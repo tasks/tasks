@@ -294,6 +294,13 @@ public class Preferences {
         return getPrefs(context).getBoolean(r.getString(R.string.p_backup), true);
     }
 
+    public static void setBackupEnabled(Context context, boolean setting) {
+        Resources r = context.getResources();
+        Editor editor = getPrefs(context).edit();
+        editor.putBoolean(r.getString(R.string.p_backup), setting);
+        editor.commit();
+    }
+
     /**
      * @return error when doing backup, empty string if successful, or null
      *         if no backup has been attempted
