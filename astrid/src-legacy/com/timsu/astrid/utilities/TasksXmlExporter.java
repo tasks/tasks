@@ -1,5 +1,16 @@
 package com.timsu.astrid.utilities;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+
+import org.xmlpull.v1.XmlSerializer;
+
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;
@@ -7,6 +18,7 @@ import android.os.Looper;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
+
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
@@ -17,12 +29,6 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForXml;
-import org.xmlpull.v1.XmlSerializer;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.*;
 
 public class TasksXmlExporter {
 
@@ -175,12 +181,12 @@ public class TasksXmlExporter {
         syncDataController.open();
     }
 
-    public void exportTasks() {
+    public void exportTasks(File directory) {
         if (isService && !Preferences.isBackupEnabled(ctx)) {
             // Automatic backups are disabled.
             return;
         }
-        if (setupFile()) {
+        if (setupFile(directory)) {
             Thread thread = new Thread(doBackgroundExport);
             thread.start();
         }
@@ -196,8 +202,8 @@ public class TasksXmlExporter {
         return null;
     }
 
-    private boolean setupFile() {
-        File astridDir = getExportDirectory();
+    private boolean setupFile(File directory) {
+        File astridDir = directory;
         if (astridDir != null) {
             // Check for /sdcard/astrid directory. If it doesn't exist, make it.
             if (astridDir.exists() || astridDir.mkdir()) {

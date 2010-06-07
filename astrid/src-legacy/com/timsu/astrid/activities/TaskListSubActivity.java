@@ -1345,7 +1345,7 @@ public class TaskListSubActivity extends SubActivity {
     private void exportTasks() {
         TasksXmlExporter exporter = new TasksXmlExporter(false);
         exporter.setContext(getParent());
-        exporter.exportTasks();
+        exporter.exportTasks(TasksXmlExporter.getExportDirectory());
     }
 
     /*

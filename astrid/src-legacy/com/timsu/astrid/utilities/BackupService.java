@@ -12,6 +12,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 import com.timsu.astrid.R;
 
@@ -29,10 +30,9 @@ public class BackupService extends Service {
      * how often to back up
      */
     private static final long BACKUP_INTERVAL = AlarmManager.INTERVAL_DAY;
-    private static final String BACKUP_ACTION = "backup";
-    private static final String BACKUP_FILE_NAME_REGEX = "auto\\.\\d{6}\\-\\d{4}\\.xml";
+    public static final String BACKUP_ACTION = "backup";
+    public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml";
     private static final int DAYS_TO_KEEP_BACKUP = 7;
-
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -46,6 +46,14 @@ public class BackupService extends Service {
         }
     }
 
+    /**
+     * Test hook for backup
+     * @param ctx
+     */
+    public void testBackup(Context ctx) {
+        startBackup(ctx);
+    }
+
     private void startBackup(Context ctx) {
         if (ctx == null || ctx.getResources() == null) {
             return;
@@ -55,10 +63,14 @@ public class BackupService extends Service {
                 return;
             }
 
-            deleteOldBackups();
+            try {
+                deleteOldBackups();
+            } catch (Exception e) {
+                Log.e("error-deleting", "Error deleting old backups: " + e);
+            }
             TasksXmlExporter exporter = new TasksXmlExporter(true);
             exporter.setContext(ctx);
-            exporter.exportTasks();
+            exporter.exportTasks(backupDirectorySetting.getBackupDirectory());
             Preferences.setBackupSummary(ctx,
                     ctx.getString(R.string.prefs_backup_desc_success,
                             DateUtilities.getFormattedDate(ctx.getResources(), new Date())));
@@ -110,7 +122,7 @@ public class BackupService extends Service {
                 return false;
             }
         };
-        File astridDir = TasksXmlExporter.getExportDirectory();
+        File astridDir = backupDirectorySetting.getBackupDirectory();
 
         // grab all backup files, sort by modified date, delete old ones
         File[] files = astridDir.listFiles(backupFileFilter);
@@ -123,5 +135,25 @@ public class BackupService extends Service {
         for(int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {
             files[i].delete();
         }
+    }
+
+    /**
+     * Interface for setting where backups go
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    public interface BackupDirectorySetting {
+        public File getBackupDirectory();
+    }
+
+    private BackupDirectorySetting backupDirectorySetting = new BackupDirectorySetting() {
+        public File getBackupDirectory() {
+            return TasksXmlExporter.getExportDirectory();
+        }
+    };
+
+    public void setBackupDirectorySetting(
+            BackupDirectorySetting backupDirectorySetting) {
+        this.backupDirectorySetting = backupDirectorySetting;
     }
 }
