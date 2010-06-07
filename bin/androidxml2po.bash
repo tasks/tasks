@@ -55,7 +55,7 @@ function import_po2xml
         for (( i=0 ; i<${#po_lang[*]} ; i=i+1 )); do
             echo " Importing .xml from .po for "${resource_file}-${po_lang[i]}""
             mkdir -p "${android_xml_files_res_dir}"-"${res_lang[i]}"
-            ${xml2po} -a -l "${po_lang[i]}" -p "${launchpad_po_files_dir}"/"${resource_file}"-"${po_lang[i]}".po \
+            ${xml2po} -a -l "${po_lang[i]}" -p "${launchpad_po_files_dir}/${resource_file}/${resource_file}"-"${po_lang[i]}".po \
                 "${android_xml_files_res_dir}"/"${resource_file}".xml > "${android_xml_files_res_dir}"-"${res_lang[i]}"/"${resource_file}".xml
         done
     done
@@ -67,7 +67,7 @@ function export_xml2po
     for resource_file in $android_xml_filenames; do
         echo "Exporting .xml to .pot: $resource_file"
         ${xml2po} -a -l "${po_lang[i]}" -o \
-            "${launchpad_pot_file_dir}"/"${resource_file}".pot \
+            "${launchpad_pot_file_dir}/${resource_file}/${resource_file}".pot \
             "${android_xml_files_res_dir}"/"${resource_file}".xml
 
         for (( i=0 ; i<${#po_lang[*]} ; i=i+1 )); do
@@ -75,7 +75,7 @@ function export_xml2po
             ${xml2po} -a \
                 -r "${android_xml_files_res_dir}"-"${res_lang[i]}"/"${resource_file}".xml \
                 "${android_xml_files_res_dir}"/"${resource_file}".xml > \
-                "${launchpad_po_files_dir}"/"${resource_file}"-"${po_lang[i]}".po
+                "${launchpad_po_files_dir}/${resource_file}/${resource_file}"-"${po_lang[i]}".po
         done
     done
 
