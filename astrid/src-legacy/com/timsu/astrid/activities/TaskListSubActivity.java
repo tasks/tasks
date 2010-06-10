@@ -68,7 +68,6 @@ import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForEdit;
 import com.timsu.astrid.data.task.TaskModelForList;
-import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.AstridUtilities;
@@ -356,7 +355,7 @@ public class TaskListSubActivity extends SubActivity {
         item.setIcon(android.R.drawable.ic_menu_myplaces);
         item.setAlphabeticShortcut('t');
 
-        if (Preferences.shouldDisplaySyncButton(getParent())) {
+        if (Constants.SYNCHRONIZE && Preferences.shouldDisplaySyncButton(getParent())) {
             item = menu.add(Menu.NONE, SYNC_ID, Menu.NONE,
                     R.string.taskList_menu_syncshortcut);
             item.setIcon(android.R.drawable.ic_menu_upload);
@@ -375,9 +374,11 @@ public class TaskListSubActivity extends SubActivity {
     public boolean onCreateMoreOptionsMenu(Menu menu) {
         MenuItem item;
 
-        item = menu.add(Menu.NONE, OPTIONS_SYNC_ID, Menu.NONE,
-                R.string.taskList_menu_sync);
-        item.setAlphabeticShortcut('s');
+        if(Constants.SYNCHRONIZE) {
+            item = menu.add(Menu.NONE, OPTIONS_SYNC_ID, Menu.NONE,
+                    R.string.taskList_menu_sync);
+            item.setAlphabeticShortcut('s');
+        }
 
         item = menu.add(Menu.NONE, OPTIONS_SETTINGS_ID, Menu.NONE,
                 R.string.taskList_menu_settings);
@@ -980,9 +981,6 @@ public class TaskListSubActivity extends SubActivity {
                     synchronize();
                 }
 
-                // schedule synchronization service
-                SynchronizationService.scheduleService(getParent());
-
             } else if (context.taskArray != null
                 && context.taskArray.size() > 0
                 && context.taskArray.size() < AUTO_REFRESH_MAX_LIST_SIZE) {
@@ -999,6 +997,9 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Invoke synchronizer */
     private void synchronize() {
+        if(!Constants.SYNCHRONIZE)
+            return;
+
         Synchronizer sync = new Synchronizer(false);
         sync.setTagController(getTagController());
         sync.setTaskController(getTaskController());
