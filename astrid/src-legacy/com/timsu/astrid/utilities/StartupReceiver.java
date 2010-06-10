@@ -95,7 +95,8 @@ public class StartupReceiver extends BroadcastReceiver {
                         Constants.WIDGET_UPDATE_INTERVAL, pendingIntent);
 
                 // start synchronization service
-                SynchronizationService.scheduleService(context);
+                if(Constants.SYNCHRONIZE)
+                    SynchronizationService.scheduleService(context);
 
                 // start backup service
                 BackupService.scheduleService(context);
