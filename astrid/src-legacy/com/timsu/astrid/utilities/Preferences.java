@@ -2,6 +2,7 @@ package com.timsu.astrid.utilities;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -166,22 +167,12 @@ public class Preferences {
     }
 
     public static SimpleDateFormat getDateFormat(Context context) {
-        String value = android.provider.Settings.System.getString(context.getContentResolver(),
-        		android.provider.Settings.System.DATE_FORMAT);
-
-        if(value == null) {
-            value = "MMM d, yyyy";
-        }
-
-        // if there is not already day-of-week indicator, add this
-        if(!value.contains("E"))
-            value = "EEE, " + value;
-
-        try {
-            return new SimpleDateFormat(value);
-        } catch (IllegalArgumentException e) {
-            return new SimpleDateFormat("EEE, MMM d, yyyy");
-        }
+        // united states, you are special
+        if(Locale.US.equals(Locale.getDefault()) ||
+                Locale.CANADA.equals(Locale.getDefault()))
+            return new SimpleDateFormat("EEE MMM d yy");
+        else
+            return new SimpleDateFormat("EEE d MMM yy");
     }
 
     // --- notification settings
