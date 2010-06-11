@@ -65,7 +65,7 @@
         <!-- used for long due dates. c.f. Java's SimpleDateFormat -->
         <string name="dateFormatter">d MMM</string>
         <!--  used for alarms -->
-        <string name="alarmDateFormatter">M/dd TT:mm</string>
+        <string name="alarmDateFormatter">M/dd HH:mm</string>
         <!-- vertical labels are used in dialog boxes -->
         <string name="daysVertical">D\na\ng\na\nr</string>
         <string name="hoursVertical">H\no\nu\nr\ns</string>
