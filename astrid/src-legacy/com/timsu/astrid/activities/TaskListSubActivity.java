@@ -68,6 +68,7 @@ import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForEdit;
 import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.AstridUtilities;
@@ -980,6 +981,10 @@ public class TaskListSubActivity extends SubActivity {
                     TaskList.synchronizeNow = false;
                     synchronize();
                 }
+
+                // schedule synchronization service
+                if(Constants.SYNCHRONIZE)
+                    SynchronizationService.scheduleService(getParent());
 
             } else if (context.taskArray != null
                 && context.taskArray.size() > 0
