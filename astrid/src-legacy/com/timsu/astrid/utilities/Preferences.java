@@ -170,9 +170,9 @@ public class Preferences {
         // united states, you are special
         if(Locale.US.equals(Locale.getDefault()) ||
                 Locale.CANADA.equals(Locale.getDefault()))
-            return new SimpleDateFormat("EEE MMM d yy");
+            return new SimpleDateFormat("EEE, MMM d yyyy");
         else
-            return new SimpleDateFormat("EEE d MMM yy");
+            return new SimpleDateFormat("EEE, d MMM yyyy");
     }
 
     // --- notification settings

@@ -1065,6 +1065,9 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Toggle the timer */
     private void toggleTimer(TaskModelForList task) {
+        if(task == null)
+            return;
+
         if (task.getTimerStart() == null) {
             FlurryAgent.onEvent("start-timer");
             task.setTimerStart(new Date());
