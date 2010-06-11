@@ -453,6 +453,8 @@ public class Notifications extends BroadcastReceiver {
             notification.audioStreamType = AudioManager.STREAM_ALARM;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
                     audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
+        } else {
+            notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
         }
 
         // quiet hours = no sound
