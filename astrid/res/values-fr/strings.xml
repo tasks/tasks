@@ -177,8 +177,8 @@
 
         <string name="taskList_context_edit">Modifier la tâche</string>
         <string name="taskList_context_delete">Supprimer la tâche</string>
-        <string name="taskList_context_startTimer">Démarrer le chronomètre</string>
-        <string name="taskList_context_stopTimer">Arrêter le chronomètre</string>
+        <string name="taskList_context_startTimer">Démarrer le Chronomètre</string>
+        <string name="taskList_context_stopTimer">Arrêter le Chronomètre</string>
         <string name="taskList_context_postpone">Reporter</string>
 
         <!-- filter menu items -->
@@ -219,7 +219,7 @@
         <string name="elapsedDuration_label">Temps déjà passé sur cette tâche</string>
         <string name="definiteDueDate_label">Date limite</string>
         <string name="preferredDueDate_label">Date prévue</string>
-        <string name="addToCalendar_label">Ajouter la tâche à l\'agenda</string>
+        <string name="addToCalendar_label">Ajouter la tâche</string>
         <string name="showCalendar_label">Ouvrir l\'événement de l\'agenda</string>
         <string name="hiddenUntil_label">Masquer jusqu\'à cette date</string>
         <string name="repeat_label">Répéter tous les</string>
@@ -252,8 +252,8 @@
         <string name="edit_label">Modifier</string>
         <string name="delete_label">Supprimer</string>
         <string name="blank_button_title">Cliquez pour définir</string>
-        <string name="startTimer_label">Démarrer le chronomètre</string>
-        <string name="stopTimer_label">Arrêter le chronomètre</string>
+        <string name="startTimer_label">Chronomètre</string>
+        <string name="stopTimer_label">Arrêter le chron</string>
 
         <string name="taskEdit_menu_save">Enregistrer</string>
         <string name="taskEdit_onTaskSave_Due">Tâche enregistrée : échéance dans %s</string>
