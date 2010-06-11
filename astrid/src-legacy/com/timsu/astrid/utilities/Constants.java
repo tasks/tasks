@@ -18,9 +18,14 @@ public class Constants {
     public static final long WIDGET_UPDATE_INTERVAL = 30 * 60 * 1000L;
 
     /**
-     * Whether to display synchronization
+     * Whether this is an OEM preinstallation
      */
-    public static final boolean SYNCHRONIZE = true;
+    public static final boolean OEM = false;
+
+    /**
+     * Whether to display synchronization options
+     */
+    public static final boolean SYNCHRONIZE = !OEM;
 
     // result codes
 

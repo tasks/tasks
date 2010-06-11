@@ -106,7 +106,8 @@ public class StartupReceiver extends BroadcastReceiver {
         Preferences.setPreferenceDefaults(context);
 
         // check for task killers
-        showTaskKillerHelp(context);
+        if(!Constants.OEM)
+            showTaskKillerHelp(context);
 
         hasStartedUp = true;
     }
