@@ -3,6 +3,8 @@ package com.todoroo.andlib.service;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+import android.util.Log;
+
 /**
  * Simple Dependency Injection Service for Android.
  * <p>
@@ -93,6 +95,9 @@ public class DependencyInjectionService {
             Object injection = injector.getInjection(caller, field);
             if (injection != null) {
                 field.set(caller, injection);
+                Log.e("INJECTION", "injected " + caller.getClass().getSimpleName()
+                        + "." + field.getName() + " -> " +
+                        injection.toString()); // (debug)
                 return;
             }
         }
@@ -136,5 +141,6 @@ public class DependencyInjectionService {
      */
     public synchronized void setInjectors(AbstractDependencyInjector[] injectors) {
         this.injectors = injectors;
+        Log.e("INJECTION SETTING", "Set Injector List to: " + Arrays.asList(injectors)); // (debug)
     }
 }
