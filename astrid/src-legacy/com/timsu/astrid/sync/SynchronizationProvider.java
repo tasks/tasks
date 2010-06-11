@@ -147,8 +147,12 @@ public abstract class SynchronizationProvider {
         }
         syncHandler.post(new Runnable() {
             public void run() {
-                if(progressDialog != null)
-                    progressDialog.dismiss();
+                try {
+                    if(progressDialog != null)
+                        progressDialog.dismiss();
+                } catch (Exception e) {
+                    // suppress it
+                }
                 DialogUtilities.okDialog(context, messageToDisplay, null);
             }
         });

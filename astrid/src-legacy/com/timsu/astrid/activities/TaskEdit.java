@@ -186,10 +186,13 @@ public class TaskEdit extends TaskModificationTabbedActivity<TaskModelForEdit> {
 
     @Override
     protected TaskModelForEdit getModel(TaskIdentifier identifier) {
-        if (identifier != null)
-            return controller.fetchTaskForEdit(this, identifier);
-        else
-            return controller.createNewTaskForEdit();
+        if (identifier != null) {
+            TaskModelForEdit task = controller.fetchTaskForEdit(this, identifier);
+            if(task.getCursor().getCount() > 0)
+                return task;
+        }
+
+        return controller.createNewTaskForEdit();
     }
 
     /* ======================================================================
