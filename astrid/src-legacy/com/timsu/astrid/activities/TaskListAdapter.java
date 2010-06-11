@@ -287,7 +287,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
 
         // expanded container
         final View expandedContainer = view.findViewById(R.id.expanded_layout);
-        if(expandedContainer == null)
+        if(expandedContainer != null)
             expandedContainer.setVisibility(isExpanded ? View.VISIBLE : View.GONE);
 
         // name
