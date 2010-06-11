@@ -17,4 +17,12 @@ public class AstridTranslationTests extends TranslationTests {
         return R.string.class;
     }
 
+    @Override
+    public int[] getDateFormatStrings() {
+        return new int[] {
+                R.string.dateFormatter,
+                R.string.alarmDateFormatter,
+        };
+    }
+
 }
