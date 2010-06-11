@@ -17,7 +17,7 @@ import com.todoroo.astrid.legacy.data.task.TaskIdentifier;
 import com.todoroo.astrid.legacy.data.task.TaskModelForEdit;
 import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.UpgradeService;
+import com.todoroo.astrid.service.Astrid2To3UpgradeHelper;
 import com.todoroo.astrid.tags.DataService;
 import com.todoroo.astrid.tags.DataService.Tag;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -28,7 +28,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     TaskDao taskDao;
 
     public void upgrade2To3() {
-        new UpgradeService().upgrade2To3();
+        new Astrid2To3UpgradeHelper().upgrade2To3();
     }
 
     public static void assertDatesEqual(Date old, int newDate) {

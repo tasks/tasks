@@ -155,6 +155,14 @@ abstract public class AbstractDatabase {
         return database;
     }
 
+    /**
+     * @return human-readable database name for debugging
+     */
+    @Override
+    public String toString() {
+        return "DB:" + getName();
+    }
+
     // --- helper classes
 
     /**
