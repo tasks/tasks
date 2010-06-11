@@ -82,7 +82,7 @@ public final class UpgradeService {
      */
     @SuppressWarnings("nls")
     public void showChangeLog(int from, int to) {
-        StringBuilder changeLog = new StringBuilder("<html><body style='color: white'>");
+        StringBuilder changeLog = new StringBuilder();
 
         if(from <= 130)
             newVersionString(changeLog, "2.14.0 (5/24/10)", new String[] {
@@ -98,11 +98,20 @@ public final class UpgradeService {
                     "Fixed crashes occuring with certain languages (Spanish, Polish)",
                     "Fixed backup service deleting too many old days backups",
             });
+        if(from > 130 && from <= 133)
+            newVersionString(changeLog, "2.14.3 (6/11/10)", new String[] {
+                    "Fixed crashes occuring with certain languages (Swedish, Turkish)",
+                    "Fixed other crashes that users have reported",
+            });
+
+        if(changeLog.length() == 0)
+            return;
 
         changeLog.append("</body></html>");
+        String changeLogHtml = "<html><body style='color: white'>" + changeLog;
 
         WebView webView = new WebView(ContextManager.getContext());
-        webView.loadData(changeLog.toString(), "text/html", "utf-8");
+        webView.loadData(changeLogHtml, "text/html", "utf-8");
         webView.setBackgroundColor(0);
 
         new AlertDialog.Builder(ContextManager.getContext())
