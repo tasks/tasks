@@ -3,7 +3,9 @@ package com.todoroo.andlib.test;
 
 
 import java.lang.reflect.Field;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.Locale;
 
 import android.content.res.Configuration;
@@ -20,9 +22,22 @@ import android.util.DisplayMetrics;
  */
 abstract public class TranslationTests extends TodorooTestCase {
 
-    // --- abstract classes
+    // --- abstract methods
+
+    /**
+     * @return R.string.class
+     */
     public abstract Class<?> getStringResources();
+
+    /**
+     * @return R.array.class
+     */
     public abstract Class<?> getArrayResources();
+
+    /**
+     * @return array of fields that are parsed by SimpleDateFormat
+     */
+    public abstract int[] getDateFormatStrings();
 
     // --- tests
 
@@ -142,7 +157,43 @@ abstract public class TranslationTests extends TodorooTestCase {
             }
         });
 
-        assertEquals(failures.toString(), 0, failures.length());
+        assertEquals(failures.toString(), 0, errorCount(failures));
+    }
+
+    /**
+     * Test that date formatters parse correctly
+     */
+    public void testDateFormats() throws Exception {
+        final Resources r = getContext().getResources();
+
+        final StringBuilder failures = new StringBuilder();
+        final int[] dateStrings = getDateFormatStrings();
+        final Date date = new Date();
+
+        forEachLocale(new Runnable() {
+            public void run() {
+                Locale locale = r.getConfiguration().locale;
+                for(int i = 0; i < dateStrings.length; i++) {
+                    try {
+                        String string = r.getString(dateStrings[i]);
+                        try {
+                            new SimpleDateFormat(string).format(date);
+                        } catch (Exception e) {
+                            String name = r.getResourceName(dateStrings[i]);
+                            failures.append(String.format("%s: invalid format string '%s': %s\n",
+                                    locale.toString(), name, e.getMessage()));
+                        }
+                    } catch (Exception e) {
+                        String name = r.getResourceName(dateStrings[i]);
+                        failures.append(String.format("%s: error opening %s: %s\n",
+                                locale.toString(), name, e.getMessage()));
+                    }
+                }
+            }
+        });
+
+        assertEquals(failures.toString(), 0, errorCount(failures));
+
     }
 
     /**
@@ -170,10 +221,24 @@ abstract public class TranslationTests extends TodorooTestCase {
                 }
             }
         });
-        assertEquals(failures.toString(), 0, failures.length());
+        assertEquals(failures.toString(), 0, errorCount(failures));
     }
 
     // --- helper methods
+
+    /**
+     * Count newlines
+     */
+    private int errorCount(StringBuilder failures) {
+        int count = 0;
+        int pos = -1;
+        while(true) {
+            pos = failures.indexOf("\n", pos + 1);
+            if(pos == -1)
+                return count;
+            count++;
+        }
+    }
 
     /**
      * @return an array of all string resource id's
