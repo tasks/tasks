@@ -152,7 +152,8 @@ public abstract class AbstractModel implements Parcelable {
 
     /**
      * Utility method to get the identifier of the model, if it exists.
-     * Returns 0
+     *
+     * @return {@value #NO_ID} if this model was not added to the database
      */
     abstract public long getId();
 
@@ -173,6 +174,18 @@ public abstract class AbstractModel implements Parcelable {
             setValues.remove(ID_PROPERTY_NAME);
         else
             setValues.put(ID_PROPERTY_NAME, id);
+    }
+
+    /**
+     * @param property
+     * @return true if setValues or values contains this property
+     */
+    public boolean containsValue(Property<?> property) {
+        if(setValues != null && setValues.containsKey(property.name))
+            return true;
+        if(values != null && values.containsKey(property.name))
+            return true;
+        return false;
     }
 
     // --- data storage

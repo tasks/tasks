@@ -50,6 +50,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         taskController.close();
         upgrade2To3();
 
+        database.openForReading();
         TodorooCursor<Task> tasks = taskDao.query(Query.select(Task.PROPERTIES));
         assertEquals(0, tasks.getCount());
     }
@@ -228,8 +229,8 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         // create some ish
         TaskModelForEdit christmas = new TaskModelForEdit();
         taskController.saveTask(christmas, false);
-        Date x1 = new Date(0,11,25);
-        Date x2 = new Date(1,11,25);
+        Date x1 = new Date(90,11,25);
+        Date x2 = new Date(91,11,25);
         alertController.addAlert(christmas.getTaskIdentifier(), x1);
         alertController.addAlert(christmas.getTaskIdentifier(), x2);
 

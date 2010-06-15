@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.sql.Criterion;
 import com.todoroo.andlib.service.Autowired;
@@ -126,20 +127,31 @@ public class TaskDao extends GenericDao<Task> {
         boolean saveSuccessful;
 
         if (task.getId() == Task.NO_ID) {
-            task.setValue(Task.CREATION_DATE, DateUtilities.now());
-            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
             saveSuccessful = createItem(task);
         } else {
             ContentValues values = task.getSetValues();
             if(values.size() == 0)
                 return true;
-            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
             beforeSave(task, values, duringSync);
             saveSuccessful = saveItem(task);
             afterSave(task, values, duringSync);
         }
 
         return saveSuccessful;
+    }
+
+    @Override
+    public boolean createItem(AbstractModel item) {
+        if(!item.containsValue(Task.CREATION_DATE))
+            item.setValue(Task.CREATION_DATE, DateUtilities.now());
+        item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        return super.createItem(item);
+    }
+
+    @Override
+    public boolean saveItem(AbstractModel item) {
+        item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        return super.saveItem(item);
     }
 
     /**
