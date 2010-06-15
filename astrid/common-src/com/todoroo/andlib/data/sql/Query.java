@@ -22,17 +22,17 @@ public class Query {
 
     private Table table;
     private List<Criterion> criterions = new ArrayList<Criterion>();
-    private List<Property<?>> fields = new ArrayList<Property<?>>();
+    private List<Field> fields = new ArrayList<Field>();
     private List<Join> joins = new ArrayList<Join>();
     private List<Field> groupBies = new ArrayList<Field>();
     private List<Order> orders = new ArrayList<Order>();
     private List<Criterion> havings = new ArrayList<Criterion>();
 
-    private Query(Property<?>... fields) {
+    private Query(Field... fields) {
         this.fields.addAll(asList(fields));
     }
 
-    public static Query select(Property<?>... fields) {
+    public static Query select(Field... fields) {
         return new Query(fields);
     }
 

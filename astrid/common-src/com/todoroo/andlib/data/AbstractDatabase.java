@@ -132,8 +132,9 @@ abstract public class AbstractDatabase {
      * Close the database if it has been opened previously
      */
     public synchronized final void close() {
-        if(database != null)
+        if(database != null) {
             database.close();
+        }
         database = null;
     }
 

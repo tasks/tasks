@@ -271,19 +271,22 @@ public class Astrid2To3UpgradeHelper {
         long tagId = -1;
         String tag = null;
         for(mapCursor.moveToFirst(); !mapCursor.isAfterLast(); mapCursor.moveToNext()) {
-            long mapTagId = mapCursor.getLong(1);
+            long mapTagId = mapCursor.getLong(0);
 
             while(mapTagId > tagId && !tagCursor.isLast()) {
                 tagCursor.moveToNext();
-                tagId = tagCursor.getLong(1);
+                tagId = tagCursor.getLong(0);
+                tag = null;
             }
 
             if(mapTagId == tagId) {
                 if(tag == null)
-                    tag = tagCursor.getString(2);
-                long task = mapCursor.getLong(2);
+                    tag = tagCursor.getString(1);
+                long task = mapCursor.getLong(1);
+                metadata.clear();
                 metadata.setValue(Metadata.TASK, task);
                 metadata.setValue(Metadata.VALUE, tag);
+                Log.e("PUT PUT", "PUT task " + task + " and tag " + tag);
                 metadataDao.createItem(metadata);
             }
         }

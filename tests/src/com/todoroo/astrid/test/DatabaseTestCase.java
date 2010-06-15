@@ -2,7 +2,6 @@ package com.todoroo.astrid.test;
 
 import java.io.File;
 
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.test.TodorooTestCase;
@@ -24,8 +23,7 @@ public class DatabaseTestCase extends TodorooTestCase {
     private static final String TAGS_TEST = "tagstest";
     private static final String TASKS_TEST = "taskstest";
 
-    @Autowired
-	public Database database;
+	public static Database database = new TestDatabase();
 
     public AlarmsDatabase alarmsDatabase;
 
@@ -39,7 +37,7 @@ public class DatabaseTestCase extends TodorooTestCase {
         injector.addInjectable("tagTaskTable", TAG_TASK_TEST);
         injector.addInjectable("alertsTable", ALERTS_TEST);
         injector.addInjectable("syncTable", SYNC_TEST);
-        injector.addInjectable("database", new TestDatabase());
+        injector.addInjectable("database", database);
     }
 
 	@Override
@@ -49,7 +47,7 @@ public class DatabaseTestCase extends TodorooTestCase {
 	    DependencyInjectionService.getInstance().inject(this);
 
 		// empty out test databases
-        database.clear();
+	    database.clear();
 		deleteDatabase(TASKS_TEST);
 		deleteDatabase(TAGS_TEST);
 		deleteDatabase(TAG_TASK_TEST);
