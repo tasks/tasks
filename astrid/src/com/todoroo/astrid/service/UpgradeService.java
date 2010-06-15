@@ -1,5 +1,6 @@
 package com.todoroo.astrid.service;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.webkit.WebView;
 
@@ -35,6 +36,9 @@ public final class UpgradeService {
      */
     @SuppressWarnings("nls")
     public void showChangeLog(int from) {
+        if(!(ContextManager.getContext() instanceof Activity))
+            return;
+
         StringBuilder changeLog = new StringBuilder();
 
         if(from <= 130)
