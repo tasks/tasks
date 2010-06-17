@@ -292,7 +292,6 @@ public class Astrid2To3UpgradeHelper {
                 metadata.setValue(Metadata.TASK, task);
                 metadata.setValue(Metadata.KEY, TagService.KEY);
                 metadata.setValue(Metadata.VALUE, tag);
-                Log.e("PUT PUT", "PUT task " + task + " and tag " + tag);
                 metadataDao.createItem(metadata);
                 metadata.clearValue(Metadata.ID);
             }

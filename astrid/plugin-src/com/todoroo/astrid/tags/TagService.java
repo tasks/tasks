@@ -3,7 +3,6 @@ package com.todoroo.astrid.tags;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -84,7 +83,6 @@ public class TagService {
                 array[i] = new Tag();
                 array[i].tag = cursor.get(Metadata.VALUE);
                 array[i].count = cursor.get(COUNT);
-                Log.e("GET GET", "GET " + array[i].tag + " count " + array[i].count);
             }
             return array;
         } finally {
