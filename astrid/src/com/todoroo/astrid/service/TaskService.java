@@ -6,6 +6,7 @@ import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Task;
@@ -89,6 +90,11 @@ public class TaskService {
         } finally {
             cursor.close();
         }
+    }
+
+    public TodorooCursor<Task> fetchFiltered(Property<?>[] properties,
+            Filter filter) {
+        return taskDao.query(Query.select(properties));
     }
 
 }

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/row_layout"
+    android:orientation="horizontal"
+    android:background="@android:drawable/list_selector_background"
+    android:focusable="true"
+    android:paddingTop="2px"
+    android:paddingLeft="6dip"
+    android:paddingRight="6dip"
+    android:paddingBottom="2px"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    
+    <!-- completion check-box -->
+    <CheckBox android:id="@+id/completeBox"
+        android:layout_width="40px"
+        android:layout_height="45px"
+        android:layout_weight="1"
+        android:paddingLeft="10px" />
+
+    <LinearLayout android:id="@+id/details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"
+        android:paddingLeft="10px"
+        android:orientation="vertical">
+            
+        <!-- task name -->
+        <TextView android:id="@+id/title"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            style="@style/TextAppearance.TAd_ItemTitle"
+            android:gravity="center_vertical"/>
+    
+       <!-- due date -->
+       <TextView android:id="@+id/dueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:singleLine="true"/>
+            
+        <!-- other details go here -->
+        
+    </LinearLayout>
+            
+    <!-- importance -->
+    <View android:id="@+id/importance"
+        android:layout_width="12px"
+        android:layout_height="fill_parent"/>
+        
+</LinearLayout>

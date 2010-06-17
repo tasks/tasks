@@ -39,7 +39,7 @@ import com.timsu.astrid.utilities.DialogUtilities;
  */
 public abstract class TaskModificationTabbedActivity<MODEL_TYPE extends
         AbstractTaskModel> extends TabActivity {
-    protected static final String LOAD_INSTANCE_TOKEN = TaskModificationActivity.LOAD_INSTANCE_TOKEN;
+    public static final String LOAD_INSTANCE_TOKEN = TaskModificationActivity.LOAD_INSTANCE_TOKEN;
 
     protected TaskController controller;
     protected MODEL_TYPE model;

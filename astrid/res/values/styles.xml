@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources>
+
+    <!-- ============================ General =============================  -->
+    
+    <style name="TextAppearance" parent="android:TextAppearance" />
+    
+    <!-- generic style for labels above edit boxes -->
+    <style name="TextAppearance.GEN_EditLabel">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="Theme" parent="android:Theme">
+        <item name="android:windowBackground">@null</item>
+    </style>
+    
+    <!--========================= TaskListActivity ========================  -->
+    
+    <style name="TextAppearance.TLA_NoItems">
+        <item name="android:textSize">20sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+    
+    <style name="TextAppearance.TLA_Header">
+        <item name="android:textSize">24sp</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- =========================== TaskAdapter =========================== -->
+
+    <style name="TextAppearance.TAd_ItemTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    
+    <style name="TextAppearance.TAd_ItemTitle_Completed" parent="TextAppearance.TAd_ItemTitle">
+        <item name="android:textColor">#ff555555</item>
+    </style>
+
+    <style name="TextAppearance.TAd_ItemDetails">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">#ff777777</item>
+    </style>
+    
+    <style name="TextAppearance.TAd_ItemDueDate" parent="TextAppearance.TAd_ItemDetails">
+        <item name="android:textColor">#ff7777aa</item>
+    </style>
+    
+    <style name="TextAppearance.TAd_ItemDueDate_Overdue" parent="TextAppearance.TAd_ItemDueDate">
+        <item name="android:textColor">#ffee5555</item>
+    </style>
+
+    <!-- ======================== FilterListAdapter ======================== -->
+
+    <style name="TextAppearance.FLA_Filter" parent="TextAppearance.TAd_ItemTitle">
+        <item name="android:textSize">22sp</item>
+        <item name="android:paddingTop">5px</item>
+        <item name="android:paddingBottom">5px</item>
+        <item name="android:paddingLeft">10px</item>
+    </style>
+    
+    <style name="TextAppearance.FLA_Header" parent="TextAppearance.TAd_ItemTitle">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">#ffdddddd</item>
+    </style>
+    
+    <style name="TextAppearance.FLA_Category" parent="TextAppearance.TAd_ItemTitle">
+        <item name="android:textColor">#ff7ada24</item>
+        <item name="android:textStyle">bold|italic</item>
+    </style>
+    
+</resources>

@@ -62,6 +62,11 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
         injectables.put("exceptionService", ExceptionService.class);
         injectables.put("errorDialogTitleResource", R.string.DLG_error);
 
+        // TODO
+        injectables.put("errorDialogBodyGeneric", R.string.DLG_error);
+        injectables.put("errorDialogBodyNullError", R.string.DLG_error);
+        injectables.put("errorDialogBodySocketTimeout", R.string.DLG_error);
+
         // com.todoroo.android.utility
         injectables.put("dialogUtilities", DialogUtilities.class);
         injectables.put("informationDialogTitleResource", R.string.DLG_information_title);

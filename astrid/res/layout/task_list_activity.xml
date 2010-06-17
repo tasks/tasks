@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_gradient">
+    
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@drawable/edit_header">
+    
+        <!-- Back Button -->
+        <ImageView android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/tasklist_back"
+            android:paddingTop="8px"
+            android:paddingLeft="5px"/> 
+        
+        <!-- List Label -->
+        <TextView android:id="@+id/listLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:singleLine="true"
+            android:paddingTop="6px"
+            android:paddingRight="50px"
+            style="@style/TextAppearance.TLA_Header"/>
+
+    </LinearLayout>
+    
+    <!-- Body -->
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"> 
+            
+        <!-- No Tasks label -->
+        <TextView android:id="@android:id/empty"
+            android:layout_width="fill_parent" 
+            android:layout_height="fill_parent"
+            android:visibility="gone"
+            android:text="@string/TLA_no_items"
+            style="@style/TextAppearance.TLA_NoItems"/>
+    
+        <!-- Task List -->
+        <ListView android:id="@android:id/list"
+            android:background="@null"
+            android:scrollbars="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"/>
+        
+    </FrameLayout>
+        
+    <!-- Footer -->
+    <LinearLayout
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+    
+        <!-- Quick Add Task -->
+        <EditText android:id="@+id/quickAddText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="100"
+            android:hint="@string/TLA_quick_add_hint"
+            android:singleLine="true"
+            android:autoText="true"
+            android:capitalize="sentences"/>
+        
+        <!-- Quick Add Button -->
+        <ImageButton android:id="@+id/quickAddButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@android:drawable/ic_input_add"/> 
+
+    </LinearLayout>
+    
+        
+</LinearLayout>

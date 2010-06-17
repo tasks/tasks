@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_gradient">
+
+    <!-- Loading Filters label -->
+    <TextView android:id="@android:id/empty"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+        android:text="@string/FLA_loading"
+        style="@style/TextAppearance.TLA_NoItems"/>
+
+    <!-- List -->
+    <ExpandableListView android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="@null"
+        android:scrollbars="vertical"
+        />
+    
+</FrameLayout>
+    

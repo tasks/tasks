@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources>
+    
+    <!-- Resources for built-in filter plug-in -->
+    
+    <!-- Inbox Filter -->
+    <string name="BFE_Inbox">Inbox</string>
+    
+    <!-- Completed Filter -->
+    <string name="BFE_Completed">Completed</string>
+
+    <!-- All Tasks Filter -->
+    <string name="BFE_All">All Tasks</string>
+        
+</resources>
