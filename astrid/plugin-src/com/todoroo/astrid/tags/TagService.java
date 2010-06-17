@@ -3,6 +3,7 @@ package com.todoroo.astrid.tags;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -26,7 +27,7 @@ import com.todoroo.astrid.service.MetadataService;
  *
  */
 @SuppressWarnings("nls")
-public class DataService {
+public class TagService {
 
     /**
      * Metadata key for tag data
@@ -39,7 +40,7 @@ public class DataService {
     @Autowired
     private MetadataService metadataService;
 
-    public DataService(@SuppressWarnings("unused") Context context) {
+    public TagService(@SuppressWarnings("unused") Context context) {
         DependencyInjectionService.getInstance().inject(this);
     }
 
@@ -75,7 +76,7 @@ public class DataService {
      */
     public Tag[] getGroupedTags(Order order) {
         TodorooCursor<Metadata> cursor = metadataService.fetchWithCount(
-                COUNT, MetadataCriteria.withKey(KEY), order, true);
+                COUNT, MetadataCriteria.withKey(KEY), order);
         try {
             Tag[] array = new Tag[cursor.getCount()];
             for (int i = 0; i < array.length; i++) {
@@ -83,6 +84,7 @@ public class DataService {
                 array[i] = new Tag();
                 array[i].tag = cursor.get(Metadata.VALUE);
                 array[i].count = cursor.get(COUNT);
+                Log.e("GET GET", "GET " + array[i].tag + " count " + array[i].count);
             }
             return array;
         } finally {

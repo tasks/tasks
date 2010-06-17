@@ -149,7 +149,7 @@ public class Query {
             return;
         }
         for (Field field : fields) {
-            sql.append(field).append(COMMA);
+            sql.append(field.toStringInSelect()).append(COMMA);
         }
         sql.deleteCharAt(sql.length() - 1).append(SPACE);
     }

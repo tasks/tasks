@@ -18,8 +18,8 @@ import com.todoroo.astrid.legacy.data.task.TaskModelForEdit;
 import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.Astrid2To3UpgradeHelper;
-import com.todoroo.astrid.tags.DataService;
-import com.todoroo.astrid.tags.DataService.Tag;
+import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class Astrid2To3UpgradeTests extends DatabaseTestCase {
@@ -147,8 +147,8 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
         // verify that data exists in our new table
         database.openForReading();
-        DataService tagService = new DataService(getContext());
-        Tag[] tags = tagService.getGroupedTags(DataService.GROUPED_TAGS_BY_ALPHA);
+        TagService tagService = new TagService(getContext());
+        Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
         assertEquals(2, tags.length);
         assertEquals("salty", tags[0].tag);
         assertEquals("tasty", tags[1].tag);
@@ -158,7 +158,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         assertEquals(3, tasks.getCount());
         tasks.moveToFirst();
         Task task = new Task(tasks);
-        assertEquals("tasty,salty", tagService.getTagsAsString(task.getId()));
+        assertEquals("tasty, salty", tagService.getTagsAsString(task.getId()));
         tasks.moveToNext();
         task.readFromCursor(tasks);
         assertEquals("tasty", tagService.getTagsAsString(task.getId()));
@@ -201,8 +201,8 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
         // verify that data exists in our new table
         database.openForReading();
-        DataService tagService = new DataService(getContext());
-        Tag[] tags = tagService.getGroupedTags(DataService.GROUPED_TAGS_BY_ALPHA);
+        TagService tagService = new TagService(getContext());
+        Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
         assertEquals(1, tags.length);
         assertEquals("attached", tags[0].tag);
 
