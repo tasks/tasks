@@ -95,9 +95,6 @@ public class DependencyInjectionService {
             Object injection = injector.getInjection(caller, field);
             if (injection != null) {
                 field.set(caller, injection);
-                Log.e("INJECTION", "injected " + caller.getClass().getSimpleName()
-                        + "." + field.getName() + " -> " +
-                        injection.toString()); // (debug)
                 return;
             }
         }

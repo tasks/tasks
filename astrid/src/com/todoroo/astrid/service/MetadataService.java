@@ -1,7 +1,5 @@
 package com.todoroo.astrid.service;
 
-import android.util.Log;
-
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
@@ -73,7 +71,6 @@ public class MetadataService {
             Criterion where, Order order) {
         Query query = Query.select(Metadata.VALUE.as(Metadata.VALUE.name), count).
             where(where).orderBy(order).groupBy(Metadata.VALUE);
-        Log.e("egads", query.toString());
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         return cursor;
     }
