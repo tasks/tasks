@@ -184,14 +184,16 @@ public abstract class Property<TYPE> extends Field implements Cloneable {
     /** Runs a SQL function and returns the result as a string */
     public static class StringFunctionProperty extends StringProperty {
         public StringFunctionProperty(String function, String columnName) {
-            super(null, columnName, function + " AS " + columnName);
+            super(null, columnName, function);
+            alias = columnName;
         }
     }
 
     /** Runs a SQL function and returns the result as a string */
     public static class IntegerFunctionProperty extends IntegerProperty {
         public IntegerFunctionProperty(String function, String columnName) {
-            super(null, columnName, function + " AS " + columnName);
+            super(null, columnName, function);
+            alias = columnName;
         }
     }
 

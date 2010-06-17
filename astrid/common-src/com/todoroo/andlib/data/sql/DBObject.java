@@ -48,6 +48,13 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
 
     @Override
     public final String toString() {
+        if (hasAlias()) {
+            return alias;
+        }
+        return expression;
+    }
+
+    public final String toStringInSelect() {
         StringBuilder sb = new StringBuilder(expression);
         if (hasAlias()) {
             sb.append(SPACE).append(AS).append(SPACE).append(alias);

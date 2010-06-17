@@ -27,7 +27,7 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.tags.DataService;
+import com.todoroo.astrid.tags.TagService;
 
 public class Astrid2To3UpgradeHelper {
 
@@ -36,6 +36,9 @@ public class Astrid2To3UpgradeHelper {
 
     @Autowired
     private MetadataDao metadataDao;
+
+    @Autowired
+    private MetadataService metadataService;
 
     @Autowired
     private Database database;
@@ -130,6 +133,9 @@ public class Astrid2To3UpgradeHelper {
         alarmsDatabase.close();
 
         // --- upgrade RTM sync mappings (?)
+
+        // --- clean up database
+        metadataService.cleanup();
 
         database.close();
     }
@@ -267,7 +273,7 @@ public class Astrid2To3UpgradeHelper {
             return;
 
         Metadata metadata = new Metadata();
-        metadata.setValue(Metadata.KEY, DataService.KEY);
+        metadata.setValue(Metadata.KEY, TagService.KEY);
         long tagId = -1;
         String tag = null;
         for(mapCursor.moveToFirst(); !mapCursor.isAfterLast(); mapCursor.moveToNext()) {
@@ -283,11 +289,12 @@ public class Astrid2To3UpgradeHelper {
                 if(tag == null)
                     tag = tagCursor.getString(1);
                 long task = mapCursor.getLong(1);
-                metadata.clear();
                 metadata.setValue(Metadata.TASK, task);
+                metadata.setValue(Metadata.KEY, TagService.KEY);
                 metadata.setValue(Metadata.VALUE, tag);
                 Log.e("PUT PUT", "PUT task " + task + " and tag " + tag);
                 metadataDao.createItem(metadata);
+                metadata.clearValue(Metadata.ID);
             }
         }
 
