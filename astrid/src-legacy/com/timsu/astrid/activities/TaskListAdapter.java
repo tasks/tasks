@@ -18,7 +18,6 @@
 package com.timsu.astrid.activities;
 
 import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -333,7 +332,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                                     DateUtilities.getDurationString(r,
                                             Math.abs(secondsLeft), 1));
                         else
-                            finishedTime = DateUtilities.getFormattedDate(r,
+                            finishedTime = DateUtilities.getFormattedDate(activity,
                                     task.getCompletionDate());
                         label.append(r.getString(R.string.taskList_completedPrefix,
                                 finishedTime));
@@ -358,7 +357,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                             label.append(DateUtilities.getDurationString(r,
                                 (int)Math.abs(timeLeft), 1, true));
                         else
-                            label.append(DateUtilities.getFormattedDate(r,
+                            label.append(DateUtilities.getFormattedDate(activity,
                                     task.getDefiniteDueDate()));
                     }
                     if(!taskOverdue && task.getPreferredDueDate() != null) {
@@ -381,7 +380,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
                             label.append(DateUtilities.getDurationString(r,
                                 (int)Math.abs(timeLeft), 1, true));
                         else
-                            label.append(DateUtilities.getFormattedDate(r,
+                            label.append(DateUtilities.getFormattedDate(activity,
                                     task.getPreferredDueDate()));
                     }
                 }
@@ -458,8 +457,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
             	            if(label.length() > 0)
             	                label.append(". ");
             	            if(alarmFormat == null)
-            	            	alarmFormat = new SimpleDateFormat(
-            	            			r.getString(R.string.alarmDateFormatter));
+            	            	alarmFormat = Preferences.getDateWithTimeFormat(activity);
             	            String alarmString = alarmFormat.format(nextAlarm);
             	            label.append(r.getString(R.string.taskList_alarmPrefix) +
             	                    " " + alarmString);

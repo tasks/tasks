@@ -62,10 +62,6 @@
 
         <!-- Time Constants -->
 
-        <!-- used for long due dates. c.f. Java's SimpleDateFormat -->
-        <string name="dateFormatter">dd MMM</string>
-        <!--  used for alarms -->
-        <string name="alarmDateFormatter">dd/MM HH:mm</string>
         <!-- vertical labels are used in dialog boxes -->
         <string name="daysVertical">j\no\nu\nr\ns</string>
         <string name="hoursVertical">h\ne\nu\nr\ne\ns</string>
