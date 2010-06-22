@@ -148,32 +148,83 @@ public class Preferences {
         editor.commit();
     }
 
+    // --- date time strings and formatters
+
+    @SuppressWarnings("nls")
     public static boolean is24HourFormat(Context context) {
         String value = android.provider.Settings.System.getString(context.getContentResolver(),
-        		android.provider.Settings.System.TIME_12_24);
+                android.provider.Settings.System.TIME_12_24);
         boolean b24 =  !(value == null || value.equals("12"));
         return b24;
     }
 
+    /**
+     * @return time format (hours and minutes)
+     */
     public static SimpleDateFormat getTimeFormat(Context context) {
+        String value = getTimeFormatString(context);
+    	return new SimpleDateFormat(value);
+    }
+
+    /**
+     * @return string used for time formatting
+     */
+    @SuppressWarnings("nls")
+    private static String getTimeFormatString(Context context) {
         String value;
     	if (is24HourFormat(context)) {
     		value = "H:mm";
     	} else {
     		value = "h:mm a";
     	}
-
-    	return new SimpleDateFormat(value);
+        return value;
     }
 
+    /**
+     * @return string used for date formatting
+     */
+    @SuppressWarnings("nls")
+    private static String getDateFormatString(Context context) {
+        String value = android.provider.Settings.System.getString(context.getContentResolver(),
+                android.provider.Settings.System.DATE_FORMAT);
+        if (value == null) {
+            // united states, you are special
+            if (Locale.US.equals(Locale.getDefault())
+                    || Locale.CANADA.equals(Locale.getDefault()))
+                value = "MMM d yyyy";
+            else
+                value = "d MMM yyyy";
+        }
+        return value;
+    }
+
+    /**
+     * @return date format (month, day, year)
+     */
     public static SimpleDateFormat getDateFormat(Context context) {
-        // united states, you are special
-        if(Locale.US.equals(Locale.getDefault()) ||
-                Locale.CANADA.equals(Locale.getDefault()))
-            return new SimpleDateFormat("EEE, MMM d yyyy");
-        else
-            return new SimpleDateFormat("EEE, d MMM yyyy");
+        return new SimpleDateFormat(getDateFormatString(context));
     }
+
+    /**
+     * @return date format as getDateFormat with weekday
+     */
+    @SuppressWarnings("nls")
+    public static SimpleDateFormat getDateFormatWithWeekday(Context context) {
+        return new SimpleDateFormat("EEE, " + getDateFormatString(context));
+
+    }
+
+    /**
+     * @return date with time at the end
+     */
+    @SuppressWarnings("nls")
+    public static SimpleDateFormat getDateWithTimeFormat(Context context) {
+        return new SimpleDateFormat(getDateFormatString(context) + " " +
+                getTimeFormatString(context));
+
+    }
+
+
 
     // --- notification settings
 

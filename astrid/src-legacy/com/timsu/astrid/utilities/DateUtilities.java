@@ -19,15 +19,17 @@
  */
 package com.timsu.astrid.utilities;
 
-import android.content.res.Resources;
-import android.util.Log;
-import com.timsu.astrid.R;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+
+import android.content.Context;
+import android.content.res.Resources;
+import android.util.Log;
+
+import com.timsu.astrid.R;
 
 public class DateUtilities {
 
@@ -35,9 +37,9 @@ public class DateUtilities {
     private static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssz";
 
     /** Format a time into a medium length absolute format */
-    public static String getFormattedDate(Resources r, Date date) {
+    public static String getFormattedDate(Context context, Date date) {
     	if(format == null)
-    		format = new SimpleDateFormat(r.getString(R.string.dateFormatter));
+    		format = Preferences.getDateFormat(context);
         return format.format(date);
     }
 
