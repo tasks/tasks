@@ -58,6 +58,9 @@ public class Database extends AbstractDatabase {
         return TABLES;
     }
 
+    /**
+     * Create indices
+     */
     @Override
     protected void onCreateTables() {
         StringBuilder sql = new StringBuilder();
