@@ -47,7 +47,7 @@ public class DateControlSet implements OnTimeSetListener,
 
     protected DateControlSet(Activity activity) {
         this.activity = activity;
-        this.dateFormatter = Preferences.getDateFormat(this.activity);
+        this.dateFormatter = Preferences.getDateFormatWithWeekday(this.activity);
         this.timeFormatter = Preferences.getTimeFormat(this.activity);
     }
 
