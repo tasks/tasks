@@ -18,7 +18,6 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.AstridContentProvider.AstridTask;
 
 /**
  * Data Model which represents a task users need to accomplish.
@@ -27,7 +26,7 @@ import com.todoroo.astrid.api.AstridContentProvider.AstridTask;
  *
  */
 @SuppressWarnings("nls")
-public class Task extends AbstractModel {
+public final class Task extends AbstractModel {
 
     // --- table
 
@@ -37,43 +36,43 @@ public class Task extends AbstractModel {
 
     /** ID */
     public static final LongProperty ID = new LongProperty(
-            TABLE, AstridTask.ID);
+            TABLE, ID_PROPERTY_NAME);
 
     /** Name of Task */
     public static final StringProperty TITLE = new StringProperty(
-            TABLE, AstridTask.TITLE);
+            TABLE, "title");
 
     /** Urgency of Task (see urgency flags) */
     public static final IntegerProperty URGENCY = new IntegerProperty(
-            TABLE, AstridTask.URGENCY);
+            TABLE, "urgency");
 
     /** Importance of Task (see importance flags) */
     public static final IntegerProperty IMPORTANCE = new IntegerProperty(
-            TABLE, AstridTask.IMPORTANCE);
+            TABLE, "importance");
 
     /** Unixtime Task is due, 0 if not set */
-    public static final IntegerProperty DUE_DATE = new IntegerProperty(
-            TABLE, AstridTask.DUE_DATE);
+    public static final LongProperty DUE_DATE = new LongProperty(
+            TABLE, "dyeDate");
 
     /** Unixtime Task should be hidden until */
-    public static final IntegerProperty HIDDEN_UNTIL = new IntegerProperty(
-            TABLE, AstridTask.HIDDEN_UNTIL);
+    public static final LongProperty HIDE_UNTIL = new LongProperty(
+            TABLE, "hideUntil");
 
     /** Unixtime Task was created */
-    public static final IntegerProperty CREATION_DATE = new IntegerProperty(
-            TABLE, AstridTask.CREATION_DATE);
+    public static final LongProperty CREATION_DATE = new LongProperty(
+            TABLE, "created");
 
     /** Unixtime Task was last touched */
-    public static final IntegerProperty MODIFICATION_DATE = new IntegerProperty(
-            TABLE, AstridTask.MODIFICATION_DATE);
+    public static final LongProperty MODIFICATION_DATE = new LongProperty(
+            TABLE, "modified");
 
     /** Unixtime Task was completed. 0 means active */
-    public static final IntegerProperty COMPLETION_DATE = new IntegerProperty(
-            TABLE, AstridTask.COMPLETION_DATE);
+    public static final LongProperty COMPLETION_DATE = new LongProperty(
+            TABLE, "completed");
 
-    /** Unixtime Task was deleted. 0 means active */
-    public static final IntegerProperty DELETION_DATE = new IntegerProperty(
-            TABLE, AstridTask.DELETION_DATE);
+    /** Unixtime Task was deleted. 0 means not deleted */
+    public static final LongProperty DELETION_DATE = new LongProperty(
+            TABLE, "deleted");
 
     // --- for migration purposes from astrid 2 (eventually we will want to
     //     move these into the metadata table and treat them as plug-ins
@@ -117,24 +116,24 @@ public class Task extends AbstractModel {
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
 
-    // --- urgency flags
+    // --- urgency settings
 
-    public static final int URGENCY_NONE = AstridTask.URGENCY_NONE;
-    public static final int URGENCY_TODAY = AstridTask.URGENCY_TODAY;
-    public static final int URGENCY_THIS_WEEK = AstridTask.URGENCY_THIS_WEEK;
-    public static final int URGENCY_THIS_MONTH = AstridTask.URGENCY_THIS_MONTH;
-    public static final int URGENCY_WITHIN_THREE_MONTHS = AstridTask.URGENCY_WITHIN_THREE_MONTHS;
-    public static final int URGENCY_WITHIN_SIX_MONTHS = AstridTask.URGENCY_WITHIN_SIX_MONTHS;
-    public static final int URGENCY_WITHIN_A_YEAR = AstridTask.URGENCY_WITHIN_A_YEAR;
-    public static final int URGENCY_SPECIFIC_DAY = AstridTask.URGENCY_SPECIFIC_DAY;
-    public static final int URGENCY_SPECIFIC_DAY_TIME = AstridTask.URGENCY_SPECIFIC_DAY_TIME;
+    public static final int URGENCY_NONE = 0;
+    public static final int URGENCY_TODAY = 1;
+    public static final int URGENCY_THIS_WEEK = 2;
+    public static final int URGENCY_THIS_MONTH = 3;
+    public static final int URGENCY_WITHIN_THREE_MONTHS = 4;
+    public static final int URGENCY_WITHIN_SIX_MONTHS = 5;
+    public static final int URGENCY_WITHIN_A_YEAR = 6;
+    public static final int URGENCY_SPECIFIC_DAY = 7;
+    public static final int URGENCY_SPECIFIC_DAY_TIME = 8;
 
-    // --- importance flags
+    // --- importance settings
 
-    public static final int IMPORTANCE_DO_OR_DIE = AstridTask.IMPORTANCE_DO_OR_DIE;
-    public static final int IMPORTANCE_MUST_DO = AstridTask.IMPORTANCE_MUST_DO;
-    public static final int IMPORTANCE_SHOULD_DO = AstridTask.IMPORTANCE_SHOULD_DO;
-    public static final int IMPORTANCE_NONE = AstridTask.IMPORTANCE_NONE;
+    public static final int IMPORTANCE_DO_OR_DIE = 0;
+    public static final int IMPORTANCE_MUST_DO = 1;
+    public static final int IMPORTANCE_SHOULD_DO = 2;
+    public static final int IMPORTANCE_NONE = 3;
 
     // --- defaults
 
@@ -144,7 +143,7 @@ public class Task extends AbstractModel {
     static {
         defaultValues.put(TITLE.name, "");
         defaultValues.put(DUE_DATE.name, 0);
-        defaultValues.put(HIDDEN_UNTIL.name, 0);
+        defaultValues.put(HIDE_UNTIL.name, 0);
         defaultValues.put(COMPLETION_DATE.name, 0);
         defaultValues.put(DELETION_DATE.name, 0);
         defaultValues.put(URGENCY.name, URGENCY_NONE);
@@ -225,7 +224,7 @@ public class Task extends AbstractModel {
 
     /** Checks whether task is hidden. Requires HIDDEN_UNTIL */
     public boolean isHidden() {
-    	return getValue(HIDDEN_UNTIL) > DateUtilities.now();
+    	return getValue(HIDE_UNTIL) > DateUtilities.now();
     }
 
     /** Checks whether task is done. Requires DUE_DATE */

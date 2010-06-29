@@ -3,10 +3,11 @@
  */
 package com.todoroo.astrid.api;
 
+import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.todoroo.astrid.api.AstridContentProvider.AstridTask;
+import com.todoroo.andlib.sql.QueryTemplate;
 
 /**
  * A <code>FilterListFilter</code> allows users to display tasks that have
@@ -19,7 +20,12 @@ import com.todoroo.astrid.api.AstridContentProvider.AstridTask;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class Filter extends FilterListItem {
+public final class Filter extends FilterListItem {
+
+    /**
+     * Plug-in Identifier
+     */
+    public final String plugin;
 
     /**
      * Expanded title of this filter. This is displayed at the top
@@ -31,15 +37,14 @@ public class Filter extends FilterListItem {
 
     /**
      * SQL query for this filter. The query will be appended to the select
-     * statement after "<code>SELECT fields FROM table %s</code>". Use
-     * {@link AstridApiConstants.TASK_TABLE} and
-     * {@link AstridApiConstants.METADATA_TABLE} as table names,
-     * {@link AstridTask} for field names.
+     * statement after "<code>SELECT fields FROM table %s</code>". It is
+     * recommended that you use a {@link QueryTemplate} to construct your
+     * query.
      * <p>
      * Examples:
      * <ul>
-     * <li><code>" WHERE completionDate = 0"</code>
-     * <li><code>" INNER JOIN " +
+     * <li><code>"WHERE completionDate = 0"</code>
+     * <li><code>"INNER JOIN " +
      *      Constants.TABLE_METADATA + " ON metadata.task = tasks.id WHERE
      *      metadata.namespace = " + NAMESPACE + " AND metadata.key = 'a' AND
      *      metadata.value = 'b' GROUP BY tasks.id ORDER BY tasks.title"</code>
@@ -48,25 +53,18 @@ public class Filter extends FilterListItem {
     public String sqlQuery;
 
     /**
-     * SQL query to execute on a task when quick-creating a new task while viewing
-     * this filter. For example, when a user views tasks tagged 'ABC', the
+     * Values to apply to a task when quick-adding a task from this filter.
+     * For example, when a user views tasks tagged 'ABC', the
      * tasks they create should also be tagged 'ABC'. If set to null, no
-     * query will be executed. In this string, $ID will be replaced with the
-     * task id.
-     * <p>
-     * Examples:
-     * <ul>
-     * <li><code>"INSERT INTO " + Constants.TABLE_METADATA + " (task,
-     *      namespace, key, string) VALUES ($ID, " + ... + ")"</code>
-     * <li><code>"UPDATE " + Constants.TABLE_TASK + " SET urgency = 0
-     *      WHERE _id = $ID"</code>
-     * </ul>
+     * additional values will be stored for a task.
      */
-    public String sqlForNewTasks = null;
+    public ContentValues valuesForNewTasks = null;
 
     /**
      * Utility constructor for creating a TaskList object
      *
+     * @param plugin
+     *            {@link Plugin} identifier that encompasses object
      * @param listingTitle
      *            Title of this item as displayed on the lists page, e.g. Inbox
      * @param title
@@ -74,22 +72,26 @@ public class Filter extends FilterListItem {
      *            filter, e.g. Inbox (20 tasks)
      * @param sqlQuery
      *            SQL query for this list (see {@link sqlQuery} for examples).
-     * @param sqlForNewTasks
+     * @param valuesForNewTasks
      *            see {@link sqlForNewTasks}
      */
-    public Filter(String listingTitle,
-            String title, String sqlQuery, String sqlForNewTasks) {
+    public Filter(String plugin, String listingTitle,
+            String title, QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
+        this.plugin = plugin;
         this.listingTitle = listingTitle;
         this.title = title;
-        this.sqlQuery = sqlQuery;
-        this.sqlForNewTasks = sqlForNewTasks;
+        this.sqlQuery = sqlQuery.toString();
+        this.valuesForNewTasks = valuesForNewTasks;
     }
 
     /**
-     * Blank constructor
+     * Utility constructor
+     *
+     * @param plugin
+     *            {@link Plugin} identifier that encompasses object
      */
-    public Filter() {
-        //
+    protected Filter(String plugin) {
+        this.plugin = plugin;
     }
 
     // --- parcelable
@@ -106,10 +108,11 @@ public class Filter extends FilterListItem {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(plugin);
         super.writeToParcel(dest, flags);
         dest.writeString(title);
         dest.writeString(sqlQuery);
-        dest.writeString(sqlForNewTasks);
+        dest.writeParcelable(valuesForNewTasks, 0);
     }
 
     /**
@@ -121,11 +124,11 @@ public class Filter extends FilterListItem {
          * {@inheritDoc}
          */
         public Filter createFromParcel(Parcel source) {
-            Filter item = new Filter();
+            Filter item = new Filter(source.readString());
             item.readFromParcel(source);
             item.title = source.readString();
             item.sqlQuery = source.readString();
-            item.sqlForNewTasks = source.readString();
+            item.valuesForNewTasks = source.readParcelable(ContentValues.class.getClassLoader());
             return item;
         }
 

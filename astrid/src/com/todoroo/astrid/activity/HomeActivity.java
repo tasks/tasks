@@ -24,7 +24,7 @@ import android.os.Bundle;
 
 import com.timsu.astrid.utilities.StartupReceiver;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
-import com.todoroo.astrid.filters.FilterExposer;
+import com.todoroo.astrid.filters.CoreFilterExposer;
 
 /**
  * HomeActivity is the primary activity for Astrid and determines which activity
@@ -74,7 +74,7 @@ public class HomeActivity extends AstridActivity {
      */
     private void performRedirection() {
         Intent intent = new Intent(this, TaskListActivity.class);
-        intent.putExtra(TaskListActivity.TOKEN_FILTER, FilterExposer.buildInboxFilter(getResources()));
+        intent.putExtra(TaskListActivity.TOKEN_FILTER, CoreFilterExposer.buildInboxFilter(getResources()));
         startActivity(intent);
         finish();
     }

@@ -11,8 +11,8 @@ import java.lang.reflect.InvocationTargetException;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.todoroo.andlib.data.sql.Criterion;
-import com.todoroo.andlib.data.sql.Query;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 
 
 

@@ -1,33 +1,33 @@
-package com.todoroo.andlib.data.sql;
+package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.data.sql.Constants.JOIN;
-import static com.todoroo.andlib.data.sql.Constants.ON;
-import static com.todoroo.andlib.data.sql.Constants.SPACE;
+import static com.todoroo.andlib.sql.Constants.JOIN;
+import static com.todoroo.andlib.sql.Constants.ON;
+import static com.todoroo.andlib.sql.Constants.SPACE;
 
 public class Join {
-    private final Table joinTable;
+    private final SqlTable joinTable;
     private final JoinType joinType;
     private final Criterion[] criterions;
 
-    private Join(Table table, JoinType joinType, Criterion... criterions) {
+    private Join(SqlTable table, JoinType joinType, Criterion... criterions) {
         joinTable = table;
         this.joinType = joinType;
         this.criterions = criterions;
     }
 
-    public static Join inner(Table expression, Criterion... criterions) {
+    public static Join inner(SqlTable expression, Criterion... criterions) {
         return new Join(expression, JoinType.INNER, criterions);
     }
 
-    public static Join left(Table table, Criterion... criterions) {
+    public static Join left(SqlTable table, Criterion... criterions) {
         return new Join(table, JoinType.LEFT, criterions);
     }
 
-    public static Join right(Table table, Criterion... criterions) {
+    public static Join right(SqlTable table, Criterion... criterions) {
         return new Join(table, JoinType.RIGHT, criterions);
     }
 
-    public static Join out(Table table, Criterion... criterions) {
+    public static Join out(SqlTable table, Criterion... criterions) {
         return new Join(table, JoinType.OUT, criterions);
     }
 

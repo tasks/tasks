@@ -1,13 +1,13 @@
-package com.todoroo.andlib.data.sql;
+package com.todoroo.andlib.sql;
 
-public class Table extends DBObject<Table> {
+public class SqlTable extends DBObject<SqlTable> {
 
-    protected Table(String expression) {
+    protected SqlTable(String expression) {
         super(expression);
     }
 
-    public static Table table(String table) {
-        return new Table(table);
+    public static SqlTable table(String table) {
+        return new SqlTable(table);
     }
 
     @SuppressWarnings("nls")

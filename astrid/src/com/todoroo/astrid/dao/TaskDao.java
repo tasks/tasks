@@ -11,10 +11,10 @@ import android.content.Intent;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.GenericDao;
-import com.todoroo.andlib.data.sql.Criterion;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -59,8 +59,8 @@ public class TaskDao extends GenericDao<Task> {
     	}
 
     	/** Return tasks that are not hidden at given unixtime */
-    	public static Criterion isVisible(int time) {
-    	    return Task.HIDDEN_UNTIL.lt(time);
+    	public static Criterion isVisible(long time) {
+    	    return Task.HIDE_UNTIL.lt(time);
         }
 
     	/** Returns tasks that have a due date */
@@ -69,17 +69,17 @@ public class TaskDao extends GenericDao<Task> {
     	}
 
         /** Returns tasks that are due before a certain unixtime */
-        public static Criterion dueBefore(int time) {
+        public static Criterion dueBefore(long time) {
             return Criterion.and(Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(time));
         }
 
         /** Returns tasks that are due after a certain unixtime */
-        public static Criterion dueAfter(int time) {
+        public static Criterion dueAfter(long time) {
             return Task.DUE_DATE.gt(time);
         }
 
     	/** Returns tasks completed before a given unixtime */
-    	public static Criterion completedBefore(int time) {
+    	public static Criterion completedBefore(long time) {
     	    return Criterion.and(Task.COMPLETION_DATE.gt(0), Task.COMPLETION_DATE.lt(time));
     	}
 

@@ -1,32 +1,31 @@
-package com.todoroo.andlib.data.sql;
+package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.data.sql.Constants.ALL;
-import static com.todoroo.andlib.data.sql.Constants.COMMA;
-import static com.todoroo.andlib.data.sql.Constants.FROM;
-import static com.todoroo.andlib.data.sql.Constants.GROUP_BY;
-import static com.todoroo.andlib.data.sql.Constants.LEFT_PARENTHESIS;
-import static com.todoroo.andlib.data.sql.Constants.ORDER_BY;
-import static com.todoroo.andlib.data.sql.Constants.RIGHT_PARENTHESIS;
-import static com.todoroo.andlib.data.sql.Constants.SELECT;
-import static com.todoroo.andlib.data.sql.Constants.SPACE;
-import static com.todoroo.andlib.data.sql.Constants.WHERE;
-import static com.todoroo.andlib.data.sql.Table.table;
+import static com.todoroo.andlib.sql.Constants.ALL;
+import static com.todoroo.andlib.sql.Constants.COMMA;
+import static com.todoroo.andlib.sql.Constants.FROM;
+import static com.todoroo.andlib.sql.Constants.GROUP_BY;
+import static com.todoroo.andlib.sql.Constants.LEFT_PARENTHESIS;
+import static com.todoroo.andlib.sql.Constants.ORDER_BY;
+import static com.todoroo.andlib.sql.Constants.RIGHT_PARENTHESIS;
+import static com.todoroo.andlib.sql.Constants.SELECT;
+import static com.todoroo.andlib.sql.Constants.SPACE;
+import static com.todoroo.andlib.sql.Constants.WHERE;
+import static com.todoroo.andlib.sql.SqlTable.table;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.todoroo.andlib.data.Property;
 
-public class Query {
+public final class Query {
 
-    private Table table;
-    private List<Criterion> criterions = new ArrayList<Criterion>();
-    private List<Field> fields = new ArrayList<Field>();
-    private List<Join> joins = new ArrayList<Join>();
-    private List<Field> groupBies = new ArrayList<Field>();
-    private List<Order> orders = new ArrayList<Order>();
-    private List<Criterion> havings = new ArrayList<Criterion>();
+    private SqlTable table;
+    private final ArrayList<Criterion> criterions = new ArrayList<Criterion>();
+    private final ArrayList<Field> fields = new ArrayList<Field>();
+    private final ArrayList<Join> joins = new ArrayList<Join>();
+    private final ArrayList<Field> groupBies = new ArrayList<Field>();
+    private final ArrayList<Order> orders = new ArrayList<Order>();
+    private final ArrayList<Criterion> havings = new ArrayList<Criterion>();
 
     private Query(Field... fields) {
         this.fields.addAll(asList(fields));
@@ -36,7 +35,7 @@ public class Query {
         return new Query(fields);
     }
 
-    public Query from(Table fromTable) {
+    public Query from(SqlTable fromTable) {
         this.table = fromTable;
         return this;
     }
@@ -154,7 +153,7 @@ public class Query {
         sql.deleteCharAt(sql.length() - 1).append(SPACE);
     }
 
-    public Table as(String alias) {
+    public SqlTable as(String alias) {
         return table(LEFT_PARENTHESIS + this.toString() + RIGHT_PARENTHESIS).as(alias);
     }
 

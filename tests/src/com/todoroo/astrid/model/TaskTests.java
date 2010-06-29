@@ -44,7 +44,7 @@ public class TaskTests extends DatabaseTestCase {
         ContentValues defaults = new Task().getDefaultValues();
         assertTrue(defaults.containsKey(Task.TITLE.name));
         assertTrue(defaults.containsKey(Task.DUE_DATE.name));
-        assertTrue(defaults.containsKey(Task.HIDDEN_UNTIL.name));
+        assertTrue(defaults.containsKey(Task.HIDE_UNTIL.name));
         assertTrue(defaults.containsKey(Task.COMPLETION_DATE.name));
         assertTrue(defaults.containsKey(Task.URGENCY.name));
         assertTrue(defaults.containsKey(Task.IMPORTANCE.name));
@@ -68,7 +68,7 @@ public class TaskTests extends DatabaseTestCase {
 
         task = new Task();
         assertFalse(task.isHidden());
-        task.setValue(Task.HIDDEN_UNTIL, DateUtilities.now() + 1000);
+        task.setValue(Task.HIDE_UNTIL, DateUtilities.now() + 1000);
         assertTrue(task.isHidden());
 
         task = new Task();

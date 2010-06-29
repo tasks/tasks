@@ -46,7 +46,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskDetail;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.filters.FilterExposer;
+import com.todoroo.astrid.filters.CoreFilterExposer;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
@@ -134,9 +134,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             filter = new Filter();
             filter.sqlQuery = extras.getString(TOKEN_SHORTCUT_SQL);
             filter.title = extras.getString(TOKEN_SHORTCUT_TITLE);
-            filter.sqlForNewTasks = extras.getString(TOKEN_SHORTCUT_NEW_TASK_SQL);
+            filter.valuesForNewTasks = extras.getString(TOKEN_SHORTCUT_NEW_TASK_SQL);
         } else {
-            filter = FilterExposer.buildInboxFilter(getResources());
+            filter = CoreFilterExposer.buildInboxFilter(getResources());
         }
 
         database.openForWriting();

@@ -3,8 +3,8 @@ package com.todoroo.astrid.upgrade;
 import java.util.Date;
 
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.alarms.Alarm;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.legacy.data.alerts.AlertController;
@@ -100,14 +100,14 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         assertEquals(griffey.getEstimatedSeconds(), task.getValue(Task.ESTIMATED_SECONDS));
         assertEquals(griffey.getNotes(), task.getValue(Task.NOTES));
         assertEquals((Integer)0, task.getValue(Task.LAST_NOTIFIED));
-        assertEquals((Integer)0, task.getValue(Task.HIDDEN_UNTIL));
+        assertEquals((Integer)0, task.getValue(Task.HIDE_UNTIL));
 
         tasks.moveToNext();
         task = new Task(tasks);
         assertEquals(guti.getName(), task.getValue(Task.TITLE));
         assertDatesEqual(guti.getDefiniteDueDate(), task.getValue(Task.DUE_DATE));
         assertDatesEqual(guti.getPreferredDueDate(), task.getValue(Task.PREFERRED_DUE_DATE));
-        assertDatesEqual(guti.getHiddenUntil(), task.getValue(Task.HIDDEN_UNTIL));
+        assertDatesEqual(guti.getHiddenUntil(), task.getValue(Task.HIDE_UNTIL));
         assertEquals((Integer)Task.IMPORTANCE_DO_OR_DIE, task.getValue(Task.IMPORTANCE));
         assertEquals(guti.getRepeat().getValue(), task.getRepeatInfo().getValue());
         assertEquals(guti.getRepeat().getInterval().ordinal(), task.getRepeatInfo().getInterval().ordinal());

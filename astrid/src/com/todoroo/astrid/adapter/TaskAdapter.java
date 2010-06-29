@@ -59,7 +59,7 @@ public class TaskAdapter extends CursorAdapter {
         Task.URGENCY,
         Task.DUE_DATE,
         Task.COMPLETION_DATE,
-        Task.HIDDEN_UNTIL,
+        Task.HIDE_UNTIL,
     };
 
     private static int[] IMPORTANCE_COLORS = null;
@@ -201,7 +201,7 @@ public class TaskAdapter extends CursorAdapter {
         // name
         final TextView nameView = viewHolder.nameView; {
             String nameValue = task.getValue(Task.TITLE);
-            int hiddenUntil = task.getValue(Task.HIDDEN_UNTIL);
+            int hiddenUntil = task.getValue(Task.HIDE_UNTIL);
             if(hiddenUntil > DateUtilities.now())
                 nameValue = r.getString(R.string.TAd_hiddenFormat, nameValue);
             nameView.setText(nameValue);

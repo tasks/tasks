@@ -3,11 +3,11 @@ package com.todoroo.astrid.service;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
-import com.todoroo.andlib.data.sql.Criterion;
-import com.todoroo.andlib.data.sql.Order;
-import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Order;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.model.Metadata;
 

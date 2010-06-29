@@ -4,15 +4,20 @@
 package com.todoroo.astrid.filters;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 
-import com.timsu.astrid.R;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Order;
+import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Task;
 
 /**
@@ -21,29 +26,27 @@ import com.todoroo.astrid.model.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class FilterExposer extends BroadcastReceiver {
+public final class ExtendedFilterExposer extends BroadcastReceiver {
 
-    public static Filter buildInboxFilter(Resources r) {
-        return new Filter(r.getString(R.string.BFE_Inbox),
-                r.getString(R.string.BFE_Inbox),
-                /*String.format("WHERE %s AND %s ORDER BY CASE %s WHEN 0 THEN (%d + 1000 * %s) ELSE (%s + 1000 * %s) END ASC", //$NON-NLS-1$
-                        TaskSql.isActive(), TaskSql.isVisible(DateUtilities.now()),
-                        Task.DUE_DATE, DateUtilities.now() + 60 * 24 * 3600, Task.IMPORTANCE,
-                            Task.DUE_DATE, Task.IMPORTANCE)*/ "",
-                null);
-    }
-
+    @SuppressWarnings("nls")
     @Override
     public void onReceive(Context context, Intent intent) {
         Resources r = context.getResources();
 
         // build filters
-        Filter inbox = buildInboxFilter(r);
+        ContentValues hiddenValues = new ContentValues();
+        hiddenValues.put(Task.HIDE_UNTIL, DateUtilities.now() + DateUtilities.ONE_DAY);
+        Filter hidden = new Filter(ExtendedPlugin.pluginIdentifier, "Hidden Tasks",
+                "Hidden Tasks",
+                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
+                        Criterion.not(TaskCriteria.isVisible(DateUtilities.now())))).
+                        orderBy(Order.asc(Task.HIDE_UNTIL)),
+                hiddenValues);
 
-        Filter all = new Filter(r.getString(R.string.BFE_All),
-                r.getString(R.string.BFE_All),
-                String.format("ORDER BY %s DESC", //$NON-NLS-1$
-                        Task.ID.name),
+        Filter alphabetical = new Filter(ExtendedPlugin.pluginIdentifier,
+                "Inbox (sorted by name)",
+                "Inbox (sorted by name)",
+                new QueryTemplate().orderBy(Order.asc(Task.TITLE)),
                 null);
 
         // transmit filter list

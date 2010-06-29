@@ -1,25 +1,25 @@
-package com.todoroo.andlib.data.sql;
+package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.data.sql.Constants.SPACE;
+import static com.todoroo.andlib.sql.Constants.SPACE;
 
 public class Order {
-    private final Field expression;
+    private final Object expression;
     private final OrderType orderType;
 
-    private Order(Field expression) {
+    private Order(Object expression) {
         this(expression, OrderType.ASC);
     }
 
-    private Order(Field expression, OrderType orderType) {
+    private Order(Object expression, OrderType orderType) {
         this.expression = expression;
         this.orderType = orderType;
     }
 
-    public static Order asc(Field expression) {
+    public static Order asc(Object expression) {
         return new Order(expression);
     }
 
-    public static Order desc(Field expression) {
+    public static Order desc(Object expression) {
         return new Order(expression, OrderType.DESC);
     }
 

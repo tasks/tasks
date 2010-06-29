@@ -13,12 +13,12 @@ import android.os.Parcelable;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class EditOperation implements Parcelable {
+public final class EditOperation implements Parcelable {
 
     /**
      * Plugin Id
      */
-    public String plugin = null;
+    public final String plugin;
 
     /**
      * Label
@@ -33,13 +33,15 @@ public class EditOperation implements Parcelable {
     /**
      * Create an EditOperation object
      *
+     * @param plugin
+     *            {@link Plugin} identifier that encompasses object
      * @param text
      *            label to display
      * @param intent
      *            intent to invoke. {@link EXTRAS_TASK_ID} will be passed
      */
-    public EditOperation(String text, Intent intent) {
-        super();
+    public EditOperation(String plugin, String text, Intent intent) {
+        this.plugin = plugin;
         this.text = text;
         this.intent = intent;
     }
@@ -57,6 +59,7 @@ public class EditOperation implements Parcelable {
      * {@inheritDoc}
      */
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(plugin);
         dest.writeString(text);
         dest.writeParcelable(intent, 0);
     }
@@ -69,8 +72,8 @@ public class EditOperation implements Parcelable {
          * {@inheritDoc}
          */
         public EditOperation createFromParcel(Parcel source) {
-            return new EditOperation(source.readString(), (Intent)source.readParcelable(
-                    Intent.class.getClassLoader()));
+            return new EditOperation(source.readString(), source.readString(),
+                    (Intent)source.readParcelable(Intent.class.getClassLoader()));
         }
 
         /**

@@ -54,23 +54,29 @@ public class DateUtilities {
      * ====================================================================== */
 
     /** Convert unixtime into date */
-    public static final Date unixtimeToDate(int seconds) {
-        if(seconds == 0)
+    public static final Date unixtimeToDate(long millis) {
+        if(millis == 0)
             return null;
-        return new Date(seconds * 1000L);
+        return new Date(millis);
     }
 
     /** Convert date into unixtime */
-    public static final int dateToUnixtime(Date date) {
+    public static final long dateToUnixtime(Date date) {
         if(date == null)
             return 0;
-        return (int)(date.getTime() / 1000);
+        return date.getTime();
     }
 
     /** Returns unixtime for current time */
-    public static final int now() {
-        return (int) (System.currentTimeMillis() / 1000L);
+    public static final long now() {
+        return System.currentTimeMillis();
     }
+
+    /** Represents a single day */
+    public static long ONE_DAY = 3600000L;
+
+    /** Represents a single week */
+    public static long WEEK = 7 * 3600000L;
 
     /* ======================================================================
      * =========================================================== formatters

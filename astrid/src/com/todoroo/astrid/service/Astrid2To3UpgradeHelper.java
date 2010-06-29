@@ -105,7 +105,7 @@ public class Astrid2To3UpgradeHelper {
         propertyMap.put(AbstractTaskModel.TIMER_START, Task.TIMER_START);
         propertyMap.put(AbstractTaskModel.DEFINITE_DUE_DATE, Task.DUE_DATE);
         propertyMap.put(AbstractTaskModel.PREFERRED_DUE_DATE, Task.PREFERRED_DUE_DATE);
-        propertyMap.put(AbstractTaskModel.HIDDEN_UNTIL, Task.HIDDEN_UNTIL);
+        propertyMap.put(AbstractTaskModel.HIDDEN_UNTIL, Task.HIDE_UNTIL);
         propertyMap.put(AbstractTaskModel.POSTPONE_COUNT, Task.POSTPONE_COUNT);
         propertyMap.put(AbstractTaskModel.NOTIFICATIONS, Task.NOTIFICATIONS);
         propertyMap.put(AbstractTaskModel.NOTIFICATION_FLAGS, Task.NOTIFICATION_FLAGS);
@@ -172,7 +172,7 @@ public class Astrid2To3UpgradeHelper {
                     property == Task.CREATION_DATE ||
                     property == Task.DELETION_DATE ||
                     property == Task.DUE_DATE ||
-                    property == Task.HIDDEN_UNTIL ||
+                    property == Task.HIDE_UNTIL ||
                     property == Task.LAST_NOTIFIED ||
                     property == Task.MODIFICATION_DATE ||
                     property == Task.PREFERRED_DUE_DATE ||

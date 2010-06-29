@@ -12,7 +12,12 @@ import android.os.Parcelable;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskDetail implements Parcelable {
+public final class TaskDetail implements Parcelable {
+
+    /**
+     * Plug-in Identifier
+     */
+    public final String plugin;
 
     /**
      * Text of detail
@@ -27,13 +32,15 @@ public class TaskDetail implements Parcelable {
     /**
      * Creates a TaskDetail object
      *
+     * @param plugin
+     *            {@link Plugin} identifier that encompasses object
      * @param text
      *            text to display
      * @param color
      *            color to use for text. Use <code>0</code> for default color
      */
-    public TaskDetail(String text, int color) {
-        super();
+    public TaskDetail(String plugin, String text, int color) {
+        this.plugin = plugin;
         this.text = text;
         this.color = color;
     }
@@ -44,8 +51,8 @@ public class TaskDetail implements Parcelable {
      * @param text
      *            text to display
      */
-    public TaskDetail(String text) {
-        this(text, 0);
+    public TaskDetail(String plugin, String text) {
+        this(plugin, text, 0);
     }
 
 
@@ -63,6 +70,7 @@ public class TaskDetail implements Parcelable {
      * {@inheritDoc}
      */
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(plugin);
         dest.writeString(text);
         dest.writeInt(color);
     }
@@ -75,7 +83,7 @@ public class TaskDetail implements Parcelable {
          * {@inheritDoc}
          */
         public TaskDetail createFromParcel(Parcel source) {
-            return new TaskDetail(source.readString(), source.readInt());
+            return new TaskDetail(source.readString(), source.readString(), source.readInt());
         }
 
         /**

@@ -1,11 +1,11 @@
-package com.todoroo.andlib.data.sql;
+package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.data.sql.Constants.AND;
-import static com.todoroo.andlib.data.sql.Constants.BETWEEN;
-import static com.todoroo.andlib.data.sql.Constants.COMMA;
-import static com.todoroo.andlib.data.sql.Constants.LEFT_PARENTHESIS;
-import static com.todoroo.andlib.data.sql.Constants.RIGHT_PARENTHESIS;
-import static com.todoroo.andlib.data.sql.Constants.SPACE;
+import static com.todoroo.andlib.sql.Constants.AND;
+import static com.todoroo.andlib.sql.Constants.BETWEEN;
+import static com.todoroo.andlib.sql.Constants.COMMA;
+import static com.todoroo.andlib.sql.Constants.LEFT_PARENTHESIS;
+import static com.todoroo.andlib.sql.Constants.RIGHT_PARENTHESIS;
+import static com.todoroo.andlib.sql.Constants.SPACE;
 
 public class Field extends DBObject<Field> {
 

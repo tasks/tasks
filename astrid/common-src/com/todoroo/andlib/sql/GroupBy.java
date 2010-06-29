@@ -1,4 +1,4 @@
-package com.todoroo.andlib.data.sql;
+package com.todoroo.andlib.sql;
 
 import java.util.List;
 import java.util.ArrayList;

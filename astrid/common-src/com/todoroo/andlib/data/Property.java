@@ -5,7 +5,7 @@
  */
 package com.todoroo.andlib.data;
 
-import com.todoroo.andlib.data.sql.Field;
+import com.todoroo.andlib.sql.Field;
 
 /**
  * Property represents a typed column in a database.

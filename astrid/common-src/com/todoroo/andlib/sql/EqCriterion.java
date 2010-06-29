@@ -1,4 +1,4 @@
-package com.todoroo.andlib.data.sql;
+package com.todoroo.andlib.sql;
 
 public class EqCriterion extends UnaryCriterion {
     EqCriterion(Field field, Object value) {

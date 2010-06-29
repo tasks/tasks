@@ -1,7 +1,7 @@
-package com.todoroo.andlib.data.sql;
+package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.data.sql.Constants.AS;
-import static com.todoroo.andlib.data.sql.Constants.SPACE;
+import static com.todoroo.andlib.sql.Constants.AS;
+import static com.todoroo.andlib.sql.Constants.SPACE;
 
 public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
     protected String alias;

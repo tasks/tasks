@@ -1,4 +1,4 @@
-package com.todoroo.andlib.data.sql;
+package com.todoroo.andlib.sql;
 
 public enum JoinType {
     INNER, LEFT, RIGHT, OUT
