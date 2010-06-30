@@ -83,7 +83,7 @@
     <activity android:name=".activities.TaskListNotify"
               android:launchMode="singleTop" />    
     <!-- Activity that creates or edits tasks -->
-    <activity android:name=".activities.TaskEdit"
+    <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
               android:icon="@drawable/icon_add"
               android:label="@string/taskEdit_label">
       <intent-filter>

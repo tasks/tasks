@@ -1,10 +1,12 @@
 package com.todoroo.astrid.activity;
 
 import java.util.List;
+import java.util.Map.Entry;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -32,7 +34,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.EditPreferences;
-import com.timsu.astrid.activities.TaskEdit;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -47,8 +48,10 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskDetail;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.filters.CoreFilterExposer;
+import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 
@@ -92,6 +95,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     protected TaskService taskService;
 
     @Autowired
+    protected MetadataService metadataService;
+
+    @Autowired
     protected DialogUtilities dialogUtilities;
 
     @Autowired
@@ -130,6 +136,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
         }
+
+        if(database == null)
+            return;
 
         database.openForWriting();
         setUpUiComponents();
@@ -205,15 +214,24 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         ((ImageButton)findViewById(R.id.quickAddButton)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
-                Task task = quickAddTask(quickAdd.getText().toString());
                 if(quickAdd.getText().length() > 0) {
+                    Task task = quickAddTask(quickAdd.getText().toString());
                     quickAdd.setText(""); //$NON-NLS-1$
                     loadTaskListContent(true);
                 } else {
-                    Intent intent = new Intent(TaskListActivity.this, TaskEdit.class);
-                    intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, task.getId());
+                    Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
                     startActivityForResult(intent, ACTIVITY_EDIT_TASK);
                 }
+            }
+        });
+
+        ((ImageButton)findViewById(R.id.extendedAddButton)).setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
+                Task task = quickAddTask(quickAdd.getText().toString());
+                Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+                intent.putExtra(TaskEditActivity.ID_TOKEN, task.getId());
+                startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             }
         });
     }
@@ -228,11 +246,30 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         try {
             Task task = new Task();
             task.setValue(Task.TITLE, title);
-            /*task.setValue(Task.DUE_DATE, Task.initializeDueDate(
-                    task.getValue(Task.URGENCY)));
+            ContentValues forMetadata = null;
+            if(filter.valuesForNewTasks != null && filter.valuesForNewTasks.size() > 0) {
+                ContentValues forTask = new ContentValues();
+                forMetadata = new ContentValues();
+                for(Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
+                    if(item.getKey().startsWith(Task.TABLE.name))
+                        AndroidUtilities.putInto(forTask, item.getKey(), item.getValue());
+                    else
+                        AndroidUtilities.putInto(forMetadata, item.getKey(), item.getValue());
+                }
+                task.mergeWith(forTask);
+            }
             taskService.save(task, false);
-            if(filter.sqlForNewTasks != null)
-                taskService.invokeSqlForNewTask(filter, task); */ // TODO
+            if(forMetadata != null && forMetadata.size() > 0) {
+                Metadata metadata = new Metadata();
+                for(Entry<String, Object> item : forMetadata.valueSet()) {
+                    metadata.setValue(Metadata.TASK, task.getId());
+                    metadata.setValue(Metadata.KEY, item.getKey());
+                    metadata.setValue(Metadata.VALUE, item.toString());
+                    metadataService.save(metadata);
+                    metadata.clear();
+                }
+            }
+
             return task;
         } catch (Exception e) {
             exceptionService.displayAndReportError(this, "quick-add-task", e);
@@ -417,7 +454,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     }
 
     /** Show a dialog box and delete the task specified */
-    private void deleteTask(final long id) {
+    private void deleteTask(final Task task) {
         new AlertDialog.Builder(this).setTitle(R.string.DLG_confirm_title)
                 .setMessage(R.string.DLG_delete_this_task_question).setIcon(
                         android.R.drawable.ic_dialog_alert).setPositiveButton(
@@ -425,7 +462,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,
                                     int which) {
-                                taskService.delete(id);
+                                taskService.delete(task);
                                 loadTaskListContent(true);
                             }
                         }).setNegativeButton(android.R.string.cancel, null)
@@ -440,8 +477,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         // handle my own menus
         switch (item.getItemId()) {
         case MENU_ADD_TASK_ID:
-            intent = new Intent(TaskListActivity.this, TaskEdit.class);
-            intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, Task.NO_ID);
+            intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+            intent.putExtra(TaskEditActivity.ID_TOKEN, Task.NO_ID);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             return true;
         case MENU_PLUGINS_ID:
@@ -469,15 +506,17 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         case CONTEXT_MENU_EDIT_TASK_ID: {
             itemId = item.getGroupId();
-            intent = new Intent(TaskListActivity.this, TaskEdit.class);
-            intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, itemId);
+            intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+            intent.putExtra(TaskEditActivity.ID_TOKEN, itemId);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             return true;
         }
 
         case CONTEXT_MENU_DELETE_TASK_ID:
             itemId = item.getGroupId();
-            deleteTask(itemId);
+            Task task = new Task();
+            task.setId(itemId);
+            deleteTask(task);
             return true;
         }
 

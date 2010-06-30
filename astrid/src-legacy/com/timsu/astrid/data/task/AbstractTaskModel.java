@@ -340,8 +340,8 @@ public abstract class AbstractTaskModel extends AbstractModel {
     // --- helper classes
 
     public static class RepeatInfo {
-        private RepeatInterval interval;
-        private int value;
+        private final RepeatInterval interval;
+        private final int value;
 
         public RepeatInfo(RepeatInterval repeatInterval, int value) {
             this.interval = repeatInterval;
@@ -360,6 +360,26 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
         public int getValue() {
             return value;
+        }
+
+        public static int toSingleField(RepeatInfo repeatInfo) {
+            int repeat;
+            if(repeatInfo == null)
+                repeat = 0;
+            else
+                repeat = (repeatInfo.value << REPEAT_VALUE_OFFSET) +
+                    repeatInfo.interval.ordinal();
+            return repeat;
+        }
+
+        public static RepeatInfo fromSingleField(int repeat) {
+            if(repeat == 0)
+                return null;
+            int value = repeat >> REPEAT_VALUE_OFFSET;
+            RepeatInterval interval = RepeatInterval.values()
+                [repeat - (value << REPEAT_VALUE_OFFSET)];
+
+            return new RepeatInfo(interval, value);
         }
 
     }

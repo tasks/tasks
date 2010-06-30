@@ -64,6 +64,13 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="horizontal">
+        
+        <!-- Quick Add Button -->
+        <ImageButton android:id="@+id/quickAddButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/btn_add"/> 
     
         <!-- Quick Add Task -->
         <EditText android:id="@+id/quickAddText"
@@ -75,12 +82,12 @@
             android:autoText="true"
             android:capitalize="sentences"/>
         
-        <!-- Quick Add Button -->
-        <ImageButton android:id="@+id/quickAddButton"
+        <!-- Extended Add Button -->
+        <ImageButton android:id="@+id/extendedAddButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@android:drawable/ic_input_add"/> 
+            android:src="@drawable/btn_add_extended"/> 
 
     </LinearLayout>
     

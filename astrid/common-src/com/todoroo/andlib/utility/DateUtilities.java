@@ -10,6 +10,7 @@ import java.util.Date;
 import android.content.res.Resources;
 
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 
 
@@ -85,9 +86,8 @@ public class DateUtilities {
     /**
      * Convenience method for dropping the preposition argument.
      */
-    public String getDurationString(Resources r, int timeInSeconds,
-            int unitsToShow) {
-        return getDurationString(r, timeInSeconds, unitsToShow, false);
+    public String getDurationString(long duration, int unitsToShow) {
+        return getDurationString(duration, unitsToShow, false);
     }
 
     /**
@@ -100,17 +100,17 @@ public class DateUtilities {
      * @param withPreposition whether there is a preceding preposition
      * @return
      */
-    public String getDurationString(Resources r, int timeInSeconds,
-            int unitsToShow, boolean withPreposition) {
+    public String getDurationString(long duration, int unitsToShow, boolean withPreposition) {
+        Resources r = ContextManager.getContext().getResources();
         int years, months, days, hours, minutes, seconds;
         short unitsDisplayed = 0;
-        timeInSeconds = Math.abs(timeInSeconds);
+        duration = Math.abs(duration);
 
-        if(timeInSeconds == 0)
+        if(duration == 0)
             return r.getQuantityString(secondsResource, 0, 0);
 
-        Date now = new Date(80, 0, 1);
-        Date then = unixtimeToDate((int)(now.getTime() / 1000L) + timeInSeconds);
+        Date now = new Date();
+        Date then = new Date(DateUtilities.now() + duration);
 
         years = then.getYear() - now.getYear();
         months = then.getMonth() - now.getMonth();

@@ -82,4 +82,12 @@ public class MetadataService {
     public void deleteWhere(Criterion where) {
         metadataDao.deleteWhere(where);
     }
+
+    /**
+     * Save a single piece of metadata
+     * @param metadata
+     */
+    public void save(Metadata metadata) {
+        metadataDao.saveItem(metadata);
+    }
 }

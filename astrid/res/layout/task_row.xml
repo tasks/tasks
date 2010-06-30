@@ -14,10 +14,12 @@
     
     <!-- completion check-box -->
     <CheckBox android:id="@+id/completeBox"
-        android:layout_width="40px"
-        android:layout_height="45px"
+        android:layout_width="52px"
+        android:layout_height="52px"
         android:layout_weight="1"
-        android:paddingLeft="10px" />
+        android:paddingLeft="10px" 
+        android:button="@drawable/btn_check"
+        android:scaleType="center"/>
 
     <LinearLayout android:id="@+id/details"
         android:layout_width="wrap_content"

@@ -7,6 +7,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.app.Activity;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -104,6 +105,26 @@ public class AndroidUtilities {
                     "start-external-intent-" + intent.toString(), //$NON-NLS-1$
                     e);
         }
+    }
+
+    /**
+     * Put an arbitrary object into a {@link ContentValues}
+     * @param target
+     * @param key
+     * @param value
+     */
+    public static void putInto(ContentValues target, String key, Object value) {
+        if(value instanceof String)
+            target.put(key, (String) value);
+        else if(value instanceof Long)
+            target.put(key, (Long) value);
+        else if(value instanceof Integer)
+            target.put(key, (Integer) value);
+        else if(value instanceof Double)
+            target.put(key, (Double) value);
+        else
+            throw new UnsupportedOperationException("Could not handle type " + //$NON-NLS-1$
+                    value.getClass());
     }
 
 }

@@ -27,7 +27,7 @@
 
     <item android:state_checked="false"
           android:state_enabled="true"
-          android:drawable="@drawable/btn_check_0" />
+          android:drawable="@drawable/btn_check_off" />
     <item android:state_checked="true"
           android:state_enabled="true"
           android:drawable="@drawable/btn_check_on" />

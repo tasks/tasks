@@ -177,6 +177,13 @@ public abstract class AbstractModel implements Parcelable {
     }
 
     /**
+     * @return true if this model has found Jesus (i.e. the database)
+     */
+    public boolean isSaved() {
+        return getId() != NO_ID;
+    }
+
+    /**
      * @param property
      * @return true if setValues or values contains this property
      */
@@ -226,6 +233,16 @@ public abstract class AbstractModel implements Parcelable {
             return;
 
         saver.save(property, setValues, value);
+    }
+
+    /**
+     * Merges content values with those coming from another source
+     */
+    public synchronized <TYPE> void mergeWith(ContentValues other) {
+        if (setValues == null)
+            setValues = other;
+        else
+            setValues.putAll(other);
     }
 
     /**
@@ -332,7 +349,7 @@ public abstract class AbstractModel implements Parcelable {
     protected static final class ModelCreator<TYPE extends AbstractModel>
             implements Parcelable.Creator<TYPE> {
 
-        private Class<TYPE> cls;
+        private final Class<TYPE> cls;
 
         public ModelCreator(Class<TYPE> cls) {
             super();

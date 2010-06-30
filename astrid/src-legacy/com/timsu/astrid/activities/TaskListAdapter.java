@@ -729,12 +729,12 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         if(task.isTaskCompleted() || task == recentlyCompleted) {
         	name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             name.setTextColor(r.getColor(R.color.task_list_done));
-            progress.setButtonDrawable(R.drawable.btn_check0);
+            progress.setButtonDrawable(R.drawable.btn_check);
             progress.setChecked(true);
         } else {
         	name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             name.setTextColor(r.getColor(task.getTaskColorResource(getContext())));
-            progress.setButtonDrawable(R.drawable.btn_check0);
+            progress.setButtonDrawable(R.drawable.btn_check);
         }
     }
 

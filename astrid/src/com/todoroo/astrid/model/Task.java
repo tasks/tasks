@@ -7,9 +7,9 @@ package com.todoroo.astrid.model;
 
 
 import android.content.ContentValues;
+import android.content.res.Resources;
 
-import com.timsu.astrid.data.enums.RepeatInterval;
-import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
@@ -135,6 +135,21 @@ public final class Task extends AbstractModel {
     public static final int IMPORTANCE_SHOULD_DO = 2;
     public static final int IMPORTANCE_NONE = 3;
 
+    /**
+     * Get colors that correspond to importance values
+     */
+    public static int[] getImportanceColors(Resources r) {
+        return new int[] {
+                r.getColor(R.color.importance_1),
+                r.getColor(R.color.importance_2),
+                r.getColor(R.color.importance_3),
+                r.getColor(R.color.importance_4),
+        };
+    }
+
+    public static final int IMPORTANCE_MOST = IMPORTANCE_DO_OR_DIE;
+    public static final int IMPORTANCE_LEAST = IMPORTANCE_NONE;
+
     // --- defaults
 
     /** Default values container */
@@ -148,6 +163,16 @@ public final class Task extends AbstractModel {
         defaultValues.put(DELETION_DATE.name, 0);
         defaultValues.put(URGENCY.name, URGENCY_NONE);
         defaultValues.put(IMPORTANCE.name, IMPORTANCE_NONE);
+
+        defaultValues.put(CALENDAR_URI.name, "");
+        defaultValues.put(REPEAT.name, 0);
+        defaultValues.put(NOTIFICATIONS.name, 0);
+        defaultValues.put(NOTIFICATION_FLAGS.name, 0);
+        defaultValues.put(ESTIMATED_SECONDS.name, 0);
+        defaultValues.put(ELAPSED_SECONDS.name, 0);
+        defaultValues.put(POSTPONE_COUNT.name, 0);
+        defaultValues.put(NOTES.name, "");
+        defaultValues.put(TIMER_START.name, 0);
     }
 
     private static boolean defaultValuesLoaded = false;
@@ -230,25 +255,6 @@ public final class Task extends AbstractModel {
     /** Checks whether task is done. Requires DUE_DATE */
     public boolean hasDueDate() {
         return getValue(DUE_DATE) > 0;
-    }
-
-    // --- data access methods for migration properties
-
-    /** Number of bits to shift repeat value by */
-    public static final int REPEAT_VALUE_OFFSET = 3;
-
-    /**
-     * @return RepeatInfo corresponding to
-     */
-    public RepeatInfo getRepeatInfo() {
-        int repeat = getValue(REPEAT);
-        if(repeat == 0)
-            return null;
-        int value = repeat >> REPEAT_VALUE_OFFSET;
-        RepeatInterval interval = RepeatInterval.values()
-            [repeat - (value << REPEAT_VALUE_OFFSET)];
-
-        return new RepeatInfo(interval, value);
     }
 
 }

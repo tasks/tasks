@@ -39,7 +39,7 @@ public class TaskService {
     }
 
     /**
-     * Mark the given action item as completed and save it.
+     * Mark the given task as completed and save it.
      *
      * @param item
      */
@@ -65,12 +65,20 @@ public class TaskService {
     }
 
     /**
-     * Delete the given action item
+     * Delete the given task. If this task had a title, instead of deleting
+     * from the database, we set the deleted flag.
      *
      * @param model
      */
-    public void delete(long itemId) {
-        taskDao.delete(itemId);
+    public void delete(Task item) {
+        if(!item.isSaved())
+            return;
+        if(item.getValue(Task.TITLE).length() == 0)
+            taskDao.delete(item.getId());
+        else {
+            item.setValue(Task.DELETION_DATE, DateUtilities.now());
+            taskDao.save(item, false);
+        }
     }
 
     /**
