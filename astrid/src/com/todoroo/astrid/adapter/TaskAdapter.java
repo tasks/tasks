@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -115,9 +114,7 @@ public class TaskAdapter extends CursorAdapter {
         completedItems = new HashMap<Long, Boolean>();
         detailCache = new HashMap<Long, ArrayList<TaskDetail>>();
 
-        if(IMPORTANCE_COLORS == null) {
-            IMPORTANCE_COLORS = new int[] { Color.RED, Color.BLUE, Color.YELLOW, Color.GREEN  }; //Task.getImportanceColors(activity); // TODO
-        }
+        IMPORTANCE_COLORS = Task.getImportanceColors(activity.getResources());
     }
 
     /* ======================================================================
