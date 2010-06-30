@@ -93,14 +93,14 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
     private static Format alarmFormat = null;
 
     private final Activity activity;
-    private List<TaskModelForList> objects;
-    private int resource;
-    private LayoutInflater inflater;
-    private TaskListAdapterHooks hooks;
-    private TextView deletedItemView = new TextView(getContext());
+    private final List<TaskModelForList> objects;
+    private final int resource;
+    private final LayoutInflater inflater;
+    private final TaskListAdapterHooks hooks;
+    private final TextView deletedItemView = new TextView(getContext());
 
-    private Integer fontSizePreference;
-    private AlertController alarmController;
+    private final Integer fontSizePreference;
+    private final AlertController alarmController;
 
     private TaskModelForList recentlyCompleted = null;
 
@@ -734,21 +734,7 @@ public class TaskListAdapter extends ArrayAdapter<TaskModelForList> {
         } else {
         	name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             name.setTextColor(r.getColor(task.getTaskColorResource(getContext())));
-
-            float completedPercentage = 0;
-            if(task.getEstimatedSeconds() > 0) {
-                completedPercentage = 1.0f * task.getElapsedSeconds() /
-                    task.getEstimatedSeconds();
-            }
-
-            if(completedPercentage < 0.25f)
-                progress.setButtonDrawable(R.drawable.btn_check0);
-            else if(completedPercentage < 0.5f)
-                progress.setButtonDrawable(R.drawable.btn_check25);
-            else if(completedPercentage < 0.75f)
-                progress.setButtonDrawable(R.drawable.btn_check50);
-            else
-                progress.setButtonDrawable(R.drawable.btn_check75);
+            progress.setButtonDrawable(R.drawable.btn_check0);
         }
     }
 

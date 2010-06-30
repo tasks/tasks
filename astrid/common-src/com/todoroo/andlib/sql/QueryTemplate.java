@@ -2,6 +2,7 @@ package com.todoroo.andlib.sql;
 
 import static com.todoroo.andlib.sql.Constants.COMMA;
 import static com.todoroo.andlib.sql.Constants.GROUP_BY;
+import static com.todoroo.andlib.sql.Constants.LIMIT;
 import static com.todoroo.andlib.sql.Constants.ORDER_BY;
 import static com.todoroo.andlib.sql.Constants.SPACE;
 import static com.todoroo.andlib.sql.Constants.WHERE;
@@ -23,6 +24,7 @@ public final class QueryTemplate {
     private final ArrayList<Field> groupBies = new ArrayList<Field>();
     private final ArrayList<Order> orders = new ArrayList<Order>();
     private final ArrayList<Criterion> havings = new ArrayList<Criterion>();
+    private Integer limit = null;
 
     public QueryTemplate join(Join... join) {
         joins.addAll(asList(join));
@@ -51,6 +53,8 @@ public final class QueryTemplate {
         visitWhereClause(sql);
         visitGroupByClause(sql);
         visitOrderByClause(sql);
+        if(limit != null)
+            sql.append(LIMIT).append(SPACE).append(limit);
         return sql.toString();
     }
 
@@ -103,6 +107,11 @@ public final class QueryTemplate {
 
     public QueryTemplate having(Criterion criterion) {
         this.havings.add(criterion);
+        return this;
+    }
+
+    public QueryTemplate limit(int limitValue) {
+        this.limit = limitValue;
         return this;
     }
 }

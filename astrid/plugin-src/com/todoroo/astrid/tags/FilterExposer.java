@@ -7,6 +7,8 @@ import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -62,6 +64,8 @@ public class FilterExposer extends BroadcastReceiver {
         if(tagsByAlpha.length == 0)
             return;
 
+        Resources r = context.getResources();
+
         Tag[] tagsBySize = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
         Filter[] filtersByAlpha = new Filter[tagsByAlpha.length];
         for(int i = 0; i < tagsByAlpha.length; i++)
@@ -73,16 +77,25 @@ public class FilterExposer extends BroadcastReceiver {
 
         FilterListHeader tagsHeader = new FilterListHeader(TagsPlugin.IDENTIFIER,
                 context.getString(R.string.tag_FEx_header));
+        Filter untagged = new Filter(TagsPlugin.IDENTIFIER,
+                "Untagged",
+                "Untagged",
+                tagService.untaggedTemplate(),
+                null);
+        untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_untagged)).getBitmap();
         FilterCategory tagsCategoryBySize = new FilterCategory(TagsPlugin.IDENTIFIER,
                 context.getString(R.string.tag_FEx_by_size), filtersBySize);
+        tagsCategoryBySize.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap();
         FilterCategory tagsCategoryByAlpha = new FilterCategory(TagsPlugin.IDENTIFIER,
                 context.getString(R.string.tag_FEx_alpha), filtersByAlpha);
+        tagsCategoryByAlpha.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags2)).getBitmap();
 
         // transmit filter list
-        FilterListItem[] list = new FilterListItem[3];
+        FilterListItem[] list = new FilterListItem[4];
         list[0] = tagsHeader;
-        list[1] = tagsCategoryBySize;
-        list[2] = tagsCategoryByAlpha;
+        list[1] = untagged;
+        list[2] = tagsCategoryBySize;
+        list[3] = tagsCategoryByAlpha;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ITEMS, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);

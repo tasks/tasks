@@ -21,4 +21,5 @@ public final class Constants {
     static final String WHERE = "WHERE";
     public static final String EXISTS = "EXISTS";
     public static final String NOT = "NOT";
+    public static final String LIMIT = "LIMIT";
 }
