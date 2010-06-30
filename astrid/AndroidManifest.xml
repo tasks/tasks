@@ -54,16 +54,13 @@
     
     <!-- ====================================================== Activities = -->
         
-    <!-- Activity that redirects to the appropriate home -->
-    <activity android:name="com.todoroo.astrid.activity.HomeActivity">
+    <!-- Activity that displays task list -->
+    <activity android:name="com.todoroo.astrid.activity.TaskListActivity" 
+              android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.LAUNCHER" />
       </intent-filter>
-    </activity>       
-    <!-- Activity that displays task list -->
-    <activity android:name="com.todoroo.astrid.activity.TaskListActivity" 
-              android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.VIEW" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -79,9 +76,6 @@
       <meta-data android:name="android.app.searchable" 
                  android:resource="@xml/filter_list_searchable" />
     </activity>
-    <!-- Activity that redirects to a task list, invoked by notifications -->
-    <activity android:name=".activities.TaskListNotify"
-              android:launchMode="singleTop" />    
     <!-- Activity that creates or edits tasks -->
     <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
               android:icon="@drawable/icon_add"
@@ -99,7 +93,7 @@
     <!-- Activity that lets users log in to sync providers -->
     <activity android:name=".activities.SyncLoginActivity"/>    
     <!-- Activity that lets users edit app preferences -->
-    <activity android:name=".activities.EditPreferences"/>    
+    <activity android:name="com.todoroo.astrid.activity.EditPreferences"/>    
     <!-- Activity that lets users edit synchronization preferences -->
     <activity android:name=".activities.SyncPreferences"/>    
     <!-- Activity that Locale displays to edit tag notification settings -->
@@ -122,7 +116,7 @@
       </intent-filter>
     </receiver>
     
-    <receiver android:name=".utilities.StartupReceiver">
+    <receiver android:name="com.todoroo.astrid.service.StartupService">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -153,6 +147,7 @@
 
     <!-- ========================================================= Plugins = -->
         
+    <!-- core filters -->
     <receiver android:name="com.todoroo.astrid.filters.CorePlugin">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
@@ -166,6 +161,7 @@
       </intent-filter>
     </receiver>
         
+    <!-- extended filters -->
     <receiver android:name="com.todoroo.astrid.filters.ExtendedPlugin">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
@@ -179,6 +175,7 @@
       </intent-filter>
     </receiver>
         
+    <!-- tags filters -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />

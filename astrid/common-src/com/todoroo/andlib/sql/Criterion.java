@@ -15,6 +15,13 @@ public abstract class Criterion {
         this.operator = operator;
     }
 
+    public static Criterion all = new Criterion(Operator.exists) {
+        @Override
+        protected void populate(StringBuilder sb) {
+            sb.append(true);
+        }
+    };
+
     public static Criterion and(final Criterion criterion, final Criterion... criterions) {
         return new Criterion(Operator.and) {
 

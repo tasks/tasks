@@ -26,7 +26,6 @@ import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -34,7 +33,7 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -70,10 +69,6 @@ public class FilterListActivity extends ExpandableListActivity {
      * ======================================================= initialization
      * ====================================================================== */
 
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
     public FilterListActivity() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -82,7 +77,7 @@ public class FilterListActivity extends ExpandableListActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ContextManager.setContext(this);
+        new StartupService().onStartupApplication(this);
 
         setContentView(R.layout.filter_list_activity);
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);

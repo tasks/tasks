@@ -25,8 +25,10 @@ import java.util.LinkedList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.TabActivity;
 import android.content.ContentValues;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
@@ -67,11 +69,15 @@ import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.alarms.Alarm;
 import com.todoroo.astrid.alarms.AlarmService;
+import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -84,7 +90,14 @@ import com.todoroo.astrid.tags.TagService.Tag;
  * @author timsu
  *
  */
-public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
+public final class TaskEditActivity extends TabActivity {
+
+    // --- bundle tokens
+
+    /**
+     * Task ID
+     */
+    public static final String ID_TOKEN = "i"; //$NON-NLS-1$
 
     // --- request codes
 
@@ -115,6 +128,12 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
     // --- services
 
     @Autowired
+    ExceptionService exceptionService;
+
+    @Autowired
+    Database database;
+
+    @Autowired
     TaskService taskService;
 
     @Autowired
@@ -143,6 +162,9 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
 
 	// --- other instance variables
 
+	/** task model */
+	protected Task model = null;
+
 	/** whether task should be saved when this activity exits */
 	boolean shouldSaveState = true;
 
@@ -156,24 +178,14 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
      * ======================================================= initialization
      * ====================================================================== */
 
-    @Override
-    protected Task fetchModel(long id) {
-        database.openForWriting();
-
-        if(id == Task.NO_ID) {
-            FlurryAgent.onEvent("create-task"); //$NON-NLS-1$
-            Task task = new Task();
-            taskService.save(task, false);
-            return task;
-        }
-
-        FlurryAgent.onEvent("edit-task"); //$NON-NLS-1$
-        return taskService.fetchById(id, Task.PROPERTIES);
+    public TaskEditActivity() {
+        DependencyInjectionService.getInstance().inject(this);
     }
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		new StartupService().onStartupApplication(this);
 
 		TabHost tabHost = getTabHost();
 		tabHost.setPadding(0, 4, 0, 0);
@@ -187,10 +199,6 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
 				r.getDrawable(R.drawable.ic_dialog_time_c)).setContent(R.id.tab_dates));
 		tabHost.addTab(tabHost.newTabSpec(TAB_ALERTS).setIndicator(r.getString(R.string.taskEdit_tab_alerts),
 				r.getDrawable(R.drawable.ic_dialog_alert_c)).setContent(R.id.tab_notification));
-
-		// weird case that has been hit before.
-		if(model == null)
-		    model = new Task();
 
 		setUpUIComponents();
 		setUpListeners();
@@ -359,9 +367,44 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
      * =============================================== model reading / saving
      * ====================================================================== */
 
+    /**
+     * Loads action item from the given intent
+     * @param intent
+     */
+    @SuppressWarnings("nls")
+    protected void loadItem(Intent intent) {
+        long idParam = intent.getLongExtra(ID_TOKEN, -1L);
+        if(idParam == -1) {
+            exceptionService.reportError("task-edit-no-token", null);
+            finish();
+            return;
+        }
+
+        database.openForReading();
+        if(idParam == Task.NO_ID) {
+            model = new Task();
+            taskService.save(model, false);
+        } else {
+            model = taskService.fetchById(idParam, Task.PROPERTIES);
+        }
+
+        if(model.getValue(Task.TITLE).length() == 0)
+            FlurryAgent.onEvent("create-task");
+        FlurryAgent.onEvent("edit-task");
+
+        if(model == null) {
+            exceptionService.reportError("task-edit-no-task",
+                    new NullPointerException("model"));
+            finish();
+            return;
+        }
+    }
+
     /** Populate UI component values from the model */
     private void populateFields() {
         Resources r = getResources();
+
+        loadItem(getIntent());
 
     	title.setText(model.getValue(Task.TITLE));
         if(title.getText().length() > 0) {
@@ -752,6 +795,18 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
     protected void onResume() {
         super.onResume();
         // populateFields();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 
     /* ======================================================================

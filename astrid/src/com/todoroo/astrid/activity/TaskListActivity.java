@@ -50,8 +50,8 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.filters.CoreFilterExposer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 
@@ -112,13 +112,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
      * ======================================================= initialization
      * ====================================================================== */
 
-    /**
-     * Load Bente Dependency Injector
-     */
-    static {
-        AstridDependencyInjector.initialize();
-    }
-
     public TaskListActivity() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -128,10 +121,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     protected void onCreate(Bundle savedInstanceState) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
+
+        new StartupService().onStartupApplication(this);
         setContentView(R.layout.task_list_activity);
 
         Bundle extras = getIntent().getExtras();
-        if(extras.containsKey(TOKEN_FILTER)) {
+        if(extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());

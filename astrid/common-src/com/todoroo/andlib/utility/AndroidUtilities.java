@@ -127,4 +127,17 @@ public class AndroidUtilities {
                     value.getClass());
     }
 
+    /**
+     * Return index of value in array
+     * @param array array to search
+     * @param value value to look for
+     * @return
+     */
+    public static <TYPE> int indexOf(TYPE[] array, TYPE value) {
+        for(int i = 0; i < array.length; i++)
+            if(array[i].equals(value))
+                return i;
+        return -1;
+    }
+
 }
