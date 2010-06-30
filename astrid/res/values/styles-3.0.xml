@@ -55,7 +55,7 @@
     <!-- ======================== FilterListAdapter ======================== -->
 
     <style name="TextAppearance.FLA_Filter" parent="TextAppearance.TAd_ItemTitle">
-        <item name="android:textSize">22sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:paddingTop">5px</item>
         <item name="android:paddingBottom">5px</item>
         <item name="android:paddingLeft">10px</item>

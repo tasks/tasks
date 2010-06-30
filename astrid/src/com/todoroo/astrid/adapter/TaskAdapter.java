@@ -201,7 +201,7 @@ public class TaskAdapter extends CursorAdapter {
         // name
         final TextView nameView = viewHolder.nameView; {
             String nameValue = task.getValue(Task.TITLE);
-            int hiddenUntil = task.getValue(Task.HIDE_UNTIL);
+            long hiddenUntil = task.getValue(Task.HIDE_UNTIL);
             if(hiddenUntil > DateUtilities.now())
                 nameValue = r.getString(R.string.TAd_hiddenFormat, nameValue);
             nameView.setText(nameValue);
@@ -219,8 +219,8 @@ public class TaskAdapter extends CursorAdapter {
         // due date / completion date
         final TextView dueDateView = viewHolder.dueDate; {
             if(!task.isCompleted() && task.hasDueDate()) {
-                int dueDate = task.getValue(Task.DUE_DATE);
-                int secondsLeft = dueDate - DateUtilities.now();
+                long dueDate = task.getValue(Task.DUE_DATE);
+                long secondsLeft = dueDate - DateUtilities.now();
                 if(secondsLeft > 0) {
                     dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate);
                 } else {
@@ -326,7 +326,7 @@ public class TaskAdapter extends CursorAdapter {
         return textView;
     }
 
-    private View.OnClickListener completeBoxListener = new View.OnClickListener() {
+    private final View.OnClickListener completeBoxListener = new View.OnClickListener() {
         public void onClick(View v) {
             View container = (View) v.getParent();
             Task task = ((ViewHolder)container.getTag()).task;

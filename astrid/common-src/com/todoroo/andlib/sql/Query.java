@@ -20,6 +20,7 @@ import com.todoroo.andlib.data.Property;
 public final class Query {
 
     private SqlTable table;
+    private String queryTemplate = null;
     private final ArrayList<Criterion> criterions = new ArrayList<Criterion>();
     private final ArrayList<Field> fields = new ArrayList<Field>();
     private final ArrayList<Join> joins = new ArrayList<Join>();
@@ -80,10 +81,19 @@ public final class Query {
         StringBuilder sql = new StringBuilder();
         visitSelectClause(sql);
         visitFromClause(sql);
-        visitJoinClause(sql);
-        visitWhereClause(sql);
-        visitGroupByClause(sql);
-        visitOrderByClause(sql);
+
+        if(queryTemplate == null) {
+            visitJoinClause(sql);
+            visitWhereClause(sql);
+            visitGroupByClause(sql);
+            visitOrderByClause(sql);
+        } else {
+            if(joins.size() > 0 || groupBies.size() > 0 || orders.size() > 0 ||
+                    havings.size() > 0)
+                throw new IllegalStateException("Can't have extras AND query template"); //$NON-NLS-1$
+            sql.append(queryTemplate);
+        }
+
         return sql.toString();
     }
 
@@ -168,5 +178,15 @@ public final class Query {
      */
     public Property<?>[] getFields() {
         return fields.toArray(new Property<?>[fields.size()]);
+    }
+
+    /**
+     * Add the SQL query template (comes after the "from")
+     * @param sqlQuery
+     * @return
+     */
+    public Query withQueryTemplate(String template) {
+        queryTemplate = template;
+        return this;
     }
 }

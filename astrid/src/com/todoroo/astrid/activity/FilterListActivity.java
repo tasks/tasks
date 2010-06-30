@@ -277,9 +277,7 @@ public class FilterListActivity extends ExpandableListActivity {
             menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
             Intent shortcutIntent = new Intent(this, TaskListActivity.class);
             shortcutIntent.setAction(Intent.ACTION_VIEW);
-            shortcutIntent.putExtra(TaskListActivity.TOKEN_SHORTCUT_TITLE, filter.title);
-            shortcutIntent.putExtra(TaskListActivity.TOKEN_SHORTCUT_SQL, filter.sqlQuery);
-            shortcutIntent.putExtra(TaskListActivity.TOKEN_SHORTCUT_NEW_TASK_SQL, filter.valuesForNewTasks);
+            shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
             menuItem.setIntent(shortcutIntent);
         }
 

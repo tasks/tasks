@@ -7,7 +7,6 @@ import android.content.Intent;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Plugin;
 
-@SuppressWarnings("nls")
 public class CorePlugin extends BroadcastReceiver {
 
     static final String pluginIdentifier = "core";

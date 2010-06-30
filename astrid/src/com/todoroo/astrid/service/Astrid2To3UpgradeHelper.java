@@ -13,6 +13,7 @@ import android.util.Log;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.Alert;
 import com.timsu.astrid.data.task.AbstractTaskModel;
+import com.timsu.astrid.utilities.TasksXmlExporter;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
@@ -90,6 +91,15 @@ public class Astrid2To3UpgradeHelper {
     public void upgrade2To3() {
         Context context = ContextManager.getContext();
 
+        // initiate a backup
+        try {
+            TasksXmlExporter exporter = new TasksXmlExporter(true);
+            exporter.setContext(ContextManager.getContext());
+            exporter.exportTasks(TasksXmlExporter.getExportDirectory());
+        } catch (Exception e) {
+            // unable to create a backup before upgrading :(
+        }
+
         database.openForWriting();
 
         // --- upgrade tasks table
@@ -165,22 +175,7 @@ public class Astrid2To3UpgradeHelper {
 
         @Override
         public Void visitInteger(Property<Integer> property, UpgradeVisitorContainer data) {
-            int value;
-
-            // convert long date -> integer
-            if(property == Task.COMPLETION_DATE ||
-                    property == Task.CREATION_DATE ||
-                    property == Task.DELETION_DATE ||
-                    property == Task.DUE_DATE ||
-                    property == Task.HIDE_UNTIL ||
-                    property == Task.LAST_NOTIFIED ||
-                    property == Task.MODIFICATION_DATE ||
-                    property == Task.PREFERRED_DUE_DATE ||
-                    property == Alarm.TIME)
-                value = (int) (data.cursor.getLong(data.columnIndex) / 1000L);
-            else
-                value = data.cursor.getInt(data.columnIndex);
-
+            int value = data.cursor.getInt(data.columnIndex);
             data.model.setValue(property, value);
             Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
             return null;

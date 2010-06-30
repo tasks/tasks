@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.service.Autowired;
@@ -13,6 +12,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Metadata;
@@ -57,13 +57,25 @@ public class TagService {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public class Tag {
+    public final class Tag {
         public String tag;
         int count;
 
         @Override
         public String toString() {
             return tag;
+        }
+
+        /**
+         * Return SQL selector query for getting tasks with a given tag
+         *
+         * @param tag
+         * @return
+         */
+        public QueryTemplate queryTemplate() {
+            return new QueryTemplate().join(Join.inner(Metadata.TABLE,
+                    Task.ID.eq(Metadata.TASK))).where(Criterion.and(
+                            MetadataCriteria.withKey(KEY), Metadata.VALUE.eq(tag)));
         }
     }
 
@@ -121,18 +133,6 @@ public class TagService {
                 tagBuilder.append(", ");
         }
         return tagBuilder.toString();
-    }
-
-    /**
-     * Return SQL selector query for getting tasks with a given tag
-     *
-     * @param tag
-     * @return
-     */
-    public Query tasksWithTag(String tag, Property<?>... properties) {
-        return Query.select(properties).join(Join.inner(Metadata.TABLE,
-                Task.ID.eq(Metadata.TASK))).where(Criterion.and(
-                        MetadataCriteria.withKey(KEY), Metadata.VALUE.eq(tag)));
     }
 
     /**

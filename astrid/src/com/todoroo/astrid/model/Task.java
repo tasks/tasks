@@ -52,7 +52,7 @@ public final class Task extends AbstractModel {
 
     /** Unixtime Task is due, 0 if not set */
     public static final LongProperty DUE_DATE = new LongProperty(
-            TABLE, "dyeDate");
+            TABLE, "dueDate");
 
     /** Unixtime Task should be hidden until */
     public static final LongProperty HIDE_UNTIL = new LongProperty(

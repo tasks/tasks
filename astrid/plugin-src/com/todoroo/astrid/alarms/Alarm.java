@@ -38,8 +38,8 @@ public class Alarm extends AbstractModel {
     public static final LongProperty TASK = new LongProperty(
             TABLE, "task");
 
-    /** Alarm Time (seconds since epoch) */
-    public static final IntegerProperty TIME = new IntegerProperty(
+    /** Alarm Time */
+    public static final LongProperty TIME = new LongProperty(
             TABLE, "time");
 
     /** Alarm Type (see constants) */

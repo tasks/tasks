@@ -4,16 +4,18 @@
 package com.todoroo.astrid.tags;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.astrid.R;
+import com.timsu.astrid.R;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.tags.DataService.Tag;
+import com.todoroo.astrid.tags.TagService.Tag;
 
 /**
  * Exposes filters based on tags
@@ -23,15 +25,21 @@ import com.todoroo.astrid.tags.DataService.Tag;
  */
 public class FilterExposer extends BroadcastReceiver {
 
+    private TagService tagService;
 
     @SuppressWarnings("nls")
-    private Filter filterFromTag(Context context, Tag tag, DataService tagService) {
+    private Filter filterFromTag(Context context, Tag tag) {
         String listTitle = context.getString(R.string.tag_FEx_tag_w_size).
             replace("$T", tag.tag).replace("$C", Integer.toString(tag.count));
         String title = context.getString(R.string.tag_FEx_name, tag.tag);
-        Filter filter = new Filter(listTitle, title,
-                    tagService.getQuery(tag.tag),
-                    tagService.getNewTaskSql(tag.tag));
+        QueryTemplate tagTemplate = tag.queryTemplate();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(TagService.KEY, tag.tag);
+
+        Filter filter = new Filter(TagsPlugin.IDENTIFIER,
+                listTitle, title,
+                tagTemplate,
+                contentValues);
 
 //        filters[0].contextMenuLabels = new String[] {
 //            "Rename Tag",
@@ -47,26 +55,28 @@ public class FilterExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        DataService tagService = new DataService(context);
-        Tag[] tagsByAlpha = tagService.getGroupedTags(DataService.GROUPED_TAGS_BY_ALPHA);
+        tagService = new TagService(context);
+        Tag[] tagsByAlpha = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
 
         // If user does not have any tags, don't show this section at all
         if(tagsByAlpha.length == 0)
             return;
 
-        Tag[] tagsBySize = tagService.getGroupedTags(DataService.GROUPED_TAGS_BY_SIZE);
+        Tag[] tagsBySize = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
         Filter[] filtersByAlpha = new Filter[tagsByAlpha.length];
         for(int i = 0; i < tagsByAlpha.length; i++)
-            filtersByAlpha[i] = filterFromTag(context, tagsByAlpha[i], tagService);
+            filtersByAlpha[i] = filterFromTag(context, tagsByAlpha[i]);
 
         Filter[] filtersBySize = new Filter[tagsBySize.length];
         for(int i = 0; i < tagsBySize.length; i++)
-            filtersBySize[i] = filterFromTag(context, tagsBySize[i], tagService);
+            filtersBySize[i] = filterFromTag(context, tagsBySize[i]);
 
-        FilterListHeader tagsHeader = new FilterListHeader(context.getString(R.string.tag_FEx_header));
-        FilterCategory tagsCategoryBySize = new FilterCategory(
+        FilterListHeader tagsHeader = new FilterListHeader(TagsPlugin.IDENTIFIER,
+                context.getString(R.string.tag_FEx_header));
+        FilterCategory tagsCategoryBySize = new FilterCategory(TagsPlugin.IDENTIFIER,
                 context.getString(R.string.tag_FEx_by_size), filtersBySize);
-        FilterCategory tagsCategoryByAlpha = new FilterCategory(context.getString(R.string.tag_FEx_alpha), filtersByAlpha);
+        FilterCategory tagsCategoryByAlpha = new FilterCategory(TagsPlugin.IDENTIFIER,
+                context.getString(R.string.tag_FEx_alpha), filtersByAlpha);
 
         // transmit filter list
         FilterListItem[] list = new FilterListItem[3];

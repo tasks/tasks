@@ -47,7 +47,7 @@ public class TaskService {
         if(completed)
             item.setValue(Task.COMPLETION_DATE, DateUtilities.now());
         else
-            item.setValue(Task.COMPLETION_DATE, 0);
+            item.setValue(Task.COMPLETION_DATE, 0L);
 
         taskDao.save(item, false);
     }
@@ -94,7 +94,10 @@ public class TaskService {
 
     public TodorooCursor<Task> fetchFiltered(Property<?>[] properties,
             Filter filter) {
-        return taskDao.query(Query.select(properties));
+        if(filter == null || filter.sqlQuery == null)
+            return taskDao.query(Query.select(properties));
+        else
+            return taskDao.query(Query.select(properties).withQueryTemplate(filter.sqlQuery));
     }
 
 }

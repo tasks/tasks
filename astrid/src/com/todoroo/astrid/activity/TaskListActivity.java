@@ -82,9 +82,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     // --- constants
 
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
-    public static final String TOKEN_SHORTCUT_SQL = "query"; //$NON-NLS-1$
-    public static final String TOKEN_SHORTCUT_TITLE = "title"; //$NON-NLS-1$
-    public static final String TOKEN_SHORTCUT_NEW_TASK_SQL = "newsql"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -130,11 +127,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         Bundle extras = getIntent().getExtras();
         if(extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
-        } else if(extras.containsKey(TOKEN_SHORTCUT_SQL)) {
-            filter = new Filter();
-            filter.sqlQuery = extras.getString(TOKEN_SHORTCUT_SQL);
-            filter.title = extras.getString(TOKEN_SHORTCUT_TITLE);
-            filter.valuesForNewTasks = extras.getString(TOKEN_SHORTCUT_NEW_TASK_SQL);
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
         }

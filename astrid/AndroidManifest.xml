@@ -1,192 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-      package="com.timsu.astrid"
-      android:versionName="2.14.4" android:versionCode="135">
+          package="com.timsu.astrid"
+          android:versionName="2.14.4" android:versionCode="135">
       
-    <!-- ============================ Metadata ============================ -->   
+  <!-- ================================================== Used Permissions = -->
       
-    <uses-permission android:name="android.permission.VIBRATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_CALENDAR" />
-    <uses-permission android:name="android.permission.READ_CALENDAR" />
-    <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    
-    <!-- For Flurry analytics -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    
-    <!-- For Tasks provider -->
-    <permission android:name="com.timsu.astrid.permission.READ_TASKS"
-                android:permissionGroup="android.permission-group.MESSAGES"
-                android:protectionLevel="normal"
-                android:label="@string/read_tasks_permission"
-                android:description="@string/read_tasks_permission"/>
-    <uses-permission android:name="com.timsu.astrid.permission.READ_TASKS"/>
+  <!-- for notifications -->
+  <uses-permission android:name="android.permission.VIBRATE"/>
+  <!-- for synchronization -->
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <!-- for google calendar integration -->
+  <uses-permission android:name="android.permission.WRITE_CALENDAR" />
+  <uses-permission android:name="android.permission.READ_CALENDAR" />
+  <!-- for creating shortcuts -->
+  <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
+  <!-- for backup -->
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />    
+  <!-- for analytics -->
+  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-    <uses-sdk android:minSdkVersion="3"
-              android:targetSdkVersion="4" />
-    <supports-screens />
+  <!-- ============================================== Exported Permissions = -->
 
-    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="false">
+  <!-- for tasks provider -->
+  <permission android:name="com.timsu.astrid.permission.READ_TASKS"
+              android:permissionGroup="android.permission-group.MESSAGES"
+              android:protectionLevel="normal"
+              android:label="@string/read_tasks_permission"
+              android:description="@string/read_tasks_permission"/>
+  <uses-permission android:name="com.timsu.astrid.permission.READ_TASKS"/>
+  
+  <!-- for reading data from plugins or astrid -->
+  <permission android:name="com.todoroo.astrid.READ"
+              android:description="@string/read_permission_desc"
+              android:protectionLevel="normal"
+              android:label="@string/read_permission_label" />
+  <uses-permission android:name="com.todoroo.astrid.READ" />
+  
+  <!-- for writing data to plugins or astrid -->
+  <permission android:name="com.todoroo.astrid.WRITE"
+              android:description="@string/write_permission_desc"
+              android:protectionLevel="normal"
+              android:label="@string/write_permission_label" />
+  <uses-permission android:name="com.todoroo.astrid.WRITE" />
+  
+  <!-- ========================================================== Metadata = -->
+
+  <uses-sdk android:minSdkVersion="3"
+            android:targetSdkVersion="4" />
+  <supports-screens />
+  
+  <application android:icon="@drawable/icon" android:label="@string/app_name">
     
-        <!-- ========================= Activities ========================== -->
+    <!-- ====================================================== Activities = -->
         
-        <!-- primary activity: agenda -->
-        <activity android:name="com.todoroo.astrid.activity.HomeActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        
-        <activity android:name="com.todoroo.astrid.activity.TaskListActivity" 
-            android:theme="@style/Theme">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-            
-        <activity android:name="com.todoroo.astrid.activity.FilterListActivity"
-                  android:theme="@style/Theme">
-            <intent-filter>
-                <action android:name="android.intent.action.SEARCH" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-            <meta-data android:name="android.app.searchable" 
-                       android:resource="@xml/filter_list_searchable" />
-        </activity>
+    <!-- Activity that redirects to the appropriate home -->
+    <activity android:name="com.todoroo.astrid.activity.HomeActivity">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>       
+    <!-- Activity that displays task list -->
+    <activity android:name="com.todoroo.astrid.activity.TaskListActivity" 
+              android:theme="@style/Theme">
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+    <!-- Activity that displays filter list -->
+    <activity android:name="com.todoroo.astrid.activity.FilterListActivity"
+              android:theme="@style/Theme">
+      <intent-filter>
+        <action android:name="android.intent.action.SEARCH" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+      <meta-data android:name="android.app.searchable" 
+                 android:resource="@xml/filter_list_searchable" />
+    </activity>
+    <!-- Activity that redirects to a task list, invoked by notifications -->
+    <activity android:name=".activities.TaskListNotify"
+              android:launchMode="singleTop" />    
+    <!-- Activity that creates or edits tasks -->
+    <activity android:name=".activities.TaskEdit"
+              android:icon="@drawable/icon_add"
+              android:label="@string/taskEdit_label">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>      
+      <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <data android:mimeType="vnd.android.cursor.item/task" />
+      </intent-filter>      
+    </activity>    
+    <!-- Activity that lets users log in to sync providers -->
+    <activity android:name=".activities.SyncLoginActivity"/>    
+    <!-- Activity that lets users edit app preferences -->
+    <activity android:name=".activities.EditPreferences"/>    
+    <!-- Activity that lets users edit synchronization preferences -->
+    <activity android:name=".activities.SyncPreferences"/>    
+    <!-- Activity that Locale displays to edit tag notification settings -->
+    <activity android:name=".activities.LocaleEditAlerts"
+              android:label="@string/locale_edit_alerts_title"
+              android:icon="@drawable/icon_32"
+              android:exported="true" >
+      <intent-filter>
+        <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+      </intent-filter>
+    </activity>
 
-        <!-- ======================== Activities ========================= -->
+    <!-- ======================================================= Receivers = -->
 
-        <!-- Activity that displays the task list -->
-        <activity android:name=".activities.TaskList">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-
-        <!-- Activity that redirects to a task list, invoked by notifications -->
-        <activity android:name=".activities.TaskListNotify"
-                  android:launchMode="singleTop" />
-
-        <!--  Activity that creates or edits tasks -->
-        <activity android:name=".activities.TaskEdit"
-                android:icon="@drawable/icon_add"
-                android:label="@string/taskEdit_label">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:mimeType="vnd.android.cursor.item/task" />
-            </intent-filter>
-
-        </activity>
-
-        <!--  Activity that views tags -->
-        <activity android:name=".activities.TagView">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
-
-        <!-- Activity that lets users log in to sync providers -->
-        <activity android:name=".activities.SyncLoginActivity"/>
-
-        <!-- Activity that lets users edit app preferences -->
-        <activity android:name=".activities.EditPreferences"/>
-
-        <!-- Activity that lets users edit synchronization preferences -->
-        <activity android:name=".activities.SyncPreferences"/>
-
-        <!-- activity that Locale displays to edit tag notification settings -->
-        <activity
-               android:name=".activities.LocaleEditAlerts"
-               android:label="@string/locale_edit_alerts_title"
-               android:icon="@drawable/icon_32"
-               android:exported="true" >
-               <intent-filter>
-                   <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
-               </intent-filter>
-         </activity>
-
-        <!-- ======================== Receivers ========================= -->
-
-        <receiver android:name=".utilities.Notifications" />
-
-        <receiver android:name=".utilities.LocaleReceiver">
-            <intent-filter>
-                 <action android:name="com.timsu.astrid.action.LOCALE_ALERT" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".utilities.StartupReceiver">
-            <intent-filter>
-                 <action android:name="android.intent.action.BOOT_COMPLETED" />
-                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-
-        <receiver android:name=".appwidget.AstridAppWidgetProvider" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-            </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                       android:resource="@xml/widget_provider_info" />
-        </receiver>
-
-
-        <!-- ======================== Services ========================== -->
-
-        <service android:name=".appwidget.AstridAppWidgetProvider$UpdateService"></service>
-
-        <service android:name=".sync.SynchronizationService" />
-        <service android:name=".utilities.BackupService"/>
-
-        <!-- ======================== Providers ========================== -->
-
-        <provider
-            android:name=".provider.TasksProvider"
-            android:authorities="com.timsu.astrid.tasksprovider"
-            android:multiprocess="true"
-            android:grantUriPermissions="true"
-            android:readPermission="com.timsu.astrid.permission.READ_TASKS"
-            />
-
-    <!-- ====================== Internal Plug-ins ======================= -->
-             
-        <!-- ====================== Filters ======================= -->
-        
-        <receiver android:name="com.todoroo.astrid.filters.FilterExposer">
-            <intent-filter>
-                 <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
-        
-        <!-- ====================== Tags ======================= -->
-                  
-        <receiver android:name="com.todoroo.astrid.tags.FilterExposer">
-            <intent-filter>
-                 <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+    <receiver android:name=".utilities.Notifications" />
     
-        <receiver android:name=".tags.DetailExposer">
-            <intent-filter>
-                 <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-                 <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </receiver>
+    <receiver android:name=".utilities.LocaleReceiver">
+      <intent-filter>
+        <action android:name="com.timsu.astrid.action.LOCALE_ALERT" />
+      </intent-filter>
+    </receiver>
     
-    </application>
+    <receiver android:name=".utilities.StartupReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+
+    <receiver android:name=".appwidget.AstridAppWidgetProvider" >
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data android:name="android.appwidget.provider"
+                 android:resource="@xml/widget_provider_info" />
+    </receiver>
+
+    <!-- ======================================================== Services = -->
+
+    <service android:name=".appwidget.AstridAppWidgetProvider$UpdateService"></service>
+    <service android:name=".sync.SynchronizationService" />
+    <service android:name=".utilities.BackupService"/>
+
+    <!-- ======================================================= Providers = -->
+
+    <provider android:name=".provider.TasksProvider"
+              android:authorities="com.timsu.astrid.tasksprovider"
+              android:multiprocess="true"
+              android:grantUriPermissions="true"
+              android:readPermission="com.timsu.astrid.permission.READ_TASKS"/>
+
+    <!-- ========================================================= Plugins = -->
+        
+    <receiver android:name="com.todoroo.astrid.filters.CorePlugin">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
+    <receiver android:name="com.todoroo.astrid.filters.CoreFilterExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+        
+    <receiver android:name="com.todoroo.astrid.filters.ExtendedPlugin">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
+    <receiver android:name="com.todoroo.astrid.filters.ExtendedFilterExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+        
+    <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
+    <receiver android:name="com.todoroo.astrid.tags.FilterExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
+    <receiver android:name="com.todoroo.astrid.tags.DetailExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    
+  </application>
 
 </manifest>

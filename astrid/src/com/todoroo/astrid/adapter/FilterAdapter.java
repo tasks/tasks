@@ -14,6 +14,7 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -132,42 +133,72 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
         TextView textView = new TextView(activity);
         textView.setGravity(Gravity.CENTER_VERTICAL);
-        textView.setLayoutParams(llp);
-        textView.setPadding(40, 0, 0, 0);
         textView.setText(filter.listingTitle);
         textView.setTextAppearance(activity, R.style.TextAppearance_FLA_Category);
-        layout.addView(textView);
+
+        View view = augmentView(textView, filter);
+        view.setPadding(40, 2, 0, 2);
+        view.setLayoutParams(llp);
+
+        layout.addView(view);
 
         return layout;
     }
 
-    public TextView getFilterView(Filter filter, boolean isChild) {
-        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, 64);
+    /**
+     * Decorate textview and add an image if the filter requests it
+     * @param textView
+     * @param filter
+     * @return final view ready to be added
+     */
+    private View augmentView(TextView textView, FilterListItem filter) {
+        if(filter.listingIcon != null) {
+            LinearLayout layout = new LinearLayout(activity);
+            layout.setGravity(textView.getGravity());
+            layout.setOrientation(LinearLayout.HORIZONTAL);
 
-        TextView textView = new TextView(activity);
-        textView.setBackgroundDrawable(null);
-        textView.setLayoutParams(lp);
-        textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-        textView.setPadding(isChild ? 40 : 10, 0, 0, 0);
-        textView.setText(filter.listingTitle);
-        textView.setTextAppearance(activity, R.style.TextAppearance_FLA_Filter);
+            ImageView icon = new ImageView(activity);
+            icon.setImageBitmap(filter.listingIcon);
+            icon.setPadding(0, 0, 20, 0);
+            layout.addView(icon);
+            layout.addView(textView);
+            return layout;
+        }
 
         return textView;
     }
 
-    public TextView getHeaderView(FilterListHeader header, boolean isChild) {
+    public View getFilterView(Filter filter, boolean isChild) {
+        AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT, 64);
+
+        TextView textView = new TextView(activity);
+        textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
+        textView.setText(filter.listingTitle);
+        textView.setTextAppearance(activity, R.style.TextAppearance_FLA_Filter);
+
+        View view = augmentView(textView, filter);
+        view.setBackgroundDrawable(null);
+        view.setLayoutParams(lp);
+        view.setPadding(isChild ? 40 : 10, 0, 0, 0);
+
+        return view;
+    }
+
+    public View getHeaderView(FilterListHeader header, boolean isChild) {
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.FILL_PARENT, 40);
 
         TextView textView = new TextView(activity);
-        textView.setLayoutParams(lp);
         textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
-        textView.setPadding(isChild ? 40 : 10, 0, 0, 0);
         textView.setTextAppearance(activity, R.style.TextAppearance_FLA_Header);
-        textView.setBackgroundResource(R.drawable.edit_titlebar);
         textView.setText(header.listingTitle);
 
-        return textView;
+        View view = augmentView(textView, header);
+        view.setBackgroundResource(R.drawable.edit_titlebar);
+        view.setLayoutParams(lp);
+        view.setPadding(isChild ? 40 : 10, 0, 0, 0);
+
+        return view;
     }
 }

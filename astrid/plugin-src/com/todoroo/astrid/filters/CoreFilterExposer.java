@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.Criterion;
@@ -29,25 +30,18 @@ import com.todoroo.astrid.model.Task;
  */
 public final class CoreFilterExposer extends BroadcastReceiver {
 
-    @SuppressWarnings("nls")
     @Override
     public void onReceive(Context context, Intent intent) {
         Resources r = context.getResources();
 
         // build filters
-        Filter inbox = new Filter(CorePlugin.pluginIdentifier, r.getString(R.string.BFE_Inbox),
-                r.getString(R.string.BFE_Inbox),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        TaskCriteria.isVisible(DateUtilities.now()))).orderBy(
-                                Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                                        String.format("(%d + 1000 * %s)", DateUtilities.now(), Task.IMPORTANCE),
-                                        String.format("(%s + 1000 * %s)", Task.DUE_DATE, Task.IMPORTANCE)))),
-                null);
+        Filter inbox = buildInboxFilter(r);
 
         Filter all = new Filter(CorePlugin.pluginIdentifier, r.getString(R.string.BFE_All),
                 r.getString(R.string.BFE_All),
                 new QueryTemplate().orderBy(Order.desc(Task.MODIFICATION_DATE)),
                 null);
+        all.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_all)).getBitmap();
 
         // transmit filter list
         FilterListItem[] list = new FilterListItem[2];
@@ -56,6 +50,24 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ITEMS, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    /**
+     * Build inbox filter
+     * @return
+     */
+    @SuppressWarnings("nls")
+    public static Filter buildInboxFilter(Resources r) {
+        Filter inbox = new Filter(CorePlugin.pluginIdentifier, r.getString(R.string.BFE_Inbox),
+                r.getString(R.string.BFE_Inbox),
+                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
+                        TaskCriteria.isVisible(DateUtilities.now()))).orderBy(
+                                Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
+                                        String.format("(%d + 1000 * %s)", DateUtilities.now(), Task.IMPORTANCE),
+                                        String.format("(%s + 1000 * %s)", Task.DUE_DATE, Task.IMPORTANCE)))),
+                null);
+        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_inbox)).getBitmap();
+        return inbox;
     }
 
 }
