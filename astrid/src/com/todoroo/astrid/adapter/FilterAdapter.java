@@ -137,7 +137,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         textView.setTextAppearance(activity, R.style.TextAppearance_FLA_Category);
 
         View view = augmentView(textView, filter);
-        view.setPadding(40, 2, 0, 2);
+        view.setPadding(60, 2, 0, 2);
         view.setLayoutParams(llp);
 
         layout.addView(view);
@@ -159,7 +159,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
             ImageView icon = new ImageView(activity);
             icon.setImageBitmap(filter.listingIcon);
-            icon.setPadding(0, 0, 20, 0);
+            icon.setPadding(0, 0, 15, 0);
             layout.addView(icon);
             layout.addView(textView);
             return layout;
@@ -180,7 +180,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         View view = augmentView(textView, filter);
         view.setBackgroundDrawable(null);
         view.setLayoutParams(lp);
-        view.setPadding(isChild ? 40 : 10, 0, 0, 0);
+        view.setPadding(isChild ? 50 : 10, 0, 0, 0);
 
         return view;
     }
@@ -197,7 +197,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         View view = augmentView(textView, header);
         view.setBackgroundResource(R.drawable.edit_titlebar);
         view.setLayoutParams(lp);
-        view.setPadding(isChild ? 40 : 10, 0, 0, 0);
+        view.setPadding(isChild ? 50 : 10, 0, 0, 0);
 
         return view;
     }

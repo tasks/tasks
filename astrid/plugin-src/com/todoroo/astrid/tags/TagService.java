@@ -2,8 +2,6 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 
-import android.content.Context;
-
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.service.Autowired;
@@ -40,7 +38,7 @@ public class TagService {
     @Autowired
     private MetadataService metadataService;
 
-    public TagService(@SuppressWarnings("unused") Context context) {
+    public TagService() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
@@ -84,7 +82,7 @@ public class TagService {
         return new QueryTemplate().join(Join.inner(Metadata.TABLE,
                 Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         TaskCriteria.isActive(), MetadataCriteria.withKey(KEY),
-                        Metadata.VALUE.eq(null)));
+                        Metadata.VALUE.isNull()));
     }
 
     /**

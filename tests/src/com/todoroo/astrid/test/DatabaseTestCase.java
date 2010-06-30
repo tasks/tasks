@@ -5,7 +5,7 @@ import java.io.File;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.test.TodorooTestCase;
-import com.todoroo.astrid.alarms.AlarmsDatabase;
+import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
@@ -25,7 +25,7 @@ public class DatabaseTestCase extends TodorooTestCase {
 
 	public static Database database = new TestDatabase();
 
-    public AlarmsDatabase alarmsDatabase;
+    public AlarmDatabase alarmsDatabase;
 
     static {
         AstridDependencyInjector.initialize();
@@ -53,7 +53,7 @@ public class DatabaseTestCase extends TodorooTestCase {
 		deleteDatabase(TAG_TASK_TEST);
 		deleteDatabase(ALERTS_TEST);
 		deleteDatabase(SYNC_TEST);
-		alarmsDatabase = new AlarmsDatabase();
+		alarmsDatabase = new AlarmDatabase();
 		alarmsDatabase.clear();
 
 
@@ -78,7 +78,7 @@ public class DatabaseTestCase extends TodorooTestCase {
 	    }
 	}
 
-	public static class TestAlarmsDatabase extends AlarmsDatabase {
+	public static class TestAlarmsDatabase extends AlarmDatabase {
 	    @Override
         protected String getName() {
 	        return "alarmstest";

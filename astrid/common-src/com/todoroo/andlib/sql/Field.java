@@ -18,10 +18,14 @@ public class Field extends DBObject<Field> {
     }
 
     public Criterion eq(Object value) {
+        if(value == null)
+            return UnaryCriterion.isNull(this);
         return UnaryCriterion.eq(this, value);
     }
 
     public Criterion neq(Object value) {
+        if(value == null)
+            return UnaryCriterion.isNotNull(this);
         return UnaryCriterion.neq(this, value);
     }
 

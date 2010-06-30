@@ -16,7 +16,7 @@ import com.todoroo.andlib.data.Table;
  *
  */
 @SuppressWarnings("nls")
-public class AlarmsDatabase extends AbstractDatabase {
+public class AlarmDatabase extends AbstractDatabase {
 
     // --- constants
 

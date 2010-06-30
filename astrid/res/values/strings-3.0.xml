@@ -124,7 +124,7 @@
     <string name="TLA_title">Astrid: %s</string>
     
     <!-- Displayed instead of list when no items present -->    
-    <string name="TLA_no_items">You Have No Tasks!</string>
+    <string name="TLA_no_items">No Tasks!</string>
     
     <!-- Menu: Add Task -->    
     <string name="TLA_menu_add">Add Task</string>

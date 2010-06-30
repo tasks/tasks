@@ -1,5 +1,6 @@
 package com.todoroo.astrid.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
@@ -21,8 +22,9 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.alarms.Alarm;
-import com.todoroo.astrid.alarms.AlarmsDatabase;
+import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -114,7 +116,6 @@ public class Astrid2To3UpgradeHelper {
         propertyMap.put(AbstractTaskModel.ELAPSED_SECONDS, Task.ELAPSED_SECONDS);
         propertyMap.put(AbstractTaskModel.TIMER_START, Task.TIMER_START);
         propertyMap.put(AbstractTaskModel.DEFINITE_DUE_DATE, Task.DUE_DATE);
-        propertyMap.put(AbstractTaskModel.PREFERRED_DUE_DATE, Task.PREFERRED_DUE_DATE);
         propertyMap.put(AbstractTaskModel.HIDDEN_UNTIL, Task.HIDE_UNTIL);
         propertyMap.put(AbstractTaskModel.POSTPONE_COUNT, Task.POSTPONE_COUNT);
         propertyMap.put(AbstractTaskModel.NOTIFICATIONS, Task.NOTIFICATIONS);
@@ -132,7 +133,7 @@ public class Astrid2To3UpgradeHelper {
         migrateTagsToMetadata();
 
         // --- upgrade alerts
-        AlarmsDatabase alarmsDatabase = new AlarmsDatabase();
+        AlarmDatabase alarmsDatabase = new AlarmDatabase();
         alarmsDatabase.openForWriting();
         propertyMap.clear();
         propertyMap.put(AbstractController.KEY_ROWID, Alarm.ID);
@@ -156,6 +157,7 @@ public class Astrid2To3UpgradeHelper {
         public int columnIndex;
         public Cursor cursor;
         public AbstractModel model;
+        public StringBuilder upgradeNotes;
     }
 
     /**
@@ -184,6 +186,23 @@ public class Astrid2To3UpgradeHelper {
         @Override
         public Void visitLong(Property<Long> property, UpgradeVisitorContainer data) {
             long value = data.cursor.getLong(data.columnIndex);
+
+            // special handling for due date
+            if(property == Task.DUE_DATE) {
+                long preferredDueDate = data.cursor.getLong(data.cursor.getColumnIndex(AbstractTaskModel.PREFERRED_DUE_DATE));
+                if(value == 0)
+                    value = preferredDueDate;
+                else if(preferredDueDate != 0) {
+                    // had both absolute and preferred due dates. write
+                    // preferred due date into notes field
+                    if(data.upgradeNotes == null)
+                        data.upgradeNotes = new StringBuilder();
+                    data.upgradeNotes.append("Goal Deadline: " +
+                            DateUtilities.getFormattedDate(ContextManager.getContext(),
+                                    new Date(preferredDueDate)));
+                }
+            }
+
             data.model.setValue(property, value);
             Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
             return null;
@@ -229,6 +248,17 @@ public class Astrid2To3UpgradeHelper {
             for(Entry<String, Property<?>> entry : propertyMap.entrySet()) {
                 container.columnIndex = cursor.getColumnIndex(entry.getKey());
                 entry.getValue().accept(visitor, container);
+            }
+
+            // special tweak for adding upgrade notes to tasks
+            if(container.upgradeNotes != null) {
+                if(container.model.getValue(Task.NOTES).length() == 0)
+                    container.model.setValue(Task.NOTES, container.upgradeNotes.toString());
+                else {
+                    container.model.setValue(Task.NOTES,
+                            container.model.getValue(Task.NOTES) + "\n\n" +
+                            container.upgradeNotes);
+                }
             }
             dao.createItem(container.model);
         }

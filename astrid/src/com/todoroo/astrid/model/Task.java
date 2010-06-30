@@ -89,9 +89,6 @@ public final class Task extends AbstractModel {
     public static final IntegerProperty TIMER_START = new IntegerProperty(
             TABLE, "timerStart");
 
-    public static final IntegerProperty PREFERRED_DUE_DATE = new IntegerProperty(
-            TABLE, "preferredDueDate");
-
     public static final IntegerProperty POSTPONE_COUNT = new IntegerProperty(
             TABLE, "postponeCount");
 

@@ -29,7 +29,7 @@ public class DetailExposer extends BroadcastReceiver {
             return;
 
         if(tagService == null)
-            tagService = new TagService(context);
+            tagService = new TagService();
         String tagList = tagService.getTagsAsString(taskId);
 
         if(tagList.length() == 0)

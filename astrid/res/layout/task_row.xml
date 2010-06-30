@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:background="@android:drawable/list_selector_background"
     android:focusable="true"
-    android:paddingTop="2px"
+    android:paddingTop="8px"
     android:paddingLeft="6dip"
     android:paddingRight="6dip"
     android:paddingBottom="2px"

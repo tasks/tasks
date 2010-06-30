@@ -40,8 +40,8 @@ public final class ExtendedFilterExposer extends BroadcastReceiver {
                 "Extended");
 
         Filter alphabetical = new Filter(ExtendedPlugin.pluginIdentifier,
-                "Inbox (sorted by name)",
-                "Inbox (sorted by name)",
+                "Alphabetical",
+                "Alphabetical",
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
                         TaskCriteria.isVisible(DateUtilities.now()))).
                         orderBy(Order.asc(Task.TITLE)),

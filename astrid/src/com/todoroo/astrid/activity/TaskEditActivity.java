@@ -19,11 +19,10 @@
  */
 package com.todoroo.astrid.activity;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
 import android.app.AlertDialog;
 import android.content.ContentValues;
@@ -54,7 +53,6 @@ import android.widget.ToggleButton;
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.enums.RepeatInterval;
-import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.task.TaskModelForEdit;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.utilities.AstridUtilities;
@@ -70,6 +68,8 @@ import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.alarms.Alarm;
+import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.TaskService;
@@ -112,13 +112,17 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
 	private static final String TAB_ALERTS = "alerts"; //$NON-NLS-1$
 	private static final int DEFAULT_CAL_TIME = 3600;
 
-    // --- autowired
+    // --- services
 
     @Autowired
     TaskService taskService;
 
     @Autowired
     DateUtilities dateUtilities;
+
+    TagService tagService = new TagService();
+
+    AlarmService alarmService = new AlarmService();
 
 	// --- UI components
     EditText title;
@@ -146,7 +150,7 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
 	boolean repeatHelpShown = false;
 
 	/** list of all tags */
-	Tag[] tags;
+	Tag[] allTags;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -239,8 +243,7 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
         repeatInterval.setAdapter(repeatAdapter);
 
         // load tags
-        TagService tagService = new TagService(this);
-        tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
+        allTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
 
         // read data
         populateFields();
@@ -310,7 +313,7 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
     };
 
     /** Set up the repeat value button */
-    private void setRepeatValue(int value) {
+    void setRepeatValue(int value) {
         if(value == 0)
             repeatValue.setText(R.string.repeat_value_unset);
         else
@@ -319,7 +322,7 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
     }
 
     private RepeatInfo getRepeatValue() {
-        if(repeatValue.getTag().equals(0))
+        if(repeatValue.getTag() == null || repeatValue.getTag().equals(0))
             return null;
         return new RepeatInfo(RepeatInterval.values()
                     [repeatInterval.getSelectedItemPosition()],
@@ -380,28 +383,34 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
 
         // tags (only configure if not already set)
         if(tagsContainer.getChildCount() == 0) {
-            TagService tagService = new TagService(this);
             TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-                addTag(cursor.get(Metadata.VALUE));
+            try {
+                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+                    addTag(cursor.get(Metadata.VALUE));
+            } finally {
+                cursor.close();
+            }
             addTag(""); //$NON-NLS-1$
         }
 
-        /* // alerts
-        if(model.getTaskIdentifier() != null) {
-            List<Date> alerts = alertController.getTaskAlerts(model.getTaskIdentifier());
-            for(Date alert : alerts) {
-                addAlert(alert);
+        /// alarms
+        if(alertsContainer.getChildCount() == 0) {
+            TodorooCursor<Alarm> cursor = alarmService.getAlarms(model.getId());
+            try {
+                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+                    addAlert(new Date(cursor.get(Alarm.TIME)));
+            } finally {
+                cursor.close();
             }
         }
 
         // repeats
-        RepeatInfo repeatInfo = model.getRepeat();
+        RepeatInfo repeatInfo = RepeatInfo.fromSingleField(model.getValue(Task.REPEAT));
         if(repeatInfo != null) {
             setRepeatValue(repeatInfo.getValue());
             repeatInterval.setSelection(repeatInfo.getInterval().ordinal());
         } else
-            setRepeatValue(0);*/ // TODO
+            setRepeatValue(0);
 
     }
 
@@ -426,6 +435,8 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
         model.setValue(Task.REPEAT, RepeatInfo.toSingleField(getRepeatValue()));
 
         taskService.save(model, false);
+        saveTags();
+        saveAlerts();
 
         long due = model.getValue(Task.DUE_DATE);
         if (due != 0) {
@@ -438,20 +449,19 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
     /**
      * Displays a Toast reporting that the selected task has been saved and is
      * due in 'x' amount of time, to 2 time-units of precision (e.g. Days + Hours).
-     * @param dueDate the Date when the task is due
+     * @param due the Date when the task is due
      */
-    private void showSaveToast(long dueDate) {
+    private void showSaveToast(long due) {
     	int stringResource;
 
-    	int timeInSeconds = (int)((dueDate - System.currentTimeMillis())/1000L);
+    	long dueFromNow = due - System.currentTimeMillis();
 
-    	if (timeInSeconds < 0) {
-    		timeInSeconds *= -1; // DateUtilities.getDurationString() requires positive integer
+    	if (dueFromNow < 0) {
     		stringResource = R.string.taskEdit_onTaskSave_Overdue;
     	} else {
     		stringResource = R.string.taskEdit_onTaskSave_Due;
     	}
-    	String formattedDate = dateUtilities.getDurationString(timeInSeconds, 2);
+    	String formattedDate = dateUtilities.getDurationString(dueFromNow, 2);
     	Toast.makeText(this,
     			getResources().getString(stringResource, formattedDate),
     			Toast.LENGTH_SHORT).show();
@@ -467,57 +477,31 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
 
     /** Save task tags. Must be called after task already has an ID */
     private void saveTags() {
-        Set<TagIdentifier> tagsToDelete;
-        Set<TagIdentifier> tagsToAdd;
+        ArrayList<String> tags = new ArrayList<String>();
 
-        HashSet<String> tagNames = new HashSet<String>();
         for(int i = 0; i < tagsContainer.getChildCount(); i++) {
             TextView tagName = (TextView)tagsContainer.getChildAt(i).findViewById(R.id.text1);
             if(tagName.getText().length() == 0)
                 continue;
-            tagNames.add(tagName.getText().toString());
+            tags.add(tagName.getText().toString());
         }
 
-        // map names to tag identifiers, creating them if necessary
-        /*HashSet<TagIdentifier> tagIds = new HashSet<TagIdentifier>();
-        HashMap<String, TagIdentifier> tagsByName = new HashMap<String, TagIdentifier>();
-        for(TagModelForView tag : tags)
-            tagsByName.put(tag.getName(), tag.getTagIdentifier());
-        for(String tagName : tagNames) {
-            if(tagsByName.containsKey(tagName))
-                tagIds.add(tagsByName.get(tagName));
-            else {
-                TagIdentifier newTagId = tagController.createTag(tagName);
-                tagIds.add(newTagId);
-            }
-        }
-
-        // intersect tags to figure out which we need to add / remove
-        tagsToDelete = new HashSet<TagIdentifier>(taskTags);
-        tagsToDelete.removeAll(tagIds);
-        tagsToAdd = tagIds;
-        tagsToAdd.removeAll(taskTags);
-
-        // perform the database updates
-        for(TagIdentifier tagId : tagsToDelete)
-            tagController.removeTag(model.getTaskIdentifier(), tagId);
-        for(TagIdentifier tagId : tagsToAdd)
-            tagController.addTag(model.getTaskIdentifier(), tagId);
-
-        if(tagsToDelete.size() > 0 || tagsToAdd.size() > 0)
-            SyncDataController.taskUpdated(this, model);*/
+        tagService.synchronizeTags(model.getId(), tags);
     }
 
     /** Helper method to save alerts for this task */
     private void saveAlerts() {
-        /*alertController.removeAlerts(model.getTaskIdentifier());
+        ArrayList<Alarm> alarms = new ArrayList<Alarm>();
 
         for(int i = 0; i < alertsContainer.getChildCount(); i++) {
             DateControlSet dateControlSet = (DateControlSet)alertsContainer.
                 getChildAt(i).getTag();
             Date date = dateControlSet.getDate();
-            alertController.addAlert(model.getTaskIdentifier(), date);
-        }*/
+            Alarm alarm = new Alarm();
+            alarm.setValue(Alarm.TIME, date.getTime());
+        }
+
+        alarmService.synchronizeAlarms(model.getId(), alarms);
     }
 
 
@@ -536,7 +520,7 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
         textView.setText(tagName);
         ArrayAdapter<Tag> tagsAdapter =
             new ArrayAdapter<Tag>(this,
-                    android.R.layout.simple_dropdown_item_1line, tags);
+                    android.R.layout.simple_dropdown_item_1line, allTags);
         textView.setAdapter(tagsAdapter);
         textView.addTextChangedListener(new TextWatcher() {
             public void onTextChanged(CharSequence s, int start, int before,
@@ -693,6 +677,7 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
      * @param estimatedSeconds estimated duration or null
      * @param values
      */
+    @SuppressWarnings("nls")
     public static void createCalendarStartEndTimes(Date preferred, Date definite,
             Integer estimatedSeconds, ContentValues values) {
         FlurryAgent.onEvent("create-calendar-event");
@@ -740,12 +725,12 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
             } catch (IllegalArgumentException e) {
             	Log.e("astrid", "Error creating calendar event!", e);
             }
-        }
+        } */
 
         if(shouldSaveState)
             save();
 
-        if(addToCalendar.isChecked() && model.getCalendarUri() != null) {
+        /* if(addToCalendar.isChecked() && model.getCalendarUri() != null) {
             Uri result = Uri.parse(model.getCalendarUri());
             Intent intent = new Intent(Intent.ACTION_EDIT, result);
 
@@ -758,7 +743,7 @@ public final class TaskEditActivity extends AbstractModelTabActivity<Task> {
             intent.putExtra("endTime", values.getAsLong("dtend"));
 
             startActivity(intent);
-        }*/
+        } */
 
         super.onPause();
     }

@@ -57,7 +57,7 @@ public class FilterExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        tagService = new TagService(context);
+        tagService = new TagService();
         Tag[] tagsByAlpha = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
 
         // If user does not have any tags, don't show this section at all

@@ -215,7 +215,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             public void onClick(View v) {
                 TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
                 if(quickAdd.getText().length() > 0) {
-                    Task task = quickAddTask(quickAdd.getText().toString());
+                    quickAddTask(quickAdd.getText().toString());
                     quickAdd.setText(""); //$NON-NLS-1$
                     loadTaskListContent(true);
                 } else {
@@ -484,8 +484,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         case MENU_PLUGINS_ID:
             dialogUtilities.okDialog(
                     this,
-                    "if this were real life, I would display the Android " + //$NON-NLS-1$
-                    "market with a search for plugins that you could install.", //$NON-NLS-1$
+                    "if this were real life, I would display your " + //$NON-NLS-1$
+                    "plugins so you could enable/disable/rearrange them.", //$NON-NLS-1$
                     null);
             return true;
         case MENU_SETTINGS_ID:
