@@ -216,11 +216,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
                 if(quickAdd.getText().length() > 0) {
                     quickAddTask(quickAdd.getText().toString());
-                    quickAdd.setText(""); //$NON-NLS-1$
                     loadTaskListContent(true);
-                } else {
-                    Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
-                    startActivityForResult(intent, ACTIVITY_EDIT_TASK);
                 }
             }
         });
@@ -270,12 +266,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 }
             }
 
+            TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
+            quickAdd.setText(""); //$NON-NLS-1$
             return task;
         } catch (Exception e) {
             exceptionService.displayAndReportError(this, "quick-add-task", e);
             return new Task();
         }
-
     }
 
     /* ======================================================================
