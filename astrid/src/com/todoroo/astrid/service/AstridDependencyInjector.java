@@ -70,6 +70,7 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
         // com.todoroo.android.utility
         injectables.put("dialogUtilities", DialogUtilities.class);
         injectables.put("informationDialogTitleResource", R.string.DLG_information_title);
+        injectables.put("confirmDialogTitleResource", R.string.DLG_confirm_title);
         injectables.put("dateUtilities", DateUtilities.class);
         injectables.put("yearsResource", R.plurals.DUt_years);
         injectables.put("monthsResource", R.plurals.DUt_months);

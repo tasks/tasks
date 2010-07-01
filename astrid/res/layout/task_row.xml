@@ -15,7 +15,7 @@
     <!-- completion check-box -->
     <CheckBox android:id="@+id/completeBox"
         android:layout_width="52px"
-        android:layout_height="52px"
+        android:layout_height="fill_parent"
         android:layout_weight="1"
         android:paddingLeft="10px" 
         android:button="@drawable/btn_check"
@@ -25,7 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="100"
-        android:paddingLeft="10px"
+        android:paddingLeft="14px"
+        android:paddingRight="2px"
         android:orientation="vertical">
             
         <!-- task name -->

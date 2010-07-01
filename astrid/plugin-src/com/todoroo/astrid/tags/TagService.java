@@ -2,8 +2,8 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -112,7 +112,7 @@ public class TagService {
      * Return tags on the given task
      *
      * @param taskId
-     * @return empty array if no tags, otherwise array
+     * @return cursor. PLEASE CLOSE THE CURSOR!
      */
     public TodorooCursor<Metadata> getTags(long taskId) {
         Query query = Query.select(Metadata.VALUE).where(Criterion.and(MetadataCriteria.withKey(KEY),
@@ -129,14 +129,18 @@ public class TagService {
     public String getTagsAsString(long taskId) {
         StringBuilder tagBuilder = new StringBuilder();
         TodorooCursor<Metadata> tags = getTags(taskId);
-        int length = tags.getCount();
-        Metadata metadata = new Metadata();
-        for (int i = 0; i < length; i++) {
-            tags.moveToNext();
-            metadata.readFromCursor(tags);
-            tagBuilder.append(metadata.getValue(Metadata.VALUE));
-            if (i < length - 1)
-                tagBuilder.append(", ");
+        try {
+            int length = tags.getCount();
+            Metadata metadata = new Metadata();
+            for (int i = 0; i < length; i++) {
+                tags.moveToNext();
+                metadata.readFromCursor(tags);
+                tagBuilder.append(metadata.getValue(Metadata.VALUE));
+                if (i < length - 1)
+                    tagBuilder.append(", ");
+            }
+        } finally {
+            tags.close();
         }
         return tagBuilder.toString();
     }

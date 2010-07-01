@@ -201,8 +201,11 @@ button: add task & go to the edit page.
   <!-- Menu: Help -->    
   <string name="FLA_menu_help">Help</string>
   
-  <!-- Create Shortcut Dialog -->    
-  <string name="FLA_shortcut_dialog">Create Shortcut:</string>
+  <!-- Create Shortcut Dialog Title -->    
+  <string name="FLA_shortcut_dialog_title">Create Shortcut</string>
+  
+  <!-- Create Shortcut Dialog (asks to name shortcut) -->    
+  <string name="FLA_shortcut_dialog">Name of shortcut:</string>
   
   <!-- Search Label-->
   <string name="FLA_search_label">Search For Tasks</string>

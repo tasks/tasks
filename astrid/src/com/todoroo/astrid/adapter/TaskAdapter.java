@@ -11,11 +11,11 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
@@ -185,14 +185,14 @@ public class TaskAdapter extends CursorAdapter {
         ViewHolder viewHolder = (ViewHolder)view.getTag();
 
         // don't bother instantiating views if we're busy
-        if(isFling) {
+        /*if(isFling) {
             viewHolder.details.removeViews(2, viewHolder.details.getChildCount() - 2);
             viewHolder.dueDate.setVisibility(View.INVISIBLE);
             viewHolder.nameView.setText(R.string.TAd_flingText);
             viewHolder.importance.setVisibility(View.INVISIBLE);
             viewHolder.completeBox.setVisibility(View.INVISIBLE);
             return;
-        }
+        }*/
 
         // name
         final TextView nameView = viewHolder.nameView; {
@@ -239,8 +239,9 @@ public class TaskAdapter extends CursorAdapter {
             }
         }
 
-        // other information - send out a request for it
-        final LinearLayout detailsView = viewHolder.details; {
+        // other information - send out a request for it (only if not fling)
+        final LinearLayout detailsView = viewHolder.details;
+        if(!isFling) {
             detailsView.removeViews(2, detailsView.getChildCount() - 2);
             if(detailCache.containsKey(task.getId())) {
                 ArrayList<TaskDetail> details = detailCache.get(task.getId());

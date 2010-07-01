@@ -39,7 +39,8 @@ public final class CoreFilterExposer extends BroadcastReceiver {
 
         Filter all = new Filter(CorePlugin.pluginIdentifier, r.getString(R.string.BFE_All),
                 r.getString(R.string.BFE_All),
-                new QueryTemplate().orderBy(Order.desc(Task.MODIFICATION_DATE)),
+                new QueryTemplate().where(Criterion.not(TaskCriteria.isDeleted())).
+                        orderBy(Order.desc(Task.MODIFICATION_DATE)),
                 null);
         all.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_all)).getBitmap();
 
@@ -59,7 +60,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
     @SuppressWarnings("nls")
     public static Filter buildInboxFilter(Resources r) {
         Filter inbox = new Filter(CorePlugin.pluginIdentifier, r.getString(R.string.BFE_Inbox),
-                r.getString(R.string.BFE_Inbox),
+                r.getString(R.string.BFE_Inbox_title),
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
                         TaskCriteria.isVisible(DateUtilities.now()))).orderBy(
                                 Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),

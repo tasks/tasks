@@ -17,7 +17,7 @@ import com.todoroo.astrid.api.TaskDetail;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class DetailExposer extends BroadcastReceiver {
+public class TagDetailExposer extends BroadcastReceiver {
 
     private static TagService tagService = null;
 
