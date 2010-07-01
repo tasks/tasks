@@ -174,6 +174,9 @@ public class DateUtilities {
 
     /**
      * Convenience method for dropping the preposition argument.
+     * @param duration in millis
+     * @param unitsToShow number of units to show (i.e. if 2, then 5 hours
+     *        3 minutes 2 seconds is truncated to 5 hours 3 minutes)
      */
     public String getDurationString(long duration, int unitsToShow) {
         return getDurationString(duration, unitsToShow, false);
@@ -182,8 +185,7 @@ public class DateUtilities {
     /**
      * Format a time into the format: 5 days, 3 hours, 2 minutes
      *
-     * @param r Resources to get strings from
-     * @param timeInSeconds
+     * @param duration in millis
      * @param unitsToShow number of units to show (i.e. if 2, then 5 hours
      *        3 minutes 2 seconds is truncated to 5 hours 3 minutes)
      * @param withPreposition whether there is a preceding preposition

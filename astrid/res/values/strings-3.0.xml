@@ -164,9 +164,6 @@ button: add task & go to the edit page.
   <!-- Displayed when adapter is flung (scrolled quickly) -->
   <string name="TAd_flingText"></string>
   
-  <!-- due date for tasks with date and time ($D => date, $T => time) -->
-  <string name="TAd_dueDateTime">$D at $T</string>
-  
   <!-- indicates task was completed. %s => date or time ago -->
   <string name="TAd_completed">Finished %s</string>
   

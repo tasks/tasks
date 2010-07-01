@@ -1,6 +1,5 @@
 package com.todoroo.astrid.adapter;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -225,18 +224,12 @@ public class TaskAdapter extends CursorAdapter {
 
                 String dateValue;
                 Date dueDateAsDate = DateUtilities.unixtimeToDate(dueDate);
-                dateValue = SimpleDateFormat.getDateInstance(
-                        SimpleDateFormat.MEDIUM).format(dueDateAsDate);
-
-                if (task.getValue(Task.URGENCY) == Task.URGENCY_SPECIFIC_DAY_TIME) {
-                    String timeValue = SimpleDateFormat.getTimeInstance(SimpleDateFormat.SHORT).format(
-                            dueDateAsDate);
-                    String string = r.getString(R.string.TAd_dueDateTime).replace(
-                            "$D", dateValue).replace("$T", timeValue); //$NON-NLS-1$ //$NON-NLS-2$
-                    dueDateView.setText(string);
+                if (task.hasDueTime()) {
+                    dateValue = DateUtilities.getDateWithTimeFormat(activity).format(dueDateAsDate);
                 } else {
-                    dueDateView.setText(dateValue);
+                    dateValue = DateUtilities.getDateFormat(activity).format(dueDateAsDate);
                 }
+                dueDateView.setText(dateValue);
                 setVisibility(dueDateView);
             } else {
                 dueDateView.setVisibility(View.GONE);

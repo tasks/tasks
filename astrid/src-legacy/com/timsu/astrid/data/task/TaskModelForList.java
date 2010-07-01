@@ -108,7 +108,7 @@ public class TaskModelForList extends AbstractTaskModel {
     }
 
     /** map of cached display labels */
-    private HashMap<Integer, String> displayLabels = new HashMap<Integer, String>();
+    private final HashMap<Integer, String> displayLabels = new HashMap<Integer, String>();
 
     public String getCachedLabel(int key) {
         return displayLabels.get(key);

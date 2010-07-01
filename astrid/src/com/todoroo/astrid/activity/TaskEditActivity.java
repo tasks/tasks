@@ -67,8 +67,6 @@ import com.timsu.astrid.data.enums.RepeatInterval;
 import com.timsu.astrid.data.task.TaskModelForEdit;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.utilities.AstridUtilities;
-import com.timsu.astrid.utilities.Constants;
-import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.widget.NumberPicker;
 import com.timsu.astrid.widget.NumberPickerDialog;
 import com.timsu.astrid.widget.TimeDurationControlSet;
@@ -88,6 +86,8 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
+import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -206,8 +206,8 @@ public final class TaskEditActivity extends TabActivity {
 
         controls.add(new EditTextControlSet(Task.TITLE, R.id.title));
         controls.add(new ImportanceControlSet(R.id.importance_container));
-        controls.add(new UrgencyControlSet(R.id.urgency, R.id.urgency_fixedDate));
-        controls.add(new HideUntilControlSet(R.id.hideUntil, R.id.hideUntil_fixedDate));
+        controls.add(new UrgencyControlSet(R.id.urgency));
+        controls.add(new HideUntilControlSet(R.id.hideUntil));
         controls.add(new EditTextControlSet(Task.NOTES, R.id.notes));
 
         controls.add( new ReminderControlSet(R.id.reminder_due,
@@ -646,6 +646,8 @@ public final class TaskEditActivity extends TabActivity {
     private class UrgencyControlSet implements TaskEditControlSet,
             OnItemSelectedListener, OnTimeSetListener, OnDateSetListener {
 
+        private static final int SPECIFIC_DATE = -1;
+
         private final Spinner urgency;
         private ArrayAdapter<UrgencyValue> urgencyAdapter;
 
@@ -679,28 +681,29 @@ public final class TaskEditActivity extends TabActivity {
 
         private UrgencyValue[] createUrgencyList(long specificDate, boolean hasDueTime) {
             // set up base urgencies
-            String[] urgencies = getResources().getStringArray(R.array.TEA_urgency);
-            UrgencyValue[] urgencyValues = new UrgencyValue[urgencies.length];
-            urgencyValues[0] = new UrgencyValue(urgencies[0], DateUtilities.now(), false);
-            urgencyValues[1] = new UrgencyValue(urgencies[1],
+            String[] labels = getResources().getStringArray(R.array.TEA_urgency);
+            UrgencyValue[] urgencyValues = new UrgencyValue[labels.length];
+            urgencyValues[0] = new UrgencyValue(labels[0], 0, false);
+            urgencyValues[1] = new UrgencyValue(labels[1], DateUtilities.now(), false);
+            urgencyValues[2] = new UrgencyValue(labels[2],
                     DateUtilities.now() + DateUtilities.ONE_DAY, false);
             String dayAfterTomorrow = new SimpleDateFormat("EEEE").format( //$NON-NLS-1$
                     new Date(DateUtilities.now() + 2 * DateUtilities.ONE_DAY));
-            urgencyValues[2] = new UrgencyValue(dayAfterTomorrow,
+            urgencyValues[3] = new UrgencyValue(dayAfterTomorrow,
                     DateUtilities.now() + 2 * DateUtilities.ONE_DAY, false);
-            urgencyValues[3] = new UrgencyValue(urgencies[3],
+            urgencyValues[4] = new UrgencyValue(labels[4],
                     DateUtilities.now() + DateUtilities.ONE_WEEK, false);
             Date nextMonth = new Date();
             nextMonth.setMonth(nextMonth.getMonth() + 1);
-            urgencyValues[4] = new UrgencyValue(urgencies[4],
+            urgencyValues[5] = new UrgencyValue(labels[5],
                     nextMonth.getTime(), false);
 
-            urgencyValues[5] = new UrgencyValue(urgencies[5], -1, false);
-            urgencyValues[6] = new UrgencyValue(urgencies[6], -1, true);
+            urgencyValues[6] = new UrgencyValue(labels[6], SPECIFIC_DATE, false);
+            urgencyValues[7] = new UrgencyValue(labels[7], SPECIFIC_DATE, true);
 
             if(specificDate > 0) {
-                UrgencyValue[] updated = new UrgencyValue[urgencies.length + 1];
-                for(int i = 0; i < urgencies.length; i++)
+                UrgencyValue[] updated = new UrgencyValue[labels.length + 1];
+                for(int i = 0; i < labels.length; i++)
                     updated[i+1] = urgencyValues[i];
                 SimpleDateFormat format;
                 if(hasDueTime)
@@ -722,7 +725,7 @@ public final class TaskEditActivity extends TabActivity {
             // if specific date or date & time selected, show dialog
             // ... at conclusion of dialog, update our list
             UrgencyValue item = urgencyAdapter.getItem(position);
-            if(item.dueDate == -1) {
+            if(item.dueDate == SPECIFIC_DATE) {
                 hasTime = item.hasDueTime;
                 intermediateDate = new Date();
                 intermediateDate.setSeconds(0);
@@ -787,7 +790,7 @@ public final class TaskEditActivity extends TabActivity {
             this.urgency.setAdapter(urgencyAdapter);
 
             if(isNewTask()) {
-                urgency.setSelection(4); // TODO
+                urgency.setSelection(Preferences.getIntegerFromString(R.string.EPr_default_urgency_key));
             } else {
                 urgency.setSelection(0);
             }
@@ -800,13 +803,157 @@ public final class TaskEditActivity extends TabActivity {
         }
     }
 
-    private class HideUntilControlSet implements TaskEditControlSet {
-        private final Spinner urgency;
-        private final Button fixedDate;
-        public HideUntilControlSet(int urgency, int fixedDate) {
-            super();
-            this.urgency = urgency;
-            this.fixedDate = fixedDate;
+    /**
+     * Control set for specifying when a task should be hidden
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    private class HideUntilControlSet implements TaskEditControlSet,
+            OnItemSelectedListener, OnDateSetListener {
+
+        private static final int NONE = 0;
+        private static final int ON_DUE_DATE = 1;
+        private static final int DUE_DATE_LESS_ONE = 2;
+        private static final int DUE_DATE_LESS_SEVEN = 3;
+        private static final int SPECIFIC_DATE = -1;
+        private final Spinner hideUntil;
+
+        public HideUntilControlSet(int hideUntil) {
+            this.hideUntil = (Spinner) findViewById(hideUntil);
+        }
+
+        private ArrayAdapter<HideUntilValue> adapter;
+
+        /**
+         * Container class for urgencies
+         *
+         * @author Tim Su <tim@todoroo.com>
+         *
+         */
+        private class HideUntilValue {
+            public String label;
+            public long date;
+
+            public HideUntilValue(String label, long date) {
+                this.label = label;
+                this.date = date;
+            }
+
+            @Override
+            public String toString() {
+                return label;
+            }
+        }
+
+        private HideUntilValue[] createHideUntilList(long specificDate) {
+            // set up base values
+            String[] labels = getResources().getStringArray(R.array.TEA_hideUntil);
+            HideUntilValue[] values = new HideUntilValue[labels.length];
+            values[0] = new HideUntilValue(labels[0], NONE);
+            values[1] = new HideUntilValue(labels[1], ON_DUE_DATE);
+            values[2] = new HideUntilValue(labels[2], DUE_DATE_LESS_ONE);
+            values[3] = new HideUntilValue(labels[3], DUE_DATE_LESS_SEVEN);
+            values[4] = new HideUntilValue(labels[4], SPECIFIC_DATE);
+
+            if(specificDate > DUE_DATE_LESS_SEVEN) {
+                HideUntilValue[] updated = new HideUntilValue[labels.length + 1];
+                for(int i = 0; i < labels.length; i++)
+                    updated[i+1] = values[i];
+                SimpleDateFormat format = DateUtilities.getDateFormat(TaskEditActivity.this);
+                updated[0] = new HideUntilValue(format.format(new Date(specificDate)),
+                        specificDate);
+                values = updated;
+            }
+
+            return values;
+        }
+
+        // --- listening for events
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // if specific date selected, show dialog
+            // ... at conclusion of dialog, update our list
+            HideUntilValue item = adapter.getItem(position);
+            if(item.date == SPECIFIC_DATE) {
+                intermediateDate = new Date();
+                intermediateDate.setSeconds(0);
+                DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
+                        this, 1900 + intermediateDate.getYear(), intermediateDate.getMonth(), intermediateDate.getDate());
+                datePicker.show();
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+            // ignore
+        }
+
+        Date intermediateDate;
+
+        public void onDateSet(DatePicker view, int year, int month, int monthDay) {
+            intermediateDate.setYear(year - 1900);
+            intermediateDate.setMonth(month);
+            intermediateDate.setDate(monthDay);
+            intermediateDate.setHours(0);
+            intermediateDate.setMinutes(0);
+            customDateFinished();
+        }
+
+        private void customDateFinished() {
+            HideUntilValue[] list = createHideUntilList(intermediateDate.getTime());
+            adapter = new ArrayAdapter<HideUntilValue>(
+                    TaskEditActivity.this, android.R.layout.simple_spinner_item,
+                    list);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            hideUntil.setAdapter(adapter);
+            hideUntil.setSelection(0);
+        }
+
+        // --- setting up values
+
+        @Override
+        public void readFromModel() {
+            long date = model.getValue(Task.HIDE_UNTIL);
+            long dueDate = model.getValue(Task.DUE_DATE);
+
+            if(date == dueDate)
+                date = ON_DUE_DATE;
+            else if(date + DateUtilities.ONE_DAY == dueDate)
+                date = DUE_DATE_LESS_ONE;
+            else if(date + DateUtilities.ONE_WEEK == dueDate)
+                date = DUE_DATE_LESS_SEVEN;
+
+            HideUntilValue[] list = createHideUntilList(date);
+            adapter = new ArrayAdapter<HideUntilValue>(
+                    TaskEditActivity.this, android.R.layout.simple_spinner_item, list);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            hideUntil.setAdapter(adapter);
+
+            if(isNewTask()) {
+                hideUntil.setSelection(0);
+            } else if(date <= DUE_DATE_LESS_SEVEN){
+                hideUntil.setSelection((int)date);
+            } else {
+                hideUntil.setSelection(0);
+            }
+        }
+
+        @Override
+        public void writeToModel() {
+            HideUntilValue item = adapter.getItem(hideUntil.getSelectedItemPosition());
+            long dueDate = model.getValue(Task.DUE_DATE);
+            if(item.date == NONE)
+                model.setValue(Task.HIDE_UNTIL, 0L);
+            if(item.date == ON_DUE_DATE)
+                model.setValue(Task.HIDE_UNTIL, dueDate);
+            else if(item.date == DUE_DATE_LESS_ONE)
+                model.setValue(Task.HIDE_UNTIL, dueDate - DateUtilities.ONE_DAY);
+            else if(item.date == DUE_DATE_LESS_SEVEN)
+                model.setValue(Task.HIDE_UNTIL, dueDate - DateUtilities.ONE_WEEK);
+            else
+                model.setValue(Task.HIDE_UNTIL, item.date);
         }
 
     }
@@ -817,60 +964,80 @@ public final class TaskEditActivity extends TabActivity {
      *
      */
     public class ReminderControlSet implements TaskEditControlSet {
-        private final CheckBox before, during, after, nonstop;
+        private final CheckBox during, after, random;
+        private final Spinner mode;
+        private final long periodic = Preferences.getIntegerFromString(R.string.p_notif_defaultRemind)
+            * DateUtilities.ONE_DAY;
 
-        public ReminderControlSet(int beforeId, int duringId,
-                int afterId, int nonstopId) {
-            before = (CheckBox)findViewById(beforeId);
+        public ReminderControlSet(int duringId, int afterId, int randomId, int modeId) {
             during = (CheckBox)findViewById(duringId);
             after = (CheckBox)findViewById(afterId);
-            nonstop = (CheckBox)findViewById(nonstopId);
+            random = (CheckBox)findViewById(randomId);
+            mode = (Spinner)findViewById(modeId);
+
+            random.setText(getString(R.string.TEA_reminder_random,
+                    dateUtilities.getDurationString(periodic, 1, true)));
+
+            String[] list = new String[] {
+                    getString(R.string.TEA_reminder_alarm_off),
+                    getString(R.string.TEA_reminder_alarm_on),
+            };
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    TaskEditActivity.this, android.R.layout.simple_spinner_item, list);
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            mode.setAdapter(adapter);
         }
 
         public void setValue(int flags) {
-            before.setChecked((flags &
-                    TaskModelForEdit.NOTIFY_BEFORE_DEADLINE) > 0);
-            during.setChecked((flags &
-                    TaskModelForEdit.NOTIFY_AT_DEADLINE) > 0);
+            during.setChecked((flags & Task.NOTIFY_AT_DEADLINE) > 0);
             after.setChecked((flags &
-                    TaskModelForEdit.NOTIFY_AFTER_DEADLINE) > 0);
-            nonstop.setChecked((flags &
-                    TaskModelForEdit.NOTIFY_NONSTOP) > 0);
+                    Task.NOTIFY_AFTER_DEADLINE) > 0);
+            mode.setSelection((flags &
+                    TaskModelForEdit.NOTIFY_NONSTOP) > 0 ? 1 : 0);
         }
 
         public int getValue() {
             int value = 0;
-            if(before.isChecked())
-                value |= TaskModelForEdit.NOTIFY_BEFORE_DEADLINE;
             if(during.isChecked())
-                value |= TaskModelForEdit.NOTIFY_AT_DEADLINE;
+                value |= Task.NOTIFY_AT_DEADLINE;
             if(after.isChecked())
-                value |= TaskModelForEdit.NOTIFY_AFTER_DEADLINE;
-            if(nonstop.isChecked())
-                value |= TaskModelForEdit.NOTIFY_NONSTOP;
+                value |= Task.NOTIFY_AFTER_DEADLINE;
+            if(mode.getSelectedItemPosition() == 1)
+                value |= Task.NOTIFY_NONSTOP;
             return value;
+        }
+
+        @Override
+        public void readFromModel() {
+            setValue(model.getValue(Task.NOTIFICATION_FLAGS));
+        }
+
+        @Override
+        public void writeToModel() {
+            model.setValue(Task.NOTIFICATION_FLAGS, getValue());
         }
     }
 
-
-
+    /**
+     * Control set to manage adding and removing tags
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
     private class TagsControlSet implements TaskEditControlSet {
+
         private final TagService tagService = new TagService();
-
-
-        /** list of all tags */
         private final Tag[] allTags;
         private final LinearLayout tagsContainer;
 
         public TagsControlSet(int tagsContainer) {
-            super();
-            // load tags
             allTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
-
-            this.tagsContainer = (LinearLayout)findViewById(R.id.tags_container);
+            this.tagsContainer = (LinearLayout) findViewById(tagsContainer);
         }
 
-        public void setTags(long id) {
+        @SuppressWarnings("nls")
+        @Override
+        public void readFromModel() {
             // tags (only configure if not already set)
             if(tagsContainer.getChildCount() == 0) {
                 TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
@@ -882,11 +1049,10 @@ public final class TaskEditActivity extends TabActivity {
                 }
                 addTag("");
             }
-
         }
 
-        /** Save task tags. Must be called after task already has an ID */
-        private void saveTags() {
+        @Override
+        public void writeToModel() {
             ArrayList<String> tags = new ArrayList<String>();
 
             for(int i = 0; i < tagsContainer.getChildCount(); i++) {
@@ -913,10 +1079,11 @@ public final class TaskEditActivity extends TabActivity {
                 findViewById(R.id.text1);
             textView.setText(tagName);
             ArrayAdapter<Tag> tagsAdapter =
-                new ArrayAdapter<Tag>(this,
+                new ArrayAdapter<Tag>(TaskEditActivity.this,
                         android.R.layout.simple_dropdown_item_1line, allTags);
             textView.setAdapter(tagsAdapter);
             textView.addTextChangedListener(new TextWatcher() {
+                @SuppressWarnings("nls")
                 public void onTextChanged(CharSequence s, int start, int before,
                         int count) {
                     if(start == 0 && tagsContainer.getChildAt(
@@ -945,48 +1112,28 @@ public final class TaskEditActivity extends TabActivity {
 
             return true;
         }
-
     }
-
-
 
     public class RepeatControlSet implements TaskEditControlSet {
 
-        /** whether help should be shown when setting repeat */
-        private final boolean repeatHelpShown = false;
         private final Button repeatValue;
         private final Spinner repeatInterval;
+
         public RepeatControlSet(int repeatValue, int repeatInterval) {
-            super();
-            this.repeatValue = repeatValue;
-            this.repeatInterval = repeatInterval;
+            this.repeatValue = (Button) findViewById(repeatValue);
+            this.repeatInterval = (Spinner) findViewById(repeatInterval);
             ArrayAdapter<String> repeatAdapter = new ArrayAdapter<String>(
-                    this, android.R.layout.simple_spinner_item,
+                    TaskEditActivity.this, android.R.layout.simple_spinner_item,
                     RepeatInterval.getLabels(getResources()));
             repeatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            repeatInterval.setAdapter(repeatAdapter);
+            this.repeatInterval.setAdapter(repeatAdapter);
 
-            repeatValue.setOnClickListener(new View.OnClickListener() {
+            this.repeatValue.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
                     repeatValueClick();
                 }
             });
-
         }
-
-
-        public void setValue(Integer value) {
-
-
-            // repeats
-            RepeatInfo repeatInfo = RepeatInfo.fromSingleField(model.getValue(Task.REPEAT));
-            if(repeatInfo != null) {
-                setRepeatValue(repeatInfo.getValue());
-                repeatInterval.setSelection(repeatInfo.getInterval().ordinal());
-            } else
-                setRepeatValue(0);
-        }
-
 
         /** Set up the repeat value button */
         void setRepeatValue(int value) {
@@ -1007,13 +1154,9 @@ public final class TaskEditActivity extends TabActivity {
 
         protected void repeatValueClick() {
             final int tagValue = (Integer)repeatValue.getTag();
-            if(tagValue > 0)
-                repeatHelpShown = true;
 
             final Runnable openDialogRunnable = new Runnable() {
                 public void run() {
-                    repeatHelpShown = true;
-
                     int dialogValue = tagValue;
                     if(dialogValue == 0)
                         dialogValue = 1;
@@ -1027,46 +1170,48 @@ public final class TaskEditActivity extends TabActivity {
                 }
             };
 
-            if(repeatHelpShown || !Preferences.shouldShowRepeatHelp(this)) {
-                openDialogRunnable.run();
-                return;
-            }
+            openDialogRunnable.run();
+        }
 
-            new AlertDialog.Builder(this)
-            .setTitle(R.string.repeat_help_dialog_title)
-            .setMessage(R.string.repeat_help_dialog)
-            .setIcon(android.R.drawable.ic_dialog_info)
-            .setPositiveButton(android.R.string.ok,
-                    new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    openDialogRunnable.run();
-                }
-            })
-            .setNeutralButton(R.string.repeat_help_hide,
-                    new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    Preferences.setShowRepeatHelp(TaskEditActivity.this, false);
-                    openDialogRunnable.run();
-                }
-            })
-            .show();
+
+        @Override
+        public void readFromModel() {
+            // repeats
+            RepeatInfo repeatInfo = RepeatInfo.fromSingleField(model.getValue(Task.REPEAT));
+            if(repeatInfo != null) {
+                setRepeatValue(repeatInfo.getValue());
+                repeatInterval.setSelection(repeatInfo.getInterval().ordinal());
+            } else
+                setRepeatValue(0);
+        }
+
+
+        @Override
+        public void writeToModel() {
+            RepeatInfo repeatInfo = getRepeatValue();
+            model.setValue(Task.REPEAT, RepeatInfo.toSingleField(repeatInfo));
         }
     }
 
+    /**
+     * Calendar Control Set
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
     private class CalendarControlSet implements TaskEditControlSet {
 
         /** If task has no estimated time, how early to set a task in calendar */
         private static final int DEFAULT_CAL_TIME = 3600;
 
-
         private final CheckBox addToCalendar;
         private final Button viewCalendarEvent;
+
         public CalendarControlSet(int addToCalendar,
                 int viewCalendarEvent) {
-            super();
-            this.addToCalendar = addToCalendar;
-            this.viewCalendarEvent = viewCalendarEvent;
+            this.addToCalendar = (CheckBox) findViewById(addToCalendar);
+            this.viewCalendarEvent = (Button) findViewById(viewCalendarEvent);
         }
+
         /** Take the values from the model and set the calendar start and end times
          * based on these. Sets keys 'dtstart' and 'dtend'.
          *
@@ -1076,7 +1221,7 @@ public final class TaskEditActivity extends TabActivity {
          * @param values
          */
         @SuppressWarnings("nls")
-        public static void createCalendarStartEndTimes(Date preferred, Date definite,
+        public void createCalendarStartEndTimes(Date preferred, Date definite,
                 Integer estimatedSeconds, ContentValues values) {
             FlurryAgent.onEvent("create-calendar-event");
 
@@ -1096,7 +1241,6 @@ public final class TaskEditActivity extends TabActivity {
             values.put("dtend", deadlineDate);
         }
 
-        @Override
         protected void onPause() {
             // create calendar event
             /*if(addToCalendar.isChecked() && model.getCalendarUri() == null) {
@@ -1125,8 +1269,7 @@ public final class TaskEditActivity extends TabActivity {
                 }
             } */
 
-            if(shouldSaveState)
-                save();
+            // save save save
 
             /* if(addToCalendar.isChecked() && model.getCalendarUri() != null) {
                 Uri result = Uri.parse(model.getCalendarUri());
@@ -1143,7 +1286,14 @@ public final class TaskEditActivity extends TabActivity {
                 startActivity(intent);
             } */
 
-            super.onPause();
+        }
+
+        @Override
+        public void readFromModel() {
+        }
+
+        @Override
+        public void writeToModel() {
         }
     }
 

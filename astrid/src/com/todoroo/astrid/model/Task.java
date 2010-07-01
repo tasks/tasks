@@ -113,6 +113,17 @@ public final class Task extends AbstractModel {
 
     // --- flags
 
+    // --- notification flags
+
+    /** whether to send a reminder at deadline */
+    public static final int NOTIFY_AT_DEADLINE     = 1 << 1;
+
+    /** whether to send reminders while task is overdue */
+    public static final int NOTIFY_AFTER_DEADLINE  = 1 << 2;
+
+    /** reminder mode nonstop */
+    public static final int NOTIFY_NONSTOP         = 1 << 3;
+
     // --- importance settings
 
     public static final int IMPORTANCE_DO_OR_DIE = 0;
