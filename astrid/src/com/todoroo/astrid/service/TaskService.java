@@ -73,9 +73,15 @@ public class TaskService {
     public void delete(Task item) {
         if(!item.isSaved())
             return;
-        item.clear();
-        item.setValue(Task.DELETION_DATE, DateUtilities.now());
-        taskDao.save(item, false);
+        else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
+            taskDao.delete(item.getId());
+        } else {
+            long id = item.getId();
+            item.clear();
+            item.setId(id);
+            item.setValue(Task.DELETION_DATE, DateUtilities.now());
+            taskDao.save(item, false);
+        }
     }
 
     /**

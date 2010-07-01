@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="2.14.4" android:versionCode="135">
+          android:versionName="3.0.0-beta" android:versionCode="136">
       
   <!-- ================================================== Used Permissions = -->
       

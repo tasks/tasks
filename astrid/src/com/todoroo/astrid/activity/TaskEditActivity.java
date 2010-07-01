@@ -338,14 +338,6 @@ public final class TaskEditActivity extends TabActivity {
 
     /** Save task model from values in UI components */
     private void save() {
-        // don't save if user accidentally created a new task
-        if(title.getText().length() == 0) {
-            if(model.isSaved())
-                taskService.delete(model);
-            showCancelToast();
-            return;
-        }
-
         for(TaskEditControlSet controlSet : controls)
             controlSet.writeToModel();
 
@@ -368,6 +360,10 @@ public final class TaskEditActivity extends TabActivity {
      * precision
      */
     private void showSaveToast() {
+        // if we have no title, don't show a message
+        if(isNewTask())
+            return;
+
         int stringResource;
 
         long due = model.getValue(Task.DUE_DATE);
@@ -492,6 +488,14 @@ public final class TaskEditActivity extends TabActivity {
     protected void onStop() {
         super.onStop();
         FlurryAgent.onEndSession(this);
+
+        // don't save if user accidentally created a new task
+        if(title.getText().length() == 0) {
+            if(model.isSaved())
+                taskService.delete(model);
+            showCancelToast();
+            return;
+        }
     }
 
     /* ======================================================================

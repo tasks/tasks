@@ -21,8 +21,10 @@ import com.timsu.astrid.utilities.BackupService;
 import com.timsu.astrid.utilities.Notifications;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
+import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -37,6 +39,10 @@ public class StartupService extends BroadcastReceiver {
 
     static {
         AstridDependencyInjector.initialize();
+    }
+
+    public StartupService() {
+        DependencyInjectionService.getInstance().inject(this);
     }
 
     // --- system startup
@@ -55,6 +61,12 @@ public class StartupService extends BroadcastReceiver {
 
     @Autowired
     UpgradeService upgradeService;
+
+    @Autowired
+    TaskService taskService;
+
+    @Autowired
+    Database database;
 
     /**
      * bit to prevent multiple initializations
@@ -110,6 +122,9 @@ public class StartupService extends BroadcastReceiver {
 
                 // start backup service
                 BackupService.scheduleService(context);
+
+                database.openForWriting();
+                taskService.cleanup();
             }
         }).start();
 

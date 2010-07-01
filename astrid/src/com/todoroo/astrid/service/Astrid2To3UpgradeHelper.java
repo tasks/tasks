@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,6 +12,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
+import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.Alert;
 import com.timsu.astrid.data.task.AbstractTaskModel;
@@ -23,6 +25,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.alarms.Alarm;
 import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.dao.Database;
@@ -58,6 +61,9 @@ public class Astrid2To3UpgradeHelper {
     @Autowired
     private String alertsTable;
 
+    @Autowired
+    private DialogUtilities dialogUtilities;
+
     // --- implementation
 
     public Astrid2To3UpgradeHelper() {
@@ -92,6 +98,9 @@ public class Astrid2To3UpgradeHelper {
      */
     public void upgrade2To3() {
         Context context = ContextManager.getContext();
+
+        // pop up a progress dialog
+        ProgressDialog dialog = dialogUtilities.progressDialog(context, context.getString(R.string.DLG_wait));
 
         // initiate a backup
         try {
@@ -149,6 +158,8 @@ public class Astrid2To3UpgradeHelper {
         metadataService.cleanup();
 
         database.close();
+
+        dialog.dismiss();
     }
 
     // --- database upgrade helpers

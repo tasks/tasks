@@ -320,8 +320,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        // if(requestCode == ACTIVITY_EDIT_TASK && resultCode != TaskEditActivity.RESULT_CODE_DISCARDED)
-        //    loadTaskListContent(true);
+        taskService.cleanup();
+        if(requestCode == ACTIVITY_EDIT_TASK && resultCode != TaskEditActivity.RESULT_CODE_DISCARDED)
+            loadTaskListContent(true);
     }
 
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
@@ -367,6 +368,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             taskCursor.requery();
             taskAdapter.notifyDataSetChanged();
         }
+        startManagingCursor(taskCursor);
 
         if(oldListItemSelected != ListView.INVALID_POSITION &&
                 oldListItemSelected < taskCursor.getCount())

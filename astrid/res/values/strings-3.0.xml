@@ -112,6 +112,9 @@
   <!-- Button for canceling out of this page -->
   <string name="DLG_cancel">Cancel</string>
   
+  <!-- Progress dialog shown when doing something slow -->
+  <string name="DLG_wait">Please wait...</string>
+  
   <!-- ============================= Widgets ============================= -->
   
   <!-- Label for DateButtons with no value -->
@@ -287,16 +290,16 @@ to the plugin creator for fastest service.
   <string name="TEA_repeat_value_unset">No Repeat Set</string>
 
   <!-- Reminder header label -->  
-  <string name="TEA_reminder_label">Remind me when...</string>
+  <string name="TEA_reminder_label">Remind me...</string>
 
   <!-- Reminder @ deadline -->  
-  <string name="TEA_reminder_due">it\'s time to start the task</string>
+  <string name="TEA_reminder_due">... when it\'s time to start the task</string>
 
   <!-- Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">task is overdue</string>
+  <string name="TEA_reminder_overdue">... when task is overdue</string>
 
   <!-- Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">randomly every %s</string>
+  <string name="TEA_reminder_random">... randomly every %s</string>
 
   <!-- Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
