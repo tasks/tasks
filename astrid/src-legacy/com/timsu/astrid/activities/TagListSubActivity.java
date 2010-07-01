@@ -38,22 +38,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -405,7 +405,7 @@ public class TagListSubActivity extends SubActivity {
 
             createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, label);
             createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON,
-                    ((BitmapDrawable)r.getDrawable(R.drawable.icon_tag)).getBitmap());
+                    ((BitmapDrawable)r.getDrawable(R.drawable.icon_blank)).getBitmap());
             createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT"); //$NON-NLS-1$
 
             getParent().sendBroadcast(createShortcutIntent);

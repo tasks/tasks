@@ -24,6 +24,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
@@ -299,21 +300,19 @@ public class FilterListActivity extends ExpandableListActivity {
      * @param label
      */
     private void createShortcut(Filter filter, Intent shortcutIntent, String label) {
-        Bitmap bitmap;
-        if(filter.listingIcon == null)
-            bitmap = ((BitmapDrawable) getResources().getDrawable(
-                    R.drawable.icon_tag)).getBitmap();
-        else {
-            // create icon by superimposing astrid w/ icon
-            bitmap = ((BitmapDrawable) getResources().getDrawable(
-                    R.drawable.icon)).getBitmap();
-            bitmap = bitmap.copy(bitmap.getConfig(), true);
-            Canvas canvas = new Canvas(bitmap);
-            /*canvas.drawBitmap(filter.listingIcon, bitmap.getWidth() -
-                    filter.listingIcon.getWidth(), bitmap.getHeight() -
-                   filter.listingIcon.getHeight(), null);*/
-            canvas.save();
-        }
+        Bitmap emblem = filter.listingIcon;
+        if(emblem == null)
+            emblem = ((BitmapDrawable) getResources().getDrawable(
+                    R.drawable.filter_tags1)).getBitmap();
+        // create icon by superimposing astrid w/ icon
+        Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(
+                R.drawable.icon_blank)).getBitmap();
+        bitmap = bitmap.copy(bitmap.getConfig(), true);
+        Canvas canvas = new Canvas(bitmap);
+        canvas.drawBitmap(emblem, Math.max(0, bitmap.getWidth() -
+                emblem.getWidth()), Math.max(0, bitmap.getHeight() -
+               emblem.getHeight()), null);
+
         Intent createShortcutIntent = new Intent();
         createShortcutIntent.putExtra(
                 Intent.EXTRA_SHORTCUT_INTENT,
@@ -353,13 +352,18 @@ public class FilterListActivity extends ExpandableListActivity {
             final Intent shortcutIntent = item.getIntent();
             final Filter filter = (Filter)info.targetView.getTag();
 
+            FrameLayout frameLayout = new FrameLayout(this);
+            frameLayout.setPadding(10, 0, 10, 0);
             final EditText editText = new EditText(this);
             editText.setText(filter.listingTitle);
+            frameLayout.addView(editText, new FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.FILL_PARENT,
+                    FrameLayout.LayoutParams.WRAP_CONTENT));
 
             new AlertDialog.Builder(this)
             .setTitle(R.string.FLA_shortcut_dialog_title)
             .setMessage(R.string.FLA_shortcut_dialog)
-            .setView(editText)
+            .setView(frameLayout)
             .setIcon(android.R.drawable.ic_dialog_info)
             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {

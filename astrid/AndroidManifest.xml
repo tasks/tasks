@@ -78,7 +78,6 @@
     </activity>
     <!-- Activity that creates or edits tasks -->
     <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
-              android:icon="@drawable/icon_add"
               android:label="@string/taskEdit_label">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
