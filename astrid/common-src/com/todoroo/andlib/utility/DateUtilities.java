@@ -80,7 +80,7 @@ public class DateUtilities {
     public static long ONE_DAY = 3600000L;
 
     /** Represents a single week */
-    public static long WEEK = 7 * 3600000L;
+    public static long ONE_WEEK = 7 * 3600000L;
 
     /* ======================================================================
      * =========================================================== formatters
@@ -159,7 +159,6 @@ public class DateUtilities {
                 getTimeFormatString(context));
 
     }
-    private static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssz";
 
     /**
      * @return formatted date (will contain month, day, year)

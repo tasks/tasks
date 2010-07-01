@@ -6,6 +6,8 @@
 package com.todoroo.astrid.model;
 
 
+import java.util.Date;
+
 import android.content.ContentValues;
 import android.content.res.Resources;
 
@@ -41,10 +43,6 @@ public final class Task extends AbstractModel {
     /** Name of Task */
     public static final StringProperty TITLE = new StringProperty(
             TABLE, "title");
-
-    /** Urgency of Task (see urgency flags) */
-    public static final IntegerProperty URGENCY = new IntegerProperty(
-            TABLE, "urgency");
 
     /** Importance of Task (see importance flags) */
     public static final IntegerProperty IMPORTANCE = new IntegerProperty(
@@ -113,17 +111,7 @@ public final class Task extends AbstractModel {
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
 
-    // --- urgency settings
-
-    public static final int URGENCY_NONE = 0;
-    public static final int URGENCY_TODAY = 1;
-    public static final int URGENCY_THIS_WEEK = 2;
-    public static final int URGENCY_THIS_MONTH = 3;
-    public static final int URGENCY_WITHIN_THREE_MONTHS = 4;
-    public static final int URGENCY_WITHIN_SIX_MONTHS = 5;
-    public static final int URGENCY_WITHIN_A_YEAR = 6;
-    public static final int URGENCY_SPECIFIC_DAY = 7;
-    public static final int URGENCY_SPECIFIC_DAY_TIME = 8;
+    // --- flags
 
     // --- importance settings
 
@@ -158,7 +146,6 @@ public final class Task extends AbstractModel {
         defaultValues.put(HIDE_UNTIL.name, 0);
         defaultValues.put(COMPLETION_DATE.name, 0);
         defaultValues.put(DELETION_DATE.name, 0);
-        defaultValues.put(URGENCY.name, URGENCY_NONE);
         defaultValues.put(IMPORTANCE.name, IMPORTANCE_NONE);
 
         defaultValues.put(CALENDAR_URI.name, "");
@@ -254,4 +241,36 @@ public final class Task extends AbstractModel {
         return getValue(DUE_DATE) > 0;
     }
 
+    /**
+     * @return true if hours, minutes, and seconds indicate end of day
+     */
+    private boolean isEndOfDay(Date date) {
+        return date.getHours() == 23 && date.getMinutes() == 59 &&
+            date.getSeconds() == 59;
+    }
+
+    /**
+     * Sets due date for this task. If this due date has no time associated,
+     * we move it to the last millisecond of the day.
+     *
+     * @param date
+     * @param hasDueTime
+     */
+    public void setDueDate(Date dueDate, boolean hasDueTime) {
+        if(!hasDueTime) {
+            dueDate.setHours(23);
+            dueDate.setMinutes(59);
+            dueDate.setSeconds(59);
+        } else if(isEndOfDay(dueDate)) {
+            dueDate.setSeconds(58);
+        }
+        setValue(Task.DUE_DATE, dueDate.getTime());
+    }
+
+    /**
+     * Checks whether this due date has a due time or only a date
+     */
+    public boolean hasDueTime() {
+        return isEndOfDay(new Date(getValue(DUE_DATE)));
+    }
 }

@@ -55,7 +55,6 @@ public class TaskAdapter extends CursorAdapter {
         Task.ID,
         Task.TITLE,
         Task.IMPORTANCE,
-        Task.URGENCY,
         Task.DUE_DATE,
         Task.COMPLETION_DATE,
         Task.HIDE_UNTIL,
@@ -189,7 +188,7 @@ public class TaskAdapter extends CursorAdapter {
         if(isFling) {
             viewHolder.details.removeViews(2, viewHolder.details.getChildCount() - 2);
             viewHolder.dueDate.setVisibility(View.INVISIBLE);
-            viewHolder.nameView.setText(R.string.TAd_isFling);
+            viewHolder.nameView.setText(R.string.TAd_flingText);
             viewHolder.importance.setVisibility(View.INVISIBLE);
             viewHolder.completeBox.setVisibility(View.INVISIBLE);
             return;
@@ -236,9 +235,7 @@ public class TaskAdapter extends CursorAdapter {
                             "$D", dateValue).replace("$T", timeValue); //$NON-NLS-1$ //$NON-NLS-2$
                     dueDateView.setText(string);
                 } else {
-                    String string = r.getString(R.string.TAd_dueDate).replace(
-                            "$D", dateValue); //$NON-NLS-1$
-                    dueDateView.setText(string);
+                    dueDateView.setText(dateValue);
                 }
                 setVisibility(dueDateView);
             } else {

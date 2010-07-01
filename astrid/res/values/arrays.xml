@@ -26,6 +26,8 @@
 
 <resources>
 
+    <!-- ====================================================== reminders == -->
+
     <string-array name="reminders">
         <!-- reminders: Make these < 20 chars so the task name is displayed -->
         <item>Hi there! Have a sec?</item>
@@ -79,6 +81,41 @@
         <item>I\'ve had enough with your excuses! Just do it already!</item>
         <item>Didn\'t you make that excuse last time?</item>
         <item>I can\'t help you organize your life if you do that...</item>
+    </string-array>
+    
+    <!-- ==================================================== task values == -->
+    
+    <string-array name="TEA_urgency">
+        <!-- urgency: labels for edit page. item #4 -> auto filled -->
+        <item>No Urgency</item>
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item></item>
+        <item>Next Week</item>
+        <item>Next Month</item>
+        <item>Specific Day</item>
+        <item>Specific Day &amp; Time</item>
+    </string-array>
+    
+    <string-array name="TEA_hideUntil">
+        <!-- hideUntil: labels for edit page. -->
+        <item>Don\'t hide</item>
+        <item>Task is due</item>
+        <item>Day before due</item>
+        <item>Week before due</item>
+        <item>Specific Day</item>
+    </string-array>
+    
+    <!-- ==================================================== preferences == -->
+    
+    <string-array name="EPr_default_urgency">
+        <!-- urgency: default urgency labels for preferences. -->
+        <item>No Urgency</item>
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item>Day After Tomorrow</item>
+        <item>Next Week</item>
+        <item>Next Month</item>
     </string-array>
     
     <string-array name="notif_icon_entries">

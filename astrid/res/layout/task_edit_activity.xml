@@ -1,126 +1,322 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ASTRID: Android's Simple Task Recording Dashboard
- 
-  Copyright (c) 2009 Tim Su
- 
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
- 
-  This program is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-  for more details.
- 
-  You should have received a copy of the GNU General Public License along
-  with this program; if not, write to the Free Software Foundation, Inc.,
-  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
- 
--->
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="@drawable/background_gradient">
+
+  <!-- ======================================================= tab: basic == -->
+  
+  <ScrollView
+    android:id="@+id/tab_basic"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="@drawable/background_gradient">
-    
-    <LinearLayout android:id="@+id/event"
-        android:paddingRight="8px"
-        android:orientation="vertical"
+    android:layout_height="fill_parent">
+    <LinearLayout
+      android:id="@+id/event"
+      android:paddingRight="8dip"
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent">
+      
+      <!-- title -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_title_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <EditText
+        android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent">       
-
-        <TextView android:id="@+id/name_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/TEA_name_label"
-            style="@style/TextAppearance.GEN_EditLabel"/>
+        android:layout_height="wrap_content"
+        android:hint="@string/TEA_title_hint"
+        android:autoText="true"
+        android:capitalize="sentences" />
         
-        <EditText android:id="@+id/name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/TEA_name_hint"
-            android:autoText="true"
-            android:capitalize="sentences"/>
-                        
-        <TextView android:id="@+id/importance_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/TEA_importance_label"
-            style="@style/TextAppearance.GEN_EditLabel"/>
+      <!-- importance -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_importance_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <LinearLayout
+        android:id="@+id/importance_container"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+      </LinearLayout>
 
-        <LinearLayout android:id="@+id/importance_container"
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        </LinearLayout>
-                        
-        <TextView android:id="@+id/urgency_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/TEA_urgency_label"
-            style="@style/TextAppearance.GEN_EditLabel"/>
-                        
-        <Spinner android:id="@+id/urgency"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
-            
-        <Button android:id="@+id/fixedDate"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
-            
-        <TextView android:id="@+id/hiddenUntil_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/TEA_hiddenUntil_label"
-            style="@style/TextAppearance.GEN_EditLabel"/>
+      <!-- urgency -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_urgency_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <Spinner
+        android:id="@+id/urgency"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
-        <Button android:id="@+id/hiddenUntil"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"/>
-
-        <TextView android:id="@+id/plugins_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/TEA_plugins_label"
-            android:visibility="gone"
-            style="@style/TextAppearance.GEN_EditLabel"/>            
+      <!-- hide until -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_hideUntil_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <Spinner
+        android:id="@+id/hideUntil"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+              
+      <!-- notes -->
+      <TextView
+        android:paddingTop="5dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_note_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <EditText
+        android:id="@+id/notes"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:scrollbars="vertical"
+        android:gravity="top"
+        android:hint="@string/TEA_notes_hint"
+        android:autoText="true"
+        android:capitalize="sentences"
+        android:singleLine="false" />
         
-        <LinearLayout android:id="@+id/plugins_container"
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
-        </LinearLayout>
-        
-        <View
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:background="@drawable/black_white_gradient"
-        />
-        
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dip"
-            android:baselineAligned="false">
-            
-            <Button android:id="@+id/save"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/TEA_save_label"
-            />
-            
-            <Button android:id="@+id/discard"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="@string/TEA_discard_label"
-            />
-            
-        </LinearLayout>
+      <!-- buttons -->
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dip"
+        android:baselineAligned="false">
+        <Button
+          android:id="@+id/save_basic"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/TEA_save_label" />
+        <Button
+          android:id="@+id/discard_basic"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/TEA_cancel_label" />
+        <Button
+          android:id="@+id/delete_basic"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/TEA_delete_label" />
+      </LinearLayout>
     </LinearLayout>
-</ScrollView>
+  </ScrollView>
 
+  <!-- ======================================================= tab: extra == -->
+
+  <ScrollView
+    android:id="@+id/tab_extra"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+      android:paddingRight="8dip"
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent">
+      
+      <!-- reminders -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_reminder_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <CheckBox
+        android:id="@+id/reminder_due"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_reminder_due" />
+      <CheckBox
+        android:id="@+id/reminder_overdue"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_reminder_overdue" />
+      <CheckBox
+        android:id="@+id/reminder_random"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_reminder_random" />
+        
+      <!-- reminder mode -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_reminder_alarm_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <Spinner
+        android:id="@+id/reminder_alarm"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+        
+      <!-- separator -->
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:padding="5dip"
+        android:background="@android:drawable/divider_horizontal_dark" />
+        
+      <!-- tags -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_tags_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <LinearLayout
+        android:id="@+id/tags_container"
+        android:orientation="vertical"
+        android:paddingBottom="5dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:padding="5dip"
+        android:background="@android:drawable/divider_horizontal_dark" />
+        
+      <!-- repeat -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/repeat_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <LinearLayout
+        android:orientation="horizontal"
+        android:paddingRight="10dip"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <Button
+          android:id="@+id/repeat_value"
+          android:layout_weight="1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+        <Spinner
+          android:id="@+id/repeat_interval"
+          android:layout_weight="1"
+          android:layout_marginRight="10dip"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+      </LinearLayout>
+      
+      <!-- buttons -->
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dip"
+        android:baselineAligned="false">
+        <Button
+          android:id="@+id/save_extra"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/save_label" />
+        <Button
+          android:id="@+id/discard_extra"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/discard_label" />
+        <Button
+          android:id="@+id/delete_extra"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/delete_label" />
+      </LinearLayout>
+    </LinearLayout>
+  </ScrollView>
+  
+  <!-- ===================================================== tab: add-ons == -->
+  
+  <ScrollView
+    android:id="@+id/tab_addons"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <LinearLayout
+      android:paddingRight="8dip"
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent">
+
+      <!-- calendar integration -->      
+      <CheckBox
+        android:id="@+id/add_to_calendar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_addToCalendar_label" />
+      <Button
+        android:id="@+id/view_calendar_event"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_showCalendar_label"
+        android:visibility="gone" />
+
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:padding="5dip"
+        android:background="@android:drawable/divider_horizontal_dark" />
+              
+      <!-- estimated time -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_estimatedDuration_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <Button
+        android:id="@+id/estimatedDuration"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+        
+      <!-- elapsed time -->
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_elapsedDuration_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
+      <Button
+        android:id="@+id/elapsedDuration"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+        
+      <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dip"
+        android:baselineAligned="false">
+        <Button
+          android:id="@+id/save_addons"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/save_label" />
+        <Button
+          android:id="@+id/discard_addons"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/discard_label" />
+        <Button
+          android:id="@+id/delete_addons"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:text="@string/delete_label" />
+      </LinearLayout>
+    </LinearLayout>
+  </ScrollView>
+</FrameLayout>

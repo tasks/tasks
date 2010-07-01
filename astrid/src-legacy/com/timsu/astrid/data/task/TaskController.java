@@ -36,7 +36,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
-import com.timsu.astrid.activities.TaskEdit;
 import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
 import com.timsu.astrid.data.AbstractController;
@@ -342,8 +341,8 @@ public class TaskController extends AbstractController {
 
                     // create new start and end date for this event
                     ContentValues newValues = new ContentValues();
-                    TaskEdit.createCalendarStartEndTimes(task.getPreferredDueDate(),
-                            task.getDefiniteDueDate(), estimated, newValues);
+                    /*TaskEditActivity.createCalendarStartEndTimes(task.getPreferredDueDate(),
+                            task.getDefiniteDueDate(), estimated, newValues); TODO */
                     cr.update(uri, newValues, null, null);
                 }
             } catch (Exception e) {

@@ -83,6 +83,7 @@ import com.timsu.astrid.widget.NumberPicker;
 import com.timsu.astrid.widget.NumberPickerDialog;
 import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
+import com.todoroo.astrid.activity.TaskEditActivity;
 
 /**
  * Primary view for the Astrid Application. Lists all of the tasks in the
@@ -797,8 +798,8 @@ public class TaskListSubActivity extends SubActivity {
 
     class TaskListHooks implements TaskListAdapterHooks {
 
-        private HashMap<TaskModelForList, String> myTaskTags;
-        private List<TaskModelForList>            myTaskArray;
+        private final HashMap<TaskModelForList, String> myTaskTags;
+        private final List<TaskModelForList>            myTaskArray;
 
         public TaskListHooks() {
             this.myTaskTags = context.taskTags;
@@ -1033,12 +1034,7 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Call an activity to create the given task */
     private void createTask(Character startCharacter) {
-        Intent intent = new Intent(getParent(), TaskEdit.class);
-        if (context.filterTag != null)
-            intent.putExtra(TaskEdit.TAG_NAME_TOKEN, context.filterTag
-                    .getName());
-        if (startCharacter != null)
-            intent.putExtra(TaskEdit.START_CHAR_TOKEN, startCharacter);
+        Intent intent = new Intent(getParent(), TaskEditActivity.class);
         launchActivity(intent, ACTIVITY_CREATE);
     }
 
@@ -1062,8 +1058,8 @@ public class TaskListSubActivity extends SubActivity {
 
     /** Take you to the task edit page */
     private void editTask(TaskModelForList task) {
-        Intent intent = new Intent(getParent(), TaskEdit.class);
-        intent.putExtra(TaskEdit.LOAD_INSTANCE_TOKEN, task.getTaskIdentifier()
+        Intent intent = new Intent(getParent(), TaskEditActivity.class);
+        intent.putExtra(TaskEditActivity.ID_TOKEN, task.getTaskIdentifier()
                 .getId());
         launchActivity(intent, ACTIVITY_EDIT);
     }

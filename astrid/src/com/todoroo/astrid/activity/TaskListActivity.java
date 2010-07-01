@@ -72,15 +72,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
     // --- menu codes
 
-    private static final int MENU_ADD_TASK_ID = Menu.FIRST + 0;
-    private static final int MENU_PLUGINS_ID = Menu.FIRST + 1;
+    private static final int MENU_ADDONS_ID = Menu.FIRST + 1;
     private static final int MENU_SETTINGS_ID = Menu.FIRST + 2;
     private static final int MENU_HELP_ID = Menu.FIRST + 3;
-    private static final int MENU_PLUGIN_INTENT_ID = Menu.FIRST + 4;
+    private static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 4;
 
     private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 5;
     private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 6;
-    private static final int CONTEXT_MENU_PLUGIN_INTENT_ID = Menu.FIRST + 7;
+    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 7;
 
     // --- constants
 
@@ -159,12 +158,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         MenuItem item;
 
-        item = menu.add(Menu.NONE, MENU_ADD_TASK_ID, Menu.NONE,
-                R.string.TLA_menu_add);
-        item.setIcon(android.R.drawable.ic_menu_add);
-
-        item = menu.add(Menu.NONE, MENU_PLUGINS_ID, Menu.NONE,
-                R.string.TLA_menu_plugins);
+        item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
+                R.string.TLA_menu_addons);
         item.setIcon(android.R.drawable.ic_menu_set_as);
 
         item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
@@ -182,7 +177,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         int length = resolveInfoList.size();
         for(int i = 0; i < length; i++) {
             ResolveInfo resolveInfo = resolveInfoList.get(i);
-            item = menu.add(Menu.NONE, MENU_PLUGIN_INTENT_ID, Menu.NONE,
+            item = menu.add(Menu.NONE, MENU_ADDON_INTENT_ID, Menu.NONE,
                         resolveInfo.loadLabel(pm));
             item.setIcon(resolveInfo.loadIcon(pm));
             Intent intent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
@@ -438,7 +433,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         long taskId = task.getId();
         for(int i = 0; i < contextMenuItemCache.length; i++) {
             Intent intent = contextMenuItemCache[i].getRight();
-            MenuItem item = menu.add(id, CONTEXT_MENU_PLUGIN_INTENT_ID, Menu.NONE,
+            MenuItem item = menu.add(id, CONTEXT_MENU_ADDON_INTENT_ID, Menu.NONE,
                     contextMenuItemCache[i].getLeft());
             intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
             item.setIntent(intent);
@@ -468,16 +463,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         // handle my own menus
         switch (item.getItemId()) {
-        case MENU_ADD_TASK_ID:
-            intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
-            intent.putExtra(TaskEditActivity.ID_TOKEN, Task.NO_ID);
-            startActivityForResult(intent, ACTIVITY_EDIT_TASK);
-            return true;
-        case MENU_PLUGINS_ID:
+        case MENU_ADDONS_ID:
             dialogUtilities.okDialog(
                     this,
                     "if this were real life, I would display your " + //$NON-NLS-1$
-                    "plugins so you could enable/disable/rearrange them.", //$NON-NLS-1$
+                    "add-ons so you could enable/disable/rearrange them.", //$NON-NLS-1$
                     null);
             return true;
         case MENU_SETTINGS_ID:
@@ -490,7 +480,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
 
         // context menu items
-        case CONTEXT_MENU_PLUGIN_INTENT_ID: {
+        case CONTEXT_MENU_ADDON_INTENT_ID: {
             intent = item.getIntent();
             AndroidUtilities.startExternalIntent(this, intent);
             return true;

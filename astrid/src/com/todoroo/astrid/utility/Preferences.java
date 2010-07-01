@@ -24,7 +24,7 @@ public class Preferences {
 
         if(getIntegerFromString(R.string.EPr_default_urgency_key) == null) {
             editor.putString(r.getString(R.string.EPr_default_urgency_key),
-                    Integer.toString(Task.URGENCY_THIS_WEEK));
+                    Integer.toString(4));
         }
         if(getIntegerFromString(R.string.EPr_default_importance_key) == null) {
             editor.putString(r.getString(R.string.EPr_default_importance_key),

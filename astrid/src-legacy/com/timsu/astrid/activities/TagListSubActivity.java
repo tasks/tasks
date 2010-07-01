@@ -62,6 +62,7 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
+import com.todoroo.astrid.activity.TaskEditActivity;
 
 
 /**
@@ -309,8 +310,7 @@ public class TagListSubActivity extends SubActivity {
     // --- list adapter
 
     private void createTask(TagModelForView tag) {
-        Intent intent = new Intent(getParent(), TaskEdit.class);
-        intent.putExtra(TaskEdit.TAG_NAME_TOKEN, tag.getName());
+        Intent intent = new Intent(getParent(), TaskEditActivity.class);
         launchActivity(intent, ACTIVITY_CREATE);
     }
 
@@ -439,9 +439,9 @@ public class TagListSubActivity extends SubActivity {
 
     class TagListAdapter extends ArrayAdapter<TagModelForView> {
 
-    	private List<TagModelForView> objects;
-        private int resource;
-        private LayoutInflater inflater;
+    	private final List<TagModelForView> objects;
+        private final int resource;
+        private final LayoutInflater inflater;
         private HashMap<TagModelForView, Integer> tagCount;
 
         public TagListAdapter(Context context, int resource,

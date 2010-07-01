@@ -19,13 +19,18 @@
  */
 package com.todoroo.astrid.activity;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.app.TabActivity;
+import android.app.TimePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -38,19 +43,23 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -60,20 +69,18 @@ import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.utilities.AstridUtilities;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.Preferences;
-import com.timsu.astrid.widget.DateControlSet;
-import com.timsu.astrid.widget.DateWithNullControlSet;
 import com.timsu.astrid.widget.NumberPicker;
 import com.timsu.astrid.widget.NumberPickerDialog;
 import com.timsu.astrid.widget.TimeDurationControlSet;
 import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.IntegerProperty;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.alarms.Alarm;
-import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -118,61 +125,36 @@ public final class TaskEditActivity extends TabActivity {
 
 	// --- other constants
 
+    /** Number of tags a task can have */
 	private static final int MAX_TAGS = 5;
-	private static final int MAX_ALERTS = 5;
-	private static final String TAB_BASIC = "basic"; //$NON-NLS-1$
-	private static final String TAB_DATES = "dates"; //$NON-NLS-1$
-	private static final String TAB_ALERTS = "alerts"; //$NON-NLS-1$
-	private static final int DEFAULT_CAL_TIME = 3600;
 
     // --- services
 
     @Autowired
-    ExceptionService exceptionService;
+    private ExceptionService exceptionService;
 
     @Autowired
-    Database database;
+    private Database database;
 
     @Autowired
-    TaskService taskService;
+    private TaskService taskService;
 
     @Autowired
-    DateUtilities dateUtilities;
-
-    TagService tagService = new TagService();
-
-    AlarmService alarmService = new AlarmService();
+    private DateUtilities dateUtilities;
 
 	// --- UI components
-    EditText title;
-    ImportanceControlSet importance;
-	TimeDurationControlSet estimatedDuration;
-	TimeDurationControlSet elapsedDuration;
-	TimeDurationControlSet notification;
-	DateControlSet dueDate;
-	DateControlSet preferredDueDate;
-	DateControlSet hiddenUntil;
-	EditText notes;
-	LinearLayout tagsContainer;
-	NotifyFlagControlSet flags;
-	LinearLayout alertsContainer;
-	Button repeatValue;
-	Spinner repeatInterval;
-	CheckBox addToCalendar;
+
+    private EditText title;
+
+    private final ArrayList<TaskEditControlSet> controls = new ArrayList<TaskEditControlSet>();
 
 	// --- other instance variables
 
 	/** task model */
-	protected Task model = null;
+	private Task model = null;
 
 	/** whether task should be saved when this activity exits */
-	boolean shouldSaveState = true;
-
-	/** whether help should be shown when setting repeat */
-	boolean repeatHelpShown = false;
-
-	/** list of all tags */
-	Tag[] allTags;
+	private boolean shouldSaveState = true;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -187,23 +169,9 @@ public final class TaskEditActivity extends TabActivity {
 		super.onCreate(savedInstanceState);
 		new StartupService().onStartupApplication(this);
 
-		TabHost tabHost = getTabHost();
-		tabHost.setPadding(0, 4, 0, 0);
-		Resources r = getResources();
+        setUpUIComponents();
 
-		LayoutInflater.from(this).inflate(R.layout.task_edit, tabHost.getTabContentView(), true);
-
-		tabHost.addTab(tabHost.newTabSpec(TAB_BASIC).setIndicator(r.getString(R.string.taskEdit_tab_basic),
-				r.getDrawable(R.drawable.ic_dialog_info_c)).setContent(R.id.tab_basic));
-		tabHost.addTab(tabHost.newTabSpec(TAB_DATES).setIndicator(r.getString(R.string.taskEdit_tab_dates),
-				r.getDrawable(R.drawable.ic_dialog_time_c)).setContent(R.id.tab_dates));
-		tabHost.addTab(tabHost.newTabSpec(TAB_ALERTS).setIndicator(r.getString(R.string.taskEdit_tab_alerts),
-				r.getDrawable(R.drawable.ic_dialog_alert_c)).setContent(R.id.tab_notification));
-
-		setUpUIComponents();
-		setUpListeners();
-
-		// disable name input box until user requests it
+		// disable keyboard until user requests it
 		AstridUtilities.suppressVirtualKeyboard(title);
     }
 
@@ -214,73 +182,98 @@ public final class TaskEditActivity extends TabActivity {
     /** Initialize UI components */
     private void setUpUIComponents() {
         Resources r = getResources();
-        setTitle(new StringBuilder().append(r.getString(R.string.taskEdit_titleGeneric)));
 
-        // populate instance variables
-        title = (EditText)findViewById(R.id.name);
-        importance = new ImportanceControlSet(R.id.importance_container);
-        tagsContainer = (LinearLayout)findViewById(R.id.tags_container);
-        estimatedDuration = new TimeDurationControlSet(this,
+        // set up tab host
+        TabHost tabHost = getTabHost();
+        tabHost.setPadding(0, 4, 0, 0);
+        LayoutInflater.from(this).inflate(R.layout.task_edit_activity,
+                tabHost.getTabContentView(), true);
+        tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.TEA_tab_basic)).
+                setIndicator(r.getString(R.string.TEA_tab_basic),
+                        r.getDrawable(R.drawable.tea_tab_basic)).setContent(
+                                R.id.tab_basic));
+        tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.TEA_tab_extra)).
+                setIndicator(r.getString(R.string.TEA_tab_extra),
+                        r.getDrawable(R.drawable.tea_tab_extra)).setContent(
+                                R.id.tab_extra));
+        tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.TEA_tab_addons)).
+                setIndicator(r.getString(R.string.TEA_tab_addons),
+                        r.getDrawable(R.drawable.tea_tab_extensions)).setContent(
+                                R.id.tab_addons));
+
+        // populate control set
+        title = (EditText) findViewById(R.id.title);
+
+        controls.add(new EditTextControlSet(Task.TITLE, R.id.title));
+        controls.add(new ImportanceControlSet(R.id.importance_container));
+        controls.add(new UrgencyControlSet(R.id.urgency, R.id.urgency_fixedDate));
+        controls.add(new HideUntilControlSet(R.id.hideUntil, R.id.hideUntil_fixedDate));
+        controls.add(new EditTextControlSet(Task.NOTES, R.id.notes));
+
+        controls.add( new ReminderControlSet(R.id.reminder_due,
+                R.id.reminder_overdue, R.id.reminder_random, R.id.reminder_alarm));
+        controls.add(new TagsControlSet(R.id.tags_container));
+        controls.add(new RepeatControlSet(R.id.repeat_value, R.id.repeat_interval));
+
+        controls.add(new CalendarControlSet(R.id.add_to_calendar, R.id.view_calendar_event));
+        controls.add(new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
                 R.id.estimatedDuration, 0, R.string.hour_minutes_dialog,
-                TimeDurationType.HOURS_MINUTES);
-        elapsedDuration = new TimeDurationControlSet(this, R.id.elapsedDuration,
+                TimeDurationType.HOURS_MINUTES));
+        controls.add(new TimeDurationTaskEditControlSet(Task.ELAPSED_SECONDS, R.id.elapsedDuration,
                 0, R.string.hour_minutes_dialog,
-                TimeDurationType.HOURS_MINUTES);
-        notification = new TimeDurationControlSet(this, R.id.notification,
-                R.string.notification_prefix, R.string.notification_dialog,
-                TimeDurationType.DAYS_HOURS);
-        dueDate = new DateWithNullControlSet(this, R.id.definiteDueDate_notnull,
-                R.id.definiteDueDate_date, R.id.definiteDueDate_time);
-        preferredDueDate = new DateWithNullControlSet(this, R.id.preferredDueDate_notnull,
-                R.id.preferredDueDate_date, R.id.preferredDueDate_time);
-        hiddenUntil = new DateWithNullControlSet(this, R.id.hiddenUntil_notnull,
-                R.id.hiddenUntil_date, R.id.hiddenUntil_time);
-        notes = (EditText)findViewById(R.id.notes);
-        flags = new NotifyFlagControlSet(R.id.flag_before,
-                R.id.flag_during, R.id.flag_after, R.id.flag_nonstop);
-        alertsContainer = (LinearLayout)findViewById(R.id.alert_container);
-        repeatInterval = (Spinner)findViewById(R.id.repeat_interval);
-        repeatValue = (Button)findViewById(R.id.repeat_value);
-        addToCalendar = (CheckBox)findViewById(R.id.add_to_calendar);
-
-        // individual ui component initialization
-        ArrayAdapter<String> repeatAdapter = new ArrayAdapter<String>(
-                this, android.R.layout.simple_spinner_item,
-                RepeatInterval.getLabels(getResources()));
-        repeatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        repeatInterval.setAdapter(repeatAdapter);
-
-        // load tags
-        allTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
+                TimeDurationType.HOURS_MINUTES));
 
         // read data
         populateFields();
+
+        // set up listeners
+        setUpListeners();
+    }
+
+    /**
+     * @return true if task is newly created
+     */
+    private boolean isNewTask() {
+        return model.getValue(Task.TITLE).length() == 0;
     }
 
     /** Set up button listeners */
     private void setUpListeners() {
-        Button saveButtonGeneral = (Button) findViewById(R.id.save_general);
+        final View.OnClickListener mSaveListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                saveButtonClick();
+            }
+        };
+        final View.OnClickListener mDiscardListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                discardButtonClick();
+            }
+        };
+        final View.OnClickListener mDeleteListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                deleteButtonClick();
+            }
+        };
+
+        // set up save, cancel, and delete buttons
+        Button saveButtonGeneral = (Button) findViewById(R.id.save_basic);
         saveButtonGeneral.setOnClickListener(mSaveListener);
-
-        Button saveButtonDates = (Button) findViewById(R.id.save_dates);
+        Button saveButtonDates = (Button) findViewById(R.id.save_extra);
         saveButtonDates.setOnClickListener(mSaveListener);
-
-        Button saveButtonNotify = (Button) findViewById(R.id.save_notify);
+        Button saveButtonNotify = (Button) findViewById(R.id.save_addons);
         saveButtonNotify.setOnClickListener(mSaveListener);
 
-        Button discardButtonGeneral = (Button) findViewById(R.id.discard_general);
+        Button discardButtonGeneral = (Button) findViewById(R.id.discard_basic);
         discardButtonGeneral.setOnClickListener(mDiscardListener);
-
-        Button discardButtonDates = (Button) findViewById(R.id.discard_dates);
+        Button discardButtonDates = (Button) findViewById(R.id.discard_extra);
         discardButtonDates.setOnClickListener(mDiscardListener);
-
-        Button discardButtonNotify = (Button) findViewById(R.id.discard_notify);
+        Button discardButtonNotify = (Button) findViewById(R.id.discard_addons);
         discardButtonNotify.setOnClickListener(mDiscardListener);
 
-        Button deleteButtonGeneral = (Button) findViewById(R.id.delete_general);
-        Button deleteButtonDates = (Button) findViewById(R.id.delete_dates);
-        Button deleteButtonNotify = (Button) findViewById(R.id.delete_notify);
-        if(model.getId() == Task.NO_ID) {
+        Button deleteButtonGeneral = (Button) findViewById(R.id.delete_basic);
+        Button deleteButtonDates = (Button) findViewById(R.id.delete_extra);
+        Button deleteButtonNotify = (Button) findViewById(R.id.delete_addons);
+        if(isNewTask()) {
             deleteButtonGeneral.setVisibility(View.GONE);
             deleteButtonDates.setVisibility(View.GONE);
             deleteButtonNotify.setVisibility(View.GONE);
@@ -289,78 +282,6 @@ public final class TaskEditActivity extends TabActivity {
             deleteButtonDates.setOnClickListener(mDeleteListener);
             deleteButtonNotify.setOnClickListener(mDeleteListener);
         }
-
-        Button addAlertButton = (Button) findViewById(R.id.addAlert);
-        addAlertButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                addAlert(null);
-            }
-        });
-
-        repeatValue.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                repeatValueClick();
-            }
-        });
-    }
-
-    private final View.OnClickListener mSaveListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            saveButtonClick();
-        }
-    };
-    private final View.OnClickListener mDiscardListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            discardButtonClick();
-        }
-    };
-    private final View.OnClickListener mDeleteListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            deleteButtonClick();
-        }
-    };
-
-    /** Set up the repeat value button */
-    void setRepeatValue(int value) {
-        if(value == 0)
-            repeatValue.setText(R.string.repeat_value_unset);
-        else
-            repeatValue.setText(Integer.toString(value));
-        repeatValue.setTag(value);
-    }
-
-    private RepeatInfo getRepeatValue() {
-        if(repeatValue.getTag() == null || repeatValue.getTag().equals(0))
-            return null;
-        return new RepeatInfo(RepeatInterval.values()
-                    [repeatInterval.getSelectedItemPosition()],
-                (Integer)repeatValue.getTag());
-    }
-
-    /** Adds an alert to the alert field */
-    protected boolean addAlert(Date alert) {
-        if(alertsContainer.getChildCount() >= MAX_ALERTS)
-            return false;
-
-        LayoutInflater inflater = getLayoutInflater();
-        final View alertItem = inflater.inflate(R.layout.edit_alert_item, null);
-        alertsContainer.addView(alertItem);
-
-        DateControlSet dcs = new DateControlSet(this,
-                (Button)alertItem.findViewById(R.id.date),
-                (Button)alertItem.findViewById(R.id.time));
-        dcs.setDate(alert);
-        alertItem.setTag(dcs);
-
-        ImageButton reminderRemoveButton;
-        reminderRemoveButton = (ImageButton)alertItem.findViewById(R.id.button1);
-        reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                alertsContainer.removeView(alertItem);
-            }
-        });
-
-        return true;
     }
 
     /* ======================================================================
@@ -403,58 +324,15 @@ public final class TaskEditActivity extends TabActivity {
     /** Populate UI component values from the model */
     private void populateFields() {
         Resources r = getResources();
-
         loadItem(getIntent());
 
-    	title.setText(model.getValue(Task.TITLE));
-        if(title.getText().length() > 0) {
-            setTitle(new StringBuilder().
-                append(r.getString(R.string.taskEdit_titlePrefix)).
-                append(" "). //$NON-NLS-1$
-                append(title.getText()));
-        }
-        estimatedDuration.setTimeDuration(model.getValue(Task.ESTIMATED_SECONDS));
-        elapsedDuration.setTimeDuration(model.getValue(Task.ELAPSED_SECONDS));
-        importance.setImportance(model.getValue(Task.IMPORTANCE));
-        dueDate.setDate(model.getValue(Task.DUE_DATE));
-        hiddenUntil.setDate(model.getValue(Task.HIDE_UNTIL));
-        notification.setTimeDuration(model.getValue(Task.NOTIFICATIONS));
-        flags.setValue(model.getValue(Task.NOTIFICATION_FLAGS));
-        notes.setText(model.getValue(Task.NOTES));
-        if(model.getValue(Task.CALENDAR_URI).length() > 0)
-            addToCalendar.setText(r.getString(R.string.showCalendar_label));
+        if(isNewTask())
+            setTitle(R.string.TEA_view_titleNew);
+        else
+            setTitle(r.getString(R.string.TEA_view_title, model.getValue(Task.TITLE)));
 
-        // tags (only configure if not already set)
-        if(tagsContainer.getChildCount() == 0) {
-            TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
-            try {
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-                    addTag(cursor.get(Metadata.VALUE));
-            } finally {
-                cursor.close();
-            }
-            addTag(""); //$NON-NLS-1$
-        }
-
-        /// alarms
-        if(alertsContainer.getChildCount() == 0) {
-            TodorooCursor<Alarm> cursor = alarmService.getAlarms(model.getId());
-            try {
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-                    addAlert(new Date(cursor.get(Alarm.TIME)));
-            } finally {
-                cursor.close();
-            }
-        }
-
-        // repeats
-        RepeatInfo repeatInfo = RepeatInfo.fromSingleField(model.getValue(Task.REPEAT));
-        if(repeatInfo != null) {
-            setRepeatValue(repeatInfo.getValue());
-            repeatInterval.setSelection(repeatInfo.getInterval().ordinal());
-        } else
-            setRepeatValue(0);
-
+        for(TaskEditControlSet controlSet : controls)
+            controlSet.readFromModel();
     }
 
     /** Save task model from values in UI components */
@@ -463,136 +341,15 @@ public final class TaskEditActivity extends TabActivity {
         if(title.getText().length() == 0) {
             if(model.isSaved())
                 taskService.delete(model);
+            showCancelToast();
             return;
         }
 
-        model.setValue(Task.TITLE, title.getText().toString());
-        model.setValue(Task.ESTIMATED_SECONDS, estimatedDuration.getTimeDurationInSeconds());
-        model.setValue(Task.ELAPSED_SECONDS, elapsedDuration.getTimeDurationInSeconds());
-        model.setValue(Task.IMPORTANCE, importance.getImportance());
-        model.setValue(Task.DUE_DATE, dueDate.getMillis());
-        model.setValue(Task.HIDE_UNTIL, hiddenUntil.getMillis());
-        model.setValue(Task.NOTIFICATION_FLAGS, flags.getValue());
-        model.setValue(Task.NOTES, notes.getText().toString());
-        model.setValue(Task.NOTIFICATIONS, notification.getTimeDurationInSeconds());
-        model.setValue(Task.REPEAT, RepeatInfo.toSingleField(getRepeatValue()));
+        for(TaskEditControlSet controlSet : controls)
+            controlSet.writeToModel();
 
         taskService.save(model, false);
-        saveTags();
-        saveAlerts();
-
-        long due = model.getValue(Task.DUE_DATE);
-        if (due != 0) {
-        	showSaveToast(due);
-        } else {
-        	showSaveToast();
-        }
-    }
-
-    /**
-     * Displays a Toast reporting that the selected task has been saved and is
-     * due in 'x' amount of time, to 2 time-units of precision (e.g. Days + Hours).
-     * @param due the Date when the task is due
-     */
-    private void showSaveToast(long due) {
-    	int stringResource;
-
-    	long dueFromNow = due - System.currentTimeMillis();
-
-    	if (dueFromNow < 0) {
-    		stringResource = R.string.taskEdit_onTaskSave_Overdue;
-    	} else {
-    		stringResource = R.string.taskEdit_onTaskSave_Due;
-    	}
-    	String formattedDate = dateUtilities.getDurationString(dueFromNow, 2);
-    	Toast.makeText(this,
-    			getResources().getString(stringResource, formattedDate),
-    			Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * Displays a Toast reporting that the selected task has been saved.
-     * Use this version when no due Date has been set.
-     */
-    private void showSaveToast() {
-    	Toast.makeText(this, R.string.taskEdit_onTaskSave_notDue, Toast.LENGTH_SHORT).show();
-    }
-
-    /** Save task tags. Must be called after task already has an ID */
-    private void saveTags() {
-        ArrayList<String> tags = new ArrayList<String>();
-
-        for(int i = 0; i < tagsContainer.getChildCount(); i++) {
-            TextView tagName = (TextView)tagsContainer.getChildAt(i).findViewById(R.id.text1);
-            if(tagName.getText().length() == 0)
-                continue;
-            tags.add(tagName.getText().toString());
-        }
-
-        tagService.synchronizeTags(model.getId(), tags);
-    }
-
-    /** Helper method to save alerts for this task */
-    private void saveAlerts() {
-        ArrayList<Alarm> alarms = new ArrayList<Alarm>();
-
-        for(int i = 0; i < alertsContainer.getChildCount(); i++) {
-            DateControlSet dateControlSet = (DateControlSet)alertsContainer.
-                getChildAt(i).getTag();
-            Date date = dateControlSet.getDate();
-            Alarm alarm = new Alarm();
-            alarm.setValue(Alarm.TIME, date.getTime());
-        }
-
-        alarmService.synchronizeAlarms(model.getId(), alarms);
-    }
-
-
-    /** Adds a tag to the tag field */
-    boolean addTag(String tagName) {
-        if (tagsContainer.getChildCount() >= MAX_TAGS) {
-            return false;
-        }
-
-        LayoutInflater inflater = getLayoutInflater();
-        final View tagItem = inflater.inflate(R.layout.edit_tag_item, null);
-        tagsContainer.addView(tagItem);
-
-        AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.
-            findViewById(R.id.text1);
-        textView.setText(tagName);
-        ArrayAdapter<Tag> tagsAdapter =
-            new ArrayAdapter<Tag>(this,
-                    android.R.layout.simple_dropdown_item_1line, allTags);
-        textView.setAdapter(tagsAdapter);
-        textView.addTextChangedListener(new TextWatcher() {
-            public void onTextChanged(CharSequence s, int start, int before,
-                    int count) {
-                if(start == 0 && tagsContainer.getChildAt(
-                        tagsContainer.getChildCount()-1) == tagItem) {
-                    addTag(""); //$NON-NLS-1$
-                }
-            }
-
-            public void afterTextChanged(Editable s) {
-                //
-            }
-
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
-                //
-            }
-        });
-
-        ImageButton reminderRemoveButton;
-        reminderRemoveButton = (ImageButton)tagItem.findViewById(R.id.button1);
-        reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                tagsContainer.removeView(tagItem);
-            }
-        });
-
-        return true;
+        showSaveToast();
     }
 
     /* ======================================================================
@@ -604,23 +361,60 @@ public final class TaskEditActivity extends TabActivity {
         finish();
     }
 
+    /**
+     * Displays a Toast reporting that the selected task has been saved and, if
+     * it has a due date, that is due in 'x' amount of time, to 1 time-unit of
+     * precision
+     */
+    private void showSaveToast() {
+        int stringResource;
+
+        long due = model.getValue(Task.DUE_DATE);
+        if (due != 0) {
+            long dueFromNow = due - System.currentTimeMillis();
+
+            if (dueFromNow < 0) {
+                stringResource = R.string.TEA_onTaskSave_overdue;
+            } else {
+                stringResource = R.string.TEA_onTaskSave_due;
+            }
+            String formattedDate = dateUtilities.getDurationString(dueFromNow, 2);
+            Toast.makeText(this,
+                    getResources().getString(stringResource, formattedDate),
+                    Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, R.string.TEA_onTaskSave_notDue,
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
     protected void discardButtonClick() {
         shouldSaveState = false;
-        setResult(Constants.RESULT_DISCARD);
+        showCancelToast();
+        setResult(RESULT_CANCELED);
         finish();
+    }
+
+    /**
+     * Show toast for task edit canceling
+     */
+    private void showCancelToast() {
+        Toast.makeText(this, R.string.TEA_onTaskCancel,
+                Toast.LENGTH_SHORT).show();
     }
 
     protected void deleteButtonClick() {
         new AlertDialog.Builder(this)
-            .setTitle(R.string.delete_title)
-            .setMessage(R.string.delete_this_task_title)
+            .setTitle(R.string.DLG_confirm_title)
+            .setMessage(R.string.DLG_delete_this_task_question)
             .setIcon(android.R.drawable.ic_dialog_alert)
             .setPositiveButton(android.R.string.ok,
                     new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
                     taskService.delete(model);
                     shouldSaveState = false;
-                    setResult(Constants.RESULT_GO_HOME);
+                    showDeleteToast();
+                    setResult(RESULT_CANCELED);
                     finish();
                 }
             })
@@ -628,52 +422,14 @@ public final class TaskEditActivity extends TabActivity {
             .show();
     }
 
-    protected void repeatValueClick() {
-        final int tagValue = (Integer)repeatValue.getTag();
-        if(tagValue > 0)
-            repeatHelpShown = true;
-
-        final Runnable openDialogRunnable = new Runnable() {
-            public void run() {
-                repeatHelpShown = true;
-
-                int dialogValue = tagValue;
-                if(dialogValue == 0)
-                    dialogValue = 1;
-
-                new NumberPickerDialog(TaskEditActivity.this, new OnNumberPickedListener() {
-                    public void onNumberPicked(NumberPicker view, int number) {
-                        setRepeatValue(number);
-                    }
-                }, getResources().getString(R.string.repeat_picker_title),
-                dialogValue, 1, 0, 31).show();
-            }
-        };
-
-        if(repeatHelpShown || !Preferences.shouldShowRepeatHelp(this)) {
-            openDialogRunnable.run();
-            return;
-        }
-
-        new AlertDialog.Builder(this)
-        .setTitle(R.string.repeat_help_dialog_title)
-        .setMessage(R.string.repeat_help_dialog)
-        .setIcon(android.R.drawable.ic_dialog_info)
-        .setPositiveButton(android.R.string.ok,
-                new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                openDialogRunnable.run();
-            }
-        })
-        .setNeutralButton(R.string.repeat_help_hide,
-                new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                Preferences.setShowRepeatHelp(TaskEditActivity.this, false);
-                openDialogRunnable.run();
-            }
-        })
-        .show();
+    /**
+     * Show toast for task edit deleting
+     */
+    private void showDeleteToast() {
+        Toast.makeText(this, R.string.TEA_onTaskDelete,
+                Toast.LENGTH_SHORT).show();
     }
+
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
@@ -697,96 +453,25 @@ public final class TaskEditActivity extends TabActivity {
         super.onCreateOptionsMenu(menu);
         MenuItem item;
 
-        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.save_label);
+        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_save_label);
         item.setIcon(android.R.drawable.ic_menu_save);
         item.setAlphabeticShortcut('s');
 
-        item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.discard_label);
+        item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_cancel_label);
         item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
         item.setAlphabeticShortcut('c');
 
-        item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.delete_label);
+        item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_delete_label);
         item.setIcon(android.R.drawable.ic_menu_delete);
         item.setAlphabeticShortcut('d');
 
         return true;
     }
 
-    /** Take the values from the model and set the calendar start and end times
-     * based on these. Sets keys 'dtstart' and 'dtend'.
-     *
-     * @param preferred preferred due date or null
-     * @param definite definite due date or null
-     * @param estimatedSeconds estimated duration or null
-     * @param values
-     */
-    @SuppressWarnings("nls")
-    public static void createCalendarStartEndTimes(Date preferred, Date definite,
-            Integer estimatedSeconds, ContentValues values) {
-        FlurryAgent.onEvent("create-calendar-event");
-
-        Long deadlineDate = null;
-        if (preferred != null && preferred.after(new Date()))
-            deadlineDate = preferred.getTime();
-        else if (definite != null)
-            deadlineDate = definite.getTime();
-        else
-            deadlineDate = System.currentTimeMillis() + 24*3600*1000L;
-
-        int estimatedTime = DEFAULT_CAL_TIME;
-        if(estimatedSeconds != null && estimatedSeconds > 0) {
-            estimatedTime = estimatedSeconds;
-        }
-        values.put("dtstart", deadlineDate - estimatedTime * 1000L);
-        values.put("dtend", deadlineDate);
-    }
-
     @Override
     protected void onPause() {
-        // create calendar event
-        /*if(addToCalendar.isChecked() && model.getCalendarUri() == null) {
-
-            Uri uri = Uri.parse("content://calendar/events");
-            ContentResolver cr = getContentResolver();
-
-            ContentValues values = new ContentValues();
-            values.put("title", title.getText().toString());
-            values.put("calendar_id", Preferences.getDefaultCalendarIDSafe(this));
-            values.put("description", notes.getText().toString());
-            values.put("hasAlarm", 0);
-            values.put("transparency", 0);
-            values.put("visibility", 0);
-
-            createCalendarStartEndTimes(model.getPreferredDueDate(),
-                    model.getDefiniteDueDate(), model.getEstimatedSeconds(),
-                    values);
-
-            Uri result = null;
-            try{
-            	result = cr.insert(uri, values);
-            	model.setCalendarUri(result.toString());
-            } catch (IllegalArgumentException e) {
-            	Log.e("astrid", "Error creating calendar event!", e);
-            }
-        } */
-
         if(shouldSaveState)
             save();
-
-        /* if(addToCalendar.isChecked() && model.getCalendarUri() != null) {
-            Uri result = Uri.parse(model.getCalendarUri());
-            Intent intent = new Intent(Intent.ACTION_EDIT, result);
-
-            ContentValues values = new ContentValues();
-            createCalendarStartEndTimes(model.getPreferredDueDate(),
-                    model.getDefiniteDueDate(), model.getEstimatedSeconds(),
-                    values);
-
-            intent.putExtra("beginTime", values.getAsLong("dtstart"));
-            intent.putExtra("endTime", values.getAsLong("dtend"));
-
-            startActivity(intent);
-        } */
 
         super.onPause();
     }
@@ -794,7 +479,6 @@ public final class TaskEditActivity extends TabActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // populateFields();
     }
 
     @Override
@@ -813,47 +497,89 @@ public final class TaskEditActivity extends TabActivity {
      * ========================================== UI component helper classes
      * ====================================================================== */
 
-    /** Control set dealing with notification flags */
-    public class NotifyFlagControlSet {
-        private final CheckBox before, during, after, nonstop;
+    // --- interface
 
-        public NotifyFlagControlSet(int beforeId, int duringId,
-                int afterId, int nonstopId) {
-            before = (CheckBox)findViewById(beforeId);
-            during = (CheckBox)findViewById(duringId);
-            after = (CheckBox)findViewById(afterId);
-            nonstop = (CheckBox)findViewById(nonstopId);
+    /**
+     * Interface for working with controls that alter task data
+     */
+    public interface TaskEditControlSet {
+        /**
+         * Read data from model to update the control set
+         */
+        public void readFromModel();
+
+        /**
+         * Write data from control set to model
+         */
+        public void writeToModel();
+    }
+
+    // --- EditTextControlSet
+
+    /**
+     * Control set for mapping a Property to an EditText
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    public class EditTextControlSet implements TaskEditControlSet {
+        private final EditText editText;
+        private final StringProperty property;
+
+        public EditTextControlSet(StringProperty property, int editText) {
+            this.property = property;
+            this.editText = (EditText)findViewById(editText);
         }
 
-        public void setValue(int flags) {
-            before.setChecked((flags &
-                    TaskModelForEdit.NOTIFY_BEFORE_DEADLINE) > 0);
-            during.setChecked((flags &
-                    TaskModelForEdit.NOTIFY_AT_DEADLINE) > 0);
-            after.setChecked((flags &
-                    TaskModelForEdit.NOTIFY_AFTER_DEADLINE) > 0);
-            nonstop.setChecked((flags &
-                    TaskModelForEdit.NOTIFY_NONSTOP) > 0);
+        @Override
+        public void readFromModel() {
+            editText.setText(model.getValue(property));
         }
 
-        public int getValue() {
-            int value = 0;
-            if(before.isChecked())
-                value |= TaskModelForEdit.NOTIFY_BEFORE_DEADLINE;
-            if(during.isChecked())
-                value |= TaskModelForEdit.NOTIFY_AT_DEADLINE;
-            if(after.isChecked())
-                value |= TaskModelForEdit.NOTIFY_AFTER_DEADLINE;
-            if(nonstop.isChecked())
-                value |= TaskModelForEdit.NOTIFY_NONSTOP;
-            return value;
+        @Override
+        public void writeToModel() {
+            model.setValue(property, editText.getText().toString());
         }
     }
 
-    /** Control set dealing with importance */
-    public class ImportanceControlSet {
-        private final List<CompoundButton> buttons = new LinkedList<CompoundButton>();
+    // --- TimeDurationTaskEditControlSet
 
+    /**
+     * Control set for mapping a Property to a TimeDurationControlSet
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    public class TimeDurationTaskEditControlSet implements TaskEditControlSet {
+        private final TimeDurationControlSet controlSet;
+        private final IntegerProperty property;
+
+        public TimeDurationTaskEditControlSet(IntegerProperty property, int timeButtonId,
+                int prefixResource, int titleResource, TimeDurationType type) {
+            this.property = property;
+            this.controlSet = new TimeDurationControlSet(TaskEditActivity.this,
+                    timeButtonId, prefixResource, titleResource, type);
+        }
+
+        @Override
+        public void readFromModel() {
+            controlSet.setTimeDuration(model.getValue(property));
+        }
+
+        @Override
+        public void writeToModel() {
+            model.setValue(property, controlSet.getTimeDurationInSeconds());
+        }
+    }
+
+    // --- ImportanceControlSet
+
+    /**
+     * Control Set for setting task importance
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    public class ImportanceControlSet implements TaskEditControlSet {
+        private final List<CompoundButton> buttons = new LinkedList<CompoundButton>();
         private final int[] colors = Task.getImportanceColors(getResources());
 
         public ImportanceControlSet(int containerId) {
@@ -902,6 +628,522 @@ public final class TaskEditActivity extends TabActivity {
                 if(b.isChecked())
                     return (Integer) b.getTag();
             return Task.getStaticDefaultValues().getAsInteger(Task.IMPORTANCE.name);
+        }
+
+        @Override
+        public void readFromModel() {
+            setImportance(model.getValue(Task.IMPORTANCE));
+        }
+
+        @Override
+        public void writeToModel() {
+            model.setValue(Task.IMPORTANCE, getImportance());
+        }
+    }
+
+    // --- UrgencyControlSet
+
+    private class UrgencyControlSet implements TaskEditControlSet,
+            OnItemSelectedListener, OnTimeSetListener, OnDateSetListener {
+
+        private final Spinner urgency;
+        private ArrayAdapter<UrgencyValue> urgencyAdapter;
+
+        /**
+         * Container class for urgencies
+         *
+         * @author Tim Su <tim@todoroo.com>
+         *
+         */
+        private class UrgencyValue {
+            public String label;
+            public long dueDate;
+            public boolean hasDueTime;
+
+            public UrgencyValue(String label, long dueDate, boolean hasDueTime) {
+                this.label = label;
+                this.dueDate = dueDate;
+                this.hasDueTime = hasDueTime;
+            }
+
+            @Override
+            public String toString() {
+                return label;
+            }
+        }
+
+        public UrgencyControlSet(int urgency) {
+            this.urgency = (Spinner)findViewById(urgency);
+            this.urgency.setOnItemSelectedListener(this);
+        }
+
+        private UrgencyValue[] createUrgencyList(long specificDate, boolean hasDueTime) {
+            // set up base urgencies
+            String[] urgencies = getResources().getStringArray(R.array.TEA_urgency);
+            UrgencyValue[] urgencyValues = new UrgencyValue[urgencies.length];
+            urgencyValues[0] = new UrgencyValue(urgencies[0], DateUtilities.now(), false);
+            urgencyValues[1] = new UrgencyValue(urgencies[1],
+                    DateUtilities.now() + DateUtilities.ONE_DAY, false);
+            String dayAfterTomorrow = new SimpleDateFormat("EEEE").format( //$NON-NLS-1$
+                    new Date(DateUtilities.now() + 2 * DateUtilities.ONE_DAY));
+            urgencyValues[2] = new UrgencyValue(dayAfterTomorrow,
+                    DateUtilities.now() + 2 * DateUtilities.ONE_DAY, false);
+            urgencyValues[3] = new UrgencyValue(urgencies[3],
+                    DateUtilities.now() + DateUtilities.ONE_WEEK, false);
+            Date nextMonth = new Date();
+            nextMonth.setMonth(nextMonth.getMonth() + 1);
+            urgencyValues[4] = new UrgencyValue(urgencies[4],
+                    nextMonth.getTime(), false);
+
+            urgencyValues[5] = new UrgencyValue(urgencies[5], -1, false);
+            urgencyValues[6] = new UrgencyValue(urgencies[6], -1, true);
+
+            if(specificDate > 0) {
+                UrgencyValue[] updated = new UrgencyValue[urgencies.length + 1];
+                for(int i = 0; i < urgencies.length; i++)
+                    updated[i+1] = urgencyValues[i];
+                SimpleDateFormat format;
+                if(hasDueTime)
+                    format = DateUtilities.getDateWithTimeFormat(TaskEditActivity.this);
+                else
+                    format = DateUtilities.getDateFormat(TaskEditActivity.this);
+                updated[0] = new UrgencyValue(format.format(new Date(specificDate)),
+                        specificDate, hasDueTime);
+                urgencyValues = updated;
+            }
+
+            return urgencyValues;
+        }
+
+        // --- listening for events
+
+        @Override
+        public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+            // if specific date or date & time selected, show dialog
+            // ... at conclusion of dialog, update our list
+            UrgencyValue item = urgencyAdapter.getItem(position);
+            if(item.dueDate == -1) {
+                hasTime = item.hasDueTime;
+                intermediateDate = new Date();
+                intermediateDate.setSeconds(0);
+                DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
+                        this, 1900 + intermediateDate.getYear(), intermediateDate.getMonth(), intermediateDate.getDate());
+                datePicker.show();
+            }
+        }
+
+        @Override
+        public void onNothingSelected(AdapterView<?> arg0) {
+            // ignore
+        }
+
+        Date intermediateDate;
+        boolean hasTime;
+
+        public void onDateSet(DatePicker view, int year, int month, int monthDay) {
+            intermediateDate.setYear(year - 1900);
+            intermediateDate.setMonth(month);
+            intermediateDate.setDate(monthDay);
+            intermediateDate.setMinutes(0);
+
+            if(!hasTime) {
+                customDateFinished();
+                return;
+            }
+
+            new TimePickerDialog(TaskEditActivity.this, this,
+                    intermediateDate.getHours(), intermediateDate.getMinutes(),
+                    DateUtilities.is24HourFormat(TaskEditActivity.this)).show();
+        }
+
+        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+            intermediateDate.setHours(hourOfDay);
+            intermediateDate.setMinutes(minute);
+            customDateFinished();
+        }
+
+        private void customDateFinished() {
+            UrgencyValue[] urgencyList = createUrgencyList(intermediateDate.getTime(),
+                    hasTime);
+            urgencyAdapter = new ArrayAdapter<UrgencyValue>(
+                    TaskEditActivity.this, android.R.layout.simple_spinner_item,
+                    urgencyList);
+            urgencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            this.urgency.setAdapter(urgencyAdapter);
+            urgency.setSelection(0);
+        }
+
+        // --- setting up values
+
+        @Override
+        public void readFromModel() {
+            long dueDate = model.getValue(Task.DUE_DATE);
+            UrgencyValue[] urgencyList = createUrgencyList(dueDate, model.hasDueTime());
+
+            urgencyAdapter = new ArrayAdapter<UrgencyValue>(
+                    TaskEditActivity.this, android.R.layout.simple_spinner_item,
+                    urgencyList);
+            urgencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            this.urgency.setAdapter(urgencyAdapter);
+
+            if(isNewTask()) {
+                urgency.setSelection(4); // TODO
+            } else {
+                urgency.setSelection(0);
+            }
+        }
+
+        @Override
+        public void writeToModel() {
+            UrgencyValue item = urgencyAdapter.getItem(urgency.getSelectedItemPosition());
+            model.setValue(Task.DUE_DATE, item.dueDate);
+        }
+    }
+
+    private class HideUntilControlSet implements TaskEditControlSet {
+        private final Spinner urgency;
+        private final Button fixedDate;
+        public HideUntilControlSet(int urgency, int fixedDate) {
+            super();
+            this.urgency = urgency;
+            this.fixedDate = fixedDate;
+        }
+
+    }
+    /**
+     * Control set dealing with reminder settings
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    public class ReminderControlSet implements TaskEditControlSet {
+        private final CheckBox before, during, after, nonstop;
+
+        public ReminderControlSet(int beforeId, int duringId,
+                int afterId, int nonstopId) {
+            before = (CheckBox)findViewById(beforeId);
+            during = (CheckBox)findViewById(duringId);
+            after = (CheckBox)findViewById(afterId);
+            nonstop = (CheckBox)findViewById(nonstopId);
+        }
+
+        public void setValue(int flags) {
+            before.setChecked((flags &
+                    TaskModelForEdit.NOTIFY_BEFORE_DEADLINE) > 0);
+            during.setChecked((flags &
+                    TaskModelForEdit.NOTIFY_AT_DEADLINE) > 0);
+            after.setChecked((flags &
+                    TaskModelForEdit.NOTIFY_AFTER_DEADLINE) > 0);
+            nonstop.setChecked((flags &
+                    TaskModelForEdit.NOTIFY_NONSTOP) > 0);
+        }
+
+        public int getValue() {
+            int value = 0;
+            if(before.isChecked())
+                value |= TaskModelForEdit.NOTIFY_BEFORE_DEADLINE;
+            if(during.isChecked())
+                value |= TaskModelForEdit.NOTIFY_AT_DEADLINE;
+            if(after.isChecked())
+                value |= TaskModelForEdit.NOTIFY_AFTER_DEADLINE;
+            if(nonstop.isChecked())
+                value |= TaskModelForEdit.NOTIFY_NONSTOP;
+            return value;
+        }
+    }
+
+
+
+    private class TagsControlSet implements TaskEditControlSet {
+        private final TagService tagService = new TagService();
+
+
+        /** list of all tags */
+        private final Tag[] allTags;
+        private final LinearLayout tagsContainer;
+
+        public TagsControlSet(int tagsContainer) {
+            super();
+            // load tags
+            allTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
+
+            this.tagsContainer = (LinearLayout)findViewById(R.id.tags_container);
+        }
+
+        public void setTags(long id) {
+            // tags (only configure if not already set)
+            if(tagsContainer.getChildCount() == 0) {
+                TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
+                try {
+                    for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+                        addTag(cursor.get(Metadata.VALUE));
+                } finally {
+                    cursor.close();
+                }
+                addTag("");
+            }
+
+        }
+
+        /** Save task tags. Must be called after task already has an ID */
+        private void saveTags() {
+            ArrayList<String> tags = new ArrayList<String>();
+
+            for(int i = 0; i < tagsContainer.getChildCount(); i++) {
+                TextView tagName = (TextView)tagsContainer.getChildAt(i).findViewById(R.id.text1);
+                if(tagName.getText().length() == 0)
+                    continue;
+                tags.add(tagName.getText().toString());
+            }
+
+            tagService.synchronizeTags(model.getId(), tags);
+        }
+
+        /** Adds a tag to the tag field */
+        boolean addTag(String tagName) {
+            if (tagsContainer.getChildCount() >= MAX_TAGS) {
+                return false;
+            }
+
+            LayoutInflater inflater = getLayoutInflater();
+            final View tagItem = inflater.inflate(R.layout.edit_tag_item, null);
+            tagsContainer.addView(tagItem);
+
+            AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.
+                findViewById(R.id.text1);
+            textView.setText(tagName);
+            ArrayAdapter<Tag> tagsAdapter =
+                new ArrayAdapter<Tag>(this,
+                        android.R.layout.simple_dropdown_item_1line, allTags);
+            textView.setAdapter(tagsAdapter);
+            textView.addTextChangedListener(new TextWatcher() {
+                public void onTextChanged(CharSequence s, int start, int before,
+                        int count) {
+                    if(start == 0 && tagsContainer.getChildAt(
+                            tagsContainer.getChildCount()-1) == tagItem) {
+                        addTag("");
+                    }
+                }
+
+                public void afterTextChanged(Editable s) {
+                    //
+                }
+
+                public void beforeTextChanged(CharSequence s, int start, int count,
+                        int after) {
+                    //
+                }
+            });
+
+            ImageButton reminderRemoveButton;
+            reminderRemoveButton = (ImageButton)tagItem.findViewById(R.id.button1);
+            reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    tagsContainer.removeView(tagItem);
+                }
+            });
+
+            return true;
+        }
+
+    }
+
+
+
+    public class RepeatControlSet implements TaskEditControlSet {
+
+        /** whether help should be shown when setting repeat */
+        private final boolean repeatHelpShown = false;
+        private final Button repeatValue;
+        private final Spinner repeatInterval;
+        public RepeatControlSet(int repeatValue, int repeatInterval) {
+            super();
+            this.repeatValue = repeatValue;
+            this.repeatInterval = repeatInterval;
+            ArrayAdapter<String> repeatAdapter = new ArrayAdapter<String>(
+                    this, android.R.layout.simple_spinner_item,
+                    RepeatInterval.getLabels(getResources()));
+            repeatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            repeatInterval.setAdapter(repeatAdapter);
+
+            repeatValue.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+                    repeatValueClick();
+                }
+            });
+
+        }
+
+
+        public void setValue(Integer value) {
+
+
+            // repeats
+            RepeatInfo repeatInfo = RepeatInfo.fromSingleField(model.getValue(Task.REPEAT));
+            if(repeatInfo != null) {
+                setRepeatValue(repeatInfo.getValue());
+                repeatInterval.setSelection(repeatInfo.getInterval().ordinal());
+            } else
+                setRepeatValue(0);
+        }
+
+
+        /** Set up the repeat value button */
+        void setRepeatValue(int value) {
+            if(value == 0)
+                repeatValue.setText(R.string.repeat_value_unset);
+            else
+                repeatValue.setText(Integer.toString(value));
+            repeatValue.setTag(value);
+        }
+
+        private RepeatInfo getRepeatValue() {
+            if(repeatValue.getTag() == null || repeatValue.getTag().equals(0))
+                return null;
+            return new RepeatInfo(RepeatInterval.values()
+                        [repeatInterval.getSelectedItemPosition()],
+                    (Integer)repeatValue.getTag());
+        }
+
+        protected void repeatValueClick() {
+            final int tagValue = (Integer)repeatValue.getTag();
+            if(tagValue > 0)
+                repeatHelpShown = true;
+
+            final Runnable openDialogRunnable = new Runnable() {
+                public void run() {
+                    repeatHelpShown = true;
+
+                    int dialogValue = tagValue;
+                    if(dialogValue == 0)
+                        dialogValue = 1;
+
+                    new NumberPickerDialog(TaskEditActivity.this, new OnNumberPickedListener() {
+                        public void onNumberPicked(NumberPicker view, int number) {
+                            setRepeatValue(number);
+                        }
+                    }, getResources().getString(R.string.repeat_picker_title),
+                    dialogValue, 1, 0, 31).show();
+                }
+            };
+
+            if(repeatHelpShown || !Preferences.shouldShowRepeatHelp(this)) {
+                openDialogRunnable.run();
+                return;
+            }
+
+            new AlertDialog.Builder(this)
+            .setTitle(R.string.repeat_help_dialog_title)
+            .setMessage(R.string.repeat_help_dialog)
+            .setIcon(android.R.drawable.ic_dialog_info)
+            .setPositiveButton(android.R.string.ok,
+                    new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    openDialogRunnable.run();
+                }
+            })
+            .setNeutralButton(R.string.repeat_help_hide,
+                    new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    Preferences.setShowRepeatHelp(TaskEditActivity.this, false);
+                    openDialogRunnable.run();
+                }
+            })
+            .show();
+        }
+    }
+
+    private class CalendarControlSet implements TaskEditControlSet {
+
+        /** If task has no estimated time, how early to set a task in calendar */
+        private static final int DEFAULT_CAL_TIME = 3600;
+
+
+        private final CheckBox addToCalendar;
+        private final Button viewCalendarEvent;
+        public CalendarControlSet(int addToCalendar,
+                int viewCalendarEvent) {
+            super();
+            this.addToCalendar = addToCalendar;
+            this.viewCalendarEvent = viewCalendarEvent;
+        }
+        /** Take the values from the model and set the calendar start and end times
+         * based on these. Sets keys 'dtstart' and 'dtend'.
+         *
+         * @param preferred preferred due date or null
+         * @param definite definite due date or null
+         * @param estimatedSeconds estimated duration or null
+         * @param values
+         */
+        @SuppressWarnings("nls")
+        public static void createCalendarStartEndTimes(Date preferred, Date definite,
+                Integer estimatedSeconds, ContentValues values) {
+            FlurryAgent.onEvent("create-calendar-event");
+
+            Long deadlineDate = null;
+            if (preferred != null && preferred.after(new Date()))
+                deadlineDate = preferred.getTime();
+            else if (definite != null)
+                deadlineDate = definite.getTime();
+            else
+                deadlineDate = System.currentTimeMillis() + 24*3600*1000L;
+
+            int estimatedTime = DEFAULT_CAL_TIME;
+            if(estimatedSeconds != null && estimatedSeconds > 0) {
+                estimatedTime = estimatedSeconds;
+            }
+            values.put("dtstart", deadlineDate - estimatedTime * 1000L);
+            values.put("dtend", deadlineDate);
+        }
+
+        @Override
+        protected void onPause() {
+            // create calendar event
+            /*if(addToCalendar.isChecked() && model.getCalendarUri() == null) {
+
+                Uri uri = Uri.parse("content://calendar/events");
+                ContentResolver cr = getContentResolver();
+
+                ContentValues values = new ContentValues();
+                values.put("title", title.getText().toString());
+                values.put("calendar_id", Preferences.getDefaultCalendarIDSafe(this));
+                values.put("description", notes.getText().toString());
+                values.put("hasAlarm", 0);
+                values.put("transparency", 0);
+                values.put("visibility", 0);
+
+                createCalendarStartEndTimes(model.getPreferredDueDate(),
+                        model.getDefiniteDueDate(), model.getEstimatedSeconds(),
+                        values);
+
+                Uri result = null;
+                try{
+                    result = cr.insert(uri, values);
+                    model.setCalendarUri(result.toString());
+                } catch (IllegalArgumentException e) {
+                    Log.e("astrid", "Error creating calendar event!", e);
+                }
+            } */
+
+            if(shouldSaveState)
+                save();
+
+            /* if(addToCalendar.isChecked() && model.getCalendarUri() != null) {
+                Uri result = Uri.parse(model.getCalendarUri());
+                Intent intent = new Intent(Intent.ACTION_EDIT, result);
+
+                ContentValues values = new ContentValues();
+                createCalendarStartEndTimes(model.getPreferredDueDate(),
+                        model.getDefiniteDueDate(), model.getEstimatedSeconds(),
+                        values);
+
+                intent.putExtra("beginTime", values.getAsLong("dtstart"));
+                intent.putExtra("endTime", values.getAsLong("dtend"));
+
+                startActivity(intent);
+            } */
+
+            super.onPause();
         }
     }
 
