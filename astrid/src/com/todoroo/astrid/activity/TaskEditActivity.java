@@ -37,6 +37,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -966,8 +967,7 @@ public final class TaskEditActivity extends TabActivity {
     public class ReminderControlSet implements TaskEditControlSet {
         private final CheckBox during, after, random;
         private final Spinner mode;
-        private final long periodic = Preferences.getIntegerFromString(R.string.p_notif_defaultRemind)
-            * DateUtilities.ONE_DAY;
+        private long periodic;
 
         public ReminderControlSet(int duringId, int afterId, int randomId, int modeId) {
             during = (CheckBox)findViewById(duringId);
@@ -975,8 +975,9 @@ public final class TaskEditActivity extends TabActivity {
             random = (CheckBox)findViewById(randomId);
             mode = (Spinner)findViewById(modeId);
 
-            random.setText(getString(R.string.TEA_reminder_random,
-                    dateUtilities.getDurationString(periodic, 1, true)));
+            periodic = Preferences.getIntegerFromString(R.string.p_notif_defaultRemind)
+                * DateUtilities.ONE_DAY;
+            updatePeriodicString();
 
             String[] list = new String[] {
                     getString(R.string.TEA_reminder_alarm_off),
@@ -986,6 +987,15 @@ public final class TaskEditActivity extends TabActivity {
                     TaskEditActivity.this, android.R.layout.simple_spinner_item, list);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mode.setAdapter(adapter);
+        }
+
+        @SuppressWarnings("nls")
+        private void updatePeriodicString() {
+            if(periodic == 0)
+                periodic = DateUtilities.ONE_WEEK;
+            String dateString = "<a href='#'>" + dateUtilities.getDurationString(periodic, 1, true) + "</a>";
+            random.setText(Html.fromHtml(getString(R.string.TEA_reminder_random,
+                    dateString)));
         }
 
         public void setValue(int flags) {
@@ -1010,6 +1020,11 @@ public final class TaskEditActivity extends TabActivity {
         @Override
         public void readFromModel() {
             setValue(model.getValue(Task.NOTIFICATION_FLAGS));
+            periodic = model.getValue(Task.NOTIFICATIONS);
+            if(periodic > 0) {
+                random.setChecked(true);
+                updatePeriodicString();
+            }
         }
 
         @Override

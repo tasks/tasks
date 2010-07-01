@@ -30,6 +30,11 @@
     <item quantity="one">1 Month</item>
     <item quantity="other">%d Months</item>
   </plurals>
+  <plurals name="DUt_weeks">
+    <!-- plurals: days -->
+    <item quantity="one">1 Week</item>
+    <item quantity="other">%d Weeks</item>
+  </plurals>
   <plurals name="DUt_days">
     <!-- plurals: days -->
     <item quantity="one">1 Day</item>
@@ -267,7 +272,10 @@ to the plugin creator for fastest service.
   <string name="TEA_elapsedDuration_label">Time Already Spent on Task</string>
   
   <!-- Label for adding task to calendar -->
-  <string name="TEA_addToCalendar_label">Add Task To Calendar</string>
+  <string name="TEA_calendar_label">Calendar Integration:</string>
+  
+  <!-- Label for adding task to calendar -->
+  <string name="TEA_addToCalendar_label">Create Calendar Event</string>
   
   <!-- Label when calendar event already exists -->
   <string name="TEA_showCalendar_label">Open Calendar Event</string>

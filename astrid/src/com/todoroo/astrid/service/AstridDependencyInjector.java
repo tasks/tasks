@@ -73,6 +73,7 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
         injectables.put("dateUtilities", DateUtilities.class);
         injectables.put("yearsResource", R.plurals.DUt_years);
         injectables.put("monthsResource", R.plurals.DUt_months);
+        injectables.put("weeksResource", R.plurals.DUt_weeks);
         injectables.put("daysResource", R.plurals.DUt_days);
         injectables.put("hoursResource", R.plurals.DUt_hours);
         injectables.put("minutesResource", R.plurals.DUt_minutes);

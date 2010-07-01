@@ -19,12 +19,12 @@ import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
 import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.utilities.BackupService;
 import com.timsu.astrid.utilities.Notifications;
-import com.timsu.astrid.utilities.Preferences;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Service which handles jobs that need to be run when user's phone or Astrid
@@ -73,7 +73,7 @@ public class StartupService extends BroadcastReceiver {
         ContextManager.setContext(context);
 
         // read current version
-        int latestSetVersion = Preferences.getCurrentVersion(context);
+        int latestSetVersion = Preferences.getCurrentVersion();
         int version = 0;
         try {
             PackageManager pm = context.getPackageManager();
@@ -87,7 +87,7 @@ public class StartupService extends BroadcastReceiver {
         boolean justUpgraded = latestSetVersion != version;
         if(justUpgraded) {
             upgradeService.performUpgrade(latestSetVersion);
-        	Preferences.setCurrentVersion(context, version);
+        	Preferences.setCurrentVersion(version);
         }
 
         // perform startup activities in a background thread
@@ -113,7 +113,7 @@ public class StartupService extends BroadcastReceiver {
             }
         }).start();
 
-        Preferences.setPreferenceDefaults(context);
+        Preferences.setPreferenceDefaults();
 
         // check for task killers
         if(!Constants.OEM)
@@ -122,8 +122,10 @@ public class StartupService extends BroadcastReceiver {
         hasStartedUp = true;
     }
 
+    private static final String P_TASK_KILLER_HELP = "taskkiller"; //$NON-NLS-1$
+
     private static void showTaskKillerHelp(final Context context) {
-        if(!Preferences.shouldShowTaskKillerHelp(context))
+        if(!Preferences.getBoolean(P_TASK_KILLER_HELP, false))
             return;
 
         // search for task killers. if they exist, show the help!
@@ -142,7 +144,7 @@ public class StartupService extends BroadcastReceiver {
                         @Override
                         public void onClick(DialogInterface arg0,
                                 int arg1) {
-                            Preferences.disableTaskKillerHelp(context);
+                            Preferences.setBoolean(P_TASK_KILLER_HELP, true);
                         }
                     };
 

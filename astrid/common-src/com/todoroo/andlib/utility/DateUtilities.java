@@ -26,6 +26,9 @@ public class DateUtilities {
     public Integer monthsResource;
 
     @Autowired
+    public Integer weeksResource;
+
+    @Autowired
     public Integer daysResource;
 
     @Autowired
@@ -77,10 +80,10 @@ public class DateUtilities {
     }
 
     /** Represents a single day */
-    public static long ONE_DAY = 3600000L;
+    public static long ONE_DAY = 24 * 3600000L;
 
     /** Represents a single week */
-    public static long ONE_WEEK = 7 * 3600000L;
+    public static long ONE_WEEK = 7 * ONE_DAY;
 
     /* ======================================================================
      * =========================================================== formatters
@@ -193,35 +196,67 @@ public class DateUtilities {
      */
     public String getDurationString(long duration, int unitsToShow, boolean withPreposition) {
         Resources r = ContextManager.getContext().getResources();
-        int years, months, days, hours, minutes, seconds;
         short unitsDisplayed = 0;
         duration = Math.abs(duration);
 
         if(duration == 0)
             return r.getQuantityString(secondsResource, 0, 0);
 
-        Date now = new Date();
-        Date then = new Date(DateUtilities.now() + duration);
+        Date now = new Date(80, 1, 1);
+        Date then = new Date(now.getTime() + duration);
 
-        years = then.getYear() - now.getYear();
-        months = then.getMonth() - now.getMonth();
-        days = then.getDate() - now.getDate();
-        hours = then.getHours() - now.getHours();
-        minutes = then.getMinutes() - now.getMinutes();
-        seconds = then.getSeconds() - now.getSeconds();
+        int[] values = new int[] {
+            then.getYear() - now.getYear(),
+            then.getMonth() - now.getMonth(),
+            (then.getDate() - now.getDate())/7,
+            (then.getDate() - now.getDate()) - (then.getDate() - now.getDate())/7*7,
+            then.getHours() - now.getHours(),
+            then.getMinutes() - now.getMinutes(),
+            then.getSeconds() - now.getSeconds(),
+        };
+        int[] maxValues = new int[] {
+                Integer.MAX_VALUE,
+                12,
+                5,
+                7,
+                24,
+                60,
+                60
+        };
+
+        // perform rounding (this is definitely magic... trust the unit tests)
+        int cursor = 0;
+        while(values[cursor] == 0 && ++cursor < values.length)
+            ;
+        int postCursor = cursor + unitsToShow;
+        for(int i = values.length - 1; i >= postCursor; i--) {
+            if(values[i] >= maxValues[i]/2) {
+                values[i-1]++;
+            }
+        }
+        for(int i = Math.min(values.length, postCursor) - 1; i >= 1; i--) {
+            if(values[i] == maxValues[i]) {
+                values[i-1]++;
+                for(int j = i; j < values.length; j++)
+                    values[j] = 0;
+            }
+        }
+
 
         StringBuilder result = new StringBuilder();
-        unitsDisplayed = displayUnits(r, yearsResource, unitsToShow, years, months >= 6,
+        unitsDisplayed = displayUnits(r, yearsResource, unitsToShow, values[0],
                 unitsDisplayed, result);
-        unitsDisplayed = displayUnits(r, monthsResource, unitsToShow, months, days >= 15,
+        unitsDisplayed = displayUnits(r, monthsResource, unitsToShow, values[1],
                 unitsDisplayed, result);
-        unitsDisplayed = displayUnits(r, daysResource, unitsToShow, days, hours >= 12,
+        unitsDisplayed = displayUnits(r, weeksResource, unitsToShow, values[2],
                 unitsDisplayed, result);
-        unitsDisplayed = displayUnits(r, hoursResource, unitsToShow, hours, minutes >= 30,
+        unitsDisplayed = displayUnits(r, daysResource, unitsToShow, values[3],
                 unitsDisplayed, result);
-        unitsDisplayed = displayUnits(r, minutesResource, unitsToShow, minutes, seconds >= 30,
+        unitsDisplayed = displayUnits(r, hoursResource, unitsToShow, values[4],
                 unitsDisplayed, result);
-        unitsDisplayed = displayUnits(r, secondsResource, unitsToShow, seconds, false,
+        unitsDisplayed = displayUnits(r, minutesResource, unitsToShow, values[5],
+                unitsDisplayed, result);
+        unitsDisplayed = displayUnits(r, secondsResource, unitsToShow, values[6],
                 unitsDisplayed, result);
 
         return result.toString().trim();
@@ -229,11 +264,8 @@ public class DateUtilities {
 
     /** Display units, rounding up if necessary. Returns units to show */
     private short displayUnits(Resources r, int resource, int unitsToShow, int value,
-            boolean shouldRound, short unitsDisplayed, StringBuilder result) {
+            short unitsDisplayed, StringBuilder result) {
         if(unitsDisplayed < unitsToShow && value > 0) {
-            // round up if needed
-            if(unitsDisplayed + 1 == unitsToShow && shouldRound)
-                value++;
             result.append(r.getQuantityString(resource, value, value)).
             append(' ');
             unitsDisplayed++;

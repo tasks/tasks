@@ -85,12 +85,20 @@
         android:autoText="true"
         android:capitalize="sentences"
         android:singleLine="false" />
+                
+      <!-- separator -->
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:padding="5dip"
+        android:background="@android:drawable/divider_horizontal_dark" />
         
       <!-- buttons -->
       <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="bottom"
         android:paddingTop="5dip"
         android:baselineAligned="false">
         <Button
@@ -209,12 +217,20 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content" />
       </LinearLayout>
-      
+              
+      <!-- separator -->
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:padding="5dip"
+        android:background="@android:drawable/divider_horizontal_dark" />
+        
       <!-- buttons -->
       <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="bottom"
         android:paddingTop="5dip"
         android:baselineAligned="false">
         <Button
@@ -252,6 +268,11 @@
       android:layout_height="fill_parent">
 
       <!-- calendar integration -->      
+      <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/TEA_calendar_label"
+        style="@style/TextAppearance.GEN_EditLabel" />
       <CheckBox
         android:id="@+id/add_to_calendar"
         android:layout_width="fill_parent"
@@ -291,11 +312,19 @@
         android:id="@+id/elapsedDuration"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+                
+      <!-- separator -->
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:padding="5dip"
+        android:background="@android:drawable/divider_horizontal_dark" />
         
       <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:gravity="bottom"
         android:paddingTop="5dip"
         android:baselineAligned="false">
         <Button
