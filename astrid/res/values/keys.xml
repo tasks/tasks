@@ -1,168 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-  ASTRID: Android's Simple Task Recording Dashboard
-
-  Copyright (c) 2009 Tim Su
-
-  This program is free software; you can redistribute it and/or modify
-  it under the terms of the GNU General Public License as published by
-  the Free Software Foundation; either version 2 of the License, or
-  (at your option) any later version.
-
-  This program is distributed in the hope that it will be useful, but
-  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
-  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
-  for more details.
-
-  You should have received a copy of the GNU General Public License along
-  with this program; if not, write to the Free Software Foundation, Inc.,
-  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
-
+<!-- 
+  This file contains preference keys and preference list values.
+  These should not be translated 
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
 
-        <!-- This file contains preference keys and prefereyce list values.
-             These should not be translated -->
+  <!-- ============================================================= SYNC == -->
 
-        <string name="p_sync_rtm">sync_rtm</string>
-        <string name="p_sync_every_old">sync_every</string> <!-- old sync key -->
-        <string name="p_sync_interval">sync_freq</string>
-        <string name="p_sync_button">sync_button</string>
-		<string name="p_sync_quiet">sync_dialogs</string>
-        <string name="p_sync_bgwifi">sync_bgwifi</string>
+  <!-- sync -->
+  <string name="p_sync_rtm">sync_rtm</string>
+  <string name="p_sync_interval">sync_freq</string>
+  <string name="p_sync_button">sync_button</string>
+  <string name="p_sync_quiet">sync_dialogs</string>
+  <string name="p_sync_bgwifi">sync_bgwifi</string>
+  
+  <string-array name="sync_interval_values">
+    <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
+    <item>0</item>
+    <item>1800</item>
+    <item>3600</item>
+    <item>43200</item>
+    <item>86400</item>
+    <item>302400</item>
+    <item>604800</item>
+  </string-array>    
+  
+  <!-- ======================================================== REMINDERS == -->
 
-        <string name="p_notif_quietStart">notif_qstart</string>
-        <string name="p_notif_quietEnd">notif_qend</string>
+  <!-- hour to start quiet hours (inclusive) -->
+  <string name="p_notif_quietStart">notif_qstart</string>
+  
+  <!-- hour to end quiet hours (non-inclusive) -->
+  <string name="p_notif_quietEnd">notif_qend</string>
+  
+  <!-- whether "clear all notifications" clears astrid notifications -->
+  <string name="p_notif_annoy">notif_annoy</string>
+  
+  <!-- whether to vibrate phone when reminder fires -->
+  <string name="p_notif_vibrate">notif_vibrate</string>
+  
+  <!-- ringtone to use for notifications -->
+  <string name="p_notification_ringtone">notification_ringtone</string>
+  
+  <!-- icon theme for notifications -->
+  <string name="p_notif_icon">notif_theme</string>
+  
+  <!-- whether astrid nag messages are used -->
+  <string name="p_nagging">nagging</string>
+  
+  <!-- reminder time when task doesn't have a due time -->
+  <string name="p_reminder_time">reminder_time</string>
 
-        <string name="p_notif_defaultRemind">notif_default_reminder</string>
+  <!-- default random reminder setting -->
+  <string name="p_default_reminder_random">notif_default_reminder</string>
+  
+  <string-array name="notif_icon_values">
+    <!-- Corresponding to the constants in Preferences.java (do not edit) -->
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+  </string-array>
+  
+  <string-array name="EPr_quiet_hours_start_values">
+    <!-- quiet_hours_start_values: 24-hour representation of quiet_hour_start -->
+    <item></item>
+    <item>20</item>
+    <item>21</item>
+    <item>22</item>
+    <item>23</item>
+    <item>00</item>
+    <item>01</item>
+    <item>02</item>
+    <item>03</item>
+    <item>04</item>
+    <item>05</item>
+    <item>06</item>
+    <item>07</item>
+    <item>08</item>
+    <item>09</item>
+    <item>10</item>
+    <item>11</item>
+    <item>12</item>
+    <item>13</item>
+    <item>14</item>
+    <item>15</item>
+    <item>16</item>
+    <item>17</item>
+    <item>18</item>
+    <item>19</item>
+  </string-array>        
+  
+  <string-array name="EPr_quiet_hours_end_values">
+    <!-- quiet_hours_end_values: 24-hour representation of quiet_hours_end -->
+    <item>09</item>
+    <item>10</item>
+    <item>11</item>
+    <item>12</item>
+    <item>13</item>
+    <item>14</item>
+    <item>15</item>
+    <item>16</item>
+    <item>17</item>
+    <item>18</item>
+    <item>19</item>
+    <item>20</item>
+    <item>21</item>
+    <item>22</item>
+    <item>23</item>
+    <item>00</item>
+    <item>01</item>
+    <item>02</item>
+    <item>03</item>
+    <item>04</item>
+    <item>05</item>
+    <item>06</item>
+    <item>07</item>
+    <item>08</item>
+  </string-array>
+  
+  <!-- ======================================================= APPEARANCE == -->
 
-        <string name="p_notif_annoy">notif_annoy</string>
+  <string name="p_colorize">colorize</string>
+  <string name="p_fontSize">font_size</string>
+  
+  <string-array name="EPr_font_size">
+    <!-- font_size: options for preference menu -->
+    <item>14</item>
+    <item>16</item>
+    <item>18</item>
+    <item>20</item>
+    <item>22</item>
+    <item>24</item>
+    <item>26</item>
+    <item>28</item>
+    <item>30</item>
+    <item>32</item>
+    <item>36</item>
+    <item>48</item>
+  </string-array>
 
-        <string name="p_notif_vibrate">notif_vibrate</string>
-
-        <string name="p_notification_ringtone">notification_ringtone</string>
-
-        <string name="p_notif_icon">notif_theme</string>
-
-        <string name="p_colorize">colorize</string>
-
-        <string name="p_fontSize">font_size</string>
-
-        <string name="p_nagging">nagging</string>
-
-        <string name="p_deadlineTime">deadline_time</string>
-
-        <string name="p_backup">backup</string>
-
-        <string name="prefs_defaultCalendar">default_calendar_id</string>
-        <string name="prefs_defaultCalendar_default">1</string>
-
-        <string name="prefs_titleVisible">titleVisible</string>
-        <string name="prefs_titleVisible_default">true</string>
-	    <string name="prefs_deadlineVisible">deadlineVisible</string>
-        <string name="prefs_deadlineVisible_default">true</string>
-    	<string name="prefs_timeVisible">timeVisible</string>
-        <string name="prefs_timeVisible_default">true</string>
-        <string name="prefs_importanceVisible">importanceVisible</string>
-        <string name="prefs_importanceVisible_default">true</string>
-	    <string name="prefs_tagsVisible">tagsVisible</string>
-        <string name="prefs_tagsVisible_default">true</string>
-	    <string name="prefs_repeatVisible">repeatVisible</string>
-        <string name="prefs_repeatVisible_default">true</string>
-	    <string name="prefs_reminderVisible">reminderVisible</string>
-        <string name="prefs_reminderVisible_default">false</string>
-	    <string name="prefs_notesVisible">notesVisible</string>
-        <string name="prefs_notesVisible_default">false</string>
-
-    <string-array name="notif_icon_values">
-        <!-- Corresponding to the constants in Preferences.java (do not edit) -->
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    
-    <string-array name="sync_interval_values">
-        <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
-        <item>0</item>
-        <item>1800</item>
-        <item>3600</item>
-        <item>43200</item>
-        <item>86400</item>
-        <item>302400</item>
-        <item>604800</item>
-    </string-array>    
-        
-    <string-array name="EPr_quiet_hours_start_values">
-        <!-- quiet_hours_start_values: 24-hour representation of quiet_hour_start -->
-        <item></item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>00</item>
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-    </string-array>        
-    
-    <string-array name="EPr_quiet_hours_end_values">
-        <!-- quiet_hours_end_values: 24-hour representation of quiet_hours_end -->
-        <item>09</item>
-        <item>10</item>
-        <item>11</item>
-        <item>12</item>
-        <item>13</item>
-        <item>14</item>
-        <item>15</item>
-        <item>16</item>
-        <item>17</item>
-        <item>18</item>
-        <item>19</item>
-        <item>20</item>
-        <item>21</item>
-        <item>22</item>
-        <item>23</item>
-        <item>00</item>
-        <item>01</item>
-        <item>02</item>
-        <item>03</item>
-        <item>04</item>
-        <item>05</item>
-        <item>06</item>
-        <item>07</item>
-        <item>08</item>
-    </string-array>
-    
-    <string-array name="EPr_font_size">
-        <!-- font_size: options for preference menu -->
-        <item>14</item>
-        <item>16</item>
-        <item>18</item>
-        <item>20</item>
-        <item>22</item>
-        <item>24</item>
-        <item>26</item>
-        <item>28</item>
-        <item>30</item>
-        <item>32</item>
-        <item>36</item>
-        <item>48</item>
-    </string-array>
+  <!-- ========================================================= DEFAULTS == -->
+  
+  <!-- default urgency setting (corresponds to entry in TEA_urgency) -->  
+  <string name="p_default_urgency_key">p_def_urg</string>
+      
+  <!-- urgency: labels that map EPr_default_urgency items to index in TEA_urgency. -->
+  <string-array name="p_default_urgency_values">
+      <item>0</item>
+      <item>1</item>
+      <item>2</item>
+      <item>3</item>
+      <item>4</item>
+      <item>5</item>
+  </string-array>
+  
+  <!-- default importance setting (corresponds to task setting) -->
+  <string name="p_default_importance_key">p_def_imp</string>
+  
+  <!-- ============================================================ OTHER == -->
+  
+  <string name="p_backup">backup</string>
+  <string name="prefs_defaultCalendar">default_calendar_id</string>
+  <string name="prefs_defaultCalendar_default">1</string>
 
 </resources>

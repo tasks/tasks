@@ -25,7 +25,7 @@ import android.database.Cursor;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.enums.Importance;
-import com.timsu.astrid.utilities.Notifications.Notifiable;
+import com.todoroo.astrid.reminders.ReminderService.Notifiable;
 
 
 

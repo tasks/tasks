@@ -63,8 +63,8 @@ public final class CoreFilterExposer extends BroadcastReceiver {
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
                         TaskCriteria.isVisible(DateUtilities.now()))).orderBy(
                                 Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                                        String.format("(%d + 1000 * %s)", DateUtilities.now(), Task.IMPORTANCE),
-                                        String.format("(%s + 1000 * %s)", Task.DUE_DATE, Task.IMPORTANCE)))),
+                                        String.format("(%d + 1000000 * %s)", DateUtilities.now(), Task.IMPORTANCE),
+                                        String.format("(%s + 1000000 * %s)", Task.DUE_DATE, Task.IMPORTANCE)))),
                 null);
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_inbox)).getBitmap();
         return inbox;

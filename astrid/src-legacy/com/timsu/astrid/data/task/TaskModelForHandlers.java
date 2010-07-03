@@ -28,8 +28,8 @@ import android.database.Cursor;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
-import com.timsu.astrid.utilities.Notifications;
-import com.timsu.astrid.utilities.Notifications.Notifiable;
+import com.todoroo.astrid.reminders.ReminderService;
+import com.todoroo.astrid.reminders.ReminderService.Notifiable;
 
 
 
@@ -92,7 +92,7 @@ public class TaskModelForHandlers extends AbstractTaskModel implements Notifiabl
         // reset periodic alerts
         setLastNotificationTime(null);
 
-        Notifications.updateAlarm(context, taskController, alertController, this);
+        ReminderService.updateAlarm(context, taskController, alertController, this);
         alertController.close();
     }
 

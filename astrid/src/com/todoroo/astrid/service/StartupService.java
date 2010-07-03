@@ -6,7 +6,6 @@ import android.Manifest;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,24 +17,23 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
 import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.utilities.BackupService;
-import com.timsu.astrid.utilities.Notifications;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 /**
- * Service which handles jobs that need to be run when user's phone or Astrid
- * starts up.
+ * Service which handles jobs that need to be run when Astrid starts up.
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class StartupService extends BroadcastReceiver {
+public class StartupService {
 
     static {
         AstridDependencyInjector.initialize();
@@ -43,15 +41,6 @@ public class StartupService extends BroadcastReceiver {
 
     public StartupService() {
         DependencyInjectionService.getInstance().inject(this);
-    }
-
-    // --- system startup
-
-    @Override
-    /** Called when the system is started up */
-    public void onReceive(Context context, Intent intent) {
-        ContextManager.setContext(context);
-        Notifications.scheduleAllAlarms(context);
     }
 
     // --- application startup
@@ -106,7 +95,7 @@ public class StartupService extends BroadcastReceiver {
         new Thread(new Runnable() {
             public void run() {
                 // schedule alarms
-                Notifications.scheduleAllAlarms(context);
+                new ReminderService().scheduleAllAlarms();
 
                 // start widget updating alarm
                 AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);

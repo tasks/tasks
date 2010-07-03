@@ -127,9 +127,9 @@ public class Astrid2To3UpgradeHelper {
         propertyMap.put(AbstractTaskModel.DEFINITE_DUE_DATE, Task.DUE_DATE);
         propertyMap.put(AbstractTaskModel.HIDDEN_UNTIL, Task.HIDE_UNTIL);
         propertyMap.put(AbstractTaskModel.POSTPONE_COUNT, Task.POSTPONE_COUNT);
-        propertyMap.put(AbstractTaskModel.NOTIFICATIONS, Task.NOTIFICATIONS);
-        propertyMap.put(AbstractTaskModel.NOTIFICATION_FLAGS, Task.NOTIFICATION_FLAGS);
-        propertyMap.put(AbstractTaskModel.LAST_NOTIFIED, Task.LAST_NOTIFIED);
+        propertyMap.put(AbstractTaskModel.NOTIFICATIONS, Task.REMINDER_PERIOD);
+        propertyMap.put(AbstractTaskModel.NOTIFICATION_FLAGS, Task.REMINDER_FLAGS);
+        propertyMap.put(AbstractTaskModel.LAST_NOTIFIED, Task.REMINDER_LAST);
         propertyMap.put(AbstractTaskModel.REPEAT, Task.REPEAT);
         propertyMap.put(AbstractTaskModel.CREATION_DATE, Task.CREATION_DATE);
         propertyMap.put(AbstractTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
@@ -212,6 +212,9 @@ public class Astrid2To3UpgradeHelper {
                             DateUtilities.getFormattedDate(ContextManager.getContext(),
                                     new Date(preferredDueDate)));
                 }
+            } else if(property == Task.REMINDER_PERIOD) {
+                // old period was stored in seconds
+                value *= 1000L;
             }
 
             data.model.setValue(property, value);

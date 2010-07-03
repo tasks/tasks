@@ -398,14 +398,10 @@ If you don\'t want to see the new task right after you complete the old one, you
   <string name="EPr_default_urgency_title">Default Urgency</string>
   <!-- Default Urgency Description (%s => setting) -->
   <string name="EPr_default_urgency_desc">Currently Set To: %s</string>
-  <!-- Preference Key (do not translate) -->
-  <string name="EPr_default_urgency_key">p_durg</string>
   
   <!-- Default Importance Title -->
   <string name="EPr_default_importance_title">Default Importance</string>
   <!-- Default Importance Description (%s => setting) -->
   <string name="EPr_default_importance_desc">Currently Set To: %s</string>
-  <!-- Preference Key (do not translate) -->
-  <string name="EPr_default_importance_key">p_dimp</string>
-    
+  
 </resources>

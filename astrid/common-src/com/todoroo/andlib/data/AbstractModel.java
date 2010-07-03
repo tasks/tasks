@@ -100,6 +100,18 @@ public abstract class AbstractModel implements Parcelable {
     }
 
     /**
+     * Transfers all set values into values. This occurs when a task is
+     * saved - future saves will not need to write all the data as before.
+     */
+    public void markSaved() {
+        if(values == null)
+            values = setValues;
+        else if(setValues != null)
+            values.putAll(setValues);
+        setValues = null;
+    }
+
+    /**
      * Use merged values to compare two models to each other. Must be of
      * exactly the same class.
      */

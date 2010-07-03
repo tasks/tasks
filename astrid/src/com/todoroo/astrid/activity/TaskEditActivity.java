@@ -1023,8 +1023,8 @@ public final class TaskEditActivity extends TabActivity {
 
         @Override
         public void readFromModel() {
-            setValue(model.getValue(Task.NOTIFICATION_FLAGS));
-            periodic = model.getValue(Task.NOTIFICATIONS);
+            setValue(model.getValue(Task.REMINDER_FLAGS));
+            periodic = model.getValue(Task.REMINDER_PERIOD);
             if(periodic > 0) {
                 random.setChecked(true);
                 updatePeriodicString();
@@ -1033,7 +1033,7 @@ public final class TaskEditActivity extends TabActivity {
 
         @Override
         public void writeToModel() {
-            model.setValue(Task.NOTIFICATION_FLAGS, getValue());
+            model.setValue(Task.REMINDER_FLAGS, getValue());
         }
     }
 

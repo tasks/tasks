@@ -52,7 +52,7 @@ public final class Task extends AbstractModel {
     public static final LongProperty DUE_DATE = new LongProperty(
             TABLE, "dueDate");
 
-    /** Unixtime Task should be hidden until */
+    /** Unixtime Task should be hidden until, 0 if not set */
     public static final LongProperty HIDE_UNTIL = new LongProperty(
             TABLE, "hideUntil");
 
@@ -90,14 +90,17 @@ public final class Task extends AbstractModel {
     public static final IntegerProperty POSTPONE_COUNT = new IntegerProperty(
             TABLE, "postponeCount");
 
-    public static final IntegerProperty NOTIFICATIONS = new IntegerProperty(
-            TABLE, "notifications");
+    /** Flags for when to send reminders */
+    public static final IntegerProperty REMINDER_FLAGS = new IntegerProperty(
+            TABLE, "reminderFlags");
 
-    public static final IntegerProperty NOTIFICATION_FLAGS = new IntegerProperty(
-            TABLE, "notificationFlags");
+    /** Reminder period, in milliseconds. 0 means disabled */
+    public static final LongProperty REMINDER_PERIOD = new LongProperty(
+            TABLE, "reminderPeriod");
 
-    public static final IntegerProperty LAST_NOTIFIED = new IntegerProperty(
-            TABLE, "lastNotified");
+    /** Unixtime the last reminder was triggered */
+    public static final LongProperty REMINDER_LAST = new LongProperty(
+            TABLE, "reminderLast");
 
     public static final IntegerProperty REPEAT = new IntegerProperty(
             TABLE, "repeat");
@@ -116,13 +119,13 @@ public final class Task extends AbstractModel {
     // --- notification flags
 
     /** whether to send a reminder at deadline */
-    public static final int NOTIFY_AT_DEADLINE     = 1 << 1;
+    public static final int NOTIFY_AT_DEADLINE = 1 << 1;
 
     /** whether to send reminders while task is overdue */
-    public static final int NOTIFY_AFTER_DEADLINE  = 1 << 2;
+    public static final int NOTIFY_AFTER_DEADLINE = 1 << 2;
 
-    /** reminder mode nonstop */
-    public static final int NOTIFY_NONSTOP         = 1 << 3;
+    /** reminder mode non-stop */
+    public static final int NOTIFY_NONSTOP = 1 << 3;
 
     // --- importance settings
 
@@ -132,7 +135,7 @@ public final class Task extends AbstractModel {
     public static final int IMPORTANCE_NONE = 3;
 
     /**
-     * Get colors that correspond to importance values
+     * @return colors that correspond to importance values
      */
     public static int[] getImportanceColors(Resources r) {
         return new int[] {
@@ -161,8 +164,8 @@ public final class Task extends AbstractModel {
 
         defaultValues.put(CALENDAR_URI.name, "");
         defaultValues.put(REPEAT.name, 0);
-        defaultValues.put(NOTIFICATIONS.name, 0);
-        defaultValues.put(NOTIFICATION_FLAGS.name, 0);
+        defaultValues.put(REMINDER_PERIOD.name, 0);
+        defaultValues.put(REMINDER_FLAGS.name, 0);
         defaultValues.put(ESTIMATED_SECONDS.name, 0);
         defaultValues.put(ELAPSED_SECONDS.name, 0);
         defaultValues.put(POSTPONE_COUNT.name, 0);
@@ -255,7 +258,7 @@ public final class Task extends AbstractModel {
     /**
      * @return true if hours, minutes, and seconds indicate end of day
      */
-    private boolean isEndOfDay(Date date) {
+    private static boolean isEndOfDay(Date date) {
         return date.getHours() == 23 && date.getMinutes() == 59 &&
             date.getSeconds() == 59;
     }
@@ -283,5 +286,15 @@ public final class Task extends AbstractModel {
      */
     public boolean hasDueTime() {
         return isEndOfDay(new Date(getValue(DUE_DATE)));
+    }
+
+    /**
+     * Returns the set state of the given flag on the given property
+     * @param property
+     * @param flag
+     * @return
+     */
+    public boolean getFlag(IntegerProperty property, int flag) {
+        return (getValue(property) & flag) > 0;
     }
 }

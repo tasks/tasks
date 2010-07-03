@@ -44,8 +44,8 @@ import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
-import com.timsu.astrid.utilities.StartupReceiver;
 import com.timsu.astrid.utilities.AstridUtilities.AstridUncaughtExceptionHandler;
+import com.todoroo.astrid.reminders.StartupReceiver;
 
 /**
  * TaskList is the main launched activity for Astrid. It uses a ViewFlipper

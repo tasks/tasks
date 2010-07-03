@@ -108,18 +108,11 @@
 
     <!-- ======================================================= Receivers = -->
 
-    <receiver android:name=".utilities.Notifications" />
+    <receiver android:name="com.todoroo.astrid.reminders.Notifications" />
     
     <receiver android:name=".utilities.LocaleReceiver">
       <intent-filter>
         <action android:name="com.timsu.astrid.action.LOCALE_ALERT" />
-      </intent-filter>
-    </receiver>
-    
-    <receiver android:name="com.todoroo.astrid.service.StartupService">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
 
@@ -175,7 +168,7 @@
       </intent-filter>
     </receiver>
         
-    <!-- tags filters -->
+    <!-- tags -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
@@ -194,7 +187,14 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-    
+
+    <!-- reminders -->        
+    <receiver android:name="com.todoroo.astrid.reminders.ReminderStartupService">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
   </application>
 
 </manifest>

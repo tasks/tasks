@@ -21,13 +21,17 @@ public class Preferences {
         Editor editor = prefs.edit();
         Resources r = context.getResources();
 
-        if(getIntegerFromString(R.string.EPr_default_urgency_key) == null) {
-            editor.putString(r.getString(R.string.EPr_default_urgency_key),
+        if(getIntegerFromString(R.string.p_default_urgency_key) == null) {
+            editor.putString(r.getString(R.string.p_default_urgency_key),
                     Integer.toString(4));
         }
-        if(getIntegerFromString(R.string.EPr_default_importance_key) == null) {
-            editor.putString(r.getString(R.string.EPr_default_importance_key),
+        if(getIntegerFromString(R.string.p_default_importance_key) == null) {
+            editor.putString(r.getString(R.string.p_default_importance_key),
                     Integer.toString(Task.IMPORTANCE_SHOULD_DO));
+        }
+        if(getIntegerFromString(R.string.p_reminder_time) == null) {
+            editor.putString(r.getString(R.string.p_reminder_time),
+                    Integer.toString(12));
         }
 
         editor.commit();

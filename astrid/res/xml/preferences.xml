@@ -3,48 +3,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
-        android:title="@string/prefs_category_alerts">
-        <ListPreference
-            android:key="@string/p_notif_quietStart"
-            android:entries="@array/EPr_quiet_hours_start"
-            android:entryValues="@array/EPr_quiet_hours_start_values"
-            android:title="@string/prefs_quietStart_title"
-            android:summary="@string/prefs_quietStart_desc" />
-        <ListPreference
-            android:key="@string/p_notif_quietEnd"
-            android:entries="@array/EPr_quiet_hours_end"
-            android:entryValues="@array/EPr_quiet_hours_end_values"
-            android:title="@string/prefs_quietEnd_title"
-            android:summary="@string/prefs_quietEnd_desc" />
-        <CheckBoxPreference
-            android:key="@string/p_notif_annoy"
-            android:title="@string/prefs_annoy_title"
-            android:summary="@string/prefs_annoy_desc" />
-        <CheckBoxPreference
-            android:key="@string/p_notif_vibrate"
-            android:title="@string/prefs_vibrate_title"
-            android:summary="@string/prefs_vibrate_desc" />
-        <EditTextPreference
-            android:key="@string/p_notif_defaultRemind"
-            android:title="@string/prefs_defaultRemind_title"
-            android:summary="@string/prefs_defaultRemind_desc" />
-        <RingtonePreference
-            android:key="@string/p_notification_ringtone"
-            android:title="@string/prefs_notification_title"
-            android:summary="@string/prefs_notification_desc"
-            android:ringtoneType="notification"
-    		android:showDefault="true"
-    		android:showSilent="true" />
-        <ListPreference
-            android:key="@string/p_notif_icon"
-            android:entries="@array/notif_icon_entries"
-            android:entryValues="@array/notif_icon_values"
-            android:title="@string/prefs_notificon_title"
-            android:summary="@string/prefs_notificon_desc" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
         android:title="@string/prefs_category_appearance">
         <CheckBoxPreference
             android:key="@string/p_colorize"
@@ -56,45 +14,6 @@
             android:entryValues="@array/EPr_font_size"
             android:title="@string/prefs_fontSize_title"
             android:summary="@string/prefs_fontSize_desc" />
-        <PreferenceScreen
-            android:title="@string/displayedFields_PrefScreen_Title"
-            android:summary="@string/displayedFields_PrefScreen_Desc">
-            <CheckBoxPreference
-               android:key="@string/prefs_deadlineVisible"
-               android:title="@string/prefs_deadlineVisible_title"
-               android:summary="@string/prefs_deadlineVisible_desc"
-               android:defaultValue="@string/prefs_deadlineVisible_default"  />
-            <CheckBoxPreference
-               android:key="@string/prefs_tagsVisible"
-               android:title="@string/prefs_tagsVisible_title"
-               android:summary="@string/prefs_tagsVisible_desc"
-               android:defaultValue="@string/prefs_tagsVisible_default"  />
-            <CheckBoxPreference
-               android:key="@string/prefs_importanceVisible"
-               android:title="@string/prefs_importanceVisible_title"
-               android:summary="@string/prefs_importanceVisible_desc"
-               android:defaultValue="@string/prefs_importanceVisible_default"  />
-            <CheckBoxPreference
-               android:key="@string/prefs_timeVisible"
-               android:title="@string/prefs_timeVisible_title"
-               android:summary="@string/prefs_timeVisible_desc"
-               android:defaultValue="@string/prefs_timeVisible_default"  />
-            <CheckBoxPreference
-               android:key="@string/prefs_reminderVisible"
-               android:title="@string/prefs_reminderVisible_title"
-               android:summary="@string/prefs_reminderVisible_desc"
-               android:defaultValue="@string/prefs_reminderVisible_default"  />
-            <CheckBoxPreference
-               android:key="@string/prefs_repeatVisible"
-               android:title="@string/prefs_repeatVisible_title"
-               android:summary="@string/prefs_repeatVisible_desc"
-               android:defaultValue="@string/prefs_repeatVisible_default"  />
-            <CheckBoxPreference
-               android:key="@string/prefs_notesVisible"
-               android:title="@string/prefs_notesVisible_title"
-               android:summary="@string/prefs_notesVisible_desc"
-               android:defaultValue="@string/prefs_notesVisible_default"  />
-        </PreferenceScreen>
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -104,10 +23,6 @@
            android:title="@string/prefs_nagging_title"
            android:summary="@string/prefs_nagging_desc"
            android:defaultValue="true"  />
-        <EditTextPreference
-            android:key="@string/p_deadlineTime"
-            android:title="@string/prefs_deadlineTime_title"
-            android:summary="@string/prefs_deadlineTime_desc" />
         <CheckBoxPreference
             android:key="@string/p_backup"
             android:title="@string/prefs_backup_title"

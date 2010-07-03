@@ -99,7 +99,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         assertEquals((Integer)Task.IMPORTANCE_NONE, task.getValue(Task.IMPORTANCE));
         assertEquals(griffey.getEstimatedSeconds(), task.getValue(Task.ESTIMATED_SECONDS));
         assertEquals(griffey.getNotes(), task.getValue(Task.NOTES));
-        assertEquals((Integer)0, task.getValue(Task.LAST_NOTIFIED));
+        assertEquals((Integer)0, task.getValue(Task.REMINDER_LAST));
         assertEquals((Integer)0, task.getValue(Task.HIDE_UNTIL));
 
         tasks.moveToNext();

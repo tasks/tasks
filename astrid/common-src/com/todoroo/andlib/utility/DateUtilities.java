@@ -79,8 +79,11 @@ public class DateUtilities {
         return System.currentTimeMillis();
     }
 
+    /** Represents a single hour */
+    public static long ONE_HOUR = 3600000L;
+
     /** Represents a single day */
-    public static long ONE_DAY = 24 * 3600000L;
+    public static long ONE_DAY = 24 * ONE_HOUR;
 
     /** Represents a single week */
     public static long ONE_WEEK = 7 * ONE_DAY;

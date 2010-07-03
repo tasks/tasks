@@ -74,7 +74,6 @@ import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.timsu.astrid.utilities.AstridUtilities;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DialogUtilities;
-import com.timsu.astrid.utilities.Notifications;
 import com.timsu.astrid.utilities.Preferences;
 import com.timsu.astrid.utilities.TasksXmlExporter;
 import com.timsu.astrid.utilities.TasksXmlImporter;
@@ -84,6 +83,7 @@ import com.timsu.astrid.widget.NumberPickerDialog;
 import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.astrid.activity.TaskEditActivity;
+import com.todoroo.astrid.reminders.ReminderService;
 
 /**
  * Primary view for the Astrid Application. Lists all of the tasks in the
@@ -463,7 +463,7 @@ public class TaskListSubActivity extends SubActivity {
         Resources r = getResources();
 
         // clear notifications
-        Notifications.clearAllNotifications(getParent(), task
+        ReminderService.clearAllNotifications(getParent(), task
                 .getTaskIdentifier());
 
         String[] strings = new String[] {
@@ -541,7 +541,7 @@ public class TaskListSubActivity extends SubActivity {
                 R.string.notify_snooze_title), new OnNNumberPickedListener() {
             public void onNumbersPicked(int[] values) {
                 int snoozeSeconds = values[0] * 3600 + values[1] * 60;
-                Notifications.createSnoozeAlarm(getParent(), task
+                ReminderService.createSnoozeAlarm(getParent(), task
                         .getTaskIdentifier(), snoozeSeconds, flags,
                         repeatInterval);
 

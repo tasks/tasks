@@ -47,48 +47,48 @@ public class TaskDao extends GenericDao<Task> {
      */
     public static class TaskCriteria {
 
-    	/** Returns tasks by id */
+    	/** @returns tasks by id */
     	public static Criterion byId(long id) {
     	    return Task.ID.eq(id);
     	}
 
-    	/** Return tasks that were deleted */
+    	/** @return tasks that were deleted */
     	public static Criterion isDeleted() {
     	    return Task.DELETION_DATE.neq(0);
     	}
 
-    	/** Return tasks that have not yet been completed */
+    	/** @return tasks that have not yet been completed or deleted */
     	public static Criterion isActive() {
     	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
     	            Task.DELETION_DATE.eq(0));
     	}
 
-    	/** Return tasks that are not hidden at given unixtime */
+    	/** @return tasks that are not hidden at given unixtime */
     	public static Criterion isVisible(long time) {
     	    return Task.HIDE_UNTIL.lt(time);
         }
 
-    	/** Returns tasks that have a due date */
+    	/** @return tasks that have a due date */
     	public static Criterion hasDeadlines() {
     	    return Task.DUE_DATE.neq(0);
     	}
 
-        /** Returns tasks that are due before a certain unixtime */
+        /** @return tasks that are due before a certain unixtime */
         public static Criterion dueBefore(long time) {
             return Criterion.and(Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(time));
         }
 
-        /** Returns tasks that are due after a certain unixtime */
+        /** @return tasks that are due after a certain unixtime */
         public static Criterion dueAfter(long time) {
             return Task.DUE_DATE.gt(time);
         }
 
-    	/** Returns tasks completed before a given unixtime */
+    	/** @return tasks completed before a given unixtime */
     	public static Criterion completedBefore(long time) {
     	    return Criterion.and(Task.COMPLETION_DATE.gt(0), Task.COMPLETION_DATE.lt(time));
     	}
 
-    	/** Returns tasks that have a blank or null title */
+    	/** @return tasks that have a blank or null title */
     	@SuppressWarnings("nls")
         public static Criterion hasNoTitle() {
     	    return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
@@ -141,6 +141,9 @@ public class TaskDao extends GenericDao<Task> {
             saveSuccessful = saveItem(task);
             afterSave(task, values, duringSync);
         }
+
+        if(saveSuccessful)
+            task.markSaved();
 
         return saveSuccessful;
     }
