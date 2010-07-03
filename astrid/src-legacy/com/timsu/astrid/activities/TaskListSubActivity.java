@@ -83,7 +83,6 @@ import com.timsu.astrid.widget.NumberPickerDialog;
 import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.astrid.activity.TaskEditActivity;
-import com.todoroo.astrid.reminders.ReminderService;
 
 /**
  * Primary view for the Astrid Application. Lists all of the tasks in the
@@ -463,8 +462,8 @@ public class TaskListSubActivity extends SubActivity {
         Resources r = getResources();
 
         // clear notifications
-        ReminderService.clearAllNotifications(getParent(), task
-                .getTaskIdentifier());
+//        ReminderService.clearAllNotifications(getParent(), task
+//                .getTaskIdentifier());
 
         String[] strings = new String[] {
             r.getString(R.string.notify_yes),
@@ -541,9 +540,9 @@ public class TaskListSubActivity extends SubActivity {
                 R.string.notify_snooze_title), new OnNNumberPickedListener() {
             public void onNumbersPicked(int[] values) {
                 int snoozeSeconds = values[0] * 3600 + values[1] * 60;
-                ReminderService.createSnoozeAlarm(getParent(), task
-                        .getTaskIdentifier(), snoozeSeconds, flags,
-                        repeatInterval);
+//                ReminderService.createSnoozeAlarm(getParent(), task
+//                        .getTaskIdentifier(), snoozeSeconds, flags,
+//                        repeatInterval);
 
                 TaskList.shouldCloseInstance = true;
                 closeActivity();

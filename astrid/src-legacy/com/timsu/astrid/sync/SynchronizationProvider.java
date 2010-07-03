@@ -48,7 +48,6 @@ import com.timsu.astrid.data.task.TaskModelForSync;
 import com.timsu.astrid.utilities.AstridUtilities;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
-import com.todoroo.astrid.reminders.ReminderService;
 
 /** A service that synchronizes with Astrid
  *
@@ -57,7 +56,7 @@ import com.todoroo.astrid.reminders.ReminderService;
  */
 public abstract class SynchronizationProvider {
 
-    private int id;
+    private final int id;
     static ProgressDialog progressDialog;
     private Handler syncHandler;
     protected Synchronizer synchronizer;
@@ -478,8 +477,8 @@ public abstract class SynchronizationProvider {
                 stats.localCreatedTasks++;
             }
 
-            ReminderService.updateAlarm(context, taskController, alertController,
-                    task);
+//            ReminderService.updateAlarm(context, taskController, alertController,
+//                    task);
             postUpdate(new ProgressUpdater(stats.localUpdatedTasks,
                     remoteTasks.size()));
         }

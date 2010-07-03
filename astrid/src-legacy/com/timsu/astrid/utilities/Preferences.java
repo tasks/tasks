@@ -50,12 +50,12 @@ public class Preferences {
         if(!prefs.contains(r.getString(R.string.p_fontSize))) {
             editor.putString(r.getString(R.string.p_fontSize), "20");
         }
-        if(!prefs.contains(r.getString(R.string.p_deadlineTime))) {
-            editor.putString(r.getString(R.string.p_deadlineTime), "1");
-        }
-        if(!prefs.contains(r.getString(R.string.p_notif_defaultRemind))) {
-            editor.putString(r.getString(R.string.p_notif_defaultRemind), "0");
-        }
+//        if(!prefs.contains(r.getString(R.string.p_deadlineTime))) {
+//            editor.putString(r.getString(R.string.p_deadlineTime), "1");
+//        }
+//        if(!prefs.contains(r.getString(R.string.p_notif_defaultRemind))) {
+//            editor.putString(r.getString(R.string.p_notif_defaultRemind), "0");
+//        }
         if(!prefs.contains(r.getString(R.string.p_colorize))) {
             editor.putBoolean(r.getString(R.string.p_colorize), DEFAULT_COLORIZE);
         }
@@ -77,38 +77,38 @@ public class Preferences {
     }
 
     private static void setVisibilityPreferences(SharedPreferences p, Editor e, Resources r) {
-    	if(!p.contains(r.getString(R.string.prefs_titleVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_titleVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_titleVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_timeVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_timeVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_timeVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_deadlineVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_deadlineVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_deadlineVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_importanceVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_importanceVisible),
-                    Boolean.parseBoolean(r.getString(R.string.prefs_importanceVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_reminderVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_reminderVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_reminderVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_repeatVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_repeatVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_repeatVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_tagsVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_tagsVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_tagsVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_notesVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_notesVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_notesVisible_default)));
-        }
+//    	if(!p.contains(r.getString(R.string.prefs_titleVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_titleVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_titleVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_timeVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_timeVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_timeVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_deadlineVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_deadlineVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_deadlineVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_importanceVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_importanceVisible),
+//                    Boolean.parseBoolean(r.getString(R.string.prefs_importanceVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_reminderVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_reminderVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_reminderVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_repeatVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_repeatVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_repeatVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_tagsVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_tagsVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_tagsVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_notesVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_notesVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_notesVisible_default)));
+//        }
 	}
 
     // --- system preferences
@@ -275,7 +275,8 @@ public class Preferences {
 
     /** Return # of days to remind by default */
     public static Integer getDefaultReminder(Context context) {
-        return getIntegerValue(context, R.string.p_notif_defaultRemind);
+        // return getIntegerValue(context, R.string.p_notif_defaultRemind);
+        return 0;
     }
 
     // --- postpone count & settings
@@ -295,7 +296,8 @@ public class Preferences {
 
     /** Return # of days from now to set deadlines by default */
     public static Integer getDefaultDeadlineDays(Context context) {
-        return getIntegerValue(context, R.string.p_deadlineTime);
+//        return getIntegerValue(context, R.string.p_deadlineTime);
+        return 0;
     }
 
     /** Get perstence mode setting */
@@ -419,11 +421,6 @@ public class Preferences {
         if(time != null && time == 0)
             time = null;
         return time;
-    }
-
-    /** Reads the old auto */
-    public static Float getSyncOldAutoSyncFrequency(Context context) {
-    	return getFloatValue(context, R.string.p_sync_every_old);
     }
 
     /** Sets the auto-sync frequency to the desired value */

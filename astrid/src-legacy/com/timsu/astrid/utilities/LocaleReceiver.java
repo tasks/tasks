@@ -16,7 +16,6 @@ import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
-import com.todoroo.astrid.reminders.ReminderService;
 
 /**
  * Receiver is activated when Locale conditions are triggered
@@ -64,7 +63,7 @@ public class LocaleReceiver extends BroadcastReceiver {
 						String reminder = r.getString(R.string.notif_tagNotification).
 						    replace("$NUM", r.getQuantityString(R.plurals.Ntasks, count, count)).
 						    replace("$TAG", tagName);
-						ReminderService.showTagNotification(context, tagId, reminder);
+//						ReminderService.showTagNotification(context, tagId, reminder);
 
 						Preferences.setLocaleLastAlertTime(context, tagId,
 						        System.currentTimeMillis());
