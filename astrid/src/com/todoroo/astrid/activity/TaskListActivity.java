@@ -33,7 +33,6 @@ import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
-import com.timsu.astrid.activities.EditPreferences;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -50,6 +49,8 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.filters.CoreFilterExposer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.reminders.Notifications;
+import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
@@ -80,6 +81,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 5;
     private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 6;
     private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 7;
+
+    /** menu code indicating the end of the context menu */
+    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 8;
 
     // --- constants
 
@@ -133,6 +137,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         if(database == null)
             return;
+        if(Constants.DEBUG)
+            filter.title = "[D] " + filter.title; //$NON-NLS-1$
 
         database.openForWriting();
         setUpUiComponents();
@@ -428,6 +434,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE,
                 R.string.TAd_contextDeleteTask);
 
+        if(Constants.DEBUG) {
+            menu.add(id, CONTEXT_MENU_DEBUG, Menu.NONE,
+                    "schedule alarm"); //$NON-NLS-1$
+            menu.add(id, CONTEXT_MENU_DEBUG + 1, Menu.NONE,
+                    "make notification"); //$NON-NLS-1$
+        }
+
         if(contextMenuItemCache == null)
             return;
 
@@ -496,12 +509,28 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             return true;
         }
 
-        case CONTEXT_MENU_DELETE_TASK_ID:
+        case CONTEXT_MENU_DELETE_TASK_ID: {
             itemId = item.getGroupId();
             Task task = new Task();
             task.setId(itemId);
             deleteTask(task);
             return true;
+        }
+
+        case CONTEXT_MENU_DEBUG: {
+            itemId = item.getGroupId();
+            Task task = new Task();
+            task.setId(itemId);
+            new ReminderService().scheduleAlarm(task);
+            return true;
+        }
+
+        case CONTEXT_MENU_DEBUG + 1: {
+            itemId = item.getGroupId();
+            new Notifications().showNotification(itemId, 0, "test reminder"); //$NON-NLS-1$
+            return true;
+        }
+
         }
 
         return false;

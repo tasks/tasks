@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.utilities.Constants;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -22,6 +21,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 
@@ -68,6 +68,7 @@ public final class ReminderService  {
      * Schedules all alarms
      */
     public void scheduleAllAlarms() {
+
         TodorooCursor<Task> cursor = getTasksWithReminders(PROPERTIES);
         try {
             Task task = new Task();
@@ -240,7 +241,7 @@ public final class ReminderService  {
      * @param properties
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
-    public TodorooCursor<Task> getTasksWithReminders(Property<?>... properties) {
+    private TodorooCursor<Task> getTasksWithReminders(Property<?>... properties) {
         return taskDao.query(Query.select(properties).where(Criterion.and(TaskCriteria.isActive(),
                 Task.REMINDER_FLAGS.gt(0))));
     }

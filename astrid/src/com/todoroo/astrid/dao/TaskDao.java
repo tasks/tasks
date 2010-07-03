@@ -35,7 +35,7 @@ public class TaskDao extends GenericDao<Task> {
     @Autowired
     Database database;
 
-    ReminderService reminderService = new ReminderService();
+    ReminderService reminderService;
 
 	public TaskDao() {
         super(Task.class);
@@ -197,8 +197,11 @@ public class TaskDao extends GenericDao<Task> {
     private void afterSave(Task task, ContentValues values, boolean duringSync) {
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
             afterComplete(task, values, duringSync);
-        else
+        else {
+            if(reminderService == null)
+                reminderService = new ReminderService();
             reminderService.scheduleAlarm(task);
+        }
 
         if(duringSync)
             return;

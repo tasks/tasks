@@ -148,11 +148,12 @@ abstract public class AbstractDatabase {
     }
 
     /**
-     * @return sql database. throws error if database was not opened
+     * @return sql database. opens database if not yet open
      */
     public final SQLiteDatabase getDatabase() {
+        // open database if requested
         if(database == null)
-            throw new IllegalStateException("Database was not opened!");
+            openForWriting();
         return database;
     }
 

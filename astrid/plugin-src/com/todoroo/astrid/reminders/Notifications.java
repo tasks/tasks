@@ -20,6 +20,7 @@ import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.Preferences;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -55,6 +56,7 @@ public class Notifications extends BroadcastReceiver {
     /** Alarm intent */
     public void onReceive(Context context, Intent intent) {
         DependencyInjectionService.getInstance().inject(this);
+        ContextManager.setContext(context);
 
         long id = intent.getLongExtra(ID_KEY, 0);
         int type = intent.getIntExtra(TYPE_KEY, 0);
@@ -68,7 +70,7 @@ public class Notifications extends BroadcastReceiver {
         else
             reminder = getRandomReminder(r.getStringArray(R.array.reminders));
 
-        if(!showNotification(context, id, type, reminder)) {
+        if(!showNotification(id, type, reminder)) {
             NotificationManager nm = (NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);
             nm.cancel((int)id);
@@ -95,8 +97,8 @@ public class Notifications extends BroadcastReceiver {
      * Schedule a new notification about the given task. Returns false if there was
      * some sort of error or the alarm should be disabled.
      */
-    public boolean showNotification(Context context, long id,
-            int type, String reminder) {
+    public boolean showNotification(long id, int type, String reminder) {
+        Context context = ContextManager.getContext();
 
         Task task;
         try {

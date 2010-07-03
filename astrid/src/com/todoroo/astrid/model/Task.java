@@ -92,15 +92,15 @@ public final class Task extends AbstractModel {
 
     /** Flags for when to send reminders */
     public static final IntegerProperty REMINDER_FLAGS = new IntegerProperty(
-            TABLE, "reminderFlags");
+            TABLE, "notificationFlags");
 
     /** Reminder period, in milliseconds. 0 means disabled */
     public static final LongProperty REMINDER_PERIOD = new LongProperty(
-            TABLE, "reminderPeriod");
+            TABLE, "notifications");
 
     /** Unixtime the last reminder was triggered */
     public static final LongProperty REMINDER_LAST = new LongProperty(
-            TABLE, "reminderLast");
+            TABLE, "lastNotified");
 
     public static final IntegerProperty REPEAT = new IntegerProperty(
             TABLE, "repeat");
