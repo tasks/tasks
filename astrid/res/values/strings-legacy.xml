@@ -399,15 +399,6 @@ Skipped %d tasks.\n
         when you have uncompleted tasks with the following criteria:</string>
         <string name="locale_pick_tag">Tagged with:</string>
 
-    <!-- Notification -->
-    <skip />
-
-        <string name="notif_definiteDueDate">Absolute Deadline!</string>
-        <string name="notif_preferredDueDate">Goal Deadline!</string>
-        <string name="notif_timerStarted">Working on:</string>
-        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
-        <string name="notif_tagNotification">You have $NUM tagged $TAG!</string>
-
     <!-- Error Messages -->
     <skip />
 

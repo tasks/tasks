@@ -56,7 +56,7 @@ public final class ReminderService  {
     @Autowired
     private TaskDao taskDao;
 
-    private static final Random random = new Random();
+    static final Random random = new Random();
 
     public ReminderService() {
         DependencyInjectionService.getInstance().inject(this);

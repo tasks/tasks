@@ -17,11 +17,14 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package com.timsu.astrid.activities;
+package com.todoroo.astrid.reminders;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+
+import com.timsu.astrid.activities.TaskList;
+import com.todoroo.astrid.activity.TaskListActivity;
 
 /**
  * This activity is launched when a user opens up a notification from the
@@ -30,7 +33,7 @@ import android.os.Bundle;
  * @author timsu
  *
  */
-public class TaskListNotify extends Activity {
+public class NotificationActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,7 @@ public class TaskListNotify extends Activity {
     }
 
     private void launchTaskList(Intent intent) {
-        Intent taskListIntent = new Intent(this, TaskList.class);
+        Intent taskListIntent = new Intent(this, TaskListActivity.class);
         taskListIntent.putExtra(TaskList.VARIABLES_TAG, intent.getExtras());
         startActivity(taskListIntent);
 

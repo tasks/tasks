@@ -46,7 +46,6 @@ import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.timsu.astrid.provider.TasksProvider;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
-import com.todoroo.astrid.reminders.ReminderService;
 
 /**
  * Controller for task-related operations
@@ -307,12 +306,12 @@ public class TaskController extends AbstractController {
         // task timer was updated, update notification bar
         if(values.containsKey(AbstractTaskModel.TIMER_START)) {
         	// show notification bar if timer was started
-        	if(values.getAsLong(AbstractTaskModel.TIMER_START) != 0) {
-        		ReminderService.showTimingNotification(context,
-        				task.getTaskIdentifier(), task.getName());
-        	} else {
-        		ReminderService.clearAllNotifications(context, task.getTaskIdentifier());
-        	}
+//        	if(values.getAsLong(AbstractTaskModel.TIMER_START) != 0) {
+//        		ReminderService.showTimingNotification(context,
+//        				task.getTaskIdentifier(), task.getName());
+//        	} else {
+//        		ReminderService.clearAllNotifications(context, task.getTaskIdentifier());
+//        	}
         }
 
         // due date was updated, update calendar event
@@ -390,7 +389,7 @@ public class TaskController extends AbstractController {
     /** Clean up state from a task. Called when deleting or completing it */
     private void cleanupTask(TaskIdentifier taskId, boolean isRepeating) {
         // delete notifications & alarms
-        ReminderService.deleteAlarm(context, null, taskId.getId());
+//        ReminderService.deleteAlarm(context, null, taskId.getId());
 
         // delete calendar event if not repeating
         if(!isRepeating) {
@@ -578,7 +577,7 @@ public class TaskController extends AbstractController {
         TaskModelForNotify task = fetchTaskForNotify(taskId);
         AlertController alertController = new AlertController(context);
         alertController.open();
-        ReminderService.updateAlarm(context, this, alertController, task);
+//        ReminderService.updateAlarm(context, this, alertController, task);
         alertController.close();
     }
 

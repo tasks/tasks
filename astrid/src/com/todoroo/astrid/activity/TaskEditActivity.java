@@ -795,7 +795,7 @@ public final class TaskEditActivity extends TabActivity {
             this.urgency.setAdapter(urgencyAdapter);
 
             if(isNewTask()) {
-                urgency.setSelection(Preferences.getIntegerFromString(R.string.EPr_default_urgency_key));
+                urgency.setSelection(Preferences.getIntegerFromString(R.string.p_default_urgency_key));
             } else {
                 urgency.setSelection(0);
             }
@@ -979,7 +979,7 @@ public final class TaskEditActivity extends TabActivity {
             random = (CheckBox)findViewById(randomId);
             mode = (Spinner)findViewById(modeId);
 
-            periodic = Preferences.getIntegerFromString(R.string.p_notif_defaultRemind)
+            periodic = Preferences.getIntegerFromString(R.string.p_default_reminder_random)
                 * DateUtilities.ONE_DAY;
             updatePeriodicString();
 
