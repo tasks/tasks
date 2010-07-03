@@ -6,6 +6,9 @@
     
     <!-- Inbox Filter -->
     <string name="BFE_Inbox">Inbox</string>
+        
+    <!-- Inbox Filter -->
+    <string name="BFE_Inbox_title">Astrid: Inbox</string>
     
     <!-- Completed Filter -->
     <string name="BFE_Completed">Completed</string>

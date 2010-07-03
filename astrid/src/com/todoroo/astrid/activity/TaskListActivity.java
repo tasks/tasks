@@ -17,19 +17,19 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -37,6 +37,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
@@ -87,7 +88,17 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
     // --- constants
 
+    /** token for passing a {@link Filter} object through extras */
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
+
+    /** token for passing a {@link Filter}'s title through extras */
+    public static final String TOKEN_FILTER_TITLE = "title"; //$NON-NLS-1$
+
+    /** token for passing a {@link Filter}'s sql through extras */
+    public static final String TOKEN_FILTER_SQL = "sql"; //$NON-NLS-1$
+
+    /** token for passing a {@link Filter}'s values for new tasks through extras */
+    public static final String TOKEN_FILTER_VALUES = "values"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -130,7 +141,15 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null && extras.containsKey(TOKEN_FILTER)) {
+            // probably launched from filter list activity
             filter = extras.getParcelable(TOKEN_FILTER);
+        } else if(extras != null && extras.containsKey(TOKEN_FILTER_SQL)) {
+            // launched from desktop shortcut, must create a fake filter
+            String title = extras.getString(TOKEN_FILTER_TITLE);
+            String sql = extras.getString(TOKEN_FILTER_SQL);
+            ContentValues values = extras.getParcelable(TOKEN_FILTER_VALUES);
+            filter = new Filter("", "", title, new QueryTemplate(), values);
+            filter.sqlQuery = sql;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
         }

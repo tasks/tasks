@@ -32,11 +32,16 @@
 
     <style name="TextAppearance.TAd_ItemTitle">
         <item name="android:textSize">22sp</item>
-        <item name="android:textStyle">bold</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemTitle_Completed" parent="TextAppearance.TAd_ItemTitle">
         <item name="android:textColor">#ff555555</item>
+    </style>
+    
+    <style name="TextAppearance.TAd_ItemTitle_Deleted" parent="TextAppearance.TAd_ItemTitle" />
+    
+    <style name="TextAppearance.TAd_ItemTitle_Overdue" parent="TextAppearance.TAd_ItemTitle">
+        <item name="android:textStyle">bold</item>
     </style>
 
     <style name="TextAppearance.TAd_ItemDetails">

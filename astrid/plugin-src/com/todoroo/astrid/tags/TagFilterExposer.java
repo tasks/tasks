@@ -25,7 +25,7 @@ import com.todoroo.astrid.tags.TagService.Tag;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class FilterExposer extends BroadcastReceiver {
+public class TagFilterExposer extends BroadcastReceiver {
 
     private TagService tagService;
 
