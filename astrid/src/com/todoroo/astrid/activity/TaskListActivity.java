@@ -256,7 +256,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 for(Entry<String, Object> item : forMetadata.valueSet()) {
                     metadata.setValue(Metadata.TASK, task.getId());
                     metadata.setValue(Metadata.KEY, item.getKey());
-                    metadata.setValue(Metadata.VALUE, item.toString());
+                    metadata.setValue(Metadata.VALUE, item.getValue().toString());
                     metadataService.save(metadata);
                     metadata.clear();
                 }

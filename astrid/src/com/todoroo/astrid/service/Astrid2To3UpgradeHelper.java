@@ -274,7 +274,7 @@ public class Astrid2To3UpgradeHelper {
                             container.upgradeNotes);
                 }
             }
-            dao.createItem(container.model);
+            dao.createNew(container.model);
         }
 
         upgradeDb.close();
@@ -331,7 +331,7 @@ public class Astrid2To3UpgradeHelper {
                 metadata.setValue(Metadata.TASK, task);
                 metadata.setValue(Metadata.KEY, TagService.KEY);
                 metadata.setValue(Metadata.VALUE, tag);
-                metadataDao.createItem(metadata);
+                metadataDao.createNew(metadata);
                 metadata.clearValue(Metadata.ID);
             }
         }

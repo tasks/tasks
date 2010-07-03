@@ -155,7 +155,7 @@ public class TagService {
         metadata.setValue(Metadata.TASK, taskId);
         for(String tag : tags) {
             metadata.setValue(Metadata.VALUE, tag.trim());
-            metadataDao.createItem(metadata);
+            metadataDao.createNew(metadata);
         }
     }
 }

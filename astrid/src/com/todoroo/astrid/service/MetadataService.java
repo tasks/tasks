@@ -88,6 +88,6 @@ public class MetadataService {
      * @param metadata
      */
     public void save(Metadata metadata) {
-        metadataDao.saveItem(metadata);
+        metadataDao.persist(metadata);
     }
 }

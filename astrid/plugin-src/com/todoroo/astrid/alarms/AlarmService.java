@@ -53,7 +53,7 @@ public class AlarmService {
         for(Alarm alarm : alarms) {
             alarm.setId(Alarm.NO_ID);
             alarm.setValue(Alarm.TASK, taskId);
-            dao.saveItem(alarm);
+            dao.saveExisting(alarm);
         }
     }
 }
