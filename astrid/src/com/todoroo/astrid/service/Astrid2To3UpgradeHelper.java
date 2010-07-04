@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.database.Cursor;
@@ -100,7 +101,9 @@ public class Astrid2To3UpgradeHelper {
         Context context = ContextManager.getContext();
 
         // pop up a progress dialog
-        ProgressDialog dialog = dialogUtilities.progressDialog(context, context.getString(R.string.DLG_wait));
+        ProgressDialog dialog = null;
+        if(context instanceof Activity)
+            dialog = dialogUtilities.progressDialog(context, context.getString(R.string.DLG_wait));
 
         // initiate a backup
         try {
@@ -159,7 +162,8 @@ public class Astrid2To3UpgradeHelper {
 
         database.close();
 
-        dialog.dismiss();
+        if(dialog != null)
+            dialog.dismiss();
     }
 
     // --- database upgrade helpers

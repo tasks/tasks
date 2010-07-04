@@ -17,12 +17,6 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  */
 public class DatabaseTestCase extends TodorooTestCase {
 
-    private static final String SYNC_TEST = "synctest";
-    private static final String ALERTS_TEST = "alertstest";
-    private static final String TAG_TASK_TEST = "tagtasktest";
-    private static final String TAGS_TEST = "tagstest";
-    private static final String TASKS_TEST = "taskstest";
-
 	public static Database database = new TestDatabase();
 
     public AlarmDatabase alarmsDatabase;
@@ -32,11 +26,6 @@ public class DatabaseTestCase extends TodorooTestCase {
 
         // initialize test dependency injector
         TestDependencyInjector injector = TestDependencyInjector.initialize("db");
-        injector.addInjectable("tasksTable", TASKS_TEST);
-        injector.addInjectable("tagsTable", TAGS_TEST);
-        injector.addInjectable("tagTaskTable", TAG_TASK_TEST);
-        injector.addInjectable("alertsTable", ALERTS_TEST);
-        injector.addInjectable("syncTable", SYNC_TEST);
         injector.addInjectable("database", database);
     }
 
@@ -48,19 +37,15 @@ public class DatabaseTestCase extends TodorooTestCase {
 
 		// empty out test databases
 	    database.clear();
-		deleteDatabase(TASKS_TEST);
-		deleteDatabase(TAGS_TEST);
-		deleteDatabase(TAG_TASK_TEST);
-		deleteDatabase(ALERTS_TEST);
-		deleteDatabase(SYNC_TEST);
-		alarmsDatabase = new AlarmDatabase();
-		alarmsDatabase.clear();
-
 
 		database.openForWriting();
 	}
 
-	private void deleteDatabase(String database) {
+	/**
+	 * Helper to delete a database by name
+	 * @param database
+	 */
+	protected void deleteDatabase(String database) {
 	    File db = getContext().getDatabasePath(database);
 	    if(db.exists())
 	        db.delete();

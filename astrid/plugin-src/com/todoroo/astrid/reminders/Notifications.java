@@ -4,7 +4,6 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.app.Notification;
-import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -23,6 +22,8 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.service.NotificationManager;
+import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Task;
@@ -36,7 +37,7 @@ public class Notifications extends BroadcastReceiver {
     static final String ID_KEY = "id"; //$NON-NLS-1$
 
     /** notification type extra */
-    static final String TYPE_KEY = "flags"; //$NON-NLS-1$
+    static final String TYPE_KEY = "type"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -45,6 +46,8 @@ public class Notifications extends BroadcastReceiver {
 
     @Autowired
     private ExceptionService exceptionService;
+
+    public static NotificationManager notificationManager = null;
 
     // --- alarm handling
 
@@ -57,9 +60,11 @@ public class Notifications extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         DependencyInjectionService.getInstance().inject(this);
         ContextManager.setContext(context);
+        if(notificationManager == null)
+            notificationManager = new AndroidNotificationManager(context);
 
         long id = intent.getLongExtra(ID_KEY, 0);
-        int type = intent.getIntExtra(TYPE_KEY, 0);
+        int type = intent.getIntExtra(TYPE_KEY, (byte) 0);
 
         Resources r = context.getResources();
         String reminder;
@@ -71,9 +76,7 @@ public class Notifications extends BroadcastReceiver {
             reminder = getRandomReminder(r.getStringArray(R.array.reminders));
 
         if(!showNotification(id, type, reminder)) {
-            NotificationManager nm = (NotificationManager)
-                context.getSystemService(Context.NOTIFICATION_SERVICE);
-            nm.cancel((int)id);
+            notificationManager.cancel((int)id);
         }
     }
 
@@ -104,6 +107,9 @@ public class Notifications extends BroadcastReceiver {
         try {
             task = taskDao.fetch(id, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
                     Task.DELETION_DATE, Task.REMINDER_FLAGS);
+            if(task == null)
+                throw new IllegalArgumentException("cound not find item with id"); //$NON-NLS-1$
+
         } catch (Exception e) {
             exceptionService.reportError("show-notif", e); //$NON-NLS-1$
             return false;
@@ -129,7 +135,7 @@ public class Notifications extends BroadcastReceiver {
         boolean quietHours = false;
         Integer quietHoursStart = Preferences.getQuietHourStart(context);
         Integer quietHoursEnd = Preferences.getQuietHourEnd(context);
-        if(quietHoursStart != null && quietHoursEnd != null && nonstopMode) {
+        if(quietHoursStart != null && quietHoursEnd != null && !nonstopMode) {
             int hour = new Date().getHours();
             if(quietHoursStart < quietHoursEnd) {
                 if(hour >= quietHoursStart && hour < quietHoursEnd)
@@ -140,8 +146,6 @@ public class Notifications extends BroadcastReceiver {
             }
         }
 
-        NotificationManager nm = (NotificationManager) context
-                .getSystemService(Context.NOTIFICATION_SERVICE);
         Resources r = context.getResources();
 
         Intent notifyIntent = new Intent(context, NotificationActivity.class);
@@ -228,9 +232,16 @@ public class Notifications extends BroadcastReceiver {
 
         if(Constants.DEBUG)
             Log.w("Astrid", "Logging notification: " + reminder); //$NON-NLS-1$ //$NON-NLS-2$
-        nm.notify((int)id, notification);
+        notificationManager.notify((int)id, notification);
 
         return true;
+    }
+
+    // --- notification manager
+
+    public static void setNotificationManager(
+            NotificationManager notificationManager) {
+        Notifications.notificationManager = notificationManager;
     }
 
 }

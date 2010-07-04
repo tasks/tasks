@@ -76,7 +76,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      *            properties to read
      * @param id
      *            id of item
-     * @return
+     * @return null if no item found
      */
     public TYPE fetch(long id, Property<?>... properties) {
         TodorooCursor<TYPE> cursor = fetchItem(id, properties);

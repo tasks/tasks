@@ -180,4 +180,14 @@ public class Preferences {
         editor.putBoolean(key, value);
         editor.commit();
     }
+
+    /**
+     * Sets string preference from integer value
+     */
+    public static void setStringFromInteger(int keyResource, int newValue) {
+        Context context = ContextManager.getContext();
+        Editor editor = getPrefs(context).edit();
+        editor.putString(context.getString(keyResource), Integer.toString(newValue));
+        editor.commit();
+    }
 }

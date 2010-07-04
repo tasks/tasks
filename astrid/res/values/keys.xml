@@ -144,18 +144,29 @@
   <!-- default urgency setting (corresponds to entry in TEA_urgency) -->  
   <string name="p_default_urgency_key">p_def_urg</string>
       
-  <!-- urgency: labels that map EPr_default_urgency items to index in TEA_urgency. -->
-  <string-array name="p_default_urgency_values">
+  <string-array name="EPr_default_urgency_values">
+    <!-- urgency: labels that map EPr_default_urgency items to index in TEA_urgency. -->
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+    <item>4</item>
+    <item>5</item>
+  </string-array>
+      
+  <string-array name="EPr_default_hideUntil_values">
+    <!-- hideUntil: labels that map EPr_default_hideUntil items to index in TEA_hideUntil. -->
       <item>0</item>
       <item>1</item>
       <item>2</item>
       <item>3</item>
-      <item>4</item>
-      <item>5</item>
   </string-array>
   
   <!-- default importance setting (corresponds to task setting) -->
   <string name="p_default_importance_key">p_def_imp</string>
+  
+  <!-- default hide until setting (corresponds to entry in TEA_hideUntil) -->
+  <string name="p_default_hideUntil_key">p_def_hide</string>
   
   <!-- ============================================================ OTHER == -->
   

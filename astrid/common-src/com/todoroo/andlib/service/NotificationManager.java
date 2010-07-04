@@ -28,7 +28,7 @@ public interface NotificationManager {
      *
      */
     public static class AndroidNotificationManager implements NotificationManager {
-        final android.app.NotificationManager nm;
+        private final android.app.NotificationManager nm;
         public AndroidNotificationManager(Context context) {
             nm = (android.app.NotificationManager)
                 context.getSystemService(Context.NOTIFICATION_SERVICE);

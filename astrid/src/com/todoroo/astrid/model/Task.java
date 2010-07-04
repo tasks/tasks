@@ -12,6 +12,7 @@ import android.content.ContentValues;
 import android.content.res.Resources;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
@@ -296,5 +297,12 @@ public final class Task extends AbstractModel {
      */
     public boolean getFlag(IntegerProperty property, int flag) {
         return (getValue(property) & flag) > 0;
+    }
+    
+    /**
+     * @return repeat data structure. Requires REPEAT
+     */
+    public RepeatInfo getRepeatInfo() {
+        return RepeatInfo.fromSingleField(getValue(Task.REPEAT));
     }
 }

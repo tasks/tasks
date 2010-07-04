@@ -61,6 +61,14 @@
         <item>Next Month</item>
     </string-array>
     
+    <string-array name="TEA_default_hideUntil">
+        <!-- hideUntil: default labels for preferences. -->
+        <item>Don\'t hide</item>
+        <item>Task is due</item>
+        <item>Day before due</item>
+        <item>Week before due</item>
+    </string-array>    
+    
     <string-array name="notif_icon_entries">
         <!-- Icons for notification tray -->
         <item>Pink</item>

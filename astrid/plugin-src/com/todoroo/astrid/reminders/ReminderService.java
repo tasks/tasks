@@ -43,20 +43,22 @@ public final class ReminderService  {
     };
 
     /** flag for due date reminder */
-    static final byte TYPE_DUE = 0;
+    static final int TYPE_DUE = 0;
     /** flag for overdue reminder */
-    static final byte TYPE_OVERDUE = 1;
+    static final int TYPE_OVERDUE = 1;
     /** flag for random reminder */
-    static final byte TYPE_RANDOM = 2;
+    static final int TYPE_RANDOM = 2;
     /** flag for a snoozed reminder */
-    static final byte TYPE_SNOOZE = 3;
+    static final int TYPE_SNOOZE = 3;
+
+    static final Random random = new Random();
 
     // --- instance variables
 
     @Autowired
     private TaskDao taskDao;
 
-    static final Random random = new Random();
+    private AlarmScheduler scheduler = new ReminderAlarmScheduler();
 
     public ReminderService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -98,7 +100,7 @@ public final class ReminderService  {
      *            whether to check if task has requisite properties
      */
     private void scheduleAlarm(Task task, boolean shouldPerformPropertyCheck) {
-        if(!task.isSaved())
+        if(task == null || !task.isSaved())
             return;
 
         // read data if necessary
@@ -106,6 +108,8 @@ public final class ReminderService  {
             for(Property<?> property : PROPERTIES) {
                 if(!task.containsValue(property)) {
                     task = taskDao.fetch(task.getId(), PROPERTIES);
+                    if(task == null)
+                        return;
                     break;
                 }
             }
@@ -121,11 +125,11 @@ public final class ReminderService  {
         long whenOverdue = calculateNextOverdueReminder(task);
 
         if(whenRandom < whenDueDate && whenRandom < whenOverdue)
-            createAlarm(task, whenRandom, TYPE_RANDOM);
+            scheduler.createAlarm(task, whenRandom, TYPE_RANDOM);
         else if(whenDueDate < whenOverdue)
-            createAlarm(task, whenDueDate, TYPE_DUE);
+            scheduler.createAlarm(task, whenDueDate, TYPE_DUE);
         else if(whenOverdue != NO_ALARM)
-            createAlarm(task, whenOverdue, TYPE_OVERDUE);
+            scheduler.createAlarm(task, whenOverdue, TYPE_OVERDUE);
     }
 
     /**
@@ -201,37 +205,55 @@ public final class ReminderService  {
     // --- alarm manager alarm creation
 
     /**
-     * Create an alarm for the given task at the given type
-     *
-     * @param task
-     * @param time
-     * @param type
-     * @param flags
+     * Interface for testing
      */
-    @SuppressWarnings("nls")
-    static void createAlarm(Task task, long time, byte type) {
-        if(time == 0 || time == NO_ALARM)
-            return;
+    interface AlarmScheduler {
+        public void createAlarm(Task task, long time, int type);
+    }
 
-        if(time < DateUtilities.now()) {
-            time = DateUtilities.now() + (long)((0.5f +
-                4 * random.nextFloat()) * DateUtilities.ONE_HOUR);
+    public void setScheduler(AlarmScheduler scheduler) {
+        this.scheduler = scheduler;
+    }
+
+    public AlarmScheduler getScheduler() {
+        return scheduler;
+    }
+
+    private class ReminderAlarmScheduler implements AlarmScheduler {
+        /**
+         * Create an alarm for the given task at the given type
+         *
+         * @param task
+         * @param time
+         * @param type
+         * @param flags
+         */
+        @SuppressWarnings("nls")
+        public void createAlarm(Task task, long time, int type) {
+            if(time == 0 || time == NO_ALARM)
+                return;
+
+            if(time < DateUtilities.now()) {
+                time = DateUtilities.now() + (long)((0.5f +
+                        4 * random.nextFloat()) * DateUtilities.ONE_HOUR);
+            }
+
+            Context context = ContextManager.getContext();
+            Intent intent = new Intent(context, Notifications.class);
+            intent.setType(Long.toString(task.getId()));
+            intent.setAction(Integer.toString(type));
+            intent.putExtra(Notifications.ID_KEY, task.getId());
+            intent.putExtra(Notifications.TYPE_KEY, type);
+
+            AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
+                    intent, 0);
+
+            if(Constants.DEBUG)
+                Log.e("Astrid", "Alarm (" + task.getId() + ", " + type +
+                        ") set for " + new Date(time));
+            am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }
-
-        Context context = ContextManager.getContext();
-        Intent intent = new Intent(context, Notifications.class);
-        intent.setType(Long.toString(task.getId()));
-        intent.setAction(Integer.toString(type));
-        intent.putExtra(Notifications.ID_KEY, task.getId());
-        intent.putExtra(Notifications.TYPE_KEY, type);
-
-        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
-                intent, 0);
-
-        if(Constants.DEBUG)
-            Log.e("Astrid", "Alarm (" + task.getId() + ", " + type + ") set for " + new Date(time));
-        am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
     }
 
     // --- data fetching classes

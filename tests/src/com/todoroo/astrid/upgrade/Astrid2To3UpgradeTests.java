@@ -4,8 +4,10 @@ import java.util.Date;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.alarms.Alarm;
+import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.legacy.data.alerts.AlertController;
 import com.todoroo.astrid.legacy.data.enums.Importance;
@@ -24,19 +26,62 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
+    // --- legacy table names
+
+    private static final String SYNC_TEST = "synctest";
+    private static final String ALERTS_TEST = "alertstest";
+    private static final String TAG_TASK_TEST = "tagtasktest";
+    private static final String TAGS_TEST = "tagstest";
+    private static final String TASKS_TEST = "taskstest";
+
+    // --- setup and teardnwo
+
     @Autowired
     TaskDao taskDao;
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        // initialize test dependency injector
+        TestDependencyInjector injector = TestDependencyInjector.initialize("upgrade");
+        injector.addInjectable("tasksTable", TASKS_TEST);
+        injector.addInjectable("tagsTable", TAGS_TEST);
+        injector.addInjectable("tagTaskTable", TAG_TASK_TEST);
+        injector.addInjectable("alertsTable", ALERTS_TEST);
+        injector.addInjectable("syncTable", SYNC_TEST);
+        injector.addInjectable("database", database);
+
+        deleteDatabase(TASKS_TEST);
+        deleteDatabase(TAGS_TEST);
+        deleteDatabase(TAG_TASK_TEST);
+        deleteDatabase(ALERTS_TEST);
+        deleteDatabase(SYNC_TEST);
+
+        alarmsDatabase = new AlarmDatabase();
+        alarmsDatabase.clear();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        TestDependencyInjector.deinitialize("upgrade");
+    }
+
+    // --- helper methods
 
     public void upgrade2To3() {
         new Astrid2To3UpgradeHelper().upgrade2To3();
     }
 
-    public static void assertDatesEqual(Date old, int newDate) {
+    public static void assertDatesEqual(Date old, long newDate) {
         if(old == null)
             assertEquals(0, newDate);
         else
-            assertEquals(old.getTime() / 1000L, newDate);
+            assertEquals(old.getTime(), newDate);
     }
+
+    // --- tests
 
     /**
      * Test upgrade doesn't crash and burn when there is nothing
@@ -78,6 +123,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         guti.setHiddenUntil(new Date());
         guti.setRepeat(new RepeatInfo(RepeatInterval.DAYS, 10));
         guti.setElapsedSeconds(500);
+        guti.setNotificationIntervalSeconds(200);
         taskController.saveTask(guti, false);
         Date createdDate = new Date();
 
@@ -96,22 +142,22 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         Task task = new Task(tasks);
         assertEquals(griffey.getName(), task.getValue(Task.TITLE));
         assertDatesEqual(griffey.getDefiniteDueDate(), task.getValue(Task.DUE_DATE));
-        assertEquals((Integer)Task.IMPORTANCE_NONE, task.getValue(Task.IMPORTANCE));
+        assertEquals(Task.IMPORTANCE_NONE, (int)task.getValue(Task.IMPORTANCE));
         assertEquals(griffey.getEstimatedSeconds(), task.getValue(Task.ESTIMATED_SECONDS));
         assertEquals(griffey.getNotes(), task.getValue(Task.NOTES));
-        assertEquals((Integer)0, task.getValue(Task.REMINDER_LAST));
-        assertEquals((Integer)0, task.getValue(Task.HIDE_UNTIL));
+        assertEquals(0, (long)task.getValue(Task.REMINDER_LAST));
+        assertEquals(0, (long)task.getValue(Task.HIDE_UNTIL));
 
         tasks.moveToNext();
         task = new Task(tasks);
         assertEquals(guti.getName(), task.getValue(Task.TITLE));
-        assertDatesEqual(guti.getDefiniteDueDate(), task.getValue(Task.DUE_DATE));
-        assertDatesEqual(guti.getPreferredDueDate(), task.getValue(Task.PREFERRED_DUE_DATE));
+        assertDatesEqual(guti.getPreferredDueDate(), task.getValue(Task.DUE_DATE));
         assertDatesEqual(guti.getHiddenUntil(), task.getValue(Task.HIDE_UNTIL));
         assertEquals((Integer)Task.IMPORTANCE_DO_OR_DIE, task.getValue(Task.IMPORTANCE));
         assertEquals(guti.getRepeat().getValue(), task.getRepeatInfo().getValue());
         assertEquals(guti.getRepeat().getInterval().ordinal(), task.getRepeatInfo().getInterval().ordinal());
         assertEquals(guti.getElapsedSeconds(), task.getValue(Task.ELAPSED_SECONDS));
+        assertEquals(guti.getNotificationIntervalSeconds() * 1000L, (long)task.getValue(Task.REMINDER_PERIOD));
         assertDatesEqual(createdDate, task.getValue(Task.CREATION_DATE));
         assertDatesEqual(createdDate, task.getValue(Task.MODIFICATION_DATE));
     }
@@ -147,7 +193,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
         // verify that data exists in our new table
         database.openForReading();
-        TagService tagService = new TagService(getContext());
+        TagService tagService = new TagService();
         Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
         assertEquals(2, tags.length);
         assertEquals("salty", tags[0].tag);
@@ -201,7 +247,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
         // verify that data exists in our new table
         database.openForReading();
-        TagService tagService = new TagService(getContext());
+        TagService tagService = new TagService();
         Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
         assertEquals(1, tags.length);
         assertEquals("attached", tags[0].tag);

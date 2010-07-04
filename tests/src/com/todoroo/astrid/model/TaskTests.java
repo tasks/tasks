@@ -22,20 +22,14 @@ public class TaskTests extends DatabaseTestCase {
         assertTrue(Task.IMPORTANCE_MUST_DO < Task.IMPORTANCE_SHOULD_DO);
         assertTrue(Task.IMPORTANCE_SHOULD_DO < Task.IMPORTANCE_NONE);
 
-        ArrayList<Integer> urgencies = new ArrayList<Integer>();
-        urgencies.add(Task.URGENCY_NONE);
-        urgencies.add(Task.URGENCY_SPECIFIC_DAY);
-        urgencies.add(Task.URGENCY_SPECIFIC_DAY_TIME);
-        urgencies.add(Task.URGENCY_THIS_MONTH);
-        urgencies.add(Task.URGENCY_THIS_WEEK);
-        urgencies.add(Task.URGENCY_TODAY);
-        urgencies.add(Task.URGENCY_WITHIN_A_YEAR);
-        urgencies.add(Task.URGENCY_WITHIN_SIX_MONTHS);
-        urgencies.add(Task.URGENCY_WITHIN_THREE_MONTHS);
+        ArrayList<Integer> reminderFlags = new ArrayList<Integer>();
+        reminderFlags.add(Task.NOTIFY_AFTER_DEADLINE);
+        reminderFlags.add(Task.NOTIFY_AT_DEADLINE);
+        reminderFlags.add(Task.NOTIFY_NONSTOP);
 
         // assert no duplicates
-        assertEquals(new TreeSet<Integer>(urgencies).size(),
-                urgencies.size());
+        assertEquals(new TreeSet<Integer>(reminderFlags).size(),
+                reminderFlags.size());
     }
 
     /** Check defaults */
@@ -46,7 +40,6 @@ public class TaskTests extends DatabaseTestCase {
         assertTrue(defaults.containsKey(Task.DUE_DATE.name));
         assertTrue(defaults.containsKey(Task.HIDE_UNTIL.name));
         assertTrue(defaults.containsKey(Task.COMPLETION_DATE.name));
-        assertTrue(defaults.containsKey(Task.URGENCY.name));
         assertTrue(defaults.containsKey(Task.IMPORTANCE.name));
     }
 
