@@ -5,8 +5,37 @@
   <!-- Resources for built-in reminders plug-in -->
     
   <!-- Preference Screen Title -->
-  <string name="EPr_alerts_header">Reminder Settings</string>
+  <string name="rmd_EPr_alerts_header">Reminder Settings</string>
     
+  <!-- Quiet Hours Start Title -->
+  <string name="rmd_EPr_quiet_hours_start_title">Quiet Hours Start</string>
+  <!-- Quiet Hours Start Description (%s => time set) -->
+  <string name="rmd_EPr_quiet_hours_start_desc">No notifications will appear after %s</string>
+  <!-- Quiet Hours Start/End Description (disabled) -->
+  <string name="rmd_EPr_quiet_hours_desc_none">Please set both start and end times</string>
+  
+  <!-- Quiet Hours End Title -->
+  <string name="rmd_EPr_quiet_hours_end_title">Quiet Hours End</string>
+  <!-- Quiet Hours End Description (%s => time set) -->
+  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will begin appearing starting at %s</string>
+
+  <!-- Notification Ringtone Title -->
+  <string name="rmd_EPr_ringtone_title">Notification Ringtone</string>
+  <!-- Notification Ringtone Description (when custom tone is set) -->
+  <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
+  <!-- Notification Ringtone Description (when custom tone is not set) -->
+  <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
+  
+  <!-- Notification Persistence Title -->
+  <string name="rmd_EPr_persistent_title">Notification Persistence</string>
+  <!-- Notification Persistence Description (true) -->
+  <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
+  <!-- Notification Persistence Description (false) -->
+  <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
+  
+  <!-- Defaults Title -->
+  <string name="rmd_EPr_defaults_header">New Task Defaults</string>
+  
   <!-- =============================================== random reminders == -->
 
   <string-array name="reminders">

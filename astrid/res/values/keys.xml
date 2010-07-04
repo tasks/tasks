@@ -28,31 +28,31 @@
   <!-- ======================================================== REMINDERS == -->
 
   <!-- hour to start quiet hours (inclusive) -->
-  <string name="p_notif_quietStart">notif_qstart</string>
+  <string name="p_rmd_quietStart">notif_qstart</string>
   
   <!-- hour to end quiet hours (non-inclusive) -->
-  <string name="p_notif_quietEnd">notif_qend</string>
+  <string name="p_rmd_quietEnd">notif_qend</string>
   
   <!-- whether "clear all notifications" clears astrid notifications -->
-  <string name="p_notif_annoy">notif_annoy</string>
+  <string name="p_rmd_persistent">notif_annoy</string>
   
   <!-- whether to vibrate phone when reminder fires -->
-  <string name="p_notif_vibrate">notif_vibrate</string>
+  <string name="p_rmd_vibrate">notif_vibrate</string>
   
   <!-- ringtone to use for notifications -->
-  <string name="p_notification_ringtone">notification_ringtone</string>
+  <string name="p_rmd_ringtone">notification_ringtone</string>
   
   <!-- icon theme for notifications -->
-  <string name="p_notif_icon">notif_theme</string>
+  <string name="p_rmd_icon">notif_theme</string>
   
   <!-- whether astrid nag messages are used -->
-  <string name="p_nagging">nagging</string>
+  <string name="p_rmd_nagging">nagging</string>
   
-  <!-- reminder time when task doesn't have a due time -->
-  <string name="p_reminder_time">reminder_time</string>
+  <!-- reminder time when task doesn't have a due time (hour of day) -->
+  <string name="p_rmd_time">reminder_time</string>
 
-  <!-- default random reminder setting -->
-  <string name="p_default_reminder_random">notif_default_reminder</string>
+  <!-- default random reminder setting (in days) -->
+  <string name="p_rmd_default_random">notif_default_reminder</string>
   
   <string-array name="notif_icon_values">
     <!-- Corresponding to the constants in Preferences.java (do not edit) -->
@@ -144,6 +144,14 @@
   <!-- default urgency setting (corresponds to entry in TEA_urgency) -->  
   <string name="p_default_urgency_key">p_def_urg</string>
       
+  <string-array name="EPr_default_importance_values">
+    <!-- importance: labels that map EPr_default_importance items to task importance values. -->
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
+  </string-array>
+      
   <string-array name="EPr_default_urgency_values">
     <!-- urgency: labels that map EPr_default_urgency items to index in TEA_urgency. -->
     <item>0</item>
@@ -156,10 +164,10 @@
       
   <string-array name="EPr_default_hideUntil_values">
     <!-- hideUntil: labels that map EPr_default_hideUntil items to index in TEA_hideUntil. -->
-      <item>0</item>
-      <item>1</item>
-      <item>2</item>
-      <item>3</item>
+    <item>0</item>
+    <item>1</item>
+    <item>2</item>
+    <item>3</item>
   </string-array>
   
   <!-- default importance setting (corresponds to task setting) -->

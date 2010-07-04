@@ -1,5 +1,6 @@
 package com.todoroo.astrid.activity;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
 
@@ -28,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
@@ -52,6 +54,7 @@ import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
+import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
@@ -540,7 +543,15 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             itemId = item.getGroupId();
             Task task = new Task();
             task.setId(itemId);
-            new ReminderService().scheduleAlarm(task);
+            ReminderService reminderService = new ReminderService();
+            reminderService.setScheduler(new AlarmScheduler() {
+                @Override
+                public void createAlarm(Task theTask, long time, int type) {
+                    Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " + //$NON-NLS-1$
+                            new Date(time), Toast.LENGTH_LONG).show();
+                }
+            });
+            reminderService.scheduleAlarm(task);
             return true;
         }
 

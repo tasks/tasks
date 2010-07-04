@@ -407,4 +407,9 @@ If you don\'t want to see the new task right after you complete the old one, you
   <!-- Default Importance Description (%s => setting) -->
   <string name="EPr_default_importance_desc">Currently Set To: %s</string>
   
+  <!-- Default Hide Until Title -->
+  <string name="EPr_default_hideUntil_title">Default Hide Until</string>
+  <!-- Default Hide Until Description (%s => setting) -->
+  <string name="EPr_default_hideUntil_desc">Currently Set To: %s</string>
+  
 </resources>

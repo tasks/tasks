@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.astrid.model.Task;
 
 public class Preferences {
 
@@ -21,20 +20,39 @@ public class Preferences {
         Editor editor = prefs.edit();
         Resources r = context.getResources();
 
-        if(getIntegerFromString(R.string.p_default_urgency_key) == null) {
-            editor.putString(r.getString(R.string.p_default_urgency_key),
-                    Integer.toString(4));
-        }
-        if(getIntegerFromString(R.string.p_default_importance_key) == null) {
-            editor.putString(r.getString(R.string.p_default_importance_key),
-                    Integer.toString(Task.IMPORTANCE_SHOULD_DO));
-        }
-        if(getIntegerFromString(R.string.p_reminder_time) == null) {
-            editor.putString(r.getString(R.string.p_reminder_time),
-                    Integer.toString(12));
-        }
+        setIfUnset(prefs, editor, r, R.string.p_default_urgency_key, 4);
+        setIfUnset(prefs, editor, r, R.string.p_default_importance_key, 2);
+        setIfUnset(prefs, editor, r, R.string.p_default_hideUntil_key, 0);
 
         editor.commit();
+    }
+
+    /**
+     * Helper to write to editor if key specified is null
+     * @param prefs
+     * @param editor
+     * @param r
+     * @param keyResource
+     * @param value
+     */
+    public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
+        String key = r.getString(keyResource);
+        if(!prefs.contains(key))
+            editor.putString(key, Integer.toString(value));
+    }
+
+    /**
+     * Helper to write to editor if key specified is null
+     * @param prefs
+     * @param editor
+     * @param r
+     * @param keyResource
+     * @param value
+     */
+    public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, boolean value) {
+        String key = r.getString(keyResource);
+        if(!prefs.contains(key))
+            editor.putBoolean(key, value);
     }
 
     /* ======================================================================

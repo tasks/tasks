@@ -2,12 +2,27 @@
 <PreferenceScreen
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <PreferenceScreen
+        android:title="@string/EPr_defaults_header">
+        <ListPreference
+            android:key="@string/p_default_importance_key"  
+            android:entries="@array/EPr_default_importance"  
+            android:entryValues="@array/EPr_default_importance_values"  
+            android:title="@string/EPr_default_importance_title" />
+        <ListPreference
+            android:key="@string/p_default_urgency_key"  
+            android:entries="@array/EPr_default_urgency"  
+            android:entryValues="@array/EPr_default_urgency_values"  
+            android:title="@string/EPr_default_urgency_title" />
+        <ListPreference
+            android:key="@string/p_default_hideUntil_key"  
+            android:entries="@array/EPr_default_hideUntil"  
+            android:entryValues="@array/EPr_default_hideUntil_values"  
+            android:title="@string/EPr_default_hideUntil_title" />
+    </PreferenceScreen>  
+
     <PreferenceCategory
         android:title="@string/prefs_category_appearance">
-        <CheckBoxPreference
-            android:key="@string/p_colorize"
-            android:title="@string/prefs_colorize_title"
-            android:summary="@string/prefs_colorize_desc" />
         <ListPreference
             android:key="@string/p_fontSize"
             android:entries="@array/EPr_font_size"
@@ -18,11 +33,6 @@
 
     <PreferenceCategory
         android:title="@string/prefs_category_other">
-        <CheckBoxPreference
-           android:key="@string/p_nagging"
-           android:title="@string/prefs_nagging_title"
-           android:summary="@string/prefs_nagging_desc"
-           android:defaultValue="true"  />
         <CheckBoxPreference
             android:key="@string/p_backup"
             android:title="@string/prefs_backup_title"

@@ -21,6 +21,7 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Data Model which represents a task users need to accomplish.
@@ -184,10 +185,8 @@ public final class Task extends AbstractModel {
      * Call to load task default values from preferences.
      */
     public static void refreshDefaultValues() {
-        /*defaultValues.put(URGENCY.name,
-                Preferences.getIntegerFromString(R.string.EPr_default_urgency_key));
         defaultValues.put(IMPORTANCE.name,
-                Preferences.getIntegerFromString(R.string.EPr_default_importance_key));*/
+                Preferences.getIntegerFromString(R.string.p_default_importance_key));
         defaultValuesLoaded = true;
     }
 
@@ -260,8 +259,10 @@ public final class Task extends AbstractModel {
      * @return true if hours, minutes, and seconds indicate end of day
      */
     private static boolean isEndOfDay(Date date) {
-        return date.getHours() == 23 && date.getMinutes() == 59 &&
-            date.getSeconds() == 59;
+        int hours = date.getHours();
+        int minutes = date.getMinutes();
+        int seconds = date.getSeconds();
+        return hours == 23 && minutes == 59 && seconds == 59;
     }
 
     /**
@@ -286,7 +287,7 @@ public final class Task extends AbstractModel {
      * Checks whether this due date has a due time or only a date
      */
     public boolean hasDueTime() {
-        return isEndOfDay(new Date(getValue(DUE_DATE)));
+        return !isEndOfDay(new Date(getValue(DUE_DATE)));
     }
 
     /**
@@ -298,7 +299,7 @@ public final class Task extends AbstractModel {
     public boolean getFlag(IntegerProperty property, int flag) {
         return (getValue(property) & flag) > 0;
     }
-    
+
     /**
      * @return repeat data structure. Requires REPEAT
      */

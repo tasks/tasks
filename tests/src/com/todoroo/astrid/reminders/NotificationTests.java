@@ -113,8 +113,8 @@ public class NotificationTests extends DatabaseTestCase {
         intent.putExtra(Notifications.ID_KEY, task.getId());
 
         int hour = new Date().getHours();
-        Preferences.setStringFromInteger(R.string.p_notif_quietStart, hour - 1);
-        Preferences.setStringFromInteger(R.string.p_notif_quietEnd, hour + 1);
+        Preferences.setStringFromInteger(R.string.p_rmd_quietStart, hour - 1);
+        Preferences.setStringFromInteger(R.string.p_rmd_quietEnd, hour + 1);
 
         // due date notification has vibrate
         Notifications.setNotificationManager(new TestNotificationManager() {
@@ -142,8 +142,8 @@ public class NotificationTests extends DatabaseTestCase {
         new Notifications().onReceive(getContext(), intent);
 
         // wrapping works
-        Preferences.setStringFromInteger(R.string.p_notif_quietStart, hour + 2);
-        Preferences.setStringFromInteger(R.string.p_notif_quietEnd, hour + 1);
+        Preferences.setStringFromInteger(R.string.p_rmd_quietStart, hour + 2);
+        Preferences.setStringFromInteger(R.string.p_rmd_quietEnd, hour + 1);
 
         Notifications.setNotificationManager(new TestNotificationManager() {
             public void notify(int id, Notification notification) {
@@ -157,7 +157,7 @@ public class NotificationTests extends DatabaseTestCase {
 
         // nonstop notification still sounds
         task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_NONSTOP);
-        task.save();
+        taskDao.persist(task);
         Notifications.setNotificationManager(new TestNotificationManager() {
             public void notify(int id, Notification notification) {
                 assertTrue(notification.sound != null ||

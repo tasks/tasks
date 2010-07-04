@@ -34,7 +34,9 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     private static final String TAGS_TEST = "tagstest";
     private static final String TASKS_TEST = "taskstest";
 
-    // --- setup and teardnwo
+    // --- setup and teardown
+
+    private AlarmDatabase alarmsDatabase;
 
     @Autowired
     TaskDao taskDao;
@@ -117,6 +119,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         taskController.saveTask(griffey, false);
 
         TaskModelForEdit guti = new com.todoroo.astrid.legacy.data.task.TaskModelForEdit();
+        Date createdDate = new Date();
         guti.setName("franklin gutierrez");
         guti.setPreferredDueDate(new Date(System.currentTimeMillis() + 5000000L));
         guti.setImportance(Importance.LEVEL_1);
@@ -125,7 +128,6 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         guti.setElapsedSeconds(500);
         guti.setNotificationIntervalSeconds(200);
         taskController.saveTask(guti, false);
-        Date createdDate = new Date();
 
         // assert created
         assertEquals(2, taskController.getAllTaskIdentifiers().size());

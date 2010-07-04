@@ -7,6 +7,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.content.res.Resources;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -62,6 +65,32 @@ public final class ReminderService  {
 
     public ReminderService() {
         DependencyInjectionService.getInstance().inject(this);
+        setPreferenceDefaults();
+    }
+
+    // --- preference handling
+
+    private static boolean preferencesInitialized = false;
+
+    /** Set preference defaults, if unset. called at startup */
+    public void setPreferenceDefaults() {
+        if(preferencesInitialized)
+            return;
+
+        Context context = ContextManager.getContext();
+        SharedPreferences prefs = Preferences.getPrefs(context);
+        Editor editor = prefs.edit();
+        Resources r = context.getResources();
+
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietStart, 22);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_quietEnd, 10);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_default_random, 7);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_time, 12);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_nagging, true);
+        Preferences.setIfUnset(prefs, editor, r, R.string.p_rmd_persistent, true);
+
+        editor.commit();
+        preferencesInitialized = true;
     }
 
     // --- reminder scheduling logic
@@ -168,7 +197,7 @@ public final class ReminderService  {
             else {
                 // return notification time on this day
                 Date date = new Date(dueDate);
-                date.setHours(Preferences.getIntegerFromString(R.string.p_reminder_time));
+                date.setHours(Preferences.getIntegerFromString(R.string.p_rmd_time));
                 date.setMinutes(0);
                 return date.getTime();
             }
@@ -207,7 +236,7 @@ public final class ReminderService  {
     /**
      * Interface for testing
      */
-    interface AlarmScheduler {
+    public interface AlarmScheduler {
         public void createAlarm(Task task, long time, int type);
     }
 

@@ -188,6 +188,13 @@
     </receiver>
 
     <!-- reminders -->        
+    <activity android:name="com.todoroo.astrid.reminders.ReminderPreferences" 
+              android:label="@string/rmd_EPr_alerts_header">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.SETTINGS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
     <receiver android:name="com.todoroo.astrid.reminders.ReminderStartupService">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED" />

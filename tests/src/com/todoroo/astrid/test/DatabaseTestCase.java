@@ -19,19 +19,17 @@ public class DatabaseTestCase extends TodorooTestCase {
 
 	public static Database database = new TestDatabase();
 
-    public AlarmDatabase alarmsDatabase;
-
     static {
         AstridDependencyInjector.initialize();
-
-        // initialize test dependency injector
-        TestDependencyInjector injector = TestDependencyInjector.initialize("db");
-        injector.addInjectable("database", database);
     }
 
 	@Override
 	protected void setUp() throws Exception {
 	    super.setUp();
+
+	    // initialize test dependency injector
+	    TestDependencyInjector injector = TestDependencyInjector.initialize("db");
+	    injector.addInjectable("database", database);
 
 	    DependencyInjectionService.getInstance().inject(this);
 

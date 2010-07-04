@@ -11,11 +11,11 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnCreateContextMenuListener;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
@@ -34,6 +34,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskDetail;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -83,6 +84,7 @@ public class TaskAdapter extends CursorAdapter {
     private final int resource;
     private final LayoutInflater inflater;
     protected OnCompletedTaskListener onCompletedTaskListener = null;
+    private final int fontSize;
 
     /**
      * Constructor
@@ -112,6 +114,7 @@ public class TaskAdapter extends CursorAdapter {
 
         completedItems = new HashMap<Long, Boolean>();
         detailCache = new HashMap<Long, ArrayList<TaskDetail>>();
+        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize);
 
         IMPORTANCE_COLORS = Task.getImportanceColors(activity.getResources());
     }
@@ -129,6 +132,7 @@ public class TaskAdapter extends CursorAdapter {
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.task = new Task();
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
+        viewHolder.nameView.setTextSize(fontSize);
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.details = (LinearLayout)view.findViewById(R.id.details);

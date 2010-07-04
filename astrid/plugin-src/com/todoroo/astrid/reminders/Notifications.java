@@ -55,13 +55,14 @@ public class Notifications extends BroadcastReceiver {
         AstridDependencyInjector.initialize();
     }
 
+    public Notifications() {
+        DependencyInjectionService.getInstance().inject(this);
+    }
+
     @Override
     /** Alarm intent */
     public void onReceive(Context context, Intent intent) {
-        DependencyInjectionService.getInstance().inject(this);
         ContextManager.setContext(context);
-        if(notificationManager == null)
-            notificationManager = new AndroidNotificationManager(context);
 
         long id = intent.getLongExtra(ID_KEY, 0);
         int type = intent.getIntExtra(TYPE_KEY, (byte) 0);
@@ -102,6 +103,8 @@ public class Notifications extends BroadcastReceiver {
      */
     public boolean showNotification(long id, int type, String reminder) {
         Context context = ContextManager.getContext();
+        if(notificationManager == null)
+            notificationManager = new AndroidNotificationManager(context);
 
         Task task;
         try {
@@ -232,6 +235,7 @@ public class Notifications extends BroadcastReceiver {
 
         if(Constants.DEBUG)
             Log.w("Astrid", "Logging notification: " + reminder); //$NON-NLS-1$ //$NON-NLS-2$
+
         notificationManager.notify((int)id, notification);
 
         return true;
