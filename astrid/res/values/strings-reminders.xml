@@ -4,6 +4,13 @@
 
   <!-- Resources for built-in reminders plug-in -->
     
+  <!-- ==================================================== notifications == -->
+  
+  <!-- Name of filter when viewing a reminder -->
+  <string name="rmd_NoA_filter">Astrid: Reminder</string>
+    
+  <!-- ============================================= reminder preferences == -->
+  
   <!-- Preference Screen Title -->
   <string name="rmd_EPr_alerts_header">Reminder Settings</string>
     

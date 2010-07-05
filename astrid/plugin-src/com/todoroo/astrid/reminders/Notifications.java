@@ -91,7 +91,7 @@ public class Notifications extends BroadcastReceiver {
     }
 
     /** @return a random reminder string */
-    private static String getRandomReminder(String[] reminders) {
+    static String getRandomReminder(String[] reminders) {
         int next = ReminderService.random.nextInt(reminders.length);
         String reminder = reminders[next];
         return reminder;
@@ -152,10 +152,7 @@ public class Notifications extends BroadcastReceiver {
         Resources r = context.getResources();
 
         Intent notifyIntent = new Intent(context, NotificationActivity.class);
-        /*notifyIntent.putExtra(TaskListSubActivity.LOAD_INSTANCE_TOKEN, id);
-        notifyIntent.putExtra(TaskListSubActivity.FROM_NOTIFICATION_TOKEN, true);
-        notifyIntent.putExtra(TaskListSubActivity.NOTIF_FLAGS_TOKEN, flags);
-        notifyIntent.putExtra(TaskListSubActivity.NOTIF_REPEAT_TOKEN, repeatInterval);  TODO */
+        notifyIntent.putExtra(NotificationActivity.TOKEN_ID, id);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 (int)id, notifyIntent, PendingIntent.FLAG_ONE_SHOT);
 

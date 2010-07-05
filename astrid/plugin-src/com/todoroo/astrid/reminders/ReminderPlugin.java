@@ -4,21 +4,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.Plugin;
-
 public class ReminderPlugin extends BroadcastReceiver {
 
-    static final String IDENTIFIER = "reminders";
+    static final String IDENTIFIER = "reminders"; //$NON-NLS-1$
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Plugin plugin = new Plugin(IDENTIFIER, "Reminders", "Todoroo",
+        /*Plugin plugin = new Plugin(IDENTIFIER, "Reminders", "Todoroo",
                 "Provides notification reminders for tasks");
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_PLUGINS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_PLUGIN, plugin);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);*/
     }
 
 }

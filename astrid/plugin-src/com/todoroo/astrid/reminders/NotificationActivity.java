@@ -22,7 +22,9 @@ package com.todoroo.astrid.reminders;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
@@ -40,10 +42,7 @@ public class NotificationActivity extends Activity {
     // --- constants
 
     /** task id from notification */
-    public static final String TOKEN_ID = "id";
-
-    /** task title */
-    public static final String TOKEN_TITLE = "title";
+    public static final String TOKEN_ID = "id"; //$NON-NLS-1$
 
     // --- implementation
 
@@ -68,13 +67,16 @@ public class NotificationActivity extends Activity {
 
         Intent taskListIntent = new Intent(this, TaskListActivity.class);
         Filter itemFilter = new Filter(ReminderPlugin.IDENTIFIER,
-                "Notification",
-                "Notification",
+                getString(R.string.rmd_NoA_filter),
+                getString(R.string.rmd_NoA_filter),
                 new QueryTemplate().where(TaskCriteria.byId(id)),
                 null);
 
         taskListIntent.putExtra(TaskListActivity.TOKEN_FILTER, itemFilter);
         startActivity(taskListIntent);
+
+        String reminder = Notifications.getRandomReminder(getResources().getStringArray(R.array.reminder_responses));
+        Toast.makeText(this, reminder, Toast.LENGTH_LONG).show();
 
         finish();
     }
