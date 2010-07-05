@@ -51,8 +51,8 @@
   <!-- reminder time when task doesn't have a due time (hour of day) -->
   <string name="p_rmd_time">reminder_time</string>
 
-  <!-- default random reminder setting (in days) -->
-  <string name="p_rmd_default_random">notif_default_reminder</string>
+  <!-- default random reminder setting (in hours) -->
+  <string name="p_rmd_default_random_hours">notif_default_reminder</string>
   
   <string-array name="notif_icon_values">
     <!-- Corresponding to the constants in Preferences.java (do not edit) -->

@@ -151,11 +151,20 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/TEA_reminder_overdue" />
-      <CheckBox
-        android:id="@+id/reminder_random"
+      <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/TEA_reminder_random" />
+        android:layout_height="fill_parent">
+        <CheckBox
+          android:id="@+id/reminder_random"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/TEA_reminder_random" />
+        <Spinner
+          android:id="@+id/reminder_random_interval"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" />
+      </LinearLayout>
         
       <!-- reminder mode -->
       <TextView

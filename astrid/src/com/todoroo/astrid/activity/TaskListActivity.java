@@ -151,7 +151,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             String title = extras.getString(TOKEN_FILTER_TITLE);
             String sql = extras.getString(TOKEN_FILTER_SQL);
             ContentValues values = extras.getParcelable(TOKEN_FILTER_VALUES);
-            filter = new Filter("", "", title, new QueryTemplate(), values);
+            filter = new Filter("", "", title, new QueryTemplate(), values); //$NON-NLS-1$ //$NON-NLS-2$
             filter.sqlQuery = sql;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
@@ -457,8 +457,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 R.string.TAd_contextDeleteTask);
 
         if(Constants.DEBUG) {
+            menu.add("--- debug ---"); //$NON-NLS-1$
             menu.add(id, CONTEXT_MENU_DEBUG, Menu.NONE,
-                    "schedule alarm"); //$NON-NLS-1$
+                    "when alarm?"); //$NON-NLS-1$
             menu.add(id, CONTEXT_MENU_DEBUG + 1, Menu.NONE,
                     "make notification"); //$NON-NLS-1$
         }
@@ -539,19 +540,24 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             return true;
         }
 
+        // --- debug
+
         case CONTEXT_MENU_DEBUG: {
             itemId = item.getGroupId();
             Task task = new Task();
             task.setId(itemId);
-            ReminderService reminderService = new ReminderService();
+            final ReminderService reminderService = new ReminderService();
             reminderService.setScheduler(new AlarmScheduler() {
                 @Override
                 public void createAlarm(Task theTask, long time, int type) {
                     Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " + //$NON-NLS-1$
                             new Date(time), Toast.LENGTH_LONG).show();
+                    reminderService.setScheduler(null);
                 }
             });
             reminderService.scheduleAlarm(task);
+            if(reminderService.getScheduler() != null)
+                Toast.makeText(this, "No alarms", Toast.LENGTH_LONG).show(); //$NON-NLS-1$
             return true;
         }
 

@@ -292,27 +292,6 @@ to the plugin creator for fastest service.
   <!-- Repeat label when repeats are not set -->
   <string name="TEA_repeat_value_unset">No Repeat Set</string>
 
-  <!-- Reminder header label -->  
-  <string name="TEA_reminder_label">Remind me...</string>
-
-  <!-- Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when it\'s time to start the task</string>
-
-  <!-- Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">... when task is overdue</string>
-
-  <!-- Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">... randomly every %s</string>
-
-  <!-- Reminder alarm clock label -->  
-  <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
-
-  <!-- Reminder alarm clock toggle: off -->  
-  <string name="TEA_reminder_alarm_off">Ring Once</string>
-
-  <!-- Reminder alarm clock toggle: on -->  
-  <string name="TEA_reminder_alarm_on">Ring Until I Dismiss Alarm</string>
-  
   <!-- Tags label -->
   <string name="TEA_tags_label">Tags:</string>
   

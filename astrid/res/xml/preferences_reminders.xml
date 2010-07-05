@@ -20,10 +20,11 @@
         android:key="@string/p_rmd_vibrate"
         android:title="@string/prefs_vibrate_title"
         android:summary="@string/prefs_vibrate_desc" />
-    <EditTextPreference
-        android:key="@string/p_rmd_default_random"
+    <ListPreference
+        android:key="@string/p_rmd_default_random_hours"
         android:title="@string/prefs_defaultRemind_title"
-        android:summary="@string/prefs_defaultRemind_desc" />
+        android:entries="@array/EPr_reminder_random"
+        android:entryValues="@array/EPr_reminder_random_hours"/>
     <RingtonePreference
         android:key="@string/p_rmd_ringtone"
         android:title="@string/rmd_EPr_ringtone_title"

@@ -4,10 +4,53 @@
 
   <!-- Resources for built-in reminders plug-in -->
     
+  <!-- =============================================== task edit activity == -->
+
+  <!-- Reminder header label -->  
+  <string name="TEA_reminder_label">Remind me...</string>
+
+  <!-- Reminder @ deadline -->  
+  <string name="TEA_reminder_due">... when it\'s time to start the task</string>
+
+  <!-- Reminder after deadline -->  
+  <string name="TEA_reminder_overdue">... when task is overdue</string>
+
+  <!-- Reminder at random times (%s => time plural)-->
+  <string name="TEA_reminder_random">... randomly every</string>
+
+  <!-- Reminder alarm clock label -->  
+  <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
+
+  <!-- Reminder alarm clock toggle: off -->  
+  <string name="TEA_reminder_alarm_off">Ring Once</string>
+
+  <!-- Reminder alarm clock toggle: on -->  
+  <string name="TEA_reminder_alarm_on">Ring Until I Dismiss Alarm</string>
+
+  <string-array name="TEA_reminder_random">
+    <!-- random reminder labels for edit page. -->
+    <item>hour</item>
+    <item>day</item>
+    <item>week</item>
+    <item>two weeks</item>
+    <item>month</item>
+    <item>two months</item>
+  </string-array>
+
+  <string-array name="TEA_reminder_random_hours">
+    <!-- values (in hours) associated with items above. -->
+    <item>1</item>
+    <item>24</item>
+    <item>168</item>
+    <item>336</item>
+    <item>730</item>
+    <item>1460</item>
+  </string-array>
+  
   <!-- ==================================================== notifications == -->
   
   <!-- Name of filter when viewing a reminder -->
-  <string name="rmd_NoA_filter">Astrid: Reminder</string>
+  <string name="rmd_NoA_filter">Reminder!</string>
     
   <!-- ============================================= reminder preferences == -->
   
@@ -42,6 +85,28 @@
   
   <!-- Defaults Title -->
   <string name="rmd_EPr_defaults_header">New Task Defaults</string>
+  
+  <string-array name="EPr_reminder_random">
+    <!-- random reminder labels for preference. -->
+    <item>disabled</item>
+    <item>hourly</item>
+    <item>daily</item>
+    <item>weekly</item>
+    <item>bi-weekly</item>
+    <item>monthly</item>
+    <item>bi-monthly</item>
+  </string-array>
+
+  <string-array name="EPr_reminder_random_hours">
+    <!-- values (in hours) associated with items above. -->
+    <item>0</item>
+    <item>1</item>
+    <item>24</item>
+    <item>168</item>
+    <item>336</item>
+    <item>730</item>
+    <item>1460</item>
+  </string-array>
   
   <!-- =============================================== random reminders == -->
 

@@ -37,7 +37,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.Html;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -212,7 +211,9 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new EditTextControlSet(Task.NOTES, R.id.notes));
 
         controls.add( new ReminderControlSet(R.id.reminder_due,
-                R.id.reminder_overdue, R.id.reminder_random, R.id.reminder_alarm));
+                R.id.reminder_overdue, R.id.reminder_alarm));
+        controls.add( new RandomReminderControlSet(R.id.reminder_random,
+                R.id.reminder_random_interval));
         controls.add(new TagsControlSet(R.id.tags_container));
         controls.add(new RepeatControlSet(R.id.repeat_value, R.id.repeat_interval));
 
@@ -963,6 +964,7 @@ public final class TaskEditActivity extends TabActivity {
         }
 
     }
+
     /**
      * Control set dealing with reminder settings
      *
@@ -970,19 +972,13 @@ public final class TaskEditActivity extends TabActivity {
      *
      */
     public class ReminderControlSet implements TaskEditControlSet {
-        private final CheckBox during, after, random;
+        private final CheckBox during, after;
         private final Spinner mode;
-        private long periodic;
 
-        public ReminderControlSet(int duringId, int afterId, int randomId, int modeId) {
+        public ReminderControlSet(int duringId, int afterId, int modeId) {
             during = (CheckBox)findViewById(duringId);
             after = (CheckBox)findViewById(afterId);
-            random = (CheckBox)findViewById(randomId);
             mode = (Spinner)findViewById(modeId);
-
-            periodic = Preferences.getIntegerFromString(R.string.p_rmd_default_random)
-                * DateUtilities.ONE_DAY;
-            updatePeriodicString();
 
             String[] list = new String[] {
                     getString(R.string.TEA_reminder_alarm_off),
@@ -992,15 +988,6 @@ public final class TaskEditActivity extends TabActivity {
                     TaskEditActivity.this, android.R.layout.simple_spinner_item, list);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             mode.setAdapter(adapter);
-        }
-
-        @SuppressWarnings("nls")
-        private void updatePeriodicString() {
-            if(periodic == 0)
-                periodic = DateUtilities.ONE_WEEK;
-            String dateString = "<a href='#'>" + dateUtilities.getDurationString(periodic, 1, true) + "</a>";
-            random.setText(Html.fromHtml(getString(R.string.TEA_reminder_random,
-                    dateString)));
         }
 
         public void setValue(int flags) {
@@ -1025,18 +1012,87 @@ public final class TaskEditActivity extends TabActivity {
         @Override
         public void readFromModel() {
             setValue(model.getValue(Task.REMINDER_FLAGS));
-            periodic = model.getValue(Task.REMINDER_PERIOD);
-            if(periodic > 0) {
-                random.setChecked(true);
-                updatePeriodicString();
-            }
         }
 
         @Override
         public void writeToModel() {
             model.setValue(Task.REMINDER_FLAGS, getValue());
-            if(random.isChecked())
-                model.setValue(Task.REMINDER_PERIOD, periodic);
+        }
+    }
+
+    /**
+     * Control set dealing with random reminder settings
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    public class RandomReminderControlSet implements TaskEditControlSet {
+        private final CheckBox settingCheckbox;
+        private final Spinner periodSpinner;
+
+        private final int[] hours;
+
+        public RandomReminderControlSet(int settingCheckboxId, int periodButtonId) {
+            settingCheckbox = (CheckBox)findViewById(settingCheckboxId);
+            periodSpinner = (Spinner)findViewById(periodButtonId);
+            periodSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+                @Override
+                public void onItemSelected(AdapterView<?> arg0, View arg1,
+                        int arg2, long arg3) {
+                    settingCheckbox.setChecked(true);
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    // ignore
+                }
+
+            });
+
+            // create adapter
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+                    TaskEditActivity.this, android.R.layout.simple_spinner_item,
+                    getResources().getStringArray(R.array.TEA_reminder_random));
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+            periodSpinner.setAdapter(adapter);
+
+            // create hour array
+            String[] hourStrings = getResources().getStringArray(R.array.TEA_reminder_random_hours);
+            hours = new int[hourStrings.length];
+            for(int i = 0; i < hours.length; i++)
+                hours[i] = Integer.parseInt(hourStrings[i]);
+        }
+
+        @Override
+        public void readFromModel() {
+            long time;
+            if(isNewTask()) {
+                time = Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours) *
+                    DateUtilities.ONE_HOUR;
+            } else {
+                time = model.getValue(Task.REMINDER_PERIOD);
+            }
+
+            settingCheckbox.setChecked(time > 0);
+            if(time == 0) {
+                time = 7*24;
+            }
+
+            int i;
+            for(i = 0; i < hours.length - 1; i++)
+                if(hours[i] * DateUtilities.ONE_HOUR >= time)
+                    break;
+            periodSpinner.setSelection(i);
+        }
+
+        @Override
+        public void writeToModel() {
+            if(settingCheckbox.isChecked()) {
+                int hourValue = hours[periodSpinner.getSelectedItemPosition()];
+                model.setValue(Task.REMINDER_PERIOD, hourValue * DateUtilities.ONE_HOUR);
+            } else
+                model.setValue(Task.REMINDER_PERIOD, 0L);
         }
     }
 

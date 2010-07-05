@@ -7,6 +7,8 @@ import java.util.Map.Entry;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -35,6 +37,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.Preferences;
 
 public class Astrid2To3UpgradeHelper {
 
@@ -159,6 +162,16 @@ public class Astrid2To3UpgradeHelper {
 
         // --- clean up database
         metadataService.cleanup();
+
+        // --- upgrade properties
+        SharedPreferences prefs = Preferences.getPrefs(context);
+        Editor editor = prefs.edit();
+        if(prefs.contains(context.getString(R.string.p_rmd_default_random_hours))) {
+            // convert days => hours
+            editor.putString(context.getString(R.string.p_rmd_default_random_hours),
+                    Integer.toString(Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours) * 24));
+        }
+
 
         database.close();
 

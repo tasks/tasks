@@ -38,6 +38,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 /**
@@ -76,9 +77,6 @@ public class EditPreferences extends PreferenceActivity {
         PreferenceScreen screen = getPreferenceScreen();
         initializePreference(screen);
 
-        // debugging preferences
-        addDebugPreferences();
-
         // load plug-ins
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
         PackageManager pm = getPackageManager();
@@ -93,7 +91,7 @@ public class EditPreferences extends PreferenceActivity {
                     resolveInfo.activityInfo.name);
 
             Preference preference = new Preference(this);
-            preference.setTitle(resolveInfo.loadLabel(pm));
+            preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
             preference.setIntent(intent);
 
             String application = resolveInfo.activityInfo.applicationInfo.loadLabel(pm).toString();
@@ -111,13 +109,17 @@ public class EditPreferences extends PreferenceActivity {
 
             for(Preference preference : entry.getValue())
                 screen.addPreference(preference);
-
         }
 
+        // debugging preferences
+        addDebugPreferences();
     }
 
     @SuppressWarnings("nls")
     private void addDebugPreferences() {
+        if(!Constants.DEBUG)
+            return;
+
         PreferenceCategory group = new PreferenceCategory(this);
         group.setTitle("DEBUG");
         getPreferenceScreen().addPreference(group);

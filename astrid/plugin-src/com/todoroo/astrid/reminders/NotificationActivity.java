@@ -75,7 +75,7 @@ public class NotificationActivity extends Activity {
         taskListIntent.putExtra(TaskListActivity.TOKEN_FILTER, itemFilter);
         startActivity(taskListIntent);
 
-        String reminder = Notifications.getRandomReminder(getResources().getStringArray(R.array.reminder_responses));
+        String reminder = Notifications.getRandomReminder(getResources().getStringArray(R.array.responses));
         Toast.makeText(this, reminder, Toast.LENGTH_LONG).show();
 
         finish();
