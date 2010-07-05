@@ -273,6 +273,11 @@ public final class Task extends AbstractModel {
      * @param hasDueTime
      */
     public void setDueDateAndTime(Date dueDate, boolean hasDueTime) {
+        if(dueDate == null || dueDate.getTime() == 0) {
+            setValue(Task.DUE_DATE, 0L);
+            return;
+        }
+
         if(!hasDueTime) {
             dueDate.setHours(23);
             dueDate.setMinutes(59);

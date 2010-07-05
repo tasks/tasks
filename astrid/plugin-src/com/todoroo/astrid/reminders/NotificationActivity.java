@@ -23,8 +23,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.timsu.astrid.activities.TaskList;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 
 /**
  * This activity is launched when a user opens up a notification from the
@@ -34,6 +36,16 @@ import com.todoroo.astrid.activity.TaskListActivity;
  *
  */
 public class NotificationActivity extends Activity {
+
+    // --- constants
+
+    /** task id from notification */
+    public static final String TOKEN_ID = "id";
+
+    /** task title */
+    public static final String TOKEN_TITLE = "title";
+
+    // --- implementation
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -50,8 +62,18 @@ public class NotificationActivity extends Activity {
     }
 
     private void launchTaskList(Intent intent) {
+        long id = intent.getLongExtra(TOKEN_ID, -1);
+        if(id == -1)
+            return;
+
         Intent taskListIntent = new Intent(this, TaskListActivity.class);
-        taskListIntent.putExtra(TaskList.VARIABLES_TAG, intent.getExtras());
+        Filter itemFilter = new Filter(ReminderPlugin.IDENTIFIER,
+                "Notification",
+                "Notification",
+                new QueryTemplate().where(TaskCriteria.byId(id)),
+                null);
+
+        taskListIntent.putExtra(TaskListActivity.TOKEN_FILTER, itemFilter);
         startActivity(taskListIntent);
 
         finish();

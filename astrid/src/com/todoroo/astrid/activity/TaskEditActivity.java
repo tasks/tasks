@@ -1035,6 +1035,8 @@ public final class TaskEditActivity extends TabActivity {
         @Override
         public void writeToModel() {
             model.setValue(Task.REMINDER_FLAGS, getValue());
+            if(random.isChecked())
+                model.setValue(Task.REMINDER_PERIOD, periodic);
         }
     }
 

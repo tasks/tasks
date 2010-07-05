@@ -36,10 +36,10 @@ public final class ExtendedFilterExposer extends BroadcastReceiver {
         Resources r = context.getResources();
 
         // build filters
-        FilterListHeader header = new FilterListHeader(ExtendedPlugin.pluginIdentifier,
+        FilterListHeader header = new FilterListHeader(ExtendedPlugin.IDENTIFIER,
                 "Extended");
 
-        Filter alphabetical = new Filter(ExtendedPlugin.pluginIdentifier,
+        Filter alphabetical = new Filter(ExtendedPlugin.IDENTIFIER,
                 "Alphabetical",
                 "Alphabetical",
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
@@ -48,7 +48,7 @@ public final class ExtendedFilterExposer extends BroadcastReceiver {
                 null);
         alphabetical.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_alpha)).getBitmap();
 
-        Filter recent = new Filter(ExtendedPlugin.pluginIdentifier,
+        Filter recent = new Filter(ExtendedPlugin.IDENTIFIER,
                 "Recently Modified",
                 "Recently Modified",
                 new QueryTemplate().orderBy(Order.desc(Task.MODIFICATION_DATE)).limit(15),
@@ -57,7 +57,7 @@ public final class ExtendedFilterExposer extends BroadcastReceiver {
 
         ContentValues hiddenValues = new ContentValues();
         hiddenValues.put(Task.HIDE_UNTIL.name, DateUtilities.now() + DateUtilities.ONE_DAY);
-        Filter hidden = new Filter(ExtendedPlugin.pluginIdentifier,
+        Filter hidden = new Filter(ExtendedPlugin.IDENTIFIER,
                 "Hidden Tasks",
                 "Hidden Tasks",
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
@@ -66,7 +66,7 @@ public final class ExtendedFilterExposer extends BroadcastReceiver {
                         hiddenValues);
         hidden.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_hidden)).getBitmap();
 
-        Filter deleted = new Filter(ExtendedPlugin.pluginIdentifier,
+        Filter deleted = new Filter(ExtendedPlugin.IDENTIFIER,
                 "Deleted Tasks",
                 "Deleted Tasks",
                 new QueryTemplate().where(TaskCriteria.isDeleted()).
