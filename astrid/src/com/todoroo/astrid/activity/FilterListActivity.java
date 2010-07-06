@@ -13,30 +13,34 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.SearchFilter;
+import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.utility.Constants;
 
@@ -66,7 +70,6 @@ public class FilterListActivity extends ExpandableListActivity {
     protected DialogUtilities dialogUtilities;
 
     FilterAdapter adapter = null;
-    String search = null;
     FilterReceiver filterReceiver = new FilterReceiver();
 
     /* ======================================================================
@@ -106,10 +109,14 @@ public class FilterListActivity extends ExpandableListActivity {
 
         final String intentAction = intent.getAction();
         if (Intent.ACTION_SEARCH.equals(intentAction)) {
-            search = intent.getStringExtra(SearchManager.QUERY);
-            dialogUtilities.okDialog(this, "TODO!", null); //$NON-NLS-1$
-        } else {
-            search = null;
+            String query = intent.getStringExtra(SearchManager.QUERY);
+            Filter filter = new Filter(null, null,
+                    getString(R.string.FLA_search_filter, query),
+                    new QueryTemplate().where(Task.TITLE.like("%" + query + "%")),  //$NON-NLS-1$ //$NON-NLS-2$
+                    null);
+            intent = new Intent(FilterListActivity.this, TaskListActivity.class);
+            intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+            startActivity(intent);
         }
     }
 
@@ -226,6 +233,8 @@ public class FilterListActivity extends ExpandableListActivity {
             intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
             startActivity(intent);
             return true;
+        } else if(item instanceof SearchFilter) {
+            onSearchRequested();
         }
         return false;
     }
@@ -309,9 +318,9 @@ public class FilterListActivity extends ExpandableListActivity {
                 R.drawable.icon_blank)).getBitmap();
         bitmap = bitmap.copy(bitmap.getConfig(), true);
         Canvas canvas = new Canvas(bitmap);
-        canvas.drawBitmap(emblem, Math.max(0, bitmap.getWidth() -
-                emblem.getWidth()), Math.max(0, bitmap.getHeight() -
-               emblem.getHeight()), null);
+        canvas.drawBitmap(emblem, new Rect(0, 0, emblem.getWidth(), emblem.getHeight()),
+                new Rect(bitmap.getWidth() - 32, bitmap.getHeight() - 32,
+                        bitmap.getWidth(), bitmap.getHeight()), null);
 
         Intent createShortcutIntent = new Intent();
         createShortcutIntent.putExtra(

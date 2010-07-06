@@ -202,7 +202,7 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.reminders.NotificationActivity"
-              android:taskAffinity="astrid.reminders" />
+              android:taskAffinity="" />
   </application>
 
 </manifest>

@@ -9,13 +9,13 @@ import android.app.Activity;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.api.Filter;
@@ -68,7 +68,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
             View convertView, ViewGroup parent) {
         FilterListItem item = (FilterListItem)getChild(groupPosition, childPosition);
-        View textView = getFilterView((Filter)item, true);
+        View textView = getStandardView((Filter)item, true);
         return textView;
     }
 
@@ -107,10 +107,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             return getHeaderView((FilterListHeader)item, isChild);
         else if(item instanceof FilterCategory)
             return getCategoryView((FilterCategory)item, isExpanded);
-        else if(item instanceof Filter)
-            return getFilterView((Filter)item, isChild);
         else
-            throw new UnsupportedOperationException("unknown item type"); //$NON-NLS-1$
+            return getStandardView(item, isChild);
     }
 
     public View getCategoryView(FilterCategory filter, boolean isExpanded) {
@@ -125,10 +123,11 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             image.setImageResource(R.drawable.expander_ic_maximized);
         else
             image.setImageResource(R.drawable.expander_ic_minimized);
-        FrameLayout.LayoutParams llp = new FrameLayout.LayoutParams(LayoutParams.WRAP_CONTENT,
-                LayoutParams.FILL_PARENT);
+        FrameLayout.LayoutParams llp = new FrameLayout.LayoutParams(
+                32, 32);
         llp.gravity = Gravity.CENTER_VERTICAL;
         image.setLayoutParams(llp);
+        image.setScaleType(ScaleType.FIT_CENTER);
         layout.addView(image);
 
         TextView textView = new TextView(activity);
@@ -168,7 +167,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         return textView;
     }
 
-    public View getFilterView(Filter filter, boolean isChild) {
+    public View getStandardView(FilterListItem filter, boolean isChild) {
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
                 ViewGroup.LayoutParams.FILL_PARENT, 64);
 

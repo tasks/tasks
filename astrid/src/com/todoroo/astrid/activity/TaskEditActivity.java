@@ -1150,7 +1150,7 @@ public final class TaskEditActivity extends TabActivity {
             }
 
             LayoutInflater inflater = getLayoutInflater();
-            final View tagItem = inflater.inflate(R.layout.edit_tag_item, null);
+            final View tagItem = inflater.inflate(R.layout.tag_edit_row, null);
             tagsContainer.addView(tagItem);
 
             AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.

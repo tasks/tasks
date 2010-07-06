@@ -19,6 +19,7 @@ import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.SearchFilter;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Task;
 
@@ -44,10 +45,15 @@ public final class CoreFilterExposer extends BroadcastReceiver {
                 null);
         all.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_all)).getBitmap();
 
+        SearchFilter searchFilter = new SearchFilter(CorePlugin.IDENTIFIER,
+                "Search");
+        searchFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_search)).getBitmap();
+
         // transmit filter list
-        FilterListItem[] list = new FilterListItem[2];
+        FilterListItem[] list = new FilterListItem[3];
         list[0] = inbox;
         list[1] = all;
+        list[2] = searchFilter;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ITEMS, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);

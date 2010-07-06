@@ -153,6 +153,7 @@ public class Notifications extends BroadcastReceiver {
 
         Intent notifyIntent = new Intent(context, NotificationActivity.class);
         notifyIntent.putExtra(NotificationActivity.TOKEN_ID, id);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 (int)id, notifyIntent, PendingIntent.FLAG_ONE_SHOT);
 

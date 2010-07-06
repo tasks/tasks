@@ -51,7 +51,7 @@
     
         <!-- Task List -->
         <ListView android:id="@android:id/list"
-            android:background="@null"
+            android:background="@drawable/none"
             android:scrollbars="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
@@ -70,7 +70,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/btn_add"/> 
+            android:src="@drawable/btn_add"
+            android:scaleType="fitCenter"/> 
     
         <!-- Quick Add Task -->
         <EditText android:id="@+id/quickAddText"
@@ -87,7 +88,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/btn_add_extended"/> 
+            android:src="@drawable/btn_add_extended"
+            android:scaleType="fitCenter"/> 
 
     </LinearLayout>
     

@@ -195,8 +195,8 @@ button: add task & go to the edit page.
   <!-- Context Menu: Shortcut -->    
   <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
   
-  <!-- Menu: Search -->    
-  <string name="FLA_menu_search">Search...</string>
+  <!-- Menu: Search Hint -->    
+  <string name="FLA_menu_search">Search Tasks...</string>
   
   <!-- Menu: Help -->    
   <string name="FLA_menu_help">Help</string>
@@ -207,11 +207,11 @@ button: add task & go to the edit page.
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
   <string name="FLA_shortcut_dialog">Name of shortcut:</string>
   
-  <!-- Search Label-->
-  <string name="FLA_search_label">Search For Tasks</string>
-  
   <!-- Search Hint-->
   <string name="FLA_search_hint">Search For Tasks</string>
+  
+  <!-- Search Filter name (%s => query) -->
+  <string name="FLA_search_filter">Matching \'%s\'</string>
   
   <!-- Help (HTML)-->
   <string name="FLA_help"><![CDATA[

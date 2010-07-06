@@ -411,7 +411,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         startManagingCursor(currentCursor);
 
         // set up list adapters
-        taskAdapter = new TaskAdapter(this, R.layout.task_row,
+        taskAdapter = new TaskAdapter(this, R.layout.task_adapter_row,
                 currentCursor, false, null);
         setListAdapter(taskAdapter);
         getListView().setOnScrollListener(this);
