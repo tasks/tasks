@@ -11,7 +11,6 @@ import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.LocaleEditAlerts;
-import com.timsu.astrid.activities.TagListSubActivity;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.task.TaskController;
@@ -57,7 +56,8 @@ public class LocaleReceiver extends BroadcastReceiver {
 					HashSet<TaskIdentifier> activeTasks = taskController.getActiveVisibleTaskIdentifiers();
 					LinkedList<TaskIdentifier> tasks = tagController.getTaggedTasks(
 							new TagIdentifier(tagId));
-					int count = TagListSubActivity.countActiveTasks(activeTasks, tasks);
+//					int count = TagListSubActivity.countActiveTasks(activeTasks, tasks);
+					int count = 0;
 					if(count > 0) {
 						Resources r = context.getResources();
 						String reminder = r.getString(R.string.notif_tagNotification).

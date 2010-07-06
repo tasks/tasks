@@ -119,9 +119,9 @@ public class SyncLoginActivity extends Activity {
                     @Override
                     public void run() {
             			final String result = callback.verifyLogin(handler);
-                        TaskListSubActivity.syncPreferencesOpened = true;
+//                        TaskListSubActivity.syncPreferencesOpened = true;
             			if(result == null) {
-            				TaskList.synchronizeNow = true;
+//            				TaskList.synchronizeNow = true;
             				finish();
         			    } else {
         			    	// display the error
@@ -131,7 +131,7 @@ public class SyncLoginActivity extends Activity {
                                     DialogUtilities.okDialog(SyncLoginActivity.this, result,
                                     		new DialogInterface.OnClickListener() {
                                     	public void onClick(DialogInterface arg0, int arg1) {
-                                    		TaskListSubActivity.shouldRefreshTaskList = true;
+//                                    		TaskListSubActivity.shouldRefreshTaskList = true;
                                     		finish();
                                     	}
                                     });

@@ -36,7 +36,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
-import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
@@ -377,7 +376,7 @@ public class TaskController extends AbstractController {
             Synchronizer synchronizer = new Synchronizer(model.getTaskIdentifier());
             synchronizer.synchronize(context, new SynchronizerListener() {
                 public void onSynchronizerFinished(int numServicesSynced) {
-                    TaskListSubActivity.shouldRefreshTaskList = true;
+//                    TaskListSubActivity.shouldRefreshTaskList = true;
                 }
             });
         }
