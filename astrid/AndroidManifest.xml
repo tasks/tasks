@@ -190,6 +190,14 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
+    
+    <!-- notes -->
+    <receiver android:name="com.todoroo.astrid.notes.NotesDetailExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
 
     <!-- reminders -->        
     <activity android:name="com.todoroo.astrid.reminders.ReminderPreferences" 
