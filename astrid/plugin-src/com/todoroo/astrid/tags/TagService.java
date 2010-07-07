@@ -26,7 +26,7 @@ import com.todoroo.astrid.service.MetadataService;
  *
  */
 @SuppressWarnings("nls")
-public class DataService {
+public class TagService {
 
     /**
      * Metadata key for tag data
@@ -39,7 +39,7 @@ public class DataService {
     @Autowired
     private MetadataService metadataService;
 
-    public DataService(@SuppressWarnings("unused") Context context) {
+    public TagService(@SuppressWarnings("unused") Context context) {
         DependencyInjectionService.getInstance().inject(this);
     }
 
@@ -75,7 +75,7 @@ public class DataService {
      */
     public Tag[] getGroupedTags(Order order) {
         TodorooCursor<Metadata> cursor = metadataService.fetchWithCount(
-                COUNT, MetadataCriteria.withKey(KEY), order, true);
+                COUNT, MetadataCriteria.withKey(KEY), order);
         try {
             Tag[] array = new Tag[cursor.getCount()];
             for (int i = 0; i < array.length; i++) {

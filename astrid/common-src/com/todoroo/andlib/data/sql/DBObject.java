@@ -3,7 +3,7 @@ package com.todoroo.andlib.data.sql;
 import static com.todoroo.andlib.data.sql.Constants.AS;
 import static com.todoroo.andlib.data.sql.Constants.SPACE;
 
-public abstract class DBObject<T extends DBObject<?>> {
+public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
     protected String alias;
     protected final String expression;
 
@@ -12,8 +12,13 @@ public abstract class DBObject<T extends DBObject<?>> {
     }
 
     public T as(String newAlias) {
-        this.alias = newAlias;
-        return (T) this;
+        try {
+            T clone = (T) clone();
+            clone.alias = newAlias;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     public boolean hasAlias() {
@@ -43,6 +48,13 @@ public abstract class DBObject<T extends DBObject<?>> {
 
     @Override
     public final String toString() {
+        if (hasAlias()) {
+            return alias;
+        }
+        return expression;
+    }
+
+    public final String toStringInSelect() {
         StringBuilder sb = new StringBuilder(expression);
         if (hasAlias()) {
             sb.append(SPACE).append(AS).append(SPACE).append(alias);

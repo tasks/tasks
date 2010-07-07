@@ -6,6 +6,7 @@
 package com.todoroo.astrid.alarms;
 
 import com.todoroo.andlib.data.AbstractDatabase;
+import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Table;
 
 /**
@@ -40,6 +41,8 @@ public class AlarmsDatabase extends AbstractDatabase {
 
     // --- implementation
 
+    private GenericDao<Alarm> dao = new GenericDao<Alarm>(Alarm.class, this);
+
     @Override
     protected String getName() {
         return NAME;
@@ -55,6 +58,10 @@ public class AlarmsDatabase extends AbstractDatabase {
         return TABLES;
     }
 
+    public GenericDao<Alarm> getDao() {
+        return dao;
+    }
+
     @Override
     protected void onCreateTables() {
         StringBuilder sql = new StringBuilder();
@@ -65,9 +72,8 @@ public class AlarmsDatabase extends AbstractDatabase {
         database.execSQL(sql.toString());
 
         sql.setLength(0);
-        sql.append("CREATE INDEX IF NOT EXISTS a_timetype ON ").
+        sql.append("CREATE INDEX IF NOT EXISTS a_type ON ").
             append(Alarm.TABLE).append('(').
-                append(Alarm.TIME.name).append(',').
                 append(Alarm.TYPE.name).
             append(')');
         database.execSQL(sql.toString());

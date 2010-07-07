@@ -68,11 +68,9 @@ public class MetadataService {
      * @param onlyCountsGreaterThanZero only include items where count > 0
      */
     public TodorooCursor<Metadata> fetchWithCount(CountProperty count,
-            Criterion where, Order order, boolean onlyCountsGreaterThanZero) {
-        Query query = Query.select(Metadata.VALUE, count).
-            where(where).orderBy(order);
-        if(onlyCountsGreaterThanZero)
-            query.having(count.gt(0));
+            Criterion where, Order order) {
+        Query query = Query.select(Metadata.VALUE.as(Metadata.VALUE.name), count).
+            where(where).orderBy(order).groupBy(Metadata.VALUE);
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         return cursor;
     }

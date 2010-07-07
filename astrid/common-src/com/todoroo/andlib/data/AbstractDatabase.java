@@ -132,8 +132,9 @@ abstract public class AbstractDatabase {
      * Close the database if it has been opened previously
      */
     public synchronized final void close() {
-        if(database != null)
+        if(database != null) {
             database.close();
+        }
         database = null;
     }
 
@@ -153,6 +154,14 @@ abstract public class AbstractDatabase {
         if(database == null)
             throw new IllegalStateException("Database was not opened!");
         return database;
+    }
+
+    /**
+     * @return human-readable database name for debugging
+     */
+    @Override
+    public String toString() {
+        return "DB:" + getName();
     }
 
     // --- helper classes

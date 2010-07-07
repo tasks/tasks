@@ -1,6 +1,9 @@
 package com.todoroo.andlib.service;
 
 import java.lang.reflect.Field;
+import java.util.Arrays;
+
+import android.util.Log;
 
 /**
  * Simple Dependency Injection Service for Android.
@@ -97,8 +100,10 @@ public class DependencyInjectionService {
         }
 
         throw new IllegalStateException(
-                String.format("No dependency injector found for autowired field '%s' in class '%s'",
-                        field.getName(), caller.getClass().getName()));
+                String.format("No dependency injector found for autowired " +
+                		"field '%s' in class '%s'. Injectors: %s",
+                        field.getName(), caller.getClass().getName(),
+                        Arrays.asList(getInjectors())));
     }
 
     // --- static methods
@@ -133,5 +138,6 @@ public class DependencyInjectionService {
      */
     public synchronized void setInjectors(AbstractDependencyInjector[] injectors) {
         this.injectors = injectors;
+        Log.e("INJECTION SETTING", "Set Injector List to: " + Arrays.asList(injectors)); // (debug)
     }
 }
