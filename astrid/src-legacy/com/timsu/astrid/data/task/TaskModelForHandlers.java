@@ -28,14 +28,12 @@ import android.database.Cursor;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
-import com.timsu.astrid.utilities.Notifications;
-import com.timsu.astrid.utilities.Notifications.Notifiable;
 
 
 
 /** Fields that you would want to read or edit in the onTaskSave and onTaskComplete
  * event handlers */
-public class TaskModelForHandlers extends AbstractTaskModel implements Notifiable {
+public class TaskModelForHandlers extends AbstractTaskModel {
 
     static String[] FIELD_LIST = new String[] {
         AbstractController.KEY_ROWID,
@@ -92,7 +90,7 @@ public class TaskModelForHandlers extends AbstractTaskModel implements Notifiabl
         // reset periodic alerts
         setLastNotificationTime(null);
 
-        Notifications.updateAlarm(context, taskController, alertController, this);
+//        ReminderService.updateAlarm(context, taskController, alertController, this);
         alertController.close();
     }
 

@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources>
+
+  <!-- Resources for built-in reminders plug-in -->
+    
+  <!-- =============================================== task edit activity == -->
+
+  <!-- Reminder header label -->  
+  <string name="TEA_reminder_label">Remind me...</string>
+
+  <!-- Reminder @ deadline -->  
+  <string name="TEA_reminder_due">... when it\'s time to start the task</string>
+
+  <!-- Reminder after deadline -->  
+  <string name="TEA_reminder_overdue">... when task is overdue</string>
+
+  <!-- Reminder at random times (%s => time plural)-->
+  <string name="TEA_reminder_random">... randomly every</string>
+
+  <!-- Reminder alarm clock label -->  
+  <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
+
+  <!-- Reminder alarm clock toggle: off -->  
+  <string name="TEA_reminder_alarm_off">Ring Once</string>
+
+  <!-- Reminder alarm clock toggle: on -->  
+  <string name="TEA_reminder_alarm_on">Ring Until I Dismiss Alarm</string>
+
+  <string-array name="TEA_reminder_random">
+    <!-- random reminder labels for edit page. -->
+    <item>hour</item>
+    <item>day</item>
+    <item>week</item>
+    <item>two weeks</item>
+    <item>month</item>
+    <item>two months</item>
+  </string-array>
+
+  <string-array name="TEA_reminder_random_hours">
+    <!-- values (in hours) associated with items above. -->
+    <item>1</item>
+    <item>24</item>
+    <item>168</item>
+    <item>336</item>
+    <item>730</item>
+    <item>1460</item>
+  </string-array>
+  
+  <!-- ==================================================== notifications == -->
+  
+  <!-- Name of filter when viewing a reminder -->
+  <string name="rmd_NoA_filter">Reminder!</string>
+    
+  <!-- ============================================= reminder preferences == -->
+  
+  <!-- Preference Screen Title -->
+  <string name="rmd_EPr_alerts_header">Reminder Settings</string>
+    
+  <!-- Quiet Hours Start Title -->
+  <string name="rmd_EPr_quiet_hours_start_title">Quiet Hours Start</string>
+  <!-- Quiet Hours Start Description (%s => time set) -->
+  <string name="rmd_EPr_quiet_hours_start_desc">No notifications will appear after %s</string>
+  <!-- Quiet Hours Start/End Description (disabled) -->
+  <string name="rmd_EPr_quiet_hours_desc_none">Please set both start and end times</string>
+  
+  <!-- Quiet Hours End Title -->
+  <string name="rmd_EPr_quiet_hours_end_title">Quiet Hours End</string>
+  <!-- Quiet Hours End Description (%s => time set) -->
+  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will begin appearing starting at %s</string>
+
+  <!-- Notification Ringtone Title -->
+  <string name="rmd_EPr_ringtone_title">Notification Ringtone</string>
+  <!-- Notification Ringtone Description (when custom tone is set) -->
+  <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
+  <!-- Notification Ringtone Description (when custom tone is not set) -->
+  <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
+  
+  <!-- Notification Persistence Title -->
+  <string name="rmd_EPr_persistent_title">Notification Persistence</string>
+  <!-- Notification Persistence Description (true) -->
+  <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
+  <!-- Notification Persistence Description (false) -->
+  <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
+  
+  <!-- Defaults Title -->
+  <string name="rmd_EPr_defaults_header">New Task Defaults</string>
+  
+  <string-array name="EPr_reminder_random">
+    <!-- random reminder labels for preference. -->
+    <item>disabled</item>
+    <item>hourly</item>
+    <item>daily</item>
+    <item>weekly</item>
+    <item>bi-weekly</item>
+    <item>monthly</item>
+    <item>bi-monthly</item>
+  </string-array>
+
+  <string-array name="EPr_reminder_random_hours">
+    <!-- values (in hours) associated with items above. -->
+    <item>0</item>
+    <item>1</item>
+    <item>24</item>
+    <item>168</item>
+    <item>336</item>
+    <item>730</item>
+    <item>1460</item>
+  </string-array>
+  
+  <!-- =============================================== random reminders == -->
+
+  <string-array name="reminders">
+      <!-- reminders: Make these < 20 chars so the task name is displayed -->
+      <item>Hi there! Have a sec?</item>
+      <item>Can I see you for a sec?</item>
+      <item>Have a few minutes?</item>
+      <item>Did you forget?</item>
+      <item>Excuse me!</item>
+      <item>When you have a minute:</item>
+      <item>On your agenda:</item>
+      <item>Free for a moment?</item>
+      <item>Astrid here!</item>
+      <item>Hi! Can I bug you?</item>
+      <item>A minute of your time?</item>
+      <item>It\'s a great day to</item>
+  </string-array>
+
+  <string-array name="reminders_due">
+      <!-- reminders related to task due date -->
+      <item>Time to work!</item>
+      <item>Due date is here!</item>
+      <item>Ready to start?</item>
+      <item>You said you would do:</item>
+      <item>You\'re supposed to start:</item>
+      <item>Time to start:</item>
+      <item>It\'s time!</item>
+      <item>Excuse me! Time for</item>
+      <item>You free? Time to</item>
+  </string-array>
+
+  <string-array name="reminders_snooze">
+      <!-- reminders related to snooze -->
+      <item>Don\'t be lazy now!</item>
+      <item>Snooze time is up!</item>
+      <item>No more snoozing!</item>
+      <item>Now are you ready?</item>
+      <item>No more postponing!</item>
+  </string-array>
+  
+  <string-array name="responses">
+      <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
+      <item>I\'ve got something for you!</item> 
+      <item>Ready to put this in the past?</item>
+      <item>Why don\'t you get this done?</item>
+      <item>How about it? Ready tiger?</item>
+      <item>Ready to do this?</item>
+      <item>Can you handle this?</item>
+      <item>You can be happy! Just finish this!</item>
+      <item>I promise you\'ll feel better if you finish this!</item>
+      <item>Won\'t you do this today?</item>
+      <item>Please finish this, I\'m sick of it!</item>
+      <item>Can you finish this? Yes you can!</item>
+      <item>Are you ever going to do this?</item>
+      <item>Feel good about yourself! Let\'s go!</item>
+      <item>I\'m so proud of you! Lets get it done!</item>
+      <item>A little snack after you finish this?</item>
+      <item>Just this one task? Please?</item>
+      <item>Time to shorten your todo list!</item>
+  </string-array>
+
+  <string-array name="postpone_nags">
+      <!-- Astrid's nagging when user clicks postpone -->
+      <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
+      <item>Doesn\'t being lazy get old sometimes?</item>
+      <item>Somewhere, someone is depending on you to finish this!</item>
+      <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
+      <item>This is the last time you postpone this, right?</item>
+      <item>Just finish this today, I won\'t tell anyone!</item>
+      <item>Why postpone when you can um... not postpone!</item>
+      <item>You\'ll finish this eventually, I presume?</item>
+      <item>I think you\'re really great! How about not putting this off?</item>
+      <item>Will you be able to achieve your goals if you do that?</item>
+      <item>Postpone, postpone, postpone. When will you change!</item>
+      <item>I\'ve had enough with your excuses! Just do it already!</item>
+      <item>Didn\'t you make that excuse last time?</item>
+      <item>I can\'t help you organize your life if you do that...</item>
+  </string-array>
+    
+</resources>

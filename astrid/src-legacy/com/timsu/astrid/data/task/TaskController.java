@@ -36,8 +36,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.net.Uri;
 import android.util.Log;
 
-import com.timsu.astrid.activities.TaskEdit;
-import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
@@ -47,7 +45,6 @@ import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.timsu.astrid.provider.TasksProvider;
 import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
-import com.timsu.astrid.utilities.Notifications;
 
 /**
  * Controller for task-related operations
@@ -308,12 +305,12 @@ public class TaskController extends AbstractController {
         // task timer was updated, update notification bar
         if(values.containsKey(AbstractTaskModel.TIMER_START)) {
         	// show notification bar if timer was started
-        	if(values.getAsLong(AbstractTaskModel.TIMER_START) != 0) {
-        		Notifications.showTimingNotification(context,
-        				task.getTaskIdentifier(), task.getName());
-        	} else {
-        		Notifications.clearAllNotifications(context, task.getTaskIdentifier());
-        	}
+//        	if(values.getAsLong(AbstractTaskModel.TIMER_START) != 0) {
+//        		ReminderService.showTimingNotification(context,
+//        				task.getTaskIdentifier(), task.getName());
+//        	} else {
+//        		ReminderService.clearAllNotifications(context, task.getTaskIdentifier());
+//        	}
         }
 
         // due date was updated, update calendar event
@@ -342,8 +339,8 @@ public class TaskController extends AbstractController {
 
                     // create new start and end date for this event
                     ContentValues newValues = new ContentValues();
-                    TaskEdit.createCalendarStartEndTimes(task.getPreferredDueDate(),
-                            task.getDefiniteDueDate(), estimated, newValues);
+                    /*TaskEditActivity.createCalendarStartEndTimes(task.getPreferredDueDate(),
+                            task.getDefiniteDueDate(), estimated, newValues); TODO */
                     cr.update(uri, newValues, null, null);
                 }
             } catch (Exception e) {
@@ -379,7 +376,7 @@ public class TaskController extends AbstractController {
             Synchronizer synchronizer = new Synchronizer(model.getTaskIdentifier());
             synchronizer.synchronize(context, new SynchronizerListener() {
                 public void onSynchronizerFinished(int numServicesSynced) {
-                    TaskListSubActivity.shouldRefreshTaskList = true;
+//                    TaskListSubActivity.shouldRefreshTaskList = true;
                 }
             });
         }
@@ -391,7 +388,7 @@ public class TaskController extends AbstractController {
     /** Clean up state from a task. Called when deleting or completing it */
     private void cleanupTask(TaskIdentifier taskId, boolean isRepeating) {
         // delete notifications & alarms
-        Notifications.deleteAlarm(context, null, taskId.getId());
+//        ReminderService.deleteAlarm(context, null, taskId.getId());
 
         // delete calendar event if not repeating
         if(!isRepeating) {
@@ -579,7 +576,7 @@ public class TaskController extends AbstractController {
         TaskModelForNotify task = fetchTaskForNotify(taskId);
         AlertController alertController = new AlertController(context);
         alertController.open();
-        Notifications.updateAlarm(context, this, alertController, task);
+//        ReminderService.updateAlarm(context, this, alertController, task);
         alertController.close();
     }
 

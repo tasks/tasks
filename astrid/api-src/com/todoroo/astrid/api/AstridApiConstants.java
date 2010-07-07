@@ -39,9 +39,21 @@ public class AstridApiConstants {
     public static final String EXTRAS_ITEMS = "items";
 
     /**
-     * Extras name for your plug-in name, used for logging errors to LogCat
+     * Extras name for plug-in object
      */
     public static final String EXTRAS_PLUGIN = "plugin";
+
+    // --- Plug-ins API
+
+    /**
+     * Action name for broadcast intent requesting filters
+     */
+    public static final String BROADCAST_REQUEST_PLUGINS = PACKAGE + ".REQUEST_PLUGINS";
+
+    /**
+     * Action name for broadcast intent sending filters back to Astrid
+     */
+    public static final String BROADCAST_SEND_PLUGINS = PACKAGE + ".SEND_PLUGINS";
 
     // --- Filters API
 

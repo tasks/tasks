@@ -7,14 +7,11 @@ import java.net.URL;
 import java.net.URLConnection;
 
 import android.app.Activity;
-import android.app.Notification;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
@@ -108,6 +105,39 @@ public class AndroidUtilities {
                     "start-external-intent-" + intent.toString(), //$NON-NLS-1$
                     e);
         }
+    }
+
+    /**
+     * Put an arbitrary object into a {@link ContentValues}
+     * @param target
+     * @param key
+     * @param value
+     */
+    public static void putInto(ContentValues target, String key, Object value) {
+        if(value instanceof String)
+            target.put(key, (String) value);
+        else if(value instanceof Long)
+            target.put(key, (Long) value);
+        else if(value instanceof Integer)
+            target.put(key, (Integer) value);
+        else if(value instanceof Double)
+            target.put(key, (Double) value);
+        else
+            throw new UnsupportedOperationException("Could not handle type " + //$NON-NLS-1$
+                    value.getClass());
+    }
+
+    /**
+     * Return index of value in array
+     * @param array array to search
+     * @param value value to look for
+     * @return
+     */
+    public static <TYPE> int indexOf(TYPE[] array, TYPE value) {
+        for(int i = 0; i < array.length; i++)
+            if(array[i].equals(value))
+                return i;
+        return -1;
     }
 
 }

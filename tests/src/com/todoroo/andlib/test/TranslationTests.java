@@ -203,14 +203,24 @@ abstract public class TranslationTests extends TodorooTestCase {
         final Resources r = getContext().getResources();
         final int[] arrays = getResourceIds(getArrayResources());
         final int[] sizes = new int[arrays.length];
+        final StringBuilder failures = new StringBuilder();
+
         for(int i = 0; i < arrays.length; i++) {
-            sizes[i] = r.getStringArray(arrays[i]).length;
+            try {
+                sizes[i] = r.getStringArray(arrays[i]).length;
+            } catch (Resources.NotFoundException e) {
+                String name = r.getResourceName(arrays[i]);
+                failures.append(String.format("error opening %s: %s\n",
+                        name, e.getMessage()));
+                sizes[i] = -1;
+            }
         }
 
-        final StringBuilder failures = new StringBuilder();
         forEachLocale(new Runnable() {
             public void run() {
                 for(int i = 0; i < arrays.length; i++) {
+                    if(sizes[i] == -1)
+                        continue;
                     int size = r.getStringArray(arrays[i]).length;
                     if(size != sizes[i]) {
                         String name = r.getResourceName(arrays[i]);

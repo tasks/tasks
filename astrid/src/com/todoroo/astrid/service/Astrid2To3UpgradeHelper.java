@@ -1,18 +1,25 @@
 package com.todoroo.astrid.service;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
+import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.Alert;
 import com.timsu.astrid.data.task.AbstractTaskModel;
+import com.timsu.astrid.utilities.TasksXmlExporter;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
@@ -20,14 +27,17 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.alarms.Alarm;
-import com.todoroo.astrid.alarms.AlarmsDatabase;
+import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.Preferences;
 
 public class Astrid2To3UpgradeHelper {
 
@@ -54,6 +64,9 @@ public class Astrid2To3UpgradeHelper {
 
     @Autowired
     private String alertsTable;
+
+    @Autowired
+    private DialogUtilities dialogUtilities;
 
     // --- implementation
 
@@ -90,6 +103,20 @@ public class Astrid2To3UpgradeHelper {
     public void upgrade2To3() {
         Context context = ContextManager.getContext();
 
+        // pop up a progress dialog
+        ProgressDialog dialog = null;
+        if(context instanceof Activity)
+            dialog = dialogUtilities.progressDialog(context, context.getString(R.string.DLG_wait));
+
+        // initiate a backup
+        try {
+            TasksXmlExporter exporter = new TasksXmlExporter(true);
+            exporter.setContext(ContextManager.getContext());
+            exporter.exportTasks(TasksXmlExporter.getExportDirectory());
+        } catch (Exception e) {
+            // unable to create a backup before upgrading :(
+        }
+
         database.openForWriting();
 
         // --- upgrade tasks table
@@ -104,12 +131,11 @@ public class Astrid2To3UpgradeHelper {
         propertyMap.put(AbstractTaskModel.ELAPSED_SECONDS, Task.ELAPSED_SECONDS);
         propertyMap.put(AbstractTaskModel.TIMER_START, Task.TIMER_START);
         propertyMap.put(AbstractTaskModel.DEFINITE_DUE_DATE, Task.DUE_DATE);
-        propertyMap.put(AbstractTaskModel.PREFERRED_DUE_DATE, Task.PREFERRED_DUE_DATE);
-        propertyMap.put(AbstractTaskModel.HIDDEN_UNTIL, Task.HIDDEN_UNTIL);
+        propertyMap.put(AbstractTaskModel.HIDDEN_UNTIL, Task.HIDE_UNTIL);
         propertyMap.put(AbstractTaskModel.POSTPONE_COUNT, Task.POSTPONE_COUNT);
-        propertyMap.put(AbstractTaskModel.NOTIFICATIONS, Task.NOTIFICATIONS);
-        propertyMap.put(AbstractTaskModel.NOTIFICATION_FLAGS, Task.NOTIFICATION_FLAGS);
-        propertyMap.put(AbstractTaskModel.LAST_NOTIFIED, Task.LAST_NOTIFIED);
+        propertyMap.put(AbstractTaskModel.NOTIFICATIONS, Task.REMINDER_PERIOD);
+        propertyMap.put(AbstractTaskModel.NOTIFICATION_FLAGS, Task.REMINDER_FLAGS);
+        propertyMap.put(AbstractTaskModel.LAST_NOTIFIED, Task.REMINDER_LAST);
         propertyMap.put(AbstractTaskModel.REPEAT, Task.REPEAT);
         propertyMap.put(AbstractTaskModel.CREATION_DATE, Task.CREATION_DATE);
         propertyMap.put(AbstractTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
@@ -122,7 +148,7 @@ public class Astrid2To3UpgradeHelper {
         migrateTagsToMetadata();
 
         // --- upgrade alerts
-        AlarmsDatabase alarmsDatabase = new AlarmsDatabase();
+        AlarmDatabase alarmsDatabase = new AlarmDatabase();
         alarmsDatabase.openForWriting();
         propertyMap.clear();
         propertyMap.put(AbstractController.KEY_ROWID, Alarm.ID);
@@ -137,7 +163,20 @@ public class Astrid2To3UpgradeHelper {
         // --- clean up database
         metadataService.cleanup();
 
+        // --- upgrade properties
+        SharedPreferences prefs = Preferences.getPrefs(context);
+        Editor editor = prefs.edit();
+        if(prefs.contains(context.getString(R.string.p_rmd_default_random_hours))) {
+            // convert days => hours
+            editor.putString(context.getString(R.string.p_rmd_default_random_hours),
+                    Integer.toString(Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours) * 24));
+        }
+
+
         database.close();
+
+        if(dialog != null)
+            dialog.dismiss();
     }
 
     // --- database upgrade helpers
@@ -146,6 +185,7 @@ public class Astrid2To3UpgradeHelper {
         public int columnIndex;
         public Cursor cursor;
         public AbstractModel model;
+        public StringBuilder upgradeNotes;
     }
 
     /**
@@ -165,22 +205,7 @@ public class Astrid2To3UpgradeHelper {
 
         @Override
         public Void visitInteger(Property<Integer> property, UpgradeVisitorContainer data) {
-            int value;
-
-            // convert long date -> integer
-            if(property == Task.COMPLETION_DATE ||
-                    property == Task.CREATION_DATE ||
-                    property == Task.DELETION_DATE ||
-                    property == Task.DUE_DATE ||
-                    property == Task.HIDDEN_UNTIL ||
-                    property == Task.LAST_NOTIFIED ||
-                    property == Task.MODIFICATION_DATE ||
-                    property == Task.PREFERRED_DUE_DATE ||
-                    property == Alarm.TIME)
-                value = (int) (data.cursor.getLong(data.columnIndex) / 1000L);
-            else
-                value = data.cursor.getInt(data.columnIndex);
-
+            int value = data.cursor.getInt(data.columnIndex);
             data.model.setValue(property, value);
             Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
             return null;
@@ -189,6 +214,26 @@ public class Astrid2To3UpgradeHelper {
         @Override
         public Void visitLong(Property<Long> property, UpgradeVisitorContainer data) {
             long value = data.cursor.getLong(data.columnIndex);
+
+            // special handling for due date
+            if(property == Task.DUE_DATE) {
+                long preferredDueDate = data.cursor.getLong(data.cursor.getColumnIndex(AbstractTaskModel.PREFERRED_DUE_DATE));
+                if(value == 0)
+                    value = preferredDueDate;
+                else if(preferredDueDate != 0) {
+                    // had both absolute and preferred due dates. write
+                    // preferred due date into notes field
+                    if(data.upgradeNotes == null)
+                        data.upgradeNotes = new StringBuilder();
+                    data.upgradeNotes.append("Goal Deadline: " +
+                            DateUtilities.getFormattedDate(ContextManager.getContext(),
+                                    new Date(preferredDueDate)));
+                }
+            } else if(property == Task.REMINDER_PERIOD) {
+                // old period was stored in seconds
+                value *= 1000L;
+            }
+
             data.model.setValue(property, value);
             Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
             return null;
@@ -235,7 +280,18 @@ public class Astrid2To3UpgradeHelper {
                 container.columnIndex = cursor.getColumnIndex(entry.getKey());
                 entry.getValue().accept(visitor, container);
             }
-            dao.createItem(container.model);
+
+            // special tweak for adding upgrade notes to tasks
+            if(container.upgradeNotes != null) {
+                if(container.model.getValue(Task.NOTES).length() == 0)
+                    container.model.setValue(Task.NOTES, container.upgradeNotes.toString());
+                else {
+                    container.model.setValue(Task.NOTES,
+                            container.model.getValue(Task.NOTES) + "\n\n" +
+                            container.upgradeNotes);
+                }
+            }
+            dao.createNew(container.model);
         }
 
         upgradeDb.close();
@@ -292,7 +348,7 @@ public class Astrid2To3UpgradeHelper {
                 metadata.setValue(Metadata.TASK, task);
                 metadata.setValue(Metadata.KEY, TagService.KEY);
                 metadata.setValue(Metadata.VALUE, tag);
-                metadataDao.createItem(metadata);
+                metadataDao.createNew(metadata);
                 metadata.clearValue(Metadata.ID);
             }
         }

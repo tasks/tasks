@@ -6,9 +6,12 @@
 package com.todoroo.astrid.model;
 
 
-import android.content.ContentValues;
+import java.util.Date;
 
-import com.timsu.astrid.data.enums.RepeatInterval;
+import android.content.ContentValues;
+import android.content.res.Resources;
+
+import com.timsu.astrid.R;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -18,7 +21,7 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.AstridContentProvider.AstridTask;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Data Model which represents a task users need to accomplish.
@@ -27,7 +30,7 @@ import com.todoroo.astrid.api.AstridContentProvider.AstridTask;
  *
  */
 @SuppressWarnings("nls")
-public class Task extends AbstractModel {
+public final class Task extends AbstractModel {
 
     // --- table
 
@@ -37,43 +40,39 @@ public class Task extends AbstractModel {
 
     /** ID */
     public static final LongProperty ID = new LongProperty(
-            TABLE, AstridTask.ID);
+            TABLE, ID_PROPERTY_NAME);
 
     /** Name of Task */
     public static final StringProperty TITLE = new StringProperty(
-            TABLE, AstridTask.TITLE);
-
-    /** Urgency of Task (see urgency flags) */
-    public static final IntegerProperty URGENCY = new IntegerProperty(
-            TABLE, AstridTask.URGENCY);
+            TABLE, "title");
 
     /** Importance of Task (see importance flags) */
     public static final IntegerProperty IMPORTANCE = new IntegerProperty(
-            TABLE, AstridTask.IMPORTANCE);
+            TABLE, "importance");
 
     /** Unixtime Task is due, 0 if not set */
-    public static final IntegerProperty DUE_DATE = new IntegerProperty(
-            TABLE, AstridTask.DUE_DATE);
+    public static final LongProperty DUE_DATE = new LongProperty(
+            TABLE, "dueDate");
 
-    /** Unixtime Task should be hidden until */
-    public static final IntegerProperty HIDDEN_UNTIL = new IntegerProperty(
-            TABLE, AstridTask.HIDDEN_UNTIL);
+    /** Unixtime Task should be hidden until, 0 if not set */
+    public static final LongProperty HIDE_UNTIL = new LongProperty(
+            TABLE, "hideUntil");
 
     /** Unixtime Task was created */
-    public static final IntegerProperty CREATION_DATE = new IntegerProperty(
-            TABLE, AstridTask.CREATION_DATE);
+    public static final LongProperty CREATION_DATE = new LongProperty(
+            TABLE, "created");
 
     /** Unixtime Task was last touched */
-    public static final IntegerProperty MODIFICATION_DATE = new IntegerProperty(
-            TABLE, AstridTask.MODIFICATION_DATE);
+    public static final LongProperty MODIFICATION_DATE = new LongProperty(
+            TABLE, "modified");
 
     /** Unixtime Task was completed. 0 means active */
-    public static final IntegerProperty COMPLETION_DATE = new IntegerProperty(
-            TABLE, AstridTask.COMPLETION_DATE);
+    public static final LongProperty COMPLETION_DATE = new LongProperty(
+            TABLE, "completed");
 
-    /** Unixtime Task was deleted. 0 means active */
-    public static final IntegerProperty DELETION_DATE = new IntegerProperty(
-            TABLE, AstridTask.DELETION_DATE);
+    /** Unixtime Task was deleted. 0 means not deleted */
+    public static final LongProperty DELETION_DATE = new LongProperty(
+            TABLE, "deleted");
 
     // --- for migration purposes from astrid 2 (eventually we will want to
     //     move these into the metadata table and treat them as plug-ins
@@ -90,19 +89,19 @@ public class Task extends AbstractModel {
     public static final IntegerProperty TIMER_START = new IntegerProperty(
             TABLE, "timerStart");
 
-    public static final IntegerProperty PREFERRED_DUE_DATE = new IntegerProperty(
-            TABLE, "preferredDueDate");
-
     public static final IntegerProperty POSTPONE_COUNT = new IntegerProperty(
             TABLE, "postponeCount");
 
-    public static final IntegerProperty NOTIFICATIONS = new IntegerProperty(
-            TABLE, "notifications");
-
-    public static final IntegerProperty NOTIFICATION_FLAGS = new IntegerProperty(
+    /** Flags for when to send reminders */
+    public static final IntegerProperty REMINDER_FLAGS = new IntegerProperty(
             TABLE, "notificationFlags");
 
-    public static final IntegerProperty LAST_NOTIFIED = new IntegerProperty(
+    /** Reminder period, in milliseconds. 0 means disabled */
+    public static final LongProperty REMINDER_PERIOD = new LongProperty(
+            TABLE, "notifications");
+
+    /** Unixtime the last reminder was triggered */
+    public static final LongProperty REMINDER_LAST = new LongProperty(
             TABLE, "lastNotified");
 
     public static final IntegerProperty REPEAT = new IntegerProperty(
@@ -117,24 +116,40 @@ public class Task extends AbstractModel {
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
 
-    // --- urgency flags
+    // --- flags
 
-    public static final int URGENCY_NONE = AstridTask.URGENCY_NONE;
-    public static final int URGENCY_TODAY = AstridTask.URGENCY_TODAY;
-    public static final int URGENCY_THIS_WEEK = AstridTask.URGENCY_THIS_WEEK;
-    public static final int URGENCY_THIS_MONTH = AstridTask.URGENCY_THIS_MONTH;
-    public static final int URGENCY_WITHIN_THREE_MONTHS = AstridTask.URGENCY_WITHIN_THREE_MONTHS;
-    public static final int URGENCY_WITHIN_SIX_MONTHS = AstridTask.URGENCY_WITHIN_SIX_MONTHS;
-    public static final int URGENCY_WITHIN_A_YEAR = AstridTask.URGENCY_WITHIN_A_YEAR;
-    public static final int URGENCY_SPECIFIC_DAY = AstridTask.URGENCY_SPECIFIC_DAY;
-    public static final int URGENCY_SPECIFIC_DAY_TIME = AstridTask.URGENCY_SPECIFIC_DAY_TIME;
+    // --- notification flags
 
-    // --- importance flags
+    /** whether to send a reminder at deadline */
+    public static final int NOTIFY_AT_DEADLINE = 1 << 1;
 
-    public static final int IMPORTANCE_DO_OR_DIE = AstridTask.IMPORTANCE_DO_OR_DIE;
-    public static final int IMPORTANCE_MUST_DO = AstridTask.IMPORTANCE_MUST_DO;
-    public static final int IMPORTANCE_SHOULD_DO = AstridTask.IMPORTANCE_SHOULD_DO;
-    public static final int IMPORTANCE_NONE = AstridTask.IMPORTANCE_NONE;
+    /** whether to send reminders while task is overdue */
+    public static final int NOTIFY_AFTER_DEADLINE = 1 << 2;
+
+    /** reminder mode non-stop */
+    public static final int NOTIFY_NONSTOP = 1 << 3;
+
+    // --- importance settings
+
+    public static final int IMPORTANCE_DO_OR_DIE = 0;
+    public static final int IMPORTANCE_MUST_DO = 1;
+    public static final int IMPORTANCE_SHOULD_DO = 2;
+    public static final int IMPORTANCE_NONE = 3;
+
+    /**
+     * @return colors that correspond to importance values
+     */
+    public static int[] getImportanceColors(Resources r) {
+        return new int[] {
+                r.getColor(R.color.importance_1),
+                r.getColor(R.color.importance_2),
+                r.getColor(R.color.importance_3),
+                r.getColor(R.color.importance_4),
+        };
+    }
+
+    public static final int IMPORTANCE_MOST = IMPORTANCE_DO_OR_DIE;
+    public static final int IMPORTANCE_LEAST = IMPORTANCE_NONE;
 
     // --- defaults
 
@@ -144,11 +159,20 @@ public class Task extends AbstractModel {
     static {
         defaultValues.put(TITLE.name, "");
         defaultValues.put(DUE_DATE.name, 0);
-        defaultValues.put(HIDDEN_UNTIL.name, 0);
+        defaultValues.put(HIDE_UNTIL.name, 0);
         defaultValues.put(COMPLETION_DATE.name, 0);
         defaultValues.put(DELETION_DATE.name, 0);
-        defaultValues.put(URGENCY.name, URGENCY_NONE);
         defaultValues.put(IMPORTANCE.name, IMPORTANCE_NONE);
+
+        defaultValues.put(CALENDAR_URI.name, "");
+        defaultValues.put(REPEAT.name, 0);
+        defaultValues.put(REMINDER_PERIOD.name, 0);
+        defaultValues.put(REMINDER_FLAGS.name, 0);
+        defaultValues.put(ESTIMATED_SECONDS.name, 0);
+        defaultValues.put(ELAPSED_SECONDS.name, 0);
+        defaultValues.put(POSTPONE_COUNT.name, 0);
+        defaultValues.put(NOTES.name, "");
+        defaultValues.put(TIMER_START.name, 0);
     }
 
     private static boolean defaultValuesLoaded = false;
@@ -161,10 +185,8 @@ public class Task extends AbstractModel {
      * Call to load task default values from preferences.
      */
     public static void refreshDefaultValues() {
-        /*defaultValues.put(URGENCY.name,
-                Preferences.getIntegerFromString(R.string.EPr_default_urgency_key));
         defaultValues.put(IMPORTANCE.name,
-                Preferences.getIntegerFromString(R.string.EPr_default_importance_key));*/
+                Preferences.getIntegerFromString(R.string.p_default_importance_key));
         defaultValuesLoaded = true;
     }
 
@@ -225,7 +247,7 @@ public class Task extends AbstractModel {
 
     /** Checks whether task is hidden. Requires HIDDEN_UNTIL */
     public boolean isHidden() {
-    	return getValue(HIDDEN_UNTIL) > DateUtilities.now();
+    	return getValue(HIDE_UNTIL) > DateUtilities.now();
     }
 
     /** Checks whether task is done. Requires DUE_DATE */
@@ -233,23 +255,60 @@ public class Task extends AbstractModel {
         return getValue(DUE_DATE) > 0;
     }
 
-    // --- data access methods for migration properties
-
-    /** Number of bits to shift repeat value by */
-    public static final int REPEAT_VALUE_OFFSET = 3;
-
     /**
-     * @return RepeatInfo corresponding to
+     * @return true if hours, minutes, and seconds indicate end of day
      */
-    public RepeatInfo getRepeatInfo() {
-        int repeat = getValue(REPEAT);
-        if(repeat == 0)
-            return null;
-        int value = repeat >> REPEAT_VALUE_OFFSET;
-        RepeatInterval interval = RepeatInterval.values()
-            [repeat - (value << REPEAT_VALUE_OFFSET)];
-
-        return new RepeatInfo(interval, value);
+    private static boolean isEndOfDay(Date date) {
+        int hours = date.getHours();
+        int minutes = date.getMinutes();
+        int seconds = date.getSeconds();
+        return hours == 23 && minutes == 59 && seconds == 59;
     }
 
+    /**
+     * Sets due date for this task. If this due date has no time associated,
+     * we move it to the last millisecond of the day.
+     *
+     * @param date
+     * @param hasDueTime
+     */
+    public void setDueDateAndTime(Date dueDate, boolean hasDueTime) {
+        if(dueDate == null || dueDate.getTime() == 0) {
+            setValue(Task.DUE_DATE, 0L);
+            return;
+        }
+
+        if(!hasDueTime) {
+            dueDate.setHours(23);
+            dueDate.setMinutes(59);
+            dueDate.setSeconds(59);
+        } else if(isEndOfDay(dueDate)) {
+            dueDate.setSeconds(58);
+        }
+        setValue(Task.DUE_DATE, dueDate.getTime());
+    }
+
+    /**
+     * Checks whether this due date has a due time or only a date
+     */
+    public boolean hasDueTime() {
+        return !isEndOfDay(new Date(getValue(DUE_DATE)));
+    }
+
+    /**
+     * Returns the set state of the given flag on the given property
+     * @param property
+     * @param flag
+     * @return
+     */
+    public boolean getFlag(IntegerProperty property, int flag) {
+        return (getValue(property) & flag) > 0;
+    }
+
+    /**
+     * @return repeat data structure. Requires REPEAT
+     */
+    public RepeatInfo getRepeatInfo() {
+        return RepeatInfo.fromSingleField(getValue(Task.REPEAT));
+    }
 }

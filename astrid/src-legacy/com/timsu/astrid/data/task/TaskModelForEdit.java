@@ -24,12 +24,11 @@ import java.util.Date;
 import android.database.Cursor;
 
 import com.timsu.astrid.data.enums.Importance;
-import com.timsu.astrid.utilities.Notifications.Notifiable;
 
 
 
 /** Fields that you would want to edit in the TaskModel */
-public class TaskModelForEdit extends AbstractTaskModel implements Notifiable {
+public class TaskModelForEdit extends AbstractTaskModel {
 
     static String[] FIELD_LIST = new String[] {
         NAME,

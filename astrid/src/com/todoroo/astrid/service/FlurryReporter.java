@@ -16,6 +16,9 @@ public class FlurryReporter implements ErrorReporter {
 
     @SuppressWarnings("nls")
     public void handleError(String name, Throwable error) {
+        if(error == null)
+            return;
+
         String message = error.toString();
 
         StringWriter writer = new StringWriter();

@@ -2,9 +2,9 @@ package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.data.sql.Order;
-import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.sql.Order;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Task;
@@ -85,7 +85,7 @@ public class TaskDaoTests extends DatabaseTestCase {
         // create hidden task
         task = new Task();
         task.setValue(Task.TITLE, "hidden");
-        task.setValue(Task.HIDDEN_UNTIL, DateUtilities.now() + 10000);
+        task.setValue(Task.HIDE_UNTIL, DateUtilities.now() + 10000);
         assertTrue(taskDao.save(task, false));
 
         // create task with deadlines

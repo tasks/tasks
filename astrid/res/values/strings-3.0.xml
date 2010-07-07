@@ -2,221 +2,222 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources>
 
-    <!-- ======================== AndroidManifest ========================== -->
+  <!-- ======================== AndroidManifest ========================== -->
 
-    <string name="app_name">Astrid Tasks</string>
-    
-    <!-- permission title for READ_TASKS -->
-    <string name="read_permission_label">Astrid Permission</string>
-    
-    <!-- permission description for READ_TASKS -->
-    <string name="read_permission_desc">read tasks, display task filters</string>
-    
-    <!-- permission title for READ_TASKS -->
-    <string name="write_permission_label">Astrid Permission</string>
-    
-    <!-- permission description for READ_TASKS -->
-    <string name="write_permission_desc">create new tasks, edit existing tasks</string>
-    
-    <!-- ======================== Generic Plurals ========================== -->
-    
-    <plurals name="DUt_years">
-        <!-- plurals: years -->
-        <item quantity="one">1 Year</item>
-        <item quantity="other">%d Years</item>
-    </plurals>
-    <plurals name="DUt_months">
-        <!-- plurals: months -->
-        <item quantity="one">1 Month</item>
-        <item quantity="other">%d Months</item>
-    </plurals>
-    <plurals name="DUt_days">
-        <!-- plurals: days -->
-        <item quantity="one">1 Day</item>
-        <item quantity="other">%d Days</item>
-    </plurals>
-    <plurals name="DUt_hours">
-        <!-- plurals: hours -->
-        <item quantity="one">1 Hour</item>
-        <item quantity="other">%d Hours</item>
-    </plurals>
-    <plurals name="DUt_minutes">
-        <!-- plurals: minutes -->
-        <item quantity="one">1 Minute</item>
-        <item quantity="other">%d Minutes</item>
-    </plurals>
-    <plurals name="DUt_seconds">
-        <!-- plurals: seconds -->
-        <item quantity="one">1 Second</item>
-        <item quantity="other">%d Seconds</item>
-    </plurals>
-    <plurals name="DUt_hoursShort">
-        <!-- plurals: hours (abbreviated) -->
-        <item quantity="one">1 Hr</item>
-        <item quantity="other">%d Hrs</item>
-    </plurals>
-    <plurals name="DUt_minutesShort">
-        <!-- plurals: minutes (abbreviated) -->
-        <item quantity="one">1 Min</item>
-        <item quantity="other">%d Min</item>
-    </plurals>
-    <plurals name="DUt_secondsShort">
-        <!-- plurals: seconds (abbreviated) -->
-        <item quantity="one">1 Sec</item>
-        <item quantity="other">%d Sec</item>
-    </plurals>
-    
-    <!-- ========================= Generic Dialogs ========================= -->
-    
-    <!-- confirmation dialog title -->
-    <string name="DLG_confirm_title">Confirm?</string>
-    
-    <!-- question dialog title -->
-    <string name="DLG_question_title">Question:</string>
-    
-    <!-- information dialog title -->
-    <string name="DLG_information_title">Information</string>
-    
-    <!-- Dialog yes-->
-    <string name="DLG_yes">Yes</string>
-    
-    <!-- Dialog no-->
-    <string name="DLG_no">No</string>
-    
-    <!-- Dialog close-->
-    <string name="DLG_close">Close</string>
+  <string name="app_name">Astrid Tasks</string>
   
-    <!-- communicating with servers ext -->
-    <string name="DLG_communicating_text">Communicating with Server...</string>
-    
-    <!-- error dialog -->
-    <string name="DLG_error">Oops, looks like some trouble occurred! Here\'s what happened:\n\n%s</string>
-    
-    <!-- question for deleting tasks -->
-    <string name="DLG_delete_this_task_question">Delete this task?</string>
-    
-    <!-- Button for advancing to next page/message -->
-    <string name="DLG_next">Next</string>
-    
-    <!-- Button for retreating to previous page/message -->
-    <string name="DLG_prev">Previous</string>
-    
-    <!-- Button for being done -->
-    <string name="DLG_done">Done</string>
-    
-    <!-- Button for canceling out of this page -->
-    <string name="DLG_cancel">Cancel</string>
-    
-    <!-- ============================= Widgets ============================= -->
-    
-    <!-- Label for DateButtons with no value -->
-    <string name="WID_dateButtonUnset">Click To Set</string>
-    
-    <!-- String formatter for DateButtons ($D => date, $T => time) -->
-    <string name="WID_dateButtonLabel">$D $T</string>
-    
-    <!-- String formatter for Disable button -->
-    <string name="WID_disableButton">Disable</string>
-    
-    <!-- ======================== TaskListActivity ========================  -->
-    
-    <!-- Title (%s => name of filter) -->    
-    <string name="TLA_title">Astrid: %s</string>
-    
-    <!-- Displayed instead of list when no items present -->    
-    <string name="TLA_no_items">You Have No Tasks!</string>
-    
-    <!-- Menu: Add Task -->    
-    <string name="TLA_menu_add">Add Task</string>
-    
-    <!-- Menu: Plugins -->    
-    <string name="TLA_menu_plugins">Plugins</string>
-    
-    <!-- Menu: Settings -->    
-    <string name="TLA_menu_settings">Settings</string>
-    
-    <!-- Menu: Help -->    
-    <string name="TLA_menu_help">Help</string>
-    
-    <!-- Search Label-->
-    <string name="TLA_search_label">Search Within This Filter</string>
-    
-    <!-- Search Hint-->
-    <string name="TLA_search_hint">Search Within This Filter</string>
-    
-    <!-- Quick Add Hint-->
-    <string name="TLA_quick_add_hint">Add to this list</string>
-    
-    <!-- Help (HTML)-->
-    <string name="TLA_help"><![CDATA[
-<center><h1>Help: Tasks Page</h1></center>
-This page displays all of your tasks belonging to the filter you have chosen.
-The back button at the top of the screen lets you pick a different filter
-to display.
-<br />
-You can use the quick-add widget at the bottom of the screen to add tasks
-without going to the edit page.
-<br />
-uh... that\'s it for help for today.
-    ]]></string>
-    
-    <!-- =========================== TaskAdapter =========================== -->
-    
-    <!-- Format string to indicate task is hidden (%s => task name) -->
-    <string name="TAd_hiddenFormat">%s [hidden]</string>
-    
-    <!-- Displayed when adapter is flung (scrolled quickly) -->
-    <string name="TAd_isFling">loading</string>
-    
-    <!-- due date for tasks ($D => date) -->
-    <string name="TAd_dueDate">$D</string>
+  <!-- permission title for READ_TASKS -->
+  <string name="read_permission_label">Astrid Permission</string>
+  
+  <!-- permission description for READ_TASKS -->
+  <string name="read_permission_desc">read tasks, display task filters</string>
+  
+  <!-- permission title for READ_TASKS -->
+  <string name="write_permission_label">Astrid Permission</string>
+  
+  <!-- permission description for READ_TASKS -->
+  <string name="write_permission_desc">create new tasks, edit existing tasks</string>
+  
+  <!-- ======================== Generic Plurals ========================== -->
+  
+  <plurals name="DUt_years">
+    <!-- plurals: years -->
+    <item quantity="one">1 Year</item>
+    <item quantity="other">%d Years</item>
+  </plurals>
+  <plurals name="DUt_months">
+    <!-- plurals: months -->
+    <item quantity="one">1 Month</item>
+    <item quantity="other">%d Months</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <!-- plurals: days -->
+    <item quantity="one">1 Week</item>
+    <item quantity="other">%d Weeks</item>
+  </plurals>
+  <plurals name="DUt_days">
+    <!-- plurals: days -->
+    <item quantity="one">1 Day</item>
+    <item quantity="other">%d Days</item>
+  </plurals>
+  <plurals name="DUt_hours">
+    <!-- plurals: hours -->
+    <item quantity="one">1 Hour</item>
+    <item quantity="other">%d Hours</item>
+  </plurals>
+  <plurals name="DUt_minutes">
+    <!-- plurals: minutes -->
+    <item quantity="one">1 Minute</item>
+    <item quantity="other">%d Minutes</item>
+  </plurals>
+  <plurals name="DUt_seconds">
+    <!-- plurals: seconds -->
+    <item quantity="one">1 Second</item>
+    <item quantity="other">%d Seconds</item>
+  </plurals>
+  <plurals name="DUt_hoursShort">
+    <!-- plurals: hours (abbreviated) -->
+    <item quantity="one">1 Hr</item>
+    <item quantity="other">%d Hrs</item>
+  </plurals>
+  <plurals name="DUt_minutesShort">
+    <!-- plurals: minutes (abbreviated) -->
+    <item quantity="one">1 Min</item>
+    <item quantity="other">%d Min</item>
+  </plurals>
+  <plurals name="DUt_secondsShort">
+    <!-- plurals: seconds (abbreviated) -->
+    <item quantity="one">1 Sec</item>
+    <item quantity="other">%d Sec</item>
+  </plurals>
+  
+  <!-- ========================= Generic Dialogs ========================= -->
+  
+  <!-- confirmation dialog title -->
+  <string name="DLG_confirm_title">Confirm?</string>
+  
+  <!-- question dialog title -->
+  <string name="DLG_question_title">Question:</string>
+  
+  <!-- information dialog title -->
+  <string name="DLG_information_title">Information</string>
+  
+  <!-- Dialog yes-->
+  <string name="DLG_yes">Yes</string>
+  
+  <!-- Dialog no-->
+  <string name="DLG_no">No</string>
+  
+  <!-- Dialog close-->
+  <string name="DLG_close">Close</string>
+  
+  <!-- communicating with servers ext -->
+  <string name="DLG_communicating_text">Communicating with Server...</string>
+  
+  <!-- error dialog -->
+  <string name="DLG_error">Oops, looks like some trouble occurred! Here\'s what happened:\n\n%s</string>
+  
+  <!-- question for deleting tasks -->
+  <string name="DLG_delete_this_task_question">Delete this task?</string>
+  
+  <!-- Button for advancing to next page/message -->
+  <string name="DLG_next">Next</string>
+  
+  <!-- Button for retreating to previous page/message -->
+  <string name="DLG_prev">Previous</string>
+  
+  <!-- Button for being done -->
+  <string name="DLG_done">Done</string>
+  
+  <!-- Button for canceling out of this page -->
+  <string name="DLG_cancel">Cancel</string>
+  
+  <!-- Progress dialog shown when doing something slow -->
+  <string name="DLG_wait">Please wait...</string>
+  
+  <!-- ============================= Widgets ============================= -->
+  
+  <!-- Label for DateButtons with no value -->
+  <string name="WID_dateButtonUnset">Click To Set</string>
+  
+  <!-- String formatter for DateButtons ($D => date, $T => time) -->
+  <string name="WID_dateButtonLabel">$D $T</string>
+  
+  <!-- String formatter for Disable button -->
+  <string name="WID_disableButton">Disable</string>
+  
+  <!-- ======================== TaskListActivity ========================  -->
+  
+  <!-- Displayed instead of list when no items present -->    
+  <string name="TLA_no_items">No Tasks!</string>
+  
+  <!-- Menu: Add-ons -->    
+  <string name="TLA_menu_addons">Add-ons</string>
+  
+  <!-- Menu: Settings -->    
+  <string name="TLA_menu_settings">Settings</string>
+  
+  <!-- Menu: Help -->    
+  <string name="TLA_menu_help">Help</string>
+  
+  <!-- Search Label-->
+  <string name="TLA_search_label">Search Within This Filter</string>
+  
+  <!-- Search Hint-->
+  <string name="TLA_search_hint">Search Within This Filter</string>
+  
+  <!-- Quick Add Hint-->
+  <string name="TLA_quick_add_hint">Add to this list...</string>
+  
+  <!-- Help (HTML)-->
+  <string name="TLA_help"><![CDATA[
+<center><h1>Help: Task Listing</h1></center>
+<b>bar at the top</b>: shows the name of this filter, and a button to go back
+to your list of filters.
+<p />
+<b>middle</b>: shows all your tasks.
+<p />
+<b>bottom</b>: quick add tasks. left button: add straight to the list. right
+button: add task & go to the edit page.
+  ]]></string>
+  
+  <!-- =========================== TaskAdapter =========================== -->
+  
+  <!-- Format string to indicate task is hidden (%s => task name) -->
+  <string name="TAd_hiddenFormat">%s [hidden]</string>
+  
+  <!-- Format string to indicate task is deleted (%s => task name) -->
+  <string name="TAd_deletedFormat">%s [deleted]</string>
+  
+  <!-- Displayed when adapter is flung (scrolled quickly) -->
+  <string name="TAd_flingText"></string>
+  
+  <!-- indicates task was completed. %s => date or time ago -->
+  <string name="TAd_completed">Finished %s</string>
+  
+  <!-- placeholder for loading task detail -->
+  <string name="TAd_loading">Loading...</string>
+  
+  <!-- Context Item: edit task -->
+  <string name="TAd_contextEditTask">Edit Task</string>
 
-    <!-- due date for tasks with date and time ($D => date, $T => time) -->
-    <string name="TAd_dueDateTime">$D at $T</string>
-    
-    <!-- indicates task was completed. %s => date or time ago -->
-    <string name="TAd_completed">Finished %s</string>
-    
-    <!-- textview indicating details are being loaded -->
-    <string name="TAd_loading">... loading ...</string>
-    
-    <!-- Context Item: edit task -->
-    <string name="TAd_contextEditTask">Edit Task</string>
+  <!-- Context Item: delete task -->
+  <string name="TAd_contextDeleteTask">Delete Task</string>
+  
+  <!-- ======================= FilterListActivity ======================== -->
 
-    <!-- Context Item: delete task -->
-    <string name="TAd_contextDeleteTask">Delete Task</string>
-    
-    <!-- ======================= FilterListActivity ======================== -->
-
-    <!-- Title -->    
-    <string name="FLA_title">Astrid: Filters</string>
-    
-    <!-- Loading -->    
-    <string name="FLA_loading">Please Wait...</string>
-    
-    <!-- Context Menu: Shortcut -->    
-    <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
-    
-    <!-- Menu: Search -->    
-    <string name="FLA_menu_search">Search...</string>
-    
-    <!-- Menu: Help -->    
-    <string name="FLA_menu_help">Help</string>
-    
-    <!-- Create Shortcut Dialog -->    
-    <string name="FLA_shortcut_dialog">Create Shortcut:</string>
-    
-    <!-- Search Label-->
-    <string name="FLA_search_label">Search For Tasks</string>
-    
-    <!-- Search Hint-->
-    <string name="FLA_search_hint">Search For Tasks</string>
-    
-    <!-- Help (HTML)-->
-    <string name="FLA_help"><![CDATA[
+  <!-- Title -->    
+  <string name="FLA_title">Astrid: Filters</string>
+  
+  <!-- Loading -->    
+  <string name="FLA_loading">Loading Filters...</string>
+  
+  <!-- Context Menu: Shortcut -->    
+  <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
+  
+  <!-- Menu: Search Hint -->    
+  <string name="FLA_menu_search">Search Tasks...</string>
+  
+  <!-- Menu: Help -->    
+  <string name="FLA_menu_help">Help</string>
+  
+  <!-- Create Shortcut Dialog Title -->    
+  <string name="FLA_shortcut_dialog_title">Create Shortcut</string>
+  
+  <!-- Create Shortcut Dialog (asks to name shortcut) -->    
+  <string name="FLA_shortcut_dialog">Name of shortcut:</string>
+  
+  <!-- Search Hint-->
+  <string name="FLA_search_hint">Search For Tasks</string>
+  
+  <!-- Search Filter name (%s => query) -->
+  <string name="FLA_search_filter">Matching \'%s\'</string>
+  
+  <!-- Help (HTML)-->
+  <string name="FLA_help"><![CDATA[
 <center><h1>Help: Filters Page</h1></center>
 <p>On the Filters page you can see all of the filters that you can use to
-organize your tasks. Some Astrid Plugins will add new filters to this 
+organize your tasks. Some Astrid Add-ons will add new filters to this 
 list.
 </p><p>
 You can turn any filter into a shortcut on your desktop by long-pressing
@@ -227,113 +228,167 @@ are using.
 If you are having trouble with a particular plugin, please report errors
 to the plugin creator for fastest service.
 </p>
-    ]]></string>
-    
-    <!-- Toast: created shortcut (%s => label) -->
-    <string name="FLA_toast_onCreateShortcut">Created Shortcut: %s</string>
-    
-    <!-- ======================== TaskEditActivity ========================= -->
-    
-    <!-- Title when editing a task (%s => task title) -->
-    <string name="TEA_title">Astrid: Editing </string>
-    
-    <!-- Title when creating a new task -->
-    <string name="TEA_titleNew">Astrid: New Task</string>
-    
-    <!-- Task title label -->
-    <string name="TEA_name_label">Summary</string>
-    
-    <!-- Task title hint (displayed when edit box is empty) -->
-    <string name="TEA_name_hint">Task Name</string>
-    
-    <!-- Task importance label -->
-    <string name="TEA_importance_label">How important is it?</string>
-    
-    <!-- Task urgency label -->
-    <string name="TEA_urgency_label">When must you finish it?</string>
-    
-    <!-- Task hidden until label -->
-    <string name="TEA_hiddenUntil_label">Hide Until This Date</string>
-    
-    <!-- Task plugins label -->
-    <string name="TEA_plugins_label">Plugins</string>
-    
-    <!-- Save button -->
-    <string name="TEA_save_label">Save</string>
-    
-    <!-- Don't Save button -->
-    <string name="TEA_discard_label">Don\'t Save</string>
+  ]]></string>
+  
+  <!-- Toast: created shortcut (%s => label) -->
+  <string name="FLA_toast_onCreateShortcut">Created Shortcut: %s</string>
+  
+  <!-- ================================================= TaskEditActivity == -->
+  
+  <!-- Title when editing a task (%s => task title) -->
+  <string name="TEA_view_title">Astrid: Editing \'%s\'</string>
+  
+  <!-- Title when creating a new task -->
+  <string name="TEA_view_titleNew">Astrid: New Task</string>
+  
+  <!-- First Tab - basic task details -->
+  <string name="TEA_tab_basic">Basic</string>
+  
+  <!-- Second Tab - extra details -->
+  <string name="TEA_tab_extra">Extra</string>
+  
+  <!-- Third Tab - add-ons -->
+  <string name="TEA_tab_addons">Add-ons</string>
+  
+  <!-- Task title label -->
+  <string name="TEA_title_label">What to do?</string>
+  
+  <!-- Task title hint (displayed when edit box is empty) -->
+  <string name="TEA_title_hint">Task Summary</string>
+  
+  <!-- Task importance label -->
+  <string name="TEA_importance_label">How Important?</string>
+  
+  <!-- Task urgency label -->
+  <string name="TEA_urgency_label">When to Start?</string>
+  
+  <!-- Task hide until label -->
+  <string name="TEA_hideUntil_label">Hide Until?</string>
+  
+  <!-- Task note label -->
+  <string name="TEA_note_label">Notes:</string>
+  
+  <!-- Task note hint -->
+  <string name="TEA_notes_hint">Enter Task Notes...</string>
+  
+  <!-- Estimated time label -->
+  <string name="TEA_estimatedDuration_label">How Long Will it Take?</string>
+  
+  <!-- Elapsed time label -->
+  <string name="TEA_elapsedDuration_label">Time Already Spent on Task</string>
+  
+  <!-- Label for adding task to calendar -->
+  <string name="TEA_calendar_label">Calendar Integration:</string>
+  
+  <!-- Label for adding task to calendar -->
+  <string name="TEA_addToCalendar_label">Create Calendar Event</string>
+  
+  <!-- Label when calendar event already exists -->
+  <string name="TEA_showCalendar_label">Open Calendar Event</string>
+  
+  <!-- Repeat Setting label -->
+  <string name="TEA_repeat_label">Repeat Every</string>
+  
+  <!-- Repeat label when repeats are not set -->
+  <string name="TEA_repeat_value_unset">No Repeat Set</string>
 
-    <!-- Menu: Save -->    
-    <string name="TEA_menu_save">Save Changes</string>
-    
-    <!-- Menu: Don't Save -->
-    <string name="TEA_menu_discard">Don\'t Save</string>
-    
-    <!-- Menu: Delete Task -->
-    <string name="TEA_menu_delete">Delete Task</string>
-    
-     <!-- Toast: task saved with deadline (%s => time units) -->
-    <string name="TEA_onTaskSave_due">Task Saved: due in %s</string>
-    
-    <!-- Toast: task saved with deadline in past (%s => time units) -->
-    <string name="TEA_onTaskSave_overdue">Task Saved: due %s ago</string>
-    
-    <!-- Toast: task saved without deadlines -->
-    <string name="TEA_onTaskSave_notDue">Task Saved</string>
-    
-    <!-- Toast: task was not saved -->
-    <string name="TEA_onTaskDiscard">Task Editing Was Abandoned</string>
-    
-    <!-- ========================== Notifications ========================== -->
+  <!-- Tags label -->
+  <string name="TEA_tags_label">Tags:</string>
+  
+  <!-- Tags hint -->
+  <string name="TEA_tag_hint">Tag Name</string>
 
-    <!-- Notification title for tasks -->
-    <string name="Ntf_task_title">Astrid: New Reminder</string>
-    
-    <!-- ===================== IntroductionActivity ======================== -->
-    
-    <!-- Window title -->
-    <string name="InA_title">Welcome to Astrid!</string>
-    
-    <!-- Button to agree to EULA -->
-    <string name="InA_agree">I Agree</string>
-    
-    <!-- Button to disagree with EULA -->
-    <string name="InA_disagree">I Disagree</string>
-    
-    <!-- Button to show legal -->
-    <string name="InA_show_eula">Start Using Todoroo</string>
-    
-    <!-- =========================== HelpActivity ========================== -->
-    
-    <!-- Button to send e-mail to Todoroo -->
-    <string name="HlA_email_us">E-mail Todoroo</string>
-        
-    <!-- ========================== UpdateService ========================== -->
-    
-    <!-- Change Log Window Title -->
-    <string name="UpS_changelog_title">What\'s New In Astrid?</string>
-    
-    <!-- ========================= EditPreferences ========================= -->
-        
-    <!-- Window Title -->
-    <string name="EPr_title">Astrid: Preferences</string>
+  <!-- dialog boxes -->
+  <string name="TEA_repeat_picker_title">Repeat Every (0 to disable)</string>
+  <string name="TEA_repeat_help_dialog_title">Help: Astrid Repeats</string>
+  <string name="TEA_repeat_help_dialog">
+To use repeats, set at least one of the deadlines above. When you complete this task, the deadline will be automatically advanced.
+\n\n
+If you don\'t want to see the new task right after you complete the old one, you should use the \"Hide Until\" field, which will also be advanced automatically.
+\n
+  </string>
+  <string name="TEA_repeat_help_hide">Don\'t Show Help Anymore</string>
 
-    <!-- Defaults Title -->
-    <string name="EPr_defaults_header">New Task Defaults</string>
+  <!-- Save button -->
+  <string name="TEA_save_label">Save</string>
+  
+  <!-- Don't Save button -->
+  <string name="TEA_cancel_label">Cancel</string>
+  
+  <!-- Delete button -->
+  <string name="TEA_delete_label">Delete</string>
+
+  <!-- Menu: Save -->    
+  <string name="TEA_menu_save">Save Changes</string>
+  
+  <!-- Menu: Don't Save -->
+  <string name="TEA_menu_discard">Don\'t Save</string>
+  
+  <!-- Menu: Delete Task -->
+  <string name="TEA_menu_delete">Delete Task</string>
+  
+   <!-- Toast: task saved with deadline (%s => time units) -->
+  <string name="TEA_onTaskSave_due">Task Saved: due in %s</string>
+  
+  <!-- Toast: task saved with deadline in past (%s => time units) -->
+  <string name="TEA_onTaskSave_overdue">Task Saved: due %s ago</string>
+  
+  <!-- Toast: task saved without deadlines -->
+  <string name="TEA_onTaskSave_notDue">Task Saved</string>
+  
+  <!-- Toast: task was not saved -->
+  <string name="TEA_onTaskCancel">Task Editing Was Canceled</string>
+  
+  <!-- Toast: task was deleted -->
+  <string name="TEA_onTaskDelete">Task Deleted!</string>
+  
+  <!-- ========================== Notifications ========================== -->
+
+  <!-- Notification title for tasks -->
+  <string name="Ntf_task_title">Astrid: New Reminder</string>
+  
+  <!-- ===================== IntroductionActivity ======================== -->
+  
+  <!-- Window title -->
+  <string name="InA_title">Welcome to Astrid!</string>
+  
+  <!-- Button to agree to EULA -->
+  <string name="InA_agree">I Agree!!</string>
+  
+  <!-- Button to disagree with EULA -->
+  <string name="InA_disagree">I Disagree</string>
+  
+  <!-- =========================== HelpActivity ========================== -->
+  
+  <!-- Button to send e-mail to Todoroo -->
+  <string name="HlA_email_us">E-mail Todoroo</string>
     
-    <!-- Default Urgency Title -->
-    <string name="EPr_default_urgency_title">Default Urgency</string>
-    <!-- Default Urgency Description (%s => setting) -->
-    <string name="EPr_default_urgency_desc">Currently Set To: %s</string>
-    <!-- Preference Key (do not translate) -->
-    <string name="EPr_default_urgency_key">p_durg</string>
+  <!-- ========================== UpdateService ========================== -->
+  
+  <!-- Change Log Window Title -->
+  <string name="UpS_changelog_title">What\'s New In Astrid?</string>
+  
+  <!-- ========================= EditPreferences ========================= -->
     
-    <!-- Default Importance Title -->
-    <string name="EPr_default_importance_title">Default Importance</string>
-    <!-- Default Importance Description (%s => setting) -->
-    <string name="EPr_default_importance_desc">Currently Set To: %s</string>
-    <!-- Preference Key (do not translate) -->
-    <string name="EPr_default_importance_key">p_dimp</string>
-        
+  <!-- Window Title -->
+  <string name="EPr_title">Astrid: Preferences</string>
+
+  <!-- Defaults Title -->
+  <string name="EPr_defaults_header">New Task Defaults</string>
+  
+  <!-- Default Urgency Title -->
+  <string name="EPr_default_urgency_title">Default Urgency</string>
+  <!-- Default Urgency Description (%s => setting) -->
+  <string name="EPr_default_urgency_desc">Currently Set To: %s</string>
+  
+  <!-- Default Importance Title -->
+  <string name="EPr_default_importance_title">Default Importance</string>
+  <!-- Default Importance Description (%s => setting) -->
+  <string name="EPr_default_importance_desc">Currently Set To: %s</string>
+  
+  <!-- Default Hide Until Title -->
+  <string name="EPr_default_hideUntil_title">Default Hide Until</string>
+  <!-- Default Hide Until Description (%s => setting) -->
+  <string name="EPr_default_hideUntil_desc">Currently Set To: %s</string>
+  
 </resources>

@@ -57,6 +57,7 @@ abstract public class FilterListItem implements Parcelable {
 
     /**
      * Utility method to read FilterListItem properties from a parcel.
+     *
      * @param source
      */
     public void readFromParcel(Parcel source) {

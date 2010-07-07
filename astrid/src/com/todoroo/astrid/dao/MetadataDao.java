@@ -10,11 +10,11 @@ import android.database.Cursor;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.data.sql.Criterion;
-import com.todoroo.andlib.data.sql.Join;
-import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 

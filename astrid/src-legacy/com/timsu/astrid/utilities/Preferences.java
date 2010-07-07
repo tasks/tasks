@@ -43,25 +43,25 @@ public class Preferences {
         Resources r = context.getResources();
         Editor editor = prefs.edit();
 
-        if(!prefs.contains(r.getString(R.string.p_notif_annoy))) {
-            editor.putBoolean(r.getString(R.string.p_notif_annoy),
-                    DEFAULT_PERSISTENCE_MODE);
-        }
+//        if(!prefs.contains(r.getString(R.string.p_notif_annoy))) {
+//            editor.putBoolean(r.getString(R.string.p_notif_annoy),
+//                    DEFAULT_PERSISTENCE_MODE);
+//        }
         if(!prefs.contains(r.getString(R.string.p_fontSize))) {
             editor.putString(r.getString(R.string.p_fontSize), "20");
         }
-        if(!prefs.contains(r.getString(R.string.p_deadlineTime))) {
-            editor.putString(r.getString(R.string.p_deadlineTime), "1");
-        }
-        if(!prefs.contains(r.getString(R.string.p_notif_defaultRemind))) {
-            editor.putString(r.getString(R.string.p_notif_defaultRemind), "0");
-        }
+//        if(!prefs.contains(r.getString(R.string.p_deadlineTime))) {
+//            editor.putString(r.getString(R.string.p_deadlineTime), "1");
+//        }
+//        if(!prefs.contains(r.getString(R.string.p_notif_defaultRemind))) {
+//            editor.putString(r.getString(R.string.p_notif_defaultRemind), "0");
+//        }
         if(!prefs.contains(r.getString(R.string.p_colorize))) {
             editor.putBoolean(r.getString(R.string.p_colorize), DEFAULT_COLORIZE);
         }
-        if(!prefs.contains(r.getString(R.string.p_notif_vibrate))) {
-            editor.putBoolean(r.getString(R.string.p_notif_vibrate), true);
-        }
+//        if(!prefs.contains(r.getString(R.string.p_notif_vibrate))) {
+//            editor.putBoolean(r.getString(R.string.p_notif_vibrate), true);
+//        }
         if (!prefs.contains(r.getString(R.string.p_backup))) {
             editor.putBoolean(r.getString(R.string.p_backup), true);
         }
@@ -77,38 +77,38 @@ public class Preferences {
     }
 
     private static void setVisibilityPreferences(SharedPreferences p, Editor e, Resources r) {
-    	if(!p.contains(r.getString(R.string.prefs_titleVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_titleVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_titleVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_timeVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_timeVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_timeVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_deadlineVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_deadlineVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_deadlineVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_importanceVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_importanceVisible),
-                    Boolean.parseBoolean(r.getString(R.string.prefs_importanceVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_reminderVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_reminderVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_reminderVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_repeatVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_repeatVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_repeatVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_tagsVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_tagsVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_tagsVisible_default)));
-        }
-    	if(!p.contains(r.getString(R.string.prefs_notesVisible))) {
-            e.putBoolean(r.getString(R.string.prefs_notesVisible),
-            		Boolean.parseBoolean(r.getString(R.string.prefs_notesVisible_default)));
-        }
+//    	if(!p.contains(r.getString(R.string.prefs_titleVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_titleVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_titleVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_timeVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_timeVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_timeVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_deadlineVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_deadlineVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_deadlineVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_importanceVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_importanceVisible),
+//                    Boolean.parseBoolean(r.getString(R.string.prefs_importanceVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_reminderVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_reminderVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_reminderVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_repeatVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_repeatVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_repeatVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_tagsVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_tagsVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_tagsVisible_default)));
+//        }
+//    	if(!p.contains(r.getString(R.string.prefs_notesVisible))) {
+//            e.putBoolean(r.getString(R.string.prefs_notesVisible),
+//            		Boolean.parseBoolean(r.getString(R.string.prefs_notesVisible_default)));
+//        }
 	}
 
     // --- system preferences
@@ -230,60 +230,68 @@ public class Preferences {
 
     /** returns hour at which quiet hours start, or null if not set */
     public static Integer getQuietHourStart(Context context) {
-        return getIntegerValue(context, R.string.p_notif_quietStart);
+//        return getIntegerValue(context, R.string.p_notif_quietStart);
+        return 0;
     }
 
     /** returns hour at which quiet hours start, or null if not set */
     public static Integer getQuietHourEnd(Context context) {
-        return getIntegerValue(context, R.string.p_notif_quietEnd);
+//        return getIntegerValue(context, R.string.p_notif_quietEnd);
+        return 0;
     }
 
     /** returns hour at which quiet hours start, or null if not set */
     public static int getNotificationIconTheme(Context context) {
-        Integer index = getIntegerValue(context, R.string.p_notif_icon);
-        if(index == null)
-            index = 0;
-        return index;
+//        Integer index = getIntegerValue(context, R.string.p_notif_icon);
+//        if(index == null)
+//            index = 0;
+//        return index;
+        return 0;
     }
 
     /** Get notification ring tone, or null if not set */
     public static Uri getNotificationRingtone(Context context) {
     	Resources r = context.getResources();
-        String value = getPrefs(context).getString(r.getString(
-                R.string.p_notification_ringtone), "");
-
-        try {
-			return Uri.parse(value);
-		} catch (RuntimeException e) {
-			return null;
-		}
+//        String value = getPrefs(context).getString(r.getString(
+//                R.string.p_notification_ringtone), "");
+//
+//        try {
+//			return Uri.parse(value);
+//		} catch (RuntimeException e) {
+//			return null;
+//		}
+    	return null;
     }
 
     /** Get perstence mode setting */
     public static boolean isPersistenceMode(Context context) {
         Resources r = context.getResources();
-        return getPrefs(context).getBoolean(r.getString(
-                R.string.p_notif_annoy), DEFAULT_PERSISTENCE_MODE);
+//        return getPrefs(context).getBoolean(r.getString(
+//                R.string.p_notif_annoy), DEFAULT_PERSISTENCE_MODE);
+        return false;
     }
 
     /** Get vibration mode setting */
     public static boolean shouldVibrate(Context context) {
         Resources r = context.getResources();
-        return getPrefs(context).getBoolean(r.getString(
-                R.string.p_notif_vibrate), true);
+//        return getPrefs(context).getBoolean(r.getString(
+//                R.string.p_notif_vibrate), true);
+        return false;
     }
 
     /** Return # of days to remind by default */
     public static Integer getDefaultReminder(Context context) {
-        return getIntegerValue(context, R.string.p_notif_defaultRemind);
+        // return getIntegerValue(context, R.string.p_notif_defaultRemind);
+        return 0;
     }
 
     // --- postpone count & settings
 
     /** whether nags for postponing and other things should be shown */
     public static boolean shouldShowNags(Context context) {
-        return getPrefs(context).getBoolean(context.getResources().
-                getString(R.string.p_nagging), true);
+//        return getPrefs(context).getBoolean(context.getResources().
+//                getString(R.string.p_nagging), true);
+        return false;
     }
 
     // --- appearance settings
@@ -295,7 +303,8 @@ public class Preferences {
 
     /** Return # of days from now to set deadlines by default */
     public static Integer getDefaultDeadlineDays(Context context) {
-        return getIntegerValue(context, R.string.p_deadlineTime);
+//        return getIntegerValue(context, R.string.p_deadlineTime);
+        return 0;
     }
 
     /** Get perstence mode setting */
@@ -419,11 +428,6 @@ public class Preferences {
         if(time != null && time == 0)
             time = null;
         return time;
-    }
-
-    /** Reads the old auto */
-    public static Float getSyncOldAutoSyncFrequency(Context context) {
-    	return getFloatValue(context, R.string.p_sync_every_old);
     }
 
     /** Sets the auto-sync frequency to the desired value */

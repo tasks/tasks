@@ -16,10 +16,10 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.activities.TaskEdit;
-import com.timsu.astrid.activities.TaskList;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskModelForWidget;
+import com.todoroo.astrid.activity.TaskEditActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 public class AstridAppWidgetProvider extends AppWidgetProvider {
@@ -81,7 +81,7 @@ public class AstridAppWidgetProvider extends AppWidgetProvider {
                     .getTasksForWidget(Integer.toString(numberOfTasks));
             taskController.close();
 
-            Intent listIntent = new Intent(context, TaskList.class);
+            Intent listIntent = new Intent(context, TaskListActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
                     listIntent, 0);
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
@@ -114,7 +114,7 @@ public class AstridAppWidgetProvider extends AppWidgetProvider {
                 views.setTextColor(textIDs[i], textColor);
             }
 
-            Intent editIntent = new Intent(context, TaskEdit.class);
+            Intent editIntent = new Intent(context, TaskEditActivity.class);
             pendingIntent = PendingIntent.getActivity(context, 0,
                     editIntent, 0);
             views.setOnClickPendingIntent(R.id.widget_button, pendingIntent);

@@ -28,6 +28,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.legacy.data.AbstractController;
 import com.todoroo.astrid.legacy.data.AbstractModel;
 import com.todoroo.astrid.legacy.data.enums.Importance;
@@ -353,6 +354,26 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
         public int getValue() {
             return value;
+        }
+        
+        public static int toSingleField(RepeatInfo repeatInfo) {
+            int repeat;
+            if(repeatInfo == null)
+                repeat = 0;
+            else
+                repeat = (repeatInfo.value << REPEAT_VALUE_OFFSET) +
+                    repeatInfo.interval.ordinal();
+            return repeat;
+        }
+
+        public static RepeatInfo fromSingleField(int repeat) {
+            if(repeat == 0)
+                return null;
+            int value = repeat >> REPEAT_VALUE_OFFSET;
+            RepeatInterval interval = RepeatInterval.values()
+                [repeat - (value << REPEAT_VALUE_OFFSET)];
+
+            return new RepeatInfo(interval, value);
         }
 
     }

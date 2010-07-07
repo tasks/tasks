@@ -66,6 +66,12 @@ public class DateControlSet implements OnTimeSetListener,
         return date;
     }
 
+    public long getMillis() {
+        if(date == null)
+            return 0;
+        return date.getTime();
+    }
+
     /** Initialize the components for the given date field */
     public void setDate(Date newDate) {
         if(newDate == null) {
@@ -80,6 +86,13 @@ public class DateControlSet implements OnTimeSetListener,
 
         updateDate();
         updateTime();
+    }
+
+    public void setDate(long newDate) {
+        if(newDate == 0L)
+            setDate(null);
+        else
+            setDate(new Date(newDate));
     }
 
     public void onDateSet(DatePicker view, int year, int month, int monthDay) {

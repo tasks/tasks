@@ -2,19 +2,18 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 
-import android.content.Context;
-
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
-import com.todoroo.andlib.data.sql.Criterion;
-import com.todoroo.andlib.data.sql.Join;
-import com.todoroo.andlib.data.sql.Order;
-import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.Order;
+import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.MetadataService;
@@ -39,7 +38,7 @@ public class TagService {
     @Autowired
     private MetadataService metadataService;
 
-    public TagService(@SuppressWarnings("unused") Context context) {
+    public TagService() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
@@ -57,7 +56,7 @@ public class TagService {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public class Tag {
+    public final class Tag {
         public String tag;
         int count;
 
@@ -65,6 +64,25 @@ public class TagService {
         public String toString() {
             return tag;
         }
+
+        /**
+         * Return SQL selector query for getting tasks with a given tag
+         *
+         * @param tag
+         * @return
+         */
+        public QueryTemplate queryTemplate() {
+            return new QueryTemplate().join(Join.inner(Metadata.TABLE,
+                    Task.ID.eq(Metadata.TASK))).where(Criterion.and(
+                            MetadataCriteria.withKey(KEY), Metadata.VALUE.eq(tag)));
+        }
+    }
+
+    public QueryTemplate untaggedTemplate() {
+        return new QueryTemplate().join(Join.left(Metadata.TABLE,
+                Task.ID.eq(Metadata.TASK))).where(Criterion.and(
+                        TaskCriteria.isActive(), MetadataCriteria.withKey(KEY),
+                        Metadata.VALUE.isNull()));
     }
 
     /**
@@ -94,7 +112,7 @@ public class TagService {
      * Return tags on the given task
      *
      * @param taskId
-     * @return empty array if no tags, otherwise array
+     * @return cursor. PLEASE CLOSE THE CURSOR!
      */
     public TodorooCursor<Metadata> getTags(long taskId) {
         Query query = Query.select(Metadata.VALUE).where(Criterion.and(MetadataCriteria.withKey(KEY),
@@ -111,28 +129,20 @@ public class TagService {
     public String getTagsAsString(long taskId) {
         StringBuilder tagBuilder = new StringBuilder();
         TodorooCursor<Metadata> tags = getTags(taskId);
-        int length = tags.getCount();
-        Metadata metadata = new Metadata();
-        for (int i = 0; i < length; i++) {
-            tags.moveToNext();
-            metadata.readFromCursor(tags);
-            tagBuilder.append(metadata.getValue(Metadata.VALUE));
-            if (i < length - 1)
-                tagBuilder.append(", ");
+        try {
+            int length = tags.getCount();
+            Metadata metadata = new Metadata();
+            for (int i = 0; i < length; i++) {
+                tags.moveToNext();
+                metadata.readFromCursor(tags);
+                tagBuilder.append(metadata.getValue(Metadata.VALUE));
+                if (i < length - 1)
+                    tagBuilder.append(", ");
+            }
+        } finally {
+            tags.close();
         }
         return tagBuilder.toString();
-    }
-
-    /**
-     * Return SQL selector query for getting tasks with a given tag
-     *
-     * @param tag
-     * @return
-     */
-    public Query tasksWithTag(String tag, Property<?>... properties) {
-        return Query.select(properties).join(Join.inner(Metadata.TABLE,
-                Task.ID.eq(Metadata.TASK))).where(Criterion.and(
-                        MetadataCriteria.withKey(KEY), Metadata.VALUE.eq(tag)));
     }
 
     /**
@@ -149,7 +159,7 @@ public class TagService {
         metadata.setValue(Metadata.TASK, taskId);
         for(String tag : tags) {
             metadata.setValue(Metadata.VALUE, tag.trim());
-            metadataDao.createItem(metadata);
+            metadataDao.createNew(metadata);
         }
     }
 }

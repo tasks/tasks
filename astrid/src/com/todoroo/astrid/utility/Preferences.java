@@ -8,12 +8,10 @@ import android.preference.PreferenceManager;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.astrid.model.Task;
 
 public class Preferences {
 
     private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
-    private static final String P_READ_INTRODUCTION = "ri"; //$NON-NLS-1$
 
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults() {
@@ -22,16 +20,40 @@ public class Preferences {
         Editor editor = prefs.edit();
         Resources r = context.getResources();
 
-        if(getIntegerFromString(R.string.EPr_default_urgency_key) == null) {
-            editor.putString(r.getString(R.string.EPr_default_urgency_key),
-                    Integer.toString(Task.URGENCY_THIS_WEEK));
-        }
-        if(getIntegerFromString(R.string.EPr_default_importance_key) == null) {
-            editor.putString(r.getString(R.string.EPr_default_importance_key),
-                    Integer.toString(Task.IMPORTANCE_SHOULD_DO));
-        }
+        setIfUnset(prefs, editor, r, R.string.p_default_urgency_key, 4);
+        setIfUnset(prefs, editor, r, R.string.p_default_importance_key, 2);
+        setIfUnset(prefs, editor, r, R.string.p_default_hideUntil_key, 0);
+        setIfUnset(prefs, editor, r, R.string.p_fontSize, 22);
 
         editor.commit();
+    }
+
+    /**
+     * Helper to write to editor if key specified is null
+     * @param prefs
+     * @param editor
+     * @param r
+     * @param keyResource
+     * @param value
+     */
+    public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, int value) {
+        String key = r.getString(keyResource);
+        if(!prefs.contains(key))
+            editor.putString(key, Integer.toString(value));
+    }
+
+    /**
+     * Helper to write to editor if key specified is null
+     * @param prefs
+     * @param editor
+     * @param r
+     * @param keyResource
+     * @param value
+     */
+    public static void setIfUnset(SharedPreferences prefs, Editor editor, Resources r, int keyResource, boolean value) {
+        String key = r.getString(keyResource);
+        if(!prefs.contains(key))
+            editor.putBoolean(key, value);
     }
 
     /* ======================================================================
@@ -49,20 +71,6 @@ public class Preferences {
         Context context = ContextManager.getContext();
         Editor editor = getPrefs(context).edit();
         editor.putInt(P_CURRENT_VERSION, version);
-        editor.commit();
-    }
-
-    /** ReadIntroduction: whether the user has read the introductory notes */
-    public static boolean hasReadIntroduction() {
-        Context context = ContextManager.getContext();
-        return getPrefs(context).getBoolean(P_READ_INTRODUCTION, false);
-    }
-
-    /** ReadIntroduction: whether the user has read the introductory notes */
-    public static void setReadIntroduction(boolean value) {
-        Context context = ContextManager.getContext();
-        Editor editor = getPrefs(context).edit();
-        editor.putBoolean(P_READ_INTRODUCTION, value);
         editor.commit();
     }
 
@@ -124,7 +132,6 @@ public class Preferences {
     /** Gets an integer value from a string preference. Returns null
      * if the value is not set or not an integer.
      *
-     * @param context
      * @param keyResource resource from string.xml
      * @return integer value, or null on error
      */
@@ -145,7 +152,6 @@ public class Preferences {
     /** Gets an float value from a string preference. Returns null
      * if the value is not set or not an flat.
      *
-     * @param context
      * @param keyResource resource from string.xml
      * @return
      */
@@ -163,7 +169,6 @@ public class Preferences {
 
     /** Gets a boolean preference (e.g. a CheckBoxPreference setting)
      *
-     * @param context
      * @param key
      * @param defValue
      * @return default if value is unset otherwise the value
@@ -171,5 +176,37 @@ public class Preferences {
     public static boolean getBoolean(String key, boolean defValue) {
         Context context = ContextManager.getContext();
         return getPrefs(context).getBoolean(key, defValue);
+    }
+
+    /** Gets a boolean preference (e.g. a CheckBoxPreference setting)
+     *
+     * @param keyResource
+     * @param defValue
+     * @return default if value is unset otherwise the value
+     */
+    public static boolean getBoolean(int keyResources, boolean defValue) {
+        return getBoolean(ContextManager.getString(keyResources), defValue);
+    }
+
+    /**
+     * Sets boolean preference
+     * @param key
+     * @param value
+     */
+    public static void setBoolean(String key, boolean value) {
+        Context context = ContextManager.getContext();
+        Editor editor = getPrefs(context).edit();
+        editor.putBoolean(key, value);
+        editor.commit();
+    }
+
+    /**
+     * Sets string preference from integer value
+     */
+    public static void setStringFromInteger(int keyResource, int newValue) {
+        Context context = ContextManager.getContext();
+        Editor editor = getPrefs(context).edit();
+        editor.putString(context.getString(keyResource), Integer.toString(newValue));
+        editor.commit();
     }
 }

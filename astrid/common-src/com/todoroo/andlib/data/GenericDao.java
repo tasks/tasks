@@ -11,8 +11,8 @@ import java.lang.reflect.InvocationTargetException;
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.todoroo.andlib.data.sql.Criterion;
-import com.todoroo.andlib.data.sql.Query;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Query;
 
 
 
@@ -24,7 +24,7 @@ import com.todoroo.andlib.data.sql.Query;
  */
 public class GenericDao<TYPE extends AbstractModel> {
 
-    private Class<TYPE> modelClass;
+    private final Class<TYPE> modelClass;
 
     private Table table;
 
@@ -76,7 +76,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      *            properties to read
      * @param id
      *            id of item
-     * @return
+     * @return null if no item found
      */
     public TYPE fetch(long id, Property<?>... properties) {
         TodorooCursor<TYPE> cursor = fetchItem(id, properties);
@@ -133,14 +133,14 @@ public class GenericDao<TYPE extends AbstractModel> {
      */
     public boolean persist(AbstractModel item) {
         if (item.getId() == AbstractModel.NO_ID) {
-            return createItem(item);
+            return createNew(item);
         } else {
             ContentValues values = item.getSetValues();
 
             if (values.size() == 0) // nothing changed
                 return true;
 
-            return saveItem(item);
+            return saveExisting(item);
         }
     }
 
@@ -154,7 +154,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      *            item model
      * @return returns true on success.
      */
-    public boolean createItem(AbstractModel item) {
+    public boolean createNew(AbstractModel item) {
         long newRow = database.getDatabase().insert(table.name,
                 AbstractModel.ID_PROPERTY.name, item.getMergedValues());
         item.setId(newRow);
@@ -162,7 +162,7 @@ public class GenericDao<TYPE extends AbstractModel> {
     }
 
     /**
-     * Saves the given item.
+     * Saves the given item. Will not create a new item!
      *
      * @param database
      * @param table
@@ -171,7 +171,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      *            item model
      * @return returns true on success.
      */
-    public boolean saveItem(AbstractModel item) {
+    public boolean saveExisting(AbstractModel item) {
         ContentValues values = item.getSetValues();
         if(values.size() == 0) // nothing changed
             return true;

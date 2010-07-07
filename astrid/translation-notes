@@ -1,0 +1,76 @@
+reminders
+
+        <string name="notif_definiteDueDate">Absolute Deadline!</string>
+        <string name="notif_preferredDueDate">Goal Deadline!</string>
+        <string name="notif_timerStarted">Working on:</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $TAG is replaced with tag name -->
+        <string name="notif_tagNotification">You have $NUM tagged $TAG!</string>
+
+task edit
+
+        <!-- title bar -->
+        <string name="taskEdit_titleGeneric">Astrid: Editing Task</string>
+        <string name="taskEdit_titlePrefix">Astrid: Editing </string>
+        <string name="taskEdit_label">Astrid: New Task</string>
+
+        <!-- tabs -->
+        <string name="taskEdit_tab_basic">Basic</string>
+        <string name="taskEdit_tab_dates">Dates</string>
+        <string name="taskEdit_tab_alerts">Alerts</string>
+
+        <!-- labels -->
+        <string name="name_label">Summary</string>
+        <string name="name_hint">Task Name</string>
+        <string name="importance_label">How Important is it?</string>
+        <string name="tags_label">Tags:</string>
+        <string name="tag_hint">Tag Name</string>
+
+        <string name="estimatedDuration_label">How Long Will it Take?</string>
+        <string name="elapsedDuration_label">Time Already Spent on Task</string>
+        <string name="definiteDueDate_label">Absolute Deadline</string>
+        <string name="preferredDueDate_label">Goal Deadline</string>
+        <string name="addToCalendar_label">Add Task To Calendar</string>
+        <string name="showCalendar_label">Open Calendar Event</string>
+        <string name="hiddenUntil_label">Hide Until This Date</string>
+        <string name="repeat_label">Repeat Every</string>
+        <string name="repeat_value_unset">No Repeat Set</string>
+        <string name="blockingOn_label">Hide Until This Task is Done</string>
+        <string name="notes_label">Notes</string>
+        <string name="notes_hint">Enter Task Notes</string>
+
+        <string name="notification_label">Periodic Reminders</string>
+        <string name="notification_prefix">Every</string>
+        <string name="flags_label">Notify me...</string>
+        <string name="flag_before">As Deadlines Approach</string>
+        <string name="flag_during">At Deadlines</string>
+        <string name="flag_after">After Absolute Deadline Passes</string>
+        <string name="flag_nonstop">Alarm Clock Mode</string>
+        <string name="alerts_label">Fixed Reminders</string>
+        <string name="add_alert">Add New Reminder</string>
+
+        <!-- dialog boxes -->
+        <string name="hour_minutes_dialog">Time (hours : minutes)</string>
+        <string name="notification_dialog">Remind Me Every</string>
+        <string name="repeat_picker_title">Repeat Every (0 to disable)</string>
+        <string name="repeat_help_dialog_title">Help: Astrid Repeats</string>
+        <string name="repeat_help_dialog">
+To use repeats, set at least one of the deadlines above. When you complete this task, the deadline will be automatically advanced.
+\n\n
+If you don\'t want to see the new task right after you complete the old one, you should use the \"Hide Until\" field, which will also be advanced automatically.
+\n
+        </string>
+        <string name="repeat_help_hide">Don\'t Show Help Anymore</string>
+
+        <!-- buttons -->
+        <string name="save_label">Save</string>
+        <string name="discard_label">Discard</string>
+        <string name="edit_label">Edit</string>
+        <string name="delete_label">Delete</string>
+        <string name="blank_button_title">Click to Set</string>
+        <string name="startTimer_label">Start Timer</string>
+        <string name="stopTimer_label">Stop Timer</string>
+
+        <string name="taskEdit_menu_save">Save</string>
+        <string name="taskEdit_onTaskSave_Due">Task Saved: due in %s</string>
+        <string name="taskEdit_onTaskSave_Overdue">Task Saved: due %s ago</string>
+        <string name="taskEdit_onTaskSave_notDue">Task Saved</string>

@@ -26,7 +26,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
 
-import com.timsu.astrid.activities.TaskListSubActivity;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
@@ -195,7 +194,7 @@ public class Synchronizer {
         if(getSingleTaskForSync() == null)
             Preferences.setSyncLastSync(context, new Date());
         if(!isService) {
-            TaskListSubActivity.shouldRefreshTaskList = true;
+//            TaskListSubActivity.shouldRefreshTaskList = true;
         }
 
         Log.i("sync", "Synchronization Service Finished");
@@ -203,13 +202,13 @@ public class Synchronizer {
 
     // --- controller stuff
 
-    private ControllerWrapper<SyncDataController> syncController =
+    private final ControllerWrapper<SyncDataController> syncController =
         new ControllerWrapper<SyncDataController>(SyncDataController.class);
-    private ControllerWrapper<TaskController> taskController =
+    private final ControllerWrapper<TaskController> taskController =
         new ControllerWrapper<TaskController>(TaskController.class);
-    private ControllerWrapper<TagController> tagController =
+    private final ControllerWrapper<TagController> tagController =
         new ControllerWrapper<TagController>(TagController.class);
-    private ControllerWrapper<AlertController> alertController =
+    private final ControllerWrapper<AlertController> alertController =
         new ControllerWrapper<AlertController>(AlertController.class);
 
     private static class ControllerWrapper<TYPE extends AbstractController> {

@@ -15,6 +15,9 @@ public class DialogUtilities {
     @Autowired
     public Integer informationDialogTitleResource;
 
+    @Autowired
+    public Integer confirmDialogTitleResource;
+
     public DialogUtilities() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -32,7 +35,7 @@ public class DialogUtilities {
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)
-                .setTitle(informationDialogTitleResource)
+                .setTitle(confirmDialogTitleResource)
                 .setMessage(text)
                 .setView(view)
                 .setIcon(android.R.drawable.ic_dialog_alert)

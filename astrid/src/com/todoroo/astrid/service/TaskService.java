@@ -2,10 +2,11 @@ package com.todoroo.astrid.service;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.data.sql.Query;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Task;
@@ -38,7 +39,7 @@ public class TaskService {
     }
 
     /**
-     * Mark the given action item as completed and save it.
+     * Mark the given task as completed and save it.
      *
      * @param item
      */
@@ -46,7 +47,7 @@ public class TaskService {
         if(completed)
             item.setValue(Task.COMPLETION_DATE, DateUtilities.now());
         else
-            item.setValue(Task.COMPLETION_DATE, 0);
+            item.setValue(Task.COMPLETION_DATE, 0L);
 
         taskDao.save(item, false);
     }
@@ -64,12 +65,23 @@ public class TaskService {
     }
 
     /**
-     * Delete the given action item
+     * Delete the given task. Instead of deleting from the database, we set
+     * the deleted flag.
      *
      * @param model
      */
-    public void delete(long itemId) {
-        taskDao.delete(itemId);
+    public void delete(Task item) {
+        if(!item.isSaved())
+            return;
+        else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
+            taskDao.delete(item.getId());
+        } else {
+            long id = item.getId();
+            item.clear();
+            item.setId(id);
+            item.setValue(Task.DELETION_DATE, DateUtilities.now());
+            taskDao.save(item, false);
+        }
     }
 
     /**
@@ -89,6 +101,14 @@ public class TaskService {
         } finally {
             cursor.close();
         }
+    }
+
+    public TodorooCursor<Task> fetchFiltered(Property<?>[] properties,
+            Filter filter) {
+        if(filter == null || filter.sqlQuery == null)
+            return taskDao.query(Query.select(properties));
+        else
+            return taskDao.query(Query.select(properties).withQueryTemplate(filter.sqlQuery));
     }
 
 }

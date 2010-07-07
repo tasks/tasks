@@ -62,12 +62,19 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
         injectables.put("exceptionService", ExceptionService.class);
         injectables.put("errorDialogTitleResource", R.string.DLG_error);
 
+        // TODO
+        injectables.put("errorDialogBodyGeneric", R.string.DLG_error);
+        injectables.put("errorDialogBodyNullError", R.string.DLG_error);
+        injectables.put("errorDialogBodySocketTimeout", R.string.DLG_error);
+
         // com.todoroo.android.utility
         injectables.put("dialogUtilities", DialogUtilities.class);
         injectables.put("informationDialogTitleResource", R.string.DLG_information_title);
+        injectables.put("confirmDialogTitleResource", R.string.DLG_confirm_title);
         injectables.put("dateUtilities", DateUtilities.class);
         injectables.put("yearsResource", R.plurals.DUt_years);
         injectables.put("monthsResource", R.plurals.DUt_months);
+        injectables.put("weeksResource", R.plurals.DUt_weeks);
         injectables.put("daysResource", R.plurals.DUt_days);
         injectables.put("hoursResource", R.plurals.DUt_hours);
         injectables.put("minutesResource", R.plurals.DUt_minutes);
@@ -85,6 +92,7 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
         // com.todoroo.astrid.service
         injectables.put("taskService", TaskService.class);
         injectables.put("metadataService", MetadataService.class);
+        injectables.put("upgradeService", UpgradeService.class);
 
         // com.timsu.astrid.data
         injectables.put("tasksTable", "tasks");

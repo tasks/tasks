@@ -25,12 +25,11 @@ import android.database.Cursor;
 
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.enums.Importance;
-import com.timsu.astrid.utilities.Notifications.Notifiable;
 
 
 
 /** Fields that you would want to synchronize in the TaskModel */
-public class TaskModelForSync extends AbstractTaskModel implements Notifiable {
+public class TaskModelForSync extends AbstractTaskModel  {
 
     static String[] FIELD_LIST = new String[] {
         AbstractController.KEY_ROWID,

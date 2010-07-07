@@ -1,6 +1,7 @@
 package com.todoroo.andlib.data;
 
-import com.todoroo.andlib.data.sql.Field;
+import com.todoroo.andlib.sql.Field;
+import com.todoroo.andlib.sql.SqlTable;
 
 /**
  * Table class. Most fields are final, so methods such as <code>as</code> will
@@ -9,7 +10,7 @@ import com.todoroo.andlib.data.sql.Field;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class Table extends com.todoroo.andlib.data.sql.Table {
+public final class Table extends SqlTable {
     public final String name;
     public final Class<? extends AbstractModel> modelClass;
 
