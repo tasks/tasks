@@ -9,29 +9,21 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import android.content.Intent;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.CheckBoxPreference;
-import android.preference.EditTextPreference;
-import android.preference.ListPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
-import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceClickListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.widget.TodorooPreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
@@ -39,7 +31,6 @@ import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -47,11 +38,7 @@ import com.todoroo.astrid.utility.Preferences;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class EditPreferences extends PreferenceActivity {
-
-    // --- constants
-
-
+public class EditPreferences extends TodorooPreferences {
 
     // --- instance variables
 
@@ -72,16 +59,17 @@ public class EditPreferences extends PreferenceActivity {
     }
 
     @Override
+    public int getPreferenceResource() {
+        return R.xml.preferences;
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         new StartupService().onStartupApplication(this);
         ContextManager.setContext(this);
 
-        setTitle(R.string.EPr_title);
-        addPreferencesFromResource(R.xml.preferences);
-
         PreferenceScreen screen = getPreferenceScreen();
-        initializePreference(screen);
 
         // load plug-ins
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
@@ -160,76 +148,10 @@ public class EditPreferences extends PreferenceActivity {
         group.addPreference(preference);
     }
 
-    private void initializePreference(Preference preference) {
-        if(preference instanceof PreferenceGroup) {
-            PreferenceGroup group = (PreferenceGroup)preference;
-            for(int i = 0; i < group.getPreferenceCount(); i++) {
-                initializePreference(group.getPreference(i));
-            }
-        } else {
-            Object value = null;
-            if(preference instanceof ListPreference)
-                value = ((ListPreference)preference).getValue();
-            else if(preference instanceof CheckBoxPreference)
-                value = ((CheckBoxPreference)preference).isChecked();
-            else if(preference instanceof EditTextPreference)
-                value = ((EditTextPreference)preference).getText();
-
-            if(value != null)
-                updatePreferences(preference, value);
-
-            preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                public boolean onPreferenceChange(Preference myPreference, Object newValue) {
-                    return updatePreferences(myPreference, newValue);
-                }
-            });
-        }
-    }
-
     @Override
-    protected void onStart() {
-        super.onStart();
+    public void updatePreferences(Preference preference, Object value) {
+        // nothing to do
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
 
-    /**
-     *
-     * @param resource if null, updates all resources
-     */
-    protected boolean updatePreferences(Preference preference, Object value) {
-        Resources r = getResources();
-
-        // defaults options
-        if(r.getString(R.string.p_default_urgency_key).equals(preference.getKey())) {
-            updateTaskListPreference(preference, value, r, R.array.EPr_default_urgency,
-                    R.array.EPr_default_urgency_values, R.string.EPr_default_urgency_desc);
-        } else if(r.getString(R.string.p_default_importance_key).equals(preference.getKey())) {
-            updateTaskListPreference(preference, value, r, R.array.EPr_default_importance,
-                    R.array.EPr_default_importance_values, R.string.EPr_default_importance_desc);
-        } else if(r.getString(R.string.p_default_hideUntil_key).equals(preference.getKey())) {
-            updateTaskListPreference(preference, value, r, R.array.EPr_default_hideUntil,
-                    R.array.EPr_default_hideUntil_values, R.string.EPr_default_hideUntil_desc);
-        }
-
-        return true;
-    }
-
-    private void updateTaskListPreference(Preference preference, Object value,
-            Resources r, int keyArray, int valueArray, int summaryResource) {
-        int index = AndroidUtilities.indexOf(r.getStringArray(valueArray), (String)value);
-        String setting = r.getStringArray(keyArray)[index];
-        preference.setSummary(r.getString(summaryResource,
-                setting));
-
-        // if user changed the value, refresh task defaults
-        if(!value.equals(Preferences.getStringValue(preference.getKey()))) {
-            Editor editor = Preferences.getPrefs(this).edit();
-            editor.putString(preference.getKey(), (String)value);
-            editor.commit();
-        }
-    }
 }

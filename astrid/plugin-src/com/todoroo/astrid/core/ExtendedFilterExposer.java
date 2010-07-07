@@ -1,7 +1,7 @@
 /**
  * See the file "LICENSE" for the full license governing this code.
  */
-package com.todoroo.astrid.filters;
+package com.todoroo.astrid.core;
 
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;

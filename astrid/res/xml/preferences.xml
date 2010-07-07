@@ -1,25 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <PreferenceScreen
-        android:title="@string/EPr_defaults_header">
-        <ListPreference
-            android:key="@string/p_default_importance_key"  
-            android:entries="@array/EPr_default_importance"  
-            android:entryValues="@array/EPr_default_importance_values"  
-            android:title="@string/EPr_default_importance_title" />
-        <ListPreference
-            android:key="@string/p_default_urgency_key"  
-            android:entries="@array/EPr_default_urgency"  
-            android:entryValues="@array/EPr_default_urgency_values"  
-            android:title="@string/EPr_default_urgency_title" />
-        <ListPreference
-            android:key="@string/p_default_hideUntil_key"  
-            android:entries="@array/EPr_default_hideUntil"  
-            android:entryValues="@array/EPr_default_hideUntil_values"  
-            android:title="@string/EPr_default_hideUntil_title" />
-    </PreferenceScreen>  
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/EPr_title">
 
     <PreferenceCategory
         android:title="@string/prefs_category_appearance">
@@ -31,7 +13,7 @@
             android:summary="@string/prefs_fontSize_desc" />
     </PreferenceCategory>
 
-    <PreferenceCategory
+    <!-- PreferenceCategory
         android:title="@string/prefs_category_other">
         <CheckBoxPreference
             android:key="@string/p_backup"
@@ -42,5 +24,6 @@
             android:key="@string/prefs_defaultCalendar"
             android:title="@string/prefs_defaultCalendar_title"
             android:summary="@string/prefs_defaultCalendar_desc" />
-    </PreferenceCategory>
+    </PreferenceCategory> -->
+    
 </PreferenceScreen>

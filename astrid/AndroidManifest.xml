@@ -143,28 +143,35 @@
 
     <!-- ========================================================= Plugins = -->
         
-    <!-- core filters -->
-    <receiver android:name="com.todoroo.astrid.filters.CorePlugin">
+    <!-- core -->
+    <receiver android:name="com.todoroo.astrid.core.CorePlugin">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
-    <receiver android:name="com.todoroo.astrid.filters.CoreFilterExposer">
+    <receiver android:name="com.todoroo.astrid.core.CoreFilterExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-        
+    <activity android:name="com.todoroo.astrid.core.DefaultsPreferences" 
+              android:label="@string/EPr_defaults_header">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.SETTINGS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+            
     <!-- extended filters -->
-    <receiver android:name="com.todoroo.astrid.filters.ExtendedPlugin">
+    <receiver android:name="com.todoroo.astrid.core.ExtendedPlugin">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
-    <receiver android:name="com.todoroo.astrid.filters.ExtendedFilterExposer">
+    <receiver android:name="com.todoroo.astrid.core.ExtendedFilterExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
         <category android:name="android.intent.category.DEFAULT" />
