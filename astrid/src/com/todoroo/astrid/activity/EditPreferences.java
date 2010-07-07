@@ -137,7 +137,7 @@ public class EditPreferences extends PreferenceActivity {
                 database.openForWriting();
                 Task task = new Task();
                 for(int i = 0; i < 100; i++) {
-                    task.setId(Task.NO_ID);
+                    task.clear();
                     task.setValue(Task.TITLE, Integer.toString(i));
                     taskService.save(task, false);
                 }

@@ -2,8 +2,8 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -11,6 +11,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -79,10 +80,10 @@ public class TagService {
     }
 
     public QueryTemplate untaggedTemplate() {
-        return new QueryTemplate().join(Join.left(Metadata.TABLE,
-                Task.ID.eq(Metadata.TASK))).where(Criterion.and(
-                        TaskCriteria.isActive(), MetadataCriteria.withKey(KEY),
-                        Metadata.VALUE.isNull()));
+        return new QueryTemplate().where(Criterion.and(
+                Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(MetadataCriteria.withKey(KEY)))),
+                TaskCriteria.isActive(),
+                TaskCriteria.isVisible(DateUtilities.now())));
     }
 
     /**

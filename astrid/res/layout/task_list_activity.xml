@@ -19,8 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:src="@drawable/tango_previous"
-            android:paddingTop="8px"
-            android:paddingLeft="5px"/> 
+            android:paddingTop="8dip"
+            android:paddingLeft="5dip"/> 
         
         <!-- List Label -->
         <TextView android:id="@+id/listLabel"
@@ -28,8 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="100"
             android:singleLine="true"
-            android:paddingTop="6px"
-            android:paddingRight="50px"
+            android:paddingTop="6dip"
+            android:paddingRight="50dip"
             style="@style/TextAppearance.TLA_Header"/>
 
     </LinearLayout>

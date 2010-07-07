@@ -6,17 +6,18 @@
     android:focusable="true"
     android:paddingLeft="4dip"
     android:paddingRight="6dip"
-    android:paddingBottom="4px"
-    android:minHeight="60px"
+    android:paddingTop="4dip"
+    android:paddingBottom="4dip"
+    android:minHeight="58dip"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
     
     <!-- completion check-box -->
     <CheckBox android:id="@+id/completeBox"
-        android:layout_width="52px"
+        android:layout_width="52dip"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:paddingLeft="5px" 
+        android:paddingLeft="5dip" 
         android:focusable="false"
         android:button="@drawable/btn_check"/>
 
@@ -24,8 +25,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="100"
-        android:paddingLeft="12px"
-        android:paddingRight="2px"
+        android:paddingLeft="12dip"
+        android:paddingRight="2dip"
 
         android:orientation="vertical">
             
@@ -49,7 +50,7 @@
             
     <!-- importance -->
     <View android:id="@+id/importance"
-        android:layout_width="2px"
+        android:layout_width="2dip"
         android:layout_height="fill_parent"/>
         
 </LinearLayout>

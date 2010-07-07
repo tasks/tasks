@@ -12,4 +12,5 @@ public final class Functions {
     private static String value(Object value) {
         return value.toString();
     }
+
 }

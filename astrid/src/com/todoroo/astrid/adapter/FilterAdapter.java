@@ -13,12 +13,11 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
 
 import com.timsu.astrid.R;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
@@ -68,7 +67,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild,
             View convertView, ViewGroup parent) {
         FilterListItem item = (FilterListItem)getChild(groupPosition, childPosition);
-        View textView = getStandardView((Filter)item, true);
+        View textView = getStandardView(item, true);
         return textView;
     }
 
