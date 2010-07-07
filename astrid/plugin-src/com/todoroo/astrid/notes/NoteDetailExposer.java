@@ -37,6 +37,8 @@ public class NoteDetailExposer extends BroadcastReceiver {
         if(staticTaskService == null) {
             DependencyInjectionService.getInstance().inject(this);
             staticTaskService = taskService;
+        } else {
+            taskService = staticTaskService;
         }
 
         Task task = taskService.fetchById(taskId, Task.NOTES);
@@ -46,8 +48,7 @@ public class NoteDetailExposer extends BroadcastReceiver {
         if(notes.length() == 0)
             return;
 
-        TaskDetail taskDetail = new TaskDetail(NotesPlugin.IDENTIFIER,
-                "Notes: " + notes);
+        TaskDetail taskDetail = new TaskDetail(NotesPlugin.IDENTIFIER, notes);
 
         // transmit
         TaskDetail[] details = new TaskDetail[1];

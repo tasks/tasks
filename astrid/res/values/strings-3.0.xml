@@ -146,6 +146,9 @@
   <!-- Search Hint-->
   <string name="TLA_search_hint">Search Within This Filter</string>
   
+  <!-- Custom Filter title -->
+  <string name="TLA_custom">Custom</string>
+  
   <!-- Quick Add Hint-->
   <string name="TLA_quick_add_hint">Add to this list...</string>
   

@@ -192,7 +192,7 @@
     </receiver>
     
     <!-- notes -->
-    <receiver android:name="com.todoroo.astrid.notes.NotesDetailExposer">
+    <receiver android:name="com.todoroo.astrid.notes.NoteDetailExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
         <category android:name="android.intent.category.DEFAULT" />

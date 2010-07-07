@@ -11,13 +11,11 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnCreateContextMenuListener;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
@@ -185,7 +183,7 @@ public class TaskAdapter extends CursorAdapter {
     }
 
     /** Helper method to set the contents and visibility of each field */
-    private void setFieldContentsAndVisibility(View view, Task task) {
+    public void setFieldContentsAndVisibility(View view, Task task) {
         Resources r = activity.getResources();
         ViewHolder viewHolder = (ViewHolder)view.getTag();
 
@@ -338,25 +336,6 @@ public class TaskAdapter extends CursorAdapter {
 
         // context menu listener
         container.setOnCreateContextMenuListener(listener);
-
-        // key press listener
-        container.setOnKeyListener(new OnKeyListener() {
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(event.getAction() != KeyEvent.ACTION_UP)
-                    return false;
-
-                // hot-key to set task priority - 1-4 or ALT + Q-R
-                if(event.getNumber() >= '1' && event.getNumber() <= '4') {
-                    int importance = event.getNumber() - '1';
-                    Task task = ((ViewHolder)container.getTag()).task;
-                    task.setValue(Task.IMPORTANCE, importance);
-                    taskService.save(task, false);
-                    setFieldContentsAndVisibility(container, task);
-                }
-
-                return false;
-            }
-        });
     }
 
     class ContextMenuListener implements OnCreateContextMenuListener {

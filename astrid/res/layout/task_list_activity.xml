@@ -70,6 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:visibility="gone"
             android:src="@drawable/tango_add"
             android:scaleType="fitCenter"/> 
     

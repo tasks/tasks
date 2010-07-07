@@ -18,20 +18,25 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.Window;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -52,6 +57,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskDetail;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.filters.CoreFilterExposer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -126,6 +132,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
 
+    EditText quickAddBox;
     Filter filter;
 
     /* ======================================================================
@@ -232,20 +239,61 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
 
-        ((ImageButton)findViewById(R.id.quickAddButton)).setOnClickListener(new OnClickListener() {
+        getListView().setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int keyCode, KeyEvent event) {
+                if(event.getAction() != KeyEvent.ACTION_UP)
+                    return false;
+
+                // hot-key to set task priority - 1-4 or ALT + Q-R
+                if(event.getNumber() >= '1' && event.getNumber() <= '4') {
+                    view = getListView().getSelectedView();
+                    int importance = event.getNumber() - '1';
+                    Task task = ((ViewHolder)view.getTag()).task;
+                    task.setValue(Task.IMPORTANCE, importance);
+                    taskService.save(task, false);
+                    taskAdapter.setFieldContentsAndVisibility(view, task);
+                }
+
+                return false;
+            }
+        });
+
+        quickAddBox = (EditText) findViewById(R.id.quickAddText);
+        quickAddBox.setOnEditorActionListener(new OnEditorActionListener() {
+            /**
+             * When user presses enter, quick-add the task
+             */
+            @Override
+            public boolean onEditorAction(TextView view, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_NULL && quickAddBox.getText().length() > 0) {
+                    quickAddTask(quickAddBox.getText().toString(), true);
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        final ImageButton quickAddButton = ((ImageButton)findViewById(R.id.quickAddButton));
+        quickAddBox.setOnKeyListener(new OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                quickAddButton.setVisibility(View.VISIBLE);
+                return false;
+            }
+        });
+
+        quickAddButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
-                if(quickAdd.getText().length() > 0) {
-                    quickAddTask(quickAdd.getText().toString());
-                    loadTaskListContent(true);
+                if(quickAddBox.getText().length() > 0) {
+                    quickAddTask(quickAddBox.getText().toString(), true);
                 }
             }
         });
 
         ((ImageButton)findViewById(R.id.extendedAddButton)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
-                Task task = quickAddTask(quickAdd.getText().toString());
+                Task task = quickAddTask(quickAddBox.getText().toString(), false);
                 Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
                 intent.putExtra(TaskEditActivity.ID_TOKEN, task.getId());
                 startActivityForResult(intent, ACTIVITY_EDIT_TASK);
@@ -259,7 +307,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
      * @return
      */
     @SuppressWarnings("nls")
-    protected Task quickAddTask(String title) {
+    protected Task quickAddTask(String title, boolean selectNewTask) {
         try {
             Task task = new Task();
             task.setValue(Task.TITLE, title);
@@ -289,6 +337,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
             TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
+
+            if(selectNewTask) {
+                loadTaskListContent(true);
+                selectCustomId(task.getId());
+            }
+
             return task;
         } catch (Exception e) {
             exceptionService.displayAndReportError(this, "quick-add-task", e);
@@ -408,10 +462,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             getListView().setSelection(oldListItemSelected);
     }
 
-    /** Fill in the Action Item List with current items */
+    /**
+     * Fill in the Task List with current items
+     * @param withCustomId force task with given custom id to be part of list
+     */
+    @SuppressWarnings("nls")
     protected void setUpTaskList() {
+        // use default ordering if none specified
         if(!filter.sqlQuery.toUpperCase().contains("ORDER BY")) {
-            // use default ordering if none specified
             filter.sqlQuery += " ORDER BY " + Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
                     DateUtilities.now() + DateUtilities.ONE_WEEK,
                     Task.DUE_DATE) + " + 200000000 * " +
@@ -431,6 +489,49 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         registerForContextMenu(getListView());
 
         loadTaskListContent(false);
+    }
+
+    /**
+     * Select a custom task id in the list. If it doesn't exist, create
+     * a new custom filter
+     * @param withCustomId
+     */
+    @SuppressWarnings("nls")
+    private void selectCustomId(long withCustomId) {
+        // if already in the list, select it
+        TodorooCursor<Task> currentCursor = (TodorooCursor<Task>)taskAdapter.getCursor();
+        for(int i = 0; i < currentCursor.getCount(); i++) {
+            currentCursor.moveToPosition(i);
+            if(currentCursor.get(Task.ID) == withCustomId) {
+                getListView().setSelection(i);
+                return;
+            }
+        }
+
+        // create a custom cursor
+        if(!filter.sqlQuery.contains("WHERE"))
+            filter.sqlQuery += " WHERE " + TaskCriteria.byId(withCustomId);
+        else
+            filter.sqlQuery = filter.sqlQuery.replace("WHERE ", "WHERE " +
+                    TaskCriteria.byId(withCustomId) + " OR ");
+        currentCursor = taskService.fetchFiltered(
+                TaskAdapter.PROPERTIES, filter);
+        startManagingCursor(currentCursor);
+
+        taskAdapter.changeCursor(currentCursor);
+
+        // update title
+        filter.title = getString(R.string.TLA_custom);
+        ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
+
+        // try selecting again
+        for(int i = 0; i < currentCursor.getCount(); i++) {
+            currentCursor.moveToPosition(i);
+            if(currentCursor.get(Task.ID) == withCustomId) {
+                getListView().setSelection(i);
+                break;
+            }
+        }
     }
 
     /* ======================================================================
