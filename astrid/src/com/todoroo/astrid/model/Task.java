@@ -285,6 +285,7 @@ public final class Task extends AbstractModel {
         switch(setting) {
         case URGENCY_NONE:
             date = 0;
+            break;
         case URGENCY_TODAY:
             date = DateUtilities.now();
             break;
@@ -303,6 +304,7 @@ public final class Task extends AbstractModel {
         case URGENCY_SPECIFIC_DAY:
         case URGENCY_SPECIFIC_DAY_TIME:
             date = customDate;
+            break;
         default:
             throw new IllegalArgumentException("Unknown setting " + setting);
         }
@@ -310,7 +312,7 @@ public final class Task extends AbstractModel {
         if(date <= 0)
             return date;
 
-        Date dueDate = new Date(date);
+        Date dueDate = new Date(date / 1000L * 1000L); // get rid of millis
         if(setting != URGENCY_SPECIFIC_DAY_TIME) {
             dueDate.setHours(23);
             dueDate.setMinutes(59);
@@ -355,7 +357,7 @@ public final class Task extends AbstractModel {
         if(date <= 0)
             return date;
 
-        Date hideUntil = new Date(date);
+        Date hideUntil = new Date(date / 1000L * 1000L); // get rid of millis
         hideUntil.setHours(0);
         hideUntil.setMinutes(0);
         hideUntil.setSeconds(0);

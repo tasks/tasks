@@ -107,13 +107,13 @@
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:src="@drawable/tango_save" />
-        <Button
+        <ImageButton
           android:id="@+id/discard_basic"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:src="@drawable/tango_stop" />
-        <Button
+        <ImageButton
           android:id="@+id/delete_basic"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
@@ -242,24 +242,24 @@
         android:gravity="bottom"
         android:paddingTop="5dip"
         android:baselineAligned="false">
-        <Button
+        <ImageButton
           android:id="@+id/save_extra"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="@string/save_label" />
-        <Button
+          android:src="@drawable/tango_save" />
+        <ImageButton
           android:id="@+id/discard_extra"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="@string/discard_label" />
-        <Button
+          android:src="@drawable/tango_stop" />
+        <ImageButton
           android:id="@+id/delete_extra"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="@string/delete_label" />
+          android:src="@drawable/tango_trash" />
       </LinearLayout>
     </LinearLayout>
   </ScrollView>
@@ -336,24 +336,24 @@
         android:gravity="bottom"
         android:paddingTop="5dip"
         android:baselineAligned="false">
-        <Button
+        <ImageButton
           android:id="@+id/save_addons"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="@string/save_label" />
-        <Button
+          android:src="@drawable/tango_save" />
+        <ImageButton
           android:id="@+id/discard_addons"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="@string/discard_label" />
-        <Button
+          android:src="@drawable/tango_stop" />
+        <ImageButton
           android:id="@+id/delete_addons"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="@string/delete_label" />
+          android:src="@drawable/tango_trash" />
       </LinearLayout>
     </LinearLayout>
   </ScrollView>

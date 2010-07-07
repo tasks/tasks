@@ -258,23 +258,23 @@ public final class TaskEditActivity extends TabActivity {
         };
 
         // set up save, cancel, and delete buttons
-        Button saveButtonGeneral = (Button) findViewById(R.id.save_basic);
+        ImageButton saveButtonGeneral = (ImageButton) findViewById(R.id.save_basic);
         saveButtonGeneral.setOnClickListener(mSaveListener);
-        Button saveButtonDates = (Button) findViewById(R.id.save_extra);
+        ImageButton saveButtonDates = (ImageButton) findViewById(R.id.save_extra);
         saveButtonDates.setOnClickListener(mSaveListener);
-        Button saveButtonNotify = (Button) findViewById(R.id.save_addons);
+        ImageButton saveButtonNotify = (ImageButton) findViewById(R.id.save_addons);
         saveButtonNotify.setOnClickListener(mSaveListener);
 
-        Button discardButtonGeneral = (Button) findViewById(R.id.discard_basic);
+        ImageButton discardButtonGeneral = (ImageButton) findViewById(R.id.discard_basic);
         discardButtonGeneral.setOnClickListener(mDiscardListener);
-        Button discardButtonDates = (Button) findViewById(R.id.discard_extra);
+        ImageButton discardButtonDates = (ImageButton) findViewById(R.id.discard_extra);
         discardButtonDates.setOnClickListener(mDiscardListener);
-        Button discardButtonNotify = (Button) findViewById(R.id.discard_addons);
+        ImageButton discardButtonNotify = (ImageButton) findViewById(R.id.discard_addons);
         discardButtonNotify.setOnClickListener(mDiscardListener);
 
-        Button deleteButtonGeneral = (Button) findViewById(R.id.delete_basic);
-        Button deleteButtonDates = (Button) findViewById(R.id.delete_extra);
-        Button deleteButtonNotify = (Button) findViewById(R.id.delete_addons);
+        ImageButton deleteButtonGeneral = (ImageButton) findViewById(R.id.delete_basic);
+        ImageButton deleteButtonDates = (ImageButton) findViewById(R.id.delete_extra);
+        ImageButton deleteButtonNotify = (ImageButton) findViewById(R.id.delete_addons);
         if(isNewTask()) {
             deleteButtonGeneral.setVisibility(View.GONE);
             deleteButtonDates.setVisibility(View.GONE);
@@ -376,7 +376,7 @@ public final class TaskEditActivity extends TabActivity {
             } else {
                 stringResource = R.string.TEA_onTaskSave_due;
             }
-            String formattedDate = dateUtilities.getDurationString(dueFromNow, 2);
+            String formattedDate = dateUtilities.getDurationString(dueFromNow, 1);
             Toast.makeText(this,
                     getResources().getString(stringResource, formattedDate),
                     Toast.LENGTH_SHORT).show();
@@ -653,6 +653,8 @@ public final class TaskEditActivity extends TabActivity {
     private class UrgencyControlSet implements TaskEditControlSet,
             OnItemSelectedListener, OnTimeSetListener, OnDateSetListener {
 
+        private static final long SPECIFIC_DATE = -1;
+
         private final Spinner urgency;
         private ArrayAdapter<UrgencyValue> urgencyAdapter;
 
@@ -713,9 +715,9 @@ public final class TaskEditActivity extends TabActivity {
             urgencyValues[5] = new UrgencyValue(labels[Task.URGENCY_NEXT_MONTH],
                     Task.URGENCY_NEXT_MONTH);
             urgencyValues[6] = new UrgencyValue(labels[Task.URGENCY_SPECIFIC_DAY],
-                    Task.URGENCY_SPECIFIC_DAY);
+                    Task.URGENCY_SPECIFIC_DAY, SPECIFIC_DATE);
             urgencyValues[7] = new UrgencyValue(labels[Task.URGENCY_SPECIFIC_DAY_TIME],
-                    Task.URGENCY_SPECIFIC_DAY_TIME);
+                    Task.URGENCY_SPECIFIC_DAY_TIME, SPECIFIC_DATE);
 
             // search for setting
             int selection = -1;
@@ -757,8 +759,7 @@ public final class TaskEditActivity extends TabActivity {
             // if specific date or date & time selected, show dialog
             // ... at conclusion of dialog, update our list
             UrgencyValue item = urgencyAdapter.getItem(position);
-            if(item.setting == Task.URGENCY_SPECIFIC_DAY ||
-                    item.setting == Task.URGENCY_SPECIFIC_DAY_TIME) {
+            if(item.dueDate == SPECIFIC_DATE) {
                 customSetting = item.setting;
                 customDate = new Date();
                 customDate.setSeconds(0);
@@ -827,10 +828,6 @@ public final class TaskEditActivity extends TabActivity {
     private class HideUntilControlSet implements TaskEditControlSet,
             OnItemSelectedListener, OnDateSetListener {
 
-        private static final int NONE = 0;
-        private static final int ON_DUE_DATE = 1;
-        private static final int DUE_DATE_LESS_ONE = 2;
-        private static final int DUE_DATE_LESS_SEVEN = 3;
         private static final int SPECIFIC_DATE = -1;
         private final Spinner hideUntil;
 
@@ -849,10 +846,16 @@ public final class TaskEditActivity extends TabActivity {
          */
         private class HideUntilValue {
             public String label;
+            public int setting;
             public long date;
 
-            public HideUntilValue(String label, long date) {
+            public HideUntilValue(String label, int setting) {
+                this(label, setting, 0);
+            }
+
+            public HideUntilValue(String label, int setting, long date) {
                 this.label = label;
+                this.setting = setting;
                 this.date = date;
             }
 
@@ -866,19 +869,19 @@ public final class TaskEditActivity extends TabActivity {
             // set up base values
             String[] labels = getResources().getStringArray(R.array.TEA_hideUntil);
             HideUntilValue[] values = new HideUntilValue[labels.length];
-            values[0] = new HideUntilValue(labels[0], NONE);
-            values[1] = new HideUntilValue(labels[1], ON_DUE_DATE);
-            values[2] = new HideUntilValue(labels[2], DUE_DATE_LESS_ONE);
-            values[3] = new HideUntilValue(labels[3], DUE_DATE_LESS_SEVEN);
-            values[4] = new HideUntilValue(labels[4], SPECIFIC_DATE);
+            values[0] = new HideUntilValue(labels[0], Task.HIDE_UNTIL_NONE);
+            values[1] = new HideUntilValue(labels[1], Task.HIDE_UNTIL_DUE);
+            values[2] = new HideUntilValue(labels[2], Task.HIDE_UNTIL_DAY_BEFORE);
+            values[3] = new HideUntilValue(labels[3], Task.HIDE_UNTIL_WEEK_BEFORE);
+            values[4] = new HideUntilValue(labels[4], Task.HIDE_UNTIL_SPECIFIC_DAY, -1);
 
-            if(specificDate > DUE_DATE_LESS_SEVEN) {
+            if(specificDate > 0) {
                 HideUntilValue[] updated = new HideUntilValue[labels.length + 1];
                 for(int i = 0; i < labels.length; i++)
                     updated[i+1] = values[i];
                 SimpleDateFormat format = DateUtilities.getDateFormat(TaskEditActivity.this);
                 updated[0] = new HideUntilValue(format.format(new Date(specificDate)),
-                        specificDate);
+                        Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
                 values = updated;
             }
 
@@ -934,12 +937,18 @@ public final class TaskEditActivity extends TabActivity {
             long date = model.getValue(Task.HIDE_UNTIL);
             long dueDate = model.getValue(Task.DUE_DATE);
 
-            if(date == dueDate)
-                date = ON_DUE_DATE;
-            else if(date + DateUtilities.ONE_DAY == dueDate)
-                date = DUE_DATE_LESS_ONE;
-            else if(date + DateUtilities.ONE_WEEK == dueDate)
-                date = DUE_DATE_LESS_SEVEN;
+            int selection = 0;
+            if(Math.abs(date - dueDate) < DateUtilities.ONE_DAY) {
+                selection = 1;
+                date = 0;
+            } else if(Math.abs(date - dueDate) < 2 * DateUtilities.ONE_DAY) {
+                selection = 2;
+                date = 0;
+            } else if(Math.abs(date - dueDate) > DateUtilities.ONE_WEEK &&
+                    Math.abs(date - dueDate) < (DateUtilities.ONE_WEEK + DateUtilities.ONE_DAY)) {
+                selection = 3;
+                date = 0;
+            }
 
             HideUntilValue[] list = createHideUntilList(date);
             adapter = new ArrayAdapter<HideUntilValue>(
@@ -947,29 +956,14 @@ public final class TaskEditActivity extends TabActivity {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             hideUntil.setAdapter(adapter);
 
-            if(isNewTask()) {
-                hideUntil.setSelection(Preferences.getIntegerFromString(R.string.p_default_hideUntil_key));
-            } else if(date <= DUE_DATE_LESS_SEVEN){
-                hideUntil.setSelection((int)date);
-            } else {
-                hideUntil.setSelection(0);
-            }
+            hideUntil.setSelection(selection);
         }
 
         @Override
         public void writeToModel() {
             HideUntilValue item = adapter.getItem(hideUntil.getSelectedItemPosition());
-            long dueDate = model.getValue(Task.DUE_DATE);
-            if(item.date == NONE)
-                model.setValue(Task.HIDE_UNTIL, 0L);
-            if(item.date == ON_DUE_DATE)
-                model.setValue(Task.HIDE_UNTIL, dueDate);
-            else if(item.date == DUE_DATE_LESS_ONE)
-                model.setValue(Task.HIDE_UNTIL, dueDate - DateUtilities.ONE_DAY);
-            else if(item.date == DUE_DATE_LESS_SEVEN)
-                model.setValue(Task.HIDE_UNTIL, dueDate - DateUtilities.ONE_WEEK);
-            else
-                model.setValue(Task.HIDE_UNTIL, item.date);
+            long value = model.createHideUntil(item.setting, item.date);
+            model.setValue(Task.HIDE_UNTIL, value);
         }
 
     }
