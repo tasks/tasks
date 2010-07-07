@@ -10,13 +10,13 @@
   <string name="TEA_reminder_label">Remind me...</string>
 
   <!-- Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when it\'s time to start the task</string>
+  <string name="TEA_reminder_due">when it\'s time to start the task</string>
 
   <!-- Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">... when task is overdue</string>
+  <string name="TEA_reminder_overdue">when task is overdue</string>
 
   <!-- Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">... randomly every</string>
+  <string name="TEA_reminder_random">randomly every</string>
 
   <!-- Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
