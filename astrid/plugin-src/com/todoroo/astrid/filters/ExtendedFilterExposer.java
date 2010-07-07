@@ -46,14 +46,14 @@ public final class ExtendedFilterExposer extends BroadcastReceiver {
                         TaskCriteria.isVisible(DateUtilities.now()))).
                         orderBy(Order.asc(Task.TITLE)),
                 null);
-        alphabetical.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_alpha)).getBitmap();
+        alphabetical.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap();
 
         Filter recent = new Filter(ExtendedPlugin.IDENTIFIER,
                 "Recently Modified",
                 "Recently Modified",
                 new QueryTemplate().orderBy(Order.desc(Task.MODIFICATION_DATE)).limit(15),
                 null);
-        recent.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_recent)).getBitmap();
+        recent.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_new)).getBitmap();
 
         ContentValues hiddenValues = new ContentValues();
         hiddenValues.put(Task.HIDE_UNTIL.name, DateUtilities.now() + DateUtilities.ONE_DAY);
@@ -64,7 +64,7 @@ public final class ExtendedFilterExposer extends BroadcastReceiver {
                         Criterion.not(TaskCriteria.isVisible(DateUtilities.now())))).
                         orderBy(Order.asc(Task.HIDE_UNTIL)),
                         hiddenValues);
-        hidden.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_hidden)).getBitmap();
+        hidden.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap();
 
         Filter deleted = new Filter(ExtendedPlugin.IDENTIFIER,
                 "Deleted Tasks",
@@ -72,7 +72,7 @@ public final class ExtendedFilterExposer extends BroadcastReceiver {
                 new QueryTemplate().where(TaskCriteria.isDeleted()).
                         orderBy(Order.desc(Task.DELETION_DATE)),
                 null);
-        deleted.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_deleted)).getBitmap();
+        deleted.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_trash)).getBitmap();
 
         // transmit filter list
         FilterListItem[] list = new FilterListItem[5];

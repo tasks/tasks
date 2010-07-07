@@ -131,7 +131,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      *
      * @return true on success.
      */
-    public boolean persist(AbstractModel item) {
+    public boolean persist(TYPE item) {
         if (item.getId() == AbstractModel.NO_ID) {
             return createNew(item);
         } else {
@@ -154,7 +154,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      *            item model
      * @return returns true on success.
      */
-    public boolean createNew(AbstractModel item) {
+    public boolean createNew(TYPE item) {
         long newRow = database.getDatabase().insert(table.name,
                 AbstractModel.ID_PROPERTY.name, item.getMergedValues());
         item.setId(newRow);
@@ -171,7 +171,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      *            item model
      * @return returns true on success.
      */
-    public boolean saveExisting(AbstractModel item) {
+    public boolean saveExisting(TYPE item) {
         ContentValues values = item.getSetValues();
         if(values.size() == 0) // nothing changed
             return true;

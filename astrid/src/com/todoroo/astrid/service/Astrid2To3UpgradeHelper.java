@@ -11,8 +11,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -181,10 +181,10 @@ public class Astrid2To3UpgradeHelper {
 
     // --- database upgrade helpers
 
-    protected static final class UpgradeVisitorContainer {
+    protected static final class UpgradeVisitorContainer<TYPE extends AbstractModel> {
         public int columnIndex;
         public Cursor cursor;
-        public AbstractModel model;
+        public TYPE model;
         public StringBuilder upgradeNotes;
     }
 
@@ -194,9 +194,9 @@ public class Astrid2To3UpgradeHelper {
      *
      */
     @SuppressWarnings("nls")
-    protected static final class ColumnUpgradeVisitor implements PropertyVisitor<Void, UpgradeVisitorContainer> {
+    protected static final class ColumnUpgradeVisitor implements PropertyVisitor<Void, UpgradeVisitorContainer<?>> {
         @Override
-        public Void visitDouble(Property<Double> property, UpgradeVisitorContainer data) {
+        public Void visitDouble(Property<Double> property, UpgradeVisitorContainer<?> data) {
             double value = data.cursor.getDouble(data.columnIndex);
             data.model.setValue(property, value);
             Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
@@ -204,7 +204,7 @@ public class Astrid2To3UpgradeHelper {
         }
 
         @Override
-        public Void visitInteger(Property<Integer> property, UpgradeVisitorContainer data) {
+        public Void visitInteger(Property<Integer> property, UpgradeVisitorContainer<?> data) {
             int value = data.cursor.getInt(data.columnIndex);
             data.model.setValue(property, value);
             Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
@@ -212,7 +212,7 @@ public class Astrid2To3UpgradeHelper {
         }
 
         @Override
-        public Void visitLong(Property<Long> property, UpgradeVisitorContainer data) {
+        public Void visitLong(Property<Long> property, UpgradeVisitorContainer<?> data) {
             long value = data.cursor.getLong(data.columnIndex);
 
             // special handling for due date
@@ -240,7 +240,7 @@ public class Astrid2To3UpgradeHelper {
         }
 
         @Override
-        public Void visitString(Property<String> property, UpgradeVisitorContainer data) {
+        public Void visitString(Property<String> property, UpgradeVisitorContainer<?> data) {
             String value = data.cursor.getString(data.columnIndex);
             data.model.setValue(property, value);
             Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
@@ -270,7 +270,7 @@ public class Astrid2To3UpgradeHelper {
                 null, 1).getReadableDatabase();
 
         Cursor cursor = upgradeDb.rawQuery("SELECT * FROM " + legacyTable, null);
-        UpgradeVisitorContainer container = new UpgradeVisitorContainer();
+        UpgradeVisitorContainer<TYPE> container = new UpgradeVisitorContainer<TYPE>();
         container.cursor = cursor;
         container.model = model;
         ColumnUpgradeVisitor visitor = new ColumnUpgradeVisitor();

@@ -9,7 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.data.AbstractModel;
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -20,6 +20,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.reminders.ReminderService;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Data Access layer for {@link Task}-related operations.
@@ -152,15 +153,32 @@ public class TaskDao extends GenericDao<Task> {
     }
 
     @Override
-    public boolean createNew(AbstractModel item) {
+    public boolean createNew(Task item) {
         if(!item.containsValue(Task.CREATION_DATE))
             item.setValue(Task.CREATION_DATE, DateUtilities.now());
         item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+
+        // set up task defaults
+        if(!item.containsValue(Task.IMPORTANCE))
+            item.setValue(Task.IMPORTANCE, Preferences.getIntegerFromString(
+                    R.string.p_default_importance_key));
+        if(!item.containsValue(Task.DUE_DATE)) {
+            int setting = Preferences.getIntegerFromString(R.string.p_default_urgency_key);
+            item.setValue(Task.DUE_DATE, item.createDueDate(setting, 0));
+        }
+        if(!item.containsValue(Task.HIDE_UNTIL)) {
+            int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key);
+            item.setValue(Task.HIDE_UNTIL, item.createHideUntil(setting, 0));
+        }
+        if(!item.containsValue(Task.REMINDER_PERIOD))
+            item.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_HOUR *
+                    Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours));
+
         return super.createNew(item);
     }
 
     @Override
-    public boolean saveExisting(AbstractModel item) {
+    public boolean saveExisting(Task item) {
         item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         return super.saveExisting(item);
     }

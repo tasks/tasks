@@ -3,8 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="@drawable/background_gradient">
+    android:orientation="vertical">
     
     <!-- Header -->
     <LinearLayout
@@ -19,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/tasklist_back"
+            android:src="@drawable/tango_previous"
             android:paddingTop="8px"
             android:paddingLeft="5px"/> 
         
@@ -47,11 +46,12 @@
             android:layout_height="fill_parent"
             android:visibility="gone"
             android:text="@string/TLA_no_items"
-            style="@style/TextAppearance.TLA_NoItems"/>
+            style="@style/TextAppearance.TLA_NoItems"
+            android:background="@drawable/background_gradient"/>
     
         <!-- Task List -->
         <ListView android:id="@android:id/list"
-            android:background="@drawable/none"
+            android:background="@drawable/background_gradient"
             android:scrollbars="vertical"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
@@ -70,13 +70,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/btn_add"
+            android:src="@drawable/tango_add"
             android:scaleType="fitCenter"/> 
     
         <!-- Quick Add Task -->
         <EditText android:id="@+id/quickAddText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="100"
             android:hint="@string/TLA_quick_add_hint"
             android:singleLine="true"
@@ -88,7 +88,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/btn_add_extended"
+            android:src="@drawable/tango_edit"
             android:scaleType="fitCenter"/> 
 
     </LinearLayout>

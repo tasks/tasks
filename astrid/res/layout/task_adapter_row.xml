@@ -4,11 +4,10 @@
     android:orientation="horizontal"
     android:background="@android:drawable/list_selector_background"
     android:focusable="true"
-    android:paddingTop="6px"
     android:paddingLeft="4dip"
     android:paddingRight="6dip"
-    android:paddingBottom="6px"
-    android:minHeight="56px"
+    android:paddingBottom="4px"
+    android:minHeight="60px"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
     
@@ -17,7 +16,8 @@
         android:layout_width="52px"
         android:layout_height="fill_parent"
         android:layout_weight="1"
-        android:paddingLeft="10px" 
+        android:paddingLeft="5px" 
+        android:focusable="false"
         android:button="@drawable/btn_check"/>
 
     <LinearLayout android:id="@+id/details"
@@ -26,6 +26,7 @@
         android:layout_weight="100"
         android:paddingLeft="12px"
         android:paddingRight="2px"
+
         android:orientation="vertical">
             
         <!-- task name -->

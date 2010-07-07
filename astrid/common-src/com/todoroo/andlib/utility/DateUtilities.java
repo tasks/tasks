@@ -79,6 +79,13 @@ public class DateUtilities {
         return System.currentTimeMillis();
     }
 
+    /** Returns unixtime one month from now */
+    public static final long oneMonthFromNow() {
+        Date date = new Date();
+        date.setMonth(date.getMonth() + 1);
+        return date.getTime();
+    }
+
     /** Represents a single hour */
     public static long ONE_HOUR = 3600000L;
 

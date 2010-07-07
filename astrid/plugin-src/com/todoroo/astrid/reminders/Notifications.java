@@ -132,7 +132,7 @@ public class Notifications extends BroadcastReceiver {
 
         // update last reminder time
         task.setValue(Task.REMINDER_LAST, DateUtilities.now());
-        taskDao.save(task, false);
+        taskDao.saveExisting(task);
 
         // quiet hours? unless alarm clock
         boolean quietHours = false;

@@ -17,10 +17,10 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:state_pressed="false" android:state_enabled="true"
-          android:state_focused="false" android:drawable="@drawable/ic_tasklist_back" />
+          android:state_focused="false" android:drawable="@drawable/tango_previous_normal" />
     <item android:state_pressed="true" android:state_enabled="true"
-          android:drawable="@drawable/ic_tasklist_back_pressed" />
+          android:drawable="@drawable/tango_previous_pressed" />
     <item android:state_pressed="false" android:state_enabled="true"
-          android:state_focused="true" android:drawable="@drawable/ic_tasklist_back_selected" />
+          android:state_focused="true" android:drawable="@drawable/tango_previous_pressed" />
 
 </selector>

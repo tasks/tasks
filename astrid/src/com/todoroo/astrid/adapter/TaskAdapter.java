@@ -11,13 +11,13 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.View.OnKeyListener;
+import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
@@ -277,6 +277,9 @@ public class TaskAdapter extends CursorAdapter {
             return;
 
         ArrayList<TaskDetail> details = detailCache.get(taskId);
+        if(details.contains(detail))
+            return;
+
         details.add(detail);
 
         // update view if it is visible

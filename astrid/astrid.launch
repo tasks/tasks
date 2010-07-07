@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <launchConfiguration type="com.android.ide.eclipse.adt.debug.LaunchConfigType">
 <stringAttribute key="bad_container_name" value="/astrid.launch"/>
+<booleanAttribute key="ch.zork.quicklaunch" value="true"/>
+<stringAttribute key="ch.zork.quicklaunch.icon" value="14.gif"/>
+<intAttribute key="ch.zork.quicklaunch.index" value="0"/>
 <intAttribute key="com.android.ide.eclipse.adt.action" value="0"/>
 <stringAttribute key="com.android.ide.eclipse.adt.commandline" value="-scale 0.7"/>
 <intAttribute key="com.android.ide.eclipse.adt.delay" value="0"/>

@@ -18,12 +18,12 @@ import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceChangeListener;
-import android.preference.Preference.OnPreferenceClickListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -230,7 +230,6 @@ public class EditPreferences extends PreferenceActivity {
             Editor editor = Preferences.getPrefs(this).edit();
             editor.putString(preference.getKey(), (String)value);
             editor.commit();
-            Task.refreshDefaultValues();
         }
     }
 }

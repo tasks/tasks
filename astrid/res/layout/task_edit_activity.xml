@@ -101,24 +101,24 @@
         android:gravity="bottom"
         android:paddingTop="5dip"
         android:baselineAligned="false">
-        <Button
+        <ImageButton
           android:id="@+id/save_basic"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="@string/TEA_save_label" />
+          android:src="@drawable/tango_save" />
         <Button
           android:id="@+id/discard_basic"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="@string/TEA_cancel_label" />
+          android:src="@drawable/tango_stop" />
         <Button
           android:id="@+id/delete_basic"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:text="@string/TEA_delete_label" />
+          android:src="@drawable/tango_trash" />
       </LinearLayout>
     </LinearLayout>
   </ScrollView>

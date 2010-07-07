@@ -55,7 +55,6 @@ public final class TaskDetail implements Parcelable {
         this(plugin, text, 0);
     }
 
-
     // --- parcelable helpers
 
 

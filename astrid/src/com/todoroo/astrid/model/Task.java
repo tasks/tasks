@@ -15,13 +15,12 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Table;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.Table;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Data Model which represents a task users need to accomplish.
@@ -175,28 +174,8 @@ public final class Task extends AbstractModel {
         defaultValues.put(TIMER_START.name, 0);
     }
 
-    private static boolean defaultValuesLoaded = false;
-
-    public static ContentValues getStaticDefaultValues() {
-        return defaultValues;
-    }
-
-    /**
-     * Call to load task default values from preferences.
-     */
-    public static void refreshDefaultValues() {
-        defaultValues.put(IMPORTANCE.name,
-                Preferences.getIntegerFromString(R.string.p_default_importance_key));
-        defaultValuesLoaded = true;
-    }
-
     @Override
     public ContentValues getDefaultValues() {
-        // if refreshDefaultValues has never been called, call it
-        if(!defaultValuesLoaded) {
-            refreshDefaultValues();
-        }
-
         return defaultValues;
     }
 
@@ -238,61 +217,21 @@ public final class Task extends AbstractModel {
 
     /** Checks whether task is deleted. Will return false if DELETION_DATE not read */
     public boolean isDeleted() {
-        try {
-            return getValue(DELETION_DATE) > 0;
-        } catch (UnsupportedOperationException e) {
+        // assume false if we didn't load deletion date
+        if(!containsValue(DELETION_DATE))
             return false;
-        }
+        else
+            return getValue(DELETION_DATE) > 0;
     }
 
     /** Checks whether task is hidden. Requires HIDDEN_UNTIL */
     public boolean isHidden() {
-    	return getValue(HIDE_UNTIL) > DateUtilities.now();
+        return getValue(HIDE_UNTIL) > DateUtilities.now();
     }
 
     /** Checks whether task is done. Requires DUE_DATE */
     public boolean hasDueDate() {
         return getValue(DUE_DATE) > 0;
-    }
-
-    /**
-     * @return true if hours, minutes, and seconds indicate end of day
-     */
-    private static boolean isEndOfDay(Date date) {
-        int hours = date.getHours();
-        int minutes = date.getMinutes();
-        int seconds = date.getSeconds();
-        return hours == 23 && minutes == 59 && seconds == 59;
-    }
-
-    /**
-     * Sets due date for this task. If this due date has no time associated,
-     * we move it to the last millisecond of the day.
-     *
-     * @param date
-     * @param hasDueTime
-     */
-    public void setDueDateAndTime(Date dueDate, boolean hasDueTime) {
-        if(dueDate == null || dueDate.getTime() == 0) {
-            setValue(Task.DUE_DATE, 0L);
-            return;
-        }
-
-        if(!hasDueTime) {
-            dueDate.setHours(23);
-            dueDate.setMinutes(59);
-            dueDate.setSeconds(59);
-        } else if(isEndOfDay(dueDate)) {
-            dueDate.setSeconds(58);
-        }
-        setValue(Task.DUE_DATE, dueDate.getTime());
-    }
-
-    /**
-     * Checks whether this due date has a due time or only a date
-     */
-    public boolean hasDueTime() {
-        return !isEndOfDay(new Date(getValue(DUE_DATE)));
     }
 
     /**
@@ -311,4 +250,140 @@ public final class Task extends AbstractModel {
     public RepeatInfo getRepeatInfo() {
         return RepeatInfo.fromSingleField(getValue(Task.REPEAT));
     }
+
+    // --- due and hide until date management
+
+    /** urgency array index -> significance */
+    public static final int URGENCY_NONE = 0;
+    public static final int URGENCY_TODAY = 1;
+    public static final int URGENCY_TOMORROW = 2;
+    public static final int URGENCY_DAY_AFTER = 3;
+    public static final int URGENCY_NEXT_WEEK = 4;
+    public static final int URGENCY_NEXT_MONTH = 5;
+    public static final int URGENCY_SPECIFIC_DAY = 6;
+    public static final int URGENCY_SPECIFIC_DAY_TIME = 7;
+
+    /** hide until array index -> significance */
+    public static final int HIDE_UNTIL_NONE = 0;
+    public static final int HIDE_UNTIL_DUE = 1;
+    public static final int HIDE_UNTIL_DAY_BEFORE = 2;
+    public static final int HIDE_UNTIL_WEEK_BEFORE = 3;
+    public static final int HIDE_UNTIL_SPECIFIC_DAY = 4;
+
+    /**
+     * Creates due date for this task. If this due date has no time associated,
+     * we move it to the last millisecond of the day.
+     *
+     * @param setting
+     *            one of the URGENCY_* constants
+     * @param customDate
+     *            if specific day or day & time is set, this value
+     */
+    public long createDueDate(int setting, long customDate) {
+        long date;
+
+        switch(setting) {
+        case URGENCY_NONE:
+            date = 0;
+        case URGENCY_TODAY:
+            date = DateUtilities.now();
+            break;
+        case URGENCY_TOMORROW:
+            date = DateUtilities.now() + DateUtilities.ONE_DAY;
+            break;
+        case URGENCY_DAY_AFTER:
+            date = DateUtilities.now() + 2 * DateUtilities.ONE_DAY;
+            break;
+        case URGENCY_NEXT_WEEK:
+            date = DateUtilities.now() + DateUtilities.ONE_WEEK;
+            break;
+        case URGENCY_NEXT_MONTH:
+            date = DateUtilities.oneMonthFromNow();
+            break;
+        case URGENCY_SPECIFIC_DAY:
+        case URGENCY_SPECIFIC_DAY_TIME:
+            date = customDate;
+        default:
+            throw new IllegalArgumentException("Unknown setting " + setting);
+        }
+
+        if(date <= 0)
+            return date;
+
+        Date dueDate = new Date(date);
+        if(setting != URGENCY_SPECIFIC_DAY_TIME) {
+            dueDate.setHours(23);
+            dueDate.setMinutes(59);
+            dueDate.setSeconds(59);
+        } else if(isEndOfDay(dueDate)) {
+            dueDate.setSeconds(58);
+        }
+        return dueDate.getTime();
+    }
+
+    /**
+     * Create hide until for this task.
+     *
+     * @param setting
+     *            one of the HIDE_UNTIL_* constants
+     * @param customDate
+     *            if specific day is set, this value
+     * @return
+     */
+    public long createHideUntil(int setting, long customDate) {
+        long date;
+
+        switch(setting) {
+        case HIDE_UNTIL_NONE:
+            return 0;
+        case HIDE_UNTIL_DUE:
+            date = getValue(DUE_DATE);
+            break;
+        case HIDE_UNTIL_DAY_BEFORE:
+            date = getValue(DUE_DATE) - DateUtilities.ONE_DAY;
+            break;
+        case HIDE_UNTIL_WEEK_BEFORE:
+            date = getValue(DUE_DATE) - DateUtilities.ONE_WEEK;
+            break;
+        case HIDE_UNTIL_SPECIFIC_DAY:
+            date = customDate;
+            break;
+        default:
+            throw new IllegalArgumentException("Unknown setting " + setting);
+        }
+
+        if(date <= 0)
+            return date;
+
+        Date hideUntil = new Date(date);
+        hideUntil.setHours(0);
+        hideUntil.setMinutes(0);
+        hideUntil.setSeconds(0);
+        return hideUntil.getTime();
+    }
+
+    /**
+     * @return true if hours, minutes, and seconds indicate end of day
+     */
+    private static boolean isEndOfDay(Date date) {
+        int hours = date.getHours();
+        int minutes = date.getMinutes();
+        int seconds = date.getSeconds();
+        return hours == 23 && minutes == 59 && seconds == 59;
+    }
+
+    /**
+     * Checks whether this due date has a due time or only a date
+     */
+    public boolean hasDueTime() {
+        return hasDueTime(getValue(Task.DUE_DATE));
+    }
+
+    /**
+     * Checks whether provided due date has a due time or only a date
+     */
+    public static boolean hasDueTime(long dueDate) {
+        return !isEndOfDay(new Date(dueDate));
+    }
+
 }

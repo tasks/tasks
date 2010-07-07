@@ -18,15 +18,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -319,7 +319,7 @@ public class FilterListActivity extends ExpandableListActivity {
         bitmap = bitmap.copy(bitmap.getConfig(), true);
         Canvas canvas = new Canvas(bitmap);
         canvas.drawBitmap(emblem, new Rect(0, 0, emblem.getWidth(), emblem.getHeight()),
-                new Rect(bitmap.getWidth() - 32, bitmap.getHeight() - 32,
+                new Rect(bitmap.getWidth() - 22, bitmap.getHeight() - 22,
                         bitmap.getWidth(), bitmap.getHeight()), null);
 
         Intent createShortcutIntent = new Intent();

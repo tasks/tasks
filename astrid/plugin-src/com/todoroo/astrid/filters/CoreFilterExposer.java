@@ -43,11 +43,11 @@ public final class CoreFilterExposer extends BroadcastReceiver {
                 new QueryTemplate().where(Criterion.not(TaskCriteria.isDeleted())).
                         orderBy(Order.desc(Task.MODIFICATION_DATE)),
                 null);
-        all.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_all)).getBitmap();
+        all.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_files)).getBitmap();
 
         SearchFilter searchFilter = new SearchFilter(CorePlugin.IDENTIFIER,
                 "Search");
-        searchFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_search)).getBitmap();
+        searchFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_search)).getBitmap();
 
         // transmit filter list
         FilterListItem[] list = new FilterListItem[3];
@@ -73,7 +73,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
                                         String.format("(%d + 1000000 * %s)", DateUtilities.now(), Task.IMPORTANCE),
                                         String.format("(%s + 1000000 * %s)", Task.DUE_DATE, Task.IMPORTANCE)))),
                 null);
-        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_inbox)).getBitmap();
+        inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_home)).getBitmap();
         return inbox;
     }
 
