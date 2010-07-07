@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
-import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -83,7 +82,6 @@ public class TagFilterExposer extends BroadcastReceiver {
                 "Untagged",
                 tagService.untaggedTemplate(),
                 null);
-        Log.e("sdlfk", untagged.sqlQuery);
         untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_untagged)).getBitmap();
         FilterCategory tagsCategoryBySize = new FilterCategory(TagsPlugin.IDENTIFIER,
                 context.getString(R.string.tag_FEx_by_size), filtersBySize);

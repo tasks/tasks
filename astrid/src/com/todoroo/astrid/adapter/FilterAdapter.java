@@ -122,10 +122,10 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             image.setImageResource(R.drawable.expander_ic_maximized);
         else
             image.setImageResource(R.drawable.expander_ic_minimized);
-        FrameLayout.LayoutParams llp = new FrameLayout.LayoutParams(
+        FrameLayout.LayoutParams expansionImageLayout = new FrameLayout.LayoutParams(
                 32, 32);
-        llp.gravity = Gravity.CENTER_VERTICAL;
-        image.setLayoutParams(llp);
+        expansionImageLayout.gravity = Gravity.CENTER_VERTICAL;
+        image.setLayoutParams(expansionImageLayout);
         image.setScaleType(ScaleType.FIT_CENTER);
         layout.addView(image);
 
@@ -136,7 +136,10 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
         View view = augmentView(textView, filter);
         view.setPadding(60, 2, 0, 2);
-        view.setLayoutParams(llp);
+        FrameLayout.LayoutParams rowLayout = new FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        rowLayout.gravity = Gravity.CENTER_VERTICAL;
+        view.setLayoutParams(rowLayout);
 
         layout.addView(view);
 

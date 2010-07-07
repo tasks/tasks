@@ -64,7 +64,7 @@ public final class ExtendedFilterExposer extends BroadcastReceiver {
                         Criterion.not(TaskCriteria.isVisible(DateUtilities.now())))).
                         orderBy(Order.asc(Task.HIDE_UNTIL)),
                         hiddenValues);
-        hidden.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap();
+        hidden.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_clouds)).getBitmap();
 
         Filter deleted = new Filter(ExtendedPlugin.IDENTIFIER,
                 "Deleted Tasks",
