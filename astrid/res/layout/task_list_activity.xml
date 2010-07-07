@@ -3,6 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
+    android:background="@drawable/background_gradient"
     android:orientation="vertical">
     
     <!-- Header -->
@@ -46,13 +47,12 @@
             android:layout_height="fill_parent"
             android:visibility="gone"
             android:text="@string/TLA_no_items"
-            style="@style/TextAppearance.TLA_NoItems"
-            android:background="@drawable/background_gradient"/>
+            style="@style/TextAppearance.TLA_NoItems"/>
     
         <!-- Task List -->
         <ListView android:id="@android:id/list"
-            android:background="@drawable/background_gradient"
             android:scrollbars="vertical"
+            android:cacheColorHint="#00000000"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
         

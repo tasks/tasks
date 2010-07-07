@@ -160,6 +160,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
             ImageView icon = new ImageView(activity);
             icon.setImageBitmap(filter.listingIcon);
+            icon.setScaleType(ScaleType.CENTER);
             icon.setPadding(0, 0, 15, 0);
             layout.addView(icon);
             layout.addView(textView);

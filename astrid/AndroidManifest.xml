@@ -55,7 +55,8 @@
     <!-- ====================================================== Activities = -->
         
     <!-- Activity that displays task list -->
-    <activity android:name="com.todoroo.astrid.activity.TaskListActivity" 
+    <activity android:name="com.todoroo.astrid.activity.TaskListActivity"
+              android:windowSoftInputMode="stateHidden" 
               android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -68,6 +69,8 @@
     </activity>
     <!-- Activity that displays filter list -->
     <activity android:name="com.todoroo.astrid.activity.FilterListActivity"
+              android:launchMode="singleInstance"
+              android:allowTaskReparenting="true"
               android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.SEARCH" />
@@ -78,6 +81,7 @@
     </activity>
     <!-- Activity that creates or edits tasks -->
     <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
+              android:windowSoftInputMode="stateHidden"
               android:label="@string/taskEdit_label">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />

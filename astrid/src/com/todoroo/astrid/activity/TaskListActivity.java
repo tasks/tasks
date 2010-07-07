@@ -18,20 +18,20 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -39,8 +39,11 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -407,6 +410,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
     /** Fill in the Action Item List with current items */
     protected void setUpTaskList() {
+        if(!filter.sqlQuery.toUpperCase().contains("ORDER BY")) {
+            // use default ordering if none specified
+            filter.sqlQuery += " ORDER BY " + Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
+                    DateUtilities.now() + DateUtilities.ONE_WEEK,
+                    Task.DUE_DATE) + " + 200000000 * " +
+                    Task.IMPORTANCE + " + " + Task.COMPLETION_DATE);
+        }
+
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
                 TaskAdapter.PROPERTIES, filter);
