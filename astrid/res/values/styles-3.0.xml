@@ -31,7 +31,6 @@
     <!-- =========================== TaskAdapter =========================== -->
 
     <style name="TextAppearance.TAd_ItemTitle">
-        <item name="android:textSize">22sp</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemTitle_Completed" parent="TextAppearance.TAd_ItemTitle">

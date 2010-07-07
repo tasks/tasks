@@ -351,6 +351,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         taskService.cleanup();
         if(requestCode == ACTIVITY_EDIT_TASK && resultCode != TaskEditActivity.RESULT_CODE_DISCARDED)
             loadTaskListContent(true);
+        else if(requestCode == ACTIVITY_SETTINGS)
+            loadTaskListContent(true);
     }
 
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,

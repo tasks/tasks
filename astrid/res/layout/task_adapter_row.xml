@@ -4,10 +4,10 @@
     android:orientation="horizontal"
     android:background="@android:drawable/list_selector_background"
     android:focusable="true"
-    android:paddingTop="8px"
+    android:paddingTop="6px"
     android:paddingLeft="4dip"
     android:paddingRight="6dip"
-    android:paddingBottom="2px"
+    android:paddingBottom="6px"
     android:minHeight="56px"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
@@ -32,6 +32,7 @@
         <TextView android:id="@+id/title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
+            android:textSize="22sp"
             style="@style/TextAppearance.TAd_ItemTitle"
             android:gravity="center_vertical"/>
     

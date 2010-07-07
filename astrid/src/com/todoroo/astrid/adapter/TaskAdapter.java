@@ -134,7 +134,6 @@ public class TaskAdapter extends CursorAdapter {
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.task = new Task();
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
-        viewHolder.nameView.setTextSize(fontSize);
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.details = (LinearLayout)view.findViewById(R.id.details);
@@ -189,16 +188,6 @@ public class TaskAdapter extends CursorAdapter {
     private void setFieldContentsAndVisibility(View view, Task task) {
         Resources r = activity.getResources();
         ViewHolder viewHolder = (ViewHolder)view.getTag();
-
-        // don't bother instantiating views if we're busy
-        /*if(isFling) {
-            viewHolder.details.removeViews(2, viewHolder.details.getChildCount() - 2);
-            viewHolder.dueDate.setVisibility(View.INVISIBLE);
-            viewHolder.nameView.setText(R.string.TAd_flingText);
-            viewHolder.importance.setVisibility(View.INVISIBLE);
-            viewHolder.completeBox.setVisibility(View.INVISIBLE);
-            return;
-        }*/
 
         // name
         final TextView nameView = viewHolder.nameView; {
@@ -410,6 +399,7 @@ public class TaskAdapter extends CursorAdapter {
             name.setPaintFlags(name.getPaintFlags() & ~Paint.STRIKE_THRU_TEXT_FLAG);
             name.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemTitle);
         }
+        name.setTextSize(fontSize);
     }
 
     /**

@@ -49,6 +49,12 @@ import com.todoroo.astrid.utility.Preferences;
  */
 public class EditPreferences extends PreferenceActivity {
 
+    // --- constants
+
+
+
+    // --- instance variables
+
     @Autowired
     TaskService taskService; // for debugging
 
@@ -198,13 +204,16 @@ public class EditPreferences extends PreferenceActivity {
         Resources r = getResources();
 
         // defaults options
-        /*if(r.getString(R.string.EPr_default_urgency_key).equals(preference.getKey())) {
+        if(r.getString(R.string.p_default_urgency_key).equals(preference.getKey())) {
             updateTaskListPreference(preference, value, r, R.array.EPr_default_urgency,
                     R.array.EPr_default_urgency_values, R.string.EPr_default_urgency_desc);
-        } else if(r.getString(R.string.EPr_default_importance_key).equals(preference.getKey())) {
+        } else if(r.getString(R.string.p_default_importance_key).equals(preference.getKey())) {
             updateTaskListPreference(preference, value, r, R.array.EPr_default_importance,
                     R.array.EPr_default_importance_values, R.string.EPr_default_importance_desc);
-        }*/
+        } else if(r.getString(R.string.p_default_hideUntil_key).equals(preference.getKey())) {
+            updateTaskListPreference(preference, value, r, R.array.EPr_default_hideUntil,
+                    R.array.EPr_default_hideUntil_values, R.string.EPr_default_hideUntil_desc);
+        }
 
         return true;
     }
