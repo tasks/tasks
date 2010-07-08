@@ -60,7 +60,8 @@ public class LocaleReceiver extends BroadcastReceiver {
 					int count = 0;
 					if(count > 0) {
 						Resources r = context.getResources();
-						String reminder = r.getString(R.string.notif_tagNotification).
+//						String reminder = r.getString(R.string.notif_tagNotification).
+						String reminder = "$NUM of $TAG".
 						    replace("$NUM", r.getQuantityString(R.plurals.Ntasks, count, count)).
 						    replace("$TAG", tagName);
 //						ReminderService.showTagNotification(context, tagId, reminder);
