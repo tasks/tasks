@@ -1,7 +1,5 @@
 package com.todoroo.astrid.service;
 
-import android.util.Log;
-
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
@@ -76,7 +74,6 @@ public class MetadataService {
         Query query = Query.select(Metadata.VALUE.as(Metadata.VALUE.name), count).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
             where(where).orderBy(order).groupBy(Metadata.VALUE);
-        Log.e("ERW", query.toString());
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         return cursor;
     }

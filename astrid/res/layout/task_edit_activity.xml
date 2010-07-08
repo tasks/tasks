@@ -213,6 +213,7 @@
       <LinearLayout
         android:orientation="horizontal"
         android:paddingRight="10dip"
+        android:visibility="gone"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content">
         <Button
@@ -223,7 +224,6 @@
         <Spinner
           android:id="@+id/repeat_interval"
           android:layout_weight="1"
-          android:layout_marginRight="10dip"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content" />
       </LinearLayout>
@@ -232,6 +232,7 @@
       <View
         android:layout_width="fill_parent"
         android:layout_height="1dip"
+        android:visibility="gone"
         android:padding="5dip"
         android:background="@android:drawable/divider_horizontal_dark" />
         
