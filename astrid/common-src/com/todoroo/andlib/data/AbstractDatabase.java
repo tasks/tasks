@@ -5,7 +5,9 @@
  */
 package com.todoroo.andlib.data;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -150,7 +152,7 @@ abstract public class AbstractDatabase {
     /**
      * @return sql database. opens database if not yet open
      */
-    public final SQLiteDatabase getDatabase() {
+    private synchronized final SQLiteDatabase getDatabase() {
         // open database if requested
         if(database == null)
             openForWriting();
@@ -163,6 +165,36 @@ abstract public class AbstractDatabase {
     @Override
     public String toString() {
         return "DB:" + getName();
+    }
+
+    // --- database wrapper
+
+    /*
+     * @see android.database.sqlite.SQLiteDatabase#rawQuery(String  sql, String[] selectionArgs)
+     */
+    public synchronized Cursor rawQuery(String sql, String[] selectionArgs) {
+        return getDatabase().rawQuery(sql, selectionArgs);
+    }
+
+    /*
+     * @see android.database.sqlite.SQLiteDatabase#insert(String  table, String  nullColumnHack, ContentValues  values)
+     */
+    public synchronized long insert(String table, String nullColumnHack, ContentValues values) {
+        return getDatabase().insert(table, nullColumnHack, values);
+    }
+
+    /*
+     * @see android.database.sqlite.SQLiteDatabase#delete(String  table, String  whereClause, String[] whereArgs)
+     */
+    public synchronized int delete(String table, String whereClause, String[] whereArgs) {
+        return getDatabase().delete(table, whereClause, whereArgs);
+    }
+
+    /*
+     * @see android.database.sqlite.SQLiteDatabase#update(String  table, ContentValues  values, String  whereClause, String[] whereArgs)
+     */
+    public synchronized int update(String  table, ContentValues  values, String  whereClause, String[] whereArgs) {
+        return getDatabase().update(table, values, whereClause, whereArgs);
     }
 
     // --- helper classes

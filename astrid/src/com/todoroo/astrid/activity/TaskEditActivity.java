@@ -27,9 +27,9 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TabActivity;
 import android.app.TimePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ContentValues;
 import android.content.DialogInterface;
@@ -44,7 +44,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -60,21 +59,22 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.enums.RepeatInterval;
-import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.TaskModelForEdit;
+import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.utilities.AstridUtilities;
 import com.timsu.astrid.widget.NumberPicker;
 import com.timsu.astrid.widget.NumberPickerDialog;
-import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 import com.timsu.astrid.widget.TimeDurationControlSet;
+import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -236,7 +236,7 @@ public final class TaskEditActivity extends TabActivity {
      * @return true if task is newly created
      */
     private boolean isNewTask() {
-        return model.getValue(Task.TITLE).length() == 0;
+        return model == null ? true : model.getValue(Task.TITLE).length() == 0;
     }
 
     /** Set up button listeners */
@@ -297,14 +297,9 @@ public final class TaskEditActivity extends TabActivity {
     @SuppressWarnings("nls")
     protected void loadItem(Intent intent) {
         long idParam = intent.getLongExtra(ID_TOKEN, -1L);
-        if(idParam == -1) {
-            exceptionService.reportError("task-edit-no-token", null);
-            finish();
-            return;
-        }
 
         database.openForReading();
-        if(idParam == Task.NO_ID) {
+        if(idParam == -1L) {
             model = new Task();
             taskService.save(model, false);
         } else {

@@ -4,6 +4,8 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Functions;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -103,12 +105,31 @@ public class TaskService {
         }
     }
 
-    public TodorooCursor<Task> fetchFiltered(Property<?>[] properties,
-            Filter filter) {
+    /**
+     * Fetch tasks for the given filter
+     * @param properties
+     * @param filter
+     * @return
+     */
+    public TodorooCursor<Task> fetchFiltered(Filter filter, Property<?>... properties) {
         if(filter == null || filter.sqlQuery == null)
             return taskDao.query(Query.select(properties));
         else
             return taskDao.query(Query.select(properties).withQueryTemplate(filter.sqlQuery));
     }
+
+    /**
+     * Return the default task ordering
+     * @return
+     */
+    @SuppressWarnings("nls")
+    public static Order defaultTaskOrder() {
+        return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
+                DateUtilities.now() + DateUtilities.ONE_WEEK,
+                Task.DUE_DATE) + " + 200000000 * " +
+                Task.IMPORTANCE + " + " + Task.COMPLETION_DATE);
+    }
+
+
 
 }

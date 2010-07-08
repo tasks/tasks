@@ -62,7 +62,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      */
     public TodorooCursor<TYPE> query(Query query) {
         query.from(table);
-        Cursor cursor = database.getDatabase().rawQuery(query.toString(), null);
+        Cursor cursor = database.rawQuery(query.toString(), null);
         return new TodorooCursor<TYPE>(cursor, query.getFields());
     }
 
@@ -110,7 +110,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      * @return true if delete was successful
      */
     public boolean delete(long id) {
-        return database.getDatabase().delete(table.name,
+        return database.delete(table.name,
                 AbstractModel.ID_PROPERTY.eq(id).toString(), null) > 0;
     }
 
@@ -121,7 +121,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      * @return # of deleted items
      */
     public int deleteWhere(Criterion where) {
-        return database.getDatabase().delete(table.name,
+        return database.delete(table.name,
                 where.toString(), null);
     }
 
@@ -155,7 +155,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      * @return returns true on success.
      */
     public boolean createNew(TYPE item) {
-        long newRow = database.getDatabase().insert(table.name,
+        long newRow = database.insert(table.name,
                 AbstractModel.ID_PROPERTY.name, item.getMergedValues());
         item.setId(newRow);
         return newRow >= 0;
@@ -175,7 +175,7 @@ public class GenericDao<TYPE extends AbstractModel> {
         ContentValues values = item.getSetValues();
         if(values.size() == 0) // nothing changed
             return true;
-        return database.getDatabase().update(table.name, values,
+        return database.update(table.name, values,
                 AbstractModel.ID_PROPERTY.eq(item.getId()).toString(), null) > 0;
     }
 

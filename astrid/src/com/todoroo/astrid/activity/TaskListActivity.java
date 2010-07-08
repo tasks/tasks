@@ -44,11 +44,8 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -199,17 +196,17 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         MenuItem item;
 
-        item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
+        /*item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
                 R.string.TLA_menu_addons);
-        item.setIcon(android.R.drawable.ic_menu_set_as);
+        item.setIcon(android.R.drawable.ic_menu_set_as);*/
 
         item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
                 R.string.TLA_menu_settings);
         item.setIcon(android.R.drawable.ic_menu_preferences);
 
-        item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
+        /*item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.TLA_menu_help);
-        item.setIcon(android.R.drawable.ic_menu_help);
+        item.setIcon(android.R.drawable.ic_menu_help);*/
 
         // ask about plug-ins
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
@@ -479,15 +476,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     protected void setUpTaskList() {
         // use default ordering if none specified
         if(!filter.sqlQuery.toUpperCase().contains("ORDER BY")) {
-            filter.sqlQuery += " ORDER BY " + Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                    DateUtilities.now() + DateUtilities.ONE_WEEK,
-                    Task.DUE_DATE) + " + 200000000 * " +
-                    Task.IMPORTANCE + " + " + Task.COMPLETION_DATE);
+            filter.sqlQuery += " ORDER BY " + TaskService.defaultTaskOrder();
         }
 
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
-                TaskAdapter.PROPERTIES, filter);
+                filter, TaskAdapter.PROPERTIES);
         startManagingCursor(currentCursor);
 
         // set up list adapters
@@ -523,8 +517,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         else
             filter.sqlQuery = filter.sqlQuery.replace("WHERE ", "WHERE " +
                     TaskCriteria.byId(withCustomId) + " OR ");
-        currentCursor = taskService.fetchFiltered(
-                TaskAdapter.PROPERTIES, filter);
+        currentCursor = taskService.fetchFiltered(filter, TaskAdapter.PROPERTIES);
         startManagingCursor(currentCursor);
 
         taskAdapter.changeCursor(currentCursor);

@@ -14,7 +14,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.appwidget.AstridAppWidgetProvider.UpdateService;
 import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.utilities.BackupService;
 import com.todoroo.andlib.service.Autowired;
@@ -26,6 +25,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.astrid.widget.TasksWidget.UpdateService;
 
 /**
  * Service which handles jobs that need to be run when Astrid starts up.

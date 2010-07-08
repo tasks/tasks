@@ -1,6 +1,4 @@
-package com.timsu.astrid.appwidget;
-
-import java.util.ArrayList;
+package com.todoroo.astrid.widget;
 
 import android.app.PendingIntent;
 import android.app.Service;
@@ -11,24 +9,29 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.IBinder;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.task.TaskController;
-import com.timsu.astrid.data.task.TaskModelForWidget;
+import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.TaskService;
 
-public class AstridAppWidgetProvider extends AppWidgetProvider {
+public class TasksWidget extends AppWidgetProvider {
 
     static {
         AstridDependencyInjector.initialize();
     }
 
-    private final static String TAG           = "AstridAppWidgetProvider";
     public final static int[]   TEXT_IDS      = { R.id.task_1, R.id.task_2,
         R.id.task_3, R.id.task_4, R.id.task_5 };
     public final static int[]   SEPARATOR_IDS = { R.id.separator_1,
@@ -39,7 +42,6 @@ public class AstridAppWidgetProvider extends AppWidgetProvider {
             int[] appWidgetIds) {
 
         super.onUpdate(context, appWidgetManager, appWidgetIds);
-        Log.e(TAG, "onUpdate()");
 
         // Start in service to prevent Application Not Responding timeout
         context.startService(new Intent(context, UpdateService.class));
@@ -47,15 +49,20 @@ public class AstridAppWidgetProvider extends AppWidgetProvider {
 
     public static class UpdateService extends Service {
 
+        @Autowired
+        Database database;
+
+        @Autowired
+        TaskService taskService;
+
         @Override
         public void onStart(Intent intent, int startId) {
-
-            Log.e("UpdateService", "onStart()");
+            DependencyInjectionService.getInstance().inject(this);
 
             RemoteViews updateViews = buildUpdate(this);
 
             ComponentName thisWidget = new ComponentName(this,
-                    AstridAppWidgetProvider.class);
+                    TasksWidget.class);
             AppWidgetManager manager = AppWidgetManager.getInstance(this);
             manager.updateAppWidget(thisWidget, updateViews);
         }
@@ -65,7 +72,8 @@ public class AstridAppWidgetProvider extends AppWidgetProvider {
             return null;
         }
 
-        public static RemoteViews buildUpdate(Context context) {
+        @SuppressWarnings("nls")
+        public RemoteViews buildUpdate(Context context) {
             RemoteViews views = null;
 
             views = new RemoteViews(context.getPackageName(),
@@ -75,43 +83,42 @@ public class AstridAppWidgetProvider extends AppWidgetProvider {
             int[] separatorIDs = SEPARATOR_IDS;
             int numberOfTasks = 5;
 
-            TaskController taskController = new TaskController(context);
-            taskController.open();
-            ArrayList<TaskModelForWidget> taskList = taskController
-                    .getTasksForWidget(Integer.toString(numberOfTasks));
-            taskController.close();
-
             Intent listIntent = new Intent(context, TaskListActivity.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
                     listIntent, 0);
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
 
-            for (int i = 0; i < textIDs.length; i++) {
-                TaskModelForWidget taskModel = (i < taskList.size()) ?
-                    taskList.get(i) : null;
-                String textContent = "";
-                int textColor = Color.WHITE;
+            Filter inboxFilter = CoreFilterExposer.buildInboxFilter(getResources());
+            inboxFilter.sqlQuery += " LIMIT " + numberOfTasks;
+            TodorooCursor<Task> cursor = null;
+            try {
+                database.openForWriting();
+                cursor = taskService.fetchFiltered(inboxFilter, Task.TITLE, Task.DUE_DATE);
+                Task task = new Task();
+                for (int i = 0; i < cursor.getCount(); i++) {
+                    cursor.moveToPosition(i);
+                    task.readFromCursor(cursor);
 
-                if (taskModel != null) {
-                    textContent = taskModel.getName();
+                    String textContent = "";
+                    int textColor = Color.WHITE;
 
-                    // tweak color if overdue
-                    if((taskModel.getPreferredDueDate() != null && taskModel.getPreferredDueDate().getTime() < System.currentTimeMillis()) ||
-                            (taskModel.getDefiniteDueDate() != null && taskModel.getDefiniteDueDate().getTime() < System.currentTimeMillis()))
+                    textContent = task.getValue(Task.TITLE);
+                    if(task.hasDueDate() && task.getValue(Task.DUE_DATE) < DateUtilities.now())
                         textColor = context.getResources().getColor(R.color.task_list_overdue);
+
+                    if(i > 0)
+                    views.setViewVisibility(separatorIDs[i-1], View.VISIBLE);
+                    views.setTextViewText(textIDs[i], textContent);
+                    views.setTextColor(textIDs[i], textColor);
                 }
 
-                if (i < separatorIDs.length) {
-                    if (i < taskList.size() - 1 && taskList.get(i + 1) != null) {
-                        views.setViewVisibility(separatorIDs[i], View.VISIBLE);
-                    } else {
-                        views.setViewVisibility(separatorIDs[i],
-                                        View.INVISIBLE);
-                    }
-                }
-
-                views.setTextViewText(textIDs[i], textContent);
-                views.setTextColor(textIDs[i], textColor);
+                for(int i = cursor.getCount() - 1; i < separatorIDs.length; i++)
+                    views.setViewVisibility(separatorIDs[i], View.INVISIBLE);
+            } catch (Exception e) {
+                // can happen if database is not ready
+            } finally {
+                if(cursor != null)
+                    cursor.close();
             }
 
             Intent editIntent = new Intent(context, TaskEditActivity.class);

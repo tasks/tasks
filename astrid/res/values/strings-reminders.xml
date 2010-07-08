@@ -62,7 +62,7 @@
   <!-- Quiet Hours Start Description (%s => time set) -->
   <string name="rmd_EPr_quiet_hours_start_desc">No notifications will appear after %s</string>
   <!-- Quiet Hours Start/End Description (disabled) -->
-  <string name="rmd_EPr_quiet_hours_desc_none">Please set both start and end times</string>
+  <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
   
   <!-- Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Quiet Hours End</string>

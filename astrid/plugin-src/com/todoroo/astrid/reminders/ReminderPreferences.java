@@ -38,12 +38,10 @@ public class ReminderPreferences extends TodorooPreferences {
             if(index <= 0) {
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
                 endPreference.setEnabled(false);
-                endPreference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
             } else {
                 String setting = r.getStringArray(R.array.EPr_quiet_hours_start)[index];
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_start_desc, setting));
                 endPreference.setEnabled(true);
-                updatePreferences(endPreference, Preferences.getStringValue(endPreference.getKey()));
             }
         } else if(r.getString(R.string.p_rmd_quietEnd).equals(preference.getKey())) {
             int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_quiet_hours_end_values), (String)value);
@@ -63,9 +61,9 @@ public class ReminderPreferences extends TodorooPreferences {
                 preference.setSummary(r.getString(R.string.rmd_EPr_defaultRemind_desc, setting));
             }
         } else if(r.getString(R.string.p_rmd_ringtone).equals(preference.getKey())) {
-            if(value == null || "content://settings/system/notification_sound".equals(value))
+            if(value == null || "content://settings/system/notification_sound".equals(value)) //$NON-NLS-1$
                 preference.setSummary(r.getString(R.string.rmd_EPr_ringtone_desc_default));
-            else if("".equals(value))
+            else if("".equals(value)) //$NON-NLS-1$
                 preference.setSummary(r.getString(R.string.rmd_EPr_ringtone_desc_silent));
             else
                 preference.setSummary(r.getString(R.string.rmd_EPr_ringtone_desc_custom));
