@@ -87,7 +87,7 @@ public class TasksWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
 
             Filter inboxFilter = CoreFilterExposer.buildInboxFilter(getResources());
-            inboxFilter.sqlQuery += TaskService.defaultTaskOrder() + " LIMIT " + numberOfTasks;
+            inboxFilter.sqlQuery += "ORDER BY " + TaskService.defaultTaskOrder() + " LIMIT " + numberOfTasks;
             DependencyInjectionService.getInstance().inject(this);
             TodorooCursor<Task> cursor = null;
             try {

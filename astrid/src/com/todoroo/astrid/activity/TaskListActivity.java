@@ -6,7 +6,9 @@ import java.util.Map.Entry;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -32,6 +34,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AbsListView.OnScrollListener;
@@ -65,6 +68,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.widget.TasksWidget;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming
@@ -370,6 +374,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     protected void onStop() {
         super.onStop();
         FlurryAgent.onEndSession(this);
+
+        // update the widget
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
+        RemoteViews views = new TasksWidget.UpdateService().buildUpdate(this);
+        ComponentName widgetName = new ComponentName(this, TasksWidget.class);
+        appWidgetManager.updateAppWidget(widgetName, views);
     }
 
     @Override
@@ -401,7 +411,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 for(Parcelable detail : details)
                     taskAdapter.addDetails(getListView(), taskId, (TaskDetail)detail);
             } catch (Exception e) {
-                exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
+                exceptionService.reportError("receive-detail-" +
                         intent.getStringExtra(AstridApiConstants.EXTRAS_PLUGIN), e);
             }
         }
@@ -573,11 +583,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 R.string.TAd_contextDeleteTask);
 
         if(Constants.DEBUG) {
-            menu.add("--- debug ---"); //$NON-NLS-1$
+            menu.add("--- debug ---");
             menu.add(id, CONTEXT_MENU_DEBUG, Menu.NONE,
-                    "when alarm?"); //$NON-NLS-1$
+                    "when alarm?");
             menu.add(id, CONTEXT_MENU_DEBUG + 1, Menu.NONE,
-                    "make notification"); //$NON-NLS-1$
+                    "make notification");
         }
 
         if(contextMenuItemCache == null)
@@ -621,7 +631,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             dialogUtilities.okDialog(
                     this,
                     "if this were real life, I would display your " + //$NON-NLS-1$
-                    "add-ons so you could enable/disable/rearrange them.", //$NON-NLS-1$
+                    "add-ons so you could enable/disable/rearrange them.",
                     null);
             return true;
         case MENU_SETTINGS_ID:
@@ -666,20 +676,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             reminderService.setScheduler(new AlarmScheduler() {
                 @Override
                 public void createAlarm(Task theTask, long time, int type) {
-                    Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " + //$NON-NLS-1$
+                    Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " +
                             new Date(time), Toast.LENGTH_LONG).show();
                     reminderService.setScheduler(null);
                 }
             });
             reminderService.scheduleAlarm(task);
             if(reminderService.getScheduler() != null)
-                Toast.makeText(this, "No alarms", Toast.LENGTH_LONG).show(); //$NON-NLS-1$
+                Toast.makeText(this, "No alarms", Toast.LENGTH_LONG).show();
             return true;
         }
 
         case CONTEXT_MENU_DEBUG + 1: {
             itemId = item.getGroupId();
-            new Notifications().showNotification(itemId, 0, "test reminder"); //$NON-NLS-1$
+            new Notifications().showNotification(itemId, 0, "test reminder");
             return true;
         }
 

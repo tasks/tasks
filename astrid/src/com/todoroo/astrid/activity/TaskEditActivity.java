@@ -329,6 +329,14 @@ public final class TaskEditActivity extends TabActivity {
 
     /** Save task model from values in UI components */
     private void save() {
+        // abandon editing in this case
+        if(title.getText().length() == 0) {
+            if(isNewTask())
+                taskService.delete(model);
+            discardButtonClick();
+            return;
+        }
+
         for(TaskEditControlSet controlSet : controls)
             controlSet.writeToModel();
 
