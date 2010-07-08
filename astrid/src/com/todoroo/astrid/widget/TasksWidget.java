@@ -58,13 +58,8 @@ public class TasksWidget extends AppWidgetProvider {
 
         @Override
         public void onStart(Intent intent, int startId) {
-            try {
-                Thread.sleep(3000);
-            } catch (InterruptedException e) {
-                return;
-            }
-            RemoteViews updateViews = buildUpdate(this);
             ContextManager.setContext(this);
+            RemoteViews updateViews = buildUpdate(this);
 
             ComponentName thisWidget = new ComponentName(this,
                     TasksWidget.class);
@@ -79,6 +74,8 @@ public class TasksWidget extends AppWidgetProvider {
 
         @SuppressWarnings("nls")
         public RemoteViews buildUpdate(Context context) {
+            DependencyInjectionService.getInstance().inject(this);
+
             RemoteViews views = null;
 
             views = new RemoteViews(context.getPackageName(),
@@ -97,7 +94,6 @@ public class TasksWidget extends AppWidgetProvider {
             try {
                 Filter inboxFilter = CoreFilterExposer.buildInboxFilter(getResources());
                 inboxFilter.sqlQuery += "ORDER BY " + TaskService.defaultTaskOrder() + " LIMIT " + numberOfTasks;
-                DependencyInjectionService.getInstance().inject(this);
 
                 database.openForReading();
                 cursor = taskService.fetchFiltered(inboxFilter, Task.TITLE, Task.DUE_DATE);

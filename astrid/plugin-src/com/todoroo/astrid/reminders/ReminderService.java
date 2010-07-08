@@ -21,6 +21,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Task;
@@ -60,6 +61,9 @@ public final class ReminderService  {
 
     @Autowired
     private TaskDao taskDao;
+
+    @Autowired
+    private Database database;
 
     private AlarmScheduler scheduler = new ReminderAlarmScheduler();
 
@@ -295,6 +299,7 @@ public final class ReminderService  {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Task> getTasksWithReminders(Property<?>... properties) {
+        database.openForReading();
         return taskDao.query(Query.select(properties).where(Criterion.and(TaskCriteria.isActive(),
                 Task.REMINDER_FLAGS.gt(0))));
     }

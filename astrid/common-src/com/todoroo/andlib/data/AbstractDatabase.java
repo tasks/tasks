@@ -107,6 +107,9 @@ abstract public class AbstractDatabase {
     public synchronized final void openForWriting() {
         initializeHelper();
 
+        if(database != null && !database.isReadOnly() && database.isOpen())
+            return;
+
         try {
             database = helper.getWritableDatabase();
         } catch (SQLiteException writeException) {
@@ -127,6 +130,8 @@ abstract public class AbstractDatabase {
      */
     public synchronized final void openForReading() {
         initializeHelper();
+        if(database != null && database.isOpen())
+            return;
         database = helper.getReadableDatabase();
     }
 
@@ -153,9 +158,6 @@ abstract public class AbstractDatabase {
      * @return sql database. opens database if not yet open
      */
     private synchronized final SQLiteDatabase getDatabase() {
-        // open database if requested
-        if(database == null)
-            openForWriting();
         return database;
     }
 
@@ -207,6 +209,7 @@ abstract public class AbstractDatabase {
         public DatabaseHelper(Context context, String name,
                 CursorFactory factory, int version) {
             super(context, name, factory, version);
+            Log.e("AYAAA", "NEW DATABASE HLEPER", new Throwable());
         }
 
         /**
