@@ -881,8 +881,8 @@ public final class TaskEditActivity extends TabActivity {
             values[4] = new HideUntilValue(labels[4], Task.HIDE_UNTIL_SPECIFIC_DAY, -1);
 
             if(specificDate > 0) {
-                HideUntilValue[] updated = new HideUntilValue[labels.length + 1];
-                for(int i = 0; i < labels.length; i++)
+                HideUntilValue[] updated = new HideUntilValue[values.length + 1];
+                for(int i = 0; i < values.length; i++)
                     updated[i+1] = values[i];
                 SimpleDateFormat format = DateUtilities.getDateFormat(TaskEditActivity.this);
                 updated[0] = new HideUntilValue(format.format(new Date(specificDate)),
@@ -943,7 +943,10 @@ public final class TaskEditActivity extends TabActivity {
             long dueDate = model.getValue(Task.DUE_DATE);
 
             int selection = 0;
-            if(Math.abs(date - dueDate) < DateUtilities.ONE_DAY) {
+            if(date == 0) {
+                selection = 0;
+                date = 0;
+            } else if(Math.abs(date - dueDate) < DateUtilities.ONE_DAY) {
                 selection = 1;
                 date = 0;
             } else if(Math.abs(date - dueDate) < 2 * DateUtilities.ONE_DAY) {

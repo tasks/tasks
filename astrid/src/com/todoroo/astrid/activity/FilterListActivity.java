@@ -109,7 +109,7 @@ public class FilterListActivity extends ExpandableListActivity {
 
         final String intentAction = intent.getAction();
         if (Intent.ACTION_SEARCH.equals(intentAction)) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
+            String query = intent.getStringExtra(SearchManager.QUERY).trim();
             Filter filter = new Filter(null, null,
                     getString(R.string.FLA_search_filter, query),
                     new QueryTemplate().where(Task.TITLE.like("%" + query + "%")),  //$NON-NLS-1$ //$NON-NLS-2$
@@ -287,7 +287,8 @@ public class FilterListActivity extends ExpandableListActivity {
             shortcutIntent.setAction(Intent.ACTION_VIEW);
             shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_TITLE, filter.title);
             shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_SQL, filter.sqlQuery);
-            shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_VALUES, filter.valuesForNewTasks);
+            shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_VALUES, filter.valuesForNewTasks.toString());
+
             menuItem.setIntent(shortcutIntent);
         }
 

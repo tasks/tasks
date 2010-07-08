@@ -95,7 +95,7 @@ public class TagService {
      */
     public Tag[] getGroupedTags(Order order) {
         TodorooCursor<Metadata> cursor = metadataService.fetchWithCount(
-                COUNT, MetadataCriteria.withKey(KEY), order);
+                COUNT, Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(KEY)), order);
         try {
             Tag[] array = new Tag[cursor.getCount()];
             for (int i = 0; i < array.length; i++) {

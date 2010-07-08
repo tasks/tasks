@@ -115,7 +115,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     public static final String TOKEN_FILTER_SQL = "sql"; //$NON-NLS-1$
 
     /** token for passing a {@link Filter}'s values for new tasks through extras */
-    public static final String TOKEN_FILTER_VALUES = "values"; //$NON-NLS-1$
+    public static final String TOKEN_FILTER_VALUES = "v4nt"; //$NON-NLS-1$
+
+    /** token for passing a {@link Filter}'s values for new tasks through extras (keys) */
+    public static final String TOKEN_FILTER_VALUES_KEYS = "v4ntk"; //$NON-NLS-1$
+
+    /** token for passing a {@link Filter}'s values for new tasks through extras (values) */
+    public static final String TOKEN_FILTER_VALUES_VALUES = "v4ntv"; //$NON-NLS-1$
 
     // --- instance variables
 
@@ -165,7 +171,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             // launched from desktop shortcut, must create a fake filter
             String title = extras.getString(TOKEN_FILTER_TITLE);
             String sql = extras.getString(TOKEN_FILTER_SQL);
-            ContentValues values = extras.getParcelable(TOKEN_FILTER_VALUES);
+            ContentValues values = AndroidUtilities.contentValuesFromString(extras.getString(TOKEN_FILTER_VALUES));
+
             filter = new Filter("", "", title, new QueryTemplate(), values); //$NON-NLS-1$ //$NON-NLS-2$
             filter.sqlQuery = sql;
         } else {
@@ -321,7 +328,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     protected Task quickAddTask(String title, boolean selectNewTask) {
         try {
             Task task = new Task();
-            task.setValue(Task.TITLE, title);
+            task.setValue(Task.TITLE, title.trim());
             ContentValues forMetadata = null;
             if(filter.valuesForNewTasks != null && filter.valuesForNewTasks.size() > 0) {
                 ContentValues forTask = new ContentValues();

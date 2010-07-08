@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.content.ContentValues;
@@ -128,6 +129,19 @@ public class AndroidUtilities {
     }
 
     /**
+     * Rips apart a content value into two string arrays, keys and value
+     */
+    public static String[][] contentValuesToStringArrays(ContentValues source) {
+        String[][] result = new String[2][source.size()];
+        int i = 0;
+        for(Entry<String, Object> entry : source.valueSet()) {
+            result[0][i] = entry.getKey();
+            result[1][i++] = entry.getValue().toString();
+        }
+        return result;
+    }
+
+    /**
      * Return index of value in array
      * @param array array to search
      * @param value value to look for
@@ -138,6 +152,22 @@ public class AndroidUtilities {
             if(array[i].equals(value))
                 return i;
         return -1;
+    }
+
+    /**
+     * Turn ContentValues into a string
+     * @param string
+     * @return
+     */
+    @SuppressWarnings("nls")
+    public static ContentValues contentValuesFromString(String string) {
+        String[] pairs = string.split(",");
+        ContentValues result = new ContentValues();
+        for(String item : pairs) {
+            String[] keyValue = item.split("=");
+            result.put(keyValue[0].trim(), keyValue[1].trim());
+        }
+        return result;
     }
 
 }

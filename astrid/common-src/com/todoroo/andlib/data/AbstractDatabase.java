@@ -209,7 +209,6 @@ abstract public class AbstractDatabase {
         public DatabaseHelper(Context context, String name,
                 CursorFactory factory, int version) {
             super(context, name, factory, version);
-            Log.e("AYAAA", "NEW DATABASE HLEPER", new Throwable());
         }
 
         /**

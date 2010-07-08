@@ -1,15 +1,19 @@
 package com.todoroo.astrid.service;
 
+import android.util.Log;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.model.Task;
 
 /**
  * Service layer for {@link Metadata}-centered activities.
@@ -70,7 +74,9 @@ public class MetadataService {
     public TodorooCursor<Metadata> fetchWithCount(CountProperty count,
             Criterion where, Order order) {
         Query query = Query.select(Metadata.VALUE.as(Metadata.VALUE.name), count).
+            join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
             where(where).orderBy(order).groupBy(Metadata.VALUE);
+        Log.e("ERW", query.toString());
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         return cursor;
     }
