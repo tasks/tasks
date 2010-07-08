@@ -22,7 +22,7 @@ public final class UpgradeService {
         if(from < 1)
             return;
 
-        if(from < 135)
+        if(from < 136)
             new Astrid2To3UpgradeHelper().upgrade2To3();
 
         // display changelog
@@ -63,9 +63,12 @@ public final class UpgradeService {
                     "Fixed crashes occuring with certain languages (Swedish, Turkish)",
                     "Fixed other crashes that users have reported",
             });
-        if(from <= 134)
+        if(from <= 135)
             newVersionString(changeLog, "3.0.0 (?/??/10)", new String[] {
-                    "Astrid is brand new inside and out!",
+                    "Astrid is brand new inside and out! In addition to a new " +
+                    "look and feel, a new add-on system allows Astrid to become " +
+                    "more powerful, while other improvements have made it faster " +
+                    "and easier to use. Hope you like it!",
             });
 
         if(changeLog.length() == 0)

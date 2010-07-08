@@ -298,6 +298,7 @@ public class Astrid2To3UpgradeHelper {
             }
             dao.createNew(container.model);
         }
+        cursor.close();
 
         upgradeDb.close();
     }
