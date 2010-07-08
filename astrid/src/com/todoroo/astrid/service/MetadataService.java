@@ -1,5 +1,7 @@
 package com.todoroo.astrid.service;
 
+import android.util.Log;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;

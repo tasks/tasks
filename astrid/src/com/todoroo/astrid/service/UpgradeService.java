@@ -65,9 +65,7 @@ public final class UpgradeService {
             });
         if(from <= 134)
             newVersionString(changeLog, "3.0.0 (?/??/10)", new String[] {
-                    "Astrid is brand new under the hood! You won't see many " +
-                        "changes yet but Astrid received a much-needed makeover " +
-                        "that allows it to do a lot of new tricks. Stay tuned!",
+                    "Astrid is brand new inside and out!",
             });
 
         if(changeLog.length() == 0)

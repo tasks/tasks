@@ -1,5 +1,6 @@
 package com.todoroo.astrid.service;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -11,8 +12,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -102,6 +103,10 @@ public class Astrid2To3UpgradeHelper {
      */
     public void upgrade2To3() {
         Context context = ContextManager.getContext();
+
+        // if there's already a database table, skip
+        if(Arrays.asList(context.databaseList()).contains(database.getName()))
+            return;
 
         // pop up a progress dialog
         ProgressDialog dialog = null;

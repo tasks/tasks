@@ -44,7 +44,7 @@ public final class Database extends AbstractDatabase {
     // --- implementation
 
     @Override
-    protected String getName() {
+    public String getName() {
         return NAME;
     }
 
