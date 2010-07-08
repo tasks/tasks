@@ -170,9 +170,13 @@ public class TaskDao extends GenericDao<Task> {
             int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key);
             item.setValue(Task.HIDE_UNTIL, item.createHideUntil(setting, 0));
         }
-        if(!item.containsValue(Task.REMINDER_PERIOD))
+        if(!item.containsValue(Task.REMINDER_PERIOD)) {
             item.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_HOUR *
                     Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours));
+        }
+        if(!item.containsValue(Task.REMINDER_FLAGS)) {
+            item.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
+        }
 
         return super.createNew(item);
     }

@@ -87,7 +87,6 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Preferences;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -251,11 +250,11 @@ public final class TaskEditActivity extends TabActivity {
                 discardButtonClick();
             }
         };
-        final View.OnClickListener mDeleteListener = new View.OnClickListener() {
+        /*final View.OnClickListener mDeleteListener = new View.OnClickListener() {
             public void onClick(View v) {
                 deleteButtonClick();
             }
-        };
+        };*/
 
         // set up save, cancel, and delete buttons
         ImageButton saveButtonGeneral = (ImageButton) findViewById(R.id.save_basic);
@@ -275,15 +274,11 @@ public final class TaskEditActivity extends TabActivity {
         ImageButton deleteButtonGeneral = (ImageButton) findViewById(R.id.delete_basic);
         ImageButton deleteButtonDates = (ImageButton) findViewById(R.id.delete_extra);
         ImageButton deleteButtonNotify = (ImageButton) findViewById(R.id.delete_addons);
-        if(isNewTask()) {
-            deleteButtonGeneral.setVisibility(View.GONE);
-            deleteButtonDates.setVisibility(View.GONE);
-            deleteButtonNotify.setVisibility(View.GONE);
-        } else {
-            deleteButtonGeneral.setOnClickListener(mDeleteListener);
-            deleteButtonDates.setOnClickListener(mDeleteListener);
-            deleteButtonNotify.setOnClickListener(mDeleteListener);
-        }
+
+        // hide the delete button always for now
+        deleteButtonGeneral.setVisibility(View.GONE);
+        deleteButtonDates.setVisibility(View.GONE);
+        deleteButtonNotify.setVisibility(View.GONE);
     }
 
     /* ======================================================================
@@ -1064,15 +1059,9 @@ public final class TaskEditActivity extends TabActivity {
 
         @Override
         public void readFromModel() {
-            long time;
-            if(isNewTask()) {
-                time = Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours) *
-                    DateUtilities.ONE_HOUR;
-            } else {
-                time = model.getValue(Task.REMINDER_PERIOD);
-            }
+            long time = model.getValue(Task.REMINDER_PERIOD);
 
-            settingCheckbox.setChecked(time > 0);
+            boolean shouldDisable = time <= 0;
             if(time <= 0) {
                 time = DateUtilities.ONE_WEEK;
             }
@@ -1082,6 +1071,7 @@ public final class TaskEditActivity extends TabActivity {
                 if(hours[i] * DateUtilities.ONE_HOUR >= time)
                     break;
             periodSpinner.setSelection(i);
+            settingCheckbox.setChecked(shouldDisable);
         }
 
         @Override

@@ -247,13 +247,13 @@ public class TaskAdapter extends CursorAdapter {
                 broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
                 activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
-                // add loading message
+                /* add loading message
                 if(viewHolder.loadingDetails == null) {
                     viewHolder.loadingDetails = new TextView(activity);
                     viewHolder.loadingDetails.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
                     viewHolder.loadingDetails.setText(R.string.TAd_loading);
                     detailsView.addView(viewHolder.loadingDetails);
-                }
+                }*/
             }
         }
 

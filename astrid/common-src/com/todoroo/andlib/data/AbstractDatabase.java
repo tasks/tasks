@@ -109,6 +109,9 @@ abstract public class AbstractDatabase {
 
         try {
             database = helper.getWritableDatabase();
+        } catch (NullPointerException e) {
+            // try again
+            database = helper.getWritableDatabase();
         } catch (SQLiteException writeException) {
             Log.e("database-" + getName(), "Error opening db",
                     writeException);

@@ -57,8 +57,6 @@ public class TasksWidget extends AppWidgetProvider {
 
         @Override
         public void onStart(Intent intent, int startId) {
-            DependencyInjectionService.getInstance().inject(this);
-
             RemoteViews updateViews = buildUpdate(this);
 
             ComponentName thisWidget = new ComponentName(this,
@@ -89,7 +87,8 @@ public class TasksWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
 
             Filter inboxFilter = CoreFilterExposer.buildInboxFilter(getResources());
-            inboxFilter.sqlQuery += " LIMIT " + numberOfTasks;
+            inboxFilter.sqlQuery += TaskService.defaultTaskOrder() + " LIMIT " + numberOfTasks;
+            DependencyInjectionService.getInstance().inject(this);
             TodorooCursor<Task> cursor = null;
             try {
                 database.openForWriting();
