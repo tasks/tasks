@@ -103,6 +103,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     /** token for passing a {@link Filter} object through extras */
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
 
+    /** token for passing a reminder string through extras */
+    public static final String TOKEN_REMINDER = "reminder"; //$NON-NLS-1$
+
     /** token for passing a {@link Filter}'s title through extras */
     public static final String TOKEN_FILTER_TITLE = "title"; //$NON-NLS-1$
 
@@ -299,6 +302,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             }
         });
+
+        String reminder = getIntent().getStringExtra(TOKEN_REMINDER);
+        if(reminder != null) {
+            findViewById(R.id.reminderContainer).setVisibility(View.VISIBLE);
+            ((TextView)findViewById(R.id.reminderLabel)).setText(reminder);
+        }
     }
 
     /**

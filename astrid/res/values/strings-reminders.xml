@@ -73,6 +73,8 @@
   <string name="rmd_EPr_ringtone_title">Notification Ringtone</string>
   <!-- Notification Ringtone Description (when custom tone is set) -->
   <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
+  <!-- Notification Ringtone Description (when silence is set) -->
+  <string name="rmd_EPr_ringtone_desc_silent">Ringtone set to silent</string>
   <!-- Notification Ringtone Description (when custom tone is not set) -->
   <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
   
@@ -82,6 +84,33 @@
   <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
   <!-- Notification Persistence Description (false) -->
   <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
+  
+  <!-- Notification Icon Title -->
+  <string name="rmd_EPr_notificon_title">Notification Icon Set</string>
+  <!-- Notification Icon Description -->
+  <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
+
+  <!-- Vibrate Title -->
+  <string name="rmd_EPr_vibrate_title">Vibrate on Alert</string>
+  <!-- Vibrate Description (true) -->
+  <string name="rmd_EPr_vibrate_desc_true">Astrid will vibrate when sending notifications</string>
+  <!-- Vibrate Description (false) -->
+  <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
+
+  <!-- Nagging Title -->  
+  <string name="rmd_EPr_nagging_title">Astrid Reminders</string>
+  <!-- Nagging Description (true) -->
+  <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
+  <!-- Nagging Description (false) -->
+  <string name="rmd_EPr_nagging_desc_false">Astrid not give you any encouragement messages</string>
+  
+  <!-- Default Reminders Title -->
+  <string name="rmd_EPr_defaultRemind_title">Random Reminders</string>
+  <!-- Default Reminders Setting (disabled) -->
+  <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
+  <!-- Default Reminders Setting (%s => setting) -->
+  <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
+  
   
   <!-- Defaults Title -->
   <string name="rmd_EPr_defaults_header">New Task Defaults</string>

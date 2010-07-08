@@ -57,6 +57,31 @@
             android:layout_height="fill_parent"/>
         
     </FrameLayout>
+    
+    <!-- Reminder -->
+    <RelativeLayout android:id="@+id/reminderContainer"
+        android:layout_width="fill_parent" 
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:layout_weight="1">
+        
+        <TextView android:id="@+id/reminderLabel"
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            style="@style/TextAppearance.TLA_Reminder"
+            android:background="@drawable/reminder_popup"/>
+            
+        <ImageView
+            android:layout_width="wrap_content" 
+            android:layout_height="wrap_content"
+            android:paddingRight="15px"
+            android:layout_below="@id/reminderLabel"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_blank" />
+        
+    </RelativeLayout>
         
     <!-- Footer -->
     <LinearLayout

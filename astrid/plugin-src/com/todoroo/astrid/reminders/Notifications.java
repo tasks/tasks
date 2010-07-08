@@ -17,7 +17,6 @@ import android.util.Log;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.utilities.Constants;
-import com.timsu.astrid.utilities.Preferences;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -28,6 +27,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.utility.Preferences;
 
 public class Notifications extends BroadcastReceiver {
 
@@ -38,6 +38,11 @@ public class Notifications extends BroadcastReceiver {
 
     /** notification type extra */
     static final String TYPE_KEY = "type"; //$NON-NLS-1$
+
+    /** preference values */
+    public static final int ICON_SET_PINK = 0;
+    public static final int ICON_SET_BORING = 1;
+    public static final int ICON_SET_ASTRID = 2;
 
     // --- instance variables
 
@@ -136,11 +141,11 @@ public class Notifications extends BroadcastReceiver {
 
         // quiet hours? unless alarm clock
         boolean quietHours = false;
-        Integer quietHoursStart = Preferences.getQuietHourStart(context);
-        Integer quietHoursEnd = Preferences.getQuietHourEnd(context);
+        Integer quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart);
+        Integer quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd);
         if(quietHoursStart != null && quietHoursEnd != null && !nonstopMode) {
             int hour = new Date().getHours();
-            if(quietHoursStart < quietHoursEnd) {
+            if(quietHoursStart <= quietHoursEnd) {
                 if(hour >= quietHoursStart && hour < quietHoursEnd)
                     quietHours = true;
             } else { // wrap across 24/hour boundary
@@ -159,12 +164,15 @@ public class Notifications extends BroadcastReceiver {
 
         // set up properties (name and icon) for the notification
         String appName = r.getString(R.string.app_name);
+        Integer iconPreference = Preferences.getIntegerFromString(R.string.p_rmd_icon);
+        if(iconPreference == null)
+            iconPreference = ICON_SET_ASTRID;
         int icon;
-        switch(Preferences.getNotificationIconTheme(context)) {
-        case Preferences.ICON_SET_PINK:
+        switch(iconPreference) {
+        case ICON_SET_PINK:
             icon = R.drawable.notif_pink_alarm;
             break;
-        case Preferences.ICON_SET_BORING:
+        case ICON_SET_BORING:
             icon = R.drawable.notif_boring_alarm;
             break;
         default:
@@ -179,7 +187,7 @@ public class Notifications extends BroadcastReceiver {
                 reminder + " " + taskTitle, //$NON-NLS-1$
                 pendingIntent);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
-        if(Preferences.isPersistenceMode(context)) {
+        if(Preferences.getBoolean(R.string.p_rmd_persistent, true)) {
             notification.flags |= Notification.FLAG_NO_CLEAR |
                 Notification.FLAG_SHOW_LIGHTS;
             notification.ledOffMS = 5000;
@@ -208,11 +216,12 @@ public class Notifications extends BroadcastReceiver {
         if(quietHours) {
             notification.sound = null;
         } else {
-            Uri notificationSound = Preferences.getNotificationRingtone(context);
+            String notificationPreference = Preferences.getStringValue(R.string.p_rmd_ringtone);
             if(audioManager.getStreamVolume(AudioManager.STREAM_RING) == 0) {
                 notification.sound = null;
-            } else if(notificationSound != null &&
-                    !notificationSound.toString().equals("")) { //$NON-NLS-1$
+            } else if(notificationPreference != null &&
+                    notificationPreference.length() != 0) {
+                Uri notificationSound = Uri.parse(notificationPreference);
                 notification.sound = notificationSound;
             } else {
                 notification.defaults |= Notification.DEFAULT_SOUND;
@@ -223,7 +232,7 @@ public class Notifications extends BroadcastReceiver {
         if(quietHours && (type == ReminderService.TYPE_RANDOM)) {
             notification.vibrate = null;
         } else {
-            if (Preferences.shouldVibrate(context)
+            if (Preferences.getBoolean(R.string.p_rmd_vibrate, true)
                     && audioManager.shouldVibrate(AudioManager.VIBRATE_TYPE_NOTIFICATION)) {
                 notification.vibrate = new long[] {0, 1000, 500, 1000, 500, 1000};
             } else {

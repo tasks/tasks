@@ -18,11 +18,14 @@
         android:title="@string/rmd_EPr_persistent_title"/>
     <CheckBoxPreference
         android:key="@string/p_rmd_vibrate"
-        android:title="@string/prefs_vibrate_title"
-        android:summary="@string/prefs_vibrate_desc" />
+        android:title="@string/rmd_EPr_vibrate_title"/>
+    <CheckBoxPreference
+       android:key="@string/p_rmd_nagging"
+       android:title="@string/rmd_EPr_nagging_title"
+       android:defaultValue="true"  />
     <ListPreference
         android:key="@string/p_rmd_default_random_hours"
-        android:title="@string/prefs_defaultRemind_title"
+        android:title="@string/rmd_EPr_defaultRemind_title"
         android:entries="@array/EPr_reminder_random"
         android:entryValues="@array/EPr_reminder_random_hours"/>
     <RingtonePreference
@@ -31,10 +34,5 @@
         android:ringtoneType="notification"
 		android:showDefault="true"
 		android:showSilent="true" />
-    <CheckBoxPreference
-       android:key="@string/p_rmd_nagging"
-       android:title="@string/prefs_nagging_title"
-       android:summary="@string/prefs_nagging_desc"
-       android:defaultValue="true"  />
        
 </PreferenceScreen>

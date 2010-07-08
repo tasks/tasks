@@ -11,6 +11,7 @@ import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
+import android.preference.RingtonePreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 
 /**
@@ -55,6 +56,9 @@ abstract public class TodorooPreferences extends PreferenceActivity {
                 value = ((CheckBoxPreference)preference).isChecked();
             else if(preference instanceof EditTextPreference)
                 value = ((EditTextPreference)preference).getText();
+            else if(preference instanceof RingtonePreference) {
+                value = getPreferenceManager().getSharedPreferences().getString(preference.getKey(), null);
+            }
 
             if(value != null)
                 updatePreferences(preference, value);

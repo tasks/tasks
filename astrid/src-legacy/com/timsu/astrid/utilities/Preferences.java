@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 
 import com.timsu.astrid.R;
 
+@Deprecated
 public class Preferences {
 
     // pref keys

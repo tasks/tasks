@@ -208,6 +208,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/repeat_label"
+        android:visibility="gone"
         style="@style/TextAppearance.GEN_EditLabel" />
       <LinearLayout
         android:orientation="horizontal"
@@ -217,13 +218,13 @@
         <Button
           android:id="@+id/repeat_value"
           android:layout_weight="1"
-          android:layout_width="wrap_content"
+          android:layout_width="fill_parent"
           android:layout_height="wrap_content" />
         <Spinner
           android:id="@+id/repeat_interval"
           android:layout_weight="1"
           android:layout_marginRight="10dip"
-          android:layout_width="wrap_content"
+          android:layout_width="fill_parent"
           android:layout_height="wrap_content" />
       </LinearLayout>
               
@@ -276,29 +277,37 @@
       android:layout_width="fill_parent"
       android:layout_height="fill_parent">
 
-      <!-- calendar integration -->      
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/TEA_calendar_label"
-        style="@style/TextAppearance.GEN_EditLabel" />
-      <CheckBox
-        android:id="@+id/add_to_calendar"
+      <!-- calendar integration -->
+      <LinearLayout
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/TEA_addToCalendar_label" />
-      <Button
-        android:id="@+id/view_calendar_event"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/TEA_showCalendar_label"
-        android:visibility="gone" />
-
-      <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:padding="5dip"
-        android:background="@android:drawable/divider_horizontal_dark" />
+        android:visibility="gone">
+            
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="@string/TEA_calendar_label"
+          style="@style/TextAppearance.GEN_EditLabel" />
+        <CheckBox
+          android:id="@+id/add_to_calendar"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/TEA_addToCalendar_label" />
+        <Button
+          android:id="@+id/view_calendar_event"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/TEA_showCalendar_label"
+          android:visibility="gone" />
+  
+        <View
+          android:layout_width="fill_parent"
+          android:layout_height="1dip"
+          android:padding="5dip"
+          android:background="@android:drawable/divider_horizontal_dark" />
+        
+      </LinearLayout>
               
       <!-- estimated time -->
       <TextView
