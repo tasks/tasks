@@ -186,6 +186,9 @@ button: add task & go to the edit page.
 
   <!-- Context Item: delete task -->
   <string name="TAd_contextDeleteTask">Delete Task</string>
+
+  <!-- Context Item: undelete task -->
+  <string name="TAd_contextUndeleteTask">Undelete Task</string>
   
   <!-- ======================= FilterListActivity ======================== -->
 

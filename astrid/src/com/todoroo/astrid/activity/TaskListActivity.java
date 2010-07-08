@@ -94,10 +94,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
     private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 5;
     private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 6;
-    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 7;
+    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 7;
+    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 8;
 
     /** menu code indicating the end of the context menu */
-    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 8;
+    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 9;
 
     // --- constants
 
@@ -372,14 +373,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
     @Override
     protected void onStop() {
-        super.onStop();
-        FlurryAgent.onEndSession(this);
-
         // update the widget
         AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
         RemoteViews views = new TasksWidget.UpdateService().buildUpdate(this);
         ComponentName widgetName = new ComponentName(this, TasksWidget.class);
         appWidgetManager.updateAppWidget(widgetName, views);
+
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 
     @Override
@@ -411,7 +412,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 for(Parcelable detail : details)
                     taskAdapter.addDetails(getListView(), taskId, (TaskDetail)detail);
             } catch (Exception e) {
-                exceptionService.reportError("receive-detail-" +
+                exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
                         intent.getStringExtra(AstridApiConstants.EXTRAS_PLUGIN), e);
             }
         }
@@ -568,6 +569,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         }
     }
 
+    @SuppressWarnings("nls")
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
@@ -576,31 +578,35 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         int id = (int)task.getId();
         menu.setHeaderTitle(task.getValue(Task.TITLE));
 
-        menu.add(id, CONTEXT_MENU_EDIT_TASK_ID, Menu.NONE,
-                    R.string.TAd_contextEditTask);
+        if(task.isDeleted()) {
+            menu.add(id, CONTEXT_MENU_UNDELETE_TASK_ID, Menu.NONE,
+                    R.string.TAd_contextUndeleteTask);
+        } else {
+            menu.add(id, CONTEXT_MENU_EDIT_TASK_ID, Menu.NONE,
+                        R.string.TAd_contextEditTask);
+            menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE,
+                    R.string.TAd_contextDeleteTask);
 
-        menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE,
-                R.string.TAd_contextDeleteTask);
+            if(Constants.DEBUG) {
+                menu.add("--- debug ---");
+                menu.add(id, CONTEXT_MENU_DEBUG, Menu.NONE,
+                        "when alarm?");
+                menu.add(id, CONTEXT_MENU_DEBUG + 1, Menu.NONE,
+                        "make notification");
+            }
 
-        if(Constants.DEBUG) {
-            menu.add("--- debug ---");
-            menu.add(id, CONTEXT_MENU_DEBUG, Menu.NONE,
-                    "when alarm?");
-            menu.add(id, CONTEXT_MENU_DEBUG + 1, Menu.NONE,
-                    "make notification");
-        }
+            if(contextMenuItemCache == null)
+                return;
 
-        if(contextMenuItemCache == null)
-            return;
-
-        // ask about plug-ins
-        long taskId = task.getId();
-        for(int i = 0; i < contextMenuItemCache.length; i++) {
-            Intent intent = contextMenuItemCache[i].getRight();
-            MenuItem item = menu.add(id, CONTEXT_MENU_ADDON_INTENT_ID, Menu.NONE,
-                    contextMenuItemCache[i].getLeft());
-            intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-            item.setIntent(intent);
+            // ask about plug-ins
+            long taskId = task.getId();
+            for(int i = 0; i < contextMenuItemCache.length; i++) {
+                Intent intent = contextMenuItemCache[i].getRight();
+                MenuItem item = menu.add(id, CONTEXT_MENU_ADDON_INTENT_ID, Menu.NONE,
+                        contextMenuItemCache[i].getLeft());
+                intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+                item.setIntent(intent);
+            }
         }
     }
 
@@ -631,7 +637,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             dialogUtilities.okDialog(
                     this,
                     "if this were real life, I would display your " + //$NON-NLS-1$
-                    "add-ons so you could enable/disable/rearrange them.",
+                    "add-ons so you could enable/disable/rearrange them.", //$NON-NLS-1$
                     null);
             return true;
         case MENU_SETTINGS_ID:
@@ -666,6 +672,16 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             return true;
         }
 
+        case CONTEXT_MENU_UNDELETE_TASK_ID: {
+            itemId = item.getGroupId();
+            Task task = new Task();
+            task.setId(itemId);
+            task.setValue(Task.DELETION_DATE, 0L);
+            taskService.save(task, false);
+            loadTaskListContent(true);
+            return true;
+        }
+
         // --- debug
 
         case CONTEXT_MENU_DEBUG: {
@@ -676,20 +692,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             reminderService.setScheduler(new AlarmScheduler() {
                 @Override
                 public void createAlarm(Task theTask, long time, int type) {
-                    Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " +
+                    Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " + //$NON-NLS-1$
                             new Date(time), Toast.LENGTH_LONG).show();
                     reminderService.setScheduler(null);
                 }
             });
             reminderService.scheduleAlarm(task);
             if(reminderService.getScheduler() != null)
-                Toast.makeText(this, "No alarms", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "No alarms", Toast.LENGTH_LONG).show(); //$NON-NLS-1$
             return true;
         }
 
         case CONTEXT_MENU_DEBUG + 1: {
             itemId = item.getGroupId();
-            new Notifications().showNotification(itemId, 0, "test reminder");
+            new Notifications().showNotification(itemId, 0, "test reminder"); //$NON-NLS-1$
             return true;
         }
 

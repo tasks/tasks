@@ -94,7 +94,7 @@ abstract public class AbstractDatabase {
         throw new UnsupportedOperationException("Unknown model class " + modelType); //$NON-NLS-1$
     }
 
-    protected final void initializeHelper() {
+    protected synchronized final void initializeHelper() {
         if(helper == null)
             helper = new DatabaseHelper(ContextManager.getContext(),
                     getName(), null, getVersion());
@@ -108,9 +108,6 @@ abstract public class AbstractDatabase {
         initializeHelper();
 
         try {
-            database = helper.getWritableDatabase();
-        } catch (NullPointerException e) {
-            // try again
             database = helper.getWritableDatabase();
         } catch (SQLiteException writeException) {
             Log.e("database-" + getName(), "Error opening db",

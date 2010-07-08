@@ -386,6 +386,13 @@ public final class TaskEditActivity extends TabActivity {
 
     protected void discardButtonClick() {
         shouldSaveState = false;
+
+        // abandon editing in this case
+        if(title.getText().length() == 0) {
+            if(isNewTask())
+                taskService.delete(model);
+        }
+
         showCancelToast();
         setResult(RESULT_CANCELED);
         finish();

@@ -107,6 +107,8 @@ public final class ReminderService  {
                 task.readFromCursor(cursor);
                 scheduleAlarm(task, false);
             }
+        } catch (Exception e) {
+            // suppress
         } finally {
             cursor.close();
         }

@@ -15,6 +15,7 @@ import android.widget.RemoteViews;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity;
@@ -57,7 +58,13 @@ public class TasksWidget extends AppWidgetProvider {
 
         @Override
         public void onStart(Intent intent, int startId) {
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                return;
+            }
             RemoteViews updateViews = buildUpdate(this);
+            ContextManager.setContext(this);
 
             ComponentName thisWidget = new ComponentName(this,
                     TasksWidget.class);
@@ -86,12 +93,13 @@ public class TasksWidget extends AppWidgetProvider {
                     listIntent, 0);
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
 
-            Filter inboxFilter = CoreFilterExposer.buildInboxFilter(getResources());
-            inboxFilter.sqlQuery += "ORDER BY " + TaskService.defaultTaskOrder() + " LIMIT " + numberOfTasks;
-            DependencyInjectionService.getInstance().inject(this);
             TodorooCursor<Task> cursor = null;
             try {
-                database.openForWriting();
+                Filter inboxFilter = CoreFilterExposer.buildInboxFilter(getResources());
+                inboxFilter.sqlQuery += "ORDER BY " + TaskService.defaultTaskOrder() + " LIMIT " + numberOfTasks;
+                DependencyInjectionService.getInstance().inject(this);
+
+                database.openForReading();
                 cursor = taskService.fetchFiltered(inboxFilter, Task.TITLE, Task.DUE_DATE);
                 Task task = new Task();
                 for (int i = 0; i < cursor.getCount(); i++) {

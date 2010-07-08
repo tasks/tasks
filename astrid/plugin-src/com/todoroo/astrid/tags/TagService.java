@@ -2,8 +2,8 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 
-import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -75,7 +75,8 @@ public class TagService {
         public QueryTemplate queryTemplate() {
             return new QueryTemplate().join(Join.inner(Metadata.TABLE,
                     Task.ID.eq(Metadata.TASK))).where(Criterion.and(
-                            MetadataCriteria.withKey(KEY), Metadata.VALUE.eq(tag)));
+                            MetadataCriteria.withKey(KEY), Metadata.VALUE.eq(tag),
+                            TaskCriteria.isActive()));
         }
     }
 
