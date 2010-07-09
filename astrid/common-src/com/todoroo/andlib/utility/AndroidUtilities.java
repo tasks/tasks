@@ -161,6 +161,9 @@ public class AndroidUtilities {
      */
     @SuppressWarnings("nls")
     public static ContentValues contentValuesFromString(String string) {
+        if(string == null)
+            return null;
+
         String[] pairs = string.split(",");
         ContentValues result = new ContentValues();
         for(String item : pairs) {

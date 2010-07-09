@@ -171,7 +171,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             // launched from desktop shortcut, must create a fake filter
             String title = extras.getString(TOKEN_FILTER_TITLE);
             String sql = extras.getString(TOKEN_FILTER_SQL);
-            ContentValues values = AndroidUtilities.contentValuesFromString(extras.getString(TOKEN_FILTER_VALUES));
+            ContentValues values = null;
+            if(extras.containsKey(TOKEN_FILTER_VALUES))
+                values = AndroidUtilities.contentValuesFromString(extras.getString(TOKEN_FILTER_VALUES));
 
             filter = new Filter("", "", title, new QueryTemplate(), values); //$NON-NLS-1$ //$NON-NLS-2$
             filter.sqlQuery = sql;

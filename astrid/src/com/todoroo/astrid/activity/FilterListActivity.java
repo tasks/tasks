@@ -287,7 +287,10 @@ public class FilterListActivity extends ExpandableListActivity {
             shortcutIntent.setAction(Intent.ACTION_VIEW);
             shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_TITLE, filter.title);
             shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_SQL, filter.sqlQuery);
-            shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_VALUES, filter.valuesForNewTasks.toString());
+            if(filter.valuesForNewTasks != null) {
+                shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_VALUES,
+                        filter.valuesForNewTasks.toString());
+            }
 
             menuItem.setIntent(shortcutIntent);
         }
