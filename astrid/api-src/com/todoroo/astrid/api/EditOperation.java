@@ -34,7 +34,7 @@ public final class EditOperation implements Parcelable {
      * Create an EditOperation object
      *
      * @param plugin
-     *            {@link Plugin} identifier that encompasses object
+     *            {@link Addon} identifier that encompasses object
      * @param text
      *            label to display
      * @param intent

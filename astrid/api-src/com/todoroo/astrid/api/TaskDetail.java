@@ -33,7 +33,7 @@ public final class TaskDetail implements Parcelable {
      * Creates a TaskDetail object
      *
      * @param plugin
-     *            {@link Plugin} identifier that encompasses object
+     *            {@link Addon} identifier that encompasses object
      * @param text
      *            text to display
      * @param color

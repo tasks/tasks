@@ -1,20 +1,22 @@
-package com.todoroo.astrid.notes;
+package com.todoroo.astrid.repeats;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.timsu.astrid.R;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Addon;
 
-public class NotesPlugin extends BroadcastReceiver {
+public class RepeatsPlugin extends BroadcastReceiver {
 
-    static final String IDENTIFIER = "notes";
+    static final String IDENTIFIER = "repeats"; //$NON-NLS-1$
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Addon plugin = new Addon(IDENTIFIER, "Notes", "Todoroo",
-                "Lets you add and view notes for a task.");
+        Addon plugin = new Addon(IDENTIFIER, context.getString(R.string.repeat_plugin),
+                context.getString(R.string.AOA_internal_author),
+                context.getString(R.string.repeat_plugin_desc));
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_ADDONS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, plugin);

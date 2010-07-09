@@ -20,7 +20,7 @@ public class SearchFilter extends FilterListItem {
      * Constructor for creating a new SearchFilter
      *
      * @param plugin
-     *            {@link Plugin} identifier that encompasses object
+     *            {@link Addon} identifier that encompasses object
      * @param listingTitle
      *            Title of this item as displayed on the lists page, e.g. Inbox
      */
@@ -33,7 +33,7 @@ public class SearchFilter extends FilterListItem {
      * Constructor for creating a new SearchFilter
      *
      * @param plugin
-     *            {@link Plugin} identifier that encompasses object
+     *            {@link Addon} identifier that encompasses object
      */
     protected SearchFilter(String plugin) {
         this.plugin = plugin;

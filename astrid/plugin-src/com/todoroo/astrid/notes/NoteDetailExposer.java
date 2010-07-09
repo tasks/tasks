@@ -51,10 +51,8 @@ public class NoteDetailExposer extends BroadcastReceiver {
         TaskDetail taskDetail = new TaskDetail(NotesPlugin.IDENTIFIER, notes);
 
         // transmit
-        TaskDetail[] details = new TaskDetail[1];
-        details[0] = taskDetail;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ITEMS, details);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }

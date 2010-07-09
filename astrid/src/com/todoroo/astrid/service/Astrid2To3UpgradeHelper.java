@@ -12,8 +12,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -141,7 +141,7 @@ public class Astrid2To3UpgradeHelper {
         propertyMap.put(AbstractTaskModel.NOTIFICATIONS, Task.REMINDER_PERIOD);
         propertyMap.put(AbstractTaskModel.NOTIFICATION_FLAGS, Task.REMINDER_FLAGS);
         propertyMap.put(AbstractTaskModel.LAST_NOTIFIED, Task.REMINDER_LAST);
-        propertyMap.put(AbstractTaskModel.REPEAT, Task.REPEAT);
+        // propertyMap.put(AbstractTaskModel.REPEAT, Task.REPEAT); // TODO
         propertyMap.put(AbstractTaskModel.CREATION_DATE, Task.CREATION_DATE);
         propertyMap.put(AbstractTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
         propertyMap.put(AbstractTaskModel.CALENDAR_URI, Task.CALENDAR_URI);

@@ -18,28 +18,27 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RemoteViews;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -417,12 +416,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             try {
                 Bundle extras = intent.getExtras();
                 long taskId = extras.getLong(AstridApiConstants.EXTRAS_TASK_ID);
-                Parcelable[] details = extras.getParcelableArray(AstridApiConstants.EXTRAS_ITEMS);
-                for(Parcelable detail : details)
-                    taskAdapter.addDetails(getListView(), taskId, (TaskDetail)detail);
+                TaskDetail detail = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
+                taskAdapter.addDetails(getListView(), taskId, detail);
             } catch (Exception e) {
                 exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
-                        intent.getStringExtra(AstridApiConstants.EXTRAS_PLUGIN), e);
+                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
             }
         }
     }

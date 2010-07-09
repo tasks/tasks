@@ -196,43 +196,16 @@
         android:paddingBottom="5dip"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+        
+      <!-- add-ons -->
+      <LinearLayout android:id="@+id/tab_extra_addons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
 
       <View
         android:layout_width="fill_parent"
         android:layout_height="1dip"
-        android:padding="5dip"
-        android:background="@android:drawable/divider_horizontal_dark" />
-        
-      <!-- repeat -->
-      <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/repeat_label"
-        android:visibility="gone"
-        style="@style/TextAppearance.GEN_EditLabel" />
-      <LinearLayout
-        android:orientation="horizontal"
-        android:paddingRight="10dip"
-        android:visibility="gone"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-        <Button
-          android:id="@+id/repeat_value"
-          android:layout_weight="1"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content" />
-        <Spinner
-          android:id="@+id/repeat_interval"
-          android:layout_weight="1"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content" />
-      </LinearLayout>
-              
-      <!-- separator -->
-      <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:visibility="gone"
         android:padding="5dip"
         android:background="@android:drawable/divider_horizontal_dark" />
         
@@ -331,6 +304,12 @@
         android:id="@+id/elapsedDuration"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
+                
+      <!-- add-ons -->
+      <LinearLayout android:id="@+id/tab_addons_addons"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" />
                 
       <!-- separator -->
       <View

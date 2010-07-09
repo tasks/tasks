@@ -29,7 +29,7 @@ public class FilterCategory extends FilterListItem {
      * Constructor for creating a new FilterCategory
      *
      * @param plugin
-     *            {@link Plugin} identifier that encompasses object
+     *            {@link Addon} identifier that encompasses object
      * @param listingTitle
      *            Title of this item as displayed on the lists page, e.g. Inbox
      * @param children
@@ -46,7 +46,7 @@ public class FilterCategory extends FilterListItem {
      * Constructor for creating a new FilterCategory
      *
      * @param plugin
-     *            {@link Plugin} identifier that encompasses object
+     *            {@link Addon} identifier that encompasses object
      */
     protected FilterCategory(String plugin) {
         this.plugin = plugin;

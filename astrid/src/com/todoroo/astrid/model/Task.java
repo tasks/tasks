@@ -12,7 +12,6 @@ import android.content.ContentValues;
 import android.content.res.Resources;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
@@ -103,8 +102,8 @@ public final class Task extends AbstractModel {
     public static final LongProperty REMINDER_LAST = new LongProperty(
             TABLE, "lastNotified");
 
-    public static final IntegerProperty REPEAT = new IntegerProperty(
-            TABLE, "repeat");
+    public static final StringProperty RECURRENCE = new StringProperty(
+            TABLE, "recurrence");
 
     public static final IntegerProperty FLAGS = new IntegerProperty(
             TABLE, "flags");
@@ -164,7 +163,7 @@ public final class Task extends AbstractModel {
         defaultValues.put(IMPORTANCE.name, IMPORTANCE_NONE);
 
         defaultValues.put(CALENDAR_URI.name, "");
-        defaultValues.put(REPEAT.name, 0);
+        defaultValues.put(RECURRENCE.name, "");
         defaultValues.put(REMINDER_PERIOD.name, 0);
         defaultValues.put(REMINDER_FLAGS.name, 0);
         defaultValues.put(ESTIMATED_SECONDS.name, 0);
@@ -242,13 +241,6 @@ public final class Task extends AbstractModel {
      */
     public boolean getFlag(IntegerProperty property, int flag) {
         return (getValue(property) & flag) > 0;
-    }
-
-    /**
-     * @return repeat data structure. Requires REPEAT
-     */
-    public RepeatInfo getRepeatInfo() {
-        return RepeatInfo.fromSingleField(getValue(Task.REPEAT));
     }
 
     // --- due and hide until date management

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="3.0.0-beta" android:versionCode="136">
+          android:versionName="3.0.0-beta" android:versionCode="137">
       
   <!-- ================================================== Used Permissions = -->
       
@@ -45,13 +45,14 @@
   
   <!-- ========================================================== Metadata = -->
 
-  <uses-sdk android:targetSdkVersion="4" />
+  <uses-sdk android:targetSdkVersion="4"
+            android:minSdkVersion="3" />
   <supports-screens />
   
   <application android:icon="@drawable/icon" 
                android:label="@string/app_name" 
-               android:debuggable="true"
-               android:installLocation="auto">
+               android:debuggable="true">
+               <!-- android:installLocation="auto"> -->
     
     <!-- ====================================================== Activities = -->
         
@@ -147,7 +148,7 @@
     <!-- core -->
     <receiver android:name="com.todoroo.astrid.core.CorePlugin">
       <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
+        <action android:name="com.todoroo.astrid.REQUEST_ADDONS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
@@ -168,7 +169,7 @@
     <!-- extended filters -->
     <receiver android:name="com.todoroo.astrid.core.ExtendedPlugin">
       <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
+        <action android:name="com.todoroo.astrid.REQUEST_ADDONS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
@@ -182,7 +183,7 @@
     <!-- tags -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
       <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_PLUGINS" />
+        <action android:name="com.todoroo.astrid.REQUEST_ADDONS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
@@ -198,6 +199,14 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
+        
+    <!-- repeats -->
+    <receiver android:name="com.todoroo.astrid.repeats.RepeatsPlugin">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_ADDONS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
     
     <!-- notes -->
     <receiver android:name="com.todoroo.astrid.notes.NoteDetailExposer">

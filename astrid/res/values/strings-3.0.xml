@@ -18,7 +18,7 @@
   <!-- permission description for READ_TASKS -->
   <string name="write_permission_desc">create new tasks, edit existing tasks</string>
   
-  <!-- ======================== Generic Plurals ========================== -->
+  <!-- ==================================================== Generic Units == -->
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
@@ -396,5 +396,11 @@ If you don\'t want to see the new task right after you complete the old one, you
   <string name="EPr_default_hideUntil_title">Default Hide Until</string>
   <!-- Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_hideUntil_desc">Currently Set To: %s</string>
+  
+  <!-- ==================================================== AddOnActivity == -->
+  
+  <!-- Add Ons: author for internal authors  -->
+  <string name="AOA_internal_author">Astrid Team</string>
+  
   
 </resources>

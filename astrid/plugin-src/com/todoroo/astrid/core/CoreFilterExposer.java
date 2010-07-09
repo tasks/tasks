@@ -54,7 +54,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         list[1] = all;
         list[2] = searchFilter;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ITEMS, list);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 

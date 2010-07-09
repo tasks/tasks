@@ -7,18 +7,18 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Represents a plug-in for Astrid. Users can enable or disable plug-ins,
+ * Represents an add-onn for Astrid. Users can enable or disable add-ons,
  * which affect all other extension points that share the same identifier.
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class Plugin implements Parcelable {
+public class Addon implements Parcelable {
 
     /**
-     * Plug-in Identifier
+     * Add-on Identifier
      */
-    public String plugin = null;
+    public String addon = null;
 
     /**
      * Plug-in Title
@@ -38,13 +38,13 @@ public class Plugin implements Parcelable {
     /**
      * Convenience constructor to generate a plug-in object
      *
-     * @param plugin
+     * @param addon
      * @param title
      * @param author
      * @param description
      */
-    public Plugin(String plugin, String title, String author, String description) {
-        this.plugin = plugin;
+    public Addon(String addon, String title, String author, String description) {
+        this.addon = addon;
         this.title = title;
         this.author = author;
         this.description = description;
@@ -64,7 +64,7 @@ public class Plugin implements Parcelable {
      * {@inheritDoc}
      */
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(plugin);
+        dest.writeString(addon);
         dest.writeString(title);
         dest.writeString(author);
         dest.writeString(description);
@@ -73,20 +73,20 @@ public class Plugin implements Parcelable {
     /**
      * Parcelable creator
      */
-    public static final Parcelable.Creator<Plugin> CREATOR = new Parcelable.Creator<Plugin>() {
+    public static final Parcelable.Creator<Addon> CREATOR = new Parcelable.Creator<Addon>() {
         /**
          * {@inheritDoc}
          */
-        public Plugin createFromParcel(Parcel source) {
-            return new Plugin(source.readString(), source.readString(),
+        public Addon createFromParcel(Parcel source) {
+            return new Addon(source.readString(), source.readString(),
                     source.readString(), source.readString());
         }
 
         /**
          * {@inheritDoc}
          */
-        public Plugin[] newArray(int size) {
-            return new Plugin[size];
+        public Addon[] newArray(int size) {
+            return new Addon[size];
         };
     };
 

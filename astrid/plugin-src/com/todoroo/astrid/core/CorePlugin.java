@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.Plugin;
+import com.todoroo.astrid.api.Addon;
 
 public class CorePlugin extends BroadcastReceiver {
 
@@ -13,11 +13,11 @@ public class CorePlugin extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        Plugin plugin = new Plugin(IDENTIFIER, "Core Filters", "Todoroo",
+        Addon plugin = new Addon(IDENTIFIER, "Core Filters", "Todoroo",
                 "Provides 'Inbox' and 'All Tasks' Filters");
 
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_PLUGINS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_PLUGIN, plugin);
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_ADDONS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, plugin);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 

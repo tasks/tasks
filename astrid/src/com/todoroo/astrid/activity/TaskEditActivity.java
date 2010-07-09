@@ -27,13 +27,16 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TabActivity;
 import android.app.TimePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.BroadcastReceiver;
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
@@ -44,6 +47,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -53,35 +57,32 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.enums.RepeatInterval;
 import com.timsu.astrid.data.task.TaskModelForEdit;
-import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.utilities.AstridUtilities;
-import com.timsu.astrid.widget.NumberPicker;
-import com.timsu.astrid.widget.NumberPickerDialog;
 import com.timsu.astrid.widget.TimeDurationControlSet;
-import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
@@ -155,6 +156,9 @@ public final class TaskEditActivity extends TabActivity {
 	/** whether task should be saved when this activity exits */
 	private boolean shouldSaveState = true;
 
+	/** edit control receiver */
+	private final ControlReceiver controlReceiver = new ControlReceiver();
+
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
@@ -214,7 +218,6 @@ public final class TaskEditActivity extends TabActivity {
         controls.add( new RandomReminderControlSet(R.id.reminder_random,
                 R.id.reminder_random_interval));
         controls.add(new TagsControlSet(R.id.tags_container));
-        controls.add(new RepeatControlSet(R.id.repeat_value, R.id.repeat_interval));
 
         controls.add(new CalendarControlSet(R.id.add_to_calendar, R.id.view_calendar_event));
         controls.add(new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
@@ -224,8 +227,17 @@ public final class TaskEditActivity extends TabActivity {
                 0, R.string.hour_minutes_dialog,
                 TimeDurationType.HOURS_MINUTES));
 
+        // internal add-ins
+        LinearLayout extrasAddons = (LinearLayout) findViewById(R.id.tab_extra_addons);
+        controls.add(new RepeatControlSet(this, extrasAddons));
+
         // read data
         populateFields();
+
+        // request add-on controls
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_EDIT_CONTROLS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, model.getId());
+        sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
         // set up listeners
         setUpListeners();
@@ -324,7 +336,7 @@ public final class TaskEditActivity extends TabActivity {
             setTitle(r.getString(R.string.TEA_view_title, model.getValue(Task.TITLE)));
 
         for(TaskEditControlSet controlSet : controls)
-            controlSet.readFromModel();
+            controlSet.readFromTask(model);
     }
 
     /** Save task model from values in UI components */
@@ -338,10 +350,43 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         for(TaskEditControlSet controlSet : controls)
-            controlSet.writeToModel();
+            controlSet.writeToModel(model);
 
         taskService.save(model, false);
         showSaveToast();
+    }
+
+    /* ======================================================================
+     * ================================================ edit control handling
+     * ====================================================================== */
+
+    /**
+     * Receiver which receives intents to add items to the filter list
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    protected class ControlReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                Bundle extras = intent.getExtras();
+                RemoteViews view = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
+
+                // add a separator
+                View separator = new View(TaskEditActivity.this);
+                separator.setPadding(5, 5, 5, 5);
+                separator.setBackgroundResource(android.R.drawable.divider_horizontal_dark);
+
+                LinearLayout dest = (LinearLayout)findViewById(R.id.tab_addons_addons);
+                dest.addView(separator);
+                view.apply(TaskEditActivity.this, dest);
+
+            } catch (Exception e) {
+                exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
+                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
+            }
+        }
     }
 
     /* ======================================================================
@@ -475,13 +520,15 @@ public final class TaskEditActivity extends TabActivity {
     protected void onPause() {
         if(shouldSaveState)
             save();
-
         super.onPause();
+        unregisterReceiver(controlReceiver);
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        registerReceiver(controlReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_SEND_EDIT_CONTROLS));
     }
 
     @Override
@@ -517,12 +564,12 @@ public final class TaskEditActivity extends TabActivity {
         /**
          * Read data from model to update the control set
          */
-        public void readFromModel();
+        public void readFromTask(Task task);
 
         /**
          * Write data from control set to model
          */
-        public void writeToModel();
+        public void writeToModel(Task task);
     }
 
     // --- EditTextControlSet
@@ -542,13 +589,13 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void readFromModel() {
-            editText.setText(model.getValue(property));
+        public void readFromTask(Task task) {
+            editText.setText(task.getValue(property));
         }
 
         @Override
-        public void writeToModel() {
-            model.setValue(property, editText.getText().toString());
+        public void writeToModel(Task task) {
+            task.setValue(property, editText.getText().toString());
         }
     }
 
@@ -571,13 +618,13 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void readFromModel() {
-            controlSet.setTimeDuration(model.getValue(property));
+        public void readFromTask(Task task) {
+            controlSet.setTimeDuration(task.getValue(property));
         }
 
         @Override
-        public void writeToModel() {
-            model.setValue(property, controlSet.getTimeDurationInSeconds());
+        public void writeToModel(Task task) {
+            task.setValue(property, controlSet.getTimeDurationInSeconds());
         }
     }
 
@@ -643,13 +690,13 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void readFromModel() {
-            setImportance(model.getValue(Task.IMPORTANCE));
+        public void readFromTask(Task task) {
+            setImportance(task.getValue(Task.IMPORTANCE));
         }
 
         @Override
-        public void writeToModel() {
-            model.setValue(Task.IMPORTANCE, getImportance());
+        public void writeToModel(Task task) {
+            task.setValue(Task.IMPORTANCE, getImportance());
         }
     }
 
@@ -812,15 +859,15 @@ public final class TaskEditActivity extends TabActivity {
         // --- setting up values
 
         @Override
-        public void readFromModel() {
-            long dueDate = model.getValue(Task.DUE_DATE);
+        public void readFromTask(Task task) {
+            long dueDate = task.getValue(Task.DUE_DATE);
             createUrgencyList(dueDate);
         }
 
         @Override
-        public void writeToModel() {
+        public void writeToModel(Task task) {
             UrgencyValue item = urgencyAdapter.getItem(urgency.getSelectedItemPosition());
-            model.setValue(Task.DUE_DATE, item.dueDate);
+            task.setValue(Task.DUE_DATE, item.dueDate);
         }
     }
 
@@ -938,9 +985,9 @@ public final class TaskEditActivity extends TabActivity {
         // --- setting up values
 
         @Override
-        public void readFromModel() {
-            long date = model.getValue(Task.HIDE_UNTIL);
-            long dueDate = model.getValue(Task.DUE_DATE);
+        public void readFromTask(Task task) {
+            long date = task.getValue(Task.HIDE_UNTIL);
+            long dueDate = task.getValue(Task.DUE_DATE);
 
             int selection = 0;
             if(date == 0) {
@@ -968,10 +1015,10 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void writeToModel() {
+        public void writeToModel(Task task) {
             HideUntilValue item = adapter.getItem(hideUntil.getSelectedItemPosition());
-            long value = model.createHideUntil(item.setting, item.date);
-            model.setValue(Task.HIDE_UNTIL, value);
+            long value = task.createHideUntil(item.setting, item.date);
+            task.setValue(Task.HIDE_UNTIL, value);
         }
 
     }
@@ -1021,13 +1068,13 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void readFromModel() {
-            setValue(model.getValue(Task.REMINDER_FLAGS));
+        public void readFromTask(Task task) {
+            setValue(task.getValue(Task.REMINDER_FLAGS));
         }
 
         @Override
-        public void writeToModel() {
-            model.setValue(Task.REMINDER_FLAGS, getValue());
+        public void writeToModel(Task task) {
+            task.setValue(Task.REMINDER_FLAGS, getValue());
         }
     }
 
@@ -1076,8 +1123,8 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void readFromModel() {
-            long time = model.getValue(Task.REMINDER_PERIOD);
+        public void readFromTask(Task task) {
+            long time = task.getValue(Task.REMINDER_PERIOD);
 
             boolean shouldDisable = time <= 0;
             if(time <= 0) {
@@ -1093,12 +1140,12 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void writeToModel() {
+        public void writeToModel(Task task) {
             if(settingCheckbox.isChecked()) {
                 int hourValue = hours[periodSpinner.getSelectedItemPosition()];
-                model.setValue(Task.REMINDER_PERIOD, hourValue * DateUtilities.ONE_HOUR);
+                task.setValue(Task.REMINDER_PERIOD, hourValue * DateUtilities.ONE_HOUR);
             } else
-                model.setValue(Task.REMINDER_PERIOD, 0L);
+                task.setValue(Task.REMINDER_PERIOD, 0L);
         }
     }
 
@@ -1121,10 +1168,10 @@ public final class TaskEditActivity extends TabActivity {
 
         @SuppressWarnings("nls")
         @Override
-        public void readFromModel() {
+        public void readFromTask(Task task) {
             // tags (only configure if not already set)
             if(tagsContainer.getChildCount() == 0) {
-                TodorooCursor<Metadata> cursor = tagService.getTags(model.getId());
+                TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
                 try {
                     for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
                         addTag(cursor.get(Metadata.VALUE));
@@ -1136,7 +1183,7 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void writeToModel() {
+        public void writeToModel(Task task) {
             ArrayList<String> tags = new ArrayList<String>();
 
             for(int i = 0; i < tagsContainer.getChildCount(); i++) {
@@ -1146,7 +1193,7 @@ public final class TaskEditActivity extends TabActivity {
                 tags.add(tagName.getText().toString());
             }
 
-            tagService.synchronizeTags(model.getId(), tags);
+            tagService.synchronizeTags(task.getId(), tags);
         }
 
         /** Adds a tag to the tag field */
@@ -1180,6 +1227,7 @@ public final class TaskEditActivity extends TabActivity {
                     //
                 }
 
+
                 public void beforeTextChanged(CharSequence s, int start, int count,
                         int after) {
                     //
@@ -1195,85 +1243,6 @@ public final class TaskEditActivity extends TabActivity {
             });
 
             return true;
-        }
-    }
-
-    public class RepeatControlSet implements TaskEditControlSet {
-
-        private final Button repeatValue;
-        private final Spinner repeatInterval;
-
-        public RepeatControlSet(int repeatValue, int repeatInterval) {
-            this.repeatValue = (Button) findViewById(repeatValue);
-            this.repeatInterval = (Spinner) findViewById(repeatInterval);
-            ArrayAdapter<String> repeatAdapter = new ArrayAdapter<String>(
-                    TaskEditActivity.this, android.R.layout.simple_spinner_item,
-                    RepeatInterval.getLabels(getResources()));
-            repeatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            this.repeatInterval.setAdapter(repeatAdapter);
-
-            this.repeatValue.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    repeatValueClick();
-                }
-            });
-        }
-
-        /** Set up the repeat value button */
-        void setRepeatValue(int value) {
-            if(value == 0)
-                repeatValue.setText(R.string.repeat_value_unset);
-            else
-                repeatValue.setText(Integer.toString(value));
-            repeatValue.setTag(value);
-        }
-
-        private RepeatInfo getRepeatValue() {
-            if(repeatValue.getTag() == null || repeatValue.getTag().equals(0))
-                return null;
-            return new RepeatInfo(RepeatInterval.values()
-                        [repeatInterval.getSelectedItemPosition()],
-                    (Integer)repeatValue.getTag());
-        }
-
-        protected void repeatValueClick() {
-            final int tagValue = (Integer)repeatValue.getTag();
-
-            final Runnable openDialogRunnable = new Runnable() {
-                public void run() {
-                    int dialogValue = tagValue;
-                    if(dialogValue == 0)
-                        dialogValue = 1;
-
-                    new NumberPickerDialog(TaskEditActivity.this, new OnNumberPickedListener() {
-                        public void onNumberPicked(NumberPicker view, int number) {
-                            setRepeatValue(number);
-                        }
-                    }, getResources().getString(R.string.repeat_picker_title),
-                    dialogValue, 1, 0, 31).show();
-                }
-            };
-
-            openDialogRunnable.run();
-        }
-
-
-        @Override
-        public void readFromModel() {
-            // repeats
-            RepeatInfo repeatInfo = RepeatInfo.fromSingleField(model.getValue(Task.REPEAT));
-            if(repeatInfo != null) {
-                setRepeatValue(repeatInfo.getValue());
-                repeatInterval.setSelection(repeatInfo.getInterval().ordinal());
-            } else
-                setRepeatValue(0);
-        }
-
-
-        @Override
-        public void writeToModel() {
-            RepeatInfo repeatInfo = getRepeatValue();
-            model.setValue(Task.REPEAT, RepeatInfo.toSingleField(repeatInfo));
         }
     }
 
@@ -1373,11 +1342,11 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void readFromModel() {
+        public void readFromTask(Task task) {
         }
 
         @Override
-        public void writeToModel() {
+        public void writeToModel(Task task) {
         }
     }
 

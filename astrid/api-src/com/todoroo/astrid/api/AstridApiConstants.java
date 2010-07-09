@@ -3,6 +3,8 @@
  */
 package com.todoroo.astrid.api;
 
+import android.widget.RemoteViews;
+
 /**
  * Constants for interfacing with Astrid.
  *
@@ -28,32 +30,35 @@ public class AstridApiConstants {
      */
     public static final String PERMISSION_WRITE = PACKAGE + ".WRITE";
 
+    // --- Broadcast Extras
+
     /**
-     * Extras name for Task id
+     * Extras name for task id
      */
     public static final String EXTRAS_TASK_ID = "task";
 
     /**
-     * Extras name for an array of response items
+     * Extras name for a response item broadcast to astrid
      */
-    public static final String EXTRAS_ITEMS = "items";
+    public static final String EXTRAS_RESPONSE = "response";
 
     /**
-     * Extras name for plug-in object
+     * Extras name for plug-in identifier
      */
-    public static final String EXTRAS_PLUGIN = "plugin";
+    public static final String EXTRAS_ADDON = "addon";
 
-    // --- Plug-ins API
-
-    /**
-     * Action name for broadcast intent requesting filters
-     */
-    public static final String BROADCAST_REQUEST_PLUGINS = PACKAGE + ".REQUEST_PLUGINS";
+    // --- Add-ons API
 
     /**
-     * Action name for broadcast intent sending filters back to Astrid
+     * Action name for broadcast intent requesting add-ons
      */
-    public static final String BROADCAST_SEND_PLUGINS = PACKAGE + ".SEND_PLUGINS";
+    public static final String BROADCAST_REQUEST_ADDONS = PACKAGE + ".REQUEST_ADDONS";
+
+    /**
+     * Action name for broadcast intent sending add-ons back to Astrid
+     * @extra EXTRAS_RESPONSE an {@link Addon} object
+     */
+    public static final String BROADCAST_SEND_ADDONS = PACKAGE + ".SEND_ADDONS";
 
     // --- Filters API
 
@@ -64,30 +69,39 @@ public class AstridApiConstants {
 
     /**
      * Action name for broadcast intent sending filters back to Astrid
+     * @extra EXTRAS_ADDON your add-on identifier
+     * @extra EXTRAS_RESPONSE an array of {@link FilterListItem}s
      */
     public static final String BROADCAST_SEND_FILTERS = PACKAGE + ".SEND_FILTERS";
 
-    // --- Edit Operations API
+    // --- Edit Controls API
 
     /**
-     * Action name for broadcast intent requesting task edit operations
+     * Action name for broadcast intent requesting task edit controls
+     * @extra EXTRAS_TASK_ID id of the task user is editing
      */
-    public static final String BROADCAST_REQUEST_EDIT_OPERATIONS = PACKAGE + ".REQUEST_EDIT_OPERATIONS";
+    public static final String BROADCAST_REQUEST_EDIT_CONTROLS = PACKAGE + ".REQUEST_EDIT_CONTROLS";
 
     /**
-     * Action name for broadcast intent sending task edit operations back to Astrid
+     * Action name for broadcast intent sending task edit controls back to Astrid
+     * @extra EXTRAS_ADDON your add-on identifier
+     * @extra EXTRAS_RESPONSE a {@link RemoteViews} with your edit controls
      */
-    public static final String BROADCAST_SEND_EDIT_OPERATIONS = PACKAGE + ".SEND_EDIT_OPERATIONS";
+    public static final String BROADCAST_SEND_EDIT_CONTROLS = PACKAGE + ".SEND_EDIT_CONTROLS";
 
     // --- Task List Details API
 
     /**
      * Action name for broadcast intent requesting task list details for a task
+     * @extra EXTRAS_TASK_ID id of the task
      */
     public static final String BROADCAST_REQUEST_DETAILS = PACKAGE + ".REQUEST_DETAILS";
 
     /**
      * Action name for broadcast intent sending details back to Astrid
+     * @extra EXTRAS_ADDON your add-on identifier
+     * @extra EXTRAS_TASK_ID id of the task
+     * @extra EXTRAS_RESPONSE a {@link TaskDetail} object
      */
     public static final String BROADCAST_SEND_DETAILS = PACKAGE + ".SEND_DETAILS";
 
@@ -95,13 +109,18 @@ public class AstridApiConstants {
 
     /**
      * Action name for intents to be displayed on task context menu
+     * @extra EXTRAS_TASK_ID id of the task
      */
     public static final String ACTION_TASK_CONTEXT_MENU = PACKAGE + ".CONTEXT_MENU";
 
     /**
      * Action name for intents to be displayed on Astrid's task list menu
+     * @extra EXTRAS_ADDON your add-on identifier
+     * @extra EXTRAS_RESPONSE an array of {@link Intent}s
      */
     public static final String ACTION_TASK_LIST_MENU = PACKAGE + ".TASK_LIST_MENU";
+
+    // --- Settings API
 
     /**
      * Action name for intents to be displayed in Astrid's settings
@@ -112,11 +131,13 @@ public class AstridApiConstants {
 
     /**
      * Action name for broadcast intent notifying that task was completed
+     * @extra EXTRAS_TASK_ID id of the task
      */
     public static final String BROADCAST_EVENT_TASK_COMPLETED = PACKAGE + ".TASK_COMPLETED";
 
     /**
      * Action name for broadcast intent notifying that task was created
+     * @extra EXTRAS_TASK_ID id of the task
      */
     public static final String BROADCAST_EVENT_TASK_CREATED = PACKAGE + ".TASK_CREATED";
 

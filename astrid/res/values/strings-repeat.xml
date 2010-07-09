@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources>
+
+  <!-- Resources for built-in repeat plug-in -->
+
+  <!-- repeating plugin name -->
+  <string name="repeat_plugin">Repeating Tasks</string>
+  
+  <!-- repeating plugin description -->
+  <string name="repeat_plugin_desc">Allows tasks to repeat</string>
+  
+  <!-- checkbox for turning on/off repeats -->
+  <string name="repeat_enabled">Repeats</string>
+  
+  <!-- button for "every x" part of repeat (%d -> repeat value)  -->
+  <string name="repeat_every">Every %d</string>
+  
+  <!-- hint when opening repeat interval -->
+  <string name="repeat_interval_prompt">Repeat Interval</string>
+  
+  <string-array name="repeat_interval">
+    <!-- repeat interval (days,weeks,months,hours) -->
+    <item>Day(s)</item>
+    <item>Week(s)</item>
+    <item>Month(s)</item>
+    <item>Year(s)</item>
+  </string-array>
+  
+  <string-array name="repeat_type">
+    <!-- repeat type (date to repeat from) -->
+    <item>from due date</item>
+    <item>from completion date</item>
+  </string-array>
+  
+</resources>

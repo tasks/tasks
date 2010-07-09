@@ -183,14 +183,14 @@ public class FilterListActivity extends ExpandableListActivity {
         public void onReceive(Context context, Intent intent) {
             try {
                 Parcelable[] filters = intent.getExtras().
-                    getParcelableArray(AstridApiConstants.EXTRAS_ITEMS);
+                    getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
                 for (Parcelable item : filters) {
                     adapter.add((FilterListItem)item);
                 }
                 adapter.notifyDataSetChanged();
             } catch (Exception e) {
                 exceptionService.reportError("receive-filter-" + //$NON-NLS-1$
-                        intent.getStringExtra(AstridApiConstants.EXTRAS_PLUGIN), e);
+                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
             }
         }
     }

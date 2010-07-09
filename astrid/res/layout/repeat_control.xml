@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    
+  <View
+      android:layout_width="fill_parent"
+      android:layout_height="1dip"
+      android:padding="5dip"
+      android:background="@android:drawable/divider_horizontal_dark" />
+  
+  <CheckBox android:id="@+id/repeatEnabled"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/repeat_enabled"/>
+      
+  <LinearLayout android:id="@+id/repeatContainer"
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content">
+      
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        
+      <Button android:id="@+id/repeatValue"
+          android:layout_weight="1"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" />
+          
+      <Spinner android:id="@+id/repeatInterval"
+          android:layout_weight="1"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content" 
+          android:prompt="@string/repeat_interval_prompt"
+          android:entries="@array/repeat_interval"/>
+          
+    </LinearLayout>
+    
+    <Spinner android:id="@+id/repeatType"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" 
+        android:entries="@array/repeat_type"/>
+    
+    <LinearLayout android:id="@+id/repeatDayOfWeekContainer"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
+              
+  </LinearLayout>  
+  
+</merge>
+

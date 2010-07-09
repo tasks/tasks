@@ -82,7 +82,7 @@ public final class ExtendedFilterExposer extends BroadcastReceiver {
         list[3] = hidden;
         list[4] = deleted;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ITEMS, list);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 

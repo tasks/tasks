@@ -24,6 +24,10 @@ public final class UpgradeService {
 
         if(from < 136)
             new Astrid2To3UpgradeHelper().upgrade2To3();
+        else if(from < 137) {
+            // TODO upgrade recurrence
+        }
+
 
         // display changelog
         showChangeLog(from);

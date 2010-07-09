@@ -84,6 +84,15 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
         injectables.put("minutesAbbrevResource", R.plurals.DUt_minutesShort);
         injectables.put("secondsAbbrevResource", R.plurals.DUt_secondsShort);
 
+        // com.todoroo.android.utility
+        injectables.put("nNumberPickerLayout", R.layout.n_number_picker_dialog);
+        injectables.put("numberPickerLayout", R.layout.number_picker);
+        injectables.put("numberPickerIncrementId", R.id.increment);
+        injectables.put("numberPickerDecrementId", R.id.decrement);
+        injectables.put("numberPickerId", R.id.numberPicker);
+        injectables.put("numberPickerInputId", R.id.timepicker_input);
+        injectables.put("numberPickerDialogLayout", R.layout.number_picker_dialog);
+
         // com.todoroo.astrid.dao
         injectables.put("database", Database.class);
         injectables.put("taskDao", TaskDao.class);

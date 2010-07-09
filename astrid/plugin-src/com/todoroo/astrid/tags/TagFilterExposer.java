@@ -97,7 +97,7 @@ public class TagFilterExposer extends BroadcastReceiver {
         list[2] = tagsCategoryBySize;
         list[3] = tagsCategoryByAlpha;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ITEMS, list);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 

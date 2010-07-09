@@ -64,7 +64,7 @@ public final class Filter extends FilterListItem {
      * Utility constructor for creating a TaskList object
      *
      * @param plugin
-     *            {@link Plugin} identifier that encompasses object
+     *            {@link Addon} identifier that encompasses object
      * @param listingTitle
      *            Title of this item as displayed on the lists page, e.g. Inbox
      * @param title
@@ -88,7 +88,7 @@ public final class Filter extends FilterListItem {
      * Utility constructor
      *
      * @param plugin
-     *            {@link Plugin} identifier that encompasses object
+     *            {@link Addon} identifier that encompasses object
      */
     protected Filter(String plugin) {
         this.plugin = plugin;

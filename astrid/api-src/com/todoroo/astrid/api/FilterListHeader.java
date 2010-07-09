@@ -23,7 +23,7 @@ public class FilterListHeader extends FilterListItem {
      * Constructor for creating a new FilterListHeader
      *
      * @param plugin
-     *            {@link Plugin} identifier that encompasses object
+     *            {@link Addon} identifier that encompasses object
      * @param listingTitle
      * @param listingIconResource
      * @param priority
@@ -37,7 +37,7 @@ public class FilterListHeader extends FilterListItem {
      * Constructor for creating a new FilterListHeader
      *
      * @param plugin
-     *            {@link Plugin} identifier that encompasses object
+     *            {@link Addon} identifier that encompasses object
      */
     protected FilterListHeader(String plugin) {
         this.plugin = plugin;

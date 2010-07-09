@@ -25,7 +25,7 @@ public final class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 1;
+    public static final int VERSION = 2;
 
     /**
      * Database name (must be unique)
@@ -73,6 +73,17 @@ public final class Database extends AbstractDatabase {
 
     @Override
     protected boolean onUpgrade(int oldVersion, int newVersion) {
+        switch(oldVersion) {
+        case 1: {
+            SqlConstructorVisitor visitor = new SqlConstructorVisitor();
+            String sql = "ALTER TABLE " + Task.TABLE.name + " ADD " +
+                Task.RECURRENCE.accept(visitor, null);
+            database.execSQL(sql);
+            return true;
+        }
+        }
+
+
         return false;
     }
 
