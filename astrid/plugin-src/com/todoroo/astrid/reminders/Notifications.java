@@ -219,10 +219,13 @@ public class Notifications extends BroadcastReceiver {
             String notificationPreference = Preferences.getStringValue(R.string.p_rmd_ringtone);
             if(audioManager.getStreamVolume(AudioManager.STREAM_RING) == 0) {
                 notification.sound = null;
-            } else if(notificationPreference != null &&
-                    notificationPreference.length() != 0) {
-                Uri notificationSound = Uri.parse(notificationPreference);
-                notification.sound = notificationSound;
+            } else if(notificationPreference != null) {
+                if(notificationPreference.length() > 0) {
+                    Uri notificationSound = Uri.parse(notificationPreference);
+                    notification.sound = notificationSound;
+                } else {
+                    notification.sound = null;
+                }
             } else {
                 notification.defaults |= Notification.DEFAULT_SOUND;
             }
