@@ -306,13 +306,15 @@ public final class TaskEditActivity extends TabActivity {
         long idParam = intent.getLongExtra(ID_TOKEN, -1L);
 
         database.openForReading();
-        if(idParam == -1L) {
-            model = new Task();
-            taskService.save(model, false);
-        } else {
+        if(idParam > -1L) {
             model = taskService.fetchById(idParam, Task.PROPERTIES);
         }
 
+        // not found by id or was never passed an id
+        if(model == null) {
+            model = new Task();
+            taskService.save(model, false);
+        }
         if(model.getValue(Task.TITLE).length() == 0)
             FlurryAgent.onEvent("create-task");
         FlurryAgent.onEvent("edit-task");
