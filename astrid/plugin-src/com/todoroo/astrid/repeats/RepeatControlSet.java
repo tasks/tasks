@@ -38,10 +38,17 @@ import com.todoroo.astrid.model.Task;
  */
 public class RepeatControlSet implements TaskEditControlSet {
 
+    // --- spinner constants
+
     private static final int INTERVAL_DAYS = 0;
     private static final int INTERVAL_WEEKS = 1;
     private static final int INTERVAL_MONTHS = 2;
     private static final int INTERVAL_YEARS = 3;
+
+    private static final int TYPE_DUE_DATE = 0;
+    private static final int TYPE_COMPLETION_DATE = 1;
+
+    // --- instance variables
 
     private final Activity activity;
     private final CheckBox enabled;
@@ -51,6 +58,8 @@ public class RepeatControlSet implements TaskEditControlSet {
     private final LinearLayout repeatContainer;
     private final LinearLayout daysOfWeekContainer;
     private final CompoundButton[] daysOfWeek = new CompoundButton[7];
+
+    // --- implementation
 
     public RepeatControlSet(final Activity activity, ViewGroup parent) {
         this.activity = activity;
@@ -143,6 +152,7 @@ public class RepeatControlSet implements TaskEditControlSet {
     public void readFromTask(Task task) {
         String recurrence = task.getValue(Task.RECURRENCE);
 
+        // read recurrence rule
         if(recurrence.length() > 0) {
             try {
                 RRule rrule = new RRule(recurrence);
@@ -174,9 +184,14 @@ public class RepeatControlSet implements TaskEditControlSet {
                 recurrence = ""; //$NON-NLS-1$
             }
         }
-
         enabled.setChecked(recurrence.length() > 0);
         repeatContainer.setVisibility(enabled.isChecked() ? View.VISIBLE : View.GONE);
+
+        // read flag
+        if(task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
+            type.setSelection(TYPE_COMPLETION_DATE);
+        else
+            type.setSelection(TYPE_DUE_DATE);
     }
 
 
@@ -210,5 +225,16 @@ public class RepeatControlSet implements TaskEditControlSet {
             result = rrule.toIcal();
         }
         task.setValue(Task.RECURRENCE, result);
+
+        switch(type.getSelectedItemPosition()) {
+        case TYPE_DUE_DATE:
+            task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, false);
+            break;
+        case TYPE_COMPLETION_DATE:
+            task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
+        }
+
+        if(task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
+            type.setSelection(1);
     }
 }

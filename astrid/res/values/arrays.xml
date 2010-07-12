@@ -24,7 +24,7 @@
                minimizing the annoyance.
     -->
 
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     
     <!-- ==================================================== task values == -->
     

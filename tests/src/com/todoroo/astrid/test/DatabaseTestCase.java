@@ -56,14 +56,14 @@ public class DatabaseTestCase extends TodorooTestCase {
 
 	public static class TestDatabase extends Database {
         @Override
-	    protected String getName() {
+	    public String getName() {
 	        return "databasetest";
 	    }
 	}
 
 	public static class TestAlarmsDatabase extends AlarmDatabase {
 	    @Override
-        protected String getName() {
+        public String getName() {
 	        return "alarmstest";
 	    }
 	}

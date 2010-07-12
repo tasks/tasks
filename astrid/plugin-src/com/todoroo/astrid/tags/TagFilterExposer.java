@@ -78,8 +78,8 @@ public class TagFilterExposer extends BroadcastReceiver {
         FilterListHeader tagsHeader = new FilterListHeader(TagsPlugin.IDENTIFIER,
                 context.getString(R.string.tag_FEx_header));
         Filter untagged = new Filter(TagsPlugin.IDENTIFIER,
-                "Untagged",
-                "Untagged",
+                r.getString(R.string.tag_FEx_untagged),
+                r.getString(R.string.tag_FEx_untagged),
                 tagService.untaggedTemplate(),
                 null);
         untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_untagged)).getBitmap();

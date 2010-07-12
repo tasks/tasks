@@ -19,7 +19,7 @@
   59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  
 -->
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="Alert" parent="android:Theme.Dialog">
         <item name="android:windowBackground">@null</item>

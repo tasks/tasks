@@ -17,7 +17,7 @@ import com.todoroo.astrid.model.Task;
  *
  */
 @SuppressWarnings("nls")
-public final class Database extends AbstractDatabase {
+public class Database extends AbstractDatabase {
 
     // --- constants
 

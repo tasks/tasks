@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- Resources for built-in tag plug-in -->
 
-    <string name="tag_EOE_button">Add Tags</string>
-    <string name="tag_EOE_button_w_tags">Tags: %s</string>
+  <!-- =============================================== Task Edit Controls == -->
+
+  <!-- Tags label -->
+  <string name="TEA_tags_label">Tags:</string>
+  
+  <!-- Tags hint -->
+  <string name="TEA_tag_hint">Tag Name</string>
+
+  <!-- ===================================================== Task Details == -->
+  
+  <string name="tag_TLA_detail">Tags: %s</string>
     
-    <string name="tag_TLA_detail">Tags: %s</string>
-    
-    <string name="tag_FEx_header">Tags</string>
-    <string name="tag_FEx_by_size">By Size</string>
-    <string name="tag_FEx_alpha">Alphabetical</string>
-    
-    <!-- $T => tag, $C => count -->
-    <string name="tag_FEx_tag_w_size">$T ($C)</string>
-    <!-- %s => tag name -->
-    <string name="tag_FEx_name">Tagged \'%s\'</string>
-    
-    <string name="tag_TEA_hint">Type In a Tag</string>
-    <string name="tag_TEA_title">Edit Tags</string>
+  <!-- ========================================================== Filters == -->
+  
+  <string name="tag_FEx_header">Tags</string>
+  <string name="tag_FEx_by_size">By Size</string>
+  <string name="tag_FEx_alpha">Alphabetical</string>
+  <string name="tag_FEx_untagged">Untagged</string>
+  
+  <!-- $T => tag, $C => count -->
+  <string name="tag_FEx_tag_w_size">$T ($C)</string>
+  
+  <!-- %s => tag name -->
+  <string name="tag_FEx_name">Tagged \'%s\'</string>
     
 </resources>

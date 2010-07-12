@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- ======================== AndroidManifest ========================== -->
 
@@ -297,12 +297,6 @@ to the plugin creator for fastest service.
   
   <!-- Repeat label when repeats are not set -->
   <string name="TEA_repeat_value_unset">No Repeat Set</string>
-
-  <!-- Tags label -->
-  <string name="TEA_tags_label">Tags:</string>
-  
-  <!-- Tags hint -->
-  <string name="TEA_tag_hint">Tag Name</string>
 
   <!-- dialog boxes -->
   <string name="TEA_repeat_picker_title">Repeat Every (0 to disable)</string>

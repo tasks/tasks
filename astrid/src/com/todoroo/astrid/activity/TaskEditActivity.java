@@ -39,8 +39,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -49,7 +47,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -60,7 +57,6 @@ import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -73,20 +69,17 @@ import com.timsu.astrid.widget.TimeDurationControlSet;
 import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TagService.Tag;
+import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -122,11 +115,6 @@ public final class TaskEditActivity extends TabActivity {
     public static final int RESULT_CODE_SAVED = RESULT_FIRST_USER;
     public static final int RESULT_CODE_DISCARDED = RESULT_FIRST_USER + 1;
     public static final int RESULT_CODE_DELETED = RESULT_FIRST_USER + 2;
-
-	// --- other constants
-
-    /** Number of tags a task can have */
-	private static final int MAX_TAGS = 5;
 
     // --- services
 
@@ -217,7 +205,7 @@ public final class TaskEditActivity extends TabActivity {
                 R.id.reminder_overdue, R.id.reminder_alarm));
         controls.add( new RandomReminderControlSet(R.id.reminder_random,
                 R.id.reminder_random_interval));
-        controls.add(new TagsControlSet(R.id.tags_container));
+        controls.add(new TagsControlSet(this, R.id.tags_container));
 
         controls.add(new CalendarControlSet(R.id.add_to_calendar, R.id.view_calendar_event));
         controls.add(new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
@@ -1152,103 +1140,6 @@ public final class TaskEditActivity extends TabActivity {
     }
 
     /**
-     * Control set to manage adding and removing tags
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    private class TagsControlSet implements TaskEditControlSet {
-
-        private final TagService tagService = new TagService();
-        private final Tag[] allTags;
-        private final LinearLayout tagsContainer;
-
-        public TagsControlSet(int tagsContainer) {
-            allTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
-            this.tagsContainer = (LinearLayout) findViewById(tagsContainer);
-        }
-
-        @SuppressWarnings("nls")
-        @Override
-        public void readFromTask(Task task) {
-            // tags (only configure if not already set)
-            if(tagsContainer.getChildCount() == 0) {
-                TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
-                try {
-                    for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-                        addTag(cursor.get(Metadata.VALUE));
-                } finally {
-                    cursor.close();
-                }
-                addTag("");
-            }
-        }
-
-        @Override
-        public void writeToModel(Task task) {
-            ArrayList<String> tags = new ArrayList<String>();
-
-            for(int i = 0; i < tagsContainer.getChildCount(); i++) {
-                TextView tagName = (TextView)tagsContainer.getChildAt(i).findViewById(R.id.text1);
-                if(tagName.getText().length() == 0)
-                    continue;
-                tags.add(tagName.getText().toString());
-            }
-
-            tagService.synchronizeTags(task.getId(), tags);
-        }
-
-        /** Adds a tag to the tag field */
-        boolean addTag(String tagName) {
-            if (tagsContainer.getChildCount() >= MAX_TAGS) {
-                return false;
-            }
-
-            LayoutInflater inflater = getLayoutInflater();
-            final View tagItem = inflater.inflate(R.layout.tag_edit_row, null);
-            tagsContainer.addView(tagItem);
-
-            AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.
-                findViewById(R.id.text1);
-            textView.setText(tagName);
-            ArrayAdapter<Tag> tagsAdapter =
-                new ArrayAdapter<Tag>(TaskEditActivity.this,
-                        android.R.layout.simple_dropdown_item_1line, allTags);
-            textView.setAdapter(tagsAdapter);
-            textView.addTextChangedListener(new TextWatcher() {
-                @SuppressWarnings("nls")
-                public void onTextChanged(CharSequence s, int start, int before,
-                        int count) {
-                    if(start == 0 && tagsContainer.getChildAt(
-                            tagsContainer.getChildCount()-1) == tagItem) {
-                        addTag("");
-                    }
-                }
-
-                public void afterTextChanged(Editable s) {
-                    //
-                }
-
-
-                public void beforeTextChanged(CharSequence s, int start, int count,
-                        int after) {
-                    //
-                }
-            });
-
-            ImageButton reminderRemoveButton;
-            reminderRemoveButton = (ImageButton)tagItem.findViewById(R.id.button1);
-            reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    tagsContainer.removeView(tagItem);
-                }
-            });
-
-            return true;
-        }
-    }
-
-    /**
      * Calendar Control Set
      * @author Tim Su <tim@todoroo.com>
      *
@@ -1258,7 +1149,10 @@ public final class TaskEditActivity extends TabActivity {
         /** If task has no estimated time, how early to set a task in calendar */
         private static final int DEFAULT_CAL_TIME = 3600;
 
+        @SuppressWarnings("unused")
         private final CheckBox addToCalendar;
+
+        @SuppressWarnings("unused")
         private final Button viewCalendarEvent;
 
         public CalendarControlSet(int addToCalendar,
@@ -1275,7 +1169,7 @@ public final class TaskEditActivity extends TabActivity {
          * @param estimatedSeconds estimated duration or null
          * @param values
          */
-        @SuppressWarnings("nls")
+        @SuppressWarnings({ "nls", "unused" })
         public void createCalendarStartEndTimes(Date preferred, Date definite,
                 Integer estimatedSeconds, ContentValues values) {
             FlurryAgent.onEvent("create-calendar-event");
@@ -1296,6 +1190,7 @@ public final class TaskEditActivity extends TabActivity {
             values.put("dtend", deadlineDate);
         }
 
+        @SuppressWarnings("unused")
         protected void onPause() {
             // create calendar event
             /*if(addToCalendar.isChecked() && model.getCalendarUri() == null) {
@@ -1345,10 +1240,12 @@ public final class TaskEditActivity extends TabActivity {
 
         @Override
         public void readFromTask(Task task) {
+            //
         }
 
         @Override
         public void writeToModel(Task task) {
+            //
         }
     }
 

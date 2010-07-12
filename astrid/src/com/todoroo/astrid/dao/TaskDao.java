@@ -5,19 +5,10 @@
  */
 package com.todoroo.astrid.dao;
 
-import java.text.ParseException;
-import java.util.Date;
-import java.util.TimeZone;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
-import com.google.ical.iter.RecurrenceIterator;
-import com.google.ical.iter.RecurrenceIteratorFactory;
-import com.google.ical.values.DateTimeValueImpl;
-import com.google.ical.values.DateValue;
-import com.google.ical.values.DateValueImpl;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.service.Autowired;
@@ -286,56 +277,7 @@ public class TaskDao extends GenericDao<Task> {
      * @param duringSync
      */
     private void afterComplete(Task task, ContentValues values, boolean duringSync) {
-        task = fetch(task.getId(), Task.ID, Task.RECURRENCE, Task.DUE_DATE);
-        if(task == null)
-            return;
-        String recurrence = task.getValue(Task.RECURRENCE);
-        if(recurrence.length() > 0) {
-            Date date = new Date();
-            DateValue today = new DateValueImpl(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
 
-            DateValue dateValue;
-            if(task.hasDueDate() && task.hasDueTime()) {
-                date = new Date(task.getValue(Task.DUE_DATE));
-                dateValue = new DateTimeValueImpl(date.getYear() + 1900,
-                        date.getMonth() + 1, date.getDate(),
-                        date.getHours(), date.getMinutes(), date.getSeconds());
-            } else if(task.hasDueDate()) {
-                date = new Date(task.getValue(Task.DUE_DATE));
-                dateValue = new DateValueImpl(date.getYear() + 1900, date.getMonth() + 1, date.getDate());
-            } else {
-                dateValue = today;
-            }
-
-            try {
-                RecurrenceIterator iterator = RecurrenceIteratorFactory.createRecurrenceIterator(recurrence,
-                        dateValue, TimeZone.getDefault());
-                if(dateValue.compareTo(today) < 0)
-                    dateValue = today;
-                iterator.advanceTo(dateValue);
-                iterator.next();
-                if(iterator.hasNext()) {
-                    long dueDate;
-                    DateValue newDate = iterator.next();
-                    if(newDate instanceof DateTimeValueImpl) {
-                        DateTimeValueImpl newDateTime = (DateTimeValueImpl)newDate;
-                        dueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-                                new Date(newDateTime.year() - 1900, newDateTime.month() - 1,
-                                        newDateTime.day(), newDateTime.hour(),
-                                        newDateTime.minute(), newDateTime.second()).getTime());
-                    } else {
-                        dueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
-                                new Date(newDate.year() - 1900, newDate.month() - 1,
-                                        newDate.day()).getTime());
-                    }
-                    task.setValue(Task.DUE_DATE, dueDate);
-                    task.setValue(Task.COMPLETION_DATE, 0L);
-                    persist(task);
-                }
-            } catch (ParseException e) {
-                exceptionService.reportError("recurrence-rule: " + recurrence, e); //$NON-NLS-1$
-            }
-        }
 
         /*Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
                 TaskModelForHandlers.FIELD_LIST);

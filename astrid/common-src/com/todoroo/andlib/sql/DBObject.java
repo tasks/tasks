@@ -31,7 +31,7 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        DBObject dbObject = (DBObject) o;
+        DBObject<?> dbObject = (DBObject<?>) o;
 
         if (alias != null ? !alias.equals(dbObject.alias) : dbObject.alias != null) return false;
         if (expression != null ? !expression.equals(dbObject.expression) : dbObject.expression != null) return false;

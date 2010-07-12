@@ -116,6 +116,9 @@ public final class Task extends AbstractModel {
 
     // --- flags
 
+    /** whether repeat occurs relative to completion date instead of due date */
+    public static final int FLAG_REPEAT_AFTER_COMPLETION = 1 << 1;
+
     // --- notification flags
 
     /** whether to send a reminder at deadline */
@@ -241,6 +244,19 @@ public final class Task extends AbstractModel {
      */
     public boolean getFlag(IntegerProperty property, int flag) {
         return (getValue(property) & flag) > 0;
+    }
+
+    /**
+     * Sets the state of the given flag on the given property
+     * @param property
+     * @param flag
+     * @param value
+     */
+    public void setFlag(IntegerProperty property, int flag, boolean value) {
+        if(value)
+            setValue(property, getValue(property) | flag);
+        else
+            setValue(property, getValue(property) & ~flag);
     }
 
     // --- due and hide until date management

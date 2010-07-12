@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <color name="task_list_overdue">#FFFB6666</color>
     <color name="task_list_normal">#FFFFFFFF</color>
     <color name="task_list_done">#ff777777</color>

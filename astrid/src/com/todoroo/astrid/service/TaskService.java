@@ -9,8 +9,11 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 
 /**
@@ -23,6 +26,9 @@ public class TaskService {
 
     @Autowired
     private TaskDao taskDao;
+
+    @Autowired
+    private MetadataDao metadataDao;
 
     public TaskService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -50,7 +56,6 @@ public class TaskService {
             item.setValue(Task.COMPLETION_DATE, DateUtilities.now());
         else
             item.setValue(Task.COMPLETION_DATE, 0L);
-
         taskDao.save(item, false);
     }
 
@@ -64,6 +69,33 @@ public class TaskService {
      */
     public boolean save(Task item, boolean isDuringSync) {
         return taskDao.save(item, isDuringSync);
+    }
+
+    /**
+     * Clone the given task and all its metadata
+     *
+     * @param the old task
+     * @return the new task
+     */
+    public Task clone(Task task) {
+        Task newTask = fetchById(task.getId(), Task.PROPERTIES);
+        newTask.clearValue(Task.ID);
+        taskDao.createNew(newTask);
+        TodorooCursor<Metadata> cursor = metadataDao.query(
+                Query.select(Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
+        try {
+            Metadata metadata = new Metadata();
+            long newId = newTask.getId();
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                metadata.readFromCursor(cursor);
+                metadata.setValue(Metadata.TASK, newId);
+                metadata.clearValue(Metadata.ID);
+                metadataDao.createNew(metadata);
+            }
+        } finally {
+            cursor.close();
+        }
+        return newTask;
     }
 
     /**

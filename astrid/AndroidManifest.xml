@@ -207,6 +207,12 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
+    <receiver android:name="com.todoroo.astrid.repeats.RepeatTaskCompleteListener">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.TASK_COMPLETED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
     
     <!-- notes -->
     <receiver android:name="com.todoroo.astrid.notes.NoteDetailExposer">

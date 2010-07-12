@@ -19,7 +19,7 @@
   59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  
 -->
-<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- General String Constants -->
     <skip />
