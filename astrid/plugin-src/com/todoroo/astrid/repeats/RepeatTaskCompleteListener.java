@@ -45,7 +45,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             return;
 
         String recurrence = task.getValue(Task.RECURRENCE);
-        if(recurrence.length() > 0) {
+        if(recurrence != null && recurrence.length() > 0) {
             DateValue repeatFrom;
             Date repeatFromDate = new Date();
 
