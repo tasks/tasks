@@ -2,6 +2,8 @@ package com.todoroo.astrid.upgrade;
 
 import java.util.Date;
 
+import com.google.ical.values.Frequency;
+import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.TestDependencyInjector;
@@ -14,10 +16,10 @@ import com.todoroo.astrid.legacy.data.enums.Importance;
 import com.todoroo.astrid.legacy.data.enums.RepeatInterval;
 import com.todoroo.astrid.legacy.data.tag.TagController;
 import com.todoroo.astrid.legacy.data.tag.TagIdentifier;
+import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.legacy.data.task.TaskController;
 import com.todoroo.astrid.legacy.data.task.TaskIdentifier;
 import com.todoroo.astrid.legacy.data.task.TaskModelForEdit;
-import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.Astrid2To3UpgradeHelper;
 import com.todoroo.astrid.tags.TagService;
@@ -105,7 +107,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     /**
      * Test various parameters of tasks table
      */
-    public void testTaskTableUpgrade() {
+    public void testTaskTableUpgrade() throws Exception {
         TaskController taskController = new TaskController(getContext());
         taskController.open();
 
@@ -147,6 +149,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         assertEquals(Task.IMPORTANCE_NONE, (int)task.getValue(Task.IMPORTANCE));
         assertEquals(griffey.getEstimatedSeconds(), task.getValue(Task.ESTIMATED_SECONDS));
         assertEquals(griffey.getNotes(), task.getValue(Task.NOTES));
+        assertEquals("", task.getValue(Task.RECURRENCE));
         assertEquals(0, (long)task.getValue(Task.REMINDER_LAST));
         assertEquals(0, (long)task.getValue(Task.HIDE_UNTIL));
 
@@ -156,8 +159,9 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         assertDatesEqual(guti.getPreferredDueDate(), task.getValue(Task.DUE_DATE));
         assertDatesEqual(guti.getHiddenUntil(), task.getValue(Task.HIDE_UNTIL));
         assertEquals((Integer)Task.IMPORTANCE_DO_OR_DIE, task.getValue(Task.IMPORTANCE));
-        assertEquals(guti.getRepeat().getValue(), task.getRepeatInfo().getValue());
-        assertEquals(guti.getRepeat().getInterval().ordinal(), task.getRepeatInfo().getInterval().ordinal());
+        assertEquals(guti.getRepeat().getValue(), new RRule(task.getValue(Task.RECURRENCE)).getInterval());
+        assertEquals(Frequency.DAILY,
+                new RRule(task.getValue(Task.RECURRENCE)).getFreq());
         assertEquals(guti.getElapsedSeconds(), task.getValue(Task.ELAPSED_SECONDS));
         assertEquals(guti.getNotificationIntervalSeconds() * 1000L, (long)task.getValue(Task.REMINDER_PERIOD));
         assertDatesEqual(createdDate, task.getValue(Task.CREATION_DATE));

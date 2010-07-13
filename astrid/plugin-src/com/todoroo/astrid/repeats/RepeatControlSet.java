@@ -27,6 +27,9 @@ import com.timsu.astrid.R;
 import com.timsu.astrid.widget.NumberPicker;
 import com.timsu.astrid.widget.NumberPickerDialog;
 import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.model.Task;
 
@@ -43,7 +46,7 @@ public class RepeatControlSet implements TaskEditControlSet {
     private static final int INTERVAL_DAYS = 0;
     private static final int INTERVAL_WEEKS = 1;
     private static final int INTERVAL_MONTHS = 2;
-    private static final int INTERVAL_YEARS = 3;
+    private static final int INTERVAL_HOURS = 3;
 
     private static final int TYPE_DUE_DATE = 0;
     private static final int TYPE_COMPLETION_DATE = 1;
@@ -59,9 +62,14 @@ public class RepeatControlSet implements TaskEditControlSet {
     private final LinearLayout daysOfWeekContainer;
     private final CompoundButton[] daysOfWeek = new CompoundButton[7];
 
+    @Autowired
+    ExceptionService exceptionService;
+
     // --- implementation
 
     public RepeatControlSet(final Activity activity, ViewGroup parent) {
+        DependencyInjectionService.getInstance().inject(this);
+
         this.activity = activity;
         LayoutInflater.from(activity).inflate(R.layout.repeat_control, parent, true);
 
@@ -176,12 +184,17 @@ public class RepeatControlSet implements TaskEditControlSet {
                 case MONTHLY:
                     interval.setSelection(INTERVAL_MONTHS);
                     break;
-                case YEARLY:
-                    interval.setSelection(INTERVAL_YEARS);
+                case HOURLY:
+                    interval.setSelection(INTERVAL_HOURS);
                     break;
+                default:
+                    // an unhandled recurrence
+                    exceptionService.reportError("repeat-unhandled-rule",  //$NON-NLS-1$
+                            new Exception("Unhandled rrule frequency: " + recurrence)); //$NON-NLS-1$
                 }
             } catch (ParseException e) {
                 recurrence = ""; //$NON-NLS-1$
+                exceptionService.reportError("repeat-parse-exception", e);  //$NON-NLS-1$
             }
         }
         enabled.setChecked(recurrence.length() > 0);
@@ -219,8 +232,8 @@ public class RepeatControlSet implements TaskEditControlSet {
             case INTERVAL_MONTHS:
                 rrule.setFreq(Frequency.MONTHLY);
                 break;
-            case INTERVAL_YEARS:
-                rrule.setFreq(Frequency.YEARLY);
+            case INTERVAL_HOURS:
+                rrule.setFreq(Frequency.HOURLY);
             }
             result = rrule.toIcal();
         }

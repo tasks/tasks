@@ -8,11 +8,11 @@ import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
 import android.preference.ListPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
-import android.preference.Preference.OnPreferenceChangeListener;
 
 /**
  * Displays a preference screen for users to edit their preferences. Override

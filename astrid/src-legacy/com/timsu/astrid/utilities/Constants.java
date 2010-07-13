@@ -3,6 +3,7 @@ package com.timsu.astrid.utilities;
 import android.app.Activity;
 
 /** Astrid constants */
+@Deprecated
 public class Constants {
 
     // application constants

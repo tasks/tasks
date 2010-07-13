@@ -1,15 +1,16 @@
 package com.timsu.astrid.utilities;
 
+import java.io.File;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
+
 import com.timsu.astrid.R;
 import com.timsu.astrid.widget.FilePickerBuilder;
 import com.timsu.astrid.widget.NNumberPickerDialog;
 import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
-
-import java.io.File;
 
 public class DialogUtilities {
 

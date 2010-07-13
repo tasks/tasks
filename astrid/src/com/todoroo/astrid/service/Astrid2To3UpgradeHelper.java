@@ -16,9 +16,12 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.google.ical.values.Frequency;
+import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.Alert;
+import com.timsu.astrid.data.enums.RepeatInterval;
 import com.timsu.astrid.data.task.AbstractTaskModel;
 import com.timsu.astrid.utilities.TasksXmlExporter;
 import com.todoroo.andlib.data.AbstractModel;
@@ -141,7 +144,7 @@ public class Astrid2To3UpgradeHelper {
         propertyMap.put(AbstractTaskModel.NOTIFICATIONS, Task.REMINDER_PERIOD);
         propertyMap.put(AbstractTaskModel.NOTIFICATION_FLAGS, Task.REMINDER_FLAGS);
         propertyMap.put(AbstractTaskModel.LAST_NOTIFIED, Task.REMINDER_LAST);
-        // propertyMap.put(AbstractTaskModel.REPEAT, Task.REPEAT); // TODO
+        propertyMap.put(AbstractTaskModel.REPEAT, Task.RECURRENCE);
         propertyMap.put(AbstractTaskModel.CREATION_DATE, Task.CREATION_DATE);
         propertyMap.put(AbstractTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
         propertyMap.put(AbstractTaskModel.CALENDAR_URI, Task.CALENDAR_URI);
@@ -191,6 +194,38 @@ public class Astrid2To3UpgradeHelper {
         public Cursor cursor;
         public TYPE model;
         public StringBuilder upgradeNotes;
+    }
+
+    /** Legacy repeatInfo class */
+    private static class RepeatInfo {
+        public static final int REPEAT_VALUE_OFFSET    = 3;
+
+        private final RepeatInterval interval;
+        private final int value;
+
+        public RepeatInfo(RepeatInterval repeatInterval, int value) {
+            this.interval = repeatInterval;
+            this.value = value;
+        }
+
+        public RepeatInterval getInterval() {
+            return interval;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public static RepeatInfo fromSingleField(int repeat) {
+            if(repeat == 0)
+                return null;
+            int value = repeat >> REPEAT_VALUE_OFFSET;
+            RepeatInterval interval = RepeatInterval.values()
+                [repeat - (value << REPEAT_VALUE_OFFSET)];
+
+            return new RepeatInfo(interval, value);
+        }
+
     }
 
     /**
@@ -247,7 +282,29 @@ public class Astrid2To3UpgradeHelper {
         @Override
         public Void visitString(Property<String> property, UpgradeVisitorContainer<?> data) {
             String value = data.cursor.getString(data.columnIndex);
-            data.model.setValue(property, value);
+
+            if(property == Task.RECURRENCE) {
+                RepeatInfo repeatInfo = RepeatInfo.fromSingleField(data.cursor.getInt(data.columnIndex));
+                RRule rrule = new RRule();
+                rrule.setInterval(repeatInfo.getValue());
+                switch(repeatInfo.getInterval()) {
+                case DAYS:
+                    rrule.setFreq(Frequency.DAILY);
+                    break;
+                case WEEKS:
+                    rrule.setFreq(Frequency.WEEKLY);
+                    break;
+                case MONTHS:
+                    rrule.setFreq(Frequency.MONTHLY);
+                    break;
+                case HOURS:
+                    rrule.setFreq(Frequency.HOURLY);
+                }
+                data.model.setValue(property, rrule.toIcal());
+            } else {
+                data.model.setValue(property, value);
+            }
+
             Log.d("upgrade", "wrote " + value + " to -> " + property + " of model id " + data.cursor.getLong(1));
             return null;
         }

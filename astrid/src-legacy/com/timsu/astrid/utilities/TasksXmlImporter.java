@@ -1,5 +1,13 @@
 package com.timsu.astrid.utilities;
 
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.Date;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+import org.xmlpull.v1.XmlPullParserFactory;
+
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -7,6 +15,7 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
+
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.alerts.AlertController;
@@ -18,13 +27,6 @@ import com.timsu.astrid.data.tag.TagModelForView;
 import com.timsu.astrid.data.task.TaskController;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForXml;
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-import org.xmlpull.v1.XmlPullParserFactory;
-
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.util.Date;
 
 public class TasksXmlImporter {
     public static final String TAG = "TasksXmlImporter";

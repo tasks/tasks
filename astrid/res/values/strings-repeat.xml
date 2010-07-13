@@ -24,7 +24,7 @@
     <item>Day(s)</item>
     <item>Week(s)</item>
     <item>Month(s)</item>
-    <item>Year(s)</item>
+    <item>Hour(s)</item>
   </string-array>
   
   <string-array name="repeat_type">

@@ -13,9 +13,12 @@ import com.google.ical.iter.RecurrenceIteratorFactory;
 import com.google.ical.values.DateTimeValueImpl;
 import com.google.ical.values.DateValue;
 import com.google.ical.values.DateValueImpl;
+import com.google.ical.values.Frequency;
+import com.google.ical.values.RRule;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.TaskService;
@@ -43,53 +46,62 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
         String recurrence = task.getValue(Task.RECURRENCE);
         if(recurrence.length() > 0) {
-            Date date = new Date();
-            DateValue today = new DateValueImpl(date.getYear() + 1900,
-                    date.getMonth() + 1, date.getDate());
-
             DateValue repeatFrom;
+            Date repeatFromDate = new Date();
+
+            DateValue today = new DateValueImpl(repeatFromDate.getYear() + 1900,
+                    repeatFromDate.getMonth() + 1, repeatFromDate.getDate());
             if(task.hasDueDate() && !task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION)) {
-                date = new Date(task.getValue(Task.DUE_DATE));
-                repeatFrom = new DateTimeValueImpl(date.getYear() + 1900,
-                        date.getMonth() + 1, date.getDate(),
-                        date.getHours(), date.getMinutes(), date.getSeconds());
+                repeatFromDate = new Date(task.getValue(Task.DUE_DATE));
+                if(task.hasDueTime()) {
+                    repeatFrom = new DateTimeValueImpl(repeatFromDate.getYear() + 1900,
+                            repeatFromDate.getMonth() + 1, repeatFromDate.getDate(),
+                            repeatFromDate.getHours(), repeatFromDate.getMinutes(), repeatFromDate.getSeconds());
+                } else {
+                    repeatFrom = new DateValueImpl(repeatFromDate.getYear() + 1900,
+                            repeatFromDate.getMonth() + 1, repeatFromDate.getDate());
+                }
             } else {
                 repeatFrom = today;
             }
 
             // invoke the recurrence iterator
             try {
-                RecurrenceIterator iterator = RecurrenceIteratorFactory.createRecurrenceIterator(recurrence,
-                        repeatFrom, TimeZone.getDefault());
-                if(repeatFrom.compareTo(today) < 0)
-                    repeatFrom = today;
-                // go to the latest value and advance one more
-                iterator.advanceTo(repeatFrom);
-                if(!iterator.hasNext())
-                    return;
-                DateValue nextDate = iterator.next();
-                if(nextDate.equals(repeatFrom)) {
+                long newDueDate;
+                RRule rrule = new RRule(recurrence);
+                if(rrule.getFreq() == Frequency.HOURLY) {
+                    newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
+                            repeatFromDate.getTime() + DateUtilities.ONE_HOUR * rrule.getInterval());
+                } else {
+                    RecurrenceIterator iterator = RecurrenceIteratorFactory.createRecurrenceIterator(rrule,
+                            repeatFrom, TimeZone.getDefault());
+                    if(repeatFrom.compareTo(today) < 0)
+                        repeatFrom = today;
+                    // go to the latest value and advance one more if needed
+                    iterator.advanceTo(repeatFrom);
                     if(!iterator.hasNext())
                         return;
-                    nextDate = iterator.next();
+                    DateValue nextDate = iterator.next();
+                    if(nextDate.compareTo(today) == 0)
+                        nextDate = iterator.next();
+
+                    if(nextDate instanceof DateTimeValueImpl) {
+                        DateTimeValueImpl newDateTime = (DateTimeValueImpl)nextDate;
+                        newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
+                                new Date(newDateTime.year() - 1900, newDateTime.month() - 1,
+                                        newDateTime.day(), newDateTime.hour(),
+                                        newDateTime.minute(), newDateTime.second()).getTime());
+                    } else {
+                        newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
+                                new Date(nextDate.year() - 1900, nextDate.month() - 1,
+                                        nextDate.day()).getTime());
+                    }
                 }
 
-                long newDueDate;
-                if(nextDate instanceof DateTimeValueImpl) {
-                    DateTimeValueImpl newDateTime = (DateTimeValueImpl)nextDate;
-                    newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-                            new Date(newDateTime.year() - 1900, newDateTime.month() - 1,
-                                    newDateTime.day(), newDateTime.hour(),
-                                    newDateTime.minute(), newDateTime.second()).getTime());
-                } else {
-                    newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
-                            new Date(nextDate.year() - 1900, nextDate.month() - 1,
-                                    nextDate.day()).getTime());
-                }
-
-                Task newTask = taskService.clone(task);
+                task = taskService.clone(task);
                 task.setValue(Task.DUE_DATE, newDueDate);
-                taskService.save(newTask, false);
+                task.setValue(Task.COMPLETION_DATE, 0L);
+                taskService.save(task, false);
             } catch (ParseException e) {
                 exceptionService.reportError("recurrence-rule: " + recurrence, e); //$NON-NLS-1$
             }

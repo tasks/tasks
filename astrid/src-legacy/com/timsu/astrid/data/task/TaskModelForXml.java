@@ -1,15 +1,16 @@
 package com.timsu.astrid.data.task;
 
+import java.util.Date;
+import java.util.HashMap;
+
 import android.database.Cursor;
 import android.util.Log;
+
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.enums.Importance;
 import com.timsu.astrid.data.enums.RepeatInterval;
 import com.timsu.astrid.utilities.DateUtilities;
-
-import java.util.Date;
-import java.util.HashMap;
 
 public class TaskModelForXml extends AbstractTaskModel {
 

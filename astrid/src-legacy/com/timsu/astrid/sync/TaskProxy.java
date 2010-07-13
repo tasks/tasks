@@ -28,9 +28,9 @@ import com.timsu.astrid.data.enums.RepeatInterval;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
+import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForSync;
-import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 
 /** Representation of a task on a remote server. Your synchronization
  * service should instantiate these, filling out every field (use null

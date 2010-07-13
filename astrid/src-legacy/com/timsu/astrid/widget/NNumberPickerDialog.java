@@ -29,9 +29,9 @@ import android.content.DialogInterface.OnClickListener;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout.LayoutParams;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.FrameLayout.LayoutParams;
 
 import com.timsu.astrid.R;
 

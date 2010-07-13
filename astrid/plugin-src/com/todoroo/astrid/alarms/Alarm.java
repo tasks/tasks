@@ -8,11 +8,11 @@ import android.content.ContentValues;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Table;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.Table;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.model.Task;
 
 /**

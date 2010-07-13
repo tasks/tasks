@@ -18,14 +18,11 @@ public class TodorooTestCase extends AndroidTestCase {
         AstridDependencyInjector.initialize();
     }
 
-    public TodorooTestCase() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
 	@Override
 	protected void setUp() throws Exception {
 	    super.setUp();
 	    ContextManager.setContext(this.getContext());
+	    DependencyInjectionService.getInstance().inject(this);
 	}
 
 }

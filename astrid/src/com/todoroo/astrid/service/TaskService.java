@@ -63,12 +63,12 @@ public class TaskService {
      * Create or save the given action item
      *
      * @param item
-     * @param isDuringSync
-     *            Whether this operation is invoked from synchronizer. This
-     *            determines which pre and post save hooks get run
+     * @param skipHooks
+     *            Whether pre and post hooks should run. This should be set
+     *            to true if tasks are created as part of synchronization
      */
-    public boolean save(Task item, boolean isDuringSync) {
-        return taskDao.save(item, isDuringSync);
+    public boolean save(Task item, boolean runHooks) {
+        return taskDao.save(item, runHooks);
     }
 
     /**
@@ -84,13 +84,15 @@ public class TaskService {
         TodorooCursor<Metadata> cursor = metadataDao.query(
                 Query.select(Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
         try {
-            Metadata metadata = new Metadata();
-            long newId = newTask.getId();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                metadata.readFromCursor(cursor);
-                metadata.setValue(Metadata.TASK, newId);
-                metadata.clearValue(Metadata.ID);
-                metadataDao.createNew(metadata);
+            if(cursor.getCount() > 0) {
+                Metadata metadata = new Metadata();
+                long newId = newTask.getId();
+                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                    metadata.readFromCursor(cursor);
+                    metadata.setValue(Metadata.TASK, newId);
+                    metadata.clearValue(Metadata.ID);
+                    metadataDao.createNew(metadata);
+                }
             }
         } finally {
             cursor.close();

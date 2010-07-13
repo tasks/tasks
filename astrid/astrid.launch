@@ -11,7 +11,7 @@
 <intAttribute key="com.android.ide.eclipse.adt.delay" value="0"/>
 <booleanAttribute key="com.android.ide.eclipse.adt.nobootanim" value="true"/>
 <intAttribute key="com.android.ide.eclipse.adt.speed" value="0"/>
-<booleanAttribute key="com.android.ide.eclipse.adt.target" value="false"/>
+<booleanAttribute key="com.android.ide.eclipse.adt.target" value="true"/>
 <booleanAttribute key="com.android.ide.eclipse.adt.wipedata" value="false"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/astrid"/>

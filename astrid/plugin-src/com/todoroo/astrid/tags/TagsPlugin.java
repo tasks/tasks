@@ -4,8 +4,8 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Addon;
+import com.todoroo.astrid.api.AstridApiConstants;
 
 public class TagsPlugin extends BroadcastReceiver {
 

@@ -1,16 +1,17 @@
 package com.timsu.astrid.widget;
 
-import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.util.Log;
-import com.timsu.astrid.R;
-
 import java.io.File;
 import java.io.FilenameFilter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.util.Log;
+
+import com.timsu.astrid.R;
 
 public class FilePickerBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener {
 

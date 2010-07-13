@@ -3,6 +3,12 @@ package com.todoroo.andlib.service;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
+import android.util.Log;
+
+import com.todoroo.astrid.utility.Constants;
+
+
+
 /**
  * Simple Dependency Injection Service for Android.
  * <p>
@@ -32,6 +38,10 @@ public class DependencyInjectionService {
      */
     @SuppressWarnings("nls")
     public void inject(Object caller) {
+
+        if(Constants.DEBUG) {
+            Log.d("INJECTOR", "Invoked Injector on " + caller, new Throwable());
+        }
 
         // Traverse through class and all parent classes, looking for
         // fields declared with the @Autowired annotation and using
@@ -92,6 +102,8 @@ public class DependencyInjectionService {
         for (AbstractDependencyInjector injector : injectors) {
             Object injection = injector.getInjection(caller, field);
             if (injection != null) {
+                if(Constants.DEBUG)
+                    Log.e("INJECTOR", injector + ":" + caller + "." + field.getName() + " => " + injection);
                 field.set(caller, injection);
                 return;
             }

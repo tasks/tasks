@@ -31,6 +31,11 @@ public class TestDependencyInjector implements AbstractDependencyInjector {
         return null;
     }
 
+    @Override
+    public String toString() {
+        return "TestDI:" + name;
+    }
+
     // --- static stuff
 
     /**

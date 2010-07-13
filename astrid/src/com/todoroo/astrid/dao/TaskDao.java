@@ -134,9 +134,12 @@ public class TaskDao extends GenericDao<Task> {
      * Saves the given task to the database.getDatabase(). Task must already
      * exist. Returns true on success.
      *
-     * @param duringSync whether this save occurs as part of a sync
+     * @param task
+     * @param skipHooks
+     *            Whether pre and post hooks should run. This should be set
+     *            to true if tasks are created as part of synchronization
      */
-    public boolean save(Task task, boolean duringSync) {
+    public boolean save(Task task, boolean skipHooks) {
         boolean saveSuccessful;
 
         if (task.getId() == Task.NO_ID) {
@@ -145,9 +148,9 @@ public class TaskDao extends GenericDao<Task> {
             ContentValues values = task.getSetValues();
             if(values.size() == 0)
                 return true;
-            beforeSave(task, values, duringSync);
+            beforeSave(task, values, skipHooks);
             saveSuccessful = saveExisting(task);
-            afterSave(task, values, duringSync);
+            afterSave(task, values, skipHooks);
         }
 
         if(saveSuccessful)

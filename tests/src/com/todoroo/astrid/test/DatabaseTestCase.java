@@ -2,7 +2,6 @@ package com.todoroo.astrid.test;
 
 import java.io.File;
 
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.astrid.alarms.AlarmDatabase;
@@ -25,17 +24,15 @@ public class DatabaseTestCase extends TodorooTestCase {
 
 	@Override
 	protected void setUp() throws Exception {
-	    super.setUp();
-
 	    // initialize test dependency injector
 	    TestDependencyInjector injector = TestDependencyInjector.initialize("db");
 	    injector.addInjectable("database", database);
 
-	    DependencyInjectionService.getInstance().inject(this);
+	    // call upstream setup, which invokes dependency injector
+	    super.setUp();
 
 		// empty out test databases
 	    database.clear();
-
 		database.openForWriting();
 	}
 
