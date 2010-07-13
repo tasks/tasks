@@ -13,9 +13,9 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.api.FilterCategory;
@@ -135,7 +135,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         textView.setTextAppearance(activity, R.style.TextAppearance_FLA_Category);
 
         View view = augmentView(textView, filter);
-        view.setPadding(60, 2, 0, 2);
+        view.setPadding(50, 2, 0, 2);
         FrameLayout.LayoutParams rowLayout = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         rowLayout.gravity = Gravity.CENTER_VERTICAL;
@@ -182,7 +182,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         View view = augmentView(textView, filter);
         view.setBackgroundDrawable(null);
         view.setLayoutParams(lp);
-        view.setPadding(isChild ? 50 : 10, 0, 0, 0);
+        view.setPadding(isChild ? 40 : 10, 0, 0, 0);
 
         return view;
     }

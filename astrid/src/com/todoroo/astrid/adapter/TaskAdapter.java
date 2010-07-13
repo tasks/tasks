@@ -228,6 +228,12 @@ public class TaskAdapter extends CursorAdapter {
                 }
                 dueDateView.setText(dateValue);
                 setVisibility(dueDateView);
+            } else if(task.isCompleted()) {
+                String dateValue = DateUtilities.getDateFormat(activity).format(task.getValue(Task.COMPLETION_DATE));
+                dueDateView.setText(r.getString(R.string.TAd_completed, dateValue));
+                dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
+                setVisibility(dueDateView);
+
             } else {
                 dueDateView.setVisibility(View.GONE);
             }

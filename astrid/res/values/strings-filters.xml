@@ -4,16 +4,31 @@
     
     <!-- Resources for built-in filter plug-in -->
     
-    <!-- Inbox Filter -->
-    <string name="BFE_Inbox">Inbox</string>
+    <!-- Active Tasks Filter -->
+    <string name="BFE_Active">Active Tasks</string>
         
-    <!-- Inbox Filter -->
-    <string name="BFE_Inbox_title">Astrid: Inbox</string>
+    <!-- Title for Active Tasks Filter (what user sees when first opening the app) -->
+    <string name="BFE_Active_title">Astrid: Home</string>
+    
+    <!-- Search -->
+    <string name="BFE_Search">Search</string>
+
+    <!-- Extended Filters Category -->
+    <string name="BFE_Extended">More...</string>
+
+    <!-- sort Alphabetical filter -->
+    <string name="BFE_Alphabetical">Alphabetical</string>
+
+    <!-- sort recent modification filter -->
+    <string name="BFE_Recent">Recently Modified</string>
     
     <!-- Completed Filter -->
-    <string name="BFE_Completed">Completed</string>
+    <string name="BFE_Completed">Completed Tasks</string>
 
-    <!-- All Tasks Filter -->
-    <string name="BFE_All">All Tasks</string>
+    <!-- hidden tasks filter -->
+    <string name="BFE_Hidden">Hidden Tasks</string>
+
+    <!-- deleted tasks filter -->
+    <string name="BFE_Deleted">Deleted Tasks</string>
         
 </resources>

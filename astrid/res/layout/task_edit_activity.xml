@@ -55,15 +55,17 @@
         android:id="@+id/urgency"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
-
-      <!-- hide until -->
+                
+      <!-- tags -->
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/TEA_hideUntil_label"
+        android:text="@string/TEA_tags_label"
         style="@style/TextAppearance.GEN_EditLabel" />
-      <Spinner
-        android:id="@+id/hideUntil"
+      <LinearLayout
+        android:id="@+id/tags_container"
+        android:orientation="vertical"
+        android:paddingBottom="5dip"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
               
@@ -183,17 +185,15 @@
         android:layout_height="1dip"
         android:padding="5dip"
         android:background="@android:drawable/divider_horizontal_dark" />
-        
-      <!-- tags -->
+
+      <!-- hide until -->
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/TEA_tags_label"
+        android:text="@string/TEA_hideUntil_label"
         style="@style/TextAppearance.GEN_EditLabel" />
-      <LinearLayout
-        android:id="@+id/tags_container"
-        android:orientation="vertical"
-        android:paddingBottom="5dip"
+      <Spinner
+        android:id="@+id/hideUntil"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
         

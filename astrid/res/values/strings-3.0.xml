@@ -251,28 +251,28 @@ to the plugin creator for fastest service.
   <string name="TEA_tab_basic">Basic</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">Extra</string>
+  <string name="TEA_tab_extra">Advanced</string>
   
   <!-- Third Tab - add-ons -->
   <string name="TEA_tab_addons">Add-ons</string>
   
   <!-- Task title label -->
-  <string name="TEA_title_label">What to do?</string>
+  <string name="TEA_title_label">Title</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Task Summary</string>
   
   <!-- Task importance label -->
-  <string name="TEA_importance_label">How Important?</string>
+  <string name="TEA_importance_label">Importance</string>
   
   <!-- Task urgency label -->
-  <string name="TEA_urgency_label">When to Start?</string>
+  <string name="TEA_urgency_label">Deadline</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide Until?</string>
+  <string name="TEA_hideUntil_label">Hide Until</string>
   
   <!-- Task note label -->
-  <string name="TEA_note_label">Notes:</string>
+  <string name="TEA_note_label">Notes</string>
   
   <!-- Task note hint -->
   <string name="TEA_notes_hint">Enter Task Notes...</string>
