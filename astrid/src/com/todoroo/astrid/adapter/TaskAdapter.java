@@ -10,12 +10,13 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
+import android.text.Html;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnCreateContextMenuListener;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
@@ -307,7 +308,7 @@ public class TaskAdapter extends CursorAdapter {
     private View detailToView(TaskDetail detail) {
         TextView textView = new TextView(activity);
         textView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
-        textView.setText(detail.text);
+        textView.setText(Html.fromHtml(detail.text));
         if(detail.color != 0)
             textView.setTextColor(detail.color);
         return textView;
