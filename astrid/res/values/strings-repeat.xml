@@ -33,4 +33,13 @@
     <item>from completion date</item>
   </string-array>
   
+  <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
+  <string name="repeat_detail_byday">$I on $D</string>
+  
+  <!-- task detail for repeat from due date (%s -> interval) -->
+  <string name="repeat_detail_duedate">Repeats every %s</string>
+  
+  <!-- task detail for repeat from completion date (%s -> interval) -->
+  <string name="repeat_detail_completion">Repeats %s after completion</string>
+  
 </resources>

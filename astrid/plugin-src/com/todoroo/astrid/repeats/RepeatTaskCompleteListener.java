@@ -40,7 +40,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         DependencyInjectionService.getInstance().inject(this);
 
         Task task = taskService.fetchById(taskId, Task.ID, Task.RECURRENCE,
-                Task.DUE_DATE, Task.FLAGS);
+                Task.DUE_DATE, Task.FLAGS, Task.HIDE_UNTIL);
         if(task == null)
             return;
 
@@ -102,8 +102,14 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                     }
                 }
 
+                long hideUntil = task.getValue(Task.HIDE_UNTIL);
+                if(hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {
+                    hideUntil += newDueDate - task.getValue(Task.DUE_DATE);
+                }
+
                 task = taskService.clone(task);
                 task.setValue(Task.DUE_DATE, newDueDate);
+                task.setValue(Task.HIDE_UNTIL, hideUntil);
                 task.setValue(Task.COMPLETION_DATE, 0L);
                 taskService.save(task, false);
             } catch (ParseException e) {

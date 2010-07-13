@@ -11,13 +11,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
@@ -159,6 +159,8 @@ public class RepeatControlSet implements TaskEditControlSet {
     @Override
     public void readFromTask(Task task) {
         String recurrence = task.getValue(Task.RECURRENCE);
+        if(recurrence == null)
+            recurrence = ""; //$NON-NLS-1$
 
         // read recurrence rule
         if(recurrence.length() > 0) {

@@ -254,4 +254,44 @@ public class RepeatTests extends DatabaseTestCase {
         }
     }
 
+    /** test hide unitl date is repeated */
+    public void testHideUntilRepeated() throws Exception {
+        Task task = new Task();
+        task.setValue(Task.TITLE, "hideUntil");
+        RRule rrule = new RRule();
+        rrule.setInterval(1);
+        rrule.setFreq(Frequency.WEEKLY);
+        task.setValue(Task.RECURRENCE, rrule.toIcal());
+        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_TODAY, 0));
+        task.setValue(Task.HIDE_UNTIL, task.createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0));
+        taskDao.save(task, false);
+
+        task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
+        taskDao.save(task, false);
+
+        // wait for repeat handler
+        Thread.sleep(REPEAT_WAIT);
+
+        TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES));
+        try {
+            assertEquals(2, cursor.getCount());
+            cursor.moveToFirst();
+            task.readFromCursor(cursor);
+
+            assertTrue(task.hasDueDate());
+            assertTrue(task.isCompleted());
+            assertFalse(task.isHidden());
+
+            cursor.moveToNext();
+            task.readFromCursor(cursor);
+            assertFalse(task.isCompleted());
+            assertTrue(task.isHidden());
+            long date = task.getValue(Task.HIDE_UNTIL);
+            assertTrue("Hide Until date is '" + new Date(date) + "', expected more like '" +
+                    new Date(DateUtilities.now() + 6 * DateUtilities.ONE_DAY) + "'",
+                    Math.abs(date - DateUtilities.now() - 6 * DateUtilities.ONE_DAY) < DateUtilities.ONE_DAY);
+        } finally {
+            cursor.close();
+        }
+    }
 }
