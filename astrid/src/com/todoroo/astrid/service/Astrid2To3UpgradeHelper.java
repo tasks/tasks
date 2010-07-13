@@ -285,22 +285,26 @@ public class Astrid2To3UpgradeHelper {
 
             if(property == Task.RECURRENCE) {
                 RepeatInfo repeatInfo = RepeatInfo.fromSingleField(data.cursor.getInt(data.columnIndex));
-                RRule rrule = new RRule();
-                rrule.setInterval(repeatInfo.getValue());
-                switch(repeatInfo.getInterval()) {
-                case DAYS:
-                    rrule.setFreq(Frequency.DAILY);
-                    break;
-                case WEEKS:
-                    rrule.setFreq(Frequency.WEEKLY);
-                    break;
-                case MONTHS:
-                    rrule.setFreq(Frequency.MONTHLY);
-                    break;
-                case HOURS:
-                    rrule.setFreq(Frequency.HOURLY);
+                if(repeatInfo == null)
+                    data.model.setValue(property, "");
+                else {
+                    RRule rrule = new RRule();
+                    rrule.setInterval(repeatInfo.getValue());
+                    switch(repeatInfo.getInterval()) {
+                    case DAYS:
+                        rrule.setFreq(Frequency.DAILY);
+                        break;
+                    case WEEKS:
+                        rrule.setFreq(Frequency.WEEKLY);
+                        break;
+                    case MONTHS:
+                        rrule.setFreq(Frequency.MONTHLY);
+                        break;
+                    case HOURS:
+                        rrule.setFreq(Frequency.HOURLY);
+                    }
+                    data.model.setValue(property, rrule.toIcal());
                 }
-                data.model.setValue(property, rrule.toIcal());
             } else {
                 data.model.setValue(property, value);
             }

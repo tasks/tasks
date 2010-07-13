@@ -62,6 +62,8 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         deleteDatabase(ALERTS_TEST);
         deleteDatabase(SYNC_TEST);
 
+        database.clear();
+
         alarmsDatabase = new AlarmDatabase();
         alarmsDatabase.clear();
     }
@@ -121,7 +123,6 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         taskController.saveTask(griffey, false);
 
         TaskModelForEdit guti = new com.todoroo.astrid.legacy.data.task.TaskModelForEdit();
-        Date createdDate = new Date();
         guti.setName("franklin gutierrez");
         guti.setPreferredDueDate(new Date(System.currentTimeMillis() + 5000000L));
         guti.setImportance(Importance.LEVEL_1);
@@ -136,6 +137,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
         // upgrade
         upgrade2To3();
+        Date createdDate = new Date();
 
         // verify that data exists in our new table
         database.openForReading();
