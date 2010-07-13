@@ -69,6 +69,13 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
               
+      <!-- separator -->
+      <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:padding="5dip"
+        android:background="@android:drawable/divider_horizontal_dark" />
+              
       <!-- notes -->
       <TextView
         android:paddingTop="5dip"

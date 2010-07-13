@@ -27,10 +27,8 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TabActivity;
-import android.app.TimePickerDialog;
-import android.app.TimePickerDialog.OnTimeSetListener;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -45,7 +43,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -60,6 +57,7 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -81,6 +79,8 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.widget.DeadlineTimePickerDialog;
+import com.todoroo.astrid.widget.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -693,7 +693,7 @@ public final class TaskEditActivity extends TabActivity {
     // --- UrgencyControlSet
 
     private class UrgencyControlSet implements TaskEditControlSet,
-            OnItemSelectedListener, OnTimeSetListener, OnDateSetListener {
+            OnItemSelectedListener, OnDeadlineTimeSetListener, OnDateSetListener {
 
         private static final long SPECIFIC_DATE = -1;
 
@@ -742,24 +742,20 @@ public final class TaskEditActivity extends TabActivity {
             // set up base urgency list
             String[] labels = getResources().getStringArray(R.array.TEA_urgency);
             UrgencyValue[] urgencyValues = new UrgencyValue[labels.length];
-            urgencyValues[0] = new UrgencyValue(labels[Task.URGENCY_NONE],
-                    Task.URGENCY_NONE);
-            urgencyValues[1] = new UrgencyValue(labels[Task.URGENCY_TODAY],
+            urgencyValues[0] = new UrgencyValue(labels[0],
+                    Task.URGENCY_SPECIFIC_DAY_TIME, SPECIFIC_DATE);
+            urgencyValues[1] = new UrgencyValue(labels[1],
                     Task.URGENCY_TODAY);
-            urgencyValues[2] = new UrgencyValue(labels[Task.URGENCY_TOMORROW],
+            urgencyValues[2] = new UrgencyValue(labels[2],
                     Task.URGENCY_TOMORROW);
             String dayAfterTomorrow = new SimpleDateFormat("EEEE").format( //$NON-NLS-1$
                     new Date(DateUtilities.now() + 2 * DateUtilities.ONE_DAY));
             urgencyValues[3] = new UrgencyValue(dayAfterTomorrow,
                     Task.URGENCY_DAY_AFTER);
-            urgencyValues[4] = new UrgencyValue(labels[Task.URGENCY_NEXT_WEEK],
+            urgencyValues[4] = new UrgencyValue(labels[4],
                     Task.URGENCY_NEXT_WEEK);
-            urgencyValues[5] = new UrgencyValue(labels[Task.URGENCY_NEXT_MONTH],
-                    Task.URGENCY_NEXT_MONTH);
-            urgencyValues[6] = new UrgencyValue(labels[Task.URGENCY_SPECIFIC_DAY],
-                    Task.URGENCY_SPECIFIC_DAY, SPECIFIC_DATE);
-            urgencyValues[7] = new UrgencyValue(labels[Task.URGENCY_SPECIFIC_DAY_TIME],
-                    Task.URGENCY_SPECIFIC_DAY_TIME, SPECIFIC_DATE);
+            urgencyValues[5] = new UrgencyValue(labels[5],
+                    Task.URGENCY_NONE);
 
             // search for setting
             int selection = -1;
@@ -830,14 +826,18 @@ public final class TaskEditActivity extends TabActivity {
                 return;
             }
 
-            new TimePickerDialog(TaskEditActivity.this, this,
+            new DeadlineTimePickerDialog(TaskEditActivity.this, this,
                     customDate.getHours(), customDate.getMinutes(),
                     DateUtilities.is24HourFormat(TaskEditActivity.this)).show();
         }
 
-        public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            customDate.setHours(hourOfDay);
-            customDate.setMinutes(minute);
+        public void onTimeSet(TimePicker view, boolean hasTime, int hourOfDay, int minute) {
+            if(!hasTime)
+                customSetting = Task.URGENCY_SPECIFIC_DAY;
+            else {
+                customDate.setHours(hourOfDay);
+                customDate.setMinutes(minute);
+            }
             customDateFinished();
         }
 
@@ -857,7 +857,8 @@ public final class TaskEditActivity extends TabActivity {
         @Override
         public void writeToModel(Task task) {
             UrgencyValue item = urgencyAdapter.getItem(urgency.getSelectedItemPosition());
-            task.setValue(Task.DUE_DATE, item.dueDate);
+            if(item.dueDate != SPECIFIC_DATE) // user cancelled specific date
+                task.setValue(Task.DUE_DATE, item.dueDate);
         }
     }
 
