@@ -16,7 +16,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
@@ -31,6 +33,8 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.activity.TaskEditActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskDetail;
 import com.todoroo.astrid.model.Task;
@@ -44,6 +48,14 @@ import com.todoroo.astrid.utility.Preferences;
  *
  */
 public class TaskAdapter extends CursorAdapter {
+
+    private final class RowClickListener implements
+            OnClickListener {
+        @Override
+        public void onClick(View v) {
+
+        }
+    }
 
     public interface OnCompletedTaskListener {
         public void onCompletedTask(Task item, boolean newState);
@@ -136,6 +148,7 @@ public class TaskAdapter extends CursorAdapter {
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.details = (LinearLayout)view.findViewById(R.id.details);
+        viewHolder.actions = (LinearLayout)view.findViewById(R.id.actions);
         viewHolder.importance = (View)view.findViewById(R.id.importance);
         view.setTag(viewHolder);
 
@@ -180,7 +193,8 @@ public class TaskAdapter extends CursorAdapter {
         public TextView dueDate;
         public LinearLayout details;
         public View importance;
-        public TextView loadingDetails;
+        public LinearLayout actions;
+        public boolean expanded;
     }
 
     /** Helper method to set the contents and visibility of each field */
@@ -253,16 +267,12 @@ public class TaskAdapter extends CursorAdapter {
                 Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
                 broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
                 activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-
-                /* add loading message
-                if(viewHolder.loadingDetails == null) {
-                    viewHolder.loadingDetails = new TextView(activity);
-                    viewHolder.loadingDetails.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
-                    viewHolder.loadingDetails.setText(R.string.TAd_loading);
-                    detailsView.addView(viewHolder.loadingDetails);
-                }*/
             }
         }
+
+        final LinearLayout actionsView = viewHolder.actions;
+        actionsView.setVisibility(View.GONE);
+        viewHolder.expanded = false;
 
         // importance bar - must be set at end when view height is determined
         final View importanceView = viewHolder.importance; {
@@ -294,14 +304,12 @@ public class TaskAdapter extends CursorAdapter {
             if(viewHolder == null || viewHolder.task.getId() != taskId)
                 continue;
 
-            viewHolder.details.addView(detailToView(detail));
-            viewHolder.details.setVisibility(View.VISIBLE);
-
-            if(viewHolder.loadingDetails != null) {
-                viewHolder.details.removeView(viewHolder.loadingDetails);
-                viewHolder.loadingDetails = null;
+            TextView newView = detailToView(detail);
+            for(int j = 0; j < viewHolder.details.getChildCount(); j++) {
+                if(newView.getText().equals(((TextView)viewHolder.details.getChildAt(j)).getText()))
+                    return;
             }
-
+            viewHolder.details.addView(newView);
             break;
         }
     }
@@ -311,7 +319,7 @@ public class TaskAdapter extends CursorAdapter {
      *
      * @param detail
      */
-    private View detailToView(TaskDetail detail) {
+    private TextView detailToView(TaskDetail detail) {
         TextView textView = new TextView(activity);
         textView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
         textView.setText(Html.fromHtml(detail.text));
@@ -343,19 +351,44 @@ public class TaskAdapter extends CursorAdapter {
 
         // context menu listener
         container.setOnCreateContextMenuListener(listener);
-    }
 
-    class ContextMenuListener implements OnCreateContextMenuListener {
-
-        public void onCreateContextMenu(ContextMenu menu, View v,
-                ContextMenuInfo menuInfo) {
-            // this is all a big sham. it's actually handled in Task List Activity
-        }
+        // tap listener
+        container.setOnClickListener(listener);
     }
 
     /* ======================================================================
      * ======================================================= event handlers
      * ====================================================================== */
+
+
+    class ContextMenuListener implements OnCreateContextMenuListener, OnClickListener {
+
+        public void onCreateContextMenu(ContextMenu menu, View v,
+                ContextMenuInfo menuInfo) {
+            // this is all a big sham. it's actually handled in Task List Activity
+        }
+
+        @Override
+        public void onClick(View v) {
+            final ViewHolder viewHolder = (ViewHolder)v.getTag();
+            viewHolder.expanded = !viewHolder.expanded;
+            LinearLayout actions = viewHolder.actions;
+            actions.setVisibility(viewHolder.expanded ? View.VISIBLE : View.GONE);
+            if(viewHolder.expanded && actions.getChildCount() == 0) {
+                Button edit = new Button(activity);
+                edit.setText(R.string.TAd_actionEditTask);
+                edit.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(activity, TaskEditActivity.class);
+                        intent.putExtra(TaskEditActivity.ID_TOKEN, viewHolder.task.getId());
+                        activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
+                    }
+                });
+                actions.addView(edit);
+            }
+        }
+    }
 
     /**
      * Call me when the parent presses trackpad

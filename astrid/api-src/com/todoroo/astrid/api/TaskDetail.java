@@ -57,7 +57,6 @@ public final class TaskDetail implements Parcelable {
 
     // --- parcelable helpers
 
-
     /**
      * {@inheritDoc}
      */

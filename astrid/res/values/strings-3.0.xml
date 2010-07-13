@@ -178,8 +178,8 @@ button: add task & go to the edit page.
   <!-- indicates task was completed. %s => date or time ago -->
   <string name="TAd_completed">Finished %s</string>
   
-  <!-- placeholder for loading task detail -->
-  <string name="TAd_loading">Loading...</string>
+  <!-- Action Button: edit task -->
+  <string name="TAd_actionEditTask">Edit</string>
   
   <!-- Context Item: edit task -->
   <string name="TAd_contextEditTask">Edit Task</string>
