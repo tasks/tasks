@@ -24,6 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
+        android:minHeight="38dip"
         android:paddingLeft="40dip"
         android:paddingRight="6dip"
         android:orientation="vertical">
@@ -44,22 +45,25 @@
             
         <!-- other details go here -->
         
-    </LinearLayout>
+    </LinearLayout>    
             
     <LinearLayout android:id="@+id/actions"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_below="@id/details"
+        android:background="#4499bbcc" 
         android:visibility="gone"
-        android:paddingLeft="40dip"
+        android:paddingTop="4dip"
+        android:paddingLeft="6dip"
         android:paddingRight="6dip"
-        android:orientation="vertical" />
+        android:orientation="horizontal" />
             
     <!-- importance -->
     <View android:id="@+id/importance"
         android:layout_width="2dip"
         android:layout_height="fill_parent"
+        android:minHeight="38dip"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true" />
         

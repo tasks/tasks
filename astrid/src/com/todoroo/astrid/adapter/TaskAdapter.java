@@ -24,6 +24,7 @@ import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
@@ -48,14 +49,6 @@ import com.todoroo.astrid.utility.Preferences;
  *
  */
 public class TaskAdapter extends CursorAdapter {
-
-    private final class RowClickListener implements
-            OnClickListener {
-        @Override
-        public void onClick(View v) {
-
-        }
-    }
 
     public interface OnCompletedTaskListener {
         public void onCompletedTask(Task item, boolean newState);
@@ -219,7 +212,6 @@ public class TaskAdapter extends CursorAdapter {
             if(completedItems.containsKey(task.getId()))
                 task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
             completeBox.setChecked(task.isCompleted());
-            completeBox.setVisibility(View.VISIBLE);
         }
 
         // due date / completion date
@@ -270,15 +262,10 @@ public class TaskAdapter extends CursorAdapter {
             }
         }
 
-        final LinearLayout actionsView = viewHolder.actions;
-        actionsView.setVisibility(View.GONE);
-        viewHolder.expanded = false;
-
         // importance bar - must be set at end when view height is determined
         final View importanceView = viewHolder.importance; {
             int value = task.getValue(Task.IMPORTANCE);
             importanceView.setBackgroundColor(IMPORTANCE_COLORS[value]);
-            importanceView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -375,11 +362,14 @@ public class TaskAdapter extends CursorAdapter {
             LinearLayout actions = viewHolder.actions;
             actions.setVisibility(viewHolder.expanded ? View.VISIBLE : View.GONE);
             if(viewHolder.expanded && actions.getChildCount() == 0) {
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1f);
                 Button edit = new Button(activity);
                 edit.setText(R.string.TAd_actionEditTask);
+                edit.setLayoutParams(params);
                 edit.setOnClickListener(new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClick(View view) {
                         Intent intent = new Intent(activity, TaskEditActivity.class);
                         intent.putExtra(TaskEditActivity.ID_TOKEN, viewHolder.task.getId());
                         activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
