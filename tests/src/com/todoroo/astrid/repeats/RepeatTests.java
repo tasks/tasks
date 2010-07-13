@@ -33,7 +33,7 @@ public class RepeatTests extends DatabaseTestCase {
     }
 
     /** test that completing a task w/ no repeats does nothing */
-    public void xtestNoRepeats() throws Exception{
+    public void testNoRepeats() throws Exception{
         Task task = new Task();
         task.setValue(Task.TITLE, "nothing");
         taskDao.save(task, false);
@@ -100,7 +100,7 @@ public class RepeatTests extends DatabaseTestCase {
         rrule.setInterval(1);
         rrule.setFreq(Frequency.WEEKLY);
         task.setValue(Task.RECURRENCE, rrule.toIcal());
-        long originalDueDate = (DateUtilities.now() - DateUtilities.ONE_DAY) / 1000L * 1000L;
+        long originalDueDate = (DateUtilities.now() - 3 * DateUtilities.ONE_DAY) / 1000L * 1000L;
         task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, originalDueDate));
         taskDao.save(task, false);
 
@@ -143,14 +143,14 @@ public class RepeatTests extends DatabaseTestCase {
         rrule.setFreq(Frequency.HOURLY);
         task.setValue(Task.RECURRENCE, rrule.toIcal());
         long originalDueDate = (DateUtilities.now() + DateUtilities.ONE_DAY) / 1000L * 1000L;
-        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, originalDueDate));
+        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, originalDueDate));
         taskDao.save(task, false);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
         taskDao.save(task, false);
 
         // wait for repeat handler
-        Thread.sleep(REPEAT_WAIT);
+        Thread.sleep(2 * REPEAT_WAIT);
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES));
         try {
@@ -182,8 +182,9 @@ public class RepeatTests extends DatabaseTestCase {
         rrule.setInterval(1);
         rrule.setFreq(Frequency.WEEKLY);
         task.setValue(Task.RECURRENCE, rrule.toIcal());
-        long originalDueDate = DateUtilities.now() - 3 * DateUtilities.ONE_DAY;
+        long originalDueDate = (DateUtilities.now() - 3 * DateUtilities.ONE_DAY) / 1000L * 1000L;
         task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, originalDueDate));
+        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
         taskDao.save(task, false);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
@@ -198,7 +199,7 @@ public class RepeatTests extends DatabaseTestCase {
             cursor.moveToFirst();
             task.readFromCursor(cursor);
 
-            assertEquals(originalDueDate, (long)task.getValue(Task.DUE_DATE));
+            assertTrue(task.hasDueDate());
             assertTrue(task.isCompleted());
 
             cursor.moveToNext();
@@ -209,7 +210,7 @@ public class RepeatTests extends DatabaseTestCase {
 
             assertTrue("Due date is '" + new Date(dueDate) + "', expected more like '" +
                     new Date(DateUtilities.now() + DateUtilities.ONE_WEEK) + "'",
-                Math.abs(dueDate - DateUtilities.ONE_WEEK) < DateUtilities.ONE_DAY);
+                Math.abs(dueDate - DateUtilities.now() - DateUtilities.ONE_WEEK) < DateUtilities.ONE_DAY);
         } finally {
             cursor.close();
         }

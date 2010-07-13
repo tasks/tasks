@@ -75,22 +75,26 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 } else {
                     RecurrenceIterator iterator = RecurrenceIteratorFactory.createRecurrenceIterator(rrule,
                             repeatFrom, TimeZone.getDefault());
-                    if(repeatFrom.compareTo(today) < 0)
-                        repeatFrom = today;
-                    // go to the latest value and advance one more if needed
-                    iterator.advanceTo(repeatFrom);
-                    if(!iterator.hasNext())
-                        return;
-                    DateValue nextDate = iterator.next();
-                    if(nextDate.compareTo(today) == 0)
+                    DateValue nextDate;
+                    if(repeatFrom.compareTo(today) < 0) {
+                        iterator.advanceTo(today);
+                        if(!iterator.hasNext())
+                            return;
                         nextDate = iterator.next();
+                    } else {
+                        iterator.advanceTo(repeatFrom);
+                        if(!iterator.hasNext())
+                            return;
+                        nextDate = iterator.next();
+                        nextDate = iterator.next();
+                    }
 
                     if(nextDate instanceof DateTimeValueImpl) {
                         DateTimeValueImpl newDateTime = (DateTimeValueImpl)nextDate;
                         newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-                                new Date(newDateTime.year() - 1900, newDateTime.month() - 1,
+                                Date.UTC(newDateTime.year() - 1900, newDateTime.month() - 1,
                                         newDateTime.day(), newDateTime.hour(),
-                                        newDateTime.minute(), newDateTime.second()).getTime());
+                                        newDateTime.minute(), newDateTime.second()));
                     } else {
                         newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
                                 new Date(nextDate.year() - 1900, nextDate.month() - 1,

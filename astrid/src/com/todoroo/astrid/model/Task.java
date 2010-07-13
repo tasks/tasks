@@ -173,6 +173,7 @@ public final class Task extends AbstractModel {
         defaultValues.put(ELAPSED_SECONDS.name, 0);
         defaultValues.put(POSTPONE_COUNT.name, 0);
         defaultValues.put(NOTES.name, "");
+        defaultValues.put(FLAGS.name, 0);
         defaultValues.put(TIMER_START.name, 0);
     }
 
