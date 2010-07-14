@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen  
+    xmlns:android="http://schemas.android.com/apk/res/android">  
+       
+    <PreferenceCategory
+        android:title="@string/rmilk_MPr_group_status">
+    
+        <Preference 
+            android:key="@string/rmilk_MPr_status_key"  
+            android:textSize="24sp"
+            android:gravity="center"/>
+        
+    </PreferenceCategory>
+            
+    <PreferenceCategory
+        android:title="@string/rmilk_MPr_group_options">
+    
+        <ListPreference  
+            android:key="@string/rmilk_MPr_interval_key"  
+            android:entries="@array/rmilk_MPr_interval_entries"  
+            android:entryValues="@array/rmilk_MPr_interval_values"  
+            android:title="@string/rmilk_MPr_interval_title" />
+            
+        <CheckBoxPreference  
+            android:key="@string/rmilk_MPr_shortcut_key"  
+            android:title="@string/rmilk_MPr_shortcut_title" />
+            
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/rmilk_MPr_group_actions">
+    
+        <Preference 
+            android:key="@string/rmilk_MPr_sync_key"
+            android:title="@string/rmilk_MPr_sync" />
+    
+        <Preference 
+            android:key="@string/rmilk_MPr_forget_key"
+            android:title="@string/rmilk_MPr_forget"
+            android:summary="@string/rmilk_MPr_forget_description" />
+        
+    </PreferenceCategory>
+            
+</PreferenceScreen>  

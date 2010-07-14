@@ -12,6 +12,7 @@ import com.timsu.astrid.widget.FilePickerBuilder;
 import com.timsu.astrid.widget.NNumberPickerDialog;
 import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
 
+@Deprecated
 public class DialogUtilities {
 
     /**

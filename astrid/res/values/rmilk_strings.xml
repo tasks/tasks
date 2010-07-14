@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ====================== Plugin Boilerplate ========================= -->
+
+    <!-- label for RMilk button in Task Edit Activity -->
+    <string name="rmilk_EOE_button">Remember the Milk Settings</string>
+    
+    <!-- task detail showing RTM list information  -->
+    <string name="rmilk_TLA_list">RTM List: %s</string>
+    
+    <!-- task detail showing RTM repeat information -->
+    <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
+    
+    <!--  task detail showing item needs to be synchronized -->
+    <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
+
+    <!-- filters header -->
+    <string name="rmilk_FEx_header">Remember the Milk</string>
+    
+    <!-- filter category for RTM lists -->
+    <string name="rmilk_FEx_list">Lists</string>
+    
+    <!-- RTM list filter name ($N => list, $C => count) -->
+    <string name="rmilk_FEx_list_item">$N ($C)</string>
+    
+    <!--  RTM list filter title (%s => list) -->
+    <string name="rmilk_FEx_list_title">RTM List \'%s\'</string>
+    
+    <!-- ======================= MilkEditActivity ========================== -->
+    
+    <!--  Title -->
+    <string name="rmilk_MEA_title">Remember the Milk</string>
+    
+    <!--  List Edit Label -->
+    <string name="rmilk_MEA_list_label">RTM List:</string>
+    
+    <!--  Repeat Label -->
+    <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
+    
+    <!--  Repeat Hint -->
+    <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
+    
+    <!-- ======================== MilkPreferences ========================== -->
+
+    <!-- Title -->    
+    <string name="rmilk_MPr_header">Remember the Milk</string>
+
+    <!-- Status Group Label -->    
+    <string name="rmilk_MPr_group_status">Status</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_status_key">rmilk_status</string>
+
+    <!-- Options Group Label -->    
+    <string name="rmilk_MPr_group_options">Options</string>
+
+    <!-- Synchronization Interval Title -->    
+    <string name="rmilk_MPr_interval_title">Synchronization Interval</string>
+    <!-- Synchronization Interval Description (when disabled) -->
+    <string name="rmilk_MPr_interval_desc_disabled">Background synchronization is disabled</string>    
+    <!-- Synchronization Interval Description (%s => setting) -->
+    <string name="rmilk_MPr_interval_desc">Currently set to: %s</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_interval_key">rmilk_interval</string>
+    
+    <!-- Shortcut Title -->
+    <string name="rmilk_MPr_shortcut_title">Main Menu Shortcut</string>    
+    <!-- Shortcut Description (enabled) -->
+    <string name="rmilk_MPr_shortcut_desc_enabled">Shortcut will be shown in main menu</string>    
+    <!-- Shortcut Description (disabled) -->
+    <string name="rmilk_MPr_shortcut_desc_disabled">Shortcut will be hidden in main menu</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_shortcut_key">rmilk_shortcut</string>
+  
+    <!-- Background Wifi Title -->  
+    <string name="rmilk_MPr_bgwifi_title">Wifi Only Setting</string>    
+    <!-- Background Wifi Description (enabled) -->
+    <string name="rmilk_MPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+    <!-- Background Wifi Description (disabled) -->
+    <string name="rmilk_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_bgwifi_key">rmilk_bgwifi</string>
+    
+    <!-- Actions Group Label  -->
+    <string name="rmilk_MPr_group_actions">Actions</string>
+
+    <!-- Synchronize Now Button -->    
+    <string name="rmilk_MPr_sync">Synchronize Now!</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_sync_key">rmilk_sync</string>
+    
+    <!-- Clear Data Title -->
+    <string name="rmilk_MPr_forget">Clear Personal Data</string>
+    <!-- Clear Data Description -->
+    <string name="rmilk_MPr_forget_description">Log out of Remember the Milk</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_forget_key">rmilk_forget</string>    
+
+    <!-- ======================= MilkLoginActivity ========================= -->
+
+    <!-- RTM Login Instructions -->
+    <string name="rmilk_MLA_label">Please Log In and Authorize Astrid:</string>
+    
+    <!-- RTM Login Done Button -->
+    <string name="rmilk_MLA_done">Done</string>
+    
+    <!-- Login Error Dialog (%s => message) -->
+    <string name="rmilk_MLA_error">
+Sorry, there was an error verifying your login. Please try again.
+\n\n
+Error Message: %s
+    </string>
+    
+    <!-- ======================== Synchronization ========================== -->    
+
+    <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
+    <string name="rmilk_error">Sync Error! Sorry for the inconvenience! Error:</string>
+    <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
+    or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
+    <string name="rmilk_uptodate">Sync: Up to date!</string>
+    <string name="rmilk_forget_confirm">Clear data for selected services?</string>
+    <string name="rmilk_no_synchronizers">No Synchronizers Enabled!</string>
+    <string name="rmilk_last_sync">Last Sync Date: %s</string>
+    <string name="rmilk_last_auto_sync">Last AutoSync Attempt: %s</string>
+    <string name="rmilk_date_never">never</string>
+    <string name="rmilk_result_title">%s Results</string>
+    <string name="rmilk_result_local">Summary - Astrid Tasks:</string>
+    <string name="rmilk_result_remote">Summary - Remote Server:</string>
+    <string name="rmilk_result_created">Created: %d</string>
+    <string name="rmilk_result_updated">Updated: %d</string>
+    <string name="rmilk_result_deleted">Deleted: %d</string>
+    <string name="rmilk_result_merged">Merged: %d</string>
+    
+    <string name="rmilk_progress_starting">Starting Sync...</string>
+    <string name="rmilk_progress_rxlist">Reading List: %s</string>
+    <string name="rmilk_progress_localtx">Transmitting: %s</string>
+    <string name="rmilk_progress_localdel">Deleting: %s</string>
+    <string name="rmilk_progress_remotetx">Receiving: %s</string>
+        
+    <string-array name="rmilk_MPr_interval_entries">
+        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+        <item>disable</item>
+        <item>every fifteen minutes</item>
+        <item>every thirty minutes</item>
+        <item>every hour</item>
+        <item>every three hours</item>
+        <item>every six hours</item>
+        <item>every twelve hours</item>
+        <item>every day</item>
+        <item>every three days</item>
+        <item>every week</item>
+    </string-array>
+    
+    <string-array name="rmilk_MPr_interval_values">
+        <!-- rmilk_MPr_interval_values: interval in seconds for sync entries (do not edit) -->
+        <item>0</item>
+        <item>900</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>10800</item>
+        <item>21600</item>
+        <item>43200</item>
+        <item>86400</item>
+        <item>259200</item>
+        <item>604800</item>
+    </string-array>
+    
+</resources>
+
