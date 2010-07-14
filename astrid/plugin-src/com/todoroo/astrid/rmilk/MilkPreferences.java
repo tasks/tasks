@@ -61,7 +61,7 @@ public class MilkPreferences extends PreferenceActivity {
                 getString(R.string.rmilk_MPr_sync_key));
         syncAction.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference p) {
-                new RTMSyncProvider().synchronize(MilkPreferences.this);
+                new RTMSyncProvider().synchronize();
                 return true;
             }
         });

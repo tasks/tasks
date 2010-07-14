@@ -2,8 +2,8 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 
-import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -43,11 +43,11 @@ public class TagService {
         DependencyInjectionService.getInstance().inject(this);
     }
 
+
     /**
      * Property for retrieving count of aggregated rows
      */
     private static final CountProperty COUNT = new CountProperty();
-
     public static final Order GROUPED_TAGS_BY_ALPHA = Order.asc(Metadata.VALUE);
     public static final Order GROUPED_TAGS_BY_SIZE = Order.desc(COUNT);
 

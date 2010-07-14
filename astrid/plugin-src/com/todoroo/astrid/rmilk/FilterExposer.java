@@ -4,10 +4,12 @@
 package com.todoroo.astrid.rmilk;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.astrid.R;
+import com.timsu.astrid.R;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -15,6 +17,7 @@ import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.rmilk.Utilities.ListContainer;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
+import com.todoroo.astrid.rmilk.data.MilkTask;
 
 /**
  * Exposes filters based on RTM lists
@@ -30,9 +33,10 @@ public class FilterExposer extends BroadcastReceiver {
         String listTitle = context.getString(R.string.rmilk_FEx_list_item).
             replace("$N", list.name).replace("$C", Integer.toString(list.count));
         String title = context.getString(R.string.rmilk_FEx_list_title, list.name);
-        Filter filter = new Filter(listTitle, title,
-                    "TODO",
-                    "TODO");
+        ContentValues values = new ContentValues(); // TODO
+        Filter filter = new Filter(Utilities.IDENTIFIER, listTitle, title,
+                    new QueryTemplate().join(MilkDataService.MILK_JOIN).where(MilkTask.LIST_ID.eq(list.id)),
+                    values);
 
         return filter;
     }
@@ -54,8 +58,9 @@ public class FilterExposer extends BroadcastReceiver {
         for(int i = 0; i < lists.length; i++)
             listFilters[i] = filterFromList(context, lists[i]);
 
-        FilterListHeader rtmHeader = new FilterListHeader(context.getString(R.string.rmilk_FEx_header));
-        FilterCategory rtmLists = new FilterCategory(
+        FilterListHeader rtmHeader = new FilterListHeader(Utilities.IDENTIFIER,
+                context.getString(R.string.rmilk_FEx_header));
+        FilterCategory rtmLists = new FilterCategory(Utilities.IDENTIFIER,
                 context.getString(R.string.rmilk_FEx_list), listFilters);
 
         // transmit filter list
@@ -63,7 +68,7 @@ public class FilterExposer extends BroadcastReceiver {
         list[0] = rtmHeader;
         list[1] = rtmLists;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ITEMS, list);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 

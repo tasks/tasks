@@ -22,6 +22,11 @@ import com.todoroo.astrid.rmilk.data.MilkList;
 @SuppressWarnings("nls")
 public class Utilities {
 
+    // --- constants
+
+    /** add-on identifier */
+    public static final String IDENTIFIER = "rmilk";
+
     // --- helper classes
 
     /**
@@ -49,19 +54,6 @@ public class Utilities {
         public String name;
         public int count;
     }
-
-    // --- Metadata keys
-    // NOTE: no sql escaping is provided for keys
-
-    public static final String KEY_LIST_ID = "rmilk_listId";
-
-    public static final String KEY_TASK_SERIES_ID = "rmilk_taskSeriesId";
-
-    public static final String KEY_TASK_ID = "rmilk_taskId";
-
-    public static final String KEY_REPEAT = "rmilk_repeat";
-
-    public static final String KEY_UPDATED = "rmilk_updated";
 
     // --- Preference Keys
 

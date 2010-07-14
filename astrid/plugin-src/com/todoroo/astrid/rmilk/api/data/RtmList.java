@@ -26,18 +26,21 @@ public class RtmList extends RtmData {
 
   private final String id;
   private final boolean smart;
+  private final boolean archived;
   private final String name;
 
   public RtmList(String id, String name, boolean smart) {
     this.id = id;
     this.name = name;
     this.smart = smart;
+    this.archived = false;
   }
 
   public RtmList(Element elt) {
     id = elt.getAttribute("id");
     name = elt.getAttribute("name");
     smart = elt.getAttribute("smart") == "1";
+    archived = elt.getAttribute("archived") == "1";
   }
 
   public String getId() {
@@ -51,4 +54,8 @@ public class RtmList extends RtmData {
   public boolean isSmart() {
       return smart;
   }
+
+  public boolean isArchived() {
+    return archived;
+}
 }

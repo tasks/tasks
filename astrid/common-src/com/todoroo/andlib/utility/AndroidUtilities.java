@@ -173,4 +173,18 @@ public class AndroidUtilities {
         return result;
     }
 
+    /**
+     * Returns true if a and b or null or a.equals(b)
+     * @param a
+     * @param b
+     * @return
+     */
+    public static boolean equals(Object a, Object b) {
+        if(a == null && b == null)
+            return true;
+        if(a == null)
+            return false;
+        return a.equals(b);
+    }
+
 }

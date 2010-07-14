@@ -41,6 +41,7 @@ import com.todoroo.astrid.rmilk.api.data.RtmTasks;
 import com.todoroo.astrid.rmilk.api.data.RtmAuth.Perms;
 import com.todoroo.astrid.rmilk.api.data.RtmTask.Priority;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
+import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 public class RTMSyncProvider extends SynchronizationProvider {
@@ -284,11 +285,11 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 Task.CREATION_DATE,
                 Task.COMPLETION_DATE,
                 Task.DELETION_DATE,
-                MilkDataService.LIST_ID,
-                MilkDataService.TASK_SERIES_ID,
-                MilkDataService.TASK_ID,
-                MilkDataService.REPEAT,
-                MilkDataService.TAGS,
+                MilkTask.LIST_ID,
+                MilkTask.TASK_SERIES_ID,
+                MilkTask.TASK_ID,
+                MilkTask.REPEATING,
+                // TODO tags
         };
 
         // fetch locally created tasks
@@ -320,12 +321,12 @@ public class RTMSyncProvider extends SynchronizationProvider {
      * @return
      */
     private boolean shouldTransmit(Task task, Property<?> property, Task remoteTask) {
-        if(!task.hasValue(property))
+        if(!task.containsValue(property))
             return false;
 
         if(remoteTask == null)
             return true;
-        if(!remoteTask.hasValue(property))
+        if(!remoteTask.containsValue(property))
             return true;
         return !AndroidUtilities.equals(task.getValue(property), remoteTask.getValue(property));
     }
@@ -333,8 +334,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
     @Override
     protected void create(Task task) throws IOException {
         String listId = null;
-        if(task.hasValue(MilkDataService.LIST_ID))
-            listId = task.getValue(MilkDataService.LIST_ID);
+        if(task.containsValue(MilkTask.LIST_ID))
+            listId = Long.toString(task.getValue(MilkTask.LIST_ID));
 
         RtmTaskSeries rtmTask = rtmService.tasks_add(timeline, listId,
                 task.getValue(Task.TITLE));
@@ -360,7 +361,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
         if(shouldTransmit(task, Task.DUE_DATE, remoteTask))
             rtmService.tasks_setDueDate(timeline, id.listId, id.taskSeriesId,
                     id.taskId, DateUtilities.unixtimeToDate(task.getValue(Task.DUE_DATE)),
-                    task.getValue(Task.URGENCY) == Task.URGENCY_SPECIFIC_DAY_TIME);
+                    task.hasDueTime());
         if(shouldTransmit(task, Task.COMPLETION_DATE, remoteTask)) {
             if(task.getValue(Task.COMPLETION_DATE) == 0)
                 rtmService.tasks_uncomplete(timeline, id.listId, id.taskSeriesId,
@@ -373,8 +374,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
             rtmService.tasks_delete(timeline, id.listId, id.taskSeriesId,
                     id.taskId);
 
-        if(shouldTransmit(task, MilkDataService.LIST_ID, remoteTask) && remoteTask != null)
-            rtmService.tasks_moveTo(timeline, remoteTask.getValue(MilkDataService.LIST_ID),
+        if(shouldTransmit(task, MilkTask.LIST_ID, remoteTask) && remoteTask != null)
+            rtmService.tasks_moveTo(timeline, Long.toString(remoteTask.getValue(MilkTask.LIST_ID)),
                     id.listId, id.taskSeriesId, id.taskId);
     }
 
@@ -382,10 +383,10 @@ public class RTMSyncProvider extends SynchronizationProvider {
     private Task parseRemoteTask(RtmTaskSeries rtmTaskSeries) {
         Task task = new Task();
 
-        task.setValue(MilkDataService.LIST_ID, rtmTaskSeries.getList().getId());
-        task.setValue(MilkDataService.TASK_SERIES_ID, rtmTaskSeries.getId());
+        task.setValue(MilkTask.LIST_ID, Long.parseLong(rtmTaskSeries.getList().getId()));
+        task.setValue(MilkTask.TASK_SERIES_ID, Long.parseLong(rtmTaskSeries.getId()));
         task.setValue(Task.TITLE, rtmTaskSeries.getName());
-        task.setValue(MilkDataService.REPEAT, rtmTaskSeries.hasRecurrence() ? 1 : 0);
+        task.setValue(MilkTask.REPEATING, rtmTaskSeries.hasRecurrence() ? 1 : 0);
 
         RtmTask rtmTask = rtmTaskSeries.getTask();
         if(rtmTask != null) {
@@ -393,18 +394,16 @@ public class RTMSyncProvider extends SynchronizationProvider {
             task.setValue(Task.COMPLETION_DATE, DateUtilities.dateToUnixtime(rtmTask.getCompleted()));
             task.setValue(Task.DELETION_DATE, DateUtilities.dateToUnixtime(rtmTask.getDeleted()));
             if(rtmTask.getDue() != null) {
-                task.setValue(Task.DUE_DATE, DateUtilities.dateToUnixtime(rtmTask.getDue()));
-                if(rtmTask.getHasDueTime())
-                    task.setValue(Task.URGENCY, Task.URGENCY_SPECIFIC_DAY_TIME);
-                else
-                    task.setValue(Task.URGENCY, Task.URGENCY_SPECIFIC_DAY);
+                task.setValue(Task.DUE_DATE,
+                        task.createDueDate(rtmTask.getHasDueTime() ? Task.URGENCY_SPECIFIC_DAY_TIME :
+                            Task.URGENCY_SPECIFIC_DAY, DateUtilities.dateToUnixtime(rtmTask.getDue())));
             } else {
-                task.setValue(Task.URGENCY, Task.URGENCY_NONE);
+                task.setValue(Task.DUE_DATE, 0L);
             }
             task.setValue(Task.IMPORTANCE, rtmTask.getPriority().ordinal());
         } else {
             // error in upstream code, try to handle gracefully
-            Log.e("rtmsync", "Got null task parsing remote task series",
+            Log.e("rtmsync", "Got null task parsing remote task series",  //$NON-NLS-1$//$NON-NLS-2$
                     new Throwable());
         }
 
@@ -416,9 +415,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
         int length = tasks.size();
         for(int i = 0; i < length; i++) {
             Task task = tasks.get(i);
-            if(task.getValue(MilkDataService.LIST_ID).equals(target.getValue(MilkDataService.LIST_ID)) &&
-                    task.getValue(MilkDataService.TASK_SERIES_ID).equals(target.getValue(MilkDataService.TASK_SERIES_ID)) &&
-                    task.getValue(MilkDataService.TASK_ID).equals(target.getValue(MilkDataService.TASK_ID)))
+            if(task.getValue(MilkTask.LIST_ID).equals(target.getValue(MilkTask.LIST_ID)) &&
+                    task.getValue(MilkTask.TASK_SERIES_ID).equals(target.getValue(MilkTask.TASK_SERIES_ID)) &&
+                    task.getValue(MilkTask.TASK_ID).equals(target.getValue(MilkTask.TASK_ID)))
                 return task;
         }
         return null;
@@ -426,7 +425,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     @Override
     protected Task read(Task task) throws IOException {
-        RtmTaskSeries rtmTask = rtmService.tasks_getTask(task.getValue(MilkDataService.TASK_SERIES_ID),
+        RtmTaskSeries rtmTask = rtmService.tasks_getTask(Long.toString(task.getValue(MilkTask.TASK_SERIES_ID)),
                 task.getValue(Task.TITLE));
         if(rtmTask != null)
             return parseRemoteTask(rtmTask);
@@ -435,25 +434,25 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     @Override
     protected void transferIdentifiers(Task source, Task destination) {
-        destination.setValue(MilkDataService.LIST_ID, source.getValue(MilkDataService.LIST_ID));
-        destination.setValue(MilkDataService.TASK_SERIES_ID, source.getValue(MilkDataService.TASK_SERIES_ID));
-        destination.setValue(MilkDataService.TASK_ID, source.getValue(MilkDataService.TASK_ID));
+        destination.setValue(MilkTask.LIST_ID, source.getValue(MilkTask.LIST_ID));
+        destination.setValue(MilkTask.TASK_SERIES_ID, source.getValue(MilkTask.TASK_SERIES_ID));
+        destination.setValue(MilkTask.TASK_ID, source.getValue(MilkTask.TASK_ID));
     }
 
     // ----------------------------------------------------------------------
     // ------------------------------------------------------- helper classes
     // ----------------------------------------------------------------------
 
-    /** Helper class for processing RTM id's into one field */
+    /** Helper class for storing RTM id's */
     private static class RtmId {
         public String taskId;
         public String taskSeriesId;
         public String listId;
 
         public RtmId(Task task) {
-            taskId = task.getValue(MilkDataService.TASK_ID);
-            taskSeriesId = task.getValue(MilkDataService.TASK_SERIES_ID);
-            listId = task.getValue(MilkDataService.LIST_ID);
+            taskId = Long.toString(task.getValue(MilkTask.TASK_ID));
+            taskSeriesId = Long.toString(task.getValue(MilkTask.TASK_SERIES_ID));
+            listId = Long.toString(task.getValue(MilkTask.LIST_ID));
         }
     }
 
