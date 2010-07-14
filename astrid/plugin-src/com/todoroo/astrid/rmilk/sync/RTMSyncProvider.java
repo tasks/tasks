@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -24,6 +26,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.SynchronizationProvider;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.MilkLoginActivity;
@@ -46,9 +49,10 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 
 public class RTMSyncProvider extends SynchronizationProvider {
 
-    protected ServiceImpl rtmService = null;
-    protected String timeline = null;
-    protected MilkDataService dataService = null;
+    private ServiceImpl rtmService = null;
+    private String timeline = null;
+    private MilkDataService dataService = null;
+    private ProgressDialog progressDialog = null;
 
     static {
         AstridDependencyInjector.initialize();
@@ -56,6 +60,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     @Autowired
     protected ExceptionService exceptionService;
+
+    @Autowired
+    protected DialogUtilities dialogUtilities;
 
     public RTMSyncProvider() {
         super();
@@ -70,6 +77,12 @@ public class RTMSyncProvider extends SynchronizationProvider {
     public void synchronize() {
         Context context = ContextManager.getContext();
         dataService = new MilkDataService(context);
+
+        if(context instanceof Activity) {
+            progressDialog = dialogUtilities.progressDialog(context,
+                    context.getString(R.string.DLG_communicating_text));
+            progressDialog.show();
+        }
 
     	// authenticate the user. this will automatically call the next step
         authenticate(context);
@@ -125,9 +138,19 @@ public class RTMSyncProvider extends SynchronizationProvider {
         }
     }
 
-    /** Perform authentication with RTM. Will open the SyncBrowser if necessary */
-    @SuppressWarnings("nls")
     private void authenticate(final Context context) {
+        new Thread(new Runnable() {
+            public void run() {
+                authenticateInNewThread(context);
+            }
+        }).start();
+    }
+
+    /**
+     * Perform authentication with RTM. Will open the SyncBrowser if necessary
+     */
+    @SuppressWarnings("nls")
+    private void authenticateInNewThread(final Context context) {
         final Resources r = context.getResources();
         FlurryAgent.onEvent("rtm-started");
 
@@ -174,6 +197,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
                         try {
                             String token = rtmService.completeAuthorization();
                             Utilities.setToken(token);
+                            // TODO proceed with sync
                             return null;
                         } catch (Exception e) {
                             // didn't work
@@ -202,15 +226,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
     // ----------------------------------------------------- synchronization!
     // ----------------------------------------------------------------------
 
-    private void performSync(final Context context) {
-        new Thread(new Runnable() {
-            public void run() {
-                performSyncInNewThread(context);
-            }
-        }).start();
-    }
-
-    protected void performSyncInNewThread(final Context context) {
+    protected void performSync(final Context context) {
         try {
             // get RTM timeline
             timeline = rtmService.timelines_create();

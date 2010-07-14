@@ -87,13 +87,15 @@
 
     <!-- Synchronize Now Button -->    
     <string name="rmilk_MPr_sync">Synchronize Now!</string>
+    <!-- Synchronize Now Button if not logged in-->    
+    <string name="rmilk_MPr_sync_log_in">Log In &amp; Synchronize!</string>
     <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_sync_key">rmilk_sync</string>
     
     <!-- Clear Data Title -->
-    <string name="rmilk_MPr_forget">Clear Personal Data</string>
+    <string name="rmilk_MPr_forget">Log Out</string>
     <!-- Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Log out of Remember the Milk</string>
+    <string name="rmilk_MPr_forget_description">Clears all RTM synchronization data</string>
     <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_forget_key">rmilk_forget</string>    
 

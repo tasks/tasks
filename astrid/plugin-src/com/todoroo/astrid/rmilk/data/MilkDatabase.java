@@ -36,7 +36,8 @@ public class MilkDatabase extends AbstractDatabase {
      * also make sure that our SQLite helper does the right thing.
      */
     public static final Table[] TABLES =  new Table[] {
-        MilkList.TABLE
+        MilkList.TABLE,
+        MilkTask.TABLE
     };
 
     // --- implementation

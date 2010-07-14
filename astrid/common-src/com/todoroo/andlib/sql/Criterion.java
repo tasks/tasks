@@ -18,7 +18,7 @@ public abstract class Criterion {
     public static Criterion all = new Criterion(Operator.exists) {
         @Override
         protected void populate(StringBuilder sb) {
-            sb.append(true);
+            sb.append(1);
         }
     };
 

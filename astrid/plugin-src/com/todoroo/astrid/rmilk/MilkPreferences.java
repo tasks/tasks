@@ -38,6 +38,7 @@ public class MilkPreferences extends PreferenceActivity {
         initializePreference(screen);
 
         // status
+        boolean loggedIn = Utilities.isLoggedIn();
         final String status = "Please Log In To RTM!"; //$NON-NLS-1$
         final int statusColor = Color.RED;
 
@@ -65,8 +66,12 @@ public class MilkPreferences extends PreferenceActivity {
                 return true;
             }
         });
-        /*Preference clearDataPreference = screen.getPreferenceManager().findPreference(
-                getString(R.string.rmilk_MPr_forget_key));*/
+        Preference clearDataPreference = screen.getPreferenceManager().findPreference(
+                getString(R.string.rmilk_MPr_forget_key));
+        if(!loggedIn) {
+            syncAction.setTitle(R.string.rmilk_MPr_sync_log_in);
+            clearDataPreference.setEnabled(false);
+        }
     }
 
     private void initializePreference(Preference preference) {

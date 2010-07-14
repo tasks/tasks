@@ -230,6 +230,27 @@
     </receiver>
     <activity android:name="com.todoroo.astrid.reminders.NotificationActivity"
               android:taskAffinity="" />
+
+    <!-- rmilk -->
+    <receiver android:name="com.todoroo.astrid.rmilk.FilterExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    <activity android:name="com.todoroo.astrid.rmilk.MilkLoginActivity"
+              android:theme="@style/Theme" />
+    <activity android:name="com.todoroo.astrid.rmilk.MilkPreferences"
+              android:label="@string/rmilk_MPr_header">
+      <intent-filter>   
+        <action android:name="com.todoroo.astrid.SETTINGS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+      </intent-filter>
+    </activity>
+
   </application>
 
 </manifest>
