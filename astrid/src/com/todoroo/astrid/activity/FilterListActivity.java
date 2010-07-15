@@ -18,15 +18,16 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.ViewGroup.OnHierarchyChangeListener;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.Toast;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -207,6 +208,32 @@ public class FilterListActivity extends ExpandableListActivity {
         registerForContextMenu(getExpandableListView());
         getExpandableListView().setGroupIndicator(
                 getResources().getDrawable(R.drawable.expander_group));
+        getExpandableListView().setOnHierarchyChangeListener(new OnHierarchyChangeListener() {
+            @Override
+            public void onChildViewAdded(View parent, View child) {
+                // auto-expand adapter
+                ExpandableListView list = getExpandableListView();
+                long packedLastItem = ExpandableListView.getPackedPositionForGroup(adapter.getGroupCount() - 1);
+                outer: for(int group = 0; group < adapter.getGroupCount(); group++) {
+                    // if last group is already outside of bounds, stop
+                    int lastGroup = list.getFlatListPosition(packedLastItem);
+                    if(lastGroup > list.getLastVisiblePosition())
+                        break;
+
+                    while (adapter.getChildrenCount(group) == 0) {
+                        group++;
+                        if(group >= adapter.getGroupCount())
+                            break outer;
+                    }
+
+                    list.expandGroup(group);
+                }
+            }
+            @Override
+            public void onChildViewRemoved(View parent, View child) {
+                // do nothing
+            }
+        });
     }
 
     /**
