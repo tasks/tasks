@@ -27,8 +27,8 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.PreferenceActivity;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -36,7 +36,6 @@ import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
-import com.timsu.astrid.sync.Synchronizer;
 import com.timsu.astrid.utilities.Constants;
 import com.timsu.astrid.utilities.DialogUtilities;
 import com.timsu.astrid.utilities.Preferences;
@@ -91,7 +90,7 @@ public class SyncPreferences extends PreferenceActivity {
                         new Dialog.OnClickListener() {
                     public void onClick(DialogInterface dialog,
                             int which) {
-                        Synchronizer.clearUserData(SyncPreferences.this);
+//                        Synchronizer.clearUserData(SyncPreferences.this);
                         // force a synchronization if sync preference is still set
                         oldRtmSyncPreference = false;
                     }

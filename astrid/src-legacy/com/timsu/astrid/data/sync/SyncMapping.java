@@ -29,7 +29,6 @@ import android.util.Log;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.AbstractModel;
 import com.timsu.astrid.data.task.TaskIdentifier;
-import com.timsu.astrid.sync.TaskProxy;
 import com.timsu.astrid.utilities.DialogUtilities;
 
 
@@ -109,10 +108,10 @@ public class SyncMapping extends AbstractModel {
 
 
     // --- constructor pass-through
-
-    public SyncMapping(TaskIdentifier task, TaskProxy taskProxy) {
-        this(task, taskProxy.getSyncServiceId(), taskProxy.getRemoteId());
-    }
+//
+//    public SyncMapping(TaskIdentifier task, TaskProxy taskProxy) {
+//        this(task, taskProxy.getSyncServiceId(), taskProxy.getRemoteId());
+//    }
 
     public SyncMapping(TaskIdentifier task, int syncServiceId, String remoteId) {
         super();

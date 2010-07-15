@@ -42,8 +42,6 @@ import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.timsu.astrid.provider.TasksProvider;
-import com.timsu.astrid.sync.Synchronizer;
-import com.timsu.astrid.sync.Synchronizer.SynchronizerListener;
 import com.todoroo.astrid.widget.TasksWidget.UpdateService;
 
 /**
@@ -373,12 +371,12 @@ public class TaskController extends AbstractController {
         // handle sync-on-complete
         if((model.getFlags() & TaskModelForHandlers.FLAG_SYNC_ON_COMPLETE) > 0 &&
         		!duringSync) {
-            Synchronizer synchronizer = new Synchronizer(model.getTaskIdentifier());
-            synchronizer.synchronize(context, new SynchronizerListener() {
-                public void onSynchronizerFinished(int numServicesSynced) {
-//                    TaskListSubActivity.shouldRefreshTaskList = true;
-                }
-            });
+//            Synchronizer synchronizer = new Synchronizer(model.getTaskIdentifier());
+//            synchronizer.synchronize(context, new SynchronizerListener() {
+//                public void onSynchronizerFinished(int numServicesSynced) {
+////                    TaskListSubActivity.shouldRefreshTaskList = true;
+//                }
+//            });
         }
 
         cursor.close();
