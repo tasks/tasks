@@ -77,10 +77,14 @@ public class AndroidUtilities {
      *
      * @param context
      * @param intent
+     * @param request request code. if negative, no request.
      */
-    public static void startExternalIntent(Context context, Intent intent) {
+    public static void startExternalIntent(Context context, Intent intent, int request) {
         try {
-            context.startActivity(intent);
+            if(request > -1 && context instanceof Activity)
+                ((Activity)context).startActivityForResult(intent, request);
+            else
+                context.startActivity(intent);
         } catch (SecurityException e) {
             ExceptionHelper helper = new ExceptionHelper();
             helper.exceptionService.displayAndReportError(context,

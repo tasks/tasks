@@ -126,7 +126,8 @@ public final class MilkDataService {
             return taskDao.query(Query.select(Task.ID).where(Criterion.none));
         return
             taskDao.query(Query.select(properties).join(METADATA_JOIN).
-                    where(Task.MODIFICATION_DATE.gt(lastSyncDate)));
+                    where(Criterion.and(MetadataCriteria.withKey(METADATA_KEY),
+                            Task.MODIFICATION_DATE.gt(lastSyncDate))));
     }
 
     /**
@@ -137,7 +138,7 @@ public final class MilkDataService {
         if(task.getId() != Task.NO_ID)
             return;
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID).
-                join(METADATA_JOIN).where(Criterion.and(LIST_ID.eq(task.getValue(LIST_ID)),
+                join(METADATA_JOIN).where(Criterion.and(MetadataCriteria.withKey(METADATA_KEY),
                         TASK_SERIES_ID.eq(task.getValue(TASK_SERIES_ID)),
                         TASK_ID.eq(task.getValue(TASK_ID)))));
         try {
@@ -296,7 +297,7 @@ public final class MilkDataService {
         MilkList model = new MilkList();
         MilkList inbox = null;
         for(Map.Entry<String, RtmList> list : lists.getLists().entrySet()) {
-            if(list.getValue().isSmart())
+            if(list.getValue().isSmart() || "All Tasks".equals(list.getValue().getName())) //$NON-NLS-1$
                 continue;
             model.setValue(MilkList.ID, Long.parseLong(list.getValue().getId()));
             model.setValue(MilkList.NAME, list.getValue().getName());

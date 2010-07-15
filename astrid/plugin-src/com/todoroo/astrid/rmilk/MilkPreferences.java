@@ -9,8 +9,6 @@ import android.graphics.Color;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.view.View;
-import android.view.ViewGroup.OnHierarchyChangeListener;
-import android.widget.ListView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -60,16 +58,6 @@ public class MilkPreferences extends TodorooPreferences {
                         r.getStringArray(R.array.rmilk_MPr_interval_entries)[index]));
         }
 
-        // shortcut
-        else if (r.getString(R.string.rmilk_MPr_shortcut_key).equals(
-                preference.getKey())) {
-            if ((Boolean) value) {
-                preference.setSummary(R.string.rmilk_MPr_shortcut_desc_enabled);
-            } else {
-                preference.setSummary(R.string.rmilk_MPr_shortcut_desc_disabled);
-            }
-        }
-
         // status
         else if (r.getString(R.string.rmilk_MPr_status_key).equals(preference.getKey())) {
             boolean loggedIn = Utilities.isLoggedIn();
@@ -94,7 +82,7 @@ public class MilkPreferences extends TodorooPreferences {
                         DateUtilities.getDateWithTimeFormat(MilkPreferences.this).
                         format(new Date(Utilities.getLastAttemptedSyncDate())));
                 if(Utilities.getLastSyncDate() > 0) {
-                    subtitle = r.getString(R.string.rmilk_status_success,
+                    subtitle = r.getString(R.string.rmilk_status_failed_subtitle,
                             DateUtilities.getDateWithTimeFormat(MilkPreferences.this).
                             format(new Date(Utilities.getLastSyncDate())));
                 }
@@ -107,25 +95,27 @@ public class MilkPreferences extends TodorooPreferences {
                         return true;
                     }
                 });
-            } else {
+            } else if(Utilities.getLastSyncDate() > 0) {
                 status = r.getString(R.string.rmilk_status_success,
                         DateUtilities.getDateWithTimeFormat(MilkPreferences.this).
                         format(new Date(Utilities.getLastSyncDate())));
                 statusColor = Color.rgb(0, 100, 0);
+            } else {
+                status = r.getString(R.string.rmilk_status_never);
+                statusColor = Color.rgb(0, 0, 100);
+                preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                    public boolean onPreferenceClick(Preference p) {
+                        new RTMSyncProvider().synchronize(MilkPreferences.this);
+                        return true;
+                    }
+                });
             }
             preference.setTitle(status);
             preference.setSummary(subtitle);
-            final int statusColorSetting = statusColor;
-            getListView().setOnHierarchyChangeListener(new OnHierarchyChangeListener() {
-                public void onChildViewRemoved(View arg0, View arg1) {
-                    //
-                }
-                public void onChildViewAdded(View parent, View child) {
-                    if(((ListView)parent).getChildCount() == 2) {
-                        child.setBackgroundColor(statusColorSetting);
-                    }
-                }
-            });
+
+            View view = findViewById(R.id.status);
+            if(view != null)
+                view.setBackgroundColor(statusColor);
         }
 
         // sync button

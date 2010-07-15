@@ -263,7 +263,12 @@ public class RTMSyncProvider extends SynchronizationProvider {
             }
 
             SyncData syncData = populateSyncData(remoteChanges);
-            synchronizeTasks(syncData);
+            try {
+                synchronizeTasks(syncData);
+            } finally {
+                syncData.localCreated.close();
+                syncData.localUpdated.close();
+            }
 
             Utilities.recordSuccessfulSync();
 
@@ -278,6 +283,11 @@ public class RTMSyncProvider extends SynchronizationProvider {
     // ----------------------------------------------------------------------
     // ------------------------------------------------------- helper methods
     // ----------------------------------------------------------------------
+
+    @Override
+    protected String getNotificationTitle(Context context) {
+        return context.getString(R.string.rmilk_notification_title);
+    }
 
     /**
      * Populate SyncData data structure
@@ -447,6 +457,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     @Override
     protected Task read(Task task) throws IOException {
+        if(task.getValue(MilkDataService.TASK_SERIES_ID) == 0)
+            throw new ServiceInternalException("Tried to read an invalid task"); //$NON-NLS-1$
         RtmTaskSeries rtmTask = rtmService.tasks_getTask(Long.toString(task.getValue(MilkDataService.TASK_SERIES_ID)),
                 task.getValue(Task.TITLE));
         if(rtmTask != null)

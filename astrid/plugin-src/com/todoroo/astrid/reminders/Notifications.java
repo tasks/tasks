@@ -2,7 +2,6 @@ package com.todoroo.astrid.reminders;
 
 import java.util.Date;
 
-import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -15,8 +14,6 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.task.TaskIdentifier;
-import com.timsu.astrid.utilities.Constants;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -27,6 +24,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 public class Notifications extends BroadcastReceiver {
@@ -87,13 +85,6 @@ public class Notifications extends BroadcastReceiver {
     }
 
     // --- notification creation
-
-    /** Clear notifications associated with this application */
-    public static void clearAllNotifications(Context context, TaskIdentifier taskId) {
-        NotificationManager nm = (NotificationManager)
-            context.getSystemService(Activity.NOTIFICATION_SERVICE);
-        nm.cancel((int)taskId.getId());
-    }
 
     /** @return a random reminder string */
     static String getRandomReminder(String[] reminders) {

@@ -57,7 +57,11 @@
     <!-- Status: success (%s -> last sync date) -->    
     <string name="rmilk_status_success">Last Sync: %s</string>
     <!-- Status: error (%s -> last attempted sync date) -->    
-    <string name="rmilk_status_failed">Sync Failed On: %s</string>
+    <string name="rmilk_status_failed">Failed On: %s</string>
+    <!-- Status: error subtitle (%s -> last successful sync date) -->    
+    <string name="rmilk_status_failed_subtitle">Last Successful Sync: %s</string>
+    <!-- Status: never sync'd -->    
+    <string name="rmilk_status_never">Never Synchronized!</string>
 
     <!-- Options Group Label -->    
     <string name="rmilk_MPr_group_options">Options</string>
@@ -71,15 +75,6 @@
     <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_interval_key">rmilk_interval</string>
     
-    <!-- Shortcut Title -->
-    <string name="rmilk_MPr_shortcut_title">Main Menu Shortcut</string>    
-    <!-- Shortcut Description (enabled) -->
-    <string name="rmilk_MPr_shortcut_desc_enabled">Shortcut will be shown in main menu</string>    
-    <!-- Shortcut Description (disabled) -->
-    <string name="rmilk_MPr_shortcut_desc_disabled">Shortcut will be hidden in main menu</string>
-    <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_shortcut_key">rmilk_shortcut</string>
-  
     <!-- Background Wifi Title -->  
     <string name="rmilk_MPr_bgwifi_title">Wifi Only Setting</string>    
     <!-- Background Wifi Description (enabled) -->
@@ -123,23 +118,10 @@ Error Message: %s
     
     <!-- ======================== Synchronization ========================== -->    
     
-    <!-- generic sync constants -->
-    <string name="rmilk_error">Sync Error! Sorry for the inconvenience! Error:</string>
-    <string name="rmilk_uptodate">Sync: Up to date!</string>
-    <string name="rmilk_result_title">%s Results</string>
-    <string name="rmilk_result_local">Summary - Astrid Tasks:</string>
-    <string name="rmilk_result_remote">Summary - Remote Server:</string>
-    <string name="rmilk_result_created">Created: %d</string>
-    <string name="rmilk_result_updated">Updated: %d</string>
-    <string name="rmilk_result_deleted">Deleted: %d</string>
-    <string name="rmilk_result_merged">Merged: %d</string>
-
     <!-- rmilk-specific constants -->
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
+    
     <string name="rmilk_forget_confirm">Log out / clear synchronization data?</string>
-    <string name="rmilk_last_sync">Last Sync Date: %s</string>
-    <string name="rmilk_last_auto_sync">Last AutoSync Attempt: %s</string>
-    <string name="rmilk_date_never">never</string>
     
     <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
     or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>

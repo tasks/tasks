@@ -6,6 +6,7 @@
         android:title="@string/rmilk_MPr_group_status">
     
         <Preference 
+            android:layout="@layout/rmilk_status_preference"
             android:key="@string/rmilk_MPr_status_key"  
             android:textSize="24sp"
             android:gravity="center"/>
@@ -20,10 +21,6 @@
             android:entries="@array/rmilk_MPr_interval_entries"  
             android:entryValues="@array/rmilk_MPr_interval_values"  
             android:title="@string/rmilk_MPr_interval_title" />
-            
-        <CheckBoxPreference  
-            android:key="@string/rmilk_MPr_shortcut_key"  
-            android:title="@string/rmilk_MPr_shortcut_title" />
             
     </PreferenceCategory>
     

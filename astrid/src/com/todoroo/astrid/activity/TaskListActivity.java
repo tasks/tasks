@@ -82,6 +82,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     public static final int ACTIVITY_EDIT_TASK = 0;
     public static final int ACTIVITY_SETTINGS = 1;
     public static final int ACTIVITY_PLUGINS = 2;
+    public static final int ACTIVITY_MENU_EXTERNAL = 3;
 
     // --- menu codes
 
@@ -238,7 +239,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                     Task task = ((ViewHolder)view.getTag()).task;
                     task.setValue(Task.IMPORTANCE, importance);
                     taskService.save(task, false);
-                    taskAdapter.setFieldContentsAndVisibility(view, task);
+                    taskAdapter.setFieldContentsAndVisibility(view);
                 }
 
                 return false;
@@ -395,14 +396,16 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     }
 
     @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+    }
+
+    @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        loadTaskListContent(true);
         taskService.cleanup();
-        if(requestCode == ACTIVITY_EDIT_TASK && resultCode != TaskEditActivity.RESULT_CODE_DISCARDED)
-            loadTaskListContent(true);
-        else if(requestCode == ACTIVITY_SETTINGS)
-            loadTaskListContent(true);
     }
 
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
@@ -447,6 +450,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         if(requery) {
             taskCursor.requery();
             taskAdapter.notifyDataSetChanged();
+            taskAdapter.flushDetailCache();
         }
         startManagingCursor(taskCursor);
 
@@ -628,7 +632,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         // context menu items
         case CONTEXT_MENU_ADDON_INTENT_ID: {
             intent = item.getIntent();
-            AndroidUtilities.startExternalIntent(this, intent);
+            AndroidUtilities.startExternalIntent(this, intent, ACTIVITY_MENU_EXTERNAL);
             return true;
         }
 

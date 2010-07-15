@@ -255,9 +255,10 @@
     <activity android:name="com.todoroo.astrid.rmilk.MilkLoginActivity"
               android:theme="@style/Theme" />
     <activity android:name="com.todoroo.astrid.rmilk.MilkPreferences"
+              android:icon="@drawable/ic_menu_rmilk"
               android:label="@string/rmilk_MPr_header">
       <intent-filter>   
-        <action android:name="com.todoroo.astrid.SETTINGS" />
+        <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
       <intent-filter>

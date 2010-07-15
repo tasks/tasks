@@ -161,7 +161,7 @@ public class TaskAdapter extends CursorAdapter {
         Task actionItem = ((ViewHolder)view.getTag()).task;
         actionItem.readFromCursor(cursor);
 
-        setFieldContentsAndVisibility(view, actionItem);
+        setFieldContentsAndVisibility(view);
         setTaskAppearance(view, actionItem.isCompleted());
     }
 
@@ -191,9 +191,10 @@ public class TaskAdapter extends CursorAdapter {
     }
 
     /** Helper method to set the contents and visibility of each field */
-    public void setFieldContentsAndVisibility(View view, Task task) {
+    public synchronized void setFieldContentsAndVisibility(View view) {
         Resources r = activity.getResources();
         ViewHolder viewHolder = (ViewHolder)view.getTag();
+        Task task = viewHolder.task;
 
         // name
         final TextView nameView = viewHolder.nameView; {
@@ -267,6 +268,13 @@ public class TaskAdapter extends CursorAdapter {
             int value = task.getValue(Task.IMPORTANCE);
             importanceView.setBackgroundColor(IMPORTANCE_COLORS[value]);
         }
+    }
+
+    /**
+     * Called to tell the cache to be cleared
+     */
+    public void flushDetailCache() {
+        detailCache.clear();
     }
 
     /**

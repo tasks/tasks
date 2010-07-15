@@ -3,7 +3,6 @@
  */
 package com.todoroo.andlib.widget;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
@@ -11,7 +10,6 @@ import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceGroup;
-import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
 import android.preference.Preference.OnPreferenceChangeListener;
 
@@ -40,10 +38,6 @@ abstract public class TodorooPreferences extends PreferenceActivity {
 
         addPreferencesFromResource(getPreferenceResource());
         DependencyInjectionService.getInstance().inject(this);
-
-        PreferenceScreen screen = getPreferenceScreen();
-        initializePreference(screen);
-
     }
 
     protected void initializePreference(Preference preference) {
@@ -76,8 +70,11 @@ abstract public class TodorooPreferences extends PreferenceActivity {
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        initializePreference(getPreferenceScreen());
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus) {
+            initializePreference(getPreferenceScreen());
+        }
     }
 
 }

@@ -50,6 +50,12 @@ public abstract class SynchronizationProvider {
     abstract protected void initiate(Context context);
 
     /**
+     * @param context
+     * @return title of notification
+     */
+    abstract protected String getNotificationTitle(Context context);
+
+    /**
      * Push variables from given task to the remote server.
      *
      * @param task
@@ -103,6 +109,7 @@ public abstract class SynchronizationProvider {
 
     private final Notification notification;
     private PendingIntent notificationIntent;
+    private String notificationTitle;
 
     public SynchronizationProvider() {
         DependencyInjectionService.getInstance().inject(this);
@@ -111,10 +118,12 @@ public abstract class SynchronizationProvider {
         int icon = android.R.drawable.stat_notify_sync;
         long when = System.currentTimeMillis();
         notification = new Notification(icon, null, when);
+        notification.flags |= Notification.FLAG_ONGOING_EVENT;
     }
 
     public void synchronize(final Context context) {
         // display notification
+        notificationTitle = getNotificationTitle(context);
         notificationIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
         postUpdate(context, context.getString(R.string.SyP_progress_starting));
         final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
@@ -149,7 +158,7 @@ public abstract class SynchronizationProvider {
      */
     protected void postUpdate(Context context, String string) {
         notification.setLatestEventInfo(context,
-                context.getString(R.string.rmilk_notification_title), string, notificationIntent);
+                notificationTitle, string, notificationIntent);
     }
 
     // --- synchronization logic
