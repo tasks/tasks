@@ -402,5 +402,15 @@ If you don\'t want to see the new task right after you complete the old one, you
   <!-- Add Ons: author for internal authors  -->
   <string name="AOA_internal_author">Astrid Team</string>
   
+  <!-- ========================================== SynchronizationProvider == -->
+          
+  <!-- Sync Notification: message when starting up -->
+  <string name="SyP_progress_starting">Logging In...</string>
   
+  <!-- Sync Notification: transmitting local task (%s -> task name) -->
+  <string name="SyP_progress_localtx">Transmitting: %s</string>
+
+  <!-- Sync Notification: receiving remote task (%s -> task name) -->
+  <string name="SyP_progress_remotetx">Receiving: %s</string>
+    
 </resources>

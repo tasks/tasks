@@ -174,7 +174,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             if(extras.containsKey(TOKEN_FILTER_VALUES))
                 values = AndroidUtilities.contentValuesFromString(extras.getString(TOKEN_FILTER_VALUES));
 
-            filter = new Filter("", "", title, new QueryTemplate(), values); //$NON-NLS-1$ //$NON-NLS-2$
+            filter = new Filter("", title, new QueryTemplate(), values); //$NON-NLS-1$ //$NON-NLS-2$
             filter.sqlQuery = sql;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());

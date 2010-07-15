@@ -4,7 +4,7 @@
 	<classpathentry kind="src" path="src-legacy"/>
 	<classpathentry kind="src" path="api-src"/>
 	<classpathentry kind="src" path="common-src"/>
-	<classpathentry excluding="com/todoroo/astrid/rmilk/DetailExposer.java|com/todoroo/astrid/rmilk/EditOperationExposer.java|com/todoroo/astrid/rmilk/MilkEditActivity.java|com/todoroo/astrid/rmilk/StartupReceiver.java" kind="src" path="plugin-src"/>
+	<classpathentry excluding="com/todoroo/astrid/rmilk/EditOperationExposer.java|com/todoroo/astrid/rmilk/MilkEditActivity.java|com/todoroo/astrid/rmilk/StartupReceiver.java" kind="src" path="plugin-src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="lib" path="lib/commons-codec-1.3.jar"/>

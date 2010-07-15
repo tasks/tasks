@@ -25,14 +25,13 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.rmilk.MilkPreferences;
-import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * A helper class for writing synchronization services for Astrid. This class
  * contains logic for merging incoming changes and writing outgoing changes.
  * <p>
- * Use {@link synchronize} as the entry point for your synchronization service,
+ * Use {@link initiate} as the entry point for your synchronization service,
  * which should handle authentication and then call {@link synchronizeTasks} to
  * initiate synchronization.
  *
@@ -41,15 +40,13 @@ import com.todoroo.astrid.service.TaskService;
  */
 public abstract class SynchronizationProvider {
 
-    /** Notification Manager id for RMilk notifications */
-    private static final int RMILK_NOTIFICATION_ID = -1;
-
     // --- abstract methods - your services should implement these
 
     /**
-     * Synchronize with the service
+     * Perform authenticate and other pre-synchronization steps, then
+     * synchronize.
      */
-    abstract public void synchronize();
+    abstract protected void initiate();
 
     /**
      * Push variables from given task to the remote server.
@@ -78,6 +75,14 @@ public abstract class SynchronizationProvider {
     abstract protected Task read(Task task) throws IOException;
 
     /**
+     * Save task. Used to save local tasks that have been updated and remote
+     * tasks that need to be created locally
+     *
+     * @param task
+     */
+    abstract protected void save(Task task) throws IOException;
+
+    /**
      * Finds a task in the list with the same remote identifier(s) as
      * the task passed in
      *
@@ -93,9 +98,6 @@ public abstract class SynchronizationProvider {
     // --- implementation
 
     @Autowired
-    private TaskService taskService;
-
-    @Autowired
     private ExceptionService exceptionService;
 
     private final Notification notification;
@@ -108,6 +110,27 @@ public abstract class SynchronizationProvider {
         int icon = android.R.drawable.stat_notify_sync;
         long when = System.currentTimeMillis();
         notification = new Notification(icon, null, when);
+    }
+
+    public void synchronize() {
+        Context context = ContextManager.getContext();
+
+        // display notification
+        notificationIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
+        postUpdate(context, context.getString(R.string.SyP_progress_starting));
+        final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
+        nm.notify(Constants.NOTIFICATION_SYNC, notification);
+
+        // start next step in background thread
+        new Thread(new Runnable() {
+            public void run() {
+                try {
+                    initiate();
+                } finally {
+                    nm.cancel(Constants.NOTIFICATION_SYNC);
+                }
+            }
+        }).start();
     }
 
     // --- utilities
@@ -148,12 +171,6 @@ public abstract class SynchronizationProvider {
         Context context = ContextManager.getContext();
         Resources r = context.getResources();
 
-        // create notification
-        notificationIntent = PendingIntent.getActivity(context, 0, new Intent(context, MilkPreferences.class), 0);
-        postUpdate(context, r.getString(R.string.rmilk_progress_starting));
-        NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
-        nm.notify(RMILK_NOTIFICATION_ID, notification);
-
         // create internal data structures
         HashMap<String, Task> remoteNewTaskNameMap = new HashMap<String, Task>();
         length = data.remoteUpdated.size();
@@ -171,7 +188,7 @@ public abstract class SynchronizationProvider {
             task.readFromCursor(data.localCreated);
 
             String taskTitle = task.getValue(Task.TITLE);
-            postUpdate(context, r.getString(R.string.rmilk_progress_localtx,
+            postUpdate(context, r.getString(R.string.SyP_progress_localtx,
                     taskTitle));
 
             /* If there exists an incoming remote task with the same name and no
@@ -185,10 +202,14 @@ public abstract class SynchronizationProvider {
 
                 transferIdentifiers(remote, task);
                 push(task, remote);
-                read(remote);
+
+                // re-read remote task after merge
+                Task newRemote = read(remote);
+                remote.mergeWith(newRemote.getMergedValues());
             } else {
                 create(task);
             }
+            save(task);
         }
 
         // 2. UPDATE: for each updated local task
@@ -196,14 +217,17 @@ public abstract class SynchronizationProvider {
         for(int i = 0; i < length; i++) {
             data.localUpdated.moveToNext();
             task.readFromCursor(data.localUpdated);
-            postUpdate(context, r.getString(R.string.rmilk_progress_localtx,
+            postUpdate(context, r.getString(R.string.SyP_progress_localtx,
                     task.getValue(Task.TITLE)));
 
             // if there is a conflict, merge
             Task remote = matchTask(data.remoteUpdated, task);
             if(remote != null) {
                 push(task, remote);
-                read(remote);
+
+                // re-read remote task after merge
+                Task newRemote = read(remote);
+                remote.mergeWith(newRemote.getMergedValues());
             } else {
                 push(task, null);
             }
@@ -243,11 +267,10 @@ public abstract class SynchronizationProvider {
         length = data.remoteUpdated.size();
         for(int i = 0; i < length; i++) {
             task = data.remoteUpdated.get(i);
-            postUpdate(context, r.getString(R.string.rmilk_progress_remotetx,
+            postUpdate(context, r.getString(R.string.SyP_progress_remotetx,
                     task.getValue(Task.TITLE)));
 
-            // save the data (TODO: save metadata)
-            taskService.save(task, true);
+            save(task);
         }
     }
 

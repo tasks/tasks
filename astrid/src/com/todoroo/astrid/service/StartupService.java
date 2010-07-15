@@ -8,13 +8,12 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.sync.SynchronizationService;
 import com.timsu.astrid.utilities.BackupService;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -104,10 +103,6 @@ public class StartupService {
                         0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
                 am.setInexactRepeating(AlarmManager.RTC, 0,
                         Constants.WIDGET_UPDATE_INTERVAL, pendingIntent);
-
-                // start synchronization service
-                if(Constants.SYNCHRONIZE)
-                    SynchronizationService.scheduleService(context);
 
                 // start backup service
                 BackupService.scheduleService(context);

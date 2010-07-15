@@ -322,6 +322,7 @@ occur (it is a minor drain on battery).
         <string name="sync_result_merged">Merged: %d</string>
 
         <string name="sync_progress_remote">Reading Remote Data</string>
+        <string name="sync_progress_starting">Reading Remote Data</string>
         <string name="sync_progress_rxlist">Reading List: %s</string>
         <string name="sync_progress_repeating">Synchronizing Repeating Task</string>
         <string name="sync_progress_localtx">Transmitting: %s</string>

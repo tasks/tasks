@@ -164,6 +164,7 @@ public class TagService {
         metadata.setValue(Metadata.KEY, KEY);
         metadata.setValue(Metadata.TASK, taskId);
         for(String tag : tags) {
+            metadata.clearValue(Metadata.ID);
             metadata.setValue(TAG, tag.trim());
             metadataDao.createNew(metadata);
         }

@@ -3,6 +3,7 @@
  */
 package com.todoroo.astrid.rmilk.data;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
@@ -12,25 +13,62 @@ import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
+import com.todoroo.andlib.data.Property.IntegerProperty;
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.rmilk.Utilities;
 import com.todoroo.astrid.rmilk.Utilities.ListContainer;
 import com.todoroo.astrid.rmilk.api.data.RtmList;
 import com.todoroo.astrid.rmilk.api.data.RtmLists;
 
-public class MilkDataService {
+public final class MilkDataService {
 
-    // --- constants
+    // --- public constants
 
-    /** for joining milk task table with task table */
-    public static final Join MILK_JOIN = Join.left(MilkTask.TABLE,
-                    Task.ID.eq(MilkTask.TASK));
+    /** metadata key */
+    public static final String METADATA_KEY = "rmilk"; //$NON-NLS-1$
+
+    /** {@link MilkList} id */
+    public static final LongProperty LIST_ID = new LongProperty(Metadata.TABLE,
+            Metadata.VALUE1.name);
+
+    /** RTM Task Series Id */
+    public static final LongProperty TASK_SERIES_ID = new LongProperty(Metadata.TABLE,
+            Metadata.VALUE2.name);
+
+    /** RTM Task Id */
+    public static final LongProperty TASK_ID = new LongProperty(Metadata.TABLE,
+            Metadata.VALUE3.name);
+
+    /** Whether task repeats in RTM (1 or 0) */
+    public static final IntegerProperty REPEATING = new IntegerProperty(Metadata.TABLE,
+            Metadata.VALUE4.name);
+
+    /** Utility for joining tasks with metadata */
+    public static final Join METADATA_JOIN = Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK));
+
+    // --- singleton
+
+    private static MilkDataService instance = null;
+
+    public static synchronized MilkDataService getInstance() {
+        if(instance == null)
+            instance = new MilkDataService(ContextManager.getContext());
+        return instance;
+    }
 
     // --- instance variables
 
@@ -39,18 +77,19 @@ public class MilkDataService {
     private final MilkDatabase milkDatabase = new MilkDatabase();
 
     private final GenericDao<MilkList> milkListDao;
-    private final GenericDao<MilkTask> milkTaskDao;
 
     @Autowired
     private TaskDao taskDao;
 
+    @Autowired
+    private MetadataDao metadataDao;
+
     static final Random random = new Random();
 
-    public MilkDataService(Context context) {
+    private MilkDataService(Context context) {
         this.context = context;
         DependencyInjectionService.getInstance().inject(this);
         milkListDao = new GenericDao<MilkList>(MilkList.class, milkDatabase);
-        milkTaskDao = new GenericDao<MilkTask>(MilkTask.class, milkDatabase);
         milkDatabase.openForReading();
     }
 
@@ -60,7 +99,7 @@ public class MilkDataService {
      * Clears RTM metadata information. Used when user logs out of RTM
      */
     public void clearMetadata() {
-        milkTaskDao.deleteWhere(Criterion.all);
+        metadataDao.deleteWhere(Metadata.KEY.eq(METADATA_KEY));
     }
 
     /**
@@ -70,20 +109,85 @@ public class MilkDataService {
      */
     public TodorooCursor<Task> getLocallyCreated(Property<?>[] properties) {
         return
-            taskDao.query(Query.select(properties).join(MILK_JOIN).where(
-                    Criterion.or(MilkTask.UPDATED.eq(0), MilkTask.TASK.isNull())));
+            taskDao.query(Query.select(properties).join(METADATA_JOIN).where(
+                    Criterion.or(TASK_ID.eq(0), Metadata.TASK.isNull())));
     }
 
     /**
      * Gets tasks that were modified since last sync
      * @param properties
-     * @return
+     * @return null if never sync'd
      */
     public TodorooCursor<Task> getLocallyUpdated(Property<?>[] properties) {
+        long lastSyncDate = Utilities.getLastSyncDate();
+        if(lastSyncDate == 0)
+            return taskDao.query(Query.select(Task.ID).where(Criterion.none));
         return
-            taskDao.query(Query.select(properties).join(MILK_JOIN).
-                    where(Criterion.and(MilkTask.UPDATED.neq(0),
-                            MilkTask.UPDATED.lt(Task.MODIFICATION_DATE))));
+            taskDao.query(Query.select(properties).join(METADATA_JOIN).
+                    where(Task.MODIFICATION_DATE.gt(lastSyncDate)));
+    }
+
+    /**
+     * Searches for a local task with same remote id, updates this task's id
+     * @param task
+     */
+    public void updateFromLocalCopy(Task task) {
+        if(task.getId() != Task.NO_ID)
+            return;
+        TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID).
+                join(METADATA_JOIN).where(Criterion.and(LIST_ID.eq(task.getValue(LIST_ID)),
+                        TASK_SERIES_ID.eq(task.getValue(TASK_SERIES_ID)),
+                        TASK_ID.eq(task.getValue(TASK_ID)))));
+        try {
+            if(cursor.getCount() == 0)
+                return;
+            cursor.moveToFirst();
+            task.setId(cursor.get(Task.ID));
+        } finally {
+            cursor.close();
+        }
+    }
+
+    /**
+     * Saves a task and its metadata
+     * @param task
+     */
+    public void saveTaskAndMetadata(Task task) {
+        Metadata metadata = new Metadata();
+        metadata.setValue(Metadata.KEY, METADATA_KEY);
+        metadata.setValue(LIST_ID, task.getValue(LIST_ID));
+        metadata.setValue(TASK_SERIES_ID, task.getValue(TASK_SERIES_ID));
+        metadata.setValue(TASK_ID, task.getValue(TASK_ID));
+        metadata.setValue(REPEATING, task.getValue(REPEATING));
+
+        task.clearValue(LIST_ID);
+        task.clearValue(TASK_SERIES_ID);
+        task.clearValue(TASK_ID);
+        task.clearValue(REPEATING);
+
+        taskDao.save(task, true);
+        metadata.setValue(Metadata.TASK, task.getId());
+
+        metadataDao.deleteWhere(MetadataCriteria.byTaskAndwithKey(task.getId(),
+                METADATA_KEY));
+        metadataDao.persist(metadata);
+    }
+
+    /**
+     * Reads metadata out of a task
+     * @return null if no metadata found
+     */
+    public Metadata getTaskMetadata(long taskId) {
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).where(
+                MetadataCriteria.byTaskAndwithKey(taskId, METADATA_KEY)));
+        try {
+            if(cursor.getCount() == 0)
+                return null;
+            cursor.moveToFirst();
+            return new Metadata(cursor);
+        } finally {
+            cursor.close();
+        }
     }
 
     // --- list methods
@@ -93,7 +197,7 @@ public class MilkDataService {
      * @param listId
      * @return null if no list by this id exists, otherwise list name
      */
-    public String getList(String listId) {
+    public String getListName(long listId) {
         TodorooCursor<MilkList> cursor = milkListDao.query(Query.select(
                 MilkList.NAME).where(MilkList.ID.eq(listId)));
         try {
@@ -113,22 +217,40 @@ public class MilkDataService {
     public ListContainer[] getListsWithCounts() {
         CountProperty COUNT = new CountProperty();
 
-        // read all list counts
-        TodorooCursor<MilkTask> cursor = milkTaskDao.query(Query.select(MilkList.ID, MilkList.NAME, COUNT).
-            join(Join.inner(MilkList.TABLE, MilkTask.LIST_ID.eq(MilkList.ID))).
-            orderBy(Order.asc(MilkList.POSITION), Order.asc(MilkList.ID)).
-            groupBy(MilkTask.LIST_ID));
-        ListContainer[] containers = new ListContainer[cursor.getCount()];
+        // read list names
+        TodorooCursor<MilkList> listCursor = milkListDao.query(Query.select(MilkList.ID,
+                MilkList.NAME).where(MilkList.ARCHIVED.eq(0)).orderBy(Order.asc(MilkList.POSITION)));
+        ListContainer[] lists = new ListContainer[listCursor.getCount()];
+        HashMap<Long, ListContainer> listIdToContainerMap;
         try {
-            for(int i = 0; i < containers.length; i++) {
-                cursor.moveToNext();
-                long id = cursor.get(MilkList.ID);
-                String name = cursor.get(MilkList.NAME);
-                int count = cursor.get(COUNT);
-                containers[i] = new ListContainer(id, name);
-                containers[i].count = count;
+            int length = listCursor.getCount();
+            if(length == 0)
+                return lists;
+            listIdToContainerMap = new HashMap<Long, ListContainer>(length);
+            MilkList list = new MilkList();
+            for(int i = 0; i < length; i++) {
+                listCursor.moveToNext();
+                list.readFromCursor(listCursor);
+                lists[i] = new ListContainer(list);
+                listIdToContainerMap.put(list.getId(), lists[i]);
             }
-            return containers;
+        } finally {
+            listCursor.close();
+        }
+
+        // read all list counts
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(LIST_ID, COUNT).
+            join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
+            where(Criterion.and(TaskCriteria.isVisible(DateUtilities.now()), TaskCriteria.isActive())).
+            groupBy(LIST_ID));
+        try {
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                ListContainer container = listIdToContainerMap.get(cursor.get(LIST_ID));
+                if(container != null) {
+                    container.count = cursor.get(COUNT);
+                }
+            }
+            return lists;
         } finally {
             cursor.close();
         }
@@ -160,18 +282,31 @@ public class MilkDataService {
     }*/
 
     /**
-     * Clears current cache of RTM lists and re-populates
+     * Clears current cache of RTM lists and re-populates. Returns the inbox
+     * list.
+     *
      * @param lists
+     * @return list with the name "inbox"
      */
-    public void setLists(RtmLists lists) {
+    public MilkList setLists(RtmLists lists) {
         milkListDao.deleteWhere(Criterion.all);
         MilkList model = new MilkList();
+        MilkList inbox = null;
         for(Map.Entry<String, RtmList> list : lists.getLists().entrySet()) {
+            if(list.getValue().isSmart())
+                continue;
             model.setValue(MilkList.ID, Long.parseLong(list.getValue().getId()));
             model.setValue(MilkList.NAME, list.getValue().getName());
+            model.setValue(MilkList.POSITION, list.getValue().getPosition());
             model.setValue(MilkList.ARCHIVED, list.getValue().isArchived()? 1 : 0);
             milkListDao.createNew(model);
+
+            if(list.getValue().isInbox()) {
+                inbox = model;
+                model = new MilkList();
+            }
         }
+        return inbox;
     }
 
 }

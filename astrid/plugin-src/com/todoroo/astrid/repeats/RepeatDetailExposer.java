@@ -104,7 +104,7 @@ public class RepeatDetailExposer extends BroadcastReceiver {
                 detail = context.getString(R.string.repeat_detail_duedate, interval);
 
 
-            TaskDetail taskDetail = new TaskDetail(RepeatsPlugin.IDENTIFIER, detail);
+            TaskDetail taskDetail = new TaskDetail(detail);
 
             // transmit
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);

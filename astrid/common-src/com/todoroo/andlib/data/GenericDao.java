@@ -10,9 +10,11 @@ import java.lang.reflect.InvocationTargetException;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.utility.Constants;
 
 
 
@@ -62,6 +64,8 @@ public class GenericDao<TYPE extends AbstractModel> {
      */
     public TodorooCursor<TYPE> query(Query query) {
         query.from(table);
+        if(Constants.DEBUG)
+            Log.d("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
         Cursor cursor = database.rawQuery(query.toString(), null);
         return new TodorooCursor<TYPE>(cursor, query.getFields());
     }

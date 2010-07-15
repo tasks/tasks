@@ -7,14 +7,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
-import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -44,7 +41,6 @@ import com.todoroo.astrid.rmilk.api.data.RtmTasks;
 import com.todoroo.astrid.rmilk.api.data.RtmAuth.Perms;
 import com.todoroo.astrid.rmilk.api.data.RtmTask.Priority;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
-import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 public class RTMSyncProvider extends SynchronizationProvider {
@@ -52,7 +48,6 @@ public class RTMSyncProvider extends SynchronizationProvider {
     private ServiceImpl rtmService = null;
     private String timeline = null;
     private MilkDataService dataService = null;
-    private ProgressDialog progressDialog = null;
 
     static {
         AstridDependencyInjector.initialize();
@@ -73,27 +68,12 @@ public class RTMSyncProvider extends SynchronizationProvider {
     // ------------------------------------------------------- public methods
     // ----------------------------------------------------------------------
 
-    @Override
-    public void synchronize() {
-        Context context = ContextManager.getContext();
-        dataService = new MilkDataService(context);
-
-        if(context instanceof Activity) {
-            progressDialog = dialogUtilities.progressDialog(context,
-                    context.getString(R.string.DLG_communicating_text));
-            progressDialog.show();
-        }
-
-    	// authenticate the user. this will automatically call the next step
-        authenticate(context);
-    }
-
     /**
      * Sign out of RTM, deleting all synchronization metadata
      */
     public void signOut() {
         Utilities.setToken(null);
-        Utilities.setLastSyncDate(null);
+        Utilities.setLastSyncDate(0);
         dataService.clearMetadata();
     }
 
@@ -138,19 +118,22 @@ public class RTMSyncProvider extends SynchronizationProvider {
         }
     }
 
-    private void authenticate(final Context context) {
-        new Thread(new Runnable() {
-            public void run() {
-                authenticateInNewThread(context);
-            }
-        }).start();
+    @Override
+    protected void initiate() {
+        Context context = ContextManager.getContext();
+        dataService = MilkDataService.getInstance();
+
+        // authenticate the user. this will automatically call the next step
+        authenticate(context);
     }
+
+
 
     /**
      * Perform authentication with RTM. Will open the SyncBrowser if necessary
      */
     @SuppressWarnings("nls")
-    private void authenticateInNewThread(final Context context) {
+    private void authenticate(final Context context) {
         final Resources r = context.getResources();
         FlurryAgent.onEvent("rtm-started");
 
@@ -237,10 +220,10 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
             // read all tasks
             ArrayList<Task> remoteChanges = new ArrayList<Task>();
-            Date lastSyncDate = Utilities.getLastSyncDate();
+            Date lastSyncDate = new Date(Utilities.getLastSyncDate());
             boolean shouldSyncIndividualLists = false;
             String filter = null;
-            if(lastSyncDate == null)
+            if(lastSyncDate.getTime() == 0)
                 filter = "status:incomplete"; //$NON-NLS-1$ // 1st time sync: get unfinished tasks
 
             // try the quick synchronization
@@ -273,8 +256,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
             SyncData syncData = populateSyncData(remoteChanges);
             synchronizeTasks(syncData);
 
-            Date syncTime = new Date(System.currentTimeMillis());
-            Utilities.setLastSyncDate(syncTime);
+            Utilities.setLastSyncDate(DateUtilities.now());
 
             FlurryAgent.onEvent("rtm-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {
@@ -301,10 +283,10 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 Task.CREATION_DATE,
                 Task.COMPLETION_DATE,
                 Task.DELETION_DATE,
-                MilkTask.LIST_ID,
-                MilkTask.TASK_SERIES_ID,
-                MilkTask.TASK_ID,
-                MilkTask.REPEATING,
+                MilkDataService.LIST_ID,
+                MilkDataService.TASK_SERIES_ID,
+                MilkDataService.TASK_ID,
+                MilkDataService.REPEATING,
                 // TODO tags
         };
 
@@ -350,23 +332,29 @@ public class RTMSyncProvider extends SynchronizationProvider {
     @Override
     protected void create(Task task) throws IOException {
         String listId = null;
-        if(task.containsValue(MilkTask.LIST_ID))
-            listId = Long.toString(task.getValue(MilkTask.LIST_ID));
+        if(task.containsValue(MilkDataService.LIST_ID) && task.getValue(MilkDataService.LIST_ID) != null)
+            listId = Long.toString(task.getValue(MilkDataService.LIST_ID));
+        if("0".equals(listId)) //$NON-NLS-1$
+            listId = null;
 
         RtmTaskSeries rtmTask = rtmService.tasks_add(timeline, listId,
                 task.getValue(Task.TITLE));
-        push(task, parseRemoteTask(rtmTask));
+        Task newRemoteTask = parseRemoteTask(rtmTask);
+        task.mergeWith(newRemoteTask.getMergedValues());
+        push(task, newRemoteTask);
     }
 
-    /** Send changes for the given TaskProxy across the wire */
+    /**
+     * Send changes for the given Task across the wire. If a remoteTask is
+     * supplied, we attempt to intelligently only transmit the values that
+     * have changed.
+     */
     @Override
     protected void push(Task task, Task remoteTask) throws IOException {
-        RtmId id = new RtmId(task);
-
         // fetch remote task for comparison
-        if(remoteTask == null) {
+        if(remoteTask == null)
             remoteTask = read(task);
-        }
+        RtmId id = new RtmId(task);
 
         if(shouldTransmit(task, Task.TITLE, remoteTask))
             rtmService.tasks_setName(timeline, id.listId, id.taskSeriesId,
@@ -386,42 +374,52 @@ public class RTMSyncProvider extends SynchronizationProvider {
                 rtmService.tasks_complete(timeline, id.listId, id.taskSeriesId,
                         id.taskId);
         }
-        if(shouldTransmit(task, Task.DELETION_DATE, remoteTask))
+        if(shouldTransmit(task, Task.DELETION_DATE, remoteTask) &&
+                task.getValue(Task.DELETION_DATE) > 0)
             rtmService.tasks_delete(timeline, id.listId, id.taskSeriesId,
                     id.taskId);
 
-        if(shouldTransmit(task, MilkTask.LIST_ID, remoteTask) && remoteTask != null)
-            rtmService.tasks_moveTo(timeline, Long.toString(remoteTask.getValue(MilkTask.LIST_ID)),
+        // TODO tags, notes, url, ...
+
+
+        if(remoteTask != null && shouldTransmit(task, MilkDataService.LIST_ID, remoteTask) &&
+                task.getValue(MilkDataService.LIST_ID) != 0)
+            rtmService.tasks_moveTo(timeline, Long.toString(remoteTask.getValue(MilkDataService.LIST_ID)),
                     id.listId, id.taskSeriesId, id.taskId);
+    }
+
+    @Override
+    protected void save(Task task) throws IOException {
+        // if task has no id, try to find a corresponding task
+        if(task.getId() == Task.NO_ID) {
+            dataService.updateFromLocalCopy(task);
+        }
+
+        dataService.saveTaskAndMetadata(task);
     }
 
     /** Create a task proxy for the given RtmTaskSeries */
     private Task parseRemoteTask(RtmTaskSeries rtmTaskSeries) {
         Task task = new Task();
 
-        task.setValue(MilkTask.LIST_ID, Long.parseLong(rtmTaskSeries.getList().getId()));
-        task.setValue(MilkTask.TASK_SERIES_ID, Long.parseLong(rtmTaskSeries.getId()));
+        task.setValue(MilkDataService.LIST_ID, Long.parseLong(rtmTaskSeries.getList().getId()));
+        task.setValue(MilkDataService.TASK_SERIES_ID, Long.parseLong(rtmTaskSeries.getId()));
         task.setValue(Task.TITLE, rtmTaskSeries.getName());
-        task.setValue(MilkTask.REPEATING, rtmTaskSeries.hasRecurrence() ? 1 : 0);
+        task.setValue(MilkDataService.REPEATING, rtmTaskSeries.hasRecurrence() ? 1 : 0);
 
         RtmTask rtmTask = rtmTaskSeries.getTask();
-        if(rtmTask != null) {
-            task.setValue(Task.CREATION_DATE, DateUtilities.dateToUnixtime(rtmTask.getAdded()));
-            task.setValue(Task.COMPLETION_DATE, DateUtilities.dateToUnixtime(rtmTask.getCompleted()));
-            task.setValue(Task.DELETION_DATE, DateUtilities.dateToUnixtime(rtmTask.getDeleted()));
-            if(rtmTask.getDue() != null) {
-                task.setValue(Task.DUE_DATE,
-                        task.createDueDate(rtmTask.getHasDueTime() ? Task.URGENCY_SPECIFIC_DAY_TIME :
-                            Task.URGENCY_SPECIFIC_DAY, DateUtilities.dateToUnixtime(rtmTask.getDue())));
-            } else {
-                task.setValue(Task.DUE_DATE, 0L);
-            }
-            task.setValue(Task.IMPORTANCE, rtmTask.getPriority().ordinal());
+        task.setValue(MilkDataService.TASK_ID, Long.parseLong(rtmTask.getId()));
+        task.setValue(Task.CREATION_DATE, DateUtilities.dateToUnixtime(rtmTask.getAdded()));
+        task.setValue(Task.COMPLETION_DATE, DateUtilities.dateToUnixtime(rtmTask.getCompleted()));
+        task.setValue(Task.DELETION_DATE, DateUtilities.dateToUnixtime(rtmTask.getDeleted()));
+        if(rtmTask.getDue() != null) {
+            task.setValue(Task.DUE_DATE,
+                    task.createDueDate(rtmTask.getHasDueTime() ? Task.URGENCY_SPECIFIC_DAY_TIME :
+                        Task.URGENCY_SPECIFIC_DAY, DateUtilities.dateToUnixtime(rtmTask.getDue())));
         } else {
-            // error in upstream code, try to handle gracefully
-            Log.e("rtmsync", "Got null task parsing remote task series",  //$NON-NLS-1$//$NON-NLS-2$
-                    new Throwable());
+            task.setValue(Task.DUE_DATE, 0L);
         }
+        task.setValue(Task.IMPORTANCE, rtmTask.getPriority().ordinal());
 
         return task;
     }
@@ -431,9 +429,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
         int length = tasks.size();
         for(int i = 0; i < length; i++) {
             Task task = tasks.get(i);
-            if(task.getValue(MilkTask.LIST_ID).equals(target.getValue(MilkTask.LIST_ID)) &&
-                    task.getValue(MilkTask.TASK_SERIES_ID).equals(target.getValue(MilkTask.TASK_SERIES_ID)) &&
-                    task.getValue(MilkTask.TASK_ID).equals(target.getValue(MilkTask.TASK_ID)))
+            if(task.getValue(MilkDataService.LIST_ID).equals(target.getValue(MilkDataService.LIST_ID)) &&
+                    task.getValue(MilkDataService.TASK_SERIES_ID).equals(target.getValue(MilkDataService.TASK_SERIES_ID)) &&
+                    task.getValue(MilkDataService.TASK_ID).equals(target.getValue(MilkDataService.TASK_ID)))
                 return task;
         }
         return null;
@@ -441,7 +439,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     @Override
     protected Task read(Task task) throws IOException {
-        RtmTaskSeries rtmTask = rtmService.tasks_getTask(Long.toString(task.getValue(MilkTask.TASK_SERIES_ID)),
+        RtmTaskSeries rtmTask = rtmService.tasks_getTask(Long.toString(task.getValue(MilkDataService.TASK_SERIES_ID)),
                 task.getValue(Task.TITLE));
         if(rtmTask != null)
             return parseRemoteTask(rtmTask);
@@ -450,9 +448,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     @Override
     protected void transferIdentifiers(Task source, Task destination) {
-        destination.setValue(MilkTask.LIST_ID, source.getValue(MilkTask.LIST_ID));
-        destination.setValue(MilkTask.TASK_SERIES_ID, source.getValue(MilkTask.TASK_SERIES_ID));
-        destination.setValue(MilkTask.TASK_ID, source.getValue(MilkTask.TASK_ID));
+        destination.setValue(MilkDataService.LIST_ID, source.getValue(MilkDataService.LIST_ID));
+        destination.setValue(MilkDataService.TASK_SERIES_ID, source.getValue(MilkDataService.TASK_SERIES_ID));
+        destination.setValue(MilkDataService.TASK_ID, source.getValue(MilkDataService.TASK_ID));
     }
 
     // ----------------------------------------------------------------------
@@ -466,9 +464,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
         public String listId;
 
         public RtmId(Task task) {
-            taskId = Long.toString(task.getValue(MilkTask.TASK_ID));
-            taskSeriesId = Long.toString(task.getValue(MilkTask.TASK_SERIES_ID));
-            listId = Long.toString(task.getValue(MilkTask.LIST_ID));
+            taskId = Long.toString(task.getValue(MilkDataService.TASK_ID));
+            taskSeriesId = Long.toString(task.getValue(MilkDataService.TASK_SERIES_ID));
+            listId = Long.toString(task.getValue(MilkDataService.LIST_ID));
         }
     }
 

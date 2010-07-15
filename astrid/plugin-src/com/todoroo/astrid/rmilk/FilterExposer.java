@@ -15,9 +15,9 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.rmilk.Utilities.ListContainer;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
-import com.todoroo.astrid.rmilk.data.MilkTask;
 
 /**
  * Exposes filters based on RTM lists
@@ -27,16 +27,16 @@ import com.todoroo.astrid.rmilk.data.MilkTask;
  */
 public class FilterExposer extends BroadcastReceiver {
 
-
     @SuppressWarnings("nls")
     private Filter filterFromList(Context context, ListContainer list) {
         String listTitle = context.getString(R.string.rmilk_FEx_list_item).
             replace("$N", list.name).replace("$C", Integer.toString(list.count));
         String title = context.getString(R.string.rmilk_FEx_list_title, list.name);
-        ContentValues values = new ContentValues(); // TODO
-        Filter filter = new Filter(Utilities.IDENTIFIER, listTitle, title,
-                    new QueryTemplate().join(MilkDataService.MILK_JOIN).where(MilkTask.LIST_ID.eq(list.id)),
-                    values);
+        ContentValues values = new ContentValues();
+        values.put(Metadata.KEY.name, MilkDataService.METADATA_KEY);
+        values.put(MilkDataService.LIST_ID.name, list.id);
+        Filter filter = new Filter(listTitle, title, new QueryTemplate().join(MilkDataService.METADATA_JOIN).where(MilkDataService.LIST_ID.eq(list.id)),
+                values);
 
         return filter;
     }
@@ -47,8 +47,7 @@ public class FilterExposer extends BroadcastReceiver {
         if(!Utilities.isLoggedIn())
             return;
 
-        MilkDataService service = new MilkDataService(context);
-        ListContainer[] lists = service.getListsWithCounts();
+        ListContainer[] lists = MilkDataService.getInstance().getListsWithCounts();
 
         // If user does not have any tags, don't show this section at all
         if(lists.length == 0)
@@ -68,6 +67,7 @@ public class FilterExposer extends BroadcastReceiver {
         list[0] = rtmHeader;
         list[1] = rtmLists;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, Utilities.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }

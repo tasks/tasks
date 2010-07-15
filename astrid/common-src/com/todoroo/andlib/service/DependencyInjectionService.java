@@ -39,10 +39,6 @@ public class DependencyInjectionService {
     @SuppressWarnings("nls")
     public void inject(Object caller) {
 
-        if(Constants.DEBUG) {
-            Log.d("INJECTOR", "Invoked Injector on " + caller, new Throwable());
-        }
-
         // Traverse through class and all parent classes, looking for
         // fields declared with the @Autowired annotation and using
         // dependency injection to set them as appropriate
@@ -103,7 +99,7 @@ public class DependencyInjectionService {
             Object injection = injector.getInjection(caller, field);
             if (injection != null) {
                 if(Constants.DEBUG)
-                    Log.e("INJECTOR", injector + ":" + caller + "." + field.getName() + " => " + injection);
+                    Log.d("INJECTOR", injector + ":" + caller + "." + field.getName() + " => " + injection);
                 field.set(caller, injection);
                 return;
             }

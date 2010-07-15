@@ -35,8 +35,7 @@ public class TagDetailExposer extends BroadcastReceiver {
         if(tagList.length() == 0)
             return;
 
-        TaskDetail taskDetail = new TaskDetail(TagsPlugin.IDENTIFIER,
-                context.getString(R.string.tag_TLA_detail, tagList));
+        TaskDetail taskDetail = new TaskDetail(context.getString(R.string.tag_TLA_detail, tagList));
 
         // transmit
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);

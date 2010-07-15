@@ -22,7 +22,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
-import android.view.ViewGroup.OnHierarchyChangeListener;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.FrameLayout;
@@ -34,6 +33,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
@@ -111,9 +111,9 @@ public class FilterListActivity extends ExpandableListActivity {
         final String intentAction = intent.getAction();
         if (Intent.ACTION_SEARCH.equals(intentAction)) {
             String query = intent.getStringExtra(SearchManager.QUERY).trim();
-            Filter filter = new Filter(null, null,
-                    getString(R.string.FLA_search_filter, query),
-                    new QueryTemplate().where(Task.TITLE.like("%" + query + "%")),  //$NON-NLS-1$ //$NON-NLS-2$
+            Filter filter = new Filter(null, getString(R.string.FLA_search_filter, query),
+                    new QueryTemplate().where(Functions.upper(Task.TITLE).like("%" + //$NON-NLS-1$
+                            query.toUpperCase() + "%")),
                     null);
             intent = new Intent(FilterListActivity.this, TaskListActivity.class);
             intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
@@ -208,7 +208,7 @@ public class FilterListActivity extends ExpandableListActivity {
         registerForContextMenu(getExpandableListView());
         getExpandableListView().setGroupIndicator(
                 getResources().getDrawable(R.drawable.expander_group));
-        getExpandableListView().setOnHierarchyChangeListener(new OnHierarchyChangeListener() {
+        /*getExpandableListView().setOnHierarchyChangeListener(new OnHierarchyChangeListener() {
             @Override
             public void onChildViewAdded(View parent, View child) {
                 // auto-expand adapter
@@ -233,7 +233,7 @@ public class FilterListActivity extends ExpandableListActivity {
             public void onChildViewRemoved(View parent, View child) {
                 // do nothing
             }
-        });
+        });*/
     }
 
     /**

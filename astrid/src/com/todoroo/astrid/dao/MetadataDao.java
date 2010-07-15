@@ -52,6 +52,11 @@ public class MetadataDao extends GenericDao<Metadata> {
     	    return Metadata.KEY.eq(key);
     	}
 
+    	/** Returns all metadata associated with a given key */
+    	public static Criterion byTaskAndwithKey(long taskId, String key) {
+    	    return Criterion.and(withKey(key), byTask(taskId));
+    	}
+
     }
 
 

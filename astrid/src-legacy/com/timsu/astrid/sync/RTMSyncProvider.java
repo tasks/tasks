@@ -24,8 +24,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Map.Entry;
 import java.util.StringTokenizer;
+import java.util.Map.Entry;
 
 import android.content.Context;
 import android.content.Intent;
@@ -38,15 +38,15 @@ import com.mdt.rtm.ApplicationInfo;
 import com.mdt.rtm.ServiceException;
 import com.mdt.rtm.ServiceImpl;
 import com.mdt.rtm.ServiceInternalException;
-import com.mdt.rtm.data.RtmAuth.Perms;
 import com.mdt.rtm.data.RtmList;
 import com.mdt.rtm.data.RtmLists;
 import com.mdt.rtm.data.RtmTask;
-import com.mdt.rtm.data.RtmTask.Priority;
 import com.mdt.rtm.data.RtmTaskList;
 import com.mdt.rtm.data.RtmTaskNote;
 import com.mdt.rtm.data.RtmTaskSeries;
 import com.mdt.rtm.data.RtmTasks;
+import com.mdt.rtm.data.RtmAuth.Perms;
+import com.mdt.rtm.data.RtmTask.Priority;
 import com.timsu.astrid.R;
 import com.timsu.astrid.activities.SyncLoginActivity;
 import com.timsu.astrid.activities.SyncLoginActivity.SyncLoginCallback;
@@ -537,7 +537,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     /** SynchronizeHelper for remember the milk */
     class RtmSyncHelper implements SynchronizeHelper {
-        private String timeline;
+        private final String timeline;
         private String lastCreatedTask = null;
         private Context context;
 

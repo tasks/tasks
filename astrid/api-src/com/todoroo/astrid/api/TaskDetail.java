@@ -15,11 +15,6 @@ import android.os.Parcelable;
 public final class TaskDetail implements Parcelable {
 
     /**
-     * Plug-in Identifier
-     */
-    public final String plugin;
-
-    /**
      * Text of detail
      */
     public String text = null;
@@ -31,28 +26,23 @@ public final class TaskDetail implements Parcelable {
 
     /**
      * Creates a TaskDetail object
-     *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
      * @param text
      *            text to display
      * @param color
      *            color to use for text. Use <code>0</code> for default color
      */
-    public TaskDetail(String plugin, String text, int color) {
-        this.plugin = plugin;
+    public TaskDetail(String text, int color) {
         this.text = text;
         this.color = color;
     }
 
     /**
      * Convenience constructor to make a TaskDetail with default color
-     *
      * @param text
      *            text to display
      */
-    public TaskDetail(String plugin, String text) {
-        this(plugin, text, 0);
+    public TaskDetail(String text) {
+        this(text, 0);
     }
 
     // --- parcelable helpers
@@ -68,7 +58,6 @@ public final class TaskDetail implements Parcelable {
      * {@inheritDoc}
      */
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(plugin);
         dest.writeString(text);
         dest.writeInt(color);
     }
@@ -81,7 +70,7 @@ public final class TaskDetail implements Parcelable {
          * {@inheritDoc}
          */
         public TaskDetail createFromParcel(Parcel source) {
-            return new TaskDetail(source.readString(), source.readString(), source.readInt());
+            return new TaskDetail(source.readString(), source.readInt());
         }
 
         /**

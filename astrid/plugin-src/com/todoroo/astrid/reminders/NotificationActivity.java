@@ -65,8 +65,7 @@ public class NotificationActivity extends Activity {
             return;
 
         Intent taskListIntent = new Intent(this, TaskListActivity.class);
-        Filter itemFilter = new Filter(ReminderPlugin.IDENTIFIER,
-                getString(R.string.rmd_NoA_filter),
+        Filter itemFilter = new Filter(getString(R.string.rmd_NoA_filter),
                 getString(R.string.rmd_NoA_filter),
                 new QueryTemplate().where(TaskCriteria.byId(id)),
                 null);

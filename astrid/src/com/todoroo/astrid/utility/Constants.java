@@ -2,6 +2,8 @@ package com.todoroo.astrid.utility;
 
 public final class Constants {
 
+    // --- general application constants
+
     /**
      * Flurry API Key
      */
@@ -18,11 +20,6 @@ public final class Constants {
     public static final boolean OEM = false;
 
     /**
-     * Whether to display synchronization options
-     */
-    public static final boolean SYNCHRONIZE = !OEM;
-
-    /**
      * Interval to update the widget (in order to detect hidden tasks
      * becoming visible)
      */
@@ -31,5 +28,11 @@ public final class Constants {
     /**
      * Whether to turn on debugging logging and UI
      */
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
+
+    // --- notification id's
+
+    /** Notification Manager id for RMilk notifications */
+    public static final int NOTIFICATION_SYNC = -1;
+
 }

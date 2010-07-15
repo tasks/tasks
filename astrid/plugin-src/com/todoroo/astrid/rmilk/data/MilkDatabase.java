@@ -37,7 +37,6 @@ public class MilkDatabase extends AbstractDatabase {
      */
     public static final Table[] TABLES =  new Table[] {
         MilkList.TABLE,
-        MilkTask.TABLE
     };
 
     // --- implementation

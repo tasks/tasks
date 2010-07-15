@@ -23,11 +23,6 @@ import com.todoroo.andlib.sql.QueryTemplate;
 public final class Filter extends FilterListItem {
 
     /**
-     * Plug-in Identifier
-     */
-    public final String plugin;
-
-    /**
      * Expanded title of this filter. This is displayed at the top
      * of the screen when user is viewing this filter.
      * <p>
@@ -62,9 +57,6 @@ public final class Filter extends FilterListItem {
 
     /**
      * Utility constructor for creating a TaskList object
-     *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
      * @param listingTitle
      *            Title of this item as displayed on the lists page, e.g. Inbox
      * @param title
@@ -75,9 +67,8 @@ public final class Filter extends FilterListItem {
      * @param valuesForNewTasks
      *            see {@link sqlForNewTasks}
      */
-    public Filter(String plugin, String listingTitle,
-            String title, QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
-        this.plugin = plugin;
+    public Filter(String listingTitle, String title,
+            QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
         this.listingTitle = listingTitle;
         this.title = title;
         this.sqlQuery = sqlQuery.toString();
@@ -90,8 +81,8 @@ public final class Filter extends FilterListItem {
      * @param plugin
      *            {@link Addon} identifier that encompasses object
      */
-    protected Filter(String plugin) {
-        this.plugin = plugin;
+    protected Filter() {
+        // do nothing
     }
 
     // --- parcelable
@@ -108,7 +99,6 @@ public final class Filter extends FilterListItem {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(plugin);
         super.writeToParcel(dest, flags);
         dest.writeString(title);
         dest.writeString(sqlQuery);
@@ -124,7 +114,7 @@ public final class Filter extends FilterListItem {
          * {@inheritDoc}
          */
         public Filter createFromParcel(Parcel source) {
-            Filter item = new Filter(source.readString());
+            Filter item = new Filter();
             item.readFromParcel(source);
             item.title = source.readString();
             item.sqlQuery = source.readString();

@@ -3,8 +3,6 @@
  */
 package com.todoroo.astrid.rmilk;
 
-import java.util.Date;
-
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
@@ -42,7 +40,7 @@ public class Utilities {
         public ListContainer(long id, String name) {
             this.id = id;
             this.name = name;
-            this.count = -1;
+            this.count = 0;
         }
 
         @Override
@@ -87,22 +85,15 @@ public class Utilities {
         editor.commit();
     }
 
-    /** RTM Last Successful Sync Date, or null */
-    public static Date getLastSyncDate() {
-        Long value = getPrefs().getLong(PREF_LAST_SYNC, 0);
-        if (value == 0)
-            return null;
-        return new Date(value);
+    /** RTM Last Successful Sync Date, or 0 */
+    public static long getLastSyncDate() {
+        return getPrefs().getLong(PREF_LAST_SYNC, 0);
     }
 
     /** Set RTM Last Successful Sync Date */
-    public static void setLastSyncDate(Date date) {
+    public static void setLastSyncDate(long time) {
         Editor editor = getPrefs().edit();
-        if (date == null) {
-            editor.remove(PREF_LAST_SYNC);
-        } else {
-            editor.putLong(PREF_LAST_SYNC, date.getTime());
-        }
+        editor.putLong(PREF_LAST_SYNC, time);
         editor.commit();
     }
 

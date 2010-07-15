@@ -1,5 +1,6 @@
 package com.todoroo.andlib.sql;
 
+
 @SuppressWarnings("nls")
 public final class Functions {
 
@@ -11,6 +12,10 @@ public final class Functions {
 
     private static String value(Object value) {
         return value.toString();
+    }
+
+    public static Field upper(Field title) {
+        return new Field("UPPER(" + title.toString() + ")");
     }
 
 }

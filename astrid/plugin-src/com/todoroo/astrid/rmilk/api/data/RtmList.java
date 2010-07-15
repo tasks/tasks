@@ -27,13 +27,15 @@ public class RtmList extends RtmData {
   private final String id;
   private final boolean smart;
   private final boolean archived;
+  private final int position;
   private final String name;
 
-  public RtmList(String id, String name, boolean smart) {
+  public RtmList(String id, String name, boolean smart, boolean archived, int position) {
     this.id = id;
     this.name = name;
     this.smart = smart;
-    this.archived = false;
+    this.archived = archived;
+    this.position = position;
   }
 
   public RtmList(Element elt) {
@@ -41,6 +43,7 @@ public class RtmList extends RtmData {
     name = elt.getAttribute("name");
     smart = elt.getAttribute("smart") == "1";
     archived = elt.getAttribute("archived") == "1";
+    position = Integer.parseInt(elt.getAttribute("position"));
   }
 
   public String getId() {
@@ -57,5 +60,13 @@ public class RtmList extends RtmData {
 
   public boolean isArchived() {
     return archived;
-}
+  }
+
+  public int getPosition() {
+    return position;
+  }
+
+  public boolean isInbox() {
+    return position == -1;
+  }
 }

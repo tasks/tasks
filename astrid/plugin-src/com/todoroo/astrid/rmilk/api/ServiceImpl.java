@@ -50,7 +50,7 @@ import com.todoroo.astrid.rmilk.api.data.RtmTask.Priority;
  * @author timsu January 2009
  */
 @SuppressWarnings("nls")
-public class ServiceImpl 
+public class ServiceImpl
 {
 
     public final static String SERVER_HOST_NAME = "api.rememberthemilk.com"; //$NON-NLS-1$
@@ -288,7 +288,7 @@ public class ServiceImpl
   }
 
   /**
-   * Adds a task, name, to the list specified by list_id. 
+   * Adds a task, name, to the list specified by list_id.
    * @param timelineId
    * @param listId can be null to omit this parameter (assumes Inbox)
    * @param name
@@ -303,9 +303,9 @@ public class ServiceImpl
         response = invoker.invoke(new Param("method", "rtm.tasks.add"), new Param("timeline", timelineId), new Param("list_id", listId),
                 new Param("name", name), new Param("auth_token", currentAuthToken), new Param("api_key", applicationInfo.getApiKey()));
     else
-        response = invoker.invoke(new Param("method", "rtm.tasks.add"), new Param("timeline", timelineId), 
+        response = invoker.invoke(new Param("method", "rtm.tasks.add"), new Param("timeline", timelineId),
                 new Param("name", name), new Param("auth_token", currentAuthToken), new Param("api_key", applicationInfo.getApiKey()));
-    
+
     RtmTaskList rtmTaskList = new RtmTaskList(response);
     if (rtmTaskList.getSeries().size() == 1)
     {
@@ -409,6 +409,8 @@ public class ServiceImpl
   public RtmTaskSeries tasks_moveTo(String timelineId, String fromListId, String toListId, String taskSeriesId, String taskId)
       throws ServiceException
   {
+      if(fromListId.equals(toListId))
+          return null;
     Element elt = invoker.invoke(new Param("method", "rtm.tasks.moveTo"), new Param("timeline", timelineId), new Param("from_list_id", fromListId),
         new Param("to_list_id", toListId), new Param("taskseries_id", taskSeriesId), new Param("task_id", taskId), new Param("auth_token", currentAuthToken),
         new Param("api_key", applicationInfo.getApiKey()));

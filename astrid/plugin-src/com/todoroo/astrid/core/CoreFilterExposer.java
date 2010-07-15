@@ -47,8 +47,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         FilterCategory extended = new FilterCategory(CorePlugin.IDENTIFIER,
                 r.getString(R.string.BFE_Extended), new Filter[5]);
 
-        Filter alphabetical = new Filter(CorePlugin.IDENTIFIER,
-                r.getString(R.string.BFE_Alphabetical),
+        Filter alphabetical = new Filter(r.getString(R.string.BFE_Alphabetical),
                 r.getString(R.string.BFE_Alphabetical),
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
                         TaskCriteria.isVisible(DateUtilities.now()))).
@@ -56,8 +55,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
                 null);
         alphabetical.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap();
 
-        Filter recent = new Filter(CorePlugin.IDENTIFIER,
-                r.getString(R.string.BFE_Recent),
+        Filter recent = new Filter(r.getString(R.string.BFE_Recent),
                 r.getString(R.string.BFE_Recent),
                 new QueryTemplate().orderBy(Order.desc(Task.MODIFICATION_DATE)).limit(15),
                 null);
@@ -65,26 +63,23 @@ public final class CoreFilterExposer extends BroadcastReceiver {
 
         ContentValues hiddenValues = new ContentValues();
         hiddenValues.put(Task.HIDE_UNTIL.name, DateUtilities.now() + DateUtilities.ONE_DAY);
-        Filter hidden = new Filter(CorePlugin.IDENTIFIER,
-                r.getString(R.string.BFE_Hidden),
+        Filter hidden = new Filter(r.getString(R.string.BFE_Hidden),
                 r.getString(R.string.BFE_Hidden),
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
                         Criterion.not(TaskCriteria.isVisible(DateUtilities.now())))).
                         orderBy(Order.asc(Task.HIDE_UNTIL)),
-                        hiddenValues);
+                hiddenValues);
         hidden.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_clouds)).getBitmap();
 
         ContentValues completedValues = new ContentValues();
         hiddenValues.put(Task.COMPLETION_DATE.name, DateUtilities.now());
-        Filter completed = new Filter(CorePlugin.IDENTIFIER, r.getString(R.string.BFE_Completed),
-                r.getString(R.string.BFE_Completed),
+        Filter completed = new Filter(r.getString(R.string.BFE_Completed), r.getString(R.string.BFE_Completed),
                 new QueryTemplate().where(Criterion.and(TaskCriteria.completedBefore(DateUtilities.now()),
                         Criterion.not(TaskCriteria.isDeleted()))). orderBy(Order.desc(Task.COMPLETION_DATE)),
                 completedValues);
         completed.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_check)).getBitmap();
 
-        Filter deleted = new Filter(CorePlugin.IDENTIFIER,
-                r.getString(R.string.BFE_Deleted),
+        Filter deleted = new Filter(r.getString(R.string.BFE_Deleted),
                 r.getString(R.string.BFE_Deleted),
                 new QueryTemplate().where(TaskCriteria.isDeleted()).
                         orderBy(Order.desc(Task.DELETION_DATE)),
@@ -112,8 +107,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
      * @return
      */
     public static Filter buildInboxFilter(Resources r) {
-        Filter inbox = new Filter(CorePlugin.IDENTIFIER, r.getString(R.string.BFE_Active),
-                r.getString(R.string.BFE_Active_title),
+        Filter inbox = new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active_title),
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
                         TaskCriteria.isVisible(DateUtilities.now()))),
                 null);

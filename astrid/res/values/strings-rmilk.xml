@@ -115,17 +115,10 @@ Error Message: %s
     </string>
     
     <!-- ======================== Synchronization ========================== -->    
-
-    <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
+    
+    <!-- generic sync constants -->
     <string name="rmilk_error">Sync Error! Sorry for the inconvenience! Error:</string>
-    <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
-    or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
     <string name="rmilk_uptodate">Sync: Up to date!</string>
-    <string name="rmilk_forget_confirm">Clear data for selected services?</string>
-    <string name="rmilk_no_synchronizers">No Synchronizers Enabled!</string>
-    <string name="rmilk_last_sync">Last Sync Date: %s</string>
-    <string name="rmilk_last_auto_sync">Last AutoSync Attempt: %s</string>
-    <string name="rmilk_date_never">never</string>
     <string name="rmilk_result_title">%s Results</string>
     <string name="rmilk_result_local">Summary - Astrid Tasks:</string>
     <string name="rmilk_result_remote">Summary - Remote Server:</string>
@@ -133,12 +126,16 @@ Error Message: %s
     <string name="rmilk_result_updated">Updated: %d</string>
     <string name="rmilk_result_deleted">Deleted: %d</string>
     <string name="rmilk_result_merged">Merged: %d</string>
+
+    <!-- rmilk-specific constants -->
+    <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
+    <string name="rmilk_forget_confirm">Log out / clear synchronization data?</string>
+    <string name="rmilk_last_sync">Last Sync Date: %s</string>
+    <string name="rmilk_last_auto_sync">Last AutoSync Attempt: %s</string>
+    <string name="rmilk_date_never">never</string>
     
-    <string name="rmilk_progress_starting">Starting Sync...</string>
-    <string name="rmilk_progress_rxlist">Reading List: %s</string>
-    <string name="rmilk_progress_localtx">Transmitting: %s</string>
-    <string name="rmilk_progress_localdel">Deleting: %s</string>
-    <string name="rmilk_progress_remotetx">Receiving: %s</string>
+    <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
+    or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
         
     <string-array name="rmilk_MPr_interval_entries">
         <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->

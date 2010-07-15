@@ -40,9 +40,8 @@ public class TagFilterExposer extends BroadcastReceiver {
         contentValues.put(Metadata.KEY.name, TagService.KEY);
         contentValues.put(TagService.TAG.name, tag.tag);
 
-        Filter filter = new Filter(TagsPlugin.IDENTIFIER,
-                listTitle, title,
-                tagTemplate,
+        Filter filter = new Filter(listTitle,
+                title, tagTemplate,
                 contentValues);
 
 //        filters[0].contextMenuLabels = new String[] {
@@ -79,8 +78,7 @@ public class TagFilterExposer extends BroadcastReceiver {
 
         FilterListHeader tagsHeader = new FilterListHeader(TagsPlugin.IDENTIFIER,
                 context.getString(R.string.tag_FEx_header));
-        Filter untagged = new Filter(TagsPlugin.IDENTIFIER,
-                r.getString(R.string.tag_FEx_untagged),
+        Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
                 r.getString(R.string.tag_FEx_untagged),
                 tagService.untaggedTemplate(),
                 null);
