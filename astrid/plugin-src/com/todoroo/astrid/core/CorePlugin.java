@@ -9,7 +9,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 
 public class CorePlugin extends BroadcastReceiver {
 
-    static final String IDENTIFIER = "core";
+    static final String IDENTIFIER = "core"; //$NON-NLS-1$
 
     @Override
     public void onReceive(Context context, Intent intent) {

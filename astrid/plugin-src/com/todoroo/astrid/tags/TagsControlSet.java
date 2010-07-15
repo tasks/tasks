@@ -54,7 +54,7 @@ public final class TagsControlSet implements TaskEditControlSet {
             TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
             try {
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-                    addTag(cursor.get(Metadata.VALUE));
+                    addTag(cursor.get(TagService.TAG));
             } finally {
                 cursor.close();
             }

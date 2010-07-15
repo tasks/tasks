@@ -6,6 +6,7 @@
 package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.AbstractDatabase;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -25,7 +26,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 2;
+    public static final int VERSION = 3;
 
     /**
      * Database name (must be unique)
@@ -76,13 +77,19 @@ public class Database extends AbstractDatabase {
         switch(oldVersion) {
         case 1: {
             SqlConstructorVisitor visitor = new SqlConstructorVisitor();
-            String sql = "ALTER TABLE " + Task.TABLE.name + " ADD " +
-                Task.RECURRENCE.accept(visitor, null);
-            database.execSQL(sql);
-            return true;
+            database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
+                Task.RECURRENCE.accept(visitor, null));
         }
+        case 2: {
+            SqlConstructorVisitor visitor = new SqlConstructorVisitor();
+            for(Property<?> property : new Property<?>[] { Metadata.VALUE2,
+                    Metadata.VALUE3, Metadata.VALUE4, Metadata.VALUE5 })
+                database.execSQL("ALTER TABLE " + Metadata.TABLE.name + " ADD " +
+                        property.accept(visitor, null));
         }
 
+        return true;
+        }
 
         return false;
     }

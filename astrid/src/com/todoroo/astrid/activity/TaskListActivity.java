@@ -345,13 +345,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             taskService.save(task, false);
             if(forMetadata != null && forMetadata.size() > 0) {
                 Metadata metadata = new Metadata();
-                for(Entry<String, Object> item : forMetadata.valueSet()) {
-                    metadata.setValue(Metadata.TASK, task.getId());
-                    metadata.setValue(Metadata.KEY, item.getKey());
-                    metadata.setValue(Metadata.VALUE, item.getValue().toString());
-                    metadataService.save(metadata);
-                    metadata.clear();
-                }
+                metadata.setValue(Metadata.TASK, task.getId());
+                metadata.mergeWith(forMetadata);
+                metadataService.save(metadata);
             }
 
             TextView quickAdd = (TextView)findViewById(R.id.quickAddText);

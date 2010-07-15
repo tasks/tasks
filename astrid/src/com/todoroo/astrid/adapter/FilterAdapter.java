@@ -125,6 +125,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         FrameLayout.LayoutParams expansionImageLayout = new FrameLayout.LayoutParams(
                 32, 32);
         expansionImageLayout.gravity = Gravity.CENTER_VERTICAL;
+        image.setPadding(5, 0, 5, 0);
         image.setLayoutParams(expansionImageLayout);
         image.setScaleType(ScaleType.FIT_CENTER);
         layout.addView(image);

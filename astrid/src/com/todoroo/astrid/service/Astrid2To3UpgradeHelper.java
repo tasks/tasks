@@ -12,8 +12,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
 import com.google.ical.values.Frequency;
@@ -414,7 +414,7 @@ public class Astrid2To3UpgradeHelper {
                 long task = mapCursor.getLong(1);
                 metadata.setValue(Metadata.TASK, task);
                 metadata.setValue(Metadata.KEY, TagService.KEY);
-                metadata.setValue(Metadata.VALUE, tag);
+                metadata.setValue(TagService.TAG, tag);
                 metadataDao.createNew(metadata);
                 metadata.clearValue(Metadata.ID);
             }

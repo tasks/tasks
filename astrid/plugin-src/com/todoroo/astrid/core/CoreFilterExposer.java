@@ -111,7 +111,6 @@ public final class CoreFilterExposer extends BroadcastReceiver {
      * Build inbox filter
      * @return
      */
-    @SuppressWarnings("nls")
     public static Filter buildInboxFilter(Resources r) {
         Filter inbox = new Filter(CorePlugin.IDENTIFIER, r.getString(R.string.BFE_Active),
                 r.getString(R.string.BFE_Active_title),

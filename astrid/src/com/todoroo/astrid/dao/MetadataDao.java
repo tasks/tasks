@@ -62,7 +62,7 @@ public class MetadataDao extends GenericDao<Metadata> {
      * @param properties
      * @return
      */
-    public TodorooCursor<Metadata> fetchDangling(Property<?>[] properties) {
+    public TodorooCursor<Metadata> fetchDangling(Property<?>... properties) {
         Query sql = Query.select(properties).from(Metadata.TABLE).join(Join.left(Task.TABLE,
                 Metadata.TASK.eq(Task.ID))).where(Task.TITLE.isNull());
         Cursor cursor = database.rawQuery(sql.toString(), null);

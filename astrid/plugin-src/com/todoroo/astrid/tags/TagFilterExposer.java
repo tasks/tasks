@@ -17,6 +17,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.tags.TagService.Tag;
 
 /**
@@ -36,7 +37,8 @@ public class TagFilterExposer extends BroadcastReceiver {
         String title = context.getString(R.string.tag_FEx_name, tag.tag);
         QueryTemplate tagTemplate = tag.queryTemplate();
         ContentValues contentValues = new ContentValues();
-        contentValues.put(TagService.KEY, tag.tag);
+        contentValues.put(Metadata.KEY.name, TagService.KEY);
+        contentValues.put(TagService.TAG.name, tag.tag);
 
         Filter filter = new Filter(TagsPlugin.IDENTIFIER,
                 listTitle, title,

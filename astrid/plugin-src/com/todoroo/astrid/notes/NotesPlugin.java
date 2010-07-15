@@ -9,7 +9,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 
 public class NotesPlugin extends BroadcastReceiver {
 
-    static final String IDENTIFIER = "notes";
+    static final String IDENTIFIER = "notes"; //$NON-NLS-1$
 
     @Override
     public void onReceive(Context context, Intent intent) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -17,7 +18,6 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.MetadataService;
 
 /**
  * Provides operations for working with tags
@@ -28,27 +28,28 @@ import com.todoroo.astrid.service.MetadataService;
 @SuppressWarnings("nls")
 public class TagService {
 
-    /**
-     * Metadata key for tag data
-     */
-    public static final String KEY = "tags-tag";
+    // --- public constants
+
+    /** Metadata key for tag data */
+    public static final String KEY = "tags";
+
+    /** Property for reading tag values */
+    public static final StringProperty TAG = Metadata.VALUE1;
+
+    // --- implementation details
 
     @Autowired
     private MetadataDao metadataDao;
-
-    @Autowired
-    private MetadataService metadataService;
 
     public TagService() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-
     /**
      * Property for retrieving count of aggregated rows
      */
     private static final CountProperty COUNT = new CountProperty();
-    public static final Order GROUPED_TAGS_BY_ALPHA = Order.asc(Metadata.VALUE);
+    public static final Order GROUPED_TAGS_BY_ALPHA = Order.asc(TAG);
     public static final Order GROUPED_TAGS_BY_SIZE = Order.desc(COUNT);
 
     /**
@@ -75,7 +76,7 @@ public class TagService {
         public QueryTemplate queryTemplate() {
             return new QueryTemplate().join(Join.inner(Metadata.TABLE,
                     Task.ID.eq(Metadata.TASK))).where(Criterion.and(
-                            MetadataCriteria.withKey(KEY), Metadata.VALUE.eq(tag),
+                            MetadataCriteria.withKey(KEY), TAG.eq(tag),
                             TaskCriteria.isActive()));
         }
     }
@@ -94,14 +95,17 @@ public class TagService {
      * @return empty array if no tags, otherwise array
      */
     public Tag[] getGroupedTags(Order order) {
-        TodorooCursor<Metadata> cursor = metadataService.fetchWithCount(
-                COUNT, Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(KEY)), order);
+        Query query = Query.select(TAG, COUNT).
+            join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
+            where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(KEY))).
+            orderBy(order).groupBy(TAG);
+        TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
             Tag[] array = new Tag[cursor.getCount()];
             for (int i = 0; i < array.length; i++) {
                 cursor.moveToNext();
                 array[i] = new Tag();
-                array[i].tag = cursor.get(Metadata.VALUE);
+                array[i].tag = cursor.get(TAG);
                 array[i].count = cursor.get(COUNT);
             }
             return array;
@@ -117,7 +121,7 @@ public class TagService {
      * @return cursor. PLEASE CLOSE THE CURSOR!
      */
     public TodorooCursor<Metadata> getTags(long taskId) {
-        Query query = Query.select(Metadata.VALUE).where(Criterion.and(MetadataCriteria.withKey(KEY),
+        Query query = Query.select(TAG).where(Criterion.and(MetadataCriteria.withKey(KEY),
                 MetadataCriteria.byTask(taskId)));
         return metadataDao.query(query);
     }
@@ -137,7 +141,7 @@ public class TagService {
             for (int i = 0; i < length; i++) {
                 tags.moveToNext();
                 metadata.readFromCursor(tags);
-                tagBuilder.append(metadata.getValue(Metadata.VALUE));
+                tagBuilder.append(metadata.getValue(TAG));
                 if (i < length - 1)
                     tagBuilder.append(", ");
             }
@@ -160,7 +164,7 @@ public class TagService {
         metadata.setValue(Metadata.KEY, KEY);
         metadata.setValue(Metadata.TASK, taskId);
         for(String tag : tags) {
-            metadata.setValue(Metadata.VALUE, tag.trim());
+            metadata.setValue(TAG, tag.trim());
             metadataDao.createNew(metadata);
         }
     }

@@ -10,8 +10,8 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -35,6 +35,15 @@ public class TaskService {
     }
 
     // --- service layer
+
+    /**
+     * Query underlying database
+     * @param query
+     * @return
+     */
+    public TodorooCursor<Task> query(Query query) {
+        return taskDao.query(query);
+    }
 
     /**
      *
