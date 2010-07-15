@@ -1,5 +1,7 @@
 package com.todoroo.astrid.api;
 
+import java.util.ArrayList;
+
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 
@@ -12,10 +14,5 @@ import com.todoroo.astrid.model.Task;
  */
 public class TaskContainer {
     public Task task;
-    public Metadata[] metadata;
-
-    public TaskContainer(Task task, Metadata[] metadata) {
-        this.task = task;
-        this.metadata = metadata;
-    }
+    public ArrayList<Metadata> metadata;
 }

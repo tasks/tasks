@@ -33,6 +33,7 @@ import com.todoroo.astrid.rmilk.Utilities;
 import com.todoroo.astrid.rmilk.Utilities.ListContainer;
 import com.todoroo.astrid.rmilk.api.data.RtmList;
 import com.todoroo.astrid.rmilk.api.data.RtmLists;
+import com.todoroo.astrid.rmilk.sync.RTMTaskContainer;
 
 public final class MilkDataService {
 
@@ -132,20 +133,20 @@ public final class MilkDataService {
 
     /**
      * Searches for a local task with same remote id, updates this task's id
-     * @param task
+     * @param remoteTask
      */
-    public void updateFromLocalCopy(Task task) {
-        if(task.getId() != Task.NO_ID)
+    public void findLocalMatch(RTMTaskContainer remoteTask) {
+        if(remoteTask.task.getId() != Task.NO_ID)
             return;
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID).
                 join(METADATA_JOIN).where(Criterion.and(MetadataCriteria.withKey(METADATA_KEY),
-                        TASK_SERIES_ID.eq(task.getValue(TASK_SERIES_ID)),
-                        TASK_ID.eq(task.getValue(TASK_ID)))));
+                        TASK_SERIES_ID.eq(remoteTask.taskSeriesId),
+                        TASK_ID.eq(remoteTask.taskId))));
         try {
             if(cursor.getCount() == 0)
                 return;
             cursor.moveToFirst();
-            task.setId(cursor.get(Task.ID));
+            remoteTask.task.setId(cursor.get(Task.ID));
         } finally {
             cursor.close();
         }
@@ -155,25 +156,15 @@ public final class MilkDataService {
      * Saves a task and its metadata
      * @param task
      */
-    public void saveTaskAndMetadata(Task task) {
-        Metadata metadata = new Metadata();
-        metadata.setValue(Metadata.KEY, METADATA_KEY);
-        metadata.setValue(LIST_ID, task.getValue(LIST_ID));
-        metadata.setValue(TASK_SERIES_ID, task.getValue(TASK_SERIES_ID));
-        metadata.setValue(TASK_ID, task.getValue(TASK_ID));
-        metadata.setValue(REPEATING, task.getValue(REPEATING));
+    public void saveTaskAndMetadata(RTMTaskContainer task) {
+        taskDao.save(task.task, true);
 
-        task.clearValue(LIST_ID);
-        task.clearValue(TASK_SERIES_ID);
-        task.clearValue(TASK_ID);
-        task.clearValue(REPEATING);
-
-        taskDao.save(task, true);
-        metadata.setValue(Metadata.TASK, task.getId());
-
-        metadataDao.deleteWhere(MetadataCriteria.byTaskAndwithKey(task.getId(),
+        metadataDao.deleteWhere(MetadataCriteria.byTaskAndwithKey(task.task.getId(),
                 METADATA_KEY));
-        metadataDao.persist(metadata);
+        for(Metadata metadata : task.metadata) {
+            metadata.setValue(Metadata.TASK, task.task.getId());
+            metadataDao.persist(metadata);
+        }
     }
 
     /**

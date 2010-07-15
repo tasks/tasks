@@ -93,7 +93,7 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
      *
      * @param task
      */
-    abstract protected void save(TYPE task) throws IOException;
+    abstract protected void write(TYPE task) throws IOException;
 
     /**
      * Finds a task in the list with the same remote identifier(s) as
@@ -223,7 +223,7 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
             } else {
                 create((TYPE)local);
             }
-            save((TYPE)local);
+            write((TYPE)local);
         }
 
         // 2. UPDATE: for each updated local task
@@ -284,7 +284,7 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
             postUpdate(context, r.getString(R.string.SyP_progress_remotetx,
                     remote.task.getValue(Task.TITLE)));
 
-            save((TYPE)remote);
+            write((TYPE)remote);
         }
     }
 
