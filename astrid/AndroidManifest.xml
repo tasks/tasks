@@ -140,7 +140,6 @@
     <!-- ======================================================== Services = -->
 
     <service android:name="com.todoroo.astrid.widget.TasksWidget$UpdateService" />
-    <service android:name=".sync.SynchronizationService" />
     <service android:name=".utilities.BackupService"/>
 
     <!-- ======================================================= Providers = -->

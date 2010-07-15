@@ -18,6 +18,7 @@ import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -25,6 +26,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.SynchronizationProvider;
+import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.MilkLoginActivity;
 import com.todoroo.astrid.rmilk.Utilities;
@@ -43,7 +45,7 @@ import com.todoroo.astrid.rmilk.api.data.RtmTask.Priority;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
-public class RTMSyncProvider extends SynchronizationProvider {
+public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
 
     private ServiceImpl rtmService = null;
     private String timeline = null;
@@ -58,6 +60,10 @@ public class RTMSyncProvider extends SynchronizationProvider {
 
     @Autowired
     protected DialogUtilities dialogUtilities;
+
+    /** Temporary property for storing task tags */
+    private static final StringProperty RTM_TAGS = new StringProperty(Task.TABLE,
+            "tags"); //$NON-NLS-1$
 
     public RTMSyncProvider() {
         super();
@@ -130,8 +136,6 @@ public class RTMSyncProvider extends SynchronizationProvider {
         // authenticate the user. this will automatically call the next step
         authenticate(context);
     }
-
-
 
     /**
      * Perform authentication with RTM. Will open the SyncBrowser if necessary
@@ -228,7 +232,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
             dataService.setLists(lists);
 
             // read all tasks
-            ArrayList<Task> remoteChanges = new ArrayList<Task>();
+            ArrayList<TaskContainer> remoteChanges = new ArrayList<TaskContainer>();
             Date lastSyncDate = new Date(Utilities.getLastSyncDate());
             boolean shouldSyncIndividualLists = false;
             String filter = null;
@@ -289,42 +293,38 @@ public class RTMSyncProvider extends SynchronizationProvider {
         return context.getString(R.string.rmilk_notification_title);
     }
 
+    // all synchronized properties
+    private static final Property<?>[] PROPERTIES = new Property<?>[] {
+            Task.ID,
+            Task.TITLE,
+            Task.IMPORTANCE,
+            Task.DUE_DATE,
+            Task.CREATION_DATE,
+            Task.COMPLETION_DATE,
+            Task.DELETION_DATE,
+    };
+
     /**
      * Populate SyncData data structure
      */
-    private SyncData populateSyncData(ArrayList<Task> remoteTasks) {
-        // all synchronized properties
-        Property<?>[] properties = new Property<?>[] {
-                Task.ID,
-                Task.TITLE,
-                Task.IMPORTANCE,
-                Task.DUE_DATE,
-                Task.CREATION_DATE,
-                Task.COMPLETION_DATE,
-                Task.DELETION_DATE,
-                MilkDataService.LIST_ID,
-                MilkDataService.TASK_SERIES_ID,
-                MilkDataService.TASK_ID,
-                MilkDataService.REPEATING,
-                // TODO tags
-        };
-
+    private SyncData populateSyncData(ArrayList<TaskContainer> remoteTasks) {
         // fetch locally created tasks
-        TodorooCursor<Task> localCreated = dataService.getLocallyCreated(properties);
+        TodorooCursor<Task> localCreated = dataService.getLocallyCreated(PROPERTIES);
 
         // fetch locally updated tasks
-        TodorooCursor<Task> localUpdated = dataService.getLocallyUpdated(properties);
+        TodorooCursor<Task> localUpdated = dataService.getLocallyUpdated(PROPERTIES);
 
-        return new SyncData(properties, remoteTasks, localCreated, localUpdated);
+        return new SyncData(remoteTasks, localCreated, localUpdated);
     }
 
     /**
      * Add the tasks read from RTM to the given list
      */
-    private void addTasksToList(RtmTasks tasks, ArrayList<Task> list) {
+    private void addTasksToList(RtmTasks tasks, ArrayList<TaskContainer> list) {
         for (RtmTaskList taskList : tasks.getLists()) {
             for (RtmTaskSeries taskSeries : taskList.getSeries()) {
-                Task remoteTask = parseRemoteTask(taskSeries);
+                TaskContainer remoteTask = parseRemoteTask(taskSeries);
+                dataService.updateFromLocalCopy(task);
                 list.add(remoteTask);
             }
         }
@@ -337,29 +337,24 @@ public class RTMSyncProvider extends SynchronizationProvider {
      * @param remoteTask remote task proxy
      * @return
      */
-    private boolean shouldTransmit(Task task, Property<?> property, Task remoteTask) {
-        if(!task.containsValue(property))
+    private boolean shouldTransmit(TaskContainer task, Property<?> property, TaskContainer remoteTask) {
+        if(!task.task.containsValue(property))
             return false;
 
         if(remoteTask == null)
             return true;
-        if(!remoteTask.containsValue(property))
+        if(!remoteTask.task.containsValue(property))
             return true;
-        return !AndroidUtilities.equals(task.getValue(property), remoteTask.getValue(property));
+        return !AndroidUtilities.equals(task.task.getValue(property),
+                remoteTask.task.getValue(property));
     }
 
     @Override
-    protected void create(Task task) throws IOException {
-        String listId = null;
-        if(task.containsValue(MilkDataService.LIST_ID) && task.getValue(MilkDataService.LIST_ID) != null)
-            listId = Long.toString(task.getValue(MilkDataService.LIST_ID));
-        if("0".equals(listId)) //$NON-NLS-1$
-            listId = null;
-
-        RtmTaskSeries rtmTask = rtmService.tasks_add(timeline, listId,
-                task.getValue(Task.TITLE));
-        Task newRemoteTask = parseRemoteTask(rtmTask);
-        task.mergeWith(newRemoteTask.getMergedValues());
+    protected void create(RTMTaskContainer task) throws IOException {
+        RtmTaskSeries rtmTask = rtmService.tasks_add(timeline, task.listId,
+                task.task.getValue(Task.TITLE));
+        RTMTaskContainer newRemoteTask = parseRemoteTask(rtmTask);
+        transferIdentifiers(newRemoteTask, task);
         push(task, newRemoteTask);
     }
 
@@ -369,55 +364,50 @@ public class RTMSyncProvider extends SynchronizationProvider {
      * have changed.
      */
     @Override
-    protected void push(Task task, Task remoteTask) throws IOException {
+    protected void push(RTMTaskContainer local, RTMTaskContainer remote) throws IOException {
         // fetch remote task for comparison
-        if(remoteTask == null)
-            remoteTask = read(task);
-        RtmId id = new RtmId(task);
+        if(remote == null)
+            remote = pull(local);
 
-        if(shouldTransmit(task, Task.TITLE, remoteTask))
-            rtmService.tasks_setName(timeline, id.listId, id.taskSeriesId,
-                    id.taskId, task.getValue(Task.TITLE));
-        if(shouldTransmit(task, Task.IMPORTANCE, remoteTask))
-            rtmService.tasks_setPriority(timeline, id.listId, id.taskSeriesId,
-                    id.taskId, Priority.values()[task.getValue(Task.IMPORTANCE)]);
-        if(shouldTransmit(task, Task.DUE_DATE, remoteTask))
-            rtmService.tasks_setDueDate(timeline, id.listId, id.taskSeriesId,
-                    id.taskId, DateUtilities.unixtimeToDate(task.getValue(Task.DUE_DATE)),
-                    task.hasDueTime());
-        if(shouldTransmit(task, Task.COMPLETION_DATE, remoteTask)) {
-            if(task.getValue(Task.COMPLETION_DATE) == 0)
-                rtmService.tasks_uncomplete(timeline, id.listId, id.taskSeriesId,
-                        id.taskId);
+        if(shouldTransmit(local, Task.TITLE, remote))
+            rtmService.tasks_setName(timeline, local.listId, local.taskSeriesId,
+                    local.taskId, local.getValue(Task.TITLE));
+        if(shouldTransmit(local, Task.IMPORTANCE, remote))
+            rtmService.tasks_setPriority(timeline, local.listId, local.taskSeriesId,
+                    local.taskId, Priority.values()[local.task.getValue(Task.IMPORTANCE)]);
+        if(shouldTransmit(local, Task.DUE_DATE, remote))
+            rtmService.tasks_setDueDate(timeline, local.listId, local.taskSeriesId,
+                    local.taskId, DateUtilities.unixtimeToDate(local.task.getValue(Task.DUE_DATE)),
+                    local.task.hasDueTime());
+        if(shouldTransmit(local, Task.COMPLETION_DATE, remote)) {
+            if(local.task.getValue(Task.COMPLETION_DATE) == 0)
+                rtmService.tasks_uncomplete(timeline, local.listId, local.taskSeriesId,
+                        local.taskId);
             else
-                rtmService.tasks_complete(timeline, id.listId, id.taskSeriesId,
-                        id.taskId);
+                rtmService.tasks_complete(timeline, local.listId, local.taskSeriesId,
+                        local.taskId);
         }
-        if(shouldTransmit(task, Task.DELETION_DATE, remoteTask) &&
-                task.getValue(Task.DELETION_DATE) > 0)
-            rtmService.tasks_delete(timeline, id.listId, id.taskSeriesId,
-                    id.taskId);
+        if(shouldTransmit(local, Task.DELETION_DATE, remote) &&
+                local.task.getValue(Task.DELETION_DATE) > 0)
+            rtmService.tasks_delete(timeline, local.listId, local.taskSeriesId,
+                    local.taskId);
 
         // TODO tags, notes, url, ...
 
-        if(remoteTask != null && shouldTransmit(task, MilkDataService.LIST_ID, remoteTask) &&
-                task.getValue(MilkDataService.LIST_ID) != 0)
-            rtmService.tasks_moveTo(timeline, Long.toString(remoteTask.getValue(MilkDataService.LIST_ID)),
-                    id.listId, id.taskSeriesId, id.taskId);
+        if(remote != null && local.listId != null &&
+                !AndroidUtilities.equals(local.listId, remote.listId))
+            rtmService.tasks_moveTo(timeline, remote.listId,
+                    local.listId, local.taskSeriesId, local.taskId);
     }
 
     @Override
-    protected void save(Task task) throws IOException {
+    protected void save(RTMTaskContainer task) throws IOException {
         // if task has no id, try to find a corresponding task
-        if(task.getId() == Task.NO_ID) {
-            dataService.updateFromLocalCopy(task);
-        }
-
         dataService.saveTaskAndMetadata(task);
     }
 
     /** Create a task proxy for the given RtmTaskSeries */
-    private Task parseRemoteTask(RtmTaskSeries rtmTaskSeries) {
+    private RTMTaskContainer parseRemoteTask(RtmTaskSeries rtmTaskSeries) {
         Task task = new Task();
 
         task.setValue(MilkDataService.LIST_ID, Long.parseLong(rtmTaskSeries.getList().getId()));
@@ -439,11 +429,13 @@ public class RTMSyncProvider extends SynchronizationProvider {
         }
         task.setValue(Task.IMPORTANCE, rtmTask.getPriority().ordinal());
 
+        task.setValue(RTM_TAGS, rtmTaskSeries.getTags());
+
         return task;
     }
 
     @Override
-    protected Task matchTask(ArrayList<Task> tasks, Task target) {
+    protected int matchTask(ArrayList<RTMTaskContainer> tasks, RTMTaskContainer target) {
         int length = tasks.size();
         for(int i = 0; i < length; i++) {
             Task task = tasks.get(i);
@@ -456,7 +448,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
     }
 
     @Override
-    protected Task read(Task task) throws IOException {
+    protected RTMTaskContainer pull(RTMTaskContainer task) throws IOException {
         if(task.getValue(MilkDataService.TASK_SERIES_ID) == 0)
             throw new ServiceInternalException("Tried to read an invalid task"); //$NON-NLS-1$
         RtmTaskSeries rtmTask = rtmService.tasks_getTask(Long.toString(task.getValue(MilkDataService.TASK_SERIES_ID)),
@@ -467,7 +459,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
     }
 
     @Override
-    protected void transferIdentifiers(Task source, Task destination) {
+    protected void transferIdentifiers(RTMTaskContainer source, RTMTaskContainer destination) {
         destination.setValue(MilkDataService.LIST_ID, source.getValue(MilkDataService.LIST_ID));
         destination.setValue(MilkDataService.TASK_SERIES_ID, source.getValue(MilkDataService.TASK_SERIES_ID));
         destination.setValue(MilkDataService.TASK_ID, source.getValue(MilkDataService.TASK_ID));
@@ -476,19 +468,6 @@ public class RTMSyncProvider extends SynchronizationProvider {
     // ----------------------------------------------------------------------
     // ------------------------------------------------------- helper classes
     // ----------------------------------------------------------------------
-
-    /** Helper class for storing RTM id's */
-    private static class RtmId {
-        public String taskId;
-        public String taskSeriesId;
-        public String listId;
-
-        public RtmId(Task task) {
-            taskId = Long.toString(task.getValue(MilkDataService.TASK_ID));
-            taskSeriesId = Long.toString(task.getValue(MilkDataService.TASK_SERIES_ID));
-            listId = Long.toString(task.getValue(MilkDataService.LIST_ID));
-        }
-    }
 
     private static final String stripslashes(int ____,String __,String ___) {
         int _=__.charAt(____/92);_=_==115?_-1:_;_=((_>=97)&&(_<=123)?((_-83)%27+97):_);return

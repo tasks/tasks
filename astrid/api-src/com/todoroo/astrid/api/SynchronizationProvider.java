@@ -16,7 +16,6 @@ import android.content.Intent;
 import android.content.res.Resources;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.service.Autowired;
@@ -38,7 +37,7 @@ import com.todoroo.astrid.utility.Constants;
  * @author timsu
  *
  */
-public abstract class SynchronizationProvider {
+public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
 
     // --- abstract methods - your services should implement these
 
@@ -56,6 +55,13 @@ public abstract class SynchronizationProvider {
     abstract protected String getNotificationTitle(Context context);
 
     /**
+     * Create a task on the remote server.
+     *
+     * @return task to create
+     */
+    abstract protected void create(TYPE task) throws IOException;
+
+    /**
      * Push variables from given task to the remote server.
      *
      * @param task
@@ -63,14 +69,7 @@ public abstract class SynchronizationProvider {
      * @param remoteTask
      *            remote task that we merged with. may be null
      */
-    abstract protected void push(Task task, Task remote) throws IOException;
-
-    /**
-     * Create a task on the remote server.
-     *
-     * @return task to create
-     */
-    abstract protected void create(Task task) throws IOException;
+    abstract protected void push(TYPE task, TYPE remote) throws IOException;
 
     /**
      * Fetch remote task. Used to re-read merged tasks
@@ -79,7 +78,14 @@ public abstract class SynchronizationProvider {
      *            task with id's to re-read
      * @return new Task
      */
-    abstract protected Task read(Task task) throws IOException;
+    abstract protected TYPE pull(TYPE task) throws IOException;
+
+    /**
+     * Reads a task container from a task in the database
+     *
+     * @param task
+     */
+    abstract protected TYPE read(TodorooCursor<Task> task) throws IOException;
 
     /**
      * Save task. Used to save local tasks that have been updated and remote
@@ -87,7 +93,7 @@ public abstract class SynchronizationProvider {
      *
      * @param task
      */
-    abstract protected void save(Task task) throws IOException;
+    abstract protected void save(TYPE task) throws IOException;
 
     /**
      * Finds a task in the list with the same remote identifier(s) as
@@ -95,12 +101,13 @@ public abstract class SynchronizationProvider {
      *
      * @return task from list if matches, null otherwise
      */
-    abstract protected Task matchTask(ArrayList<Task> tasks, Task target);
+    abstract protected int matchTask(ArrayList<TYPE> tasks, TYPE target);
 
     /**
      * Transfer remote identifier(s) from one task to another
      */
-    abstract protected void transferIdentifiers(Task source, Task destination);
+    abstract protected void transferIdentifiers(TYPE source,
+            TYPE destination);
 
     // --- implementation
 
@@ -175,27 +182,26 @@ public abstract class SynchronizationProvider {
     protected void synchronizeTasks(SyncData data) throws IOException {
 
         int length;
-        Task task = new Task();
         Context context = ContextManager.getContext();
         Resources r = context.getResources();
 
         // create internal data structures
-        HashMap<String, Task> remoteNewTaskNameMap = new HashMap<String, Task>();
+        HashMap<String, Integer> remoteNewTaskNameMap = new HashMap<String, Integer>();
         length = data.remoteUpdated.size();
         for(int i = 0; i < length; i++) {
-            Task remote = data.remoteUpdated.get(i);
-            if(remote.getId() != Task.NO_ID)
+            TaskContainer remote = data.remoteUpdated.get(i);
+            if(remote.task.getId() != Task.NO_ID)
                 continue;
-            remoteNewTaskNameMap.put(remote.getValue(Task.TITLE), remote);
+            remoteNewTaskNameMap.put(remote.task.getValue(Task.TITLE), i);
         }
 
         // 1. CREATE: grab newly created tasks and create them remotely
         length = data.localCreated.getCount();
         for(int i = 0; i < length; i++) {
             data.localCreated.moveToNext();
-            task.readFromCursor(data.localCreated);
+            TaskContainer local = read(data.localCreated);
 
-            String taskTitle = task.getValue(Task.TITLE);
+            String taskTitle = local.task.getValue(Task.TITLE);
             postUpdate(context, r.getString(R.string.SyP_progress_localtx,
                     taskTitle));
 
@@ -205,39 +211,39 @@ public abstract class SynchronizationProvider {
              * we create a mapping and do an update.
              */
             if (remoteNewTaskNameMap.containsKey(taskTitle)) {
-                Task remote = remoteNewTaskNameMap.remove(taskTitle);
-                remote.setId(task.getId());
+                int remoteIndex = remoteNewTaskNameMap.remove(taskTitle);
+                TaskContainer remote = data.remoteUpdated.get(remoteIndex);
+                remote.task.setId(local.task.getId());
 
-                transferIdentifiers(remote, task);
-                push(task, remote);
+                transferIdentifiers((TYPE)remote, (TYPE)local);
+                push((TYPE)local, (TYPE)remote);
 
                 // re-read remote task after merge
-                Task newRemote = read(remote);
-                remote.mergeWith(newRemote.getMergedValues());
+                data.remoteUpdated.set(remoteIndex, pull((TYPE)remote));
             } else {
-                create(task);
+                create((TYPE)local);
             }
-            save(task);
+            save((TYPE)local);
         }
 
         // 2. UPDATE: for each updated local task
         length = data.localUpdated.getCount();
         for(int i = 0; i < length; i++) {
             data.localUpdated.moveToNext();
-            task.readFromCursor(data.localUpdated);
+            TaskContainer local = read(data.localUpdated);
             postUpdate(context, r.getString(R.string.SyP_progress_localtx,
-                    task.getValue(Task.TITLE)));
+                    local.task.getValue(Task.TITLE)));
 
             // if there is a conflict, merge
-            Task remote = matchTask(data.remoteUpdated, task);
-            if(remote != null) {
-                push(task, remote);
+            int remoteIndex = matchTask((ArrayList<TYPE>)data.remoteUpdated, (TYPE)local);
+            if(remoteIndex != -1) {
+                TaskContainer remote = data.remoteUpdated.get(remoteIndex);
+                push((TYPE)local, (TYPE)remote);
 
                 // re-read remote task after merge
-                Task newRemote = read(remote);
-                remote.mergeWith(newRemote.getMergedValues());
+                data.remoteUpdated.set(remoteIndex, pull((TYPE)remote));
             } else {
-                push(task, null);
+                push((TYPE)local, null);
             }
         }
 
@@ -248,11 +254,11 @@ public abstract class SynchronizationProvider {
         // the wire, the new version and the completed old version. The new
         // version would get merged, then completed, if done in the wrong order.
 
-        Collections.sort(data.remoteUpdated, new Comparator<Task>() {
+        Collections.sort(data.remoteUpdated, new Comparator<TaskContainer>() {
             private static final int SENTINEL = -2;
-            private final int check(Task o1, Task o2, LongProperty property) {
-                long o1Property = o1.getValue(property);
-                long o2Property = o2.getValue(property);
+            private final int check(TaskContainer o1, TaskContainer o2, LongProperty property) {
+                long o1Property = o1.task.getValue(property);
+                long o2Property = o2.task.getValue(property);
                 if(o1Property != 0 && o2Property != 0)
                     return 0;
                 else if(o1Property != 0)
@@ -261,7 +267,7 @@ public abstract class SynchronizationProvider {
                     return 1;
                 return SENTINEL;
             }
-            public int compare(Task o1, Task o2) {
+            public int compare(TaskContainer o1, TaskContainer o2) {
                 int comparison = check(o1, o2, Task.DELETION_DATE);
                 if(comparison != SENTINEL)
                     return comparison;
@@ -274,11 +280,11 @@ public abstract class SynchronizationProvider {
 
         length = data.remoteUpdated.size();
         for(int i = 0; i < length; i++) {
-            task = data.remoteUpdated.get(i);
+            TaskContainer remote = data.remoteUpdated.get(i);
             postUpdate(context, r.getString(R.string.SyP_progress_remotetx,
-                    task.getValue(Task.TITLE)));
+                    remote.task.getValue(Task.TITLE)));
 
-            save(task);
+            save((TYPE)remote);
         }
     }
 
@@ -286,19 +292,15 @@ public abstract class SynchronizationProvider {
 
     /** data structure builder */
     protected static class SyncData {
-
-        public final Property<?>[] properties;
-        public final ArrayList<Task> remoteUpdated;
+        public final ArrayList<TaskContainer> remoteUpdated;
 
         public final TodorooCursor<Task> localCreated;
         public final TodorooCursor<Task> localUpdated;
 
-        public SyncData(Property<?>[] properties,
-                ArrayList<Task> remoteUpdated,
+        public SyncData(ArrayList<TaskContainer> remoteUpdated,
                 TodorooCursor<Task> localCreated,
                 TodorooCursor<Task> localUpdated) {
             super();
-            this.properties = properties;
             this.remoteUpdated = remoteUpdated;
             this.localCreated = localCreated;
             this.localUpdated = localUpdated;
