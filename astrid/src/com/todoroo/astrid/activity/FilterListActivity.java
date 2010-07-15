@@ -113,7 +113,7 @@ public class FilterListActivity extends ExpandableListActivity {
             String query = intent.getStringExtra(SearchManager.QUERY).trim();
             Filter filter = new Filter(null, getString(R.string.FLA_search_filter, query),
                     new QueryTemplate().where(Functions.upper(Task.TITLE).like("%" + //$NON-NLS-1$
-                            query.toUpperCase() + "%")),
+                            query.toUpperCase() + "%")), //$NON-NLS-1$
                     null);
             intent = new Intent(FilterListActivity.this, TaskListActivity.class);
             intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
@@ -310,12 +310,12 @@ public class FilterListActivity extends ExpandableListActivity {
             Filter filter = (Filter) item;
             info.targetView.setTag(filter);
             menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
-            Intent shortcutIntent = new Intent(this, TaskListActivity.class);
+            Intent shortcutIntent = new Intent(this, ShortcutActivity.class);
             shortcutIntent.setAction(Intent.ACTION_VIEW);
-            shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_TITLE, filter.title);
-            shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_SQL, filter.sqlQuery);
+            shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE, filter.title);
+            shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL, filter.sqlQuery);
             if(filter.valuesForNewTasks != null) {
-                shortcutIntent.putExtra(TaskListActivity.TOKEN_FILTER_VALUES,
+                shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_VALUES,
                         filter.valuesForNewTasks.toString());
             }
 

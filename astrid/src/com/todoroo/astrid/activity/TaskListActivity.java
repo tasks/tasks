@@ -46,7 +46,6 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
@@ -107,21 +106,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     /** token for passing a reminder string through extras */
     public static final String TOKEN_REMINDER = "reminder"; //$NON-NLS-1$
 
-    /** token for passing a {@link Filter}'s title through extras */
-    public static final String TOKEN_FILTER_TITLE = "title"; //$NON-NLS-1$
-
-    /** token for passing a {@link Filter}'s sql through extras */
-    public static final String TOKEN_FILTER_SQL = "sql"; //$NON-NLS-1$
-
-    /** token for passing a {@link Filter}'s values for new tasks through extras */
-    public static final String TOKEN_FILTER_VALUES = "v4nt"; //$NON-NLS-1$
-
-    /** token for passing a {@link Filter}'s values for new tasks through extras (keys) */
-    public static final String TOKEN_FILTER_VALUES_KEYS = "v4ntk"; //$NON-NLS-1$
-
-    /** token for passing a {@link Filter}'s values for new tasks through extras (values) */
-    public static final String TOKEN_FILTER_VALUES_VALUES = "v4ntv"; //$NON-NLS-1$
-
     // --- instance variables
 
     @Autowired
@@ -164,18 +148,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         Bundle extras = getIntent().getExtras();
         if(extras != null && extras.containsKey(TOKEN_FILTER)) {
-            // probably launched from filter list activity
             filter = extras.getParcelable(TOKEN_FILTER);
-        } else if(extras != null && extras.containsKey(TOKEN_FILTER_SQL)) {
-            // launched from desktop shortcut, must create a fake filter
-            String title = extras.getString(TOKEN_FILTER_TITLE);
-            String sql = extras.getString(TOKEN_FILTER_SQL);
-            ContentValues values = null;
-            if(extras.containsKey(TOKEN_FILTER_VALUES))
-                values = AndroidUtilities.contentValuesFromString(extras.getString(TOKEN_FILTER_VALUES));
-
-            filter = new Filter("", title, new QueryTemplate(), values); //$NON-NLS-1$ //$NON-NLS-2$
-            filter.sqlQuery = sql;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
         }
