@@ -76,18 +76,17 @@ public class TagFilterExposer extends BroadcastReceiver {
         for(int i = 0; i < tagsBySize.length; i++)
             filtersBySize[i] = filterFromTag(context, tagsBySize[i]);
 
-        FilterListHeader tagsHeader = new FilterListHeader(TagsPlugin.IDENTIFIER,
-                context.getString(R.string.tag_FEx_header));
+        FilterListHeader tagsHeader = new FilterListHeader(context.getString(R.string.tag_FEx_header));
         Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
                 r.getString(R.string.tag_FEx_untagged),
                 tagService.untaggedTemplate(),
                 null);
         untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_untagged)).getBitmap();
-        FilterCategory tagsCategoryBySize = new FilterCategory(TagsPlugin.IDENTIFIER,
-                context.getString(R.string.tag_FEx_by_size), filtersBySize);
+        FilterCategory tagsCategoryBySize = new FilterCategory(context.getString(R.string.tag_FEx_by_size),
+                filtersBySize);
         tagsCategoryBySize.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap();
-        FilterCategory tagsCategoryByAlpha = new FilterCategory(TagsPlugin.IDENTIFIER,
-                context.getString(R.string.tag_FEx_alpha), filtersByAlpha);
+        FilterCategory tagsCategoryByAlpha = new FilterCategory(context.getString(R.string.tag_FEx_alpha),
+                filtersByAlpha);
         tagsCategoryByAlpha.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags2)).getBitmap();
 
         // transmit filter list

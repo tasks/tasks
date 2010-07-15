@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -18,7 +19,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -73,7 +73,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
      */
     public void signOut() {
         Utilities.setToken(null);
-        Utilities.setLastSyncDate(0);
+        Utilities.clearLastSyncDate();
+
+        dataService = MilkDataService.getInstance();
         dataService.clearMetadata();
     }
 
@@ -95,6 +97,9 @@ public class RTMSyncProvider extends SynchronizationProvider {
      */
     private void handleRtmException(Context context, String tag, Exception e,
             boolean showErrorIfNeeded) {
+
+        Utilities.setLastError(e.getMessage());
+
         // occurs when application was closed
         if(e instanceof IllegalStateException) {
             exceptionService.reportError(tag + "-caught", e); //$NON-NLS-1$
@@ -119,8 +124,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
     }
 
     @Override
-    protected void initiate() {
-        Context context = ContextManager.getContext();
+    protected void initiate(Context context) {
         dataService = MilkDataService.getInstance();
 
         // authenticate the user. this will automatically call the next step
@@ -136,6 +140,8 @@ public class RTMSyncProvider extends SynchronizationProvider {
     private void authenticate(final Context context) {
         final Resources r = context.getResources();
         FlurryAgent.onEvent("rtm-started");
+
+        Utilities.recordSyncStart();
 
         try {
             String appName = null;
@@ -180,7 +186,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
                         try {
                             String token = rtmService.completeAuthorization();
                             Utilities.setToken(token);
-                            // TODO proceed with sync
+                            synchronize(context);
                             return null;
                         } catch (Exception e) {
                             // didn't work
@@ -193,7 +199,10 @@ public class RTMSyncProvider extends SynchronizationProvider {
                     }
                 });
                 intent.putExtra(MilkLoginActivity.URL_TOKEN, url);
-                context.startActivity(intent);
+                if(context instanceof Activity)
+                    ((Activity)context).startActivityForResult(intent, 0);
+                else
+                    context.startActivity(intent);
 
             } else {
                 performSync(context);
@@ -256,7 +265,7 @@ public class RTMSyncProvider extends SynchronizationProvider {
             SyncData syncData = populateSyncData(remoteChanges);
             synchronizeTasks(syncData);
 
-            Utilities.setLastSyncDate(DateUtilities.now());
+            Utilities.recordSuccessfulSync();
 
             FlurryAgent.onEvent("rtm-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {
@@ -380,7 +389,6 @@ public class RTMSyncProvider extends SynchronizationProvider {
                     id.taskId);
 
         // TODO tags, notes, url, ...
-
 
         if(remoteTask != null && shouldTransmit(task, MilkDataService.LIST_ID, remoteTask) &&
                 task.getValue(MilkDataService.LIST_ID) != 0)

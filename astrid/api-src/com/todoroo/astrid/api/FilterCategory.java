@@ -16,28 +16,18 @@ import android.os.Parcelable;
 public class FilterCategory extends FilterListItem {
 
     /**
-     * Plug-in Identifier
-     */
-    public final String plugin;
-
-    /**
      * {@link Filter}s contained by this category
      */
     public Filter[] children;
 
     /**
      * Constructor for creating a new FilterCategory
-     *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
      * @param listingTitle
      *            Title of this item as displayed on the lists page, e.g. Inbox
      * @param children
      *            filters belonging to this category
      */
-    public FilterCategory(String plugin, String listingTitle,
-            Filter[] children) {
-        this.plugin = plugin;
+    public FilterCategory(String listingTitle, Filter[] children) {
         this.listingTitle = listingTitle;
         this.children = children;
     }
@@ -48,8 +38,8 @@ public class FilterCategory extends FilterListItem {
      * @param plugin
      *            {@link Addon} identifier that encompasses object
      */
-    protected FilterCategory(String plugin) {
-        this.plugin = plugin;
+    protected FilterCategory() {
+        //
     }
 
     // --- parcelable
@@ -66,7 +56,6 @@ public class FilterCategory extends FilterListItem {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(plugin);
         super.writeToParcel(dest, flags);
         dest.writeParcelableArray(children, 0);
     }
@@ -80,7 +69,7 @@ public class FilterCategory extends FilterListItem {
          * {@inheritDoc}
          */
         public FilterCategory createFromParcel(Parcel source) {
-            FilterCategory item = new FilterCategory(source.readString());
+            FilterCategory item = new FilterCategory();
             item.readFromParcel(source);
 
             Parcelable[] parcelableChildren = source.readParcelableArray(

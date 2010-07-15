@@ -109,8 +109,10 @@ public final class MilkDataService {
      */
     public TodorooCursor<Task> getLocallyCreated(Property<?>[] properties) {
         return
-            taskDao.query(Query.select(properties).join(METADATA_JOIN).where(
-                    Criterion.or(TASK_ID.eq(0), Metadata.TASK.isNull())));
+            taskDao.query(Query.select(properties).join(METADATA_JOIN).where(Criterion.and(
+                    Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
+                            where(Criterion.and(MetadataCriteria.withKey(METADATA_KEY), TASK_SERIES_ID.gt(0))))),
+                    TaskCriteria.isActive())));
     }
 
     /**
@@ -178,7 +180,8 @@ public final class MilkDataService {
      * @return null if no metadata found
      */
     public Metadata getTaskMetadata(long taskId) {
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).where(
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
+                LIST_ID, TASK_SERIES_ID, TASK_ID, REPEATING).where(
                 MetadataCriteria.byTaskAndwithKey(taskId, METADATA_KEY)));
         try {
             if(cursor.getCount() == 0)

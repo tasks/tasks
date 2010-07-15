@@ -44,8 +44,8 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         searchFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_search)).getBitmap();
 
         // extended
-        FilterCategory extended = new FilterCategory(CorePlugin.IDENTIFIER,
-                r.getString(R.string.BFE_Extended), new Filter[5]);
+        FilterCategory extended = new FilterCategory(r.getString(R.string.BFE_Extended),
+                new Filter[5]);
 
         Filter alphabetical = new Filter(r.getString(R.string.BFE_Alphabetical),
                 r.getString(R.string.BFE_Alphabetical),

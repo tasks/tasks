@@ -51,6 +51,13 @@
     <string name="rmilk_MPr_group_status">Status</string>
     <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_status_key">rmilk_status</string>
+    
+    <!-- Status: log in -->    
+    <string name="rmilk_status_loggedout">Please Log In To RTM!</string>
+    <!-- Status: success (%s -> last sync date) -->    
+    <string name="rmilk_status_success">Last Sync: %s</string>
+    <!-- Status: error (%s -> last attempted sync date) -->    
+    <string name="rmilk_status_failed">Sync Failed On: %s</string>
 
     <!-- Options Group Label -->    
     <string name="rmilk_MPr_group_options">Options</string>

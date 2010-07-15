@@ -45,8 +45,9 @@ public abstract class SynchronizationProvider {
     /**
      * Perform authenticate and other pre-synchronization steps, then
      * synchronize.
+     * @param context either the parent activity, or a background service
      */
-    abstract protected void initiate();
+    abstract protected void initiate(Context context);
 
     /**
      * Push variables from given task to the remote server.
@@ -112,9 +113,7 @@ public abstract class SynchronizationProvider {
         notification = new Notification(icon, null, when);
     }
 
-    public void synchronize() {
-        Context context = ContextManager.getContext();
-
+    public void synchronize(final Context context) {
         // display notification
         notificationIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
         postUpdate(context, context.getString(R.string.SyP_progress_starting));
@@ -125,7 +124,7 @@ public abstract class SynchronizationProvider {
         new Thread(new Runnable() {
             public void run() {
                 try {
-                    initiate();
+                    initiate(context);
                 } finally {
                     nm.cancel(Constants.NOTIFICATION_SYNC);
                 }

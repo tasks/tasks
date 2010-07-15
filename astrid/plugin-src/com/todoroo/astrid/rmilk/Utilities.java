@@ -9,6 +9,7 @@ import android.preference.PreferenceManager;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.rmilk.data.MilkList;
 
 /**
@@ -59,6 +60,10 @@ public class Utilities {
 
     private static final String PREF_LAST_SYNC = "rmilk_last_sync";
 
+    private static final String PREF_LAST_ATTEMPTED_SYNC = "rmilk_last_attempted";
+
+    private static final String PREF_LAST_ERROR = "rmilk_last_error";
+
     // --- Preference Utility Methods
 
     /** Get preferences object from the context */
@@ -85,15 +90,48 @@ public class Utilities {
         editor.commit();
     }
 
-    /** RTM Last Successful Sync Date, or 0 */
+    /** @return RTM Last Successful Sync Date, or 0 */
     public static long getLastSyncDate() {
         return getPrefs().getLong(PREF_LAST_SYNC, 0);
     }
 
-    /** Set RTM Last Successful Sync Date */
-    public static void setLastSyncDate(long time) {
+    /** @return RTM Last Attempted Sync Date, or 0 if it was successful */
+    public static long getLastAttemptedSyncDate() {
+        return getPrefs().getLong(PREF_LAST_ATTEMPTED_SYNC, 0);
+    }
+
+    /** @return RTM Last Error, or null if no last error */
+    public static String getLastError() {
+        return getPrefs().getString(PREF_LAST_ERROR, null);
+    }
+
+    /** Deletes RTM Last Successful Sync Date */
+    public static void clearLastSyncDate() {
         Editor editor = getPrefs().edit();
-        editor.putLong(PREF_LAST_SYNC, time);
+        editor.remove(PREF_LAST_SYNC);
+        editor.commit();
+    }
+
+    /** Set RTM Last Successful Sync Date */
+    public static void setLastError(String error) {
+        Editor editor = getPrefs().edit();
+        editor.putString(PREF_LAST_ERROR, error);
+        editor.commit();
+    }
+
+    /** Set RTM Last Successful Sync Date */
+    public static void recordSuccessfulSync() {
+        Editor editor = getPrefs().edit();
+        editor.putLong(PREF_LAST_SYNC, DateUtilities.now());
+        editor.putLong(PREF_LAST_ATTEMPTED_SYNC, 0);
+        editor.commit();
+    }
+
+    /** Set RTM Last Attempted Sync Date */
+    public static void recordSyncStart() {
+        Editor editor = getPrefs().edit();
+        editor.putLong(PREF_LAST_ATTEMPTED_SYNC, DateUtilities.now());
+        editor.putString(PREF_LAST_ERROR, null);
         editor.commit();
     }
 

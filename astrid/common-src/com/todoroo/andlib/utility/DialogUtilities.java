@@ -127,7 +127,7 @@ public class DialogUtilities {
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)
-                .setTitle(informationDialogTitleResource)
+                .setTitle(confirmDialogTitleResource)
                 .setMessage(text)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.ok, okListener)

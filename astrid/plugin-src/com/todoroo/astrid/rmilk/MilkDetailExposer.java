@@ -22,7 +22,7 @@ import com.todoroo.astrid.rmilk.data.MilkDataService;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class DetailExposer extends BroadcastReceiver {
+public class MilkDetailExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -38,27 +38,24 @@ public class DetailExposer extends BroadcastReceiver {
         if(metadata == null)
             return;
 
-        TaskDetail[] details = new TaskDetail[2];
-
-        long listId = metadata.getValue(MilkDataService.LIST_ID);
-        if(listId > 0)
-            details[0] = new TaskDetail(context.getString(R.string.rmilk_TLA_list,
-            MilkDataService.getInstance().getListName(listId)));
-        else
-            details[0] = null;
-
-        int repeat = metadata.getValue(MilkDataService.REPEATING);
-        if(repeat != 0)
-            details[1] = new TaskDetail(context.getString(R.string.rmilk_TLA_repeat));
-        else
-            details[1] = null;
-
-        // transmit
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, Utilities.IDENTIFIER);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, details);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+
+        long listId = metadata.getValue(MilkDataService.LIST_ID);
+        if(listId > 0) {
+            TaskDetail detail = new TaskDetail(context.getString(R.string.rmilk_TLA_list,
+                    MilkDataService.getInstance().getListName(listId)));
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, detail);
+            context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        }
+
+        int repeat = metadata.getValue(MilkDataService.REPEATING);
+        if(repeat != 0) {
+            TaskDetail detail = new TaskDetail(context.getString(R.string.rmilk_TLA_repeat));
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, detail);
+            context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+        }
     }
 
 }

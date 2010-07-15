@@ -25,7 +25,7 @@ import com.todoroo.astrid.rmilk.data.MilkDataService;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class FilterExposer extends BroadcastReceiver {
+public class MilkFilterExposer extends BroadcastReceiver {
 
     @SuppressWarnings("nls")
     private Filter filterFromList(Context context, ListContainer list) {
@@ -57,10 +57,9 @@ public class FilterExposer extends BroadcastReceiver {
         for(int i = 0; i < lists.length; i++)
             listFilters[i] = filterFromList(context, lists[i]);
 
-        FilterListHeader rtmHeader = new FilterListHeader(Utilities.IDENTIFIER,
-                context.getString(R.string.rmilk_FEx_header));
-        FilterCategory rtmLists = new FilterCategory(Utilities.IDENTIFIER,
-                context.getString(R.string.rmilk_FEx_list), listFilters);
+        FilterListHeader rtmHeader = new FilterListHeader(context.getString(R.string.rmilk_FEx_header));
+        FilterCategory rtmLists = new FilterCategory(context.getString(R.string.rmilk_FEx_list),
+                listFilters);
 
         // transmit filter list
         FilterListItem[] list = new FilterListItem[2];

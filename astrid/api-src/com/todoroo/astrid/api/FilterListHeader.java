@@ -15,21 +15,12 @@ import android.os.Parcelable;
 public class FilterListHeader extends FilterListItem {
 
     /**
-     * Plug-in Identifier
-     */
-    public final String plugin;
-
-    /**
      * Constructor for creating a new FilterListHeader
-     *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
      * @param listingTitle
      * @param listingIconResource
      * @param priority
      */
-    public FilterListHeader(String plugin, String listingTitle) {
-        this.plugin = plugin;
+    public FilterListHeader(String listingTitle) {
         this.listingTitle = listingTitle;
     }
 
@@ -39,8 +30,8 @@ public class FilterListHeader extends FilterListItem {
      * @param plugin
      *            {@link Addon} identifier that encompasses object
      */
-    protected FilterListHeader(String plugin) {
-        this.plugin = plugin;
+    protected FilterListHeader() {
+        //
     }
 
     // --- parcelable
@@ -51,14 +42,13 @@ public class FilterListHeader extends FilterListItem {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(plugin);
         super.writeToParcel(dest, flags);
     }
 
     public static final Parcelable.Creator<FilterListHeader> CREATOR = new Parcelable.Creator<FilterListHeader>() {
 
         public FilterListHeader createFromParcel(Parcel source) {
-            FilterListHeader item = new FilterListHeader(source.readString());
+            FilterListHeader item = new FilterListHeader();
             item.readFromParcel(source);
             return item;
         }
