@@ -147,9 +147,6 @@ public final class MilkDataService {
                         MetadataCriteria.withKey(TagService.KEY))));
         task.metadata.add(MilkTask.create(task));
         for(Metadata metadata : task.metadata) {
-            // we need to merge because we've deleted the underlying objects,
-            // meaning we need to treat these as fresh objects to be saved
-            metadata.mergeWith(metadata.getMergedValues());
             metadata.setValue(Metadata.TASK, task.task.getId());
             metadataDao.createNew(metadata);
         }
