@@ -8,10 +8,12 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskDetail;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
+import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.rmilk.data.MilkTask;
 
 /**
@@ -57,6 +59,21 @@ public class MilkDetailExposer extends BroadcastReceiver {
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, detail);
             context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         }
+
+        TodorooCursor<Metadata> notesCursor = MilkDataService.getInstance().getTaskNotesCursor(taskId);
+        try {
+            if(notesCursor.getCount() == 0)
+                return;
+            for(notesCursor.moveToFirst(); !notesCursor.isAfterLast(); notesCursor.moveToNext()) {
+                metadata.readFromCursor(notesCursor);
+                TaskDetail detail = new TaskDetail(MilkNote.toTaskDetail(metadata));
+                broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, detail);
+                context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            }
+        } finally {
+            notesCursor.close();
+        }
+
     }
 
 }

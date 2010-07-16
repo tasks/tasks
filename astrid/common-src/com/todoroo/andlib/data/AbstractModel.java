@@ -15,6 +15,7 @@ import android.content.ContentValues;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.todoroo.andlib.data.Property.DoubleProperty;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -149,17 +150,28 @@ public abstract class AbstractModel implements Parcelable {
      * Reads the given property. Make sure this model has this property!
      */
     public <TYPE> TYPE getValue(Property<TYPE> property) {
+        Object value;
         if(setValues != null && setValues.containsKey(property.name))
-            return (TYPE)setValues.get(property.name);
+            value = setValues.get(property.name);
 
-        if(values != null && values.containsKey(property.name))
-            return (TYPE)values.get(property.name);
+        else if(values != null && values.containsKey(property.name))
+            value = values.get(property.name);
 
-        if(getDefaultValues().containsKey(property.name))
-            return (TYPE)getDefaultValues().get(property.name);
+        else if(getDefaultValues().containsKey(property.name))
+            value = getDefaultValues().get(property.name);
 
-        throw new UnsupportedOperationException(
+        else
+            throw new UnsupportedOperationException(
                 "Model Error: Did not read property " + property.name); //$NON-NLS-1$
+
+        // resolve properties that were retrieved with a different type than accessed
+        if(value instanceof String && property instanceof LongProperty)
+            return (TYPE) Long.valueOf((String)value);
+        else if(value instanceof String && property instanceof IntegerProperty)
+            return (TYPE) Integer.valueOf((String)value);
+        if(value instanceof String && property instanceof DoubleProperty)
+            return (TYPE) Double.valueOf((String)value);
+        return (TYPE) value;
     }
 
     /**

@@ -197,6 +197,15 @@ public final class MilkDataService {
         }
     }
 
+    /**
+     * Reads task notes out of a task
+     */
+    public TodorooCursor<Metadata> getTaskNotesCursor(long taskId) {
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
+                where(MetadataCriteria.byTaskAndwithKey(taskId, MilkNote.METADATA_KEY)));
+        return cursor;
+    }
+
     // --- list methods
 
     /**

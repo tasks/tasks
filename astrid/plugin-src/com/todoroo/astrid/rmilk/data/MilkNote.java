@@ -86,4 +86,23 @@ public class MilkNote {
         return result;
     }
 
+    /**
+     * Turn a note's title and text into an HTML string for notes
+     * @param metadata
+     * @return
+     */
+    @SuppressWarnings("nls")
+    public static String toTaskDetail(Metadata metadata) {
+        String title = metadata.getValue(TITLE);
+        String text = metadata.getValue(TEXT);
+
+        String result;
+        if(!TextUtils.isEmpty(title))
+            result = "<b>" + title + "</b> " + text;
+        else
+            result = text;
+
+        return result;
+    }
+
 }
