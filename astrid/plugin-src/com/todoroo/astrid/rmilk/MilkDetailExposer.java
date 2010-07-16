@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.api.TaskDetail;
@@ -59,19 +60,19 @@ public class MilkDetailExposer extends BroadcastReceiver implements DetailExpose
         long listId = metadata.getValue(MilkTask.LIST_ID);
         if(listId > 0) {
             builder.append(context.getString(R.string.rmilk_TLA_list,
-                    MilkDataService.getInstance().getListName(listId))).append('\n');
+                    MilkDataService.getInstance().getListName(listId))).append(TaskAdapter.DETAIL_SEPARATOR);
         }
 
         int repeat = metadata.getValue(MilkTask.REPEATING);
         if(repeat != 0) {
-            builder.append(context.getString(R.string.rmilk_TLA_repeat)).append('\n');
+            builder.append(context.getString(R.string.rmilk_TLA_repeat)).append(TaskAdapter.DETAIL_SEPARATOR);
         }
 
         TodorooCursor<Metadata> notesCursor = MilkDataService.getInstance().getTaskNotesCursor(id);
         try {
             for(notesCursor.moveToFirst(); !notesCursor.isAfterLast(); notesCursor.moveToNext()) {
                 metadata.readFromCursor(notesCursor);
-                builder.append(MilkNote.toTaskDetail(metadata)).append('\n');
+                builder.append(MilkNote.toTaskDetail(metadata)).append(TaskAdapter.DETAIL_SEPARATOR);
             }
         } finally {
             notesCursor.close();
@@ -79,8 +80,8 @@ public class MilkDetailExposer extends BroadcastReceiver implements DetailExpose
 
         if(builder.length() == 0)
             return null;
-        else
-            return new TaskDetail(builder.toString().trim());
+        String result = builder.toString();
+        return new TaskDetail(result.substring(0, result.length() - 3));
     }
 
 }
