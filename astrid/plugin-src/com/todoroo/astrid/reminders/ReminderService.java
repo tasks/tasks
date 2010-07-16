@@ -21,7 +21,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Task;
@@ -40,6 +39,7 @@ public final class ReminderService  {
     // --- constants
 
     private static final Property<?>[] PROPERTIES = new Property<?>[] {
+        Task.ID,
         Task.DUE_DATE,
         Task.REMINDER_FLAGS,
         Task.REMINDER_PERIOD,
@@ -61,9 +61,6 @@ public final class ReminderService  {
 
     @Autowired
     private TaskDao taskDao;
-
-    @Autowired
-    private Database database;
 
     private AlarmScheduler scheduler = new ReminderAlarmScheduler();
 
@@ -103,7 +100,6 @@ public final class ReminderService  {
      * Schedules all alarms
      */
     public void scheduleAllAlarms() {
-
         TodorooCursor<Task> cursor = getTasksWithReminders(PROPERTIES);
         try {
             Task task = new Task();
@@ -284,7 +280,7 @@ public final class ReminderService  {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
                     intent, 0);
 
-            if(Constants.DEBUG)
+            if(Constants.DEBUG || true)
                 Log.e("Astrid", "Alarm (" + task.getId() + ", " + type +
                         ") set for " + new Date(time));
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
@@ -299,9 +295,8 @@ public final class ReminderService  {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Task> getTasksWithReminders(Property<?>... properties) {
-        database.openForReading();
         return taskDao.query(Query.select(properties).where(Criterion.and(TaskCriteria.isActive(),
-                Task.REMINDER_FLAGS.gt(0))));
+                Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0)))));
     }
 
 

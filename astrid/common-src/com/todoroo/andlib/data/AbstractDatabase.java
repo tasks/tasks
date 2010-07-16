@@ -9,9 +9,9 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -158,6 +158,8 @@ abstract public class AbstractDatabase {
      * @return sql database. opens database if not yet open
      */
     private synchronized final SQLiteDatabase getDatabase() {
+        if(database == null)
+            openForWriting();
         return database;
     }
 

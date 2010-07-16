@@ -4,6 +4,7 @@
 package com.todoroo.astrid.rmilk.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
@@ -12,8 +13,8 @@ import android.content.Context;
 
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -24,8 +25,8 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -207,7 +208,8 @@ public final class MilkDataService {
 
     // --- list methods
 
-    private final SoftHashMap<Long, String> listCache = new SoftHashMap<Long, String>();
+    private final Map<Long, String> listCache =
+        Collections.synchronizedMap(new SoftHashMap<Long, String>());
 
     /**
      * Get list name by list id

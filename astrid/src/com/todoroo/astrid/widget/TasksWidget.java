@@ -116,8 +116,10 @@ public class TasksWidget extends AppWidgetProvider {
                     views.setTextColor(textIDs[i], textColor);
                 }
 
-                for(int i = cursor.getCount() - 1; i < separatorIDs.length; i++)
-                    views.setViewVisibility(separatorIDs[i], View.INVISIBLE);
+                for(int i = cursor.getCount() - 1; i < separatorIDs.length; i++) {
+                    if(i >= 0)
+                        views.setViewVisibility(separatorIDs[i], View.INVISIBLE);
+                }
             } catch (Exception e) {
                 // can happen if database is not ready
                 Log.e("WIDGET-UPDATE", "Error updating widget", e);

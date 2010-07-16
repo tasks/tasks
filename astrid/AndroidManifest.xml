@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="3.0.0-beta" android:versionCode="137">
+          android:versionName="3.0.0-beta2" android:versionCode="137">
       
   <!-- ================================================== Used Permissions = -->
       
@@ -50,8 +50,7 @@
   <supports-screens />
   
   <application android:icon="@drawable/icon" 
-               android:label="@string/app_name" 
-               android:debuggable="true">
+               android:label="@string/app_name">
                <!-- android:installLocation="auto"> -->
     
     <!-- ====================================================== Activities = -->
