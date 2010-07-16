@@ -242,7 +242,7 @@ public class FilterListActivity extends ExpandableListActivity {
     /**
      * Broadcast a request for lists. The request is sent to every
      * application registered to listen for this broadcast. Each application
-     * can then add lists to the
+     * can then add lists to this activity
      */
     protected void getLists() {
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS);

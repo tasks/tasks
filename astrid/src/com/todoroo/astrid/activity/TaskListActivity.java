@@ -463,8 +463,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         if(requery) {
             taskCursor.requery();
-            taskAdapter.notifyDataSetChanged();
             taskAdapter.flushDetailCache();
+            taskAdapter.notifyDataSetChanged();
         }
         startManagingCursor(taskCursor);
 

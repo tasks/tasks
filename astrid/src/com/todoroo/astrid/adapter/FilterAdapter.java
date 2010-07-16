@@ -13,9 +13,9 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ImageView.ScaleType;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.api.FilterCategory;
@@ -39,6 +39,10 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     public void add(FilterListItem item) {
         items.add(item);
+    }
+
+    public void clear() {
+        items.clear();
     }
 
     /* ======================================================================

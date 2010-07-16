@@ -145,8 +145,8 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         assertEquals(2, taskController.getAllTaskIdentifiers().size());
 
         // upgrade
+        Date upgradeTime = new Date();
         upgrade2To3();
-        Date createdDate = new Date();
 
         // verify that data exists in our new table
         database.openForReading();
@@ -175,8 +175,10 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
                 new RRule(task.getValue(Task.RECURRENCE)).getFreq());
         assertEquals(guti.getElapsedSeconds(), task.getValue(Task.ELAPSED_SECONDS));
         assertEquals(guti.getNotificationIntervalSeconds() * 1000L, (long)task.getValue(Task.REMINDER_PERIOD));
-        assertDatesEqual(createdDate, task.getValue(Task.CREATION_DATE));
-        assertDatesEqual(createdDate, task.getValue(Task.MODIFICATION_DATE));
+        assertTrue(task.getValue(Task.CREATION_DATE) > 0);
+        assertTrue(task.getValue(Task.MODIFICATION_DATE) > 0);
+        assertTrue(task.getValue(Task.CREATION_DATE) <= upgradeTime.getTime());
+        assertTrue(task.getValue(Task.MODIFICATION_DATE) <= upgradeTime.getTime());
     }
 
     /**
@@ -321,17 +323,26 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
      * Test basic upgrading of the sync mapping table
      */
     public void testSyncTableUpgrade() {
+        TaskController taskController = new TaskController(getContext());
+        taskController.open();
         SyncDataController syncController = new SyncDataController(getContext());
         syncController.open();
 
         // create some ish
+        TaskModelForEdit christmas = new TaskModelForEdit();
+        christmas.setName("christmas");
+        taskController.saveTask(christmas, false);
         String remoteId = "123|456|789000";
-        SyncMapping mapping = new SyncMapping(new TaskIdentifier(1), 1, remoteId);
+        SyncMapping mapping = new SyncMapping(christmas.getTaskIdentifier(), 1, remoteId);
         syncController.saveSyncMapping(mapping);
-        syncController.addToUpdatedList(new TaskIdentifier(2));
+
+        christmas = new TaskModelForEdit();
+        christmas.setName("july");
+        taskController.saveTask(christmas, false);
+        syncController.addToUpdatedList(christmas.getTaskIdentifier());
 
         // assert created
-        assertEquals(1, syncController.getSyncMappings(1));
+        assertEquals(1, syncController.getSyncMappings(1).size());
 
         // upgrade
         upgrade2To3();

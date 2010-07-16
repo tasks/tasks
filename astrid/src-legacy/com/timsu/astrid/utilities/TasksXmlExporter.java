@@ -14,7 +14,6 @@ import org.xmlpull.v1.XmlSerializer;
 import android.content.Context;
 import android.database.Cursor;
 import android.os.Environment;
-import android.os.Looper;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
@@ -38,7 +37,7 @@ public class TasksXmlExporter {
     private SyncDataController syncDataController;
     private Context ctx;
     private String output;
-    private boolean isService;
+    private final boolean isService;
     private int exportCount;
     private XmlSerializer xml;
     private HashMap<TagIdentifier, TagModelForView> tagMap;
@@ -240,15 +239,15 @@ public class TasksXmlExporter {
        this.output = file;
     }
 
-    private Runnable doBackgroundExport = new Runnable() {
+    private final Runnable doBackgroundExport = new Runnable() {
         public void run() {
-            Looper.prepare();
+            /*Looper.prepare();
             try {
                 doTasksExport();
             } catch (IOException e) {
                 Log.e("TasksXmlExporter", "IOException in doTasksExport " + e.getMessage());
             }
-            Looper.loop();
+            Looper.loop();*/
         }
     };
 
