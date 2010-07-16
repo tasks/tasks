@@ -18,15 +18,15 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.Toast;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -39,6 +39,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.SearchFilter;
 import com.todoroo.astrid.model.Task;
@@ -183,12 +184,19 @@ public class FilterListActivity extends ExpandableListActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                Parcelable[] filters = intent.getExtras().
+                final Parcelable[] filters = intent.getExtras().
                     getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
                 for (Parcelable item : filters) {
                     adapter.add((FilterListItem)item);
                 }
                 adapter.notifyDataSetChanged();
+
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        expandList(filters);
+                    }
+                });
             } catch (Exception e) {
                 exceptionService.reportError("receive-filter-" + //$NON-NLS-1$
                         intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
@@ -208,32 +216,23 @@ public class FilterListActivity extends ExpandableListActivity {
         registerForContextMenu(getExpandableListView());
         getExpandableListView().setGroupIndicator(
                 getResources().getDrawable(R.drawable.expander_group));
-        /*getExpandableListView().setOnHierarchyChangeListener(new OnHierarchyChangeListener() {
-            @Override
-            public void onChildViewAdded(View parent, View child) {
-                // auto-expand adapter
-                ExpandableListView list = getExpandableListView();
-                long packedLastItem = ExpandableListView.getPackedPositionForGroup(adapter.getGroupCount() - 1);
-                outer: for(int group = 0; group < adapter.getGroupCount(); group++) {
-                    // if last group is already outside of bounds, stop
-                    int lastGroup = list.getFlatListPosition(packedLastItem);
-                    if(lastGroup > list.getLastVisiblePosition())
-                        break;
+    }
 
-                    while (adapter.getChildrenCount(group) == 0) {
-                        group++;
-                        if(group >= adapter.getGroupCount())
-                            break outer;
+    /**
+     * Expand the first category filter in this group
+     * @param filters
+     */
+    protected void expandList(Parcelable[] filters) {
+        ExpandableListView list = getExpandableListView();
+        for(Parcelable filter : filters) {
+            if(filter instanceof FilterCategory) {
+                for(int i = 0; i < adapter.getGroupCount(); i++)
+                    if(adapter.getGroup(i) == filter) {
+                        list.expandGroup(i);
+                        return;
                     }
-
-                    list.expandGroup(group);
-                }
             }
-            @Override
-            public void onChildViewRemoved(View parent, View child) {
-                // do nothing
-            }
-        });*/
+        }
     }
 
     /**
