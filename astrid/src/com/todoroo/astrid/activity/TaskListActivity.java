@@ -401,6 +401,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
+        if(hasFocus)
+            AndroidUtilities.setCurrentlyActive(this);
     }
 
     @Override

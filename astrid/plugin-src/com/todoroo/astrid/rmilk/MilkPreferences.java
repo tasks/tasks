@@ -35,6 +35,14 @@ public class MilkPreferences extends TodorooPreferences {
         return R.xml.preferences_rmilk;
     }
 
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        if(hasFocus)
+            AndroidUtilities.setCurrentlyActive(this);
+    }
+
+
     /**
      *
      * @param resource
@@ -72,6 +80,7 @@ public class MilkPreferences extends TodorooPreferences {
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
                         new RTMSyncProvider().synchronize(MilkPreferences.this);
+                        finish();
                         return true;
                     }
                 });
@@ -106,6 +115,7 @@ public class MilkPreferences extends TodorooPreferences {
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
                         new RTMSyncProvider().synchronize(MilkPreferences.this);
+                        finish();
                         return true;
                     }
                 });
@@ -124,6 +134,7 @@ public class MilkPreferences extends TodorooPreferences {
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference p) {
                     new RTMSyncProvider().synchronize(MilkPreferences.this);
+                    finish();
                     return true;
                 }
             });
@@ -152,4 +163,5 @@ public class MilkPreferences extends TodorooPreferences {
                 preference.setEnabled(false);
         }
     }
+
 }

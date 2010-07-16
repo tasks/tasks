@@ -5,6 +5,7 @@ package com.todoroo.astrid.rmilk.sync;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -468,8 +469,9 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
         }
 
         task.setValue(Task.NOTES, ""); //$NON-NLS-1$
-        if(rtmTaskSeries.getNotes() != null) {
+        if(rtmTaskSeries.getNotes() != null && rtmTaskSeries.getNotes().getNotes().size() > 0) {
             boolean firstNote = true;
+            Collections.reverse(rtmTaskSeries.getNotes().getNotes()); // reverse so oldest is first
             for(RtmTaskNote note : rtmTaskSeries.getNotes().getNotes()) {
                 if(firstNote) {
                     firstNote = false;

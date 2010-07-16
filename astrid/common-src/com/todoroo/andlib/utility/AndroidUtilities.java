@@ -29,6 +29,24 @@ import com.todoroo.andlib.service.ExceptionService;
  */
 public class AndroidUtilities {
 
+    // --- activity management
+
+    private static Activity currentlyActive = null;
+
+    public static void setCurrentlyActive(Activity currentlyActive) {
+        AndroidUtilities.currentlyActive = currentlyActive;
+    }
+
+    /**
+     * @return our best-guess currently active activity. Maybe null, may
+     * be out of view already.
+     */
+    public static Activity getCurrentlyActiveActivity() {
+        return currentlyActive;
+    }
+
+    // --- utility methods
+
     private static class ExceptionHelper {
         @Autowired
         public ExceptionService exceptionService;
