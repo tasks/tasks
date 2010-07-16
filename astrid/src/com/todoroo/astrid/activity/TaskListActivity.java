@@ -271,8 +271,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         quickAddBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void afterTextChanged(Editable s) {
-                if(s.length() > 0)
-                    quickAddButton.setVisibility(View.VISIBLE);
+                quickAddButton.setVisibility((s.length() > 0) ? View.VISIBLE : View.GONE);
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count,

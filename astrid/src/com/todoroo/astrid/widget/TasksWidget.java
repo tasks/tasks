@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 
@@ -119,6 +120,7 @@ public class TasksWidget extends AppWidgetProvider {
                     views.setViewVisibility(separatorIDs[i], View.INVISIBLE);
             } catch (Exception e) {
                 // can happen if database is not ready
+                Log.e("WIDGET-UPDATE", "Error updating widget", e);
             } finally {
                 if(cursor != null)
                     cursor.close();

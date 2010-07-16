@@ -2,7 +2,6 @@ package com.todoroo.astrid.adapter;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashSet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -93,12 +92,8 @@ public class TaskAdapter extends CursorAdapter {
     @Autowired
     DialogUtilities dialogUtilities;
 
-    @Autowired
-    Boolean debug;
-
     protected final Activity activity;
     protected final HashMap<Long, Boolean> completedItems;
-    protected final HashMap<Long, LinkedHashSet<TaskDetail>> detailCache;
     public boolean isFling = false;
     private final int resource;
     private final LayoutInflater inflater;
@@ -132,7 +127,6 @@ public class TaskAdapter extends CursorAdapter {
         this.onCompletedTaskListener = onCompletedTaskListener;
 
         completedItems = new HashMap<Long, Boolean>();
-        detailCache = new HashMap<Long, LinkedHashSet<TaskDetail>>();
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize);
 
         IMPORTANCE_COLORS = Task.getImportanceColors(activity.getResources());
@@ -145,7 +139,7 @@ public class TaskAdapter extends CursorAdapter {
     /** Creates a new view for use in the list view */
     @Override
     public View newView(Context context, Cursor cursor, ViewGroup parent) {
-        View view = inflater.inflate(resource, parent, false);
+        ViewGroup view = (ViewGroup)inflater.inflate(resource, parent, false);
 
         // create view holder
         ViewHolder viewHolder = new ViewHolder();
@@ -156,7 +150,11 @@ public class TaskAdapter extends CursorAdapter {
         viewHolder.details = (LinearLayout)view.findViewById(R.id.details);
         viewHolder.actions = (LinearLayout)view.findViewById(R.id.actions);
         viewHolder.importance = (View)view.findViewById(R.id.importance);
+
         view.setTag(viewHolder);
+        for(int i = 0; i < view.getChildCount(); i++)
+            view.getChildAt(i).setTag(viewHolder);
+        viewHolder.details.setTag(viewHolder);
 
         // add UI component listeners
         addListeners(view);
@@ -263,13 +261,7 @@ public class TaskAdapter extends CursorAdapter {
         final LinearLayout detailsView = viewHolder.details;
         if(!isFling) {
             detailsView.removeViews(2, detailsView.getChildCount() - 2);
-            if(detailCache.containsKey(task.getId())) {
-                LinkedHashSet<TaskDetail> details = detailCache.get(task.getId());
-                for(TaskDetail detail : details)
-                    detailsView.addView(detailToView(detail));
-            } else {
-                retrieveDetails(detailsView, task.getId());
-            }
+            retrieveDetails(detailsView, task.getId());
         }
 
         // importance bar - must be set at end when view height is determined
@@ -283,23 +275,19 @@ public class TaskAdapter extends CursorAdapter {
      * Retrieve task details
      */
     private void retrieveDetails(final LinearLayout view, final long taskId) {
-        final LinkedHashSet<TaskDetail> details = new LinkedHashSet<TaskDetail>();
-        detailCache.put(taskId, details);
-
         // read internal details directly
         new Thread() {
             @Override
             public void run() {
                 for(DetailExposer exposer : EXPOSERS) {
                     final TaskDetail detail = exposer.getTaskDetails(activity, taskId);
-                    if(detail == null || details.contains(detail))
+                    if(detail == null)
                         continue;
-                    details.add(detail);
+                    ViewHolder holder = (ViewHolder)view.getTag();
+                    if(holder == null || holder.task.getId() != taskId)
+                        continue;
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
-                            ViewHolder holder = (ViewHolder)view.getTag();
-                            if(holder == null || holder.task.getId() != taskId)
-                                return;
                             view.addView(detailToView(detail));
                         };
                     });
@@ -316,7 +304,7 @@ public class TaskAdapter extends CursorAdapter {
      * Called to tell the cache to be cleared
      */
     public void flushDetailCache() {
-        detailCache.clear();
+        //
     }
 
     /**
@@ -327,12 +315,6 @@ public class TaskAdapter extends CursorAdapter {
     public synchronized void addDetails(ListView list, long taskId, TaskDetail detail) {
         if(detail == null)
             return;
-
-        LinkedHashSet<TaskDetail> details = detailCache.get(taskId);
-        if(details == null || details.contains(detail))
-            return;
-
-        details.add(detail);
 
         // update view if it is visible
         int length = list.getChildCount();
