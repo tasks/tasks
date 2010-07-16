@@ -65,7 +65,7 @@ public class GenericDao<TYPE extends AbstractModel> {
     public TodorooCursor<TYPE> query(Query query) {
         query.from(table);
         if(Constants.DEBUG)
-            Log.d("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
+            Log.i("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
         Cursor cursor = database.rawQuery(query.toString(), null);
         return new TodorooCursor<TYPE>(cursor, query.getFields());
     }

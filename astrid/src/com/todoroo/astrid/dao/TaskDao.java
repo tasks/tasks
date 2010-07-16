@@ -146,7 +146,7 @@ public class TaskDao extends GenericDao<Task> {
             saveSuccessful = createNew(task);
         } else {
             ContentValues values = task.getSetValues();
-            if(values.size() == 0)
+            if(values == null || values.size() == 0)
                 return true;
             beforeSave(task, values, skipHooks);
             saveSuccessful = saveExisting(task);

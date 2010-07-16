@@ -142,8 +142,11 @@ public final class MilkDataService {
         Log.e("SAV", "saving " + task.task.getSetValues());
         taskDao.save(task.task, true);
 
-        metadataDao.deleteWhere(MetadataCriteria.byTaskAndwithKey(task.task.getId(),
-                MilkTask.METADATA_KEY));
+        metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(task.task.getId()),
+                Criterion.or(MetadataCriteria.withKey(MilkTask.METADATA_KEY),
+                        MetadataCriteria.withKey(MilkNote.METADATA_KEY),
+                        MetadataCriteria.withKey(TagService.KEY))));
+        task.metadata.add(MilkTask.create(task));
         for(Metadata metadata : task.metadata) {
             metadata.setValue(Metadata.TASK, task.task.getId());
             metadataDao.persist(metadata);
@@ -166,8 +169,6 @@ public final class MilkDataService {
                                 MetadataCriteria.withKey(MilkTask.METADATA_KEY),
                                 MetadataCriteria.withKey(MilkNote.METADATA_KEY)))));
         try {
-            if(metadataCursor.getCount() == 0)
-                return null;
             for(metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {
                 metadata.add(new Metadata(metadataCursor));
             }

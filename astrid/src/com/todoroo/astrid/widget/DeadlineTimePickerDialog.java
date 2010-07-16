@@ -29,8 +29,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.TimePicker;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.TimePicker;
 import android.widget.TimePicker.OnTimeChangedListener;
 
 import com.timsu.astrid.R;
@@ -107,7 +107,6 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
 
         mDateFormat = DateFormat.getTimeFormat(context);
         mCalendar = Calendar.getInstance();
-        updateTitle(mInitialHourOfDay, mInitialMinute);
 
         setButton(context.getText(android.R.string.ok), this);
         setButton2(context.getText(android.R.string.cancel), (OnClickListener) null);
@@ -125,7 +124,7 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
                     boolean isChecked) {
                 mTimePicker.setEnabled(isChecked);
                 if(isChecked)
-                    updateTitle(mTimePicker.getCurrentHour(), mTimePicker.getCurrentMinute());
+                    updateTitle();
                 else
                     setTitle(R.string.TEA_urgency_time_none);
             }
@@ -137,6 +136,8 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
         mTimePicker.setCurrentMinute(mInitialMinute);
         mTimePicker.setIs24HourView(mIs24HourView);
         mTimePicker.setOnTimeChangedListener(this);
+        updateTitle();
+
     }
 
     public void onClick(DialogInterface dialog, int which) {
@@ -150,7 +151,7 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
     }
 
     public void onTimeChanged(TimePicker view, int hourOfDay, int minute) {
-        updateTitle(hourOfDay, minute);
+        updateTitle();
     }
 
     public void updateTime(int hourOfDay, int minutOfHour) {
@@ -158,7 +159,9 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
         mTimePicker.setCurrentMinute(minutOfHour);
     }
 
-    private void updateTitle(int hour, int minute) {
+    private void updateTitle() {
+        int hour = mTimePicker.getCurrentHour();
+        int minute = mTimePicker.getCurrentMinute();
         mCalendar.set(Calendar.HOUR_OF_DAY, hour);
         mCalendar.set(Calendar.MINUTE, minute);
         setTitle(mDateFormat.format(mCalendar.getTime()));
@@ -182,6 +185,6 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
         mTimePicker.setCurrentMinute(minute);
         mTimePicker.setIs24HourView(savedInstanceState.getBoolean(IS_24_HOUR));
         mTimePicker.setOnTimeChangedListener(this);
-        updateTitle(hour, minute);
+        updateTitle();
     }
 }

@@ -47,7 +47,6 @@ import com.todoroo.astrid.rmilk.api.data.RtmTaskSeries;
 import com.todoroo.astrid.rmilk.api.data.RtmTasks;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
 import com.todoroo.astrid.rmilk.data.MilkNote;
-import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService;
 
@@ -234,7 +233,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
             dataService.setLists(lists);
 
             // read all tasks
-            ArrayList<TaskContainer> remoteChanges = new ArrayList<TaskContainer>();
+            ArrayList<RTMTaskContainer> remoteChanges = new ArrayList<RTMTaskContainer>();
             Date lastSyncDate = new Date(Utilities.getLastSyncDate());
             boolean shouldSyncIndividualLists = false;
             String filter = null;
@@ -268,7 +267,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
                 }
             }
 
-            SyncData syncData = populateSyncData(remoteChanges);
+            SyncData<RTMTaskContainer> syncData = populateSyncData(remoteChanges);
             try {
                 synchronizeTasks(syncData);
             } finally {
@@ -305,20 +304,20 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
     /**
      * Populate SyncData data structure
      */
-    private SyncData populateSyncData(ArrayList<TaskContainer> remoteTasks) {
+    private SyncData<RTMTaskContainer> populateSyncData(ArrayList<RTMTaskContainer> remoteTasks) {
         // fetch locally created tasks
         TodorooCursor<Task> localCreated = dataService.getLocallyCreated(PROPERTIES);
 
         // fetch locally updated tasks
         TodorooCursor<Task> localUpdated = dataService.getLocallyUpdated(PROPERTIES);
 
-        return new SyncData(remoteTasks, localCreated, localUpdated);
+        return new SyncData<RTMTaskContainer>(remoteTasks, localCreated, localUpdated);
     }
 
     /**
      * Add the tasks read from RTM to the given list
      */
-    private void addTasksToList(RtmTasks tasks, ArrayList<TaskContainer> list) {
+    private void addTasksToList(RtmTasks tasks, ArrayList<RTMTaskContainer> list) {
         for (RtmTaskList taskList : tasks.getLists()) {
             for (RtmTaskSeries taskSeries : taskList.getSeries()) {
                 RTMTaskContainer remoteTask = parseRemoteTask(taskSeries);
@@ -408,13 +407,13 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
         // tags
         HashSet<String> localTags = new HashSet<String>();
         HashSet<String> remoteTags = new HashSet<String>();
-        for(Metadata metadatum : local.metadata)
-            if(TagService.KEY.equals(metadatum.getValue(Metadata.KEY)))
-                localTags.add(metadatum.getValue(TagService.TAG));
-        if(remote != null) {
-            for(Metadata metadatum : remote.metadata)
-                if(TagService.KEY.equals(metadatum.getValue(Metadata.KEY)))
-                    remoteTags.add(metadatum.getValue(TagService.TAG));
+        for(Metadata item : local.metadata)
+            if(TagService.KEY.equals(item.getValue(Metadata.KEY)))
+                localTags.add(item.getValue(TagService.TAG));
+        if(remote != null && remote.metadata != null) {
+            for(Metadata item : remote.metadata)
+                if(TagService.KEY.equals(item.getValue(Metadata.KEY)))
+                    remoteTags.add(item.getValue(TagService.TAG));
         }
         if(!localTags.equals(remoteTags)) {
             String[] tags = localTags.toArray(new String[localTags.size()]);
@@ -426,7 +425,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
         if(shouldTransmit(local, Task.NOTES, remote)) {
             String[] titleAndText = MilkNote.fromNoteField(local.task.getValue(Task.NOTES));
             List<RtmTaskNote> notes = null;
-            if(remote != null)
+            if(remote != null && remote.remote.getNotes() != null)
                 notes = remote.remote.getNotes().getNotes();
             if(notes != null && notes.size() > 0) {
                 String remoteNoteId = notes.get(0).getId();
@@ -440,18 +439,11 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
         }
     }
 
-    /** Create a task proxy for the given RtmTaskSeries */
+    /** Create a task container for the given RtmTaskSeries */
     private RTMTaskContainer parseRemoteTask(RtmTaskSeries rtmTaskSeries) {
         Task task = new Task();
         RtmTask rtmTask = rtmTaskSeries.getTask();
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-
-        Metadata rtmMetadata = new Metadata();
-        metadata.add(rtmMetadata);
-        rtmMetadata.setValue(MilkTask.LIST_ID, Long.parseLong(rtmTaskSeries.getList().getId()));
-        rtmMetadata.setValue(MilkTask.TASK_SERIES_ID, Long.parseLong(rtmTaskSeries.getId()));
-        rtmMetadata.setValue(MilkTask.REPEATING, rtmTaskSeries.hasRecurrence() ? 1 : 0);
-        rtmMetadata.setValue(MilkTask.TASK_ID, Long.parseLong(rtmTask.getId()));
 
         task.setValue(Task.TITLE, rtmTaskSeries.getName());
         task.setValue(Task.CREATION_DATE, DateUtilities.dateToUnixtime(rtmTask.getAdded()));
@@ -466,20 +458,25 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
         }
         task.setValue(Task.IMPORTANCE, rtmTask.getPriority().ordinal());
 
-        for(String tag : rtmTaskSeries.getTags()) {
-            Metadata tagData = new Metadata();
-            tagData.setValue(Metadata.KEY, TagService.KEY);
-            tagData.setValue(TagService.TAG, tag);
-            metadata.add(tagData);
+        if(rtmTaskSeries.getTags() != null) {
+            for(String tag : rtmTaskSeries.getTags()) {
+                Metadata tagData = new Metadata();
+                tagData.setValue(Metadata.KEY, TagService.KEY);
+                tagData.setValue(TagService.TAG, tag);
+                metadata.add(tagData);
+            }
         }
 
-        boolean firstNote = true;
-        for(RtmTaskNote note : rtmTaskSeries.getNotes().getNotes()) {
-            if(firstNote) {
-                firstNote = false;
-                task.setValue(Task.NOTES, MilkNote.toNoteField(note));
-            } else
-                metadata.add(MilkNote.create(note));
+        task.setValue(Task.NOTES, ""); //$NON-NLS-1$
+        if(rtmTaskSeries.getNotes() != null) {
+            boolean firstNote = true;
+            for(RtmTaskNote note : rtmTaskSeries.getNotes().getNotes()) {
+                if(firstNote) {
+                    firstNote = false;
+                    task.setValue(Task.NOTES, MilkNote.toNoteField(note));
+                } else
+                    metadata.add(MilkNote.create(note));
+            }
         }
 
         RTMTaskContainer container = new RTMTaskContainer(task, metadata, rtmTaskSeries);

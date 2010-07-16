@@ -131,7 +131,13 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
     public void synchronize(final Context context) {
         // display toast
         if(context instanceof Activity) {
-            Toast.makeText(context, R.string.SyP_progress_toast, Toast.LENGTH_LONG).show();
+            ((Activity) context).runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    Toast.makeText(context, R.string.SyP_progress_toast,
+                            Toast.LENGTH_LONG).show();
+                }
+            });
         }
 
         // display notification
@@ -184,14 +190,14 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
      *
      * @param data synchronization data structure
      */
-    protected void synchronizeTasks(SyncData data) throws IOException {
+    protected void synchronizeTasks(SyncData<TYPE> data) throws IOException {
         int length;
 
         // create internal data structures
         HashMap<String, Integer> remoteNewTaskNameMap = new HashMap<String, Integer>();
         length = data.remoteUpdated.size();
         for(int i = 0; i < length; i++) {
-            TaskContainer remote = data.remoteUpdated.get(i);
+            TYPE remote = data.remoteUpdated.get(i);
             if(remote.task.getId() != Task.NO_ID)
                 continue;
             remoteNewTaskNameMap.put(remote.task.getValue(Task.TITLE), i);
@@ -201,7 +207,7 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
         length = data.localCreated.getCount();
         for(int i = 0; i < length; i++) {
             data.localCreated.moveToNext();
-            TaskContainer local = read(data.localCreated);
+            TYPE local = read(data.localCreated);
 
             String taskTitle = local.task.getValue(Task.TITLE);
 
@@ -212,36 +218,39 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
              */
             if (remoteNewTaskNameMap.containsKey(taskTitle)) {
                 int remoteIndex = remoteNewTaskNameMap.remove(taskTitle);
-                TaskContainer remote = data.remoteUpdated.get(remoteIndex);
+                TYPE remote = data.remoteUpdated.get(remoteIndex);
+
+                transferIdentifiers(remote, local);
+                push(local, remote);
+
+                // re-read remote task after merge, update remote task list
+                remote = pull(remote);
                 remote.task.setId(local.task.getId());
-
-                transferIdentifiers((TYPE)remote, (TYPE)local);
-                push((TYPE)local, (TYPE)remote);
-
-                // re-read remote task after merge
-                data.remoteUpdated.set(remoteIndex, pull((TYPE)remote));
+                data.remoteUpdated.set(remoteIndex, remote);
             } else {
-                create((TYPE)local);
+                create(local);
             }
-            write((TYPE)local);
+            write(local);
         }
 
         // 2. UPDATE: for each updated local task
         length = data.localUpdated.getCount();
         for(int i = 0; i < length; i++) {
             data.localUpdated.moveToNext();
-            TaskContainer local = read(data.localUpdated);
+            TYPE local = read(data.localUpdated);
 
             // if there is a conflict, merge
-            int remoteIndex = matchTask((ArrayList<TYPE>)data.remoteUpdated, (TYPE)local);
+            int remoteIndex = matchTask((ArrayList<TYPE>)data.remoteUpdated, local);
             if(remoteIndex != -1) {
-                TaskContainer remote = data.remoteUpdated.get(remoteIndex);
-                push((TYPE)local, (TYPE)remote);
+                TYPE remote = data.remoteUpdated.get(remoteIndex);
+                push(local, remote);
 
                 // re-read remote task after merge
-                data.remoteUpdated.set(remoteIndex, pull((TYPE)remote));
+                remote = pull(remote);
+                remote.task.setId(local.task.getId());
+                data.remoteUpdated.set(remoteIndex, remote);
             } else {
-                push((TYPE)local, null);
+                push(local, null);
             }
         }
 
@@ -252,9 +261,9 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
         // the wire, the new version and the completed old version. The new
         // version would get merged, then completed, if done in the wrong order.
 
-        Collections.sort(data.remoteUpdated, new Comparator<TaskContainer>() {
+        Collections.sort(data.remoteUpdated, new Comparator<TYPE>() {
             private static final int SENTINEL = -2;
-            private final int check(TaskContainer o1, TaskContainer o2, LongProperty property) {
+            private final int check(TYPE o1, TYPE o2, LongProperty property) {
                 long o1Property = o1.task.getValue(property);
                 long o2Property = o2.task.getValue(property);
                 if(o1Property != 0 && o2Property != 0)
@@ -265,7 +274,7 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
                     return 1;
                 return SENTINEL;
             }
-            public int compare(TaskContainer o1, TaskContainer o2) {
+            public int compare(TYPE o1, TYPE o2) {
                 int comparison = check(o1, o2, Task.DELETION_DATE);
                 if(comparison != SENTINEL)
                     return comparison;
@@ -278,21 +287,21 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
 
         length = data.remoteUpdated.size();
         for(int i = 0; i < length; i++) {
-            TaskContainer remote = data.remoteUpdated.get(i);
-            write((TYPE)remote);
+            TYPE remote = data.remoteUpdated.get(i);
+            write(remote);
         }
     }
 
     // --- helper classes
 
     /** data structure builder */
-    protected static class SyncData {
-        public final ArrayList<TaskContainer> remoteUpdated;
+    protected static class SyncData<TYPE extends TaskContainer> {
+        public final ArrayList<TYPE> remoteUpdated;
 
         public final TodorooCursor<Task> localCreated;
         public final TodorooCursor<Task> localUpdated;
 
-        public SyncData(ArrayList<TaskContainer> remoteUpdated,
+        public SyncData(ArrayList<TYPE> remoteUpdated,
                 TodorooCursor<Task> localCreated,
                 TodorooCursor<Task> localUpdated) {
             super();

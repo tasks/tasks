@@ -127,6 +127,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
 
+    ImageButton quickAddButton;
     EditText quickAddBox;
     Filter filter;
 
@@ -261,7 +262,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             }
         });
 
-        final ImageButton quickAddButton = ((ImageButton)findViewById(R.id.quickAddButton));
+        quickAddButton = ((ImageButton)findViewById(R.id.quickAddButton));
         quickAddBox.setOnKeyListener(new OnKeyListener() {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -327,6 +328,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
             TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
+            quickAddButton.setVisibility(View.GONE);
 
             if(selectNewTask) {
                 loadTaskListContent(true);
