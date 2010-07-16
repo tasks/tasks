@@ -2,6 +2,8 @@ package com.todoroo.astrid.adapter;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -10,6 +12,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.text.Html;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -98,7 +101,9 @@ public class TaskAdapter extends CursorAdapter {
     private final int resource;
     private final LayoutInflater inflater;
     protected OnCompletedTaskListener onCompletedTaskListener = null;
-    private final int fontSize;
+    private int fontSize;
+    private final HashMap<Long, LinkedHashSet<TaskDetail>> detailCache =
+        new HashMap<Long, LinkedHashSet<TaskDetail>>();
 
     /**
      * Constructor
@@ -147,7 +152,7 @@ public class TaskAdapter extends CursorAdapter {
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
-        viewHolder.details = (LinearLayout)view.findViewById(R.id.details);
+        viewHolder.details = (TextView)view.findViewById(R.id.details);
         viewHolder.actions = (LinearLayout)view.findViewById(R.id.actions);
         viewHolder.importance = (View)view.findViewById(R.id.importance);
 
@@ -169,11 +174,12 @@ public class TaskAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor c) {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
-        Task actionItem = ((ViewHolder)view.getTag()).task;
+        ViewHolder viewHolder = ((ViewHolder)view.getTag());
+        Task actionItem = viewHolder.task;
         actionItem.readFromCursor(cursor);
 
         setFieldContentsAndVisibility(view);
-        setTaskAppearance(view, actionItem.isCompleted());
+        setTaskAppearance(viewHolder, actionItem.isCompleted());
     }
 
     /** Helper method to set the visibility based on if there's stuff inside */
@@ -190,12 +196,12 @@ public class TaskAdapter extends CursorAdapter {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public static class ViewHolder {
+    public class ViewHolder {
         public Task task;
         public TextView nameView;
         public CheckBox completeBox;
         public TextView dueDate;
-        public LinearLayout details;
+        public TextView details;
         public View importance;
         public LinearLayout actions;
         public boolean expanded;
@@ -216,14 +222,6 @@ public class TaskAdapter extends CursorAdapter {
             if(hiddenUntil > DateUtilities.now())
                 nameValue = r.getString(R.string.TAd_hiddenFormat, nameValue);
             nameView.setText(nameValue);
-        }
-
-        // complete box
-        final CheckBox completeBox = viewHolder.completeBox; {
-            // show item as completed if it was recently checked
-            if(completedItems.containsKey(task.getId()))
-                task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-            completeBox.setChecked(task.isCompleted());
         }
 
         // due date / completion date
@@ -257,54 +255,112 @@ public class TaskAdapter extends CursorAdapter {
             }
         }
 
-        // other information - send out a request for it (only if not fling)
-        final LinearLayout detailsView = viewHolder.details;
+        // complete box
+        final CheckBox completeBox = viewHolder.completeBox; {
+            // show item as completed if it was recently checked
+            if(completedItems.containsKey(task.getId()))
+                task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
+            completeBox.setChecked(task.isCompleted());
+            completeBox.getLayoutParams().height = dueDateView.getHeight() +
+                nameView.getHeight();
+        }
+
+        // task details - send out a request for it (only if not fling)
         if(!isFling) {
-            detailsView.removeViews(2, detailsView.getChildCount() - 2);
-            retrieveDetails(detailsView, task.getId());
+            retrieveDetails(viewHolder);
         }
 
         // importance bar - must be set at end when view height is determined
         final View importanceView = viewHolder.importance; {
             int value = task.getValue(Task.IMPORTANCE);
             importanceView.setBackgroundColor(IMPORTANCE_COLORS[value]);
+            importanceView.getLayoutParams().height =
+                ((View)viewHolder.completeBox.getParent()).getHeight();
         }
     }
 
-    /**
-     * Retrieve task details
-     */
-    private void retrieveDetails(final LinearLayout view, final long taskId) {
-        // read internal details directly
+    // --- task details
+
+    @SuppressWarnings("nls")
+    private void retrieveDetails(final ViewHolder viewHolder) {
+        final long taskId = viewHolder.task.getId();
+
+        // check the cache
+        boolean inCache = false;
+        final LinkedHashSet<TaskDetail> details;
+        synchronized(detailCache) {
+            if(detailCache.containsKey(taskId))
+                inCache = true;
+            else
+                detailCache.put(taskId, new LinkedHashSet<TaskDetail>());
+            details  = detailCache.get(taskId);
+        }
+
+        if(inCache) {
+            Log.e("detail-load-" + Thread.currentThread().getId(), "Already In Cache: " + taskId);
+            viewHolder.details.setVisibility(details.size() > 0 ? View.VISIBLE : View.GONE);
+            if(details.size() == 0)
+                return;
+            StringBuilder detailText = new StringBuilder();
+            for(Iterator<TaskDetail> iterator = details.iterator(); iterator.hasNext(); ) {
+                detailText.append(iterator.next().text);
+                if(iterator.hasNext())
+                    detailText.append(" | ");
+            }
+            spanifyAndAdd(viewHolder.details, detailText.toString());
+            return;
+        }
+
+        Log.e("detail-load-" + Thread.currentThread().getId(), "Loading details: " + taskId);
+
+        // request details
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+
+        // load internal details
         new Thread() {
             @Override
             public void run() {
                 for(DetailExposer exposer : EXPOSERS) {
-                    final TaskDetail detail = exposer.getTaskDetails(activity, taskId);
-                    if(detail == null)
-                        continue;
-                    ViewHolder holder = (ViewHolder)view.getTag();
-                    if(holder == null || holder.task.getId() != taskId)
-                        continue;
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            view.addView(detailToView(detail));
-                        };
-                    });
-                }
-            }
-        }.start();
+                    if(Thread.interrupted())
+                        return;
 
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+                    final TaskDetail detail = exposer.getTaskDetails(activity, taskId);
+                    if(detail == null || details.contains(detail))
+                        continue;
+
+                    CharSequence oldText = viewHolder.details.getText();
+                    if(oldText.length() > 0)
+                        spanifyAndAdd(viewHolder.details, oldText + " | " +  detail.text);
+                    else
+                        spanifyAndAdd(viewHolder.details, detail.text);
+                    details.add(detail);
+                }
+                Log.e("detail-load-" + Thread.currentThread().getId(), "Finished loading details: " + taskId);
+            };
+        }.start();
+    }
+
+    @SuppressWarnings("nls")
+    private void spanifyAndAdd(TextView details, String string) {
+        if(string.contains("<"))
+            details.setText(Html.fromHtml(string.trim().replace("\n", "<br>")));
+        else
+            details.setText(string.trim());
     }
 
     /**
      * Called to tell the cache to be cleared
      */
     public void flushDetailCache() {
-        //
+        detailCache.clear();
+    }
+
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize);
     }
 
     /**
@@ -312,8 +368,13 @@ public class TaskAdapter extends CursorAdapter {
      *
      * @param taskId
      */
+    @SuppressWarnings("unused")
     public synchronized void addDetails(ListView list, long taskId, TaskDetail detail) {
-        if(detail == null)
+        /*if(detail == null)
+            return;
+
+        LinkedHashSet<TaskDetail> details = detailCache.get(taskId);
+        if(details.contains(detail))
             return;
 
         // update view if it is visible
@@ -322,36 +383,21 @@ public class TaskAdapter extends CursorAdapter {
             ViewHolder viewHolder = (ViewHolder) list.getChildAt(i).getTag();
             if(viewHolder == null || viewHolder.task.getId() != taskId)
                 continue;
-
+            details.add(detail);
             TextView newView = detailToView(detail);
             viewHolder.details.addView(newView);
             break;
-        }
-    }
-
-    /**
-     * Create a new view for the given detail
-     *
-     * @param detail
-     */
-    @SuppressWarnings("nls")
-    private TextView detailToView(TaskDetail detail) {
-        TextView textView = new TextView(activity);
-        textView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
-        textView.setText(Html.fromHtml(detail.text.replace("\n", "<br>")));
-        if(detail.color != 0)
-            textView.setTextColor(detail.color);
-        return textView;
+        }*/
     }
 
     private final View.OnClickListener completeBoxListener = new View.OnClickListener() {
         public void onClick(View v) {
-            View container = (View) v.getParent();
-            Task task = ((ViewHolder)container.getTag()).task;
+            ViewHolder viewHolder = (ViewHolder)((View)v.getParent().getParent()).getTag();
+            Task task = viewHolder.task;
 
             completeTask(task, ((CheckBox)v).isChecked());
             // set check box to actual action item state
-            setTaskAppearance(container, task.isCompleted());
+            setTaskAppearance(viewHolder, task.isCompleted());
         }
     };
 
@@ -427,12 +473,10 @@ public class TaskAdapter extends CursorAdapter {
      * @param name
      * @param progress
      */
-    void setTaskAppearance(View container, boolean state) {
-        CheckBox completed = (CheckBox)container.findViewById(R.id.completeBox);
-        TextView name = (TextView)container.findViewById(R.id.title);
+    void setTaskAppearance(ViewHolder viewHolder, boolean state) {
+        viewHolder.completeBox.setChecked(state);
 
-        completed.setChecked(state);
-
+        TextView name = viewHolder.nameView;
         if(state) {
             name.setPaintFlags(name.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
             name.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemTitle_Completed);

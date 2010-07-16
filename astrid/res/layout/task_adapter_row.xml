@@ -1,71 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@android:drawable/list_selector_background"
-    android:orientation="vertical">
+    android:paddingTop="4dip"
+    android:paddingBottom="4dip"
+    android:paddingLeft="4dip"
+    android:paddingRight="6dip">
     
-    <LinearLayout
+    <RelativeLayout android:id="@+id/main"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="4dip"
-        android:paddingRight="6dip"
-        android:paddingTop="4dip"
-        android:paddingBottom="4dip"
-        android:minHeight="48dip"
-        android:orientation="horizontal">
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:minHeight="48dip">
     
       <!-- completion check-box -->
       <CheckBox android:id="@+id/completeBox"
           android:layout_width="34dip"
           android:layout_height="fill_parent"
-          android:layout_weight="1"
+          android:layout_alignParentTop="true"
+          android:layout_alignParentLeft="true"          
           android:paddingLeft="5dip" 
           android:button="@drawable/btn_check"/>
-  
-      <LinearLayout android:id="@+id/details"
+          
+      <!-- task name -->
+      <TextView android:id="@+id/title"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
-          android:layout_weight="100"
-          android:minHeight="38dip"
-          android:paddingLeft="40dip"
-          android:paddingRight="6dip"
-          android:orientation="vertical">
-              
-          <!-- task name -->
-          <TextView android:id="@+id/title"
-              android:layout_width="fill_parent"
-              android:layout_height="wrap_content"
-              android:textSize="22sp"
-              style="@style/TextAppearance.TAd_ItemTitle"
-              android:gravity="center_vertical"/>
-      
-         <!-- due date -->
-         <TextView android:id="@+id/dueDate"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:singleLine="true"/>
-              
-          <!-- other details go here -->
+          android:layout_alignParentTop="true"
+          android:layout_toRightOf="@id/completeBox"
+          android:paddingLeft="10dip" 
+          style="@style/TextAppearance.TAd_ItemTitle"
+          android:gravity="center_vertical"/>
+  
+      <!-- due date -->
+      <TextView android:id="@+id/dueDate"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/title"
+          android:layout_toRightOf="@id/completeBox"
+          android:paddingLeft="10dip" 
+          android:singleLine="true"/>
           
-      </LinearLayout>    
+    </RelativeLayout>
             
-      <!-- importance -->
-      <View android:id="@+id/importance"
-          android:layout_width="2dip"
-          android:layout_height="fill_parent"/>
-          
-    </LinearLayout>
+    <TextView android:id="@+id/details"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/main"
+        android:layout_alignParentLeft="true" />
         
     <LinearLayout android:id="@+id/actions"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/details"
+        android:layout_alignParentLeft="true"
         android:background="#4499bbcc" 
         android:visibility="gone"
         android:paddingTop="4dip"
-        android:paddingLeft="6dip"
-        android:paddingRight="6dip"
         android:orientation="horizontal" />
         
-</LinearLayout>
+    <!-- importance -->
+    <View android:id="@+id/importance"
+        android:layout_width="2dip"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true" />
+          
+</RelativeLayout>

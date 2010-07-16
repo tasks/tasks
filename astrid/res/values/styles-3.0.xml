@@ -49,11 +49,12 @@
     </style>
 
     <style name="TextAppearance.TAd_ItemDetails">
-        <item name="android:textSize">14sp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:textColor">#ff777777</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate" parent="TextAppearance.TAd_ItemDetails">
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">#ff7777aa</item>
     </style>
     
