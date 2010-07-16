@@ -6,9 +6,7 @@ import java.util.Map.Entry;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
-import android.appwidget.AppWidgetManager;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -37,7 +35,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RemoteViews;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
@@ -370,10 +367,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     @Override
     protected void onStop() {
         // update the widget
-        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(this);
-        RemoteViews views = new TasksWidget.UpdateService().buildUpdate(this);
-        ComponentName widgetName = new ComponentName(this, TasksWidget.class);
-        appWidgetManager.updateAppWidget(widgetName, views);
+        startService(new Intent(this, TasksWidget.UpdateService.class));
 
         super.onStop();
         FlurryAgent.onEndSession(this);
