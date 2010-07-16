@@ -157,12 +157,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         if(database == null)
             return;
-        if(Constants.DEBUG)
-            filter.title = "[D] " + filter.title; //$NON-NLS-1$
 
         database.openForWriting();
         setUpUiComponents();
         setUpTaskList();
+        if(Constants.DEBUG)
+            setTitle("[D] " + filter.title); //$NON-NLS-1$
 
         // cache some stuff
         new Thread(new Runnable() {

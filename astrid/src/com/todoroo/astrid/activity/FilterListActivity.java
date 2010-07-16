@@ -19,13 +19,17 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
+import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
@@ -339,6 +343,9 @@ public class FilterListActivity extends ExpandableListActivity {
      * @param label
      */
     private void createShortcut(Filter filter, Intent shortcutIntent, String label) {
+        if(label.length() == 0)
+            return;
+
         Bitmap emblem = filter.listingIcon;
         if(emblem == null)
             emblem = ((BitmapDrawable) getResources().getDrawable(
@@ -399,6 +406,24 @@ public class FilterListActivity extends ExpandableListActivity {
                     FrameLayout.LayoutParams.FILL_PARENT,
                     FrameLayout.LayoutParams.WRAP_CONTENT));
 
+            final Runnable createShortcut = new Runnable() {
+                @Override
+                public void run() {
+                    String label = editText.getText().toString();
+                    createShortcut(filter, shortcutIntent, label);
+                }
+            };
+            editText.setOnEditorActionListener(new OnEditorActionListener() {
+                @Override
+                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                    if(actionId == EditorInfo.IME_NULL) {
+                        createShortcut.run();
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
             new AlertDialog.Builder(this)
             .setTitle(R.string.FLA_shortcut_dialog_title)
             .setMessage(R.string.FLA_shortcut_dialog)
@@ -406,8 +431,7 @@ public class FilterListActivity extends ExpandableListActivity {
             .setIcon(android.R.drawable.ic_dialog_info)
             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 public void onClick(DialogInterface dialog, int which) {
-                    String label = editText.getText().toString();
-                    createShortcut(filter, shortcutIntent, label);
+                    createShortcut.run();
                 }
             })
             .setNegativeButton(android.R.string.cancel, null)

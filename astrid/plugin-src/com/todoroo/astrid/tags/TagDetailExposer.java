@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.api.TaskDetail;
 
 /**
@@ -17,9 +18,7 @@ import com.todoroo.astrid.api.TaskDetail;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TagDetailExposer extends BroadcastReceiver {
-
-    private static TagService tagService = null;
+public class TagDetailExposer extends BroadcastReceiver implements DetailExposer {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -28,20 +27,26 @@ public class TagDetailExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        if(tagService == null)
-            tagService = new TagService();
-        String tagList = tagService.getTagsAsString(taskId);
-
-        if(tagList.length() == 0)
+        TaskDetail taskDetail = getTaskDetails(context, taskId);
+        if(taskDetail == null)
             return;
-
-        TaskDetail taskDetail = new TaskDetail(context.getString(R.string.tag_TLA_detail, tagList));
 
         // transmit
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, TagsPlugin.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    @Override
+    public TaskDetail getTaskDetails(Context context, long id) {
+        String tagList = TagService.getInstance().getTagsAsString(id);
+
+        if(tagList.length() == 0)
+            return null;
+
+        return new TaskDetail(context.getString(R.string.tag_TLA_detail, tagList));
     }
 
 }

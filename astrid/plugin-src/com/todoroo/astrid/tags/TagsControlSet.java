@@ -35,7 +35,7 @@ public final class TagsControlSet implements TaskEditControlSet {
 
     // --- instance variables
 
-    private final TagService tagService = new TagService();
+    private final TagService tagService = TagService.getInstance();
     private final Tag[] allTags;
     private final LinearLayout tagsContainer;
     private final Activity activity;

@@ -19,6 +19,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.api.TaskDetail;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.TaskService;
@@ -29,7 +30,9 @@ import com.todoroo.astrid.service.TaskService;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class RepeatDetailExposer extends BroadcastReceiver {
+public class RepeatDetailExposer extends BroadcastReceiver implements DetailExposer {
+
+    private static TaskService staticTaskService = null;
 
     @Autowired
     TaskService taskService;
@@ -41,10 +44,31 @@ public class RepeatDetailExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        DependencyInjectionService.getInstance().inject(this);
-        Task task = taskService.fetchById(taskId, Task.FLAGS, Task.RECURRENCE);
-        if(task == null)
+        TaskDetail taskDetail = getTaskDetails(context, taskId);
+        if(taskDetail == null)
             return;
+
+        // transmit
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, RepeatsPlugin.IDENTIFIER);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    public TaskDetail getTaskDetails(Context context, long id) {
+        synchronized(RepeatDetailExposer.class) {
+            if(staticTaskService == null) {
+                DependencyInjectionService.getInstance().inject(this);
+                staticTaskService = taskService;
+            } else {
+                taskService = staticTaskService;
+            }
+        }
+
+        Task task = taskService.fetchById(id, Task.FLAGS, Task.RECURRENCE);
+        if(task == null)
+            return null;
 
         Resources r = context.getResources();
 
@@ -54,7 +78,7 @@ public class RepeatDetailExposer extends BroadcastReceiver {
             try {
                 rrule = new RRule(recurrence);
             } catch (ParseException e) {
-                return;
+                return null;
             }
             String interval;
             switch(rrule.getFreq()) {
@@ -96,23 +120,15 @@ public class RepeatDetailExposer extends BroadcastReceiver {
                 }
             }
 
-
             String detail;
             if(task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
                 detail = context.getString(R.string.repeat_detail_completion, interval);
             else
                 detail = context.getString(R.string.repeat_detail_duedate, interval);
 
-
-            TaskDetail taskDetail = new TaskDetail(detail);
-
-            // transmit
-            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-            context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            return new TaskDetail(detail);
         }
-
+        return null;
     }
 
 }

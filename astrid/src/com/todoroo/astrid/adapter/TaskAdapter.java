@@ -1,8 +1,8 @@
 package com.todoroo.astrid.adapter;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,20 +11,21 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.text.Html;
+import android.util.Log;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
@@ -37,9 +38,14 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.api.TaskDetail;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.notes.NoteDetailExposer;
+import com.todoroo.astrid.repeats.RepeatDetailExposer;
+import com.todoroo.astrid.rmilk.MilkDetailExposer;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TagDetailExposer;
 import com.todoroo.astrid.utility.Preferences;
 
 /**
@@ -67,6 +73,14 @@ public class TaskAdapter extends CursorAdapter {
         Task.DELETION_DATE,
     };
 
+    /** Internal Task Detail exposers */
+    public static final DetailExposer[] EXPOSERS = new DetailExposer[] {
+        new TagDetailExposer(),
+        new RepeatDetailExposer(),
+        new NoteDetailExposer(),
+        new MilkDetailExposer(),
+    };
+
     private static int[] IMPORTANCE_COLORS = null;
 
     // --- instance variables
@@ -85,7 +99,7 @@ public class TaskAdapter extends CursorAdapter {
 
     protected final Activity activity;
     protected final HashMap<Long, Boolean> completedItems;
-    protected final HashMap<Long, ArrayList<TaskDetail>> detailCache;
+    protected final HashMap<Long, LinkedHashSet<TaskDetail>> detailCache;
     public boolean isFling = false;
     private final int resource;
     private final LayoutInflater inflater;
@@ -119,7 +133,7 @@ public class TaskAdapter extends CursorAdapter {
         this.onCompletedTaskListener = onCompletedTaskListener;
 
         completedItems = new HashMap<Long, Boolean>();
-        detailCache = new HashMap<Long, ArrayList<TaskDetail>>();
+        detailCache = new HashMap<Long, LinkedHashSet<TaskDetail>>();
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize);
 
         IMPORTANCE_COLORS = Task.getImportanceColors(activity.getResources());
@@ -251,15 +265,12 @@ public class TaskAdapter extends CursorAdapter {
         if(!isFling) {
             detailsView.removeViews(2, detailsView.getChildCount() - 2);
             if(detailCache.containsKey(task.getId())) {
-                ArrayList<TaskDetail> details = detailCache.get(task.getId());
-                int length = details.size();
-                for(int i = 0; i < length; i++)
-                    detailsView.addView(detailToView(details.get(i)));
+                Log.e("DRAWING DETAILS", "Drawing DETAILS suckaaa");
+                LinkedHashSet<TaskDetail> details = detailCache.get(task.getId());
+                for(TaskDetail detail : details)
+                    detailsView.addView(detailToView(detail));
             } else {
-                detailCache.put(task.getId(), new ArrayList<TaskDetail>());
-                Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-                broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-                activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+                retrieveDetails(detailsView, task.getId());
             }
         }
 
@@ -268,6 +279,33 @@ public class TaskAdapter extends CursorAdapter {
             int value = task.getValue(Task.IMPORTANCE);
             importanceView.setBackgroundColor(IMPORTANCE_COLORS[value]);
         }
+    }
+
+    /**
+     * Retrieve task details
+     */
+    private void retrieveDetails(final LinearLayout view, final long taskId) {
+        final LinkedHashSet<TaskDetail> details = new LinkedHashSet<TaskDetail>();
+        detailCache.put(taskId, details);
+
+        // read internal details directly
+        new Thread() {
+            @Override
+            public void run() {
+                for(DetailExposer exposer : EXPOSERS) {
+                    TaskDetail detail = exposer.getTaskDetails(activity, taskId);
+                    if(detail == null || details.contains(detail))
+                        continue;
+                    Log.e("ADDING DETAIL", "ADDING DETAIL 1 " + detail.text + ", cache was " + details);
+                    details.add(detail);
+                    view.addView(detailToView(detail));
+                }
+            }
+        }.start();
+
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
     /**
@@ -286,11 +324,13 @@ public class TaskAdapter extends CursorAdapter {
         if(detail == null)
             return;
 
-        ArrayList<TaskDetail> details = detailCache.get(taskId);
-        if(details.contains(detail))
+        LinkedHashSet<TaskDetail> details = detailCache.get(taskId);
+        if(details == null || details.contains(detail))
             return;
 
         details.add(detail);
+
+        Log.e("ADDING DETAIL", "ADDING DETAIL X " + detail.text + ", cache was " + details);
 
         // update view if it is visible
         int length = list.getChildCount();
@@ -300,10 +340,6 @@ public class TaskAdapter extends CursorAdapter {
                 continue;
 
             TextView newView = detailToView(detail);
-            for(int j = 0; j < viewHolder.details.getChildCount(); j++) {
-                if(newView.getText().equals(((TextView)viewHolder.details.getChildAt(j)).getText()))
-                    return;
-            }
             viewHolder.details.addView(newView);
             break;
         }
@@ -314,10 +350,11 @@ public class TaskAdapter extends CursorAdapter {
      *
      * @param detail
      */
+    @SuppressWarnings("nls")
     private TextView detailToView(TaskDetail detail) {
         TextView textView = new TextView(activity);
         textView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
-        textView.setText(Html.fromHtml(detail.text));
+        textView.setText(Html.fromHtml(detail.text.replace("\n", "<br>")));
         if(detail.color != 0)
             textView.setTextColor(detail.color);
         return textView;

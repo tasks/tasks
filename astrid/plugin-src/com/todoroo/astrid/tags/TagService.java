@@ -2,9 +2,9 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -26,22 +26,32 @@ import com.todoroo.astrid.model.Task;
  *
  */
 @SuppressWarnings("nls")
-public class TagService {
+public final class TagService {
 
     // --- public constants
 
     /** Metadata key for tag data */
-    public static final String KEY = "tags";
+    public static final String KEY = "tags-tag";
 
     /** Property for reading tag values */
     public static final StringProperty TAG = Metadata.VALUE1;
+
+    // --- singleton
+
+    private static TagService instance = null;
+
+    public static synchronized TagService getInstance() {
+        if(instance == null)
+            instance = new TagService();
+        return instance;
+    }
 
     // --- implementation details
 
     @Autowired
     private MetadataDao metadataDao;
 
-    public TagService() {
+    private TagService() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
@@ -95,7 +105,7 @@ public class TagService {
      * @return empty array if no tags, otherwise array
      */
     public Tag[] getGroupedTags(Order order) {
-        Query query = Query.select(TAG, COUNT).
+        Query query = Query.select(TAG.as(TAG.name), COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
             where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(KEY))).
             orderBy(order).groupBy(TAG);

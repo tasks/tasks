@@ -186,12 +186,6 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
-    <receiver android:name="com.todoroo.astrid.tags.TagDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
         
     <!-- repeats -->
     <receiver android:name="com.todoroo.astrid.repeats.RepeatsPlugin">
@@ -206,20 +200,8 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
-    <receiver android:name="com.todoroo.astrid.repeats.RepeatDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
     
     <!-- notes -->
-    <receiver android:name="com.todoroo.astrid.notes.NoteDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
 
     <!-- reminders -->        
     <activity android:name="com.todoroo.astrid.reminders.ReminderPreferences" 
@@ -242,12 +224,6 @@
     <receiver android:name="com.todoroo.astrid.rmilk.MilkFilterExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <receiver android:name="com.todoroo.astrid.rmilk.MilkDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>

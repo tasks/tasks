@@ -40,7 +40,7 @@
     </style>
     
     <style name="TextAppearance.TaskList_Detail">
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/taskList_details</item>
     </style>
     

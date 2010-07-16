@@ -1,6 +1,9 @@
 package com.todoroo.andlib.utility;
 
 import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
@@ -209,4 +212,28 @@ public class AndroidUtilities {
         return a.equals(b);
     }
 
+    /**
+     * Copy a file from one place to another
+     * @param in
+     * @param out
+     * @throws Exception
+     */
+    public static void copyFile(File in, File out) throws Exception {
+        FileInputStream fis  = new FileInputStream(in);
+        FileOutputStream fos = new FileOutputStream(out);
+        try {
+            byte[] buf = new byte[1024];
+            int i = 0;
+            while ((i = fis.read(buf)) != -1) {
+                fos.write(buf, 0, i);
+            }
+        }
+        catch (Exception e) {
+            throw e;
+        }
+        finally {
+            if (fis != null) fis.close();
+            if (fos != null) fos.close();
+        }
+      }
 }
