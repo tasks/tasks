@@ -6,9 +6,11 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.view.View;
+import android.view.ViewGroup.OnHierarchyChangeListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -30,18 +32,30 @@ public class MilkPreferences extends TodorooPreferences {
     @Autowired
     DialogUtilities dialogUtilities;
 
+    int statusColor = Color.BLACK;
+
     @Override
     public int getPreferenceResource() {
         return R.xml.preferences_rmilk;
     }
 
     @Override
-    public void onWindowFocusChanged(boolean hasFocus) {
-        super.onWindowFocusChanged(hasFocus);
-        if(hasFocus) {
-            AndroidUtilities.setCurrentlyActive(this);
-            initializePreference(getPreferenceScreen());
-        }
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getListView().setOnHierarchyChangeListener(new OnHierarchyChangeListener() {
+
+            @Override
+            public void onChildViewRemoved(View parent, View child) {
+                //
+            }
+
+            @Override
+            public void onChildViewAdded(View parent, View child) {
+                View view = findViewById(R.id.status);
+                if(view != null)
+                    view.setBackgroundColor(statusColor);
+            }
+        });
     }
 
     /**
@@ -72,7 +86,6 @@ public class MilkPreferences extends TodorooPreferences {
             boolean loggedIn = Utilities.isLoggedIn();
             String status;
             String subtitle = ""; //$NON-NLS-1$
-            int statusColor;
 
             // ! logged in - display message, click -> sync
             if(!loggedIn) {

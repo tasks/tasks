@@ -266,6 +266,7 @@ public class TaskAdapter extends CursorAdapter {
         }
 
         // task details - send out a request for it (only if not fling)
+        viewHolder.details.setText(""); //$NON-NLS-1$
         if(!isFling) {
             retrieveDetails(viewHolder);
         }
@@ -297,8 +298,6 @@ public class TaskAdapter extends CursorAdapter {
             spanifyAndAdd(viewHolder.details, details);
             return;
         }
-
-        viewHolder.details.setText(""); //$NON-NLS-1$
 
         // request details
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
