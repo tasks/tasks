@@ -9,7 +9,6 @@ import java.util.Map;
 import java.util.Random;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
@@ -23,6 +22,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
@@ -139,7 +139,6 @@ public final class MilkDataService {
      * @param task
      */
     public void saveTaskAndMetadata(RTMTaskContainer task) {
-        Log.e("SAV", "saving " + task.task.getSetValues());
         taskDao.save(task.task, true);
 
         metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(task.task.getId()),
@@ -208,19 +207,28 @@ public final class MilkDataService {
 
     // --- list methods
 
+    private final SoftHashMap<Long, String> listCache = new SoftHashMap<Long, String>();
+
     /**
      * Get list name by list id
      * @param listId
      * @return null if no list by this id exists, otherwise list name
      */
     public String getListName(long listId) {
+        if(listCache.containsKey(listId))
+            return listCache.get(listId);
+
         TodorooCursor<MilkList> cursor = milkListDao.query(Query.select(
                 MilkList.NAME).where(MilkList.ID.eq(listId)));
         try {
-            if(cursor.getCount() == 0)
+            if(cursor.getCount() == 0) {
+                listCache.put(listId, null);
                 return null;
+            }
             cursor.moveToFirst();
-            return cursor.get(MilkList.NAME);
+            String name = cursor.get(MilkList.NAME);
+            listCache.put(listId, name);
+            return name;
         } finally {
             cursor.close();
         }
