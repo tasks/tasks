@@ -41,8 +41,8 @@ public class RtmList extends RtmData {
   public RtmList(Element elt) {
     id = elt.getAttribute("id");
     name = elt.getAttribute("name");
-    smart = elt.getAttribute("smart") == "1";
-    archived = elt.getAttribute("archived") == "1";
+    smart = elt.getAttribute("smart").equals("1");
+    archived = elt.getAttribute("archived").equals("1");
     position = Integer.parseInt(elt.getAttribute("position"));
   }
 
