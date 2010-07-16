@@ -3,18 +3,18 @@
  */
 package com.todoroo.astrid.rmilk.data;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
-import com.todoroo.andlib.data.Property.IntegerProperty;
-import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -24,8 +24,8 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -34,29 +34,11 @@ import com.todoroo.astrid.rmilk.Utilities.ListContainer;
 import com.todoroo.astrid.rmilk.api.data.RtmList;
 import com.todoroo.astrid.rmilk.api.data.RtmLists;
 import com.todoroo.astrid.rmilk.sync.RTMTaskContainer;
+import com.todoroo.astrid.tags.TagService;
 
 public final class MilkDataService {
 
-    // --- public constants
-
-    /** metadata key */
-    public static final String METADATA_KEY = "rmilk"; //$NON-NLS-1$
-
-    /** {@link MilkList} id */
-    public static final LongProperty LIST_ID = new LongProperty(Metadata.TABLE,
-            Metadata.VALUE1.name);
-
-    /** RTM Task Series Id */
-    public static final LongProperty TASK_SERIES_ID = new LongProperty(Metadata.TABLE,
-            Metadata.VALUE2.name);
-
-    /** RTM Task Id */
-    public static final LongProperty TASK_ID = new LongProperty(Metadata.TABLE,
-            Metadata.VALUE3.name);
-
-    /** Whether task repeats in RTM (1 or 0) */
-    public static final IntegerProperty REPEATING = new IntegerProperty(Metadata.TABLE,
-            Metadata.VALUE4.name);
+    // --- constants
 
     /** Utility for joining tasks with metadata */
     public static final Join METADATA_JOIN = Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK));
@@ -100,7 +82,7 @@ public final class MilkDataService {
      * Clears RTM metadata information. Used when user logs out of RTM
      */
     public void clearMetadata() {
-        metadataDao.deleteWhere(Metadata.KEY.eq(METADATA_KEY));
+        metadataDao.deleteWhere(Metadata.KEY.eq(MilkTask.METADATA_KEY));
     }
 
     /**
@@ -110,9 +92,9 @@ public final class MilkDataService {
      */
     public TodorooCursor<Task> getLocallyCreated(Property<?>[] properties) {
         return
-            taskDao.query(Query.select(properties).join(METADATA_JOIN).where(Criterion.and(
+            taskDao.query(Query.select(properties).join(MilkDataService.METADATA_JOIN).where(Criterion.and(
                     Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
-                            where(Criterion.and(MetadataCriteria.withKey(METADATA_KEY), TASK_SERIES_ID.gt(0))))),
+                            where(Criterion.and(MetadataCriteria.withKey(MilkTask.METADATA_KEY), MilkTask.TASK_SERIES_ID.gt(0))))),
                     TaskCriteria.isActive())));
     }
 
@@ -126,8 +108,8 @@ public final class MilkDataService {
         if(lastSyncDate == 0)
             return taskDao.query(Query.select(Task.ID).where(Criterion.none));
         return
-            taskDao.query(Query.select(properties).join(METADATA_JOIN).
-                    where(Criterion.and(MetadataCriteria.withKey(METADATA_KEY),
+            taskDao.query(Query.select(properties).join(MilkDataService.METADATA_JOIN).
+                    where(Criterion.and(MetadataCriteria.withKey(MilkTask.METADATA_KEY),
                             Task.MODIFICATION_DATE.gt(lastSyncDate))));
     }
 
@@ -139,9 +121,9 @@ public final class MilkDataService {
         if(remoteTask.task.getId() != Task.NO_ID)
             return;
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID).
-                join(METADATA_JOIN).where(Criterion.and(MetadataCriteria.withKey(METADATA_KEY),
-                        TASK_SERIES_ID.eq(remoteTask.taskSeriesId),
-                        TASK_ID.eq(remoteTask.taskId))));
+                join(MilkDataService.METADATA_JOIN).where(Criterion.and(MetadataCriteria.withKey(MilkTask.METADATA_KEY),
+                        MilkTask.TASK_SERIES_ID.eq(remoteTask.taskSeriesId),
+                        MilkTask.TASK_ID.eq(remoteTask.taskId))));
         try {
             if(cursor.getCount() == 0)
                 return;
@@ -157,14 +139,43 @@ public final class MilkDataService {
      * @param task
      */
     public void saveTaskAndMetadata(RTMTaskContainer task) {
+        Log.e("SAV", "saving " + task.task.getSetValues());
         taskDao.save(task.task, true);
 
         metadataDao.deleteWhere(MetadataCriteria.byTaskAndwithKey(task.task.getId(),
-                METADATA_KEY));
+                MilkTask.METADATA_KEY));
         for(Metadata metadata : task.metadata) {
             metadata.setValue(Metadata.TASK, task.task.getId());
             metadataDao.persist(metadata);
         }
+    }
+
+    /**
+     * Reads a task and its metadata
+     * @param task
+     * @return
+     */
+    public RTMTaskContainer readTaskAndMetadata(TodorooCursor<Task> taskCursor) {
+        Task task = new Task(taskCursor);
+
+        // read tags, notes, etc
+        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+        TodorooCursor<Metadata> metadataCursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
+                where(Criterion.and(MetadataCriteria.byTask(task.getId()),
+                        Criterion.or(MetadataCriteria.withKey(TagService.KEY),
+                                MetadataCriteria.withKey(MilkTask.METADATA_KEY),
+                                MetadataCriteria.withKey(MilkNote.METADATA_KEY)))));
+        try {
+            if(metadataCursor.getCount() == 0)
+                return null;
+            for(metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {
+                metadata.add(new Metadata(metadataCursor));
+            }
+        } finally {
+            metadataCursor.close();
+        }
+
+        return new RTMTaskContainer(task, metadata);
     }
 
     /**
@@ -173,8 +184,8 @@ public final class MilkDataService {
      */
     public Metadata getTaskMetadata(long taskId) {
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
-                LIST_ID, TASK_SERIES_ID, TASK_ID, REPEATING).where(
-                MetadataCriteria.byTaskAndwithKey(taskId, METADATA_KEY)));
+                MilkTask.LIST_ID, MilkTask.TASK_SERIES_ID, MilkTask.TASK_ID, MilkTask.REPEATING).where(
+                MetadataCriteria.byTaskAndwithKey(taskId, MilkTask.METADATA_KEY)));
         try {
             if(cursor.getCount() == 0)
                 return null;
@@ -234,13 +245,13 @@ public final class MilkDataService {
         }
 
         // read all list counts
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(LIST_ID, COUNT).
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(MilkTask.LIST_ID, COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
             where(Criterion.and(TaskCriteria.isVisible(DateUtilities.now()), TaskCriteria.isActive())).
-            groupBy(LIST_ID));
+            groupBy(MilkTask.LIST_ID));
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                ListContainer container = listIdToContainerMap.get(cursor.get(LIST_ID));
+                ListContainer container = listIdToContainerMap.get(cursor.get(MilkTask.LIST_ID));
                 if(container != null) {
                     container.count = cursor.get(COUNT);
                 }

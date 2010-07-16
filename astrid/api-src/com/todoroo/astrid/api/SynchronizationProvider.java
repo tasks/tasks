@@ -9,17 +9,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 
+import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.NotificationManager;
@@ -129,10 +129,15 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
     }
 
     public void synchronize(final Context context) {
+        // display toast
+        if(context instanceof Activity) {
+            Toast.makeText(context, R.string.SyP_progress_toast, Toast.LENGTH_LONG).show();
+        }
+
         // display notification
         notificationTitle = getNotificationTitle(context);
         notificationIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
-        postUpdate(context, context.getString(R.string.SyP_progress_starting));
+        postUpdate(context, context.getString(R.string.SyP_progress));
         final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
         nm.notify(Constants.NOTIFICATION_SYNC, notification);
 
@@ -180,10 +185,7 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
      * @param data synchronization data structure
      */
     protected void synchronizeTasks(SyncData data) throws IOException {
-
         int length;
-        Context context = ContextManager.getContext();
-        Resources r = context.getResources();
 
         // create internal data structures
         HashMap<String, Integer> remoteNewTaskNameMap = new HashMap<String, Integer>();
@@ -202,8 +204,6 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
             TaskContainer local = read(data.localCreated);
 
             String taskTitle = local.task.getValue(Task.TITLE);
-            postUpdate(context, r.getString(R.string.SyP_progress_localtx,
-                    taskTitle));
 
             /* If there exists an incoming remote task with the same name and no
              * mapping, we don't want to create this on the remote server,
@@ -231,8 +231,6 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
         for(int i = 0; i < length; i++) {
             data.localUpdated.moveToNext();
             TaskContainer local = read(data.localUpdated);
-            postUpdate(context, r.getString(R.string.SyP_progress_localtx,
-                    local.task.getValue(Task.TITLE)));
 
             // if there is a conflict, merge
             int remoteIndex = matchTask((ArrayList<TYPE>)data.remoteUpdated, (TYPE)local);
@@ -281,9 +279,6 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
         length = data.remoteUpdated.size();
         for(int i = 0; i < length; i++) {
             TaskContainer remote = data.remoteUpdated.get(i);
-            postUpdate(context, r.getString(R.string.SyP_progress_remotetx,
-                    remote.task.getValue(Task.TITLE)));
-
             write((TYPE)remote);
         }
     }

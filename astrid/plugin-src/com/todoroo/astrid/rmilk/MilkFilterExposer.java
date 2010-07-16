@@ -9,15 +9,18 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.rmilk.Utilities.ListContainer;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
+import com.todoroo.astrid.rmilk.data.MilkTask;
 
 /**
  * Exposes filters based on RTM lists
@@ -33,9 +36,12 @@ public class MilkFilterExposer extends BroadcastReceiver {
             replace("$N", list.name).replace("$C", Integer.toString(list.count));
         String title = context.getString(R.string.rmilk_FEx_list_title, list.name);
         ContentValues values = new ContentValues();
-        values.put(Metadata.KEY.name, MilkDataService.METADATA_KEY);
-        values.put(MilkDataService.LIST_ID.name, list.id);
-        Filter filter = new Filter(listTitle, title, new QueryTemplate().join(MilkDataService.METADATA_JOIN).where(MilkDataService.LIST_ID.eq(list.id)),
+        values.put(Metadata.KEY.name, MilkTask.METADATA_KEY);
+        values.put(MilkTask.LIST_ID.name, list.id);
+        Filter filter = new Filter(listTitle, title, new QueryTemplate().join(
+                MilkDataService.METADATA_JOIN).where(Criterion.and(
+                        MetadataCriteria.withKey(MilkTask.METADATA_KEY),
+                        MilkTask.LIST_ID.eq(list.id))),
                 values);
 
         return filter;

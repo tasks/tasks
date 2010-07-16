@@ -404,13 +404,10 @@ If you don\'t want to see the new task right after you complete the old one, you
   
   <!-- ========================================== SynchronizationProvider == -->
           
-  <!-- Sync Notification: message when starting up -->
-  <string name="SyP_progress_starting">Logging In...</string>
+  <!-- Sync Notification: message when sync service active -->
+  <string name="SyP_progress">Synchronizing your tasks...</string>
   
-  <!-- Sync Notification: transmitting local task (%s -> task name) -->
-  <string name="SyP_progress_localtx">Transmitting: %s</string>
-
-  <!-- Sync Notification: receiving remote task (%s -> task name) -->
-  <string name="SyP_progress_remotetx">Receiving: %s</string>
+  <!-- Sync Notification: toast when sync activated from activity -->
+  <string name="SyP_progress_toast">Synchronizing...</string>
     
 </resources>

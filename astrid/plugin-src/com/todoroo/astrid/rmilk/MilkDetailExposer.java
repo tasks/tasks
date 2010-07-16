@@ -12,6 +12,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskDetail;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
+import com.todoroo.astrid.rmilk.data.MilkTask;
 
 /**
  * Exposes {@link TaskDetail}s for Remember the Milk:
@@ -42,7 +43,7 @@ public class MilkDetailExposer extends BroadcastReceiver {
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, Utilities.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
 
-        long listId = metadata.getValue(MilkDataService.LIST_ID);
+        long listId = metadata.getValue(MilkTask.LIST_ID);
         if(listId > 0) {
             TaskDetail detail = new TaskDetail(context.getString(R.string.rmilk_TLA_list,
                     MilkDataService.getInstance().getListName(listId)));
@@ -50,7 +51,7 @@ public class MilkDetailExposer extends BroadcastReceiver {
             context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         }
 
-        int repeat = metadata.getValue(MilkDataService.REPEATING);
+        int repeat = metadata.getValue(MilkTask.REPEATING);
         if(repeat != 0) {
             TaskDetail detail = new TaskDetail(context.getString(R.string.rmilk_TLA_repeat));
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, detail);
