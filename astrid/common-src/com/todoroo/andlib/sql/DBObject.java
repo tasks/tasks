@@ -58,6 +58,10 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
         StringBuilder sb = new StringBuilder(expression);
         if (hasAlias()) {
             sb.append(SPACE).append(AS).append(SPACE).append(alias);
+        } else {
+            int pos = expression.indexOf('.');
+            if(pos > 0)
+                sb.append(SPACE).append(AS).append(SPACE).append(expression.substring(pos + 1));
         }
         return sb.toString();
     }

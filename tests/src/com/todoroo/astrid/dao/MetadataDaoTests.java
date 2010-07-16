@@ -7,7 +7,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class MetadataDaoTests extends DatabaseTestCase {
@@ -26,7 +25,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
      */
     public void testCrud() throws Exception {
         TodorooCursor<Metadata> cursor = metadataDao.query(
-                Query.select(MetadataService.idProperty()));
+                Query.select(Metadata.ID));
         assertEquals(0, cursor.getCount());
         cursor.close();
 
@@ -35,7 +34,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         metadata.setValue(Metadata.KEY, "happy");
         assertTrue(metadataDao.persist(metadata));
         cursor = metadataDao.query(
-                Query.select(MetadataService.idProperty()));
+                Query.select(Metadata.ID));
         assertEquals(1, cursor.getCount());
         cursor.close();
         long happyId = metadata.getId();
@@ -47,7 +46,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "sad");
         assertTrue(metadataDao.persist(metadata));
-        cursor = metadataDao.query(Query.select(MetadataService.idProperty()));
+        cursor = metadataDao.query(Query.select(Metadata.ID));
         assertEquals(2, cursor.getCount());
         cursor.close();
 
@@ -57,7 +56,7 @@ public class MetadataDaoTests extends DatabaseTestCase {
         metadata.setValue(Metadata.KEY, "melancholy");
         assertTrue(metadataDao.persist(metadata));
         cursor = metadataDao.query(
-                Query.select(MetadataService.idProperty()));
+                Query.select(Metadata.ID));
         assertEquals(2, cursor.getCount());
         cursor.close();
 

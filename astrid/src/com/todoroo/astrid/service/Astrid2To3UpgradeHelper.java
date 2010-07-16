@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.ical.values.Frequency;
@@ -456,6 +457,8 @@ public class Astrid2To3UpgradeHelper {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long task = cursor.getLong(0);
                 String id = cursor.getString(1);
+                if(TextUtils.isEmpty(id))
+                    continue;
 
                 StringTokenizer strtok = new StringTokenizer(id, "|");
                 String taskId = strtok.nextToken();

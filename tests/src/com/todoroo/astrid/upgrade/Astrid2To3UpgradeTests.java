@@ -10,17 +10,23 @@ import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.alarms.Alarm;
 import com.todoroo.astrid.alarms.AlarmDatabase;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.legacy.data.alerts.AlertController;
 import com.todoroo.astrid.legacy.data.enums.Importance;
 import com.todoroo.astrid.legacy.data.enums.RepeatInterval;
+import com.todoroo.astrid.legacy.data.sync.SyncDataController;
+import com.todoroo.astrid.legacy.data.sync.SyncMapping;
 import com.todoroo.astrid.legacy.data.tag.TagController;
 import com.todoroo.astrid.legacy.data.tag.TagIdentifier;
 import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.legacy.data.task.TaskController;
 import com.todoroo.astrid.legacy.data.task.TaskIdentifier;
 import com.todoroo.astrid.legacy.data.task.TaskModelForEdit;
+import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.service.Astrid2To3UpgradeHelper;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -42,6 +48,9 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
     @Autowired
     TaskDao taskDao;
+
+    @Autowired
+    MetadataDao metadataDao;
 
     @Override
     protected void setUp() throws Exception {
@@ -201,7 +210,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
         // verify that data exists in our new table
         database.openForReading();
-        TagService tagService = new TagService();
+        TagService tagService = TagService.getInstance();
         Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
         assertEquals(2, tags.length);
         assertEquals("salty", tags[0].tag);
@@ -255,7 +264,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
         // verify that data exists in our new table
         database.openForReading();
-        TagService tagService = new TagService();
+        TagService tagService = TagService.getInstance();
         Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
         assertEquals(1, tags.length);
         assertEquals("attached", tags[0].tag);
@@ -291,7 +300,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         // assert created
         assertEquals(2, alertController.getTaskAlerts(christmas.getTaskIdentifier()).size());
 
-        // upgradeia32-sun-java6-bin
+        // upgrade
         upgrade2To3();
 
         // verify that data exists in our new table
@@ -306,8 +315,41 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         cursor.moveToNext();
         alarm.readFromCursor(cursor);
         assertDatesEqual(x2, alarm.getValue(Alarm.TIME));
-
     }
+
+    /**
+     * Test basic upgrading of the sync mapping table
+     */
+    public void testSyncTableUpgrade() {
+        SyncDataController syncController = new SyncDataController(getContext());
+        syncController.open();
+
+        // create some ish
+        String remoteId = "123|456|789000";
+        SyncMapping mapping = new SyncMapping(new TaskIdentifier(1), 1, remoteId);
+        syncController.saveSyncMapping(mapping);
+        syncController.addToUpdatedList(new TaskIdentifier(2));
+
+        // assert created
+        assertEquals(1, syncController.getSyncMappings(1));
+
+        // upgrade
+        upgrade2To3();
+
+        // verify that data exists in our new table
+        database.openForReading();
+
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
+                Metadata.PROPERTIES).where(MetadataCriteria.withKey(MilkTask.METADATA_KEY)));
+        assertEquals(1, cursor.getCount());
+        cursor.moveToFirst();
+        Metadata metadata = new Metadata(cursor);
+        assertEquals(123, (long)metadata.getValue(MilkTask.TASK_ID));
+        assertEquals(456, (long)metadata.getValue(MilkTask.TASK_SERIES_ID));
+        assertEquals(789000, (long)metadata.getValue(MilkTask.LIST_ID));
+        cursor.close();
+    }
+
 
 }
 

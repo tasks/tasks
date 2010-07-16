@@ -228,7 +228,7 @@ public class RepeatTests extends DatabaseTestCase {
 
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "special");
-        metadata.setValue(Metadata.VALUE, "sauce");
+        metadata.setValue(Metadata.VALUE1, "sauce");
         metadata.setValue(Metadata.TASK, task.getId());
         metadataDao.persist(metadata);
 

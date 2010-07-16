@@ -28,7 +28,7 @@ public final class Constants {
     /**
      * Whether to turn on debugging logging and UI
      */
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     // --- notification id's
 
