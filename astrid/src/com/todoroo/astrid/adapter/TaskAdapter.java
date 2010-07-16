@@ -11,7 +11,6 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.text.Html;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -265,7 +264,6 @@ public class TaskAdapter extends CursorAdapter {
         if(!isFling) {
             detailsView.removeViews(2, detailsView.getChildCount() - 2);
             if(detailCache.containsKey(task.getId())) {
-                Log.e("DRAWING DETAILS", "Drawing DETAILS suckaaa");
                 LinkedHashSet<TaskDetail> details = detailCache.get(task.getId());
                 for(TaskDetail detail : details)
                     detailsView.addView(detailToView(detail));
@@ -293,12 +291,18 @@ public class TaskAdapter extends CursorAdapter {
             @Override
             public void run() {
                 for(DetailExposer exposer : EXPOSERS) {
-                    TaskDetail detail = exposer.getTaskDetails(activity, taskId);
+                    final TaskDetail detail = exposer.getTaskDetails(activity, taskId);
                     if(detail == null || details.contains(detail))
                         continue;
-                    Log.e("ADDING DETAIL", "ADDING DETAIL 1 " + detail.text + ", cache was " + details);
                     details.add(detail);
-                    view.addView(detailToView(detail));
+                    activity.runOnUiThread(new Runnable() {
+                        public void run() {
+                            ViewHolder holder = (ViewHolder)view.getTag();
+                            if(holder != null && holder.task.getId() != taskId)
+                                return;
+                            view.addView(detailToView(detail));
+                        };
+                    });
                 }
             }
         }.start();
@@ -329,8 +333,6 @@ public class TaskAdapter extends CursorAdapter {
             return;
 
         details.add(detail);
-
-        Log.e("ADDING DETAIL", "ADDING DETAIL X " + detail.text + ", cache was " + details);
 
         // update view if it is visible
         int length = list.getChildCount();
