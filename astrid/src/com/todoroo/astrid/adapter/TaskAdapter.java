@@ -298,7 +298,7 @@ public class TaskAdapter extends CursorAdapter {
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
                             ViewHolder holder = (ViewHolder)view.getTag();
-                            if(holder != null && holder.task.getId() != taskId)
+                            if(holder == null || holder.task.getId() != taskId)
                                 return;
                             view.addView(detailToView(detail));
                         };

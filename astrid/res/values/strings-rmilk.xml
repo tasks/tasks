@@ -73,7 +73,7 @@
     <!-- Synchronization Interval Description (%s => setting) -->
     <string name="rmilk_MPr_interval_desc">Currently set to: %s</string>
     <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_interval_key">rmilk_interval</string>
+    <string name="rmilk_MPr_interval_key">sync_freq</string>
     
     <!-- Background Wifi Title -->  
     <string name="rmilk_MPr_bgwifi_title">Wifi Only Setting</string>    
@@ -82,7 +82,7 @@
     <!-- Background Wifi Description (disabled) -->
     <string name="rmilk_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
     <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_bgwifi_key">rmilk_bgwifi</string>
+    <string name="rmilk_MPr_bgwifi_key">sync_bgwifi</string>
     
     <!-- Actions Group Label  -->
     <string name="rmilk_MPr_group_actions">Actions</string>

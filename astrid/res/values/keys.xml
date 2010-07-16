@@ -4,27 +4,7 @@
   These should not be translated 
 -->
 <resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
-
-  <!-- ============================================================= SYNC == -->
-
-  <!-- sync -->
-  <string name="p_sync_rtm">sync_rtm</string>
-  <string name="p_sync_interval">sync_freq</string>
-  <string name="p_sync_button">sync_button</string>
-  <string name="p_sync_quiet">sync_dialogs</string>
-  <string name="p_sync_bgwifi">sync_bgwifi</string>
-  
-  <string-array name="sync_interval_values">
-    <!-- sync_interval_values: interval in seconds for sync entries (do not edit) -->
-    <item>0</item>
-    <item>1800</item>
-    <item>3600</item>
-    <item>43200</item>
-    <item>86400</item>
-    <item>302400</item>
-    <item>604800</item>
-  </string-array>    
-  
+ 
   <!-- ======================================================== REMINDERS == -->
 
   <!-- hour to start quiet hours (inclusive) -->

@@ -404,28 +404,32 @@ public class Preferences {
     /** Should sync with RTM? */
     public static boolean shouldSyncRTM(Context context) {
         Resources r = context.getResources();
-        return getPrefs(context).getBoolean(r.getString(
-                R.string.p_sync_rtm), false);
+//        return getPrefs(context).getBoolean(r.getString(
+//                R.string.p_sync_rtm), false);
+        return false;
     }
 
     /** Should display sync shortcut? */
     public static boolean shouldDisplaySyncButton(Context context) {
         Resources r = context.getResources();
-        return getPrefs(context).getBoolean(r.getString(
-                R.string.p_sync_button), false);
+//        return getPrefs(context).getBoolean(r.getString(
+//                R.string.p_sync_button), false);
+        return false;
     }
 
     /** Should hide sync dialog boxes? */
     public static boolean shouldSuppressSyncDialogs(Context context) {
-        Resources r = context.getResources();
-        return getPrefs(context).getBoolean(r.getString(
-                R.string.p_sync_quiet), false);
+//        Resources r = context.getResources();
+//        return getPrefs(context).getBoolean(r.getString(
+//                R.string.p_sync_quiet), false);
+        return false;
     }
 
     /** Reads the frequency, in seconds, auto-sync should occur.
      * @return seconds duration, or null if not desired */
     public static Integer getSyncAutoSyncFrequency(Context context) {
-    	Integer time = getIntegerValue(context, R.string.p_sync_interval);
+        Integer time = 0;
+//    	Integer time = getIntegerValue(context, R.string.p_sync_interval);
         if(time != null && time == 0)
             time = null;
         return time;
@@ -433,10 +437,10 @@ public class Preferences {
 
     /** Sets the auto-sync frequency to the desired value */
     public static void setSyncAutoSyncFrequency(Context context, int value) {
-    	Editor editor = getPrefs(context).edit();
-        editor.putString(context.getResources().getString(R.string.p_sync_interval),
-        		Integer.toString(value));
-        editor.commit();
+//    	Editor editor = getPrefs(context).edit();
+//        editor.putString(context.getResources().getString(R.string.p_sync_interval),
+//        		Integer.toString(value));
+//        editor.commit();
     }
 
     /** Last Auto-Sync Date, or null */

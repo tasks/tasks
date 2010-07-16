@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map.Entry;
+import java.util.StringTokenizer;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -12,8 +13,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.google.ical.values.Frequency;
@@ -40,6 +41,7 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -68,6 +70,9 @@ public class Astrid2To3UpgradeHelper {
 
     @Autowired
     private String alertsTable;
+
+    @Autowired
+    private String syncTable;
 
     @Autowired
     private DialogUtilities dialogUtilities;
@@ -166,7 +171,8 @@ public class Astrid2To3UpgradeHelper {
                 alarmsDatabase.getDao());
         alarmsDatabase.close();
 
-        // --- upgrade RTM sync mappings (?)
+        // --- upgrade RTM sync mappings
+        migrateSyncMappingToMetadata();
 
         // --- clean up database
         metadataService.cleanup();
@@ -389,39 +395,83 @@ public class Astrid2To3UpgradeHelper {
 
         Cursor tagCursor = tagsDb.rawQuery("SELECT _id, name FROM " + tagsTable +
                 " ORDER BY _id ASC", null);
-        Cursor mapCursor = tagTaskDb.rawQuery("SELECT tag, task FROM " + tagTaskTable +
+        Cursor mapCursor = null;
+        try {
+            mapCursor = tagTaskDb.rawQuery("SELECT tag, task FROM " + tagTaskTable +
                 " ORDER BY tag ASC", null);
+            if(tagCursor.getCount() == 0)
+                return;
 
-        if(tagCursor.getCount() == 0)
+            Metadata metadata = new Metadata();
+            metadata.setValue(Metadata.KEY, TagService.KEY);
+            long tagId = -1;
+            String tag = null;
+            for(mapCursor.moveToFirst(); !mapCursor.isAfterLast(); mapCursor.moveToNext()) {
+                long mapTagId = mapCursor.getLong(0);
+
+                while(mapTagId > tagId && !tagCursor.isLast()) {
+                    tagCursor.moveToNext();
+                    tagId = tagCursor.getLong(0);
+                    tag = null;
+                }
+
+                if(mapTagId == tagId) {
+                    if(tag == null)
+                        tag = tagCursor.getString(1);
+                    long task = mapCursor.getLong(1);
+                    metadata.setValue(Metadata.TASK, task);
+                    metadata.setValue(Metadata.KEY, TagService.KEY);
+                    metadata.setValue(TagService.TAG, tag);
+                    metadataDao.createNew(metadata);
+                    metadata.clearValue(Metadata.ID);
+                }
+            }
+        } finally {
+            tagCursor.close();
+            if(mapCursor != null)
+                mapCursor.close();
+        }
+    }
+
+    /**
+     * Move data from sync table into metadata table.
+     */
+    @SuppressWarnings("nls")
+    private void migrateSyncMappingToMetadata() {
+        Context context = ContextManager.getContext();
+
+        if(!checkIfDatabaseExists(context, syncTable))
             return;
 
-        Metadata metadata = new Metadata();
-        metadata.setValue(Metadata.KEY, TagService.KEY);
-        long tagId = -1;
-        String tag = null;
-        for(mapCursor.moveToFirst(); !mapCursor.isAfterLast(); mapCursor.moveToNext()) {
-            long mapTagId = mapCursor.getLong(0);
+        SQLiteDatabase syncDb = new Astrid2UpgradeHelper(context, syncTable,
+                null, 1).getReadableDatabase();
 
-            while(mapTagId > tagId && !tagCursor.isLast()) {
-                tagCursor.moveToNext();
-                tagId = tagCursor.getLong(0);
-                tag = null;
-            }
+        Cursor cursor = syncDb.rawQuery("SELECT task, remoteId FROM " + syncTable, null);
+        try {
+            if(cursor.getCount() == 0)
+                return;
 
-            if(mapTagId == tagId) {
-                if(tag == null)
-                    tag = tagCursor.getString(1);
-                long task = mapCursor.getLong(1);
+            Metadata metadata = new Metadata();
+            metadata.setValue(Metadata.KEY, MilkTask.METADATA_KEY);
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                long task = cursor.getLong(0);
+                String id = cursor.getString(1);
+
+                StringTokenizer strtok = new StringTokenizer(id, "|");
+                String taskId = strtok.nextToken();
+                String taskSeriesId = strtok.nextToken();
+                String listId = strtok.nextToken();
+
                 metadata.setValue(Metadata.TASK, task);
-                metadata.setValue(Metadata.KEY, TagService.KEY);
-                metadata.setValue(TagService.TAG, tag);
+                metadata.setValue(MilkTask.LIST_ID, Long.parseLong(listId));
+                metadata.setValue(MilkTask.TASK_SERIES_ID, Long.parseLong(taskSeriesId));
+                metadata.setValue(MilkTask.TASK_ID, Long.parseLong(taskId));
                 metadataDao.createNew(metadata);
                 metadata.clearValue(Metadata.ID);
             }
+        } finally {
+            cursor.close();
         }
-
-        tagCursor.close();
-        mapCursor.close();
     }
 
 

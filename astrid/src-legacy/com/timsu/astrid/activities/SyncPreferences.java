@@ -26,9 +26,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -59,17 +57,17 @@ public class SyncPreferences extends PreferenceActivity {
 
         oldRtmSyncPreference = Preferences.shouldSyncRTM(this);
 
-        addPreferencesFromResource(R.xml.sync_preferences);
+//        addPreferencesFromResource(R.xml.sync_preferences);
 
         // set up preferences
-        findPreference(getString(R.string.p_sync_interval)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                if(Preferences.getSyncRTMToken(SyncPreferences.this) == null)
-                    setResult(Constants.RESULT_SYNCHRONIZE);
-                return true;
-            }
-        });
+//        findPreference(getString(R.string.p_sync_interval)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+//            @Override
+//            public boolean onPreferenceChange(Preference preference, Object newValue) {
+//                if(Preferences.getSyncRTMToken(SyncPreferences.this) == null)
+//                    setResult(Constants.RESULT_SYNCHRONIZE);
+//                return true;
+//            }
+//        });
 
         // set up footer
         getListView().addFooterView(getLayoutInflater().inflate(

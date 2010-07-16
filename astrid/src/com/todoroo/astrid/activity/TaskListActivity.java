@@ -18,6 +18,8 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -227,6 +229,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
 
+        // set listener for quick-changing task priority
         getListView().setOnKeyListener(new OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent event) {
@@ -247,6 +250,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             }
         });
 
+        // set listener for pressing enter in quick-add box
         quickAddBox = (EditText) findViewById(R.id.quickAddText);
         quickAddBox.setOnEditorActionListener(new OnEditorActionListener() {
             /**
@@ -262,16 +266,27 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             }
         });
 
+        // set listener for showing quick add button if text not empty
         quickAddButton = ((ImageButton)findViewById(R.id.quickAddButton));
-        quickAddBox.setOnKeyListener(new OnKeyListener() {
+        quickAddBox.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if(event != null && event.isPrintingKey())
+            public void afterTextChanged(Editable s) {
+                if(s.length() > 0)
                     quickAddButton.setVisibility(View.VISIBLE);
-                return false;
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+                //
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                    int count) {
+                //
             }
         });
 
+        // set listener for quick add button
         quickAddButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if(quickAddBox.getText().length() > 0) {
@@ -280,6 +295,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             }
         });
 
+        // set listener for extended add button
         ((ImageButton)findViewById(R.id.extendedAddButton)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(), false);
@@ -289,6 +305,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             }
         });
 
+        // show reminder if necessary
         String reminder = getIntent().getStringExtra(TOKEN_REMINDER);
         if(reminder != null) {
             findViewById(R.id.reminderContainer).setVisibility(View.VISIBLE);
@@ -328,7 +345,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
             TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
-            quickAddButton.setVisibility(View.GONE);
 
             if(selectNewTask) {
                 loadTaskListContent(true);
