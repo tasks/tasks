@@ -38,10 +38,11 @@ public class MilkPreferences extends TodorooPreferences {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus)
+        if(hasFocus) {
             AndroidUtilities.setCurrentlyActive(this);
+            initializePreference(getPreferenceScreen());
+        }
     }
-
 
     /**
      *

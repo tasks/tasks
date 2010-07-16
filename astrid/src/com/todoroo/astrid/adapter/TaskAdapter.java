@@ -298,6 +298,8 @@ public class TaskAdapter extends CursorAdapter {
             return;
         }
 
+        viewHolder.details.setText(""); //$NON-NLS-1$
+
         // request details
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
