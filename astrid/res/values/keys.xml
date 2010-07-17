@@ -159,7 +159,5 @@
   <!-- ============================================================ OTHER == -->
   
   <string name="p_backup">backup</string>
-  <string name="prefs_defaultCalendar">default_calendar_id</string>
-  <string name="prefs_defaultCalendar_default">1</string>
 
 </resources>

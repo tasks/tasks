@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Resources for built-in tag plug-in -->
+
+  <!-- =============================================== Task Edit Controls == -->
+
+
+  <!-- ================================================== Preference Keys == -->
+  
+  <!-- Calendar Setting Title  -->
+  <string name="gcal_GCP_title">Default Calendar</string>
+  
+  <!-- Calendar Setting Summary (%s -> calendar summary)  -->
+  <string name="gcal_GCP_summary">Current Setting: %s</string>
+  
+  <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
+  <string name="gcal_GCP_default">Default Calendar</string>
+
+  <!-- Default Calendar Preference Key (do not translate) -->
+  <string name="gcal_p_default">default_calendar_id</string>
+
+
+</resources>

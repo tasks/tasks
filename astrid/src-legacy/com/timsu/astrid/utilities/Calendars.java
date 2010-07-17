@@ -52,13 +52,13 @@ public class Calendars {
 		Editor editor = prefs.edit();
 		// We default the 'defaultCalendar' setting when it is undefined
 		// or when the calendar does not exist anymore
-		if (!prefs.contains(r.getString(R.string.prefs_defaultCalendar))
-				|| !Calendars.isCalendarPresent(context, prefs.getString(r
-						.getString(R.string.prefs_defaultCalendar), null))) {
-			editor.putString(r.getString(R.string.prefs_defaultCalendar), r
-					.getString(R.string.prefs_defaultCalendar_default));
-			editor.commit();
-		}
+//		if (!prefs.contains(r.getString(R.string.prefs_defaultCalendar))
+//				|| !Calendars.isCalendarPresent(context, prefs.getString(r
+//						.getString(R.string.prefs_defaultCalendar), null))) {
+//			editor.putString(r.getString(R.string.prefs_defaultCalendar), r
+//					.getString(R.string.prefs_defaultCalendar_default));
+//			editor.commit();
+//		}
 	}
 
 	/**
@@ -92,8 +92,8 @@ public class Calendars {
 			listPreference
 					.setEntries(new String[] { r
 							.getString(R.string.prefs_defaultCalendar_astrid_default) });
-			listPreference.setEntryValues(new String[] { r
-					.getString(R.string.prefs_defaultCalendar_default) });
+//			listPreference.setEntryValues(new String[] { r
+//					.getString(R.string.prefs_defaultCalendar_default) });
 			listPreference.setValueIndex(0);
 			listPreference.setEnabled(true);
 			return;
@@ -130,8 +130,8 @@ public class Calendars {
 				listPreference
 						.setEntries(new String[] { r
 								.getString(R.string.prefs_defaultCalendar_astrid_default) });
-				listPreference.setEntryValues(new String[] { r
-						.getString(R.string.prefs_defaultCalendar_default) });
+//				listPreference.setEntryValues(new String[] { r
+//						.getString(R.string.prefs_defaultCalendar_default) });
 				listPreference.setValueIndex(0);
 				listPreference.setEnabled(true);
 			} else if(currentSettingIndex >= entryValues.length) {

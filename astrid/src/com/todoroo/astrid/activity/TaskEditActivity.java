@@ -27,10 +27,9 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TabActivity;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TabActivity;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,8 +42,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -57,7 +56,6 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -73,6 +71,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
@@ -207,17 +206,18 @@ public final class TaskEditActivity extends TabActivity {
                 R.id.reminder_random_interval));
         controls.add(new TagsControlSet(this, R.id.tags_container));
 
-        controls.add(new CalendarControlSet(R.id.add_to_calendar, R.id.view_calendar_event));
+        // internal add-ins
+        LinearLayout extrasAddons = (LinearLayout) findViewById(R.id.tab_extra_addons);
+        controls.add(new RepeatControlSet(this, extrasAddons));
+
+        LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
+        controls.add(new GCalControlSet(this, addonsAddons));
         controls.add(new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
                 R.id.estimatedDuration, 0, R.string.hour_minutes_dialog,
                 TimeDurationType.HOURS_MINUTES));
         controls.add(new TimeDurationTaskEditControlSet(Task.ELAPSED_SECONDS, R.id.elapsedDuration,
                 0, R.string.hour_minutes_dialog,
                 TimeDurationType.HOURS_MINUTES));
-
-        // internal add-ins
-        LinearLayout extrasAddons = (LinearLayout) findViewById(R.id.tab_extra_addons);
-        controls.add(new RepeatControlSet(this, extrasAddons));
 
         // read data
         populateFields();
@@ -1137,116 +1137,6 @@ public final class TaskEditActivity extends TabActivity {
                 task.setValue(Task.REMINDER_PERIOD, hourValue * DateUtilities.ONE_HOUR);
             } else
                 task.setValue(Task.REMINDER_PERIOD, 0L);
-        }
-    }
-
-    /**
-     * Calendar Control Set
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    private class CalendarControlSet implements TaskEditControlSet {
-
-        /** If task has no estimated time, how early to set a task in calendar */
-        private static final int DEFAULT_CAL_TIME = 3600;
-
-        @SuppressWarnings("unused")
-        private final CheckBox addToCalendar;
-
-        @SuppressWarnings("unused")
-        private final Button viewCalendarEvent;
-
-        public CalendarControlSet(int addToCalendar,
-                int viewCalendarEvent) {
-            this.addToCalendar = (CheckBox) findViewById(addToCalendar);
-            this.viewCalendarEvent = (Button) findViewById(viewCalendarEvent);
-        }
-
-        /** Take the values from the model and set the calendar start and end times
-         * based on these. Sets keys 'dtstart' and 'dtend'.
-         *
-         * @param preferred preferred due date or null
-         * @param definite definite due date or null
-         * @param estimatedSeconds estimated duration or null
-         * @param values
-         */
-        @SuppressWarnings({ "nls", "unused" })
-        public void createCalendarStartEndTimes(Date preferred, Date definite,
-                Integer estimatedSeconds, ContentValues values) {
-            FlurryAgent.onEvent("create-calendar-event");
-
-            Long deadlineDate = null;
-            if (preferred != null && preferred.after(new Date()))
-                deadlineDate = preferred.getTime();
-            else if (definite != null)
-                deadlineDate = definite.getTime();
-            else
-                deadlineDate = System.currentTimeMillis() + 24*3600*1000L;
-
-            int estimatedTime = DEFAULT_CAL_TIME;
-            if(estimatedSeconds != null && estimatedSeconds > 0) {
-                estimatedTime = estimatedSeconds;
-            }
-            values.put("dtstart", deadlineDate - estimatedTime * 1000L);
-            values.put("dtend", deadlineDate);
-        }
-
-        @SuppressWarnings("unused")
-        protected void onPause() {
-            // create calendar event
-            /*if(addToCalendar.isChecked() && model.getCalendarUri() == null) {
-
-                Uri uri = Uri.parse("content://calendar/events");
-                ContentResolver cr = getContentResolver();
-
-                ContentValues values = new ContentValues();
-                values.put("title", title.getText().toString());
-                values.put("calendar_id", Preferences.getDefaultCalendarIDSafe(this));
-                values.put("description", notes.getText().toString());
-                values.put("hasAlarm", 0);
-                values.put("transparency", 0);
-                values.put("visibility", 0);
-
-                createCalendarStartEndTimes(model.getPreferredDueDate(),
-                        model.getDefiniteDueDate(), model.getEstimatedSeconds(),
-                        values);
-
-                Uri result = null;
-                try{
-                    result = cr.insert(uri, values);
-                    model.setCalendarUri(result.toString());
-                } catch (IllegalArgumentException e) {
-                    Log.e("astrid", "Error creating calendar event!", e);
-                }
-            } */
-
-            // save save save
-
-            /* if(addToCalendar.isChecked() && model.getCalendarUri() != null) {
-                Uri result = Uri.parse(model.getCalendarUri());
-                Intent intent = new Intent(Intent.ACTION_EDIT, result);
-
-                ContentValues values = new ContentValues();
-                createCalendarStartEndTimes(model.getPreferredDueDate(),
-                        model.getDefiniteDueDate(), model.getEstimatedSeconds(),
-                        values);
-
-                intent.putExtra("beginTime", values.getAsLong("dtstart"));
-                intent.putExtra("endTime", values.getAsLong("dtend"));
-
-                startActivity(intent);
-            } */
-
-        }
-
-        @Override
-        public void readFromTask(Task task) {
-            //
-        }
-
-        @Override
-        public void writeToModel(Task task) {
-            //
         }
     }
 

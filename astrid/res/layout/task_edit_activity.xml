@@ -252,44 +252,13 @@
     android:id="@+id/tab_addons"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
+              
     <LinearLayout
       android:paddingRight="8dip"
       android:orientation="vertical"
       android:layout_width="fill_parent"
       android:layout_height="fill_parent">
-
-      <!-- calendar integration -->
-      <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone">
-            
-        <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="@string/TEA_calendar_label"
-          style="@style/TextAppearance.GEN_EditLabel" />
-        <CheckBox
-          android:id="@+id/add_to_calendar"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/TEA_addToCalendar_label" />
-        <Button
-          android:id="@+id/view_calendar_event"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:text="@string/TEA_showCalendar_label"
-          android:visibility="gone" />
-  
-        <View
-          android:layout_width="fill_parent"
-          android:layout_height="1dip"
-          android:padding="5dip"
-          android:background="@android:drawable/divider_horizontal_dark" />
-        
-      </LinearLayout>
-              
+                            
       <!-- estimated time -->
       <TextView
         android:layout_width="wrap_content"

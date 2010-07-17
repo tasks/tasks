@@ -507,9 +507,10 @@ public class Preferences {
     /** Get default calendar id. */
     public static String getDefaultCalendarID(Context context) {
         Resources r = context.getResources();
-        return getPrefs(context).getString(
-                r.getString(R.string.prefs_defaultCalendar),
-                r.getString(R.string.prefs_defaultCalendar_default));
+//        return getPrefs(context).getString(
+//                r.getString(R.string.prefs_defaultCalendar),
+//                r.getString(R.string.prefs_defaultCalendar_default));
+        return null;
     }
 
     /** Get default calendar id. Returns default value if the calendar does not exist anymore.*/
@@ -522,7 +523,7 @@ public class Preferences {
     public static void setDefaultCalendarID(Context context, String value) {
         Resources r = context.getResources();
         Editor editor = getPrefs(context).edit();
-        editor.putString(r.getString(R.string.prefs_defaultCalendar), value);
+//        editor.putString(r.getString(R.string.prefs_defaultCalendar), value);
         editor.commit();
     }
 
