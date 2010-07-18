@@ -5,6 +5,19 @@
     <!-- Resources for built-in tag plug-in -->
 
   <!-- =============================================== Task Edit Controls == -->
+  
+  <!-- Error message for adding to calendar  -->
+  <string name="gcal_TEA_error">Error adding task to calendar!</string>
+
+  <!-- Label for adding task to calendar -->
+  <string name="gcal_TEA_calendar_label">Calendar Integration:</string>
+
+  <!-- Label for adding task to calendar -->
+  <string name="gcal_TEA_addToCalendar_label">Create Calendar Event</string>
+  
+  <!-- Label when calendar event already exists -->
+  <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
+  
 
 
   <!-- ================================================== Preference Keys == -->

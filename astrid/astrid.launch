@@ -6,7 +6,6 @@
 <intAttribute key="ch.zork.quicklaunch.index" value="0"/>
 <stringAttribute key="ch.zork.quicklaunch.mode" value="run"/>
 <intAttribute key="com.android.ide.eclipse.adt.action" value="0"/>
-<stringAttribute key="com.android.ide.eclipse.adt.avd" value="evo-8-google"/>
 <stringAttribute key="com.android.ide.eclipse.adt.commandline" value="-scale 0.7"/>
 <intAttribute key="com.android.ide.eclipse.adt.delay" value="0"/>
 <booleanAttribute key="com.android.ide.eclipse.adt.nobootanim" value="true"/>

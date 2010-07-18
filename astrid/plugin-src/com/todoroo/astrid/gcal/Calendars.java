@@ -7,10 +7,14 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.utility.Preferences;
 
 @SuppressWarnings("nls")
 public class Calendars {
+
+    public static final String CALENDAR_CONTENT_CALENDARS = "calendars";
+    public static final String CALENDAR_CONTENT_EVENTS = "events";
 
 	private static final String ID_COLUMN_NAME = "_id";
 	private static final String DISPLAY_COLUMN_NAME = "displayName";
@@ -29,12 +33,14 @@ public class Calendars {
 
 	// --- api access
 
-	/** Return content uri for calendars */
-	public static Uri getCalendarContentUri() {
+	/** Return content uri for calendars
+	 * @param table provider table, something like calendars, events
+	 */
+	public static Uri getCalendarContentUri(String table) {
 	    if(android.os.Build.VERSION.SDK_INT >= 8)
-	        return Uri.parse("content://com.android.calendar/calendars");
+	        return Uri.parse("content://com.android.calendar/" + table);
 	    else
-	        return Uri.parse("content://calendar/calendars");
+	        return Uri.parse("content://calendar/" + table);
 	}
 
 	/** Return calendar package name */
@@ -57,8 +63,8 @@ public class Calendars {
 	    /** calendar ids. null entry -> use default */
 	    public String[] calendarIds;
 
-	    /** selected index */
-	    public int selectedIndex = -1;
+	    /** default selection index */
+	    public int defaultIndex = -1;
 	}
 
 	/**
@@ -71,11 +77,11 @@ public class Calendars {
 	 * @param listPreference
 	 *            preference to init
 	 */
-	public static CalendarResult getCalendars(Context context) {
-
+	public static CalendarResult getCalendars() {
+	    Context context = ContextManager.getContext();
 		ContentResolver cr = context.getContentResolver();
 		Resources r = context.getResources();
-		Cursor c = cr.query(getCalendarContentUri(), CALENDARS_PROJECTION,
+		Cursor c = cr.query(getCalendarContentUri(CALENDAR_CONTENT_CALENDARS), CALENDARS_PROJECTION,
 				CALENDARS_WHERE, null, CALENDARS_SORT);
 
 		// Fetch the current setting. Invalid calendar id will
@@ -90,7 +96,7 @@ public class Calendars {
 		    result.calendars = new String[] {
 			        r.getString(R.string.gcal_GCP_default) };
 			result.calendarIds = new String[] { null };
-			result.selectedIndex = 0;
+			result.defaultIndex = 0;
 			return result;
 		}
 
@@ -112,20 +118,28 @@ public class Calendars {
 
 				// We found currently selected calendar
 				if (defaultSetting != null && defaultSetting.equals(id)) {
-					result.selectedIndex = row;
+					result.defaultIndex = row;
 				}
 
 				row++;
 			}
 
-			if (result.selectedIndex == -1 || result.selectedIndex >= calendarCount) {
-			    result.selectedIndex = 0;
+			if (result.defaultIndex == -1 || result.defaultIndex >= calendarCount) {
+			    result.defaultIndex = 0;
 			}
 
 			return result;
 		} finally {
 			c.deactivate();
 		}
+	}
+
+	/**
+	 * sets the default calendar for future use
+	 * @param defaultCalendar default calendar id
+	 */
+	public static void setDefaultCalendar(String defaultCalendar) {
+        Preferences.setString(R.string.gcal_p_default, defaultCalendar);
 	}
 
 }

@@ -11,14 +11,14 @@
       <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/TEA_calendar_label"
+        android:text="@string/gcal_TEA_calendar_label"
         style="@style/TextAppearance.GEN_EditLabel" />
         
       <CheckBox
         android:id="@+id/add_to_calendar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/TEA_addToCalendar_label" />
+        android:text="@string/gcal_TEA_addToCalendar_label" />
         
       <Spinner
         android:id="@+id/calendars"
@@ -29,7 +29,7 @@
         android:id="@+id/view_calendar_event"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/TEA_showCalendar_label"
+        android:text="@string/gcal_TEA_showCalendar_label"
         android:visibility="gone" />
 
     </LinearLayout>
