@@ -23,7 +23,8 @@
       <Spinner
         android:id="@+id/calendars"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
         
       <Button
         android:id="@+id/view_calendar_event"

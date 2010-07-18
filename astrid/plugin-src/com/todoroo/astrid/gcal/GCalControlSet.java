@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -45,6 +46,7 @@ public class GCalControlSet implements TaskEditControlSet {
 
     private Uri calendarUri = null;
 
+    private Task myTask;
     private final CalendarResult calendars;
     private final CheckBox addToCalendar;
     private final Spinner calendarSelector;
@@ -72,11 +74,31 @@ public class GCalControlSet implements TaskEditControlSet {
         });
 
         viewCalendarEvent.setOnClickListener(new OnClickListener() {
+            @SuppressWarnings("nls")
             @Override
             public void onClick(View v) {
                 if(calendarUri == null)
                     return;
+
+                ContentResolver cr = activity.getContentResolver();
+                Cursor cursor = cr.query(calendarUri, new String[] { "dtstart", "dtend" },
+                        null, null, null);
+
                 Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
+                try {
+                    if(cursor.getCount() == 0) {
+                        // event no longer exists, recreate it
+                        calendarUri = null;
+                        writeToModel(myTask);
+                        return;
+                    }
+                    cursor.moveToFirst();
+                    intent.putExtra("beginTime", cursor.getLong(0));
+                    intent.putExtra("endTime", cursor.getLong(1));
+                } finally {
+                    cursor.close();
+                }
+
                 activity.startActivity(intent);
             }
         });
@@ -84,6 +106,7 @@ public class GCalControlSet implements TaskEditControlSet {
 
     @Override
     public void readFromTask(Task task) {
+        this.myTask = task;
         String uri = task.getValue(Task.CALENDAR_URI);
         if(!TextUtils.isEmpty(uri)) {
             try {
@@ -118,20 +141,7 @@ public class GCalControlSet implements TaskEditControlSet {
                 values.put("transparency", 0);
                 values.put("visibility", 0);
 
-                long dueDate = task.getValue(Task.DUE_DATE);
-                if(task.hasDueDate()) {
-                    if(task.hasDueTime()) {
-                        int estimatedTime = task.getValue(Task.ESTIMATED_SECONDS);
-                        if(estimatedTime <= 0)
-                            estimatedTime = DEFAULT_CAL_TIME;
-                        values.put("dtstart", dueDate - estimatedTime);
-                        values.put("dtend", dueDate);
-                    } else {
-                        values.put("dtstart", dueDate);
-                        values.put("dtend", dueDate);
-                        values.put("allDay", "1");
-                    }
-                }
+                createStartAndEndDate(task, values);
 
                 calendarUri = cr.insert(uri, values);
                 task.setValue(Task.CALENDAR_URI, calendarUri.toString());
@@ -144,6 +154,23 @@ public class GCalControlSet implements TaskEditControlSet {
             } catch (Exception e) {
                 exceptionService.displayAndReportError(activity,
                         activity.getString(R.string.gcal_TEA_error), e);
+            }
+        }
+    }
+
+    private void createStartAndEndDate(Task task, ContentValues values) {
+        long dueDate = task.getValue(Task.DUE_DATE);
+        if(task.hasDueDate()) {
+            if(task.hasDueTime()) {
+                int estimatedTime = task.getValue(Task.ESTIMATED_SECONDS);
+                if(estimatedTime <= 0)
+                    estimatedTime = DEFAULT_CAL_TIME;
+                values.put("dtstart", dueDate - estimatedTime);
+                values.put("dtend", dueDate);
+            } else {
+                values.put("dtstart", dueDate);
+                values.put("dtend", dueDate);
+                values.put("allDay", "1");
             }
         }
     }

@@ -27,8 +27,8 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TabActivity;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,7 +42,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -56,6 +55,7 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -1119,7 +1119,7 @@ public final class TaskEditActivity extends TabActivity {
 
             boolean shouldDisable = time <= 0;
             if(time <= 0) {
-                time = DateUtilities.ONE_WEEK;
+                time = DateUtilities.ONE_HOUR * 730;
             }
 
             int i;

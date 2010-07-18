@@ -20,7 +20,7 @@ public class Preferences {
         Editor editor = prefs.edit();
         Resources r = context.getResources();
 
-        setIfUnset(prefs, editor, r, R.string.p_default_urgency_key, 4);
+        setIfUnset(prefs, editor, r, R.string.p_default_urgency_key, 0);
         setIfUnset(prefs, editor, r, R.string.p_default_importance_key, 2);
         setIfUnset(prefs, editor, r, R.string.p_default_hideUntil_key, 0);
         setIfUnset(prefs, editor, r, R.string.p_fontSize, 22);
