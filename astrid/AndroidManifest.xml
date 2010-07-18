@@ -196,6 +196,14 @@
         <action android:name="com.todoroo.astrid.TASK_COMPLETED" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
+    </receiver>
+    
+    <!-- calendar -->
+    <receiver android:name="com.todoroo.astrid.gcal.GCalTaskCompleteListener">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.TASK_COMPLETED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
     </receiver>    
     
     <!-- notes -->

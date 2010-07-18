@@ -40,7 +40,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -251,11 +250,6 @@ public final class TaskEditActivity extends TabActivity {
                 discardButtonClick();
             }
         };
-        /*final View.OnClickListener mDeleteListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                deleteButtonClick();
-            }
-        };*/
 
         // set up save, cancel, and delete buttons
         ImageButton saveButtonGeneral = (ImageButton) findViewById(R.id.save_basic);
@@ -271,15 +265,6 @@ public final class TaskEditActivity extends TabActivity {
         discardButtonDates.setOnClickListener(mDiscardListener);
         ImageButton discardButtonNotify = (ImageButton) findViewById(R.id.discard_addons);
         discardButtonNotify.setOnClickListener(mDiscardListener);
-
-        ImageButton deleteButtonGeneral = (ImageButton) findViewById(R.id.delete_basic);
-        ImageButton deleteButtonDates = (ImageButton) findViewById(R.id.delete_extra);
-        ImageButton deleteButtonNotify = (ImageButton) findViewById(R.id.delete_addons);
-
-        // hide the delete button always for now
-        deleteButtonGeneral.setVisibility(View.GONE);
-        deleteButtonDates.setVisibility(View.GONE);
-        deleteButtonNotify.setVisibility(View.GONE);
     }
 
     /* ======================================================================
@@ -1083,15 +1068,24 @@ public final class TaskEditActivity extends TabActivity {
         private final CheckBox settingCheckbox;
         private final Spinner periodSpinner;
 
+        private boolean periodSpinnerInitialized = false;
         private final int[] hours;
 
         public RandomReminderControlSet(int settingCheckboxId, int periodButtonId) {
             settingCheckbox = (CheckBox)findViewById(settingCheckboxId);
             periodSpinner = (Spinner)findViewById(periodButtonId);
-            periodSpinner.setOnClickListener(new OnClickListener() {
+            periodSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
                 @Override
-                public void onClick(View v) {
-                    settingCheckbox.setChecked(true);
+                public void onItemSelected(AdapterView<?> arg0, View arg1,
+                        int arg2, long arg3) {
+                    if(periodSpinnerInitialized)
+                        settingCheckbox.setChecked(true);
+                    periodSpinnerInitialized = true;
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> arg0) {
+                    // ignore
                 }
             });
 

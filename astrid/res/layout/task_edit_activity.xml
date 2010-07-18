@@ -122,12 +122,6 @@
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:src="@drawable/tango_stop" />
-        <ImageButton
-          android:id="@+id/delete_basic"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:src="@drawable/tango_trash" />
       </LinearLayout>
     </LinearLayout>
   </ScrollView>
@@ -236,12 +230,6 @@
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:src="@drawable/tango_stop" />
-        <ImageButton
-          android:id="@+id/delete_extra"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:src="@drawable/tango_trash" />
       </LinearLayout>
     </LinearLayout>
   </ScrollView>
@@ -313,12 +301,6 @@
           android:layout_height="wrap_content"
           android:layout_weight="1"
           android:src="@drawable/tango_stop" />
-        <ImageButton
-          android:id="@+id/delete_addons"
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:src="@drawable/tango_trash" />
       </LinearLayout>
     </LinearLayout>
   </ScrollView>

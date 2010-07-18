@@ -18,14 +18,17 @@
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
   
-
-
-  <!-- ================================================== Preference Keys == -->
+  <!-- ======================================================== Calendars == -->
   
-  <!-- Calendar Setting Title  -->
+  <!-- Calendar event name when task is completed (%s => task title) -->
+  <string name="gcal_completed_title">%s (completed)</string>
+
+  <!-- ============================================== Calendar Preferences == -->
+  
+  <!-- Preference: Calendar Setting Title  -->
   <string name="gcal_GCP_title">Default Calendar</string>
   
-  <!-- Calendar Setting Summary (%s -> calendar summary)  -->
+  <!-- Preference: Calendar Setting Summary (%s -> calendar summary)  -->
   <string name="gcal_GCP_summary">Current Setting: %s</string>
   
   <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
