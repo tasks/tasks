@@ -158,6 +158,7 @@ public class GCalControlSet implements TaskEditControlSet {
         }
     }
 
+    @SuppressWarnings("nls")
     private void createStartAndEndDate(Task task, ContentValues values) {
         long dueDate = task.getValue(Task.DUE_DATE);
         if(task.hasDueDate()) {

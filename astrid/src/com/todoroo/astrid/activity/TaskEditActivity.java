@@ -40,6 +40,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -342,8 +343,8 @@ public final class TaskEditActivity extends TabActivity {
         for(TaskEditControlSet controlSet : controls)
             controlSet.writeToModel(model);
 
-        taskService.save(model, false);
-        showSaveToast();
+        if(taskService.save(model, false))
+            showSaveToast();
     }
 
     /* ======================================================================
@@ -394,7 +395,7 @@ public final class TaskEditActivity extends TabActivity {
      * precision
      */
     private void showSaveToast() {
-        // if we have no title, don't show a message
+        // if we have no title, or nothing's changed, don't show toast
         if(isNewTask())
             return;
 
@@ -1087,19 +1088,11 @@ public final class TaskEditActivity extends TabActivity {
         public RandomReminderControlSet(int settingCheckboxId, int periodButtonId) {
             settingCheckbox = (CheckBox)findViewById(settingCheckboxId);
             periodSpinner = (Spinner)findViewById(periodButtonId);
-            periodSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
-
+            periodSpinner.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onItemSelected(AdapterView<?> arg0, View arg1,
-                        int arg2, long arg3) {
+                public void onClick(View v) {
                     settingCheckbox.setChecked(true);
                 }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
-                    // ignore
-                }
-
             });
 
             // create adapter
@@ -1120,7 +1113,7 @@ public final class TaskEditActivity extends TabActivity {
         public void readFromTask(Task task) {
             long time = task.getValue(Task.REMINDER_PERIOD);
 
-            boolean shouldDisable = time <= 0;
+            boolean enabled = time > 0;
             if(time <= 0) {
                 time = DEFAULT_INTERVAL;
             }
@@ -1130,7 +1123,7 @@ public final class TaskEditActivity extends TabActivity {
                 if(hours[i] * DateUtilities.ONE_HOUR >= time)
                     break;
             periodSpinner.setSelection(i);
-            settingCheckbox.setChecked(!shouldDisable);
+            settingCheckbox.setChecked(enabled);
         }
 
         @Override
