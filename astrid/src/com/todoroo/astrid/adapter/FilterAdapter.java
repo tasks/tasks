@@ -6,6 +6,7 @@ package com.todoroo.astrid.adapter;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,9 +14,9 @@ import android.widget.AbsListView;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ImageView.ScaleType;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.api.FilterCategory;
@@ -26,11 +27,14 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     private final ArrayList<FilterListItem> items;
     protected final Activity activity;
+    private final DisplayMetrics metrics = new DisplayMetrics();
 
     public FilterAdapter(Activity activity) {
         super();
         this.activity = activity;
         this.items = new ArrayList<FilterListItem>();
+
+        activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
     }
 
     public boolean hasStableIds() {
@@ -116,7 +120,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     public View getCategoryView(FilterCategory filter, boolean isExpanded) {
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, 64);
+                ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         FrameLayout layout = new FrameLayout(activity);
         layout.setLayoutParams(lp);
@@ -140,7 +144,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         textView.setTextAppearance(activity, R.style.TextAppearance_FLA_Category);
 
         View view = augmentView(textView, filter);
-        view.setPadding(50, 2, 0, 2);
+        view.setPadding((int) (33 * metrics.density), 5, 0, 5);
         FrameLayout.LayoutParams rowLayout = new FrameLayout.LayoutParams(
                 ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         rowLayout.gravity = Gravity.CENTER_VERTICAL;
@@ -177,7 +181,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     public View getStandardView(FilterListItem filter, boolean isChild) {
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, 64);
+                ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         TextView textView = new TextView(activity);
         textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
@@ -187,14 +191,14 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         View view = augmentView(textView, filter);
         view.setBackgroundDrawable(null);
         view.setLayoutParams(lp);
-        view.setPadding(isChild ? 40 : 10, 0, 0, 0);
+        view.setPadding((int) ((isChild ? 27 : 7) * metrics.density), 8, 0, 8);
 
         return view;
     }
 
     public View getHeaderView(FilterListHeader header, boolean isChild) {
         AbsListView.LayoutParams lp = new AbsListView.LayoutParams(
-                ViewGroup.LayoutParams.FILL_PARENT, 40);
+                ViewGroup.LayoutParams.FILL_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         TextView textView = new TextView(activity);
         textView.setGravity(Gravity.CENTER_VERTICAL | Gravity.LEFT);
@@ -204,7 +208,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         View view = augmentView(textView, header);
         view.setBackgroundResource(R.drawable.edit_titlebar);
         view.setLayoutParams(lp);
-        view.setPadding(isChild ? 50 : 10, 0, 0, 0);
+        view.setPadding((int) ((isChild ? 33 : 7) * metrics.density), 5, 0, 5);
 
         return view;
     }

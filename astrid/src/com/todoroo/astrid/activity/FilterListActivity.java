@@ -17,20 +17,21 @@ import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.util.DisplayMetrics;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -350,13 +351,17 @@ public class FilterListActivity extends ExpandableListActivity {
         if(emblem == null)
             emblem = ((BitmapDrawable) getResources().getDrawable(
                     R.drawable.filter_tags1)).getBitmap();
+
         // create icon by superimposing astrid w/ icon
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         Bitmap bitmap = ((BitmapDrawable) getResources().getDrawable(
                 R.drawable.icon_blank)).getBitmap();
         bitmap = bitmap.copy(bitmap.getConfig(), true);
         Canvas canvas = new Canvas(bitmap);
+        int dimension = 22;
         canvas.drawBitmap(emblem, new Rect(0, 0, emblem.getWidth(), emblem.getHeight()),
-                new Rect(bitmap.getWidth() - 22, bitmap.getHeight() - 22,
+                new Rect(bitmap.getWidth() - dimension, bitmap.getHeight() - dimension,
                         bitmap.getWidth(), bitmap.getHeight()), null);
 
         Intent createShortcutIntent = new Intent();
@@ -401,7 +406,8 @@ public class FilterListActivity extends ExpandableListActivity {
             FrameLayout frameLayout = new FrameLayout(this);
             frameLayout.setPadding(10, 0, 10, 0);
             final EditText editText = new EditText(this);
-            editText.setText(filter.listingTitle);
+            editText.setText(filter.listingTitle.
+                    replaceAll("\\(\\d+\\)$", "").trim()); //$NON-NLS-1$ //$NON-NLS-2$
             frameLayout.addView(editText, new FrameLayout.LayoutParams(
                     FrameLayout.LayoutParams.FILL_PARENT,
                     FrameLayout.LayoutParams.WRAP_CONTENT));

@@ -66,9 +66,7 @@
 
     <style name="TextAppearance.FLA_Filter" parent="TextAppearance.TAd_ItemTitle">
         <item name="android:textSize">20sp</item>
-        <item name="android:paddingTop">5px</item>
-        <item name="android:paddingBottom">5px</item>
-        <item name="android:paddingLeft">10px</item>
+        <item name="android:paddingLeft">10dip</item>
     </style>
     
     <style name="TextAppearance.FLA_Header" parent="TextAppearance.TAd_ItemTitle">
@@ -77,6 +75,7 @@
     </style>
     
     <style name="TextAppearance.FLA_Category" parent="TextAppearance.TAd_ItemTitle">
+        <item name="android:textSize">18sp</item>
         <item name="android:textColor">#ff7ada24</item>
         <item name="android:textStyle">bold|italic</item>
     </style>

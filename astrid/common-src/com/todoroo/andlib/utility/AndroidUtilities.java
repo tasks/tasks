@@ -189,7 +189,7 @@ public class AndroidUtilities {
         if(string == null)
             return null;
 
-        String[] pairs = string.split(",");
+        String[] pairs = string.split(" ");
         ContentValues result = new ContentValues();
         for(String item : pairs) {
             String[] keyValue = item.split("=");

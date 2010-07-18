@@ -35,12 +35,16 @@ public class GCalTaskCompleteListener extends BroadcastReceiver {
 
         String calendarUri = task.getValue(Task.CALENDAR_URI);
         if(!TextUtils.isEmpty(calendarUri)) {
-            // change title of calendar event
-            ContentResolver cr = context.getContentResolver();
-            ContentValues values = new ContentValues();
-            values.put("title", context.getString(R.string.gcal_completed_title,
-                    task.getValue(Task.TITLE)));
-            cr.update(Uri.parse(calendarUri), values, null, null);
+            try {
+                // change title of calendar event
+                ContentResolver cr = context.getContentResolver();
+                ContentValues values = new ContentValues();
+                values.put("title", context.getString(R.string.gcal_completed_title,
+                        task.getValue(Task.TITLE)));
+                cr.update(Uri.parse(calendarUri), values, null, null);
+            } catch (Exception e) {
+                // do nothing.
+            }
         }
     }
 

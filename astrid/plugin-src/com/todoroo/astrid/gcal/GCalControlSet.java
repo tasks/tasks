@@ -21,7 +21,9 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.gcal.Calendars.CalendarResult;
 import com.todoroo.astrid.model.Task;
@@ -35,7 +37,7 @@ import com.todoroo.astrid.model.Task;
 public class GCalControlSet implements TaskEditControlSet {
 
     /** If task has no estimated time, how early to set a task in calendar (seconds)*/
-    private static final int DEFAULT_CAL_TIME = 3600;
+    private static final long DEFAULT_CAL_TIME = DateUtilities.ONE_HOUR;
 
     // --- instance variables
 
@@ -53,6 +55,8 @@ public class GCalControlSet implements TaskEditControlSet {
     private final Button viewCalendarEvent;
 
     public GCalControlSet(final Activity activity, ViewGroup parent) {
+        DependencyInjectionService.getInstance().inject(this);
+
         this.activity = activity;
         LayoutInflater.from(activity).inflate(R.layout.gcal_control, parent, true);
 
@@ -65,6 +69,7 @@ public class GCalControlSet implements TaskEditControlSet {
                 android.R.layout.simple_spinner_item, calendars.calendars);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         calendarSelector.setAdapter(adapter);
+        calendarSelector.setSelection(calendars.defaultIndex);
 
         addToCalendar.setOnCheckedChangeListener(new OnCheckedChangeListener() {
             @Override
@@ -163,7 +168,7 @@ public class GCalControlSet implements TaskEditControlSet {
         long dueDate = task.getValue(Task.DUE_DATE);
         if(task.hasDueDate()) {
             if(task.hasDueTime()) {
-                int estimatedTime = task.getValue(Task.ESTIMATED_SECONDS);
+                long estimatedTime = task.getValue(Task.ESTIMATED_SECONDS);
                 if(estimatedTime <= 0)
                     estimatedTime = DEFAULT_CAL_TIME;
                 values.put("dtstart", dueDate - estimatedTime);
@@ -173,6 +178,10 @@ public class GCalControlSet implements TaskEditControlSet {
                 values.put("dtend", dueDate);
                 values.put("allDay", "1");
             }
+        } else {
+            values.put("dtstart", DateUtilities.now());
+            values.put("dtend", DateUtilities.now());
+            values.put("allDay", "1");
         }
     }
 }
