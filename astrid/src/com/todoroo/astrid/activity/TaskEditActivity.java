@@ -1076,6 +1076,9 @@ public final class TaskEditActivity extends TabActivity {
      *
      */
     public class RandomReminderControlSet implements TaskEditControlSet {
+        /** default interval for spinner if date is unselected */
+        private final long DEFAULT_INTERVAL = DateUtilities.ONE_WEEK * 2;
+
         private final CheckBox settingCheckbox;
         private final Spinner periodSpinner;
 
@@ -1119,7 +1122,7 @@ public final class TaskEditActivity extends TabActivity {
 
             boolean shouldDisable = time <= 0;
             if(time <= 0) {
-                time = DateUtilities.ONE_HOUR * 730;
+                time = DEFAULT_INTERVAL;
             }
 
             int i;
@@ -1127,7 +1130,7 @@ public final class TaskEditActivity extends TabActivity {
                 if(hours[i] * DateUtilities.ONE_HOUR >= time)
                     break;
             periodSpinner.setSelection(i);
-            settingCheckbox.setChecked(shouldDisable);
+            settingCheckbox.setChecked(!shouldDisable);
         }
 
         @Override
