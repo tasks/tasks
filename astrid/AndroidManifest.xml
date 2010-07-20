@@ -250,7 +250,7 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.reminders.NotificationActivity"
-              android:taskAffinity="" />
+              android:clearTaskOnLaunch="true" />
 
     <!-- rmilk -->
     <receiver android:name="com.todoroo.astrid.rmilk.MilkFilterExposer">

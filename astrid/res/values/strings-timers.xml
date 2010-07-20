@@ -10,8 +10,8 @@
     <!-- Stop Timer button -->
     <string name="TAE_stopTimer">Stop Timer</string>
     
-    <!-- Task Detail (%s => time) -->
-    <string name="TDE_label">Elapsed Time: %s</string>
+    <!-- Notification Title (%s => # tasks) -->
+    <string name="TPl_notification">Timers Active for %s!</string>
     
     <!-- Filter Header -->
     <string name="TFE_category">Timer Filters</string>

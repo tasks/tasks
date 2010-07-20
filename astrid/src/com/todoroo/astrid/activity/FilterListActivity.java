@@ -313,16 +313,7 @@ public class FilterListActivity extends ExpandableListActivity {
             Filter filter = (Filter) item;
             info.targetView.setTag(filter);
             menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
-            Intent shortcutIntent = new Intent(this, ShortcutActivity.class);
-            shortcutIntent.setAction(Intent.ACTION_VIEW);
-            shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE, filter.title);
-            shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL, filter.sqlQuery);
-            if(filter.valuesForNewTasks != null) {
-                shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_VALUES,
-                        filter.valuesForNewTasks.toString());
-            }
-
-            menuItem.setIntent(shortcutIntent);
+            menuItem.setIntent(ShortcutActivity.createIntent(filter));
         }
 
         for(int i = 0; i < item.contextMenuLabels.length; i++) {

@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
@@ -54,19 +53,10 @@ public class TimerActionExposer extends BroadcastReceiver {
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
             context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         } else if(TIMER_ACTION.equals(intent.getAction())) {
-            // toggle the timer
             if(task.getValue(Task.TIMER_START) == 0)
-                task.setValue(Task.TIMER_START, DateUtilities.now());
-            else {
-                TimerTaskCompleteListener.stopTimer(task);
-            }
-            PluginServices.getTaskService().save(task, true);
-            TimerDecorationExposer.removeFromCache(taskId);
-
-            // transmit new intents TimerDecoration
-            new TimerDecorationExposer().onReceive(context, intent);
-            intent.setAction(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
-            onReceive(context, intent);
+                TimerPlugin.updateTimer(context, task, true);
+            else
+                TimerPlugin.updateTimer(context, task, false);
         }
     }
 

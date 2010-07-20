@@ -4,23 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
 
 public class TimerTaskCompleteListener extends BroadcastReceiver {
-
-    /**
-     * stops timer and sets elapsed time. you still need to save the task.
-     * @param task
-     */
-    public static void stopTimer(Task task) {
-        int newElapsed = (int)((DateUtilities.now() - task.getValue(Task.TIMER_START)) / 1000L);
-        task.setValue(Task.TIMER_START, 0L);
-        task.setValue(Task.ELAPSED_SECONDS,
-                task.getValue(Task.ELAPSED_SECONDS) + newElapsed);
-    }
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -33,8 +21,7 @@ public class TimerTaskCompleteListener extends BroadcastReceiver {
         if(task == null || task.getValue(Task.TIMER_START) == 0)
             return;
 
-        stopTimer(task);
-        PluginServices.getTaskService().save(task, true);
+        TimerPlugin.updateTimer(context, task, false);
     }
 
 }

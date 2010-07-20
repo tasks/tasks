@@ -24,6 +24,7 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -89,5 +90,18 @@ public class ShortcutActivity extends Activity {
             startActivity(taskListIntent);
         }
         finish();
+    }
+
+    public static Intent createIntent(Filter filter) {
+        Intent shortcutIntent = new Intent(ContextManager.getContext(),
+                ShortcutActivity.class);
+        shortcutIntent.setAction(Intent.ACTION_VIEW);
+        shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE, filter.title);
+        shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL, filter.sqlQuery);
+        if(filter.valuesForNewTasks != null) {
+            shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_VALUES,
+                    filter.valuesForNewTasks.toString());
+        }
+        return shortcutIntent;
     }
 }
