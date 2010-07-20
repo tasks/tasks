@@ -44,7 +44,7 @@ public class TimerActionExposer extends BroadcastReceiver {
             Intent newIntent = new Intent(TIMER_ACTION);
             newIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
             TaskAction action = new TaskAction(label,
-                    PendingIntent.getBroadcast(context, 0, newIntent, 0));
+                    PendingIntent.getBroadcast(context, (int)taskId, newIntent, 0));
 
             // transmit
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_ACTIONS);

@@ -77,7 +77,7 @@ public class TimerPlugin extends BroadcastReceiver {
             Intent notifyIntent = ShortcutActivity.createIntent(filter);
             notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                    0, notifyIntent, 0);
+                    Constants.NOTIFICATION_TIMER, notifyIntent, 0);
 
             Resources r = context.getResources();
             String appName = r.getString(R.string.app_name);

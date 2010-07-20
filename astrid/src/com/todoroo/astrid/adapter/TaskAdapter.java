@@ -1,7 +1,6 @@
 package com.todoroo.astrid.adapter;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,7 +14,6 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.Html;
-import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -109,6 +107,9 @@ public class TaskAdapter extends CursorAdapter {
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     private int fontSize;
 
+    // the task that's expanded
+    private long expanded = -1;
+
     // --- task detail and decoration soft caches
 
     public final DetailManager detailManager = new DetailManager(false);
@@ -161,6 +162,7 @@ public class TaskAdapter extends CursorAdapter {
         // create view holder
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.task = new Task();
+        viewHolder.view = view;
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
@@ -189,11 +191,12 @@ public class TaskAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor c) {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
-        Task actionItem = viewHolder.task;
-        actionItem.readFromCursor(cursor);
+
+        Task task = viewHolder.task;
+        task.readFromCursor(cursor);
 
         setFieldContentsAndVisibility(view);
-        setTaskAppearance(viewHolder, actionItem.isCompleted());
+        setTaskAppearance(viewHolder, task.isCompleted());
     }
 
     /** Helper method to set the visibility based on if there's stuff inside */
@@ -212,6 +215,7 @@ public class TaskAdapter extends CursorAdapter {
      */
     public class ViewHolder {
         public Task task;
+        public View view;
         public TextView nameView;
         public CheckBox completeBox;
         public TextView dueDate;
@@ -220,7 +224,6 @@ public class TaskAdapter extends CursorAdapter {
         public View importance;
         public LinearLayout actions;
         public LinearLayout taskRow;
-        public boolean expanded;
 
         public View[] decorations;
     }
@@ -286,10 +289,17 @@ public class TaskAdapter extends CursorAdapter {
             importanceView.setBackgroundColor(IMPORTANCE_COLORS[value]);
         }
 
-        // details and decorations
+        // details and decorations, expanded
         if(!isFling) {
             detailManager.request(viewHolder);
             decorationManager.request(viewHolder);
+            if(expanded == task.getId()) {
+                extendedDetailManager.request(viewHolder);
+                taskActionManager.request(viewHolder);
+            } else {
+                viewHolder.extendedDetails.setVisibility(View.GONE);
+                viewHolder.actions.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -365,7 +375,7 @@ public class TaskAdapter extends CursorAdapter {
                                     continue;
                                 activity.runOnUiThread(new Runnable() {
                                     public void run() {
-                                        draw(viewHolder, cacheList);
+                                        draw(viewHolder, taskId, cacheList);
                                     }
                                 });
                             }
@@ -379,17 +389,15 @@ public class TaskAdapter extends CursorAdapter {
 
         @SuppressWarnings("nls")
         @Override
-        void draw(ViewHolder viewHolder, Collection<String> details) {
-            if(details == null)
+        void draw(ViewHolder viewHolder, long taskId, Collection<String> details) {
+            if(details == null || viewHolder.task.getId() != taskId)
                 return;
             TextView view = extended ? viewHolder.extendedDetails : viewHolder.details;
-            view.setVisibility(!details.isEmpty() ? View.VISIBLE : View.GONE);
-            if(details.isEmpty() || (extended && !viewHolder.expanded)) {
+            if(details.isEmpty() || (extended && expanded != taskId)) {
                 view.setVisibility(View.GONE);
                 return;
-            } else {
-                view.setVisibility(View.VISIBLE);
             }
+            view.setVisibility(View.VISIBLE);
             StringBuilder detailText = new StringBuilder();
             for(Iterator<String> iterator = details.iterator(); iterator.hasNext(); ) {
                 detailText.append(iterator.next());
@@ -420,16 +428,17 @@ public class TaskAdapter extends CursorAdapter {
         }
 
         @Override
-        void draw(ViewHolder viewHolder, Collection<TaskDecoration> decorations) {
-            if(decorations == null || decorations.size() == 0)
+        void draw(ViewHolder viewHolder, long taskId, Collection<TaskDecoration> decorations) {
+            if(decorations == null || viewHolder.task.getId() != taskId)
                 return;
 
             if(viewHolder.decorations != null) {
                 for(View view : viewHolder.decorations)
                     viewHolder.taskRow.removeView(view);
-                ((View)viewHolder.taskRow.getParent()).setBackgroundColor(Color.TRANSPARENT);
             }
-
+            viewHolder.view.setBackgroundColor(Color.TRANSPARENT);
+            if(decorations.size() == 0)
+                return;
 
             int i = 0;
             boolean colorSet = false;
@@ -437,7 +446,7 @@ public class TaskAdapter extends CursorAdapter {
             for(TaskDecoration decoration : decorations) {
                 if(decoration.color != 0 && !colorSet) {
                     colorSet = true;
-                    ((View)viewHolder.taskRow.getParent()).setBackgroundColor(decoration.color);
+                    viewHolder.view.setBackgroundColor(decoration.color);
                 }
                 if(decoration.decoration != null) {
                     View view = decoration.decoration.apply(activity, viewHolder.taskRow);
@@ -470,11 +479,11 @@ public class TaskAdapter extends CursorAdapter {
         }
 
         @Override
-        void draw(final ViewHolder viewHolder, Collection<TaskAction> actions) {
-            if(actions == null)
+        void draw(final ViewHolder viewHolder, final long taskId, Collection<TaskAction> actions) {
+            if(actions == null || viewHolder.task.getId() != taskId)
                 return;
 
-            if(!viewHolder.expanded) {
+            if(expanded != taskId) {
                 viewHolder.actions.setVisibility(View.GONE);
                 return;
             }
@@ -491,7 +500,6 @@ public class TaskAdapter extends CursorAdapter {
                 @Override
                 public void onClick(View arg0) {
                     Intent intent = new Intent(activity, TaskEditActivity.class);
-                    long taskId = viewHolder.task.getId();
                     intent.putExtra(TaskEditActivity.ID_TOKEN, taskId);
                     activity.startActivity(intent);
                 }
@@ -542,13 +550,9 @@ public class TaskAdapter extends CursorAdapter {
         public void onClick(View v) {
             try {
                 action.intent.send();
-
-                // refresh ourselves
-                getCursor().requery();
-                notifyDataSetChanged();
             } catch (Exception e) {
-                // oh too bad.
-                Log.i("astrid-action-error", "Error launching intent", e); //$NON-NLS-1$ //$NON-NLS-2$
+                exceptionService.displayAndReportError(activity,
+                        "Error launching action", e); //$NON-NLS-1$
             }
         }
     };
@@ -565,15 +569,13 @@ public class TaskAdapter extends CursorAdapter {
         public void onClick(View v) {
             // expand view
             final ViewHolder viewHolder = (ViewHolder)v.getTag();
-            viewHolder.expanded = !viewHolder.expanded;
-
-            if(viewHolder.expanded) {
-                extendedDetailManager.request(viewHolder);
-                taskActionManager.request(viewHolder);
+            long taskId = viewHolder.task.getId();
+            if(expanded == taskId) {
+                expanded = -1;
             } else {
-                viewHolder.extendedDetails.setVisibility(View.GONE);
-                viewHolder.actions.setVisibility(View.GONE);
+                expanded = taskId;
             }
+            notifyDataSetInvalidated();
         }
     }
 
@@ -640,8 +642,7 @@ public class TaskAdapter extends CursorAdapter {
     abstract private class AddOnManager<TYPE> {
 
         private final Map<Long, HashMap<String, TYPE>> cache =
-            Collections.synchronizedMap(new SoftHashMap<Long,
-                    HashMap<String, TYPE>>());
+            new SoftHashMap<Long, HashMap<String, TYPE>>();
 
         // --- interface
 
@@ -654,14 +655,14 @@ public class TaskAdapter extends CursorAdapter {
 
             Collection<TYPE> list = initialize(taskId);
             if(list != null) {
-                draw(viewHolder, list);
+                draw(viewHolder, taskId, list);
                 return false;
             }
 
             // request details
+            draw(viewHolder, taskId, get(taskId));
             Intent broadcastIntent = createBroadcastIntent(taskId);
             activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-            draw(viewHolder, get(taskId));
             return true;
         }
 
@@ -669,7 +670,7 @@ public class TaskAdapter extends CursorAdapter {
         abstract Intent createBroadcastIntent(long taskId);
 
         /** updates the given view */
-        abstract void draw(ViewHolder viewHolder, Collection<TYPE> list);
+        abstract void draw(ViewHolder viewHolder, long taskId, Collection<TYPE> list);
 
         /** on receive an intent */
         public void addNew(long taskId, String addOn, TYPE item) {
@@ -685,7 +686,7 @@ public class TaskAdapter extends CursorAdapter {
                     ViewHolder viewHolder = (ViewHolder) listView.getChildAt(i).getTag();
                     if(viewHolder == null || viewHolder.task.getId() != taskId)
                         continue;
-                    draw(viewHolder, cacheList);
+                    draw(viewHolder, taskId, cacheList);
                     break;
                 }
             }
@@ -706,7 +707,7 @@ public class TaskAdapter extends CursorAdapter {
          * @param taskId
          * @return list if there was already one
          */
-        protected Collection<TYPE> initialize(long taskId) {
+        protected synchronized Collection<TYPE> initialize(long taskId) {
             if(cache.containsKey(taskId))
                 return get(taskId);
             cache.put(taskId, new HashMap<String, TYPE>());
@@ -719,7 +720,7 @@ public class TaskAdapter extends CursorAdapter {
          * @param item
          * @return iterator if item was added, null if it already existed
          */
-        protected Collection<TYPE> addIfNotExists(long taskId, String addOn,
+        protected synchronized Collection<TYPE> addIfNotExists(long taskId, String addOn,
                 TYPE item) {
             HashMap<String, TYPE> list = cache.get(taskId);
             if(list == null)
