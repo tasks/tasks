@@ -52,7 +52,7 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.TaskDetail;
+import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -378,6 +378,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         super.onResume();
         registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
+        registerReceiver(detailReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_SEND_DECORATIONS));
     }
 
     @Override
@@ -387,7 +389,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     }
 
     /**
-     * Receiver which receives intents to add items to the filter list
+     * Receiver which receives detail or decoration intents
      *
      * @author Tim Su <tim@todoroo.com>
      *
@@ -398,8 +400,17 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             try {
                 Bundle extras = intent.getExtras();
                 long taskId = extras.getLong(AstridApiConstants.EXTRAS_TASK_ID);
-                TaskDetail detail = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-                taskAdapter.addDetails(getListView(), taskId, detail);
+
+                if(AstridApiConstants.BROADCAST_SEND_DECORATIONS.equals(intent.getAction())) {
+                    TaskDecoration deco = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
+                    taskAdapter.addDecorations(getListView(), taskId,
+                            deco);
+                } else {
+                    String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
+                    taskAdapter.addDetails(getListView(), taskId,
+                            extras.getBoolean(AstridApiConstants.EXTRAS_EXTENDED),
+                            detail);
+                }
             } catch (Exception e) {
                 exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
                         intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
@@ -463,7 +474,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         if(requery) {
             taskCursor.requery();
-            taskAdapter.flushDetailCache();
+            taskAdapter.flushCaches();
             taskAdapter.notifyDataSetChanged();
         }
         startManagingCursor(taskCursor);

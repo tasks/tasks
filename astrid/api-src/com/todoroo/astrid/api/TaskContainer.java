@@ -6,9 +6,10 @@ import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 
 /**
- * Container class for tasks. Synchronization Providers can subclass
- * this class if desired.
+ * Container class for transmitting tasks and including local and remote
+ * metadata. Synchronization Providers can subclass this class if desired.
  *
+ * @see {@link SynchronizationProvider}
  * @author Tim Su <tim@todoroo.com>
  *
  */

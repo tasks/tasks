@@ -47,6 +47,11 @@ public class AstridApiConstants {
      */
     public static final String EXTRAS_ADDON = "addon";
 
+    /**
+     * Extras name for whether task detail request is extended
+     */
+    public static final String EXTRAS_EXTENDED = "extended";
+
     // --- Add-ons API
 
     /**
@@ -89,11 +94,14 @@ public class AstridApiConstants {
      */
     public static final String BROADCAST_SEND_EDIT_CONTROLS = PACKAGE + ".SEND_EDIT_CONTROLS";
 
-    // --- Task List Details API
+    // --- Task Details API
 
     /**
-     * Action name for broadcast intent requesting task list details for a task
+     * Action name for broadcast intent requesting details for a task.
+     * Extended details are displayed when a user presses on a task.
+     *
      * @extra EXTRAS_TASK_ID id of the task
+     * @extra EXTRAS_EXTENDED whether request is for standard or extended details
      */
     public static final String BROADCAST_REQUEST_DETAILS = PACKAGE + ".REQUEST_DETAILS";
 
@@ -101,9 +109,42 @@ public class AstridApiConstants {
      * Action name for broadcast intent sending details back to Astrid
      * @extra EXTRAS_ADDON your add-on identifier
      * @extra EXTRAS_TASK_ID id of the task
-     * @extra EXTRAS_RESPONSE a {@link TaskDetail} object
+     * @extra EXTRAS_EXTENDED whether request is for standard or extended details
+     * @extra EXTRAS_RESPONSE a String
      */
     public static final String BROADCAST_SEND_DETAILS = PACKAGE + ".SEND_DETAILS";
+
+    // --- Task Actions API
+
+    /**
+     * Action name for broadcast intent requesting actions for a task
+     * @extra EXTRAS_TASK_ID id of the task
+     */
+    public static final String BROADCAST_REQUEST_ACTIONS = PACKAGE + ".REQUEST_ACTIONS";
+
+    /**
+     * Action name for broadcast intent sending actions back to Astrid
+     * @extra EXTRAS_ADDON your add-on identifier
+     * @extra EXTRAS_TASK_ID id of the task
+     * @extra EXTRAS_RESPONSE a String
+     */
+    public static final String BROADCAST_SEND_ACTIONS = PACKAGE + ".SEND_ACTIONS";
+
+    // --- Task Decorations API
+
+    /**
+     * Action name for broadcast intent requesting task list decorations for a task
+     * @extra EXTRAS_TASK_ID id of the task
+     */
+    public static final String BROADCAST_REQUEST_DECORATIONS = PACKAGE + ".REQUEST_DECORATIONS";
+
+    /**
+     * Action name for broadcast intent sending decorations back to Astrid
+     * @extra EXTRAS_ADDON your add-on identifier
+     * @extra EXTRAS_TASK_ID id of the task
+     * @extra EXTRAS_RESPONSE a {@link TaskDecoration}
+     */
+    public static final String BROADCAST_SEND_DECORATIONS = PACKAGE + ".SEND_DECORATIONS";
 
     // --- Actions API
 

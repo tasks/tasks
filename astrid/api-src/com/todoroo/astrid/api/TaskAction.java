@@ -8,17 +8,12 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 /**
- * Represents an intent that can be called on a task being edited
+ * Represents an intent that can be called on a task
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public final class EditOperation implements Parcelable {
-
-    /**
-     * Plugin Id
-     */
-    public final String plugin;
+public class TaskAction implements Parcelable {
 
     /**
      * Label
@@ -33,15 +28,13 @@ public final class EditOperation implements Parcelable {
     /**
      * Create an EditOperation object
      *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
      * @param text
      *            label to display
      * @param intent
      *            intent to invoke. {@link EXTRAS_TASK_ID} will be passed
      */
-    public EditOperation(String plugin, String text, Intent intent) {
-        this.plugin = plugin;
+    public TaskAction(String text, Intent intent) {
+        super();
         this.text = text;
         this.intent = intent;
     }
@@ -59,7 +52,6 @@ public final class EditOperation implements Parcelable {
      * {@inheritDoc}
      */
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(plugin);
         dest.writeString(text);
         dest.writeParcelable(intent, 0);
     }
@@ -67,20 +59,20 @@ public final class EditOperation implements Parcelable {
     /**
      * Parcelable creator
      */
-    public static final Parcelable.Creator<EditOperation> CREATOR = new Parcelable.Creator<EditOperation>() {
+    public static final Parcelable.Creator<TaskAction> CREATOR = new Parcelable.Creator<TaskAction>() {
         /**
          * {@inheritDoc}
          */
-        public EditOperation createFromParcel(Parcel source) {
-            return new EditOperation(source.readString(), source.readString(),
-                    (Intent)source.readParcelable(Intent.class.getClassLoader()));
+        public TaskAction createFromParcel(Parcel source) {
+            return new TaskAction(source.readString(), (Intent)source.readParcelable(
+                    Intent.class.getClassLoader()));
         }
 
         /**
          * {@inheritDoc}
          */
-        public EditOperation[] newArray(int size) {
-            return new EditOperation[size];
+        public TaskAction[] newArray(int size) {
+            return new TaskAction[size];
         };
     };
 

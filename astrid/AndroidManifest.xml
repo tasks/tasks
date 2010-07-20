@@ -207,6 +207,14 @@
     </receiver>    
     
     <!-- notes -->
+    
+    <!-- timers -->
+    <receiver android:name="com.todoroo.astrid.timers.TimerDecorationExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_DECORATIONS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
 
     <!-- reminders -->        
     <activity android:name="com.todoroo.astrid.reminders.ReminderPreferences" 

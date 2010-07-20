@@ -11,12 +11,11 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
-import com.todoroo.astrid.api.TaskDetail;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.TaskService;
 
 /**
- * Exposes {@link TaskDetail} for tags, i.e. "Tags: frogs, animals"
+ * Exposes Task Detail for notes
  *
  * @author Tim Su <tim@todoroo.com>
  *
@@ -35,7 +34,8 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
         if(taskId == -1)
             return;
 
-        TaskDetail taskDetail = getTaskDetails(context, taskId);
+        boolean extended = intent.getBooleanExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
+        String taskDetail = getTaskDetails(context, taskId, extended);
         if(taskDetail == null)
             return;
 
@@ -43,12 +43,16 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, NotesPlugin.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
     @Override
-    public TaskDetail getTaskDetails(Context context, long id) {
+    public String getTaskDetails(Context context, long id, boolean extended) {
+        if(!extended)
+            return null;
+
         synchronized(NoteDetailExposer.class) {
             if(staticTaskService == null) {
                 DependencyInjectionService.getInstance().inject(this);
@@ -65,7 +69,7 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
         if(notes.length() == 0)
             return null;
 
-        return new TaskDetail(notes);
+        return notes;
     }
 
 }

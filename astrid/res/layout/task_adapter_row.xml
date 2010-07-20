@@ -10,7 +10,7 @@
     android:paddingRight="6dip"
     android:orientation="vertical">
         
-    <LinearLayout
+    <LinearLayout android:id="@+id/task_row"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="100"
@@ -61,6 +61,11 @@
             android:layout_height="fill_parent" />
             
     </LinearLayout>
+      
+    <TextView android:id="@+id/extendedDetails"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
         
     <LinearLayout android:id="@+id/actions"
         android:layout_width="fill_parent"
