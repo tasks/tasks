@@ -16,26 +16,18 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
-import com.todoroo.astrid.api.TaskDetail;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.TaskService;
 
 /**
- * Exposes {@link TaskDetail} for tags, i.e. "Tags: frogs, animals"
+ * Exposes Task Detail for repeats, i.e. "Repeats every 2 days"
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
 public class RepeatDetailExposer extends BroadcastReceiver implements DetailExposer {
-
-    private static TaskService staticTaskService = null;
-
-    @Autowired
-    TaskService taskService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -44,7 +36,8 @@ public class RepeatDetailExposer extends BroadcastReceiver implements DetailExpo
         if(taskId == -1)
             return;
 
-        TaskDetail taskDetail = getTaskDetails(context, taskId);
+        boolean extended = intent.getBooleanExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
+        String taskDetail = getTaskDetails(context, taskId, extended);
         if(taskDetail == null)
             return;
 
@@ -52,21 +45,16 @@ public class RepeatDetailExposer extends BroadcastReceiver implements DetailExpo
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, RepeatsPlugin.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    public TaskDetail getTaskDetails(Context context, long id) {
-        synchronized(RepeatDetailExposer.class) {
-            if(staticTaskService == null) {
-                DependencyInjectionService.getInstance().inject(this);
-                staticTaskService = taskService;
-            } else {
-                taskService = staticTaskService;
-            }
-        }
+    public String getTaskDetails(Context context, long id, boolean extended) {
+        if(extended)
+            return null;
 
-        Task task = taskService.fetchById(id, Task.FLAGS, Task.RECURRENCE);
+        Task task = PluginServices.getTaskService().fetchById(id, Task.FLAGS, Task.RECURRENCE);
         if(task == null)
             return null;
 
@@ -126,9 +114,14 @@ public class RepeatDetailExposer extends BroadcastReceiver implements DetailExpo
             else
                 detail = context.getString(R.string.repeat_detail_duedate, interval);
 
-            return new TaskDetail(detail);
+            return detail;
         }
         return null;
+    }
+
+    @Override
+    public String getPluginIdentifier() {
+        return RepeatsPlugin.IDENTIFIER;
     }
 
 }

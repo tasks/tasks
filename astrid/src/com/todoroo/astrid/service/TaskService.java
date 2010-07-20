@@ -10,8 +10,8 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -171,6 +171,19 @@ public class TaskService {
                 DateUtilities.now() + DateUtilities.ONE_WEEK,
                 Task.DUE_DATE) + " + 200000000 * " +
                 Task.IMPORTANCE + " + " + Task.COMPLETION_DATE);
+    }
+
+    /**
+     * @param query
+     * @return how many tasks are matched by this query
+     */
+    public int count(Query query) {
+        TodorooCursor<Task> cursor = taskDao.query(query);
+        try {
+            return cursor.getCount();
+        } finally {
+            cursor.close();
+        }
     }
 
 

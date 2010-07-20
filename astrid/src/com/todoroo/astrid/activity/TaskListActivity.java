@@ -46,13 +46,15 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.TaskDetail;
+import com.todoroo.astrid.api.TaskAction;
+import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -324,6 +326,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 ContentValues forTask = new ContentValues();
                 forMetadata = new ContentValues();
                 for(Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
+                    if(Long.valueOf(Filter.VALUE_NOW).equals(item.getValue()))
+                        item.setValue(DateUtilities.now());
                     if(item.getKey().startsWith(Task.TABLE.name))
                         AndroidUtilities.putInto(forTask, item.getKey(), item.getValue());
                     else
@@ -378,6 +382,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         super.onResume();
         registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
+        registerReceiver(detailReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_SEND_DECORATIONS));
+        registerReceiver(detailReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_SEND_ACTIONS));
     }
 
     @Override
@@ -387,7 +395,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     }
 
     /**
-     * Receiver which receives intents to add items to the filter list
+     * Receiver which receives detail or decoration intents
      *
      * @author Tim Su <tim@todoroo.com>
      *
@@ -398,8 +406,21 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             try {
                 Bundle extras = intent.getExtras();
                 long taskId = extras.getLong(AstridApiConstants.EXTRAS_TASK_ID);
-                TaskDetail detail = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-                taskAdapter.addDetails(getListView(), taskId, detail);
+                String addOn = extras.getString(AstridApiConstants.EXTRAS_ADDON);
+
+                if(AstridApiConstants.BROADCAST_SEND_DECORATIONS.equals(intent.getAction())) {
+                    TaskDecoration deco = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
+                    taskAdapter.decorationManager.addNew(taskId, addOn, deco);
+                } else if(AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
+                    String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
+                    if(extras.getBoolean(AstridApiConstants.EXTRAS_EXTENDED))
+                        taskAdapter.detailManager.addNew(taskId, addOn, detail);
+                    else
+                        taskAdapter.extendedDetailManager.addNew(taskId, addOn, detail);
+                } else if(AstridApiConstants.BROADCAST_SEND_ACTIONS.equals(intent.getAction())) {
+                    TaskAction action = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
+                    taskAdapter.taskActionManager.addNew(taskId, addOn, action);
+                }
             } catch (Exception e) {
                 exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
                         intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
@@ -463,7 +484,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         if(requery) {
             taskCursor.requery();
-            taskAdapter.flushDetailCache();
+            taskAdapter.flushCaches();
             taskAdapter.notifyDataSetChanged();
         }
         startManagingCursor(taskCursor);

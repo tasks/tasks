@@ -7,26 +7,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
-import com.todoroo.astrid.api.TaskDetail;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.TaskService;
 
 /**
- * Exposes {@link TaskDetail} for tags, i.e. "Tags: frogs, animals"
+ * Exposes Task Detail for notes
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
 public class NoteDetailExposer extends BroadcastReceiver implements DetailExposer {
-
-    private static TaskService staticTaskService;
-
-    @Autowired
-    private TaskService taskService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -35,7 +27,8 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
         if(taskId == -1)
             return;
 
-        TaskDetail taskDetail = getTaskDetails(context, taskId);
+        boolean extended = intent.getBooleanExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
+        String taskDetail = getTaskDetails(context, taskId, extended);
         if(taskDetail == null)
             return;
 
@@ -43,29 +36,29 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, NotesPlugin.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
     @Override
-    public TaskDetail getTaskDetails(Context context, long id) {
-        synchronized(NoteDetailExposer.class) {
-            if(staticTaskService == null) {
-                DependencyInjectionService.getInstance().inject(this);
-                staticTaskService = taskService;
-            } else {
-                taskService = staticTaskService;
-            }
-        }
+    public String getTaskDetails(Context context, long id, boolean extended) {
+        if(!extended)
+            return null;
 
-        Task task = taskService.fetchById(id, Task.NOTES);
+        Task task = PluginServices.getTaskService().fetchById(id, Task.NOTES);
         if(task == null)
             return null;
         String notes = task.getValue(Task.NOTES);
         if(notes.length() == 0)
             return null;
 
-        return new TaskDetail(notes);
+        return notes;
+    }
+
+    @Override
+    public String getPluginIdentifier() {
+        return NotesPlugin.IDENTIFIER;
     }
 
 }

@@ -10,10 +10,9 @@ import android.content.Intent;
 import com.timsu.astrid.R;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
-import com.todoroo.astrid.api.TaskDetail;
 
 /**
- * Exposes {@link TaskDetail} for tags, i.e. "Tags: frogs, animals"
+ * Exposes Task Detail for tags, i.e. "Tags: frogs, animals"
  *
  * @author Tim Su <tim@todoroo.com>
  *
@@ -27,7 +26,8 @@ public class TagDetailExposer extends BroadcastReceiver implements DetailExposer
         if(taskId == -1)
             return;
 
-        TaskDetail taskDetail = getTaskDetails(context, taskId);
+        boolean extended = intent.getBooleanExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
+        String taskDetail = getTaskDetails(context, taskId, extended);
         if(taskDetail == null)
             return;
 
@@ -35,18 +35,26 @@ public class TagDetailExposer extends BroadcastReceiver implements DetailExposer
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, TagsPlugin.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
     @Override
-    public TaskDetail getTaskDetails(Context context, long id) {
-        String tagList = TagService.getInstance().getTagsAsString(id);
+    public String getTaskDetails(Context context, long id, boolean extended) {
+        if(extended)
+            return null;
 
+        String tagList = TagService.getInstance().getTagsAsString(id);
         if(tagList.length() == 0)
             return null;
 
-        return new TaskDetail(context.getString(R.string.tag_TLA_detail, tagList));
+        return context.getString(R.string.tag_TLA_detail, tagList);
+    }
+
+    @Override
+    public String getPluginIdentifier() {
+        return TagsPlugin.IDENTIFIER;
     }
 
 }

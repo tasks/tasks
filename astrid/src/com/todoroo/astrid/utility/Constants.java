@@ -32,7 +32,10 @@ public final class Constants {
 
     // --- notification id's
 
-    /** Notification Manager id for RMilk notifications */
+    /** Notification Manager id for sync notifications */
     public static final int NOTIFICATION_SYNC = -1;
+
+    /** Notification Manager id for timing */
+    public static final int NOTIFICATION_TIMER = -2;
 
 }

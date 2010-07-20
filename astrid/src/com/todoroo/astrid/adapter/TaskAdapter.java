@@ -1,15 +1,17 @@
 package com.todoroo.astrid.adapter;
 
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedHashSet;
+import java.util.Map;
 
-import android.app.Activity;
+import android.app.ListActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.Html;
 import android.view.ContextMenu;
@@ -19,11 +21,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,10 +39,10 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.activity.TaskEditActivity;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
-import com.todoroo.astrid.api.TaskDetail;
+import com.todoroo.astrid.api.TaskAction;
+import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.notes.NoteDetailExposer;
 import com.todoroo.astrid.repeats.RepeatDetailExposer;
@@ -97,15 +99,24 @@ public class TaskAdapter extends CursorAdapter {
     @Autowired
     DialogUtilities dialogUtilities;
 
-    protected final Activity activity;
+    protected final ListActivity activity;
     protected final HashMap<Long, Boolean> completedItems;
     public boolean isFling = false;
     private final int resource;
     private final LayoutInflater inflater;
     protected OnCompletedTaskListener onCompletedTaskListener = null;
     private int fontSize;
-    private static final SoftHashMap<Long, LinkedHashSet<TaskDetail>> detailCache =
-        new SoftHashMap<Long, LinkedHashSet<TaskDetail>>();
+
+    // the task that's expanded
+    private long expanded = -1;
+
+    // --- task detail and decoration soft caches
+
+    public final DetailManager detailManager = new DetailManager(false);
+    public final DetailManager extendedDetailManager = new DetailManager(true);
+    public final DecorationManager decorationManager =
+        new DecorationManager();
+    public final TaskActionManager taskActionManager = new TaskActionManager();
 
     /**
      * Constructor
@@ -120,7 +131,7 @@ public class TaskAdapter extends CursorAdapter {
      * @param onCompletedTaskListener
      *            task listener. can be null
      */
-    public TaskAdapter(Activity activity, int resource,
+    public TaskAdapter(ListActivity activity, int resource,
             TodorooCursor<Task> c, boolean autoRequery,
             OnCompletedTaskListener onCompletedTaskListener) {
         super(activity, c, autoRequery);
@@ -151,11 +162,14 @@ public class TaskAdapter extends CursorAdapter {
         // create view holder
         ViewHolder viewHolder = new ViewHolder();
         viewHolder.task = new Task();
+        viewHolder.view = view;
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.details = (TextView)view.findViewById(R.id.details);
+        viewHolder.extendedDetails = (TextView)view.findViewById(R.id.extendedDetails);
         viewHolder.actions = (LinearLayout)view.findViewById(R.id.actions);
+        viewHolder.taskRow = (LinearLayout)view.findViewById(R.id.task_row);
         viewHolder.importance = (View)view.findViewById(R.id.importance);
 
         view.setTag(viewHolder);
@@ -177,11 +191,12 @@ public class TaskAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor c) {
         TodorooCursor<Task> cursor = (TodorooCursor<Task>)c;
         ViewHolder viewHolder = ((ViewHolder)view.getTag());
-        Task actionItem = viewHolder.task;
-        actionItem.readFromCursor(cursor);
+
+        Task task = viewHolder.task;
+        task.readFromCursor(cursor);
 
         setFieldContentsAndVisibility(view);
-        setTaskAppearance(viewHolder, actionItem.isCompleted());
+        setTaskAppearance(viewHolder, task.isCompleted());
     }
 
     /** Helper method to set the visibility based on if there's stuff inside */
@@ -200,13 +215,17 @@ public class TaskAdapter extends CursorAdapter {
      */
     public class ViewHolder {
         public Task task;
+        public View view;
         public TextView nameView;
         public CheckBox completeBox;
         public TextView dueDate;
         public TextView details;
+        public TextView extendedDetails;
         public View importance;
         public LinearLayout actions;
-        public boolean expanded;
+        public LinearLayout taskRow;
+
+        public View[] decorations;
     }
 
     /** Helper method to set the contents and visibility of each field */
@@ -251,7 +270,6 @@ public class TaskAdapter extends CursorAdapter {
                 dueDateView.setText(r.getString(R.string.TAd_completed, dateValue));
                 dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
                 setVisibility(dueDateView);
-
             } else {
                 dueDateView.setVisibility(View.GONE);
             }
@@ -265,139 +283,27 @@ public class TaskAdapter extends CursorAdapter {
             completeBox.setChecked(task.isCompleted());
         }
 
-        // task details - send out a request for it (only if not fling)
-        viewHolder.details.setText(""); //$NON-NLS-1$
-        if(!isFling) {
-            retrieveDetails(viewHolder);
-        }
-
-        // importance bar - must be set at end when view height is determined
+        // importance bar
         final View importanceView = viewHolder.importance; {
             int value = task.getValue(Task.IMPORTANCE);
             importanceView.setBackgroundColor(IMPORTANCE_COLORS[value]);
         }
-    }
 
-    // --- task details
-
-    private void retrieveDetails(final ViewHolder viewHolder) {
-        final long taskId = viewHolder.task.getId();
-
-        // check the cache
-        boolean inCache = false;
-        final LinkedHashSet<TaskDetail> details;
-        synchronized(detailCache) {
-            if(detailCache.containsKey(taskId))
-                inCache = true;
-            else
-                detailCache.put(taskId, new LinkedHashSet<TaskDetail>());
-            details  = detailCache.get(taskId);
-        }
-
-        if(inCache) {
-            spanifyAndAdd(viewHolder.details, details);
-            return;
-        }
-
-        // request details
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-
-        // load internal details
-        new Thread() {
-            @Override
-            public void run() {
-                for(DetailExposer exposer : EXPOSERS) {
-                    if(Thread.interrupted())
-                        return;
-
-                    final TaskDetail detail = exposer.getTaskDetails(activity, taskId);
-                    if(detail == null || details.contains(detail))
-                        continue;
-
-                    details.add(detail);
-                    if(taskId != viewHolder.task.getId())
-                        continue;
-
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            spanifyAndAdd(viewHolder.details, details);
-                        }
-                    });
-                }
-            };
-        }.start();
-    }
-
-    @SuppressWarnings("nls")
-    private void spanifyAndAdd(TextView view, LinkedHashSet<TaskDetail> details) {
-        view.setVisibility(details.size() > 0 ? View.VISIBLE : View.GONE);
-        if(details.size() == 0)
-            return;
-        StringBuilder detailText = new StringBuilder();
-        for(Iterator<TaskDetail> iterator = details.iterator(); iterator.hasNext(); ) {
-            detailText.append(iterator.next().text);
-            if(iterator.hasNext())
-                detailText.append(DETAIL_SEPARATOR);
-        }
-        String string = detailText.toString();
-        if(string.contains("<"))
-            view.setText(Html.fromHtml(string.trim().replace("\n", "<br>")));
-        else
-            view.setText(string.trim());
-    }
-
-    /**
-     * Called to tell the cache to be cleared
-     */
-    public void flushDetailCache() {
-        detailCache.clear();
-    }
-
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize);
-    }
-
-    /**
-     * Respond to a request to add details for a task
-     *
-     * @param taskId
-     */
-    public synchronized void addDetails(ListView list, long taskId, TaskDetail detail) {
-        if(detail == null)
-            return;
-
-        LinkedHashSet<TaskDetail> details = detailCache.get(taskId);
-        if(details.contains(detail))
-            return;
-        details.add(detail);
-
-        // update view if it is visible
-        int length = list.getChildCount();
-        for(int i = 0; i < length; i++) {
-            ViewHolder viewHolder = (ViewHolder) list.getChildAt(i).getTag();
-            if(viewHolder == null || viewHolder.task.getId() != taskId)
-                continue;
-            spanifyAndAdd(viewHolder.details, details);
-            break;
+        // details and decorations, expanded
+        if(!isFling) {
+            detailManager.request(viewHolder);
+            decorationManager.request(viewHolder);
+            if(expanded == task.getId()) {
+                extendedDetailManager.request(viewHolder);
+                taskActionManager.request(viewHolder);
+            } else {
+                viewHolder.extendedDetails.setVisibility(View.GONE);
+                viewHolder.actions.setVisibility(View.GONE);
+            }
         }
     }
 
-    private final View.OnClickListener completeBoxListener = new View.OnClickListener() {
-        public void onClick(View v) {
-            ViewHolder viewHolder = (ViewHolder)((View)v.getParent().getParent()).getTag();
-            Task task = viewHolder.task;
-
-            completeTask(task, ((CheckBox)v).isChecked());
-            // set check box to actual action item state
-            setTaskAppearance(viewHolder, task.isCompleted());
-        }
-    };
-
-    protected ContextMenuListener listener = new ContextMenuListener();
+    protected TaskRowListener listener = new TaskRowListener();
     /**
      * Set listeners for this view. This is called once per view when it is
      * created.
@@ -415,39 +321,263 @@ public class TaskAdapter extends CursorAdapter {
     }
 
     /* ======================================================================
+     * ============================================================== add-ons
+     * ====================================================================== */
+
+    /**
+     * Called to tell the cache to be cleared
+     */
+    public void flushCaches() {
+        detailManager.clearCache();
+        extendedDetailManager.clearCache();
+        decorationManager.clearCache();
+        taskActionManager.clearCache();
+    }
+
+    /**
+     * AddOnManager for Details
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    public class DetailManager extends AddOnManager<String> {
+
+        private final boolean extended;
+        public DetailManager(boolean extended) {
+            this.extended = extended;
+        }
+
+        @Override
+        Intent createBroadcastIntent(long taskId) {
+            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
+            return broadcastIntent;
+        }
+
+        @Override
+        public boolean request(final ViewHolder viewHolder) {
+            if(super.request(viewHolder)) {
+                final long taskId = viewHolder.task.getId();
+                // load internal details
+                new Thread() {
+                    @Override
+                    public void run() {
+                        for(DetailExposer exposer : EXPOSERS) {
+                            final String detail = exposer.getTaskDetails(activity,
+                                    taskId, extended);
+                            if(detail == null)
+                                continue;
+                            final Collection<String> cacheList =
+                                addIfNotExists(taskId, exposer.getPluginIdentifier(),
+                                        detail);
+                            if(cacheList != null)  {
+                                if(taskId != viewHolder.task.getId())
+                                    continue;
+                                activity.runOnUiThread(new Runnable() {
+                                    public void run() {
+                                        draw(viewHolder, taskId, cacheList);
+                                    }
+                                });
+                            }
+                        }
+                    };
+                }.start();
+                return true;
+            }
+            return false;
+        }
+
+        @SuppressWarnings("nls")
+        @Override
+        void draw(ViewHolder viewHolder, long taskId, Collection<String> details) {
+            if(details == null || viewHolder.task.getId() != taskId)
+                return;
+            TextView view = extended ? viewHolder.extendedDetails : viewHolder.details;
+            if(details.isEmpty() || (extended && expanded != taskId)) {
+                view.setVisibility(View.GONE);
+                return;
+            }
+            view.setVisibility(View.VISIBLE);
+            StringBuilder detailText = new StringBuilder();
+            for(Iterator<String> iterator = details.iterator(); iterator.hasNext(); ) {
+                detailText.append(iterator.next());
+                if(iterator.hasNext())
+                    detailText.append(DETAIL_SEPARATOR);
+            }
+            String string = detailText.toString();
+            if(string.contains("<"))
+                view.setText(Html.fromHtml(string.trim().replace("\n", "<br>")));
+            else
+                view.setText(string.trim());
+        }
+
+    }
+
+    /**
+     * AddOnManager for TaskDecorations
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    public class DecorationManager extends AddOnManager<TaskDecoration> {
+        @Override
+        Intent createBroadcastIntent(long taskId) {
+            Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DECORATIONS);
+            intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+            return intent;
+        }
+
+        @Override
+        void draw(ViewHolder viewHolder, long taskId, Collection<TaskDecoration> decorations) {
+            if(decorations == null || viewHolder.task.getId() != taskId)
+                return;
+
+            if(viewHolder.decorations != null) {
+                for(View view : viewHolder.decorations)
+                    viewHolder.taskRow.removeView(view);
+            }
+            viewHolder.view.setBackgroundColor(Color.TRANSPARENT);
+            if(decorations.size() == 0)
+                return;
+
+            int i = 0;
+            boolean colorSet = false;
+            viewHolder.decorations = new View[decorations.size()];
+            for(TaskDecoration decoration : decorations) {
+                if(decoration.color != 0 && !colorSet) {
+                    colorSet = true;
+                    viewHolder.view.setBackgroundColor(decoration.color);
+                }
+                if(decoration.decoration != null) {
+                    View view = decoration.decoration.apply(activity, viewHolder.taskRow);
+                    viewHolder.decorations[i] = view;
+                    switch(decoration.position) {
+                    case TaskDecoration.POSITION_LEFT:
+                        viewHolder.taskRow.addView(view, 1);
+                        break;
+                    case TaskDecoration.POSITION_RIGHT:
+                        viewHolder.taskRow.addView(view, viewHolder.taskRow.getChildCount() - 2);
+                    }
+                }
+                i++;
+            }
+        }
+    }
+
+    /**
+     * AddOnManager for TaskActions
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    public class TaskActionManager extends AddOnManager<TaskAction> {
+        @Override
+        Intent createBroadcastIntent(long taskId) {
+            Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
+            intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+            return intent;
+        }
+
+        @Override
+        void draw(final ViewHolder viewHolder, final long taskId, Collection<TaskAction> actions) {
+            if(actions == null || viewHolder.task.getId() != taskId)
+                return;
+
+            if(expanded != taskId) {
+                viewHolder.actions.setVisibility(View.GONE);
+                return;
+            }
+            viewHolder.actions.setVisibility(View.VISIBLE);
+            viewHolder.actions.removeAllViews();
+
+            LinearLayout.LayoutParams params =
+                new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                        LayoutParams.FILL_PARENT, 1f);
+
+            Button editButton = new Button(activity);
+            editButton.setText(R.string.TAd_actionEditTask);
+            editButton.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View arg0) {
+                    Intent intent = new Intent(activity, TaskEditActivity.class);
+                    intent.putExtra(TaskEditActivity.ID_TOKEN, taskId);
+                    activity.startActivity(intent);
+                }
+            });
+            editButton.setLayoutParams(params);
+            viewHolder.actions.addView(editButton);
+
+            for(TaskAction action : actions) {
+                Button view = new Button(activity);
+                view.setText(action.text);
+                view.setOnClickListener(new ActionClickListener(action));
+                view.setLayoutParams(params);
+                viewHolder.actions.addView(view);
+            }
+
+        }
+    }
+
+    /* ======================================================================
      * ======================================================= event handlers
      * ====================================================================== */
 
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize);
+    }
 
-    class ContextMenuListener implements OnCreateContextMenuListener, OnClickListener {
+    private final View.OnClickListener completeBoxListener = new View.OnClickListener() {
+        public void onClick(View v) {
+            ViewHolder viewHolder = (ViewHolder)((View)v.getParent().getParent()).getTag();
+            Task task = viewHolder.task;
+
+            completeTask(task, ((CheckBox)v).isChecked());
+
+            // set check box to actual action item state
+            setTaskAppearance(viewHolder, task.isCompleted());
+        }
+    };
+
+    private final class ActionClickListener implements View.OnClickListener {
+        TaskAction action;
+
+        public ActionClickListener(TaskAction action) {
+            this.action = action;
+        }
+
+        public void onClick(View v) {
+            try {
+                action.intent.send();
+            } catch (Exception e) {
+                exceptionService.displayAndReportError(activity,
+                        "Error launching action", e); //$NON-NLS-1$
+            }
+        }
+    };
+
+    private class TaskRowListener implements OnCreateContextMenuListener, OnClickListener {
 
         public void onCreateContextMenu(ContextMenu menu, View v,
                 ContextMenuInfo menuInfo) {
-            // this is all a big sham. it's actually handled in Task List Activity
+            // this is all a big sham. it's actually handled in Task List
+            // Activity. however, we need this to be here.
         }
 
         @Override
         public void onClick(View v) {
+            // expand view
             final ViewHolder viewHolder = (ViewHolder)v.getTag();
-            viewHolder.expanded = !viewHolder.expanded;
-            LinearLayout actions = viewHolder.actions;
-            actions.setVisibility(viewHolder.expanded ? View.VISIBLE : View.GONE);
-            if(viewHolder.expanded && actions.getChildCount() == 0) {
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                        LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1f);
-                Button edit = new Button(activity);
-                edit.setText(R.string.TAd_actionEditTask);
-                edit.setLayoutParams(params);
-                edit.setOnClickListener(new OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        Intent intent = new Intent(activity, TaskEditActivity.class);
-                        intent.putExtra(TaskEditActivity.ID_TOKEN, viewHolder.task.getId());
-                        activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
-                    }
-                });
-                actions.addView(edit);
+            long taskId = viewHolder.task.getId();
+            if(expanded == taskId) {
+                expanded = -1;
+            } else {
+                expanded = taskId;
             }
+            notifyDataSetChanged();
+            ListView listView = activity.getListView();
+            listView.setSelection(listView.indexOfChild(viewHolder.view));
         }
     }
 
@@ -505,6 +635,113 @@ public class TaskAdapter extends CursorAdapter {
             if(onCompletedTaskListener != null)
                 onCompletedTaskListener.onCompletedTask(actionItem, newState);
         }
+    }
+
+    /* ======================================================================
+     * ========================================================= addon helper
+     * ====================================================================== */
+
+    abstract private class AddOnManager<TYPE> {
+
+        private final Map<Long, HashMap<String, TYPE>> cache =
+            new SoftHashMap<Long, HashMap<String, TYPE>>();
+
+        // --- interface
+
+        /**
+         * Request add-ons for the given task
+         * @return true if cache miss, false if cache hit
+         */
+        public boolean request(ViewHolder viewHolder) {
+            long taskId = viewHolder.task.getId();
+
+            Collection<TYPE> list = initialize(taskId);
+            if(list != null) {
+                draw(viewHolder, taskId, list);
+                return false;
+            }
+
+            // request details
+            draw(viewHolder, taskId, get(taskId));
+            Intent broadcastIntent = createBroadcastIntent(taskId);
+            activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            return true;
+        }
+
+        /** creates a broadcast intent for requesting */
+        abstract Intent createBroadcastIntent(long taskId);
+
+        /** updates the given view */
+        abstract void draw(ViewHolder viewHolder, long taskId, Collection<TYPE> list);
+
+        /** on receive an intent */
+        public void addNew(long taskId, String addOn, TYPE item) {
+            if(item == null)
+                return;
+
+            Collection<TYPE> cacheList = addIfNotExists(taskId, addOn, item);
+            if(cacheList != null) {
+                ListView listView = activity.getListView();
+                // update view if it is visible
+                int length = listView.getChildCount();
+                for(int i = 0; i < length; i++) {
+                    ViewHolder viewHolder = (ViewHolder) listView.getChildAt(i).getTag();
+                    if(viewHolder == null || viewHolder.task.getId() != taskId)
+                        continue;
+                    draw(viewHolder, taskId, cacheList);
+                    break;
+                }
+            }
+        }
+
+        /**
+         * Clears the cache
+         */
+        public void clearCache() {
+            cache.clear();
+        }
+
+        // --- internal goodies
+
+        /**
+         * Retrieves a list. If it doesn't exist, list is created, but
+         * the method will return null
+         * @param taskId
+         * @return list if there was already one
+         */
+        protected synchronized Collection<TYPE> initialize(long taskId) {
+            if(cache.containsKey(taskId))
+                return get(taskId);
+            cache.put(taskId, new HashMap<String, TYPE>());
+            return null;
+        }
+
+        /**
+         * Adds an item to the cache if it doesn't exist
+         * @param taskId
+         * @param item
+         * @return iterator if item was added, null if it already existed
+         */
+        protected synchronized Collection<TYPE> addIfNotExists(long taskId, String addOn,
+                TYPE item) {
+            HashMap<String, TYPE> list = cache.get(taskId);
+            if(list == null)
+                return null;
+            if(list.containsKey(addOn) && list.get(addOn).equals(item))
+                return null;
+            list.put(addOn, item);
+            return get(taskId);
+        }
+
+        /**
+         * Gets an item at the given index
+         * @param taskId
+         * @return
+         */
+        protected Collection<TYPE> get(long taskId) {
+            return cache.get(taskId).values();
+        }
+
     }
 
 }

@@ -83,30 +83,29 @@ public class Calendars {
 		Resources r = context.getResources();
 		Cursor c = cr.query(getCalendarContentUri(CALENDAR_CONTENT_CALENDARS), CALENDARS_PROJECTION,
 				CALENDARS_WHERE, null, CALENDARS_SORT);
-
-		// Fetch the current setting. Invalid calendar id will
-		// be changed to default value.
-		String defaultSetting = Preferences.getStringValue(R.string.gcal_p_default);
-
-		CalendarResult result = new CalendarResult();
-
-		if (c == null || c.getCount() == 0) {
-			// Something went wrong when querying calendars. Only offer them
-		    // the system default choice
-		    result.calendars = new String[] {
-			        r.getString(R.string.gcal_GCP_default) };
-			result.calendarIds = new String[] { null };
-			result.defaultIndex = 0;
-			return result;
-		}
-
-		int calendarCount = c.getCount();
-
-		result.calendars = new String[calendarCount];
-		result.calendarIds = new String[calendarCount];
-
-		// Iterate calendars one by one, and fill up the list preference
 		try {
+    		// Fetch the current setting. Invalid calendar id will
+    		// be changed to default value.
+    		String defaultSetting = Preferences.getStringValue(R.string.gcal_p_default);
+
+    		CalendarResult result = new CalendarResult();
+
+    		if (c == null || c.getCount() == 0) {
+    			// Something went wrong when querying calendars. Only offer them
+    		    // the system default choice
+    		    result.calendars = new String[] {
+    			        r.getString(R.string.gcal_GCP_default) };
+    			result.calendarIds = new String[] { null };
+    			result.defaultIndex = 0;
+    			return result;
+    		}
+
+    		int calendarCount = c.getCount();
+
+    		result.calendars = new String[calendarCount];
+    		result.calendarIds = new String[calendarCount];
+
+    		// Iterate calendars one by one, and fill up the list preference
 			int row = 0;
 			int idColumn = c.getColumnIndex(ID_COLUMN_NAME);
 			int nameColumn = c.getColumnIndex(DISPLAY_COLUMN_NAME);
@@ -130,7 +129,8 @@ public class Calendars {
 
 			return result;
 		} finally {
-			c.deactivate();
+		    if(c != null)
+		        c.close();
 		}
 	}
 

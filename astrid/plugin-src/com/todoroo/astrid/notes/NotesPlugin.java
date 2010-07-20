@@ -12,6 +12,7 @@ public class NotesPlugin extends BroadcastReceiver {
     static final String IDENTIFIER = "notes"; //$NON-NLS-1$
 
     @Override
+    @SuppressWarnings("nls")
     public void onReceive(Context context, Intent intent) {
         Addon plugin = new Addon(IDENTIFIER, "Notes", "Todoroo",
                 "Lets you add and view notes for a task.");

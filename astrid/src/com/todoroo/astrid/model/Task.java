@@ -84,7 +84,7 @@ public final class Task extends AbstractModel {
     public static final IntegerProperty ELAPSED_SECONDS = new IntegerProperty(
             TABLE, "elapsedSeconds");
 
-    public static final IntegerProperty TIMER_START = new IntegerProperty(
+    public static final LongProperty TIMER_START = new LongProperty(
             TABLE, "timerStart");
 
     public static final IntegerProperty POSTPONE_COUNT = new IntegerProperty(

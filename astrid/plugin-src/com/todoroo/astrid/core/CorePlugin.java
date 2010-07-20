@@ -12,9 +12,10 @@ public class CorePlugin extends BroadcastReceiver {
     static final String IDENTIFIER = "core"; //$NON-NLS-1$
 
     @Override
+    @SuppressWarnings("nls")
     public void onReceive(Context context, Intent intent) {
         Addon plugin = new Addon(IDENTIFIER, "Core Filters", "Todoroo",
-                "Provides 'Inbox' and 'All Tasks' Filters");
+                "Provides 'Inbox', 'Search', and 'More...' Filters");
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_ADDONS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, plugin);
