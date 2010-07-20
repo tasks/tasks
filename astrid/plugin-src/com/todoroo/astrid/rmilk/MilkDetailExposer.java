@@ -88,4 +88,9 @@ public class MilkDetailExposer extends BroadcastReceiver implements DetailExpose
         return result.substring(0, result.length() - TaskAdapter.DETAIL_SEPARATOR.length());
     }
 
+    @Override
+    public String getPluginIdentifier() {
+        return Utilities.IDENTIFIER;
+    }
+
 }

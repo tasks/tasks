@@ -52,4 +52,9 @@ public class TagDetailExposer extends BroadcastReceiver implements DetailExposer
         return context.getString(R.string.tag_TLA_detail, tagList);
     }
 
+    @Override
+    public String getPluginIdentifier() {
+        return TagsPlugin.IDENTIFIER;
+    }
+
 }

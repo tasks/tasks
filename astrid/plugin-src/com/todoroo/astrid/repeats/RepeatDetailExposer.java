@@ -135,4 +135,9 @@ public class RepeatDetailExposer extends BroadcastReceiver implements DetailExpo
         return null;
     }
 
+    @Override
+    public String getPluginIdentifier() {
+        return RepeatsPlugin.IDENTIFIER;
+    }
+
 }

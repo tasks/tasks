@@ -21,4 +21,6 @@ public interface DetailExposer {
      */
     public String getTaskDetails(Context context, long id, boolean extended);
 
+    public String getPluginIdentifier();
+
 }

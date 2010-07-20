@@ -3,7 +3,7 @@
  */
 package com.todoroo.astrid.api;
 
-import android.content.Intent;
+import android.app.PendingIntent;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -23,7 +23,7 @@ public class TaskAction implements Parcelable {
     /**
      * Intent to call when invoking this operation
      */
-    public Intent intent = null;
+    public PendingIntent intent = null;
 
     /**
      * Create an EditOperation object
@@ -33,7 +33,7 @@ public class TaskAction implements Parcelable {
      * @param intent
      *            intent to invoke. {@link EXTRAS_TASK_ID} will be passed
      */
-    public TaskAction(String text, Intent intent) {
+    public TaskAction(String text, PendingIntent intent) {
         super();
         this.text = text;
         this.intent = intent;
@@ -64,8 +64,8 @@ public class TaskAction implements Parcelable {
          * {@inheritDoc}
          */
         public TaskAction createFromParcel(Parcel source) {
-            return new TaskAction(source.readString(), (Intent)source.readParcelable(
-                    Intent.class.getClassLoader()));
+            return new TaskAction(source.readString(), (PendingIntent)source.readParcelable(
+                    PendingIntent.class.getClassLoader()));
         }
 
         /**

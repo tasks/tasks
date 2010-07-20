@@ -30,7 +30,7 @@ public class TimerDecorationExposer extends BroadcastReceiver {
 
     private static final int TASK_BG_COLOR = Color.argb(200, 220, 50, 0);
 
-    private static TaskService staticTaskService;
+    static TaskService staticTaskService;
     private static HashMap<Long, TaskDecoration> decorations =
         new HashMap<Long, TaskDecoration>();
     private static HashMap<Long, Timer> timers =

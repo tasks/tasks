@@ -3,6 +3,7 @@
  */
 package com.todoroo.astrid.api;
 
+import android.content.Intent;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.RemoteViews;
@@ -35,6 +36,11 @@ public final class TaskDecoration implements Parcelable {
      * Decoration update interval (minimum of 1000 millis), 0 to never update
      */
     public long updateInterval = 0;
+
+    /**
+     * Intent to call to update the decoration
+     */
+    public Intent updateIntent = null;
 
     /**
      * Decoration position

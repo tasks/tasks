@@ -72,4 +72,9 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
         return notes;
     }
 
+    @Override
+    public String getPluginIdentifier() {
+        return NotesPlugin.IDENTIFIER;
+    }
+
 }

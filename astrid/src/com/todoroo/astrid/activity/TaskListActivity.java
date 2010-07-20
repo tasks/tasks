@@ -52,6 +52,7 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.Database;
@@ -380,6 +381,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
         registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DECORATIONS));
+        registerReceiver(detailReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_SEND_ACTIONS));
     }
 
     @Override
@@ -400,16 +403,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             try {
                 Bundle extras = intent.getExtras();
                 long taskId = extras.getLong(AstridApiConstants.EXTRAS_TASK_ID);
+                String addOn = extras.getString(AstridApiConstants.EXTRAS_ADDON);
 
                 if(AstridApiConstants.BROADCAST_SEND_DECORATIONS.equals(intent.getAction())) {
                     TaskDecoration deco = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-                    taskAdapter.addDecorations(getListView(), taskId,
-                            deco);
-                } else {
+                    taskAdapter.decorationManager.addNew(taskId, addOn, deco);
+                } else if(AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
                     String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
-                    taskAdapter.addDetails(getListView(), taskId,
-                            extras.getBoolean(AstridApiConstants.EXTRAS_EXTENDED),
-                            detail);
+                    if(extras.getBoolean(AstridApiConstants.EXTRAS_EXTENDED))
+                        taskAdapter.detailManager.addNew(taskId, addOn, detail);
+                    else
+                        taskAdapter.extendedDetailManager.addNew(taskId, addOn, detail);
+                } else if(AstridApiConstants.BROADCAST_SEND_ACTIONS.equals(intent.getAction())) {
+                    TaskAction action = extras.getParcelable(AstridApiConstants.BROADCAST_SEND_ACTIONS);
+                    taskAdapter.taskActionManager.addNew(taskId, addOn, action);
                 }
             } catch (Exception e) {
                 exceptionService.reportError("receive-detail-" + //$NON-NLS-1$
