@@ -575,7 +575,9 @@ public class TaskAdapter extends CursorAdapter {
             } else {
                 expanded = taskId;
             }
-            notifyDataSetInvalidated();
+            notifyDataSetChanged();
+            ListView listView = activity.getListView();
+            listView.setSelection(listView.indexOfChild(viewHolder.view));
         }
     }
 

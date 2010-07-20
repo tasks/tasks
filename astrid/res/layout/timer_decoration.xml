@@ -7,19 +7,19 @@
     android:paddingLeft="3px">
     
     <ImageView
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_weight="3"
-      android:gravity="bottom|center"
-      android:scaleType="center"
-      android:src="@drawable/timers_decoration" />
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="5"
+        android:gravity="bottom|center_horizontal"
+        android:scaleType="center"
+        android:src="@drawable/timers_decoration" />
       
     <Chronometer android:id="@+id/timer"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:gravity="top|center"
-      android:textSize="10sp" />
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="top"
+        android:textSize="10sp" />
         
 </LinearLayout>
 
