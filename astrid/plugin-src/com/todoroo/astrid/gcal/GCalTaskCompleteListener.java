@@ -9,16 +9,11 @@ import android.net.Uri;
 import android.text.TextUtils;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.TaskService;
 
 public class GCalTaskCompleteListener extends BroadcastReceiver {
-
-    @Autowired
-    private TaskService taskService;
 
     @SuppressWarnings("nls")
     @Override
@@ -27,9 +22,7 @@ public class GCalTaskCompleteListener extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        DependencyInjectionService.getInstance().inject(this);
-
-        Task task = taskService.fetchById(taskId, Task.ID, Task.TITLE, Task.CALENDAR_URI);
+        Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TITLE, Task.CALENDAR_URI);
         if(task == null)
             return;
 

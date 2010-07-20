@@ -46,6 +46,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.adapter.TaskAdapter;
@@ -325,6 +326,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 ContentValues forTask = new ContentValues();
                 forMetadata = new ContentValues();
                 for(Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
+                    if(Long.valueOf(Filter.VALUE_NOW).equals(item.getValue()))
+                        item.setValue(DateUtilities.now());
                     if(item.getKey().startsWith(Task.TABLE.name))
                         AndroidUtilities.putInto(forTask, item.getKey(), item.getValue());
                     else
@@ -415,7 +418,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                     else
                         taskAdapter.extendedDetailManager.addNew(taskId, addOn, detail);
                 } else if(AstridApiConstants.BROADCAST_SEND_ACTIONS.equals(intent.getAction())) {
-                    TaskAction action = extras.getParcelable(AstridApiConstants.BROADCAST_SEND_ACTIONS);
+                    TaskAction action = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.taskActionManager.addNew(taskId, addOn, action);
                 }
             } catch (Exception e) {

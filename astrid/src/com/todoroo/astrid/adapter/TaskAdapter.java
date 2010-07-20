@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.Html;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -320,6 +321,7 @@ public class TaskAdapter extends CursorAdapter {
         detailManager.clearCache();
         extendedDetailManager.clearCache();
         decorationManager.clearCache();
+        taskActionManager.clearCache();
     }
 
     /**
@@ -524,6 +526,7 @@ public class TaskAdapter extends CursorAdapter {
             Task task = viewHolder.task;
 
             completeTask(task, ((CheckBox)v).isChecked());
+
             // set check box to actual action item state
             setTaskAppearance(viewHolder, task.isCompleted());
         }
@@ -539,8 +542,13 @@ public class TaskAdapter extends CursorAdapter {
         public void onClick(View v) {
             try {
                 action.intent.send();
+
+                // refresh ourselves
+                getCursor().requery();
+                notifyDataSetChanged();
             } catch (Exception e) {
                 // oh too bad.
+                Log.i("astrid-action-error", "Error launching intent", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
     };
@@ -562,6 +570,9 @@ public class TaskAdapter extends CursorAdapter {
             if(viewHolder.expanded) {
                 extendedDetailManager.request(viewHolder);
                 taskActionManager.request(viewHolder);
+            } else {
+                viewHolder.extendedDetails.setVisibility(View.GONE);
+                viewHolder.actions.setVisibility(View.GONE);
             }
         }
     }

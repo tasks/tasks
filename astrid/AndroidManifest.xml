@@ -218,6 +218,19 @@
     <receiver android:name="com.todoroo.astrid.timers.TimerActionExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
+        <action android:name="com.todoroo.astrid.TIMER_BUTTON" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.todoroo.astrid.timers.TimerFilterExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
+    <receiver android:name="com.todoroo.astrid.timers.TimerTaskCompleteListener">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.TASK_COMPLETED" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>

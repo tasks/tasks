@@ -16,12 +16,10 @@ import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.TaskService;
 
 /**
  * Exposes Task Detail for repeats, i.e. "Repeats every 2 days"
@@ -30,11 +28,6 @@ import com.todoroo.astrid.service.TaskService;
  *
  */
 public class RepeatDetailExposer extends BroadcastReceiver implements DetailExposer {
-
-    private static TaskService staticTaskService = null;
-
-    @Autowired
-    TaskService taskService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -61,16 +54,7 @@ public class RepeatDetailExposer extends BroadcastReceiver implements DetailExpo
         if(extended)
             return null;
 
-        synchronized(RepeatDetailExposer.class) {
-            if(staticTaskService == null) {
-                DependencyInjectionService.getInstance().inject(this);
-                staticTaskService = taskService;
-            } else {
-                taskService = staticTaskService;
-            }
-        }
-
-        Task task = taskService.fetchById(id, Task.FLAGS, Task.RECURRENCE);
+        Task task = PluginServices.getTaskService().fetchById(id, Task.FLAGS, Task.RECURRENCE);
         if(task == null)
             return null;
 

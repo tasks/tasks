@@ -22,6 +22,14 @@ import com.todoroo.andlib.sql.QueryTemplate;
  */
 public final class Filter extends FilterListItem {
 
+    // --- constants
+
+    /** Constant for valuesForNewTasks to indicate the value should be replaced
+     * with the current time as long */
+    public static final long VALUE_NOW = Long.MIN_VALUE + 1;
+
+    // --- instance variables
+
     /**
      * Expanded title of this filter. This is displayed at the top
      * of the screen when user is viewing this filter.

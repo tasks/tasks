@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="wrap_content"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:paddingLeft="3px">
     
     <ImageView
       android:layout_width="fill_parent"
@@ -11,7 +12,7 @@
       android:scaleType="center"
       android:src="@drawable/timers_decoration" />
       
-    <TextView android:id="@+id/timer"
+    <Chronometer android:id="@+id/timer"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:textSize="10sp" />

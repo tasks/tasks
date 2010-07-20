@@ -7,12 +7,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.TaskService;
 
 /**
  * Exposes Task Detail for notes
@@ -21,11 +19,6 @@ import com.todoroo.astrid.service.TaskService;
  *
  */
 public class NoteDetailExposer extends BroadcastReceiver implements DetailExposer {
-
-    private static TaskService staticTaskService;
-
-    @Autowired
-    private TaskService taskService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -53,16 +46,7 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
         if(!extended)
             return null;
 
-        synchronized(NoteDetailExposer.class) {
-            if(staticTaskService == null) {
-                DependencyInjectionService.getInstance().inject(this);
-                staticTaskService = taskService;
-            } else {
-                taskService = staticTaskService;
-            }
-        }
-
-        Task task = taskService.fetchById(id, Task.NOTES);
+        Task task = PluginServices.getTaskService().fetchById(id, Task.NOTES);
         if(task == null)
             return null;
         String notes = task.getValue(Task.NOTES);

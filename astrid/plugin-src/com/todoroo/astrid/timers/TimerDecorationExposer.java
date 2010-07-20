@@ -4,21 +4,20 @@
 package com.todoroo.astrid.timers;
 
 import java.util.HashMap;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.SystemClock;
 import android.widget.RemoteViews;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskDecoration;
-import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.model.Task;
 
 /**
  * Exposes {@link TaskDecoration} for timers
@@ -28,50 +27,13 @@ import com.todoroo.astrid.service.TaskService;
  */
 public class TimerDecorationExposer extends BroadcastReceiver {
 
-    private static final int TASK_BG_COLOR = Color.argb(200, 220, 50, 0);
+    private static final int TIMING_BG_COLOR = Color.argb(200, 220, 50, 0);
 
-    static TaskService staticTaskService;
     private static HashMap<Long, TaskDecoration> decorations =
         new HashMap<Long, TaskDecoration>();
-    private static HashMap<Long, Timer> timers =
-        new HashMap<Long, Timer>();
 
-    @Autowired
-    private TaskService taskService;
-
-    private static class TimerTimerTask extends TimerTask {
-        int time;
-        RemoteViews remoteViews;
-
-        public TimerTimerTask(int time, RemoteViews remoteViews) {
-            super();
-            this.time = time;
-            this.remoteViews = remoteViews;
-        }
-
-        @Override
-        public void run() {
-            time++;
-            int seconds = time % 60;
-            int minutes = time / 60;
-            if(minutes > 59) {
-                int hours = minutes / 60;
-                minutes %= 60;
-                remoteViews.setTextViewText(R.id.timer,
-                        String.format("%02d:%02d:%02d", //$NON-NLS-1$
-                                hours, minutes, seconds));
-            } else {
-                remoteViews.setTextViewText(R.id.timer,
-                        String.format("%02d:%02d", //$NON-NLS-1$
-                                minutes, seconds));
-            }
-        }
-    }
-
-    public void removeFromCache(long taskId) {
+    public static void removeFromCache(long taskId) {
         decorations.remove(taskId);
-        timers.get(taskId).cancel();
-        timers.remove(taskId);
     }
 
     @Override
@@ -80,30 +42,31 @@ public class TimerDecorationExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        synchronized(TimerDecorationExposer.class) {
-            if(staticTaskService == null) {
-                DependencyInjectionService.getInstance().inject(this);
-                staticTaskService = taskService;
-            } else {
-                taskService = staticTaskService;
-            }
-        }
+        Task task = PluginServices.getTaskService().fetchById(taskId, Task.ELAPSED_SECONDS, Task.TIMER_START);
+        if(task == null || (task.getValue(Task.ELAPSED_SECONDS) == 0 &&
+                task.getValue(Task.TIMER_START) == 0))
+            return;
 
         TaskDecoration decoration;
-
         if(!decorations.containsKey(taskId)) {
             RemoteViews remoteViews = new RemoteViews(context.getPackageName(),
                     R.layout.timer_decoration);
             decoration = new TaskDecoration(remoteViews,
-                    TaskDecoration.POSITION_LEFT, TASK_BG_COLOR);
+                    TaskDecoration.POSITION_LEFT, 0);
             decorations.put(taskId, decoration);
-            Timer timer = new Timer();
-            timers.put(taskId, timer);
-            timer.scheduleAtFixedRate(new TimerTimerTask(0,
-                    remoteViews), 0, 1000L);
         } else {
             decoration = decorations.get(taskId);
         }
+
+        long elapsed = task.getValue(Task.ELAPSED_SECONDS) * 1000L;
+        if(task.getValue(Task.TIMER_START) != 0) {
+            decoration.color = TIMING_BG_COLOR;
+            elapsed += DateUtilities.now() - task.getValue(Task.TIMER_START);
+        }
+
+        // update timer
+        decoration.decoration.setChronometer(R.id.timer, SystemClock.elapsedRealtime() -
+                elapsed, null, decoration.color != 0);
 
         // transmit
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DECORATIONS);

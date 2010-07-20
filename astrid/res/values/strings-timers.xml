@@ -12,5 +12,11 @@
     
     <!-- Task Detail (%s => time) -->
     <string name="TDE_label">Elapsed Time: %s</string>
+    
+    <!-- Filter Header -->
+    <string name="TFE_category">Timer Filters</string>
+    
+    <!-- Filter -->
+    <string name="TFE_workingOn">Tasks Being Timed</string>
         
 </resources>
