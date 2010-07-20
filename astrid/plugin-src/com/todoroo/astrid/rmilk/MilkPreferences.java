@@ -99,6 +99,11 @@ public class MilkPreferences extends TodorooPreferences {
                     }
                 });
             }
+            // sync is occurring
+            else if(Utilities.isOngoing()) {
+                status = r.getString(R.string.rmilk_status_ongoing);
+                statusColor = Color.rgb(0, 0, 100);
+            }
             // last sync was error
             else if(Utilities.getLastAttemptedSyncDate() != 0) {
                 status = r.getString(R.string.rmilk_status_failed,

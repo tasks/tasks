@@ -32,20 +32,20 @@ import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.MilkLoginActivity;
-import com.todoroo.astrid.rmilk.MilkLoginActivity.SyncLoginCallback;
 import com.todoroo.astrid.rmilk.Utilities;
+import com.todoroo.astrid.rmilk.MilkLoginActivity.SyncLoginCallback;
 import com.todoroo.astrid.rmilk.api.ApplicationInfo;
 import com.todoroo.astrid.rmilk.api.ServiceImpl;
 import com.todoroo.astrid.rmilk.api.ServiceInternalException;
-import com.todoroo.astrid.rmilk.api.data.RtmAuth.Perms;
 import com.todoroo.astrid.rmilk.api.data.RtmList;
 import com.todoroo.astrid.rmilk.api.data.RtmLists;
 import com.todoroo.astrid.rmilk.api.data.RtmTask;
-import com.todoroo.astrid.rmilk.api.data.RtmTask.Priority;
 import com.todoroo.astrid.rmilk.api.data.RtmTaskList;
 import com.todoroo.astrid.rmilk.api.data.RtmTaskNote;
 import com.todoroo.astrid.rmilk.api.data.RtmTaskSeries;
 import com.todoroo.astrid.rmilk.api.data.RtmTasks;
+import com.todoroo.astrid.rmilk.api.data.RtmAuth.Perms;
+import com.todoroo.astrid.rmilk.api.data.RtmTask.Priority;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
 import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -106,7 +106,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
     private void handleRtmException(Context context, String tag, Exception e,
             boolean showErrorIfNeeded) {
 
-        Utilities.setLastError(e.getMessage());
+        Utilities.setLastError(e.toString());
 
         // occurs when application was closed
         if(e instanceof IllegalStateException) {
@@ -217,6 +217,8 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
         	// occurs when application was closed
         } catch (Exception e) {
             handleRtmException(context, "rtm-authenticate", e, true);
+        } finally {
+            Utilities.stopOngoing();
         }
     }
 

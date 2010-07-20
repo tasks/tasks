@@ -154,7 +154,7 @@ public abstract class AbstractModel implements Parcelable {
         if(setValues != null && setValues.containsKey(property.name))
             value = setValues.get(property.name);
 
-        else if(values != null && values.containsKey(property.name))
+        else if(values != null && values.containsKey(property.name) && (values.get(property.name) != null))
             value = values.get(property.name);
 
         else if(getDefaultValues().containsKey(property.name))

@@ -17,8 +17,8 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -238,6 +238,8 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
         for(int i = 0; i < length; i++) {
             data.localUpdated.moveToNext();
             TYPE local = read(data.localUpdated);
+            if(local.task == null)
+                continue;
 
             // if there is a conflict, merge
             int remoteIndex = matchTask((ArrayList<TYPE>)data.remoteUpdated, local);
