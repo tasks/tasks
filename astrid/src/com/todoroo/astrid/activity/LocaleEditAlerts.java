@@ -1,4 +1,4 @@
-package com.timsu.astrid.activities;
+package com.todoroo.astrid.activity;
 
 import java.util.LinkedList;
 
