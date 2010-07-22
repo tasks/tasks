@@ -64,6 +64,8 @@ public class Utilities {
 
     private static final String PREF_LAST_ERROR = "rmilk_last_error";
 
+    private static final String PREF_ONGOING = "rmilk_ongoing";
+
     // --- Preference Utility Methods
 
     /** Get preferences object from the context */
@@ -105,6 +107,11 @@ public class Utilities {
         return getPrefs().getString(PREF_LAST_ERROR, null);
     }
 
+    /** @return RTM Last Error, or null if no last error */
+    public static boolean isOngoing() {
+        return getPrefs().getBoolean(PREF_ONGOING, false);
+    }
+
     /** Deletes RTM Last Successful Sync Date */
     public static void clearLastSyncDate() {
         Editor editor = getPrefs().edit();
@@ -116,6 +123,13 @@ public class Utilities {
     public static void setLastError(String error) {
         Editor editor = getPrefs().edit();
         editor.putString(PREF_LAST_ERROR, error);
+        editor.commit();
+    }
+
+    /** Set RTM Ongoing */
+    public static void stopOngoing() {
+        Editor editor = getPrefs().edit();
+        editor.putBoolean(PREF_ONGOING, false);
         editor.commit();
     }
 
@@ -132,6 +146,7 @@ public class Utilities {
         Editor editor = getPrefs().edit();
         editor.putLong(PREF_LAST_ATTEMPTED_SYNC, DateUtilities.now());
         editor.putString(PREF_LAST_ERROR, null);
+        editor.putBoolean(PREF_ONGOING, true);
         editor.commit();
     }
 

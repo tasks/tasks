@@ -374,7 +374,7 @@ public class ServiceImpl
     params.add(new Param("method", "rtm.tasks.getList"));
     params.add(new Param("auth_token", currentAuthToken));
     params.add(new Param("api_key", applicationInfo.getApiKey()));
-    params.add(new Param("filter", "name:" + taskName));
+    params.add(new Param("filter", "name:\"" + taskName+"\""));
     RtmTasks rtmTasks = new RtmTasks(invoker.invoke(params.toArray(new Param[params.size()])));
     return findTask(taskSeriesId, rtmTasks);
   }

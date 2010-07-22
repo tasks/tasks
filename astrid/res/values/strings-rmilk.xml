@@ -54,6 +54,8 @@
     
     <!-- Status: log in -->    
     <string name="rmilk_status_loggedout">Please Log In To RTM!</string>
+    <!-- Status: ongoing -->    
+    <string name="rmilk_status_ongoing">Sync Ongoing...</string>
     <!-- Status: success (%s -> last sync date) -->    
     <string name="rmilk_status_success">Last Sync: %s</string>
     <!-- Status: error (%s -> last attempted sync date) -->    
