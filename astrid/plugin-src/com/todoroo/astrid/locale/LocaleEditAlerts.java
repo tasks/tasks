@@ -10,16 +10,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagModelForView;
-import com.timsu.astrid.utilities.Constants;
 
 /**
  * Activity to edit alerts from Locale
@@ -30,10 +29,14 @@ import com.timsu.astrid.utilities.Constants;
 public final class LocaleEditAlerts extends Activity {
 
     /** value for action type for tag alert */
+    @SuppressWarnings("nls")
     public static final String ACTION_LOCALE_ALERT = "com.timsu.astrid.action.LOCALE_ALERT";
 
     /** key name for tag id/name in bundle */
+    @SuppressWarnings("nls")
     public static final String KEY_TAG_ID = "tag";
+
+    @SuppressWarnings("nls")
     public static final String KEY_TAG_NAME = "name";
 
     private LinkedList<TagModelForView> tags = null;
