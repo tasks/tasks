@@ -72,16 +72,16 @@ public class BackupService extends Service {
             exporter.setContext(ctx);
             exporter.exportTasks(backupDirectorySetting.getBackupDirectory());
             Preferences.setBackupSummary(ctx,
-                    ctx.getString(R.string.prefs_backup_desc_success,
+                    ctx.getString(R.string.BPr_backup_desc_success,
                             BackupDateUtilities.getFormattedDate(ctx, new Date())));
         } catch (Exception e) {
             // unable to backup.
             if (e == null || e.getMessage() == null) {
                 Preferences.setBackupSummary(ctx,
-                        ctx.getString(R.string.prefs_backup_desc_failure_null));
+                        ctx.getString(R.string.BPr_backup_desc_failure_null));
             } else {
                 Preferences.setBackupSummary(ctx,
-                        ctx.getString(R.string.prefs_backup_desc_failure,
+                        ctx.getString(R.string.BPr_backup_desc_failure,
                                 e.toString()));
             }
         }

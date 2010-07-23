@@ -148,7 +148,7 @@ public class StartupService {
                     };
 
                     new AlertDialog.Builder(context)
-                    .setTitle(R.string.information_title)
+                    .setTitle(R.string.DLG_information_title)
                     .setMessage(context.getString(R.string.task_killer_help,
                             appName))
                     .setIcon(android.R.drawable.ic_dialog_alert)

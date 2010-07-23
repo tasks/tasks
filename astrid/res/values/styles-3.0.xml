@@ -79,5 +79,12 @@
         <item name="android:textColor">#ff7ada24</item>
         <item name="android:textStyle">bold|italic</item>
     </style>
+
+    <!-- ======================== FilterListAdapter ======================== -->
+
+    <style name="TextAppearance.Widget">                                                                                                                                                                                      
+        <item name="android:textSize">14sp</item>                                                                                                                                                                    
+        <item name="android:textColor">@android:color/black</item>                                                                                                                                                   
+    </style> 
     
 </resources>

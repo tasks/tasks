@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Resources for built-in backup plug-in -->
+
+    <string name="BPr_backup_title">Automatic Backups</string>
+
+    <!--  backup summary when there is no backup message -->
+    <string name="BPr_backup_desc">Perform daily backups to sdcard.</string>
+
+    <!--  backup failure message (%s -> error message) -->
+    <string name="BPr_backup_desc_failure">Last backup failed: %s</string>
+
+    <!--  backup failure error when error message is null -->
+    <string name="BPr_backup_desc_failure_null">Last backup failed, could not read SD card</string>
+
+    <!--  backup success message (%s -> date) -->
+    <string name="BPr_backup_desc_success">Latest backup was on %s</string>
+    
+    <string name="export_toast">Backed Up %s to %s.</string>
+    <string name="import_summary_title">Restore Summary</string>
+    <string name="import_summary_message">
+File %s contained %d tasks.\n
+Restored %d tasks.\n
+Skipped %d tasks.\n
+    </string>
+    <string name="import_progress_title">Restore</string>
+    <string name="import_progress_open">Opening file...</string>
+    <string name="import_progress_opened">File opened...</string>
+    <string name="import_progress_read">Reading task %d...</string>
+    <string name="import_progress_skip">Skipped task %d...</string>
+    <string name="import_progress_add">Restored task %d...</string>
+    <string name="import_file_prompt">Select a File to Restore</string>    
+        
+</resources>

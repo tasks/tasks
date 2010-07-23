@@ -27,8 +27,8 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TabActivity;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,7 +42,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -56,6 +55,7 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -212,10 +212,10 @@ public final class TaskEditActivity extends TabActivity {
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
         controls.add(new GCalControlSet(this, addonsAddons));
         controls.add(new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
-                R.id.estimatedDuration, 0, R.string.hour_minutes_dialog,
+                R.id.estimatedDuration, 0, R.string.DLG_hour_minutes,
                 TimeDurationType.HOURS_MINUTES));
         controls.add(new TimeDurationTaskEditControlSet(Task.ELAPSED_SECONDS, R.id.elapsedDuration,
-                0, R.string.hour_minutes_dialog,
+                0, R.string.DLG_hour_minutes,
                 TimeDurationType.HOURS_MINUTES));
 
         // read data

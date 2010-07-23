@@ -147,7 +147,7 @@ public class RepeatControlSet implements TaskEditControlSet {
                             int number) {
                         setRepeatValue(number);
                     }
-                }, activity.getResources().getString(R.string.repeat_picker_title),
+                }, activity.getResources().getString(R.string.repeat_interval_prompt),
                 dialogValue, 1, 1, 365).show();
             }
         };

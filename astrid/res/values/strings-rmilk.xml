@@ -44,7 +44,7 @@
     
     <!-- ======================== MilkPreferences ========================== -->
 
-    <!-- Title -->    
+    <!-- Milk Preferences Title -->    
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
     <!-- Status Group Label -->    

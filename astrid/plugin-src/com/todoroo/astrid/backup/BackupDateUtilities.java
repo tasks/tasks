@@ -22,19 +22,24 @@ package com.todoroo.astrid.backup;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import android.util.Log;
 
+/**
+ * Date Utility functions for backups
+ *
+ * @author Tim Su <tim@todoroo.com>
+ *
+ */
+@SuppressWarnings("nls")
 public class BackupDateUtilities {
 
     private static final String ISO_8601_FORMAT = "yyyy-MM-dd'T'HH:mm:ssz";
 
-
-
-    /* Format a Date into ISO 8601 Compliant format.
-
+    /**
+     * Format a Date into ISO 8601 Complaint format.
+     * @return date string, or empty string if input was null
      */
     public static String getIso8601String(Date d) {
         SimpleDateFormat sdf = new SimpleDateFormat(ISO_8601_FORMAT);
@@ -45,9 +50,10 @@ public class BackupDateUtilities {
         return result;
     }
 
-    /* Take an ISO 8601 string and return a Date object.
-       On failure, returns null.
-    */
+    /**
+     * Take an ISO 8601 string and return a Date object.
+     * On failure, returns null.
+     */
     public static Date getDateFromIso8601String(String s) {
         SimpleDateFormat df = new SimpleDateFormat(ISO_8601_FORMAT);
         try {
@@ -58,25 +64,12 @@ public class BackupDateUtilities {
         }
     }
 
-    /* Get current date and time as a string.
-    Used in TasksXmlExporter
+    /**
+     * Get current date and time as a string. Used for naming backup files.
      */
     public static String getDateForExport() {
         DateFormat df = new SimpleDateFormat("yyMMdd-HHmm");
         return df.format(new Date());
     }
 
-    public static boolean wasCreatedBefore(String s, int daysAgo) {
-        DateFormat df = new SimpleDateFormat("yyMMdd");
-        Date date;
-        try {
-            date = df.parse(s);
-        } catch (ParseException e) {
-            return false;
-        }
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -daysAgo);
-        Date calDate = cal.getTime();
-        return date.before(calDate);
-    }
 }

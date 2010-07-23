@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Resources for built-in locale plug-in -->
+
+  <!-- Locale Alert Editing Window Title -->
+  <string name="locale_edit_alerts_title">Astrid Tag Alert</string>
+  
+  <!-- Locale Window Help -->                                                                                                                                            
+  <string name="locale_edit_intro">Astrid will send you a reminder                                                                                                                                             
+      when you have uncompleted tasks in the following filter:</string>
+      
+  <!-- Locale Window Filter Picker UI -->                                                                                                                                        
+  <string name="locale_pick_filter">Filter:</string>        
+
+  <!-- Locale style -->
+  <style name="TextAppearance.Locale_Label">                                                                                                                                                                       
+      <item name="android:textSize">16sp</item>                                                                                                                                                                    
+      <item name="android:textColor">@android:color/black</item>                                                                                                                                                   
+  </style>   
+
+</resources>

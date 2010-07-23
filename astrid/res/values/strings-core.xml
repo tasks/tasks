@@ -2,7 +2,7 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-  <!-- ======================== AndroidManifest ========================== -->
+  <!-- ================================================== AndroidManifest == -->
 
   <string name="app_name">Astrid Tasks</string>
   
@@ -70,8 +70,13 @@
     <item quantity="one">1 Sec</item>
     <item quantity="other">%d Sec</item>
   </plurals>
+  <plurals name="Ntasks">
+    <!-- plurals: tasks -->
+    <item quantity="one">1 Task</item>
+    <item quantity="other">%d Tasks</item>
+  </plurals>
   
-  <!-- ========================= Generic Dialogs ========================= -->
+  <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->
   <string name="DLG_confirm_title">Confirm?</string>
@@ -115,7 +120,19 @@
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Please wait...</string>
   
-  <!-- ============================= Widgets ============================= -->
+  <!-- Title for dialog selecting a time (hours and minutes) -->
+  <string name="DLG_hour_minutes">Time (hours : minutes)</string>
+
+  <!-- Dialog when unable to open a file -->  
+  <string name="DLG_error_opening">Could not find this item: </string>
+  
+  <!-- Dialog when unable to open SD card folder -->
+  <string name="DLG_error_sdcard">Cannot access folder: %s</string>
+  
+  <!-- Dialog when unable to open SD card in general -->
+  <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
+  
+  <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
   <string name="WID_dateButtonUnset">Click To Set</string>
@@ -126,7 +143,7 @@
   <!-- String formatter for Disable button -->
   <string name="WID_disableButton">Disable</string>
   
-  <!-- ======================== TaskListActivity ========================  -->
+  <!-- ================================================= TaskListActivity == -->
   
   <!-- Displayed instead of list when no items present -->    
   <string name="TLA_no_items">No Tasks!</string>
@@ -164,7 +181,7 @@ to your list of filters.
 button: add task & go to the edit page.
   ]]></string>
   
-  <!-- =========================== TaskAdapter =========================== -->
+  <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
   <string name="TAd_hiddenFormat">%s [hidden]</string>
@@ -190,18 +207,18 @@ button: add task & go to the edit page.
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Undelete Task</string>
   
-  <!-- ======================= FilterListActivity ======================== -->
+  <!-- =============================================== FilterListActivity == -->
 
-  <!-- Title -->    
+  <!-- Filter List Activity Title -->    
   <string name="FLA_title">Astrid: Filters</string>
   
-  <!-- Loading -->    
+  <!-- Displayed when loading filters -->    
   <string name="FLA_loading">Loading Filters...</string>
   
-  <!-- Context Menu: Shortcut -->    
+  <!-- Context Menu: Create Shortcut -->    
   <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
   
-  <!-- Menu: Search Hint -->    
+  <!-- Menu: Search -->
   <string name="FLA_menu_search">Search Tasks...</string>
   
   <!-- Menu: Help -->    
@@ -322,14 +339,9 @@ to the plugin creator for fastest service.
   <!-- Toast: task was deleted -->
   <string name="TEA_onTaskDelete">Task Deleted!</string>
   
-  <!-- ========================== Notifications ========================== -->
-
-  <!-- Notification title for tasks -->
-  <string name="Ntf_task_title">Astrid: New Reminder</string>
+  <!-- ===================== IntroductionActivity == -->
   
-  <!-- ===================== IntroductionActivity ======================== -->
-  
-  <!-- Window title -->
+  <!-- Introduction Window title -->
   <string name="InA_title">Welcome to Astrid!</string>
   
   <!-- Button to agree to EULA -->
@@ -338,37 +350,46 @@ to the plugin creator for fastest service.
   <!-- Button to disagree with EULA -->
   <string name="InA_disagree">I Disagree</string>
   
-  <!-- =========================== HelpActivity ========================== -->
+  <!-- ===================================================== HelpActivity == -->
   
-  <!-- Button to send e-mail to Todoroo -->
-  <string name="HlA_email_us">E-mail Todoroo</string>
+  <!-- Help: Button to get support from our website -->
+  <string name="HlA_get_support">Get Support</string>
     
-  <!-- ========================== UpdateService ========================== -->
+  <!-- ==================================================== UpdateService == -->
   
-  <!-- Change Log Window Title -->
+  <!-- Changelog Window Title -->
   <string name="UpS_changelog_title">What\'s New In Astrid?</string>
   
-  <!-- ========================= EditPreferences ========================= -->
+  <!-- ================================================== EditPreferences == -->
     
-  <!-- Window Title -->
+  <!-- Preference Window Title -->
   <string name="EPr_title">Astrid: Preferences</string>
 
-  <!-- Defaults Title -->
+  <!-- Preference Category: Appearance Title -->
+  <string name="EPr_appearance_header">Appearance</string>
+  
+  <!-- Preference: Task List Font Size Title -->
+  <string name="EPr_fontSize_title">Task List Size</string>
+  
+  <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
+  <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
+  
+  <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">New Task Defaults</string>
   
-  <!-- Default Urgency Title -->
+  <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Default Urgency</string>
-  <!-- Default Urgency Description (%s => setting) -->
+  <!-- Preference: Default Urgency Description (%s => setting) -->
   <string name="EPr_default_urgency_desc">Currently Set To: %s</string>
   
-  <!-- Default Importance Title -->
+  <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Default Importance</string>
-  <!-- Default Importance Description (%s => setting) -->
+  <!-- Preference: Default Importance Description (%s => setting) -->
   <string name="EPr_default_importance_desc">Currently Set To: %s</string>
   
-  <!-- Default Hide Until Title -->
+  <!-- Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">Default Hide Until</string>
-  <!-- Default Hide Until Description (%s => setting) -->
+  <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_hideUntil_desc">Currently Set To: %s</string>
   
   <!-- ==================================================== AddOnActivity == -->
@@ -383,5 +404,20 @@ to the plugin creator for fastest service.
   
   <!-- Sync Notification: toast when sync activated from activity -->
   <string name="SyP_progress_toast">Synchronizing...</string>
+  
+  <!-- ====================================================== TasksWidget == -->
+
+  <!-- Widget text when loading tasks -->                                                                                                                                                                          
+  <string name="TWi_loading">Loading...</string>
+  
+  <!-- ============================================================= Misc == -->
+  
+  <!-- %s => name of the application -->
+  <string name="task_killer_help">
+It looks like you are using an app that can kill processes (%s)! If you can,
+add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
+Astrid might not let you know when your tasks are due.\n
+  </string>
+  <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
     
 </resources>

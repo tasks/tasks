@@ -162,10 +162,7 @@ public class LegacyTasksXmlExporter {
     }
 
     private void displayToast() {
-        CharSequence text = String.format(ctx.getString(R.string.export_toast),
-                ctx.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
-                exportCount), output);
-        Toast.makeText(ctx, text, Toast.LENGTH_LONG).show();
+        // no toast in legacy exporter
     }
 
     private void displayErrorToast(String error) {
@@ -219,7 +216,7 @@ public class LegacyTasksXmlExporter {
                 return true;
             } else {
                 // Unable to make the /sdcard/astrid directory.
-                String error = ctx.getString(R.string.error_sdcard, astridDir.getAbsolutePath());
+                String error = ctx.getString(R.string.DLG_error_sdcard, astridDir.getAbsolutePath());
                 Log.e("TasksXmlExporter", error);
                 if (!isService) {
                     displayErrorToast(error);
@@ -228,7 +225,7 @@ public class LegacyTasksXmlExporter {
             }
         } else {
             // Unable to access the sdcard because it's not in the mounted state.
-            String error = ctx.getString(R.string.error_sdcard_general);
+            String error = ctx.getString(R.string.DLG_error_sdcard_general);
             Log.e("TasksXmlExporter", error);
             if (!isService) {
                 displayErrorToast(error);

@@ -51,7 +51,6 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
 
     public TimeDurationControlSet(Activity activity, int timeButtonId,
             int prefixResource, int titleResource, TimeDurationType type) {
-        Resources r = activity.getResources();
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
@@ -67,8 +66,8 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
                     activity.getResources().getString(titleResource),
                     new int[] {0, 0}, new int[] {1, 1}, new int[] {0, 0},
                     new int[] {31, 23}, new String[] {
-                        r.getString(R.string.daysVertical),
-                        r.getString(R.string.hoursVertical)
+                        "d\na\ny\ns",
+                        "h\nr\ns"
                     });
             break;
         case HOURS_MINUTES:
@@ -93,7 +92,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
 
         Resources r = activity.getResources();
         if(timeDurationInSeconds == 0) {
-            timeButton.setText(r.getString(R.string.blank_button_title));
+            timeButton.setText(r.getString(R.string.WID_dateButtonUnset));
             return;
         }
 

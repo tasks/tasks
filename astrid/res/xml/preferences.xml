@@ -4,13 +4,13 @@
     android:title="@string/EPr_title">
 
     <PreferenceCategory
-        android:title="@string/prefs_category_appearance">
+        android:title="@string/EPr_appearance_header">
         <ListPreference
             android:key="@string/p_fontSize"
             android:entries="@array/EPr_font_size"
             android:entryValues="@array/EPr_font_size"
-            android:title="@string/prefs_fontSize_title"
-            android:summary="@string/prefs_fontSize_desc" />
+            android:title="@string/EPr_fontSize_title"
+            android:summary="@string/EPr_fontSize_desc" />
     </PreferenceCategory>
 
     <!-- PreferenceCategory
@@ -19,11 +19,6 @@
             android:key="@string/p_backup"
             android:title="@string/prefs_backup_title"
             android:summary="@string/prefs_backup_desc"
-            android:defaultValue="true" />
-       <ListPreference
-            android:key="@string/prefs_defaultCalendar"
-            android:title="@string/prefs_defaultCalendar_title"
-            android:summary="@string/prefs_defaultCalendar_desc" />
-    </PreferenceCategory> -->
+            android:defaultValue="true" /> -->
     
 </PreferenceScreen>

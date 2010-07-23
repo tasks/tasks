@@ -25,8 +25,8 @@
   <permission android:name="com.timsu.astrid.permission.READ_TASKS"
               android:permissionGroup="android.permission-group.MESSAGES"
               android:protectionLevel="normal"
-              android:label="@string/read_tasks_permission"
-              android:description="@string/read_tasks_permission"/>
+              android:label="@string/read_permission_label"
+              android:description="@string/read_permission_desc"/>
   <uses-permission android:name="com.timsu.astrid.permission.READ_TASKS"/>
   
   <!-- for reading data from plugins or astrid -->
@@ -88,8 +88,7 @@
     </activity>
     <!-- Activity that creates or edits tasks -->
     <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
-              android:windowSoftInputMode="stateHidden"
-              android:label="@string/taskEdit_label">
+              android:windowSoftInputMode="stateHidden">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.DEFAULT" />

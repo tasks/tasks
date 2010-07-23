@@ -23,7 +23,7 @@
             android:paddingBottom="10dip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/locale_pick_tag"
+            android:text="@string/locale_pick_filter"
             style="@style/TextAppearance.Locale_Label" />
             
         <Spinner

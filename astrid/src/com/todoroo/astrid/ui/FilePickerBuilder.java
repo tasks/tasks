@@ -20,7 +20,7 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
         void onFilePicked(String filePath);
     }
 
-    private OnFilePickedListener callback;
+    private final OnFilePickedListener callback;
     private String[] files;
     private String path;
     private FilenameFilter filter;
@@ -54,7 +54,7 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
             setItems(files, this);
         } else {
             Log.e("FilePicker", "Cannot access sdcard.");
-            setMessage(R.string.error_sdcard + "sdcard");
+            setMessage(R.string.DLG_error_sdcard + "sdcard");
         }
     }
 

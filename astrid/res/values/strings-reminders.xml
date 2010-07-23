@@ -111,7 +111,6 @@
   <!-- Default Reminders Setting (%s => setting) -->
   <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
   
-  
   <!-- Defaults Title -->
   <string name="rmd_EPr_defaults_header">New Task Defaults</string>
   
@@ -135,6 +134,63 @@
     <item>336</item>
     <item>730</item>
     <item>1460</item>
+  </string-array>
+        
+  <string-array name="EPr_quiet_hours_start">
+    <!-- quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
+    <item>disabled</item>
+    <item>8 PM</item>
+    <item>9 PM</item>
+    <item>10 PM</item>
+    <item>11 PM</item>
+    <item>12 AM</item>
+    <item>1 AM</item>
+    <item>2 AM</item>
+    <item>3 AM</item>
+    <item>4 AM</item>
+    <item>5 AM</item>
+    <item>6 AM</item>
+    <item>7 AM</item>
+    <item>8 AM</item>
+    <item>9 AM</item>
+    <item>10 AM</item>
+    <item>11 AM</item>
+    <item>12 PM</item>
+    <item>1 PM</item>
+    <item>2 PM</item>
+    <item>3 PM</item>
+    <item>4 PM</item>
+    <item>5 PM</item>
+    <item>6 PM</item>
+    <item>7 PM</item>
+  </string-array>
+  
+  <string-array name="EPr_quiet_hours_end">
+    <!-- quiet_hours_end: options for preference menu. Translate but don't change the times! -->
+    <item>9 AM</item>
+    <item>10 AM</item>
+    <item>11 AM</item>
+    <item>12 PM</item>
+    <item>1 PM</item>
+    <item>2 PM</item>
+    <item>3 PM</item>
+    <item>4 PM</item>
+    <item>5 PM</item>
+    <item>6 PM</item>
+    <item>7 PM</item>
+    <item>8 PM</item>
+    <item>9 PM</item>
+    <item>10 PM</item>
+    <item>11 PM</item>
+    <item>12 AM</item>
+    <item>1 AM</item>
+    <item>2 AM</item>
+    <item>3 AM</item>
+    <item>4 AM</item>
+    <item>5 AM</item>
+    <item>6 AM</item>
+    <item>7 AM</item>
+    <item>8 AM</item>
   </string-array>
   
   <!-- =============================================== random reminders == -->

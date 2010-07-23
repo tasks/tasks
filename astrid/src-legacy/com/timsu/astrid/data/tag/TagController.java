@@ -32,11 +32,12 @@ import android.database.sqlite.SQLiteDatabase;
 import com.timsu.astrid.data.AbstractController;
 import com.timsu.astrid.data.tag.AbstractTagModel.TagModelDatabaseHelper;
 import com.timsu.astrid.data.tag.TagToTaskMapping.TagToTaskMappingDatabaseHelper;
-import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.timsu.astrid.provider.TasksProvider;
 
 /** Controller for Tag-related operations */
+@Deprecated
 public class TagController extends AbstractController {
 
     private SQLiteDatabase tagDatabase, tagToTaskMapDatabase;

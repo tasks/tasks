@@ -5,7 +5,7 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    style="@style/WidgetBackground">
+    android:background="@drawable/widget_frame">
 
     <ImageButton
     	android:src="@drawable/button_plus" 
@@ -23,6 +23,6 @@
         android:layout_marginTop="37dip"
         android:padding="10dip"
         android:gravity="center"
-        android:text="@string/widget_loading"
-        style="@style/Text.Loading" />
+        android:text="@string/TWi_loading"
+        style="@style/TextAppearance.Widget" />
 </LinearLayout>

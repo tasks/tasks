@@ -50,6 +50,7 @@ import com.todoroo.astrid.widget.TasksWidget.UpdateService;
  * @author timsu
  *
  */
+@Deprecated
 public class TaskController extends AbstractController {
 
     private SQLiteDatabase database;
