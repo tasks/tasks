@@ -642,7 +642,7 @@ public class TaskAdapter extends CursorAdapter {
      * ========================================================= addon helper
      * ====================================================================== */
 
-    abstract private class AddOnManager<TYPE> {
+    abstract public class AddOnManager<TYPE> {
 
         private final Map<Long, HashMap<String, TYPE>> cache =
             new SoftHashMap<Long, HashMap<String, TYPE>>();
