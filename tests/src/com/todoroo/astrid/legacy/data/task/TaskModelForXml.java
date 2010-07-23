@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.util.Log;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.utilities.DateUtilities;
+import com.timsu.astrid.utilities.BackupDateUtilities;
 import com.todoroo.astrid.legacy.data.AbstractController;
 import com.todoroo.astrid.legacy.data.enums.Importance;
 import com.todoroo.astrid.legacy.data.enums.RepeatInterval;
@@ -64,7 +64,7 @@ public class TaskModelForXml extends AbstractTaskModel {
      */
     private void safePutDate(String field, Date value) {
         if (value != null) {
-            taskAttributesMap.put(field, DateUtilities.getIso8601String(value));
+            taskAttributesMap.put(field, BackupDateUtilities.getIso8601String(value));
         }
     }
 
@@ -132,16 +132,16 @@ public class TaskModelForXml extends AbstractTaskModel {
             setElapsedSeconds(Integer.parseInt(value));
         }
         else if(field.equals(TIMER_START)) {
-            setTimerStart(DateUtilities.getDateFromIso8601String(value));
+            setTimerStart(BackupDateUtilities.getDateFromIso8601String(value));
         }
         else if(field.equals(DEFINITE_DUE_DATE)) {
-            setDefiniteDueDate(DateUtilities.getDateFromIso8601String(value));
+            setDefiniteDueDate(BackupDateUtilities.getDateFromIso8601String(value));
         }
         else if(field.equals(PREFERRED_DUE_DATE)) {
-            setPreferredDueDate(DateUtilities.getDateFromIso8601String(value));
+            setPreferredDueDate(BackupDateUtilities.getDateFromIso8601String(value));
         }
         else if(field.equals(HIDDEN_UNTIL)) {
-            setHiddenUntil(DateUtilities.getDateFromIso8601String(value));
+            setHiddenUntil(BackupDateUtilities.getDateFromIso8601String(value));
         }
         else if(field.equals(BLOCKING_ON)) {
             setBlockingOn(new TaskIdentifier(Long.parseLong(value)));
@@ -153,16 +153,16 @@ public class TaskModelForXml extends AbstractTaskModel {
             setNotificationIntervalSeconds(Integer.parseInt(value));
         }
         else if(field.equals(CREATION_DATE)) {
-            setCreationDate(DateUtilities.getDateFromIso8601String(value));
+            setCreationDate(BackupDateUtilities.getDateFromIso8601String(value));
         }
         else if(field.equals(COMPLETION_DATE)) {
-            setCompletionDate(DateUtilities.getDateFromIso8601String(value));
+            setCompletionDate(BackupDateUtilities.getDateFromIso8601String(value));
         }
         else if(field.equals(NOTIFICATION_FLAGS)) {
             setNotificationFlags(Integer.parseInt(value));
         }
         else if(field.equals(LAST_NOTIFIED)) {
-            setLastNotificationTime(DateUtilities.getDateFromIso8601String(value));
+            setLastNotificationTime(BackupDateUtilities.getDateFromIso8601String(value));
         }
         else if(field.equals(REPEAT_INTERVAL)) {
             try {

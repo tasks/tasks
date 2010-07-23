@@ -21,11 +21,6 @@ import android.util.Log;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.AbstractController;
-import com.timsu.astrid.data.alerts.Alert;
-import com.timsu.astrid.data.enums.RepeatInterval;
-import com.timsu.astrid.data.task.AbstractTaskModel;
-import com.timsu.astrid.utilities.TasksXmlExporter;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
@@ -37,6 +32,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.alarms.Alarm;
 import com.todoroo.astrid.alarms.AlarmDatabase;
+import com.todoroo.astrid.backup.TasksXmlExporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -136,10 +132,10 @@ public class Astrid2To3UpgradeHelper {
         // --- upgrade tasks table
         HashMap<String, Property<?>> propertyMap =
             new HashMap<String, Property<?>>();
-        propertyMap.put(AbstractController.KEY_ROWID, Task.ID);
+        propertyMap.put("_id", Task.ID); //$NON-NLS-1$
         propertyMap.put(AbstractTaskModel.NAME, Task.TITLE);
         propertyMap.put(AbstractTaskModel.NOTES, Task.NOTES);
-        // don't update progress percentage, we don't use this anymore
+        // (don't update progress percentage, we don't use this anymore)
         propertyMap.put(AbstractTaskModel.IMPORTANCE, Task.IMPORTANCE);
         propertyMap.put(AbstractTaskModel.ESTIMATED_SECONDS, Task.ESTIMATED_SECONDS);
         propertyMap.put(AbstractTaskModel.ELAPSED_SECONDS, Task.ELAPSED_SECONDS);
@@ -165,7 +161,7 @@ public class Astrid2To3UpgradeHelper {
         AlarmDatabase alarmsDatabase = new AlarmDatabase();
         alarmsDatabase.openForWriting();
         propertyMap.clear();
-        propertyMap.put(AbstractController.KEY_ROWID, Alarm.ID);
+        propertyMap.put("_id", Alarm.ID); //$NON-NLS-1$
         propertyMap.put(Alert.TASK, Alarm.TASK);
         propertyMap.put(Alert.DATE, Alarm.TIME);
         upgradeTable(context, alertsTable, propertyMap, new Alarm(),
@@ -201,38 +197,6 @@ public class Astrid2To3UpgradeHelper {
         public Cursor cursor;
         public TYPE model;
         public StringBuilder upgradeNotes;
-    }
-
-    /** Legacy repeatInfo class */
-    private static class RepeatInfo {
-        public static final int REPEAT_VALUE_OFFSET    = 3;
-
-        private final RepeatInterval interval;
-        private final int value;
-
-        public RepeatInfo(RepeatInterval repeatInterval, int value) {
-            this.interval = repeatInterval;
-            this.value = value;
-        }
-
-        public RepeatInterval getInterval() {
-            return interval;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public static RepeatInfo fromSingleField(int repeat) {
-            if(repeat == 0)
-                return null;
-            int value = repeat >> REPEAT_VALUE_OFFSET;
-            RepeatInterval interval = RepeatInterval.values()
-                [repeat - (value << REPEAT_VALUE_OFFSET)];
-
-            return new RepeatInfo(interval, value);
-        }
-
     }
 
     /**
@@ -477,5 +441,76 @@ public class Astrid2To3UpgradeHelper {
         }
     }
 
+    // --- legacy data structures
 
+    /** Legacy repeatInfo class */
+    private static class RepeatInfo {
+        public static final int REPEAT_VALUE_OFFSET    = 3;
+
+        private final RepeatInterval interval;
+        private final int value;
+
+        public RepeatInfo(RepeatInterval repeatInterval, int value) {
+            this.interval = repeatInterval;
+            this.value = value;
+        }
+
+        public RepeatInterval getInterval() {
+            return interval;
+        }
+
+        public int getValue() {
+            return value;
+        }
+
+        public static RepeatInfo fromSingleField(int repeat) {
+            if(repeat == 0)
+                return null;
+            int value = repeat >> REPEAT_VALUE_OFFSET;
+            RepeatInterval interval = RepeatInterval.values()
+            [repeat - (value << REPEAT_VALUE_OFFSET)];
+
+            return new RepeatInfo(interval, value);
+        }
+
+    }
+
+    /** Legacy repeat interval class */
+    private enum RepeatInterval {
+        DAYS,
+        WEEKS,
+        MONTHS,
+        HOURS
+    }
+
+    /** Legacy task class */
+    @SuppressWarnings("nls")
+    private abstract class AbstractTaskModel {
+
+        public static final String     NAME                   = "name";
+        public static final String     NOTES                  = "notes";
+        public static final String     IMPORTANCE             = "importance";
+        public static final String     ESTIMATED_SECONDS      = "estimatedSeconds";
+        public static final String     ELAPSED_SECONDS        = "elapsedSeconds";
+        public static final String     TIMER_START            = "timerStart";
+        public static final String     DEFINITE_DUE_DATE      = "definiteDueDate";
+        public static final String     PREFERRED_DUE_DATE     = "preferredDueDate";
+        public static final String     HIDDEN_UNTIL           = "hiddenUntil";
+        public static final String     POSTPONE_COUNT         = "postponeCount";
+        public static final String     NOTIFICATIONS          = "notifications";
+        public static final String     NOTIFICATION_FLAGS     = "notificationFlags";
+        public static final String     LAST_NOTIFIED          = "lastNotified";
+        public static final String     REPEAT                 = "repeat";
+        public static final String     CREATION_DATE          = "creationDate";
+        public static final String     COMPLETION_DATE        = "completionDate";
+        public static final String     CALENDAR_URI           = "calendarUri";
+        public static final String     FLAGS                  = "flags";
+    }
+
+    /** Legacy alert class */
+    @SuppressWarnings("nls")
+    private class Alert {
+        static final String                TASK                = "task";
+        static final String                DATE                = "date";
+    }
 }

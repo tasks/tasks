@@ -28,7 +28,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
+import com.timsu.astrid.data.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.legacy.data.AbstractController;
 import com.todoroo.astrid.legacy.data.AbstractModel;
 import com.todoroo.astrid.legacy.data.enums.Importance;

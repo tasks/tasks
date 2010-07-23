@@ -6,10 +6,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.timsu.astrid.utilities.BackupService;
 import com.timsu.astrid.utilities.Preferences;
-import com.timsu.astrid.utilities.BackupService.BackupDirectorySetting;
 import com.todoroo.andlib.test.TodorooTestCase;
+import com.todoroo.astrid.backup.BackupService;
+import com.todoroo.astrid.backup.BackupService.BackupDirectorySetting;
 
 public class BackupServiceTests extends TodorooTestCase {
 

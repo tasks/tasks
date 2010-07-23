@@ -100,32 +100,11 @@
         <data android:mimeType="vnd.android.cursor.item/task" />
       </intent-filter>      
     </activity>    
-    <!-- Activity that lets users log in to sync providers -->
-    <activity android:name=".activities.SyncLoginActivity"/>    
-    <!-- Activity that lets users edit app preferences -->
-    <activity android:name="com.todoroo.astrid.activity.EditPreferences"/>    
-    <!-- Activity that lets users edit synchronization preferences -->
-    <activity android:name=".activities.SyncPreferences"/>    
-    <!-- Activity that Locale displays to edit tag notification settings -->
-    <activity android:name=".activities.LocaleEditAlerts"
-              android:label="@string/locale_edit_alerts_title"
-              android:icon="@drawable/icon_32"
-              android:exported="true" >
-      <intent-filter>
-        <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
-      </intent-filter>
-    </activity>
 
     <!-- ======================================================= Receivers = -->
 
     <receiver android:name="com.todoroo.astrid.reminders.Notifications" />
     
-    <receiver android:name=".utilities.LocaleReceiver">
-      <intent-filter>
-        <action android:name="com.timsu.astrid.action.LOCALE_ALERT" />
-      </intent-filter>
-    </receiver>
-
     <receiver android:name="com.todoroo.astrid.widget.TasksWidget">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -137,7 +116,6 @@
     <!-- ======================================================== Services = -->
 
     <service android:name="com.todoroo.astrid.widget.TasksWidget$UpdateService" />
-    <service android:name=".utilities.BackupService"/>
 
     <!-- ======================================================= Providers = -->
 
@@ -204,9 +182,27 @@
         <action android:name="com.todoroo.astrid.TASK_COMPLETED" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
-    </receiver>    
+    </receiver>
+    
+    <!-- backup -->
+    <service android:name="com.todoroo.astrid.backup.BackupService"/>
     
     <!-- notes -->
+    
+    <!-- locale -->
+    <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
+              android:label="@string/locale_edit_alerts_title"
+              android:icon="@drawable/icon_32"
+              android:exported="true" >
+      <intent-filter>
+        <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+      </intent-filter>
+    </activity>
+    <receiver android:name="com.todoroo.astrid.locale.LocaleReceiver">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.action.LOCALE_ALERT" />
+      </intent-filter>
+    </receiver>
     
     <!-- timers -->
     <receiver android:name="com.todoroo.astrid.timers.TimerDecorationExposer">

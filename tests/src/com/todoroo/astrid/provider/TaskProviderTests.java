@@ -5,9 +5,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
-import com.timsu.astrid.data.task.TaskController;
-import com.timsu.astrid.data.task.TaskModelForEdit;
-import com.timsu.astrid.data.task.TaskModelForList;
+import com.timsu.astrid.data.TaskController;
+import com.timsu.astrid.data.TaskModelForEdit;
+import com.timsu.astrid.data.TaskModelForList;
 import com.timsu.astrid.provider.TasksProvider;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
