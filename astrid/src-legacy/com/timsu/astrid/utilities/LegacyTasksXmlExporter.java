@@ -19,17 +19,19 @@ import android.util.Xml;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.TaskController;
-import com.timsu.astrid.data.TaskIdentifier;
-import com.timsu.astrid.data.TaskModelForXml;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.sync.SyncMapping;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
+import com.timsu.astrid.data.task.TaskController;
+import com.timsu.astrid.data.task.TaskIdentifier;
+import com.timsu.astrid.data.task.TaskModelForXml;
 import com.todoroo.astrid.backup.BackupDateUtilities;
 
+@SuppressWarnings("nls")
+@Deprecated
 public class LegacyTasksXmlExporter {
 
     private TaskController taskController;
@@ -59,6 +61,9 @@ public class LegacyTasksXmlExporter {
     private static final String BACKUP_FILE_NAME = "auto.%s.xml";
     public static final int FILENAME_DATE_BEGIN_INDEX = 5;
     public static final int FILENAME_DATE_END_INDEX = 11;
+
+    /** last version before 3.0, used for XML header */
+    private static final int LEGACY_VERSION = 137;
 
     public LegacyTasksXmlExporter(boolean isService) {
         this.isService = isService;
@@ -139,7 +144,7 @@ public class LegacyTasksXmlExporter {
 
         xml.startTag(null, ASTRID_TAG);
         xml.attribute(null, ASTRID_ATTR_VERSION,
-                Integer.toString(Preferences.getCurrentVersion(ctx)));
+                Integer.toString(LEGACY_VERSION));
 
         openControllers();
         initTagMap();
@@ -182,10 +187,6 @@ public class LegacyTasksXmlExporter {
     }
 
     public void exportTasks(File directory) {
-        if (isService && !Preferences.isBackupEnabled(ctx)) {
-            // Automatic backups are disabled.
-            return;
-        }
         if (setupFile(directory)) {
             Thread thread = new Thread(doBackgroundExport);
             thread.start();

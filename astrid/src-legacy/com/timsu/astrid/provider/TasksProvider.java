@@ -12,11 +12,11 @@ import android.database.MatrixCursor;
 import android.net.Uri;
 import android.util.Log;
 
-import com.timsu.astrid.data.TaskController;
-import com.timsu.astrid.data.TaskModelForProvider;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
+import com.timsu.astrid.data.task.TaskController;
+import com.timsu.astrid.data.task.TaskModelForProvider;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 public class TasksProvider extends ContentProvider {
