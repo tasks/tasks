@@ -27,8 +27,8 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TabActivity;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TabActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -42,6 +42,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -55,19 +56,15 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.task.TaskModelForEdit;
-import com.timsu.astrid.utilities.AstridUtilities;
-import com.timsu.astrid.widget.TimeDurationControlSet;
-import com.timsu.astrid.widget.TimeDurationControlSet.TimeDurationType;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
@@ -77,9 +74,11 @@ import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagsControlSet;
+import com.todoroo.astrid.ui.DeadlineTimePickerDialog;
+import com.todoroo.astrid.ui.TimeDurationControlSet;
+import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
+import com.todoroo.astrid.ui.TimeDurationControlSet.TimeDurationType;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.widget.DeadlineTimePickerDialog;
-import com.todoroo.astrid.widget.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -162,7 +161,7 @@ public final class TaskEditActivity extends TabActivity {
         setUpUIComponents();
 
 		// disable keyboard until user requests it
-		AstridUtilities.suppressVirtualKeyboard(title);
+		AndroidUtilities.suppressVirtualKeyboard(title);
     }
 
     /* ======================================================================
@@ -1030,7 +1029,7 @@ public final class TaskEditActivity extends TabActivity {
             after.setChecked((flags &
                     Task.NOTIFY_AFTER_DEADLINE) > 0);
             mode.setSelection((flags &
-                    TaskModelForEdit.NOTIFY_NONSTOP) > 0 ? 1 : 0);
+                    Task.NOTIFY_NONSTOP) > 0 ? 1 : 0);
         }
 
         public int getValue() {

@@ -1,4 +1,4 @@
-package com.timsu.astrid.utilities;
+package com.todoroo.astrid.backup;
 
 import java.io.File;
 import java.io.FileFilter;
@@ -73,7 +73,7 @@ public class BackupService extends Service {
             exporter.exportTasks(backupDirectorySetting.getBackupDirectory());
             Preferences.setBackupSummary(ctx,
                     ctx.getString(R.string.prefs_backup_desc_success,
-                            DateUtilities.getFormattedDate(ctx, new Date())));
+                            BackupDateUtilities.getFormattedDate(ctx, new Date())));
         } catch (Exception e) {
             // unable to backup.
             if (e == null || e.getMessage() == null) {

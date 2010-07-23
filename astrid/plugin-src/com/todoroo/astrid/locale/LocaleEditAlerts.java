@@ -1,4 +1,4 @@
-package com.todoroo.astrid.activity;
+package com.todoroo.astrid.locale;
 
 import java.util.LinkedList;
 

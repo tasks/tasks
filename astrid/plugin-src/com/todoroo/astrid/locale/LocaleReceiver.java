@@ -1,4 +1,4 @@
-package com.timsu.astrid.utilities;
+package com.todoroo.astrid.locale;
 
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -10,11 +10,10 @@ import android.content.res.Resources;
 import android.util.Log;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.data.TaskController;
+import com.timsu.astrid.data.TaskIdentifier;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
-import com.timsu.astrid.data.task.TaskController;
-import com.timsu.astrid.data.task.TaskIdentifier;
-import com.todoroo.astrid.activity.LocaleEditAlerts;
 
 /**
  * Receiver is activated when Locale conditions are triggered

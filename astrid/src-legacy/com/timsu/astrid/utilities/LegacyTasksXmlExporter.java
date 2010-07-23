@@ -19,17 +19,18 @@ import android.util.Xml;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
+import com.timsu.astrid.data.TaskController;
+import com.timsu.astrid.data.TaskIdentifier;
+import com.timsu.astrid.data.TaskModelForXml;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.sync.SyncMapping;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
-import com.timsu.astrid.data.task.TaskController;
-import com.timsu.astrid.data.task.TaskIdentifier;
-import com.timsu.astrid.data.task.TaskModelForXml;
+import com.todoroo.astrid.backup.BackupDateUtilities;
 
-public class TasksXmlExporter {
+public class LegacyTasksXmlExporter {
 
     private TaskController taskController;
     private TagController tagController;
@@ -59,7 +60,7 @@ public class TasksXmlExporter {
     public static final int FILENAME_DATE_BEGIN_INDEX = 5;
     public static final int FILENAME_DATE_END_INDEX = 11;
 
-    public TasksXmlExporter(boolean isService) {
+    public LegacyTasksXmlExporter(boolean isService) {
         this.isService = isService;
         this.exportCount = 0;
     }
@@ -97,7 +98,7 @@ public class TasksXmlExporter {
         List<Date> alerts = alertController.getTaskAlerts(task);
         for (Date alert : alerts) {
             xml.startTag(null, ALERT_TAG);
-            xml.attribute(null, ALERT_ATTR_DATE, DateUtilities.getIso8601String(alert));
+            xml.attribute(null, ALERT_ATTR_DATE, BackupDateUtilities.getIso8601String(alert));
             xml.endTag(null, ALERT_TAG);
         }
     }
@@ -212,7 +213,7 @@ public class TasksXmlExporter {
                 } else {
                     fileName = EXPORT_FILE_NAME;
                 }
-                fileName = String.format(fileName, DateUtilities.getDateForExport());
+                fileName = String.format(fileName, BackupDateUtilities.getDateForExport());
                 setOutput(astridDir.getAbsolutePath() + "/" + fileName);
                 return true;
             } else {

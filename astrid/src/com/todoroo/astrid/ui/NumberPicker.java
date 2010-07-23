@@ -17,7 +17,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package com.timsu.astrid.widget;
+package com.todoroo.astrid.ui;
 
 import android.content.Context;
 import android.os.Handler;
@@ -37,8 +37,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.utilities.AstridUtilities;
+import com.todoroo.andlib.utility.AndroidUtilities;
 
+@SuppressWarnings({"nls","unused"})
 public class NumberPicker extends LinearLayout implements OnClickListener,
         OnFocusChangeListener, OnLongClickListener {
 
@@ -139,7 +140,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         mText.setFilters(new InputFilter[] { mInputFilter });
 
         // disable keyboard until user requests it
-        AstridUtilities.suppressVirtualKeyboard(mText);
+        AndroidUtilities.suppressVirtualKeyboard(mText);
 
         mSlideUpOutAnimation = new TranslateAnimation(
                 Animation.RELATIVE_TO_SELF, 0, Animation.RELATIVE_TO_SELF, 0,
@@ -347,8 +348,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private static final char[] DIGIT_CHARACTERS = new char[] { '0', '1', '2',
         '3', '4', '5', '6', '7', '8', '9'       };
 
-    private NumberPickerButton  mIncrementButton;
-    private NumberPickerButton  mDecrementButton;
+    private final NumberPickerButton  mIncrementButton;
+    private final NumberPickerButton  mDecrementButton;
 
     class NumberPickerInputFilter implements InputFilter {
         public CharSequence filter(CharSequence source, int start, int end,

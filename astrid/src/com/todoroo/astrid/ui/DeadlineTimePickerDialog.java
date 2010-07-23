@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.todoroo.astrid.widget;
+package com.todoroo.astrid.ui;
 
 import java.util.Calendar;
 

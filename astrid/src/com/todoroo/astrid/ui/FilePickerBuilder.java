@@ -1,4 +1,4 @@
-package com.timsu.astrid.widget;
+package com.todoroo.astrid.ui;
 
 import java.io.File;
 import java.io.FilenameFilter;
@@ -13,6 +13,7 @@ import android.util.Log;
 
 import com.timsu.astrid.R;
 
+@SuppressWarnings("nls")
 public class FilePickerBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener {
 
     public interface OnFilePickedListener {

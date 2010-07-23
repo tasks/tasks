@@ -24,14 +24,14 @@ import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
 import com.timsu.astrid.R;
-import com.timsu.astrid.widget.NumberPicker;
-import com.timsu.astrid.widget.NumberPickerDialog;
-import com.timsu.astrid.widget.NumberPickerDialog.OnNumberPickedListener;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.ui.NumberPicker;
+import com.todoroo.astrid.ui.NumberPickerDialog;
+import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
 
 /**
  * Control Set for managing repeats

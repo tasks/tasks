@@ -1,4 +1,4 @@
-package com.timsu.astrid.utilities;
+package com.todoroo.astrid.backup;
 
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,15 +18,15 @@ import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.timsu.astrid.data.AbstractController;
+import com.timsu.astrid.data.TaskController;
+import com.timsu.astrid.data.TaskIdentifier;
+import com.timsu.astrid.data.TaskModelForXml;
 import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.sync.SyncMapping;
 import com.timsu.astrid.data.tag.TagController;
 import com.timsu.astrid.data.tag.TagIdentifier;
 import com.timsu.astrid.data.tag.TagModelForView;
-import com.timsu.astrid.data.task.TaskController;
-import com.timsu.astrid.data.task.TaskIdentifier;
-import com.timsu.astrid.data.task.TaskModelForXml;
 
 public class TasksXmlImporter {
     public static final String TAG = "TasksXmlImporter";
@@ -170,7 +170,7 @@ public class TasksXmlImporter {
     private boolean parseAlert(TaskIdentifier taskId) {
        String alert = xpp.getAttributeValue(null, ALERT_ATTR_DATE);
        if (alert != null) {
-           Date alertDate = DateUtilities.getDateFromIso8601String(alert);
+           Date alertDate = BackupDateUtilities.getDateFromIso8601String(alert);
            if (alertDate != null) {
                if (! alertController.addAlert(taskId, alertDate)) {
                    return false;
@@ -214,7 +214,7 @@ public class TasksXmlImporter {
         Date creationDate = null;
         String createdString = xpp.getAttributeValue(null, TASK_CREATION_DATE);
         if (createdString != null) {
-            creationDate = DateUtilities.getDateFromIso8601String(createdString);
+            creationDate = BackupDateUtilities.getDateFromIso8601String(createdString);
         }
         // If the task's name and creation date match an existing task, skip it.
         if (creationDate != null && taskName != null) {

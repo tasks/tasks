@@ -14,12 +14,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.utilities.BackupService;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
+import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Constants;

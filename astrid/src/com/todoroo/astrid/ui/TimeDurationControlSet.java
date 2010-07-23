@@ -17,7 +17,7 @@
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
  */
-package com.timsu.astrid.widget;
+package com.todoroo.astrid.ui;
 
 import android.app.Activity;
 import android.content.res.Resources;
@@ -25,11 +25,17 @@ import android.view.View;
 import android.widget.Button;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.utilities.DateUtilities;
-import com.timsu.astrid.widget.NNumberPickerDialog.OnNNumberPickedListener;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.ui.NNumberPickerDialog.OnNNumberPickedListener;
 
+@SuppressWarnings("nls")
 public class TimeDurationControlSet implements OnNNumberPickedListener,
         View.OnClickListener {
+
+    @Autowired
+    DateUtilities dateUtilities;
 
     public enum TimeDurationType {
         DAYS_HOURS,
@@ -46,6 +52,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
     public TimeDurationControlSet(Activity activity, int timeButtonId,
             int prefixResource, int titleResource, TimeDurationType type) {
         Resources r = activity.getResources();
+        DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
         this.prefixResource = prefixResource;
@@ -93,8 +100,8 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         String prefix = "";
         if(prefixResource != 0)
             prefix = r.getString(prefixResource);
-        timeButton.setText(prefix + " " + DateUtilities.getDurationString(r,
-                timeDurationInSeconds, 2));
+        timeButton.setText(prefix + " " + dateUtilities.getDurationString(
+                timeDurationInSeconds * 1000L, 2));
         switch(type) {
         case DAYS_HOURS:
             int days = timeDuration / 24 / 3600;
