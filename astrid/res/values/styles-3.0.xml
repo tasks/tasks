@@ -2,7 +2,7 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- ============================ General =============================  -->
+    <!-- ========================================================== General  -->
     
     <style name="TextAppearance" parent="android:TextAppearance" />
     
@@ -16,7 +16,7 @@
         <item name="android:windowBackground">@null</item>
     </style>
     
-    <!--========================= TaskListActivity ========================  -->
+    <!--=============================================== TaskListActivity == -->
     
     <style name="TextAppearance.TLA_NoItems">
         <item name="android:textSize">20sp</item>
@@ -33,7 +33,7 @@
         <item name="android:textColor">#000000</item>        
     </style>
 
-    <!-- =========================== TaskAdapter =========================== -->
+    <!-- ==================================================== TaskAdapter == -->
 
     <style name="TextAppearance.TAd_ItemTitle">
     </style>
@@ -62,25 +62,24 @@
         <item name="android:textColor">#ffee5555</item>
     </style>
 
-    <!-- ======================== FilterListAdapter ======================== -->
+    <!-- ============================================== FilterListAdapter == -->
 
-    <style name="TextAppearance.FLA_Filter" parent="TextAppearance.TAd_ItemTitle">
+    <style name="TextAppearance.FLA_Filter">
         <item name="android:textSize">20sp</item>
-        <item name="android:paddingLeft">10dip</item>
     </style>
     
-    <style name="TextAppearance.FLA_Header" parent="TextAppearance.TAd_ItemTitle">
+    <style name="TextAppearance.FLA_Header" parent="TextAppearance.FLA_Filter">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#ffdddddd</item>
     </style>
     
-    <style name="TextAppearance.FLA_Category" parent="TextAppearance.TAd_ItemTitle">
+    <style name="TextAppearance.FLA_Category" parent="TextAppearance.FLA_Filter">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">#ff7ada24</item>
         <item name="android:textStyle">bold|italic</item>
     </style>
 
-    <!-- ======================== FilterListAdapter ======================== -->
+    <!-- ========================================================= Widget == -->
 
     <style name="TextAppearance.Widget">                                                                                                                                                                                      
         <item name="android:textSize">14sp</item>                                                                                                                                                                    

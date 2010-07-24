@@ -12,7 +12,6 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -95,7 +94,7 @@ public final class TagService {
         return new QueryTemplate().where(Criterion.and(
                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(MetadataCriteria.withKey(KEY)))),
                 TaskCriteria.isActive(),
-                TaskCriteria.isVisible(DateUtilities.now())));
+                TaskCriteria.isVisible()));
     }
 
     /**

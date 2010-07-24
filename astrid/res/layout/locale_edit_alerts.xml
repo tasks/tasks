@@ -5,32 +5,52 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/locale_edit_intro" />
-
+    <!-- At runtime, we'll load the Locale background frame -->
     <LinearLayout
+        android:id="@+id/frame"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/locale_border"
-        android:layout_margin="10dip">
+        android:layout_weight="1">
 
         <TextView
-            android:paddingTop="5dip"
-            android:paddingBottom="10dip"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/locale_pick_filter"
+            android:paddingBottom="10px"
+            android:gravity="center"
+            android:text="@string/locale_edit_intro"
             style="@style/TextAppearance.Locale_Label" />
             
-        <Spinner
-            android:paddingBottom="10dip"
-            android:id="@+id/spinner"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            <FrameLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_weight="100"
+                android:layout_margin="10px"
+                android:background="@drawable/locale_border">
+    
+                <ExpandableListView android:id="@android:id/list"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:scrollbars="vertical"
+                    android:cacheColorHint="@android:color/white"/>
+                
+            </FrameLayout>
+                
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/locale_interval_label"
+                style="@style/TextAppearance.Locale_Label" />
+        
+            <Spinner android:id="@+id/intervalSpinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content" 
+                android:layout_weight="1"
+                android:paddingBottom="10dip"
+                android:entries="@array/locale_interval" />
             
     </LinearLayout>
+    
 </LinearLayout>

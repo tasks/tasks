@@ -1,8 +1,7 @@
 package com.todoroo.astrid.locale;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,10 +9,18 @@ import android.content.res.Resources;
 import android.util.Log;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.data.TaskController;
-import com.timsu.astrid.data.TaskIdentifier;
-import com.timsu.astrid.data.tag.TagController;
-import com.timsu.astrid.data.tag.TagIdentifier;
+import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.NotificationManager;
+import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
+import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.activity.ShortcutActivity;
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Receiver is activated when Locale conditions are triggered
@@ -23,56 +30,67 @@ import com.timsu.astrid.data.tag.TagIdentifier;
  */
 public class LocaleReceiver extends BroadcastReceiver {
 
-    /** minimum amount of time between two notifications */
-    private static final long MIN_NOTIFY_INTERVAL = 12*3600*1000L;
+    @Autowired
+    private TaskService taskService;
 
+    /**
+     * Create a preference key for storing / retrieving last interval time
+     * @param filterTitle
+     * @param interval
+     * @return
+     */
+    private String makePreferenceKey(String filterTitle, int interval) {
+        return "LOCALE:" + filterTitle + interval; //$NON-NLS-1$
+    }
+
+    @SuppressWarnings("nls")
     @Override
     /** Called when the system is started up */
     public void onReceive(Context context, Intent intent) {
     	try {
 	    	if (LocaleEditAlerts.ACTION_LOCALE_ALERT.equals(intent.getAction())) {
-				final long tagId = intent.getLongExtra(LocaleEditAlerts.KEY_TAG_ID, 0);
-				final String tagName = intent.getStringExtra(LocaleEditAlerts.KEY_TAG_NAME);
-				if(tagId == 0) {
-					Log.w("astrid-locale", "Invalid tag identifier in alert");
-					return;
-				}
+	    	    final String title = intent.getStringExtra(LocaleEditAlerts.KEY_FILTER_TITLE);
+				final String sql = intent.getStringExtra(LocaleEditAlerts.KEY_SQL);
+				final int interval = intent.getIntExtra(LocaleEditAlerts.KEY_INTERVAL, 24*3600);
 
 				// check if we've already made a notification recently
-			    if(System.currentTimeMillis() - Preferences.
-			            getLocaleLastAlertTime(context, tagId) < MIN_NOTIFY_INTERVAL) {
-			        Log.w("astrid-locale", "Too soon, need " + (MIN_NOTIFY_INTERVAL - System.currentTimeMillis() + Preferences.
-                        getLocaleLastAlertTime(context, tagId))/1000L + " more seconds");
+				String preferenceKey = makePreferenceKey(title, interval);
+				long lastNotifyTime = Preferences.getLong(preferenceKey, 0);
+				if(DateUtilities.now() - lastNotifyTime < interval * 1000L) {
+			        Log.i("astrid-locale", title + ": Too soon, need " + (interval
+			                - (DateUtilities.now() - lastNotifyTime)/1000) + " more seconds");
 			        return;
 				}
 
 				// find out if we have active tasks with this tag
-				TaskController taskController = new TaskController(context);
-				taskController.open();
-				TagController tagController = new TagController(context);
-				tagController.open();
+				DependencyInjectionService.getInstance().inject(this);
+				Filter filter = new Filter(title, title, null, null);
+				filter.sqlQuery = sql;
+				TodorooCursor<Task> cursor = taskService.fetchFiltered(filter, Task.ID);
 				try {
-					HashSet<TaskIdentifier> activeTasks = taskController.getActiveVisibleTaskIdentifiers();
-					LinkedList<TaskIdentifier> tasks = tagController.getTaggedTasks(
-							new TagIdentifier(tagId));
-//					int count = TagListSubActivity.countActiveTasks(activeTasks, tasks);
-					int count = 0;
-					if(count > 0) {
-						Resources r = context.getResources();
-//						String reminder = r.getString(R.string.notif_tagNotification).
-						String reminder = "$NUM of $TAG".
-						    replace("$NUM", r.getQuantityString(R.plurals.Ntasks, count, count)).
-						    replace("$TAG", tagName);
-//						ReminderService.showTagNotification(context, tagId, reminder);
+				    if(cursor.getCount() == 0)
+				        return;
+					Resources r = context.getResources();
+					String reminder = r.getString(R.string.locale_notification).
+						    replace("$NUM", r.getQuantityString(R.plurals.Ntasks,
+						            cursor.getCount(), cursor.getCount())).
+						    replace("$FILTER", title);
 
-						Preferences.setLocaleLastAlertTime(context, tagId,
-						        System.currentTimeMillis());
-					} else {
-					    Log.w("astrid-locale", "Locale Notification, but no tasks to show");
-					}
+					// show a reminder
+		            Intent notifyIntent = ShortcutActivity.createIntent(filter);
+		            notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		            PendingIntent pendingIntent = PendingIntent.getActivity(context,
+		                    Constants.NOTIFICATION_TIMER, notifyIntent, 0);
+		            Notification notification = new Notification(
+		                    R.drawable.timers_notification, reminder, System.currentTimeMillis());
+		            notification.setLatestEventInfo(context, r.getString(R.string.locale_edit_alerts_title),
+		                    reminder, pendingIntent);
+
+		            NotificationManager nm = new AndroidNotificationManager(context);
+		            nm.notify(Constants.NOTIFICATION_TIMER, notification);
+					Preferences.setLong(preferenceKey, DateUtilities.now());
 				} finally {
-					taskController.close();
-					tagController.close();
+					cursor.close();
 				}
 	    	}
     	} catch (Exception e) {

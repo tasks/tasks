@@ -11,7 +11,6 @@ import android.content.Intent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -44,7 +43,7 @@ public class MilkFilterExposer extends BroadcastReceiver {
                 MilkDataService.METADATA_JOIN).where(Criterion.and(
                         MetadataCriteria.withKey(MilkTask.METADATA_KEY),
                         TaskCriteria.isActive(),
-                        TaskCriteria.isVisible(DateUtilities.now()),
+                        TaskCriteria.isVisible(),
                         MilkTask.LIST_ID.eq(list.id))),
                 values);
 

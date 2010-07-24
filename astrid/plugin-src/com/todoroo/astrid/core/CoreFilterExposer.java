@@ -50,7 +50,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         Filter alphabetical = new Filter(r.getString(R.string.BFE_Alphabetical),
                 r.getString(R.string.BFE_Alphabetical),
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        TaskCriteria.isVisible(DateUtilities.now()))).
+                        TaskCriteria.isVisible())).
                         orderBy(Order.asc(Task.TITLE)),
                 null);
         alphabetical.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap();
@@ -66,7 +66,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         Filter hidden = new Filter(r.getString(R.string.BFE_Hidden),
                 r.getString(R.string.BFE_Hidden),
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        Criterion.not(TaskCriteria.isVisible(DateUtilities.now())))).
+                        Criterion.not(TaskCriteria.isVisible()))).
                         orderBy(Order.asc(Task.HIDE_UNTIL)),
                 hiddenValues);
         hidden.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_clouds)).getBitmap();
@@ -74,7 +74,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         ContentValues completedValues = new ContentValues();
         hiddenValues.put(Task.COMPLETION_DATE.name, DateUtilities.now());
         Filter completed = new Filter(r.getString(R.string.BFE_Completed), r.getString(R.string.BFE_Completed),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.completedBefore(DateUtilities.now()),
+                new QueryTemplate().where(Criterion.and(TaskCriteria.completed(),
                         Criterion.not(TaskCriteria.isDeleted()))). orderBy(Order.desc(Task.COMPLETION_DATE)),
                 completedValues);
         completed.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_check)).getBitmap();
@@ -109,7 +109,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
     public static Filter buildInboxFilter(Resources r) {
         Filter inbox = new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active_title),
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        TaskCriteria.isVisible(DateUtilities.now()))),
+                        TaskCriteria.isVisible())),
                 null);
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_home)).getBitmap();
         return inbox;

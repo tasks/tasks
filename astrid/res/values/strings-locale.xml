@@ -2,22 +2,54 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- Resources for built-in locale plug-in -->
+  <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
-  <string name="locale_edit_alerts_title">Astrid Tag Alert</string>
+  <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
   <string name="locale_edit_intro">Astrid will send you a reminder                                                                                                                                             
-      when you have uncompleted tasks in the following filter:</string>
+      when you have any tasks in the following filter:</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
   <string name="locale_pick_filter">Filter:</string>        
+      
+  <!-- Locale Window Interval Label -->                                                                                                                                        
+  <string name="locale_interval_label">Limit notifications to:</string>        
+      
+  <!-- Locale Window Interval Values -->                                                                                                                                        
+  <string-array name="locale_interval">
+    <item>once an hour</item>
+    <item>once every six hours</item>
+    <item>once every twelve hours</item>
+    <item>once a day</item>
+    <item>once every three days</item>
+    <item>once a week</item>
+  </string-array>        
+      
+  <!-- Notification -->                                                                                                                                        
+  <string name="locale_notification">You have $NUM tasks in $FILTER</string>        
 
   <!-- Locale style -->
   <style name="TextAppearance.Locale_Label">                                                                                                                                                                       
       <item name="android:textSize">16sp</item>                                                                                                                                                                    
       <item name="android:textColor">@android:color/black</item>                                                                                                                                                   
   </style>   
+  
+  <!-- Locale filter list styles -->
+  <style name="TextAppearance.LEA_Filter">
+      <item name="android:textSize">14sp</item>
+      <item name="android:textColor">@android:color/black</item>
+  </style>
+  
+  <style name="TextAppearance.LEA_Header" parent="TextAppearance.LEA_Filter">
+      <item name="android:textSize">13sp</item>
+      <item name="android:textColor">#ffdddddd</item>
+  </style>
+  
+  <style name="TextAppearance.LEA_Category" parent="TextAppearance.LEA_Filter">
+      <item name="android:textSize">13sp</item>
+      <item name="android:textStyle">bold|italic</item>
+  </style>
 
 </resources>

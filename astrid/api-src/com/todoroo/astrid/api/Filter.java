@@ -79,7 +79,8 @@ public final class Filter extends FilterListItem {
             QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
         this.listingTitle = listingTitle;
         this.title = title;
-        this.sqlQuery = sqlQuery.toString();
+        if(sqlQuery != null)
+            this.sqlQuery = sqlQuery.toString();
         this.valuesForNewTasks = valuesForNewTasks;
     }
 

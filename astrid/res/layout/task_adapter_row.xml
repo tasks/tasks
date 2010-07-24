@@ -35,8 +35,6 @@
             <TextView android:id="@+id/title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_toRightOf="@id/completeBox"
                 style="@style/TextAppearance.TAd_ItemTitle"
                 android:gravity="center_vertical"/>
         
@@ -44,8 +42,6 @@
             <TextView android:id="@+id/dueDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/title"
-                android:layout_toRightOf="@id/completeBox"
                 android:singleLine="true"/>
               
             <TextView android:id="@+id/details"
@@ -70,8 +66,6 @@
     <LinearLayout android:id="@+id/actions"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/details"
-        android:layout_alignParentLeft="true"
         android:background="#4499bbcc" 
         android:visibility="gone"
         android:paddingTop="4dip"

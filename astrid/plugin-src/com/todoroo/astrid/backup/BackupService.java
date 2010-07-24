@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Date;
 
 import android.app.AlarmManager;
 import android.app.PendingIntent;
@@ -12,9 +11,6 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
-import android.util.Log;
-
-import com.timsu.astrid.R;
 
 /**
  * Inspired heavily by SynchronizationService
@@ -55,7 +51,7 @@ public class BackupService extends Service {
     }
 
     private void startBackup(Context ctx) {
-        if (ctx == null || ctx.getResources() == null) {
+        /*if (ctx == null || ctx.getResources() == null) {
             return;
         }
         try {
@@ -84,11 +80,11 @@ public class BackupService extends Service {
                         ctx.getString(R.string.BPr_backup_desc_failure,
                                 e.toString()));
             }
-        }
+        }*/
     }
 
     public static void scheduleService(Context ctx) {
-        AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
+        /*AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
         PendingIntent pendingIntent = PendingIntent.getService(ctx, 0,
                 createAlarmIntent(ctx), PendingIntent.FLAG_UPDATE_CURRENT);
         am.cancel(pendingIntent);
@@ -96,7 +92,7 @@ public class BackupService extends Service {
             return;
         }
         am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + BACKUP_OFFSET,
-                BACKUP_INTERVAL, pendingIntent);
+                BACKUP_INTERVAL, pendingIntent);*/
     }
 
     public static void unscheduleService(Context ctx) {
@@ -148,7 +144,7 @@ public class BackupService extends Service {
 
     private BackupDirectorySetting backupDirectorySetting = new BackupDirectorySetting() {
         public File getBackupDirectory() {
-            return TasksXmlExporter.getExportDirectory();
+            return null; //TasksXmlExporter.getExportDirectory();
         }
     };
 

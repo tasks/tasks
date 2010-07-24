@@ -8,7 +8,7 @@
     <string name="BFE_Active">Active Tasks</string>
         
     <!-- Title for Active Tasks Filter (what user sees when first opening the app) -->
-    <string name="BFE_Active_title">Astrid: Home</string>
+    <string name="BFE_Active_title">Active Tasks</string>
     
     <!-- Search -->
     <string name="BFE_Search">Search</string>

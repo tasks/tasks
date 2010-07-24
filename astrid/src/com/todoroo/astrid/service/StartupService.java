@@ -8,8 +8,8 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
@@ -19,7 +19,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
-import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Constants;
@@ -103,9 +102,6 @@ public class StartupService {
                         0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
                 am.setInexactRepeating(AlarmManager.RTC, 0,
                         Constants.WIDGET_UPDATE_INTERVAL, pendingIntent);
-
-                // start backup service
-                BackupService.scheduleService(context);
 
                 database.openForWriting();
                 taskService.cleanup();

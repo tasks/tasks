@@ -83,7 +83,7 @@ public class Preferences {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    // --- preference fetching
+    // --- preference fetching (string)
 
     /** Gets an string value from a string preference. Returns null
      * if the value is not set
@@ -167,6 +167,28 @@ public class Preferences {
         }
     }
 
+    /**
+     * Sets string preference
+     */
+    public static void setString(int keyResource, String newValue) {
+        Context context = ContextManager.getContext();
+        Editor editor = getPrefs(context).edit();
+        editor.putString(context.getString(keyResource), newValue);
+        editor.commit();
+    }
+
+    /**
+     * Sets string preference from integer value
+     */
+    public static void setStringFromInteger(int keyResource, int newValue) {
+        Context context = ContextManager.getContext();
+        Editor editor = getPrefs(context).edit();
+        editor.putString(context.getString(keyResource), Integer.toString(newValue));
+        editor.commit();
+    }
+
+    // --- preference fetching (boolean)
+
     /** Gets a boolean preference (e.g. a CheckBoxPreference setting)
      *
      * @param key
@@ -200,23 +222,31 @@ public class Preferences {
         editor.commit();
     }
 
-    /**
-     * Sets string preference
+    // --- preference fetching (long)
+
+    /** Gets a long preference
+     *
+     * @param key
+     * @param defValue
+     * @return default if value is unset otherwise the value
      */
-    public static void setString(int keyResource, String newValue) {
+    public static long getLong(String key, long defValue) {
         Context context = ContextManager.getContext();
-        Editor editor = getPrefs(context).edit();
-        editor.putString(context.getString(keyResource), newValue);
-        editor.commit();
+        return getPrefs(context).getLong(key, defValue);
     }
 
     /**
-     * Sets string preference from integer value
+     * Sets long preference
+     * @param key
+     * @param value
      */
-    public static void setStringFromInteger(int keyResource, int newValue) {
+    public static void setLong(String key, long value) {
         Context context = ContextManager.getContext();
         Editor editor = getPrefs(context).edit();
-        editor.putString(context.getString(keyResource), Integer.toString(newValue));
+        editor.putLong(key, value);
         editor.commit();
     }
+
+
+
 }

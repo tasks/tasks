@@ -22,7 +22,6 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -267,7 +266,7 @@ public final class MilkDataService {
         // read all list counts
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(MilkTask.LIST_ID, COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-            where(Criterion.and(TaskCriteria.isVisible(DateUtilities.now()), TaskCriteria.isActive())).
+            where(Criterion.and(TaskCriteria.isVisible(), TaskCriteria.isActive())).
             groupBy(MilkTask.LIST_ID));
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {

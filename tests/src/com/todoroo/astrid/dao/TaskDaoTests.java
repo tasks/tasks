@@ -131,24 +131,24 @@ public class TaskDaoTests extends DatabaseTestCase {
 
         // check due before / after
         cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
-                dueBefore(DateUtilities.now())));
+                dueBeforeNow()));
         cursor.moveToNext();
         assertEquals(1, cursor.getCount());
         cursor.close();
         cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
-                dueAfter(DateUtilities.now())));
+                dueAfterNow()));
         assertEquals(1, cursor.getCount());
         cursor.close();
 
         // check completed before
         cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
-                completedBefore(DateUtilities.now())));
+                completed()));
         assertEquals(1, cursor.getCount());
         cursor.close();
 
         // check is visible
         cursor = taskDao.query(Query.select(TITLES).where(TaskCriteria.
-                isVisible(DateUtilities.now())));
+                isVisible()));
         assertEquals(5, cursor.getCount());
         cursor.close();
     }

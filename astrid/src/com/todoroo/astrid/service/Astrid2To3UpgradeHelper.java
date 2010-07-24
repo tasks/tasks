@@ -21,6 +21,7 @@ import android.util.Log;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
+import com.timsu.astrid.utilities.LegacyTasksXmlExporter;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
@@ -32,7 +33,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.alarms.Alarm;
 import com.todoroo.astrid.alarms.AlarmDatabase;
-import com.todoroo.astrid.backup.TasksXmlExporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -42,6 +42,7 @@ import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
 
+@SuppressWarnings("deprecation")
 public class Astrid2To3UpgradeHelper {
 
     @Autowired
@@ -119,13 +120,7 @@ public class Astrid2To3UpgradeHelper {
             dialog = dialogUtilities.progressDialog(context, context.getString(R.string.DLG_wait));
 
         // initiate a backup
-        try {
-            TasksXmlExporter exporter = new TasksXmlExporter(true);
-            exporter.setContext(ContextManager.getContext());
-            exporter.exportTasks(TasksXmlExporter.getExportDirectory());
-        } catch (Exception e) {
-            // unable to create a backup before upgrading :(
-        }
+        legacyBackup();
 
         database.openForWriting();
 
@@ -191,6 +186,19 @@ public class Astrid2To3UpgradeHelper {
     }
 
     // --- database upgrade helpers
+
+    /**
+     * Create a legacy backup file
+     */
+    private void legacyBackup() {
+        try {
+            LegacyTasksXmlExporter exporter = new LegacyTasksXmlExporter(true);
+            exporter.setContext(ContextManager.getContext());
+            exporter.exportTasks(LegacyTasksXmlExporter.getExportDirectory());
+        } catch (Exception e) {
+            // unable to create a backup before upgrading :(
+        }
+    }
 
     protected static final class UpgradeVisitorContainer<TYPE extends AbstractModel> {
         public int columnIndex;

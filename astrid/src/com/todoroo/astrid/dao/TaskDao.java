@@ -16,6 +16,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -71,9 +72,9 @@ public class TaskDao extends GenericDao<Task> {
     	            Task.DELETION_DATE.eq(0));
     	}
 
-    	/** @return tasks that are not hidden at given unixtime */
-    	public static Criterion isVisible(long time) {
-    	    return Task.HIDE_UNTIL.lt(time);
+    	/** @return tasks that are not hidden at current time */
+    	public static Criterion isVisible() {
+    	    return Task.HIDE_UNTIL.lt(Functions.now());
         }
 
     	/** @return tasks that have a due date */
@@ -82,18 +83,18 @@ public class TaskDao extends GenericDao<Task> {
     	}
 
         /** @return tasks that are due before a certain unixtime */
-        public static Criterion dueBefore(long time) {
-            return Criterion.and(Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(time));
+        public static Criterion dueBeforeNow() {
+            return Criterion.and(Task.DUE_DATE.gt(0), Task.DUE_DATE.lt(Functions.now()));
         }
 
         /** @return tasks that are due after a certain unixtime */
-        public static Criterion dueAfter(long time) {
-            return Task.DUE_DATE.gt(time);
+        public static Criterion dueAfterNow() {
+            return Task.DUE_DATE.gt(Functions.now());
         }
 
     	/** @return tasks completed before a given unixtime */
-    	public static Criterion completedBefore(long time) {
-    	    return Criterion.and(Task.COMPLETION_DATE.gt(0), Task.COMPLETION_DATE.lt(time));
+    	public static Criterion completed() {
+    	    return Criterion.and(Task.COMPLETION_DATE.gt(0), Task.COMPLETION_DATE.lt(Functions.now()));
     	}
 
     	/** @return tasks that have a blank or null title */

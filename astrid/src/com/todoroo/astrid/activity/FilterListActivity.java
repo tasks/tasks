@@ -6,32 +6,28 @@ package com.todoroo.astrid.activity;
 import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
 import android.app.SearchManager;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -42,9 +38,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.SearchFilter;
 import com.todoroo.astrid.model.Task;
@@ -77,7 +71,6 @@ public class FilterListActivity extends ExpandableListActivity {
     protected DialogUtilities dialogUtilities;
 
     FilterAdapter adapter = null;
-    FilterReceiver filterReceiver = new FilterReceiver();
 
     /* ======================================================================
      * ======================================================= initialization
@@ -98,7 +91,6 @@ public class FilterListActivity extends ExpandableListActivity {
 
         setTitle(R.string.FLA_title);
         setUpList();
-        getLists();
 
         onNewIntent(getIntent());
     }
@@ -169,44 +161,13 @@ public class FilterListActivity extends ExpandableListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        registerReceiver(filterReceiver,
-                new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS));
+        adapter.registerRecevier();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        unregisterReceiver(filterReceiver);
-    }
-
-    /**
-     * Receiver which receives intents to add items to the filter list
-     *
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    protected class FilterReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            try {
-                final Parcelable[] filters = intent.getExtras().
-                    getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
-                for (Parcelable item : filters) {
-                    adapter.add((FilterListItem)item);
-                }
-                adapter.notifyDataSetChanged();
-
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        expandList(filters);
-                    }
-                });
-            } catch (Exception e) {
-                exceptionService.reportError("receive-filter-" + //$NON-NLS-1$
-                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
-            }
-        }
+        adapter.unregisterRecevier();
     }
 
     /* ======================================================================
@@ -215,39 +176,11 @@ public class FilterListActivity extends ExpandableListActivity {
 
     /** Sets up the coach list adapter */
     protected void setUpList() {
-        adapter = new FilterAdapter(this);
+        adapter = new FilterAdapter(this, getExpandableListView(),
+                R.layout.filter_adapter_row);
         setListAdapter(adapter);
 
         registerForContextMenu(getExpandableListView());
-        getExpandableListView().setGroupIndicator(
-                getResources().getDrawable(R.drawable.expander_group));
-    }
-
-    /**
-     * Expand the first category filter in this group
-     * @param filters
-     */
-    protected void expandList(Parcelable[] filters) {
-        ExpandableListView list = getExpandableListView();
-        for(Parcelable filter : filters) {
-            if(filter instanceof FilterCategory) {
-                for(int i = 0; i < adapter.getGroupCount(); i++)
-                    if(adapter.getGroup(i) == filter) {
-                        list.expandGroup(i);
-                        return;
-                    }
-            }
-        }
-    }
-
-    /**
-     * Broadcast a request for lists. The request is sent to every
-     * application registered to listen for this broadcast. Each application
-     * can then add lists to this activity
-     */
-    protected void getLists() {
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS);
-        sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
     /* ======================================================================

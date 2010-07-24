@@ -18,4 +18,11 @@ public final class Functions {
         return new Field("UPPER(" + title.toString() + ")");
     }
 
+    /**
+     * @return SQL now (in milliseconds)
+     */
+    public static Field now() {
+        return new Field("(strftime('%s','now')*1000)");
+    }
+
 }
