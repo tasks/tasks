@@ -31,10 +31,6 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
 
     // --- locale constants
 
-    /** value for action type for tag alert */
-    @SuppressWarnings("nls")
-    public static final String ACTION_LOCALE_ALERT = "com.todoroo.astrid.action.LOCALE_ALERT";
-
     /** key name for filter title in bundle */
     @SuppressWarnings("nls")
     public static final String KEY_FILTER_TITLE = "title";
@@ -216,7 +212,7 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
                 /*
                  * This is the return Intent, into which we'll put all the required extras
                  */
-                final Intent returnIntent = new Intent(ACTION_LOCALE_ALERT);
+                final Intent returnIntent = new Intent();
 
                 /*
                  * This extra is the data to ourselves: either for the Activity or the BroadcastReceiver. Note that anything

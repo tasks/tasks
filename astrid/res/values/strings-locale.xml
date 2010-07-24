@@ -28,7 +28,7 @@
   </string-array>        
       
   <!-- Notification -->                                                                                                                                        
-  <string name="locale_notification">You have $NUM tasks in $FILTER</string>        
+  <string name="locale_notification">You have $NUM in $FILTER</string>        
 
   <!-- Locale style -->
   <style name="TextAppearance.Locale_Label">                                                                                                                                                                       

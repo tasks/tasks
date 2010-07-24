@@ -6,6 +6,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -48,10 +49,14 @@ public class LocaleReceiver extends BroadcastReceiver {
     /** Called when the system is started up */
     public void onReceive(Context context, Intent intent) {
     	try {
-	    	if (LocaleEditAlerts.ACTION_LOCALE_ALERT.equals(intent.getAction())) {
+    	    if (com.twofortyfouram.Intent.ACTION_FIRE_SETTING.equals(intent.getAction())) {
 	    	    final String title = intent.getStringExtra(LocaleEditAlerts.KEY_FILTER_TITLE);
 				final String sql = intent.getStringExtra(LocaleEditAlerts.KEY_SQL);
 				final int interval = intent.getIntExtra(LocaleEditAlerts.KEY_INTERVAL, 24*3600);
+
+				if(TextUtils.isEmpty(title) || TextUtils.isEmpty(sql) ||
+				        sql.contains("--") || sql.contains(";") || interval == 0)
+				    return;
 
 				// check if we've already made a notification recently
 				String preferenceKey = makePreferenceKey(title, interval);
@@ -82,7 +87,7 @@ public class LocaleReceiver extends BroadcastReceiver {
 		            PendingIntent pendingIntent = PendingIntent.getActivity(context,
 		                    Constants.NOTIFICATION_TIMER, notifyIntent, 0);
 		            Notification notification = new Notification(
-		                    R.drawable.timers_notification, reminder, System.currentTimeMillis());
+		                    R.drawable.notif_astrid, reminder, System.currentTimeMillis());
 		            notification.setLatestEventInfo(context, r.getString(R.string.locale_edit_alerts_title),
 		                    reminder, pendingIntent);
 
@@ -94,7 +99,8 @@ public class LocaleReceiver extends BroadcastReceiver {
 				}
 	    	}
     	} catch (Exception e) {
-    		Log.e("astrid-locale-rx", "Error receiving intent", e);
+    	    if(Constants.DEBUG)
+    	        Log.i("astrid-locale-rx", "Error receiving intent", e);
     	}
     }
 

@@ -199,7 +199,7 @@
     </activity>
     <receiver android:name="com.todoroo.astrid.locale.LocaleReceiver">
       <intent-filter>
-        <action android:name="com.todoroo.astrid.action.LOCALE_ALERT" />
+        <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
       </intent-filter>
     </receiver>
     
