@@ -38,4 +38,7 @@ public final class Constants {
     /** Notification Manager id for timing */
     public static final int NOTIFICATION_TIMER = -2;
 
+    /** Notification Manager id for locale */
+    public static final int NOTIFICATION_LOCALE = -3;
+
 }

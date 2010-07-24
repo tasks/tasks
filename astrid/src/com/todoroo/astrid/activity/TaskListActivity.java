@@ -720,7 +720,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         case CONTEXT_MENU_DEBUG + 1: {
             itemId = item.getGroupId();
-            new Notifications().showNotification(itemId, 0, "test reminder"); //$NON-NLS-1$
+            new Notifications().showTaskNotification(itemId, 0, "test reminder"); //$NON-NLS-1$
             return true;
         }
 

@@ -1,7 +1,5 @@
 package com.todoroo.astrid.locale;
 
-import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -13,12 +11,11 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.NotificationManager;
-import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
@@ -82,17 +79,12 @@ public class LocaleReceiver extends BroadcastReceiver {
 						    replace("$FILTER", title);
 
 					// show a reminder
+					String notificationTitle = r.getString(R.string.locale_edit_alerts_title);
 		            Intent notifyIntent = ShortcutActivity.createIntent(filter);
 		            notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		            PendingIntent pendingIntent = PendingIntent.getActivity(context,
-		                    Constants.NOTIFICATION_TIMER, notifyIntent, 0);
-		            Notification notification = new Notification(
-		                    R.drawable.notif_astrid, reminder, System.currentTimeMillis());
-		            notification.setLatestEventInfo(context, r.getString(R.string.locale_edit_alerts_title),
-		                    reminder, pendingIntent);
+		            Notifications.showNotification(Constants.NOTIFICATION_LOCALE,
+		                    notifyIntent, 0, notificationTitle, reminder, false);
 
-		            NotificationManager nm = new AndroidNotificationManager(context);
-		            nm.notify(Constants.NOTIFICATION_TIMER, notification);
 					Preferences.setLong(preferenceKey, DateUtilities.now());
 				} finally {
 					cursor.close();

@@ -79,7 +79,7 @@ public class Notifications extends BroadcastReceiver {
         else
             reminder = getRandomReminder(r.getStringArray(R.array.reminders));
 
-        if(!showNotification(id, type, reminder)) {
+        if(!showTaskNotification(id, type, reminder)) {
             notificationManager.cancel((int)id);
         }
     }
@@ -94,14 +94,10 @@ public class Notifications extends BroadcastReceiver {
     }
 
     /**
-     * Schedule a new notification about the given task. Returns false if there was
+     * Show a new notification about the given task. Returns false if there was
      * some sort of error or the alarm should be disabled.
      */
-    public boolean showNotification(long id, int type, String reminder) {
-        Context context = ContextManager.getContext();
-        if(notificationManager == null)
-            notificationManager = new AndroidNotificationManager(context);
-
+    public boolean showTaskNotification(long id, int type, String reminder) {
         Task task;
         try {
             task = taskDao.fetch(id, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
@@ -130,6 +126,28 @@ public class Notifications extends BroadcastReceiver {
         task.setValue(Task.REMINDER_LAST, DateUtilities.now());
         taskDao.saveExisting(task);
 
+        Context context = ContextManager.getContext();
+        String title = context.getString(R.string.app_name);
+        String text = reminder + " " + taskTitle; //$NON-NLS-1$
+
+        Intent notifyIntent = new Intent(context, NotificationActivity.class);
+        notifyIntent.putExtra(NotificationActivity.TOKEN_ID, id);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+        showNotification((int)id, notifyIntent, type, title, text, nonstopMode);
+        return true;
+    }
+
+    /**
+     * Shows an Astrid notification. Pulls in ring tone and quiet hour settings
+     * from preferences. You can make it say anything you like.
+     */
+    public static void showNotification(int notificationId, Intent intent, int type, String title,
+            String text, boolean nonstopMode) {
+        Context context = ContextManager.getContext();
+        if(notificationManager == null)
+            notificationManager = new AndroidNotificationManager(context);
+
         // quiet hours? unless alarm clock
         boolean quietHours = false;
         Integer quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart);
@@ -145,16 +163,10 @@ public class Notifications extends BroadcastReceiver {
             }
         }
 
-        Resources r = context.getResources();
-
-        Intent notifyIntent = new Intent(context, NotificationActivity.class);
-        notifyIntent.putExtra(NotificationActivity.TOKEN_ID, id);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                (int)id, notifyIntent, PendingIntent.FLAG_ONE_SHOT);
+                notificationId, intent, PendingIntent.FLAG_ONE_SHOT);
 
         // set up properties (name and icon) for the notification
-        String appName = r.getString(R.string.app_name);
         Integer iconPreference = Preferences.getIntegerFromString(R.string.p_rmd_icon);
         if(iconPreference == null)
             iconPreference = ICON_SET_ASTRID;
@@ -172,10 +184,10 @@ public class Notifications extends BroadcastReceiver {
 
         // create notification object
         Notification notification = new Notification(
-                icon, reminder, System.currentTimeMillis());
+                icon, text, System.currentTimeMillis());
         notification.setLatestEventInfo(context,
-                appName,
-                reminder + " " + taskTitle, //$NON-NLS-1$
+                title,
+                text,
                 pendingIntent);
         notification.flags |= Notification.FLAG_AUTO_CANCEL;
         if(Preferences.getBoolean(R.string.p_rmd_persistent, true)) {
@@ -235,11 +247,9 @@ public class Notifications extends BroadcastReceiver {
         }
 
         if(Constants.DEBUG)
-            Log.w("Astrid", "Logging notification: " + reminder); //$NON-NLS-1$ //$NON-NLS-2$
+            Log.w("Astrid", "Logging notification: " + text); //$NON-NLS-1$ //$NON-NLS-2$
 
-        notificationManager.notify((int)id, notification);
-
-        return true;
+        notificationManager.notify(notificationId, notification);
     }
 
     // --- notification manager
