@@ -59,7 +59,7 @@ public class LocaleReceiver extends BroadcastReceiver {
 				String preferenceKey = makePreferenceKey(title, interval);
 				long lastNotifyTime = Preferences.getLong(preferenceKey, 0);
 				if(DateUtilities.now() - lastNotifyTime < interval * 1000L) {
-			        Log.i("astrid-locale", title + ": Too soon, need " + (interval
+			        Log.i("astrid-locale-rx", title + ": Too soon, need " + (interval
 			                - (DateUtilities.now() - lastNotifyTime)/1000) + " more seconds");
 			        return;
 				}
@@ -91,8 +91,7 @@ public class LocaleReceiver extends BroadcastReceiver {
 				}
 	    	}
     	} catch (Exception e) {
-    	    if(Constants.DEBUG)
-    	        Log.i("astrid-locale-rx", "Error receiving intent", e);
+	        Log.i("astrid-locale-rx", "Error receiving intent", e);
     	}
     }
 

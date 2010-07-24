@@ -17,6 +17,7 @@ import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.utility.Constants;
 import com.twofortyfouram.SharedResources;
@@ -146,9 +147,19 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
         adapter = new FilterAdapter(this, getExpandableListView(), R.layout.filter_adapter_row) {
             @Override
             public void onReceiveFilter(FilterListItem item) {
-                if(finalSelection != null && item instanceof Filter &&
-                        finalSelection.equals(((Filter)item).sqlQuery))
-                    adapter.setSelection(item);
+                if(adapter.getSelection() != null || finalSelection == null)
+                    return;
+                if(item instanceof Filter) {
+                    if(finalSelection.equals(((Filter)item).sqlQuery))
+                        adapter.setSelection(item);
+                } else if(item instanceof FilterCategory) {
+                    Filter[] filters = ((FilterCategory)item).children;
+                    for(Filter filter : filters)
+                        if(finalSelection.equals(filter.sqlQuery)) {
+                            adapter.setSelection(filter);
+                            break;
+                        }
+                }
             }
         };
         adapter.filterStyle = R.style.TextAppearance_LEA_Filter;
