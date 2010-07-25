@@ -27,6 +27,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.utility.Preferences;
 
 public class FilterAdapter extends BaseExpandableListAdapter {
 
@@ -200,6 +201,10 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      * ============================================================= receiver
      * ====================================================================== */
 
+    private static final String createExpansionPreference(FilterCategory category) {
+        return "Expansion:" + category.listingTitle; //$NON-NLS-1$
+    }
+
     /**
      * Receiver which receives intents to add items to the filter list
      *
@@ -233,19 +238,34 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     }
 
     /**
-     * Expand the first category filter in this group
+     * Expand the category filters in this group according to preference
      * @param filters
      */
     protected void expandList(Parcelable[] filters) {
         for(Parcelable filter : filters) {
             if(filter instanceof FilterCategory) {
-                for(int i = 0; i < getGroupCount(); i++)
+                String preference = createExpansionPreference((FilterCategory) filter);
+                if(!Preferences.getBoolean(preference, true))
+                    continue;
+
+                int count = getGroupCount();
+                for(int i = 0; i < count; i++)
                     if(getGroup(i) == filter) {
                         listView.expandGroup(i);
-                        return;
+                        break;
                     }
             }
         }
+    }
+
+    /**
+     * Call to save user preference for whether a node is expanded
+     * @param category
+     * @param expanded
+     */
+    public void saveExpansionSetting(FilterCategory category, boolean expanded) {
+        String preference = createExpansionPreference(category);
+        Preferences.setBoolean(preference, expanded);
     }
 
     /**

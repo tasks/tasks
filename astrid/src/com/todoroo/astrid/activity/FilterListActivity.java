@@ -15,19 +15,19 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -39,6 +39,7 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.SearchFilter;
 import com.todoroo.astrid.model.Task;
@@ -215,12 +216,16 @@ public class FilterListActivity extends ExpandableListActivity {
     public void onGroupExpand(int groupPosition) {
         FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
         onItemClicked(item);
+        if(item instanceof FilterCategory)
+            adapter.saveExpansionSetting((FilterCategory) item, true);
     }
 
     @Override
     public void onGroupCollapse(int groupPosition) {
         FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
         onItemClicked(item);
+        if(item instanceof FilterCategory)
+            adapter.saveExpansionSetting((FilterCategory) item, false);
     }
 
     @Override

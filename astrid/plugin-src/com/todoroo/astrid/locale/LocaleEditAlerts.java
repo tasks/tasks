@@ -182,14 +182,19 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
     @Override
     public void onGroupExpand(int groupPosition) {
         FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
-        if(item instanceof Filter) {
+        if(item instanceof Filter)
             adapter.setSelection(item);
-        }
+        else if(item instanceof FilterCategory)
+            adapter.saveExpansionSetting((FilterCategory) item, true);
     }
 
     @Override
     public void onGroupCollapse(int groupPosition) {
-        onGroupExpand(groupPosition);
+        FilterListItem item = (FilterListItem) adapter.getGroup(groupPosition);
+        if(item instanceof Filter)
+            adapter.setSelection(item);
+        else if(item instanceof FilterCategory)
+            adapter.saveExpansionSetting((FilterCategory) item, false);
     }
 
     /**
