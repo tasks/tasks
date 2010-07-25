@@ -22,6 +22,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -100,12 +101,11 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
      *            error tag
      * @param e
      *            exception
-     * @param showErrorIfNeeded
+     * @param showError
      *            whether to display a dialog
      */
-    private void handleRtmException(Context context, String tag, Exception e,
-            boolean showErrorIfNeeded) {
-
+    @Override
+    protected void handleException(String tag, Exception e, boolean showError) {
         Utilities.setLastError(e.toString());
 
         // occurs when application was closed
@@ -118,7 +118,8 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
                 IOException) {
             Exception enclosedException = ((ServiceInternalException)e).getEnclosedException();
             exceptionService.reportError(tag + "-ioexception", enclosedException); //$NON-NLS-1$
-            if(showErrorIfNeeded) {
+            if(showError) {
+                Context context = ContextManager.getContext();
                 showError(context, enclosedException,
                         context.getString(R.string.rmilk_ioerror));
             }
@@ -126,8 +127,10 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
             if(e instanceof ServiceInternalException)
                 e = ((ServiceInternalException)e).getEnclosedException();
             exceptionService.reportError(tag + "-unhandled", e); //$NON-NLS-1$
-            if(showErrorIfNeeded)
+            if(showError) {
+                Context context = ContextManager.getContext();
                 showError(context, e, null);
+            }
         }
     }
 
@@ -169,7 +172,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
                     try {
                         String token = rtmService.completeAuthorization();
                         Utilities.setToken(token);
-                        performSync(context);
+                        performSync();
 
                         return;
                     } catch (Exception e) {
@@ -211,12 +214,12 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
                     context.startActivity(intent);
 
             } else {
-                performSync(context);
+                performSync();
             }
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
-            handleRtmException(context, "rtm-authenticate", e, true);
+            handleException("rtm-authenticate", e, true);
         } finally {
             Utilities.stopOngoing();
         }
@@ -226,7 +229,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
     // ----------------------------------------------------- synchronization!
     // ----------------------------------------------------------------------
 
-    protected void performSync(final Context context) {
+    protected void performSync() {
         try {
             // get RTM timeline
             timeline = rtmService.timelines_create();
@@ -249,7 +252,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
                 RtmTasks tasks = rtmService.tasks_getList(null, filter, lastSyncDate);
                 addTasksToList(tasks, remoteChanges);
             } catch (Exception e) {
-                handleRtmException(context, "rtm-quick-sync", e, false); //$NON-NLS-1$
+                handleException("rtm-quick-sync", e, false); //$NON-NLS-1$
                 remoteChanges.clear();
                 shouldSyncIndividualLists = true;
             }
@@ -264,7 +267,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
                                 filter, lastSyncDate);
                         addTasksToList(tasks, remoteChanges);
                     } catch (Exception e) {
-                        handleRtmException(context, "rtm-indiv-sync", e, true); //$NON-NLS-1$
+                        handleException("rtm-indiv-sync", e, true); //$NON-NLS-1$
                         continue;
                     }
                 }
@@ -284,7 +287,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
-            handleRtmException(context, "rtm-sync", e, true); //$NON-NLS-1$
+            handleException("rtm-sync", e, true); //$NON-NLS-1$
         }
     }
 

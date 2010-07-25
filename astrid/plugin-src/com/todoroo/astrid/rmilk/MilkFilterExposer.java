@@ -39,6 +39,9 @@ public class MilkFilterExposer extends BroadcastReceiver {
         ContentValues values = new ContentValues();
         values.put(Metadata.KEY.name, MilkTask.METADATA_KEY);
         values.put(MilkTask.LIST_ID.name, list.id);
+        values.put(MilkTask.TASK_SERIES_ID.name, 0);
+        values.put(MilkTask.TASK_ID.name, 0);
+        values.put(MilkTask.REPEATING.name, 0);
         Filter filter = new Filter(listTitle, title, new QueryTemplate().join(
                 MilkDataService.METADATA_JOIN).where(Criterion.and(
                         MetadataCriteria.withKey(MilkTask.METADATA_KEY),

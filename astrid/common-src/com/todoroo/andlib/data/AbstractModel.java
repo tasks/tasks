@@ -219,6 +219,19 @@ public abstract class AbstractModel implements Parcelable {
         return false;
     }
 
+    /**
+     * @param property
+     * @return true if setValues or values contains this property, and the value
+     *         stored is not null
+     */
+    public boolean containsNonNullValue(Property<?> property) {
+        if(setValues != null && setValues.containsKey(property.name))
+            return setValues.get(property.name) != null;
+        if(values != null && values.containsKey(property.name))
+            return values.get(property.name) != null;
+        return false;
+    }
+
     // --- data storage
 
     /**

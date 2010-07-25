@@ -44,15 +44,31 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
     /**
      * Perform authenticate and other pre-synchronization steps, then
      * synchronize.
-     * @param context either the parent activity, or a background service
+     *
+     * @param context
+     *            either the parent activity, or a background service
      */
     abstract protected void initiate(Context context);
 
     /**
+     * Gets title of the notification bar notification
+     *
      * @param context
      * @return title of notification
      */
     abstract protected String getNotificationTitle(Context context);
+
+    /**
+     * Deal with an exception that occurs during synchronization
+     *
+     * @param tag
+     *            short string description of where error occurred
+     * @param e
+     *            exception
+     * @param displayError
+     *            whether to display error to the user
+     */
+    abstract protected void handleException(String tag, Exception e, boolean displayError);
 
     /**
      * Create a task on the remote server.
@@ -207,52 +223,60 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
         length = data.localCreated.getCount();
         for(int i = 0; i < length; i++) {
             data.localCreated.moveToNext();
-            TYPE local = read(data.localCreated);
+            try {
+                TYPE local = read(data.localCreated);
 
-            String taskTitle = local.task.getValue(Task.TITLE);
+                String taskTitle = local.task.getValue(Task.TITLE);
 
-            /* If there exists an incoming remote task with the same name and no
-             * mapping, we don't want to create this on the remote server,
-             * because user could have synchronized like this before. Instead,
-             * we create a mapping and do an update.
-             */
-            if (remoteNewTaskNameMap.containsKey(taskTitle)) {
-                int remoteIndex = remoteNewTaskNameMap.remove(taskTitle);
-                TYPE remote = data.remoteUpdated.get(remoteIndex);
+                /* If there exists an incoming remote task with the same name and no
+                 * mapping, we don't want to create this on the remote server,
+                 * because user could have synchronized like this before. Instead,
+                 * we create a mapping and do an update.
+                 */
+                if (remoteNewTaskNameMap.containsKey(taskTitle)) {
+                    int remoteIndex = remoteNewTaskNameMap.remove(taskTitle);
+                    TYPE remote = data.remoteUpdated.get(remoteIndex);
 
-                transferIdentifiers(remote, local);
-                push(local, remote);
+                    transferIdentifiers(remote, local);
+                    push(local, remote);
 
-                // re-read remote task after merge, update remote task list
-                remote = pull(remote);
-                remote.task.setId(local.task.getId());
-                data.remoteUpdated.set(remoteIndex, remote);
-            } else {
-                create(local);
+                    // re-read remote task after merge, update remote task list
+                    remote = pull(remote);
+                    remote.task.setId(local.task.getId());
+                    data.remoteUpdated.set(remoteIndex, remote);
+                } else {
+                    create(local);
+                }
+                write(local);
+            } catch (Exception e) {
+                handleException("sync-local-created", e, false); //$NON-NLS-1$
             }
-            write(local);
         }
 
         // 2. UPDATE: for each updated local task
         length = data.localUpdated.getCount();
         for(int i = 0; i < length; i++) {
             data.localUpdated.moveToNext();
-            TYPE local = read(data.localUpdated);
-            if(local.task == null)
-                continue;
+            try {
+                TYPE local = read(data.localUpdated);
+                if(local.task == null)
+                    continue;
 
-            // if there is a conflict, merge
-            int remoteIndex = matchTask((ArrayList<TYPE>)data.remoteUpdated, local);
-            if(remoteIndex != -1) {
-                TYPE remote = data.remoteUpdated.get(remoteIndex);
-                push(local, remote);
+                // if there is a conflict, merge
+                int remoteIndex = matchTask((ArrayList<TYPE>)data.remoteUpdated, local);
+                if(remoteIndex != -1) {
+                    TYPE remote = data.remoteUpdated.get(remoteIndex);
+                    push(local, remote);
 
-                // re-read remote task after merge
-                remote = pull(remote);
-                remote.task.setId(local.task.getId());
-                data.remoteUpdated.set(remoteIndex, remote);
-            } else {
-                push(local, null);
+                    // re-read remote task after merge
+                    remote = pull(remote);
+                    remote.task.setId(local.task.getId());
+                    data.remoteUpdated.set(remoteIndex, remote);
+                } else {
+                    push(local, null);
+                }
+            } catch (Exception e) {
+                handleException("sync-local-updated", e, false); //$NON-NLS-1$
             }
         }
 
@@ -290,7 +314,11 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
         length = data.remoteUpdated.size();
         for(int i = 0; i < length; i++) {
             TYPE remote = data.remoteUpdated.get(i);
-            write(remote);
+            try {
+                write(remote);
+            } catch (Exception e) {
+                handleException("sync-remote-updated", e, false); //$NON-NLS-1$
+            }
         }
     }
 

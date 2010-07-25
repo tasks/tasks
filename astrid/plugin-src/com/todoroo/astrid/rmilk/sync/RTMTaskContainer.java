@@ -44,13 +44,13 @@ public class RTMTaskContainer extends TaskContainer {
         for(Iterator<Metadata> iterator = metadata.iterator(); iterator.hasNext(); ) {
             Metadata item = iterator.next();
             if(MilkTask.METADATA_KEY.equals(item.getValue(Metadata.KEY))) {
-                if(item.containsValue(MilkTask.LIST_ID))
+                if(item.containsNonNullValue(MilkTask.LIST_ID))
                     listId = item.getValue(MilkTask.LIST_ID);
-                if(item.containsValue(MilkTask.TASK_SERIES_ID))
+                if(item.containsNonNullValue(MilkTask.TASK_SERIES_ID))
                     taskSeriesId = item.getValue(MilkTask.TASK_SERIES_ID);
-                if(item.containsValue(MilkTask.TASK_ID))
+                if(item.containsNonNullValue(MilkTask.TASK_ID))
                     taskId = item.getValue(MilkTask.TASK_ID);
-                if(item.containsValue(MilkTask.REPEATING))
+                if(item.containsNonNullValue(MilkTask.REPEATING))
                     repeating = item.getValue(MilkTask.REPEATING) == 1;
                 iterator.remove();
                 break;
