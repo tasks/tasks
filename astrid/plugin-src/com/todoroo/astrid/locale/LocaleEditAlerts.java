@@ -212,11 +212,9 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
             if (selected == null)
             {
                 /*
-                 * Note: many settings will not need to use the RESULT_REMOVE result. This is only needed for settings that have
-                 * an "invalid" state that shouldn't be saved. For example, an saving empty Toast message doesn't make sense. The
-                 * Ringer Volume setting doesn't have such an "invalid" state, and therefore doesn't use this result code
+                 * If nothing is selected, return as if user had canceled
                  */
-                setResult(com.twofortyfouram.Intent.RESULT_REMOVE);
+                setResult(RESULT_CANCELED);
             }
             else
             {

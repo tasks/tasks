@@ -11,9 +11,7 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.Notification;
-import android.app.PendingIntent;
 import android.content.Context;
-import android.content.Intent;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -51,12 +49,11 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
     abstract protected void initiate(Context context);
 
     /**
-     * Gets title of the notification bar notification
-     *
+     * Updates the text of a notification and the intent to open when tapped
      * @param context
-     * @return title of notification
+     * @param notification
      */
-    abstract protected String getNotificationTitle(Context context);
+    abstract protected void updateNotification(Context context, Notification notification);
 
     /**
      * Deal with an exception that occurs during synchronization
@@ -131,8 +128,6 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
     private ExceptionService exceptionService;
 
     private final Notification notification;
-    private PendingIntent notificationIntent;
-    private String notificationTitle;
 
     public SynchronizationProvider() {
         DependencyInjectionService.getInstance().inject(this);
@@ -157,9 +152,7 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
         }
 
         // display notification
-        notificationTitle = getNotificationTitle(context);
-        notificationIntent = PendingIntent.getActivity(context, 0, new Intent(), 0);
-        postUpdate(context, context.getString(R.string.SyP_progress));
+        updateNotification(context, notification);
         final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
         nm.notify(Constants.NOTIFICATION_SYNC, notification);
 
@@ -184,15 +177,6 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
      */
     protected void showError(final Context context, Throwable e, String message) {
         exceptionService.displayAndReportError(context, message, e);
-    }
-
-    /**
-     * Utility method to update the UI if we're an active sync, or output to
-     * console if we're a background sync.
-     */
-    protected void postUpdate(Context context, String string) {
-        notification.setLatestEventInfo(context,
-                notificationTitle, string, notificationIntent);
     }
 
     // --- synchronization logic

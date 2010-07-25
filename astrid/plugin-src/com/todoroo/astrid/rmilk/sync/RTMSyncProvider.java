@@ -11,6 +11,8 @@ import java.util.HashSet;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -33,6 +35,7 @@ import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.MilkLoginActivity;
+import com.todoroo.astrid.rmilk.MilkPreferences;
 import com.todoroo.astrid.rmilk.Utilities;
 import com.todoroo.astrid.rmilk.MilkLoginActivity.SyncLoginCallback;
 import com.todoroo.astrid.rmilk.api.ApplicationInfo;
@@ -534,8 +537,15 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
     }
 
     @Override
-    protected String getNotificationTitle(Context context) {
-        return context.getString(R.string.rmilk_notification_title);
+    protected void updateNotification(Context context, Notification notification) {
+        String notificationTitle = context.getString(R.string.rmilk_notification_title);
+        Intent intent = new Intent(context, MilkPreferences.class);
+        PendingIntent notificationIntent = PendingIntent.getActivity(context, 0,
+                intent, 0);
+        notification.setLatestEventInfo(context,
+                notificationTitle, context.getString(R.string.SyP_progress),
+                notificationIntent);
+        return ;
     }
 
     @Override
