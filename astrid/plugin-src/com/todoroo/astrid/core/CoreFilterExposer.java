@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -44,16 +45,9 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         searchFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_search)).getBitmap();
 
         // extended
-        FilterCategory extended = new FilterCategory(r.getString(R.string.BFE_Extended),
-                new Filter[5]);
 
-        Filter alphabetical = new Filter(r.getString(R.string.BFE_Alphabetical),
-                r.getString(R.string.BFE_Alphabetical),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        TaskCriteria.isVisible())).
-                        orderBy(Order.asc(Task.TITLE)),
-                null);
-        alphabetical.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap();
+        FilterCategory extended = new FilterCategory(r.getString(R.string.BFE_Extended),
+                new Filter[7]);
 
         Filter recent = new Filter(r.getString(R.string.BFE_Recent),
                 r.getString(R.string.BFE_Recent),
@@ -86,11 +80,43 @@ public final class CoreFilterExposer extends BroadcastReceiver {
                 null);
         deleted.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_trash)).getBitmap();
 
-        extended.children[0] = alphabetical;
-        extended.children[1] = recent;
-        extended.children[2] = hidden;
-        extended.children[3] = completed;
-        extended.children[4] = deleted;
+        // sorting filters
+
+        Filter alphabetical = new Filter(r.getString(R.string.BFE_Alphabetical),
+                r.getString(R.string.BFE_Alphabetical),
+                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
+                        TaskCriteria.isVisible())).
+                        orderBy(Order.asc(Task.TITLE)),
+                null);
+        alphabetical.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap();
+
+        Filter dueDate = new Filter(r.getString(R.string.BFE_DueDate),
+                r.getString(R.string.BFE_DueDate),
+                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
+                        TaskCriteria.isVisible())).
+                        orderBy(Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
+                                Long.MAX_VALUE, Task.DUE_DATE) + "+" + Task.IMPORTANCE)), //$NON-NLS-1$
+                        null);
+        dueDate.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap();
+
+        Filter importance = new Filter(r.getString(R.string.BFE_Importance),
+                r.getString(R.string.BFE_Importance),
+                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
+                        TaskCriteria.isVisible())).
+                        orderBy(Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) + //$NON-NLS-1$
+                                "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), //$NON-NLS-1$
+                                        Functions.now() + "+" + DateUtilities.ONE_WEEK, //$NON-NLS-1$
+                                        Task.DUE_DATE))),
+                        null);
+        importance.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap();
+
+        extended.children[0] = recent;
+        extended.children[1] = hidden;
+        extended.children[2] = completed;
+        extended.children[3] = deleted;
+        extended.children[4] = alphabetical;
+        extended.children[5] = dueDate;
+        extended.children[6] = importance;
 
         // transmit filter list
         FilterListItem[] list = new FilterListItem[3];

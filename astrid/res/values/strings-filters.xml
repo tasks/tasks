@@ -16,9 +16,6 @@
     <!-- Extended Filters Category -->
     <string name="BFE_Extended">More...</string>
 
-    <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">Alphabetical</string>
-
     <!-- sort recent modification filter -->
     <string name="BFE_Recent">Recently Modified</string>
     
@@ -27,6 +24,15 @@
 
     <!-- hidden tasks filter -->
     <string name="BFE_Hidden">Hidden Tasks</string>
+
+    <!-- sort Alphabetical filter -->
+    <string name="BFE_Alphabetical">By Title</string>
+
+    <!-- sort Due Date filter -->
+    <string name="BFE_DueDate">By Due Date</string>
+
+    <!-- sort Importance filter -->
+    <string name="BFE_Importance">By Importance</string>
 
     <!-- deleted tasks filter -->
     <string name="BFE_Deleted">Deleted Tasks</string>

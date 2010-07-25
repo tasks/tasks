@@ -58,6 +58,7 @@
     <!-- Activity that displays task list -->
     <activity android:name="com.todoroo.astrid.activity.TaskListActivity"
               android:windowSoftInputMode="stateHidden"
+              android:clearTaskOnLaunch="true"
               android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -78,6 +79,7 @@
     </activity>
     <!-- Activity that displays filter list -->
     <activity android:name="com.todoroo.astrid.activity.FilterListActivity"
+              android:launchMode="singleTask"
               android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.SEARCH" />
