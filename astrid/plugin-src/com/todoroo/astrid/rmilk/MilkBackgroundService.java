@@ -44,6 +44,8 @@ public class MilkBackgroundService extends Service {
         if(context == null || context.getResources() == null)
             return;
 
+        ContextManager.setContext(context);
+
         if(MilkUtilities.isOngoing())
             return;
 

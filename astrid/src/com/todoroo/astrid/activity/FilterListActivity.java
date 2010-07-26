@@ -91,7 +91,6 @@ public class FilterListActivity extends ExpandableListActivity {
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
         setTitle(R.string.FLA_title);
-        setUpList();
 
         onNewIntent(getIntent());
     }
@@ -117,6 +116,8 @@ public class FilterListActivity extends ExpandableListActivity {
             intent = new Intent(FilterListActivity.this, TaskListActivity.class);
             intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
             startActivity(intent);
+        } else {
+            setUpList();
         }
     }
 
