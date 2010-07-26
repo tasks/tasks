@@ -31,7 +31,7 @@ public class MilkDetailExposer extends BroadcastReceiver implements DetailExpose
     @Override
     public void onReceive(Context context, Intent intent) {
         // if we aren't logged in, don't expose features
-        if(!Utilities.isLoggedIn())
+        if(!MilkUtilities.isLoggedIn())
             return;
 
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
@@ -44,7 +44,7 @@ public class MilkDetailExposer extends BroadcastReceiver implements DetailExpose
             return;
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, Utilities.IDENTIFIER);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, MilkUtilities.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
@@ -90,7 +90,7 @@ public class MilkDetailExposer extends BroadcastReceiver implements DetailExpose
 
     @Override
     public String getPluginIdentifier() {
-        return Utilities.IDENTIFIER;
+        return MilkUtilities.IDENTIFIER;
     }
 
 }

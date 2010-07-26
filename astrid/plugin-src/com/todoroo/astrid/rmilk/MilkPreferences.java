@@ -3,6 +3,7 @@ package com.todoroo.astrid.rmilk;
 import java.util.Date;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -30,9 +31,9 @@ import com.todoroo.astrid.rmilk.sync.RTMSyncProvider;
 public class MilkPreferences extends TodorooPreferences {
 
     @Autowired
-    DialogUtilities dialogUtilities;
+    private DialogUtilities dialogUtilities;
 
-    int statusColor = Color.BLACK;
+    private int statusColor = Color.BLACK;
 
     @Override
     public int getPreferenceResource() {
@@ -56,6 +57,12 @@ public class MilkPreferences extends TodorooPreferences {
                     view.setBackgroundColor(statusColor);
             }
         });
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MilkBackgroundService.scheduleService();
     }
 
     /**
@@ -83,7 +90,7 @@ public class MilkPreferences extends TodorooPreferences {
 
         // status
         else if (r.getString(R.string.rmilk_MPr_status_key).equals(preference.getKey())) {
-            boolean loggedIn = Utilities.isLoggedIn();
+            boolean loggedIn = MilkUtilities.isLoggedIn();
             String status;
             String subtitle = ""; //$NON-NLS-1$
 
@@ -93,47 +100,47 @@ public class MilkPreferences extends TodorooPreferences {
                 statusColor = Color.RED;
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
-                        new RTMSyncProvider().synchronize(MilkPreferences.this);
+                        startService(new Intent(MilkPreferences.this, MilkBackgroundService.class));
                         finish();
                         return true;
                     }
                 });
             }
             // sync is occurring
-            else if(Utilities.isOngoing()) {
+            else if(MilkUtilities.isOngoing()) {
                 status = r.getString(R.string.rmilk_status_ongoing);
                 statusColor = Color.rgb(0, 0, 100);
             }
             // last sync was error
-            else if(Utilities.getLastAttemptedSyncDate() != 0) {
+            else if(MilkUtilities.getLastAttemptedSyncDate() != 0) {
                 status = r.getString(R.string.rmilk_status_failed,
                         DateUtilities.getDateWithTimeFormat(MilkPreferences.this).
-                        format(new Date(Utilities.getLastAttemptedSyncDate())));
-                if(Utilities.getLastSyncDate() > 0) {
+                        format(new Date(MilkUtilities.getLastAttemptedSyncDate())));
+                if(MilkUtilities.getLastSyncDate() > 0) {
                     subtitle = r.getString(R.string.rmilk_status_failed_subtitle,
                             DateUtilities.getDateWithTimeFormat(MilkPreferences.this).
-                            format(new Date(Utilities.getLastSyncDate())));
+                            format(new Date(MilkUtilities.getLastSyncDate())));
                 }
                 statusColor = Color.rgb(100, 0, 0);
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
-                        String error = Utilities.getLastError();
+                        String error = MilkUtilities.getLastError();
                         if(error != null)
                             dialogUtilities.okDialog(MilkPreferences.this, error, null);
                         return true;
                     }
                 });
-            } else if(Utilities.getLastSyncDate() > 0) {
+            } else if(MilkUtilities.getLastSyncDate() > 0) {
                 status = r.getString(R.string.rmilk_status_success,
                         DateUtilities.getDateWithTimeFormat(MilkPreferences.this).
-                        format(new Date(Utilities.getLastSyncDate())));
+                        format(new Date(MilkUtilities.getLastSyncDate())));
                 statusColor = Color.rgb(0, 100, 0);
             } else {
                 status = r.getString(R.string.rmilk_status_never);
                 statusColor = Color.rgb(0, 0, 100);
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
-                        new RTMSyncProvider().synchronize(MilkPreferences.this);
+                        startService(new Intent(MilkPreferences.this, MilkBackgroundService.class));
                         finish();
                         return true;
                     }
@@ -149,7 +156,7 @@ public class MilkPreferences extends TodorooPreferences {
 
         // sync button
         else if (r.getString(R.string.rmilk_MPr_sync_key).equals(preference.getKey())) {
-            boolean loggedIn = Utilities.isLoggedIn();
+            boolean loggedIn = MilkUtilities.isLoggedIn();
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference p) {
                     new RTMSyncProvider().synchronize(MilkPreferences.this);
@@ -163,7 +170,7 @@ public class MilkPreferences extends TodorooPreferences {
 
         // log out button
         else if (r.getString(R.string.rmilk_MPr_forget_key).equals(preference.getKey())) {
-            boolean loggedIn = Utilities.isLoggedIn();
+            boolean loggedIn = MilkUtilities.isLoggedIn();
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference p) {
                     dialogUtilities.okCancelDialog(MilkPreferences.this,

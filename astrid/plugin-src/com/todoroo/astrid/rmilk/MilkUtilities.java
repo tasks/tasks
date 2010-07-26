@@ -13,13 +13,13 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.rmilk.data.MilkList;
 
 /**
- * Utility constants
+ * Constants and preferences for rtm plugin
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
 @SuppressWarnings("nls")
-public class Utilities {
+public class MilkUtilities {
 
     // --- constants
 

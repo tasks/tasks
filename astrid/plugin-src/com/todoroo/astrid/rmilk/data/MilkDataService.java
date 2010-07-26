@@ -29,8 +29,8 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.rmilk.Utilities;
-import com.todoroo.astrid.rmilk.Utilities.ListContainer;
+import com.todoroo.astrid.rmilk.MilkUtilities;
+import com.todoroo.astrid.rmilk.MilkUtilities.ListContainer;
 import com.todoroo.astrid.rmilk.api.data.RtmList;
 import com.todoroo.astrid.rmilk.api.data.RtmLists;
 import com.todoroo.astrid.rmilk.sync.RTMTaskContainer;
@@ -104,7 +104,7 @@ public final class MilkDataService {
      * @return null if never sync'd
      */
     public TodorooCursor<Task> getLocallyUpdated(Property<?>[] properties) {
-        long lastSyncDate = Utilities.getLastSyncDate();
+        long lastSyncDate = MilkUtilities.getLastSyncDate();
         if(lastSyncDate == 0)
             return taskDao.query(Query.select(Task.ID).where(Criterion.none));
         return

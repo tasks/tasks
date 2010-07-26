@@ -28,6 +28,11 @@ abstract public class TodorooPreferences extends PreferenceActivity {
 
     public abstract int getPreferenceResource();
 
+    /**
+     * Update preferences for the given preference
+     * @param preference
+     * @param value setting. may be null.
+     */
     public abstract void updatePreferences(Preference preference, Object value);
 
     // --- implementation
@@ -57,8 +62,7 @@ abstract public class TodorooPreferences extends PreferenceActivity {
             else if(preference instanceof RingtonePreference)
                 value = getPreferenceManager().getSharedPreferences().getString(preference.getKey(), null);
 
-            if(value != null || Preference.class.equals(preference.getClass()))
-                updatePreferences(preference, value);
+            updatePreferences(preference, value);
 
             preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 public boolean onPreferenceChange(Preference myPreference, Object newValue) {

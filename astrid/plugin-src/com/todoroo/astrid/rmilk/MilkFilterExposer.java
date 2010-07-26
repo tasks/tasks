@@ -19,7 +19,7 @@ import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.rmilk.Utilities.ListContainer;
+import com.todoroo.astrid.rmilk.MilkUtilities.ListContainer;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
 import com.todoroo.astrid.rmilk.data.MilkTask;
 
@@ -56,7 +56,7 @@ public class MilkFilterExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // if we aren't logged in, don't expose features
-        if(!Utilities.isLoggedIn())
+        if(!MilkUtilities.isLoggedIn())
             return;
 
         ListContainer[] lists = MilkDataService.getInstance().getListsWithCounts();
@@ -78,7 +78,7 @@ public class MilkFilterExposer extends BroadcastReceiver {
         list[0] = rtmHeader;
         list[1] = rtmLists;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, Utilities.IDENTIFIER);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, MilkUtilities.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }

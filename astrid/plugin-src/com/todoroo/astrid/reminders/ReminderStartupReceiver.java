@@ -13,7 +13,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class ReminderStartupService extends BroadcastReceiver {
+public class ReminderStartupReceiver extends BroadcastReceiver {
 
     static {
         AstridDependencyInjector.initialize();

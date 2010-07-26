@@ -36,7 +36,7 @@ import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.MilkLoginActivity;
 import com.todoroo.astrid.rmilk.MilkPreferences;
-import com.todoroo.astrid.rmilk.Utilities;
+import com.todoroo.astrid.rmilk.MilkUtilities;
 import com.todoroo.astrid.rmilk.MilkLoginActivity.SyncLoginCallback;
 import com.todoroo.astrid.rmilk.api.ApplicationInfo;
 import com.todoroo.astrid.rmilk.api.ServiceImpl;
@@ -84,8 +84,8 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
      * Sign out of RTM, deleting all synchronization metadata
      */
     public void signOut() {
-        Utilities.setToken(null);
-        Utilities.clearLastSyncDate();
+        MilkUtilities.setToken(null);
+        MilkUtilities.clearLastSyncDate();
 
         dataService = MilkDataService.getInstance();
         dataService.clearMetadata();
@@ -109,7 +109,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
      */
     @Override
     protected void handleException(String tag, Exception e, boolean showError) {
-        Utilities.setLastError(e.toString());
+        MilkUtilities.setLastError(e.toString());
 
         // occurs when application was closed
         if(e instanceof IllegalStateException) {
@@ -153,11 +153,11 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
         final Resources r = context.getResources();
         FlurryAgent.onEvent("rtm-started");
 
-        Utilities.recordSyncStart();
+        MilkUtilities.recordSyncStart();
 
         try {
             String appName = null;
-            String authToken = Utilities.getToken();
+            String authToken = MilkUtilities.getToken();
             String z = stripslashes(0,"q9883o3384n21snq17501qn38oo1r689", "b");
             String v = stripslashes(16,"19o2n020345219os","a");
 
@@ -174,7 +174,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
                 if(rtmService != null) {
                     try {
                         String token = rtmService.completeAuthorization();
-                        Utilities.setToken(token);
+                        MilkUtilities.setToken(token);
                         performSync();
 
                         return;
@@ -197,7 +197,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
 
                         try {
                             String token = rtmService.completeAuthorization();
-                            Utilities.setToken(token);
+                            MilkUtilities.setToken(token);
                             synchronize(context);
                             return null;
                         } catch (Exception e) {
@@ -224,7 +224,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
         } catch (Exception e) {
             handleException("rtm-authenticate", e, true);
         } finally {
-            Utilities.stopOngoing();
+            MilkUtilities.stopOngoing();
         }
     }
 
@@ -243,7 +243,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
 
             // read all tasks
             ArrayList<RTMTaskContainer> remoteChanges = new ArrayList<RTMTaskContainer>();
-            Date lastSyncDate = new Date(Utilities.getLastSyncDate());
+            Date lastSyncDate = new Date(MilkUtilities.getLastSyncDate());
             boolean shouldSyncIndividualLists = false;
             String filter = null;
             if(lastSyncDate.getTime() == 0)
@@ -284,7 +284,7 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
                 syncData.localUpdated.close();
             }
 
-            Utilities.recordSuccessfulSync();
+            MilkUtilities.recordSuccessfulSync();
 
             FlurryAgent.onEvent("rtm-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {

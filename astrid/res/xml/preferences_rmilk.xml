@@ -13,7 +13,7 @@
         
     </PreferenceCategory>
             
-    <!-- PreferenceCategory
+    <PreferenceCategory
         android:title="@string/rmilk_MPr_group_options">
     
         <ListPreference  
@@ -22,7 +22,7 @@
             android:entryValues="@array/rmilk_MPr_interval_values"  
             android:title="@string/rmilk_MPr_interval_title" />
             
-    </PreferenceCategory -->
+    </PreferenceCategory>
     
     <PreferenceCategory
         android:title="@string/rmilk_MPr_group_actions">

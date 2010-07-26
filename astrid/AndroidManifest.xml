@@ -240,7 +240,7 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <receiver android:name="com.todoroo.astrid.reminders.ReminderStartupService">
+    <receiver android:name="com.todoroo.astrid.reminders.ReminderStartupReceiver">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -269,7 +269,14 @@
         <action android:name="android.intent.action.MAIN" />
       </intent-filter>
     </activity>
-
+    <service android:name="com.todoroo.astrid.rmilk.MilkBackgroundService"/>
+    <receiver android:name="com.todoroo.astrid.rmilk.MilkStartupReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    
   </application>
 
 </manifest>

@@ -69,7 +69,7 @@
     <string name="rmilk_MPr_group_options">Options</string>
 
     <!-- Synchronization Interval Title -->    
-    <string name="rmilk_MPr_interval_title">Synchronization Interval</string>
+    <string name="rmilk_MPr_interval_title">Background Sync</string>
     <!-- Synchronization Interval Description (when disabled) -->
     <string name="rmilk_MPr_interval_desc_disabled">Background synchronization is disabled</string>    
     <!-- Synchronization Interval Description (%s => setting) -->
