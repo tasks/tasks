@@ -60,27 +60,48 @@
     
     <!-- Reminder -->
     <RelativeLayout android:id="@+id/reminderContainer"
-        android:layout_width="fill_parent" 
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
+        android:visibility="visible"
         android:layout_weight="1">
         
         <TextView android:id="@+id/reminderLabel"
-            android:layout_width="wrap_content" 
+            android:layout_width="fill_parent" 
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            style="@style/TextAppearance.TLA_Reminder"
-            android:background="@drawable/reminder_popup"/>
-            
-        <ImageView
-            android:layout_width="wrap_content" 
+            android:text="I want you to be the walrus."
+            android:background="@drawable/reminder_popup"
+            style="@style/TextAppearance.TLA_Reminder" />
+          
+        <LinearLayout
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="15px"
             android:layout_below="@id/reminderLabel"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/icon_blank" />
-        
+            android:layout_alignParentLeft="true"
+            android:orientation="horizontal">
+            
+            <Button android:id="@+id/snooze"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="49"
+                android:text="@string/rmd_NoA_snooze" />
+            
+            <Button android:id="@+id/goAway"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="49"
+                android:text="@string/rmd_NoA_goAway" />
+              
+            <ImageView android:id="@+id/astridIcon"
+                android:layout_width="wrap_content" 
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:paddingRight="15dip"
+                android:paddingLeft="5dip"
+                android:src="@drawable/icon_blank" />
+        </LinearLayout>
+            
     </RelativeLayout>
         
     <!-- Footer -->
