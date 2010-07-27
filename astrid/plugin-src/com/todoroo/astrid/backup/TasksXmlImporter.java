@@ -14,6 +14,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.res.Resources;
 import android.os.Handler;
 import android.os.Looper;
 import android.util.Log;
@@ -23,10 +24,10 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.legacy.LegacyImportance;
 import com.todoroo.astrid.legacy.LegacyRepeatInfo;
 import com.todoroo.astrid.legacy.LegacyRepeatInfo.LegacyRepeatInterval;
@@ -64,7 +65,8 @@ public class TasksXmlImporter {
     private final TaskService taskService = PluginServices.getTaskService();
     private final MetadataService metadataService = PluginServices.getMetadataService();
     private final ExceptionService exceptionService = PluginServices.getExceptionService();
-    protected ProgressDialog progressDialog;
+    private final ProgressDialog progressDialog;
+    private final Runnable runAfterImport;
 
     private void setProgressMessage(final String message) {
         importHandler.post(new Runnable() {
@@ -78,15 +80,16 @@ public class TasksXmlImporter {
      * Import tasks.
      * @param runAfterImport optional runnable after import
      */
-    private TasksXmlImporter(final Context context, String input, final Runnable runAfterImport) {
+    private TasksXmlImporter(final Context context, String input, Runnable runAfterImport) {
         this.input = input;
         this.context = context;
+        this.runAfterImport = runAfterImport;
+        progressDialog = new ProgressDialog(context);
 
         importHandler = new Handler();
         importHandler.post(new Runnable() {
             @Override
             public void run() {
-                progressDialog = new ProgressDialog(context);
                 progressDialog.setIcon(android.R.drawable.ic_dialog_info);
                 progressDialog.setTitle(R.string.import_progress_title);
                 progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
@@ -102,9 +105,6 @@ public class TasksXmlImporter {
                 Looper.prepare();
                 try {
                     performImport();
-                    if (runAfterImport != null) {
-                        importHandler.post(runAfterImport);
-                    }
                 } catch (IOException e) {
                     exceptionService.displayAndReportError(context,
                             context.getString(R.string.backup_TXI_error), e);
@@ -125,7 +125,6 @@ public class TasksXmlImporter {
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser xpp = factory.newPullParser();
         xpp.setInput(new FileReader(input));
-        setProgressMessage(context.getString(R.string.import_progress_opened));
 
         try {
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
@@ -163,13 +162,20 @@ public class TasksXmlImporter {
     private void showSummary() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.import_summary_title);
+        Resources r = context.getResources();
         String message = context.getString(R.string.import_summary_message,
-                input, taskCount, importCount, skipCount);
+                input,
+                r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
+                r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
+                r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount));
         builder.setMessage(message);
         builder.setPositiveButton(context.getString(android.R.string.ok),
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
+                        if (runAfterImport != null) {
+                            importHandler.post(runAfterImport);
+                        }
                     }
         });
         builder.show();
@@ -285,7 +291,9 @@ public class TasksXmlImporter {
             }
 
             // if the task's name and creation date match an existing task, skip
-            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID).where(TaskCriteria.createdOn(creationDate.getTime())));
+            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID).
+                    where(Criterion.and(Task.TITLE.eq(taskName),
+                            Task.CREATION_DATE.like(creationDate.getTime()/1000L + "%"))));
             try {
                 if(cursor.getCount() > 0) {
                     skipCount++;
@@ -318,7 +326,6 @@ public class TasksXmlImporter {
             // Save the task to the database.
             taskService.save(task, false);
             importCount++;
-            setProgressMessage(context.getString(R.string.import_progress_add, taskCount));
             return task;
         }
 

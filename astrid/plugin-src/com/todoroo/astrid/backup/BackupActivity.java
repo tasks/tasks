@@ -35,8 +35,13 @@ public class BackupActivity extends Activity {
         FilePickerBuilder.OnFilePickedListener listener = new FilePickerBuilder.OnFilePickedListener() {
             @Override
             public void onFilePicked(String filePath) {
-                TasksXmlImporter.importTasks(BackupActivity.this, filePath, null);
-                finish();
+                TasksXmlImporter.importTasks(BackupActivity.this, filePath,
+                        new Runnable() {
+                    @Override
+                    public void run() {
+                        finish();
+                    }
+                });
             }
         };
         new FilePickerBuilder(this,

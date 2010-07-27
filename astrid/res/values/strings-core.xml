@@ -72,8 +72,8 @@
   </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
-    <item quantity="one">1 Task</item>
-    <item quantity="other">%d Tasks</item>
+    <item quantity="one">1 task</item>
+    <item quantity="other">%d tasks</item>
   </plurals>
   
   <!-- ================================================== Generic Dialogs == -->

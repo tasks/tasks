@@ -39,19 +39,21 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Import Error</string>
     
-    <string name="export_toast">Backed Up %s to %s.</string>
-    <string name="import_summary_title">Restore Summary</string>
-    <string name="import_summary_message">
-File %s contained %d tasks.\n
-Restored %d tasks.\n
-Skipped %d tasks.\n
+  <string name="export_toast">Backed Up %s to %s.</string>
+  
+  <!-- Summary title for import -->
+  <string name="import_summary_title">Restore Summary</string>
+    
+  <!-- Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
+  <string name="import_summary_message">
+File %s contained %s.\n\n
+%s imported,\n
+%s already exist\n
     </string>
-    <string name="import_progress_title">Restore</string>
-    <string name="import_progress_open">Opening file...</string>
-    <string name="import_progress_opened">File opened...</string>
-    <string name="import_progress_read">Reading task %d...</string>
-    <string name="import_progress_skip">Skipped task %d...</string>
-    <string name="import_progress_add">Restored task %d...</string>
-    <string name="import_file_prompt">Select a File to Restore</string>    
+    
+  <string name="import_progress_title">Restore</string>
+  <string name="import_progress_open">Opening file...</string>
+  <string name="import_progress_read">Reading task %d...</string>
+  <string name="import_file_prompt">Select a File to Restore</string>    
         
 </resources>
