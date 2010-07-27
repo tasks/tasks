@@ -48,8 +48,8 @@ public class TasksXmlImporter {
      * @param input
      * @param runAfterImport
      */
-    public static void importTasks(String input, Runnable runAfterImport) {
-        new TasksXmlImporter(input, runAfterImport);
+    public static void importTasks(Context context, String input, Runnable runAfterImport) {
+        new TasksXmlImporter(context, input, runAfterImport);
     }
 
     // --- implementation
@@ -60,7 +60,7 @@ public class TasksXmlImporter {
     private int skipCount;
     private final String input;
 
-    private final Context context = ContextManager.getContext();
+    private final Context context;
     private final TaskService taskService = PluginServices.getTaskService();
     private final MetadataService metadataService = PluginServices.getMetadataService();
     private final ExceptionService exceptionService = PluginServices.getExceptionService();
@@ -78,8 +78,9 @@ public class TasksXmlImporter {
      * Import tasks.
      * @param runAfterImport optional runnable after import
      */
-    private TasksXmlImporter(String input, final Runnable runAfterImport) {
+    private TasksXmlImporter(final Context context, String input, final Runnable runAfterImport) {
         this.input = input;
+        this.context = context;
 
         importHandler = new Handler();
         importHandler.post(new Runnable() {
@@ -199,12 +200,12 @@ public class TasksXmlImporter {
 
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String tag = xpp.getName();
-                if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG) {
-                    saveTags();
-                    continue;
-                }
 
-                if (tag.equals(BackupConstants.TASK_TAG)) {
+                if(BackupConstants.TASK_TAG.equals(tag) && xpp.getEventType() == XmlPullParser.END_TAG)
+                    saveTags();
+                else if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG)
+                    continue;
+                else if (tag.equals(BackupConstants.TASK_TAG)) {
                     // Parse <task ... >
                     currentTask = parseTask();
                 } else if (currentTask != null) {
@@ -324,7 +325,10 @@ public class TasksXmlImporter {
         /** helper method to set field on a task */
         @SuppressWarnings("nls")
         private final boolean setTaskField(Task task, String field, String value) {
-            if(field.equals(LegacyTaskModel.NAME)) {
+            if(field.equals(LegacyTaskModel.ID)) {
+                // ignore
+            }
+            else if(field.equals(LegacyTaskModel.NAME)) {
                 task.setValue(Task.TITLE, value);
             }
             else if(field.equals(LegacyTaskModel.NOTES)) {

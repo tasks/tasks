@@ -35,13 +35,14 @@ public class BackupActivity extends Activity {
         FilePickerBuilder.OnFilePickedListener listener = new FilePickerBuilder.OnFilePickedListener() {
             @Override
             public void onFilePicked(String filePath) {
-                TasksXmlImporter.importTasks(filePath, null);
+                TasksXmlImporter.importTasks(BackupActivity.this, filePath, null);
+                finish();
             }
         };
         new FilePickerBuilder(this,
                 getString(R.string.import_file_prompt),
                 BackupConstants.getExportDirectory(),
-                listener);
+                listener).show();
     }
 
     private void exportTasks() {

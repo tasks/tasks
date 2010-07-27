@@ -4,6 +4,7 @@ package com.todoroo.astrid.legacy;
 @SuppressWarnings("nls")
 abstract public class LegacyTaskModel {
 
+    public static final String ID = "_id";
     public static final String NAME = "name";
     public static final String NOTES = "notes";
     public static final String PROGRESS_PERCENTAGE = "progressPercentage";
