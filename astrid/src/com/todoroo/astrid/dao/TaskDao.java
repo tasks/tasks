@@ -14,7 +14,6 @@ import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -33,14 +32,12 @@ import com.todoroo.astrid.utility.Preferences;
 public class TaskDao extends GenericDao<Task> {
 
     @Autowired
-    MetadataDao metadataDao;
+    private MetadataDao metadataDao;
 
     @Autowired
-    Database database;
+    private Database database;
 
-    @Autowired
-    ExceptionService exceptionService;
-
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
 	public TaskDao() {
         super(Task.class);
         DependencyInjectionService.getInstance().inject(this);

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -36,7 +37,7 @@ public class GCalTaskCompleteListener extends BroadcastReceiver {
                         task.getValue(Task.TITLE)));
                 cr.update(Uri.parse(calendarUri), values, null, null);
             } catch (Exception e) {
-                // do nothing.
+                Log.d("astrid-gcal", "Error updating calendar entry", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
     }

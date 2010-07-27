@@ -27,8 +27,9 @@ import com.todoroo.astrid.model.Task;
 public class MetadataDao extends GenericDao<Metadata> {
 
     @Autowired
-    Database database;
+    private Database database;
 
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="UR_UNINIT_READ")
 	public MetadataDao() {
         super(Metadata.class);
         DependencyInjectionService.getInstance().inject(this);

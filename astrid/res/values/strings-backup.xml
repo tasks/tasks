@@ -2,21 +2,37 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
-    <!-- Resources for built-in backup plug-in -->
+  <!-- Resources for built-in backup plug-in -->
+  
+  <!-- ============================================== BackupPreferences == -->
 
-    <string name="BPr_backup_title">Automatic Backups</string>
+  <string name="backup_BPr_backup_title">Automatic Backups</string>
 
-    <!--  backup summary when there is no backup message -->
-    <string name="BPr_backup_desc">Perform daily backups to sdcard.</string>
+  <!--  backup summary when there is no backup message -->
+  <string name="backup_BPr_backup_desc">Perform daily backups to sdcard.</string>
 
-    <!--  backup failure message (%s -> error message) -->
-    <string name="BPr_backup_desc_failure">Last backup failed: %s</string>
+  <!--  backup failure message (%s -> error message) -->
+  <string name="backup_BPr_backup_desc_failure">Last backup failed: %s</string>
 
-    <!--  backup failure error when error message is null -->
-    <string name="BPr_backup_desc_failure_null">Last backup failed, could not read SD card</string>
+  <!--  backup failure error when error message is null -->
+  <string name="backup_BPr_backup_desc_failure_null">Last backup failed, could not read SD card</string>
 
-    <!--  backup success message (%s -> date) -->
-    <string name="BPr_backup_desc_success">Latest backup was on %s</string>
+  <!--  backup success message (%s -> date) -->
+  <string name="backup_BPr_backup_desc_success">Latest backup was on %s</string>
+  
+  <!-- ================================================= BackupActivity == -->
+
+  <!-- backup activity label -->
+  <string name="backup_BAc_label">Backups</string>
+
+  <!-- backup activity title -->
+  <string name="backup_BAc_title">Manage Your Backups</string>
+
+  <!-- backup activity import button -->
+  <string name="backup_BAc_import">Import Tasks</string>
+
+  <!-- backup activity export button -->
+  <string name="backup_BAc_export">Export Tasks</string>
     
     <string name="export_toast">Backed Up %s to %s.</string>
     <string name="import_summary_title">Restore Summary</string>

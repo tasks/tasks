@@ -11,6 +11,7 @@ import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
+import android.util.Log;
 
 /**
  * Inspired heavily by SynchronizationService
@@ -129,7 +130,8 @@ public class BackupService extends Service {
             }
         });
         for(int i = DAYS_TO_KEEP_BACKUP; i < files.length; i++) {
-            files[i].delete();
+            if(!files[i].delete())
+                Log.i("astrid-backups", "Unable to delete: " + files[i]); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 

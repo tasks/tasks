@@ -189,6 +189,18 @@
     
     <!-- backup -->
     <service android:name="com.todoroo.astrid.backup.BackupService"/>
+    <activity android:name="com.todoroo.astrid.backup.BackupActivity"
+              android:theme="@android:style/Theme.Dialog"
+              android:icon="@drawable/ic_menu_archive"
+              android:label="@string/backup_BAc_label">
+      <intent-filter>   
+        <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+      </intent-filter>
+    </activity>
     
     <!-- notes -->
     
