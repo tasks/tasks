@@ -41,6 +41,7 @@ import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.model.Task;
@@ -104,6 +105,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final LayoutInflater inflater;
     private int fontSize;
 
+    private final Filter filter;
+
     // the task that's expanded
     private long expanded = -1;
 
@@ -129,7 +132,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      *            task listener. can be null
      */
     public TaskAdapter(ListActivity activity, int resource,
-            TodorooCursor<Task> c, boolean autoRequery,
+            Cursor c, Filter filter, boolean autoRequery,
             OnCompletedTaskListener onCompletedTaskListener) {
         super(activity, c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
@@ -137,6 +140,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
+        this.filter = filter;
         this.resource = resource;
         this.activity = activity;
         this.onCompletedTaskListener = onCompletedTaskListener;
@@ -148,6 +152,23 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(IMPORTANCE_COLORS == null)
                 IMPORTANCE_COLORS = Task.getImportanceColors(activity.getResources());
         }
+    }
+
+    /* ======================================================================
+     * =========================================================== filterable
+     * ====================================================================== */
+
+    @Override
+    public Cursor runQueryOnBackgroundThread(CharSequence constraint) {
+        if (getFilterQueryProvider() != null) {
+            return getFilterQueryProvider().runQuery(constraint);
+        }
+
+        // perform query
+        TodorooCursor<Task> newCursor = taskService.fetchFiltered(
+                filter, constraint, TaskAdapter.PROPERTIES);
+        activity.startManagingCursor(newCursor);
+        return newCursor;
     }
 
     /* ======================================================================

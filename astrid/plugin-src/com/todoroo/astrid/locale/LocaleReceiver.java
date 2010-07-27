@@ -68,7 +68,7 @@ public class LocaleReceiver extends BroadcastReceiver {
 				DependencyInjectionService.getInstance().inject(this);
 				Filter filter = new Filter(title, title, null, null);
 				filter.sqlQuery = sql;
-				TodorooCursor<Task> cursor = taskService.fetchFiltered(filter, Task.ID);
+				TodorooCursor<Task> cursor = taskService.fetchFiltered(filter, null, Task.ID);
 				try {
 				    if(cursor.getCount() == 0)
 				        return;

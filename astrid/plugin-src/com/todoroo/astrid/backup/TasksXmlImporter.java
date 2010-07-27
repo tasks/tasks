@@ -136,20 +136,27 @@ public class TasksXmlImporter {
                 if (tag != null) {
                     // Process <astrid ... >
                     if (tag.equals(BackupConstants.ASTRID_TAG)) {
-                        String version = xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_VERSION);
+                        String version = xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_FORMAT);
                         int intVersion;
                         try {
-                            intVersion = Integer.parseInt(version);
+                            intVersion = version == null ? 1 : Integer.parseInt(version);
                         } catch (Exception e) {
                             throw new UnsupportedOperationException(
-                                    "Did not know how to import tasks with version '" +
+                                    "Did not know how to import tasks with xml format '" +
                                     version + "'");
                         }
-                            if(intVersion <= 135)
-                                new Astrid2TaskImporter(xpp);
-                            else
-                                new Astrid3TaskImporter(xpp);
+                        switch(intVersion) {
+                        case 1:
+                            new Astrid2TaskImporter(xpp);
                             break;
+                        case 2:
+                            new Astrid3TaskImporter(xpp);
+                            break;
+                        default:
+                            throw new UnsupportedOperationException(
+                                    "Did not know how to import tasks with xml format number '" +
+                                    version + "'");
+                        }
                     }
                 }
             }

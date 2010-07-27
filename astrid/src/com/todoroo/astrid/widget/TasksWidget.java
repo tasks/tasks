@@ -97,7 +97,7 @@ public class TasksWidget extends AppWidgetProvider {
                 inboxFilter.sqlQuery += "ORDER BY " + TaskService.defaultTaskOrder() + " LIMIT " + numberOfTasks;
 
                 database.openForReading();
-                cursor = taskService.fetchFiltered(inboxFilter, Task.TITLE, Task.DUE_DATE);
+                cursor = taskService.fetchFiltered(inboxFilter, null, Task.TITLE, Task.DUE_DATE);
                 Task task = new Task();
                 for (int i = 0; i < cursor.getCount(); i++) {
                     cursor.moveToPosition(i);

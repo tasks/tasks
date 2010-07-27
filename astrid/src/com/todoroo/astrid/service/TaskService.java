@@ -4,6 +4,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -151,14 +152,34 @@ public class TaskService {
     /**
      * Fetch tasks for the given filter
      * @param properties
+     * @param constraint text constraint, or null
      * @param filter
      * @return
      */
-    public TodorooCursor<Task> fetchFiltered(Filter filter, Property<?>... properties) {
-        if(filter == null || filter.sqlQuery == null)
-            return taskDao.query(Query.select(properties));
-        else
-            return taskDao.query(Query.select(properties).withQueryTemplate(filter.sqlQuery));
+    @SuppressWarnings("nls")
+    public TodorooCursor<Task> fetchFiltered(Filter filter, CharSequence constraint,
+            Property<?>... properties) {
+        Criterion whereConstraint = null;
+        if(constraint != null)
+            whereConstraint = Functions.upper(Task.TITLE).like("%" +
+                    constraint.toString().toUpperCase() + "%");
+
+        if(filter == null || filter.sqlQuery == null) {
+            if(whereConstraint == null)
+                return taskDao.query(Query.select(properties));
+            else
+                return taskDao.query(Query.select(properties).where(whereConstraint));
+        }
+
+        String sql;
+        if(whereConstraint != null) {
+            if(!filter.sqlQuery.toUpperCase().contains("WHERE"))
+                sql = filter.sqlQuery + " WHERE " + whereConstraint;
+            else
+                sql = filter.sqlQuery.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
+        } else
+            sql = filter.sqlQuery;
+        return taskDao.query(Query.select(properties).withQueryTemplate(sql));
     }
 
     /**

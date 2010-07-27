@@ -17,8 +17,15 @@ public class BackupConstants {
 
     // Do NOT edit the constants in this file! You will break compatibility with old backups
 
+    /** Astrid tag (contains everything else) */
     public static final String ASTRID_TAG = "astrid";
+
+    /** Attribute indicating application version */
     public static final String ASTRID_ATTR_VERSION = "version";
+
+    /** Attribute indicating backup file format */
+    public static final String ASTRID_ATTR_FORMAT = "format";
+
     public static final String TASK_TAG = "task";
     public static final String TAG_TAG = "tag";
     public static final String TAG_ATTR_NAME = "name";

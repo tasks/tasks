@@ -17,6 +17,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -229,17 +230,28 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         getListView().setOnKeyListener(new OnKeyListener() {
             @Override
             public boolean onKey(View view, int keyCode, KeyEvent event) {
-                if(event.getAction() != KeyEvent.ACTION_UP)
+                if(event.getAction() != KeyEvent.ACTION_UP || view == null)
                     return false;
 
+                boolean filterOn = getListView().isTextFilterEnabled();
+                View selected = getListView().getSelectedView();
+
                 // hot-key to set task priority - 1-4 or ALT + Q-R
-                if(event.getNumber() >= '1' && event.getNumber() <= '4') {
-                    view = getListView().getSelectedView();
+                if(!filterOn && event.getNumber() >= '1' && event.getNumber() <= '4' && selected != null) {
                     int importance = event.getNumber() - '1';
-                    Task task = ((ViewHolder)view.getTag()).task;
+                    Task task = ((ViewHolder)selected.getTag()).task;
                     task.setValue(Task.IMPORTANCE, importance);
                     taskService.save(task, false);
-                    taskAdapter.setFieldContentsAndVisibility(view);
+                    taskAdapter.setFieldContentsAndVisibility(selected);
+                }
+                // filter
+                else if(!filterOn && event.getUnicodeChar() != 0) {
+                    getListView().setTextFilterEnabled(true);
+                    getListView().setFilterText(Character.toString((char)event.getUnicodeChar()));
+                }
+                // turn off filter if nothing is selected
+                else if(filterOn && TextUtils.isEmpty(getListView().getTextFilter())) {
+                    getListView().setTextFilterEnabled(false);
                 }
 
                 return false;
@@ -498,12 +510,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
-                filter, TaskAdapter.PROPERTIES);
+                filter, null, TaskAdapter.PROPERTIES);
         startManagingCursor(currentCursor);
 
         // set up list adapters
         taskAdapter = new TaskAdapter(this, R.layout.task_adapter_row,
-                currentCursor, false, null);
+                currentCursor, filter, false, null);
         setListAdapter(taskAdapter);
         getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());
@@ -534,7 +546,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         else
             filter.sqlQuery = filter.sqlQuery.replace("WHERE ", "WHERE " +
                     TaskCriteria.byId(withCustomId) + " OR ");
-        currentCursor = taskService.fetchFiltered(filter, TaskAdapter.PROPERTIES);
+        currentCursor = taskService.fetchFiltered(filter, null, TaskAdapter.PROPERTIES);
+        getListView().setFilterText("");
         startManagingCursor(currentCursor);
 
         taskAdapter.changeCursor(currentCursor);
