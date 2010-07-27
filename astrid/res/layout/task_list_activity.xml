@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/taskListParent"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
     android:background="@drawable/background_gradient"
@@ -57,55 +58,10 @@
             android:layout_height="fill_parent"/>
         
     </FrameLayout>
-    
-    <!-- Reminder -->
-    <RelativeLayout android:id="@+id/reminderContainer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:visibility="visible"
-        android:layout_weight="1">
-        
-        <TextView android:id="@+id/reminderLabel"
-            android:layout_width="fill_parent" 
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:text="I want you to be the walrus."
-            android:background="@drawable/reminder_popup"
-            style="@style/TextAppearance.TLA_Reminder" />
-          
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/reminderLabel"
-            android:layout_alignParentLeft="true"
-            android:orientation="horizontal">
-            
-            <Button android:id="@+id/snooze"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="49"
-                android:text="@string/rmd_NoA_snooze" />
-            
-            <Button android:id="@+id/goAway"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="49"
-                android:text="@string/rmd_NoA_goAway" />
-              
-            <ImageView android:id="@+id/astridIcon"
-                android:layout_width="wrap_content" 
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:paddingRight="15dip"
-                android:paddingLeft="5dip"
-                android:src="@drawable/icon_blank" />
-        </LinearLayout>
-            
-    </RelativeLayout>
         
     <!-- Footer -->
     <LinearLayout
+        android:id="@+id/taskListFooter"
         android:layout_width="fill_parent" 
         android:layout_height="wrap_content"
         android:layout_weight="1"
