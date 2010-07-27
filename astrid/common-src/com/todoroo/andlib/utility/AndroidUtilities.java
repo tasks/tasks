@@ -23,6 +23,7 @@ import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.todoroo.andlib.service.Autowired;
@@ -252,5 +253,27 @@ public class AndroidUtilities {
             fis.close();
             fos.close();
         }
+    }
+
+    /**
+     * Find a child view of a certain type
+     * @param view
+     * @param type
+     * @return first view (by DFS) if found, or null if none
+     */
+    public static <TYPE> TYPE findViewByType(View view, Class<TYPE> type) {
+        if(view == null)
+            return null;
+        if(type.isInstance(view))
+            return (TYPE) view;
+        if(view instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) view;
+            for(int i = 0; i < group.getChildCount(); i++) {
+                TYPE v = findViewByType(group.getChildAt(i), type);
+                if(v != null)
+                    return v;
+            }
+        }
+        return null;
     }
 }

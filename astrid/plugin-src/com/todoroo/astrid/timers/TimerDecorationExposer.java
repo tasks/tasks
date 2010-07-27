@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.SystemClock;
+import android.text.format.DateUtils;
 import android.widget.RemoteViews;
 
 import com.timsu.astrid.R;
@@ -62,11 +63,16 @@ public class TimerDecorationExposer extends BroadcastReceiver {
         if(task.getValue(Task.TIMER_START) != 0) {
             decoration.color = TIMING_BG_COLOR;
             elapsed += DateUtilities.now() - task.getValue(Task.TIMER_START);
+            decoration.decoration.setChronometer(R.id.timer, SystemClock.elapsedRealtime() -
+                    elapsed, null, true);
+        } else {
+            // if timer is not started, make the chronometer just a text label,
+            // since we don't want the time to be displayed relative to elapsed
+            String format = buildFormat(elapsed);
+            decoration.decoration.setChronometer(R.id.timer, SystemClock.elapsedRealtime() -
+                    elapsed, format, false);
         }
 
-        // update timer
-        decoration.decoration.setChronometer(R.id.timer, SystemClock.elapsedRealtime() -
-                elapsed, null, decoration.color != 0);
 
         // transmit
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DECORATIONS);
@@ -74,6 +80,10 @@ public class TimerDecorationExposer extends BroadcastReceiver {
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, decoration);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    private String buildFormat(long elapsed) {
+        return DateUtils.formatElapsedTime(elapsed / 1000L);
     }
 
 }

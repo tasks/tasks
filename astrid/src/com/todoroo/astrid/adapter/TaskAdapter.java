@@ -15,12 +15,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.Html;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -300,6 +300,10 @@ public class TaskAdapter extends CursorAdapter {
                 viewHolder.extendedDetails.setVisibility(View.GONE);
                 viewHolder.actions.setVisibility(View.GONE);
             }
+        } else {
+            long taskId = viewHolder.task.getId();
+            detailManager.reset(viewHolder, taskId);
+            decorationManager.reset(viewHolder, taskId);
         }
     }
 
@@ -393,8 +397,8 @@ public class TaskAdapter extends CursorAdapter {
             if(details == null || viewHolder.task.getId() != taskId)
                 return;
             TextView view = extended ? viewHolder.extendedDetails : viewHolder.details;
+            reset(viewHolder, taskId);
             if(details.isEmpty() || (extended && expanded != taskId)) {
-                view.setVisibility(View.GONE);
                 return;
             }
             view.setVisibility(View.VISIBLE);
@@ -411,6 +415,11 @@ public class TaskAdapter extends CursorAdapter {
                 view.setText(string.trim());
         }
 
+        @Override
+        void reset(ViewHolder viewHolder, long taskId) {
+            TextView view = extended ? viewHolder.extendedDetails : viewHolder.details;
+            view.setVisibility(View.GONE);
+        }
     }
 
     /**
@@ -432,11 +441,7 @@ public class TaskAdapter extends CursorAdapter {
             if(decorations == null || viewHolder.task.getId() != taskId)
                 return;
 
-            if(viewHolder.decorations != null) {
-                for(View view : viewHolder.decorations)
-                    viewHolder.taskRow.removeView(view);
-            }
-            viewHolder.view.setBackgroundColor(Color.TRANSPARENT);
+            reset(viewHolder, taskId);
             if(decorations.size() == 0)
                 return;
 
@@ -462,6 +467,15 @@ public class TaskAdapter extends CursorAdapter {
                 i++;
             }
         }
+
+        @Override
+        void reset(ViewHolder viewHolder, long taskId) {
+            if(viewHolder.decorations != null) {
+                for(View view : viewHolder.decorations)
+                    viewHolder.taskRow.removeView(view);
+            }
+            viewHolder.view.setBackgroundColor(Color.TRANSPARENT);
+        }
     }
 
     /**
@@ -483,12 +497,7 @@ public class TaskAdapter extends CursorAdapter {
             if(actions == null || viewHolder.task.getId() != taskId)
                 return;
 
-            if(expanded != taskId) {
-                viewHolder.actions.setVisibility(View.GONE);
-                return;
-            }
-            viewHolder.actions.setVisibility(View.VISIBLE);
-            viewHolder.actions.removeAllViews();
+            reset(viewHolder, taskId);
 
             LinearLayout.LayoutParams params =
                 new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
@@ -515,6 +524,16 @@ public class TaskAdapter extends CursorAdapter {
                 viewHolder.actions.addView(view);
             }
 
+        }
+
+        @Override
+        void reset(ViewHolder viewHolder, long taskId) {
+            if(expanded != taskId) {
+                viewHolder.actions.setVisibility(View.GONE);
+                return;
+            }
+            viewHolder.actions.setVisibility(View.VISIBLE);
+            viewHolder.actions.removeAllViews();
         }
     }
 
@@ -674,6 +693,9 @@ public class TaskAdapter extends CursorAdapter {
 
         /** updates the given view */
         abstract void draw(ViewHolder viewHolder, long taskId, Collection<TYPE> list);
+
+        /** resets the view as if there was nothing */
+        abstract void reset(ViewHolder viewHolder, long taskId);
 
         /** on receive an intent */
         public void addNew(long taskId, String addOn, TYPE item) {

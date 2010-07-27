@@ -101,6 +101,8 @@
         <data android:mimeType="vnd.android.cursor.item/task" />
       </intent-filter>      
     </activity>    
+    <!-- Activity for preferences -->
+    <activity android:name="com.todoroo.astrid.activity.EditPreferences" />
 
     <!-- ======================================================= Receivers = -->
 

@@ -95,7 +95,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
                         TaskCriteria.isVisible())).
                         orderBy(Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                                Long.MAX_VALUE, Task.DUE_DATE) + "+" + Task.IMPORTANCE)), //$NON-NLS-1$
+                                DateUtilities.now()*2, Task.DUE_DATE) + "+" + Task.IMPORTANCE)), //$NON-NLS-1$
                         null);
         dueDate.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap();
 
