@@ -20,7 +20,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 import com.todoroo.astrid.widget.TasksWidget.UpdateService;
@@ -92,9 +91,6 @@ public class StartupService {
         // perform startup activities in a background thread
         new Thread(new Runnable() {
             public void run() {
-                // schedule alarms
-                new ReminderService().scheduleAllAlarms();
-
                 // start widget updating alarm
                 AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
                 Intent intent = new Intent(context, UpdateService.class);

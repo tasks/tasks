@@ -27,11 +27,12 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TabActivity;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TabActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
@@ -42,6 +43,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -55,7 +57,6 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -75,8 +76,8 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog;
-import com.todoroo.astrid.ui.TimeDurationControlSet;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
+import com.todoroo.astrid.ui.TimeDurationControlSet;
 import com.todoroo.astrid.ui.TimeDurationControlSet.TimeDurationType;
 import com.todoroo.astrid.utility.Constants;
 
@@ -678,12 +679,14 @@ public final class TaskEditActivity extends TabActivity {
     // --- UrgencyControlSet
 
     private class UrgencyControlSet implements TaskEditControlSet,
-            OnItemSelectedListener, OnDeadlineTimeSetListener, OnDateSetListener {
+            OnItemSelectedListener, OnDeadlineTimeSetListener, OnDateSetListener,
+            OnCancelListener {
 
         private static final long SPECIFIC_DATE = -1;
 
-        private final Spinner urgency;
+        private final Spinner spinner;
         private ArrayAdapter<UrgencyValue> urgencyAdapter;
+        private int previousSetting = Task.URGENCY_NONE;
 
         /**
          * Container class for urgencies
@@ -715,8 +718,8 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         public UrgencyControlSet(int urgency) {
-            this.urgency = (Spinner)findViewById(urgency);
-            this.urgency.setOnItemSelectedListener(this);
+            this.spinner = (Spinner)findViewById(urgency);
+            this.spinner.setOnItemSelectedListener(this);
         }
 
         /**
@@ -771,8 +774,8 @@ public final class TaskEditActivity extends TabActivity {
                     TaskEditActivity.this, android.R.layout.simple_spinner_item,
                     urgencyValues);
             urgencyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            this.urgency.setAdapter(urgencyAdapter);
-            this.urgency.setSelection(selection);
+            this.spinner.setAdapter(urgencyAdapter);
+            this.spinner.setSelection(selection);
         }
 
         // --- listening for events
@@ -788,7 +791,10 @@ public final class TaskEditActivity extends TabActivity {
                 customDate.setSeconds(0);
                 DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
                         this, 1900 + customDate.getYear(), customDate.getMonth(), customDate.getDate());
+                datePicker.setOnCancelListener(this);
                 datePicker.show();
+            } else {
+                previousSetting = position;
             }
         }
 
@@ -811,9 +817,11 @@ public final class TaskEditActivity extends TabActivity {
                 return;
             }
 
-            new DeadlineTimePickerDialog(TaskEditActivity.this, this,
+            DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(TaskEditActivity.this, this,
                     customDate.getHours(), customDate.getMinutes(),
-                    DateUtilities.is24HourFormat(TaskEditActivity.this)).show();
+                    DateUtilities.is24HourFormat(TaskEditActivity.this));
+            timePicker.setOnCancelListener(this);
+            timePicker.show();
         }
 
         public void onTimeSet(TimePicker view, boolean hasTime, int hourOfDay, int minute) {
@@ -824,6 +832,12 @@ public final class TaskEditActivity extends TabActivity {
                 customDate.setMinutes(minute);
             }
             customDateFinished();
+        }
+
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            // user canceled, restore previous choice
+            spinner.setSelection(previousSetting);
         }
 
         private void customDateFinished() {
@@ -841,10 +855,11 @@ public final class TaskEditActivity extends TabActivity {
 
         @Override
         public void writeToModel(Task task) {
-            UrgencyValue item = urgencyAdapter.getItem(urgency.getSelectedItemPosition());
-            if(item.dueDate != SPECIFIC_DATE) // user cancelled specific date
+            UrgencyValue item = urgencyAdapter.getItem(spinner.getSelectedItemPosition());
+            if(item.dueDate != SPECIFIC_DATE) // user canceled specific date
                 task.setValue(Task.DUE_DATE, item.dueDate);
         }
+
     }
 
     /**
@@ -854,14 +869,15 @@ public final class TaskEditActivity extends TabActivity {
      *
      */
     private class HideUntilControlSet implements TaskEditControlSet,
-            OnItemSelectedListener, OnDateSetListener {
+            OnItemSelectedListener, OnDateSetListener, OnCancelListener {
 
         private static final int SPECIFIC_DATE = -1;
-        private final Spinner hideUntil;
+        private final Spinner spinner;
+        private int previousSetting = Task.HIDE_UNTIL_NONE;
 
         public HideUntilControlSet(int hideUntil) {
-            this.hideUntil = (Spinner) findViewById(hideUntil);
-            this.hideUntil.setOnItemSelectedListener(this);
+            this.spinner = (Spinner) findViewById(hideUntil);
+            this.spinner.setOnItemSelectedListener(this);
         }
 
         private ArrayAdapter<HideUntilValue> adapter;
@@ -928,7 +944,10 @@ public final class TaskEditActivity extends TabActivity {
                 intermediateDate.setSeconds(0);
                 DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
                         this, 1900 + intermediateDate.getYear(), intermediateDate.getMonth(), intermediateDate.getDate());
+                datePicker.setOnCancelListener(this);
                 datePicker.show();
+            } else {
+                previousSetting = position;
             }
         }
 
@@ -948,14 +967,20 @@ public final class TaskEditActivity extends TabActivity {
             customDateFinished();
         }
 
+        @Override
+        public void onCancel(DialogInterface dialog) {
+            // user canceled, restore previous choice
+            spinner.setSelection(previousSetting);
+        }
+
         private void customDateFinished() {
             HideUntilValue[] list = createHideUntilList(intermediateDate.getTime());
             adapter = new ArrayAdapter<HideUntilValue>(
                     TaskEditActivity.this, android.R.layout.simple_spinner_item,
                     list);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            hideUntil.setAdapter(adapter);
-            hideUntil.setSelection(0);
+            spinner.setAdapter(adapter);
+            spinner.setSelection(0);
         }
 
         // --- setting up values
@@ -985,14 +1010,14 @@ public final class TaskEditActivity extends TabActivity {
             adapter = new ArrayAdapter<HideUntilValue>(
                     TaskEditActivity.this, android.R.layout.simple_spinner_item, list);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            hideUntil.setAdapter(adapter);
+            spinner.setAdapter(adapter);
 
-            hideUntil.setSelection(selection);
+            spinner.setSelection(selection);
         }
 
         @Override
         public void writeToModel(Task task) {
-            HideUntilValue item = adapter.getItem(hideUntil.getSelectedItemPosition());
+            HideUntilValue item = adapter.getItem(spinner.getSelectedItemPosition());
             long value = task.createHideUntil(item.setting, item.date);
             task.setValue(Task.HIDE_UNTIL, value);
         }

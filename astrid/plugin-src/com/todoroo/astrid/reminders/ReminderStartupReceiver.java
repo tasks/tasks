@@ -25,6 +25,6 @@ public class ReminderStartupReceiver extends BroadcastReceiver {
     /** Called when the system is started up */
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
-        new ReminderService().scheduleAllAlarms();
+        ReminderService.getInstance().scheduleAllAlarms();
     }
 }

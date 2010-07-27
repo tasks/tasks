@@ -247,6 +247,8 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.reminders.NotificationActivity"
+              android:taskAffinity="com.todoroo.astrid.reminders.NotificationActivity"
+              android:screenOrientation="portrait"
               android:clearTaskOnLaunch="true" />
 
     <!-- rmilk -->

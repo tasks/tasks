@@ -64,9 +64,19 @@ public final class ReminderService  {
 
     private AlarmScheduler scheduler = new ReminderAlarmScheduler();
 
-    public ReminderService() {
+    private ReminderService() {
         DependencyInjectionService.getInstance().inject(this);
         setPreferenceDefaults();
+    }
+
+    // --- singleton
+
+    private static ReminderService instance = null;
+
+    public static synchronized ReminderService getInstance() {
+        if(instance == null)
+            instance = new ReminderService();
+        return instance;
     }
 
     // --- preference handling
@@ -233,6 +243,18 @@ public final class ReminderService  {
         return NO_ALARM;
     }
 
+    /**
+     * Schedule a snooze alarm for this task
+     * @param taskId
+     * @param time
+     */
+    public void scheduleSnoozeAlarm(long taskId, long time) {
+        if(time < DateUtilities.now())
+            return;
+        Task task = taskDao.fetch(taskId, PROPERTIES);
+        scheduler.createAlarm(task, time, TYPE_SNOOZE);
+    }
+
     // --- alarm manager alarm creation
 
     /**
@@ -287,7 +309,7 @@ public final class ReminderService  {
         }
     }
 
-    // --- data fetching classes
+    // --- data fetching methods
 
     /**
      * Gets a listing of all tasks that are active &

@@ -7,7 +7,7 @@ import android.database.Cursor;
 import android.util.Log;
 
 import com.timsu.astrid.R;
-import com.timsu.astrid.utilities.BackupDateUtilities;
+import com.todoroo.astrid.backup.BackupDateUtilities;
 import com.todoroo.astrid.legacy.data.AbstractController;
 import com.todoroo.astrid.legacy.data.enums.Importance;
 import com.todoroo.astrid.legacy.data.enums.RepeatInterval;

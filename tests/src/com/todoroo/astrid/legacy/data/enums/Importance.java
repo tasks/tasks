@@ -19,23 +19,14 @@
  */
 package com.todoroo.astrid.legacy.data.enums;
 
-import com.timsu.astrid.R;
 
 public enum Importance {
     // MOST IMPORTANT
 
-	LEVEL_1(R.string.importance_1,
-	        R.color.importance_1,
-	        R.color.task_list_importance_1),
-	LEVEL_2(R.string.importance_2,
-	        R.color.importance_2,
-	        R.color.task_list_importance_2),
-	LEVEL_3(R.string.importance_3,
-	        R.color.importance_3,
-	        R.color.task_list_importance_3),
-	LEVEL_4(R.string.importance_4,
-	        R.color.importance_4,
-	        R.color.task_list_importance_4),
+	LEVEL_1(0,0,0),
+	LEVEL_2(0,0,0),
+	LEVEL_3(0,0,0),
+	LEVEL_4(0,0,0)
 
 	// LEAST IMPORTANT
 	;

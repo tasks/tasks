@@ -41,8 +41,6 @@ public class TaskDao extends GenericDao<Task> {
     @Autowired
     ExceptionService exceptionService;
 
-    ReminderService reminderService;
-
 	public TaskDao() {
         super(Task.class);
         DependencyInjectionService.getInstance().inject(this);
@@ -230,15 +228,13 @@ public class TaskDao extends GenericDao<Task> {
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
             afterComplete(task, values, duringSync);
         else {
-            if(reminderService == null)
-                reminderService = new ReminderService();
-            reminderService.scheduleAlarm(task);
+            ReminderService.getInstance().scheduleAlarm(task);
         }
 
         if(duringSync)
             return;
 
-        // due date was updated, update calendar event
+        // TODO due date was updated, update calendar event
         /*if((values.containsKey(AbstractTaskModel.DEFINITE_DUE_DATE) ||
                 values.containsKey(AbstractTaskModel.PREFERRED_DUE_DATE)) &&
                 !values.containsKey(AbstractTaskModel.CALENDAR_URI)) {
@@ -265,7 +261,7 @@ public class TaskDao extends GenericDao<Task> {
                     // create new start and end date for this event
                     ContentValues newValues = new ContentValues();
                     TaskEditActivity.createCalendarStartEndTimes(task.getPreferredDueDate(),
-                            task.getDefiniteDueDate(), estimated, newValues); TODO
+                            task.getDefiniteDueDate(), estimated, newValues);
                     cr.update(uri, newValues, null, null);
                 }
             } catch (Exception e) {

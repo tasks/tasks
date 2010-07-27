@@ -23,29 +23,27 @@ import java.util.Date;
 
 import android.content.res.Resources;
 
-import com.timsu.astrid.R;
-
 public enum RepeatInterval {
 
-	DAYS(R.string.repeat_days) {
+	DAYS(0) {
         @Override
         public void offsetDateBy(Date input, int number) {
             input.setDate(input.getDate() + number);
         }
 	},
-	WEEKS(R.string.repeat_weeks) {
+	WEEKS(0) {
         @Override
         public void offsetDateBy(Date input, int number) {
             input.setDate(input.getDate() + 7 * number);
         }
     },
-	MONTHS(R.string.repeat_months) {
+	MONTHS(0) {
         @Override
         public void offsetDateBy(Date input, int number) {
             input.setMonth(input.getMonth() + number);
         }
     },
-    HOURS(R.string.repeat_hours) {
+    HOURS(0) {
         @Override
         public void offsetDateBy(Date input, int number) {
             input.setHours(input.getHours() + number);
