@@ -29,3 +29,5 @@ Getting Started With Development
 Contact
 -------
 For support requests, use the Astrid issue tracker. For development questions, contact [timsu](http://github.com/timsu) via e-mail.
+
+Astrid also has an IRC channel, irc.freenode.net #astrid
