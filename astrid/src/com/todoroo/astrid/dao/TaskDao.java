@@ -98,6 +98,11 @@ public class TaskDao extends GenericDao<Task> {
     	    return Criterion.or(Task.TITLE.isNull(), Task.TITLE.eq(""));
     	}
 
+    	/** @return tasks with this exact creation date */
+    	public static Criterion createdOn(long date) {
+    	    return Criterion.or(Task.CREATION_DATE.eq(date));
+    	}
+
     }
 
     // --- custom operations

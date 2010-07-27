@@ -1,4 +1,4 @@
-package com.todoroo.astrid.ui;
+package com.todoroo.astrid.backup;
 
 import java.io.File;
 import java.io.FilenameFilter;

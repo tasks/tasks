@@ -18,7 +18,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
 import com.timsu.astrid.utilities.LegacyTasksXmlExporter;
@@ -36,6 +35,9 @@ import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.legacy.LegacyAlertModel;
+import com.todoroo.astrid.legacy.LegacyRepeatInfo;
+import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.data.MilkTask;
@@ -128,24 +130,24 @@ public class Astrid2To3UpgradeHelper {
         HashMap<String, Property<?>> propertyMap =
             new HashMap<String, Property<?>>();
         propertyMap.put("_id", Task.ID); //$NON-NLS-1$
-        propertyMap.put(AbstractTaskModel.NAME, Task.TITLE);
-        propertyMap.put(AbstractTaskModel.NOTES, Task.NOTES);
+        propertyMap.put(LegacyTaskModel.NAME, Task.TITLE);
+        propertyMap.put(LegacyTaskModel.NOTES, Task.NOTES);
         // (don't update progress percentage, we don't use this anymore)
-        propertyMap.put(AbstractTaskModel.IMPORTANCE, Task.IMPORTANCE);
-        propertyMap.put(AbstractTaskModel.ESTIMATED_SECONDS, Task.ESTIMATED_SECONDS);
-        propertyMap.put(AbstractTaskModel.ELAPSED_SECONDS, Task.ELAPSED_SECONDS);
-        propertyMap.put(AbstractTaskModel.TIMER_START, Task.TIMER_START);
-        propertyMap.put(AbstractTaskModel.DEFINITE_DUE_DATE, Task.DUE_DATE);
-        propertyMap.put(AbstractTaskModel.HIDDEN_UNTIL, Task.HIDE_UNTIL);
-        propertyMap.put(AbstractTaskModel.POSTPONE_COUNT, Task.POSTPONE_COUNT);
-        propertyMap.put(AbstractTaskModel.NOTIFICATIONS, Task.REMINDER_PERIOD);
-        propertyMap.put(AbstractTaskModel.NOTIFICATION_FLAGS, Task.REMINDER_FLAGS);
-        propertyMap.put(AbstractTaskModel.LAST_NOTIFIED, Task.REMINDER_LAST);
-        propertyMap.put(AbstractTaskModel.REPEAT, Task.RECURRENCE);
-        propertyMap.put(AbstractTaskModel.CREATION_DATE, Task.CREATION_DATE);
-        propertyMap.put(AbstractTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
-        propertyMap.put(AbstractTaskModel.CALENDAR_URI, Task.CALENDAR_URI);
-        propertyMap.put(AbstractTaskModel.FLAGS, Task.FLAGS);
+        propertyMap.put(LegacyTaskModel.IMPORTANCE, Task.IMPORTANCE);
+        propertyMap.put(LegacyTaskModel.ESTIMATED_SECONDS, Task.ESTIMATED_SECONDS);
+        propertyMap.put(LegacyTaskModel.ELAPSED_SECONDS, Task.ELAPSED_SECONDS);
+        propertyMap.put(LegacyTaskModel.TIMER_START, Task.TIMER_START);
+        propertyMap.put(LegacyTaskModel.DEFINITE_DUE_DATE, Task.DUE_DATE);
+        propertyMap.put(LegacyTaskModel.HIDDEN_UNTIL, Task.HIDE_UNTIL);
+        propertyMap.put(LegacyTaskModel.POSTPONE_COUNT, Task.POSTPONE_COUNT);
+        propertyMap.put(LegacyTaskModel.NOTIFICATIONS, Task.REMINDER_PERIOD);
+        propertyMap.put(LegacyTaskModel.NOTIFICATION_FLAGS, Task.REMINDER_FLAGS);
+        propertyMap.put(LegacyTaskModel.LAST_NOTIFIED, Task.REMINDER_LAST);
+        propertyMap.put(LegacyTaskModel.REPEAT, Task.RECURRENCE);
+        propertyMap.put(LegacyTaskModel.CREATION_DATE, Task.CREATION_DATE);
+        propertyMap.put(LegacyTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
+        propertyMap.put(LegacyTaskModel.CALENDAR_URI, Task.CALENDAR_URI);
+        propertyMap.put(LegacyTaskModel.FLAGS, Task.FLAGS);
         upgradeTable(context, tasksTable,
                 propertyMap, new Task(), taskDao);
 
@@ -157,8 +159,8 @@ public class Astrid2To3UpgradeHelper {
         alarmsDatabase.openForWriting();
         propertyMap.clear();
         propertyMap.put("_id", Alarm.ID); //$NON-NLS-1$
-        propertyMap.put(Alert.TASK, Alarm.TASK);
-        propertyMap.put(Alert.DATE, Alarm.TIME);
+        propertyMap.put(LegacyAlertModel.TASK, Alarm.TASK);
+        propertyMap.put(LegacyAlertModel.DATE, Alarm.TIME);
         upgradeTable(context, alertsTable, propertyMap, new Alarm(),
                 alarmsDatabase.getDao());
         alarmsDatabase.close();
@@ -235,7 +237,7 @@ public class Astrid2To3UpgradeHelper {
 
             // special handling for due date
             if(property == Task.DUE_DATE) {
-                long preferredDueDate = data.cursor.getLong(data.cursor.getColumnIndex(AbstractTaskModel.PREFERRED_DUE_DATE));
+                long preferredDueDate = data.cursor.getLong(data.cursor.getColumnIndex(LegacyTaskModel.PREFERRED_DUE_DATE));
                 if(value == 0)
                     value = preferredDueDate;
                 else if(preferredDueDate != 0) {
@@ -262,25 +264,11 @@ public class Astrid2To3UpgradeHelper {
             String value = data.cursor.getString(data.columnIndex);
 
             if(property == Task.RECURRENCE) {
-                RepeatInfo repeatInfo = RepeatInfo.fromSingleField(data.cursor.getInt(data.columnIndex));
+                LegacyRepeatInfo repeatInfo = LegacyRepeatInfo.fromSingleField(data.cursor.getInt(data.columnIndex));
                 if(repeatInfo == null)
                     data.model.setValue(property, "");
                 else {
-                    RRule rrule = new RRule();
-                    rrule.setInterval(repeatInfo.getValue());
-                    switch(repeatInfo.getInterval()) {
-                    case DAYS:
-                        rrule.setFreq(Frequency.DAILY);
-                        break;
-                    case WEEKS:
-                        rrule.setFreq(Frequency.WEEKLY);
-                        break;
-                    case MONTHS:
-                        rrule.setFreq(Frequency.MONTHLY);
-                        break;
-                    case HOURS:
-                        rrule.setFreq(Frequency.HOURLY);
-                    }
+                    RRule rrule = repeatInfo.toRRule();
                     data.model.setValue(property, rrule.toIcal());
                 }
             } else {
@@ -334,6 +322,7 @@ public class Astrid2To3UpgradeHelper {
                             container.model.getValue(Task.NOTES) + "\n\n" +
                             container.upgradeNotes);
                 }
+                container.upgradeNotes = null;
             }
             dao.createNew(container.model);
         }
@@ -440,6 +429,7 @@ public class Astrid2To3UpgradeHelper {
                 metadata.setValue(MilkTask.LIST_ID, Long.parseLong(listId));
                 metadata.setValue(MilkTask.TASK_SERIES_ID, Long.parseLong(taskSeriesId));
                 metadata.setValue(MilkTask.TASK_ID, Long.parseLong(taskId));
+                metadata.setValue(MilkTask.REPEATING, 0); // not accurate, but not important
                 metadataDao.createNew(metadata);
                 metadata.clearValue(Metadata.ID);
             }
@@ -448,76 +438,4 @@ public class Astrid2To3UpgradeHelper {
         }
     }
 
-    // --- legacy data structures
-
-    /** Legacy repeatInfo class */
-    private static class RepeatInfo {
-        public static final int REPEAT_VALUE_OFFSET    = 3;
-
-        private final RepeatInterval interval;
-        private final int value;
-
-        public RepeatInfo(RepeatInterval repeatInterval, int value) {
-            this.interval = repeatInterval;
-            this.value = value;
-        }
-
-        public RepeatInterval getInterval() {
-            return interval;
-        }
-
-        public int getValue() {
-            return value;
-        }
-
-        public static RepeatInfo fromSingleField(int repeat) {
-            if(repeat == 0)
-                return null;
-            int value = repeat >> REPEAT_VALUE_OFFSET;
-            RepeatInterval interval = RepeatInterval.values()
-            [repeat - (value << REPEAT_VALUE_OFFSET)];
-
-            return new RepeatInfo(interval, value);
-        }
-
-    }
-
-    /** Legacy repeat interval class */
-    private enum RepeatInterval {
-        DAYS,
-        WEEKS,
-        MONTHS,
-        HOURS
-    }
-
-    /** Legacy task class */
-    @SuppressWarnings("nls")
-    private static abstract class AbstractTaskModel {
-
-        public static final String NAME = "name";
-        public static final String NOTES = "notes";
-        public static final String IMPORTANCE = "importance";
-        public static final String ESTIMATED_SECONDS = "estimatedSeconds";
-        public static final String ELAPSED_SECONDS = "elapsedSeconds";
-        public static final String TIMER_START = "timerStart";
-        public static final String DEFINITE_DUE_DATE = "definiteDueDate";
-        public static final String PREFERRED_DUE_DATE = "preferredDueDate";
-        public static final String HIDDEN_UNTIL = "hiddenUntil";
-        public static final String POSTPONE_COUNT = "postponeCount";
-        public static final String NOTIFICATIONS = "notifications";
-        public static final String NOTIFICATION_FLAGS = "notificationFlags";
-        public static final String LAST_NOTIFIED = "lastNotified";
-        public static final String REPEAT = "repeat";
-        public static final String CREATION_DATE = "creationDate";
-        public static final String COMPLETION_DATE = "completionDate";
-        public static final String CALENDAR_URI = "calendarUri";
-        public static final String FLAGS = "flags";
-    }
-
-    /** Legacy alert class */
-    @SuppressWarnings("nls")
-    private static class Alert {
-        static final String TASK = "task";
-        static final String DATE = "date";
-    }
 }

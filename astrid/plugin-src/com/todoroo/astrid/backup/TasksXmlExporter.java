@@ -191,16 +191,6 @@ public class TasksXmlExporter {
         }
     }
 
-    public static File getExportDirectory() {
-        String storageState = Environment.getExternalStorageState();
-        if (storageState.equals(Environment.MEDIA_MOUNTED)) {
-            String path = Environment.getExternalStorageDirectory().getAbsolutePath();
-            path = path + ASTRID_DIR;
-            return new File(path);
-        }
-        return null;
-    }
-
     private boolean setupFile(File directory) {
         File astridDir = directory;
         if (astridDir != null) {

@@ -2,9 +2,17 @@ package com.todoroo.astrid.core;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
+/**
+ * Utility class for getting dependency-injected services from plugins
+ *
+ * @author Tim Su <tim@todoroo.com>
+ *
+ */
 public final class PluginServices {
 
     @Autowired
@@ -12,6 +20,12 @@ public final class PluginServices {
 
     @Autowired
     Database database;
+
+    @Autowired
+    ExceptionService exceptionService;
+
+    @Autowired
+    MetadataService metadataService;
 
     private static PluginServices instance;
 
@@ -28,6 +42,15 @@ public final class PluginServices {
     public static TaskService getTaskService() {
         getInstance().database.openForWriting();
         return getInstance().taskService;
+    }
+
+    public static ExceptionService getExceptionService() {
+        return getInstance().exceptionService;
+    }
+
+    public static MetadataService getMetadataService() {
+        getInstance().database.openForWriting();
+        return getInstance().metadataService;
     }
 
 }
