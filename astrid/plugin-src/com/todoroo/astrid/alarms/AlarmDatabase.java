@@ -41,7 +41,7 @@ public class AlarmDatabase extends AbstractDatabase {
 
     // --- implementation
 
-    private GenericDao<Alarm> dao = new GenericDao<Alarm>(Alarm.class, this);
+    private final GenericDao<Alarm> dao = new GenericDao<Alarm>(Alarm.class, this);
 
     @Override
     protected String getName() {
@@ -63,7 +63,7 @@ public class AlarmDatabase extends AbstractDatabase {
     }
 
     @Override
-    protected void onCreateTables() {
+    protected synchronized void onCreateTables() {
         StringBuilder sql = new StringBuilder();
         sql.append("CREATE INDEX IF NOT EXISTS a_task ON ").
             append(Alarm.TABLE).append('(').

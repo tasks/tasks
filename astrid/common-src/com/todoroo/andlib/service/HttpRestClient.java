@@ -74,12 +74,16 @@ public class HttpRestClient implements RestClient {
         return sb.toString();
     }
 
-    private synchronized static void initializeHttpClient() {
+    private synchronized static HttpClient getClient() {
         if (httpClient == null || httpClient.get() == null) {
             HttpParams params = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(params, TIMEOUT_MILLIS);
             HttpConnectionParams.setSoTimeout(params, TIMEOUT_MILLIS);
-            httpClient = new WeakReference<HttpClient>(new DefaultHttpClient(params));
+            HttpClient client = new DefaultHttpClient(params);
+            httpClient = new WeakReference<HttpClient>(client);
+            return client;
+        } else {
+            return httpClient.get();
         }
     }
 
@@ -114,14 +118,12 @@ public class HttpRestClient implements RestClient {
      * @throws IOException
      */
     public synchronized String get(String url) throws IOException {
-        initializeHttpClient();
-
         if(debug)
             Log.d("http-rest-client-get", url); //$NON-NLS-1$
 
         try {
             HttpGet httpGet = new HttpGet(url);
-            HttpResponse response = httpClient.get().execute(httpGet);
+            HttpResponse response = getClient().execute(httpGet);
 
             return processHttpResponse(response);
         } catch (IOException e) {
@@ -142,15 +144,13 @@ public class HttpRestClient implements RestClient {
      * @throws IOException
      */
     public synchronized String post(String url, String data) throws IOException {
-        initializeHttpClient();
-
         if(debug)
             Log.d("http-rest-client-post", url + " | " + data); //$NON-NLS-1$ //$NON-NLS-2$
 
         try {
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(new StringEntity(data));
-            HttpResponse response = httpClient.get().execute(httpPost);
+            HttpResponse response = getClient().execute(httpPost);
 
             return processHttpResponse(response);
         } catch (IOException e) {

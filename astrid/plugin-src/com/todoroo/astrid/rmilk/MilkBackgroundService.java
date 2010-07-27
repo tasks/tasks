@@ -58,9 +58,10 @@ public class MilkBackgroundService extends Service {
      * Schedules repeating alarm for auto-synchronization
      */
     public static void scheduleService() {
-        Integer syncFrequencySeconds = Preferences.getIntegerFromString(R.string.rmilk_MPr_interval_key);
+        int syncFrequencySeconds = Preferences.getIntegerFromString(
+                R.string.rmilk_MPr_interval_key, -1);
         Context context = ContextManager.getContext();
-        if(syncFrequencySeconds == null) {
+        if(syncFrequencySeconds <= 0) {
     	    unscheduleService(context);
     	    return;
     	}

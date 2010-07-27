@@ -67,7 +67,7 @@ public final class TagService {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public final class Tag {
+    public static final class Tag {
         public String tag;
         int count;
 

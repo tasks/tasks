@@ -209,7 +209,7 @@ public final class ReminderService  {
             else {
                 // return notification time on this day
                 Date date = new Date(dueDate);
-                date.setHours(Preferences.getIntegerFromString(R.string.p_rmd_time));
+                date.setHours(Preferences.getIntegerFromString(R.string.p_rmd_time, 12));
                 date.setMinutes(0);
                 return date.getTime();
             }
@@ -272,7 +272,7 @@ public final class ReminderService  {
         return scheduler;
     }
 
-    private class ReminderAlarmScheduler implements AlarmScheduler {
+    private static class ReminderAlarmScheduler implements AlarmScheduler {
         /**
          * Create an alarm for the given task at the given type
          *

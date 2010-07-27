@@ -149,7 +149,7 @@ public abstract class AbstractModel implements Parcelable {
     /**
      * Reads the given property. Make sure this model has this property!
      */
-    public <TYPE> TYPE getValue(Property<TYPE> property) {
+    public synchronized <TYPE> TYPE getValue(Property<TYPE> property) {
         Object value;
         if(setValues != null && setValues.containsKey(property.name))
             value = setValues.get(property.name);

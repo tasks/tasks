@@ -172,13 +172,12 @@ public class Astrid2To3UpgradeHelper {
         // --- upgrade properties
         SharedPreferences prefs = Preferences.getPrefs(context);
         Editor editor = prefs.edit();
-        if(prefs.contains(context.getString(R.string.p_rmd_default_random_hours))) {
+        int random = Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours, -1);
+        if(random != -1) {
             // convert days => hours
             editor.putString(context.getString(R.string.p_rmd_default_random_hours),
-                    Integer.toString(Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours) * 24));
+                    Integer.toString(random * 24));
         }
-
-
         database.close();
 
         if(dialog != null)
@@ -493,32 +492,32 @@ public class Astrid2To3UpgradeHelper {
 
     /** Legacy task class */
     @SuppressWarnings("nls")
-    private abstract class AbstractTaskModel {
+    private static abstract class AbstractTaskModel {
 
-        public static final String     NAME                   = "name";
-        public static final String     NOTES                  = "notes";
-        public static final String     IMPORTANCE             = "importance";
-        public static final String     ESTIMATED_SECONDS      = "estimatedSeconds";
-        public static final String     ELAPSED_SECONDS        = "elapsedSeconds";
-        public static final String     TIMER_START            = "timerStart";
-        public static final String     DEFINITE_DUE_DATE      = "definiteDueDate";
-        public static final String     PREFERRED_DUE_DATE     = "preferredDueDate";
-        public static final String     HIDDEN_UNTIL           = "hiddenUntil";
-        public static final String     POSTPONE_COUNT         = "postponeCount";
-        public static final String     NOTIFICATIONS          = "notifications";
-        public static final String     NOTIFICATION_FLAGS     = "notificationFlags";
-        public static final String     LAST_NOTIFIED          = "lastNotified";
-        public static final String     REPEAT                 = "repeat";
-        public static final String     CREATION_DATE          = "creationDate";
-        public static final String     COMPLETION_DATE        = "completionDate";
-        public static final String     CALENDAR_URI           = "calendarUri";
-        public static final String     FLAGS                  = "flags";
+        public static final String NAME = "name";
+        public static final String NOTES = "notes";
+        public static final String IMPORTANCE = "importance";
+        public static final String ESTIMATED_SECONDS = "estimatedSeconds";
+        public static final String ELAPSED_SECONDS = "elapsedSeconds";
+        public static final String TIMER_START = "timerStart";
+        public static final String DEFINITE_DUE_DATE = "definiteDueDate";
+        public static final String PREFERRED_DUE_DATE = "preferredDueDate";
+        public static final String HIDDEN_UNTIL = "hiddenUntil";
+        public static final String POSTPONE_COUNT = "postponeCount";
+        public static final String NOTIFICATIONS = "notifications";
+        public static final String NOTIFICATION_FLAGS = "notificationFlags";
+        public static final String LAST_NOTIFIED = "lastNotified";
+        public static final String REPEAT = "repeat";
+        public static final String CREATION_DATE = "creationDate";
+        public static final String COMPLETION_DATE = "completionDate";
+        public static final String CALENDAR_URI = "calendarUri";
+        public static final String FLAGS = "flags";
     }
 
     /** Legacy alert class */
     @SuppressWarnings("nls")
-    private class Alert {
-        static final String                TASK                = "task";
-        static final String                DATE                = "date";
+    private static class Alert {
+        static final String TASK = "task";
+        static final String DATE = "date";
     }
 }

@@ -167,7 +167,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             public void run() {
                 loadContextMenuIntents();
             }
-        });
+        }).start();
     }
 
     /**

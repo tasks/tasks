@@ -169,18 +169,21 @@ public class TaskDao extends GenericDao<Task> {
         // set up task defaults
         if(!item.containsValue(Task.IMPORTANCE))
             item.setValue(Task.IMPORTANCE, Preferences.getIntegerFromString(
-                    R.string.p_default_importance_key));
+                    R.string.p_default_importance_key, Task.IMPORTANCE_SHOULD_DO));
         if(!item.containsValue(Task.DUE_DATE)) {
-            int setting = Preferences.getIntegerFromString(R.string.p_default_urgency_key);
+            int setting = Preferences.getIntegerFromString(R.string.p_default_urgency_key,
+                    Task.URGENCY_NONE);
             item.setValue(Task.DUE_DATE, item.createDueDate(setting, 0));
         }
         if(!item.containsValue(Task.HIDE_UNTIL)) {
-            int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key);
+            int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,
+                    Task.HIDE_UNTIL_NONE);
             item.setValue(Task.HIDE_UNTIL, item.createHideUntil(setting, 0));
         }
         if(!item.containsValue(Task.REMINDER_PERIOD)) {
             item.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_HOUR *
-                    Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours));
+                    Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
+                            0));
         }
         if(!item.containsValue(Task.REMINDER_FLAGS)) {
             item.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);

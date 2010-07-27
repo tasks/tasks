@@ -97,7 +97,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    private class ViewHolder {
+    private static class ViewHolder {
         public FilterListItem item;
         public ImageView expander;
         public ImageView icon;

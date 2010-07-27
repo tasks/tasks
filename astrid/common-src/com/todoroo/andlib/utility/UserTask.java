@@ -186,8 +186,10 @@ public abstract class UserTask<Params, Progress, Result> {
      * Creates a new user task. This constructor must be invoked on the UI thread.
      */
     public UserTask() {
-        if (sHandler == null) {
-            sHandler = new InternalHandler();
+        synchronized(UserTask.class) {
+            if (sHandler == null) {
+                sHandler = new InternalHandler();
+            }
         }
 
         mWorker = new WorkerRunnable<Params, Result>() {
@@ -201,7 +203,7 @@ public abstract class UserTask<Params, Progress, Result> {
             protected void done() {
                 Result result = null;
                 try {
-                    result = get();
+                    result = mFuture.get();
                 } catch (InterruptedException e) {
                     android.util.Log.w(LOG_TAG, e);
                 } catch (ExecutionException e) {

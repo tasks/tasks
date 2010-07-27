@@ -45,8 +45,8 @@ public class ReminderPreferences extends TodorooPreferences {
             }
         } else if(r.getString(R.string.p_rmd_quietEnd).equals(preference.getKey())) {
             int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_quiet_hours_end_values), (String)value);
-            Integer quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart);
-            if(index == -1 || quietHoursStart == null)
+            int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
+            if(index == -1 || quietHoursStart == -1)
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_desc_none));
             else {
                 String setting = r.getStringArray(R.array.EPr_quiet_hours_end)[index];

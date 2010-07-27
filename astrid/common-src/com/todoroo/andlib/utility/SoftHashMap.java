@@ -1,6 +1,5 @@
 package com.todoroo.andlib.utility;
 
-import java.io.Serializable;
 import java.lang.ref.Reference;
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.SoftReference;
@@ -17,8 +16,7 @@ import java.util.Set;
  * @param <K>
  * @param <V>
  */
-public class SoftHashMap<K, V> extends AbstractMap<K, V> implements
-        Serializable {
+public class SoftHashMap<K, V> extends AbstractMap<K, V> {
     private static final long serialVersionUID = -3796460667941300642L;
 
     /** The internal HashMap that will hold the SoftReference. */

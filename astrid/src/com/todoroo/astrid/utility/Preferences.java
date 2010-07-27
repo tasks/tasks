@@ -9,6 +9,8 @@ import android.preference.PreferenceManager;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 
+import edu.umd.cs.findbugs.annotations.CheckForNull;
+
 public class Preferences {
 
     private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
@@ -23,7 +25,7 @@ public class Preferences {
         setIfUnset(prefs, editor, r, R.string.p_default_urgency_key, 0);
         setIfUnset(prefs, editor, r, R.string.p_default_importance_key, 2);
         setIfUnset(prefs, editor, r, R.string.p_default_hideUntil_key, 0);
-        setIfUnset(prefs, editor, r, R.string.p_fontSize, 22);
+        setIfUnset(prefs, editor, r, R.string.p_fontSize, 20);
 
         editor.commit();
     }
@@ -109,43 +111,24 @@ public class Preferences {
         return getPrefs(context).getString(context.getResources().getString(keyResource), null);
     }
 
-    /** Gets an integer value from a string key. Returns null
-     * if the value is not set or not an integer.
-     *
-     * @param context
-     * @param key
-     * @return integer value, or null on error
-     */
-    public static Integer getIntegerFromString(String key) {
-        Context context = ContextManager.getContext();
-        String value = getPrefs(context).getString(key, null);
-        if(value == null)
-            return null;
-
-        try {
-            return Integer.parseInt(value);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
     /** Gets an integer value from a string preference. Returns null
      * if the value is not set or not an integer.
      *
      * @param keyResource resource from string.xml
      * @return integer value, or null on error
      */
-    public static Integer getIntegerFromString(int keyResource) {
+    @CheckForNull
+    public static int getIntegerFromString(int keyResource, int defaultValue) {
         Context context = ContextManager.getContext();
         Resources r = context.getResources();
         String value = getPrefs(context).getString(r.getString(keyResource), null);
         if(value == null)
-            return null;
+            return defaultValue;
 
         try {
             return Integer.parseInt(value);
         } catch (Exception e) {
-            return null;
+            return defaultValue;
         }
     }
 
@@ -155,6 +138,7 @@ public class Preferences {
      * @param keyResource resource from string.xml
      * @return
      */
+    @CheckForNull
     public static Float getFloatFromString(int keyResource) {
         Context context = ContextManager.getContext();
         Resources r = context.getResources();

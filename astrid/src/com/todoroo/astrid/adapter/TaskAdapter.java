@@ -36,7 +36,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -91,20 +90,17 @@ public class TaskAdapter extends CursorAdapter {
     // --- instance variables
 
     @Autowired
-    ExceptionService exceptionService;
+    private ExceptionService exceptionService;
 
     @Autowired
-    TaskService taskService;
-
-    @Autowired
-    DialogUtilities dialogUtilities;
+    private TaskService taskService;
 
     protected final ListActivity activity;
     protected final HashMap<Long, Boolean> completedItems;
+    private OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
     private final int resource;
     private final LayoutInflater inflater;
-    protected OnCompletedTaskListener onCompletedTaskListener = null;
     private int fontSize;
 
     // the task that's expanded
@@ -145,9 +141,12 @@ public class TaskAdapter extends CursorAdapter {
         this.onCompletedTaskListener = onCompletedTaskListener;
 
         completedItems = new HashMap<Long, Boolean>();
-        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize);
+        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
 
-        IMPORTANCE_COLORS = Task.getImportanceColors(activity.getResources());
+        synchronized(TaskAdapter.class) {
+            if(IMPORTANCE_COLORS == null)
+                IMPORTANCE_COLORS = Task.getImportanceColors(activity.getResources());
+        }
     }
 
     /* ======================================================================
@@ -213,7 +212,7 @@ public class TaskAdapter extends CursorAdapter {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public class ViewHolder {
+    public static class ViewHolder {
         public Task task;
         public View view;
         public TextView nameView;
@@ -544,7 +543,7 @@ public class TaskAdapter extends CursorAdapter {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize);
+        fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
     }
 
     private final View.OnClickListener completeBoxListener = new View.OnClickListener() {

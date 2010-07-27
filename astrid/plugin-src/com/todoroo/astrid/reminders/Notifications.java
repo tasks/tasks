@@ -150,9 +150,9 @@ public class Notifications extends BroadcastReceiver {
 
         // quiet hours? unless alarm clock
         boolean quietHours = false;
-        Integer quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart);
-        Integer quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd);
-        if(quietHoursStart != null && quietHoursEnd != null && !nonstopMode) {
+        int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
+        int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd, -1);
+        if(quietHoursStart != -1 && quietHoursEnd != -1 && !nonstopMode) {
             int hour = new Date().getHours();
             if(quietHoursStart <= quietHoursEnd) {
                 if(hour >= quietHoursStart && hour < quietHoursEnd)
@@ -167,11 +167,9 @@ public class Notifications extends BroadcastReceiver {
                 notificationId, intent, PendingIntent.FLAG_ONE_SHOT);
 
         // set up properties (name and icon) for the notification
-        Integer iconPreference = Preferences.getIntegerFromString(R.string.p_rmd_icon);
-        if(iconPreference == null)
-            iconPreference = ICON_SET_ASTRID;
         int icon;
-        switch(iconPreference) {
+        switch(Preferences.getIntegerFromString(R.string.p_rmd_icon,
+                ICON_SET_ASTRID)) {
         case ICON_SET_PINK:
             icon = R.drawable.notif_pink_alarm;
             break;

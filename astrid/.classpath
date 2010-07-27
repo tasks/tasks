@@ -15,5 +15,7 @@
 			<attribute name="javadoc_location" value="http://google-rfc-2445.googlecode.com/svn/trunk/snapshot/docs"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="lib/annotations.jar"/>
+	<classpathentry kind="lib" path="lib/jsr305.jar"/>
 	<classpathentry kind="output" path="ecbuild"/>
 </classpath>

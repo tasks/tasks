@@ -15,8 +15,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -53,7 +53,7 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
      * @param context
      * @param notification
      */
-    abstract protected void updateNotification(Context context, Notification notification);
+    abstract protected void updateNotification(Context context, Notification n);
 
     /**
      * Deal with an exception that occurs during synchronization

@@ -27,38 +27,33 @@ import com.todoroo.astrid.rmilk.api.data.RtmData;
  *
  * @author Will Ross Jun 21, 2007
  */
-public class Param
-    implements Comparable<Param>
-{
+@edu.umd.cs.findbugs.annotations.SuppressWarnings(value="EQ_COMPARETO_USE_OBJECT_EQUALS")
+public class Param implements Comparable<Param> {
 
-  private final String name;
+    private final String name;
 
-  private final String value;
+    private final String value;
 
-  public Param(String name, String value)
-  {
-    this.name = name;
-    this.value = value;
-  }
+    public Param(String name, String value) {
+        this.name = name;
+        this.value = value;
+    }
 
-  public Param(String name, Date value)
-  {
-    this.name = name;
-    this.value = RtmData.formatDate(value);
-  }
+    public Param(String name, Date value) {
+        this.name = name;
+        this.value = RtmData.formatDate(value);
+    }
 
-  public String getName()
-  {
-    return name;
-  }
+    public String getName() {
+        return name;
+    }
 
-  public String getValue()
-  {
-    return value;
-  }
+    public String getValue() {
+        return value;
+    }
 
-  public int compareTo(Param p)
-  {
-    return name.compareTo(p.getName());
-  }
+    public int compareTo(Param p) {
+        return name.compareTo(p.getName());
+    }
+
 }

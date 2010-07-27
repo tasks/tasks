@@ -81,7 +81,7 @@ public class DependencyInjectionService {
      *            field to inject
      */
     @SuppressWarnings("nls")
-    private void handleField(Object caller, Field field)
+    private synchronized void handleField(Object caller, Field field)
             throws IllegalStateException, IllegalArgumentException,
             IllegalAccessException {
 

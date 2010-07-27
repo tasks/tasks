@@ -63,7 +63,7 @@ public class Database extends AbstractDatabase {
      * Create indices
      */
     @Override
-    protected void onCreateTables() {
+    protected synchronized void onCreateTables() {
         StringBuilder sql = new StringBuilder();
         sql.append("CREATE INDEX IF NOT EXISTS md_tid ON ").
             append(Metadata.TABLE).append('(').
@@ -73,7 +73,8 @@ public class Database extends AbstractDatabase {
     }
 
     @Override
-    protected boolean onUpgrade(int oldVersion, int newVersion) {
+    @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="SF_SWITCH_FALLTHROUGH")
+    protected synchronized boolean onUpgrade(int oldVersion, int newVersion) {
         switch(oldVersion) {
         case 1: {
             SqlConstructorVisitor visitor = new SqlConstructorVisitor();
