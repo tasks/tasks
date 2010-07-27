@@ -25,6 +25,7 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
+import android.widget.Filterable;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -56,7 +57,7 @@ import com.todoroo.astrid.utility.Preferences;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskAdapter extends CursorAdapter {
+public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public interface OnCompletedTaskListener {
         public void onCompletedTask(Task item, boolean newState);
