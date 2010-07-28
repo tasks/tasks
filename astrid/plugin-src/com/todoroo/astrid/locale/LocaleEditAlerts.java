@@ -211,9 +211,6 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
             final FilterListItem selected = adapter.getSelection();
             final int intervalIndex = interval.getSelectedItemPosition();
 
-            /*
-             * If the message is of 0 length, then there isn't a setting to save.
-             */
             if (selected == null)
             {
                 /*
