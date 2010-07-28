@@ -86,13 +86,13 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
      */
     private boolean isCancelled = false;
 
-	/** Called when the activity is first created. */
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.locale_edit_alerts);
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.locale_edit_alerts);
 
-		/*
+        /*
          * Locale guarantees that the breadcrumb string will be present, but checking for null anyway makes your Activity more
          * robust and re-usable
          */
@@ -166,7 +166,7 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
         adapter.headerStyle = R.style.TextAppearance_LEA_Header;
         adapter.categoryStyle = R.style.TextAppearance_LEA_Category;
         setListAdapter(adapter);
-	}
+    }
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v,
