@@ -5,13 +5,6 @@
     android:layout_height="fill_parent"
     android:background="@drawable/background_gradient">
 
-    <!-- Loading Filters label -->
-    <TextView android:id="@android:id/empty"
-        android:layout_width="fill_parent" 
-        android:layout_height="fill_parent"
-        android:text="@string/FLA_loading"
-        style="@style/TextAppearance.TLA_NoItems"/>
-
     <!-- List -->
     <ExpandableListView android:id="@android:id/list"
         android:layout_width="fill_parent"
