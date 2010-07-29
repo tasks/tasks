@@ -444,7 +444,7 @@
         <string name="rmilk_MLA_error">
 很抱歉，您的登入資訊驗證錯誤。請再試一次。
 \n\n
-錯誤資訊: 
+錯誤資訊: %s
 </string>
 
 
