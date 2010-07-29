@@ -79,23 +79,6 @@
         <item>もしあなたがそうするなら、あなたの人生の備えを手伝うことはできません･･･</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>ピンク</item>
-        <item>退屈な</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>無効</item>
-        <item>１時間に2回</item>
-        <item>1時間毎</item>
-        <item>１日に2回</item>
-        <item>毎日</item>
-        <item>週に2回</item>
-        <item>毎週</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -203,8 +186,8 @@
         <!-- Time Constants -->
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">日</string>
-        <string name="hoursVertical">時\n間</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -285,7 +268,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">タグ:</string>
+        <string name="tag_TLA_detail">タグ: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -460,7 +443,7 @@
 
 
         <string name="rmilk_status_loggedout">RTMにログインしてください...</string><string name="rmilk_MLA_label">RTMにログインしてください...</string>
-        <string name="rmilk_MLA_error">申し訳ないですが、あなたのログイン状況を確認中にエラーが発生しました。もう一度試してみてください。\n\n エラーメッセージ:</string>
+        <string name="rmilk_MLA_error">申し訳ないですが、あなたのログイン状況を確認中にエラーが発生しました。もう一度試してみてください。\n\n エラーメッセージ: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -510,14 +493,14 @@ Astrid might not let you know when your tasks are due.\n
 
         <string name="locale_edit_alerts_title">Astridからのタグアラート</string>
         <string name="locale_edit_intro">Astridは次の基準に従い、未完了タスクがある場合にリマインダーを送ります:</string>
-        <string name="locale_pick_tag">関連タグ:</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">期日!</string>
-        <string name="notif_preferredDueDate">目標日!</string>
-        <string name="notif_timerStarted">処理中:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">\'$FILTER\'とタグ付けされた$NUMがあります!</string>
 

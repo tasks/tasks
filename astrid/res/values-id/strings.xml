@@ -79,23 +79,6 @@
         <item>Saya bisa membantu anda mengatur jika anda melakukan hal tersebut...</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>Merah muda</item>
-        <item>Bosan</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>tidak difungsikan</item>
-        <item>Dua kali per jam</item>
-        <item>Tiap Jam</item>
-        <item>Dua kali per hari</item>
-        <item>Tiap hari</item>
-        <item>Dua kali seminggu</item>
-        <item>Tiap minggu</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -204,8 +187,8 @@
         <!-- Time Constants -->
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">D\na\ny\ns</string>
-        <string name="hoursVertical">H\no\nu\nr\ns</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -286,7 +269,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">Tanda:</string>
+        <string name="tag_TLA_detail">Tanda: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -461,7 +444,7 @@
 
 
         <string name="rmilk_status_loggedout">Mohon Log In ke RTM...</string><string name="rmilk_MLA_label">Mohon Log In ke RTM...</string>
-        <string name="rmilk_MLA_error">Maaf, ada kesalahan verifikasi login anda. Mohon coba lagi. \n\n Pesan Kesalahan:</string>
+        <string name="rmilk_MLA_error">Maaf, ada kesalahan verifikasi login anda. Mohon coba lagi. \n\n Pesan Kesalahan: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -511,14 +494,14 @@ Astrid might not let you know when your tasks are due.\n
 
         <string name="locale_edit_alerts_title">Tanda Peringatan Astrid</string>
         <string name="locale_edit_intro">Astrid akan mengirim pengingat ketika anda belum menyelesaikan tugas dengan kriteria berikut:</string>
-        <string name="locale_pick_tag">Tandai dengan:</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">Batas Waktu Tetap!</string>
-        <string name="notif_preferredDueDate">Batas Waktu Target!</string>
-        <string name="notif_timerStarted">Bekerja pada:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">Anda memiliki $NUM berlabel $FILTER!</string>
 

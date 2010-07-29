@@ -79,23 +79,6 @@
         <item>No et puc ajudar a organitzar la teva vida si fas això...</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>Rosa</item>
-        <item>Avorrit</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>desactivar</item>
-        <item>2 cada hora</item>
-        <item>cada hora</item>
-        <item>2 cada dia</item>
-        <item>a diari</item>
-        <item>2 per setmana</item>
-        <item>setmanalment</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -204,8 +187,8 @@
         <!-- Time Constants -->
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">D\ni\ne\ns</string>
-        <string name="hoursVertical">H\no\nr\ne\ns</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -286,7 +269,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">Etiquetes:</string>
+        <string name="tag_TLA_detail">Etiquetes: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -461,7 +444,7 @@
 
 
         <string name="rmilk_status_loggedout">Si us plau, Entra a RTM...</string><string name="rmilk_MLA_label">Si us plau, Entra a RTM...</string>
-        <string name="rmilk_MLA_error">Ho sento, hi ha un error verificant les teves dades. Si us plau, torna-ho a provar. \n\n Missatge d\'Error:</string>
+        <string name="rmilk_MLA_error">Ho sento, hi ha un error verificant les teves dades. Si us plau, torna-ho a provar. \n\n Missatge d\'Error: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -511,14 +494,14 @@ Astrid might not let you know when your tasks are due.\n
 
         <string name="locale_edit_alerts_title">Alerta d\'Etiqueta Astrid</string>
         <string name="locale_edit_intro">Astrid t\'enviarà un recordatori quan tinguis tasques sense completar segons els criteris següents:</string>
-        <string name="locale_pick_tag">Etiquetat amb:</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">Termini Absolut!</string>
-        <string name="notif_preferredDueDate">Termini Objectiu!</string>
-        <string name="notif_timerStarted">Treballant en:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">Tens $NUM etiquetades com $FILTER!</string>
 

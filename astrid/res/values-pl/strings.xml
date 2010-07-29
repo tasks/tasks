@@ -79,23 +79,6 @@
         <item>Jeśli to zrobisz nie będę w stanie pomóc ci zorganizować twoje życie...</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>Różowy</item>
-        <item>Nudne</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>wyłącz</item>
-        <item>dwa razy na godzinę</item>
-        <item>co godzinę</item>
-        <item>dwa razy dziennie</item>
-        <item>codziennie</item>
-        <item>dwa razy w tygodniu</item>
-        <item>tygodniowo</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -203,8 +186,8 @@
         </plurals>
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">D\na\ny\ns</string>
-        <string name="hoursVertical">H\no\nu\nr\ns</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -285,7 +268,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">Etykiety:</string>
+        <string name="tag_TLA_detail">Etykiety: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -460,7 +443,7 @@
 
 
         <string name="rmilk_status_loggedout">Zaloguj się do RTM...</string><string name="rmilk_MLA_label">Zaloguj się do RTM...</string>
-        <string name="rmilk_MLA_error">Przepraszamy, wystąpił błąd weryfikacji danych logowania. Spróbuj ponownie. \ N \ n Komunikat o błędzie:</string>
+        <string name="rmilk_MLA_error">Przepraszamy, wystąpił błąd weryfikacji danych logowania. Spróbuj ponownie. \ N \ n Komunikat o błędzie: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -506,14 +489,14 @@
 
         <string name="locale_edit_alerts_title">Alarm Etykiety Astrid</string>
         <string name="locale_edit_intro">Astrid przyśle Ci przypomnienie gdy masz nieukończone zadania spełniające następujące kryteria:</string>
-        <string name="locale_pick_tag">Z etykietą:</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">Termin ostateczny!</string>
-        <string name="notif_preferredDueDate">Termin docelowy!</string>
-        <string name="notif_timerStarted">Praca nad:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">Masz $NUM oznakowane jako $FILTER!</string>
 

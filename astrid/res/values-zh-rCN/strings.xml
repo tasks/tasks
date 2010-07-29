@@ -79,23 +79,6 @@
         <item>如果这样，我真的没办法帮你安排生活...</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>粉色</item>
-        <item>单调的</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>禁用</item>
-        <item>一小时两次</item>
-        <item>每小时</item>
-        <item>一天两次</item>
-        <item>每天</item>
-        <item>一周两次</item>
-        <item>每周</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -203,8 +186,8 @@
         </plurals>
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">天</string>
-        <string name="hoursVertical">小\n时</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -285,7 +268,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">标签:</string>
+        <string name="tag_TLA_detail">标签: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -460,7 +443,7 @@
 
 
         <string name="rmilk_status_loggedout">请登录到 RTM...</string><string name="rmilk_MLA_label">请登录到 RTM...</string>
-        <string name="rmilk_MLA_error">很抱歉, 验证您的登录信息时发生错误. 请再试一次. \n\n 错误消息:</string>
+        <string name="rmilk_MLA_error">很抱歉, 验证您的登录信息时发生错误. 请再试一次. \n\n 错误消息: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -506,14 +489,14 @@
 
         <string name="locale_edit_alerts_title">Astrid 标签提醒</string>
         <string name="locale_edit_intro">当您有符合下述条件的未完成任务时，Astrid 将给予提示：</string>
-        <string name="locale_pick_tag">标签：</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">绝对期限!</string>
-        <string name="notif_preferredDueDate">目标截止日期!</string>
-        <string name="notif_timerStarted">工作在:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">您有 $NUM 使用了 $FILTER 标签!</string>
 

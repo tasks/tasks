@@ -79,23 +79,6 @@
         <item>너가 그렇게 하면 난 니 삶을 도와줄 수 없어</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>분홍색</item>
-        <item>지겨움</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>사용불가</item>
-        <item>한시간에 두번</item>
-        <item>매시간</item>
-        <item>하루에 두번</item>
-        <item>매일</item>
-        <item>일주일에 두 번</item>
-        <item>매주</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -203,8 +186,8 @@
         </plurals> 
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">일</string>
-        <string name="hoursVertical">시</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -285,7 +268,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">태그:</string>
+        <string name="tag_TLA_detail">태그: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -460,7 +443,7 @@
 
 
         <string name="rmilk_status_loggedout">RTM에 로그인 해주세요</string><string name="rmilk_MLA_label">RTM에 로그인 해주세요</string>
-        <string name="rmilk_MLA_error">죄송합니다, 로그인하는데 에러가 발생하였습니다. 다시 시도해주세요. 에러 메세지:</string>
+        <string name="rmilk_MLA_error">죄송합니다, 로그인하는데 에러가 발생하였습니다. 다시 시도해주세요. 에러 메세지: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -510,14 +493,14 @@ Astrid might not let you know when your tasks are due.\n
 
         <string name="locale_edit_alerts_title">Astrid 태그 알림</string>
         <string name="locale_edit_intro">Astird가 아래 판단기준에 의해서 완료되지 않은 일들에대한 알림을 보내드립니다.</string>
-        <string name="locale_pick_tag">로 태그됨</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">최종 마감일!</string>
-        <string name="notif_preferredDueDate">목표 마감일!</string>
-        <string name="notif_timerStarted">작업중</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">You have $NUM tagged $FILTER!</string>
 

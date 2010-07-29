@@ -79,23 +79,6 @@
         <item>Não posso ajudar a organizar a sua vida, se fizer isso...</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>Rosa</item>
-        <item>Entediante!</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>desactivar</item>
-        <item>duas vezes em uma hora</item>
-        <item>de hora em hora</item>
-        <item>duas vezes ao dia</item>
-        <item>diariamente</item>
-        <item>duas vezes por semana</item>
-        <item>semanalmente</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -203,8 +186,8 @@
         </plurals>
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">D\ni\na\ns</string>
-        <string name="hoursVertical">H\no\nr\na\ns</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -285,7 +268,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">Etiquetas:</string>
+        <string name="tag_TLA_detail">Etiquetas: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -460,7 +443,7 @@
 
 
         <string name="rmilk_status_loggedout">Por favor entrar no RTM...</string><string name="rmilk_MLA_label">Por favor entrar no RTM...</string>
-        <string name="rmilk_MLA_error">Desculpe, houve um erro na verificação dos seus dados de acesso. Por favor tente novamente. \n\n Mensagem de erro:</string>
+        <string name="rmilk_MLA_error">Desculpe, houve um erro na verificação dos seus dados de acesso. Por favor tente novamente. \n\n Mensagem de erro: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -506,14 +489,14 @@
 
         <string name="locale_edit_alerts_title">Astrid - Alerta de Etiqueta</string>
         <string name="locale_edit_intro">Astrid enviará um alerta para Você, quando Você, tiver tarefas incompletas com o seguinte critério:</string>
-        <string name="locale_pick_tag">Etiquetadas com:</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">Data limite inadiável!</string>
-        <string name="notif_preferredDueDate">Data limite a atingir!</string>
-        <string name="notif_timerStarted">Em execução:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">Você tem $NUM etiquetadas como $FILTER!</string>
 

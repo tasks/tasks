@@ -79,23 +79,6 @@
         <item>Je ne peux pas vous aider à organiser votre vie si vous faites ça…</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>Rose</item>
-        <item>Fatigant</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>désactiver</item>
-        <item>deux fois par heure</item>
-        <item>toutes les heures</item>
-        <item>deux fois par jour</item>
-        <item>tous les jours</item>
-        <item>deux fois par semaine</item>
-        <item>toutes les semaines</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -204,8 +187,8 @@
         <!-- Time Constants -->
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">j\no\nu\nr\ns</string>
-        <string name="hoursVertical">h\ne\nu\nr\ne\ns</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -286,7 +269,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">Tags :</string>
+        <string name="tag_TLA_detail">Tags : %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -461,7 +444,7 @@
 
 
         <string name="rmilk_status_loggedout">Veuillez vous identifier sur RTM...</string><string name="rmilk_MLA_label">Veuillez vous identifier sur RTM...</string>
-        <string name="rmilk_MLA_error">Désolé, une erreur s\'est produite en vérifiant votre identifiant. Veuillez réessayer. \n\n Message d\'erreur :</string>
+        <string name="rmilk_MLA_error">Désolé, une erreur s\'est produite en vérifiant votre identifiant. Veuillez réessayer. \n\n Message d\'erreur : %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -507,14 +490,14 @@
 
         <string name="locale_edit_alerts_title">Astrid : Alerte sur tags</string>
         <string name="locale_edit_intro">Astrid vous enverra un rappel quand il y aura des tâches non accomplies avec les critères suivants :</string>
-        <string name="locale_pick_tag">Taguée avec :</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">Date limite !</string>
-        <string name="notif_preferredDueDate">Date prévue !</string>
-        <string name="notif_timerStarted">Travaille sur :</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">Vous avez $NUM tagué(e,s) $FILTER</string>
 

@@ -79,23 +79,6 @@
         <item>Nemohu ti pomoci zorganizovat život, pokud to uděláš...</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>Růžová</item>
-        <item>Nudné</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>zakázat</item>
-        <item>dvakrát za hodinun</item>
-        <item>každou hodinu</item>
-        <item>dvakrát denně</item>
-        <item>denně</item>
-        <item>dvakrát týdně</item>
-        <item>týdně</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -204,8 +187,8 @@
         <!-- Time Constants -->
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">D\na\ny\ns</string>
-        <string name="hoursVertical">H\no\nu\nr\ns</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -286,7 +269,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">Značky:</string>
+        <string name="tag_TLA_detail">Značky: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -461,7 +444,7 @@
 
 
         <string name="rmilk_status_loggedout">Přihlašte se prosím do RTM...</string><string name="rmilk_MLA_label">Přihlašte se prosím do RTM...</string>
-        <string name="rmilk_MLA_error">Omlouváme se, ale nastala chyba během ověřování. Zkuste to prosím znovu. \n\n Chybová zpráva:</string>
+        <string name="rmilk_MLA_error">Omlouváme se, ale nastala chyba během ověřování. Zkuste to prosím znovu. \n\n Chybová zpráva: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -511,14 +494,14 @@ Astrid might not let you know when your tasks are due.\n
 
         <string name="locale_edit_alerts_title">Výstraha značky systému Astrid</string>
         <string name="locale_edit_intro">Astrid Vám zobrazí připomenutí, pokud máte nedokončené úkoly s těmito kritérii:</string>
-        <string name="locale_pick_tag">Přidány značky:</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">Konečný termín!</string>
-        <string name="notif_preferredDueDate">Konečný termín cíle!</string>
-        <string name="notif_timerStarted">Pracuji na:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">Máte $NUM označené $FILTER!</string>
 

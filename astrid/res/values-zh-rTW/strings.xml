@@ -79,23 +79,6 @@
         <item>如果你這樣做的話，我不能幫你組織你的生命...</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>粉紅</item>
-        <item>無聊</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>禁用</item>
-        <item>每小時兩次</item>
-        <item>每小時</item>
-        <item>每天兩次</item>
-        <item>每天</item>
-        <item>每週兩次</item>
-        <item>每週</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -203,8 +186,8 @@
         </plurals>
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">天</string>
-        <string name="hoursVertical">小\n時</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -285,7 +268,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">標籤:</string>
+        <string name="tag_TLA_detail">標籤: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -510,14 +493,14 @@ Astrid might not let you know when your tasks are due.\n
         
         <string name="locale_edit_alerts_title">Astrid選項卡警報</string>
         <string name="locale_edit_intro">當您有符合以下條件的未完成工作時Astrid將向您發送提醒:</string>
-        <string name="locale_pick_tag">使用選項卡:</string>
+
 
     <!-- Notification -->
     <skip />
 
-        <string name="notif_definiteDueDate">絕對期限!</string>
-        <string name="notif_preferredDueDate">目的期限!</string>
-        <string name="notif_timerStarted">繼續工作:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">您有 $NUM 個工作使用選項卡 $FILTER!</string>
 

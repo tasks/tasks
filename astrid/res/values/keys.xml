@@ -189,5 +189,7 @@
     <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_forget_key">rmilk_forget</string>    
   
-
+  <!-- placeholder string for info about translators (i.e. YOU!) -->
+  <string name="about_translators"></string>
+  
 </resources>

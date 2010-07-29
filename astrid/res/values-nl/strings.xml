@@ -79,23 +79,6 @@
         <item>Ik kan je alleen maar helpen als jij mij helpt...</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>Roze</item>
-        <item>Saai</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>uit</item>
-        <item>twee keer per uur</item>
-        <item>elk uur</item>
-        <item>twee maal daags</item>
-        <item>dagelijks</item>
-        <item>twee keer per week</item>
-        <item>wekelijks</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -203,8 +186,8 @@
         </plurals>
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">D\na\ng\ne\nn</string>
-        <string name="hoursVertical">U\nr\ne\nn</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -285,7 +268,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">Tags:</string>
+        <string name="tag_TLA_detail">Tags: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -460,7 +443,7 @@
 
 
         <string name="rmilk_status_loggedout">Log in op RTM a.u.b....</string><string name="rmilk_MLA_label">Log in op RTM a.u.b....</string>
-        <string name="rmilk_MLA_error">Sorry, het inloggen is niet gelukt. Probeer opnieuw. \n\n Error bericht:</string>
+        <string name="rmilk_MLA_error">Sorry, het inloggen is niet gelukt. Probeer opnieuw. \n\n Error bericht: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -508,14 +491,14 @@ Astrid might not let you know when your tasks are due.\n
 
         <string name="locale_edit_alerts_title">Astrid Tag Waarschuwing</string>
         <string name="locale_edit_intro">Astrid geeft u een herinnering als u onafgeronde taken heeft met de volgende criteria:</string>
-        <string name="locale_pick_tag">Met Tag:</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">Echte deadline!</string>
-        <string name="notif_preferredDueDate">Doel deadline!</string>
-        <string name="notif_timerStarted">Werkt nu aan:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">Je hebt $NUM getagd als $FILTER!</string>
 

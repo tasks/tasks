@@ -79,23 +79,6 @@
         <item>Jag kan inte hjälpa dig att organisera ditt liv om du gör sådär...</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>Rosa</item>
-        <item>Tråkig</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>inaktivera</item>
-        <item>två gånger i timmen</item>
-        <item>varje timme</item>
-        <item>två gånger per dag</item>
-        <item>varje dag</item>
-        <item>två gånger i veckan</item>
-        <item>varje vecka</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -203,8 +186,8 @@
         </plurals>
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">D\na\ng\na\nr</string>
-        <string name="hoursVertical">H\no\nu\nr\ns</string>
+
+
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -285,7 +268,7 @@
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">Taggar:</string>
+        <string name="tag_TLA_detail">Taggar: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -460,7 +443,7 @@
 
 
         <string name="rmilk_status_loggedout">Vänligen Logga in på RTM...</string><string name="rmilk_MLA_label">Vänligen Logga in på RTM...</string>
-        <string name="rmilk_MLA_error">Beklagar, men det blev ett fel vid verifiering av din inloggning. Vänligen försök igen. \n\n Felmeddelande:</string>
+        <string name="rmilk_MLA_error">Beklagar, men det blev ett fel vid verifiering av din inloggning. Vänligen försök igen. \n\n Felmeddelande: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -506,14 +489,14 @@
 
         <string name="locale_edit_alerts_title">Astrid märknings-alarm</string>
         <string name="locale_edit_intro">Astrid kommer att skicka en påminnelse när du har oavslutade uppgifter med följande kriterier:</string>
-        <string name="locale_pick_tag">Märkt med:</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">Absolut Deadline!</string>
-        <string name="notif_preferredDueDate">Mål-Deadline!</string>
-        <string name="notif_timerStarted">Jobbar med:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">Du har $NUM märkt $FILTER!</string>
 

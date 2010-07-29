@@ -79,23 +79,6 @@
         <item>Dann kann ich dir auch nicht helfen, dein Leben zu organisieren.</item>
     </string-array>
     
-    <string-array name="notif_icon_entries">
-        <!-- Icons for notification tray -->
-        <item>Pink</item>
-        <item>Langweilig</item>
-        <item>Astrid</item>
-    </string-array>
-    
-    <string-array name="sync_interval_entries">
-        <!-- sync_interval_entries: Synchronization Intervals -->
-        <item>Deaktiviere</item>
-        <item>zweimal stündlich</item>
-        <item>stündlich</item>
-        <item>zweimal täglich</item>
-        <item>täglich</item>
-        <item>zweimal wöchentlich</item>
-        <item>wöchentlich</item>
-    </string-array>
     
     <string-array name="EPr_quiet_hours_start">
         <!-- quiet_hours_start: options for preference menu -->
@@ -204,13 +187,6 @@
         <!-- Time Constants -->
 
         <!-- vertical labels are used in dialog boxes -->
-        <string name="daysVertical">T
-a
-g
-e</string>
-        <string name="hoursVertical">S
-t
-d</string>
 
         <plurals name="DUt_days">
             <!-- plurals: days -->
@@ -291,7 +267,7 @@ d</string>
         <!-- displayed when repeat is on remote server-->
 
 
-        <string name="tag_TLA_detail">Tags:</string>
+        <string name="tag_TLA_detail">Tags: %s</string>
 
 
         <!-- i.e. Created: <create date> -->
@@ -466,7 +442,7 @@ d</string>
 
 
         <string name="rmilk_status_loggedout">Bitte bei RTM anmelden...</string><string name="rmilk_MLA_label">Bitte bei RTM anmelden...</string>
-        <string name="rmilk_MLA_error">Sorry, Fehler bei der Anmeldung. Versuchs noch mal. \n\n Fehlermeldung:</string>
+        <string name="rmilk_MLA_error">Sorry, Fehler bei der Anmeldung. Versuchs noch mal. \n\n Fehlermeldung: %s</string>
 
 
     <!-- Dialog Boxes -->
@@ -512,14 +488,14 @@ d</string>
 
         <string name="locale_edit_alerts_title">Astrid Tag Alarm</string>
         <string name="locale_edit_intro">Astrid sendet dir eine Erinnerung, solltest du unerledigte Aufgaben haben mit den folgenden Kriterien:</string>
-        <string name="locale_pick_tag">Tagged mit:</string>
+
 
     <!-- Notification -->
     <skip/>
 
-        <string name="notif_definiteDueDate">Absolute Frist!</string>
-        <string name="notif_preferredDueDate">Zielfrist!</string>
-        <string name="notif_timerStarted">Arbeite an:</string>
+
+
+
         <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
         <string name="locale_notification">Du hast $NUM mit $FILTER markiert!</string>
 
