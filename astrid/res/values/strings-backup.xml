@@ -11,8 +11,6 @@
 
     <!-- Status Group Label -->    
     <string name="backup_BPr_group_status">Status</string>
-    <!-- Preference Key (do not translate) -->
-    <string name="backup_BPr_status_key">backup_status</string>
     
     <!-- Status: success (%s -> last date) -->    
     <string name="backup_status_success">Latest: %s</string>
@@ -32,8 +30,6 @@
     <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
     <!-- Synchronization Interval Description (when enabled) -->
     <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
-    <!-- Preference Key (do not translate) -->
-    <string name="backup_BPr_auto_key">backup</string>  
   
   <!-- ================================================= BackupActivity == -->
 

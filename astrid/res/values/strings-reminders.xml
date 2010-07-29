@@ -130,17 +130,6 @@
     <item>monthly</item>
     <item>bi-monthly</item>
   </string-array>
-
-  <string-array name="EPr_reminder_random_hours">
-    <!-- values (in hours) associated with items above. -->
-    <item>0</item>
-    <item>1</item>
-    <item>24</item>
-    <item>168</item>
-    <item>336</item>
-    <item>730</item>
-    <item>1460</item>
-  </string-array>
         
   <string-array name="EPr_quiet_hours_start">
     <!-- quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
@@ -239,7 +228,7 @@
       <item>No more postponing!</item>
   </string-array>
   
-  <string-array name="responses">
+  <string-array name="reminder_responses">
       <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
       <item>I\'ve got something for you!</item> 
       <item>Ready to put this in the past?</item>

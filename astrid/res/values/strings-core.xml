@@ -4,6 +4,7 @@
 
   <!-- ================================================== AndroidManifest == -->
 
+  <!-- Application Name (shown on home screen & in launcher) -->
   <string name="app_name">Astrid Tasks</string>
   
   <!-- permission title for READ_TASKS -->
@@ -329,6 +330,25 @@ to the plugin creator for fastest service.
   <!-- Toast: task was deleted -->
   <string name="TEA_onTaskDelete">Task Deleted!</string>
   
+  <string-array name="TEA_urgency">
+      <!-- urgency: labels for edit page. item #4 -> auto filled -->
+      <item>Specific Day/Time</item>
+      <item>Today</item>
+      <item>Tomorrow</item>
+      <item>(day after)</item>
+      <item>Next Week</item>
+      <item>No Deadline</item>
+  </string-array>
+  
+  <string-array name="TEA_hideUntil">
+      <!-- hideUntil: labels for edit page. -->
+      <item>Don\'t hide</item>
+      <item>Task is due</item>
+      <item>Day before due</item>
+      <item>Week before due</item>
+      <item>Specific Day</item>
+  </string-array>
+  
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
@@ -381,6 +401,31 @@ to the plugin creator for fastest service.
   <string name="EPr_default_hideUntil_title">Default Hide Until</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_hideUntil_desc">Currently Set To: %s</string>
+  
+  <string-array name="EPr_default_importance">
+      <!-- importance: labels for "Task Defaults" preference item. -->
+      <item>!!!! (Highest)</item>
+      <item>!!!</item>
+      <item>!!</item>
+      <item>! (Lowest)</item>
+  </string-array>
+  
+  <string-array name="EPr_default_urgency">
+      <!-- urgency: labels for "Task Defaults" preference item. -->
+      <item>No Deadline</item>
+      <item>Today</item>
+      <item>Tomorrow</item>
+      <item>Day After Tomorrow</item>
+      <item>Next Week</item>
+  </string-array>
+  
+  <string-array name="EPr_default_hideUntil">
+      <!-- hideUntil: labels for "Task Defaults" preference item. -->
+      <item>Don\'t hide</item>
+      <item>Task is due</item>
+      <item>Day before due</item>
+      <item>Week before due</item>
+  </string-array>    
   
   <!-- ==================================================== AddOnActivity == -->
   

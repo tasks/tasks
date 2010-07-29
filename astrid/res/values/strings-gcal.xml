@@ -26,8 +26,5 @@
   <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
   <string name="gcal_GCP_default">Default Calendar</string>
 
-  <!-- Default Calendar Preference Key (do not translate) -->
-  <string name="gcal_p_default">default_calendar_id</string>
-
 
 </resources>

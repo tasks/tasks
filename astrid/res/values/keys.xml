@@ -41,6 +41,17 @@
     <item>2</item>
   </string-array>
   
+  <string-array name="EPr_reminder_random_hours">
+    <!-- values (in hours) associated with random reminders above. -->
+    <item>0</item>
+    <item>1</item>
+    <item>24</item>
+    <item>168</item>
+    <item>336</item>
+    <item>730</item>
+    <item>1460</item>
+  </string-array>
+  
   <string-array name="EPr_quiet_hours_start_values">
     <!-- quiet_hours_start_values: 24-hour representation of quiet_hour_start -->
     <item></item>
@@ -158,6 +169,25 @@
   
   <!-- ============================================================ OTHER == -->
   
-  <string name="p_backup">backup</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="backup_BPr_status_key">backup_status</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="backup_BPr_auto_key">backup</string>  
+
+  <!-- Default Calendar Preference Key (do not translate) -->
+  <string name="gcal_p_default">default_calendar_id</string>
+
+  
+      <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_status_key">rmilk_status</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_interval_key">sync_freq</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_bgwifi_key">sync_bgwifi</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_sync_key">rmilk_sync</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_forget_key">rmilk_forget</string>    
+  
 
 </resources>

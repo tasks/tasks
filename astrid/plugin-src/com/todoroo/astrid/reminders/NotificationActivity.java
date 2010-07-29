@@ -94,7 +94,7 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         ViewGroup parent = (ViewGroup) findViewById(R.id.taskListParent);
         getLayoutInflater().inflate(R.layout.notification_control, parent, true);
 
-        String reminder = Notifications.getRandomReminder(getResources().getStringArray(R.array.responses));
+        String reminder = Notifications.getRandomReminder(getResources().getStringArray(R.array.reminder_responses));
         ((TextView)findViewById(R.id.reminderLabel)).setText(reminder);
 
         // set up listeners
