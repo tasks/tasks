@@ -6,29 +6,29 @@
   
   <!-- ================================================= BackupPreferences == -->
 
-    <!-- Preferences Title -->    
+    <!-- Backup Preferences Title -->    
     <string name="backup_BPr_header">Backups</string>
 
-    <!-- Status Group Label -->    
+    <!-- Backup: Status Header -->    
     <string name="backup_BPr_group_status">Status</string>
     
-    <!-- Status: success (%s -> last date) -->    
+    <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
     <string name="backup_status_success">Latest: %s</string>
-    <!-- Status: error -->    
+    <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Last Backup Failed</string>
-    <!-- Status: error subtitle -->    
+    <!-- Backup Status: error subtitle -->    
     <string name="backup_status_failed_subtitle">(tap to show error)</string>
-    <!-- Status: never backed up -->    
+    <!-- Backup Status: never backed up -->    
     <string name="backup_status_never">Never Backed Up!</string>
 
-    <!-- Options Group Label -->    
+    <!-- Backup Options Group Label -->    
     <string name="backup_BPr_group_options">Options</string>
 
-    <!-- Synchronization Interval Title -->    
+    <!-- Preference: Automatic Backup Title -->    
     <string name="backup_BPr_auto_title">Automatic Backups</string>
-    <!-- Synchronization Interval Description (when disabled) -->
+    <!-- Preference: Automatic Backup Description (when disabled) -->
     <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
-    <!-- Synchronization Interval Description (when enabled) -->
+    <!-- Preference: Automatic Backup Description (when enabled) -->
     <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
   
   <!-- ================================================= BackupActivity == -->
@@ -55,10 +55,10 @@
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Exporting...</string>
   
-  <!-- Summary title for import -->
+  <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">Restore Summary</string>
     
-  <!-- Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
+  <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
   <string name="import_summary_message">
 File %s contained %s.\n\n
 %s imported,\n
@@ -72,16 +72,16 @@ File %s contained %s.\n\n
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
   <string name="import_progress_read">Reading task %d...</string>
   
-  <!-- Dialog when unable to open a file -->  
+  <!-- Backup: Dialog when unable to open a file -->  
   <string name="DLG_error_opening">Could not find this item: </string>
   
-  <!-- Dialog when unable to open SD card folder -->
+  <!-- Backup: Dialog when unable to open SD card folder -->
   <string name="DLG_error_sdcard">Cannot access folder: %s</string>
   
-  <!-- Dialog when unable to open SD card in general -->
+  <!-- Backup: Dialog when unable to open SD card in general -->
   <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
     
-  <!-- File Selector dialog for import -->
+  <!-- Backup: File Selector dialog for import -->
   <string name="import_file_prompt">Select a File to Restore</string>    
         
 </resources>

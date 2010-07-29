@@ -27,7 +27,7 @@
     <item>once a week</item>
   </string-array>        
       
-  <!-- Notification -->                                                                                                                                        
+  <!-- Locale Notification text -->                                                                                                                                        
   <string name="locale_notification">You have $NUM matching: $FILTER</string>     
      
 </resources>

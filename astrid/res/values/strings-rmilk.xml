@@ -16,7 +16,7 @@
     <!--  task detail showing item needs to be synchronized -->
     <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
 
-    <!-- filters header -->
+    <!-- filters header: RTM -->
     <string name="rmilk_FEx_header">Remember the Milk</string>
     
     <!-- filter category for RTM lists -->
@@ -30,16 +30,16 @@
     
     <!-- ======================= MilkEditActivity ========================== -->
     
-    <!--  Title -->
+    <!--  RTM edit activity Title -->
     <string name="rmilk_MEA_title">Remember the Milk</string>
     
-    <!--  List Edit Label -->
+    <!--  RTM edit List Edit Label -->
     <string name="rmilk_MEA_list_label">RTM List:</string>
     
-    <!--  Repeat Label -->
+    <!--  RTM edit Repeat Label -->
     <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
     
-    <!--  Repeat Hint -->
+    <!--  RTM edit Repeat Hint -->
     <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
     
     <!-- ======================== MilkPreferences ========================== -->
@@ -47,37 +47,37 @@
     <!-- Milk Preferences Title -->    
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
-    <!-- Status Group Label -->    
+    <!-- RTM Status Group Label -->    
     <string name="rmilk_MPr_group_status">Status</string>
     
-    <!-- Status: log in -->    
+    <!-- Sync Status: log in -->    
     <string name="rmilk_status_loggedout">Please Log In To RTM!</string>
     <!-- Status: ongoing -->    
     <string name="rmilk_status_ongoing">Sync Ongoing...</string>
-    <!-- Status: success (%s -> last sync date) -->    
+    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
     <string name="rmilk_status_success">Last Sync: %s</string>
-    <!-- Status: error (%s -> last attempted sync date) -->    
+    <!-- Sync Status: error status (%s -> last attempted sync date) -->    
     <string name="rmilk_status_failed">Failed On: %s</string>
-    <!-- Status: error subtitle (%s -> last successful sync date) -->    
+    <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
     <string name="rmilk_status_failed_subtitle">Last Successful Sync: %s</string>
-    <!-- Status: never sync'd -->    
+    <!-- Sync Status: never sync'd -->    
     <string name="rmilk_status_never">Never Synchronized!</string>
 
-    <!-- Options Group Label -->    
+    <!-- RTM Options Group Label -->    
     <string name="rmilk_MPr_group_options">Options</string>
 
-    <!-- Synchronization Interval Title -->    
+    <!-- Preference: Synchronization Interval Title -->    
     <string name="rmilk_MPr_interval_title">Background Sync</string>
-    <!-- Synchronization Interval Description (when disabled) -->
+    <!-- Preference: Synchronization Interval Description (when disabled) -->
     <string name="rmilk_MPr_interval_desc_disabled">Background synchronization is disabled</string>    
-    <!-- Synchronization Interval Description (%s => setting) -->
+    <!-- Preference: Synchronization Interval Description (%s => setting) -->
     <string name="rmilk_MPr_interval_desc">Currently set to: %s</string>
     
-    <!-- Background Wifi Title -->  
+    <!-- Preference: Background Wifi Title -->  
     <string name="rmilk_MPr_bgwifi_title">Wifi Only Setting</string>    
-    <!-- Background Wifi Description (enabled) -->
+    <!-- Preference: Background Wifi Description (enabled) -->
     <string name="rmilk_MPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
-    <!-- Background Wifi Description (disabled) -->
+    <!-- Preference: Background Wifi Description (disabled) -->
     <string name="rmilk_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
     
     <!-- Actions Group Label  -->
@@ -88,9 +88,9 @@
     <!-- Synchronize Now Button if not logged in-->    
     <string name="rmilk_MPr_sync_log_in">Log In &amp; Synchronize!</string>
     
-    <!-- Clear Data Title -->
+    <!-- Sync: Clear Data Title -->
     <string name="rmilk_MPr_forget">Log Out</string>
-    <!-- Clear Data Description -->
+    <!-- Sync: Clear Data Description -->
     <string name="rmilk_MPr_forget_description">Clears all RTM synchronization data</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->

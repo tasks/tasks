@@ -4,19 +4,19 @@
     
     <!-- Resources for built-in timers plug-in -->
     
-    <!-- Start Timer button -->
+    <!-- Task List: Start Timer button -->
     <string name="TAE_startTimer">Start Timer</string>
     
-    <!-- Stop Timer button -->
+    <!-- Task List: Stop Timer button -->
     <string name="TAE_stopTimer">Stop Timer</string>
     
-    <!-- Notification Title (%s => # tasks) -->
+    <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">Timers Active for %s!</string>
     
-    <!-- Filter Header -->
+    <!-- Filter Header for Timer plugin -->
     <string name="TFE_category">Timer Filters</string>
     
-    <!-- Filter -->
+    <!-- Filter for Timed Tasks -->
     <string name="TFE_workingOn">Tasks Being Timed</string>
       
 </resources>

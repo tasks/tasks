@@ -34,6 +34,16 @@
   <!-- default random reminder setting (in hours) -->
   <string name="p_rmd_default_random_hours">notif_default_reminder</string>
   
+  <string-array name="TEA_reminder_random_hours">
+    <!-- values (in hours) associated with items above. -->
+    <item>1</item>
+    <item>24</item>
+    <item>168</item>
+    <item>336</item>
+    <item>730</item>
+    <item>1460</item>
+  </string-array>
+  
   <string-array name="notif_icon_values">
     <!-- Corresponding to the constants in Preferences.java (do not edit) -->
     <item>0</item>

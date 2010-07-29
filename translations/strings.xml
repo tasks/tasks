@@ -6,29 +6,29 @@
   
   <!-- ================================================= BackupPreferences == -->
 
-    <!-- Preferences Title -->    
+    <!-- Backup Preferences Title -->    
     <string name="backup_BPr_header">Backups</string>
 
-    <!-- Status Group Label -->    
+    <!-- Backup: Status Header -->    
     <string name="backup_BPr_group_status">Status</string>
     
-    <!-- Status: success (%s -> last date) -->    
+    <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
     <string name="backup_status_success">Latest: %s</string>
-    <!-- Status: error -->    
+    <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Last Backup Failed</string>
-    <!-- Status: error subtitle -->    
+    <!-- Backup Status: error subtitle -->    
     <string name="backup_status_failed_subtitle">(tap to show error)</string>
-    <!-- Status: never backed up -->    
+    <!-- Backup Status: never backed up -->    
     <string name="backup_status_never">Never Backed Up!</string>
 
-    <!-- Options Group Label -->    
+    <!-- Backup Options Group Label -->    
     <string name="backup_BPr_group_options">Options</string>
 
-    <!-- Synchronization Interval Title -->    
+    <!-- Preference: Automatic Backup Title -->    
     <string name="backup_BPr_auto_title">Automatic Backups</string>
-    <!-- Synchronization Interval Description (when disabled) -->
+    <!-- Preference: Automatic Backup Description (when disabled) -->
     <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
-    <!-- Synchronization Interval Description (when enabled) -->
+    <!-- Preference: Automatic Backup Description (when enabled) -->
     <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
   
   <!-- ================================================= BackupActivity == -->
@@ -55,10 +55,10 @@
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Exporting...</string>
   
-  <!-- Summary title for import -->
+  <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">Restore Summary</string>
     
-  <!-- Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
+  <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
   <string name="import_summary_message">
 File %s contained %s.\n\n
 %s imported,\n
@@ -72,16 +72,16 @@ File %s contained %s.\n\n
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
   <string name="import_progress_read">Reading task %d...</string>
   
-  <!-- Dialog when unable to open a file -->  
+  <!-- Backup: Dialog when unable to open a file -->  
   <string name="DLG_error_opening">Could not find this item: </string>
   
-  <!-- Dialog when unable to open SD card folder -->
+  <!-- Backup: Dialog when unable to open SD card folder -->
   <string name="DLG_error_sdcard">Cannot access folder: %s</string>
   
-  <!-- Dialog when unable to open SD card in general -->
+  <!-- Backup: Dialog when unable to open SD card in general -->
   <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
     
-  <!-- File Selector dialog for import -->
+  <!-- Backup: File Selector dialog for import -->
   <string name="import_file_prompt">Select a File to Restore</string>    
         
 
@@ -653,7 +653,7 @@ reminders, RememberTheMilk sync, Locale plug-in &amp; more!
     <item>once a week</item>
   </string-array>        
       
-  <!-- Notification -->                                                                                                                                        
+  <!-- Locale Notification text -->                                                                                                                                        
   <string name="locale_notification">You have $NUM matching: $FILTER</string>     
      
 
@@ -665,29 +665,29 @@ reminders, RememberTheMilk sync, Locale plug-in &amp; more!
     
   <!-- =============================================== task edit activity == -->
 
-  <!-- Reminder header label -->  
+  <!-- Task Edit: Reminder header label -->  
   <string name="TEA_reminder_label">Remind me...</string>
 
-  <!-- Reminder @ deadline -->  
+  <!-- Task Edit: Reminder @ deadline -->  
   <string name="TEA_reminder_due">... when it\'s time to start the task</string>
 
-  <!-- Reminder after deadline -->  
+  <!-- Task Edit: Reminder after deadline -->  
   <string name="TEA_reminder_overdue">... when task is overdue</string>
 
-  <!-- Reminder at random times (%s => time plural)-->
+  <!-- Task Edit: Reminder at random times (%s => time plural)-->
   <string name="TEA_reminder_random">... randomly once</string>
 
-  <!-- Reminder alarm clock label -->  
+  <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
 
-  <!-- Reminder alarm clock toggle: off -->  
+  <!-- Task Edit: Reminder alarm clock toggle: off -->  
   <string name="TEA_reminder_alarm_off">Ring Once</string>
 
-  <!-- Reminder alarm clock toggle: on -->  
+  <!-- Task Edit: Reminder alarm clock toggle: on -->  
   <string name="TEA_reminder_alarm_on">Ring Until I Dismiss Alarm</string>
 
   <string-array name="TEA_reminder_random">
-    <!-- random reminder labels for edit page. -->
+    <!-- random reminder choices for task edit page. -->
     <item>an hour</item>
     <item>a day</item>
     <item>a week</item>
@@ -695,92 +695,82 @@ reminders, RememberTheMilk sync, Locale plug-in &amp; more!
     <item>a month</item>
     <item>in two months</item>
   </string-array>
-
-  <string-array name="TEA_reminder_random_hours">
-    <!-- values (in hours) associated with items above. -->
-    <item>1</item>
-    <item>24</item>
-    <item>168</item>
-    <item>336</item>
-    <item>730</item>
-    <item>1460</item>
-  </string-array>
   
   <!-- ==================================================== notifications == -->
   
   <!-- Name of filter when viewing a reminder -->
   <string name="rmd_NoA_filter">Reminder!</string>
   
-  <!-- Snooze button (remind again later) -->
+  <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Snooze...</string>
   
-  <!-- Cancel reminder -->
+  <!-- Reminder: Cancel reminder -->
   <string name="rmd_NoA_goAway">Go Away!</string>
     
   <!-- ============================================= reminder preferences == -->
   
-  <!-- Preference Screen Title -->
+  <!-- Reminder Preference Screen Title -->
   <string name="rmd_EPr_alerts_header">Reminder Settings</string>
     
-  <!-- Quiet Hours Start Title -->
+  <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Quiet Hours Start</string>
-  <!-- Quiet Hours Start Description (%s => time set) -->
+  <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
   <string name="rmd_EPr_quiet_hours_start_desc">No notifications will appear after %s</string>
-  <!-- Quiet Hours Start/End Description (disabled) -->
+  <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
   <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
   
-  <!-- Quiet Hours End Title -->
+  <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Quiet Hours End</string>
-  <!-- Quiet Hours End Description (%s => time set) -->
+  <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
   <string name="rmd_EPr_quiet_hours_end_desc">Notifications will begin appearing starting at %s</string>
 
-  <!-- Notification Ringtone Title -->
+  <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">Notification Ringtone</string>
-  <!-- Notification Ringtone Description (when custom tone is set) -->
+  <!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
   <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
-  <!-- Notification Ringtone Description (when silence is set) -->
+  <!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
   <string name="rmd_EPr_ringtone_desc_silent">Ringtone set to silent</string>
-  <!-- Notification Ringtone Description (when custom tone is not set) -->
+  <!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
   <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
   
-  <!-- Notification Persistence Title -->
+  <!-- Reminder Preference: Notification Persistence Title -->
   <string name="rmd_EPr_persistent_title">Notification Persistence</string>
-  <!-- Notification Persistence Description (true) -->
+  <!-- Reminder Preference: Notification Persistence Description (true) -->
   <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
-  <!-- Notification Persistence Description (false) -->
+  <!-- Reminder Preference: Notification Persistence Description (false) -->
   <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
   
-  <!-- Notification Icon Title -->
+  <!-- Reminder Preference: Notification Icon Title -->
   <string name="rmd_EPr_notificon_title">Notification Icon Set</string>
-  <!-- Notification Icon Description -->
+  <!-- Reminder Preference: Notification Icon Description -->
   <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
 
-  <!-- Vibrate Title -->
+  <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">Vibrate on Alert</string>
-  <!-- Vibrate Description (true) -->
+  <!-- Reminder Preference: Vibrate Description (true) -->
   <string name="rmd_EPr_vibrate_desc_true">Astrid will vibrate when sending notifications</string>
-  <!-- Vibrate Description (false) -->
+  <!-- Reminder Preference: Vibrate Description (false) -->
   <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
 
-  <!-- Nagging Title -->  
+  <!-- Reminder Preference: Nagging Title -->  
   <string name="rmd_EPr_nagging_title">Astrid Reminders</string>
-  <!-- Nagging Description (true) -->
+  <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
-  <!-- Nagging Description (false) -->
+  <!-- Reminder Preference: Nagging Description (false) -->
   <string name="rmd_EPr_nagging_desc_false">Astrid not give you any encouragement messages</string>
   
-  <!-- Default Reminders Title -->
+  <!-- Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Random Reminders</string>
-  <!-- Default Reminders Setting (disabled) -->
+  <!-- Reminder Preference: Default Reminders Setting (disabled) -->
   <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
-  <!-- Default Reminders Setting (%s => setting) -->
+  <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
   <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
   
   <!-- Defaults Title -->
   <string name="rmd_EPr_defaults_header">New Task Defaults</string>
   
   <string-array name="EPr_reminder_random">
-    <!-- random reminder labels for preference. -->
+    <!-- Reminder Preference: random reminder choices for preference page. -->
     <item>disabled</item>
     <item>hourly</item>
     <item>daily</item>
@@ -791,7 +781,7 @@ reminders, RememberTheMilk sync, Locale plug-in &amp; more!
   </string-array>
         
   <string-array name="EPr_quiet_hours_start">
-    <!-- quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
+    <!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
     <item>disabled</item>
     <item>8 PM</item>
     <item>9 PM</item>
@@ -820,7 +810,7 @@ reminders, RememberTheMilk sync, Locale plug-in &amp; more!
   </string-array>
   
   <string-array name="EPr_quiet_hours_end">
-    <!-- quiet_hours_end: options for preference menu. Translate but don't change the times! -->
+    <!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times! -->
     <item>9 AM</item>
     <item>10 AM</item>
     <item>11 AM</item>
@@ -990,7 +980,7 @@ reminders, RememberTheMilk sync, Locale plug-in &amp; more!
     <!--  task detail showing item needs to be synchronized -->
     <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
 
-    <!-- filters header -->
+    <!-- filters header: RTM -->
     <string name="rmilk_FEx_header">Remember the Milk</string>
     
     <!-- filter category for RTM lists -->
@@ -1004,16 +994,16 @@ reminders, RememberTheMilk sync, Locale plug-in &amp; more!
     
     <!-- ======================= MilkEditActivity ========================== -->
     
-    <!--  Title -->
+    <!--  RTM edit activity Title -->
     <string name="rmilk_MEA_title">Remember the Milk</string>
     
-    <!--  List Edit Label -->
+    <!--  RTM edit List Edit Label -->
     <string name="rmilk_MEA_list_label">RTM List:</string>
     
-    <!--  Repeat Label -->
+    <!--  RTM edit Repeat Label -->
     <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
     
-    <!--  Repeat Hint -->
+    <!--  RTM edit Repeat Hint -->
     <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
     
     <!-- ======================== MilkPreferences ========================== -->
@@ -1021,37 +1011,37 @@ reminders, RememberTheMilk sync, Locale plug-in &amp; more!
     <!-- Milk Preferences Title -->    
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
-    <!-- Status Group Label -->    
+    <!-- RTM Status Group Label -->    
     <string name="rmilk_MPr_group_status">Status</string>
     
-    <!-- Status: log in -->    
+    <!-- Sync Status: log in -->    
     <string name="rmilk_status_loggedout">Please Log In To RTM!</string>
     <!-- Status: ongoing -->    
     <string name="rmilk_status_ongoing">Sync Ongoing...</string>
-    <!-- Status: success (%s -> last sync date) -->    
+    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
     <string name="rmilk_status_success">Last Sync: %s</string>
-    <!-- Status: error (%s -> last attempted sync date) -->    
+    <!-- Sync Status: error status (%s -> last attempted sync date) -->    
     <string name="rmilk_status_failed">Failed On: %s</string>
-    <!-- Status: error subtitle (%s -> last successful sync date) -->    
+    <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
     <string name="rmilk_status_failed_subtitle">Last Successful Sync: %s</string>
-    <!-- Status: never sync'd -->    
+    <!-- Sync Status: never sync'd -->    
     <string name="rmilk_status_never">Never Synchronized!</string>
 
-    <!-- Options Group Label -->    
+    <!-- RTM Options Group Label -->    
     <string name="rmilk_MPr_group_options">Options</string>
 
-    <!-- Synchronization Interval Title -->    
+    <!-- Preference: Synchronization Interval Title -->    
     <string name="rmilk_MPr_interval_title">Background Sync</string>
-    <!-- Synchronization Interval Description (when disabled) -->
+    <!-- Preference: Synchronization Interval Description (when disabled) -->
     <string name="rmilk_MPr_interval_desc_disabled">Background synchronization is disabled</string>    
-    <!-- Synchronization Interval Description (%s => setting) -->
+    <!-- Preference: Synchronization Interval Description (%s => setting) -->
     <string name="rmilk_MPr_interval_desc">Currently set to: %s</string>
     
-    <!-- Background Wifi Title -->  
+    <!-- Preference: Background Wifi Title -->  
     <string name="rmilk_MPr_bgwifi_title">Wifi Only Setting</string>    
-    <!-- Background Wifi Description (enabled) -->
+    <!-- Preference: Background Wifi Description (enabled) -->
     <string name="rmilk_MPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
-    <!-- Background Wifi Description (disabled) -->
+    <!-- Preference: Background Wifi Description (disabled) -->
     <string name="rmilk_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
     
     <!-- Actions Group Label  -->
@@ -1062,9 +1052,9 @@ reminders, RememberTheMilk sync, Locale plug-in &amp; more!
     <!-- Synchronize Now Button if not logged in-->    
     <string name="rmilk_MPr_sync_log_in">Log In &amp; Synchronize!</string>
     
-    <!-- Clear Data Title -->
+    <!-- Sync: Clear Data Title -->
     <string name="rmilk_MPr_forget">Log Out</string>
-    <!-- Clear Data Description -->
+    <!-- Sync: Clear Data Description -->
     <string name="rmilk_MPr_forget_description">Clears all RTM synchronization data</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
@@ -1154,19 +1144,19 @@ Error Message: %s
     
     <!-- Resources for built-in timers plug-in -->
     
-    <!-- Start Timer button -->
+    <!-- Task List: Start Timer button -->
     <string name="TAE_startTimer">Start Timer</string>
     
-    <!-- Stop Timer button -->
+    <!-- Task List: Stop Timer button -->
     <string name="TAE_stopTimer">Stop Timer</string>
     
-    <!-- Notification Title (%s => # tasks) -->
+    <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">Timers Active for %s!</string>
     
-    <!-- Filter Header -->
+    <!-- Filter Header for Timer plugin -->
     <string name="TFE_category">Timer Filters</string>
     
-    <!-- Filter -->
+    <!-- Filter for Timed Tasks -->
     <string name="TFE_workingOn">Tasks Being Timed</string>
       
 
