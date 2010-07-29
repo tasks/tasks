@@ -120,11 +120,13 @@ Error Message: %s
     
     <!-- ======================== Synchronization ========================== -->    
     
-    <!-- rmilk-specific constants -->
+    <!-- title for notification tray when synchronizing -->
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
+    <!-- confirmation dialog for RTM log out -->
     <string name="rmilk_forget_confirm">Log out / clear synchronization data?</string>
     
+    <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
     or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
         

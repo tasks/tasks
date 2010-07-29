@@ -23,14 +23,6 @@
   <!-- Calendar event name when task is completed (%s => task title) -->
   <string name="gcal_completed_title">%s (completed)</string>
 
-  <!-- ============================================== Calendar Preferences == -->
-  
-  <!-- Preference: Calendar Setting Title  -->
-  <string name="gcal_GCP_title">Default Calendar</string>
-  
-  <!-- Preference: Calendar Setting Summary (%s -> calendar summary)  -->
-  <string name="gcal_GCP_summary">Current Setting: %s</string>
-  
   <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
   <string name="gcal_GCP_default">Default Calendar</string>
 

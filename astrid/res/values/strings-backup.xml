@@ -4,22 +4,6 @@
     
   <!-- Resources for built-in backup plug-in -->
   
-  <!-- ============================================== BackupPreferences == -->
-
-  <string name="backup_BPr_backup_title">Automatic Backups</string>
-
-  <!--  backup summary when there is no backup message -->
-  <string name="backup_BPr_backup_desc">Perform daily backups to sdcard.</string>
-
-  <!--  backup failure message (%s -> error message) -->
-  <string name="backup_BPr_backup_desc_failure">Last backup failed: %s</string>
-
-  <!--  backup failure error when error message is null -->
-  <string name="backup_BPr_backup_desc_failure_null">Last backup failed, could not read SD card</string>
-
-  <!--  backup success message (%s -> date) -->
-  <string name="backup_BPr_backup_desc_success">Latest backup was on %s</string>
-  
   <!-- ================================================= BackupPreferences == -->
 
     <!-- Preferences Title -->    

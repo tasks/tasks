@@ -477,15 +477,15 @@ public final class TaskEditActivity extends TabActivity {
         super.onCreateOptionsMenu(menu);
         MenuItem item;
 
-        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_save_label);
+        item = menu.add(Menu.NONE, MENU_SAVE_ID, 0, R.string.TEA_menu_save);
         item.setIcon(android.R.drawable.ic_menu_save);
         item.setAlphabeticShortcut('s');
 
-        item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_cancel_label);
+        item = menu.add(Menu.NONE, MENU_DISCARD_ID, 0, R.string.TEA_menu_discard);
         item.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
         item.setAlphabeticShortcut('c');
 
-        item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_delete_label);
+        item = menu.add(Menu.NONE, MENU_DELETE_ID, 0, R.string.TEA_menu_delete);
         item.setIcon(android.R.drawable.ic_menu_delete);
         item.setAlphabeticShortcut('d');
 
