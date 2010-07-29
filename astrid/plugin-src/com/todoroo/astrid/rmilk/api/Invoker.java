@@ -51,6 +51,8 @@ import android.util.Log;
 @SuppressWarnings("nls")
 public class Invoker {
 
+    private static final String SERVICE_UNAVAILABLE_CODE = "105";
+
     private static final String TAG = "rtm-invoker"; //$NON-NLS-1$
 
   private static final DocumentBuilder builder;
@@ -85,9 +87,9 @@ public class Invoker {
 
   private final MessageDigest digest;
 
-  private String serviceRelativeUri;
+  private final String serviceRelativeUri;
 
-  private HttpClient httpClient;
+  private final HttpClient httpClient;
 
   public Invoker(@SuppressWarnings("unused") String serverHostName,
           @SuppressWarnings("unused") int serverPortNumber,
@@ -202,6 +204,16 @@ public class Invoker {
                                 "unexpected response returned by RTM service: "
                                     + wrapperElt.getNodeValue());
                     } else {
+                        if (SERVICE_UNAVAILABLE_CODE.equals(((Element) errElt)
+                                        .getAttribute("code")) && !repeat) {
+                            try {
+                                Thread.sleep(1500);
+                            } catch (InterruptedException e) {
+                                // ignore
+                            }
+                            return invoke(true, params);
+                        }
+
                         throw new ServiceException(Integer
                                 .parseInt(((Element) errElt)
                                         .getAttribute("code")),
