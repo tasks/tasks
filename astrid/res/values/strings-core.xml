@@ -461,9 +461,8 @@ Astrid might not let you know when your tasks are due.\n
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">
-Astrid is the highly-acclaimed open-source task list that is simple enough to
-not get in your way, powerful enough to help you get stuff done! Tags, 
-reminders, RememberTheMilk sync, Locale plug-in &amp; more!
+Astrid is the much loved open-source todo list / task manager designed to help 
+you get stuff done. It features reminders, tags, sync, a widget and more. 
   </string>
     
 </resources>
