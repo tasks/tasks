@@ -96,7 +96,7 @@ public class TasksXmlExporter {
                     Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, null);
 
                     if (!isService)
-                        displayToast(output);
+                        onFinishExport(output);
                 } catch (IOException e) {
                     if(!isService)
                         exceptionService.displayAndReportError(context,
@@ -263,14 +263,15 @@ public class TasksXmlExporter {
 
     }
 
-    private void displayToast(final String output) {
+    private void onFinishExport(final String outputFile) {
         handler.post(new Runnable() {
             @Override
             public void run() {
                 CharSequence text = String.format(context.getString(R.string.export_toast),
                         context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
-                                exportCount), output);
+                                exportCount), outputFile);
                 Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+                progressDialog.dismiss();
             }
         });
     }
