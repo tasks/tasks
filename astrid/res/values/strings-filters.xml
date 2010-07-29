@@ -10,7 +10,7 @@
     <!-- Title for Active Tasks Filter (what user sees when first opening the app) -->
     <string name="BFE_Active_title">Active Tasks</string>
     
-    <!-- Search -->
+    <!-- Search Filter -->
     <string name="BFE_Search">Search</string>
 
     <!-- Extended Filters Category -->

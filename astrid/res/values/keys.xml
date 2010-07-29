@@ -167,16 +167,22 @@
   <!-- default hide until setting (corresponds to entry in TEA_hideUntil) -->
   <string name="p_default_hideUntil_key">p_def_hide</string>
   
-  <!-- ============================================================ OTHER == -->
+  <!-- ============================================================ MILK == -->
   
-    <!-- Preference Key (do not translate) -->
-    <string name="backup_BPr_status_key">backup_status</string>
-    <!-- Preference Key (do not translate) -->
-    <string name="backup_BPr_auto_key">backup</string>  
-
-  <!-- Default Calendar Preference Key (do not translate) -->
-  <string name="gcal_p_default">default_calendar_id</string>
-
+      
+    <string-array name="rmilk_MPr_interval_values">
+        <!-- rmilk_MPr_interval_values: interval in seconds for sync entries (do not edit) -->
+        <item>0</item>
+        <item>900</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>10800</item>
+        <item>21600</item>
+        <item>43200</item>
+        <item>86400</item>
+        <item>259200</item>
+        <item>604800</item>
+    </string-array>
   
       <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_status_key">rmilk_status</string>
@@ -188,6 +194,17 @@
     <string name="rmilk_MPr_sync_key">rmilk_sync</string>
     <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_forget_key">rmilk_forget</string>    
+  
+  <!-- ============================================================ OTHER == -->
+  
+    <!-- Preference Key (do not translate) -->
+    <string name="backup_BPr_status_key">backup_status</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="backup_BPr_auto_key">backup</string>  
+
+  <!-- Default Calendar Preference Key (do not translate) -->
+  <string name="gcal_p_default">default_calendar_id</string>
+
   
   <!-- placeholder string for info about translators (i.e. YOU!) -->
   <string name="about_translators"></string>

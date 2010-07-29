@@ -130,20 +130,7 @@ Error Message: %s
         <item>every three days</item>
         <item>every week</item>
     </string-array>
-    
-    <string-array name="rmilk_MPr_interval_values">
-        <!-- rmilk_MPr_interval_values: interval in seconds for sync entries (do not edit) -->
-        <item>0</item>
-        <item>900</item>
-        <item>1800</item>
-        <item>3600</item>
-        <item>10800</item>
-        <item>21600</item>
-        <item>43200</item>
-        <item>86400</item>
-        <item>259200</item>
-        <item>604800</item>
-    </string-array>
+
     
 </resources>
 

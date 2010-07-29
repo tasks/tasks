@@ -24,56 +24,67 @@
   <plurals name="DUt_years">
     <!-- plurals: years -->
     <item quantity="one">1 Year</item>
+    <!-- plurals: years -->
     <item quantity="other">%d Years</item>
   </plurals>
   <plurals name="DUt_months">
     <!-- plurals: months -->
     <item quantity="one">1 Month</item>
+    <!-- plurals: months -->
     <item quantity="other">%d Months</item>
   </plurals>
   <plurals name="DUt_weeks">
     <!-- plurals: days -->
     <item quantity="one">1 Week</item>
+    <!-- plurals: days -->
     <item quantity="other">%d Weeks</item>
   </plurals>
   <plurals name="DUt_days">
     <!-- plurals: days -->
     <item quantity="one">1 Day</item>
+    <!-- plurals: days -->
     <item quantity="other">%d Days</item>
   </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
     <item quantity="one">1 Hour</item>
+    <!-- plurals: hours -->
     <item quantity="other">%d Hours</item>
   </plurals>
   <plurals name="DUt_minutes">
     <!-- plurals: minutes -->
     <item quantity="one">1 Minute</item>
+    <!-- plurals: minutes -->
     <item quantity="other">%d Minutes</item>
   </plurals>
   <plurals name="DUt_seconds">
     <!-- plurals: seconds -->
     <item quantity="one">1 Second</item>
+    <!-- plurals: seconds -->
     <item quantity="other">%d Seconds</item>
   </plurals>
   <plurals name="DUt_hoursShort">
     <!-- plurals: hours (abbreviated) -->
     <item quantity="one">1 Hr</item>
+    <!-- plurals: hours (abbreviated) -->
     <item quantity="other">%d Hrs</item>
   </plurals>
   <plurals name="DUt_minutesShort">
     <!-- plurals: minutes (abbreviated) -->
     <item quantity="one">1 Min</item>
+    <!-- plurals: minutes (abbreviated) -->
     <item quantity="other">%d Min</item>
   </plurals>
   <plurals name="DUt_secondsShort">
     <!-- plurals: seconds (abbreviated) -->
     <item quantity="one">1 Sec</item>
+    <!-- plurals: seconds (abbreviated) -->
     <item quantity="other">%d Sec</item>
   </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
     <item quantity="one">1 task</item>
+    <!-- plurals: tasks -->
     <item quantity="other">%d tasks</item>
   </plurals>
   
@@ -88,29 +99,20 @@
   <!-- information dialog title -->
   <string name="DLG_information_title">Information</string>
   
-  <!-- Dialog yes-->
+  <!-- general dialog yes-->
   <string name="DLG_yes">Yes</string>
   
-  <!-- Dialog no-->
+  <!-- general dialog no-->
   <string name="DLG_no">No</string>
   
-  <!-- Dialog close-->
+  <!-- general dialog close-->
   <string name="DLG_close">Close</string>
   
-  <!-- communicating with servers ext -->
-  <string name="DLG_communicating_text">Communicating with Server...</string>
-  
-  <!-- error dialog -->
+  <!-- error dialog (%s => error message)-->
   <string name="DLG_error">Oops, looks like some trouble occurred! Here\'s what happened:\n\n%s</string>
   
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">Delete this task?</string>
-  
-  <!-- Button for advancing to next page/message -->
-  <string name="DLG_next">Next</string>
-  
-  <!-- Button for retreating to previous page/message -->
-  <string name="DLG_prev">Previous</string>
   
   <!-- Button for being done -->
   <string name="DLG_done">Done</string>
@@ -145,7 +147,7 @@
   
   <!-- ================================================= TaskListActivity == -->
   
-  <!-- Displayed instead of list when no items present -->    
+  <!-- Task List: Displayed instead of list when no items present -->    
   <string name="TLA_no_items">No Tasks!</string>
   
   <!-- Menu: Add-ons -->    
@@ -158,15 +160,12 @@
   <string name="TLA_menu_help">Help</string>
   
   <!-- Search Label-->
-  <string name="TLA_search_label">Search Within This Filter</string>
+  <string name="TLA_search_label">Search This List</string>
   
-  <!-- Search Hint-->
-  <string name="TLA_search_hint">Search Within This Filter</string>
-  
-  <!-- Custom Filter title -->
+  <!-- Window title for displaying Custom Filter -->
   <string name="TLA_custom">Custom</string>
   
-  <!-- Quick Add Hint-->
+  <!-- Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Add to this list...</string>
   
   <!-- Help (HTML)-->

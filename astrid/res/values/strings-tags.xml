@@ -14,13 +14,21 @@
 
   <!-- ===================================================== Task Details == -->
   
+  <!-- tag text that displays in task list. %s => tag name -->
   <string name="tag_TLA_detail">Tags: %s</string>
     
   <!-- ========================================================== Filters == -->
   
+  <!-- filter header for tags -->
   <string name="tag_FEx_header">Tags</string>
+  
+  <!-- filter header for tags, sorted by size -->
   <string name="tag_FEx_by_size">By Size</string>
+  
+  <!-- filter header for tags, sorted by name -->
   <string name="tag_FEx_alpha">Alphabetical</string>
+  
+  <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Untagged</string>
   
   <!-- $T => tag, $C => count -->
