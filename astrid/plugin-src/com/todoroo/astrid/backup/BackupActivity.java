@@ -51,8 +51,12 @@ public class BackupActivity extends Activity {
     }
 
     private void exportTasks() {
-        TasksXmlExporter.exportTasks(this, false);
-        finish();
+        TasksXmlExporter.exportTasks(this, false, new Runnable() {
+            @Override
+            public void run() {
+                finish();
+            }
+        });
     }
 
 }

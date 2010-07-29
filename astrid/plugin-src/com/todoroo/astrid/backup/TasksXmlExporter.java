@@ -38,10 +38,10 @@ public class TasksXmlExporter {
      * Import tasks from the given file
      *
      * @param input
-     * @param runAfterImport
+     * @param runAfterExport
      */
-    public static void exportTasks(Context context, boolean isService) {
-        new TasksXmlExporter(context, isService);
+    public static void exportTasks(Context context, boolean isService, Runnable runAfterExport) {
+        new TasksXmlExporter(context, isService, runAfterExport);
     }
 
     // --- implementation
@@ -67,24 +67,22 @@ public class TasksXmlExporter {
         });
     }
 
-    private TasksXmlExporter(final Context context, final boolean isService) {
+    private TasksXmlExporter(final Context context, final boolean isService,
+            final Runnable runAfterExport) {
         this.context = context;
         this.exportCount = 0;
-        progressDialog = new ProgressDialog(context);
 
         handler = new Handler();
+        progressDialog = new ProgressDialog(context);
         if(!isService) {
-            handler.post(new Runnable() {
-                @Override
-                public void run() {
-                    progressDialog.setIcon(android.R.drawable.ic_dialog_info);
-                    progressDialog.setTitle(R.string.export_progress_title);
-                    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                    progressDialog.setCancelable(false);
-                    progressDialog.setIndeterminate(false);
-                    progressDialog.show();
-                }
-            });
+            progressDialog.setIcon(android.R.drawable.ic_dialog_info);
+            progressDialog.setTitle(R.string.export_progress_title);
+            progressDialog.setMessage(context.getString(R.string.backup_progress_initial));
+            progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+            progressDialog.setProgress(0);
+            progressDialog.setCancelable(false);
+            progressDialog.setIndeterminate(false);
+            progressDialog.show();
         }
 
         new Thread(new Runnable() {
@@ -107,6 +105,9 @@ public class TasksXmlExporter {
                         exceptionService.reportError("background-backup", e); //$NON-NLS-1$
                         Preferences.setString(BackupService.PREF_BACKUP_LAST_ERROR, e.toString());
                     }
+                } finally {
+                    if(runAfterExport != null)
+                        runAfterExport.run();
                 }
             }
         }).start();

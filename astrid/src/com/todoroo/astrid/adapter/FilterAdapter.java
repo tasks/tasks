@@ -61,8 +61,6 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         listView.setGroupIndicator(
                 activity.getResources().getDrawable(R.drawable.expander_group));
-
-        getLists();
     }
 
     public boolean hasStableIds() {

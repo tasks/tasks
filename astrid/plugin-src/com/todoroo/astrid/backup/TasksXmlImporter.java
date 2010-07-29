@@ -58,7 +58,7 @@ public class TasksXmlImporter {
 
     // --- implementation
 
-    private final Handler importHandler;
+    private final Handler handler;
     private int taskCount;
     private int importCount;
     private int skipCount;
@@ -72,7 +72,7 @@ public class TasksXmlImporter {
     private final Runnable runAfterImport;
 
     private void setProgressMessage(final String message) {
-        importHandler.post(new Runnable() {
+        handler.post(new Runnable() {
             public void run() {
                 progressDialog.setMessage(message);
             }
@@ -87,21 +87,17 @@ public class TasksXmlImporter {
         this.input = input;
         this.context = context;
         this.runAfterImport = runAfterImport;
-        progressDialog = new ProgressDialog(context);
 
-        importHandler = new Handler();
-        importHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.setIcon(android.R.drawable.ic_dialog_info);
-                progressDialog.setTitle(R.string.import_progress_title);
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-                progressDialog.setMessage(context.getString(R.string.import_progress_open));
-                progressDialog.setCancelable(false);
-                progressDialog.setIndeterminate(true);
-                progressDialog.show();
-            }
-        });
+        handler = new Handler();
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setIcon(android.R.drawable.ic_dialog_info);
+        progressDialog.setTitle(R.string.import_progress_title);
+        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        progressDialog.setMessage(context.getString(R.string.backup_progress_initial));
+        progressDialog.setCancelable(false);
+        progressDialog.setIndeterminate(true);
+        progressDialog.show();
+
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -150,8 +146,13 @@ public class TasksXmlImporter {
                 }
             }
         } finally {
-            progressDialog.dismiss();
-            showSummary();
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog.dismiss();
+                    showSummary();
+                }
+            });
         }
     }
 
@@ -170,17 +171,12 @@ public class TasksXmlImporter {
                     public void onClick(DialogInterface dialog, int id) {
                         dialog.dismiss();
                         if (runAfterImport != null) {
-                            importHandler.post(runAfterImport);
+                            handler.post(runAfterImport);
                         }
                     }
         });
 
-        importHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                builder.show();
-            }
-        });
+        builder.show();
     }
 
     // --- importers

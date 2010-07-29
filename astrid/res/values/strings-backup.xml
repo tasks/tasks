@@ -60,8 +60,8 @@ File %s contained %s.\n\n
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importing...</string>
   
-  <!-- Progress Dialog text for import opening file -->    
-  <string name="import_progress_open">Opening file...</string>
+  <!-- Progress Dialog text for starting import/export -->    
+  <string name="backup_progress_initial">Initializing...</string>
   
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
   <string name="import_progress_read">Reading task %d...</string>
