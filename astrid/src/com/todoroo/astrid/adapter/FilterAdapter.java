@@ -284,6 +284,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     public void registerRecevier() {
         activity.registerReceiver(filterReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_FILTERS));
+        if(getGroupCount() == 0)
+            getLists();
     }
 
     /**

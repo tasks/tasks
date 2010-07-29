@@ -31,6 +31,9 @@ public class BackupService extends Service {
     public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml";
     private static final int DAYS_TO_KEEP_BACKUP = 7;
 
+    static final String PREF_BACKUP_LAST_ERROR = "backupError";
+    static final String PREF_BACKUP_LAST_DATE = "backupDate";
+
     @Override
     public IBinder onBind(Intent intent) {
         return null;

@@ -6,7 +6,10 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
@@ -19,6 +22,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Metadata;
@@ -46,27 +50,67 @@ public class TasksXmlExporter {
     private static final int FORMAT = 2;
 
     private final Context context;
-    private final boolean isService;
     private int exportCount;
     private XmlSerializer xml;
     private final TaskService taskService = PluginServices.getTaskService();
     private final MetadataService metadataService = PluginServices.getMetadataService();
     private final ExceptionService exceptionService = PluginServices.getExceptionService();
 
-    private TasksXmlExporter(Context context, boolean isService) {
-        this.context = context;
-        this.isService = isService;
-        this.exportCount = 0;
+    private final ProgressDialog progressDialog;
+    private final Handler importHandler;
 
-        try {
-            String output = setupFile(BackupConstants.getExportDirectory());
-            doTasksExport(output);
-        } catch (Exception e) {
-            if(!isService)
-                displayErrorToast(e);
-            exceptionService.reportError("backup-exception", e); //$NON-NLS-1$
-            // TODO record last backup error
-        }
+    private void setProgress(final int taskNumber, final int total, final String title) {
+        importHandler.post(new Runnable() {
+            public void run() {
+                progressDialog.setProgress(taskNumber * 10000 / total);
+                progressDialog.setMessage(context.getString(R.string.export_progress_read, title));
+            }
+        });
+    }
+
+    private TasksXmlExporter(final Context context, final boolean isService) {
+        this.context = context;
+        this.exportCount = 0;
+        progressDialog = new ProgressDialog(context);
+
+        importHandler = new Handler();
+        importHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                progressDialog.setIcon(android.R.drawable.ic_dialog_info);
+                progressDialog.setTitle(R.string.export_progress_title);
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                progressDialog.setCancelable(false);
+                progressDialog.setIndeterminate(false);
+                progressDialog.show();
+            }
+        });
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+                try {
+                    String output = setupFile(BackupConstants.getExportDirectory(),
+                            isService);
+                    doTasksExport(output);
+                    Preferences.setLong(BackupService.PREF_BACKUP_LAST_DATE,
+                            DateUtilities.now());
+
+                    if (!isService)
+                        displayToast(output);
+                } catch (IOException e) {
+                    if(!isService)
+                        exceptionService.displayAndReportError(context,
+                            context.getString(R.string.backup_TXI_error), e);
+                    else {
+                        exceptionService.reportError("background-backup", e); //$NON-NLS-1$
+                        Preferences.setString(BackupService.PREF_BACKUP_LAST_ERROR, e.toString());
+                    }
+                }
+                Looper.loop();
+            }
+        }).start();
     }
 
 
@@ -93,10 +137,6 @@ public class TasksXmlExporter {
         xml.endDocument();
         xml.flush();
         fos.close();
-
-        if (!isService) {
-            displayToast(output);
-        }
     }
 
     private void serializeTasks() throws IOException {
@@ -104,8 +144,12 @@ public class TasksXmlExporter {
                 Task.PROPERTIES).orderBy(Order.asc(Task.ID)));
         try {
             Task task = new Task();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+            int length = cursor.getCount();
+            for(int i = 0; i < length; i++) {
+                cursor.moveToNext();
                 task.readFromCursor(cursor);
+
+                setProgress(i, length, task.getValue(Task.TITLE));
 
                 xml.startTag(null, BackupConstants.TASK_TAG);
                 serializeModel(task, Task.PROPERTIES);
@@ -142,10 +186,11 @@ public class TasksXmlExporter {
     private void serializeModel(AbstractModel model, Property<?>[] properties) {
         for(Property<?> property : properties) {
             try {
-                Log.e("read", "reading " + property.name + " from " + model.getDatabaseValues());
                 property.accept(xmlWritingVisitor, model);
             } catch (Exception e) {
-                Log.e("caught", "caught while reading " + property.name + " from " + model.getDatabaseValues(), e);
+                Log.e("astrid-exporter", //$NON-NLS-1$
+                        "Caught exception while reading " + property.name + //$NON-NLS-1$
+                        " from " + model.getDatabaseValues(), e); //$NON-NLS-1$
             }
         }
     }
@@ -221,17 +266,13 @@ public class TasksXmlExporter {
         Toast.makeText(context, text, Toast.LENGTH_LONG).show();
     }
 
-    private void displayErrorToast(Exception error) {
-        Toast.makeText(context, error.toString(), Toast.LENGTH_LONG).show();
-    }
-
     /**
      * Creates directories if necessary and returns fully qualified file
      * @param directory
      * @return output file name
      * @throws IOException
      */
-    private String setupFile(File directory) throws IOException {
+    private String setupFile(File directory, boolean isService) throws IOException {
         File astridDir = directory;
         if (astridDir != null) {
             // Check for /sdcard/astrid directory. If it doesn't exist, make it.

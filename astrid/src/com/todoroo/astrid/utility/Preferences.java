@@ -156,8 +156,16 @@ public class Preferences {
      */
     public static void setString(int keyResource, String newValue) {
         Context context = ContextManager.getContext();
+        setString(context.getString(keyResource), newValue);
+    }
+
+    /**
+     * Sets string preference
+     */
+    public static void setString(String key, String newValue) {
+        Context context = ContextManager.getContext();
         Editor editor = getPrefs(context).edit();
-        editor.putString(context.getString(keyResource), newValue);
+        editor.putString(key, newValue);
         editor.commit();
     }
 

@@ -49,11 +49,24 @@
 File %s contained %s.\n\n
 %s imported,\n
 %s already exist\n
-    </string>
+  </string>
     
-  <string name="import_progress_title">Restore</string>
+  <!-- Progress Dialog Title for importing -->    
+  <string name="import_progress_title">Importing...</string>
+  
+  <!-- Progress Dialog Title for exporting -->    
+  <string name="export_progress_title">Exporting...</string>
+  
+  <!-- Progress Dialog text for import opening file -->    
   <string name="import_progress_open">Opening file...</string>
+  
+  <!-- Progress Dialog text for import reading task (%d -> task number)-->    
   <string name="import_progress_read">Reading task %d...</string>
+  
+  <!-- Progress Dialog text for export reading task (%s -> task title) -->    
+  <string name="export_progress_read">Reading task %s...</string>
+  
+  <!-- File Selector dialog for import -->
   <string name="import_file_prompt">Select a File to Restore</string>    
         
 </resources>
