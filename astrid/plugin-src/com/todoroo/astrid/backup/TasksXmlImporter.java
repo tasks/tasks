@@ -16,11 +16,14 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.os.Handler;
-import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.AbstractModel;
+import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.ExceptionService;
@@ -102,7 +105,6 @@ public class TasksXmlImporter {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Looper.prepare();
                 try {
                     performImport();
                 } catch (IOException e) {
@@ -112,7 +114,6 @@ public class TasksXmlImporter {
                     exceptionService.displayAndReportError(context,
                             context.getString(R.string.backup_TXI_error), e);
                 }
-                Looper.loop();
             }
         }).start();
     }
@@ -136,27 +137,15 @@ public class TasksXmlImporter {
                 if (tag != null) {
                     // Process <astrid ... >
                     if (tag.equals(BackupConstants.ASTRID_TAG)) {
-                        String version = xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_FORMAT);
-                        int intVersion;
-                        try {
-                            intVersion = version == null ? 1 : Integer.parseInt(version);
-                        } catch (Exception e) {
+                        String format = xpp.getAttributeValue(null, BackupConstants.ASTRID_ATTR_FORMAT);
+                        if(TextUtils.equals(format, FORMAT1))
+                            new Format1TaskImporter(xpp);
+                        else if(TextUtils.equals(format, FORMAT2))
+                            new Format2TaskImporter(xpp);
+                        else
                             throw new UnsupportedOperationException(
                                     "Did not know how to import tasks with xml format '" +
-                                    version + "'");
-                        }
-                        switch(intVersion) {
-                        case 1:
-                            new Astrid2TaskImporter(xpp);
-                            break;
-                        case 2:
-                            new Astrid3TaskImporter(xpp);
-                            break;
-                        default:
-                            throw new UnsupportedOperationException(
-                                    "Did not know how to import tasks with xml format number '" +
-                                    version + "'");
-                        }
+                                    format + "'");
                     }
                 }
             }
@@ -167,7 +156,7 @@ public class TasksXmlImporter {
     }
 
     private void showSummary() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        final AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle(R.string.import_summary_title);
         Resources r = context.getResources();
         String message = context.getString(R.string.import_summary_message,
@@ -185,22 +174,149 @@ public class TasksXmlImporter {
                         }
                     }
         });
-        builder.show();
+
+        importHandler.post(new Runnable() {
+            @Override
+            public void run() {
+                builder.show();
+            }
+        });
     }
 
     // --- importers
 
-    private class Astrid3TaskImporter {
-        @SuppressWarnings("unused")
-        private final XmlPullParser xpp;
+    // =============================================================== FORMAT2
 
-        public Astrid3TaskImporter(XmlPullParser xpp) {
+    private static final String FORMAT2 = "2"; //$NON-NLS-1$
+    private class Format2TaskImporter {
+
+        private final XmlPullParser xpp;
+        private final Task currentTask = new Task();
+        private final Metadata metadata = new Metadata();
+
+        public Format2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
-            // TODO
+            while (xpp.next() != XmlPullParser.END_DOCUMENT) {
+                String tag = xpp.getName();
+
+                if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG)
+                    continue;
+                else if (tag.equals(BackupConstants.TASK_TAG)) {
+                    // Parse <task ... >
+                    parseTask();
+                } else if (tag.equals(BackupConstants.METADATA_TAG)) {
+                    // Process <metadata ... >
+                    parseMetadata();
+                }
+            }
+        }
+
+        private void parseTask() {
+            taskCount++;
+            setProgressMessage(context.getString(R.string.import_progress_read,
+                    taskCount));
+            currentTask.clear();
+
+            String title = xpp.getAttributeValue(null, Task.TITLE.name);
+            String created = xpp.getAttributeValue(null, Task.CREATION_DATE.name);
+
+            // if we don't have task name or creation date, skip
+            if (created == null || title == null) {
+                skipCount++;
+                return;
+            }
+
+            // if the task's name and creation date match an existing task, skip
+            TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID).
+                    where(Criterion.and(Task.TITLE.eq(title),
+                            Task.CREATION_DATE.eq(created))));
+            try {
+                if(cursor.getCount() > 0) {
+                    skipCount++;
+                    return;
+                }
+            } finally {
+                cursor.close();
+            }
+
+            // else, make a new task model and add away.
+            deserializeModel(currentTask, Task.PROPERTIES);
+
+            // Save the task to the database.
+            taskService.save(currentTask, false);
+            importCount++;
+        }
+
+        private void parseMetadata() {
+            if(!currentTask.isSaved())
+                return;
+            metadata.clear();
+            deserializeModel(metadata, Metadata.PROPERTIES);
+            metadata.setValue(Metadata.TASK, currentTask.getId());
+            metadataService.save(metadata);
+        }
+
+        /**
+         * Turn a model into xml attributes
+         * @param model
+         */
+        private void deserializeModel(AbstractModel model, Property<?>[] properties) {
+            for(Property<?> property : properties) {
+                try {
+                    property.accept(xmlReadingVisitor, model);
+                } catch (Exception e) {
+                    Log.e("astrid-importer", //$NON-NLS-1$
+                            "Caught exception while writing " + property.name + //$NON-NLS-1$
+                            " from " + xpp.getText(), e); //$NON-NLS-1$
+                }
+            }
+        }
+
+        private final XmlReadingPropertyVisitor xmlReadingVisitor = new XmlReadingPropertyVisitor();
+
+        private class XmlReadingPropertyVisitor implements PropertyVisitor<Void, AbstractModel> {
+            @Override
+            public Void visitInteger(Property<Integer> property,
+                    AbstractModel data) {
+                String value = xpp.getAttributeValue(null, property.name);
+                if(value != null)
+                    data.setValue(property, Integer.parseInt(value));
+                return null;
+            }
+
+            @Override
+            public Void visitLong(Property<Long> property, AbstractModel data) {
+                String value = xpp.getAttributeValue(null, property.name);
+                if(value != null)
+                    data.setValue(property, Long.parseLong(value));
+                return null;
+            }
+
+            @Override
+            public Void visitDouble(Property<Double> property,
+                    AbstractModel data) {
+                String value = xpp.getAttributeValue(null, property.name);
+                if(value != null)
+                    data.setValue(property, Double.parseDouble(value));
+                return null;
+            }
+
+            @Override
+            public Void visitString(Property<String> property,
+                    AbstractModel data) {
+                String value = xpp.getAttributeValue(null, property.name);
+                if(value != null)
+                    data.setValue(property, value);
+                return null;
+            }
         }
     }
 
-    private class Astrid2TaskImporter {
+    // =============================================================== FORMAT1
+
+    private static final String FORMAT1 = null;
+    private class Format1TaskImporter {
+
         private final XmlPullParser xpp;
         private Task currentTask = null;
         private String upgradeNotes = null;
@@ -208,7 +324,7 @@ public class TasksXmlImporter {
 
         private final ArrayList<String> tags = new ArrayList<String>();
 
-        public Astrid2TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
+        public Format1TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
 
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {

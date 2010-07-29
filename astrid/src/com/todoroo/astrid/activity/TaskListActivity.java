@@ -3,6 +3,9 @@ package com.todoroo.astrid.activity;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -15,6 +18,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -157,6 +161,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         if(database == null)
             return;
 
+        checkForUpgrades();
+
         database.openForWriting();
         setUpUiComponents();
         setUpTaskList();
@@ -169,6 +175,55 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 loadContextMenuIntents();
             }
         }).start();
+    }
+
+    private void checkForUpgrades() {
+        final AtomicInteger countdown = new AtomicInteger(10);
+        if(DateUtilities.now() > Constants.UPGRADE.getTime()) {
+            DialogInterface.OnClickListener okListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface arg0, int arg1) {
+                    startActivity(new Intent(Intent.ACTION_VIEW,
+                            Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
+                                    getPackageName())));
+                    finish();
+                }
+            };
+
+            final AlertDialog dialog = new AlertDialog.Builder(this)
+            .setTitle(R.string.DLG_information_title)
+            .setMessage(R.string.DLG_please_update)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setPositiveButton(R.string.DLG_to_market, okListener)
+            .setNegativeButton(countdown.toString(), null)
+            .setCancelable(false)
+            .show();
+            dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(false);
+
+            final Timer timer = new Timer();
+            timer.scheduleAtFixedRate(new TimerTask() {
+                @Override
+                public void run() {
+                    final int number = countdown.addAndGet(-1);
+                    if(number == 0)
+                        timer.cancel();
+
+                    runOnUiThread(new Runnable() {
+                        public void run() {
+                            if(number == 0) {
+                                dialog.setCancelable(true);
+                                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setText(
+                                        android.R.string.ok);
+                                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setEnabled(true);
+                            } else {
+                                dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setText(
+                                        Integer.toString(number));
+                            }
+                        }
+                    });
+                }
+            }, 0L, 1000L);
+        }
     }
 
     /**

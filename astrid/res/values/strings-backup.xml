@@ -41,6 +41,12 @@
     
   <string name="export_toast">Backed Up %s to %s.</string>
   
+  <!-- Progress Dialog Title for exporting -->    
+  <string name="export_progress_title">Exporting...</string>
+  
+  <!-- Progress Dialog text for export reading task (%s -> task title) -->    
+  <string name="export_progress_read">Reading task %s...</string>
+  
   <!-- Summary title for import -->
   <string name="import_summary_title">Restore Summary</string>
     
@@ -50,12 +56,9 @@ File %s contained %s.\n\n
 %s imported,\n
 %s already exist\n
   </string>
-    
+  
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importing...</string>
-  
-  <!-- Progress Dialog Title for exporting -->    
-  <string name="export_progress_title">Exporting...</string>
   
   <!-- Progress Dialog text for import opening file -->    
   <string name="import_progress_open">Opening file...</string>
@@ -63,9 +66,15 @@ File %s contained %s.\n\n
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
   <string name="import_progress_read">Reading task %d...</string>
   
-  <!-- Progress Dialog text for export reading task (%s -> task title) -->    
-  <string name="export_progress_read">Reading task %s...</string>
+  <!-- Dialog when unable to open a file -->  
+  <string name="DLG_error_opening">Could not find this item: </string>
   
+  <!-- Dialog when unable to open SD card folder -->
+  <string name="DLG_error_sdcard">Cannot access folder: %s</string>
+  
+  <!-- Dialog when unable to open SD card in general -->
+  <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
+    
   <!-- File Selector dialog for import -->
   <string name="import_file_prompt">Select a File to Restore</string>    
         

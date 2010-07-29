@@ -46,7 +46,7 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
     private void setPath(File path) {
         if (path != null && path.exists()) {
             this.path = path.getAbsolutePath();
-            // Reverse the order of the file list so newest timestamped file is first.
+            // Reverse the order of the file list so newest time-stamped file is first.
             List<String> fileList = Arrays.asList(path.list(filter));
             Collections.sort(fileList);
             Collections.reverse(fileList);

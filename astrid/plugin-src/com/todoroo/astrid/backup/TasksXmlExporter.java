@@ -9,7 +9,6 @@ import org.xmlpull.v1.XmlSerializer;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
-import android.os.Looper;
 import android.util.Log;
 import android.util.Xml;
 import android.widget.Toast;
@@ -57,10 +56,10 @@ public class TasksXmlExporter {
     private final ExceptionService exceptionService = PluginServices.getExceptionService();
 
     private final ProgressDialog progressDialog;
-    private final Handler importHandler;
+    private final Handler handler;
 
     private void setProgress(final int taskNumber, final int total, final String title) {
-        importHandler.post(new Runnable() {
+        handler.post(new Runnable() {
             public void run() {
                 progressDialog.setProgress(taskNumber * 10000 / total);
                 progressDialog.setMessage(context.getString(R.string.export_progress_read, title));
@@ -73,23 +72,24 @@ public class TasksXmlExporter {
         this.exportCount = 0;
         progressDialog = new ProgressDialog(context);
 
-        importHandler = new Handler();
-        importHandler.post(new Runnable() {
-            @Override
-            public void run() {
-                progressDialog.setIcon(android.R.drawable.ic_dialog_info);
-                progressDialog.setTitle(R.string.export_progress_title);
-                progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-                progressDialog.setCancelable(false);
-                progressDialog.setIndeterminate(false);
-                progressDialog.show();
-            }
-        });
+        handler = new Handler();
+        if(!isService) {
+            handler.post(new Runnable() {
+                @Override
+                public void run() {
+                    progressDialog.setIcon(android.R.drawable.ic_dialog_info);
+                    progressDialog.setTitle(R.string.export_progress_title);
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+                    progressDialog.setCancelable(false);
+                    progressDialog.setIndeterminate(false);
+                    progressDialog.show();
+                }
+            });
+        }
 
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Looper.prepare();
                 try {
                     String output = setupFile(BackupConstants.getExportDirectory(),
                             isService);
@@ -108,7 +108,6 @@ public class TasksXmlExporter {
                         Preferences.setString(BackupService.PREF_BACKUP_LAST_ERROR, e.toString());
                     }
                 }
-                Looper.loop();
             }
         }).start();
     }
@@ -152,7 +151,7 @@ public class TasksXmlExporter {
                 setProgress(i, length, task.getValue(Task.TITLE));
 
                 xml.startTag(null, BackupConstants.TASK_TAG);
-                serializeModel(task, Task.PROPERTIES);
+                serializeModel(task, Task.PROPERTIES, Task.ID);
                 serializeMetadata(task);
                 xml.endTag(null, BackupConstants.TASK_TAG);
                 this.exportCount++;
@@ -170,9 +169,9 @@ public class TasksXmlExporter {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 metadata.readFromCursor(cursor);
 
-                xml.startTag(null, BackupConstants.TAG_TAG);
-                serializeModel(metadata, Metadata.PROPERTIES);
-                xml.endTag(null, BackupConstants.TAG_TAG);
+                xml.startTag(null, BackupConstants.METADATA_TAG);
+                serializeModel(metadata, Metadata.PROPERTIES, Metadata.ID, Metadata.TASK);
+                xml.endTag(null, BackupConstants.METADATA_TAG);
             }
         } finally {
             cursor.close();
@@ -183,8 +182,12 @@ public class TasksXmlExporter {
      * Turn a model into xml attributes
      * @param model
      */
-    private void serializeModel(AbstractModel model, Property<?>[] properties) {
-        for(Property<?> property : properties) {
+    private void serializeModel(AbstractModel model, Property<?>[] properties, Property<?>... excludes) {
+        outer: for(Property<?> property : properties) {
+            for(Property<?> exclude : excludes)
+                if(property == exclude)
+                    continue outer;
+
             try {
                 property.accept(xmlWritingVisitor, model);
             } catch (Exception e) {
@@ -259,11 +262,16 @@ public class TasksXmlExporter {
 
     }
 
-    private void displayToast(String output) {
-        CharSequence text = String.format(context.getString(R.string.export_toast),
-                context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
-                exportCount), output);
-        Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+    private void displayToast(final String output) {
+        handler.post(new Runnable() {
+            @Override
+            public void run() {
+                CharSequence text = String.format(context.getString(R.string.export_toast),
+                        context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
+                                exportCount), output);
+                Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     /**
