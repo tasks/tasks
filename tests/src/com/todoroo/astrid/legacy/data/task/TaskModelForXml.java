@@ -4,12 +4,9 @@ import java.util.Date;
 import java.util.HashMap;
 
 import android.database.Cursor;
-import android.util.Log;
 
-import com.timsu.astrid.R;
 import com.todoroo.astrid.backup.BackupDateUtilities;
 import com.todoroo.astrid.legacy.data.AbstractController;
-import com.todoroo.astrid.legacy.data.enums.Importance;
 import com.todoroo.astrid.legacy.data.enums.RepeatInterval;
 
 public class TaskModelForXml extends AbstractTaskModel {
@@ -78,128 +75,15 @@ public class TaskModelForXml extends AbstractTaskModel {
     /* Build a HashMap of task fields and associated values.
      */
     public HashMap<String, String> getTaskAttributes() {
-        taskAttributesMap.put(AbstractController.KEY_ROWID, getTaskIdentifier().idAsString());
-        taskAttributesMap.put(NAME, getName());
-        taskAttributesMap.put(IMPORTANCE, getImportance().toString());
-        taskAttributesMap.put(ELAPSED_SECONDS, getElapsedSeconds().toString());
-        taskAttributesMap.put(ESTIMATED_SECONDS, getEstimatedSeconds().toString());
-        safePutDate(TIMER_START, getTimerStart());
-        safePutDate(DEFINITE_DUE_DATE, getDefiniteDueDate());
-        safePutDate(PREFERRED_DUE_DATE, getPreferredDueDate());
-        taskAttributesMap.put(NOTIFICATIONS, getNotificationIntervalSeconds().toString());
-        taskAttributesMap.put(PROGRESS_PERCENTAGE, Integer.toString(getProgressPercentage()));
-        safePutDate(COMPLETION_DATE, getCompletionDate());
-        safePutDate(CREATION_DATE, getCreationDate());
-        safePutDate(HIDDEN_UNTIL, getHiddenUntil());
-        taskAttributesMap.put(NOTES, getNotes());
-        RepeatInfo repeat = getRepeat();
-        if (repeat != null) {
-            taskAttributesMap.put(REPEAT_VALUE, Integer.toString(repeat.getValue()));
-            taskAttributesMap.put(REPEAT_INTERVAL, repeat.getInterval().toString());
-        }
-        taskAttributesMap.put(FLAGS, Integer.toString(getFlags()));
-        taskAttributesMap.put(POSTPONE_COUNT, getPostponeCount().toString());
-        taskAttributesMap.put(BLOCKING_ON, Long.toString(getBlockingOn().getId()));
-        safePutDate(LAST_NOTIFIED, getLastNotificationDate());
-        taskAttributesMap.put(NOTIFICATION_FLAGS, Integer.toString(getNotificationFlags()));
-        String calendarUri = getCalendarUri();
-        if (calendarUri != null) {
-            taskAttributesMap.put(CALENDAR_URI, calendarUri);
-        }
+
         return taskAttributesMap;
     }
 
     // --- setters
 
     public boolean setField(String field, String value) {
-        boolean success = true;
-        if(field.equals(NAME)) {
-            setName(value);
-        }
-        else if(field.equals(NOTES)) {
-            setNotes(value);
-        }
-        else if(field.equals(PROGRESS_PERCENTAGE)) {
-            setProgressPercentage(Integer.parseInt(value));
-        }
-        else if(field.equals(IMPORTANCE)) {
-            setImportance(Importance.valueOf(value));
-        }
-        else if(field.equals(ESTIMATED_SECONDS)) {
-            setEstimatedSeconds(Integer.parseInt(value));
-        }
-        else if(field.equals(ELAPSED_SECONDS)) {
-            setElapsedSeconds(Integer.parseInt(value));
-        }
-        else if(field.equals(TIMER_START)) {
-            setTimerStart(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(DEFINITE_DUE_DATE)) {
-            setDefiniteDueDate(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(PREFERRED_DUE_DATE)) {
-            setPreferredDueDate(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(HIDDEN_UNTIL)) {
-            setHiddenUntil(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(BLOCKING_ON)) {
-            setBlockingOn(new TaskIdentifier(Long.parseLong(value)));
-        }
-        else if(field.equals(POSTPONE_COUNT)) {
-            setPostponeCount(Integer.parseInt(value));
-        }
-        else if(field.equals(NOTIFICATIONS)) {
-            setNotificationIntervalSeconds(Integer.parseInt(value));
-        }
-        else if(field.equals(CREATION_DATE)) {
-            setCreationDate(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(COMPLETION_DATE)) {
-            setCompletionDate(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(NOTIFICATION_FLAGS)) {
-            setNotificationFlags(Integer.parseInt(value));
-        }
-        else if(field.equals(LAST_NOTIFIED)) {
-            setLastNotificationTime(BackupDateUtilities.getDateFromIso8601String(value));
-        }
-        else if(field.equals(REPEAT_INTERVAL)) {
-            try {
-                setRepeatInterval(RepeatInterval.valueOf(value));
-            } catch (Exception e) {
-                RepeatInterval repeatInterval;
-                switch (Integer.parseInt(value)) {
-                    case R.string.repeat_days:
-                        repeatInterval = RepeatInterval.DAYS;
-                        break;
-                    case R.string.repeat_weeks:
-                        repeatInterval = RepeatInterval.WEEKS;
-                        break;
-                    case R.string.repeat_months:
-                        repeatInterval = RepeatInterval.MONTHS;
-                        break;
-                    case R.string.repeat_hours:
-                        repeatInterval = RepeatInterval.HOURS;
-                        break;
-                    default:
-                        Log.e("XmlImport", "Unable to set repeat interval");
-                        repeatInterval = RepeatInterval.DAYS;
-                        break;
-                }
-                setRepeatInterval(repeatInterval);
-            }
-        }
-        else if(field.equals(REPEAT_VALUE)) {
-            setRepeatValue(Integer.parseInt(value));
-        }
-        else if(field.equals(FLAGS)) {
-            setFlags(Integer.parseInt(value));
-        }
-        else {
-            success = false;
-        }
-        return success;
+
+        return false;
     }
 
     public void setRepeatInterval(RepeatInterval repeatInterval) {

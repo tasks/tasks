@@ -1,0 +1,639 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!-- Translation Note: 
+           Guidelines to those translating the resources
+            1) Quality over Quantity: the quality of the phrases is important not the number of phrases used in any given 
+            languages.
+            2) Dynamic Equivalence not necessary literal translation but capture the idea and create the same desired effect
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--  
+            Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
+			
+    <string-array name="reminders">
+        <!-- reminders: Make these < 20 chars so the task name is displayed -->
+        <item>Hallo! Haste mal ’ne Sekunde?</item>
+        <item>Na, ’n paar Sekunden für mich Zeit?</item>
+        <item>Haste mal ’n paar Minuten?</item>
+        <item>Hast du’s vergessen?</item>
+       <item>Entschuldigung!</item>
+        <item>Falls du mal ’ne Minute hast:</item>
+        <item>Auf deinem Tagesplan:</item>
+        <item>Einen Augenblick Zeit?</item>
+        <item>Astrid ist da!</item>
+        <item>Hallo! Kann ich dich kurz nerven?</item>
+        <item>Schenk’ mir doch mal ’ne Minute!</item>
+        <item>Es ist ein toller Tag zum</item>
+    </string-array>
+    
+    <string-array name="reminder_responses">
+        <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
+        <item>Ich hab’ was für dich!</item> 
+        <item>Bereit, dies in die Vergangenheit zu befördern?</item>
+        <item>Warum erledigst du’s nicht?</item>
+        <item>Wie schaut’s aus? Fertig?</item>
+        <item>Bereit, das anzupacken?</item>
+      <item>Nun mach aber mal!</item>
+        <item>Mach’s einfach! Danach kannst du durchatmen.</item>
+        <item>Ich verspreche dir, du wirst dich besser fühlen, wenn du’s erledigt hast!</item>
+       <item>Mal ehrlich, was spricht denn gegen sofort?</item>
+        <item>Nun mach aber mal, langsam stinkt’s mir!</item>
+        <item>Kannst du das erledigen? Ja, du kannst!</item>
+        <item>Wirst du das jemals tun?</item>
+        <item>Tu was für’s freie Atmen! Lass knacken!</item>
+        <item>Das beenden wir nun mal. Ich bin stolz auf dich.</item>
+        <item>Einen kleinen Imbiss, wenn das erledigt ist?</item>
+        <item>Nur diese eine Aufgabe? Bitte?</item>
+        <item>Es ist Zeit, deine Aufgabenliste zu verkürzen!</item>
+    </string-array>
+    
+    <string-array name="postpone_nags">
+        <!-- Astrid's nagging when user clicks postpone -->
+        <item>Wie, du bist stolz darauf, alles aufzuschieben?</item>
+        <item>Ist es nicht manchmal langweilig, faul zu sein?</item>
+        <item>Irgendwer, irgendwo vertraut darauf, dass du das abschließt!</item>
+        <item>Als du »verschieben« gesagt hast, meintest du doch eigentlich »Ich werde es erledigen«, oder?</item>
+        <item>Das ist das letzte Mal, dass du das hier aufschiebst, okay?</item>
+        <item>Erledige das einfach heute und ich sage es niemandem. Okay?!</item>
+        <item>Warum verschieben? Du könntest es doch einfach … nicht verschieben!</item>
+        <item>Ich nehme an, dass du das irgendwann mal abschließen wirst?</item>
+        <item>Es läuft doch! Wie wäre es, wenn du das nicht bis zur letzten Minute aufschiebst?</item>
+        <item>Wirst du deine Ziele erreichen, wenn du das tust?</item>
+        <item>Verschieben, verschieben, verschieben. Wann wirst du dich verändern?</item>
+        <item>Ich habe genug von deinen Ausreden! Mach es einfach!</item>
+        <item>Ist das nicht die gleiche Ausrede wie letztes Mal?</item>
+        <item>Dann kann ich dir auch nicht helfen, dein Leben zu organisieren.</item>
+    </string-array>
+    
+    <string-array name="notif_icon_entries">
+        <!-- Icons for notification tray -->
+        <item>Pink</item>
+        <item>Langweilig</item>
+        <item>Astrid</item>
+    </string-array>
+    
+    <string-array name="sync_interval_entries">
+        <!-- sync_interval_entries: Synchronization Intervals -->
+        <item>Deaktiviere</item>
+        <item>zweimal stündlich</item>
+        <item>stündlich</item>
+        <item>zweimal täglich</item>
+        <item>täglich</item>
+        <item>zweimal wöchentlich</item>
+        <item>wöchentlich</item>
+    </string-array>
+    
+    <string-array name="EPr_quiet_hours_start">
+        <!-- quiet_hours_start: options for preference menu -->
+        <item>deaktiviert</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+    </string-array>
+    
+    <string-array name="EPr_quiet_hours_end">
+        <!-- quiet_hours_end: options for preference menu -->
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+    </string-array>
+        
+
+
+<!--
+  ASTRID: Android's Simple Task Recording Dashboard
+ 
+  Copyright (c) 2009 Tim Su
+ 
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+ 
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ 
+-->
+
+
+    <!-- General String Constants -->
+    <skip/>
+    
+        <!-- Importance Labels -->
+
+
+
+
+        
+        <!-- Repeat Interval Labels -->
+<string-array name="repeat_interval"><item>Tag(e)</item>
+<item>Woche(n)</item>
+<item>Monat(e)</item>
+<item>Stunde(n)</item></string-array>
+        
+        <!-- Plurals -->
+        
+        <plurals name="Ntasks">
+            <!-- plurals: tasks -->
+            <item quantity="one">1 Aufgabe</item>
+            <item quantity="other">%d Aufgaben</item>
+        </plurals>
+
+        <!-- Time Constants -->
+
+        <!-- vertical labels are used in dialog boxes -->
+        <string name="daysVertical">T
+a
+g
+e</string>
+        <string name="hoursVertical">S
+t
+d</string>
+
+        <plurals name="DUt_days">
+            <!-- plurals: days -->
+            <item quantity="one">1 Tag</item>
+            <item quantity="other">%d Tage</item>
+        </plurals>
+        <plurals name="NdaysPreposition">
+            <!-- plurals: days (used after a preopsition, i.e. due in 5 days) -->
+            <item quantity="one">1 Tag</item>
+            <item quantity="other">%d Tage</item>
+        </plurals>
+        <plurals name="DUt_hours">
+            <!-- plurals: hours -->
+            <item quantity="one">1 Stunde</item>
+            <item quantity="other">%d Stunden</item>
+        </plurals>
+        <plurals name="DUt_minutes">
+            <!-- plurals: minutes -->
+            <item quantity="one">1 Minute</item>
+            <item quantity="other">%d Minuten</item>
+        </plurals>
+        <plurals name="DUt_seconds">
+            <!-- plurals: seconds -->
+            <item quantity="one">1 Sekunde</item>
+            <item quantity="other">%d Sekunden</item>
+        </plurals>
+        <plurals name="DUt_hoursShort">
+            <!-- plurals: hours (abbreviated) -->
+            <item quantity="one">1 Std</item>
+            <item quantity="other">%d Std</item>
+        </plurals>
+        <plurals name="DUt_minutesShort">
+            <!-- plurals: minutes (abbreviated) -->
+            <item quantity="one">1 Min</item>
+            <item quantity="other">%d Min</item>
+        </plurals>
+        <plurals name="DUt_secondsShort">
+            <!-- plurals: seconds (abbreviated) -->
+            <item quantity="one">1 Sek</item>
+            <item quantity="other">%d Sek</item>
+        </plurals>
+
+        <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
+
+
+    <!-- TaskList -->
+    <skip/>
+        <!-- title bar -->
+
+        <string name="tag_FEx_name">Tagged \"%s\":</string>
+
+        <string name="TAd_hiddenFormat">%s [versteckt]</string>
+
+
+
+        <!-- text displayed in task list item -->
+
+        <!-- prefix to show that a task is hidden -->
+
+        <!-- i.e. Due in 4 days -->
+
+        <!-- i.e. Due on Jan 2 -->
+
+        <!-- prefix to deadline -->
+
+
+        <!-- i.e. Finished 4 days ago -->
+        <string name="TAd_completed">Vor %s erledigt</string>
+		<!-- i.e.  Estimated: 4 hours -->
+
+        <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
+
+        <!-- time interval to set frequency to remind user -->
+
+
+        <!-- time interval to set repeated tasks-->
+        <string name="repeat_detail_duedate">Wiederholt sich alle %s</string>
+        <!-- displayed when repeat is on remote server-->
+
+
+        <string name="tag_TLA_detail">Tags:</string>
+
+
+        <!-- i.e. Created: <create date> -->
+
+
+        <!-- i.e. Deleted: <delete date> -->
+        <string name="TAd_deletedFormat">%s [Gelöscht]</string>
+
+        <string name="TLA_quick_add_hint">Neue Aufgabe hinzufügen</string>
+
+        <!-- menu items -->
+
+        <string name="tag_FEx_header">Tags</string>
+
+
+
+
+        <string name="TLA_menu_settings">Einstellungen</string>
+        <string name="TLA_menu_help">Hilfe (öffnet im Browser)</string>
+
+
+
+        <string name="backup_BAc_export">Tasks sichern</string>
+        <string name="backup_BAc_import">Tasks wiederherstellen</string>
+
+        <string name="TAd_contextEditTask">Aufgabe bearbeiten</string>
+        <string name="TAd_contextDeleteTask">Aufgabe löschen</string>
+        <string name="TAE_startTimer">Timer starten</string>
+        <string name="TAE_stopTimer">Timer stoppen</string>
+
+
+        <!-- filter menu items -->
+        <string name="FLA_title">Sortieren/Filter</string>
+        <string name="BFE_Hidden">Versteckte/Blockierte Aufgaben</string>
+        <string name="BFE_Completed">Erledigte Aufgaben</string>
+
+
+        <string name="BFE_Alphabetical">Nach Namen sortieren</string>
+        <string name="BFE_DueDate">Nach Datum sortieren</string>
+
+
+
+
+
+
+
+    <!-- TaskEdit -->
+    <skip/>
+        <!-- title bar -->
+
+        <string name="TEA_view_title">Bearbeiten %s</string>
+        <string name="TEA_view_titleNew">Astrid: Neue Aufgabe</string>
+
+        <!-- tabs -->
+        <string name="TEA_tab_basic">Allgemein</string>
+
+
+
+        <!-- labels -->
+        <string name="TEA_title_label">Zusammenfassung</string>
+        <string name="TEA_title_hint">Zusammenfassung</string>
+        <string name="TEA_importance_label">Wie wichtig ist es?</string>
+        <string name="TEA_tags_label">Tags:</string>
+        <string name="TEA_tag_hint">Tag</string>
+
+        <string name="TEA_estimatedDuration_label">Wie lange wird es dauern?</string>
+        <string name="TEA_elapsedDuration_label">Für die Aufgabe bisher aufgewendete Zeit</string>
+        <string name="TEA_urgency_label">Absolute Frist</string>
+
+        <string name="gcal_TEA_addToCalendar_label">Aufgabe zum Kalender hinzufügen</string>
+        <string name="gcal_TEA_showCalendar_label">Öffne Termin im Kalender</string>
+        <string name="TEA_hideUntil_label">Bis zu diesem Datum verstecken</string>
+        <string name="repeat_interval_prompt">Wiederhole alle</string>
+
+
+        <string name="TEA_note_label">Notizen</string>
+        <string name="TEA_notes_hint">Notizen hinzufügen</string>
+
+
+
+        <string name="TEA_reminder_label">Erinnere mich...</string>
+
+        <string name="TEA_reminder_due">Beim Erreichen der Fristen</string>
+        <string name="TEA_reminder_overdue">Nachdem die absolute Frist verstrichen ist</string>
+
+
+
+
+        <!-- dialog boxes -->
+
+        <string name="TEA_reminder_random">Erinnere mich alle</string>
+
+
+
+
+
+        <!-- buttons -->
+        <string name="TEA_menu_save">Speichern</string>
+        <string name="TEA_menu_discard">Verwerfen</string>
+
+        <string name="TEA_menu_delete">Löschen</string>
+        <string name="WID_dateButtonUnset">Anklicken zum Einstellen</string>
+
+
+
+
+        <string name="TEA_onTaskSave_due">Aufgabe gespeichert: fällig in %s</string>
+        <string name="TEA_onTaskSave_overdue">Aufgabe gespeichert: fällig vor %s</string>
+        <string name="TEA_onTaskSave_notDue">Aufgabe gespeichert</string>
+
+    <!-- TaskView  -->
+    <skip/>
+
+
+
+    <!-- Tag List -->
+    <skip/>
+
+
+
+
+
+
+        <string name="FLA_context_shortcut">Verknüpfung erstellen</string><string name="FLA_shortcut_dialog_title">Verknüpfung erstellen</string>
+        <string name="FLA_toast_onCreateShortcut">Verknüpfung wurde auf der Startseite erstellt! %s</string>
+
+        <string name="tag_FEx_untagged">[nicht getagged]</string>
+
+        <string name="tag_FEx_alpha">Sortiere von A-Z</string>
+        <string name="tag_FEx_by_size">Sortiere nach Größe</string>
+
+
+    <!-- Synchronization -->
+    <skip/>
+
+        <string name="rmilk_MPr_group_actions">Aktionen</string>
+        <string name="rmilk_MPr_group_options">Optionen</string>
+        <!-- Proper noun - don't translate -->
+        <string name="rmilk_MPr_header">Remember The Milk</string>
+
+        <string name="rmilk_MPr_interval_title">Auto-Abgleichen</string>
+        <string name="rmilk_MPr_interval_desc_disabled">Abgleich geschieht automatisch im eingestellten Intervall, falls ausgewählt</string>
+
+
+
+
+        <string name="rmilk_MPr_bgwifi_title">Auto-Abgleich nur über WLAN</string>
+        <string name="rmilk_MPr_bgwifi_desc_enabled">Abgleich nur über WLAN, falls ausgewählt</string><string name="rmilk_MPr_bgwifi_desc_disabled">Abgleich nur über WLAN, falls ausgewählt</string>
+        <string name="rmilk_ioerror">Abgleich-Fehler! Entschuldige die Störung! Fehler:</string>
+
+        <string name="rmilk_MPr_sync">Jetzt abgleichen!</string><string name="rmilk_MPr_sync_log_in">Jetzt abgleichen!</string>
+        <string name="rmilk_MPr_forget">Persönliche Daten löschen</string>
+
+        <string name="rmilk_forget_confirm">Daten für ausgewählte Dienste löschen?</string>
+
+        <string name="rmilk_status_success">Zuletzt abgeglichen: %s</string>
+        <string name="rmilk_status_failed">Letzter Abgleich-Versuch: %s</string>
+        <string name="rmilk_status_never">Noch nie</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <string name="rmilk_status_loggedout">Bitte bei RTM anmelden...</string><string name="rmilk_MLA_label">Bitte bei RTM anmelden...</string>
+        <string name="rmilk_MLA_error">Sorry, Fehler bei der Anmeldung. Versuchs noch mal. \n\n Fehlermeldung:</string>
+
+
+    <!-- Dialog Boxes -->
+    <skip/>
+
+
+        <string name="DLG_information_title">Information</string>
+        <string name="DLG_question_title">Frage:</string>
+        <string name="DLG_done">Erledigt</string>
+
+
+        <string name="rmd_NoA_snooze">Später...</string>
+        <string name="rmd_NoA_goAway">Hau ab!</string>
+
+
+
+        <string name="DLG_delete_this_task_question">Diese Aufgabe löschen?</string>
+
+
+
+
+
+
+        <!-- %s => name of the application -->
+        <string name="task_killer_help">Anscheinend nutzt du eine Anwendung, die andere Anwendungen schließen kann (%s)! Wenn möglich, füge Astrid als Ausnahme hinzu, so dass es nicht geschlossen wird. Andernfalls kann Astrid dich nicht richtig über fällige Aufgaben informieren.\n</string>
+        <string name="task_killer_help_ok">Ich werde Astrid nicht beenden!</string>
+
+    <!-- Restore/Backup -->
+    <skip/>
+
+        <string name="export_toast">%s auf %s gesichert.</string>
+        <string name="import_summary_title">Zusammenfassung \"Wiederherstellen\"</string>
+
+        <string name="import_progress_title">Wiederherstellen</string>
+
+
+        <string name="import_progress_read">Lese Aufgabe %d</string>
+
+
+        <string name="import_file_prompt">Datei zum Wiederherstellen auswählen</string>
+    <!-- Locale Plugin -->
+    <skip/>
+
+        <string name="locale_edit_alerts_title">Astrid Tag Alarm</string>
+        <string name="locale_edit_intro">Astrid sendet dir eine Erinnerung, solltest du unerledigte Aufgaben haben mit den folgenden Kriterien:</string>
+        <string name="locale_pick_tag">Tagged mit:</string>
+
+    <!-- Notification -->
+    <skip/>
+
+        <string name="notif_definiteDueDate">Absolute Frist!</string>
+        <string name="notif_preferredDueDate">Zielfrist!</string>
+        <string name="notif_timerStarted">Arbeite an:</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
+        <string name="locale_notification">Du hast $NUM mit $FILTER markiert!</string>
+
+    <!-- Error Messages -->
+    <skip/>
+
+        <string name="DLG_error_opening">Folgender Eintrag konnte nicht gefunden werden:</string>
+
+        <string name="DLG_error_sdcard">Ordner kann nicht geöffnet werden: %s</string>
+        <string name="DLG_error_sdcard_general">Zugriff auf SD Karte nicht möglich!</string>
+
+    <skip/>
+
+        <string name="rmd_EPr_alerts_header">Erinnerungen</string>
+
+        <string name="rmd_EPr_quiet_hours_start_title">Ruhestunden beginnen</string>
+        <string name="rmd_EPr_quiet_hours_start_desc">Start-Zeitpunkt für stille Hinweise auf wiederkehrende Erinnerungen: %s</string>
+
+        <string name="rmd_EPr_quiet_hours_end_title">Ruhestunden beenden</string>
+        <string name="rmd_EPr_quiet_hours_end_desc">End-Zeitpunkt für stille Hinweise: %s</string>
+
+        <string name="rmd_EPr_defaultRemind_title">Standarderinnerungen</string>
+        <string name="rmd_EPr_defaultRemind_desc">Vorgegebene Erinnerungszeit in Tagen (z. B. 7) für neue Aufgaben. Zum Deaktivieren leer lassen: %s</string>
+
+        <string name="rmd_EPr_persistent_title">Hartnäckiger Modus</string>
+        <string name="rmd_EPr_persistent_desc_true">Wenn eingestellt, musst Du jede Erinnerung einzeln anschauen, um sie zu entfernen</string><string name="rmd_EPr_persistent_desc_false">Wenn eingestellt, musst Du jede Erinnerung einzeln anschauen, um sie zu entfernen</string>
+
+        <string name="rmd_EPr_ringtone_title">Erinnerungsklingelton</string>
+        <string name="rmd_EPr_ringtone_desc_custom">Wähle einen Klingelton für Astrids Erinnerungen</string><string name="rmd_EPr_ringtone_desc_default">Wähle einen Klingelton für Astrids Erinnerungen</string>
+
+
+
+
+        <string name="rmd_EPr_vibrate_title">Vibrieren beim Alarm</string>
+        <string name="rmd_EPr_vibrate_desc_true">Damit Astrid vibriert, wenn ein Alarm ertönt.</string><string name="rmd_EPr_vibrate_desc_false">Damit Astrid vibriert, wenn ein Alarm ertönt.</string>
+
+        <string name="EPr_appearance_header">Erscheinungsbild</string>
+
+
+
+
+        <string name="EPr_fontSize_title">Größe der Aufgabenliste</string>
+        <string name="EPr_fontSize_desc">Schriftgröße auf der Hauptseite</string>
+
+
+
+
+
+
+
+
+
+        <string name="backup_BPr_auto_title">Automatische Sicherung</string>
+
+        <!--  backup summary when there is no backup message -->
+        <string name="backup_BPr_auto_disabled">Tägliche Sicherungen auf die SD-Karte durchführen.</string><string name="backup_BPr_auto_enabled">Tägliche Sicherungen auf die SD-Karte durchführen.</string>
+
+        <!--  backup failure message (%s -> error message) -->
+        <string name="backup_status_failed">Letzte Sicherung fehlgeschlagen: </string>
+
+        <!--  backup failure error when error message is null -->
+
+
+        <!--  backup success message (%s -> date) -->
+        <string name="backup_status_success">Letzte Sicherung am %s</string>
+
+
+
+        <string name="gcal_GCP_default">Astrid default</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Aufgaben- / ToDo-Liste</string>
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">Astrid ist die hochgelobte Open-Source-Aufgabenliste, die einfach genug ist, dir nicht in den Weg zu kommen und mächtig genug, dir zu helfen Sachen erledigt zu bekommen! Tags, Erinnerungen, RememberTheMilk-Abgleich, Sprach-Plugin &amp; mehr!</string>
+
+    <!-- Automatically filled in by Launchpad: -->
+    <string name="about_translators">Launchpad Contributions:
+  Dieter Smorra https://launchpad.net/~dieda
+  Friedrich https://launchpad.net/~fwulf
+  Jan-Christoph Borchardt https://launchpad.net/~inquata
+  Jon Paris https://launchpad.net/~jon-todoroo
+  Sag Ich Nicht https://launchpad.net/~icantknowme
+  Tim Su https://launchpad.net/~tim-todoroo
+  alain.tuor https://launchpad.net/~alain-tuor
+  artens https://launchpad.net/~jef
+  cdab https://launchpad.net/~cdab
+  tikurion https://launchpad.net/~tikurion</string>
+
+    <!-- Widget text when loading tasks -->
+	<string name="TWi_loading">Lade...</string>
+
+    <!--  Permissions -->
+
+
+
+</resources>

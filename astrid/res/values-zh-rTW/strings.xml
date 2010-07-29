@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!-- Translation Note: 
+           Guidelines to those translating the resources
+            1) Quality over Quantity: the quality of the phrases is important not the number of phrases used in any given 
+            languages.
+            2) Dynamic Equivalence not necessary literal translation but capture the idea and create the same desired effect
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--  
+            Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
+			
+    <string-array name="reminders">
+        <!-- reminders: Make these < 20 chars so the task name is displayed -->
+        <item>嗨! 有1秒鐘時間么?</item>
+        <item>我可以占用你幾秒鐘時間么?</item>
+        <item>有幾分鐘時間么?</item>
+        <item>你忘記了么?</item>
+        <item>打擾一下!</item>
+        <item>當你有一分鐘的時候:</item>
+        <item>在你的日程上:</item>
+        <item>可以占用你一段時間么?</item>
+        <item>Astrid這里!</item>
+        <item>嗨! 我可以打擾你一下么?</item>
+        <item>占用你一分鐘?</item>
+        <item>這是很好的一天來</item>
+    </string-array>
+    
+    <string-array name="reminder_responses">
+        <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
+        <item>我為你準備了一些東西!</item> 
+        <item>準備好把這個放到過去?</item>
+        <item>你為什么不完成這件事?</item>
+        <item>這個怎么樣? 準備完成吧?</item>
+        <item>準備好做這個了么?</item>
+        <item>你能處理這么?</item>
+        <item>你可以開心了! 只需要完成這個!</item>
+        <item>我保證如果做完這件事情你會感覺更好!</item>
+        <item>你見天不做這件事么?</item>
+        <item>請完成它，我已經厭倦它了!</item>
+        <item>你能完成這件事么? 是的你可以!</item>
+        <item>你有沒有打算來做這個?</item>
+        <item>要對自己感覺良好! 一起去做吧!</item>
+        <item>我為你感到驕傲! 一起完成它吧!</item>
+        <item>當你完成這個以后一起吃點點心吧?</item>
+        <item>僅這一個工作? 請?</item>
+        <item>到了縮短你待辦事項清單的時間了!</item>
+    </string-array>
+    
+    <string-array name="postpone_nags">
+        <!-- Astrid's nagging when user clicks postpone -->
+        <item>不要告訴我你真的是個拖拉鬼!</item>
+        <item>懶惰不是有時會使人變老么?</item>
+        <item>某處，某人正在等著你完成這個呢!</item>
+        <item>當你說推遲的時候，你真正含義是\'我正在做\'，是吧?</item>
+        <item>這是你最后一次推遲，對吧?</item>
+        <item>只要今天做完，我不會告訴任何人!</item>
+        <item>當你可以做的時候為什么要推遲呢... 不準推遲!</item>
+        <item>你終于要完成這個了，我猜?</item>
+        <item>我認為你已經很棒了! 把它完成怎么樣?</item>
+        <item>如果你這樣做，你可以實現自己的目的么?</item>
+        <item>推遲，推遲，推遲。你什么時候會改變呢!</item>
+        <item>我已經受夠了你的藉口了! 必須把它做完!</item>
+        <item>上次你沒有使用這個藉口么?</item>
+        <item>如果你這樣做的話，我不能幫你組織你的生命...</item>
+    </string-array>
+    
+    <string-array name="notif_icon_entries">
+        <!-- Icons for notification tray -->
+        <item>粉紅</item>
+        <item>無聊</item>
+        <item>Astrid</item>
+    </string-array>
+    
+    <string-array name="sync_interval_entries">
+        <!-- sync_interval_entries: Synchronization Intervals -->
+        <item>禁用</item>
+        <item>每小時兩次</item>
+        <item>每小時</item>
+        <item>每天兩次</item>
+        <item>每天</item>
+        <item>每週兩次</item>
+        <item>每週</item>
+    </string-array>
+    
+    <string-array name="EPr_quiet_hours_start">
+        <!-- quiet_hours_start: options for preference menu -->
+        <item>disabled</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+    </string-array>
+    
+    <string-array name="EPr_quiet_hours_end">
+        <!-- quiet_hours_end: options for preference menu -->
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+    </string-array>
+        
+
+
+<!--
+  ASTRID: Android's Simple Task Recording Dashboard
+ 
+  Copyright (c) 2009 Tim Su
+ 
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+ 
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ 
+-->
+
+
+    <!-- General String Constants -->
+    <skip/>
+    
+        <!-- Importance Labels -->
+
+
+
+
+        
+        <!-- Repeat Interval Labels -->
+<string-array name="repeat_interval"><item>天</item>
+<item>週</item>
+<item>月</item>
+<item>小時</item></string-array>
+        
+        <!-- Plurals -->
+        
+        <plurals name="Ntasks">
+            <!-- plurals: tasks -->
+            <item quantity="one">1 個工作</item>
+            <item quantity="other">%d 個工作</item>
+
+        </plurals>
+
+        <!-- vertical labels are used in dialog boxes -->
+        <string name="daysVertical">天</string>
+        <string name="hoursVertical">小\n時</string>
+
+        <plurals name="DUt_days">
+            <!-- plurals: days -->
+            <item quantity="one">1 天</item>
+            <item quantity="other">%d 天</item>
+        </plurals>
+        <plurals name="NdaysPreposition">
+            <!-- plurals: days (used after a preopsition, i.e. due in 5 days) -->
+            <item quantity="one">1 天</item>
+            <item quantity="other">%d 天</item>
+        </plurals>
+        <plurals name="DUt_hours">
+            <!-- plurals: hours -->
+            <item quantity="one">1 小時</item>
+            <item quantity="other">%d 小時</item>
+        </plurals>
+        <plurals name="DUt_minutes">
+            <!-- plurals: minutes -->
+            <item quantity="one">1 分鐘</item>
+            <item quantity="other">%d 分鐘</item>
+        </plurals>
+        <plurals name="DUt_seconds">
+            <!-- plurals: seconds -->
+            <item quantity="one">1 秒</item>
+            <item quantity="other">%d 秒</item>
+        </plurals>
+        <plurals name="DUt_hoursShort">
+            <!-- plurals: hours (abbreviated) -->
+            <item quantity="one">1 小時</item>
+            <item quantity="other">%d 小時</item>
+        </plurals>
+        <plurals name="DUt_minutesShort">
+            <!-- plurals: minutes (abbreviated) -->
+            <item quantity="one">1 分鐘</item>
+            <item quantity="other">%d 分鐘</item>
+        </plurals>
+        <plurals name="DUt_secondsShort">
+            <!-- plurals: seconds (abbreviated) -->
+            <item quantity="one">1 秒</item>
+            <item quantity="other">%d 秒</item>
+        </plurals>
+
+        <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
+
+
+    <!-- TaskList -->
+    <skip/>
+        <!-- title bar -->
+
+        <string name="tag_FEx_name">標籤為 \"%s\"</string>
+
+        <string name="TAd_hiddenFormat">%s [隱藏]</string>
+
+
+
+        <!-- text displayed in task list item -->
+
+        <!-- prefix to show that a task is hidden -->
+
+        <!-- i.e. Due in 4 days -->
+
+        <!-- i.e. Due on Jan 2 -->
+
+        <!-- prefix to deadline -->
+
+
+        <!-- i.e. Finished 4 days ago -->
+        <string name="TAd_completed">%s 結束</string>
+		<!-- i.e.  Estimated: 4 hours -->
+
+        <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
+
+        <!-- time interval to set frequency to remind user -->
+
+
+        <!-- time interval to set repeated tasks-->
+        <string name="repeat_detail_duedate">重複間隔 %s</string>
+        <!-- displayed when repeat is on remote server-->
+
+
+        <string name="tag_TLA_detail">標籤:</string>
+
+
+        <!-- i.e. Created: <create date> -->
+
+
+        <!-- i.e. Deleted: <delete date> -->
+        <string name="TAd_deletedFormat">%s [刪除於]</string>
+
+        <string name="TLA_quick_add_hint">新增工作</string>
+
+        <!-- menu items -->
+
+        <string name="tag_FEx_header">標籤</string>
+
+
+
+
+        <string name="TLA_menu_settings">設定</string>
+        <string name="TLA_menu_help">輔助說明 (在瀏覽器中開啟)</string>
+
+
+
+        <string name="backup_BAc_export">Backup Tasks</string>
+        <string name="backup_BAc_import">Restore Tasks</string>
+
+        <string name="TAd_contextEditTask">編輯工作</string>
+        <string name="TAd_contextDeleteTask">刪除工作</string>
+        <string name="TAE_startTimer">啟動計時器</string>
+        <string name="TAE_stopTimer">關閉計時器</string>
+
+
+        <!-- filter menu items -->
+        <string name="FLA_title">排序 / 篩選</string>
+        <string name="BFE_Hidden">隱藏 / 暫停的工作</string>
+        <string name="BFE_Completed">已完成的工作</string>
+
+
+        <string name="BFE_Alphabetical">依名稱排序</string>
+        <string name="BFE_DueDate">依到期日排序</string>
+
+
+
+
+
+
+
+    <!-- TaskEdit -->
+    <skip/>
+        <!-- title bar -->
+
+        <string name="TEA_view_title">Astrid: 編輯中 %s</string>
+        <string name="TEA_view_titleNew">Astrid: 新工作</string>
+
+        <!-- tabs -->
+        <string name="TEA_tab_basic">基礎</string>
+
+
+
+        <!-- labels -->
+        <string name="TEA_title_label">摘要</string>
+        <string name="TEA_title_hint">工作名稱</string>
+        <string name="TEA_importance_label">這件事有多重要?</string>
+        <string name="TEA_tags_label">標籤:</string>
+        <string name="TEA_tag_hint">標籤名稱</string>
+
+        <string name="TEA_estimatedDuration_label">要花多久時間?</string>
+        <string name="TEA_elapsedDuration_label">已經用掉的時間</string>
+        <string name="TEA_urgency_label">最後期限</string>
+
+        <string name="gcal_TEA_addToCalendar_label">將工作加入行事曆</string>
+        <string name="gcal_TEA_showCalendar_label">打開行事曆</string>
+        <string name="TEA_hideUntil_label">在這一天前隱藏</string>
+        <string name="repeat_interval_prompt">重複間隔</string>
+
+
+        <string name="TEA_note_label">備註</string>
+        <string name="TEA_notes_hint">輸入工作備註</string>
+
+
+
+        <string name="TEA_reminder_label">通知我...</string>
+
+        <string name="TEA_reminder_due">在截止日當天</string>
+        <string name="TEA_reminder_overdue">過期以後</string>
+
+
+
+
+        <!-- dialog boxes -->
+
+        <string name="TEA_reminder_random">每隔多久提醒</string>
+
+
+
+        <!-- buttons -->
+        <string name="TEA_menu_save">儲存</string>
+        <string name="TEA_menu_discard">取消</string>
+
+        <string name="TEA_menu_delete">刪除</string>
+        <string name="WID_dateButtonUnset">點這裡設定</string>
+
+
+
+
+        <string name="TEA_onTaskSave_due">工作已儲存: %s後到期</string>
+        <string name="TEA_onTaskSave_overdue">工作已儲存: %s前到期</string>
+        <string name="TEA_onTaskSave_notDue">工作已儲存</string>
+
+    <!-- TaskView  -->
+    <skip/>
+
+
+
+    <!-- Tag List -->
+    <skip/>
+
+
+
+
+
+
+        <string name="FLA_context_shortcut">建立捷徑</string><string name="FLA_shortcut_dialog_title">建立捷徑</string>
+        <string name="FLA_toast_onCreateShortcut">捷徑已建立在主畫面上! %s</string>
+
+        <string name="tag_FEx_untagged">[未標籤]</string>
+
+        <string name="tag_FEx_alpha">依 A-Z 排序</string>
+        <string name="tag_FEx_by_size">依大小排序</string>
+
+
+    <!-- Synchronization -->
+    <skip/>
+
+        <string name="rmilk_MPr_group_actions">動作</string>
+        <string name="rmilk_MPr_group_options">選項</string>
+        <!-- Proper noun - don't translate -->
+        <string name="rmilk_MPr_header">Remember The Milk</string>
+
+        <string name="rmilk_MPr_interval_title">自動同步</string>
+        <string name="rmilk_MPr_interval_desc_disabled">如果設定，同步將依設定的間隔自動進行。</string>
+
+
+
+
+        <string name="rmilk_MPr_bgwifi_title">只在使用 Wifi 時同步</string>
+        <string name="rmilk_MPr_bgwifi_desc_enabled">如果設定，同步會在 Wifi 開啟時進行。</string><string name="rmilk_MPr_bgwifi_desc_disabled">如果設定，同步會在 Wifi 開啟時進行。</string>
+        <string name="rmilk_ioerror">同步錯誤! 抱歉造成您的不便! 錯誤:</string>
+
+        <string name="rmilk_MPr_sync">現在同步!</string><string name="rmilk_MPr_sync_log_in">現在同步!</string>
+        <string name="rmilk_MPr_forget">清除個人資料</string>
+
+        <string name="rmilk_forget_confirm">清除所選擇的服務？</string>
+
+        <string name="rmilk_status_success">最後一次同步時間: %s</string>
+        <string name="rmilk_status_failed">最後一次自動同步: %s</string>
+        <string name="rmilk_status_never">從不</string>
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+        
+        <string name="rmilk_status_loggedout">請登入到RTM...</string><string name="rmilk_MLA_label">請登入到RTM...</string>
+        <string name="rmilk_MLA_error">
+很抱歉，您的登入資訊驗證錯誤。請再試一次。
+\n\n
+錯誤資訊: 
+</string>
+
+
+    <!-- Dialog Boxes -->
+    <skip />
+
+
+        <string name="DLG_information_title">資訊</string>
+        <string name="DLG_question_title">問題:</string>
+        <string name="DLG_done">完成</string>
+
+
+        <string name="rmd_NoA_snooze">打盹</string>
+        <string name="rmd_NoA_goAway">結束</string>
+
+        
+
+        <string name="DLG_delete_this_task_question">移除此工作?</string>
+
+        
+
+
+        <!-- %s => name of the application -->
+        <string name="task_killer_help">
+It looks like you are using an app that can kill processes (%s)! If you can,
+add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
+Astrid might not let you know when your tasks are due.\n
+        </string>
+        <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
+
+    <!-- Restore/Backup -->
+    <skip/>
+
+        <string name="export_toast">Backed Up %s to %s.</string>
+        <string name="import_summary_title">Restore Summary</string>
+
+        <string name="import_progress_title">Restore</string>
+
+
+        <string name="import_progress_read">Reading task %d...</string>
+
+
+        <string name="import_file_prompt">Select a File to Restore</string>
+    <!-- Locale Plugin -->
+    <skip />
+        
+        <string name="locale_edit_alerts_title">Astrid選項卡警報</string>
+        <string name="locale_edit_intro">當您有符合以下條件的未完成工作時Astrid將向您發送提醒:</string>
+        <string name="locale_pick_tag">使用選項卡:</string>
+
+    <!-- Notification -->
+    <skip />
+
+        <string name="notif_definiteDueDate">絕對期限!</string>
+        <string name="notif_preferredDueDate">目的期限!</string>
+        <string name="notif_timerStarted">繼續工作:</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
+        <string name="locale_notification">您有 $NUM 個工作使用選項卡 $FILTER!</string>
+
+    <!-- Error Messages -->
+    <skip/>
+
+        <string name="DLG_error_opening">找不到此項目:</string>
+
+        <string name="DLG_error_sdcard">Cannot access folder: %s</string>
+        <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
+
+    <skip/>
+
+        <string name="rmd_EPr_alerts_header">通知</string>
+
+        <string name="rmd_EPr_quiet_hours_start_title">安靜時間開始</string>
+        <string name="rmd_EPr_quiet_hours_start_desc">Astrid應該安靜的起始時間): %s</string>
+
+        <string name="rmd_EPr_quiet_hours_end_title">安靜時間結束</string>
+        <string name="rmd_EPr_quiet_hours_end_desc">Astrid應該安靜的結束時間: %s</string>
+
+        <string name="rmd_EPr_defaultRemind_title">預設提醒</string>
+        <string name="rmd_EPr_defaultRemind_desc">對于新的工作, 所在天(例如 7)。留空禁用: %s</string>
+
+        <string name="rmd_EPr_persistent_title">持久模式</string>
+        <string name="rmd_EPr_persistent_desc_true">如果選中，必須每次清除LED和通知一次一個</string><string name="rmd_EPr_persistent_desc_false">如果選中，必須每次清除LED和通知一次一個</string>
+
+        <string name="rmd_EPr_ringtone_title">通知鈴聲</string>
+        <string name="rmd_EPr_ringtone_desc_custom">為Astrid的警報選擇鈴聲</string><string name="rmd_EPr_ringtone_desc_default">為Astrid的警報選擇鈴聲</string>
+
+
+
+
+        <string name="rmd_EPr_vibrate_title">Vibrate on Alert</string>
+        <string name="rmd_EPr_vibrate_desc_true">If checked, Astrid will vibrate when sounding an alarm</string><string name="rmd_EPr_vibrate_desc_false">If checked, Astrid will vibrate when sounding an alarm</string>
+
+        <string name="EPr_appearance_header">外觀</string>
+            
+
+
+        
+        <string name="EPr_fontSize_title">工作清單字型</string>
+        <string name="EPr_fontSize_desc">在主清單頁的字型(例如 22)</string>
+
+
+        
+
+
+
+
+
+
+        <string name="backup_BPr_auto_title">Automatic Backups</string>
+
+        <!--  backup summary when there is no backup message -->
+        <string name="backup_BPr_auto_disabled">Perform daily backups to sdcard.</string><string name="backup_BPr_auto_enabled">Perform daily backups to sdcard.</string>
+
+        <!--  backup failure message (%s -> error message) -->
+        <string name="backup_status_failed">Last backup failed: </string>
+
+        <!--  backup failure error when error message is null -->
+
+
+        <!--  backup success message (%s -> date) -->
+        <string name="backup_status_success">Latest backup was on %s</string>
+
+
+
+        <string name="gcal_GCP_default">Astrid default</string>
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Task/Todo List</string>
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">
+Astrid是受到高度贊譽的開源工作清單，足夠簡單、有用! 選項卡，提醒，RememberTheMilk同步，本機外掛程式及更多!
+    </string>
+
+    <!-- Automatically filled in by Launchpad: -->
+    <string name="about_translators">Launchpad Contributions:
+  water https://launchpad.net/~pointou</string>
+
+    <!-- Widget text when loading tasks -->
+	<string name="TWi_loading">载入中...</string>
+
+    <!--  Permissions -->
+
+
+
+</resources>

@@ -1,0 +1,633 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!-- Translation Note: 
+           Guidelines to those translating the resources
+            1) Quality over Quantity: the quality of the phrases is important not the number of phrases used in any given 
+            languages.
+            2) Dynamic Equivalence not necessary literal translation but capture the idea and create the same desired effect
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--  
+            Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
+			
+    <string-array name="reminders">
+        <!-- reminders: Make these < 20 chars so the task name is displayed -->
+        <item>やぁみんな! ちょっといいかな?</item>
+        <item>ちょっと見ていい?</item>
+        <item>ちょっと時間あるかな?</item>
+        <item>忘れちゃった?</item>
+        <item>ごめんよ!</item>
+        <item>ちょっと時間があるとき:</item>
+        <item>予定上:</item>
+        <item>ちょっとヒマある?</item>
+        <item>Astridだよ!</item>
+        <item>やぁ! バグってる?</item>
+        <item>1分ぐらいいいかな?</item>
+        <item>すばらしい日にするために</item>
+    </string-array>
+    
+    <string-array name="reminder_responses">
+        <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
+        <item>あなたのためにしましたよ!</item> 
+        <item>これを過去のものにして良い?</item>
+        <item>なんでこれしないの?</item>
+        <item>どう? いけそう?</item>
+        <item>これする準備できてる?</item>
+        <item>これ処理できる?</item>
+        <item>幸せになれるよ! これが終われば!</item>
+        <item>これさえ終われば、気分爽快になることを約束します!</item>
+        <item>今日はしないの?</item>
+        <item>これやっちゃおうよ、やる気萎えちゃうよ!</item>
+        <item>これやっちゃえる? そう、あなたならできる!</item>
+        <item>ずっとこれしないつもり?</item>
+        <item>自分でしたら気持ちいいよ! さぁやろう!</item>
+        <item>あなたが自慢だよ。さぁそれやっちゃおう!</item>
+        <item>これやっちゃってお茶しない?</item>
+        <item>あとひとつだけ? じゃあお願いできる?</item>
+        <item>ToDoリストを処理する時間ですよ</item>
+    </string-array>
+    
+    <string-array name="postpone_nags">
+        <!-- Astrid's nagging when user clicks postpone -->
+        <item>あなたがずぼらな人でないと教えてください!</item>
+        <item>ときどき時間がゆっくりになるんですか?</item>
+        <item>どこかで誰かがこれを終えるのを待ってますよ!</item>
+        <item>あなたが延期決めるとき、本当に「一所懸命やりました」と言えますか?</item>
+        <item>これを後回しにするのはこれで最後だよね?</item>
+        <item>今日はこれやろう!　もう言わないから。</item>
+        <item>あなたが後回しにして良いと思うなら･･･って、できないじゃん!</item>
+        <item>あなたならそのうち出来る、と思うけど?</item>
+        <item>あんたホントにすごいよ! どうやって延期を回避したの?</item>
+        <item>もしそうするなら、あなたは目的を達成できるでしょう</item>
+        <item>後回し、後回し、後回し。そんなあなたを変えよう!</item>
+        <item>言い訳はもうたくさん! すぐやっちゃおう!</item>
+        <item>あなたこの前その言い訳しなかった?</item>
+        <item>もしあなたがそうするなら、あなたの人生の備えを手伝うことはできません･･･</item>
+    </string-array>
+    
+    <string-array name="notif_icon_entries">
+        <!-- Icons for notification tray -->
+        <item>ピンク</item>
+        <item>退屈な</item>
+        <item>Astrid</item>
+    </string-array>
+    
+    <string-array name="sync_interval_entries">
+        <!-- sync_interval_entries: Synchronization Intervals -->
+        <item>無効</item>
+        <item>１時間に2回</item>
+        <item>1時間毎</item>
+        <item>１日に2回</item>
+        <item>毎日</item>
+        <item>週に2回</item>
+        <item>毎週</item>
+    </string-array>
+    
+    <string-array name="EPr_quiet_hours_start">
+        <!-- quiet_hours_start: options for preference menu -->
+        <item>無効</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+    </string-array>
+    
+    <string-array name="EPr_quiet_hours_end">
+        <!-- quiet_hours_end: options for preference menu -->
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+    </string-array>
+        
+
+
+<!--
+  ASTRID: Android's Simple Task Recording Dashboard
+ 
+  Copyright (c) 2009 Tim Su
+ 
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+ 
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ 
+-->
+
+
+    <!-- General String Constants -->
+    <skip/>
+    
+        <!-- Importance Labels -->
+
+
+
+
+        
+        <!-- Repeat Interval Labels -->
+<string-array name="repeat_interval"><item>毎日</item>
+<item>毎週</item>
+<item>毎月</item>
+<item>毎時</item></string-array>
+        
+        <!-- Plurals -->
+        
+        <plurals name="Ntasks">
+            <!-- plurals: tasks -->
+            <item quantity="one">1 タスク</item>
+            <item quantity="other">%d タスク</item>
+        </plurals>
+        <!-- Time Constants -->
+
+        <!-- vertical labels are used in dialog boxes -->
+        <string name="daysVertical">日</string>
+        <string name="hoursVertical">時\n間</string>
+
+        <plurals name="DUt_days">
+            <!-- plurals: days -->
+            <item quantity="one">1 日</item>
+            <item quantity="other">%d 日</item>
+        </plurals>
+        <plurals name="NdaysPreposition">
+            <!-- plurals: days (used after a preopsition, i.e. due in 5 days) -->
+            <item quantity="one">1 日</item>
+            <item quantity="other">%d 日</item>
+        </plurals>
+        <plurals name="DUt_hours">
+            <!-- plurals: hours -->
+            <item quantity="one">1 時間</item>
+            <item quantity="other">%d 時間</item>
+        </plurals>
+        <plurals name="DUt_minutes">
+            <!-- plurals: minutes -->
+            <item quantity="one">1 分</item>
+            <item quantity="other">%d 分</item>
+        </plurals>
+        <plurals name="DUt_seconds">
+            <!-- plurals: seconds -->
+            <item quantity="one">1 秒</item>
+            <item quantity="other">%d 秒</item>
+        </plurals>
+        <plurals name="DUt_hoursShort">
+            <!-- plurals: hours (abbreviated) -->
+            <item quantity="one">1 時間</item>
+            <item quantity="other">%d 時間</item>
+        </plurals>
+        <plurals name="DUt_minutesShort">
+            <!-- plurals: minutes (abbreviated) -->
+            <item quantity="one">1 分</item>
+            <item quantity="other">%d 分</item>
+        </plurals>
+        <plurals name="DUt_secondsShort">
+            <!-- plurals: seconds (abbreviated) -->
+            <item quantity="one">1 秒</item>
+            <item quantity="other">%d 秒</item>
+        </plurals>
+
+        <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
+
+
+    <!-- TaskList -->
+    <skip/>
+        <!-- title bar -->
+
+        <string name="tag_FEx_name">タグ \"%s\":</string>
+
+        <string name="TAd_hiddenFormat">%s [非表示]</string>
+
+
+
+        <!-- text displayed in task list item -->
+
+        <!-- prefix to show that a task is hidden -->
+
+        <!-- i.e. Due in 4 days -->
+
+        <!-- i.e. Due on Jan 2 -->
+
+        <!-- prefix to deadline -->
+
+
+        <!-- i.e. Finished 4 days ago -->
+        <string name="TAd_completed">%s に完了</string>
+		<!-- i.e.  Estimated: 4 hours -->
+
+        <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
+
+        <!-- time interval to set frequency to remind user -->
+
+
+        <!-- time interval to set repeated tasks-->
+        <string name="repeat_detail_duedate">繰り返し周期 %s</string>
+        <!-- displayed when repeat is on remote server-->
+
+
+        <string name="tag_TLA_detail">タグ:</string>
+
+
+        <!-- i.e. Created: <create date> -->
+
+
+        <!-- i.e. Deleted: <delete date> -->
+        <string name="TAd_deletedFormat">%s [削除済み]</string>
+
+        <string name="TLA_quick_add_hint">新しいタスクを追加</string>
+
+        <!-- menu items -->
+
+        <string name="tag_FEx_header">タグ</string>
+
+
+
+
+        <string name="TLA_menu_settings">設定</string>
+        <string name="TLA_menu_help">ヘルプ(ブラウザで開く)</string>
+
+
+
+        <string name="backup_BAc_export">Backup Tasks</string>
+        <string name="backup_BAc_import">Restore Tasks</string>
+
+        <string name="TAd_contextEditTask">タスクを編集</string>
+        <string name="TAd_contextDeleteTask">タスクを削除</string>
+        <string name="TAE_startTimer">タイマーを開始</string>
+        <string name="TAE_stopTimer">タイマーを停止</string>
+
+
+        <!-- filter menu items -->
+        <string name="FLA_title">ソート/フィルター</string>
+        <string name="BFE_Hidden">非表示/処理待ちタスク</string>
+        <string name="BFE_Completed">完了したタスク</string>
+
+
+        <string name="BFE_Alphabetical">名前順</string>
+        <string name="BFE_DueDate">残り時間順</string>
+
+
+
+
+
+
+
+    <!-- TaskEdit -->
+    <skip/>
+        <!-- title bar -->
+
+        <string name="TEA_view_title">Astrid: 編集中 %s</string>
+        <string name="TEA_view_titleNew">Astrid: 新規タスク</string>
+
+        <!-- tabs -->
+        <string name="TEA_tab_basic">基本</string>
+
+
+
+        <!-- labels -->
+        <string name="TEA_title_label">要約</string>
+        <string name="TEA_title_hint">要約</string>
+        <string name="TEA_importance_label">どれくらい重要?</string>
+        <string name="TEA_tags_label">タグ:</string>
+        <string name="TEA_tag_hint">タグ</string>
+
+        <string name="TEA_estimatedDuration_label">所要時間は?</string>
+        <string name="TEA_elapsedDuration_label">既にタスクに費やした時間</string>
+        <string name="TEA_urgency_label">期日</string>
+
+        <string name="gcal_TEA_addToCalendar_label">カレンダーにタスクを追加</string>
+        <string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
+        <string name="TEA_hideUntil_label">この日時まで隠す</string>
+        <string name="repeat_interval_prompt">繰り返し周期</string>
+
+
+        <string name="TEA_note_label">メモ</string>
+        <string name="TEA_notes_hint">メモをここに入力します...</string>
+
+
+
+        <string name="TEA_reminder_label">以下の場合通知する...</string>
+
+        <string name="TEA_reminder_due">期限になったとき</string>
+        <string name="TEA_reminder_overdue">期限を過ぎた後</string>
+
+
+
+
+        <!-- dialog boxes -->
+
+        <string name="TEA_reminder_random">リマインダーの周期</string>
+
+
+
+
+
+        <!-- buttons -->
+        <string name="TEA_menu_save">保存</string>
+        <string name="TEA_menu_discard">破棄</string>
+
+        <string name="TEA_menu_delete">削除</string>
+        <string name="WID_dateButtonUnset">セットする</string>
+
+
+
+
+        <string name="TEA_onTaskSave_due">タスクは保存されました: 残り %s</string>
+        <string name="TEA_onTaskSave_overdue">タスクは保存されました: 期限は %s 前です</string>
+        <string name="TEA_onTaskSave_notDue">タスクは保存されました</string>
+
+    <!-- TaskView  -->
+    <skip/>
+
+
+
+    <!-- Tag List -->
+    <skip/>
+
+
+
+
+
+
+        <string name="FLA_context_shortcut">ショートカットを作る</string><string name="FLA_shortcut_dialog_title">ショートカットを作る</string>
+        <string name="FLA_toast_onCreateShortcut">Home画面にショートカットを作りました %s</string>
+
+        <string name="tag_FEx_untagged">[タグは付いていません]</string>
+
+        <string name="tag_FEx_alpha">A-Z順(文字順)</string>
+        <string name="tag_FEx_by_size">サイズ順</string>
+
+
+    <!-- Synchronization -->
+    <skip/>
+
+        <string name="rmilk_MPr_group_actions">アクション</string>
+        <string name="rmilk_MPr_group_options">オプション</string>
+        <!-- Proper noun - don't translate -->
+        <string name="rmilk_MPr_header">Remember The Milk</string>
+
+        <string name="rmilk_MPr_interval_title">自動的に同期する</string>
+        <string name="rmilk_MPr_interval_desc_disabled">セットすると、自動的に間隔を置いて同期されます</string>
+
+
+
+
+        <string name="rmilk_MPr_bgwifi_title">Wifiの場合のみ自動同期する</string>
+        <string name="rmilk_MPr_bgwifi_desc_enabled">セットすると、Wifiが使えるときだけ自動同期します</string><string name="rmilk_MPr_bgwifi_desc_disabled">セットすると、Wifiが使えるときだけ自動同期します</string>
+        <string name="rmilk_ioerror">同期エラー発生! ご迷惑をおかけします! エラー内容:</string>
+
+        <string name="rmilk_MPr_sync">同期中!</string><string name="rmilk_MPr_sync_log_in">同期中!</string>
+        <string name="rmilk_MPr_forget">個人情報を削除</string>
+
+        <string name="rmilk_forget_confirm">選択されたサービスのデータをクリアしますか?</string>
+
+        <string name="rmilk_status_success">最後に同期した日時: %s</string>
+        <string name="rmilk_status_failed">最後に自動同期を試みた日時: %s</string>
+        <string name="rmilk_status_never">しない</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <string name="rmilk_status_loggedout">RTMにログインしてください...</string><string name="rmilk_MLA_label">RTMにログインしてください...</string>
+        <string name="rmilk_MLA_error">申し訳ないですが、あなたのログイン状況を確認中にエラーが発生しました。もう一度試してみてください。\n\n エラーメッセージ:</string>
+
+
+    <!-- Dialog Boxes -->
+    <skip/>
+
+
+        <string name="DLG_information_title">インフォメーション</string>
+        <string name="DLG_question_title">質問:</string>
+        <string name="DLG_done">完了</string>
+
+
+        <string name="rmd_NoA_snooze">スヌーズ</string>
+        <string name="rmd_NoA_goAway">終了</string>
+
+
+
+        <string name="DLG_delete_this_task_question">このタスクを削除しますか?</string>
+
+
+
+
+
+
+        <!-- %s => name of the application -->
+        <string name="task_killer_help">
+It looks like you are using an app that can kill processes (%s)! If you can,
+add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
+Astrid might not let you know when your tasks are due.\n
+        </string>
+        <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
+
+    <!-- Restore/Backup -->
+    <skip/>
+
+        <string name="export_toast">Backed Up %s to %s.</string>
+        <string name="import_summary_title">Restore Summary</string>
+
+        <string name="import_progress_title">Restore</string>
+
+
+        <string name="import_progress_read">Reading task %d...</string>
+
+
+        <string name="import_file_prompt">Select a File to Restore</string>
+    <!-- Locale Plugin -->
+    <skip/>
+
+        <string name="locale_edit_alerts_title">Astridからのタグアラート</string>
+        <string name="locale_edit_intro">Astridは次の基準に従い、未完了タスクがある場合にリマインダーを送ります:</string>
+        <string name="locale_pick_tag">関連タグ:</string>
+
+    <!-- Notification -->
+    <skip/>
+
+        <string name="notif_definiteDueDate">期日!</string>
+        <string name="notif_preferredDueDate">目標日!</string>
+        <string name="notif_timerStarted">処理中:</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
+        <string name="locale_notification">\'$FILTER\'とタグ付けされた$NUMがあります!</string>
+
+    <!-- Error Messages -->
+    <skip/>
+
+        <string name="DLG_error_opening">この項目は見つかりませんでした:</string>
+
+        <string name="DLG_error_sdcard">Cannot access folder: %s</string>
+        <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
+
+    <skip/>
+
+        <string name="rmd_EPr_alerts_header">通知</string>
+
+        <string name="rmd_EPr_quiet_hours_start_title">消音時間の始まり</string>
+        <string name="rmd_EPr_quiet_hours_start_desc">Astridが消音すべき時間の始まり: %s</string>
+
+        <string name="rmd_EPr_quiet_hours_end_title">消音時間の終わり</string>
+        <string name="rmd_EPr_quiet_hours_end_desc">Astridが消音すべき時間の終わり: %s</string>
+
+        <string name="rmd_EPr_defaultRemind_title">標準リマインダー</string>
+        <string name="rmd_EPr_defaultRemind_desc">新規タスクについての残日数。空白にすると無効: %s</string>
+
+        <string name="rmd_EPr_persistent_title">継続モード</string>
+        <string name="rmd_EPr_persistent_desc_true">チェックしたなら、それをクリアする前にリマインダーとLEDを確認する必要があります。</string><string name="rmd_EPr_persistent_desc_false">チェックしたなら、それをクリアする前にリマインダーとLEDを確認する必要があります。</string>
+
+        <string name="rmd_EPr_ringtone_title">通知音</string>
+        <string name="rmd_EPr_ringtone_desc_custom">Astridのアラート音を選択</string><string name="rmd_EPr_ringtone_desc_default">Astridのアラート音を選択</string>
+
+
+
+
+        <string name="rmd_EPr_vibrate_title">Vibrate on Alert</string>
+        <string name="rmd_EPr_vibrate_desc_true">If checked, Astrid will vibrate when sounding an alarm</string><string name="rmd_EPr_vibrate_desc_false">If checked, Astrid will vibrate when sounding an alarm</string>
+
+        <string name="EPr_appearance_header">外観</string>
+
+
+
+
+        <string name="EPr_fontSize_title">タスクリストのフォント</string>
+        <string name="EPr_fontSize_desc">メイン画面のフォントサイズ</string>
+
+
+
+
+
+
+
+
+
+        <string name="backup_BPr_auto_title">Automatic Backups</string>
+
+        <!--  backup summary when there is no backup message -->
+        <string name="backup_BPr_auto_disabled">Perform daily backups to sdcard.</string><string name="backup_BPr_auto_enabled">Perform daily backups to sdcard.</string>
+
+        <!--  backup failure message (%s -> error message) -->
+        <string name="backup_status_failed">Last backup failed: </string>
+
+        <!--  backup failure error when error message is null -->
+
+
+        <!--  backup success message (%s -> date) -->
+        <string name="backup_status_success">Latest backup was on %s</string>
+
+
+
+        <string name="gcal_GCP_default">Astrid default</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Task/Todo List</string>
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">
+Astrid is the highly-acclaimed open-source task list that is simple enough to not get in your way, powerful enough to help you get stuff done! Tags, reminders, RememberTheMilk sync, Locale plug-in &amp; more!
+    </string>
+
+    <!-- Automatically filled in by Launchpad: -->
+    <string name="about_translators">Launchpad Contributions:
+  Blucky https://launchpad.net/~blucky
+  Jon Paris https://launchpad.net/~jon-todoroo
+  Tim Su https://launchpad.net/~tim-todoroo
+  maimuzo https://launchpad.net/~maimuzo</string>
+
+    <!-- Widget text when loading tasks -->
+	<string name="TWi_loading">読み込み中...</string>
+
+    <!--  Permissions -->
+
+
+
+</resources>

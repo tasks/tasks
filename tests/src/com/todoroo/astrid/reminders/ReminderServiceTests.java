@@ -18,7 +18,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        service = new ReminderService();
+        service = ReminderService.getInstance();
         Preferences.setPreferenceDefaults();
     }
 

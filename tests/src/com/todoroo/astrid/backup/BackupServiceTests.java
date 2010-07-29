@@ -1,4 +1,4 @@
-package com.todoroo.astrid.service;
+package com.todoroo.astrid.backup;
 
 import java.io.File;
 import java.io.IOException;
@@ -6,10 +6,10 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.timsu.astrid.utilities.Preferences;
+import com.timsu.astrid.R;
 import com.todoroo.andlib.test.TodorooTestCase;
-import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.BackupService.BackupDirectorySetting;
+import com.todoroo.astrid.utility.Preferences;
 
 public class BackupServiceTests extends TodorooTestCase {
 
@@ -44,14 +44,22 @@ public class BackupServiceTests extends TodorooTestCase {
         }
     }
 
+    private boolean getBackupSetting() {
+        return Preferences.getBoolean(R.string.backup_BPr_auto_key, true);
+    }
+
+    private void setBackupSetting(boolean setting) {
+        Preferences.setBoolean(R.string.backup_BPr_auto_key, setting);
+    }
+
     /** Test backup works */
     public void testBackup() {
         assertEquals(0, temporaryDirectory.list().length);
 
-        boolean backupSetting = Preferences.isBackupEnabled(getContext());
+        boolean backupSetting = getBackupSetting();
         try {
-            Preferences.setBackupEnabled(getContext(), true);
-            Preferences.setBackupSummary(getContext(), "");
+            setBackupSetting(true);
+            Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0);
 
             // create a backup
             BackupService service = new BackupService();
@@ -64,10 +72,10 @@ public class BackupServiceTests extends TodorooTestCase {
             assertTrue(files[0].getName().matches(BackupService.BACKUP_FILE_NAME_REGEX));
 
             // assert summary updated
-            assertTrue(Preferences.getBackupSummary(getContext()).length() > 0);
-            assertFalse(Preferences.getBackupSummary(getContext()).toLowerCase().contains("error"));
+            assertTrue(Preferences.getLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0) > 0);
+            assertNull(Preferences.getStringValue(BackupPreferences.PREF_BACKUP_LAST_ERROR));
         } finally {
-            Preferences.setBackupEnabled(getContext(), backupSetting);
+            setBackupSetting(backupSetting);
         }
     }
 
@@ -75,10 +83,10 @@ public class BackupServiceTests extends TodorooTestCase {
     public void testNoBackup() {
         assertEquals(0, temporaryDirectory.list().length);
 
-        boolean backupSetting = Preferences.isBackupEnabled(getContext());
+        boolean backupSetting = getBackupSetting();
         try {
-            Preferences.setBackupEnabled(getContext(), false);
-            Preferences.setBackupSummary(getContext(), "");
+            setBackupSetting(false);
+            Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0);
 
             // create a backup
             BackupService service = new BackupService();
@@ -95,9 +103,9 @@ public class BackupServiceTests extends TodorooTestCase {
             assertEquals(0, files.length);
 
             // assert summary not updated
-            assertEquals(0, Preferences.getBackupSummary(getContext()).length());
+            assertEquals(0, Preferences.getLong(BackupPreferences.PREF_BACKUP_LAST_DATE, 0));
         } finally {
-            Preferences.setBackupEnabled(getContext(), backupSetting);
+            setBackupSetting(backupSetting);
         }
     }
 
@@ -105,10 +113,9 @@ public class BackupServiceTests extends TodorooTestCase {
         // create a bunch of backups
         assertEquals(0, temporaryDirectory.list().length);
 
-        boolean backupSetting = Preferences.isBackupEnabled(getContext());
+        boolean backupSetting = getBackupSetting();
         try {
-            Preferences.setBackupEnabled(getContext(), true);
-            Preferences.setBackupSummary(getContext(), "");
+            setBackupSetting(true);
 
             // create some user files
             File myFile = new File(temporaryDirectory, "beans");
@@ -143,7 +150,7 @@ public class BackupServiceTests extends TodorooTestCase {
             assertTrue(myFile.exists());
 
         } finally {
-            Preferences.setBackupEnabled(getContext(), backupSetting);
+            setBackupSetting(backupSetting);
         }
     }
 

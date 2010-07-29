@@ -1,0 +1,630 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2007 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+  
+          http://www.apache.org/licenses/LICENSE-2.0
+  
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<!-- Translation Note: 
+           Guidelines to those translating the resources
+            1) Quality over Quantity: the quality of the phrases is important not the number of phrases used in any given 
+            languages.
+            2) Dynamic Equivalence not necessary literal translation but capture the idea and create the same desired effect
+-->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!--  
+            Goal:  Maximize the chance that they will perform the task while minimizing the annoyance.-->
+			
+    <string-array name="reminders">
+        <!-- reminders: Make these < 20 chars so the task name is displayed -->
+        <item>Hei! har du et øyeblikk?</item>
+        <item>Kan jeg forstyrre deg et øyeblikk?</item>
+        <item>Har du et øyeblikk?</item>
+        <item>Glemte du dette?</item>
+        <item>Unnskyld meg!</item>
+        <item>Når du har tid:</item>
+        <item>På agendaen:</item>
+        <item>Ledig et øyeblikk?</item>
+        <item>Astrid her!</item>
+        <item>Hei! Kan jeg plage deg litt?</item>
+        <item>Et minutt av din tid?</item>
+        <item>Det er en flott dag for å</item>
+    </string-array>
+    
+    <string-array name="reminder_responses">
+        <!-- reminder_responses: Astrid says...  (user should answer yes or no)  -->
+        <item>Jeg har noe til deg!</item> 
+        <item>Klar for å legge dette til fortiden?</item>
+        <item>Hvorfor gjør du ikke dette?</item>
+        <item>Så, er du klar?</item>
+        <item>Klar for å gjøre dette?</item>
+        <item>Takler du dette?</item>
+        <item>Du kan bli lykkelig! Bare gjør ferdig dette!</item>
+        <item>Jeg lover at du vil føle deg bedre om du fullfører dette!</item>
+        <item>Hvorfor ikke gjøre dette i dag?</item>
+        <item>Vær så snill å fullfør oppgaven, jeg er lei den!</item>
+        <item>Kan du noensinne fullføre dette? Ja, det kan du!</item>
+        <item>Kommer du noensinne til å fullføre dette?</item>
+        <item>Føl deg bra. Kom igjen!</item>
+        <item>Jeg er stolt av deg! La oss få det gjort!</item>
+        <item>Litt snop etter at du har fullført dette?</item>
+        <item>Bare denne ene oppgaven. Vær så snill?</item>
+        <item>På tide å korte ned gjøremålslisten!</item>
+    </string-array>
+    
+    <string-array name="postpone_nags">
+        <!-- Astrid's nagging when user clicks postpone -->
+        <item>Ikke fortell meg at det ikke er sant at du er en prokrastinerer!</item>
+        <item>Blir det ikke kjedelig å være lat?</item>
+        <item>Et eller annet sted er noen avhengig av at du fullfører dette!</item>
+        <item>Når du sier slumre mener du egentlig "Jeg gjør dette!", ikke sant?</item>
+        <item>Dette er siste gang du utsetter dette, ikke sant?</item>
+        <item>Bare fullfør dette i dag, jeg lover å ikke si det til noen!</item>
+        <item>Hvorfor utsette noe du kan.. velge å ikke utsette!</item>
+        <item>Du kommer til å fullføre dette etterhvert, antar jeg?</item>
+        <item>Jeg synes du er kjempebra! Hva med å ikke utsette dette?</item>
+        <item>Oppnår du målene dine om du gjør det?</item>
+        <item>Utsett, utsett, utsett. Når skal du forbedre deg?</item>
+        <item>Jeg har fått nok av unnskyldningene dine! Bare gjør det!</item>
+        <item>Brukte du ikke den unnskyldningen sist?</item>
+        <item>Jeg kan ikke hjelpe deg med å organisere livet ditt hvis du holder på sånn...</item>
+    </string-array>
+    
+    <string-array name="notif_icon_entries">
+        <!-- Icons for notification tray -->
+        <item>Rosa</item>
+        <item>Kjedelig</item>
+        <item>Astrid</item>
+    </string-array>
+    
+    <string-array name="sync_interval_entries">
+        <!-- sync_interval_entries: Synchronization Intervals -->
+        <item>deaktiver</item>
+        <item>to ganger i timen</item>
+        <item>hver time</item>
+        <item>to ganger om dagen</item>
+        <item>daglig</item>
+        <item>to ganger i uken</item>
+        <item>ukentlig</item>
+    </string-array>
+    
+    <string-array name="EPr_quiet_hours_start">
+        <!-- quiet_hours_start: options for preference menu -->
+        <item>deaktivert</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+    </string-array>
+    
+    <string-array name="EPr_quiet_hours_end">
+        <!-- quiet_hours_end: options for preference menu -->
+        <item>09:00</item>
+        <item>10:00</item>
+        <item>11:00</item>
+        <item>12:00</item>
+        <item>13:00</item>
+        <item>14:00</item>
+        <item>15:00</item>
+        <item>16:00</item>
+        <item>17:00</item>
+        <item>18:00</item>
+        <item>19:00</item>
+        <item>20:00</item>
+        <item>21:00</item>
+        <item>22:00</item>
+        <item>23:00</item>
+        <item>00:00</item>
+        <item>01:00</item>
+        <item>02:00</item>
+        <item>03:00</item>
+        <item>04:00</item>
+        <item>05:00</item>
+        <item>06:00</item>
+        <item>07:00</item>
+        <item>08:00</item>
+    </string-array>
+        
+
+
+<!--
+  ASTRID: Android's Simple Task Recording Dashboard
+ 
+  Copyright (c) 2009 Tim Su
+ 
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+ 
+  This program is distributed in the hope that it will be useful, but
+  WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General Public License
+  for more details.
+ 
+  You should have received a copy of the GNU General Public License along
+  with this program; if not, write to the Free Software Foundation, Inc.,
+  59 Temple Place, Suite 330, Boston, MA 02111-1307 USA
+ 
+-->
+
+
+    <!-- General String Constants -->
+    <skip/>
+    
+        <!-- Importance Labels -->
+
+
+
+
+        
+        <!-- Repeat Interval Labels -->
+<string-array name="repeat_interval"><item>Dag(er)</item>
+<item>Uke(r)</item>
+<item>Måned(er)</item>
+<item>Time(r)</item></string-array>
+        
+        <!-- Plurals -->
+        
+        <plurals name="Ntasks">
+            <!-- plurals: tasks -->
+            <item quantity="one">1 oppgave</item>
+            <item quantity="other">%d oppgaver</item>
+
+        </plurals>
+
+        <!-- vertical labels are used in dialog boxes -->
+        <string name="daysVertical">d\na\ng\ne\nr</string>
+        <string name="hoursVertical">t\ni\nm\ne\nr</string>
+
+        <plurals name="DUt_days">
+            <!-- plurals: days -->
+            <item quantity="one">1 dag</item>
+            <item quantity="other">%d dager</item>
+        </plurals>
+        <plurals name="NdaysPreposition">
+            <!-- plurals: days (used after a preopsition, i.e. due in 5 days) -->
+            <item quantity="one">1 dag</item>
+            <item quantity="other">%d dager</item>
+        </plurals>
+        <plurals name="DUt_hours">
+            <!-- plurals: hours -->
+            <item quantity="one">1 time</item>
+            <item quantity="other">%d timer</item>
+        </plurals>
+        <plurals name="DUt_minutes">
+            <!-- plurals: minutes -->
+            <item quantity="one">1 minutt</item>
+            <item quantity="other">%d minutter</item>
+        </plurals>
+        <plurals name="DUt_seconds">
+            <!-- plurals: seconds -->
+            <item quantity="one">1 sekund</item>
+            <item quantity="other">%d sekunder</item>
+        </plurals>
+        <plurals name="DUt_hoursShort">
+            <!-- plurals: hours (abbreviated) -->
+            <item quantity="one">1 t</item>
+            <item quantity="other">%d t</item>
+        </plurals>
+        <plurals name="DUt_minutesShort">
+            <!-- plurals: minutes (abbreviated) -->
+            <item quantity="one">1 min</item>
+            <item quantity="other">%d min</item>
+        </plurals>
+        <plurals name="DUt_secondsShort">
+            <!-- plurals: seconds (abbreviated) -->
+            <item quantity="one">1 s</item>
+            <item quantity="other">%d s</item>
+        </plurals>
+
+        <!-- indicates time in past. %s is replaced by time unit i.e. 1 minute -->
+
+
+    <!-- TaskList -->
+    <skip/>
+        <!-- title bar -->
+
+        <string name="tag_FEx_name">Tagget \"%s\":</string>
+
+        <string name="TAd_hiddenFormat">%s [skjult]</string>
+
+
+
+        <!-- text displayed in task list item -->
+
+        <!-- prefix to show that a task is hidden -->
+
+        <!-- i.e. Due in 4 days -->
+
+        <!-- i.e. Due on Jan 2 -->
+
+        <!-- prefix to deadline -->
+
+
+        <!-- i.e. Finished 4 days ago -->
+        <string name="TAd_completed">Fullført %s</string>
+		<!-- i.e.  Estimated: 4 hours -->
+
+        <!-- i.e. Spent: 88 minutes. used to indicate time spent on task -->
+
+        <!-- time interval to set frequency to remind user -->
+
+
+        <!-- time interval to set repeated tasks-->
+        <string name="repeat_detail_duedate">Gjentar hver %s</string>
+        <!-- displayed when repeat is on remote server-->
+
+
+        <string name="tag_TLA_detail">Tagger:</string>
+
+
+        <!-- i.e. Created: <create date> -->
+
+
+        <!-- i.e. Deleted: <delete date> -->
+        <string name="TAd_deletedFormat">%s [Slettet]</string>
+
+        <string name="TLA_quick_add_hint">Legg til ny oppgave</string>
+
+        <!-- menu items -->
+
+        <string name="tag_FEx_header">Tagger</string>
+
+
+
+
+        <string name="TLA_menu_settings">Instillinger</string>
+        <string name="TLA_menu_help">Hjelp (åpner i nettleser)</string>
+
+
+
+        <string name="backup_BAc_export">Sikkerhetskopier gjøremål</string>
+        <string name="backup_BAc_import">Gjenopprett gjøremål</string>
+
+        <string name="TAd_contextEditTask">Rediger oppgave</string>
+        <string name="TAd_contextDeleteTask">Slett oppgave</string>
+        <string name="TAE_startTimer">Start tidtaker</string>
+        <string name="TAE_stopTimer">Stopp tidtaker</string>
+
+
+        <!-- filter menu items -->
+        <string name="FLA_title">Sortering/filtre</string>
+        <string name="BFE_Hidden">Skjulte/blokkerte oppgaver</string>
+        <string name="BFE_Completed">Fullførte oppgaver</string>
+
+
+        <string name="BFE_Alphabetical">Sorter etter navn</string>
+        <string name="BFE_DueDate">Sorter etter utløpsdato</string>
+
+
+
+
+
+
+
+    <!-- TaskEdit -->
+    <skip/>
+        <!-- title bar -->
+
+        <string name="TEA_view_title">Astrid: Redigering %s</string>
+        <string name="TEA_view_titleNew">Astrid: Ny oppgave</string>
+
+        <!-- tabs -->
+        <string name="TEA_tab_basic">Grunnleggende</string>
+
+
+
+        <!-- labels -->
+        <string name="TEA_title_label">Oppsummering</string>
+        <string name="TEA_title_hint">Oppgavenavn</string>
+        <string name="TEA_importance_label">Hvor viktig er det?</string>
+        <string name="TEA_tags_label">Tagger:</string>
+        <string name="TEA_tag_hint">Taggnavn</string>
+
+        <string name="TEA_estimatedDuration_label">Hvor lang tid vil det ta?</string>
+        <string name="TEA_elapsedDuration_label">Tid allerede brukt på oppgaven</string>
+        <string name="TEA_urgency_label">Absolutt tidsfrist</string>
+
+        <string name="gcal_TEA_addToCalendar_label">Legg oppgave til kalender</string>
+        <string name="gcal_TEA_showCalendar_label">Åpne kalenderhendelse</string>
+        <string name="TEA_hideUntil_label">Skjul frem til denne datoen</string>
+        <string name="repeat_interval_prompt">Gjenta hver</string>
+
+
+        <string name="TEA_note_label">Notater</string>
+        <string name="TEA_notes_hint">Legg til oppgavenotater</string>
+
+
+
+        <string name="TEA_reminder_label">Varsle meg ...</string>
+
+        <string name="TEA_reminder_due">Ved tidsfristens utløp</string>
+        <string name="TEA_reminder_overdue">Etter absolutt tidsfrist er passert</string>
+
+
+
+
+        <!-- dialog boxes -->
+
+        <string name="TEA_reminder_random">Gi meg en påminnelse hver</string>
+
+
+
+
+
+        <!-- buttons -->
+        <string name="TEA_menu_save">Lagre</string>
+        <string name="TEA_menu_discard">Forkast</string>
+
+        <string name="TEA_menu_delete">Slett</string>
+        <string name="WID_dateButtonUnset">Klikk for å sette</string>
+
+
+
+
+        <string name="TEA_onTaskSave_due">Oppgave lagret: forfaller om %s</string>
+        <string name="TEA_onTaskSave_overdue">Oppgave lagret: forfalt for %s siden</string>
+        <string name="TEA_onTaskSave_notDue">Oppgave lagret</string>
+
+    <!-- TaskView  -->
+    <skip/>
+
+
+
+    <!-- Tag List -->
+    <skip/>
+
+
+
+
+
+
+        <string name="FLA_context_shortcut">Lag snarvei</string><string name="FLA_shortcut_dialog_title">Lag snarvei</string>
+        <string name="FLA_toast_onCreateShortcut">Snarvei er opprettet på din hovedskjerm! %s</string>
+
+        <string name="tag_FEx_untagged">[ikke-tagget]</string>
+
+        <string name="tag_FEx_alpha">Sorter alfabetisk</string>
+        <string name="tag_FEx_by_size">Sorter etter størrelse</string>
+
+
+    <!-- Synchronization -->
+    <skip/>
+
+        <string name="rmilk_MPr_group_actions">Handlinger</string>
+        <string name="rmilk_MPr_group_options">Innstillinger</string>
+        <!-- Proper noun - don't translate -->
+        <string name="rmilk_MPr_header">Remember The Milk</string>
+
+        <string name="rmilk_MPr_interval_title">Auto-synkroniser</string>
+        <string name="rmilk_MPr_interval_desc_disabled">Dersom denne settes, vil synkronisering skje automatisk med gitt intervall</string>
+
+
+
+
+        <string name="rmilk_MPr_bgwifi_title">Auto-synkroniser kun over Wifi</string>
+        <string name="rmilk_MPr_bgwifi_desc_enabled">Dersom denne er valgt vil auto-sykronisering kun skje når Wifi er aktiv</string><string name="rmilk_MPr_bgwifi_desc_disabled">Dersom denne er valgt vil auto-sykronisering kun skje når Wifi er aktiv</string>
+        <string name="rmilk_ioerror">Synkroniseringsfeil! Beklager bryderiet! Feilmelding:</string>
+
+        <string name="rmilk_MPr_sync">Synkroniser nå!</string><string name="rmilk_MPr_sync_log_in">Synkroniser nå!</string>
+        <string name="rmilk_MPr_forget">Slett personlige data</string>
+
+        <string name="rmilk_forget_confirm">Slett data for de valgte tjenestene?</string>
+
+        <string name="rmilk_status_success">Forrige synkronisering: %s</string>
+        <string name="rmilk_status_failed">Forrige forsøk på auto-synkronisering: %s</string>
+        <string name="rmilk_status_never">aldri</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <string name="rmilk_status_loggedout">Vennligst logg inn på RTM</string><string name="rmilk_MLA_label">Vennligst logg inn på RTM</string>
+        <string name="rmilk_MLA_error">Beklager, det oppsto en feil under innloggingen. Vennligst forsøk igjen. \n\nFeilmelding:</string>
+
+
+    <!-- Dialog Boxes -->
+    <skip/>
+
+
+        <string name="DLG_information_title">Informasjon</string>
+        <string name="DLG_question_title">Spørsmål:</string>
+        <string name="DLG_done">Utført</string>
+
+
+        <string name="rmd_NoA_snooze">Slumre</string>
+        <string name="rmd_NoA_goAway">Gå vekk!</string>
+
+
+
+        <string name="DLG_delete_this_task_question">Slett denne oppgaven?</string>
+
+
+
+
+
+
+        <!-- %s => name of the application -->
+        <string name="task_killer_help">Det ser ut til at du bruker et program som kverker prosesser(%s)! Hvis mulig bør du legge Astrid til i ekskluderingslista slik at det ikke blir kverket. Hvis ikke vil kanskje ikke Astrid gi deg beskjed når et gjøremål står for tur.\n</string>
+        <string name="task_killer_help_ok">Jeg vil ikke avslutte Astrid</string>
+
+    <!-- Restore/Backup -->
+    <skip/>
+
+        <string name="export_toast">Sikkerhetskopierte %s til %s.</string>
+        <string name="import_summary_title">Gjennopprettingssammendrag</string>
+
+        <string name="import_progress_title">Gjenopprett</string>
+
+
+        <string name="import_progress_read">Leser gjøremål %d...</string>
+
+
+        <string name="import_file_prompt">Velg fil å gjenopprette</string>
+    <!-- Locale Plugin -->
+    <skip/>
+
+        <string name="locale_edit_alerts_title">Astrid tagg-alarm</string>
+        <string name="locale_edit_intro">Astrid vil sende deg en påminner når du har ikke-utførte oppgaver med følgende kriterier:</string>
+        <string name="locale_pick_tag">Tagget med:</string>
+
+    <!-- Notification -->
+    <skip/>
+
+        <string name="notif_definiteDueDate">Absolutt tidsfrist!</string>
+        <string name="notif_preferredDueDate">Måltidsfrist!</string>
+        <string name="notif_timerStarted">Arbeider med:</string>
+        <!-- $NUM is replaced with # of tasks + units, i.e. "1 task", $FILTER is replaced with tag name -->
+        <string name="locale_notification">Du har $NUM mekede $FILTER!</string>
+
+    <!-- Error Messages -->
+    <skip/>
+
+        <string name="DLG_error_opening">Kunne ikke finne dette elementet:</string>
+
+        <string name="DLG_error_sdcard">Kan ikke aksessere mappe: %s</string>
+        <string name="DLG_error_sdcard_general">Kunne ikke aksessere ditt SD-kort!</string>
+
+    <skip/>
+
+        <string name="rmd_EPr_alerts_header">Meldinger</string>
+
+        <string name="rmd_EPr_quiet_hours_start_title">Stilletimer start</string>
+        <string name="rmd_EPr_quiet_hours_start_desc">Starttid for lydløse beskjeder for periodiske påminnelser: %s</string>
+
+        <string name="rmd_EPr_quiet_hours_end_title">Stilletimer slutt</string>
+        <string name="rmd_EPr_quiet_hours_end_desc">Sluttid for lydløse beskjeder: %s</string>
+
+        <string name="rmd_EPr_defaultRemind_title">Standard påminnere</string>
+        <string name="rmd_EPr_defaultRemind_desc">For nye gjøremål er standard påminner i dager(f.eks 7). Blank for å deaktivere: %s</string>
+
+        <string name="rmd_EPr_persistent_title">Pågående-modus</string>
+        <string name="rmd_EPr_persistent_desc_true">LED og meldinger må slettes en av gangen</string><string name="rmd_EPr_persistent_desc_false">LED og meldinger må slettes en av gangen</string>
+
+        <string name="rmd_EPr_ringtone_title">Ringetone for meldinger</string>
+        <string name="rmd_EPr_ringtone_desc_custom">Velg en ringetone for Astrids alarmer</string><string name="rmd_EPr_ringtone_desc_default">Velg en ringetone for Astrids alarmer</string>
+
+
+
+
+        <string name="rmd_EPr_vibrate_title">Vibrasjonsvarsling</string>
+        <string name="rmd_EPr_vibrate_desc_true">Hvis merket vil Astrid vibrere når alarmen går</string><string name="rmd_EPr_vibrate_desc_false">Hvis merket vil Astrid vibrere når alarmen går</string>
+
+        <string name="EPr_appearance_header">Utseende</string>
+
+
+
+
+        <string name="EPr_fontSize_title">Størrelse på gjøremålslista</string>
+        <string name="EPr_fontSize_desc">Skriftstørrelse for hovedlisten</string>
+
+
+
+
+
+
+
+
+
+        <string name="backup_BPr_auto_title">Automatiske sikkerhetskopier</string>
+
+        <!--  backup summary when there is no backup message -->
+        <string name="backup_BPr_auto_disabled">Utfør daglige sikkerhetskopieringer til SD-kort.</string><string name="backup_BPr_auto_enabled">Utfør daglige sikkerhetskopieringer til SD-kort.</string>
+
+        <!--  backup failure message (%s -> error message) -->
+        <string name="backup_status_failed">Siste sikkerhetskopiering feilet: </string>
+
+        <!--  backup failure error when error message is null -->
+
+
+        <!--  backup success message (%s -> date) -->
+        <string name="backup_status_success">Siste sikkerhetskopi ble tatt den %s</string>
+
+
+
+        <string name="gcal_GCP_default">Astrid default</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!-- This string is Astrid's Android Marketplace title. It never appears in the app itself. -->
+    <string name="marketplace_title">Astrid Oppgave/Ting å gjøre liste</string>
+    <!-- This string is Astrid's Android Marketplace description. It never appears in the app itself. -->
+    <string name="marketplace_description">Astrid er den høyt anerkjente oppgavelisten med åpen kildekode, som er enkel nok til å ikke komme i veien, men kraftig nok til å hjelpe deg å få ting gjort! Tagger, påminnelser, RememberTheMilk-synkroinsering, Locale plug-in og mer!</string>
+
+    <!-- Automatically filled in by Launchpad: -->
+    <string name="about_translators">Launchpad Contributions:
+  Fredrik Sudmann https://launchpad.net/~fsudmann
+  Jon Paris https://launchpad.net/~jon-todoroo
+  Roger Kind Kristiansen https://launchpad.net/~rogerkk
+  Sheel https://launchpad.net/~joacimeldre
+  Tim Su https://launchpad.net/~tim-todoroo
+  Tor Syversen https://launchpad.net/~sol-moe</string>
+
+    <!-- Widget text when loading tasks -->
+	<string name="TWi_loading">Laster ...</string>
+
+    <!--  Permissions -->
+
+
+
+ 
+</resources>

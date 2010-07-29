@@ -207,6 +207,15 @@ public class Preferences {
      * @param key
      * @param value
      */
+    public static void setBoolean(int keyResource, boolean value) {
+        setBoolean(ContextManager.getString(keyResource), value);
+    }
+
+    /**
+     * Sets boolean preference
+     * @param key
+     * @param value
+     */
     public static void setBoolean(String key, boolean value) {
         Context context = ContextManager.getContext();
         Editor editor = getPrefs(context).edit();

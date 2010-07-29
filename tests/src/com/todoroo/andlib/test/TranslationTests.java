@@ -221,7 +221,17 @@ abstract public class TranslationTests extends TodorooTestCase {
                 for(int i = 0; i < arrays.length; i++) {
                     if(sizes[i] == -1)
                         continue;
-                    int size = r.getStringArray(arrays[i]).length;
+                    int size;
+                    try {
+                        size = r.getStringArray(arrays[i]).length;
+                    } catch (Resources.NotFoundException e) {
+                        String name = r.getResourceName(arrays[i]);
+                        Locale locale = r.getConfiguration().locale;
+                        failures.append(String.format("%s: error opening %s: %s\n",
+                                locale, name, e.getMessage()));
+                        continue;
+                    }
+
                     if(size != sizes[i]) {
                         String name = r.getResourceName(arrays[i]);
                         Locale locale = r.getConfiguration().locale;
