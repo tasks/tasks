@@ -110,7 +110,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     public Object getChild(int groupPosition, int childPosition) {
         FilterListItem item = items.get(groupPosition);
-        if(!(item instanceof FilterCategory))
+        if(!(item instanceof FilterCategory) || ((FilterCategory)item).children == null)
             return null;
 
         return ((FilterCategory)item).children[childPosition];

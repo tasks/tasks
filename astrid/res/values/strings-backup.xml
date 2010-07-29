@@ -20,6 +20,37 @@
   <!--  backup success message (%s -> date) -->
   <string name="backup_BPr_backup_desc_success">Latest backup was on %s</string>
   
+  <!-- ================================================= BackupPreferences == -->
+
+    <!-- Preferences Title -->    
+    <string name="backup_BPr_header">Backups</string>
+
+    <!-- Status Group Label -->    
+    <string name="backup_BPr_group_status">Status</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="backup_BPr_status_key">backup_status</string>
+    
+    <!-- Status: success (%s -> last date) -->    
+    <string name="backup_status_success">Latest: %s</string>
+    <!-- Status: error -->    
+    <string name="backup_status_failed">Last Backup Failed</string>
+    <!-- Status: error subtitle -->    
+    <string name="backup_status_failed_subtitle">(tap to show error)</string>
+    <!-- Status: never backed up -->    
+    <string name="backup_status_never">Never Backed Up!</string>
+
+    <!-- Options Group Label -->    
+    <string name="backup_BPr_group_options">Options</string>
+
+    <!-- Synchronization Interval Title -->    
+    <string name="backup_BPr_auto_title">Automatic Backups</string>
+    <!-- Synchronization Interval Description (when disabled) -->
+    <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
+    <!-- Synchronization Interval Description (when enabled) -->
+    <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="backup_BPr_auto_key">backup</string>  
+  
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->

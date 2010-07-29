@@ -5,6 +5,7 @@ package com.todoroo.astrid.api;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
  * A <code>FilterCategory</code> groups common {@link Filter}s and allows
@@ -18,6 +19,7 @@ public class FilterCategory extends FilterListItem {
     /**
      * {@link Filter}s contained by this category
      */
+    @CheckForNull
     public Filter[] children;
 
     /**

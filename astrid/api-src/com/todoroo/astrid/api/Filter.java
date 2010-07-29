@@ -9,6 +9,8 @@ import android.os.Parcelable;
 
 import com.todoroo.andlib.sql.QueryTemplate;
 
+import edu.umd.cs.findbugs.annotations.CheckForNull;
+
 /**
  * A <code>FilterListFilter</code> allows users to display tasks that have
  * something in common.
@@ -36,6 +38,7 @@ public final class Filter extends FilterListItem {
      * <p>
      * e.g "Tasks With Notes"
      */
+    @CheckForNull
     public String title;
 
     /**
@@ -53,6 +56,7 @@ public final class Filter extends FilterListItem {
      *      metadata.value = 'b' GROUP BY tasks.id ORDER BY tasks.title"</code>
      * </ul>
      */
+    @CheckForNull
     public String sqlQuery;
 
     /**
@@ -61,6 +65,7 @@ public final class Filter extends FilterListItem {
      * tasks they create should also be tagged 'ABC'. If set to null, no
      * additional values will be stored for a task.
      */
+    @CheckForNull
     public ContentValues valuesForNewTasks = null;
 
     /**

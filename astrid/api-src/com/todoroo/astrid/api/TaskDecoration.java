@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 import android.widget.RemoteViews;
 import android.widget.RemoteViews.RemoteView;
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
  * Represents a line of text displayed in the Task List
@@ -29,6 +30,7 @@ public final class TaskDecoration implements Parcelable {
     /**
      * {@link RemoteView} decoration
      */
+    @CheckForNull
     public RemoteViews decoration = null;
 
     /**

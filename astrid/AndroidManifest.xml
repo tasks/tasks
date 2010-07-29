@@ -201,6 +201,19 @@
         <action android:name="android.intent.action.MAIN" />
       </intent-filter>
     </activity>
+    <activity android:name="com.todoroo.astrid.backup.BackupPreferences" 
+              android:label="@string/backup_BPr_header">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.SETTINGS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
+    <receiver android:name="com.todoroo.astrid.backup.BackupStartupReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
     
     <!-- notes -->
     

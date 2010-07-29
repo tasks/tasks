@@ -13,10 +13,15 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.timsu.astrid.R;
+import com.todoroo.astrid.utility.Preferences;
+
 /**
  * Inspired heavily by SynchronizationService
  */
 public class BackupService extends Service {
+
+    // --- constants for backup
 
     /**
      * when after phone starts to start first back up
@@ -27,12 +32,9 @@ public class BackupService extends Service {
      * how often to back up
      */
     private static final long BACKUP_INTERVAL = AlarmManager.INTERVAL_DAY;
-    public static final String BACKUP_ACTION = "backup";
-    public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml";
+    public static final String BACKUP_ACTION = "backup"; //$NON-NLS-1$
+    public static final String BACKUP_FILE_NAME_REGEX = "auto\\.[-\\d]+\\.xml"; //$NON-NLS-1$
     private static final int DAYS_TO_KEEP_BACKUP = 7;
-
-    static final String PREF_BACKUP_LAST_ERROR = "backupError";
-    static final String PREF_BACKUP_LAST_DATE = "backupDate";
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -48,66 +50,56 @@ public class BackupService extends Service {
 
     /**
      * Test hook for backup
-     * @param ctx
+     * @param context
      */
-    public void testBackup(Context ctx) {
-        startBackup(ctx);
+    public void testBackup(Context context) {
+        startBackup(context);
     }
 
-    private void startBackup(Context ctx) {
-        /*if (ctx == null || ctx.getResources() == null) {
+    private void startBackup(Context context) {
+        if (context == null || context.getResources() == null) {
             return;
         }
         try {
-            if (!Preferences.isBackupEnabled(ctx)) {
+            if (!Preferences.getBoolean(R.string.backup_BPr_auto_key, true)) {
                 return;
             }
 
             try {
                 deleteOldBackups();
             } catch (Exception e) {
-                Log.e("error-deleting", "Error deleting old backups: " + e);
+                Log.e("error-deleting", "Error deleting old backups", e); //$NON-NLS-1$ //$NON-NLS-2$
             }
-            TasksXmlExporter exporter = new TasksXmlExporter(true);
-            exporter.setContext(ctx);
-            exporter.exportTasks(backupDirectorySetting.getBackupDirectory());
-            Preferences.setBackupSummary(ctx,
-                    ctx.getString(R.string.BPr_backup_desc_success,
-                            BackupDateUtilities.getFormattedDate(ctx, new Date())));
+
+            TasksXmlExporter.exportTasks(context, true, null);
+
         } catch (Exception e) {
-            // unable to backup.
-            if (e == null || e.getMessage() == null) {
-                Preferences.setBackupSummary(ctx,
-                        ctx.getString(R.string.BPr_backup_desc_failure_null));
-            } else {
-                Preferences.setBackupSummary(ctx,
-                        ctx.getString(R.string.BPr_backup_desc_failure,
-                                e.toString()));
-            }
-        }*/
+            Log.e("error-backup", "Error starting backups", e); //$NON-NLS-1$ //$NON-NLS-2$
+            Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
+        }
     }
 
-    public static void scheduleService(Context ctx) {
-        /*AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getService(ctx, 0,
-                createAlarmIntent(ctx), PendingIntent.FLAG_UPDATE_CURRENT);
+    public static void scheduleService(Context context) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0,
+                createAlarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
         am.cancel(pendingIntent);
-        if (!Preferences.isBackupEnabled(ctx)) {
+        if (!Preferences.getBoolean(R.string.backup_BPr_auto_key, true)) {
             return;
         }
         am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + BACKUP_OFFSET,
-                BACKUP_INTERVAL, pendingIntent);*/
+                BACKUP_INTERVAL, pendingIntent);
     }
 
-    public static void unscheduleService(Context ctx) {
-        AlarmManager am = (AlarmManager) ctx.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getService(ctx, 0,
-                createAlarmIntent(ctx), PendingIntent.FLAG_UPDATE_CURRENT);
+    public static void unscheduleService(Context context) {
+        AlarmManager am = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getService(context, 0,
+                createAlarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
         am.cancel(pendingIntent);
     }
 
-    private static Intent createAlarmIntent(Context ctx) {
-        Intent intent = new Intent(ctx, BackupService.class);
+    private static Intent createAlarmIntent(Context context) {
+        Intent intent = new Intent(context, BackupService.class);
         intent.setAction(BACKUP_ACTION);
         return intent;
     }

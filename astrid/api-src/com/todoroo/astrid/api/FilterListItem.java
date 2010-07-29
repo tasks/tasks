@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
  * Represents an item displayed by Astrid's FilterListActivity
@@ -19,17 +20,20 @@ abstract public class FilterListItem implements Parcelable {
     /**
      * Title of this item displayed on the Filters page
      */
+    @CheckForNull
     public String listingTitle = null;
 
     /**
      * Bitmap for icon used on listing page. <code>null</code> => no icon
      */
+    @CheckForNull
     public Bitmap listingIcon = null;
 
     /**
      * Context Menu labels. The context menu will be displayed when users
      * long-press on this filter list item.
      */
+    @CheckForNull
     public String contextMenuLabels[] = new String[0];
 
     /**
@@ -37,6 +41,7 @@ abstract public class FilterListItem implements Parcelable {
      * content menu label is invoked. This array must be the same size as
      * the contextMenuLabels array.
      */
+    @CheckForNull
     public Intent contextMenuIntents[] = new Intent[0];
 
     // --- parcelable helpers

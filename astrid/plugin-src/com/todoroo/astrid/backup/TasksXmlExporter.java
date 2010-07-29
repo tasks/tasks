@@ -91,8 +91,9 @@ public class TasksXmlExporter {
                     String output = setupFile(BackupConstants.getExportDirectory(),
                             isService);
                     doTasksExport(output);
-                    Preferences.setLong(BackupService.PREF_BACKUP_LAST_DATE,
+                    Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE,
                             DateUtilities.now());
+                    Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, null);
 
                     if (!isService)
                         displayToast(output);
@@ -102,7 +103,7 @@ public class TasksXmlExporter {
                             context.getString(R.string.backup_TXI_error), e);
                     else {
                         exceptionService.reportError("background-backup", e); //$NON-NLS-1$
-                        Preferences.setString(BackupService.PREF_BACKUP_LAST_ERROR, e.toString());
+                        Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, e.toString());
                     }
                 } finally {
                     if(runAfterExport != null)

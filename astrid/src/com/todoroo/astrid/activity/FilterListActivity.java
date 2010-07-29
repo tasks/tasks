@@ -336,6 +336,8 @@ public class FilterListActivity extends ExpandableListActivity {
             FrameLayout frameLayout = new FrameLayout(this);
             frameLayout.setPadding(10, 0, 10, 0);
             final EditText editText = new EditText(this);
+            if(filter.listingTitle == null)
+                filter.listingTitle = ""; //$NON-NLS-1$
             editText.setText(filter.listingTitle.
                     replaceAll("\\(\\d+\\)$", "").trim()); //$NON-NLS-1$ //$NON-NLS-2$
             frameLayout.addView(editText, new FrameLayout.LayoutParams(

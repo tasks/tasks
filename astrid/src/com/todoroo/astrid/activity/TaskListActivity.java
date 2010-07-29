@@ -596,6 +596,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         }
 
         // create a custom cursor
+        if(filter.sqlQuery == null)
+            filter.sqlQuery = "";
         if(!filter.sqlQuery.contains("WHERE"))
             filter.sqlQuery += " WHERE " + TaskCriteria.byId(withCustomId);
         else

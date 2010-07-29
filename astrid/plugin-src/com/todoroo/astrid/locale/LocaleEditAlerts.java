@@ -154,6 +154,8 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
                         adapter.setSelection(item);
                 } else if(item instanceof FilterCategory) {
                     Filter[] filters = ((FilterCategory)item).children;
+                    if(filters == null)
+                        return;
                     for(Filter filter : filters)
                         if(finalSelection.equals(filter.sqlQuery)) {
                             adapter.setSelection(filter);
@@ -243,7 +245,7 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
                 /*
                  * This is the blurb concisely describing what your setting's state is. This is simply used for display in the UI.
                  */
-                if (filterItem.title.length() > com.twofortyfouram.Intent.MAXIMUM_BLURB_LENGTH)
+                if (filterItem.title != null && filterItem.title.length() > com.twofortyfouram.Intent.MAXIMUM_BLURB_LENGTH)
                     returnIntent.putExtra(com.twofortyfouram.Intent.EXTRA_STRING_BLURB, filterItem.title.substring(0, com.twofortyfouram.Intent.MAXIMUM_BLURB_LENGTH));
                 else
                     returnIntent.putExtra(com.twofortyfouram.Intent.EXTRA_STRING_BLURB, filterItem.title);
