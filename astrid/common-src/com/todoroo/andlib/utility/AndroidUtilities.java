@@ -125,7 +125,7 @@ public class AndroidUtilities {
                 ((Activity)context).startActivityForResult(intent, request);
             else
                 context.startActivity(intent);
-        } catch (SecurityException e) {
+        } catch (Exception e) {
             ExceptionHelper helper = new ExceptionHelper();
             helper.exceptionService.displayAndReportError(context,
                     "start-external-intent-" + intent.toString(), //$NON-NLS-1$

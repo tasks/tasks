@@ -86,7 +86,7 @@ public final class TagsControlSet implements TaskEditControlSet {
         final View tagItem = inflater.inflate(R.layout.tag_edit_row, null);
         tagsContainer.addView(tagItem);
 
-        AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.
+        final AutoCompleteTextView textView = (AutoCompleteTextView)tagItem.
             findViewById(R.id.text1);
         textView.setText(tagName);
         ArrayAdapter<Tag> tagsAdapter =
@@ -118,7 +118,8 @@ public final class TagsControlSet implements TaskEditControlSet {
         reminderRemoveButton = (ImageButton)tagItem.findViewById(R.id.button1);
         reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                tagsContainer.removeView(tagItem);
+                if(textView.getText().length() > 0)
+                    tagsContainer.removeView(tagItem);
             }
         });
 

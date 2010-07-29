@@ -607,8 +607,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         @Override
         public void onClick(View v) {
-            // expand view
+            // expand view (unless deleted)
             final ViewHolder viewHolder = (ViewHolder)v.getTag();
+            if(viewHolder.task.isDeleted())
+                return;
+
             long taskId = viewHolder.task.getId();
             if(expanded == taskId) {
                 expanded = -1;

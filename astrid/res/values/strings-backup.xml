@@ -44,9 +44,6 @@
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Exporting...</string>
   
-  <!-- Progress Dialog text for export reading task (%s -> task title) -->    
-  <string name="export_progress_read">Reading task %s...</string>
-  
   <!-- Summary title for import -->
   <string name="import_summary_title">Restore Summary</string>
     
@@ -55,13 +52,11 @@
 File %s contained %s.\n\n
 %s imported,\n
 %s already exist\n
+%s had errors\n
   </string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importing...</string>
-  
-  <!-- Progress Dialog text for starting import/export -->    
-  <string name="backup_progress_initial">Initializing...</string>
   
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
   <string name="import_progress_read">Reading task %d...</string>

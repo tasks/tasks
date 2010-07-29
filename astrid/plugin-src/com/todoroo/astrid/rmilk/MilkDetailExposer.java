@@ -61,9 +61,14 @@ public class MilkDetailExposer extends BroadcastReceiver implements DetailExpose
 
         if(!extended) {
             long listId = metadata.getValue(MilkTask.LIST_ID);
+            String listName = MilkDataService.getInstance().getListName(listId);
+            // RTM list is out of date. don't display RTM stuff
+            if(listName == null)
+                return null;
+
             if(listId > 0) {
                 builder.append(context.getString(R.string.rmilk_TLA_list,
-                        MilkDataService.getInstance().getListName(listId))).append(TaskAdapter.DETAIL_SEPARATOR);
+                        listName)).append(TaskAdapter.DETAIL_SEPARATOR);
             }
 
             int repeat = metadata.getValue(MilkTask.REPEATING);

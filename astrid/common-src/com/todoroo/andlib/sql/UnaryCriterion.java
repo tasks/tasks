@@ -48,7 +48,7 @@ public class UnaryCriterion extends Criterion {
      */
     @SuppressWarnings("nls")
     public static String sanitize(String input) {
-        return input.replace("\\", "\\\\").replace("'", "\\'");
+        return input.replace("'", "''");
     }
 
     public static Criterion neq(Field field, Object value) {

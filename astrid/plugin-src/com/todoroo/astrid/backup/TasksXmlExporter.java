@@ -58,11 +58,11 @@ public class TasksXmlExporter {
     private final ProgressDialog progressDialog;
     private final Handler handler;
 
-    private void setProgress(final int taskNumber, final int total, final String title) {
+    private void setProgress(final int taskNumber, final int total) {
         handler.post(new Runnable() {
             public void run() {
-                progressDialog.setProgress(taskNumber * 10000 / total);
-                progressDialog.setMessage(context.getString(R.string.export_progress_read, title));
+                progressDialog.setMax(total);
+                progressDialog.setProgress(taskNumber);
             }
         });
     }
@@ -77,7 +77,6 @@ public class TasksXmlExporter {
         if(!isService) {
             progressDialog.setIcon(android.R.drawable.ic_dialog_info);
             progressDialog.setTitle(R.string.export_progress_title);
-            progressDialog.setMessage(context.getString(R.string.backup_progress_initial));
             progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
             progressDialog.setProgress(0);
             progressDialog.setCancelable(false);
@@ -149,7 +148,7 @@ public class TasksXmlExporter {
                 cursor.moveToNext();
                 task.readFromCursor(cursor);
 
-                setProgress(i, length, task.getValue(Task.TITLE));
+                setProgress(i, length);
 
                 xml.startTag(null, BackupConstants.TASK_TAG);
                 serializeModel(task, Task.PROPERTIES, Task.ID);
@@ -186,7 +185,7 @@ public class TasksXmlExporter {
     private void serializeModel(AbstractModel model, Property<?>[] properties, Property<?>... excludes) {
         outer: for(Property<?> property : properties) {
             for(Property<?> exclude : excludes)
-                if(property == exclude)
+                if(property.name.equals(exclude.name))
                     continue outer;
 
             try {

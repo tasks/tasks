@@ -60,8 +60,9 @@ public class TasksXmlImporter {
 
     private final Handler handler;
     private int taskCount;
-    private int importCount;
-    private int skipCount;
+    private int importCount = 0;
+    private int skipCount = 0;
+    private int errorCount = 0;
     private final String input;
 
     private final Context context;
@@ -93,7 +94,6 @@ public class TasksXmlImporter {
         progressDialog.setIcon(android.R.drawable.ic_dialog_info);
         progressDialog.setTitle(R.string.import_progress_title);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        progressDialog.setMessage(context.getString(R.string.backup_progress_initial));
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
@@ -116,9 +116,6 @@ public class TasksXmlImporter {
 
     @SuppressWarnings("nls")
     private void performImport() throws IOException, XmlPullParserException {
-        taskCount = 0;
-        importCount = 0;
-        skipCount = 0;
         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
         XmlPullParser xpp = factory.newPullParser();
         xpp.setInput(new FileReader(input));
@@ -164,7 +161,8 @@ public class TasksXmlImporter {
                 input,
                 r.getQuantityString(R.plurals.Ntasks, taskCount, taskCount),
                 r.getQuantityString(R.plurals.Ntasks, importCount, importCount),
-                r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount));
+                r.getQuantityString(R.plurals.Ntasks, skipCount, skipCount),
+                r.getQuantityString(R.plurals.Ntasks, errorCount, errorCount));
         builder.setMessage(message);
         builder.setPositiveButton(context.getString(android.R.string.ok),
                 new DialogInterface.OnClickListener() {
@@ -194,15 +192,22 @@ public class TasksXmlImporter {
             this.xpp = xpp;
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String tag = xpp.getName();
-
                 if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG)
                     continue;
-                else if (tag.equals(BackupConstants.TASK_TAG)) {
-                    // Parse <task ... >
-                    parseTask();
-                } else if (tag.equals(BackupConstants.METADATA_TAG)) {
-                    // Process <metadata ... >
-                    parseMetadata();
+
+                try {
+                    if (tag.equals(BackupConstants.TASK_TAG)) {
+                        // Parse <task ... >
+                        parseTask();
+                    } else if (tag.equals(BackupConstants.METADATA_TAG)) {
+                        // Process <metadata ... >
+                        parseMetadata();
+                    }
+                } catch (Exception e) {
+                    errorCount++;
+                    Log.e("astrid-importer", //$NON-NLS-1$
+                            "Caught exception while reading from " + //$NON-NLS-1$
+                            xpp.getText(), e);
                 }
             }
         }
@@ -237,6 +242,7 @@ public class TasksXmlImporter {
 
             // else, make a new task model and add away.
             deserializeModel(currentTask, Task.PROPERTIES);
+            currentTask.setId(Task.NO_ID);
 
             // Save the task to the database.
             taskService.save(currentTask, false);
@@ -248,6 +254,7 @@ public class TasksXmlImporter {
                 return;
             metadata.clear();
             deserializeModel(metadata, Metadata.PROPERTIES);
+            metadata.setId(Metadata.NO_ID);
             metadata.setValue(Metadata.TASK, currentTask.getId());
             metadataService.save(metadata);
         }
@@ -326,26 +333,33 @@ public class TasksXmlImporter {
             while (xpp.next() != XmlPullParser.END_DOCUMENT) {
                 String tag = xpp.getName();
 
-                if(BackupConstants.TASK_TAG.equals(tag) && xpp.getEventType() == XmlPullParser.END_TAG)
-                    saveTags();
-                else if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG)
-                    continue;
-                else if (tag.equals(BackupConstants.TASK_TAG)) {
-                    // Parse <task ... >
-                    currentTask = parseTask();
-                } else if (currentTask != null) {
-                    // These tags all require that we have a task to associate
-                    // them with.
-                    if (tag.equals(BackupConstants.TAG_TAG)) {
-                        // Process <tag ... >
-                        parseTag();
-                    } else if (tag.equals(BackupConstants.ALERT_TAG)) {
-                        // Process <alert ... >
-                        parseAlert();
-                    } else if (tag.equals(BackupConstants.SYNC_TAG)) {
-                        // Process <sync ... >
-                        parseSync();
+                try {
+                    if(BackupConstants.TASK_TAG.equals(tag) && xpp.getEventType() == XmlPullParser.END_TAG)
+                        saveTags();
+                    else if (tag == null || xpp.getEventType() == XmlPullParser.END_TAG)
+                        continue;
+                    else if (tag.equals(BackupConstants.TASK_TAG)) {
+                        // Parse <task ... >
+                        currentTask = parseTask();
+                    } else if (currentTask != null) {
+                        // These tags all require that we have a task to associate
+                        // them with.
+                        if (tag.equals(BackupConstants.TAG_TAG)) {
+                            // Process <tag ... >
+                            parseTag();
+                        } else if (tag.equals(BackupConstants.ALERT_TAG)) {
+                            // Process <alert ... >
+                            parseAlert();
+                        } else if (tag.equals(BackupConstants.SYNC_TAG)) {
+                            // Process <sync ... >
+                            parseSync();
+                        }
                     }
+                } catch (Exception e) {
+                    errorCount++;
+                    Log.e("astrid-importer", //$NON-NLS-1$
+                            "Caught exception while reading from " + //$NON-NLS-1$
+                            xpp.getText(), e);
                 }
             }
         }

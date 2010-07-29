@@ -39,6 +39,7 @@ public class BackupActivity extends Activity {
                         new Runnable() {
                     @Override
                     public void run() {
+                        setResult(RESULT_OK);
                         finish();
                     }
                 });
@@ -54,6 +55,7 @@ public class BackupActivity extends Activity {
         TasksXmlExporter.exportTasks(this, false, new Runnable() {
             @Override
             public void run() {
+                setResult(RESULT_OK);
                 finish();
             }
         });

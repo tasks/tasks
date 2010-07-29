@@ -27,7 +27,6 @@
         android:layout_weight="1"
         android:paddingLeft="5dip" 
         android:paddingRight="5dip" 
-        android:scaleType="fitCenter"
         android:visibility="gone"/>
             
     <!-- filter name -->
