@@ -367,6 +367,13 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
             return true;
         if(!remoteTask.task.containsValue(property))
             return true;
+
+        // special cases - match if they're zero or nonzero
+        if(property == Task.COMPLETION_DATE ||
+                property == Task.DELETION_DATE)
+            return !AndroidUtilities.equals((Long)task.task.getValue(property) == 0,
+                    (Long)remoteTask.task.getValue(property) == 0);
+
         return !AndroidUtilities.equals(task.task.getValue(property),
                 remoteTask.task.getValue(property));
     }
@@ -378,6 +385,8 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
      */
     @Override
     protected void push(RTMTaskContainer local, RTMTaskContainer remote) throws IOException {
+        boolean remerge = false;
+
         // fetch remote task for comparison
         if(remote == null)
             remote = pull(local);
@@ -416,9 +425,13 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
             if(local.task.getValue(Task.COMPLETION_DATE) == 0)
                 rtmService.tasks_uncomplete(timeline, listId, taskSeriesId,
                         taskId);
-            else
+            else {
                 rtmService.tasks_complete(timeline, listId, taskSeriesId,
                         taskId);
+                // if repeating, pull and merge
+                if(local.repeating)
+                    remerge = true;
+            }
         }
 
         // tags
@@ -452,7 +465,12 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
                 rtmService.tasks_notes_add(timeline, listId, taskSeriesId,
                         taskId, titleAndText[0], titleAndText[1]);
             }
+        }
 
+        if(remerge) {
+            remote = pull(local);
+            remote.task.setId(local.task.getId());
+            write(remote);
         }
     }
 
