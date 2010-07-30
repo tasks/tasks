@@ -52,12 +52,14 @@ catxml="`dirname $0`/catxml"
 function import_po2xml
 {
     for resource_file in $android_xml_filenames; do
+        echo "Concatenating strings into single XML"
+        ${catxml} "${android_xml_files_res_dir}"/"${resource_file}"-*.xml > "${launchpad_pot_file_dir}/${resource_file}".xml
         echo "Importing .xml from .pot: $resource_file"
         for (( i=0 ; i<${#po_lang[*]} ; i=i+1 )); do
             echo " Importing .xml from .po for "${resource_file}-${po_lang[i]}""
             mkdir -p "${android_xml_files_res_dir}"-"${res_lang[i]}"
             ${xml2po} -a -l "${po_lang[i]}" -p "${launchpad_po_files_dir}/${resource_file}"-"${po_lang[i]}".po \
-                "${android_xml_files_res_dir}"/"${resource_file}".xml > "${android_xml_files_res_dir}"-"${res_lang[i]}"/"${resource_file}".xml
+                "${launchpad_pot_file_dir}"/"${resource_file}".xml > "${android_xml_files_res_dir}"-"${res_lang[i]}"/"${resource_file}".xml
         done
     done
     rm -f .xml2po.mo
