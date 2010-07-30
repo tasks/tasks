@@ -11,6 +11,7 @@ import java.util.Locale;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.util.Log;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -136,6 +137,17 @@ public class DateUtilities {
     private static String getDateFormatString(Context context) {
         String value = android.provider.Settings.System.getString(context.getContentResolver(),
                 android.provider.Settings.System.DATE_FORMAT);
+
+        // validate value in case of unexpected errors
+        if(value != null) {
+            try {
+                new SimpleDateFormat(value);
+            } catch (IllegalArgumentException e ){
+                Log.e("date-format", "Illegal date format pattern: " + value, e);
+                value = null;
+            }
+        }
+
         if (value == null) {
             // united states, you are special
             if (Locale.US.equals(Locale.getDefault())
@@ -150,8 +162,13 @@ public class DateUtilities {
     /**
      * @return date format (month, day, year)
      */
+    @SuppressWarnings("nls")
     public static SimpleDateFormat getDateFormat(Context context) {
-        return new SimpleDateFormat(getDateFormatString(context));
+        try {
+            return new SimpleDateFormat(getDateFormatString(context));
+        } catch (Exception e) {
+            return new SimpleDateFormat("d MMM yyyy");
+        }
     }
 
     /**
@@ -159,8 +176,11 @@ public class DateUtilities {
      */
     @SuppressWarnings("nls")
     public static SimpleDateFormat getDateFormatWithWeekday(Context context) {
-        return new SimpleDateFormat("EEE, " + getDateFormatString(context));
-
+        try {
+            return new SimpleDateFormat("EEE, " + getDateFormatString(context));
+        } catch (Exception e) {
+            return new SimpleDateFormat("EEE, d MMM yyyy");
+        }
     }
 
     /**
@@ -168,9 +188,12 @@ public class DateUtilities {
      */
     @SuppressWarnings("nls")
     public static SimpleDateFormat getDateWithTimeFormat(Context context) {
-        return new SimpleDateFormat(getDateFormatString(context) + " " +
-                getTimeFormatString(context));
-
+        try {
+            return new SimpleDateFormat(getDateFormatString(context) + " " +
+                    getTimeFormatString(context));
+        } catch (Exception e) {
+            return new SimpleDateFormat("d MMM yyyy H:mm");
+        }
     }
 
     /**

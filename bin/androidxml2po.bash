@@ -81,6 +81,7 @@ function export_xml2po
                 -r "${android_xml_files_res_dir}"-"${res_lang[i]}"/"${resource_file}".xml \
                 "${launchpad_pot_file_dir}"/"${resource_file}".xml > \
                 "${launchpad_po_files_dir}/${resource_file}"-"${po_lang[i]}".po
+            msguniq "${launchpad_po_files_dir}/${resource_file}"-"${po_lang[i]}".po -o "${launchpad_po_files_dir}/${resource_file}"-"${po_lang[i]}".po
         done
     done
 

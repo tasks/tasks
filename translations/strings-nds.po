@@ -9,8 +9,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-07-29 03:54-0700\n"
 "PO-Revision-Date: 2009-12-23 22:58+0000\n"
-"Last-Translator: Launchpad Translations Administrators "
-"<rosetta@launchpad.net>\n"
+"Last-Translator: Launchpad Translations Administrators <rosetta@launchpad."
+"net>\n"
 "Language-Team: German, Low <nds@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -19,12 +19,14 @@ msgstr ""
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Backup Preferences Title
-#: translations/strings.xml:10( name="backup_BPr_header") translations/strings.xml:37( name="backup_BAc_label")
+#: translations/strings.xml:10( name="backup_BPr_header")
+#: translations/strings.xml:37( name="backup_BAc_label")
 msgid "Backups"
 msgstr ""
 
 #. Backup: Status Header
-#: translations/strings.xml:13( name="backup_BPr_group_status") translations/strings.xml:1015( name="rmilk_MPr_group_status")
+#: translations/strings.xml:13( name="backup_BPr_group_status")
+#: translations/strings.xml:1015( name="rmilk_MPr_group_status")
 msgid "Status"
 msgstr ""
 
@@ -49,7 +51,8 @@ msgid "Never Backed Up!"
 msgstr ""
 
 #. Backup Options Group Label
-#: translations/strings.xml:25( name="backup_BPr_group_options") translations/strings.xml:1031( name="rmilk_MPr_group_options")
+#: translations/strings.xml:25( name="backup_BPr_group_options")
+#: translations/strings.xml:1031( name="rmilk_MPr_group_options")
 msgid "Options"
 msgstr ""
 
@@ -105,8 +108,8 @@ msgstr ""
 #. Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped)
 #: translations/strings.xml:62( name="import_summary_message")
 msgid ""
-"File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had "
-"errors\\n"
+"File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had errors"
+"\\n"
 msgstr ""
 
 #. Progress Dialog Title for importing
@@ -145,7 +148,8 @@ msgid "Astrid Tasks"
 msgstr ""
 
 #. permission title for READ_TASKS
-#: translations/strings.xml:98( name="read_permission_label") translations/strings.xml:104( name="write_permission_label")
+#: translations/strings.xml:98( name="read_permission_label")
+#: translations/strings.xml:104( name="write_permission_label")
 msgid "Astrid Permission"
 msgstr ""
 
@@ -362,7 +366,8 @@ msgid "No Tasks!"
 msgstr ""
 
 #. Menu: Add-ons
-#: translations/strings.xml:241( name="TLA_menu_addons") translations/strings.xml:360( name="TEA_tab_addons")
+#: translations/strings.xml:241( name="TLA_menu_addons")
+#: translations/strings.xml:360( name="TEA_tab_addons")
 msgid "Add-ons"
 msgstr ""
 
@@ -372,7 +377,8 @@ msgid "Settings"
 msgstr ""
 
 #. Menu: Help
-#: translations/strings.xml:247( name="TLA_menu_help") translations/strings.xml:311( name="FLA_menu_help")
+#: translations/strings.xml:247( name="TLA_menu_help")
+#: translations/strings.xml:311( name="FLA_menu_help")
 msgid "Help"
 msgstr ""
 
@@ -417,7 +423,8 @@ msgid "Edit Task"
 msgstr ""
 
 #. Context Item: delete task
-#: translations/strings.xml:291( name="TAd_contextDeleteTask") translations/strings.xml:402( name="TEA_menu_delete")
+#: translations/strings.xml:291( name="TAd_contextDeleteTask")
+#: translations/strings.xml:402( name="TEA_menu_delete")
 msgid "Delete Task"
 msgstr ""
 
@@ -674,7 +681,8 @@ msgid "Font size on the main listing page"
 msgstr ""
 
 #. Preference Category: Defaults Title
-#: translations/strings.xml:474( name="EPr_defaults_header") translations/strings.xml:770( name="rmd_EPr_defaults_header")
+#: translations/strings.xml:474( name="EPr_defaults_header")
+#: translations/strings.xml:770( name="rmd_EPr_defaults_header")
 msgid "New Task Defaults"
 msgstr ""
 
@@ -684,7 +692,9 @@ msgid "Default Urgency"
 msgstr ""
 
 #. Preference: Default Urgency Description (%s => setting)
-#: translations/strings.xml:479( name="EPr_default_urgency_desc") translations/strings.xml:484( name="EPr_default_importance_desc") translations/strings.xml:489( name="EPr_default_hideUntil_desc")
+#: translations/strings.xml:479( name="EPr_default_urgency_desc")
+#: translations/strings.xml:484( name="EPr_default_importance_desc")
+#: translations/strings.xml:489( name="EPr_default_hideUntil_desc")
 msgid "Currently Set To: %s"
 msgstr ""
 
@@ -766,7 +776,8 @@ msgid ""
 msgstr ""
 
 #. Active Tasks Filter
-#: translations/strings.xml:564( name="BFE_Active") translations/strings.xml:567( name="BFE_Active_title")
+#: translations/strings.xml:564( name="BFE_Active")
+#: translations/strings.xml:567( name="BFE_Active_title")
 msgid "Active Tasks"
 msgstr ""
 
@@ -1537,7 +1548,9 @@ msgid "Needs synchronization with RTM"
 msgstr ""
 
 #. filters header: RTM
-#: translations/strings.xml:984( name="rmilk_FEx_header") translations/strings.xml:998( name="rmilk_MEA_title") translations/strings.xml:1012( name="rmilk_MPr_header")
+#: translations/strings.xml:984( name="rmilk_FEx_header")
+#: translations/strings.xml:998( name="rmilk_MEA_title")
+#: translations/strings.xml:1012( name="rmilk_MPr_header")
 msgid "Remember the Milk"
 msgstr ""
 
