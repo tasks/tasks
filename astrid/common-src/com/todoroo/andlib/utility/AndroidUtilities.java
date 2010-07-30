@@ -22,8 +22,8 @@ import android.net.NetworkInfo.State;
 import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.widget.TextView;
 
 import com.todoroo.andlib.service.Autowired;
@@ -275,5 +275,12 @@ public class AndroidUtilities {
             }
         }
         return null;
+    }
+
+    /**
+     * @return Android SDK version as an integer. Works on all versions
+     */
+    public static int getSdkVersion() {
+        return Integer.parseInt(android.os.Build.VERSION.SDK);
     }
 }

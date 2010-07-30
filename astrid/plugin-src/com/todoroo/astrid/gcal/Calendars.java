@@ -8,6 +8,7 @@ import android.net.Uri;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.utility.Preferences;
 
 @SuppressWarnings("nls")
@@ -37,7 +38,7 @@ public class Calendars {
 	 * @param table provider table, something like calendars, events
 	 */
 	public static Uri getCalendarContentUri(String table) {
-	    if(android.os.Build.VERSION.SDK_INT >= 8)
+	    if(AndroidUtilities.getSdkVersion() >= 8)
 	        return Uri.parse("content://com.android.calendar/" + table);
 	    else
 	        return Uri.parse("content://calendar/" + table);
@@ -45,7 +46,7 @@ public class Calendars {
 
 	/** Return calendar package name */
 	public static String getCalendarPackage() {
-	    if(android.os.Build.VERSION.SDK_INT >= 8)
+	    if(AndroidUtilities.getSdkVersion() >= 8)
 	        return "com.google.android.calendar";
 	    else
 	        return "com.android.calendar";
