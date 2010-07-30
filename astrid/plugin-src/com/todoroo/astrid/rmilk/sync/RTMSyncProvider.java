@@ -390,6 +390,18 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
             rtmService.tasks_moveTo(timeline, Long.toString(remote.listId),
                     listId, taskSeriesId, taskId);
 
+        // either delete or re-create if necessary
+        if(shouldTransmit(local, Task.DELETION_DATE, remote)) {
+            if(local.task.getValue(Task.DELETION_DATE) > 0)
+                rtmService.tasks_delete(timeline, listId, taskSeriesId, taskId);
+            else if(remote == null) {
+                RtmTaskSeries rtmTask = rtmService.tasks_add(timeline, listId,
+                        local.task.getValue(Task.TITLE));
+                remote = parseRemoteTask(rtmTask);
+                transferIdentifiers(remote, local);
+            }
+        }
+
         if(shouldTransmit(local, Task.TITLE, remote))
             rtmService.tasks_setName(timeline, listId, taskSeriesId,
                     taskId, local.task.getValue(Task.TITLE));
@@ -408,10 +420,6 @@ public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
                 rtmService.tasks_complete(timeline, listId, taskSeriesId,
                         taskId);
         }
-        if(shouldTransmit(local, Task.DELETION_DATE, remote) &&
-                local.task.getValue(Task.DELETION_DATE) > 0)
-            rtmService.tasks_delete(timeline, listId, taskSeriesId,
-                    taskId);
 
         // tags
         HashSet<String> localTags = new HashSet<String>();

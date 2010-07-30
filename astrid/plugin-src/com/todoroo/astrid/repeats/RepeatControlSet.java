@@ -84,7 +84,6 @@ public class RepeatControlSet implements TaskEditControlSet {
         // set up days of week
         DateFormatSymbols dfs = new DateFormatSymbols();
         Calendar calendar = Calendar.getInstance();
-        int currentDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
         calendar.set(Calendar.DAY_OF_WEEK, calendar.getFirstDayOfWeek());
         LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1.0f/7);
         for(int i = 0; i < 7; i++) {
@@ -94,8 +93,7 @@ public class RepeatControlSet implements TaskEditControlSet {
             checkBox.setLayoutParams(lp);
             checkBox.setTextSize(10);
             checkBox.setTag(Weekday.values()[dayOfWeek - 1]);
-            if(dayOfWeek == currentDayOfWeek)
-                checkBox.setChecked(true);
+
             daysOfWeek[i] = checkBox;
             calendar.add(Calendar.DATE, 1);
             daysOfWeekContainer.addView(checkBox);
@@ -174,6 +172,10 @@ public class RepeatControlSet implements TaskEditControlSet {
                     break;
                 case WEEKLY: {
                     interval.setSelection(INTERVAL_WEEKS);
+
+                    // clear all day of week checks, then update them
+                    for(int i = 0; i < 7; i++)
+                        daysOfWeek[i].setChecked(false);
 
                     for(WeekdayNum day : rrule.getByDay()) {
                         for(int i = 0; i < 7; i++)

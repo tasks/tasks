@@ -11,16 +11,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.Html;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -495,7 +494,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 for(View view : viewHolder.decorations)
                     viewHolder.taskRow.removeView(view);
             }
-            viewHolder.view.setBackgroundColor(Color.TRANSPARENT);
+            viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
         }
     }
 

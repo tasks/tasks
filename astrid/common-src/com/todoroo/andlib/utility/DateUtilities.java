@@ -11,7 +11,6 @@ import java.util.Locale;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.util.Log;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -131,31 +130,18 @@ public class DateUtilities {
     }
 
     /**
+     * @param context android context
      * @return string used for date formatting
      */
     @SuppressWarnings("nls")
     private static String getDateFormatString(Context context) {
-        String value = android.provider.Settings.System.getString(context.getContentResolver(),
-                android.provider.Settings.System.DATE_FORMAT);
-
-        // validate value in case of unexpected errors
-        if(value != null) {
-            try {
-                new SimpleDateFormat(value);
-            } catch (IllegalArgumentException e ){
-                Log.e("date-format", "Illegal date format pattern: " + value, e);
-                value = null;
-            }
-        }
-
-        if (value == null) {
-            // united states, you are special
-            if (Locale.US.equals(Locale.getDefault())
-                    || Locale.CANADA.equals(Locale.getDefault()))
-                value = "MMM d yyyy";
-            else
-                value = "d MMM yyyy";
-        }
+        String value;
+        // united states, you are special
+        if (Locale.US.equals(Locale.getDefault())
+                || Locale.CANADA.equals(Locale.getDefault()))
+            value = "MMM d yyyy";
+        else
+            value = "d MMM yyyy";
         return value;
     }
 
