@@ -3,8 +3,8 @@ package com.todoroo.astrid.service;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Map.Entry;
 import java.util.StringTokenizer;
+import java.util.Map.Entry;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -13,8 +13,8 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -44,7 +44,6 @@ import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
 
-@SuppressWarnings("deprecation")
 public class Astrid2To3UpgradeHelper {
 
     @Autowired

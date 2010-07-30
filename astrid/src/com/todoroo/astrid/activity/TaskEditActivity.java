@@ -27,14 +27,14 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TabActivity;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -43,8 +43,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -57,6 +57,7 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -72,12 +73,13 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
+import com.todoroo.astrid.service.AddonService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog;
-import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
+import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
 import com.todoroo.astrid.ui.TimeDurationControlSet.TimeDurationType;
 import com.todoroo.astrid.utility.Constants;
 
@@ -211,13 +213,19 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new RepeatControlSet(this, extrasAddons));
 
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
-        controls.add(new GCalControlSet(this, addonsAddons));
-        controls.add(new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
-                R.id.estimatedDuration, 0, R.string.DLG_hour_minutes,
-                TimeDurationType.HOURS_MINUTES));
-        controls.add(new TimeDurationTaskEditControlSet(Task.ELAPSED_SECONDS, R.id.elapsedDuration,
-                0, R.string.DLG_hour_minutes,
-                TimeDurationType.HOURS_MINUTES));
+        if(AddonService.isPowerPack()) {
+            controls.add(new GCalControlSet(this, addonsAddons));
+            controls.add(new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
+                    R.id.estimatedDuration, 0, R.string.DLG_hour_minutes,
+                    TimeDurationType.HOURS_MINUTES));
+            controls.add(new TimeDurationTaskEditControlSet(Task.ELAPSED_SECONDS, R.id.elapsedDuration,
+                    0, R.string.DLG_hour_minutes,
+                    TimeDurationType.HOURS_MINUTES));
+        } else {
+            Button button = new Button(this);
+            addonsAddons.addView(button);
+
+        }
 
         // read data
         populateFields();
