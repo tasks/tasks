@@ -71,7 +71,7 @@ function export_xml2po
         echo "Concatenating strings into single XML"
         ${catxml} "${android_xml_files_res_dir}"/"${resource_file}"-*.xml > "${launchpad_pot_file_dir}/${resource_file}".xml
         echo "Exporting .xml to .pot: $resource_file"
-        ${xml2po} -a -l "${po_lang[i]}" -o \
+        echo ${xml2po} -a -l en -o \
             "${launchpad_pot_file_dir}/${resource_file}".pot \
             "${launchpad_pot_file_dir}/${resource_file}.xml"
 
