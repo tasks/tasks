@@ -405,7 +405,7 @@ to the plugin creator for fastest service.
   <string name="TEA_onTaskSave_due">Tarefa Guardada: vence em %s</string>
   
   <!-- Toast: task saved with deadline in past (%s => time units) -->
-  <string name="TEA_onTaskSave_overdue">Tarefa Guardada: venceu %d atrás</string>
+  <string name="TEA_onTaskSave_overdue">Tarefa Guardada: venceu %s atrás</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">Tarefa Guardada</string>

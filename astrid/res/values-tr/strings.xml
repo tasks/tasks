@@ -76,7 +76,7 @@ File %s contained %s.\n\n
   <string name="DLG_error_opening">Bunu bulamadım:</string>
   
   <!-- Backup: Dialog when unable to open SD card folder -->
-  <string name="DLG_error_sdcard">% klasörüne erişilemedi.</string>
+  <string name="DLG_error_sdcard">%s klasörüne erişilemedi.</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
   <string name="DLG_error_sdcard_general">Hafıza kartına erişemiyorum!</string>

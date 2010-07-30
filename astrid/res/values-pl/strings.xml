@@ -279,7 +279,7 @@ button: add task & go to the edit page.
   <string name="TAd_flingText"/>
   
   <!-- indicates task was completed. %s => date or time ago -->
-  <string name="TAd_completed">Ukończone %4</string>
+  <string name="TAd_completed">Ukończone %s</string>
   
   <!-- Action Button: edit task -->
   <string name="TAd_actionEditTask">Edytuj</string>
