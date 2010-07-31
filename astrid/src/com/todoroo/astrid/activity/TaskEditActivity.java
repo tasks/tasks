@@ -41,12 +41,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -216,15 +214,7 @@ public final class TaskEditActivity extends TabActivity {
             controls.add(new GCalControlSet(this, addonsAddons));
             controls.add(new TimerControlSet(this, addonsAddons));
         } else {
-            Button button = new Button(this);
-            addonsAddons.addView(button);
-            button.setText(AddonService.POWER_PACK_LABEL);
-            button.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AddonService.displayPowerPackHelp(TaskEditActivity.this);
-                }
-            });
+            addonsAddons.addView(AddonService.displayPowerPackHelp(this));
         }
 
         // read data
