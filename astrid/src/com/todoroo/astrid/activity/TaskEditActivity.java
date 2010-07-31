@@ -27,22 +27,24 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TabActivity;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TabActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -57,11 +59,9 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -77,10 +77,9 @@ import com.todoroo.astrid.service.AddonService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagsControlSet;
+import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog;
-import com.todoroo.astrid.ui.TimeDurationControlSet;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
-import com.todoroo.astrid.ui.TimeDurationControlSet.TimeDurationType;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -215,16 +214,17 @@ public final class TaskEditActivity extends TabActivity {
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
         if(AddonService.isPowerPack()) {
             controls.add(new GCalControlSet(this, addonsAddons));
-            controls.add(new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
-                    R.id.estimatedDuration, 0, R.string.DLG_hour_minutes,
-                    TimeDurationType.HOURS_MINUTES));
-            controls.add(new TimeDurationTaskEditControlSet(Task.ELAPSED_SECONDS, R.id.elapsedDuration,
-                    0, R.string.DLG_hour_minutes,
-                    TimeDurationType.HOURS_MINUTES));
+            controls.add(new TimerControlSet(this, addonsAddons));
         } else {
             Button button = new Button(this);
             addonsAddons.addView(button);
-
+            button.setText(AddonService.POWER_PACK_LABEL);
+            button.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    AddonService.displayPowerPackHelp(TaskEditActivity.this);
+                }
+            });
         }
 
         // read data
@@ -580,35 +580,6 @@ public final class TaskEditActivity extends TabActivity {
         @Override
         public void writeToModel(Task task) {
             task.setValue(property, editText.getText().toString());
-        }
-    }
-
-    // --- TimeDurationTaskEditControlSet
-
-    /**
-     * Control set for mapping a Property to a TimeDurationControlSet
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public class TimeDurationTaskEditControlSet implements TaskEditControlSet {
-        private final TimeDurationControlSet controlSet;
-        private final IntegerProperty property;
-
-        public TimeDurationTaskEditControlSet(IntegerProperty property, int timeButtonId,
-                int prefixResource, int titleResource, TimeDurationType type) {
-            this.property = property;
-            this.controlSet = new TimeDurationControlSet(TaskEditActivity.this,
-                    timeButtonId, prefixResource, titleResource, type);
-        }
-
-        @Override
-        public void readFromTask(Task task) {
-            controlSet.setTimeDuration(task.getValue(property));
-        }
-
-        @Override
-        public void writeToModel(Task task) {
-            task.setValue(property, controlSet.getTimeDurationInSeconds());
         }
     }
 

@@ -126,10 +126,15 @@
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Time (hours : minutes)</string>
   
-  <!-- Dialog when Astrid needs to be updated -->
+  <!-- Dialog for Astrid having a critical update -->
   <string name="DLG_please_update">Astrid should to be updated to the latest
   version in the Android market! Please do that before continuing, or wait a 
   few seconds.</string>
+  
+    <!-- Dialog for Astrid Power Pack -->
+  <string name="DLG_power_pack">Support Astrid and get more productive with 
+  the Astrid Power Pack backup, widgets, no ads, and calendar integration. 
+  Power up today!</string>
   
   <!-- Button for going to Market -->
   <string name="DLG_to_market">Go To Market</string>

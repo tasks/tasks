@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- estimated time -->
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/TEA_estimatedDuration_label"
+      style="@style/TextAppearance.GEN_EditLabel" />
+    <Button
+      android:id="@+id/estimatedDuration"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content" />
+      
+    <!-- elapsed time -->
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/TEA_elapsedDuration_label"
+      style="@style/TextAppearance.GEN_EditLabel" />
+    <Button
+      android:id="@+id/elapsedDuration"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content" />
+  
+</merge>
+
