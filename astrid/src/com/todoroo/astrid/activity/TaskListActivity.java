@@ -20,25 +20,25 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -84,7 +84,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
     public static final int ACTIVITY_EDIT_TASK = 0;
     public static final int ACTIVITY_SETTINGS = 1;
-    public static final int ACTIVITY_PLUGINS = 2;
+    public static final int ACTIVITY_ADDONS = 2;
     public static final int ACTIVITY_MENU_EXTERNAL = 3;
 
     // --- menu codes
@@ -187,9 +187,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
         MenuItem item;
 
-        /*item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
+        item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
                 R.string.TLA_menu_addons);
-        item.setIcon(android.R.drawable.ic_menu_set_as);*/
+        item.setIcon(android.R.drawable.ic_menu_set_as);
 
         item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
                 R.string.TLA_menu_settings);
@@ -659,11 +659,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         // handle my own menus
         switch (item.getItemId()) {
         case MENU_ADDONS_ID:
-            dialogUtilities.okDialog(
-                    this,
-                    "if this were real life, I would display your " + //$NON-NLS-1$
-                    "add-ons so you could enable/disable/rearrange them.", //$NON-NLS-1$
-                    null);
+            intent = new Intent(this, AddOnActivity.class);
+            startActivityForResult(intent, ACTIVITY_ADDONS);
             return true;
         case MENU_SETTINGS_ID:
             intent = new Intent(this, EditPreferences.class);

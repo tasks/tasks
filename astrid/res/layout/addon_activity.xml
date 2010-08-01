@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:background="@drawable/background_gradient">
+
+  <!-- =================================================== tab: installed == -->
+  
+  <ScrollView android:id="@+id/installed_tab"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <LinearLayout android:id="@+id/installed_container"
+      android:paddingRight="8dip"
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent">
+      
+    </LinearLayout>
+  </ScrollView>
+  
+  <!-- =================================================== tab: available == -->
+  
+  <ScrollView android:id="@+id/availble_tab"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    
+    <LinearLayout android:id="@+id/available_container"
+      android:paddingRight="8dip"
+      android:orientation="vertical"
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent">
+      
+    </LinearLayout>
+  </ScrollView>
+
+</FrameLayout>

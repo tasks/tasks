@@ -12,12 +12,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
@@ -66,33 +60,6 @@ public class AddonService {
             }
         }
         return isPowerPack;
-    }
-
-    /** Displays power pack help */
-    public static LinearLayout displayPowerPackHelp(final Activity activity) {
-        LinearLayout layout = new LinearLayout(activity);
-        layout.setOrientation(LinearLayout.VERTICAL);
-        ImageView imageView = new ImageView(activity);
-        imageView.setImageResource(R.drawable.icon_pp);
-        layout.addView(imageView);
-
-        TextView textView = new TextView(activity);
-        textView.setText(R.string.DLG_power_pack);
-        textView.setTextSize(16);
-        textView.setGravity(Gravity.CENTER);
-        layout.addView(textView);
-
-        Button button = new Button(activity);
-        button.setText(R.string.DLG_to_market);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                new MarketClickListener(activity, POWER_PACK_PACKAGE);
-            }
-        });
-        layout.addView(button);
-
-        return layout;
     }
 
     /**

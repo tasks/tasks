@@ -27,36 +27,41 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TabActivity;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ImageView.ScaleType;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -179,15 +184,15 @@ public final class TaskEditActivity extends TabActivity {
                 tabHost.getTabContentView(), true);
         tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.TEA_tab_basic)).
                 setIndicator(r.getString(R.string.TEA_tab_basic),
-                        r.getDrawable(R.drawable.tea_tab_basic)).setContent(
+                        r.getDrawable(R.drawable.tab_edit)).setContent(
                                 R.id.tab_basic));
         tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.TEA_tab_extra)).
                 setIndicator(r.getString(R.string.TEA_tab_extra),
-                        r.getDrawable(R.drawable.tea_tab_extra)).setContent(
+                        r.getDrawable(R.drawable.tab_advanced)).setContent(
                                 R.id.tab_extra));
         tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.TEA_tab_addons)).
                 setIndicator(r.getString(R.string.TEA_tab_addons),
-                        r.getDrawable(R.drawable.tea_tab_extensions)).setContent(
+                        r.getDrawable(R.drawable.tab_addons)).setContent(
                                 R.id.tab_addons));
 
         // populate control set
@@ -213,8 +218,32 @@ public final class TaskEditActivity extends TabActivity {
         if(AddonService.isPowerPack()) {
             controls.add(new GCalControlSet(this, addonsAddons));
             controls.add(new TimerControlSet(this, addonsAddons));
-        } else {
-            addonsAddons.addView(AddonService.displayPowerPackHelp(this));
+        }
+
+        // show add-on help if necessary
+        if(addonsAddons.getChildCount() == 0) {
+            ImageView ppIcon = new ImageView(this);
+            ppIcon.setImageResource(R.drawable.icon_pp);
+            ppIcon.setScaleType(ScaleType.CENTER);
+            ppIcon.setPadding(5, 10, 5, 10);
+            addonsAddons.addView(ppIcon);
+
+            TextView addOnText = new TextView(this);
+            addOnText.setText(R.string.TEA_no_addons);
+            addOnText.setTextAppearance(this, R.style.TextAppearance_TLA_NoItems);
+            addOnText.setGravity(Gravity.CENTER);
+            addOnText.setPadding(5, 10, 5, 10);
+            addonsAddons.addView(addOnText);
+
+            Button addOnButton = new Button(this);
+            addOnButton.setText(R.string.TEA_addons_button);
+            addonsAddons.addView(addOnButton);
+            addOnButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(new Intent(TaskEditActivity.this, AddOnActivity.class));
+                }
+            });
         }
 
         // read data

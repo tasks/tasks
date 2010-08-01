@@ -250,13 +250,15 @@
       <!-- add-ons -->
       <LinearLayout android:id="@+id/tab_addons_addons"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_weight="100"
         android:orientation="vertical" />
                 
       <!-- separator -->
       <View
         android:layout_width="fill_parent"
         android:layout_height="1dip"
+        android:layout_weight="1"
         android:padding="5dip"
         android:background="@android:drawable/divider_horizontal_dark" />
         
@@ -264,6 +266,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:gravity="bottom"
         android:paddingTop="5dip"
         android:baselineAligned="false">

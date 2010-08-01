@@ -90,7 +90,8 @@
     </activity>
     <!-- Activity that creates or edits tasks -->
     <activity android:name="com.todoroo.astrid.activity.TaskEditActivity"
-              android:windowSoftInputMode="stateHidden">
+              android:windowSoftInputMode="stateHidden"
+              android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -101,6 +102,10 @@
         <data android:mimeType="vnd.android.cursor.item/task" />
       </intent-filter>      
     </activity>    
+    <!-- Activity that selects and installs add-ons -->
+    <activity android:name="com.todoroo.astrid.activity.AddOnActivity"
+              android:windowSoftInputMode="stateHidden"
+              android:theme="@style/Theme" />
     <!-- Activity for preferences -->
     <activity android:name="com.todoroo.astrid.activity.EditPreferences" />
 
