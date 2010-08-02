@@ -56,6 +56,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
+import com.todoroo.astrid.backup.BackupActivity;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -64,6 +65,7 @@ import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
+import com.todoroo.astrid.rmilk.MilkPreferences;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
@@ -123,6 +125,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
     @Autowired
     protected Database database;
+
+    @Autowired
+    private AddOnService addOnService;
 
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
@@ -206,6 +211,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         int length = resolveInfoList.size();
         for(int i = 0; i < length; i++) {
             ResolveInfo resolveInfo = resolveInfoList.get(i);
+
+            if(!Constants.SYNC &&
+                    MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name))
+                continue;
+            if(!addOnService.isPowerPack() &&
+                    BackupActivity.class.getName().equals(resolveInfo.activityInfo.name))
+                continue;
+
             item = menu.add(Menu.NONE, MENU_ADDON_INTENT_ID, Menu.NONE,
                         resolveInfo.loadLabel(pm));
             item.setIcon(resolveInfo.loadIcon(pm));

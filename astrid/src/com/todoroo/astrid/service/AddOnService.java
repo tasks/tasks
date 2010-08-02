@@ -10,7 +10,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -47,24 +46,15 @@ public class AddOnService {
     private static Boolean isPowerPack = null;
 
     /** Checks whether power pack should be enabled */
-    public static boolean isPowerPack() {
-        if (isPowerPack != null)
-            return isPowerPack;
-
-        isPowerPack = false;
-        if (Preferences.getBoolean(PREF_OEM, false))
-            isPowerPack = true;
-        else {
-            try {
-                Context context = ContextManager.getContext();
-                ApplicationInfo applicationInfo = context.getPackageManager().getApplicationInfo(
-                        POWER_PACK_PACKAGE, 0);
-                if(applicationInfo.uid == context.getApplicationInfo().uid)
-                    isPowerPack = true;
-            } catch (PackageManager.NameNotFoundException e) {
-                // not found
-            }
+    public boolean isPowerPack() {
+        if (isPowerPack == null) {
+            isPowerPack = false;
+            if (Preferences.getBoolean(PREF_OEM, false))
+                isPowerPack = true;
+            else if(isInstalled(POWER_PACK_PACKAGE, true))
+                isPowerPack = true;
         }
+
         return isPowerPack;
     }
 
@@ -147,18 +137,27 @@ public class AddOnService {
      * @return
      */
     public boolean isInstalled(AddOn addOn) {
+        return isInstalled(addOn.getPackageName(), addOn.isInternal());
+    }
+
+    /**
+     * Check whether a given add-on is installed
+     * @param addOn
+     * @return
+     */
+    private boolean isInstalled(String packageName, boolean internal) {
         Context context = ContextManager.getContext();
         ApplicationInfo applicationInfo;
         try {
             applicationInfo = context.getPackageManager().getApplicationInfo(
-                    addOn.getPackageName(), 0);
+                    packageName, 0);
         } catch (Exception e) {
             return false;
         }
 
         if(applicationInfo == null)
             return false;
-        if(!addOn.isInternal())
+        if(!internal)
             return true;
         return applicationInfo.uid == context.getApplicationInfo().uid;
     }

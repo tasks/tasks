@@ -4,6 +4,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
@@ -26,6 +27,9 @@ public final class PluginServices {
 
     @Autowired
     MetadataService metadataService;
+
+    @Autowired
+    AddOnService addOnService;
 
     private static PluginServices instance;
 
@@ -53,4 +57,7 @@ public final class PluginServices {
         return getInstance().metadataService;
     }
 
+    public static AddOnService getAddOnService() {
+        return getInstance().addOnService;
+    }
 }

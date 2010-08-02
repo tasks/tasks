@@ -1,7 +1,7 @@
 package com.todoroo.andlib.sql;
 
 @SuppressWarnings("nls")
-public final class Constants {
+public final class SqlConstants {
     static final String SELECT = "SELECT";
     static final String SPACE = " ";
     static final String AS = "AS";

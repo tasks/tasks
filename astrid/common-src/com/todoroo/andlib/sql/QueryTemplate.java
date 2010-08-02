@@ -1,11 +1,11 @@
 package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.sql.Constants.COMMA;
-import static com.todoroo.andlib.sql.Constants.GROUP_BY;
-import static com.todoroo.andlib.sql.Constants.LIMIT;
-import static com.todoroo.andlib.sql.Constants.ORDER_BY;
-import static com.todoroo.andlib.sql.Constants.SPACE;
-import static com.todoroo.andlib.sql.Constants.WHERE;
+import static com.todoroo.andlib.sql.SqlConstants.COMMA;
+import static com.todoroo.andlib.sql.SqlConstants.GROUP_BY;
+import static com.todoroo.andlib.sql.SqlConstants.LIMIT;
+import static com.todoroo.andlib.sql.SqlConstants.ORDER_BY;
+import static com.todoroo.andlib.sql.SqlConstants.SPACE;
+import static com.todoroo.andlib.sql.SqlConstants.WHERE;
 import static java.util.Arrays.asList;
 
 import java.util.ArrayList;

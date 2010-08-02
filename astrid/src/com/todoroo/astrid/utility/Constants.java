@@ -22,6 +22,11 @@ public final class Constants {
     public static final boolean OEM = false;
 
     /**
+     * Whether this is an installation with sync disabled
+     */
+    public static final boolean SYNC = true;
+
+    /**
      * Interval to update the widget (in order to detect hidden tasks
      * becoming visible)
      */

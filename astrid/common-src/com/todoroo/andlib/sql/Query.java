@@ -1,15 +1,15 @@
 package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.sql.Constants.ALL;
-import static com.todoroo.andlib.sql.Constants.COMMA;
-import static com.todoroo.andlib.sql.Constants.FROM;
-import static com.todoroo.andlib.sql.Constants.GROUP_BY;
-import static com.todoroo.andlib.sql.Constants.LEFT_PARENTHESIS;
-import static com.todoroo.andlib.sql.Constants.ORDER_BY;
-import static com.todoroo.andlib.sql.Constants.RIGHT_PARENTHESIS;
-import static com.todoroo.andlib.sql.Constants.SELECT;
-import static com.todoroo.andlib.sql.Constants.SPACE;
-import static com.todoroo.andlib.sql.Constants.WHERE;
+import static com.todoroo.andlib.sql.SqlConstants.ALL;
+import static com.todoroo.andlib.sql.SqlConstants.COMMA;
+import static com.todoroo.andlib.sql.SqlConstants.FROM;
+import static com.todoroo.andlib.sql.SqlConstants.GROUP_BY;
+import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
+import static com.todoroo.andlib.sql.SqlConstants.ORDER_BY;
+import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
+import static com.todoroo.andlib.sql.SqlConstants.SELECT;
+import static com.todoroo.andlib.sql.SqlConstants.SPACE;
+import static com.todoroo.andlib.sql.SqlConstants.WHERE;
 import static com.todoroo.andlib.sql.SqlTable.table;
 import static java.util.Arrays.asList;
 

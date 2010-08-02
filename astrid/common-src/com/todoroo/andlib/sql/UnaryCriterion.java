@@ -1,6 +1,6 @@
 package com.todoroo.andlib.sql;
 
-import static com.todoroo.andlib.sql.Constants.SPACE;
+import static com.todoroo.andlib.sql.SqlConstants.SPACE;
 
 public class UnaryCriterion extends Criterion {
     protected final Field expression;

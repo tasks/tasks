@@ -129,6 +129,9 @@ public final class TaskEditActivity extends TabActivity {
     @Autowired
     private DateUtilities dateUtilities;
 
+    @Autowired
+    private AddOnService addOnService;
+
 	// --- UI components
 
     private EditText title;
@@ -211,7 +214,7 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new RepeatControlSet(this, extrasAddons));
 
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
-        if(AddOnService.isPowerPack()) {
+        if(addOnService.isPowerPack()) {
             controls.add(new GCalControlSet(this, addonsAddons));
             controls.add(new TimerControlSet(this, addonsAddons));
         }
