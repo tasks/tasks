@@ -94,21 +94,15 @@
         android:autoText="true"
         android:capitalize="sentences"
         android:singleLine="false" />
-                
-      <!-- separator -->
-      <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:padding="5dip"
-        android:background="@android:drawable/divider_horizontal_dark" />
         
       <!-- buttons -->
       <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:paddingTop="5dip"
+        android:layout_marginTop="10dip"
+        android:padding="5dip"
+        android:background="@drawable/edit_header"
         android:baselineAligned="false">
         <ImageButton
           android:id="@+id/save_basic"
@@ -203,20 +197,15 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />
-
-      <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:padding="5dip"
-        android:background="@android:drawable/divider_horizontal_dark" />
         
       <!-- buttons -->
       <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:paddingTop="5dip"
+        android:layout_marginTop="10dip"
+        android:padding="5dip"
+        android:background="@drawable/edit_header"
         android:baselineAligned="false">
         <ImageButton
           android:id="@+id/save_extra"
@@ -259,25 +248,28 @@
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:layout_weight="100"
+      android:gravity="center"
       android:visibility="gone"
       android:orientation="vertical">
       
       <ImageView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="10dip"
+        android:padding="20dip"
         android:src="@drawable/icon_pp" />
       
       <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/TEA_no_addons"
+        android:padding="10dip"
         android:gravity="center"
         style="@style/TextAppearance.TLA_NoItems" />
       
       <Button android:id="@+id/addons_button"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:padding="10dip"
         android:text="@string/TEA_addons_button" />
       
     </LinearLayout>
@@ -286,9 +278,10 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:layout_weight="1"
+      android:layout_marginTop="10dip"
+      android:padding="5dip"
       android:orientation="horizontal"
       android:background="@drawable/edit_header"
-      android:padding="5dip"
       android:baselineAligned="false">
       
       <ImageButton
@@ -303,6 +296,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:src="@drawable/tango_stop" />
+        
     </LinearLayout>
     
   </LinearLayout>

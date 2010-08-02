@@ -7,9 +7,9 @@ import android.app.TabActivity;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.ListView;
 import android.widget.TabHost;
-import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -48,11 +48,11 @@ public class AddOnActivity extends TabActivity {
         tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.AOA_tab_installed)).
                 setIndicator(r.getString(R.string.AOA_tab_installed),
                         r.getDrawable(R.drawable.tab_addons)).setContent(
-                                R.id.installed));
+                                R.id.tab_installed));
         tabHost.addTab(tabHost.newTabSpec(r.getString(R.string.AOA_tab_available)).
                 setIndicator(r.getString(R.string.AOA_tab_available),
                         r.getDrawable(R.drawable.tab_add)).setContent(
-                                R.id.available));
+                                R.id.tab_available));
 
         setTitle(R.string.AOA_title);
 
@@ -76,17 +76,15 @@ public class AddOnActivity extends TabActivity {
         if(installed.size() == 0 || getIntent().getBooleanExtra(TOKEN_START_WITH_AVAILABLE, false))
             getTabHost().setCurrentTab(1);
 
-        TextView noAddons = new TextView(this);
-        noAddons.setText(R.string.TEA_no_addons);
-        noAddons.setTextAppearance(this, R.style.TextAppearance_TLA_NoItems);
-
         ListView installedList = (ListView) findViewById(R.id.installed);
-        installedList.setEmptyView(noAddons);
         installedList.setAdapter(new AddOnAdapter(this, true, installed));
+        if(installed.size() > 0)
+            findViewById(R.id.empty_installed).setVisibility(View.GONE);
 
         ListView availableList = (ListView) findViewById(R.id.available);
-        availableList.setEmptyView(noAddons);
         availableList.setAdapter(new AddOnAdapter(this, false, available));
+        if(available.size() > 0)
+            findViewById(R.id.empty_available).setVisibility(View.GONE);
     }
 
 

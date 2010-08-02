@@ -12,7 +12,7 @@
         
     <!-- icon -->
     <ImageView android:id="@+id/icon"
-        android:layout_width="34dip"
+        android:layout_width="48dip"
         android:layout_height="fill_parent"
         android:gravity="center"
         android:paddingLeft="5dip" 
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/title"
             android:layout_toRightOf="@id/icon"
-            android:singleLine="true"
+            android:singleLine="false"
             style="@style/TextAppearance.TAd_ItemDetails"/>
             
     </LinearLayout>
@@ -49,18 +49,21 @@
     <!-- buttons -->
     
     <ImageButton android:id="@+id/button_web"
-        android:layout_width="32dip"
-        android:layout_height="32dip"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:scaleType="fitCenter"
         android:layout_gravity="center" />
         
     <ImageButton android:id="@+id/button_market"
-        android:layout_width="32dip"
-        android:layout_height="32dip"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:scaleType="fitCenter"
         android:layout_gravity="center" />
         
     <ImageView android:id="@+id/check"
-        android:layout_width="32dip"
-        android:layout_height="32dip"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:scaleType="fitCenter"
         android:layout_gravity="center"
         android:src="@android:drawable/checkbox_on_background"/>
             

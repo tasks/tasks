@@ -178,7 +178,7 @@ public class AddOnService {
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_pp)).getBitmap());
 
         list[1] = new AddOn(false, true, "Astrid Locale Plugin", null,
-                "Allows Astrid to make use of the Locale application to send you notifications based on filter conditions",
+                "Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale",
                 LOCALE_PACKAGE, "http://www.weloveastrid.com/store",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_pp)).getBitmap());
 

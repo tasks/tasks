@@ -221,6 +221,7 @@ public final class TaskEditActivity extends TabActivity {
 
         // show add-on help if necessary
         if(addonsAddons.getChildCount() == 0) {
+            ((View)addonsAddons.getParent()).setVisibility(View.GONE);
             findViewById(R.id.addons_empty).setVisibility(View.VISIBLE);
             ((Button)findViewById(R.id.addons_button)).setOnClickListener(new View.OnClickListener() {
                 @Override

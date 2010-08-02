@@ -125,10 +125,10 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
                 "com.android.vending.SearchAssetListActivity"); //$NON-NLS-1$
             Drawable icon = getIntentIcon(marketIntent);
             if(icon == null)
-                viewHolder.web.setImageResource(
+                viewHolder.market.setImageResource(
                         android.R.drawable.stat_sys_download);
             else
-                viewHolder.web.setImageDrawable(icon);
+                viewHolder.market.setImageDrawable(icon);
         }
     }
 

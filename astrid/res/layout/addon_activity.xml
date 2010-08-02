@@ -7,18 +7,44 @@
 
   <!-- =================================================== tab: installed == -->
   
-  <ListView android:id="@+id/installed"
-    android:paddingRight="8dip"
-    android:orientation="vertical"
+  <FrameLayout android:id="@+id/tab_installed"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" />      
+    android:layout_height="fill_parent">
+    
+    <TextView android:id="@+id/empty_installed"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@string/TEA_no_addons"
+        style="@style/TextAppearance.TLA_NoItems" />
+  
+    <ListView android:id="@+id/installed"
+        android:paddingRight="8dip"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+        
+  </FrameLayout>
   
   <!-- =================================================== tab: available == -->
   
-  <ListView android:id="@+id/available"
-    android:paddingRight="8dip"
-    android:orientation="vertical"
+  <FrameLayout android:id="@+id/tab_available"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" />      
+    android:layout_height="fill_parent">
+    
+    <TextView android:id="@+id/empty_available"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:text="@string/TEA_no_addons"
+        style="@style/TextAppearance.TLA_NoItems" />
+  
+    <ListView android:id="@+id/available"
+        android:paddingRight="8dip"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" />
+        
+  </FrameLayout>
   
 </FrameLayout>

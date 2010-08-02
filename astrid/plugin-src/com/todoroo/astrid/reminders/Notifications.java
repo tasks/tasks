@@ -110,6 +110,9 @@ public class Notifications extends BroadcastReceiver {
             return false;
         }
 
+        // schedule next notification
+        ReminderService.getInstance().scheduleAlarm(task);
+
         // you're done - don't sound, do delete
         if(task.isCompleted() || task.isDeleted())
             return false;
