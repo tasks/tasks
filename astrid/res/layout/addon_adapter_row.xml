@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:background="@android:drawable/list_selector_background"
+    android:paddingTop="4dip"
+    android:paddingBottom="4dip"
+    android:paddingLeft="4dip"
+    android:paddingRight="4dip">
+        
+    <!-- icon -->
+    <ImageView android:id="@+id/icon"
+        android:layout_width="34dip"
+        android:layout_height="fill_parent"
+        android:gravity="center"
+        android:paddingLeft="5dip" 
+        android:scaleType="fitCenter"/>
+            
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="100"
+        android:paddingLeft="8dip" 
+        android:paddingRight="3dip" 
+        android:orientation="vertical">
+            
+        <!-- add-on name -->
+        <TextView android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@id/icon"
+            android:singleLine="true"
+            style="@style/TextAppearance.TAd_ItemTitle"/>
+    
+        <!-- description -->
+        <TextView android:id="@+id/description"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_toRightOf="@id/icon"
+            android:singleLine="true"
+            style="@style/TextAppearance.TAd_ItemDetails"/>
+            
+    </LinearLayout>
+          
+    <!-- buttons -->
+    
+    <ImageButton android:id="@+id/button_web"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_gravity="center" />
+        
+    <ImageButton android:id="@+id/button_market"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_gravity="center" />
+        
+    <ImageView android:id="@+id/check"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_gravity="center"
+        android:src="@android:drawable/checkbox_on_background"/>
+            
+</LinearLayout>

@@ -23,7 +23,7 @@ public final class UpgradeService {
             return;
 
         if(from == 135)
-            AddonService.recordOem();
+            AddOnService.recordOem();
 
         if(from < 136)
             new Astrid2To3UpgradeHelper().upgrade2To3();

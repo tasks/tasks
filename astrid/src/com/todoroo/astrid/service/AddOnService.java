@@ -11,11 +11,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.model.AddOn;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -26,13 +29,16 @@ import com.todoroo.astrid.utility.Preferences;
  *
  */
 @SuppressWarnings("nls")
-public class AddonService {
+public class AddOnService {
 
     /** OEM preference key */
     private static final String PREF_OEM = "poem";
 
     /** Astrid Power Pack package */
-    private static final String POWER_PACK_PACKAGE = "com.todoroo.astrid.ppack";
+    public static final String POWER_PACK_PACKAGE = "com.todoroo.astrid.ppack";
+
+    /** Astrid Locale package */
+    public static final String LOCALE_PACKAGE = "com.todoroo.astrid.locale";
 
     /** Astrid Power Pack label */
     public static final String POWER_PACK_LABEL = "Astrid Power Pack";
@@ -135,4 +141,48 @@ public class AddonService {
         Preferences.setBoolean(PREF_OEM, true);
     }
 
+    /**
+     * Check whether a given add-on is installed
+     * @param addOn
+     * @return
+     */
+    public boolean isInstalled(AddOn addOn) {
+        Context context = ContextManager.getContext();
+        ApplicationInfo applicationInfo;
+        try {
+            applicationInfo = context.getPackageManager().getApplicationInfo(
+                    addOn.getPackageName(), 0);
+        } catch (Exception e) {
+            return false;
+        }
+
+        if(applicationInfo == null)
+            return false;
+        if(!addOn.isInternal())
+            return true;
+        return applicationInfo.uid == context.getApplicationInfo().uid;
+    }
+
+    /**
+     * Get a list of add-ons
+     *
+     * @return available add-ons
+     */
+    public AddOn[] getAddOns() {
+        Resources r = ContextManager.getContext().getResources();
+
+        // temporary temporary
+        AddOn[] list = new AddOn[2];
+        list[0] = new AddOn(false, true, "Astrid Power Pack", null,
+                "Support Astrid and get more productive with the Astrid Power Pack backup, widgets, no ads, and calendar integration. Power up today!",
+                POWER_PACK_PACKAGE, "http://www.weloveastrid.com/store",
+                ((BitmapDrawable)r.getDrawable(R.drawable.icon_pp)).getBitmap());
+
+        list[1] = new AddOn(false, true, "Astrid Locale Plugin", null,
+                "Allows Astrid to make use of the Locale application to send you notifications based on filter conditions",
+                LOCALE_PACKAGE, "http://www.weloveastrid.com/store",
+                ((BitmapDrawable)r.getDrawable(R.drawable.icon_pp)).getBitmap());
+
+        return list;
+    }
 }

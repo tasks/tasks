@@ -7,32 +7,18 @@
 
   <!-- =================================================== tab: installed == -->
   
-  <ScrollView android:id="@+id/installed_tab"
+  <ListView android:id="@+id/installed"
+    android:paddingRight="8dip"
+    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    
-    <LinearLayout android:id="@+id/installed_container"
-      android:paddingRight="8dip"
-      android:orientation="vertical"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent">
-      
-    </LinearLayout>
-  </ScrollView>
+    android:layout_height="fill_parent" />      
   
   <!-- =================================================== tab: available == -->
   
-  <ScrollView android:id="@+id/availble_tab"
+  <ListView android:id="@+id/available"
+    android:paddingRight="8dip"
+    android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    
-    <LinearLayout android:id="@+id/available_container"
-      android:paddingRight="8dip"
-      android:orientation="vertical"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent">
-      
-    </LinearLayout>
-  </ScrollView>
-
+    android:layout_height="fill_parent" />      
+  
 </FrameLayout>

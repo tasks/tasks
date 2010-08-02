@@ -37,7 +37,6 @@ import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -51,17 +50,14 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.TabHost;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.ImageView.ScaleType;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -76,7 +72,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
-import com.todoroo.astrid.service.AddonService;
+import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagsControlSet;
@@ -215,30 +211,15 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new RepeatControlSet(this, extrasAddons));
 
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
-        if(AddonService.isPowerPack()) {
+        if(AddOnService.isPowerPack()) {
             controls.add(new GCalControlSet(this, addonsAddons));
             controls.add(new TimerControlSet(this, addonsAddons));
         }
 
         // show add-on help if necessary
         if(addonsAddons.getChildCount() == 0) {
-            ImageView ppIcon = new ImageView(this);
-            ppIcon.setImageResource(R.drawable.icon_pp);
-            ppIcon.setScaleType(ScaleType.CENTER);
-            ppIcon.setPadding(5, 10, 5, 10);
-            addonsAddons.addView(ppIcon);
-
-            TextView addOnText = new TextView(this);
-            addOnText.setText(R.string.TEA_no_addons);
-            addOnText.setTextAppearance(this, R.style.TextAppearance_TLA_NoItems);
-            addOnText.setGravity(Gravity.CENTER);
-            addOnText.setPadding(5, 10, 5, 10);
-            addonsAddons.addView(addOnText);
-
-            Button addOnButton = new Button(this);
-            addOnButton.setText(R.string.TEA_addons_button);
-            addonsAddons.addView(addOnButton);
-            addOnButton.setOnClickListener(new View.OnClickListener() {
+            findViewById(R.id.addons_empty).setVisibility(View.VISIBLE);
+            ((Button)findViewById(R.id.addons_button)).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     startActivity(new Intent(TaskEditActivity.this, AddOnActivity.class));

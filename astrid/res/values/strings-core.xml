@@ -445,11 +445,15 @@ to the plugin creator for fastest service.
   
   <!-- Add-on Activity - available add-ons tab -->
   <string name="AOA_tab_available">Available</string>
-    
-  <!-- Dialog for Astrid Power Pack -->
-  <string name="AOA_power_pack">Support Astrid and get more productive with 
-  the Astrid Power Pack backup, widgets, no ads, and calendar integration. 
-  Power up today!</string>
+  
+  <!-- Add-on Activity - free add-ons label -->
+  <string name="AOA_free">Free</string>
+  
+  <!-- Add-on Activity - menu item to visit add-on website -->
+  <string name="AOA_visit_website">Visit Website</string>
+  
+  <!-- Add-on Activity - menu item to visit android market -->
+  <string name="AOA_visit_market">Android Market</string>
   
   <!-- ========================================== SynchronizationProvider == -->
           

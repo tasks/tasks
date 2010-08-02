@@ -14,7 +14,7 @@ import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.AddonService;
+import com.todoroo.astrid.service.AddOnService;
 
 /**
  * Exposes {@link TaskDecoration} for timers
@@ -32,7 +32,7 @@ public class TimerActionExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        if(!AddonService.isPowerPack())
+        if(!AddOnService.isPowerPack())
             return;
 
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TIMER_START,
