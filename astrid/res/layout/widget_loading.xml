@@ -25,4 +25,5 @@
         android:gravity="center"
         android:text="@string/TWi_loading"
         style="@style/TextAppearance.Widget" />
+        
 </LinearLayout>
