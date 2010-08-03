@@ -390,6 +390,8 @@ public class Astrid2To3UpgradeHelper {
             tagCursor.close();
             if(mapCursor != null)
                 mapCursor.close();
+            tagsDb.close();
+            tagTaskDb.close();
         }
     }
 
@@ -434,6 +436,7 @@ public class Astrid2To3UpgradeHelper {
             }
         } finally {
             cursor.close();
+            syncDb.close();
         }
     }
 
