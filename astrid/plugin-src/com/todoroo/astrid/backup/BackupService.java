@@ -115,6 +115,8 @@ public class BackupService extends Service {
             }
         };
         File astridDir = backupDirectorySetting.getBackupDirectory();
+        if(astridDir == null)
+            return;
 
         // grab all backup files, sort by modified date, delete old ones
         File[] files = astridDir.listFiles(backupFileFilter);

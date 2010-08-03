@@ -97,7 +97,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private TaskService taskService;
 
     protected final ListActivity activity;
-    protected final HashMap<Long, Boolean> completedItems;
+    protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>();
     private OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
     private final int resource;
@@ -144,7 +144,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         this.activity = activity;
         this.onCompletedTaskListener = onCompletedTaskListener;
 
-        completedItems = new HashMap<Long, Boolean>();
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
 
         synchronized(TaskAdapter.class) {
@@ -298,8 +297,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // complete box
         final CheckBox completeBox = viewHolder.completeBox; {
             // show item as completed if it was recently checked
-            if(completedItems.containsKey(task.getId()))
-                task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
+            if(completedItems.containsKey(task.getId())) {
+                task.setValue(Task.COMPLETION_DATE,
+                        completedItems.get(task.getId()) ? DateUtilities.now() : 0);
+            }
+            System.err.println("look it read " + task.getId() + " was " +
+                    task.isCompleted()
+                    + ", cache had " + completedItems.get(task.getId()));
             completeBox.setChecked(task.isCompleted());
         }
 
@@ -565,7 +569,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
-        completedItems.clear();
     }
 
     private final View.OnClickListener completeBoxListener = new View.OnClickListener() {
@@ -644,11 +647,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param progress
      */
     void setTaskAppearance(ViewHolder viewHolder, Task task) {
-        boolean state;
-        if(completedItems.containsKey(task.getId()))
-            state = completedItems.get(task.getId());
-        else
-            state = task.isCompleted();
+        boolean state = task.isCompleted();
 
         viewHolder.completeBox.setChecked(state);
 
@@ -674,16 +673,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param completeBox
      *            the box that was clicked. can be null
      */
-    protected void completeTask(final Task actionItem, final boolean newState) {
-        if(actionItem == null)
+    protected void completeTask(final Task task, final boolean newState) {
+        if(task == null)
             return;
 
-        if (newState != actionItem.isCompleted()) {
-            completedItems.put(actionItem.getId(), newState);
-            taskService.setComplete(actionItem, newState);
+        if (newState != task.isCompleted()) {
+            completedItems.put(task.getId(), newState);
+            taskService.setComplete(task, newState);
 
             if(onCompletedTaskListener != null)
-                onCompletedTaskListener.onCompletedTask(actionItem, newState);
+                onCompletedTaskListener.onCompletedTask(task, newState);
         }
     }
 

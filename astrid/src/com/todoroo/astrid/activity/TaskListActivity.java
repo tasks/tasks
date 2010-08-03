@@ -179,7 +179,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         }).start();
     }
 
-
     /**
      * Create options menu (displayed when user presses menu key)
      *
@@ -188,7 +187,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         if(menu.size() > 0)
-            return true;
+            menu.clear();
 
         MenuItem item;
 
@@ -459,8 +458,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        loadTaskListContent(true);
-        taskService.cleanup();
+        if(resultCode != RESULT_CANCELED) {
+            loadTaskListContent(true);
+            taskService.cleanup();
+        }
     }
 
     public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount,
@@ -681,6 +682,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             return true;
         case MENU_HELP_ID:
             // TODO
+            return true;
+        case MENU_ADDON_INTENT_ID:
+            intent = item.getIntent();
+            AndroidUtilities.startExternalIntent(this, intent, ACTIVITY_MENU_EXTERNAL);
             return true;
 
 
