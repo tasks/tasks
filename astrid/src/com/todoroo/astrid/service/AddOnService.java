@@ -176,12 +176,12 @@ public class AddOnService {
         // temporary temporary
         AddOn[] list = new AddOn[2];
         list[0] = new AddOn(false, true, "Astrid Power Pack", null,
-                "Support Astrid and get more productive with the Astrid Power Pack backup, widgets, no ads, and calendar integration. Power up today!",
+                "Support Astrid and get more productive with the Astrid Power Pack. Backup, widgets, no ads, and calendar integration. Power up today!",
                 POWER_PACK_PACKAGE, "http://www.weloveastrid.com/store",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_pp)).getBitmap());
 
         list[1] = new AddOn(false, true, "Astrid Locale Plugin", null,
-                "Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale",
+                "Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.",
                 LOCALE_PACKAGE, "http://www.weloveastrid.com/store",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_locale)).getBitmap());
 

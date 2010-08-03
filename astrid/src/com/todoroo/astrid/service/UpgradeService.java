@@ -67,7 +67,7 @@ public final class UpgradeService {
                     "Fixed other crashes that users have reported",
             });
         if(from <= 135)
-            newVersionString(changeLog, "3.0.0 (?/??/10)", new String[] {
+            newVersionString(changeLog, "3.0.0 (8/3/10)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
                     "look and feel, a new add-on system allows Astrid to become " +
                     "more powerful, while other improvements have made it faster " +
