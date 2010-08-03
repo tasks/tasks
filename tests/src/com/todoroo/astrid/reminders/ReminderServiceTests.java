@@ -42,11 +42,9 @@ public class ReminderServiceTests extends DatabaseTestCase {
         task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_DAY);
         task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
         taskDao.save(task, false);
-        service.scheduleAlarm(task);
 
         // test due date in the future
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_DAY);
-        taskDao.save(task, false);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -55,7 +53,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
         });
-        service.scheduleAlarm(task);
+        taskDao.save(task, false);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
@@ -65,7 +63,6 @@ public class ReminderServiceTests extends DatabaseTestCase {
         final Task task = new Task();
         task.setValue(Task.TITLE, "water");
         task.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_WEEK);
-        taskDao.save(task, false);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -75,7 +72,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_RANDOM);
             }
         });
-        service.scheduleAlarm(task);
+        taskDao.save(task, false);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
 
         // test random with last notify way in the past
@@ -94,11 +91,9 @@ public class ReminderServiceTests extends DatabaseTestCase {
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_DAY);
         task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE);
         taskDao.save(task, false);
-        service.scheduleAlarm(task);
 
         // test due date in the past
         task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_DAY);
-        taskDao.save(task, false);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -108,7 +103,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_OVERDUE);
             }
         });
-        service.scheduleAlarm(task);
+        taskDao.save(task, false);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
@@ -120,7 +115,6 @@ public class ReminderServiceTests extends DatabaseTestCase {
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_WEEK);
         task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
         task.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_DAY);
-        taskDao.save(task, false);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -130,7 +124,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_RANDOM);
             }
         });
-        service.scheduleAlarm(task);
+        taskDao.save(task, false);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
 
         // now set the due date in the past
@@ -141,7 +135,6 @@ public class ReminderServiceTests extends DatabaseTestCase {
 
         // now set the due date before the random
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_HOUR);
-        taskDao.save(task, false);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -150,7 +143,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
         });
-        service.scheduleAlarm(task);
+        taskDao.save(task, false);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
