@@ -29,12 +29,12 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.timsu.astrid.provider.TasksProvider;
 import com.todoroo.astrid.legacy.data.AbstractController;
 import com.todoroo.astrid.legacy.data.tag.AbstractTagModel.TagModelDatabaseHelper;
 import com.todoroo.astrid.legacy.data.tag.TagToTaskMapping.TagToTaskMappingDatabaseHelper;
 import com.todoroo.astrid.legacy.data.task.TaskIdentifier;
 import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
+import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
 /** Controller for Tag-related operations */
 public class TagController extends AbstractController {
@@ -266,7 +266,7 @@ public class TagController extends AbstractController {
                 new String[] { tagId.idAsString(), taskId.idAsString() });
 
         // notify modification
-        TasksProvider.notifyDatabaseModification();
+        Astrid2TaskProvider.notifyDatabaseModification();
 
     	return res > 0;
     }

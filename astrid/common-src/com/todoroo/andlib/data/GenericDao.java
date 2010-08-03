@@ -54,12 +54,8 @@ public class GenericDao<TYPE extends AbstractModel> {
 
     /**
      * Construct a query with SQL DSL objects
-     * @param database
-     * @param properties
-     * @param builder
-     * @param where
-     * @param groupBy
-     * @param sortOrder
+     *
+     * @param query
      * @return
      */
     public TodorooCursor<TYPE> query(Query query) {
@@ -68,6 +64,23 @@ public class GenericDao<TYPE extends AbstractModel> {
             Log.i("SQL-" + modelClass.getSimpleName(), query.toString()); //$NON-NLS-1$
         Cursor cursor = database.rawQuery(query.toString(), null);
         return new TodorooCursor<TYPE>(cursor, query.getFields());
+    }
+
+    /**
+     * Construct a query with raw SQL
+     *
+     * @param properties
+     * @param selection
+     * @param selectionArgs
+     * @return
+     */
+    public TodorooCursor<TYPE> rawQuery(String selection, String[] selectionArgs, Property<?>... properties) {
+        String[] fields = new String[properties.length];
+        for(int i = 0; i < properties.length; i++)
+            fields[i] = properties[i].name;
+        return new TodorooCursor<TYPE>(database.getDatabase().query(table.name,
+                fields, selection, selectionArgs, null, null, null),
+                properties);
     }
 
     /**

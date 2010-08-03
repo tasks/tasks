@@ -127,7 +127,7 @@
 
     <!-- ======================================================= Providers = -->
 
-    <provider android:name=".provider.TasksProvider"
+    <provider android:name="com.todoroo.astrid.provider.Astrid2TaskProvider"
               android:authorities="com.timsu.astrid.tasksprovider"
               android:multiprocess="true"
               android:grantUriPermissions="true"

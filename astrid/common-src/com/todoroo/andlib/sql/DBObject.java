@@ -25,7 +25,6 @@ public abstract class DBObject<T extends DBObject<?>> implements Cloneable {
         return alias != null;
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

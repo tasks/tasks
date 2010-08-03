@@ -11,8 +11,8 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -201,6 +201,27 @@ public class TaskService {
     public int count(Query query) {
         TodorooCursor<Task> cursor = taskDao.query(query);
         try {
+            return cursor.getCount();
+        } finally {
+            cursor.close();
+        }
+    }
+
+    /**
+     * Update database based on selection and values
+     * @param selection
+     * @param selectionArgs
+     * @param setValues
+     * @return
+     */
+    public int updateBySelection(String selection, String[] selectionArgs,
+            Task taskValues) {
+        TodorooCursor<Task> cursor = taskDao.rawQuery(selection, selectionArgs, Task.ID);
+        try {
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                taskValues.setValue(Task.ID, cursor.get(Task.ID));
+                taskDao.save(taskValues, false);
+            }
             return cursor.getCount();
         } finally {
             cursor.close();

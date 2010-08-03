@@ -5,6 +5,7 @@ import static com.todoroo.andlib.sql.SqlConstants.COMMA;
 import static com.todoroo.andlib.sql.SqlConstants.FROM;
 import static com.todoroo.andlib.sql.SqlConstants.GROUP_BY;
 import static com.todoroo.andlib.sql.SqlConstants.LEFT_PARENTHESIS;
+import static com.todoroo.andlib.sql.SqlConstants.LIMIT;
 import static com.todoroo.andlib.sql.SqlConstants.ORDER_BY;
 import static com.todoroo.andlib.sql.SqlConstants.RIGHT_PARENTHESIS;
 import static com.todoroo.andlib.sql.SqlConstants.SELECT;
@@ -27,6 +28,7 @@ public final class Query {
     private final ArrayList<Field> groupBies = new ArrayList<Field>();
     private final ArrayList<Order> orders = new ArrayList<Order>();
     private final ArrayList<Criterion> havings = new ArrayList<Criterion>();
+    private int limits = -1;
 
     private Query(Field... fields) {
         this.fields.addAll(asList(fields));
@@ -61,6 +63,11 @@ public final class Query {
         return this;
     }
 
+    public Query limit(int limit) {
+        limits = limit;
+        return this;
+    }
+
     public Query appendSelectFields(Property<?>... selectFields) {
         this.fields.addAll(asList(selectFields));
         return this;
@@ -87,6 +94,7 @@ public final class Query {
             visitWhereClause(sql);
             visitGroupByClause(sql);
             visitOrderByClause(sql);
+            visitLimitClause(sql);
         } else {
             if(joins.size() > 0 || groupBies.size() > 0 || orders.size() > 0 ||
                     havings.size() > 0)
@@ -161,6 +169,11 @@ public final class Query {
             sql.append(field.toStringInSelect()).append(COMMA);
         }
         sql.deleteCharAt(sql.length() - 1).append(SPACE);
+    }
+
+    private void visitLimitClause(StringBuilder sql) {
+        if(limits > -1)
+            sql.append(LIMIT).append(SPACE).append(limits).append(SPACE);
     }
 
     public SqlTable as(String alias) {

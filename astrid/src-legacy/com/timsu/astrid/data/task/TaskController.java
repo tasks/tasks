@@ -41,7 +41,7 @@ import com.timsu.astrid.data.alerts.AlertController;
 import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
-import com.timsu.astrid.provider.TasksProvider;
+import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.widget.TasksWidget.UpdateService;
 
 /**
@@ -235,7 +235,7 @@ public class TaskController extends AbstractController {
         cleanupTask(taskId, false);
 
         // notify modification
-        TasksProvider.notifyDatabaseModification();
+        Astrid2TaskProvider.notifyDatabaseModification();
 
         return database.delete(tasksTable, KEY_ROWID + "=" + id, null) > 0;
     }
@@ -282,7 +282,7 @@ public class TaskController extends AbstractController {
         }
 
         // notify modification
-        TasksProvider.notifyDatabaseModification();
+        Astrid2TaskProvider.notifyDatabaseModification();
 
         return saveSucessful;
     }

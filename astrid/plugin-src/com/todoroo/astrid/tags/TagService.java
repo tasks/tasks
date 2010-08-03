@@ -2,9 +2,9 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -142,6 +142,16 @@ public final class TagService {
      * @return empty string if no tags, otherwise string
      */
     public String getTagsAsString(long taskId) {
+        return getTagsAsString(taskId, ", ");
+    }
+
+    /**
+     * Return tags as a list of strings separated by given separator
+     *
+     * @param taskId
+     * @return empty string if no tags, otherwise string
+     */
+    public String getTagsAsString(long taskId, String separator) {
         StringBuilder tagBuilder = new StringBuilder();
         TodorooCursor<Metadata> tags = getTags(taskId);
         try {
@@ -152,7 +162,7 @@ public final class TagService {
                 metadata.readFromCursor(tags);
                 tagBuilder.append(metadata.getValue(TAG));
                 if (i < length - 1)
-                    tagBuilder.append(", ");
+                    tagBuilder.append(separator);
             }
         } finally {
             tags.close();
