@@ -145,4 +145,5 @@ public class DependencyInjectionService {
     public synchronized void setInjectors(AbstractDependencyInjector[] injectors) {
         this.injectors = injectors;
     }
+
 }

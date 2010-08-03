@@ -35,7 +35,7 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
     /**
      * Boolean bit to prevent multiple copies of this injector to be loaded
      */
-    private static boolean initialized = false;
+    private static AstridDependencyInjector instance = null;
 
     /**
      * Dependencies this class knows how to handle
@@ -155,13 +155,11 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
      * Install this service as the default Dependency Injector
      */
     public synchronized static void initialize() {
-        if(initialized)
+        if(instance != null)
             return;
-        initialized = true;
-
-        AstridDependencyInjector injector = new AstridDependencyInjector();
+        instance = new AstridDependencyInjector();
         DependencyInjectionService.getInstance().setInjectors(new AbstractDependencyInjector[] {
-                injector
+                instance
         });
 
         addInjectables();
@@ -171,4 +169,15 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
         // prevent instantiation
     }
 
+    @Override
+    public String toString() {
+        return getClass().getSimpleName();
+    }
+
+    /**
+     * Flush dependency injection cache. Useful for unit tests.
+     */
+    public static void flush() {
+        instance.createdObjects.clear();
+    }
 }

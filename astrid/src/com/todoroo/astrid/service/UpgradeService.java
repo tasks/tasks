@@ -73,6 +73,13 @@ public final class UpgradeService {
                     "more powerful, while other improvements have made it faster " +
                     "and easier to use. Hope you like it!",
             });
+        if(from > 135 && from <= 140)
+            newVersionString(changeLog, "3.0.1 (8/4/10)", new String[] {
+                    "Upgrade note: if you are missing old repeating tasks, " +
+                    "search for them, there was a bug where they were marked " +
+                    "as completed. This update also fixes widget issues with" +
+                    "Android 1.5. Thanks for your patience!",
+            });
 
         if(changeLog.length() == 0)
             return;

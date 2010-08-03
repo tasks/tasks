@@ -68,7 +68,7 @@ public class ExceptionService {
             else if(error instanceof SocketTimeoutException)
                 messageToDisplay = context.getString(errorDialogBodySocketTimeout);
             else
-                messageToDisplay = context.getString(errorDialogBodyGeneric, error.getMessage());
+                messageToDisplay = context.getString(errorDialogBodyGeneric, error);
 
             ((Activity)context).runOnUiThread(new Runnable() {
                 public void run() {
@@ -144,7 +144,7 @@ public class ExceptionService {
      *
      */
     public static class TodorooUncaughtExceptionHandler implements UncaughtExceptionHandler {
-        private UncaughtExceptionHandler defaultUEH;
+        private final UncaughtExceptionHandler defaultUEH;
 
         @Autowired
         protected ExceptionService exceptionService;

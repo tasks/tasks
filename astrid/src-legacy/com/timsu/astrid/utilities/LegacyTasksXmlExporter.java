@@ -182,11 +182,16 @@ public class LegacyTasksXmlExporter {
         syncDataController.open();
     }
 
-    public void exportTasks(File directory) {
+    public String exportTasks(File directory) {
         if (setupFile(directory)) {
-            Thread thread = new Thread(doBackgroundExport);
-            thread.start();
+            try {
+                doTasksExport();
+            } catch (IOException e) {
+                return null;
+            }
+            return output;
         }
+        return null;
     }
 
     public static File getExportDirectory() {

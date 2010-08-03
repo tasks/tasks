@@ -2,6 +2,8 @@ package com.todoroo.astrid.upgrade;
 
 import java.util.Date;
 
+import android.util.Log;
+
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -11,8 +13,8 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.alarms.Alarm;
 import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.legacy.data.alerts.AlertController;
 import com.todoroo.astrid.legacy.data.enums.Importance;
 import com.todoroo.astrid.legacy.data.enums.RepeatInterval;
@@ -20,10 +22,11 @@ import com.todoroo.astrid.legacy.data.sync.SyncDataController;
 import com.todoroo.astrid.legacy.data.sync.SyncMapping;
 import com.todoroo.astrid.legacy.data.tag.TagController;
 import com.todoroo.astrid.legacy.data.tag.TagIdentifier;
-import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.legacy.data.task.TaskController;
 import com.todoroo.astrid.legacy.data.task.TaskIdentifier;
 import com.todoroo.astrid.legacy.data.task.TaskModelForEdit;
+import com.todoroo.astrid.legacy.data.task.TaskModelForSync;
+import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.data.MilkTask;
@@ -36,11 +39,11 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
     // --- legacy table names
 
-    private static final String SYNC_TEST = "synctest";
-    private static final String ALERTS_TEST = "alertstest";
-    private static final String TAG_TASK_TEST = "tagtasktest";
-    private static final String TAGS_TEST = "tagstest";
-    private static final String TASKS_TEST = "taskstest";
+    public static final String SYNC_TEST = "synctest";
+    public static final String ALERTS_TEST = "alertstest";
+    public static final String TAG_TASK_TEST = "tagtasktest";
+    public static final String TAGS_TEST = "tagstest";
+    public static final String TASKS_TEST = "taskstest";
 
     // --- setup and teardown
 
@@ -54,8 +57,6 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
     @Override
     protected void setUp() throws Exception {
-        super.setUp();
-
         // initialize test dependency injector
         TestDependencyInjector injector = TestDependencyInjector.initialize("upgrade");
         injector.addInjectable("tasksTable", TASKS_TEST);
@@ -71,7 +72,8 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         deleteDatabase(ALERTS_TEST);
         deleteDatabase(SYNC_TEST);
 
-        database.clear();
+        Log.e("haha", "setting up test", new Throwable());
+        super.setUp();
 
         alarmsDatabase = new AlarmDatabase();
         alarmsDatabase.clear();
@@ -101,7 +103,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     /**
      * Test upgrade doesn't crash and burn when there is nothing
      */
-    public void testEmptyUpgrade() {
+    public void xtestEmptyUpgrade() {
         TaskController taskController = new TaskController(getContext());
         taskController.open();
         assertEquals(0, taskController.getAllTaskIdentifiers().size());
@@ -118,7 +120,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     /**
      * Test various parameters of tasks table
      */
-    public void testTaskTableUpgrade() throws Exception {
+    public void xtestTaskTableUpgrade() throws Exception {
         TaskController taskController = new TaskController(getContext());
         taskController.open();
 
@@ -131,7 +133,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         griffey.setNotes("debut game: 1989");
         taskController.saveTask(griffey, false);
 
-        TaskModelForEdit guti = new com.todoroo.astrid.legacy.data.task.TaskModelForEdit();
+        TaskModelForEdit guti = new TaskModelForEdit();
         guti.setName("franklin gutierrez");
         guti.setPreferredDueDate(new Date(System.currentTimeMillis() + 5000000L));
         guti.setImportance(Importance.LEVEL_1);
@@ -182,9 +184,60 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     }
 
     /**
+     * Test upgrading repeating tasks
+     */
+    public void testRepeatingTaskUpgrade() throws Exception {
+        TaskController taskController = new TaskController(getContext());
+        taskController.open();
+
+        // create some ish
+        TaskModelForEdit daily = new TaskModelForEdit();
+        daily.setName("daily eat your peas");
+        daily.setDefiniteDueDate(new Date(1234567L));
+        RepeatInfo repeat = new RepeatInfo(RepeatInterval.DAYS, 1);
+        daily.setRepeat(repeat);
+        taskController.saveTask(daily, false);
+
+        TaskModelForSync biweekly = new TaskModelForSync();
+        biweekly.setName("biweekly force feeding");
+        repeat = new RepeatInfo(RepeatInterval.WEEKS, 1);
+        biweekly.setRepeat(repeat);
+        biweekly.setCompletionDate(new Date(110, 07, 01));
+        taskController.saveTask(biweekly, false);
+
+        // assert created
+        assertEquals(2, taskController.getAllTaskIdentifiers().size());
+
+        // upgrade
+        upgrade2To3();
+
+        // verify that data exists in our new table
+        database.openForReading();
+        TodorooCursor<Task> tasks = taskDao.query(Query.select(Task.PROPERTIES));
+        assertEquals(2, tasks.getCount());
+
+        tasks.moveToFirst();
+        Task task = new Task(tasks);
+        assertEquals(daily.getName(), task.getValue(Task.TITLE));
+        assertDatesEqual(daily.getDefiniteDueDate(), task.getValue(Task.DUE_DATE));
+        assertFalse(task.isCompleted());
+        RRule rule = new RRule(task.getValue(Task.RECURRENCE));
+        assertEquals(Frequency.DAILY, rule.getFreq());
+        assertEquals(1, rule.getInterval());
+
+        tasks.moveToNext();
+        task = new Task(tasks);
+        assertEquals(biweekly.getName(), task.getValue(Task.TITLE));
+        assertFalse(task.isCompleted());
+        rule = new RRule(task.getValue(Task.RECURRENCE));
+        assertEquals(Frequency.WEEKLY, rule.getFreq());
+        assertEquals(2, rule.getInterval());
+    }
+
+    /**
      * Test basic upgrading of tags
      */
-    public void testTagTableUpgrade() {
+    public void xtestTagTableUpgrade() {
         TaskController taskController = new TaskController(getContext());
         taskController.open();
         TagController tagController = new TagController(getContext());
@@ -235,7 +288,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     /**
      * Test basic upgrading when tags point to deleted tasks
      */
-    public void testDanglingTagsUpgrade() {
+    public void xtestDanglingTagsUpgrade() {
         TaskController taskController = new TaskController(getContext());
         taskController.open();
         TagController tagController = new TagController(getContext());
@@ -285,7 +338,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     /**
      * Test basic upgrading of alerts table
      */
-    public void testAlertTableUpgrade() {
+    public void xtestAlertTableUpgrade() {
         TaskController taskController = new TaskController(getContext());
         taskController.open();
         AlertController alertController = new AlertController(getContext());
@@ -322,7 +375,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     /**
      * Test basic upgrading of the sync mapping table
      */
-    public void testSyncTableUpgrade() {
+    public void xtestSyncTableUpgrade() {
         TaskController taskController = new TaskController(getContext());
         taskController.open();
         SyncDataController syncController = new SyncDataController(getContext());

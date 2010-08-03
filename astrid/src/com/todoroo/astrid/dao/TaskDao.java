@@ -8,6 +8,7 @@ package com.todoroo.astrid.dao;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.GenericDao;
@@ -42,6 +43,7 @@ public class TaskDao extends GenericDao<Task> {
         super(Task.class);
         DependencyInjectionService.getInstance().inject(this);
         setDatabase(database);
+        Log.i("INJECTOR", "injecting on " + this, new Throwable());
     }
 
     // --- SQL clause generators

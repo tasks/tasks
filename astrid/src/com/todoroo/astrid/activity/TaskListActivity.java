@@ -56,7 +56,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
-import com.todoroo.astrid.backup.BackupActivity;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -214,9 +213,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             if(!Constants.SYNC &&
                     MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name))
                 continue;
-            if(!addOnService.isPowerPack() &&
+            /*if(!addOnService.isPowerPack() &&
                     BackupActivity.class.getName().equals(resolveInfo.activityInfo.name))
-                continue;
+                continue;*/
 
             item = menu.add(Menu.NONE, MENU_ADDON_INTENT_ID, Menu.NONE,
                         resolveInfo.loadLabel(pm));

@@ -527,8 +527,11 @@ public class TasksXmlImporter {
                         BackupDateUtilities.getDateFromIso8601String(value).getTime());
             }
             else if(field.equals(LegacyTaskModel.COMPLETION_DATE)) {
-                task.setValue(Task.COMPLETION_DATE,
+                String completion = xpp.getAttributeValue(null, LegacyTaskModel.PROGRESS_PERCENTAGE);
+                if("100".equals(completion)) {
+                    task.setValue(Task.COMPLETION_DATE,
                         BackupDateUtilities.getDateFromIso8601String(value).getTime());
+                }
             }
             else if(field.equals(LegacyTaskModel.NOTIFICATION_FLAGS)) {
                 task.setValue(Task.REMINDER_FLAGS, Integer.parseInt(value));

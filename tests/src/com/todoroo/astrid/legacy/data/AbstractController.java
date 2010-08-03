@@ -27,8 +27,8 @@ import android.database.Cursor;
 import android.util.Log;
 
 import com.timsu.astrid.data.AbstractModel;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.upgrade.Astrid2To3UpgradeTests;
 
 /** Abstract controller class. Mostly contains some static fields */
 abstract public class AbstractController {
@@ -39,20 +39,11 @@ abstract public class AbstractController {
     public static final String KEY_ROWID = "_id";
 
     // database and table names
-    @Autowired
-    protected String tasksTable;
-
-    @Autowired
-    protected String tagsTable;
-
-    @Autowired
-    protected String tagTaskTable;
-
-    @Autowired
-    protected String alertsTable;
-
-    @Autowired
-    protected String syncTable;
+    protected String tasksTable = Astrid2To3UpgradeTests.TASKS_TEST;
+    protected String tagsTable = Astrid2To3UpgradeTests.TAGS_TEST;
+    protected String tagTaskTable = Astrid2To3UpgradeTests.TAG_TASK_TEST;
+    protected String alertsTable = Astrid2To3UpgradeTests.ALERTS_TEST;
+    protected String syncTable = Astrid2To3UpgradeTests.SYNC_TEST;
 
     // stuff
 
