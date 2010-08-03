@@ -7,67 +7,67 @@
   <!-- ================================================= BackupPreferences == -->
 
     <!-- Backup Preferences Title -->    
-    <string name="backup_BPr_header">Backups</string>
+    <string name="backup_BPr_header">Zálohy</string>
 
     <!-- Backup: Status Header -->    
-    <string name="backup_BPr_group_status">Status</string>
+    <string name="backup_BPr_group_status">Stav</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest: %s</string>
+    <string name="backup_status_success">Předchozí: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
-    <string name="backup_status_failed">Last Backup Failed</string>
+    <string name="backup_status_failed">Předchozí zálohování selhalo</string>
     <!-- Backup Status: error subtitle -->    
-    <string name="backup_status_failed_subtitle">(tap to show error)</string>
+    <string name="backup_status_failed_subtitle">klikněte pro zobrazení chyby</string>
     <!-- Backup Status: never backed up -->    
-    <string name="backup_status_never">Never Backed Up!</string>
+    <string name="backup_status_never">Nikdy nezálohováno!</string>
 
     <!-- Backup Options Group Label -->    
     <string name="backup_BPr_group_options">Možnosti</string>
 
     <!-- Preference: Automatic Backup Title -->    
-    <string name="backup_BPr_auto_title">Automatic Backups</string>
+    <string name="backup_BPr_auto_title">Automatické zálohování</string>
     <!-- Preference: Automatic Backup Description (when disabled) -->
-    <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
+    <string name="backup_BPr_auto_disabled">Automatické zálohování je zakázáno</string>    
     <!-- Preference: Automatic Backup Description (when enabled) -->
-    <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
+    <string name="backup_BPr_auto_enabled">Zálohování se bude provádět denně</string>
+    
+    <!-- Preference screen restoring Tasks Help -->
+    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
+    <!-- Preference screen Restoring Tasks Help Dialog Text-->
+    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
   
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Backups</string>
+  <string name="backup_BAc_label">Zálohy</string>
 
   <!-- backup activity title -->
-  <string name="backup_BAc_title">Manage Your Backups</string>
+  <string name="backup_BAc_title">Spravovat tvé zálohy</string>
 
   <!-- backup activity import button -->
-  <string name="backup_BAc_import">Import Tasks</string>
+  <string name="backup_BAc_import">Importovat úkoly</string>
 
   <!-- backup activity export button -->
-  <string name="backup_BAc_export">Export Tasks</string>
+  <string name="backup_BAc_export">Exportovat úkoly</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
   <!-- Message displayed when error occurs -->
-  <string name="backup_TXI_error">Import Error</string>
+  <string name="backup_TXI_error">Chyba v importu</string>
     
   <string name="export_toast">Odzálohovány %s do %s.</string>
   
   <!-- Progress Dialog Title for exporting -->    
-  <string name="export_progress_title">Exporting...</string>
+  <string name="export_progress_title">Exportuji...</string>
   
   <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">Souhrn obnovy</string>
     
   <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
-  <string name="import_summary_message">
-File %s contained %s.\n\n
-%s imported,\n
-%s already exist\n
-%s had errors\n
-  </string>
+  <string name="import_summary_message">Soubor %s obsahoval %s.\n\n %s importováno,\n %s již existuje\n %s obsahovalo chyby\n</string>
   
   <!-- Progress Dialog Title for importing -->    
-  <string name="import_progress_title">Importing...</string>
+  <string name="import_progress_title">Probíhá import...</string>
   
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
   <string name="import_progress_read">Načítávání úkolu %d...</string>
@@ -76,10 +76,10 @@ File %s contained %s.\n\n
   <string name="DLG_error_opening">Nemohl jsem nalézt tuto položku:</string>
   
   <!-- Backup: Dialog when unable to open SD card folder -->
-  <string name="DLG_error_sdcard">Cannot access folder: %s</string>
+  <string name="DLG_error_sdcard">Chyba v přístupu k adresáři: %s</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
-  <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
+  <string name="DLG_error_sdcard_general">Chyba v přístupu k SD kartě!</string>
     
   <!-- Backup: File Selector dialog for import -->
   <string name="import_file_prompt">Zvolte soubor k obnově</string>    
@@ -92,39 +92,39 @@ File %s contained %s.\n\n
   <!-- ================================================== AndroidManifest == -->
 
   <!-- Application Name (shown on home screen & in launcher) -->
-  <string name="app_name">Astrid Tasks</string>
+  <string name="app_name">Astrid Úkoly</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="read_permission_label">Astrid Permission</string>
+  <string name="read_permission_label">Astrid Práva</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="read_permission_desc">read tasks, display task filters</string>
+  <string name="read_permission_desc">zobrazit úkoly, zobrazit filtry úkolů</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="write_permission_label">Astrid Permission</string>
+  <string name="write_permission_label">Astrid Práva</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="write_permission_desc">create new tasks, edit existing tasks</string>
+  <string name="write_permission_desc">vytvořit nové úkoly, upravit existující úkoly</string>
   
   <!-- ==================================================== Generic Units == -->
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
-    <item quantity="one">1 Year</item>
+    <item quantity="one">1 rok</item>
     <!-- plurals: years -->
-    <item quantity="other">%d Years</item>
+    <item quantity="other">%d Roky</item>
   </plurals>
   <plurals name="DUt_months">
     <!-- plurals: months -->
-    <item quantity="one">1 Month</item>
+    <item quantity="one">1 měsíc</item>
     <!-- plurals: months -->
-    <item quantity="other">%d Months</item>
+    <item quantity="other">%d Měsíce</item>
   </plurals>
   <plurals name="DUt_weeks">
     <!-- plurals: days -->
-    <item quantity="one">1 Week</item>
+    <item quantity="one">1 týden</item>
     <!-- plurals: days -->
-    <item quantity="other">%d Weeks</item>
+    <item quantity="other">%d Týdny</item>
   </plurals>
   <plurals name="DUt_days">
     <!-- plurals: days -->
@@ -170,33 +170,33 @@ File %s contained %s.\n\n
   </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
-    <item quantity="one">1 task</item>
+    <item quantity="one">1 úkol</item>
     <!-- plurals: tasks -->
-    <item quantity="other">%d tasks</item>
+    <item quantity="other">%d úkolů</item>
   </plurals>
   
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">Confirm?</string>
+  <string name="DLG_confirm_title">Potvrdit?</string>
   
   <!-- question dialog title -->
-  <string name="DLG_question_title">Question:</string>
+  <string name="DLG_question_title">Otázka:</string>
   
   <!-- information dialog title -->
   <string name="DLG_information_title">Informace</string>
   
   <!-- general dialog yes-->
-  <string name="DLG_yes">Yes</string>
+  <string name="DLG_yes">Ano</string>
   
   <!-- general dialog no-->
-  <string name="DLG_no">No</string>
+  <string name="DLG_no">Ne</string>
   
   <!-- general dialog close-->
-  <string name="DLG_close">Close</string>
+  <string name="DLG_close">Zavřít</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oops, looks like some trouble occurred! Here\'s what happened:\n\n%s</string>
+  <string name="DLG_error">Oops, něco se porouchalo! Tady je, co se stalo:\n\n%s</string>
   
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
@@ -205,55 +205,53 @@ File %s contained %s.\n\n
   <string name="DLG_done">Hotovo</string>
   
   <!-- Button for canceling out of this page -->
-  <string name="DLG_cancel">Cancel</string>
+  <string name="DLG_cancel">Zrušit</string>
   
   <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">Please wait...</string>
+  <string name="DLG_wait">Prosím čekejte...</string>
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Čas (hodin : minut)</string>
   
-  <!-- Dialog when Astrid needs to be updated -->
-  <string name="DLG_please_update">Astrid should to be updated to the latest
-  version in the Android market! Please do that before continuing, or wait a 
-  few seconds.</string>
-  
+  <!-- Dialog for Astrid having a critical update -->
+  <string name="DLG_please_update">Astrid by měl být aktualizován na poslední verzi z Android market Prosím udělej to, než budeš pokračovat, nebo chvíli počkej.</string>
+
   <!-- Button for going to Market -->
-  <string name="DLG_to_market">Go To Market</string>
+  <string name="DLG_to_market">Jít do Android market</string>
   
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
-  <string name="WID_dateButtonUnset">Click To Set</string>
+  <string name="WID_dateButtonUnset">Klikni pro nastavení</string>
   
   <!-- String formatter for DateButtons ($D => date, $T => time) -->
   <string name="WID_dateButtonLabel">$D $T</string>
   
   <!-- String formatter for Disable button -->
-  <string name="WID_disableButton">Disable</string>
+  <string name="WID_disableButton">Zakázat</string>
   
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">No Tasks!</string>
+  <string name="TLA_no_items">Žádné úkoly!</string>
   
   <!-- Menu: Add-ons -->    
-  <string name="TLA_menu_addons">Add-ons</string>
+  <string name="TLA_menu_addons">Doplňky</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Nastavení</string>
   
   <!-- Menu: Help -->    
-  <string name="TLA_menu_help">Help</string>
+  <string name="TLA_menu_help">Nápověda</string>
   
   <!-- Search Label-->
-  <string name="TLA_search_label">Search This List</string>
+  <string name="TLA_search_label">Hledat v tomto seznamu</string>
   
   <!-- Window title for displaying Custom Filter -->
-  <string name="TLA_custom">Custom</string>
+  <string name="TLA_custom">Vlastní</string>
   
   <!-- Quick Add Edit Box Hint-->
-  <string name="TLA_quick_add_hint">Add to this list...</string>
+  <string name="TLA_quick_add_hint">Přidat do seznamu...</string>
   
   <!-- Help (HTML)-->
   <string name="TLA_help"><![CDATA[
@@ -291,36 +289,36 @@ button: add task & go to the edit page.
   <string name="TAd_contextDeleteTask">Smazat úkol</string>
 
   <!-- Context Item: undelete task -->
-  <string name="TAd_contextUndeleteTask">Undelete Task</string>
+  <string name="TAd_contextUndeleteTask">Obnovit úkol</string>
   
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Filter List Activity Title -->    
-  <string name="FLA_title">Astrid: Filters</string>
+  <string name="FLA_title">Astrid: Filtry</string>
   
   <!-- Displayed when loading filters -->    
-  <string name="FLA_loading">Loading Filters...</string>
+  <string name="FLA_loading">Načítání filtrů...</string>
   
   <!-- Context Menu: Create Shortcut -->    
-  <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
+  <string name="FLA_context_shortcut">Vytvořit zástupce na ploše</string>
   
   <!-- Menu: Search -->
-  <string name="FLA_menu_search">Search Tasks...</string>
+  <string name="FLA_menu_search">Hledat úkoly...</string>
   
   <!-- Menu: Help -->    
-  <string name="FLA_menu_help">Help</string>
+  <string name="FLA_menu_help">Nápověda</string>
   
   <!-- Create Shortcut Dialog Title -->    
   <string name="FLA_shortcut_dialog_title">Vytvořit zástupce</string>
   
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
-  <string name="FLA_shortcut_dialog">Name of shortcut:</string>
+  <string name="FLA_shortcut_dialog">Název zástupce:</string>
   
   <!-- Search Hint-->
-  <string name="FLA_search_hint">Search For Tasks</string>
+  <string name="FLA_search_hint">Hledat úkoly</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">Matching \'%s\'</string>
+  <string name="FLA_search_filter">Souhlasející \'%s\'</string>
   
   <!-- Help (HTML)-->
   <string name="FLA_help"><![CDATA[
@@ -340,51 +338,51 @@ to the plugin creator for fastest service.
   ]]></string>
   
   <!-- Toast: created shortcut (%s => label) -->
-  <string name="FLA_toast_onCreateShortcut">Created Shortcut: %s</string>
+  <string name="FLA_toast_onCreateShortcut">Vytvořen zástupce: %s</string>
   
   <!-- ================================================= TaskEditActivity == -->
   
   <!-- Title when editing a task (%s => task title) -->
-  <string name="TEA_view_title">Astrid: Editing \'%s\'</string>
+  <string name="TEA_view_title">Astrid: Úprava \'%s\'</string>
   
   <!-- Title when creating a new task -->
   <string name="TEA_view_titleNew">Astrid: Nový úkol</string>
   
   <!-- First Tab - basic task details -->
-  <string name="TEA_tab_basic">Základní</string>
+  <string name="TEA_tab_basic">Obecné</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">Advanced</string>
+  <string name="TEA_tab_extra">Pokročilé</string>
   
   <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_addons">Add-ons</string>
+  <string name="TEA_tab_addons">Doplňky</string>
   
   <!-- Task title label -->
-  <string name="TEA_title_label">Title</string>
+  <string name="TEA_title_label">Název</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Task Summary</string>
+  <string name="TEA_title_hint">Souhrn úkolu</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">Důležitost</string>
   
   <!-- Task urgency label -->
-  <string name="TEA_urgency_label">Deadline</string>
+  <string name="TEA_urgency_label">Termín</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">Due at specific time?</string>
+  <string name="TEA_urgency_specific_time">Dokončení v určitý čas?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Due Time</string>
+  <string name="TEA_urgency_time_none">Žádný čas dokončení</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide Until</string>
+  <string name="TEA_hideUntil_label">Skrýt do</string>
   
   <!-- Task note label -->
   <string name="TEA_note_label">Poznámky</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter Task Notes...</string>
+  <string name="TEA_notes_hint">Zadat poznámky k úkolu...</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">Jak dlouho to bude trvat?</string>
@@ -393,10 +391,10 @@ to the plugin creator for fastest service.
   <string name="TEA_elapsedDuration_label">Čas strávený úkolem</string>
 
   <!-- Menu: Save -->    
-  <string name="TEA_menu_save">Save Changes</string>
+  <string name="TEA_menu_save">Uložit změny</string>
   
   <!-- Menu: Don't Save -->
-  <string name="TEA_menu_discard">Don\'t Save</string>
+  <string name="TEA_menu_discard">Neukládat</string>
   
   <!-- Menu: Delete Task -->
   <string name="TEA_menu_delete">Smazat úkol</string>
@@ -411,120 +409,144 @@ to the plugin creator for fastest service.
   <string name="TEA_onTaskSave_notDue">Úkol uložen</string>
   
   <!-- Toast: task was not saved -->
-  <string name="TEA_onTaskCancel">Task Editing Was Canceled</string>
+  <string name="TEA_onTaskCancel">Úprava úkolu byla zrušena</string>
   
   <!-- Toast: task was deleted -->
-  <string name="TEA_onTaskDelete">Task Deleted!</string>
+  <string name="TEA_onTaskDelete">Úkol vymazán!</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>Specific Day/Time</item>
-      <item>Today</item>
-      <item>Tomorrow</item>
-      <item>(day after)</item>
-      <item>Next Week</item>
-      <item>No Deadline</item>
+      <item>Určitý den/čas</item>
+      <item>Dnes</item>
+      <item>Zítra</item>
+      <item>(den po)</item>
+      <item>Příští týden</item>
+      <item>Žádný termín</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Don\'t hide</item>
+      <item>Neskrývat</item>
       <item>Task is due</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
-      <item>Specific Day</item>
+      <item>Den před ukončením</item>
+      <item>Týden před ukončením</item>
+      <item>Určitý den</item>
   </string-array>
+  
+  <!-- Add Ons tab when no add-ons found -->
+  <string name="TEA_no_addons">No Add-ons Found!</string>
+  
+  <!-- Add Ons button -->
+  <string name="TEA_addons_button">Get Some Add-ons</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
-  <string name="InA_title">Welcome to Astrid!</string>
+  <string name="InA_title">Vítej do Astrid!</string>
   
   <!-- Button to agree to EULA -->
-  <string name="InA_agree">I Agree!!</string>
+  <string name="InA_agree">Souhlasím!!</string>
   
   <!-- Button to disagree with EULA -->
-  <string name="InA_disagree">I Disagree</string>
+  <string name="InA_disagree">Nesouhlasím</string>
   
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
-  <string name="HlA_get_support">Get Support</string>
+  <string name="HlA_get_support">Získat podporu</string>
     
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">What\'s New In Astrid?</string>
+  <string name="UpS_changelog_title">Co je nového v Astrid?</string>
   
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Window Title -->
-  <string name="EPr_title">Astrid: Preferences</string>
+  <string name="EPr_title">Astrid: Vlastnosti</string>
 
   <!-- Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Vzhled</string>
   
   <!-- Preference: Task List Font Size Title -->
-  <string name="EPr_fontSize_title">Task List Size</string>
+  <string name="EPr_fontSize_title">Velikost seznamu úkolů</string>
   
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
-  <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
+  <string name="EPr_fontSize_desc">Velikost písma na hlavní straně seznamu</string>  
   
   <!-- Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">New Task Defaults</string>
+  <string name="EPr_defaults_header">Výchozí nastavení nového úkolu</string>
   
   <!-- Preference: Default Urgency Title -->
-  <string name="EPr_default_urgency_title">Default Urgency</string>
+  <string name="EPr_default_urgency_title">Výchozí urgentnost</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently Set To: %s</string>
+  <string name="EPr_default_urgency_desc">Současně nastaveno na: %s</string>
   
   <!-- Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Default Importance</string>
+  <string name="EPr_default_importance_title">Výchozí důležitost</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently Set To: %s</string>
+  <string name="EPr_default_importance_desc">Současně nastaveno na: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
-  <string name="EPr_default_hideUntil_title">Default Hide Until</string>
+  <string name="EPr_default_hideUntil_title">Výchozí Skrýt do</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently Set To: %s</string>
+  <string name="EPr_default_hideUntil_desc">Současně nastaveno na: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!!! (Highest)</item>
+      <item>!!!! (Nejvyšší)</item>
       <item>!!!</item>
       <item>!!</item>
-      <item>! (Lowest)</item>
+      <item>! (Nejnižší)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
       <!-- urgency: labels for "Task Defaults" preference item. -->
-      <item>No Deadline</item>
-      <item>Today</item>
-      <item>Tomorrow</item>
-      <item>Day After Tomorrow</item>
-      <item>Next Week</item>
+      <item>Žádný termín</item>
+      <item>Dnes</item>
+      <item>Zítra</item>
+      <item>Pozítří</item>
+      <item>Příští týden</item>
   </string-array>
   
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
-      <item>Don\'t hide</item>
+      <item>Neskrývat</item>
       <item>Task is due</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
+      <item>Den před ukončením</item>
+      <item>Týden před ukončením</item>
   </string-array>    
   
   <!-- ==================================================== AddOnActivity == -->
   
-  <!-- Add Ons: author for internal authors  -->
-  <string name="AOA_internal_author">Astrid Team</string>
+  <!-- Add Ons Activity Title -->
+  <string name="AOA_title">Astrid: Add Ons</string>
+    
+  <!-- Add-on Activity: author for internal authors  -->
+  <string name="AOA_internal_author">Astrid tým</string>
+    
+  <!-- Add-on Activity: installed add-ons tab -->
+  <string name="AOA_tab_installed">Installed</string>
+  
+  <!-- Add-on Activity - available add-ons tab -->
+  <string name="AOA_tab_available">Available</string>
+  
+  <!-- Add-on Activity - free add-ons label -->
+  <string name="AOA_free">Free</string>
+  
+  <!-- Add-on Activity - menu item to visit add-on website -->
+  <string name="AOA_visit_website">Visit Website</string>
+  
+  <!-- Add-on Activity - menu item to visit android market -->
+  <string name="AOA_visit_market">Android Market</string>
   
   <!-- ========================================== SynchronizationProvider == -->
           
   <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Synchronizing your tasks...</string>
+  <string name="SyP_progress">Probíhá synchronizace Vašich úkolů...</string>
   
   <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Synchronizing...</string>
+  <string name="SyP_progress_toast">Sychronizuji...</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -534,14 +556,10 @@ to the plugin creator for fastest service.
   <!-- ============================================================= Misc == -->
   
   <!-- Displayed when task killer found. %s => name of the application -->
-  <string name="task_killer_help">
-It looks like you are using an app that can kill processes (%s)! If you can,
-add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
-Astrid might not let you know when your tasks are due.\n
-  </string>
+  <string name="task_killer_help">Vypadá to, že používáš aplikaci, která může ukončit proces (%s)! Jestli můžes, přidej Astrid do seznamu výjimek, ať není ukončován. Jinak Tě Astrid nemusí upozorňovat na úkoly.\n</string>
   
   <!-- Task killer dialog ok button -->
-  <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
+  <string name="task_killer_help_ok">Neukončím Astrid!</string>
     
   <!-- Astrid's Android Marketplace title. It never appears in the app itself. -->
   <string name="marketplace_title">Astrid Úkol/Todo Seznam</string>
@@ -560,37 +578,37 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- Resources for built-in filter plug-in -->
     
     <!-- Active Tasks Filter -->
-    <string name="BFE_Active">Active Tasks</string>
+    <string name="BFE_Active">Aktivní úkoly</string>
         
     <!-- Title for Active Tasks Filter (what user sees when first opening the app) -->
-    <string name="BFE_Active_title">Active Tasks</string>
+    <string name="BFE_Active_title">Aktivní úkoly</string>
     
     <!-- Search Filter -->
-    <string name="BFE_Search">Search</string>
+    <string name="BFE_Search">Hledat</string>
 
     <!-- Extended Filters Category -->
-    <string name="BFE_Extended">More...</string>
+    <string name="BFE_Extended">Více...</string>
 
     <!-- sort recent modification filter -->
-    <string name="BFE_Recent">Recently Modified</string>
+    <string name="BFE_Recent">Nedávno upravené</string>
     
     <!-- Completed Filter -->
     <string name="BFE_Completed">Dokončené úkoly</string>
 
     <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">Hidden Tasks</string>
+    <string name="BFE_Hidden">Skryté úkoly</string>
 
     <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">By Title</string>
+    <string name="BFE_Alphabetical">Podle názvu</string>
 
     <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">By Due Date</string>
+    <string name="BFE_DueDate">Podle data ukončení</string>
 
     <!-- sort Importance filter -->
-    <string name="BFE_Importance">By Importance</string>
+    <string name="BFE_Importance">Podle důležitosti</string>
 
     <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">Deleted Tasks</string>
+    <string name="BFE_Deleted">Smazané úkoly</string>
         
 
 
@@ -602,13 +620,13 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- =============================================== Task Edit Controls == -->
   
   <!-- Error message for adding to calendar  -->
-  <string name="gcal_TEA_error">Error adding task to calendar!</string>
+  <string name="gcal_TEA_error">Chyba při přidávání úkolu do kalendáře!</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_calendar_label">Calendar Integration:</string>
+  <string name="gcal_TEA_calendar_label">Integrace kalendáře:</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Create Calendar Event</string>
+  <string name="gcal_TEA_addToCalendar_label">Vytvořit událost kalendáře</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Otevřít událost v kalendáři</string>
@@ -616,10 +634,10 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->
-  <string name="gcal_completed_title">%s (completed)</string>
+  <string name="gcal_completed_title">%s (dokončeno)</string>
 
   <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
-  <string name="gcal_GCP_default">Default Calendar</string>
+  <string name="gcal_GCP_default">Výchozí kalendář</string>
 
 
 
@@ -630,30 +648,32 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
-  <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
+  <string name="locale_edit_alerts_title">Astrid Upozornění filtrů</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
-  <string name="locale_edit_intro">Astrid will send you a reminder                                                                                                                                             
-      when you have any tasks in the following filter:</string>
+  <string name="locale_edit_intro">Astrid Ti pošle upozornění, když budeš mít úkoly v následujícím filtru:</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
-  <string name="locale_pick_filter">Filter:</string>        
+  <string name="locale_pick_filter">Filtr:</string>        
       
   <!-- Locale Window Interval Label -->                                                                                                                                        
-  <string name="locale_interval_label">Limit notifications to:</string>        
+  <string name="locale_interval_label">Omezit upozornění na:</string>        
       
   <!-- Locale Window Interval Values -->                                                                                                                                        
   <string-array name="locale_interval">
-    <item>once an hour</item>
-    <item>once every six hours</item>
-    <item>once every twelve hours</item>
-    <item>once a day</item>
-    <item>once every three days</item>
-    <item>once a week</item>
+    <item>jednou za hodinu</item>
+    <item>jednou za šest hodin</item>
+    <item>jednou za dvanáct hodin</item>
+    <item>jednou denně</item>
+    <item>jednou za tři dny</item>
+    <item>jednou týdně</item>
   </string-array>        
       
   <!-- Locale Notification text -->                                                                                                                                        
-  <string name="locale_notification">You have $NUM matching: $FILTER</string>     
+  <string name="locale_notification">Máš $NUM souhlasející: $FILTER</string>     
+      
+  <!-- Locale Plugin was not found, it is required -->
+  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
      
 
 
@@ -665,40 +685,40 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind me...</string>
+  <string name="TEA_reminder_label">Upozorni mě...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when it\'s time to start the task</string>
+  <string name="TEA_reminder_due">... když je čas k provedení úkolu</string>
 
   <!-- Task Edit: Reminder after deadline -->  
   <string name="TEA_reminder_overdue">... when task is overdue</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">... randomly once</string>
+  <string name="TEA_reminder_random">... náhodně jednou</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
-  <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
+  <string name="TEA_reminder_alarm_label">Typ vyzvánění/vybrací:</string>
 
   <!-- Task Edit: Reminder alarm clock toggle: off -->  
-  <string name="TEA_reminder_alarm_off">Ring Once</string>
+  <string name="TEA_reminder_alarm_off">Vyzvánět jednou</string>
 
   <!-- Task Edit: Reminder alarm clock toggle: on -->  
-  <string name="TEA_reminder_alarm_on">Ring Until I Dismiss Alarm</string>
+  <string name="TEA_reminder_alarm_on">Vyzvánět dokud nezruším Alarm</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
-    <item>an hour</item>
-    <item>a day</item>
-    <item>a week</item>
-    <item>in two weeks</item>
-    <item>a month</item>
-    <item>in two months</item>
+    <item>hodina</item>
+    <item>den</item>
+    <item>týden</item>
+    <item>za dva týdny</item>
+    <item>měsíc</item>
+    <item>za dva měsíce</item>
   </string-array>
   
   <!-- ==================================================== notifications == -->
   
   <!-- Name of filter when viewing a reminder -->
-  <string name="rmd_NoA_filter">Reminder!</string>
+  <string name="rmd_NoA_filter">Připomínka!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Později...</string>
@@ -709,210 +729,210 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference Screen Title -->
-  <string name="rmd_EPr_alerts_header">Reminder Settings</string>
+  <string name="rmd_EPr_alerts_header">Nastavení upozornění</string>
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">No notifications will appear after %s</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">Žádné upozornění po %s</string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
-  <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
+  <string name="rmd_EPr_quiet_hours_desc_none">Tichý režim zakázán</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will begin appearing starting at %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Upozornění začnou %s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">Zvuk upozornění</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
-  <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
+  <string name="rmd_EPr_ringtone_desc_custom">Vlastní vyzvánění bylo nastaveno</string>
   <!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
-  <string name="rmd_EPr_ringtone_desc_silent">Ringtone set to silent</string>
+  <string name="rmd_EPr_ringtone_desc_silent">Vyzvánění ztišeno</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
-  <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
+  <string name="rmd_EPr_ringtone_desc_default">Bude použito výchozí vyzvánění</string>
   
   <!-- Reminder Preference: Notification Persistence Title -->
-  <string name="rmd_EPr_persistent_title">Notification Persistence</string>
+  <string name="rmd_EPr_persistent_title">Trvání upozornění</string>
   <!-- Reminder Preference: Notification Persistence Description (true) -->
-  <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
+  <string name="rmd_EPr_persistent_desc_true">Pro smazání musí být upozornění zobrazeno každé zvlášť</string>
   <!-- Reminder Preference: Notification Persistence Description (false) -->
-  <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
+  <string name="rmd_EPr_persistent_desc_false">Upozornění mohou být smazána s tlačítkem \"Smazat vše\"</string>
   
   <!-- Reminder Preference: Notification Icon Title -->
-  <string name="rmd_EPr_notificon_title">Notification Icon Set</string>
+  <string name="rmd_EPr_notificon_title">Nastavit ikonu upozornění</string>
   <!-- Reminder Preference: Notification Icon Description -->
-  <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
+  <string name="rmd_Epr_notificon_desc">Vybrat ikonu upozornění</string>
 
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">Vibruj při upozornění</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
-  <string name="rmd_EPr_vibrate_desc_true">Astrid will vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_true">Astrid bude vibrovat při odesílání upozornění</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_false">Astrid nebude vibrovat při odesílání upozornění</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Reminders</string>
+  <string name="rmd_EPr_nagging_title">Astrid upozornění</string>
   <!-- Reminder Preference: Nagging Description (true) -->
-  <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
+  <string name="rmd_EPr_nagging_desc_true">Astrid bude vypisovat povzbuzující zprávy během upozornění</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid nebude vypisovat žádné povzbuzující zprávy</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
-  <string name="rmd_EPr_defaultRemind_title">Random Reminders</string>
+  <string name="rmd_EPr_defaultRemind_title">Náhodná upozornění</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
-  <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
+  <string name="rmd_EPr_defaultRemind_desc_disabled">Nové úkoly nebudou mít náhodné upozornění</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
+  <string name="rmd_EPr_defaultRemind_desc">Na nové úkoly bude upozorňováno náhodně: %s</string>
   
   <!-- Defaults Title -->
-  <string name="rmd_EPr_defaults_header">New Task Defaults</string>
+  <string name="rmd_EPr_defaults_header">Výchozí nastavení nového úkolu</string>
   
   <string-array name="EPr_reminder_random">
     <!-- Reminder Preference: random reminder choices for preference page. -->
-    <item>disabled</item>
+    <item>zakázáno</item>
     <item>každou hodinu</item>
     <item>denně</item>
     <item>týdně</item>
-    <item>bi-weekly</item>
-    <item>monthly</item>
-    <item>bi-monthly</item>
+    <item>každých ctrnáct dní</item>
+    <item>měsíčně</item>
+    <item>každý druhý měsíc</item>
   </string-array>
         
   <string-array name="EPr_quiet_hours_start">
     <!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
-    <item>disabled</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
+    <item>zakázáno</item>
+    <item>20:00</item>
+    <item>21:00</item>
+    <item>22:00</item>
+    <item>23:00</item>
+    <item>0:00</item>
+    <item>1:00</item>
+    <item>2:00</item>
+    <item>3:00</item>
+    <item>4:00</item>
+    <item>5:00</item>
+    <item>6:00</item>
+    <item>7:00</item>
+    <item>8:00</item>
+    <item>9:00</item>
+    <item>10:00</item>
+    <item>11:00</item>
+    <item>12:00</item>
+    <item>13:00</item>
+    <item>14:00</item>
+    <item>15:00</item>
+    <item>16:00</item>
+    <item>17:00</item>
+    <item>18:00</item>
+    <item>19:00</item>
   </string-array>
   
   <string-array name="EPr_quiet_hours_end">
     <!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times! -->
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
+    <item>9:00</item>
+    <item>10:00</item>
+    <item>11:00</item>
+    <item>12:00</item>
+    <item>13:00</item>
+    <item>14:00</item>
+    <item>15:00</item>
+    <item>16:00</item>
+    <item>17:00</item>
+    <item>18:00</item>
+    <item>19:00</item>
+    <item>20:00</item>
+    <item>21:00</item>
+    <item>22:00</item>
+    <item>23:00</item>
+    <item>0:00</item>
+    <item>1:00</item>
+    <item>2:00</item>
+    <item>3:00</item>
+    <item>4:00</item>
+    <item>5:00</item>
+    <item>6:00</item>
+    <item>7:00</item>
+    <item>8:00</item>
   </string-array>
   
   <!-- =============================================== random reminders == -->
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
-      <item>Ahoj! Máš chvilku?</item>
-      <item>Můžeme se na chvíli sejít?</item>
+      <item>Ahoj! Máš chvíli?</item>
+      <item>Můžu Tě na chvíli vidět?</item>
       <item>Máš pár minut?</item>
-      <item>Zapoměl jsi?</item>
-      <item>Promiň!</item>
-      <item>Kdy máš čas:</item>
-      <item>Ve tvém kalendáři:</item>
-      <item>Máš chvilku čas?</item>
-      <item>Tady Astrid</item>
-      <item>Ahoj! Můžu tě vyrušit?</item>
-      <item>Minuta tvého času?</item>
-      <item>It\'s a great day to</item>
+      <item>Zapomněl jsi?</item>
+      <item>Omlouvám se!</item>
+      <item>Když máš čas:</item>
+      <item>Ve Tvém programu:</item>
+      <item>Máš chvíli čas?</item>
+      <item>Tady je Astrid!</item>
+      <item>Ahoj! Můžu Tě vyrušit?</item>
+      <item>Minuta Tvého času?</item>
+      <item>Je skvělý den na</item>
   </string-array>
 
   <string-array name="reminders_due">
       <!-- reminders related to task due date -->
-      <item>Time to work!</item>
-      <item>Due date is here!</item>
-      <item>Ready to start?</item>
-      <item>You said you would do:</item>
-      <item>You\'re supposed to start:</item>
-      <item>Time to start:</item>
-      <item>It\'s time!</item>
-      <item>Excuse me! Time for</item>
-      <item>You free? Time to</item>
+      <item>Čas na práci!</item>
+      <item>Čas dokončení úkolu je zde!</item>
+      <item>Připraven/a začít?</item>
+      <item>Řekl jsi, že uděláš:</item>
+      <item>Chtěl jsi začít:</item>
+      <item>Čas začít:</item>
+      <item>Je čas!</item>
+      <item>Omlouvám se! Čas na</item>
+      <item>Jsi volný? Čas na</item>
   </string-array>
 
   <string-array name="reminders_snooze">
       <!-- reminders related to snooze -->
-      <item>Don\'t be lazy now!</item>
-      <item>Snooze time is up!</item>
-      <item>No more snoozing!</item>
-      <item>Now are you ready?</item>
-      <item>No more postponing!</item>
+      <item>Nebuď ted líná/ý</item>
+      <item>Čas spaní vypršel!</item>
+      <item>Už zádné spaní!</item>
+      <item>Jsi teď připraven(a)?</item>
+      <item>Už žádné odkládání!</item>
   </string-array>
   
   <string-array name="reminder_responses">
       <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
-      <item>I\'ve got something for you!</item> 
-      <item>Jsi připraven toto dokončit?</item>
-      <item>Why don\'t you get this done?</item>
-      <item>Co tohle? Jsi připraven draku?</item>
-      <item>Připraven jít do toho?</item>
-      <item>Můžeš toto zvládnout?</item>
-      <item>Můžeš být šťastný! Tak to dokonči!</item>
-      <item>I promise you\'ll feel better if you finish this!</item>
-      <item>Won\'t you do this today?</item>
+      <item>Mám pro Tebe něco!</item> 
+      <item>Ready to put this in the past?</item>
+      <item>Proč tohle nedokončís?</item>
+      <item>How about it? Ready tiger?</item>
+      <item>Jsi připraven(a) tohle udělat?</item>
+      <item>Můžes tohle zvládnout?</item>
+      <item>Můžeš výt šťastná/ý! Jen tohle dokonči!</item>
+      <item>Slibuji Ti, že se budeš cítit lépe, když tohle dokončíš!</item>
+      <item>Neuděláš tohle dnes?</item>
       <item>Please finish this, I\'m sick of it!</item>
-      <item>Jestli to můžeš dokončit? Jistě že můžeš!</item>
-      <item>Uděláš to vůbec někdy?</item>
+      <item>Můžes tohle dokončit?</item>
+      <item>Plánuješ tohle vůbec někdy udělat?</item>
       <item>Feel good about yourself! Let\'s go!</item>
-      <item>Jsem na tebe hrdý! Pojďme to dodělat!</item>
-      <item>Malou svačinu až to dokončíš?</item>
-      <item>Jenom tento jeden úkol? To snad ne?</item>
-      <item>Čas zkrátit seznam úkolů!</item>
+      <item>Jsem na Tebe pyšný! Pojď to dokončit!</item>
+      <item>A little snack after you finish this?</item>
+      <item>Jen tenhle úkol? Prosím?</item>
+      <item>Time to shorten your todo list!</item>
   </string-array>
 
   <string-array name="postpone_nags">
       <!-- Astrid's nagging when user clicks postpone -->
-      <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
+      <item>Prosím řekni mi, že není pravda, že jsi prokrastinátor!</item>
       <item>Doesn\'t being lazy get old sometimes?</item>
-      <item>Někdo někde spoléhá, že toto dokončíš!</item>
-      <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
-      <item>Je to na posled co toto odkládáš, že ano?</item>
-      <item>Just finish this today, I won\'t tell anyone!</item>
-      <item>Proč odložit, když to můžeš jednoduše hmm... neodložit!</item>
-      <item>You\'ll finish this eventually, I presume?</item>
+      <item>Somewhere, someone is depending on you to finish this!</item>
+      <item>Když jsi řekl odložit, ve skutečnosti jsi myslel \'Já to udělám\', že?</item>
+      <item>Tohle je naposledy co to odkládáš, že?</item>
+      <item>Jen to dodělej, nikomu to neřeknu!</item>
+      <item>Proč odkládat, když můžes hmm... neodkládat!</item>
+      <item>Nakonec to doděláš, že?</item>
       <item>I think you\'re really great! How about not putting this off?</item>
-      <item>Dosáhneš svých cílů, pokud to uděláš?</item>
-      <item>Odložit, odložit, odložit. Kdy už to změníš?</item>
-      <item>I\'ve had enough with your excuses! Just do it already!</item>
-      <item>Didn\'t you make that excuse last time?</item>
-      <item>I can\'t help you organize your life if you do that...</item>
+      <item>Will you be able to achieve your goals if you do that?</item>
+      <item>Odkládat, odkládat, odkládat. Kdy se změníš!</item>
+      <item>Mám dost tvých omluv! Jen to dodělej!</item>
+      <item>Nepoužil jsi stejnou omluvu i posledně?</item>
+      <item>Nemůžu Ti pomoci organizovat tvůj život, když tohle děláš...</item>
   </string-array>
     
 
@@ -923,19 +943,19 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- Resources for built-in repeat plug-in -->
 
   <!-- repeating plugin name -->
-  <string name="repeat_plugin">Repeating Tasks</string>
+  <string name="repeat_plugin">Opakování úkolů</string>
   
   <!-- repeating plugin description -->
-  <string name="repeat_plugin_desc">Allows tasks to repeat</string>
+  <string name="repeat_plugin_desc">Povolit opakování úkolů</string>
   
   <!-- checkbox for turning on/off repeats -->
   <string name="repeat_enabled">Opakování</string>
   
   <!-- button for "every x" part of repeat (%d -> repeat value)  -->
-  <string name="repeat_every">Every %d</string>
+  <string name="repeat_every">Každý %d</string>
   
   <!-- hint when opening repeat interval -->
-  <string name="repeat_interval_prompt">Repeat Interval</string>
+  <string name="repeat_interval_prompt">Opakovací interval</string>
   
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours) -->
@@ -948,17 +968,17 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string-array name="repeat_type">
     <!-- repeat type (date to repeat from) -->
     <item>from due date</item>
-    <item>from completion date</item>
+    <item>od data dokončení</item>
   </string-array>
   
   <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
-  <string name="repeat_detail_byday">$I on $D</string>
+  <string name="repeat_detail_byday">$I na $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Repeats every %s</string>
+  <string name="repeat_detail_duedate">Opakovat každý %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">Repeats %s after completion</string>
+  <string name="repeat_detail_completion">Opakuje se %s po dokončení</string>
   
 
 
@@ -968,28 +988,28 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- ====================== Plugin Boilerplate ========================= -->
 
     <!-- label for RMilk button in Task Edit Activity -->
-    <string name="rmilk_EOE_button">Remember the Milk Settings</string>
+    <string name="rmilk_EOE_button">Nastavení Remember the Milk</string>
     
     <!-- task detail showing RTM list information  -->
-    <string name="rmilk_TLA_list">RTM List: %s</string>
+    <string name="rmilk_TLA_list">RTM seznam: %s</string>
     
     <!-- task detail showing RTM repeat information -->
-    <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
+    <string name="rmilk_TLA_repeat">RTM Opakující se úkol</string>
     
     <!--  task detail showing item needs to be synchronized -->
-    <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
+    <string name="rmilk_TLA_sync">Je nutná synchronizace s RTM</string>
 
     <!-- filters header: RTM -->
     <string name="rmilk_FEx_header">Remember the Milk</string>
     
     <!-- filter category for RTM lists -->
-    <string name="rmilk_FEx_list">Lists</string>
+    <string name="rmilk_FEx_list">Seznamy</string>
     
     <!-- RTM list filter name ($N => list, $C => count) -->
     <string name="rmilk_FEx_list_item">$N ($C)</string>
     
     <!--  RTM list filter title (%s => list) -->
-    <string name="rmilk_FEx_list_title">RTM List \'%s\'</string>
+    <string name="rmilk_FEx_list_title">RTM seznam \'%s\'</string>
     
     <!-- ======================= MilkEditActivity ========================== -->
     
@@ -997,13 +1017,13 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MEA_title">Remember the Milk</string>
     
     <!--  RTM edit List Edit Label -->
-    <string name="rmilk_MEA_list_label">RTM List:</string>
+    <string name="rmilk_MEA_list_label">RTM seznam:</string>
     
     <!--  RTM edit Repeat Label -->
-    <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
+    <string name="rmilk_MEA_repeat_label">RTM Opakovací status:</string>
     
     <!--  RTM edit Repeat Hint -->
-    <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
+    <string name="rmilk_MEA_repeat_hint">to je každý týden, po 14 dnech</string>
     
     <!-- ======================== MilkPreferences ========================== -->
 
@@ -1011,62 +1031,58 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
     <!-- RTM Status Group Label -->    
-    <string name="rmilk_MPr_group_status">Status</string>
+    <string name="rmilk_MPr_group_status">Stav</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Please Log In To RTM!</string>
+    <string name="rmilk_status_loggedout">Prosím přihlaš se na RTM!</string>
     <!-- Status: ongoing -->    
-    <string name="rmilk_status_ongoing">Sync Ongoing...</string>
+    <string name="rmilk_status_ongoing">Probíhá synchronizace...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="rmilk_status_success">Last Sync: %s</string>
+    <string name="rmilk_status_success">Poslední synchronizace: %s</string>
     <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="rmilk_status_failed">Failed On: %s</string>
+    <string name="rmilk_status_failed">Selhalo: %s</string>
     <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="rmilk_status_failed_subtitle">Last Successful Sync: %s</string>
+    <string name="rmilk_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
     <!-- Sync Status: never sync'd -->    
-    <string name="rmilk_status_never">Never Synchronized!</string>
+    <string name="rmilk_status_never">Nikdo nesynchronizováno!</string>
 
     <!-- RTM Options Group Label -->    
     <string name="rmilk_MPr_group_options">Možnosti</string>
 
     <!-- Preference: Synchronization Interval Title -->    
-    <string name="rmilk_MPr_interval_title">Background Sync</string>
+    <string name="rmilk_MPr_interval_title">Synchronizace na pozadí</string>
     <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="rmilk_MPr_interval_desc_disabled">Background synchronization is disabled</string>    
+    <string name="rmilk_MPr_interval_desc_disabled">Synchronizace na pozadí je zakázána</string>    
     <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="rmilk_MPr_interval_desc">Currently set to: %s</string>
+    <string name="rmilk_MPr_interval_desc">Současně nastaveno na: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="rmilk_MPr_bgwifi_title">Wifi Only Setting</string>    
+    <string name="rmilk_MPr_bgwifi_title">Nastavení jen pro Wifi</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+    <string name="rmilk_MPr_bgwifi_desc_enabled">Synchronizovat na pozadí se bude pouze při zapnuté Wifi</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+    <string name="rmilk_MPr_bgwifi_desc_disabled">Synchronizovat na pozadí se bude vždy</string>
     
     <!-- Actions Group Label  -->
     <string name="rmilk_MPr_group_actions">Činnosti</string>
 
     <!-- Synchronize Now Button -->    
-    <string name="rmilk_MPr_sync">Synchronizovat nyní!</string>
+    <string name="rmilk_MPr_sync">Synchronizuj teď!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="rmilk_MPr_sync_log_in">Log In &amp; Synchronize!</string>
+    <string name="rmilk_MPr_sync_log_in">Přihlásit se &amp; Synchronizovat!</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="rmilk_MPr_forget">Log Out</string>
+    <string name="rmilk_MPr_forget">Odhlásit se</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Clears all RTM synchronization data</string>
+    <string name="rmilk_MPr_forget_description">Vymazat všechny synchronizační data RTM</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
     <!-- RTM Login Instructions -->
-    <string name="rmilk_MLA_label">Please Log In and Authorize Astrid:</string>
+    <string name="rmilk_MLA_label">Prosím přihlaš se a autorizuj Astrid:</string>
     
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">
-Sorry, there was an error verifying your login. Please try again.
-\n\n
-Error Message: %s
-    </string>
+    <string name="rmilk_MLA_error">Omlouvám se, nastala chyba při ověřování tvého přihlášení. Prosím, zkus to znovu. \n\n Chybová hláška: %s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     
@@ -1074,24 +1090,23 @@ Error Message: %s
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
     <!-- confirmation dialog for RTM log out -->
-    <string name="rmilk_forget_confirm">Log out / clear synchronization data?</string>
+    <string name="rmilk_forget_confirm">Odhlásit se / vymazat synchronizační data?</string>
     
     <!-- Error msg when io exception with rmilk -->
-    <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
-    or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
+    <string name="rmilk_ioerror">Chyba připojení! Zkontroluj Tvé Internetové připojení nebo možná RTM servery (status.rememberthemilk.com), pro možná řešení.</string>
         
     <string-array name="rmilk_MPr_interval_entries">
         <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
         <item>zakázat</item>
-        <item>every fifteen minutes</item>
-        <item>every thirty minutes</item>
-        <item>every hour</item>
-        <item>every three hours</item>
-        <item>every six hours</item>
-        <item>every twelve hours</item>
-        <item>every day</item>
-        <item>every three days</item>
-        <item>every week</item>
+        <item>každých patnáct minut</item>
+        <item>každých třicet minut</item>
+        <item>každou hodinu</item>
+        <item>každé tři hodiny</item>
+        <item>každých šest hodin</item>
+        <item>každých dvanáct hodin</item>
+        <item>každý den</item>
+        <item>každé tři dny</item>
+        <item>každý týden</item>
     </string-array>
 
     
@@ -1114,7 +1129,7 @@ Error Message: %s
   <!-- ===================================================== Task Details == -->
   
   <!-- tag text that displays in task list. %s => tag name -->
-  <string name="tag_TLA_detail">Tags: %s</string>
+  <string name="tag_TLA_detail">Značky: %s</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1122,19 +1137,19 @@ Error Message: %s
   <string name="tag_FEx_header">Značky</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">By Size</string>
+  <string name="tag_FEx_by_size">Podle velikosti</string>
   
   <!-- filter header for tags, sorted by name -->
-  <string name="tag_FEx_alpha">Alphabetical</string>
+  <string name="tag_FEx_alpha">Podle abecedy</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Untagged</string>
+  <string name="tag_FEx_untagged">Neoznačené</string>
   
   <!-- $T => tag, $C => count -->
   <string name="tag_FEx_tag_w_size">$T ($C)</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">Tagged \'%s\'</string>
+  <string name="tag_FEx_name">Označené \'%s\'</string>
     
 
 
@@ -1150,13 +1165,13 @@ Error Message: %s
     <string name="TAE_stopTimer">Zastavit časovač</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
-    <string name="TPl_notification">Timers Active for %s!</string>
+    <string name="TPl_notification">Aktivní časovače pro %s!</string>
     
     <!-- Filter Header for Timer plugin -->
-    <string name="TFE_category">Timer Filters</string>
+    <string name="TFE_category">Filtry časovače</string>
     
     <!-- Filter for Timed Tasks -->
-    <string name="TFE_workingOn">Tasks Being Timed</string>
+    <string name="TFE_workingOn">Úkol je časován</string>
       
 
 </resources>

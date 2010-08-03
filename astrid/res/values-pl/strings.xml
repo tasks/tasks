@@ -7,17 +7,17 @@
   <!-- ================================================= BackupPreferences == -->
 
     <!-- Backup Preferences Title -->    
-    <string name="backup_BPr_header">Backups</string>
+    <string name="backup_BPr_header">Kopie zapasowe</string>
 
     <!-- Backup: Status Header -->    
     <string name="backup_BPr_group_status">Status</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest: %s</string>
+    <string name="backup_status_success">Ostatnie: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
-    <string name="backup_status_failed">Last Backup Failed</string>
+    <string name="backup_status_failed">Ostatnie nieudane kopie zapasowe</string>
     <!-- Backup Status: error subtitle -->    
-    <string name="backup_status_failed_subtitle">(tap to show error)</string>
+    <string name="backup_status_failed_subtitle">(dotknij, aby zobaczyć błędy)</string>
     <!-- Backup Status: never backed up -->    
     <string name="backup_status_never">Never Backed Up!</string>
 
@@ -25,38 +25,43 @@
     <string name="backup_BPr_group_options">Opcje</string>
 
     <!-- Preference: Automatic Backup Title -->    
-    <string name="backup_BPr_auto_title">Automatyczne przywracanie</string>
+    <string name="backup_BPr_auto_title">Automatyczne kopie zapasowe</string>
     <!-- Preference: Automatic Backup Description (when disabled) -->
-    <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
+    <string name="backup_BPr_auto_disabled">Automatyczne kopie zapasowe WYŁĄCZONE</string>    
     <!-- Preference: Automatic Backup Description (when enabled) -->
-    <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
+    <string name="backup_BPr_auto_enabled">Kopia zapasowa raz na dobę</string>
+    
+    <!-- Preference screen restoring Tasks Help -->
+    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
+    <!-- Preference screen Restoring Tasks Help Dialog Text-->
+    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
   
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Backups</string>
+  <string name="backup_BAc_label">Kopie zapasowe</string>
 
   <!-- backup activity title -->
-  <string name="backup_BAc_title">Manage Your Backups</string>
+  <string name="backup_BAc_title">Zarządzaj kopiami zapasowymi</string>
 
   <!-- backup activity import button -->
-  <string name="backup_BAc_import">Import Tasks</string>
+  <string name="backup_BAc_import">Importuj zadania</string>
 
   <!-- backup activity export button -->
-  <string name="backup_BAc_export">Export Tasks</string>
+  <string name="backup_BAc_export">Eksportuj zadania</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
   <!-- Message displayed when error occurs -->
-  <string name="backup_TXI_error">Import Error</string>
+  <string name="backup_TXI_error">Błąd podczas importowania</string>
     
   <string name="export_toast">Przywrócono %s jako %s</string>
   
   <!-- Progress Dialog Title for exporting -->    
-  <string name="export_progress_title">Exporting...</string>
+  <string name="export_progress_title">Eksportowanie...</string>
   
   <!-- Backup: Title of Import Summary Dialog -->
-  <string name="import_summary_title">Odzyskaj podsumowanie</string>
+  <string name="import_summary_title">Podsumowanie odzyskiwania</string>
     
   <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
   <string name="import_summary_message">
@@ -67,7 +72,7 @@ File %s contained %s.\n\n
   </string>
   
   <!-- Progress Dialog Title for importing -->    
-  <string name="import_progress_title">Importing...</string>
+  <string name="import_progress_title">Trwa importowanie...</string>
   
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
   <string name="import_progress_read">Czytanie zadań %d...</string>
@@ -95,13 +100,13 @@ File %s contained %s.\n\n
   <string name="app_name">Astrid Tasks</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="read_permission_label">Astrid Permission</string>
+  <string name="read_permission_label">Zezwolenia Astrid</string>
   
   <!-- permission description for READ_TASKS -->
   <string name="read_permission_desc">read tasks, display task filters</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="write_permission_label">Astrid Permission</string>
+  <string name="write_permission_label">Zezwolenia Astrid</string>
   
   <!-- permission description for READ_TASKS -->
   <string name="write_permission_desc">create new tasks, edit existing tasks</string>
@@ -110,21 +115,21 @@ File %s contained %s.\n\n
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
-    <item quantity="one">1 Year</item>
+    <item quantity="one">1 rok</item>
     <!-- plurals: years -->
-    <item quantity="other">%d Years</item>
+    <item quantity="other">%d Lat</item>
   </plurals>
   <plurals name="DUt_months">
     <!-- plurals: months -->
-    <item quantity="one">1 Month</item>
+    <item quantity="one">1 miesiąc</item>
     <!-- plurals: months -->
-    <item quantity="other">%d Months</item>
+    <item quantity="other">%d Miesięcy</item>
   </plurals>
   <plurals name="DUt_weeks">
     <!-- plurals: days -->
-    <item quantity="one">1 Week</item>
+    <item quantity="one">1 tydzień</item>
     <!-- plurals: days -->
-    <item quantity="other">%d Weeks</item>
+    <item quantity="other">%d Tygodni</item>
   </plurals>
   <plurals name="DUt_days">
     <!-- plurals: days -->
@@ -170,30 +175,30 @@ File %s contained %s.\n\n
   </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
-    <item quantity="one">1 task</item>
+    <item quantity="one">1 zadanie</item>
     <!-- plurals: tasks -->
-    <item quantity="other">%d tasks</item>
+    <item quantity="other">%d zadań</item>
   </plurals>
   
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">Confirm?</string>
+  <string name="DLG_confirm_title">Potwierdzić?</string>
   
   <!-- question dialog title -->
-  <string name="DLG_question_title">Question:</string>
+  <string name="DLG_question_title">Pytanie:</string>
   
   <!-- information dialog title -->
   <string name="DLG_information_title">Informacja</string>
   
   <!-- general dialog yes-->
-  <string name="DLG_yes">Yes</string>
+  <string name="DLG_yes">Tak</string>
   
   <!-- general dialog no-->
-  <string name="DLG_no">No</string>
+  <string name="DLG_no">Nie</string>
   
   <!-- general dialog close-->
-  <string name="DLG_close">Close</string>
+  <string name="DLG_close">Zamknij</string>
   
   <!-- error dialog (%s => error message)-->
   <string name="DLG_error">Oops, looks like some trouble occurred! Here\'s what happened:\n\n%s</string>
@@ -205,7 +210,7 @@ File %s contained %s.\n\n
   <string name="DLG_done">Wykonano</string>
   
   <!-- Button for canceling out of this page -->
-  <string name="DLG_cancel">Cancel</string>
+  <string name="DLG_cancel">Anuluj</string>
   
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Please wait...</string>
@@ -213,11 +218,11 @@ File %s contained %s.\n\n
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Czas (godziny : minuty)</string>
   
-  <!-- Dialog when Astrid needs to be updated -->
+  <!-- Dialog for Astrid having a critical update -->
   <string name="DLG_please_update">Astrid should to be updated to the latest
   version in the Android market! Please do that before continuing, or wait a 
   few seconds.</string>
-  
+
   <!-- Button for going to Market -->
   <string name="DLG_to_market">Go To Market</string>
   
@@ -435,6 +440,12 @@ to the plugin creator for fastest service.
       <item>Specific Day</item>
   </string-array>
   
+  <!-- Add Ons tab when no add-ons found -->
+  <string name="TEA_no_addons">No Add-ons Found!</string>
+  
+  <!-- Add Ons button -->
+  <string name="TEA_addons_button">Get Some Add-ons</string>
+  
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
@@ -515,8 +526,26 @@ to the plugin creator for fastest service.
   
   <!-- ==================================================== AddOnActivity == -->
   
-  <!-- Add Ons: author for internal authors  -->
+  <!-- Add Ons Activity Title -->
+  <string name="AOA_title">Astrid: Add Ons</string>
+    
+  <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Astrid Team</string>
+    
+  <!-- Add-on Activity: installed add-ons tab -->
+  <string name="AOA_tab_installed">Installed</string>
+  
+  <!-- Add-on Activity - available add-ons tab -->
+  <string name="AOA_tab_available">Available</string>
+  
+  <!-- Add-on Activity - free add-ons label -->
+  <string name="AOA_free">Free</string>
+  
+  <!-- Add-on Activity - menu item to visit add-on website -->
+  <string name="AOA_visit_website">Visit Website</string>
+  
+  <!-- Add-on Activity - menu item to visit android market -->
+  <string name="AOA_visit_market">Android Market</string>
   
   <!-- ========================================== SynchronizationProvider == -->
           
@@ -654,6 +683,9 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
       
   <!-- Locale Notification text -->                                                                                                                                        
   <string name="locale_notification">You have $NUM matching: $FILTER</string>     
+      
+  <!-- Locale Plugin was not found, it is required -->
+  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
      
 
 
@@ -770,10 +802,10 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   
   <string-array name="EPr_reminder_random">
     <!-- Reminder Preference: random reminder choices for preference page. -->
-    <item>wyłączone</item>
-    <item>co godzinę</item>
-    <item>codziennie</item>
-    <item>tygodniowo</item>
+    <item>disabled</item>
+    <item>hourly</item>
+    <item>daily</item>
+    <item>weekly</item>
     <item>bi-weekly</item>
     <item>monthly</item>
     <item>bi-monthly</item>
@@ -781,7 +813,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
         
   <string-array name="EPr_quiet_hours_start">
     <!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
-    <item>wyłączone</item>
+    <item>disabled</item>
     <item>8 PM</item>
     <item>9 PM</item>
     <item>10 PM</item>
@@ -1082,7 +1114,7 @@ Error Message: %s
         
     <string-array name="rmilk_MPr_interval_entries">
         <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
-        <item>wyłącz</item>
+        <item>disable</item>
         <item>every fifteen minutes</item>
         <item>every thirty minutes</item>
         <item>every hour</item>

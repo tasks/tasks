@@ -30,6 +30,11 @@
     <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
     <!-- Preference: Automatic Backup Description (when enabled) -->
     <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
+    
+    <!-- Preference screen restoring Tasks Help -->
+    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
+    <!-- Preference screen Restoring Tasks Help Dialog Text-->
+    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -213,11 +218,11 @@ File %s contained %s.\n\n
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">时间(小时:分钟)</string>
   
-  <!-- Dialog when Astrid needs to be updated -->
+  <!-- Dialog for Astrid having a critical update -->
   <string name="DLG_please_update">Astrid should to be updated to the latest
   version in the Android market! Please do that before continuing, or wait a 
   few seconds.</string>
-  
+
   <!-- Button for going to Market -->
   <string name="DLG_to_market">Go To Market</string>
   
@@ -435,6 +440,12 @@ to the plugin creator for fastest service.
       <item>Specific Day</item>
   </string-array>
   
+  <!-- Add Ons tab when no add-ons found -->
+  <string name="TEA_no_addons">No Add-ons Found!</string>
+  
+  <!-- Add Ons button -->
+  <string name="TEA_addons_button">Get Some Add-ons</string>
+  
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
@@ -515,8 +526,26 @@ to the plugin creator for fastest service.
   
   <!-- ==================================================== AddOnActivity == -->
   
-  <!-- Add Ons: author for internal authors  -->
+  <!-- Add Ons Activity Title -->
+  <string name="AOA_title">Astrid: Add Ons</string>
+    
+  <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Astrid Team</string>
+    
+  <!-- Add-on Activity: installed add-ons tab -->
+  <string name="AOA_tab_installed">Installed</string>
+  
+  <!-- Add-on Activity - available add-ons tab -->
+  <string name="AOA_tab_available">Available</string>
+  
+  <!-- Add-on Activity - free add-ons label -->
+  <string name="AOA_free">Free</string>
+  
+  <!-- Add-on Activity - menu item to visit add-on website -->
+  <string name="AOA_visit_website">Visit Website</string>
+  
+  <!-- Add-on Activity - menu item to visit android market -->
+  <string name="AOA_visit_market">Android Market</string>
   
   <!-- ========================================== SynchronizationProvider == -->
           
@@ -654,6 +683,9 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
       
   <!-- Locale Notification text -->                                                                                                                                        
   <string name="locale_notification">You have $NUM matching: $FILTER</string>     
+      
+  <!-- Locale Plugin was not found, it is required -->
+  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
      
 
 
@@ -849,8 +881,8 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
       <item>在你的日程表上：</item>
       <item>现在有空么？</item>
       <item>我在这！</item>
-      <item>嗨！能打扰一下么？</item>
-      <item>浪费你一点时间？</item>
+      <item>Hi! Can I bug you?</item>
+      <item>A minute of your time?</item>
       <item>It\'s a great day to</item>
   </string-array>
 
@@ -888,7 +920,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
       <item>我保证，完成这些之后，你会感觉更好！</item>
       <item>你今天不做这个吗？</item>
       <item>Please finish this, I\'m sick of it!</item>
-      <item>你能完成这个么？你行！</item>
+      <item>Can you finish this? Yes you can!</item>
       <item>你曾经准备做这个么？</item>
       <item>Feel good about yourself! Let\'s go!</item>
       <item>我真为你骄傲！我们做完这件事吧！</item>

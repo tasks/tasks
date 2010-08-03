@@ -80,7 +80,7 @@ File %s contained %s.\n\n
   <!-- Backup: Dialog when unable to open a file -->  
   <string name="DLG_error_opening">Could not find this item: </string>
   
-  <!-- Backup: Dialog when unable to open SD card folder -->
+  <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
   <string name="DLG_error_sdcard">Cannot access folder: %s</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
