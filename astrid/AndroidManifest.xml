@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="3.0.2" android:versionCode="141"
+          android:versionName="3.0.3" android:versionCode="142"
           android:installLocation="auto">
       
   <!-- ================================================== Used Permissions = -->
@@ -77,6 +77,13 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <!-- Legacy Task List shortcut activity -->
+    <activity android:name=".activities.TaskList">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+        </intent-filter>
+    </activity>
+
     <!-- Activity that displays filter list -->
     <activity android:name="com.todoroo.astrid.activity.FilterListActivity"
               android:launchMode="singleTask"
