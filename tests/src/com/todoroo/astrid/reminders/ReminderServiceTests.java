@@ -74,12 +74,6 @@ public class ReminderServiceTests extends DatabaseTestCase {
         });
         taskDao.save(task, false);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
-
-        // test random with last notify way in the past
-        task.setValue(Task.REMINDER_LAST, DateUtilities.now() - 2 * DateUtilities.ONE_WEEK);
-        ((AlarmExpected)service.getScheduler()).alarmCreated = false;
-        service.scheduleAlarm(task);
-        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
     /** tests with overdue */
@@ -114,7 +108,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         task.setValue(Task.TITLE, "water");
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_WEEK);
         task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
-        task.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_DAY);
+        task.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_HOUR);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {

@@ -215,42 +215,6 @@ public class TaskDao extends GenericDao<Task> {
 
         if(skipHooks)
             return;
-
-        // TODO due date was updated, update calendar event
-        /*if((values.containsKey(AbstractTaskModel.DEFINITE_DUE_DATE) ||
-                values.containsKey(AbstractTaskModel.PREFERRED_DUE_DATE)) &&
-                !values.containsKey(AbstractTaskModel.CALENDAR_URI)) {
-            try {
-                Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
-                        new String[] { AbstractTaskModel.CALENDAR_URI });
-                cursor.moveToFirst();
-                String uriAsString = cursor.getString(0);
-                cursor.close();
-                if(uriAsString != null && uriAsString.length() > 0) {
-                    ContentResolver cr = context.getContentResolver();
-                    Uri uri = Uri.parse(uriAsString);
-
-                    Integer estimated = null;
-                    if(values.containsKey(AbstractTaskModel.ESTIMATED_SECONDS))
-                        estimated = values.getAsInteger(AbstractTaskModel.ESTIMATED_SECONDS);
-                    else { // read from event
-                        Cursor event = cr.query(uri, new String[] {"dtstart", "dtend"},
-                                null, null, null);
-                        event.moveToFirst();
-                        estimated = (event.getInt(1) - event.getInt(0))/1000;
-                    }
-
-                    // create new start and end date for this event
-                    ContentValues newValues = new ContentValues();
-                    TaskEditActivity.createCalendarStartEndTimes(task.getPreferredDueDate(),
-                            task.getDefiniteDueDate(), estimated, newValues);
-                    cr.update(uri, newValues, null, null);
-                }
-            } catch (Exception e) {
-                // ignore calendar event - event could be deleted or whatever
-                Log.e("astrid", "Error moving calendar event", e);
-            }
-        }*/
     }
 
     /**
@@ -261,34 +225,6 @@ public class TaskDao extends GenericDao<Task> {
      * @param duringSync
      */
     private void afterComplete(Task task, ContentValues values, boolean duringSync) {
-
-
-        /*Cursor cursor = fetchTaskCursor(task.getTaskIdentifier(),
-                TaskModelForHandlers.FIELD_LIST);
-        TaskModelForHandlers model = new TaskModelForHandlers(cursor, values);
-
-        // handle repeat
-        RepeatInfo repeatInfo = model.getRepeat();
-        if(repeatInfo != null) {
-            model.repeatTaskBy(context, this, repeatInfo);
-            database.update(tasksTable, values, KEY_ROWID + "=" +
-                    task.getTaskIdentifier().getId(), null);
-        }
-
-        // handle sync-on-complete
-        if((model.getFlags() & TaskModelForHandlers.FLAG_SYNC_ON_COMPLETE) > 0 &&
-                !duringSync) {
-            Synchronizer synchronizer = new Synchronizer(model.getTaskIdentifier());
-            synchronizer.synchronize(context, new SynchronizerListener() {
-                public void onSynchronizerFinished(int numServicesSynced) {
-                    TaskListSubActivity.shouldRefreshTaskList = true;
-                }
-            });
-        }
-
-        cursor.close();
-        cleanupTask(task.getTaskIdentifier(), repeatInfo != null);*/
-
         // send broadcast
         if(!duringSync) {
             Context context = ContextManager.getContext();

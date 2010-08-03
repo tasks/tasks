@@ -164,6 +164,10 @@ public final class ReminderService  {
         // notifications after due date
         long whenOverdue = calculateNextOverdueReminder(task);
 
+        // if random reminders are too close to due date, favor due date
+        if(whenRandom != NO_ALARM && whenDueDate - whenRandom < DateUtilities.ONE_DAY)
+            whenRandom = NO_ALARM;
+
         if(whenRandom < whenDueDate && whenRandom < whenOverdue)
             scheduler.createAlarm(task, whenRandom, TYPE_RANDOM);
         else if(whenDueDate < whenOverdue)
@@ -233,7 +237,7 @@ public final class ReminderService  {
             if(when == 0) {
                 when = DateUtilities.now();
                 task.setValue(Task.REMINDER_LAST, when);
-                taskDao.save(task, false);
+                taskDao.saveExisting(task);
             }
 
             when += (long)(reminderPeriod * (0.85f + 0.3f * random.nextFloat()));
