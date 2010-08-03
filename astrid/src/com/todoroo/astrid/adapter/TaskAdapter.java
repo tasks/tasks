@@ -216,7 +216,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         task.readFromCursor(cursor);
 
         setFieldContentsAndVisibility(view);
-        setTaskAppearance(viewHolder, task.isCompleted());
+        setTaskAppearance(viewHolder, task);
     }
 
     /** Helper method to set the visibility based on if there's stuff inside */
@@ -565,6 +565,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
+        completedItems.clear();
     }
 
     private final View.OnClickListener completeBoxListener = new View.OnClickListener() {
@@ -575,7 +576,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             completeTask(task, ((CheckBox)v).isChecked());
 
             // set check box to actual action item state
-            setTaskAppearance(viewHolder, task.isCompleted());
+            setTaskAppearance(viewHolder, task);
         }
     };
 
@@ -642,7 +643,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param name
      * @param progress
      */
-    void setTaskAppearance(ViewHolder viewHolder, boolean state) {
+    void setTaskAppearance(ViewHolder viewHolder, Task task) {
+        boolean state;
+        if(completedItems.containsKey(task.getId()))
+            state = completedItems.get(task.getId());
+        else
+            state = task.isCompleted();
+
         viewHolder.completeBox.setChecked(state);
 
         TextView name = viewHolder.nameView;
