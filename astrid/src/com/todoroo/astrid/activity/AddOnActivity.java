@@ -3,7 +3,10 @@ package com.todoroo.astrid.activity;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.TabActivity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -87,6 +90,25 @@ public class AddOnActivity extends TabActivity {
             findViewById(R.id.empty_available).setVisibility(View.GONE);
     }
 
-
+    /**
+     * Creates an on click listener
+     * @param activity
+     * @param finish whether to finish activity
+     * @return
+     */
+    public static DialogInterface.OnClickListener createAddOnClicker(final Activity activity,
+            final boolean finish) {
+        return new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Intent intent = new Intent(activity,
+                        AddOnActivity.class);
+                intent.putExtra(AddOnActivity.TOKEN_START_WITH_AVAILABLE, true);
+                activity.startActivity(intent);
+                if(finish)
+                    activity.finish();
+            }
+        };
+    }
 
 }

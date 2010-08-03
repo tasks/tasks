@@ -1,6 +1,7 @@
 package com.todoroo.astrid.locale;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,10 +16,12 @@ import android.widget.Spinner;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
+import com.todoroo.astrid.activity.AddOnActivity;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.utility.Constants;
 import com.twofortyfouram.SharedResources;
 
@@ -85,6 +88,7 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
      * There is no need to save/restore this field's state when the {@code Activity} is paused.
      */
     private boolean isCancelled = false;
+    private boolean isRemoved = false;
 
     /** Called when the activity is first created. */
     @Override
@@ -168,6 +172,18 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
         adapter.headerStyle = R.style.TextAppearance_LEA_Header;
         adapter.categoryStyle = R.style.TextAppearance_LEA_Category;
         setListAdapter(adapter);
+
+        // check for plugin
+        if(!PluginServices.getAddOnService().hasLocalePlugin()) {
+            isRemoved = true;
+            new AlertDialog.Builder(this)
+            .setTitle(R.string.DLG_information_title)
+            .setMessage(R.string.locale_plugin_required)
+            .setCancelable(false)
+            .setPositiveButton(android.R.string.ok,
+                    AddOnActivity.createAddOnClicker(LocaleEditAlerts.this, true))
+            .show();
+        }
     }
 
     @Override
@@ -206,7 +222,9 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
     @Override
     public void finish()
     {
-        if (isCancelled)
+        if(isRemoved)
+            setResult(com.twofortyfouram.Intent.RESULT_REMOVE);
+        else if (isCancelled)
             setResult(RESULT_CANCELED);
         else
         {

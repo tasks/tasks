@@ -14,6 +14,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.service.TaskService;
@@ -47,6 +48,9 @@ public class LocaleReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         try {
             if (com.twofortyfouram.Intent.ACTION_FIRE_SETTING.equals(intent.getAction())) {
+                if(!PluginServices.getAddOnService().hasLocalePlugin())
+                    return;
+
                 final String title = intent.getStringExtra(LocaleEditAlerts.KEY_FILTER_TITLE);
                 final String sql = intent.getStringExtra(LocaleEditAlerts.KEY_SQL);
                 final int interval = intent.getIntExtra(LocaleEditAlerts.KEY_INTERVAL, 24*3600);

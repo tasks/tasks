@@ -226,7 +226,7 @@
     <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
               android:label="@string/locale_edit_alerts_title"
               android:icon="@drawable/icon_32"
-              android:exported="true" >
+              android:exported="true">
       <intent-filter>
         <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
       </intent-filter>

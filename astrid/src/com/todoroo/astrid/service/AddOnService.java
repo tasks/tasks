@@ -59,6 +59,19 @@ public class AddOnService {
         return isPowerPack;
     }
 
+    /** Checks whether locale plugin should be enabled */
+    public boolean hasLocalePlugin() {
+        if (isPowerPack == null) {
+            isPowerPack = false;
+            if (Preferences.getBoolean(PREF_OEM, false))
+                isPowerPack = true;
+            else if(isInstalled(LOCALE_PACKAGE, true))
+                isPowerPack = true;
+        }
+
+        return isPowerPack;
+    }
+
     /**
      * Takes users to the market
      *

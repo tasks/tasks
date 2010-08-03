@@ -3,6 +3,7 @@ package com.todoroo.astrid.core;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MetadataService;
@@ -27,6 +28,9 @@ public final class PluginServices {
 
     @Autowired
     MetadataService metadataService;
+
+    @Autowired
+    DialogUtilities dialogUtilities;
 
     @Autowired
     AddOnService addOnService;
@@ -59,5 +63,9 @@ public final class PluginServices {
 
     public static AddOnService getAddOnService() {
         return getInstance().addOnService;
+    }
+
+    public static DialogUtilities getDialogUtilities() {
+        return getInstance().dialogUtilities;
     }
 }

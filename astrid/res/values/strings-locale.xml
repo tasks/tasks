@@ -29,5 +29,8 @@
       
   <!-- Locale Notification text -->                                                                                                                                        
   <string name="locale_notification">You have $NUM matching: $FILTER</string>     
+      
+  <!-- Locale Plugin was not found, it is required -->
+  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
      
 </resources>

@@ -2,8 +2,6 @@ package com.todoroo.astrid.backup;
 
 import java.util.Date;
 
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -71,15 +69,7 @@ public class BackupPreferences extends TodorooPreferences {
                     dialogUtilities.okCancelDialog(BackupPreferences.this,
                             getString(R.string.DLG_information_title),
                             getString(R.string.backup_BPr_how_to_restore_dialog),
-                            new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    Intent intent = new Intent(BackupPreferences.this,
-                                            AddOnActivity.class);
-                                    intent.putExtra(AddOnActivity.TOKEN_START_WITH_AVAILABLE, true);
-                                    startActivity(intent);
-                                }
-                            }, null);
+                            AddOnActivity.createAddOnClicker(BackupPreferences.this, false), null);
                     return false;
                 }
             });
