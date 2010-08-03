@@ -43,10 +43,14 @@ public class TasksWidget extends AppWidgetProvider {
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
             int[] appWidgetIds) {
 
-        super.onUpdate(context, appWidgetManager, appWidgetIds);
+        try {
+            super.onUpdate(context, appWidgetManager, appWidgetIds);
 
-        // Start in service to prevent Application Not Responding timeout
-        context.startService(new Intent(context, UpdateService.class));
+            // Start in service to prevent Application Not Responding timeout
+            context.startService(new Intent(context, UpdateService.class));
+        } catch (SecurityException e) {
+            // :(
+        }
     }
 
     public static class UpdateService extends Service {

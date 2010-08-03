@@ -14,6 +14,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.utility.Preferences;
 
 /**
@@ -44,6 +45,7 @@ public class BackupService extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         if (intent.getAction().equals(BACKUP_ACTION)) {
+            ContextManager.setContext(this);
             startBackup(this);
         }
     }

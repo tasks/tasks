@@ -10,7 +10,7 @@
   <string name="TEA_reminder_label">Remind me...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when it\'s time to start the task</string>
+  <string name="TEA_reminder_due">... when task is due</string>
 
   <!-- Task Edit: Reminder after deadline -->  
   <string name="TEA_reminder_overdue">... when task is overdue</string>

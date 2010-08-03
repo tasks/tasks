@@ -16,8 +16,8 @@ import android.widget.Toast;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -271,7 +271,8 @@ public class TasksXmlExporter {
                         context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
                                 exportCount), outputFile);
                 Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-                progressDialog.dismiss();
+                if(progressDialog.isShowing())
+                    progressDialog.dismiss();
             }
         });
     }
