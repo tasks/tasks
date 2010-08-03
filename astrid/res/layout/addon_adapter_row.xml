@@ -42,6 +42,7 @@
             android:layout_below="@id/title"
             android:layout_toRightOf="@id/icon"
             android:singleLine="false"
+            android:textSize="11sp"
             style="@style/TextAppearance.TAd_ItemDetails"/>
             
     </LinearLayout>
@@ -63,7 +64,7 @@
     <ImageView android:id="@+id/check"
         android:layout_width="48dip"
         android:layout_height="48dip"
-        android:scaleType="fitCenter"
+        android:scaleType="center"
         android:layout_gravity="center"
         android:src="@android:drawable/checkbox_on_background"/>
             

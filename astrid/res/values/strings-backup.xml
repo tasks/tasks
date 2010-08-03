@@ -30,6 +30,11 @@
     <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
     <!-- Preference: Automatic Backup Description (when enabled) -->
     <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
+    
+    <!-- Preference screen restoring Tasks Help -->
+    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
+    <!-- Preference screen Restoring Tasks Help Dialog Text-->
+    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
   
   <!-- ================================================= BackupActivity == -->
 

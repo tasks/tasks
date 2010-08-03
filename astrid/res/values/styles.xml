@@ -14,6 +14,7 @@
     
     <style name="Theme" parent="android:Theme">
         <item name="android:windowBackground">@null</item>
+        <item name="android:fadeScrollbars">true</item>
     </style>
     
     <!--=============================================== TaskListActivity == -->

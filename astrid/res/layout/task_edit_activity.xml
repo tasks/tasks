@@ -267,7 +267,7 @@
         style="@style/TextAppearance.TLA_NoItems" />
       
       <Button android:id="@+id/addons_button"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="10dip"
         android:text="@string/TEA_addons_button" />

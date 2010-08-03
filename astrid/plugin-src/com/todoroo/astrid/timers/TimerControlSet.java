@@ -28,7 +28,7 @@ public class TimerControlSet implements TaskEditControlSet {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
-        LayoutInflater.from(activity).inflate(R.layout.gcal_control, parent, true);
+        LayoutInflater.from(activity).inflate(R.layout.timer_control, parent, true);
 
         estimated = new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
                 R.id.estimatedDuration, 0, R.string.DLG_hour_minutes,

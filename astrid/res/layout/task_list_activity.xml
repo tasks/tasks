@@ -53,8 +53,7 @@
         <!-- Task List -->
         <ListView android:id="@android:id/list"
             android:scrollbars="vertical"
-            android:cacheColorHint="#00000000"
-            android:paddingRight="8dip"
+            android:cacheColorHint="#00000000"            
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
         

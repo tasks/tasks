@@ -51,7 +51,8 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
         @Override
         public void onClick(View v) {
             Intent intent = (Intent) v.getTag();
-            activity.startActivity(intent);
+            if(intent != null)
+                activity.startActivity(intent);
         }
     };
 
@@ -101,13 +102,13 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
             viewHolder.web.setVisibility(View.VISIBLE);
             Intent webPageIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(item.getWebPage()));
+            viewHolder.web.setTag(webPageIntent);
             Drawable icon = getIntentIcon(webPageIntent);
             if(icon == null)
                 viewHolder.web.setImageResource(
                         android.R.drawable.presence_online);
             else
                 viewHolder.web.setImageDrawable(icon);
-            viewHolder.web.setTag(webPageIntent);
         } else {
             viewHolder.web.setVisibility(View.GONE);
         }
@@ -121,8 +122,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
             Intent marketIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
                             item.getPackageName()));
-            marketIntent.setClassName("com.android.vending", //$NON-NLS-1$
-                "com.android.vending.SearchAssetListActivity"); //$NON-NLS-1$
+            viewHolder.market.setTag(marketIntent);
             Drawable icon = getIntentIcon(marketIntent);
             if(icon == null)
                 viewHolder.market.setImageResource(

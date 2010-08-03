@@ -2,6 +2,8 @@ package com.todoroo.astrid.backup;
 
 import java.util.Date;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -15,6 +17,8 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.widget.TodorooPreferences;
+import com.todoroo.astrid.activity.AddOnActivity;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.utility.Preferences;
 
 /**
@@ -57,6 +61,30 @@ public class BackupPreferences extends TodorooPreferences {
                     view.setBackgroundColor(statusColor);
             }
         });
+
+        if(!PluginServices.getAddOnService().isPowerPack()) {
+            Preference restorePreference = new Preference(this);
+            restorePreference.setTitle(R.string.backup_BPr_how_to_restore);
+            restorePreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+                @Override
+                public boolean onPreferenceClick(Preference preference) {
+                    dialogUtilities.okCancelDialog(BackupPreferences.this,
+                            getString(R.string.DLG_information_title),
+                            getString(R.string.backup_BPr_how_to_restore_dialog),
+                            new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Intent intent = new Intent(BackupPreferences.this,
+                                            AddOnActivity.class);
+                                    intent.putExtra(AddOnActivity.TOKEN_START_WITH_AVAILABLE, true);
+                                    startActivity(intent);
+                                }
+                            }, null);
+                    return false;
+                }
+            });
+            getPreferenceScreen().addPreference(restorePreference);
+        }
     }
 
     @Override

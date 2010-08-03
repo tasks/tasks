@@ -41,6 +41,7 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -216,6 +217,7 @@ public final class TaskEditActivity extends TabActivity {
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
         if(addOnService.isPowerPack()) {
             controls.add(new GCalControlSet(this, addonsAddons));
+            separator(addonsAddons);
             controls.add(new TimerControlSet(this, addonsAddons));
         }
 
@@ -241,6 +243,17 @@ public final class TaskEditActivity extends TabActivity {
 
         // set up listeners
         setUpListeners();
+    }
+
+    /**
+     * Creates a separator in the view group specified
+     * @return
+     */
+    private void separator(ViewGroup parent) {
+        View view = new View(this);
+        view.setBackgroundResource(R.drawable.black_white_gradient);
+        view.setPadding(2, 3, 2, 3);
+        parent.addView(view);
     }
 
     /**

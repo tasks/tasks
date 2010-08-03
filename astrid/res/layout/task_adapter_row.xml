@@ -7,7 +7,8 @@
     android:paddingTop="4dip"
     android:paddingBottom="4dip"
     android:paddingLeft="4dip"
-    android:paddingRight="10dip"
+    android:paddingRight="4dip"
+    android:minHeight="40dip"
     android:orientation="vertical">
         
     <LinearLayout android:id="@+id/task_row"
