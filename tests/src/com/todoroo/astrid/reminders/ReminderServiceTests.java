@@ -99,7 +99,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
             public void createAlarm(Task task, long time, int type) {
                 super.createAlarm(task, time, type);
                 assertTrue(time > DateUtilities.now());
-                assertTrue(time < DateUtilities.now() + DateUtilities.ONE_DAY);
+                assertTrue(time < DateUtilities.now() + 2 * DateUtilities.ONE_DAY);
                 assertEquals(type, ReminderService.TYPE_OVERDUE);
             }
         });

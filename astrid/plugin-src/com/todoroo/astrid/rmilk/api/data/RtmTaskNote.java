@@ -22,6 +22,7 @@ package com.todoroo.astrid.rmilk.api.data;
 import java.util.Date;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.EntityReference;
 import org.w3c.dom.Text;
 
 import android.util.Log;
@@ -37,13 +38,13 @@ public class RtmTaskNote
     extends RtmData
 {
 
-  private String id;
+  private final String id;
 
-  private Date created;
+  private final Date created;
 
-  private Date modified;
+  private final Date modified;
 
-  private String title;
+  private final String title;
 
   private String text;
 
@@ -58,6 +59,10 @@ public class RtmTaskNote
     // note element, so get all of the children.
     for (int i=0; i < element.getChildNodes().getLength(); i++) {
         Object innerNote = element.getChildNodes().item(i);
+
+        if(innerNote instanceof EntityReference) // this node is empty
+            continue;
+
         if(!(innerNote instanceof Text)) {
             Log.w("rtm-note", "Expected text type, got " + innerNote.getClass());
             continue;

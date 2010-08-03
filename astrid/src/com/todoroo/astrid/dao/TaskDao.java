@@ -146,13 +146,13 @@ public class TaskDao extends GenericDao<Task> {
         if (task.getId() == Task.NO_ID) {
             saveSuccessful = createNew(task);
         } else {
-            beforeSave(task, values, skipHooks);
             saveSuccessful = saveExisting(task);
-            afterSave(task, values, skipHooks);
         }
 
-        if(saveSuccessful)
+        if(saveSuccessful) {
             task.markSaved();
+            afterSave(task, values, skipHooks);
+        }
 
         return saveSuccessful;
     }
@@ -183,7 +183,7 @@ public class TaskDao extends GenericDao<Task> {
                             0));
         }
         if(!item.containsValue(Task.REMINDER_FLAGS)) {
-            item.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
+            item.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE);
         }
 
         return super.createNew(item);
@@ -196,24 +196,6 @@ public class TaskDao extends GenericDao<Task> {
     }
 
     /**
-     * Called before the task is saved.
-     * <ul>
-     * <li>Update notifications based on task status
-     * <li>Update associated calendar event
-     *
-     * @param database
-     * @param task
-     *            task that was just changed
-     * @param values
-     *            values that were changed
-     * @param duringSync
-     *            whether this save occurs as part of a sync
-     */
-    private void beforeSave(Task task, ContentValues values, boolean duringSync) {
-        //
-    }
-
-    /**
      * Called after the task is saved.
      * <ul>
      * <li>Handle repeating tasks
@@ -222,16 +204,16 @@ public class TaskDao extends GenericDao<Task> {
      * @param database
      * @param task task that was just changed
      * @param values values to be persisted to the database
-     * @param duringSync whether this save occurs as part of a sync
+     * @param skipHooks whether this save occurs as part of a sync
      */
-    private void afterSave(Task task, ContentValues values, boolean duringSync) {
+    private void afterSave(Task task, ContentValues values, boolean skipHooks) {
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
-            afterComplete(task, values, duringSync);
+            afterComplete(task, values, skipHooks);
         else {
             ReminderService.getInstance().scheduleAlarm(task);
         }
 
-        if(duringSync)
+        if(skipHooks)
             return;
 
         // TODO due date was updated, update calendar event

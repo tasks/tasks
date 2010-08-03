@@ -301,9 +301,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 task.setValue(Task.COMPLETION_DATE,
                         completedItems.get(task.getId()) ? DateUtilities.now() : 0);
             }
-            System.err.println("look it read " + task.getId() + " was " +
-                    task.isCompleted()
-                    + ", cache had " + completedItems.get(task.getId()));
             completeBox.setChecked(task.isCompleted());
         }
 

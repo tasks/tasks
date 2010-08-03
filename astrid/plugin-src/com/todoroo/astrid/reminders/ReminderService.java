@@ -24,7 +24,6 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 
@@ -185,7 +184,7 @@ public final class ReminderService  {
             long dueDate = task.getValue(Task.DUE_DATE);
             if(dueDate > DateUtilities.now())
                 return NO_ALARM;
-            return DateUtilities.now() + (long)((4 + 20 * random.nextFloat()) * DateUtilities.ONE_HOUR);
+            return DateUtilities.now() + (long)((4 + 30 * random.nextFloat()) * DateUtilities.ONE_HOUR);
         }
         return NO_ALARM;
     }
@@ -302,9 +301,8 @@ public final class ReminderService  {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
                     intent, 0);
 
-            if(Constants.DEBUG || true)
-                Log.e("Astrid", "Alarm (" + task.getId() + ", " + type +
-                        ") set for " + new Date(time));
+            Log.e("Astrid", "Alarm (" + task.getId() + ", " + type +
+                    ") set for " + new Date(time));
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }
     }
