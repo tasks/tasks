@@ -7,11 +7,11 @@
 	<classpathentry excluding="com/todoroo/astrid/rmilk/EditOperationExposer.java|com/todoroo/astrid/rmilk/MilkEditActivity.java" kind="src" path="plugin-src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
-	<classpathentry kind="lib" path="libs/annotations.jar"/>
-	<classpathentry kind="lib" path="libs/commons-codec-1.3.jar"/>
-	<classpathentry kind="lib" path="libs/FlurryAgent.jar"/>
-	<classpathentry kind="lib" path="libs/jsr305.jar"/>
-	<classpathentry kind="lib" path="libs/rfc2445-no-joda.jar"/>
-	<classpathentry kind="lib" path="libs/locale_platform.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/annotations.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/commons-codec-1.3.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/FlurryAgent.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jsr305.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/rfc2445-no-joda.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/locale_platform.jar"/>
 	<classpathentry kind="output" path="ecbuild"/>
 </classpath>

@@ -43,33 +43,22 @@ public class AddOnService {
     /** Astrid Power Pack label */
     public static final String POWER_PACK_LABEL = "Astrid Power Pack";
 
-    /** cached is power pack value */
-    private static Boolean isPowerPack = null;
-
     /** Checks whether power pack should be enabled */
     public boolean isPowerPack() {
-        if (isPowerPack == null) {
-            isPowerPack = false;
-            if (Preferences.getBoolean(PREF_OEM, false))
-                isPowerPack = true;
-            else if(isInstalled(POWER_PACK_PACKAGE, true))
-                isPowerPack = true;
-        }
-
-        return isPowerPack;
+        if (Preferences.getBoolean(PREF_OEM, false))
+            return true;
+        else if(isInstalled(POWER_PACK_PACKAGE, true))
+            return true;
+        return false;
     }
 
     /** Checks whether locale plugin should be enabled */
     public boolean hasLocalePlugin() {
-        if (isPowerPack == null) {
-            isPowerPack = false;
-            if (Preferences.getBoolean(PREF_OEM, false))
-                isPowerPack = true;
-            else if(isInstalled(LOCALE_PACKAGE, true))
-                isPowerPack = true;
-        }
-
-        return isPowerPack;
+        if (Preferences.getBoolean(PREF_OEM, false))
+            return true;
+        else if(isInstalled(LOCALE_PACKAGE, true))
+            return true;
+        return false;
     }
 
     /**
