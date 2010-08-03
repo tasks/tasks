@@ -8,113 +8,110 @@ msgstr ""
 "Project-Id-Version: astrid\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-07-29 03:54-0700\n"
-"PO-Revision-Date: 2010-04-30 14:33+0000\n"
-"Last-Translator: Arsen Kudla <Unknown>\n"
+"PO-Revision-Date: 2010-08-02 16:08+0000\n"
+"Last-Translator: barbarian <Unknown>\n"
 "Language-Team: Ukrainian <uk@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-30 03:12+0000\n"
+"X-Launchpad-Export-Date: 2010-08-03 08:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Backup Preferences Title
-#: translations/strings.xml:10( name="backup_BPr_header")
-#: translations/strings.xml:37( name="backup_BAc_label")
+#: translations/strings.xml:10( name="backup_BPr_header") translations/strings.xml:37( name="backup_BAc_label")
 msgid "Backups"
-msgstr ""
+msgstr "Резервне копіювання"
 
 #. Backup: Status Header
-#: translations/strings.xml:13( name="backup_BPr_group_status")
-#: translations/strings.xml:1015( name="rmilk_MPr_group_status")
+#: translations/strings.xml:13( name="backup_BPr_group_status") translations/strings.xml:1015( name="rmilk_MPr_group_status")
 msgid "Status"
-msgstr ""
+msgstr "Стан"
 
 #. Backup Status: last backup was a success (%s -> last date). Keep it short!
 #: translations/strings.xml:16( name="backup_status_success")
 msgid "Latest: %s"
-msgstr ""
+msgstr "Останнє: %s"
 
 #. Backup Status: last error failed. Keep it short!
 #: translations/strings.xml:18( name="backup_status_failed")
 msgid "Last Backup Failed"
-msgstr ""
+msgstr "Останнє резервне копіювання невдалось"
 
 #. Backup Status: error subtitle
 #: translations/strings.xml:20( name="backup_status_failed_subtitle")
 msgid "(tap to show error)"
-msgstr ""
+msgstr "(натисніть, щоб переглянути помилку)"
 
 #. Backup Status: never backed up
 #: translations/strings.xml:22( name="backup_status_never")
 msgid "Never Backed Up!"
-msgstr ""
+msgstr "Ніколи не здійснювалось резервне копіювання"
 
 #. Backup Options Group Label
-#: translations/strings.xml:25( name="backup_BPr_group_options")
-#: translations/strings.xml:1031( name="rmilk_MPr_group_options")
+#: translations/strings.xml:25( name="backup_BPr_group_options") translations/strings.xml:1031( name="rmilk_MPr_group_options")
 msgid "Options"
-msgstr ""
+msgstr "Параметри"
 
 #. Preference: Automatic Backup Title
 #: translations/strings.xml:28( name="backup_BPr_auto_title")
 msgid "Automatic Backups"
-msgstr ""
+msgstr "Автоматичне резервне копіювання"
 
 #. Preference: Automatic Backup Description (when disabled)
 #: translations/strings.xml:30( name="backup_BPr_auto_disabled")
 msgid "Automatic Backups Disabled"
-msgstr ""
+msgstr "Автоматичне резервне копіювання вимкнено"
 
 #. Preference: Automatic Backup Description (when enabled)
 #: translations/strings.xml:32( name="backup_BPr_auto_enabled")
 msgid "Backup will occur daily"
-msgstr ""
+msgstr "Резервне копіювання буде відбуватися щоденно"
 
 #. backup activity title
 #: translations/strings.xml:40( name="backup_BAc_title")
 msgid "Manage Your Backups"
-msgstr ""
+msgstr "Управління резервними копіями"
 
 #. backup activity import button
 #: translations/strings.xml:43( name="backup_BAc_import")
 msgid "Import Tasks"
-msgstr ""
+msgstr "Імпортувати Завдання"
 
 #. backup activity export button
 #: translations/strings.xml:46( name="backup_BAc_export")
 msgid "Export Tasks"
-msgstr ""
+msgstr "Експртувати Завдання"
 
 #. Message displayed when error occurs
 #: translations/strings.xml:51( name="backup_TXI_error")
 msgid "Import Error"
-msgstr ""
+msgstr "Помилка імпортування"
 
 #: translations/strings.xml:53( name="export_toast")
 msgid "Backed Up %s to %s."
-msgstr ""
+msgstr "Збережено %s до %s."
 
 #. Progress Dialog Title for exporting
 #: translations/strings.xml:56( name="export_progress_title")
 msgid "Exporting..."
-msgstr ""
+msgstr "Експортування..."
 
 #. Backup: Title of Import Summary Dialog
 #: translations/strings.xml:59( name="import_summary_title")
 msgid "Restore Summary"
-msgstr ""
+msgstr "Деталі Відновлення"
 
 #. Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped)
 #: translations/strings.xml:62( name="import_summary_message")
 msgid ""
-"File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had errors"
-"\\n"
+"File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had "
+"errors\\n"
 msgstr ""
 
 #. Progress Dialog Title for importing
 #: translations/strings.xml:70( name="import_progress_title")
 msgid "Importing..."
-msgstr ""
+msgstr "Імпортування..."
 
 #. Progress Dialog text for import reading task (%d -> task number)
 #: translations/strings.xml:73( name="import_progress_read")
@@ -129,17 +126,17 @@ msgstr ""
 #. Backup: Dialog when unable to open SD card folder
 #: translations/strings.xml:79( name="DLG_error_sdcard")
 msgid "Cannot access folder: %s"
-msgstr ""
+msgstr "Немає доступу до папки: %s"
 
 #. Backup: Dialog when unable to open SD card in general
 #: translations/strings.xml:82( name="DLG_error_sdcard_general")
 msgid "Cannot access your SD card!"
-msgstr ""
+msgstr "Неможливо відкрити Вашу карту SD"
 
 #. Backup: File Selector dialog for import
 #: translations/strings.xml:85( name="import_file_prompt")
 msgid "Select a File to Restore"
-msgstr ""
+msgstr "Вибиеріть файл для Відновлення"
 
 #. Application Name (shown on home screen & in launcher)
 #: translations/strings.xml:95( name="app_name")
@@ -147,8 +144,7 @@ msgid "Astrid Tasks"
 msgstr ""
 
 #. permission title for READ_TASKS
-#: translations/strings.xml:98( name="read_permission_label")
-#: translations/strings.xml:104( name="write_permission_label")
+#: translations/strings.xml:98( name="read_permission_label") translations/strings.xml:104( name="write_permission_label")
 msgid "Astrid Permission"
 msgstr ""
 
@@ -165,7 +161,7 @@ msgstr ""
 #. plurals: years
 #: translations/strings.xml:113( quantity="one")
 msgid "1 Year"
-msgstr ""
+msgstr "1 рік"
 
 #. plurals: years
 #: translations/strings.xml:115( quantity="other")
@@ -175,22 +171,22 @@ msgstr ""
 #. plurals: months
 #: translations/strings.xml:119( quantity="one")
 msgid "1 Month"
-msgstr ""
+msgstr "1 місяць"
 
 #. plurals: months
 #: translations/strings.xml:121( quantity="other")
 msgid "%d Months"
-msgstr ""
+msgstr "%d місяців"
 
 #. plurals: days
 #: translations/strings.xml:125( quantity="one")
 msgid "1 Week"
-msgstr ""
+msgstr "1 тиждень"
 
 #. plurals: days
 #: translations/strings.xml:127( quantity="other")
 msgid "%d Weeks"
-msgstr ""
+msgstr "%d тижднів"
 
 #. plurals: days
 #: translations/strings.xml:131( quantity="one")
@@ -365,8 +361,7 @@ msgid "No Tasks!"
 msgstr ""
 
 #. Menu: Add-ons
-#: translations/strings.xml:241( name="TLA_menu_addons")
-#: translations/strings.xml:360( name="TEA_tab_addons")
+#: translations/strings.xml:241( name="TLA_menu_addons") translations/strings.xml:360( name="TEA_tab_addons")
 msgid "Add-ons"
 msgstr ""
 
@@ -376,8 +371,7 @@ msgid "Settings"
 msgstr "Налаштування"
 
 #. Menu: Help
-#: translations/strings.xml:247( name="TLA_menu_help")
-#: translations/strings.xml:311( name="FLA_menu_help")
+#: translations/strings.xml:247( name="TLA_menu_help") translations/strings.xml:311( name="FLA_menu_help")
 msgid "Help"
 msgstr ""
 
@@ -422,8 +416,7 @@ msgid "Edit Task"
 msgstr "Редагувати завдання"
 
 #. Context Item: delete task
-#: translations/strings.xml:291( name="TAd_contextDeleteTask")
-#: translations/strings.xml:402( name="TEA_menu_delete")
+#: translations/strings.xml:291( name="TAd_contextDeleteTask") translations/strings.xml:402( name="TEA_menu_delete")
 msgid "Delete Task"
 msgstr "Видалити завдання"
 
@@ -680,8 +673,7 @@ msgid "Font size on the main listing page"
 msgstr ""
 
 #. Preference Category: Defaults Title
-#: translations/strings.xml:474( name="EPr_defaults_header")
-#: translations/strings.xml:770( name="rmd_EPr_defaults_header")
+#: translations/strings.xml:474( name="EPr_defaults_header") translations/strings.xml:770( name="rmd_EPr_defaults_header")
 msgid "New Task Defaults"
 msgstr ""
 
@@ -691,9 +683,7 @@ msgid "Default Urgency"
 msgstr ""
 
 #. Preference: Default Urgency Description (%s => setting)
-#: translations/strings.xml:479( name="EPr_default_urgency_desc")
-#: translations/strings.xml:484( name="EPr_default_importance_desc")
-#: translations/strings.xml:489( name="EPr_default_hideUntil_desc")
+#: translations/strings.xml:479( name="EPr_default_urgency_desc") translations/strings.xml:484( name="EPr_default_importance_desc") translations/strings.xml:489( name="EPr_default_hideUntil_desc")
 msgid "Currently Set To: %s"
 msgstr ""
 
@@ -775,8 +765,7 @@ msgid ""
 msgstr ""
 
 #. Active Tasks Filter
-#: translations/strings.xml:564( name="BFE_Active")
-#: translations/strings.xml:567( name="BFE_Active_title")
+#: translations/strings.xml:564( name="BFE_Active") translations/strings.xml:567( name="BFE_Active_title")
 msgid "Active Tasks"
 msgstr ""
 
@@ -1547,9 +1536,7 @@ msgid "Needs synchronization with RTM"
 msgstr ""
 
 #. filters header: RTM
-#: translations/strings.xml:984( name="rmilk_FEx_header")
-#: translations/strings.xml:998( name="rmilk_MEA_title")
-#: translations/strings.xml:1012( name="rmilk_MPr_header")
+#: translations/strings.xml:984( name="rmilk_FEx_header") translations/strings.xml:998( name="rmilk_MEA_title") translations/strings.xml:1012( name="rmilk_MPr_header")
 msgid "Remember the Milk"
 msgstr ""
 

@@ -1,16 +1,16 @@
-# Galician translation for astrid
-# Copyright (c) 2009 Rosetta Contributors and Canonical Ltd 2009
+# Tamil translation for astrid
+# Copyright (c) 2010 Rosetta Contributors and Canonical Ltd 2010
 # This file is distributed under the same license as the astrid package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, 2009.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2010.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: astrid\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-07-29 03:54-0700\n"
-"PO-Revision-Date: 2009-12-04 00:03+0000\n"
-"Last-Translator: ninor <Unknown>\n"
-"Language-Team: Galician <gl@li.org>\n"
+"PO-Revision-Date: 2010-07-31 08:45+0000\n"
+"Last-Translator: Ramesh <rame20002007@yahoo.com>\n"
+"Language-Team: Tamil <ta@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -25,7 +25,7 @@ msgstr ""
 #. Backup: Status Header
 #: translations/strings.xml:13( name="backup_BPr_group_status") translations/strings.xml:1015( name="rmilk_MPr_group_status")
 msgid "Status"
-msgstr ""
+msgstr "நிலை"
 
 #. Backup Status: last backup was a success (%s -> last date). Keep it short!
 #: translations/strings.xml:16( name="backup_status_success")
@@ -50,7 +50,7 @@ msgstr ""
 #. Backup Options Group Label
 #: translations/strings.xml:25( name="backup_BPr_group_options") translations/strings.xml:1031( name="rmilk_MPr_group_options")
 msgid "Options"
-msgstr ""
+msgstr "விருப்பத்தேர்வுகள்"
 
 #. Preference: Automatic Backup Title
 #: translations/strings.xml:28( name="backup_BPr_auto_title")
@@ -161,102 +161,102 @@ msgstr ""
 #. plurals: years
 #: translations/strings.xml:113( quantity="one")
 msgid "1 Year"
-msgstr ""
+msgstr "1 வருடம்"
 
 #. plurals: years
 #: translations/strings.xml:115( quantity="other")
 msgid "%d Years"
-msgstr ""
+msgstr "%d வருடங்கள்"
 
 #. plurals: months
 #: translations/strings.xml:119( quantity="one")
 msgid "1 Month"
-msgstr ""
+msgstr "1 மாதம்"
 
 #. plurals: months
 #: translations/strings.xml:121( quantity="other")
 msgid "%d Months"
-msgstr ""
+msgstr "%d மாதங்கள்"
 
 #. plurals: days
 #: translations/strings.xml:125( quantity="one")
 msgid "1 Week"
-msgstr ""
+msgstr "1 வாரம்"
 
 #. plurals: days
 #: translations/strings.xml:127( quantity="other")
 msgid "%d Weeks"
-msgstr ""
+msgstr "%d வாரங்கள்"
 
 #. plurals: days
 #: translations/strings.xml:131( quantity="one")
 msgid "1 Day"
-msgstr ""
+msgstr "1 நாள்"
 
 #. plurals: days
 #: translations/strings.xml:133( quantity="other")
 msgid "%d Days"
-msgstr ""
+msgstr "%d நாட்கள்"
 
 #. plurals: hours
 #: translations/strings.xml:137( quantity="one")
 msgid "1 Hour"
-msgstr ""
+msgstr "1 மணித்தியாலம்"
 
 #. plurals: hours
 #: translations/strings.xml:139( quantity="other")
 msgid "%d Hours"
-msgstr ""
+msgstr "%d மணித்தியாலங்கள்"
 
 #. plurals: minutes
 #: translations/strings.xml:143( quantity="one")
 msgid "1 Minute"
-msgstr ""
+msgstr "1 நிமிடம்"
 
 #. plurals: minutes
 #: translations/strings.xml:145( quantity="other")
 msgid "%d Minutes"
-msgstr ""
+msgstr "%d நிமிடங்கள்"
 
 #. plurals: seconds
 #: translations/strings.xml:149( quantity="one")
 msgid "1 Second"
-msgstr ""
+msgstr "1 விநாடி"
 
 #. plurals: seconds
 #: translations/strings.xml:151( quantity="other")
 msgid "%d Seconds"
-msgstr ""
+msgstr "%d விநாடிகள்"
 
 #. plurals: hours (abbreviated)
 #: translations/strings.xml:155( quantity="one")
 msgid "1 Hr"
-msgstr ""
+msgstr "1 மணி"
 
 #. plurals: hours (abbreviated)
 #: translations/strings.xml:157( quantity="other")
 msgid "%d Hrs"
-msgstr ""
+msgstr "%d மணி"
 
 #. plurals: minutes (abbreviated)
 #: translations/strings.xml:161( quantity="one")
 msgid "1 Min"
-msgstr ""
+msgstr "1 நிமி"
 
 #. plurals: minutes (abbreviated)
 #: translations/strings.xml:163( quantity="other")
 msgid "%d Min"
-msgstr ""
+msgstr "%d நிமி"
 
 #. plurals: seconds (abbreviated)
 #: translations/strings.xml:167( quantity="one")
 msgid "1 Sec"
-msgstr ""
+msgstr "1 விநா"
 
 #. plurals: seconds (abbreviated)
 #: translations/strings.xml:169( quantity="other")
 msgid "%d Sec"
-msgstr ""
+msgstr "%d விநா"
 
 #. plurals: tasks
 #: translations/strings.xml:173( quantity="one")
@@ -276,27 +276,27 @@ msgstr ""
 #. question dialog title
 #: translations/strings.xml:184( name="DLG_question_title")
 msgid "Question:"
-msgstr ""
+msgstr "கேள்வி:"
 
 #. information dialog title
 #: translations/strings.xml:187( name="DLG_information_title")
 msgid "Information"
-msgstr ""
+msgstr "தகவல்"
 
 #. general dialog yes
 #: translations/strings.xml:190( name="DLG_yes")
 msgid "Yes"
-msgstr ""
+msgstr "ஆம்"
 
 #. general dialog no
 #: translations/strings.xml:193( name="DLG_no")
 msgid "No"
-msgstr ""
+msgstr "இல்லை"
 
 #. general dialog close
 #: translations/strings.xml:196( name="DLG_close")
 msgid "Close"
-msgstr ""
+msgstr "மூடு"
 
 #. error dialog (%s => error message)
 #: translations/strings.xml:199( name="DLG_error")
@@ -311,22 +311,22 @@ msgstr ""
 #. Button for being done
 #: translations/strings.xml:205( name="DLG_done")
 msgid "Done"
-msgstr ""
+msgstr "முடிந்தது"
 
 #. Button for canceling out of this page
 #: translations/strings.xml:208( name="DLG_cancel")
 msgid "Cancel"
-msgstr ""
+msgstr "ரத்து"
 
 #. Progress dialog shown when doing something slow
 #: translations/strings.xml:211( name="DLG_wait")
 msgid "Please wait..."
-msgstr ""
+msgstr "தயவுசெய்து காத்திருக்கவும்..."
 
 #. Title for dialog selecting a time (hours and minutes)
 #: translations/strings.xml:214( name="DLG_hour_minutes")
 msgid "Time (hours : minutes)"
-msgstr ""
+msgstr "நேரம் (மணி : நிமி)"
 
 #. Dialog when Astrid needs to be updated
 #: translations/strings.xml:217( name="DLG_please_update")
@@ -353,7 +353,7 @@ msgstr ""
 #. String formatter for Disable button
 #: translations/strings.xml:233( name="WID_disableButton")
 msgid "Disable"
-msgstr ""
+msgstr "செயல்நீக்கு"
 
 #. Task List: Displayed instead of list when no items present
 #: translations/strings.xml:238( name="TLA_no_items")
@@ -373,22 +373,22 @@ msgstr ""
 #. Menu: Help
 #: translations/strings.xml:247( name="TLA_menu_help") translations/strings.xml:311( name="FLA_menu_help")
 msgid "Help"
-msgstr ""
+msgstr "உதவி"
 
 #. Search Label
 #: translations/strings.xml:250( name="TLA_search_label")
 msgid "Search This List"
-msgstr ""
+msgstr "இந்த பட்டியலை தேடு"
 
 #. Window title for displaying Custom Filter
 #: translations/strings.xml:253( name="TLA_custom")
 msgid "Custom"
-msgstr ""
+msgstr "தனிப்பயன்"
 
 #. Quick Add Edit Box Hint
 #: translations/strings.xml:256( name="TLA_quick_add_hint")
 msgid "Add to this list..."
-msgstr ""
+msgstr "இந்த பட்டியலுக்கு சேர்..."
 
 #. Format string to indicate task is hidden (%s => task name)
 #: translations/strings.xml:273( name="TAd_hiddenFormat")
@@ -398,7 +398,7 @@ msgstr ""
 #. Format string to indicate task is deleted (%s => task name)
 #: translations/strings.xml:276( name="TAd_deletedFormat")
 msgid "%s [deleted]"
-msgstr ""
+msgstr "%s [அழிக்கப்பட்டது]"
 
 #. indicates task was completed. %s => date or time ago
 #: translations/strings.xml:282( name="TAd_completed")
@@ -408,17 +408,17 @@ msgstr ""
 #. Action Button: edit task
 #: translations/strings.xml:285( name="TAd_actionEditTask")
 msgid "Edit"
-msgstr ""
+msgstr "திருத்து"
 
 #. Context Item: edit task
 #: translations/strings.xml:288( name="TAd_contextEditTask")
 msgid "Edit Task"
-msgstr ""
+msgstr "பணியைத் தொகு"
 
 #. Context Item: delete task
 #: translations/strings.xml:291( name="TAd_contextDeleteTask") translations/strings.xml:402( name="TEA_menu_delete")
 msgid "Delete Task"
-msgstr ""
+msgstr "பணியை நீக்கு"
 
 #. Context Item: undelete task
 #: translations/strings.xml:294( name="TAd_contextUndeleteTask")

@@ -8,87 +8,84 @@ msgstr ""
 "Project-Id-Version: astrid\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-07-29 03:54-0700\n"
-"PO-Revision-Date: 2010-06-28 00:35+0000\n"
-"Last-Translator: Majd Aldin Almontaser <admin@liioiil.com>\n"
+"PO-Revision-Date: 2010-07-31 23:33+0000\n"
+"Last-Translator: Yaron <sh.yaron@gmail.com>\n"
 "Language-Team: Hebrew <he@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-30 04:48+0000\n"
+"X-Launchpad-Export-Date: 2010-08-03 08:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Backup Preferences Title
-#: translations/strings.xml:10( name="backup_BPr_header")
-#: translations/strings.xml:37( name="backup_BAc_label")
+#: translations/strings.xml:10( name="backup_BPr_header") translations/strings.xml:37( name="backup_BAc_label")
 msgid "Backups"
-msgstr ""
+msgstr "גיבויים"
 
 #. Backup: Status Header
-#: translations/strings.xml:13( name="backup_BPr_group_status")
-#: translations/strings.xml:1015( name="rmilk_MPr_group_status")
+#: translations/strings.xml:13( name="backup_BPr_group_status") translations/strings.xml:1015( name="rmilk_MPr_group_status")
 msgid "Status"
-msgstr ""
+msgstr "מצב"
 
 #. Backup Status: last backup was a success (%s -> last date). Keep it short!
 #: translations/strings.xml:16( name="backup_status_success")
 msgid "Latest: %s"
-msgstr ""
+msgstr "עדכני ביותר: %s"
 
 #. Backup Status: last error failed. Keep it short!
 #: translations/strings.xml:18( name="backup_status_failed")
 msgid "Last Backup Failed"
-msgstr ""
+msgstr "הגיבוי האחרון נכשל"
 
 #. Backup Status: error subtitle
 #: translations/strings.xml:20( name="backup_status_failed_subtitle")
 msgid "(tap to show error)"
-msgstr ""
+msgstr "(יש ללחוץ כדי להציג את השגיאה)"
 
 #. Backup Status: never backed up
 #: translations/strings.xml:22( name="backup_status_never")
 msgid "Never Backed Up!"
-msgstr ""
+msgstr "מעולם לא גובה!"
 
 #. Backup Options Group Label
-#: translations/strings.xml:25( name="backup_BPr_group_options")
-#: translations/strings.xml:1031( name="rmilk_MPr_group_options")
+#: translations/strings.xml:25( name="backup_BPr_group_options") translations/strings.xml:1031( name="rmilk_MPr_group_options")
 msgid "Options"
-msgstr ""
+msgstr "אפשרויות"
 
 #. Preference: Automatic Backup Title
 #: translations/strings.xml:28( name="backup_BPr_auto_title")
 msgid "Automatic Backups"
-msgstr ""
+msgstr "גיבויים אוטומטיים"
 
 #. Preference: Automatic Backup Description (when disabled)
 #: translations/strings.xml:30( name="backup_BPr_auto_disabled")
 msgid "Automatic Backups Disabled"
-msgstr ""
+msgstr "הגיבויים האוטומטיים נוטרלו"
 
 #. Preference: Automatic Backup Description (when enabled)
 #: translations/strings.xml:32( name="backup_BPr_auto_enabled")
 msgid "Backup will occur daily"
-msgstr ""
+msgstr "הגיבוי יתבצע מדי יום"
 
 #. backup activity title
 #: translations/strings.xml:40( name="backup_BAc_title")
 msgid "Manage Your Backups"
-msgstr ""
+msgstr "ניהול הגיבויים שלך"
 
 #. backup activity import button
 #: translations/strings.xml:43( name="backup_BAc_import")
 msgid "Import Tasks"
-msgstr ""
+msgstr "ייבוא משימות"
 
 #. backup activity export button
 #: translations/strings.xml:46( name="backup_BAc_export")
 msgid "Export Tasks"
-msgstr ""
+msgstr "ייצוא משימות"
 
 #. Message displayed when error occurs
 #: translations/strings.xml:51( name="backup_TXI_error")
 msgid "Import Error"
-msgstr ""
+msgstr "שגיאת ייבוא"
 
 #: translations/strings.xml:53( name="export_toast")
 msgid "Backed Up %s to %s."
@@ -97,24 +94,24 @@ msgstr ""
 #. Progress Dialog Title for exporting
 #: translations/strings.xml:56( name="export_progress_title")
 msgid "Exporting..."
-msgstr ""
+msgstr "מתבצע ייצוא..."
 
 #. Backup: Title of Import Summary Dialog
 #: translations/strings.xml:59( name="import_summary_title")
 msgid "Restore Summary"
-msgstr ""
+msgstr "תקציר השחזור"
 
 #. Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped)
 #: translations/strings.xml:62( name="import_summary_message")
 msgid ""
-"File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had errors"
-"\\n"
+"File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had "
+"errors\\n"
 msgstr ""
 
 #. Progress Dialog Title for importing
 #: translations/strings.xml:70( name="import_progress_title")
 msgid "Importing..."
-msgstr ""
+msgstr "מתבצע ייבוא..."
 
 #. Progress Dialog text for import reading task (%d -> task number)
 #: translations/strings.xml:73( name="import_progress_read")
@@ -124,80 +121,77 @@ msgstr ""
 #. Backup: Dialog when unable to open a file
 #: translations/strings.xml:76( name="DLG_error_opening")
 msgid "Could not find this item:"
-msgstr ""
+msgstr "לא ניתן למצוא פריט זה:"
 
 #. Backup: Dialog when unable to open SD card folder
 #: translations/strings.xml:79( name="DLG_error_sdcard")
 msgid "Cannot access folder: %s"
-msgstr ""
+msgstr "לא ניתן לגשת לתיקיה: %s"
 
 #. Backup: Dialog when unable to open SD card in general
 #: translations/strings.xml:82( name="DLG_error_sdcard_general")
 msgid "Cannot access your SD card!"
-msgstr ""
+msgstr "לא ניתן לגשת לכרטיס ה־SD שלך!"
 
 #. Backup: File Selector dialog for import
 #: translations/strings.xml:85( name="import_file_prompt")
 msgid "Select a File to Restore"
-msgstr ""
+msgstr "נא לבחור קובץ לשחזור"
 
 #. Application Name (shown on home screen & in launcher)
 #: translations/strings.xml:95( name="app_name")
-#, fuzzy
 msgid "Astrid Tasks"
-msgstr "אסטריד"
+msgstr "משימות Astric"
 
 #. permission title for READ_TASKS
-#: translations/strings.xml:98( name="read_permission_label")
-#: translations/strings.xml:104( name="write_permission_label")
-#, fuzzy
+#: translations/strings.xml:98( name="read_permission_label") translations/strings.xml:104( name="write_permission_label")
 msgid "Astrid Permission"
-msgstr "כאן אסטריד!"
+msgstr "הרשאות Astrid"
 
 #. permission description for READ_TASKS
 #: translations/strings.xml:101( name="read_permission_desc")
 msgid "read tasks, display task filters"
-msgstr ""
+msgstr "קריאת משימות, הצגת מסנני משימות"
 
 #. permission description for READ_TASKS
 #: translations/strings.xml:107( name="write_permission_desc")
 msgid "create new tasks, edit existing tasks"
-msgstr ""
+msgstr "יצירת משימות חדשות, עריכת משימות קיימות."
 
 #. plurals: years
 #: translations/strings.xml:113( quantity="one")
 msgid "1 Year"
-msgstr ""
+msgstr "שנה אחת"
 
 #. plurals: years
 #: translations/strings.xml:115( quantity="other")
 msgid "%d Years"
-msgstr ""
+msgstr "%d שנים"
 
 #. plurals: months
 #: translations/strings.xml:119( quantity="one")
 msgid "1 Month"
-msgstr ""
+msgstr "חודש אחד"
 
 #. plurals: months
 #: translations/strings.xml:121( quantity="other")
 msgid "%d Months"
-msgstr ""
+msgstr "%d חודשים"
 
 #. plurals: days
 #: translations/strings.xml:125( quantity="one")
 msgid "1 Week"
-msgstr ""
+msgstr "שבוע אחד"
 
 #. plurals: days
 #: translations/strings.xml:127( quantity="other")
 msgid "%d Weeks"
-msgstr ""
+msgstr "%d שבועות"
 
 #. plurals: days
 #: translations/strings.xml:131( quantity="one")
 msgid "1 Day"
-msgstr "יום 1"
+msgstr "יום אחד"
 
 #. plurals: days
 #: translations/strings.xml:133( quantity="other")
@@ -237,7 +231,7 @@ msgstr "%d שניות"
 #. plurals: hours (abbreviated)
 #: translations/strings.xml:155( quantity="one")
 msgid "1 Hr"
-msgstr "שעה אחת"
+msgstr "שעה"
 
 #. plurals: hours (abbreviated)
 #: translations/strings.xml:157( quantity="other")
@@ -252,7 +246,7 @@ msgstr "דקה"
 #. plurals: minutes (abbreviated)
 #: translations/strings.xml:163( quantity="other")
 msgid "%d Min"
-msgstr "%d דק'"
+msgstr "%d דק׳"
 
 #. plurals: seconds (abbreviated)
 #: translations/strings.xml:167( quantity="one")
@@ -267,72 +261,72 @@ msgstr "%d שנ'"
 #. plurals: tasks
 #: translations/strings.xml:173( quantity="one")
 msgid "1 task"
-msgstr ""
+msgstr "משימה אחת"
 
 #. plurals: tasks
 #: translations/strings.xml:175( quantity="other")
 msgid "%d tasks"
-msgstr ""
+msgstr "%d משימות"
 
 #. confirmation dialog title
 #: translations/strings.xml:181( name="DLG_confirm_title")
 msgid "Confirm?"
-msgstr ""
+msgstr "האם לאשר?"
 
 #. question dialog title
 #: translations/strings.xml:184( name="DLG_question_title")
 msgid "Question:"
-msgstr ""
+msgstr "שאלה:"
 
 #. information dialog title
 #: translations/strings.xml:187( name="DLG_information_title")
 msgid "Information"
-msgstr ""
+msgstr "פרטים"
 
 #. general dialog yes
 #: translations/strings.xml:190( name="DLG_yes")
 msgid "Yes"
-msgstr ""
+msgstr "כן"
 
 #. general dialog no
 #: translations/strings.xml:193( name="DLG_no")
 msgid "No"
-msgstr ""
+msgstr "לא"
 
 #. general dialog close
 #: translations/strings.xml:196( name="DLG_close")
 msgid "Close"
-msgstr ""
+msgstr "סגירה"
 
 #. error dialog (%s => error message)
 #: translations/strings.xml:199( name="DLG_error")
 msgid "Oops, looks like some trouble occurred! Here's what happened:\\n\\n%s"
-msgstr ""
+msgstr "אופס, נראה כאילו התרחשה שגיאה! הנה מה שקרה:\\n\\n%s"
 
 #. question for deleting tasks
 #: translations/strings.xml:202( name="DLG_delete_this_task_question")
 msgid "Delete this task?"
-msgstr ""
+msgstr "האם למחוק משימה זו?"
 
 #. Button for being done
 #: translations/strings.xml:205( name="DLG_done")
 msgid "Done"
-msgstr ""
+msgstr "בוצע"
 
 #. Button for canceling out of this page
 #: translations/strings.xml:208( name="DLG_cancel")
 msgid "Cancel"
-msgstr ""
+msgstr "ביטול"
 
 #. Progress dialog shown when doing something slow
 #: translations/strings.xml:211( name="DLG_wait")
 msgid "Please wait..."
-msgstr ""
+msgstr "נא להמתין..."
 
 #. Title for dialog selecting a time (hours and minutes)
 #: translations/strings.xml:214( name="DLG_hour_minutes")
 msgid "Time (hours : minutes)"
-msgstr ""
+msgstr "זמן (שעות : דקות)"
 
 #. Dialog when Astrid needs to be updated
 #: translations/strings.xml:217( name="DLG_please_update")
@@ -344,34 +338,32 @@ msgstr ""
 #. Button for going to Market
 #: translations/strings.xml:222( name="DLG_to_market")
 msgid "Go To Market"
-msgstr ""
+msgstr "מעבר לשוק"
 
 #. Label for DateButtons with no value
 #: translations/strings.xml:227( name="WID_dateButtonUnset")
 msgid "Click To Set"
-msgstr ""
+msgstr "לחיצה להגדרה"
 
 #. String formatter for DateButtons ($D => date, $T => time)
 #: translations/strings.xml:230( name="WID_dateButtonLabel")
 msgid "$D $T"
-msgstr ""
+msgstr "$D $T"
 
 #. String formatter for Disable button
 #: translations/strings.xml:233( name="WID_disableButton")
-#, fuzzy
 msgid "Disable"
-msgstr "ביטול"
+msgstr "נטרול"
 
 #. Task List: Displayed instead of list when no items present
 #: translations/strings.xml:238( name="TLA_no_items")
 msgid "No Tasks!"
-msgstr ""
+msgstr "אין משימות!"
 
 #. Menu: Add-ons
-#: translations/strings.xml:241( name="TLA_menu_addons")
-#: translations/strings.xml:360( name="TEA_tab_addons")
+#: translations/strings.xml:241( name="TLA_menu_addons") translations/strings.xml:360( name="TEA_tab_addons")
 msgid "Add-ons"
-msgstr ""
+msgstr "תוספים"
 
 #. Menu: Settings
 #: translations/strings.xml:244( name="TLA_menu_settings")
@@ -379,97 +371,94 @@ msgid "Settings"
 msgstr "הגדרות"
 
 #. Menu: Help
-#: translations/strings.xml:247( name="TLA_menu_help")
-#: translations/strings.xml:311( name="FLA_menu_help")
+#: translations/strings.xml:247( name="TLA_menu_help") translations/strings.xml:311( name="FLA_menu_help")
 msgid "Help"
-msgstr ""
+msgstr "עזרה"
 
 #. Search Label
 #: translations/strings.xml:250( name="TLA_search_label")
 msgid "Search This List"
-msgstr ""
+msgstr "חיפוש ברשימה זו"
 
 #. Window title for displaying Custom Filter
 #: translations/strings.xml:253( name="TLA_custom")
 msgid "Custom"
-msgstr ""
+msgstr "מותאם אישית"
 
 #. Quick Add Edit Box Hint
 #: translations/strings.xml:256( name="TLA_quick_add_hint")
 msgid "Add to this list..."
-msgstr ""
+msgstr "הוספה לרשימה זו..."
 
 #. Format string to indicate task is hidden (%s => task name)
 #: translations/strings.xml:273( name="TAd_hiddenFormat")
 msgid "%s [hidden]"
-msgstr ""
+msgstr "%s [מוסתרת]"
 
 #. Format string to indicate task is deleted (%s => task name)
 #: translations/strings.xml:276( name="TAd_deletedFormat")
 msgid "%s [deleted]"
-msgstr ""
+msgstr "%s [נמחקה]"
 
 #. indicates task was completed. %s => date or time ago
 #: translations/strings.xml:282( name="TAd_completed")
 msgid "Finished %s"
-msgstr "התסיים %s"
+msgstr "הסתיימה %s"
 
 #. Action Button: edit task
 #: translations/strings.xml:285( name="TAd_actionEditTask")
 msgid "Edit"
-msgstr ""
+msgstr "עריכה"
 
 #. Context Item: edit task
 #: translations/strings.xml:288( name="TAd_contextEditTask")
 msgid "Edit Task"
-msgstr "ערוך משימה"
+msgstr "עריכת משימה"
 
 #. Context Item: delete task
-#: translations/strings.xml:291( name="TAd_contextDeleteTask")
-#: translations/strings.xml:402( name="TEA_menu_delete")
+#: translations/strings.xml:291( name="TAd_contextDeleteTask") translations/strings.xml:402( name="TEA_menu_delete")
 msgid "Delete Task"
-msgstr "מחק משימה"
+msgstr "מחיקת משימה"
 
 #. Context Item: undelete task
 #: translations/strings.xml:294( name="TAd_contextUndeleteTask")
 msgid "Undelete Task"
-msgstr ""
+msgstr "החזרת המשימה"
 
 #. Filter List Activity Title
 #: translations/strings.xml:299( name="FLA_title")
-#, fuzzy
 msgid "Astrid: Filters"
-msgstr "כאן אסטריד!"
+msgstr "Astrid: מסננים"
 
 #. Displayed when loading filters
 #: translations/strings.xml:302( name="FLA_loading")
 msgid "Loading Filters..."
-msgstr ""
+msgstr "המסננים נטענים"
 
 #. Context Menu: Create Shortcut
 #: translations/strings.xml:305( name="FLA_context_shortcut")
 msgid "Create Shortcut On Desktop"
-msgstr ""
+msgstr "יצירת קיצור על שולחן העבודה"
 
 #. Menu: Search
 #: translations/strings.xml:308( name="FLA_menu_search")
 msgid "Search Tasks..."
-msgstr ""
+msgstr "חיפוש במשימות..."
 
 #. Create Shortcut Dialog Title
 #: translations/strings.xml:314( name="FLA_shortcut_dialog_title")
 msgid "Create Shortcut"
-msgstr ""
+msgstr "יצירת קיצור"
 
 #. Create Shortcut Dialog (asks to name shortcut)
 #: translations/strings.xml:317( name="FLA_shortcut_dialog")
 msgid "Name of shortcut:"
-msgstr ""
+msgstr "שם הקיצור:"
 
 #. Search Hint
 #: translations/strings.xml:320( name="FLA_search_hint")
 msgid "Search For Tasks"
-msgstr ""
+msgstr "חיפוש אחר משימות"
 
 #. Search Filter name (%s => query)
 #: translations/strings.xml:323( name="FLA_search_filter")
@@ -479,12 +468,12 @@ msgstr ""
 #. Toast: created shortcut (%s => label)
 #: translations/strings.xml:343( name="FLA_toast_onCreateShortcut")
 msgid "Created Shortcut: %s"
-msgstr ""
+msgstr "נוצר קיצור: %s"
 
 #. Title when editing a task (%s => task title)
 #: translations/strings.xml:348( name="TEA_view_title")
 msgid "Astrid: Editing '%s'"
-msgstr ""
+msgstr "Astrid:‏ '%s' בעריכה"
 
 #. Title when creating a new task
 #: translations/strings.xml:351( name="TEA_view_titleNew")
@@ -499,42 +488,42 @@ msgstr "בסיסי"
 #. Second Tab - extra details
 #: translations/strings.xml:357( name="TEA_tab_extra")
 msgid "Advanced"
-msgstr ""
+msgstr "מתקדם"
 
 #. Task title label
 #: translations/strings.xml:363( name="TEA_title_label")
 msgid "Title"
-msgstr ""
+msgstr "כותרת"
 
 #. Task title hint (displayed when edit box is empty)
 #: translations/strings.xml:366( name="TEA_title_hint")
 msgid "Task Summary"
-msgstr ""
+msgstr "תקציר המשימה"
 
 #. Task importance label
 #: translations/strings.xml:369( name="TEA_importance_label")
 msgid "Importance"
-msgstr ""
+msgstr "חשיבות"
 
 #. Task urgency label
 #: translations/strings.xml:372( name="TEA_urgency_label")
 msgid "Deadline"
-msgstr ""
+msgstr "מועד הסף"
 
 #. Task urgency specific time checkbox
 #: translations/strings.xml:375( name="TEA_urgency_specific_time")
 msgid "Due at specific time?"
-msgstr ""
+msgstr "פקיעה בזמן כלשהו?"
 
 #. Task urgency specific time title when specific time false
 #: translations/strings.xml:378( name="TEA_urgency_time_none")
 msgid "No Due Time"
-msgstr ""
+msgstr "אין זמן פקיעה"
 
 #. Task hide until label
 #: translations/strings.xml:381( name="TEA_hideUntil_label")
 msgid "Hide Until"
-msgstr ""
+msgstr "הסתרה עד אשר"
 
 #. Task note label
 #: translations/strings.xml:384( name="TEA_note_label")
@@ -544,179 +533,174 @@ msgstr "הערות"
 #. Task note hint
 #: translations/strings.xml:387( name="TEA_notes_hint")
 msgid "Enter Task Notes..."
-msgstr ""
+msgstr "הזנת הערות למשימה..."
 
 #. Estimated time label
 #: translations/strings.xml:390( name="TEA_estimatedDuration_label")
 msgid "How Long Will it Take?"
-msgstr "כמה זמן היא תערוך?"
+msgstr "כמה זמן היא תארוך?"
 
 #. Elapsed time label
 #: translations/strings.xml:393( name="TEA_elapsedDuration_label")
 msgid "Time Already Spent on Task"
-msgstr "זמן שכבר הוצא עעל המשימה"
+msgstr "זמן שכבר הושקע במשימה"
 
 #. Menu: Save
 #: translations/strings.xml:396( name="TEA_menu_save")
 msgid "Save Changes"
-msgstr ""
+msgstr "שמירת השינויים"
 
 #. Menu: Don't Save
 #: translations/strings.xml:399( name="TEA_menu_discard")
 msgid "Don't Save"
-msgstr ""
+msgstr "לא לשמור"
 
 #. Toast: task saved with deadline (%s => time units)
 #: translations/strings.xml:405( name="TEA_onTaskSave_due")
 msgid "Task Saved: due in %s"
-msgstr ""
+msgstr "המשימה נשמרה: הפקיעה ב־%s"
 
 #. Toast: task saved with deadline in past (%s => time units)
 #: translations/strings.xml:408( name="TEA_onTaskSave_overdue")
 msgid "Task Saved: due %s ago"
-msgstr ""
+msgstr "המשימה נשמרה: פקעה לפני %s"
 
 #. Toast: task saved without deadlines
 #: translations/strings.xml:411( name="TEA_onTaskSave_notDue")
 msgid "Task Saved"
-msgstr ""
+msgstr "המשימה נשמרה"
 
 #. Toast: task was not saved
 #: translations/strings.xml:414( name="TEA_onTaskCancel")
 msgid "Task Editing Was Canceled"
-msgstr ""
+msgstr "עריכת המשימה בוטלה"
 
 #. Toast: task was deleted
 #: translations/strings.xml:417( name="TEA_onTaskDelete")
 msgid "Task Deleted!"
-msgstr ""
+msgstr "המשימה נמחקה!"
 
 #. urgency: labels for edit page. item #4 -> auto filled
 #: translations/strings.xml:421(item)
 msgid "Specific Day/Time"
-msgstr ""
+msgstr "תאריך/שעה מסוימים"
 
 #: translations/strings.xml:422(item) translations/strings.xml:502(item)
-#, fuzzy
 msgid "Today"
-msgstr "כל יום"
+msgstr "היום"
 
 #: translations/strings.xml:423(item) translations/strings.xml:503(item)
 msgid "Tomorrow"
-msgstr ""
+msgstr "מחר"
 
 #: translations/strings.xml:424(item)
 msgid "(day after)"
-msgstr ""
+msgstr "(ביום שלאחר)"
 
 #: translations/strings.xml:425(item) translations/strings.xml:505(item)
 msgid "Next Week"
-msgstr ""
+msgstr "בשבוע הבא"
 
 #. urgency: labels for "Task Defaults" preference item.
 #: translations/strings.xml:426(item) translations/strings.xml:501(item)
 msgid "No Deadline"
-msgstr ""
+msgstr "אין מועד סף"
 
 #. hideUntil: labels for edit page.
 #: translations/strings.xml:431(item) translations/strings.xml:510(item)
 msgid "Don't hide"
-msgstr ""
+msgstr "לא להסתיר"
 
 #: translations/strings.xml:432(item) translations/strings.xml:511(item)
 msgid "Task is due"
-msgstr ""
+msgstr "המשימה פקעה"
 
 #: translations/strings.xml:433(item) translations/strings.xml:512(item)
 msgid "Day before due"
-msgstr ""
+msgstr "יום לפקיעה"
 
 #: translations/strings.xml:434(item) translations/strings.xml:513(item)
 msgid "Week before due"
-msgstr ""
+msgstr "שבוע לפקיעה"
 
 #: translations/strings.xml:435(item)
 msgid "Specific Day"
-msgstr ""
+msgstr "יום מסוים"
 
 #. Introduction Window title
 #: translations/strings.xml:441( name="InA_title")
 msgid "Welcome to Astrid!"
-msgstr ""
+msgstr "ברוך בואך ל־Astrid!"
 
 #. Button to agree to EULA
 #: translations/strings.xml:444( name="InA_agree")
 msgid "I Agree!!"
-msgstr ""
+msgstr "מוסכם!!"
 
 #. Button to disagree with EULA
 #: translations/strings.xml:447( name="InA_disagree")
 msgid "I Disagree"
-msgstr ""
+msgstr "לא מוסכם"
 
 #. Help: Button to get support from our website
 #: translations/strings.xml:452( name="HlA_get_support")
 msgid "Get Support"
-msgstr ""
+msgstr "קבלת תמיכה"
 
 #. Changelog Window Title
 #: translations/strings.xml:457( name="UpS_changelog_title")
 msgid "What's New In Astrid?"
-msgstr ""
+msgstr "מה חדש ב־Astrid?"
 
 #. Preference Window Title
 #: translations/strings.xml:462( name="EPr_title")
-#, fuzzy
 msgid "Astrid: Preferences"
-msgstr "כאן אסטריד!"
+msgstr "Astrid: העדפות"
 
 #. Preference Category: Appearance Title
 #: translations/strings.xml:465( name="EPr_appearance_header")
 msgid "Appearance"
-msgstr ""
+msgstr "מראה"
 
 #. Preference: Task List Font Size Title
 #: translations/strings.xml:468( name="EPr_fontSize_title")
 msgid "Task List Size"
-msgstr ""
+msgstr "גודל רשימת המשימות"
 
 #. Preference: Task List Font Size Description
 #: translations/strings.xml:471( name="EPr_fontSize_desc")
 msgid "Font size on the main listing page"
-msgstr ""
+msgstr "גודל הגופן בדף הרישום הראשי"
 
 #. Preference Category: Defaults Title
-#: translations/strings.xml:474( name="EPr_defaults_header")
-#: translations/strings.xml:770( name="rmd_EPr_defaults_header")
+#: translations/strings.xml:474( name="EPr_defaults_header") translations/strings.xml:770( name="rmd_EPr_defaults_header")
 msgid "New Task Defaults"
-msgstr ""
+msgstr "ברירות המחדל למשימה חדשה"
 
 #. Preference: Default Urgency Title
 #: translations/strings.xml:477( name="EPr_default_urgency_title")
 msgid "Default Urgency"
-msgstr ""
+msgstr "דחיפות ברירת המחדל"
 
 #. Preference: Default Urgency Description (%s => setting)
-#: translations/strings.xml:479( name="EPr_default_urgency_desc")
-#: translations/strings.xml:484( name="EPr_default_importance_desc")
-#: translations/strings.xml:489( name="EPr_default_hideUntil_desc")
+#: translations/strings.xml:479( name="EPr_default_urgency_desc") translations/strings.xml:484( name="EPr_default_importance_desc") translations/strings.xml:489( name="EPr_default_hideUntil_desc")
 msgid "Currently Set To: %s"
-msgstr ""
+msgstr "כרגע מוגדר ל־: %s"
 
 #. Preference: Default Importance Title
 #: translations/strings.xml:482( name="EPr_default_importance_title")
 msgid "Default Importance"
-msgstr ""
+msgstr "דחיפות ברירת המחדל"
 
 #. Preference: Default Hide Until Title
 #: translations/strings.xml:487( name="EPr_default_hideUntil_title")
 msgid "Default Hide Until"
-msgstr ""
+msgstr "הסתרה עד אשר כברירת המחדל"
 
 #. importance: labels for "Task Defaults" preference item.
 #: translations/strings.xml:493(item)
 msgid "!!!! (Highest)"
-msgstr ""
+msgstr "!!!! (הגבוהה ביותר)"
 
 #: translations/strings.xml:494(item)
 msgid "!!!"
@@ -728,32 +712,31 @@ msgstr "!!"
 
 #: translations/strings.xml:496(item)
 msgid "! (Lowest)"
-msgstr ""
+msgstr "! (הנמוכה ביותר)"
 
 #: translations/strings.xml:504(item)
 msgid "Day After Tomorrow"
-msgstr ""
+msgstr "מחרתיים"
 
 #. Add Ons: author for internal authors
 #: translations/strings.xml:519( name="AOA_internal_author")
-#, fuzzy
 msgid "Astrid Team"
-msgstr "אסטריד"
+msgstr "צוות Astrid"
 
 #. Sync Notification: message when sync service active
 #: translations/strings.xml:524( name="SyP_progress")
 msgid "Synchronizing your tasks..."
-msgstr ""
+msgstr "המשימות שלך מסונכרנות..."
 
 #. Sync Notification: toast when sync activated from activity
 #: translations/strings.xml:527( name="SyP_progress_toast")
 msgid "Synchronizing..."
-msgstr ""
+msgstr "בסנכרון..."
 
 #. Widget text when loading tasks
 #: translations/strings.xml:532( name="TWi_loading")
 msgid "Loading..."
-msgstr ""
+msgstr "בטעינה..."
 
 #. Displayed when task killer found. %s => name of the application
 #: translations/strings.xml:537( name="task_killer_help")
@@ -782,91 +765,89 @@ msgid ""
 msgstr ""
 
 #. Active Tasks Filter
-#: translations/strings.xml:564( name="BFE_Active")
-#: translations/strings.xml:567( name="BFE_Active_title")
+#: translations/strings.xml:564( name="BFE_Active") translations/strings.xml:567( name="BFE_Active_title")
 msgid "Active Tasks"
-msgstr ""
+msgstr "משימות פעילות"
 
 #. Search Filter
 #: translations/strings.xml:570( name="BFE_Search")
 msgid "Search"
-msgstr ""
+msgstr "חיפוש"
 
 #. Extended Filters Category
 #: translations/strings.xml:573( name="BFE_Extended")
 msgid "More..."
-msgstr ""
+msgstr "עוד..."
 
 #. sort recent modification filter
 #: translations/strings.xml:576( name="BFE_Recent")
 msgid "Recently Modified"
-msgstr ""
+msgstr "שונו לאחרונה"
 
 #. Completed Filter
 #: translations/strings.xml:579( name="BFE_Completed")
 msgid "Completed Tasks"
-msgstr "משימות שהסתיימו"
+msgstr "משימות שהושלמו"
 
 #. hidden tasks filter
 #: translations/strings.xml:582( name="BFE_Hidden")
 msgid "Hidden Tasks"
-msgstr ""
+msgstr "משימות מוסתרות"
 
 #. sort Alphabetical filter
 #: translations/strings.xml:585( name="BFE_Alphabetical")
 msgid "By Title"
-msgstr ""
+msgstr "לפי כותרת"
 
 #. sort Due Date filter
 #: translations/strings.xml:588( name="BFE_DueDate")
 msgid "By Due Date"
-msgstr ""
+msgstr "לפי תאריך הפקיעה"
 
 #. sort Importance filter
 #: translations/strings.xml:591( name="BFE_Importance")
 msgid "By Importance"
-msgstr ""
+msgstr "לפי חשיבות"
 
 #. deleted tasks filter
 #: translations/strings.xml:594( name="BFE_Deleted")
 msgid "Deleted Tasks"
-msgstr ""
+msgstr "משימות שנמחקו"
 
 #. Error message for adding to calendar
 #: translations/strings.xml:606( name="gcal_TEA_error")
 msgid "Error adding task to calendar!"
-msgstr ""
+msgstr "שגיאה בהוספת המשימה ללוח השנה!"
 
 #. Label for adding task to calendar
 #: translations/strings.xml:609( name="gcal_TEA_calendar_label")
 msgid "Calendar Integration:"
-msgstr ""
+msgstr "שילוב בלוח השנה:"
 
 #. Label for adding task to calendar
 #: translations/strings.xml:612( name="gcal_TEA_addToCalendar_label")
 msgid "Create Calendar Event"
-msgstr ""
+msgstr "יצירת אירוע בלוח השנה"
 
 #. Label when calendar event already exists
 #: translations/strings.xml:615( name="gcal_TEA_showCalendar_label")
 msgid "Open Calendar Event"
-msgstr ""
+msgstr "פתיחת אירוע בלוח השנה"
 
 #. Calendar event name when task is completed (%s => task title)
 #: translations/strings.xml:620( name="gcal_completed_title")
 msgid "%s (completed)"
-msgstr ""
+msgstr "%s (הושלמה)"
 
 #. System Default Calendar (displayed if we can't figure out calendars)
 #: translations/strings.xml:623( name="gcal_GCP_default")
 msgid "Default Calendar"
-msgstr ""
+msgstr "לוח שנה כברירת מחדל"
 
 #. Locale Alert Editing Window Title
 #: translations/strings.xml:634( name="locale_edit_alerts_title")
-#, fuzzy
 msgid "Astrid Filter Alert"
-msgstr "כאן אסטריד!"
+msgstr ""
 
 #. Locale Window Help
 #: translations/strings.xml:637( name="locale_edit_intro")
@@ -878,39 +859,36 @@ msgstr ""
 #. Locale Window Filter Picker UI
 #: translations/strings.xml:641( name="locale_pick_filter")
 msgid "Filter:"
-msgstr ""
+msgstr "מסנן:"
 
 #. Locale Window Interval Label
 #: translations/strings.xml:644( name="locale_interval_label")
 msgid "Limit notifications to:"
-msgstr ""
+msgstr "הגבלת ההתרעות ל־:"
 
 #: translations/strings.xml:648(item)
-#, fuzzy
 msgid "once an hour"
-msgstr "פעמיים בשעה"
+msgstr "אחת לשעה"
 
 #: translations/strings.xml:649(item)
 msgid "once every six hours"
-msgstr ""
+msgstr "אחת לשש שעות"
 
 #: translations/strings.xml:650(item)
 msgid "once every twelve hours"
-msgstr ""
+msgstr "אחת ל־12 שעות"
 
 #: translations/strings.xml:651(item)
-#, fuzzy
 msgid "once a day"
-msgstr "פעמיים ביום"
+msgstr "אחת ליום"
 
 #: translations/strings.xml:652(item)
 msgid "once every three days"
-msgstr ""
+msgstr "אחת לשלושה ימים"
 
 #: translations/strings.xml:653(item)
-#, fuzzy
 msgid "once a week"
-msgstr "פעמיים בשבוע"
+msgstr "אחת לשבוע"
 
 #. Locale Notification text
 #: translations/strings.xml:657( name="locale_notification")
@@ -920,53 +898,50 @@ msgstr ""
 #. Task Edit: Reminder header label
 #: translations/strings.xml:669( name="TEA_reminder_label")
 msgid "Remind me..."
-msgstr ""
+msgstr "הצגת תזכורת..."
 
 #. Task Edit: Reminder @ deadline
 #: translations/strings.xml:672( name="TEA_reminder_due")
 msgid "... when it's time to start the task"
-msgstr ""
+msgstr "... כאשר הגיע הזמן להתחיל במשימה"
 
 #. Task Edit: Reminder after deadline
 #: translations/strings.xml:675( name="TEA_reminder_overdue")
 msgid "... when task is overdue"
-msgstr ""
+msgstr "... לאחר פקיעת תוקף המשימה"
 
 #. Task Edit: Reminder at random times (%s => time plural)
 #: translations/strings.xml:678( name="TEA_reminder_random")
 msgid "... randomly once"
-msgstr ""
+msgstr "... פעם אחת באקראי"
 
 #. Task Edit: Reminder alarm clock label
 #: translations/strings.xml:681( name="TEA_reminder_alarm_label")
 msgid "Ring/Vibrate Type:"
-msgstr ""
+msgstr "סוג צלצול/רטט:"
 
 #. Task Edit: Reminder alarm clock toggle: off
 #: translations/strings.xml:684( name="TEA_reminder_alarm_off")
 msgid "Ring Once"
-msgstr ""
+msgstr "צלצול יחיד"
 
 #. Task Edit: Reminder alarm clock toggle: on
 #: translations/strings.xml:687( name="TEA_reminder_alarm_on")
 msgid "Ring Until I Dismiss Alarm"
-msgstr ""
+msgstr "צלצול עד להתעלמות מהאזעקה"
 
 #. random reminder choices for task edit page.
 #: translations/strings.xml:691(item)
-#, fuzzy
 msgid "an hour"
-msgstr "פעמיים בשעה"
+msgstr ""
 
 #: translations/strings.xml:692(item)
-#, fuzzy
 msgid "a day"
-msgstr "פעמיים ביום"
+msgstr ""
 
 #: translations/strings.xml:693(item)
-#, fuzzy
 msgid "a week"
-msgstr "פעמיים בשבוע"
+msgstr ""
 
 #: translations/strings.xml:694(item)
 msgid "in two weeks"
@@ -983,42 +958,42 @@ msgstr ""
 #. Name of filter when viewing a reminder
 #: translations/strings.xml:702( name="rmd_NoA_filter")
 msgid "Reminder!"
-msgstr ""
+msgstr "תזכורת!"
 
 #. Reminder: Snooze button (remind again later)
 #: translations/strings.xml:705( name="rmd_NoA_snooze")
 msgid "Snooze..."
-msgstr ""
+msgstr "נודניק..."
 
 #. Reminder: Cancel reminder
 #: translations/strings.xml:708( name="rmd_NoA_goAway")
 msgid "Go Away!"
-msgstr ""
+msgstr "חלאס!"
 
 #. Reminder Preference Screen Title
 #: translations/strings.xml:713( name="rmd_EPr_alerts_header")
 msgid "Reminder Settings"
-msgstr ""
+msgstr "הגדרות התזכורת"
 
 #. Reminder Preference: Quiet Hours Start Title
 #: translations/strings.xml:716( name="rmd_EPr_quiet_hours_start_title")
 msgid "Quiet Hours Start"
-msgstr ""
+msgstr "תחילת שעות השקט"
 
 #. Reminder Preference: Quiet Hours Start Description (%s => time set)
 #: translations/strings.xml:718( name="rmd_EPr_quiet_hours_start_desc")
 msgid "No notifications will appear after %s"
-msgstr ""
+msgstr "לא יופיעו התרעות עד לאחר %s"
 
 #. Reminder Preference: Quiet Hours Start/End Description (disabled)
 #: translations/strings.xml:720( name="rmd_EPr_quiet_hours_desc_none")
 msgid "Quiet hours is disabled"
-msgstr ""
+msgstr "שעות השקט מנוטרלות"
 
 #. Reminder Preference: Quiet Hours End Title
 #: translations/strings.xml:723( name="rmd_EPr_quiet_hours_end_title")
 msgid "Quiet Hours End"
-msgstr ""
+msgstr "סיום שעות השקט"
 
 #. Reminder Preference: Quiet Hours End Description (%s => time set)
 #: translations/strings.xml:725( name="rmd_EPr_quiet_hours_end_desc")
@@ -1087,9 +1062,8 @@ msgstr ""
 
 #. Reminder Preference: Nagging Title
 #: translations/strings.xml:756( name="rmd_EPr_nagging_title")
-#, fuzzy
 msgid "Astrid Reminders"
-msgstr "כאן אסטריד!"
+msgstr ""
 
 #. Reminder Preference: Nagging Description (true)
 #: translations/strings.xml:758( name="rmd_EPr_nagging_desc_true")
@@ -1123,20 +1097,19 @@ msgstr ""
 
 #: translations/strings.xml:775(item)
 msgid "hourly"
-msgstr "כל שעה"
+msgstr ""
 
 #: translations/strings.xml:776(item)
 msgid "daily"
-msgstr "כל יום"
+msgstr ""
 
 #: translations/strings.xml:777(item)
 msgid "weekly"
-msgstr "כל שבוע"
+msgstr ""
 
 #: translations/strings.xml:778(item)
-#, fuzzy
 msgid "bi-weekly"
-msgstr "כל שבוע"
+msgstr ""
 
 #: translations/strings.xml:779(item)
 msgid "monthly"
@@ -1302,7 +1275,6 @@ msgid "Due date is here!"
 msgstr ""
 
 #: translations/strings.xml:862(item)
-#, fuzzy
 msgid "Ready to start?"
 msgstr "מוכן לעשות זאת?"
 
@@ -1323,7 +1295,6 @@ msgid "It's time!"
 msgstr ""
 
 #: translations/strings.xml:867(item)
-#, fuzzy
 msgid "Excuse me! Time for"
 msgstr "סלח לי!"
 
@@ -1565,9 +1536,7 @@ msgid "Needs synchronization with RTM"
 msgstr ""
 
 #. filters header: RTM
-#: translations/strings.xml:984( name="rmilk_FEx_header")
-#: translations/strings.xml:998( name="rmilk_MEA_title")
-#: translations/strings.xml:1012( name="rmilk_MPr_header")
+#: translations/strings.xml:984( name="rmilk_FEx_header") translations/strings.xml:998( name="rmilk_MEA_title") translations/strings.xml:1012( name="rmilk_MPr_header")
 msgid "Remember the Milk"
 msgstr ""
 
@@ -1718,12 +1687,11 @@ msgstr ""
 #. rmilk_MPr_interval_entries: Synchronization Intervals
 #: translations/strings.xml:1086(item)
 msgid "disable"
-msgstr "ביטול"
+msgstr ""
 
 #: translations/strings.xml:1087(item)
-#, fuzzy
 msgid "every fifteen minutes"
-msgstr "יש לך כמה דקות?"
+msgstr ""
 
 #: translations/strings.xml:1088(item)
 msgid "every thirty minutes"
@@ -1826,81 +1794,3 @@ msgstr ""
 #: translations/strings.xml:1160( name="TFE_workingOn")
 msgid "Tasks Being Timed"
 msgstr ""
-
-#~ msgid "Pink"
-#~ msgstr "ורוד"
-
-#~ msgid "Boring"
-#~ msgstr "משעמם"
-
-#~ msgid "20:00"
-#~ msgstr "20:00"
-
-#~ msgid "21:00"
-#~ msgstr "21:00"
-
-#~ msgid "22:00"
-#~ msgstr "22:00"
-
-#~ msgid "23:00"
-#~ msgstr "23:00"
-
-#~ msgid "00:00"
-#~ msgstr "00:00"
-
-#~ msgid "01:00"
-#~ msgstr "01:00"
-
-#~ msgid "02:00"
-#~ msgstr "02:00"
-
-#~ msgid "03:00"
-#~ msgstr "03:00"
-
-#~ msgid "04:00"
-#~ msgstr "04:00"
-
-#~ msgid "05:00"
-#~ msgstr "05:00"
-
-#~ msgid "06:00"
-#~ msgstr "06:00"
-
-#~ msgid "07:00"
-#~ msgstr "07:00"
-
-#~ msgid "08:00"
-#~ msgstr "08:00"
-
-#~ msgid "09:00"
-#~ msgstr "09:00"
-
-#~ msgid "10:00"
-#~ msgstr "10:00"
-
-#~ msgid "11:00"
-#~ msgstr "11:00"
-
-#~ msgid "12:00"
-#~ msgstr "12:00"
-
-#~ msgid "13:00"
-#~ msgstr "13:00"
-
-#~ msgid "14:00"
-#~ msgstr "14:00"
-
-#~ msgid "15:00"
-#~ msgstr "15:00"
-
-#~ msgid "16:00"
-#~ msgstr "16:00"
-
-#~ msgid "17:00"
-#~ msgstr "17:00"
-
-#~ msgid "18:00"
-#~ msgstr "18:00"
-
-#~ msgid "19:00"
-#~ msgstr "19:00"

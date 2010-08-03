@@ -8,24 +8,22 @@ msgstr ""
 "Project-Id-Version: astrid\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-07-29 03:54-0700\n"
-"PO-Revision-Date: 2010-07-06 04:09+0000\n"
+"PO-Revision-Date: 2010-07-06 04:06+0000\n"
 "Last-Translator: Henrique P. Machado <zehrique@ubuntu.com>\n"
 "Language-Team: Brazilian Portuguese <pt_BR@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-30 04:48+0000\n"
+"X-Launchpad-Export-Date: 2010-08-03 08:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Backup Preferences Title
-#: translations/strings.xml:10( name="backup_BPr_header")
-#: translations/strings.xml:37( name="backup_BAc_label")
+#: translations/strings.xml:10( name="backup_BPr_header") translations/strings.xml:37( name="backup_BAc_label")
 msgid "Backups"
 msgstr ""
 
 #. Backup: Status Header
-#: translations/strings.xml:13( name="backup_BPr_group_status")
-#: translations/strings.xml:1015( name="rmilk_MPr_group_status")
+#: translations/strings.xml:13( name="backup_BPr_group_status") translations/strings.xml:1015( name="rmilk_MPr_group_status")
 msgid "Status"
 msgstr ""
 
@@ -50,8 +48,7 @@ msgid "Never Backed Up!"
 msgstr ""
 
 #. Backup Options Group Label
-#: translations/strings.xml:25( name="backup_BPr_group_options")
-#: translations/strings.xml:1031( name="rmilk_MPr_group_options")
+#: translations/strings.xml:25( name="backup_BPr_group_options") translations/strings.xml:1031( name="rmilk_MPr_group_options")
 msgid "Options"
 msgstr "Opções"
 
@@ -107,8 +104,8 @@ msgstr "Sumário de restauração"
 #. Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped)
 #: translations/strings.xml:62( name="import_summary_message")
 msgid ""
-"File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had errors"
-"\\n"
+"File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had "
+"errors\\n"
 msgstr ""
 
 #. Progress Dialog Title for importing
@@ -143,16 +140,13 @@ msgstr "Selecione arquivo a ser restaurado"
 
 #. Application Name (shown on home screen & in launcher)
 #: translations/strings.xml:95( name="app_name")
-#, fuzzy
 msgid "Astrid Tasks"
-msgstr "Astrid"
+msgstr ""
 
 #. permission title for READ_TASKS
-#: translations/strings.xml:98( name="read_permission_label")
-#: translations/strings.xml:104( name="write_permission_label")
-#, fuzzy
+#: translations/strings.xml:98( name="read_permission_label") translations/strings.xml:104( name="write_permission_label")
 msgid "Astrid Permission"
-msgstr "Aqui é o Astrid!"
+msgstr ""
 
 #. permission description for READ_TASKS
 #: translations/strings.xml:101( name="read_permission_desc")
@@ -358,9 +352,8 @@ msgstr ""
 
 #. String formatter for Disable button
 #: translations/strings.xml:233( name="WID_disableButton")
-#, fuzzy
 msgid "Disable"
-msgstr "desabilitar"
+msgstr ""
 
 #. Task List: Displayed instead of list when no items present
 #: translations/strings.xml:238( name="TLA_no_items")
@@ -368,8 +361,7 @@ msgid "No Tasks!"
 msgstr ""
 
 #. Menu: Add-ons
-#: translations/strings.xml:241( name="TLA_menu_addons")
-#: translations/strings.xml:360( name="TEA_tab_addons")
+#: translations/strings.xml:241( name="TLA_menu_addons") translations/strings.xml:360( name="TEA_tab_addons")
 msgid "Add-ons"
 msgstr ""
 
@@ -379,8 +371,7 @@ msgid "Settings"
 msgstr "Configurações"
 
 #. Menu: Help
-#: translations/strings.xml:247( name="TLA_menu_help")
-#: translations/strings.xml:311( name="FLA_menu_help")
+#: translations/strings.xml:247( name="TLA_menu_help") translations/strings.xml:311( name="FLA_menu_help")
 msgid "Help"
 msgstr ""
 
@@ -425,8 +416,7 @@ msgid "Edit Task"
 msgstr "Editar tarefa"
 
 #. Context Item: delete task
-#: translations/strings.xml:291( name="TAd_contextDeleteTask")
-#: translations/strings.xml:402( name="TEA_menu_delete")
+#: translations/strings.xml:291( name="TAd_contextDeleteTask") translations/strings.xml:402( name="TEA_menu_delete")
 msgid "Delete Task"
 msgstr "Excluir tarefa"
 
@@ -437,9 +427,8 @@ msgstr ""
 
 #. Filter List Activity Title
 #: translations/strings.xml:299( name="FLA_title")
-#, fuzzy
 msgid "Astrid: Filters"
-msgstr "Aqui é o Astrid!"
+msgstr ""
 
 #. Displayed when loading filters
 #: translations/strings.xml:302( name="FLA_loading")
@@ -597,9 +586,8 @@ msgid "Specific Day/Time"
 msgstr ""
 
 #: translations/strings.xml:422(item) translations/strings.xml:502(item)
-#, fuzzy
 msgid "Today"
-msgstr "diariamente"
+msgstr ""
 
 #: translations/strings.xml:423(item) translations/strings.xml:503(item)
 msgid "Tomorrow"
@@ -666,9 +654,8 @@ msgstr ""
 
 #. Preference Window Title
 #: translations/strings.xml:462( name="EPr_title")
-#, fuzzy
 msgid "Astrid: Preferences"
-msgstr "Aqui é o Astrid!"
+msgstr ""
 
 #. Preference Category: Appearance Title
 #: translations/strings.xml:465( name="EPr_appearance_header")
@@ -686,8 +673,7 @@ msgid "Font size on the main listing page"
 msgstr "Tamanho da fonte na página da lista principal"
 
 #. Preference Category: Defaults Title
-#: translations/strings.xml:474( name="EPr_defaults_header")
-#: translations/strings.xml:770( name="rmd_EPr_defaults_header")
+#: translations/strings.xml:474( name="EPr_defaults_header") translations/strings.xml:770( name="rmd_EPr_defaults_header")
 msgid "New Task Defaults"
 msgstr ""
 
@@ -697,9 +683,7 @@ msgid "Default Urgency"
 msgstr ""
 
 #. Preference: Default Urgency Description (%s => setting)
-#: translations/strings.xml:479( name="EPr_default_urgency_desc")
-#: translations/strings.xml:484( name="EPr_default_importance_desc")
-#: translations/strings.xml:489( name="EPr_default_hideUntil_desc")
+#: translations/strings.xml:479( name="EPr_default_urgency_desc") translations/strings.xml:484( name="EPr_default_importance_desc") translations/strings.xml:489( name="EPr_default_hideUntil_desc")
 msgid "Currently Set To: %s"
 msgstr ""
 
@@ -736,9 +720,8 @@ msgstr ""
 
 #. Add Ons: author for internal authors
 #: translations/strings.xml:519( name="AOA_internal_author")
-#, fuzzy
 msgid "Astrid Team"
-msgstr "Astrid"
+msgstr ""
 
 #. Sync Notification: message when sync service active
 #: translations/strings.xml:524( name="SyP_progress")
@@ -790,8 +773,7 @@ msgstr ""
 "RememberTheMilk (RTM), plug-in de regionalização e mais!"
 
 #. Active Tasks Filter
-#: translations/strings.xml:564( name="BFE_Active")
-#: translations/strings.xml:567( name="BFE_Active_title")
+#: translations/strings.xml:564( name="BFE_Active") translations/strings.xml:567( name="BFE_Active_title")
 msgid "Active Tasks"
 msgstr ""
 
@@ -872,9 +854,8 @@ msgstr ""
 
 #. Locale Alert Editing Window Title
 #: translations/strings.xml:634( name="locale_edit_alerts_title")
-#, fuzzy
 msgid "Astrid Filter Alert"
-msgstr "Aqui é o Astrid!"
+msgstr ""
 
 #. Locale Window Help
 #: translations/strings.xml:637( name="locale_edit_intro")
@@ -894,9 +875,8 @@ msgid "Limit notifications to:"
 msgstr ""
 
 #: translations/strings.xml:648(item)
-#, fuzzy
 msgid "once an hour"
-msgstr "duas vezes em uma hora"
+msgstr ""
 
 #: translations/strings.xml:649(item)
 msgid "once every six hours"
@@ -907,18 +887,16 @@ msgid "once every twelve hours"
 msgstr ""
 
 #: translations/strings.xml:651(item)
-#, fuzzy
 msgid "once a day"
-msgstr "duas vezes ao dia"
+msgstr ""
 
 #: translations/strings.xml:652(item)
 msgid "once every three days"
 msgstr ""
 
 #: translations/strings.xml:653(item)
-#, fuzzy
 msgid "once a week"
-msgstr "duas vezes na semana"
+msgstr ""
 
 #. Locale Notification text
 #: translations/strings.xml:657( name="locale_notification")
@@ -962,19 +940,16 @@ msgstr ""
 
 #. random reminder choices for task edit page.
 #: translations/strings.xml:691(item)
-#, fuzzy
 msgid "an hour"
-msgstr "duas vezes em uma hora"
+msgstr ""
 
 #: translations/strings.xml:692(item)
-#, fuzzy
 msgid "a day"
-msgstr "duas vezes ao dia"
+msgstr ""
 
 #: translations/strings.xml:693(item)
-#, fuzzy
 msgid "a week"
-msgstr "duas vezes na semana"
+msgstr ""
 
 #: translations/strings.xml:694(item)
 msgid "in two weeks"
@@ -1095,9 +1070,8 @@ msgstr ""
 
 #. Reminder Preference: Nagging Title
 #: translations/strings.xml:756( name="rmd_EPr_nagging_title")
-#, fuzzy
 msgid "Astrid Reminders"
-msgstr "Aqui é o Astrid!"
+msgstr ""
 
 #. Reminder Preference: Nagging Description (true)
 #: translations/strings.xml:758( name="rmd_EPr_nagging_desc_true")
@@ -1127,24 +1101,23 @@ msgstr ""
 #. Reminder Preference: random reminder choices for preference page.
 #: translations/strings.xml:774(item) translations/strings.xml:785(item)
 msgid "disabled"
-msgstr "desabilitado"
+msgstr ""
 
 #: translations/strings.xml:775(item)
 msgid "hourly"
-msgstr "a cada hora"
+msgstr ""
 
 #: translations/strings.xml:776(item)
 msgid "daily"
-msgstr "diariamente"
+msgstr ""
 
 #: translations/strings.xml:777(item)
 msgid "weekly"
-msgstr "semanalmente"
+msgstr ""
 
 #: translations/strings.xml:778(item)
-#, fuzzy
 msgid "bi-weekly"
-msgstr "semanalmente"
+msgstr ""
 
 #: translations/strings.xml:779(item)
 msgid "monthly"
@@ -1310,9 +1283,8 @@ msgid "Due date is here!"
 msgstr ""
 
 #: translations/strings.xml:862(item)
-#, fuzzy
 msgid "Ready to start?"
-msgstr "Pronto pra fazer isto?"
+msgstr ""
 
 #: translations/strings.xml:863(item)
 msgid "You said you would do:"
@@ -1331,9 +1303,8 @@ msgid "It's time!"
 msgstr ""
 
 #: translations/strings.xml:867(item)
-#, fuzzy
 msgid "Excuse me! Time for"
-msgstr "Me desculpe!"
+msgstr ""
 
 #: translations/strings.xml:868(item)
 msgid "You free? Time to"
@@ -1575,9 +1546,7 @@ msgid "Needs synchronization with RTM"
 msgstr ""
 
 #. filters header: RTM
-#: translations/strings.xml:984( name="rmilk_FEx_header")
-#: translations/strings.xml:998( name="rmilk_MEA_title")
-#: translations/strings.xml:1012( name="rmilk_MPr_header")
+#: translations/strings.xml:984( name="rmilk_FEx_header") translations/strings.xml:998( name="rmilk_MEA_title") translations/strings.xml:1012( name="rmilk_MPr_header")
 msgid "Remember the Milk"
 msgstr ""
 
@@ -1728,12 +1697,11 @@ msgstr ""
 #. rmilk_MPr_interval_entries: Synchronization Intervals
 #: translations/strings.xml:1086(item)
 msgid "disable"
-msgstr "desabilitar"
+msgstr ""
 
 #: translations/strings.xml:1087(item)
-#, fuzzy
 msgid "every fifteen minutes"
-msgstr "Tem alguns minutos?"
+msgstr ""
 
 #: translations/strings.xml:1088(item)
 msgid "every thirty minutes"
@@ -1836,81 +1804,3 @@ msgstr ""
 #: translations/strings.xml:1160( name="TFE_workingOn")
 msgid "Tasks Being Timed"
 msgstr ""
-
-#~ msgid "Pink"
-#~ msgstr "Rosa"
-
-#~ msgid "Boring"
-#~ msgstr "É chato"
-
-#~ msgid "20:00"
-#~ msgstr "20:00"
-
-#~ msgid "21:00"
-#~ msgstr "21:00"
-
-#~ msgid "22:00"
-#~ msgstr "22:00"
-
-#~ msgid "23:00"
-#~ msgstr "23:00"
-
-#~ msgid "00:00"
-#~ msgstr "00:00"
-
-#~ msgid "01:00"
-#~ msgstr "01:00"
-
-#~ msgid "02:00"
-#~ msgstr "02:00"
-
-#~ msgid "03:00"
-#~ msgstr "03:00"
-
-#~ msgid "04:00"
-#~ msgstr "04:00"
-
-#~ msgid "05:00"
-#~ msgstr "05:00"
-
-#~ msgid "06:00"
-#~ msgstr "06:00"
-
-#~ msgid "07:00"
-#~ msgstr "07:00"
-
-#~ msgid "08:00"
-#~ msgstr "08:00"
-
-#~ msgid "09:00"
-#~ msgstr "09:00"
-
-#~ msgid "10:00"
-#~ msgstr "10:00"
-
-#~ msgid "11:00"
-#~ msgstr "11:00"
-
-#~ msgid "12:00"
-#~ msgstr "12:00"
-
-#~ msgid "13:00"
-#~ msgstr "13:00"
-
-#~ msgid "14:00"
-#~ msgstr "14:00"
-
-#~ msgid "15:00"
-#~ msgstr "15:00"
-
-#~ msgid "16:00"
-#~ msgstr "16:00"
-
-#~ msgid "17:00"
-#~ msgstr "17:00"
-
-#~ msgid "18:00"
-#~ msgstr "18:00"
-
-#~ msgid "19:00"
-#~ msgstr "19:00"

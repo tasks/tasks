@@ -8,24 +8,22 @@ msgstr ""
 "Project-Id-Version: astrid\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-07-29 03:54-0700\n"
-"PO-Revision-Date: 2010-07-07 17:34+0000\n"
+"PO-Revision-Date: 2010-07-07 17:37+0000\n"
 "Last-Translator: James Thorrold <Unknown>\n"
 "Language-Team: English (United Kingdom) <en_GB@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-07-30 04:48+0000\n"
+"X-Launchpad-Export-Date: 2010-08-03 08:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Backup Preferences Title
-#: translations/strings.xml:10( name="backup_BPr_header")
-#: translations/strings.xml:37( name="backup_BAc_label")
+#: translations/strings.xml:10( name="backup_BPr_header") translations/strings.xml:37( name="backup_BAc_label")
 msgid "Backups"
 msgstr ""
 
 #. Backup: Status Header
-#: translations/strings.xml:13( name="backup_BPr_group_status")
-#: translations/strings.xml:1015( name="rmilk_MPr_group_status")
+#: translations/strings.xml:13( name="backup_BPr_group_status") translations/strings.xml:1015( name="rmilk_MPr_group_status")
 msgid "Status"
 msgstr ""
 
@@ -50,8 +48,7 @@ msgid "Never Backed Up!"
 msgstr ""
 
 #. Backup Options Group Label
-#: translations/strings.xml:25( name="backup_BPr_group_options")
-#: translations/strings.xml:1031( name="rmilk_MPr_group_options")
+#: translations/strings.xml:25( name="backup_BPr_group_options") translations/strings.xml:1031( name="rmilk_MPr_group_options")
 msgid "Options"
 msgstr "Options"
 
@@ -107,8 +104,8 @@ msgstr "Restore Summary"
 #. Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped)
 #: translations/strings.xml:62( name="import_summary_message")
 msgid ""
-"File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had errors"
-"\\n"
+"File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had "
+"errors\\n"
 msgstr ""
 
 #. Progress Dialog Title for importing
@@ -143,16 +140,13 @@ msgstr "Select a File to Restore"
 
 #. Application Name (shown on home screen & in launcher)
 #: translations/strings.xml:95( name="app_name")
-#, fuzzy
 msgid "Astrid Tasks"
-msgstr "Astrid"
+msgstr ""
 
 #. permission title for READ_TASKS
-#: translations/strings.xml:98( name="read_permission_label")
-#: translations/strings.xml:104( name="write_permission_label")
-#, fuzzy
+#: translations/strings.xml:98( name="read_permission_label") translations/strings.xml:104( name="write_permission_label")
 msgid "Astrid Permission"
-msgstr "Astrid here!"
+msgstr ""
 
 #. permission description for READ_TASKS
 #: translations/strings.xml:101( name="read_permission_desc")
@@ -358,7 +352,6 @@ msgstr ""
 
 #. String formatter for Disable button
 #: translations/strings.xml:233( name="WID_disableButton")
-#, fuzzy
 msgid "Disable"
 msgstr "disable"
 
@@ -368,8 +361,7 @@ msgid "No Tasks!"
 msgstr ""
 
 #. Menu: Add-ons
-#: translations/strings.xml:241( name="TLA_menu_addons")
-#: translations/strings.xml:360( name="TEA_tab_addons")
+#: translations/strings.xml:241( name="TLA_menu_addons") translations/strings.xml:360( name="TEA_tab_addons")
 msgid "Add-ons"
 msgstr ""
 
@@ -379,8 +371,7 @@ msgid "Settings"
 msgstr "Settings"
 
 #. Menu: Help
-#: translations/strings.xml:247( name="TLA_menu_help")
-#: translations/strings.xml:311( name="FLA_menu_help")
+#: translations/strings.xml:247( name="TLA_menu_help") translations/strings.xml:311( name="FLA_menu_help")
 msgid "Help"
 msgstr ""
 
@@ -425,8 +416,7 @@ msgid "Edit Task"
 msgstr "Edit Task"
 
 #. Context Item: delete task
-#: translations/strings.xml:291( name="TAd_contextDeleteTask")
-#: translations/strings.xml:402( name="TEA_menu_delete")
+#: translations/strings.xml:291( name="TAd_contextDeleteTask") translations/strings.xml:402( name="TEA_menu_delete")
 msgid "Delete Task"
 msgstr "Delete Task"
 
@@ -437,9 +427,8 @@ msgstr ""
 
 #. Filter List Activity Title
 #: translations/strings.xml:299( name="FLA_title")
-#, fuzzy
 msgid "Astrid: Filters"
-msgstr "Astrid here!"
+msgstr ""
 
 #. Displayed when loading filters
 #: translations/strings.xml:302( name="FLA_loading")
@@ -597,9 +586,8 @@ msgid "Specific Day/Time"
 msgstr ""
 
 #: translations/strings.xml:422(item) translations/strings.xml:502(item)
-#, fuzzy
 msgid "Today"
-msgstr "daily"
+msgstr ""
 
 #: translations/strings.xml:423(item) translations/strings.xml:503(item)
 msgid "Tomorrow"
@@ -666,9 +654,8 @@ msgstr ""
 
 #. Preference Window Title
 #: translations/strings.xml:462( name="EPr_title")
-#, fuzzy
 msgid "Astrid: Preferences"
-msgstr "Astrid here!"
+msgstr ""
 
 #. Preference Category: Appearance Title
 #: translations/strings.xml:465( name="EPr_appearance_header")
@@ -686,8 +673,7 @@ msgid "Font size on the main listing page"
 msgstr "Font size on the main listing page"
 
 #. Preference Category: Defaults Title
-#: translations/strings.xml:474( name="EPr_defaults_header")
-#: translations/strings.xml:770( name="rmd_EPr_defaults_header")
+#: translations/strings.xml:474( name="EPr_defaults_header") translations/strings.xml:770( name="rmd_EPr_defaults_header")
 msgid "New Task Defaults"
 msgstr ""
 
@@ -697,9 +683,7 @@ msgid "Default Urgency"
 msgstr ""
 
 #. Preference: Default Urgency Description (%s => setting)
-#: translations/strings.xml:479( name="EPr_default_urgency_desc")
-#: translations/strings.xml:484( name="EPr_default_importance_desc")
-#: translations/strings.xml:489( name="EPr_default_hideUntil_desc")
+#: translations/strings.xml:479( name="EPr_default_urgency_desc") translations/strings.xml:484( name="EPr_default_importance_desc") translations/strings.xml:489( name="EPr_default_hideUntil_desc")
 msgid "Currently Set To: %s"
 msgstr ""
 
@@ -736,9 +720,8 @@ msgstr ""
 
 #. Add Ons: author for internal authors
 #: translations/strings.xml:519( name="AOA_internal_author")
-#, fuzzy
 msgid "Astrid Team"
-msgstr "Astrid"
+msgstr ""
 
 #. Sync Notification: message when sync service active
 #: translations/strings.xml:524( name="SyP_progress")
@@ -785,8 +768,7 @@ msgstr ""
 "reminders, RememberTheMilk sync, Locale plug-in &amp; more!"
 
 #. Active Tasks Filter
-#: translations/strings.xml:564( name="BFE_Active")
-#: translations/strings.xml:567( name="BFE_Active_title")
+#: translations/strings.xml:564( name="BFE_Active") translations/strings.xml:567( name="BFE_Active_title")
 msgid "Active Tasks"
 msgstr ""
 
@@ -867,9 +849,8 @@ msgstr ""
 
 #. Locale Alert Editing Window Title
 #: translations/strings.xml:634( name="locale_edit_alerts_title")
-#, fuzzy
 msgid "Astrid Filter Alert"
-msgstr "Astrid here!"
+msgstr ""
 
 #. Locale Window Help
 #: translations/strings.xml:637( name="locale_edit_intro")
@@ -889,9 +870,8 @@ msgid "Limit notifications to:"
 msgstr ""
 
 #: translations/strings.xml:648(item)
-#, fuzzy
 msgid "once an hour"
-msgstr "twice an hour"
+msgstr ""
 
 #: translations/strings.xml:649(item)
 msgid "once every six hours"
@@ -902,18 +882,16 @@ msgid "once every twelve hours"
 msgstr ""
 
 #: translations/strings.xml:651(item)
-#, fuzzy
 msgid "once a day"
-msgstr "twice a day"
+msgstr ""
 
 #: translations/strings.xml:652(item)
 msgid "once every three days"
 msgstr ""
 
 #: translations/strings.xml:653(item)
-#, fuzzy
 msgid "once a week"
-msgstr "twice a week"
+msgstr ""
 
 #. Locale Notification text
 #: translations/strings.xml:657( name="locale_notification")
@@ -957,19 +935,16 @@ msgstr ""
 
 #. random reminder choices for task edit page.
 #: translations/strings.xml:691(item)
-#, fuzzy
 msgid "an hour"
-msgstr "twice an hour"
+msgstr ""
 
 #: translations/strings.xml:692(item)
-#, fuzzy
 msgid "a day"
-msgstr "twice a day"
+msgstr ""
 
 #: translations/strings.xml:693(item)
-#, fuzzy
 msgid "a week"
-msgstr "twice a week"
+msgstr ""
 
 #: translations/strings.xml:694(item)
 msgid "in two weeks"
@@ -1090,9 +1065,8 @@ msgstr ""
 
 #. Reminder Preference: Nagging Title
 #: translations/strings.xml:756( name="rmd_EPr_nagging_title")
-#, fuzzy
 msgid "Astrid Reminders"
-msgstr "Astrid here!"
+msgstr ""
 
 #. Reminder Preference: Nagging Description (true)
 #: translations/strings.xml:758( name="rmd_EPr_nagging_desc_true")
@@ -1122,24 +1096,23 @@ msgstr ""
 #. Reminder Preference: random reminder choices for preference page.
 #: translations/strings.xml:774(item) translations/strings.xml:785(item)
 msgid "disabled"
-msgstr "disabled"
+msgstr ""
 
 #: translations/strings.xml:775(item)
 msgid "hourly"
-msgstr "hourly"
+msgstr ""
 
 #: translations/strings.xml:776(item)
 msgid "daily"
-msgstr "daily"
+msgstr ""
 
 #: translations/strings.xml:777(item)
 msgid "weekly"
-msgstr "weekly"
+msgstr ""
 
 #: translations/strings.xml:778(item)
-#, fuzzy
 msgid "bi-weekly"
-msgstr "weekly"
+msgstr ""
 
 #: translations/strings.xml:779(item)
 msgid "monthly"
@@ -1305,7 +1278,6 @@ msgid "Due date is here!"
 msgstr ""
 
 #: translations/strings.xml:862(item)
-#, fuzzy
 msgid "Ready to start?"
 msgstr "Ready to do this?"
 
@@ -1326,9 +1298,8 @@ msgid "It's time!"
 msgstr ""
 
 #: translations/strings.xml:867(item)
-#, fuzzy
 msgid "Excuse me! Time for"
-msgstr "Excuse me!"
+msgstr ""
 
 #: translations/strings.xml:868(item)
 msgid "You free? Time to"
@@ -1390,7 +1361,7 @@ msgstr "I promise you'll feel better if you finish this!"
 
 #: translations/strings.xml:890(item)
 msgid "Won't you do this today?"
-msgstr "Won't you do this today?"
+msgstr ""
 
 #: translations/strings.xml:891(item)
 msgid "Please finish this, I'm sick of it!"
@@ -1410,19 +1381,19 @@ msgstr ""
 
 #: translations/strings.xml:895(item)
 msgid "I'm so proud of you! Lets get it done!"
-msgstr "I'm so proud of you! Lets get it done!"
+msgstr ""
 
 #: translations/strings.xml:896(item)
 msgid "A little snack after you finish this?"
-msgstr "A cup of tea after you finish this?"
+msgstr ""
 
 #: translations/strings.xml:897(item)
 msgid "Just this one task? Please?"
-msgstr "Just this one task? Please?"
+msgstr ""
 
 #: translations/strings.xml:898(item)
 msgid "Time to shorten your todo list!"
-msgstr "Time to shorten your todo list!"
+msgstr ""
 
 #. Astrid's nagging when user clicks postpone
 #: translations/strings.xml:903(item)
@@ -1431,11 +1402,11 @@ msgstr ""
 
 #: translations/strings.xml:904(item)
 msgid "Doesn't being lazy get old sometimes?"
-msgstr "Doesn't being lazy get old sometimes?"
+msgstr ""
 
 #: translations/strings.xml:905(item)
 msgid "Somewhere, someone is depending on you to finish this!"
-msgstr "Somewhere, someone is depending on you to finish this!"
+msgstr ""
 
 #: translations/strings.xml:906(item)
 msgid "When you said postpone, you really meant 'I'm doing this', right?"
@@ -1443,7 +1414,7 @@ msgstr ""
 
 #: translations/strings.xml:907(item)
 msgid "This is the last time you postpone this, right?"
-msgstr "This is the last time you postpone this, right?"
+msgstr ""
 
 #: translations/strings.xml:908(item)
 msgid "Just finish this today, I won't tell anyone!"
@@ -1451,11 +1422,11 @@ msgstr ""
 
 #: translations/strings.xml:909(item)
 msgid "Why postpone when you can um... not postpone!"
-msgstr "Why postpone when you can um... not postpone!"
+msgstr ""
 
 #: translations/strings.xml:910(item)
 msgid "You'll finish this eventually, I presume?"
-msgstr "You'll finish this eventually, I presume?"
+msgstr ""
 
 #: translations/strings.xml:911(item)
 msgid "I think you're really great! How about not putting this off?"
@@ -1463,23 +1434,23 @@ msgstr ""
 
 #: translations/strings.xml:912(item)
 msgid "Will you be able to achieve your goals if you do that?"
-msgstr "Will you be able to achieve your goals if you do that?"
+msgstr ""
 
 #: translations/strings.xml:913(item)
 msgid "Postpone, postpone, postpone. When will you change!"
-msgstr "Postpone, postpone, postpone. When will you change!"
+msgstr ""
 
 #: translations/strings.xml:914(item)
 msgid "I've had enough with your excuses! Just do it already!"
-msgstr "I've had enough with your excuses! Just do it already!"
+msgstr ""
 
 #: translations/strings.xml:915(item)
 msgid "Didn't you make that excuse last time?"
-msgstr "Didn't you make that excuse last time?"
+msgstr ""
 
 #: translations/strings.xml:916(item)
 msgid "I can't help you organize your life if you do that..."
-msgstr "I can't help you organize your life if you do that..."
+msgstr ""
 
 #. repeating plugin name
 #: translations/strings.xml:927( name="repeat_plugin")
@@ -1568,9 +1539,7 @@ msgid "Needs synchronization with RTM"
 msgstr ""
 
 #. filters header: RTM
-#: translations/strings.xml:984( name="rmilk_FEx_header")
-#: translations/strings.xml:998( name="rmilk_MEA_title")
-#: translations/strings.xml:1012( name="rmilk_MPr_header")
+#: translations/strings.xml:984( name="rmilk_FEx_header") translations/strings.xml:998( name="rmilk_MEA_title") translations/strings.xml:1012( name="rmilk_MPr_header")
 msgid "Remember the Milk"
 msgstr ""
 
@@ -1721,12 +1690,11 @@ msgstr ""
 #. rmilk_MPr_interval_entries: Synchronization Intervals
 #: translations/strings.xml:1086(item)
 msgid "disable"
-msgstr "disable"
+msgstr ""
 
 #: translations/strings.xml:1087(item)
-#, fuzzy
 msgid "every fifteen minutes"
-msgstr "Have a few minutes?"
+msgstr ""
 
 #: translations/strings.xml:1088(item)
 msgid "every thirty minutes"
@@ -1829,81 +1797,3 @@ msgstr ""
 #: translations/strings.xml:1160( name="TFE_workingOn")
 msgid "Tasks Being Timed"
 msgstr ""
-
-#~ msgid "Pink"
-#~ msgstr "Pink"
-
-#~ msgid "Boring"
-#~ msgstr "Boring"
-
-#~ msgid "20:00"
-#~ msgstr "20:00"
-
-#~ msgid "21:00"
-#~ msgstr "21:00"
-
-#~ msgid "22:00"
-#~ msgstr "22:00"
-
-#~ msgid "23:00"
-#~ msgstr "23:00"
-
-#~ msgid "00:00"
-#~ msgstr "00:00"
-
-#~ msgid "01:00"
-#~ msgstr "01:00"
-
-#~ msgid "02:00"
-#~ msgstr "02:00"
-
-#~ msgid "03:00"
-#~ msgstr "03:00"
-
-#~ msgid "04:00"
-#~ msgstr "04:00"
-
-#~ msgid "05:00"
-#~ msgstr "05:00"
-
-#~ msgid "06:00"
-#~ msgstr "06:00"
-
-#~ msgid "07:00"
-#~ msgstr "07:00"
-
-#~ msgid "08:00"
-#~ msgstr "08:00"
-
-#~ msgid "09:00"
-#~ msgstr "09:00"
-
-#~ msgid "10:00"
-#~ msgstr "10:00"
-
-#~ msgid "11:00"
-#~ msgstr "11:00"
-
-#~ msgid "12:00"
-#~ msgstr "12:00"
-
-#~ msgid "13:00"
-#~ msgstr "13:00"
-
-#~ msgid "14:00"
-#~ msgstr "14:00"
-
-#~ msgid "15:00"
-#~ msgstr "15:00"
-
-#~ msgid "16:00"
-#~ msgstr "16:00"
-
-#~ msgid "17:00"
-#~ msgstr "17:00"
-
-#~ msgid "18:00"
-#~ msgstr "18:00"
-
-#~ msgid "19:00"
-#~ msgstr "19:00"
