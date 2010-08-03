@@ -9,7 +9,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
@@ -112,15 +111,15 @@ abstract public class AbstractDatabase {
 
         try {
             database = helper.getWritableDatabase();
-        } catch (SQLiteException writeException) {
+        } catch (final RuntimeException original) {
             Log.e("database-" + getName(), "Error opening db",
-                    writeException);
+                    original);
             try {
                 // provide read-only database
                 openForReading();
-            } catch (SQLiteException readException) {
+            } catch (Exception readException) {
                 // throw original write exception
-                throw writeException;
+                throw original;
             }
         }
     }

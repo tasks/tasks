@@ -175,33 +175,35 @@ public class Astrid2TaskProvider extends ContentProvider {
 		TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.TITLE,
 		        Task.IMPORTANCE, Task.DUE_DATE).where(TaskCriteria.isActive()).
 		        orderBy(TaskService.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS));
+		try {
+    		int[] importanceColors = Task.getImportanceColors(ctx.getResources());
+    		Task task = new Task();
+    		for (int i = 0; i < cursor.getCount(); i++) {
+    			cursor.moveToNext();
+    			task.readFromCursor(cursor);
 
-		int[] importanceColors = Task.getImportanceColors(ctx.getResources());
+    			StringBuilder taskTags = new StringBuilder();
+    			TodorooCursor<Metadata> tagCursor = TagService.getInstance().getTags(task.getId());
+    			try {
+    			    for(tagCursor.moveToFirst(); !tagCursor.isAfterLast(); tagCursor.moveToNext())
+    			        taskTags.append(tagCursor.get(TagService.TAG)).append(TAG_SEPARATOR);
+    			} finally {
+    			    tagCursor.close();
+    			}
 
-		Task task = new Task();
-		for (int i = 0; i < cursor.getCount(); i++) {
-			cursor.moveToNext();
-			task.readFromCursor(cursor);
+    			Object[] values = new Object[7];
+    			values[0] = task.getValue(Task.TITLE);
+    			values[1] = importanceColors[task.getValue(Task.IMPORTANCE)];
+    			values[2] = task.getValue(Task.DUE_DATE);
+    			values[3] = task.getValue(Task.DUE_DATE);
+    			values[4] = task.getValue(Task.IMPORTANCE);
+    			values[5] = task.getId();
+    			values[6] = taskTags.toString();
 
-			StringBuilder taskTags = new StringBuilder();
-			TodorooCursor<Metadata> tagCursor = TagService.getInstance().getTags(task.getId());
-			try {
-			    for(tagCursor.moveToFirst(); !tagCursor.isAfterLast(); tagCursor.moveToNext())
-			        taskTags.append(tagCursor.get(TagService.TAG)).append(TAG_SEPARATOR);
-			} finally {
-			    tagCursor.close();
-			}
-
-			Object[] values = new Object[7];
-			values[0] = task.getValue(Task.TITLE);
-			values[1] = importanceColors[task.getValue(Task.IMPORTANCE)];
-			values[2] = task.getValue(Task.DUE_DATE);
-			values[3] = task.getValue(Task.DUE_DATE);
-			values[4] = task.getValue(Task.IMPORTANCE);
-			values[5] = task.getId();
-			values[6] = taskTags.toString();
-
-			ret.addRow(values);
+    			ret.addRow(values);
+    		}
+		} finally {
+		    cursor.close();
 		}
 
 		return ret;
