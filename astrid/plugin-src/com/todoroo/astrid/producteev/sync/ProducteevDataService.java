@@ -22,7 +22,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.rmilk.sync.RTMTaskContainer;
+import com.todoroo.astrid.producteev.ProducteevPreferences;
 import com.todoroo.astrid.tags.TagService;
 
 public final class ProducteevDataService {
@@ -52,6 +52,8 @@ public final class ProducteevDataService {
     @Autowired
     private MetadataDao metadataDao;
 
+    private final ProducteevPreferences preferences = new ProducteevPreferences();
+
     static final Random random = new Random();
 
     private ProducteevDataService(Context context) {
@@ -77,7 +79,7 @@ public final class ProducteevDataService {
         return
             taskDao.query(Query.select(properties).join(ProducteevDataService.METADATA_JOIN).where(Criterion.and(
                     Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
-                            where(Criterion.and(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY), ProducteevTask.TASK_SERIES_ID.gt(0))))),
+                            where(Criterion.and(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY), ProducteevTask.ID.gt(0))))),
                     TaskCriteria.isActive())));
     }
 
@@ -87,7 +89,7 @@ public final class ProducteevDataService {
      * @return null if never sync'd
      */
     public TodorooCursor<Task> getLocallyUpdated(Property<?>[] properties) {
-        long lastSyncDate = ProducteevUtilities.getLastSyncDate();
+        long lastSyncDate = preferences.getLastSyncDate();
         if(lastSyncDate == 0)
             return taskDao.query(Query.select(Task.ID).where(Criterion.none));
         return
@@ -100,13 +102,12 @@ public final class ProducteevDataService {
      * Searches for a local task with same remote id, updates this task's id
      * @param remoteTask
      */
-    public void findLocalMatch(RTMTaskContainer remoteTask) {
+    public void findLocalMatch(ProducteevTaskContainer remoteTask) {
         if(remoteTask.task.getId() != Task.NO_ID)
             return;
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID).
                 join(ProducteevDataService.METADATA_JOIN).where(Criterion.and(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                        ProducteevTask.TASK_SERIES_ID.eq(remoteTask.taskSeriesId),
-                        ProducteevTask.TASK_ID.eq(remoteTask.taskId))));
+                        ProducteevTask.ID.eq(remoteTask.pdvTask.getValue(ProducteevTask.ID)))));
         try {
             if(cursor.getCount() == 0)
                 return;
@@ -122,13 +123,14 @@ public final class ProducteevDataService {
      * @param task
      */
     public void saveTaskAndMetadata(ProducteevTaskContainer task) {
+        findLocalMatch(task);
         taskDao.save(task.task, true);
 
         metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(task.task.getId()),
                 Criterion.or(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
                         MetadataCriteria.withKey(ProducteevNote.METADATA_KEY),
                         MetadataCriteria.withKey(TagService.KEY))));
-        task.metadata.add(ProducteevTask.create(task));
+        task.metadata.add(task.pdvTask);
         for(Metadata metadata : task.metadata) {
             metadata.setValue(Metadata.TASK, task.task.getId());
             metadataDao.createNew(metadata);
@@ -158,7 +160,7 @@ public final class ProducteevDataService {
             metadataCursor.close();
         }
 
-        return new RTMTaskContainer(task, metadata);
+        return new ProducteevTaskContainer(task, metadata);
     }
 
     /**
@@ -167,7 +169,7 @@ public final class ProducteevDataService {
      */
     public Metadata getTaskMetadata(long taskId) {
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
-                ProducteevTask.LIST_ID, ProducteevTask.TASK_SERIES_ID, ProducteevTask.TASK_ID, ProducteevTask.REPEATING).where(
+                ProducteevTask.ID, ProducteevTask.DASHBOARD_ID).where(
                 MetadataCriteria.byTaskAndwithKey(taskId, ProducteevTask.METADATA_KEY)));
         try {
             if(cursor.getCount() == 0)

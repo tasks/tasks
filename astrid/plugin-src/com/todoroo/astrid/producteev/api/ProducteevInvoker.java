@@ -204,15 +204,20 @@ public class ProducteevInvoker {
      * set a labels to a task
      *
      * @param idTask
-     * @param idLabel
+     * @param idLabels
      *
      * @return array: tasks/view
      */
-    public JSONArray tasksSetLabel(long idTask, long idLabel) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("tasks/set_label.json",
-                "token", token,
-                "id_task", idTask,
-                "id_label", idLabel), "tasks");
+    public JSONArray tasksSetLabels(long idTask, long... idLabels) throws ApiServiceException, IOException {
+        Object[] params = new Object[idLabels.length * 2 + 2];
+        params[0] = "token";
+        params[1] = token;
+        for(int i = 0; i < idLabels.length; i++) {
+            params[i*2 + 2] = "id_label[]";
+            params[i*2 + 3] = idLabels[i];
+        }
+
+        return getResponse(invokeGet("tasks/set_label.json", params), "tasks");
     }
 
     /**
@@ -223,11 +228,31 @@ public class ProducteevInvoker {
      *
      * @return array: tasks/view
      */
-    public JSONArray tasksUnsetLabel(long idTask, long idLabel) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("tasks/unset_label.json",
+    public JSONArray tasksUnsetLabels(long idTask, long... idLabels) throws ApiServiceException, IOException {
+        Object[] params = new Object[idLabels.length * 2 + 2];
+        params[0] = "token";
+        params[1] = token;
+        for(int i = 0; i < idLabels.length; i++) {
+            params[i*2 + 2] = "id_label[]";
+            params[i*2 + 3] = idLabels[i];
+        }
+
+        return getResponse(invokeGet("tasks/unset_label.json", params), "tasks");
+    }
+
+    /**
+     * create a note attached to a task
+     *
+     * @param idTask
+     * @param message
+     *
+     * @return array tasks::note_view
+     */
+    public JSONObject tasksNoteCreate(long idTask, String message) throws ApiServiceException, IOException {
+        return invokeGet("tasks/note_create.json",
                 "token", token,
                 "id_task", idTask,
-                "id_label", idLabel), "tasks");
+                "message", message);
     }
 
     // --- labels
@@ -248,7 +273,7 @@ public class ProducteevInvoker {
     }
 
     /**
-     * create a task
+     * create a label
      *
      * @param idDashboard
      * @param title

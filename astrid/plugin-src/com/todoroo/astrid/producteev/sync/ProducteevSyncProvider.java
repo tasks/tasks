@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -41,8 +40,6 @@ import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.rmilk.MilkUtilities;
 import com.todoroo.astrid.rmilk.api.ServiceInternalException;
-import com.todoroo.astrid.rmilk.api.data.RtmTaskNote;
-import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
@@ -144,7 +141,6 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
     /**
      * Perform authentication with RTM. Will open the SyncBrowser if necessary
      */
-    @SuppressWarnings("nls")
     private void authenticate() {
         FlurryAgent.onEvent("producteev-started");
 
@@ -175,7 +171,7 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
-            handleException("rtm-authenticate", e, true);
+            handleException("pdv-authenticate", e, true);
         } finally {
             preferences.stopOngoing();
         }
@@ -185,12 +181,15 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
     // ----------------------------------------------------- synchronization!
     // ----------------------------------------------------------------------
 
-    @SuppressWarnings("nls")
     protected void performSync() {
         try {
             // load user information
             JSONObject user = invoker.usersView(null);
             defaultDashboard = user.getJSONObject("user").getLong("default_dashboard");
+
+            // get labels
+            JSONArray labels = invoker.labelsShowList(defaultDashboard, null);
+            readLabels(labels);
 
             // read all tasks
             JSONArray tasks = invoker.tasksShowList(defaultDashboard,
@@ -206,11 +205,11 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
 
             MilkUtilities.recordSuccessfulSync();
 
-            FlurryAgent.onEvent("rtm-sync-finished"); //$NON-NLS-1$
+            FlurryAgent.onEvent("pdv-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
-            handleException("rtm-sync", e, true); //$NON-NLS-1$
+            handleException("pdv-sync", e, true); //$NON-NLS-1$
         }
     }
 
@@ -235,7 +234,6 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
      * Populate SyncData data structure
      * @throws JSONException
      */
-    @SuppressWarnings("nls")
     private SyncData<ProducteevTaskContainer> populateSyncData(JSONArray tasks) throws JSONException {
         // fetch locally created tasks
         TodorooCursor<Task> localCreated = dataService.getLocallyCreated(PROPERTIES);
@@ -273,6 +271,7 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
             throw new ApiResponseParseException(e);
         }
         transferIdentifiers(newRemoteTask, task);
+        push(task, newRemoteTask);
     }
 
     /** Create a task container for the given RtmTaskSeries
@@ -305,10 +304,7 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
         JSONArray notes = remoteTask.getJSONArray("notes");
         for(int i = notes.length() - 1; i >= 0; i--) {
             JSONObject note = notes.getJSONObject(i).getJSONObject("note");
-            if(i == notes.length() - 1)
-                task.setValue(Task.NOTES, note.getString("message"));
-            else
-                metadata.add(ProducteevNote.create(note));
+            metadata.add(ProducteevNote.create(note));
         }
 
         ProducteevTaskContainer container = new ProducteevTaskContainer(task, metadata, remoteTask);
@@ -346,8 +342,6 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
 
         long idTask = local.pdvTask.getValue(ProducteevTask.ID);
 
-        // TODO handle task workspace switching
-
         // either delete or re-create if necessary
         if(shouldTransmit(local, Task.DELETION_DATE, remote)) {
             if(local.task.getValue(Task.DELETION_DATE) > 0)
@@ -376,26 +370,50 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
                 if(TagService.KEY.equals(item.getValue(Metadata.KEY)))
                     remoteTags.add(item.getValue(TagService.TAG));
         }
-        if(!localTags.equals(remoteTags)) {
-            String[] tags = localTags.toArray(new String[localTags.size()]);
-            rtmService.tasks_setTags(timeline, listId, taskSeriesId,
-                    taskId, tags);
-        }
 
-        // notes
-        if(shouldTransmit(local, Task.NOTES, remote)) {
-            String[] titleAndText = MilkNote.fromNoteField(local.task.getValue(Task.NOTES));
-            List<RtmTaskNote> notes = null;
-            if(remote != null && remote.pdvTask.getNotes() != null)
-                notes = remote.pdvTask.getNotes().getNotes();
-            if(notes != null && notes.size() > 0) {
-                String remoteNoteId = notes.get(0).getId();
-                rtmService.tasks_notes_edit(timeline, remoteNoteId, titleAndText[0],
-                        titleAndText[1]);
-            } else {
-                rtmService.tasks_notes_add(timeline, listId, taskSeriesId,
-                        taskId, titleAndText[0], titleAndText[1]);
+        try {
+            if(!localTags.equals(remoteTags)) {
+                HashSet<String> toAdd = new HashSet<String>(localTags);
+                toAdd.removeAll(remoteTags);
+                HashSet<String> toRemove = remoteTags;
+                toRemove.removeAll(localTags);
+
+                if(toAdd.size() > 0) {
+                    long[] toAddIds = new long[toAdd.size()];
+                    int index = 0;
+                    for(String label : toAdd) {
+                        if(!labelMap.containsKey(label)) {
+                            JSONArray result = invoker.labelsCreate(defaultDashboard, label);
+                            readLabels(result);
+                        }
+                        toAddIds[index++] = labelMap.get(label);
+                    }
+                    invoker.tasksSetLabels(idTask, toAddIds);
+                }
+
+                if(toRemove.size() > 0) {
+                    long[] toRemoveIds = new long[toRemove.size()];
+                    int index = 0;
+                    for(String label : toRemove) {
+                        if(!labelMap.containsKey(label)) {
+                            JSONArray result = invoker.labelsCreate(defaultDashboard, label);
+                            readLabels(result);
+                        }
+                        toRemoveIds[index++] = labelMap.get(label);
+                    }
+                    invoker.tasksUnsetLabels(idTask, toRemoveIds);
+                }
             }
+
+            // notes
+            if(shouldTransmit(local, Task.NOTES, remote)) {
+                String note = local.task.getValue(Task.NOTES);
+                JSONObject result = invoker.tasksNoteCreate(idTask, note);
+                local.metadata.add(ProducteevNote.create(result.getJSONObject("note")));
+                local.task.setValue(Task.NOTES, "");
+            }
+        } catch (JSONException e) {
+            throw new ApiResponseParseException(e);
         }
 
         if(remerge) {
@@ -510,6 +528,20 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
     protected void transferIdentifiers(ProducteevTaskContainer source,
             ProducteevTaskContainer destination) {
         destination.pdvTask = source.pdvTask;
+    }
+
+
+    /**
+     * Read labels into label map
+     * @throws JSONException
+     * @throws ApiServiceException
+     * @throws IOException
+     */
+    private void readLabels(JSONArray labels) throws JSONException, ApiServiceException, IOException {
+        for(int i = 0; i < labels.length(); i++) {
+            JSONObject label = labels.getJSONObject(i).getJSONObject("label");
+            labelMap.put(label.getString("title"), label.getLong("id_label"));
+        }
     }
 
     // ----------------------------------------------------------------------
