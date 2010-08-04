@@ -51,7 +51,7 @@
     <string name="rmilk_MPr_group_status">Status</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Please Log In To RTM!</string>
+    <string name="rmilk_status_loggedout">Not Logged In!</string>
     <!-- Status: ongoing -->    
     <string name="rmilk_status_ongoing">Sync Ongoing...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    

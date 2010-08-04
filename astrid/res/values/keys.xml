@@ -196,16 +196,18 @@
       <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_status_key">rmilk_status</string>
     <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_interval_key">sync_freq</string>
-    <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_bgwifi_key">sync_bgwifi</string>
     <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_sync_key">rmilk_sync</string>
     <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_forget_key">rmilk_forget</string>    
+    <string name="rmilk_MPr_forget_key">rmilk_forget</string>
+        
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_interval_key">sync_freq</string>
     
   <!-- ======================================================= PRODUCTEEV == -->
   
+    <string name="producteev_PPr_interval_key">producteev_sync_freq</string>
     <string name="producteev_PPr_email">producteev_email</string>    
     <string name="producteev_PPr_password">producteev_password</string>    
   
