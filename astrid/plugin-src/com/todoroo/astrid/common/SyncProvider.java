@@ -1,7 +1,7 @@
 /**
  * See the file "LICENSE" for the full license governing this code.
  */
-package com.todoroo.astrid.api;
+package com.todoroo.astrid.common;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -21,6 +21,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.NotificationManager;
+import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.utility.Constants;
 
@@ -35,7 +36,7 @@ import com.todoroo.astrid.utility.Constants;
  * @author timsu
  *
  */
-public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
+public abstract class SyncProvider<TYPE extends TaskContainer> {
 
     // --- abstract methods - your services should implement these
 
@@ -129,7 +130,7 @@ public abstract class SynchronizationProvider<TYPE extends TaskContainer> {
 
     private final Notification notification;
 
-    public SynchronizationProvider() {
+    public SyncProvider() {
         DependencyInjectionService.getInstance().inject(this);
 
         // initialize notification

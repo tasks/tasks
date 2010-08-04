@@ -29,28 +29,27 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.api.SynchronizationProvider;
 import com.todoroo.astrid.api.TaskContainer;
+import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
+import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.producteev.api.ApiResponseParseException;
 import com.todoroo.astrid.producteev.api.ApiServiceException;
 import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
-import com.todoroo.astrid.rmilk.MilkUtilities;
-import com.todoroo.astrid.rmilk.api.ServiceInternalException;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
 
 @SuppressWarnings("nls")
-public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTaskContainer> {
+public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer> {
 
     private ProducteevDataService dataService = null;
     private ProducteevInvoker invoker = null;
     private long defaultDashboard;
-    private final ProducteevPreferences preferences = new ProducteevPreferences();
+    private final ProducteevUtilities preferences = ProducteevUtilities.INSTANCE;
 
     /** map of producteev labels to id's */
     private final HashMap<String, Long> labelMap = new HashMap<String, Long>();
@@ -109,19 +108,13 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
             exceptionService.reportError(tag + "-caught", e); //$NON-NLS-1$
 
         // occurs when network error
-        } else if(e instanceof ServiceInternalException &&
-                ((ServiceInternalException)e).getEnclosedException() instanceof
-                IOException) {
-            Exception enclosedException = ((ServiceInternalException)e).getEnclosedException();
-            exceptionService.reportError(tag + "-ioexception", enclosedException); //$NON-NLS-1$
+        } else if(!(e instanceof ApiServiceException) && e instanceof IOException) {
+            exceptionService.reportError(tag + "-ioexception", e); //$NON-NLS-1$
             if(showError) {
                 Context context = ContextManager.getContext();
-                showError(context, enclosedException,
-                        context.getString(R.string.rmilk_ioerror));
+                showError(context, e, context.getString(R.string.rmilk_ioerror));
             }
         } else {
-            if(e instanceof ServiceInternalException)
-                e = ((ServiceInternalException)e).getEnclosedException();
             exceptionService.reportError(tag + "-unhandled", e); //$NON-NLS-1$
             if(showError) {
                 Context context = ContextManager.getContext();
@@ -165,6 +158,7 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
                 password = "astrid";
 
                 invoker.authenticate(email, password);
+                preferences.setToken(invoker.getToken());
             }
 
             performSync();
@@ -203,7 +197,8 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
                 syncData.localUpdated.close();
             }
 
-            MilkUtilities.recordSuccessfulSync();
+            preferences.setLastServerSync(invoker.time());
+            preferences.recordSuccessfulSync();
 
             FlurryAgent.onEvent("pdv-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {

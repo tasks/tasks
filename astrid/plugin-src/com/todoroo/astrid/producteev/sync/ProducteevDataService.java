@@ -22,7 +22,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.producteev.ProducteevPreferences;
+import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.tags.TagService;
 
 public final class ProducteevDataService {
@@ -52,7 +52,7 @@ public final class ProducteevDataService {
     @Autowired
     private MetadataDao metadataDao;
 
-    private final ProducteevPreferences preferences = new ProducteevPreferences();
+    private final ProducteevUtilities preferences = ProducteevUtilities.INSTANCE;
 
     static final Random random = new Random();
 

@@ -30,8 +30,8 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.api.SynchronizationProvider;
 import com.todoroo.astrid.api.TaskContainer;
+import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.MilkLoginActivity;
@@ -55,7 +55,7 @@ import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService;
 
-public class RTMSyncProvider extends SynchronizationProvider<RTMTaskContainer> {
+public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
 
     private ServiceImpl rtmService = null;
     private String timeline = null;

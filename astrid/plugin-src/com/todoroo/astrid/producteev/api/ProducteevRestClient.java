@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.lang.ref.WeakReference;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -36,7 +35,7 @@ public class ProducteevRestClient implements RestClient {
 
     private static final int TIMEOUT_MILLIS = 30000;
 
-    private static WeakReference<HttpClient> httpClient = null;
+    private static HttpClient httpClient = null;
 
     private static String convertStreamToString(InputStream is) {
         /*
@@ -67,11 +66,11 @@ public class ProducteevRestClient implements RestClient {
     }
 
     private synchronized static void initializeHttpClient() {
-        if (httpClient == null || httpClient.get() == null) {
+        if (httpClient == null) {
             HttpParams params = new BasicHttpParams();
             HttpConnectionParams.setConnectionTimeout(params, TIMEOUT_MILLIS);
             HttpConnectionParams.setSoTimeout(params, TIMEOUT_MILLIS);
-            httpClient = new WeakReference<HttpClient>(new DefaultHttpClient(params));
+            httpClient = new DefaultHttpClient(params);
         }
     }
 
@@ -117,7 +116,7 @@ public class ProducteevRestClient implements RestClient {
 
         try {
             HttpGet httpGet = new HttpGet(url);
-            HttpResponse response = httpClient.get().execute(httpGet);
+            HttpResponse response = httpClient.execute(httpGet);
 
             return processHttpResponse(response);
         } catch (IOException e) {
@@ -145,7 +144,7 @@ public class ProducteevRestClient implements RestClient {
         try {
             HttpPost httpPost = new HttpPost(url);
             httpPost.setEntity(new StringEntity(data));
-            HttpResponse response = httpClient.get().execute(httpPost);
+            HttpResponse response = httpClient.execute(httpPost);
 
             return processHttpResponse(response);
         } catch (IOException e) {

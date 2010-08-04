@@ -43,7 +43,12 @@ public class TimerDecorationExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        Task task = PluginServices.getTaskService().fetchById(taskId, Task.ELAPSED_SECONDS, Task.TIMER_START);
+        Task task;
+        try {
+            task = PluginServices.getTaskService().fetchById(taskId, Task.ELAPSED_SECONDS, Task.TIMER_START);
+        } catch (IllegalStateException e) {
+            return;
+        }
         if(task == null || (task.getValue(Task.ELAPSED_SECONDS) == 0 &&
                 task.getValue(Task.TIMER_START) == 0))
             return;

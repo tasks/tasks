@@ -292,7 +292,7 @@
               
     <!-- producteev -->
     <activity android:name="com.todoroo.astrid.producteev.ProducteevPreferences"
-              android:icon="@drawable/ic_menu_rmilk"
+              android:icon="@drawable/ic_menu_producteev"
               android:label="@string/producteev_PPr_header">
       <intent-filter>   
         <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />

@@ -91,7 +91,7 @@
     <!-- Sync: Clear Data Title -->
     <string name="rmilk_MPr_forget">Log Out</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Clears all RTM synchronization data</string>
+    <string name="rmilk_MPr_forget_description">Clears all synchronization data</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 

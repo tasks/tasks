@@ -9,8 +9,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -111,6 +111,9 @@ abstract public class AbstractDatabase {
 
         try {
             database = helper.getWritableDatabase();
+        } catch (NullPointerException e) {
+            // don't know why this happens
+            throw new IllegalStateException(e);
         } catch (final RuntimeException original) {
             Log.e("database-" + getName(), "Error opening db",
                     original);

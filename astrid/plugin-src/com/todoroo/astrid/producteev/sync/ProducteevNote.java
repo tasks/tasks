@@ -31,6 +31,11 @@ public class ProducteevNote {
     public static final LongProperty CREATED = new LongProperty(Metadata.TABLE,
             Metadata.VALUE3.name);
 
+    /**
+     * Create metadata from json object
+     * @param note JSON object with params id_note and message
+     * @return
+     */
     @SuppressWarnings("nls")
     public static Metadata create(JSONObject note) {
         Metadata metadata = new Metadata();

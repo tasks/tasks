@@ -34,7 +34,7 @@ public class ProducteevInvoker {
         this.apiSecret = apiSecret;
     }
 
-    // --- authentication
+    // --- authentication and time
 
     /**
      * Authenticate the given user
@@ -56,6 +56,23 @@ public class ProducteevInvoker {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    /**
+     * Gets Server time
+     */
+    public String time() throws IOException, ApiServiceException {
+        JSONObject response = invokeGet("time.json");
+        try {
+            return response.getJSONObject("time").getString("value");
+        } catch (JSONException e) {
+            throw new ApiServiceException(e);
+        }
+
     }
 
     // --- tasks
