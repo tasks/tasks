@@ -123,6 +123,9 @@
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Please wait...</string>
   
+  <!-- Progress dialog shown when upgrading -->
+  <string name="DLG_upgrading">Upgrading your tasks...</string>
+  
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Time (hours : minutes)</string>
   

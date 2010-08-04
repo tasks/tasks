@@ -31,6 +31,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.alarms.Alarm;
 import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.backup.TasksXmlImporter;
@@ -112,9 +113,9 @@ public class Astrid2To3UpgradeHelper {
 
     /**
      * Perform the upgrade from Astrid 2 to Astrid 3
+     * @param context2
      */
-    public void upgrade2To3(final UpgradeService upgradeService, final int from) {
-        final Context context = ContextManager.getContext();
+    public void upgrade2To3(final Context context, final UpgradeService upgradeService, final int from) {
 
         // if from < 1 (we don't know what version, and database exists, leave it alone)
         if(from < 1 && Arrays.asList(context.databaseList()).contains(database.getName()))
@@ -123,11 +124,13 @@ public class Astrid2To3UpgradeHelper {
         // else, if there's already a database table, clear it out (!!!)
         if(Arrays.asList(context.databaseList()).contains(database.getName()))
             context.deleteDatabase(database.getName());
+        database.openForWriting();
 
         // pop up a progress dialog
         final ProgressDialog dialog;
         if(context instanceof Activity)
-            dialog = dialogUtilities.progressDialog(context, context.getString(R.string.DLG_wait));
+            dialog = dialogUtilities.progressDialog(context,
+                    context.getString(R.string.DLG_upgrading));
         else
             dialog = null;
 
@@ -136,7 +139,6 @@ public class Astrid2To3UpgradeHelper {
             public void run() {
                 // initiate a backup
                 String backupFile = legacyBackup();
-                database.openForWriting();
 
                 try {
 
@@ -201,13 +203,14 @@ public class Astrid2To3UpgradeHelper {
                         TasksXmlImporter.importTasks(context, backupFile, null);
                     }
                 } finally {
-                    database.close();
                     if(context instanceof Activity) {
                         ((Activity)context).runOnUiThread(new Runnable() {
                             public void run() {
                                 if(dialog != null)
                                     dialog.dismiss();
-                                upgradeService.showChangeLog(from);
+                                upgradeService.showChangeLog(context, from);
+                                if(context instanceof TaskListActivity)
+                                    ((TaskListActivity)context).loadTaskListContent(true);
                             }
                         });
                     }

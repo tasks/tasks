@@ -2,10 +2,10 @@ package com.todoroo.astrid.service;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.webkit.WebView;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.ContextManager;
 
 
 public final class UpgradeService {
@@ -18,15 +18,15 @@ public final class UpgradeService {
      * @param from
      * @param to
      */
-    public void performUpgrade(int from) {
+    public void performUpgrade(Context context, int from) {
         if(from == 135)
             AddOnService.recordOem();
 
         if(from < 136) {
-            new Astrid2To3UpgradeHelper().upgrade2To3(this, from);
+            new Astrid2To3UpgradeHelper().upgrade2To3(context, this, from);
         } else {
             // display changelog
-            showChangeLog(from);
+            showChangeLog(context, from);
         }
     }
 
@@ -39,8 +39,8 @@ public final class UpgradeService {
      * @return
      */
     @SuppressWarnings("nls")
-    public void showChangeLog(int from) {
-        if(!(ContextManager.getContext() instanceof Activity) || from == 0)
+    public void showChangeLog(Context context, int from) {
+        if(!(context instanceof Activity) || from == 0)
             return;
 
         StringBuilder changeLog = new StringBuilder();
@@ -52,13 +52,19 @@ public final class UpgradeService {
                     "more powerful, while other improvements have made it faster " +
                     "and easier to use. Hope you like it!",
             });
-        if(from > 135 && from <= 140)
+        else if(from > 135 && from <= 140)
             newVersionString(changeLog, "3.0.2 (8/4/10)", new String[] {
                     "Upgrade note: if you are missing old repeating tasks, " +
                     "search for them, there was a bug where they were marked " +
                     "as completed.",
                     "This update also fixes widget issues with Android 1.5. ",
                     "Thanks for your patience!",
+            });
+        else if(from > 140 && from <= 142)
+            newVersionString(changeLog, "3.0.4 (8/4/10)", new String[] {
+                    "Making upgrade easier for new Astrid 3 users.",
+                    "Fixed some user-reported crashes",
+                    "We love you!!",
             });
 
         if(changeLog.length() == 0)
@@ -67,11 +73,11 @@ public final class UpgradeService {
         changeLog.append("</body></html>");
         String changeLogHtml = "<html><body style='color: white'>" + changeLog;
 
-        WebView webView = new WebView(ContextManager.getContext());
+        WebView webView = new WebView(context);
         webView.loadData(changeLogHtml, "text/html", "utf-8");
         webView.setBackgroundColor(0);
 
-        new AlertDialog.Builder(ContextManager.getContext())
+        new AlertDialog.Builder(context)
         .setTitle(R.string.UpS_changelog_title)
         .setView(webView)
         .setIcon(android.R.drawable.ic_dialog_info)

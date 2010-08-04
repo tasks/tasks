@@ -90,7 +90,7 @@ public class StartupService {
         // invoke upgrade service
         boolean justUpgraded = latestSetVersion != version;
         if(justUpgraded && version > 0) {
-            upgradeService.performUpgrade(latestSetVersion);
+            upgradeService.performUpgrade(context, latestSetVersion);
         	Preferences.setCurrentVersion(version);
         }
 
