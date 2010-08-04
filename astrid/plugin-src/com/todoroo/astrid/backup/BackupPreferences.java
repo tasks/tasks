@@ -60,7 +60,7 @@ public class BackupPreferences extends TodorooPreferences {
             }
         });
 
-        if(!PluginServices.getAddOnService().isPowerPack()) {
+        if(!PluginServices.getAddOnService().hasPowerPack()) {
             Preference restorePreference = new Preference(this);
             restorePreference.setTitle(R.string.backup_BPr_how_to_restore);
             restorePreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {

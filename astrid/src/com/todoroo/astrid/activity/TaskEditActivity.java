@@ -215,7 +215,7 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new RepeatControlSet(this, extrasAddons));
 
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
-        if(addOnService.isPowerPack()) {
+        if(addOnService.hasPowerPack()) {
             controls.add(new GCalControlSet(this, addonsAddons));
             separator(addonsAddons);
             controls.add(new TimerControlSet(this, addonsAddons));

@@ -1,6 +1,5 @@
 package com.todoroo.astrid.service;
 
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.StringTokenizer;
@@ -118,11 +117,15 @@ public class Astrid2To3UpgradeHelper {
     public void upgrade2To3(final Context context, final UpgradeService upgradeService, final int from) {
 
         // if from < 1 (we don't know what version, and database exists, leave it alone)
-        if(from < 1 && Arrays.asList(context.databaseList()).contains(database.getName()))
+        if(from < 1 && checkIfDatabaseExists(context, database.getName()))
+            return;
+
+        // if you don't have a legacy task table, skip this step
+        if(!checkIfDatabaseExists(context, tasksTable))
             return;
 
         // else, if there's already a database table, clear it out (!!!)
-        if(Arrays.asList(context.databaseList()).contains(database.getName()))
+        if(checkIfDatabaseExists(context, database.getName()))
             context.deleteDatabase(database.getName());
         database.openForWriting();
 

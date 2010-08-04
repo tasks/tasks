@@ -41,7 +41,7 @@ public class DialogUtilities {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.ok, okListener)
                 .setNegativeButton(android.R.string.cancel, cancelListener)
-                .show();
+                .show().setOwnerActivity(activity);
             }
         });
     }
@@ -62,7 +62,7 @@ public class DialogUtilities {
                 .setMessage(text)
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.ok, okListener)
-                .show();
+                .show().setOwnerActivity(activity);
             }
         });
     }
@@ -83,7 +83,7 @@ public class DialogUtilities {
                 .setMessage(text)
                 .setIcon(icon)
                 .setPositiveButton(android.R.string.ok, okListener)
-                .show();
+                .show().setOwnerActivity(activity);
             }
         });
     }
@@ -108,7 +108,7 @@ public class DialogUtilities {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.ok, okListener)
                 .setNegativeButton(android.R.string.cancel, cancelListener)
-                .show();
+                .show().setOwnerActivity(activity);
             }
         });
     }
@@ -132,7 +132,7 @@ public class DialogUtilities {
                 .setIcon(android.R.drawable.ic_dialog_alert)
                 .setPositiveButton(android.R.string.ok, okListener)
                 .setNegativeButton(android.R.string.cancel, cancelListener)
-                .show();
+                .show().setOwnerActivity(activity);
             }
         });
     }
@@ -149,6 +149,7 @@ public class DialogUtilities {
         dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         dialog.setMessage(text);
         dialog.show();
+        dialog.setOwnerActivity((Activity)context);
         return dialog;
     }
 
