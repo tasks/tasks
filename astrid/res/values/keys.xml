@@ -179,7 +179,6 @@
   
   <!-- ============================================================ MILK == -->
   
-      
     <string-array name="rmilk_MPr_interval_values">
         <!-- rmilk_MPr_interval_values: interval in seconds for sync entries (do not edit) -->
         <item>0</item>
@@ -204,6 +203,11 @@
     <string name="rmilk_MPr_sync_key">rmilk_sync</string>
     <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_forget_key">rmilk_forget</string>    
+    
+  <!-- ======================================================= PRODUCTEEV == -->
+  
+    <string name="producteev_PPr_email">producteev_email</string>    
+    <string name="producteev_PPr_password">producteev_password</string>    
   
   <!-- ============================================================ OTHER == -->
   
