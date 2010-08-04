@@ -131,8 +131,7 @@ public class TaskController extends AbstractController {
     /** Return a list of all tasks */
     public Cursor getBackupTaskListCursor() {
         return database.query(tasksTable, TaskModelForXml.FIELD_LIST,
-                AbstractTaskModel.PROGRESS_PERCENTAGE + " < " +
-                        AbstractTaskModel.COMPLETE_PERCENTAGE, null, null, null,
+                null, null, null, null,
                 null, null);
     }
 
