@@ -8,10 +8,11 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -75,16 +76,20 @@ public class StartupService {
         int latestSetVersion = Preferences.getCurrentVersion();
         int version = 0;
         try {
+
             PackageManager pm = context.getPackageManager();
-            PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, 0);
+            PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
             version = pi.versionCode;
         } catch (Exception e) {
             exceptionService.reportError("astrid-startup-package-read", e); //$NON-NLS-1$
         }
 
+        Log.i("astrid", "Astrid Startup. " + latestSetVersion + //$NON-NLS-1$ //$NON-NLS-2$
+                " => " + version); //$NON-NLS-1$
+
         // invoke upgrade service
         boolean justUpgraded = latestSetVersion != version;
-        if(justUpgraded) {
+        if(justUpgraded && version > 0) {
             upgradeService.performUpgrade(latestSetVersion);
         	Preferences.setCurrentVersion(version);
         }

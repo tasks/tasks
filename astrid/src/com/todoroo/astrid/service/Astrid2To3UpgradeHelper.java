@@ -113,92 +113,108 @@ public class Astrid2To3UpgradeHelper {
     /**
      * Perform the upgrade from Astrid 2 to Astrid 3
      */
-    public void upgrade2To3() {
+    public void upgrade2To3(final UpgradeService upgradeService, final int from) {
         final Context context = ContextManager.getContext();
 
-        // if there's already a database table, clear it out (!!!)
+        // if from < 1 (we don't know what version, and database exists, leave it alone)
+        if(from < 1 && Arrays.asList(context.databaseList()).contains(database.getName()))
+            return;
+
+        // else, if there's already a database table, clear it out (!!!)
         if(Arrays.asList(context.databaseList()).contains(database.getName()))
             context.deleteDatabase(database.getName());
 
         // pop up a progress dialog
-        ProgressDialog dialog = null;
+        final ProgressDialog dialog;
         if(context instanceof Activity)
             dialog = dialogUtilities.progressDialog(context, context.getString(R.string.DLG_wait));
+        else
+            dialog = null;
 
-        // initiate a backup
-        String backupFile = legacyBackup();
-        database.openForWriting();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // initiate a backup
+                String backupFile = legacyBackup();
+                database.openForWriting();
 
-        try {
+                try {
 
-            // --- upgrade tasks table
-            HashMap<String, Property<?>> propertyMap =
-                new HashMap<String, Property<?>>();
-            propertyMap.put("_id", Task.ID); //$NON-NLS-1$
-            propertyMap.put(LegacyTaskModel.NAME, Task.TITLE);
-            propertyMap.put(LegacyTaskModel.NOTES, Task.NOTES);
-            // (don't update progress percentage, we don't use this anymore)
-            propertyMap.put(LegacyTaskModel.IMPORTANCE, Task.IMPORTANCE);
-            propertyMap.put(LegacyTaskModel.ESTIMATED_SECONDS, Task.ESTIMATED_SECONDS);
-            propertyMap.put(LegacyTaskModel.ELAPSED_SECONDS, Task.ELAPSED_SECONDS);
-            propertyMap.put(LegacyTaskModel.TIMER_START, Task.TIMER_START);
-            propertyMap.put(LegacyTaskModel.DEFINITE_DUE_DATE, Task.DUE_DATE);
-            propertyMap.put(LegacyTaskModel.HIDDEN_UNTIL, Task.HIDE_UNTIL);
-            propertyMap.put(LegacyTaskModel.POSTPONE_COUNT, Task.POSTPONE_COUNT);
-            propertyMap.put(LegacyTaskModel.NOTIFICATIONS, Task.REMINDER_PERIOD);
-            propertyMap.put(LegacyTaskModel.NOTIFICATION_FLAGS, Task.REMINDER_FLAGS);
-            propertyMap.put(LegacyTaskModel.LAST_NOTIFIED, Task.REMINDER_LAST);
-            propertyMap.put(LegacyTaskModel.REPEAT, Task.RECURRENCE);
-            propertyMap.put(LegacyTaskModel.CREATION_DATE, Task.CREATION_DATE);
-            propertyMap.put(LegacyTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
-            propertyMap.put(LegacyTaskModel.CALENDAR_URI, Task.CALENDAR_URI);
-            propertyMap.put(LegacyTaskModel.FLAGS, Task.FLAGS);
-            upgradeTable(context, tasksTable,
-                    propertyMap, new Task(), taskDao);
+                    // --- upgrade tasks table
+                    HashMap<String, Property<?>> propertyMap =
+                        new HashMap<String, Property<?>>();
+                    propertyMap.put("_id", Task.ID); //$NON-NLS-1$
+                    propertyMap.put(LegacyTaskModel.NAME, Task.TITLE);
+                    propertyMap.put(LegacyTaskModel.NOTES, Task.NOTES);
+                    // (don't update progress percentage, we don't use this anymore)
+                    propertyMap.put(LegacyTaskModel.IMPORTANCE, Task.IMPORTANCE);
+                    propertyMap.put(LegacyTaskModel.ESTIMATED_SECONDS, Task.ESTIMATED_SECONDS);
+                    propertyMap.put(LegacyTaskModel.ELAPSED_SECONDS, Task.ELAPSED_SECONDS);
+                    propertyMap.put(LegacyTaskModel.TIMER_START, Task.TIMER_START);
+                    propertyMap.put(LegacyTaskModel.DEFINITE_DUE_DATE, Task.DUE_DATE);
+                    propertyMap.put(LegacyTaskModel.HIDDEN_UNTIL, Task.HIDE_UNTIL);
+                    propertyMap.put(LegacyTaskModel.POSTPONE_COUNT, Task.POSTPONE_COUNT);
+                    propertyMap.put(LegacyTaskModel.NOTIFICATIONS, Task.REMINDER_PERIOD);
+                    propertyMap.put(LegacyTaskModel.NOTIFICATION_FLAGS, Task.REMINDER_FLAGS);
+                    propertyMap.put(LegacyTaskModel.LAST_NOTIFIED, Task.REMINDER_LAST);
+                    propertyMap.put(LegacyTaskModel.REPEAT, Task.RECURRENCE);
+                    propertyMap.put(LegacyTaskModel.CREATION_DATE, Task.CREATION_DATE);
+                    propertyMap.put(LegacyTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
+                    propertyMap.put(LegacyTaskModel.CALENDAR_URI, Task.CALENDAR_URI);
+                    propertyMap.put(LegacyTaskModel.FLAGS, Task.FLAGS);
+                    upgradeTable(context, tasksTable,
+                            propertyMap, new Task(), taskDao);
 
-            // --- upgrade tags tables
-            migrateTagsToMetadata();
+                    // --- upgrade tags tables
+                    migrateTagsToMetadata();
 
-            // --- upgrade alerts
-            AlarmDatabase alarmsDatabase = new AlarmDatabase();
-            alarmsDatabase.openForWriting();
-            propertyMap.clear();
-            propertyMap.put("_id", Alarm.ID); //$NON-NLS-1$
-            propertyMap.put(LegacyAlertModel.TASK, Alarm.TASK);
-            propertyMap.put(LegacyAlertModel.DATE, Alarm.TIME);
-            upgradeTable(context, alertsTable, propertyMap, new Alarm(),
-                    alarmsDatabase.getDao());
-            alarmsDatabase.close();
+                    // --- upgrade alerts
+                    AlarmDatabase alarmsDatabase = new AlarmDatabase();
+                    alarmsDatabase.openForWriting();
+                    propertyMap.clear();
+                    propertyMap.put("_id", Alarm.ID); //$NON-NLS-1$
+                    propertyMap.put(LegacyAlertModel.TASK, Alarm.TASK);
+                    propertyMap.put(LegacyAlertModel.DATE, Alarm.TIME);
+                    upgradeTable(context, alertsTable, propertyMap, new Alarm(),
+                            alarmsDatabase.getDao());
+                    alarmsDatabase.close();
 
-            // --- upgrade RTM sync mappings
-            migrateSyncMappingToMetadata();
+                    // --- upgrade RTM sync mappings
+                    migrateSyncMappingToMetadata();
 
-            // --- clean up database
-            metadataService.cleanup();
+                    // --- clean up database
+                    metadataService.cleanup();
 
-            // --- upgrade properties
-            SharedPreferences prefs = Preferences.getPrefs(context);
-            Editor editor = prefs.edit();
-            int random = Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours, -1);
-            if(random != -1) {
-                // convert days => hours
-                editor.putString(context.getString(R.string.p_rmd_default_random_hours),
-                        Integer.toString(random * 24));
+                    // --- upgrade properties
+                    SharedPreferences prefs = Preferences.getPrefs(context);
+                    Editor editor = prefs.edit();
+                    int random = Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours, -1);
+                    if(random != -1) {
+                        // convert days => hours
+                        editor.putString(context.getString(R.string.p_rmd_default_random_hours),
+                                Integer.toString(random * 24));
+                    }
+                } catch (Exception e) {
+                    exceptionService.reportError("backup-error", e); //$NON-NLS-1$
+                    if(backupFile != null) {
+                        // try to restore the latest XML
+                        TasksXmlImporter.importTasks(context, backupFile, null);
+                    }
+                } finally {
+                    database.close();
+                    if(context instanceof Activity) {
+                        ((Activity)context).runOnUiThread(new Runnable() {
+                            public void run() {
+                                if(dialog != null)
+                                    dialog.dismiss();
+                                upgradeService.showChangeLog(from);
+                            }
+                        });
+                    }
+                }
             }
-        } catch (Exception e) {
-            if(dialog != null)
-                dialog.dismiss();
+        }).start();
 
-            exceptionService.reportError("backup-error", e); //$NON-NLS-1$
-            if(backupFile != null) {
-                // try to restore the latest XML
-                TasksXmlImporter.importTasks(context, backupFile, null);
-            }
-        } finally {
-            if(dialog != null)
-                dialog.dismiss();
-            database.close();
-        }
     }
 
     // --- database upgrade helpers

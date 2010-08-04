@@ -132,7 +132,11 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
         convertView = newView(convertView, parent);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-        viewHolder.item = (FilterListItem)getChild(groupPosition, childPosition);
+        Object item = getChild(groupPosition, childPosition);
+        if(!(item instanceof FilterListItem))
+            return convertView;
+
+        viewHolder.item = (FilterListItem) item;
         populateView(viewHolder, true, false);
 
         return convertView;

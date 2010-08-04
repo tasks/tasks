@@ -20,6 +20,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.NetworkInfo.State;
 import android.text.InputType;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -282,5 +283,24 @@ public class AndroidUtilities {
      */
     public static int getSdkVersion() {
         return Integer.parseInt(android.os.Build.VERSION.SDK);
+    }
+
+    /**
+     * Copy databases to a given folder. Useful for debugging
+     * @param folder
+     */
+    public static void copyDatabases(Context context, String folder) {
+        File folderFile = new File(folder);
+        if(!folderFile.exists())
+            folderFile.mkdir();
+        for(String db : context.databaseList()) {
+            File dbFile = context.getDatabasePath(db);
+            try {
+                copyFile(dbFile, new File(folderFile.getAbsolutePath() +
+                        File.separator + db));
+            } catch (Exception e) {
+                Log.e("ERROR", "ERROR COPYING DB " + db, e); //$NON-NLS-1$ //$NON-NLS-2$
+            }
+        }
     }
 }

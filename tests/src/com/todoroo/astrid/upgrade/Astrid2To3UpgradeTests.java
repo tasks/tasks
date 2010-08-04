@@ -88,7 +88,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     // --- helper methods
 
     public void upgrade2To3() {
-        new Astrid2To3UpgradeHelper().upgrade2To3();
+        new Astrid2To3UpgradeHelper().upgrade2To3(125);
     }
 
     public static void assertDatesEqual(Date old, long newDate) {

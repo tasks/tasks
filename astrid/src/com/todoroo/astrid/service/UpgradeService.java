@@ -19,17 +19,15 @@ public final class UpgradeService {
      * @param to
      */
     public void performUpgrade(int from) {
-        if(from < 1)
-            return;
-
         if(from == 135)
             AddOnService.recordOem();
 
-        if(from < 136)
-            new Astrid2To3UpgradeHelper().upgrade2To3();
-
-        // display changelog
-        showChangeLog(from);
+        if(from < 136) {
+            new Astrid2To3UpgradeHelper().upgrade2To3(this, from);
+        } else {
+            // display changelog
+            showChangeLog(from);
+        }
     }
 
     /**
@@ -42,30 +40,11 @@ public final class UpgradeService {
      */
     @SuppressWarnings("nls")
     public void showChangeLog(int from) {
-        if(!(ContextManager.getContext() instanceof Activity))
+        if(!(ContextManager.getContext() instanceof Activity) || from == 0)
             return;
 
         StringBuilder changeLog = new StringBuilder();
 
-        if(from <= 130)
-            newVersionString(changeLog, "2.14.0 (5/24/10)", new String[] {
-                    "Pick a calendar to 'Add to Calendar' (in Settings menu)",
-                    "RTM: archived lists are ignored",
-                    "Fixed user-reported crashes!"});
-        if(from > 130 && from <= 131)
-            newVersionString(changeLog, "2.14.1 (5/29/10)", new String[] {
-                    "Fixed crash while using PureCalendar widget",
-            });
-        if(from > 130 && from <= 132)
-            newVersionString(changeLog, "2.14.2 (5/29/10)", new String[] {
-                    "Fixed crashes occuring with certain languages (Spanish, Polish)",
-                    "Fixed backup service deleting too many old days backups",
-            });
-        if(from > 130 && from <= 133)
-            newVersionString(changeLog, "2.14.3 (6/11/10)", new String[] {
-                    "Fixed crashes occuring with certain languages (Swedish, Turkish)",
-                    "Fixed other crashes that users have reported",
-            });
         if(from <= 135)
             newVersionString(changeLog, "3.0.0 (8/3/10)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
