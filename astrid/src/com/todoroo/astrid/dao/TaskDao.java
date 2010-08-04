@@ -20,8 +20,10 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.astrid.widget.TasksWidget;
 
 /**
  * Data Access layer for {@link Task}-related operations.
@@ -212,6 +214,10 @@ public class TaskDao extends GenericDao<Task> {
         else {
             ReminderService.getInstance().scheduleAlarm(task);
         }
+
+        Astrid2TaskProvider.notifyDatabaseModification();
+        ContextManager.getContext().startService(new Intent(ContextManager.getContext(),
+                TasksWidget.UpdateService.class));
 
         if(skipHooks)
             return;

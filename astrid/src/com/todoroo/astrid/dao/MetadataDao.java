@@ -17,6 +17,7 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
 /**
  * Data Access layer for {@link Metadata}-related operations.
@@ -60,7 +61,12 @@ public class MetadataDao extends GenericDao<Metadata> {
 
     }
 
-
+    @Override
+    public boolean persist(Metadata item) {
+        boolean state = super.persist(item);
+        Astrid2TaskProvider.notifyDatabaseModification();
+        return state;
+    }
 
     /**
      * Fetch all metadata that are unattached to the task
