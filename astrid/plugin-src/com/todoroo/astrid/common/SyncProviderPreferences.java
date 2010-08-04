@@ -73,7 +73,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
     private static final String PREF_ONGOING = "_ongoing"; //$NON-NLS-1$
 
     /** Get preferences object from the context */
-    private static SharedPreferences getPrefs() {
+    protected static SharedPreferences getPrefs() {
         return PreferenceManager.getDefaultSharedPreferences(ContextManager.getContext());
     }
 

@@ -3,10 +3,11 @@ package com.todoroo.astrid.producteev.sync;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import org.json.JSONObject;
+
 import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.producteev.ProducteevTask;
 
 /**
  * RTM Task Container
@@ -15,34 +16,38 @@ import com.todoroo.astrid.producteev.ProducteevTask;
  *
  */
 public class ProducteevTaskContainer extends TaskContainer {
-    public long id;
-    public long dashboard;
 
-    public ProducteevTaskContainer(Task task, ArrayList<Metadata> metadata, long id, long dashboard) {
+    public Metadata pdvTask;
+
+    public ProducteevTaskContainer(Task task, ArrayList<Metadata> metadata, Metadata remote) {
         this.task = task;
         this.metadata = metadata;
-        this.id = id;
-        this.dashboard = dashboard;
+        this.pdvTask = remote;
+        if(this.pdvTask == null)
+            this.pdvTask = new Metadata();
     }
 
-//    public ProducteevTaskContainer(Task task, ArrayList<Metadata> metadata,
-//            RtmTaskSeries rtmTaskSeries) {
-//        this(task, metadata, );
-//    }
+    @SuppressWarnings("nls")
+    public ProducteevTaskContainer(Task task, ArrayList<Metadata> metadata, JSONObject remoteTask) {
+        this(task, metadata, new Metadata());
+        pdvTask.setValue(ProducteevTask.ID, remoteTask.optLong("id_task"));
+        pdvTask.setValue(ProducteevTask.DASHBOARD_ID, remoteTask.optLong("id_dashboard"));
+    }
 
     public ProducteevTaskContainer(Task task, ArrayList<Metadata> metadata) {
-        this(task, metadata, 0, 0);
+        this.task = task;
+        this.metadata = metadata;
+
         for(Iterator<Metadata> iterator = metadata.iterator(); iterator.hasNext(); ) {
             Metadata item = iterator.next();
             if(ProducteevTask.METADATA_KEY.equals(item.getValue(Metadata.KEY))) {
-                if(item.containsNonNullValue(ProducteevTask.ID))
-                    id = item.getValue(ProducteevTask.ID);
-                if(item.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
-                    dashboard = item.getValue(ProducteevTask.DASHBOARD_ID);
+                pdvTask = item;
                 iterator.remove();
                 break;
             }
         }
+        if(this.pdvTask == null)
+            this.pdvTask = new Metadata();
     }
 
 

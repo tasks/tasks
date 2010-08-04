@@ -5,14 +5,19 @@ package com.todoroo.astrid.producteev.sync;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Notification;
+import android.app.PendingIntent;
 import android.content.Context;
-import android.content.res.Resources;
+import android.content.Intent;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -22,23 +27,36 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.SynchronizationProvider;
+import com.todoroo.astrid.api.TaskContainer;
+import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
+import com.todoroo.astrid.producteev.api.ApiResponseParseException;
+import com.todoroo.astrid.producteev.api.ApiServiceException;
+import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.rmilk.MilkUtilities;
 import com.todoroo.astrid.rmilk.api.ServiceInternalException;
-import com.todoroo.astrid.rmilk.data.MilkDataService;
+import com.todoroo.astrid.rmilk.api.data.RtmTaskNote;
+import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
 
+@SuppressWarnings("nls")
 public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTaskContainer> {
 
-    private MilkDataService dataService = null;
+    private ProducteevDataService dataService = null;
     private ProducteevInvoker invoker = null;
-    private int defaultDashboard;
+    private long defaultDashboard;
     private final ProducteevPreferences preferences = new ProducteevPreferences();
+
+    /** map of producteev labels to id's */
+    private final HashMap<String, Long> labelMap = new HashMap<String, Long>();
 
     static {
         AstridDependencyInjector.initialize();
@@ -60,13 +78,13 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
     // ----------------------------------------------------------------------
 
     /**
-     * Sign out of RTM, deleting all synchronization metadata
+     * Sign out of service, deleting all synchronization metadata
      */
     public void signOut() {
         preferences.setToken(null);
         preferences.clearLastSyncDate();
 
-        dataService.clearMetadata(); // TODO clear metadata
+        dataService.clearMetadata();
     }
 
     // ----------------------------------------------------------------------
@@ -117,20 +135,17 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
 
     @Override
     protected void initiate(Context context) {
-        dataService = MilkDataService.getInstance();
+        dataService = ProducteevDataService.getInstance();
 
         // authenticate the user. this will automatically call the next step
-        // authenticate(context);
-
-        Toast.makeText(context, "hi! this is empty", Toast.LENGTH_LONG);
+        authenticate();
     }
 
     /**
      * Perform authentication with RTM. Will open the SyncBrowser if necessary
      */
     @SuppressWarnings("nls")
-    private void authenticate(final Context context) {
-        final Resources r = context.getResources();
+    private void authenticate() {
         FlurryAgent.onEvent("producteev-started");
 
         preferences.recordSyncStart();
@@ -150,6 +165,8 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
             if(authToken == null) {
                 String email = Preferences.getStringValue(R.string.producteev_PPr_email);
                 String password = Preferences.getStringValue(R.string.producteev_PPr_password);
+                email = "astrid@todoroo.com";
+                password = "astrid";
 
                 invoker.authenticate(email, password);
             }
@@ -173,11 +190,11 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
         try {
             // load user information
             JSONObject user = invoker.usersView(null);
-            defaultDashboard = user.getJSONObject("user").getInt("default_dashboard");
+            defaultDashboard = user.getJSONObject("user").getLong("default_dashboard");
 
             // read all tasks
-            JSONObject tasks = invoker.tasksShowList(defaultDashboard,
-                    null); // TODO
+            JSONArray tasks = invoker.tasksShowList(defaultDashboard,
+                    preferences.getLastServerSync());
 
             SyncData<ProducteevTaskContainer> syncData = populateSyncData(tasks);
             try {
@@ -210,31 +227,293 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
             Task.CREATION_DATE,
             Task.COMPLETION_DATE,
             Task.DELETION_DATE,
+            Task.REMINDER_FLAGS,
             Task.NOTES,
     };
 
     /**
      * Populate SyncData data structure
+     * @throws JSONException
      */
-    private SyncData<ProducteevTaskContainer> populateSyncData(JSONObject tasks) {
+    @SuppressWarnings("nls")
+    private SyncData<ProducteevTaskContainer> populateSyncData(JSONArray tasks) throws JSONException {
         // fetch locally created tasks
         TodorooCursor<Task> localCreated = dataService.getLocallyCreated(PROPERTIES);
 
         // fetch locally updated tasks
         TodorooCursor<Task> localUpdated = dataService.getLocallyUpdated(PROPERTIES);
 
-        // return new SyncData<ProducteevTaskContainer>(tasks, localCreated, localUpdated);
-        return null;
+        // read json response
+        ArrayList<ProducteevTaskContainer> remoteTasks = new ArrayList<ProducteevTaskContainer>(tasks.length());
+        for(int i = 0; i < tasks.length(); i++)
+            remoteTasks.add(parseRemoteTask(tasks.getJSONObject(i)));
+
+        return new SyncData<ProducteevTaskContainer>(remoteTasks, localCreated, localUpdated);
     }
 
     // ----------------------------------------------------------------------
     // ------------------------------------------------- create / push / pull
     // ----------------------------------------------------------------------
 
+    @Override
+    protected void create(ProducteevTaskContainer task) throws IOException {
+        Task local = task.task;
+        Long dashboard = null;
+        if(task.pdvTask.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
+            dashboard = task.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
+        JSONArray response = invoker.tasksCreate(local.getValue(Task.TITLE),
+                null, dashboard, createDeadline(local), createReminder(local),
+                local.isCompleted() ? 2 : 1, createStars(local));
+        if(response.length() != 1)
+            throw new ApiServiceException("Unexpected # of tasks created: " + response.length());
+        ProducteevTaskContainer newRemoteTask;
+        try {
+            newRemoteTask = parseRemoteTask(response.getJSONObject(0));
+        } catch (JSONException e) {
+            throw new ApiResponseParseException(e);
+        }
+        transferIdentifiers(newRemoteTask, task);
+    }
+
+    /** Create a task container for the given RtmTaskSeries
+     * @throws JSONException */
+    private ProducteevTaskContainer parseRemoteTask(JSONObject remoteTask) throws JSONException {
+        Task task = new Task();
+        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+
+        task.setValue(Task.TITLE, remoteTask.getString("title"));
+        task.setValue(Task.CREATION_DATE, ApiUtilities.producteevToUnixTime(remoteTask.getString("time_created"), 0));
+        task.setValue(Task.COMPLETION_DATE, remoteTask.getInt("status") == 2 ? DateUtilities.now() : 0);
+        task.setValue(Task.DELETION_DATE, remoteTask.getInt("deleted") == 1 ? DateUtilities.now() : 0);
+
+        long dueDate = ApiUtilities.producteevToUnixTime(remoteTask.getString("deadline"), 0);
+        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueDate));
+        task.setValue(Task.IMPORTANCE, 5 - remoteTask.getInt("star"));
+
+        JSONArray labels = remoteTask.getJSONArray("labels");
+        for(int i = 0; i < labels.length(); i++) {
+            JSONObject label = labels.getJSONObject(i).getJSONObject("label");
+            if(label.getInt("deleted") != 0)
+                continue;
+
+            Metadata tagData = new Metadata();
+            tagData.setValue(Metadata.KEY, TagService.KEY);
+            tagData.setValue(TagService.TAG, label.getString("title"));
+            metadata.add(tagData);
+        }
+
+        JSONArray notes = remoteTask.getJSONArray("notes");
+        for(int i = notes.length() - 1; i >= 0; i--) {
+            JSONObject note = notes.getJSONObject(i).getJSONObject("note");
+            if(i == notes.length() - 1)
+                task.setValue(Task.NOTES, note.getString("message"));
+            else
+                metadata.add(ProducteevNote.create(note));
+        }
+
+        ProducteevTaskContainer container = new ProducteevTaskContainer(task, metadata, remoteTask);
+
+        return container;
+    }
+
+    @Override
+    protected ProducteevTaskContainer pull(ProducteevTaskContainer task) throws IOException {
+        if(!task.pdvTask.containsNonNullValue(ProducteevTask.ID))
+            throw new ApiServiceException("Tried to read an invalid task"); //$NON-NLS-1$
+
+        JSONArray tasks = invoker.tasksView(task.pdvTask.getValue(ProducteevTask.ID));
+        if(tasks.length() == 0)
+            return null;
+        try {
+            return parseRemoteTask(tasks.getJSONObject(0));
+        } catch (JSONException e) {
+            throw new ApiResponseParseException(e);
+        }
+    }
+
+    /**
+     * Send changes for the given Task across the wire. If a remoteTask is
+     * supplied, we attempt to intelligently only transmit the values that
+     * have changed.
+     */
+    @Override
+    protected void push(ProducteevTaskContainer local, ProducteevTaskContainer remote) throws IOException {
+        boolean remerge = false;
+
+        // fetch remote task for comparison
+        if(remote == null)
+            remote = pull(local);
+
+        long idTask = local.pdvTask.getValue(ProducteevTask.ID);
+
+        // TODO handle task workspace switching
+
+        // either delete or re-create if necessary
+        if(shouldTransmit(local, Task.DELETION_DATE, remote)) {
+            if(local.task.getValue(Task.DELETION_DATE) > 0)
+                invoker.tasksDelete(idTask);
+            else
+                create(local);
+        }
+
+        if(shouldTransmit(local, Task.TITLE, remote))
+            invoker.tasksSetTitle(idTask, local.task.getValue(Task.TITLE));
+        if(shouldTransmit(local, Task.IMPORTANCE, remote))
+            invoker.tasksSetStar(idTask, createStars(local.task));
+        if(shouldTransmit(local, Task.DUE_DATE, remote))
+            invoker.tasksSetDeadline(idTask, createDeadline(local.task));
+        if(shouldTransmit(local, Task.COMPLETION_DATE, remote))
+            invoker.tasksSetStatus(idTask, local.task.isCompleted() ? 2 : 1);
+
+        // tags
+        HashSet<String> localTags = new HashSet<String>();
+        HashSet<String> remoteTags = new HashSet<String>();
+        for(Metadata item : local.metadata)
+            if(TagService.KEY.equals(item.getValue(Metadata.KEY)))
+                localTags.add(item.getValue(TagService.TAG));
+        if(remote != null && remote.metadata != null) {
+            for(Metadata item : remote.metadata)
+                if(TagService.KEY.equals(item.getValue(Metadata.KEY)))
+                    remoteTags.add(item.getValue(TagService.TAG));
+        }
+        if(!localTags.equals(remoteTags)) {
+            String[] tags = localTags.toArray(new String[localTags.size()]);
+            rtmService.tasks_setTags(timeline, listId, taskSeriesId,
+                    taskId, tags);
+        }
+
+        // notes
+        if(shouldTransmit(local, Task.NOTES, remote)) {
+            String[] titleAndText = MilkNote.fromNoteField(local.task.getValue(Task.NOTES));
+            List<RtmTaskNote> notes = null;
+            if(remote != null && remote.pdvTask.getNotes() != null)
+                notes = remote.pdvTask.getNotes().getNotes();
+            if(notes != null && notes.size() > 0) {
+                String remoteNoteId = notes.get(0).getId();
+                rtmService.tasks_notes_edit(timeline, remoteNoteId, titleAndText[0],
+                        titleAndText[1]);
+            } else {
+                rtmService.tasks_notes_add(timeline, listId, taskSeriesId,
+                        taskId, titleAndText[0], titleAndText[1]);
+            }
+        }
+
+        if(remerge) {
+            remote = pull(local);
+            remote.task.setId(local.task.getId());
+            write(remote);
+        }
+    }
 
 
     // ----------------------------------------------------------------------
-    // ------------------------------------------------------- helper classes
+    // --------------------------------------------------------- read / write
+    // ----------------------------------------------------------------------
+
+    @Override
+    protected ProducteevTaskContainer read(TodorooCursor<Task> cursor) throws IOException {
+        return dataService.readTaskAndMetadata(cursor);
+    }
+
+    @Override
+    protected void write(ProducteevTaskContainer task) throws IOException {
+        dataService.saveTaskAndMetadata(task);
+    }
+
+    // ----------------------------------------------------------------------
+    // --------------------------------------------------------- misc helpers
+    // ----------------------------------------------------------------------
+
+    @Override
+    protected int matchTask(ArrayList<ProducteevTaskContainer> tasks, ProducteevTaskContainer target) {
+        int length = tasks.size();
+        for(int i = 0; i < length; i++) {
+            ProducteevTaskContainer task = tasks.get(i);
+            if(AndroidUtilities.equals(task.pdvTask, target.pdvTask))
+                return i;
+        }
+        return -1;
+    }
+
+    /**
+     * get stars in producteev format
+     * @param local
+     * @return
+     */
+    private Integer createStars(Task local) {
+        return 5 - local.getValue(Task.IMPORTANCE);
+    }
+
+    /**
+     * get reminder in producteev format
+     * @param local
+     * @return
+     */
+    private Integer createReminder(Task local) {
+        if(local.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE))
+            return 8;
+        return null;
+    }
+
+    /**
+     * get deadline in producteev format
+     * @param task
+     * @return
+     */
+    private String createDeadline(Task task) {
+        if(!task.hasDueDate())
+            return null;
+        if(!task.hasDueTime())
+            return ApiUtilities.unixDateToProducteev(task.getValue(Task.DUE_DATE));
+        return ApiUtilities.unixTimeToProducteev(task.getValue(Task.DUE_DATE));
+    }
+
+    /**
+     * Determine whether this task's property should be transmitted
+     * @param task task to consider
+     * @param property property to consider
+     * @param remoteTask remote task proxy
+     * @return
+     */
+    private boolean shouldTransmit(TaskContainer task, Property<?> property, TaskContainer remoteTask) {
+        if(!task.task.containsValue(property))
+            return false;
+
+        if(remoteTask == null)
+            return true;
+        if(!remoteTask.task.containsValue(property))
+            return true;
+
+        // special cases - match if they're zero or nonzero
+        if(property == Task.COMPLETION_DATE ||
+                property == Task.DELETION_DATE)
+            return !AndroidUtilities.equals((Long)task.task.getValue(property) == 0,
+                    (Long)remoteTask.task.getValue(property) == 0);
+
+        return !AndroidUtilities.equals(task.task.getValue(property),
+                remoteTask.task.getValue(property));
+    }
+
+    @Override
+    protected void updateNotification(Context context, Notification notification) {
+        String notificationTitle = context.getString(R.string.producteev_notification_title);
+        Intent intent = new Intent(context, ProducteevPreferences.class);
+        PendingIntent notificationIntent = PendingIntent.getActivity(context, 0,
+                intent, 0);
+        notification.setLatestEventInfo(context,
+                notificationTitle, context.getString(R.string.SyP_progress),
+                notificationIntent);
+        return ;
+    }
+
+    @Override
+    protected void transferIdentifiers(ProducteevTaskContainer source,
+            ProducteevTaskContainer destination) {
+        destination.pdvTask = source.pdvTask;
+    }
+
+    // ----------------------------------------------------------------------
+    // ------------------------------------------------------- helper methods
     // ----------------------------------------------------------------------
 
     private static final String stripslashes(int ____,String __,String ___) {
@@ -243,44 +522,5 @@ public class ProducteevSyncProvider extends SynchronizationProvider<ProducteevTa
         stripslashes(____+1,__.substring(1),___+((char)_)));
     }
 
-    @Override
-    protected void updateNotification(Context context, Notification n) {
-    }
-
-    @Override
-    protected void create(ProducteevTaskContainer task) throws IOException {
-    }
-
-    @Override
-    protected void push(ProducteevTaskContainer task,
-            ProducteevTaskContainer remote) throws IOException {
-    }
-
-    @Override
-    protected ProducteevTaskContainer pull(ProducteevTaskContainer task)
-            throws IOException {
-        return null;
-    }
-
-    @Override
-    protected ProducteevTaskContainer read(TodorooCursor<Task> task)
-            throws IOException {
-        return null;
-    }
-
-    @Override
-    protected void write(ProducteevTaskContainer task) throws IOException {
-    }
-
-    @Override
-    protected int matchTask(ArrayList<ProducteevTaskContainer> tasks,
-            ProducteevTaskContainer target) {
-        return 0;
-    }
-
-    @Override
-    protected void transferIdentifiers(ProducteevTaskContainer source,
-            ProducteevTaskContainer destination) {
-    }
 
 }

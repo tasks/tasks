@@ -6,6 +6,12 @@
 
     <!-- Preferences Title: Producteev -->    
     <string name="producteev_PPr_header">Producteev</string>
+
+    <!-- ================================================ Synchronization == -->
+        
+    <!-- title for notification tray when synchronizing -->
+    <string name="producteev_notification_title">Astrid: Producteev</string>
+    
     
 </resources>
 
