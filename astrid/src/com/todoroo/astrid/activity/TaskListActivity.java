@@ -71,6 +71,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.Flags;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming
@@ -446,8 +447,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        if(hasFocus)
-            AndroidUtilities.setCurrentlyActive(this);
+        if(hasFocus && Flags.checkAndClear(Flags.REFRESH)) {
+            taskAdapter.flushCaches();
+            loadTaskListContent(true);
+        }
     }
 
     @Override

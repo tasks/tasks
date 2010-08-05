@@ -11,14 +11,11 @@
             android:entryValues="@array/EPr_font_size"
             android:title="@string/EPr_fontSize_title"
             android:summary="@string/EPr_fontSize_desc" />
+            
+        <CheckBoxPreference
+            android:key="@string/p_showNotes"
+            android:title="@string/EPr_showNotes_title"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
-    <!-- PreferenceCategory
-        android:title="@string/prefs_category_other">
-        <CheckBoxPreference
-            android:key="@string/p_backup"
-            android:title="@string/prefs_backup_title"
-            android:summary="@string/prefs_backup_desc"
-            android:defaultValue="true" /> -->
-    
 </PreferenceScreen>

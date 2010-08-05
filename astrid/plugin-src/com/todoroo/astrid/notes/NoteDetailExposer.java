@@ -3,14 +3,17 @@
  */
 package com.todoroo.astrid.notes;
 
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.timsu.astrid.R;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Exposes Task Detail for notes
@@ -43,8 +46,14 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
 
     @Override
     public String getTaskDetails(Context context, long id, boolean extended) {
-        if(!extended)
-            return null;
+
+        if(Preferences.getBoolean(R.string.p_showNotes, false)) {
+            if(extended)
+                return null;
+        } else {
+            if(!extended)
+                return null;
+        }
 
         Task task = PluginServices.getTaskService().fetchById(id, Task.NOTES);
         if(task == null)
