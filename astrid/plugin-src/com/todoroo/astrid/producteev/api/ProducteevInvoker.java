@@ -163,7 +163,7 @@ public class ProducteevInvoker {
      * @return array tasks/view
      */
     public JSONObject tasksSetStatus(long idTask, int status) throws ApiServiceException, IOException {
-        return callAuthenticated("tasks/set_star.json",
+        return callAuthenticated("tasks/set_status.json",
                 "token", token,
                 "id_task", idTask,
                 "status", status);
