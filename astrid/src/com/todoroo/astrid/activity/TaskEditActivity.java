@@ -27,14 +27,14 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TabActivity;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TabActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -44,6 +44,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -58,7 +59,6 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -72,6 +72,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gcal.GCalControlSet;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.StartupService;
@@ -615,14 +616,26 @@ public final class TaskEditActivity extends TabActivity {
         public ImportanceControlSet(int containerId) {
             LinearLayout layout = (LinearLayout)findViewById(containerId);
 
-            for(int i = Task.IMPORTANCE_MOST; i <= Task.IMPORTANCE_LEAST; i++) {
+            int min = Task.IMPORTANCE_MOST;
+            int max = Task.IMPORTANCE_LEAST;
+            int importanceOffset = max;
+            if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
+                max = 5;
+                importanceOffset = max - 1;
+            }
+
+            for(int i = min; i <= max; i++) {
                 final ToggleButton button = new ToggleButton(TaskEditActivity.this);
                 button.setLayoutParams(new LinearLayout.LayoutParams(
                         LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1));
 
                 StringBuilder label = new StringBuilder();
-                for(int j = Task.IMPORTANCE_LEAST; j >= i; j--)
-                    label.append('!');
+                if(ProducteevUtilities.INSTANCE.isLoggedIn())
+                    label.append(5 - i).append("\n★"); //$NON-NLS-1$
+                else {
+                    for(int j = importanceOffset; j >= i; j--)
+                        label.append('!');
+                }
 
                 button.setTextColor(colors[i]);
                 button.setTextOff(label);
@@ -654,11 +667,11 @@ public final class TaskEditActivity extends TabActivity {
             }
         }
 
-        public int getImportance() {
+        public Integer getImportance() {
             for(CompoundButton b : buttons)
                 if(b.isChecked())
                     return (Integer) b.getTag();
-            return Task.IMPORTANCE_LEAST;
+            return null;
         }
 
         @Override
@@ -668,7 +681,8 @@ public final class TaskEditActivity extends TabActivity {
 
         @Override
         public void writeToModel(Task task) {
-            task.setValue(Task.IMPORTANCE, getImportance());
+            if(getImportance() != null)
+                task.setValue(Task.IMPORTANCE, getImportance());
         }
     }
 

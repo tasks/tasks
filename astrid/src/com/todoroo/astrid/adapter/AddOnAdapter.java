@@ -62,6 +62,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
             convertView = inflater.inflate(R.layout.addon_adapter_row, parent, false);
             ViewHolder viewHolder = new ViewHolder();
             viewHolder.icon = (ImageView) convertView.findViewById(R.id.icon);
+            viewHolder.free = (TextView) convertView.findViewById(R.id.free);
             viewHolder.title = (TextView) convertView.findViewById(R.id.title);
             viewHolder.description = (TextView) convertView.findViewById(R.id.description);
             viewHolder.web = (ImageButton) convertView.findViewById(R.id.button_web);
@@ -82,6 +83,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
     private class ViewHolder {
         public AddOn item;
         public ImageView icon;
+        public TextView free;
         public TextView title;
         public TextView description;
         public ImageButton web;
@@ -96,6 +98,7 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
         viewHolder.icon.setImageBitmap(item.getIcon());
         viewHolder.title.setText(item.getTitle());
         viewHolder.description.setText(item.getDescription());
+        viewHolder.free.setVisibility(item.isFree() && !installed ? View.VISIBLE : View.GONE);
 
         // populate buttons
         if(item.getWebPage() != null) {

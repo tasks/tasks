@@ -10,13 +10,30 @@
     android:paddingLeft="4dip"
     android:paddingRight="4dip">
         
-    <!-- icon -->
-    <ImageView android:id="@+id/icon"
-        android:layout_width="48dip"
-        android:layout_height="fill_parent"
-        android:gravity="center"
+            
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:paddingLeft="5dip" 
-        android:scaleType="fitCenter"/>
+        android:orientation="vertical">
+        
+        <!-- icon -->
+        <ImageView android:id="@+id/icon"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:gravity="center"
+            android:scaleType="fitCenter"/>
+        
+        <!-- free -->
+        <TextView android:id="@+id/free"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:textColor="#00ff00"
+            android:text="@string/AOA_free" />
+            
+    </LinearLayout>
             
     <LinearLayout
         android:layout_width="fill_parent"

@@ -192,7 +192,7 @@ public class AddOnService {
         Resources r = ContextManager.getContext().getResources();
 
         // temporary temporary
-        AddOn[] list = new AddOn[2];
+        AddOn[] list = new AddOn[4];
         list[0] = new AddOn(false, true, "Astrid Power Pack", null,
                 "Support Astrid and get more productive with the Astrid Power Pack. Backup, widgets, no ads, and calendar integration. Power up today!",
                 POWER_PACK_PACKAGE, "http://www.weloveastrid.com/store",
@@ -202,6 +202,16 @@ public class AddOnService {
                 "Allows Astrid to make use of the Locale application to send you notifications based on filter conditions. Requires Locale.",
                 LOCALE_PACKAGE, "http://www.weloveastrid.com/store",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_locale)).getBitmap());
+
+        list[2] = new AddOn(true, true, "Remember the Milk", null,
+                "Synchronize with Remember The Milk service.",
+                Constants.PACKAGE, "http://www.rmilk.com",
+                ((BitmapDrawable)r.getDrawable(R.drawable.ic_menu_rmilk)).getBitmap());
+
+        list[3] = new AddOn(true, true, "Producteev", null,
+                "Synchronize with Producteev service. Also changes Astrid's importance levels to stars.",
+                Constants.PACKAGE, "http://www.producteev.com",
+                ((BitmapDrawable)r.getDrawable(R.drawable.icon_producteev)).getBitmap());
 
         return list;
     }
