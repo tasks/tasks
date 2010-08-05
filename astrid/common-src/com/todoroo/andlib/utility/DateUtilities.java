@@ -163,9 +163,22 @@ public class DateUtilities {
     @SuppressWarnings("nls")
     public static SimpleDateFormat getDateFormatWithWeekday(Context context) {
         try {
-            return new SimpleDateFormat("EEE, " + getDateFormatString(context));
+            return new SimpleDateFormat("EEEE, " + getDateFormatString(context));
         } catch (Exception e) {
-            return new SimpleDateFormat("EEE, d MMM yyyy");
+            return new SimpleDateFormat("EEEE, d MMM yyyy");
+        }
+    }
+
+    /**
+     * @return date format as getDateFormat with weekday
+     */
+    @SuppressWarnings("nls")
+    public static SimpleDateFormat getDateWithTimeAndWeekday(Context context) {
+        try {
+            return new SimpleDateFormat("EEEE, " + getDateFormatString(context)
+                    + " " + getTimeFormatString(context));
+        } catch (Exception e) {
+            return new SimpleDateFormat("EEEE, d MMM yyyy H:mm");
         }
     }
 

@@ -56,14 +56,17 @@ public final class UpgradeService {
                     "If you liked the old version, you can also go back by " +
                         "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
-        else if(from <= 144)
+        if(from > 135 && from <= 144)
             newVersionString(changeLog, "3.0.6 (8/4/10)", new String[] {
                     "This update contains for free all of the " +
                         "powerpack's features for evaluation purposes",
                     "Fixed widget not updating when tasks are edited",
-                    "Added a setting for displaying task notes",
-                    "If you liked the old version, you can also go back by " +
-                        "<a href='http://bit.ly/oldastrid'>clicking here</a>",
+                    "Added a setting for displaying task notes in the list",
+            });
+        if(from > 135 && from <= 145)
+            newVersionString(changeLog, "3.0.7 (8/5/10)", new String[] {
+                    "Linkify phone numbers, e-mails, and web pages",
+                    "Made the 'Astrid Notifications' setting in the menu work",
             });
 
         if(changeLog.length() == 0)
