@@ -2,6 +2,7 @@ package com.todoroo.astrid.api;
 
 import java.util.ArrayList;
 
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -17,4 +18,18 @@ import com.todoroo.astrid.model.Task;
 public class TaskContainer {
     public Task task;
     public ArrayList<Metadata> metadata;
+
+    /**
+     * Check if the metadata contains anything with the given key
+     * @param key
+     * @return first match. or null
+     */
+    public Metadata findMetadata(String key) {
+        for(Metadata item : metadata) {
+            if(AndroidUtilities.equals(key, item.getValue(Metadata.KEY)))
+                return item;
+        }
+        return null;
+    }
+
 }

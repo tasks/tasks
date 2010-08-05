@@ -115,7 +115,7 @@ public class StartupService {
 
         // if sync ongoing flag was set, clear it
         MilkUtilities.stopOngoing();
-        new ProducteevUtilities().stopOngoing();
+        ProducteevUtilities.INSTANCE.stopOngoing();
 
         // check for task killers
         if(!Constants.OEM)

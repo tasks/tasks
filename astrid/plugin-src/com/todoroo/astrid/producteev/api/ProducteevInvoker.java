@@ -22,6 +22,10 @@ public class ProducteevInvoker {
 
     private final String apiKey;
     private final String apiSecret;
+
+    /** saved credentials in case we need to re-log in */
+    private String retryEmail;
+    private String retryPassword;
     private String token = null;
 
     /**
@@ -40,6 +44,8 @@ public class ProducteevInvoker {
      * Authenticate the given user
      */
     public void authenticate(String email, String password) throws IOException, ApiServiceException {
+        retryEmail = email;
+        retryPassword = password;
         JSONObject response = invokeGet("users/login.json",
                 "email", email, "password", password);
         try {
@@ -54,8 +60,10 @@ public class ProducteevInvoker {
         return token != null;
     }
 
-    public void setToken(String token) {
+    public void setCredentials(String token, String email, String password) {
         this.token = token;
+        retryEmail = email;
+        retryPassword = password;
     }
 
     public String getToken() {
@@ -92,7 +100,7 @@ public class ProducteevInvoker {
      */
     public JSONObject tasksCreate(String title, Long idResponsible, Long idDashboard,
             String deadline, Integer reminder, Integer status, Integer star) throws ApiServiceException, IOException {
-        return invokeGet("tasks/create.json",
+        return callAuthenticated("tasks/create.json",
                 "token", token,
                 "title", title,
                 "id_responsible", idResponsible,
@@ -112,7 +120,7 @@ public class ProducteevInvoker {
      * @return array tasks/view
      */
     public JSONArray tasksShowList(Long idDashboard, String since) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("tasks/show_list.json",
+        return getResponse(callAuthenticated("tasks/show_list.json",
                 "token", token,
                 "id_dashboard", idDashboard,
                 "since", since), "tasks");
@@ -126,7 +134,7 @@ public class ProducteevInvoker {
      * @return array tasks/view
      */
     public JSONObject tasksView(Long idTask) throws ApiServiceException, IOException {
-        return invokeGet("tasks/view.json",
+        return callAuthenticated("tasks/view.json",
                 "token", token,
                 "id_task", idTask);
     }
@@ -140,7 +148,7 @@ public class ProducteevInvoker {
      * @return array tasks/view
      */
     public JSONObject tasksSetTitle(long idTask, String title) throws ApiServiceException, IOException {
-        return invokeGet("tasks/set_title.json",
+        return callAuthenticated("tasks/set_title.json",
                 "token", token,
                 "id_task", idTask,
                 "title", title);
@@ -155,7 +163,7 @@ public class ProducteevInvoker {
      * @return array tasks/view
      */
     public JSONObject tasksSetStatus(long idTask, int status) throws ApiServiceException, IOException {
-        return invokeGet("tasks/set_star.json",
+        return callAuthenticated("tasks/set_star.json",
                 "token", token,
                 "id_task", idTask,
                 "status", status);
@@ -170,7 +178,7 @@ public class ProducteevInvoker {
      * @return array tasks/view
      */
     public JSONObject tasksSetStar(long idTask, int star) throws ApiServiceException, IOException {
-        return invokeGet("tasks/set_star.json",
+        return callAuthenticated("tasks/set_star.json",
                 "token", token,
                 "id_task", idTask,
                 "star", star);
@@ -185,7 +193,7 @@ public class ProducteevInvoker {
      * @return array tasks/view
      */
     public JSONObject tasksSetDeadline(long idTask, String deadline) throws ApiServiceException, IOException {
-        return invokeGet("tasks/set_deadline.json",
+        return callAuthenticated("tasks/set_deadline.json",
                 "token", token,
                 "id_task", idTask,
                 "deadline", deadline);
@@ -199,7 +207,7 @@ public class ProducteevInvoker {
      * @return array with the result = (Array("stats" => Array("result" => "TRUE|FALSE"))
      */
     public JSONObject tasksDelete(long idTask) throws ApiServiceException, IOException {
-        return invokeGet("tasks/delete.json",
+        return callAuthenticated("tasks/delete.json",
                 "token", token,
                 "id_task", idTask);
     }
@@ -212,7 +220,7 @@ public class ProducteevInvoker {
      * @return array: list of labels/view
      */
     public JSONArray tasksLabels(long idTask) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("tasks/labels.json",
+        return getResponse(callAuthenticated("tasks/labels.json",
                 "token", token,
                 "id_task", idTask), "labels");
     }
@@ -225,16 +233,11 @@ public class ProducteevInvoker {
      *
      * @return array: tasks/view
      */
-    public JSONObject tasksSetLabels(long idTask, long... idLabels) throws ApiServiceException, IOException {
-        Object[] params = new Object[idLabels.length * 2 + 2];
-        params[0] = "token";
-        params[1] = token;
-        for(int i = 0; i < idLabels.length; i++) {
-            params[i*2 + 2] = "id_label[]";
-            params[i*2 + 3] = idLabels[i];
-        }
-
-        return invokeGet("tasks/set_label.json", params);
+    public JSONObject tasksSetLabel(long idTask, long idLabel) throws ApiServiceException, IOException {
+        return callAuthenticated("tasks/set_label.json",
+                "token", token,
+                "id_task", idTask,
+                "id_label", idLabel);
     }
 
     /**
@@ -245,16 +248,11 @@ public class ProducteevInvoker {
      *
      * @return array: tasks/view
      */
-    public JSONObject tasksUnsetLabels(long idTask, long... idLabels) throws ApiServiceException, IOException {
-        Object[] params = new Object[idLabels.length * 2 + 2];
-        params[0] = "token";
-        params[1] = token;
-        for(int i = 0; i < idLabels.length; i++) {
-            params[i*2 + 2] = "id_label[]";
-            params[i*2 + 3] = idLabels[i];
-        }
-
-        return invokeGet("tasks/unset_label.json", params);
+    public JSONObject tasksUnsetLabel(long idTask, long idLabel) throws ApiServiceException, IOException {
+        return callAuthenticated("tasks/unset_label.json",
+                "token", token,
+                "id_task", idTask,
+                "id_label", idLabel);
     }
 
     /**
@@ -266,7 +264,7 @@ public class ProducteevInvoker {
      * @return array tasks::note_view
      */
     public JSONObject tasksNoteCreate(long idTask, String message) throws ApiServiceException, IOException {
-        return invokeGet("tasks/note_create.json",
+        return callAuthenticated("tasks/note_create.json",
                 "token", token,
                 "id_task", idTask,
                 "message", message);
@@ -283,7 +281,7 @@ public class ProducteevInvoker {
      * @return array: labels/view
      */
     public JSONArray labelsShowList(long idDashboard, String since) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("labels/show_list.json",
+        return getResponse(callAuthenticated("labels/show_list.json",
                 "token", token,
                 "id_dashboard", idDashboard,
                 "since", since), "labels");
@@ -297,11 +295,11 @@ public class ProducteevInvoker {
      *
      * @return array: labels/view
      */
-    public JSONArray labelsCreate(long idDashboard, String title) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("labels/create.json",
+    public JSONObject labelsCreate(long idDashboard, String title) throws ApiServiceException, IOException {
+        return callAuthenticated("labels/create.json",
                 "token", token,
                 "id_dashboard", idDashboard,
-                "title", title), "labels");
+                "title", title);
     }
 
     // --- users
@@ -314,7 +312,7 @@ public class ProducteevInvoker {
      * @return array information about the user
      */
     public JSONObject usersView(Long idColleague) throws ApiServiceException, IOException {
-        return invokeGet("users/view.json",
+        return callAuthenticated("users/view.json",
                 "token", token,
                 "id_colleague", idColleague);
     }
@@ -322,6 +320,45 @@ public class ProducteevInvoker {
     // --- invocation
 
     private final RestClient restClient = new ProducteevRestClient();
+
+    /**
+     * Invokes authenticated method using HTTP GET. Will retry after re-authenticating if service exception encountered
+     *
+     * @param method
+     *          API method to invoke
+     * @param getParameters
+     *          Name/Value pairs. Values will be URL encoded.
+     * @return response object
+     */
+    private JSONObject callAuthenticated(String method, Object... getParameters)
+            throws IOException, ApiServiceException {
+        try {
+            String request = createFetchUrl(method, getParameters);
+            String response;
+            try {
+                response = restClient.get(request);
+            } catch (ApiServiceException e) {
+                String oldToken = getToken();
+                System.err.println("PDV: retrying due to exception: " + e);
+                authenticate(retryEmail, retryPassword);
+                for(int i = 0; i < getParameters.length; i++)
+                    if(oldToken.equals(getParameters[i]))
+                        getParameters[i] = getToken();
+
+                request = createFetchUrl(method, getParameters);
+                response = restClient.get(request);
+            }
+            if(response.startsWith("DEBUG MESSAGE")) {
+                System.err.println(response);
+                return new JSONObject();
+            }
+            return new JSONObject(response);
+        } catch (JSONException e) {
+            throw new ApiResponseParseException(e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
+    }
 
     /**
      * Invokes API method using HTTP GET
@@ -376,7 +413,6 @@ public class ProducteevInvoker {
         }
 
         sigBuilder.append(apiSecret);
-        System.err.println("sigbuilder " + sigBuilder);
         byte[] digest = MessageDigest.getInstance("MD5").digest(sigBuilder.toString().getBytes("UTF-8"));
         String signature = new BigInteger(1, digest).toString(16);
         requestBuilder.append("api_sig").append('=').append(signature);

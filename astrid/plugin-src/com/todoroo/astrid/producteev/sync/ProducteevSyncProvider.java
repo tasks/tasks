@@ -39,6 +39,7 @@ import com.todoroo.astrid.producteev.api.ApiResponseParseException;
 import com.todoroo.astrid.producteev.api.ApiServiceException;
 import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
+import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
@@ -147,17 +148,15 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             String v = stripslashes(2, "9641n76n9s1736q1578q1o1337q19233","4ae");
             invoker = new ProducteevInvoker(z, v);
 
+            String email = Preferences.getStringValue(R.string.producteev_PPr_email);
+            String password = Preferences.getStringValue(R.string.producteev_PPr_password);
+            email = "astrid@todoroo.com"; // TODO
+            password = "astrid"; // TODO
+
             // check if we have a token & it works
             if(authToken != null) {
-                invoker.setToken(authToken);
-            }
-
-            if(authToken == null) {
-                String email = Preferences.getStringValue(R.string.producteev_PPr_email);
-                String password = Preferences.getStringValue(R.string.producteev_PPr_password);
-                email = "astrid@todoroo.com";
-                password = "astrid";
-
+                invoker.setCredentials(authToken, email, password);
+            } else {
                 invoker.authenticate(email, password);
                 preferences.setToken(invoker.getToken());
             }
@@ -379,29 +378,21 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 toRemove.removeAll(localTags);
 
                 if(toAdd.size() > 0) {
-                    long[] toAddIds = new long[toAdd.size()];
-                    int index = 0;
                     for(String label : toAdd) {
                         if(!labelMap.containsKey(label)) {
-                            JSONArray result = invoker.labelsCreate(defaultDashboard, label);
-                            readLabels(result);
+                            JSONObject result = invoker.labelsCreate(defaultDashboard, label).getJSONObject("label");
+                            labelMap.put(result.getString("title"), result.getLong("id_label"));
                         }
-                        toAddIds[index++] = labelMap.get(label);
+                        invoker.tasksSetLabel(idTask, labelMap.get(label));
                     }
-                    invoker.tasksSetLabels(idTask, toAddIds);
                 }
 
                 if(toRemove.size() > 0) {
-                    long[] toRemoveIds = new long[toRemove.size()];
-                    int index = 0;
                     for(String label : toRemove) {
-                        if(!labelMap.containsKey(label)) {
-                            JSONArray result = invoker.labelsCreate(defaultDashboard, label);
-                            readLabels(result);
-                        }
-                        toRemoveIds[index++] = labelMap.get(label);
+                        if(!labelMap.containsKey(label))
+                            continue;
+                        invoker.tasksUnsetLabel(idTask, labelMap.get(label));
                     }
-                    invoker.tasksUnsetLabels(idTask, toRemoveIds);
                 }
             }
 
@@ -411,6 +402,17 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 JSONObject result = invoker.tasksNoteCreate(idTask, note);
                 local.metadata.add(ProducteevNote.create(result.getJSONObject("note")));
                 local.task.setValue(Task.NOTES, "");
+            }
+
+            // milk note => producteev note
+            if(local.findMetadata(MilkNote.METADATA_KEY) != null && (remote == null ||
+                    (remote.findMetadata(ProducteevNote.METADATA_KEY) == null))) {
+                for(Metadata item : local.metadata)
+                    if(MilkNote.METADATA_KEY.equals(item.getValue(Metadata.KEY))) {
+                        String message = MilkNote.toTaskDetail(item);
+                        JSONObject result = invoker.tasksNoteCreate(idTask, message);
+                        local.metadata.add(ProducteevNote.create(result.getJSONObject("note")));
+                    }
             }
         } catch (JSONException e) {
             throw new ApiResponseParseException(e);

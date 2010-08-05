@@ -23,6 +23,7 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
+import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.tags.TagService;
 
 public final class ProducteevDataService {
@@ -151,6 +152,7 @@ public final class ProducteevDataService {
                 where(Criterion.and(MetadataCriteria.byTask(task.getId()),
                         Criterion.or(MetadataCriteria.withKey(TagService.KEY),
                                 MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
+                                MetadataCriteria.withKey(MilkNote.METADATA_KEY),
                                 MetadataCriteria.withKey(ProducteevNote.METADATA_KEY)))));
         try {
             for(metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {

@@ -24,6 +24,7 @@ import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.Flags;
 
 /**
  * A helper class for writing synchronization services for Astrid. This class
@@ -208,8 +209,8 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
         length = data.localCreated.getCount();
         for(int i = 0; i < length; i++) {
             data.localCreated.moveToNext();
+            TYPE local = read(data.localCreated);
             try {
-                TYPE local = read(data.localCreated);
 
                 String taskTitle = local.task.getValue(Task.TITLE);
 
@@ -232,18 +233,18 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
                 } else {
                     create(local);
                 }
-                write(local);
             } catch (Exception e) {
                 handleException("sync-local-created", e, false); //$NON-NLS-1$
             }
+            write(local);
         }
 
         // 2. UPDATE: for each updated local task
         length = data.localUpdated.getCount();
         for(int i = 0; i < length; i++) {
             data.localUpdated.moveToNext();
+            TYPE local = read(data.localUpdated);
             try {
-                TYPE local = read(data.localUpdated);
                 if(local.task == null)
                     continue;
 
@@ -260,10 +261,10 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
                 } else {
                     push(local, null);
                 }
-                write(local);
             } catch (Exception e) {
                 handleException("sync-local-updated", e, false); //$NON-NLS-1$
             }
+            write(local);
         }
 
         // 3. REMOTE: load remote information
@@ -306,6 +307,8 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
                 handleException("sync-remote-updated", e, false); //$NON-NLS-1$
             }
         }
+
+        Flags.set(Flags.REFRESH);
     }
 
     // --- helper classes

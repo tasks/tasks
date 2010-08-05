@@ -14,11 +14,14 @@ import com.todoroo.astrid.common.SyncProviderUtilities;
  */
 public class ProducteevUtilities extends SyncProviderUtilities {
 
+    /** add-on identifier */
+    public static final String IDENTIFIER = "pdv"; //$NON-NLS-1$
+
     public static final ProducteevUtilities INSTANCE = new ProducteevUtilities();
 
     @Override
     public String getIdentifier() {
-        return "pdv"; //$NON-NLS-1$
+        return IDENTIFIER;
     }
 
     @Override
@@ -42,5 +45,8 @@ public class ProducteevUtilities extends SyncProviderUtilities {
         editor.commit();
     }
 
+    private ProducteevUtilities() {
+        //
+    }
 
 }

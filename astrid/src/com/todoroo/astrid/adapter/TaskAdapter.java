@@ -46,6 +46,7 @@ import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.notes.NoteDetailExposer;
+import com.todoroo.astrid.producteev.ProducteevDetailExposer;
 import com.todoroo.astrid.repeats.RepeatDetailExposer;
 import com.todoroo.astrid.rmilk.MilkDetailExposer;
 import com.todoroo.astrid.service.TaskService;
@@ -85,6 +86,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         new RepeatDetailExposer(),
         new NoteDetailExposer(),
         new MilkDetailExposer(),
+        new ProducteevDetailExposer(),
     };
 
     private static int[] IMPORTANCE_COLORS = null;
