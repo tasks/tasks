@@ -76,8 +76,10 @@ public class Notifications extends BroadcastReceiver {
             reminder = getRandomReminder(r.getStringArray(R.array.reminders_due));
         else if(type == ReminderService.TYPE_SNOOZE)
             reminder = getRandomReminder(r.getStringArray(R.array.reminders_snooze));
-        else
+        else if(Preferences.getBoolean(R.string.p_rmd_nagging, true))
             reminder = getRandomReminder(r.getStringArray(R.array.reminders));
+        else
+            reminder = ""; //$NON-NLS-1$
 
         if(!showTaskNotification(id, type, reminder)) {
             notificationManager.cancel((int)id);

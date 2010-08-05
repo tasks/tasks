@@ -38,6 +38,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * This activity is launched when a user opens up a notification from the
@@ -95,7 +96,13 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         getLayoutInflater().inflate(R.layout.notification_control, parent, true);
 
         String reminder = Notifications.getRandomReminder(getResources().getStringArray(R.array.reminder_responses));
-        ((TextView)findViewById(R.id.reminderLabel)).setText(reminder);
+
+        if(Preferences.getBoolean(R.string.p_rmd_nagging, true))
+            ((TextView)findViewById(R.id.reminderLabel)).setText(reminder);
+        else {
+            findViewById(R.id.reminderLabel).setVisibility(View.GONE);
+            findViewById(R.id.astridIcon).setVisibility(View.GONE);
+        }
 
         // set up listeners
         ((Button)findViewById(R.id.goAway)).setOnClickListener(new OnClickListener() {
