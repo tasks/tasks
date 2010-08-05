@@ -16,6 +16,7 @@ import android.util.Log;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -173,7 +174,8 @@ public class Astrid2TaskProvider extends ContentProvider {
 		MatrixCursor ret = new MatrixCursor(TASK_FIELD_LIST);
 
 		TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID, Task.TITLE,
-		        Task.IMPORTANCE, Task.DUE_DATE).where(TaskCriteria.isActive()).
+		        Task.IMPORTANCE, Task.DUE_DATE).where(Criterion.and(TaskCriteria.isActive(),
+                        TaskCriteria.isVisible())).
 		        orderBy(TaskService.defaultTaskOrder()).limit(MAX_NUMBER_OF_TASKS));
 		try {
     		int[] importanceColors = Task.getImportanceColors(ctx.getResources());

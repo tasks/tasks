@@ -46,25 +46,23 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if(from <= 135)
-            newVersionString(changeLog, "3.0.0 (8/3/10)", new String[] {
+            newVersionString(changeLog, "3.0.6 (8/4/10)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
-                    "look and feel, a new add-on system allows Astrid to become " +
-                    "more powerful, while other improvements have made it faster " +
-                    "and easier to use. Hope you like it!",
+                        "look and feel, a new add-on system allows Astrid to become " +
+                        "more powerful, while other improvements have made it faster " +
+                        "and easier to use. Hope you like it!",
+                    "This update contains for free all of the " +
+                        "powerpack's features for evaluation purposes",
+                    "If you liked the old version, you can also go back by " +
+                        "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
-        else if(from > 135 && from <= 140)
-            newVersionString(changeLog, "3.0.2 (8/4/10)", new String[] {
-                    "Upgrade note: if you are missing old repeating tasks, " +
-                    "search for them, there was a bug where they were marked " +
-                    "as completed.",
-                    "This update also fixes widget issues with Android 1.5. ",
-                    "Thanks for your patience!",
-            });
-        else if(from > 140 && from <= 142)
-            newVersionString(changeLog, "3.0.4 (8/4/10)", new String[] {
-                    "Making upgrade easier for new Astrid 3 users.",
-                    "Fixed some user-reported crashes",
-                    "We love you!!",
+        else if(from <= 144)
+            newVersionString(changeLog, "3.0.6 (8/4/10)", new String[] {
+                    "This update contains for free all of the " +
+                        "powerpack's features for evaluation purposes",
+                    "Fixed widget not updating when tasks are edited",
+                    "If you liked the old version, you can also go back by " +
+                        "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
 
         if(changeLog.length() == 0)
