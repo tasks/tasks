@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -31,6 +32,8 @@ import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -150,7 +153,16 @@ public class EditPreferences extends TodorooPreferences {
 
     @Override
     public void updatePreferences(Preference preference, Object value) {
-        // nothing to do
+        Resources r = getResources();
+        // auto
+        if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(R.string.EPr_showNotes_desc_disabled);
+            else
+                preference.setSummary(R.string.EPr_showNotes_desc_enabled);
+            if((Boolean)value != Preferences.getBoolean(preference.getKey(), false))
+                Flags.set(Flags.REFRESH);
+        }
     }
 
 

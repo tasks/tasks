@@ -23,8 +23,8 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.todoroo.andlib.service.Autowired;
@@ -38,22 +38,6 @@ import com.todoroo.andlib.service.ExceptionService;
  *
  */
 public class AndroidUtilities {
-
-    // --- activity management
-
-    private static Activity currentlyActive = null;
-
-    public static void setCurrentlyActive(Activity currentlyActive) {
-        AndroidUtilities.currentlyActive = currentlyActive;
-    }
-
-    /**
-     * @return our best-guess currently active activity. Maybe null, may
-     * be out of view already.
-     */
-    public static Activity getCurrentlyActiveActivity() {
-        return currentlyActive;
-    }
 
     // --- utility methods
 

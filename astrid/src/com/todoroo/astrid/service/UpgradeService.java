@@ -61,6 +61,7 @@ public final class UpgradeService {
                     "This update contains for free all of the " +
                         "powerpack's features for evaluation purposes",
                     "Fixed widget not updating when tasks are edited",
+                    "Added a setting for displaying task notes",
                     "If you liked the old version, you can also go back by " +
                         "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });

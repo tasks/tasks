@@ -123,6 +123,7 @@
 
   <string name="p_colorize">colorize</string>
   <string name="p_fontSize">font_size</string>
+  <string name="p_showNotes">notesVisible</string>
   
   <string-array name="EPr_font_size">
     <!-- font_size: options for preference menu -->
