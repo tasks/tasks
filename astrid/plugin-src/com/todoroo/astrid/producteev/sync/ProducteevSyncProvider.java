@@ -80,6 +80,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         preferences.setToken(null);
         preferences.clearLastSyncDate();
 
+        dataService = ProducteevDataService.getInstance();
         dataService.clearMetadata();
     }
 
@@ -186,8 +187,10 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             readLabels(labels);
 
             // read all tasks
-            JSONArray tasks = invoker.tasksShowList(defaultDashboard,
-                    preferences.getLastServerSync());
+            String lastServerSync = preferences.getLastServerSync();
+            if(lastServerSync != null)
+                lastServerSync = lastServerSync.substring(0, lastServerSync.lastIndexOf(' '));
+            JSONArray tasks = invoker.tasksShowList(defaultDashboard, lastServerSync);
 
             SyncData<ProducteevTaskContainer> syncData = populateSyncData(tasks);
             try {
@@ -238,8 +241,11 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
         // read json response
         ArrayList<ProducteevTaskContainer> remoteTasks = new ArrayList<ProducteevTaskContainer>(tasks.length());
-        for(int i = 0; i < tasks.length(); i++)
-            remoteTasks.add(parseRemoteTask(tasks.getJSONObject(i)));
+        for(int i = 0; i < tasks.length(); i++) {
+            ProducteevTaskContainer remote = parseRemoteTask(tasks.getJSONObject(i));
+            dataService.findLocalMatch(remote);
+            remoteTasks.add(remote);
+        }
 
         return new SyncData<ProducteevTaskContainer>(remoteTasks, localCreated, localUpdated);
     }
@@ -251,17 +257,15 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     @Override
     protected void create(ProducteevTaskContainer task) throws IOException {
         Task local = task.task;
-        Long dashboard = null;
+        long dashboard = defaultDashboard;
         if(task.pdvTask.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
             dashboard = task.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
-        JSONArray response = invoker.tasksCreate(local.getValue(Task.TITLE),
+        JSONObject response = invoker.tasksCreate(local.getValue(Task.TITLE),
                 null, dashboard, createDeadline(local), createReminder(local),
                 local.isCompleted() ? 2 : 1, createStars(local));
-        if(response.length() != 1)
-            throw new ApiServiceException("Unexpected # of tasks created: " + response.length());
         ProducteevTaskContainer newRemoteTask;
         try {
-            newRemoteTask = parseRemoteTask(response.getJSONObject(0));
+            newRemoteTask = parseRemoteTask(response);
         } catch (JSONException e) {
             throw new ApiResponseParseException(e);
         }
@@ -274,6 +278,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     private ProducteevTaskContainer parseRemoteTask(JSONObject remoteTask) throws JSONException {
         Task task = new Task();
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+
+        if(remoteTask.has("task"))
+            remoteTask = remoteTask.getJSONObject("task");
 
         task.setValue(Task.TITLE, remoteTask.getString("title"));
         task.setValue(Task.CREATION_DATE, ApiUtilities.producteevToUnixTime(remoteTask.getString("time_created"), 0));
@@ -312,11 +319,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         if(!task.pdvTask.containsNonNullValue(ProducteevTask.ID))
             throw new ApiServiceException("Tried to read an invalid task"); //$NON-NLS-1$
 
-        JSONArray tasks = invoker.tasksView(task.pdvTask.getValue(ProducteevTask.ID));
-        if(tasks.length() == 0)
-            return null;
+        JSONObject remote = invoker.tasksView(task.pdvTask.getValue(ProducteevTask.ID));
         try {
-            return parseRemoteTask(tasks.getJSONObject(0));
+            return parseRemoteTask(remote);
         } catch (JSONException e) {
             throw new ApiResponseParseException(e);
         }
@@ -401,7 +406,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             }
 
             // notes
-            if(shouldTransmit(local, Task.NOTES, remote)) {
+            if(!TextUtils.isEmpty(local.task.getValue(Task.NOTES))) {
                 String note = local.task.getValue(Task.NOTES);
                 JSONObject result = invoker.tasksNoteCreate(idTask, note);
                 local.metadata.add(ProducteevNote.create(result.getJSONObject("note")));
@@ -478,7 +483,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             return null;
         if(!task.hasDueTime())
             return ApiUtilities.unixDateToProducteev(task.getValue(Task.DUE_DATE));
-        return ApiUtilities.unixTimeToProducteev(task.getValue(Task.DUE_DATE));
+        String time = ApiUtilities.unixTimeToProducteev(task.getValue(Task.DUE_DATE));
+        return time.substring(0, time.lastIndexOf(' '));
     }
 
     /**

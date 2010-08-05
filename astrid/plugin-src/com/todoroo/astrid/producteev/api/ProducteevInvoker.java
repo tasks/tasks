@@ -88,11 +88,11 @@ public class ProducteevInvoker {
      * @param status (optional) (1 = UNDONE, 2 = DONE)
      * @param star (optional) (0 to 5 stars)
      *
-     * @return array tasks/view
+     * @return task
      */
-    public JSONArray tasksCreate(String title, Long idResponsible, Long idDashboard,
+    public JSONObject tasksCreate(String title, Long idResponsible, Long idDashboard,
             String deadline, Integer reminder, Integer status, Integer star) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("tasks/create.json",
+        return invokeGet("tasks/create.json",
                 "token", token,
                 "title", title,
                 "id_responsible", idResponsible,
@@ -100,7 +100,7 @@ public class ProducteevInvoker {
                 "deadline", deadline,
                 "reminder", reminder,
                 "status", status,
-                "star", star), "tasks");
+                "star", star);
     }
 
     /**
@@ -125,10 +125,10 @@ public class ProducteevInvoker {
      *
      * @return array tasks/view
      */
-    public JSONArray tasksView(Long idTask) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("tasks/view.json",
+    public JSONObject tasksView(Long idTask) throws ApiServiceException, IOException {
+        return invokeGet("tasks/view.json",
                 "token", token,
-                "id_task", idTask), "tasks");
+                "id_task", idTask);
     }
 
     /**
@@ -139,11 +139,11 @@ public class ProducteevInvoker {
      *
      * @return array tasks/view
      */
-    public JSONArray tasksSetTitle(long idTask, String title) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("tasks/set_title.json",
+    public JSONObject tasksSetTitle(long idTask, String title) throws ApiServiceException, IOException {
+        return invokeGet("tasks/set_title.json",
                 "token", token,
                 "id_task", idTask,
-                "title", title), "tasks");
+                "title", title);
     }
 
     /**
@@ -154,11 +154,11 @@ public class ProducteevInvoker {
      *
      * @return array tasks/view
      */
-    public JSONArray tasksSetStatus(long idTask, int status) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("tasks/set_star.json",
+    public JSONObject tasksSetStatus(long idTask, int status) throws ApiServiceException, IOException {
+        return invokeGet("tasks/set_star.json",
                 "token", token,
                 "id_task", idTask,
-                "status", status), "tasks");
+                "status", status);
     }
 
     /**
@@ -169,11 +169,11 @@ public class ProducteevInvoker {
      *
      * @return array tasks/view
      */
-    public JSONArray tasksSetStar(long idTask, int star) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("tasks/set_star.json",
+    public JSONObject tasksSetStar(long idTask, int star) throws ApiServiceException, IOException {
+        return invokeGet("tasks/set_star.json",
                 "token", token,
                 "id_task", idTask,
-                "star", star), "tasks");
+                "star", star);
     }
 
     /**
@@ -184,11 +184,11 @@ public class ProducteevInvoker {
      *
      * @return array tasks/view
      */
-    public JSONArray tasksSetDeadline(long idTask, String deadline) throws ApiServiceException, IOException {
-        return getResponse(invokeGet("tasks/set_deadline.json",
+    public JSONObject tasksSetDeadline(long idTask, String deadline) throws ApiServiceException, IOException {
+        return invokeGet("tasks/set_deadline.json",
                 "token", token,
                 "id_task", idTask,
-                "deadline", deadline), "tasks");
+                "deadline", deadline);
     }
 
     /**
@@ -225,7 +225,7 @@ public class ProducteevInvoker {
      *
      * @return array: tasks/view
      */
-    public JSONArray tasksSetLabels(long idTask, long... idLabels) throws ApiServiceException, IOException {
+    public JSONObject tasksSetLabels(long idTask, long... idLabels) throws ApiServiceException, IOException {
         Object[] params = new Object[idLabels.length * 2 + 2];
         params[0] = "token";
         params[1] = token;
@@ -234,7 +234,7 @@ public class ProducteevInvoker {
             params[i*2 + 3] = idLabels[i];
         }
 
-        return getResponse(invokeGet("tasks/set_label.json", params), "tasks");
+        return invokeGet("tasks/set_label.json", params);
     }
 
     /**
@@ -245,7 +245,7 @@ public class ProducteevInvoker {
      *
      * @return array: tasks/view
      */
-    public JSONArray tasksUnsetLabels(long idTask, long... idLabels) throws ApiServiceException, IOException {
+    public JSONObject tasksUnsetLabels(long idTask, long... idLabels) throws ApiServiceException, IOException {
         Object[] params = new Object[idLabels.length * 2 + 2];
         params[0] = "token";
         params[1] = token;
@@ -254,7 +254,7 @@ public class ProducteevInvoker {
             params[i*2 + 3] = idLabels[i];
         }
 
-        return getResponse(invokeGet("tasks/unset_label.json", params), "tasks");
+        return invokeGet("tasks/unset_label.json", params);
     }
 
     /**
@@ -337,6 +337,8 @@ public class ProducteevInvoker {
         try {
             String request = createFetchUrl(method, getParameters);
             String response = restClient.get(request);
+            if(response.startsWith("DEBUG MESSAGE"))
+                throw new ApiServiceException(response);
             return new JSONObject(response);
         } catch (JSONException e) {
             throw new ApiResponseParseException(e);
@@ -374,6 +376,7 @@ public class ProducteevInvoker {
         }
 
         sigBuilder.append(apiSecret);
+        System.err.println("sigbuilder " + sigBuilder);
         byte[] digest = MessageDigest.getInstance("MD5").digest(sigBuilder.toString().getBytes("UTF-8"));
         String signature = new BigInteger(1, digest).toString(16);
         requestBuilder.append("api_sig").append('=').append(signature);

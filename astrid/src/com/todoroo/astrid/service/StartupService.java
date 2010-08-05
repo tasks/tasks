@@ -8,8 +8,8 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -21,6 +21,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.rmilk.MilkUtilities;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
@@ -114,6 +115,7 @@ public class StartupService {
 
         // if sync ongoing flag was set, clear it
         MilkUtilities.stopOngoing();
+        new ProducteevUtilities().stopOngoing();
 
         // check for task killers
         if(!Constants.OEM)

@@ -13,8 +13,8 @@ import android.content.Context;
 
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -24,8 +24,8 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -95,7 +95,7 @@ public final class MilkDataService {
             taskDao.query(Query.select(properties).join(MilkDataService.METADATA_JOIN).where(Criterion.and(
                     Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
                             where(Criterion.and(MetadataCriteria.withKey(MilkTask.METADATA_KEY), MilkTask.TASK_SERIES_ID.gt(0))))),
-                    TaskCriteria.isActive())));
+                    TaskCriteria.isActive())).groupBy(Task.ID));
     }
 
     /**
@@ -110,7 +110,7 @@ public final class MilkDataService {
         return
             taskDao.query(Query.select(properties).join(MilkDataService.METADATA_JOIN).
                     where(Criterion.and(MetadataCriteria.withKey(MilkTask.METADATA_KEY),
-                            Task.MODIFICATION_DATE.gt(lastSyncDate))));
+                            Task.MODIFICATION_DATE.gt(lastSyncDate))).groupBy(Task.ID));
     }
 
     /**

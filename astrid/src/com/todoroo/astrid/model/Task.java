@@ -146,6 +146,10 @@ public final class Task extends AbstractModel {
                 r.getColor(R.color.importance_2),
                 r.getColor(R.color.importance_3),
                 r.getColor(R.color.importance_4),
+
+                // for external services with importances > 4
+                r.getColor(R.color.importance_5),
+                r.getColor(R.color.importance_6),
         };
     }
 

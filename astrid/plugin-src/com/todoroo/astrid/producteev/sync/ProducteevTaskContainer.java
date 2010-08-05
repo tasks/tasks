@@ -19,17 +19,20 @@ public class ProducteevTaskContainer extends TaskContainer {
 
     public Metadata pdvTask;
 
-    public ProducteevTaskContainer(Task task, ArrayList<Metadata> metadata, Metadata remote) {
+    public ProducteevTaskContainer(Task task, ArrayList<Metadata> metadata, Metadata pdvTask) {
         this.task = task;
         this.metadata = metadata;
-        this.pdvTask = remote;
-        if(this.pdvTask == null)
+        this.pdvTask = pdvTask;
+        if(this.pdvTask == null) {
             this.pdvTask = new Metadata();
+            this.pdvTask.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
+        }
     }
 
     @SuppressWarnings("nls")
     public ProducteevTaskContainer(Task task, ArrayList<Metadata> metadata, JSONObject remoteTask) {
         this(task, metadata, new Metadata());
+        pdvTask.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
         pdvTask.setValue(ProducteevTask.ID, remoteTask.optLong("id_task"));
         pdvTask.setValue(ProducteevTask.DASHBOARD_ID, remoteTask.optLong("id_dashboard"));
     }
@@ -46,8 +49,10 @@ public class ProducteevTaskContainer extends TaskContainer {
                 break;
             }
         }
-        if(this.pdvTask == null)
+        if(this.pdvTask == null) {
             this.pdvTask = new Metadata();
+            this.pdvTask.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
+        }
     }
 
 

@@ -88,14 +88,16 @@ public class ProducteevRestClient implements RestClient {
 
         int statusCode = response.getStatusLine().getStatusCode();
         if(statusCode != HTTP_OK) {
+            ApiServiceException error;
             try {
-                JSONObject error = new JSONObject(body);
-                String errorMessage = error.getJSONObject("error").getString("message"); //$NON-NLS-1$ //$NON-NLS-2$
-                throw new ApiServiceException(errorMessage);
+                JSONObject errorObject = new JSONObject(body).getJSONObject("error"); //$NON-NLS-1$
+                String errorMessage = errorObject.getString("message"); //$NON-NLS-1$
+                error= new ApiServiceException(errorMessage);
             } catch (Exception e) {
-                throw new ApiServiceException(response.getStatusLine() +
+                error = new ApiServiceException(response.getStatusLine() +
                         "\n" + body); //$NON-NLS-1$
             }
+            throw error;
         }
 
 

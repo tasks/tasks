@@ -80,7 +80,7 @@ public final class ProducteevDataService {
             taskDao.query(Query.select(properties).join(ProducteevDataService.METADATA_JOIN).where(Criterion.and(
                     Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
                             where(Criterion.and(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY), ProducteevTask.ID.gt(0))))),
-                    TaskCriteria.isActive())));
+                    TaskCriteria.isActive())).groupBy(Task.ID));
     }
 
     /**
@@ -95,7 +95,7 @@ public final class ProducteevDataService {
         return
             taskDao.query(Query.select(properties).join(ProducteevDataService.METADATA_JOIN).
                     where(Criterion.and(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                            Task.MODIFICATION_DATE.gt(lastSyncDate))));
+                            Task.MODIFICATION_DATE.gt(lastSyncDate))).groupBy(Task.ID));
     }
 
     /**
@@ -123,7 +123,6 @@ public final class ProducteevDataService {
      * @param task
      */
     public void saveTaskAndMetadata(ProducteevTaskContainer task) {
-        findLocalMatch(task);
         taskDao.save(task.task, true);
 
         metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(task.task.getId()),
@@ -131,6 +130,7 @@ public final class ProducteevDataService {
                         MetadataCriteria.withKey(ProducteevNote.METADATA_KEY),
                         MetadataCriteria.withKey(TagService.KEY))));
         task.metadata.add(task.pdvTask);
+        task.pdvTask.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
         for(Metadata metadata : task.metadata) {
             metadata.setValue(Metadata.TASK, task.task.getId());
             metadataDao.createNew(metadata);

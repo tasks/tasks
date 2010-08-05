@@ -15,8 +15,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -260,6 +260,7 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
                 } else {
                     push(local, null);
                 }
+                write(local);
             } catch (Exception e) {
                 handleException("sync-local-updated", e, false); //$NON-NLS-1$
             }
