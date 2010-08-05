@@ -13,6 +13,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.text.Html;
+import android.text.util.Linkify;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -434,6 +435,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 view.setText(Html.fromHtml(string.trim().replace("\n", "<br>")));
             else
                 view.setText(string.trim());
+            Linkify.addLinks(view, Linkify.ALL);
         }
 
         @Override
