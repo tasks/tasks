@@ -106,7 +106,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private int                                mPrevious;
     private OnChangedListener                  mListener;
     private Formatter                          mFormatter;
-    private long                               mSpeed              = 500;
+    private long                               mSpeed              = 300;
 
     private boolean                            mIncrement;
     private boolean                            mDecrement;
@@ -179,6 +179,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     public void setFormatter(Formatter formatter) {
         mFormatter = formatter;
+        updateView();
     }
 
     /**
@@ -271,7 +272,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         if (mListener != null) {
             return mListener.onChanged(this, mCurrent, current);
         } else
-            return mCurrent;
+            return current;
 
     }
 

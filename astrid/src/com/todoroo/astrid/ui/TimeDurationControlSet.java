@@ -72,7 +72,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
                     if(hourPicker.getCurrent() == 0)
                         return 0;
                     hourPicker.setCurrent(hourPicker.getCurrent() - 1);
-                    return 60 - newVal;
+                    return 60 + newVal;
                 } else if(newVal > 59) {
                     hourPicker.setCurrent(hourPicker.getCurrent() + 1);
                     return newVal % 60;
