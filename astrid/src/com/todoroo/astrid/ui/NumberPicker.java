@@ -254,7 +254,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     private void changeCurrent(int current, Animation in, Animation out) {
-        current = notifyChange();
+        current = notifyChange(current);
 
         // Wrap around the values if we go past the start or end
         if (current > mEnd) {
@@ -267,9 +267,9 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         updateView();
     }
 
-    private int notifyChange() {
+    private int notifyChange(int current) {
         if (mListener != null) {
-            return mListener.onChanged(this, mPrevious, mCurrent);
+            return mListener.onChanged(this, mCurrent, current);
         } else
             return mCurrent;
 
@@ -294,7 +294,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         if ((val >= mStart) && (val <= mEnd)) {
             mPrevious = mCurrent;
             mCurrent = val;
-            notifyChange();
+            notifyChange(mCurrent);
         }
         updateView();
     }

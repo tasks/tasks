@@ -15,12 +15,12 @@ import android.graphics.Paint;
 import android.text.Html;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -308,7 +308,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // importance bar
         final View importanceView = viewHolder.importance; {
             int value = task.getValue(Task.IMPORTANCE);
-            importanceView.setBackgroundColor(IMPORTANCE_COLORS[value]);
+            if(value < IMPORTANCE_COLORS.length)
+                importanceView.setBackgroundColor(IMPORTANCE_COLORS[value]);
+            else
+                importanceView.setBackgroundColor(0);
         }
 
         // details and decorations, expanded

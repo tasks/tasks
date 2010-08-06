@@ -92,8 +92,8 @@ public class RepeatDetailExposer extends BroadcastReceiver implements DetailExpo
             }
 
             interval = "<b>" + interval + "</b>";  //$NON-NLS-1$//$NON-NLS-2$
-            if(rrule.getFreq() == Frequency.WEEKLY) {
-                List<WeekdayNum> byDay = rrule.getByDay();
+            List<WeekdayNum> byDay = rrule.getByDay();
+            if(rrule.getFreq() == Frequency.WEEKLY || byDay.size() != 7) {
                 if(byDay.size() > 0) {
                     StringBuilder byDayString = new StringBuilder();
                     DateFormatSymbols dfs = new DateFormatSymbols();

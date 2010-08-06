@@ -4,6 +4,7 @@ import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -65,6 +66,8 @@ public class RepeatControlSet implements TaskEditControlSet {
     @Autowired
     ExceptionService exceptionService;
 
+    boolean setInterval = false;
+
     // --- implementation
 
     public RepeatControlSet(final Activity activity, ViewGroup parent) {
@@ -111,10 +114,22 @@ public class RepeatControlSet implements TaskEditControlSet {
                 repeatValueClick();
             }
         });
+
         interval.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) {
-                daysOfWeekContainer.setVisibility(position == INTERVAL_WEEKS ? View.VISIBLE : View.GONE);
+                if(setInterval) {
+                    setInterval = false;
+                    return;
+                }
+                if(position == INTERVAL_WEEKS) {
+                    int dayOfWeek = new Date().getDay();
+                    for(int i = 0; i < 7; i++)
+                        daysOfWeek[i].setChecked(i == dayOfWeek);
+                } else {
+                    for(int i = 0; i < 7; i++)
+                        daysOfWeek[i].setChecked(true);
+                }
             }
 
             @Override
@@ -122,6 +137,7 @@ public class RepeatControlSet implements TaskEditControlSet {
                 //
             }
         });
+        daysOfWeekContainer.setVisibility(View.VISIBLE);
     }
 
     /** Set up the repeat value button */
@@ -172,17 +188,6 @@ public class RepeatControlSet implements TaskEditControlSet {
                     break;
                 case WEEKLY: {
                     interval.setSelection(INTERVAL_WEEKS);
-
-                    // clear all day of week checks, then update them
-                    for(int i = 0; i < 7; i++)
-                        daysOfWeek[i].setChecked(false);
-
-                    for(WeekdayNum day : rrule.getByDay()) {
-                        for(int i = 0; i < 7; i++)
-                            if(daysOfWeek[i].getTag() == day.wday)
-                                daysOfWeek[i].setChecked(true);
-                    }
-
                     break;
                 }
                 case MONTHLY:
@@ -196,6 +201,19 @@ public class RepeatControlSet implements TaskEditControlSet {
                     exceptionService.reportError("repeat-unhandled-rule",  //$NON-NLS-1$
                             new Exception("Unhandled rrule frequency: " + recurrence)); //$NON-NLS-1$
                 }
+
+                // clear all day of week checks, then update them
+                for(int i = 0; i < 7; i++)
+                    daysOfWeek[i].setChecked(false);
+
+                for(WeekdayNum day : rrule.getByDay()) {
+                    for(int i = 0; i < 7; i++)
+                        if(daysOfWeek[i].getTag() == day.wday)
+                            daysOfWeek[i].setChecked(true);
+                }
+
+                // suppress first call to interval.onItemSelected
+                setInterval = true;
             } catch (ParseException e) {
                 recurrence = ""; //$NON-NLS-1$
                 exceptionService.reportError("repeat-parse-exception", e);  //$NON-NLS-1$
@@ -226,11 +244,6 @@ public class RepeatControlSet implements TaskEditControlSet {
                 break;
             case INTERVAL_WEEKS: {
                 rrule.setFreq(Frequency.WEEKLY);
-                ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
-                for(int i = 0; i < daysOfWeek.length; i++)
-                    if(daysOfWeek[i].isChecked())
-                        days.add(new WeekdayNum(0, (Weekday)daysOfWeek[i].getTag()));
-                rrule.setByDay(days);
                 break;
             }
             case INTERVAL_MONTHS:
@@ -239,6 +252,13 @@ public class RepeatControlSet implements TaskEditControlSet {
             case INTERVAL_HOURS:
                 rrule.setFreq(Frequency.HOURLY);
             }
+
+            ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
+            for(int i = 0; i < daysOfWeek.length; i++)
+                if(daysOfWeek[i].isChecked())
+                    days.add(new WeekdayNum(0, (Weekday)daysOfWeek[i].getTag()));
+            rrule.setByDay(days);
+
             result = rrule.toIcal();
         }
         task.setValue(Task.RECURRENCE, result);

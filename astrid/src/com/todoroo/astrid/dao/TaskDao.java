@@ -153,7 +153,7 @@ public class TaskDao extends GenericDao<Task> {
 
         if(saveSuccessful) {
             task.markSaved();
-            afterSave(task, values, skipHooks);
+            afterSave(task, values);
         }
 
         return saveSuccessful;
@@ -208,9 +208,9 @@ public class TaskDao extends GenericDao<Task> {
      * @param values values to be persisted to the database
      * @param skipHooks whether this save occurs as part of a sync
      */
-    private void afterSave(Task task, ContentValues values, boolean skipHooks) {
+    private void afterSave(Task task, ContentValues values) {
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
-            afterComplete(task, values, skipHooks);
+            afterComplete(task, values);
         else {
             ReminderService.getInstance().scheduleAlarm(task);
         }
@@ -218,9 +218,6 @@ public class TaskDao extends GenericDao<Task> {
         Astrid2TaskProvider.notifyDatabaseModification();
         ContextManager.getContext().startService(new Intent(ContextManager.getContext(),
                 TasksWidget.UpdateService.class));
-
-        if(skipHooks)
-            return;
     }
 
     /**
@@ -230,14 +227,12 @@ public class TaskDao extends GenericDao<Task> {
      * @param values
      * @param duringSync
      */
-    private void afterComplete(Task task, ContentValues values, boolean duringSync) {
+    private void afterComplete(Task task, ContentValues values) {
         // send broadcast
-        if(!duringSync) {
-            Context context = ContextManager.getContext();
-            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            context.sendOrderedBroadcast(broadcastIntent, null);
-        }
+        Context context = ContextManager.getContext();
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+        context.sendOrderedBroadcast(broadcastIntent, null);
     }
 
 }
