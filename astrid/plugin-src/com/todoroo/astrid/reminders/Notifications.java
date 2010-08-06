@@ -81,6 +81,11 @@ public class Notifications extends BroadcastReceiver {
         else
             reminder = ""; //$NON-NLS-1$
 
+        synchronized(Notifications.class) {
+            if(notificationManager == null)
+                notificationManager = new AndroidNotificationManager(context);
+        }
+
         if(!showTaskNotification(id, type, reminder)) {
             notificationManager.cancel((int)id);
         }
