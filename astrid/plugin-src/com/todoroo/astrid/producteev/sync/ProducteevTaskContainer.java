@@ -46,7 +46,7 @@ public class ProducteevTaskContainer extends TaskContainer {
             if(ProducteevTask.METADATA_KEY.equals(item.getValue(Metadata.KEY))) {
                 pdvTask = item;
                 iterator.remove();
-                break;
+                // don't break, could be multiple
             }
         }
         if(this.pdvTask == null) {

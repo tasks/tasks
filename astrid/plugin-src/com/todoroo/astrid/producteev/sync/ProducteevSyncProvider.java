@@ -254,22 +254,22 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     // ----------------------------------------------------------------------
 
     @Override
-    protected void create(ProducteevTaskContainer task) throws IOException {
-        Task local = task.task;
+    protected void create(ProducteevTaskContainer local) throws IOException {
+        Task localTask = local.task;
         long dashboard = defaultDashboard;
-        if(task.pdvTask.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
-            dashboard = task.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
-        JSONObject response = invoker.tasksCreate(local.getValue(Task.TITLE),
-                null, dashboard, createDeadline(local), createReminder(local),
-                local.isCompleted() ? 2 : 1, createStars(local));
+        if(local.pdvTask.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
+            dashboard = local.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
+        JSONObject response = invoker.tasksCreate(localTask.getValue(Task.TITLE),
+                null, dashboard, createDeadline(localTask), createReminder(localTask),
+                localTask.isCompleted() ? 2 : 1, createStars(localTask));
         ProducteevTaskContainer newRemoteTask;
         try {
             newRemoteTask = parseRemoteTask(response);
         } catch (JSONException e) {
             throw new ApiResponseParseException(e);
         }
-        transferIdentifiers(newRemoteTask, task);
-        push(task, newRemoteTask);
+        transferIdentifiers(newRemoteTask, local);
+        push(local, newRemoteTask);
     }
 
     /** Create a task container for the given RtmTaskSeries

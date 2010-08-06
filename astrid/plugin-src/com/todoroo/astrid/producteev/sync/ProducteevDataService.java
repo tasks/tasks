@@ -69,6 +69,7 @@ public final class ProducteevDataService {
      */
     public void clearMetadata() {
         metadataDao.deleteWhere(Metadata.KEY.eq(ProducteevTask.METADATA_KEY));
+        metadataDao.deleteWhere(Metadata.KEY.eq(ProducteevNote.METADATA_KEY));
     }
 
     /**

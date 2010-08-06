@@ -302,6 +302,7 @@
         <action android:name="android.intent.action.MAIN" />
       </intent-filter>
     </activity>
+    <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService"/>
 
     <!-- rmilk -->
     <receiver android:name="com.todoroo.astrid.rmilk.MilkFilterExposer">

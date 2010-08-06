@@ -7,15 +7,18 @@ import java.util.Map.Entry;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -62,9 +65,11 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
+import com.todoroo.astrid.rmilk.MilkBackgroundService;
 import com.todoroo.astrid.rmilk.MilkPreferences;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MetadataService;
@@ -177,6 +182,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 loadContextMenuIntents();
             }
         }).start();
+
+        // bind to services that require task list refreshing
+        bindServices();
     }
 
     /**
@@ -330,51 +338,22 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
 
     }
 
-    /**
-     * Quick-add a new task
-     * @param title
-     * @return
-     */
-    @SuppressWarnings("nls")
-    protected Task quickAddTask(String title, boolean selectNewTask) {
-        try {
-            Task task = new Task();
-            task.setValue(Task.TITLE, title.trim());
-            ContentValues forMetadata = null;
-            if(filter.valuesForNewTasks != null && filter.valuesForNewTasks.size() > 0) {
-                ContentValues forTask = new ContentValues();
-                forMetadata = new ContentValues();
-                for(Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
-                    if(Long.valueOf(Filter.VALUE_NOW).equals(item.getValue()))
-                        item.setValue(DateUtilities.now());
-                    if(item.getKey().startsWith(Task.TABLE.name))
-                        AndroidUtilities.putInto(forTask, item.getKey(), item.getValue());
-                    else
-                        AndroidUtilities.putInto(forMetadata, item.getKey(), item.getValue());
-                }
-                task.mergeWith(forTask);
+    public void bindServices() {
+        ServiceConnection refreshConnection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder service) {
+                System.err.println("connected to service " + name);
+                //
             }
-            taskService.save(task, false);
-            if(forMetadata != null && forMetadata.size() > 0) {
-                Metadata metadata = new Metadata();
-                metadata.setValue(Metadata.TASK, task.getId());
-                metadata.mergeWith(forMetadata);
-                metadataService.save(metadata);
-            }
-
-            TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
-            quickAdd.setText(""); //$NON-NLS-1$
-
-            if(selectNewTask) {
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                // service disconnected, let's refresh
+                System.err.println("your junk was done, refreshing");
                 loadTaskListContent(true);
-                selectCustomId(task.getId());
             }
-
-            return task;
-        } catch (Exception e) {
-            exceptionService.displayAndReportError(this, "quick-add-task", e);
-            return new Task();
-        }
+        };
+        bindService(new Intent(this, MilkBackgroundService.class), refreshConnection, 0);
+        bindService(new Intent(this, ProducteevBackgroundService.class), refreshConnection, 0);
     }
 
     /* ======================================================================
@@ -588,6 +567,53 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
     /* ======================================================================
      * ============================================================== actions
      * ====================================================================== */
+
+    /**
+     * Quick-add a new task
+     * @param title
+     * @return
+     */
+    @SuppressWarnings("nls")
+    protected Task quickAddTask(String title, boolean selectNewTask) {
+        try {
+            Task task = new Task();
+            task.setValue(Task.TITLE, title.trim());
+            ContentValues forMetadata = null;
+            if(filter.valuesForNewTasks != null && filter.valuesForNewTasks.size() > 0) {
+                ContentValues forTask = new ContentValues();
+                forMetadata = new ContentValues();
+                for(Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
+                    if(Long.valueOf(Filter.VALUE_NOW).equals(item.getValue()))
+                        item.setValue(DateUtilities.now());
+                    if(item.getKey().startsWith(Task.TABLE.name))
+                        AndroidUtilities.putInto(forTask, item.getKey(), item.getValue());
+                    else
+                        AndroidUtilities.putInto(forMetadata, item.getKey(), item.getValue());
+                }
+                task.mergeWith(forTask);
+            }
+            taskService.save(task, false);
+            if(forMetadata != null && forMetadata.size() > 0) {
+                Metadata metadata = new Metadata();
+                metadata.setValue(Metadata.TASK, task.getId());
+                metadata.mergeWith(forMetadata);
+                metadataService.save(metadata);
+            }
+
+            TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
+            quickAdd.setText(""); //$NON-NLS-1$
+
+            if(selectNewTask) {
+                loadTaskListContent(true);
+                selectCustomId(task.getId());
+            }
+
+            return task;
+        } catch (Exception e) {
+            exceptionService.displayAndReportError(this, "quick-add-task", e);
+            return new Task();
+        }
+    }
 
     protected Pair<CharSequence, Intent>[] contextMenuItemCache = null;
 

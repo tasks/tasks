@@ -39,6 +39,8 @@ public final class ReminderService  {
 
     private static final Property<?>[] PROPERTIES = new Property<?>[] {
         Task.ID,
+        Task.COMPLETION_DATE,
+        Task.DELETION_DATE,
         Task.DUE_DATE,
         Task.REMINDER_FLAGS,
         Task.REMINDER_PERIOD,
@@ -154,6 +156,9 @@ public final class ReminderService  {
                 }
             }
         }
+
+        if(task.isCompleted() || task.isDeleted())
+            return;
 
         // random reminders
         long whenRandom = calculateNextRandomReminder(task);

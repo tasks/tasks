@@ -230,6 +230,11 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
                     remote = pull(remote);
                     remote.task.setId(local.task.getId());
                     data.remoteUpdated.set(remoteIndex, remote);
+
+                    // if remote is deleted, undelete it, since we just created
+                    if(remote.task.isDeleted())
+                        remote.task.setValue(Task.DELETION_DATE, 0L);
+
                 } else {
                     create(local);
                 }
