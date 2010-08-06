@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<TextView android:layout_width="wrap_content"
+		android:layout_height="wrap_content" style="@style/TextAppearance.GEN_EditLabel"
+		android:text="@string/producteev_PPr_header" />
+
+	<LinearLayout android:orientation="horizontal"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:paddingTop="5dip" android:baselineAligned="false">
+
+		<Button android:id="@+id/done" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:text="@string/DLG_done" />
+
+		<Button android:id="@+id/cancel" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:layout_weight="1"
+			android:text="@android:string/cancel" />
+	</LinearLayout>
+
+	<EditText android:layout_height="wrap_content"
+		android:layout_width="fill_parent" android:hint="E-Mail"
+		android:contentDescription="E-Mail with which you registered to Producteev-service"
+		android:id="@+id/Poducteev_EMail_EditText" android:inputType="textEmailAddress"></EditText>
+	<EditText android:layout_height="wrap_content"
+		android:id="@+id/Producteev_Password_EditText"
+		android:contentDescription="Password for your Producteev account"
+		android:hint="Password" android:layout_width="fill_parent"
+		android:inputType="textPassword"></EditText>
+</LinearLayout>
