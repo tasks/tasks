@@ -41,7 +41,7 @@ public class ProducteevNote {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, METADATA_KEY);
         metadata.setValue(ID, note.optLong("id_note"));
-        metadata.setValue(MESSAGE, note.optString("message"));
+        metadata.setValue(MESSAGE, ApiUtilities.decode(note.optString("message")));
         metadata.setValue(CREATED, ApiUtilities.producteevToUnixTime(
                 note.optString("time_create"), 0));
         return metadata;

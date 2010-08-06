@@ -3,6 +3,8 @@ package com.todoroo.astrid.producteev.api;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
+import android.text.Html;
+
 import com.todoroo.andlib.utility.DateUtilities;
 
 /**
@@ -58,4 +60,12 @@ public final class ApiUtilities {
         }
     }
 
+    /**
+     * Unescape a Producteev string
+     * @param string
+     * @return
+     */
+    public static String decode(String string) {
+        return Html.fromHtml(string).toString();
+    }
 }

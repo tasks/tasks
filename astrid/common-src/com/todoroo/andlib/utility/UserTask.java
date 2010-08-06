@@ -420,6 +420,7 @@ public abstract class UserTask<Params, Progress, Result> {
         @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
+            @SuppressWarnings("rawtypes")
             UserTaskResult result = (UserTaskResult) msg.obj;
             switch (msg.what) {
                 case MESSAGE_POST_RESULT:

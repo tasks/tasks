@@ -13,8 +13,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import com.todoroo.andlib.service.RestClient;
-
 @SuppressWarnings("nls")
 public class ProducteevInvoker {
 
@@ -319,7 +317,7 @@ public class ProducteevInvoker {
 
     // --- invocation
 
-    private final RestClient restClient = new ProducteevRestClient();
+    private final ProducteevRestClient restClient = new ProducteevRestClient();
 
     /**
      * Invokes authenticated method using HTTP GET. Will retry after re-authenticating if service exception encountered
@@ -334,19 +332,28 @@ public class ProducteevInvoker {
             throws IOException, ApiServiceException {
         try {
             String request = createFetchUrl(method, getParameters);
-            String response;
+            String response = null;
             try {
                 response = restClient.get(request);
-            } catch (ApiServiceException e) {
-                String oldToken = getToken();
-                System.err.println("PDV: retrying due to exception: " + e);
-                authenticate(retryEmail, retryPassword);
-                for(int i = 0; i < getParameters.length; i++)
-                    if(oldToken.equals(getParameters[i]))
-                        getParameters[i] = getToken();
-
-                request = createFetchUrl(method, getParameters);
-                response = restClient.get(request);
+            } catch (ApiSignatureException e) {
+                // clear cookies, get new token, retry
+                for(int retry = 0; retry < 2; retry++) {
+                    String oldToken = token;
+                    restClient.reset();
+                    authenticate(retryEmail, retryPassword);
+                    for(int i = 0; i < getParameters.length; i++)
+                        if(oldToken.equals(getParameters[i])) {
+                            getParameters[i] = getToken();
+                        }
+                    request = createFetchUrl(method, getParameters);
+                    try {
+                        response = restClient.get(request);
+                    } catch (ApiSignatureException newException) {
+                        //
+                    }
+                }
+                if(response == null)
+                    throw e;
             }
             if(response.startsWith("DEBUG MESSAGE")) {
                 System.err.println(response);
@@ -369,13 +376,14 @@ public class ProducteevInvoker {
      *          Name/Value pairs. Values will be URL encoded.
      * @return response object
      */
-    private JSONObject invokeGet(String method, Object... getParameters)
-            throws IOException, ApiServiceException {
+    JSONObject invokeGet(String method, Object... getParameters) throws IOException, ApiServiceException {
         try {
             String request = createFetchUrl(method, getParameters);
             String response = restClient.get(request);
-            if(response.startsWith("DEBUG MESSAGE"))
-                throw new ApiServiceException(response);
+            if(response.startsWith("DEBUG MESSAGE")) {
+                System.err.println(response);
+                return new JSONObject();
+            }
             return new JSONObject(response);
         } catch (JSONException e) {
             throw new ApiResponseParseException(e);
@@ -392,7 +400,7 @@ public class ProducteevInvoker {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-    public String createFetchUrl(String method, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    String createFetchUrl(String method, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         TreeMap<String, Object> treeMap = new TreeMap<String, Object>();
         for(int i = 0; i < getParameters.length; i += 2)
             treeMap.put(getParameters[i].toString(), getParameters[i+1]);

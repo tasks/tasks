@@ -92,7 +92,13 @@ public class ProducteevRestClient implements RestClient {
             try {
                 JSONObject errorObject = new JSONObject(body).getJSONObject("error"); //$NON-NLS-1$
                 String errorMessage = errorObject.getString("message"); //$NON-NLS-1$
-                error= new ApiServiceException(errorMessage);
+
+                if(statusCode == 403)
+                    error = new ApiSignatureException(errorMessage);
+                else if(statusCode == 401)
+                    error = new ApiAuthenticationException(errorMessage);
+                else
+                    error = new ApiServiceException(errorMessage);
             } catch (Exception e) {
                 error = new ApiServiceException(response.getStatusLine() +
                         "\n" + body); //$NON-NLS-1$
@@ -156,6 +162,13 @@ public class ProducteevRestClient implements RestClient {
             ioException.initCause(e);
             throw ioException;
         }
+    }
+
+    /**
+     * Destroy and re-create http client
+     */
+    public void reset() {
+        httpClient = null;
     }
 
 }

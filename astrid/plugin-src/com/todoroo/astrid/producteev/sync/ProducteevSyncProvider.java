@@ -281,7 +281,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         if(remoteTask.has("task"))
             remoteTask = remoteTask.getJSONObject("task");
 
-        task.setValue(Task.TITLE, remoteTask.getString("title"));
+        task.setValue(Task.TITLE, ApiUtilities.decode(remoteTask.getString("title")));
         task.setValue(Task.CREATION_DATE, ApiUtilities.producteevToUnixTime(remoteTask.getString("time_created"), 0));
         task.setValue(Task.COMPLETION_DATE, remoteTask.getInt("status") == 2 ? DateUtilities.now() : 0);
         task.setValue(Task.DELETION_DATE, remoteTask.getInt("deleted") == 1 ? DateUtilities.now() : 0);
@@ -298,7 +298,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
             Metadata tagData = new Metadata();
             tagData.setValue(Metadata.KEY, TagService.KEY);
-            tagData.setValue(TagService.TAG, label.getString("title"));
+            tagData.setValue(TagService.TAG, ApiUtilities.decode(label.getString("title")));
             metadata.add(tagData);
         }
 
@@ -381,7 +381,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                     for(String label : toAdd) {
                         if(!labelMap.containsKey(label)) {
                             JSONObject result = invoker.labelsCreate(defaultDashboard, label).getJSONObject("label");
-                            labelMap.put(result.getString("title"), result.getLong("id_label"));
+                            labelMap.put(ApiUtilities.decode(result.getString("title")), result.getLong("id_label"));
                         }
                         invoker.tasksSetLabel(idTask, labelMap.get(label));
                     }
@@ -543,7 +543,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     private void readLabels(JSONArray labels) throws JSONException, ApiServiceException, IOException {
         for(int i = 0; i < labels.length(); i++) {
             JSONObject label = labels.getJSONObject(i).getJSONObject("label");
-            labelMap.put(label.getString("title"), label.getLong("id_label"));
+            labelMap.put(ApiUtilities.decode(label.getString("title")), label.getLong("id_label"));
         }
     }
 
