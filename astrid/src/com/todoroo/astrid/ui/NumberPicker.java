@@ -44,7 +44,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         OnFocusChangeListener, OnLongClickListener {
 
     public interface OnChangedListener {
-        void onChanged(NumberPicker picker, int oldVal, int newVal);
+        /** return new value */
+        int onChanged(NumberPicker picker, int oldVal, int newVal);
     }
 
     public interface Formatter {
@@ -253,6 +254,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     private void changeCurrent(int current, Animation in, Animation out) {
+        current = notifyChange();
 
         // Wrap around the values if we go past the start or end
         if (current > mEnd) {
@@ -262,14 +264,15 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         }
         mPrevious = mCurrent;
         mCurrent = current;
-        notifyChange();
         updateView();
     }
 
-    private void notifyChange() {
+    private int notifyChange() {
         if (mListener != null) {
-            mListener.onChanged(this, mPrevious, mCurrent);
-        }
+            return mListener.onChanged(this, mPrevious, mCurrent);
+        } else
+            return mCurrent;
+
     }
 
     private void updateView() {
