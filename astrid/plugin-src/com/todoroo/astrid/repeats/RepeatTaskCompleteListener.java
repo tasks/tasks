@@ -64,17 +64,17 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 hideUntil += newDueDate - task.getValue(Task.DUE_DATE);
             }
 
-            // clear recurrence from completed task so it can be re-commpleted
-            task.setValue(Task.RECURRENCE, ""); //$NON-NLS-1$
-            taskService.save(task, false);
-
             // clone to create new task
-            task = taskService.clone(task);
-            task.setValue(Task.DUE_DATE, newDueDate);
-            task.setValue(Task.HIDE_UNTIL, hideUntil);
-            task.setValue(Task.COMPLETION_DATE, 0L);
-            task.setValue(Task.TIMER_START, 0L);
-            task.setValue(Task.ELAPSED_SECONDS, 0);
+            Task clone = taskService.clone(task);
+            clone.setValue(Task.DUE_DATE, newDueDate);
+            clone.setValue(Task.HIDE_UNTIL, hideUntil);
+            clone.setValue(Task.COMPLETION_DATE, 0L);
+            clone.setValue(Task.TIMER_START, 0L);
+            clone.setValue(Task.ELAPSED_SECONDS, 0);
+            taskService.save(clone, false);
+
+            // clear recurrence from completed task so it can be re-completed
+            task.setValue(Task.RECURRENCE, ""); //$NON-NLS-1$
             taskService.save(task, false);
         }
     }
