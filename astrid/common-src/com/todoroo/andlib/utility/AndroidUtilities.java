@@ -23,8 +23,8 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.todoroo.andlib.service.Autowired;
@@ -195,9 +195,19 @@ public class AndroidUtilities {
 
         String[] pairs = string.split("=");
         ContentValues result = new ContentValues();
-        for(String item : pairs) {
-            String[] keyValue = item.split("=");
-            result.put(keyValue[0].trim(), keyValue[1].trim());
+        String key = null;
+        for(int i = 0; i < pairs.length; i++) {
+            String newKey = null;
+            int lastSpace = pairs[i].lastIndexOf(' ');
+            if(lastSpace != -1) {
+                newKey = pairs[i].substring(lastSpace + 1);
+                pairs[i] = pairs[i].substring(0, lastSpace);
+            } else {
+                newKey =  pairs[i];
+            }
+            if(key != null)
+                result.put(key.trim(), pairs[i].trim());
+            key = newKey;
         }
         return result;
     }
