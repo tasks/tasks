@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import org.xmlpull.v1.XmlSerializer;
 
+import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Handler;
@@ -16,8 +17,8 @@ import android.widget.Toast;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -82,6 +83,8 @@ public class TasksXmlExporter {
             progressDialog.setCancelable(false);
             progressDialog.setIndeterminate(false);
             progressDialog.show();
+            if(context instanceof Activity)
+                progressDialog.setOwnerActivity((Activity)context);
         }
 
         new Thread(new Runnable() {
