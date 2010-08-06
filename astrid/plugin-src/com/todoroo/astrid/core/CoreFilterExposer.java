@@ -86,7 +86,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
                 r.getString(R.string.BFE_Alphabetical),
                 new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
                         TaskCriteria.isVisible())).
-                        orderBy(Order.asc(Task.TITLE)),
+                        orderBy(Order.asc(Functions.upper(Task.TITLE))),
                 null);
         alphabetical.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap();
 
