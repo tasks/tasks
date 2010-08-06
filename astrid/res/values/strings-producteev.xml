@@ -14,6 +14,12 @@
     
     <!-- Error msg when io exception  -->
     <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+
+    <!-- Prod Login email not specified-->
+    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+    
+    <!-- Prod Login password not specified-->
+    <string name="producteev_MLA_password_empty">Password was not specified!</string>
     
 </resources>
 
