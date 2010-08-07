@@ -20,25 +20,25 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -253,7 +253,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 View selected = getListView().getSelectedView();
 
                 // hot-key to set task priority - 1-4 or ALT + Q-R
-                if(!filterOn && event.getNumber() >= '1' && event.getNumber() <= '4' && selected != null) {
+                if(!filterOn && event.getUnicodeChar() >= '1' && event.getUnicodeChar() <= '4' && selected != null) {
                     int importance = event.getNumber() - '1';
                     Task task = ((ViewHolder)selected.getTag()).task;
                     task.setValue(Task.IMPORTANCE, importance);
