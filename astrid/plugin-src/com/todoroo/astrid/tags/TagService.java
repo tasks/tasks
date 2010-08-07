@@ -2,9 +2,9 @@ package com.todoroo.astrid.tags;
 
 import java.util.ArrayList;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -58,8 +58,12 @@ public final class TagService {
      * Property for retrieving count of aggregated rows
      */
     private static final CountProperty COUNT = new CountProperty();
-    public static final Order GROUPED_TAGS_BY_ALPHA = Order.asc(TAG);
-    public static final Order GROUPED_TAGS_BY_SIZE = Order.desc(COUNT);
+    public static final QueryTemplate GROUPED_TAGS_BY_ALPHA = new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(KEY))).
+        orderBy(Order.asc(TAG));
+    public static final QueryTemplate GROUPED_TAGS_BY_SIZE = new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(KEY))).
+        orderBy(Order.desc(COUNT));
+    public static final QueryTemplate GROUPED_TAGS_COMPLETED = new QueryTemplate().where(Criterion.and(TaskCriteria.completed(), MetadataCriteria.withKey(KEY))).
+        orderBy(Order.desc(COUNT));
 
     /**
      * Helper class for returning a tag/task count pair
@@ -82,11 +86,12 @@ public final class TagService {
          * @param tag
          * @return
          */
-        public QueryTemplate queryTemplate() {
+        public QueryTemplate queryTemplate(boolean completed) {
+            Criterion activeStatus = completed ? TaskCriteria.completed() : TaskCriteria.isActive();
             return new QueryTemplate().join(Join.inner(Metadata.TABLE,
                     Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                             MetadataCriteria.withKey(KEY), TAG.eq(tag),
-                            TaskCriteria.isActive()));
+                            activeStatus));
         }
     }
 
@@ -103,11 +108,10 @@ public final class TagService {
      * @param taskId
      * @return empty array if no tags, otherwise array
      */
-    public Tag[] getGroupedTags(Order order) {
+    public Tag[] getGroupedTags(QueryTemplate template) {
         Query query = Query.select(TAG.as(TAG.name), COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-            where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(KEY))).
-            orderBy(order).groupBy(TAG);
+            withQueryTemplate(template.toString()).groupBy(TAG);
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
             Tag[] array = new Tag[cursor.getCount()];

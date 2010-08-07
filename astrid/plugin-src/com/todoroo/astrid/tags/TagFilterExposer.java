@@ -31,11 +31,11 @@ public class TagFilterExposer extends BroadcastReceiver {
     private TagService tagService;
 
     @SuppressWarnings("nls")
-    private Filter filterFromTag(Context context, Tag tag) {
+    private Filter filterFromTag(Context context, Tag tag, boolean completed) {
         String listTitle = context.getString(R.string.tag_FEx_tag_w_size).
             replace("$T", tag.tag).replace("$C", Integer.toString(tag.count));
         String title = context.getString(R.string.tag_FEx_name, tag.tag);
-        QueryTemplate tagTemplate = tag.queryTemplate();
+        QueryTemplate tagTemplate = tag.queryTemplate(completed);
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TagService.KEY);
         contentValues.put(TagService.TAG.name, tag.tag);
@@ -70,31 +70,44 @@ public class TagFilterExposer extends BroadcastReceiver {
         Tag[] tagsBySize = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
         Filter[] filtersByAlpha = new Filter[tagsByAlpha.length];
         for(int i = 0; i < tagsByAlpha.length; i++)
-            filtersByAlpha[i] = filterFromTag(context, tagsByAlpha[i]);
+            filtersByAlpha[i] = filterFromTag(context, tagsByAlpha[i], false);
 
         Filter[] filtersBySize = new Filter[tagsBySize.length];
         for(int i = 0; i < tagsBySize.length; i++)
-            filtersBySize[i] = filterFromTag(context, tagsBySize[i]);
+            filtersBySize[i] = filterFromTag(context, tagsBySize[i], false);
+
+        Tag[] completed = tagService.getGroupedTags(TagService.GROUPED_TAGS_COMPLETED);
+        Filter[] filtersCompleted = new Filter[completed.length];
+        for(int i = 0; i < completed.length; i++)
+            filtersCompleted[i] = filterFromTag(context, completed[i], true);
 
         FilterListHeader tagsHeader = new FilterListHeader(context.getString(R.string.tag_FEx_header));
+
         Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
                 r.getString(R.string.tag_FEx_untagged),
                 tagService.untaggedTemplate(),
                 null);
         untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_untagged)).getBitmap();
+
         FilterCategory tagsCategoryBySize = new FilterCategory(context.getString(R.string.tag_FEx_by_size),
                 filtersBySize);
         tagsCategoryBySize.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap();
+
         FilterCategory tagsCategoryByAlpha = new FilterCategory(context.getString(R.string.tag_FEx_alpha),
                 filtersByAlpha);
-        tagsCategoryByAlpha.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags2)).getBitmap();
+        tagsCategoryByAlpha.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap();
+
+        FilterCategory tagsCategoryCompleted = new FilterCategory(context.getString(R.string.tag_FEx_completed),
+                filtersCompleted);
+        tagsCategoryCompleted.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags2)).getBitmap();
 
         // transmit filter list
-        FilterListItem[] list = new FilterListItem[4];
+        FilterListItem[] list = new FilterListItem[5];
         list[0] = tagsHeader;
         list[1] = untagged;
         list[2] = tagsCategoryBySize;
         list[3] = tagsCategoryByAlpha;
+        list[4] = tagsCategoryCompleted;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);

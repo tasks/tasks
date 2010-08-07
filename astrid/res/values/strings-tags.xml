@@ -28,6 +28,9 @@
   <!-- filter header for tags, sorted by name -->
   <string name="tag_FEx_alpha">Alphabetical</string>
   
+  <!-- filter header for tags of completed tasks -->
+  <string name="tag_FEx_completed">Completed</string>
+  
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Untagged</string>
   
