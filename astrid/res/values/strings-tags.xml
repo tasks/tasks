@@ -23,13 +23,13 @@
   <string name="tag_FEx_header">Tags</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">By Size</string>
-  
-  <!-- filter header for tags, sorted by name -->
-  <string name="tag_FEx_alpha">Alphabetical</string>
+  <string name="tag_FEx_by_size">Active</string>
   
   <!-- filter header for tags of completed tasks -->
   <string name="tag_FEx_completed">Completed</string>
+  
+  <!-- filter header for all tags, sorted by name -->
+  <string name="tag_FEx_alpha">All Tags</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Untagged</string>

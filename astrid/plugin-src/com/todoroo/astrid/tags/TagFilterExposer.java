@@ -95,9 +95,9 @@ public class TagFilterExposer extends BroadcastReceiver {
                 filtersBySize);
         tagsCategoryBySize.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap();
 
-        FilterCategory tagsCategoryByAlpha = new FilterCategory(context.getString(R.string.tag_FEx_alpha),
+        FilterCategory tagsCategoryAllByAlpha = new FilterCategory(context.getString(R.string.tag_FEx_alpha),
                 filtersByAlpha);
-        tagsCategoryByAlpha.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap();
+        tagsCategoryAllByAlpha.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap();
 
         FilterCategory tagsCategoryCompleted = new FilterCategory(context.getString(R.string.tag_FEx_completed),
                 filtersCompleted);
@@ -108,8 +108,8 @@ public class TagFilterExposer extends BroadcastReceiver {
         list[0] = tagsHeader;
         list[1] = untagged;
         list[2] = tagsCategoryBySize;
-        list[3] = tagsCategoryByAlpha;
-        list[4] = tagsCategoryCompleted;
+        list[3] = tagsCategoryCompleted;
+        list[4] = tagsCategoryAllByAlpha;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
