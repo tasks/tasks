@@ -2,8 +2,8 @@ package com.todoroo.astrid.backup;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -329,7 +329,7 @@ public class TasksXmlImporter {
         private String upgradeNotes = null;
         private boolean syncOnComplete = false;
 
-        private final ArrayList<String> tags = new ArrayList<String>();
+        private final LinkedHashSet<String> tags = new LinkedHashSet<String>();
 
         public Format1TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;

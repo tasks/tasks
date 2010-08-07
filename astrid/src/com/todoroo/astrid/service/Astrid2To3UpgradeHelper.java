@@ -31,7 +31,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.alarms.Alarm;
+import com.todoroo.astrid.alarms.TransitionalAlarm;
 import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
@@ -177,10 +177,10 @@ public class Astrid2To3UpgradeHelper {
                     AlarmDatabase alarmsDatabase = new AlarmDatabase();
                     alarmsDatabase.openForWriting();
                     propertyMap.clear();
-                    propertyMap.put("_id", Alarm.ID); //$NON-NLS-1$
-                    propertyMap.put(LegacyAlertModel.TASK, Alarm.TASK);
-                    propertyMap.put(LegacyAlertModel.DATE, Alarm.TIME);
-                    upgradeTable(context, alertsTable, propertyMap, new Alarm(),
+                    propertyMap.put("_id", TransitionalAlarm.ID); //$NON-NLS-1$
+                    propertyMap.put(LegacyAlertModel.TASK, TransitionalAlarm.TASK);
+                    propertyMap.put(LegacyAlertModel.DATE, TransitionalAlarm.TIME);
+                    upgradeTable(context, alertsTable, propertyMap, new TransitionalAlarm(),
                             alarmsDatabase.getDao());
                     alarmsDatabase.close();
 

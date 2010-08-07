@@ -27,15 +27,16 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TabActivity;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TabActivity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -44,6 +45,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -58,7 +60,6 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -68,6 +69,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gcal.GCalControlSet;
@@ -219,6 +221,8 @@ public final class TaskEditActivity extends TabActivity {
             controls.add(new GCalControlSet(this, addonsAddons));
             separator(addonsAddons);
             controls.add(new TimerControlSet(this, addonsAddons));
+            separator(addonsAddons);
+            controls.add(new AlarmControlSet(this, addonsAddons));
         }
 
         // show add-on help if necessary
@@ -251,7 +255,7 @@ public final class TaskEditActivity extends TabActivity {
      */
     private void separator(ViewGroup parent) {
         View view = new View(this);
-        view.setBackgroundResource(R.drawable.black_white_gradient);
+        view.setBackgroundColor(Color.RED);
         view.setPadding(2, 3, 2, 3);
         parent.addView(view);
     }

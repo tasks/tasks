@@ -1,6 +1,6 @@
 package com.todoroo.astrid.tags;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -58,12 +58,8 @@ public final class TagService {
      * Property for retrieving count of aggregated rows
      */
     private static final CountProperty COUNT = new CountProperty();
-    public static final QueryTemplate GROUPED_TAGS_BY_ALPHA = new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(KEY))).
-        orderBy(Order.asc(TAG));
-    public static final QueryTemplate GROUPED_TAGS_BY_SIZE = new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(KEY))).
-        orderBy(Order.desc(COUNT));
-    public static final QueryTemplate GROUPED_TAGS_COMPLETED = new QueryTemplate().where(Criterion.and(TaskCriteria.completed(), MetadataCriteria.withKey(KEY))).
-        orderBy(Order.desc(COUNT));
+    public static final Order GROUPED_TAGS_BY_ALPHA = Order.asc(TAG);
+    public static final Order GROUPED_TAGS_BY_SIZE = Order.desc(COUNT);
 
     /**
      * Helper class for returning a tag/task count pair
@@ -105,13 +101,15 @@ public final class TagService {
     /**
      * Return all tags ordered by given clause
      *
-     * @param taskId
+     * @param order ordering
+     * @param activeStatus criterion for specifying completed or uncompleted
      * @return empty array if no tags, otherwise array
      */
-    public Tag[] getGroupedTags(QueryTemplate template) {
+    public Tag[] getGroupedTags(Order order, Criterion activeStatus) {
         Query query = Query.select(TAG.as(TAG.name), COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-            withQueryTemplate(template.toString()).groupBy(TAG);
+            where(Criterion.and(activeStatus, MetadataCriteria.withKey(KEY))).
+            orderBy(order).groupBy(TAG);
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
             Tag[] array = new Tag[cursor.getCount()];
@@ -179,7 +177,7 @@ public final class TagService {
      * @param taskId
      * @param tags
      */
-    public void synchronizeTags(long taskId, ArrayList<String> tags) {
+    public void synchronizeTags(long taskId, LinkedHashSet<String> tags) {
         metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(taskId),
                 MetadataCriteria.withKey(KEY)));
 

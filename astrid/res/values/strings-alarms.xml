@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Resources for built-in timers plug-in -->
+    
+    <!-- Task Edit Activity: Container Label -->
+    <string name="alarm_ACS_label">Alarms</string>
+    
+    <!-- Task Edit Activity: Add New Alarn -->
+    <string name="alarm_ACS_button">Add an Alarm</string>
+   
+    <!-- Android Notification Title (%s => task name) -->
+    <string name="alarm_notification">Alarm! %s</string>
+    
+</resources>

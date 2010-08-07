@@ -11,12 +11,14 @@ import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.tags.TagService.Tag;
 
@@ -59,7 +61,7 @@ public class TagFilterExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         tagService = TagService.getInstance();
-        Tag[] tagsByAlpha = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
+        Tag[] tagsByAlpha = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA, Criterion.all);
 
         // If user does not have any tags, don't show this section at all
         if(tagsByAlpha.length == 0)
@@ -67,7 +69,7 @@ public class TagFilterExposer extends BroadcastReceiver {
 
         Resources r = context.getResources();
 
-        Tag[] tagsBySize = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
+        Tag[] tagsBySize = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, TaskCriteria.isActive());
         Filter[] filtersByAlpha = new Filter[tagsByAlpha.length];
         for(int i = 0; i < tagsByAlpha.length; i++)
             filtersByAlpha[i] = filterFromTag(context, tagsByAlpha[i], false);
@@ -76,7 +78,7 @@ public class TagFilterExposer extends BroadcastReceiver {
         for(int i = 0; i < tagsBySize.length; i++)
             filtersBySize[i] = filterFromTag(context, tagsBySize[i], false);
 
-        Tag[] completed = tagService.getGroupedTags(TagService.GROUPED_TAGS_COMPLETED);
+        Tag[] completed = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, TaskCriteria.completed());
         Filter[] filtersCompleted = new Filter[completed.length];
         for(int i = 0; i < completed.length; i++)
             filtersCompleted[i] = filterFromTag(context, completed[i], true);

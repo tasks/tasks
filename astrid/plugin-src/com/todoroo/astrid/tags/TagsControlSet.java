@@ -1,6 +1,6 @@
 package com.todoroo.astrid.tags;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import android.app.Activity;
 import android.text.Editable;
@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -41,7 +42,7 @@ public final class TagsControlSet implements TaskEditControlSet {
     private final Activity activity;
 
     public TagsControlSet(Activity activity, int tagsContainer) {
-        allTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
+        allTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, Criterion.all);
         this.activity = activity;
         this.tagsContainer = (LinearLayout) activity.findViewById(tagsContainer);
     }
@@ -64,7 +65,7 @@ public final class TagsControlSet implements TaskEditControlSet {
 
     @Override
     public void writeToModel(Task task) {
-        ArrayList<String> tags = new ArrayList<String>();
+        LinkedHashSet<String> tags = new LinkedHashSet<String>();
 
         for(int i = 0; i < tagsContainer.getChildCount(); i++) {
             TextView tagName = (TextView)tagsContainer.getChildAt(i).findViewById(R.id.text1);

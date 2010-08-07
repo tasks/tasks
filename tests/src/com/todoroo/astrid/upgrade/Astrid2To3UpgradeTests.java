@@ -10,7 +10,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.alarms.Alarm;
+import com.todoroo.astrid.alarms.TransitionalAlarm;
 import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
@@ -363,14 +363,14 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         database.openForReading();
 
         alarmsDatabase.openForReading();
-        TodorooCursor<Alarm> cursor = alarmsDatabase.getDao().query(Query.select(Alarm.TIME));
+        TodorooCursor<TransitionalAlarm> cursor = alarmsDatabase.getDao().query(Query.select(TransitionalAlarm.TIME));
         assertEquals(2, cursor.getCount());
         cursor.moveToFirst();
-        Alarm alarm = new Alarm(cursor);
-        assertDatesEqual(x1, alarm.getValue(Alarm.TIME));
+        TransitionalAlarm alarm = new TransitionalAlarm(cursor);
+        assertDatesEqual(x1, alarm.getValue(TransitionalAlarm.TIME));
         cursor.moveToNext();
         alarm.readFromCursor(cursor);
-        assertDatesEqual(x2, alarm.getValue(Alarm.TIME));
+        assertDatesEqual(x2, alarm.getValue(TransitionalAlarm.TIME));
     }
 
     /**
