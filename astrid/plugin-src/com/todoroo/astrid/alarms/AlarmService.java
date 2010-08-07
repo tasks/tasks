@@ -17,7 +17,6 @@ import com.todoroo.astrid.service.MetadataService;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public class AlarmService {
 
     // --- singleton

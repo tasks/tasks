@@ -3,10 +3,9 @@ package com.todoroo.astrid.tags;
 import java.util.LinkedHashSet;
 
 import android.app.Activity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageButton;
@@ -29,11 +28,6 @@ import com.todoroo.astrid.tags.TagService.Tag;
  */
 public final class TagsControlSet implements TaskEditControlSet {
 
-    // --- constants
-
-    /** Number of tags a task can have */
-    static final int MAX_TAGS = 5;
-
     // --- instance variables
 
     private final TagService tagService = TagService.getInstance();
@@ -47,24 +41,29 @@ public final class TagsControlSet implements TaskEditControlSet {
         this.tagsContainer = (LinearLayout) activity.findViewById(tagsContainer);
     }
 
-    @SuppressWarnings("nls")
     @Override
     public void readFromTask(Task task) {
-        // tags (only configure if not already set)
-        if(tagsContainer.getChildCount() == 0) {
-            TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
-            try {
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-                    addTag(cursor.get(TagService.TAG));
-            } finally {
-                cursor.close();
-            }
-            addTag("");
+        System.err.println("TAGS loading... old size = " + tagsContainer.getChildCount());
+        tagsContainer.removeAllViews();
+
+        TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
+        try {
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+                addTag(cursor.get(TagService.TAG));
+        } finally {
+            cursor.close();
         }
+        if(tagsContainer.getChildCount() == 0)
+            addTag(""); //$NON-NLS-1$
+        System.err.println("TAGS loaded ");
     }
 
     @Override
     public void writeToModel(Task task) {
+        // this is a case where we're asked to save but the UI was not yet populated
+        if(tagsContainer.getChildCount() == 0)
+            return;
+
         LinkedHashSet<String> tags = new LinkedHashSet<String>();
 
         for(int i = 0; i < tagsContainer.getChildCount(); i++) {
@@ -75,14 +74,12 @@ public final class TagsControlSet implements TaskEditControlSet {
         }
 
         tagService.synchronizeTags(task.getId(), tags);
+        System.err.println("TAGS saved " + tags);
     }
 
     /** Adds a tag to the tag field */
     boolean addTag(String tagName) {
-        if (tagsContainer.getChildCount() >= MAX_TAGS) {
-            return false;
-        }
-
+        System.err.println("TAG ADDING ui " + tagName);
         LayoutInflater inflater = activity.getLayoutInflater();
         final View tagItem = inflater.inflate(R.layout.tag_edit_row, null);
         tagsContainer.addView(tagItem);
@@ -94,33 +91,40 @@ public final class TagsControlSet implements TaskEditControlSet {
             new ArrayAdapter<Tag>(activity,
                     android.R.layout.simple_dropdown_item_1line, allTags);
         textView.setAdapter(tagsAdapter);
-        textView.addTextChangedListener(new TextWatcher() {
-            @SuppressWarnings("nls")
-            public void onTextChanged(CharSequence s, int start, int before,
-                    int count) {
-                if(start == 0 && tagsContainer.getChildAt(
-                        tagsContainer.getChildCount()-1) == tagItem) {
-                    addTag("");
+
+        textView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                View lastItem = tagsContainer.getChildAt(tagsContainer.getChildCount()-1);
+                TextView lastText = (TextView) lastItem.findViewById(R.id.text1);
+                if(lastText.getText().length() != 0) {
+                    addTag(""); //$NON-NLS-1$
                 }
             }
-
-            public void afterTextChanged(Editable s) {
-                //
-            }
-
-
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
-                //
-            }
         });
+
+        /*textView.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView arg0, int actionId, KeyEvent arg2) {
+                if(actionId != EditorInfo.IME_NULL)
+                    return false;
+                View lastItem = tagsContainer.getChildAt(tagsContainer.getChildCount()-1);
+                TextView lastText = (TextView) lastItem.findViewById(R.id.text1);
+                if(lastText.getText().length() != 0) {
+                    addTag(""); //$NON-NLS-1$
+                }
+                return true;
+            }
+        });*/
 
         ImageButton reminderRemoveButton;
         reminderRemoveButton = (ImageButton)tagItem.findViewById(R.id.button1);
         reminderRemoveButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(textView.getText().length() > 0)
+                if(tagsContainer.getChildCount() > 0)
                     tagsContainer.removeView(tagItem);
+                else
+                    textView.setText(""); //$NON-NLS-1$
             }
         });
 

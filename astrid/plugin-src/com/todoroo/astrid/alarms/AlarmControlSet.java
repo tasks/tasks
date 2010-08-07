@@ -26,11 +26,6 @@ import com.todoroo.astrid.model.Task;
  */
 public final class AlarmControlSet implements TaskEditControlSet {
 
-    // --- constants
-
-    /** Number of alarms a task can have */
-    static final int MAX_ALARMS = 10;
-
     // --- instance variables
 
     private final LinearLayout alertsContainer;
@@ -51,14 +46,13 @@ public final class AlarmControlSet implements TaskEditControlSet {
 
     @Override
     public void readFromTask(Task task) {
-        if(alertsContainer.getChildCount() == 0) {
-            TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(task.getId());
-            try {
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-                    addAlarm(new Date(cursor.get(Alarm.TIME)));
-            } finally {
-                cursor.close();
-            }
+        alertsContainer.removeAllViews();
+        TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(task.getId());
+        try {
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
+                addAlarm(new Date(cursor.get(Alarm.TIME)));
+        } finally {
+            cursor.close();
         }
     }
 
@@ -77,9 +71,6 @@ public final class AlarmControlSet implements TaskEditControlSet {
     }
 
     private boolean addAlarm(Date alert) {
-        if(alertsContainer.getChildCount() >= MAX_ALARMS)
-            return false;
-
         final View alertItem = LayoutInflater.from(activity).inflate(R.layout.alarm_edit_row, null);
         alertsContainer.addView(alertItem);
 
