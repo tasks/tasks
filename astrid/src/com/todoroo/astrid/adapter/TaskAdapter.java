@@ -15,12 +15,12 @@ import android.graphics.Paint;
 import android.text.Html;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -263,6 +263,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(hiddenUntil > DateUtilities.now())
                 nameValue = r.getString(R.string.TAd_hiddenFormat, nameValue);
             nameView.setText(nameValue);
+            Linkify.addLinks(nameView, Linkify.ALL);
         }
 
         // due date / completion date
