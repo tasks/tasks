@@ -17,6 +17,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Task;
@@ -218,6 +219,7 @@ public class TaskDao extends GenericDao<Task> {
             afterComplete(task, values);
         else {
             ReminderService.getInstance().scheduleAlarm(task);
+            AlarmService.getInstance().scheduleAlarms(task);
         }
 
         Astrid2TaskProvider.notifyDatabaseModification();

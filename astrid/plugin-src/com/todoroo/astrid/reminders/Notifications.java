@@ -32,10 +32,10 @@ public class Notifications extends BroadcastReceiver {
     // --- constants
 
     /** task id extra */
-    static final String ID_KEY = "id"; //$NON-NLS-1$
+    public static final String ID_KEY = "id"; //$NON-NLS-1$
 
     /** notification type extra */
-    static final String TYPE_KEY = "type"; //$NON-NLS-1$
+    public static final String TYPE_KEY = "type"; //$NON-NLS-1$
 
     /** preference values */
     public static final int ICON_SET_PINK = 0;

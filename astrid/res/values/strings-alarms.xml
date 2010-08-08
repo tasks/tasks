@@ -11,6 +11,6 @@
     <string name="alarm_ACS_button">Add an Alarm</string>
    
     <!-- Android Notification Title (%s => task name) -->
-    <string name="alarm_notification">Alarm! %s</string>
+    <string name="alarm_notification">Alarm!</string>
     
 </resources>

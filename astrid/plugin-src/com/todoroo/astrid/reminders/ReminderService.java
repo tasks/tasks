@@ -46,13 +46,15 @@ public final class ReminderService  {
     };
 
     /** flag for due date reminder */
-    static final int TYPE_DUE = 0;
+    public static final int TYPE_DUE = 0;
     /** flag for overdue reminder */
-    static final int TYPE_OVERDUE = 1;
+    public static final int TYPE_OVERDUE = 1;
     /** flag for random reminder */
-    static final int TYPE_RANDOM = 2;
+    public static final int TYPE_RANDOM = 2;
     /** flag for a snoozed reminder */
-    static final int TYPE_SNOOZE = 3;
+    public static final int TYPE_SNOOZE = 3;
+    /** flag for an alarm reminder */
+    public static final int TYPE_ALARM = 4;
 
     static final Random random = new Random();
 
