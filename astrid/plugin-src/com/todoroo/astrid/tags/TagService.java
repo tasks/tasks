@@ -2,9 +2,9 @@ package com.todoroo.astrid.tags;
 
 import java.util.LinkedHashSet;
 
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -82,12 +82,11 @@ public final class TagService {
          * @param tag
          * @return
          */
-        public QueryTemplate queryTemplate(boolean completed) {
-            Criterion activeStatus = completed ? TaskCriteria.completed() : TaskCriteria.isActive();
+        public QueryTemplate queryTemplate(Criterion criterion) {
             return new QueryTemplate().join(Join.inner(Metadata.TABLE,
                     Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                             MetadataCriteria.withKey(KEY), TAG.eq(tag),
-                            activeStatus));
+                            criterion));
         }
     }
 

@@ -33,11 +33,11 @@ public class TagFilterExposer extends BroadcastReceiver {
     private TagService tagService;
 
     @SuppressWarnings("nls")
-    private Filter filterFromTag(Context context, Tag tag, boolean completed) {
+    private Filter filterFromTag(Context context, Tag tag, Criterion criterion) {
         String listTitle = context.getString(R.string.tag_FEx_tag_w_size).
             replace("$T", tag.tag).replace("$C", Integer.toString(tag.count));
         String title = context.getString(R.string.tag_FEx_name, tag.tag);
-        QueryTemplate tagTemplate = tag.queryTemplate(completed);
+        QueryTemplate tagTemplate = tag.queryTemplate(criterion);
         ContentValues contentValues = new ContentValues();
         contentValues.put(Metadata.KEY.name, TagService.KEY);
         contentValues.put(TagService.TAG.name, tag.tag);
@@ -61,7 +61,7 @@ public class TagFilterExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         tagService = TagService.getInstance();
-        Tag[] tagsByAlpha = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA, Criterion.all);
+        Tag[] tagsByAlpha = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA, TaskCriteria.notDeleted());
 
         // If user does not have any tags, don't show this section at all
         if(tagsByAlpha.length == 0)
@@ -69,19 +69,19 @@ public class TagFilterExposer extends BroadcastReceiver {
 
         Resources r = context.getResources();
 
-        Tag[] tagsBySize = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, TaskCriteria.isActive());
         Filter[] filtersByAlpha = new Filter[tagsByAlpha.length];
         for(int i = 0; i < tagsByAlpha.length; i++)
-            filtersByAlpha[i] = filterFromTag(context, tagsByAlpha[i], false);
+            filtersByAlpha[i] = filterFromTag(context, tagsByAlpha[i], TaskCriteria.notDeleted());
 
+        Tag[] tagsBySize = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, TaskCriteria.isActive());
         Filter[] filtersBySize = new Filter[tagsBySize.length];
         for(int i = 0; i < tagsBySize.length; i++)
-            filtersBySize[i] = filterFromTag(context, tagsBySize[i], false);
+            filtersBySize[i] = filterFromTag(context, tagsBySize[i], TaskCriteria.isActive());
 
         Tag[] completed = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, TaskCriteria.completed());
         Filter[] filtersCompleted = new Filter[completed.length];
         for(int i = 0; i < completed.length; i++)
-            filtersCompleted[i] = filterFromTag(context, completed[i], true);
+            filtersCompleted[i] = filterFromTag(context, completed[i], TaskCriteria.completed());
 
         FilterListHeader tagsHeader = new FilterListHeader(context.getString(R.string.tag_FEx_header));
 

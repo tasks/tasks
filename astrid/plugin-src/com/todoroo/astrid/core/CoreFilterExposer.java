@@ -14,6 +14,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.FilterListActivity;
@@ -22,8 +23,11 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.SearchFilter;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.tags.TagService;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListActivity}
@@ -134,8 +138,11 @@ public final class CoreFilterExposer extends BroadcastReceiver {
      */
     public static Filter buildInboxFilter(Resources r) {
         Filter inbox = new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active_title),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        TaskCriteria.isVisible())),
+                new QueryTemplate().where(
+                        Criterion.and(TaskCriteria.isActive(), TaskCriteria.isVisible(),
+                                Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(
+                                        Criterion.and(MetadataCriteria.withKey(TagService.KEY),
+                                                TagService.TAG.like("x_%", "x"))))))), //$NON-NLS-1$ //$NON-NLS-2$
                 null);
         inbox.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_home)).getBitmap();
         return inbox;

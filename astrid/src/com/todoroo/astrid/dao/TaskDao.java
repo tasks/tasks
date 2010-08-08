@@ -63,6 +63,11 @@ public class TaskDao extends GenericDao<Task> {
     	    return Task.DELETION_DATE.neq(0);
     	}
 
+    	/** @return tasks that were not deleted */
+    	public static Criterion notDeleted() {
+    	    return Task.DELETION_DATE.eq(0);
+    	}
+
     	/** @return tasks that have not yet been completed or deleted */
     	public static Criterion isActive() {
     	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
