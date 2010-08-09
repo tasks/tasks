@@ -92,20 +92,21 @@ public final class UpgradeService {
                     "look and feel, a new add-on system allows Astrid to become " +
                     "more powerful, while other improvements have made it faster " +
                     "and easier to use. Hope you like it!",
-                    "This update contains for free all of the " +
-                    "powerpack's features for evaluation purposes",
+                    "This update contains for free all of Astrid " +
+                    "Power Pack's features for evaluation purposes",
                     "If you liked the old version, you can also go back by " +
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
         if(from > 135 && from <= 145)
             newVersionString(changeLog, "3.1.0 (8/9/10)", new String[] {
                     "Linkify phone numbers, e-mails, and web pages",
-                    "Added day-of-week to all repeating intervals",
-                    "Moved task priorities to left side",
+                    "Swipe L => R to go from tasks to filters",
+                    "Moved task priority bar to left side",
                     "Added ability to create fixed alerts for a task",
-                    "Restored tag hiding when tag begins with underscore ('_')",
+                    "Restored tag hiding when tag begins with underscore (_)",
                     "FROYO: disabled moving app to SD card, it would break alarms and widget",
                     "Also gone: a couple force closes, bugs with repeating tasks",
+                    "... enjoy! - we ♥ astrid team",
             });
         if(from > 135 && from <= 144)
             newVersionString(changeLog, "3.0.6 (8/4/10)", new String[] {
