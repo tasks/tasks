@@ -7,6 +7,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.service.AddOnService;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 
@@ -40,6 +41,10 @@ public final class PluginServices {
     AddOnService addOnService;
 
     private static PluginServices instance;
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     private PluginServices() {
         DependencyInjectionService.getInstance().inject(this);
