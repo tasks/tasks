@@ -4,7 +4,7 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.astrid.model.Metadata;
 
 /**
- * Metadata entries for a Remember The Milk Task
+ * Metadata entries for a Producteev Task
  * @author Tim Su <tim@todoroo.com>
  *
  */

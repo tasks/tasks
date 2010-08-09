@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -14,6 +15,7 @@ import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.producteev.sync.ProducteevNote;
+import com.todoroo.astrid.producteev.sync.ProducteevTask;
 
 /**
  * Exposes Task Details for Producteev:
@@ -49,20 +51,34 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
 
     @Override
     public String getTaskDetails(Context context, long id, boolean extended) {
-
-        if(!extended)
+        Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(id);
+        if(metadata == null)
             return null;
 
         StringBuilder builder = new StringBuilder();
+
+        if(!extended) {
+            long dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
+            String dashboardName = ProducteevDataService.getInstance().getDashboardName(dashboardId);
+            // Prod dashboard is out of date. don't display Producteev stuff
+            if(dashboardName == null)
+                return null;
+
+            if(dashboardId > 0) {
+                builder.append(context.getString(R.string.producteev_TLA_dashboard,
+                        dashboardId)).append(TaskAdapter.DETAIL_SEPARATOR);
+            }
+
+        } else {
         TodorooCursor<Metadata> notesCursor = ProducteevDataService.getInstance().getTaskNotesCursor(id);
         try {
-            Metadata metadata = new Metadata();
             for(notesCursor.moveToFirst(); !notesCursor.isAfterLast(); notesCursor.moveToNext()) {
                 metadata.readFromCursor(notesCursor);
                 builder.append(metadata.getValue(ProducteevNote.MESSAGE)).append(TaskAdapter.DETAIL_SEPARATOR);
             }
         } finally {
             notesCursor.close();
+        }
         }
 
         if(builder.length() == 0)
