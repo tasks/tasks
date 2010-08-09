@@ -1,6 +1,5 @@
 package com.todoroo.astrid.activity;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
@@ -16,12 +15,6 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
-import android.gesture.Gesture;
-import android.gesture.GestureLibraries;
-import android.gesture.GestureLibrary;
-import android.gesture.GestureOverlayView;
-import android.gesture.GestureOverlayView.OnGesturePerformedListener;
-import android.gesture.Prediction;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -58,6 +51,8 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
+import com.todoroo.andlib.widget.GestureService;
+import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -88,7 +83,7 @@ import com.todoroo.astrid.utility.Flags;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListActivity extends ListActivity implements OnScrollListener, OnGesturePerformedListener {
+public class TaskListActivity extends ListActivity implements OnScrollListener, GestureInterface {
 
     // --- activities
 
@@ -143,7 +138,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
     ImageButton quickAddButton;
     EditText quickAddBox;
     Filter filter;
-    private GestureLibrary mLibrary;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -160,7 +154,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
         super.onCreate(savedInstanceState);
 
         new StartupService().onStartupApplication(this);
-        setContentView(R.layout.task_list_activity);
+        if(AndroidUtilities.getSdkVersion() > 3)
+            setContentView(R.layout.task_list_activity);
+        else
+            setContentView(R.layout.task_list_activity_api3);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null && extras.containsKey(TOKEN_FILTER)) {
@@ -338,10 +335,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
         });
 
         // gestures
-        mLibrary = GestureLibraries.fromRawResource(this, R.raw.gestures);
-        if(mLibrary.load()) {
-            GestureOverlayView gestures = (GestureOverlayView) findViewById(R.id.gestures);
-            gestures.addOnGesturePerformedListener(this);
+        try {
+            GestureService.registerGestureDetector(this, R.id.gestures, R.raw.gestures, this);
+        } catch (VerifyError e) {
+            // failed check, no gestures :P
         }
     }
 
@@ -773,21 +770,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
 
     @SuppressWarnings("nls")
     @Override
-    public void onGesturePerformed(GestureOverlayView overlay, Gesture gesture) {
-        ArrayList<Prediction> predictions = mLibrary.recognize(gesture);
-
-        // We want at least one prediction
-        if (predictions.size() > 0) {
-            Prediction prediction = predictions.get(0);
-            // We want at least some confidence in the result
-            if (prediction.score > 1.0) {
-                if("nav_filters".equals(prediction.name)) {
-                    Intent intent = new Intent(TaskListActivity.this,
-                            FilterListActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-            }
+    public void gesturePerformed(String gesture) {
+        if("nav_filters".equals(gesture)) {
+            Intent intent = new Intent(TaskListActivity.this,
+                    FilterListActivity.class);
+            startActivity(intent);
+            finish();
         }
     }
 
