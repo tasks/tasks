@@ -15,6 +15,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -199,9 +200,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 R.string.TLA_menu_settings);
         item.setIcon(android.R.drawable.ic_menu_preferences);
 
-        /*item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
+        item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.TLA_menu_help);
-        item.setIcon(android.R.drawable.ic_menu_help);*/
+        item.setIcon(android.R.drawable.ic_menu_help);
 
         // ask about plug-ins
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
@@ -680,7 +681,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             startActivityForResult(intent, ACTIVITY_SETTINGS);
             return true;
         case MENU_HELP_ID:
-            // TODO
+            intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/")); //$NON-NLS-1$
+            startActivity(intent);
             return true;
         case MENU_ADDON_INTENT_ID:
             intent = item.getIntent();

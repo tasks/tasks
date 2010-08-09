@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.ContextMenu;
@@ -137,9 +138,9 @@ public class FilterListActivity extends ExpandableListActivity {
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
 
-        /*item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
+        item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.FLA_menu_help);
-        item.setIcon(android.R.drawable.ic_menu_help);*/
+        item.setIcon(android.R.drawable.ic_menu_help);
 
         return true;
     }
@@ -318,7 +319,9 @@ public class FilterListActivity extends ExpandableListActivity {
         }
 
         case MENU_HELP_ID: {
-            // TODO
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/filters/")); //$NON-NLS-1$
+            startActivity(intent);
             return true;
         }
 
