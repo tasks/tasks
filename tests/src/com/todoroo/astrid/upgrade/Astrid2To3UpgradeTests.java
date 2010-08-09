@@ -32,7 +32,6 @@ import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.service.Astrid2To3UpgradeHelper;
-import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -90,7 +89,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     // --- helper methods
 
     public void upgrade2To3() {
-        new Astrid2To3UpgradeHelper().upgrade2To3(getContext(), new UpgradeService(), 125);
+        new Astrid2To3UpgradeHelper().upgrade2To3(getContext(), 125);
     }
 
     public static void assertDatesEqual(Date old, long newDate) {

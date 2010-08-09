@@ -96,7 +96,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         }
 
         // invoke the recurrence iterator
-        long newDueDate;
+        long newDueDate = -1;
         RRule rrule = new RRule(recurrence);
 
         // handle the iCalendar "byDay" field differently depending on if
@@ -122,23 +122,30 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 if(!iterator.hasNext())
                     return -1;
                 nextDate = iterator.next();
-                if(nextDate.compareTo(repeatFrom) != 0)
-                    break;
-            }
-            System.err.println("REPEAT started " + repeatFrom + ", ended " + nextDate); //$NON-NLS-1$ //$NON-NLS-2$
 
-            if(nextDate instanceof DateTimeValueImpl) {
-                DateTimeValueImpl newDateTime = (DateTimeValueImpl)nextDate;
-                newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-                        Date.UTC(newDateTime.year() - 1900, newDateTime.month() - 1,
-                                newDateTime.day(), newDateTime.hour(),
-                                newDateTime.minute(), newDateTime.second()));
-            } else {
-                newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
-                        new Date(nextDate.year() - 1900, nextDate.month() - 1,
-                                nextDate.day()).getTime());
+                if(nextDate.compareTo(repeatFrom) == 0)
+                    continue;
+
+                if(nextDate instanceof DateTimeValueImpl) {
+                    DateTimeValueImpl newDateTime = (DateTimeValueImpl)nextDate;
+                    newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
+                            Date.UTC(newDateTime.year() - 1900, newDateTime.month() - 1,
+                                    newDateTime.day(), newDateTime.hour(),
+                                    newDateTime.minute(), newDateTime.second()));
+                } else {
+                    newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
+                            new Date(nextDate.year() - 1900, nextDate.month() - 1,
+                                    nextDate.day()).getTime());
+                }
+
+                if(newDueDate > DateUtilities.now() && newDueDate != repeatFromDate.getTime())
+                    break;
+
             }
         }
+
+        if(newDueDate == -1)
+            return -1;
 
         // what we do with the by day information is to add days until
         // weekday equals one of this list

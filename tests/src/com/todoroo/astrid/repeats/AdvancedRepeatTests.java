@@ -106,8 +106,29 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         Date date = new Date(DateUtilities.now() / 1000L * 1000L);
         date.setHours(10);
         date.setMinutes(4);
-        long todayWithTime = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, date.getTime());
+        date.setSeconds(0);
+        long todayWithTime = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, date.getTime()) / 1000L * 1000L;
+        if(todayWithTime < DateUtilities.now())
+            todayWithTime += DateUtilities.ONE_DAY;
         nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
-        assertDatesEqual(todayWithTime + DateUtilities.ONE_DAY, nextDueDate);
+        assertDatesEqual(todayWithTime, nextDueDate);
     }
+
+    public void testDueDateInPastRepeatMultiple() throws ParseException {
+        RRule rrule = new RRule();
+        rrule.setInterval(1);
+        rrule.setFreq(Frequency.DAILY);
+        Task task = new Task();
+
+        // repeat once => due date should become tomorrow
+        long past = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, new Date(110, 7, 1, 0, 0, 0).getTime());
+        task.setValue(Task.DUE_DATE, past);
+        long nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
+        assertTrue(nextDueDate > DateUtilities.now());
+        task.setValue(Task.DUE_DATE, nextDueDate);
+        long evenMoreNextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
+        assertNotSame(nextDueDate, evenMoreNextDueDate);
+    }
+
+
 }
