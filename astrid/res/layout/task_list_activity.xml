@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="100" 
         
-        android:gestureStrokeType="multiple"
+        android:uncertainGestureColor="#00000000"
         android:eventsInterceptionEnabled="true"
         android:orientation="vertical">
             
