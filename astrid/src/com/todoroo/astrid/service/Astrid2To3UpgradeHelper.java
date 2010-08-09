@@ -2,18 +2,16 @@ package com.todoroo.astrid.service;
 
 import java.util.Date;
 import java.util.HashMap;
-import java.util.StringTokenizer;
 import java.util.Map.Entry;
+import java.util.StringTokenizer;
 
-import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -24,28 +22,30 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.alarms.Alarm;
-import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.legacy.AlarmDatabase;
 import com.todoroo.astrid.legacy.LegacyAlertModel;
 import com.todoroo.astrid.legacy.LegacyRepeatInfo;
 import com.todoroo.astrid.legacy.LegacyTaskModel;
+import com.todoroo.astrid.legacy.TransitionalAlarm;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
 
+@SuppressWarnings("deprecation")
 public class Astrid2To3UpgradeHelper {
 
     @Autowired
@@ -74,9 +74,6 @@ public class Astrid2To3UpgradeHelper {
 
     @Autowired
     private String syncTable;
-
-    @Autowired
-    private DialogUtilities dialogUtilities;
 
     @Autowired
     private ExceptionService exceptionService;
@@ -110,11 +107,29 @@ public class Astrid2To3UpgradeHelper {
 
     }
 
+    // ---------------------------------------------------------------- 3 => 3.1
+
+    /**
+     * Perform the upgrade from Astrid 3 to 3.1
+     * @param context
+     * @param upgradeService
+     * @param from
+     */
+    public void upgrade3To3_1(final Context context, final int from) {
+        if(!checkIfDatabaseExists(context, alertsTable))
+            return;
+
+        database.openForWriting();
+        migrateAlarmsToMetadata();
+    }
+
+    // ----------------------------------------------------------------- 2 => 3
+
     /**
      * Perform the upgrade from Astrid 2 to Astrid 3
      * @param context2
      */
-    public void upgrade2To3(final Context context, final UpgradeService upgradeService, final int from) {
+    public void upgrade2To3(final Context context, final int from) {
 
         // if from < 1 (we don't know what version, and database exists, leave it alone)
         if(from < 1 && checkIfDatabaseExists(context, database.getName()))
@@ -129,98 +144,72 @@ public class Astrid2To3UpgradeHelper {
             context.deleteDatabase(database.getName());
         database.openForWriting();
 
-        // pop up a progress dialog
-        final ProgressDialog dialog;
-        if(context instanceof Activity)
-            dialog = dialogUtilities.progressDialog(context,
-                    context.getString(R.string.DLG_upgrading));
-        else
-            dialog = null;
+        // initiate a backup
+        String backupFile = legacyBackup();
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                // initiate a backup
-                String backupFile = legacyBackup();
+        try {
 
-                try {
+            // --- upgrade tasks table
+            HashMap<String, Property<?>> propertyMap =
+                new HashMap<String, Property<?>>();
+            propertyMap.put("_id", Task.ID); //$NON-NLS-1$
+            propertyMap.put(LegacyTaskModel.NAME, Task.TITLE);
+            propertyMap.put(LegacyTaskModel.NOTES, Task.NOTES);
+            // (don't update progress percentage, we don't use this anymore)
+            propertyMap.put(LegacyTaskModel.IMPORTANCE, Task.IMPORTANCE);
+            propertyMap.put(LegacyTaskModel.ESTIMATED_SECONDS, Task.ESTIMATED_SECONDS);
+            propertyMap.put(LegacyTaskModel.ELAPSED_SECONDS, Task.ELAPSED_SECONDS);
+            propertyMap.put(LegacyTaskModel.TIMER_START, Task.TIMER_START);
+            propertyMap.put(LegacyTaskModel.DEFINITE_DUE_DATE, Task.DUE_DATE);
+            propertyMap.put(LegacyTaskModel.HIDDEN_UNTIL, Task.HIDE_UNTIL);
+            propertyMap.put(LegacyTaskModel.POSTPONE_COUNT, Task.POSTPONE_COUNT);
+            propertyMap.put(LegacyTaskModel.NOTIFICATIONS, Task.REMINDER_PERIOD);
+            propertyMap.put(LegacyTaskModel.NOTIFICATION_FLAGS, Task.REMINDER_FLAGS);
+            propertyMap.put(LegacyTaskModel.LAST_NOTIFIED, Task.REMINDER_LAST);
+            propertyMap.put(LegacyTaskModel.REPEAT, Task.RECURRENCE);
+            propertyMap.put(LegacyTaskModel.CREATION_DATE, Task.CREATION_DATE);
+            propertyMap.put(LegacyTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
+            propertyMap.put(LegacyTaskModel.CALENDAR_URI, Task.CALENDAR_URI);
+            propertyMap.put(LegacyTaskModel.FLAGS, Task.FLAGS);
+            upgradeTable(context, tasksTable,
+                    propertyMap, new Task(), taskDao);
 
-                    // --- upgrade tasks table
-                    HashMap<String, Property<?>> propertyMap =
-                        new HashMap<String, Property<?>>();
-                    propertyMap.put("_id", Task.ID); //$NON-NLS-1$
-                    propertyMap.put(LegacyTaskModel.NAME, Task.TITLE);
-                    propertyMap.put(LegacyTaskModel.NOTES, Task.NOTES);
-                    // (don't update progress percentage, we don't use this anymore)
-                    propertyMap.put(LegacyTaskModel.IMPORTANCE, Task.IMPORTANCE);
-                    propertyMap.put(LegacyTaskModel.ESTIMATED_SECONDS, Task.ESTIMATED_SECONDS);
-                    propertyMap.put(LegacyTaskModel.ELAPSED_SECONDS, Task.ELAPSED_SECONDS);
-                    propertyMap.put(LegacyTaskModel.TIMER_START, Task.TIMER_START);
-                    propertyMap.put(LegacyTaskModel.DEFINITE_DUE_DATE, Task.DUE_DATE);
-                    propertyMap.put(LegacyTaskModel.HIDDEN_UNTIL, Task.HIDE_UNTIL);
-                    propertyMap.put(LegacyTaskModel.POSTPONE_COUNT, Task.POSTPONE_COUNT);
-                    propertyMap.put(LegacyTaskModel.NOTIFICATIONS, Task.REMINDER_PERIOD);
-                    propertyMap.put(LegacyTaskModel.NOTIFICATION_FLAGS, Task.REMINDER_FLAGS);
-                    propertyMap.put(LegacyTaskModel.LAST_NOTIFIED, Task.REMINDER_LAST);
-                    propertyMap.put(LegacyTaskModel.REPEAT, Task.RECURRENCE);
-                    propertyMap.put(LegacyTaskModel.CREATION_DATE, Task.CREATION_DATE);
-                    propertyMap.put(LegacyTaskModel.COMPLETION_DATE, Task.COMPLETION_DATE);
-                    propertyMap.put(LegacyTaskModel.CALENDAR_URI, Task.CALENDAR_URI);
-                    propertyMap.put(LegacyTaskModel.FLAGS, Task.FLAGS);
-                    upgradeTable(context, tasksTable,
-                            propertyMap, new Task(), taskDao);
+            // --- upgrade tags tables
+            migrateTagsToMetadata();
 
-                    // --- upgrade tags tables
-                    migrateTagsToMetadata();
+            // --- upgrade alerts
+            AlarmDatabase alarmsDatabase = new AlarmDatabase();
+            alarmsDatabase.openForWriting();
+            propertyMap.clear();
+            propertyMap.put("_id", TransitionalAlarm.ID); //$NON-NLS-1$
+            propertyMap.put(LegacyAlertModel.TASK, TransitionalAlarm.TASK);
+            propertyMap.put(LegacyAlertModel.DATE, TransitionalAlarm.TIME);
+            upgradeTable(context, alertsTable, propertyMap, new TransitionalAlarm(),
+                    alarmsDatabase.getDao());
+            alarmsDatabase.close();
 
-                    // --- upgrade alerts
-                    AlarmDatabase alarmsDatabase = new AlarmDatabase();
-                    alarmsDatabase.openForWriting();
-                    propertyMap.clear();
-                    propertyMap.put("_id", Alarm.ID); //$NON-NLS-1$
-                    propertyMap.put(LegacyAlertModel.TASK, Alarm.TASK);
-                    propertyMap.put(LegacyAlertModel.DATE, Alarm.TIME);
-                    upgradeTable(context, alertsTable, propertyMap, new Alarm(),
-                            alarmsDatabase.getDao());
-                    alarmsDatabase.close();
+            // --- upgrade RTM sync mappings
+            migrateSyncMappingToMetadata();
 
-                    // --- upgrade RTM sync mappings
-                    migrateSyncMappingToMetadata();
+            // --- clean up database
+            metadataService.cleanup();
 
-                    // --- clean up database
-                    metadataService.cleanup();
-
-                    // --- upgrade properties
-                    SharedPreferences prefs = Preferences.getPrefs(context);
-                    Editor editor = prefs.edit();
-                    int random = Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours, -1);
-                    if(random != -1) {
-                        // convert days => hours
-                        editor.putString(context.getString(R.string.p_rmd_default_random_hours),
-                                Integer.toString(random * 24));
-                    }
-                } catch (Exception e) {
-                    exceptionService.reportError("backup-error", e); //$NON-NLS-1$
-                    if(backupFile != null) {
-                        // try to restore the latest XML
-                        TasksXmlImporter.importTasks(context, backupFile, null);
-                    }
-                } finally {
-                    if(context instanceof Activity) {
-                        ((Activity)context).runOnUiThread(new Runnable() {
-                            public void run() {
-                                if(dialog != null)
-                                    dialog.dismiss();
-                                upgradeService.showChangeLog(context, from);
-                                if(context instanceof TaskListActivity)
-                                    ((TaskListActivity)context).loadTaskListContent(true);
-                            }
-                        });
-                    }
-                }
+            // --- upgrade properties
+            SharedPreferences prefs = Preferences.getPrefs(context);
+            Editor editor = prefs.edit();
+            int random = Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours, -1);
+            if(random != -1) {
+                // convert days => hours
+                editor.putString(context.getString(R.string.p_rmd_default_random_hours),
+                        Integer.toString(random * 24));
             }
-        }).start();
-
+        } catch (Exception e) {
+            exceptionService.reportError("backup-error", e); //$NON-NLS-1$
+            if(backupFile != null) {
+                // try to restore the latest XML
+                TasksXmlImporter.importTasks(context, backupFile, null);
+            }
+        }
     }
 
     // --- database upgrade helpers
@@ -284,7 +273,7 @@ public class Astrid2To3UpgradeHelper {
                     if(data.upgradeNotes == null)
                         data.upgradeNotes = new StringBuilder();
                     data.upgradeNotes.append("Goal Deadline: " +
-                            DateUtilities.getFormattedDate(ContextManager.getContext(),
+                            DateUtilities.getDateString(ContextManager.getContext(),
                                     new Date(preferredDueDate)));
                 }
             } else if(property == Task.REMINDER_PERIOD) {
@@ -483,5 +472,42 @@ public class Astrid2To3UpgradeHelper {
             syncDb.close();
         }
     }
+
+    /**
+     * Move data from alert table into metadata table.
+     */
+    private void migrateAlarmsToMetadata() {
+        Context context = ContextManager.getContext();
+
+        if(!checkIfDatabaseExists(context, AlarmDatabase.NAME))
+            return;
+
+        AlarmDatabase alarmsDatabase = new AlarmDatabase();
+        GenericDao<TransitionalAlarm> dao = new GenericDao<TransitionalAlarm>(
+                TransitionalAlarm.class, alarmsDatabase);
+
+        TodorooCursor<TransitionalAlarm> cursor = dao.query(Query.select(TransitionalAlarm.PROPERTIES));
+        try {
+            if(cursor.getCount() == 0)
+                return;
+
+            Metadata metadata = new Metadata();
+            metadata.setValue(Metadata.KEY, Alarm.METADATA_KEY);
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                long task = cursor.get(TransitionalAlarm.TASK);
+                long time = cursor.get(TransitionalAlarm.TIME);
+
+                metadata.setValue(Metadata.TASK, task);
+                metadata.setValue(Alarm.TIME, time);
+                metadata.setValue(Alarm.TYPE, Alarm.TYPE_SINGLE);
+                metadataDao.createNew(metadata);
+                metadata.clearValue(Metadata.ID);
+            }
+        } finally {
+            cursor.close();
+            alarmsDatabase.close();
+        }
+    }
+
 
 }

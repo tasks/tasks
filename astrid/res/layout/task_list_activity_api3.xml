@@ -18,11 +18,11 @@
         <!-- Back Button -->
         <ImageView android:id="@+id/back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
             android:src="@drawable/tango_previous"
-            android:paddingTop="8dip"
-            android:paddingLeft="5dip"/> 
+            android:paddingLeft="5dip"
+            android:paddingRight="8dip"/>
         
         <!-- List Label -->
         <TextView android:id="@+id/listLabel"
@@ -37,14 +37,10 @@
     </LinearLayout>
     
     
-    <android.gesture.GestureOverlayView android:id="@+id/gestures"
+    <FrameLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="100" 
-        
-        android:uncertainGestureColor="#00000000"
-        android:eventsInterceptionEnabled="true"
-        android:orientation="vertical">
+        android:layout_weight="100">
             
         <!-- No Tasks label -->
         <TextView android:id="@android:id/empty"
@@ -61,7 +57,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
         
-    </android.gesture.GestureOverlayView>
+    </FrameLayout>
         
     <!-- Footer -->
     <LinearLayout

@@ -176,6 +176,8 @@ public class RepeatTests extends DatabaseTestCase {
 
     /** test after completion flag */
     public void testRepeatAfterComplete() throws Exception {
+        // create a weekly task due a couple days in the past, but with the 'after completion'
+        // specified. should be due 7 days from now
         Task task = new Task();
         task.setValue(Task.TITLE, "afterComplete");
         RRule rrule = new RRule();

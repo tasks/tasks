@@ -8,6 +8,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
@@ -33,6 +34,7 @@ public class ReminderStartupReceiver extends BroadcastReceiver {
         ContextManager.setContext(context);
         try {
             ReminderService.getInstance().scheduleAllAlarms();
+            AlarmService.getInstance().scheduleAllAlarms();
         } catch (Exception e) {
             DependencyInjectionService.getInstance().inject(this);
             exceptionService.reportError("reminder-startup", e); //$NON-NLS-1$

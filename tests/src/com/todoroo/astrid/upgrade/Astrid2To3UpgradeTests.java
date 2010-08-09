@@ -10,11 +10,12 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.alarms.Alarm;
-import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.legacy.AlarmDatabase;
+import com.todoroo.astrid.legacy.TransitionalAlarm;
 import com.todoroo.astrid.legacy.data.alerts.AlertController;
 import com.todoroo.astrid.legacy.data.enums.Importance;
 import com.todoroo.astrid.legacy.data.enums.RepeatInterval;
@@ -31,7 +32,6 @@ import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.service.Astrid2To3UpgradeHelper;
-import com.todoroo.astrid.service.UpgradeService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.test.DatabaseTestCase;
@@ -89,7 +89,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     // --- helper methods
 
     public void upgrade2To3() {
-        new Astrid2To3UpgradeHelper().upgrade2To3(getContext(), new UpgradeService(), 125);
+        new Astrid2To3UpgradeHelper().upgrade2To3(getContext(), 125);
     }
 
     public static void assertDatesEqual(Date old, long newDate) {
@@ -267,7 +267,8 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         // verify that data exists in our new table
         database.openForReading();
         TagService tagService = TagService.getInstance();
-        Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
+        Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA,
+                TaskCriteria.isActive());
         assertEquals(2, tags.length);
         assertEquals("salty", tags[0].tag);
         assertEquals("tasty", tags[1].tag);
@@ -321,7 +322,8 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         // verify that data exists in our new table
         database.openForReading();
         TagService tagService = TagService.getInstance();
-        Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA);
+        Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA,
+                TaskCriteria.isActive());
         assertEquals(1, tags.length);
         assertEquals("attached", tags[0].tag);
 
@@ -363,14 +365,14 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         database.openForReading();
 
         alarmsDatabase.openForReading();
-        TodorooCursor<Alarm> cursor = alarmsDatabase.getDao().query(Query.select(Alarm.TIME));
+        TodorooCursor<TransitionalAlarm> cursor = alarmsDatabase.getDao().query(Query.select(TransitionalAlarm.TIME));
         assertEquals(2, cursor.getCount());
         cursor.moveToFirst();
-        Alarm alarm = new Alarm(cursor);
-        assertDatesEqual(x1, alarm.getValue(Alarm.TIME));
+        TransitionalAlarm alarm = new TransitionalAlarm(cursor);
+        assertDatesEqual(x1, alarm.getValue(TransitionalAlarm.TIME));
         cursor.moveToNext();
         alarm.readFromCursor(cursor);
-        assertDatesEqual(x2, alarm.getValue(Alarm.TIME));
+        assertDatesEqual(x2, alarm.getValue(TransitionalAlarm.TIME));
     }
 
     /**

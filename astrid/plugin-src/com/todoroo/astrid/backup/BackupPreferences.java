@@ -121,8 +121,8 @@ public class BackupPreferences extends TodorooPreferences {
                 });
             } else if(last > 0) {
                 status = r.getString(R.string.backup_status_success,
-                        DateUtilities.getDateWithTimeFormat(BackupPreferences.this).
-                        format(new Date(last)));
+                        DateUtilities.getDateStringWithTime(BackupPreferences.this,
+                        new Date(last)));
                 statusColor = Color.rgb(0, 100, 0);
                 preference.setOnPreferenceClickListener(null);
             } else {

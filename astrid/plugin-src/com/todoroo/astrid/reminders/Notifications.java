@@ -32,10 +32,10 @@ public class Notifications extends BroadcastReceiver {
     // --- constants
 
     /** task id extra */
-    static final String ID_KEY = "id"; //$NON-NLS-1$
+    public static final String ID_KEY = "id"; //$NON-NLS-1$
 
     /** notification type extra */
-    static final String TYPE_KEY = "type"; //$NON-NLS-1$
+    public static final String TYPE_KEY = "type"; //$NON-NLS-1$
 
     /** preference values */
     public static final int ICON_SET_PINK = 0;
@@ -72,14 +72,23 @@ public class Notifications extends BroadcastReceiver {
 
         Resources r = context.getResources();
         String reminder;
-        if(type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE)
-            reminder = getRandomReminder(r.getStringArray(R.array.reminders_due));
-        else if(type == ReminderService.TYPE_SNOOZE)
-            reminder = getRandomReminder(r.getStringArray(R.array.reminders_snooze));
-        else if(Preferences.getBoolean(R.string.p_rmd_nagging, true))
-            reminder = getRandomReminder(r.getStringArray(R.array.reminders));
-        else
+
+        if(type == ReminderService.TYPE_ALARM)
+            reminder = getRandomReminder(r.getStringArray(R.array.reminders_alarm));
+        else if(Preferences.getBoolean(R.string.p_rmd_nagging, true)) {
+            if(type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE)
+                reminder = getRandomReminder(r.getStringArray(R.array.reminders_due));
+            else if(type == ReminderService.TYPE_SNOOZE)
+                reminder = getRandomReminder(r.getStringArray(R.array.reminders_snooze));
+            else
+                reminder = getRandomReminder(r.getStringArray(R.array.reminders));
+        } else
             reminder = ""; //$NON-NLS-1$
+
+        synchronized(Notifications.class) {
+            if(notificationManager == null)
+                notificationManager = new AndroidNotificationManager(context);
+        }
 
         if(!showTaskNotification(id, type, reminder)) {
             notificationManager.cancel((int)id);

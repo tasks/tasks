@@ -1,11 +1,28 @@
 package com.todoroo.astrid.alarms;
 
-import java.util.ArrayList;
+import java.util.Date;
+import java.util.LinkedHashSet;
 
-import com.todoroo.andlib.data.GenericDao;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
+
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.reminders.Notifications;
+import com.todoroo.astrid.reminders.ReminderService;
+import com.todoroo.astrid.service.MetadataService;
 
 /**
  * Provides operations for working with alerts
@@ -13,32 +30,31 @@ import com.todoroo.andlib.sql.Query;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
 public class AlarmService {
 
-    AlarmDatabase database = new AlarmDatabase();
+    // --- singleton
 
-    GenericDao<Alarm> dao = new GenericDao<Alarm>(Alarm.class, database);
+    private static AlarmService instance = null;
 
-    /**
-     * Metadata key for # of alarms
-     */
-    public static final String ALARM_COUNT = "alarms-count";
-
-    public AlarmService() {
-        DependencyInjectionService.getInstance().inject(this);
+    public static synchronized AlarmService getInstance() {
+        if(instance == null)
+            instance = new AlarmService();
+        return instance;
     }
 
+    // --- data retrieval
+
+    public static final String IDENTIFIER = "alarms"; //$NON-NLS-1$
 
     /**
-     * Return alarms for the given task
+     * Return alarms for the given task. PLEASE CLOSE THE CURSOR!
      *
      * @param taskId
      */
-    public TodorooCursor<Alarm> getAlarms(long taskId) {
-        database.openForReading();
-        Query query = Query.select(Alarm.PROPERTIES).where(Alarm.TASK.eq(taskId));
-        return dao.query(query);
+    public TodorooCursor<Metadata> getAlarms(long taskId) {
+        return PluginServices.getMetadataService().query(Query.select(
+                Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(
+                        taskId, Alarm.METADATA_KEY)).orderBy(Order.asc(Alarm.TIME)));
     }
 
     /**
@@ -46,14 +62,140 @@ public class AlarmService {
      * @param taskId
      * @param tags
      */
-    public void synchronizeAlarms(long taskId, ArrayList<Alarm> alarms) {
-        database.openForWriting();
-        dao.deleteWhere(Alarm.TASK.eq(taskId));
+    public void synchronizeAlarms(long taskId, LinkedHashSet<Long> alarms) {
+        MetadataService service = PluginServices.getMetadataService();
 
-        for(Alarm alarm : alarms) {
-            alarm.setId(Alarm.NO_ID);
-            alarm.setValue(Alarm.TASK, taskId);
-            dao.saveExisting(alarm);
+        if(alarmsIdentical(taskId, alarms))
+            return;
+
+        service.deleteWhere(Criterion.and(MetadataCriteria.byTask(taskId),
+                MetadataCriteria.withKey(Alarm.METADATA_KEY)));
+
+        Metadata metadata = new Metadata();
+        metadata.setValue(Metadata.KEY, Alarm.METADATA_KEY);
+        metadata.setValue(Metadata.TASK, taskId);
+        for(Long alarm : alarms) {
+            metadata.clearValue(Metadata.ID);
+            metadata.setValue(Alarm.TIME, alarm);
+            metadata.setValue(Alarm.TYPE, Alarm.TYPE_SINGLE);
+            service.save(metadata);
+            scheduleAlarm(metadata);
+        }
+    }
+
+    private boolean alarmsIdentical(long taskId, LinkedHashSet<Long> alarms) {
+        TodorooCursor<Metadata> cursor = getAlarms(taskId);
+        try {
+            if(cursor.getCount() != alarms.size())
+                return false;
+            for(Long alarm : alarms) {
+                cursor.moveToNext();
+                if(alarm != cursor.get(Alarm.TIME))
+                    return false;
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return true;
+    }
+
+    // --- alarm scheduling
+
+    /**
+     * Gets a listing of all alarms that are active
+     * @param properties
+     * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
+     */
+    private TodorooCursor<Metadata> getActiveAlarms() {
+        return PluginServices.getMetadataService().query(Query.select(Alarm.TIME).
+                join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
+                where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(Alarm.METADATA_KEY))));
+    }
+
+    /**
+     * Gets a listing of alarms by task
+     * @param properties
+     * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
+     */
+    private TodorooCursor<Metadata> getAlarmsForTask(long taskId) {
+        return PluginServices.getMetadataService().query(Query.select(Alarm.TIME).
+                join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
+                where(Criterion.and(TaskCriteria.isActive(),
+                        MetadataCriteria.byTaskAndwithKey(taskId, Alarm.METADATA_KEY))));
+    }
+
+    /**
+     * Schedules all alarms
+     */
+    public void scheduleAllAlarms() {
+        TodorooCursor<Metadata> cursor = getActiveAlarms();
+        try {
+            Metadata alarm = new Metadata();
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                alarm.readFromCursor(cursor);
+                scheduleAlarm(alarm);
+            }
+        } catch (Exception e) {
+            // suppress
+        } finally {
+            cursor.close();
+        }
+    }
+
+    private static final long NO_ALARM = Long.MAX_VALUE;
+
+    /**
+     * Schedules alarms for a single task
+     * @param task
+     */
+    public void scheduleAlarms(Task task) {
+        TodorooCursor<Metadata> cursor = getAlarmsForTask(task.getId());
+        try {
+            Metadata alarm = new Metadata();
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                alarm.readFromCursor(cursor);
+                scheduleAlarm(alarm);
+            }
+        } catch (Exception e) {
+            // suppress
+        } finally {
+            cursor.close();
+        }
+    }
+
+    /**
+     * Schedules alarms for a single task
+     *
+     * @param shouldPerformPropertyCheck
+     *            whether to check if task has requisite properties
+     */
+    @SuppressWarnings("nls")
+    private void scheduleAlarm(Metadata alarm) {
+        if(alarm == null)
+            return;
+
+        long taskId = alarm.getValue(Metadata.TASK);
+        int type = ReminderService.TYPE_ALARM;
+
+        Context context = ContextManager.getContext();
+        Intent intent = new Intent(context, Notifications.class);
+        intent.setType("ALARM" + Long.toString(taskId)); //$NON-NLS-1$
+        intent.setAction(Integer.toString(type));
+        intent.putExtra(Notifications.ID_KEY, taskId);
+        intent.putExtra(Notifications.TYPE_KEY, type);
+
+        AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
+                intent, 0);
+
+        long time = alarm.getValue(Alarm.TIME);
+        if(time == 0 || time == NO_ALARM)
+            am.cancel(pendingIntent);
+        else {
+            Log.e("Astrid", "Alarm (" + taskId + ", " + type +
+                    ") set for " + new Date(time));
+            am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }
     }
 }

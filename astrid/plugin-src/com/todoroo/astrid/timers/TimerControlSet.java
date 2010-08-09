@@ -10,7 +10,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.ui.TimeDurationControlSet;
-import com.todoroo.astrid.ui.TimeDurationControlSet.TimeDurationType;
 
 /**
  * Control Set for managing repeats
@@ -31,11 +30,11 @@ public class TimerControlSet implements TaskEditControlSet {
         LayoutInflater.from(activity).inflate(R.layout.timer_control, parent, true);
 
         estimated = new TimeDurationTaskEditControlSet(Task.ESTIMATED_SECONDS,
-                R.id.estimatedDuration, 0, R.string.DLG_hour_minutes,
-                TimeDurationType.HOURS_MINUTES);
+                R.id.estimatedDuration, 0, R.string.DLG_hour_minutes
+                );
         elapsed = new TimeDurationTaskEditControlSet(Task.ELAPSED_SECONDS, R.id.elapsedDuration,
-                0, R.string.DLG_hour_minutes,
-                TimeDurationType.HOURS_MINUTES);
+                0, R.string.DLG_hour_minutes
+                );
     }
 
     @Override
@@ -62,10 +61,10 @@ public class TimerControlSet implements TaskEditControlSet {
         private final IntegerProperty property;
 
         public TimeDurationTaskEditControlSet(IntegerProperty property, int timeButtonId,
-                int prefixResource, int titleResource, TimeDurationType type) {
+                int prefixResource, int titleResource) {
             this.property = property;
             this.controlSet = new TimeDurationControlSet(activity,
-                    timeButtonId, prefixResource, titleResource, type);
+                    timeButtonId, prefixResource, titleResource);
         }
 
         @Override

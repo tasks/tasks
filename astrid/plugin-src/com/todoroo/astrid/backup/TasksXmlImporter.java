@@ -2,14 +2,15 @@ package com.todoroo.astrid.backup;
 
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.StringTokenizer;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -97,6 +98,8 @@ public class TasksXmlImporter {
         progressDialog.setCancelable(false);
         progressDialog.setIndeterminate(true);
         progressDialog.show();
+        if(context instanceof Activity)
+            progressDialog.setOwnerActivity((Activity)context);
 
         new Thread(new Runnable() {
             @Override
@@ -326,7 +329,7 @@ public class TasksXmlImporter {
         private String upgradeNotes = null;
         private boolean syncOnComplete = false;
 
-        private final ArrayList<String> tags = new ArrayList<String>();
+        private final LinkedHashSet<String> tags = new LinkedHashSet<String>();
 
         public Format1TaskImporter(XmlPullParser xpp) throws XmlPullParserException, IOException {
             this.xpp = xpp;
@@ -496,7 +499,7 @@ public class TasksXmlImporter {
                 if(preferred != null) {
                     Date preferredDate = BackupDateUtilities.getDateFromIso8601String(value);
                     upgradeNotes = "Goal Deadline: " +
-                            DateUtilities.getFormattedDate(ContextManager.getContext(),
+                            DateUtilities.getDateString(ContextManager.getContext(),
                                     preferredDate);
                 }
                 task.setValue(Task.DUE_DATE,

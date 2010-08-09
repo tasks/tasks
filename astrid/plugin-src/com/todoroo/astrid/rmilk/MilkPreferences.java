@@ -114,12 +114,12 @@ public class MilkPreferences extends TodorooPreferences {
             // last sync was error
             else if(MilkUtilities.getLastAttemptedSyncDate() != 0) {
                 status = r.getString(R.string.rmilk_status_failed,
-                        DateUtilities.getDateWithTimeFormat(MilkPreferences.this).
-                        format(new Date(MilkUtilities.getLastAttemptedSyncDate())));
+                        DateUtilities.getDateStringWithTime(MilkPreferences.this,
+                        new Date(MilkUtilities.getLastAttemptedSyncDate())));
                 if(MilkUtilities.getLastSyncDate() > 0) {
                     subtitle = r.getString(R.string.rmilk_status_failed_subtitle,
-                            DateUtilities.getDateWithTimeFormat(MilkPreferences.this).
-                            format(new Date(MilkUtilities.getLastSyncDate())));
+                            DateUtilities.getDateStringWithTime(MilkPreferences.this,
+                            new Date(MilkUtilities.getLastSyncDate())));
                 }
                 statusColor = Color.rgb(100, 0, 0);
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -132,8 +132,8 @@ public class MilkPreferences extends TodorooPreferences {
                 });
             } else if(MilkUtilities.getLastSyncDate() > 0) {
                 status = r.getString(R.string.rmilk_status_success,
-                        DateUtilities.getDateWithTimeFormat(MilkPreferences.this).
-                        format(new Date(MilkUtilities.getLastSyncDate())));
+                        DateUtilities.getDateStringWithTime(MilkPreferences.this,
+                        new Date(MilkUtilities.getLastSyncDate())));
                 statusColor = Color.rgb(0, 100, 0);
             } else {
                 status = r.getString(R.string.rmilk_status_never);

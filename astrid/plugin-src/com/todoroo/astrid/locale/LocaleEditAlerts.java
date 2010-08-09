@@ -16,6 +16,7 @@ import android.widget.Spinner;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.activity.AddOnActivity;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
@@ -95,6 +96,8 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.locale_edit_alerts);
+
+        ContextManager.setContext(this);
 
         /*
          * Locale guarantees that the breadcrumb string will be present, but checking for null anyway makes your Activity more

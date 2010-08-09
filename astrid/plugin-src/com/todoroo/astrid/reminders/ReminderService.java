@@ -48,13 +48,15 @@ public final class ReminderService  {
     };
 
     /** flag for due date reminder */
-    static final int TYPE_DUE = 0;
+    public static final int TYPE_DUE = 0;
     /** flag for overdue reminder */
-    static final int TYPE_OVERDUE = 1;
+    public static final int TYPE_OVERDUE = 1;
     /** flag for random reminder */
-    static final int TYPE_RANDOM = 2;
+    public static final int TYPE_RANDOM = 2;
     /** flag for a snoozed reminder */
-    static final int TYPE_SNOOZE = 3;
+    public static final int TYPE_SNOOZE = 3;
+    /** flag for an alarm reminder */
+    public static final int TYPE_ALARM = 4;
 
     static final Random random = new Random();
 
@@ -179,6 +181,8 @@ public final class ReminderService  {
             scheduler.createAlarm(task, whenDueDate, TYPE_DUE);
         else if(whenOverdue != NO_ALARM)
             scheduler.createAlarm(task, whenOverdue, TYPE_OVERDUE);
+        else
+            scheduler.createAlarm(task, 0, 0);
     }
 
     /**
@@ -291,14 +295,6 @@ public final class ReminderService  {
          */
         @SuppressWarnings("nls")
         public void createAlarm(Task task, long time, int type) {
-            if(time == 0 || time == NO_ALARM)
-                return;
-
-            if(time < DateUtilities.now()) {
-                time = DateUtilities.now() + (long)((0.5f +
-                        4 * random.nextFloat()) * DateUtilities.ONE_HOUR);
-            }
-
             Context context = ContextManager.getContext();
             Intent intent = new Intent(context, Notifications.class);
             intent.setType(Long.toString(task.getId()));
@@ -310,9 +306,18 @@ public final class ReminderService  {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
                     intent, 0);
 
-            Log.e("Astrid", "Alarm (" + task.getId() + ", " + type +
-                    ") set for " + new Date(time));
-            am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            if(time == 0 || time == NO_ALARM)
+                am.cancel(pendingIntent);
+            else {
+                if(time < DateUtilities.now()) {
+                    time = DateUtilities.now() + (long)((0.5f +
+                            4 * random.nextFloat()) * DateUtilities.ONE_HOUR);
+                }
+
+                Log.e("Astrid", "Alarm (" + task.getId() + ", " + type +
+                        ") set for " + new Date(time));
+                am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
+            }
         }
     }
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Resources for built-in timers plug-in -->
+    
+    <!-- Task Edit Activity: Container Label -->
+    <string name="alarm_ACS_label">Alarms</string>
+    
+    <!-- Task Edit Activity: Add New Alarn -->
+    <string name="alarm_ACS_button">Add an Alarm</string>
+    
+    <!-- Task Detail for Alarms (%s -> time)-->
+    <string name="alarm_ADE_detail">Alarm %s</string>
+   
+    <string-array name="reminders_alarm">
+      <!-- reminders related to alarm -->
+      <item>Alarm!</item>
+    </string-array>
+    
+</resources>

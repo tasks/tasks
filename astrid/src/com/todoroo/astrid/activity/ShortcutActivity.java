@@ -19,6 +19,8 @@
  */
 package com.todoroo.astrid.activity;
 
+import java.util.Map.Entry;
+
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Intent;
@@ -46,14 +48,13 @@ public class ShortcutActivity extends Activity {
     /** token for passing a {@link Filter}'s sql through extras */
     public static final String TOKEN_FILTER_SQL = "sql"; //$NON-NLS-1$
 
-    /** token for passing a {@link Filter}'s values for new tasks through extras */
+    /** token for passing a {@link Filter}'s values for new tasks through extras as string */
+    @Deprecated
     public static final String TOKEN_FILTER_VALUES = "v4nt"; //$NON-NLS-1$
 
-    /** token for passing a {@link Filter}'s values for new tasks through extras (keys) */
-    public static final String TOKEN_FILTER_VALUES_KEYS = "v4ntk"; //$NON-NLS-1$
+    /** token for passing a {@link Filter}'s values for new tasks through extras as exploded ContentValues */
+    public static final String TOKEN_FILTER_VALUES_ITEM = "v4ntp_"; //$NON-NLS-1$
 
-    /** token for passing a {@link Filter}'s values for new tasks through extras (values) */
-    public static final String TOKEN_FILTER_VALUES_VALUES = "v4ntv"; //$NON-NLS-1$
 
     // --- implementation
 
@@ -81,6 +82,28 @@ public class ShortcutActivity extends Activity {
             ContentValues values = null;
             if(extras.containsKey(TOKEN_FILTER_VALUES))
                 values = AndroidUtilities.contentValuesFromString(extras.getString(TOKEN_FILTER_VALUES));
+            else {
+                values = new ContentValues();
+                for(String key : extras.keySet()) {
+                    if(!key.startsWith(TOKEN_FILTER_VALUES_ITEM))
+                        continue;
+
+                    Object value = extras.get(key);
+                    key = key.substring(TOKEN_FILTER_VALUES_ITEM.length());
+
+                    // assume one of the big 4...
+                    if(value instanceof String)
+                        values.put(key, (String) value);
+                    else if(value instanceof Integer)
+                        values.put(key, (Integer) value);
+                    else if(value instanceof Double)
+                        values.put(key, (Double) value);
+                    else if(value instanceof Long)
+                        values.put(key, (Long) value);
+                    else
+                        throw new IllegalStateException("Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
+                }
+            }
 
             Filter filter = new Filter("", title, new QueryTemplate(), values); //$NON-NLS-1$
             filter.sqlQuery = sql;
@@ -95,12 +118,26 @@ public class ShortcutActivity extends Activity {
     public static Intent createIntent(Filter filter) {
         Intent shortcutIntent = new Intent(ContextManager.getContext(),
                 ShortcutActivity.class);
-        shortcutIntent.setAction(Intent.ACTION_VIEW);
+         shortcutIntent.setAction(Intent.ACTION_VIEW);
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE, filter.title);
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL, filter.sqlQuery);
         if(filter.valuesForNewTasks != null) {
-            shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_VALUES,
-                    filter.valuesForNewTasks.toString());
+            for(Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
+                String key = TOKEN_FILTER_VALUES_ITEM + item.getKey();
+                Object value = item.getValue();
+
+                // assume one of the big 4...
+                if(value instanceof String)
+                    shortcutIntent.putExtra(key, (String) value);
+                else if(value instanceof Integer)
+                    shortcutIntent.putExtra(key, (Integer) value);
+                else if(value instanceof Double)
+                    shortcutIntent.putExtra(key, (Double) value);
+                else if(value instanceof Long)
+                    shortcutIntent.putExtra(key, (Long) value);
+                else
+                    throw new IllegalStateException("Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
+            }
         }
         return shortcutIntent;
     }

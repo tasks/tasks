@@ -10,13 +10,19 @@
     android:paddingRight="4dip"
     android:minHeight="40dip"
     android:orientation="vertical">
-        
+            
     <LinearLayout android:id="@+id/task_row"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="100"
         android:orientation="horizontal">
     
+        <!-- importance -->
+        <View android:id="@+id/importance"
+            android:layout_width="2dip"
+            android:layout_height="fill_parent"
+            android:layout_marginRight="5dip" />
+            
         <!-- completion check-box -->
         <CheckBox android:id="@+id/completeBox"
             android:layout_width="34dip"
@@ -29,13 +35,12 @@
             android:layout_height="wrap_content"
             android:layout_weight="100"
             android:paddingLeft="8dip" 
-            android:paddingRight="3dip" 
             android:orientation="vertical">
               
             <!-- task name -->
             <TextView android:id="@+id/title"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="fill_parent"
                 style="@style/TextAppearance.TAd_ItemTitle"
                 android:gravity="center_vertical"/>
         
@@ -51,11 +56,6 @@
                 android:visibility="gone" />
                 
         </LinearLayout>
-            
-        <!-- importance -->
-        <View android:id="@+id/importance"
-            android:layout_width="2dip"
-            android:layout_height="fill_parent" />
             
     </LinearLayout>
       

@@ -95,7 +95,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    private static class ViewHolder {
+    public static class ViewHolder {
         public FilterListItem item;
         public ImageView expander;
         public ImageView icon;
@@ -132,11 +132,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
         convertView = newView(convertView, parent);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-        Object item = getChild(groupPosition, childPosition);
-        if(!(item instanceof FilterListItem))
-            return convertView;
-
-        viewHolder.item = (FilterListItem) item;
+        viewHolder.item = (FilterListItem) getChild(groupPosition, childPosition);
         populateView(viewHolder, true, false);
 
         return convertView;
@@ -162,11 +158,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             ViewGroup parent) {
         convertView = newView(convertView, parent);
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
-        Object groupItem = getGroup(groupPosition);
-        if(!(groupItem instanceof FilterListItem))
-            return convertView;
-
-        viewHolder.item = (FilterListItem) groupItem;
+        viewHolder.item = (FilterListItem) getGroup(groupPosition);
         populateView(viewHolder, false, isExpanded);
         return convertView;
     }

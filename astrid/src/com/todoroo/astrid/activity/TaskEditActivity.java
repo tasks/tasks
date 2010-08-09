@@ -41,7 +41,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -68,6 +67,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gcal.GCalControlSet;
@@ -218,8 +218,8 @@ public final class TaskEditActivity extends TabActivity {
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
         if(addOnService.hasPowerPack()) {
             controls.add(new GCalControlSet(this, addonsAddons));
-            separator(addonsAddons);
             controls.add(new TimerControlSet(this, addonsAddons));
+            controls.add(new AlarmControlSet(this, addonsAddons));
         }
 
         // show add-on help if necessary
@@ -244,17 +244,6 @@ public final class TaskEditActivity extends TabActivity {
 
         // set up listeners
         setUpListeners();
-    }
-
-    /**
-     * Creates a separator in the view group specified
-     * @return
-     */
-    private void separator(ViewGroup parent) {
-        View view = new View(this);
-        view.setBackgroundResource(R.drawable.black_white_gradient);
-        view.setPadding(2, 3, 2, 3);
-        parent.addView(view);
     }
 
     /**
@@ -768,12 +757,10 @@ public final class TaskEditActivity extends TabActivity {
                 for(int i = 0; i < labels.length; i++)
                     updated[i+1] = urgencyValues[i];
                 if(Task.hasDueTime(dueDate)) {
-                    SimpleDateFormat format = DateUtilities.getDateWithTimeFormat(TaskEditActivity.this);
-                    updated[0] = new UrgencyValue(format.format(new Date(dueDate)),
+                    updated[0] = new UrgencyValue(DateUtilities.getDateStringWithTime(TaskEditActivity.this, new Date(dueDate)),
                             Task.URGENCY_SPECIFIC_DAY_TIME, dueDate);
                 } else {
-                    SimpleDateFormat format = DateUtilities.getDateFormat(TaskEditActivity.this);
-                    updated[0] = new UrgencyValue(format.format(new Date(dueDate)),
+                    updated[0] = new UrgencyValue(DateUtilities.getDateString(TaskEditActivity.this, new Date(dueDate)),
                             Task.URGENCY_SPECIFIC_DAY, dueDate);
                 }
                 selection = 0;
@@ -805,6 +792,7 @@ public final class TaskEditActivity extends TabActivity {
                 datePicker.show();
             } else {
                 previousSetting = position;
+                model.setValue(Task.DUE_DATE, item.dueDate);
             }
         }
 
@@ -852,6 +840,7 @@ public final class TaskEditActivity extends TabActivity {
 
         private void customDateFinished() {
             long time = model.createDueDate(customSetting, customDate.getTime());
+            model.setValue(Task.DUE_DATE, time);
             createUrgencyList(time);
         }
 
@@ -933,8 +922,7 @@ public final class TaskEditActivity extends TabActivity {
                 HideUntilValue[] updated = new HideUntilValue[values.length + 1];
                 for(int i = 0; i < values.length; i++)
                     updated[i+1] = values[i];
-                SimpleDateFormat format = DateUtilities.getDateFormat(TaskEditActivity.this);
-                updated[0] = new HideUntilValue(format.format(new Date(specificDate)),
+                updated[0] = new HideUntilValue(DateUtilities.getDateString(TaskEditActivity.this, new Date(specificDate)),
                         Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
                 values = updated;
             }

@@ -17,6 +17,7 @@ import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.text.Editable;
@@ -53,6 +54,8 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
+import com.todoroo.andlib.widget.GestureService;
+import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -85,7 +88,7 @@ import com.todoroo.astrid.utility.Flags;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListActivity extends ListActivity implements OnScrollListener {
+public class TaskListActivity extends ListActivity implements OnScrollListener, GestureInterface {
 
     // --- activities
 
@@ -156,7 +159,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         super.onCreate(savedInstanceState);
 
         new StartupService().onStartupApplication(this);
-        setContentView(R.layout.task_list_activity);
+        if(AndroidUtilities.getSdkVersion() > 3)
+            setContentView(R.layout.task_list_activity);
+        else
+            setContentView(R.layout.task_list_activity_api3);
 
         Bundle extras = getIntent().getExtras();
         if(extras != null && extras.containsKey(TOKEN_FILTER)) {
@@ -207,9 +213,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 R.string.TLA_menu_settings);
         item.setIcon(android.R.drawable.ic_menu_preferences);
 
-        /*item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
+        item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.TLA_menu_help);
-        item.setIcon(android.R.drawable.ic_menu_help);*/
+        item.setIcon(android.R.drawable.ic_menu_help);
 
         // ask about plug-ins
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
@@ -261,7 +267,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
                 View selected = getListView().getSelectedView();
 
                 // hot-key to set task priority - 1-4 or ALT + Q-R
-                if(!filterOn && event.getNumber() >= '1' && event.getNumber() <= '4' && selected != null) {
+                if(!filterOn && event.getUnicodeChar() >= '1' && event.getUnicodeChar() <= '4' && selected != null) {
                     int importance = event.getNumber() - '1';
                     Task task = ((ViewHolder)selected.getTag()).task;
                     task.setValue(Task.IMPORTANCE, importance);
@@ -336,6 +342,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             }
         });
 
+        // gestures
+        try {
+            GestureService.registerGestureDetector(this, R.id.gestures, R.raw.gestures, this);
+        } catch (VerifyError e) {
+            // failed check, no gestures :P
+        }
     }
 
     public void bindServices() {
@@ -706,7 +718,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
             startActivityForResult(intent, ACTIVITY_SETTINGS);
             return true;
         case MENU_HELP_ID:
-            // TODO
+            intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/")); //$NON-NLS-1$
+            startActivity(intent);
             return true;
         case MENU_ADDON_INTENT_ID:
             intent = item.getIntent();
@@ -778,6 +792,17 @@ public class TaskListActivity extends ListActivity implements OnScrollListener {
         }
 
         return false;
+    }
+
+    @SuppressWarnings("nls")
+    @Override
+    public void gesturePerformed(String gesture) {
+        if("nav_filters".equals(gesture)) {
+            Intent intent = new Intent(TaskListActivity.this,
+                    FilterListActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
 }

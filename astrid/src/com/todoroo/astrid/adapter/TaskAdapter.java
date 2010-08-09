@@ -15,12 +15,12 @@ import android.graphics.Paint;
 import android.text.Html;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -39,6 +39,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.activity.TaskEditActivity;
+import com.todoroo.astrid.alarms.AlarmDetailExposer;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.api.Filter;
@@ -87,6 +88,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         new NoteDetailExposer(),
         new MilkDetailExposer(),
         new ProducteevDetailExposer(),
+        new AlarmDetailExposer(),
     };
 
     private static int[] IMPORTANCE_COLORS = null;
@@ -265,6 +267,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(hiddenUntil > DateUtilities.now())
                 nameValue = r.getString(R.string.TAd_hiddenFormat, nameValue);
             nameView.setText(nameValue);
+            Linkify.addLinks(nameView, Linkify.ALL);
         }
 
         // due date / completion date
@@ -281,14 +284,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 String dateValue;
                 Date dueDateAsDate = DateUtilities.unixtimeToDate(dueDate);
                 if (task.hasDueTime()) {
-                    dateValue = DateUtilities.getDateWithTimeAndWeekday(activity).format(dueDateAsDate);
+                    dateValue = DateUtilities.getDateStringWithTimeAndWeekday(activity, dueDateAsDate);
                 } else {
-                    dateValue = DateUtilities.getDateFormatWithWeekday(activity).format(dueDateAsDate);
+                    dateValue = DateUtilities.getDateStringWithWeekday(activity, dueDateAsDate);
                 }
                 dueDateView.setText(dateValue);
                 setVisibility(dueDateView);
             } else if(task.isCompleted()) {
-                String dateValue = DateUtilities.getDateFormatWithWeekday(activity).format(task.getValue(Task.COMPLETION_DATE));
+                String dateValue = DateUtilities.getDateStringWithWeekday(activity,
+                        new Date(task.getValue(Task.COMPLETION_DATE)));
                 dueDateView.setText(r.getString(R.string.TAd_completed, dateValue));
                 dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
                 setVisibility(dueDateView);
@@ -310,7 +314,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // importance bar
         final View importanceView = viewHolder.importance; {
             int value = task.getValue(Task.IMPORTANCE);
-            importanceView.setBackgroundColor(IMPORTANCE_COLORS[value]);
+            if(value < IMPORTANCE_COLORS.length)
+                importanceView.setBackgroundColor(IMPORTANCE_COLORS[value]);
+            else
+                importanceView.setBackgroundColor(0);
         }
 
         // details and decorations, expanded
@@ -483,10 +490,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     viewHolder.decorations[i] = view;
                     switch(decoration.position) {
                     case TaskDecoration.POSITION_LEFT:
-                        viewHolder.taskRow.addView(view, 1);
+                        viewHolder.taskRow.addView(view, 2);
                         break;
                     case TaskDecoration.POSITION_RIGHT:
-                        viewHolder.taskRow.addView(view, viewHolder.taskRow.getChildCount() - 2);
+                        viewHolder.taskRow.addView(view, viewHolder.taskRow.getChildCount() - 1);
                     }
                 }
                 i++;

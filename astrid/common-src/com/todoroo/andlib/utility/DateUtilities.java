@@ -6,11 +6,13 @@
 package com.todoroo.andlib.utility;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.text.format.DateUtils;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -108,100 +110,65 @@ public class DateUtilities {
     }
 
     /**
-     * @return time format (hours and minutes)
-     */
-    public static SimpleDateFormat getTimeFormat(Context context) {
-        String value = getTimeFormatString(context);
-        return new SimpleDateFormat(value);
-    }
-
-    /**
-     * @return string used for time formatting
+     * @param context android context
+     * @param date time to format
+     * @return time, with hours and minutes
      */
     @SuppressWarnings("nls")
-    private static String getTimeFormatString(Context context) {
+    public static String getTimeString(Context context, Date date) {
         String value;
         if (is24HourFormat(context)) {
             value = "H:mm";
         } else {
             value = "h:mm a";
         }
-        return value;
+        return new SimpleDateFormat(value).format(date);
     }
 
     /**
      * @param context android context
-     * @return string used for date formatting
+     * @param date date to format
+     * @return date, with month, day, and year
      */
     @SuppressWarnings("nls")
-    private static String getDateFormatString(Context context) {
+    public static String getDateString(Context context, Date date) {
+        String month = "'" + DateUtils.getMonthString(date.getMonth() +
+                Calendar.JANUARY, DateUtils.LENGTH_MEDIUM) + "'";
         String value;
         // united states, you are special
         if (Locale.US.equals(Locale.getDefault())
                 || Locale.CANADA.equals(Locale.getDefault()))
-            value = "MMM d yyyy";
+            value = month + " d yyyy";
         else
-            value = "d MMM yyyy";
-        return value;
-    }
-
-    /**
-     * @return date format (month, day, year)
-     */
-    @SuppressWarnings("nls")
-    public static SimpleDateFormat getDateFormat(Context context) {
-        try {
-            return new SimpleDateFormat(getDateFormatString(context));
-        } catch (Exception e) {
-            return new SimpleDateFormat("d MMM yyyy");
-        }
+            value = "d " + month + " yyyy";
+        return new SimpleDateFormat(value).format(date);
     }
 
     /**
      * @return date format as getDateFormat with weekday
      */
     @SuppressWarnings("nls")
-    public static SimpleDateFormat getDateFormatWithWeekday(Context context) {
-        try {
-            return new SimpleDateFormat("EEEE, " + getDateFormatString(context));
-        } catch (Exception e) {
-            return new SimpleDateFormat("EEEE, d MMM yyyy");
-        }
+    public static String getDateStringWithWeekday(Context context, Date date) {
+        String weekday = DateUtils.getDayOfWeekString(date.getDay() + Calendar.SUNDAY,
+                DateUtils.LENGTH_LONG);
+        return weekday + ", " + getDateString(context, date);
     }
 
     /**
      * @return date format as getDateFormat with weekday
      */
     @SuppressWarnings("nls")
-    public static SimpleDateFormat getDateWithTimeAndWeekday(Context context) {
-        try {
-            return new SimpleDateFormat("EEEE, " + getDateFormatString(context)
-                    + " " + getTimeFormatString(context));
-        } catch (Exception e) {
-            return new SimpleDateFormat("EEEE, d MMM yyyy H:mm");
-        }
+    public static String getDateStringWithTimeAndWeekday(Context context, Date date) {
+        return getDateStringWithWeekday(context, date) + " " + getTimeString(context, date);
     }
 
     /**
      * @return date with time at the end
      */
     @SuppressWarnings("nls")
-    public static SimpleDateFormat getDateWithTimeFormat(Context context) {
-        try {
-            return new SimpleDateFormat(getDateFormatString(context) + " " +
-                    getTimeFormatString(context));
-        } catch (Exception e) {
-            return new SimpleDateFormat("d MMM yyyy H:mm");
-        }
+    public static String getDateStringWithTime(Context context, Date date) {
+        return getDateString(context, date) + " " + getTimeString(context, date);
     }
-
-    /**
-     * @return formatted date (will contain month, day, year)
-     */
-    public static String getFormattedDate(Context context, Date date) {
-        return getDateFormat(context).format(date);
-    }
-
 
     /* ======================================================================
      * ============================================================= duration

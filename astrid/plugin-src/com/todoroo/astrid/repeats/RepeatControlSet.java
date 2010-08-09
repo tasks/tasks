@@ -4,6 +4,7 @@ import java.text.DateFormatSymbols;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -11,13 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
@@ -61,9 +62,12 @@ public class RepeatControlSet implements TaskEditControlSet {
     private final LinearLayout repeatContainer;
     private final LinearLayout daysOfWeekContainer;
     private final CompoundButton[] daysOfWeek = new CompoundButton[7];
+    private Task model;
 
     @Autowired
     ExceptionService exceptionService;
+
+    boolean setInterval = false;
 
     // --- implementation
 
@@ -111,10 +115,22 @@ public class RepeatControlSet implements TaskEditControlSet {
                 repeatValueClick();
             }
         });
+
         interval.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) {
                 daysOfWeekContainer.setVisibility(position == INTERVAL_WEEKS ? View.VISIBLE : View.GONE);
+                if(position == INTERVAL_WEEKS) {
+                    Date date;
+                    if(model.getValue(Task.DUE_DATE) == 0)
+                        date = new Date();
+                    else
+                        date = new Date(model.getValue(Task.DUE_DATE));
+
+                    int dayOfWeek = date.getDay();
+                    for(int i = 0; i < 7; i++)
+                        daysOfWeek[i].setChecked(i == dayOfWeek);
+                }
             }
 
             @Override
@@ -122,6 +138,7 @@ public class RepeatControlSet implements TaskEditControlSet {
                 //
             }
         });
+        daysOfWeekContainer.setVisibility(View.GONE);
     }
 
     /** Set up the repeat value button */
@@ -156,6 +173,8 @@ public class RepeatControlSet implements TaskEditControlSet {
 
     @Override
     public void readFromTask(Task task) {
+        model = task;
+
         String recurrence = task.getValue(Task.RECURRENCE);
         if(recurrence == null)
             recurrence = ""; //$NON-NLS-1$
@@ -172,17 +191,6 @@ public class RepeatControlSet implements TaskEditControlSet {
                     break;
                 case WEEKLY: {
                     interval.setSelection(INTERVAL_WEEKS);
-
-                    // clear all day of week checks, then update them
-                    for(int i = 0; i < 7; i++)
-                        daysOfWeek[i].setChecked(false);
-
-                    for(WeekdayNum day : rrule.getByDay()) {
-                        for(int i = 0; i < 7; i++)
-                            if(daysOfWeek[i].getTag() == day.wday)
-                                daysOfWeek[i].setChecked(true);
-                    }
-
                     break;
                 }
                 case MONTHLY:
@@ -196,6 +204,19 @@ public class RepeatControlSet implements TaskEditControlSet {
                     exceptionService.reportError("repeat-unhandled-rule",  //$NON-NLS-1$
                             new Exception("Unhandled rrule frequency: " + recurrence)); //$NON-NLS-1$
                 }
+
+                // clear all day of week checks, then update them
+                for(int i = 0; i < 7; i++)
+                    daysOfWeek[i].setChecked(false);
+
+                for(WeekdayNum day : rrule.getByDay()) {
+                    for(int i = 0; i < 7; i++)
+                        if(daysOfWeek[i].getTag() == day.wday)
+                            daysOfWeek[i].setChecked(true);
+                }
+
+                // suppress first call to interval.onItemSelected
+                setInterval = true;
             } catch (ParseException e) {
                 recurrence = ""; //$NON-NLS-1$
                 exceptionService.reportError("repeat-parse-exception", e);  //$NON-NLS-1$
@@ -226,6 +247,7 @@ public class RepeatControlSet implements TaskEditControlSet {
                 break;
             case INTERVAL_WEEKS: {
                 rrule.setFreq(Frequency.WEEKLY);
+
                 ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
                 for(int i = 0; i < daysOfWeek.length; i++)
                     if(daysOfWeek[i].isChecked())
@@ -239,6 +261,7 @@ public class RepeatControlSet implements TaskEditControlSet {
             case INTERVAL_HOURS:
                 rrule.setFreq(Frequency.HOURLY);
             }
+
             result = rrule.toIcal();
         }
         task.setValue(Task.RECURRENCE, result);

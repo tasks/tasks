@@ -52,6 +52,16 @@ public class AstridApiConstants {
      */
     public static final String EXTRAS_EXTENDED = "extended";
 
+    /**
+     * Extras name for old task due date
+     */
+    public static final String EXTRAS_OLD_DUE_DATE= "oldDueDate";
+
+    /**
+     * Extras name for new task due date
+     */
+    public static final String EXTRAS_NEW_DUE_DATE = "newDueDate";
+
     // --- Add-ons API
 
     /**
@@ -177,10 +187,12 @@ public class AstridApiConstants {
     public static final String BROADCAST_EVENT_TASK_COMPLETED = PACKAGE + ".TASK_COMPLETED";
 
     /**
-     * Action name for broadcast intent notifying that task was created
+     * Action name for broadcast intent notifying that task was created from repeating template
      * @extra EXTRAS_TASK_ID id of the task
+     * @extra EXTRAS_OLD_DUE_DATE task old due date (could be 0)
+     * @extra EXTRAS_NEW_DUE_DATE task new due date (will not be 0)
      */
-    public static final String BROADCAST_EVENT_TASK_CREATED = PACKAGE + ".TASK_CREATED";
+    public static final String BROADCAST_EVENT_TASK_REPEATED = PACKAGE + ".TASK_REPEATED";
 
     // --- SQL Constants
 

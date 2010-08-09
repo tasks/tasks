@@ -11,6 +11,7 @@ import com.todoroo.astrid.utility.Preferences;
 public class ReminderServiceTests extends DatabaseTestCase {
 
     ReminderService service;
+    AlarmScheduler original;
 
     @Autowired
     TaskDao taskDao;
@@ -19,7 +20,14 @@ public class ReminderServiceTests extends DatabaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
         service = ReminderService.getInstance();
+        original = service.getScheduler();
         Preferences.setPreferenceDefaults();
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        service.setScheduler(original);
     }
 
     /** tests with no alarms */
