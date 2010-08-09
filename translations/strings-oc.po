@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-03 08:08+0000\n"
+"X-Launchpad-Export-Date: 2010-08-09 23:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Backup Preferences Title
@@ -1219,47 +1219,47 @@ msgstr ""
 #. reminders: Make these < 20 chars so the task name is displayed
 #: translations/strings.xml:844(item)
 msgid "Hi there! Have a sec?"
-msgstr "Adieu ! Avètz una segonda ?"
+msgstr ""
 
 #: translations/strings.xml:845(item)
 msgid "Can I see you for a sec?"
-msgstr "Vos pòdi veire una minuta ?"
+msgstr ""
 
 #: translations/strings.xml:846(item)
 msgid "Have a few minutes?"
-msgstr "Avètz qualques minutas ?"
+msgstr ""
 
 #: translations/strings.xml:847(item)
 msgid "Did you forget?"
-msgstr "Auriatz doblidat ?"
+msgstr ""
 
 #: translations/strings.xml:848(item)
 msgid "Excuse me!"
-msgstr "Desencusatz-me !"
+msgstr ""
 
 #: translations/strings.xml:849(item)
 msgid "When you have a minute:"
-msgstr "Quand auretz una minuta :"
+msgstr ""
 
 #: translations/strings.xml:850(item)
 msgid "On your agenda:"
-msgstr "A l'òrdre del jorn :"
+msgstr ""
 
 #: translations/strings.xml:851(item)
 msgid "Free for a moment?"
-msgstr "Avètz un moment ?"
+msgstr ""
 
 #: translations/strings.xml:852(item)
 msgid "Astrid here!"
-msgstr "Astrid a l'aparelh !"
+msgstr ""
 
 #: translations/strings.xml:853(item)
 msgid "Hi! Can I bug you?"
-msgstr "È, vos pòdi embestiar una segonda ?"
+msgstr ""
 
 #: translations/strings.xml:854(item)
 msgid "A minute of your time?"
-msgstr "Una minuta de m'acordar ?"
+msgstr ""
 
 #: translations/strings.xml:855(item)
 msgid "It's a great day to"
@@ -1276,7 +1276,7 @@ msgstr ""
 
 #: translations/strings.xml:862(item)
 msgid "Ready to start?"
-msgstr "Prèst(a) a far aquò ?"
+msgstr ""
 
 #: translations/strings.xml:863(item)
 msgid "You said you would do:"
@@ -1296,7 +1296,7 @@ msgstr ""
 
 #: translations/strings.xml:867(item)
 msgid "Excuse me! Time for"
-msgstr "Desencusatz-me !"
+msgstr ""
 
 #: translations/strings.xml:868(item)
 msgid "You free? Time to"
@@ -1330,7 +1330,7 @@ msgstr ""
 
 #: translations/strings.xml:883(item)
 msgid "Ready to put this in the past?"
-msgstr "Òm passa a quicòm mai ?"
+msgstr ""
 
 #: translations/strings.xml:884(item)
 msgid "Why don't you get this done?"
@@ -1338,19 +1338,19 @@ msgstr ""
 
 #: translations/strings.xml:885(item)
 msgid "How about it? Ready tiger?"
-msgstr "E per  aquò ? Sètz caud ?"
+msgstr ""
 
 #: translations/strings.xml:886(item)
 msgid "Ready to do this?"
-msgstr "Prèst(a) a far aquò ?"
+msgstr ""
 
 #: translations/strings.xml:887(item)
 msgid "Can you handle this?"
-msgstr "Vos podètz ocupar d'aquò ?"
+msgstr ""
 
 #: translations/strings.xml:888(item)
 msgid "You can be happy! Just finish this!"
-msgstr "Lo bonur es pas luènhnbsp]! Vos cal juste n'acabar amb aquò !"
+msgstr ""
 
 #: translations/strings.xml:889(item)
 msgid "I promise you'll feel better if you finish this!"
@@ -1366,11 +1366,11 @@ msgstr ""
 
 #: translations/strings.xml:892(item)
 msgid "Can you finish this? Yes you can!"
-msgstr "Podètz acabar aquò ? Yes you can!"
+msgstr ""
 
 #: translations/strings.xml:893(item)
 msgid "Are you ever going to do this?"
-msgstr "Avètz revist de nos en ocupar un jorn ?"
+msgstr ""
 
 #: translations/strings.xml:894(item)
 msgid "Feel good about yourself! Let's go!"
@@ -1378,19 +1378,19 @@ msgstr ""
 
 #: translations/strings.xml:895(item)
 msgid "I'm so proud of you! Lets get it done!"
-msgstr "Soi tant fièra de vos ! Acabam aquò !"
+msgstr ""
 
 #: translations/strings.xml:896(item)
 msgid "A little snack after you finish this?"
-msgstr "Una pichona recompensa quand auretz acabat aquò ?"
+msgstr ""
 
 #: translations/strings.xml:897(item)
 msgid "Just this one task? Please?"
-msgstr "Pas qu'aquel prètzfach, se vos plai !"
+msgstr ""
 
 #: translations/strings.xml:898(item)
 msgid "Time to shorten your todo list!"
-msgstr "Es temps d'acorchir la lista de las causas a far !"
+msgstr ""
 
 #. Astrid's nagging when user clicks postpone
 #: translations/strings.xml:903(item)
@@ -1403,7 +1403,7 @@ msgstr ""
 
 #: translations/strings.xml:905(item)
 msgid "Somewhere, someone is depending on you to finish this!"
-msgstr "Endacòm, qualqu'un compta sus vos per acabar aquò !"
+msgstr ""
 
 #: translations/strings.xml:906(item)
 msgid "When you said postpone, you really meant 'I'm doing this', right?"

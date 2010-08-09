@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-03 08:08+0000\n"
+"X-Launchpad-Export-Date: 2010-08-09 23:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Backup Preferences Title
@@ -1219,43 +1219,43 @@ msgstr ""
 #. reminders: Make these < 20 chars so the task name is displayed
 #: translations/strings.xml:844(item)
 msgid "Hi there! Have a sec?"
-msgstr "Labas! Ar turi minutėlę?"
+msgstr ""
 
 #: translations/strings.xml:845(item)
 msgid "Can I see you for a sec?"
-msgstr "Ar galėčiau sutrukdyti minutėlei?"
+msgstr ""
 
 #: translations/strings.xml:846(item)
 msgid "Have a few minutes?"
-msgstr "Ar turi keletą minučių?"
+msgstr ""
 
 #: translations/strings.xml:847(item)
 msgid "Did you forget?"
-msgstr "Ar pamiršai?"
+msgstr ""
 
 #: translations/strings.xml:848(item)
 msgid "Excuse me!"
-msgstr "Atsiprašau!"
+msgstr ""
 
 #: translations/strings.xml:849(item)
 msgid "When you have a minute:"
-msgstr "Kai turėsi minutę:"
+msgstr ""
 
 #: translations/strings.xml:850(item)
 msgid "On your agenda:"
-msgstr "Tavo darbotvarkėje:"
+msgstr ""
 
 #: translations/strings.xml:851(item)
 msgid "Free for a moment?"
-msgstr "Laisvas minutėlei?"
+msgstr ""
 
 #: translations/strings.xml:852(item)
 msgid "Astrid here!"
-msgstr "Čia Astrid!"
+msgstr ""
 
 #: translations/strings.xml:853(item)
 msgid "Hi! Can I bug you?"
-msgstr "Labas! Galiu sutrukdyti?"
+msgstr ""
 
 #: translations/strings.xml:854(item)
 msgid "A minute of your time?"
@@ -1296,7 +1296,7 @@ msgstr ""
 
 #: translations/strings.xml:867(item)
 msgid "Excuse me! Time for"
-msgstr "Atsiprašau!"
+msgstr ""
 
 #: translations/strings.xml:868(item)
 msgid "You free? Time to"
