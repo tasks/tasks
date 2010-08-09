@@ -39,6 +39,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.activity.TaskEditActivity;
+import com.todoroo.astrid.alarms.AlarmDetailExposer;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.api.Filter;
@@ -85,6 +86,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         new RepeatDetailExposer(),
         new NoteDetailExposer(),
         new MilkDetailExposer(),
+        new AlarmDetailExposer(),
     };
 
     private static int[] IMPORTANCE_COLORS = null;

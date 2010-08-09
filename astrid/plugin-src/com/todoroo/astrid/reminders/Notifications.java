@@ -74,6 +74,8 @@ public class Notifications extends BroadcastReceiver {
         String reminder;
         if(type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE)
             reminder = getRandomReminder(r.getStringArray(R.array.reminders_due));
+        else if(type == ReminderService.TYPE_ALARM)
+            reminder = getRandomReminder(r.getStringArray(R.array.reminders_alarm));
         else if(type == ReminderService.TYPE_SNOOZE)
             reminder = getRandomReminder(r.getStringArray(R.array.reminders_snooze));
         else if(Preferences.getBoolean(R.string.p_rmd_nagging, true))

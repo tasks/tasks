@@ -44,6 +44,8 @@ public class AlarmService {
 
     // --- data retrieval
 
+    public static final String IDENTIFIER = "alarms"; //$NON-NLS-1$
+
     /**
      * Return alarms for the given task. PLEASE CLOSE THE CURSOR!
      *
@@ -73,6 +75,7 @@ public class AlarmService {
             metadata.setValue(Alarm.TIME, alarm);
             metadata.setValue(Alarm.TYPE, Alarm.TYPE_SINGLE);
             service.save(metadata);
+            scheduleAlarm(metadata);
         }
     }
 
