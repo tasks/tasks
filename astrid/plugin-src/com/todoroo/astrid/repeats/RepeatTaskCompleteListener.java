@@ -3,7 +3,6 @@ package com.todoroo.astrid.repeats;
 import java.text.ParseException;
 import java.util.Collections;
 import java.util.Date;
-import java.util.List;
 import java.util.TimeZone;
 
 import android.content.BroadcastReceiver;
@@ -17,7 +16,6 @@ import com.google.ical.values.DateValue;
 import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
-import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
@@ -102,9 +100,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         // handle the iCalendar "byDay" field differently depending on if
         // we are weekly or otherwise
 
-        List<WeekdayNum> byDay = null;
         if(rrule.getFreq() != Frequency.WEEKLY) {
-            byDay = rrule.getByDay();
             rrule.setByDay(Collections.EMPTY_LIST);
         }
 
@@ -146,20 +142,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
         if(newDueDate == -1)
             return -1;
-
-        // what we do with the by day information is to add days until
-        // weekday equals one of this list
-        if(byDay != null && byDay.size() > 0) {
-            Date newDueDateDate = new Date(newDueDate);
-            outer: for(int i = 0; i < 7; i++) {
-                int weekday = newDueDateDate.getDay();
-                for(WeekdayNum wdn : byDay)
-                    if(wdn.wday.jsDayNum == weekday)
-                        break outer;
-                newDueDateDate.setDate(newDueDateDate.getDate() + 1);
-            }
-            newDueDate = newDueDateDate.getTime();
-        }
 
         return newDueDate;
     }
