@@ -273,7 +273,7 @@ public class Astrid2To3UpgradeHelper {
                     if(data.upgradeNotes == null)
                         data.upgradeNotes = new StringBuilder();
                     data.upgradeNotes.append("Goal Deadline: " +
-                            DateUtilities.getFormattedDate(ContextManager.getContext(),
+                            DateUtilities.getDateString(ContextManager.getContext(),
                                     new Date(preferredDueDate)));
                 }
             } else if(property == Task.REMINDER_PERIOD) {

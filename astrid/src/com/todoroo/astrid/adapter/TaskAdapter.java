@@ -282,14 +282,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 String dateValue;
                 Date dueDateAsDate = DateUtilities.unixtimeToDate(dueDate);
                 if (task.hasDueTime()) {
-                    dateValue = DateUtilities.getDateWithTimeAndWeekday(activity).format(dueDateAsDate);
+                    dateValue = DateUtilities.getDateStringWithTimeAndWeekday(activity, dueDateAsDate);
                 } else {
-                    dateValue = DateUtilities.getDateFormatWithWeekday(activity).format(dueDateAsDate);
+                    dateValue = DateUtilities.getDateStringWithWeekday(activity, dueDateAsDate);
                 }
                 dueDateView.setText(dateValue);
                 setVisibility(dueDateView);
             } else if(task.isCompleted()) {
-                String dateValue = DateUtilities.getDateFormatWithWeekday(activity).format(task.getValue(Task.COMPLETION_DATE));
+                String dateValue = DateUtilities.getDateStringWithWeekday(activity,
+                        new Date(task.getValue(Task.COMPLETION_DATE)));
                 dueDateView.setText(r.getString(R.string.TAd_completed, dateValue));
                 dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
                 setVisibility(dueDateView);
