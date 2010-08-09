@@ -36,11 +36,15 @@
 
     </LinearLayout>
     
-    <!-- Body -->
-    <FrameLayout
+    
+    <android.gesture.GestureOverlayView android:id="@+id/gestures"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="100"> 
+        android:layout_weight="100" 
+        
+        android:gestureStrokeType="multiple"
+        android:eventsInterceptionEnabled="true"
+        android:orientation="vertical">
             
         <!-- No Tasks label -->
         <TextView android:id="@android:id/empty"
@@ -57,7 +61,7 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"/>
         
-    </FrameLayout>
+    </android.gesture.GestureOverlayView>
         
     <!-- Footer -->
     <LinearLayout
@@ -95,6 +99,5 @@
             android:scaleType="fitCenter"/> 
 
     </LinearLayout>
-    
         
 </LinearLayout>

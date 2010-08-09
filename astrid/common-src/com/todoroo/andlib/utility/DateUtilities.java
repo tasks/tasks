@@ -110,7 +110,9 @@ public class DateUtilities {
     }
 
     /**
-     * @return string used for time formatting
+     * @param context android context
+     * @param date time to format
+     * @return time, with hours and minutes
      */
     @SuppressWarnings("nls")
     public static String getTimeString(Context context, Date date) {
@@ -125,7 +127,8 @@ public class DateUtilities {
 
     /**
      * @param context android context
-     * @return string used for date formatting
+     * @param date date to format
+     * @return date, with month, day, and year
      */
     @SuppressWarnings("nls")
     public static String getDateString(Context context, Date date) {
