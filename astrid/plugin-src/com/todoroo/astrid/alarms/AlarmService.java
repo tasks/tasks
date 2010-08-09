@@ -64,6 +64,10 @@ public class AlarmService {
      */
     public void synchronizeAlarms(long taskId, LinkedHashSet<Long> alarms) {
         MetadataService service = PluginServices.getMetadataService();
+
+        if(alarmsIdentical(taskId, alarms))
+            return;
+
         service.deleteWhere(Criterion.and(MetadataCriteria.byTask(taskId),
                 MetadataCriteria.withKey(Alarm.METADATA_KEY)));
 
@@ -77,6 +81,23 @@ public class AlarmService {
             service.save(metadata);
             scheduleAlarm(metadata);
         }
+    }
+
+    private boolean alarmsIdentical(long taskId, LinkedHashSet<Long> alarms) {
+        TodorooCursor<Metadata> cursor = getAlarms(taskId);
+        try {
+            if(cursor.getCount() != alarms.size())
+                return false;
+            for(Long alarm : alarms) {
+                cursor.moveToNext();
+                if(alarm != cursor.get(Alarm.TIME))
+                    return false;
+            }
+        } finally {
+            cursor.close();
+        }
+
+        return true;
     }
 
     // --- alarm scheduling

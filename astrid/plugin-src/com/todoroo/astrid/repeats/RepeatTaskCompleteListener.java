@@ -18,21 +18,12 @@ import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.service.TaskService;
 
 public class RepeatTaskCompleteListener extends BroadcastReceiver {
-
-    @Autowired
-    private TaskService taskService;
-
-    @Autowired
-    private ExceptionService exceptionService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -40,9 +31,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        DependencyInjectionService.getInstance().inject(this);
-
-        Task task = taskService.fetchById(taskId, Task.ID, Task.RECURRENCE,
+        Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.RECURRENCE,
                 Task.DUE_DATE, Task.FLAGS, Task.HIDE_UNTIL);
         if(task == null)
             return;
@@ -55,7 +44,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 if(newDueDate == -1)
                     return;
             } catch (ParseException e) {
-                exceptionService.reportError("repeat-parse", e); //$NON-NLS-1$
+                PluginServices.getExceptionService().reportError("repeat-parse", e); //$NON-NLS-1$
                 return;
             }
 
@@ -65,17 +54,24 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             }
 
             // clone to create new task
-            Task clone = taskService.clone(task);
+            Task clone = PluginServices.getTaskService().clone(task);
             clone.setValue(Task.DUE_DATE, newDueDate);
             clone.setValue(Task.HIDE_UNTIL, hideUntil);
             clone.setValue(Task.COMPLETION_DATE, 0L);
             clone.setValue(Task.TIMER_START, 0L);
             clone.setValue(Task.ELAPSED_SECONDS, 0);
-            taskService.save(clone, false);
+            PluginServices.getTaskService().save(clone, false);
 
             // clear recurrence from completed task so it can be re-completed
             task.setValue(Task.RECURRENCE, ""); //$NON-NLS-1$
-            taskService.save(task, false);
+            PluginServices.getTaskService().save(task, false);
+
+            // send a broadcast
+            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, clone.getId());
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, task.getValue(Task.DUE_DATE));
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
+            context.sendOrderedBroadcast(broadcastIntent, null);
         }
     }
 

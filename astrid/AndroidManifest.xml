@@ -165,6 +165,15 @@
       </intent-filter>
     </activity>
         
+    <!-- alarms -->
+    <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.TASK_REPEATED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    
+    
     <!-- tags -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
       <intent-filter>
