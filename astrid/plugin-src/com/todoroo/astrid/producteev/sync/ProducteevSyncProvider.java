@@ -119,7 +119,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             exceptionService.reportError(tag + "-ioexception", e); //$NON-NLS-1$
             if(showError) {
                 Context context = ContextManager.getContext();
-                showError(context, e, context.getString(R.string.rmilk_ioerror));
+                showError(context, e, context.getString(R.string.producteev_ioerror));
             }
         } else {
             exceptionService.reportError(tag + "-unhandled", e); //$NON-NLS-1$

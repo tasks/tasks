@@ -2,6 +2,11 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
    
+    <!-- ====================== Plugin Boilerplate ========================= -->
+
+    <!-- task detail showing Producteev dashboard information  -->
+    <string name="producteev_TLA_dashboard">Producteev dashboard: %s</string>
+    
     <!-- ==================================================== Preferences == -->
 
     <!-- Preferences Title: Producteev -->    

@@ -4,10 +4,13 @@
 package com.todoroo.astrid.producteev.sync;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
 import java.util.Random;
 
 import android.content.Context;
 
+import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -16,9 +19,10 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -47,6 +51,10 @@ public final class ProducteevDataService {
 
     protected final Context context;
 
+    private final ProducteevDatabase prodDatabase = new ProducteevDatabase();
+
+    private final GenericDao<ProducteevDashboard> prodDashboardDao;
+
     @Autowired
     private TaskDao taskDao;
 
@@ -60,6 +68,7 @@ public final class ProducteevDataService {
     private ProducteevDataService(Context context) {
         this.context = context;
         DependencyInjectionService.getInstance().inject(this);
+        prodDashboardDao = new GenericDao<ProducteevDashboard>(ProducteevDashboard.class, prodDatabase);
     }
 
     // --- task and metadata methods
@@ -153,6 +162,7 @@ public final class ProducteevDataService {
                 where(Criterion.and(MetadataCriteria.byTask(task.getId()),
                         Criterion.or(MetadataCriteria.withKey(TagService.KEY),
                                 MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
+                                // FIXME: Constant from other plugin shouldnt be used
                                 MetadataCriteria.withKey(MilkNote.METADATA_KEY),
                                 MetadataCriteria.withKey(ProducteevNote.METADATA_KEY)))));
         try {
@@ -193,4 +203,33 @@ public final class ProducteevDataService {
         return cursor;
     }
 
+    // --- list methods
+
+    private final Map<Long, String> dashboardCache =
+        Collections.synchronizedMap(new SoftHashMap<Long, String>());
+
+    /**
+     * Get dashboard name by dashboard id
+     * @param dashboardId
+     * @return null if no dashboard by this id exists, otherwise dashboard name
+     */
+    public String getDashboardName(long dashboardId) {
+        if(dashboardCache.containsKey(dashboardId))
+            return dashboardCache.get(dashboardId);
+
+        TodorooCursor<ProducteevDashboard> cursor = prodDashboardDao.query(Query.select(
+                ProducteevDashboard.NAME).where(ProducteevDashboard.ID.eq(dashboardId)));
+        try {
+            if(cursor.getCount() == 0) {
+                dashboardCache.put(dashboardId, null);
+                return null;
+            }
+            cursor.moveToFirst();
+            String name = cursor.get(ProducteevDashboard.NAME);
+            dashboardCache.put(dashboardId, name);
+            return name;
+        } finally {
+            cursor.close();
+        }
+    }
 }
