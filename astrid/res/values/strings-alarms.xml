@@ -11,7 +11,7 @@
     <string name="alarm_ACS_button">Add an Alarm</string>
     
     <!-- Task Detail for Alarms (%s -> time)-->
-    <string name="alarm_ADE_detail">Next Alarm %s</string>
+    <string name="alarm_ADE_detail">Alarm %s</string>
    
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
