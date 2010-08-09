@@ -36,13 +36,11 @@ import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -219,9 +217,7 @@ public final class TaskEditActivity extends TabActivity {
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
         if(addOnService.hasPowerPack()) {
             controls.add(new GCalControlSet(this, addonsAddons));
-            separator(addonsAddons);
             controls.add(new TimerControlSet(this, addonsAddons));
-            separator(addonsAddons);
             controls.add(new AlarmControlSet(this, addonsAddons));
         }
 
@@ -247,17 +243,6 @@ public final class TaskEditActivity extends TabActivity {
 
         // set up listeners
         setUpListeners();
-    }
-
-    /**
-     * Creates a separator in the view group specified
-     * @return
-     */
-    private void separator(ViewGroup parent) {
-        View view = new View(this);
-        view.setBackgroundColor(Color.RED);
-        view.setPadding(2, 3, 2, 3);
-        parent.addView(view);
     }
 
     /**
