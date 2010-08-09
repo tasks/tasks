@@ -1,7 +1,7 @@
 /**
  * See the file "LICENSE" for the full license governing this code.
  */
-package com.todoroo.astrid.alarms;
+package com.todoroo.astrid.legacy;
 
 
 import android.content.ContentValues;

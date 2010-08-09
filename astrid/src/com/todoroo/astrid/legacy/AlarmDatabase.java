@@ -3,7 +3,7 @@
  * All Rights Reserved
  * http://www.todoroo.com
  */
-package com.todoroo.astrid.alarms;
+package com.todoroo.astrid.legacy;
 
 import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.GenericDao;
@@ -15,7 +15,7 @@ import com.todoroo.andlib.data.Table;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
+@SuppressWarnings({"nls","deprecation"})
 public class AlarmDatabase extends AbstractDatabase {
 
     // --- constants
@@ -29,7 +29,7 @@ public class AlarmDatabase extends AbstractDatabase {
     /**
      * Database name (must be unique)
      */
-    private static final String NAME = "alarms";
+    public static final String NAME = "alarms";
 
     /**
      * List of table/ If you're adding a new table, add it to this list and
