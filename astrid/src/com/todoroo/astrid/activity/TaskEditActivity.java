@@ -19,8 +19,8 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -37,6 +37,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
+import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -735,8 +736,9 @@ public final class TaskEditActivity extends TabActivity {
                     Task.URGENCY_TODAY);
             urgencyValues[2] = new UrgencyValue(labels[2],
                     Task.URGENCY_TOMORROW);
-            String dayAfterTomorrow = new SimpleDateFormat("EEEE").format( //$NON-NLS-1$
-                    new Date(DateUtilities.now() + 2 * DateUtilities.ONE_DAY));
+            String dayAfterTomorrow = DateUtils.getDayOfWeekString(
+                    new Date(DateUtilities.now() + 2 * DateUtilities.ONE_DAY).getDay() +
+                    Calendar.SUNDAY, 0);
             urgencyValues[3] = new UrgencyValue(dayAfterTomorrow,
                     Task.URGENCY_DAY_AFTER);
             urgencyValues[4] = new UrgencyValue(labels[4],

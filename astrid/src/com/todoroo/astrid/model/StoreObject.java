@@ -14,17 +14,17 @@ import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 
 /**
- * Data Model which represents a piece of metadata associated with a task
+ * Data Model which represents a piece of data unrelated to a task
  *
  * @author Tim Su <tim@todoroo.com>
  *
  */
 @SuppressWarnings("nls")
-public class Metadata extends AbstractModel {
+public class StoreObject extends AbstractModel {
 
     // --- table
 
-    public static final Table TABLE = new Table("metadata", Metadata.class);
+    public static final Table TABLE = new Table("store", StoreObject.class);
 
     // --- properties
 
@@ -32,36 +32,36 @@ public class Metadata extends AbstractModel {
     public static final LongProperty ID = new LongProperty(
             TABLE, ID_PROPERTY_NAME);
 
-    /** Associated Task */
-    public static final LongProperty TASK = new LongProperty(
-            TABLE, "task");
+    /** Store Type Key */
+    public static final StringProperty TYPE = new StringProperty(
+            TABLE, "type");
 
-    /** Metadata Key */
-    public static final StringProperty KEY = new StringProperty(
-            TABLE, "key");
+    /** Store Item Key */
+    public static final StringProperty ITEM= new StringProperty(
+            TABLE, "item");
 
-    /** Metadata Text Value Column 1 */
+    /** Store Value Column 1 */
     public static final StringProperty VALUE1 = new StringProperty(
             TABLE, "value");
 
-    /** Metadata Text Value Column 2 */
+    /** Store Value Column 2 */
     public static final StringProperty VALUE2 = new StringProperty(
             TABLE, "value2");
 
-    /** Metadata Text Value Column 3 */
+    /** Store Value Column 3 */
     public static final StringProperty VALUE3 = new StringProperty(
             TABLE, "value3");
 
-    /** Metadata Text Value Column 4 */
+    /** Store Value Column 4 */
     public static final StringProperty VALUE4 = new StringProperty(
             TABLE, "value4");
 
-    /** Metadata Text Value Column 5 */
+    /** Store Value Column 5 */
     public static final StringProperty VALUE5 = new StringProperty(
             TABLE, "value5");
 
     /** List of all properties for this model */
-    public static final Property<?>[] PROPERTIES = generateProperties(Metadata.class);
+    public static final Property<?>[] PROPERTIES = generateProperties(StoreObject.class);
 
     // --- defaults
 
@@ -75,16 +75,16 @@ public class Metadata extends AbstractModel {
 
     // --- data access boilerplate
 
-    public Metadata() {
+    public StoreObject() {
         super();
     }
 
-    public Metadata(TodorooCursor<Metadata> cursor) {
+    public StoreObject(TodorooCursor<StoreObject> cursor) {
         this();
         readPropertiesFromCursor(cursor);
     }
 
-    public void readFromCursor(TodorooCursor<Metadata> cursor) {
+    public void readFromCursor(TodorooCursor<StoreObject> cursor) {
         super.readPropertiesFromCursor(cursor);
     }
 
@@ -95,7 +95,7 @@ public class Metadata extends AbstractModel {
 
     // --- parcelable helpers
 
-    private static final Creator<Metadata> CREATOR = new ModelCreator<Metadata>(Metadata.class);
+    private static final Creator<StoreObject> CREATOR = new ModelCreator<StoreObject>(StoreObject.class);
 
     @Override
     protected Creator<? extends AbstractModel> getCreator() {

@@ -4,8 +4,11 @@
    
     <!-- ====================== Plugin Boilerplate ========================= -->
 
-    <!-- task detail showing Producteev dashboard information  -->
+    <!-- task detail showing Producteev dashboard information (%s => workspace name) -->
     <string name="producteev_TLA_dashboard">Workspace: %s</string>
+
+    <!-- task detail showing Producteev responsible information (%s => responsible user) -->
+    <string name="producteev_TLA_responsible">Responsible: %s</string>
     
     <!-- ==================================================== Preferences == -->
 

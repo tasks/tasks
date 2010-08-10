@@ -96,6 +96,22 @@ public class ProducteevInvoker {
                 "fbuid", fbUid);
     }
 
+    // --- dashboards
+
+    /**
+     * show list
+     *
+     * @param idResponsible (optional) if null return every task for current user
+     * @param since (optional) if not null, the function only returns tasks modified or created since this date
+     *
+     * @return array tasks/view
+     */
+    public JSONArray dashboardsShowList(String since) throws ApiServiceException, IOException {
+        return getResponse(callAuthenticated("dashboards/show_list.json",
+                "token", token,
+                "since", since), "dashboards");
+    }
+
     // --- tasks
 
     /**
@@ -210,6 +226,21 @@ public class ProducteevInvoker {
                 "token", token,
                 "id_task", idTask,
                 "deadline", deadline);
+    }
+
+    /**
+     * set a workspace
+     *
+     * @param idTask
+     * @param id_dashboard
+     *
+     * @return array tasks/view
+     */
+    public JSONObject tasksSetWorkspace(long idTask, long idDashboard) throws ApiServiceException, IOException {
+        return callAuthenticated("tasks/set_workspace.json",
+                "token", token,
+                "id_task", idTask,
+                "id_dashboard", idDashboard);
     }
 
     /**

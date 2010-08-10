@@ -33,6 +33,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevLoginActivity;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
@@ -51,11 +52,10 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
     private ProducteevDataService dataService = null;
     private ProducteevInvoker invoker = null;
-    private long defaultDashboard;
     private final ProducteevUtilities preferences = ProducteevUtilities.INSTANCE;
 
     /** map of producteev labels to id's */
-    private final HashMap<String, Long> labelMap = new HashMap<String, Long>();
+    private final HashMap<ProducteevLabel, Long> labelMap = new HashMap<ProducteevLabel, Long>();
 
     static {
         AstridDependencyInjector.initialize();
@@ -193,20 +193,33 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     protected void performSync() {
         try {
             // load user information
-            JSONObject user = invoker.usersView(null);
-            defaultDashboard = user.getJSONObject("user").getLong("default_dashboard");
+            JSONObject user = invoker.usersView(null).getJSONObject("user");
+            saveUserData(user);
 
-            // get labels
-            JSONArray labels = invoker.labelsShowList(defaultDashboard, null);
-            readLabels(labels);
-
-            // read all tasks
-            String lastServerSync = preferences.getLastServerSync();
+            String lastServerSync = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_SYNC);
             if(lastServerSync != null)
                 lastServerSync = lastServerSync.substring(0, lastServerSync.lastIndexOf(' '));
-            JSONArray tasks = invoker.tasksShowList(defaultDashboard, lastServerSync);
 
-            SyncData<ProducteevTaskContainer> syncData = populateSyncData(tasks);
+            // read dashboards
+            JSONArray dashboards = invoker.dashboardsShowList(lastServerSync);
+            dataService.updateDashboards(dashboards);
+
+            // read labels and tasks for each dashboard
+            ArrayList<ProducteevTaskContainer> remoteTasks = new ArrayList<ProducteevTaskContainer>();
+            for(StoreObject dashboard : dataService.getDashboards()) {
+                long dashboardId = dashboard.getValue(ProducteevDashboard.REMOTE_ID);
+                JSONArray labels = invoker.labelsShowList(dashboardId, null);
+                readLabels(labels);
+
+                JSONArray tasks = invoker.tasksShowList(dashboardId, lastServerSync);
+                for(int i = 0; i < tasks.length(); i++) {
+                    ProducteevTaskContainer remote = parseRemoteTask(tasks.getJSONObject(i));
+                    dataService.findLocalMatch(remote);
+                    remoteTasks.add(remote);
+                }
+            }
+
+            SyncData<ProducteevTaskContainer> syncData = populateSyncData(remoteTasks);
             try {
                 synchronizeTasks(syncData);
             } finally {
@@ -214,7 +227,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 syncData.localUpdated.close();
             }
 
-            preferences.setLastServerSync(invoker.time());
+            Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_SYNC, invoker.time());
             preferences.recordSuccessfulSync();
 
             FlurryAgent.onEvent("pdv-sync-finished"); //$NON-NLS-1$
@@ -228,6 +241,13 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     // ----------------------------------------------------------------------
     // ------------------------------------------------------------ sync data
     // ----------------------------------------------------------------------
+
+    private void saveUserData(JSONObject user) throws JSONException {
+        long defaultDashboard = user.getLong("default_dashboard");
+        long userId = user.getLong("id_user");
+        Preferences.setLong(ProducteevUtilities.PREF_DEFAULT_DASHBOARD, defaultDashboard);
+        Preferences.setLong(ProducteevUtilities.PREF_USER_ID, userId);
+    }
 
     // all synchronized properties
     private static final Property<?>[] PROPERTIES = new Property<?>[] {
@@ -246,20 +266,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      * Populate SyncData data structure
      * @throws JSONException
      */
-    private SyncData<ProducteevTaskContainer> populateSyncData(JSONArray tasks) throws JSONException {
+    private SyncData<ProducteevTaskContainer> populateSyncData(ArrayList<ProducteevTaskContainer> remoteTasks) throws JSONException {
         // fetch locally created tasks
         TodorooCursor<Task> localCreated = dataService.getLocallyCreated(PROPERTIES);
 
         // fetch locally updated tasks
         TodorooCursor<Task> localUpdated = dataService.getLocallyUpdated(PROPERTIES);
-
-        // read json response
-        ArrayList<ProducteevTaskContainer> remoteTasks = new ArrayList<ProducteevTaskContainer>(tasks.length());
-        for(int i = 0; i < tasks.length(); i++) {
-            ProducteevTaskContainer remote = parseRemoteTask(tasks.getJSONObject(i));
-            dataService.findLocalMatch(remote);
-            remoteTasks.add(remote);
-        }
 
         return new SyncData<ProducteevTaskContainer>(remoteTasks, localCreated, localUpdated);
     }
@@ -271,9 +283,16 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     @Override
     protected void create(ProducteevTaskContainer local) throws IOException {
         Task localTask = local.task;
-        long dashboard = defaultDashboard;
+        long dashboard = ProducteevUtilities.INSTANCE.getDefaultDashboard();
         if(local.pdvTask.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
             dashboard = local.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
+
+        if(dashboard == ProducteevUtilities.DASHBOARD_NO_SYNC) {
+            // set a bogus task id, then return without creating
+            local.pdvTask.setValue(ProducteevTask.ID, 1L);
+            return;
+        }
+
         JSONObject response = invoker.tasksCreate(localTask.getValue(Task.TITLE),
                 null, dashboard, createDeadline(localTask), createReminder(localTask),
                 localTask.isCompleted() ? 2 : 1, createStars(localTask));
@@ -348,13 +367,19 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      */
     @Override
     protected void push(ProducteevTaskContainer local, ProducteevTaskContainer remote) throws IOException {
-        boolean remerge = false;
+        long idTask = local.pdvTask.getValue(ProducteevTask.ID);
+        long idDashboard = local.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
+
+        // if local is marked do not sync, handle accordingly
+        if(idDashboard == ProducteevUtilities.DASHBOARD_NO_SYNC) {
+            if(idTask != 1)
+                invoker.tasksDelete(idTask);
+            return;
+        }
 
         // fetch remote task for comparison
         if(remote == null)
             remote = pull(local);
-
-        long idTask = local.pdvTask.getValue(ProducteevTask.ID);
 
         // either delete or re-create if necessary
         if(shouldTransmit(local, Task.DELETION_DATE, remote)) {
@@ -364,6 +389,13 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 create(local);
         }
 
+        // dashboard
+        if(remote != null && idDashboard != remote.pdvTask.getValue(ProducteevTask.DASHBOARD_ID)) {
+            invoker.tasksSetWorkspace(idTask, idDashboard);
+            remote = pull(local);
+        }
+
+        // core properties
         if(shouldTransmit(local, Task.TITLE, remote))
             invoker.tasksSetTitle(idTask, local.task.getValue(Task.TITLE));
         if(shouldTransmit(local, Task.IMPORTANCE, remote))
@@ -373,43 +405,10 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         if(shouldTransmit(local, Task.COMPLETION_DATE, remote))
             invoker.tasksSetStatus(idTask, local.task.isCompleted() ? 2 : 1);
 
-        // tags
-        HashSet<String> localTags = new HashSet<String>();
-        HashSet<String> remoteTags = new HashSet<String>();
-        for(Metadata item : local.metadata)
-            if(TagService.KEY.equals(item.getValue(Metadata.KEY)))
-                localTags.add(item.getValue(TagService.TAG));
-        if(remote != null && remote.metadata != null) {
-            for(Metadata item : remote.metadata)
-                if(TagService.KEY.equals(item.getValue(Metadata.KEY)))
-                    remoteTags.add(item.getValue(TagService.TAG));
-        }
 
         try {
-            if(!localTags.equals(remoteTags)) {
-                HashSet<String> toAdd = new HashSet<String>(localTags);
-                toAdd.removeAll(remoteTags);
-                HashSet<String> toRemove = remoteTags;
-                toRemove.removeAll(localTags);
-
-                if(toAdd.size() > 0) {
-                    for(String label : toAdd) {
-                        if(!labelMap.containsKey(label)) {
-                            JSONObject result = invoker.labelsCreate(defaultDashboard, label).getJSONObject("label");
-                            labelMap.put(ApiUtilities.decode(result.getString("title")), result.getLong("id_label"));
-                        }
-                        invoker.tasksSetLabel(idTask, labelMap.get(label));
-                    }
-                }
-
-                if(toRemove.size() > 0) {
-                    for(String label : toRemove) {
-                        if(!labelMap.containsKey(label))
-                            continue;
-                        invoker.tasksUnsetLabel(idTask, labelMap.get(label));
-                    }
-                }
-            }
+            // tags
+            transmitTags(local, remote, idTask, idDashboard);
 
             // notes
             if(!TextUtils.isEmpty(local.task.getValue(Task.NOTES))) {
@@ -422,24 +421,68 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             // milk note => producteev note
             if(local.findMetadata(MilkNote.METADATA_KEY) != null && (remote == null ||
                     (remote.findMetadata(ProducteevNote.METADATA_KEY) == null))) {
-                for(Metadata item : local.metadata)
+                for(Metadata item : local.metadata) {
                     if(MilkNote.METADATA_KEY.equals(item.getValue(Metadata.KEY))) {
                         String message = MilkNote.toTaskDetail(item);
                         JSONObject result = invoker.tasksNoteCreate(idTask, message);
                         local.metadata.add(ProducteevNote.create(result.getJSONObject("note")));
                     }
+                }
             }
         } catch (JSONException e) {
             throw new ApiResponseParseException(e);
         }
-
-        if(remerge) {
-            remote = pull(local);
-            remote.task.setId(local.task.getId());
-            write(remote);
-        }
     }
 
+    /**
+     * Transmit tags
+     *
+     * @param local
+     * @param remote
+     * @param idTask
+     * @param idDashboard
+     * @throws ApiServiceException
+     * @throws JSONException
+     * @throws IOException
+     */
+    private void transmitTags(ProducteevTaskContainer local,
+            ProducteevTaskContainer remote, long idTask, long idDashboard) throws ApiServiceException, JSONException, IOException {
+        HashSet<String> localTags = new HashSet<String>();
+        HashSet<String> remoteTags = new HashSet<String>();
+        for(Metadata item : local.metadata)
+            if(TagService.KEY.equals(item.getValue(Metadata.KEY)))
+                localTags.add(item.getValue(TagService.TAG));
+        if(remote != null && remote.metadata != null) {
+            for(Metadata item : remote.metadata)
+                if(TagService.KEY.equals(item.getValue(Metadata.KEY)))
+                    remoteTags.add(item.getValue(TagService.TAG));
+        }
+
+        if(!localTags.equals(remoteTags)) {
+            HashSet<String> toAdd = new HashSet<String>(localTags);
+            toAdd.removeAll(remoteTags);
+            HashSet<String> toRemove = remoteTags;
+            toRemove.removeAll(localTags);
+
+            if(toAdd.size() > 0) {
+                for(String label : toAdd) {
+                    if(!labelMap.containsKey(label)) {
+                        JSONObject result = invoker.labelsCreate(idDashboard, label).getJSONObject("label");
+                        putLabelIntoCache(result);
+                    }
+                    invoker.tasksSetLabel(idTask, labelMap.get(label));
+                }
+            }
+
+            if(toRemove.size() > 0) {
+                for(String label : toRemove) {
+                    if(!labelMap.containsKey(label))
+                        continue;
+                    invoker.tasksUnsetLabel(idTask, labelMap.get(label));
+                }
+            }
+        }
+    }
 
     // ----------------------------------------------------------------------
     // --------------------------------------------------------- read / write
@@ -548,9 +591,14 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         destination.pdvTask = source.pdvTask;
     }
 
+    public class ProducteevLabel {
+        public String name;
+        public long dashboard;
+    }
 
     /**
      * Read labels into label map
+     * @param dashboardId
      * @throws JSONException
      * @throws ApiServiceException
      * @throws IOException
@@ -558,8 +606,22 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     private void readLabels(JSONArray labels) throws JSONException, ApiServiceException, IOException {
         for(int i = 0; i < labels.length(); i++) {
             JSONObject label = labels.getJSONObject(i).getJSONObject("label");
-            labelMap.put(ApiUtilities.decode(label.getString("title")), label.getLong("id_label"));
+            putLabelIntoCache(label);
         }
+    }
+
+    /**
+     * Puts a single label into the cache
+     * @param dashboardId
+     * @param label
+     * @throws JSONException
+     */
+    private void putLabelIntoCache(JSONObject label)
+            throws JSONException {
+        ProducteevLabel labelContainer = new ProducteevLabel();
+        labelContainer.name = ApiUtilities.decode(label.getString("title"));
+        labelContainer.dashboard = label.getLong("id_dashboard");
+        labelMap.put(labelContainer, label.getLong("id_label"));
     }
 
     // ----------------------------------------------------------------------

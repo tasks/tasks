@@ -21,4 +21,12 @@ public class ProducteevTask {
     public static final LongProperty DASHBOARD_ID = new LongProperty(Metadata.TABLE,
             Metadata.VALUE2.name);
 
+    /** creator id */
+    public static final LongProperty CREATOR_ID = new LongProperty(Metadata.TABLE,
+            Metadata.VALUE3.name);
+
+    /** responsible id */
+    public static final LongProperty RESPONSIBLE_ID = new LongProperty(Metadata.TABLE,
+            Metadata.VALUE4.name);
+
 }

@@ -6,9 +6,11 @@
 package com.todoroo.astrid.dao;
 
 import com.todoroo.andlib.data.AbstractDatabase;
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
 
 /**
@@ -26,7 +28,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 3;
+    public static final int VERSION = 4;
 
     /**
      * Database name (must be unique)
@@ -40,6 +42,7 @@ public class Database extends AbstractDatabase {
     public static final Table[] TABLES =  new Table[] {
         Task.TABLE,
         Metadata.TABLE,
+        StoreObject.TABLE,
     };
 
     // --- implementation
@@ -70,23 +73,51 @@ public class Database extends AbstractDatabase {
                 append(Metadata.TASK.name).
             append(')');
         database.execSQL(sql.toString());
+        sql.setLength(0);
+
+        sql.append("CREATE INDEX IF NOT EXISTS so_id ON ").
+            append(StoreObject.TABLE).append('(').
+                append(StoreObject.TYPE).append(',').
+                append(StoreObject.ITEM).
+            append(')');
+        database.execSQL(sql.toString());
+        sql.setLength(0);
     }
 
     @Override
     @edu.umd.cs.findbugs.annotations.SuppressWarnings(value="SF_SWITCH_FALLTHROUGH")
     protected synchronized boolean onUpgrade(int oldVersion, int newVersion) {
+        SqlConstructorVisitor visitor = new SqlConstructorVisitor();
         switch(oldVersion) {
         case 1: {
-            SqlConstructorVisitor visitor = new SqlConstructorVisitor();
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
                 Task.RECURRENCE.accept(visitor, null));
         }
         case 2: {
-            SqlConstructorVisitor visitor = new SqlConstructorVisitor();
             for(Property<?> property : new Property<?>[] { Metadata.VALUE2,
                     Metadata.VALUE3, Metadata.VALUE4, Metadata.VALUE5 })
                 database.execSQL("ALTER TABLE " + Metadata.TABLE.name + " ADD " +
                         property.accept(visitor, null));
+        }
+        case 3: {
+            StringBuilder sql = new StringBuilder();
+            sql.append("CREATE TABLE IF NOT EXISTS ").append(StoreObject.TABLE.name).append('(').
+            append(AbstractModel.ID_PROPERTY).append(" INTEGER PRIMARY KEY AUTOINCREMENT");
+            for(Property<?> property : StoreObject.PROPERTIES) {
+                if(AbstractModel.ID_PROPERTY.name.equals(property.name))
+                    continue;
+                sql.append(',').append(property.accept(visitor, null));
+            }
+            sql.append(')');
+            database.execSQL(sql.toString());
+            sql.setLength(0);
+
+            sql.append("CREATE INDEX IF NOT EXISTS so_id ON ").
+                append(StoreObject.TABLE).append('(').
+                    append(StoreObject.TYPE).append(',').
+                    append(StoreObject.ITEM).
+                append(')');
+            database.execSQL(sql.toString());
         }
 
         return true;

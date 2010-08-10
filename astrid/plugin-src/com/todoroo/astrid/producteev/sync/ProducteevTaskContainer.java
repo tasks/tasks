@@ -35,6 +35,8 @@ public class ProducteevTaskContainer extends TaskContainer {
         pdvTask.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
         pdvTask.setValue(ProducteevTask.ID, remoteTask.optLong("id_task"));
         pdvTask.setValue(ProducteevTask.DASHBOARD_ID, remoteTask.optLong("id_dashboard"));
+        pdvTask.setValue(ProducteevTask.RESPONSIBLE_ID, remoteTask.optLong("id_responsible"));
+        pdvTask.setValue(ProducteevTask.CREATOR_ID, remoteTask.optLong("id_creator"));
     }
 
     public ProducteevTaskContainer(Task task, ArrayList<Metadata> metadata) {

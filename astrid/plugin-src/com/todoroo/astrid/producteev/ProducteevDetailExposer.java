@@ -13,9 +13,12 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.model.StoreObject;
+import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.producteev.sync.ProducteevNote;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Exposes Task Details for Producteev:
@@ -59,26 +62,46 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
 
         if(!extended) {
             long dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
-            String dashboardName = ProducteevDataService.getInstance().getDashboardName(dashboardId);
-            // Prod dashboard is out of date. don't display Producteev stuff
-            if(dashboardName == null)
-                return null;
+            long responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);
 
-            if(dashboardId > 0) {
+            // display dashboard if not "no sync" or "default"
+            StoreObject ownerDashboard = null;
+            for(StoreObject dashboard : ProducteevDataService.getInstance().getDashboards()) {
+                if(dashboard.getValue(ProducteevDashboard.REMOTE_ID) == dashboardId) {
+                    ownerDashboard = dashboard;
+                    break;
+                }
+            }
+            if(dashboardId != ProducteevUtilities.DASHBOARD_NO_SYNC && dashboardId
+                    != Preferences.getLong(ProducteevUtilities.PREF_DEFAULT_DASHBOARD, 0L) &&
+                    ownerDashboard != null) {
+                String dashboardName = ownerDashboard.getValue(ProducteevDashboard.NAME);
                 builder.append(context.getString(R.string.producteev_TLA_dashboard,
-                        dashboardId)).append(TaskAdapter.DETAIL_SEPARATOR);
+                        dashboardName)).append(TaskAdapter.DETAIL_SEPARATOR);
             }
 
-        } else {
-        TodorooCursor<Metadata> notesCursor = ProducteevDataService.getInstance().getTaskNotesCursor(id);
-        try {
-            for(notesCursor.moveToFirst(); !notesCursor.isAfterLast(); notesCursor.moveToNext()) {
-                metadata.readFromCursor(notesCursor);
-                builder.append(metadata.getValue(ProducteevNote.MESSAGE)).append(TaskAdapter.DETAIL_SEPARATOR);
+            // display responsible user if not current one
+            if(responsibleId > 0 && ownerDashboard != null && responsibleId !=
+                    Preferences.getLong(ProducteevUtilities.PREF_USER_ID, 0L)) {
+                String users = ownerDashboard.getValue(ProducteevDashboard.USERS);
+                int index = users.indexOf(";" + responsibleId + ","); //$NON-NLS-1$ //$NON-NLS-2$
+                if(index > -1) {
+                    String user = users.substring(users.indexOf(',', index),
+                            users.indexOf(';', index + 1));
+                    builder.append(context.getString(R.string.producteev_TLA_responsible,
+                            user)).append(TaskAdapter.DETAIL_SEPARATOR);
+                }
             }
-        } finally {
-            notesCursor.close();
-        }
+        } else {
+            TodorooCursor<Metadata> notesCursor = ProducteevDataService.getInstance().getTaskNotesCursor(id);
+            try {
+                for(notesCursor.moveToFirst(); !notesCursor.isAfterLast(); notesCursor.moveToNext()) {
+                    metadata.readFromCursor(notesCursor);
+                    builder.append(metadata.getValue(ProducteevNote.MESSAGE)).append(TaskAdapter.DETAIL_SEPARATOR);
+                }
+            } finally {
+                notesCursor.close();
+            }
         }
 
         if(builder.length() == 0)

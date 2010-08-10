@@ -354,13 +354,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
         ServiceConnection refreshConnection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                System.err.println("connected to service " + name);
+                System.err.println("connected to service " + name); //$NON-NLS-1$
                 //
             }
             @Override
             public void onServiceDisconnected(ComponentName name) {
                 // service disconnected, let's refresh
-                System.err.println("your junk was done, refreshing");
+                System.err.println("your junk was done, refreshing"); //$NON-NLS-1$
                 loadTaskListContent(true);
             }
         };

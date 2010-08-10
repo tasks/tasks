@@ -10,6 +10,9 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.common.SyncProviderPreferences;
 import com.todoroo.astrid.common.SyncProviderUtilities;
+import com.todoroo.astrid.model.StoreObject;
+import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
+import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
 
 /**
@@ -47,16 +50,23 @@ public class ProducteevPreferences extends SyncProviderPreferences {
         super.onCreate(savedInstanceState);
 
         ListPreference defaultDash = (ListPreference)findPreference(getString(R.string.producteev_PPr_defaultdash_key));
+        String[] entries, entryValues;
         if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
-            //
+            StoreObject[] dashboards = ProducteevDataService.getInstance().getDashboards();
+            entries = new String[dashboards.length + 1];
+            entryValues = new String[dashboards.length + 1];
+            for(int i = 0; i < dashboards.length; i++) {
+                entries[i + 1] = dashboards[i].getValue(ProducteevDashboard.NAME);
+                entryValues[i + 1] = Long.toString(dashboards[i].getValue(ProducteevDashboard.REMOTE_ID));
+            }
+        } else {
+            entries = new String[2];
+            entries[1] = getString(R.string.producteev_default_dashboard);
+            entryValues = new String[2];
+            entryValues[1] = Integer.toString(ProducteevUtilities.DASHBOARD_DEFAULT);
         }
-        String[] entries = new String[2];
         entries[0] = getString(R.string.producteev_no_dashboard);
-        entries[1] = getString(R.string.producteev_default_dashboard);
-
-        String[] entryValues = new String[2];
         entryValues[0] = Integer.toString(ProducteevUtilities.DASHBOARD_NO_SYNC);
-        entryValues[1] = Integer.toString(ProducteevUtilities.DASHBOARD_DEFAULT);
         defaultDash.setEntries(entries);
         defaultDash.setEntryValues(entryValues);
     }

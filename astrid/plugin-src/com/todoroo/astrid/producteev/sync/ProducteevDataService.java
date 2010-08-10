@@ -4,13 +4,14 @@
 package com.todoroo.astrid.producteev.sync;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Map;
 import java.util.Random;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.content.Context;
 
-import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -19,12 +20,14 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.rmilk.data.MilkNote;
@@ -51,15 +54,14 @@ public final class ProducteevDataService {
 
     protected final Context context;
 
-    private final ProducteevDatabase prodDatabase = new ProducteevDatabase();
-
-    private final GenericDao<ProducteevDashboard> prodDashboardDao;
-
     @Autowired
     private TaskDao taskDao;
 
     @Autowired
     private MetadataDao metadataDao;
+
+    @Autowired
+    private StoreObjectDao storeObjectDao;
 
     private final ProducteevUtilities preferences = ProducteevUtilities.INSTANCE;
 
@@ -68,7 +70,6 @@ public final class ProducteevDataService {
     private ProducteevDataService(Context context) {
         this.context = context;
         DependencyInjectionService.getInstance().inject(this);
-        prodDashboardDao = new GenericDao<ProducteevDashboard>(ProducteevDashboard.class, prodDatabase);
     }
 
     // --- task and metadata methods
@@ -162,8 +163,7 @@ public final class ProducteevDataService {
                 where(Criterion.and(MetadataCriteria.byTask(task.getId()),
                         Criterion.or(MetadataCriteria.withKey(TagService.KEY),
                                 MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                                // FIXME: Constant from other plugin shouldnt be used
-                                MetadataCriteria.withKey(MilkNote.METADATA_KEY),
+                                MetadataCriteria.withKey(MilkNote.METADATA_KEY), // to sync rmilk notes
                                 MetadataCriteria.withKey(ProducteevNote.METADATA_KEY)))));
         try {
             for(metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {
@@ -203,33 +203,82 @@ public final class ProducteevDataService {
         return cursor;
     }
 
-    // --- list methods
+    // --- dashboard methods
 
-    private final Map<Long, String> dashboardCache =
-        Collections.synchronizedMap(new SoftHashMap<Long, String>());
+    private StoreObject[] dashboards = null;
 
     /**
-     * Get dashboard name by dashboard id
-     * @param dashboardId
-     * @return null if no dashboard by this id exists, otherwise dashboard name
+     * Reads dashboards
      */
-    public String getDashboardName(long dashboardId) {
-        if(dashboardCache.containsKey(dashboardId))
-            return dashboardCache.get(dashboardId);
+    private void readDashboards() {
+        if(dashboards != null)
+            return;
 
-        TodorooCursor<ProducteevDashboard> cursor = prodDashboardDao.query(Query.select(
-                ProducteevDashboard.NAME).where(ProducteevDashboard.ID.eq(dashboardId)));
+        TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.PROPERTIES).
+                where(StoreObjectCriteria.byType(ProducteevDashboard.TYPE)));
         try {
-            if(cursor.getCount() == 0) {
-                dashboardCache.put(dashboardId, null);
-                return null;
+            dashboards = new StoreObject[cursor.getCount()];
+            for(int i = 0; i < dashboards.length; i++) {
+                cursor.moveToNext();
+                StoreObject dashboard = new StoreObject(cursor);
+                dashboards[i] = dashboard;
             }
-            cursor.moveToFirst();
-            String name = cursor.get(ProducteevDashboard.NAME);
-            dashboardCache.put(dashboardId, name);
-            return name;
         } finally {
             cursor.close();
         }
+    }
+
+    /**
+     * @return a list of dashboards
+     */
+    public StoreObject[] getDashboards() {
+        readDashboards();
+        return dashboards;
+    }
+
+    /**
+     * Reads dashboards
+     * @throws JSONException
+     */
+    @SuppressWarnings("nls")
+    public void updateDashboards(JSONArray changedDashboards) throws JSONException {
+        readDashboards();
+        for(int i = 0; i < changedDashboards.length(); i++) {
+            JSONObject remote = changedDashboards.getJSONObject(i).getJSONObject("dashboard");
+            long id = remote.getLong("id_dashboard");
+            StoreObject local = null;
+            for(StoreObject dashboard : dashboards) {
+                if(dashboard.getValue(ProducteevDashboard.REMOTE_ID).equals(id)) {
+                    local = dashboard;
+                    break;
+                }
+            }
+
+            if(remote.getInt("deleted") != 0) {
+                if(local != null)
+                    storeObjectDao.delete(local.getId());
+                continue;
+            }
+
+            if(local == null)
+                local = new StoreObject();
+            local.setValue(StoreObject.TYPE, ProducteevDashboard.TYPE);
+            local.setValue(ProducteevDashboard.REMOTE_ID, id);
+            local.setValue(ProducteevDashboard.NAME, remote.getString("title"));
+
+            StringBuilder users = new StringBuilder();
+            JSONArray accessList = remote.getJSONArray("accesslist");
+            for(int j = 0; j < accessList.length(); j++) {
+                JSONObject user = accessList.getJSONObject(j).getJSONObject("user");
+                users.append(user.getLong("id_user")).append(',').
+                        append(user.getString("firstName")).append(' ').
+                        append(user.getString("lastName")).append(';');
+            }
+            local.setValue(ProducteevDashboard.USERS, users.toString());
+            storeObjectDao.persist(local);
+        }
+
+        // clear dashboard cache
+        dashboards = null;
     }
 }
