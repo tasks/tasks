@@ -12,6 +12,45 @@
     <!-- Preferences Title: Producteev -->    
     <string name="producteev_PPr_header">Producteev</string>
 
+    <!-- ================================================= Login Activity == -->
+
+    <!-- Activity Title: Producteev Login -->    
+    <string name="producteev_PLA_title">Log In to Producteev</string>
+
+    <!-- Instructions: Producteev login -->    
+    <string name="producteev_PLA_body">Sign in with your existing
+    Producteev account, or create a new account!</string>
+
+    <!-- Producteev Terms Link -->    
+    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+
+    <!-- Sign In Button -->    
+    <string name="producteev_PLA_signIn">Sign In</string>
+
+    <!-- Create New User Button -->    
+    <string name="producteev_PLA_createNew">Create New User</string>
+
+    <!-- E-mail Address Label -->    
+    <string name="producteev_PLA_email">E-mail</string>
+
+    <!-- Password Label -->    
+    <string name="producteev_PLA_password">Password</string>
+
+    <!-- Confirm Password Label -->    
+    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+
+    <!-- First Name Label -->    
+    <string name="producteev_PLA_firstName">First Name</string>
+
+    <!-- Last Name Label -->    
+    <string name="producteev_PLA_lastName">Last Name</string>
+
+    <!-- Error Message when fields aren't filled out -->    
+    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+
+    <!-- Error Message when passwords don't match -->    
+    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+
     <!-- ================================================ Synchronization == -->
         
     <!-- title for notification tray when synchronizing -->

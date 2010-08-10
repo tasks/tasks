@@ -17,7 +17,6 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
 import android.text.TextUtils;
 
 import com.flurry.android.FlurryAgent;
@@ -35,16 +34,13 @@ import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevLoginActivity;
-import com.todoroo.astrid.producteev.ProducteevLoginActivity.SyncLoginCallback;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.producteev.api.ApiResponseParseException;
 import com.todoroo.astrid.producteev.api.ApiServiceException;
 import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
-import com.todoroo.astrid.rmilk.api.ServiceInternalException;
 import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService;
@@ -166,23 +162,6 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                     // display login-activity
                     final Context context = ContextManager.getContext();
                     Intent intent = new Intent(context, ProducteevLoginActivity.class);
-                    ProducteevLoginActivity.setCallback(new SyncLoginCallback() {
-                        public String verifyLogin(final Handler syncLoginHandler, String em, String pass) {
-                            try {
-                                Preferences.setString(R.string.producteev_PPr_email, em);
-                                Preferences.setString(R.string.producteev_PPr_password, pass);
-                                context.startService(new Intent(ProducteevBackgroundService.SYNC_ACTION, null,
-                                        context, ProducteevBackgroundService.class));
-                                return null;
-                            } catch (Exception e) {
-                                // didn't work
-                                exceptionService.reportError("producteev-verify-login", e);
-                                if(e instanceof ServiceInternalException)
-                                    e = ((ServiceInternalException)e).getEnclosedException();
-                                return context.getString(R.string.producteev_ioerror, e.getMessage());
-                            }
-                        }
-                    });
                     if(context instanceof Activity)
                         ((Activity)context).startActivityForResult(intent, 0);
                     else {

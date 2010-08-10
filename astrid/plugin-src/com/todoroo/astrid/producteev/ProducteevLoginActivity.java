@@ -20,13 +20,15 @@
 package com.todoroo.astrid.producteev;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
+import android.text.Editable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -34,9 +36,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 
 /**
- * This activity displays a <code>WebView</code> that allows users to log in to
- * the synchronization provider requested. A callback method determines whether
- * their login was successful and therefore whether to dismiss the dialog.
+ * This activity allows users to sign in or log in to Producteev
  *
  * @author arne.jans
  *
@@ -45,26 +45,6 @@ public class ProducteevLoginActivity extends Activity {
 
     @Autowired
     DialogUtilities dialogUtilities;
-
-    // --- callback
-
-    /** Callback interface */
-    public interface SyncLoginCallback {
-        /**
-         * Verifies whether the user's login attempt was successful. Will be
-         * called off of the UI thread, use the handler to post messages.
-         *
-         * @return error string, or null if sync was successful
-         */
-        public String verifyLogin(Handler handler, String email, String password);
-    }
-
-    protected static SyncLoginCallback callback = null;
-
-    /** Sets callback method */
-    public static void setCallback(SyncLoginCallback newCallback) {
-        callback = newCallback;
-    }
 
     // --- ui initialization
 
@@ -77,69 +57,56 @@ public class ProducteevLoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.producteev_login_activity);
+        setTitle(R.string.producteev_PLA_title);
 
-        final EditText emailEditText = (EditText) findViewById(R.id.Poducteev_EMail_EditText);
-        final EditText passwordEditText = (EditText) findViewById(R.id.Producteev_Password_EditText);
-        Button cancel = (Button) findViewById(R.id.cancel);
-        Button login = (Button) findViewById(R.id.done);
+        // terms clicking
+        findViewById(R.id.terms).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                startActivity(new Intent(Intent.ACTION_VIEW,
+                        Uri.parse("https://www.producteev.com/#terms"))); //$NON-NLS-1$
+            }
+        });
 
-        login.setOnClickListener(new OnClickListener() {
+        final TextView errors = (TextView) findViewById(R.id.error);
+        final EditText emailEditText = (EditText) findViewById(R.id.email);
+        final EditText passwordEditText = (EditText) findViewById(R.id.password);
+        final View newUserLayout = findViewById(R.id.newUserLayout);
+
+        Button signIn = (Button) findViewById(R.id.signIn);
+        signIn.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                final Handler handler = new Handler();
-
-                if (callback == null) {
-                    finish();
-                    return;
-                }
-
-                final String email = emailEditText.getText().toString();
-                final String password = passwordEditText.getText().toString();
-                if (email == null || email.length() == 0) {
-                    // no email given
-                    Toast.makeText(ProducteevLoginActivity.this,
-                            R.string.producteev_MLA_email_empty,
-                            Toast.LENGTH_LONG).show();
-                    setResult(RESULT_CANCELED);
-                    finish();
-                    return;
-
-                }
-                if (password == null || password.length() == 0) {
-                    // no password given
-                    Toast.makeText(ProducteevLoginActivity.this,
-                            R.string.producteev_MLA_password_empty,
-                            Toast.LENGTH_LONG).show();
-                    setResult(RESULT_CANCELED);
-                    finish();
-                    return;
-
-                }
-                new Thread(new Runnable() {
-                    public void run() {
-                        final String result = callback.verifyLogin(handler,
-                                email, password);
-                        if (result == null) {
-                            finish();
-                        } else {
-                            // display the error
-                            handler.post(new Runnable() {
-                                public void run() {
-                                    dialogUtilities.okDialog(
-                                            ProducteevLoginActivity.this,
-                                            result, null);
-                                }
-                            });
-                        }
+                errors.setVisibility(View.GONE);
+                if(newUserLayout.getVisibility() == View.VISIBLE)
+                    newUserLayout.setVisibility(View.GONE);
+                else {
+                    Editable email = emailEditText.getText();
+                    Editable password = passwordEditText.getText();
+                    if(email.length() == 0 || password.length() == 0) {
+                        errors.setVisibility(View.VISIBLE);
+                        errors.setText(R.string.producteev_PLA_errorEmpty);
                     }
-                }).start();
+                }
             }
         });
 
-        cancel.setOnClickListener(new OnClickListener() {
+        Button createNew = (Button) findViewById(R.id.createNew);
+        createNew.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                setResult(RESULT_CANCELED);
-                finish();
+                errors.setVisibility(View.GONE);
+                if(newUserLayout.getVisibility() != View.VISIBLE)
+                    newUserLayout.setVisibility(View.VISIBLE);
+                else {
+                    Editable email = emailEditText.getText();
+                    Editable password = passwordEditText.getText();
+                    if(email.length() == 0 || password.length() == 0) {
+                        errors.setVisibility(View.VISIBLE);
+                        errors.setText(R.string.producteev_PLA_errorEmpty);
+                    }
+                    //
+                }
             }
         });
+
     }
 }
