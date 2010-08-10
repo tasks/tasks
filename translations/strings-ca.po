@@ -762,9 +762,9 @@ msgstr "Tasques d'Astrid/Llista de Tasques"
 #. Astrid's Android Marketplace description. It never appears in the app itself.
 #: translations/strings.xml:550( name="marketplace_description")
 msgid ""
-"Astrid is the highly-acclaimed open-source task list that is simple enough "
-"to not get in your way, powerful enough to help you get stuff done! Tags, "
-"reminders, RememberTheMilk sync, Locale plug-in &amp; more!"
+"Astrid is the much loved open-source todo list / task manager designed to "
+"help you get stuff done. It features reminders, tags, sync, a widget and "
+"more."
 msgstr ""
 "Astrid és la molt aclamada llista de tasques de codi obert que és prou "
 "senzilla com per no posar-se en el seu camí, prou potent com per ajudar a "
@@ -1223,238 +1223,233 @@ msgstr ""
 msgid "7 PM"
 msgstr ""
 
-#. reminders: Make these < 20 chars so the task name is displayed
-#: translations/strings.xml:844(item)
+#: translations/strings.xml:875(item)
 msgid "Hi there! Have a sec?"
-msgstr ""
+msgstr "Hola! Tens 1 segon?"
 
-#: translations/strings.xml:845(item)
+#: translations/strings.xml:876(item)
 msgid "Can I see you for a sec?"
-msgstr ""
+msgstr "Et puc veure un moment?"
 
-#: translations/strings.xml:846(item)
+#: translations/strings.xml:877(item)
 msgid "Have a few minutes?"
-msgstr ""
+msgstr "Tens uns quants minuts?"
 
-#: translations/strings.xml:847(item)
+#: translations/strings.xml:878(item)
 msgid "Did you forget?"
-msgstr ""
+msgstr "Te n'has oblidat?"
 
-#: translations/strings.xml:848(item)
+#: translations/strings.xml:879(item)
 msgid "Excuse me!"
-msgstr ""
+msgstr "Perdona!"
 
-#: translations/strings.xml:849(item)
+#: translations/strings.xml:880(item)
 msgid "When you have a minute:"
-msgstr ""
+msgstr "Quan tinguis un minut:"
 
-#: translations/strings.xml:850(item)
+#: translations/strings.xml:881(item)
 msgid "On your agenda:"
-msgstr ""
+msgstr "A la teva agenda:"
 
-#: translations/strings.xml:851(item)
+#: translations/strings.xml:882(item)
 msgid "Free for a moment?"
-msgstr ""
+msgstr "Lliure per un instant?"
 
-#: translations/strings.xml:852(item)
+#: translations/strings.xml:883(item)
 msgid "Astrid here!"
-msgstr ""
+msgstr "Aquí l'Astrid!"
 
-#: translations/strings.xml:853(item)
+#: translations/strings.xml:884(item)
 msgid "Hi! Can I bug you?"
 msgstr ""
 
-#: translations/strings.xml:854(item)
+#: translations/strings.xml:885(item)
 msgid "A minute of your time?"
 msgstr ""
 
-#: translations/strings.xml:855(item)
+#: translations/strings.xml:886(item)
 msgid "It's a great day to"
 msgstr ""
 
-#. reminders related to task due date
-#: translations/strings.xml:860(item)
+#: translations/strings.xml:891(item)
 msgid "Time to work!"
 msgstr ""
 
-#: translations/strings.xml:861(item)
+#: translations/strings.xml:892(item)
 msgid "Due date is here!"
 msgstr ""
 
-#: translations/strings.xml:862(item)
+#: translations/strings.xml:893(item)
 msgid "Ready to start?"
 msgstr ""
 
-#: translations/strings.xml:863(item)
+#: translations/strings.xml:894(item)
 msgid "You said you would do:"
 msgstr ""
 
-#: translations/strings.xml:864(item)
+#: translations/strings.xml:895(item)
 msgid "You're supposed to start:"
 msgstr ""
 
-#: translations/strings.xml:865(item)
+#: translations/strings.xml:896(item)
 msgid "Time to start:"
 msgstr ""
 
-#: translations/strings.xml:866(item)
+#: translations/strings.xml:897(item)
 msgid "It's time!"
 msgstr ""
 
-#: translations/strings.xml:867(item)
+#: translations/strings.xml:898(item)
 msgid "Excuse me! Time for"
 msgstr ""
 
-#: translations/strings.xml:868(item)
+#: translations/strings.xml:899(item)
 msgid "You free? Time to"
 msgstr ""
 
-#. reminders related to snooze
-#: translations/strings.xml:873(item)
+#: translations/strings.xml:904(item)
 msgid "Don't be lazy now!"
 msgstr ""
 
-#: translations/strings.xml:874(item)
+#: translations/strings.xml:905(item)
 msgid "Snooze time is up!"
 msgstr ""
 
-#: translations/strings.xml:875(item)
+#: translations/strings.xml:906(item)
 msgid "No more snoozing!"
 msgstr ""
 
-#: translations/strings.xml:876(item)
+#: translations/strings.xml:907(item)
 msgid "Now are you ready?"
 msgstr ""
 
-#: translations/strings.xml:877(item)
+#: translations/strings.xml:908(item)
 msgid "No more postponing!"
 msgstr ""
 
-#. responses to reminder: Astrid says...  (user should answer yes or no)
-#: translations/strings.xml:882(item)
+#: translations/strings.xml:913(item)
 msgid "I've got something for you!"
-msgstr ""
+msgstr "Tinc una cosa per tu"
 
-#: translations/strings.xml:883(item)
+#: translations/strings.xml:914(item)
 msgid "Ready to put this in the past?"
-msgstr ""
+msgstr "Llest per acabar amb això?"
 
-#: translations/strings.xml:884(item)
+#: translations/strings.xml:915(item)
 msgid "Why don't you get this done?"
 msgstr ""
 
-#: translations/strings.xml:885(item)
+#: translations/strings.xml:916(item)
 msgid "How about it? Ready tiger?"
-msgstr ""
+msgstr "Què et sembla? A punt, Tigre?"
 
-#: translations/strings.xml:886(item)
+#: translations/strings.xml:917(item)
 msgid "Ready to do this?"
-msgstr ""
+msgstr "A punt per a fer això?"
 
-#: translations/strings.xml:887(item)
+#: translations/strings.xml:918(item)
 msgid "Can you handle this?"
-msgstr ""
+msgstr "Pots amb aquesta tasca?"
 
-#: translations/strings.xml:888(item)
+#: translations/strings.xml:919(item)
 msgid "You can be happy! Just finish this!"
-msgstr ""
+msgstr "Pots ser feliç! Només has d'acabar això!"
 
-#: translations/strings.xml:889(item)
+#: translations/strings.xml:920(item)
 msgid "I promise you'll feel better if you finish this!"
 msgstr ""
 
-#: translations/strings.xml:890(item)
+#: translations/strings.xml:921(item)
 msgid "Won't you do this today?"
-msgstr ""
+msgstr "No faràs això avui?"
 
-#: translations/strings.xml:891(item)
+#: translations/strings.xml:922(item)
 msgid "Please finish this, I'm sick of it!"
 msgstr ""
 
-#: translations/strings.xml:892(item)
+#: translations/strings.xml:923(item)
 msgid "Can you finish this? Yes you can!"
-msgstr ""
+msgstr "Pots acabar-ho? Sí, tu pots!"
 
-#: translations/strings.xml:893(item)
+#: translations/strings.xml:924(item)
 msgid "Are you ever going to do this?"
-msgstr ""
+msgstr "Però, faràs mai aquesta tasca?"
 
-#: translations/strings.xml:894(item)
+#: translations/strings.xml:925(item)
 msgid "Feel good about yourself! Let's go!"
 msgstr ""
 
-#: translations/strings.xml:895(item)
+#: translations/strings.xml:926(item)
 msgid "I'm so proud of you! Lets get it done!"
-msgstr ""
+msgstr "Estic tan orgullós de tu! Fem-ho!"
 
-#: translations/strings.xml:896(item)
+#: translations/strings.xml:927(item)
 msgid "A little snack after you finish this?"
-msgstr ""
+msgstr "Un aperitiu quan acabis això?"
 
-#: translations/strings.xml:897(item)
+#: translations/strings.xml:928(item)
 msgid "Just this one task? Please?"
-msgstr ""
+msgstr "Només aquesta tasca? Si us plau?"
 
-#: translations/strings.xml:898(item)
+#: translations/strings.xml:929(item)
 msgid "Time to shorten your todo list!"
-msgstr ""
+msgstr "Temps per escurçar la teva llista de tasques!"
 
-#. Astrid's nagging when user clicks postpone
-#: translations/strings.xml:903(item)
+#: translations/strings.xml:934(item)
 msgid "Please tell me it isn't true that you're a procrastinator!"
 msgstr ""
 
-#: translations/strings.xml:904(item)
+#: translations/strings.xml:935(item)
 msgid "Doesn't being lazy get old sometimes?"
 msgstr ""
 
-#: translations/strings.xml:905(item)
+#: translations/strings.xml:936(item)
 msgid "Somewhere, someone is depending on you to finish this!"
-msgstr ""
+msgstr "En algun lloc, algú depèn de tu per que això s'acabi!"
 
-#: translations/strings.xml:906(item)
+#: translations/strings.xml:937(item)
 msgid "When you said postpone, you really meant 'I'm doing this', right?"
 msgstr ""
 
-#: translations/strings.xml:907(item)
+#: translations/strings.xml:938(item)
 msgid "This is the last time you postpone this, right?"
-msgstr ""
+msgstr "Aquesta és la darrera vegada que ho ajornes, veritat?"
 
-#: translations/strings.xml:908(item)
+#: translations/strings.xml:939(item)
 msgid "Just finish this today, I won't tell anyone!"
 msgstr ""
 
-#: translations/strings.xml:909(item)
+#: translations/strings.xml:940(item)
 msgid "Why postpone when you can um... not postpone!"
-msgstr ""
+msgstr "Per què ajornar quan pots mm... no ajornar!"
 
-#: translations/strings.xml:910(item)
+#: translations/strings.xml:941(item)
 msgid "You'll finish this eventually, I presume?"
 msgstr ""
 
-#: translations/strings.xml:911(item)
+#: translations/strings.xml:942(item)
 msgid "I think you're really great! How about not putting this off?"
 msgstr ""
 
-#: translations/strings.xml:912(item)
+#: translations/strings.xml:943(item)
 msgid "Will you be able to achieve your goals if you do that?"
-msgstr ""
+msgstr "Aconseguiràs les teves metes si fas això?"
 
-#: translations/strings.xml:913(item)
+#: translations/strings.xml:944(item)
 msgid "Postpone, postpone, postpone. When will you change!"
-msgstr ""
+msgstr "Ajornar, ajornar, ajornar. Quan canviaràs!"
 
-#: translations/strings.xml:914(item)
+#: translations/strings.xml:945(item)
 msgid "I've had enough with your excuses! Just do it already!"
-msgstr ""
+msgstr "Ja he tingut prou excuses! Fes-ho ja!"
 
-#: translations/strings.xml:915(item)
+#: translations/strings.xml:946(item)
 msgid "Didn't you make that excuse last time?"
-msgstr ""
+msgstr "No em vas donar aquesta excusa l'últim cop?"
 
-#: translations/strings.xml:916(item)
+#: translations/strings.xml:947(item)
 msgid "I can't help you organize your life if you do that..."
-msgstr ""
+msgstr "No puc ajudar a organitzar-te la vida si fas això"
 
 #. repeating plugin name
 #: translations/strings.xml:927( name="repeat_plugin")

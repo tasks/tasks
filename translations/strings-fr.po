@@ -769,9 +769,9 @@ msgstr "Astrid - Gestionnaire de tâches"
 #. Astrid's Android Marketplace description. It never appears in the app itself.
 #: translations/strings.xml:550( name="marketplace_description")
 msgid ""
-"Astrid is the highly-acclaimed open-source task list that is simple enough "
-"to not get in your way, powerful enough to help you get stuff done! Tags, "
-"reminders, RememberTheMilk sync, Locale plug-in &amp; more!"
+"Astrid is the much loved open-source todo list / task manager designed to "
+"help you get stuff done. It features reminders, tags, sync, a widget and "
+"more."
 msgstr ""
 "Astrid est le plus populaire gestionnaire de tâches open-source. Très simple "
 "d'utilisation et puissant, il vous permettra d'accomplir aisément vos "

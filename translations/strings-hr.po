@@ -1227,7 +1227,7 @@ msgstr ""
 
 #: translations/strings.xml:846(item)
 msgid "Have a few minutes?"
-msgstr ""
+msgstr "Imaš nekoliko minuta?"
 
 #: translations/strings.xml:847(item)
 msgid "Did you forget?"
@@ -1251,11 +1251,11 @@ msgstr ""
 
 #: translations/strings.xml:852(item)
 msgid "Astrid here!"
-msgstr ""
+msgstr "Astrid ovdje!"
 
 #: translations/strings.xml:853(item)
 msgid "Hi! Can I bug you?"
-msgstr ""
+msgstr "Bok! Mogu li ti smetati?"
 
 #: translations/strings.xml:854(item)
 msgid "A minute of your time?"
@@ -1263,7 +1263,7 @@ msgstr ""
 
 #: translations/strings.xml:855(item)
 msgid "It's a great day to"
-msgstr ""
+msgstr "Odličan je dan za"
 
 #. reminders related to task due date
 #: translations/strings.xml:860(item)
@@ -1326,7 +1326,7 @@ msgstr ""
 #. responses to reminder: Astrid says...  (user should answer yes or no)
 #: translations/strings.xml:882(item)
 msgid "I've got something for you!"
-msgstr ""
+msgstr "Imam nešto za tebe!"
 
 #: translations/strings.xml:883(item)
 msgid "Ready to put this in the past?"
@@ -1350,7 +1350,7 @@ msgstr ""
 
 #: translations/strings.xml:888(item)
 msgid "You can be happy! Just finish this!"
-msgstr ""
+msgstr "Možeš biti sretan! Samo završi ovo!"
 
 #: translations/strings.xml:889(item)
 msgid "I promise you'll feel better if you finish this!"
@@ -1366,7 +1366,7 @@ msgstr ""
 
 #: translations/strings.xml:892(item)
 msgid "Can you finish this? Yes you can!"
-msgstr ""
+msgstr "Možeš li ovo završiti? Da, možeš!"
 
 #: translations/strings.xml:893(item)
 msgid "Are you ever going to do this?"

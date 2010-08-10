@@ -1219,47 +1219,47 @@ msgstr ""
 #. reminders: Make these < 20 chars so the task name is displayed
 #: translations/strings.xml:844(item)
 msgid "Hi there! Have a sec?"
-msgstr ""
+msgstr "היי אתה! יש לך שניה?"
 
 #: translations/strings.xml:845(item)
 msgid "Can I see you for a sec?"
-msgstr ""
+msgstr "אפשר לדבר איתך רגע?"
 
 #: translations/strings.xml:846(item)
 msgid "Have a few minutes?"
-msgstr ""
+msgstr "יש לך כמה דקות?"
 
 #: translations/strings.xml:847(item)
 msgid "Did you forget?"
-msgstr ""
+msgstr "שכחת?"
 
 #: translations/strings.xml:848(item)
 msgid "Excuse me!"
-msgstr ""
+msgstr "סלח לי!"
 
 #: translations/strings.xml:849(item)
 msgid "When you have a minute:"
-msgstr ""
+msgstr "כשתתפנה לך דקה:"
 
 #: translations/strings.xml:850(item)
 msgid "On your agenda:"
-msgstr ""
+msgstr "על סדר היום שלך:"
 
 #: translations/strings.xml:851(item)
 msgid "Free for a moment?"
-msgstr ""
+msgstr "פנוי לרגע?"
 
 #: translations/strings.xml:852(item)
 msgid "Astrid here!"
-msgstr ""
+msgstr "כאן אסטריד!"
 
 #: translations/strings.xml:853(item)
 msgid "Hi! Can I bug you?"
-msgstr ""
+msgstr "היי! אפשר להציק לך?"
 
 #: translations/strings.xml:854(item)
 msgid "A minute of your time?"
-msgstr ""
+msgstr "דקה מזמנך?"
 
 #: translations/strings.xml:855(item)
 msgid "It's a great day to"
@@ -1276,7 +1276,7 @@ msgstr ""
 
 #: translations/strings.xml:862(item)
 msgid "Ready to start?"
-msgstr ""
+msgstr "מוכן לעשות זאת?"
 
 #: translations/strings.xml:863(item)
 msgid "You said you would do:"
@@ -1296,7 +1296,7 @@ msgstr ""
 
 #: translations/strings.xml:867(item)
 msgid "Excuse me! Time for"
-msgstr ""
+msgstr "סלח לי!"
 
 #: translations/strings.xml:868(item)
 msgid "You free? Time to"
@@ -1330,7 +1330,7 @@ msgstr ""
 
 #: translations/strings.xml:883(item)
 msgid "Ready to put this in the past?"
-msgstr ""
+msgstr "מוכן להפוך את זה לעברך?"
 
 #: translations/strings.xml:884(item)
 msgid "Why don't you get this done?"
@@ -1338,19 +1338,19 @@ msgstr ""
 
 #: translations/strings.xml:885(item)
 msgid "How about it? Ready tiger?"
-msgstr ""
+msgstr "מה בנוגע לזה? מוכן כריש?"
 
 #: translations/strings.xml:886(item)
 msgid "Ready to do this?"
-msgstr ""
+msgstr "מוכן לעשות זאת?"
 
 #: translations/strings.xml:887(item)
 msgid "Can you handle this?"
-msgstr ""
+msgstr "תוכל לטפל בזה?"
 
 #: translations/strings.xml:888(item)
 msgid "You can be happy! Just finish this!"
-msgstr ""
+msgstr "אתה יכול להיות שמח! פשוט סיים עם זה!"
 
 #: translations/strings.xml:889(item)
 msgid "I promise you'll feel better if you finish this!"
@@ -1366,11 +1366,11 @@ msgstr ""
 
 #: translations/strings.xml:892(item)
 msgid "Can you finish this? Yes you can!"
-msgstr ""
+msgstr "אתה יכול לסיים עם זה? כן אתה יכול!"
 
 #: translations/strings.xml:893(item)
 msgid "Are you ever going to do this?"
-msgstr ""
+msgstr "אתה מתכוון לעשות את זה אי־פעם?"
 
 #: translations/strings.xml:894(item)
 msgid "Feel good about yourself! Let's go!"
@@ -1378,19 +1378,19 @@ msgstr ""
 
 #: translations/strings.xml:895(item)
 msgid "I'm so proud of you! Lets get it done!"
-msgstr ""
+msgstr "אני כל כך גאה בך! בוא נסיים עם זה!"
 
 #: translations/strings.xml:896(item)
 msgid "A little snack after you finish this?"
-msgstr ""
+msgstr "נשנוש קטן כשנסיים עם זה?"
 
 #: translations/strings.xml:897(item)
 msgid "Just this one task? Please?"
-msgstr ""
+msgstr "רק המשימה הזאת? בבקשה?"
 
 #: translations/strings.xml:898(item)
 msgid "Time to shorten your todo list!"
-msgstr ""
+msgstr "הגיע הזמן לקצר את רשימת המטלות שלך!"
 
 #. Astrid's nagging when user clicks postpone
 #: translations/strings.xml:903(item)
@@ -1403,7 +1403,7 @@ msgstr ""
 
 #: translations/strings.xml:905(item)
 msgid "Somewhere, someone is depending on you to finish this!"
-msgstr ""
+msgstr "איפשהו, מישהו סומך עליך שתסיים את זה!"
 
 #: translations/strings.xml:906(item)
 msgid "When you said postpone, you really meant 'I'm doing this', right?"
@@ -1411,7 +1411,7 @@ msgstr ""
 
 #: translations/strings.xml:907(item)
 msgid "This is the last time you postpone this, right?"
-msgstr ""
+msgstr "זוהי הפעם האחרונה שאתה דוחה את זה, נכון?"
 
 #: translations/strings.xml:908(item)
 msgid "Just finish this today, I won't tell anyone!"
@@ -1419,7 +1419,7 @@ msgstr ""
 
 #: translations/strings.xml:909(item)
 msgid "Why postpone when you can um... not postpone!"
-msgstr ""
+msgstr "למה לדחות כשאפשר הממ... לא לדחות!"
 
 #: translations/strings.xml:910(item)
 msgid "You'll finish this eventually, I presume?"
@@ -1431,11 +1431,11 @@ msgstr ""
 
 #: translations/strings.xml:912(item)
 msgid "Will you be able to achieve your goals if you do that?"
-msgstr ""
+msgstr "אתה תוכל להשיג את מטרותיך אם תעשה זאת?"
 
 #: translations/strings.xml:913(item)
 msgid "Postpone, postpone, postpone. When will you change!"
-msgstr ""
+msgstr "לדחות, לדחות, לדחות. מתי כבר תשתנה!"
 
 #: translations/strings.xml:914(item)
 msgid "I've had enough with your excuses! Just do it already!"

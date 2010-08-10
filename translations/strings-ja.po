@@ -1213,236 +1213,231 @@ msgstr "午後6時"
 msgid "7 PM"
 msgstr "午後7時"
 
-#. reminders: Make these < 20 chars so the task name is displayed
-#: translations/strings.xml:844(item)
+#: translations/strings.xml:875(item)
 msgid "Hi there! Have a sec?"
-msgstr ""
+msgstr "やぁみんな! ちょっといいかな?"
 
-#: translations/strings.xml:845(item)
+#: translations/strings.xml:876(item)
 msgid "Can I see you for a sec?"
-msgstr ""
+msgstr "ちょっと見ていい?"
 
-#: translations/strings.xml:846(item)
+#: translations/strings.xml:877(item)
 msgid "Have a few minutes?"
-msgstr ""
+msgstr "ちょっと時間あるかな?"
 
-#: translations/strings.xml:847(item)
+#: translations/strings.xml:878(item)
 msgid "Did you forget?"
-msgstr ""
+msgstr "忘れちゃった?"
 
-#: translations/strings.xml:848(item)
+#: translations/strings.xml:879(item)
 msgid "Excuse me!"
-msgstr ""
+msgstr "ごめんよ!"
 
-#: translations/strings.xml:849(item)
+#: translations/strings.xml:880(item)
 msgid "When you have a minute:"
-msgstr ""
+msgstr "ちょっと時間があるとき:"
 
-#: translations/strings.xml:850(item)
+#: translations/strings.xml:881(item)
 msgid "On your agenda:"
-msgstr ""
+msgstr "予定上:"
 
-#: translations/strings.xml:851(item)
+#: translations/strings.xml:882(item)
 msgid "Free for a moment?"
-msgstr ""
+msgstr "ちょっとヒマある?"
 
-#: translations/strings.xml:852(item)
+#: translations/strings.xml:883(item)
 msgid "Astrid here!"
-msgstr ""
+msgstr "Astridだよ!"
 
-#: translations/strings.xml:853(item)
+#: translations/strings.xml:884(item)
 msgid "Hi! Can I bug you?"
-msgstr ""
+msgstr "やぁ! バグってる?"
 
-#: translations/strings.xml:854(item)
+#: translations/strings.xml:885(item)
 msgid "A minute of your time?"
-msgstr ""
+msgstr "1分ぐらいいいかな?"
 
-#: translations/strings.xml:855(item)
+#: translations/strings.xml:886(item)
 msgid "It's a great day to"
 msgstr ""
 
-#. reminders related to task due date
-#: translations/strings.xml:860(item)
+#: translations/strings.xml:891(item)
 msgid "Time to work!"
 msgstr ""
 
-#: translations/strings.xml:861(item)
+#: translations/strings.xml:892(item)
 msgid "Due date is here!"
 msgstr ""
 
-#: translations/strings.xml:862(item)
+#: translations/strings.xml:893(item)
 msgid "Ready to start?"
 msgstr ""
 
-#: translations/strings.xml:863(item)
+#: translations/strings.xml:894(item)
 msgid "You said you would do:"
 msgstr ""
 
-#: translations/strings.xml:864(item)
+#: translations/strings.xml:895(item)
 msgid "You're supposed to start:"
 msgstr ""
 
-#: translations/strings.xml:865(item)
+#: translations/strings.xml:896(item)
 msgid "Time to start:"
 msgstr ""
 
-#: translations/strings.xml:866(item)
+#: translations/strings.xml:897(item)
 msgid "It's time!"
 msgstr ""
 
-#: translations/strings.xml:867(item)
+#: translations/strings.xml:898(item)
 msgid "Excuse me! Time for"
 msgstr ""
 
-#: translations/strings.xml:868(item)
+#: translations/strings.xml:899(item)
 msgid "You free? Time to"
 msgstr ""
 
-#. reminders related to snooze
-#: translations/strings.xml:873(item)
+#: translations/strings.xml:904(item)
 msgid "Don't be lazy now!"
 msgstr ""
 
-#: translations/strings.xml:874(item)
+#: translations/strings.xml:905(item)
 msgid "Snooze time is up!"
 msgstr ""
 
-#: translations/strings.xml:875(item)
+#: translations/strings.xml:906(item)
 msgid "No more snoozing!"
 msgstr ""
 
-#: translations/strings.xml:876(item)
+#: translations/strings.xml:907(item)
 msgid "Now are you ready?"
 msgstr ""
 
-#: translations/strings.xml:877(item)
+#: translations/strings.xml:908(item)
 msgid "No more postponing!"
 msgstr ""
 
-#. responses to reminder: Astrid says...  (user should answer yes or no)
-#: translations/strings.xml:882(item)
-msgid "I've got something for you!"
-msgstr "君のために言ってるんだからね!"
-
-#: translations/strings.xml:883(item)
-msgid "Ready to put this in the past?"
-msgstr ""
-
-#: translations/strings.xml:884(item)
-msgid "Why don't you get this done?"
-msgstr ""
-
-#: translations/strings.xml:885(item)
-msgid "How about it? Ready tiger?"
-msgstr ""
-
-#: translations/strings.xml:886(item)
-msgid "Ready to do this?"
-msgstr ""
-
-#: translations/strings.xml:887(item)
-msgid "Can you handle this?"
-msgstr ""
-
-#: translations/strings.xml:888(item)
-msgid "You can be happy! Just finish this!"
-msgstr ""
-
-#: translations/strings.xml:889(item)
-msgid "I promise you'll feel better if you finish this!"
-msgstr ""
-
-#: translations/strings.xml:890(item)
-msgid "Won't you do this today?"
-msgstr "今日はやんないの?"
-
-#: translations/strings.xml:891(item)
-msgid "Please finish this, I'm sick of it!"
-msgstr ""
-
-#: translations/strings.xml:892(item)
-msgid "Can you finish this? Yes you can!"
-msgstr ""
-
-#: translations/strings.xml:893(item)
-msgid "Are you ever going to do this?"
-msgstr ""
-
-#: translations/strings.xml:894(item)
-msgid "Feel good about yourself! Let's go!"
-msgstr "自信を持って! さあ!"
-
-#: translations/strings.xml:895(item)
-msgid "I'm so proud of you! Lets get it done!"
-msgstr ""
-
-#: translations/strings.xml:896(item)
-msgid "A little snack after you finish this?"
-msgstr ""
-
-#: translations/strings.xml:897(item)
-msgid "Just this one task? Please?"
-msgstr ""
-
-#: translations/strings.xml:898(item)
-msgid "Time to shorten your todo list!"
-msgstr ""
-
-#. Astrid's nagging when user clicks postpone
-#: translations/strings.xml:903(item)
-msgid "Please tell me it isn't true that you're a procrastinator!"
-msgstr ""
-
-#: translations/strings.xml:904(item)
-msgid "Doesn't being lazy get old sometimes?"
-msgstr ""
-
-#: translations/strings.xml:905(item)
-msgid "Somewhere, someone is depending on you to finish this!"
-msgstr ""
-
-#: translations/strings.xml:906(item)
-msgid "When you said postpone, you really meant 'I'm doing this', right?"
-msgstr ""
-
-#: translations/strings.xml:907(item)
-msgid "This is the last time you postpone this, right?"
-msgstr ""
-
-#: translations/strings.xml:908(item)
-msgid "Just finish this today, I won't tell anyone!"
-msgstr ""
-
-#: translations/strings.xml:909(item)
-msgid "Why postpone when you can um... not postpone!"
-msgstr ""
-
-#: translations/strings.xml:910(item)
-msgid "You'll finish this eventually, I presume?"
-msgstr ""
-
-#: translations/strings.xml:911(item)
-msgid "I think you're really great! How about not putting this off?"
-msgstr ""
-
-#: translations/strings.xml:912(item)
-msgid "Will you be able to achieve your goals if you do that?"
-msgstr ""
-
 #: translations/strings.xml:913(item)
-msgid "Postpone, postpone, postpone. When will you change!"
+msgid "I've got something for you!"
 msgstr ""
 
 #: translations/strings.xml:914(item)
-msgid "I've had enough with your excuses! Just do it already!"
-msgstr ""
+msgid "Ready to put this in the past?"
+msgstr "これを過去のものにして良い?"
 
 #: translations/strings.xml:915(item)
-msgid "Didn't you make that excuse last time?"
+msgid "Why don't you get this done?"
 msgstr ""
 
 #: translations/strings.xml:916(item)
+msgid "How about it? Ready tiger?"
+msgstr "どう? いけそう?"
+
+#: translations/strings.xml:917(item)
+msgid "Ready to do this?"
+msgstr "これする準備できてる?"
+
+#: translations/strings.xml:918(item)
+msgid "Can you handle this?"
+msgstr "これ処理できる?"
+
+#: translations/strings.xml:919(item)
+msgid "You can be happy! Just finish this!"
+msgstr "幸せになれるよ! これが終われば!"
+
+#: translations/strings.xml:920(item)
+msgid "I promise you'll feel better if you finish this!"
+msgstr ""
+
+#: translations/strings.xml:921(item)
+msgid "Won't you do this today?"
+msgstr ""
+
+#: translations/strings.xml:922(item)
+msgid "Please finish this, I'm sick of it!"
+msgstr ""
+
+#: translations/strings.xml:923(item)
+msgid "Can you finish this? Yes you can!"
+msgstr "これやっちゃえる? そう、あなたならできる!"
+
+#: translations/strings.xml:924(item)
+msgid "Are you ever going to do this?"
+msgstr "ずっとこれしないつもり?"
+
+#: translations/strings.xml:925(item)
+msgid "Feel good about yourself! Let's go!"
+msgstr ""
+
+#: translations/strings.xml:926(item)
+msgid "I'm so proud of you! Lets get it done!"
+msgstr "あなたが自慢だよ。さぁそれやっちゃおう!"
+
+#: translations/strings.xml:927(item)
+msgid "A little snack after you finish this?"
+msgstr "これやっちゃってお茶しない?"
+
+#: translations/strings.xml:928(item)
+msgid "Just this one task? Please?"
+msgstr "あとひとつだけ? じゃあお願いできる?"
+
+#: translations/strings.xml:929(item)
+msgid "Time to shorten your todo list!"
+msgstr "ToDoリストを処理する時間ですよ"
+
+#: translations/strings.xml:934(item)
+msgid "Please tell me it isn't true that you're a procrastinator!"
+msgstr ""
+
+#: translations/strings.xml:935(item)
+msgid "Doesn't being lazy get old sometimes?"
+msgstr ""
+
+#: translations/strings.xml:936(item)
+msgid "Somewhere, someone is depending on you to finish this!"
+msgstr "どこかで誰かがこれを終えるのを待ってますよ!"
+
+#: translations/strings.xml:937(item)
+msgid "When you said postpone, you really meant 'I'm doing this', right?"
+msgstr ""
+
+#: translations/strings.xml:938(item)
+msgid "This is the last time you postpone this, right?"
+msgstr "これを後回しにするのはこれで最後だよね?"
+
+#: translations/strings.xml:939(item)
+msgid "Just finish this today, I won't tell anyone!"
+msgstr ""
+
+#: translations/strings.xml:940(item)
+msgid "Why postpone when you can um... not postpone!"
+msgstr "あなたが後回しにして良いと思うなら･･･って、できないじゃん!"
+
+#: translations/strings.xml:941(item)
+msgid "You'll finish this eventually, I presume?"
+msgstr ""
+
+#: translations/strings.xml:942(item)
+msgid "I think you're really great! How about not putting this off?"
+msgstr ""
+
+#: translations/strings.xml:943(item)
+msgid "Will you be able to achieve your goals if you do that?"
+msgstr "もしそうするなら、あなたは目的を達成できるでしょう"
+
+#: translations/strings.xml:944(item)
+msgid "Postpone, postpone, postpone. When will you change!"
+msgstr "後回し、後回し、後回し。そんなあなたを変えよう!"
+
+#: translations/strings.xml:945(item)
+msgid "I've had enough with your excuses! Just do it already!"
+msgstr ""
+
+#: translations/strings.xml:946(item)
+msgid "Didn't you make that excuse last time?"
+msgstr ""
+
+#: translations/strings.xml:947(item)
 msgid "I can't help you organize your life if you do that..."
 msgstr ""
 

@@ -1227,19 +1227,19 @@ msgstr ""
 #. reminders: Make these < 20 chars so the task name is displayed
 #: translations/strings.xml:844(item)
 msgid "Hi there! Have a sec?"
-msgstr ""
+msgstr "Hejsa! Har du tid?"
 
 #: translations/strings.xml:845(item)
 msgid "Can I see you for a sec?"
-msgstr ""
+msgstr "Kan jeg lige snakke med dig?"
 
 #: translations/strings.xml:846(item)
 msgid "Have a few minutes?"
-msgstr ""
+msgstr "Har du nogle få minutter?"
 
 #: translations/strings.xml:847(item)
 msgid "Did you forget?"
-msgstr ""
+msgstr "Har du glemt det?"
 
 #: translations/strings.xml:848(item)
 msgid "Excuse me!"
@@ -1247,31 +1247,31 @@ msgstr "Undskyld mig!"
 
 #: translations/strings.xml:849(item)
 msgid "When you have a minute:"
-msgstr ""
+msgstr "Når du har et øjeblik:"
 
 #: translations/strings.xml:850(item)
 msgid "On your agenda:"
-msgstr ""
+msgstr "På din dagsorden:"
 
 #: translations/strings.xml:851(item)
 msgid "Free for a moment?"
-msgstr ""
+msgstr "Ledig et øjeblik?"
 
 #: translations/strings.xml:852(item)
 msgid "Astrid here!"
-msgstr ""
+msgstr "Astrid er her!"
 
 #: translations/strings.xml:853(item)
 msgid "Hi! Can I bug you?"
-msgstr ""
+msgstr "Hej, må jeg lige forstyrre?"
 
 #: translations/strings.xml:854(item)
 msgid "A minute of your time?"
-msgstr ""
+msgstr "Har du lige et minut?"
 
 #: translations/strings.xml:855(item)
 msgid "It's a great day to"
-msgstr ""
+msgstr "Det er en god dag til at"
 
 #. reminders related to task due date
 #: translations/strings.xml:860(item)
@@ -1284,7 +1284,7 @@ msgstr ""
 
 #: translations/strings.xml:862(item)
 msgid "Ready to start?"
-msgstr "Klar til start?"
+msgstr "Kan til at udføre dette?"
 
 #: translations/strings.xml:863(item)
 msgid "You said you would do:"
@@ -1304,7 +1304,7 @@ msgstr ""
 
 #: translations/strings.xml:867(item)
 msgid "Excuse me! Time for"
-msgstr ""
+msgstr "Undskyld mig!"
 
 #: translations/strings.xml:868(item)
 msgid "You free? Time to"
@@ -1334,128 +1334,128 @@ msgstr ""
 #. responses to reminder: Astrid says...  (user should answer yes or no)
 #: translations/strings.xml:882(item)
 msgid "I've got something for you!"
-msgstr ""
+msgstr "Jeg har noget til dig!"
 
 #: translations/strings.xml:883(item)
 msgid "Ready to put this in the past?"
-msgstr ""
+msgstr "Klar til at gøre dette fortid?"
 
 #: translations/strings.xml:884(item)
 msgid "Why don't you get this done?"
-msgstr ""
+msgstr "Hvorfor får du ikke ordnet dette?"
 
 #: translations/strings.xml:885(item)
 msgid "How about it? Ready tiger?"
-msgstr ""
+msgstr "Hva med det? Klar til kamp?"
 
 #: translations/strings.xml:886(item)
 msgid "Ready to do this?"
-msgstr ""
+msgstr "Kan til at udføre dette?"
 
 #: translations/strings.xml:887(item)
 msgid "Can you handle this?"
-msgstr ""
+msgstr "Kan du klare dette?"
 
 #: translations/strings.xml:888(item)
 msgid "You can be happy! Just finish this!"
-msgstr ""
+msgstr "Du kan blive lykkelig! Afslut dette!"
 
 #: translations/strings.xml:889(item)
 msgid "I promise you'll feel better if you finish this!"
-msgstr ""
+msgstr "Jeg lover du har det bedre bagefter!"
 
 #: translations/strings.xml:890(item)
 msgid "Won't you do this today?"
-msgstr ""
+msgstr "Vil du ikke gøre dette i dag?"
 
 #: translations/strings.xml:891(item)
 msgid "Please finish this, I'm sick of it!"
-msgstr ""
+msgstr "Færdiggør venligst dette. Jeg er træt af det!"
 
 #: translations/strings.xml:892(item)
 msgid "Can you finish this? Yes you can!"
-msgstr ""
+msgstr "Kan du afslutte dette? Ja du KAN!"
 
 #: translations/strings.xml:893(item)
 msgid "Are you ever going to do this?"
-msgstr ""
+msgstr "Vil du nogensinde gøre dette?"
 
 #: translations/strings.xml:894(item)
 msgid "Feel good about yourself! Let's go!"
-msgstr ""
+msgstr "Hav det godt med dig selv! Lad os komme i gang!"
 
 #: translations/strings.xml:895(item)
 msgid "I'm so proud of you! Lets get it done!"
-msgstr ""
+msgstr "Jeg er så stolt af dig! Lad os få det gjort!"
 
 #: translations/strings.xml:896(item)
 msgid "A little snack after you finish this?"
-msgstr ""
+msgstr "En lille snack efter du færdiggør dette?"
 
 #: translations/strings.xml:897(item)
 msgid "Just this one task? Please?"
-msgstr ""
+msgstr "Bare denne ene opgave? Kom nu?"
 
 #: translations/strings.xml:898(item)
 msgid "Time to shorten your todo list!"
-msgstr ""
+msgstr "Tid til at gøre din huskeliste mindre!"
 
 #. Astrid's nagging when user clicks postpone
 #: translations/strings.xml:903(item)
 msgid "Please tell me it isn't true that you're a procrastinator!"
-msgstr ""
+msgstr "Sig det ikke er sandt at du laver overspringshandlinger!"
 
 #: translations/strings.xml:904(item)
 msgid "Doesn't being lazy get old sometimes?"
-msgstr ""
+msgstr "Bliver det aldrig lidt trættende at være så doven?"
 
 #: translations/strings.xml:905(item)
 msgid "Somewhere, someone is depending on you to finish this!"
-msgstr ""
+msgstr "Et sted derude er der nogen der stoler på at du ordner dette!"
 
 #: translations/strings.xml:906(item)
 msgid "When you said postpone, you really meant 'I'm doing this', right?"
-msgstr ""
+msgstr "Da du sagde udskyd mente du i virkeligheden 'Jeg laver dette', ikke?"
 
 #: translations/strings.xml:907(item)
 msgid "This is the last time you postpone this, right?"
-msgstr ""
+msgstr "Dette er sidst gang du udskyder dette, okay?"
 
 #: translations/strings.xml:908(item)
 msgid "Just finish this today, I won't tell anyone!"
-msgstr ""
+msgstr "Færdiggør nu dette i dag, jeg siger det ikke til nogen!"
 
 #: translations/strings.xml:909(item)
 msgid "Why postpone when you can um... not postpone!"
-msgstr ""
+msgstr "Hvorfor udskyde når du kan, øh... ikke udskyde!"
 
 #: translations/strings.xml:910(item)
 msgid "You'll finish this eventually, I presume?"
-msgstr ""
+msgstr "Jeg går du fra at du snart færdiggør dette?"
 
 #: translations/strings.xml:911(item)
 msgid "I think you're really great! How about not putting this off?"
-msgstr ""
+msgstr "Jeg synes du er rigtig god! Hvad med at vi ikke udskyder dette?"
 
 #: translations/strings.xml:912(item)
 msgid "Will you be able to achieve your goals if you do that?"
-msgstr ""
+msgstr "Vil du kunne nå dine mål hvis du gør det?"
 
 #: translations/strings.xml:913(item)
 msgid "Postpone, postpone, postpone. When will you change!"
-msgstr ""
+msgstr "Udskyd, udskyd, udskyd. Hvornår vil du ændre dig!"
 
 #: translations/strings.xml:914(item)
 msgid "I've had enough with your excuses! Just do it already!"
-msgstr ""
+msgstr "Jeg er træt af dine undskyldninger! Gør det nu bare!"
 
 #: translations/strings.xml:915(item)
 msgid "Didn't you make that excuse last time?"
-msgstr ""
+msgstr "Kom du ikke med den undskyldning sidste gang?"
 
 #: translations/strings.xml:916(item)
 msgid "I can't help you organize your life if you do that..."
-msgstr ""
+msgstr "Jeg kan ikke hjælpe dig med at organisere dit liv hvis du gør det..."
 
 #. repeating plugin name
 #: translations/strings.xml:927( name="repeat_plugin")
