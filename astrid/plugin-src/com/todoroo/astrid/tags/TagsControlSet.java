@@ -43,7 +43,6 @@ public final class TagsControlSet implements TaskEditControlSet {
 
     @Override
     public void readFromTask(Task task) {
-        System.err.println("TAGS loading... old size = " + tagsContainer.getChildCount());
         tagsContainer.removeAllViews();
 
         TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
@@ -55,7 +54,6 @@ public final class TagsControlSet implements TaskEditControlSet {
         }
         if(tagsContainer.getChildCount() == 0)
             addTag(""); //$NON-NLS-1$
-        System.err.println("TAGS loaded ");
     }
 
     @Override
@@ -74,12 +72,10 @@ public final class TagsControlSet implements TaskEditControlSet {
         }
 
         tagService.synchronizeTags(task.getId(), tags);
-        System.err.println("TAGS saved " + tags);
     }
 
     /** Adds a tag to the tag field */
     boolean addTag(String tagName) {
-        System.err.println("TAG ADDING ui " + tagName);
         LayoutInflater inflater = activity.getLayoutInflater();
         final View tagItem = inflater.inflate(R.layout.tag_edit_row, null);
         tagsContainer.addView(tagItem);

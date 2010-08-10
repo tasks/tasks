@@ -14,7 +14,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-08-03 08:08+0000\n"
+"X-Launchpad-Export-Date: 2010-08-09 23:36+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Backup Preferences Title
@@ -353,7 +353,7 @@ msgstr ""
 #. String formatter for Disable button
 #: translations/strings.xml:233( name="WID_disableButton")
 msgid "Disable"
-msgstr "disable"
+msgstr ""
 
 #. Task List: Displayed instead of list when no items present
 #: translations/strings.xml:238( name="TLA_no_items")
@@ -1222,47 +1222,47 @@ msgstr ""
 #. reminders: Make these < 20 chars so the task name is displayed
 #: translations/strings.xml:844(item)
 msgid "Hi there! Have a sec?"
-msgstr "Hi there! Have a sec?"
+msgstr ""
 
 #: translations/strings.xml:845(item)
 msgid "Can I see you for a sec?"
-msgstr "Can I see you for a sec?"
+msgstr ""
 
 #: translations/strings.xml:846(item)
 msgid "Have a few minutes?"
-msgstr "Have a few minutes?"
+msgstr ""
 
 #: translations/strings.xml:847(item)
 msgid "Did you forget?"
-msgstr "Did you forget?"
+msgstr ""
 
 #: translations/strings.xml:848(item)
 msgid "Excuse me!"
-msgstr "Excuse me!"
+msgstr ""
 
 #: translations/strings.xml:849(item)
 msgid "When you have a minute:"
-msgstr "When you have a minute:"
+msgstr ""
 
 #: translations/strings.xml:850(item)
 msgid "On your agenda:"
-msgstr "On your agenda:"
+msgstr ""
 
 #: translations/strings.xml:851(item)
 msgid "Free for a moment?"
-msgstr "Free for a moment?"
+msgstr ""
 
 #: translations/strings.xml:852(item)
 msgid "Astrid here!"
-msgstr "Astrid here!"
+msgstr ""
 
 #: translations/strings.xml:853(item)
 msgid "Hi! Can I bug you?"
-msgstr "Hi! Can I bug you?"
+msgstr ""
 
 #: translations/strings.xml:854(item)
 msgid "A minute of your time?"
-msgstr "A minute of your time?"
+msgstr ""
 
 #: translations/strings.xml:855(item)
 msgid "It's a great day to"
@@ -1279,7 +1279,7 @@ msgstr ""
 
 #: translations/strings.xml:862(item)
 msgid "Ready to start?"
-msgstr "Ready to do this?"
+msgstr ""
 
 #: translations/strings.xml:863(item)
 msgid "You said you would do:"
@@ -1329,35 +1329,35 @@ msgstr ""
 #. responses to reminder: Astrid says...  (user should answer yes or no)
 #: translations/strings.xml:882(item)
 msgid "I've got something for you!"
-msgstr "I've got something for you!"
+msgstr ""
 
 #: translations/strings.xml:883(item)
 msgid "Ready to put this in the past?"
-msgstr "Ready to put this in the past?"
+msgstr ""
 
 #: translations/strings.xml:884(item)
 msgid "Why don't you get this done?"
-msgstr "Why don't you get this done?"
+msgstr ""
 
 #: translations/strings.xml:885(item)
 msgid "How about it? Ready tiger?"
-msgstr "How about it? Ready tiger?"
+msgstr ""
 
 #: translations/strings.xml:886(item)
 msgid "Ready to do this?"
-msgstr "Ready to do this?"
+msgstr ""
 
 #: translations/strings.xml:887(item)
 msgid "Can you handle this?"
-msgstr "Can you handle this?"
+msgstr ""
 
 #: translations/strings.xml:888(item)
 msgid "You can be happy! Just finish this!"
-msgstr "You can be happy! Just finish this!"
+msgstr ""
 
 #: translations/strings.xml:889(item)
 msgid "I promise you'll feel better if you finish this!"
-msgstr "I promise you'll feel better if you finish this!"
+msgstr ""
 
 #: translations/strings.xml:890(item)
 msgid "Won't you do this today?"
@@ -1365,15 +1365,15 @@ msgstr ""
 
 #: translations/strings.xml:891(item)
 msgid "Please finish this, I'm sick of it!"
-msgstr "Please finish this, I'm sick of it!"
+msgstr ""
 
 #: translations/strings.xml:892(item)
 msgid "Can you finish this? Yes you can!"
-msgstr "Can you finish this? Yes you can!"
+msgstr ""
 
 #: translations/strings.xml:893(item)
 msgid "Are you ever going to do this?"
-msgstr "Are you ever going to do this?"
+msgstr ""
 
 #: translations/strings.xml:894(item)
 msgid "Feel good about yourself! Let's go!"

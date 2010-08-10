@@ -2,34 +2,55 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
+    <!-- Resources for built-in timers plug-in -->
+    
+    <!-- Task Edit Activity: Container Label -->
+    <string name="alarm_ACS_label">Alarms</string>
+    
+    <!-- Task Edit Activity: Add New Alarn -->
+    <string name="alarm_ACS_button">Add an Alarm</string>
+    
+    <!-- Task Detail for Alarms (%s -> time)-->
+    <string name="alarm_ADE_detail">Alarm %s</string>
+   
+    <string-array name="reminders_alarm">
+      <!-- reminders related to alarm -->
+      <item>Alarm!</item>
+    </string-array>
+    
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+    
   <!-- Resources for built-in backup plug-in -->
   
   <!-- ================================================= BackupPreferences == -->
 
     <!-- Backup Preferences Title -->    
-    <string name="backup_BPr_header">Backups</string>
+    <string name="backup_BPr_header">Sikkerhetskopier</string>
 
     <!-- Backup: Status Header -->    
     <string name="backup_BPr_group_status">Status</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest: %s</string>
+    <string name="backup_status_success">Siste: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
-    <string name="backup_status_failed">Last Backup Failed</string>
+    <string name="backup_status_failed">Siste sikkerhetskopiering feilet</string>
     <!-- Backup Status: error subtitle -->    
-    <string name="backup_status_failed_subtitle">(tap to show error)</string>
+    <string name="backup_status_failed_subtitle">(trykk for å vise feil)</string>
     <!-- Backup Status: never backed up -->    
-    <string name="backup_status_never">Never Backed Up!</string>
+    <string name="backup_status_never">Sikkerhetskopi aldri utført!</string>
 
     <!-- Backup Options Group Label -->    
-    <string name="backup_BPr_group_options">Innstillinger</string>
+    <string name="backup_BPr_group_options">Alternativer</string>
 
     <!-- Preference: Automatic Backup Title -->    
     <string name="backup_BPr_auto_title">Automatiske sikkerhetskopier</string>
     <!-- Preference: Automatic Backup Description (when disabled) -->
-    <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
+    <string name="backup_BPr_auto_disabled">Automatisk sikkerhetskopiering deaktivert</string>    
     <!-- Preference: Automatic Backup Description (when enabled) -->
-    <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
+    <string name="backup_BPr_auto_enabled">Sikkerhetskopiering vil skje daglig</string>
     
     <!-- Preference screen restoring Tasks Help -->
     <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
@@ -39,48 +60,43 @@
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Backups</string>
+  <string name="backup_BAc_label">Sikkerhetskopier</string>
 
   <!-- backup activity title -->
-  <string name="backup_BAc_title">Manage Your Backups</string>
+  <string name="backup_BAc_title">Vedlikehold sikkerhetskopiene dine</string>
 
   <!-- backup activity import button -->
-  <string name="backup_BAc_import">Import Tasks</string>
+  <string name="backup_BAc_import">Importer oppgaver</string>
 
   <!-- backup activity export button -->
-  <string name="backup_BAc_export">Export Tasks</string>
+  <string name="backup_BAc_export">Eksporter oppgaver</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
   <!-- Message displayed when error occurs -->
-  <string name="backup_TXI_error">Import Error</string>
+  <string name="backup_TXI_error">Importfeil</string>
     
-  <string name="export_toast">Sikkerhetskopierte %s til %s.</string>
+  <string name="export_toast">Sikkerhetskopierte %s til %s</string>
   
   <!-- Progress Dialog Title for exporting -->    
-  <string name="export_progress_title">Exporting...</string>
+  <string name="export_progress_title">Eksporterer...</string>
   
   <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">Gjennopprettingssammendrag</string>
     
   <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
-  <string name="import_summary_message">
-File %s contained %s.\n\n
-%s imported,\n
-%s already exist\n
-%s had errors\n
-  </string>
+  <string name="import_summary_message">Filen %s inneholdt %s.\n\n %s importerte,\n %s eksisterte allerede\n %s hadde feil\n</string>
   
   <!-- Progress Dialog Title for importing -->    
-  <string name="import_progress_title">Importing...</string>
+  <string name="import_progress_title">Importerer...</string>
   
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
-  <string name="import_progress_read">Leser gjøremål %d...</string>
+  <string name="import_progress_read">Leser oppgave %d...</string>
   
   <!-- Backup: Dialog when unable to open a file -->  
   <string name="DLG_error_opening">Kunne ikke finne dette elementet:</string>
   
-  <!-- Backup: Dialog when unable to open SD card folder -->
+  <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
   <string name="DLG_error_sdcard">Kan ikke aksessere mappe: %s</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
@@ -97,39 +113,39 @@ File %s contained %s.\n\n
   <!-- ================================================== AndroidManifest == -->
 
   <!-- Application Name (shown on home screen & in launcher) -->
-  <string name="app_name">Astrid Tasks</string>
+  <string name="app_name">Astrid Oppgaver</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="read_permission_label">Astrid Permission</string>
+  <string name="read_permission_label">Astrid Tillatelse</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="read_permission_desc">read tasks, display task filters</string>
+  <string name="read_permission_desc">les oppgaver, vis oppgavefiltre</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="write_permission_label">Astrid Permission</string>
+  <string name="write_permission_label">Astrid Tillatelse</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="write_permission_desc">create new tasks, edit existing tasks</string>
+  <string name="write_permission_desc">opprett nye oppgaver, rediger eksisterende oppgaver</string>
   
   <!-- ==================================================== Generic Units == -->
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
-    <item quantity="one">1 Year</item>
+    <item quantity="one">1 år</item>
     <!-- plurals: years -->
-    <item quantity="other">%d Years</item>
+    <item quantity="other">%d år</item>
   </plurals>
   <plurals name="DUt_months">
     <!-- plurals: months -->
-    <item quantity="one">1 Month</item>
+    <item quantity="one">1 måned</item>
     <!-- plurals: months -->
-    <item quantity="other">%d Months</item>
+    <item quantity="other">%d måneder</item>
   </plurals>
   <plurals name="DUt_weeks">
     <!-- plurals: days -->
-    <item quantity="one">1 Week</item>
+    <item quantity="one">1 uke</item>
     <!-- plurals: days -->
-    <item quantity="other">%d Weeks</item>
+    <item quantity="other">%d uker</item>
   </plurals>
   <plurals name="DUt_days">
     <!-- plurals: days -->
@@ -175,33 +191,33 @@ File %s contained %s.\n\n
   </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
-    <item quantity="one">1 task</item>
+    <item quantity="one">1 oppgave</item>
     <!-- plurals: tasks -->
-    <item quantity="other">%d tasks</item>
+    <item quantity="other">%d oppgaver</item>
   </plurals>
   
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">Confirm?</string>
+  <string name="DLG_confirm_title">Bekreft?</string>
   
   <!-- question dialog title -->
-  <string name="DLG_question_title">Question:</string>
+  <string name="DLG_question_title">Spørsmål:</string>
   
   <!-- information dialog title -->
   <string name="DLG_information_title">Informasjon</string>
   
   <!-- general dialog yes-->
-  <string name="DLG_yes">Yes</string>
+  <string name="DLG_yes">Ja</string>
   
   <!-- general dialog no-->
-  <string name="DLG_no">No</string>
+  <string name="DLG_no">Nei</string>
   
   <!-- general dialog close-->
-  <string name="DLG_close">Close</string>
+  <string name="DLG_close">Lukk</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oops, looks like some trouble occurred! Here\'s what happened:\n\n%s</string>
+  <string name="DLG_error">Oj, det ser ut som det oppsto et problem! Dette er det som skjedde:\n\n%s</string>
   
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">Slett denne oppgaven?</string>
@@ -210,55 +226,56 @@ File %s contained %s.\n\n
   <string name="DLG_done">Utført</string>
   
   <!-- Button for canceling out of this page -->
-  <string name="DLG_cancel">Cancel</string>
+  <string name="DLG_cancel">Avbryt</string>
   
   <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">Please wait...</string>
+  <string name="DLG_wait">Vennligst vent...</string>
+  
+  <!-- Progress dialog shown when upgrading -->
+  <string name="DLG_upgrading">Upgrading your tasks...</string>
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
   
   <!-- Dialog for Astrid having a critical update -->
-  <string name="DLG_please_update">Astrid should to be updated to the latest
-  version in the Android market! Please do that before continuing, or wait a 
-  few seconds.</string>
+  <string name="DLG_please_update">Astrid bør oppdateres til siste versjon i Android Marked! Vennligst gjør det før du fortsetter, eller vent noen sekunder.</string>
 
   <!-- Button for going to Market -->
-  <string name="DLG_to_market">Go To Market</string>
+  <string name="DLG_to_market">Gå til Marked</string>
   
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
-  <string name="WID_dateButtonUnset">Click To Set</string>
+  <string name="WID_dateButtonUnset">Klikk for å sette</string>
   
   <!-- String formatter for DateButtons ($D => date, $T => time) -->
   <string name="WID_dateButtonLabel">$D $T</string>
   
   <!-- String formatter for Disable button -->
-  <string name="WID_disableButton">Disable</string>
+  <string name="WID_disableButton">Slå av</string>
   
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">No Tasks!</string>
+  <string name="TLA_no_items">Ingen oppgaver!</string>
   
   <!-- Menu: Add-ons -->    
-  <string name="TLA_menu_addons">Add-ons</string>
+  <string name="TLA_menu_addons">Tillegg</string>
   
   <!-- Menu: Settings -->    
-  <string name="TLA_menu_settings">Instillinger</string>
+  <string name="TLA_menu_settings">Innstillinger</string>
   
   <!-- Menu: Help -->    
-  <string name="TLA_menu_help">Help</string>
+  <string name="TLA_menu_help">Hjelp</string>
   
   <!-- Search Label-->
-  <string name="TLA_search_label">Search This List</string>
+  <string name="TLA_search_label">Søk i denne listen</string>
   
   <!-- Window title for displaying Custom Filter -->
-  <string name="TLA_custom">Custom</string>
+  <string name="TLA_custom">Egendefinert</string>
   
   <!-- Quick Add Edit Box Hint-->
-  <string name="TLA_quick_add_hint">Add to this list...</string>
+  <string name="TLA_quick_add_hint">Legg til denne listen...</string>
   
   <!-- Help (HTML)-->
   <string name="TLA_help"><![CDATA[
@@ -275,10 +292,10 @@ button: add task & go to the edit page.
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
-  <string name="TAd_hiddenFormat">%s [hidden]</string>
+  <string name="TAd_hiddenFormat">%s [skjult]</string>
   
   <!-- Format string to indicate task is deleted (%s => task name) -->
-  <string name="TAd_deletedFormat">%s [deleted]</string>
+  <string name="TAd_deletedFormat">%s [slettet]</string>
   
   <!-- Displayed when adapter is flung (scrolled quickly) -->
   <string name="TAd_flingText"/>
@@ -296,36 +313,36 @@ button: add task & go to the edit page.
   <string name="TAd_contextDeleteTask">Slett oppgave</string>
 
   <!-- Context Item: undelete task -->
-  <string name="TAd_contextUndeleteTask">Undelete Task</string>
+  <string name="TAd_contextUndeleteTask">Gjenopprett Oppgave</string>
   
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Filter List Activity Title -->    
-  <string name="FLA_title">Astrid: Filters</string>
+  <string name="FLA_title">Astrid: Filtre</string>
   
   <!-- Displayed when loading filters -->    
-  <string name="FLA_loading">Loading Filters...</string>
+  <string name="FLA_loading">Laster filtre...</string>
   
   <!-- Context Menu: Create Shortcut -->    
-  <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
+  <string name="FLA_context_shortcut">Lag snarvei på skriverbordet</string>
   
   <!-- Menu: Search -->
-  <string name="FLA_menu_search">Search Tasks...</string>
+  <string name="FLA_menu_search">Søk etter oppgaver...</string>
   
   <!-- Menu: Help -->    
-  <string name="FLA_menu_help">Help</string>
+  <string name="FLA_menu_help">Hjelp</string>
   
   <!-- Create Shortcut Dialog Title -->    
   <string name="FLA_shortcut_dialog_title">Lag snarvei</string>
   
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
-  <string name="FLA_shortcut_dialog">Name of shortcut:</string>
+  <string name="FLA_shortcut_dialog">Snarveiens navn:</string>
   
   <!-- Search Hint-->
-  <string name="FLA_search_hint">Search For Tasks</string>
+  <string name="FLA_search_hint">Søk etter oppgaver</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">Matching \'%s\'</string>
+  <string name="FLA_search_filter">Matcher \'%s\'</string>
   
   <!-- Help (HTML)-->
   <string name="FLA_help"><![CDATA[
@@ -345,12 +362,12 @@ to the plugin creator for fastest service.
   ]]></string>
   
   <!-- Toast: created shortcut (%s => label) -->
-  <string name="FLA_toast_onCreateShortcut">Created Shortcut: %s</string>
+  <string name="FLA_toast_onCreateShortcut">Snarvei opprettet: %s</string>
   
   <!-- ================================================= TaskEditActivity == -->
   
   <!-- Title when editing a task (%s => task title) -->
-  <string name="TEA_view_title">Astrid: Editing \'%s\'</string>
+  <string name="TEA_view_title">Redigerer \'%s\'</string>
   
   <!-- Title when creating a new task -->
   <string name="TEA_view_titleNew">Astrid: Ny oppgave</string>
@@ -359,37 +376,37 @@ to the plugin creator for fastest service.
   <string name="TEA_tab_basic">Grunnleggende</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">Advanced</string>
+  <string name="TEA_tab_extra">Avansert</string>
   
   <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_addons">Add-ons</string>
+  <string name="TEA_tab_addons">Tillegg</string>
   
   <!-- Task title label -->
-  <string name="TEA_title_label">Title</string>
+  <string name="TEA_title_label">Tittel</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Task Summary</string>
+  <string name="TEA_title_hint">Oppgavesammendrag</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">Viktighet</string>
   
   <!-- Task urgency label -->
-  <string name="TEA_urgency_label">Deadline</string>
+  <string name="TEA_urgency_label">Frist</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">Due at specific time?</string>
+  <string name="TEA_urgency_specific_time">Forfaller til angitt tid?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Due Time</string>
+  <string name="TEA_urgency_time_none">Ingen forfallstidspunkt</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide Until</string>
+  <string name="TEA_hideUntil_label">Skjul frem til</string>
   
   <!-- Task note label -->
   <string name="TEA_note_label">Notater</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter Task Notes...</string>
+  <string name="TEA_notes_hint">Legg inn oppgavenotater...</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">Hvor lang tid vil det ta?</string>
@@ -398,10 +415,10 @@ to the plugin creator for fastest service.
   <string name="TEA_elapsedDuration_label">Tid allerede brukt på oppgaven</string>
 
   <!-- Menu: Save -->    
-  <string name="TEA_menu_save">Save Changes</string>
+  <string name="TEA_menu_save">Lagre endringer</string>
   
   <!-- Menu: Don't Save -->
-  <string name="TEA_menu_discard">Don\'t Save</string>
+  <string name="TEA_menu_discard">Ikke lagre</string>
   
   <!-- Menu: Delete Task -->
   <string name="TEA_menu_delete">Slett oppgave</string>
@@ -416,28 +433,28 @@ to the plugin creator for fastest service.
   <string name="TEA_onTaskSave_notDue">Oppgave lagret</string>
   
   <!-- Toast: task was not saved -->
-  <string name="TEA_onTaskCancel">Task Editing Was Canceled</string>
+  <string name="TEA_onTaskCancel">Oppgaveredigering ble avbrutt</string>
   
   <!-- Toast: task was deleted -->
-  <string name="TEA_onTaskDelete">Task Deleted!</string>
+  <string name="TEA_onTaskDelete">Oppgave slettet!</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>Specific Day/Time</item>
-      <item>Today</item>
-      <item>Tomorrow</item>
-      <item>(day after)</item>
-      <item>Next Week</item>
-      <item>No Deadline</item>
+      <item>Spesifikk dag/tidspunkt</item>
+      <item>I dag</item>
+      <item>I morgen</item>
+      <item>(dagen etter)</item>
+      <item>Neste uke</item>
+      <item>Ingen deadline</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Don\'t hide</item>
-      <item>Task is due</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
-      <item>Specific Day</item>
+      <item>Ikke skjul</item>
+      <item>Oppgaven forfaller nå</item>
+      <item>Dagen før forfall</item>
+      <item>Uke før forfall</item>
+      <item>Spesifikk dag</item>
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
@@ -449,79 +466,85 @@ to the plugin creator for fastest service.
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
-  <string name="InA_title">Welcome to Astrid!</string>
+  <string name="InA_title">Velkommen til Astrid!</string>
   
   <!-- Button to agree to EULA -->
-  <string name="InA_agree">I Agree!!</string>
+  <string name="InA_agree">Jeg er enig!</string>
   
   <!-- Button to disagree with EULA -->
-  <string name="InA_disagree">I Disagree</string>
+  <string name="InA_disagree">Jeg er ikke enig</string>
   
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
-  <string name="HlA_get_support">Get Support</string>
+  <string name="HlA_get_support">Få hjelp</string>
     
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">What\'s New In Astrid?</string>
+  <string name="UpS_changelog_title">Hva er nytt i Astrid?</string>
   
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Window Title -->
-  <string name="EPr_title">Astrid: Preferences</string>
+  <string name="EPr_title">Astrid: Innstillinger</string>
 
   <!-- Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Utseende</string>
   
   <!-- Preference: Task List Font Size Title -->
-  <string name="EPr_fontSize_title">Størrelse på gjøremålslista</string>
-  
+  <string name="EPr_fontSize_title">Størrelse på oppgavelista</string>
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">Skriftstørrelse for hovedlisten</string>  
   
+  <!-- Preference: Task List Show Notes -->
+  <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <!-- Preference: Task List Show Notes Description (disabled) -->
+  <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
+  <!-- Preference: Task List Show Notes Description (enabled) -->
+  <string name="EPr_showNotes_desc_enabled">Notes will always displayed</string>  
+  
   <!-- Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">New Task Defaults</string>
+  <string name="EPr_defaults_header">Nye standardverdier for oppgaver</string>
   
   <!-- Preference: Default Urgency Title -->
-  <string name="EPr_default_urgency_title">Default Urgency</string>
+  <string name="EPr_default_urgency_title">Standard</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently Set To: %s</string>
+  <string name="EPr_default_urgency_desc">Nå satt til: %s</string>
   
   <!-- Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Default Importance</string>
+  <string name="EPr_default_importance_title">Standard viktighet</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently Set To: %s</string>
+  <string name="EPr_default_importance_desc">Nå satt til: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
-  <string name="EPr_default_hideUntil_title">Default Hide Until</string>
+  <string name="EPr_default_hideUntil_title">Standard skjul frem til</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently Set To: %s</string>
+  <string name="EPr_default_hideUntil_desc">Nå satt til: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!!! (Highest)</item>
+      <item>!!!! (Høyest)</item>
       <item>!!!</item>
       <item>!!</item>
-      <item>! (Lowest)</item>
+      <item>! (Lavest)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
       <!-- urgency: labels for "Task Defaults" preference item. -->
-      <item>No Deadline</item>
-      <item>Today</item>
-      <item>Tomorrow</item>
-      <item>Day After Tomorrow</item>
-      <item>Next Week</item>
+      <item>Ingen deadline</item>
+      <item>I dag</item>
+      <item>I morgen</item>
+      <item>I overmorgen</item>
+      <item>Neste uke</item>
   </string-array>
   
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
-      <item>Don\'t hide</item>
-      <item>Task is due</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
+      <item>Ikke skjul</item>
+      <item>Oppgaven forfaller nå</item>
+      <item>Dagen før forfall</item>
+      <item>Uke før forfall</item>
   </string-array>    
   
   <!-- ==================================================== AddOnActivity == -->
@@ -530,7 +553,7 @@ to the plugin creator for fastest service.
   <string name="AOA_title">Astrid: Add Ons</string>
     
   <!-- Add-on Activity: author for internal authors  -->
-  <string name="AOA_internal_author">Astrid Team</string>
+  <string name="AOA_internal_author">Astrid-teamet</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
   <string name="AOA_tab_installed">Installed</string>
@@ -550,10 +573,10 @@ to the plugin creator for fastest service.
   <!-- ========================================== SynchronizationProvider == -->
           
   <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Synchronizing your tasks...</string>
+  <string name="SyP_progress">Synkroniserer oppgavene dine...</string>
   
   <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Synchronizing...</string>
+  <string name="SyP_progress_toast">Synkroniserer...</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -563,23 +586,16 @@ to the plugin creator for fastest service.
   <!-- ============================================================= Misc == -->
   
   <!-- Displayed when task killer found. %s => name of the application -->
-  <string name="task_killer_help">
-It looks like you are using an app that can kill processes (%s)! If you can,
-add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
-Astrid might not let you know when your tasks are due.\n
-  </string>
+  <string name="task_killer_help">Det ser ut til at du bruker en app som kan avslutte prosesser (%s)! Hvis du kan, legg Astrid til eksklusjonslisten så den ikke blir drept. I motsatt fall vil Astrid kanskje ikke si fra når oppgavene dine er i ferd med å forfalle.</string>
   
   <!-- Task killer dialog ok button -->
-  <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
+  <string name="task_killer_help_ok">Jeg ønsker ikke å avslutte Astrid!</string>
     
   <!-- Astrid's Android Marketplace title. It never appears in the app itself. -->
   <string name="marketplace_title">Astrid Oppgave/Ting å gjøre liste</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">
-Astrid is the much loved open-source todo list / task manager designed to help 
-you get stuff done. It features reminders, tags, sync, a widget and more. 
-  </string>
+  <string name="marketplace_description">Astrid er den høyt anerkjente oppgavelisten med åpen kildekode, som er enkel nok til å ikke komme i veien, men kraftig nok til å hjelpe deg å få ting gjort! Tagger, påminnelser, RememberTheMilk-synkroinsering, Locale plug-in og mer!</string>
     
 
 
@@ -589,37 +605,37 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- Resources for built-in filter plug-in -->
     
     <!-- Active Tasks Filter -->
-    <string name="BFE_Active">Active Tasks</string>
+    <string name="BFE_Active">Aktive oppgaver</string>
         
     <!-- Title for Active Tasks Filter (what user sees when first opening the app) -->
-    <string name="BFE_Active_title">Active Tasks</string>
+    <string name="BFE_Active_title">Aktive oppgaver</string>
     
     <!-- Search Filter -->
-    <string name="BFE_Search">Search</string>
+    <string name="BFE_Search">Søk</string>
 
     <!-- Extended Filters Category -->
-    <string name="BFE_Extended">More...</string>
+    <string name="BFE_Extended">Mer...</string>
 
     <!-- sort recent modification filter -->
-    <string name="BFE_Recent">Recently Modified</string>
+    <string name="BFE_Recent">Nylig endret</string>
     
     <!-- Completed Filter -->
     <string name="BFE_Completed">Fullførte oppgaver</string>
 
     <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">Hidden Tasks</string>
+    <string name="BFE_Hidden">Skjulte oppgaver</string>
 
     <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">By Title</string>
+    <string name="BFE_Alphabetical">Etter tittel</string>
 
     <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">By Due Date</string>
+    <string name="BFE_DueDate">Etter forfallsdato</string>
 
     <!-- sort Importance filter -->
-    <string name="BFE_Importance">By Importance</string>
+    <string name="BFE_Importance">Etter viktighet</string>
 
     <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">Deleted Tasks</string>
+    <string name="BFE_Deleted">Slettede oppgaver</string>
         
 
 
@@ -631,13 +647,13 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- =============================================== Task Edit Controls == -->
   
   <!-- Error message for adding to calendar  -->
-  <string name="gcal_TEA_error">Error adding task to calendar!</string>
+  <string name="gcal_TEA_error">Klarte ikke legge oppgave til kalender!</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_calendar_label">Calendar Integration:</string>
+  <string name="gcal_TEA_calendar_label">Kalenderintegrasjon:</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Create Calendar Event</string>
+  <string name="gcal_TEA_addToCalendar_label">Opprett kalenderhendelse</string>
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Åpne kalenderhendelse</string>
@@ -645,10 +661,10 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->
-  <string name="gcal_completed_title">%s (completed)</string>
+  <string name="gcal_completed_title">%s (fullført)</string>
 
   <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
-  <string name="gcal_GCP_default">Default Calendar</string>
+  <string name="gcal_GCP_default">Standard kalender</string>
 
 
 
@@ -659,30 +675,29 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
-  <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
+  <string name="locale_edit_alerts_title">Astrid filteralarm</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
-  <string name="locale_edit_intro">Astrid will send you a reminder                                                                                                                                             
-      when you have any tasks in the following filter:</string>
+  <string name="locale_edit_intro">Astrid vil gi deg en påminner når du har oppgaver i følgender filter:</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
   <string name="locale_pick_filter">Filter:</string>        
       
   <!-- Locale Window Interval Label -->                                                                                                                                        
-  <string name="locale_interval_label">Limit notifications to:</string>        
+  <string name="locale_interval_label">Begrens påminnelser til:</string>        
       
   <!-- Locale Window Interval Values -->                                                                                                                                        
   <string-array name="locale_interval">
-    <item>once an hour</item>
-    <item>once every six hours</item>
-    <item>once every twelve hours</item>
-    <item>once a day</item>
-    <item>once every three days</item>
-    <item>once a week</item>
+    <item>en gang i timen</item>
+    <item>hver sjette time</item>
+    <item>hver tolvte time</item>
+    <item>en gang om dagen</item>
+    <item>en gang hver tredje dag</item>
+    <item>en gang i uken</item>
   </string-array>        
       
   <!-- Locale Notification text -->                                                                                                                                        
-  <string name="locale_notification">You have $NUM matching: $FILTER</string>     
+  <string name="locale_notification">Du har $NUM som matcher: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
   <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
@@ -697,40 +712,40 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind me...</string>
+  <string name="TEA_reminder_label">Minn meg på...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when it\'s time to start the task</string>
+  <string name="TEA_reminder_due">... when task is due</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">... when task is overdue</string>
+  <string name="TEA_reminder_overdue">... når oppgaven har forfalt</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">... randomly once</string>
+  <string name="TEA_reminder_random">... tilfeldig tidspunkt, en gang.</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
-  <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
+  <string name="TEA_reminder_alarm_label">Ringe- og vibrasjonstype:</string>
 
   <!-- Task Edit: Reminder alarm clock toggle: off -->  
-  <string name="TEA_reminder_alarm_off">Ring Once</string>
+  <string name="TEA_reminder_alarm_off">Ring én gang</string>
 
   <!-- Task Edit: Reminder alarm clock toggle: on -->  
-  <string name="TEA_reminder_alarm_on">Ring Until I Dismiss Alarm</string>
+  <string name="TEA_reminder_alarm_on">Ring til jeg slår av alarmen</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
-    <item>an hour</item>
-    <item>a day</item>
-    <item>a week</item>
-    <item>in two weeks</item>
-    <item>a month</item>
-    <item>in two months</item>
+    <item>en time</item>
+    <item>om dagen</item>
+    <item>i uka</item>
+    <item>om to uker</item>
+    <item>i måneden</item>
+    <item>om to måneder</item>
   </string-array>
   
   <!-- ==================================================== notifications == -->
   
   <!-- Name of filter when viewing a reminder -->
-  <string name="rmd_NoA_filter">Reminder!</string>
+  <string name="rmd_NoA_filter">Påminnelse!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Slumre</string>
@@ -741,210 +756,210 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference Screen Title -->
-  <string name="rmd_EPr_alerts_header">Reminder Settings</string>
+  <string name="rmd_EPr_alerts_header">Instillinger for påminnelse</string>
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Stilletimer start</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">No notifications will appear after %s</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">Ingen varsler vil vises etter %s</string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
-  <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
+  <string name="rmd_EPr_quiet_hours_desc_none">Stilletimer er deaktivert</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Stilletimer slutt</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will begin appearing starting at %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Varsler vil vises etter %s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">Ringetone for meldinger</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
-  <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
+  <string name="rmd_EPr_ringtone_desc_custom">Tilpasset ringetone er satt</string>
   <!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
-  <string name="rmd_EPr_ringtone_desc_silent">Ringtone set to silent</string>
+  <string name="rmd_EPr_ringtone_desc_silent">Ringetone satt på Stille</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
-  <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
+  <string name="rmd_EPr_ringtone_desc_default">Standard ringetone vil bli brukt</string>
   
   <!-- Reminder Preference: Notification Persistence Title -->
-  <string name="rmd_EPr_persistent_title">Notification Persistence</string>
+  <string name="rmd_EPr_persistent_title">Påminnelse intensitet</string>
   <!-- Reminder Preference: Notification Persistence Description (true) -->
-  <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
+  <string name="rmd_EPr_persistent_desc_true">Varsler må ses individuelt for å kunne fjernes</string>
   <!-- Reminder Preference: Notification Persistence Description (false) -->
-  <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
+  <string name="rmd_EPr_persistent_desc_false">Varsler kan slettes med \"Slett alt\"-knappen</string>
   
   <!-- Reminder Preference: Notification Icon Title -->
-  <string name="rmd_EPr_notificon_title">Notification Icon Set</string>
+  <string name="rmd_EPr_notificon_title">Velg Symbol for Varsel</string>
   <!-- Reminder Preference: Notification Icon Description -->
-  <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
+  <string name="rmd_Epr_notificon_desc">Velg symbol for statuslinjen</string>
 
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">Vibrasjonsvarsling</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
-  <string name="rmd_EPr_vibrate_desc_true">Astrid will vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_true">Astrid vil vibrere ved varsler/beskjeder</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_false">Astrid vil ikke vibrere ved varsler/beskjeder</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Reminders</string>
+  <string name="rmd_EPr_nagging_title">Astrid påminnelser</string>
   <!-- Reminder Preference: Nagging Description (true) -->
-  <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
+  <string name="rmd_EPr_nagging_desc_true">Astid vil vise oppmuntringsbeskjeder ved påminnelser</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid skal ikke vise oppmuntringsbeskjeder</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
-  <string name="rmd_EPr_defaultRemind_title">Random Reminders</string>
+  <string name="rmd_EPr_defaultRemind_title">Tilfeldige påminnelser</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
-  <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
+  <string name="rmd_EPr_defaultRemind_desc_disabled">Nye oppgaver skal ikke påminnes tifeldig</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
+  <string name="rmd_EPr_defaultRemind_desc">Nye oppgaver påminnes tilfeldig: %s</string>
   
   <!-- Defaults Title -->
-  <string name="rmd_EPr_defaults_header">New Task Defaults</string>
+  <string name="rmd_EPr_defaults_header">Nye standardverdier for oppgaver</string>
   
   <string-array name="EPr_reminder_random">
     <!-- Reminder Preference: random reminder choices for preference page. -->
-    <item>disabled</item>
-    <item>hourly</item>
-    <item>daily</item>
-    <item>weekly</item>
-    <item>bi-weekly</item>
-    <item>monthly</item>
-    <item>bi-monthly</item>
+    <item>deaktivert</item>
+    <item>hver time</item>
+    <item>daglig</item>
+    <item>ukentlig</item>
+    <item>hver andre uke</item>
+    <item>månedlig</item>
+    <item>hver andre måned</item>
   </string-array>
         
   <string-array name="EPr_quiet_hours_start">
     <!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
-    <item>disabled</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
+    <item>deaktivert</item>
+    <item>20:00</item>
+    <item>21:00</item>
+    <item>22:00</item>
+    <item>23:00</item>
+    <item>00:00</item>
+    <item>01:00</item>
+    <item>02:00</item>
+    <item>03:00</item>
+    <item>04:00</item>
+    <item>05:00</item>
+    <item>06:00</item>
+    <item>07:00</item>
+    <item>08:00</item>
+    <item>09:00</item>
+    <item>10:00</item>
+    <item>11:00</item>
+    <item>12:00</item>
+    <item>13:00</item>
+    <item>14:00</item>
+    <item>15:00</item>
+    <item>16:00</item>
+    <item>17:00</item>
+    <item>18:00</item>
+    <item>19:00</item>
   </string-array>
   
   <string-array name="EPr_quiet_hours_end">
     <!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times! -->
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
+    <item>09:00</item>
+    <item>10:00</item>
+    <item>11:00</item>
+    <item>12:00</item>
+    <item>13:00</item>
+    <item>14:00</item>
+    <item>15:00</item>
+    <item>16:00</item>
+    <item>17:00</item>
+    <item>18:00</item>
+    <item>19:00</item>
+    <item>20:00</item>
+    <item>21:00</item>
+    <item>22:00</item>
+    <item>23:00</item>
+    <item>00:00</item>
+    <item>01:00</item>
+    <item>02:00</item>
+    <item>03:00</item>
+    <item>04:00</item>
+    <item>05:00</item>
+    <item>06:00</item>
+    <item>07:00</item>
+    <item>08:00</item>
   </string-array>
   
   <!-- =============================================== random reminders == -->
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
-      <item>Hi there! Have a sec?</item>
-      <item>Can I see you for a sec?</item>
-      <item>Have a few minutes?</item>
-      <item>Did you forget?</item>
-      <item>Excuse me!</item>
-      <item>When you have a minute:</item>
-      <item>On your agenda:</item>
-      <item>Free for a moment?</item>
-      <item>Astrid her!</item>
-      <item>Hei! Kan jeg plage deg litt?</item>
-      <item>Et minutt av din tid?</item>
-      <item>Det er en fin dag for</item>
+      <item>Hei! Har du tid?</item>
+      <item>Har du litt tid?</item>
+      <item>Har du noen minutter?</item>
+      <item>Har du glemt?</item>
+      <item>Unnskyld meg!</item>
+      <item>Når du har tid:</item>
+      <item>På din agenda:</item>
+      <item>Ledig for en stund?</item>
+      <item>Astrid kaller!</item>
+      <item>Hei! Kan jeg forstyrre litt?</item>
+      <item>Ett minutt av din tid?</item>
+      <item>Det er en fin dag å</item>
   </string-array>
 
   <string-array name="reminders_due">
       <!-- reminders related to task due date -->
-      <item>Time to work!</item>
-      <item>Due date is here!</item>
-      <item>Ready to start?</item>
-      <item>You said you would do:</item>
-      <item>You\'re supposed to start:</item>
-      <item>Time to start:</item>
-      <item>It\'s time!</item>
-      <item>Excuse me! Time for</item>
-      <item>You free? Time to</item>
+      <item>På tide å komme i gang!</item>
+      <item>Forfallsdatoen er kommet!</item>
+      <item>Klar for å starte?</item>
+      <item>Du sa du ville gjøre:</item>
+      <item>Det er meningen du skal starte:</item>
+      <item>Det er på tide å starte:</item>
+      <item>Det er på tide!</item>
+      <item>Unnskyld, det er tid for</item>
+      <item>Er du ledig? Det er tid for</item>
   </string-array>
 
   <string-array name="reminders_snooze">
       <!-- reminders related to snooze -->
-      <item>Don\'t be lazy now!</item>
-      <item>Snooze time is up!</item>
-      <item>No more snoozing!</item>
-      <item>Now are you ready?</item>
-      <item>No more postponing!</item>
+      <item>Ikke vær så lat!</item>
+      <item>Slumretiden er ferdig!</item>
+      <item>Ikke mer slumring!</item>
+      <item>Nå, er du klar?</item>
+      <item>Ingen flere utsettelser!</item>
   </string-array>
   
   <string-array name="reminder_responses">
       <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
-      <item>Jeg har noe til deg!</item> 
-      <item>Klar for å legge dette til fortiden?</item>
-      <item>Hvorfor får du ikke dette gjort?</item>
-      <item>Så, er du klar?</item>
-      <item>Klar for å gjøre dette?</item>
+      <item>Jeg har noe for deg!</item> 
+      <item>Klar til å legge dette bak deg?</item>
+      <item>Hvorfor ikke få det gjort?</item>
+      <item>Nå? Er du klar?</item>
+      <item>Klar til å starte?</item>
       <item>Takler du dette?</item>
-      <item>Du kan bli lykkelig! Bare gjør ferdig dette!</item>
-      <item>Jeg lover at du vil føle deg bedre når du er ferdig med dette!</item>
-      <item>Vil du ikke gjøre dette i dag?</item>
-      <item>Vennligst fullfør dette, jeg er lei av det!</item>
-      <item>Kan du noensinne fullføre dette? Ja, det kan du!</item>
-      <item>Kommer du noensinne til å fullføre dette?</item>
-      <item>Føl deg bra! Kom an!</item>
-      <item>Jeg er stolt av deg! La oss få det gjort!</item>
-      <item>Litt snop etter at du har fullført dette?</item>
-      <item>Bare denne ene oppgaven. Vær så snill?</item>
-      <item>På tide å korte ned gjøremålslisten!</item>
+      <item>Du blir glad! Bare bli ferdig!</item>
+      <item>Jeg lover at du vil føle deg bedre hvis du avslutter oppgaven!</item>
+      <item>Skal du ikke gjøre dette i dag?</item>
+      <item>Kan du ikke bare avslutte oppgaven. Jeg er så lei av den.</item>
+      <item>Klare du å avlutte oppgaven? Ja, det klarer du!</item>
+      <item>Skal du noen sinne gjøre dette?</item>
+      <item>Vær fornøyd med deg selv! Kom igjen!</item>
+      <item>Jeg er så stolt av deg! La oss få det gjort!</item>
+      <item>Litt snacks etter at du har gjort deg ferdig?</item>
+      <item>Bare denne ene oppgaven? Vær så snill?</item>
+      <item>På tide å korte ned på oppgavelista!</item>
   </string-array>
 
   <string-array name="postpone_nags">
       <!-- Astrid's nagging when user clicks postpone -->
-      <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
-      <item>Er det ikkje kjedelig å være lat?</item>
-      <item>Et eller annet sted er noen avhengig av at du fullfører dette!</item>
-      <item>Da du sa utsett, mente du \'jeg gjør dette\', sant?</item>
-      <item>Dette er siste gang du utsetter dette, ikke sant?</item>
-      <item>Bare fullfør dette i dag, så skal jeg ikke si det til noen!</item>
-      <item>Hvorfor utsette noe du kan.. velge å ikke utsette!</item>
-      <item>You\'ll finish this eventually, I presume?</item>
-      <item>I think you\'re really great! How about not putting this off?</item>
-      <item>Oppnår du målene dine om du gjør det?</item>
-      <item>Utsett, utsett, utsett. Når skal du forbedre deg?</item>
-      <item>I\'ve had enough with your excuses! Just do it already!</item>
-      <item>Didn\'t you make that excuse last time?</item>
-      <item>I can\'t help you organize your life if you do that...</item>
+      <item>Ikke fortell meg at du er en somlekopp!</item>
+      <item>Blir du ikke lei av å være lat noen ganger?</item>
+      <item>Et sted, er noen avhengig av at du gjør ferdig dette!</item>
+      <item>Når du sa utsette, du mente egentlig \"jeg skal gjøre dette\", ikke sant?</item>
+      <item>Dette er siste gang du utsetter oppgaven, ikke sant?</item>
+      <item>Bare gjør det ferdig i dag, jeg skal ikke sladre!</item>
+      <item>Hvorfor utsette når du kan...la være!</item>
+      <item>Jeg antar at du kommer til å avlutte denne oppgaven før eller siden?</item>
+      <item>Jeg synes du er virkelig flink! Hva med å ikke utsette det?</item>
+      <item>Vil du være i stand til å nå dine mål hvis du gjør det?</item>
+      <item>Utsett, utsett, utsett. Når vil du forandre deg!</item>
+      <item>Jeg har fått nok av unnskyldningene dine! Bare gjør det!</item>
+      <item>Fant du ikke på en unnskyldning forrige gang?</item>
+      <item>Jeg kan ikke hjelpe deg med å organisere livet ditt hvis du gjør det..</item>
   </string-array>
     
 
@@ -955,19 +970,19 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- Resources for built-in repeat plug-in -->
 
   <!-- repeating plugin name -->
-  <string name="repeat_plugin">Repeating Tasks</string>
+  <string name="repeat_plugin">Gjentagende oppgaver</string>
   
   <!-- repeating plugin description -->
-  <string name="repeat_plugin_desc">Allows tasks to repeat</string>
+  <string name="repeat_plugin_desc">Tillat gjentagende oppgaver</string>
   
   <!-- checkbox for turning on/off repeats -->
   <string name="repeat_enabled">Gjentakelser</string>
   
   <!-- button for "every x" part of repeat (%d -> repeat value)  -->
-  <string name="repeat_every">Every %d</string>
+  <string name="repeat_every">Hver %d</string>
   
   <!-- hint when opening repeat interval -->
-  <string name="repeat_interval_prompt">Repeat Interval</string>
+  <string name="repeat_interval_prompt">Gjentagende intervall</string>
   
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours) -->
@@ -979,18 +994,18 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   
   <string-array name="repeat_type">
     <!-- repeat type (date to repeat from) -->
-    <item>from due date</item>
-    <item>from completion date</item>
+    <item>fra forfallsdato</item>
+    <item>fra fullført dato</item>
   </string-array>
   
   <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
-  <string name="repeat_detail_byday">$I on $D</string>
+  <string name="repeat_detail_byday">$I på $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Repeats every %s</string>
+  <string name="repeat_detail_duedate">Gjentas hver %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">Repeats %s after completion</string>
+  <string name="repeat_detail_completion">Gjentas %s etter fullført</string>
   
 
 
@@ -1000,28 +1015,28 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- ====================== Plugin Boilerplate ========================= -->
 
     <!-- label for RMilk button in Task Edit Activity -->
-    <string name="rmilk_EOE_button">Remember the Milk Settings</string>
+    <string name="rmilk_EOE_button">Remember the Milk Innstillinger</string>
     
     <!-- task detail showing RTM list information  -->
-    <string name="rmilk_TLA_list">RTM List: %s</string>
+    <string name="rmilk_TLA_list">RTM Liste: %s</string>
     
     <!-- task detail showing RTM repeat information -->
-    <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
+    <string name="rmilk_TLA_repeat">RTM gjentagende oppgave</string>
     
     <!--  task detail showing item needs to be synchronized -->
-    <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
+    <string name="rmilk_TLA_sync">Trenger synkronisering med RTM</string>
 
     <!-- filters header: RTM -->
     <string name="rmilk_FEx_header">Remember the Milk</string>
     
     <!-- filter category for RTM lists -->
-    <string name="rmilk_FEx_list">Lists</string>
+    <string name="rmilk_FEx_list">Lister</string>
     
     <!-- RTM list filter name ($N => list, $C => count) -->
     <string name="rmilk_FEx_list_item">$N ($C)</string>
     
     <!--  RTM list filter title (%s => list) -->
-    <string name="rmilk_FEx_list_title">RTM List \'%s\'</string>
+    <string name="rmilk_FEx_list_title">RTM Liste \'%s\'</string>
     
     <!-- ======================= MilkEditActivity ========================== -->
     
@@ -1029,13 +1044,13 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MEA_title">Remember the Milk</string>
     
     <!--  RTM edit List Edit Label -->
-    <string name="rmilk_MEA_list_label">RTM List:</string>
+    <string name="rmilk_MEA_list_label">RTM Liste:</string>
     
     <!--  RTM edit Repeat Label -->
-    <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
+    <string name="rmilk_MEA_repeat_label">RTM gjentagende status:</string>
     
     <!--  RTM edit Repeat Hint -->
-    <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
+    <string name="rmilk_MEA_repeat_hint">f.eks hver uke, etter 14 dager</string>
     
     <!-- ======================== MilkPreferences ========================== -->
 
@@ -1046,34 +1061,34 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MPr_group_status">Status</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Please Log In To RTM!</string>
+    <string name="rmilk_status_loggedout">Vennligst logg inn på RTM!</string>
     <!-- Status: ongoing -->    
-    <string name="rmilk_status_ongoing">Sync Ongoing...</string>
+    <string name="rmilk_status_ongoing">Synkronisering pågår...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="rmilk_status_success">Last Sync: %s</string>
+    <string name="rmilk_status_success">Siste synkronisering: %s</string>
     <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="rmilk_status_failed">Failed On: %s</string>
+    <string name="rmilk_status_failed">Feilet: %s</string>
     <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="rmilk_status_failed_subtitle">Last Successful Sync: %s</string>
+    <string name="rmilk_status_failed_subtitle">Siste vellykkede synkronisering: %s</string>
     <!-- Sync Status: never sync'd -->    
-    <string name="rmilk_status_never">Never Synchronized!</string>
+    <string name="rmilk_status_never">Aldri synkronisert!</string>
 
     <!-- RTM Options Group Label -->    
-    <string name="rmilk_MPr_group_options">Innstillinger</string>
+    <string name="rmilk_MPr_group_options">Alternativer</string>
 
     <!-- Preference: Synchronization Interval Title -->    
-    <string name="rmilk_MPr_interval_title">Background Sync</string>
+    <string name="rmilk_MPr_interval_title">Bakgrunnssynkronisering</string>
     <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="rmilk_MPr_interval_desc_disabled">Background synchronization is disabled</string>    
+    <string name="rmilk_MPr_interval_desc_disabled">Bakgrunnssynkronisering er deaktivert</string>    
     <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="rmilk_MPr_interval_desc">Currently set to: %s</string>
+    <string name="rmilk_MPr_interval_desc">Foreløpig satt til %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="rmilk_MPr_bgwifi_title">Wifi Only Setting</string>    
+    <string name="rmilk_MPr_bgwifi_title">Bare Wifi Innstilling</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+    <string name="rmilk_MPr_bgwifi_desc_enabled">Synkronisering i bakgrunnen skal kun utføres med WiFi-tilkobling</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+    <string name="rmilk_MPr_bgwifi_desc_disabled">Synkronisering i bakgrunnen skal alltid utføres</string>
     
     <!-- Actions Group Label  -->
     <string name="rmilk_MPr_group_actions">Handlinger</string>
@@ -1081,24 +1096,20 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- Synchronize Now Button -->    
     <string name="rmilk_MPr_sync">Synkroniser nå!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="rmilk_MPr_sync_log_in">Log In &amp; Synchronize!</string>
+    <string name="rmilk_MPr_sync_log_in">Logg Inn &amp; Synkroniser!</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="rmilk_MPr_forget">Log Out</string>
+    <string name="rmilk_MPr_forget">Logg av</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Clears all RTM synchronization data</string>
+    <string name="rmilk_MPr_forget_description">Slett alle RTM synkroniseringsdata</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
     <!-- RTM Login Instructions -->
-    <string name="rmilk_MLA_label">Please Log In and Authorize Astrid:</string>
+    <string name="rmilk_MLA_label">Vennligst logg inn og autoriser Astrid</string>
     
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">
-Sorry, there was an error verifying your login. Please try again.
-\n\n
-Error Message: %s
-    </string>
+    <string name="rmilk_MLA_error">Beklager, kunne ikke verifisere innloggingen. Vennligst prøv igjen. \n\n Feilmelding: %s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     
@@ -1106,24 +1117,23 @@ Error Message: %s
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
     <!-- confirmation dialog for RTM log out -->
-    <string name="rmilk_forget_confirm">Log out / clear synchronization data?</string>
+    <string name="rmilk_forget_confirm">Logge ut / slette synkroniserings data?</string>
     
     <!-- Error msg when io exception with rmilk -->
-    <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
-    or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
+    <string name="rmilk_ioerror">Tilkoblings feil! Sjekk internettforbindelsen din, evt. RTM serverene (status.rememberthemilk.com), for mulig feilløsning.</string>
         
     <string-array name="rmilk_MPr_interval_entries">
         <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
-        <item>disable</item>
-        <item>every fifteen minutes</item>
-        <item>every thirty minutes</item>
-        <item>every hour</item>
-        <item>every three hours</item>
-        <item>every six hours</item>
-        <item>every twelve hours</item>
-        <item>every day</item>
-        <item>every three days</item>
-        <item>every week</item>
+        <item>deaktiver</item>
+        <item>hvert kvarter</item>
+        <item>hver halvtime</item>
+        <item>hver time</item>
+        <item>hver tredje time</item>
+        <item>hver sjette time</item>
+        <item>hver tolvte time</item>
+        <item>daglig</item>
+        <item>hver tredje dag</item>
+        <item>hver uke</item>
     </string-array>
 
     
@@ -1146,7 +1156,7 @@ Error Message: %s
   <!-- ===================================================== Task Details == -->
   
   <!-- tag text that displays in task list. %s => tag name -->
-  <string name="tag_TLA_detail">Tags: %s</string>
+  <string name="tag_TLA_detail">Tagger: %s</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1154,19 +1164,22 @@ Error Message: %s
   <string name="tag_FEx_header">Tagger</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">By Size</string>
+  <string name="tag_FEx_by_size">Active</string>
   
-  <!-- filter header for tags, sorted by name -->
-  <string name="tag_FEx_alpha">Alphabetical</string>
+  <!-- filter header for tags of completed tasks -->
+  <string name="tag_FEx_completed">Completed</string>
+  
+  <!-- filter header for all tags, sorted by name -->
+  <string name="tag_FEx_alpha">All Tags</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Untagged</string>
+  <string name="tag_FEx_untagged">Umerket</string>
   
   <!-- $T => tag, $C => count -->
   <string name="tag_FEx_tag_w_size">$T ($C)</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">Tagged \'%s\'</string>
+  <string name="tag_FEx_name">Merket \'%s\'</string>
     
 
 
@@ -1182,13 +1195,13 @@ Error Message: %s
     <string name="TAE_stopTimer">Stopp tidtaker</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
-    <string name="TPl_notification">Timers Active for %s!</string>
+    <string name="TPl_notification">Tidtaker aktiv for %s!</string>
     
     <!-- Filter Header for Timer plugin -->
-    <string name="TFE_category">Timer Filters</string>
+    <string name="TFE_category">Tidtaker filter</string>
     
     <!-- Filter for Timed Tasks -->
-    <string name="TFE_workingOn">Tasks Being Timed</string>
+    <string name="TFE_workingOn">Tidsbestemte oppgaver</string>
       
 
 </resources>

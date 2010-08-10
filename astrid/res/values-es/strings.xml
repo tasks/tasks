@@ -2,6 +2,27 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
+    <!-- Resources for built-in timers plug-in -->
+    
+    <!-- Task Edit Activity: Container Label -->
+    <string name="alarm_ACS_label">Alarmas</string>
+    
+    <!-- Task Edit Activity: Add New Alarn -->
+    <string name="alarm_ACS_button">Añadir una alarma?</string>
+    
+    <!-- Task Detail for Alarms (%s -> time)-->
+    <string name="alarm_ADE_detail">Alarma %s</string>
+   
+    <string-array name="reminders_alarm">
+      <!-- reminders related to alarm -->
+      <item>¡Alarma!</item>
+    </string-array>
+    
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+    
   <!-- Resources for built-in backup plug-in -->
   
   <!-- ================================================= BackupPreferences == -->
@@ -13,11 +34,11 @@
     <string name="backup_BPr_group_status">Estado</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Latest: %s</string>
+    <string name="backup_status_success">Última copia de seguridad: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Falló el último backup</string>
     <!-- Backup Status: error subtitle -->    
-    <string name="backup_status_failed_subtitle">(tap to show error)</string>
+    <string name="backup_status_failed_subtitle">(toque esto ver los problemas)</string>
     <!-- Backup Status: never backed up -->    
     <string name="backup_status_never">No respaldar nunca</string>
 
@@ -32,9 +53,9 @@
     <string name="backup_BPr_auto_enabled">El respaldo se hará diariamente</string>
     
     <!-- Preference screen restoring Tasks Help -->
-    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
+    <string name="backup_BPr_how_to_restore">¿Cómo restaurar las tareas respaldas?</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
+    <string name="backup_BPr_how_to_restore_dialog">Tiene que agregar el Astrid Power Pack para gestionar y restaurar copias de seguridad. Como un favor, Astrid también automáticamente copias de seguridad de sus tareas, por si acaso.</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -75,7 +96,7 @@
   <!-- Backup: Dialog when unable to open a file -->  
   <string name="DLG_error_opening">No pude encontrar este ítem:</string>
   
-  <!-- Backup: Dialog when unable to open SD card folder -->
+  <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
   <string name="DLG_error_sdcard">No puedo acceder carpeta: %s</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
@@ -210,13 +231,14 @@
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Espere por favor...</string>
   
+  <!-- Progress dialog shown when upgrading -->
+  <string name="DLG_upgrading">Actualización de su tareas...</string>
+  
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Tiempo (horas : minutos)</string>
   
   <!-- Dialog for Astrid having a critical update -->
-  <string name="DLG_please_update">Astrid should to be updated to the latest
-  version in the Android market! Please do that before continuing, or wait a 
-  few seconds.</string>
+  <string name="DLG_please_update">Astrid tiene una nueva versión en el mercado. Por favor, actualice antes de continuar, o espere unos pocos segundos.</string>
 
   <!-- Button for going to Market -->
   <string name="DLG_to_market">Ir al mercado</string>
@@ -224,7 +246,7 @@
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
-  <string name="WID_dateButtonUnset">Click To Set</string>
+  <string name="WID_dateButtonUnset">Toque para grabar</string>
   
   <!-- String formatter for DateButtons ($D => date, $T => time) -->
   <string name="WID_dateButtonLabel">$D $T</string>
@@ -291,7 +313,7 @@ button: add task & go to the edit page.
   <string name="TAd_contextDeleteTask">Borrar Tarea</string>
 
   <!-- Context Item: undelete task -->
-  <string name="TAd_contextUndeleteTask">Undelete Task</string>
+  <string name="TAd_contextUndeleteTask">Restaurar la Tarea</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -320,7 +342,7 @@ button: add task & go to the edit page.
   <string name="FLA_search_hint">Buscar tareas</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">Matching \'%s\'</string>
+  <string name="FLA_search_filter">Coincider %s</string>
   
   <!-- Help (HTML)-->
   <string name="FLA_help"><![CDATA[
@@ -369,13 +391,13 @@ to the plugin creator for fastest service.
   <string name="TEA_importance_label">Importancia</string>
   
   <!-- Task urgency label -->
-  <string name="TEA_urgency_label">Deadline</string>
+  <string name="TEA_urgency_label">Fecha límite</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">Due at specific time?</string>
+  <string name="TEA_urgency_specific_time">debido a una hora específica</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Due Time</string>
+  <string name="TEA_urgency_time_none">No a su debido tiempo</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Esconder hasta</string>
@@ -418,28 +440,28 @@ to the plugin creator for fastest service.
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>Specific Day/Time</item>
+      <item>Día/Tiempo Específicas</item>
       <item>Hoy</item>
       <item>Mañana</item>
       <item>(día anterior)</item>
       <item>Próxima semana</item>
-      <item>No Deadline</item>
+      <item>Ninguna fecha límite</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
       <item>No esconder</item>
-      <item>Task is due</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
+      <item>Tarea se debe</item>
+      <item>Día antes de fecha límite</item>
+      <item>Semana antes de fecha límite</item>
       <item>Día específico</item>
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_no_addons">No Add-ons Found!</string>
+  <string name="TEA_no_addons">No componentes adicionales encontrado!</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get Some Add-ons</string>
+  <string name="TEA_addons_button">Obtener algunos componentes adicionales.</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -455,7 +477,7 @@ to the plugin creator for fastest service.
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
-  <string name="HlA_get_support">Get Support</string>
+  <string name="HlA_get_support">Obtener ayuda</string>
     
   <!-- ==================================================== UpdateService == -->
   
@@ -472,27 +494,33 @@ to the plugin creator for fastest service.
   
   <!-- Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Tamaño de la lista de tareas</string>
-  
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">Tamaño de la fuente en la pagina de listado principal</string>  
   
+  <!-- Preference: Task List Show Notes -->
+  <string name="EPr_showNotes_title">Mostrar notas en la tarea</string>
+  <!-- Preference: Task List Show Notes Description (disabled) -->
+  <string name="EPr_showNotes_desc_disabled">Las notas se mostrarán cuando se toca una tarea.</string>  
+  <!-- Preference: Task List Show Notes Description (enabled) -->
+  <string name="EPr_showNotes_desc_enabled">Notas se mostrará siempre.</string>  
+  
   <!-- Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">New Task Defaults</string>
+  <string name="EPr_defaults_header">configuración de la tarea inicial</string>
   
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Urgencia predeterminada</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently Set To: %s</string>
+  <string name="EPr_default_urgency_desc">Configuración actual: %s</string>
   
   <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Importancia predeterminada</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently Set To: %s</string>
+  <string name="EPr_default_importance_desc">Configuración actual: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
-  <string name="EPr_default_hideUntil_title">Default Hide Until</string>
+  <string name="EPr_default_hideUntil_title">Ocultar configuración inicial hasta</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently Set To: %s</string>
+  <string name="EPr_default_hideUntil_desc">Configuración actual: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
@@ -504,7 +532,7 @@ to the plugin creator for fastest service.
   
   <string-array name="EPr_default_urgency">
       <!-- urgency: labels for "Task Defaults" preference item. -->
-      <item>No Deadline</item>
+      <item>Ninguna fecha límite</item>
       <item>Hoy</item>
       <item>Mañana</item>
       <item>Pasado mañana</item>
@@ -514,33 +542,33 @@ to the plugin creator for fastest service.
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
       <item>No esconder</item>
-      <item>Task is due</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
+      <item>Tarea se debe</item>
+      <item>Día antes de fecha límite</item>
+      <item>Semana antes de fecha límite</item>
   </string-array>    
   
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
-  <string name="AOA_title">Astrid: Add Ons</string>
+  <string name="AOA_title">Astrid: Componentes Adicionales</string>
     
   <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Equipo de Astrid</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
-  <string name="AOA_tab_installed">Installed</string>
+  <string name="AOA_tab_installed">Instalado</string>
   
   <!-- Add-on Activity - available add-ons tab -->
-  <string name="AOA_tab_available">Available</string>
+  <string name="AOA_tab_available">Disponible</string>
   
   <!-- Add-on Activity - free add-ons label -->
-  <string name="AOA_free">Free</string>
+  <string name="AOA_free">Gratuito</string>
   
   <!-- Add-on Activity - menu item to visit add-on website -->
-  <string name="AOA_visit_website">Visit Website</string>
+  <string name="AOA_visit_website">Visitar sitio web</string>
   
   <!-- Add-on Activity - menu item to visit android market -->
-  <string name="AOA_visit_market">Android Market</string>
+  <string name="AOA_visit_market">Tienda Android</string>
   
   <!-- ========================================== SynchronizationProvider == -->
           
@@ -558,11 +586,8 @@ to the plugin creator for fastest service.
   <!-- ============================================================= Misc == -->
   
   <!-- Displayed when task killer found. %s => name of the application -->
-  <string name="task_killer_help">
-It looks like you are using an app that can kill processes (%s)! If you can,
-add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
-Astrid might not let you know when your tasks are due.\n
-  </string>
+  <string name="task_killer_help">Parece que está usando una app que puede matar procesos (%s)!
+Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De otro modo podría no avisarle cuando venza una Tarea.\n</string>
   
   <!-- Task killer dialog ok button -->
   <string name="task_killer_help_ok">No mataré Astrid!</string>
@@ -571,10 +596,7 @@ Astrid might not let you know when your tasks are due.\n
   <string name="marketplace_title">Astrid lista Tareas/hacer</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">
-Astrid is the much loved open-source todo list / task manager designed to help 
-you get stuff done. It features reminders, tags, sync, a widget and more. 
-  </string>
+  <string name="marketplace_description">Astrid es la lista muy querido de código abierto todo / administrador de tareas diseñadas para ayudarle a conseguir la materia hecha. Cuenta con recordatorios, etiquetas, sincronización, un widget y mucho más.</string>
     
 
 
@@ -629,7 +651,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string name="gcal_TEA_error">¡Ocurrió un error al agregar la tarea al calendario!</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_calendar_label">Calendar Integration:</string>
+  <string name="gcal_TEA_calendar_label">Entrar la tarea al calendario</string>
 
   <!-- Label for adding task to calendar -->
   <string name="gcal_TEA_addToCalendar_label">Crear evento de calendario</string>
@@ -654,11 +676,10 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
-  <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
+  <string name="locale_edit_alerts_title">Astrid alerta de filtro</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
-  <string name="locale_edit_intro">Astrid will send you a reminder                                                                                                                                             
-      when you have any tasks in the following filter:</string>
+  <string name="locale_edit_intro">Astrid enviará un recordatorio cuando tiene cualquier tares en el siguiente filtro.</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
   <string name="locale_pick_filter">Filtrar:</string>        
@@ -677,10 +698,10 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   </string-array>        
       
   <!-- Locale Notification text -->                                                                                                                                        
-  <string name="locale_notification">You have $NUM matching: $FILTER</string>     
+  <string name="locale_notification">Tiene $NUM coincider: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
+  <string name="locale_plugin_required">Por favor, instale el componente adicionale de Locale</string>        
      
 
 
@@ -695,16 +716,16 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string name="TEA_reminder_label">Recordarme...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... cuando es hora de empezar la tarea</string>
+  <string name="TEA_reminder_due">... cuando la tarea se debe</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">... when task is overdue</string>
+  <string name="TEA_reminder_overdue">... cuando la tarea esta atrasado</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">... randomly once</string>
+  <string name="TEA_reminder_random">... azar una vez</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
-  <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
+  <string name="TEA_reminder_alarm_label">Tipo de Sonar/Vibrar:</string>
 
   <!-- Task Edit: Reminder alarm clock toggle: off -->  
   <string name="TEA_reminder_alarm_off">Sonar una vez</string>
@@ -741,59 +762,59 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Inicio del horario en silencio</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">No notifications will appear after %s</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">Notoficaciones no aparcerá despues de %s</string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
-  <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
+  <string name="rmd_EPr_quiet_hours_desc_none">Horas de silencio son discapacitados</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Fin del horario en silencio</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will begin appearing starting at %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Notoficaciones comenzarán a aparcer en %s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">Tono de notificación</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
-  <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
+  <string name="rmd_EPr_ringtone_desc_custom">Tono se ha establecido</string>
   <!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
-  <string name="rmd_EPr_ringtone_desc_silent">Ringtone set to silent</string>
+  <string name="rmd_EPr_ringtone_desc_silent">Tono en modo silencio</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
-  <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
+  <string name="rmd_EPr_ringtone_desc_default">Configuración tono inicial se utilizará</string>
   
   <!-- Reminder Preference: Notification Persistence Title -->
-  <string name="rmd_EPr_persistent_title">Notification Persistence</string>
+  <string name="rmd_EPr_persistent_title">Persistencia de notificación</string>
   <!-- Reminder Preference: Notification Persistence Description (true) -->
-  <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
+  <string name="rmd_EPr_persistent_desc_true">Notificacións hay que eliminar uno a la vez</string>
   <!-- Reminder Preference: Notification Persistence Description (false) -->
-  <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
+  <string name="rmd_EPr_persistent_desc_false">Notificaciónes se pueden borrar con el botón \"Borrar Todo\"</string>
   
   <!-- Reminder Preference: Notification Icon Title -->
-  <string name="rmd_EPr_notificon_title">Notification Icon Set</string>
+  <string name="rmd_EPr_notificon_title">Icono de notoficación establecidos</string>
   <!-- Reminder Preference: Notification Icon Description -->
-  <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
+  <string name="rmd_Epr_notificon_desc">elegir el icono de notificación establecidos</string>
 
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">Vibrar en alerta</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
-  <string name="rmd_EPr_vibrate_desc_true">Astrid will vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_true">Vibrará cuando el envío de notificaciones</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_false">No vibrará cuando el envío de notificaciones</string>
 
   <!-- Reminder Preference: Nagging Title -->  
   <string name="rmd_EPr_nagging_title">Recordatorios de Astrid</string>
   <!-- Reminder Preference: Nagging Description (true) -->
-  <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
+  <string name="rmd_EPr_nagging_desc_true">Astrid dará estímulo adicional para los recordatorios.</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid no dará estímulo adicional para los recordatorios</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Recordatorios aleatorios</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
-  <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
+  <string name="rmd_EPr_defaultRemind_desc_disabled">Nuevas tareas no han recordatorios al azar</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
+  <string name="rmd_EPr_defaultRemind_desc">Nuevas tares le recordará al azar: %s</string>
   
   <!-- Defaults Title -->
-  <string name="rmd_EPr_defaults_header">New Task Defaults</string>
+  <string name="rmd_EPr_defaults_header">configuración de la tarea inicial</string>
   
   <string-array name="EPr_reminder_random">
     <!-- Reminder Preference: random reminder choices for preference page. -->
@@ -801,9 +822,9 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <item>cada hora</item>
     <item>diariamente</item>
     <item>semanalmente</item>
-    <item>bi-weekly</item>
+    <item>Dos veces por semana</item>
     <item>mensualmente</item>
-    <item>bi-monthly</item>
+    <item>Dos veces por mes</item>
   </string-array>
         
   <string-array name="EPr_quiet_hours_start">
@@ -867,38 +888,38 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
-      <item>¡Hola! ¿Tienes un segundo?</item>
-      <item>¿Puedo verte un segundo?</item>
-      <item>¿Tienes unos minutos?</item>
-      <item>¿Te has olvidado?</item>
+      <item>Hola! ¿Tiene un segundo?</item>
+      <item>¿Puede ver por un segundo?</item>
+      <item>¿Tiene unos minutos?</item>
+      <item>¿Se te olvidó?</item>
       <item>¡Disculpe!</item>
       <item>Cuando tenga un minuto:</item>
-      <item>En tu agenda:</item>
-      <item>¿Tienes un momento libre?</item>
-      <item>¡Astrid esta aquí!</item>
+      <item>En su agenda:</item>
+      <item>Tiene un momento libre?</item>
+      <item>Astrid aquí!</item>
       <item>¡Hola! ¿Puedo molestarlo?</item>
-      <item>¿Me concedes un minuto?</item>
+      <item>Un minuto de su tiempo</item>
       <item>Es un gran día para</item>
   </string-array>
 
   <string-array name="reminders_due">
       <!-- reminders related to task due date -->
       <item>¡Hora de trabajar!</item>
-      <item>Due date is here!</item>
+      <item>Fecha de venciendo está aquí!</item>
       <item>¿Listo para empezar?</item>
-      <item>You said you would do:</item>
-      <item>You\'re supposed to start:</item>
-      <item>Time to start:</item>
+      <item>Dijiste que harías:</item>
+      <item>Se supone que comenzará:</item>
+      <item>Momento de empezar:</item>
       <item>¡Es hora!</item>
-      <item>Excuse me! Time for</item>
-      <item>You free? Time to</item>
+      <item>Perdón! Tiempo para:</item>
+      <item>¿Está libre? Tiempo para:</item>
   </string-array>
 
   <string-array name="reminders_snooze">
       <!-- reminders related to snooze -->
-      <item>Don\'t be lazy now!</item>
-      <item>Snooze time is up!</item>
-      <item>No more snoozing!</item>
+      <item>No sea perezoso ahora!</item>
+      <item>Tiempo de pausa está terminado!</item>
+      <item>No dormitando mas!</item>
       <item>¿Ahora está listo?</item>
       <item>¡Basta de posponerlo!</item>
   </string-array>
@@ -906,36 +927,36 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string-array name="reminder_responses">
       <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
       <item>¡Tengo algo para usted!</item> 
-      <item>¿Listo para poner esto en el pasado?</item>
-      <item>¿Por qué no terminas esto?</item>
-      <item>¿Qué me dices? ¿Listo tigre?</item>
+      <item>Está listo para poner esto en el pasado?</item>
+      <item>¿Por qué no conseguir este hecho?</item>
+      <item>¿Qué te parece? Tigre listo?</item>
       <item>¿Listo para hacer esto?</item>
-      <item>¿Puedes con esto?</item>
-      <item>¡Puedes ser feliz! ¡Solo termínalo!</item>
+      <item>¿Se puede manejar esto?</item>
+      <item>Puede estar feliz! Solo terminar este!</item>
       <item>¡Le prometo que se sentirá mejor si termina esto!</item>
       <item>¿No hará esto hoy?</item>
       <item>Por favor termine esto ¡me tiene harto!</item>
-      <item>¿Puedes terminar esto? ¡Tu puedes!</item>
+      <item>Puede terminar este? Sí, se puede!</item>
       <item>¿Acaso nunca va a hacer esto?</item>
-      <item>Siéntete bien! Vamos!</item>
-      <item>¡Estoy orgulloso de ti! ¡Vamos a acabar esto!</item>
-      <item>¿Un bocadillo cuando termines esto?</item>
-      <item>¿Solo esta tarea? ¿Por favor?</item>
-      <item>¡Es hora de acortar tu lista de tareas!</item>
+      <item>Sentirse bien consigo mismo! Vamos!</item>
+      <item>Estoy orgulloso de ti! Lograr que se haga!</item>
+      <item>Un refrigerio después de haber terminado?</item>
+      <item>Solo este tarea? Por favor?</item>
+      <item>Es hora de acortar su lista de tarea!</item>
   </string-array>
 
   <string-array name="postpone_nags">
       <!-- Astrid's nagging when user clicks postpone -->
-      <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
-      <item>Doesn\'t being lazy get old sometimes?</item>
+      <item>Por favor, dime que no es cierto que usted es un procrastinator!</item>
+      <item>¿Puede ser perezoso aburrido?</item>
       <item>¡Alguien en algún lugar está esperando que termine esto!</item>
       <item>¿Cuando dice posponer... realmente quiere decir \'lo estoy haciendo\'? ¿verdad?</item>
       <item>¿Esta es la última vez que pospone esto? ¿verdad?</item>
       <item>¡Termínelo hoy! no le diré a nadie...</item>
       <item>Porqué posponer cuando puede... no posponer!</item>
       <item>¿Supongo que terminará esto en algún momento?</item>
-      <item>I think you\'re really great! How about not putting this off?</item>
-      <item>¿Podrás alcanzar tus metas si haces eso?</item>
+      <item>Pienso que eres fenomenal! ¿Qué hay de no demorar esto?</item>
+      <item>¿Serás capaz de lograr sus metas, si haces eso?</item>
       <item>Posponer, posponer, posponer. ¡Cuándo va a cambiar!</item>
       <item>¡Ya fueron suficientes excusas! ¡hágalo de una vez!</item>
       <item>¿Esa no fue la excusa que usó la última vez?</item>
@@ -950,16 +971,16 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- Resources for built-in repeat plug-in -->
 
   <!-- repeating plugin name -->
-  <string name="repeat_plugin">Repeating Tasks</string>
+  <string name="repeat_plugin">Repetición de Tareas</string>
   
   <!-- repeating plugin description -->
-  <string name="repeat_plugin_desc">Allows tasks to repeat</string>
+  <string name="repeat_plugin_desc">Permite repetir las tareas.</string>
   
   <!-- checkbox for turning on/off repeats -->
   <string name="repeat_enabled">Repeticiones</string>
   
   <!-- button for "every x" part of repeat (%d -> repeat value)  -->
-  <string name="repeat_every">Every %d</string>
+  <string name="repeat_every">Cada %d</string>
   
   <!-- hint when opening repeat interval -->
   <string name="repeat_interval_prompt">Intervalo de repetición</string>
@@ -974,18 +995,18 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   
   <string-array name="repeat_type">
     <!-- repeat type (date to repeat from) -->
-    <item>from due date</item>
-    <item>from completion date</item>
+    <item>Desde fecha límite</item>
+    <item>Desde fecha finalización</item>
   </string-array>
   
   <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
   <string name="repeat_detail_byday">$I en $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Repeats every %s</string>
+  <string name="repeat_detail_duedate">Se repite cada %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">Repeats %s after completion</string>
+  <string name="repeat_detail_completion">Se repite %s después de la finalización</string>
   
 
 
@@ -995,16 +1016,16 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- ====================== Plugin Boilerplate ========================= -->
 
     <!-- label for RMilk button in Task Edit Activity -->
-    <string name="rmilk_EOE_button">Remember the Milk Settings</string>
+    <string name="rmilk_EOE_button">Ajustes de Remember the Milk</string>
     
     <!-- task detail showing RTM list information  -->
-    <string name="rmilk_TLA_list">RTM List: %s</string>
+    <string name="rmilk_TLA_list">RTM Lista: %s</string>
     
     <!-- task detail showing RTM repeat information -->
-    <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
+    <string name="rmilk_TLA_repeat">RTM Tarea Repetitiva</string>
     
     <!--  task detail showing item needs to be synchronized -->
-    <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
+    <string name="rmilk_TLA_sync">Se necesita sincronizar con RTM</string>
 
     <!-- filters header: RTM -->
     <string name="rmilk_FEx_header">Remember the Milk</string>
@@ -1016,7 +1037,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_FEx_list_item">$N ($C)</string>
     
     <!--  RTM list filter title (%s => list) -->
-    <string name="rmilk_FEx_list_title">RTM List \'%s\'</string>
+    <string name="rmilk_FEx_list_title">RTM Lista \'%s\'</string>
     
     <!-- ======================= MilkEditActivity ========================== -->
     
@@ -1024,13 +1045,13 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MEA_title">Remember the Milk</string>
     
     <!--  RTM edit List Edit Label -->
-    <string name="rmilk_MEA_list_label">RTM List:</string>
+    <string name="rmilk_MEA_list_label">RTM Lista:</string>
     
     <!--  RTM edit Repeat Label -->
-    <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
+    <string name="rmilk_MEA_repeat_label">RTM Repita Estado:</string>
     
     <!--  RTM edit Repeat Hint -->
-    <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
+    <string name="rmilk_MEA_repeat_hint">Es decir cada semana, después de catorce días</string>
     
     <!-- ======================== MilkPreferences ========================== -->
 
@@ -1041,9 +1062,9 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MPr_group_status">Estado</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Please Log In To RTM!</string>
+    <string name="rmilk_status_loggedout">Por favor, ingrese a RTM</string>
     <!-- Status: ongoing -->    
-    <string name="rmilk_status_ongoing">Sync Ongoing...</string>
+    <string name="rmilk_status_ongoing">Sincronización en curso...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
     <string name="rmilk_status_success">Última sincronización: %s</string>
     <!-- Sync Status: error status (%s -> last attempted sync date) -->    
@@ -1059,16 +1080,16 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- Preference: Synchronization Interval Title -->    
     <string name="rmilk_MPr_interval_title">Sincronizar en segundo plano</string>
     <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="rmilk_MPr_interval_desc_disabled">Background synchronization is disabled</string>    
+    <string name="rmilk_MPr_interval_desc_disabled">Sincronización en segundo plano está desactivada</string>    
     <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="rmilk_MPr_interval_desc">Currently set to: %s</string>
+    <string name="rmilk_MPr_interval_desc">Actualmente configurado para: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="rmilk_MPr_bgwifi_title">Wifi Only Setting</string>    
+    <string name="rmilk_MPr_bgwifi_title">Wifi ajuste sólo</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+    <string name="rmilk_MPr_bgwifi_desc_enabled">Sincronización en segundo plano sólo ocurre cuando el Wifi</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+    <string name="rmilk_MPr_bgwifi_desc_disabled">Sincronización en segundo plano siempre se produce</string>
     
     <!-- Actions Group Label  -->
     <string name="rmilk_MPr_group_actions">Acciones</string>
@@ -1076,24 +1097,20 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- Synchronize Now Button -->    
     <string name="rmilk_MPr_sync">¡Sincronizar ahora!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="rmilk_MPr_sync_log_in">Log In &amp; Synchronize!</string>
+    <string name="rmilk_MPr_sync_log_in">Registrarse y sincronizar!</string>
     
     <!-- Sync: Clear Data Title -->
     <string name="rmilk_MPr_forget">Cerrar sesión</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Clears all RTM synchronization data</string>
+    <string name="rmilk_MPr_forget_description">Borra todos los datos de sincronización de RTM</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
     <!-- RTM Login Instructions -->
-    <string name="rmilk_MLA_label">Please Log In and Authorize Astrid:</string>
+    <string name="rmilk_MLA_label">Por favor Entrar en este lugar y Autorizar Astrid:</string>
     
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">
-Sorry, there was an error verifying your login. Please try again.
-\n\n
-Error Message: %s
-    </string>
+    <string name="rmilk_MLA_error">Lo siento, no fue un error verificar su nombre de usuario. Por favor, inténtelo de nuevo. \n\n Mensaje de error: %s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     
@@ -1101,11 +1118,10 @@ Error Message: %s
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
     <!-- confirmation dialog for RTM log out -->
-    <string name="rmilk_forget_confirm">Log out / clear synchronization data?</string>
+    <string name="rmilk_forget_confirm">Cierre de sesión / cancelar la sincronización de datos?</string>
     
     <!-- Error msg when io exception with rmilk -->
-    <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
-    or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
+    <string name="rmilk_ioerror">Error de conexión! Compruebe su conexión a Internet o servidores quizá RTM (status.rememberthemilk.com), para posibles soluciones.</string>
         
     <string-array name="rmilk_MPr_interval_entries">
         <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
@@ -1149,10 +1165,13 @@ Error Message: %s
   <string name="tag_FEx_header">Etiquetas</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Por tamaño</string>
+  <string name="tag_FEx_by_size">Activo</string>
   
-  <!-- filter header for tags, sorted by name -->
-  <string name="tag_FEx_alpha">Alfabético</string>
+  <!-- filter header for tags of completed tasks -->
+  <string name="tag_FEx_completed">Completado</string>
+  
+  <!-- filter header for all tags, sorted by name -->
+  <string name="tag_FEx_alpha">Todas las etiquetas</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Sin etiquetas</string>
@@ -1177,13 +1196,13 @@ Error Message: %s
     <string name="TAE_stopTimer">Parar</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
-    <string name="TPl_notification">Timers Active for %s!</string>
+    <string name="TPl_notification">Temporizadores Activos por %s!</string>
     
     <!-- Filter Header for Timer plugin -->
-    <string name="TFE_category">Timer Filters</string>
+    <string name="TFE_category">Filtros de Temporizadores</string>
     
     <!-- Filter for Timed Tasks -->
-    <string name="TFE_workingOn">Tasks Being Timed</string>
+    <string name="TFE_workingOn">Tareas que se cronometrado</string>
       
 
 </resources>
