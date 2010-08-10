@@ -7,16 +7,18 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.Spinner;
 import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -100,6 +102,9 @@ public class GCalControlSet implements TaskEditControlSet {
                     cursor.moveToFirst();
                     intent.putExtra("beginTime", cursor.getLong(0));
                     intent.putExtra("endTime", cursor.getLong(1));
+                } catch (Exception e) {
+                    Log.e("gcal-error", "Error opening calendar", e); //$NON-NLS-1$ //$NON-NLS-2$
+                    Toast.makeText(activity, R.string.gcal_TEA_error, Toast.LENGTH_LONG);
                 } finally {
                     cursor.close();
                 }
@@ -174,8 +179,9 @@ public class GCalControlSet implements TaskEditControlSet {
                 values.put("dtstart", dueDate - estimatedTime);
                 values.put("dtend", dueDate);
             } else {
-                values.put("dtstart", dueDate);
-                values.put("dtend", dueDate);
+                // calendar thinks 23:59:59 is next day, move it back
+                values.put("dtstart", dueDate - DateUtilities.ONE_DAY + 1000L);
+                values.put("dtend", dueDate - DateUtilities.ONE_DAY + 1000L);
                 values.put("allDay", "1");
             }
         } else {
