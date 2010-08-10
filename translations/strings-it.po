@@ -901,7 +901,7 @@ msgstr "una volta a settimana"
 #. Locale Notification text
 #: translations/strings.xml:657( name="locale_notification")
 msgid "You have $NUM matching: $FILTER"
-msgstr "Hai $NUM corrispondenti: $FILTRO"
+msgstr "Hai $NUM corrispondenti: $FILTER"
 
 #. Task Edit: Reminder header label
 #: translations/strings.xml:669( name="TEA_reminder_label")
