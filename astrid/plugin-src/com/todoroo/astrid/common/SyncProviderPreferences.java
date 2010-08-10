@@ -127,12 +127,12 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
             // last sync was error
             else if(getUtilities().getLastAttemptedSyncDate() != 0) {
                 status = r.getString(R.string.rmilk_status_failed,
-                        DateUtilities.getDateWithTimeFormat(SyncProviderPreferences.this).
-                        format(new Date(getUtilities().getLastAttemptedSyncDate())));
+                        DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
+                        new Date(getUtilities().getLastAttemptedSyncDate())));
                 if(getUtilities().getLastSyncDate() > 0) {
                     subtitle = r.getString(R.string.rmilk_status_failed_subtitle,
-                            DateUtilities.getDateWithTimeFormat(SyncProviderPreferences.this).
-                            format(new Date(getUtilities().getLastSyncDate())));
+                            DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
+                            new Date(getUtilities().getLastSyncDate())));
                 }
                 statusColor = Color.rgb(100, 0, 0);
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
@@ -145,8 +145,8 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
                 });
             } else if(getUtilities().getLastSyncDate() > 0) {
                 status = r.getString(R.string.rmilk_status_success,
-                        DateUtilities.getDateWithTimeFormat(SyncProviderPreferences.this).
-                        format(new Date(getUtilities().getLastSyncDate())));
+                        DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
+                        new Date(getUtilities().getLastSyncDate())));
                 statusColor = Color.rgb(0, 100, 0);
             } else {
                 status = r.getString(R.string.rmilk_status_never);

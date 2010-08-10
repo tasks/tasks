@@ -35,10 +35,11 @@ import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevLoginActivity;
+import com.todoroo.astrid.producteev.ProducteevLoginActivity.SyncLoginCallback;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
-import com.todoroo.astrid.producteev.ProducteevLoginActivity.SyncLoginCallback;
 import com.todoroo.astrid.producteev.api.ApiResponseParseException;
 import com.todoroo.astrid.producteev.api.ApiServiceException;
 import com.todoroo.astrid.producteev.api.ApiUtilities;
@@ -168,11 +169,10 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                     ProducteevLoginActivity.setCallback(new SyncLoginCallback() {
                         public String verifyLogin(final Handler syncLoginHandler, String em, String pass) {
                             try {
-                                invoker.authenticate(em, pass);
-                                preferences.setToken(invoker.getToken());
                                 Preferences.setString(R.string.producteev_PPr_email, em);
                                 Preferences.setString(R.string.producteev_PPr_password, pass);
-                                performSync();
+                                context.startService(new Intent(ProducteevBackgroundService.SYNC_ACTION, null,
+                                        context, ProducteevBackgroundService.class));
                                 return null;
                             } catch (Exception e) {
                                 // didn't work
