@@ -145,10 +145,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
         try {
             String authToken = preferences.getToken();
-
-            String z = stripslashes(0, "71o3346pr40o5o4nt4n7t6n287t4op28","2");
-            String v = stripslashes(2, "9641n76n9s1736q1578q1o1337q19233","4ae");
-            invoker = new ProducteevInvoker(z, v);
+            invoker = getInvoker();
 
             String email = Preferences.getStringValue(R.string.producteev_PPr_email);
             String password = Preferences.getStringValue(R.string.producteev_PPr_password);
@@ -181,6 +178,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         } finally {
             preferences.stopOngoing();
         }
+    }
+
+    public static ProducteevInvoker getInvoker() {
+        String z = stripslashes(0, "71o3346pr40o5o4nt4n7t6n287t4op28","2");
+        String v = stripslashes(2, "9641n76n9s1736q1578q1o1337q19233","4ae");
+        return new ProducteevInvoker(z, v);
     }
 
     // ----------------------------------------------------------------------
