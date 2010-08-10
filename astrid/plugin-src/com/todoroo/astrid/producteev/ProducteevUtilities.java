@@ -19,6 +19,12 @@ public class ProducteevUtilities extends SyncProviderUtilities {
 
     public static final ProducteevUtilities INSTANCE = new ProducteevUtilities();
 
+    /** setting for dashboard to not synchronize */
+    public static final int DASHBOARD_NO_SYNC = -1;
+
+    /** setting for dashboard to use default one */
+    public static final int DASHBOARD_DEFAULT = 0;
+
     @Override
     public String getIdentifier() {
         return IDENTIFIER;

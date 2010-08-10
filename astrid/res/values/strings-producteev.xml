@@ -5,12 +5,27 @@
     <!-- ====================== Plugin Boilerplate ========================= -->
 
     <!-- task detail showing Producteev dashboard information  -->
-    <string name="producteev_TLA_dashboard">Producteev dashboard: %s</string>
+    <string name="producteev_TLA_dashboard">Workspace: %s</string>
     
     <!-- ==================================================== Preferences == -->
 
     <!-- Preferences Title: Producteev -->    
     <string name="producteev_PPr_header">Producteev</string>
+
+    <!-- dashboard title for producteev default dashboard  -->
+    <string name="producteev_default_dashboard">Default Workspace</string>
+
+    <!-- dashboard title for tasks that are not synchronized -->
+    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+
+    <!-- preference title for default dashboard -->
+    <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
+
+    <!-- preference description for default dashboard (%s -> setting) -->
+    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+
+    <!-- preference description for default dashboard (when set to 'not synchronized') -->
+    <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
 
     <!-- ================================================= Login Activity == -->
 
