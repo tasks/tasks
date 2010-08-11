@@ -156,6 +156,9 @@
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Add-ons</string>
   
+  <!-- Menu: Adjust Sort and Hidden Task Settings -->    
+  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
+  
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Settings</string>
   
@@ -208,6 +211,47 @@ button: add task & go to the edit page.
 
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Undelete Task</string>
+  
+  <!-- ============================================== SortSelectionDialog == -->
+  
+  <!-- Sort Selection: dialog title -->    
+  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  
+  <!-- Hidden Task Selection: show completed tasks -->    
+  <string name="SSD_completed">Show Completed Tasks</string>
+  
+  <!-- Hidden Task Selection: show hidden tasks -->    
+  <string name="SSD_hidden">Show Hidden Tasks</string>
+  
+  <!-- Hidden Task Selection: show deleted tasks -->    
+  <string name="SSD_deleted">Show Deleted Tasks</string>
+  
+  <!-- Sort Selection: sort options header -->    
+  <string name="SSD_sort_header">Sort Options</string>
+  
+  <!-- Sort Selection: smart sort -->
+  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  
+  <!-- Sort Selection: sort by alpha -->
+  <string name="SSD_sort_alpha">By Title</string>
+  
+  <!-- Sort Selection: sort by due date -->
+  <string name="SSD_sort_due">By Due Date</string>
+  
+  <!-- Sort Selection: sort by importance -->
+  <string name="SSD_sort_importance">By Importance</string>
+  
+  <!-- Sort Selection: sort by modified date -->
+  <string name="SSD_sort_modified">By Last Modified</string>
+  
+  <!-- Sort Selection: reverse -->
+  <string name="SSD_sort_reverse">Reverse Sort</string>
+  
+  <!-- Sort Button: sort temporarily -->
+  <string name="SSD_save_temp">Just Once</string>
+  
+  <!-- Sort Button: sort permanently -->
+  <string name="SSD_save_always">Always</string>
   
   <!-- =============================================== FilterListActivity == -->
 

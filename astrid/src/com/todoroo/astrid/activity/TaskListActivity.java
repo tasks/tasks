@@ -94,23 +94,25 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
 
     public static final int ACTIVITY_EDIT_TASK = 0;
     public static final int ACTIVITY_SETTINGS = 1;
-    public static final int ACTIVITY_ADDONS = 2;
-    public static final int ACTIVITY_MENU_EXTERNAL = 3;
+    public static final int ACTIVITY_SORT = 2;
+    public static final int ACTIVITY_ADDONS = 3;
+    public static final int ACTIVITY_MENU_EXTERNAL = 4;
 
     // --- menu codes
 
     private static final int MENU_ADDONS_ID = Menu.FIRST + 1;
     private static final int MENU_SETTINGS_ID = Menu.FIRST + 2;
-    private static final int MENU_HELP_ID = Menu.FIRST + 3;
-    private static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 4;
+    private static final int MENU_SORT_ID = Menu.FIRST + 3;
+    private static final int MENU_HELP_ID = Menu.FIRST + 4;
+    private static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 5;
 
-    private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 5;
-    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 6;
-    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 7;
-    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 8;
+    private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 6;
+    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 7;
+    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 8;
+    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 9;
 
     /** menu code indicating the end of the context menu */
-    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 9;
+    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 10;
 
     // --- constants
 
@@ -212,6 +214,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
         item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
                 R.string.TLA_menu_settings);
         item.setIcon(android.R.drawable.ic_menu_preferences);
+
+        item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
+                R.string.TLA_menu_sort);
+        item.setIcon(android.R.drawable.ic_menu_sort_by_size);
 
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.TLA_menu_help);
@@ -717,6 +723,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
             intent = new Intent(this, EditPreferences.class);
             startActivityForResult(intent, ACTIVITY_SETTINGS);
             return true;
+        case MENU_SORT_ID:
+            AlertDialog dialog = SortSelectionActivity.createDialog(this);
+            dialog.show();
+            return true;
         case MENU_HELP_ID:
             intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/")); //$NON-NLS-1$
@@ -727,8 +737,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
             AndroidUtilities.startExternalIntent(this, intent, ACTIVITY_MENU_EXTERNAL);
             return true;
 
+        // --- context menu items
 
-        // context menu items
         case CONTEXT_MENU_ADDON_INTENT_ID: {
             intent = item.getIntent();
             AndroidUtilities.startExternalIntent(this, intent, ACTIVITY_MENU_EXTERNAL);
