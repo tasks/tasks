@@ -106,7 +106,7 @@ public final class UpgradeService {
                     "Restored tag hiding when tag begins with underscore (_)",
                     "FROYO: disabled moving app to SD card, it would break alarms and widget",
                     "Also gone: a couple force closes, bugs with repeating tasks",
-                    "... enjoy! - we ♥ astrid team",
+                    "... enjoy! - we <3 astrid team",
             });
         if(from > 135 && from <= 144)
             newVersionString(changeLog, "3.0.6 (8/4/10)", new String[] {

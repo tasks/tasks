@@ -195,6 +195,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             // load user information
             JSONObject user = invoker.usersView(null).getJSONObject("user");
             saveUserData(user);
+            long userId = user.getLong("id_user");
 
             String lastServerSync = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_SYNC);
             if(lastServerSync != null)
@@ -214,7 +215,17 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 JSONArray tasks = invoker.tasksShowList(dashboardId, lastServerSync);
                 for(int i = 0; i < tasks.length(); i++) {
                     ProducteevTaskContainer remote = parseRemoteTask(tasks.getJSONObject(i));
-                    dataService.findLocalMatch(remote);
+                    boolean foundLocal = dataService.findLocalMatch(remote);
+
+                    // if creator & responsible != current user, skip / delete it
+                    if(userId != remote.pdvTask.getValue(ProducteevTask.CREATOR_ID) &&
+                            userId != remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID)) {
+                        if(foundLocal)
+                            remote.task.setValue(Task.DELETION_DATE, DateUtilities.now());
+                        else
+                            continue;
+                    }
+
                     remoteTasks.add(remote);
                 }
             }

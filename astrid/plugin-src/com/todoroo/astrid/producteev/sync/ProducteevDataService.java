@@ -21,10 +21,10 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
@@ -113,18 +113,20 @@ public final class ProducteevDataService {
     /**
      * Searches for a local task with same remote id, updates this task's id
      * @param remoteTask
+     * @return true if found local match
      */
-    public void findLocalMatch(ProducteevTaskContainer remoteTask) {
+    public boolean findLocalMatch(ProducteevTaskContainer remoteTask) {
         if(remoteTask.task.getId() != Task.NO_ID)
-            return;
+            return true;
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID).
                 join(ProducteevDataService.METADATA_JOIN).where(Criterion.and(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
                         ProducteevTask.ID.eq(remoteTask.pdvTask.getValue(ProducteevTask.ID)))));
         try {
             if(cursor.getCount() == 0)
-                return;
+                return false;
             cursor.moveToFirst();
             remoteTask.task.setId(cursor.get(Task.ID));
+            return true;
         } finally {
             cursor.close();
         }
