@@ -77,8 +77,8 @@ public class Database extends AbstractDatabase {
 
         sql.append("CREATE INDEX IF NOT EXISTS so_id ON ").
             append(StoreObject.TABLE).append('(').
-                append(StoreObject.TYPE).append(',').
-                append(StoreObject.ITEM).
+                append(StoreObject.TYPE.name).append(',').
+                append(StoreObject.ITEM.name).
             append(')');
         database.execSQL(sql.toString());
         sql.setLength(0);
@@ -114,8 +114,8 @@ public class Database extends AbstractDatabase {
 
             sql.append("CREATE INDEX IF NOT EXISTS so_id ON ").
                 append(StoreObject.TABLE).append('(').
-                    append(StoreObject.TYPE).append(',').
-                    append(StoreObject.ITEM).
+                    append(StoreObject.TYPE.name).append(',').
+                    append(StoreObject.ITEM.name).
                 append(')');
             database.execSQL(sql.toString());
         }

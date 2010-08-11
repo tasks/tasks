@@ -83,10 +83,10 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
             // display responsible user if not current one
             if(responsibleId > 0 && ownerDashboard != null && responsibleId !=
                     Preferences.getLong(ProducteevUtilities.PREF_USER_ID, 0L)) {
-                String users = ownerDashboard.getValue(ProducteevDashboard.USERS);
+                String users = ";" + ownerDashboard.getValue(ProducteevDashboard.USERS); //$NON-NLS-1$
                 int index = users.indexOf(";" + responsibleId + ","); //$NON-NLS-1$ //$NON-NLS-2$
                 if(index > -1) {
-                    String user = users.substring(users.indexOf(',', index),
+                    String user = users.substring(users.indexOf(',', index) + 1,
                             users.indexOf(';', index + 1));
                     builder.append(context.getString(R.string.producteev_TLA_responsible,
                             user)).append(TaskAdapter.DETAIL_SEPARATOR);

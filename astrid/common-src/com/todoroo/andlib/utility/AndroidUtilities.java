@@ -297,4 +297,16 @@ public class AndroidUtilities {
             }
         }
     }
+
+    /**
+     * Sleep, ignoring interruption
+     * @param l
+     */
+    public static void sleepDeep(long l) {
+        try {
+            Thread.sleep(l);
+        } catch (InterruptedException e) {
+            // ignore
+        }
+    }
 }

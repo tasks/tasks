@@ -36,6 +36,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.producteev.api.ApiAuthenticationException;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
 import com.todoroo.astrid.utility.Preferences;
@@ -152,6 +153,8 @@ public class ProducteevLoginActivity extends Activity {
                     ProducteevUtilities.INSTANCE.setToken(invoker.getToken());
 
                     synchronize();
+                } catch (ApiAuthenticationException e) {
+                    errorMessage.append(getString(R.string.producteev_PLA_errorAuth));
                 } catch (Exception e) {
                     errorMessage.append(e.getMessage());
                 } finally {

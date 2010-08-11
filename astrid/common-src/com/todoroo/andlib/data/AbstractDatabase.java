@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 
 /**
  * AbstractDatabase is a database abstraction which wraps a SQLite database.
@@ -160,8 +161,10 @@ abstract public class AbstractDatabase {
      * @return sql database. opens database if not yet open
      */
     public synchronized final SQLiteDatabase getDatabase() {
-        if(database == null)
+        if(database == null) {
+            AndroidUtilities.sleepDeep(300L);
             openForWriting();
+        }
         return database;
     }
 

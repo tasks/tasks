@@ -182,7 +182,7 @@ public final class ProducteevDataService {
      */
     public Metadata getTaskMetadata(long taskId) {
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
-                ProducteevTask.ID, ProducteevTask.DASHBOARD_ID).where(
+                Metadata.PROPERTIES).where(
                 MetadataCriteria.byTaskAndwithKey(taskId, ProducteevTask.METADATA_KEY)));
         try {
             if(cursor.getCount() == 0)
@@ -270,9 +270,10 @@ public final class ProducteevDataService {
             JSONArray accessList = remote.getJSONArray("accesslist");
             for(int j = 0; j < accessList.length(); j++) {
                 JSONObject user = accessList.getJSONObject(j).getJSONObject("user");
-                users.append(user.getLong("id_user")).append(',').
-                        append(user.getString("firstName")).append(' ').
-                        append(user.getString("lastName")).append(';');
+                users.append(user.getLong("id_user")).append(',');
+                String name = user.optString("firstname", "") + ' ' +
+                        user.optString("lastname", "");
+                users.append(name.trim()).append(';');
             }
             local.setValue(ProducteevDashboard.USERS, users.toString());
             storeObjectDao.persist(local);

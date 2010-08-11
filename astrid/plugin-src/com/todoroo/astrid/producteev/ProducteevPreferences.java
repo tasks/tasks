@@ -51,8 +51,8 @@ public class ProducteevPreferences extends SyncProviderPreferences {
 
         ListPreference defaultDash = (ListPreference)findPreference(getString(R.string.producteev_PPr_defaultdash_key));
         String[] entries, entryValues;
-        if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
-            StoreObject[] dashboards = ProducteevDataService.getInstance().getDashboards();
+        StoreObject[] dashboards = ProducteevDataService.getInstance().getDashboards();
+        if(ProducteevUtilities.INSTANCE.isLoggedIn() && dashboards.length > 0) {
             entries = new String[dashboards.length + 1];
             entryValues = new String[dashboards.length + 1];
             for(int i = 0; i < dashboards.length; i++) {

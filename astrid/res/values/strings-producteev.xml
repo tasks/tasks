@@ -5,10 +5,10 @@
     <!-- ====================== Plugin Boilerplate ========================= -->
 
     <!-- task detail showing Producteev dashboard information (%s => workspace name) -->
-    <string name="producteev_TLA_dashboard">Workspace: %s</string>
+    <string name="producteev_TLA_dashboard">W: %s</string>
 
     <!-- task detail showing Producteev responsible information (%s => responsible user) -->
-    <string name="producteev_TLA_responsible">Responsible: %s</string>
+    <string name="producteev_TLA_responsible">R: %s</string>
     
     <!-- ==================================================== Preferences == -->
 
@@ -68,6 +68,9 @@
 
     <!-- Error Message when passwords don't match -->    
     <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
+    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
 
     <!-- ================================================ Synchronization == -->
         

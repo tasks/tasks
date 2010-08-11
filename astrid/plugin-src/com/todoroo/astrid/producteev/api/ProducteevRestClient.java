@@ -18,6 +18,7 @@ import org.apache.http.params.HttpParams;
 import org.json.JSONObject;
 
 import com.todoroo.andlib.service.RestClient;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * RestClient allows Android to consume web requests.
@@ -85,6 +86,8 @@ public class ProducteevRestClient implements RestClient {
                 contentStream.close();
             }
         }
+        if(Constants.DEBUG)
+            System.err.println(body);
 
         int statusCode = response.getStatusLine().getStatusCode();
         if(statusCode != HTTP_OK || (body != null && body.startsWith("{\"error\":"))) { //$NON-NLS-1$
@@ -100,7 +103,10 @@ public class ProducteevRestClient implements RestClient {
                 else
                     error = new ApiServiceException(errorMessage);
             } catch (Exception e) {
-                error = new ApiServiceException(response.getStatusLine() +
+                if(statusCode == 401)
+                    error = new ApiAuthenticationException(response.getStatusLine().getReasonPhrase());
+                else
+                    error = new ApiServiceException(response.getStatusLine() +
                         "\n" + body); //$NON-NLS-1$
             }
             throw error;
@@ -120,7 +126,8 @@ public class ProducteevRestClient implements RestClient {
     public synchronized String get(String url) throws IOException {
         initializeHttpClient();
 
-        System.err.println("GET: " + url); //$NON-NLS-1$ // (debug)
+        if(Constants.DEBUG)
+            System.err.println("GET: " + url); //$NON-NLS-1$ // (debug)
 
         try {
             HttpGet httpGet = new HttpGet(url);
@@ -147,7 +154,8 @@ public class ProducteevRestClient implements RestClient {
     public synchronized String post(String url, String data) throws IOException {
         initializeHttpClient();
 
-        System.err.println("POST: " + url); //$NON-NLS-1$ // (debug)
+        if(Constants.DEBUG)
+            System.err.println("POST: " + url); //$NON-NLS-1$ // (debug)
 
         try {
             HttpPost httpPost = new HttpPost(url);
