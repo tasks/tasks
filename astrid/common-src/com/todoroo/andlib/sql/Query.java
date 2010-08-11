@@ -89,14 +89,14 @@ public final class Query {
         visitSelectClause(sql);
         visitFromClause(sql);
 
+        visitJoinClause(sql);
         if(queryTemplate == null) {
-            visitJoinClause(sql);
             visitWhereClause(sql);
             visitGroupByClause(sql);
             visitOrderByClause(sql);
             visitLimitClause(sql);
         } else {
-            if(joins.size() > 0 || groupBies.size() > 0 || orders.size() > 0 ||
+            if(groupBies.size() > 0 || orders.size() > 0 ||
                     havings.size() > 0)
                 throw new IllegalStateException("Can't have extras AND query template"); //$NON-NLS-1$
             sql.append(queryTemplate);

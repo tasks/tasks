@@ -82,6 +82,7 @@ public class Preferences {
 
     /** Get preferences object from the context */
     public static SharedPreferences getPrefs(Context context) {
+        context = context.getApplicationContext();
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 

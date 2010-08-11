@@ -2,6 +2,27 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     
+    <!-- Resources for built-in timers plug-in -->
+    
+    <!-- Task Edit Activity: Container Label -->
+    <string name="alarm_ACS_label">Alarms</string>
+    
+    <!-- Task Edit Activity: Add New Alarn -->
+    <string name="alarm_ACS_button">Add an Alarm</string>
+    
+    <!-- Task Detail for Alarms (%s -> time)-->
+    <string name="alarm_ADE_detail">Alarm %s</string>
+   
+    <string-array name="reminders_alarm">
+      <!-- reminders related to alarm -->
+      <item>Alarm!</item>
+    </string-array>
+    
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+    
   <!-- Resources for built-in backup plug-in -->
   
   <!-- ================================================= BackupPreferences == -->
@@ -80,7 +101,7 @@ File %s contained %s.\n\n
   <!-- Backup: Dialog when unable to open a file -->  
   <string name="DLG_error_opening">No s\'ha pogut trobar el següent element:</string>
   
-  <!-- Backup: Dialog when unable to open SD card folder -->
+  <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
   <string name="DLG_error_sdcard">No es pot accedir a la carpeta: %s</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
@@ -214,6 +235,9 @@ File %s contained %s.\n\n
   
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Please wait...</string>
+  
+  <!-- Progress dialog shown when upgrading -->
+  <string name="DLG_upgrading">Upgrading your tasks...</string>
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Temps (hores : minuts)</string>
@@ -477,9 +501,15 @@ to the plugin creator for fastest service.
   
   <!-- Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Mida de la Llista de Tasques</string>
-  
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
   <string name="EPr_fontSize_desc">Mida de lletra en la pàgina de llista principal</string>  
+  
+  <!-- Preference: Task List Show Notes -->
+  <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <!-- Preference: Task List Show Notes Description (disabled) -->
+  <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
+  <!-- Preference: Task List Show Notes Description (enabled) -->
+  <string name="EPr_showNotes_desc_enabled">Notes will always displayed</string>  
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">New Task Defaults</string>
@@ -572,10 +602,7 @@ to the plugin creator for fastest service.
   <string name="marketplace_title">Tasques d\'Astrid/Llista de Tasques</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">
-Astrid is the much loved open-source todo list / task manager designed to help 
-you get stuff done. It features reminders, tags, sync, a widget and more. 
-  </string>
+  <string name="marketplace_description">Astrid és la molt aclamada llista de tasques de codi obert que és prou senzilla com per no posar-se en el seu camí, prou potent com per ajudar a fer coses! Etiquetes, recordatoris, sincronització amb RememberTheMilk, plug-ins regionals i més!</string>
     
 
 
@@ -696,7 +723,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string name="TEA_reminder_label">Remind me...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when it\'s time to start the task</string>
+  <string name="TEA_reminder_due">... when task is due</string>
 
   <!-- Task Edit: Reminder after deadline -->  
   <string name="TEA_reminder_overdue">... when task is overdue</string>
@@ -1150,10 +1177,13 @@ Error Message: %s
   <string name="tag_FEx_header">Etiquetes</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">By Size</string>
+  <string name="tag_FEx_by_size">Active</string>
   
-  <!-- filter header for tags, sorted by name -->
-  <string name="tag_FEx_alpha">Alphabetical</string>
+  <!-- filter header for tags of completed tasks -->
+  <string name="tag_FEx_completed">Completed</string>
+  
+  <!-- filter header for all tags, sorted by name -->
+  <string name="tag_FEx_alpha">All Tags</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Untagged</string>

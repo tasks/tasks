@@ -128,7 +128,8 @@ public class Astrid2TaskProvider extends ContentProvider {
 	 */
 	public Cursor getTags() {
 
-		Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE);
+		Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
+		        Criterion.all);
 
 		MatrixCursor ret = new MatrixCursor(TAGS_FIELD_LIST);
 

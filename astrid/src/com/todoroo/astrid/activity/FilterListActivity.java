@@ -12,22 +12,23 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -137,9 +138,9 @@ public class FilterListActivity extends ExpandableListActivity {
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
 
-        /*item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
+        item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.FLA_menu_help);
-        item.setIcon(android.R.drawable.ic_menu_help);*/
+        item.setIcon(android.R.drawable.ic_menu_help);
 
         return true;
     }
@@ -251,7 +252,6 @@ public class FilterListActivity extends ExpandableListActivity {
 
         if(item instanceof Filter) {
             Filter filter = (Filter) item;
-            info.targetView.setTag(filter);
             menuItem = menu.add(0, CONTEXT_MENU_SHORTCUT, 0, R.string.FLA_context_shortcut);
             menuItem.setIntent(ShortcutActivity.createIntent(filter));
         }
@@ -295,13 +295,9 @@ public class FilterListActivity extends ExpandableListActivity {
                         bitmap.getWidth(), bitmap.getHeight()), null);
 
         Intent createShortcutIntent = new Intent();
-        createShortcutIntent.putExtra(
-                Intent.EXTRA_SHORTCUT_INTENT,
-                shortcutIntent);
-        createShortcutIntent.putExtra(
-                Intent.EXTRA_SHORTCUT_NAME, label);
-        createShortcutIntent.putExtra(
-                Intent.EXTRA_SHORTCUT_ICON, bitmap);
+        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_INTENT, shortcutIntent);
+        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_NAME, label);
+        createShortcutIntent.putExtra(Intent.EXTRA_SHORTCUT_ICON, bitmap);
         createShortcutIntent.setAction("com.android.launcher.action.INSTALL_SHORTCUT"); //$NON-NLS-1$
 
         sendBroadcast(createShortcutIntent);
@@ -323,7 +319,9 @@ public class FilterListActivity extends ExpandableListActivity {
         }
 
         case MENU_HELP_ID: {
-            // TODO
+            Intent intent = new Intent(Intent.ACTION_VIEW,
+                    Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/filters/")); //$NON-NLS-1$
+            startActivity(intent);
             return true;
         }
 
@@ -331,49 +329,9 @@ public class FilterListActivity extends ExpandableListActivity {
             ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo)item.getMenuInfo();
 
             final Intent shortcutIntent = item.getIntent();
-            final Filter filter = (Filter)info.targetView.getTag();
-
-            FrameLayout frameLayout = new FrameLayout(this);
-            frameLayout.setPadding(10, 0, 10, 0);
-            final EditText editText = new EditText(this);
-            if(filter.listingTitle == null)
-                filter.listingTitle = ""; //$NON-NLS-1$
-            editText.setText(filter.listingTitle.
-                    replaceAll("\\(\\d+\\)$", "").trim()); //$NON-NLS-1$ //$NON-NLS-2$
-            frameLayout.addView(editText, new FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.FILL_PARENT,
-                    FrameLayout.LayoutParams.WRAP_CONTENT));
-
-            final Runnable createShortcut = new Runnable() {
-                @Override
-                public void run() {
-                    String label = editText.getText().toString();
-                    createShortcut(filter, shortcutIntent, label);
-                }
-            };
-            editText.setOnEditorActionListener(new OnEditorActionListener() {
-                @Override
-                public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-                    if(actionId == EditorInfo.IME_NULL) {
-                        createShortcut.run();
-                        return true;
-                    }
-                    return false;
-                }
-            });
-
-            new AlertDialog.Builder(this)
-            .setTitle(R.string.FLA_shortcut_dialog_title)
-            .setMessage(R.string.FLA_shortcut_dialog)
-            .setView(frameLayout)
-            .setIcon(android.R.drawable.ic_dialog_info)
-            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    createShortcut.run();
-                }
-            })
-            .setNegativeButton(android.R.string.cancel, null)
-            .show();
+            FilterListItem filter = ((FilterAdapter.ViewHolder)info.targetView.getTag()).item;
+            if(filter instanceof Filter)
+                showCreateShortcutDialog(shortcutIntent, (Filter)filter);
 
             return true;
         }
@@ -386,6 +344,51 @@ public class FilterListActivity extends ExpandableListActivity {
         }
 
         return false;
+    }
+
+    private void showCreateShortcutDialog(final Intent shortcutIntent,
+            final Filter filter) {
+        FrameLayout frameLayout = new FrameLayout(this);
+        frameLayout.setPadding(10, 0, 10, 0);
+        final EditText editText = new EditText(this);
+        if(filter.listingTitle == null)
+            filter.listingTitle = ""; //$NON-NLS-1$
+        editText.setText(filter.listingTitle.
+                replaceAll("\\(\\d+\\)$", "").trim()); //$NON-NLS-1$ //$NON-NLS-2$
+        frameLayout.addView(editText, new FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.FILL_PARENT,
+                FrameLayout.LayoutParams.WRAP_CONTENT));
+
+        final Runnable createShortcut = new Runnable() {
+            @Override
+            public void run() {
+                String label = editText.getText().toString();
+                createShortcut(filter, shortcutIntent, label);
+            }
+        };
+        editText.setOnEditorActionListener(new OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if(actionId == EditorInfo.IME_NULL) {
+                    createShortcut.run();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        new AlertDialog.Builder(this)
+        .setTitle(R.string.FLA_shortcut_dialog_title)
+        .setMessage(R.string.FLA_shortcut_dialog)
+        .setView(frameLayout)
+        .setIcon(android.R.drawable.ic_dialog_info)
+        .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                createShortcut.run();
+            }
+        })
+        .setNegativeButton(android.R.string.cancel, null)
+        .show();
     }
 
 }

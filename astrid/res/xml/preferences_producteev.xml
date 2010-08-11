@@ -21,12 +21,15 @@
             android:entries="@array/rmilk_MPr_interval_entries"  
             android:entryValues="@array/rmilk_MPr_interval_values"  
             android:title="@string/rmilk_MPr_interval_title" />
+    
+        <ListPreference  
+            android:key="@string/producteev_PPr_defaultdash_key"  
+            android:title="@string/producteev_PPr_defaultdash_title" />
             
     </PreferenceCategory>
     
     <PreferenceCategory
         android:title="@string/rmilk_MPr_group_actions">
-    
         <Preference 
             android:key="@string/rmilk_MPr_sync_key"
             android:title="@string/rmilk_MPr_sync" />
@@ -35,7 +38,6 @@
             android:key="@string/rmilk_MPr_forget_key"
             android:title="@string/rmilk_MPr_forget"
             android:summary="@string/rmilk_MPr_forget_description" />
-        
     </PreferenceCategory>
             
 </PreferenceScreen>  

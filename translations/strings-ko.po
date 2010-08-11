@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-08-03 02:52-0700\n"
+"POT-Creation-Date: 2010-08-09 17:55-0700\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -9,1581 +9,1620 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: translations/strings.xml:10( name="backup_BPr_header")
-#: translations/strings.xml:42( name="backup_BAc_label")
+#: translations/strings.xml:8( name="alarm_ACS_label")
+msgid "Alarms"
+msgstr ""
+
+#: translations/strings.xml:11( name="alarm_ACS_button")
+msgid "Add an Alarm"
+msgstr ""
+
+#: translations/strings.xml:14( name="alarm_ADE_detail")
+msgid "Alarm %s"
+msgstr ""
+
+#: translations/strings.xml:18(item)
+msgid "Alarm!"
+msgstr ""
+
+#: translations/strings.xml:31( name="backup_BPr_header")
+#: translations/strings.xml:63( name="backup_BAc_label")
 msgid "Backups"
 msgstr ""
 
-#: translations/strings.xml:13( name="backup_BPr_group_status")
-#: translations/strings.xml:1046( name="rmilk_MPr_group_status")
+#: translations/strings.xml:34( name="backup_BPr_group_status")
+#: translations/strings.xml:1076( name="rmilk_MPr_group_status")
 msgid "Status"
 msgstr ""
 
-#: translations/strings.xml:16( name="backup_status_success")
+#: translations/strings.xml:37( name="backup_status_success")
 msgid "Latest: %s"
 msgstr ""
 
-#: translations/strings.xml:18( name="backup_status_failed")
+#: translations/strings.xml:39( name="backup_status_failed")
 msgid "Last Backup Failed"
 msgstr ""
 
-#: translations/strings.xml:20( name="backup_status_failed_subtitle")
+#: translations/strings.xml:41( name="backup_status_failed_subtitle")
 msgid "(tap to show error)"
 msgstr ""
 
-#: translations/strings.xml:22( name="backup_status_never")
+#: translations/strings.xml:43( name="backup_status_never")
 msgid "Never Backed Up!"
 msgstr ""
 
-#: translations/strings.xml:25( name="backup_BPr_group_options")
-#: translations/strings.xml:1062( name="rmilk_MPr_group_options")
+#: translations/strings.xml:46( name="backup_BPr_group_options")
+#: translations/strings.xml:1092( name="rmilk_MPr_group_options")
 msgid "Options"
 msgstr "옵션"
 
-#: translations/strings.xml:28( name="backup_BPr_auto_title")
+#: translations/strings.xml:49( name="backup_BPr_auto_title")
 msgid "Automatic Backups"
 msgstr ""
 
-#: translations/strings.xml:30( name="backup_BPr_auto_disabled")
+#: translations/strings.xml:51( name="backup_BPr_auto_disabled")
 msgid "Automatic Backups Disabled"
 msgstr ""
 
-#: translations/strings.xml:32( name="backup_BPr_auto_enabled")
+#: translations/strings.xml:53( name="backup_BPr_auto_enabled")
 msgid "Backup will occur daily"
 msgstr ""
 
-#: translations/strings.xml:35( name="backup_BPr_how_to_restore")
+#: translations/strings.xml:56( name="backup_BPr_how_to_restore")
 msgid "How do I restore backups?"
 msgstr ""
 
-#: translations/strings.xml:37( name="backup_BPr_how_to_restore_dialog")
+#: translations/strings.xml:58( name="backup_BPr_how_to_restore_dialog")
 msgid ""
 "You need to add the Astrid Power Pack to manage and restore your backups. As "
 "a favor, Astrid also automatically backs up your tasks, just in case."
 msgstr ""
 
-#: translations/strings.xml:45( name="backup_BAc_title")
+#: translations/strings.xml:66( name="backup_BAc_title")
 msgid "Manage Your Backups"
 msgstr ""
 
-#: translations/strings.xml:48( name="backup_BAc_import")
+#: translations/strings.xml:69( name="backup_BAc_import")
 msgid "Import Tasks"
 msgstr ""
 
-#: translations/strings.xml:51( name="backup_BAc_export")
+#: translations/strings.xml:72( name="backup_BAc_export")
 msgid "Export Tasks"
 msgstr ""
 
-#: translations/strings.xml:56( name="backup_TXI_error")
+#: translations/strings.xml:77( name="backup_TXI_error")
 msgid "Import Error"
 msgstr ""
 
-#: translations/strings.xml:58( name="export_toast")
+#: translations/strings.xml:79( name="export_toast")
 msgid "Backed Up %s to %s."
 msgstr ""
 
-#: translations/strings.xml:61( name="export_progress_title")
+#: translations/strings.xml:82( name="export_progress_title")
 msgid "Exporting..."
 msgstr ""
 
-#: translations/strings.xml:64( name="import_summary_title")
+#: translations/strings.xml:85( name="import_summary_title")
 msgid "Restore Summary"
 msgstr ""
 
-#: translations/strings.xml:67( name="import_summary_message")
+#: translations/strings.xml:88( name="import_summary_message")
 msgid ""
 "File %s contained %s.\\n\\n %s imported,\\n %s already exist\\n %s had errors"
 "\\n"
 msgstr ""
 
-#: translations/strings.xml:75( name="import_progress_title")
+#: translations/strings.xml:96( name="import_progress_title")
 msgid "Importing..."
 msgstr ""
 
-#: translations/strings.xml:78( name="import_progress_read")
+#: translations/strings.xml:99( name="import_progress_read")
 msgid "Reading task %d..."
 msgstr ""
 
-#: translations/strings.xml:81( name="DLG_error_opening")
+#: translations/strings.xml:102( name="DLG_error_opening")
 msgid "Could not find this item:"
 msgstr ""
 
-#: translations/strings.xml:84( name="DLG_error_sdcard")
+#: translations/strings.xml:105( name="DLG_error_sdcard")
 msgid "Cannot access folder: %s"
 msgstr ""
 
-#: translations/strings.xml:87( name="DLG_error_sdcard_general")
+#: translations/strings.xml:108( name="DLG_error_sdcard_general")
 msgid "Cannot access your SD card!"
 msgstr ""
 
-#: translations/strings.xml:90( name="import_file_prompt")
+#: translations/strings.xml:111( name="import_file_prompt")
 msgid "Select a File to Restore"
 msgstr ""
 
-#: translations/strings.xml:100( name="app_name")
+#: translations/strings.xml:121( name="app_name")
 msgid "Astrid Tasks"
 msgstr ""
 
-#: translations/strings.xml:103( name="read_permission_label")
-#: translations/strings.xml:109( name="write_permission_label")
+#: translations/strings.xml:124( name="read_permission_label")
+#: translations/strings.xml:130( name="write_permission_label")
 msgid "Astrid Permission"
 msgstr ""
 
-#: translations/strings.xml:106( name="read_permission_desc")
+#: translations/strings.xml:127( name="read_permission_desc")
 msgid "read tasks, display task filters"
 msgstr ""
 
-#: translations/strings.xml:112( name="write_permission_desc")
+#: translations/strings.xml:133( name="write_permission_desc")
 msgid "create new tasks, edit existing tasks"
 msgstr ""
 
-#: translations/strings.xml:118( quantity="one")
+#: translations/strings.xml:139( quantity="one")
 msgid "1 Year"
 msgstr ""
 
-#: translations/strings.xml:120( quantity="other")
+#: translations/strings.xml:141( quantity="other")
 msgid "%d Years"
 msgstr ""
 
-#: translations/strings.xml:124( quantity="one")
+#: translations/strings.xml:145( quantity="one")
 msgid "1 Month"
 msgstr ""
 
-#: translations/strings.xml:126( quantity="other")
+#: translations/strings.xml:147( quantity="other")
 msgid "%d Months"
 msgstr ""
 
-#: translations/strings.xml:130( quantity="one")
+#: translations/strings.xml:151( quantity="one")
 msgid "1 Week"
 msgstr ""
 
-#: translations/strings.xml:132( quantity="other")
+#: translations/strings.xml:153( quantity="other")
 msgid "%d Weeks"
 msgstr ""
 
-#: translations/strings.xml:136( quantity="one")
+#: translations/strings.xml:157( quantity="one")
 msgid "1 Day"
 msgstr "1일 후"
 
-#: translations/strings.xml:138( quantity="other")
+#: translations/strings.xml:159( quantity="other")
 msgid "%d Days"
 msgstr "%d일 후"
 
-#: translations/strings.xml:142( quantity="one")
+#: translations/strings.xml:163( quantity="one")
 msgid "1 Hour"
 msgstr "1시간 후"
 
-#: translations/strings.xml:144( quantity="other")
+#: translations/strings.xml:165( quantity="other")
 msgid "%d Hours"
 msgstr "%d시간 후"
 
-#: translations/strings.xml:148( quantity="one")
+#: translations/strings.xml:169( quantity="one")
 msgid "1 Minute"
 msgstr "1 분"
 
-#: translations/strings.xml:150( quantity="other")
+#: translations/strings.xml:171( quantity="other")
 msgid "%d Minutes"
 msgstr "%d분 후"
 
-#: translations/strings.xml:154( quantity="one")
+#: translations/strings.xml:175( quantity="one")
 msgid "1 Second"
 msgstr "1초 후"
 
-#: translations/strings.xml:156( quantity="other")
+#: translations/strings.xml:177( quantity="other")
 msgid "%d Seconds"
 msgstr "%d초 후"
 
-#: translations/strings.xml:160( quantity="one")
+#: translations/strings.xml:181( quantity="one")
 msgid "1 Hr"
 msgstr "1시간 후"
 
-#: translations/strings.xml:162( quantity="other")
+#: translations/strings.xml:183( quantity="other")
 msgid "%d Hrs"
 msgstr "%d시간 후"
 
-#: translations/strings.xml:166( quantity="one")
+#: translations/strings.xml:187( quantity="one")
 msgid "1 Min"
 msgstr "1분 후"
 
-#: translations/strings.xml:168( quantity="other")
+#: translations/strings.xml:189( quantity="other")
 msgid "%d Min"
 msgstr "%d 분 후"
 
-#: translations/strings.xml:172( quantity="one")
+#: translations/strings.xml:193( quantity="one")
 msgid "1 Sec"
 msgstr "1초 후"
 
-#: translations/strings.xml:174( quantity="other")
+#: translations/strings.xml:195( quantity="other")
 msgid "%d Sec"
 msgstr "%d초 후"
 
-#: translations/strings.xml:178( quantity="one")
+#: translations/strings.xml:199( quantity="one")
 msgid "1 task"
 msgstr ""
 
-#: translations/strings.xml:180( quantity="other")
+#: translations/strings.xml:201( quantity="other")
 msgid "%d tasks"
 msgstr ""
 
-#: translations/strings.xml:186( name="DLG_confirm_title")
+#: translations/strings.xml:207( name="DLG_confirm_title")
 msgid "Confirm?"
 msgstr ""
 
-#: translations/strings.xml:189( name="DLG_question_title")
+#: translations/strings.xml:210( name="DLG_question_title")
 msgid "Question:"
 msgstr ""
 
-#: translations/strings.xml:192( name="DLG_information_title")
+#: translations/strings.xml:213( name="DLG_information_title")
 msgid "Information"
 msgstr "정보"
 
-#: translations/strings.xml:195( name="DLG_yes")
+#: translations/strings.xml:216( name="DLG_yes")
 msgid "Yes"
 msgstr ""
 
-#: translations/strings.xml:198( name="DLG_no")
+#: translations/strings.xml:219( name="DLG_no")
 msgid "No"
 msgstr ""
 
-#: translations/strings.xml:201( name="DLG_close")
+#: translations/strings.xml:222( name="DLG_close")
 msgid "Close"
 msgstr ""
 
-#: translations/strings.xml:204( name="DLG_error")
+#: translations/strings.xml:225( name="DLG_error")
 msgid "Oops, looks like some trouble occurred! Here's what happened:\\n\\n%s"
 msgstr ""
 
-#: translations/strings.xml:207( name="DLG_delete_this_task_question")
+#: translations/strings.xml:228( name="DLG_delete_this_task_question")
 msgid "Delete this task?"
 msgstr "할일을 삭제하시겠습니까?"
 
-#: translations/strings.xml:210( name="DLG_done")
+#: translations/strings.xml:231( name="DLG_done")
 msgid "Done"
 msgstr "마침"
 
-#: translations/strings.xml:213( name="DLG_cancel")
+#: translations/strings.xml:234( name="DLG_cancel")
 msgid "Cancel"
 msgstr ""
 
-#: translations/strings.xml:216( name="DLG_wait")
+#: translations/strings.xml:237( name="DLG_wait")
 msgid "Please wait..."
 msgstr ""
 
-#: translations/strings.xml:219( name="DLG_hour_minutes")
+#: translations/strings.xml:240( name="DLG_upgrading")
+msgid "Upgrading your tasks..."
+msgstr ""
+
+#: translations/strings.xml:243( name="DLG_hour_minutes")
 msgid "Time (hours : minutes)"
 msgstr "시간(시:분)"
 
-#: translations/strings.xml:222( name="DLG_please_update")
+#: translations/strings.xml:246( name="DLG_please_update")
 msgid ""
 "Astrid should to be updated to the latest version in the Android market! "
 "Please do that before continuing, or wait a few seconds."
 msgstr ""
 
-#: translations/strings.xml:227( name="DLG_to_market")
+#: translations/strings.xml:251( name="DLG_to_market")
 msgid "Go To Market"
 msgstr ""
 
-#: translations/strings.xml:232( name="WID_dateButtonUnset")
+#: translations/strings.xml:256( name="WID_dateButtonUnset")
 msgid "Click To Set"
 msgstr ""
 
-#: translations/strings.xml:235( name="WID_dateButtonLabel")
+#: translations/strings.xml:259( name="WID_dateButtonLabel")
 msgid "$D $T"
 msgstr ""
 
-#: translations/strings.xml:238( name="WID_disableButton")
+#: translations/strings.xml:262( name="WID_disableButton")
 msgid "Disable"
 msgstr ""
 
-#: translations/strings.xml:243( name="TLA_no_items")
+#: translations/strings.xml:267( name="TLA_no_items")
 msgid "No Tasks!"
 msgstr ""
 
-#: translations/strings.xml:246( name="TLA_menu_addons")
-#: translations/strings.xml:365( name="TEA_tab_addons")
+#: translations/strings.xml:270( name="TLA_menu_addons")
+#: translations/strings.xml:389( name="TEA_tab_addons")
 msgid "Add-ons"
 msgstr ""
 
-#: translations/strings.xml:249( name="TLA_menu_settings")
+#: translations/strings.xml:273( name="TLA_menu_settings")
 msgid "Settings"
 msgstr "설정"
 
-#: translations/strings.xml:252( name="TLA_menu_help")
-#: translations/strings.xml:316( name="FLA_menu_help")
+#: translations/strings.xml:276( name="TLA_menu_help")
+#: translations/strings.xml:340( name="FLA_menu_help")
 msgid "Help"
 msgstr ""
 
-#: translations/strings.xml:255( name="TLA_search_label")
+#: translations/strings.xml:279( name="TLA_search_label")
 msgid "Search This List"
 msgstr ""
 
-#: translations/strings.xml:258( name="TLA_custom")
+#: translations/strings.xml:282( name="TLA_custom")
 msgid "Custom"
 msgstr ""
 
-#: translations/strings.xml:261( name="TLA_quick_add_hint")
+#: translations/strings.xml:285( name="TLA_quick_add_hint")
 msgid "Add to this list..."
 msgstr ""
 
-#: translations/strings.xml:278( name="TAd_hiddenFormat")
+#: translations/strings.xml:302( name="TAd_hiddenFormat")
 msgid "%s [hidden]"
 msgstr ""
 
-#: translations/strings.xml:281( name="TAd_deletedFormat")
+#: translations/strings.xml:305( name="TAd_deletedFormat")
 msgid "%s [deleted]"
 msgstr ""
 
-#: translations/strings.xml:287( name="TAd_completed")
+#: translations/strings.xml:311( name="TAd_completed")
 msgid "Finished %s"
 msgstr "%s 전에 완료됨"
 
-#: translations/strings.xml:290( name="TAd_actionEditTask")
+#: translations/strings.xml:314( name="TAd_actionEditTask")
 msgid "Edit"
 msgstr "수정"
 
-#: translations/strings.xml:293( name="TAd_contextEditTask")
+#: translations/strings.xml:317( name="TAd_contextEditTask")
 msgid "Edit Task"
 msgstr "할일수정"
 
-#: translations/strings.xml:296( name="TAd_contextDeleteTask")
-#: translations/strings.xml:407( name="TEA_menu_delete")
+#: translations/strings.xml:320( name="TAd_contextDeleteTask")
+#: translations/strings.xml:431( name="TEA_menu_delete")
 msgid "Delete Task"
 msgstr "할일삭제"
 
-#: translations/strings.xml:299( name="TAd_contextUndeleteTask")
+#: translations/strings.xml:323( name="TAd_contextUndeleteTask")
 msgid "Undelete Task"
 msgstr ""
 
-#: translations/strings.xml:304( name="FLA_title")
+#: translations/strings.xml:328( name="FLA_title")
 msgid "Astrid: Filters"
 msgstr ""
 
-#: translations/strings.xml:307( name="FLA_loading")
+#: translations/strings.xml:331( name="FLA_loading")
 msgid "Loading Filters..."
 msgstr ""
 
-#: translations/strings.xml:310( name="FLA_context_shortcut")
+#: translations/strings.xml:334( name="FLA_context_shortcut")
 msgid "Create Shortcut On Desktop"
 msgstr ""
 
-#: translations/strings.xml:313( name="FLA_menu_search")
+#: translations/strings.xml:337( name="FLA_menu_search")
 msgid "Search Tasks..."
 msgstr ""
 
-#: translations/strings.xml:319( name="FLA_shortcut_dialog_title")
+#: translations/strings.xml:343( name="FLA_shortcut_dialog_title")
 msgid "Create Shortcut"
 msgstr "바로가기 만들기"
 
-#: translations/strings.xml:322( name="FLA_shortcut_dialog")
+#: translations/strings.xml:346( name="FLA_shortcut_dialog")
 msgid "Name of shortcut:"
 msgstr ""
 
-#: translations/strings.xml:325( name="FLA_search_hint")
+#: translations/strings.xml:349( name="FLA_search_hint")
 msgid "Search For Tasks"
 msgstr ""
 
-#: translations/strings.xml:328( name="FLA_search_filter")
+#: translations/strings.xml:352( name="FLA_search_filter")
 msgid "Matching '%s'"
 msgstr ""
 
-#: translations/strings.xml:348( name="FLA_toast_onCreateShortcut")
+#: translations/strings.xml:372( name="FLA_toast_onCreateShortcut")
 msgid "Created Shortcut: %s"
 msgstr ""
 
-#: translations/strings.xml:353( name="TEA_view_title")
+#: translations/strings.xml:377( name="TEA_view_title")
 msgid "Astrid: Editing '%s'"
 msgstr ""
 
-#: translations/strings.xml:356( name="TEA_view_titleNew")
+#: translations/strings.xml:380( name="TEA_view_titleNew")
 msgid "Astrid: New Task"
 msgstr "Astrid : 새로운 할일"
 
-#: translations/strings.xml:359( name="TEA_tab_basic")
+#: translations/strings.xml:383( name="TEA_tab_basic")
 msgid "Basic"
 msgstr "기본"
 
-#: translations/strings.xml:362( name="TEA_tab_extra")
+#: translations/strings.xml:386( name="TEA_tab_extra")
 msgid "Advanced"
 msgstr ""
 
-#: translations/strings.xml:368( name="TEA_title_label")
+#: translations/strings.xml:392( name="TEA_title_label")
 msgid "Title"
 msgstr ""
 
-#: translations/strings.xml:371( name="TEA_title_hint")
+#: translations/strings.xml:395( name="TEA_title_hint")
 msgid "Task Summary"
 msgstr ""
 
-#: translations/strings.xml:374( name="TEA_importance_label")
+#: translations/strings.xml:398( name="TEA_importance_label")
 msgid "Importance"
 msgstr "중요도"
 
-#: translations/strings.xml:377( name="TEA_urgency_label")
+#: translations/strings.xml:401( name="TEA_urgency_label")
 msgid "Deadline"
 msgstr ""
 
-#: translations/strings.xml:380( name="TEA_urgency_specific_time")
+#: translations/strings.xml:404( name="TEA_urgency_specific_time")
 msgid "Due at specific time?"
 msgstr ""
 
-#: translations/strings.xml:383( name="TEA_urgency_time_none")
+#: translations/strings.xml:407( name="TEA_urgency_time_none")
 msgid "No Due Time"
 msgstr ""
 
-#: translations/strings.xml:386( name="TEA_hideUntil_label")
+#: translations/strings.xml:410( name="TEA_hideUntil_label")
 msgid "Hide Until"
 msgstr ""
 
-#: translations/strings.xml:389( name="TEA_note_label")
+#: translations/strings.xml:413( name="TEA_note_label")
 msgid "Notes"
 msgstr "노트"
 
-#: translations/strings.xml:392( name="TEA_notes_hint")
+#: translations/strings.xml:416( name="TEA_notes_hint")
 msgid "Enter Task Notes..."
 msgstr ""
 
-#: translations/strings.xml:395( name="TEA_estimatedDuration_label")
+#: translations/strings.xml:419( name="TEA_estimatedDuration_label")
 msgid "How Long Will it Take?"
 msgstr "얼마나 오래 걸릴 일입니까?"
 
-#: translations/strings.xml:398( name="TEA_elapsedDuration_label")
+#: translations/strings.xml:422( name="TEA_elapsedDuration_label")
 msgid "Time Already Spent on Task"
 msgstr "이미 일에 시간을 썼습니다."
 
-#: translations/strings.xml:401( name="TEA_menu_save")
+#: translations/strings.xml:425( name="TEA_menu_save")
 msgid "Save Changes"
 msgstr ""
 
-#: translations/strings.xml:404( name="TEA_menu_discard")
+#: translations/strings.xml:428( name="TEA_menu_discard")
 msgid "Don't Save"
 msgstr ""
 
-#: translations/strings.xml:410( name="TEA_onTaskSave_due")
+#: translations/strings.xml:434( name="TEA_onTaskSave_due")
 msgid "Task Saved: due in %s"
 msgstr "할일 저장됨:D- %s"
 
-#: translations/strings.xml:413( name="TEA_onTaskSave_overdue")
+#: translations/strings.xml:437( name="TEA_onTaskSave_overdue")
 msgid "Task Saved: due %s ago"
 msgstr "할일 저장됨: D+%s"
 
-#: translations/strings.xml:416( name="TEA_onTaskSave_notDue")
+#: translations/strings.xml:440( name="TEA_onTaskSave_notDue")
 msgid "Task Saved"
 msgstr "할일 저장됨"
 
-#: translations/strings.xml:419( name="TEA_onTaskCancel")
+#: translations/strings.xml:443( name="TEA_onTaskCancel")
 msgid "Task Editing Was Canceled"
 msgstr ""
 
-#: translations/strings.xml:422( name="TEA_onTaskDelete")
+#: translations/strings.xml:446( name="TEA_onTaskDelete")
 msgid "Task Deleted!"
 msgstr ""
 
-#: translations/strings.xml:426(item)
+#: translations/strings.xml:450(item)
 msgid "Specific Day/Time"
 msgstr ""
 
-#: translations/strings.xml:427(item) translations/strings.xml:513(item)
+#: translations/strings.xml:451(item) translations/strings.xml:543(item)
 msgid "Today"
 msgstr ""
 
-#: translations/strings.xml:428(item) translations/strings.xml:514(item)
+#: translations/strings.xml:452(item) translations/strings.xml:544(item)
 msgid "Tomorrow"
 msgstr ""
 
-#: translations/strings.xml:429(item)
+#: translations/strings.xml:453(item)
 msgid "(day after)"
 msgstr ""
 
-#: translations/strings.xml:430(item) translations/strings.xml:516(item)
+#: translations/strings.xml:454(item) translations/strings.xml:546(item)
 msgid "Next Week"
 msgstr ""
 
-#: translations/strings.xml:431(item) translations/strings.xml:512(item)
+#: translations/strings.xml:455(item) translations/strings.xml:542(item)
 msgid "No Deadline"
 msgstr ""
 
-#: translations/strings.xml:436(item) translations/strings.xml:521(item)
+#: translations/strings.xml:460(item) translations/strings.xml:551(item)
 msgid "Don't hide"
 msgstr ""
 
-#: translations/strings.xml:437(item) translations/strings.xml:522(item)
+#: translations/strings.xml:461(item) translations/strings.xml:552(item)
 msgid "Task is due"
 msgstr ""
 
-#: translations/strings.xml:438(item) translations/strings.xml:523(item)
+#: translations/strings.xml:462(item) translations/strings.xml:553(item)
 msgid "Day before due"
 msgstr ""
 
-#: translations/strings.xml:439(item) translations/strings.xml:524(item)
+#: translations/strings.xml:463(item) translations/strings.xml:554(item)
 msgid "Week before due"
 msgstr ""
 
-#: translations/strings.xml:440(item)
+#: translations/strings.xml:464(item)
 msgid "Specific Day"
 msgstr ""
 
-#: translations/strings.xml:444( name="TEA_no_addons")
+#: translations/strings.xml:468( name="TEA_no_addons")
 msgid "No Add-ons Found!"
 msgstr ""
 
-#: translations/strings.xml:447( name="TEA_addons_button")
+#: translations/strings.xml:471( name="TEA_addons_button")
 msgid "Get Some Add-ons"
 msgstr ""
 
-#: translations/strings.xml:452( name="InA_title")
+#: translations/strings.xml:476( name="InA_title")
 msgid "Welcome to Astrid!"
 msgstr ""
 
-#: translations/strings.xml:455( name="InA_agree")
+#: translations/strings.xml:479( name="InA_agree")
 msgid "I Agree!!"
 msgstr ""
 
-#: translations/strings.xml:458( name="InA_disagree")
+#: translations/strings.xml:482( name="InA_disagree")
 msgid "I Disagree"
 msgstr ""
 
-#: translations/strings.xml:463( name="HlA_get_support")
+#: translations/strings.xml:487( name="HlA_get_support")
 msgid "Get Support"
 msgstr ""
 
-#: translations/strings.xml:468( name="UpS_changelog_title")
+#: translations/strings.xml:492( name="UpS_changelog_title")
 msgid "What's New In Astrid?"
 msgstr ""
 
-#: translations/strings.xml:473( name="EPr_title")
+#: translations/strings.xml:497( name="EPr_title")
 msgid "Astrid: Preferences"
 msgstr ""
 
-#: translations/strings.xml:476( name="EPr_appearance_header")
+#: translations/strings.xml:500( name="EPr_appearance_header")
 msgid "Appearance"
 msgstr "모양"
 
-#: translations/strings.xml:479( name="EPr_fontSize_title")
+#: translations/strings.xml:503( name="EPr_fontSize_title")
 msgid "Task List Size"
 msgstr ""
 
-#: translations/strings.xml:482( name="EPr_fontSize_desc")
+#: translations/strings.xml:505( name="EPr_fontSize_desc")
 msgid "Font size on the main listing page"
 msgstr ""
 
-#: translations/strings.xml:485( name="EPr_defaults_header")
-#: translations/strings.xml:801( name="rmd_EPr_defaults_header")
+#: translations/strings.xml:508( name="EPr_showNotes_title")
+msgid "Show Notes In Task"
+msgstr ""
+
+#: translations/strings.xml:510( name="EPr_showNotes_desc_disabled")
+msgid "Notes will be displayed when you tap a task"
+msgstr ""
+
+#: translations/strings.xml:512( name="EPr_showNotes_desc_enabled")
+msgid "Notes will always displayed"
+msgstr ""
+
+#: translations/strings.xml:515( name="EPr_defaults_header")
+#: translations/strings.xml:831( name="rmd_EPr_defaults_header")
 msgid "New Task Defaults"
 msgstr ""
 
-#: translations/strings.xml:488( name="EPr_default_urgency_title")
+#: translations/strings.xml:518( name="EPr_default_urgency_title")
 msgid "Default Urgency"
 msgstr ""
 
-#: translations/strings.xml:490( name="EPr_default_urgency_desc")
-#: translations/strings.xml:495( name="EPr_default_importance_desc")
-#: translations/strings.xml:500( name="EPr_default_hideUntil_desc")
+#: translations/strings.xml:520( name="EPr_default_urgency_desc")
+#: translations/strings.xml:525( name="EPr_default_importance_desc")
+#: translations/strings.xml:530( name="EPr_default_hideUntil_desc")
 msgid "Currently Set To: %s"
 msgstr ""
 
-#: translations/strings.xml:493( name="EPr_default_importance_title")
+#: translations/strings.xml:523( name="EPr_default_importance_title")
 msgid "Default Importance"
 msgstr ""
 
-#: translations/strings.xml:498( name="EPr_default_hideUntil_title")
+#: translations/strings.xml:528( name="EPr_default_hideUntil_title")
 msgid "Default Hide Until"
 msgstr ""
 
-#: translations/strings.xml:504(item)
+#: translations/strings.xml:534(item)
 msgid "!!!! (Highest)"
 msgstr ""
 
-#: translations/strings.xml:505(item)
+#: translations/strings.xml:535(item)
 msgid "!!!"
 msgstr ""
 
-#: translations/strings.xml:506(item)
+#: translations/strings.xml:536(item)
 msgid "!!"
 msgstr ""
 
-#: translations/strings.xml:507(item)
+#: translations/strings.xml:537(item)
 msgid "! (Lowest)"
 msgstr ""
 
-#: translations/strings.xml:515(item)
+#: translations/strings.xml:545(item)
 msgid "Day After Tomorrow"
 msgstr ""
 
-#: translations/strings.xml:530( name="AOA_title")
+#: translations/strings.xml:560( name="AOA_title")
 msgid "Astrid: Add Ons"
 msgstr ""
 
-#: translations/strings.xml:533( name="AOA_internal_author")
+#: translations/strings.xml:563( name="AOA_internal_author")
 msgid "Astrid Team"
 msgstr ""
 
-#: translations/strings.xml:536( name="AOA_tab_installed")
+#: translations/strings.xml:566( name="AOA_tab_installed")
 msgid "Installed"
 msgstr ""
 
-#: translations/strings.xml:539( name="AOA_tab_available")
+#: translations/strings.xml:569( name="AOA_tab_available")
 msgid "Available"
 msgstr ""
 
-#: translations/strings.xml:542( name="AOA_free")
+#: translations/strings.xml:572( name="AOA_free")
 msgid "Free"
 msgstr ""
 
-#: translations/strings.xml:545( name="AOA_visit_website")
+#: translations/strings.xml:575( name="AOA_visit_website")
 msgid "Visit Website"
 msgstr ""
 
-#: translations/strings.xml:548( name="AOA_visit_market")
+#: translations/strings.xml:578( name="AOA_visit_market")
 msgid "Android Market"
 msgstr ""
 
-#: translations/strings.xml:553( name="SyP_progress")
+#: translations/strings.xml:583( name="SyP_progress")
 msgid "Synchronizing your tasks..."
 msgstr ""
 
-#: translations/strings.xml:556( name="SyP_progress_toast")
+#: translations/strings.xml:586( name="SyP_progress_toast")
 msgid "Synchronizing..."
 msgstr ""
 
-#: translations/strings.xml:561( name="TWi_loading")
+#: translations/strings.xml:591( name="TWi_loading")
 msgid "Loading..."
 msgstr "로딩중..."
 
-#: translations/strings.xml:566( name="task_killer_help")
+#: translations/strings.xml:596( name="task_killer_help")
 msgid ""
 "It looks like you are using an app that can kill processes (%s)! If you can, "
 "add Astrid to the exclusion list so it doesn't get killed. Otherwise, Astrid "
 "might not let you know when your tasks are due.\\n"
 msgstr ""
 
-#: translations/strings.xml:573( name="task_killer_help_ok")
+#: translations/strings.xml:603( name="task_killer_help_ok")
 msgid "I Won't Kill Astrid!"
 msgstr ""
 
-#: translations/strings.xml:576( name="marketplace_title")
+#: translations/strings.xml:606( name="marketplace_title")
 msgid "Astrid Task/Todo List"
 msgstr ""
 
-#: translations/strings.xml:579( name="marketplace_description")
+#: translations/strings.xml:609( name="marketplace_description")
 msgid ""
 "Astrid is the much loved open-source todo list / task manager designed to "
 "help you get stuff done. It features reminders, tags, sync, a widget and "
 "more."
 msgstr ""
+"Astrid는 당신을 방해하지 않을정도로 간단하고 당신의 할일을 달성시켜줄정도로 "
+"강력한 오픈-소스 일정관리 플렛폼입니다. 태그, 알림, RememberTheMilk sync, "
+"Locale plug-in &amp; 그 이상!"
 
-#: translations/strings.xml:592( name="BFE_Active")
-#: translations/strings.xml:595( name="BFE_Active_title")
+#: translations/strings.xml:622( name="BFE_Active")
+#: translations/strings.xml:625( name="BFE_Active_title")
 msgid "Active Tasks"
 msgstr ""
 
-#: translations/strings.xml:598( name="BFE_Search")
+#: translations/strings.xml:628( name="BFE_Search")
 msgid "Search"
 msgstr ""
 
-#: translations/strings.xml:601( name="BFE_Extended")
+#: translations/strings.xml:631( name="BFE_Extended")
 msgid "More..."
 msgstr ""
 
-#: translations/strings.xml:604( name="BFE_Recent")
+#: translations/strings.xml:634( name="BFE_Recent")
 msgid "Recently Modified"
 msgstr ""
 
-#: translations/strings.xml:607( name="BFE_Completed")
+#: translations/strings.xml:637( name="BFE_Completed")
 msgid "Completed Tasks"
 msgstr "완료된 할일"
 
-#: translations/strings.xml:610( name="BFE_Hidden")
+#: translations/strings.xml:640( name="BFE_Hidden")
 msgid "Hidden Tasks"
 msgstr ""
 
-#: translations/strings.xml:613( name="BFE_Alphabetical")
+#: translations/strings.xml:643( name="BFE_Alphabetical")
 msgid "By Title"
 msgstr ""
 
-#: translations/strings.xml:616( name="BFE_DueDate")
+#: translations/strings.xml:646( name="BFE_DueDate")
 msgid "By Due Date"
 msgstr ""
 
-#: translations/strings.xml:619( name="BFE_Importance")
+#: translations/strings.xml:649( name="BFE_Importance")
 msgid "By Importance"
 msgstr ""
 
-#: translations/strings.xml:622( name="BFE_Deleted")
+#: translations/strings.xml:652( name="BFE_Deleted")
 msgid "Deleted Tasks"
 msgstr ""
 
-#: translations/strings.xml:634( name="gcal_TEA_error")
+#: translations/strings.xml:664( name="gcal_TEA_error")
 msgid "Error adding task to calendar!"
 msgstr ""
 
-#: translations/strings.xml:637( name="gcal_TEA_calendar_label")
+#: translations/strings.xml:667( name="gcal_TEA_calendar_label")
 msgid "Calendar Integration:"
 msgstr ""
 
-#: translations/strings.xml:640( name="gcal_TEA_addToCalendar_label")
+#: translations/strings.xml:670( name="gcal_TEA_addToCalendar_label")
 msgid "Create Calendar Event"
 msgstr ""
 
-#: translations/strings.xml:643( name="gcal_TEA_showCalendar_label")
+#: translations/strings.xml:673( name="gcal_TEA_showCalendar_label")
 msgid "Open Calendar Event"
 msgstr "달력에 일정 열기"
 
-#: translations/strings.xml:648( name="gcal_completed_title")
+#: translations/strings.xml:678( name="gcal_completed_title")
 msgid "%s (completed)"
 msgstr ""
 
-#: translations/strings.xml:651( name="gcal_GCP_default")
+#: translations/strings.xml:681( name="gcal_GCP_default")
 msgid "Default Calendar"
 msgstr ""
 
-#: translations/strings.xml:662( name="locale_edit_alerts_title")
+#: translations/strings.xml:692( name="locale_edit_alerts_title")
 msgid "Astrid Filter Alert"
 msgstr ""
 
-#: translations/strings.xml:665( name="locale_edit_intro")
+#: translations/strings.xml:695( name="locale_edit_intro")
 msgid ""
 "Astrid will send you a reminder when you have any tasks in the following "
 "filter:"
 msgstr ""
 
-#: translations/strings.xml:669( name="locale_pick_filter")
+#: translations/strings.xml:699( name="locale_pick_filter")
 msgid "Filter:"
 msgstr ""
 
-#: translations/strings.xml:672( name="locale_interval_label")
+#: translations/strings.xml:702( name="locale_interval_label")
 msgid "Limit notifications to:"
 msgstr ""
 
-#: translations/strings.xml:676(item)
+#: translations/strings.xml:706(item)
 msgid "once an hour"
 msgstr ""
 
-#: translations/strings.xml:677(item)
+#: translations/strings.xml:707(item)
 msgid "once every six hours"
 msgstr ""
 
-#: translations/strings.xml:678(item)
+#: translations/strings.xml:708(item)
 msgid "once every twelve hours"
 msgstr ""
 
-#: translations/strings.xml:679(item)
+#: translations/strings.xml:709(item)
 msgid "once a day"
 msgstr ""
 
-#: translations/strings.xml:680(item)
+#: translations/strings.xml:710(item)
 msgid "once every three days"
 msgstr ""
 
-#: translations/strings.xml:681(item)
+#: translations/strings.xml:711(item)
 msgid "once a week"
 msgstr ""
 
-#: translations/strings.xml:685( name="locale_notification")
+#: translations/strings.xml:715( name="locale_notification")
 msgid "You have $NUM matching: $FILTER"
 msgstr ""
 
-#: translations/strings.xml:688( name="locale_plugin_required")
+#: translations/strings.xml:718( name="locale_plugin_required")
 msgid "Please install the Astrid Locale plugin!"
 msgstr ""
 
-#: translations/strings.xml:700( name="TEA_reminder_label")
+#: translations/strings.xml:730( name="TEA_reminder_label")
 msgid "Remind me..."
 msgstr ""
 
-#: translations/strings.xml:703( name="TEA_reminder_due")
-msgid "... when it's time to start the task"
+#: translations/strings.xml:733( name="TEA_reminder_due")
+msgid "... when task is due"
 msgstr ""
 
-#: translations/strings.xml:706( name="TEA_reminder_overdue")
+#: translations/strings.xml:736( name="TEA_reminder_overdue")
 msgid "... when task is overdue"
 msgstr ""
 
-#: translations/strings.xml:709( name="TEA_reminder_random")
+#: translations/strings.xml:739( name="TEA_reminder_random")
 msgid "... randomly once"
 msgstr ""
 
-#: translations/strings.xml:712( name="TEA_reminder_alarm_label")
+#: translations/strings.xml:742( name="TEA_reminder_alarm_label")
 msgid "Ring/Vibrate Type:"
 msgstr ""
 
-#: translations/strings.xml:715( name="TEA_reminder_alarm_off")
+#: translations/strings.xml:745( name="TEA_reminder_alarm_off")
 msgid "Ring Once"
 msgstr ""
 
-#: translations/strings.xml:718( name="TEA_reminder_alarm_on")
+#: translations/strings.xml:748( name="TEA_reminder_alarm_on")
 msgid "Ring Until I Dismiss Alarm"
 msgstr ""
 
-#: translations/strings.xml:722(item)
+#: translations/strings.xml:752(item)
 msgid "an hour"
 msgstr ""
 
-#: translations/strings.xml:723(item)
+#: translations/strings.xml:753(item)
 msgid "a day"
 msgstr ""
 
-#: translations/strings.xml:724(item)
+#: translations/strings.xml:754(item)
 msgid "a week"
 msgstr ""
 
-#: translations/strings.xml:725(item)
+#: translations/strings.xml:755(item)
 msgid "in two weeks"
 msgstr ""
 
-#: translations/strings.xml:726(item)
+#: translations/strings.xml:756(item)
 msgid "a month"
 msgstr ""
 
-#: translations/strings.xml:727(item)
+#: translations/strings.xml:757(item)
 msgid "in two months"
 msgstr ""
 
-#: translations/strings.xml:733( name="rmd_NoA_filter")
+#: translations/strings.xml:763( name="rmd_NoA_filter")
 msgid "Reminder!"
 msgstr ""
 
-#: translations/strings.xml:736( name="rmd_NoA_snooze")
+#: translations/strings.xml:766( name="rmd_NoA_snooze")
 msgid "Snooze..."
 msgstr ""
 
-#: translations/strings.xml:739( name="rmd_NoA_goAway")
+#: translations/strings.xml:769( name="rmd_NoA_goAway")
 msgid "Go Away!"
 msgstr ""
 
-#: translations/strings.xml:744( name="rmd_EPr_alerts_header")
+#: translations/strings.xml:774( name="rmd_EPr_alerts_header")
 msgid "Reminder Settings"
 msgstr ""
 
-#: translations/strings.xml:747( name="rmd_EPr_quiet_hours_start_title")
+#: translations/strings.xml:777( name="rmd_EPr_quiet_hours_start_title")
 msgid "Quiet Hours Start"
 msgstr "침묵 시간 시작"
 
-#: translations/strings.xml:749( name="rmd_EPr_quiet_hours_start_desc")
+#: translations/strings.xml:779( name="rmd_EPr_quiet_hours_start_desc")
 msgid "No notifications will appear after %s"
 msgstr ""
 
-#: translations/strings.xml:751( name="rmd_EPr_quiet_hours_desc_none")
+#: translations/strings.xml:781( name="rmd_EPr_quiet_hours_desc_none")
 msgid "Quiet hours is disabled"
 msgstr ""
 
-#: translations/strings.xml:754( name="rmd_EPr_quiet_hours_end_title")
+#: translations/strings.xml:784( name="rmd_EPr_quiet_hours_end_title")
 msgid "Quiet Hours End"
 msgstr "침묵 시간 종료"
 
-#: translations/strings.xml:756( name="rmd_EPr_quiet_hours_end_desc")
+#: translations/strings.xml:786( name="rmd_EPr_quiet_hours_end_desc")
 msgid "Notifications will begin appearing starting at %s"
 msgstr ""
 
-#: translations/strings.xml:759( name="rmd_EPr_ringtone_title")
+#: translations/strings.xml:789( name="rmd_EPr_ringtone_title")
 msgid "Notification Ringtone"
 msgstr "공지 벨소리"
 
-#: translations/strings.xml:761( name="rmd_EPr_ringtone_desc_custom")
+#: translations/strings.xml:791( name="rmd_EPr_ringtone_desc_custom")
 msgid "Custom ringtone has been set"
 msgstr ""
 
-#: translations/strings.xml:763( name="rmd_EPr_ringtone_desc_silent")
+#: translations/strings.xml:793( name="rmd_EPr_ringtone_desc_silent")
 msgid "Ringtone set to silent"
 msgstr ""
 
-#: translations/strings.xml:765( name="rmd_EPr_ringtone_desc_default")
+#: translations/strings.xml:795( name="rmd_EPr_ringtone_desc_default")
 msgid "Default ringtone will be used"
 msgstr ""
 
-#: translations/strings.xml:768( name="rmd_EPr_persistent_title")
+#: translations/strings.xml:798( name="rmd_EPr_persistent_title")
 msgid "Notification Persistence"
 msgstr ""
 
-#: translations/strings.xml:770( name="rmd_EPr_persistent_desc_true")
+#: translations/strings.xml:800( name="rmd_EPr_persistent_desc_true")
 msgid "Notifications must be viewed individually to be cleared"
 msgstr ""
 
-#: translations/strings.xml:772( name="rmd_EPr_persistent_desc_false")
+#: translations/strings.xml:802( name="rmd_EPr_persistent_desc_false")
 msgid "Notifications can be cleared with \"Clear All\" button"
 msgstr ""
 
-#: translations/strings.xml:775( name="rmd_EPr_notificon_title")
+#: translations/strings.xml:805( name="rmd_EPr_notificon_title")
 msgid "Notification Icon Set"
 msgstr ""
 
-#: translations/strings.xml:777( name="rmd_Epr_notificon_desc")
+#: translations/strings.xml:807( name="rmd_Epr_notificon_desc")
 msgid "Choose Astrid's notification bar icon"
 msgstr ""
 
-#: translations/strings.xml:780( name="rmd_EPr_vibrate_title")
+#: translations/strings.xml:810( name="rmd_EPr_vibrate_title")
 msgid "Vibrate on Alert"
 msgstr ""
 
-#: translations/strings.xml:782( name="rmd_EPr_vibrate_desc_true")
+#: translations/strings.xml:812( name="rmd_EPr_vibrate_desc_true")
 msgid "Astrid will vibrate when sending notifications"
 msgstr ""
 
-#: translations/strings.xml:784( name="rmd_EPr_vibrate_desc_false")
+#: translations/strings.xml:814( name="rmd_EPr_vibrate_desc_false")
 msgid "Astrid will not vibrate when sending notifications"
 msgstr ""
 
-#: translations/strings.xml:787( name="rmd_EPr_nagging_title")
+#: translations/strings.xml:817( name="rmd_EPr_nagging_title")
 msgid "Astrid Reminders"
 msgstr ""
 
-#: translations/strings.xml:789( name="rmd_EPr_nagging_desc_true")
+#: translations/strings.xml:819( name="rmd_EPr_nagging_desc_true")
 msgid "Astrid will show up to give you an encouragement during reminders"
 msgstr ""
 
-#: translations/strings.xml:791( name="rmd_EPr_nagging_desc_false")
+#: translations/strings.xml:821( name="rmd_EPr_nagging_desc_false")
 msgid "Astrid not give you any encouragement messages"
 msgstr ""
 
-#: translations/strings.xml:794( name="rmd_EPr_defaultRemind_title")
+#: translations/strings.xml:824( name="rmd_EPr_defaultRemind_title")
 msgid "Random Reminders"
 msgstr ""
 
-#: translations/strings.xml:796( name="rmd_EPr_defaultRemind_desc_disabled")
+#: translations/strings.xml:826( name="rmd_EPr_defaultRemind_desc_disabled")
 msgid "New tasks will have no random reminders"
 msgstr ""
 
-#: translations/strings.xml:798( name="rmd_EPr_defaultRemind_desc")
+#: translations/strings.xml:828( name="rmd_EPr_defaultRemind_desc")
 msgid "New tasks will remind randomly: %s"
 msgstr ""
 
-#: translations/strings.xml:805(item) translations/strings.xml:816(item)
+#: translations/strings.xml:835(item) translations/strings.xml:846(item)
 msgid "disabled"
 msgstr "사용 불가능"
 
-#: translations/strings.xml:806(item)
+#: translations/strings.xml:836(item)
 msgid "hourly"
 msgstr "매시간"
 
-#: translations/strings.xml:807(item)
+#: translations/strings.xml:837(item)
 msgid "daily"
 msgstr "매일"
 
-#: translations/strings.xml:808(item)
+#: translations/strings.xml:838(item)
 msgid "weekly"
 msgstr "매주"
 
-#: translations/strings.xml:809(item)
+#: translations/strings.xml:839(item)
 msgid "bi-weekly"
 msgstr ""
 
-#: translations/strings.xml:810(item)
+#: translations/strings.xml:840(item)
 msgid "monthly"
 msgstr ""
 
-#: translations/strings.xml:811(item)
+#: translations/strings.xml:841(item)
 msgid "bi-monthly"
 msgstr ""
 
-#: translations/strings.xml:817(item) translations/strings.xml:856(item)
+#: translations/strings.xml:847(item) translations/strings.xml:886(item)
 msgid "8 PM"
 msgstr ""
 
-#: translations/strings.xml:818(item) translations/strings.xml:857(item)
+#: translations/strings.xml:848(item) translations/strings.xml:887(item)
 msgid "9 PM"
 msgstr ""
 
-#: translations/strings.xml:819(item) translations/strings.xml:858(item)
+#: translations/strings.xml:849(item) translations/strings.xml:888(item)
 msgid "10 PM"
 msgstr ""
 
-#: translations/strings.xml:820(item) translations/strings.xml:859(item)
+#: translations/strings.xml:850(item) translations/strings.xml:889(item)
 msgid "11 PM"
 msgstr ""
 
-#: translations/strings.xml:821(item) translations/strings.xml:860(item)
+#: translations/strings.xml:851(item) translations/strings.xml:890(item)
 msgid "12 AM"
 msgstr ""
 
-#: translations/strings.xml:822(item) translations/strings.xml:861(item)
+#: translations/strings.xml:852(item) translations/strings.xml:891(item)
 msgid "1 AM"
 msgstr ""
 
-#: translations/strings.xml:823(item) translations/strings.xml:862(item)
+#: translations/strings.xml:853(item) translations/strings.xml:892(item)
 msgid "2 AM"
 msgstr ""
 
-#: translations/strings.xml:824(item) translations/strings.xml:863(item)
+#: translations/strings.xml:854(item) translations/strings.xml:893(item)
 msgid "3 AM"
 msgstr ""
 
-#: translations/strings.xml:825(item) translations/strings.xml:864(item)
+#: translations/strings.xml:855(item) translations/strings.xml:894(item)
 msgid "4 AM"
 msgstr ""
 
-#: translations/strings.xml:826(item) translations/strings.xml:865(item)
+#: translations/strings.xml:856(item) translations/strings.xml:895(item)
 msgid "5 AM"
 msgstr ""
 
-#: translations/strings.xml:827(item) translations/strings.xml:866(item)
+#: translations/strings.xml:857(item) translations/strings.xml:896(item)
 msgid "6 AM"
 msgstr ""
 
-#: translations/strings.xml:828(item) translations/strings.xml:867(item)
+#: translations/strings.xml:858(item) translations/strings.xml:897(item)
 msgid "7 AM"
 msgstr ""
 
-#: translations/strings.xml:829(item) translations/strings.xml:868(item)
+#: translations/strings.xml:859(item) translations/strings.xml:898(item)
 msgid "8 AM"
 msgstr ""
 
-#: translations/strings.xml:830(item) translations/strings.xml:845(item)
+#: translations/strings.xml:860(item) translations/strings.xml:875(item)
 msgid "9 AM"
 msgstr ""
 
-#: translations/strings.xml:831(item) translations/strings.xml:846(item)
+#: translations/strings.xml:861(item) translations/strings.xml:876(item)
 msgid "10 AM"
 msgstr ""
 
-#: translations/strings.xml:832(item) translations/strings.xml:847(item)
+#: translations/strings.xml:862(item) translations/strings.xml:877(item)
 msgid "11 AM"
 msgstr ""
 
-#: translations/strings.xml:833(item) translations/strings.xml:848(item)
+#: translations/strings.xml:863(item) translations/strings.xml:878(item)
 msgid "12 PM"
 msgstr ""
 
-#: translations/strings.xml:834(item) translations/strings.xml:849(item)
+#: translations/strings.xml:864(item) translations/strings.xml:879(item)
 msgid "1 PM"
 msgstr ""
 
-#: translations/strings.xml:835(item) translations/strings.xml:850(item)
+#: translations/strings.xml:865(item) translations/strings.xml:880(item)
 msgid "2 PM"
 msgstr ""
 
-#: translations/strings.xml:836(item) translations/strings.xml:851(item)
+#: translations/strings.xml:866(item) translations/strings.xml:881(item)
 msgid "3 PM"
 msgstr ""
 
-#: translations/strings.xml:837(item) translations/strings.xml:852(item)
+#: translations/strings.xml:867(item) translations/strings.xml:882(item)
 msgid "4 PM"
 msgstr ""
 
-#: translations/strings.xml:838(item) translations/strings.xml:853(item)
+#: translations/strings.xml:868(item) translations/strings.xml:883(item)
 msgid "5 PM"
 msgstr ""
 
-#: translations/strings.xml:839(item) translations/strings.xml:854(item)
+#: translations/strings.xml:869(item) translations/strings.xml:884(item)
 msgid "6 PM"
 msgstr ""
 
-#: translations/strings.xml:840(item) translations/strings.xml:855(item)
+#: translations/strings.xml:870(item) translations/strings.xml:885(item)
 msgid "7 PM"
 msgstr ""
 
-#: translations/strings.xml:875(item)
+#: translations/strings.xml:905(item)
 msgid "Hi there! Have a sec?"
 msgstr "잠깐 시간있나요?"
 
-#: translations/strings.xml:876(item)
+#: translations/strings.xml:906(item)
 msgid "Can I see you for a sec?"
 msgstr "잠깐 볼 수 있을까요?"
 
-#: translations/strings.xml:877(item)
+#: translations/strings.xml:907(item)
 msgid "Have a few minutes?"
 msgstr "잠깐 시간있나요?"
 
-#: translations/strings.xml:878(item)
+#: translations/strings.xml:908(item)
 msgid "Did you forget?"
 msgstr "잊어버렸나요?"
 
-#: translations/strings.xml:879(item)
+#: translations/strings.xml:909(item)
 msgid "Excuse me!"
 msgstr "실례합니다!"
 
-#: translations/strings.xml:880(item)
+#: translations/strings.xml:910(item)
 msgid "When you have a minute:"
 msgstr "언제 시간되나요?"
 
-#: translations/strings.xml:881(item)
+#: translations/strings.xml:911(item)
 msgid "On your agenda:"
 msgstr "당신의 일정에"
 
-#: translations/strings.xml:882(item)
+#: translations/strings.xml:912(item)
 msgid "Free for a moment?"
 msgstr "잠깐 시간있나요?"
 
-#: translations/strings.xml:883(item)
+#: translations/strings.xml:913(item)
 msgid "Astrid here!"
 msgstr "Astrid가 여기있습니다!"
 
-#: translations/strings.xml:884(item)
+#: translations/strings.xml:914(item)
 msgid "Hi! Can I bug you?"
 msgstr "안녕! 시간있어?"
 
-#: translations/strings.xml:885(item)
+#: translations/strings.xml:915(item)
 msgid "A minute of your time?"
 msgstr "시간 있어요?"
 
-#: translations/strings.xml:886(item)
+#: translations/strings.xml:916(item)
 msgid "It's a great day to"
 msgstr ""
 
-#: translations/strings.xml:891(item)
+#: translations/strings.xml:921(item)
 msgid "Time to work!"
 msgstr ""
 
-#: translations/strings.xml:892(item)
+#: translations/strings.xml:922(item)
 msgid "Due date is here!"
 msgstr ""
 
-#: translations/strings.xml:893(item)
+#: translations/strings.xml:923(item)
 msgid "Ready to start?"
 msgstr ""
 
-#: translations/strings.xml:894(item)
+#: translations/strings.xml:924(item)
 msgid "You said you would do:"
 msgstr ""
 
-#: translations/strings.xml:895(item)
+#: translations/strings.xml:925(item)
 msgid "You're supposed to start:"
 msgstr ""
 
-#: translations/strings.xml:896(item)
+#: translations/strings.xml:926(item)
 msgid "Time to start:"
 msgstr ""
 
-#: translations/strings.xml:897(item)
+#: translations/strings.xml:927(item)
 msgid "It's time!"
 msgstr ""
 
-#: translations/strings.xml:898(item)
+#: translations/strings.xml:928(item)
 msgid "Excuse me! Time for"
 msgstr ""
 
-#: translations/strings.xml:899(item)
+#: translations/strings.xml:929(item)
 msgid "You free? Time to"
 msgstr ""
 
-#: translations/strings.xml:904(item)
+#: translations/strings.xml:934(item)
 msgid "Don't be lazy now!"
 msgstr ""
 
-#: translations/strings.xml:905(item)
+#: translations/strings.xml:935(item)
 msgid "Snooze time is up!"
 msgstr ""
 
-#: translations/strings.xml:906(item)
+#: translations/strings.xml:936(item)
 msgid "No more snoozing!"
 msgstr ""
 
-#: translations/strings.xml:907(item)
+#: translations/strings.xml:937(item)
 msgid "Now are you ready?"
 msgstr ""
 
-#: translations/strings.xml:908(item)
+#: translations/strings.xml:938(item)
 msgid "No more postponing!"
 msgstr ""
 
-#: translations/strings.xml:913(item)
+#: translations/strings.xml:943(item)
 msgid "I've got something for you!"
 msgstr ""
 
-#: translations/strings.xml:914(item)
+#: translations/strings.xml:944(item)
 msgid "Ready to put this in the past?"
 msgstr "이거 끝낼 준비 됬어?"
 
-#: translations/strings.xml:915(item)
+#: translations/strings.xml:945(item)
 msgid "Why don't you get this done?"
 msgstr ""
 
-#: translations/strings.xml:916(item)
+#: translations/strings.xml:946(item)
 msgid "How about it? Ready tiger?"
 msgstr "이건 어때?"
 
-#: translations/strings.xml:917(item)
+#: translations/strings.xml:947(item)
 msgid "Ready to do this?"
 msgstr "이거할 준비 됬어?"
 
-#: translations/strings.xml:918(item)
+#: translations/strings.xml:948(item)
 msgid "Can you handle this?"
 msgstr "이거 처리할 수 있어?"
 
-#: translations/strings.xml:919(item)
+#: translations/strings.xml:949(item)
 msgid "You can be happy! Just finish this!"
 msgstr "이걸 끝내면 행복해 질 수 있어!"
 
-#: translations/strings.xml:920(item)
+#: translations/strings.xml:950(item)
 msgid "I promise you'll feel better if you finish this!"
 msgstr ""
 
-#: translations/strings.xml:921(item)
+#: translations/strings.xml:951(item)
 msgid "Won't you do this today?"
 msgstr ""
 
-#: translations/strings.xml:922(item)
+#: translations/strings.xml:952(item)
 msgid "Please finish this, I'm sick of it!"
 msgstr ""
 
-#: translations/strings.xml:923(item)
+#: translations/strings.xml:953(item)
 msgid "Can you finish this? Yes you can!"
 msgstr "이걸 끝낼수있어? 그럼 넌 끝낼 수 있어!"
 
-#: translations/strings.xml:924(item)
+#: translations/strings.xml:954(item)
 msgid "Are you ever going to do this?"
 msgstr "이거 안할꺼야?"
 
-#: translations/strings.xml:925(item)
+#: translations/strings.xml:955(item)
 msgid "Feel good about yourself! Let's go!"
 msgstr ""
 
-#: translations/strings.xml:926(item)
+#: translations/strings.xml:956(item)
 msgid "I'm so proud of you! Lets get it done!"
 msgstr "난 니가 정말 자랑스러워! 이걸 끝내자!"
 
-#: translations/strings.xml:927(item)
+#: translations/strings.xml:957(item)
 msgid "A little snack after you finish this?"
 msgstr "이걸 끝내고 약간의 간식 어때?"
 
-#: translations/strings.xml:928(item)
+#: translations/strings.xml:958(item)
 msgid "Just this one task? Please?"
 msgstr "그냥 이일 하나만? 응?"
 
-#: translations/strings.xml:929(item)
+#: translations/strings.xml:959(item)
 msgid "Time to shorten your todo list!"
 msgstr "너의 할일목록을 줄일때야!"
 
-#: translations/strings.xml:934(item)
+#: translations/strings.xml:964(item)
 msgid "Please tell me it isn't true that you're a procrastinator!"
 msgstr ""
 
-#: translations/strings.xml:935(item)
+#: translations/strings.xml:965(item)
 msgid "Doesn't being lazy get old sometimes?"
 msgstr ""
 
-#: translations/strings.xml:936(item)
+#: translations/strings.xml:966(item)
 msgid "Somewhere, someone is depending on you to finish this!"
 msgstr "어딘가 누군가가 이일을 끝내가위해 너가 필요해!"
 
-#: translations/strings.xml:937(item)
+#: translations/strings.xml:967(item)
 msgid "When you said postpone, you really meant 'I'm doing this', right?"
 msgstr ""
 
-#: translations/strings.xml:938(item)
+#: translations/strings.xml:968(item)
 msgid "This is the last time you postpone this, right?"
 msgstr "이게 마지막으로 미루는거지?응?"
 
-#: translations/strings.xml:939(item)
+#: translations/strings.xml:969(item)
 msgid "Just finish this today, I won't tell anyone!"
 msgstr ""
 
-#: translations/strings.xml:940(item)
+#: translations/strings.xml:970(item)
 msgid "Why postpone when you can um... not postpone!"
 msgstr "니가 할수 있을때 왜 미루니..미루지마!"
 
-#: translations/strings.xml:941(item)
+#: translations/strings.xml:971(item)
 msgid "You'll finish this eventually, I presume?"
 msgstr ""
 
-#: translations/strings.xml:942(item)
+#: translations/strings.xml:972(item)
 msgid "I think you're really great! How about not putting this off?"
 msgstr ""
 
-#: translations/strings.xml:943(item)
+#: translations/strings.xml:973(item)
 msgid "Will you be able to achieve your goals if you do that?"
 msgstr "그렇게 하면 니 목표를 이룰 수 있어?"
 
-#: translations/strings.xml:944(item)
+#: translations/strings.xml:974(item)
 msgid "Postpone, postpone, postpone. When will you change!"
 msgstr "미루고, 미루고, 또미루고, 언제 바뀔래!"
 
-#: translations/strings.xml:945(item)
+#: translations/strings.xml:975(item)
 msgid "I've had enough with your excuses! Just do it already!"
 msgstr ""
 
-#: translations/strings.xml:946(item)
+#: translations/strings.xml:976(item)
 msgid "Didn't you make that excuse last time?"
 msgstr ""
 
-#: translations/strings.xml:947(item)
+#: translations/strings.xml:977(item)
 msgid "I can't help you organize your life if you do that..."
 msgstr ""
 
-#: translations/strings.xml:958( name="repeat_plugin")
+#: translations/strings.xml:988( name="repeat_plugin")
 msgid "Repeating Tasks"
 msgstr ""
 
-#: translations/strings.xml:961( name="repeat_plugin_desc")
+#: translations/strings.xml:991( name="repeat_plugin_desc")
 msgid "Allows tasks to repeat"
 msgstr ""
 
-#: translations/strings.xml:964( name="repeat_enabled")
+#: translations/strings.xml:994( name="repeat_enabled")
 msgid "Repeats"
 msgstr "반복"
 
-#: translations/strings.xml:967( name="repeat_every")
+#: translations/strings.xml:997( name="repeat_every")
 msgid "Every %d"
 msgstr ""
 
-#: translations/strings.xml:970( name="repeat_interval_prompt")
+#: translations/strings.xml:1000( name="repeat_interval_prompt")
 msgid "Repeat Interval"
 msgstr ""
 
-#: translations/strings.xml:974(item)
+#: translations/strings.xml:1004(item)
 msgid "Day(s)"
 msgstr "일"
 
-#: translations/strings.xml:975(item)
+#: translations/strings.xml:1005(item)
 msgid "Week(s)"
 msgstr "주"
 
-#: translations/strings.xml:976(item)
+#: translations/strings.xml:1006(item)
 msgid "Month(s)"
 msgstr "월"
 
-#: translations/strings.xml:977(item)
+#: translations/strings.xml:1007(item)
 msgid "Hour(s)"
 msgstr "시"
 
-#: translations/strings.xml:982(item)
+#: translations/strings.xml:1012(item)
 msgid "from due date"
 msgstr ""
 
-#: translations/strings.xml:983(item)
+#: translations/strings.xml:1013(item)
 msgid "from completion date"
 msgstr ""
 
-#: translations/strings.xml:987( name="repeat_detail_byday")
+#: translations/strings.xml:1017( name="repeat_detail_byday")
 msgid "$I on $D"
 msgstr ""
 
-#: translations/strings.xml:990( name="repeat_detail_duedate")
+#: translations/strings.xml:1020( name="repeat_detail_duedate")
 msgid "Repeats every %s"
 msgstr ""
 
-#: translations/strings.xml:993( name="repeat_detail_completion")
+#: translations/strings.xml:1023( name="repeat_detail_completion")
 msgid "Repeats %s after completion"
 msgstr ""
 
-#: translations/strings.xml:1003( name="rmilk_EOE_button")
+#: translations/strings.xml:1033( name="rmilk_EOE_button")
 msgid "Remember the Milk Settings"
 msgstr ""
 
-#: translations/strings.xml:1006( name="rmilk_TLA_list")
+#: translations/strings.xml:1036( name="rmilk_TLA_list")
 msgid "RTM List: %s"
 msgstr ""
 
-#: translations/strings.xml:1009( name="rmilk_TLA_repeat")
+#: translations/strings.xml:1039( name="rmilk_TLA_repeat")
 msgid "RTM Repeating Task"
 msgstr ""
 
-#: translations/strings.xml:1012( name="rmilk_TLA_sync")
+#: translations/strings.xml:1042( name="rmilk_TLA_sync")
 msgid "Needs synchronization with RTM"
 msgstr ""
 
-#: translations/strings.xml:1015( name="rmilk_FEx_header")
-#: translations/strings.xml:1029( name="rmilk_MEA_title")
-#: translations/strings.xml:1043( name="rmilk_MPr_header")
+#: translations/strings.xml:1045( name="rmilk_FEx_header")
+#: translations/strings.xml:1059( name="rmilk_MEA_title")
+#: translations/strings.xml:1073( name="rmilk_MPr_header")
 msgid "Remember the Milk"
 msgstr ""
 
-#: translations/strings.xml:1018( name="rmilk_FEx_list")
+#: translations/strings.xml:1048( name="rmilk_FEx_list")
 msgid "Lists"
 msgstr ""
 
-#: translations/strings.xml:1021( name="rmilk_FEx_list_item")
+#: translations/strings.xml:1051( name="rmilk_FEx_list_item")
 msgid "$N ($C)"
 msgstr ""
 
-#: translations/strings.xml:1024( name="rmilk_FEx_list_title")
+#: translations/strings.xml:1054( name="rmilk_FEx_list_title")
 msgid "RTM List '%s'"
 msgstr ""
 
-#: translations/strings.xml:1032( name="rmilk_MEA_list_label")
+#: translations/strings.xml:1062( name="rmilk_MEA_list_label")
 msgid "RTM List:"
 msgstr ""
 
-#: translations/strings.xml:1035( name="rmilk_MEA_repeat_label")
+#: translations/strings.xml:1065( name="rmilk_MEA_repeat_label")
 msgid "RTM Repeat Status:"
 msgstr ""
 
-#: translations/strings.xml:1038( name="rmilk_MEA_repeat_hint")
+#: translations/strings.xml:1068( name="rmilk_MEA_repeat_hint")
 msgid "i.e. every week, after 14 days"
 msgstr ""
 
-#: translations/strings.xml:1049( name="rmilk_status_loggedout")
+#: translations/strings.xml:1079( name="rmilk_status_loggedout")
 msgid "Please Log In To RTM!"
 msgstr ""
 
-#: translations/strings.xml:1051( name="rmilk_status_ongoing")
+#: translations/strings.xml:1081( name="rmilk_status_ongoing")
 msgid "Sync Ongoing..."
 msgstr ""
 
-#: translations/strings.xml:1053( name="rmilk_status_success")
+#: translations/strings.xml:1083( name="rmilk_status_success")
 msgid "Last Sync: %s"
 msgstr ""
 
-#: translations/strings.xml:1055( name="rmilk_status_failed")
+#: translations/strings.xml:1085( name="rmilk_status_failed")
 msgid "Failed On: %s"
 msgstr ""
 
-#: translations/strings.xml:1057( name="rmilk_status_failed_subtitle")
+#: translations/strings.xml:1087( name="rmilk_status_failed_subtitle")
 msgid "Last Successful Sync: %s"
 msgstr ""
 
-#: translations/strings.xml:1059( name="rmilk_status_never")
+#: translations/strings.xml:1089( name="rmilk_status_never")
 msgid "Never Synchronized!"
 msgstr ""
 
-#: translations/strings.xml:1065( name="rmilk_MPr_interval_title")
+#: translations/strings.xml:1095( name="rmilk_MPr_interval_title")
 msgid "Background Sync"
 msgstr ""
 
-#: translations/strings.xml:1067( name="rmilk_MPr_interval_desc_disabled")
+#: translations/strings.xml:1097( name="rmilk_MPr_interval_desc_disabled")
 msgid "Background synchronization is disabled"
 msgstr ""
 
-#: translations/strings.xml:1069( name="rmilk_MPr_interval_desc")
+#: translations/strings.xml:1099( name="rmilk_MPr_interval_desc")
 msgid "Currently set to: %s"
 msgstr ""
 
-#: translations/strings.xml:1072( name="rmilk_MPr_bgwifi_title")
+#: translations/strings.xml:1102( name="rmilk_MPr_bgwifi_title")
 msgid "Wifi Only Setting"
 msgstr ""
 
-#: translations/strings.xml:1074( name="rmilk_MPr_bgwifi_desc_enabled")
+#: translations/strings.xml:1104( name="rmilk_MPr_bgwifi_desc_enabled")
 msgid "Background synchronization only happens when on Wifi"
 msgstr ""
 
-#: translations/strings.xml:1076( name="rmilk_MPr_bgwifi_desc_disabled")
+#: translations/strings.xml:1106( name="rmilk_MPr_bgwifi_desc_disabled")
 msgid "Background synchronization will always occur"
 msgstr ""
 
-#: translations/strings.xml:1079( name="rmilk_MPr_group_actions")
+#: translations/strings.xml:1109( name="rmilk_MPr_group_actions")
 msgid "Actions"
 msgstr "설정"
 
-#: translations/strings.xml:1082( name="rmilk_MPr_sync")
+#: translations/strings.xml:1112( name="rmilk_MPr_sync")
 msgid "Synchronize Now!"
 msgstr "동기화 시작!"
 
-#: translations/strings.xml:1084( name="rmilk_MPr_sync_log_in")
+#: translations/strings.xml:1114( name="rmilk_MPr_sync_log_in")
 msgid "Log In &amp; Synchronize!"
 msgstr ""
 
-#: translations/strings.xml:1087( name="rmilk_MPr_forget")
+#: translations/strings.xml:1117( name="rmilk_MPr_forget")
 msgid "Log Out"
 msgstr ""
 
-#: translations/strings.xml:1089( name="rmilk_MPr_forget_description")
+#: translations/strings.xml:1119( name="rmilk_MPr_forget_description")
 msgid "Clears all RTM synchronization data"
 msgstr ""
 
-#: translations/strings.xml:1094( name="rmilk_MLA_label")
+#: translations/strings.xml:1124( name="rmilk_MLA_label")
 msgid "Please Log In and Authorize Astrid:"
 msgstr ""
 
-#: translations/strings.xml:1097( name="rmilk_MLA_error")
+#: translations/strings.xml:1127( name="rmilk_MLA_error")
 msgid ""
 "Sorry, there was an error verifying your login. Please try again. \\n\\n "
 "Error Message: %s"
 msgstr ""
 
-#: translations/strings.xml:1106( name="rmilk_notification_title")
+#: translations/strings.xml:1136( name="rmilk_notification_title")
 msgid "Astrid: Remember the Milk"
 msgstr ""
 
-#: translations/strings.xml:1109( name="rmilk_forget_confirm")
+#: translations/strings.xml:1139( name="rmilk_forget_confirm")
 msgid "Log out / clear synchronization data?"
 msgstr ""
 
-#: translations/strings.xml:1112( name="rmilk_ioerror")
+#: translations/strings.xml:1142( name="rmilk_ioerror")
 msgid ""
 "Connection Error! Check your Internet connection, or maybe RTM servers "
 "(status.rememberthemilk.com), for possible solutions."
 msgstr ""
 
-#: translations/strings.xml:1117(item)
+#: translations/strings.xml:1147(item)
 msgid "disable"
 msgstr "사용불가"
 
-#: translations/strings.xml:1118(item)
+#: translations/strings.xml:1148(item)
 msgid "every fifteen minutes"
 msgstr ""
 
-#: translations/strings.xml:1119(item)
+#: translations/strings.xml:1149(item)
 msgid "every thirty minutes"
 msgstr ""
 
-#: translations/strings.xml:1120(item)
+#: translations/strings.xml:1150(item)
 msgid "every hour"
 msgstr ""
 
-#: translations/strings.xml:1121(item)
+#: translations/strings.xml:1151(item)
 msgid "every three hours"
 msgstr ""
 
-#: translations/strings.xml:1122(item)
+#: translations/strings.xml:1152(item)
 msgid "every six hours"
 msgstr ""
 
-#: translations/strings.xml:1123(item)
+#: translations/strings.xml:1153(item)
 msgid "every twelve hours"
 msgstr ""
 
-#: translations/strings.xml:1124(item)
+#: translations/strings.xml:1154(item)
 msgid "every day"
 msgstr ""
 
-#: translations/strings.xml:1125(item)
+#: translations/strings.xml:1155(item)
 msgid "every three days"
 msgstr ""
 
-#: translations/strings.xml:1126(item)
+#: translations/strings.xml:1156(item)
 msgid "every week"
 msgstr ""
 
-#: translations/strings.xml:1141( name="TEA_tags_label")
+#: translations/strings.xml:1171( name="TEA_tags_label")
 msgid "Tags:"
 msgstr "태그:"
 
-#: translations/strings.xml:1144( name="TEA_tag_hint")
+#: translations/strings.xml:1174( name="TEA_tag_hint")
 msgid "Tag Name"
 msgstr "태그명"
 
-#: translations/strings.xml:1149( name="tag_TLA_detail")
+#: translations/strings.xml:1179( name="tag_TLA_detail")
 msgid "Tags: %s"
 msgstr ""
 
-#: translations/strings.xml:1154( name="tag_FEx_header")
+#: translations/strings.xml:1184( name="tag_FEx_header")
 msgid "Tags"
 msgstr "태그"
 
-#: translations/strings.xml:1157( name="tag_FEx_by_size")
-msgid "By Size"
+#: translations/strings.xml:1187( name="tag_FEx_by_size")
+msgid "Active"
 msgstr ""
 
-#: translations/strings.xml:1160( name="tag_FEx_alpha")
-msgid "Alphabetical"
+#: translations/strings.xml:1190( name="tag_FEx_completed")
+msgid "Completed"
 msgstr ""
 
-#: translations/strings.xml:1163( name="tag_FEx_untagged")
+#: translations/strings.xml:1193( name="tag_FEx_alpha")
+msgid "All Tags"
+msgstr ""
+
+#: translations/strings.xml:1196( name="tag_FEx_untagged")
 msgid "Untagged"
 msgstr ""
 
-#: translations/strings.xml:1166( name="tag_FEx_tag_w_size")
+#: translations/strings.xml:1199( name="tag_FEx_tag_w_size")
 msgid "$T ($C)"
 msgstr ""
 
-#: translations/strings.xml:1169( name="tag_FEx_name")
+#: translations/strings.xml:1202( name="tag_FEx_name")
 msgid "Tagged '%s'"
 msgstr ""
 
-#: translations/strings.xml:1179( name="TAE_startTimer")
+#: translations/strings.xml:1212( name="TAE_startTimer")
 msgid "Start Timer"
 msgstr "타이머 시작"
 
-#: translations/strings.xml:1182( name="TAE_stopTimer")
+#: translations/strings.xml:1215( name="TAE_stopTimer")
 msgid "Stop Timer"
 msgstr "타이머 정지"
 
-#: translations/strings.xml:1185( name="TPl_notification")
+#: translations/strings.xml:1218( name="TPl_notification")
 msgid "Timers Active for %s!"
 msgstr ""
 
-#: translations/strings.xml:1188( name="TFE_category")
+#: translations/strings.xml:1221( name="TFE_category")
 msgid "Timer Filters"
 msgstr ""
 
-#: translations/strings.xml:1191( name="TFE_workingOn")
+#: translations/strings.xml:1224( name="TFE_workingOn")
 msgid "Tasks Being Timed"
 msgstr ""

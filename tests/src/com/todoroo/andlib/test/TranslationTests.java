@@ -263,7 +263,7 @@ abstract public class TranslationTests extends TodorooTestCase {
     /**
      * @return an array of all string resource id's
      */
-    private int[] getResourceIds(Class<?> resources) throws Exception {
+    public int[] getResourceIds(Class<?> resources) throws Exception {
         Field[] fields = resources.getDeclaredFields();
         int[] ids = new int[fields.length];
         for(int i = 0; i < fields.length; i++) {
@@ -276,7 +276,7 @@ abstract public class TranslationTests extends TodorooTestCase {
      * Loop through each locale and call runnable
      * @param r
      */
-    private void forEachLocale(Runnable r) {
+    public void forEachLocale(Runnable r) {
         Locale[] locales = Locale.getAvailableLocales();
         for(Locale locale : locales) {
             setLocale(locale);

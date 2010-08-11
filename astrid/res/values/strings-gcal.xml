@@ -18,6 +18,9 @@
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
   
+  <!-- Toast when unable to open calendar event -->
+  <string name="gcal_TEA_calendar_error">Error opening event!</string>
+  
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->

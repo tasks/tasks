@@ -9,7 +9,7 @@ import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.ShortcutActivity;
@@ -17,7 +17,6 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.reminders.Notifications;
-import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -28,9 +27,6 @@ import com.todoroo.astrid.utility.Preferences;
  *
  */
 public class LocaleReceiver extends BroadcastReceiver {
-
-    @Autowired
-    private TaskService taskService;
 
     /**
      * Create a preference key for storing / retrieving last interval time
@@ -46,6 +42,8 @@ public class LocaleReceiver extends BroadcastReceiver {
     @Override
     /** Called when the system is started up */
     public void onReceive(Context context, Intent intent) {
+        ContextManager.setContext(context);
+
         try {
             if (com.twofortyfouram.Intent.ACTION_FIRE_SETTING.equals(intent.getAction())) {
                 if(!PluginServices.getAddOnService().hasLocalePlugin())
@@ -72,7 +70,7 @@ public class LocaleReceiver extends BroadcastReceiver {
                 DependencyInjectionService.getInstance().inject(this);
                 Filter filter = new Filter(title, title, null, null);
                 filter.sqlQuery = sql;
-                TodorooCursor<Task> cursor = taskService.fetchFiltered(filter, null, Task.ID);
+                TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(filter, null, Task.ID);
                 try {
                     if(cursor.getCount() == 0)
                         return;

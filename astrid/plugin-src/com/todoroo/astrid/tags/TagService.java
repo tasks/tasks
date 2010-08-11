@@ -1,6 +1,6 @@
 package com.todoroo.astrid.tags;
 
-import java.util.ArrayList;
+import java.util.LinkedHashSet;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
@@ -82,11 +82,11 @@ public final class TagService {
          * @param tag
          * @return
          */
-        public QueryTemplate queryTemplate() {
+        public QueryTemplate queryTemplate(Criterion criterion) {
             return new QueryTemplate().join(Join.inner(Metadata.TABLE,
                     Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                             MetadataCriteria.withKey(KEY), TAG.eq(tag),
-                            TaskCriteria.isActive()));
+                            criterion));
         }
     }
 
@@ -100,13 +100,14 @@ public final class TagService {
     /**
      * Return all tags ordered by given clause
      *
-     * @param taskId
+     * @param order ordering
+     * @param activeStatus criterion for specifying completed or uncompleted
      * @return empty array if no tags, otherwise array
      */
-    public Tag[] getGroupedTags(Order order) {
+    public Tag[] getGroupedTags(Order order, Criterion activeStatus) {
         Query query = Query.select(TAG.as(TAG.name), COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-            where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(KEY))).
+            where(Criterion.and(activeStatus, MetadataCriteria.withKey(KEY))).
             orderBy(order).groupBy(TAG);
         TodorooCursor<Metadata> cursor = metadataDao.query(query);
         try {
@@ -175,7 +176,7 @@ public final class TagService {
      * @param taskId
      * @param tags
      */
-    public void synchronizeTags(long taskId, ArrayList<String> tags) {
+    public void synchronizeTags(long taskId, LinkedHashSet<String> tags) {
         metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(taskId),
                 MetadataCriteria.withKey(KEY)));
 

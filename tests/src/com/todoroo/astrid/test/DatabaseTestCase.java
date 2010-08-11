@@ -4,8 +4,8 @@ import java.io.File;
 
 import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.test.TodorooTestCase;
-import com.todoroo.astrid.alarms.AlarmDatabase;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.legacy.AlarmDatabase;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**

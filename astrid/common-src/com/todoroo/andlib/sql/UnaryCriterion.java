@@ -89,4 +89,19 @@ public class UnaryCriterion extends Criterion {
             }
         };
     }
+
+    public static Criterion like(Field field, String value, final String escape) {
+        return new UnaryCriterion(field, Operator.like, value) {
+            @Override
+            protected void populateOperator(StringBuilder sb) {
+                sb.append(SPACE).append(operator).append(SPACE);
+            }
+            @SuppressWarnings("nls")
+            @Override
+            protected void afterPopulateOperator(StringBuilder sb) {
+                super.afterPopulateOperator(sb);
+                sb.append(SPACE).append("ESCAPE").append(" '").append(sanitize(escape)).append("'");
+            }
+        };
+    }
 }

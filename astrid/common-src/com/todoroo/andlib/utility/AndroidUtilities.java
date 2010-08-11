@@ -193,11 +193,21 @@ public class AndroidUtilities {
         if(string == null)
             return null;
 
-        String[] pairs = string.split(" ");
+        String[] pairs = string.split("=");
         ContentValues result = new ContentValues();
-        for(String item : pairs) {
-            String[] keyValue = item.split("=");
-            result.put(keyValue[0].trim(), keyValue[1].trim());
+        String key = null;
+        for(int i = 0; i < pairs.length; i++) {
+            String newKey = null;
+            int lastSpace = pairs[i].lastIndexOf(' ');
+            if(lastSpace != -1) {
+                newKey = pairs[i].substring(lastSpace + 1);
+                pairs[i] = pairs[i].substring(0, lastSpace);
+            } else {
+                newKey =  pairs[i];
+            }
+            if(key != null)
+                result.put(key.trim(), pairs[i].trim());
+            key = newKey;
         }
         return result;
     }

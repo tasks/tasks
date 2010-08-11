@@ -3,7 +3,7 @@
  * All Rights Reserved
  * http://www.todoroo.com
  */
-package com.todoroo.astrid.alarms;
+package com.todoroo.astrid.legacy;
 
 import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.GenericDao;
@@ -15,7 +15,7 @@ import com.todoroo.andlib.data.Table;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings("nls")
+@SuppressWarnings({"nls","deprecation"})
 public class AlarmDatabase extends AbstractDatabase {
 
     // --- constants
@@ -29,19 +29,19 @@ public class AlarmDatabase extends AbstractDatabase {
     /**
      * Database name (must be unique)
      */
-    private static final String NAME = "alarms";
+    public static final String NAME = "alarms";
 
     /**
      * List of table/ If you're adding a new table, add it to this list and
      * also make sure that our SQLite helper does the right thing.
      */
     public static final Table[] TABLES =  new Table[] {
-        Alarm.TABLE
+        TransitionalAlarm.TABLE
     };
 
     // --- implementation
 
-    private final GenericDao<Alarm> dao = new GenericDao<Alarm>(Alarm.class, this);
+    private final GenericDao<TransitionalAlarm> dao = new GenericDao<TransitionalAlarm>(TransitionalAlarm.class, this);
 
     @Override
     protected String getName() {
@@ -58,7 +58,7 @@ public class AlarmDatabase extends AbstractDatabase {
         return TABLES;
     }
 
-    public GenericDao<Alarm> getDao() {
+    public GenericDao<TransitionalAlarm> getDao() {
         return dao;
     }
 
@@ -66,15 +66,8 @@ public class AlarmDatabase extends AbstractDatabase {
     protected synchronized void onCreateTables() {
         StringBuilder sql = new StringBuilder();
         sql.append("CREATE INDEX IF NOT EXISTS a_task ON ").
-            append(Alarm.TABLE).append('(').
-                append(Alarm.TASK.name).
-            append(')');
-        database.execSQL(sql.toString());
-
-        sql.setLength(0);
-        sql.append("CREATE INDEX IF NOT EXISTS a_type ON ").
-            append(Alarm.TABLE).append('(').
-                append(Alarm.TYPE.name).
+            append(TransitionalAlarm.TABLE).append('(').
+                append(TransitionalAlarm.TASK.name).
             append(')');
         database.execSQL(sql.toString());
     }

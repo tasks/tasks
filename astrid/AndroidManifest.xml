@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="3.0.7" android:versionCode="146"
-          android:installLocation="auto">
+          android:versionName="3.1.0" android:versionCode="146"
+          android:installLocation="internalOnly">
+          
+  <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
       
   <!-- ================================================== Used Permissions = -->
       
@@ -46,7 +48,7 @@
   
   <!-- ========================================================== Metadata = -->
 
-  <uses-sdk android:targetSdkVersion="4"
+  <uses-sdk android:targetSdkVersion="8"
             android:minSdkVersion="3" />
   <supports-screens />
   
@@ -163,6 +165,15 @@
       </intent-filter>
     </activity>
         
+    <!-- alarms -->
+    <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.TASK_REPEATED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    
+    
     <!-- tags -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
       <intent-filter>
@@ -303,7 +314,11 @@
       </intent-filter>
     </activity>
     <activity android:name="com.todoroo.astrid.producteev.ProducteevLoginActivity"
-              android:theme="@style/Theme" />
+              android:theme="@style/Theme">
+      <intent-filter> <!-- temporary -->   
+        <action android:name="android.intent.action.MAIN" />
+      </intent-filter>
+    </activity>
     <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService"/>
 
     <!-- rmilk -->
@@ -316,7 +331,7 @@
     <activity android:name="com.todoroo.astrid.rmilk.MilkLoginActivity"
               android:theme="@style/Theme" />
     <activity android:name="com.todoroo.astrid.rmilk.MilkPreferences"
-              android:icon="@drawable/ic_menu_rmilk"
+              android:icon="@drawable/ic_menu_refresh"
               android:label="@string/rmilk_MPr_header">
       <intent-filter>   
         <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />

@@ -37,47 +37,49 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
     @Autowired
     DateUtilities dateUtilities;
 
-    public enum TimeDurationType {
-        DAYS_HOURS,
-        HOURS_MINUTES;
-    }
-
     private final Activity activity;
     private final Button timeButton;
     private final NNumberPickerDialog dialog;
     private final int prefixResource;
-    private final TimeDurationType type;
     private int timeDuration;
 
     public TimeDurationControlSet(Activity activity, int timeButtonId,
-            int prefixResource, int titleResource, TimeDurationType type) {
+            int prefixResource, int titleResource) {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
         this.prefixResource = prefixResource;
-        this.type = type;
 
         timeButton = (Button)activity.findViewById(timeButtonId);
         timeButton.setOnClickListener(this);
 
-        switch(type) {
-        case DAYS_HOURS:
-            dialog = new NNumberPickerDialog(activity, this,
-                    activity.getResources().getString(titleResource),
-                    new int[] {0, 0}, new int[] {1, 1}, new int[] {0, 0},
-                    new int[] {31, 23}, new String[] {
-                        "d\na\ny\ns",
-                        "h\nr\ns"
-                    });
-            break;
-        case HOURS_MINUTES:
-        default:
-            dialog = new NNumberPickerDialog(activity, this,
-                    activity.getResources().getString(titleResource),
-                    new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
-                    new int[] {99, 59}, new String[] {":", null});
-            break;
-        }
+        dialog = new NNumberPickerDialog(activity, this,
+                activity.getResources().getString(titleResource),
+                new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
+                new int[] {99, 59}, new String[] {":", null});
+        final NumberPicker hourPicker = dialog.getPicker(0);
+        final NumberPicker minutePicker = dialog.getPicker(1);
+        minutePicker.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String toString(int value) {
+                return String.format("%02d", value);
+            }
+        });
+        minutePicker.setOnChangeListener(new NumberPicker.OnChangedListener() {
+            @Override
+            public int onChanged(NumberPicker picker, int oldVal, int newVal) {
+                if(newVal < 0) {
+                    if(hourPicker.getCurrent() == 0)
+                        return 0;
+                    hourPicker.setCurrent(hourPicker.getCurrent() - 1);
+                    return 60 + newVal;
+                } else if(newVal > 59) {
+                    hourPicker.setCurrent(hourPicker.getCurrent() + 1);
+                    return newVal % 60;
+                }
+                return newVal;
+            }
+        });
     }
 
     public int getTimeDurationInSeconds() {
@@ -97,33 +99,20 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         }
 
         String prefix = "";
-        if(prefixResource != 0)
+        if (prefixResource != 0)
             prefix = r.getString(prefixResource);
-        timeButton.setText(prefix + " " + dateUtilities.getDurationString(
-                timeDurationInSeconds * 1000L, 2));
-        switch(type) {
-        case DAYS_HOURS:
-            int days = timeDuration / 24 / 3600;
-            int hours = timeDuration / 3600 - 24 * days;
-            dialog.setInitialValues(new int[] {days, hours});
-            break;
-        case HOURS_MINUTES:
-             hours = timeDuration / 3600;
-            int minutes = timeDuration/60 - 60 * hours;
-            dialog.setInitialValues(new int[] {hours, minutes});
-        }
+        timeButton.setText(prefix
+                + " "
+                + dateUtilities.getDurationString(
+                        timeDurationInSeconds * 1000L, 2));
+        int hours = timeDuration / 3600;
+        int minutes = timeDuration / 60 - 60 * hours;
+        dialog.setInitialValues(new int[] { hours, minutes });
     }
 
     /** Called when NumberPicker activity is completed */
     public void onNumbersPicked(int[] values) {
-        switch(type) {
-        case DAYS_HOURS:
-            setTimeDuration(values[0] * 24 * 3600 + values[1] * 3600);
-            break;
-        case HOURS_MINUTES:
-            setTimeDuration(values[0] * 3600 + values[1] * 60);
-            break;
-        }
+        setTimeDuration(values[0] * 3600 + values[1] * 60);
     }
 
     /** Called when time button is clicked */

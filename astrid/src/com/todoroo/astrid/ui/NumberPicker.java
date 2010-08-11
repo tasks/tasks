@@ -44,7 +44,8 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         OnFocusChangeListener, OnLongClickListener {
 
     public interface OnChangedListener {
-        void onChanged(NumberPicker picker, int oldVal, int newVal);
+        /** return new value */
+        int onChanged(NumberPicker picker, int oldVal, int newVal);
     }
 
     public interface Formatter {
@@ -105,7 +106,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     private int                                mPrevious;
     private OnChangedListener                  mListener;
     private Formatter                          mFormatter;
-    private long                               mSpeed              = 500;
+    private long                               mSpeed              = 300;
 
     private boolean                            mIncrement;
     private boolean                            mDecrement;
@@ -178,6 +179,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
 
     public void setFormatter(Formatter formatter) {
         mFormatter = formatter;
+        updateView();
     }
 
     /**
@@ -253,6 +255,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
     }
 
     private void changeCurrent(int current, Animation in, Animation out) {
+        current = notifyChange(current);
 
         // Wrap around the values if we go past the start or end
         if (current > mEnd) {
@@ -262,14 +265,15 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         }
         mPrevious = mCurrent;
         mCurrent = current;
-        notifyChange();
         updateView();
     }
 
-    private void notifyChange() {
+    private int notifyChange(int current) {
         if (mListener != null) {
-            mListener.onChanged(this, mPrevious, mCurrent);
-        }
+            return mListener.onChanged(this, mCurrent, current);
+        } else
+            return current;
+
     }
 
     private void updateView() {
@@ -291,7 +295,7 @@ public class NumberPicker extends LinearLayout implements OnClickListener,
         if ((val >= mStart) && (val <= mEnd)) {
             mPrevious = mCurrent;
             mCurrent = val;
-            notifyChange();
+            notifyChange(mCurrent);
         }
         updateView();
     }

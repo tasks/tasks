@@ -211,6 +211,7 @@
     <string name="producteev_PPr_interval_key">producteev_sync_freq</string>
     <string name="producteev_PPr_email">producteev_email</string>    
     <string name="producteev_PPr_password">producteev_password</string>    
+    <string name="producteev_PPr_defaultdash_key">producteev_defaultdash</string>    
   
   <!-- ============================================================ OTHER == -->
   

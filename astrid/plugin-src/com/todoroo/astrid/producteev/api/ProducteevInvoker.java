@@ -81,6 +81,21 @@ public class ProducteevInvoker {
 
     }
 
+    // --- users
+
+    /**
+     * Sign up as the given user
+     */
+    public JSONObject usersSignUp(String email, String firstName, String lastName, String
+            password, Long fbUid) throws IOException, ApiServiceException {
+        return invokeGet("users/signup.json",
+                "email", email,
+                "firstname", firstName,
+                "lastname", lastName,
+                "password", password,
+                "fbuid", fbUid);
+    }
+
     // --- tasks
 
     /**

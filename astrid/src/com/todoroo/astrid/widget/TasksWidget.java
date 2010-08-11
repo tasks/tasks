@@ -103,7 +103,7 @@ public class TasksWidget extends AppWidgetProvider {
                 database.openForReading();
                 cursor = taskService.fetchFiltered(inboxFilter, null, Task.TITLE, Task.DUE_DATE);
                 Task task = new Task();
-                for (int i = 0; i < cursor.getCount(); i++) {
+                for (int i = 0; i < cursor.getCount() && i < numberOfTasks; i++) {
                     cursor.moveToPosition(i);
                     task.readFromCursor(cursor);
 
@@ -115,7 +115,7 @@ public class TasksWidget extends AppWidgetProvider {
                         textColor = context.getResources().getColor(R.color.task_list_overdue);
 
                     if(i > 0)
-                    views.setViewVisibility(separatorIDs[i-1], View.VISIBLE);
+                        views.setViewVisibility(separatorIDs[i-1], View.VISIBLE);
                     views.setTextViewText(textIDs[i], textContent);
                     views.setTextColor(textIDs[i], textColor);
                 }
@@ -123,6 +123,8 @@ public class TasksWidget extends AppWidgetProvider {
                 for(int i = cursor.getCount() - 1; i < separatorIDs.length; i++) {
                     if(i >= 0)
                         views.setViewVisibility(separatorIDs[i], View.INVISIBLE);
+                    if(i > cursor.getCount() - 1)
+                        views.setViewVisibility(textIDs[i], View.INVISIBLE);
                 }
             } catch (Exception e) {
                 // can happen if database is not ready

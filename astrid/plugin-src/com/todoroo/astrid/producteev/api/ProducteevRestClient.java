@@ -87,7 +87,7 @@ public class ProducteevRestClient implements RestClient {
         }
 
         int statusCode = response.getStatusLine().getStatusCode();
-        if(statusCode != HTTP_OK) {
+        if(statusCode != HTTP_OK || (body != null && body.startsWith("{\"error\":"))) { //$NON-NLS-1$
             ApiServiceException error;
             try {
                 JSONObject errorObject = new JSONObject(body).getJSONObject("error"); //$NON-NLS-1$
