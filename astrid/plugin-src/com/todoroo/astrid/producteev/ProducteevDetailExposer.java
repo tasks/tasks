@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -76,8 +75,7 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
                     != Preferences.getLong(ProducteevUtilities.PREF_DEFAULT_DASHBOARD, 0L) &&
                     ownerDashboard != null) {
                 String dashboardName = ownerDashboard.getValue(ProducteevDashboard.NAME);
-                builder.append(context.getString(R.string.producteev_TLA_dashboard,
-                        dashboardName)).append(TaskAdapter.DETAIL_SEPARATOR);
+                builder.append("<img src='silk_script'/> ").append(dashboardName).append(TaskAdapter.DETAIL_SEPARATOR); //$NON-NLS-1$
             }
 
             // display responsible user if not current one
@@ -88,8 +86,7 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
                 if(index > -1) {
                     String user = users.substring(users.indexOf(',', index) + 1,
                             users.indexOf(';', index + 1));
-                    builder.append(context.getString(R.string.producteev_TLA_responsible,
-                            user)).append(TaskAdapter.DETAIL_SEPARATOR);
+                    builder.append("<img src='silk_user_gray'/> ").append(user).append(TaskAdapter.DETAIL_SEPARATOR); //$NON-NLS-1$
                 }
             }
         } else {

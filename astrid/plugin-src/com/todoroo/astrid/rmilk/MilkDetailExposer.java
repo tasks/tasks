@@ -66,9 +66,8 @@ public class MilkDetailExposer extends BroadcastReceiver implements DetailExpose
             if(listName == null)
                 return null;
 
-            if(listId > 0) {
-                builder.append(context.getString(R.string.rmilk_TLA_list,
-                        listName)).append(TaskAdapter.DETAIL_SEPARATOR);
+            if(listId > 0 && !"Inbox".equals(listName)) { //$NON-NLS-1$
+                builder.append("<img src='silk_script'/> ").append(listName).append(TaskAdapter.DETAIL_SEPARATOR); //$NON-NLS-1$
             }
 
             int repeat = metadata.getValue(MilkTask.REPEATING);
