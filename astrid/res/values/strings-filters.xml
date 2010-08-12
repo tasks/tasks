@@ -48,7 +48,7 @@
     <string name="CFA_context_delete">Delete Row</string>
     
     <!-- Filter Screen Help Text -->
-    <string name="CFA_help">This screen let\'s you create a new filters. Add 
+    <string name="CFA_help">This screen lets you create a new filters. Add 
     criteria using the button below, short or long-press them to adjust, and
     then click \"Save &amp; View\"!</string>
     
