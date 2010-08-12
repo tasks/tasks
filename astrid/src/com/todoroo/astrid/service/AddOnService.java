@@ -184,6 +184,27 @@ public class AddOnService {
     }
 
     /**
+     * Get one AddOn-descriptor by packageName and title.
+     *
+     * @param packageName could be Constants.PACKAGE or one of AddOnService-constants
+     * @param title the descriptive title, as in "Producteev" or "Astrid Power Pack"
+     * @return the addon-descriptor, if it is available (registered here in getAddOns), otherwise null
+     */
+    public AddOn getAddOn(String packageName, String title) {
+        if (title == null || packageName == null)
+            return null;
+
+        AddOn addon = null;
+        AddOn[] addons = getAddOns();
+        for (int i = 0; i < addons.length ; i++) {
+            if (packageName.equals(addons[i].getPackageName()) && title.equals(addons[i].getTitle())) {
+                addon = addons[i];
+            }
+        }
+        return addon;
+    }
+
+    /**
      * Get a list of add-ons
      *
      * @return available add-ons

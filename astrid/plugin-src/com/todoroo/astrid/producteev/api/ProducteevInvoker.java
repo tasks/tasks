@@ -300,6 +300,35 @@ public class ProducteevInvoker {
     }
 
     /**
+     * change responsible of a task
+     *
+     * @param idTask
+     * @param idResponsible
+     *
+     * @return array: tasks/view
+     */
+    public JSONObject tasksSetResponsible(long idTask, long idResponsible) throws ApiServiceException, IOException {
+        return callAuthenticated("tasks/set_responsible.json",
+                "token", token,
+                "id_task", idTask,
+                "id_responsible", idResponsible);
+    }
+
+    /**
+     * change responsible of a task
+     *
+     * @param idTask
+     * @param idResponsible
+     *
+     * @return array: tasks/view
+     */
+    public JSONObject tasksUnsetResponsible(long idTask) throws ApiServiceException, IOException {
+        return callAuthenticated("tasks/unset_responsible.json",
+                "token", token,
+                "id_task", idTask);
+    }
+
+    /**
      * create a note attached to a task
      *
      * @param idTask
@@ -359,6 +388,19 @@ public class ProducteevInvoker {
         return callAuthenticated("users/view.json",
                 "token", token,
                 "id_colleague", idColleague);
+    }
+
+    /**
+     * return the list of users who can access a specific dashboard
+     *
+     * @param idDashboard
+     * @param dashboard array-information about the dashboard, if this ...
+     */
+    public JSONArray dashboardsAccess(long idDashboard, String dashboard) throws ApiServiceException, IOException {
+        return getResponse(callAuthenticated("dashboards/access",
+                    "token", token,
+                    "id_dashboard", idDashboard,
+                    "dashboard", dashboard),"dashboard");
     }
 
     // --- invocation
