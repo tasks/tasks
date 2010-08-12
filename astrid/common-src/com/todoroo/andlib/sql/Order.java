@@ -27,4 +27,11 @@ public class Order {
     public String toString() {
         return expression + SPACE + orderType;
     }
+
+    public Order reverse() {
+        if(orderType == OrderType.ASC)
+            return new Order(expression, OrderType.DESC);
+        else
+            return new Order(expression, OrderType.ASC);
+    }
 }

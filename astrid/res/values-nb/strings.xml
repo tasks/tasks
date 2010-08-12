@@ -617,25 +617,25 @@ to the plugin creator for fastest service.
     <string name="BFE_Extended">Mer...</string>
 
     <!-- sort recent modification filter -->
-    <string name="BFE_Recent">Nylig endret</string>
+    <string name="SSD_sort_modified">Nylig endret</string>
     
     <!-- Completed Filter -->
-    <string name="BFE_Completed">Fullførte oppgaver</string>
+    <string name="SSD_completed">Fullførte oppgaver</string>
 
     <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">Skjulte oppgaver</string>
+    <string name="SSD_hidden">Skjulte oppgaver</string>
 
     <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">Etter tittel</string>
+    <string name="SSD_sort_alpha">Etter tittel</string>
 
     <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">Etter forfallsdato</string>
+    <string name="SSD_sort_due">Etter forfallsdato</string>
 
     <!-- sort Importance filter -->
-    <string name="BFE_Importance">Etter viktighet</string>
+    <string name="SSD_sort_importance">Etter viktighet</string>
 
     <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">Slettede oppgaver</string>
+    <string name="SSD_deleted">Slettede oppgaver</string>
         
 
 

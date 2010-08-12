@@ -617,25 +617,25 @@ to the plugin creator for fastest service.
     <string name="BFE_Extended">Více...</string>
 
     <!-- sort recent modification filter -->
-    <string name="BFE_Recent">Nedávno upravené</string>
+    <string name="SSD_sort_modified">Nedávno upravené</string>
     
     <!-- Completed Filter -->
-    <string name="BFE_Completed">Dokončené úkoly</string>
+    <string name="SSD_completed">Dokončené úkoly</string>
 
     <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">Skryté úkoly</string>
+    <string name="SSD_hidden">Skryté úkoly</string>
 
     <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">Podle názvu</string>
+    <string name="SSD_sort_alpha">Podle názvu</string>
 
     <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">Podle data ukončení</string>
+    <string name="SSD_sort_due">Podle data ukončení</string>
 
     <!-- sort Importance filter -->
-    <string name="BFE_Importance">Podle důležitosti</string>
+    <string name="SSD_sort_importance">Podle důležitosti</string>
 
     <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">Smazané úkoly</string>
+    <string name="SSD_deleted">Smazané úkoly</string>
         
 
 

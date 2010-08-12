@@ -622,25 +622,25 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="BFE_Extended">その他のフィルタ</string>
 
     <!-- sort recent modification filter -->
-    <string name="BFE_Recent">最近編集したタスク</string>
+    <string name="SSD_sort_modified">最近編集したタスク</string>
     
     <!-- Completed Filter -->
-    <string name="BFE_Completed">完了したタスク</string>
+    <string name="SSD_completed">完了したタスク</string>
 
     <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">非表示のタスク</string>
+    <string name="SSD_hidden">非表示のタスク</string>
 
     <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">タイトル順</string>
+    <string name="SSD_sort_alpha">タイトル順</string>
 
     <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">期限順</string>
+    <string name="SSD_sort_due">期限順</string>
 
     <!-- sort Importance filter -->
-    <string name="BFE_Importance">重要度順</string>
+    <string name="SSD_sort_importance">重要度順</string>
 
     <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">削除したタスク</string>
+    <string name="SSD_deleted">削除したタスク</string>
         
 
 

@@ -224,6 +224,31 @@ public class Preferences {
         editor.commit();
     }
 
+    // --- preference fetching (int)
+
+    /** Gets a int preference
+     *
+     * @param key
+     * @param defValue
+     * @return default if value is unset otherwise the value
+     */
+    public static int getInt(String key, int defValue) {
+        Context context = ContextManager.getContext();
+        return getPrefs(context).getInt(key, defValue);
+    }
+
+    /**
+     * Sets int preference
+     * @param key
+     * @param value
+     */
+    public static void setInt(String key, int value) {
+        Context context = ContextManager.getContext();
+        Editor editor = getPrefs(context).edit();
+        editor.putInt(key, value);
+        editor.commit();
+    }
+
     // --- preference fetching (long)
 
     /** Gets a long preference

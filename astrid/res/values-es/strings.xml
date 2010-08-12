@@ -618,25 +618,25 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
     <string name="BFE_Extended">Más…</string>
 
     <!-- sort recent modification filter -->
-    <string name="BFE_Recent">Recientemente modificado</string>
+    <string name="SSD_sort_modified">Recientemente modificado</string>
     
     <!-- Completed Filter -->
-    <string name="BFE_Completed">Tareas Finalizadas</string>
+    <string name="SSD_completed">Tareas Finalizadas</string>
 
     <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">Tareas ocultas</string>
+    <string name="SSD_hidden">Tareas ocultas</string>
 
     <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">Por título</string>
+    <string name="SSD_sort_alpha">Por título</string>
 
     <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">Por fecha de vencimiento</string>
+    <string name="SSD_sort_due">Por fecha de vencimiento</string>
 
     <!-- sort Importance filter -->
-    <string name="BFE_Importance">Por importancia</string>
+    <string name="SSD_sort_importance">Por importancia</string>
 
     <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">Tareas eliminadas</string>
+    <string name="SSD_deleted">Tareas eliminadas</string>
         
 
 
