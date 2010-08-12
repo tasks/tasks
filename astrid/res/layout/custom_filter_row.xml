@@ -32,12 +32,12 @@
         android:layout_height="fill_parent"
         android:layout_weight="100"
         android:paddingLeft="5dip"
-        android:textSize="22sp" 
+        android:textSize="18sp" 
         android:gravity="center_vertical"/>
         
     <!-- filter graphic -->
     <com.todoroo.astrid.core.FilterView android:id="@+id/filter"
-        android:layout_width="64dip"
+        android:layout_width="64px"
         android:layout_height="fill_parent"
         android:layout_weight="1"
         android:paddingLeft="5dip" 

@@ -41,8 +41,11 @@
     <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
     <string name="CFA_type_intersect">also</string>
     
+    <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
+    <string name="CFA_context_chain">Chaining: %s</string>
+    
     <!-- Filter Criteria Context Menu: delete -->
-    <string name="CFA_context_delete">Delete</string>
+    <string name="CFA_context_delete">Delete Row</string>
     
     <!-- Filter Button: add new -->
     <string name="CFA_button_add">Add Criteria</string>
@@ -66,7 +69,7 @@
     </string-array>
     
     <!-- Criteria: importance - display text -->
-    <string name="CFC_importance_text">Importance >= %s</string>
+    <string name="CFC_importance_text">Importance: %s</string>
     <!-- Criteria: importance - name of criteria -->
     <string name="CFC_importance_name">Importance...</string>        
     

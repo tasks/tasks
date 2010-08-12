@@ -12,14 +12,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnCreateContextMenuListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 import com.todoroo.astrid.model.AddOn;
 
@@ -53,35 +50,41 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
                 return;
 
             // keep the filter options in the name context menu
-            viewHolder.name.showContextMenu();
+            ((CustomFilterActivity)activity).menuItemInstance = viewHolder.item;
+            ((CustomFilterActivity)activity).getListView().showContextMenu();
         }
     };
 
-    OnCreateContextMenuListener createContextMenuListener = new OnCreateContextMenuListener() {
-        public void onCreateContextMenu(ContextMenu menu, View view, ContextMenuInfo info) {
-            ViewHolder viewHolder = (ViewHolder) ((View)view.getParent()).getTag();
-            CustomFilterCriterion criteria = viewHolder.item.criterion;
-            if(criteria.entryTitles == null ||
-                    criteria.entryTitles.length == 0)
-                return;
+    public void onCreateContextMenu(ContextMenu menu, View v) {
+        // view holder
+        ViewHolder viewHolder = (ViewHolder) v.getTag();
+        if(viewHolder == null || viewHolder.item.type == CriterionInstance.TYPE_UNIVERSE)
+            return;
 
-            menu.setHeaderTitle(criteria.name);
-            menu.setGroupCheckable(CustomFilterActivity.MENU_GROUP_FILTER_OPTION, true, true);
+        int index = getPosition(viewHolder.item);
 
-            for(int i = 0; i < criteria.entryTitles.length; i++) {
-                menu.add(CustomFilterActivity.MENU_GROUP_FILTER_OPTION,
-                        getPosition(viewHolder.item),
-                        i, criteria.entryTitles[i]);
-            }
-        }
-    };
+        menu.setHeaderTitle(viewHolder.name.getText());
+        if(viewHolder.icon.getVisibility() == View.VISIBLE)
+            menu.setHeaderIcon(viewHolder.icon.getDrawable());
 
 
-    public boolean onMenuItemSelected(MenuItem item) {
-        CriterionInstance instance = getItem(item.getItemId());
-        instance.selectedIndex = item.getOrder();
-        ((CustomFilterActivity)activity).updateList();
-        return true;
+        MenuItem item = menu.add(CustomFilterActivity.MENU_GROUP_CONTEXT_TYPE, CriterionInstance.TYPE_INTERSECT, index,
+                activity.getString(R.string.CFA_context_chain,
+                        activity.getString(R.string.CFA_type_intersect)));
+        item.setChecked(viewHolder.item.type == CriterionInstance.TYPE_INTERSECT);
+        item = menu.add(CustomFilterActivity.MENU_GROUP_CONTEXT_TYPE, CriterionInstance.TYPE_ADD, index,
+                activity.getString(R.string.CFA_context_chain,
+                        activity.getString(R.string.CFA_type_add)));
+        item.setChecked(viewHolder.item.type == CriterionInstance.TYPE_ADD);
+
+        item = menu.add(CustomFilterActivity.MENU_GROUP_CONTEXT_TYPE, CriterionInstance.TYPE_SUBTRACT, index,
+                activity.getString(R.string.CFA_context_chain,
+                        activity.getString(R.string.CFA_type_subtract)));
+        item.setChecked(viewHolder.item.type == CriterionInstance.TYPE_SUBTRACT);
+        menu.setGroupCheckable(CustomFilterActivity.MENU_GROUP_CONTEXT_TYPE, true, true);
+
+        menu.add(CustomFilterActivity.MENU_GROUP_CONTEXT_DELETE, 0, index,
+                R.string.CFA_context_delete);
     }
 
     // --- view construction
@@ -103,8 +106,8 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         initializeView(convertView);
 
         // listeners
+        convertView.setOnCreateContextMenuListener(activity);
         convertView.setOnClickListener(filterClickListener);
-        viewHolder.name.setOnCreateContextMenuListener(createContextMenuListener);
 
         return convertView;
     }
@@ -123,29 +126,25 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
         CriterionInstance item = viewHolder.item;
 
         String entryTitle = "";
-        if(item.selectedIndex >= 0 && item.selectedIndex < item.criterion.entryTitles.length) {
+        if(item.selectedIndex >= 0 && item.criterion.entryTitles != null &&
+                item.selectedIndex < item.criterion.entryTitles.length) {
             entryTitle = item.criterion.entryTitles[item.selectedIndex];
         }
         String title = item.criterion.text.replace("%s", entryTitle);
-        boolean notFirst = getPosition(item) > 1;
 
         viewHolder.type.setVisibility(item.type == CriterionInstance.TYPE_UNIVERSE ?
                 View.GONE : View.VISIBLE);
         switch(item.type) {
         case CriterionInstance.TYPE_ADD:
             viewHolder.type.setImageResource(R.drawable.arrow_join);
-            if(notFirst)
-                title = activity.getString(R.string.CFA_type_add) + " " + title;
+            title = activity.getString(R.string.CFA_type_add) + " " + title;
             break;
         case CriterionInstance.TYPE_SUBTRACT:
             viewHolder.type.setImageResource(R.drawable.arrow_branch);
-            if(notFirst)
-                title = activity.getString(R.string.CFA_type_subtract) + " " + title;
+            title = activity.getString(R.string.CFA_type_subtract) + " " + title;
             break;
         case CriterionInstance.TYPE_INTERSECT:
             viewHolder.type.setImageResource(R.drawable.arrow_down);
-            if(notFirst)
-                title = activity.getString(R.string.CFA_type_intersect) + " " + title;
             break;
         }
 

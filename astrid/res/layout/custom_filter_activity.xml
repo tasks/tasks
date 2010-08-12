@@ -11,8 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:hint="@string/CFA_filterName_hint"
-        android:text="@string/CFA_filterName_new"/>
+        android:hint="@string/CFA_filterName_hint"/>
     
     <!-- List -->
     <ListView android:id="@android:id/list"
@@ -40,7 +39,7 @@
         android:text="@string/CFA_button_add" />
         
       <Button
-        android:id="@+id/discard_basic"
+        android:id="@+id/saveAndView"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
