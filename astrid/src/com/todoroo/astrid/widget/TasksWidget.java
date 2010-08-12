@@ -100,10 +100,10 @@ public class TasksWidget extends AppWidgetProvider {
             TodorooCursor<Task> cursor = null;
             try {
                 Filter inboxFilter = CoreFilterExposer.buildInboxFilter(getResources());
-                int sort = Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
                 int flags = Preferences.getInt(SortSelectionActivity.PREF_SORT_FLAGS, 0);
-                String query = SortSelectionActivity.adjustSortAndFlags(
-                        inboxFilter.sqlQuery, sort, flags) + " LIMIT " + numberOfTasks;
+                int sort = Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
+                String query = SortSelectionActivity.adjustQueryForFlagsAndSort(
+                        inboxFilter.sqlQuery, flags, sort) + " LIMIT " + numberOfTasks;
 
                 database.openForReading();
                 cursor = taskService.fetchFiltered(query, null, Task.TITLE, Task.DUE_DATE);

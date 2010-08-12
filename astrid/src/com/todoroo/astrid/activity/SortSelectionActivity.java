@@ -89,7 +89,7 @@ public class SortSelectionActivity {
     }
 
     @SuppressWarnings("nls")
-    public static String adjustSortAndFlags(String originalSql, int flags, int sort) {
+    public static String adjustQueryForFlagsAndSort(String originalSql, int flags, int sort) {
         // sort
         if(!originalSql.toUpperCase().contains("ORDER BY")) {
             Order order;
@@ -136,10 +136,10 @@ public class SortSelectionActivity {
     // --- internal implementation
 
     /** preference key for sort flags */
-    public static final String PREF_SORT_FLAGS = "tla_flags"; //$NON-NLS-1$
+    public static final String PREF_SORT_FLAGS = "sort_flags"; //$NON-NLS-1$
 
     /** preference key for sort sort */
-    public static final String PREF_SORT_SORT = "tla_sort"; //$NON-NLS-1$
+    public static final String PREF_SORT_SORT = "sort_sort"; //$NON-NLS-1$
 
     private SortSelectionActivity() {
         // use the static method

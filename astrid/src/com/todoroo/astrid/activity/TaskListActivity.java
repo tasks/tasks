@@ -363,6 +363,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         } catch (VerifyError e) {
             // failed check, no gestures :P
         }
+
+        sortFlags = Preferences.getInt(SortSelectionActivity.PREF_SORT_FLAGS, 0);
+        sortSort= Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
     }
 
     public void bindServices() {
@@ -525,7 +528,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      * @param withCustomId force task with given custom id to be part of list
      */
     protected void setUpTaskList() {
-        sqlQueryTemplate.set(SortSelectionActivity.adjustSortAndFlags(filter.sqlQuery,
+        sqlQueryTemplate.set(SortSelectionActivity.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
 
         // perform query
