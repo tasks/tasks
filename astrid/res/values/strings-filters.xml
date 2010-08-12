@@ -4,17 +4,35 @@
     
     <!-- Resources for built-in filter plug-in -->
     
+    <!-- ================================================= Filter Exposer == -->
+    
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">Active Tasks</string>
         
-    <!-- Title for Active Tasks Filter (what user sees when first opening the app) -->
-    <string name="BFE_Active_title">Active Tasks</string>
-    
     <!-- Search Filter -->
-    <string name="BFE_Search">Search</string>
+    <string name="BFE_Search">Search...</string>
+    
+    <!-- Build Your Own Filter -->
+    <string name="BFE_Custom">Custom Filter...</string>
 
-    <!-- Extended Filters Category -->
-    <string name="BFE_Extended">More...</string>
+    <!-- =========================================== CustomFilterActivity == -->
+    
+    <!-- Build Your Own Filter Activity Title-->
+    <string name="CFA_title">Custom Filter</string>
+    
+    <!-- Filter Name edit box hint -->
+    <string name="CFA_filterName_hint">Filter Name</string>
+    
+    <!-- Filter Name default for new filters -->
+    <string name="CFA_filterName_new">New Filter</string>
+    
+    <!-- Filter Name default for copied filters (%s => old filter name) -->
+    <string name="CFA_filterName_copy">Copy of %s</string>
+    
+    <!-- Filter Starting Universe: all tasks -->
+    <string name="CFA_universe_all">All Tasks</string>
+
+    <!-- =================================== old stuff, TODO translation === -->
 
     <!-- sort recent modification filter -->
     <string name="BFE_Recent">Recently Modified</string>

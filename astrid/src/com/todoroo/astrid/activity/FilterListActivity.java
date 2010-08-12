@@ -42,7 +42,7 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.SearchFilter;
+import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.utility.Constants;
