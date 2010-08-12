@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.ListActivity;
 import android.content.Context;
@@ -15,12 +16,12 @@ import android.graphics.Paint;
 import android.text.Html;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -42,7 +43,6 @@ import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.alarms.AlarmDetailExposer;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.model.Task;
@@ -109,7 +109,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final LayoutInflater inflater;
     private int fontSize;
 
-    private final Filter filter;
+    private final AtomicReference<String> query;
 
     // the task that's expanded
     private long expanded = -1;
@@ -136,7 +136,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      *            task listener. can be null
      */
     public TaskAdapter(ListActivity activity, int resource,
-            Cursor c, Filter filter, boolean autoRequery,
+            Cursor c, AtomicReference<String> query, boolean autoRequery,
             OnCompletedTaskListener onCompletedTaskListener) {
         super(activity, c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
@@ -144,7 +144,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
 
-        this.filter = filter;
+        this.query = query;
         this.resource = resource;
         this.activity = activity;
         this.onCompletedTaskListener = onCompletedTaskListener;
@@ -169,7 +169,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         // perform query
         TodorooCursor<Task> newCursor = taskService.fetchFiltered(
-                filter, constraint, TaskAdapter.PROPERTIES);
+                query.get(), constraint, TaskAdapter.PROPERTIES);
         activity.startManagingCursor(newCursor);
         return newCursor;
     }

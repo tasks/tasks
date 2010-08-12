@@ -628,25 +628,25 @@ Astrid might not let you know when your tasks are due.\n
     <string name="BFE_Extended">More...</string>
 
     <!-- sort recent modification filter -->
-    <string name="BFE_Recent">Recently Modified</string>
+    <string name="SSD_sort_modified">Recently Modified</string>
     
     <!-- Completed Filter -->
-    <string name="BFE_Completed">Zakończone zadania</string>
+    <string name="SSD_completed">Zakończone zadania</string>
 
     <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">Hidden Tasks</string>
+    <string name="SSD_hidden">Hidden Tasks</string>
 
     <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">By Title</string>
+    <string name="SSD_sort_alpha">By Title</string>
 
     <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">By Due Date</string>
+    <string name="SSD_sort_due">By Due Date</string>
 
     <!-- sort Importance filter -->
-    <string name="BFE_Importance">By Importance</string>
+    <string name="SSD_sort_importance">By Importance</string>
 
     <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">Deleted Tasks</string>
+    <string name="SSD_deleted">Deleted Tasks</string>
         
 
 

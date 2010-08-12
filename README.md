@@ -16,7 +16,7 @@ Getting Started With Development
  • *[Eclipse](http://eclipse.org)* (preferred: Eclipse IDE for Java Developers)
  • *[Android SDK](http://developer.android.com/sdk/index.html)*
 
-3. Use **git** to clone your forked repository (see Github's instructions if you need help).
+3. Use **git** to clone your forked repository (see Github's instructions if you need help). Follow the [Github Line Ending Help](http://help.github.com/dealing-with-lineendings/)
 
 4. Open up **eclipse** and import the *astrid* and *astrid-tests* projects.
 

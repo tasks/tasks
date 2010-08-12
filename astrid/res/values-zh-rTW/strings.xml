@@ -617,25 +617,25 @@ to the plugin creator for fastest service.
     <string name="BFE_Extended">更多...</string>
 
     <!-- sort recent modification filter -->
-    <string name="BFE_Recent">最近修改過</string>
+    <string name="SSD_sort_modified">最近修改過</string>
     
     <!-- Completed Filter -->
-    <string name="BFE_Completed">已完成的工作</string>
+    <string name="SSD_completed">已完成的工作</string>
 
     <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">隱藏的工作</string>
+    <string name="SSD_hidden">隱藏的工作</string>
 
     <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">依主旨</string>
+    <string name="SSD_sort_alpha">依主旨</string>
 
     <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">依到期日</string>
+    <string name="SSD_sort_due">依到期日</string>
 
     <!-- sort Importance filter -->
-    <string name="BFE_Importance">依重要性</string>
+    <string name="SSD_sort_importance">依重要性</string>
 
     <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">刪除的工作</string>
+    <string name="SSD_deleted">刪除的工作</string>
         
 
 

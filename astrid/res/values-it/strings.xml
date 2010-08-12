@@ -620,25 +620,25 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="BFE_Extended">Altri...</string>
 
     <!-- sort recent modification filter -->
-    <string name="BFE_Recent">Modificato di recente</string>
+    <string name="SSD_sort_modified">Modificato di recente</string>
     
     <!-- Completed Filter -->
-    <string name="BFE_Completed">Attività Completate</string>
+    <string name="SSD_completed">Attività Completate</string>
 
     <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">Attività Nascoste</string>
+    <string name="SSD_hidden">Attività Nascoste</string>
 
     <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">Per Titotlo</string>
+    <string name="SSD_sort_alpha">Per Titotlo</string>
 
     <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">Per scadenza</string>
+    <string name="SSD_sort_due">Per scadenza</string>
 
     <!-- sort Importance filter -->
-    <string name="BFE_Importance">Per Importanza</string>
+    <string name="SSD_sort_importance">Per Importanza</string>
 
     <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">Attività Eliminate</string>
+    <string name="SSD_deleted">Attività Eliminate</string>
         
 
 
