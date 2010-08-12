@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent" 
+    android:layout_height="fill_parent"
+    android:background="@drawable/background_gradient"
+    android:orientation="vertical">
+    
+    <!-- Filter Name -->
+    <EditText android:id="@+id/filterName"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:hint="@string/CFA_filterName_hint"/>
+    
+    <!-- List -->
+    <ListView android:id="@android:id/list"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="100"
+        android:scrollbars="vertical"
+        android:cacheColorHint="#00000000"/>
+
+    <!-- help text -->
+    <TextView android:id="@+id/help"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:text="@string/CFA_help"/>
+
+    <!-- buttons -->
+    <LinearLayout
+      android:orientation="horizontal"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="10dip"
+      android:padding="5dip"
+      android:background="@drawable/edit_header"
+      android:baselineAligned="false">
+      
+      <Button android:id="@+id/add"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:drawableLeft="@drawable/tango_add"
+        android:text="@string/CFA_button_add" />
+        
+      <Button
+        android:id="@+id/saveAndView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="@string/CFA_button_save"
+        android:drawableRight="@drawable/tango_save" />
+        
+    </LinearLayout>
+    
+</LinearLayout>
+    

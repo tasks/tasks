@@ -32,10 +32,8 @@ public class TagFilterExposer extends BroadcastReceiver {
 
     private TagService tagService;
 
-    @SuppressWarnings("nls")
     private Filter filterFromTag(Context context, Tag tag, Criterion criterion) {
-        String listTitle = context.getString(R.string.tag_FEx_tag_w_size).
-            replace("$T", tag.tag).replace("$C", Integer.toString(tag.count));
+        String listTitle = tag.tag;
         String title = context.getString(R.string.tag_FEx_name, tag.tag);
         QueryTemplate tagTemplate = tag.queryTemplate(criterion);
         ContentValues contentValues = new ContentValues();
@@ -61,55 +59,35 @@ public class TagFilterExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         tagService = TagService.getInstance();
-        Tag[] tagsByAlpha = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA, TaskCriteria.notDeleted());
+        Tag[] tags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, TaskCriteria.notDeleted());
 
         // If user does not have any tags, don't show this section at all
-        if(tagsByAlpha.length == 0)
+        if(tags.length == 0)
             return;
 
         Resources r = context.getResources();
 
-        Filter[] filtersByAlpha = new Filter[tagsByAlpha.length];
-        for(int i = 0; i < tagsByAlpha.length; i++)
-            filtersByAlpha[i] = filterFromTag(context, tagsByAlpha[i], TaskCriteria.notDeleted());
-
-        Tag[] tagsBySize = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, TaskCriteria.isActive());
-        Filter[] filtersBySize = new Filter[tagsBySize.length];
-        for(int i = 0; i < tagsBySize.length; i++)
-            filtersBySize[i] = filterFromTag(context, tagsBySize[i], TaskCriteria.isActive());
-
-        Tag[] completed = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, TaskCriteria.completed());
-        Filter[] filtersCompleted = new Filter[completed.length];
-        for(int i = 0; i < completed.length; i++)
-            filtersCompleted[i] = filterFromTag(context, completed[i], TaskCriteria.completed());
+        FilterListItem[] list = new FilterListItem[3];
 
         FilterListHeader tagsHeader = new FilterListHeader(context.getString(R.string.tag_FEx_header));
+        list[0] = tagsHeader;
 
         Filter untagged = new Filter(r.getString(R.string.tag_FEx_untagged),
                 r.getString(R.string.tag_FEx_untagged),
                 tagService.untaggedTemplate(),
                 null);
         untagged.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_untagged)).getBitmap();
+        list[1] = untagged;
 
-        FilterCategory tagsCategoryBySize = new FilterCategory(context.getString(R.string.tag_FEx_by_size),
-                filtersBySize);
-        tagsCategoryBySize.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap();
 
-        FilterCategory tagsCategoryAllByAlpha = new FilterCategory(context.getString(R.string.tag_FEx_alpha),
-                filtersByAlpha);
-        tagsCategoryAllByAlpha.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap();
+        Filter[] filters = new Filter[tags.length];
+        for(int i = 0; i < tags.length; i++)
+            filters[i] = filterFromTag(context, tags[i], TaskCriteria.isActive());
+        FilterCategory tagsFilter = new FilterCategory(context.getString(R.string.tag_FEx_by_size), filters);
+        list[2] = tagsFilter;
 
-        FilterCategory tagsCategoryCompleted = new FilterCategory(context.getString(R.string.tag_FEx_completed),
-                filtersCompleted);
-        tagsCategoryCompleted.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags2)).getBitmap();
 
         // transmit filter list
-        FilterListItem[] list = new FilterListItem[5];
-        list[0] = tagsHeader;
-        list[1] = untagged;
-        list[2] = tagsCategoryBySize;
-        list[3] = tagsCategoryCompleted;
-        list[4] = tagsCategoryAllByAlpha;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);

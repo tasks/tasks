@@ -50,7 +50,7 @@
     </style>
 
     <style name="TextAppearance.TAd_ItemDetails">
-        <item name="android:textSize">10sp</item>
+        <item name="android:textSize">11sp</item>
         <item name="android:textColor">#ff777777</item>
     </style>
     

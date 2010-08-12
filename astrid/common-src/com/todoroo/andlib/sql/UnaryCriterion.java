@@ -63,6 +63,10 @@ public class UnaryCriterion extends Criterion {
         return new UnaryCriterion(field, Operator.lt, value);
     }
 
+    public static Criterion lte(Field field, Object value) {
+        return new UnaryCriterion(field, Operator.lte, value);
+    }
+
     public static Criterion isNull(Field field) {
         return new UnaryCriterion(field, Operator.isNull, null) {
             @Override

@@ -1,7 +1,9 @@
-package com.todoroo.astrid.api;
+package com.todoroo.astrid.core;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.todoroo.astrid.api.FilterListItem;
 
 /**
  * Special filter that triggers the search functionality when accessed.
@@ -12,31 +14,20 @@ import android.os.Parcelable;
 public class SearchFilter extends FilterListItem {
 
     /**
-     * Plug-in Identifier
-     */
-    public final String plugin;
-
-    /**
      * Constructor for creating a new SearchFilter
      *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
      * @param listingTitle
      *            Title of this item as displayed on the lists page, e.g. Inbox
      */
-    public SearchFilter(String plugin, String listingTitle) {
-        this.plugin = plugin;
+    public SearchFilter(String listingTitle) {
         this.listingTitle = listingTitle;
     }
 
     /**
      * Constructor for creating a new SearchFilter
-     *
-     * @param plugin
-     *            {@link Addon} identifier that encompasses object
      */
-    protected SearchFilter(String plugin) {
-        this.plugin = plugin;
+    protected SearchFilter() {
+        //
     }
 
     // --- parcelable
@@ -53,7 +44,6 @@ public class SearchFilter extends FilterListItem {
      */
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(plugin);
         super.writeToParcel(dest, flags);
     }
 
@@ -66,7 +56,7 @@ public class SearchFilter extends FilterListItem {
          * {@inheritDoc}
          */
         public SearchFilter createFromParcel(Parcel source) {
-            SearchFilter item = new SearchFilter(source.readString());
+            SearchFilter item = new SearchFilter();
             item.readFromParcel(source);
             return item;
         }

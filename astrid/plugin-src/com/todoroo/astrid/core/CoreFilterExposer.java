@@ -3,8 +3,8 @@
  */
 package com.todoroo.astrid.core;
 
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -12,17 +12,12 @@ import android.graphics.drawable.BitmapDrawable;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.FilterListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
-import com.todoroo.astrid.api.SearchFilter;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
@@ -44,89 +39,20 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         // core filters
         Filter inbox = buildInboxFilter(r);
 
-        SearchFilter searchFilter = new SearchFilter(CorePlugin.IDENTIFIER,
-                r.getString(R.string.BFE_Search));
+        SearchFilter searchFilter = new SearchFilter(r.getString(R.string.BFE_Search));
         searchFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_search)).getBitmap();
 
-        // extended
-
-        FilterCategory extended = new FilterCategory(r.getString(R.string.BFE_Extended),
-                new Filter[7]);
-
-        Filter recent = new Filter(r.getString(R.string.BFE_Recent),
-                r.getString(R.string.BFE_Recent),
-                new QueryTemplate().orderBy(Order.desc(Task.MODIFICATION_DATE)).limit(15),
-                null);
-        recent.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_new)).getBitmap();
-
-        ContentValues hiddenValues = new ContentValues();
-        hiddenValues.put(Task.HIDE_UNTIL.name, DateUtilities.now() + DateUtilities.ONE_DAY);
-        Filter hidden = new Filter(r.getString(R.string.BFE_Hidden),
-                r.getString(R.string.BFE_Hidden),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        Criterion.not(TaskCriteria.isVisible()))).
-                        orderBy(Order.asc(Task.HIDE_UNTIL)),
-                hiddenValues);
-        hidden.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_clouds)).getBitmap();
-
-        ContentValues completedValues = new ContentValues();
-        hiddenValues.put(Task.COMPLETION_DATE.name, DateUtilities.now());
-        Filter completed = new Filter(r.getString(R.string.BFE_Completed), r.getString(R.string.BFE_Completed),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.completed(),
-                        Criterion.not(TaskCriteria.isDeleted()))). orderBy(Order.desc(Task.COMPLETION_DATE)),
-                completedValues);
-        completed.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_check)).getBitmap();
-
-        Filter deleted = new Filter(r.getString(R.string.BFE_Deleted),
-                r.getString(R.string.BFE_Deleted),
-                new QueryTemplate().where(TaskCriteria.isDeleted()).
-                        orderBy(Order.desc(Task.DELETION_DATE)),
-                null);
-        deleted.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_trash)).getBitmap();
-
-        // sorting filters
-
-        Filter alphabetical = new Filter(r.getString(R.string.BFE_Alphabetical),
-                r.getString(R.string.BFE_Alphabetical),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        TaskCriteria.isVisible())).
-                        orderBy(Order.asc(Functions.upper(Task.TITLE))),
-                null);
-        alphabetical.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap();
-
-        Filter dueDate = new Filter(r.getString(R.string.BFE_DueDate),
-                r.getString(R.string.BFE_DueDate),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        TaskCriteria.isVisible())).
-                        orderBy(Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                                DateUtilities.now()*2, Task.DUE_DATE) + "+" + Task.IMPORTANCE)), //$NON-NLS-1$
-                        null);
-        dueDate.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap();
-
-        Filter importance = new Filter(r.getString(R.string.BFE_Importance),
-                r.getString(R.string.BFE_Importance),
-                new QueryTemplate().where(Criterion.and(TaskCriteria.isActive(),
-                        TaskCriteria.isVisible())).
-                        orderBy(Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) + //$NON-NLS-1$
-                                "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), //$NON-NLS-1$
-                                        Functions.now() + "+" + DateUtilities.ONE_WEEK, //$NON-NLS-1$
-                                        Task.DUE_DATE))),
-                        null);
-        importance.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap();
-
-        extended.children[0] = recent;
-        extended.children[1] = hidden;
-        extended.children[2] = completed;
-        extended.children[3] = deleted;
-        extended.children[4] = alphabetical;
-        extended.children[5] = dueDate;
-        extended.children[6] = importance;
+        PendingIntent customFilterIntent = PendingIntent.getActivity(context, 0,
+                new Intent(context, CustomFilterActivity.class), 0);
+        IntentFilter customFilter = new IntentFilter(r.getString(R.string.BFE_Custom),
+                customFilterIntent);
+        customFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gnome_filter)).getBitmap();
 
         // transmit filter list
         FilterListItem[] list = new FilterListItem[3];
         list[0] = inbox;
         list[1] = searchFilter;
-        list[2] = extended;
+        list[2] = customFilter;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
@@ -137,7 +63,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
      * @return
      */
     public static Filter buildInboxFilter(Resources r) {
-        Filter inbox = new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active_title),
+        Filter inbox = new Filter(r.getString(R.string.BFE_Active), r.getString(R.string.BFE_Active),
                 new QueryTemplate().where(
                         Criterion.and(TaskCriteria.isActive(), TaskCriteria.isVisible(),
                                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(

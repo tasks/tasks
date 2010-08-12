@@ -9,8 +9,8 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.util.Log;
 
 import com.todoroo.andlib.data.Property.PropertyVisitor;
@@ -95,9 +95,12 @@ abstract public class AbstractDatabase {
     }
 
     protected synchronized final void initializeHelper() {
-        if(helper == null)
+        if(helper == null) {
+            if(ContextManager.getContext() == null)
+                throw new NullPointerException("Null context creating database helper");
             helper = new DatabaseHelper(ContextManager.getContext(),
                     getName(), null, getVersion());
+        }
     }
 
     /**

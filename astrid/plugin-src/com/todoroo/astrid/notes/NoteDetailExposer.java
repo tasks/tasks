@@ -62,7 +62,7 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
         if(notes.length() == 0)
             return null;
 
-        return notes;
+        return "<img src='silk_note'/> " + notes; //$NON-NLS-1$
     }
 
     @Override

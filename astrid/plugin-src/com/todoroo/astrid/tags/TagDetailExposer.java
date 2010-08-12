@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.timsu.astrid.R;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
 
@@ -49,7 +48,7 @@ public class TagDetailExposer extends BroadcastReceiver implements DetailExposer
         if(tagList.length() == 0)
             return null;
 
-        return context.getString(R.string.tag_TLA_detail, tagList);
+        return "<img src='silk_tag_pink'/> " + tagList; //$NON-NLS-1$
     }
 
     @Override
