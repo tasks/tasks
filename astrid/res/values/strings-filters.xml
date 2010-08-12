@@ -30,29 +30,49 @@
     <string name="CFA_filterName_copy">Copy of %s</string>
     
     <!-- Filter Starting Universe: all tasks -->
-    <string name="CFA_universe_all">All Tasks</string>
-
-    <!-- =================================== old stuff, TODO translation === -->
-
-    <!-- sort recent modification filter -->
-    <string name="BFE_Recent">Recently Modified</string>
+    <string name="CFA_universe_all">Active Tasks</string>
     
-    <!-- Completed Filter -->
-    <string name="BFE_Completed">Completed Tasks</string>
+    <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
+    <string name="CFA_type_add">or</string>
+    
+    <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
+    <string name="CFA_type_subtract">not</string>
+    
+    <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
+    <string name="CFA_type_intersect">also</string>
+    
+    <!-- Filter Criteria Context Menu: delete -->
+    <string name="CFA_context_delete">Delete</string>
+    
+    <!-- Filter Button: add new -->
+    <string name="CFA_button_add">Add Criteria</string>
+    
+    <!-- Filter Button: save & go -->
+    <string name="CFA_button_save">Save &amp; View</string>
 
-    <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">Hidden Tasks</string>
-
-    <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">By Title</string>
-
-    <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">By Due Date</string>
-
-    <!-- sort Importance filter -->
-    <string name="BFE_Importance">By Importance</string>
-
-    <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">Deleted Tasks</string>
+    <!-- =========================================== CustomFilterCriteria == -->
         
+    <!-- Criteria: due by X - display text -->
+    <string name="CFC_dueBefore_text">Due By: %s</string>
+    <!-- Criteria: due by X - name of criteria -->
+    <string name="CFC_dueBefore_name">Due By...</string>
+    <string-array name="CFC_dueBefore_entries">
+        <!-- Criteria: due by X - options -->
+        <item>Yesterday</item>
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item>Day After Tomorrow</item>
+        <item>Next Week</item>
+    </string-array>
+    
+    <!-- Criteria: importance - display text -->
+    <string name="CFC_importance_text">Importance >= %s</string>
+    <!-- Criteria: importance - name of criteria -->
+    <string name="CFC_importance_name">Importance...</string>        
+    
+    <!-- Criteria: tag - display text -->
+    <string name="CFC_tag_text">Tagged: %s</string>
+    <!-- Criteria: tag - name of criteria -->
+    <string name="CFC_tag_name">Tagged...</string>        
+    
 </resources>
