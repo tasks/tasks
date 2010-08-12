@@ -11,11 +11,6 @@
   
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Tag Name</string>
-
-  <!-- ===================================================== Task Details == -->
-  
-  <!-- tag text that displays in task list. %s => tag name -->
-  <string name="tag_TLA_detail">Tags: %s</string>
     
   <!-- ========================================================== Filters == -->
   

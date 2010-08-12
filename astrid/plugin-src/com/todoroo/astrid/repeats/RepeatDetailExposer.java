@@ -114,7 +114,7 @@ public class RepeatDetailExposer extends BroadcastReceiver implements DetailExpo
             else
                 detail = context.getString(R.string.repeat_detail_duedate, interval);
 
-            return detail;
+            return "<img src='silk_date'/> " + detail; //$NON-NLS-1$
         }
         return null;
     }

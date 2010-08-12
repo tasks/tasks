@@ -13,7 +13,9 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
 import android.text.Html;
+import android.text.Html.ImageGetter;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
@@ -52,6 +54,7 @@ import com.todoroo.astrid.repeats.RepeatDetailExposer;
 import com.todoroo.astrid.rmilk.MilkDetailExposer;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagDetailExposer;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 /**
@@ -376,6 +379,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      */
     public class DetailManager extends AddOnManager<String> {
 
+        private final ImageGetter imageGetter = new ImageGetter() {
+            public Drawable getDrawable(String source) {
+                Resources r = activity.getResources();
+                int drawable = r.getIdentifier("drawable/" + source, null, Constants.PACKAGE); //$NON-NLS-1$
+                if(drawable == 0)
+                    return null;
+                Drawable d = r.getDrawable(drawable);
+                d.setBounds(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
+                return d;
+            }
+        };
+
         private final boolean extended;
         public DetailManager(boolean extended) {
             this.extended = extended;
@@ -441,7 +456,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
             String string = detailText.toString();
             if(string.contains("<"))
-                view.setText(Html.fromHtml(string.trim().replace("\n", "<br>")));
+                view.setText(Html.fromHtml(string.trim().replace("\n", "<br>"), imageGetter, null));
             else
                 view.setText(string.trim());
             Linkify.addLinks(view, Linkify.ALL);
