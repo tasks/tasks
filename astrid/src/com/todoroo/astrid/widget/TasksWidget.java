@@ -19,6 +19,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.activity.SortSelectionActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
@@ -27,6 +28,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.Preferences;
 
 public class TasksWidget extends AppWidgetProvider {
 
@@ -98,10 +100,13 @@ public class TasksWidget extends AppWidgetProvider {
             TodorooCursor<Task> cursor = null;
             try {
                 Filter inboxFilter = CoreFilterExposer.buildInboxFilter(getResources());
-                inboxFilter.sqlQuery += "ORDER BY " + TaskService.defaultTaskOrder() + " LIMIT " + numberOfTasks;
+                int sort = Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
+                int flags = Preferences.getInt(SortSelectionActivity.PREF_SORT_FLAGS, 0);
+                String query = SortSelectionActivity.adjustSortAndFlags(
+                        inboxFilter.sqlQuery, sort, flags) + " LIMIT " + numberOfTasks;
 
                 database.openForReading();
-                cursor = taskService.fetchFiltered(inboxFilter, null, Task.TITLE, Task.DUE_DATE);
+                cursor = taskService.fetchFiltered(query, null, Task.TITLE, Task.DUE_DATE);
                 Task task = new Task();
                 for (int i = 0; i < cursor.getCount() && i < numberOfTasks; i++) {
                     cursor.moveToPosition(i);

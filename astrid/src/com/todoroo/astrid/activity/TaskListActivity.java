@@ -3,6 +3,7 @@ package com.todoroo.astrid.activity;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -48,6 +49,7 @@ import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -56,6 +58,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
+import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -80,6 +83,8 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.astrid.widget.TasksWidget;
 
 /**
  * Primary activity for the Bente application. Shows a list of upcoming
@@ -88,7 +93,8 @@ import com.todoroo.astrid.utility.Flags;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskListActivity extends ListActivity implements OnScrollListener, GestureInterface {
+public class TaskListActivity extends ListActivity implements OnScrollListener,
+        GestureInterface, OnSortSelectedListener {
 
     // --- activities
 
@@ -145,6 +151,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
     ImageButton quickAddButton;
     EditText quickAddBox;
     Filter filter;
+    int sortFlags;
+    int sortSort;
+    AtomicReference<String> sqlQueryTemplate = new AtomicReference<String>();
 
     /* ======================================================================
      * ======================================================= initialization
@@ -515,21 +524,18 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
      * Fill in the Task List with current items
      * @param withCustomId force task with given custom id to be part of list
      */
-    @SuppressWarnings("nls")
     protected void setUpTaskList() {
-        // use default ordering if none specified
-        if(!filter.sqlQuery.toUpperCase().contains("ORDER BY")) {
-            filter.sqlQuery += " ORDER BY " + TaskService.defaultTaskOrder();
-        }
+        sqlQueryTemplate.set(SortSelectionActivity.adjustSortAndFlags(filter.sqlQuery,
+                sortFlags, sortSort));
 
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
-                filter, null, TaskAdapter.PROPERTIES);
+                sqlQueryTemplate.get(), null, TaskAdapter.PROPERTIES);
         startManagingCursor(currentCursor);
 
         // set up list adapters
         taskAdapter = new TaskAdapter(this, R.layout.task_adapter_row,
-                currentCursor, filter, false, null);
+                currentCursor, sqlQueryTemplate, false, null);
         setListAdapter(taskAdapter);
         getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());
@@ -555,14 +561,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
         }
 
         // create a custom cursor
-        if(filter.sqlQuery == null)
-            filter.sqlQuery = "";
-        if(!filter.sqlQuery.contains("WHERE"))
-            filter.sqlQuery += " WHERE " + TaskCriteria.byId(withCustomId);
+        if(!sqlQueryTemplate.get().contains("WHERE"))
+            sqlQueryTemplate.set(sqlQueryTemplate.get() + " WHERE " + TaskCriteria.byId(withCustomId));
         else
-            filter.sqlQuery = filter.sqlQuery.replace("WHERE ", "WHERE " +
-                    TaskCriteria.byId(withCustomId) + " OR ");
-        currentCursor = taskService.fetchFiltered(filter, null, TaskAdapter.PROPERTIES);
+            sqlQueryTemplate.set(sqlQueryTemplate.get().replace("WHERE ", "WHERE " +
+                    TaskCriteria.byId(withCustomId) + " OR "));
+
+        currentCursor = taskService.fetchFiltered(sqlQueryTemplate.get(), null, TaskAdapter.PROPERTIES);
         getListView().setFilterText("");
         startManagingCursor(currentCursor);
 
@@ -724,7 +729,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
             startActivityForResult(intent, ACTIVITY_SETTINGS);
             return true;
         case MENU_SORT_ID:
-            AlertDialog dialog = SortSelectionActivity.createDialog(this);
+            AlertDialog dialog = SortSelectionActivity.createDialog(this,
+                    this, sortFlags, sortSort);
             dialog.show();
             return true;
         case MENU_HELP_ID:
@@ -813,6 +819,21 @@ public class TaskListActivity extends ListActivity implements OnScrollListener, 
             startActivity(intent);
             finish();
         }
+    }
+
+    @Override
+    public void onSortSelected(boolean always, int flags, int sort) {
+        sortFlags = flags;
+        sortSort = sort;
+
+        if(always) {
+            Preferences.setInt(SortSelectionActivity.PREF_SORT_FLAGS, flags);
+            Preferences.setInt(SortSelectionActivity.PREF_SORT_SORT, sort);
+            ContextManager.getContext().startService(new Intent(ContextManager.getContext(),
+                    TasksWidget.UpdateService.class));
+        }
+
+        setUpTaskList();
     }
 
 }
