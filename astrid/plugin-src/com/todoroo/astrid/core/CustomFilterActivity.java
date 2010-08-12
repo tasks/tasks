@@ -280,7 +280,7 @@ public class CustomFilterActivity extends ListActivity {
             if(instance.criterion.sql == null)
                 sql.append(TaskCriteria.activeAndVisible()).append(' ');
             else {
-                String subSql = instance.criterion.sql.replaceAll("?",
+                String subSql = instance.criterion.sql.replace("?",
                         instance.criterion.entryValues[instance.selectedIndex]);
                 subSql = CustomFilterCriterion.replacePlaceholders(subSql);
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
