@@ -9,10 +9,9 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -157,14 +156,14 @@ public class TaskService {
      * @return
      */
     @SuppressWarnings("nls")
-    public TodorooCursor<Task> fetchFiltered(Filter filter, CharSequence constraint,
+    public TodorooCursor<Task> fetchFiltered(String queryTemplate, CharSequence constraint,
             Property<?>... properties) {
         Criterion whereConstraint = null;
         if(constraint != null)
             whereConstraint = Functions.upper(Task.TITLE).like("%" +
                     constraint.toString().toUpperCase() + "%");
 
-        if(filter == null || filter.sqlQuery == null) {
+        if(queryTemplate == null) {
             if(whereConstraint == null)
                 return taskDao.query(Query.select(properties));
             else
@@ -173,12 +172,13 @@ public class TaskService {
 
         String sql;
         if(whereConstraint != null) {
-            if(!filter.sqlQuery.toUpperCase().contains("WHERE"))
-                sql = filter.sqlQuery + " WHERE " + whereConstraint;
+            if(!queryTemplate.toUpperCase().contains("WHERE"))
+                sql = queryTemplate + " WHERE " + whereConstraint;
             else
-                sql = filter.sqlQuery.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
+                sql = queryTemplate.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
         } else
-            sql = filter.sqlQuery;
+            sql = queryTemplate;
+
         return taskDao.query(Query.select(properties).withQueryTemplate(sql));
     }
 
