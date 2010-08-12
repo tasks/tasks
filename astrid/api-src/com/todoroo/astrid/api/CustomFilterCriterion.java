@@ -68,22 +68,22 @@ public final class CustomFilterCriterion implements Parcelable {
     // --- instance variables
 
     /**
-     * Criteria Title. If the title contains %s, this is replaced by the entry
+     * Criteria Title. If the title contains ?, this is replaced by the entry
      * label string selected.
      * <p>
-     * e.g "Due: %s"
+     * e.g "Due: ?"
      */
     @CheckForNull
     public String text;
 
     /**
      * Criterion SQL. This query should return task id's. If this contains
-     * %s, it will be replaced by the entry value
+     * ?, it will be replaced by the entry value
      * <p>
      * Examples:
      * <ul>
-     * <li><code>SELECT _id FROM tasks WHERE dueDate <= %s</code>
-     * <li><code>SELECT task FROM metadata WHERE value = '%s'</code>
+     * <li><code>SELECT _id FROM tasks WHERE dueDate <= ?</code>
+     * <li><code>SELECT task FROM metadata WHERE value = '?'</code>
      * </ul>
      */
     @CheckForNull
@@ -91,7 +91,7 @@ public final class CustomFilterCriterion implements Parcelable {
 
     /**
      * Values to apply to a task when quick-adding a task from a filter
-     * created from this criterion. %s will be replaced with the entry value.
+     * created from this criterion. ? will be replaced with the entry value.
      * For example, when a user views tasks tagged 'ABC', the
      * tasks they create should also be tagged 'ABC'. If set to null, no
      * additional values will be stored for a task.

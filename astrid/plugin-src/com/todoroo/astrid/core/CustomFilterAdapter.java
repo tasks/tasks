@@ -130,7 +130,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
                 item.selectedIndex < item.criterion.entryTitles.length) {
             entryTitle = item.criterion.entryTitles[item.selectedIndex];
         }
-        String title = item.criterion.text.replace("%s", entryTitle);
+        String title = item.criterion.text.replace("?", entryTitle);
 
         viewHolder.type.setVisibility(item.type == CriterionInstance.TYPE_UNIVERSE ?
                 View.GONE : View.VISIBLE);

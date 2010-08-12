@@ -6,6 +6,7 @@ package com.todoroo.astrid.activity;
 import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
 import android.app.SearchManager;
+import android.app.PendingIntent.CanceledException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -42,6 +43,7 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.core.IntentFilter;
 import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.StartupService;
@@ -202,6 +204,12 @@ public class FilterListActivity extends ExpandableListActivity {
             return true;
         } else if(item instanceof SearchFilter) {
             onSearchRequested();
+        } else if(item instanceof IntentFilter) {
+            try {
+                ((IntentFilter)item).intent.send();
+            } catch (CanceledException e) {
+                // ignore
+            }
         }
         return false;
     }

@@ -47,6 +47,11 @@
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">Delete Row</string>
     
+    <!-- Filter Screen Help Text -->
+    <string name="CFA_help">This screen let\'s you create a new filters. Add 
+    criteria using the button below, short or long-press them to adjust, and
+    then click \"Save &amp; View\"!</string>
+    
     <!-- Filter Button: add new -->
     <string name="CFA_button_add">Add Criteria</string>
     
@@ -56,7 +61,7 @@
     <!-- =========================================== CustomFilterCriteria == -->
         
     <!-- Criteria: due by X - display text -->
-    <string name="CFC_dueBefore_text">Due By: %s</string>
+    <string name="CFC_dueBefore_text">Due By: ?</string>
     <!-- Criteria: due by X - name of criteria -->
     <string name="CFC_dueBefore_name">Due By...</string>
     <string-array name="CFC_dueBefore_entries">
@@ -69,12 +74,12 @@
     </string-array>
     
     <!-- Criteria: importance - display text -->
-    <string name="CFC_importance_text">Importance: %s</string>
+    <string name="CFC_importance_text">Importance: ?</string>
     <!-- Criteria: importance - name of criteria -->
     <string name="CFC_importance_name">Importance...</string>        
     
     <!-- Criteria: tag - display text -->
-    <string name="CFC_tag_text">Tagged: %s</string>
+    <string name="CFC_tag_text">Tagged: ?</string>
     <!-- Criteria: tag - name of criteria -->
     <string name="CFC_tag_name">Tagged...</string>        
     

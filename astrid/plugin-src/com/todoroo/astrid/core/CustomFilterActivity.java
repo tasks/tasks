@@ -120,14 +120,14 @@ public class CustomFilterActivity extends ListActivity {
                 CustomFilterCriterion.VALUE_EOD_NEXT_WEEK,
         };
         ContentValues values = new ContentValues();
-        values.put(Task.DUE_DATE.name, "%s");
+        values.put(Task.DUE_DATE.name, "?");
         CustomFilterCriterion criterion = new CustomFilterCriterion(
                 getString(R.string.CFC_dueBefore_text),
                 Query.select(Task.ID).from(Task.TABLE).where(
                         Criterion.and(
                                 TaskCriteria.activeAndVisible(),
                                 Task.DUE_DATE.gt(0),
-                                Task.DUE_DATE.lte("%s"))).toString(),
+                                Task.DUE_DATE.lte("?"))).toString(),
                 values, r.getStringArray(R.array.CFC_dueBefore_entries),
                 entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap(),
                 getString(R.string.CFC_dueBefore_name));
@@ -144,12 +144,12 @@ public class CustomFilterActivity extends ListActivity {
                 "!!!!", "!!!", "!!", "!"
         };
         values = new ContentValues();
-        values.put(Task.IMPORTANCE.name, "%s");
+        values.put(Task.IMPORTANCE.name, "?");
         criterion = new CustomFilterCriterion(
                 getString(R.string.CFC_importance_text),
                 Query.select(Task.ID).from(Task.TABLE).where(
                         Criterion.and(TaskCriteria.activeAndVisible(),
-                                Task.IMPORTANCE.lte("%s"))).toString(),
+                                Task.IMPORTANCE.lte("?"))).toString(),
                 values, entries,
                 entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap(),
                 getString(R.string.CFC_importance_name));
@@ -162,14 +162,14 @@ public class CustomFilterActivity extends ListActivity {
             tagNames[i] = tags[i].tag;
         values = new ContentValues();
         values.put(Metadata.KEY.name, TagService.KEY);
-        values.put(TagService.TAG.name, "%s");
+        values.put(TagService.TAG.name, "?");
         criterion = new CustomFilterCriterion(
                 getString(R.string.CFC_tag_text),
                 Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
                             Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
                         TaskCriteria.activeAndVisible(),
                         MetadataCriteria.withKey(TagService.KEY),
-                        TagService.TAG.eq("%s"))).toString(),
+                        TagService.TAG.eq("?"))).toString(),
                 values, tagNames, tagNames,
                 ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap(),
                 getString(R.string.CFC_tag_name));
@@ -280,7 +280,7 @@ public class CustomFilterActivity extends ListActivity {
             if(instance.criterion.sql == null)
                 sql.append(TaskCriteria.activeAndVisible()).append(' ');
             else {
-                String subSql = instance.criterion.sql.replaceAll("%s",
+                String subSql = instance.criterion.sql.replaceAll("?",
                         instance.criterion.entryValues[instance.selectedIndex]);
                 subSql = CustomFilterCriterion.replacePlaceholders(subSql);
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
@@ -327,7 +327,7 @@ public class CustomFilterActivity extends ListActivity {
             if(instance.criterion.entryTitles != null) {
                 entryTitle = instance.criterion.entryTitles[instance.selectedIndex];
             }
-            String title = instance.criterion.text.replace("%s", entryTitle);
+            String title = instance.criterion.text.replace("?", entryTitle);
 
             switch(instance.type) {
             case CriterionInstance.TYPE_ADD:
@@ -350,9 +350,10 @@ public class CustomFilterActivity extends ListActivity {
             if(instance.criterion.sql == null)
                 sql.append(TaskCriteria.activeAndVisible()).append(' ');
             else {
-                String subSql = instance.criterion.sql.replaceAll("%s",
+                String subSql = instance.criterion.sql.replace("?",
                         instance.criterion.entryValues[instance.selectedIndex]);
                 subSql = CustomFilterCriterion.replacePlaceholders(subSql);
+                System.err.println(subSql);
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
             }
 
