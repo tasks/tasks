@@ -61,7 +61,9 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
 
         if(!extended) {
             long dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
-            long responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);
+            long responsibleId = -1;
+            if(metadata.containsNonNullValue(ProducteevTask.RESPONSIBLE_ID))
+                responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);
 
             // display dashboard if not "no sync" or "default"
             StoreObject ownerDashboard = null;
