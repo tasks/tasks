@@ -15,6 +15,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -192,7 +193,7 @@ public class AlarmService {
         long time = alarm.getValue(Alarm.TIME);
         if(time == 0 || time == NO_ALARM)
             am.cancel(pendingIntent);
-        else {
+        else if(time > DateUtilities.now()) {
             Log.e("Astrid", "Alarm (" + taskId + ", " + type +
                     ") set for " + new Date(time));
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
