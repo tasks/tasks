@@ -4,18 +4,15 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
@@ -24,6 +21,7 @@ import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.producteev.sync.ProducteevUser;
+import com.todoroo.astrid.service.MetadataService;
 
 /**
  * Control Set for managing task/dashboard assignments in Producteev
@@ -35,9 +33,6 @@ public class ProducteevControlSet implements TaskEditControlSet {
 
     // --- instance variables
 
-    @Autowired
-    private ExceptionService exceptionService;
-
     private final Activity activity;
 
     private Task myTask;
@@ -47,6 +42,9 @@ public class ProducteevControlSet implements TaskEditControlSet {
     private ArrayList<ProducteevUser> users = null;
     private ArrayList<ProducteevDashboard> dashboards = null;
 
+    @Autowired
+    MetadataService metadataService;
+
     public ProducteevControlSet(final Activity activity, ViewGroup parent) {
         DependencyInjectionService.getInstance().inject(this);
 
@@ -54,36 +52,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
         LayoutInflater.from(activity).inflate(R.layout.producteev_control, parent, true);
 
         this.responsibleSelector = (Spinner) activity.findViewById(R.id.producteev_TEA_task_assign);
-        this.responsibleSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                    int position, long id) {
-                // TODO tim, please set a flag here somewhere, so that producteevinvoker knows
-                // it has to invoke tasks/set_responsible, or otherwise do it your way...
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-
-            }
-        });
-
         this.dashboardSelector = (Spinner) activity.findViewById(R.id.producteev_TEA_dashboard_assign);
-        this.dashboardSelector.setOnItemSelectedListener(new OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view,
-                    int position, long id) {
-                // TODO tim, please set a flag here somewhere, so that producteevinvoker knows
-                // it has to invoke tasks/set_dashboard, or otherwise do it your way...
-
-            }
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                // TODO Auto-generated method stub
-
-            }
-        });
     }
 
     @Override
@@ -95,7 +64,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
             long dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
 
             StoreObject[] dashboardsData = ProducteevDataService.getInstance().getDashboards();
-            dashboards = new ArrayList(dashboardsData.length);
+            dashboards = new ArrayList<ProducteevDashboard>(dashboardsData.length);
             ProducteevDashboard ownerDashboard = null;
             int dashboardSpinnerIndex = 0;
             //dashboard to not sync as first spinner-entry
@@ -109,7 +78,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
                 }
             }
 
-            ArrayAdapter<String> dashAdapter = new ArrayAdapter(activity,
+            ArrayAdapter<ProducteevDashboard> dashAdapter = new ArrayAdapter<ProducteevDashboard>(activity,
                     android.R.layout.simple_spinner_item, dashboards);
             dashAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dashboardSelector.setAdapter(dashAdapter);
@@ -134,23 +103,33 @@ public class ProducteevControlSet implements TaskEditControlSet {
                 }
                 userSpinnerIndex++;
             }
-            ArrayAdapter<String> usersAdapter = new ArrayAdapter(activity,
+            ArrayAdapter<ProducteevUser> usersAdapter = new ArrayAdapter<ProducteevUser>(activity,
                     android.R.layout.simple_spinner_item, users);
+            usersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             responsibleSelector.setAdapter(usersAdapter);
             responsibleSelector.setSelection(userSpinnerIndex);
         }
     }
 
-    @SuppressWarnings("nls")
     @Override
     public void writeToModel(Task task) {
         Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(task.getId());
-        if (metadata != null) {
-            ProducteevDashboard dashboard = (ProducteevDashboard) dashboardSelector.getSelectedItem();
-            metadata.setValue(ProducteevTask.DASHBOARD_ID, dashboard.getId());
-
-            ProducteevUser responsibleUser = (ProducteevUser) responsibleSelector.getSelectedItem();
-            metadata.setValue(ProducteevTask.RESPONSIBLE_ID, responsibleUser.getId());
+        if (metadata == null) {
+            metadata = new Metadata();
+            metadata.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
+            metadata.setValue(Metadata.TASK, task.getId());
+            metadata.setValue(ProducteevTask.ID, 0L);
         }
-   }
+
+        ProducteevDashboard dashboard = (ProducteevDashboard) dashboardSelector.getSelectedItem();
+        metadata.setValue(ProducteevTask.DASHBOARD_ID, dashboard.getId());
+
+        ProducteevUser responsibleUser = (ProducteevUser) responsibleSelector.getSelectedItem();
+        metadata.setValue(ProducteevTask.RESPONSIBLE_ID, responsibleUser.getId());
+
+        if(metadata.getSetValues().size() > 0 ) {
+            metadataService.save(metadata);
+            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        }
+    }
 }

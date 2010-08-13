@@ -48,6 +48,7 @@ public class ProducteevDashboard {
      * @param name name of the remote dashboard
      * @param usercsv csv-userstring as returned by a StoreObject-dashboard with property ProducteevDashboard.USERS
      */
+    @SuppressWarnings("nls")
     public ProducteevDashboard(long id, String name, String usercsv) {
         this.id = id;
         this.name = name;

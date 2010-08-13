@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -32,6 +33,7 @@ public final class TagsControlSet implements TaskEditControlSet {
 
     private final TagService tagService = TagService.getInstance();
     private final Tag[] allTags;
+    private String[] loadedTags;
     private final LinearLayout tagsContainer;
     private final Activity activity;
 
@@ -47,8 +49,13 @@ public final class TagsControlSet implements TaskEditControlSet {
 
         TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
         try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-                addTag(cursor.get(TagService.TAG));
+            loadedTags = new String[cursor.getCount()];
+            for(int i = 0; i < loadedTags.length; i++) {
+                cursor.moveToNext();
+                String tag = cursor.get(TagService.TAG);
+                addTag(tag);
+                loadedTags[i] = tag;
+            }
         } finally {
             cursor.close();
         }
@@ -63,15 +70,25 @@ public final class TagsControlSet implements TaskEditControlSet {
             return;
 
         LinkedHashSet<String> tags = new LinkedHashSet<String>();
+        boolean identical = true;
 
         for(int i = 0; i < tagsContainer.getChildCount(); i++) {
             TextView tagName = (TextView)tagsContainer.getChildAt(i).findViewById(R.id.text1);
             if(tagName.getText().length() == 0)
                 continue;
-            tags.add(tagName.getText().toString());
-        }
+            String tag = tagName.getText().toString();
+            tags.add(tag);
 
-        tagService.synchronizeTags(task.getId(), tags);
+            if(loadedTags.length <= i || !loadedTags[i].equals(tag))
+                identical = false;
+        }
+        if(identical && tags.size() != loadedTags.length)
+            identical = false;
+
+        if(!identical) {
+            tagService.synchronizeTags(task.getId(), tags);
+            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        }
     }
 
     /** Adds a tag to the tag field */

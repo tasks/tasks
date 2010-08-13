@@ -8,42 +8,39 @@ import java.util.concurrent.atomic.AtomicReference;
 import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.BroadcastReceiver;
-import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
-import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -71,11 +68,9 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
-import com.todoroo.astrid.rmilk.MilkBackgroundService;
 import com.todoroo.astrid.rmilk.MilkPreferences;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MetadataService;
@@ -199,9 +194,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 loadContextMenuIntents();
             }
         }).start();
-
-        // bind to services that require task list refreshing
-        bindServices();
     }
 
     /**
@@ -366,24 +358,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         sortFlags = Preferences.getInt(SortSelectionActivity.PREF_SORT_FLAGS, 0);
         sortSort= Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
-    }
-
-    public void bindServices() {
-        ServiceConnection refreshConnection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                System.err.println("connected to service " + name); //$NON-NLS-1$
-                //
-            }
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                // service disconnected, let's refresh
-                System.err.println("your junk was done, refreshing"); //$NON-NLS-1$
-                loadTaskListContent(true);
-            }
-        };
-        bindService(new Intent(this, MilkBackgroundService.class), refreshConnection, 0);
-        bindService(new Intent(this, ProducteevBackgroundService.class), refreshConnection, 0);
     }
 
     /* ======================================================================

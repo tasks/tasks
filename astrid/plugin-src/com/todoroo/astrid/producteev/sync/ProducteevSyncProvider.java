@@ -477,19 +477,25 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
             if(toAdd.size() > 0) {
                 for(String label : toAdd) {
-                    if(!labelMap.containsKey(label)) {
+                    ProducteevLabel pdvLabel = new ProducteevLabel();
+                    pdvLabel.name = label;
+                    pdvLabel.dashboard = idDashboard;
+                    if(!labelMap.containsKey(pdvLabel)) {
                         JSONObject result = invoker.labelsCreate(idDashboard, label).getJSONObject("label");
                         putLabelIntoCache(result);
                     }
-                    invoker.tasksSetLabel(idTask, labelMap.get(label));
+                    invoker.tasksSetLabel(idTask, labelMap.get(pdvLabel));
                 }
             }
 
             if(toRemove.size() > 0) {
                 for(String label : toRemove) {
-                    if(!labelMap.containsKey(label))
+                    ProducteevLabel pdvLabel = new ProducteevLabel();
+                    pdvLabel.name = label;
+                    pdvLabel.dashboard = idDashboard;
+                    if(!labelMap.containsKey(pdvLabel))
                         continue;
-                    invoker.tasksUnsetLabel(idTask, labelMap.get(label));
+                    invoker.tasksUnsetLabel(idTask, labelMap.get(pdvLabel));
                 }
             }
         }
