@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
@@ -35,6 +36,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
 
     private final Activity activity;
 
+    private final View view;
     private Task myTask;
     private final Spinner responsibleSelector;
     private final Spinner dashboardSelector;
@@ -49,7 +51,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
-        LayoutInflater.from(activity).inflate(R.layout.producteev_control, parent, true);
+        view = LayoutInflater.from(activity).inflate(R.layout.producteev_control, parent, true);
 
         this.responsibleSelector = (Spinner) activity.findViewById(R.id.producteev_TEA_task_assign);
         this.dashboardSelector = (Spinner) activity.findViewById(R.id.producteev_TEA_dashboard_assign);
@@ -89,6 +91,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
                 TextView emptyView = new TextView(activity);
                 emptyView.setText(activity.getText(R.string.producteev_no_dashboard));
                 responsibleSelector.setEmptyView(emptyView);
+                view.findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(View.GONE);
                 return;
             }
 
@@ -125,7 +128,11 @@ public class ProducteevControlSet implements TaskEditControlSet {
         metadata.setValue(ProducteevTask.DASHBOARD_ID, dashboard.getId());
 
         ProducteevUser responsibleUser = (ProducteevUser) responsibleSelector.getSelectedItem();
-        metadata.setValue(ProducteevTask.RESPONSIBLE_ID, responsibleUser.getId());
+
+        if(responsibleUser == null)
+            metadata.setValue(ProducteevTask.RESPONSIBLE_ID, 0L);
+        else
+            metadata.setValue(ProducteevTask.RESPONSIBLE_ID, responsibleUser.getId());
 
         if(metadata.getSetValues().size() > 0 ) {
             metadataService.save(metadata);
