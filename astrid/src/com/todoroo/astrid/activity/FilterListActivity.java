@@ -66,6 +66,8 @@ public class FilterListActivity extends ExpandableListActivity {
     private static final int CONTEXT_MENU_SHORTCUT = Menu.FIRST + 2;
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 3;
 
+    private static final int REQUEST_CUSTOM_INTENT = 1;
+
     // --- instance variables
 
     @Autowired
@@ -346,7 +348,7 @@ public class FilterListActivity extends ExpandableListActivity {
 
         case CONTEXT_MENU_INTENT: {
             Intent intent = item.getIntent();
-            startActivity(intent);
+            startActivityForResult(intent, REQUEST_CUSTOM_INTENT);
             return true;
         }
         }
@@ -402,7 +404,8 @@ public class FilterListActivity extends ExpandableListActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(resultCode != RESULT_CANCELED)
-            adapter.getLists();
+            adapter.clear();
+        // will get lists automatically
 
         super.onActivityResult(requestCode, resultCode, data);
     }

@@ -29,7 +29,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -139,8 +138,9 @@ public class CustomFilterActivity extends ListActivity {
                 Query.select(Task.ID).from(Task.TABLE).where(
                         Criterion.and(
                                 TaskCriteria.activeAndVisible(),
-                                Task.DUE_DATE.gt(Functions.caseStatement(Field.field("?").eq(0),
-                                        -1, 0)),
+                                Criterion.or(
+                                        Field.field("?").eq(0),
+                                        Task.DUE_DATE.gt(0)),
                                 Task.DUE_DATE.lte("?"))).toString(),
                 values, r.getStringArray(R.array.CFC_dueBefore_entries),
                 entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap(),
