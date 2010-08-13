@@ -35,7 +35,7 @@ public class ProducteevBackgroundService extends Service {
     /** Receive the alarm - start the synchronize service! */
     @Override
     public void onStart(Intent intent, int startId) {
-        if(SYNC_ACTION.equals(intent.getAction()))
+        if(intent != null && SYNC_ACTION.equals(intent.getAction()))
             startSynchronization(this);
     }
 
