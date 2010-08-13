@@ -86,5 +86,18 @@
     <!-- Prod Login password not specified-->
     <string name="producteev_MLA_password_empty">Password was not specified!</string>
     
-</resources>
+    <!-- ================================================ labels for layout-elements == -->
+    
+    <!-- label for task-assignment spinner on taskeditactivity -->
+    <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
+    
+    <!-- Spinner-item for unassigned tasks on taskeditactivity -->
+    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    
+    <!-- label for dashboard-assignment spinner on taskeditactivity -->
+    <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
 
+    <!-- Spinner-item for default dashboard on taskeditactivity -->
+    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
+    
+</resources>

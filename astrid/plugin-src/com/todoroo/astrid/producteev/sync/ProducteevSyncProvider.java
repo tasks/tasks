@@ -644,6 +644,4 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         ((_-83)%27+97):_);return TextUtils.htmlEncode(____==31?___:
         stripslashes(____+1,__.substring(1),___+((char)_)));
     }
-
-
 }

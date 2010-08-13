@@ -209,6 +209,8 @@ public final class ProducteevDataService {
 
     private StoreObject[] dashboards = null;
 
+    private ArrayList colleagues;
+
     /**
      * Reads dashboards
      */

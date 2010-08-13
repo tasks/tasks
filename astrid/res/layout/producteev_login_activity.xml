@@ -100,5 +100,4 @@
         android:linksClickable="true"
         android:text="@string/producteev_PLA_terms" />
     
-    
 </LinearLayout>

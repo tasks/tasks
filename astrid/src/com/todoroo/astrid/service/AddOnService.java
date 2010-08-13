@@ -42,6 +42,9 @@ public class AddOnService {
     /** Astrid Locale package */
     public static final String LOCALE_PACKAGE = "com.todoroo.astrid.locale";
 
+    /** Astrid Producteev package */
+    public static final String PRODUCTEEV_PACKAGE = "com.todoroo.astrid.producteev";
+
     /** Astrid Power Pack label */
     public static final String POWER_PACK_LABEL = "Astrid Power Pack";
 
@@ -152,6 +155,9 @@ public class AddOnService {
      * @return
      */
     public boolean isInstalled(AddOn addOn) {
+        // it isnt installed if it is null...
+        if (addOn == null)
+            return false;
         return isInstalled(addOn.getPackageName(), addOn.isInternal());
     }
 
@@ -164,6 +170,8 @@ public class AddOnService {
         if(POWER_PACK_PACKAGE.equals(packageName))
             return true;
         if(LOCALE_PACKAGE.equals(packageName))
+            return true;
+        if(PRODUCTEEV_PACKAGE.equals(packageName))
             return true;
 
         Context context = ContextManager.getContext();
@@ -181,6 +189,27 @@ public class AddOnService {
             return true;
 
         return "30820265308201cea00302010202044954bd9c300d06092a864886f70d01010505003076310b3009060355040613025553310b3009060355040813024341311230100603550407130950616c6f20416c746f31183016060355040a130f6173747269642e6c7632352e636f6d311b3019060355040b131241737472696420446576656c6f706d656e74310f300d0603550403130654696d2053753020170d3038313232363131313835325a180f32303633303932393131313835325a3076310b3009060355040613025553310b3009060355040813024341311230100603550407130950616c6f20416c746f31183016060355040a130f6173747269642e6c7632352e636f6d311b3019060355040b131241737472696420446576656c6f706d656e74310f300d0603550403130654696d20537530819f300d06092a864886f70d010101050003818d00308189028181008b8f39e02a50e5f50723bb71208e99bd72dd3cb6266054809cce0dc33a38ebf79c2a1ab74264cc6c88d44a5092e34f45fc28c53188ebe5b7511f0e14862598a82e1a84b0c99e62b0603737c09501b92f723d9e561a0eedbc16ab494e93a513d170135e0e55af6bb40a9af1186df4cfe53ec3a6144336f9f8a338341656c5a3bd0203010001300d06092a864886f70d01010505000381810016352860629e5e17d2d747943170ddb8c01f014932cb4462f52295c2f764970e93fa461c73b44a678ecf8ab8480702fb746221a98ade8ab7562cae151be78973dfa47144d70b8d0b73220dd741755f62cc9230264f570ec21a4ab1f11b0528d799d3662d06354b56d0d7d28d05c260876a98151fb4e89b6ce2a5010c52b3e365".equals(packageInfo.signatures[0].toCharsString());
+    }
+
+    /**
+     * Get one AddOn-descriptor by packageName and title.
+     *
+     * @param packageName could be Constants.PACKAGE or one of AddOnService-constants
+     * @param title the descriptive title, as in "Producteev" or "Astrid Power Pack"
+     * @return the addon-descriptor, if it is available (registered here in getAddOns), otherwise null
+     */
+    public AddOn getAddOn(String packageName, String title) {
+        if (title == null || packageName == null)
+            return null;
+
+        AddOn addon = null;
+        AddOn[] addons = getAddOns();
+        for (int i = 0; i < addons.length ; i++) {
+            if (packageName.equals(addons[i].getPackageName()) && title.equals(addons[i].getTitle())) {
+                addon = addons[i];
+            }
+        }
+        return addon;
     }
 
     /**
@@ -210,7 +239,7 @@ public class AddOnService {
 
         list[3] = new AddOn(true, true, "Producteev", null,
                 "Synchronize with Producteev service. Also changes Astrid's importance levels to stars.",
-                Constants.PACKAGE, "http://www.producteev.com",
+                PRODUCTEEV_PACKAGE, "http://www.producteev.com",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_producteev)).getBitmap());
 
         return list;
