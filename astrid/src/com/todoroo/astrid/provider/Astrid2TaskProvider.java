@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
@@ -117,6 +118,7 @@ public class Astrid2TaskProvider extends ContentProvider {
 	@Override
 	public boolean onCreate() {
 		ctx = getContext();
+		ContextManager.setContext(ctx);
 		return false;
 	}
 
