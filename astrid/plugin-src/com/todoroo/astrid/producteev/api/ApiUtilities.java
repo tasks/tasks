@@ -2,6 +2,7 @@ package com.todoroo.astrid.producteev.api;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Locale;
 
 import android.text.Html;
 
@@ -16,13 +17,13 @@ import com.todoroo.andlib.utility.DateUtilities;
 public final class ApiUtilities {
 
     private static final SimpleDateFormat timeParser = new SimpleDateFormat(
-            "EEE, dd MMM yyyy HH:mm:ss Z"); //$NON-NLS-1$
+            "EEE, dd MMM yyyy HH:mm:ss Z", Locale.US); //$NON-NLS-1$
 
     private static final SimpleDateFormat timeWriter = new SimpleDateFormat(
-            "yyyy/MM/dd HH:mm:ss Z"); //$NON-NLS-1$
+            "yyyy/MM/dd HH:mm:ss Z", Locale.US); //$NON-NLS-1$
 
     private static final SimpleDateFormat dateWriter = new SimpleDateFormat(
-            "yyyy/MM/dd"); //$NON-NLS-1$
+            "yyyy/MM/dd", Locale.US); //$NON-NLS-1$
 
     /**
      * Utility method to convert PDV time to unix time
