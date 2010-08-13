@@ -18,8 +18,11 @@ public final class ApiUtilities {
     private static final SimpleDateFormat timeParser = new SimpleDateFormat(
             "EEE, dd MMM yyyy HH:mm:ss Z"); //$NON-NLS-1$
 
-    private static final SimpleDateFormat dateParser = new SimpleDateFormat(
-            "EEE, dd MMM yyyy"); //$NON-NLS-1$
+    private static final SimpleDateFormat timeWriter = new SimpleDateFormat(
+            "yyyy/MM/dd HH:mm:ss Z"); //$NON-NLS-1$
+
+    private static final SimpleDateFormat dateWriter = new SimpleDateFormat(
+            "yyyy/MM/dd"); //$NON-NLS-1$
 
     /**
      * Utility method to convert PDV time to unix time
@@ -44,8 +47,8 @@ public final class ApiUtilities {
      * @return
      */
     public static String unixTimeToProducteev(long time) {
-        synchronized(timeParser) {
-            return timeParser.format(DateUtilities.unixtimeToDate(time));
+        synchronized(timeWriter) {
+            return timeWriter.format(DateUtilities.unixtimeToDate(time));
         }
     }
 
@@ -55,8 +58,8 @@ public final class ApiUtilities {
      * @return
      */
     public static String unixDateToProducteev(long date) {
-        synchronized(dateParser) {
-            return dateParser.format(DateUtilities.unixtimeToDate(date));
+        synchronized(dateWriter) {
+            return dateWriter.format(DateUtilities.unixtimeToDate(date));
         }
     }
 
