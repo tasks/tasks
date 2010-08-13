@@ -60,7 +60,6 @@
     <!-- Activity that displays task list -->
     <activity android:name="com.todoroo.astrid.activity.TaskListActivity"
               android:windowSoftInputMode="stateHidden"
-              android:clearTaskOnLaunch="true"
               android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.MAIN" />
@@ -88,7 +87,7 @@
 
     <!-- Activity that displays filter list -->
     <activity android:name="com.todoroo.astrid.activity.FilterListActivity"
-              android:launchMode="singleTask"
+              android:launchMode="singleTop"
               android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.SEARCH" />
@@ -157,12 +156,6 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-    <receiver android:name="com.todoroo.astrid.core.CustomFilterExposer">
-      <intent-filter android:priority="9000">
-        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
     <activity android:name="com.todoroo.astrid.core.DefaultsPreferences" 
               android:label="@string/EPr_defaults_header">
       <intent-filter>
@@ -170,7 +163,16 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    
+    <!-- custom filters -->
+    <receiver android:name="com.todoroo.astrid.core.CustomFilterExposer">
+      <intent-filter android:priority="9000">
+        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
     <activity android:name="com.todoroo.astrid.core.CustomFilterActivity" />
+    <activity android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity" />
 
     <!-- alarms -->
     <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">

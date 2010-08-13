@@ -399,4 +399,12 @@ public class FilterListActivity extends ExpandableListActivity {
         .show();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(resultCode != RESULT_CANCELED)
+            adapter.getLists();
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }

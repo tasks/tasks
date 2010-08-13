@@ -20,9 +20,8 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:src="@drawable/tango_windows"
+            android:src="@drawable/tango_filters"
             android:scaleType="center"
-            android:paddingTop="8dip"
             android:paddingLeft="5dip" 
             android:paddingRight="5dip"/> 
         
@@ -32,8 +31,8 @@
             android:layout_height="fill_parent"
             android:layout_weight="100"
             android:singleLine="true"
-            android:paddingTop="6dip"
             android:paddingRight="50dip"
+            android:ellipsize="middle"
             style="@style/TextAppearance.TLA_Header"/>
 
     </LinearLayout>

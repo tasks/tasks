@@ -271,7 +271,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      * application registered to listen for this broadcast. Each application
      * can then add lists to this activity
      */
-    protected void getLists() {
+    public void getLists() {
+        clear();
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_FILTERS);
         activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }

@@ -113,6 +113,9 @@
   
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">Delete this task?</string>
+
+  <!-- question for deleting items (%s => item name) -->
+  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
   
   <!-- Button for being done -->
   <string name="DLG_done">Done</string>
