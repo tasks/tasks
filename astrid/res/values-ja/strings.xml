@@ -1064,50 +1064,50 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
     <!-- RTM Status Group Label -->    
-    <string name="rmilk_MPr_group_status">状況</string>
+    <string name="sync_SPr_group_status">状況</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Remenber The Milkにログインしてください!</string>
+    <string name="sync_status_loggedout">Remenber The Milkにログインしてください!</string>
     <!-- Status: ongoing -->    
-    <string name="rmilk_status_ongoing">Sync Ongoing...</string>
+    <string name="sync_status_ongoing">Sync Ongoing...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="rmilk_status_success">前回の同期: %s</string>
+    <string name="sync_status_success">前回の同期: %s</string>
     <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="rmilk_status_failed">Failed On: %s</string>
+    <string name="sync_status_failed">Failed On: %s</string>
     <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="rmilk_status_failed_subtitle">Last Successful Sync: %s</string>
+    <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
     <!-- Sync Status: never sync'd -->    
-    <string name="rmilk_status_never">Never Synchronized!</string>
+    <string name="sync_status_never">Never Synchronized!</string>
 
     <!-- RTM Options Group Label -->    
-    <string name="rmilk_MPr_group_options">オプション</string>
+    <string name="sync_SPr_group_options">オプション</string>
 
     <!-- Preference: Synchronization Interval Title -->    
-    <string name="rmilk_MPr_interval_title">バックグラウンド同期</string>
+    <string name="sync_SPr_interval_title">バックグラウンド同期</string>
     <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="rmilk_MPr_interval_desc_disabled">バックグラウンド同期は無効になっています</string>    
+    <string name="sync_SPr_interval_desc_disabled">バックグラウンド同期は無効になっています</string>    
     <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="rmilk_MPr_interval_desc">現在の設定: %s</string>
+    <string name="sync_SPr_interval_desc">現在の設定: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="rmilk_MPr_bgwifi_title">Wifi Only Setting</string>    
+    <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+    <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+    <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
     
     <!-- Actions Group Label  -->
-    <string name="rmilk_MPr_group_actions">アクション</string>
+    <string name="sync_SPr_group_actions">アクション</string>
 
     <!-- Synchronize Now Button -->    
-    <string name="rmilk_MPr_sync">すぐに同期!</string>
+    <string name="sync_SPr_sync">すぐに同期!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="rmilk_MPr_sync_log_in">ログインと同期</string>
+    <string name="sync_SPr_sync_log_in">ログインと同期</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="rmilk_MPr_forget">ログアウト</string>
+    <string name="sync_SPr_forget">ログアウト</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Remember The Milkとの同期データをすべて削除します</string>
+    <string name="sync_SPr_forget_description">Remember The Milkとの同期データをすべて削除します</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
@@ -1133,8 +1133,8 @@ Error Message: %s
     <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
     or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
         
-    <string-array name="rmilk_MPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
         <item>無効</item>
         <item>15分毎</item>
         <item>30分毎</item>

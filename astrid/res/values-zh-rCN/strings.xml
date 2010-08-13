@@ -1073,55 +1073,55 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
     <!-- RTM Status Group Label -->    
-    <string name="rmilk_MPr_group_status">Status</string>
+    <string name="sync_SPr_group_status">Status</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Please Log In To RTM!</string>
+    <string name="sync_status_loggedout">Not Logged In!</string>
     <!-- Status: ongoing -->    
-    <string name="rmilk_status_ongoing">Sync Ongoing...</string>
+    <string name="sync_status_ongoing">Sync Ongoing...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="rmilk_status_success">Last Sync: %s</string>
+    <string name="sync_status_success">Last Sync: %s</string>
     <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="rmilk_status_failed">Failed On: %s</string>
+    <string name="sync_status_failed">Failed On: %s</string>
     <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="rmilk_status_failed_subtitle">Last Successful Sync: %s</string>
+    <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
     <!-- Sync Status: never sync'd -->    
-    <string name="rmilk_status_never">Never Synchronized!</string>
+    <string name="sync_status_never">Never Synchronized!</string>
 
     <!-- RTM Options Group Label -->    
-    <string name="rmilk_MPr_group_options">选项</string>
+    <string name="sync_SPr_group_options">选项</string>
 
     <!-- Preference: Synchronization Interval Title -->    
-    <string name="rmilk_MPr_interval_title">Background Sync</string>
+    <string name="sync_SPr_interval_title">Background Sync</string>
     <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="rmilk_MPr_interval_desc_disabled">Background synchronization is disabled</string>    
+    <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>    
     <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="rmilk_MPr_interval_desc">Currently set to: %s</string>
+    <string name="sync_SPr_interval_desc">Currently set to: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="rmilk_MPr_bgwifi_title">Wifi Only Setting</string>    
+    <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+    <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+    <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
     
     <!-- Actions Group Label  -->
-    <string name="rmilk_MPr_group_actions">操作</string>
+    <string name="sync_SPr_group_actions">操作</string>
 
     <!-- Synchronize Now Button -->    
-    <string name="rmilk_MPr_sync">现在同步!</string>
+    <string name="sync_SPr_sync">现在同步!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="rmilk_MPr_sync_log_in">Log In &amp; Synchronize!</string>
+    <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="rmilk_MPr_forget">Log Out</string>
+    <string name="sync_SPr_forget">Log Out</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Clears all RTM synchronization data</string>
+    <string name="sync_SPr_forget_description">Clears all synchronization data synchronization data</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
     <!-- RTM Login Instructions -->
-    <string name="rmilk_MLA_label">Please Log In and Authorize Astrid:</string>
+    <string name="rmilk_MLA_label">Not Logged In and Authorize Astrid:</string>
     
     <!-- Login Error Dialog (%s => message) -->
     <string name="rmilk_MLA_error">
@@ -1142,8 +1142,8 @@ Error Message: %s
     <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
     or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
         
-    <string-array name="rmilk_MPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
         <item>disable</item>
         <item>every fifteen minutes</item>
         <item>every thirty minutes</item>

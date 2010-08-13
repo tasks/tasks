@@ -1058,50 +1058,50 @@ to the plugin creator for fastest service.
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
     <!-- RTM Status Group Label -->    
-    <string name="rmilk_MPr_group_status">Status</string>
+    <string name="sync_SPr_group_status">Status</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Bitte bei RTM einloggen!</string>
+    <string name="sync_status_loggedout">Bitte loggen Sie sich ein!</string>
     <!-- Status: ongoing -->    
-    <string name="rmilk_status_ongoing">Synchronisierung läuft...</string>
+    <string name="sync_status_ongoing">Synchronisierung läuft...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="rmilk_status_success">Letzte Synchronisierung: %s</string>
+    <string name="sync_status_success">Letzte Synchronisierung: %s</string>
     <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="rmilk_status_failed">Fehlgeschlagen am: %s</string>
+    <string name="sync_status_failed">Fehlgeschlagen am: %s</string>
     <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="rmilk_status_failed_subtitle">Letzte erfolgreiche Synchronisierung: %s</string>
+    <string name="sync_status_failed_subtitle">Letzte erfolgreiche Synchronisierung: %s</string>
     <!-- Sync Status: never sync'd -->    
-    <string name="rmilk_status_never">Noch nie synchronisiert!</string>
+    <string name="sync_status_never">Noch nie synchronisiert!</string>
 
     <!-- RTM Options Group Label -->    
-    <string name="rmilk_MPr_group_options">Einstellungen</string>
+    <string name="sync_SPr_group_options">Einstellungen</string>
 
     <!-- Preference: Synchronization Interval Title -->    
-    <string name="rmilk_MPr_interval_title">Hintergrund-Synchronisierung</string>
+    <string name="sync_SPr_interval_title">Hintergrund-Synchronisierung</string>
     <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="rmilk_MPr_interval_desc_disabled">Hintergrund-Synchronisierung ist deaktiviert</string>    
+    <string name="sync_SPr_interval_desc_disabled">Hintergrund-Synchronisierung ist deaktiviert</string>    
     <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="rmilk_MPr_interval_desc">Gesetzt auf: %s</string>
+    <string name="sync_SPr_interval_desc">Gesetzt auf: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="rmilk_MPr_bgwifi_title">WLAN Einstellungen</string>    
+    <string name="sync_SPr_bgwifi_title">WLAN Einstellungen</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_enabled">Hintergrund-Synchronisierung nur bei WLAN-Verbindung</string>    
+    <string name="sync_SPr_bgwifi_desc_enabled">Hintergrund-Synchronisierung nur bei WLAN-Verbindung</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_disabled">Hintergrund-Synchronisierung findet immer statt</string>
+    <string name="sync_SPr_bgwifi_desc_disabled">Hintergrund-Synchronisierung findet immer statt</string>
     
     <!-- Actions Group Label  -->
-    <string name="rmilk_MPr_group_actions">Aktionen</string>
+    <string name="sync_SPr_group_actions">Aktionen</string>
 
     <!-- Synchronize Now Button -->    
-    <string name="rmilk_MPr_sync">Jetzt abgleichen!</string>
+    <string name="sync_SPr_sync">Jetzt abgleichen!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="rmilk_MPr_sync_log_in">Einloggen &amp; Synchroniseren!</string>
+    <string name="sync_SPr_sync_log_in">Einloggen &amp; Synchroniseren!</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="rmilk_MPr_forget">Abmelden</string>
+    <string name="sync_SPr_forget">Abmelden</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Alle Daten der RTM-Synchronisierung löschen</string>
+    <string name="sync_SPr_forget_description">Alle Daten der Synchronisierung löschen</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
@@ -1122,8 +1122,8 @@ to the plugin creator for fastest service.
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Verbindungsfehler! Bitte überprüfe deine Internetverbindung oder die RTM Server (status.rememberthemilk.com) für zur Lösung des Problems.</string>
         
-    <string-array name="rmilk_MPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
         <item>deaktivieren</item>
         <item>alle 15 Minuten</item>
         <item>alle 30 Minuten</item>

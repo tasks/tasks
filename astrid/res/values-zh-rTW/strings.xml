@@ -1058,50 +1058,50 @@ to the plugin creator for fastest service.
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
     <!-- RTM Status Group Label -->    
-    <string name="rmilk_MPr_group_status">狀態</string>
+    <string name="sync_SPr_group_status">狀態</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">請登入RTM</string>
+    <string name="sync_status_loggedout">請登</string>
     <!-- Status: ongoing -->    
-    <string name="rmilk_status_ongoing">同步中...</string>
+    <string name="sync_status_ongoing">同步中...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="rmilk_status_success">上次同步: %s</string>
+    <string name="sync_status_success">上次同步: %s</string>
     <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="rmilk_status_failed">失敗: %s</string>
+    <string name="sync_status_failed">失敗: %s</string>
     <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="rmilk_status_failed_subtitle">上次成功同步: %s</string>
+    <string name="sync_status_failed_subtitle">上次成功同步: %s</string>
     <!-- Sync Status: never sync'd -->    
-    <string name="rmilk_status_never">未同步過!</string>
+    <string name="sync_status_never">未同步過!</string>
 
     <!-- RTM Options Group Label -->    
-    <string name="rmilk_MPr_group_options">選項</string>
+    <string name="sync_SPr_group_options">選項</string>
 
     <!-- Preference: Synchronization Interval Title -->    
-    <string name="rmilk_MPr_interval_title">背景同步</string>
+    <string name="sync_SPr_interval_title">背景同步</string>
     <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="rmilk_MPr_interval_desc_disabled">背景同步關閉</string>    
+    <string name="sync_SPr_interval_desc_disabled">背景同步關閉</string>    
     <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="rmilk_MPr_interval_desc">目前同步設定: %s</string>
+    <string name="sync_SPr_interval_desc">目前同步設定: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="rmilk_MPr_bgwifi_title">Wifi 才可使用之設定</string>    
+    <string name="sync_SPr_bgwifi_title">Wifi 才可使用之設定</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_enabled">使用Wifi才啟動背景同步</string>    
+    <string name="sync_SPr_bgwifi_desc_enabled">使用Wifi才啟動背景同步</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_disabled">總是使用背景同步</string>
+    <string name="sync_SPr_bgwifi_desc_disabled">總是使用背景同步</string>
     
     <!-- Actions Group Label  -->
-    <string name="rmilk_MPr_group_actions">動作</string>
+    <string name="sync_SPr_group_actions">動作</string>
 
     <!-- Synchronize Now Button -->    
-    <string name="rmilk_MPr_sync">現在同步!</string>
+    <string name="sync_SPr_sync">現在同步!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="rmilk_MPr_sync_log_in">登入並同步!</string>
+    <string name="sync_SPr_sync_log_in">登入並同步!</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="rmilk_MPr_forget">登出</string>
+    <string name="sync_SPr_forget">登出</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">清除所有RTM同步資料</string>
+    <string name="sync_SPr_forget_description">清除所有同步資料</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
@@ -1122,8 +1122,8 @@ to the plugin creator for fastest service.
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">連線錯誤! 檢查網路連線或RTM伺服器(status.rememberthemilk.com).</string>
         
-    <string-array name="rmilk_MPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
         <item>停用</item>
         <item>每15分</item>
         <item>每30分</item>

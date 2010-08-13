@@ -1059,50 +1059,50 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
     <!-- RTM Status Group Label -->    
-    <string name="rmilk_MPr_group_status">Estado</string>
+    <string name="sync_SPr_group_status">Estado</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Por favor, ingrese a RTM</string>
+    <string name="sync_status_loggedout">Por favor, ingrese</string>
     <!-- Status: ongoing -->    
-    <string name="rmilk_status_ongoing">Sincronización en curso...</string>
+    <string name="sync_status_ongoing">Sincronización en curso...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="rmilk_status_success">Última sincronización: %s</string>
+    <string name="sync_status_success">Última sincronización: %s</string>
     <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="rmilk_status_failed">Falló el: %s</string>
+    <string name="sync_status_failed">Falló el: %s</string>
     <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="rmilk_status_failed_subtitle">Última sincronización exitosa: %s</string>
+    <string name="sync_status_failed_subtitle">Última sincronización exitosa: %s</string>
     <!-- Sync Status: never sync'd -->    
-    <string name="rmilk_status_never">¡Jamás se sincronizó!</string>
+    <string name="sync_status_never">¡Jamás se sincronizó!</string>
 
     <!-- RTM Options Group Label -->    
-    <string name="rmilk_MPr_group_options">Opciones</string>
+    <string name="sync_SPr_group_options">Opciones</string>
 
     <!-- Preference: Synchronization Interval Title -->    
-    <string name="rmilk_MPr_interval_title">Sincronizar en segundo plano</string>
+    <string name="sync_SPr_interval_title">Sincronizar en segundo plano</string>
     <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="rmilk_MPr_interval_desc_disabled">Sincronización en segundo plano está desactivada</string>    
+    <string name="sync_SPr_interval_desc_disabled">Sincronización en segundo plano está desactivada</string>    
     <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="rmilk_MPr_interval_desc">Actualmente configurado para: %s</string>
+    <string name="sync_SPr_interval_desc">Actualmente configurado para: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="rmilk_MPr_bgwifi_title">Wifi ajuste sólo</string>    
+    <string name="sync_SPr_bgwifi_title">Wifi ajuste sólo</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_enabled">Sincronización en segundo plano sólo ocurre cuando el Wifi</string>    
+    <string name="sync_SPr_bgwifi_desc_enabled">Sincronización en segundo plano sólo ocurre cuando el Wifi</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_disabled">Sincronización en segundo plano siempre se produce</string>
+    <string name="sync_SPr_bgwifi_desc_disabled">Sincronización en segundo plano siempre se produce</string>
     
     <!-- Actions Group Label  -->
-    <string name="rmilk_MPr_group_actions">Acciones</string>
+    <string name="sync_SPr_group_actions">Acciones</string>
 
     <!-- Synchronize Now Button -->    
-    <string name="rmilk_MPr_sync">¡Sincronizar ahora!</string>
+    <string name="sync_SPr_sync">¡Sincronizar ahora!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="rmilk_MPr_sync_log_in">Registrarse y sincronizar!</string>
+    <string name="sync_SPr_sync_log_in">Registrarse y sincronizar!</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="rmilk_MPr_forget">Cerrar sesión</string>
+    <string name="sync_SPr_forget">Cerrar sesión</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Borra todos los datos de sincronización de RTM</string>
+    <string name="sync_SPr_forget_description">Borra todos los datos de sincronización</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
@@ -1123,8 +1123,8 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Error de conexión! Compruebe su conexión a Internet o servidores quizá RTM (status.rememberthemilk.com), para posibles soluciones.</string>
         
-    <string-array name="rmilk_MPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
         <item>desactivar</item>
         <item>cada quince minutos</item>
         <item>cada treinta minutos</item>

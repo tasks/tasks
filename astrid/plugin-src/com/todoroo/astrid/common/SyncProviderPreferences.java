@@ -94,10 +94,10 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
                     r.getStringArray(R.array.rmilk_MPr_interval_values),
                     (String) value);
             if (index <= 0)
-                preference.setSummary(R.string.rmilk_MPr_interval_desc_disabled);
+                preference.setSummary(R.string.sync_SPr_interval_desc_disabled);
             else
                 preference.setSummary(r.getString(
-                        R.string.rmilk_MPr_interval_desc,
+                        R.string.sync_SPr_interval_desc,
                         r.getStringArray(R.array.rmilk_MPr_interval_entries)[index]));
         }
 
@@ -109,7 +109,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
 
             // ! logged in - display message, click -> sync
             if(!loggedIn) {
-                status = r.getString(R.string.rmilk_status_loggedout);
+                status = r.getString(R.string.sync_status_loggedout);
                 statusColor = Color.RED;
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
@@ -121,16 +121,16 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
             }
             // sync is occurring
             else if(getUtilities().isOngoing()) {
-                status = r.getString(R.string.rmilk_status_ongoing);
+                status = r.getString(R.string.sync_status_ongoing);
                 statusColor = Color.rgb(0, 0, 100);
             }
             // last sync was error
             else if(getUtilities().getLastAttemptedSyncDate() != 0) {
-                status = r.getString(R.string.rmilk_status_failed,
+                status = r.getString(R.string.sync_status_failed,
                         DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
                         new Date(getUtilities().getLastAttemptedSyncDate())));
                 if(getUtilities().getLastSyncDate() > 0) {
-                    subtitle = r.getString(R.string.rmilk_status_failed_subtitle,
+                    subtitle = r.getString(R.string.sync_status_failed_subtitle,
                             DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
                             new Date(getUtilities().getLastSyncDate())));
                 }
@@ -144,12 +144,12 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
                     }
                 });
             } else if(getUtilities().getLastSyncDate() > 0) {
-                status = r.getString(R.string.rmilk_status_success,
+                status = r.getString(R.string.sync_status_success,
                         DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
                         new Date(getUtilities().getLastSyncDate())));
                 statusColor = Color.rgb(0, 100, 0);
             } else {
-                status = r.getString(R.string.rmilk_status_never);
+                status = r.getString(R.string.sync_status_never);
                 statusColor = Color.rgb(0, 0, 100);
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
@@ -178,7 +178,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
                 }
             });
             if(!loggedIn)
-                preference.setTitle(R.string.rmilk_MPr_sync_log_in);
+                preference.setTitle(R.string.sync_SPr_sync_log_in);
         }
 
         // log out button

@@ -1061,50 +1061,50 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
     <!-- RTM Status Group Label -->    
-    <string name="rmilk_MPr_group_status">Состояние</string>
+    <string name="sync_SPr_group_status">Состояние</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Пожауйста, зайдите в RTM!</string>
+    <string name="sync_status_loggedout">Пожауйста, зайдите!</string>
     <!-- Status: ongoing -->    
-    <string name="rmilk_status_ongoing">Процесс синхронизации...</string>
+    <string name="sync_status_ongoing">Процесс синхронизации...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="rmilk_status_success">Последняя синхронизация: %s</string>
+    <string name="sync_status_success">Последняя синхронизация: %s</string>
     <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="rmilk_status_failed">Ошибка: %s</string>
+    <string name="sync_status_failed">Ошибка: %s</string>
     <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="rmilk_status_failed_subtitle">Последняя успешная синхронизация: %s</string>
+    <string name="sync_status_failed_subtitle">Последняя успешная синхронизация: %s</string>
     <!-- Sync Status: never sync'd -->    
-    <string name="rmilk_status_never">Синхронизаций не выполнялось!</string>
+    <string name="sync_status_never">Синхронизаций не выполнялось!</string>
 
     <!-- RTM Options Group Label -->    
-    <string name="rmilk_MPr_group_options">Параметры</string>
+    <string name="sync_SPr_group_options">Параметры</string>
 
     <!-- Preference: Synchronization Interval Title -->    
-    <string name="rmilk_MPr_interval_title">Фоновая синхронизация</string>
+    <string name="sync_SPr_interval_title">Фоновая синхронизация</string>
     <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="rmilk_MPr_interval_desc_disabled">Фоновая синхронизация отключена</string>    
+    <string name="sync_SPr_interval_desc_disabled">Фоновая синхронизация отключена</string>    
     <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="rmilk_MPr_interval_desc">Сейчас установлено: %s</string>
+    <string name="sync_SPr_interval_desc">Сейчас установлено: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="rmilk_MPr_bgwifi_title">Только через Wifi</string>    
+    <string name="sync_SPr_bgwifi_title">Только через Wifi</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_enabled">Фоновая синхронизация происходит только через Wifi</string>    
+    <string name="sync_SPr_bgwifi_desc_enabled">Фоновая синхронизация происходит только через Wifi</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_disabled">Фоновая синхронизация происходит всегда</string>
+    <string name="sync_SPr_bgwifi_desc_disabled">Фоновая синхронизация происходит всегда</string>
     
     <!-- Actions Group Label  -->
-    <string name="rmilk_MPr_group_actions">Действия</string>
+    <string name="sync_SPr_group_actions">Действия</string>
 
     <!-- Synchronize Now Button -->    
-    <string name="rmilk_MPr_sync">Синхронизировать!</string>
+    <string name="sync_SPr_sync">Синхронизировать!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="rmilk_MPr_sync_log_in">Войти и синхронизировать!</string>
+    <string name="sync_SPr_sync_log_in">Войти и синхронизировать!</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="rmilk_MPr_forget">Выход</string>
+    <string name="sync_SPr_forget">Выход</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Очистка всех данный синхронизации RTM</string>
+    <string name="sync_SPr_forget_description">Очистка всех данный синхронизации</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
@@ -1125,8 +1125,8 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Ошибка соединения! Проверьте соединение с интернетом и, возможно, сервером RTM (status.rememberthemilk.com) для возможного решения.</string>
         
-    <string-array name="rmilk_MPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
         <item>отключить</item>
         <item>каждые 15 минут</item>
         <item>каждые 30 минут</item>

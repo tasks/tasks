@@ -1058,50 +1058,50 @@ to the plugin creator for fastest service.
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
     <!-- RTM Status Group Label -->    
-    <string name="rmilk_MPr_group_status">Stav</string>
+    <string name="sync_SPr_group_status">Stav</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Prosím přihlaš se na RTM!</string>
+    <string name="sync_status_loggedout">Prosím přihlaš se!</string>
     <!-- Status: ongoing -->    
-    <string name="rmilk_status_ongoing">Probíhá synchronizace...</string>
+    <string name="sync_status_ongoing">Probíhá synchronizace...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="rmilk_status_success">Poslední synchronizace: %s</string>
+    <string name="sync_status_success">Poslední synchronizace: %s</string>
     <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="rmilk_status_failed">Selhalo: %s</string>
+    <string name="sync_status_failed">Selhalo: %s</string>
     <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="rmilk_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
+    <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
     <!-- Sync Status: never sync'd -->    
-    <string name="rmilk_status_never">Nikdo nesynchronizováno!</string>
+    <string name="sync_status_never">Nikdo nesynchronizováno!</string>
 
     <!-- RTM Options Group Label -->    
-    <string name="rmilk_MPr_group_options">Možnosti</string>
+    <string name="sync_SPr_group_options">Možnosti</string>
 
     <!-- Preference: Synchronization Interval Title -->    
-    <string name="rmilk_MPr_interval_title">Synchronizace na pozadí</string>
+    <string name="sync_SPr_interval_title">Synchronizace na pozadí</string>
     <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="rmilk_MPr_interval_desc_disabled">Synchronizace na pozadí je zakázána</string>    
+    <string name="sync_SPr_interval_desc_disabled">Synchronizace na pozadí je zakázána</string>    
     <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="rmilk_MPr_interval_desc">Současně nastaveno na: %s</string>
+    <string name="sync_SPr_interval_desc">Současně nastaveno na: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="rmilk_MPr_bgwifi_title">Nastavení jen pro Wifi</string>    
+    <string name="sync_SPr_bgwifi_title">Nastavení jen pro Wifi</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_enabled">Synchronizovat na pozadí se bude pouze při zapnuté Wifi</string>    
+    <string name="sync_SPr_bgwifi_desc_enabled">Synchronizovat na pozadí se bude pouze při zapnuté Wifi</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="rmilk_MPr_bgwifi_desc_disabled">Synchronizovat na pozadí se bude vždy</string>
+    <string name="sync_SPr_bgwifi_desc_disabled">Synchronizovat na pozadí se bude vždy</string>
     
     <!-- Actions Group Label  -->
-    <string name="rmilk_MPr_group_actions">Činnosti</string>
+    <string name="sync_SPr_group_actions">Činnosti</string>
 
     <!-- Synchronize Now Button -->    
-    <string name="rmilk_MPr_sync">Synchronizuj teď!</string>
+    <string name="sync_SPr_sync">Synchronizuj teď!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="rmilk_MPr_sync_log_in">Přihlásit se &amp; Synchronizovat!</string>
+    <string name="sync_SPr_sync_log_in">Přihlásit se &amp; Synchronizovat!</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="rmilk_MPr_forget">Odhlásit se</string>
+    <string name="sync_SPr_forget">Odhlásit se</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Vymazat všechny synchronizační data RTM</string>
+    <string name="sync_SPr_forget_description">Vymazat všechny synchronizační data</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
@@ -1122,8 +1122,8 @@ to the plugin creator for fastest service.
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Chyba připojení! Zkontroluj Tvé Internetové připojení nebo možná RTM servery (status.rememberthemilk.com), pro možná řešení.</string>
         
-    <string-array name="rmilk_MPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+    <string-array name="sync_SPr_interval_entries">
+        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
         <item>zakázat</item>
         <item>každých patnáct minut</item>
         <item>každých třicet minut</item>
