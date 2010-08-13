@@ -226,6 +226,9 @@ File %s contained %s.\n\n
   
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">Delete this task?</string>
+
+  <!-- question for deleting items (%s => item name) -->
+  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
   
   <!-- Button for being done -->
   <string name="DLG_done">Done</string>
@@ -268,6 +271,9 @@ File %s contained %s.\n\n
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Add-ons</string>
+  
+  <!-- Menu: Adjust Sort and Hidden Task Settings -->    
+  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Settings</string>
@@ -321,6 +327,47 @@ button: add task & go to the edit page.
 
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Undelete Task</string>
+  
+  <!-- ============================================== SortSelectionDialog == -->
+  
+  <!-- Sort Selection: dialog title -->    
+  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  
+  <!-- Hidden Task Selection: show completed tasks -->    
+  <string name="SSD_completed">Show Completed Tasks</string>
+  
+  <!-- Hidden Task Selection: show hidden tasks -->    
+  <string name="SSD_hidden">Show Hidden Tasks</string>
+  
+  <!-- Hidden Task Selection: show deleted tasks -->    
+  <string name="SSD_deleted">Show Deleted Tasks</string>
+  
+  <!-- Sort Selection: sort options header -->    
+  <string name="SSD_sort_header">Sort Options</string>
+  
+  <!-- Sort Selection: smart sort -->
+  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  
+  <!-- Sort Selection: sort by alpha -->
+  <string name="SSD_sort_alpha">By Title</string>
+  
+  <!-- Sort Selection: sort by due date -->
+  <string name="SSD_sort_due">By Due Date</string>
+  
+  <!-- Sort Selection: sort by importance -->
+  <string name="SSD_sort_importance">By Importance</string>
+  
+  <!-- Sort Selection: sort by modified date -->
+  <string name="SSD_sort_modified">By Last Modified</string>
+  
+  <!-- Sort Selection: reverse -->
+  <string name="SSD_sort_reverse">Reverse Sort</string>
+  
+  <!-- Sort Button: sort temporarily -->
+  <string name="SSD_save_temp">Just Once</string>
+  
+  <!-- Sort Button: sort permanently -->
+  <string name="SSD_save_always">Always</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -618,39 +665,92 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     
     <!-- Resources for built-in filter plug-in -->
     
+    <!-- ================================================= Filter Exposer == -->
+    
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">Active Tasks</string>
         
-    <!-- Title for Active Tasks Filter (what user sees when first opening the app) -->
-    <string name="BFE_Active_title">Active Tasks</string>
-    
     <!-- Search Filter -->
-    <string name="BFE_Search">Search</string>
-
-    <!-- Extended Filters Category -->
-    <string name="BFE_Extended">More...</string>
-
-    <!-- sort recent modification filter -->
-    <string name="BFE_Recent">Recently Modified</string>
+    <string name="BFE_Search">Search...</string>
     
-    <!-- Completed Filter -->
-    <string name="BFE_Completed">Completed Tasks</string>
+    <!-- Build Your Own Filter -->
+    <string name="BFE_Custom">Custom Filter...</string>
+    
+    <!-- Saved Filters Header -->
+    <string name="BFE_Saved">Saved Filters</string>
+    
+    <!-- Saved Filters Context Menu: delete -->
+    <string name="BFE_Saved_delete">Delete Filter</string>
 
-    <!-- hidden tasks filter -->
-    <string name="BFE_Hidden">Hidden Tasks</string>
+    <!-- =========================================== CustomFilterActivity == -->
+    
+    <!-- Build Your Own Filter Activity Title-->
+    <string name="CFA_title">Custom Filter</string>
+    
+    <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
+    <string name="CFA_filterName_hint">Name this filter to save it...</string>
+    
+    <!-- Filter Name default for copied filters (%s => old filter name) -->
+    <string name="CFA_filterName_copy">Copy of %s</string>
+    
+    <!-- Filter Starting Universe: all tasks -->
+    <string name="CFA_universe_all">Active Tasks</string>
+    
+    <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
+    <string name="CFA_type_add">or</string>
+    
+    <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
+    <string name="CFA_type_subtract">not</string>
+    
+    <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
+    <string name="CFA_type_intersect">also</string>
+    
+    <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
+    <string name="CFA_context_chain">Chaining: %s</string>
+    
+    <!-- Filter Criteria Context Menu: delete -->
+    <string name="CFA_context_delete">Delete Row</string>
+    
+    <!-- Filter Screen Help Text -->
+    <string name="CFA_help">This screen lets you create a new filters. Add 
+    criteria using the button below, short or long-press them to adjust, and
+    then click \"View\"!</string>
+    
+    <!-- Filter Button: add new -->
+    <string name="CFA_button_add">Add Criteria</string>
+    
+    <!-- Filter Button: view without saving -->
+    <string name="CFA_button_view">View</string>
+    
+    <!-- Filter Button: save & view filter -->
+    <string name="CFA_button_save">Save &amp; View</string>
 
-    <!-- sort Alphabetical filter -->
-    <string name="BFE_Alphabetical">By Title</string>
-
-    <!-- sort Due Date filter -->
-    <string name="BFE_DueDate">By Due Date</string>
-
-    <!-- sort Importance filter -->
-    <string name="BFE_Importance">By Importance</string>
-
-    <!-- deleted tasks filter -->
-    <string name="BFE_Deleted">Deleted Tasks</string>
+    <!-- =========================================== CustomFilterCriteria == -->
         
+    <!-- Criteria: due by X - display text -->
+    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <!-- Criteria: due by X - name of criteria -->
+    <string name="CFC_dueBefore_name">Due By...</string>
+    <string-array name="CFC_dueBefore_entries">
+        <!-- Criteria: due by X - options -->
+        <item>No Due Date</item>
+        <item>Yesterday</item>
+        <item>Today</item>
+        <item>Tomorrow</item>
+        <item>Day After Tomorrow</item>
+        <item>Next Week</item>
+    </string-array>
+    
+    <!-- Criteria: importance - display text -->
+    <string name="CFC_importance_text">Importance: ?</string>
+    <!-- Criteria: importance - name of criteria -->
+    <string name="CFC_importance_name">Importance...</string>        
+    
+    <!-- Criteria: tag - display text -->
+    <string name="CFC_tag_text">Tagged: ?</string>
+    <!-- Criteria: tag - name of criteria -->
+    <string name="CFC_tag_name">Tagged...</string>        
+    
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -671,6 +771,9 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Open Calendar Event</string>
+  
+  <!-- Toast when unable to open calendar event -->
+  <string name="gcal_TEA_calendar_error">Error opening event!</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -718,6 +821,108 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
      
 
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+   
+    <!-- ====================== Plugin Boilerplate ========================= -->
+
+    <!-- task detail showing Producteev dashboard information (%s => workspace name) -->
+    <string name="producteev_TLA_dashboard">W: %s</string>
+
+    <!-- task detail showing Producteev responsible information (%s => responsible user) -->
+    <string name="producteev_TLA_responsible">R: %s</string>
+    
+    <!-- ==================================================== Preferences == -->
+
+    <!-- Preferences Title: Producteev -->    
+    <string name="producteev_PPr_header">Producteev</string>
+
+    <!-- dashboard title for producteev default dashboard  -->
+    <string name="producteev_default_dashboard">Default Workspace</string>
+
+    <!-- dashboard title for tasks that are not synchronized -->
+    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+
+    <!-- preference title for default dashboard -->
+    <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
+
+    <!-- preference description for default dashboard (%s -> setting) -->
+    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+
+    <!-- preference description for default dashboard (when set to 'not synchronized') -->
+    <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
+
+    <!-- ================================================= Login Activity == -->
+
+    <!-- Activity Title: Producteev Login -->    
+    <string name="producteev_PLA_title">Log In to Producteev</string>
+
+    <!-- Instructions: Producteev login -->    
+    <string name="producteev_PLA_body">Sign in with your existing
+    Producteev account, or create a new account!</string>
+
+    <!-- Producteev Terms Link -->    
+    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+
+    <!-- Sign In Button -->    
+    <string name="producteev_PLA_signIn">Sign In</string>
+
+    <!-- Create New User Button -->    
+    <string name="producteev_PLA_createNew">Create New User</string>
+
+    <!-- E-mail Address Label -->    
+    <string name="producteev_PLA_email">E-mail</string>
+
+    <!-- Password Label -->    
+    <string name="producteev_PLA_password">Password</string>
+
+    <!-- Confirm Password Label -->    
+    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+
+    <!-- First Name Label -->    
+    <string name="producteev_PLA_firstName">First Name</string>
+
+    <!-- Last Name Label -->    
+    <string name="producteev_PLA_lastName">Last Name</string>
+
+    <!-- Error Message when fields aren't filled out -->    
+    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+
+    <!-- Error Message when passwords don't match -->    
+    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
+    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
+
+    <!-- ================================================ Synchronization == -->
+        
+    <!-- title for notification tray when synchronizing -->
+    <string name="producteev_notification_title">Astrid: Producteev</string>
+    
+    <!-- Error msg when io exception  -->
+    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+
+    <!-- Prod Login email not specified-->
+    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+    
+    <!-- Prod Login password not specified-->
+    <string name="producteev_MLA_password_empty">Password was not specified!</string>
+    
+    <!-- ================================================ labels for layout-elements == -->
+    
+    <!-- label for task-assignment spinner on taskeditactivity -->
+    <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
+    
+    <!-- Spinner-item for unassigned tasks on taskeditactivity -->
+    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    
+    <!-- label for dashboard-assignment spinner on taskeditactivity -->
+    <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
+
+    <!-- Spinner-item for default dashboard on taskeditactivity -->
+    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
+    
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
@@ -1017,10 +1222,10 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string name="repeat_detail_byday">$I on $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Repeats every %s</string>
+  <string name="repeat_detail_duedate">Every %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">Repeats %s after completion</string>
+  <string name="repeat_detail_completion">%s after completion</string>
   
 
 
@@ -1076,7 +1281,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MPr_group_status">Status</string>
     
     <!-- Sync Status: log in -->    
-    <string name="rmilk_status_loggedout">Please Log In To RTM!</string>
+    <string name="rmilk_status_loggedout">Not Logged In!</string>
     <!-- Status: ongoing -->    
     <string name="rmilk_status_ongoing">Sync Ongoing...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
@@ -1116,7 +1321,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- Sync: Clear Data Title -->
     <string name="rmilk_MPr_forget">Log Out</string>
     <!-- Sync: Clear Data Description -->
-    <string name="rmilk_MPr_forget_description">Clears all RTM synchronization data</string>
+    <string name="rmilk_MPr_forget_description">Clears all synchronization data</string>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
@@ -1172,11 +1377,6 @@ Error Message: %s
   
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Tag Name</string>
-
-  <!-- ===================================================== Task Details == -->
-  
-  <!-- tag text that displays in task list. %s => tag name -->
-  <string name="tag_TLA_detail">Tags: %s</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1184,19 +1384,10 @@ Error Message: %s
   <string name="tag_FEx_header">Tags</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Active</string>
-  
-  <!-- filter header for tags of completed tasks -->
-  <string name="tag_FEx_completed">Completed</string>
-  
-  <!-- filter header for all tags, sorted by name -->
-  <string name="tag_FEx_alpha">All Tags</string>
+  <string name="tag_FEx_by_size">Sorted By Size</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Untagged</string>
-  
-  <!-- $T => tag, $C => count -->
-  <string name="tag_FEx_tag_w_size">$T ($C)</string>
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">Tagged \'%s\'</string>
