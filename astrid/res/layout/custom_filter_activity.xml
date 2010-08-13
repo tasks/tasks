@@ -11,7 +11,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:hint="@string/CFA_filterName_hint"/>
+        android:hint="@string/CFA_filterName_hint"
+        android:capitalize="sentences" />
     
     <!-- List -->
     <ListView android:id="@android:id/list"

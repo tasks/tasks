@@ -357,7 +357,7 @@ public class CustomFilterActivity extends ListActivity {
         String title;
         if(filterName.getText().length() > 0) {
             // persist saved filter
-            title = filterName.getText().toString();
+            title = filterName.getText().toString().trim();
             SavedFilter.persist(adapter, title, sql.toString(), values);
         } else {
             // temporary
