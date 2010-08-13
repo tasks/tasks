@@ -63,7 +63,7 @@ public long getId() {
 
 @Override
 public String toString() {
-    String displayString = null;
+    String displayString = "";
     boolean hasFirstname = false;
     boolean hasLastname = false;
     if (firstname != null && firstname.length() > 0) {

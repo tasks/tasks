@@ -38,11 +38,11 @@ public class ProducteevControlSet implements TaskEditControlSet {
     @Autowired
     private ExceptionService exceptionService;
 
-    private Activity activity;
+    private final Activity activity;
 
     private Task myTask;
-    private Spinner responsibleSelector;
-    private Spinner dashboardSelector;
+    private final Spinner responsibleSelector;
+    private final Spinner dashboardSelector;
 
     private ArrayList<ProducteevUser> users = null;
     private ArrayList<ProducteevDashboard> dashboards = null;
@@ -101,7 +101,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
             //dashboard to not sync as first spinner-entry
             dashboards.add(new ProducteevDashboard(ProducteevUtilities.DASHBOARD_NO_SYNC, activity.getString(R.string.producteev_no_dashboard),null));
             for (int i=1;i<dashboardsData.length+1;i++) {
-                ProducteevDashboard dashboard = new ProducteevDashboard(dashboardsData[i]);
+                ProducteevDashboard dashboard = new ProducteevDashboard(dashboardsData[i-1]);
                 dashboards.add(dashboard);
                 if(dashboard.getId() == dashboardId) {
                     ownerDashboard = dashboard;
@@ -123,7 +123,6 @@ public class ProducteevControlSet implements TaskEditControlSet {
                 return;
             }
 
-            responsibleSelector.setEnabled(true);
             // Fill the responsible-spinner and set the current responsible
             users = ownerDashboard.getUsers();
             long responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);

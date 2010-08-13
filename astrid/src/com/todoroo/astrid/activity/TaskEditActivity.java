@@ -219,7 +219,7 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new RepeatControlSet(this, extrasAddons));
 
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
-        AddOn producteevAddon = addOnService.getAddOn(Constants.PACKAGE, "Producteev");
+        AddOn producteevAddon = addOnService.getAddOn(AddOnService.PRODUCTEEV_PACKAGE, "Producteev");
         if (addOnService.isInstalled(producteevAddon) && ProducteevUtilities.INSTANCE.isLoggedIn()) {
             controls.add(new ProducteevControlSet(this, addonsAddons));
         }

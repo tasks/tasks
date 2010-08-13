@@ -31,9 +31,9 @@ public class ProducteevDashboard {
             StoreObject.VALUE2.name);
 
     // data class-part
-    private long id;
+    private final long id;
 
-    private String name;
+    private final String name;
 
     private ArrayList<ProducteevUser> users = null;
 
@@ -51,6 +51,10 @@ public class ProducteevDashboard {
     public ProducteevDashboard(long id, String name, String usercsv) {
         this.id = id;
         this.name = name;
+
+        if (usercsv == null)
+            return;
+
         StringTokenizer tokenizer = new StringTokenizer(usercsv, ";");
         int usercount = tokenizer.countTokens();
 
