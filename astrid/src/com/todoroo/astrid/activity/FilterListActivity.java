@@ -5,31 +5,33 @@ package com.todoroo.astrid.activity;
 
 import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
-import android.app.SearchManager;
 import android.app.PendingIntent.CanceledException;
+import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
+import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
+import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.FrameLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.ExpandableListView.ExpandableListContextMenuInfo;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -98,6 +100,10 @@ public class FilterListActivity extends ExpandableListActivity {
         setTitle(R.string.FLA_title);
 
         onNewIntent(getIntent());
+
+        // dithering
+        getWindow().setFormat(PixelFormat.RGBA_8888);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
     /**

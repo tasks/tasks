@@ -30,6 +30,11 @@ abstract public class FilterListItem implements Parcelable {
     public Bitmap listingIcon = null;
 
     /**
+     * Text Color. <code>0</code> => default color
+     */
+    public int color = 0;
+
+    /**
      * Context Menu labels. The context menu will be displayed when users
      * long-press on this filter list item.
      */
@@ -52,11 +57,10 @@ abstract public class FilterListItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(listingTitle);
         dest.writeParcelable(listingIcon, 0);
+        dest.writeInt(color);
 
         // write array lengths before arrays
-        dest.writeInt(contextMenuLabels.length);
         dest.writeStringArray(contextMenuLabels);
-        dest.writeInt(contextMenuIntents.length);
         dest.writeTypedArray(contextMenuIntents, 0);
     }
 
@@ -68,12 +72,9 @@ abstract public class FilterListItem implements Parcelable {
     public void readFromParcel(Parcel source) {
         listingTitle = source.readString();
         listingIcon = source.readParcelable(Bitmap.class.getClassLoader());
+        color = source.readInt();
 
-        int length = source.readInt();
-        contextMenuLabels = new String[length];
-        source.readStringArray(contextMenuLabels);
-        length = source.readInt();
-        contextMenuIntents = new Intent[length];
-        source.readTypedArray(contextMenuIntents, Intent.CREATOR);
+        contextMenuLabels = source.createStringArray();
+        contextMenuIntents = source.createTypedArray(Intent.CREATOR);
     }
 }

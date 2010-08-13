@@ -18,6 +18,7 @@ import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
+import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
@@ -32,6 +33,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
 import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
@@ -361,7 +363,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
 
         sortFlags = Preferences.getInt(SortSelectionActivity.PREF_SORT_FLAGS, 0);
-        sortSort= Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
+        sortSort = Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
+
+        // dithering
+        getWindow().setFormat(PixelFormat.RGBA_8888);
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
     private void setUpBackgroundJobs() {
@@ -379,7 +385,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                         loadTaskListContent(true);
                     }
                 });
-                System.err.println("timer trigger REFRESH");
             }
         }, 120000L, 120000L);
     }

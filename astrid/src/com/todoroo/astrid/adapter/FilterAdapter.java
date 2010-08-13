@@ -332,6 +332,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         viewHolder.icon.setImageBitmap(filter.listingIcon);
 
         viewHolder.name.setText(filter.listingTitle);
+        if(filter.color != 0)
+            viewHolder.name.setTextColor(filter.color);
 
         // selection
         if(selection == viewHolder.item) {

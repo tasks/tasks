@@ -14,10 +14,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
 import android.view.SubMenu;
 import android.view.View;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.Button;
 import android.widget.TextView;
@@ -171,7 +171,8 @@ public class CustomFilterActivity extends ListActivity {
         criteria.add(criterion);
 
         // built in criteria: tags
-        Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, Criterion.all);
+        Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
+                TaskCriteria.activeAndVisible());
         String[] tagNames = new String[tags.length];
         for(int i = 0; i < tags.length; i++)
             tagNames[i] = tags[i].tag;

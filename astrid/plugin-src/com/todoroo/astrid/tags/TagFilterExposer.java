@@ -3,11 +3,16 @@
  */
 package com.todoroo.astrid.tags;
 
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.TreeSet;
+
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 
 import com.timsu.astrid.R;
@@ -43,6 +48,8 @@ public class TagFilterExposer extends BroadcastReceiver {
         Filter filter = new Filter(listTitle,
                 title, tagTemplate,
                 contentValues);
+        if(tag.count == 0)
+            filter.color = Color.GRAY;
 
 //        filters[0].contextMenuLabels = new String[] {
 //            "Rename Tag",
@@ -65,8 +72,29 @@ public class TagFilterExposer extends BroadcastReceiver {
         if(tags.length == 0)
             return;
 
-        Resources r = context.getResources();
+        // sort tags by # of active tasks
+        Tag[] activeTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE, TaskCriteria.activeAndVisible());
+        HashMap<String, Integer> actives = new HashMap<String, Integer>();
+        for(Tag tag : activeTags)
+            actives.put(tag.tag, tag.count);
+        TreeSet<Tag> sortedTagSet = new TreeSet<Tag>(new Comparator<Tag>() {
+            @Override
+            public int compare(Tag a, Tag b) {
+                if(a.count == b.count)
+                    return a.tag.toLowerCase().compareTo(b.tag.toLowerCase());
+                return b.count - a.count;
+            }
+        });
+        for(Tag tag : tags) {
+            if(!actives.containsKey(tag.tag))
+                tag.count = 0;
+            else
+                tag.count = actives.get(tag.tag);
+            sortedTagSet.add(tag);
+        }
 
+        // create filter list
+        Resources r = context.getResources();
         FilterListItem[] list = new FilterListItem[3];
 
         FilterListHeader tagsHeader = new FilterListHeader(context.getString(R.string.tag_FEx_header));
@@ -80,12 +108,13 @@ public class TagFilterExposer extends BroadcastReceiver {
         list[1] = untagged;
 
 
-        Filter[] filters = new Filter[tags.length];
-        for(int i = 0; i < tags.length; i++)
-            filters[i] = filterFromTag(context, tags[i], TaskCriteria.isActive());
+        Filter[] filters = new Filter[sortedTagSet.size()];
+        int index = 0;
+        for(Tag tag : sortedTagSet) {
+            filters[index++] = filterFromTag(context, tag, TaskCriteria.isActive());
+        }
         FilterCategory tagsFilter = new FilterCategory(context.getString(R.string.tag_FEx_by_size), filters);
         list[2] = tagsFilter;
-
 
         // transmit filter list
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
