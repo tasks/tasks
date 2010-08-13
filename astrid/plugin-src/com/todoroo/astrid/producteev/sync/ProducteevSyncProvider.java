@@ -30,6 +30,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.model.Metadata;
@@ -240,6 +241,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
             Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_SYNC, invoker.time());
             preferences.recordSuccessfulSync();
+
+            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+            ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
             FlurryAgent.onEvent("pdv-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {

@@ -3,6 +3,8 @@ package com.todoroo.astrid.activity;
 import java.util.Date;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.AlertDialog;
@@ -22,25 +24,25 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -142,13 +144,15 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
+    protected RefreshReceiver refreshReceiver = new RefreshReceiver();
 
-    ImageButton quickAddButton;
-    EditText quickAddBox;
-    Filter filter;
-    int sortFlags;
-    int sortSort;
-    AtomicReference<String> sqlQueryTemplate = new AtomicReference<String>();
+    private ImageButton quickAddButton;
+    private EditText quickAddBox;
+    private Filter filter;
+    private int sortFlags;
+    private int sortSort;
+    private final AtomicReference<String> sqlQueryTemplate = new AtomicReference<String>();
+    private Timer backgroundTimer;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -188,7 +192,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if(Constants.DEBUG)
             setTitle("[D] " + filter.title); //$NON-NLS-1$
 
-        // cache some stuff
+        // perform caching
         new Thread(new Runnable() {
             public void run() {
                 loadContextMenuIntents();
@@ -360,6 +364,26 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         sortSort= Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
     }
 
+    private void setUpBackgroundJobs() {
+        backgroundTimer = new Timer();
+
+        // start a thread to refresh periodically
+        backgroundTimer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                // refresh if conditions match
+                Flags.checkAndClear(Flags.REFRESH);
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        loadTaskListContent(true);
+                    }
+                });
+                System.err.println("timer trigger REFRESH");
+            }
+        }, 120000L, 120000L);
+    }
+
     /* ======================================================================
      * ============================================================ lifecycle
      * ====================================================================== */
@@ -385,12 +409,36 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DECORATIONS));
         registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_ACTIONS));
+        registerReceiver(refreshReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+        setUpBackgroundJobs();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         unregisterReceiver(detailReceiver);
+        unregisterReceiver(refreshReceiver);
+        backgroundTimer.cancel();
+    }
+
+    /**
+     * Receiver which receives refresh intents
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    protected class RefreshReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    taskAdapter.flushCaches();
+                    loadTaskListContent(true);
+                }
+            });
+        }
     }
 
     /**

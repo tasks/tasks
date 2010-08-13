@@ -181,6 +181,11 @@ public class AstridApiConstants {
     // --- Events API
 
     /**
+     * Action name for broadcast intent notifying task list to refresh
+     */
+    public static final String BROADCAST_EVENT_REFRESH = PACKAGE + ".REFRESH";
+
+    /**
      * Action name for broadcast intent notifying that task was completed
      * @extra EXTRAS_TASK_ID id of the task
      */
