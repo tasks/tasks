@@ -42,7 +42,7 @@ public final class Filter extends FilterListItem {
     public String title;
 
     /**
-     * SQL query for this filter. The query will be appended to the select
+     * {@link PermaSql} query for this filter. The query will be appended to the select
      * statement after "<code>SELECT fields FROM table %s</code>". It is
      * recommended that you use a {@link QueryTemplate} to construct your
      * query.
@@ -63,13 +63,13 @@ public final class Filter extends FilterListItem {
      * Values to apply to a task when quick-adding a task from this filter.
      * For example, when a user views tasks tagged 'ABC', the
      * tasks they create should also be tagged 'ABC'. If set to null, no
-     * additional values will be stored for a task.
+     * additional values will be stored for a task. Can use {@link PermaSql}
      */
     @CheckForNull
     public ContentValues valuesForNewTasks = null;
 
     /**
-     * Utility constructor for creating a TaskList object
+     * Utility constructor for creating a Filter object
      * @param listingTitle
      *            Title of this item as displayed on the lists page, e.g. Inbox
      * @param title
@@ -82,10 +82,27 @@ public final class Filter extends FilterListItem {
      */
     public Filter(String listingTitle, String title,
             QueryTemplate sqlQuery, ContentValues valuesForNewTasks) {
+        this(listingTitle, title, sqlQuery == null ? null : sqlQuery.toString(),
+                valuesForNewTasks);
+    }
+
+    /**
+     * Utility constructor for creating a Filter object
+     * @param listingTitle
+     *            Title of this item as displayed on the lists page, e.g. Inbox
+     * @param title
+     *            Expanded title of this filter when user is viewing this
+     *            filter, e.g. Inbox (20 tasks)
+     * @param sqlQuery
+     *            SQL query for this list (see {@link sqlQuery} for examples).
+     * @param valuesForNewTasks
+     *            see {@link sqlForNewTasks}
+     */
+    public Filter(String listingTitle, String title,
+            String sqlQuery, ContentValues valuesForNewTasks) {
         this.listingTitle = listingTitle;
         this.title = title;
-        if(sqlQuery != null)
-            this.sqlQuery = sqlQuery.toString();
+        this.sqlQuery = sqlQuery;
         this.valuesForNewTasks = valuesForNewTasks;
     }
 

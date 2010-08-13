@@ -6,6 +6,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
@@ -39,6 +40,9 @@ public final class PluginServices {
 
     @Autowired
     AddOnService addOnService;
+
+    @Autowired
+    StoreObjectDao storeObjectDao;
 
     private static PluginServices instance;
 
@@ -80,5 +84,9 @@ public final class PluginServices {
 
     public static DateUtilities getDateUtilities() {
         return getInstance().dateUtilities;
+    }
+
+    public static StoreObjectDao getStoreObjectDao() {
+        return getInstance().storeObjectDao;
     }
 }

@@ -10,24 +10,26 @@
     <!-- Header -->
     <LinearLayout
         android:layout_width="fill_parent" 
-        android:layout_height="wrap_content"
+        android:layout_height="42dip"
         android:layout_weight="1"
         android:orientation="horizontal"
         android:background="@drawable/edit_header">
     
-        <!-- Back Button -->
+        <!-- Filters Button -->
         <ImageView android:id="@+id/back"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:src="@drawable/tango_previous"
+            android:src="@drawable/tango_windows"
+            android:scaleType="center"
             android:paddingTop="8dip"
-            android:paddingLeft="5dip"/> 
+            android:paddingLeft="5dip" 
+            android:paddingRight="5dip"/> 
         
         <!-- List Label -->
         <TextView android:id="@+id/listLabel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_weight="100"
             android:singleLine="true"
             android:paddingTop="6dip"

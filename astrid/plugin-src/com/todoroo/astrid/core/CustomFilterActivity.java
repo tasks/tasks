@@ -2,6 +2,7 @@ package com.todoroo.astrid.core;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map.Entry;
 
 import android.app.ListActivity;
 import android.content.ContentValues;
@@ -10,6 +11,8 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.SubMenu;
@@ -25,11 +28,14 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -45,6 +51,11 @@ import com.todoroo.astrid.tags.TagService.Tag;
  *
  */
 public class CustomFilterActivity extends ListActivity {
+
+    private static final String IDENTIFIER_TAG = "tag"; //$NON-NLS-1$
+    private static final String IDENTIFIER_IMPORTANCE = "importance"; //$NON-NLS-1$
+    private static final String IDENTIFIER_DUEDATE = "dueDate"; //$NON-NLS-1$
+    private static final String IDENTIFIER_UNIVERSE = "active"; //$NON-NLS-1$
 
     static final int MENU_GROUP_FILTER = 0;
     static final int MENU_GROUP_FILTER_OPTION = 1;
@@ -113,20 +124,23 @@ public class CustomFilterActivity extends ListActivity {
 
         // built in criteria: due date
         String[] entryValues = new String[] {
-                CustomFilterCriterion.VALUE_EOD_YESTERDAY,
-                CustomFilterCriterion.VALUE_EOD,
-                CustomFilterCriterion.VALUE_EOD_TOMORROW,
-                CustomFilterCriterion.VALUE_EOD_DAY_AFTER,
-                CustomFilterCriterion.VALUE_EOD_NEXT_WEEK,
+                "0",
+                PermaSql.VALUE_EOD_YESTERDAY,
+                PermaSql.VALUE_EOD,
+                PermaSql.VALUE_EOD_TOMORROW,
+                PermaSql.VALUE_EOD_DAY_AFTER,
+                PermaSql.VALUE_EOD_NEXT_WEEK,
         };
         ContentValues values = new ContentValues();
         values.put(Task.DUE_DATE.name, "?");
         CustomFilterCriterion criterion = new CustomFilterCriterion(
+                IDENTIFIER_DUEDATE,
                 getString(R.string.CFC_dueBefore_text),
                 Query.select(Task.ID).from(Task.TABLE).where(
                         Criterion.and(
                                 TaskCriteria.activeAndVisible(),
-                                Task.DUE_DATE.gt(0),
+                                Task.DUE_DATE.gt(Functions.caseStatement(Field.field("?").eq(0),
+                                        -1, 0)),
                                 Task.DUE_DATE.lte("?"))).toString(),
                 values, r.getStringArray(R.array.CFC_dueBefore_entries),
                 entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap(),
@@ -146,6 +160,7 @@ public class CustomFilterActivity extends ListActivity {
         values = new ContentValues();
         values.put(Task.IMPORTANCE.name, "?");
         criterion = new CustomFilterCriterion(
+                IDENTIFIER_IMPORTANCE,
                 getString(R.string.CFC_importance_text),
                 Query.select(Task.ID).from(Task.TABLE).where(
                         Criterion.and(TaskCriteria.activeAndVisible(),
@@ -164,6 +179,7 @@ public class CustomFilterActivity extends ListActivity {
         values.put(Metadata.KEY.name, TagService.KEY);
         values.put(TagService.TAG.name, "?");
         criterion = new CustomFilterCriterion(
+                IDENTIFIER_TAG,
                 getString(R.string.CFC_tag_text),
                 Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
                             Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
@@ -178,7 +194,8 @@ public class CustomFilterActivity extends ListActivity {
 
     private CriterionInstance getStartingUniverse() {
         CriterionInstance instance = new CriterionInstance();
-        instance.criterion = new CustomFilterCriterion(getString(R.string.CFA_universe_all),
+        instance.criterion = new CustomFilterCriterion(IDENTIFIER_UNIVERSE,
+                getString(R.string.CFA_universe_all),
                 null, null, null, null, null, null);
         instance.type = CriterionInstance.TYPE_UNIVERSE;
         return instance;
@@ -193,10 +210,34 @@ public class CustomFilterActivity extends ListActivity {
             }
         });
 
-        ((Button)findViewById(R.id.saveAndView)).setOnClickListener(new View.OnClickListener() {
+        final Button saveAndView = ((Button)findViewById(R.id.saveAndView));
+        saveAndView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 saveAndView();
+            }
+        });
+
+        filterName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(s.length() == 0) {
+                    saveAndView.setText(R.string.CFA_button_view);
+                    saveAndView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tango_next, 0);
+                } else {
+                    saveAndView.setText(R.string.CFA_button_save);
+                    saveAndView.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.tango_save, 0);
+                }
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                    int after) {
+                //
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before,
+                    int count) {
+                //
             }
         });
 
@@ -258,47 +299,73 @@ public class CustomFilterActivity extends ListActivity {
     @SuppressWarnings("nls")
     void saveAndView() {
         StringBuilder sql = new StringBuilder(" WHERE ");
+        StringBuilder suggestedTitle = new StringBuilder();
+        ContentValues values = new ContentValues();
         for(int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
             if(instance.selectedIndex < 0 && instance.criterion.entryValues != null)
                 continue;
 
+            String entryTitle = "";
+            if(instance.criterion.entryTitles != null) {
+                entryTitle = instance.criterion.entryTitles[instance.selectedIndex];
+            }
+            String title = instance.criterion.text.replace("?", entryTitle);
+
+
             switch(instance.type) {
             case CriterionInstance.TYPE_ADD:
                 sql.append("OR ");
+                suggestedTitle.append(getString(R.string.CFA_type_add)).append(' ').
+                    append(title).append(' ');
                 break;
             case CriterionInstance.TYPE_SUBTRACT:
                 sql.append("AND NOT ");
+                suggestedTitle.append(getString(R.string.CFA_type_subtract)).append(' ').
+                    append(title).append(' ');
                 break;
             case CriterionInstance.TYPE_INTERSECT:
                 sql.append("AND ");
+                suggestedTitle.append(title).append(' ');
                 break;
             case CriterionInstance.TYPE_UNIVERSE:
             }
+
+
+            String entryValue = "";
+            if(instance.criterion.entryValues != null && instance.selectedIndex > -1)
+                entryValue = instance.criterion.entryValues[instance.selectedIndex];
 
             // special code for all tasks universe
             if(instance.criterion.sql == null)
                 sql.append(TaskCriteria.activeAndVisible()).append(' ');
             else {
-                String subSql = instance.criterion.sql.replace("?",
-                        instance.criterion.entryValues[instance.selectedIndex]);
-                subSql = CustomFilterCriterion.replacePlaceholders(subSql);
+                String subSql = instance.criterion.sql.replace("?", entryValue);
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
+            }
+
+            if(instance.criterion.valuesForNewTasks != null &&
+                    instance.type == CriterionInstance.TYPE_INTERSECT) {
+                for(Entry<String, Object> entry : instance.criterion.valuesForNewTasks.valueSet()) {
+                    values.put(entry.getKey().replace("?", entryValue),
+                            entry.getValue().toString().replace("?", entryValue));
+                }
+                values.putAll(instance.criterion.valuesForNewTasks);
             }
         }
 
         String title;
-        if(filterName.getText().length() > 0)
+        if(filterName.getText().length() > 0) {
+            // persist saved filter
             title = filterName.getText().toString();
-        else
-            title = filterName.getHint().toString();
+            SavedFilter.persist(adapter, title, sql.toString(), values);
+        } else {
+            // temporary
+            title = suggestedTitle.toString();
+        }
 
-        ContentValues values = new ContentValues(); // TODO
-        Filter filter = new Filter(title, title, null, values);
-        filter.sqlQuery = sql.toString();
-
-        // TODO save
-
+        // view
+        Filter filter = new Filter(title, title, sql.toString(), values);
         Intent taskListActivity = new Intent(this, TaskListActivity.class);
         taskListActivity.putExtra(TaskListActivity.TOKEN_FILTER, filter);
         startActivity(taskListActivity);
@@ -313,7 +380,6 @@ public class CustomFilterActivity extends ListActivity {
 
         StringBuilder sql = new StringBuilder(Query.select(new CountProperty()).from(Task.TABLE).toString()).
             append(" WHERE ");
-        StringBuilder suggestedTitle = new StringBuilder();
 
         for(int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
@@ -323,20 +389,12 @@ public class CustomFilterActivity extends ListActivity {
                 continue;
             }
 
-            String entryTitle = "";
-            if(instance.criterion.entryTitles != null) {
-                entryTitle = instance.criterion.entryTitles[instance.selectedIndex];
-            }
-            String title = instance.criterion.text.replace("?", entryTitle);
-
             switch(instance.type) {
             case CriterionInstance.TYPE_ADD:
                 sql.append("OR ");
-                title = getString(R.string.CFA_type_add) + " " + title;
                 break;
             case CriterionInstance.TYPE_SUBTRACT:
                 sql.append("AND NOT ");
-                title = getString(R.string.CFA_type_subtract) + " " + title;
                 break;
             case CriterionInstance.TYPE_INTERSECT:
                 sql.append("AND ");
@@ -344,15 +402,13 @@ public class CustomFilterActivity extends ListActivity {
             case CriterionInstance.TYPE_UNIVERSE:
             }
 
-            suggestedTitle.append(title).append(' ');
-
             // special code for all tasks universe
             if(instance.criterion.sql == null)
                 sql.append(TaskCriteria.activeAndVisible()).append(' ');
             else {
                 String subSql = instance.criterion.sql.replace("?",
                         instance.criterion.entryValues[instance.selectedIndex]);
-                subSql = CustomFilterCriterion.replacePlaceholders(subSql);
+                subSql = PermaSql.replacePlaceholders(subSql);
                 System.err.println(subSql);
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
             }
@@ -375,9 +431,6 @@ public class CustomFilterActivity extends ListActivity {
         }
 
         adapter.notifyDataSetInvalidated();
-
-        if(adapter.getCount() > 1 && filterName.getText().length() == 0)
-            filterName.setHint(suggestedTitle);
     }
 
     @Override

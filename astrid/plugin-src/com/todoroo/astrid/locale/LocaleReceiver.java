@@ -68,8 +68,7 @@ public class LocaleReceiver extends BroadcastReceiver {
 
                 // find out if we have active tasks with this tag
                 DependencyInjectionService.getInstance().inject(this);
-                Filter filter = new Filter(title, title, null, null);
-                filter.sqlQuery = sql;
+                Filter filter = new Filter(title, title, sql, null);
                 TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(
                         sql, null, Task.ID);
                 try {

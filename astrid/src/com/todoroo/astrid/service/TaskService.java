@@ -9,9 +9,10 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -178,6 +179,8 @@ public class TaskService {
                 sql = queryTemplate.replace("WHERE ", "WHERE " + whereConstraint + " AND ");
         } else
             sql = queryTemplate;
+
+        sql = PermaSql.replacePlaceholders(sql);
 
         return taskDao.query(Query.select(properties).withQueryTemplate(sql));
     }

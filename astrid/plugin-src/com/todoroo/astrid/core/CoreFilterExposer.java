@@ -3,7 +3,6 @@
  */
 package com.todoroo.astrid.core;
 
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -42,17 +41,10 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         SearchFilter searchFilter = new SearchFilter(r.getString(R.string.BFE_Search));
         searchFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_search)).getBitmap();
 
-        PendingIntent customFilterIntent = PendingIntent.getActivity(context, 0,
-                new Intent(context, CustomFilterActivity.class), 0);
-        IntentFilter customFilter = new IntentFilter(r.getString(R.string.BFE_Custom),
-                customFilterIntent);
-        customFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.gnome_filter)).getBitmap();
-
         // transmit filter list
-        FilterListItem[] list = new FilterListItem[3];
+        FilterListItem[] list = new FilterListItem[2];
         list[0] = inbox;
         list[1] = searchFilter;
-        list[2] = customFilter;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);

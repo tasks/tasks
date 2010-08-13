@@ -23,8 +23,8 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.widget.TextView;
 
 import com.todoroo.andlib.service.Autowired;
@@ -38,6 +38,9 @@ import com.todoroo.andlib.service.ExceptionService;
  *
  */
 public class AndroidUtilities {
+
+    public static final String SEPARATOR_ESCAPE = "!PIPE!"; //$NON-NLS-1$
+    public static final String SERIALIZATION_SEPARATOR = "|"; //$NON-NLS-1$
 
     // --- utility methods
 
@@ -181,6 +184,62 @@ public class AndroidUtilities {
             if(array[i].equals(value))
                 return i;
         return -1;
+    }
+
+    /**
+     * Serializes a content value into a string
+     */
+    public static String contentValuesToSerializedString(ContentValues source) {
+        StringBuilder result = new StringBuilder();
+        for(Entry<String, Object> entry : source.valueSet()) {
+            result.append(entry.getKey().replace(SERIALIZATION_SEPARATOR, SEPARATOR_ESCAPE)).append(
+                    SERIALIZATION_SEPARATOR);
+            Object value = entry.getValue();
+            if(value instanceof Integer)
+                result.append('i').append(value);
+            else if(value instanceof Double)
+                result.append('d').append(value);
+            else if(value instanceof Long)
+                result.append('l').append(value);
+            else if(value instanceof String)
+                result.append('s').append(value.toString());
+            else
+                throw new UnsupportedOperationException(value.getClass().toString());
+            result.append(SERIALIZATION_SEPARATOR);
+        }
+        return result.toString();
+    }
+
+    /**
+     * Turn ContentValues into a string
+     * @param string
+     * @return
+     */
+    public static ContentValues contentValuesFromSerializedString(String string) {
+        if(string == null)
+            return new ContentValues();
+
+        String[] pairs = string.split("\\" + SERIALIZATION_SEPARATOR); //$NON-NLS-1$
+        ContentValues result = new ContentValues();
+        for(int i = 0; i < pairs.length; i += 2) {
+            String key = pairs[i].replaceAll(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR);
+            String value = pairs[i+1].substring(1);
+            switch(pairs[i+1].charAt(0)) {
+            case 'i':
+                result.put(key, Integer.parseInt(value));
+                break;
+            case 'd':
+                result.put(key, Double.parseDouble(value));
+                break;
+            case 'l':
+                result.put(key, Long.parseLong(value));
+                break;
+            case 's':
+                result.put(key, value.replace(SEPARATOR_ESCAPE, SERIALIZATION_SEPARATOR));
+                break;
+            }
+        }
+        return result;
     }
 
     /**

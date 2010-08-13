@@ -3,15 +3,10 @@
  */
 package com.todoroo.astrid.api;
 
-import java.util.Date;
-
 import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
-
-import com.todoroo.andlib.utility.DateUtilities;
-
 import edu.umd.cs.findbugs.annotations.CheckForNull;
 
 /**
@@ -23,49 +18,13 @@ import edu.umd.cs.findbugs.annotations.CheckForNull;
  */
 public final class CustomFilterCriterion implements Parcelable {
 
-    // --- placeholder strings
-
-    /** value to be replaced with the current time as long */
-    public static final String VALUE_NOW = "NOW()"; //$NON-NLS-1$
-
-    /** value to be replaced by end of day as long */
-    public static final String VALUE_EOD = "EOD()"; //$NON-NLS-1$
-
-    /** value to be replaced by end of day yesterday as long */
-    public static final String VALUE_EOD_YESTERDAY = "EODY()"; //$NON-NLS-1$
-
-    /** value to be replaced by end of day tomorrow as long */
-    public static final String VALUE_EOD_TOMORROW = "EODT()"; //$NON-NLS-1$
-
-    /** value to be replaced by end of day day after tomorrow as long */
-    public static final String VALUE_EOD_DAY_AFTER = "EODTT()"; //$NON-NLS-1$
-
-    /** value to be replaced by end of day next week as long */
-    public static final String VALUE_EOD_NEXT_WEEK = "EODW()"; //$NON-NLS-1$
-
-    /** Replace placeholder strings with actual */
-    public static String replacePlaceholders(String value) {
-        if(value.contains(VALUE_NOW))
-            value = value.replace(VALUE_NOW, Long.toString(DateUtilities.now()));
-        if(value.contains(VALUE_EOD) || value.contains(VALUE_EOD_DAY_AFTER) ||
-                value.contains(VALUE_EOD_NEXT_WEEK) || value.contains(VALUE_EOD_TOMORROW) ||
-                value.contains(VALUE_EOD_YESTERDAY)) {
-            Date date = new Date();
-            date.setHours(23);
-            date.setMinutes(59);
-            date.setSeconds(59);
-            long time = date.getTime();
-            value = value.replace(VALUE_EOD_YESTERDAY, Long.toString(time - DateUtilities.ONE_DAY));
-            value = value.replace(VALUE_EOD, Long.toString(time));
-            value = value.replace(VALUE_EOD_TOMORROW, Long.toString(time + DateUtilities.ONE_DAY));
-            value = value.replace(VALUE_EOD_DAY_AFTER, Long.toString(time + 2 * DateUtilities.ONE_DAY));
-            value = value.replace(VALUE_EOD_NEXT_WEEK, Long.toString(time + 7 * DateUtilities.ONE_DAY));
-        }
-        return value;
-    }
-
-
-    // --- instance variables
+    /**
+     * Criteria Identifier. This identifier allows saved filters to be reloaded.
+     * <p>
+     * e.g "duedate"
+     */
+    @CheckForNull
+    public String identifier;
 
     /**
      * Criteria Title. If the title contains ?, this is replaced by the entry
@@ -134,9 +93,10 @@ public final class CustomFilterCriterion implements Parcelable {
      * @param icon
      * @param name
      */
-    public CustomFilterCriterion(String title, String sql,
+    public CustomFilterCriterion(String identifier, String title, String sql,
             ContentValues valuesForNewTasks, String[] entryTitles,
             String[] entryValues, Bitmap icon, String name) {
+        this.identifier = identifier;
         this.text = title;
         this.sql = sql;
         this.valuesForNewTasks = valuesForNewTasks;
@@ -159,6 +119,7 @@ public final class CustomFilterCriterion implements Parcelable {
      * {@inheritDoc}
      */
     public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(identifier);
         dest.writeString(text);
         dest.writeString(sql);
         dest.writeParcelable(valuesForNewTasks, 0);
@@ -178,7 +139,7 @@ public final class CustomFilterCriterion implements Parcelable {
          */
         public CustomFilterCriterion createFromParcel(Parcel source) {
             CustomFilterCriterion item = new CustomFilterCriterion(
-                    source.readString(), source.readString(),
+                    source.readString(), source.readString(), source.readString(),
                     (ContentValues)source.readParcelable(ContentValues.class.getClassLoader()),
                     source.createStringArray(), source.createStringArray(),
                     (Bitmap)source.readParcelable(Bitmap.class.getClassLoader()),

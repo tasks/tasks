@@ -20,9 +20,10 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:src="@drawable/tango_previous"
-            android:paddingLeft="5dip"
-            android:paddingRight="8dip"/>
+            android:src="@drawable/tango_windows"
+            android:paddingTop="8dip"
+            android:paddingLeft="5dip" 
+            android:paddingRight="5dip"/> 
         
         <!-- List Label -->
         <TextView android:id="@+id/listLabel"

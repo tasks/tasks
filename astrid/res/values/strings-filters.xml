@@ -14,17 +14,17 @@
     
     <!-- Build Your Own Filter -->
     <string name="BFE_Custom">Custom Filter...</string>
+    
+    <!-- Saved Filters Header -->
+    <string name="BFE_Saved">Saved Filters</string>
 
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- Build Your Own Filter Activity Title-->
     <string name="CFA_title">Custom Filter</string>
     
-    <!-- Filter Name edit box hint -->
-    <string name="CFA_filterName_hint">Filter Name</string>
-    
-    <!-- Filter Name default for new filters -->
-    <string name="CFA_filterName_new">New Filter</string>
+    <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
+    <string name="CFA_filterName_hint">Name this filter to save it...</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
     <string name="CFA_filterName_copy">Copy of %s</string>
@@ -50,12 +50,15 @@
     <!-- Filter Screen Help Text -->
     <string name="CFA_help">This screen lets you create a new filters. Add 
     criteria using the button below, short or long-press them to adjust, and
-    then click \"Save &amp; View\"!</string>
+    then click \"View\"!</string>
     
     <!-- Filter Button: add new -->
     <string name="CFA_button_add">Add Criteria</string>
     
-    <!-- Filter Button: save & go -->
+    <!-- Filter Button: view without saving -->
+    <string name="CFA_button_view">View</string>
+    
+    <!-- Filter Button: save & view filter -->
     <string name="CFA_button_save">Save &amp; View</string>
 
     <!-- =========================================== CustomFilterCriteria == -->
@@ -66,6 +69,7 @@
     <string name="CFC_dueBefore_name">Due By...</string>
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
+        <item>No Due Date</item>
         <item>Yesterday</item>
         <item>Today</item>
         <item>Tomorrow</item>
