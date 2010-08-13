@@ -68,6 +68,9 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
             // display dashboard if not "no sync" or "default"
             StoreObject ownerDashboard = null;
             for(StoreObject dashboard : ProducteevDataService.getInstance().getDashboards()) {
+                if(dashboard == null || !dashboard.containsNonNullValue(ProducteevDashboard.REMOTE_ID))
+                    continue;
+
                 if(dashboard.getValue(ProducteevDashboard.REMOTE_ID) == dashboardId) {
                     ownerDashboard = dashboard;
                     break;

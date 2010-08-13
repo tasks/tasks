@@ -54,8 +54,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     private ProducteevInvoker invoker = null;
     private final ProducteevUtilities preferences = ProducteevUtilities.INSTANCE;
 
-    /** map of producteev labels to id's */
-    private final HashMap<ProducteevLabel, Long> labelMap = new HashMap<ProducteevLabel, Long>();
+    /** map of producteev dashboard id + label name  to id's */
+    private final HashMap<String, Long> labelMap = new HashMap<String, Long>();
 
     static {
         AstridDependencyInjector.initialize();
@@ -477,22 +477,19 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
             if(toAdd.size() > 0) {
                 for(String label : toAdd) {
-                    ProducteevLabel pdvLabel = new ProducteevLabel();
-                    pdvLabel.name = label;
-                    pdvLabel.dashboard = idDashboard;
+                    String pdvLabel = idDashboard + label;
                     if(!labelMap.containsKey(pdvLabel)) {
                         JSONObject result = invoker.labelsCreate(idDashboard, label).getJSONObject("label");
-                        putLabelIntoCache(result);
-                    }
-                    invoker.tasksSetLabel(idTask, labelMap.get(pdvLabel));
+                        long id = putLabelIntoCache(result);
+                        invoker.tasksSetLabel(idTask, id);
+                    } else
+                        invoker.tasksSetLabel(idTask, labelMap.get(pdvLabel));
                 }
             }
 
             if(toRemove.size() > 0) {
                 for(String label : toRemove) {
-                    ProducteevLabel pdvLabel = new ProducteevLabel();
-                    pdvLabel.name = label;
-                    pdvLabel.dashboard = idDashboard;
+                    String pdvLabel = idDashboard + label;
                     if(!labelMap.containsKey(pdvLabel))
                         continue;
                     invoker.tasksUnsetLabel(idTask, labelMap.get(pdvLabel));
@@ -608,11 +605,6 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         destination.pdvTask = source.pdvTask;
     }
 
-    public class ProducteevLabel {
-        public String name;
-        public long dashboard;
-    }
-
     /**
      * Read labels into label map
      * @param dashboardId
@@ -633,12 +625,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      * @param label
      * @throws JSONException
      */
-    private void putLabelIntoCache(JSONObject label)
+    private long putLabelIntoCache(JSONObject label)
             throws JSONException {
-        ProducteevLabel labelContainer = new ProducteevLabel();
-        labelContainer.name = ApiUtilities.decode(label.getString("title"));
-        labelContainer.dashboard = label.getLong("id_dashboard");
-        labelMap.put(labelContainer, label.getLong("id_label"));
+        String name = ApiUtilities.decode(label.getString("title"));
+        long dashboard = label.getLong("id_dashboard");
+        labelMap.put(dashboard + name, label.getLong("id_label"));
+        return label.getLong("id_label");
     }
 
     // ----------------------------------------------------------------------
