@@ -48,13 +48,13 @@ import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.widget.GestureService;
@@ -64,6 +64,7 @@ import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.backup.BackupActivity;
@@ -350,7 +351,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             public void onClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(), false);
                 Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
-                intent.putExtra(TaskEditActivity.ID_TOKEN, task.getId());
+                intent.putExtra(TaskEditActivity.TOKEN_ID, task.getId());
                 startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             }
         });
@@ -629,29 +630,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     @SuppressWarnings("nls")
     protected Task quickAddTask(String title, boolean selectNewTask) {
         try {
-            Task task = new Task();
+            Task task = createWithValues(filter.valuesForNewTasks,
+                    taskService, metadataService);
             task.setValue(Task.TITLE, title.trim());
-            ContentValues forMetadata = null;
-            if(filter.valuesForNewTasks != null && filter.valuesForNewTasks.size() > 0) {
-                ContentValues forTask = new ContentValues();
-                forMetadata = new ContentValues();
-                for(Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
-                    if(Long.valueOf(Filter.VALUE_NOW).equals(item.getValue()))
-                        item.setValue(DateUtilities.now());
-                    if(item.getKey().startsWith(Task.TABLE.name))
-                        AndroidUtilities.putInto(forTask, item.getKey(), item.getValue());
-                    else
-                        AndroidUtilities.putInto(forMetadata, item.getKey(), item.getValue());
-                }
-                task.mergeWith(forTask);
-            }
-            taskService.save(task, false);
-            if(forMetadata != null && forMetadata.size() > 0) {
-                Metadata metadata = new Metadata();
-                metadata.setValue(Metadata.TASK, task.getId());
-                metadata.mergeWith(forMetadata);
-                metadataService.save(metadata);
-            }
 
             TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
@@ -666,6 +647,46 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             exceptionService.displayAndReportError(this, "quick-add-task", e);
             return new Task();
         }
+    }
+
+    /**
+     * Create task from the given content values, saving it.
+     * @param values
+     * @param taskService
+     * @param metadataService
+     * @return
+     */
+    public static Task createWithValues(ContentValues values, TaskService taskService,
+            MetadataService metadataService) {
+        Task task = new Task();
+        ContentValues forMetadata = null;
+        if(values != null && values.size() > 0) {
+            ContentValues forTask = new ContentValues();
+            forMetadata = new ContentValues();
+            outer: for(Entry<String, Object> item : values.valueSet()) {
+                String key = item.getKey();
+                Object value = item.getValue();
+                if(value instanceof String)
+                    value = PermaSql.replacePlaceholders((String)value);
+
+                for(Property<?> property : Metadata.PROPERTIES)
+                    if(property.name.equals(key)) {
+                        AndroidUtilities.putInto(forMetadata, key, value);
+                        continue outer;
+                    }
+
+                AndroidUtilities.putInto(forTask, key, value);
+            }
+            task.mergeWith(forTask);
+        }
+        taskService.save(task, false);
+        if(forMetadata != null && forMetadata.size() > 0) {
+            Metadata metadata = new Metadata();
+            metadata.setValue(Metadata.TASK, task.getId());
+            metadata.mergeWith(forMetadata);
+            metadataService.save(metadata);
+        }
+        return task;
     }
 
     protected Pair<CharSequence, Intent>[] contextMenuItemCache = null;
@@ -784,7 +805,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         case CONTEXT_MENU_EDIT_TASK_ID: {
             itemId = item.getGroupId();
             intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
-            intent.putExtra(TaskEditActivity.ID_TOKEN, itemId);
+            intent.putExtra(TaskEditActivity.TOKEN_ID, itemId);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
             return true;
         }

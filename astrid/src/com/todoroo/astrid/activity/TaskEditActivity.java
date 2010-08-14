@@ -30,6 +30,7 @@ import android.app.DatePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TabActivity;
 import android.content.BroadcastReceiver;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnCancelListener;
@@ -78,6 +79,7 @@ import com.todoroo.astrid.producteev.ProducteevControlSet;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagsControlSet;
@@ -101,7 +103,12 @@ public final class TaskEditActivity extends TabActivity {
     /**
      * Task ID
      */
-    public static final String ID_TOKEN = "i"; //$NON-NLS-1$
+    public static final String TOKEN_ID = "i"; //$NON-NLS-1$
+
+    /**
+     * Content Values to set
+     */
+    public static final String TOKEN_VALUES = "v"; //$NON-NLS-1$
 
     // --- request codes
 
@@ -130,6 +137,9 @@ public final class TaskEditActivity extends TabActivity {
 
     @Autowired
     private TaskService taskService;
+
+    @Autowired
+    private MetadataService metadataService;
 
     @Autowired
     private DateUtilities dateUtilities;
@@ -299,7 +309,7 @@ public final class TaskEditActivity extends TabActivity {
      */
     @SuppressWarnings("nls")
     protected void loadItem(Intent intent) {
-        long idParam = intent.getLongExtra(ID_TOKEN, -1L);
+        long idParam = intent.getLongExtra(TOKEN_ID, -1L);
 
         database.openForReading();
         if(idParam > -1L) {
@@ -308,8 +318,11 @@ public final class TaskEditActivity extends TabActivity {
 
         // not found by id or was never passed an id
         if(model == null) {
-            model = new Task();
-            taskService.save(model, false);
+            String valuesAsString = intent.getStringExtra(TOKEN_VALUES);
+            ContentValues values = null;
+            if(valuesAsString != null)
+                values = AndroidUtilities.contentValuesFromSerializedString(valuesAsString);
+            model = TaskListActivity.createWithValues(values, taskService, metadataService);
         }
         if(model.getValue(Task.TITLE).length() == 0)
             FlurryAgent.onEvent("create-task");

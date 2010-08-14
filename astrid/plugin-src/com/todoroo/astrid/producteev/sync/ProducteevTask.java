@@ -2,6 +2,8 @@ package com.todoroo.astrid.producteev.sync;
 
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.producteev.ProducteevUtilities;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Metadata entries for a Producteev Task
@@ -28,5 +30,15 @@ public class ProducteevTask {
     /** responsible id */
     public static final LongProperty RESPONSIBLE_ID = new LongProperty(Metadata.TABLE,
             Metadata.VALUE4.name);
+
+    public static Metadata newMetadata() {
+        Metadata metadata = new Metadata();
+        metadata.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
+        metadata.setValue(ID, 0L);
+        metadata.setValue(DASHBOARD_ID, ProducteevUtilities.INSTANCE.getDefaultDashboard());
+        metadata.setValue(CREATOR_ID, Preferences.getLong(ProducteevUtilities.PREF_USER_ID, 0L));
+        metadata.setValue(RESPONSIBLE_ID, Preferences.getLong(ProducteevUtilities.PREF_USER_ID, 0L));
+        return metadata;
+    }
 
 }

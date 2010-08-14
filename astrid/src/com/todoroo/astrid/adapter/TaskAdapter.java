@@ -556,7 +556,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 @Override
                 public void onClick(View arg0) {
                     Intent intent = new Intent(activity, TaskEditActivity.class);
-                    intent.putExtra(TaskEditActivity.ID_TOKEN, taskId);
+                    intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                     activity.startActivity(intent);
                 }
             });

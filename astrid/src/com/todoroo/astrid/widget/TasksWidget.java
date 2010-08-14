@@ -129,14 +129,10 @@ public class TasksWidget extends AppWidgetProvider {
             int[] separatorIDs = SEPARATOR_IDS;
             int numberOfTasks = 5;
 
-            Intent listIntent = new Intent(context, TaskListActivity.class);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
-                    listIntent, 0);
-            views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
-
             TodorooCursor<Task> cursor = null;
+            Filter filter = null;
             try {
-                Filter filter = getFilter(widgetId);
+                filter = getFilter(widgetId);
                 views.setTextViewText(R.id.widget_title, filter.title);
 
                 int flags = Preferences.getInt(SortSelectionActivity.PREF_SORT_FLAGS, 0);
@@ -178,7 +174,21 @@ public class TasksWidget extends AppWidgetProvider {
                     cursor.close();
             }
 
+            Intent listIntent = new Intent(context, TaskListActivity.class);
+            if(filter != null) {
+                listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+                listIntent.setType(filter.sqlQuery);
+            }
+            PendingIntent pendingIntent = PendingIntent.getActivity(context, 0,
+                    listIntent, 0);
+            views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
+
             Intent editIntent = new Intent(context, TaskEditActivity.class);
+            if(filter != null && filter.valuesForNewTasks != null) {
+                String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
+                editIntent.putExtra(TaskEditActivity.TOKEN_VALUES, values);
+                editIntent.setType(values);
+            }
             pendingIntent = PendingIntent.getActivity(context, 0,
                     editIntent, 0);
             views.setOnClickPendingIntent(R.id.widget_button, pendingIntent);

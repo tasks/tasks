@@ -351,7 +351,6 @@ public class CustomFilterActivity extends ListActivity {
                     values.put(entry.getKey().replace("?", entryValue),
                             entry.getValue().toString().replace("?", entryValue));
                 }
-                values.putAll(instance.criterion.valuesForNewTasks);
             }
         }
 

@@ -15,9 +15,9 @@
         
         <TextView
         	android:id="@+id/widget_title"
-        	android:layout_gravity="left" 
         	android:layout_width="82dp" 
-        	android:layout_height="47dp"
+        	android:layout_height="50dp"
+        	android:layout_gravity="left" 
             android:textColor="#ffffff"
             android:textSize="14sp"
             android:textStyle="bold"
@@ -29,7 +29,7 @@
         	android:src="@drawable/button_plus" 
         	android:layout_gravity="right" 
         	android:layout_width="35dp" 
-        	android:layout_height="47dp"
+        	android:layout_height="50dp"
             android:background="#00000000" />
       
     </LinearLayout>

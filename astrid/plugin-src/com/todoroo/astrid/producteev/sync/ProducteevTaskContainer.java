@@ -24,8 +24,7 @@ public class ProducteevTaskContainer extends TaskContainer {
         this.metadata = metadata;
         this.pdvTask = pdvTask;
         if(this.pdvTask == null) {
-            this.pdvTask = new Metadata();
-            this.pdvTask.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
+            this.pdvTask = ProducteevTask.newMetadata();
         }
     }
 
@@ -52,8 +51,7 @@ public class ProducteevTaskContainer extends TaskContainer {
             }
         }
         if(this.pdvTask == null) {
-            this.pdvTask = new Metadata();
-            this.pdvTask.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
+            this.pdvTask = ProducteevTask.newMetadata();
         }
     }
 

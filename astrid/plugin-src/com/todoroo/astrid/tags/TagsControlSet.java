@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -47,18 +48,21 @@ public final class TagsControlSet implements TaskEditControlSet {
     public void readFromTask(Task task) {
         tagsContainer.removeAllViews();
 
-        TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
-        try {
-            loadedTags = new String[cursor.getCount()];
-            for(int i = 0; i < loadedTags.length; i++) {
-                cursor.moveToNext();
-                String tag = cursor.get(TagService.TAG);
-                addTag(tag);
-                loadedTags[i] = tag;
+        if(task.getId() != AbstractModel.NO_ID) {
+            TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
+            try {
+                loadedTags = new String[cursor.getCount()];
+                for(int i = 0; i < loadedTags.length; i++) {
+                    cursor.moveToNext();
+                    String tag = cursor.get(TagService.TAG);
+                    addTag(tag);
+                    loadedTags[i] = tag;
+                }
+            } finally {
+                cursor.close();
             }
-        } finally {
-            cursor.close();
         }
+
         if(tagsContainer.getChildCount() == 0)
             addTag(""); //$NON-NLS-1$
     }
