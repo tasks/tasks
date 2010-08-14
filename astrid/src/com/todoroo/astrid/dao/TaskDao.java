@@ -154,8 +154,10 @@ public class TaskDao extends GenericDao<Task> {
         boolean saveSuccessful;
 
         ContentValues values = task.getSetValues();
-        if(values == null || values.size() == 0)
-            return false;
+        if(values == null || values.size() == 0) {
+            if(task.getDatabaseValues() != null)
+                return false;
+        }
 
         if (task.getId() == Task.NO_ID) {
             saveSuccessful = createNew(task);

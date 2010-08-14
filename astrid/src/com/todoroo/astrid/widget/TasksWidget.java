@@ -175,6 +175,7 @@ public class TasksWidget extends AppWidgetProvider {
             }
 
             Intent listIntent = new Intent(context, TaskListActivity.class);
+            listIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             if(filter != null) {
                 listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
                 listIntent.setType(filter.sqlQuery);
@@ -184,6 +185,7 @@ public class TasksWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
 
             Intent editIntent = new Intent(context, TaskEditActivity.class);
+            editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             if(filter != null && filter.valuesForNewTasks != null) {
                 String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
                 editIntent.putExtra(TaskEditActivity.TOKEN_VALUES, values);
