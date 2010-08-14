@@ -9,12 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 public class WidgetConfigActivity extends ExpandableListActivity {
@@ -56,6 +58,8 @@ public class WidgetConfigActivity extends ExpandableListActivity {
 
         Button button = (Button)findViewById(R.id.ok);
         button.setOnClickListener(mOnClickListener);
+
+        FlurryAgent.onEvent("widget-config"); //$NON-NLS-1$
     }
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -113,6 +117,18 @@ public class WidgetConfigActivity extends ExpandableListActivity {
     protected void onPause() {
         super.onPause();
         adapter.unregisterRecevier();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        FlurryAgent.onEndSession(this);
     }
 
     private void saveConfiguration(FilterListItem filterListItem) {

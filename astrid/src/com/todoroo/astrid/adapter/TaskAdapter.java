@@ -18,12 +18,12 @@ import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -42,6 +42,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.activity.TaskEditActivity;
+import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.alarms.AlarmDetailExposer;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.DetailExposer;
@@ -557,7 +558,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 public void onClick(View arg0) {
                     Intent intent = new Intent(activity, TaskEditActivity.class);
                     intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
-                    activity.startActivity(intent);
+                    activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
                 }
             });
             editButton.setLayoutParams(params);

@@ -495,6 +495,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode != RESULT_CANCELED) {
+            taskAdapter.flushCaches();
             loadTaskListContent(true);
             taskService.cleanup();
         }
