@@ -81,7 +81,7 @@
     </string-array>
     
     <!-- Criteria: importance - display text -->
-    <string name="CFC_importance_text">Importance: ?</string>
+    <string name="CFC_importance_text">Importance at least ?</string>
     <!-- Criteria: importance - name of criteria -->
     <string name="CFC_importance_name">Importance...</string>        
     

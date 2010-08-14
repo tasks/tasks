@@ -2,9 +2,9 @@ package com.todoroo.astrid.activity;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.AlertDialog;
@@ -25,26 +25,26 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -631,8 +631,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected Task quickAddTask(String title, boolean selectNewTask) {
         try {
             Task task = createWithValues(filter.valuesForNewTasks,
-                    taskService, metadataService);
-            task.setValue(Task.TITLE, title.trim());
+                    title.trim(), taskService, metadataService);
 
             TextView quickAdd = (TextView)findViewById(R.id.quickAddText);
             quickAdd.setText(""); //$NON-NLS-1$
@@ -652,13 +651,16 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     /**
      * Create task from the given content values, saving it.
      * @param values
+     * @param title
      * @param taskService
      * @param metadataService
      * @return
      */
-    public static Task createWithValues(ContentValues values, TaskService taskService,
+    public static Task createWithValues(ContentValues values, String title, TaskService taskService,
             MetadataService metadataService) {
         Task task = new Task();
+        if(title != null)
+            task.setValue(Task.TITLE, title);
         ContentValues forMetadata = null;
         if(values != null && values.size() > 0) {
             ContentValues forTask = new ContentValues();
