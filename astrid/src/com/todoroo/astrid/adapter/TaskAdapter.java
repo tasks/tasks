@@ -787,7 +787,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
          * @return list if there was already one
          */
         protected synchronized Collection<TYPE> initialize(long taskId) {
-            if(cache.containsKey(taskId))
+            if(cache.containsKey(taskId) && cache.get(taskId) != null)
                 return get(taskId);
             cache.put(taskId, new HashMap<String, TYPE>());
             return null;
