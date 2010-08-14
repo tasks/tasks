@@ -46,10 +46,8 @@ public class BackupService extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         try {
-            if (intent.getAction().equals(BACKUP_ACTION)) {
-                ContextManager.setContext(this);
-                startBackup(this);
-            }
+            ContextManager.setContext(this);
+            startBackup(this);
         } catch (Exception e) {
             PluginServices.getExceptionService().reportError("backup-bg-sync", e); //$NON-NLS-1$
         }
