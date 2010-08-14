@@ -227,8 +227,7 @@ public class TaskDao extends GenericDao<Task> {
             ReminderService.getInstance().scheduleAlarm(task);
 
         Astrid2TaskProvider.notifyDatabaseModification();
-        ContextManager.getContext().startService(new Intent(ContextManager.getContext(),
-                TasksWidget.UpdateService.class));
+        TasksWidget.updateWidgets(ContextManager.getContext());
     }
 
     /**

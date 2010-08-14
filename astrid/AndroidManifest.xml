@@ -116,7 +116,14 @@
               android:theme="@style/Theme" />
     <!-- Activity for preferences -->
     <activity android:name="com.todoroo.astrid.activity.EditPreferences" />
-
+    <!-- Activity that configures widget -->
+    <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity"
+              android:theme="@style/Theme">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+      </intent-filter>
+    </activity>
+    
     <!-- ======================================================= Receivers = -->
 
     <receiver android:name="com.todoroo.astrid.reminders.Notifications" />

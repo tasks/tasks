@@ -521,8 +521,11 @@ to the plugin creator for fastest service.
   
   <!-- ====================================================== TasksWidget == -->
 
-  <!-- Widget text when loading tasks -->                                                                                                                                                                          
+  <!-- Widget text when loading tasks -->
   <string name="TWi_loading">Loading...</string>
+
+  <!-- Widget configuration activity title: select a filter -->
+  <string name="WCA_title">Select tasks to view...</string>
   
   <!-- ============================================================= Misc == -->
   

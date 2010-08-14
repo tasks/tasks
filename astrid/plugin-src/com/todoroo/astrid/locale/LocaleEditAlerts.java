@@ -151,7 +151,7 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
 
         // if we match a selection, make it selected
         final String finalSelection = selectionToMatch;
-        adapter = new FilterAdapter(this, getExpandableListView(), R.layout.filter_adapter_row) {
+        adapter = new FilterAdapter(this, getExpandableListView(), R.layout.filter_adapter_row, true) {
             @Override
             public void onReceiveFilter(FilterListItem item) {
                 if(adapter.getSelection() != null || finalSelection == null)

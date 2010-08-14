@@ -18,6 +18,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.SortSelectionActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
@@ -36,6 +37,10 @@ public class TasksWidget extends AppWidgetProvider {
         AstridDependencyInjector.initialize();
     }
 
+   static final String PREF_TITLE = "taskswidget-title-"; //$NON-NLS-1$
+   static final String PREF_SQL = "taskswidget-sql-"; //$NON-NLS-1$
+   static final String PREF_VALUES = "taskswidget-values-"; //$NON-NLS-1$
+
     public final static int[]   TEXT_IDS      = { R.id.task_1, R.id.task_2,
         R.id.task_3, R.id.task_4, R.id.task_5 };
     public final static int[]   SEPARATOR_IDS = { R.id.separator_1,
@@ -49,13 +54,35 @@ public class TasksWidget extends AppWidgetProvider {
             super.onUpdate(context, appWidgetManager, appWidgetIds);
 
             // Start in service to prevent Application Not Responding timeout
-            context.startService(new Intent(context, UpdateService.class));
+            updateWidgets(context);
         } catch (SecurityException e) {
             // :(
         }
     }
 
+    /**
+     * Update all widgets
+     * @param id
+     */
+    public static void updateWidgets(Context context) {
+        context.startService(new Intent(ContextManager.getContext(),
+                TasksWidget.UpdateService.class));
+    }
+
+    /**
+     * Update widget with the given id
+     * @param id
+     */
+    public static void updateWidget(Context context, int id) {
+        Intent intent = new Intent(ContextManager.getContext(),
+                TasksWidget.UpdateService.class);
+        intent.putExtra(UpdateService.EXTRA_WIDGET_ID, id);
+        context.startService(intent);
+    }
+
     public static class UpdateService extends Service {
+
+        public static String EXTRA_WIDGET_ID = "widget_id"; //$NON-NLS-1$
 
         @Autowired
         Database database;
@@ -66,12 +93,22 @@ public class TasksWidget extends AppWidgetProvider {
         @Override
         public void onStart(Intent intent, int startId) {
             ContextManager.setContext(this);
-            RemoteViews updateViews = buildUpdate(this);
 
             ComponentName thisWidget = new ComponentName(this,
                     TasksWidget.class);
             AppWidgetManager manager = AppWidgetManager.getInstance(this);
-            manager.updateAppWidget(thisWidget, updateViews);
+
+            int extrasId = intent.getIntExtra(EXTRA_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+            if(extrasId == AppWidgetManager.INVALID_APPWIDGET_ID) {
+                for(int id : manager.getAppWidgetIds(thisWidget)) {
+                    RemoteViews updateViews = buildUpdate(this, id);
+                    manager.updateAppWidget(id, updateViews);
+                }
+            } else {
+                int id = extrasId;
+                RemoteViews updateViews = buildUpdate(this, id);
+                manager.updateAppWidget(id, updateViews);
+            }
         }
 
         @Override
@@ -80,7 +117,7 @@ public class TasksWidget extends AppWidgetProvider {
         }
 
         @SuppressWarnings("nls")
-        public RemoteViews buildUpdate(Context context) {
+        public RemoteViews buildUpdate(Context context, int widgetId) {
             DependencyInjectionService.getInstance().inject(this);
 
             RemoteViews views = null;
@@ -99,11 +136,13 @@ public class TasksWidget extends AppWidgetProvider {
 
             TodorooCursor<Task> cursor = null;
             try {
-                Filter inboxFilter = CoreFilterExposer.buildInboxFilter(getResources());
+                Filter filter = getFilter(widgetId);
+                views.setTextViewText(R.id.widget_title, filter.title);
+
                 int flags = Preferences.getInt(SortSelectionActivity.PREF_SORT_FLAGS, 0);
                 int sort = Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
                 String query = SortSelectionActivity.adjustQueryForFlagsAndSort(
-                        inboxFilter.sqlQuery, flags, sort) + " LIMIT " + numberOfTasks;
+                        filter.sqlQuery, flags, sort) + " LIMIT " + numberOfTasks;
 
                 database.openForReading();
                 cursor = taskService.fetchFiltered(query, null, Task.TITLE, Task.DUE_DATE);
@@ -145,6 +184,22 @@ public class TasksWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.widget_button, pendingIntent);
 
             return views;
+        }
+
+        private Filter getFilter(int widgetId) {
+            // base our filter off the inbox filter, replace stuff if we have it
+            Filter filter = CoreFilterExposer.buildInboxFilter(getResources());
+            String sql = Preferences.getStringValue(PREF_SQL + widgetId);
+            if(sql != null)
+                filter.sqlQuery = sql;
+            String title = Preferences.getStringValue(PREF_TITLE + widgetId);
+            if(title != null)
+                filter.title = title;
+            String contentValues = Preferences.getStringValue(PREF_VALUES + widgetId);
+            if(contentValues != null)
+                filter.valuesForNewTasks = AndroidUtilities.contentValuesFromSerializedString(contentValues);
+
+            return filter;
         }
 
     }

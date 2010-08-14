@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
@@ -46,14 +47,16 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     private final FilterReceiver filterReceiver = new FilterReceiver();
     private final int layout;
     private final LayoutInflater inflater;
+    private final boolean skipIntentFilters;
 
     public FilterAdapter(Activity activity, ExpandableListView listView,
-            int rowLayout) {
+            int rowLayout, boolean skipIntentFilters) {
         super();
         this.activity = activity;
         this.items = new ArrayList<FilterListItem>();
         this.listView = listView;
         this.layout = rowLayout;
+        this.skipIntentFilters = skipIntentFilters;
 
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
@@ -216,6 +219,12 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                 final Parcelable[] filters = intent.getExtras().
                     getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
                 for (Parcelable item : filters) {
+                    FilterListItem filter = (FilterListItem) item;
+                    if(skipIntentFilters && !(filter instanceof Filter ||
+                                filter instanceof FilterListHeader ||
+                                filter instanceof FilterCategory))
+                        continue;
+
                     add((FilterListItem)item);
                     onReceiveFilter((FilterListItem)item);
                 }

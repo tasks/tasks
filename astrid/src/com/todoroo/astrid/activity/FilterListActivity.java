@@ -190,7 +190,7 @@ public class FilterListActivity extends ExpandableListActivity {
     /** Sets up the coach list adapter */
     protected void setUpList() {
         adapter = new FilterAdapter(this, getExpandableListView(),
-                R.layout.filter_adapter_row);
+                R.layout.filter_adapter_row, false);
         setListAdapter(adapter);
 
         registerForContextMenu(getExpandableListView());
