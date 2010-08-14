@@ -53,6 +53,7 @@ public class ProducteevBackgroundService extends Service {
         if(ProducteevUtilities.INSTANCE.isOngoing())
             return;
 
+        PluginServices.getTaskService();
         new ProducteevSyncProvider().synchronize(context);
     }
 

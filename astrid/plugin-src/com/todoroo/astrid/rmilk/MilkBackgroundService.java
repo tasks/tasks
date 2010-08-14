@@ -53,6 +53,7 @@ public class MilkBackgroundService extends Service {
         if(MilkUtilities.isOngoing())
             return;
 
+        PluginServices.getTaskService();
         new RTMSyncProvider().synchronize(context);
     }
 
