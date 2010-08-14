@@ -124,10 +124,14 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
                 if(nextDate instanceof DateTimeValueImpl) {
                     DateTimeValueImpl newDateTime = (DateTimeValueImpl)nextDate;
+                    Date date = new Date(Date.UTC(newDateTime.year() - 1900, newDateTime.month() - 1,
+                            newDateTime.day(), newDateTime.hour(),
+                            newDateTime.minute(), newDateTime.second()));
+                    // time may be inaccurate due to DST, force time to be same
+                    date.setHours(repeatFromDate.getHours());
+                    date.setMinutes(repeatFromDate.getMinutes());
                     newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
-                            Date.UTC(newDateTime.year() - 1900, newDateTime.month() - 1,
-                                    newDateTime.day(), newDateTime.hour(),
-                                    newDateTime.minute(), newDateTime.second()));
+                            date.getTime());
                 } else {
                     newDueDate = task.createDueDate(Task.URGENCY_SPECIFIC_DAY,
                             new Date(nextDate.year() - 1900, nextDate.month() - 1,
