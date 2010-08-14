@@ -91,18 +91,18 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
         if (r.getString(getUtilities().getSyncIntervalKey()).equals(
                 preference.getKey())) {
             int index = AndroidUtilities.indexOf(
-                    r.getStringArray(R.array.rmilk_MPr_interval_values),
+                    r.getStringArray(R.array.sync_SPr_interval_values),
                     (String) value);
             if (index <= 0)
                 preference.setSummary(R.string.sync_SPr_interval_desc_disabled);
             else
                 preference.setSummary(r.getString(
                         R.string.sync_SPr_interval_desc,
-                        r.getStringArray(R.array.rmilk_MPr_interval_entries)[index]));
+                        r.getStringArray(R.array.sync_SPr_interval_entries)[index]));
         }
 
         // status
-        else if (r.getString(R.string.rmilk_MPr_status_key).equals(preference.getKey())) {
+        else if (r.getString(R.string.sync_SPr_status_key).equals(preference.getKey())) {
             boolean loggedIn = getUtilities().isLoggedIn();
             String status;
             String subtitle = ""; //$NON-NLS-1$
@@ -168,7 +168,7 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
         }
 
         // sync button
-        else if (r.getString(R.string.rmilk_MPr_sync_key).equals(preference.getKey())) {
+        else if (r.getString(R.string.sync_SPr_sync_key).equals(preference.getKey())) {
             boolean loggedIn = getUtilities().isLoggedIn();
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference p) {
@@ -182,12 +182,12 @@ abstract public class SyncProviderPreferences extends TodorooPreferences {
         }
 
         // log out button
-        else if (r.getString(R.string.rmilk_MPr_forget_key).equals(preference.getKey())) {
+        else if (r.getString(R.string.sync_SPr_forget_key).equals(preference.getKey())) {
             boolean loggedIn = getUtilities().isLoggedIn();
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference p) {
                     dialogUtilities.okCancelDialog(SyncProviderPreferences.this,
-                            r.getString(R.string.rmilk_forget_confirm), new OnClickListener() {
+                            r.getString(R.string.sync_forget_confirm), new OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog,
                                 int which) {

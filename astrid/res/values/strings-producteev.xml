@@ -4,23 +4,20 @@
    
     <!-- ====================== Plugin Boilerplate ========================= -->
 
-    <!-- task detail showing Producteev dashboard information (%s => workspace name) -->
-    <string name="producteev_TLA_dashboard">W: %s</string>
-
-    <!-- task detail showing Producteev responsible information (%s => responsible user) -->
-    <string name="producteev_TLA_responsible">R: %s</string>
-    
     <!-- filters header: Producteev -->
     <string name="producteev_FEx_header">Producteev</string>
     
     <!-- filter category for Producteev dashboards -->
-    <string name="producteev_FEx_dashboard">Producteev Workspaces</string>
+    <string name="producteev_FEx_dashboard">Workspaces</string>
     
-    <!-- Producteev dashboard filter name ($N => dashboardname, $C => count) -->
-    <string name="producteev_FEx_dashboard_item">$N</string>
+    <!--  Producteev dashboard filter title (%s => dashboard name) -->
+    <string name="producteev_FEx_dashboard_title">%s</string>
+    
+    <!-- filter category for Producteev responsible person -->
+    <string name="producteev_FEx_responsible">Assigned To</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
-    <string name="producteev_FEx_dashboard_title">Workspace \'%s\'</string>
+    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
 
     <!-- ==================================================== Preferences == -->
 

@@ -32,10 +32,8 @@ import com.todoroo.astrid.producteev.sync.ProducteevTask;
  */
 public class ProducteevFilterExposer extends BroadcastReceiver {
 
-    @SuppressWarnings("nls")
     private Filter filterFromList(Context context, ProducteevDashboard dashboard) {
-        String dashboardTitle = context.getString(R.string.producteev_FEx_dashboard_item).
-            replace("$N", dashboard.getName());
+        String dashboardTitle = dashboard.getName();
         String title = context.getString(R.string.producteev_FEx_dashboard_title, dashboard.getName());
         ContentValues values = new ContentValues();
         values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
