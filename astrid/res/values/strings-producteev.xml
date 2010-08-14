@@ -10,6 +10,18 @@
     <!-- task detail showing Producteev responsible information (%s => responsible user) -->
     <string name="producteev_TLA_responsible">R: %s</string>
     
+    <!-- filters header: Producteev -->
+    <string name="producteev_FEx_header">Producteev</string>
+    
+    <!-- filter category for Producteev dashboards -->
+    <string name="producteev_FEx_dashboard">Producteev Workspaces</string>
+    
+    <!-- Producteev dashboard filter name ($N => dashboardname, $C => count) -->
+    <string name="producteev_FEx_dashboard_item">$N</string>
+    
+    <!--  Producteev dashboard filter title (%s => dashboardname) -->
+    <string name="producteev_FEx_dashboard_title">Workspace \'%s\'</string>
+
     <!-- ==================================================== Preferences == -->
 
     <!-- Preferences Title: Producteev -->    
