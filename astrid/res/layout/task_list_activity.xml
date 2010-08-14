@@ -32,7 +32,7 @@
             android:layout_weight="100"
             android:singleLine="true"
             android:paddingRight="50dip"
-            android:ellipsize="middle"
+            android:ellipsize="start"
             style="@style/TextAppearance.TLA_Header"/>
 
     </LinearLayout>
