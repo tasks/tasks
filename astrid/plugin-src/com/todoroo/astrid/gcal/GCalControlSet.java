@@ -10,15 +10,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.Toast;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -93,7 +93,7 @@ public class GCalControlSet implements TaskEditControlSet {
 
                 Intent intent = new Intent(Intent.ACTION_EDIT, calendarUri);
                 try {
-                    if(cursor.getCount() == 0) {
+                    if(cursor == null || cursor.getCount() == 0) {
                         // event no longer exists, recreate it
                         calendarUri = null;
                         writeToModel(myTask);
@@ -106,7 +106,8 @@ public class GCalControlSet implements TaskEditControlSet {
                     Log.e("gcal-error", "Error opening calendar", e); //$NON-NLS-1$ //$NON-NLS-2$
                     Toast.makeText(activity, R.string.gcal_TEA_error, Toast.LENGTH_LONG);
                 } finally {
-                    cursor.close();
+                    if(cursor != null)
+                        cursor.close();
                 }
 
                 activity.startActivity(intent);
