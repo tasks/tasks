@@ -84,10 +84,10 @@
             <action android:name="android.intent.action.MAIN" />
         </intent-filter>
     </activity>
-
     <!-- Activity that displays filter list -->
     <activity android:name="com.todoroo.astrid.activity.FilterListActivity"
               android:launchMode="singleTop"
+              android:finishOnTaskLaunch="true"
               android:theme="@style/Theme">
       <intent-filter>
         <action android:name="android.intent.action.SEARCH" />
@@ -313,6 +313,7 @@
     </receiver>
     <activity android:name="com.todoroo.astrid.reminders.NotificationActivity"
               android:taskAffinity="com.todoroo.astrid.reminders.NotificationActivity"
+              android:launchMode="singleTask"
               android:screenOrientation="portrait"
               android:clearTaskOnLaunch="true" />
               

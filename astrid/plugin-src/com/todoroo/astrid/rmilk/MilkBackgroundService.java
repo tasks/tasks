@@ -11,6 +11,7 @@ import android.util.Log;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.rmilk.sync.RTMSyncProvider;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -35,8 +36,11 @@ public class MilkBackgroundService extends Service {
     /** Receive the alarm - start the synchronize service! */
     @Override
     public void onStart(Intent intent, int startId) {
-        if(SYNC_ACTION.equals(intent.getAction()))
+        try {
             startSynchronization(this);
+        } catch (Exception e) {
+            PluginServices.getExceptionService().reportError("rtm-bg-sync", e); //$NON-NLS-1$
+        }
     }
 
     /** Start the actual synchronization */
@@ -49,6 +53,7 @@ public class MilkBackgroundService extends Service {
         if(MilkUtilities.isOngoing())
             return;
 
+        PluginServices.getTaskService();
         new RTMSyncProvider().synchronize(context);
     }
 

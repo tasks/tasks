@@ -178,10 +178,10 @@
   <!-- default hide until setting (corresponds to entry in TEA_hideUntil) -->
   <string name="p_default_hideUntil_key">p_def_hide</string>
   
-  <!-- ============================================================ MILK == -->
+  <!-- ============================================================ SYNC == -->
   
-    <string-array name="rmilk_MPr_interval_values">
-        <!-- rmilk_MPr_interval_values: interval in seconds for sync entries (do not edit) -->
+    <string-array name="sync_SPr_interval_values">
+        <!-- sync_SPr_interval_values: interval in seconds for sync entries (do not edit) -->
         <item>0</item>
         <item>900</item>
         <item>1800</item>
@@ -195,14 +195,16 @@
     </string-array>
   
       <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_status_key">rmilk_status</string>
+    <string name="sync_SPr_status_key">sync_status</string>
     <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_bgwifi_key">sync_bgwifi</string>
+    <string name="sync_SPr_bgwifi_key">sync_bgwifi</string>
     <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_sync_key">rmilk_sync</string>
+    <string name="sync_SPr_sync_key">sync_sync</string>
     <!-- Preference Key (do not translate) -->
-    <string name="rmilk_MPr_forget_key">rmilk_forget</string>
+    <string name="sync_SPr_forget_key">sync_forget</string>
         
+  <!-- ============================================================ MILK == -->
+
     <!-- Preference Key (do not translate) -->
     <string name="rmilk_MPr_interval_key">sync_freq</string>
     

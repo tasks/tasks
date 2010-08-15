@@ -86,7 +86,7 @@ public final class TagsControlSet implements TaskEditControlSet {
             if(loadedTags.length <= i || !loadedTags[i].equals(tag))
                 identical = false;
         }
-        if(identical && tags.size() != loadedTags.length)
+        if(loadedTags == null || tags.size() != loadedTags.length)
             identical = false;
 
         if(!identical) {

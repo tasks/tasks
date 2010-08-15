@@ -163,8 +163,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                     if(context instanceof Activity)
                         ((Activity)context).startActivityForResult(intent, 0);
                     else {
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
+                        preferences.setToken(null);
+                        preferences.stopOngoing();
                     }
                 } else {
                     invoker.authenticate(email, password);

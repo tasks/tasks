@@ -3,10 +3,14 @@
  */
 package com.todoroo.astrid.producteev;
 
+import java.util.TreeMap;
+import java.util.Map.Entry;
+
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Pair;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.Criterion;
@@ -32,10 +36,8 @@ import com.todoroo.astrid.producteev.sync.ProducteevTask;
  */
 public class ProducteevFilterExposer extends BroadcastReceiver {
 
-    @SuppressWarnings("nls")
     private Filter filterFromList(Context context, ProducteevDashboard dashboard) {
-        String dashboardTitle = context.getString(R.string.producteev_FEx_dashboard_item).
-            replace("$N", dashboard.getName());
+        String dashboardTitle = dashboard.getName();
         String title = context.getString(R.string.producteev_FEx_dashboard_title, dashboard.getName());
         ContentValues values = new ContentValues();
         values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
@@ -54,6 +56,25 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
         return filter;
     }
 
+    private Filter filterFromUser(Context context, String user, Pair<Long, String> ids) {
+        String title = context.getString(R.string.producteev_FEx_responsible_title, user);
+        ContentValues values = new ContentValues();
+        values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
+        values.put(ProducteevTask.DASHBOARD_ID.name, ids.first);
+        values.put(ProducteevTask.ID.name, 0);
+        values.put(ProducteevTask.CREATOR_ID.name, 0);
+        values.put(ProducteevTask.RESPONSIBLE_ID.name, ids.second);
+        Filter filter = new Filter(user, title, new QueryTemplate().join(
+                ProducteevDataService.METADATA_JOIN).where(Criterion.and(
+                        MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
+                        TaskCriteria.isActive(),
+                        TaskCriteria.isVisible(),
+                        ProducteevTask.RESPONSIBLE_ID.eq(ids.second))),
+                        values);
+
+        return filter;
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         // if we aren't logged in, don't expose features
@@ -62,26 +83,60 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
 
         StoreObject[] dashboards = ProducteevDataService.getInstance().getDashboards();
 
-        // If user does not have any tags, don't show this section at all
+        // If user does not have any dashboards, don't show this section at all
         if(dashboards.length == 0)
             return;
 
+        FilterListHeader producteevHeader = new FilterListHeader(context.getString(R.string.producteev_FEx_header));
+
+        // load dashboards
         Filter[] dashboardFilters = new Filter[dashboards.length];
         for(int i = 0; i < dashboards.length; i++)
             dashboardFilters[i] = filterFromList(context, new ProducteevDashboard(dashboards[i]));
-
-        FilterListHeader producteevHeader = new FilterListHeader(context.getString(R.string.producteev_FEx_header));
         FilterCategory producteevDashboards = new FilterCategory(context.getString(R.string.producteev_FEx_dashboard),
                 dashboardFilters);
 
+        // load responsible people
+        TreeMap<String, Pair<Long, String>> people = loadResponsiblePeople(dashboards);
+        Filter[] peopleFilters = new Filter[people.size()];
+        int index = 0;
+        for(Entry<String, Pair<Long, String>> person : people.entrySet())
+            peopleFilters[index++] = filterFromUser(context, person.getKey(), person.getValue());
+        FilterCategory producteevUsers = new FilterCategory(context.getString(R.string.producteev_FEx_responsible),
+                peopleFilters);
+
         // transmit filter list
-        FilterListItem[] list = new FilterListItem[2];
+        FilterListItem[] list = new FilterListItem[3];
         list[0] = producteevHeader;
         list[1] = producteevDashboards;
+        list[2] = producteevUsers;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, ProducteevUtilities.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    /**
+     * @param dashboards
+     * @return people in a map of name => pair(dashboard id, user id)
+     */
+    @SuppressWarnings("nls")
+    private TreeMap<String, Pair<Long, String>> loadResponsiblePeople(
+                StoreObject[] dashboards) {
+        TreeMap<String, Pair<Long, String>> results = new TreeMap<String, Pair<Long, String>>();
+        for(StoreObject dashboard : dashboards) {
+            String users = dashboard.getValue(ProducteevDashboard.USERS);
+            String[] entries = users.split(";");
+            for(String entry : entries) {
+                String[] data = entry.split(",");
+                if(data.length != 2)
+                    continue;
+                results.put(data[1], new Pair<Long, String>(
+                        dashboard.getValue(ProducteevDashboard.REMOTE_ID), data[0])); // name, id
+            }
+        }
+
+        return results;
     }
 
 }

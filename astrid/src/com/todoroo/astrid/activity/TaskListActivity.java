@@ -191,6 +191,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         database.openForWriting();
         setUpUiComponents();
+        onNewIntent(getIntent());
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
         setUpTaskList();
         if(Constants.DEBUG)
             setTitle("[D] " + filter.title); //$NON-NLS-1$
@@ -264,7 +270,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 Intent intent = new Intent(TaskListActivity.this,
                         FilterListActivity.class);
                 startActivity(intent);
-                finish();
             }
         });
 
@@ -495,6 +500,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode != RESULT_CANCELED) {
+            taskAdapter.flushCaches();
             loadTaskListContent(true);
             taskService.cleanup();
         }
@@ -870,7 +876,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             Intent intent = new Intent(TaskListActivity.this,
                     FilterListActivity.class);
             startActivity(intent);
-            finish();
         }
     }
 

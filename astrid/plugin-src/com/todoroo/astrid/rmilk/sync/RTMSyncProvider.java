@@ -36,21 +36,21 @@ import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.MilkLoginActivity;
-import com.todoroo.astrid.rmilk.MilkLoginActivity.SyncLoginCallback;
 import com.todoroo.astrid.rmilk.MilkPreferences;
 import com.todoroo.astrid.rmilk.MilkUtilities;
+import com.todoroo.astrid.rmilk.MilkLoginActivity.SyncLoginCallback;
 import com.todoroo.astrid.rmilk.api.ApplicationInfo;
 import com.todoroo.astrid.rmilk.api.ServiceImpl;
 import com.todoroo.astrid.rmilk.api.ServiceInternalException;
-import com.todoroo.astrid.rmilk.api.data.RtmAuth.Perms;
 import com.todoroo.astrid.rmilk.api.data.RtmList;
 import com.todoroo.astrid.rmilk.api.data.RtmLists;
 import com.todoroo.astrid.rmilk.api.data.RtmTask;
-import com.todoroo.astrid.rmilk.api.data.RtmTask.Priority;
 import com.todoroo.astrid.rmilk.api.data.RtmTaskList;
 import com.todoroo.astrid.rmilk.api.data.RtmTaskNote;
 import com.todoroo.astrid.rmilk.api.data.RtmTaskSeries;
 import com.todoroo.astrid.rmilk.api.data.RtmTasks;
+import com.todoroo.astrid.rmilk.api.data.RtmAuth.Perms;
+import com.todoroo.astrid.rmilk.api.data.RtmTask.Priority;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
 import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -212,10 +212,14 @@ public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
                     }
                 });
                 intent.putExtra(MilkLoginActivity.URL_TOKEN, url);
+
                 if(context instanceof Activity)
                     ((Activity)context).startActivityForResult(intent, 0);
-                else
-                    context.startActivity(intent);
+                else {
+                    // can't synchronize until user logs in
+                    MilkUtilities.setToken(null);
+                    MilkUtilities.stopOngoing();
+                }
 
             } else {
                 performSync();

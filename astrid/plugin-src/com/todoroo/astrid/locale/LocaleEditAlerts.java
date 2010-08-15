@@ -186,6 +186,9 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
             .setPositiveButton(android.R.string.ok,
                     AddOnActivity.createAddOnClicker(LocaleEditAlerts.this, true))
             .show();
+            FlurryAgent.onEvent("locale-edit-alerts-no-plugin"); //$NON-NLS-1$
+        } else {
+            FlurryAgent.onEvent("locale-edit-alerts"); //$NON-NLS-1$
         }
     }
 

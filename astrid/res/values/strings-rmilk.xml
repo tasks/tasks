@@ -47,7 +47,7 @@
     <!-- ======================== SyncPreferences ========================== -->
     
     <!-- RTM Status Group Label -->    
-    <string name="sync_MPr_group_status">Status</string>
+    <string name="sync_SPr_group_status">Status</string>
     
     <!-- Sync Status: log in -->    
     <string name="sync_status_loggedout">Not Logged In!</string>
@@ -73,24 +73,41 @@
     <string name="sync_SPr_interval_desc">Currently set to: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="sync_MPr_bgwifi_title">Wifi Only Setting</string>    
+    <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="sync_MPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+    <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="sync_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+    <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
     
     <!-- Actions Group Label  -->
-    <string name="sync_MPr_group_actions">Actions</string>
+    <string name="sync_SPr_group_actions">Actions</string>
 
     <!-- Synchronize Now Button -->    
-    <string name="sync_MPr_sync">Synchronize Now!</string>
+    <string name="sync_SPr_sync">Synchronize Now!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="sync_MPr_sync_log_in">Log In &amp; Synchronize!</string>
+    <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="sync_MPr_forget">Log Out</string>
+    <string name="sync_SPr_forget">Log Out</string>
     <!-- Sync: Clear Data Description -->
-    <string name="sync_MPr_forget_description">Clears all synchronization data</string>
+    <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
+    
+    <string-array name="sync_SPr_interval_entries">
+        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+        <item>disable</item>
+        <item>every fifteen minutes</item>
+        <item>every thirty minutes</item>
+        <item>every hour</item>
+        <item>every three hours</item>
+        <item>every six hours</item>
+        <item>every twelve hours</item>
+        <item>every day</item>
+        <item>every three days</item>
+        <item>every week</item>
+    </string-array>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
@@ -109,27 +126,9 @@ Error Message: %s
     <!-- title for notification tray when synchronizing -->
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
-    <!-- confirmation dialog for RTM log out -->
-    <string name="rmilk_forget_confirm">Log out / clear synchronization data?</string>
-    
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
     or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
-        
-    <string-array name="rmilk_MPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
-        <item>disable</item>
-        <item>every fifteen minutes</item>
-        <item>every thirty minutes</item>
-        <item>every hour</item>
-        <item>every three hours</item>
-        <item>every six hours</item>
-        <item>every twelve hours</item>
-        <item>every day</item>
-        <item>every three days</item>
-        <item>every week</item>
-    </string-array>
-
-    
+            
 </resources>
 
