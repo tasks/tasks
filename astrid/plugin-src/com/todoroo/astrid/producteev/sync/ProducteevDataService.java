@@ -21,10 +21,10 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
@@ -80,6 +80,7 @@ public final class ProducteevDataService {
     public void clearMetadata() {
         metadataDao.deleteWhere(Metadata.KEY.eq(ProducteevTask.METADATA_KEY));
         metadataDao.deleteWhere(Metadata.KEY.eq(ProducteevNote.METADATA_KEY));
+        storeObjectDao.deleteWhere(StoreObject.TYPE.eq(ProducteevDashboard.TYPE));
     }
 
     /**
@@ -147,7 +148,7 @@ public final class ProducteevDataService {
         task.pdvTask.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
         for(Metadata metadata : task.metadata) {
             metadata.setValue(Metadata.TASK, task.task.getId());
-            metadataDao.createNew(metadata);
+            metadataDao.persist(metadata);
         }
     }
 

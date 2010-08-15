@@ -217,7 +217,8 @@ public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
                     ((Activity)context).startActivityForResult(intent, 0);
                 else {
                     // can't synchronize until user logs in
-                    MilkUtilities.setToken(null);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    context.startActivity(intent);
                     MilkUtilities.stopOngoing();
                 }
 

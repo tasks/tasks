@@ -159,7 +159,7 @@ public class MilkPreferences extends TodorooPreferences {
             boolean loggedIn = MilkUtilities.isLoggedIn();
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference p) {
-                    new RTMSyncProvider().synchronize(MilkPreferences.this);
+                    startService(new Intent(MilkPreferences.this, MilkBackgroundService.class));
                     finish();
                     return true;
                 }

@@ -84,6 +84,7 @@ public class MilkLoginActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.rmilk_login_activity);
+        setTitle(R.string.rmilk_MPr_header);
 
         String urlParam = getIntent().getStringExtra(URL_TOKEN);
 

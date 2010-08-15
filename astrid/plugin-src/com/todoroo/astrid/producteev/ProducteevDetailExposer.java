@@ -80,7 +80,7 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
                     != Preferences.getLong(ProducteevUtilities.PREF_DEFAULT_DASHBOARD, 0L) &&
                     ownerDashboard != null) {
                 String dashboardName = ownerDashboard.getValue(ProducteevDashboard.NAME);
-                builder.append("<img src='silk_script'/> ").append(dashboardName).append(TaskAdapter.DETAIL_SEPARATOR); //$NON-NLS-1$
+                builder.append("<img src='silk_folder'/> ").append(dashboardName).append(TaskAdapter.DETAIL_SEPARATOR); //$NON-NLS-1$
             }
 
             // display responsible user if not current one

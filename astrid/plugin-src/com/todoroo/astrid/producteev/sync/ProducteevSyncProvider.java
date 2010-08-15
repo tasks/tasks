@@ -82,6 +82,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      */
     public void signOut() {
         preferences.setToken(null);
+        Preferences.setString(R.string.producteev_PPr_email, null);
+        Preferences.setString(R.string.producteev_PPr_password, null);
         preferences.clearLastSyncDate();
 
         dataService = ProducteevDataService.getInstance();
@@ -163,8 +165,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                     if(context instanceof Activity)
                         ((Activity)context).startActivityForResult(intent, 0);
                     else {
-                        preferences.setToken(null);
-                        preferences.stopOngoing();
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        context.startActivity(intent);
+                        ProducteevUtilities.INSTANCE.stopOngoing();
                     }
                 } else {
                     invoker.authenticate(email, password);
