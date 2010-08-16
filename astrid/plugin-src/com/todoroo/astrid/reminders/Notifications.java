@@ -246,8 +246,9 @@ public class Notifications extends BroadcastReceiver {
             }
         }
 
-        // quiet hours + periodic = no vibrate
-        if(quietHours && (type == ReminderService.TYPE_RANDOM)) {
+        // quiet hours && ! due date or snooze = no vibrate
+        if(quietHours && !(type == ReminderService.TYPE_DUE ||
+                type == ReminderService.TYPE_SNOOZE)) {
             notification.vibrate = null;
         } else {
             if (Preferences.getBoolean(R.string.p_rmd_vibrate, true)
@@ -262,6 +263,23 @@ public class Notifications extends BroadcastReceiver {
             Log.w("Astrid", "Logging notification: " + text); //$NON-NLS-1$ //$NON-NLS-2$
 
         notificationManager.notify(notificationId, notification);
+    }
+
+    /**
+     * Schedules alarms for a single task
+     *
+     * @param shouldPerformPropertyCheck
+     *            whether to check if task has requisite properties
+     */
+    public static void cancelNotifications(long taskId) {
+        if(notificationManager == null)
+            synchronized(Notifications.class) {
+                if(notificationManager == null)
+                    notificationManager = new AndroidNotificationManager(
+                            ContextManager.getContext());
+            }
+
+        notificationManager.cancel((int)taskId);
     }
 
     // --- notification manager

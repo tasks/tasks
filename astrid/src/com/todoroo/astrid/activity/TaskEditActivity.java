@@ -27,15 +27,15 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.TabActivity;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TabActivity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -45,6 +45,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -59,7 +60,6 @@ import android.widget.TabHost;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -154,6 +154,9 @@ public final class TaskEditActivity extends TabActivity {
     private final ArrayList<TaskEditControlSet> controls = new ArrayList<TaskEditControlSet>();
 
 	// --- other instance variables
+
+    /** true if editing started with a new task */
+    boolean isNewTask = false;
 
 	/** task model */
 	private Task model = null;
@@ -251,23 +254,8 @@ public final class TaskEditActivity extends TabActivity {
             });
         }
 
-        // read data
-        populateFields();
-
-        // request add-on controls
-        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_EDIT_CONTROLS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, model.getId());
-        sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-
         // set up listeners
         setUpListeners();
-    }
-
-    /**
-     * @return true if task is newly created
-     */
-    private boolean isNewTask() {
-        return model == null ? true : model.getValue(Task.TITLE).length() == 0;
     }
 
     /** Set up button listeners */
@@ -324,9 +312,13 @@ public final class TaskEditActivity extends TabActivity {
                 values = AndroidUtilities.contentValuesFromSerializedString(valuesAsString);
             model = TaskListActivity.createWithValues(values, null, taskService, metadataService);
         }
-        if(model.getValue(Task.TITLE).length() == 0)
+
+        if(model.getValue(Task.TITLE).length() == 0) {
             FlurryAgent.onEvent("create-task");
-        FlurryAgent.onEvent("edit-task");
+            isNewTask = true;
+        } else {
+            FlurryAgent.onEvent("edit-task");
+        }
 
         if(model == null) {
             exceptionService.reportError("task-edit-no-task",
@@ -341,7 +333,7 @@ public final class TaskEditActivity extends TabActivity {
         Resources r = getResources();
         loadItem(getIntent());
 
-        if(isNewTask())
+        if(isNewTask)
             setTitle(R.string.TEA_view_titleNew);
         else
             setTitle(r.getString(R.string.TEA_view_title, model.getValue(Task.TITLE)));
@@ -352,19 +344,23 @@ public final class TaskEditActivity extends TabActivity {
 
     /** Save task model from values in UI components */
     private void save() {
-        // abandon editing in this case
-        if(title.getText().length() == 0) {
-            if(isNewTask())
-                taskService.delete(model);
-            discardButtonClick();
-            return;
-        }
-
         for(TaskEditControlSet controlSet : controls)
             controlSet.writeToModel(model);
 
         if(taskService.save(model, false))
             showSaveToast();
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+
+        // abandon editing in this case
+        if(title.getText().length() == 0 && isNewTask) {
+            taskService.delete(model);
+            showCancelToast();
+            setResult(RESULT_CANCELED);
+        }
     }
 
     /* ======================================================================
@@ -416,7 +412,7 @@ public final class TaskEditActivity extends TabActivity {
      */
     private void showSaveToast() {
         // if we have no title, or nothing's changed, don't show toast
-        if(isNewTask())
+        if(isNewTask)
             return;
 
         int stringResource;
@@ -445,7 +441,7 @@ public final class TaskEditActivity extends TabActivity {
 
         // abandon editing in this case
         if(title.getText().length() == 0) {
-            if(isNewTask())
+            if(isNewTask)
                 taskService.delete(model);
         }
 
@@ -540,6 +536,7 @@ public final class TaskEditActivity extends TabActivity {
         super.onResume();
         registerReceiver(controlReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_EDIT_CONTROLS));
+        populateFields();
     }
 
     @Override
@@ -552,14 +549,6 @@ public final class TaskEditActivity extends TabActivity {
     protected void onStop() {
         super.onStop();
         FlurryAgent.onEndSession(this);
-
-        // don't save if user accidentally created a new task
-        if(title.getText().length() == 0) {
-            if(model.isSaved())
-                taskService.delete(model);
-            showCancelToast();
-            return;
-        }
     }
 
     /* ======================================================================
