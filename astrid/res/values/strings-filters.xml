@@ -12,6 +12,9 @@
     <!-- Search Filter -->
     <string name="BFE_Search">Search...</string>
     
+    <!-- Recently Modified -->
+    <string name="BFE_Recent">Recently Modified</string>
+    
     <!-- Build Your Own Filter -->
     <string name="BFE_Custom">Custom Filter...</string>
     

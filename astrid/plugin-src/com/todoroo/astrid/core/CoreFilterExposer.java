@@ -11,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.activity.FilterListActivity;
@@ -41,10 +42,17 @@ public final class CoreFilterExposer extends BroadcastReceiver {
         SearchFilter searchFilter = new SearchFilter(r.getString(R.string.BFE_Search));
         searchFilter.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_search)).getBitmap();
 
+        Filter recent = new Filter(r.getString(R.string.BFE_Recent),
+                r.getString(R.string.BFE_Recent),
+                new QueryTemplate().orderBy(Order.desc(Task.MODIFICATION_DATE)).limit(15),
+                null);
+        recent.listingIcon = ((BitmapDrawable)r.getDrawable(R.drawable.tango_new)).getBitmap();
+
         // transmit filter list
-        FilterListItem[] list = new FilterListItem[2];
+        FilterListItem[] list = new FilterListItem[3];
         list[0] = inbox;
-        list[1] = searchFilter;
+        list[1] = recent;
+        list[2] = searchFilter;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);

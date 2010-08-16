@@ -38,12 +38,11 @@ public class ProducteevUtilities extends SyncProviderUtilities {
 
     public static final String PREF_SERVER_LAST_SYNC = IDENTIFIER + "_last_server"; //$NON-NLS-1$
 
-    public static final String PREF_EMAIL = IDENTIFIER + "_email"; //$NON-NLS-1$
-
-    public static final String PREF_PASSWORD = IDENTIFIER + "_password"; //$NON-NLS-1$
-
+    /** Producteev user's default dashboard. This is different from the
+     * preference key, which indicates where user wants to put new tasks */
     public static final String PREF_DEFAULT_DASHBOARD = IDENTIFIER + "_defaultdash"; //$NON-NLS-1$
 
+    /** Producteev user's id */
     public static final String PREF_USER_ID = IDENTIFIER + "_userid"; //$NON-NLS-1$
 
     /**
