@@ -19,9 +19,6 @@
     <!-- filter category for RTM lists -->
     <string name="rmilk_FEx_list">Lists</string>
     
-    <!-- RTM list filter name ($N => list, $C => count) -->
-    <string name="rmilk_FEx_list_item">$N ($C)</string>
-    
     <!--  RTM list filter title (%s => list) -->
     <string name="rmilk_FEx_list_title">RTM List \'%s\'</string>
     

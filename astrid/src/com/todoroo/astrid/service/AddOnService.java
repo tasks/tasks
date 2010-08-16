@@ -232,15 +232,15 @@ public class AddOnService {
                 LOCALE_PACKAGE, "http://www.weloveastrid.com/store",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_locale)).getBitmap());
 
-        list[2] = new AddOn(true, true, "Remember the Milk", null,
-                "Synchronize with Remember The Milk service.",
-                Constants.PACKAGE, "http://www.rmilk.com",
-                ((BitmapDrawable)r.getDrawable(R.drawable.ic_menu_refresh)).getBitmap());
-
-        list[3] = new AddOn(true, true, "Producteev", null,
+        list[2] = new AddOn(true, true, "Producteev", null,
                 "Synchronize with Producteev service. Also changes Astrid's importance levels to stars.",
                 PRODUCTEEV_PACKAGE, "http://www.producteev.com",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_producteev)).getBitmap());
+
+        list[3] = new AddOn(true, true, "Remember the Milk", null,
+                "Synchronize with Remember The Milk service.",
+                Constants.PACKAGE, "http://www.rmilk.com",
+                ((BitmapDrawable)r.getDrawable(R.drawable.ic_menu_refresh)).getBitmap());
 
         return list;
     }
