@@ -131,6 +131,9 @@ public class TasksWidget extends AppWidgetProvider {
             int[] separatorIDs = SEPARATOR_IDS;
             int numberOfTasks = 5;
 
+            for(int i = 0; i < textIDs.length; i++)
+                views.setTextViewText(textIDs[i], "");
+
             TodorooCursor<Task> cursor = null;
             Filter filter = null;
             try {
@@ -165,8 +168,6 @@ public class TasksWidget extends AppWidgetProvider {
                 for(int i = cursor.getCount() - 1; i < separatorIDs.length; i++) {
                     if(i >= 0)
                         views.setViewVisibility(separatorIDs[i], View.INVISIBLE);
-                    if(i > cursor.getCount() - 1)
-                        views.setViewVisibility(textIDs[i], View.INVISIBLE);
                 }
             } catch (Exception e) {
                 // can happen if database is not ready

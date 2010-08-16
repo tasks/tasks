@@ -8,7 +8,7 @@
     <string name="alarm_ACS_label">Alarmas</string>
     
     <!-- Task Edit Activity: Add New Alarn -->
-    <string name="alarm_ACS_button">Añadir una alarma?</string>
+    <string name="alarm_ACS_button">Añadir una alarma</string>
     
     <!-- Task Detail for Alarms (%s -> time)-->
     <string name="alarm_ADE_detail">Alarma %s</string>
@@ -28,7 +28,7 @@
   <!-- ================================================= BackupPreferences == -->
 
     <!-- Backup Preferences Title -->    
-    <string name="backup_BPr_header">Respaldos</string>
+    <string name="backup_BPr_header">Copias de seguridad</string>
 
     <!-- Backup: Status Header -->    
     <string name="backup_BPr_group_status">Estado</string>
@@ -36,34 +36,34 @@
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
     <string name="backup_status_success">Última copia de seguridad: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
-    <string name="backup_status_failed">Falló el último backup</string>
+    <string name="backup_status_failed">Falló la última copia de seguridad</string>
     <!-- Backup Status: error subtitle -->    
-    <string name="backup_status_failed_subtitle">(toque esto ver los problemas)</string>
+    <string name="backup_status_failed_subtitle">(toque para visualizar los errores)</string>
     <!-- Backup Status: never backed up -->    
-    <string name="backup_status_never">No respaldar nunca</string>
+    <string name="backup_status_never">Copia de seguridad nunca realizada</string>
 
     <!-- Backup Options Group Label -->    
     <string name="backup_BPr_group_options">Opciones</string>
 
     <!-- Preference: Automatic Backup Title -->    
-    <string name="backup_BPr_auto_title">Respaldos automáticos</string>
+    <string name="backup_BPr_auto_title">Copias de seguridad automáticas</string>
     <!-- Preference: Automatic Backup Description (when disabled) -->
-    <string name="backup_BPr_auto_disabled">Desactivados los respaldos automáticos</string>    
+    <string name="backup_BPr_auto_disabled">Copias de seguridad automáticas desactivadas</string>    
     <!-- Preference: Automatic Backup Description (when enabled) -->
-    <string name="backup_BPr_auto_enabled">El respaldo se hará diariamente</string>
+    <string name="backup_BPr_auto_enabled">La copia de seguridad se hará diariamente</string>
     
     <!-- Preference screen restoring Tasks Help -->
-    <string name="backup_BPr_how_to_restore">¿Cómo restaurar las tareas respaldas?</string>    
+    <string name="backup_BPr_how_to_restore">¿Cómo restauro mis copias de seguridad?</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">Tiene que agregar el Astrid Power Pack para gestionar y restaurar copias de seguridad. Como un favor, Astrid también automáticamente copias de seguridad de sus tareas, por si acaso.</string>
+    <string name="backup_BPr_how_to_restore_dialog">Necesita añadir el Astrid Power Pack para poder gestionar y restaurar las copias de seguridad. Además, Astrid hará automáticamente copias de seguridad de sus tareas, sólo por si a caso.</string>
   
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Respaldos</string>
+  <string name="backup_BAc_label">Copias de seguridad</string>
 
   <!-- backup activity title -->
-  <string name="backup_BAc_title">Gestiones sus copias de seguridad</string>
+  <string name="backup_BAc_title">Gestionar sus copias de seguridad</string>
 
   <!-- backup activity import button -->
   <string name="backup_BAc_import">Importar tareas</string>
@@ -74,9 +74,9 @@
   <!-- ============================================== Importer / Exporter == -->
   
   <!-- Message displayed when error occurs -->
-  <string name="backup_TXI_error">Error al importar</string>
+  <string name="backup_TXI_error">Error al efectuar la importación</string>
     
-  <string name="export_toast">Se respaldaron %s tareas en %s.</string>
+  <string name="export_toast">Se hicieron copias de seguridad de %s tareas en %s.</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Exportando...</string>
@@ -85,7 +85,7 @@
   <string name="import_summary_title">Resumen de restauración</string>
     
   <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
-  <string name="import_summary_message">El archivo %s contenido en %s.\n\n %s importados,\n %s ya existen\n %s tiene errores\n</string>
+  <string name="import_summary_message">El archivo %s contenido en %s.\n\n %s importados,\n %s ya existentes\n %s tuvieron errores\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importando...</string>
@@ -94,16 +94,16 @@
   <string name="import_progress_read">Leyendo tarea %d...</string>
   
   <!-- Backup: Dialog when unable to open a file -->  
-  <string name="DLG_error_opening">No pude encontrar este ítem:</string>
+  <string name="DLG_error_opening">No se puede encontrar este ítem:</string>
   
   <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
-  <string name="DLG_error_sdcard">No puedo acceder carpeta: %s</string>
+  <string name="DLG_error_sdcard">No se puede acceder a la carpeta: %s</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
-  <string name="DLG_error_sdcard_general">¡No puedo acceder a tu tarjeta de memoria!</string>
+  <string name="DLG_error_sdcard_general">¡No se pudo acceder a su tarjeta de memoria SD!</string>
     
   <!-- Backup: File Selector dialog for import -->
-  <string name="import_file_prompt">Selecciona un Archivo a Recobrar</string>    
+  <string name="import_file_prompt">Select a File to Restore</string>    
         
 
 
@@ -131,7 +131,7 @@
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
-    <item quantity="one">Un año</item>
+    <item quantity="one">1 año</item>
     <!-- plurals: years -->
     <item quantity="other">%d años</item>
   </plurals>
@@ -139,55 +139,55 @@
     <!-- plurals: months -->
     <item quantity="one">1 Mes</item>
     <!-- plurals: months -->
-    <item quantity="other">%d Meses</item>
+    <item quantity="other">%d meses</item>
   </plurals>
   <plurals name="DUt_weeks">
     <!-- plurals: days -->
-    <item quantity="one">1 Semana</item>
+    <item quantity="one">1 semana</item>
     <!-- plurals: days -->
-    <item quantity="other">%d Semanas</item>
+    <item quantity="other">%d semanas</item>
   </plurals>
   <plurals name="DUt_days">
     <!-- plurals: days -->
-    <item quantity="one">1 Día</item>
+    <item quantity="one">1 día</item>
     <!-- plurals: days -->
-    <item quantity="other">%d Día(s)</item>
+    <item quantity="other">%d días</item>
   </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
-    <item quantity="one">1 Hora</item>
+    <item quantity="one">1 hora</item>
     <!-- plurals: hours -->
-    <item quantity="other">%d Horas</item>
+    <item quantity="other">%d horas</item>
   </plurals>
   <plurals name="DUt_minutes">
     <!-- plurals: minutes -->
-    <item quantity="one">1 Minuto</item>
+    <item quantity="one">1 minuto</item>
     <!-- plurals: minutes -->
-    <item quantity="other">%d Minutos</item>
+    <item quantity="other">%d minutos</item>
   </plurals>
   <plurals name="DUt_seconds">
     <!-- plurals: seconds -->
-    <item quantity="one">1 Segundo</item>
+    <item quantity="one">1 segundo</item>
     <!-- plurals: seconds -->
-    <item quantity="other">%d Segundos</item>
+    <item quantity="other">%d segundos</item>
   </plurals>
   <plurals name="DUt_hoursShort">
     <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1 Hr</item>
+    <item quantity="one">1 hora</item>
     <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d Hrs</item>
+    <item quantity="other">%d horas</item>
   </plurals>
   <plurals name="DUt_minutesShort">
     <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1 Min</item>
+    <item quantity="one">1 minuto</item>
     <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d Min</item>
+    <item quantity="other">%d minutos</item>
   </plurals>
   <plurals name="DUt_secondsShort">
     <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1 Seg</item>
+    <item quantity="one">1 segundo</item>
     <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d Seg</item>
+    <item quantity="other">%d segundos</item>
   </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
@@ -221,6 +221,9 @@
   
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">¿Borrar esta tarea?</string>
+
+  <!-- question for deleting items (%s => item name) -->
+  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
   
   <!-- Button for being done -->
   <string name="DLG_done">Listo</string>
@@ -261,6 +264,9 @@
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Componentes adicionales</string>
+  
+  <!-- Menu: Adjust Sort and Hidden Task Settings -->    
+  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Preferencias</string>
@@ -315,6 +321,47 @@ button: add task & go to the edit page.
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Restaurar la Tarea</string>
   
+  <!-- ============================================== SortSelectionDialog == -->
+  
+  <!-- Sort Selection: dialog title -->    
+  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  
+  <!-- Hidden Task Selection: show completed tasks -->    
+  <string name="SSD_completed">Show Completed Tasks</string>
+  
+  <!-- Hidden Task Selection: show hidden tasks -->    
+  <string name="SSD_hidden">Show Hidden Tasks</string>
+  
+  <!-- Hidden Task Selection: show deleted tasks -->    
+  <string name="SSD_deleted">Show Deleted Tasks</string>
+  
+  <!-- Sort Selection: sort options header -->    
+  <string name="SSD_sort_header">Sort Options</string>
+  
+  <!-- Sort Selection: smart sort -->
+  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  
+  <!-- Sort Selection: sort by alpha -->
+  <string name="SSD_sort_alpha">Por título</string>
+  
+  <!-- Sort Selection: sort by due date -->
+  <string name="SSD_sort_due">Por fecha de vencimiento</string>
+  
+  <!-- Sort Selection: sort by importance -->
+  <string name="SSD_sort_importance">Por importancia</string>
+  
+  <!-- Sort Selection: sort by modified date -->
+  <string name="SSD_sort_modified">By Last Modified</string>
+  
+  <!-- Sort Selection: reverse -->
+  <string name="SSD_sort_reverse">Reverse Sort</string>
+  
+  <!-- Sort Button: sort temporarily -->
+  <string name="SSD_save_temp">Just Once</string>
+  
+  <!-- Sort Button: sort permanently -->
+  <string name="SSD_save_always">Always</string>
+  
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Filter List Activity Title -->    
@@ -342,7 +389,7 @@ button: add task & go to the edit page.
   <string name="FLA_search_hint">Buscar tareas</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">Coincider %s</string>
+  <string name="FLA_search_filter">Coincider</string>
   
   <!-- Help (HTML)-->
   <string name="FLA_help"><![CDATA[
@@ -510,17 +557,17 @@ to the plugin creator for fastest service.
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Urgencia predeterminada</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Configuración actual: %s</string>
+  <string name="EPr_default_urgency_desc">Configuración actual</string>
   
   <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Importancia predeterminada</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Configuración actual: %s</string>
+  <string name="EPr_default_importance_desc">Configuración actual</string>
   
   <!-- Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">Ocultar configuración inicial hasta</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Configuración actual: %s</string>
+  <string name="EPr_default_hideUntil_desc">Configuración actual</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
@@ -580,8 +627,11 @@ to the plugin creator for fastest service.
   
   <!-- ====================================================== TasksWidget == -->
 
-  <!-- Widget text when loading tasks -->                                                                                                                                                                          
+  <!-- Widget text when loading tasks -->
   <string name="TWi_loading">Cargando...</string>
+
+  <!-- Widget configuration activity title: select a filter -->
+  <string name="WCA_title">Select tasks to view...</string>
   
   <!-- ============================================================= Misc == -->
   
@@ -605,39 +655,95 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
     
     <!-- Resources for built-in filter plug-in -->
     
+    <!-- ================================================= Filter Exposer == -->
+    
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">Tareas activas</string>
         
-    <!-- Title for Active Tasks Filter (what user sees when first opening the app) -->
-    <string name="BFE_Active_title">Tareas activas</string>
-    
     <!-- Search Filter -->
-    <string name="BFE_Search">Buscar</string>
-
-    <!-- Extended Filters Category -->
-    <string name="BFE_Extended">Más…</string>
-
-    <!-- sort recent modification filter -->
-    <string name="SSD_sort_modified">Recientemente modificado</string>
+    <string name="BFE_Search">Search...</string>
     
-    <!-- Completed Filter -->
-    <string name="SSD_completed">Tareas Finalizadas</string>
+    <!-- Recently Modified -->
+    <string name="BFE_Recent">Recently Modified</string>
+    
+    <!-- Build Your Own Filter -->
+    <string name="BFE_Custom">Custom Filter...</string>
+    
+    <!-- Saved Filters Header -->
+    <string name="BFE_Saved">Saved Filters</string>
+    
+    <!-- Saved Filters Context Menu: delete -->
+    <string name="BFE_Saved_delete">Delete Filter</string>
 
-    <!-- hidden tasks filter -->
-    <string name="SSD_hidden">Tareas ocultas</string>
+    <!-- =========================================== CustomFilterActivity == -->
+    
+    <!-- Build Your Own Filter Activity Title-->
+    <string name="CFA_title">Custom Filter</string>
+    
+    <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
+    <string name="CFA_filterName_hint">Name this filter to save it...</string>
+    
+    <!-- Filter Name default for copied filters (%s => old filter name) -->
+    <string name="CFA_filterName_copy">Copy of %s</string>
+    
+    <!-- Filter Starting Universe: all tasks -->
+    <string name="CFA_universe_all">Tareas activas</string>
+    
+    <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
+    <string name="CFA_type_add">or</string>
+    
+    <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
+    <string name="CFA_type_subtract">not</string>
+    
+    <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
+    <string name="CFA_type_intersect">also</string>
+    
+    <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
+    <string name="CFA_context_chain">Chaining: %s</string>
+    
+    <!-- Filter Criteria Context Menu: delete -->
+    <string name="CFA_context_delete">Delete Row</string>
+    
+    <!-- Filter Screen Help Text -->
+    <string name="CFA_help">This screen lets you create a new filters. Add 
+    criteria using the button below, short or long-press them to adjust, and
+    then click \"View\"!</string>
+    
+    <!-- Filter Button: add new -->
+    <string name="CFA_button_add">Add Criteria</string>
+    
+    <!-- Filter Button: view without saving -->
+    <string name="CFA_button_view">View</string>
+    
+    <!-- Filter Button: save & view filter -->
+    <string name="CFA_button_save">Save &amp; View</string>
 
-    <!-- sort Alphabetical filter -->
-    <string name="SSD_sort_alpha">Por título</string>
-
-    <!-- sort Due Date filter -->
-    <string name="SSD_sort_due">Por fecha de vencimiento</string>
-
-    <!-- sort Importance filter -->
-    <string name="SSD_sort_importance">Por importancia</string>
-
-    <!-- deleted tasks filter -->
-    <string name="SSD_deleted">Tareas eliminadas</string>
+    <!-- =========================================== CustomFilterCriteria == -->
         
+    <!-- Criteria: due by X - display text -->
+    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <!-- Criteria: due by X - name of criteria -->
+    <string name="CFC_dueBefore_name">Due By...</string>
+    <string-array name="CFC_dueBefore_entries">
+        <!-- Criteria: due by X - options -->
+        <item>No Due Date</item>
+        <item>Yesterday</item>
+        <item>Hoy</item>
+        <item>Mañana</item>
+        <item>Pasado mañana</item>
+        <item>Próxima semana</item>
+    </string-array>
+    
+    <!-- Criteria: importance - display text -->
+    <string name="CFC_importance_text">Importance at least ?</string>
+    <!-- Criteria: importance - name of criteria -->
+    <string name="CFC_importance_name">Importance...</string>        
+    
+    <!-- Criteria: tag - display text -->
+    <string name="CFC_tag_text">Tagged: ?</string>
+    <!-- Criteria: tag - name of criteria -->
+    <string name="CFC_tag_name">Tagged...</string>        
+    
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -658,6 +764,9 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Abrir evento del calendario</string>
+  
+  <!-- Toast when unable to open calendar event -->
+  <string name="gcal_TEA_calendar_error">Error opening event!</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -704,6 +813,114 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
   <string name="locale_plugin_required">Por favor, instale el componente adicionale de Locale</string>        
      
 
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
+    <!-- ====================== Plugin Boilerplate ========================= -->
+    
+    <!-- filters header: Producteev -->
+    <string name="producteev_FEx_header">Producteev</string>
+    
+    <!-- filter category for Producteev dashboards -->
+    <string name="producteev_FEx_dashboard">Workspaces</string>
+    
+    <!-- filter category for Producteev responsible person -->
+    <string name="producteev_FEx_responsible">Assigned To</string>
+    
+    <!--  Producteev dashboard filter title (%s => dashboardname) -->
+    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+
+    <!-- ==================================================== Preferences == -->
+
+    <!-- Preferences Title: Producteev -->    
+    <string name="producteev_PPr_header">Producteev</string>
+
+    <!-- dashboard title for producteev default dashboard  -->
+    <string name="producteev_default_dashboard">Default Workspace</string>
+
+    <!-- dashboard title for tasks that are not synchronized -->
+    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+
+    <!-- preference title for default dashboard -->
+    <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
+
+    <!-- preference description for default dashboard (%s -> setting) -->
+    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+
+    <!-- preference description for default dashboard (when set to 'not synchronized') -->
+    <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
+
+    <!-- ================================================= Login Activity == -->
+
+    <!-- Activity Title: Producteev Login -->    
+    <string name="producteev_PLA_title">Log In to Producteev</string>
+
+    <!-- Instructions: Producteev login -->    
+    <string name="producteev_PLA_body">Sign in with your existing
+    Producteev account, or create a new account!</string>
+
+    <!-- Producteev Terms Link -->    
+    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+
+    <!-- Sign In Button -->    
+    <string name="producteev_PLA_signIn">Sign In</string>
+
+    <!-- Create New User Button -->    
+    <string name="producteev_PLA_createNew">Create New User</string>
+
+    <!-- E-mail Address Label -->    
+    <string name="producteev_PLA_email">E-mail</string>
+
+    <!-- Password Label -->    
+    <string name="producteev_PLA_password">Password</string>
+
+    <!-- Confirm Password Label -->    
+    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+
+    <!-- First Name Label -->    
+    <string name="producteev_PLA_firstName">First Name</string>
+
+    <!-- Last Name Label -->    
+    <string name="producteev_PLA_lastName">Last Name</string>
+
+    <!-- Error Message when fields aren't filled out -->    
+    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+
+    <!-- Error Message when passwords don't match -->    
+    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
+    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
+
+    <!-- ================================================ Synchronization == -->
+        
+    <!-- title for notification tray when synchronizing -->
+    <string name="producteev_notification_title">Astrid: Producteev</string>
+    
+    <!-- Error msg when io exception  -->
+    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+
+    <!-- Prod Login email not specified-->
+    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+    
+    <!-- Prod Login password not specified-->
+    <string name="producteev_MLA_password_empty">Password was not specified!</string>
+    
+    <!-- ================================================ labels for layout-elements == -->
+    
+    <!-- label for task-assignment spinner on taskeditactivity -->
+    <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
+    
+    <!-- Spinner-item for unassigned tasks on taskeditactivity -->
+    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    
+    <!-- label for dashboard-assignment spinner on taskeditactivity -->
+    <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
+
+    <!-- Spinner-item for default dashboard on taskeditactivity -->
+    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
+    
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
@@ -811,7 +1028,7 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
   <string name="rmd_EPr_defaultRemind_desc_disabled">Nuevas tareas no han recordatorios al azar</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">Nuevas tares le recordará al azar: %s</string>
+  <string name="rmd_EPr_defaultRemind_desc">Nuevas tares le recordará al azar</string>
   
   <!-- Defaults Title -->
   <string name="rmd_EPr_defaults_header">configuración de la tarea inicial</string>
@@ -1003,10 +1220,10 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
   <string name="repeat_detail_byday">$I en $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Se repite cada %s</string>
+  <string name="repeat_detail_duedate">Cada %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">Se repite %s después de la finalización</string>
+  <string name="repeat_detail_completion">%s después de la finalización</string>
   
 
 
@@ -1017,9 +1234,6 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
 
     <!-- label for RMilk button in Task Edit Activity -->
     <string name="rmilk_EOE_button">Ajustes de Remember the Milk</string>
-    
-    <!-- task detail showing RTM list information  -->
-    <string name="rmilk_TLA_list">RTM Lista: %s</string>
     
     <!-- task detail showing RTM repeat information -->
     <string name="rmilk_TLA_repeat">RTM Tarea Repetitiva</string>
@@ -1032,9 +1246,6 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
     
     <!-- filter category for RTM lists -->
     <string name="rmilk_FEx_list">Listas</string>
-    
-    <!-- RTM list filter name ($N => list, $C => count) -->
-    <string name="rmilk_FEx_list_item">$N ($C)</string>
     
     <!--  RTM list filter title (%s => list) -->
     <string name="rmilk_FEx_list_title">RTM Lista \'%s\'</string>
@@ -1058,6 +1269,8 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
     <!-- Milk Preferences Title -->    
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
+    <!-- ======================== SyncPreferences ========================== -->
+    
     <!-- RTM Status Group Label -->    
     <string name="sync_SPr_group_status">Estado</string>
     
@@ -1104,6 +1317,23 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
     <!-- Sync: Clear Data Description -->
     <string name="sync_SPr_forget_description">Borra todos los datos de sincronización</string>
 
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">Cierre de sesión / cancelar la sincronización de datos?</string>
+    
+    <string-array name="sync_SPr_interval_entries">
+        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+        <item>desactivar</item>
+        <item>cada quince minutos</item>
+        <item>cada treinta minutos</item>
+        <item>cada hora</item>
+        <item>cada tres horas</item>
+        <item>cada seis horas</item>
+        <item>cada doce horas</item>
+        <item>cada día</item>
+        <item>cada tres días</item>
+        <item>cada semana</item>
+    </string-array>
+
     <!-- ======================= MilkLoginActivity ========================= -->
 
     <!-- RTM Login Instructions -->
@@ -1117,27 +1347,9 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
     <!-- title for notification tray when synchronizing -->
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
-    <!-- confirmation dialog for RTM log out -->
-    <string name="rmilk_forget_confirm">Cierre de sesión / cancelar la sincronización de datos?</string>
-    
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Error de conexión! Compruebe su conexión a Internet o servidores quizá RTM (status.rememberthemilk.com), para posibles soluciones.</string>
-        
-    <string-array name="sync_SPr_interval_entries">
-        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-        <item>desactivar</item>
-        <item>cada quince minutos</item>
-        <item>cada treinta minutos</item>
-        <item>cada hora</item>
-        <item>cada tres horas</item>
-        <item>cada seis horas</item>
-        <item>cada doce horas</item>
-        <item>cada día</item>
-        <item>cada tres días</item>
-        <item>cada semana</item>
-    </string-array>
-
-    
+            
 
 
 
@@ -1153,11 +1365,9 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
   
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Nombre de la etiqueta</string>
-
-  <!-- ===================================================== Task Details == -->
   
-  <!-- tag text that displays in task list. %s => tag name -->
-  <string name="tag_TLA_detail">Etiquetas: %s</string>
+  <!-- Tags dropdown -->
+  <string name="TEA_tag_dropdown">Select a tag</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1165,19 +1375,10 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
   <string name="tag_FEx_header">Etiquetas</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Activo</string>
-  
-  <!-- filter header for tags of completed tasks -->
-  <string name="tag_FEx_completed">Completado</string>
-  
-  <!-- filter header for all tags, sorted by name -->
-  <string name="tag_FEx_alpha">Todas las etiquetas</string>
+  <string name="tag_FEx_by_size">Sorted By Size</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Sin etiquetas</string>
-  
-  <!-- $T => tag, $C => count -->
-  <string name="tag_FEx_tag_w_size">$T ($C)</string>
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">Etiquetado \'%s\'</string>

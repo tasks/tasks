@@ -830,17 +830,14 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
-   
-    <!-- ====================== Plugin Boilerplate ========================= -->
 
+    <!-- ====================== Plugin Boilerplate ========================= -->
+    
     <!-- filters header: Producteev -->
     <string name="producteev_FEx_header">Producteev</string>
     
     <!-- filter category for Producteev dashboards -->
     <string name="producteev_FEx_dashboard">Workspaces</string>
-    
-    <!--  Producteev dashboard filter title (%s => dashboard name) -->
-    <string name="producteev_FEx_dashboard_title">%s</string>
     
     <!-- filter category for Producteev responsible person -->
     <string name="producteev_FEx_responsible">Assigned To</string>
