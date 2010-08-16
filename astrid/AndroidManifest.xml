@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="3.2.0" android:versionCode="146">
+          android:versionName="3.2.0" android:versionCode="147">
           
   <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
   <!--    android:installLocation="internalOnly"> -->
@@ -53,7 +53,7 @@
   <supports-screens />
   
   <application android:icon="@drawable/icon" 
-               android:label="@string/app_name" android:debuggable="true">
+               android:label="@string/app_name">
     
     <!-- ====================================================== Activities = -->
         
