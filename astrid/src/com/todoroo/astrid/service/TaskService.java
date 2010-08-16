@@ -1,7 +1,6 @@
 package com.todoroo.astrid.service;
 
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -233,11 +232,10 @@ public class TaskService {
         }
     }
 
-    public int countTasks(Filter filter, CountProperty countProperty) {
-        TodorooCursor<Task> cursor = query(Query.select(countProperty).withQueryTemplate(filter.sqlQuery));
+    public int countTasks(Filter filter) {
+        TodorooCursor<Task> cursor = query(Query.select(Task.ID).withQueryTemplate(filter.sqlQuery));
         try {
-            cursor.moveToFirst();
-            return cursor.getInt(0);
+            return cursor.getCount();
         } finally {
             cursor.close();
         }
