@@ -98,7 +98,9 @@ public class TasksWidget extends AppWidgetProvider {
                     TasksWidget.class);
             AppWidgetManager manager = AppWidgetManager.getInstance(this);
 
-            int extrasId = intent.getIntExtra(EXTRA_WIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+            int extrasId = AppWidgetManager.INVALID_APPWIDGET_ID;
+            if(intent != null)
+                extrasId = intent.getIntExtra(EXTRA_WIDGET_ID, extrasId);
             if(extrasId == AppWidgetManager.INVALID_APPWIDGET_ID) {
                 for(int id : manager.getAppWidgetIds(thisWidget)) {
                     RemoteViews updateViews = buildUpdate(this, id);

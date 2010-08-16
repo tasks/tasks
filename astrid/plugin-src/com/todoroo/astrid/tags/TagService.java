@@ -2,9 +2,9 @@ package com.todoroo.astrid.tags;
 
 import java.util.LinkedHashSet;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -71,6 +71,11 @@ public final class TagService {
         public String tag;
         int count;
 
+        public Tag(String tag, int count) {
+            this.tag = tag;
+            this.count = count;
+        }
+
         @Override
         public String toString() {
             return tag;
@@ -114,9 +119,7 @@ public final class TagService {
             Tag[] array = new Tag[cursor.getCount()];
             for (int i = 0; i < array.length; i++) {
                 cursor.moveToNext();
-                array[i] = new Tag();
-                array[i].tag = cursor.get(TAG);
-                array[i].count = cursor.get(COUNT);
+                array[i] = new Tag(cursor.get(TAG), cursor.get(COUNT));
             }
             return array;
         } finally {
