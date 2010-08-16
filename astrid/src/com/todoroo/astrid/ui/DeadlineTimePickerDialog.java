@@ -82,9 +82,9 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
      */
     public DeadlineTimePickerDialog(Context context,
             OnDeadlineTimeSetListener callBack,
-            int hourOfDay, int minute, boolean is24HourView) {
+            int hourOfDay, int minute, boolean is24HourView, boolean hasTime) {
         this(context, android.R.style.Theme_Dialog,
-                callBack, hourOfDay, minute, is24HourView);
+                callBack, hourOfDay, minute, is24HourView, hasTime);
     }
 
     /**
@@ -98,7 +98,7 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
     public DeadlineTimePickerDialog(Context context,
             int theme,
             OnDeadlineTimeSetListener callBack,
-            int hourOfDay, int minute, boolean is24HourView) {
+            int hourOfDay, int minute, boolean is24HourView, boolean hasTime) {
         super(context, theme);
         mCallback = callBack;
         mInitialHourOfDay = hourOfDay;
@@ -118,7 +118,7 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
         setView(view);
         mTimePicker = (TimePicker) view.findViewById(R.id.timePicker);
         mHasTime = (CheckBox) view.findViewById(R.id.hasTime);
-        mHasTime.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+        OnCheckedChangeListener listener = new OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView,
                     boolean isChecked) {
@@ -128,8 +128,10 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
                 else
                     setTitle(R.string.TEA_urgency_time_none);
             }
-        });
-        mHasTime.setChecked(true);
+        };
+        mHasTime.setOnCheckedChangeListener(listener);
+        mHasTime.setChecked(hasTime);
+        listener.onCheckedChanged(null, hasTime);
 
         // initialize state
         mTimePicker.setCurrentHour(mInitialHourOfDay);
