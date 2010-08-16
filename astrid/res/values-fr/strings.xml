@@ -765,7 +765,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string name="gcal_TEA_addToCalendar_label">Créer un évènement d\'agenda</string>
   
   <!-- Label when calendar event already exists -->
-  <string name="gcal_TEA_showCalendar_label">Ouvrir l\'événement de l\\'agenda</string>
+  <string name="gcal_TEA_showCalendar_label">Ouvrir l\'événement de l\'agenda</string>
   
   <!-- Toast when unable to open calendar event -->
   <string name="gcal_TEA_calendar_error">Error opening event!</string>

@@ -34,7 +34,7 @@
     <string name="backup_BPr_group_status">狀態</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">最近一次</string>
+    <string name="backup_status_success">最近一次: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">上次備份失敗</string>
     <!-- Backup Status: error subtitle -->    
@@ -217,7 +217,7 @@
   <string name="DLG_close">關閉</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">哎呀, 似乎有些問題發生! 請見以下說明:</string>
+  <string name="DLG_error">哎呀, 似乎有些問題發生! 請見以下說明:\n\n%s</string>
   
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">確認刪除?</string>

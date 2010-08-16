@@ -389,7 +389,7 @@ button: add task & go to the edit page.
   <string name="FLA_search_hint">Buscar tareas</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">Coincider</string>
+  <string name="FLA_search_filter">Coincider \'%s\'</string>
   
   <!-- Help (HTML)-->
   <string name="FLA_help"><![CDATA[
@@ -557,17 +557,17 @@ to the plugin creator for fastest service.
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Urgencia predeterminada</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Configuración actual</string>
+  <string name="EPr_default_urgency_desc">Configuración actual: %s</string>
   
   <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Importancia predeterminada</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Configuración actual</string>
+  <string name="EPr_default_importance_desc">Configuración actual: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">Ocultar configuración inicial hasta</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Configuración actual</string>
+  <string name="EPr_default_hideUntil_desc">Configuración actual: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
@@ -1028,7 +1028,7 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
   <string name="rmd_EPr_defaultRemind_desc_disabled">Nuevas tareas no han recordatorios al azar</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">Nuevas tares le recordará al azar</string>
+  <string name="rmd_EPr_defaultRemind_desc">Nuevas tares le recordará al azar: %s</string>
   
   <!-- Defaults Title -->
   <string name="rmd_EPr_defaults_header">configuración de la tarea inicial</string>

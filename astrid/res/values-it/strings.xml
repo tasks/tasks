@@ -809,7 +809,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   </string-array>        
       
   <!-- Locale Notification text -->                                                                                                                                        
-  <string name="locale_notification">Hai $NUM corrispondenti: $FILTRO</string>     
+  <string name="locale_notification">Hai $NUM corrispondenti: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
   <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
@@ -1342,7 +1342,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="rmilk_MLA_label">Per favore esegui l\'accesso e autorizza Astrid:</string>
     
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">Spiacenti,si è verificato un errore durante la verifica di accesso. Prova di nuovo. \n\n Messaggio di Errore:% s</string>
+    <string name="rmilk_MLA_error">Spiacenti,si è verificato un errore durante la verifica di accesso. Prova di nuovo. \n\n Messaggio di Errore: %s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     
