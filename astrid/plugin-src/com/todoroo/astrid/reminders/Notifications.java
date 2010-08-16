@@ -246,8 +246,9 @@ public class Notifications extends BroadcastReceiver {
             }
         }
 
-        // quiet hours + periodic = no vibrate
-        if(quietHours && (type == ReminderService.TYPE_RANDOM)) {
+        // quiet hours && ! due date or snooze = no vibrate
+        if(quietHours && !(type == ReminderService.TYPE_DUE ||
+                type == ReminderService.TYPE_SNOOZE)) {
             notification.vibrate = null;
         } else {
             if (Preferences.getBoolean(R.string.p_rmd_vibrate, true)
