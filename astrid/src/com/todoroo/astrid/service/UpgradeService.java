@@ -105,6 +105,7 @@ public final class UpgradeService {
         if(from > V2_14_4 && from <= V3_1_0)
             newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
                     "Build your own custom filters from the Filter page",
+                    "Easy task sorting (in the task list menu)",
                     "Create widgets from any of your filters",
                     "Synchronize with Producteev! (producteev.com)",
                     "Select tags by drop-down box",
