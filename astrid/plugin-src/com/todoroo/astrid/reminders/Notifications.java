@@ -265,6 +265,23 @@ public class Notifications extends BroadcastReceiver {
         notificationManager.notify(notificationId, notification);
     }
 
+    /**
+     * Schedules alarms for a single task
+     *
+     * @param shouldPerformPropertyCheck
+     *            whether to check if task has requisite properties
+     */
+    public static void cancelNotifications(long taskId) {
+        if(notificationManager == null)
+            synchronized(Notifications.class) {
+                if(notificationManager == null)
+                    notificationManager = new AndroidNotificationManager(
+                            ContextManager.getContext());
+            }
+
+        notificationManager.cancel((int)taskId);
+    }
+
     // --- notification manager
 
     public static void setNotificationManager(
