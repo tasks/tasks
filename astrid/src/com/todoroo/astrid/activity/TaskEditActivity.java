@@ -696,6 +696,9 @@ public final class TaskEditActivity extends TabActivity {
         private ArrayAdapter<UrgencyValue> urgencyAdapter;
         private int previousSetting = Task.URGENCY_NONE;
 
+        private int existingDateHour = -1;
+        private int existingDateMinutes = -1;
+
         /**
          * Container class for urgencies
          *
@@ -767,8 +770,11 @@ public final class TaskEditActivity extends TabActivity {
                 for(int i = 0; i < labels.length; i++)
                     updated[i+1] = urgencyValues[i];
                 if(Task.hasDueTime(dueDate)) {
-                    updated[0] = new UrgencyValue(DateUtilities.getDateStringWithTime(TaskEditActivity.this, new Date(dueDate)),
+                    Date dueDateAsDate = new Date(dueDate);
+                    updated[0] = new UrgencyValue(DateUtilities.getDateStringWithTime(TaskEditActivity.this, dueDateAsDate),
                             Task.URGENCY_SPECIFIC_DAY_TIME, dueDate);
+                    existingDateHour = dueDateAsDate.getHours();
+                    existingDateMinutes = dueDateAsDate.getMinutes();
                 } else {
                     updated[0] = new UrgencyValue(DateUtilities.getDateString(TaskEditActivity.this, new Date(dueDate)),
                             Task.URGENCY_SPECIFIC_DAY, dueDate);
@@ -825,8 +831,13 @@ public final class TaskEditActivity extends TabActivity {
                 return;
             }
 
+            if(existingDateHour == -1)
+                existingDateHour = customDate.getHours();
+            if(existingDateMinutes == -1)
+                existingDateMinutes= customDate.getMinutes();
+
             DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(TaskEditActivity.this, this,
-                    customDate.getHours(), customDate.getMinutes(),
+                    existingDateHour, existingDateMinutes,
                     DateUtilities.is24HourFormat(TaskEditActivity.this));
             timePicker.setOnCancelListener(this);
             timePicker.show();
@@ -838,6 +849,8 @@ public final class TaskEditActivity extends TabActivity {
             else {
                 customDate.setHours(hourOfDay);
                 customDate.setMinutes(minute);
+                existingDateHour = hourOfDay;
+                existingDateMinutes = minute;
             }
             customDateFinished();
         }
