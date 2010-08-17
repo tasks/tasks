@@ -15,8 +15,8 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -72,9 +72,11 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
     /**
      * Create a task on the remote server.
      *
-     * @return task to create
+     * @param task
+     *            task to create
+     * @return task created on remote server
      */
-    abstract protected void create(TYPE task) throws IOException;
+    abstract protected TYPE create(TYPE task) throws IOException;
 
     /**
      * Push variables from given task to the remote server.
@@ -230,10 +232,6 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
                     remote = pull(remote);
                     remote.task.setId(local.task.getId());
                     data.remoteUpdated.set(remoteIndex, remote);
-
-                    // if remote is deleted, undelete it, since we just created
-                    if(remote.task.isDeleted())
-                        remote.task.setValue(Task.DELETION_DATE, 0L);
 
                 } else {
                     create(local);

@@ -51,6 +51,7 @@ import com.todoroo.astrid.utility.Preferences;
 @SuppressWarnings("nls")
 public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer> {
 
+    private static final long TASK_ID_UNSYNCED = 1L;
     private ProducteevDataService dataService = null;
     private ProducteevInvoker invoker = null;
     private final ProducteevUtilities preferences = ProducteevUtilities.INSTANCE;
@@ -299,7 +300,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     // ----------------------------------------------------------------------
 
     @Override
-    protected void create(ProducteevTaskContainer local) throws IOException {
+    protected ProducteevTaskContainer create(ProducteevTaskContainer local) throws IOException {
         Task localTask = local.task;
         long dashboard = ProducteevUtilities.INSTANCE.getDefaultDashboard();
         if(local.pdvTask.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
@@ -307,8 +308,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
         if(dashboard == ProducteevUtilities.DASHBOARD_NO_SYNC) {
             // set a bogus task id, then return without creating
-            local.pdvTask.setValue(ProducteevTask.ID, 1L);
-            return;
+            local.pdvTask.setValue(ProducteevTask.ID, TASK_ID_UNSYNCED);
+            return local;
         }
 
         JSONObject response = invoker.tasksCreate(localTask.getValue(Task.TITLE),
@@ -322,6 +323,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         }
         transferIdentifiers(newRemoteTask, local);
         push(local, newRemoteTask);
+        return newRemoteTask;
     }
 
     /** Create a task container for the given RtmTaskSeries
@@ -403,14 +405,22 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         if(shouldTransmit(local, Task.DELETION_DATE, remote)) {
             if(local.task.getValue(Task.DELETION_DATE) > 0)
                 invoker.tasksDelete(idTask);
-            else
-                create(local);
+            else {
+                // if we create, we transfer identifiers to old remote
+                // in case it is used by caller for other purposes
+                ProducteevTaskContainer newRemote = create(local);
+                transferIdentifiers(newRemote, remote);
+                remote = newRemote;
+            }
         }
 
         // dashboard
         if(remote != null && idDashboard != remote.pdvTask.getValue(ProducteevTask.DASHBOARD_ID)) {
             invoker.tasksSetWorkspace(idTask, idDashboard);
             remote = pull(local);
+        } else if(remote == null && idTask == TASK_ID_UNSYNCED) {
+            // was un-synced, create remote
+            remote = create(local);
         }
 
         // core properties

@@ -349,7 +349,7 @@ public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
     // ----------------------------------------------------------------------
 
     @Override
-    protected void create(RTMTaskContainer task) throws IOException {
+    protected RTMTaskContainer create(RTMTaskContainer task) throws IOException {
         String listId = null;
         if(task.listId > 0)
             listId = Long.toString(task.listId);
@@ -358,6 +358,7 @@ public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
         RTMTaskContainer newRemoteTask = parseRemoteTask(rtmTask);
         transferIdentifiers(newRemoteTask, task);
         push(task, newRemoteTask);
+        return newRemoteTask;
     }
 
     /**
