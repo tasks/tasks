@@ -195,9 +195,9 @@ public final class ReminderService  {
     private long calculateNextOverdueReminder(Task task) {
         if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE)) {
             long dueDate = task.getValue(Task.DUE_DATE);
-            if(dueDate > DateUtilities.now())
-                return NO_ALARM;
-            return DateUtilities.now() + (long)((4 + 30 * random.nextFloat()) * DateUtilities.ONE_HOUR);
+            if(dueDate < DateUtilities.now())
+                dueDate = DateUtilities.now();
+            return dueDate + (long)((4 + 30 * random.nextFloat()) * DateUtilities.ONE_HOUR);
         }
         return NO_ALARM;
     }
