@@ -5,10 +5,10 @@
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task Edit Activity: Container Label -->
-    <string name="alarm_ACS_label">Alarms</string>
+    <string name="alarm_ACS_label">Alarmer</string>
     
     <!-- Task Edit Activity: Add New Alarn -->
-    <string name="alarm_ACS_button">Add an Alarm</string>
+    <string name="alarm_ACS_button">Legg til ny alarm</string>
     
     <!-- Task Detail for Alarms (%s -> time)-->
     <string name="alarm_ADE_detail">Alarm %s</string>
@@ -53,9 +53,9 @@
     <string name="backup_BPr_auto_enabled">Sikkerhetskopiering vil skje daglig</string>
     
     <!-- Preference screen restoring Tasks Help -->
-    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
+    <string name="backup_BPr_how_to_restore">Hvordan gjenopprette sikkerhetskopi</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
+    <string name="backup_BPr_how_to_restore_dialog">Du må legge til Astrid Power Pack for å kunne behandle og gjenopprette sikkerhetskopier. For sikkerhets skyld, tar Astrid automatisk backup av dine oppgaver.</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -221,6 +221,9 @@
   
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">Slett denne oppgaven?</string>
+
+  <!-- question for deleting items (%s => item name) -->
+  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
   
   <!-- Button for being done -->
   <string name="DLG_done">Utført</string>
@@ -232,7 +235,7 @@
   <string name="DLG_wait">Vennligst vent...</string>
   
   <!-- Progress dialog shown when upgrading -->
-  <string name="DLG_upgrading">Upgrading your tasks...</string>
+  <string name="DLG_upgrading">Oppgraderer oppgavene dine...</string>
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Tid (timer : minutter)</string>
@@ -261,6 +264,9 @@
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Tillegg</string>
+  
+  <!-- Menu: Adjust Sort and Hidden Task Settings -->    
+  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Innstillinger</string>
@@ -314,6 +320,47 @@ button: add task & go to the edit page.
 
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Gjenopprett Oppgave</string>
+  
+  <!-- ============================================== SortSelectionDialog == -->
+  
+  <!-- Sort Selection: dialog title -->    
+  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  
+  <!-- Hidden Task Selection: show completed tasks -->    
+  <string name="SSD_completed">Show Completed Tasks</string>
+  
+  <!-- Hidden Task Selection: show hidden tasks -->    
+  <string name="SSD_hidden">Show Hidden Tasks</string>
+  
+  <!-- Hidden Task Selection: show deleted tasks -->    
+  <string name="SSD_deleted">Show Deleted Tasks</string>
+  
+  <!-- Sort Selection: sort options header -->    
+  <string name="SSD_sort_header">Sort Options</string>
+  
+  <!-- Sort Selection: smart sort -->
+  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  
+  <!-- Sort Selection: sort by alpha -->
+  <string name="SSD_sort_alpha">Etter tittel</string>
+  
+  <!-- Sort Selection: sort by due date -->
+  <string name="SSD_sort_due">Etter forfallsdato</string>
+  
+  <!-- Sort Selection: sort by importance -->
+  <string name="SSD_sort_importance">Etter viktighet</string>
+  
+  <!-- Sort Selection: sort by modified date -->
+  <string name="SSD_sort_modified">By Last Modified</string>
+  
+  <!-- Sort Selection: reverse -->
+  <string name="SSD_sort_reverse">Reverse Sort</string>
+  
+  <!-- Sort Button: sort temporarily -->
+  <string name="SSD_save_temp">Just Once</string>
+  
+  <!-- Sort Button: sort permanently -->
+  <string name="SSD_save_always">Always</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -445,7 +492,7 @@ to the plugin creator for fastest service.
       <item>I morgen</item>
       <item>(dagen etter)</item>
       <item>Neste uke</item>
-      <item>Ingen deadline</item>
+      <item>Ingen frist</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
@@ -458,10 +505,10 @@ to the plugin creator for fastest service.
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_no_addons">No Add-ons Found!</string>
+  <string name="TEA_no_addons">Ingen tillegg funnet!</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get Some Add-ons</string>
+  <string name="TEA_addons_button">Last ned tillegg</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -498,11 +545,11 @@ to the plugin creator for fastest service.
   <string name="EPr_fontSize_desc">Skriftstørrelse for hovedlisten</string>  
   
   <!-- Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <string name="EPr_showNotes_title">Vis notater i oppgavelista</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
+  <string name="EPr_showNotes_desc_disabled">Notater vil vises når du klikker på en oppgave</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notes will always displayed</string>  
+  <string name="EPr_showNotes_desc_enabled">Notater vil alltid vises</string>  
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">Nye standardverdier for oppgaver</string>
@@ -532,7 +579,7 @@ to the plugin creator for fastest service.
   
   <string-array name="EPr_default_urgency">
       <!-- urgency: labels for "Task Defaults" preference item. -->
-      <item>Ingen deadline</item>
+      <item>Ingen frist</item>
       <item>I dag</item>
       <item>I morgen</item>
       <item>I overmorgen</item>
@@ -550,22 +597,22 @@ to the plugin creator for fastest service.
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
-  <string name="AOA_title">Astrid: Add Ons</string>
+  <string name="AOA_title">Astrid: Tillegg</string>
     
   <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Astrid-teamet</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
-  <string name="AOA_tab_installed">Installed</string>
+  <string name="AOA_tab_installed">Installert</string>
   
   <!-- Add-on Activity - available add-ons tab -->
-  <string name="AOA_tab_available">Available</string>
+  <string name="AOA_tab_available">Tilgjengelige</string>
   
   <!-- Add-on Activity - free add-ons label -->
-  <string name="AOA_free">Free</string>
+  <string name="AOA_free">Gratis</string>
   
   <!-- Add-on Activity - menu item to visit add-on website -->
-  <string name="AOA_visit_website">Visit Website</string>
+  <string name="AOA_visit_website">Besøk Webside</string>
   
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
@@ -580,8 +627,11 @@ to the plugin creator for fastest service.
   
   <!-- ====================================================== TasksWidget == -->
 
-  <!-- Widget text when loading tasks -->                                                                                                                                                                          
+  <!-- Widget text when loading tasks -->
   <string name="TWi_loading">Laster ...</string>
+
+  <!-- Widget configuration activity title: select a filter -->
+  <string name="WCA_title">Select tasks to view...</string>
   
   <!-- ============================================================= Misc == -->
   
@@ -595,7 +645,7 @@ to the plugin creator for fastest service.
   <string name="marketplace_title">Astrid Oppgave/Ting å gjøre liste</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">Astrid er den høyt anerkjente oppgavelisten med åpen kildekode, som er enkel nok til å ikke komme i veien, men kraftig nok til å hjelpe deg å få ting gjort! Tagger, påminnelser, RememberTheMilk-synkroinsering, Locale plug-in og mer!</string>
+  <string name="marketplace_description">Astrid er en godt likt åpen-kilde å gjøre/oppgave liste, laget til hjelp for å få oppgaver gjort. Den inneholder påminnelser, tagger, synkronisering, en widget og mer.</string>
     
 
 
@@ -604,39 +654,95 @@ to the plugin creator for fastest service.
     
     <!-- Resources for built-in filter plug-in -->
     
+    <!-- ================================================= Filter Exposer == -->
+    
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">Aktive oppgaver</string>
         
-    <!-- Title for Active Tasks Filter (what user sees when first opening the app) -->
-    <string name="BFE_Active_title">Aktive oppgaver</string>
-    
     <!-- Search Filter -->
     <string name="BFE_Search">Søk</string>
-
-    <!-- Extended Filters Category -->
-    <string name="BFE_Extended">Mer...</string>
-
-    <!-- sort recent modification filter -->
-    <string name="SSD_sort_modified">Nylig endret</string>
     
-    <!-- Completed Filter -->
-    <string name="SSD_completed">Fullførte oppgaver</string>
+    <!-- Recently Modified -->
+    <string name="BFE_Recent">Nylig endret</string>
+    
+    <!-- Build Your Own Filter -->
+    <string name="BFE_Custom">Custom Filter...</string>
+    
+    <!-- Saved Filters Header -->
+    <string name="BFE_Saved">Saved Filters</string>
+    
+    <!-- Saved Filters Context Menu: delete -->
+    <string name="BFE_Saved_delete">Delete Filter</string>
 
-    <!-- hidden tasks filter -->
-    <string name="SSD_hidden">Skjulte oppgaver</string>
+    <!-- =========================================== CustomFilterActivity == -->
+    
+    <!-- Build Your Own Filter Activity Title-->
+    <string name="CFA_title">Custom Filter</string>
+    
+    <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
+    <string name="CFA_filterName_hint">Name this filter to save it...</string>
+    
+    <!-- Filter Name default for copied filters (%s => old filter name) -->
+    <string name="CFA_filterName_copy">Copy of %s</string>
+    
+    <!-- Filter Starting Universe: all tasks -->
+    <string name="CFA_universe_all">Aktive oppgaver</string>
+    
+    <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
+    <string name="CFA_type_add">or</string>
+    
+    <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
+    <string name="CFA_type_subtract">not</string>
+    
+    <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
+    <string name="CFA_type_intersect">also</string>
+    
+    <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
+    <string name="CFA_context_chain">Chaining: %s</string>
+    
+    <!-- Filter Criteria Context Menu: delete -->
+    <string name="CFA_context_delete">Delete Row</string>
+    
+    <!-- Filter Screen Help Text -->
+    <string name="CFA_help">This screen lets you create a new filters. Add 
+    criteria using the button below, short or long-press them to adjust, and
+    then click \"View\"!</string>
+    
+    <!-- Filter Button: add new -->
+    <string name="CFA_button_add">Add Criteria</string>
+    
+    <!-- Filter Button: view without saving -->
+    <string name="CFA_button_view">View</string>
+    
+    <!-- Filter Button: save & view filter -->
+    <string name="CFA_button_save">Save &amp; View</string>
 
-    <!-- sort Alphabetical filter -->
-    <string name="SSD_sort_alpha">Etter tittel</string>
-
-    <!-- sort Due Date filter -->
-    <string name="SSD_sort_due">Etter forfallsdato</string>
-
-    <!-- sort Importance filter -->
-    <string name="SSD_sort_importance">Etter viktighet</string>
-
-    <!-- deleted tasks filter -->
-    <string name="SSD_deleted">Slettede oppgaver</string>
+    <!-- =========================================== CustomFilterCriteria == -->
         
+    <!-- Criteria: due by X - display text -->
+    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <!-- Criteria: due by X - name of criteria -->
+    <string name="CFC_dueBefore_name">Due By...</string>
+    <string-array name="CFC_dueBefore_entries">
+        <!-- Criteria: due by X - options -->
+        <item>No Due Date</item>
+        <item>Yesterday</item>
+        <item>I dag</item>
+        <item>I morgen</item>
+        <item>I overmorgen</item>
+        <item>Neste uke</item>
+    </string-array>
+    
+    <!-- Criteria: importance - display text -->
+    <string name="CFC_importance_text">Importance at least ?</string>
+    <!-- Criteria: importance - name of criteria -->
+    <string name="CFC_importance_name">Importance...</string>        
+    
+    <!-- Criteria: tag - display text -->
+    <string name="CFC_tag_text">Tagged: ?</string>
+    <!-- Criteria: tag - name of criteria -->
+    <string name="CFC_tag_name">Tagged...</string>        
+    
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -657,6 +763,9 @@ to the plugin creator for fastest service.
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">Åpne kalenderhendelse</string>
+  
+  <!-- Toast when unable to open calendar event -->
+  <string name="gcal_TEA_calendar_error">Error opening event!</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -700,9 +809,117 @@ to the plugin creator for fastest service.
   <string name="locale_notification">Du har $NUM som matcher: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
+  <string name="locale_plugin_required">Vennligst innstaller Astrid Locale tillegget!</string>        
      
 
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
+    <!-- ====================== Plugin Boilerplate ========================= -->
+    
+    <!-- filters header: Producteev -->
+    <string name="producteev_FEx_header">Producteev</string>
+    
+    <!-- filter category for Producteev dashboards -->
+    <string name="producteev_FEx_dashboard">Workspaces</string>
+    
+    <!-- filter category for Producteev responsible person -->
+    <string name="producteev_FEx_responsible">Assigned To</string>
+    
+    <!--  Producteev dashboard filter title (%s => dashboardname) -->
+    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+
+    <!-- ==================================================== Preferences == -->
+
+    <!-- Preferences Title: Producteev -->    
+    <string name="producteev_PPr_header">Producteev</string>
+
+    <!-- dashboard title for producteev default dashboard  -->
+    <string name="producteev_default_dashboard">Default Workspace</string>
+
+    <!-- dashboard title for tasks that are not synchronized -->
+    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+
+    <!-- preference title for default dashboard -->
+    <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
+
+    <!-- preference description for default dashboard (%s -> setting) -->
+    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+
+    <!-- preference description for default dashboard (when set to 'not synchronized') -->
+    <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
+
+    <!-- ================================================= Login Activity == -->
+
+    <!-- Activity Title: Producteev Login -->    
+    <string name="producteev_PLA_title">Log In to Producteev</string>
+
+    <!-- Instructions: Producteev login -->    
+    <string name="producteev_PLA_body">Sign in with your existing
+    Producteev account, or create a new account!</string>
+
+    <!-- Producteev Terms Link -->    
+    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+
+    <!-- Sign In Button -->    
+    <string name="producteev_PLA_signIn">Sign In</string>
+
+    <!-- Create New User Button -->    
+    <string name="producteev_PLA_createNew">Create New User</string>
+
+    <!-- E-mail Address Label -->    
+    <string name="producteev_PLA_email">E-mail</string>
+
+    <!-- Password Label -->    
+    <string name="producteev_PLA_password">Password</string>
+
+    <!-- Confirm Password Label -->    
+    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+
+    <!-- First Name Label -->    
+    <string name="producteev_PLA_firstName">First Name</string>
+
+    <!-- Last Name Label -->    
+    <string name="producteev_PLA_lastName">Last Name</string>
+
+    <!-- Error Message when fields aren't filled out -->    
+    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+
+    <!-- Error Message when passwords don't match -->    
+    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
+    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
+
+    <!-- ================================================ Synchronization == -->
+        
+    <!-- title for notification tray when synchronizing -->
+    <string name="producteev_notification_title">Astrid: Producteev</string>
+    
+    <!-- Error msg when io exception  -->
+    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+
+    <!-- Prod Login email not specified-->
+    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+    
+    <!-- Prod Login password not specified-->
+    <string name="producteev_MLA_password_empty">Password was not specified!</string>
+    
+    <!-- ================================================ labels for layout-elements == -->
+    
+    <!-- label for task-assignment spinner on taskeditactivity -->
+    <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
+    
+    <!-- Spinner-item for unassigned tasks on taskeditactivity -->
+    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    
+    <!-- label for dashboard-assignment spinner on taskeditactivity -->
+    <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
+
+    <!-- Spinner-item for default dashboard on taskeditactivity -->
+    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
+    
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
@@ -715,7 +932,7 @@ to the plugin creator for fastest service.
   <string name="TEA_reminder_label">Minn meg på...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when task is due</string>
+  <string name="TEA_reminder_due">...når oppgaven forfaller</string>
 
   <!-- Task Edit: Reminder after deadline -->  
   <string name="TEA_reminder_overdue">... når oppgaven har forfalt</string>
@@ -734,7 +951,7 @@ to the plugin creator for fastest service.
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
-    <item>en time</item>
+    <item>i timen</item>
     <item>om dagen</item>
     <item>i uka</item>
     <item>om to uker</item>
@@ -1002,10 +1219,10 @@ to the plugin creator for fastest service.
   <string name="repeat_detail_byday">$I på $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Gjentas hver %s</string>
+  <string name="repeat_detail_duedate">Hver %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">Gjentas %s etter fullført</string>
+  <string name="repeat_detail_completion">%s etter fullført</string>
   
 
 
@@ -1016,9 +1233,6 @@ to the plugin creator for fastest service.
 
     <!-- label for RMilk button in Task Edit Activity -->
     <string name="rmilk_EOE_button">Remember the Milk Innstillinger</string>
-    
-    <!-- task detail showing RTM list information  -->
-    <string name="rmilk_TLA_list">RTM Liste: %s</string>
     
     <!-- task detail showing RTM repeat information -->
     <string name="rmilk_TLA_repeat">RTM gjentagende oppgave</string>
@@ -1031,9 +1245,6 @@ to the plugin creator for fastest service.
     
     <!-- filter category for RTM lists -->
     <string name="rmilk_FEx_list">Lister</string>
-    
-    <!-- RTM list filter name ($N => list, $C => count) -->
-    <string name="rmilk_FEx_list_item">$N ($C)</string>
     
     <!--  RTM list filter title (%s => list) -->
     <string name="rmilk_FEx_list_title">RTM Liste \'%s\'</string>
@@ -1057,6 +1268,8 @@ to the plugin creator for fastest service.
     <!-- Milk Preferences Title -->    
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
+    <!-- ======================== SyncPreferences ========================== -->
+    
     <!-- RTM Status Group Label -->    
     <string name="sync_SPr_group_status">Status</string>
     
@@ -1103,6 +1316,23 @@ to the plugin creator for fastest service.
     <!-- Sync: Clear Data Description -->
     <string name="sync_SPr_forget_description">Slett alle synkroniseringsdata</string>
 
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">Logge ut / slette synkroniserings data?</string>
+    
+    <string-array name="sync_SPr_interval_entries">
+        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+        <item>deaktiver</item>
+        <item>hvert kvarter</item>
+        <item>hver halvtime</item>
+        <item>hver time</item>
+        <item>hver tredje time</item>
+        <item>hver sjette time</item>
+        <item>hver tolvte time</item>
+        <item>daglig</item>
+        <item>hver tredje dag</item>
+        <item>hver uke</item>
+    </string-array>
+
     <!-- ======================= MilkLoginActivity ========================= -->
 
     <!-- RTM Login Instructions -->
@@ -1116,27 +1346,9 @@ to the plugin creator for fastest service.
     <!-- title for notification tray when synchronizing -->
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
-    <!-- confirmation dialog for RTM log out -->
-    <string name="rmilk_forget_confirm">Logge ut / slette synkroniserings data?</string>
-    
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Tilkoblings feil! Sjekk internettforbindelsen din, evt. RTM serverene (status.rememberthemilk.com), for mulig feilløsning.</string>
-        
-    <string-array name="sync_SPr_interval_entries">
-        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-        <item>deaktiver</item>
-        <item>hvert kvarter</item>
-        <item>hver halvtime</item>
-        <item>hver time</item>
-        <item>hver tredje time</item>
-        <item>hver sjette time</item>
-        <item>hver tolvte time</item>
-        <item>daglig</item>
-        <item>hver tredje dag</item>
-        <item>hver uke</item>
-    </string-array>
-
-    
+            
 
 
 
@@ -1151,12 +1363,10 @@ to the plugin creator for fastest service.
   <string name="TEA_tags_label">Tagger:</string>
   
   <!-- Tags hint -->
-  <string name="TEA_tag_hint">Taggnavn</string>
-
-  <!-- ===================================================== Task Details == -->
+  <string name="TEA_tag_hint">Tag navn</string>
   
-  <!-- tag text that displays in task list. %s => tag name -->
-  <string name="tag_TLA_detail">Tagger: %s</string>
+  <!-- Tags dropdown -->
+  <string name="TEA_tag_dropdown">Select a tag</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1164,19 +1374,10 @@ to the plugin creator for fastest service.
   <string name="tag_FEx_header">Tagger</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Active</string>
-  
-  <!-- filter header for tags of completed tasks -->
-  <string name="tag_FEx_completed">Completed</string>
-  
-  <!-- filter header for all tags, sorted by name -->
-  <string name="tag_FEx_alpha">All Tags</string>
+  <string name="tag_FEx_by_size">Sorted By Size</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Umerket</string>
-  
-  <!-- $T => tag, $C => count -->
-  <string name="tag_FEx_tag_w_size">$T ($C)</string>
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">Merket \'%s\'</string>

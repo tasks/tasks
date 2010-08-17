@@ -30,6 +30,7 @@ import com.timsu.astrid.data.enums.Importance;
 
 
 /** Fields that you would want to see in the TaskView activity */
+@SuppressWarnings("nls")
 public class TaskModelForProvider extends AbstractTaskModel {
 
     static String[] FIELD_LIST = new String[] {

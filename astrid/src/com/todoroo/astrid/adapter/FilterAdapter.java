@@ -24,7 +24,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -104,11 +103,10 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         filterSizeLoadingThread = new Thread() {
             @Override
             public void run() {
-                CountProperty cp = new CountProperty();
                 while(true) {
                     try {
                         Filter filter = filterQueue.take();
-                        int size = taskService.countTasks(filter, cp);
+                        int size = taskService.countTasks(filter);
                         filter.listingTitle = filter.listingTitle + (" (" + //$NON-NLS-1$
                             size + ")"); //$NON-NLS-1$
                         activity.runOnUiThread(new Runnable() {

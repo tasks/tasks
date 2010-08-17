@@ -21,7 +21,7 @@ package com.timsu.astrid.data;
 
 /** Identifier of a single object. Extend this class to create your own */
 public abstract class Identifier {
-    private long id;
+    private final long id;
 
     public Identifier(long id) {
         this.id = id;
@@ -50,6 +50,6 @@ public abstract class Identifier {
 
     @Override
     public String toString() {
-        return getClass().getSimpleName() + ": " + id;
+        return getClass().getSimpleName() + ": " + id; //$NON-NLS-1$
     }
 }

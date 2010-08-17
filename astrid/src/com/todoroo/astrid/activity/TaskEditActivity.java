@@ -39,6 +39,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -232,10 +233,16 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new RepeatControlSet(this, extrasAddons));
 
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
-        AddOn producteevAddon = addOnService.getAddOn(AddOnService.PRODUCTEEV_PACKAGE, "Producteev"); //$NON-NLS-1$
-        if (addOnService.isInstalled(producteevAddon) && ProducteevUtilities.INSTANCE.isLoggedIn()) {
-            controls.add(new ProducteevControlSet(this, addonsAddons));
+
+        try {
+            AddOn producteevAddon = addOnService.getAddOn(AddOnService.PRODUCTEEV_PACKAGE, "Producteev"); //$NON-NLS-1$
+            if (addOnService.isInstalled(producteevAddon) && ProducteevUtilities.INSTANCE.isLoggedIn()) {
+                controls.add(new ProducteevControlSet(this, addonsAddons));
+            }
+        } catch (Exception e) {
+            Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
+
         if(addOnService.hasPowerPack()) {
             controls.add(new GCalControlSet(this, addonsAddons));
             controls.add(new TimerControlSet(this, addonsAddons));
@@ -690,11 +697,17 @@ public final class TaskEditActivity extends TabActivity {
             OnItemSelectedListener, OnDeadlineTimeSetListener, OnDateSetListener,
             OnCancelListener {
 
-        private static final long SPECIFIC_DATE = -1;
+        private static final int SPECIFIC_DATE = -1;
+        private static final int EXISTING_TIME_UNSET = -2;
 
         private final Spinner spinner;
         private ArrayAdapter<UrgencyValue> urgencyAdapter;
         private int previousSetting = Task.URGENCY_NONE;
+
+
+        private long existingDate = EXISTING_TIME_UNSET;
+        private int existingDateHour = EXISTING_TIME_UNSET;
+        private int existingDateMinutes = EXISTING_TIME_UNSET;
 
         /**
          * Container class for urgencies
@@ -759,6 +772,8 @@ public final class TaskEditActivity extends TabActivity {
             for(int i = 0; i < urgencyValues.length; i++)
                 if(urgencyValues[i].dueDate == dueDate) {
                     selection = i;
+                    if(dueDate > 0)
+                        existingDate = dueDate;
                     break;
                 }
 
@@ -767,11 +782,17 @@ public final class TaskEditActivity extends TabActivity {
                 for(int i = 0; i < labels.length; i++)
                     updated[i+1] = urgencyValues[i];
                 if(Task.hasDueTime(dueDate)) {
-                    updated[0] = new UrgencyValue(DateUtilities.getDateStringWithTime(TaskEditActivity.this, new Date(dueDate)),
+                    Date dueDateAsDate = new Date(dueDate);
+                    updated[0] = new UrgencyValue(DateUtilities.getDateStringWithTime(TaskEditActivity.this, dueDateAsDate),
                             Task.URGENCY_SPECIFIC_DAY_TIME, dueDate);
+                    existingDate = dueDate;
+                    existingDateHour = dueDateAsDate.getHours();
+                    existingDateMinutes = dueDateAsDate.getMinutes();
                 } else {
                     updated[0] = new UrgencyValue(DateUtilities.getDateString(TaskEditActivity.this, new Date(dueDate)),
                             Task.URGENCY_SPECIFIC_DAY, dueDate);
+                    existingDate = dueDate;
+                    existingDateHour = SPECIFIC_DATE;
                 }
                 selection = 0;
                 urgencyValues = updated;
@@ -794,7 +815,7 @@ public final class TaskEditActivity extends TabActivity {
             UrgencyValue item = urgencyAdapter.getItem(position);
             if(item.dueDate == SPECIFIC_DATE) {
                 customSetting = item.setting;
-                customDate = new Date();
+                customDate = new Date(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
                 customDate.setSeconds(0);
                 DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
                         this, 1900 + customDate.getYear(), customDate.getMonth(), customDate.getDate());
@@ -825,9 +846,17 @@ public final class TaskEditActivity extends TabActivity {
                 return;
             }
 
+            boolean specificTime = existingDateHour != SPECIFIC_DATE;
+            if(existingDateHour < 0) {
+                existingDateHour = customDate.getHours();
+                existingDateMinutes= customDate.getMinutes();
+            }
+
             DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(TaskEditActivity.this, this,
-                    customDate.getHours(), customDate.getMinutes(),
-                    DateUtilities.is24HourFormat(TaskEditActivity.this));
+                    existingDateHour, existingDateMinutes,
+                    DateUtilities.is24HourFormat(TaskEditActivity.this),
+                    specificTime);
+
             timePicker.setOnCancelListener(this);
             timePicker.show();
         }
@@ -838,6 +867,8 @@ public final class TaskEditActivity extends TabActivity {
             else {
                 customDate.setHours(hourOfDay);
                 customDate.setMinutes(minute);
+                existingDateHour = hourOfDay;
+                existingDateMinutes = minute;
             }
             customDateFinished();
         }

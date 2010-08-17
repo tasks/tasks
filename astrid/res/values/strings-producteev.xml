@@ -10,9 +10,6 @@
     <!-- filter category for Producteev dashboards -->
     <string name="producteev_FEx_dashboard">Workspaces</string>
     
-    <!--  Producteev dashboard filter title (%s => dashboard name) -->
-    <string name="producteev_FEx_dashboard_title">%s</string>
-    
     <!-- filter category for Producteev responsible person -->
     <string name="producteev_FEx_responsible">Assigned To</string>
     

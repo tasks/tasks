@@ -31,10 +31,8 @@ import com.todoroo.astrid.rmilk.data.MilkTask;
  */
 public class MilkFilterExposer extends BroadcastReceiver {
 
-    @SuppressWarnings("nls")
     private Filter filterFromList(Context context, ListContainer list) {
-        String listTitle = context.getString(R.string.rmilk_FEx_list_item).
-            replace("$N", list.name).replace("$C", Integer.toString(list.count));
+        String listTitle = list.name;
         String title = context.getString(R.string.rmilk_FEx_list_title, list.name);
         ContentValues values = new ContentValues();
         values.put(Metadata.KEY.name, MilkTask.METADATA_KEY);

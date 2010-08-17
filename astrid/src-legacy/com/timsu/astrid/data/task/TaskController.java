@@ -51,6 +51,7 @@ import com.todoroo.astrid.widget.TasksWidget.UpdateService;
  *
  */
 @Deprecated
+@SuppressWarnings("nls")
 public class TaskController extends AbstractController {
 
     private SQLiteDatabase database;
@@ -291,6 +292,7 @@ public class TaskController extends AbstractController {
      *
      * @param task
      * @param values
+     * @param duringSync
      */
     private void onTaskSave(AbstractTaskModel task, ContentValues values, boolean duringSync) {
         // save task completed date
@@ -325,15 +327,15 @@ public class TaskController extends AbstractController {
                     ContentResolver cr = context.getContentResolver();
                     Uri uri = Uri.parse(uriAsString);
 
-                    Integer estimated = null;
-                    if(values.containsKey(AbstractTaskModel.ESTIMATED_SECONDS))
-                        estimated = values.getAsInteger(AbstractTaskModel.ESTIMATED_SECONDS);
-                    else { // read from event
-                        Cursor event = cr.query(uri, new String[] {"dtstart", "dtend"},
-                                null, null, null);
-                        event.moveToFirst();
-                        estimated = (event.getInt(1) - event.getInt(0))/1000;
-                    }
+//                    Integer estimated = null;
+//                    if(values.containsKey(AbstractTaskModel.ESTIMATED_SECONDS))
+////                        estimated = values.getAsInteger(AbstractTaskModel.ESTIMATED_SECONDS);
+//                    else { // read from event
+//                        Cursor event = cr.query(uri, new String[] {"dtstart", "dtend"},
+//                                null, null, null);
+//                        event.moveToFirst();
+////                        estimated = (event.getInt(1) - event.getInt(0))/1000;
+//                    }
 
                     // create new start and end date for this event
                     ContentValues newValues = new ContentValues();
@@ -569,9 +571,10 @@ public class TaskController extends AbstractController {
         }
     }
 
-    /** Updates the alarm for the task identified by the given id */
+    /** Updates the alarm for the task identified by the given id
+     * @param taskId */
     public void updateAlarmForTask(TaskIdentifier taskId) throws SQLException {
-        TaskModelForNotify task = fetchTaskForNotify(taskId);
+//        TaskModelForNotify task = fetchTaskForNotify(taskId);
         AlertController alertController = new AlertController(context);
         alertController.open();
 //        ReminderService.updateAlarm(context, this, alertController, task);
