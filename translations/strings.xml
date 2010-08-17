@@ -7,7 +7,7 @@
     <!-- Task Edit Activity: Container Label -->
     <string name="alarm_ACS_label">Alarms</string>
     
-    <!-- Task Edit Activity: Add New Alarn -->
+    <!-- Task Edit Activity: Add New Alarm -->
     <string name="alarm_ACS_button">Add an Alarm</string>
     
     <!-- Task Detail for Alarms (%s -> time)-->
@@ -658,7 +658,7 @@ Astrid might not let you know when your tasks are due.\n
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">
 Astrid is the much loved open-source todo list / task manager designed to help 
-you get stuff done. It features reminders, tags, sync, a widget and more. 
+you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
   </string>
     
 
