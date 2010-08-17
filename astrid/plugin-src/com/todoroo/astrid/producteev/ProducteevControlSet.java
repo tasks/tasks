@@ -87,7 +87,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
     private void refreshResponsibleSpinner(ArrayList<ProducteevUser> newUsers) {
         Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(myTask.getId());
         long responsibleId = -1;
-        if(metadata.containsNonNullValue(ProducteevTask.RESPONSIBLE_ID))
+        if(metadata != null && metadata.containsNonNullValue(ProducteevTask.RESPONSIBLE_ID))
             responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);
         refreshResponsibleSpinner(newUsers, responsibleId);
     }
