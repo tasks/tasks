@@ -41,7 +41,6 @@ import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.legacy.TransitionalAlarm;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -447,7 +446,7 @@ public class Astrid2To3UpgradeHelper {
                 return;
 
             Metadata metadata = new Metadata();
-            metadata.setValue(Metadata.KEY, MilkTask.METADATA_KEY);
+            metadata.setValue(Metadata.KEY, "rmilk");
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long task = cursor.getLong(0);
                 String id = cursor.getString(1);
@@ -460,10 +459,10 @@ public class Astrid2To3UpgradeHelper {
                 String listId = strtok.nextToken();
 
                 metadata.setValue(Metadata.TASK, task);
-                metadata.setValue(MilkTask.LIST_ID, Long.parseLong(listId));
-                metadata.setValue(MilkTask.TASK_SERIES_ID, Long.parseLong(taskSeriesId));
-                metadata.setValue(MilkTask.TASK_ID, Long.parseLong(taskId));
-                metadata.setValue(MilkTask.REPEATING, 0); // not accurate, but not important
+                metadata.setValue(Metadata.VALUE1, (listId));
+                metadata.setValue(Metadata.VALUE2, (taskSeriesId));
+                metadata.setValue(Metadata.VALUE3, (taskId));
+                metadata.setValue(Metadata.VALUE4,  "0"); // not accurate, but not important
                 metadataDao.createNew(metadata);
                 metadata.clearValue(Metadata.ID);
             }

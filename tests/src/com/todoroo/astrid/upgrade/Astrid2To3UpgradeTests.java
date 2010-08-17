@@ -11,8 +11,8 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.TestDependencyInjector;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.legacy.AlarmDatabase;
 import com.todoroo.astrid.legacy.TransitionalAlarm;
@@ -23,14 +23,13 @@ import com.todoroo.astrid.legacy.data.sync.SyncDataController;
 import com.todoroo.astrid.legacy.data.sync.SyncMapping;
 import com.todoroo.astrid.legacy.data.tag.TagController;
 import com.todoroo.astrid.legacy.data.tag.TagIdentifier;
+import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.legacy.data.task.TaskController;
 import com.todoroo.astrid.legacy.data.task.TaskIdentifier;
 import com.todoroo.astrid.legacy.data.task.TaskModelForEdit;
 import com.todoroo.astrid.legacy.data.task.TaskModelForSync;
-import com.todoroo.astrid.legacy.data.task.AbstractTaskModel.RepeatInfo;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.service.Astrid2To3UpgradeHelper;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
@@ -407,13 +406,13 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
         database.openForReading();
 
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
-                Metadata.PROPERTIES).where(MetadataCriteria.withKey(MilkTask.METADATA_KEY)));
+                Metadata.PROPERTIES).where(MetadataCriteria.withKey("rmilk")));
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
         Metadata metadata = new Metadata(cursor);
-        assertEquals(123, (long)metadata.getValue(MilkTask.TASK_ID));
-        assertEquals(456, (long)metadata.getValue(MilkTask.TASK_SERIES_ID));
-        assertEquals(789000, (long)metadata.getValue(MilkTask.LIST_ID));
+        assertEquals("123", metadata.getValue(Metadata.VALUE1));
+        assertEquals("456", metadata.getValue(Metadata.VALUE2));
+        assertEquals("789000", metadata.getValue(Metadata.VALUE3));
         cursor.close();
     }
 

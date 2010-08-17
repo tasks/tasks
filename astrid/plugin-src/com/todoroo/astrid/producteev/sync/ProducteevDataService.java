@@ -21,16 +21,15 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
-import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.tags.TagService;
 
 public final class ProducteevDataService {
@@ -39,6 +38,8 @@ public final class ProducteevDataService {
 
     /** Utility for joining tasks with metadata */
     public static final Join METADATA_JOIN = Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK));
+
+    public static final String MILK_NOTE_KEY = "rmilk-note"; //$NON-NLS-1$
 
     // --- singleton
 
@@ -166,7 +167,7 @@ public final class ProducteevDataService {
                 where(Criterion.and(MetadataCriteria.byTask(task.getId()),
                         Criterion.or(MetadataCriteria.withKey(TagService.KEY),
                                 MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                                MetadataCriteria.withKey(MilkNote.METADATA_KEY), // to sync rmilk notes
+                                MetadataCriteria.withKey(MILK_NOTE_KEY), // to sync rmilk notes
                                 MetadataCriteria.withKey(ProducteevNote.METADATA_KEY)))));
         try {
             for(metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {

@@ -18,12 +18,12 @@ import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -52,7 +52,6 @@ import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.notes.NoteDetailExposer;
 import com.todoroo.astrid.producteev.ProducteevDetailExposer;
 import com.todoroo.astrid.repeats.RepeatDetailExposer;
-import com.todoroo.astrid.rmilk.MilkDetailExposer;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagDetailExposer;
 import com.todoroo.astrid.utility.Constants;
@@ -90,7 +89,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         new TagDetailExposer(),
         new RepeatDetailExposer(),
         new NoteDetailExposer(),
-        new MilkDetailExposer(),
         new ProducteevDetailExposer(),
         new AlarmDetailExposer(),
     };

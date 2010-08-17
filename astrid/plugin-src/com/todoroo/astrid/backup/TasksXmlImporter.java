@@ -38,7 +38,6 @@ import com.todoroo.astrid.legacy.LegacyRepeatInfo.LegacyRepeatInterval;
 import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.rmilk.data.MilkTask;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
@@ -379,10 +378,10 @@ public class TasksXmlImporter {
 
                 Metadata metadata = new Metadata();
                 metadata.setValue(Metadata.TASK, currentTask.getId());
-                metadata.setValue(MilkTask.LIST_ID, Long.parseLong(listId));
-                metadata.setValue(MilkTask.TASK_SERIES_ID, Long.parseLong(taskSeriesId));
-                metadata.setValue(MilkTask.TASK_ID, Long.parseLong(taskId));
-                metadata.setValue(MilkTask.REPEATING, syncOnComplete ? 1 : 0);
+                metadata.setValue(Metadata.VALUE1, (listId));
+                metadata.setValue(Metadata.VALUE2, (taskSeriesId));
+                metadata.setValue(Metadata.VALUE3, (taskId));
+                metadata.setValue(Metadata.VALUE4, syncOnComplete ? "1" : "0"); //$NON-NLS-1$ //$NON-NLS-2$
                 metadataService.save(metadata);
                 return true;
             }

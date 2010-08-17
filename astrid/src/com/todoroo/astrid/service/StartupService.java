@@ -22,7 +22,6 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
-import com.todoroo.astrid.rmilk.MilkUtilities;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 import com.todoroo.astrid.widget.TasksWidget.UpdateService;
@@ -114,7 +113,6 @@ public class StartupService {
         Preferences.setPreferenceDefaults();
 
         // if sync ongoing flag was set, clear it
-        MilkUtilities.stopOngoing();
         ProducteevUtilities.INSTANCE.stopOngoing();
 
         // check for task killers

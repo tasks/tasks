@@ -343,34 +343,6 @@
       </intent-filter>
     </activity>
     <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService"/>
-
-    <!-- rmilk -->
-    <receiver android:name="com.todoroo.astrid.rmilk.MilkFilterExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <activity android:name="com.todoroo.astrid.rmilk.MilkLoginActivity"
-              android:theme="@style/Theme" />
-    <activity android:name="com.todoroo.astrid.rmilk.MilkPreferences"
-              android:icon="@drawable/ic_menu_refresh"
-              android:label="@string/rmilk_MPr_header">
-      <intent-filter>   
-        <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-      </intent-filter>
-    </activity>
-    <service android:name="com.todoroo.astrid.rmilk.MilkBackgroundService"/>
-    <receiver android:name="com.todoroo.astrid.rmilk.MilkStartupReceiver">
-      <intent-filter>
-        <action android:name="android.intent.action.BOOT_COMPLETED" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
     
   </application>
 

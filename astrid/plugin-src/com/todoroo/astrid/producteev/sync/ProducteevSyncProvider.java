@@ -43,7 +43,6 @@ import com.todoroo.astrid.producteev.api.ApiResponseParseException;
 import com.todoroo.astrid.producteev.api.ApiServiceException;
 import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
-import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
@@ -437,11 +436,18 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             }
 
             // milk note => producteev note
-            if(local.findMetadata(MilkNote.METADATA_KEY) != null && (remote == null ||
+            if(local.findMetadata(ProducteevDataService.MILK_NOTE_KEY) != null && (remote == null ||
                     (remote.findMetadata(ProducteevNote.METADATA_KEY) == null))) {
                 for(Metadata item : local.metadata) {
-                    if(MilkNote.METADATA_KEY.equals(item.getValue(Metadata.KEY))) {
-                        String message = MilkNote.toTaskDetail(item);
+                    if(ProducteevDataService.MILK_NOTE_KEY.equals(item.getValue(Metadata.KEY))) {
+                        String title = item.getValue(Metadata.VALUE2);
+                        String text = item.getValue(Metadata.VALUE3);
+                        String message;
+                        if(!TextUtils.isEmpty(title))
+                            message = title + "\n" + text;
+                        else
+                            message = text;
+
                         JSONObject result = invoker.tasksNoteCreate(idTask, message);
                         local.metadata.add(ProducteevNote.create(result.getJSONObject("note")));
                     }
