@@ -35,6 +35,7 @@ import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+@SuppressWarnings("deprecation")
 public class Astrid2To3UpgradeTests extends DatabaseTestCase {
 
     // --- legacy table names

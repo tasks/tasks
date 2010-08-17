@@ -5,7 +5,6 @@ import java.util.HashMap;
 
 import android.database.Cursor;
 
-import com.todoroo.astrid.backup.BackupDateUtilities;
 import com.todoroo.astrid.legacy.data.AbstractController;
 import com.todoroo.astrid.legacy.data.enums.RepeatInterval;
 
@@ -54,15 +53,6 @@ public class TaskModelForXml extends AbstractTaskModel {
         super(cursor);
         prefetchData(FIELD_LIST);
         taskAttributesMap = new HashMap<String, String>(FIELD_LIST.length);
-    }
-
-    /* Safely add a value from a date field (in case of null values) to the
-    taskAttributesMap.
-     */
-    private void safePutDate(String field, Date value) {
-        if (value != null) {
-            taskAttributesMap.put(field, BackupDateUtilities.getIso8601String(value));
-        }
     }
 
     // --- getters and setters
