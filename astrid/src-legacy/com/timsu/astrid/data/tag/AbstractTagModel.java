@@ -38,6 +38,7 @@ import com.timsu.astrid.data.AbstractModel;
  * @author timsu
  *
  */
+@SuppressWarnings("nls")
 public abstract class AbstractTagModel extends AbstractModel {
 
     /** Version number of this model */

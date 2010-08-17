@@ -41,6 +41,7 @@ import com.timsu.astrid.data.enums.RepeatInterval;
  * @author timsu
  *
  */
+@SuppressWarnings("nls")
 public abstract class AbstractTaskModel extends AbstractModel {
 
     /** Version number of this model */
@@ -262,7 +263,8 @@ public abstract class AbstractTaskModel extends AbstractModel {
 
     // --- utility methods
 
-    /** Gets task color. Requires definiteDueDate and importance */
+    /** Gets task color. Requires definiteDueDate and importance
+     * @param context */
     protected int getTaskColorResource(Context context) {
         if(getDefiniteDueDate() != null && getDefiniteDueDate().getTime() <
                 System.currentTimeMillis()) {

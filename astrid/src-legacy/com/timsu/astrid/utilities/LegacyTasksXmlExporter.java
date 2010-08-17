@@ -30,7 +30,7 @@ import com.timsu.astrid.data.task.TaskIdentifier;
 import com.timsu.astrid.data.task.TaskModelForXml;
 import com.todoroo.astrid.backup.BackupDateUtilities;
 
-@SuppressWarnings("nls")
+@SuppressWarnings({"nls", "deprecation"})
 public class LegacyTasksXmlExporter {
 
     private TaskController taskController;
@@ -242,17 +242,17 @@ public class LegacyTasksXmlExporter {
        this.output = file;
     }
 
-    private final Runnable doBackgroundExport = new Runnable() {
-        public void run() {
-            /*Looper.prepare();
-            try {
-                doTasksExport();
-            } catch (IOException e) {
-                Log.e("TasksXmlExporter", "IOException in doTasksExport " + e.getMessage());
-            }
-            Looper.loop();*/
-        }
-    };
+//    private final Runnable doBackgroundExport = new Runnable() {
+//        public void run() {
+//            /*Looper.prepare();
+//            try {
+//                doTasksExport();
+//            } catch (IOException e) {
+//                Log.e("TasksXmlExporter", "IOException in doTasksExport " + e.getMessage());
+//            }
+//            Looper.loop();*/
+//        }
+//    };
 
     public void setTaskController(TaskController taskController) {
         this.taskController = taskController;

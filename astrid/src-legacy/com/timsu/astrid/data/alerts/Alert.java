@@ -34,6 +34,7 @@ import com.timsu.astrid.data.task.TaskIdentifier;
 
 
 /** A single alert on a task */
+@SuppressWarnings("nls")
 public class Alert extends AbstractModel {
 
     /** Version number of this model */

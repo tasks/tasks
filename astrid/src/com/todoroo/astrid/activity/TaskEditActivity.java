@@ -39,6 +39,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -232,10 +233,16 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new RepeatControlSet(this, extrasAddons));
 
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
-        AddOn producteevAddon = addOnService.getAddOn(AddOnService.PRODUCTEEV_PACKAGE, "Producteev"); //$NON-NLS-1$
-        if (addOnService.isInstalled(producteevAddon) && ProducteevUtilities.INSTANCE.isLoggedIn()) {
-            controls.add(new ProducteevControlSet(this, addonsAddons));
+
+        try {
+            AddOn producteevAddon = addOnService.getAddOn(AddOnService.PRODUCTEEV_PACKAGE, "Producteev"); //$NON-NLS-1$
+            if (addOnService.isInstalled(producteevAddon) && ProducteevUtilities.INSTANCE.isLoggedIn()) {
+                controls.add(new ProducteevControlSet(this, addonsAddons));
+            }
+        } catch (Exception e) {
+            Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
+
         if(addOnService.hasPowerPack()) {
             controls.add(new GCalControlSet(this, addonsAddons));
             controls.add(new TimerControlSet(this, addonsAddons));

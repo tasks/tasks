@@ -74,9 +74,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
 
             @Override
             public void onNothingSelected(AdapterView<?> spinnerParent) {
-                responsibleSelector.setAdapter(null);
-                responsibleSelector.setEnabled(false);
-                view.findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(View.GONE);
+                //
             }
         });
     }
@@ -88,7 +86,9 @@ public class ProducteevControlSet implements TaskEditControlSet {
      */
     private void refreshResponsibleSpinner(ArrayList<ProducteevUser> newUsers) {
         Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(myTask.getId());
-        Long responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);
+        long responsibleId = -1;
+        if(metadata.containsNonNullValue(ProducteevTask.RESPONSIBLE_ID))
+            responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);
         refreshResponsibleSpinner(newUsers, responsibleId);
     }
 
@@ -98,7 +98,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
      * @param newUsers the new userlist to show in the responsibleSelector
      * @param responsibleId the id of the responsible user to set in the spinner
      */
-    private void refreshResponsibleSpinner(ArrayList<ProducteevUser> newUsers, Long responsibleId) {
+    private void refreshResponsibleSpinner(ArrayList<ProducteevUser> newUsers, long responsibleId) {
         // Fill the responsible-spinner and set the current responsible
         this.users = (newUsers == null ? new ArrayList<ProducteevUser>() : newUsers);
 
@@ -116,7 +116,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
 
         for (int i = 0; i < this.users.size() ; i++) {
             if (this.users.get(i).getId() == responsibleId) {
-                responsibleSpinnerIndex=i;
+                responsibleSpinnerIndex = i;
                 break;
             }
         }
@@ -131,7 +131,9 @@ public class ProducteevControlSet implements TaskEditControlSet {
             metadata = ProducteevTask.newMetadata();
 
         // Fill the dashboard-spinner and set the current dashboard
-        long dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
+        long dashboardId = -1;
+        if(metadata.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
+            dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
 
         StoreObject[] dashboardsData = ProducteevDataService.getInstance().getDashboards();
         dashboards = new ArrayList<ProducteevDashboard>(dashboardsData.length);

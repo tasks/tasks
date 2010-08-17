@@ -32,6 +32,7 @@ import com.timsu.astrid.data.task.TaskIdentifier;
 
 
 /** A single tag on a task */
+@SuppressWarnings("nls")
 public class TagToTaskMapping extends AbstractModel {
 
     /** Version number of this model */
