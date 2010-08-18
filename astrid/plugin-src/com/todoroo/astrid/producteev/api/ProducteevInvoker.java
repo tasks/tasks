@@ -510,7 +510,7 @@ public class ProducteevInvoker {
 
         sigBuilder.append(apiSecret);
         byte[] digest = MessageDigest.getInstance("MD5").digest(sigBuilder.toString().getBytes("UTF-8"));
-        String signature = new BigInteger(1, digest).toString(16);
+        String signature = String.format("%1$032X", new BigInteger(1, digest).toString(16));
         requestBuilder.append("api_sig").append('=').append(signature);
         return requestBuilder.toString();
     }
