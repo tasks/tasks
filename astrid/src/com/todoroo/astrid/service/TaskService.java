@@ -233,7 +233,9 @@ public class TaskService {
     }
 
     public int countTasks(Filter filter) {
-        TodorooCursor<Task> cursor = query(Query.select(Task.ID).withQueryTemplate(filter.sqlQuery));
+        String queryTemplate = PermaSql.replacePlaceholders(filter.sqlQuery);
+        TodorooCursor<Task> cursor = query(Query.select(Task.ID).withQueryTemplate(
+                queryTemplate));
         try {
             return cursor.getCount();
         } finally {
