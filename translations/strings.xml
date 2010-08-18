@@ -7,7 +7,7 @@
     <!-- Task Edit Activity: Container Label -->
     <string name="alarm_ACS_label">Alarms</string>
     
-    <!-- Task Edit Activity: Add New Alarn -->
+    <!-- Task Edit Activity: Add New Alarm -->
     <string name="alarm_ACS_button">Add an Alarm</string>
     
     <!-- Task Detail for Alarms (%s -> time)-->
@@ -658,7 +658,7 @@ Astrid might not let you know when your tasks are due.\n
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">
 Astrid is the much loved open-source todo list / task manager designed to help 
-you get stuff done. It features reminders, tags, sync, a widget and more. 
+you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
   </string>
     
 
@@ -675,6 +675,9 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
         
     <!-- Search Filter -->
     <string name="BFE_Search">Search...</string>
+    
+    <!-- Recently Modified -->
+    <string name="BFE_Recent">Recently Modified</string>
     
     <!-- Build Your Own Filter -->
     <string name="BFE_Custom">Custom Filter...</string>
@@ -827,15 +830,21 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
-   
+
     <!-- ====================== Plugin Boilerplate ========================= -->
-
-    <!-- task detail showing Producteev dashboard information (%s => workspace name) -->
-    <string name="producteev_TLA_dashboard">W: %s</string>
-
-    <!-- task detail showing Producteev responsible information (%s => responsible user) -->
-    <string name="producteev_TLA_responsible">R: %s</string>
     
+    <!-- filters header: Producteev -->
+    <string name="producteev_FEx_header">Producteev</string>
+    
+    <!-- filter category for Producteev dashboards -->
+    <string name="producteev_FEx_dashboard">Workspaces</string>
+    
+    <!-- filter category for Producteev responsible person -->
+    <string name="producteev_FEx_responsible">Assigned To</string>
+    
+    <!--  Producteev dashboard filter title (%s => dashboardname) -->
+    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+
     <!-- ==================================================== Preferences == -->
 
     <!-- Preferences Title: Producteev -->    
@@ -1252,9 +1261,6 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- filter category for RTM lists -->
     <string name="rmilk_FEx_list">Lists</string>
     
-    <!-- RTM list filter name ($N => list, $C => count) -->
-    <string name="rmilk_FEx_list_item">$N ($C)</string>
-    
     <!--  RTM list filter title (%s => list) -->
     <string name="rmilk_FEx_list_title">RTM List \'%s\'</string>
     
@@ -1280,7 +1286,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- ======================== SyncPreferences ========================== -->
     
     <!-- RTM Status Group Label -->    
-    <string name="sync_MPr_group_status">Status</string>
+    <string name="sync_SPr_group_status">Status</string>
     
     <!-- Sync Status: log in -->    
     <string name="sync_status_loggedout">Not Logged In!</string>
@@ -1306,24 +1312,41 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <string name="sync_SPr_interval_desc">Currently set to: %s</string>
     
     <!-- Preference: Background Wifi Title -->  
-    <string name="sync_MPr_bgwifi_title">Wifi Only Setting</string>    
+    <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
     <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="sync_MPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+    <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
     <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="sync_MPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+    <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
     
     <!-- Actions Group Label  -->
-    <string name="sync_MPr_group_actions">Actions</string>
+    <string name="sync_SPr_group_actions">Actions</string>
 
     <!-- Synchronize Now Button -->    
-    <string name="sync_MPr_sync">Synchronize Now!</string>
+    <string name="sync_SPr_sync">Synchronize Now!</string>
     <!-- Synchronize Now Button if not logged in-->    
-    <string name="sync_MPr_sync_log_in">Log In &amp; Synchronize!</string>
+    <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
     
     <!-- Sync: Clear Data Title -->
-    <string name="sync_MPr_forget">Log Out</string>
+    <string name="sync_SPr_forget">Log Out</string>
     <!-- Sync: Clear Data Description -->
-    <string name="sync_MPr_forget_description">Clears all synchronization data</string>
+    <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
+    
+    <string-array name="sync_SPr_interval_entries">
+        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+        <item>disable</item>
+        <item>every fifteen minutes</item>
+        <item>every thirty minutes</item>
+        <item>every hour</item>
+        <item>every three hours</item>
+        <item>every six hours</item>
+        <item>every twelve hours</item>
+        <item>every day</item>
+        <item>every three days</item>
+        <item>every week</item>
+    </string-array>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
@@ -1342,28 +1365,10 @@ Error Message: %s
     <!-- title for notification tray when synchronizing -->
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
-    <!-- confirmation dialog for RTM log out -->
-    <string name="rmilk_forget_confirm">Log out / clear synchronization data?</string>
-    
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
     or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
-        
-    <string-array name="rmilk_MPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
-        <item>disable</item>
-        <item>every fifteen minutes</item>
-        <item>every thirty minutes</item>
-        <item>every hour</item>
-        <item>every three hours</item>
-        <item>every six hours</item>
-        <item>every twelve hours</item>
-        <item>every day</item>
-        <item>every three days</item>
-        <item>every week</item>
-    </string-array>
-
-    
+            
 
 
 
@@ -1379,6 +1384,9 @@ Error Message: %s
   
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Tag Name</string>
+  
+  <!-- Tags dropdown -->
+  <string name="TEA_tag_dropdown">Select a tag</string>
     
   <!-- ========================================================== Filters == -->
   

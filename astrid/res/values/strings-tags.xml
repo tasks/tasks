@@ -11,6 +11,9 @@
   
   <!-- Tags hint -->
   <string name="TEA_tag_hint">Tag Name</string>
+  
+  <!-- Tags dropdown -->
+  <string name="TEA_tag_dropdown">Select a tag</string>
     
   <!-- ========================================================== Filters == -->
   

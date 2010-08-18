@@ -15,6 +15,11 @@ import com.todoroo.astrid.activity.TaskListActivity;
 
 public final class UpgradeService {
 
+    private static final int V3_1_0 = 146;
+    private static final int V3_0_6 = 145;
+    private static final int V3_0_5 = 144;
+    private static final int V3_0_0 = 136;
+    private static final int V2_14_4 = 135;
     @Autowired
     private DialogUtilities dialogUtilities;
 
@@ -46,10 +51,10 @@ public final class UpgradeService {
             @Override
             public void run() {
                 try {
-                    if(from < 136)
+                    if(from < V3_0_0)
                         new Astrid2To3UpgradeHelper().upgrade2To3(context, from);
 
-                    if(from < 146)
+                    if(from < V3_1_0)
                         new Astrid2To3UpgradeHelper().upgrade3To3_1(context, from);
 
                 } finally {
@@ -86,8 +91,8 @@ public final class UpgradeService {
 
         StringBuilder changeLog = new StringBuilder();
 
-        if(from <= 135)
-            newVersionString(changeLog, "3.1.0 (8/9/10)", new String[] {
+        if(from <= V2_14_4)
+            newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
                     "look and feel, a new add-on system allows Astrid to become " +
                     "more powerful, while other improvements have made it faster " +
@@ -97,7 +102,17 @@ public final class UpgradeService {
                     "If you liked the old version, you can also go back by " +
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
-        if(from > 135 && from <= 145)
+        if(from > V2_14_4 && from <= V3_1_0)
+            newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
+                    "Build your own custom filters from the Filter page",
+                    "Easy task sorting (in the task list menu)",
+                    "Create widgets from any of your filters",
+                    "Synchronize with Producteev! (producteev.com)",
+                    "Select tags by drop-down box",
+                    "Cosmetic improvements, calendar & sync bug fixes",
+                    "... enjoy! - we <3 astrid team",
+            });
+        if(from > V2_14_4 && from <= V3_0_6)
             newVersionString(changeLog, "3.1.0 (8/9/10)", new String[] {
                     "Linkify phone numbers, e-mails, and web pages",
                     "Swipe L => R to go from tasks to filters",
@@ -108,7 +123,7 @@ public final class UpgradeService {
                     "Also gone: a couple force closes, bugs with repeating tasks",
                     "... enjoy! - we <3 astrid team",
             });
-        if(from > 135 && from <= 144)
+        if(from > V2_14_4 && from <= V3_0_5)
             newVersionString(changeLog, "3.0.6 (8/4/10)", new String[] {
                     "This update contains for free all of the " +
                         "powerpack's features for evaluation purposes",

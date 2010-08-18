@@ -1,17 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-   
-    <!-- ====================== Plugin Boilerplate ========================= -->
 
+    <!-- ====================== Plugin Boilerplate ========================= -->
+    
     <!-- filters header: Producteev -->
     <string name="producteev_FEx_header">Producteev</string>
     
     <!-- filter category for Producteev dashboards -->
     <string name="producteev_FEx_dashboard">Workspaces</string>
-    
-    <!--  Producteev dashboard filter title (%s => dashboard name) -->
-    <string name="producteev_FEx_dashboard_title">%s</string>
     
     <!-- filter category for Producteev responsible person -->
     <string name="producteev_FEx_responsible">Assigned To</string>

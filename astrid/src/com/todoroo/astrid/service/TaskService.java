@@ -9,10 +9,11 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -225,6 +226,15 @@ public class TaskService {
                 taskValues.setValue(Task.ID, cursor.get(Task.ID));
                 taskDao.save(taskValues, false);
             }
+            return cursor.getCount();
+        } finally {
+            cursor.close();
+        }
+    }
+
+    public int countTasks(Filter filter) {
+        TodorooCursor<Task> cursor = query(Query.select(Task.ID).withQueryTemplate(filter.sqlQuery));
+        try {
             return cursor.getCount();
         } finally {
             cursor.close();

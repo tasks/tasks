@@ -4,6 +4,7 @@
 package com.todoroo.astrid.adapter;
 
 import java.util.ArrayList;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -23,11 +24,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Preferences;
 
 public class FilterAdapter extends BaseExpandableListAdapter {
@@ -40,18 +44,45 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     // --- instance variables
 
+    @Autowired
+    private TaskService taskService;
+
+    /** parent activity */
     protected final Activity activity;
+
+    /** owner listview */
     protected final ExpandableListView listView;
+
+    /** list of filters */
     private final ArrayList<FilterListItem> items;
+
+    /** display metrics for scaling icons */
     private final DisplayMetrics metrics = new DisplayMetrics();
+
+    /** receiver for new filters */
     private final FilterReceiver filterReceiver = new FilterReceiver();
+
+    /** row layout to inflate */
     private final int layout;
+
+    /** layout inflater */
     private final LayoutInflater inflater;
+
+    /** whether to skip Filters that launch intents instead of being real filters */
     private final boolean skipIntentFilters;
+
+    /** queue for loading list sizes */
+    private final LinkedBlockingQueue<Filter> filterQueue = new LinkedBlockingQueue<Filter>();
+
+    /** thread for loading list sizes */
+    private Thread filterSizeLoadingThread = null;
 
     public FilterAdapter(Activity activity, ExpandableListView listView,
             int rowLayout, boolean skipIntentFilters) {
         super();
+
+        DependencyInjectionService.getInstance().inject(this);
+
         this.activity = activity;
         this.items = new ArrayList<FilterListItem>();
         this.listView = listView;
@@ -64,6 +95,34 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         activity.getWindowManager().getDefaultDisplay().getMetrics(metrics);
         listView.setGroupIndicator(
                 activity.getResources().getDrawable(R.drawable.expander_group));
+
+        startFilterSizeLoadingThread();
+    }
+
+    private void startFilterSizeLoadingThread() {
+        filterSizeLoadingThread = new Thread() {
+            @Override
+            public void run() {
+                while(true) {
+                    try {
+                        Filter filter = filterQueue.take();
+                        int size = taskService.countTasks(filter);
+                        filter.listingTitle = filter.listingTitle + (" (" + //$NON-NLS-1$
+                            size + ")"); //$NON-NLS-1$
+                        activity.runOnUiThread(new Runnable() {
+                            public void run() {
+                                notifyDataSetInvalidated();
+                            }
+                        });
+                    } catch (InterruptedException e) {
+                        break;
+                    } catch (Exception e) {
+                        Log.e("astrid-filter-adapter", "Error loading filter size", e); //$NON-NLS-1$ //$NON-NLS-2$
+                    }
+                }
+            }
+        };
+        filterSizeLoadingThread.start();
     }
 
     public boolean hasStableIds() {
@@ -72,6 +131,14 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     public void add(FilterListItem item) {
         items.add(item);
+
+        // load sizes
+        if(item instanceof Filter) {
+            filterQueue.offer((Filter) item);
+        } else if(item instanceof FilterCategory) {
+            for(Filter filter : ((FilterCategory)item).children)
+                filterQueue.offer(filter);
+        }
     }
 
     public void clear() {
@@ -300,6 +367,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      */
     public void unregisterRecevier() {
         activity.unregisterReceiver(filterReceiver);
+        if(filterSizeLoadingThread != null)
+            filterSizeLoadingThread.interrupt();
     }
 
     /**

@@ -5,10 +5,10 @@
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task Edit Activity: Container Label -->
-    <string name="alarm_ACS_label">Alarms</string>
+    <string name="alarm_ACS_label">アラーム</string>
     
     <!-- Task Edit Activity: Add New Alarn -->
-    <string name="alarm_ACS_button">Add an Alarm</string>
+    <string name="alarm_ACS_button">アラームを追加する</string>
     
     <!-- Task Detail for Alarms (%s -> time)-->
     <string name="alarm_ADE_detail">Alarm %s</string>
@@ -221,6 +221,9 @@
   
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">このタスクを削除しますか?</string>
+
+  <!-- question for deleting items (%s => item name) -->
+  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
   
   <!-- Button for being done -->
   <string name="DLG_done">完了</string>
@@ -263,6 +266,9 @@
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">アドオン</string>
+  
+  <!-- Menu: Adjust Sort and Hidden Task Settings -->    
+  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">設定</string>
@@ -316,6 +322,47 @@ button: add task & go to the edit page.
 
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">元に戻す</string>
+  
+  <!-- ============================================== SortSelectionDialog == -->
+  
+  <!-- Sort Selection: dialog title -->    
+  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  
+  <!-- Hidden Task Selection: show completed tasks -->    
+  <string name="SSD_completed">Show Completed Tasks</string>
+  
+  <!-- Hidden Task Selection: show hidden tasks -->    
+  <string name="SSD_hidden">Show Hidden Tasks</string>
+  
+  <!-- Hidden Task Selection: show deleted tasks -->    
+  <string name="SSD_deleted">Show Deleted Tasks</string>
+  
+  <!-- Sort Selection: sort options header -->    
+  <string name="SSD_sort_header">Sort Options</string>
+  
+  <!-- Sort Selection: smart sort -->
+  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  
+  <!-- Sort Selection: sort by alpha -->
+  <string name="SSD_sort_alpha">タイトル順</string>
+  
+  <!-- Sort Selection: sort by due date -->
+  <string name="SSD_sort_due">期限順</string>
+  
+  <!-- Sort Selection: sort by importance -->
+  <string name="SSD_sort_importance">重要度順</string>
+  
+  <!-- Sort Selection: sort by modified date -->
+  <string name="SSD_sort_modified">By Last Modified</string>
+  
+  <!-- Sort Selection: reverse -->
+  <string name="SSD_sort_reverse">Reverse Sort</string>
+  
+  <!-- Sort Button: sort temporarily -->
+  <string name="SSD_save_temp">Just Once</string>
+  
+  <!-- Sort Button: sort permanently -->
+  <string name="SSD_save_always">Always</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -500,11 +547,11 @@ to the plugin creator for fastest service.
   <string name="EPr_fontSize_desc">メインのリスト画面の文字サイズ</string>  
   
   <!-- Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <string name="EPr_showNotes_title">タスクのメモを表示</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
+  <string name="EPr_showNotes_desc_disabled">メモはタスクをタップしたときに表示されます</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notes will always displayed</string>  
+  <string name="EPr_showNotes_desc_enabled">メモは常に表示されます</string>  
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">タスクのデフォルト設定</string>
@@ -582,8 +629,11 @@ to the plugin creator for fastest service.
   
   <!-- ====================================================== TasksWidget == -->
 
-  <!-- Widget text when loading tasks -->                                                                                                                                                                          
+  <!-- Widget text when loading tasks -->
   <string name="TWi_loading">読み込み中...</string>
+
+  <!-- Widget configuration activity title: select a filter -->
+  <string name="WCA_title">Select tasks to view...</string>
   
   <!-- ============================================================= Misc == -->
   
@@ -609,39 +659,95 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     
     <!-- Resources for built-in filter plug-in -->
     
+    <!-- ================================================= Filter Exposer == -->
+    
     <!-- Active Tasks Filter -->
     <string name="BFE_Active">進行中のタスク</string>
         
-    <!-- Title for Active Tasks Filter (what user sees when first opening the app) -->
-    <string name="BFE_Active_title">進行中のタスク</string>
-    
     <!-- Search Filter -->
     <string name="BFE_Search">検索</string>
-
-    <!-- Extended Filters Category -->
-    <string name="BFE_Extended">その他のフィルタ</string>
-
-    <!-- sort recent modification filter -->
-    <string name="SSD_sort_modified">最近編集したタスク</string>
     
-    <!-- Completed Filter -->
-    <string name="SSD_completed">完了したタスク</string>
+    <!-- Recently Modified -->
+    <string name="BFE_Recent">Recently Modified</string>
+    
+    <!-- Build Your Own Filter -->
+    <string name="BFE_Custom">Custom Filter...</string>
+    
+    <!-- Saved Filters Header -->
+    <string name="BFE_Saved">Saved Filters</string>
+    
+    <!-- Saved Filters Context Menu: delete -->
+    <string name="BFE_Saved_delete">Delete Filter</string>
 
-    <!-- hidden tasks filter -->
-    <string name="SSD_hidden">非表示のタスク</string>
+    <!-- =========================================== CustomFilterActivity == -->
+    
+    <!-- Build Your Own Filter Activity Title-->
+    <string name="CFA_title">Custom Filter</string>
+    
+    <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
+    <string name="CFA_filterName_hint">Name this filter to save it...</string>
+    
+    <!-- Filter Name default for copied filters (%s => old filter name) -->
+    <string name="CFA_filterName_copy">Copy of %s</string>
+    
+    <!-- Filter Starting Universe: all tasks -->
+    <string name="CFA_universe_all">進行中のタスク</string>
+    
+    <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
+    <string name="CFA_type_add">or</string>
+    
+    <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
+    <string name="CFA_type_subtract">not</string>
+    
+    <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
+    <string name="CFA_type_intersect">also</string>
+    
+    <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
+    <string name="CFA_context_chain">Chaining: %s</string>
+    
+    <!-- Filter Criteria Context Menu: delete -->
+    <string name="CFA_context_delete">Delete Row</string>
+    
+    <!-- Filter Screen Help Text -->
+    <string name="CFA_help">This screen lets you create a new filters. Add 
+    criteria using the button below, short or long-press them to adjust, and
+    then click \"View\"!</string>
+    
+    <!-- Filter Button: add new -->
+    <string name="CFA_button_add">Add Criteria</string>
+    
+    <!-- Filter Button: view without saving -->
+    <string name="CFA_button_view">View</string>
+    
+    <!-- Filter Button: save & view filter -->
+    <string name="CFA_button_save">Save &amp; View</string>
 
-    <!-- sort Alphabetical filter -->
-    <string name="SSD_sort_alpha">タイトル順</string>
-
-    <!-- sort Due Date filter -->
-    <string name="SSD_sort_due">期限順</string>
-
-    <!-- sort Importance filter -->
-    <string name="SSD_sort_importance">重要度順</string>
-
-    <!-- deleted tasks filter -->
-    <string name="SSD_deleted">削除したタスク</string>
+    <!-- =========================================== CustomFilterCriteria == -->
         
+    <!-- Criteria: due by X - display text -->
+    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <!-- Criteria: due by X - name of criteria -->
+    <string name="CFC_dueBefore_name">Due By...</string>
+    <string-array name="CFC_dueBefore_entries">
+        <!-- Criteria: due by X - options -->
+        <item>No Due Date</item>
+        <item>Yesterday</item>
+        <item>今日</item>
+        <item>明日</item>
+        <item>明後日</item>
+        <item>来週</item>
+    </string-array>
+    
+    <!-- Criteria: importance - display text -->
+    <string name="CFC_importance_text">Importance at least ?</string>
+    <!-- Criteria: importance - name of criteria -->
+    <string name="CFC_importance_name">Importance...</string>        
+    
+    <!-- Criteria: tag - display text -->
+    <string name="CFC_tag_text">Tagged: ?</string>
+    <!-- Criteria: tag - name of criteria -->
+    <string name="CFC_tag_name">Tagged...</string>        
+    
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -662,6 +768,9 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   
   <!-- Label when calendar event already exists -->
   <string name="gcal_TEA_showCalendar_label">カレンダーのイベントを開く</string>
+  
+  <!-- Toast when unable to open calendar event -->
+  <string name="gcal_TEA_calendar_error">Error opening event!</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -713,15 +822,123 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
+    <!-- ====================== Plugin Boilerplate ========================= -->
+    
+    <!-- filters header: Producteev -->
+    <string name="producteev_FEx_header">Producteev</string>
+    
+    <!-- filter category for Producteev dashboards -->
+    <string name="producteev_FEx_dashboard">Workspaces</string>
+    
+    <!-- filter category for Producteev responsible person -->
+    <string name="producteev_FEx_responsible">Assigned To</string>
+    
+    <!--  Producteev dashboard filter title (%s => dashboardname) -->
+    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+
+    <!-- ==================================================== Preferences == -->
+
+    <!-- Preferences Title: Producteev -->    
+    <string name="producteev_PPr_header">Producteev</string>
+
+    <!-- dashboard title for producteev default dashboard  -->
+    <string name="producteev_default_dashboard">Default Workspace</string>
+
+    <!-- dashboard title for tasks that are not synchronized -->
+    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+
+    <!-- preference title for default dashboard -->
+    <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
+
+    <!-- preference description for default dashboard (%s -> setting) -->
+    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+
+    <!-- preference description for default dashboard (when set to 'not synchronized') -->
+    <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
+
+    <!-- ================================================= Login Activity == -->
+
+    <!-- Activity Title: Producteev Login -->    
+    <string name="producteev_PLA_title">Log In to Producteev</string>
+
+    <!-- Instructions: Producteev login -->    
+    <string name="producteev_PLA_body">Sign in with your existing
+    Producteev account, or create a new account!</string>
+
+    <!-- Producteev Terms Link -->    
+    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+
+    <!-- Sign In Button -->    
+    <string name="producteev_PLA_signIn">Sign In</string>
+
+    <!-- Create New User Button -->    
+    <string name="producteev_PLA_createNew">Create New User</string>
+
+    <!-- E-mail Address Label -->    
+    <string name="producteev_PLA_email">E-mail</string>
+
+    <!-- Password Label -->    
+    <string name="producteev_PLA_password">Password</string>
+
+    <!-- Confirm Password Label -->    
+    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+
+    <!-- First Name Label -->    
+    <string name="producteev_PLA_firstName">First Name</string>
+
+    <!-- Last Name Label -->    
+    <string name="producteev_PLA_lastName">Last Name</string>
+
+    <!-- Error Message when fields aren't filled out -->    
+    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+
+    <!-- Error Message when passwords don't match -->    
+    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
+    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
+
+    <!-- ================================================ Synchronization == -->
+        
+    <!-- title for notification tray when synchronizing -->
+    <string name="producteev_notification_title">Astrid: Producteev</string>
+    
+    <!-- Error msg when io exception  -->
+    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+
+    <!-- Prod Login email not specified-->
+    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+    
+    <!-- Prod Login password not specified-->
+    <string name="producteev_MLA_password_empty">Password was not specified!</string>
+    
+    <!-- ================================================ labels for layout-elements == -->
+    
+    <!-- label for task-assignment spinner on taskeditactivity -->
+    <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
+    
+    <!-- Spinner-item for unassigned tasks on taskeditactivity -->
+    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    
+    <!-- label for dashboard-assignment spinner on taskeditactivity -->
+    <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
+
+    <!-- Spinner-item for default dashboard on taskeditactivity -->
+    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
+    
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
   <!-- Resources for built-in reminders plug-in -->
     
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind me...</string>
+  <string name="TEA_reminder_label">通知するのは...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when task is due</string>
+  <string name="TEA_reminder_due">期限になったとき</string>
 
   <!-- Task Edit: Reminder after deadline -->  
   <string name="TEA_reminder_overdue">期限を過ぎたとき</string>
@@ -798,21 +1015,21 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
 
   <!-- Reminder Preference: Vibrate Title -->
-  <string name="rmd_EPr_vibrate_title">アラート時に震える</string>
+  <string name="rmd_EPr_vibrate_title">アラート時に振動する</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
-  <string name="rmd_EPr_vibrate_desc_true">通知を送るときに震えます</string>
+  <string name="rmd_EPr_vibrate_desc_true">通知を送るときに振動します</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">通知を送るときに震えません</string>
+  <string name="rmd_EPr_vibrate_desc_false">通知を送るときに振動しません</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Reminders</string>
+  <string name="rmd_EPr_nagging_title">Astridの通知</string>
   <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">通知画面に励ましメッセージを表示します</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">励ましメッセージを表示しません</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
-  <string name="rmd_EPr_defaultRemind_title">Random Reminders</string>
+  <string name="rmd_EPr_defaultRemind_title">ランダムな通知</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
   <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
@@ -839,7 +1056,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <item>午後9時</item>
     <item>午後10時</item>
     <item>午後11時</item>
-    <item>12 AM</item>
+    <item>午後12時</item>
     <item>午前1時</item>
     <item>午前2時</item>
     <item>午前3時</item>
@@ -878,7 +1095,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <item>午後9時</item>
     <item>午後10時</item>
     <item>午後11時</item>
-    <item>12 AM</item>
+    <item>午後12時</item>
     <item>午前1時</item>
     <item>午前2時</item>
     <item>午前3時</item>
@@ -931,7 +1148,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   
   <string-array name="reminder_responses">
       <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
-      <item>I\'ve got something for you!</item> 
+      <item>君のために言ってるんだからね!</item> 
       <item>これを過去のものにして良い?</item>
       <item>Why don\'t you get this done?</item>
       <item>どう? いけそう?</item>
@@ -939,11 +1156,11 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
       <item>これ処理できる?</item>
       <item>幸せになれるよ! これが終われば!</item>
       <item>I promise you\'ll feel better if you finish this!</item>
-      <item>Won\'t you do this today?</item>
-      <item>Please finish this, I\'m sick of it!</item>
+      <item>今日はやんないの?</item>
+      <item>もううんざり。早く終わらせて!</item>
       <item>これやっちゃえる? そう、あなたならできる!</item>
       <item>ずっとこれしないつもり?</item>
-      <item>Feel good about yourself! Let\'s go!</item>
+      <item>自信を持って! さあ!</item>
       <item>あなたが自慢だよ。さぁそれやっちゃおう!</item>
       <item>これやっちゃってお茶しない?</item>
       <item>あとひとつだけ? じゃあお願いできる?</item>
@@ -1008,10 +1225,10 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string name="repeat_detail_byday">$I ($D 曜日)</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">%s 毎に繰り返し</string>
+  <string name="repeat_detail_duedate">Every %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">完了後 %s 毎に繰り返し</string>
+  <string name="repeat_detail_completion">%s after completion</string>
   
 
 
@@ -1022,9 +1239,6 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
 
     <!-- label for RMilk button in Task Edit Activity -->
     <string name="rmilk_EOE_button">Remember the Milk の設定</string>
-    
-    <!-- task detail showing RTM list information  -->
-    <string name="rmilk_TLA_list">RTM List: %s</string>
     
     <!-- task detail showing RTM repeat information -->
     <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
@@ -1037,9 +1251,6 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     
     <!-- filter category for RTM lists -->
     <string name="rmilk_FEx_list">Lists</string>
-    
-    <!-- RTM list filter name ($N => list, $C => count) -->
-    <string name="rmilk_FEx_list_item">$N ($C)</string>
     
     <!--  RTM list filter title (%s => list) -->
     <string name="rmilk_FEx_list_title">RTM List \'%s\'</string>
@@ -1063,11 +1274,13 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- Milk Preferences Title -->    
     <string name="rmilk_MPr_header">Remember the Milk</string>
 
+    <!-- ======================== SyncPreferences ========================== -->
+    
     <!-- RTM Status Group Label -->    
     <string name="sync_SPr_group_status">状況</string>
     
     <!-- Sync Status: log in -->    
-    <string name="sync_status_loggedout">Remenber The Milkにログインしてください!</string>
+    <string name="sync_status_loggedout">ログインしてください!</string>
     <!-- Status: ongoing -->    
     <string name="sync_status_ongoing">Sync Ongoing...</string>
     <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
@@ -1107,7 +1320,24 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- Sync: Clear Data Title -->
     <string name="sync_SPr_forget">ログアウト</string>
     <!-- Sync: Clear Data Description -->
-    <string name="sync_SPr_forget_description">Remember The Milkとの同期データをすべて削除します</string>
+    <string name="sync_SPr_forget_description">同期データをすべて削除します</string>
+
+    <!-- confirmation dialog for sync log out -->
+    <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
+    
+    <string-array name="sync_SPr_interval_entries">
+        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+        <item>無効</item>
+        <item>15分毎</item>
+        <item>30分毎</item>
+        <item>1時間毎</item>
+        <item>3時間毎</item>
+        <item>6時間毎</item>
+        <item>12時間毎</item>
+        <item>毎日</item>
+        <item>3日に一度</item>
+        <item>毎週</item>
+    </string-array>
 
     <!-- ======================= MilkLoginActivity ========================= -->
 
@@ -1126,28 +1356,10 @@ Error Message: %s
     <!-- title for notification tray when synchronizing -->
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
-    <!-- confirmation dialog for RTM log out -->
-    <string name="rmilk_forget_confirm">Log out / clear synchronization data?</string>
-    
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
     or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
-        
-    <string-array name="sync_SPr_interval_entries">
-        <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-        <item>無効</item>
-        <item>15分毎</item>
-        <item>30分毎</item>
-        <item>1時間毎</item>
-        <item>3時間毎</item>
-        <item>6時間毎</item>
-        <item>12時間毎</item>
-        <item>毎日</item>
-        <item>3日に一度</item>
-        <item>毎週</item>
-    </string-array>
-
-    
+            
 
 
 
@@ -1163,11 +1375,9 @@ Error Message: %s
   
   <!-- Tags hint -->
   <string name="TEA_tag_hint">タグ</string>
-
-  <!-- ===================================================== Task Details == -->
   
-  <!-- tag text that displays in task list. %s => tag name -->
-  <string name="tag_TLA_detail">タグ: %s</string>
+  <!-- Tags dropdown -->
+  <string name="TEA_tag_dropdown">Select a tag</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1175,19 +1385,10 @@ Error Message: %s
   <string name="tag_FEx_header">タグ</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Active</string>
-  
-  <!-- filter header for tags of completed tasks -->
-  <string name="tag_FEx_completed">Completed</string>
-  
-  <!-- filter header for all tags, sorted by name -->
-  <string name="tag_FEx_alpha">All Tags</string>
+  <string name="tag_FEx_by_size">Sorted By Size</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">タグなし</string>
-  
-  <!-- $T => tag, $C => count -->
-  <string name="tag_FEx_tag_w_size">$T ($C 件)</string>
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">Tagged \'%s\'</string>

@@ -56,7 +56,12 @@ public class RtmTask
 
   public enum Priority
   {
-    High, Medium, Low, None
+    High, Medium, Low, None;
+
+    public static Priority values(Integer value) {
+        value = Math.max(values().length - 1, value);
+        return values()[value];
+    }
   }
 
   public static String convertPriority(Priority priority)

@@ -36,6 +36,7 @@ import com.timsu.astrid.data.alerts.Alert.AlertDatabaseHelper;
 import com.timsu.astrid.data.task.TaskIdentifier;
 
 /** Controller for Tag-related operations */
+@SuppressWarnings("nls")
 public class AlertController extends AbstractController {
 
     private SQLiteDatabase alertDatabase;

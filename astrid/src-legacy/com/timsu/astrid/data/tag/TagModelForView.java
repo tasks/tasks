@@ -25,6 +25,7 @@ import com.timsu.astrid.data.AbstractController;
 
 
 /** Tag model for viewing purposes. Contains task name */
+@SuppressWarnings("nls")
 public class TagModelForView extends AbstractTagModel {
 
     static String[] FIELD_LIST = new String[] {

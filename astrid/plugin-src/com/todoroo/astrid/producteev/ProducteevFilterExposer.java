@@ -3,18 +3,18 @@
  */
 package com.todoroo.astrid.producteev;
 
-import java.util.TreeMap;
 import java.util.Map.Entry;
+import java.util.TreeMap;
 
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Pair;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.Pair;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -36,9 +36,12 @@ import com.todoroo.astrid.producteev.sync.ProducteevTask;
  */
 public class ProducteevFilterExposer extends BroadcastReceiver {
 
+    /**
+     * @param context
+     */
     private Filter filterFromList(Context context, ProducteevDashboard dashboard) {
         String dashboardTitle = dashboard.getName();
-        String title = context.getString(R.string.producteev_FEx_dashboard_title, dashboard.getName());
+        String title = dashboard.getName();
         ContentValues values = new ContentValues();
         values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
         values.put(ProducteevTask.DASHBOARD_ID.name, dashboard.getId());
@@ -60,16 +63,16 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
         String title = context.getString(R.string.producteev_FEx_responsible_title, user);
         ContentValues values = new ContentValues();
         values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
-        values.put(ProducteevTask.DASHBOARD_ID.name, ids.first);
+        values.put(ProducteevTask.DASHBOARD_ID.name, ids.getLeft());
         values.put(ProducteevTask.ID.name, 0);
         values.put(ProducteevTask.CREATOR_ID.name, 0);
-        values.put(ProducteevTask.RESPONSIBLE_ID.name, ids.second);
+        values.put(ProducteevTask.RESPONSIBLE_ID.name, ids.getRight());
         Filter filter = new Filter(user, title, new QueryTemplate().join(
                 ProducteevDataService.METADATA_JOIN).where(Criterion.and(
                         MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
                         TaskCriteria.isActive(),
                         TaskCriteria.isVisible(),
-                        ProducteevTask.RESPONSIBLE_ID.eq(ids.second))),
+                        ProducteevTask.RESPONSIBLE_ID.eq(ids.getRight()))),
                         values);
 
         return filter;

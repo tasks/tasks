@@ -30,6 +30,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 
 /** Abstract controller class. Mostly contains some static fields */
+@SuppressWarnings("nls")
 abstract public class AbstractController {
 
     protected Context context;

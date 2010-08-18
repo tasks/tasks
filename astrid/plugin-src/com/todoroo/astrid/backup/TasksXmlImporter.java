@@ -24,8 +24,8 @@ import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
@@ -34,8 +34,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.legacy.LegacyImportance;
 import com.todoroo.astrid.legacy.LegacyRepeatInfo;
-import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.legacy.LegacyRepeatInfo.LegacyRepeatInterval;
+import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.data.MilkTask;
@@ -149,7 +149,7 @@ public class TasksXmlImporter {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(progressDialog.isShowing())
+                    if(progressDialog != null && progressDialog.isShowing())
                         progressDialog.dismiss();
                     showSummary();
                 }

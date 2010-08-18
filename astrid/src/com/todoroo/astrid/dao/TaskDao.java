@@ -21,6 +21,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
+import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Preferences;
 import com.todoroo.astrid.widget.TasksWidget;
@@ -223,7 +224,7 @@ public class TaskDao extends GenericDao<Task> {
      * @param skipHooks whether this save occurs as part of a sync
      */
     private void afterSave(Task task, ContentValues values) {
-        if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
+        if(values != null && values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
             afterComplete(task, values);
         else
             ReminderService.getInstance().scheduleAlarm(task);
@@ -245,6 +246,8 @@ public class TaskDao extends GenericDao<Task> {
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
         context.sendOrderedBroadcast(broadcastIntent, null);
+
+        Notifications.cancelNotifications(task.getId());
     }
 
 }
