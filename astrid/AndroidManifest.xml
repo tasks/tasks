@@ -343,6 +343,12 @@
       </intent-filter>
     </activity>
     <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService"/>
+    <receiver android:name="com.todoroo.astrid.producteev.ProducteevStartupReceiver">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
 
     <!-- rmilk -->
     <receiver android:name="com.todoroo.astrid.rmilk.MilkFilterExposer">
