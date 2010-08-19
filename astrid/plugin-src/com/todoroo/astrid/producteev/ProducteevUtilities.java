@@ -18,6 +18,9 @@ public class ProducteevUtilities extends SyncProviderUtilities {
 
     public static final ProducteevUtilities INSTANCE = new ProducteevUtilities();
 
+    /** setting for dashboard to getting created */
+    public static final int DASHBOARD_CREATE = -2;
+
     /** setting for dashboard to not synchronize */
     public static final int DASHBOARD_NO_SYNC = -1;
 
