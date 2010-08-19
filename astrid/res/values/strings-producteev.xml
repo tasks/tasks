@@ -15,6 +15,9 @@
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
     <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+    
+    <!-- detail for showing tasks created by someone else (%s => person name) -->
+    <string name="producteev_PDE_task_from">from %s</string>
 
     <!-- ==================================================== Preferences == -->
 

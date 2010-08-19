@@ -85,6 +85,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         preferences.setToken(null);
         Preferences.setString(R.string.producteev_PPr_email, null);
         Preferences.setString(R.string.producteev_PPr_password, null);
+        Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_SYNC, null);
         preferences.clearLastSyncDate();
 
         dataService = ProducteevDataService.getInstance();
