@@ -2,13 +2,12 @@ package com.todoroo.astrid.producteev.api;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.net.URLEncoder;
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Map;
 import java.util.TreeMap;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -509,8 +508,7 @@ public class ProducteevInvoker {
         }
 
         sigBuilder.append(apiSecret);
-        byte[] digest = MessageDigest.getInstance("MD5").digest(sigBuilder.toString().getBytes("UTF-8"));
-        String signature = String.format("%1$032X", new BigInteger(1, digest).toString(16));
+        String signature = DigestUtils.md5Hex(sigBuilder.toString());
         requestBuilder.append("api_sig").append('=').append(signature);
         return requestBuilder.toString();
     }

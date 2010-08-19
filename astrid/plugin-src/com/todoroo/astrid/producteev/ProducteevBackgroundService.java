@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 /**
@@ -54,7 +56,9 @@ public class ProducteevBackgroundService extends Service {
             return;
 
         PluginServices.getTaskService();
+        FlurryAgent.onStartSession(context, Constants.FLURRY_KEY);
         new ProducteevSyncProvider().synchronize(context);
+        FlurryAgent.onEndSession(context);
     }
 
     // --- alarm management

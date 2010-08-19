@@ -203,8 +203,6 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             long userId = user.getLong("id_user");
 
             String lastServerSync = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_SYNC);
-            if(lastServerSync != null)
-                lastServerSync = lastServerSync.substring(0, lastServerSync.lastIndexOf(' '));
 
             // read dashboards
             JSONArray dashboards = invoker.dashboardsShowList(lastServerSync);
