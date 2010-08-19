@@ -111,6 +111,11 @@ public final class TaskEditActivity extends TabActivity {
      */
     public static final String TOKEN_VALUES = "v"; //$NON-NLS-1$
 
+    /**
+     * Task in progress (during orientation change)
+     */
+    private static final String TASK_IN_PROGRESS = "task_in_progress"; //$NON-NLS-1$
+
     // --- request codes
 
     @SuppressWarnings("unused")
@@ -185,6 +190,17 @@ public final class TaskEditActivity extends TabActivity {
 
 		// disable keyboard until user requests it
 		AndroidUtilities.suppressVirtualKeyboard(title);
+
+		// if we were editing a task already, restore it
+		if(savedInstanceState != null && savedInstanceState.containsKey(TASK_IN_PROGRESS)) {
+		    Task task = savedInstanceState.getParcelable(TASK_IN_PROGRESS);
+		    if(task != null) {
+		        System.err.println("TASK being un-bundled");
+		        model = task;
+		    }
+		}
+
+		setResult(RESULT_OK);
     }
 
     /* ======================================================================
@@ -304,6 +320,12 @@ public final class TaskEditActivity extends TabActivity {
      */
     @SuppressWarnings("nls")
     protected void loadItem(Intent intent) {
+        if(model != null) {
+            // came from bundle
+            isNewTask = (model.getValue(Task.TITLE).length() == 0);
+            return;
+        }
+
         long idParam = intent.getLongExtra(TOKEN_ID, -1L);
 
         database.openForReading();
@@ -323,6 +345,10 @@ public final class TaskEditActivity extends TabActivity {
         if(model.getValue(Task.TITLE).length() == 0) {
             FlurryAgent.onEvent("create-task");
             isNewTask = true;
+
+            // set deletion date until task gets a title
+            model.setValue(Task.DELETION_DATE, DateUtilities.now());
+            System.err.println("new task. deletion date set");
         } else {
             FlurryAgent.onEvent("edit-task");
         }
@@ -354,7 +380,11 @@ public final class TaskEditActivity extends TabActivity {
         for(TaskEditControlSet controlSet : controls)
             controlSet.writeToModel(model);
 
-        if(taskService.save(model, false))
+        if(title.getText().length() > 0)
+            model.setValue(Task.DELETION_DATE, 0L);
+
+        System.err.println("TASK being saved. " + model.getMergedValues());
+        if(taskService.save(model, false) && title.getText().length() > 0)
             showSaveToast();
     }
 
@@ -362,11 +392,13 @@ public final class TaskEditActivity extends TabActivity {
     public void finish() {
         super.finish();
 
-        // abandon editing in this case
-        if(title.getText().length() == 0 && isNewTask) {
+        System.err.println("FINISH. " + title.getText());
+
+        // abandon editing and delete the newly created task if
+        // no title was entered
+
+        if(title.getText().length() == 0 && isNewTask && model.isSaved()) {
             taskService.delete(model);
-            showCancelToast();
-            setResult(RESULT_CANCELED);
         }
     }
 
@@ -418,10 +450,6 @@ public final class TaskEditActivity extends TabActivity {
      * precision
      */
     private void showSaveToast() {
-        // if we have no title, or nothing's changed, don't show toast
-        if(isNewTask)
-            return;
-
         int stringResource;
 
         long due = model.getValue(Task.DUE_DATE);
@@ -492,7 +520,6 @@ public final class TaskEditActivity extends TabActivity {
                 Toast.LENGTH_SHORT).show();
     }
 
-
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         switch(item.getItemId()) {
@@ -532,10 +559,11 @@ public final class TaskEditActivity extends TabActivity {
 
     @Override
     protected void onPause() {
-        if(shouldSaveState)
-            save();
         super.onPause();
         unregisterReceiver(controlReceiver);
+
+        if(shouldSaveState)
+            save();
     }
 
     @Override
@@ -544,6 +572,16 @@ public final class TaskEditActivity extends TabActivity {
         registerReceiver(controlReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_EDIT_CONTROLS));
         populateFields();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        System.err.println("bundling. " + title.getText());
+
+        // stick our task into the outState
+        outState.putParcelable(TASK_IN_PROGRESS, model);
     }
 
     @Override

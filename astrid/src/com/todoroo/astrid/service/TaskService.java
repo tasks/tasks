@@ -122,6 +122,7 @@ public class TaskService {
             return;
         else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
             taskDao.delete(item.getId());
+            item.setId(Task.NO_ID);
         } else {
             long id = item.getId();
             item.clear();
