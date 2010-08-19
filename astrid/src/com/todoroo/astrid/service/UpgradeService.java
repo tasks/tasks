@@ -15,6 +15,7 @@ import com.todoroo.astrid.activity.TaskListActivity;
 
 public final class UpgradeService {
 
+    private static final int V3_2_3 = 150;
     private static final int V3_1_0 = 146;
     private static final int V3_0_6 = 145;
     private static final int V3_0_5 = 144;
@@ -101,6 +102,11 @@ public final class UpgradeService {
                     "Power Pack's features for evaluation purposes",
                     "If you liked the old version, you can also go back by " +
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
+            });
+        if(from > V2_14_4 && from <= V3_2_3)
+            newVersionString(changeLog, "3.2.4 (8/18/10)", new String[] {
+                    "Fix for duplicated tasks created in Producteev",
+                    "Fix for being able to create tasks without title",
             });
         if(from > V2_14_4 && from <= V3_1_0)
             newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
