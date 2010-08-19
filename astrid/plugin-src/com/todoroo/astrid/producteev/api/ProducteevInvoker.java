@@ -390,13 +390,25 @@ public class ProducteevInvoker {
     }
 
     /**
+     * create a dasbhoard
+     *
+     * @param name
+     * @return the new created dashboard as JSONObject
+     */
+    public JSONObject dashboardsCreate(String name) throws ApiServiceException, IOException {
+        return callAuthenticated("dashboards/create.json",
+                    "token", token,
+                    "title", name);
+    }
+
+    /**
      * return the list of users who can access a specific dashboard
      *
      * @param idDashboard
      * @param dashboard array-information about the dashboard, if this ...
      */
     public JSONArray dashboardsAccess(long idDashboard, String dashboard) throws ApiServiceException, IOException {
-        return getResponse(callAuthenticated("dashboards/access",
+        return getResponse(callAuthenticated("dashboards/access.json",
                     "token", token,
                     "id_dashboard", idDashboard,
                     "dashboard", dashboard),"dashboard");

@@ -258,6 +258,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         }
     }
 
+
     // ----------------------------------------------------------------------
     // ------------------------------------------------------------ sync data
     // ----------------------------------------------------------------------
@@ -312,6 +313,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         long dashboard = ProducteevUtilities.INSTANCE.getDefaultDashboard();
         if(local.pdvTask.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
             dashboard = local.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
+        long responsibleId = local.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID);
 
         if(dashboard == ProducteevUtilities.DASHBOARD_NO_SYNC) {
             // set a bogus task id, then return without creating
@@ -320,7 +322,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         }
 
         JSONObject response = invoker.tasksCreate(localTask.getValue(Task.TITLE),
-                null, dashboard, createDeadline(localTask), createReminder(localTask),
+                responsibleId, dashboard, createDeadline(localTask), createReminder(localTask),
                 localTask.isCompleted() ? 2 : 1, createStars(localTask));
         ProducteevTaskContainer newRemoteTask;
         try {
