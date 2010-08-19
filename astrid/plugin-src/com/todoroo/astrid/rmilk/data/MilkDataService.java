@@ -141,6 +141,12 @@ public final class MilkDataService {
     public void saveTaskAndMetadata(RTMTaskContainer task) {
         taskDao.save(task.task);
 
+        Metadata metadata = MilkTask.create(task);
+        Metadata foundMetadata = task.findMetadata(MilkTask.METADATA_KEY);
+        if(foundMetadata != null)
+            foundMetadata.mergeWith(metadata.getMergedValues());
+        else
+            task.metadata.add(metadata);
         metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
                 Criterion.or(MetadataCriteria.withKey(MilkTask.METADATA_KEY),
                         MetadataCriteria.withKey(MilkNote.METADATA_KEY),
