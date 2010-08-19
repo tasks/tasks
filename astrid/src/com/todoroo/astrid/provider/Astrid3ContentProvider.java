@@ -3,10 +3,6 @@
  */
 package com.todoroo.astrid.provider;
 
-import java.lang.ref.WeakReference;
-import java.util.HashSet;
-import java.util.Map.Entry;
-
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.ContentValues;
@@ -15,20 +11,36 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 
-import com.todoroo.andlib.data.AbstractDatabase;
-import com.todoroo.andlib.data.Property;
+import com.todoroo.andlib.data.AbstractModel;
+import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
- * Astrid Content Provider. Combines all Astrid tables into a single content
- * provider that can be queried, inserted into, and deleted from.
+ * Astrid 3 Content Provider. There are two ways to use this content provider:
+ * <ul>
+ * <li>access it directly just like any other content provider
+ * <li>use the DAO classes from the Astrid API library
+ * </ul>
+ *
+ * The following base URI's are supported:
+ * <ul>
+ * <li>content://com.todoroo.astrid/tasks - task data ({@link Task})
+ * <li>content://com.todoroo.astrid/metadata - task metadata ({@link Metadata})
+ * <li>content://com.todoroo.astrid/store - non-task store data ({@link StoreObject})
+ * </ul>
+ *
+ * Each URI supports the following components:
+ * <ul>
+ * <li>/ - query for all items
  *
  * @author Tim Su <tim@todoroo.com>
  *
@@ -40,40 +52,32 @@ public class Astrid3ContentProvider extends ContentProvider {
         AstridDependencyInjector.initialize();
     }
 
-    /** URI for making a request over all tasks */
+    /** URI for making a request over all items */
     private static final int URI_DIR = 1;
 
-    /** URI for making a request over a single task by id */
+    /** URI for making a request over a single item by id */
     private static final int URI_ITEM = 2;
 
-    /** URI for making a request over all tasks grouped by some field */
+    /** URI for making a request over all items grouped by some field */
     private static final int URI_GROUP = 3;
-
-    /** URI for making a request over all tasks grouped by some field */
-    private static final int URI_DIR_WITH_METADATA = 4;
-
-    protected static final String PROVIDER_NAME = AstridContentProvider.PROVIDER;
 
     // --- instance variables
 
     private final UriMatcher uriMatcher;
 
     @Autowired
-    private AbstractDatabase database;
+    private Database database;
+
+    @Autowired
+    private TaskDao taskDao;
 
     @Autowired
     private ExceptionService exceptionService;
 
-    /** Container classes for avoiding multiple object creation */
-    private ContentValues taskValues, metadataValues, tempValues;
-
-    /** List of task columns in a set form. Lazy initialized */
-    private WeakReference<HashSet<String>> taskColumnSetRef = null;
-
     @Override
     public boolean onCreate() {
         try {
-            ((Database)database).openForWriting(getContext());
+            database.openForWriting();
             return database.getDatabase() != null;
         } catch (Exception e) {
             exceptionService.reportError("astrid-provider", e);
@@ -81,14 +85,13 @@ public class Astrid3ContentProvider extends ContentProvider {
         }
     }
 
-    public ContentProvider() {
+    public Astrid3ContentProvider() {
         DependencyInjectionService.getInstance().inject(this);
 
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(PROVIDER_NAME, "items", URI_DIR);
-        uriMatcher.addURI(PROVIDER_NAME, "#", URI_ITEM);
-        uriMatcher.addURI(PROVIDER_NAME, "groupby/*", URI_GROUP);
-        uriMatcher.addURI(PROVIDER_NAME, "itemsWith/*", URI_DIR_WITH_METADATA);
+        uriMatcher.addURI(Task.CONTENT_URI, "", URI_DIR);
+        uriMatcher.addURI(Task.CONTENT_URI, "#", URI_ITEM);
+        uriMatcher.addURI(Task.CONTENT_URI, "groupby/*", URI_GROUP);
 
         setReadPermission(AstridApiConstants.PERMISSION_READ);
         setWritePermission(AstridApiConstants.PERMISSION_WRITE);
@@ -99,27 +102,82 @@ public class Astrid3ContentProvider extends ContentProvider {
         switch (uriMatcher.match(uri)) {
         case URI_DIR:
         case URI_GROUP:
-        case URI_DIR_WITH_METADATA:
-            return "vnd.android.cursor.dir/vnd.todoroo";
+            return "vnd.android.cursor.dir/vnd.astrid";
         case URI_ITEM:
-            return "vnd.android.cursor/vnd.todoroo.item";
+            return "vnd.android.cursor/vnd.astrid.item";
         default:
             throw new IllegalArgumentException("Unsupported URI: " + uri);
         }
     }
 
-    protected Uri makeContentUri() {
-        return Uri.parse("content://" + PROVIDER_NAME);
+    /* ======================================================================
+     * ========================================================== helpers ===
+     * ====================================================================== */
+
+    private class UriHelper<TYPE extends AbstractModel> {
+
+        /** empty model. used for insert */
+        public TYPE model;
+
+        /** dao */
+        public GenericDao<TYPE> dao;
+
+        /** creates from given model */
+        public void create() {
+            dao.createNew(model);
+        }
+
+        /** updates from given model */
+        public void update() {
+            dao.saveExisting(model);
+        }
+
+    }
+
+    private UriHelper<?> generateHelper(Uri uri, boolean populateModel) {
+        if(uri.toString().startsWith(Task.CONTENT_URI)) {
+            UriHelper<Task> helper = new UriHelper<Task>();
+            helper.model = populateModel ? new Task() : null;
+            helper.dao = taskDao;
+            return helper;
+        }
+
+        throw new UnsupportedOperationException("Unknown URI " + uri);
     }
 
     /* ======================================================================
      * =========================================================== delete ===
      * ====================================================================== */
 
+    /**
+     * Delete from given table
+     * @return number of rows deleted
+     */
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
-        // TODO
-        return 0;
+        switch (uriMatcher.match(uri)) {
+
+        // illegal operations
+
+        case URI_GROUP:
+            throw new IllegalArgumentException("Only the / or /# URI is valid"
+                    + " for deletion.");
+
+        // valid operations
+
+        case URI_ITEM: {
+
+            return 0;
+        }
+
+        case URI_DIR: {
+
+            return 0;
+        }
+
+        default:
+            throw new IllegalArgumentException("Unknown URI " + uri);
+        }
     }
 
     /* ======================================================================
@@ -127,7 +185,7 @@ public class Astrid3ContentProvider extends ContentProvider {
      * ====================================================================== */
 
     /**
-     * Insert key/value pairs into metadata table with appropriate namespace.
+     * Insert key/value pairs into given table
      */
     @Override
     public Uri insert(Uri uri, ContentValues values) {
@@ -137,62 +195,22 @@ public class Astrid3ContentProvider extends ContentProvider {
 
         case URI_ITEM:
         case URI_GROUP:
-        case URI_DIR_WITH_METADATA:
-            throw new IllegalArgumentException("Only the allItems URI is valid"
-                    + " for inserting a new task, I do not understand what you"
-                    + " are trying to do!");
+            throw new IllegalArgumentException("Only the / URI is valid"
+                    + " for insertion.");
 
         // valid operations
 
         case URI_DIR: {
-            // insert a task
-            taskValues = initialize(taskValues);
-            metadataValues = initialize(metadataValues);
-            separateTaskColumnsFromMetadata(values, taskValues, metadataValues);
 
-            // insert task columns, then insert metadata columns
-            long taskId = TodorooContentProvider.insertHelper(database,
-                    Database.TASK_TABLE, taskValues, Task.getStaticDefaultValues());
+            UriHelper<?> helper = generateHelper(uri, true);
+            helper.model.mergeWith(values);
+            helper.create();
 
-            for(Entry<String,Object> metadata : metadataValues.valueSet()) {
-                tempValues = initialize(tempValues);
-                tempValues.put(Metadata.KEY.name, metadata.getKey());
-                tempValues.put(Metadata.VALUE.name, metadata.getValue().toString());
-                TodorooContentProvider.insertHelper(database,
-                        Database.METADATA_TABLE, tempValues, null);
-            }
-
-            if (taskId > 0) {
-                Uri _uri = ContentUris.withAppendedId(makeContentUri(), taskId);
-                getContext().getContentResolver().notifyChange(_uri, null);
-                return _uri;
-            }
+            return ContentUris.withAppendedId(uri, helper.model.getId());
         }
 
         default:
             throw new IllegalArgumentException("Unknown URI " + uri);
-        }
-    }
-
-    /** Given a single ContentValues, separate into ones for tasks and ones
-     * for metadata */
-    private static void separateTaskColumnsFromMetadata(ContentValues values,
-            ContentValues taskCols, ContentValues metadataCols) {
-        // TODO
-    }
-
-    /** Initialize content provider */
-    private synchronized ContentValues initialize(ContentValues values) {
-        if(values == null)
-            return new ContentValues();
-        values.clear();
-        return values;
-    }
-
-    /** Assert that the provided values contain the key given */
-    private static void assertContains(ContentValues values, Property<?> key) {
-        if(!values.containsKey(key.name)) {
-            throw new IllegalArgumentException("ContentValues must contain key " + key);
         }
     }
 
@@ -201,7 +219,7 @@ public class Astrid3ContentProvider extends ContentProvider {
      * ====================================================================== */
 
     /**
-     * Undscapes a string for use in a URI. Used internally to pass extra data
+     * Unescapes a string for use in a URI. Used internally to pass extra data
      * to the content provider.
      * @param component
      * @return
@@ -296,8 +314,8 @@ public class Astrid3ContentProvider extends ContentProvider {
      * ====================================================================== */
 
     /**
-     * Query by metadata.
-     *
+     * Query by task.
+     * <p>
      * Note that the "sortOrder" field actually can be used to append any
      * sort of clause to your SQL query as long as it is not also the
      * name of a column
@@ -305,35 +323,21 @@ public class Astrid3ContentProvider extends ContentProvider {
     @Override
     public Cursor query(Uri uri, String[] projection, String selection,
             String[] selectionArgs, String sortOrder) {
-        HashSet<String> taskColumnSet = initializeTaskColumnSet();
 
-        SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-        StringBuilder tables = new StringBuilder(Database.TASK_TABLE).append(" t");
-
-        // walk through projection columns building tables and projections
-        for(int i = 0; i < projection.length; i++) {
-            if(taskColumnSet.contains(projection[i])) {
-                String tableName = "m" + i;
-                projection[i] = String.format("%s.%s AS %s",
-                        tableName, Metadata.VALUE, projection[i]);
-                tables.append(String.format(" LEFT OUTER JOIN %s %s ON t._id = %s.%s",
-                        Database.METADATA_TABLE, tableName, tableName, Metadata.TASK.name));
-                builder.appendWhereEscapeString(String.format("%s.%s = '%s' AND ",
-                        tableName, Metadata.KEY.name, projection[i]));
-            }
-        }
-
-        // add data from URI
         String groupBy = null;
+
+        UriHelper<?> helper = generateHelper(uri, false);
+        SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
+        builder.setTables(helper.dao.getTable().name);
+
         switch (uriMatcher.match(uri)) {
         case URI_GROUP:
             groupBy = uri.getPathSegments().get(1);
         case URI_DIR:
-            builder.appendWhere("TRUE");
             break;
         case URI_ITEM:
             String itemSelector = String.format("%s = '%s'",
-                    AstridTask.ID, uri.getPathSegments().get(1));
+                    AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
             builder.appendWhere(itemSelector);
             break;
         default:
@@ -343,18 +347,6 @@ public class Astrid3ContentProvider extends ContentProvider {
         Cursor cursor = builder.query(database.getDatabase(), projection, selection, selectionArgs, groupBy, null, sortOrder);
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
-    }
-
-    /** helper method to lazy-initialize taskColumnSet */
-    private synchronized HashSet<String> initializeTaskColumnSet() {
-        if(taskColumnSetRef != null && taskColumnSetRef.get() != null)
-            return taskColumnSetRef.get();
-
-        HashSet<String> taskColumnSet = new HashSet<String>();
-        taskColumnSetRef = new WeakReference<HashSet<String>>(taskColumnSet);
-        for(Property<?> property : Task.PROPERTIES)
-            taskColumnSet.add(property.qualifiedName());
-        return taskColumnSet;
     }
 
 }

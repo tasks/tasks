@@ -130,6 +130,7 @@ public class ShortcutActivity extends Activity {
     public static Intent createIntent(Filter filter) {
         Intent shortcutIntent = new Intent(ContextManager.getContext(),
                 ShortcutActivity.class);
+
          shortcutIntent.setAction(Intent.ACTION_VIEW);
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE, filter.title);
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL, filter.sqlQuery);

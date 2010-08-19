@@ -16,7 +16,7 @@ public class AstridApiConstants {
     // --- General Constants
 
     /**
-     * Astrid application package name
+     * Astrid broadcast base package name
      */
     public static final String PACKAGE = "com.todoroo.astrid";
 
@@ -198,17 +198,5 @@ public class AstridApiConstants {
      * @extra EXTRAS_NEW_DUE_DATE task new due date (will not be 0)
      */
     public static final String BROADCAST_EVENT_TASK_REPEATED = PACKAGE + ".TASK_REPEATED";
-
-    // --- SQL Constants
-
-    /**
-     * Table name for tasks
-     */
-    public static final String TASK_TABLE = "tasks";
-
-    /**
-     * Table name for metadata
-     */
-    public static final String METADATA_TABLE = "metadata";
 
 }

@@ -41,6 +41,11 @@ public class GenericDao<TYPE extends AbstractModel> {
         setDatabase(database);
     }
 
+    /** Gets table associated with this DAO */
+    public Table getTable() {
+        return table;
+    }
+
     /**
      * Sets up a database
      * @param database

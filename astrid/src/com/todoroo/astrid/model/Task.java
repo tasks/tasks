@@ -20,6 +20,7 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.AstridApiConstants;
 
 /**
  * Data Model which represents a task users need to accomplish.
@@ -30,9 +31,13 @@ import com.todoroo.andlib.utility.DateUtilities;
 @SuppressWarnings("nls")
 public final class Task extends AbstractModel {
 
-    // --- table
+    // --- table and uri
 
+    /** table for this model */
     public static final Table TABLE = new Table("tasks", Task.class);
+
+    /** content uri for this model */
+    public static final String CONTENT_URI = "content://" + AstridApiConstants.PACKAGE + "/tasks/";
 
     // --- properties
 
