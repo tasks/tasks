@@ -139,7 +139,7 @@ public final class MilkDataService {
      * @param task
      */
     public void saveTaskAndMetadata(RTMTaskContainer task) {
-        taskDao.save(task.task, true);
+        taskDao.save(task.task);
 
         metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(task.task.getId()),
                 Criterion.or(MetadataCriteria.withKey(MilkTask.METADATA_KEY),

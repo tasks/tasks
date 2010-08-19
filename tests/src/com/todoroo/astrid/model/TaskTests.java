@@ -46,7 +46,7 @@ public class TaskTests extends DatabaseTestCase {
     /** Check task gets a creation date at some point */
     public void checkCreationDate() {
         Task task = new Task();
-        taskService.save(task, false);
+        taskService.save(task);
         assertTrue(task.getValue(Task.CREATION_DATE) > 0);
     }
 

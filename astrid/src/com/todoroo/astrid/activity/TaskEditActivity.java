@@ -104,7 +104,7 @@ public final class TaskEditActivity extends TabActivity {
     /**
      * Task ID
      */
-    public static final String TOKEN_ID = "i"; //$NON-NLS-1$
+    public static final String TOKEN_ID = "id"; //$NON-NLS-1$
 
     /**
      * Content Values to set
@@ -195,7 +195,6 @@ public final class TaskEditActivity extends TabActivity {
 		if(savedInstanceState != null && savedInstanceState.containsKey(TASK_IN_PROGRESS)) {
 		    Task task = savedInstanceState.getParcelable(TASK_IN_PROGRESS);
 		    if(task != null) {
-		        System.err.println("TASK being un-bundled");
 		        model = task;
 		    }
 		}
@@ -348,7 +347,6 @@ public final class TaskEditActivity extends TabActivity {
 
             // set deletion date until task gets a title
             model.setValue(Task.DELETION_DATE, DateUtilities.now());
-            System.err.println("new task. deletion date set");
         } else {
             FlurryAgent.onEvent("edit-task");
         }
@@ -383,16 +381,13 @@ public final class TaskEditActivity extends TabActivity {
         if(title.getText().length() > 0)
             model.setValue(Task.DELETION_DATE, 0L);
 
-        System.err.println("TASK being saved. " + model.getMergedValues());
-        if(taskService.save(model, false) && title.getText().length() > 0)
+        if(taskService.save(model) && title.getText().length() > 0)
             showSaveToast();
     }
 
     @Override
     public void finish() {
         super.finish();
-
-        System.err.println("FINISH. " + title.getText());
 
         // abandon editing and delete the newly created task if
         // no title was entered
@@ -577,8 +572,6 @@ public final class TaskEditActivity extends TabActivity {
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
-
-        System.err.println("bundling. " + title.getText());
 
         // stick our task into the outState
         outState.putParcelable(TASK_IN_PROGRESS, model);

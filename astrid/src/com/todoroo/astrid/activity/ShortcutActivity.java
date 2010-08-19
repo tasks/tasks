@@ -26,10 +26,12 @@ import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.model.Task;
 
 /**
  * This activity is launched when a user opens up a notification from the
@@ -41,6 +43,9 @@ import com.todoroo.astrid.api.Filter;
 public class ShortcutActivity extends Activity {
 
     // --- constants
+
+    /** token for passing a task id through extras for viewing a single task */
+    public static final String TOKEN_SINGLE_TASK = "id"; //$NON-NLS-1$
 
     /** token for passing a {@link Filter}'s title through extras */
     public static final String TOKEN_FILTER_TITLE = "title"; //$NON-NLS-1$
@@ -105,13 +110,20 @@ public class ShortcutActivity extends Activity {
                 }
             }
 
-            Filter filter = new Filter("", title, new QueryTemplate(), values); //$NON-NLS-1$
-            filter.sqlQuery = sql;
+            Filter filter = new Filter("", title, sql, values); //$NON-NLS-1$
+            Intent taskListIntent = new Intent(this, TaskListActivity.class);
+            taskListIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+            startActivity(taskListIntent);
+        } else if(extras != null && extras.containsKey(TOKEN_SINGLE_TASK)) {
+            Filter filter = new Filter("", getString(R.string.TLA_custom), //$NON-NLS-1$
+                    new QueryTemplate().where(Task.ID.eq(extras.getLong(TOKEN_SINGLE_TASK, -1))), null);
 
             Intent taskListIntent = new Intent(this, TaskListActivity.class);
             taskListIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
             startActivity(taskListIntent);
         }
+
+
         finish();
     }
 
