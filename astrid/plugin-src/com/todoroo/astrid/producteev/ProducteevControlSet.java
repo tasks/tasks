@@ -13,11 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -58,6 +58,8 @@ public class ProducteevControlSet implements TaskEditControlSet {
 
     @Autowired
     MetadataService metadataService;
+
+    private int lastDashboardSelection = 0;
 
     public ProducteevControlSet(final Activity activity, ViewGroup parent) {
         DependencyInjectionService.getInstance().inject(this);
@@ -127,6 +129,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
+                            dashboardSelector.setSelection(lastDashboardSelection);
                         }
                     };
                     dialogUtilites.viewDialog(ProducteevControlSet.this.activity,
@@ -136,6 +139,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
                             cancelListener);
                 } else {
                     refreshResponsibleSpinner(dashboard.getUsers());
+                    lastDashboardSelection = position;
                 }
             }
 
