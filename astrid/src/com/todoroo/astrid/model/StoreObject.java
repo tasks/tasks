@@ -12,6 +12,7 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.astrid.api.AstridApiConstants;
 
 /**
  * Data Model which represents a piece of data unrelated to a task
@@ -24,7 +25,11 @@ public class StoreObject extends AbstractModel {
 
     // --- table
 
+    /** table for this model */
     public static final Table TABLE = new Table("store", StoreObject.class);
+
+    /** content uri for this model */
+    public static final String CONTENT_URI = "content://" + AstridApiConstants.PACKAGE + "/store/";
 
     // --- properties
 

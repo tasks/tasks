@@ -10,6 +10,7 @@ import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
+import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.GenericDao;
@@ -18,6 +19,8 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
@@ -45,7 +48,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-@SuppressWarnings({"nls","unused"})
+@SuppressWarnings("nls")
 public class Astrid3ContentProvider extends ContentProvider {
 
     static {
@@ -72,6 +75,12 @@ public class Astrid3ContentProvider extends ContentProvider {
     private TaskDao taskDao;
 
     @Autowired
+    private MetadataDao metadataDao;
+
+    @Autowired
+    private StoreObjectDao storeObjectDao;
+
+    @Autowired
     private ExceptionService exceptionService;
 
     @Override
@@ -89,9 +98,12 @@ public class Astrid3ContentProvider extends ContentProvider {
         DependencyInjectionService.getInstance().inject(this);
 
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        uriMatcher.addURI(Task.CONTENT_URI, "", URI_DIR);
-        uriMatcher.addURI(Task.CONTENT_URI, "#", URI_ITEM);
-        uriMatcher.addURI(Task.CONTENT_URI, "groupby/*", URI_GROUP);
+
+        for(String uri : new String[] { Task.CONTENT_URI, Metadata.CONTENT_URI, StoreObject.CONTENT_URI }) {
+            uriMatcher.addURI(uri, "", URI_DIR);
+            uriMatcher.addURI(uri, "#", URI_ITEM);
+            uriMatcher.addURI(uri, "groupby/*", URI_GROUP);
+        }
 
         setReadPermission(AstridApiConstants.PERMISSION_READ);
         setWritePermission(AstridApiConstants.PERMISSION_WRITE);
@@ -140,6 +152,16 @@ public class Astrid3ContentProvider extends ContentProvider {
             helper.model = populateModel ? new Task() : null;
             helper.dao = taskDao;
             return helper;
+        } else if(uri.toString().startsWith(Metadata.CONTENT_URI)) {
+            UriHelper<Metadata> helper = new UriHelper<Metadata>();
+            helper.model = populateModel ? new Metadata() : null;
+            helper.dao = metadataDao;
+            return helper;
+        } else if(uri.toString().startsWith(StoreObject.CONTENT_URI)) {
+            UriHelper<StoreObject> helper = new UriHelper<StoreObject>();
+            helper.model = populateModel ? new StoreObject() : null;
+            helper.dao = storeObjectDao;
+            return helper;
         }
 
         throw new UnsupportedOperationException("Unknown URI " + uri);
@@ -155,6 +177,7 @@ public class Astrid3ContentProvider extends ContentProvider {
      */
     @Override
     public int delete(Uri uri, String selection, String[] selectionArgs) {
+        UriHelper<?> helper = generateHelper(uri, false);
         switch (uriMatcher.match(uri)) {
 
         // illegal operations
@@ -166,18 +189,23 @@ public class Astrid3ContentProvider extends ContentProvider {
         // valid operations
 
         case URI_ITEM: {
+            String itemSelector = String.format("%s = '%s'",
+                    AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
+            if(TextUtils.isEmpty(selection))
+                selection = itemSelector;
+            else
+                selection = itemSelector + " AND " + selection;
 
-            return 0;
         }
 
-        case URI_DIR: {
-
-            return 0;
-        }
+        case URI_DIR:
+            break;
 
         default:
             throw new IllegalArgumentException("Unknown URI " + uri);
         }
+
+        return database.delete(helper.dao.getTable().name, selection, selectionArgs);
     }
 
     /* ======================================================================
@@ -189,6 +217,7 @@ public class Astrid3ContentProvider extends ContentProvider {
      */
     @Override
     public Uri insert(Uri uri, ContentValues values) {
+        UriHelper<?> helper = generateHelper(uri, true);
         switch (uriMatcher.match(uri)) {
 
         // illegal operations
@@ -201,12 +230,10 @@ public class Astrid3ContentProvider extends ContentProvider {
         // valid operations
 
         case URI_DIR: {
-
-            UriHelper<?> helper = generateHelper(uri, true);
             helper.model.mergeWith(values);
             helper.create();
-
-            return ContentUris.withAppendedId(uri, helper.model.getId());
+            Uri newUri = ContentUris.withAppendedId(uri, helper.model.getId());
+            getContext().getContentResolver().notifyChange(newUri, null);
         }
 
         default:
@@ -218,95 +245,27 @@ public class Astrid3ContentProvider extends ContentProvider {
      * =========================================================== update ===
      * ====================================================================== */
 
-    /**
-     * Unescapes a string for use in a URI. Used internally to pass extra data
-     * to the content provider.
-     * @param component
-     * @return
-     */
-    private static String unescapeUriComponent(String component) {
-        return component.replace("%s", "/").replace("%o", "%");
-    }
-
-    /**
-     * Escapes a string for use as part of a URI string. Used internally to pass extra data
-     * to the content provider.
-     * @param component
-     * @return
-     */
-    private static String[] unpackUriSubComponent(String component) {
-        return component.replace("$s", "|").replace("o", "$").split("|");
-    }
-
     @Override
     public int update(Uri uri, ContentValues values, String selection,
             String[] selectionArgs) {
-        /*switch (uriMatcher.match(uri)) {
-        case URI_DIR_WITH_METADATA: {
-            SQLiteQueryBuilder builder = new SQLiteQueryBuilder();
-            String[] metadata = unpackUriSubComponent(uri.getPathSegments().get(1));
-            StringBuilder tables = new StringBuilder(Database.TASK_TABLE).append(" t");
-            for(int i = 0; i < metadata.length; i++) {
-                String tableName = "m" + i;
-                tables.append(String.format(" LEFT OUTER JOIN %s %s ON t._id = %s.%s",
-                        Database.METADATA_TABLE, tableName, tableName, Metadata.TASK.name));
-                builder.appendWhereEscapeString(String.format("%s.%s = '%s' AND ",
-                        tableName, Metadata.KEY.name, projection[i]));
-            }
-        }
+        UriHelper<?> helper = generateHelper(uri, true);
 
-        case URI_DIR: {
-            // UPDATE tasks SET ... WHERE ...
-            taskValues = initialize(taskValues);
-            metadataValues = initialize(metadataValues);
-            separateTaskColumnsFromMetadata(values, taskValues, metadataValues);
-
-            count = database.getDatabase().update(getTableName(), valuesWithDefaults,
-                    selection, selectionArgs);
-
-            // SELECT _id WHERE ...
-
-            // INSERT OR REPLACE INTO metadata (...) VALUES (...)
-            long taskId = TodorooContentProvider.insertHelper(database,
-                    Database.TASK_TABLE, taskValues, Task.getStaticDefaultValues());
-
-            for(Entry<String,Object> metadata : metadataValues.valueSet()) {
-                tempValues = initialize(tempValues);
-                tempValues.put(Metadata.KEY.name, metadata.getKey());
-                tempValues.put(Metadata.VALUE.name, metadata.getValue().toString());
-                TodorooContentProvider.insertHelper(database,
-                        Database.METADATA_TABLE, tempValues, null);
+        Cursor cursor = query(uri, new String[] { AbstractModel.ID_PROPERTY.name },
+                selection, selectionArgs, null);
+        try {
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                long id = cursor.getLong(0);
+                helper.model.mergeWith(values);
+                helper.model.setId(id);
+                helper.update();
+                helper.model.clear();
             }
 
-            if (taskId > 0) {
-                Uri _uri = ContentUris.withAppendedId(makeContentUri(), taskId);
-                getContext().getContentResolver().notifyChange(_uri, null);
-                return _uri;
-            }
-
-            break;
+            getContext().getContentResolver().notifyChange(uri, null);
+            return cursor.getCount();
+        } finally {
+            cursor.close();
         }
-        case ITEM:
-            String id = uri.getPathSegments().get(0);
-            ContentValues newValues = new ContentValues();
-            rewriteKeysFor(values, newValues);
-            count = database.getDatabase().update(
-                    getTableName(),
-                    newValues,
-                    (AbstractModel.ID_PROPERTY + "=" + id)
-                            + (!TextUtils.isEmpty(selection) ? " AND ("
-                                    + selection + ')' : ""), selectionArgs);
-            break;
-        case GROUP:
-            throw new IllegalArgumentException("Invalid URI for update: " + uri);
-
-        default:
-            throw new IllegalArgumentException("Unknown URI " + uri);
-        }
-        getContext().getContentResolver().notifyChange(uri, null);
-        return count;*/
-
-        return 0; // FIXME
     }
 
     /* ======================================================================
