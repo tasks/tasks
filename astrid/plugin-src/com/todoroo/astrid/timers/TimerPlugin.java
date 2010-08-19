@@ -52,7 +52,7 @@ public class TimerPlugin extends BroadcastReceiver {
                         task.getValue(Task.ELAPSED_SECONDS) + newElapsed);
             }
         }
-        PluginServices.getTaskService().save(task, true);
+        PluginServices.getTaskService().save(task);
         TimerDecorationExposer.removeFromCache(task.getId());
 
         // transmit new intents

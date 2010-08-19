@@ -20,7 +20,9 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
+import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
@@ -94,6 +96,8 @@ public class StartupService {
         	Preferences.setCurrentVersion(version);
         }
 
+        upgradeService.performSecondaryUpgrade(context);
+
         // perform startup activities in a background thread
         new Thread(new Runnable() {
             public void run() {
@@ -114,6 +118,10 @@ public class StartupService {
 
         // if sync ongoing flag was set, clear it
         ProducteevUtilities.INSTANCE.stopOngoing();
+
+        ProducteevBackgroundService.scheduleService();
+        BackupService.scheduleService(context);
+        MilkBackgroundService.scheduleService();
 
         // check for task killers
         if(!Constants.OEM)

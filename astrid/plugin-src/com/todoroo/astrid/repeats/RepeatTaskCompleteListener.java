@@ -58,11 +58,11 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             clone.setValue(Task.COMPLETION_DATE, 0L);
             clone.setValue(Task.TIMER_START, 0L);
             clone.setValue(Task.ELAPSED_SECONDS, 0);
-            PluginServices.getTaskService().save(clone, false);
+            PluginServices.getTaskService().save(clone);
 
             // clear recurrence from completed task so it can be re-completed
             task.setValue(Task.RECURRENCE, ""); //$NON-NLS-1$
-            PluginServices.getTaskService().save(task, false);
+            PluginServices.getTaskService().save(task);
 
             // send a broadcast
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_REPEATED);

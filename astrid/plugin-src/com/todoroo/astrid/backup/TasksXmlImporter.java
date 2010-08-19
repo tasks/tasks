@@ -248,7 +248,7 @@ public class TasksXmlImporter {
             currentTask.setId(Task.NO_ID);
 
             // Save the task to the database.
-            taskService.save(currentTask, false);
+            taskService.save(currentTask);
             importCount++;
         }
 
@@ -460,7 +460,7 @@ public class TasksXmlImporter {
             }
 
             // Save the task to the database.
-            taskService.save(task, false);
+            taskService.save(task);
             importCount++;
             return task;
         }

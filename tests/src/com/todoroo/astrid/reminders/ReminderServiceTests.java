@@ -37,7 +37,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         Task task = new Task();
         task.setValue(Task.TITLE, "water");
         task.setValue(Task.REMINDER_FLAGS, 0);
-        taskDao.save(task, false);
+        taskDao.save(task);
         service.scheduleAlarm(task);
     }
 
@@ -49,7 +49,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         task.setValue(Task.TITLE, "water");
         task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_DAY);
         task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         // test due date in the future
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_DAY);
@@ -61,7 +61,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
         });
-        taskDao.save(task, false);
+        taskDao.save(task);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
@@ -80,7 +80,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_RANDOM);
             }
         });
-        taskDao.save(task, false);
+        taskDao.save(task);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
@@ -92,7 +92,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         task.setValue(Task.TITLE, "water");
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_DAY);
         task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE);
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         // test due date in the past
         task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_DAY);
@@ -105,7 +105,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_OVERDUE);
             }
         });
-        taskDao.save(task, false);
+        taskDao.save(task);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
@@ -126,7 +126,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_RANDOM);
             }
         });
-        taskDao.save(task, false);
+        taskDao.save(task);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
 
         // now set the due date in the past
@@ -145,7 +145,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
         });
-        taskDao.save(task, false);
+        taskDao.save(task);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 

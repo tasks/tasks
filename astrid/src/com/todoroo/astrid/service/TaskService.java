@@ -67,7 +67,7 @@ public class TaskService {
             item.setValue(Task.COMPLETION_DATE, DateUtilities.now());
         else
             item.setValue(Task.COMPLETION_DATE, 0L);
-        taskDao.save(item, false);
+        taskDao.save(item);
     }
 
     /**
@@ -78,8 +78,8 @@ public class TaskService {
      *            Whether pre and post hooks should run. This should be set
      *            to true if tasks are created as part of synchronization
      */
-    public boolean save(Task item, boolean runHooks) {
-        return taskDao.save(item, runHooks);
+    public boolean save(Task item) {
+        return taskDao.save(item);
     }
 
     /**
@@ -122,12 +122,13 @@ public class TaskService {
             return;
         else if(item.containsValue(Task.TITLE) && item.getValue(Task.TITLE).length() == 0) {
             taskDao.delete(item.getId());
+            item.setId(Task.NO_ID);
         } else {
             long id = item.getId();
             item.clear();
             item.setId(id);
             item.setValue(Task.DELETION_DATE, DateUtilities.now());
-            taskDao.save(item, false);
+            taskDao.save(item);
         }
     }
 
@@ -224,7 +225,7 @@ public class TaskService {
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 taskValues.setValue(Task.ID, cursor.get(Task.ID));
-                taskDao.save(taskValues, false);
+                taskDao.save(taskValues);
             }
             return cursor.getCount();
         } finally {
@@ -233,7 +234,9 @@ public class TaskService {
     }
 
     public int countTasks(Filter filter) {
-        TodorooCursor<Task> cursor = query(Query.select(Task.ID).withQueryTemplate(filter.sqlQuery));
+        String queryTemplate = PermaSql.replacePlaceholders(filter.sqlQuery);
+        TodorooCursor<Task> cursor = query(Query.select(Task.ID).withQueryTemplate(
+                queryTemplate));
         try {
             return cursor.getCount();
         } finally {

@@ -11,17 +11,24 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.dao.Database;
 
 
 public final class UpgradeService {
 
+    private static final int V3_2_4 = 151;
+    private static final int V3_2_3 = 150;
     private static final int V3_1_0 = 146;
     private static final int V3_0_6 = 145;
     private static final int V3_0_5 = 144;
     private static final int V3_0_0 = 136;
     private static final int V2_14_4 = 135;
+
     @Autowired
     private DialogUtilities dialogUtilities;
+
+    @Autowired
+    private Database database;
 
     public UpgradeService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -102,6 +109,15 @@ public final class UpgradeService {
                     "If you liked the old version, you can also go back by " +
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
+        if(from > V2_14_4 && from <= V3_2_4)
+            newVersionString(changeLog, "3.2.5 (8/18/10)", new String[] {
+                    "Fix for duplicated tasks created in RTM",
+            });
+        if(from > V2_14_4 && from <= V3_2_3)
+            newVersionString(changeLog, "3.2.5 (8/18/10)", new String[] {
+                    "Fix for duplicated tasks created in Producteev",
+                    "Fix for being able to create tasks without title",
+            });
         if(from > V2_14_4 && from <= V3_1_0)
             newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
                     "Build your own custom filters from the Filter page",
@@ -110,7 +126,6 @@ public final class UpgradeService {
                     "Synchronize with Producteev! (producteev.com)",
                     "Select tags by drop-down box",
                     "Cosmetic improvements, calendar & sync bug fixes",
-                    "... enjoy! - we <3 astrid team",
             });
         if(from > V2_14_4 && from <= V3_0_6)
             newVersionString(changeLog, "3.1.0 (8/9/10)", new String[] {
@@ -121,7 +136,6 @@ public final class UpgradeService {
                     "Restored tag hiding when tag begins with underscore (_)",
                     "FROYO: disabled moving app to SD card, it would break alarms and widget",
                     "Also gone: a couple force closes, bugs with repeating tasks",
-                    "... enjoy! - we <3 astrid team",
             });
         if(from > V2_14_4 && from <= V3_0_5)
             newVersionString(changeLog, "3.0.6 (8/4/10)", new String[] {
@@ -134,7 +148,7 @@ public final class UpgradeService {
         if(changeLog.length() == 0)
             return;
 
-        changeLog.append("</body></html>");
+        changeLog.append("Enjoy!</body></html>");
         String changeLogHtml = "<html><body style='color: white'>" + changeLog;
 
         WebView webView = new WebView(context);
@@ -163,6 +177,18 @@ public final class UpgradeService {
         changeLog.append("</ul>");
     }
 
-    // --- database upgrade logic
+    // --- secondary upgrade
+
+    /**
+     * If primary upgrade doesn't work for some reason (corrupt SharedPreferences,
+     * for example), this will catch some cases
+     */
+    public void performSecondaryUpgrade(Context context) {
+        if(!context.getDatabasePath(database.getName()).exists() &&
+                context.getDatabasePath("tasks").exists()) { //$NON-NLS-1$
+            new Astrid2To3UpgradeHelper().upgrade2To3(context, 1);
+        }
+    }
+
 
 }
