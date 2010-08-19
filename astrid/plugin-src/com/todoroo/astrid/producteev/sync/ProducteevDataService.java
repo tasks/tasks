@@ -20,17 +20,17 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.rmilk.data.MilkNote;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.tags.TagService;
 
 public final class ProducteevDataService {
@@ -58,7 +58,7 @@ public final class ProducteevDataService {
     private TaskDao taskDao;
 
     @Autowired
-    private MetadataDao metadataDao;
+    private MetadataService metadataService;
 
     @Autowired
     private StoreObjectDao storeObjectDao;
@@ -75,11 +75,11 @@ public final class ProducteevDataService {
     // --- task and metadata methods
 
     /**
-     * Clears RTM metadata information. Used when user logs out of RTM
+     * Clears metadata information. Used when user logs out of service
      */
     public void clearMetadata() {
-        metadataDao.deleteWhere(Metadata.KEY.eq(ProducteevTask.METADATA_KEY));
-        metadataDao.deleteWhere(Metadata.KEY.eq(ProducteevNote.METADATA_KEY));
+        metadataService.deleteWhere(Metadata.KEY.eq(ProducteevTask.METADATA_KEY));
+        metadataService.deleteWhere(Metadata.KEY.eq(ProducteevNote.METADATA_KEY));
         storeObjectDao.deleteWhere(StoreObject.TYPE.eq(ProducteevDashboard.TYPE));
     }
 
@@ -140,16 +140,11 @@ public final class ProducteevDataService {
     public void saveTaskAndMetadata(ProducteevTaskContainer task) {
         taskDao.save(task.task, true);
 
-        metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(task.task.getId()),
+        task.metadata.add(task.pdvTask);
+        metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
                 Criterion.or(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
                         MetadataCriteria.withKey(ProducteevNote.METADATA_KEY),
-                        MetadataCriteria.withKey(TagService.KEY))));
-        task.metadata.add(task.pdvTask);
-        task.pdvTask.setValue(Metadata.KEY, ProducteevTask.METADATA_KEY);
-        for(Metadata metadata : task.metadata) {
-            metadata.setValue(Metadata.TASK, task.task.getId());
-            metadataDao.persist(metadata);
-        }
+                        MetadataCriteria.withKey(TagService.KEY)));
     }
 
     /**
@@ -162,7 +157,7 @@ public final class ProducteevDataService {
 
         // read tags, notes, etc
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-        TodorooCursor<Metadata> metadataCursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
+        TodorooCursor<Metadata> metadataCursor = metadataService.query(Query.select(Metadata.PROPERTIES).
                 where(Criterion.and(MetadataCriteria.byTask(task.getId()),
                         Criterion.or(MetadataCriteria.withKey(TagService.KEY),
                                 MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
@@ -184,7 +179,7 @@ public final class ProducteevDataService {
      * @return null if no metadata found
      */
     public Metadata getTaskMetadata(long taskId) {
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
+        TodorooCursor<Metadata> cursor = metadataService.query(Query.select(
                 Metadata.PROPERTIES).where(
                 MetadataCriteria.byTaskAndwithKey(taskId, ProducteevTask.METADATA_KEY)));
         try {
@@ -201,7 +196,7 @@ public final class ProducteevDataService {
      * Reads task notes out of a task
      */
     public TodorooCursor<Metadata> getTaskNotesCursor(long taskId) {
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
+        TodorooCursor<Metadata> cursor = metadataService.query(Query.select(Metadata.PROPERTIES).
                 where(MetadataCriteria.byTaskAndwithKey(taskId, ProducteevNote.METADATA_KEY)));
         return cursor;
     }

@@ -188,7 +188,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
             else
                 metadata.setValue(ProducteevTask.RESPONSIBLE_ID, responsibleUser.getId());
 
-            if(metadata.getSetValues().size() > 0 ) {
+            if(metadata.getSetValues().size() > 0) {
                 metadataService.save(metadata);
                 task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
             }

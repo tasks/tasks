@@ -1,11 +1,17 @@
 package com.todoroo.astrid.service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+
+import android.content.ContentValues;
+
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.model.Metadata;
 
 /**
@@ -66,5 +72,52 @@ public class MetadataService {
      */
     public void save(Metadata metadata) {
         metadataDao.persist(metadata);
+    }
+
+    /**
+     * Synchronize metadata for given task id
+     * @param id
+     * @param metadata
+     * @param metadataKeys
+     */
+    public void synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
+            Criterion metadataCriterion) {
+        HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
+        for(Metadata metadatum : metadata) {
+            metadatum.setValue(Metadata.TASK, taskId);
+            metadatum.clearValue(Metadata.ID);
+            newMetadataValues.add(metadatum.getMergedValues());
+        }
+
+        Metadata item = new Metadata();
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).where(Criterion.and(MetadataCriteria.byTask(taskId),
+                metadataCriterion)));
+        try {
+            // try to find matches within our metadata list
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                item.readFromCursor(cursor);
+                long id = item.getId();
+
+                // clear item id when matching with incoming values
+                item.clearValue(Metadata.ID);
+                ContentValues itemMergedValues = item.getMergedValues();
+                if(newMetadataValues.contains(itemMergedValues)) {
+                    newMetadataValues.remove(itemMergedValues);
+                    continue;
+                }
+
+                // not matched. cut it
+                metadataDao.delete(id);
+            }
+        } finally {
+            cursor.close();
+        }
+
+        // everything that remains shall be written
+        for(ContentValues values : newMetadataValues) {
+            item.clear();
+            item.mergeWith(values);
+            metadataDao.persist(item);
+        }
     }
 }
