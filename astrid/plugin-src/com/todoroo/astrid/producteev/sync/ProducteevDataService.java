@@ -243,41 +243,49 @@ public final class ProducteevDataService {
         readDashboards();
         for(int i = 0; i < changedDashboards.length(); i++) {
             JSONObject remote = changedDashboards.getJSONObject(i).getJSONObject("dashboard");
-            long id = remote.getLong("id_dashboard");
-            StoreObject local = null;
-            for(StoreObject dashboard : dashboards) {
-                if(dashboard.getValue(ProducteevDashboard.REMOTE_ID).equals(id)) {
-                    local = dashboard;
-                    break;
-                }
-            }
-
-            if(remote.getInt("deleted") != 0) {
-                if(local != null)
-                    storeObjectDao.delete(local.getId());
-                continue;
-            }
-
-            if(local == null)
-                local = new StoreObject();
-            local.setValue(StoreObject.TYPE, ProducteevDashboard.TYPE);
-            local.setValue(ProducteevDashboard.REMOTE_ID, id);
-            local.setValue(ProducteevDashboard.NAME, remote.getString("title"));
-
-            StringBuilder users = new StringBuilder();
-            JSONArray accessList = remote.getJSONArray("accesslist");
-            for(int j = 0; j < accessList.length(); j++) {
-                JSONObject user = accessList.getJSONObject(j).getJSONObject("user");
-                users.append(user.getLong("id_user")).append(',');
-                String name = user.optString("firstname", "") + ' ' +
-                        user.optString("lastname", "");
-                users.append(name.trim()).append(';');
-            }
-            local.setValue(ProducteevDashboard.USERS, users.toString());
-            storeObjectDao.persist(local);
+            updateDashboards(remote, false);
         }
 
         // clear dashboard cache
         dashboards = null;
+    }
+
+    public StoreObject updateDashboards(JSONObject remote, boolean reinitCache) throws JSONException {
+        if (reinitCache)
+            readDashboards();
+        long id = remote.getLong("id_dashboard");
+        StoreObject local = null;
+        for(StoreObject dashboard : dashboards) {
+            if(dashboard.getValue(ProducteevDashboard.REMOTE_ID).equals(id)) {
+                local = dashboard;
+                break;
+            }
+        }
+
+        if(remote.getInt("deleted") != 0) {
+            if(local != null)
+                storeObjectDao.delete(local.getId());
+        }
+
+        if(local == null)
+            local = new StoreObject();
+        local.setValue(StoreObject.TYPE, ProducteevDashboard.TYPE);
+        local.setValue(ProducteevDashboard.REMOTE_ID, id);
+        local.setValue(ProducteevDashboard.NAME, remote.getString("title"));
+
+        StringBuilder users = new StringBuilder();
+        JSONArray accessList = remote.getJSONArray("accesslist");
+        for(int j = 0; j < accessList.length(); j++) {
+            JSONObject user = accessList.getJSONObject(j).getJSONObject("user");
+            users.append(user.getLong("id_user")).append(',');
+            String name = user.optString("firstname", "") + ' ' +
+                    user.optString("lastname", "");
+            users.append(name.trim()).append(';');
+        }
+        local.setValue(ProducteevDashboard.USERS, users.toString());
+        storeObjectDao.persist(local);
+        if (reinitCache)
+            dashboards = null;
+        return local;
     }
 }

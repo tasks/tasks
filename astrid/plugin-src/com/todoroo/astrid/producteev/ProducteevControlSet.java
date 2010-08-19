@@ -2,27 +2,35 @@ package com.todoroo.astrid.producteev;
 
 import java.util.ArrayList;
 
+import org.json.JSONObject;
+
 import android.app.Activity;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
+import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.producteev.sync.ProducteevUser;
 import com.todoroo.astrid.service.MetadataService;
@@ -38,6 +46,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
     // --- instance variables
 
     private final Activity activity;
+    private final DialogUtilities dialogUtilites;
 
     private final View view;
     private Task myTask;
@@ -54,6 +63,8 @@ public class ProducteevControlSet implements TaskEditControlSet {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
+        this.dialogUtilites = new DialogUtilities();
+
         view = LayoutInflater.from(activity).inflate(R.layout.producteev_control, parent, true);
 
         this.responsibleSelector = (Spinner) activity.findViewById(R.id.producteev_TEA_task_assign);
@@ -67,9 +78,65 @@ public class ProducteevControlSet implements TaskEditControlSet {
             @Override
             public void onItemSelected(AdapterView<?> spinnerParent, View spinnerView,
                     int position, long id) {
-                Spinner dashSelector = (Spinner) spinnerParent;
+                final Spinner dashSelector = (Spinner) spinnerParent;
                 ProducteevDashboard dashboard = (ProducteevDashboard) dashSelector.getSelectedItem();
-                refreshResponsibleSpinner(dashboard.getUsers());
+                if (dashboard.getId() == ProducteevUtilities.DASHBOARD_CREATE) {
+                    // let the user create a new dashboard
+                    final EditText editor = new EditText(ProducteevControlSet.this.activity);
+                    OnClickListener okListener = new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            Activity context = ProducteevControlSet.this.activity;
+                            String newDashboardName = editor.getText().toString();
+                            if (newDashboardName == null || newDashboardName.length() == 0) {
+                                dialog.cancel();
+                            } else {
+                                // create the real dashboard, select it in the spinner and refresh responsiblespinner
+                                ProgressDialog progressDialog = null;
+                                try {
+                                    progressDialog = dialogUtilites.progressDialog(context,
+                                            context.getString(R.string.DLG_wait));
+                                    JSONObject newDashJSON = ProducteevSyncProvider.getInvoker().dashboardsCreate(newDashboardName).getJSONObject("dashboard");
+                                    StoreObject local = ProducteevDataService.getInstance().updateDashboards(newDashJSON, true);
+                                    if (local != null) {
+                                        ProducteevDashboard newDashboard = new ProducteevDashboard(local);
+                                        ArrayAdapter adapter = (ArrayAdapter) dashSelector.getAdapter();
+                                        adapter.insert(newDashboard, adapter.getCount()-1);
+                                        dashSelector.setSelection(adapter.getCount()-2);
+                                        refreshResponsibleSpinner(newDashboard.getUsers());
+                                        dialogUtilites.dismissDialog(context, progressDialog);
+                                    }
+                                } catch (Exception e) {
+                                    dialogUtilites.dismissDialog(context, progressDialog);
+                                    dialogUtilites.okDialog(context,
+                                            context.getString(R.string.DLG_error, e.getMessage()),
+                                            new OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog, int which) {
+                                                    dialog.dismiss();
+                                                }
+                                            });
+                                    e.printStackTrace();
+                                    dashSelector.setSelection(0);
+                                }
+                            }
+
+                        }
+                    };
+                    OnClickListener cancelListener = new OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.cancel();
+                        }
+                    };
+                    dialogUtilites.viewDialog(ProducteevControlSet.this.activity,
+                            ProducteevControlSet.this.activity.getString(R.string.producteev_create_dashboard_name),
+                            editor,
+                            okListener,
+                            cancelListener);
+                } else {
+                    refreshResponsibleSpinner(dashboard.getUsers());
+                }
             }
 
             @Override
@@ -140,8 +207,8 @@ public class ProducteevControlSet implements TaskEditControlSet {
         ProducteevDashboard ownerDashboard = null;
         int dashboardSpinnerIndex = -1;
 
-        //dashboard to not sync as first spinner-entry
-        for (int i=0;i<dashboardsData.length;i++) {
+        int i = 0;
+        for (i=0;i<dashboardsData.length;i++) {
             ProducteevDashboard dashboard = new ProducteevDashboard(dashboardsData[i]);
             dashboards.add(dashboard);
             if(dashboard.getId() == dashboardId) {
@@ -149,7 +216,11 @@ public class ProducteevControlSet implements TaskEditControlSet {
                 dashboardSpinnerIndex = i;
             }
         }
+
+        //dashboard to not sync as first spinner-entry
         dashboards.add(0, new ProducteevDashboard(ProducteevUtilities.DASHBOARD_NO_SYNC, activity.getString(R.string.producteev_no_dashboard),null));
+        // dummyentry for adding a new dashboard
+        dashboards.add(new ProducteevDashboard(ProducteevUtilities.DASHBOARD_CREATE, activity.getString(R.string.producteev_create_dashboard),null));
 
         ArrayAdapter<ProducteevDashboard> dashAdapter = new ArrayAdapter<ProducteevDashboard>(activity,
                 android.R.layout.simple_spinner_item, dashboards);
@@ -157,7 +228,8 @@ public class ProducteevControlSet implements TaskEditControlSet {
         dashboardSelector.setAdapter(dashAdapter);
         dashboardSelector.setSelection(dashboardSpinnerIndex+1);
 
-        if (ownerDashboard == null || ownerDashboard.getId() == ProducteevUtilities.DASHBOARD_NO_SYNC) {
+        if (ownerDashboard == null || ownerDashboard.getId() == ProducteevUtilities.DASHBOARD_NO_SYNC
+                || ownerDashboard.getId() == ProducteevUtilities.DASHBOARD_CREATE) {
             responsibleSelector.setEnabled(false);
             responsibleSelector.setAdapter(null);
             view.findViewById(R.id.producteev_TEA_task_assign_label).setVisibility(View.GONE);

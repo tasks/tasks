@@ -38,7 +38,7 @@ public class ProducteevDashboard {
     private ArrayList<ProducteevUser> users = null;
 
     public ProducteevDashboard (StoreObject dashboardData) {
-        this(dashboardData.getValue(REMOTE_ID),dashboardData.getValue(NAME),dashboardData.getValue(USERS));
+        this(dashboardData.getValue(REMOTE_ID),dashboardData.getValue(NAME),(dashboardData.containsValue(USERS)?dashboardData.getValue(USERS):null));
     }
 
     /**
