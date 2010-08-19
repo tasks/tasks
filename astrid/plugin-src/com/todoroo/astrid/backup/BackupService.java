@@ -15,6 +15,7 @@ import android.util.Log;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -92,7 +93,7 @@ public class BackupService extends Service {
         if (!Preferences.getBoolean(R.string.backup_BPr_auto_key, true)) {
             return;
         }
-        am.setInexactRepeating(AlarmManager.RTC, System.currentTimeMillis() + BACKUP_OFFSET,
+        am.setInexactRepeating(AlarmManager.RTC, DateUtilities.now() + BACKUP_OFFSET,
                 BACKUP_INTERVAL, pendingIntent);
     }
 

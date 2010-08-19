@@ -188,7 +188,7 @@ public class TasksWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
 
             Intent editIntent = new Intent(context, TaskEditActivity.class);
-            editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
             if(filter != null && filter.valuesForNewTasks != null) {
                 String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
                 editIntent.putExtra(TaskEditActivity.TOKEN_VALUES, values);

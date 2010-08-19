@@ -130,7 +130,7 @@ public class EditPreferences extends TodorooPreferences {
                 for(int i = 0; i < 100; i++) {
                     task.clear();
                     task.setValue(Task.TITLE, Integer.toString(i));
-                    taskService.save(task, false);
+                    taskService.save(task);
                 }
                 dialogUtilities.okDialog(EditPreferences.this, "done", null);
                 return false;

@@ -23,7 +23,6 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.SoftHashMap;
-import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -34,6 +33,7 @@ import com.todoroo.astrid.rmilk.MilkUtilities.ListContainer;
 import com.todoroo.astrid.rmilk.api.data.RtmList;
 import com.todoroo.astrid.rmilk.api.data.RtmLists;
 import com.todoroo.astrid.rmilk.sync.RTMTaskContainer;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.tags.TagService;
 
 public final class MilkDataService {
@@ -65,7 +65,7 @@ public final class MilkDataService {
     private TaskDao taskDao;
 
     @Autowired
-    private MetadataDao metadataDao;
+    private MetadataService metadataService;
 
     static final Random random = new Random();
 
@@ -82,7 +82,7 @@ public final class MilkDataService {
      * Clears RTM metadata information. Used when user logs out of RTM
      */
     public void clearMetadata() {
-        metadataDao.deleteWhere(Metadata.KEY.eq(MilkTask.METADATA_KEY));
+        metadataService.deleteWhere(Metadata.KEY.eq(MilkTask.METADATA_KEY));
     }
 
     /**
@@ -139,17 +139,18 @@ public final class MilkDataService {
      * @param task
      */
     public void saveTaskAndMetadata(RTMTaskContainer task) {
-        taskDao.save(task.task, true);
+        taskDao.save(task.task);
 
-        metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(task.task.getId()),
+        Metadata metadata = MilkTask.create(task);
+        Metadata foundMetadata = task.findMetadata(MilkTask.METADATA_KEY);
+        if(foundMetadata != null)
+            foundMetadata.mergeWith(metadata.getMergedValues());
+        else
+            task.metadata.add(metadata);
+        metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
                 Criterion.or(MetadataCriteria.withKey(MilkTask.METADATA_KEY),
                         MetadataCriteria.withKey(MilkNote.METADATA_KEY),
-                        MetadataCriteria.withKey(TagService.KEY))));
-        task.metadata.add(MilkTask.create(task));
-        for(Metadata metadata : task.metadata) {
-            metadata.setValue(Metadata.TASK, task.task.getId());
-            metadataDao.createNew(metadata);
-        }
+                        MetadataCriteria.withKey(TagService.KEY)));
     }
 
     /**
@@ -162,7 +163,7 @@ public final class MilkDataService {
 
         // read tags, notes, etc
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
-        TodorooCursor<Metadata> metadataCursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
+        TodorooCursor<Metadata> metadataCursor = metadataService.query(Query.select(Metadata.PROPERTIES).
                 where(Criterion.and(MetadataCriteria.byTask(task.getId()),
                         Criterion.or(MetadataCriteria.withKey(TagService.KEY),
                                 MetadataCriteria.withKey(MilkTask.METADATA_KEY),
@@ -183,7 +184,7 @@ public final class MilkDataService {
      * @return null if no metadata found
      */
     public Metadata getTaskMetadata(long taskId) {
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
+        TodorooCursor<Metadata> cursor = metadataService.query(Query.select(
                 MilkTask.LIST_ID, MilkTask.TASK_SERIES_ID, MilkTask.TASK_ID, MilkTask.REPEATING).where(
                 MetadataCriteria.byTaskAndwithKey(taskId, MilkTask.METADATA_KEY)));
         try {
@@ -200,7 +201,7 @@ public final class MilkDataService {
      * Reads task notes out of a task
      */
     public TodorooCursor<Metadata> getTaskNotesCursor(long taskId) {
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
+        TodorooCursor<Metadata> cursor = metadataService.query(Query.select(Metadata.PROPERTIES).
                 where(MetadataCriteria.byTaskAndwithKey(taskId, MilkNote.METADATA_KEY)));
         return cursor;
     }
@@ -264,7 +265,7 @@ public final class MilkDataService {
         }
 
         // read all list counts
-        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(MilkTask.LIST_ID, COUNT).
+        TodorooCursor<Metadata> cursor = metadataService.query(Query.select(MilkTask.LIST_ID, COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
             where(Criterion.and(TaskCriteria.isVisible(), TaskCriteria.isActive())).
             groupBy(MilkTask.LIST_ID));

@@ -86,7 +86,7 @@ public class MilkLoginActivity extends Activity {
         setContentView(R.layout.rmilk_login_activity);
         setTitle(R.string.rmilk_MPr_header);
 
-        String urlParam = getIntent().getStringExtra(URL_TOKEN);
+        final String urlParam = getIntent().getStringExtra(URL_TOKEN);
 
         final WebView webView = (WebView)findViewById(R.id.browser);
         Button done = (Button)findViewById(R.id.done);
@@ -119,11 +119,12 @@ public class MilkLoginActivity extends Activity {
             			if(result == null) {
             				finish();
         			    } else {
-        			    	// display the error
+        			    	// display the error, re-load url
         			    	handler.post(new Runnable() {
                                 public void run() {
                                     dialogUtilities.okDialog(MilkLoginActivity.this,
                                             result, null);
+                                    webView.loadUrl(urlParam);
                                 }
         			    	});
         			    }

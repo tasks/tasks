@@ -290,7 +290,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                     int importance = event.getNumber() - '1';
                     Task task = ((ViewHolder)selected.getTag()).task;
                     task.setValue(Task.IMPORTANCE, importance);
-                    taskService.save(task, false);
+                    taskService.save(task);
                     taskAdapter.setFieldContentsAndVisibility(selected);
                 }
                 // filter
@@ -687,7 +687,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             }
             task.mergeWith(forTask);
         }
-        taskService.save(task, false);
+        taskService.save(task);
         if(forMetadata != null && forMetadata.size() > 0) {
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.TASK, task.getId());
@@ -831,7 +831,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             Task task = new Task();
             task.setId(itemId);
             task.setValue(Task.DELETION_DATE, 0L);
-            taskService.save(task, false);
+            taskService.save(task);
             loadTaskListContent(true);
             return true;
         }

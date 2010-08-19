@@ -36,10 +36,10 @@ public class RepeatTests extends DatabaseTestCase {
     public void testNoRepeats() throws Exception{
         Task task = new Task();
         task.setValue(Task.TITLE, "nothing");
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         // wait for repeat handler
         Thread.sleep(REPEAT_WAIT);
@@ -60,10 +60,10 @@ public class RepeatTests extends DatabaseTestCase {
         rrule.setInterval(5);
         rrule.setFreq(Frequency.DAILY);
         task.setValue(Task.RECURRENCE, rrule.toIcal());
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         // wait for repeat handler
         Thread.sleep(REPEAT_WAIT);
@@ -102,10 +102,10 @@ public class RepeatTests extends DatabaseTestCase {
         task.setValue(Task.RECURRENCE, rrule.toIcal());
         long originalDueDate = (DateUtilities.now() - 3 * DateUtilities.ONE_DAY) / 1000L * 1000L;
         task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, originalDueDate));
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         // wait for repeat handler
         Thread.sleep(REPEAT_WAIT);
@@ -144,10 +144,10 @@ public class RepeatTests extends DatabaseTestCase {
         task.setValue(Task.RECURRENCE, rrule.toIcal());
         long originalDueDate = (DateUtilities.now() + DateUtilities.ONE_DAY) / 1000L * 1000L;
         task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, originalDueDate));
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         // wait for repeat handler
         Thread.sleep(2 * REPEAT_WAIT);
@@ -187,10 +187,10 @@ public class RepeatTests extends DatabaseTestCase {
         long originalDueDate = (DateUtilities.now() - 3 * DateUtilities.ONE_DAY) / 1000L * 1000L;
         task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, originalDueDate));
         task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         // wait for repeat handler
         Thread.sleep(REPEAT_WAIT);
@@ -226,7 +226,7 @@ public class RepeatTests extends DatabaseTestCase {
         rrule.setInterval(5);
         rrule.setFreq(Frequency.DAILY);
         task.setValue(Task.RECURRENCE, rrule.toIcal());
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, "special");
@@ -235,7 +235,7 @@ public class RepeatTests extends DatabaseTestCase {
         metadataDao.persist(metadata);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         // wait for repeat handler
         Thread.sleep(REPEAT_WAIT);
@@ -266,10 +266,10 @@ public class RepeatTests extends DatabaseTestCase {
         task.setValue(Task.RECURRENCE, rrule.toIcal());
         task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_TODAY, 0));
         task.setValue(Task.HIDE_UNTIL, task.createHideUntil(Task.HIDE_UNTIL_DAY_BEFORE, 0));
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task, false);
+        taskDao.save(task);
 
         // wait for repeat handler
         Thread.sleep(REPEAT_WAIT);

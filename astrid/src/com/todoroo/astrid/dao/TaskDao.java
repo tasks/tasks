@@ -146,12 +146,9 @@ public class TaskDao extends GenericDao<Task> {
      * exist. Returns true on success.
      *
      * @param task
-     * @param skipHooks
-     *            Whether pre and post hooks should run. This should be set
-     *            to true if tasks are created as part of synchronization
      * @return true if save occurred, false otherwise (i.e. nothing changed)
      */
-    public boolean save(Task task, boolean skipHooks) {
+    public boolean save(Task task) {
         boolean saveSuccessful;
 
         ContentValues values = task.getSetValues();

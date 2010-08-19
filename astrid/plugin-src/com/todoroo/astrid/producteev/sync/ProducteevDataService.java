@@ -138,7 +138,7 @@ public final class ProducteevDataService {
      * @param task
      */
     public void saveTaskAndMetadata(ProducteevTaskContainer task) {
-        taskDao.save(task.task, true);
+        taskDao.save(task.task);
 
         task.metadata.add(task.pdvTask);
         metadataService.synchronizeMetadata(task.task.getId(), task.metadata,

@@ -33,7 +33,7 @@ public class MilkBackgroundService extends Service {
 
     // --- BroadcastReceiver abstract methods
 
-    /** Receive the alarm - start the synchronize service! */
+    /** start the synchronization service. sits in the background */
     @Override
     public void onStart(Intent intent, int startId) {
         try {
