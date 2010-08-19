@@ -86,6 +86,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         Preferences.setString(R.string.producteev_PPr_email, null);
         Preferences.setString(R.string.producteev_PPr_password, null);
         Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_SYNC, null);
+        Preferences.setStringFromInteger(R.string.producteev_PPr_defaultdash_key,
+                ProducteevUtilities.DASHBOARD_DEFAULT);
         preferences.clearLastSyncDate();
 
         dataService = ProducteevDataService.getInstance();
@@ -265,6 +267,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         long userId = user.getLong("id_user");
         Preferences.setLong(ProducteevUtilities.PREF_DEFAULT_DASHBOARD, defaultDashboard);
         Preferences.setLong(ProducteevUtilities.PREF_USER_ID, userId);
+
+        // save the default dashboard preference if unset
+        int defaultDashSetting = Preferences.getIntegerFromString(R.string.producteev_PPr_defaultdash_key,
+                ProducteevUtilities.DASHBOARD_DEFAULT);
+        if(defaultDashSetting == ProducteevUtilities.DASHBOARD_DEFAULT)
+            Preferences.setStringFromInteger(R.string.producteev_PPr_defaultdash_key, (int) defaultDashboard);
     }
 
     // all synchronized properties
