@@ -11,6 +11,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.dao.Database;
 
 
 public final class UpgradeService {
@@ -21,8 +22,12 @@ public final class UpgradeService {
     private static final int V3_0_5 = 144;
     private static final int V3_0_0 = 136;
     private static final int V2_14_4 = 135;
+
     @Autowired
     private DialogUtilities dialogUtilities;
+
+    @Autowired
+    private Database database;
 
     public UpgradeService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -169,6 +174,18 @@ public final class UpgradeService {
         changeLog.append("</ul>");
     }
 
-    // --- database upgrade logic
+    // --- secondary upgrade
+
+    /**
+     * If primary upgrade doesn't work for some reason (corrupt SharedPreferences,
+     * for example), this will catch some cases
+     */
+    public void performSecondaryUpgrade(Context context) {
+        if(!context.getDatabasePath(database.getName()).exists() &&
+                context.getDatabasePath("tasks").exists()) { //$NON-NLS-1$
+            new Astrid2To3UpgradeHelper().upgrade2To3(context, 1);
+        }
+    }
+
 
 }
