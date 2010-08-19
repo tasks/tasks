@@ -121,7 +121,6 @@ public class StartupService {
 
         ProducteevBackgroundService.scheduleService();
         BackupService.scheduleService(context);
-        MilkBackgroundService.scheduleService();
 
         // check for task killers
         if(!Constants.OEM)
