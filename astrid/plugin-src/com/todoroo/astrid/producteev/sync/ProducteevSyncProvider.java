@@ -398,6 +398,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     protected void push(ProducteevTaskContainer local, ProducteevTaskContainer remote) throws IOException {
         long idTask = local.pdvTask.getValue(ProducteevTask.ID);
         long idDashboard = local.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
+        long idResponsible = local.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID);
 
         // if local is marked do not sync, handle accordingly
         if(idDashboard == ProducteevUtilities.DASHBOARD_NO_SYNC) {
@@ -430,6 +431,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         } else if(remote == null && idTask == TASK_ID_UNSYNCED) {
             // was un-synced, create remote
             remote = create(local);
+        }
+
+        // responsible
+        if(remote != null && idResponsible !=
+                remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID)) {
+            invoker.tasksSetResponsible(idTask, idResponsible);
         }
 
         // core properties
