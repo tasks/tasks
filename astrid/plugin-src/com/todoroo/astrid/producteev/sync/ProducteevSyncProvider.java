@@ -208,7 +208,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             String lastServerSync = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_SYNC);
 
             // read dashboards
-            JSONArray dashboards = invoker.dashboardsShowList(lastServerSync);
+            JSONArray dashboards = invoker.dashboardsShowList(null);
             dataService.updateDashboards(dashboards);
 
             // read labels and tasks for each dashboard
