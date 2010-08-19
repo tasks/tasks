@@ -18,6 +18,9 @@
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
     <string name="producteev_PDE_task_from">from %s</string>
+    
+    <!-- replacement string for task edit "Notes" when using Producteev -->
+    <string name="producteev_TEA_notes">Add a Comment</string>
 
     <!-- ==================================================== Preferences == -->
 

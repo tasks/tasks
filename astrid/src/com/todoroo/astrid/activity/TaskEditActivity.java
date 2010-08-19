@@ -58,6 +58,7 @@ import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -253,6 +254,8 @@ public final class TaskEditActivity extends TabActivity {
             AddOn producteevAddon = addOnService.getAddOn(AddOnService.PRODUCTEEV_PACKAGE, "Producteev"); //$NON-NLS-1$
             if (addOnService.isInstalled(producteevAddon) && ProducteevUtilities.INSTANCE.isLoggedIn()) {
                 controls.add(new ProducteevControlSet(this, addonsAddons));
+                ((TextView)findViewById(R.id.notes)).setHint(R.string.producteev_TEA_notes);
+                ((TextView)findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
             }
         } catch (Exception e) {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
