@@ -78,6 +78,7 @@ import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 import com.todoroo.astrid.rmilk.MilkPreferences;
 import com.todoroo.astrid.service.AddOnService;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
@@ -160,6 +161,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     public TaskListActivity() {
         DependencyInjectionService.getInstance().inject(this);

@@ -793,7 +793,7 @@ public final class TaskEditActivity extends TabActivity {
                     Task.URGENCY_TOMORROW);
             String dayAfterTomorrow = DateUtils.getDayOfWeekString(
                     new Date(DateUtilities.now() + 2 * DateUtilities.ONE_DAY).getDay() +
-                    Calendar.SUNDAY, 0);
+                    Calendar.SUNDAY, DateUtils.FORMAT_ABBREV_ALL);
             urgencyValues[3] = new UrgencyValue(dayAfterTomorrow,
                     Task.URGENCY_DAY_AFTER);
             urgencyValues[4] = new UrgencyValue(labels[4],

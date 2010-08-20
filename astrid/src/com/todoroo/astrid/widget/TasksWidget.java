@@ -51,12 +51,13 @@ public class TasksWidget extends AppWidgetProvider {
             int[] appWidgetIds) {
 
         try {
+            ContextManager.setContext(context);
             super.onUpdate(context, appWidgetManager, appWidgetIds);
 
             // Start in service to prevent Application Not Responding timeout
             updateWidgets(context);
-        } catch (SecurityException e) {
-            // :(
+        } catch (Exception e) {
+            Log.e("astrid-update-widget", "widget update error", e); //$NON-NLS-1$
         }
     }
 
@@ -65,7 +66,7 @@ public class TasksWidget extends AppWidgetProvider {
      * @param id
      */
     public static void updateWidgets(Context context) {
-        context.startService(new Intent(ContextManager.getContext(),
+        context.startService(new Intent(context,
                 TasksWidget.UpdateService.class));
     }
 
