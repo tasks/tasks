@@ -10,6 +10,7 @@ import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.res.Resources;
+import android.net.Uri;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
@@ -37,7 +38,8 @@ public final class Task extends AbstractModel {
     public static final Table TABLE = new Table("tasks", Task.class);
 
     /** content uri for this model */
-    public static final String CONTENT_URI = "content://" + AstridApiConstants.PACKAGE + "/tasks/";
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.PACKAGE + "/" +
+            TABLE.name + "/");
 
     // --- properties
 

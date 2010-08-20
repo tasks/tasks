@@ -5,6 +5,7 @@ package com.todoroo.astrid.model;
 
 
 import android.content.ContentValues;
+import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -29,7 +30,8 @@ public class Metadata extends AbstractModel {
     public static final Table TABLE = new Table("metadata", Metadata.class);
 
     /** content uri for this model */
-    public static final String CONTENT_URI = "content://" + AstridApiConstants.PACKAGE + "/metadata/";
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.PACKAGE + "/" +
+            TABLE.name + "/");
 
     // --- properties
 
