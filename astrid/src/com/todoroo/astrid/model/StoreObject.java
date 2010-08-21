@@ -9,10 +9,10 @@ import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 /**
@@ -31,7 +31,7 @@ public class StoreObject extends AbstractModel {
 
     /** content uri for this model */
     public static final Uri CONTENT_URI = Uri.parse("content://" + AstridApiConstants.PACKAGE + "/" +
-            TABLE.name + "/");
+            TABLE.name);
 
     // --- properties
 

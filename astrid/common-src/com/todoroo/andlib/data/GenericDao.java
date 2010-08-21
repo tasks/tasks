@@ -47,10 +47,14 @@ public class GenericDao<TYPE extends AbstractModel> {
     }
 
     /**
-     * Sets up a database
+     * Sets database accessed by this DAO. Used for dependency-injected
+     * initialization by child classes and unit tests
+     *
      * @param database
      */
-    protected void setDatabase(AbstractDatabase database) {
+    public void setDatabase(AbstractDatabase database) {
+        if(database == this.database)
+            return;
         this.database = database;
         table = database.getTable(modelClass);
     }

@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
 
+import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.GenericDao;
 import com.todoroo.andlib.service.Autowired;
@@ -64,9 +65,12 @@ public class Astrid3ContentProvider extends ContentProvider {
     /** URI for making a request over all items grouped by some field */
     private static final int URI_GROUP = 3;
 
+    private static final UriMatcher uriMatcher;
+
+    private static AbstractDatabase databaseOverride;
+
     // --- instance variables
 
-    private final UriMatcher uriMatcher;
 
     @Autowired
     private Database database;
@@ -83,6 +87,8 @@ public class Astrid3ContentProvider extends ContentProvider {
     @Autowired
     private ExceptionService exceptionService;
 
+    static String hello = "hello";
+
     @Override
     public boolean onCreate() {
         try {
@@ -94,18 +100,24 @@ public class Astrid3ContentProvider extends ContentProvider {
         }
     }
 
-    public Astrid3ContentProvider() {
-        DependencyInjectionService.getInstance().inject(this);
-
+    static {
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
         for(Uri uri : new Uri[] { Task.CONTENT_URI, Metadata.CONTENT_URI, StoreObject.CONTENT_URI }) {
-            String uriAsString = uri.toString();
-            uriMatcher.addURI(uriAsString, "", URI_DIR);
-            uriMatcher.addURI(uriAsString, "#", URI_ITEM);
-            uriMatcher.addURI(uriAsString,
+            String authority = AstridApiConstants.PACKAGE;
+
+            String table = uri.toString();
+            table = table.substring(table.indexOf('/', 11) + 1);
+
+            uriMatcher.addURI(authority, table, URI_DIR);
+            uriMatcher.addURI(authority, table + "/#", URI_ITEM);
+            uriMatcher.addURI(authority, table +
                     AstridApiConstants.GROUP_BY_URI + "*", URI_GROUP);
         }
+    }
+
+    public Astrid3ContentProvider() {
+        DependencyInjectionService.getInstance().inject(this);
 
         setReadPermission(AstridApiConstants.PERMISSION_READ);
         setWritePermission(AstridApiConstants.PERMISSION_WRITE);
@@ -120,7 +132,7 @@ public class Astrid3ContentProvider extends ContentProvider {
         case URI_ITEM:
             return "vnd.android.cursor/vnd.astrid.item";
         default:
-            throw new IllegalArgumentException("Unsupported URI: " + uri);
+            throw new IllegalArgumentException("Unsupported URI " + uri + " (" + uriMatcher.match(uri) + ")");
         }
     }
 
@@ -153,20 +165,33 @@ public class Astrid3ContentProvider extends ContentProvider {
             UriHelper<Task> helper = new UriHelper<Task>();
             helper.model = populateModel ? new Task() : null;
             helper.dao = taskDao;
+            helper.dao.setDatabase(getDatabase());
             return helper;
         } else if(uri.toString().startsWith(Metadata.CONTENT_URI.toString())) {
             UriHelper<Metadata> helper = new UriHelper<Metadata>();
             helper.model = populateModel ? new Metadata() : null;
             helper.dao = metadataDao;
+            helper.dao.setDatabase(getDatabase());
             return helper;
         } else if(uri.toString().startsWith(StoreObject.CONTENT_URI.toString())) {
             UriHelper<StoreObject> helper = new UriHelper<StoreObject>();
             helper.model = populateModel ? new StoreObject() : null;
             helper.dao = storeObjectDao;
+            helper.dao.setDatabase(getDatabase());
             return helper;
         }
 
         throw new UnsupportedOperationException("Unknown URI " + uri);
+    }
+
+    static void setDatabaseOverride(AbstractDatabase override) {
+        databaseOverride = override;
+    }
+
+    private AbstractDatabase getDatabase() {
+        if(databaseOverride != null)
+            return databaseOverride;
+        return database;
     }
 
     /* ======================================================================
@@ -204,10 +229,10 @@ public class Astrid3ContentProvider extends ContentProvider {
             break;
 
         default:
-            throw new IllegalArgumentException("Unknown URI " + uri);
+            throw new IllegalArgumentException("Unknown URI " + uri + " (" + uriMatcher.match(uri) + ")");
         }
 
-        return database.delete(helper.dao.getTable().name, selection, selectionArgs);
+        return getDatabase().delete(helper.dao.getTable().name, selection, selectionArgs);
     }
 
     /* ======================================================================
@@ -236,6 +261,7 @@ public class Astrid3ContentProvider extends ContentProvider {
             helper.create();
             Uri newUri = ContentUris.withAppendedId(uri, helper.model.getId());
             getContext().getContentResolver().notifyChange(newUri, null);
+            return newUri;
         }
 
         default:
@@ -302,10 +328,10 @@ public class Astrid3ContentProvider extends ContentProvider {
             builder.appendWhere(itemSelector);
             break;
         default:
-            throw new IllegalArgumentException("Unknown URI " + uri);
+            throw new IllegalArgumentException("Unknown URI " + uri + " (" + uriMatcher.match(uri) + ")");
         }
 
-        Cursor cursor = builder.query(database.getDatabase(), projection, selection, selectionArgs, groupBy, null, sortOrder);
+        Cursor cursor = builder.query(getDatabase().getDatabase(), projection, selection, selectionArgs, groupBy, null, sortOrder);
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }

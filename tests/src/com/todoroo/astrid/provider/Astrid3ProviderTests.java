@@ -20,12 +20,21 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
             Task.TITLE.name,
     };
 
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        // set up database
+        Astrid3ContentProvider.setDatabaseOverride(database);
+
+    }
+
     /** Test CRUD over tasks with the ALL ITEMS cursor */
     public void testAllItemsCrud() {
         ContentResolver resolver = getContext().getContentResolver();
 
         // fetch all tasks, get nothing
-        Uri uri = Uri.withAppendedPath(Task.CONTENT_URI, "");
+        Uri uri = Task.CONTENT_URI;
         Cursor cursor = resolver.query(uri, PROJECTION, "1", null, null);
         assertEquals(0, cursor.getCount());
         cursor.close();

@@ -35,7 +35,7 @@ public class AstridApiConstants {
     /**
      * URI to append to base content URI for making groupby queries
      */
-    public static final String GROUP_BY_URI = "groupby/";
+    public static final String GROUP_BY_URI = "/groupby/";
 
     // --- Broadcast Extras
 

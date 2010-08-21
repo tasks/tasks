@@ -149,6 +149,13 @@
               android:grantUriPermissions="true"
               android:readPermission="com.timsu.astrid.permission.READ_TASKS"/>
 
+    <provider android:name="com.todoroo.astrid.provider.Astrid3ContentProvider"
+              android:authorities="com.todoroo.astrid"
+              android:multiprocess="true"
+              android:grantUriPermissions="true"
+              android:readPermission="com.timsu.astrid.permission.READ_TASKS"
+              android:writePermission="com.timsu.astrid.permission.WRITE_TASKS"/>
+
     <!-- ========================================================= Plugins = -->
         
     <!-- core -->
