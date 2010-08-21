@@ -59,6 +59,8 @@ public class ProducteevControlSet implements TaskEditControlSet {
     @Autowired
     MetadataService metadataService;
 
+    private int lastDashboardSelection = 0;
+
     public ProducteevControlSet(final Activity activity, ViewGroup parent) {
         DependencyInjectionService.getInstance().inject(this);
 
@@ -92,10 +94,10 @@ public class ProducteevControlSet implements TaskEditControlSet {
                                 dialog.cancel();
                             } else {
                                 // create the real dashboard, select it in the spinner and refresh responsiblespinner
-                                ProgressDialog progressDialog = null;
+                                ProgressDialog progressDialog = dialogUtilites.progressDialog(context,
+                                        context.getString(R.string.DLG_wait));
                                 try {
-                                    progressDialog = dialogUtilites.progressDialog(context,
-                                            context.getString(R.string.DLG_wait));
+                                    progressDialog.show();
                                     JSONObject newDashJSON = ProducteevSyncProvider.getInvoker().dashboardsCreate(newDashboardName).getJSONObject("dashboard");
                                     StoreObject local = ProducteevDataService.getInstance().updateDashboards(newDashJSON, true);
                                     if (local != null) {
@@ -127,6 +129,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             dialog.cancel();
+                            dashboardSelector.setSelection(lastDashboardSelection);
                         }
                     };
                     dialogUtilites.viewDialog(ProducteevControlSet.this.activity,
@@ -136,6 +139,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
                             cancelListener);
                 } else {
                     refreshResponsibleSpinner(dashboard.getUsers());
+                    lastDashboardSelection = position;
                 }
             }
 

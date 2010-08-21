@@ -54,7 +54,7 @@
   <supports-screens />
   
   <application android:icon="@drawable/icon" 
-               android:label="@string/app_name">
+               android:label="@string/app_name" android:debuggable="true">
     
     <!-- ====================================================== Activities = -->
         
@@ -337,11 +337,7 @@
       </intent-filter>
     </activity>
     <activity android:name="com.todoroo.astrid.producteev.ProducteevLoginActivity"
-              android:theme="@style/Theme">
-      <intent-filter> <!-- temporary -->   
-        <action android:name="android.intent.action.MAIN" />
-      </intent-filter>
-    </activity>
+              android:theme="@style/Theme" />
     <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService"/>
     <receiver android:name="com.todoroo.astrid.producteev.ProducteevStartupReceiver">
       <intent-filter>

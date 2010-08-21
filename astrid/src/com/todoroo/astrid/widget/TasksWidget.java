@@ -51,12 +51,13 @@ public class TasksWidget extends AppWidgetProvider {
             int[] appWidgetIds) {
 
         try {
+            ContextManager.setContext(context);
             super.onUpdate(context, appWidgetManager, appWidgetIds);
 
             // Start in service to prevent Application Not Responding timeout
             updateWidgets(context);
-        } catch (SecurityException e) {
-            // :(
+        } catch (Exception e) {
+            Log.e("astrid-update-widget", "widget update error", e); //$NON-NLS-1$
         }
     }
 
@@ -65,7 +66,7 @@ public class TasksWidget extends AppWidgetProvider {
      * @param id
      */
     public static void updateWidgets(Context context) {
-        context.startService(new Intent(ContextManager.getContext(),
+        context.startService(new Intent(context,
                 TasksWidget.UpdateService.class));
     }
 
@@ -178,7 +179,7 @@ public class TasksWidget extends AppWidgetProvider {
             }
 
             Intent listIntent = new Intent(context, TaskListActivity.class);
-            listIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            listIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             if(filter != null) {
                 listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
                 listIntent.setType(filter.sqlQuery);
@@ -188,7 +189,7 @@ public class TasksWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
 
             Intent editIntent = new Intent(context, TaskEditActivity.class);
-            editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             if(filter != null && filter.valuesForNewTasks != null) {
                 String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
                 editIntent.putExtra(TaskEditActivity.TOKEN_VALUES, values);

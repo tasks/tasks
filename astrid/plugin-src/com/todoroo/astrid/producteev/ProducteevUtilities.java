@@ -41,6 +41,10 @@ public class ProducteevUtilities extends SyncProviderUtilities {
 
     public static final String PREF_SERVER_LAST_SYNC = IDENTIFIER + "_last_server"; //$NON-NLS-1$
 
+    public static final String PREF_SERVER_LAST_NOTIFICATION = IDENTIFIER + "_last_notification"; //$NON-NLS-1$
+
+    public static final String PREF_SERVER_LAST_ACTIVITY = IDENTIFIER + "_last_activity"; //$NON-NLS-1$
+
     /** Producteev user's default dashboard. This is different from the
      * preference key, which indicates where user wants to put new tasks */
     public static final String PREF_DEFAULT_DASHBOARD = IDENTIFIER + "_defaultdash"; //$NON-NLS-1$

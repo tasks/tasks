@@ -27,15 +27,19 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.producteev.ProducteevFilterExposer;
 import com.todoroo.astrid.producteev.ProducteevLoginActivity;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
@@ -46,6 +50,7 @@ import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 @SuppressWarnings("nls")
@@ -85,6 +90,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         preferences.setToken(null);
         Preferences.setString(R.string.producteev_PPr_email, null);
         Preferences.setString(R.string.producteev_PPr_password, null);
+        Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_SYNC, null);
+        Preferences.setStringFromInteger(R.string.producteev_PPr_defaultdash_key,
+                ProducteevUtilities.DASHBOARD_DEFAULT);
         preferences.clearLastSyncDate();
 
         dataService = ProducteevDataService.getInstance();
@@ -203,9 +211,11 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             long userId = user.getLong("id_user");
 
             String lastServerSync = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_SYNC);
+            String lastNotificationId = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION);
+            String lastActivityId = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY);
 
             // read dashboards
-            JSONArray dashboards = invoker.dashboardsShowList(lastServerSync);
+            JSONArray dashboards = invoker.dashboardsShowList(null);
             dataService.updateDashboards(dashboards);
 
             // read labels and tasks for each dashboard
@@ -247,12 +257,86 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
+            // notification/activities stuff
+            JSONArray notifications = invoker.activitiesShowNotifications(null, (lastNotificationId == null ? null : new Long(lastNotificationId)));
+            ArrayList<String> notificationsList = parseActivities(notifications);
+            // update lastIds
+            if (notifications.length() > 0) {
+                lastNotificationId = ""+notifications.getJSONObject(0).getJSONObject("activity").getLong("id_activity");
+            }
+
+//            JSONArray activities    = invoker.activitiesShowActivities(null, (lastActivityId == 0 ? null : new Long(lastActivityId)));
+//            int activitiesCount = (activities == null ? 0 : activities.length());
+//            ArrayList<String> activitiesList = parseActivities(activities);
+//            // update lastIds
+//            if (activities.length() > 0) {
+//                lastActivityId = activities.getJSONObject(0).getJSONObject("activity").getLong("id_activity");
+//            }
+
+            // display notifications from producteev-log
+            Context context = ContextManager.getContext();
+            final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
+            for (int i = 0; i< notificationsList.size(); i++) {
+                long id_dashboard = notifications.getJSONObject(i).getJSONObject("activity").getLong("id_dashboard");
+                String dashboardName = null;
+                StoreObject[] dashboardsData = ProducteevDataService.getInstance().getDashboards();
+                ProducteevDashboard dashboard = null;
+                if (dashboardsData != null) {
+                    for (int j=0; i<dashboardsData.length;i++) {
+                        long id = dashboardsData[j].getValue(ProducteevDashboard.REMOTE_ID);
+                        if (id == id_dashboard) {
+                            dashboardName = dashboardsData[j].getValue(ProducteevDashboard.NAME);
+                            dashboard = new ProducteevDashboard(id, dashboardName, null);
+                            break;
+                        }
+                    }
+                }
+                // it seems dashboard is null if we get a notification about an unknown dashboard, just filter it.
+                if (dashboard != null) {
+                    // initialize notification
+                    int icon = R.drawable.ic_producteev_notification;
+                    long when = System.currentTimeMillis();
+                    Notification notification = new Notification(icon, null, when);
+                    CharSequence contentTitle = context.getString(R.string.producteev_notification_title)+" Workspace \""+dashboard.getName()+"\"";
+//                    CharSequence contentText = context.getString(R.string.producteev_notification_text, notificationsCount);
+
+                    Filter filter = ProducteevFilterExposer.filterFromList(context, dashboard);
+                    Intent notificationIntent = ShortcutActivity.createIntent(filter);
+
+                    // filter the tags from the message
+                    String message = notificationsList.get(i).replaceAll("<[^>]+>", "");
+                    PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+                    notification.setLatestEventInfo(context, contentTitle, message, contentIntent);
+
+                    nm.notify(Constants.NOTIFICATION_PRODUCTEEV_NOTIFICATIONS-i, notification);
+                }
+            }
+
+            // store lastIds in Preferences
+            Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION, lastNotificationId);
+            Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY, lastActivityId);
+
             FlurryAgent.onEvent("pdv-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
             handleException("pdv-sync", e, true); //$NON-NLS-1$
         }
+    }
+
+    /**
+     * @param actvities
+     * @return
+     * @throws JSONException
+     */
+    private ArrayList parseActivities(JSONArray actvities) throws JSONException {
+        int count = (actvities == null ? 0 : actvities.length());
+        ArrayList activitiesList = new ArrayList(count);
+        for(int i = 0; i < actvities.length(); i++) {
+            String message = actvities.getJSONObject(i).getJSONObject("activity").getString("message");
+            activitiesList.add(message);
+        }
+        return activitiesList;
     }
 
 
@@ -265,6 +349,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         long userId = user.getLong("id_user");
         Preferences.setLong(ProducteevUtilities.PREF_DEFAULT_DASHBOARD, defaultDashboard);
         Preferences.setLong(ProducteevUtilities.PREF_USER_ID, userId);
+
+        // save the default dashboard preference if unset
+        int defaultDashSetting = Preferences.getIntegerFromString(R.string.producteev_PPr_defaultdash_key,
+                ProducteevUtilities.DASHBOARD_DEFAULT);
+        if(defaultDashSetting == ProducteevUtilities.DASHBOARD_DEFAULT)
+            Preferences.setStringFromInteger(R.string.producteev_PPr_defaultdash_key, (int) defaultDashboard);
     }
 
     // all synchronized properties
@@ -389,6 +479,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     protected void push(ProducteevTaskContainer local, ProducteevTaskContainer remote) throws IOException {
         long idTask = local.pdvTask.getValue(ProducteevTask.ID);
         long idDashboard = local.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
+        long idResponsible = local.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID);
 
         // if local is marked do not sync, handle accordingly
         if(idDashboard == ProducteevUtilities.DASHBOARD_NO_SYNC) {
@@ -421,6 +512,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         } else if(remote == null && idTask == TASK_ID_UNSYNCED) {
             // was un-synced, create remote
             remote = create(local);
+        }
+
+        // responsible
+        if(remote != null && idResponsible !=
+                remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID)) {
+            invoker.tasksSetResponsible(idTask, idResponsible);
         }
 
         // core properties
