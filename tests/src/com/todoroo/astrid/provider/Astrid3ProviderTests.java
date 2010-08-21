@@ -5,7 +5,11 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
+import com.todoroo.andlib.data.Property.IntegerProperty;
+import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
@@ -102,126 +106,63 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         cursor.close();
     }
 
-    /** Test selecting data with metadata */
-    public void testSelectionWithMetadata() {
-        ContentResolver resolver = getContext().getContentResolver();
-
-        // insert some tasks
-        ContentValues task = new ContentValues();
-        ContentValues metadata = new ContentValues();
-        task.put(Task.TITLE.name, "turkoglu");
-        metadata.put("suave-factor", "10");
-        resolver.insert(Task.CONTENT_URI, task);
-        resolver.insert(Metadata.CONTENT_URI, metadata);
-
-        task.put(Task.TITLE.name, "ichiro");
-        metadata.put("suave-factor", "30");
-        resolver.insert(Task.CONTENT_URI, task);
-        resolver.insert(Metadata.CONTENT_URI, metadata);
-
-        task.put(Task.TITLE.name, "oprah");
-        metadata.put("suave-factor", "-10");
-        resolver.insert(Task.CONTENT_URI, task);
-        resolver.insert(Metadata.CONTENT_URI, metadata);
-
-        task.put(Task.TITLE.name, "cruise");
-        metadata.put("suave-factor", "-10");
-        resolver.insert(Task.CONTENT_URI, task);
-        resolver.insert(Metadata.CONTENT_URI, metadata);
-
-        task.put(Task.TITLE.name, "cruise");
-        metadata.put("suave-factor", "-10");
-        resolver.insert(Task.CONTENT_URI, task);
-        resolver.insert(Metadata.CONTENT_URI, metadata);
-
-        task.clear();
-        task.put(Task.TITLE.name, "oprah");
-        resolver.insert(uri, task);
-
-        String[] projection = new String[] {
-                Task.ID,
-                Task.TITLE.name,
-                "suave-factor"
-        };
-
-        // fetch all tasks with various selection parameters
-        Cursor cursor = resolver.query(uri, projection, "1", null, null);
-        assertEquals(3, cursor.getCount());
-        cursor.close();
-
-        cursor = resolver.query(uri, projection, "'suave-factor' = 30", null, null);
-        assertEquals(1, cursor.getCount());
-        cursor.moveToFirst();
-        assertEquals("ichiro", cursor.getString(1));
-        cursor.close();
-
-        cursor = resolver.query(uri, projection, "'suave-factor' < 5", null, null);
-        assertEquals(1, cursor.getCount());
-        cursor.moveToFirst();
-        assertEquals("cruise", cursor.getString(1));
-        cursor.close();
-
-        cursor = resolver.query(uri, projection, "'suave-factor' ISNULL", null, null);
-        assertEquals(1, cursor.getCount());
-        cursor.moveToFirst();
-        assertEquals("oprah", cursor.getString(1));
-        cursor.close();
-    }
-
     /** Test updating */
     public void testUpdating() {
         ContentResolver resolver = getContext().getContentResolver();
-        Uri allItemsUri = AstridContentProvider.allItemsUri();
 
         // insert some tasks
         ContentValues values = new ContentValues();
         values.put(Task.TITLE.name, "carlos silva");
-        values.put("suckitude", "acute");
-        Uri carlosUri = resolver.insert(allItemsUri, values);
+        values.put(Task.IMPORTANCE.name, Task.IMPORTANCE_SHOULD_DO);
+        resolver.insert(Task.CONTENT_URI, values);
+
+        Uri carlosUri = resolver.insert(Task.CONTENT_URI, values);
 
         values.clear();
         values.put(Task.TITLE.name, "felix hernandez");
-        values.put(Task.URGENCY, Task.URGENCY_WITHIN_A_YEAR);
-        resolver.insert(allItemsUri, values);
+        values.put(Task.IMPORTANCE.name, Task.IMPORTANCE_MUST_DO);
+        resolver.insert(Task.CONTENT_URI, values);
 
         String[] projection = new String[] {
-                Task.ID,
+                Task.ID.name,
                 Task.TITLE.name,
-                "suckitude"
+                Task.IMPORTANCE.name,
         };
 
         // test updating with single item URI
-        Cursor cursor = resolver.query(allItemsUri, projection, "'suckitude' = 'carlos who?'", null, null);
+        Cursor cursor = resolver.query(Task.CONTENT_URI, projection,
+                Task.TITLE.eq("carlos who?").toString(), null, null);
         assertEquals(0, cursor.getCount());
         cursor.close();
 
         values.clear();
-        values.put("suckitude", "carlos who?");
+        values.put(Task.TITLE.name, "carlos who?");
         assertEquals(1, resolver.update(carlosUri, values, null, null));
 
-        cursor = resolver.query(allItemsUri, projection, "'suckitude' = 'carlos who?'", null, null);
+        cursor = resolver.query(Task.CONTENT_URI, projection, "'title' = 'carlos who?'", null, null);
         assertEquals(1, cursor.getCount());
         cursor.close();
 
         // test updating with all items uri
-        cursor = resolver.query(allItemsUri, PROJECTION, Task.URGENCY + " = " +
-                Task.URGENCY_NONE, null, null);
+        cursor = resolver.query(Task.CONTENT_URI, PROJECTION,
+                Task.IMPORTANCE.eq(Task.IMPORTANCE_NONE).toString(), null, null);
         assertEquals(0, cursor.getCount());
         cursor.close();
 
         values.clear();
-        values.put(Task.URGENCY, Task.URGENCY_NONE);
-        assertEquals(1, resolver.update(allItemsUri, values, Task.URGENCY +
-                "=" + Task.URGENCY_WITHIN_A_YEAR, null));
+        values.put(Task.IMPORTANCE.name, Task.IMPORTANCE_NONE);
+        assertEquals(1, resolver.update(Task.CONTENT_URI, values,
+                Task.IMPORTANCE.eq(Task.IMPORTANCE_SHOULD_DO).toString(), null));
 
-        cursor = resolver.query(allItemsUri, PROJECTION, Task.URGENCY + " = " +
-                Task.URGENCY_NONE, null, null);
+        cursor = resolver.query(Task.CONTENT_URI, PROJECTION,
+                Task.IMPORTANCE.eq(Task.IMPORTANCE_NONE).toString(), null, null);
         assertEquals(1, cursor.getCount());
         cursor.close();
 
         // test updating with group by uri
         try {
-            Uri groupByUri = AstridContentProvider.groupByUri(Task.TITLE.name);
+            Uri groupByUri = Uri.withAppendedPath(Task.CONTENT_URI,
+                    AstridApiConstants.GROUP_BY_URI + Task.TITLE.name);
             resolver.update(groupByUri, values, null, null);
             fail("Able to update using groupby uri");
         } catch (Exception e) {
@@ -232,22 +173,22 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     /** Test deleting */
     public void testDeleting() {
         ContentResolver resolver = getContext().getContentResolver();
-        Uri allItemsUri = AstridContentProvider.allItemsUri();
+        Uri allItemsUri = Task.CONTENT_URI;
 
         // insert some tasks
         ContentValues values = new ContentValues();
         values.put(Task.TITLE.name, "modest mouse");
-        values.put(Task.IMPORTANCE, Task.IMPORTANCE_DO_OR_DIE);
+        values.put(Task.IMPORTANCE.name, Task.IMPORTANCE_DO_OR_DIE);
         Uri modestMouse = resolver.insert(allItemsUri, values);
 
         values.clear();
         values.put(Task.TITLE.name, "death cab");
-        values.put(Task.IMPORTANCE, Task.IMPORTANCE_MUST_DO);
+        values.put(Task.IMPORTANCE.name, Task.IMPORTANCE_MUST_DO);
         resolver.insert(allItemsUri, values);
 
         values.clear();
         values.put(Task.TITLE.name, "murder city devils");
-        values.put(Task.IMPORTANCE, Task.IMPORTANCE_SHOULD_DO);
+        values.put(Task.IMPORTANCE.name, Task.IMPORTANCE_SHOULD_DO);
         resolver.insert(allItemsUri, values);
 
         // test deleting with single URI
@@ -269,7 +210,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         assertEquals(1, cursor.getCount());
         cursor.close();
 
-        assertEquals(1, resolver.delete(allItemsUri, Task.IMPORTANCE +
+        assertEquals(1, resolver.delete(allItemsUri, Task.IMPORTANCE.name +
                 "<" + Task.IMPORTANCE_MUST_DO, null));
 
         cursor = resolver.query(allItemsUri, PROJECTION, Task.TITLE.name +
@@ -279,7 +220,8 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
 
         // test with group by uri
         try {
-            Uri groupByUri = AstridContentProvider.groupByUri(Task.TITLE.name);
+            Uri groupByUri = Uri.withAppendedPath(Task.CONTENT_URI,
+                    AstridApiConstants.GROUP_BY_URI + Task.TITLE.name);
             resolver.delete(groupByUri, null, null);
             fail("Able to delete using groupby uri");
         } catch (Exception e) {
@@ -291,21 +233,27 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     public void testSingleItemCrud() {
         ContentResolver resolver = getContext().getContentResolver();
 
-        Uri uri = AstridContentProvider.allItemsUri();
+        Uri uri = StoreObject.CONTENT_URI;
 
         ContentValues values = new ContentValues();
-        values.put(Task.TITLE.name, "mf doom?");
+        values.put(StoreObject.TYPE.name, "rapper");
+        values.put(StoreObject.ITEM.name, "mf doom?");
         Uri firstUri = resolver.insert(uri, values);
 
         values.put(Task.TITLE.name, "gm grimm!");
         Uri secondUri = resolver.insert(uri, values);
         assertNotSame(firstUri, secondUri);
 
-        Cursor cursor = resolver.query(uri, PROJECTION, "1", null, null);
+        String[] storeProjection = new String[] {
+                StoreObject.ITEM.name,
+        };
+
+
+        Cursor cursor = resolver.query(uri, storeProjection, "1", null, null);
         assertEquals(2, cursor.getCount());
         cursor.close();
 
-        cursor = resolver.query(firstUri, PROJECTION, null, null, null);
+        cursor = resolver.query(firstUri, storeProjection, null, null, null);
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
         assertEquals("mf doom?", cursor.getString(1));
@@ -313,7 +261,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
 
         values.put(Task.TITLE.name, "danger mouse.");
         resolver.update(firstUri, values, null, null);
-        cursor = resolver.query(firstUri, PROJECTION, null, null, null);
+        cursor = resolver.query(firstUri, storeProjection, null, null, null);
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
         assertEquals("danger mouse.", cursor.getString(1));
@@ -321,7 +269,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
 
         assertEquals(1, resolver.delete(firstUri, null, null));
 
-        cursor = resolver.query(uri, PROJECTION, null, null, null);
+        cursor = resolver.query(uri, storeProjection, null, null, null);
         assertEquals(1, cursor.getCount());
         cursor.close();
     }
@@ -329,7 +277,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
     /** Test GROUP BY uri */
     public void testGroupByCrud() {
         ContentResolver resolver = getContext().getContentResolver();
-        Uri uri = AstridContentProvider.allItemsUri();
+        Uri uri = Task.CONTENT_URI;
 
         ContentValues values = new ContentValues();
         values.put(Task.TITLE.name, "catwoman");
@@ -344,7 +292,8 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         resolver.insert(uri, values);
         resolver.insert(uri, values);
 
-        Uri groupByUri = AstridContentProvider.groupByUri(Task.TITLE.name);
+        Uri groupByUri = Uri.withAppendedPath(Task.CONTENT_URI,
+                AstridApiConstants.GROUP_BY_URI + Task.TITLE.name);
         Cursor cursor = resolver.query(groupByUri, PROJECTION, null, null, Task.TITLE.name);
         assertEquals(3, cursor.getCount());
         cursor.moveToFirst();
@@ -356,86 +305,33 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         cursor.close();
 
         // test "group-by" with metadata
-        values.put("age", 50);
-        values.put("size", "large");
-        resolver.insert(uri, values);
-        values.put("age", 40);
-        values.put("size", "large");
+        values.clear();
+        IntegerProperty age = new IntegerProperty(Metadata.TABLE, Metadata.VALUE1.name);
+        StringProperty size = Metadata.VALUE2;
+
+        values.put(age.name, 50);
+        values.put(size.name, "large");
         resolver.insert(uri, values);
 
-        values.put("age", 20);
-        values.put("size", "small");
+        values.put(age.name, 40);
+        values.put(size.name, "large");
         resolver.insert(uri, values);
 
-        Uri groupByAgeUri = AstridContentProvider.groupByUri("size");
-        cursor = resolver.query(groupByUri, PROJECTION, null, null, Task.TITLE.name);
-        assertEquals(3, cursor.getCount());
+        values.put(age.name, 20);
+        values.put(size.name, "small");
+        resolver.insert(uri, values);
+
+        String[] metadataProjection = new String[] { "AVERAGE(" + age + ")" };
+
+        Uri groupBySizeUri = Uri.withAppendedPath(Metadata.CONTENT_URI,
+                AstridApiConstants.GROUP_BY_URI + size.name);
+        cursor = resolver.query(groupBySizeUri, metadataProjection, null, null, size.name);
+        assertEquals(2, cursor.getCount());
+
+        cursor.moveToFirst();
+        assertEquals(45, cursor.getInt(0));
+        cursor.moveToNext();
+        assertEquals(20, cursor.getInt(0));
     }
 
-    /** Test updating and deleting with metadata */
-    public void testMetadataUpdateDelete() {
-        ContentResolver resolver = getContext().getContentResolver();
-        Uri allItemsUri = AstridContentProvider.allItemsUri();
-
-        // insert some tasks
-        ContentValues values = new ContentValues();
-        values.put(Task.TITLE.name, "chicago");
-        values.put("pizza", "delicious");
-        values.put("temperature", 20);
-        resolver.insert(allItemsUri, values);
-
-        values.clear();
-        values.put(Task.TITLE.name, "san francisco");
-        values.put("pizza", "meh");
-        values.put("temperature", 60);
-        resolver.insert(allItemsUri, values);
-
-        values.clear();
-        values.put(Task.TITLE.name, "new york");
-        values.put("pizza", "yum");
-        values.put("temperature", 30);
-        resolver.insert(allItemsUri, values);
-
-        // test updating with standard URI (shouldn't work)
-        values.clear();
-        values.put("pizza", "nonexistent, the city is underwater");
-        assertEquals(0, resolver.update(allItemsUri, values,
-                "'pizza'='yum'", null));
-
-        String[] projection = new String[] {
-                Task.ID,
-                Task.TITLE.name,
-                "pizza",
-                "temperature"
-        };
-
-        Cursor cursor = resolver.query(allItemsUri, projection, "'pizza' = 'yum'", null, null);
-        assertEquals(1, cursor.getCount());
-        cursor.close();
-
-        // test updating with metadata uri
-        Uri pizzaUri = AstridContentProvider.allItemsWithMetadataUri(new String[] {"pizza"});
-        assertEquals(1, resolver.update(pizzaUri, values,
-                "'pizza'='yum'", null));
-
-        cursor = resolver.query(allItemsUri, projection, "'pizza' = 'yum'", null, null);
-        assertEquals(0, cursor.getCount());
-        cursor.close();
-
-        // test deleting with metadata uri
-        Uri pizzaTempUri = AstridContentProvider.allItemsWithMetadataUri(new String[] {"pizza",
-                "temperature"});
-
-        cursor = resolver.query(allItemsUri, projection, Task.TITLE.name + " = 'chicago'", null, null);
-        assertEquals(0, cursor.getCount());
-        cursor.close();
-
-        // SQLITE: the deliverer of BAD NEWS
-        assertEquals(0, resolver.delete(pizzaTempUri, "pizza='delicious' AND temperature > 50", null));
-        assertEquals(1, resolver.delete(pizzaTempUri, "pizza='delicious' AND temperature < 50", null));
-
-        cursor = resolver.query(allItemsUri, projection, Task.TITLE.name + " = 'chicago'", null, null);
-        assertEquals(0, cursor.getCount());
-        cursor.close();
-    }
 }

@@ -30,6 +30,13 @@ public class AstridApiConstants {
      */
     public static final String PERMISSION_WRITE = PACKAGE + ".WRITE";
 
+    // --- Content Provider
+
+    /**
+     * URI to append to base content URI for making groupby queries
+     */
+    public static final String GROUP_BY_URI = "groupby/";
+
     // --- Broadcast Extras
 
     /**

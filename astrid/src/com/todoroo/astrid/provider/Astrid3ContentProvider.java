@@ -99,10 +99,12 @@ public class Astrid3ContentProvider extends ContentProvider {
 
         uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
-        for(String uri : new String[] { Task.CONTENT_URI, Metadata.CONTENT_URI, StoreObject.CONTENT_URI }) {
-            uriMatcher.addURI(uri, "", URI_DIR);
-            uriMatcher.addURI(uri, "#", URI_ITEM);
-            uriMatcher.addURI(uri, "groupby/*", URI_GROUP);
+        for(Uri uri : new Uri[] { Task.CONTENT_URI, Metadata.CONTENT_URI, StoreObject.CONTENT_URI }) {
+            String uriAsString = uri.toString();
+            uriMatcher.addURI(uriAsString, "", URI_DIR);
+            uriMatcher.addURI(uriAsString, "#", URI_ITEM);
+            uriMatcher.addURI(uriAsString,
+                    AstridApiConstants.GROUP_BY_URI + "*", URI_GROUP);
         }
 
         setReadPermission(AstridApiConstants.PERMISSION_READ);
@@ -147,17 +149,17 @@ public class Astrid3ContentProvider extends ContentProvider {
     }
 
     private UriHelper<?> generateHelper(Uri uri, boolean populateModel) {
-        if(uri.toString().startsWith(Task.CONTENT_URI)) {
+        if(uri.toString().startsWith(Task.CONTENT_URI.toString())) {
             UriHelper<Task> helper = new UriHelper<Task>();
             helper.model = populateModel ? new Task() : null;
             helper.dao = taskDao;
             return helper;
-        } else if(uri.toString().startsWith(Metadata.CONTENT_URI)) {
+        } else if(uri.toString().startsWith(Metadata.CONTENT_URI.toString())) {
             UriHelper<Metadata> helper = new UriHelper<Metadata>();
             helper.model = populateModel ? new Metadata() : null;
             helper.dao = metadataDao;
             return helper;
-        } else if(uri.toString().startsWith(StoreObject.CONTENT_URI)) {
+        } else if(uri.toString().startsWith(StoreObject.CONTENT_URI.toString())) {
             UriHelper<StoreObject> helper = new UriHelper<StoreObject>();
             helper.model = populateModel ? new StoreObject() : null;
             helper.dao = storeObjectDao;
