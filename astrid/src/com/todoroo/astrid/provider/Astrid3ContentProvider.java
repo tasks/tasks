@@ -8,6 +8,7 @@ import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.UriMatcher;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteQueryBuilder;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -149,8 +150,8 @@ public class Astrid3ContentProvider extends ContentProvider {
         public GenericDao<TYPE> dao;
 
         /** creates from given model */
-        public void create() {
-            dao.createNew(model);
+        public boolean create() {
+            return dao.createNew(model);
         }
 
         /** updates from given model */
@@ -258,7 +259,9 @@ public class Astrid3ContentProvider extends ContentProvider {
 
         case URI_DIR: {
             helper.model.mergeWith(values);
-            helper.create();
+            if(!helper.create())
+                throw new SQLException("Could not insert row into database (constraint failed?)");
+
             Uri newUri = ContentUris.withAppendedId(uri, helper.model.getId());
             getContext().getContentResolver().notifyChange(newUri, null);
             return newUri;
@@ -277,6 +280,33 @@ public class Astrid3ContentProvider extends ContentProvider {
     public int update(Uri uri, ContentValues values, String selection,
             String[] selectionArgs) {
         UriHelper<?> helper = generateHelper(uri, true);
+
+        switch (uriMatcher.match(uri)) {
+
+        // illegal operations
+
+        case URI_GROUP:
+            throw new IllegalArgumentException("Only the / or /# URI is valid"
+                    + " for update.");
+
+        // valid operations
+
+        case URI_ITEM: {
+            String itemSelector = String.format("%s = '%s'",
+                    AbstractModel.ID_PROPERTY, uri.getPathSegments().get(1));
+            if(TextUtils.isEmpty(selection))
+                selection = itemSelector;
+            else
+                selection = itemSelector + " AND " + selection;
+
+        }
+
+        case URI_DIR:
+            break;
+
+        default:
+            throw new IllegalArgumentException("Unknown URI " + uri + " (" + uriMatcher.match(uri) + ")");
+        }
 
         Cursor cursor = query(uri, new String[] { AbstractModel.ID_PROPERTY.name },
                 selection, selectionArgs, null);
@@ -319,7 +349,7 @@ public class Astrid3ContentProvider extends ContentProvider {
 
         switch (uriMatcher.match(uri)) {
         case URI_GROUP:
-            groupBy = uri.getPathSegments().get(1);
+            groupBy = uri.getPathSegments().get(2);
         case URI_DIR:
             break;
         case URI_ITEM:

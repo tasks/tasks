@@ -279,9 +279,8 @@ public abstract class AbstractModel implements Parcelable {
      */
     public synchronized <TYPE> void mergeWith(ContentValues other) {
         if (setValues == null)
-            setValues = other;
-        else
-            setValues.putAll(other);
+            setValues = new ContentValues();
+        setValues.putAll(other);
     }
 
     /**

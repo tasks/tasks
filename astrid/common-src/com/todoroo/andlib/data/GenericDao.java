@@ -183,8 +183,12 @@ public class GenericDao<TYPE extends AbstractModel> {
     public boolean createNew(TYPE item) {
         long newRow = database.insert(table.name,
                 AbstractModel.ID_PROPERTY.name, item.getMergedValues());
-        item.setId(newRow);
-        return newRow >= 0;
+        boolean result = newRow >= 0;
+        if(result) {
+            item.markSaved();
+            item.setId(newRow);
+        }
+        return result;
     }
 
     /**
@@ -199,10 +203,13 @@ public class GenericDao<TYPE extends AbstractModel> {
      */
     public boolean saveExisting(TYPE item) {
         ContentValues values = item.getSetValues();
-        if(values.size() == 0) // nothing changed
+        if(values == null || values.size() == 0) // nothing changed
             return true;
-        return database.update(table.name, values,
+        boolean result = database.update(table.name, values,
                 AbstractModel.ID_PROPERTY.eq(item.getId()).toString(), null) > 0;
+        if(result)
+            item.markSaved();
+        return result;
     }
 
     // --- helper methods

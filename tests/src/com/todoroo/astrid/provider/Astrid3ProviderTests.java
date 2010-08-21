@@ -102,7 +102,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         assertEquals("tujiko noriko", cursor.getString(1));
         cursor.close();
 
-        cursor = resolver.query(uri, PROJECTION, Task.IMPORTANCE + "<" +
+        cursor = resolver.query(uri, PROJECTION, Task.IMPORTANCE + ">" +
                 Task.IMPORTANCE_MUST_DO, null, null);
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
@@ -123,7 +123,6 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         ContentValues values = new ContentValues();
         values.put(Task.TITLE.name, "carlos silva");
         values.put(Task.IMPORTANCE.name, Task.IMPORTANCE_SHOULD_DO);
-        resolver.insert(Task.CONTENT_URI, values);
 
         Uri carlosUri = resolver.insert(Task.CONTENT_URI, values);
 
@@ -148,7 +147,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         values.put(Task.TITLE.name, "carlos who?");
         assertEquals(1, resolver.update(carlosUri, values, null, null));
 
-        cursor = resolver.query(Task.CONTENT_URI, projection, "'title' = 'carlos who?'", null, null);
+        cursor = resolver.query(Task.CONTENT_URI, projection, Task.TITLE.eq("carlos who?").toString(), null, null);
         assertEquals(1, cursor.getCount());
         cursor.close();
 
@@ -220,7 +219,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         cursor.close();
 
         assertEquals(1, resolver.delete(allItemsUri, Task.IMPORTANCE.name +
-                "<" + Task.IMPORTANCE_MUST_DO, null));
+                ">" + Task.IMPORTANCE_MUST_DO, null));
 
         cursor = resolver.query(allItemsUri, PROJECTION, Task.TITLE.name +
                 " = 'murder city devils'", null, null);
@@ -249,7 +248,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         values.put(StoreObject.ITEM.name, "mf doom?");
         Uri firstUri = resolver.insert(uri, values);
 
-        values.put(Task.TITLE.name, "gm grimm!");
+        values.put(StoreObject.ITEM.name, "gm grimm!");
         Uri secondUri = resolver.insert(uri, values);
         assertNotSame(firstUri, secondUri);
 
@@ -258,22 +257,22 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         };
 
 
-        Cursor cursor = resolver.query(uri, storeProjection, "1", null, null);
+        Cursor cursor = resolver.query(uri, storeProjection, null, null, null);
         assertEquals(2, cursor.getCount());
         cursor.close();
 
         cursor = resolver.query(firstUri, storeProjection, null, null, null);
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
-        assertEquals("mf doom?", cursor.getString(1));
+        assertEquals("mf doom?", cursor.getString(0));
         cursor.close();
 
-        values.put(Task.TITLE.name, "danger mouse.");
+        values.put(StoreObject.ITEM.name, "danger mouse.");
         resolver.update(firstUri, values, null, null);
         cursor = resolver.query(firstUri, storeProjection, null, null, null);
         assertEquals(1, cursor.getCount());
         cursor.moveToFirst();
-        assertEquals("danger mouse.", cursor.getString(1));
+        assertEquals("danger mouse.", cursor.getString(0));
         cursor.close();
 
         assertEquals(1, resolver.delete(firstUri, null, null));
@@ -314,10 +313,14 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         cursor.close();
 
         // test "group-by" with metadata
-        values.clear();
         IntegerProperty age = new IntegerProperty(Metadata.TABLE, Metadata.VALUE1.name);
         StringProperty size = Metadata.VALUE2;
 
+        uri = Metadata.CONTENT_URI;
+
+        values.clear();
+        values.put(Metadata.TASK.name, 1);
+        values.put(Metadata.KEY.name, "sizes");
         values.put(age.name, 50);
         values.put(size.name, "large");
         resolver.insert(uri, values);
@@ -330,7 +333,7 @@ public class Astrid3ProviderTests extends DatabaseTestCase {
         values.put(size.name, "small");
         resolver.insert(uri, values);
 
-        String[] metadataProjection = new String[] { "AVERAGE(" + age + ")" };
+        String[] metadataProjection = new String[] { "AVG(" + age + ")" };
 
         Uri groupBySizeUri = Uri.withAppendedPath(Metadata.CONTENT_URI,
                 AstridApiConstants.GROUP_BY_URI + size.name);
