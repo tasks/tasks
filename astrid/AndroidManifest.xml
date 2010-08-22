@@ -25,7 +25,7 @@
 
   <!-- ============================================== Exported Permissions = -->
 
-  <!-- for tasks provider -->
+  <!-- for v2 tasks provider -->
   <permission android:name="com.timsu.astrid.permission.READ_TASKS"
               android:permissionGroup="android.permission-group.MESSAGES"
               android:protectionLevel="normal"
@@ -33,14 +33,14 @@
               android:description="@string/read_permission_desc"/>
   <uses-permission android:name="com.timsu.astrid.permission.READ_TASKS"/>
   
-  <!-- for reading data from plugins or astrid -->
+  <!-- for reading data from plugins or astrid via v3 content provider -->
   <permission android:name="com.todoroo.astrid.READ"
               android:description="@string/read_permission_desc"
               android:protectionLevel="normal"
               android:label="@string/read_permission_label" />
   <uses-permission android:name="com.todoroo.astrid.READ" />
   
-  <!-- for writing data to plugins or astrid -->
+  <!-- for writing data to plugins or astrid via v3 content provider -->
   <permission android:name="com.todoroo.astrid.WRITE"
               android:description="@string/write_permission_desc"
               android:protectionLevel="normal"
@@ -153,8 +153,8 @@
               android:authorities="com.todoroo.astrid"
               android:multiprocess="true"
               android:grantUriPermissions="true"
-              android:readPermission="com.timsu.astrid.permission.READ_TASKS"
-              android:writePermission="com.timsu.astrid.permission.WRITE_TASKS"/>
+              android:readPermission="com.todoroo.astrid.READ"
+              android:writePermission="com.todoroo.astrid.WRITE"/>
 
     <!-- ========================================================= Plugins = -->
         

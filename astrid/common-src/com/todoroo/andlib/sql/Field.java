@@ -76,7 +76,7 @@ public class Field extends DBObject<Field> {
 
             @Override
             protected void populate(StringBuilder sb) {
-                sb.append(field).append(SPACE).append(Operator.in).append(SPACE).append(LEFT_PARENTHESIS);
+                sb.append(field).append(SPACE).append(Operator.in).append(SPACE).append(LEFT_PARENTHESIS).append(SPACE);
                 for (T t : value) {
                     sb.append(t.toString()).append(COMMA);
                 }
