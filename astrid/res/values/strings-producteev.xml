@@ -93,7 +93,7 @@
     <!-- ================================================ Synchronization == -->
         
     <!-- title for notification tray after synchronizing -->
-    <string name="producteev_notification_title">Astrid: Producteev</string>
+    <string name="producteev_notification_title">Producteev</string>
     
     <!-- text for notification tray when synchronizing -->
     <string name="producteev_notification_text">%s tasks updated / click for more details</string>
