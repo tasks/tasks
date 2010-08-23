@@ -3,7 +3,6 @@ package com.todoroo.astrid.rmilk;
 import java.util.Date;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.content.res.Resources;
 import android.graphics.Color;
@@ -100,7 +99,7 @@ public class MilkPreferences extends TodorooPreferences {
                 statusColor = Color.RED;
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
-                        startService(new Intent(MilkPreferences.this, MilkBackgroundService.class));
+                        new RTMSyncProvider().synchronize(MilkPreferences.this);
                         finish();
                         return true;
                     }
@@ -140,7 +139,7 @@ public class MilkPreferences extends TodorooPreferences {
                 statusColor = Color.rgb(0, 0, 100);
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
-                        startService(new Intent(MilkPreferences.this, MilkBackgroundService.class));
+                        new RTMSyncProvider().synchronize(MilkPreferences.this);
                         finish();
                         return true;
                     }
@@ -159,7 +158,7 @@ public class MilkPreferences extends TodorooPreferences {
             boolean loggedIn = MilkUtilities.isLoggedIn();
             preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 public boolean onPreferenceClick(Preference p) {
-                    startService(new Intent(MilkPreferences.this, MilkBackgroundService.class));
+                    new RTMSyncProvider().synchronize(MilkPreferences.this);
                     finish();
                     return true;
                 }

@@ -1,6 +1,5 @@
 package com.todoroo.astrid.producteev;
 
-import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.ListPreference;
@@ -31,8 +30,7 @@ public class ProducteevPreferences extends SyncProviderPreferences {
 
     @Override
     public void startSync() {
-        startService(new Intent(ProducteevBackgroundService.SYNC_ACTION, null,
-                this, ProducteevBackgroundService.class));
+        new ProducteevSyncProvider().synchronize(this);
     }
 
     @Override

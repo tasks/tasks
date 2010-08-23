@@ -39,7 +39,8 @@ public class ProducteevBackgroundService extends Service {
     @Override
     public void onStart(Intent intent, int startId) {
         try {
-            startSynchronization(this);
+            if(intent != null && SYNC_ACTION.equals(intent.getAction()))
+                startSynchronization(this);
         } catch (Exception e) {
             PluginServices.getExceptionService().reportError("pdv-bg-sync", e); //$NON-NLS-1$
         }

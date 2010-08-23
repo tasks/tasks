@@ -5,7 +5,7 @@ import java.util.Iterator;
 
 import org.json.JSONObject;
 
-import com.todoroo.astrid.api.TaskContainer;
+import com.todoroo.astrid.common.TaskContainer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 

@@ -3,7 +3,7 @@ package com.todoroo.astrid.rmilk.sync;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import com.todoroo.astrid.api.TaskContainer;
+import com.todoroo.astrid.common.TaskContainer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.rmilk.api.data.RtmTaskSeries;

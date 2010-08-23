@@ -13,6 +13,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -31,15 +32,18 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.common.SyncProvider;
+import com.todoroo.astrid.common.TaskContainer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.producteev.api.ApiServiceException;
+import com.todoroo.astrid.rmilk.MilkBackgroundService;
 import com.todoroo.astrid.rmilk.MilkLoginActivity;
 import com.todoroo.astrid.rmilk.MilkLoginActivity.SyncLoginCallback;
 import com.todoroo.astrid.rmilk.MilkPreferences;
 import com.todoroo.astrid.rmilk.MilkUtilities;
 import com.todoroo.astrid.rmilk.api.ApplicationInfo;
+import com.todoroo.astrid.rmilk.api.ServiceException;
 import com.todoroo.astrid.rmilk.api.ServiceImpl;
 import com.todoroo.astrid.rmilk.api.ServiceInternalException;
 import com.todoroo.astrid.rmilk.api.data.RtmAuth.Perms;
@@ -92,10 +96,6 @@ public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
         dataService.clearMetadata();
     }
 
-    // ----------------------------------------------------------------------
-    // ------------------------------------------------------- authentication
-    // ----------------------------------------------------------------------
-
     /**
      * Deal with a synchronization exception. If requested, will show an error
      * to the user (unless synchronization is happening in background)
@@ -109,63 +109,65 @@ public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
      *            whether to display a dialog
      */
     @Override
-    protected void handleException(String tag, Exception e, boolean showError) {
+    protected void handleException(String tag, Exception e, boolean displayError) {
+        final Context context = ContextManager.getContext();
         MilkUtilities.setLastError(e.toString());
+
+        String message = null;
 
         // occurs when application was closed
         if(e instanceof IllegalStateException) {
             exceptionService.reportError(tag + "-caught", e); //$NON-NLS-1$
 
-        // occurs when network error
-        } else if(e instanceof ServiceInternalException &&
-                ((ServiceInternalException)e).getEnclosedException() instanceof
-                IOException) {
-            Exception enclosedException = ((ServiceInternalException)e).getEnclosedException();
-            exceptionService.reportError(tag + "-ioexception", enclosedException); //$NON-NLS-1$
-            if(showError) {
-                Context context = ContextManager.getContext();
-                showError(context, enclosedException,
-                        context.getString(R.string.rmilk_ioerror));
-            }
+            // occurs when network error
+        } else if(!(e instanceof ApiServiceException) && e instanceof IOException) {
+            message = context.getString(R.string.rmilk_ioerror);
         } else {
-            if(e instanceof ServiceInternalException)
-                e = ((ServiceInternalException)e).getEnclosedException();
+            message = context.getString(R.string.DLG_error, e.toString());
             exceptionService.reportError(tag + "-unhandled", e); //$NON-NLS-1$
-            if(showError) {
-                Context context = ContextManager.getContext();
-                showError(context, e, null);
-            }
+        }
+
+        if(displayError && context instanceof Activity && message != null) {
+            dialogUtilities.okDialog((Activity)context,
+                    message, null);
         }
     }
 
-    @Override
-    protected void initiate(Context context) {
-        dataService = MilkDataService.getInstance();
+    // ----------------------------------------------------------------------
+    // ------------------------------------------------------ initiating sync
+    // ----------------------------------------------------------------------
 
-        // authenticate the user. this will automatically call the next step
-        authenticate(context);
+    /**
+     * set up service
+     */
+    @SuppressWarnings("nls")
+    private void initializeService(String authToken) throws ServiceInternalException {
+        String appName = null;
+        String z = stripslashes(0,"q9883o3384n21snq17501qn38oo1r689", "b");
+        String v = stripslashes(16,"19o2n020345219os","a");
+
+        if(authToken == null)
+            rtmService = new ServiceImpl(new ApplicationInfo(
+                    z, v, appName));
+        else
+            rtmService = new ServiceImpl(new ApplicationInfo(
+                    z, v, appName, authToken));
     }
 
     /**
-     * Perform authentication with RTM. Will open the SyncBrowser if necessary
+     * initiate sync in background
      */
+    @Override
     @SuppressWarnings("nls")
-    private void authenticate(final Context context) {
-        final Resources r = context.getResources();
-        FlurryAgent.onEvent("rtm-started");
-
-        MilkUtilities.recordSyncStart();
+    protected void initiateBackground(Service service) {
+        dataService = MilkDataService.getInstance();
 
         try {
-            String appName = null;
             String authToken = MilkUtilities.getToken();
-            String z = stripslashes(0,"q9883o3384n21snq17501qn38oo1r689", "b");
-            String v = stripslashes(16,"19o2n020345219os","a");
 
             // check if we have a token & it works
             if(authToken != null) {
-                rtmService = new ServiceImpl(new ApplicationInfo(
-                        z, v, appName, authToken));
+                initializeService(authToken);
                 if(!rtmService.isServiceAuthorized()) // re-do login
                     authToken = null;
             }
@@ -180,57 +182,73 @@ public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
 
                         return;
                     } catch (Exception e) {
-                        // didn't work. do the process again.
+                        // didn't work.
                     }
                 }
 
-                // open up a dialog and have the user go to browser
-                rtmService = new ServiceImpl(new ApplicationInfo(
-                        z, v, appName));
-                final String url = rtmService.beginAuthorization(Perms.delete);
-
-                Intent intent = new Intent(context, MilkLoginActivity.class);
-                MilkLoginActivity.setCallback(new SyncLoginCallback() {
-                    public String verifyLogin(final Handler syncLoginHandler) {
-                        if(rtmService == null) {
-                            return null;
-                        }
-
-                        try {
-                            String token = rtmService.completeAuthorization();
-                            MilkUtilities.setToken(token);
-                            synchronize(context);
-                            return null;
-                        } catch (Exception e) {
-                            // didn't work
-                            exceptionService.reportError("rtm-verify-login", e);
-                            rtmService = null;
-                            if(e instanceof ServiceInternalException)
-                                e = ((ServiceInternalException)e).getEnclosedException();
-                            return r.getString(R.string.rmilk_MLA_error, e.getMessage());
-                        }
-                    }
-                });
-                intent.putExtra(MilkLoginActivity.URL_TOKEN, url);
-
-                if(context instanceof Activity)
-                    ((Activity)context).startActivityForResult(intent, 0);
-                else {
-                    // can't synchronize until user logs in
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    context.startActivity(intent);
-                    MilkUtilities.stopOngoing();
-                }
+                // can't do anything, user not logged in
 
             } else {
                 performSync();
             }
         } catch (IllegalStateException e) {
-        	// occurs when application was closed
+            // occurs when application was closed
         } catch (Exception e) {
             handleException("rtm-authenticate", e, true);
         } finally {
             MilkUtilities.stopOngoing();
+        }
+    }
+
+    /**
+     * If user isn't already signed in, show sign in dialog. Else perform sync.
+     */
+    @SuppressWarnings("nls")
+    @Override
+    protected void initiateManual(final Activity activity) {
+        final Resources r = activity.getResources();
+        String authToken = MilkUtilities.getToken();
+        MilkUtilities.stopOngoing();
+
+        // check if we have a token & it works
+        if(authToken == null) {
+            // open up a dialog and have the user go to browser
+            final String url;
+            try {
+                initializeService(null);
+                url = rtmService.beginAuthorization(Perms.delete);
+            } catch (ServiceException e) {
+                handleException("rmilk-auth", e, true);
+                return;
+            }
+
+            Intent intent = new Intent(activity, MilkLoginActivity.class);
+            MilkLoginActivity.setCallback(new SyncLoginCallback() {
+                public String verifyLogin(final Handler syncLoginHandler) {
+                    if(rtmService == null) {
+                        return null;
+                    }
+
+                    try {
+                        String token = rtmService.completeAuthorization();
+                        MilkUtilities.setToken(token);
+                        synchronize(activity);
+                        return null;
+                    } catch (Exception e) {
+                        // didn't work
+                        exceptionService.reportError("rtm-verify-login", e);
+                        rtmService = null;
+                        if(e instanceof ServiceInternalException)
+                            e = ((ServiceInternalException)e).getEnclosedException();
+                        return r.getString(R.string.rmilk_MLA_error, e.getMessage());
+                    }
+                }
+            });
+            intent.putExtra(MilkLoginActivity.URL_TOKEN, url);
+            activity.startActivityForResult(intent, 0);
+        } else {
+            activity.startService(new Intent(MilkBackgroundService.SYNC_ACTION, null,
+                    activity, MilkBackgroundService.class));
         }
     }
 
@@ -239,6 +257,9 @@ public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
     // ----------------------------------------------------------------------
 
     protected void performSync() {
+        FlurryAgent.onEvent("rtm-started"); //$NON-NLS-1$
+        MilkUtilities.recordSyncStart();
+
         try {
             // get RTM timeline
             timeline = rtmService.timelines_create();

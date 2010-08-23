@@ -1,9 +1,8 @@
-package com.todoroo.astrid.api;
+package com.todoroo.astrid.common;
 
 import java.util.ArrayList;
 
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
 

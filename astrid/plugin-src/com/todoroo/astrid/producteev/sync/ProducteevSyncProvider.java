@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -31,11 +32,12 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.common.SyncProvider;
+import com.todoroo.astrid.common.TaskContainer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevLoginActivity;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
@@ -75,7 +77,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     }
 
     // ----------------------------------------------------------------------
-    // ------------------------------------------------------- public methods
+    // ------------------------------------------------------ utility methods
     // ----------------------------------------------------------------------
 
     /**
@@ -94,10 +96,6 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         dataService.clearMetadata();
     }
 
-    // ----------------------------------------------------------------------
-    // ------------------------------------------------------- authentication
-    // ----------------------------------------------------------------------
-
     /**
      * Deal with a synchronization exception. If requested, will show an error
      * to the user (unless synchronization is happening in background)
@@ -111,44 +109,40 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      *            whether to display a dialog
      */
     @Override
-    protected void handleException(String tag, Exception e, boolean showError) {
+    protected void handleException(String tag, Exception e, boolean displayError) {
+        final Context context = ContextManager.getContext();
         preferences.setLastError(e.toString());
+
+        String message = null;
 
         // occurs when application was closed
         if(e instanceof IllegalStateException) {
             exceptionService.reportError(tag + "-caught", e); //$NON-NLS-1$
 
-        // occurs when network error
+            // occurs when network error
         } else if(!(e instanceof ApiServiceException) && e instanceof IOException) {
-            exceptionService.reportError(tag + "-ioexception", e); //$NON-NLS-1$
-            if(showError) {
-                Context context = ContextManager.getContext();
-                showError(context, e, context.getString(R.string.producteev_ioerror));
-            }
+            message = context.getString(R.string.producteev_ioerror);
         } else {
+            message = context.getString(R.string.DLG_error, e.toString());
             exceptionService.reportError(tag + "-unhandled", e); //$NON-NLS-1$
-            if(showError) {
-                Context context = ContextManager.getContext();
-                showError(context, e, null);
-            }
+        }
+
+        if(displayError && context instanceof Activity && message != null) {
+            dialogUtilities.okDialog((Activity)context,
+                    message, null);
         }
     }
 
-    @Override
-    protected void initiate(Context context) {
-        dataService = ProducteevDataService.getInstance();
-
-        // authenticate the user. this will automatically call the next step
-        authenticate();
-    }
+    // ----------------------------------------------------------------------
+    // ------------------------------------------------------ initiating sync
+    // ----------------------------------------------------------------------
 
     /**
-     * Perform authentication with RTM. Will open the SyncBrowser if necessary
+     * initiate sync in background
      */
-    private void authenticate() {
-        FlurryAgent.onEvent("producteev-started");
-
-        preferences.recordSyncStart();
+    @Override
+    protected void initiateBackground(Service service) {
+        dataService = ProducteevDataService.getInstance();
 
         try {
             String authToken = preferences.getToken();
@@ -163,16 +157,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 performSync();
             } else {
                 if (email == null && password == null) {
-                    // display login-activity
-                    final Context context = ContextManager.getContext();
-                    Intent intent = new Intent(context, ProducteevLoginActivity.class);
-                    if(context instanceof Activity)
-                        ((Activity)context).startActivityForResult(intent, 0);
-                    else {
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
-                        ProducteevUtilities.INSTANCE.stopOngoing();
-                    }
+                    // we can't do anything, user is not logged in
                 } else {
                     invoker.authenticate(email, password);
                     preferences.setToken(invoker.getToken());
@@ -180,11 +165,30 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 }
             }
         } catch (IllegalStateException e) {
-        	// occurs when application was closed
+            // occurs when application was closed
         } catch (Exception e) {
             handleException("pdv-authenticate", e, true);
         } finally {
             preferences.stopOngoing();
+        }
+    }
+
+    /**
+     * If user isn't already signed in, show sign in dialog. Else perform sync.
+     */
+    @Override
+    protected void initiateManual(Activity activity) {
+        String authToken = preferences.getToken();
+        ProducteevUtilities.INSTANCE.stopOngoing();
+
+        // check if we have a token & it works
+        if(authToken == null) {
+            // display login-activity
+            Intent intent = new Intent(activity, ProducteevLoginActivity.class);
+            activity.startActivityForResult(intent, 0);
+        } else {
+            activity.startService(new Intent(ProducteevBackgroundService.SYNC_ACTION, null,
+                    activity, ProducteevBackgroundService.class));
         }
     }
 
@@ -199,6 +203,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     // ----------------------------------------------------------------------
 
     protected void performSync() {
+        FlurryAgent.onEvent("producteev-started");
+        preferences.recordSyncStart();
+
         try {
             // load user information
             JSONObject user = invoker.usersView(null).getJSONObject("user");
