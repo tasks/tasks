@@ -40,7 +40,7 @@ public final class Constants {
     /**
      * Upgrade time
      */
-    public static final Date UPGRADE = new Date(110, 8, 1);
+    public static final Date UPGRADE = new Date(110, 9, 1);
 
     // --- notification id's
 
