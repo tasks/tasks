@@ -79,6 +79,7 @@ import com.todoroo.astrid.model.AddOn;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevControlSet;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
+import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MetadataService;
@@ -360,6 +361,9 @@ public final class TaskEditActivity extends TabActivity {
             finish();
             return;
         }
+
+        // clear notification
+        Notifications.cancelNotifications(model.getId());
     }
 
     /** Populate UI component values from the model */
