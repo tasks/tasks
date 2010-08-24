@@ -355,15 +355,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * created.
      */
     private void addListeners(final View container) {
+        ViewHolder viewHolder = (ViewHolder)container.getTag();
+
         // check box listener
-        final CheckBox completeBox = ((CheckBox)container.findViewById(R.id.completeBox));
-        completeBox.setOnClickListener(completeBoxListener);
+        viewHolder.completeBox.setOnClickListener(completeBoxListener);
 
         // context menu listener
         container.setOnCreateContextMenuListener(listener);
 
         // tap listener
         container.setOnClickListener(listener);
+        viewHolder.nameView.setTag(viewHolder);
+        viewHolder.nameView.setOnClickListener(listener);
     }
 
     /* ======================================================================
