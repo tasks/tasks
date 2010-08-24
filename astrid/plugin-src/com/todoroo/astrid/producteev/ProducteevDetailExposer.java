@@ -11,7 +11,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
@@ -27,7 +26,7 @@ import com.todoroo.astrid.utility.Preferences;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class ProducteevDetailExposer extends BroadcastReceiver implements DetailExposer{
+public class ProducteevDetailExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -52,7 +51,6 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    @Override
     public String getTaskDetails(Context context, long id, boolean extended) {
         Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(id);
         if(metadata == null)
@@ -131,11 +129,6 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
             return users.substring(users.indexOf(',', index) + 1,
                     users.indexOf(';', index + 1));
         return null;
-    }
-
-    @Override
-    public String getPluginIdentifier() {
-        return ProducteevUtilities.IDENTIFIER;
     }
 
 }

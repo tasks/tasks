@@ -477,9 +477,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 } else if(AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
                     String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
                     if(extras.getBoolean(AstridApiConstants.EXTRAS_EXTENDED))
-                        taskAdapter.detailManager.addNew(taskId, addOn, detail);
-                    else
                         taskAdapter.extendedDetailManager.addNew(taskId, addOn, detail);
+                    else
+                        taskAdapter.addDetails(taskId, detail);
                 } else if(AstridApiConstants.BROADCAST_SEND_ACTIONS.equals(intent.getAction())) {
                     TaskAction action = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.taskActionManager.addNew(taskId, addOn, action);
