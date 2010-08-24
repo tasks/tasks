@@ -289,7 +289,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                     int icon = R.drawable.ic_producteev_notification;
                     long when = System.currentTimeMillis();
                     Notification notification = new Notification(icon, null, when);
-                    CharSequence contentTitle = context.getString(R.string.producteev_notification_title)+" Workspace \""+dashboard.getName()+"\"";
+                    CharSequence contentTitle = context.getString(R.string.producteev_notification_title)+": "+dashboard.getName();
 
                     Filter filter = ProducteevFilterExposer.filterFromList(context, dashboard);
                     Intent notificationIntent = ShortcutActivity.createIntent(filter);
