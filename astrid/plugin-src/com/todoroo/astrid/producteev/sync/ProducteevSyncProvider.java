@@ -259,24 +259,16 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
             // notification/activities stuff
             JSONArray notifications = invoker.activitiesShowNotifications(null, (lastNotificationId == null ? null : new Long(lastNotificationId)));
-            ArrayList<String> notificationsList = parseActivities(notifications);
+            String[] notificationsList = parseActivities(notifications);
             // update lastIds
             if (notifications.length() > 0) {
                 lastNotificationId = ""+notifications.getJSONObject(0).getJSONObject("activity").getLong("id_activity");
             }
 
-//            JSONArray activities    = invoker.activitiesShowActivities(null, (lastActivityId == 0 ? null : new Long(lastActivityId)));
-//            int activitiesCount = (activities == null ? 0 : activities.length());
-//            ArrayList<String> activitiesList = parseActivities(activities);
-//            // update lastIds
-//            if (activities.length() > 0) {
-//                lastActivityId = activities.getJSONObject(0).getJSONObject("activity").getLong("id_activity");
-//            }
-
             // display notifications from producteev-log
             Context context = ContextManager.getContext();
             final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
-            for (int i = 0; i< notificationsList.size(); i++) {
+            for (int i = 0; i< notificationsList.length; i++) {
                 long id_dashboard = notifications.getJSONObject(i).getJSONObject("activity").getLong("id_dashboard");
                 String dashboardName = null;
                 StoreObject[] dashboardsData = ProducteevDataService.getInstance().getDashboards();
@@ -298,13 +290,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                     long when = System.currentTimeMillis();
                     Notification notification = new Notification(icon, null, when);
                     CharSequence contentTitle = context.getString(R.string.producteev_notification_title)+" Workspace \""+dashboard.getName()+"\"";
-//                    CharSequence contentText = context.getString(R.string.producteev_notification_text, notificationsCount);
 
                     Filter filter = ProducteevFilterExposer.filterFromList(context, dashboard);
                     Intent notificationIntent = ShortcutActivity.createIntent(filter);
 
                     // filter the tags from the message
-                    String message = notificationsList.get(i).replaceAll("<[^>]+>", "");
+                    String message = notificationsList[i].replaceAll("<[^>]+>", "");
                     PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
                     notification.setLatestEventInfo(context, contentTitle, message, contentIntent);
 
@@ -325,16 +316,18 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     }
 
     /**
-     * @param actvities
+     * @param activities
      * @return
      * @throws JSONException
      */
-    private ArrayList parseActivities(JSONArray actvities) throws JSONException {
-        int count = (actvities == null ? 0 : actvities.length());
-        ArrayList activitiesList = new ArrayList(count);
-        for(int i = 0; i < actvities.length(); i++) {
-            String message = actvities.getJSONObject(i).getJSONObject("activity").getString("message");
-            activitiesList.add(message);
+    private String[] parseActivities(JSONArray activities) throws JSONException {
+        int count = (activities == null ? 0 : activities.length());
+        String[] activitiesList = new String[count];
+        if(activities == null)
+            return activitiesList;
+        for(int i = 0; i < activities.length(); i++) {
+            String message = activities.getJSONObject(i).getJSONObject("activity").getString("message");
+            activitiesList[i] = ApiUtilities.decode(message);
         }
         return activitiesList;
     }

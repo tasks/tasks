@@ -365,8 +365,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         // tap listener
         container.setOnClickListener(listener);
-        viewHolder.nameView.setTag(viewHolder);
-        viewHolder.nameView.setOnClickListener(listener);
+
+        viewHolder.nameView.setFocusable(false);
+        viewHolder.nameView.setClickable(false);
     }
 
     /* ======================================================================

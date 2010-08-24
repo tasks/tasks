@@ -120,7 +120,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 10;
 
     /** menu code indicating the end of the context menu */
-    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 10;
+    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 11;
 
     // --- constants
 

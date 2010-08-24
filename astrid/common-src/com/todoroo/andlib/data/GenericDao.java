@@ -196,6 +196,21 @@ public class GenericDao<TYPE extends AbstractModel> {
                 AbstractModel.ID_PROPERTY.eq(item.getId()).toString(), null) > 0;
     }
 
+    /**
+     * Updates multiple rows of the database based on model set values
+     *
+     * @param item
+     *            item model
+     * @param criterion
+     * @return returns true on success.
+     */
+    public int updateMultiple(TYPE item, Criterion criterion) {
+        ContentValues values = item.getSetValues();
+        if(values.size() == 0) // nothing changed
+            return 0;
+        return database.update(table.name, values, criterion.toString(), null);
+    }
+
     // --- helper methods
 
 

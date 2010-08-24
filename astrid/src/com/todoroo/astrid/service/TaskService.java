@@ -12,8 +12,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -210,6 +210,18 @@ public class TaskService {
         } finally {
             cursor.close();
         }
+    }
+
+    /**
+     * Clear details cache. Useful if user performs some operation that
+     * affects details
+     *
+     * @return # of affected rows
+     */
+    public int clearDetails() {
+        Task task = new Task();
+        task.setValue(Task.DETAILS, null);
+        return taskDao.updateMultiple(task, Task.DETAILS.isNotNull());
     }
 
     /**
