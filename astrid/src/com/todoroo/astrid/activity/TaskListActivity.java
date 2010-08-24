@@ -276,6 +276,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 Intent intent = new Intent(TaskListActivity.this,
                         FilterListActivity.class);
                 startActivity(intent);
+                if(AndroidUtilities.getSdkVersion() >= 5) {
+                    overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+                }
             }
         });
 
@@ -365,7 +368,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             }
         });
 
-        // gestures
+        // gestures / animation
         try {
             GestureService.registerGestureDetector(this, R.id.gestures, R.raw.gestures, this);
         } catch (VerifyError e) {
@@ -885,6 +888,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             Intent intent = new Intent(TaskListActivity.this,
                     FilterListActivity.class);
             startActivity(intent);
+            if(AndroidUtilities.getSdkVersion() >= 5) {
+                overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+            }
         }
     }
 
