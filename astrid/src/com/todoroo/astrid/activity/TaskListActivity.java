@@ -116,7 +116,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 6;
     private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 7;
     private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 8;
-    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 9;
+    private static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 9;
+    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 10;
 
     /** menu code indicating the end of the context menu */
     private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 10;
@@ -732,6 +733,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if(task.isDeleted()) {
             menu.add(id, CONTEXT_MENU_UNDELETE_TASK_ID, Menu.NONE,
                     R.string.TAd_contextUndeleteTask);
+
+            menu.add(id, CONTEXT_MENU_PURGE_TASK_ID, Menu.NONE,
+                    R.string.TAd_contextPurgeTask);
         } else {
             menu.add(id, CONTEXT_MENU_EDIT_TASK_ID, Menu.NONE,
                         R.string.TAd_contextEditTask);
@@ -837,6 +841,15 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             task.setId(itemId);
             task.setValue(Task.DELETION_DATE, 0L);
             taskService.save(task);
+            loadTaskListContent(true);
+            return true;
+        }
+
+        case CONTEXT_MENU_PURGE_TASK_ID: {
+            itemId = item.getGroupId();
+            Task task = new Task();
+            task.setId(itemId);
+            taskService.delete(task);
             loadTaskListContent(true);
             return true;
         }

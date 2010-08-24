@@ -214,6 +214,9 @@ button: add task & go to the edit page.
 
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Undelete Task</string>
+
+  <!-- Context Item: purge task -->
+  <string name="TAd_contextPurgeTask">Purge Task</string>
   
   <!-- ============================================== SortSelectionDialog == -->
   
