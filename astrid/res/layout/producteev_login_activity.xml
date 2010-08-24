@@ -52,12 +52,6 @@
 		android:paddingTop="20dip" 
         android:visibility="gone">
     
-    	<EditText android:id="@+id/confirmPassword"
-            android:layout_height="wrap_content"
-            android:layout_width="fill_parent"
-    		android:hint="@string/producteev_PLA_confirmPassword"
-    		android:inputType="textPassword"/>
-    
     	<EditText android:id="@+id/firstName"
             android:layout_height="wrap_content"
             android:layout_width="fill_parent"

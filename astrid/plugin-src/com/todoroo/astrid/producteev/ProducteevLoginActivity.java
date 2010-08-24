@@ -111,19 +111,13 @@ public class ProducteevLoginActivity extends Activity {
                 else {
                     Editable email = emailEditText.getText();
                     Editable password = passwordEditText.getText();
-                    Editable confirmPassword = ((EditText)findViewById(R.id.confirmPassword)).getText();
                     Editable firstName = ((EditText)findViewById(R.id.firstName)).getText();
                     Editable lastName = ((EditText)findViewById(R.id.lastName)).getText();
                     if(email.length() == 0 || password.length() == 0 ||
-                            confirmPassword.length() == 0 || firstName.length() == 0 ||
+                            firstName.length() == 0 ||
                             lastName.length() == 0) {
                         errors.setVisibility(View.VISIBLE);
                         errors.setText(R.string.producteev_PLA_errorEmpty);
-                        return;
-                    }
-                    if(!confirmPassword.toString().equals(password.toString())) {
-                        errors.setVisibility(View.VISIBLE);
-                        errors.setText(R.string.producteev_PLA_errorMatch);
                         return;
                     }
                     performSignup(email.toString(), password.toString(),
