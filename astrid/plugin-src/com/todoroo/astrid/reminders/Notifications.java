@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -215,6 +216,10 @@ public class Notifications extends BroadcastReceiver {
         AudioManager audioManager = (AudioManager)context.getSystemService(
                 Context.AUDIO_SERVICE);
 
+        // detect call state
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        int callState = tm.getCallState();
+
         // if non-stop mode is activated, set up the flags for insistent
         // notification, and increase the volume to full volume, so the user
         // will actually pay attention to the alarm
@@ -228,7 +233,7 @@ public class Notifications extends BroadcastReceiver {
         }
 
         // quiet hours = no sound
-        if(quietHours) {
+        if(quietHours || callState != TelephonyManager.CALL_STATE_IDLE) {
             notification.sound = null;
         } else {
             String notificationPreference = Preferences.getStringValue(R.string.p_rmd_ringtone);
@@ -247,8 +252,9 @@ public class Notifications extends BroadcastReceiver {
         }
 
         // quiet hours && ! due date or snooze = no vibrate
-        if(quietHours && !(type == ReminderService.TYPE_DUE ||
-                type == ReminderService.TYPE_SNOOZE)) {
+        if(quietHours && !(type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_SNOOZE)) {
+            notification.vibrate = null;
+        } else if(callState != TelephonyManager.CALL_STATE_IDLE) {
             notification.vibrate = null;
         } else {
             if (Preferences.getBoolean(R.string.p_rmd_vibrate, true)
