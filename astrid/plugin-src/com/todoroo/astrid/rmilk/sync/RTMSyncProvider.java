@@ -228,7 +228,6 @@ public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
                     if(rtmService == null) {
                         return null;
                     }
-
                     try {
                         String token = rtmService.completeAuthorization();
                         MilkUtilities.setToken(token);
