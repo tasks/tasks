@@ -3,8 +3,8 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!-- ====================== Plugin Boilerplate ========================= -->
-    
-    <!-- filters header: Producteev -->
+
+	<!-- filters header: Producteev -->
     <string name="producteev_FEx_header">Producteev</string>
     
     <!-- filter category for Producteev dashboards -->
@@ -39,7 +39,7 @@
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
     <string name="producteev_create_dashboard_name">Name for new Workspace</string>
 
-    <!-- preference title for default dashboard -->
+	<!-- preference title for default dashboard -->
     <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
 
     <!-- preference description for default dashboard (%s -> setting) -->
@@ -92,8 +92,11 @@
 
     <!-- ================================================ Synchronization == -->
         
-    <!-- title for notification tray when synchronizing -->
-    <string name="producteev_notification_title">Astrid: Producteev</string>
+    <!-- title for notification tray after synchronizing -->
+    <string name="producteev_notification_title">Producteev</string>
+    
+    <!-- text for notification tray when synchronizing -->
+    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
     
     <!-- Error msg when io exception  -->
     <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>

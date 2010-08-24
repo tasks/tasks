@@ -8,13 +8,13 @@
     android:paddingBottom="4dip"
     android:paddingLeft="4dip"
     android:paddingRight="4dip"
-    android:minHeight="40dip"
     android:orientation="vertical">
             
     <LinearLayout android:id="@+id/task_row"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="100"
+        android:minHeight="40dip"
         android:orientation="horizontal">
     
         <!-- importance -->
@@ -62,6 +62,7 @@
     <TextView android:id="@+id/extendedDetails"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:paddingLeft="4dip"
         android:visibility="gone" />
         
     <LinearLayout android:id="@+id/actions"
@@ -70,6 +71,19 @@
         android:background="#4499bbcc" 
         android:visibility="gone"
         android:paddingTop="4dip"
-        android:orientation="horizontal" />
+        android:paddingLeft="4dip"
+        android:orientation="horizontal">
+        
+        <Button
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1" />
+          
+        <Button
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1" />
+          
+    </LinearLayout>
             
 </LinearLayout>

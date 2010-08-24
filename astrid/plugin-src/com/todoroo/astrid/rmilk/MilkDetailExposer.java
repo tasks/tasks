@@ -11,7 +11,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.rmilk.data.MilkDataService;
 import com.todoroo.astrid.rmilk.data.MilkNote;
@@ -26,7 +25,7 @@ import com.todoroo.astrid.rmilk.data.MilkTask;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class MilkDetailExposer extends BroadcastReceiver implements DetailExposer{
+public class MilkDetailExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -51,7 +50,6 @@ public class MilkDetailExposer extends BroadcastReceiver implements DetailExpose
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    @Override
     public String getTaskDetails(Context context, long id, boolean extended) {
         Metadata metadata = MilkDataService.getInstance().getTaskMetadata(id);
         if(metadata == null)
@@ -90,11 +88,6 @@ public class MilkDetailExposer extends BroadcastReceiver implements DetailExpose
             return null;
         String result = builder.toString();
         return result.substring(0, result.length() - TaskAdapter.DETAIL_SEPARATOR.length());
-    }
-
-    @Override
-    public String getPluginIdentifier() {
-        return MilkUtilities.IDENTIFIER;
     }
 
 }

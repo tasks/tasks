@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.DetailExposer;
 
 /**
  * Exposes Task Detail for tags, i.e. "Tags: frogs, animals"
@@ -16,7 +15,7 @@ import com.todoroo.astrid.api.DetailExposer;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TagDetailExposer extends BroadcastReceiver implements DetailExposer {
+public class TagDetailExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -39,7 +38,6 @@ public class TagDetailExposer extends BroadcastReceiver implements DetailExposer
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    @Override
     public String getTaskDetails(Context context, long id, boolean extended) {
         if(extended)
             return null;
@@ -49,11 +47,6 @@ public class TagDetailExposer extends BroadcastReceiver implements DetailExposer
             return null;
 
         return "<img src='silk_tag_pink'/> " + tagList; //$NON-NLS-1$
-    }
-
-    @Override
-    public String getPluginIdentifier() {
-        return TagsPlugin.IDENTIFIER;
     }
 
 }

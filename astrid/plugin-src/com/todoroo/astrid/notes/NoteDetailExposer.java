@@ -10,7 +10,6 @@ import android.content.Intent;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.utility.Preferences;
@@ -21,7 +20,7 @@ import com.todoroo.astrid.utility.Preferences;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class NoteDetailExposer extends BroadcastReceiver implements DetailExposer {
+public class NoteDetailExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -44,7 +43,6 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    @Override
     public String getTaskDetails(Context context, long id, boolean extended) {
 
         if(Preferences.getBoolean(R.string.p_showNotes, false)) {
@@ -63,11 +61,6 @@ public class NoteDetailExposer extends BroadcastReceiver implements DetailExpose
             return null;
 
         return "<img src='silk_note'/> " + notes; //$NON-NLS-1$
-    }
-
-    @Override
-    public String getPluginIdentifier() {
-        return NotesPlugin.IDENTIFIER;
     }
 
 }

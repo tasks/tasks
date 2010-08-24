@@ -12,7 +12,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.model.Metadata;
 
 /**
@@ -21,7 +20,7 @@ import com.todoroo.astrid.model.Metadata;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class AlarmDetailExposer extends BroadcastReceiver implements DetailExposer {
+public class AlarmDetailExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -44,7 +43,6 @@ public class AlarmDetailExposer extends BroadcastReceiver implements DetailExpos
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    @Override
     public String getTaskDetails(Context context, long id, boolean extended) {
         if(extended)
             return null;
@@ -69,11 +67,6 @@ public class AlarmDetailExposer extends BroadcastReceiver implements DetailExpos
         } finally {
             cursor.close();
         }
-    }
-
-    @Override
-    public String getPluginIdentifier() {
-        return AlarmService.IDENTIFIER;
     }
 
 }

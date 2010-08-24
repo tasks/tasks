@@ -1,5 +1,7 @@
 package com.todoroo.astrid.service;
 
+import android.content.ContentValues;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -12,8 +14,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.Task;
@@ -133,6 +135,15 @@ public class TaskService {
     }
 
     /**
+     * Permanently delete the given task.
+     *
+     * @param model
+     */
+    public void purge(long taskId) {
+        taskDao.delete(taskId);
+    }
+
+    /**
      * Clean up tasks. Typically called on startup
      */
     public void cleanup() {
@@ -210,6 +221,18 @@ public class TaskService {
         } finally {
             cursor.close();
         }
+    }
+
+    /**
+     * Clear details cache. Useful if user performs some operation that
+     * affects details
+     *
+     * @return # of affected rows
+     */
+    public int clearDetails() {
+        ContentValues values = new ContentValues();
+        values.put(Task.DETAILS.name, (String) null);
+        return taskDao.updateMultiple(values, Criterion.all);
     }
 
     /**

@@ -116,10 +116,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 6;
     private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 7;
     private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 8;
-    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 9;
+    private static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 9;
+    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 10;
 
     /** menu code indicating the end of the context menu */
-    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 10;
+    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 11;
 
     // --- constants
 
@@ -479,9 +480,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 } else if(AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
                     String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
                     if(extras.getBoolean(AstridApiConstants.EXTRAS_EXTENDED))
-                        taskAdapter.detailManager.addNew(taskId, addOn, detail);
-                    else
                         taskAdapter.extendedDetailManager.addNew(taskId, addOn, detail);
+                    else
+                        taskAdapter.addDetails(taskId, detail);
                 } else if(AstridApiConstants.BROADCAST_SEND_ACTIONS.equals(intent.getAction())) {
                     TaskAction action = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.taskActionManager.addNew(taskId, addOn, action);
@@ -736,6 +737,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if(task.isDeleted()) {
             menu.add(id, CONTEXT_MENU_UNDELETE_TASK_ID, Menu.NONE,
                     R.string.TAd_contextUndeleteTask);
+
+            menu.add(id, CONTEXT_MENU_PURGE_TASK_ID, Menu.NONE,
+                    R.string.TAd_contextPurgeTask);
         } else {
             menu.add(id, CONTEXT_MENU_EDIT_TASK_ID, Menu.NONE,
                         R.string.TAd_contextEditTask);
@@ -841,6 +845,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             task.setId(itemId);
             task.setValue(Task.DELETION_DATE, 0L);
             taskService.save(task);
+            loadTaskListContent(true);
+            return true;
+        }
+
+        case CONTEXT_MENU_PURGE_TASK_ID: {
+            itemId = item.getGroupId();
+            taskService.purge(itemId);
             loadTaskListContent(true);
             return true;
         }

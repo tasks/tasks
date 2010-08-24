@@ -28,16 +28,21 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.common.TaskContainer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevBackgroundService;
+import com.todoroo.astrid.producteev.ProducteevFilterExposer;
 import com.todoroo.astrid.producteev.ProducteevLoginActivity;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
@@ -48,6 +53,7 @@ import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.rmilk.data.MilkNote;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 @SuppressWarnings("nls")
@@ -213,6 +219,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             long userId = user.getLong("id_user");
 
             String lastServerSync = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_SYNC);
+            String lastNotificationId = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION);
+            String lastActivityId = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY);
 
             // read dashboards
             JSONArray dashboards = invoker.dashboardsShowList(null);
@@ -260,12 +268,79 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
+            // notification/activities stuff
+            JSONArray notifications = invoker.activitiesShowNotifications(null, (lastNotificationId == null ? null : new Long(lastNotificationId)));
+            String[] notificationsList = parseActivities(notifications);
+            // update lastIds
+            if (notifications.length() > 0) {
+                lastNotificationId = ""+notifications.getJSONObject(0).getJSONObject("activity").getLong("id_activity");
+            }
+
+            // display notifications from producteev-log
+            Context context = ContextManager.getContext();
+            final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
+            for (int i = 0; i< notificationsList.length; i++) {
+                long id_dashboard = notifications.getJSONObject(i).getJSONObject("activity").getLong("id_dashboard");
+                String dashboardName = null;
+                StoreObject[] dashboardsData = ProducteevDataService.getInstance().getDashboards();
+                ProducteevDashboard dashboard = null;
+                if (dashboardsData != null) {
+                    for (int j=0; i<dashboardsData.length;i++) {
+                        long id = dashboardsData[j].getValue(ProducteevDashboard.REMOTE_ID);
+                        if (id == id_dashboard) {
+                            dashboardName = dashboardsData[j].getValue(ProducteevDashboard.NAME);
+                            dashboard = new ProducteevDashboard(id, dashboardName, null);
+                            break;
+                        }
+                    }
+                }
+                // it seems dashboard is null if we get a notification about an unknown dashboard, just filter it.
+                if (dashboard != null) {
+                    // initialize notification
+                    int icon = R.drawable.ic_producteev_notification;
+                    long when = System.currentTimeMillis();
+                    Notification notification = new Notification(icon, null, when);
+                    CharSequence contentTitle = context.getString(R.string.producteev_notification_title)+": "+dashboard.getName();
+
+                    Filter filter = ProducteevFilterExposer.filterFromList(context, dashboard);
+                    Intent notificationIntent = ShortcutActivity.createIntent(filter);
+
+                    // filter the tags from the message
+                    String message = notificationsList[i].replaceAll("<[^>]+>", "");
+                    PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+                    notification.setLatestEventInfo(context, contentTitle, message, contentIntent);
+
+                    nm.notify(Constants.NOTIFICATION_PRODUCTEEV_NOTIFICATIONS-i, notification);
+                }
+            }
+
+            // store lastIds in Preferences
+            Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION, lastNotificationId);
+            Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY, lastActivityId);
+
             FlurryAgent.onEvent("pdv-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
             handleException("pdv-sync", e, true); //$NON-NLS-1$
         }
+    }
+
+    /**
+     * @param activities
+     * @return
+     * @throws JSONException
+     */
+    private String[] parseActivities(JSONArray activities) throws JSONException {
+        int count = (activities == null ? 0 : activities.length());
+        String[] activitiesList = new String[count];
+        if(activities == null)
+            return activitiesList;
+        for(int i = 0; i < activities.length(); i++) {
+            String message = activities.getJSONObject(i).getJSONObject("activity").getString("message");
+            activitiesList[i] = ApiUtilities.decode(message);
+        }
+        return activitiesList;
     }
 
 
@@ -360,7 +435,10 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         task.setValue(Task.DELETION_DATE, remoteTask.getInt("deleted") == 1 ? DateUtilities.now() : 0);
 
         long dueDate = ApiUtilities.producteevToUnixTime(remoteTask.getString("deadline"), 0);
-        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueDate));
+        if(remoteTask.optInt("all_day", 0) == 1)
+            task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate));
+        else
+            task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueDate));
         task.setValue(Task.IMPORTANCE, 5 - remoteTask.getInt("star"));
 
         JSONArray labels = remoteTask.getJSONArray("labels");
@@ -454,8 +532,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             invoker.tasksSetTitle(idTask, local.task.getValue(Task.TITLE));
         if(shouldTransmit(local, Task.IMPORTANCE, remote))
             invoker.tasksSetStar(idTask, createStars(local.task));
-        if(shouldTransmit(local, Task.DUE_DATE, remote))
-            invoker.tasksSetDeadline(idTask, createDeadline(local.task));
+        if(shouldTransmit(local, Task.DUE_DATE, remote) && local.task.hasDueDate()) // temporary can't unset deadline
+            invoker.tasksSetDeadline(idTask, createDeadline(local.task), local.task.hasDueTime() ? 0 : 1);
         if(shouldTransmit(local, Task.COMPLETION_DATE, remote))
             invoker.tasksSetStatus(idTask, local.task.isCompleted() ? 2 : 1);
 
@@ -597,9 +675,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      */
     private String createDeadline(Task task) {
         if(!task.hasDueDate())
-            return null;
-        String time = ApiUtilities.unixTimeToProducteev(task.getValue(Task.DUE_DATE));
-        return time.substring(0, time.lastIndexOf(' '));
+            return "";
+        return ApiUtilities.unixTimeToProducteev(task.getValue(Task.DUE_DATE));
     }
 
     /**

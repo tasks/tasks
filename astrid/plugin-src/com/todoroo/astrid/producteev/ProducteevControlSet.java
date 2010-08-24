@@ -13,11 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -94,10 +94,10 @@ public class ProducteevControlSet implements TaskEditControlSet {
                                 dialog.cancel();
                             } else {
                                 // create the real dashboard, select it in the spinner and refresh responsiblespinner
-                                ProgressDialog progressDialog = null;
+                                ProgressDialog progressDialog = dialogUtilites.progressDialog(context,
+                                        context.getString(R.string.DLG_wait));
                                 try {
-                                    progressDialog = dialogUtilites.progressDialog(context,
-                                            context.getString(R.string.DLG_wait));
+                                    progressDialog.show();
                                     JSONObject newDashJSON = ProducteevSyncProvider.getInvoker().dashboardsCreate(newDashboardName).getJSONObject("dashboard");
                                     StoreObject local = ProducteevDataService.getInstance().updateDashboards(newDashJSON, true);
                                     if (local != null) {
