@@ -230,7 +230,7 @@ public class TaskService {
     public int clearDetails() {
         Task task = new Task();
         task.setValue(Task.DETAILS, null);
-        return taskDao.updateMultiple(task, Task.DETAILS.isNotNull());
+        return taskDao.updateMultiple(task, Criterion.all);
     }
 
     /**

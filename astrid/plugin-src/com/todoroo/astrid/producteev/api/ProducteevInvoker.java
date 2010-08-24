@@ -242,14 +242,16 @@ public class ProducteevInvoker {
      *
      * @param idTask
      * @param deadline
+     * @param allDay  (optional), 1: all day task (time specified in deadline will be ignored), 0: deadline with time
      *
      * @return array tasks/view
      */
-    public JSONObject tasksSetDeadline(long idTask, String deadline) throws ApiServiceException, IOException {
+    public JSONObject tasksSetDeadline(long idTask, String deadline, Integer allDay) throws ApiServiceException, IOException {
         return callAuthenticated("tasks/set_deadline.json",
                 "token", token,
                 "id_task", idTask,
-                "deadline", deadline);
+                "deadline", deadline,
+                "all_day", allDay);
     }
 
     /**

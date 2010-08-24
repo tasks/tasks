@@ -519,7 +519,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         if(shouldTransmit(local, Task.IMPORTANCE, remote))
             invoker.tasksSetStar(idTask, createStars(local.task));
         if(shouldTransmit(local, Task.DUE_DATE, remote))
-            invoker.tasksSetDeadline(idTask, createDeadline(local.task));
+            invoker.tasksSetDeadline(idTask, createDeadline(local.task), local.task.hasDueTime() ? 0 : 1);
         if(shouldTransmit(local, Task.COMPLETION_DATE, remote))
             invoker.tasksSetStatus(idTask, local.task.isCompleted() ? 2 : 1);
 
@@ -661,7 +661,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      */
     private String createDeadline(Task task) {
         if(!task.hasDueDate())
-            return null;
+            return "";
         if(!task.hasDueTime())
             return ApiUtilities.unixDateToProducteev(task.getValue(Task.DUE_DATE));
         String time = ApiUtilities.unixTimeToProducteev(task.getValue(Task.DUE_DATE));
