@@ -13,6 +13,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
@@ -319,8 +320,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         String details;
-        if(tasksToLoad.containsKey(task.getId()))
-            details = tasksToLoad.get(task.getId()).getValue(Task.DETAILS);
+        if(taskDetailLoader.containsKey(task.getId()))
+            details = taskDetailLoader.get(task.getId()).toString();
         else
             details = task.getValue(Task.DETAILS);
         if(TextUtils.isEmpty(details)) {
@@ -374,19 +375,26 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * ============================================================== details
      * ====================================================================== */
 
-    private final Map<Long, Task> tasksToLoad = Collections.synchronizedMap(new HashMap<Long, Task>());
+    // implementation note: this map is really costly if users have
+    // a large number of tasks to load, since it all goes into memory.
+    // it's best to do this, though, in order to append details to each other
+    private final Map<Long, StringBuilder> taskDetailLoader = Collections.synchronizedMap(new HashMap<Long, StringBuilder>());
+
+    private final Task taskDetailContainer = new Task();
 
     public class DetailLoaderThread extends Thread {
         @Override
         public void run() {
             // for all of the tasks returned by our cursor, verify details
             TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
-                    query.get(), null, Task.ID, Task.DETAILS);
+                    query.get(), null, Task.ID, Task.DETAILS, Task.COMPLETION_DATE);
             activity.startManagingCursor(fetchCursor);
             Task task = new Task();
             for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                 task.clear();
                 task.readFromCursor(fetchCursor);
+                if(task.isCompleted())
+                    continue;
                 if(!task.containsNonNullValue(Task.DETAILS)) {
                     System.err.println("READING details for " + task.getId());
 
@@ -395,8 +403,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
                     activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
-                    Task loadHolder = new Task(fetchCursor);
-                    tasksToLoad.put(task.getId(), loadHolder);
+                    taskDetailLoader.put(task.getId(), new StringBuilder());
 
                     task.setValue(Task.DETAILS, ""); //$NON-NLS-1$
                     taskService.save(task);
@@ -412,23 +419,27 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @param detail
      */
     public void addDetails(long id, String detail) {
-        final Task task = tasksToLoad.get(id);
-        if(task == null)
+        final StringBuilder details = taskDetailLoader.get(id);
+        if(details == null)
             return;
-        String newDetails = task.getValue(Task.DETAILS);
-        if(TextUtils.isEmpty(newDetails))
-            newDetails = detail;
-        else if(newDetails.contains(detail))
-            return;
-        else
-            newDetails += DETAIL_SEPARATOR + detail;
-        task.setValue(Task.DETAILS, newDetails);
-        taskService.save(task);
+        synchronized(details) {
+            if(details.toString().contains(detail))
+                return;
+            if(details.length() > 0)
+                details.append(DETAIL_SEPARATOR);
+            details.append(detail);
+            taskDetailContainer.setId(id);
+            taskDetailContainer.setValue(Task.DETAILS, details.toString());
+            taskService.save(taskDetailContainer);
+        }
 
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
+                ListView listView = activity.getListView();
+                int scrollPos = listView.getScrollY();
                 notifyDataSetInvalidated();
+                listView.scrollTo(0, scrollPos);
             }
         });
     }
@@ -569,7 +580,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 for(View view : viewHolder.decorations)
                     viewHolder.taskRow.removeView(view);
             }
-            viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
+            if(taskId == expanded)
+                viewHolder.view.setBackgroundColor(Color.argb(20, 255, 255, 255));
+            else
+                viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
         }
     }
 

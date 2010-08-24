@@ -847,9 +847,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         case CONTEXT_MENU_PURGE_TASK_ID: {
             itemId = item.getGroupId();
-            Task task = new Task();
-            task.setId(itemId);
-            taskService.delete(task);
+            taskService.purge(itemId);
             loadTaskListContent(true);
             return true;
         }

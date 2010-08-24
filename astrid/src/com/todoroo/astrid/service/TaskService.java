@@ -133,6 +133,15 @@ public class TaskService {
     }
 
     /**
+     * Permanently delete the given task.
+     *
+     * @param model
+     */
+    public void purge(long taskId) {
+        taskDao.delete(taskId);
+    }
+
+    /**
      * Clean up tasks. Typically called on startup
      */
     public void cleanup() {
