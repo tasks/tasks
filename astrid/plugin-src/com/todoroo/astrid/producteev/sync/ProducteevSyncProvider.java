@@ -598,8 +598,6 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     private String createDeadline(Task task) {
         if(!task.hasDueDate())
             return null;
-        if(!task.hasDueTime())
-            return ApiUtilities.unixDateToProducteev(task.getValue(Task.DUE_DATE));
         String time = ApiUtilities.unixTimeToProducteev(task.getValue(Task.DUE_DATE));
         return time.substring(0, time.lastIndexOf(' '));
     }
