@@ -396,8 +396,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 if(task.isCompleted())
                     continue;
                 if(!task.containsNonNullValue(Task.DETAILS)) {
-                    System.err.println("READING details for " + task.getId());
-
                     Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
                     broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
                     broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
