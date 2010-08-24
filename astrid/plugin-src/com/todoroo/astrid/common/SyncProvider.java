@@ -304,6 +304,12 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
         length = data.remoteUpdated.size();
         for(int i = 0; i < length; i++) {
             TYPE remote = data.remoteUpdated.get(i);
+
+            // don't synchronize new & deleted / completed tasks
+            if(!remote.task.isSaved() && (remote.task.isDeleted() ||
+                    remote.task.isCompleted()))
+                continue;
+
             try {
                 write(remote);
             } catch (Exception e) {
