@@ -376,6 +376,12 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
+    <receiver android:name="com.todoroo.astrid.producteev.ProducteevSyncActionExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
     
     <!-- rmilk -->
     <receiver android:name="com.todoroo.astrid.rmilk.MilkFilterExposer">
@@ -407,6 +413,12 @@
     <receiver android:name="com.todoroo.astrid.rmilk.MilkDetailExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
+    <receiver android:name="com.todoroo.astrid.rmilk.MilkSyncActionExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    

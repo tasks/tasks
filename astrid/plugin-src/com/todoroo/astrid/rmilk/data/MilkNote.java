@@ -46,7 +46,7 @@ public class MilkNote {
     /**
      * Turn a note's title and text into a string
      * @param title
-     * @param text
+     * @param label
      * @return
      */
     @SuppressWarnings("nls")

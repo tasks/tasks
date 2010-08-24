@@ -133,17 +133,16 @@ public class AstridApiConstants {
 
     /**
      * Action name for broadcast intent requesting a listing of active
-     * sync providers users can activate from the menu
+     * sync actions users can activate from the menu
      */
-    public static final String BROADCAST_REQUEST_SYNC_PROVDERS = PACKAGE + ".REQUEST_SYNC_PROVIDERS";
+    public static final String BROADCAST_REQUEST_SYNC_ACTIONS = PACKAGE + ".REQUEST_SYNC_ACTIONS";
 
     /**
      * Action name for broadcast intent sending sync provider information back to Astrid
      * @extra EXTRAS_ADDON your add-on identifier
-     * @extra EXTRAS_NAME label for your sync provider
-     * @extra EXTRAS_RESPONSE a PendingIntent to invoke synchronization
+     * @extra EXTRAS_RESPONSE a {@link SyncAction} to invoke synchronization
      */
-    public static final String BROADCAST_SEND_SYNC_PROVIDER = PACKAGE + ".SEND_SYNC_PROVIDER";
+    public static final String BROADCAST_SEND_SYNC_ACTIONS = PACKAGE + ".SEND_SYNC_ACTIONS";
 
     // --- Task Actions API
 
