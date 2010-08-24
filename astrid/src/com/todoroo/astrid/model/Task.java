@@ -215,7 +215,7 @@ public final class Task extends AbstractModel {
 
     // --- parcelable helpers
 
-    private static final Creator<Task> CREATOR = new ModelCreator<Task>(Task.class);
+    public static final Creator<Task> CREATOR = new ModelCreator<Task>(Task.class);
 
     @Override
     protected Creator<? extends AbstractModel> getCreator() {

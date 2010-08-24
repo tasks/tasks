@@ -68,6 +68,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     public static final String DETAIL_SEPARATOR = " | "; //$NON-NLS-1$
 
+    public static final String BROADCAST_EXTRA_TASK = "model"; //$NON-NLS-1$
+
     // --- other constants
 
     /** Properties that need to be read from the action item */
@@ -80,6 +82,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.HIDE_UNTIL,
         Task.DELETION_DATE,
         Task.DETAILS,
+        Task.ELAPSED_SECONDS,
+        Task.TIMER_START,
     };
 
     private static int[] IMPORTANCE_COLORS = null;
@@ -265,8 +269,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(hiddenUntil > DateUtilities.now())
                 nameValue = r.getString(R.string.TAd_hiddenFormat, nameValue);
             nameView.setText(nameValue);
-            viewHolder.nameView.setFocusable(false);
-            viewHolder.nameView.setClickable(false);
+
+            nameView.setMovementMethod(null);
             Linkify.addLinks(nameView, Linkify.ALL);
         }
 
@@ -467,8 +471,19 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         extendedDetailManager.clearCache();
         decorationManager.clearCache();
         taskActionManager.clearCache();
+        taskDetailLoader.clear();
         detailLoader = new DetailLoaderThread();
         detailLoader.start();
+    }
+
+    /**
+     * Called to tell the cache to be cleared
+     */
+    public void flushSpecific(long taskId) {
+        extendedDetailManager.clearCache(taskId);
+        decorationManager.clearCache(taskId);
+        taskActionManager.clearCache(taskId);
+        taskDetailLoader.remove(taskId);
     }
 
     /**
@@ -483,9 +498,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         @Override
-        Intent createBroadcastIntent(long taskId) {
+        Intent createBroadcastIntent(Task task) {
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, true);
             return broadcastIntent;
         }
@@ -536,10 +551,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      */
     public class DecorationManager extends AddOnManager<TaskDecoration> {
         @Override
-        Intent createBroadcastIntent(long taskId) {
+        Intent createBroadcastIntent(Task task) {
             Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DECORATIONS);
-            intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+            intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+            intent.putExtra(BROADCAST_EXTRA_TASK, task);
             return intent;
+        }
+
+        @Override
+        public void addNew(long taskId, String addOn, TaskDecoration item) {
+            super.addNew(taskId, addOn, item);
         }
 
         @Override
@@ -550,6 +571,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             reset(viewHolder, taskId);
             if(decorations.size() == 0)
                 return;
+
 
             int i = 0;
             boolean colorSet = false;
@@ -600,9 +622,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     LayoutParams.FILL_PARENT, 1f);
 
         @Override
-        Intent createBroadcastIntent(long taskId) {
+        Intent createBroadcastIntent(Task task) {
             Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
-            intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+            intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
             return intent;
         }
 
@@ -620,14 +642,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 editButton.setLayoutParams(params);
                 viewHolder.actions.addView(editButton);
             }
-            if(actions.size() + 1 < viewHolder.actions.getChildCount())
-                viewHolder.actions.removeViews(0, viewHolder.actions.getChildCount() -
-                        actions.size() - 1);
+            for(int i = actions.size() + 1; i < viewHolder.actions.getChildCount(); i++) {
+                viewHolder.actions.getChildAt(i).setVisibility(View.GONE);
+            }
 
             int i = 0;
             Button button = (Button) viewHolder.actions.getChildAt(i++);
 
             button.setText(R.string.TAd_actionEditTask);
+            button.setVisibility(View.VISIBLE);
             button.setOnClickListener(new OnClickListener() {
                 @Override
                 public void onClick(View arg0) {
@@ -640,7 +663,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             for(TaskAction action : actions) {
                 button = (Button) viewHolder.actions.getChildAt(i++);
                 button.setText(action.text);
-                button.setOnClickListener(new ActionClickListener(action));
+                button.setVisibility(View.VISIBLE);
+                button.setOnClickListener(new ActionClickListener(action, viewHolder));
             }
 
             reset(viewHolder, taskId);
@@ -680,19 +704,25 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     };
 
     private final class ActionClickListener implements View.OnClickListener {
-        TaskAction action;
+        private final TaskAction action;
+        private final ViewHolder viewHolder;
 
-        public ActionClickListener(TaskAction action) {
+        public ActionClickListener(TaskAction action, ViewHolder viewHolder) {
             this.action = action;
+            this.viewHolder = viewHolder;
         }
 
         public void onClick(View v) {
+            flushSpecific(viewHolder.task.getId());
             try {
                 action.intent.send();
             } catch (Exception e) {
                 exceptionService.displayAndReportError(activity,
                         "Error launching action", e); //$NON-NLS-1$
             }
+            decorationManager.request(viewHolder);
+            extendedDetailManager.request(viewHolder);
+            taskActionManager.request(viewHolder);
         }
     };
 
@@ -808,13 +838,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             // request details
             draw(viewHolder, taskId, get(taskId));
-            Intent broadcastIntent = createBroadcastIntent(taskId);
+            Intent broadcastIntent = createBroadcastIntent(viewHolder.task);
             activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
             return true;
         }
 
         /** creates a broadcast intent for requesting */
-        abstract Intent createBroadcastIntent(long taskId);
+        abstract Intent createBroadcastIntent(Task task);
 
         /** updates the given view */
         abstract void draw(ViewHolder viewHolder, long taskId, Collection<TYPE> list);
@@ -847,6 +877,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
          */
         public void clearCache() {
             cache.clear();
+        }
+
+        /**
+         * Clears single item from cache
+         */
+        public void clearCache(long taskId) {
+            cache.remove(taskId);
         }
 
         // --- internal goodies

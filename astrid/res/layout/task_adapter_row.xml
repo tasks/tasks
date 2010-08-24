@@ -72,6 +72,18 @@
         android:visibility="gone"
         android:paddingTop="4dip"
         android:paddingLeft="4dip"
-        android:orientation="horizontal" />
+        android:orientation="horizontal">
+        
+        <Button
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1" />
+          
+        <Button
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1" />
+          
+    </LinearLayout>
             
 </LinearLayout>
