@@ -357,9 +357,14 @@ public class RTMSyncProvider extends SyncProvider<RTMTaskContainer> {
     private void addTasksToList(RtmTasks tasks, ArrayList<RTMTaskContainer> list) {
         for (RtmTaskList taskList : tasks.getLists()) {
             for (RtmTaskSeries taskSeries : taskList.getSeries()) {
-                RTMTaskContainer remoteTask = parseRemoteTask(taskSeries);
-                dataService.findLocalMatch(remoteTask);
-                list.add(remoteTask);
+                RTMTaskContainer remote = parseRemoteTask(taskSeries);
+
+                // update reminder flags for incoming remote tasks to prevent annoying
+                if(remote.task.hasDueDate() && remote.task.getValue(Task.DUE_DATE) < DateUtilities.now())
+                    remote.task.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
+
+                dataService.findLocalMatch(remote);
+                list.add(remote);
             }
         }
     }

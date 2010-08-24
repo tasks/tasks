@@ -228,6 +228,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 JSONArray tasks = invoker.tasksShowList(dashboardId, lastServerSync);
                 for(int i = 0; i < tasks.length(); i++) {
                     ProducteevTaskContainer remote = parseRemoteTask(tasks.getJSONObject(i));
+                    // update reminder flags for incoming remote tasks to prevent annoying
+                    if(remote.task.hasDueDate() && remote.task.getValue(Task.DUE_DATE) < DateUtilities.now())
+                        remote.task.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
                     boolean foundLocal = dataService.findLocalMatch(remote);
 
                     // if creator & responsible != current user, skip / delete it
