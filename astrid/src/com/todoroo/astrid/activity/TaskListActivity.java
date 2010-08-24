@@ -2,9 +2,9 @@ package com.todoroo.astrid.activity;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.AlertDialog;
@@ -25,26 +25,26 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -182,13 +182,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         else
             setContentView(R.layout.task_list_activity_api3);
 
-        Bundle extras = getIntent().getExtras();
-        if(extras != null && extras.containsKey(TOKEN_FILTER)) {
-            filter = extras.getParcelable(TOKEN_FILTER);
-        } else {
-            filter = CoreFilterExposer.buildInboxFilter(getResources());
-        }
-
         if(database == null)
             return;
 
@@ -202,6 +195,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+
+        Bundle extras = intent.getExtras();
+        if(extras != null && extras.containsKey(TOKEN_FILTER)) {
+            filter = extras.getParcelable(TOKEN_FILTER);
+        } else {
+            filter = CoreFilterExposer.buildInboxFilter(getResources());
+        }
+
         setUpTaskList();
         if(Constants.DEBUG)
             setTitle("[D] " + filter.title); //$NON-NLS-1$
@@ -277,8 +278,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 startActivity(intent);
             }
         });
-
-        ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
 
         // set listener for quick-changing task priority
         getListView().setOnKeyListener(new OnKeyListener() {
@@ -570,6 +569,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         sqlQueryTemplate.set(SortSelectionActivity.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
 
+        ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
+
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
                 sqlQueryTemplate.get(), null, TaskAdapter.PROPERTIES);
@@ -851,6 +852,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             ReminderService.getInstance().setScheduler(new AlarmScheduler() {
                 @Override
                 public void createAlarm(Task theTask, long time, int type) {
+                    if(time == 0 || time == Long.MAX_VALUE)
+                        return;
+
                     Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " + //$NON-NLS-1$
                             new Date(time), Toast.LENGTH_LONG).show();
                     ReminderService.getInstance().setScheduler(null);

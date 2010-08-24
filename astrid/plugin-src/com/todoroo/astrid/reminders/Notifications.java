@@ -147,7 +147,7 @@ public class Notifications extends BroadcastReceiver {
 
         Intent notifyIntent = new Intent(context, NotificationActivity.class);
         notifyIntent.putExtra(NotificationActivity.TOKEN_ID, id);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 
         showNotification((int)id, notifyIntent, type, title, text, nonstopMode);
         return true;

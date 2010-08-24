@@ -57,7 +57,7 @@ public class TasksWidget extends AppWidgetProvider {
             // Start in service to prevent Application Not Responding timeout
             updateWidgets(context);
         } catch (Exception e) {
-            Log.e("astrid-update-widget", "widget update error", e); //$NON-NLS-1$
+            Log.e("astrid-update-widget", "widget update error", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 

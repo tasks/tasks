@@ -316,6 +316,7 @@
               android:taskAffinity="com.todoroo.astrid.reminders.NotificationActivity"
               android:launchMode="singleTask"
               android:screenOrientation="portrait"
+              android:finishOnTaskLaunch="true"
               android:clearTaskOnLaunch="true" />
               
     <!-- producteev -->
