@@ -20,10 +20,12 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
+import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
+import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.rmilk.MilkBackgroundService;
 import com.todoroo.astrid.rmilk.MilkUtilities;
 import com.todoroo.astrid.utility.Constants;
@@ -113,6 +115,15 @@ public class StartupService {
 
                 database.openForWriting();
                 taskService.cleanup();
+
+                // schedule alarms
+                try {
+                    ReminderService.getInstance().scheduleAllAlarms();
+                    AlarmService.getInstance().scheduleAllAlarms();
+                } catch (Exception e) {
+                    DependencyInjectionService.getInstance().inject(this);
+                    exceptionService.reportError("reminder-startup", e); //$NON-NLS-1$
+                }
             }
         }).start();
 
