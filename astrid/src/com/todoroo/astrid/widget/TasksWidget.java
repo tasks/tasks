@@ -147,7 +147,7 @@ public class TasksWidget extends AppWidgetProvider {
                         filter.sqlQuery, flags, sort) + " LIMIT " + numberOfTasks;
 
                 database.openForReading();
-                cursor = taskService.fetchFiltered(query, null, Task.TITLE, Task.DUE_DATE);
+                cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);
                 Task task = new Task();
                 for (int i = 0; i < cursor.getCount() && i < numberOfTasks; i++) {
                     cursor.moveToPosition(i);
@@ -157,7 +157,10 @@ public class TasksWidget extends AppWidgetProvider {
                     int textColor = Color.WHITE;
 
                     textContent = task.getValue(Task.TITLE);
-                    if(task.hasDueDate() && task.getValue(Task.DUE_DATE) < DateUtilities.now())
+
+                    if(task.isCompleted())
+                        textColor = context.getResources().getColor(R.color.task_list_done);
+                    else if(task.hasDueDate() && task.getValue(Task.DUE_DATE) < DateUtilities.now())
                         textColor = context.getResources().getColor(R.color.task_list_overdue);
 
                     if(i > 0)
