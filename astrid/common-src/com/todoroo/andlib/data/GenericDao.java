@@ -204,8 +204,7 @@ public class GenericDao<TYPE extends AbstractModel> {
      * @param criterion
      * @return returns true on success.
      */
-    public int updateMultiple(TYPE item, Criterion criterion) {
-        ContentValues values = item.getSetValues();
+    public int updateMultiple(ContentValues values, Criterion criterion) {
         if(values.size() == 0) // nothing changed
             return 0;
         return database.update(table.name, values, criterion.toString(), null);

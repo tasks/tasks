@@ -14,9 +14,10 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -122,6 +123,18 @@ public class EditPreferences extends TodorooPreferences {
         getPreferenceScreen().addPreference(group);
 
         Preference preference = new Preference(this);
+        preference.setTitle("Flush detail cache");
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference p) {
+                database.openForWriting();
+                Toast.makeText(EditPreferences.this, "" + taskService.clearDetails(),
+                        Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
+        group.addPreference(preference);
+
+        preference = new Preference(this);
         preference.setTitle("Make Lots of Tasks");
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference p) {

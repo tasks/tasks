@@ -159,7 +159,7 @@ public class TaskDao extends GenericDao<Task> {
 
         // clear task detail cache
         if(values != null && !values.containsKey(Task.DETAILS.name))
-            values.put(Task.DETAILS.name, (String)null);
+            values.put(Task.DETAILS.name, ""); //$NON-NLS-1$
 
         if (task.getId() == Task.NO_ID) {
             saveSuccessful = createNew(task);

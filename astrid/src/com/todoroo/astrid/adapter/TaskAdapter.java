@@ -43,7 +43,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.SoftHashMap;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -266,6 +265,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(hiddenUntil > DateUtilities.now())
                 nameValue = r.getString(R.string.TAd_hiddenFormat, nameValue);
             nameView.setText(nameValue);
+            viewHolder.nameView.setFocusable(false);
+            viewHolder.nameView.setClickable(false);
             Linkify.addLinks(nameView, Linkify.ALL);
         }
 
@@ -324,7 +325,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             details = taskDetailLoader.get(task.getId()).toString();
         else
             details = task.getValue(Task.DETAILS);
-        if(TextUtils.isEmpty(details)) {
+        if(TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details)) {
             viewHolder.details.setVisibility(View.GONE);
         } else {
             viewHolder.details.setVisibility(View.VISIBLE);
@@ -366,9 +367,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         // tap listener
         container.setOnClickListener(listener);
-
-        viewHolder.nameView.setFocusable(false);
-        viewHolder.nameView.setClickable(false);
     }
 
     /* ======================================================================
@@ -389,23 +387,27 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
                     query.get(), null, Task.ID, Task.DETAILS, Task.COMPLETION_DATE);
             activity.startManagingCursor(fetchCursor);
-            Task task = new Task();
-            for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
-                task.clear();
-                task.readFromCursor(fetchCursor);
-                if(task.isCompleted())
-                    continue;
-                if(!task.containsNonNullValue(Task.DETAILS)) {
-                    Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-                    broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-                    broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-                    activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            try {
+                Task task = new Task();
+                for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
+                    task.clear();
+                    task.readFromCursor(fetchCursor);
+                    if(task.isCompleted())
+                        continue;
+                    if(TextUtils.isEmpty(task.getValue(Task.DETAILS))) {
+                        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
+                        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+                        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
+                        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
-                    taskDetailLoader.put(task.getId(), new StringBuilder());
+                        taskDetailLoader.put(task.getId(), new StringBuilder());
 
-                    task.setValue(Task.DETAILS, ""); //$NON-NLS-1$
-                    taskService.save(task);
+                        task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
+                        taskService.save(task);
+                    }
                 }
+            } catch (Exception e) {
+                // suppress silently
             }
         }
     }
@@ -787,7 +789,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     abstract public class AddOnManager<TYPE> {
 
         private final Map<Long, HashMap<String, TYPE>> cache =
-            new SoftHashMap<Long, HashMap<String, TYPE>>();
+            new HashMap<Long, HashMap<String, TYPE>>();
 
         // --- interface
 

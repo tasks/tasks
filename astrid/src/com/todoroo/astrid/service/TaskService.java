@@ -1,5 +1,7 @@
 package com.todoroo.astrid.service;
 
+import android.content.ContentValues;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -228,9 +230,9 @@ public class TaskService {
      * @return # of affected rows
      */
     public int clearDetails() {
-        Task task = new Task();
-        task.setValue(Task.DETAILS, null);
-        return taskDao.updateMultiple(task, Criterion.all);
+        ContentValues values = new ContentValues();
+        values.put(Task.DETAILS.name, (String) null);
+        return taskDao.updateMultiple(values, Criterion.all);
     }
 
     /**
