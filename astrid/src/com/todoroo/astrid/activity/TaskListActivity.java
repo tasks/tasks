@@ -277,7 +277,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                         FilterListActivity.class);
                 startActivity(intent);
                 if(AndroidUtilities.getSdkVersion() >= 5) {
-                    overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+                    //overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
                 }
             }
         });
@@ -889,7 +889,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                     FilterListActivity.class);
             startActivity(intent);
             if(AndroidUtilities.getSdkVersion() >= 5) {
-                overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+                // overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
             }
         }
     }

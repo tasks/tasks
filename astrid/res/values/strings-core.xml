@@ -519,6 +519,9 @@ to the plugin creator for fastest service.
   <!-- Sync Notification: toast when sync activated from activity -->
   <string name="SyP_progress_toast">Synchronizing...</string>
   
+  <!-- Sync Label: used in menu to denote synchronization -->
+  <string name="SyP_label">Synchronization</string>
+  
   <!-- ====================================================== TasksWidget == -->
 
   <!-- Widget text when loading tasks -->

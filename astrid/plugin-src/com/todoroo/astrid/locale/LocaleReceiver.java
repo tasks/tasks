@@ -11,6 +11,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
@@ -51,6 +52,7 @@ public class LocaleReceiver extends BroadcastReceiver {
 
                 final String title = intent.getStringExtra(LocaleEditAlerts.KEY_FILTER_TITLE);
                 final String sql = intent.getStringExtra(LocaleEditAlerts.KEY_SQL);
+                final String values = intent.getStringExtra(LocaleEditAlerts.KEY_VALUES);
                 final int interval = intent.getIntExtra(LocaleEditAlerts.KEY_INTERVAL, 24*3600);
 
                 if(TextUtils.isEmpty(title) || TextUtils.isEmpty(sql) ||
@@ -74,6 +76,10 @@ public class LocaleReceiver extends BroadcastReceiver {
                 try {
                     if(cursor.getCount() == 0)
                         return;
+
+                    if(values != null)
+                        filter.valuesForNewTasks = AndroidUtilities.contentValuesFromSerializedString(values);
+
                     Resources r = context.getResources();
                     String reminder = r.getString(R.string.locale_notification).
                             replace("$NUM", r.getQuantityString(R.plurals.Ntasks,

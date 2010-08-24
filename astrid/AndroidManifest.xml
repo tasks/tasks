@@ -330,7 +330,7 @@
               android:icon="@drawable/ic_menu_producteev"
               android:label="@string/producteev_PPr_header">
       <intent-filter>   
-        <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />
+        <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
       <intent-filter>
@@ -360,7 +360,7 @@
               android:icon="@drawable/ic_menu_refresh"
               android:label="@string/rmilk_MPr_header">
       <intent-filter>   
-        <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />
+        <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
       <intent-filter>

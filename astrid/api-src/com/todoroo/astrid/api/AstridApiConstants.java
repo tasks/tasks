@@ -62,6 +62,11 @@ public class AstridApiConstants {
      */
     public static final String EXTRAS_NEW_DUE_DATE = "newDueDate";
 
+    /**
+     * Extras name for sync provider name
+     */
+    public static final String EXTRAS_NAME = "name";
+
     // --- Add-ons API
 
     /**
@@ -123,6 +128,22 @@ public class AstridApiConstants {
      * @extra EXTRAS_RESPONSE a String
      */
     public static final String BROADCAST_SEND_DETAILS = PACKAGE + ".SEND_DETAILS";
+
+    // --- Sync Provider API
+
+    /**
+     * Action name for broadcast intent requesting a listing of active
+     * sync providers users can activate from the menu
+     */
+    public static final String BROADCAST_REQUEST_SYNC_PROVDERS = PACKAGE + ".REQUEST_SYNC_PROVIDERS";
+
+    /**
+     * Action name for broadcast intent sending sync provider information back to Astrid
+     * @extra EXTRAS_ADDON your add-on identifier
+     * @extra EXTRAS_NAME label for your sync provider
+     * @extra EXTRAS_RESPONSE a PendingIntent to invoke synchronization
+     */
+    public static final String BROADCAST_SEND_SYNC_PROVIDER = PACKAGE + ".SEND_SYNC_PROVIDER";
 
     // --- Task Actions API
 

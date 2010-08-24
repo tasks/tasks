@@ -29,6 +29,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.producteev.ProducteevPreferences;
+import com.todoroo.astrid.rmilk.MilkPreferences;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
@@ -92,6 +94,12 @@ public class EditPreferences extends TodorooPreferences {
             preference.setIntent(intent);
 
             String application = resolveInfo.activityInfo.applicationInfo.loadLabel(pm).toString();
+
+            // temporary overrides
+            if(ProducteevPreferences.class.getName().equals(resolveInfo.activityInfo.name) ||
+                    MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name))
+                application = getString(R.string.SyP_label);
+
             if(!applicationPreferences.containsKey(application))
                 applicationPreferences.put(application, new ArrayList<Preference>());
             ArrayList<Preference> arrayList = applicationPreferences.get(application);
