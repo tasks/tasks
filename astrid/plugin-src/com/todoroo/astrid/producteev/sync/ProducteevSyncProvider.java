@@ -35,7 +35,6 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.common.SyncProvider;
 import com.todoroo.astrid.common.TaskContainer;
 import com.todoroo.astrid.model.Metadata;

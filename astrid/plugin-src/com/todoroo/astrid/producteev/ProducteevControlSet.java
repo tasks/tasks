@@ -13,11 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -98,11 +98,12 @@ public class ProducteevControlSet implements TaskEditControlSet {
                                         context.getString(R.string.DLG_wait));
                                 try {
                                     progressDialog.show();
-                                    JSONObject newDashJSON = ProducteevSyncProvider.getInvoker().dashboardsCreate(newDashboardName).getJSONObject("dashboard");
+                                    JSONObject newDashJSON = ProducteevSyncProvider.getInvoker().dashboardsCreate(
+                                            newDashboardName).getJSONObject("dashboard"); //$NON-NLS-1$
                                     StoreObject local = ProducteevDataService.getInstance().updateDashboards(newDashJSON, true);
                                     if (local != null) {
                                         ProducteevDashboard newDashboard = new ProducteevDashboard(local);
-                                        ArrayAdapter adapter = (ArrayAdapter) dashSelector.getAdapter();
+                                        ArrayAdapter<ProducteevDashboard> adapter = (ArrayAdapter<ProducteevDashboard>) dashSelector.getAdapter();
                                         adapter.insert(newDashboard, adapter.getCount()-1);
                                         dashSelector.setSelection(adapter.getCount()-2);
                                         refreshResponsibleSpinner(newDashboard.getUsers());
@@ -114,8 +115,8 @@ public class ProducteevControlSet implements TaskEditControlSet {
                                             context.getString(R.string.DLG_error, e.getMessage()),
                                             new OnClickListener() {
                                                 @Override
-                                                public void onClick(DialogInterface dialog, int which) {
-                                                    dialog.dismiss();
+                                                public void onClick(DialogInterface theDialog, int theWhich) {
+                                                    theDialog.dismiss();
                                                 }
                                             });
                                     e.printStackTrace();
