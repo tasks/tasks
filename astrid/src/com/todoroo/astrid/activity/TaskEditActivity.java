@@ -75,7 +75,6 @@ import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gcal.GCalControlSet;
-import com.todoroo.astrid.model.AddOn;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevControlSet;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
@@ -252,8 +251,7 @@ public final class TaskEditActivity extends TabActivity {
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
 
         try {
-            AddOn producteevAddon = addOnService.getAddOn(AddOnService.PRODUCTEEV_PACKAGE, "Producteev"); //$NON-NLS-1$
-            if (addOnService.isInstalled(producteevAddon) && ProducteevUtilities.INSTANCE.isLoggedIn()) {
+            if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
                 controls.add(new ProducteevControlSet(this, addonsAddons));
                 ((TextView)findViewById(R.id.notes)).setHint(R.string.producteev_TEA_notes);
                 ((TextView)findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);

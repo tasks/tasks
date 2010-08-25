@@ -42,9 +42,6 @@ public class AddOnService {
     /** Astrid Locale package */
     public static final String LOCALE_PACKAGE = "com.todoroo.astrid.locale";
 
-    /** Astrid Producteev package */
-    public static final String PRODUCTEEV_PACKAGE = "com.todoroo.astrid.producteev";
-
     /** Astrid Power Pack label */
     public static final String POWER_PACK_LABEL = "Astrid Power Pack";
 
@@ -171,7 +168,7 @@ public class AddOnService {
             return true;
         if(LOCALE_PACKAGE.equals(packageName))
             return true;
-        if(PRODUCTEEV_PACKAGE.equals(packageName))
+        if(Constants.PACKAGE.equals(packageName))
             return true;
 
         Context context = ContextManager.getContext();
@@ -234,7 +231,7 @@ public class AddOnService {
 
         list[2] = new AddOn(true, true, "Producteev", null,
                 "Synchronize with Producteev service. Also changes Astrid's importance levels to stars.",
-                PRODUCTEEV_PACKAGE, "http://www.producteev.com",
+                Constants.PACKAGE, "http://www.producteev.com",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_producteev)).getBitmap());
 
         list[3] = new AddOn(true, true, "Remember the Milk", null,
