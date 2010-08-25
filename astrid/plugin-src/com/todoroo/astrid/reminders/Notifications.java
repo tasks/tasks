@@ -112,7 +112,7 @@ public class Notifications extends BroadcastReceiver {
     public boolean showTaskNotification(long id, int type, String reminder) {
         Task task;
         try {
-            task = taskDao.fetch(id, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
+            task = taskDao.fetch(id, Task.ID, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
                     Task.DELETION_DATE, Task.REMINDER_FLAGS);
             if(task == null)
                 throw new IllegalArgumentException("cound not find item with id"); //$NON-NLS-1$
