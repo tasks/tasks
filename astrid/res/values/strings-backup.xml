@@ -56,6 +56,8 @@
   <string name="backup_TXI_error">Import Error</string>
     
   <string name="export_toast">Backed Up %s to %s.</string>
+    
+  <string name="export_toast_no_tasks">No Tasks to Export.</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Exporting...</string>

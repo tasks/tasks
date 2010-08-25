@@ -50,7 +50,7 @@ public class TasksXmlExporter {
     private static final int FORMAT = 2;
 
     private final Context context;
-    private int exportCount;
+    private int exportCount = 0;
     private XmlSerializer xml;
     private final TaskService taskService = PluginServices.getTaskService();
     private final MetadataService metadataService = PluginServices.getMetadataService();
@@ -93,7 +93,11 @@ public class TasksXmlExporter {
                 try {
                     String output = setupFile(BackupConstants.getExportDirectory(),
                             isService);
-                    doTasksExport(output);
+                    int tasks = taskService.countTasks();
+
+                    if(tasks > 0)
+                        doTasksExport(output);
+
                     Preferences.setLong(BackupPreferences.PREF_BACKUP_LAST_DATE,
                             DateUtilities.now());
                     Preferences.setString(BackupPreferences.PREF_BACKUP_LAST_ERROR, null);
@@ -270,12 +274,17 @@ public class TasksXmlExporter {
         handler.post(new Runnable() {
             @Override
             public void run() {
-                CharSequence text = String.format(context.getString(R.string.export_toast),
-                        context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
-                                exportCount), outputFile);
-                Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-                if(progressDialog.isShowing())
-                    progressDialog.dismiss();
+
+                if(exportCount == 0)
+                    Toast.makeText(context, context.getString(R.string.export_toast_no_tasks), Toast.LENGTH_LONG).show();
+                else {
+                    CharSequence text = String.format(context.getString(R.string.export_toast),
+                            context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
+                                    exportCount), outputFile);
+                    Toast.makeText(context, text, Toast.LENGTH_LONG).show();
+                    if(progressDialog.isShowing())
+                        progressDialog.dismiss();
+                }
             }
         });
     }

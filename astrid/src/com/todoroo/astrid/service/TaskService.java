@@ -256,6 +256,21 @@ public class TaskService {
         }
     }
 
+    /**
+     * Count tasks overall
+     * @param filter
+     * @return
+     */
+    public int countTasks() {
+        TodorooCursor<Task> cursor = query(Query.select(Task.ID));
+        try {
+            return cursor.getCount();
+        } finally {
+            cursor.close();
+        }
+    }
+
+    /** count tasks in a given filter */
     public int countTasks(Filter filter) {
         String queryTemplate = PermaSql.replacePlaceholders(filter.sqlQuery);
         TodorooCursor<Task> cursor = query(Query.select(Task.ID).withQueryTemplate(
