@@ -122,9 +122,6 @@ public class Notifications extends BroadcastReceiver {
             return false;
         }
 
-        // schedule next notification
-        ReminderService.getInstance().scheduleAlarm(task);
-
         // you're done - don't sound, do delete
         if(task.isCompleted() || task.isDeleted())
             return false;
@@ -140,6 +137,9 @@ public class Notifications extends BroadcastReceiver {
         // update last reminder time
         task.setValue(Task.REMINDER_LAST, DateUtilities.now());
         taskDao.saveExisting(task);
+
+        // schedule next notification
+        ReminderService.getInstance().scheduleAlarm(task);
 
         Context context = ContextManager.getContext();
         String title = context.getString(R.string.app_name);

@@ -13,20 +13,19 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.text.TextUtils;
 import android.text.Html.ImageGetter;
+import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -603,7 +602,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     viewHolder.taskRow.removeView(view);
             }
             if(taskId == expanded)
-                viewHolder.view.setBackgroundColor(Color.argb(20, 255, 255, 255));
+                viewHolder.view.setBackgroundResource(R.drawable.list_selector_highlighted);
             else
                 viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
         }
