@@ -16,6 +16,7 @@ import com.todoroo.astrid.dao.Database;
 
 public final class UpgradeService {
 
+    private static final int V3_2_6 = 153;
     private static final int V3_2_5 = 152;
     private static final int V3_2_4 = 151;
     private static final int V3_2_3 = 150;
@@ -110,8 +111,12 @@ public final class UpgradeService {
                     "If you liked the old version, you can also go back by " +
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
+        if(from > V3_1_0 && from <= V3_2_6)
+            newVersionString(changeLog, "3.2.7 (8/25/10)", new String[] {
+                    "Fixed: crazy notifications for overdue tasks! :(",
+            });
         if(from > V3_1_0 && from <= V3_2_5)
-            newVersionString(changeLog, "3.2.6 (8/24/10)", new String[] {
+            newVersionString(changeLog, "3.2.7 (8/24/10)", new String[] {
                     "RTM: fix for login popping up randomly, not syncing priority",
                     "Sync: added a 'Sync Now!' button to the menu, moved options to Settings",
                     "Improvements to notification code to remind you of missed notifications",

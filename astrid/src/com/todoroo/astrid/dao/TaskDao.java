@@ -225,10 +225,14 @@ public class TaskDao extends GenericDao<Task> {
      * @param skipHooks whether this save occurs as part of a sync
      */
     private void afterSave(Task task, ContentValues values) {
-        if(values != null && values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
-            afterComplete(task, values);
-        else
-            ReminderService.getInstance().scheduleAlarm(task);
+        if(values != null) {
+            if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
+                afterComplete(task, values);
+            else if(values.containsKey(Task.DUE_DATE.name) ||
+                    values.containsKey(Task.REMINDER_FLAGS.name) ||
+                    values.containsKey(Task.REMINDER_PERIOD.name))
+                ReminderService.getInstance().scheduleAlarm(task);
+        }
 
         Astrid2TaskProvider.notifyDatabaseModification();
         TasksWidget.updateWidgets(ContextManager.getContext());

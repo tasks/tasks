@@ -199,7 +199,7 @@ public final class ReminderService  {
     private long calculateNextOverdueReminder(Task task) {
         if(task.hasDueDate() && task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE)) {
             long dueDate = task.getValue(Task.DUE_DATE);
-            long lastReminder = task.getValue(Task.REMINDER_LAST);;
+            long lastReminder = task.getValue(Task.REMINDER_LAST);
 
             if(dueDate > DateUtilities.now())
                 return dueDate + (long)((0.5f + 2f * random.nextFloat()) * DateUtilities.ONE_HOUR);
@@ -233,18 +233,26 @@ public final class ReminderService  {
             long dueDate = task.getValue(Task.DUE_DATE);
             long lastReminder = task.getValue(Task.REMINDER_LAST);;
 
-            if(lastReminder > dueDate)
-                return NO_ALARM;
-            else if(task.hasDueTime())
+            long dueDateAlarm;
+
+            if(task.hasDueTime())
                 // return due date straight up
-                return dueDate;
+                dueDateAlarm = dueDate;
             else {
                 // return notification time on this day
                 Date date = new Date(dueDate);
                 date.setHours(Preferences.getIntegerFromString(R.string.p_rmd_time, 12));
                 date.setMinutes(0);
-                return date.getTime();
+                dueDateAlarm = date.getTime();
             }
+
+            if(lastReminder > dueDateAlarm)
+                return NO_ALARM;
+
+            if(dueDate > DateUtilities.now() && dueDateAlarm < DateUtilities.now())
+                dueDateAlarm = dueDate;
+
+            return dueDateAlarm;
         }
         return NO_ALARM;
     }
