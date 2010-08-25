@@ -60,7 +60,6 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        populateFilter(getIntent());
         super.onCreate(savedInstanceState);
 
         displayNotificationPopup();

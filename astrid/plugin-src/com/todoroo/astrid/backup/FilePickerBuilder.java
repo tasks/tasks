@@ -2,9 +2,6 @@ package com.todoroo.astrid.backup;
 
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -12,6 +9,7 @@ import android.content.DialogInterface;
 import android.util.Log;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
 
 @SuppressWarnings("nls")
 public class FilePickerBuilder extends AlertDialog.Builder implements DialogInterface.OnClickListener {
@@ -46,11 +44,14 @@ public class FilePickerBuilder extends AlertDialog.Builder implements DialogInte
     private void setPath(File path) {
         if (path != null && path.exists()) {
             this.path = path.getAbsolutePath();
-            // Reverse the order of the file list so newest time-stamped file is first.
-            List<String> fileList = Arrays.asList(path.list(filter));
-            Collections.sort(fileList);
-            Collections.reverse(fileList);
-            files = (String[]) fileList.toArray();
+
+            File[] filesAsFile = path.listFiles(filter);
+            AndroidUtilities.sortFilesByDateDesc(filesAsFile);
+
+            files = new String[filesAsFile.length];
+            for(int i = 0; i < files.length; i++)
+                files[i] = filesAsFile[i].getName();
+
             setItems(files, this);
         } else {
             Log.e("FilePicker", "Cannot access sdcard.");

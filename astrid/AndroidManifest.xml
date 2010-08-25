@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="3.2.5 (build your own filters, easy sorting, customizable widget, ui improvements)" 
-          android:versionCode="152">
+          android:versionName="3.2.7 (bug fixes and ui improvements)" 
+          android:versionCode="154">
           
   <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
   <!--    android:installLocation="internalOnly"> -->
@@ -196,6 +196,12 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
+    <receiver android:name="com.todoroo.astrid.alarms.AlarmDetailExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
     
     <!-- tags -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
@@ -207,6 +213,12 @@
     <receiver android:name="com.todoroo.astrid.tags.TagFilterExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    <receiver android:name="com.todoroo.astrid.tags.TagDetailExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
@@ -224,6 +236,12 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
+    <receiver android:name="com.todoroo.astrid.repeats.RepeatDetailExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
     
     <!-- calendar -->
     <receiver android:name="com.todoroo.astrid.gcal.GCalTaskCompleteListener">
@@ -262,6 +280,12 @@
     </receiver>
     
     <!-- notes -->
+    <receiver android:name="com.todoroo.astrid.notes.NoteDetailExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
     
     <!-- locale -->
     <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
@@ -323,6 +347,7 @@
               android:taskAffinity="com.todoroo.astrid.reminders.NotificationActivity"
               android:launchMode="singleTask"
               android:screenOrientation="portrait"
+              android:finishOnTaskLaunch="true"
               android:clearTaskOnLaunch="true" />
               
     <!-- producteev -->
@@ -336,7 +361,7 @@
               android:icon="@drawable/ic_menu_producteev"
               android:label="@string/producteev_PPr_header">
       <intent-filter>   
-        <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />
+        <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
       <intent-filter>
@@ -344,11 +369,7 @@
       </intent-filter>
     </activity>
     <activity android:name="com.todoroo.astrid.producteev.ProducteevLoginActivity"
-              android:theme="@style/Theme">
-      <intent-filter> <!-- temporary -->   
-        <action android:name="android.intent.action.MAIN" />
-      </intent-filter>
-    </activity>
+              android:theme="@style/Theme" />
     <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService"/>
     <receiver android:name="com.todoroo.astrid.producteev.ProducteevStartupReceiver">
       <intent-filter>
@@ -356,6 +377,18 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
+    <receiver android:name="com.todoroo.astrid.producteev.ProducteevDetailExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
+    <receiver android:name="com.todoroo.astrid.producteev.ProducteevSyncActionExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
     
   </application>
 

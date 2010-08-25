@@ -40,7 +40,7 @@ public final class Constants {
     /**
      * Upgrade time
      */
-    public static final Date UPGRADE = new Date(110, 8, 1);
+    public static final Date UPGRADE = new Date(110, 9, 1);
 
     // --- notification id's
 
@@ -52,5 +52,8 @@ public final class Constants {
 
     /** Notification Manager id for locale */
     public static final int NOTIFICATION_LOCALE = -3;
+
+    /** Notification Manager id for producteev notifications*/
+    public static final int NOTIFICATION_PRODUCTEEV_NOTIFICATIONS = -4;
 
 }

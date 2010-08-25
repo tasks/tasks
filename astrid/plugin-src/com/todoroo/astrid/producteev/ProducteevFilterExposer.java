@@ -3,8 +3,8 @@
  */
 package com.todoroo.astrid.producteev;
 
-import java.util.Map.Entry;
 import java.util.TreeMap;
+import java.util.Map.Entry;
 
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
@@ -39,7 +39,7 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
     /**
      * @param context
      */
-    private Filter filterFromList(Context context, ProducteevDashboard dashboard) {
+    public static Filter filterFromList(Context context, ProducteevDashboard dashboard) {
         String dashboardTitle = dashboard.getName();
         String title = dashboard.getName();
         ContentValues values = new ContentValues();

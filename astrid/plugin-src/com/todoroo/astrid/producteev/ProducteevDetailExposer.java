@@ -7,10 +7,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
@@ -26,7 +26,7 @@ import com.todoroo.astrid.utility.Preferences;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class ProducteevDetailExposer extends BroadcastReceiver implements DetailExposer{
+public class ProducteevDetailExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -51,7 +51,6 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    @Override
     public String getTaskDetails(Context context, long id, boolean extended) {
         Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(id);
         if(metadata == null)
@@ -64,6 +63,9 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
             long responsibleId = -1;
             if(metadata.containsNonNullValue(ProducteevTask.RESPONSIBLE_ID))
                 responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);
+            long creatorId = -1;
+            if(metadata.containsNonNullValue(ProducteevTask.CREATOR_ID))
+                creatorId = metadata.getValue(ProducteevTask.CREATOR_ID);
 
             // display dashboard if not "no sync" or "default"
             StoreObject ownerDashboard = null;
@@ -86,14 +88,21 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
             // display responsible user if not current one
             if(responsibleId > 0 && ownerDashboard != null && responsibleId !=
                     Preferences.getLong(ProducteevUtilities.PREF_USER_ID, 0L)) {
-                String users = ";" + ownerDashboard.getValue(ProducteevDashboard.USERS); //$NON-NLS-1$
-                int index = users.indexOf(";" + responsibleId + ","); //$NON-NLS-1$ //$NON-NLS-2$
-                if(index > -1) {
-                    String user = users.substring(users.indexOf(',', index) + 1,
-                            users.indexOf(';', index + 1));
+                String user = getUserFromDashboard(ownerDashboard, responsibleId);
+                if(user != null)
                     builder.append("<img src='silk_user_gray'/> ").append(user).append(TaskAdapter.DETAIL_SEPARATOR); //$NON-NLS-1$
-                }
             }
+
+            // display creator user if not the current one
+            if(creatorId > 0 && ownerDashboard != null && creatorId !=
+                    Preferences.getLong(ProducteevUtilities.PREF_USER_ID, 0L)) {
+                String user = getUserFromDashboard(ownerDashboard, creatorId);
+                if(user != null)
+                    builder.append("<img src='silk_user_orange'/> ").append( //$NON-NLS-1$
+                            context.getString(R.string.producteev_PDE_task_from, user)).
+                            append(TaskAdapter.DETAIL_SEPARATOR);
+            }
+
         } else {
             TodorooCursor<Metadata> notesCursor = ProducteevDataService.getInstance().getTaskNotesCursor(id);
             try {
@@ -112,9 +121,14 @@ public class ProducteevDetailExposer extends BroadcastReceiver implements Detail
         return result.substring(0, result.length() - TaskAdapter.DETAIL_SEPARATOR.length());
     }
 
-    @Override
-    public String getPluginIdentifier() {
-        return ProducteevUtilities.IDENTIFIER;
+    /** Try and find user in the dashboard. return null if un-findable */
+    private String getUserFromDashboard(StoreObject dashboard, long userId) {
+        String users = ";" + dashboard.getValue(ProducteevDashboard.USERS); //$NON-NLS-1$
+        int index = users.indexOf(";" + userId + ","); //$NON-NLS-1$ //$NON-NLS-2$
+        if(index > -1)
+            return users.substring(users.indexOf(',', index) + 1,
+                    users.indexOf(';', index + 1));
+        return null;
     }
 
 }

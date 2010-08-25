@@ -14,9 +14,10 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceClickListener;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -29,6 +30,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.producteev.ProducteevPreferences;
+import com.todoroo.astrid.rmilk.MilkPreferences;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
@@ -92,6 +95,12 @@ public class EditPreferences extends TodorooPreferences {
             preference.setIntent(intent);
 
             String application = resolveInfo.activityInfo.applicationInfo.loadLabel(pm).toString();
+
+            // temporary overrides
+            if(ProducteevPreferences.class.getName().equals(resolveInfo.activityInfo.name) ||
+                    MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name))
+                application = getString(R.string.SyP_label);
+
             if(!applicationPreferences.containsKey(application))
                 applicationPreferences.put(application, new ArrayList<Preference>());
             ArrayList<Preference> arrayList = applicationPreferences.get(application);
@@ -122,6 +131,18 @@ public class EditPreferences extends TodorooPreferences {
         getPreferenceScreen().addPreference(group);
 
         Preference preference = new Preference(this);
+        preference.setTitle("Flush detail cache");
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference p) {
+                database.openForWriting();
+                Toast.makeText(EditPreferences.this, "" + taskService.clearDetails(),
+                        Toast.LENGTH_LONG).show();
+                return false;
+            }
+        });
+        group.addPreference(preference);
+
+        preference = new Preference(this);
         preference.setTitle("Make Lots of Tasks");
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference p) {

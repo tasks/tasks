@@ -1,5 +1,6 @@
 package com.todoroo.astrid.service;
 
+import java.io.File;
 import java.util.List;
 
 import android.Manifest;
@@ -14,16 +15,22 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.alarms.AlarmService;
+import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
+import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
+import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 import com.todoroo.astrid.widget.TasksWidget.UpdateService;
@@ -54,6 +61,9 @@ public class StartupService {
 
     @Autowired
     TaskService taskService;
+
+    @Autowired
+    MetadataService metadataService;
 
     @Autowired
     Database database;
@@ -89,6 +99,8 @@ public class StartupService {
         Log.i("astrid", "Astrid Startup. " + latestSetVersion + //$NON-NLS-1$ //$NON-NLS-2$
                 " => " + version); //$NON-NLS-1$
 
+        databaseRestoreIfEmpty(context);
+
         // invoke upgrade service
         boolean justUpgraded = latestSetVersion != version;
         if(justUpgraded && version > 0) {
@@ -101,6 +113,7 @@ public class StartupService {
         // perform startup activities in a background thread
         new Thread(new Runnable() {
             public void run() {
+
                 // start widget updating alarm
                 AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
                 Intent intent = new Intent(context, UpdateService.class);
@@ -111,6 +124,15 @@ public class StartupService {
 
                 database.openForWriting();
                 taskService.cleanup();
+
+                // schedule alarms
+                try {
+                    ReminderService.getInstance().scheduleAllAlarms();
+                    AlarmService.getInstance().scheduleAllAlarms();
+                } catch (Exception e) {
+                    DependencyInjectionService.getInstance().inject(this);
+                    exceptionService.reportError("reminder-startup", e); //$NON-NLS-1$
+                }
             }
         }).start();
 
@@ -129,8 +151,35 @@ public class StartupService {
         hasStartedUp = true;
     }
 
+    /**
+     * If database exists, no tasks but metadata, and a backup file exists, restore it
+     */
+    private void databaseRestoreIfEmpty(Context context) {
+        try {
+            if(Preferences.getCurrentVersion() > 135 && !context.getDatabasePath(database.getName()).exists()) {
+                // we didn't have a database! restore latest file
+                File directory = BackupConstants.getExportDirectory();
+                if(!directory.exists())
+                    return;
+                File[] children = directory.listFiles();
+                AndroidUtilities.sortFilesByDateDesc(children);
+                if(children.length > 0) {
+                    FlurryAgent.onStartSession(context, Constants.FLURRY_KEY);
+                    TasksXmlImporter.importTasks(context, children[0].getAbsolutePath(), null);
+                    FlurryAgent.onEvent("lost-tasks-restored"); //$NON-NLS-1$
+                }
+            }
+        } catch (Exception e) {
+            Log.w("astrid-database-restore", e); //$NON-NLS-1$
+        }
+    }
+
     private static final String P_TASK_KILLER_HELP = "taskkiller"; //$NON-NLS-1$
 
+    /**
+     * Show task killer helper
+     * @param context
+     */
     private static void showTaskKillerHelp(final Context context) {
         if(!Preferences.getBoolean(P_TASK_KILLER_HELP, false))
             return;

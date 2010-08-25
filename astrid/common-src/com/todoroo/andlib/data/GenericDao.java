@@ -212,6 +212,20 @@ public class GenericDao<TYPE extends AbstractModel> {
         return result;
     }
 
+    /**
+     * Updates multiple rows of the database based on model set values
+     *
+     * @param item
+     *            item model
+     * @param criterion
+     * @return returns true on success.
+     */
+    public int updateMultiple(ContentValues values, Criterion criterion) {
+        if(values.size() == 0) // nothing changed
+            return 0;
+        return database.update(table.name, values, criterion.toString(), null);
+    }
+
     // --- helper methods
 
 

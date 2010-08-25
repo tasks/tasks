@@ -32,6 +32,9 @@ public class DialogUtilities {
     public void viewDialog(final Activity activity, final String text,
             final View view, final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
+        if(activity.isFinishing())
+            return;
+
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)
@@ -55,6 +58,9 @@ public class DialogUtilities {
      */
     public void okDialog(final Activity activity, final String text,
             final DialogInterface.OnClickListener okListener) {
+        if(activity.isFinishing())
+            return;
+
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)
@@ -76,6 +82,9 @@ public class DialogUtilities {
      */
     public void okDialog(final Activity activity, final int icon, final CharSequence text,
             final DialogInterface.OnClickListener okListener) {
+        if(activity.isFinishing())
+            return;
+
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)
@@ -100,6 +109,9 @@ public class DialogUtilities {
     public void okCancelDialog(final Activity activity, final String title,
             final String text, final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
+        if(activity.isFinishing())
+            return;
+
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)
@@ -124,6 +136,9 @@ public class DialogUtilities {
     public void okCancelDialog(final Activity activity, final String text,
             final DialogInterface.OnClickListener okListener,
             final DialogInterface.OnClickListener cancelListener) {
+        if(activity.isFinishing())
+            return;
+
         activity.runOnUiThread(new Runnable() {
             public void run() {
                 new AlertDialog.Builder(activity)

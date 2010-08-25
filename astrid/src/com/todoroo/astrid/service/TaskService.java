@@ -1,5 +1,7 @@
 package com.todoroo.astrid.service;
 
+import android.content.ContentValues;
+
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -133,6 +135,15 @@ public class TaskService {
     }
 
     /**
+     * Permanently delete the given task.
+     *
+     * @param model
+     */
+    public void purge(long taskId) {
+        taskDao.delete(taskId);
+    }
+
+    /**
      * Clean up tasks. Typically called on startup
      */
     public void cleanup() {
@@ -196,7 +207,7 @@ public class TaskService {
         return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
                 DateUtilities.now() + DateUtilities.ONE_WEEK,
                 Task.DUE_DATE) + " + 200000000 * " +
-                Task.IMPORTANCE + " + " + Task.COMPLETION_DATE);
+                Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
     }
 
     /**
@@ -210,6 +221,18 @@ public class TaskService {
         } finally {
             cursor.close();
         }
+    }
+
+    /**
+     * Clear details cache. Useful if user performs some operation that
+     * affects details
+     *
+     * @return # of affected rows
+     */
+    public int clearDetails() {
+        ContentValues values = new ContentValues();
+        values.put(Task.DETAILS.name, (String) null);
+        return taskDao.updateMultiple(values, Criterion.all);
     }
 
     /**
@@ -233,6 +256,21 @@ public class TaskService {
         }
     }
 
+    /**
+     * Count tasks overall
+     * @param filter
+     * @return
+     */
+    public int countTasks() {
+        TodorooCursor<Task> cursor = query(Query.select(Task.ID));
+        try {
+            return cursor.getCount();
+        } finally {
+            cursor.close();
+        }
+    }
+
+    /** count tasks in a given filter */
     public int countTasks(Filter filter) {
         String queryTemplate = PermaSql.replacePlaceholders(filter.sqlQuery);
         TodorooCursor<Task> cursor = query(Query.select(Task.ID).withQueryTemplate(

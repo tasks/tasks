@@ -15,6 +15,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
+import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -27,15 +28,20 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.TaskContainer;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.common.SyncProvider;
+import com.todoroo.astrid.common.TaskContainer;
 import com.todoroo.astrid.model.Metadata;
 import com.todoroo.astrid.model.StoreObject;
 import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.producteev.ProducteevBackgroundService;
+import com.todoroo.astrid.producteev.ProducteevFilterExposer;
 import com.todoroo.astrid.producteev.ProducteevLoginActivity;
 import com.todoroo.astrid.producteev.ProducteevPreferences;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
@@ -45,6 +51,7 @@ import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 @SuppressWarnings("nls")
@@ -74,7 +81,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     }
 
     // ----------------------------------------------------------------------
-    // ------------------------------------------------------- public methods
+    // ------------------------------------------------------ utility methods
     // ----------------------------------------------------------------------
 
     /**
@@ -84,15 +91,14 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         preferences.setToken(null);
         Preferences.setString(R.string.producteev_PPr_email, null);
         Preferences.setString(R.string.producteev_PPr_password, null);
+        Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_SYNC, null);
+        Preferences.setStringFromInteger(R.string.producteev_PPr_defaultdash_key,
+                ProducteevUtilities.DASHBOARD_DEFAULT);
         preferences.clearLastSyncDate();
 
         dataService = ProducteevDataService.getInstance();
         dataService.clearMetadata();
     }
-
-    // ----------------------------------------------------------------------
-    // ------------------------------------------------------- authentication
-    // ----------------------------------------------------------------------
 
     /**
      * Deal with a synchronization exception. If requested, will show an error
@@ -107,44 +113,40 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      *            whether to display a dialog
      */
     @Override
-    protected void handleException(String tag, Exception e, boolean showError) {
+    protected void handleException(String tag, Exception e, boolean displayError) {
+        final Context context = ContextManager.getContext();
         preferences.setLastError(e.toString());
+
+        String message = null;
 
         // occurs when application was closed
         if(e instanceof IllegalStateException) {
             exceptionService.reportError(tag + "-caught", e); //$NON-NLS-1$
 
-        // occurs when network error
+            // occurs when network error
         } else if(!(e instanceof ApiServiceException) && e instanceof IOException) {
-            exceptionService.reportError(tag + "-ioexception", e); //$NON-NLS-1$
-            if(showError) {
-                Context context = ContextManager.getContext();
-                showError(context, e, context.getString(R.string.producteev_ioerror));
-            }
+            message = context.getString(R.string.producteev_ioerror);
         } else {
+            message = context.getString(R.string.DLG_error, e.toString());
             exceptionService.reportError(tag + "-unhandled", e); //$NON-NLS-1$
-            if(showError) {
-                Context context = ContextManager.getContext();
-                showError(context, e, null);
-            }
+        }
+
+        if(displayError && context instanceof Activity && message != null) {
+            dialogUtilities.okDialog((Activity)context,
+                    message, null);
         }
     }
 
-    @Override
-    protected void initiate(Context context) {
-        dataService = ProducteevDataService.getInstance();
-
-        // authenticate the user. this will automatically call the next step
-        authenticate();
-    }
+    // ----------------------------------------------------------------------
+    // ------------------------------------------------------ initiating sync
+    // ----------------------------------------------------------------------
 
     /**
-     * Perform authentication with RTM. Will open the SyncBrowser if necessary
+     * initiate sync in background
      */
-    private void authenticate() {
-        FlurryAgent.onEvent("producteev-started");
-
-        preferences.recordSyncStart();
+    @Override
+    protected void initiateBackground(Service service) {
+        dataService = ProducteevDataService.getInstance();
 
         try {
             String authToken = preferences.getToken();
@@ -159,16 +161,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 performSync();
             } else {
                 if (email == null && password == null) {
-                    // display login-activity
-                    final Context context = ContextManager.getContext();
-                    Intent intent = new Intent(context, ProducteevLoginActivity.class);
-                    if(context instanceof Activity)
-                        ((Activity)context).startActivityForResult(intent, 0);
-                    else {
-                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        context.startActivity(intent);
-                        ProducteevUtilities.INSTANCE.stopOngoing();
-                    }
+                    // we can't do anything, user is not logged in
                 } else {
                     invoker.authenticate(email, password);
                     preferences.setToken(invoker.getToken());
@@ -176,11 +169,30 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 }
             }
         } catch (IllegalStateException e) {
-        	// occurs when application was closed
+            // occurs when application was closed
         } catch (Exception e) {
             handleException("pdv-authenticate", e, true);
         } finally {
             preferences.stopOngoing();
+        }
+    }
+
+    /**
+     * If user isn't already signed in, show sign in dialog. Else perform sync.
+     */
+    @Override
+    protected void initiateManual(Activity activity) {
+        String authToken = preferences.getToken();
+        ProducteevUtilities.INSTANCE.stopOngoing();
+
+        // check if we have a token & it works
+        if(authToken == null) {
+            // display login-activity
+            Intent intent = new Intent(activity, ProducteevLoginActivity.class);
+            activity.startActivityForResult(intent, 0);
+        } else {
+            activity.startService(new Intent(ProducteevBackgroundService.SYNC_ACTION, null,
+                    activity, ProducteevBackgroundService.class));
         }
     }
 
@@ -195,6 +207,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     // ----------------------------------------------------------------------
 
     protected void performSync() {
+        FlurryAgent.onEvent("producteev-started");
+        preferences.recordSyncStart();
+
         try {
             // load user information
             JSONObject user = invoker.usersView(null).getJSONObject("user");
@@ -202,9 +217,11 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             long userId = user.getLong("id_user");
 
             String lastServerSync = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_SYNC);
+            String lastNotificationId = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION);
+            String lastActivityId = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY);
 
             // read dashboards
-            JSONArray dashboards = invoker.dashboardsShowList(lastServerSync);
+            JSONArray dashboards = invoker.dashboardsShowList(null);
             dataService.updateDashboards(dashboards);
 
             // read labels and tasks for each dashboard
@@ -217,6 +234,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 JSONArray tasks = invoker.tasksShowList(dashboardId, lastServerSync);
                 for(int i = 0; i < tasks.length(); i++) {
                     ProducteevTaskContainer remote = parseRemoteTask(tasks.getJSONObject(i));
+                    // update reminder flags for incoming remote tasks to prevent annoying
+                    if(remote.task.hasDueDate() && remote.task.getValue(Task.DUE_DATE) < DateUtilities.now())
+                        remote.task.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
                     boolean foundLocal = dataService.findLocalMatch(remote);
 
                     // if creator & responsible != current user, skip / delete it
@@ -246,6 +266,56 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
+            // notification/activities stuff
+            JSONArray notifications = invoker.activitiesShowNotifications(null, (lastNotificationId == null ? null : new Long(lastNotificationId)));
+            String[] notificationsList = parseActivities(notifications);
+            // update lastIds
+            if (notifications.length() > 0) {
+                lastNotificationId = ""+notifications.getJSONObject(0).getJSONObject("activity").getLong("id_activity");
+            }
+
+            // display notifications from producteev-log
+            Context context = ContextManager.getContext();
+            final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
+            for (int i = 0; i< notificationsList.length; i++) {
+                long id_dashboard = notifications.getJSONObject(i).getJSONObject("activity").getLong("id_dashboard");
+                String dashboardName = null;
+                StoreObject[] dashboardsData = ProducteevDataService.getInstance().getDashboards();
+                ProducteevDashboard dashboard = null;
+                if (dashboardsData != null) {
+                    for (int j=0; i<dashboardsData.length;i++) {
+                        long id = dashboardsData[j].getValue(ProducteevDashboard.REMOTE_ID);
+                        if (id == id_dashboard) {
+                            dashboardName = dashboardsData[j].getValue(ProducteevDashboard.NAME);
+                            dashboard = new ProducteevDashboard(id, dashboardName, null);
+                            break;
+                        }
+                    }
+                }
+                // it seems dashboard is null if we get a notification about an unknown dashboard, just filter it.
+                if (dashboard != null) {
+                    // initialize notification
+                    int icon = R.drawable.ic_producteev_notification;
+                    long when = System.currentTimeMillis();
+                    Notification notification = new Notification(icon, null, when);
+                    CharSequence contentTitle = context.getString(R.string.producteev_notification_title)+": "+dashboard.getName();
+
+                    Filter filter = ProducteevFilterExposer.filterFromList(context, dashboard);
+                    Intent notificationIntent = ShortcutActivity.createIntent(filter);
+
+                    // filter the tags from the message
+                    String message = notificationsList[i].replaceAll("<[^>]+>", "");
+                    PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+                    notification.setLatestEventInfo(context, contentTitle, message, contentIntent);
+
+                    nm.notify(Constants.NOTIFICATION_PRODUCTEEV_NOTIFICATIONS-i, notification);
+                }
+            }
+
+            // store lastIds in Preferences
+            Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION, lastNotificationId);
+            Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY, lastActivityId);
+
             FlurryAgent.onEvent("pdv-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {
         	// occurs when application was closed
@@ -253,6 +323,24 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             handleException("pdv-sync", e, true); //$NON-NLS-1$
         }
     }
+
+    /**
+     * @param activities
+     * @return
+     * @throws JSONException
+     */
+    private String[] parseActivities(JSONArray activities) throws JSONException {
+        int count = (activities == null ? 0 : activities.length());
+        String[] activitiesList = new String[count];
+        if(activities == null)
+            return activitiesList;
+        for(int i = 0; i < activities.length(); i++) {
+            String message = activities.getJSONObject(i).getJSONObject("activity").getString("message");
+            activitiesList[i] = ApiUtilities.decode(message);
+        }
+        return activitiesList;
+    }
+
 
     // ----------------------------------------------------------------------
     // ------------------------------------------------------------ sync data
@@ -263,6 +351,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         long userId = user.getLong("id_user");
         Preferences.setLong(ProducteevUtilities.PREF_DEFAULT_DASHBOARD, defaultDashboard);
         Preferences.setLong(ProducteevUtilities.PREF_USER_ID, userId);
+
+        // save the default dashboard preference if unset
+        int defaultDashSetting = Preferences.getIntegerFromString(R.string.producteev_PPr_defaultdash_key,
+                ProducteevUtilities.DASHBOARD_DEFAULT);
+        if(defaultDashSetting == ProducteevUtilities.DASHBOARD_DEFAULT)
+            Preferences.setStringFromInteger(R.string.producteev_PPr_defaultdash_key, (int) defaultDashboard);
     }
 
     // all synchronized properties
@@ -302,6 +396,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         long dashboard = ProducteevUtilities.INSTANCE.getDefaultDashboard();
         if(local.pdvTask.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
             dashboard = local.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
+        long responsibleId = local.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID);
 
         if(dashboard == ProducteevUtilities.DASHBOARD_NO_SYNC) {
             // set a bogus task id, then return without creating
@@ -310,7 +405,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         }
 
         JSONObject response = invoker.tasksCreate(localTask.getValue(Task.TITLE),
-                null, dashboard, createDeadline(localTask), createReminder(localTask),
+                responsibleId, dashboard, createDeadline(localTask), createReminder(localTask),
                 localTask.isCompleted() ? 2 : 1, createStars(localTask));
         ProducteevTaskContainer newRemoteTask;
         try {
@@ -338,7 +433,10 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         task.setValue(Task.DELETION_DATE, remoteTask.getInt("deleted") == 1 ? DateUtilities.now() : 0);
 
         long dueDate = ApiUtilities.producteevToUnixTime(remoteTask.getString("deadline"), 0);
-        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueDate));
+        if(remoteTask.optInt("all_day", 0) == 1)
+            task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate));
+        else
+            task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueDate));
         task.setValue(Task.IMPORTANCE, 5 - remoteTask.getInt("star"));
 
         JSONArray labels = remoteTask.getJSONArray("labels");
@@ -386,6 +484,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     protected void push(ProducteevTaskContainer local, ProducteevTaskContainer remote) throws IOException {
         long idTask = local.pdvTask.getValue(ProducteevTask.ID);
         long idDashboard = local.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
+        long idResponsible = local.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID);
 
         // if local is marked do not sync, handle accordingly
         if(idDashboard == ProducteevUtilities.DASHBOARD_NO_SYNC) {
@@ -420,13 +519,19 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             remote = create(local);
         }
 
+        // responsible
+        if(remote != null && idResponsible !=
+                remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID)) {
+            invoker.tasksSetResponsible(idTask, idResponsible);
+        }
+
         // core properties
         if(shouldTransmit(local, Task.TITLE, remote))
             invoker.tasksSetTitle(idTask, local.task.getValue(Task.TITLE));
         if(shouldTransmit(local, Task.IMPORTANCE, remote))
             invoker.tasksSetStar(idTask, createStars(local.task));
-        if(shouldTransmit(local, Task.DUE_DATE, remote))
-            invoker.tasksSetDeadline(idTask, createDeadline(local.task));
+        if(shouldTransmit(local, Task.DUE_DATE, remote) && local.task.hasDueDate()) // temporary can't unset deadline
+            invoker.tasksSetDeadline(idTask, createDeadline(local.task), local.task.hasDueTime() ? 0 : 1);
         if(shouldTransmit(local, Task.COMPLETION_DATE, remote))
             invoker.tasksSetStatus(idTask, local.task.isCompleted() ? 2 : 1);
 
@@ -575,11 +680,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      */
     private String createDeadline(Task task) {
         if(!task.hasDueDate())
-            return null;
-        if(!task.hasDueTime())
-            return ApiUtilities.unixDateToProducteev(task.getValue(Task.DUE_DATE));
-        String time = ApiUtilities.unixTimeToProducteev(task.getValue(Task.DUE_DATE));
-        return time.substring(0, time.lastIndexOf(' '));
+            return "";
+        return ApiUtilities.unixTimeToProducteev(task.getValue(Task.DUE_DATE));
     }
 
     /**

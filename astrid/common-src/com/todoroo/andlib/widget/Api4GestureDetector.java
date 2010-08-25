@@ -34,7 +34,7 @@ public class Api4GestureDetector implements OnGesturePerformedListener {
         if (predictions.size() > 0) {
             Prediction prediction = predictions.get(0);
             // We want at least some confidence in the result
-            if (prediction.score > 1.0) {
+            if (prediction.score > 2.0) {
                 listener.gesturePerformed(prediction.name);
             }
         }

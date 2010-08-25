@@ -19,6 +19,14 @@
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:gravity="top"
+        android:visibility="gone"
+        android:textSize="10sp" />
+      
+    <TextView android:id="@+id/label"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="top"
         android:textSize="10sp" />
         
 </LinearLayout>

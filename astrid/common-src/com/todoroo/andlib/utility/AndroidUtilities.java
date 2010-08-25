@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Map.Entry;
 
 import android.app.Activity;
@@ -23,8 +25,8 @@ import android.text.InputType;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.todoroo.andlib.service.Autowired;
@@ -355,6 +357,18 @@ public class AndroidUtilities {
                 Log.e("ERROR", "ERROR COPYING DB " + db, e); //$NON-NLS-1$ //$NON-NLS-2$
             }
         }
+    }
+
+    /**
+     * Sort files by date so the newest file is on top
+     * @param files
+     */
+    public static void sortFilesByDateDesc(File[] files) {
+        Arrays.sort(files, new Comparator<File>() {
+            public int compare(File o1, File o2) {
+                return Long.valueOf(o2.lastModified()).compareTo(Long.valueOf(o1.lastModified()));
+            }
+        });
     }
 
     /**

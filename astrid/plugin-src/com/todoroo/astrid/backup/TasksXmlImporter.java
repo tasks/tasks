@@ -41,6 +41,7 @@ import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.utility.Flags;
 
 public class TasksXmlImporter {
 
@@ -145,6 +146,7 @@ public class TasksXmlImporter {
                 }
             }
         } finally {
+            Flags.set(Flags.REFRESH);
             handler.post(new Runnable() {
                 @Override
                 public void run() {

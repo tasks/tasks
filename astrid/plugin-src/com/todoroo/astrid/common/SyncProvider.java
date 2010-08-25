@@ -11,20 +11,16 @@ import java.util.HashMap;
 
 import android.app.Activity;
 import android.app.Notification;
+import android.app.Service;
 import android.content.Context;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.NotificationManager;
-import com.todoroo.astrid.api.TaskContainer;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Flags;
 
 /**
  * A helper class for writing synchronization services for Astrid. This class
@@ -42,13 +38,23 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
     // --- abstract methods - your services should implement these
 
     /**
-     * Perform authenticate and other pre-synchronization steps, then
-     * synchronize.
+     * Perform log in (launching activity if necessary) and sync. This is
+     * invoked when users manually request synchronization
      *
-     * @param context
-     *            either the parent activity, or a background service
+     * @param activity
+     *            context
      */
-    abstract protected void initiate(Context context);
+    abstract protected void initiateManual(Activity activity);
+
+    /**
+     * Perform synchronize. Since this can be called from background services,
+     * you should not open up new activities. Instead, if the user is not signed
+     * in, your service should do nothing.
+     *
+     * @param service
+     *            context
+     */
+    abstract protected void initiateBackground(Service service);
 
     /**
      * Updates the text of a notification and the intent to open when tapped
@@ -128,14 +134,9 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
 
     // --- implementation
 
-    @Autowired
-    private ExceptionService exceptionService;
-
     private final Notification notification;
 
     public SyncProvider() {
-        DependencyInjectionService.getInstance().inject(this);
-
         // initialize notification
         int icon = android.R.drawable.stat_notify_sync;
         long when = System.currentTimeMillis();
@@ -153,34 +154,24 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
                             Toast.LENGTH_LONG).show();
                 }
             });
-        }
+            initiateManual((Activity)context);
+        } else if(context instanceof Service) {
+            // display notification
+            updateNotification(context, notification);
+            final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
+            nm.notify(Constants.NOTIFICATION_SYNC, notification);
 
-        // display notification
-        updateNotification(context, notification);
-        final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
-        nm.notify(Constants.NOTIFICATION_SYNC, notification);
-
-        // start next step in background thread
-        new Thread(new Runnable() {
-            public void run() {
-                try {
-                    initiate(context);
-                } finally {
-                    nm.cancel(Constants.NOTIFICATION_SYNC);
+            // start next step in background thread
+            new Thread(new Runnable() {
+                public void run() {
+                    try {
+                        initiateBackground((Service)context);
+                    } finally {
+                        nm.cancel(Constants.NOTIFICATION_SYNC);
+                    }
                 }
-            }
-        }).start();
-    }
-
-    // --- utilities
-
-    /**
-     * Utility method for showing synchronization errors. If message is null,
-     * the contents of the throwable is displayed. It is assumed that the error
-     * was logged separately.
-     */
-    protected void showError(final Context context, Throwable e, String message) {
-        exceptionService.displayAndReportError(context, message, e);
+            }).start();
+        }
     }
 
     // --- synchronization logic
@@ -304,14 +295,18 @@ public abstract class SyncProvider<TYPE extends TaskContainer> {
         length = data.remoteUpdated.size();
         for(int i = 0; i < length; i++) {
             TYPE remote = data.remoteUpdated.get(i);
+
+            // don't synchronize new & deleted / completed tasks
+            if(!remote.task.isSaved() && (remote.task.isDeleted() ||
+                    remote.task.isCompleted()))
+                continue;
+
             try {
                 write(remote);
             } catch (Exception e) {
                 handleException("sync-remote-updated", e, false); //$NON-NLS-1$
             }
         }
-
-        Flags.set(Flags.REFRESH);
     }
 
     // --- helper classes

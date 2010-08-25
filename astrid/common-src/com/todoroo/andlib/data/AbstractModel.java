@@ -337,7 +337,12 @@ public abstract class AbstractModel implements Parcelable {
 
         public synchronized void save(Property<?> property, ContentValues newStore, Object value) {
             this.store = newStore;
-            property.accept(this, value);
+
+            // we don't allow null values, as they indicate unset properties
+            // when the database was written
+
+            if(value != null)
+                property.accept(this, value);
         }
 
         public Void visitDouble(Property<Double> property, Object value) {

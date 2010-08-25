@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.activity.AddOnActivity;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
@@ -43,6 +44,10 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
     /** key name for filter SQL in bundle */
     @SuppressWarnings("nls")
     public static final String KEY_SQL = "sql";
+
+    /** key name for filter content-values in bundle */
+    @SuppressWarnings("nls")
+    public static final String KEY_VALUES = "val";
 
     /** key name for interval (integer, # of seconds) */
     @SuppressWarnings("nls")
@@ -262,6 +267,8 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
                 Filter filterItem = (Filter) selected;
                 storeAndForwardExtras.putString(KEY_FILTER_TITLE, filterItem.title);
                 storeAndForwardExtras.putString(KEY_SQL, filterItem.sqlQuery);
+                if(filterItem.valuesForNewTasks != null)
+                    storeAndForwardExtras.putString(KEY_VALUES, AndroidUtilities.contentValuesToSerializedString(filterItem.valuesForNewTasks));
                 storeAndForwardExtras.putInt(KEY_INTERVAL, INTERVALS[intervalIndex]);
 
                 returnIntent.putExtra(com.twofortyfouram.Intent.EXTRA_BUNDLE, storeAndForwardExtras);

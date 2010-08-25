@@ -58,6 +58,7 @@ import android.widget.LinearLayout;
 import android.widget.RemoteViews;
 import android.widget.Spinner;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -74,10 +75,10 @@ import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.gcal.GCalControlSet;
-import com.todoroo.astrid.model.AddOn;
 import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevControlSet;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
+import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.MetadataService;
@@ -250,9 +251,10 @@ public final class TaskEditActivity extends TabActivity {
         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
 
         try {
-            AddOn producteevAddon = addOnService.getAddOn(AddOnService.PRODUCTEEV_PACKAGE, "Producteev"); //$NON-NLS-1$
-            if (addOnService.isInstalled(producteevAddon) && ProducteevUtilities.INSTANCE.isLoggedIn()) {
+            if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
                 controls.add(new ProducteevControlSet(this, addonsAddons));
+                ((TextView)findViewById(R.id.notes)).setHint(R.string.producteev_TEA_notes);
+                ((TextView)findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
             }
         } catch (Exception e) {
             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -357,6 +359,9 @@ public final class TaskEditActivity extends TabActivity {
             finish();
             return;
         }
+
+        // clear notification
+        Notifications.cancelNotifications(model.getId());
     }
 
     /** Populate UI component values from the model */
@@ -790,7 +795,7 @@ public final class TaskEditActivity extends TabActivity {
                     Task.URGENCY_TOMORROW);
             String dayAfterTomorrow = DateUtils.getDayOfWeekString(
                     new Date(DateUtilities.now() + 2 * DateUtilities.ONE_DAY).getDay() +
-                    Calendar.SUNDAY, 0);
+                    Calendar.SUNDAY, DateUtils.FORMAT_ABBREV_ALL);
             urgencyValues[3] = new UrgencyValue(dayAfterTomorrow,
                     Task.URGENCY_DAY_AFTER);
             urgencyValues[4] = new UrgencyValue(labels[4],

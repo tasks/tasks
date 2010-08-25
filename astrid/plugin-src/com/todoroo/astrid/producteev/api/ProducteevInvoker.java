@@ -111,6 +111,31 @@ public class ProducteevInvoker {
                 "since", since), "dashboards");
     }
 
+    /**
+     * create a dasbhoard
+     *
+     * @param name
+     * @return the new created dashboard as JSONObject
+     */
+    public JSONObject dashboardsCreate(String name) throws ApiServiceException, IOException {
+        return callAuthenticated("dashboards/create.json",
+                    "token", token,
+                    "title", name);
+    }
+
+    /**
+     * return the list of users who can access a specific dashboard
+     *
+     * @param idDashboard
+     * @param dashboard array-information about the dashboard, if this ...
+     */
+    public JSONArray dashboardsAccess(long idDashboard, String dashboard) throws ApiServiceException, IOException {
+        return getResponse(callAuthenticated("dashboards/access.json",
+                    "token", token,
+                    "id_dashboard", idDashboard,
+                    "dashboard", dashboard),"dashboard");
+    }
+
     // --- tasks
 
     /**
@@ -217,14 +242,16 @@ public class ProducteevInvoker {
      *
      * @param idTask
      * @param deadline
+     * @param allDay  (optional), 1: all day task (time specified in deadline will be ignored), 0: deadline with time
      *
      * @return array tasks/view
      */
-    public JSONObject tasksSetDeadline(long idTask, String deadline) throws ApiServiceException, IOException {
+    public JSONObject tasksSetDeadline(long idTask, String deadline, Integer allDay) throws ApiServiceException, IOException {
         return callAuthenticated("tasks/set_deadline.json",
                 "token", token,
                 "id_task", idTask,
-                "deadline", deadline);
+                "deadline", deadline,
+                "all_day", allDay);
     }
 
     /**
@@ -374,6 +401,36 @@ public class ProducteevInvoker {
                 "title", title);
     }
 
+    // --- notifications/activities
+
+    /**
+     * get every activities
+     *
+     * @param dashboardId (optional) if not null, this function only returns notifications for this specific dashboard
+     * @param lastId (optional) this function returns only activities later than this id
+     */
+    public JSONArray activitiesShowActivities(Long dashboardId, Long lastId) throws ApiResponseParseException, ApiServiceException, IOException {
+        return getResponse(callAuthenticated("activities/show_activities.json",
+                "token", token,
+                "id_dashboard", dashboardId,
+                "last_id", lastId), "activities");
+    }
+
+    /**
+     * get every notification for the current user
+     * @param dashboardId
+     * @param lastId
+     * @return
+     * @throws ApiResponseParseException
+     * @throws ApiServiceException
+     * @throws IOException
+     */
+    public JSONArray activitiesShowNotifications(Long dashboardId, Long lastId) throws ApiResponseParseException, ApiServiceException, IOException {
+        return getResponse(callAuthenticated("activities/show_notifications.json",
+                "token", token,
+                "id_dashboard", dashboardId,
+                "last_id", lastId), "activities");
+    }
     // --- users
 
     /**
@@ -387,19 +444,6 @@ public class ProducteevInvoker {
         return callAuthenticated("users/view.json",
                 "token", token,
                 "id_colleague", idColleague);
-    }
-
-    /**
-     * return the list of users who can access a specific dashboard
-     *
-     * @param idDashboard
-     * @param dashboard array-information about the dashboard, if this ...
-     */
-    public JSONArray dashboardsAccess(long idDashboard, String dashboard) throws ApiServiceException, IOException {
-        return getResponse(callAuthenticated("dashboards/access",
-                    "token", token,
-                    "id_dashboard", idDashboard,
-                    "dashboard", dashboard),"dashboard");
     }
 
     // --- invocation

@@ -51,12 +51,13 @@ public class TasksWidget extends AppWidgetProvider {
             int[] appWidgetIds) {
 
         try {
+            ContextManager.setContext(context);
             super.onUpdate(context, appWidgetManager, appWidgetIds);
 
             // Start in service to prevent Application Not Responding timeout
             updateWidgets(context);
-        } catch (SecurityException e) {
-            // :(
+        } catch (Exception e) {
+            Log.e("astrid-update-widget", "widget update error", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
     }
 
@@ -65,7 +66,7 @@ public class TasksWidget extends AppWidgetProvider {
      * @param id
      */
     public static void updateWidgets(Context context) {
-        context.startService(new Intent(ContextManager.getContext(),
+        context.startService(new Intent(context,
                 TasksWidget.UpdateService.class));
     }
 
@@ -146,7 +147,7 @@ public class TasksWidget extends AppWidgetProvider {
                         filter.sqlQuery, flags, sort) + " LIMIT " + numberOfTasks;
 
                 database.openForReading();
-                cursor = taskService.fetchFiltered(query, null, Task.TITLE, Task.DUE_DATE);
+                cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);
                 Task task = new Task();
                 for (int i = 0; i < cursor.getCount() && i < numberOfTasks; i++) {
                     cursor.moveToPosition(i);
@@ -156,7 +157,10 @@ public class TasksWidget extends AppWidgetProvider {
                     int textColor = Color.WHITE;
 
                     textContent = task.getValue(Task.TITLE);
-                    if(task.hasDueDate() && task.getValue(Task.DUE_DATE) < DateUtilities.now())
+
+                    if(task.isCompleted())
+                        textColor = context.getResources().getColor(R.color.task_list_done);
+                    else if(task.hasDueDate() && task.getValue(Task.DUE_DATE) < DateUtilities.now())
                         textColor = context.getResources().getColor(R.color.task_list_overdue);
 
                     if(i > 0)
@@ -178,7 +182,7 @@ public class TasksWidget extends AppWidgetProvider {
             }
 
             Intent listIntent = new Intent(context, TaskListActivity.class);
-            listIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            listIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             if(filter != null) {
                 listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
                 listIntent.setType(filter.sqlQuery);
@@ -188,7 +192,7 @@ public class TasksWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.taskbody, pendingIntent);
 
             Intent editIntent = new Intent(context, TaskEditActivity.class);
-            editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            editIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
             if(filter != null && filter.valuesForNewTasks != null) {
                 String values = AndroidUtilities.contentValuesToSerializedString(filter.valuesForNewTasks);
                 editIntent.putExtra(TaskEditActivity.TOKEN_VALUES, values);

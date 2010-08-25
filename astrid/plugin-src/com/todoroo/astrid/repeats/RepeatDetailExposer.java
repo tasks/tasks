@@ -17,7 +17,6 @@ import com.google.ical.values.RRule;
 import com.google.ical.values.WeekdayNum;
 import com.timsu.astrid.R;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.api.DetailExposer;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.model.Task;
 
@@ -27,7 +26,7 @@ import com.todoroo.astrid.model.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class RepeatDetailExposer extends BroadcastReceiver implements DetailExposer {
+public class RepeatDetailExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -119,7 +118,6 @@ public class RepeatDetailExposer extends BroadcastReceiver implements DetailExpo
         return null;
     }
 
-    @Override
     public String getPluginIdentifier() {
         return RepeatsPlugin.IDENTIFIER;
     }

@@ -14,6 +14,17 @@
      limitations under the License.
 -->
 
-<set xmlns:android="http://schemas.android.com/apk/res/android">
-    <translate android:fromXDelta="100%p" android:toXDelta="0" android:duration="200"/>
-</set>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_window_focused="false"
+        android:drawable="@color/task_list_selected" />
+
+    <item android:state_focused="true" android:state_pressed="true"
+        android:drawable="@drawable/list_selector_background_transition" />
+    <item android:state_focused="false" android:state_pressed="true"
+        android:drawable="@drawable/list_selector_background_transition" />
+
+    <item android:state_focused="true"
+        android:drawable="@drawable/list_selector_background_focus" />
+
+</selector>

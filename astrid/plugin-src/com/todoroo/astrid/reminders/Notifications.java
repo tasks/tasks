@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.net.Uri;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -111,7 +112,7 @@ public class Notifications extends BroadcastReceiver {
     public boolean showTaskNotification(long id, int type, String reminder) {
         Task task;
         try {
-            task = taskDao.fetch(id, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
+            task = taskDao.fetch(id, Task.ID, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
                     Task.DELETION_DATE, Task.REMINDER_FLAGS);
             if(task == null)
                 throw new IllegalArgumentException("cound not find item with id"); //$NON-NLS-1$
@@ -120,9 +121,6 @@ public class Notifications extends BroadcastReceiver {
             exceptionService.reportError("show-notif", e); //$NON-NLS-1$
             return false;
         }
-
-        // schedule next notification
-        ReminderService.getInstance().scheduleAlarm(task);
 
         // you're done - don't sound, do delete
         if(task.isCompleted() || task.isDeleted())
@@ -138,7 +136,11 @@ public class Notifications extends BroadcastReceiver {
 
         // update last reminder time
         task.setValue(Task.REMINDER_LAST, DateUtilities.now());
-        taskDao.saveExisting(task);
+        boolean saved = taskDao.saveExisting(task);
+
+        // schedule next notification (unless couldn't save last time)
+        if(saved)
+            ReminderService.getInstance().scheduleAlarm(task);
 
         Context context = ContextManager.getContext();
         String title = context.getString(R.string.app_name);
@@ -146,7 +148,7 @@ public class Notifications extends BroadcastReceiver {
 
         Intent notifyIntent = new Intent(context, NotificationActivity.class);
         notifyIntent.putExtra(NotificationActivity.TOKEN_ID, id);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
 
         showNotification((int)id, notifyIntent, type, title, text, nonstopMode);
         return true;
@@ -215,6 +217,10 @@ public class Notifications extends BroadcastReceiver {
         AudioManager audioManager = (AudioManager)context.getSystemService(
                 Context.AUDIO_SERVICE);
 
+        // detect call state
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        int callState = tm.getCallState();
+
         // if non-stop mode is activated, set up the flags for insistent
         // notification, and increase the volume to full volume, so the user
         // will actually pay attention to the alarm
@@ -228,7 +234,7 @@ public class Notifications extends BroadcastReceiver {
         }
 
         // quiet hours = no sound
-        if(quietHours) {
+        if(quietHours || callState != TelephonyManager.CALL_STATE_IDLE) {
             notification.sound = null;
         } else {
             String notificationPreference = Preferences.getStringValue(R.string.p_rmd_ringtone);
@@ -247,8 +253,9 @@ public class Notifications extends BroadcastReceiver {
         }
 
         // quiet hours && ! due date or snooze = no vibrate
-        if(quietHours && !(type == ReminderService.TYPE_DUE ||
-                type == ReminderService.TYPE_SNOOZE)) {
+        if(quietHours && !(type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_SNOOZE)) {
+            notification.vibrate = null;
+        } else if(callState != TelephonyManager.CALL_STATE_IDLE) {
             notification.vibrate = null;
         } else {
             if (Preferences.getBoolean(R.string.p_rmd_vibrate, true)

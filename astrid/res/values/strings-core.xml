@@ -162,6 +162,9 @@
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
   <string name="TLA_menu_sort">Sort &amp; Hidden</string>
   
+  <!-- Menu: Sync Now -->    
+  <string name="TLA_menu_sync">Sync Now!</string>
+  
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Settings</string>
   
@@ -214,6 +217,9 @@ button: add task & go to the edit page.
 
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Undelete Task</string>
+
+  <!-- Context Item: purge task -->
+  <string name="TAd_contextPurgeTask">Purge Task</string>
   
   <!-- ============================================== SortSelectionDialog == -->
   
@@ -518,6 +524,9 @@ to the plugin creator for fastest service.
   
   <!-- Sync Notification: toast when sync activated from activity -->
   <string name="SyP_progress_toast">Synchronizing...</string>
+  
+  <!-- Sync Label: used in menu to denote synchronization -->
+  <string name="SyP_label">Synchronization</string>
   
   <!-- ====================================================== TasksWidget == -->
 

@@ -1,6 +1,7 @@
 package com.todoroo.astrid.activity;
 
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Timer;
@@ -9,6 +10,7 @@ import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
+import android.app.PendingIntent.CanceledException;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -38,6 +40,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
 import android.widget.AbsListView.OnScrollListener;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -65,6 +68,7 @@ import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
+import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.backup.BackupActivity;
@@ -77,6 +81,7 @@ import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 import com.todoroo.astrid.service.AddOnService;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
@@ -108,16 +113,17 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private static final int MENU_ADDONS_ID = Menu.FIRST + 1;
     private static final int MENU_SETTINGS_ID = Menu.FIRST + 2;
     private static final int MENU_SORT_ID = Menu.FIRST + 3;
-    private static final int MENU_HELP_ID = Menu.FIRST + 4;
-    private static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 5;
+    private static final int MENU_SYNC_ID = Menu.FIRST + 4;
+    private static final int MENU_HELP_ID = Menu.FIRST + 5;
+    private static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 6;
 
-    private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 6;
-    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 7;
-    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 8;
-    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 9;
+    private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 20;
+    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 21;
+    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 22;
+    private static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 23;
+    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 24;
 
-    /** menu code indicating the end of the context menu */
-    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 10;
+    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 30;
 
     // --- constants
 
@@ -147,6 +153,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
     protected RefreshReceiver refreshReceiver = new RefreshReceiver();
+    protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
 
     private ImageButton quickAddButton;
     private EditText quickAddBox;
@@ -155,10 +162,15 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private int sortSort;
     private final AtomicReference<String> sqlQueryTemplate = new AtomicReference<String>();
     private Timer backgroundTimer;
+    private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
 
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     public TaskListActivity() {
         DependencyInjectionService.getInstance().inject(this);
@@ -176,13 +188,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         else
             setContentView(R.layout.task_list_activity_api3);
 
-        Bundle extras = getIntent().getExtras();
-        if(extras != null && extras.containsKey(TOKEN_FILTER)) {
-            filter = extras.getParcelable(TOKEN_FILTER);
-        } else {
-            filter = CoreFilterExposer.buildInboxFilter(getResources());
-        }
-
         if(database == null)
             return;
 
@@ -196,6 +201,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
+
+        Bundle extras = intent.getExtras();
+        if(extras != null && extras.containsKey(TOKEN_FILTER)) {
+            filter = extras.getParcelable(TOKEN_FILTER);
+        } else {
+            filter = CoreFilterExposer.buildInboxFilter(getResources());
+        }
+
         setUpTaskList();
         if(Constants.DEBUG)
             setTitle("[D] " + filter.title); //$NON-NLS-1$
@@ -232,6 +245,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 R.string.TLA_menu_sort);
         item.setIcon(android.R.drawable.ic_menu_sort_by_size);
 
+        if(syncActions.size() > 0) {
+            item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
+                    R.string.TLA_menu_sync);
+            item.setIcon(R.drawable.ic_menu_refresh);
+        }
+
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.TLA_menu_help);
         item.setIcon(android.R.drawable.ic_menu_help);
@@ -266,10 +285,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 Intent intent = new Intent(TaskListActivity.this,
                         FilterListActivity.class);
                 startActivity(intent);
+                if(AndroidUtilities.getSdkVersion() >= 5) {
+                    //overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+                }
             }
         });
-
-        ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
 
         // set listener for quick-changing task priority
         getListView().setOnKeyListener(new OnKeyListener() {
@@ -357,7 +377,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             }
         });
 
-        // gestures
+        // gestures / animation
         try {
             GestureService.registerGestureDetector(this, R.id.gestures, R.raw.gestures, this);
         } catch (VerifyError e) {
@@ -418,6 +438,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_ACTIONS));
         registerReceiver(refreshReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_EVENT_REFRESH));
+        registerReceiver(syncActionReceiver,
+                new IntentFilter(AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS));
         setUpBackgroundJobs();
     }
 
@@ -438,6 +460,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected class RefreshReceiver extends BroadcastReceiver {
         @Override
         public void onReceive(Context context, Intent intent) {
+            if(intent == null || !AstridApiConstants.BROADCAST_EVENT_REFRESH.equals(intent.getAction()))
+                return;
+
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
@@ -445,6 +470,29 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                     loadTaskListContent(true);
                 }
             });
+        }
+    }
+
+    /**
+     * Receiver which receives sync provider intents
+     *
+     * @author Tim Su <tim@todoroo.com>
+     *
+     */
+    protected class SyncActionReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if(intent == null || !AstridApiConstants.BROADCAST_SEND_SYNC_ACTIONS.equals(intent.getAction()))
+                return;
+
+            try {
+                Bundle extras = intent.getExtras();
+                SyncAction syncAction = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
+                syncActions.add(syncAction);
+            } catch (Exception e) {
+                exceptionService.reportError("receive-sync-action-" + //$NON-NLS-1$
+                        intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON), e);
+            }
         }
     }
 
@@ -468,9 +516,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 } else if(AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
                     String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
                     if(extras.getBoolean(AstridApiConstants.EXTRAS_EXTENDED))
-                        taskAdapter.detailManager.addNew(taskId, addOn, detail);
-                    else
                         taskAdapter.extendedDetailManager.addNew(taskId, addOn, detail);
+                    else
+                        taskAdapter.addDetails(taskId, detail);
                 } else if(AstridApiConstants.BROADCAST_SEND_ACTIONS.equals(intent.getAction())) {
                     TaskAction action = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.taskActionManager.addNew(taskId, addOn, action);
@@ -551,6 +599,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if(oldListItemSelected != ListView.INVALID_POSITION &&
                 oldListItemSelected < taskCursor.getCount())
             getListView().setSelection(oldListItemSelected);
+
+        // also load sync actions
+        syncActions.clear();
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_SYNC_ACTIONS);
+        sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
     /**
@@ -560,6 +613,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected void setUpTaskList() {
         sqlQueryTemplate.set(SortSelectionActivity.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
+
+        ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
 
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
@@ -723,6 +778,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if(task.isDeleted()) {
             menu.add(id, CONTEXT_MENU_UNDELETE_TASK_ID, Menu.NONE,
                     R.string.TAd_contextUndeleteTask);
+
+            menu.add(id, CONTEXT_MENU_PURGE_TASK_ID, Menu.NONE,
+                    R.string.TAd_contextPurgeTask);
         } else {
             menu.add(id, CONTEXT_MENU_EDIT_TASK_ID, Menu.NONE,
                         R.string.TAd_contextEditTask);
@@ -768,6 +826,44 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 .show();
     }
 
+    private void performSyncAction() {
+        if(syncActions.size() == 0)
+            return;
+        if(syncActions.size() == 1) {
+            SyncAction syncAction = syncActions.iterator().next();
+            try {
+                syncAction.intent.send();
+                Toast.makeText(this, R.string.SyP_progress_toast,
+                        Toast.LENGTH_LONG).show();
+            } catch (CanceledException e) {
+                //
+            }
+        } else {
+            final SyncAction[] actions = syncActions.toArray(new SyncAction[syncActions.size()]);
+            ArrayAdapter<SyncAction> adapter = new ArrayAdapter<SyncAction>(this,
+                    android.R.layout.simple_spinner_dropdown_item, actions);
+            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface click, int which) {
+                    try {
+                        actions[which].intent.send();
+                        Toast.makeText(TaskListActivity.this, R.string.SyP_progress_toast,
+                                Toast.LENGTH_LONG).show();
+                    } catch (CanceledException e) {
+                        //
+                    }
+                }
+            };
+
+            // show a menu of available options
+            new AlertDialog.Builder(this)
+            .setTitle(R.string.SyP_label)
+            .setAdapter(adapter, listener)
+            .show().setOwnerActivity(this);
+
+        }
+    }
+
     @Override
     public boolean onMenuItemSelected(int featureId, final MenuItem item) {
         Intent intent;
@@ -787,6 +883,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             AlertDialog dialog = SortSelectionActivity.createDialog(this,
                     this, sortFlags, sortSort);
             dialog.show();
+            return true;
+        case MENU_SYNC_ID:
+            performSyncAction();
             return true;
         case MENU_HELP_ID:
             intent = new Intent(Intent.ACTION_VIEW,
@@ -832,6 +931,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return true;
         }
 
+        case CONTEXT_MENU_PURGE_TASK_ID: {
+            itemId = item.getGroupId();
+            taskService.purge(itemId);
+            loadTaskListContent(true);
+            return true;
+        }
+
         // --- debug
 
         case CONTEXT_MENU_DEBUG: {
@@ -842,6 +948,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             ReminderService.getInstance().setScheduler(new AlarmScheduler() {
                 @Override
                 public void createAlarm(Task theTask, long time, int type) {
+                    if(time == 0 || time == Long.MAX_VALUE)
+                        return;
+
                     Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " + //$NON-NLS-1$
                             new Date(time), Toast.LENGTH_LONG).show();
                     ReminderService.getInstance().setScheduler(null);
@@ -872,6 +981,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             Intent intent = new Intent(TaskListActivity.this,
                     FilterListActivity.class);
             startActivity(intent);
+            if(AndroidUtilities.getSdkVersion() >= 5) {
+                // overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
+            }
         }
     }
 
