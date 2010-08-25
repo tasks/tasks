@@ -33,7 +33,7 @@ public class AstridApiConstants {
     // --- Content Provider
 
     /**
-     * URI to append to base content URI for making groupby queries
+     * URI to append to base content URI for making group-by queries
      */
     public static final String GROUP_BY_URI = "/groupby/";
 
@@ -136,7 +136,7 @@ public class AstridApiConstants {
      */
     public static final String BROADCAST_SEND_DETAILS = PACKAGE + ".SEND_DETAILS";
 
-    // --- Sync Provider API
+    // --- Sync Action API
 
     /**
      * Action name for broadcast intent requesting a listing of active
@@ -198,17 +198,22 @@ public class AstridApiConstants {
      */
     public static final String ACTION_TASK_LIST_MENU = PACKAGE + ".TASK_LIST_MENU";
 
-    // --- Settings API
-
     /**
-     * Action name for intents to be displayed in Astrid's settings
+     * Action name for intents to be displayed in Astrid's settings. By default,
+     * your application will be put into the category named by your application,
+     * but you can add a string meta-data with name "category" to override this.
      */
     public static final String ACTION_SETTINGS = PACKAGE + ".SETTINGS";
 
     // --- Events API
 
     /**
-     * Action name for broadcast intent notifying task list to refresh
+     * Action name for broadcast intent notifying add-ons that Astrid started up
+     */
+    public static final String BROADCAST_EVENT_STARTUP = PACKAGE + ".STARTUP";
+
+    /**
+     * Action name for broadcast intent notifying Astrid task list to refresh
      */
     public static final String BROADCAST_EVENT_REFRESH = PACKAGE + ".REFRESH";
 

@@ -14,9 +14,9 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -30,8 +30,6 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.model.Task;
-import com.todoroo.astrid.producteev.ProducteevPreferences;
-import com.todoroo.astrid.rmilk.MilkPreferences;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
@@ -45,6 +43,8 @@ import com.todoroo.astrid.utility.Preferences;
  *
  */
 public class EditPreferences extends TodorooPreferences {
+
+    private static final String METADATA_CATEGORY = "category";//$NON-NLS-1$
 
     // --- instance variables
 
@@ -80,9 +80,10 @@ public class EditPreferences extends TodorooPreferences {
         // load plug-ins
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
         PackageManager pm = getPackageManager();
-        List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent, 0);
+        List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent,
+                PackageManager.GET_META_DATA);
         int length = resolveInfoList.size();
-        LinkedHashMap<String, ArrayList<Preference>> applicationPreferences =
+        LinkedHashMap<String, ArrayList<Preference>> categoryPreferences =
             new LinkedHashMap<String, ArrayList<Preference>>();
         for(int i = 0; i < length; i++) {
             ResolveInfo resolveInfo = resolveInfoList.get(i);
@@ -94,20 +95,31 @@ public class EditPreferences extends TodorooPreferences {
             preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
             preference.setIntent(intent);
 
-            String application = resolveInfo.activityInfo.applicationInfo.loadLabel(pm).toString();
+            // category - either from metadata, or the application name
+            String category = null;
+            if(resolveInfo.activityInfo.metaData != null &&
+                    resolveInfo.activityInfo.metaData.containsKey(METADATA_CATEGORY)) {
+                int resource = resolveInfo.activityInfo.metaData.getInt(METADATA_CATEGORY, -1);
+                if(resource > -1) {
+                    try {
+                        category = pm.getResourcesForApplication(resolveInfo.activityInfo.applicationInfo).getString(resource);
+                    } catch (Exception e) {
+                        //
+                    }
+                } else {
+                    category = resolveInfo.activityInfo.metaData.getString(METADATA_CATEGORY);
+                }
+            }
+            if(category == null)
+                category = resolveInfo.activityInfo.applicationInfo.loadLabel(pm).toString();
 
-            // temporary overrides
-            if(ProducteevPreferences.class.getName().equals(resolveInfo.activityInfo.name) ||
-                    MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name))
-                application = getString(R.string.SyP_label);
-
-            if(!applicationPreferences.containsKey(application))
-                applicationPreferences.put(application, new ArrayList<Preference>());
-            ArrayList<Preference> arrayList = applicationPreferences.get(application);
+            if(!categoryPreferences.containsKey(category))
+                categoryPreferences.put(category, new ArrayList<Preference>());
+            ArrayList<Preference> arrayList = categoryPreferences.get(category);
             arrayList.add(preference);
         }
 
-        for(Entry<String, ArrayList<Preference>> entry : applicationPreferences.entrySet()) {
+        for(Entry<String, ArrayList<Preference>> entry : categoryPreferences.entrySet()) {
             Preference header = new Preference(this);
             header.setLayoutResource(android.R.layout.preference_category);
             header.setTitle(entry.getKey());

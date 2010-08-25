@@ -33,14 +33,14 @@
               android:description="@string/read_permission_desc"/>
   <uses-permission android:name="com.timsu.astrid.permission.READ_TASKS"/>
   
-  <!-- for reading data from plugins or astrid via v3 content provider -->
+  <!-- for reading data from add-ons or astrid via v3 content provider -->
   <permission android:name="com.todoroo.astrid.READ"
               android:description="@string/read_permission_desc"
               android:protectionLevel="normal"
               android:label="@string/read_permission_label" />
   <uses-permission android:name="com.todoroo.astrid.READ" />
   
-  <!-- for writing data to plugins or astrid via v3 content provider -->
+  <!-- for writing data to add-ons or astrid via v3 content provider -->
   <permission android:name="com.todoroo.astrid.WRITE"
               android:description="@string/write_permission_desc"
               android:protectionLevel="normal"
@@ -358,8 +358,9 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.producteev.ProducteevPreferences"
-              android:icon="@drawable/ic_menu_producteev"
               android:label="@string/producteev_PPr_header">
+      <meta-data android:name="category"
+                 android:resource="@string/SyP_label" />
       <intent-filter>   
         <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />
