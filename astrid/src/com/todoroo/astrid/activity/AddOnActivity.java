@@ -18,7 +18,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.adapter.AddOnAdapter;
-import com.todoroo.astrid.model.AddOn;
+import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 

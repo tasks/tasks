@@ -24,7 +24,7 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.tags.TagService.Tag;
 
 /**

@@ -21,6 +21,7 @@ package com.todoroo.astrid.ui;
 
 import android.app.Activity;
 import android.content.res.Resources;
+import android.text.format.DateUtils;
 import android.view.View;
 import android.widget.Button;
 
@@ -103,8 +104,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
             prefix = r.getString(prefixResource);
         timeButton.setText(prefix
                 + " "
-                + dateUtilities.getDurationString(
-                        timeDurationInSeconds * 1000L, 2));
+                + DateUtils.getRelativeTimeSpanString(activity, timeDurationInSeconds * 1000L));
         int hours = timeDuration / 3600;
         int minutes = timeDuration / 60 - 60 * hours;
         dialog.setInitialValues(new int[] { hours, minutes });

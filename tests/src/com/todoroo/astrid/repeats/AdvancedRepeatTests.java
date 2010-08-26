@@ -11,7 +11,7 @@ import com.google.ical.values.Weekday;
 import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 
 public class AdvancedRepeatTests extends TodorooTestCase {
 

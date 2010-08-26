@@ -11,7 +11,6 @@ import android.view.View;
 import android.view.ViewGroup.OnHierarchyChangeListener;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.widget.TodorooPreferences;
@@ -31,9 +30,6 @@ public class BackupPreferences extends TodorooPreferences {
     static final String PREF_BACKUP_LAST_DATE = "backupDate"; //$NON-NLS-1$
 
     static final String PREF_BACKUP_LAST_ERROR = "backupError"; //$NON-NLS-1$
-
-    @Autowired
-    private DialogUtilities dialogUtilities;
 
     private int statusColor = Color.BLACK;
 
@@ -66,7 +62,7 @@ public class BackupPreferences extends TodorooPreferences {
             restorePreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                 @Override
                 public boolean onPreferenceClick(Preference preference) {
-                    dialogUtilities.okCancelDialog(BackupPreferences.this,
+                    DialogUtilities.okCancelDialog(BackupPreferences.this,
                             getString(R.string.DLG_information_title),
                             getString(R.string.backup_BPr_how_to_restore_dialog),
                             AddOnActivity.createAddOnClicker(BackupPreferences.this, false), null);
@@ -115,7 +111,7 @@ public class BackupPreferences extends TodorooPreferences {
                 statusColor = Color.rgb(100, 0, 0);
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
-                        dialogUtilities.okDialog(BackupPreferences.this, error, null);
+                        DialogUtilities.okDialog(BackupPreferences.this, error, null);
                         return true;
                     }
                 });

@@ -15,7 +15,6 @@ import android.os.Bundle;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -26,7 +25,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.model.StoreObject;
+import com.todoroo.astrid.data.StoreObject;
 
 /**
  * Exposes Astrid's built in filters to the {@link FilterListActivity}
@@ -101,9 +100,6 @@ public final class CustomFilterExposer extends BroadcastReceiver {
      */
     public static class DeleteActivity extends Activity {
 
-        @Autowired
-        DialogUtilities dialogUtilities;
-
         @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -117,7 +113,7 @@ public final class CustomFilterExposer extends BroadcastReceiver {
             final String name = getIntent().getStringExtra(TOKEN_FILTER_NAME);
 
             DependencyInjectionService.getInstance().inject(this);
-            dialogUtilities.okCancelDialog(this,
+            DialogUtilities.okCancelDialog(this,
                     getString(R.string.DLG_delete_this_item_question, name),
                     new DialogInterface.OnClickListener() {
 

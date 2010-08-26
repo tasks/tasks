@@ -9,9 +9,9 @@ import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Table;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.StoreObject;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.astrid.data.Task;
 
 /**
  * Database wrapper

@@ -18,7 +18,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 
 /**
  * Exposes "working on" filter to the {@link FilterListActivity}

@@ -31,7 +31,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 
 /**
  * This activity is launched when a user opens up a notification from the

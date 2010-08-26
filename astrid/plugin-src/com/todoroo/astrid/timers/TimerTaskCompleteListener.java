@@ -6,7 +6,7 @@ import android.content.Intent;
 
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 
 public class TimerTaskCompleteListener extends BroadcastReceiver {
 

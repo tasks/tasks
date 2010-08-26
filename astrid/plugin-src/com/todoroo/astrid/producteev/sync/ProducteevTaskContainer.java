@@ -5,9 +5,9 @@ import java.util.Iterator;
 
 import org.json.JSONObject;
 
-import com.todoroo.astrid.common.TaskContainer;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.sync.SyncContainer;
 
 /**
  * RTM Task Container
@@ -15,7 +15,7 @@ import com.todoroo.astrid.model.Task;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class ProducteevTaskContainer extends TaskContainer {
+public class ProducteevTaskContainer extends SyncContainer {
 
     public Metadata pdvTask;
 

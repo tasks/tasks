@@ -12,7 +12,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.data.Metadata;
 
 /**
  * Service layer for {@link Metadata}-centered activities.

@@ -36,4 +36,11 @@
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>astridApi</name>
+			<type>2</type>
+			<locationURI>_android_astridApi/src</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>

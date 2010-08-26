@@ -74,8 +74,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gcal.GCalControlSet;
-import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.producteev.ProducteevControlSet;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.Notifications;
@@ -147,9 +147,6 @@ public final class TaskEditActivity extends TabActivity {
 
     @Autowired
     private MetadataService metadataService;
-
-    @Autowired
-    private DateUtilities dateUtilities;
 
     @Autowired
     private AddOnService addOnService;
@@ -461,7 +458,9 @@ public final class TaskEditActivity extends TabActivity {
             } else {
                 stringResource = R.string.TEA_onTaskSave_due;
             }
-            String formattedDate = dateUtilities.getDurationString(dueFromNow, 1);
+            CharSequence formattedDate =
+                DateUtils.getRelativeTimeSpanString(dueFromNow, DateUtilities.now(),
+                        DateUtils.MINUTE_IN_MILLIS, 0);
             Toast.makeText(this,
                     getResources().getString(stringResource, formattedDate),
                     Toast.LENGTH_SHORT).show();
@@ -795,7 +794,7 @@ public final class TaskEditActivity extends TabActivity {
                     Task.URGENCY_TOMORROW);
             String dayAfterTomorrow = DateUtils.getDayOfWeekString(
                     new Date(DateUtilities.now() + 2 * DateUtilities.ONE_DAY).getDay() +
-                    Calendar.SUNDAY, DateUtils.FORMAT_ABBREV_ALL);
+                    Calendar.SUNDAY, DateUtils.LENGTH_LONG);
             urgencyValues[3] = new UrgencyValue(dayAfterTomorrow,
                     Task.URGENCY_DAY_AFTER);
             urgencyValues[4] = new UrgencyValue(labels[4],

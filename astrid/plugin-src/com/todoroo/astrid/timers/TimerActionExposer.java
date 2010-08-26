@@ -13,7 +13,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 
 /**
  * Exposes {@link TaskDecoration} for timers

@@ -32,7 +32,6 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -48,9 +47,6 @@ import com.todoroo.astrid.utility.Preferences;
  *
  */
 public class ProducteevLoginActivity extends Activity {
-
-    @Autowired
-    DialogUtilities dialogUtilities;
 
     // --- ui initialization
 
@@ -130,7 +126,7 @@ public class ProducteevLoginActivity extends Activity {
 
 
     private void performLogin(final String email, final String password) {
-        final ProgressDialog dialog = dialogUtilities.progressDialog(this,
+        final ProgressDialog dialog = DialogUtilities.progressDialog(this,
                 getString(R.string.DLG_wait));
         final TextView errors = (TextView) findViewById(R.id.error);
         dialog.show();
@@ -168,7 +164,7 @@ public class ProducteevLoginActivity extends Activity {
 
     private void performSignup(final String email, final String password,
             final String firstName, final String lastName) {
-        final ProgressDialog dialog = dialogUtilities.progressDialog(this,
+        final ProgressDialog dialog = DialogUtilities.progressDialog(this,
                 getString(R.string.DLG_wait));
         final TextView errors = (TextView) findViewById(R.id.error);
         dialog.show();

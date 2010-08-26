@@ -1,4 +1,4 @@
-package com.todoroo.astrid.model;
+package com.todoroo.astrid.data;
 
 import android.graphics.Bitmap;
 

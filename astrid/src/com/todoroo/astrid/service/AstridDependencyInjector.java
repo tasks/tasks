@@ -3,22 +3,16 @@
  */
 package com.todoroo.astrid.service;
 
-import java.lang.ref.WeakReference;
-import java.lang.reflect.Field;
-import java.util.HashMap;
-
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.AbstractDependencyInjector;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.AndroidLogReporter;
 import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
-import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * Astrid application dependency injector loads classes in Astrid with the
@@ -29,9 +23,7 @@ import com.todoroo.astrid.dao.TaskDao;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class AstridDependencyInjector implements AbstractDependencyInjector {
-
-    private static final boolean DEBUG = false;
+public class AstridDependencyInjector extends AbstractDependencyInjector {
 
     /**
      * Boolean bit to prevent multiple copies of this injector to be loaded
@@ -39,51 +31,17 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
     private static AstridDependencyInjector instance = null;
 
     /**
-     * Dependencies this class knows how to handle
-     */
-    private static final HashMap<String, Object> injectables = new HashMap<String, Object>();
-
-    /**
-     * Cache of classes that were instantiated by the injector
-     */
-    private final HashMap<Class<?>, WeakReference<Object>> createdObjects =
-        new HashMap<Class<?>, WeakReference<Object>>();
-
-    /**
      * Initialize list of injectables. Special care must used when
      * instantiating classes that themselves depend on dependency injection
      * (i.e. {@link ErrorReporter}.
      */
+    @Override
     @SuppressWarnings("nls")
-    private static void addInjectables() {
-        injectables.put("debug", DEBUG);
+    protected void addInjectables() {
+        injectables.put("debug", Constants.DEBUG);
 
         // com.todoroo.android.service
         injectables.put("applicationName", "astrid");
-        injectables.put("exceptionService", ExceptionService.class);
-        injectables.put("errorDialogTitleResource", R.string.DLG_error);
-
-        // TODO
-        injectables.put("errorDialogBodyGeneric", R.string.DLG_error);
-        injectables.put("errorDialogBodyNullError", R.string.DLG_error);
-        injectables.put("errorDialogBodySocketTimeout", R.string.DLG_error);
-
-        // com.todoroo.android.utility
-        injectables.put("dialogUtilities", DialogUtilities.class);
-        injectables.put("informationDialogTitleResource", R.string.DLG_information_title);
-        injectables.put("confirmDialogTitleResource", R.string.DLG_confirm_title);
-        injectables.put("dateUtilities", DateUtilities.class);
-        injectables.put("yearsResource", R.plurals.DUt_years);
-        injectables.put("monthsResource", R.plurals.DUt_months);
-        injectables.put("weeksResource", R.plurals.DUt_weeks);
-        injectables.put("daysResource", R.plurals.DUt_days);
-        injectables.put("hoursResource", R.plurals.DUt_hours);
-        injectables.put("minutesResource", R.plurals.DUt_minutes);
-        injectables.put("secondsResource", R.plurals.DUt_seconds);
-        injectables.put("daysAbbrevResource", R.plurals.DUt_days);
-        injectables.put("hoursAbbrevResource", R.plurals.DUt_hoursShort);
-        injectables.put("minutesAbbrevResource", R.plurals.DUt_minutesShort);
-        injectables.put("secondsAbbrevResource", R.plurals.DUt_secondsShort);
 
         // com.todoroo.android.utility
         injectables.put("nNumberPickerLayout", R.layout.n_number_picker_dialog);
@@ -121,65 +79,29 @@ public class AstridDependencyInjector implements AbstractDependencyInjector {
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public Object getInjection(Object object, Field field) {
-        if(injectables.containsKey(field.getName())) {
-            Object injection = injectables.get(field.getName());
-
-            // if it's a class, instantiate the class
-            if(injection instanceof Class<?>) {
-                if(createdObjects.containsKey(injection) &&
-                        createdObjects.get(injection).get() != null) {
-                    injection = createdObjects.get(injection).get();
-                } else {
-                    Class<?> cls = (Class<?>)injection;
-                    try {
-                        injection = cls.newInstance();
-                    } catch (IllegalAccessException e) {
-                        throw new RuntimeException(e);
-                    } catch (InstantiationException e) {
-                        throw new RuntimeException(e);
-                    }
-
-                    createdObjects.put(cls,
-                            new WeakReference<Object>(injection));
-                }
-            }
-
-            return injection;
-        }
-
-        return null;
-    }
-
-    /**
      * Install this service as the default Dependency Injector
      */
-    public synchronized static void initialize() {
+    public static void initialize() {
         if(instance != null)
             return;
-        instance = new AstridDependencyInjector();
-        DependencyInjectionService.getInstance().setInjectors(new AbstractDependencyInjector[] {
-                instance
-        });
-
-        addInjectables();
+        synchronized(AstridDependencyInjector.class) {
+            if(instance == null)
+                instance = new AstridDependencyInjector();
+            DependencyInjectionService.getInstance().setInjectors(new AbstractDependencyInjector[] {
+                    instance
+            });
+        }
     }
 
     AstridDependencyInjector() {
         // prevent instantiation
-    }
-
-    @Override
-    public String toString() {
-        return getClass().getSimpleName();
+        super();
     }
 
     /**
      * Flush dependency injection cache. Useful for unit tests.
      */
-    public static void flush() {
-        instance.createdObjects.clear();
+    public synchronized static void flush() {
+        instance.flushCreated();
     }
 }

@@ -5,11 +5,11 @@
  */
 package com.todoroo.astrid.dao;
 
-import com.todoroo.andlib.data.GenericDao;
+import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.astrid.model.StoreObject;
+import com.todoroo.astrid.data.StoreObject;
 
 /**
  * Data Access layer for {@link StoreObject}-related operations.
@@ -17,7 +17,7 @@ import com.todoroo.astrid.model.StoreObject;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class StoreObjectDao extends GenericDao<StoreObject> {
+public class StoreObjectDao extends DatabaseDao<StoreObject> {
 
     @Autowired
     private Database database;

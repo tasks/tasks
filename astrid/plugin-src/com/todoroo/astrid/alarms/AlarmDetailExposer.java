@@ -12,7 +12,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.data.Metadata;
 
 /**
  * Exposes Task Detail for tags, i.e. "Tags: frogs, animals"

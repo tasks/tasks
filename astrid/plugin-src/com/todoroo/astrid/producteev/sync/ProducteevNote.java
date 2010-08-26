@@ -4,7 +4,7 @@ import org.json.JSONObject;
 
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.producteev.api.ApiUtilities;
 
 /**

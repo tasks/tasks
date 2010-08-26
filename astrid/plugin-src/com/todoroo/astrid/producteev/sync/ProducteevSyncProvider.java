@@ -35,11 +35,9 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.common.SyncProvider;
-import com.todoroo.astrid.common.TaskContainer;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.StoreObject;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevFilterExposer;
 import com.todoroo.astrid.producteev.ProducteevLoginActivity;
@@ -50,6 +48,8 @@ import com.todoroo.astrid.producteev.api.ApiServiceException;
 import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.sync.SyncContainer;
+import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
@@ -71,9 +71,6 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
     @Autowired
     protected ExceptionService exceptionService;
-
-    @Autowired
-    protected DialogUtilities dialogUtilities;
 
     public ProducteevSyncProvider() {
         super();
@@ -132,7 +129,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         }
 
         if(displayError && context instanceof Activity && message != null) {
-            dialogUtilities.okDialog((Activity)context,
+            DialogUtilities.okDialog((Activity)context,
                     message, null);
         }
     }
@@ -691,7 +688,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      * @param remoteTask remote task proxy
      * @return
      */
-    private boolean shouldTransmit(TaskContainer task, Property<?> property, TaskContainer remoteTask) {
+    private boolean shouldTransmit(SyncContainer task, Property<?> property, SyncContainer remoteTask) {
         if(!task.task.containsValue(property))
             return false;
 
@@ -711,7 +708,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     }
 
     @Override
-    protected void updateNotification(Context context, Notification notification) {
+    protected int updateNotification(Context context, Notification notification) {
         String notificationTitle = context.getString(R.string.producteev_notification_title);
         Intent intent = new Intent(context, ProducteevPreferences.class);
         PendingIntent notificationIntent = PendingIntent.getActivity(context, 0,
@@ -719,7 +716,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         notification.setLatestEventInfo(context,
                 notificationTitle, context.getString(R.string.SyP_progress),
                 notificationIntent);
-        return ;
+        return Constants.NOTIFICATION_SYNC;
     }
 
     @Override

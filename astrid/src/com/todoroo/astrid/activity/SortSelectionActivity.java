@@ -14,7 +14,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 
 /**

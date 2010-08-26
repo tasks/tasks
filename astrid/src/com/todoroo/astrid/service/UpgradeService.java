@@ -27,9 +27,6 @@ public final class UpgradeService {
     private static final int V2_14_4 = 135;
 
     @Autowired
-    private DialogUtilities dialogUtilities;
-
-    @Autowired
     private Database database;
 
     public UpgradeService() {
@@ -51,7 +48,7 @@ public final class UpgradeService {
         // pop up a progress dialog
         final ProgressDialog dialog;
         if(context instanceof Activity)
-            dialog = dialogUtilities.progressDialog(context,
+            dialog = DialogUtilities.progressDialog(context,
                     context.getString(R.string.DLG_upgrading));
         else
             dialog = null;

@@ -7,7 +7,7 @@ package com.todoroo.astrid.dao;
 
 import android.database.Cursor;
 
-import com.todoroo.andlib.data.GenericDao;
+import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -15,8 +15,8 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 
 /**
@@ -25,7 +25,7 @@ import com.todoroo.astrid.provider.Astrid2TaskProvider;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class MetadataDao extends GenericDao<Metadata> {
+public class MetadataDao extends DatabaseDao<Metadata> {
 
     @Autowired
     private Database database;

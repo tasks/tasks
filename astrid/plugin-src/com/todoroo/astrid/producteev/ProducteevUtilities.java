@@ -1,7 +1,7 @@
 package com.todoroo.astrid.producteev;
 
 import com.timsu.astrid.R;
-import com.todoroo.astrid.common.SyncProviderUtilities;
+import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.Preferences;
 
 /**

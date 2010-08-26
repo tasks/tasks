@@ -7,12 +7,12 @@ import android.preference.Preference;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.common.SyncProviderPreferences;
-import com.todoroo.astrid.common.SyncProviderUtilities;
-import com.todoroo.astrid.model.StoreObject;
+import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
+import com.todoroo.astrid.sync.SyncProviderPreferences;
+import com.todoroo.astrid.sync.SyncProviderUtilities;
 
 /**
  * Displays synchronization preferences and an action panel so users can

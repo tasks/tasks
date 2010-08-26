@@ -27,8 +27,8 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService.Tag;
 
 /**

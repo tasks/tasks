@@ -33,7 +33,7 @@ public final class PluginServices {
     MetadataService metadataService;
 
     @Autowired
-    DialogUtilities dialogUtilities;
+    DialogUtilities DialogUtilities;
 
     @Autowired
     DateUtilities dateUtilities;
@@ -79,7 +79,7 @@ public final class PluginServices {
     }
 
     public static DialogUtilities getDialogUtilities() {
-        return getInstance().dialogUtilities;
+        return getInstance().DialogUtilities;
     }
 
     public static DateUtilities getDateUtilities() {

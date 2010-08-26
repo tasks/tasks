@@ -26,7 +26,7 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Preferences;

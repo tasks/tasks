@@ -10,7 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.GenericDao;
+import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -19,7 +19,7 @@ import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
@@ -32,7 +32,7 @@ import com.todoroo.astrid.widget.TasksWidget;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class TaskDao extends GenericDao<Task> {
+public class TaskDao extends DatabaseDao<Task> {
 
     @Autowired
     private MetadataDao metadataDao;

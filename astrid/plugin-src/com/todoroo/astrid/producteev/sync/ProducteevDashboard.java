@@ -5,7 +5,7 @@ import java.util.StringTokenizer;
 
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
-import com.todoroo.astrid.model.StoreObject;
+import com.todoroo.astrid.data.StoreObject;
 
 /**
  * {@link StoreObject} entries for a Producteev Dashboard

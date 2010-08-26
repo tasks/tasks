@@ -6,7 +6,7 @@
 package com.todoroo.astrid.legacy;
 
 import com.todoroo.andlib.data.AbstractDatabase;
-import com.todoroo.andlib.data.GenericDao;
+import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Table;
 
 /**
@@ -41,7 +41,7 @@ public class AlarmDatabase extends AbstractDatabase {
 
     // --- implementation
 
-    private final GenericDao<TransitionalAlarm> dao = new GenericDao<TransitionalAlarm>(TransitionalAlarm.class, this);
+    private final DatabaseDao<TransitionalAlarm> dao = new DatabaseDao<TransitionalAlarm>(TransitionalAlarm.class, this);
 
     @Override
     protected String getName() {
@@ -58,7 +58,7 @@ public class AlarmDatabase extends AbstractDatabase {
         return TABLES;
     }
 
-    public GenericDao<TransitionalAlarm> getDao() {
+    public DatabaseDao<TransitionalAlarm> getDao() {
         return dao;
     }
 

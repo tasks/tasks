@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
-import com.todoroo.astrid.model.AddOn;
+import com.todoroo.astrid.data.AddOn;
 
 /**
  * Adapter for {@link AddOn}s

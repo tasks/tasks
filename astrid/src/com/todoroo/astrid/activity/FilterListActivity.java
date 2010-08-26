@@ -47,7 +47,7 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.core.IntentFilter;
 import com.todoroo.astrid.core.SearchFilter;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.utility.Constants;
 
@@ -76,7 +76,7 @@ public class FilterListActivity extends ExpandableListActivity {
     protected ExceptionService exceptionService;
 
     @Autowired
-    protected DialogUtilities dialogUtilities;
+    protected DialogUtilities DialogUtilities;
 
     FilterAdapter adapter = null;
 

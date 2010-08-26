@@ -23,7 +23,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Preferences;
 
 

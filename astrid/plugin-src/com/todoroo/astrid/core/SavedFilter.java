@@ -10,7 +10,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CustomFilterActivity.CriterionInstance;
 import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.model.StoreObject;
+import com.todoroo.astrid.data.StoreObject;
 
 /**
  * {@link StoreObject} entries for a saved custom filter

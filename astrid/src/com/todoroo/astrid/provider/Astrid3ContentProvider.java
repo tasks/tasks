@@ -15,7 +15,7 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.data.AbstractDatabase;
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.GenericDao;
+import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
@@ -24,9 +24,9 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.StoreObject;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
@@ -147,7 +147,7 @@ public class Astrid3ContentProvider extends ContentProvider {
         public TYPE model;
 
         /** dao */
-        public GenericDao<TYPE> dao;
+        public DatabaseDao<TYPE> dao;
 
         /** creates from given model */
         public boolean create() {

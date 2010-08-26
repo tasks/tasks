@@ -19,7 +19,7 @@ import com.google.ical.values.RRule;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 
 public class RepeatTaskCompleteListener extends BroadcastReceiver {
 

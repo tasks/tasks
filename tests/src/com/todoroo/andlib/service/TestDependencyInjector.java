@@ -1,17 +1,10 @@
 package com.todoroo.andlib.service;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Iterator;
 
-public class TestDependencyInjector implements AbstractDependencyInjector {
-
-    /**
-     * Dependencies this class knows how to handle
-     */
-    private final HashMap<String, Object> injectables = new HashMap<String, Object>();
+public class TestDependencyInjector extends AbstractDependencyInjector {
 
     private String name;
 
@@ -23,12 +16,9 @@ public class TestDependencyInjector implements AbstractDependencyInjector {
         injectables.put(field, injection);
     }
 
-    public Object getInjection(Object object, Field field) {
-        if(injectables.containsKey(field.getName())) {
-            return injectables.get(field.getName());
-        }
-
-        return null;
+    @Override
+    protected void addInjectables() {
+        // do nothing, we populate injectables via the addInjectable method
     }
 
     @Override

@@ -8,9 +8,9 @@ import android.net.Uri;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.StoreObject;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
 public class Astrid3ProviderTests extends DatabaseTestCase {

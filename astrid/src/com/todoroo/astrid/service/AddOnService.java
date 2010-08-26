@@ -20,7 +20,7 @@ import android.widget.Button;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.model.AddOn;
+import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 

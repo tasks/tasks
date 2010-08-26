@@ -10,7 +10,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.Preferences;
 

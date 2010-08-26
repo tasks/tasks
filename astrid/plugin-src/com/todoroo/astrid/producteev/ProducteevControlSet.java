@@ -25,9 +25,9 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.StoreObject;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
@@ -46,7 +46,6 @@ public class ProducteevControlSet implements TaskEditControlSet {
     // --- instance variables
 
     private final Activity activity;
-    private final DialogUtilities dialogUtilites;
 
     private final View view;
     private Task myTask;
@@ -65,7 +64,6 @@ public class ProducteevControlSet implements TaskEditControlSet {
         DependencyInjectionService.getInstance().inject(this);
 
         this.activity = activity;
-        this.dialogUtilites = new DialogUtilities();
 
         view = LayoutInflater.from(activity).inflate(R.layout.producteev_control, parent, true);
 
@@ -94,7 +92,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
                                 dialog.cancel();
                             } else {
                                 // create the real dashboard, select it in the spinner and refresh responsiblespinner
-                                ProgressDialog progressDialog = dialogUtilites.progressDialog(context,
+                                ProgressDialog progressDialog = com.todoroo.andlib.utility.DialogUtilities.progressDialog(context,
                                         context.getString(R.string.DLG_wait));
                                 try {
                                     progressDialog.show();
@@ -107,11 +105,11 @@ public class ProducteevControlSet implements TaskEditControlSet {
                                         adapter.insert(newDashboard, adapter.getCount()-1);
                                         dashSelector.setSelection(adapter.getCount()-2);
                                         refreshResponsibleSpinner(newDashboard.getUsers());
-                                        dialogUtilites.dismissDialog(context, progressDialog);
+                                        DialogUtilities.dismissDialog(context, progressDialog);
                                     }
                                 } catch (Exception e) {
-                                    dialogUtilites.dismissDialog(context, progressDialog);
-                                    dialogUtilites.okDialog(context,
+                                    DialogUtilities.dismissDialog(context, progressDialog);
+                                    DialogUtilities.okDialog(context,
                                             context.getString(R.string.DLG_error, e.getMessage()),
                                             new OnClickListener() {
                                                 @Override
@@ -133,7 +131,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
                             dashboardSelector.setSelection(lastDashboardSelection);
                         }
                     };
-                    dialogUtilites.viewDialog(ProducteevControlSet.this.activity,
+                    DialogUtilities.viewDialog(ProducteevControlSet.this.activity,
                             ProducteevControlSet.this.activity.getString(R.string.producteev_create_dashboard_name),
                             editor,
                             okListener,

@@ -19,7 +19,7 @@ import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
 import com.timsu.astrid.utilities.LegacyTasksXmlExporter;
 import com.todoroo.andlib.data.AbstractModel;
-import com.todoroo.andlib.data.GenericDao;
+import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -34,13 +34,13 @@ import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.legacy.AlarmDatabase;
 import com.todoroo.astrid.legacy.LegacyAlertModel;
 import com.todoroo.astrid.legacy.LegacyRepeatInfo;
 import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.legacy.TransitionalAlarm;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.Task;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -324,7 +324,7 @@ public class Astrid2To3UpgradeHelper {
     @SuppressWarnings("nls")
     private static final <TYPE extends AbstractModel> void upgradeTable(Context context, String legacyTable,
             HashMap<String, Property<?>> propertyMap, TYPE model,
-            GenericDao<TYPE> dao) {
+            DatabaseDao<TYPE> dao) {
 
         if(!checkIfDatabaseExists(context, legacyTable))
             return;
@@ -482,7 +482,7 @@ public class Astrid2To3UpgradeHelper {
             return;
 
         AlarmDatabase alarmsDatabase = new AlarmDatabase();
-        GenericDao<TransitionalAlarm> dao = new GenericDao<TransitionalAlarm>(
+        DatabaseDao<TransitionalAlarm> dao = new DatabaseDao<TransitionalAlarm>(
                 TransitionalAlarm.class, alarmsDatabase);
 
         TodorooCursor<TransitionalAlarm> cursor = dao.query(Query.select(TransitionalAlarm.PROPERTIES));

@@ -38,8 +38,8 @@ import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.tags.TagService.Tag;
 

@@ -11,7 +11,7 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Table;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 
 /**
  * Data Model which represents an alarm. This is a transitional class -

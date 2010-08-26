@@ -28,7 +28,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.widget.TodorooPreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
@@ -52,9 +52,6 @@ public class EditPreferences extends TodorooPreferences {
 
     @Autowired
     private Database database;
-
-    @Autowired
-    private DialogUtilities dialogUtilities;
 
     public EditPreferences() {
         DependencyInjectionService.getInstance().inject(this);
@@ -161,7 +158,7 @@ public class EditPreferences extends TodorooPreferences {
                     task.setValue(Task.TITLE, Integer.toString(i));
                     taskService.save(task);
                 }
-                dialogUtilities.okDialog(EditPreferences.this, "done", null);
+                DialogUtilities.okDialog(EditPreferences.this, "done", null);
                 return false;
             }
         });
@@ -173,7 +170,7 @@ public class EditPreferences extends TodorooPreferences {
             public boolean onPreferenceClick(Preference p) {
                 database.openForWriting();
                 taskService.deleteWhere(Criterion.all);
-                dialogUtilities.okDialog(EditPreferences.this, "done", null);
+                DialogUtilities.okDialog(EditPreferences.this, "done", null);
                 return false;
             }
         });

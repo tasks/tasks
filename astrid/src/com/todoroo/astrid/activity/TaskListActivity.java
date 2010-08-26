@@ -75,8 +75,8 @@ import com.todoroo.astrid.backup.BackupActivity;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.model.Metadata;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
@@ -142,7 +142,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected MetadataService metadataService;
 
     @Autowired
-    protected DialogUtilities dialogUtilities;
+    protected DialogUtilities DialogUtilities;
 
     @Autowired
     protected Database database;

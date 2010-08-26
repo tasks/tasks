@@ -2,7 +2,7 @@ package com.todoroo.astrid.alarms;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.astrid.model.Metadata;
+import com.todoroo.astrid.data.Metadata;
 
 /**
  * Metadata entry for a task alarm

@@ -16,7 +16,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.model.Task;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
