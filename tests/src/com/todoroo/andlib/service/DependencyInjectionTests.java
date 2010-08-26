@@ -4,15 +4,10 @@ import java.lang.reflect.Field;
 
 import android.test.AndroidTestCase;
 
-import com.todoroo.andlib.service.AbstractDependencyInjector;
-import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.DependencyInjectionService;
-
 public class DependencyInjectionTests extends AndroidTestCase {
 
     public void testNoAutowire() {
         DependencyInjectionService service = new DependencyInjectionService();
-        service.setInjectors(new AbstractDependencyInjector[] {});
 
         Object test = new Object();
         service.inject(test);
@@ -20,16 +15,17 @@ public class DependencyInjectionTests extends AndroidTestCase {
 
     public void testSimpleStringInjectionAutowire() {
         DependencyInjectionService service = new DependencyInjectionService();
-        service.setInjectors(new AbstractDependencyInjector[] {
+        service.addInjector(
                 new AbstractDependencyInjector() {
 
+                    @Override
                     public Object getInjection(Object object, Field field) {
                         if(field.getName().equals("foo"))
                             return "bar";
                         return null;
                     }
                 }
-        });
+        );
 
         // test various permissions
         Object test = new Object() {
@@ -95,22 +91,25 @@ public class DependencyInjectionTests extends AndroidTestCase {
 
     public void testHierarchicalStringInjectionAutowire() {
         DependencyInjectionService service = new DependencyInjectionService();
-        service.setInjectors(new AbstractDependencyInjector[] {
+        service.addInjector(
                 new AbstractDependencyInjector() {
 
+                    @Override
+                    public Object getInjection(Object object, Field field) {
+                        return "malarkey";
+                    }
+                }
+        );
+        service.addInjector(
+                new AbstractDependencyInjector() {
+
+                    @Override
                     public Object getInjection(Object object, Field field) {
                         if(field.getName().equals("foo"))
                             return "bar";
                         return null;
                     }
-                },
-                new AbstractDependencyInjector() {
-
-                    public Object getInjection(Object object, Field field) {
-                        return "malarkey";
-                    }
-                }
-        });
+                });
 
         Object test = new Object() {
             @Autowired
@@ -139,16 +138,17 @@ public class DependencyInjectionTests extends AndroidTestCase {
 
     public void testMissingInjection() {
         DependencyInjectionService service = new DependencyInjectionService();
-        service.setInjectors(new AbstractDependencyInjector[] {
+        service.addInjector(
                 new AbstractDependencyInjector() {
 
+                    @Override
                     public Object getInjection(Object object, Field field) {
                         if(field.getName().equals("wozzle"))
                             return "bar";
                         return null;
                     }
                 }
-        });
+        );
 
         Object test = new Object() {
             @Autowired
@@ -172,16 +172,17 @@ public class DependencyInjectionTests extends AndroidTestCase {
 
     public void testMultipleInjection() {
         DependencyInjectionService service = new DependencyInjectionService();
-        service.setInjectors(new AbstractDependencyInjector[] {
+        service.addInjector(
                 new AbstractDependencyInjector() {
 
+                    @Override
                     public Object getInjection(Object object, Field field) {
                         if(field.getName().equals("foo"))
                             return "bar";
                         return null;
                     }
                 }
-        });
+        );
 
         Object test1 = new Object() {
             @Autowired
@@ -219,9 +220,10 @@ public class DependencyInjectionTests extends AndroidTestCase {
 
     public void testInheritedInjection() {
         DependencyInjectionService service = new DependencyInjectionService();
-        service.setInjectors(new AbstractDependencyInjector[] {
+        service.addInjector(
                 new AbstractDependencyInjector() {
 
+                    @Override
                     public Object getInjection(Object object, Field field) {
                         if(field.getName().equals("foo"))
                             return "gotfoo";
@@ -230,7 +232,7 @@ public class DependencyInjectionTests extends AndroidTestCase {
                         return null;
                     }
                 }
-        });
+        );
 
         ChildInjectee child = new ChildInjectee();
         service.inject(child);

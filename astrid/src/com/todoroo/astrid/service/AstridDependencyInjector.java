@@ -87,9 +87,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         synchronized(AstridDependencyInjector.class) {
             if(instance == null)
                 instance = new AstridDependencyInjector();
-            DependencyInjectionService.getInstance().setInjectors(new AbstractDependencyInjector[] {
-                    instance
-            });
+            DependencyInjectionService.getInstance().addInjector(instance);
         }
     }
 

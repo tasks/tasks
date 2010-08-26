@@ -58,7 +58,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
@@ -140,9 +139,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @Autowired
     protected MetadataService metadataService;
-
-    @Autowired
-    protected DialogUtilities DialogUtilities;
 
     @Autowired
     protected Database database;

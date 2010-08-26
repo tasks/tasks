@@ -3,7 +3,6 @@ package com.todoroo.astrid.service;
 import android.test.AndroidTestCase;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.AbstractDependencyInjector;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -21,9 +20,9 @@ public class AstridDependencyInjectorTests extends AndroidTestCase {
         super.setUp();
 
         // in case some state from other unit tests overwrote injector
-        DependencyInjectionService.getInstance().setInjectors(new AbstractDependencyInjector[] {
+        DependencyInjectionService.getInstance().addInjector(
                 new AstridDependencyInjector()
-        });
+        );
     }
 
     public void testWithString() {

@@ -1,8 +1,5 @@
 package com.todoroo.andlib.service;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
 
 public class TestDependencyInjector extends AbstractDependencyInjector {
 
@@ -32,14 +29,8 @@ public class TestDependencyInjector extends AbstractDependencyInjector {
      * Install TestDependencyInjector above other injectors
      */
     public synchronized static TestDependencyInjector initialize(String name) {
-        deinitialize(name);
-
-        ArrayList<AbstractDependencyInjector> list =
-            new ArrayList<AbstractDependencyInjector>(Arrays.asList(DependencyInjectionService.getInstance().getInjectors()));
-
         TestDependencyInjector instance = new TestDependencyInjector(name);
-        list.add(0, instance);
-        DependencyInjectionService.getInstance().setInjectors(list.toArray(new AbstractDependencyInjector[list.size()]));
+        DependencyInjectionService.getInstance().addInjector(instance);
         return instance;
     }
 
@@ -47,20 +38,8 @@ public class TestDependencyInjector extends AbstractDependencyInjector {
      * Remove an installed TestDependencyInjector
      * @param string
      */
-    public static void deinitialize(String name) {
-        ArrayList<AbstractDependencyInjector> list =
-            new ArrayList<AbstractDependencyInjector>(Arrays.asList(DependencyInjectionService.getInstance().getInjectors()));
-
-        for(Iterator<AbstractDependencyInjector> i = list.iterator(); i.hasNext(); ) {
-            AbstractDependencyInjector injector = i.next();
-
-            // if another one of these injectors already exists in the
-            // stack, remove it
-            if(injector instanceof TestDependencyInjector) {
-                if(((TestDependencyInjector)injector).name.equals(name))
-                    i.remove();
-            }
-        }
+    public static void deinitialize(TestDependencyInjector instance) {
+        DependencyInjectionService.getInstance().removeInjector(instance);
     }
 
 }

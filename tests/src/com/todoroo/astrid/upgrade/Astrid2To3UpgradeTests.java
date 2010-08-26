@@ -56,10 +56,12 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     @Autowired
     MetadataDao metadataDao;
 
+    TestDependencyInjector injector;
+
     @Override
     protected void setUp() throws Exception {
         // initialize test dependency injector
-        TestDependencyInjector injector = TestDependencyInjector.initialize("upgrade");
+        injector = TestDependencyInjector.initialize("upgrade");
         injector.addInjectable("tasksTable", TASKS_TEST);
         injector.addInjectable("tagsTable", TAGS_TEST);
         injector.addInjectable("tagTaskTable", TAG_TASK_TEST);
@@ -83,7 +85,7 @@ public class Astrid2To3UpgradeTests extends DatabaseTestCase {
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-        TestDependencyInjector.deinitialize("upgrade");
+        TestDependencyInjector.deinitialize(injector);
     }
 
     // --- helper methods
