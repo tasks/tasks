@@ -671,7 +671,7 @@ public final class TaskEditActivity extends TabActivity {
 
                 StringBuilder label = new StringBuilder();
                 if(ProducteevUtilities.INSTANCE.isLoggedIn())
-                    label.append(5 - i).append("\n★"); //$NON-NLS-1$
+                    label.append(5 - i).append("\n\u2605"); //$NON-NLS-1$
                 else {
                     for(int j = importanceOffset; j >= i; j--)
                         label.append('!');

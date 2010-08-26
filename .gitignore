@@ -5,6 +5,7 @@ org.eclipse.ltk.core.refactoring.prefs
 gen
 local.properties
 ecbuild
+astrid/bin
 dev
 lp-translations/
 
