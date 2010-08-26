@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.os.IBinder;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -19,6 +20,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.ShortcutActivity;
@@ -279,9 +281,12 @@ public class PowerWidget extends AppWidgetProvider {
                 int sort = Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
                 String query = SortSelectionActivity.adjustQueryForFlagsAndSort(
                         filter.sqlQuery, flags, sort);
+                query = query.replace(Task.COMPLETION_DATE.eq(0).toString(), Criterion.or(Task.COMPLETION_DATE.eq(0),
+                        Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000L)).toString());
 
                 database.openForReading();
-                cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.IMPORTANCE);
+                cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE,
+                        Task.DUE_DATE, Task.IMPORTANCE, Task.COMPLETION_DATE);
 
                 // adjust bounds of scrolling
                 if (scrollOffset < 0){
@@ -298,7 +303,10 @@ public class PowerWidget extends AppWidgetProvider {
                     String textContent = "";
                     int titleColor = textColor;
                     int dueString = R.string.PPW_due;
-                    if(task.hasDueDate() && task.getValue(Task.DUE_DATE) < DateUtilities.now()){
+                    if(task.isCompleted()) {
+                        titleColor = context.getResources().getColor(R.color.task_list_done);
+                        dueString = 0;
+                    } else if(task.hasDueDate() && task.getValue(Task.DUE_DATE) < DateUtilities.now()){
                         titleColor = overdueColor;
                         dueString = R.string.PPW_past_due;
                     }
@@ -333,6 +341,8 @@ public class PowerWidget extends AppWidgetProvider {
                     // set click listener for checkbox
                     taskLine.setOnClickPendingIntent(R.id.checkbox, pMarkCompleteIntent);
                     // set task title
+                    if(task.isCompleted())
+                        taskLine.setInt(R.id.task_title, "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG);
                     taskLine.setTextViewText(R.id.task_title, textContent);
                     taskLine.setTextColor(R.id.task_title, titleColor);
                     // set due date
