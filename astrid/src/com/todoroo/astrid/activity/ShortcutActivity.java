@@ -119,6 +119,7 @@ public class ShortcutActivity extends Activity {
                     new QueryTemplate().where(Task.ID.eq(extras.getLong(TOKEN_SINGLE_TASK, -1))), null);
 
             Intent taskListIntent = new Intent(this, TaskListActivity.class);
+            taskListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             taskListIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
             startActivity(taskListIntent);
         }

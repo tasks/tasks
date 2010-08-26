@@ -24,6 +24,7 @@ import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.astrid.widget.PowerWidget;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -236,6 +237,7 @@ public class TaskDao extends DatabaseDao<Task> {
 
         Astrid2TaskProvider.notifyDatabaseModification();
         TasksWidget.updateWidgets(ContextManager.getContext());
+        PowerWidget.updateWidgets(ContextManager.getContext());
     }
 
     /**

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <!-- Resources for power pack widget -->
+    
+    <string name="PPW_widget_42_label">Astrid (Power Pack 4x2)</string>
+    <string name="PPW_widget_44_label">Astrid (Power Pack 4x4)</string>
+    
+    <string name="PPW_configure_title">Configure Widget</string>
+    
+    <string name="PPW_color">Widget color</string>
+    <string name="PPW_enable_calendar">Show calendar events</string>
+    <string name="PPW_disable_encouragements">Hide encouragements</string>
+    <string name="PPW_filter">Select Filter</string>
+    
+    <string name="PPW_due">Due:</string>
+    <string name="PPW_past_due">Past Due:</string>
+    
+    <string-array name="PPW_encouragements">
+    	<item>Ready to work?</item>
+    </string-array>
+</resources>

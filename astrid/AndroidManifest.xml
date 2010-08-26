@@ -124,6 +124,12 @@
         <action android:name="android.intent.action.MAIN" />
       </intent-filter>
     </activity>
+	<!-- Activity to configure Power Pack widget -->
+	<activity android:name="com.todoroo.astrid.widget.ConfigurePowerWidgetActivity">
+	    <intent-filter>
+	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+	    </intent-filter>
+	</activity>
     
     <!-- ======================================================= Receivers = -->
 
@@ -136,6 +142,15 @@
       <meta-data android:name="android.appwidget.provider"
                  android:resource="@xml/widget_provider_info" />
     </receiver>
+    <receiver android:name="com.todoroo.astrid.widget.PowerWidget"    
+                android:label="@string/PPW_widget_44_label"
+                android:icon="@drawable/icon_pp" >
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data android:name="android.appwidget.provider"
+                 android:resource="@xml/power_widget_44_provider_info" />
+    </receiver>
 
     <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
       <intent-filter>
@@ -146,6 +161,7 @@
     <!-- ======================================================== Services = -->
 
     <service android:name="com.todoroo.astrid.widget.TasksWidget$UpdateService" />
+    <service android:name="com.todoroo.astrid.widget.PowerWidget$UpdateService" />
 
     <!-- ======================================================= Providers = -->
 
