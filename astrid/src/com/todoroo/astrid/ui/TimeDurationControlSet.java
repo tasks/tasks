@@ -26,17 +26,12 @@ import android.view.View;
 import android.widget.Button;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.ui.NNumberPickerDialog.OnNNumberPickedListener;
 
 @SuppressWarnings("nls")
 public class TimeDurationControlSet implements OnNNumberPickedListener,
         View.OnClickListener {
-
-    @Autowired
-    DateUtilities dateUtilities;
 
     private final Activity activity;
     private final Button timeButton;
@@ -57,7 +52,7 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
         dialog = new NNumberPickerDialog(activity, this,
                 activity.getResources().getString(titleResource),
                 new int[] {0, 0}, new int[] {1, 5}, new int[] {0, 0},
-                new int[] {99, 59}, new String[] {":", null});
+                new int[] {999, 59}, new String[] {":", null});
         final NumberPicker hourPicker = dialog.getPicker(0);
         final NumberPicker minutePicker = dialog.getPicker(1);
         minutePicker.setFormatter(new NumberPicker.Formatter() {
@@ -101,10 +96,8 @@ public class TimeDurationControlSet implements OnNNumberPickedListener,
 
         String prefix = "";
         if (prefixResource != 0)
-            prefix = r.getString(prefixResource);
-        timeButton.setText(prefix
-                + " "
-                + DateUtils.getRelativeTimeSpanString(activity, timeDurationInSeconds * 1000L));
+            prefix = r.getString(prefixResource) + " ";
+        timeButton.setText(prefix + DateUtils.formatElapsedTime(timeDuration));
         int hours = timeDuration / 3600;
         int minutes = timeDuration / 60 - 60 * hours;
         dialog.setInitialValues(new int[] { hours, minutes });

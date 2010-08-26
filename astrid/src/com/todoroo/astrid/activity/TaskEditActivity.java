@@ -451,16 +451,9 @@ public final class TaskEditActivity extends TabActivity {
 
         long due = model.getValue(Task.DUE_DATE);
         if (due != 0) {
-            long dueFromNow = due - System.currentTimeMillis();
-
-            if (dueFromNow < 0) {
-                stringResource = R.string.TEA_onTaskSave_overdue;
-            } else {
-                stringResource = R.string.TEA_onTaskSave_due;
-            }
+            stringResource = R.string.TEA_onTaskSave_due;
             CharSequence formattedDate =
-                DateUtils.getRelativeTimeSpanString(dueFromNow, DateUtilities.now(),
-                        DateUtils.MINUTE_IN_MILLIS, 0);
+                DateUtils.getRelativeTimeSpanString(due);
             Toast.makeText(this,
                     getResources().getString(stringResource, formattedDate),
                     Toast.LENGTH_SHORT).show();
@@ -853,6 +846,8 @@ public final class TaskEditActivity extends TabActivity {
                         this, 1900 + customDate.getYear(), customDate.getMonth(), customDate.getDate());
                 datePicker.setOnCancelListener(this);
                 datePicker.show();
+
+                spinner.setSelection(previousSetting);
             } else {
                 previousSetting = position;
                 model.setValue(Task.DUE_DATE, item.dueDate);

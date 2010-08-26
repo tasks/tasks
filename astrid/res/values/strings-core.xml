@@ -280,11 +280,8 @@ to the plugin creator for fastest service.
   <!-- Menu: Delete Task -->
   <string name="TEA_menu_delete">Delete Task</string>
   
-   <!-- Toast: task saved with deadline (%s => time units) -->
-  <string name="TEA_onTaskSave_due">Task Saved: due in %s</string>
-  
-  <!-- Toast: task saved with deadline in past (%s => time units) -->
-  <string name="TEA_onTaskSave_overdue">Task Saved: due %s ago</string>
+   <!-- Toast: task saved with deadline (%s => preposition + time units) -->
+  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">Task Saved</string>
