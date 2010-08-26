@@ -818,7 +818,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     abstract public class AddOnManager<TYPE> {
 
         private final Map<Long, HashMap<String, TYPE>> cache =
-            new HashMap<Long, HashMap<String, TYPE>>();
+            Collections.synchronizedMap(new HashMap<Long, HashMap<String, TYPE>>());
 
         // --- interface
 
