@@ -213,6 +213,8 @@ public class TasksXmlExporter {
         public Void visitInteger(Property<Integer> property, AbstractModel data) {
             try {
                 xml.attribute(null, property.name, data.getValue(property).toString());
+            } catch (UnsupportedOperationException e) {
+                // didn't read this value, do nothing
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException(e);
             } catch (IllegalStateException e) {
@@ -227,6 +229,8 @@ public class TasksXmlExporter {
         public Void visitLong(Property<Long> property, AbstractModel data) {
             try {
                 xml.attribute(null, property.name, data.getValue(property).toString());
+            } catch (UnsupportedOperationException e) {
+                // didn't read this value, do nothing
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException(e);
             } catch (IllegalStateException e) {
@@ -241,6 +245,8 @@ public class TasksXmlExporter {
         public Void visitDouble(Property<Double> property, AbstractModel data) {
             try {
                 xml.attribute(null, property.name, data.getValue(property).toString());
+            } catch (UnsupportedOperationException e) {
+                // didn't read this value, do nothing
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException(e);
             } catch (IllegalStateException e) {
@@ -258,6 +264,8 @@ public class TasksXmlExporter {
                 if(value == null)
                     return null;
                 xml.attribute(null, property.name, value);
+            } catch (UnsupportedOperationException e) {
+                // didn't read this value, do nothing
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException(e);
             } catch (IllegalStateException e) {
