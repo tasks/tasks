@@ -27,6 +27,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
@@ -35,17 +36,23 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * <li>access it directly just like any other content provider
  * <li>use the DAO classes from the Astrid API library
  * </ul>
- *
+ * <p>
  * The following base URI's are supported:
  * <ul>
  * <li>content://com.todoroo.astrid/tasks - task data ({@link Task})
  * <li>content://com.todoroo.astrid/metadata - task metadata ({@link Metadata})
  * <li>content://com.todoroo.astrid/store - non-task store data ({@link StoreObject})
  * </ul>
- *
+ * <p>
  * Each URI supports the following components:
  * <ul>
- * <li>/ - query for all items
+ * <li>/ - operate on all items (insert, delete, update, query)
+ * <li>/123 - operate on item id #123 (delete, update, query)
+ * <li>/groupby/title - query with SQL "group by" (query)
+ * </ul>
+ * <p>
+ * If you are writing a third-party application to access this data, you may
+ * also consider using one of the Api DAO objects like {@link TaskApiDao}.
  *
  * @author Tim Su <tim@todoroo.com>
  *
