@@ -79,8 +79,9 @@ public class MetadataService {
      * @param id
      * @param metadata
      * @param metadataKeys
+     * @return number of items saved
      */
-    public void synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
+    public int synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
             Criterion metadataCriterion) {
         HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
         for(Metadata metadatum : metadata) {
@@ -114,10 +115,14 @@ public class MetadataService {
         }
 
         // everything that remains shall be written
+        int written = 0;
         for(ContentValues values : newMetadataValues) {
             item.clear();
             item.mergeWith(values);
             metadataDao.persist(item);
+            ++written;
         }
+
+        return written;
     }
 }

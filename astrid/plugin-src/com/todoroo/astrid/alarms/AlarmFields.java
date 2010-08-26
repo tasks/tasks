@@ -10,7 +10,7 @@ import com.todoroo.astrid.data.Metadata;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class Alarm {
+public class AlarmFields {
 
     /** metadata key */
     public static final String METADATA_KEY = "alarm"; //$NON-NLS-1$

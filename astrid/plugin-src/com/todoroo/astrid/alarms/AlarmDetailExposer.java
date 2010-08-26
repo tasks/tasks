@@ -51,7 +51,7 @@ public class AlarmDetailExposer extends BroadcastReceiver {
         long nextTime = -1;
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                long time = cursor.get(Alarm.TIME);
+                long time = cursor.get(AlarmFields.TIME);
                 if(time > DateUtilities.now()) {
                     nextTime = time;
                     break;

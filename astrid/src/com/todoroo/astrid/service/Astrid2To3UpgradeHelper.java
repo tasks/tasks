@@ -29,7 +29,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.alarms.Alarm;
+import com.todoroo.astrid.alarms.AlarmFields;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
@@ -491,14 +491,14 @@ public class Astrid2To3UpgradeHelper {
                 return;
 
             Metadata metadata = new Metadata();
-            metadata.setValue(Metadata.KEY, Alarm.METADATA_KEY);
+            metadata.setValue(Metadata.KEY, AlarmFields.METADATA_KEY);
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long task = cursor.get(TransitionalAlarm.TASK);
                 long time = cursor.get(TransitionalAlarm.TIME);
 
                 metadata.setValue(Metadata.TASK, task);
-                metadata.setValue(Alarm.TIME, time);
-                metadata.setValue(Alarm.TYPE, Alarm.TYPE_SINGLE);
+                metadata.setValue(AlarmFields.TIME, time);
+                metadata.setValue(AlarmFields.TYPE, AlarmFields.TYPE_SINGLE);
                 metadataDao.createNew(metadata);
                 metadata.clearValue(Metadata.ID);
             }

@@ -10,15 +10,15 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.Toast;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -122,6 +122,17 @@ public class GCalControlSet implements TaskEditControlSet {
         if(!TextUtils.isEmpty(uri)) {
             try {
                 calendarUri = Uri.parse(uri);
+
+                // try to load calendar
+                ContentResolver cr = activity.getContentResolver();
+                Cursor cursor = cr.query(calendarUri, new String[] { "dtstart" }, null, null, null); //$NON-NLS-1$
+                boolean deleted = cursor.getCount() == 0;
+                cursor.close();
+                if(deleted) {
+                    calendarUri = null;
+                    return;
+                }
+
                 addToCalendar.setVisibility(View.GONE);
                 calendarSelector.setVisibility(View.GONE);
                 viewCalendarEvent.setVisibility(View.VISIBLE);
@@ -134,7 +145,7 @@ public class GCalControlSet implements TaskEditControlSet {
 
     @SuppressWarnings("nls")
     @Override
-    public void writeToModel(Task task) {
+    public String writeToModel(Task task) {
         if(addToCalendar.isChecked() && calendarUri == null) {
             FlurryAgent.onEvent("create-calendar-event");
 
@@ -167,6 +178,7 @@ public class GCalControlSet implements TaskEditControlSet {
                         activity.getString(R.string.gcal_TEA_error), e);
             }
         }
+        return null;
     }
 
     @SuppressWarnings("nls")

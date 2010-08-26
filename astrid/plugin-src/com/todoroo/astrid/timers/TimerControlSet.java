@@ -44,9 +44,10 @@ public class TimerControlSet implements TaskEditControlSet {
     }
 
     @Override
-    public void writeToModel(Task task) {
+    public String writeToModel(Task task) {
         estimated.writeToModel(task);
         elapsed.writeToModel(task);
+        return null;
     }
 
     // --- TimeDurationTaskEditControlSet
@@ -73,8 +74,9 @@ public class TimerControlSet implements TaskEditControlSet {
         }
 
         @Override
-        public void writeToModel(Task task) {
+        public String writeToModel(Task task) {
             task.setValue(property, controlSet.getTimeDurationInSeconds());
+            return null;
         }
     }
 

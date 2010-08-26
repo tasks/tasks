@@ -1,5 +1,6 @@
 package com.todoroo.astrid.alarms;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
 
@@ -55,50 +56,28 @@ public class AlarmService {
     public TodorooCursor<Metadata> getAlarms(long taskId) {
         return PluginServices.getMetadataService().query(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(
-                        taskId, Alarm.METADATA_KEY)).orderBy(Order.asc(Alarm.TIME)));
+                        taskId, AlarmFields.METADATA_KEY)).orderBy(Order.asc(AlarmFields.TIME)));
     }
 
     /**
-     * Save the given array of tags into the database
+     * Save the given array of alarms into the database
      * @param taskId
      * @param tags
+     * @return true if data was changed
      */
-    public void synchronizeAlarms(long taskId, LinkedHashSet<Long> alarms) {
+    public boolean synchronizeAlarms(long taskId, LinkedHashSet<Long> alarms) {
         MetadataService service = PluginServices.getMetadataService();
 
-        if(alarmsIdentical(taskId, alarms))
-            return;
-
-        service.deleteWhere(Criterion.and(MetadataCriteria.byTask(taskId),
-                MetadataCriteria.withKey(Alarm.METADATA_KEY)));
-
-        Metadata metadata = new Metadata();
-        metadata.setValue(Metadata.KEY, Alarm.METADATA_KEY);
-        metadata.setValue(Metadata.TASK, taskId);
+        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
         for(Long alarm : alarms) {
-            metadata.clearValue(Metadata.ID);
-            metadata.setValue(Alarm.TIME, alarm);
-            metadata.setValue(Alarm.TYPE, Alarm.TYPE_SINGLE);
-            service.save(metadata);
-            scheduleAlarm(metadata);
-        }
-    }
-
-    private boolean alarmsIdentical(long taskId, LinkedHashSet<Long> alarms) {
-        TodorooCursor<Metadata> cursor = getAlarms(taskId);
-        try {
-            if(cursor.getCount() != alarms.size())
-                return false;
-            for(Long alarm : alarms) {
-                cursor.moveToNext();
-                if(alarm != cursor.get(Alarm.TIME))
-                    return false;
-            }
-        } finally {
-            cursor.close();
+            Metadata item = new Metadata();
+            item.setValue(Metadata.KEY, AlarmFields.METADATA_KEY);
+            item.setValue(AlarmFields.TIME, alarm);
+            item.setValue(AlarmFields.TYPE, AlarmFields.TYPE_SINGLE);
+            metadata.add(item);
         }
 
-        return true;
+        return service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY)) > 0;
     }
 
     // --- alarm scheduling
@@ -109,9 +88,9 @@ public class AlarmService {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Metadata> getActiveAlarms() {
-        return PluginServices.getMetadataService().query(Query.select(Alarm.TIME).
+        return PluginServices.getMetadataService().query(Query.select(AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
-                where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(Alarm.METADATA_KEY))));
+                where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(AlarmFields.METADATA_KEY))));
     }
 
     /**
@@ -120,10 +99,10 @@ public class AlarmService {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Metadata> getAlarmsForTask(long taskId) {
-        return PluginServices.getMetadataService().query(Query.select(Alarm.TIME).
+        return PluginServices.getMetadataService().query(Query.select(AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
-                        MetadataCriteria.byTaskAndwithKey(taskId, Alarm.METADATA_KEY))));
+                        MetadataCriteria.byTaskAndwithKey(taskId, AlarmFields.METADATA_KEY))));
     }
 
     /**
@@ -190,7 +169,7 @@ public class AlarmService {
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
                 intent, 0);
 
-        long time = alarm.getValue(Alarm.TIME);
+        long time = alarm.getValue(AlarmFields.TIME);
         if(time == 0 || time == NO_ALARM)
             am.cancel(pendingIntent);
         else if(time > DateUtilities.now()) {

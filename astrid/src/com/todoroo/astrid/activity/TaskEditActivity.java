@@ -600,8 +600,9 @@ public final class TaskEditActivity extends TabActivity {
 
         /**
          * Write data from control set to model
+         * @return text appended to the toast
          */
-        public void writeToModel(Task task);
+        public String writeToModel(Task task);
     }
 
     // --- EditTextControlSet
@@ -626,8 +627,9 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void writeToModel(Task task) {
+        public String writeToModel(Task task) {
             task.setValue(property, editText.getText().toString());
+            return null;
         }
     }
 
@@ -710,9 +712,10 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void writeToModel(Task task) {
+        public String writeToModel(Task task) {
             if(getImportance() != null)
                 task.setValue(Task.IMPORTANCE, getImportance());
+            return null;
         }
     }
 
@@ -921,10 +924,11 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void writeToModel(Task task) {
+        public String writeToModel(Task task) {
             UrgencyValue item = urgencyAdapter.getItem(spinner.getSelectedItemPosition());
             if(item.dueDate != SPECIFIC_DATE) // user canceled specific date
                 task.setValue(Task.DUE_DATE, item.dueDate);
+            return null;
         }
 
     }
@@ -1082,10 +1086,11 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void writeToModel(Task task) {
+        public String writeToModel(Task task) {
             HideUntilValue item = adapter.getItem(spinner.getSelectedItemPosition());
             long value = task.createHideUntil(item.setting, item.date);
             task.setValue(Task.HIDE_UNTIL, value);
+            return null;
         }
 
     }
@@ -1140,8 +1145,9 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void writeToModel(Task task) {
+        public String writeToModel(Task task) {
             task.setValue(Task.REMINDER_FLAGS, getValue());
+            return null;
         }
     }
 
@@ -1211,12 +1217,13 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         @Override
-        public void writeToModel(Task task) {
+        public String writeToModel(Task task) {
             if(settingCheckbox.isChecked()) {
                 int hourValue = hours[periodSpinner.getSelectedItemPosition()];
                 task.setValue(Task.REMINDER_PERIOD, hourValue * DateUtilities.ONE_HOUR);
             } else
                 task.setValue(Task.REMINDER_PERIOD, 0L);
+            return null;
         }
     }
 

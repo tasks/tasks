@@ -44,7 +44,6 @@ public final class TagsControlSet implements TaskEditControlSet {
     private final Spinner tagSpinner;
     private final TagService tagService = TagService.getInstance();
     private final Tag[] allTags;
-    private String[] loadedTags;
     private final LinearLayout tagsContainer;
     private final Activity activity;
 
@@ -91,12 +90,9 @@ public final class TagsControlSet implements TaskEditControlSet {
         if(task.getId() != AbstractModel.NO_ID) {
             TodorooCursor<Metadata> cursor = tagService.getTags(task.getId());
             try {
-                loadedTags = new String[cursor.getCount()];
-                for(int i = 0; i < loadedTags.length; i++) {
-                    cursor.moveToNext();
+                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     String tag = cursor.get(TagService.TAG);
                     addTag(tag, true);
-                    loadedTags[i] = tag;
                 }
             } finally {
                 cursor.close();
@@ -106,31 +102,24 @@ public final class TagsControlSet implements TaskEditControlSet {
     }
 
     @Override
-    public void writeToModel(Task task) {
+    public String writeToModel(Task task) {
         // this is a case where we're asked to save but the UI was not yet populated
         if(tagsContainer.getChildCount() == 0)
-            return;
+            return null;
 
         LinkedHashSet<String> tags = new LinkedHashSet<String>();
-        boolean identical = true;
-
         for(int i = 0; i < tagsContainer.getChildCount(); i++) {
             TextView tagName = (TextView)tagsContainer.getChildAt(i).findViewById(R.id.text1);
             if(tagName.getText().length() == 0)
                 continue;
-            String tag = tagName.getText().toString();
-            tags.add(tag);
 
-            if(loadedTags.length <= i || !loadedTags[i].equals(tag))
-                identical = false;
+            tags.add(tagName.getText().toString());
         }
-        if(loadedTags == null || tags.size() != loadedTags.length)
-            identical = false;
 
-        if(!identical) {
-            tagService.synchronizeTags(task.getId(), tags);
+        if(TagService.getInstance().synchronizeTags(task.getId(), tags))
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
-        }
+
+        return null;
     }
 
     /** Adds a tag to the tag field */

@@ -1,5 +1,6 @@
 package com.todoroo.astrid.tags;
 
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 import com.todoroo.andlib.data.Property.CountProperty;
@@ -12,11 +13,13 @@ import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.MetadataService;
 
 /**
  * Provides operations for working with tags
@@ -179,17 +182,17 @@ public final class TagService {
      * @param taskId
      * @param tags
      */
-    public void synchronizeTags(long taskId, LinkedHashSet<String> tags) {
-        metadataDao.deleteWhere(Criterion.and(MetadataCriteria.byTask(taskId),
-                MetadataCriteria.withKey(KEY)));
+    public boolean synchronizeTags(long taskId, LinkedHashSet<String> tags) {
+        MetadataService service = PluginServices.getMetadataService();
 
-        Metadata metadata = new Metadata();
-        metadata.setValue(Metadata.KEY, KEY);
-        metadata.setValue(Metadata.TASK, taskId);
+        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
         for(String tag : tags) {
-            metadata.clearValue(Metadata.ID);
-            metadata.setValue(TAG, tag.trim());
-            metadataDao.createNew(metadata);
+            Metadata item = new Metadata();
+            item.setValue(Metadata.KEY, KEY);
+            item.setValue(TAG, tag);
+            metadata.add(item);
         }
+
+        return service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(KEY)) > 0;
     }
 }

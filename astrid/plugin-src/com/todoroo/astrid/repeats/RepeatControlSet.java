@@ -234,7 +234,7 @@ public class RepeatControlSet implements TaskEditControlSet {
 
 
     @Override
-    public void writeToModel(Task task) {
+    public String writeToModel(Task task) {
         String result;
         if(!enabled.isChecked())
             result = ""; //$NON-NLS-1$
@@ -276,5 +276,6 @@ public class RepeatControlSet implements TaskEditControlSet {
 
         if(task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION))
             type.setSelection(1);
+        return null;
     }
 }

@@ -243,7 +243,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
     }
 
     @Override
-    public void writeToModel(Task task) {
+    public String writeToModel(Task task) {
         Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(task.getId());
         try {
             if (metadata == null) {
@@ -270,5 +270,6 @@ public class ProducteevControlSet implements TaskEditControlSet {
         } catch (Exception e) {
             Log.e("error-saving-pdv", "Error Saving Metadata", e); //$NON-NLS-1$ //$NON-NLS-2$
         }
+        return null;
     }
 }

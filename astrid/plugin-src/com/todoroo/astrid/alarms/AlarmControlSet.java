@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.widget.DateControlSet;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Metadata;
@@ -50,14 +51,14 @@ public final class AlarmControlSet implements TaskEditControlSet {
         TodorooCursor<Metadata> cursor = AlarmService.getInstance().getAlarms(task.getId());
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext())
-                addAlarm(new Date(cursor.get(Alarm.TIME)));
+                addAlarm(new Date(cursor.get(AlarmFields.TIME)));
         } finally {
             cursor.close();
         }
     }
 
     @Override
-    public void writeToModel(Task task) {
+    public String writeToModel(Task task) {
         LinkedHashSet<Long> alarms = new LinkedHashSet<Long>();
         for(int i = 0; i < alertsContainer.getChildCount(); i++) {
             DateControlSet set = (DateControlSet) alertsContainer.getChildAt(i).getTag();
@@ -67,7 +68,11 @@ public final class AlarmControlSet implements TaskEditControlSet {
             if(date != null)
                 alarms.add(set.getDate().getTime());
         }
-        AlarmService.getInstance().synchronizeAlarms(task.getId(), alarms);
+
+        if(AlarmService.getInstance().synchronizeAlarms(task.getId(), alarms))
+            task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+
+        return null;
     }
 
     private boolean addAlarm(Date alert) {
