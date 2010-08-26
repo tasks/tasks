@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.webkit.WebView;
 
 import com.timsu.astrid.R;
@@ -12,17 +14,14 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.utility.Preferences;
 
 
 public final class UpgradeService {
 
-    private static final int V3_2_6 = 153;
-    private static final int V3_2_5 = 152;
-    private static final int V3_2_4 = 151;
-    private static final int V3_2_3 = 150;
+    private static final int V3_3_0 = 155;
+    private static final int V3_2_0 = 147;
     private static final int V3_1_0 = 146;
-    private static final int V3_0_6 = 145;
-    private static final int V3_0_5 = 144;
     private static final int V3_0_0 = 136;
     private static final int V2_14_4 = 135;
 
@@ -63,6 +62,9 @@ public final class UpgradeService {
                     if(from < V3_1_0)
                         new Astrid2To3UpgradeHelper().upgrade3To3_1(context, from);
 
+                    if(from < V3_3_0)
+                        upgrade3To3_3(context);
+
                 } finally {
                     if(context instanceof Activity) {
                         ((Activity)context).runOnUiThread(new Runnable() {
@@ -79,6 +81,7 @@ public final class UpgradeService {
                     }
                 }
             }
+
         }).start();
     }
 
@@ -98,37 +101,19 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if(from <= V2_14_4)
-            newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
+            newVersionString(changeLog, "3.3.0 (8/25/10)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
                     "look and feel, a new add-on system allows Astrid to become " +
                     "more powerful, while other improvements have made it faster " +
                     "and easier to use. Hope you like it!",
-                    "This update contains for free all of Astrid " +
-                    "Power Pack's features for evaluation purposes",
                     "If you liked the old version, you can also go back by " +
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
-        if(from > V3_1_0 && from <= V3_2_6)
-            newVersionString(changeLog, "3.2.7 (8/25/10)", new String[] {
-                    "Fixed: crazy notifications for overdue tasks! :(",
+        if(from >= V3_0_0 && from < V3_3_0)
+            newVersionString(changeLog, "3.3.0 (        )", new String[] {
+                    "something!",
             });
-        if(from > V3_1_0 && from <= V3_2_5)
-            newVersionString(changeLog, "3.2.7 (8/24/10)", new String[] {
-                    "RTM: fix for login popping up randomly, not syncing priority",
-                    "Sync: added a 'Sync Now!' button to the menu, moved options to Settings",
-                    "Improvements to notification code to remind you of missed notifications",
-                    "Smoother scrolling of task list once details are loaded",
-            });
-        if(from > V3_1_0 && from <= V3_2_4)
-            newVersionString(changeLog, "3.2.5 (8/18/10)", new String[] {
-                    "Fix for duplicated tasks created in RTM",
-            });
-        if(from > V3_1_0 && from <= V3_2_3)
-            newVersionString(changeLog, "3.2.5 (8/18/10)", new String[] {
-                    "Fix for duplicated tasks created in Producteev",
-                    "Fix for being able to create tasks without title",
-            });
-        if(from > V2_14_4 && from <= V3_1_0)
+        if(from >= V3_0_0 && from < V3_2_0)
             newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
                     "Build your own custom filters from the Filter page",
                     "Easy task sorting (in the task list menu)",
@@ -137,7 +122,7 @@ public final class UpgradeService {
                     "Select tags by drop-down box",
                     "Cosmetic improvements, calendar & sync bug fixes",
             });
-        if(from > V2_14_4 && from <= V3_0_6)
+        if(from >= V3_0_0 && from < V3_1_0)
             newVersionString(changeLog, "3.1.0 (8/9/10)", new String[] {
                     "Linkify phone numbers, e-mails, and web pages",
                     "Swipe L => R to go from tasks to filters",
@@ -146,13 +131,6 @@ public final class UpgradeService {
                     "Restored tag hiding when tag begins with underscore (_)",
                     "FROYO: disabled moving app to SD card, it would break alarms and widget",
                     "Also gone: a couple force closes, bugs with repeating tasks",
-            });
-        if(from > V2_14_4 && from <= V3_0_5)
-            newVersionString(changeLog, "3.0.6 (8/4/10)", new String[] {
-                    "This update contains for free all of the " +
-                        "powerpack's features for evaluation purposes",
-                    "Fixed widget not updating when tasks are edited",
-                    "Added a setting for displaying task notes in the list",
             });
 
         if(changeLog.length() == 0)
@@ -185,6 +163,37 @@ public final class UpgradeService {
         for(String change : changes)
             changeLog.append("<li>").append(change).append("</li>\n");
         changeLog.append("</ul>");
+    }
+
+    // --- upgrade functions
+
+    @SuppressWarnings("nls")
+    private void upgrade3To3_3(final Context context) {
+        // if RTM, store RTM to secondary preferences
+        if(Preferences.getStringValue("rmilk_token") != null) {
+            SharedPreferences settings = context.getSharedPreferences("rtm", Context.MODE_WORLD_READABLE);
+            Editor editor = settings.edit();
+            editor.putString("rmilk_token", Preferences.getStringValue("rmilk_token"));
+            editor.putLong("rmilk_last_sync", Preferences.getLong("rmilk_last_sync", 0));
+            editor.commit();
+
+            final String message = "Hi, it looks like you are a Remember the Milk user! " +
+            		"In this version of Astrid, RTM is now a community-supported " +
+            		"add-on. Please go to the Android market to install it!";
+            if(context instanceof Activity) {
+                ((Activity)context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        new AlertDialog.Builder(context)
+                        .setTitle(com.todoroo.astrid.api.R.string.DLG_information_title)
+                        .setMessage(message)
+                        .setPositiveButton("Go To Market", new AddOnService.MarketClickListener(context, "org.weloveastrid.rmilk"))
+                        .setNegativeButton("Later", null)
+                        .show();
+                    }
+                });
+            }
+        }
     }
 
     // --- secondary upgrade
