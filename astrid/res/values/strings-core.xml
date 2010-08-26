@@ -517,17 +517,6 @@ to the plugin creator for fastest service.
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
   
-  <!-- ========================================== SynchronizationProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Synchronizing your tasks...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Synchronizing...</string>
-  
-  <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">Synchronization</string>
-  
   <!-- ====================================================== TasksWidget == -->
 
   <!-- Widget text when loading tasks -->

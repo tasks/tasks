@@ -2,70 +2,81 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- ======================== SyncPreferences ========================== -->
-    
-    <!-- Status Group Label -->    
-    <string name="sync_SPr_group_status">Status</string>
-    
-    <!-- Sync Status: log in -->    
-    <string name="sync_status_loggedout">Not Logged In!</string>
-    <!-- Status: ongoing -->    
-    <string name="sync_status_ongoing">Sync Ongoing...</string>
-    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="sync_status_success">Last Sync: %s</string>
-    <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="sync_status_failed">Failed On: %s</string>
-    <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
-    <!-- Sync Status: never sync'd -->    
-    <string name="sync_status_never">Never Synchronized!</string>
+  <!-- ========================================== SynchronizationProvider == -->
+          
+  <!-- Sync Notification: message when sync service active -->
+  <string name="SyP_progress">Synchronizing your tasks...</string>
+  
+  <!-- Sync Notification: toast when sync activated from activity -->
+  <string name="SyP_progress_toast">Synchronizing...</string>
+  
+  <!-- Sync Label: used in menu to denote synchronization -->
+  <string name="SyP_label">Synchronization</string>  
 
-    <!-- Options Group Label -->    
-    <string name="sync_SPr_group_options">Options</string>
+  <!-- ======================== SyncPreferences ========================== -->
+  
+  <!-- Status Group Label -->    
+  <string name="sync_SPr_group_status">Status</string>
+  
+  <!-- Sync Status: log in -->    
+  <string name="sync_status_loggedout">Not Logged In!</string>
+  <!-- Status: ongoing -->    
+  <string name="sync_status_ongoing">Sync Ongoing...</string>
+  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
+  <string name="sync_status_success">Last Sync: %s</string>
+  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
+  <string name="sync_status_failed">Failed On: %s</string>
+  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
+  <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
+  <!-- Sync Status: never sync'd -->    
+  <string name="sync_status_never">Never Synchronized!</string>
 
-    <!-- Preference: Synchronization Interval Title -->    
-    <string name="sync_SPr_interval_title">Background Sync</string>
-    <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>    
-    <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="sync_SPr_interval_desc">Currently set to: %s</string>
-    
-    <!-- Preference: Background Wifi Title -->  
-    <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
-    <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
-    <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
-    
-    <!-- Actions Group Label  -->
-    <string name="sync_SPr_group_actions">Actions</string>
+  <!-- Options Group Label -->    
+  <string name="sync_SPr_group_options">Options</string>
 
-    <!-- Synchronize Now Button -->    
-    <string name="sync_SPr_sync">Synchronize Now!</string>
-    <!-- Synchronize Now Button if not logged in-->    
-    <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
-    
-    <!-- Sync: Clear Data Title -->
-    <string name="sync_SPr_forget">Log Out</string>
-    <!-- Sync: Clear Data Description -->
-    <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+  <!-- Preference: Synchronization Interval Title -->    
+  <string name="sync_SPr_interval_title">Background Sync</string>
+  <!-- Preference: Synchronization Interval Description (when disabled) -->
+  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>    
+  <!-- Preference: Synchronization Interval Description (%s => setting) -->
+  <string name="sync_SPr_interval_desc">Currently set to: %s</string>
+  
+  <!-- Preference: Background Wifi Title -->  
+  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
+  <!-- Preference: Background Wifi Description (enabled) -->
+  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+  <!-- Preference: Background Wifi Description (disabled) -->
+  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+  
+  <!-- Actions Group Label  -->
+  <string name="sync_SPr_group_actions">Actions</string>
 
-    <!-- confirmation dialog for sync log out -->
-    <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
-    
-    <string-array name="sync_SPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
-        <item>disable</item>
-        <item>every fifteen minutes</item>
-        <item>every thirty minutes</item>
-        <item>every hour</item>
-        <item>every three hours</item>
-        <item>every six hours</item>
-        <item>every twelve hours</item>
-        <item>every day</item>
-        <item>every three days</item>
-        <item>every week</item>
-    </string-array>
+  <!-- Synchronize Now Button -->    
+  <string name="sync_SPr_sync">Synchronize Now!</string>
+  <!-- Synchronize Now Button if not logged in-->    
+  <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
+  
+  <!-- Sync: Clear Data Title -->
+  <string name="sync_SPr_forget">Log Out</string>
+  <!-- Sync: Clear Data Description -->
+  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+
+  <!-- confirmation dialog for sync log out -->
+  <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
+  
+  <string-array name="sync_SPr_interval_entries">
+      <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
+      <item>disable</item>
+      <item>every fifteen minutes</item>
+      <item>every thirty minutes</item>
+      <item>every hour</item>
+      <item>every three hours</item>
+      <item>every six hours</item>
+      <item>every twelve hours</item>
+      <item>every day</item>
+      <item>every three days</item>
+      <item>every week</item>
+  </string-array>
             
 </resources>
 

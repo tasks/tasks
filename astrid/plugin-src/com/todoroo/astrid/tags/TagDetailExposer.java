@@ -25,7 +25,7 @@ public class TagDetailExposer extends BroadcastReceiver {
             return;
 
         boolean extended = intent.getBooleanExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-        String taskDetail = getTaskDetails(context, taskId, extended);
+        String taskDetail = getTaskDetails(taskId, extended);
         if(taskDetail == null)
             return;
 
@@ -38,7 +38,7 @@ public class TagDetailExposer extends BroadcastReceiver {
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    public String getTaskDetails(Context context, long id, boolean extended) {
+    public String getTaskDetails(long id, boolean extended) {
         if(extended)
             return null;
 
