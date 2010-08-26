@@ -40,6 +40,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -205,6 +206,9 @@ public class FilterListActivity extends ExpandableListActivity {
             Intent intent = new Intent(FilterListActivity.this, TaskListActivity.class);
             intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
             startActivity(intent);
+            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
+                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                    R.anim.slide_left_in, R.anim.slide_left_out);
             return true;
         } else if(item instanceof SearchFilter) {
             onSearchRequested();

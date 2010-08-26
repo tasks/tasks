@@ -281,9 +281,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 Intent intent = new Intent(TaskListActivity.this,
                         FilterListActivity.class);
                 startActivity(intent);
-                if(AndroidUtilities.getSdkVersion() >= 5) {
-                    //overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
-                }
+                AndroidUtilities.callApiMethod(5, TaskListActivity.this, "overridePendingTransition", //$NON-NLS-1$
+                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                        R.anim.slide_right_in, R.anim.slide_right_out);
             }
         });
 
@@ -974,13 +974,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     @SuppressWarnings("nls")
     @Override
     public void gesturePerformed(String gesture) {
-        if("nav_filters".equals(gesture)) {
+        if("nav_right".equals(gesture)) {
             Intent intent = new Intent(TaskListActivity.this,
                     FilterListActivity.class);
             startActivity(intent);
-            if(AndroidUtilities.getSdkVersion() >= 5) {
-                // overridePendingTransition(R.anim.slide_right_in, R.anim.slide_right_out);
-            }
+            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
+                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                    R.anim.slide_right_in, R.anim.slide_right_out);
         }
     }
 
