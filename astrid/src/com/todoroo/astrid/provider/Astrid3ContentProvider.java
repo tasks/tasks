@@ -88,8 +88,6 @@ public class Astrid3ContentProvider extends ContentProvider {
     @Autowired
     private ExceptionService exceptionService;
 
-    static String hello = "hello";
-
     @Override
     public boolean onCreate() {
         try {
