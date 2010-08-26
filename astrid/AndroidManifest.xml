@@ -137,6 +137,12 @@
                  android:resource="@xml/widget_provider_info" />
     </receiver>
 
+    <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.FLUSH_DETAILS" />
+      </intent-filter>
+    </receiver>
+
     <!-- ======================================================== Services = -->
 
     <service android:name="com.todoroo.astrid.widget.TasksWidget$UpdateService" />

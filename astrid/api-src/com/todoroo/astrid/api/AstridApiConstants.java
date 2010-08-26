@@ -218,6 +218,14 @@ public class AstridApiConstants {
     public static final String BROADCAST_EVENT_REFRESH = PACKAGE + ".REFRESH";
 
     /**
+     * Action name for broadcast intent notifying Astrid to clear detail cache
+     * because an event occurred that potentially affects all tasks (e.g.
+     * logging out of a sync provider). Use this call carefully, as loading
+     * details can degrade the performance of Astrid.
+     */
+    public static final String BROADCAST_EVENT_FLUSH_DETAILS = PACKAGE + ".FLUSH_DETAILS";
+
+    /**
      * Action name for broadcast intent notifying that task was completed
      * @extra EXTRAS_TASK_ID id of the task
      */

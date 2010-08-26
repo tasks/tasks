@@ -282,6 +282,12 @@ public class TaskService {
         }
     }
 
-
+    /**
+     * Delete all tasks matching a given criterion
+     * @param all
+     */
+    public void deleteWhere(Criterion criteria) {
+        taskDao.deleteWhere(criteria);
+    }
 
 }
