@@ -364,17 +364,22 @@ to the plugin creator for fastest service.
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Default Urgency</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently Set To: %s</string>
+  <string name="EPr_default_urgency_desc">Currently: %s</string>
   
   <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Default Importance</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently Set To: %s</string>
+  <string name="EPr_default_importance_desc">Currently: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">Default Hide Until</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently Set To: %s</string>
+  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
+  
+  <!-- Preference: Default Reminders Title -->
+  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <!-- Preference: Default Hide Until Description (%s => setting) -->
+  <string name="EPr_default_reminders_desc">Currently: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
@@ -399,7 +404,15 @@ to the plugin creator for fastest service.
       <item>Task is due</item>
       <item>Day before due</item>
       <item>Week before due</item>
-  </string-array>    
+  </string-array>
+  
+  <string-array name="EPr_default_reminders">
+      <!-- reminders: labels for "Task Defaults" preference item. -->
+      <item>No deadline reminders</item>
+      <item>At deadline</item>
+      <item>When overdue</item>
+      <item>At deadline or overdue</item>
+  </string-array>
   
   <!-- ==================================================== AddOnActivity == -->
   

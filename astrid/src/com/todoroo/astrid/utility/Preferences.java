@@ -25,6 +25,8 @@ public class Preferences {
         setIfUnset(prefs, editor, r, R.string.p_default_urgency_key, 0);
         setIfUnset(prefs, editor, r, R.string.p_default_importance_key, 2);
         setIfUnset(prefs, editor, r, R.string.p_default_hideUntil_key, 0);
+        setIfUnset(prefs, editor, r, R.string.p_default_reminders_key, 6);
+        setIfUnset(prefs, editor, r, R.string.p_rmd_default_random_hours, 0);
         setIfUnset(prefs, editor, r, R.string.p_fontSize, 20);
 
         editor.commit();

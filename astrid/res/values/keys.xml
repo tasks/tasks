@@ -171,12 +171,23 @@
     <item>2</item>
     <item>3</item>
   </string-array>
+      
+  <string-array name="EPr_default_reminders_values">
+    <!-- reminders: values that map EPr_default_reminders items to reminder flags. -->
+    <item>0</item>
+    <item>2</item>
+    <item>4</item>
+    <item>6</item>
+  </string-array>
   
   <!-- default importance setting (corresponds to task setting) -->
   <string name="p_default_importance_key">p_def_imp</string>
   
   <!-- default hide until setting (corresponds to entry in TEA_hideUntil) -->
   <string name="p_default_hideUntil_key">p_def_hide</string>
+  
+  <!-- default reminders setting (corresponds to reminder flags) -->
+  <string name="p_default_reminders_key">p_def_reminders</string>
   
   <!-- ============================================================ SYNC == -->
   
