@@ -21,6 +21,9 @@
   <!-- Toast when unable to open calendar event -->
   <string name="gcal_TEA_calendar_error">Error opening event!</string>
   
+  <!-- Toast when calendar event updated because task changed -->
+  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
+  
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->

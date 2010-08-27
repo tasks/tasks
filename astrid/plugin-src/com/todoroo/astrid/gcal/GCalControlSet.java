@@ -177,7 +177,28 @@ public class GCalControlSet implements TaskEditControlSet {
                 exceptionService.displayAndReportError(activity,
                         activity.getString(R.string.gcal_TEA_error), e);
             }
+        } else if(calendarUri != null) {
+            try {
+                ContentValues updateValues = new ContentValues();
+
+                // check if we need to update the item
+                ContentValues setValues = task.getSetValues();
+                if(setValues.containsKey(Task.TITLE.name))
+                    updateValues.put("title", task.getValue(Task.TITLE));
+                if(setValues.containsKey(Task.NOTES.name))
+                    updateValues.put("description", task.getValue(Task.NOTES));
+                if(setValues.containsKey(Task.DUE_DATE.name))
+                    createStartAndEndDate(task, updateValues);
+
+                ContentResolver cr = activity.getContentResolver();
+                if(cr.update(calendarUri, updateValues, null, null) > 0)
+                    return activity.getString(R.string.gcal_TEA_calendar_updated);
+            } catch (Exception e) {
+                exceptionService.reportError("unable-to-update-calendar: " +  //$NON-NLS-1$
+                        task.getValue(Task.CALENDAR_URI), e);
+            }
         }
+
         return null;
     }
 

@@ -377,14 +377,18 @@ public final class TaskEditActivity extends TabActivity {
 
     /** Save task model from values in UI components */
     private void save() {
-        for(TaskEditControlSet controlSet : controls)
-            controlSet.writeToModel(model);
+        StringBuilder toast = new StringBuilder();
+        for(TaskEditControlSet controlSet : controls) {
+            String toastText = controlSet.writeToModel(model);
+            if(toastText != null)
+                toast.append('\n').append(toastText);
+        }
 
         if(title.getText().length() > 0)
             model.setValue(Task.DELETION_DATE, 0L);
 
         if(taskService.save(model) && title.getText().length() > 0)
-            showSaveToast();
+            showSaveToast(toast.toString());
     }
 
     @Override
@@ -445,22 +449,26 @@ public final class TaskEditActivity extends TabActivity {
      * Displays a Toast reporting that the selected task has been saved and, if
      * it has a due date, that is due in 'x' amount of time, to 1 time-unit of
      * precision
+     * @param additionalMessage
      */
-    private void showSaveToast() {
+    private void showSaveToast(String additionalMessage) {
         int stringResource;
 
         long due = model.getValue(Task.DUE_DATE);
+        String toastMessage;
         if (due != 0) {
             stringResource = R.string.TEA_onTaskSave_due;
             CharSequence formattedDate =
                 DateUtils.getRelativeTimeSpanString(due);
-            Toast.makeText(this,
-                    getResources().getString(stringResource, formattedDate),
-                    Toast.LENGTH_SHORT).show();
+            toastMessage = getString(stringResource, formattedDate);
         } else {
-            Toast.makeText(this, R.string.TEA_onTaskSave_notDue,
-                    Toast.LENGTH_SHORT).show();
+            toastMessage = getString(R.string.TEA_onTaskSave_notDue);
         }
+
+        int length = additionalMessage.length() == 0 ? Toast.LENGTH_SHORT : Toast.LENGTH_LONG;
+        Toast.makeText(this,
+                toastMessage + additionalMessage,
+                length).show();
     }
 
     protected void discardButtonClick() {
