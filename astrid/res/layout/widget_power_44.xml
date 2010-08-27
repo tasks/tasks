@@ -86,6 +86,312 @@
 		    android:layout_below="@+id/header"
 		    android:layout_above="@+id/footer"
 		    android:gravity="fill_vertical">
+        
+        <!-- body rows -->
+            
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance1"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <CheckBox
+                    android:id="@+id/checkbox1"
+                    android:src="@drawable/checkbox"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/task_due1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance2"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <CheckBox
+                    android:id="@+id/checkbox2"
+                    android:src="@drawable/checkbox"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/task_due2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance3"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <CheckBox
+                    android:id="@+id/checkbox3"
+                    android:src="@drawable/checkbox"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/task_due3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance4"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <CheckBox
+                    android:id="@+id/checkbox4"
+                    android:src="@drawable/checkbox"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/task_due4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance5"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <CheckBox
+                    android:id="@+id/checkbox5"
+                    android:src="@drawable/checkbox"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/task_due5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance6"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <CheckBox
+                    android:id="@+id/checkbox6"
+                    android:src="@drawable/checkbox"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/task_due6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance7"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <CheckBox
+                    android:id="@+id/checkbox7"
+                    android:src="@drawable/checkbox"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/task_due7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance8"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <CheckBox
+                    android:id="@+id/checkbox8"
+                    android:src="@drawable/checkbox"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/task_due8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance9"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <CheckBox
+                    android:id="@+id/checkbox9"
+                    android:src="@drawable/checkbox"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/task_due9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance10"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <CheckBox
+                    android:id="@+id/checkbox10"
+                    android:src="@drawable/checkbox"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="10dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical"
+                    android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/task_due10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="right"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        
+        <!-- end body rows -->
+        
 		</LinearLayout>
 	    	
 		<RelativeLayout 

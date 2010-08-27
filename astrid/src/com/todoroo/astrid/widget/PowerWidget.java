@@ -53,25 +53,39 @@ public class PowerWidget extends AppWidgetProvider {
 
     static final long ENCOURAGEMENT_CYCLE_TIME = 1000 * 60 * 60 * 4; // 4 hours
 
-    static final String ACTION_MARK_COMPLETE = "com.timsu.astrid.widget.ACTION_MARK_COMPLETE"; //$NON-NLS-1$
-    static final String ACTION_SCROLL_UP = "com.timsu.astrid.widget.ACTION_SCROLL_UP"; //$NON-NLS-1$
-    static final String ACTION_SCROLL_DOWN = "com.timsu.astrid.widget.ACTION_SCROLL_DOWN"; //$NON-NLS-1$
+    static final String ACTION_MARK_COMPLETE = "com.timsu.astrid.widget.ACTION_MARK_COMPLETE";
+    static final String ACTION_SCROLL_UP = "com.timsu.astrid.widget.ACTION_SCROLL_UP";
+    static final String ACTION_SCROLL_DOWN = "com.timsu.astrid.widget.ACTION_SCROLL_DOWN";
 
     // Prefix for Shared Preferences
-    static final String PREF_COLOR = "powerwidget-color-"; //$NON-NLS-1$
-    static final String PREF_ENABLE_CALENDAR = "powerwidget-enableCalendar-";  //$NON-NLS-1$
-    static final String PREF_ENCOURAGEMENTS = "powerwidget-enableEncouragements-"; //$NON-NLS-1$
-    static final String PREF_TITLE = "powerwidget-title-"; //$NON-NLS-1$
-    static final String PREF_SQL = "powerwidget-sql-"; //$NON-NLS-1$
-    static final String PREF_VALUES = "powerwidget-values-"; //$NON-NLS-1$
-    static final String PREF_ENCOURAGEMENT_LAST_ROTATION_TIME = "powerwidget-encouragementRotationTime-"; //$NON-NLS-1$
-    static final String PREF_ENCOURAGEMENT_CURRENT = "powerwidget-encouragementCurrent-"; //$NON-NLS-1$
+    static final String PREF_COLOR = "powerwidget-color-";
+    static final String PREF_ENABLE_CALENDAR = "powerwidget-enableCalendar-";
+    static final String PREF_ENCOURAGEMENTS = "powerwidget-enableEncouragements-";
+    static final String PREF_TITLE = "powerwidget-title-";
+    static final String PREF_SQL = "powerwidget-sql-";
+    static final String PREF_VALUES = "powerwidget-values-";
+    static final String PREF_ENCOURAGEMENT_LAST_ROTATION_TIME = "powerwidget-encouragementRotationTime-";
+    static final String PREF_ENCOURAGEMENT_CURRENT = "powerwidget-encouragementCurrent-";
 
-    public final static String APP_WIDGET_IDS = "com.timsu.astrid.APP_WIDGET_IDS"; //$NON-NLS-1$
-    public final static String COMPLETED_TASK_ID = "com.timsu.astrid.COMPLETED_TASK_ID"; //$NON-NLS-1$
-    public final static String EXTRA_SCROLL_OFFSET = "com.timsu.astrid.EXTRA_SCROLL_OFFSET"; //$NON-NLS-1$
+    public final static String APP_WIDGET_IDS = "com.timsu.astrid.APP_WIDGET_IDS";
+    public final static String COMPLETED_TASK_ID = "com.timsu.astrid.COMPLETED_TASK_ID";
+    public final static String EXTRA_SCROLL_OFFSET = "com.timsu.astrid.EXTRA_SCROLL_OFFSET";
 
-    public final static int[] IMPORTANCE_DRAWABLES = { R.drawable.importance_1, R.drawable.importance_2, R.drawable.importance_3, R.drawable.importance_4, R.drawable.importance_5, R.drawable.importance_6 };
+    public final static int[] TASK_TITLE = { R.id.task_title1, R.id.task_title2,
+        R.id.task_title3, R.id.task_title4, R.id.task_title5, R.id.task_title6,
+        R.id.task_title7, R.id.task_title8, R.id.task_title9, R.id.task_title10 };
+
+    public final static int[] TASK_DUE = { R.id.task_due1, R.id.task_due2,
+        R.id.task_due3, R.id.task_due4, R.id.task_due5, R.id.task_due6,
+        R.id.task_due7, R.id.task_due8, R.id.task_due9, R.id.task_due10 };
+
+    public final static int[] TASK_IMPORTANCE = { R.id.importance1, R.id.importance2,
+        R.id.importance3, R.id.importance4, R.id.importance5, R.id.importance6,
+        R.id.importance7, R.id.importance8, R.id.importance9, R.id.importance10 };
+
+    public final static int[] TASK_CHECKBOX = { R.id.checkbox1, R.id.checkbox2,
+        R.id.checkbox3, R.id.checkbox4, R.id.checkbox5, R.id.checkbox6,
+        R.id.checkbox7, R.id.checkbox8, R.id.checkbox9, R.id.checkbox10 };
 
 
     @Override
@@ -239,9 +253,6 @@ public class PowerWidget extends AppWidgetProvider {
                 views.setViewVisibility(R.id.icon, View.GONE);
             }
 
-            // clear task list before adding
-            views.removeAllViews(R.id.task_list);
-
             TodorooCursor<Task> cursor = null;
             Filter filter = null;
             try {
@@ -295,8 +306,10 @@ public class PowerWidget extends AppWidgetProvider {
                     scrollOffset = cursor.getCount() - 1 ;
                 }
 
+                int[] importanceColors = Task.getImportanceColors(getResources());
+
                 Task task = new Task();
-                for (int i = scrollOffset; i < cursor.getCount(); i++) {
+                for (int i = scrollOffset; i < cursor.getCount() && i < 10; i++) {
                     cursor.moveToPosition(i);
                     task.readFromCursor(cursor);
 
@@ -334,25 +347,20 @@ public class PowerWidget extends AppWidgetProvider {
                     markCompleteIntent.setType(COMPLETED_TASK_ID + taskId);
                     PendingIntent pMarkCompleteIntent = PendingIntent.getBroadcast(context, 0, markCompleteIntent, 0);
 
-                    // create a new task view
-                    RemoteViews taskLine = new RemoteViews(context.getPackageName(), R.layout.widget_power_task);
                     // set importance marker
-                    taskLine.setImageViewResource(R.id.importance, IMPORTANCE_DRAWABLES[task.getValue(Task.IMPORTANCE)]);
+                    views.setInt(TASK_IMPORTANCE[i], "setBackgroundColor", importanceColors[task.getValue(Task.IMPORTANCE)]);
                     // set click listener for checkbox
-                    taskLine.setOnClickPendingIntent(R.id.checkbox, pMarkCompleteIntent);
+                    views.setOnClickPendingIntent(TASK_CHECKBOX[i], pMarkCompleteIntent);
                     // set task title
                     if(task.isCompleted())
-                        taskLine.setInt(R.id.task_title, "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG);
-                    taskLine.setTextViewText(R.id.task_title, textContent);
-                    taskLine.setTextColor(R.id.task_title, titleColor);
+                        views.setInt(TASK_TITLE[i], "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG);
+                    views.setTextViewText(TASK_TITLE[i], textContent);
+                    views.setTextColor(TASK_TITLE[i], titleColor);
                     // set due date
-                    taskLine.setTextViewText(R.id.task_due, dateValue);
-                    taskLine.setTextColor(R.id.task_due, titleColor);
+                    views.setTextViewText(TASK_DUE[i], dateValue);
+                    views.setTextColor(TASK_DUE[i], titleColor);
                     // set click listener for text content
-                    taskLine.setOnClickPendingIntent(R.id.task_edit_region, pEditTask);
-
-                    // add this task to the widget's task list
-                    views.addView(R.id.task_list, taskLine);
+                    views.setOnClickPendingIntent(TASK_TITLE[i], pEditTask);
                 }
 
 
