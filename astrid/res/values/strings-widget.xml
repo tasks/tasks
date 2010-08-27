@@ -19,5 +19,7 @@
     
     <string-array name="PPW_encouragements">
     	<item>Ready to work?</item>
+    	<item>Have time to finish something?</item>
+    	<item>Gosh, you are looking suave today!</item>
     </string-array>
 </resources>

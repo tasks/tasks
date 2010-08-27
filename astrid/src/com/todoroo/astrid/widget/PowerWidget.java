@@ -1,5 +1,7 @@
 package com.todoroo.astrid.widget;
 
+import java.util.Date;
+
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
@@ -16,11 +18,11 @@ import android.view.View;
 import android.widget.RemoteViews;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.ShortcutActivity;
@@ -53,9 +55,9 @@ public class PowerWidget extends AppWidgetProvider {
 
     static final long ENCOURAGEMENT_CYCLE_TIME = 1000 * 60 * 60 * 4; // 4 hours
 
-    static final String ACTION_MARK_COMPLETE = "com.timsu.astrid.widget.ACTION_MARK_COMPLETE";
-    static final String ACTION_SCROLL_UP = "com.timsu.astrid.widget.ACTION_SCROLL_UP";
-    static final String ACTION_SCROLL_DOWN = "com.timsu.astrid.widget.ACTION_SCROLL_DOWN";
+    static final String ACTION_MARK_COMPLETE = "com.todoroo.astrid.widget.ACTION_MARK_COMPLETE";
+    static final String ACTION_SCROLL_UP = "com.todoroo.astrid.widget.ACTION_SCROLL_UP";
+    static final String ACTION_SCROLL_DOWN = "com.todoroo.astrid.widget.ACTION_SCROLL_DOWN";
 
     // Prefix for Shared Preferences
     static final String PREF_COLOR = "powerwidget-color-";
@@ -66,10 +68,20 @@ public class PowerWidget extends AppWidgetProvider {
     static final String PREF_VALUES = "powerwidget-values-";
     static final String PREF_ENCOURAGEMENT_LAST_ROTATION_TIME = "powerwidget-encouragementRotationTime-";
     static final String PREF_ENCOURAGEMENT_CURRENT = "powerwidget-encouragementCurrent-";
+    static final String PREF_LAST_COMPLETED_ID = "powerwidget-lastCompletedId-";
+    static final String PREF_LAST_COMPLETED_POS = "powerwidget-lastCompletedPos-";
+    static final String PREF_LAST_COMPLETED_DATE = "powerwidget-lastCompletedDate-";
 
     public final static String APP_WIDGET_IDS = "com.timsu.astrid.APP_WIDGET_IDS";
-    public final static String COMPLETED_TASK_ID = "com.timsu.astrid.COMPLETED_TASK_ID";
-    public final static String EXTRA_SCROLL_OFFSET = "com.timsu.astrid.EXTRA_SCROLL_OFFSET";
+
+    /** id of task to complete */
+    public final static String COMPLETED_TASK_ID = "compId";
+
+    /** position in list of task that was completed */
+    public final static String COMPLETED_TASK_POSITION = "compPos";
+
+    /** new scroll offset */
+    public final static String EXTRA_SCROLL_OFFSET = "soff";
 
     public final static int[] TASK_TITLE = { R.id.task_title1, R.id.task_title2,
         R.id.task_title3, R.id.task_title4, R.id.task_title5, R.id.task_title6,
@@ -87,6 +99,8 @@ public class PowerWidget extends AppWidgetProvider {
         R.id.checkbox3, R.id.checkbox4, R.id.checkbox5, R.id.checkbox6,
         R.id.checkbox7, R.id.checkbox8, R.id.checkbox9, R.id.checkbox10 };
 
+    private static final int ROW_LIMIT = 10;
+    private static int[] importanceColors = null;
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
@@ -108,16 +122,16 @@ public class PowerWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         if (ACTION_MARK_COMPLETE.equals(intent.getAction())){
-            long taskId = intent.getLongExtra(COMPLETED_TASK_ID, -1);
-
             Intent updateIntent = new Intent(context, UpdateService.class);
-            updateIntent.putExtra(COMPLETED_TASK_ID, taskId);
+            updateIntent.setAction(ACTION_MARK_COMPLETE);
+            updateIntent.putExtras(intent.getExtras());
             context.startService(updateIntent);
         } else if (ACTION_SCROLL_UP.equals(intent.getAction()) || ACTION_SCROLL_DOWN.equals(intent.getAction())){
             int id = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
             if (id != AppWidgetManager.INVALID_APPWIDGET_ID){
                 int scrollOffset = intent.getIntExtra(EXTRA_SCROLL_OFFSET, 0);
                 Intent updateIntent = new Intent(context, UpdateService.class);
+                updateIntent.setAction(intent.getAction());
                 updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
                 updateIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset);
                 context.startService(updateIntent);
@@ -151,32 +165,48 @@ public class PowerWidget extends AppWidgetProvider {
     public static class UpdateService extends Service {
 
         @Autowired
-        Database database;
+        private Database database;
 
         @Autowired
-        TaskService taskService;
+        private TaskService taskService;
+
+        public UpdateService() {
+            DependencyInjectionService.getInstance().inject(this);
+        }
 
         @Override
         public void onStart(Intent intent, int startId) {
             ContextManager.setContext(this);
+            AppWidgetManager manager = AppWidgetManager.getInstance(this);
 
-            if (intent != null){
+            if (intent != null && ACTION_MARK_COMPLETE.equals(intent.getAction())) {
                 long taskId = intent.getLongExtra(COMPLETED_TASK_ID, -1);
-                if (taskId > 0){
-                    Task task = taskService.fetchById(taskId, Task.PROPERTIES);
-                    if (task != null){
-                        taskService.setComplete(task, true);
+                if (taskId > 0) {
+                    Task task = taskService.fetchById(taskId, Task.ID, Task.COMPLETION_DATE);
+                    if (task != null) {
+                        taskService.setComplete(task, !task.isCompleted());
+
+                        int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                                AppWidgetManager.INVALID_APPWIDGET_ID);
+                        Preferences.setLong(PREF_LAST_COMPLETED_ID +
+                                appWidgetId, taskId);
+                        Preferences.setInt(PREF_LAST_COMPLETED_POS +
+                                appWidgetId, intent.getIntExtra(COMPLETED_TASK_POSITION, -1));
+                        Preferences.setLong(PREF_LAST_COMPLETED_DATE +
+                                appWidgetId, DateUtilities.now());
+                        System.err.println("completed business. posn " +
+                                intent.getIntExtra(COMPLETED_TASK_POSITION, 0) +
+                                " app id: " + appWidgetId);
                     }
                 }
             }
 
-            AppWidgetManager manager = AppWidgetManager.getInstance(this);
 
             int scrollOffset = 0;
             int[] appWidgetIds = null;
             int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
-            if (intent != null){
+            if (intent != null && (ACTION_SCROLL_UP.equals(intent.getAction()) || ACTION_SCROLL_DOWN.equals(intent.getAction()))) {
                 scrollOffset = intent.getIntExtra(EXTRA_SCROLL_OFFSET, 0);
                 appWidgetIds = intent.getIntArrayExtra(APP_WIDGET_IDS);
                 appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
@@ -203,6 +233,8 @@ public class PowerWidget extends AppWidgetProvider {
 
         public RemoteViews buildUpdate(Context context, int appWidgetId, int scrollOffset) {
             DependencyInjectionService.getInstance().inject(this);
+
+            System.err.println("BUILD UPDATE " + DateUtilities.now());
 
             RemoteViews views = new RemoteViews(context.getPackageName(),
                     R.layout.widget_power_44);
@@ -292,28 +324,70 @@ public class PowerWidget extends AppWidgetProvider {
                 int sort = Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
                 String query = SortSelectionActivity.adjustQueryForFlagsAndSort(
                         filter.sqlQuery, flags, sort);
-                query = query.replace(Task.COMPLETION_DATE.eq(0).toString(), Criterion.or(Task.COMPLETION_DATE.eq(0),
-                        Task.COMPLETION_DATE.gt(DateUtilities.now() - 60000L)).toString());
+
+                scrollOffset = Math.max(0, scrollOffset);
+                query = query.replaceAll("[lL][iI][mM][iI][tT] +[^ ]+", "") + " LIMIT " +
+                    scrollOffset + "," + ROW_LIMIT;
+
+                System.err.println("PRE LOAD DATA " + DateUtilities.now());
 
                 database.openForReading();
-                cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE,
-                        Task.DUE_DATE, Task.IMPORTANCE, Task.COMPLETION_DATE);
+                final Property<?>[] properties = new Property<?>[] { Task.ID, Task.TITLE,
+                    Task.DUE_DATE, Task.IMPORTANCE, Task.COMPLETION_DATE };
+                cursor = taskService.fetchFiltered(query, null, properties);
 
-                // adjust bounds of scrolling
-                if (scrollOffset < 0){
-                    scrollOffset = 0;
-                } else if (scrollOffset >= cursor.getCount()){
-                    scrollOffset = cursor.getCount() - 1 ;
+                boolean canScrollDown = cursor.getCount() > 1;
+
+                if(importanceColors == null) {
+                    importanceColors = Task.getImportanceColors(getResources());
+                    System.err.println("loaded importance");
                 }
 
-                int[] importanceColors = Task.getImportanceColors(getResources());
+                // load last completed task
+                Task lastCompleted = null;
+                int lastCompletedPosition = 0;
+                System.err.println("last completed for " + appWidgetId + ": " +
+                        new Date(Preferences.getLong(PREF_LAST_COMPLETED_DATE+appWidgetId, 0)));
+                if(DateUtilities.now() - Preferences.getLong(PREF_LAST_COMPLETED_DATE+appWidgetId, 0) < 120000L) {
+                    lastCompleted = taskService.fetchById(Preferences.getLong(PREF_LAST_COMPLETED_ID+appWidgetId, -1L),
+                            properties);
+                    lastCompletedPosition = Preferences.getInt(PREF_LAST_COMPLETED_POS+appWidgetId, 0);
+                }
 
                 Task task = new Task();
-                for (int i = scrollOffset; i < cursor.getCount() && i < 10; i++) {
-                    cursor.moveToPosition(i);
-                    task.readFromCursor(cursor);
+                int position;
+                for (position = 0; position < cursor.getCount() && position < ROW_LIMIT; position++) {
+                    if(lastCompleted != null && lastCompletedPosition == position + scrollOffset) {
+                        task = lastCompleted;
+                    } else {
+                        cursor.moveToNext();
+                        task.readFromCursor(cursor);
+                    }
 
-                    String textContent = "";
+                    long taskId = task.getValue(Task.ID);
+
+                    // importance
+                    views.setInt(TASK_IMPORTANCE[position], "setBackgroundColor", importanceColors[task.getValue(Task.IMPORTANCE)]);
+
+                    // check box
+                    Intent markCompleteIntent = new Intent(context, PowerWidget.class);
+                    markCompleteIntent.setAction(ACTION_MARK_COMPLETE);
+                    markCompleteIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
+                    markCompleteIntent.putExtra(COMPLETED_TASK_ID, taskId);
+                    markCompleteIntent.putExtra(COMPLETED_TASK_POSITION, scrollOffset + position);
+                    markCompleteIntent.setType(COMPLETED_TASK_ID + taskId);
+                    PendingIntent pMarkCompleteIntent = PendingIntent.getBroadcast(context, 0, markCompleteIntent, 0);
+                    views.setOnClickPendingIntent(TASK_CHECKBOX[position], pMarkCompleteIntent);
+
+                    if(task.isCompleted()) {
+                        views.setImageViewResource(TASK_CHECKBOX[position], R.drawable.btn_check_buttonless_on);
+                        views.setInt(TASK_TITLE[position], "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG);
+                    } else {
+                        views.setImageViewResource(TASK_CHECKBOX[position], R.drawable.btn_check_buttonless_off);
+                        views.setInt(TASK_TITLE[position], "setPaintFlags", 0);
+                    }
+
+                    // title
                     int titleColor = textColor;
                     int dueString = R.string.PPW_due;
                     if(task.isCompleted()) {
@@ -323,78 +397,68 @@ public class PowerWidget extends AppWidgetProvider {
                         titleColor = overdueColor;
                         dueString = R.string.PPW_past_due;
                     }
-
-                    textContent = task.getValue(Task.TITLE);
-
-                    String dateValue = "";
-                    if(dueString != 0 && task.hasDueDate()) {
-                        dateValue = getString(dueString) + "\n" +
-                            DateUtils.getRelativeTimeSpanString(task.getValue(Task.DUE_DATE));
-                    }
-
-                    long taskId = task.getValue(Task.ID);
+                    String textContent = task.getValue(Task.TITLE);
+                    views.setTextViewText(TASK_TITLE[position], textContent);
+                    views.setTextColor(TASK_TITLE[position], titleColor);
 
                     Intent viewTaskIntent = new Intent(context, ShortcutActivity.class);
                     viewTaskIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     viewTaskIntent.putExtra(ShortcutActivity.TOKEN_SINGLE_TASK, taskId);
                     viewTaskIntent.setType(ShortcutActivity.TOKEN_SINGLE_TASK + taskId);
-                    Log.d(LOG_TAG, "viewTaskIntent type: "+ShortcutActivity.TOKEN_SINGLE_TASK + taskId);
                     PendingIntent pEditTask = PendingIntent.getActivity(context, 0, viewTaskIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                    views.setOnClickPendingIntent(TASK_TITLE[position], pEditTask);
 
-                    Intent markCompleteIntent = new Intent(context, PowerWidget.class);
-                    markCompleteIntent.setAction(ACTION_MARK_COMPLETE);
-                    markCompleteIntent.putExtra(COMPLETED_TASK_ID, taskId);
-                    markCompleteIntent.setType(COMPLETED_TASK_ID + taskId);
-                    PendingIntent pMarkCompleteIntent = PendingIntent.getBroadcast(context, 0, markCompleteIntent, 0);
+                    // due date
+                    String dateValue = "";
+                    if(dueString != 0 && task.hasDueDate()) {
+                        dateValue = getString(dueString) + "\n" +
+                            DateUtils.getRelativeTimeSpanString(task.getValue(Task.DUE_DATE));
+                    }
+                    views.setTextViewText(TASK_DUE[position], dateValue);
+                    views.setTextColor(TASK_DUE[position], titleColor);
 
-                    // set importance marker
-                    views.setInt(TASK_IMPORTANCE[i], "setBackgroundColor", importanceColors[task.getValue(Task.IMPORTANCE)]);
-                    // set click listener for checkbox
-                    views.setOnClickPendingIntent(TASK_CHECKBOX[i], pMarkCompleteIntent);
-                    // set task title
-                    if(task.isCompleted())
-                        views.setInt(TASK_TITLE[i], "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG);
-                    views.setTextViewText(TASK_TITLE[i], textContent);
-                    views.setTextColor(TASK_TITLE[i], titleColor);
-                    // set due date
-                    views.setTextViewText(TASK_DUE[i], dateValue);
-                    views.setTextColor(TASK_DUE[i], titleColor);
-                    // set click listener for text content
-                    views.setOnClickPendingIntent(TASK_TITLE[i], pEditTask);
+                    views.setViewVisibility(TASK_IMPORTANCE[position], View.VISIBLE);
+                    views.setViewVisibility(TASK_CHECKBOX[position], View.VISIBLE);
+                    views.setViewVisibility(TASK_TITLE[position], View.VISIBLE);
+                    views.setViewVisibility(TASK_DUE[position], View.VISIBLE);
                 }
 
+                for(; position < ROW_LIMIT; position++) {
+                    views.setViewVisibility(TASK_IMPORTANCE[position], View.INVISIBLE);
+                    views.setViewVisibility(TASK_CHECKBOX[position], View.INVISIBLE);
+                    views.setViewVisibility(TASK_TITLE[position], View.INVISIBLE);
+                    views.setViewVisibility(TASK_DUE[position], View.INVISIBLE);
+                }
 
                 // create intent to scroll up
                 Intent scrollUpIntent = new Intent(context, PowerWidget.class);
                 scrollUpIntent.setAction(ACTION_SCROLL_UP);
                 scrollUpIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-                scrollUpIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset-1);
                 scrollUpIntent.setType(AppWidgetManager.EXTRA_APPWIDGET_ID + appWidgetId);
-                PendingIntent pScrollUpIntent = PendingIntent.getBroadcast(context, 0, scrollUpIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                views.setOnClickPendingIntent(R.id.scroll_up, pScrollUpIntent);
                 if (scrollOffset-1 < 0){
-                    // show disabled up button
+                    scrollUpIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset);
                     views.setImageViewResource(R.id.scroll_up, R.drawable.scroll_up_disabled);
                 } else {
+                    scrollUpIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset-1);
                     views.setImageViewResource(R.id.scroll_up, R.drawable.scroll_up);
                 }
+                PendingIntent pScrollUpIntent = PendingIntent.getBroadcast(context, 0, scrollUpIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                views.setOnClickPendingIntent(R.id.scroll_up, pScrollUpIntent);
 
                 // create intent to scroll down
                 Intent scrollDownIntent = new Intent(context, PowerWidget.class);
                 scrollDownIntent.setAction(ACTION_SCROLL_DOWN);
                 scrollDownIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
-                scrollDownIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset+1);
                 scrollDownIntent.setType(AppWidgetManager.EXTRA_APPWIDGET_ID + appWidgetId);
-                PendingIntent pScrollDownIntent = PendingIntent.getBroadcast(context, 0, scrollDownIntent, PendingIntent.FLAG_UPDATE_CURRENT);
-                views.setOnClickPendingIntent(R.id.scroll_down, pScrollDownIntent);
-                if (scrollOffset+1 >= cursor.getCount()){
-                    // show disabled down button
+                if (!canScrollDown){
+                    scrollDownIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset);
                     views.setImageViewResource(R.id.scroll_down, R.drawable.scroll_down_disabled);
                 } else {
+                    scrollDownIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset+1);
                     views.setImageViewResource(R.id.scroll_down, R.drawable.scroll_down);
                 }
-
-
+                PendingIntent pScrollDownIntent = PendingIntent.getBroadcast(context, 0, scrollDownIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+                views.setOnClickPendingIntent(R.id.scroll_down, pScrollDownIntent);
             } catch (Exception e) {
                 // can happen if database is not ready
                 Log.e("WIDGET-UPDATE", "Error updating widget", e);
@@ -403,7 +467,7 @@ public class PowerWidget extends AppWidgetProvider {
                     cursor.close();
             }
 
-
+            System.err.println("END UPDATE " + DateUtilities.now());
 
             return views;
         }
