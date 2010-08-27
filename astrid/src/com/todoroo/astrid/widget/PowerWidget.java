@@ -1,7 +1,5 @@
 package com.todoroo.astrid.widget;
 
-import java.util.Date;
-
 import android.app.PendingIntent;
 import android.app.Service;
 import android.appwidget.AppWidgetManager;
@@ -164,6 +162,9 @@ public class PowerWidget extends AppWidgetProvider {
 
     public static class UpdateService extends Service {
 
+        private static final Property<?>[] properties = new Property<?>[] { Task.ID, Task.TITLE,
+                Task.DUE_DATE, Task.IMPORTANCE, Task.COMPLETION_DATE };
+
         @Autowired
         private Database database;
 
@@ -233,8 +234,6 @@ public class PowerWidget extends AppWidgetProvider {
 
         public RemoteViews buildUpdate(Context context, int appWidgetId, int scrollOffset) {
             DependencyInjectionService.getInstance().inject(this);
-
-            System.err.println("BUILD UPDATE " + DateUtilities.now());
 
             RemoteViews views = new RemoteViews(context.getPackageName(),
                     R.layout.widget_power_44);
@@ -329,29 +328,24 @@ public class PowerWidget extends AppWidgetProvider {
                 query = query.replaceAll("[lL][iI][mM][iI][tT] +[^ ]+", "") + " LIMIT " +
                     scrollOffset + "," + ROW_LIMIT;
 
-                System.err.println("PRE LOAD DATA " + DateUtilities.now());
+                // load last completed task
+                Task lastCompleted = null;
+                int lastCompletedPosition = 0;
+                if(DateUtilities.now() - Preferences.getLong(PREF_LAST_COMPLETED_DATE+appWidgetId, 0) < 120000L) {
+                    lastCompleted = taskService.fetchById(Preferences.getLong(PREF_LAST_COMPLETED_ID+appWidgetId, -1L),
+                            properties);
+                    lastCompletedPosition = Preferences.getInt(PREF_LAST_COMPLETED_POS+appWidgetId, 0);
+                    if(lastCompleted != null)
+                    query = query.replace("WHERE", "WHERE " + Task.ID.neq(lastCompleted.getId()) + " AND ");
+                }
 
                 database.openForReading();
-                final Property<?>[] properties = new Property<?>[] { Task.ID, Task.TITLE,
-                    Task.DUE_DATE, Task.IMPORTANCE, Task.COMPLETION_DATE };
                 cursor = taskService.fetchFiltered(query, null, properties);
 
                 boolean canScrollDown = cursor.getCount() > 1;
 
                 if(importanceColors == null) {
                     importanceColors = Task.getImportanceColors(getResources());
-                    System.err.println("loaded importance");
-                }
-
-                // load last completed task
-                Task lastCompleted = null;
-                int lastCompletedPosition = 0;
-                System.err.println("last completed for " + appWidgetId + ": " +
-                        new Date(Preferences.getLong(PREF_LAST_COMPLETED_DATE+appWidgetId, 0)));
-                if(DateUtilities.now() - Preferences.getLong(PREF_LAST_COMPLETED_DATE+appWidgetId, 0) < 120000L) {
-                    lastCompleted = taskService.fetchById(Preferences.getLong(PREF_LAST_COMPLETED_ID+appWidgetId, -1L),
-                            properties);
-                    lastCompletedPosition = Preferences.getInt(PREF_LAST_COMPLETED_POS+appWidgetId, 0);
                 }
 
                 Task task = new Task();
@@ -376,7 +370,8 @@ public class PowerWidget extends AppWidgetProvider {
                     markCompleteIntent.putExtra(COMPLETED_TASK_ID, taskId);
                     markCompleteIntent.putExtra(COMPLETED_TASK_POSITION, scrollOffset + position);
                     markCompleteIntent.setType(COMPLETED_TASK_ID + taskId);
-                    PendingIntent pMarkCompleteIntent = PendingIntent.getBroadcast(context, 0, markCompleteIntent, 0);
+                    PendingIntent pMarkCompleteIntent = PendingIntent.getBroadcast(context, 0, markCompleteIntent,
+                            PendingIntent.FLAG_UPDATE_CURRENT);
                     views.setOnClickPendingIntent(TASK_CHECKBOX[position], pMarkCompleteIntent);
 
                     if(task.isCompleted()) {
@@ -405,7 +400,7 @@ public class PowerWidget extends AppWidgetProvider {
                     viewTaskIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     viewTaskIntent.putExtra(ShortcutActivity.TOKEN_SINGLE_TASK, taskId);
                     viewTaskIntent.setType(ShortcutActivity.TOKEN_SINGLE_TASK + taskId);
-                    PendingIntent pEditTask = PendingIntent.getActivity(context, 0, viewTaskIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+                    PendingIntent pEditTask = PendingIntent.getActivity(context, 0, viewTaskIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                     views.setOnClickPendingIntent(TASK_TITLE[position], pEditTask);
 
                     // due date
@@ -466,8 +461,6 @@ public class PowerWidget extends AppWidgetProvider {
                 if(cursor != null)
                     cursor.close();
             }
-
-            System.err.println("END UPDATE " + DateUtilities.now());
 
             return views;
         }

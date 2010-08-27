@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due1"
                     android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due2"
                     android:layout_width="wrap_content"
@@ -172,7 +172,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due3"
                     android:layout_width="wrap_content"
@@ -202,7 +202,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due4"
                     android:layout_width="wrap_content"
@@ -232,7 +232,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due5"
                     android:layout_width="wrap_content"
@@ -262,7 +262,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due6"
                     android:layout_width="wrap_content"
@@ -292,7 +292,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due7"
                     android:layout_width="wrap_content"
@@ -322,7 +322,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due8"
                     android:layout_width="wrap_content"
@@ -352,7 +352,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due9"
                     android:layout_width="wrap_content"
@@ -382,7 +382,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical"
-                    android:textSize="14sp" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due10"
                     android:layout_width="wrap_content"
@@ -401,14 +401,14 @@
 		    android:layout_width="fill_parent"
             android:layout_height="wrap_content"
 		    android:layout_above="@id/encouragement"
-            android:layout_alignParentBottom="true">
+            android:layout_alignParentBottom="true"
+            android:gravity="center_horizontal">
 
             <!-- if no encouragement -->
 		    <LinearLayout
 		    	android:id="@+id/button_plus"			    
 		    	android:layout_width="wrap_content"
-		    	android:layout_height="36dp"
-			    android:gravity="center_horizontal">
+		    	android:layout_height="36dp">
 			    <ImageView
 			    	android:src="@drawable/button_plus" 
 			    	android:layout_width="17dp" 
