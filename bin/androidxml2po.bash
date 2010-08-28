@@ -42,7 +42,14 @@ res_lang=("ca" "cs" "de" "es" "fr" "id" "it" "ja" "ko" "nb" "nl" "pl" "pt" "ru" 
 #Change the dirs where the files are located.
 launchpad_po_files_dir="translations"
 launchpad_pot_file_dir="translations"
-android_xml_files_res_dir="astrid/res/values"
+
+folder="astrid"
+if [ "$2" != "" ]; then
+    echo "Operating on folder $2"
+    folder="../$2"
+fi
+android_xml_files_res_dir="${folder}/res/values"
+
 #Change the typical filenames.
 android_xml_filenames="strings"
 #Location of xml2po
@@ -53,7 +60,7 @@ function import_po2xml
 {
     for resource_file in $android_xml_filenames; do
         echo "Concatenating strings into single XML"
-        ${catxml} "${android_xml_files_res_dir}"/"${resource_file}"-*.xml > "${launchpad_pot_file_dir}/${resource_file}".xml
+        ${catxml} "${android_xml_files_res_dir}"/"${resource_file}"*.xml > "${launchpad_pot_file_dir}/${resource_file}".xml
         echo "Importing .xml from .pot: $resource_file"
         for (( i=0 ; i<${#po_lang[*]} ; i=i+1 )); do
             echo " Importing .xml from .po for "${resource_file}-${po_lang[i]}""
@@ -69,7 +76,7 @@ function export_xml2po
 {
     for resource_file in $android_xml_filenames; do
         echo "Concatenating strings into single XML"
-        ${catxml} "${android_xml_files_res_dir}"/"${resource_file}"-*.xml > "${launchpad_pot_file_dir}/${resource_file}".xml
+        ${catxml} "${android_xml_files_res_dir}"/"${resource_file}"-*.xml ../astridApi/res/values/${resource_file}*.xml > "${launchpad_pot_file_dir}/${resource_file}".xml
         echo "Exporting .xml to .pot: $resource_file"
         ${xml2po} -a -l en -o \
             "${launchpad_pot_file_dir}/${resource_file}".pot \
