@@ -3,7 +3,10 @@
 
 cat $1 | sed 's/<\/resources.*//'
 shift
-cat $* | sed 's/<\/resources.*//;s/<?xml.*//;s/<resources.*//'
+if [ "$*" != "" ]; then
+    echo got more: $*
+    cat $* | sed 's/<\/resources.*//;s/<?xml.*//;s/<resources.*//'
+fi
 echo '</resources>'
 
 
