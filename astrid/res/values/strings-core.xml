@@ -19,15 +19,6 @@
   <!-- permission description for READ_TASKS -->
   <string name="write_permission_desc">create new tasks, edit existing tasks</string>
   
-  <!-- ==================================================== Generic Units == -->
-  
-  <plurals name="Ntasks">
-    <!-- plurals: tasks -->
-    <item quantity="one">1 task</item>
-    <!-- plurals: tasks -->
-    <item quantity="other">%d tasks</item>
-  </plurals>
-  
   <!-- ================================================== Generic Dialogs == -->
     
   <!-- question for deleting tasks -->
