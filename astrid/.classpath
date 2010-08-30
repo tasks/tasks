@@ -6,6 +6,7 @@
 	<classpathentry excluding="com/todoroo/astrid/rmilk/EditOperationExposer.java|com/todoroo/astrid/rmilk/MilkEditActivity.java" kind="src" path="plugin-src"/>
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="src" path="astridApi"/>
+	<classpathentry kind="src" path="rmilk-src"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry exported="true" kind="lib" path="libs/annotations.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/commons-codec-1.3.jar"/>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  This file contains preference keys and preference list values.
+  These should not be translated 
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+ 
+    <string-array name="sync_SPr_interval_values">
+        <!-- sync_SPr_interval_values: interval in seconds for sync entries (do not edit) -->
+        <item>0</item>
+        <item>900</item>
+        <item>1800</item>
+        <item>3600</item>
+        <item>10800</item>
+        <item>21600</item>
+        <item>43200</item>
+        <item>86400</item>
+        <item>259200</item>
+        <item>604800</item>
+    </string-array>
+  
+      <!-- Preference Key (do not translate) -->
+    <string name="sync_SPr_status_key">sync_status</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="sync_SPr_bgwifi_key">sync_bgwifi</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="sync_SPr_sync_key">sync_sync</string>
+    <!-- Preference Key (do not translate) -->
+    <string name="sync_SPr_forget_key">sync_forget</string>
+        
+  <!-- ============================================================ MILK == -->
+
+    <!-- Preference Key (do not translate) -->
+    <string name="rmilk_MPr_interval_key">sync_freq</string>
+      
+</resources>
