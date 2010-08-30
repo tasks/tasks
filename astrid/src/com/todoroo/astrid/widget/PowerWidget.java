@@ -30,6 +30,7 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
@@ -105,6 +106,9 @@ public class PowerWidget extends AppWidgetProvider {
         R.drawable.importance_4, R.drawable.importance_5, R.drawable.importance_6
     };
 
+    @Autowired
+    private TaskDao taskDao;
+
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
             int[] appWidgetIds) {
@@ -124,9 +128,34 @@ public class PowerWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (ACTION_SCROLL_UP.equals(intent.getAction()) ||
+        if (intent != null && ACTION_MARK_COMPLETE.equals(intent.getAction())) {
+            DependencyInjectionService.getInstance().inject(this);
+            long taskId = intent.getLongExtra(COMPLETED_TASK_ID, -1);
+            if (taskId > 0) {
+                Task task = taskDao.fetch(taskId, Task.ID, Task.COMPLETION_DATE);
+                if (task != null) {
+                    task.setValue(Task.COMPLETION_DATE,
+                            task.isCompleted() ? 0 : DateUtilities.now());
+                    taskDao.saveExisting(task);
+
+                    int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
+                            AppWidgetManager.INVALID_APPWIDGET_ID);
+                    Preferences.setLong(PREF_LAST_COMPLETED_ID +
+                            appWidgetId, taskId);
+                    Preferences.setInt(PREF_LAST_COMPLETED_POS +
+                            appWidgetId, intent.getIntExtra(COMPLETED_TASK_POSITION, -1));
+                    Preferences.setLong(PREF_LAST_COMPLETED_DATE +
+                            appWidgetId, DateUtilities.now());
+                    System.err.println("completed business. posn " +
+                            intent.getIntExtra(COMPLETED_TASK_POSITION, 0) +
+                            " app id: " + appWidgetId);
+                }
+            }
+        }
+
+        if (intent != null && (ACTION_SCROLL_UP.equals(intent.getAction()) ||
                 ACTION_SCROLL_DOWN.equals(intent.getAction()) ||
-                ACTION_MARK_COMPLETE.equals(intent.getAction())){
+                ACTION_MARK_COMPLETE.equals(intent.getAction()))) {
             Intent updateIntent = new Intent(context, UpdateService.class);
             updateIntent.setAction(intent.getAction());
             updateIntent.putExtras(intent.getExtras());
@@ -159,6 +188,8 @@ public class PowerWidget extends AppWidgetProvider {
 
     public static class UpdateService extends Service {
 
+        private static final int SCROLL_OFFSET_UNSET = -1;
+
         private static final Property<?>[] properties = new Property<?>[] { Task.ID, Task.TITLE,
                 Task.DUE_DATE, Task.IMPORTANCE, Task.COMPLETION_DATE };
 
@@ -177,30 +208,7 @@ public class PowerWidget extends AppWidgetProvider {
             ContextManager.setContext(this);
             AppWidgetManager manager = AppWidgetManager.getInstance(this);
 
-            if (intent != null && ACTION_MARK_COMPLETE.equals(intent.getAction())) {
-                long taskId = intent.getLongExtra(COMPLETED_TASK_ID, -1);
-                if (taskId > 0) {
-                    Task task = taskService.fetchById(taskId, Task.ID, Task.COMPLETION_DATE);
-                    if (task != null) {
-                        taskService.setComplete(task, !task.isCompleted());
-
-                        int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID,
-                                AppWidgetManager.INVALID_APPWIDGET_ID);
-                        Preferences.setLong(PREF_LAST_COMPLETED_ID +
-                                appWidgetId, taskId);
-                        Preferences.setInt(PREF_LAST_COMPLETED_POS +
-                                appWidgetId, intent.getIntExtra(COMPLETED_TASK_POSITION, -1));
-                        Preferences.setLong(PREF_LAST_COMPLETED_DATE +
-                                appWidgetId, DateUtilities.now());
-                        System.err.println("completed business. posn " +
-                                intent.getIntExtra(COMPLETED_TASK_POSITION, 0) +
-                                " app id: " + appWidgetId);
-                    }
-                }
-            }
-
-
-            int scrollOffset = 0;
+            int scrollOffset = SCROLL_OFFSET_UNSET;
             int[] appWidgetIds = null;
             int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
@@ -279,6 +287,10 @@ public class PowerWidget extends AppWidgetProvider {
             } else {
                 views.setViewVisibility(R.id.speech_bubble, View.GONE);
                 views.setViewVisibility(R.id.icon, View.GONE);
+                views.setViewVisibility(R.id.scroll_down, View.GONE);
+                views.setViewVisibility(R.id.scroll_down_alt, View.VISIBLE);
+                views.setViewVisibility(R.id.scroll_up, View.GONE);
+                views.setViewVisibility(R.id.scroll_up_alt, View.VISIBLE);
             }
 
             TodorooCursor<Task> cursor = null;
@@ -323,7 +335,7 @@ public class PowerWidget extends AppWidgetProvider {
 
                 scrollOffset = Math.max(0, scrollOffset);
                 query = query.replaceAll("[lL][iI][mM][iI][tT] +[^ ]+", "") + " LIMIT " +
-                    scrollOffset + "," + ROW_LIMIT;
+                    scrollOffset + "," + (ROW_LIMIT + 1);
 
                 // load last completed task
                 Task lastCompleted = null;
@@ -349,12 +361,20 @@ public class PowerWidget extends AppWidgetProvider {
                     } else {
                         cursor.moveToNext();
                         task.readFromCursor(cursor);
+                        if(lastCompleted != null && task.getId() == lastCompleted.getId()) {
+                            // oops, get the next one
+                            cursor.moveToNext();
+                            if(cursor.isAfterLast())
+                                continue;
+                            task.readFromCursor(cursor);
+                        }
                     }
 
                     long taskId = task.getValue(Task.ID);
 
                     // importance
-                    views.setImageViewResource(TASK_IMPORTANCE[position], TASK_IMPORTANCE[task.getValue(Task.IMPORTANCE)]);
+                    views.setImageViewResource(TASK_IMPORTANCE[position],
+                            TASK_IMPORTANCE[task.getValue(Task.IMPORTANCE)]);
 
                     // check box
                     Intent markCompleteIntent = new Intent(context, PowerWidget.class);
@@ -370,10 +390,10 @@ public class PowerWidget extends AppWidgetProvider {
 
                     if(task.isCompleted()) {
                         views.setImageViewResource(TASK_CHECKBOX[position], R.drawable.btn_check_buttonless_on);
-                        views.setInt(TASK_TITLE[position], "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG);
+                        views.setInt(TASK_TITLE[position], "setPaintFlags", Paint.STRIKE_THRU_TEXT_FLAG | Paint.ANTI_ALIAS_FLAG);
                     } else {
                         views.setImageViewResource(TASK_CHECKBOX[position], R.drawable.btn_check_buttonless_off);
-                        views.setInt(TASK_TITLE[position], "setPaintFlags", 0);
+                        views.setInt(TASK_TITLE[position], "setPaintFlags", Paint.ANTI_ALIAS_FLAG);
                     }
 
                     // title
@@ -427,12 +447,15 @@ public class PowerWidget extends AppWidgetProvider {
                 if (scrollOffset-1 < 0){
                     scrollUpIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset);
                     views.setImageViewResource(R.id.scroll_up, R.drawable.scroll_up_disabled);
+                    views.setImageViewResource(R.id.scroll_up_alt, R.drawable.scroll_up_disabled);
                 } else {
                     scrollUpIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset-1);
                     views.setImageViewResource(R.id.scroll_up, R.drawable.scroll_up);
+                    views.setImageViewResource(R.id.scroll_up_alt, R.drawable.scroll_up);
                 }
                 PendingIntent pScrollUpIntent = PendingIntent.getBroadcast(context, 0, scrollUpIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 views.setOnClickPendingIntent(R.id.scroll_up, pScrollUpIntent);
+                views.setOnClickPendingIntent(R.id.scroll_up_alt, pScrollUpIntent);
 
                 // create intent to scroll down
                 Intent scrollDownIntent = new Intent(context, PowerWidget.class);
@@ -442,12 +465,15 @@ public class PowerWidget extends AppWidgetProvider {
                 if (!canScrollDown){
                     scrollDownIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset);
                     views.setImageViewResource(R.id.scroll_down, R.drawable.scroll_down_disabled);
+                    views.setImageViewResource(R.id.scroll_down_alt, R.drawable.scroll_down_disabled);
                 } else {
                     scrollDownIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset+1);
                     views.setImageViewResource(R.id.scroll_down, R.drawable.scroll_down);
+                    views.setImageViewResource(R.id.scroll_down_alt, R.drawable.scroll_down);
                 }
                 PendingIntent pScrollDownIntent = PendingIntent.getBroadcast(context, 0, scrollDownIntent, PendingIntent.FLAG_UPDATE_CURRENT);
                 views.setOnClickPendingIntent(R.id.scroll_down, pScrollDownIntent);
+                views.setOnClickPendingIntent(R.id.scroll_down_alt, pScrollDownIntent);
             } catch (Exception e) {
                 // can happen if database is not ready
                 Log.e("WIDGET-UPDATE", "Error updating widget", e);

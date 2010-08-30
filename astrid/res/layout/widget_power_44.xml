@@ -96,7 +96,8 @@
                 android:layout_height="38dp"
                 android:orientation="horizontal">
                 <ImageView
-                    android:id="@+id/importance1"        
+                    android:id="@+id/importance1"
+                    android:scaleType="fitXY"     
                     android:layout_width="3dp"
                     android:layout_height="38dp" />
                 <ImageButton
@@ -112,12 +113,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical" android:maxLines="2"
-                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due1"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:gravity="right" android:paddingRight="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -126,7 +127,8 @@
                 android:layout_height="38dp"
                 android:orientation="horizontal">
                 <ImageView
-                    android:id="@+id/importance2"        
+                    android:id="@+id/importance2"      
+                    android:scaleType="centerInside"  
                     android:layout_width="3dp"
                     android:layout_height="38dp" />
                 <ImageButton
@@ -142,12 +144,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical" android:maxLines="2"
-                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:gravity="right" android:paddingRight="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -157,6 +159,7 @@
                 android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/importance3"        
+                    android:scaleType="centerCrop"
                     android:layout_width="3dp"
                     android:layout_height="38dp" />
                 <ImageButton
@@ -172,12 +175,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical" android:maxLines="2"
-                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:gravity="right" android:paddingRight="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -202,12 +205,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical" android:maxLines="2"
-                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:gravity="right" android:paddingRight="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -232,12 +235,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical" android:maxLines="2"
-                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:gravity="right" android:paddingRight="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -262,12 +265,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical" android:maxLines="2"
-                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:gravity="right" android:paddingRight="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -292,12 +295,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical" android:maxLines="2"
-                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due7"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:gravity="right" android:paddingRight="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -322,12 +325,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical" android:maxLines="2"
-                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due8"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:gravity="right" android:paddingRight="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -352,12 +355,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical" android:maxLines="2"
-                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due9"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:gravity="right" android:paddingRight="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -382,12 +385,12 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
                     android:layout_gravity="center_vertical" android:maxLines="2"
-                    android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
+                    android:textSize="14sp" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due10"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:gravity="right" android:paddingRight="4dp"
                     android:textSize="12sp" />
             </LinearLayout>
@@ -406,7 +409,7 @@
             <!-- if no encouragement -->
 		    <LinearLayout
 		    	android:id="@+id/button_plus"			    
-		    	android:layout_width="wrap_content"
+		    	android:layout_width="fill_parent"
 		    	android:layout_height="36dp"
                 android:orientation="horizontal"
                 android:gravity="center_horizontal">
@@ -422,12 +425,15 @@
 			    	android:src="@drawable/button_plus" 
 			    	android:layout_width="17dp" 
 			    	android:layout_height="17dp" 
+                    android:layout_weight="70"
 				    android:layout_marginTop="8dp"
 				    android:layout_marginRight="9dp" 
+                    android:gravity="right"
 			    	/>						    	
 			    <TextView
 			    	android:layout_width="wrap_content"
 			    	android:layout_height="fill_parent"
+                    android:layout_weight="100"
 		            android:textColor="#ffffff"
 		            android:textSize="16sp"
 		            android:textStyle="bold"
