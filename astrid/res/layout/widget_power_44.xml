@@ -97,7 +97,6 @@
                 android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/importance1"
-                    android:scaleType="fitXY"     
                     android:layout_width="3dp"
                     android:layout_height="38dp" />
                 <ImageButton
@@ -128,7 +127,6 @@
                 android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/importance2"      
-                    android:scaleType="centerInside"  
                     android:layout_width="3dp"
                     android:layout_height="38dp" />
                 <ImageButton
@@ -159,7 +157,6 @@
                 android:orientation="horizontal">
                 <ImageView
                     android:id="@+id/importance3"        
-                    android:scaleType="centerCrop"
                     android:layout_width="3dp"
                     android:layout_height="38dp" />
                 <ImageButton

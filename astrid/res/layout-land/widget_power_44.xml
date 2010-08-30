@@ -83,20 +83,326 @@
 		    android:layout_width="fill_parent"
 		    android:layout_height="wrap_content"
 		    android:layout_below="@+id/header"
-		    android:layout_above="@+id/encouragement"
-		    android:paddingBottom="5dp">
-		 
-			<LinearLayout 
-				android:id="@+id/task_list"
-			    android:layout_width="wrap_content"
-			    android:layout_height="wrap_content"
-			    android:orientation="vertical"
-			    android:gravity="fill_vertical"
-			    android:layout_alignParentTop="true"
-			    android:layout_alignParentBottom="true"
-			    android:layout_alignParentLeft="true"
-			    android:layout_toLeftOf="@+id/footer">
-			</LinearLayout>
+		    android:layout_above="@+id/encouragement">
+		       
+      <LinearLayout 
+            android:id="@+id/task_list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+		    android:layout_alignParentTop="true"
+		    android:layout_alignParentBottom="true"
+		    android:layout_toLeftOf="@+id/footer"
+            android:paddingTop="4dip"
+            android:paddingBottom="3dip"
+            android:gravity="fill_vertical">
+        
+        <!-- body rows -->
+            
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance1"
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <ImageButton
+                    android:id="@+id/checkbox1"
+                    android:src="@drawable/btn_check_buttonless_off"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:textSize="14sp" android:paddingLeft="5dip" />
+                <TextView
+                    android:id="@+id/task_due1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:gravity="right" android:paddingRight="4dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance2"      
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <ImageButton
+                    android:id="@+id/checkbox2"
+                    android:src="@drawable/btn_check_buttonless_off"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:textSize="14sp" android:paddingLeft="5dip" />
+                <TextView
+                    android:id="@+id/task_due2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:gravity="right" android:paddingRight="4dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance3"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <ImageButton
+                    android:id="@+id/checkbox3"
+                    android:src="@drawable/btn_check_buttonless_off"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:textSize="14sp" android:paddingLeft="5dip" />
+                <TextView
+                    android:id="@+id/task_due3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:gravity="right" android:paddingRight="4dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance4"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <ImageButton
+                    android:id="@+id/checkbox4"
+                    android:src="@drawable/btn_check_buttonless_off"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:textSize="14sp" android:paddingLeft="5dip" />
+                <TextView
+                    android:id="@+id/task_due4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:gravity="right" android:paddingRight="4dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance5"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <ImageButton
+                    android:id="@+id/checkbox5"
+                    android:src="@drawable/btn_check_buttonless_off"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:textSize="14sp" android:paddingLeft="5dip" />
+                <TextView
+                    android:id="@+id/task_due5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:gravity="right" android:paddingRight="4dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance6"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <ImageButton
+                    android:id="@+id/checkbox6"
+                    android:src="@drawable/btn_check_buttonless_off"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:textSize="14sp" android:paddingLeft="5dip" />
+                <TextView
+                    android:id="@+id/task_due6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:gravity="right" android:paddingRight="4dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance7"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <ImageButton
+                    android:id="@+id/checkbox7"
+                    android:src="@drawable/btn_check_buttonless_off"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:textSize="14sp" android:paddingLeft="5dip" />
+                <TextView
+                    android:id="@+id/task_due7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:gravity="right" android:paddingRight="4dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance8"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <ImageButton
+                    android:id="@+id/checkbox8"
+                    android:src="@drawable/btn_check_buttonless_off"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:textSize="14sp" android:paddingLeft="5dip" />
+                <TextView
+                    android:id="@+id/task_due8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:gravity="right" android:paddingRight="4dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance9"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <ImageButton
+                    android:id="@+id/checkbox9"
+                    android:src="@drawable/btn_check_buttonless_off"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:textSize="14sp" android:paddingLeft="5dip" />
+                <TextView
+                    android:id="@+id/task_due9"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:gravity="right" android:paddingRight="4dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+            <LinearLayout 
+                android:layout_width="fill_parent"
+                android:layout_height="38dp"
+                android:orientation="horizontal">
+                <ImageView
+                    android:id="@+id/importance10"        
+                    android:layout_width="3dp"
+                    android:layout_height="38dp" />
+                <ImageButton
+                    android:id="@+id/checkbox10"
+                    android:src="@drawable/btn_check_buttonless_off"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp" />
+                <TextView
+                    android:id="@+id/task_title10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="100"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:textSize="14sp" android:paddingLeft="5dip" />
+                <TextView
+                    android:id="@+id/task_due10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
+                    android:gravity="right" android:paddingRight="4dp"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        
+        <!-- end body rows -->
+        
+        </LinearLayout>
 	    	
 			<RelativeLayout 
 				android:id="@+id/footer"
@@ -114,16 +420,24 @@
 			    	android:layout_height="36dp"
 			    	android:layout_alignParentTop="true" 
 			    	/>
+			    <ImageView
+			    	android:id="@+id/scroll_up_alt"
+			    	android:src="@drawable/scroll_up"
+                    android:visibility="gone" 
+			    	android:layout_width="36dp" 
+			    	android:layout_height="36dp"
+			    	android:layout_alignParentTop="true" 
+			    	/>
 	       		<LinearLayout 
 			    	android:id="@+id/button_plus"
 				    android:layout_width="wrap_content"
-				    android:layout_height="36dp"
+				    android:layout_height="fill_parent"
 				    android:paddingTop="10dp"
 				    android:paddingBottom="9dp"
 				    android:paddingLeft="10dp"
 				    android:paddingRight="9dp" 
-				    android:layout_below="@+id/scroll_up"
-				    android:layout_above="@+id/scroll_down"
+				    android:layout_below="@+id/scroll_up_alt"
+				    android:layout_above="@+id/scroll_down_alt"
 				    android:gravity="center_vertical">
 				    <ImageView
 				    	android:src="@drawable/button_plus" 
@@ -134,6 +448,14 @@
 			    <ImageView
 			    	android:id="@+id/scroll_down"
 			    	android:src="@drawable/scroll_down" 
+			    	android:layout_width="36dp" 
+			    	android:layout_height="36dp" 
+			    	android:layout_alignParentBottom="true" 
+			    	/>		    
+			    <ImageView
+			    	android:id="@+id/scroll_down_alt"
+			    	android:src="@drawable/scroll_down" 
+                    android:visibility="gone"
 			    	android:layout_width="36dp" 
 			    	android:layout_height="36dp" 
 			    	android:layout_alignParentBottom="true" 
@@ -172,7 +494,7 @@
 		    	android:id="@+id/icon"
 		    	android:src="@drawable/icon_plus"
 			    android:layout_width="48dp"
-			    android:layout_height="48dp"
+			    android:layout_height="42dp"
 			    android:layout_alignParentRight="true"
 		    	android:layout_alignBottom="@+id/speech_bubble" 
 		    	android:layout_marginBottom="4dp"/>		    

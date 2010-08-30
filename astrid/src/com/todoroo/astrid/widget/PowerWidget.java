@@ -374,7 +374,7 @@ public class PowerWidget extends AppWidgetProvider {
 
                     // importance
                     views.setImageViewResource(TASK_IMPORTANCE[position],
-                            TASK_IMPORTANCE[task.getValue(Task.IMPORTANCE)]);
+                            IMPORTANCE_DRAWABLES[task.getValue(Task.IMPORTANCE)]);
 
                     // check box
                     Intent markCompleteIntent = new Intent(context, PowerWidget.class);
