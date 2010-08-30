@@ -4,8 +4,8 @@
     
     <!-- Resources for power pack widget -->
     
-    <string name="PPW_widget_42_label">Astrid (Power Pack 4x2)</string>
-    <string name="PPW_widget_44_label">Astrid (Power Pack 4x4)</string>
+    <string name="PPW_widget_42_label">Astrid 4x2 (beta!)</string>
+    <string name="PPW_widget_44_label">Astrid 4x4 (beta!)</string>
     
     <string name="PPW_configure_title">Configure Widget</string>
     

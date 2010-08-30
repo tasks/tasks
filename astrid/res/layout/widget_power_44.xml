@@ -111,7 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due1"
@@ -141,7 +141,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due2"
@@ -171,7 +171,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due3"
@@ -201,7 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due4"
@@ -231,7 +231,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due5"
@@ -261,7 +261,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due6"
@@ -291,7 +291,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due7"
@@ -321,7 +321,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due8"
@@ -351,7 +351,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due9"
@@ -381,7 +381,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="100"
-                    android:layout_gravity="center_vertical"
+                    android:layout_gravity="center_vertical" android:maxLines="2"
                     android:textSize="14sp" android:textStyle="bold" android:paddingLeft="5dip" />
                 <TextView
                     android:id="@+id/task_due10"
@@ -401,14 +401,23 @@
 		    android:layout_width="fill_parent"
             android:layout_height="wrap_content"
 		    android:layout_above="@id/encouragement"
-            android:layout_alignParentBottom="true"
-            android:gravity="center_horizontal">
+            android:layout_alignParentBottom="true">
 
             <!-- if no encouragement -->
 		    <LinearLayout
 		    	android:id="@+id/button_plus"			    
 		    	android:layout_width="wrap_content"
-		    	android:layout_height="36dp">
+		    	android:layout_height="36dp"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal">
+                
+                <ImageButton
+                    android:id="@+id/scroll_up_alt"
+                    android:background="@drawable/scroll_up" 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" />
+            
 			    <ImageView
 			    	android:src="@drawable/button_plus" 
 			    	android:layout_width="17dp" 
@@ -425,6 +434,14 @@
 			    	android:text="Add Task"
 			    	android:gravity="center_vertical"
 			    	/>
+            
+                <ImageButton
+                    android:id="@+id/scroll_down_alt"
+                    android:background="@drawable/scroll_down" 
+                    android:layout_width="wrap_content" 
+                    android:layout_height="fill_parent"
+                    android:layout_weight="1" />
+                  
 	    	</LinearLayout>
                         
             <!-- encouragement -->

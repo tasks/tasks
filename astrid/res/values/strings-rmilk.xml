@@ -2,9 +2,6 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- application name -->
-    <string name="app_name">Astrid Remember the Milk Plugin</string>
-
     <!-- ====================== Plugin Boilerplate ========================= -->
 
     <!-- label for RMilk button in Task Edit Activity -->

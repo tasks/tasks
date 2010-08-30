@@ -3,6 +3,8 @@
     <color name="task_list_overdue">#FFFB6666</color>
     <color name="task_list_normal">#FFFFFFFF</color>
     <color name="task_list_done">#ff777777</color>
+    
+    <!-- font colors when colored by importance  -->
     <color name="task_list_importance_1">#ffffffff</color>
     <color name="task_list_importance_2">#ffcfcfcf</color>
     <color name="task_list_importance_3">#ffb8b8b8</color>

@@ -97,8 +97,13 @@ public class PowerWidget extends AppWidgetProvider {
         R.id.checkbox3, R.id.checkbox4, R.id.checkbox5, R.id.checkbox6,
         R.id.checkbox7, R.id.checkbox8, R.id.checkbox9, R.id.checkbox10 };
 
+    // # of rows defined in the xml file
     private static final int ROW_LIMIT = 10;
-    private static int[] importanceColors = null;
+
+    public static int[] IMPORTANCE_DRAWABLES = new int[] {
+        R.drawable.importance_1, R.drawable.importance_2, R.drawable.importance_3,
+        R.drawable.importance_4, R.drawable.importance_5, R.drawable.importance_6
+    };
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager,
@@ -119,21 +124,13 @@ public class PowerWidget extends AppWidgetProvider {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        if (ACTION_MARK_COMPLETE.equals(intent.getAction())){
+        if (ACTION_SCROLL_UP.equals(intent.getAction()) ||
+                ACTION_SCROLL_DOWN.equals(intent.getAction()) ||
+                ACTION_MARK_COMPLETE.equals(intent.getAction())){
             Intent updateIntent = new Intent(context, UpdateService.class);
-            updateIntent.setAction(ACTION_MARK_COMPLETE);
+            updateIntent.setAction(intent.getAction());
             updateIntent.putExtras(intent.getExtras());
             context.startService(updateIntent);
-        } else if (ACTION_SCROLL_UP.equals(intent.getAction()) || ACTION_SCROLL_DOWN.equals(intent.getAction())){
-            int id = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-            if (id != AppWidgetManager.INVALID_APPWIDGET_ID){
-                int scrollOffset = intent.getIntExtra(EXTRA_SCROLL_OFFSET, 0);
-                Intent updateIntent = new Intent(context, UpdateService.class);
-                updateIntent.setAction(intent.getAction());
-                updateIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, id);
-                updateIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset);
-                context.startService(updateIntent);
-            }
         } else {
             super.onReceive(context, intent);
         }
@@ -207,7 +204,7 @@ public class PowerWidget extends AppWidgetProvider {
             int[] appWidgetIds = null;
             int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
-            if (intent != null && (ACTION_SCROLL_UP.equals(intent.getAction()) || ACTION_SCROLL_DOWN.equals(intent.getAction()))) {
+            if (intent != null && intent.hasExtra(EXTRA_SCROLL_OFFSET)) {
                 scrollOffset = intent.getIntExtra(EXTRA_SCROLL_OFFSET, 0);
                 appWidgetIds = intent.getIntArrayExtra(APP_WIDGET_IDS);
                 appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
@@ -344,10 +341,6 @@ public class PowerWidget extends AppWidgetProvider {
 
                 boolean canScrollDown = cursor.getCount() > 1;
 
-                if(importanceColors == null) {
-                    importanceColors = Task.getImportanceColors(getResources());
-                }
-
                 Task task = new Task();
                 int position;
                 for (position = 0; position < cursor.getCount() && position < ROW_LIMIT; position++) {
@@ -361,7 +354,7 @@ public class PowerWidget extends AppWidgetProvider {
                     long taskId = task.getValue(Task.ID);
 
                     // importance
-                    views.setInt(TASK_IMPORTANCE[position], "setBackgroundColor", importanceColors[task.getValue(Task.IMPORTANCE)]);
+                    views.setImageViewResource(TASK_IMPORTANCE[position], TASK_IMPORTANCE[task.getValue(Task.IMPORTANCE)]);
 
                     // check box
                     Intent markCompleteIntent = new Intent(context, PowerWidget.class);
@@ -369,6 +362,7 @@ public class PowerWidget extends AppWidgetProvider {
                     markCompleteIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
                     markCompleteIntent.putExtra(COMPLETED_TASK_ID, taskId);
                     markCompleteIntent.putExtra(COMPLETED_TASK_POSITION, scrollOffset + position);
+                    markCompleteIntent.putExtra(EXTRA_SCROLL_OFFSET, scrollOffset);
                     markCompleteIntent.setType(COMPLETED_TASK_ID + taskId);
                     PendingIntent pMarkCompleteIntent = PendingIntent.getBroadcast(context, 0, markCompleteIntent,
                             PendingIntent.FLAG_UPDATE_CURRENT);
