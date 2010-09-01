@@ -81,18 +81,6 @@
   <!-- Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Add to this list...</string>
   
-  <!-- Help (HTML)-->
-  <string name="TLA_help"><![CDATA[
-<center><h1>Help: Task Listing</h1></center>
-<b>bar at the top</b>: shows the name of this filter, and a button to go back
-to your list of filters.
-<p />
-<b>middle</b>: shows all your tasks.
-<p />
-<b>bottom</b>: quick add tasks. left button: add straight to the list. right
-button: add task & go to the edit page.
-  ]]></string>
-  
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
@@ -191,23 +179,6 @@ button: add task & go to the edit page.
   
   <!-- Search Filter name (%s => query) -->
   <string name="FLA_search_filter">Matching \'%s\'</string>
-  
-  <!-- Help (HTML)-->
-  <string name="FLA_help"><![CDATA[
-<center><h1>Help: Filters Page</h1></center>
-<p>On the Filters page you can see all of the filters that you can use to
-organize your tasks. Some Astrid Add-ons will add new filters to this 
-list.
-</p><p>
-You can turn any filter into a shortcut on your desktop by long-pressing
-to bring up the context menu, then selecting "Create Shortcut". Other options
-that are displayed will depend on the particular plugins that you
-are using.
-</p><p>
-If you are having trouble with a particular plugin, please report errors
-to the plugin creator for fastest service.
-</p>
-  ]]></string>
   
   <!-- Toast: created shortcut (%s => label) -->
   <string name="FLA_toast_onCreateShortcut">Created Shortcut: %s</string>
