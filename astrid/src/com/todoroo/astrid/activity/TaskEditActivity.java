@@ -1143,7 +1143,6 @@ public final class TaskEditActivity extends TabActivity {
             HideUntilValue item = adapter.getItem(spinner.getSelectedItemPosition());
             long value = task.createHideUntil(item.setting, item.date);
             task.setValue(Task.HIDE_UNTIL, value);
-            System.err.println("hide until: " + new Date(value));
             return null;
         }
 
