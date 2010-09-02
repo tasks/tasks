@@ -27,15 +27,15 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TabActivity;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.format.DateUtils;
@@ -46,7 +46,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -62,6 +61,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -740,7 +740,6 @@ public final class TaskEditActivity extends TabActivity {
         private ArrayAdapter<UrgencyValue> urgencyAdapter;
         private int previousSetting = Task.URGENCY_NONE;
 
-
         private long existingDate = EXISTING_TIME_UNSET;
         private int existingDateHour = EXISTING_TIME_UNSET;
         private int existingDateMinutes = EXISTING_TIME_UNSET;
@@ -948,11 +947,18 @@ public final class TaskEditActivity extends TabActivity {
      *
      */
     private class HideUntilControlSet implements TaskEditControlSet,
-            OnItemSelectedListener, OnDateSetListener, OnCancelListener {
+            OnItemSelectedListener, OnDateSetListener, OnCancelListener,
+            OnDeadlineTimeSetListener {
 
         private static final int SPECIFIC_DATE = -1;
+        private static final int EXISTING_TIME_UNSET = -2;
+
         private final Spinner spinner;
         private int previousSetting = Task.HIDE_UNTIL_NONE;
+
+        private long existingDate = EXISTING_TIME_UNSET;
+        private int existingDateHour = EXISTING_TIME_UNSET;
+        private int existingDateMinutes = EXISTING_TIME_UNSET;
 
         public HideUntilControlSet(int hideUntil) {
             this.spinner = (Spinner) findViewById(hideUntil);
@@ -1002,8 +1008,19 @@ public final class TaskEditActivity extends TabActivity {
                 HideUntilValue[] updated = new HideUntilValue[values.length + 1];
                 for(int i = 0; i < values.length; i++)
                     updated[i+1] = values[i];
-                updated[0] = new HideUntilValue(DateUtilities.getDateString(TaskEditActivity.this, new Date(specificDate)),
-                        Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
+                Date hideUntilAsDate = new Date(specificDate);
+                if(hideUntilAsDate.getHours() == 0 && hideUntilAsDate.getMinutes() == 0 && hideUntilAsDate.getSeconds() == 0) {
+                    updated[0] = new HideUntilValue(DateUtilities.getDateString(TaskEditActivity.this, new Date(specificDate)),
+                            Task.HIDE_UNTIL_SPECIFIC_DAY, specificDate);
+                    existingDate = specificDate;
+                    existingDateHour = SPECIFIC_DATE;
+                } else {
+                    updated[0] = new HideUntilValue(DateUtilities.getDateStringWithTime(TaskEditActivity.this, new Date(specificDate)),
+                            Task.HIDE_UNTIL_SPECIFIC_DAY_TIME, specificDate);
+                    existingDate = specificDate;
+                    existingDateHour = hideUntilAsDate.getHours();
+                    existingDateMinutes = hideUntilAsDate.getMinutes();
+                }
                 values = updated;
             }
 
@@ -1018,14 +1035,17 @@ public final class TaskEditActivity extends TabActivity {
             // ... at conclusion of dialog, update our list
             HideUntilValue item = adapter.getItem(position);
             if(item.date == SPECIFIC_DATE) {
-                intermediateDate = new Date();
-                intermediateDate.setSeconds(0);
+                customDate = new Date(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
+                customDate.setSeconds(0);
                 DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
-                        this, 1900 + intermediateDate.getYear(), intermediateDate.getMonth(), intermediateDate.getDate());
+                        this, 1900 + customDate.getYear(), customDate.getMonth(), customDate.getDate());
                 datePicker.setOnCancelListener(this);
                 datePicker.show();
+
+                spinner.setSelection(previousSetting);
             } else {
                 previousSetting = position;
+                model.setValue(Task.HIDE_UNTIL, item.date);
             }
         }
 
@@ -1034,14 +1054,39 @@ public final class TaskEditActivity extends TabActivity {
             // ignore
         }
 
-        Date intermediateDate;
+        Date customDate;
 
         public void onDateSet(DatePicker view, int year, int month, int monthDay) {
-            intermediateDate.setYear(year - 1900);
-            intermediateDate.setMonth(month);
-            intermediateDate.setDate(monthDay);
-            intermediateDate.setHours(0);
-            intermediateDate.setMinutes(0);
+            customDate.setYear(year - 1900);
+            customDate.setMonth(month);
+            customDate.setDate(monthDay);
+
+            boolean specificTime = existingDateHour != SPECIFIC_DATE;
+            if(existingDateHour < 0) {
+                existingDateHour = customDate.getHours();
+                existingDateMinutes= customDate.getMinutes();
+            }
+
+            DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(TaskEditActivity.this, this,
+                    existingDateHour, existingDateMinutes,
+                    DateUtilities.is24HourFormat(TaskEditActivity.this),
+                    specificTime);
+
+            timePicker.setOnCancelListener(this);
+            timePicker.show();
+        }
+
+        public void onTimeSet(TimePicker view, boolean hasTime, int hourOfDay, int minute) {
+            if(!hasTime) {
+                customDate.setHours(0);
+                customDate.setMinutes(0);
+                customDate.setSeconds(0);
+            } else {
+                customDate.setHours(hourOfDay);
+                customDate.setMinutes(minute);
+                existingDateHour = hourOfDay;
+                existingDateMinutes = minute;
+            }
             customDateFinished();
         }
 
@@ -1052,7 +1097,7 @@ public final class TaskEditActivity extends TabActivity {
         }
 
         private void customDateFinished() {
-            HideUntilValue[] list = createHideUntilList(intermediateDate.getTime());
+            HideUntilValue[] list = createHideUntilList(customDate.getTime());
             adapter = new ArrayAdapter<HideUntilValue>(
                     TaskEditActivity.this, android.R.layout.simple_spinner_item,
                     list);
@@ -1098,6 +1143,7 @@ public final class TaskEditActivity extends TabActivity {
             HideUntilValue item = adapter.getItem(spinner.getSelectedItemPosition());
             long value = task.createHideUntil(item.setting, item.date);
             task.setValue(Task.HIDE_UNTIL, value);
+            System.err.println("hide until: " + new Date(value));
             return null;
         }
 

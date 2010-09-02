@@ -213,10 +213,10 @@
   <string name="TEA_urgency_label">Deadline</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">Due at specific time?</string>
+  <string name="TEA_urgency_specific_time">At specific time?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Due Time</string>
+  <string name="TEA_urgency_time_none">No Time Set</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Hide Until</string>
@@ -270,7 +270,7 @@
       <item>Task is due</item>
       <item>Day before due</item>
       <item>Week before due</item>
-      <item>Specific Day</item>
+      <item>Specific Day/Time</item>
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
