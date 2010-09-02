@@ -53,6 +53,7 @@
             <TextView android:id="@+id/details"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                style="@style/TextAppearance.TAd_ItemDetails"
                 android:visibility="gone" />
                 
         </LinearLayout>
@@ -63,6 +64,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="4dip"
+        style="@style/TextAppearance.TAd_ItemTitle"
         android:visibility="gone" />
         
     <LinearLayout android:id="@+id/actions"

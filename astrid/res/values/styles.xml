@@ -36,6 +36,7 @@
     <!-- ==================================================== TaskAdapter == -->
 
     <style name="TextAppearance.TAd_ItemTitle">
+        <item name="android:textColorLink">#ff88aaff</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemTitle_Completed" parent="TextAppearance.TAd_ItemTitle">
@@ -49,8 +50,8 @@
     </style>
 
     <style name="TextAppearance.TAd_ItemDetails">
-        <item name="android:textSize">11sp</item>
         <item name="android:textColor">#ff777777</item>
+        <item name="android:textColorLink">#ff88aaff</item>
     </style>
     
     <style name="TextAppearance.TAd_ItemDueDate" parent="TextAppearance.TAd_ItemDetails">
