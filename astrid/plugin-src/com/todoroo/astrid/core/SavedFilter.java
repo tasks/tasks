@@ -97,8 +97,7 @@ public class SavedFilter {
             // criterion|entry|text|type|sql
             values.append(item.criterion.identifier.replace(AndroidUtilities.SERIALIZATION_SEPARATOR,
                     AndroidUtilities.SEPARATOR_ESCAPE)).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
-            if(item.selectedIndex > -1 && item.criterion.entryValues != null)
-                values.append(item.criterion.entryValues[item.selectedIndex].replace(AndroidUtilities.SERIALIZATION_SEPARATOR,
+            values.append(item.getValueFromCriterion().replace(AndroidUtilities.SERIALIZATION_SEPARATOR,
                     AndroidUtilities.SEPARATOR_ESCAPE));
             values.append(AndroidUtilities.SERIALIZATION_SEPARATOR);
             values.append(item.criterion.text.replace(AndroidUtilities.SERIALIZATION_SEPARATOR,

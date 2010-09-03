@@ -14,10 +14,9 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.MenuItem;
-import android.view.SubMenu;
 import android.view.View;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnCreateContextMenuListener;
 import android.widget.Button;
 import android.widget.TextView;
@@ -34,7 +33,9 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.CustomFilterCriterion;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.MultipleSelectCriterion;
 import com.todoroo.astrid.api.PermaSql;
+import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -57,9 +58,8 @@ public class CustomFilterActivity extends ListActivity {
     private static final String IDENTIFIER_UNIVERSE = "active"; //$NON-NLS-1$
 
     static final int MENU_GROUP_FILTER = 0;
-    static final int MENU_GROUP_FILTER_OPTION = 1;
-    static final int MENU_GROUP_CONTEXT_TYPE = 2;
-    static final int MENU_GROUP_CONTEXT_DELETE = 3;
+    static final int MENU_GROUP_CONTEXT_TYPE = 1;
+    static final int MENU_GROUP_CONTEXT_DELETE = 2;
 
     // --- hierarchy of filter classes
 
@@ -72,14 +72,49 @@ public class CustomFilterActivity extends ListActivity {
         /** criteria for this instance */
         public CustomFilterCriterion criterion;
 
-        /** which of the entries is selected */
+        /** which of the entries is selected (MultipleSelect) */
         public int selectedIndex = -1;
+
+        /** text of selection (TextInput) */
+        public String selectedText = null;
 
         /** type of join */
         public int type = TYPE_INTERSECT;
 
         /** statistics for {@link FilterView} */
         public int start, end, max;
+
+        @SuppressWarnings("nls")
+        public String getTitleFromCriterion() {
+            if(criterion instanceof MultipleSelectCriterion) {
+                if(selectedIndex >= 0 && ((MultipleSelectCriterion)criterion).entryTitles != null &&
+                        selectedIndex < ((MultipleSelectCriterion)criterion).entryTitles.length) {
+                    String title = ((MultipleSelectCriterion)criterion).entryTitles[selectedIndex];
+                    return criterion.text.replace("?", title);
+                }
+                return criterion.text;
+            } else if(criterion instanceof TextInputCriterion) {
+                if(selectedText == null)
+                    return criterion.text;
+                return criterion.text.replace("?", selectedText);
+            }
+            throw new UnsupportedOperationException("Unknown criterion type"); //$NON-NLS-1$
+        }
+
+        public String getValueFromCriterion() {
+            if(type == TYPE_UNIVERSE)
+                return null;
+            if(criterion instanceof MultipleSelectCriterion) {
+                if(selectedIndex >= 0 && ((MultipleSelectCriterion)criterion).entryValues != null &&
+                        selectedIndex < ((MultipleSelectCriterion)criterion).entryValues.length) {
+                    return ((MultipleSelectCriterion)criterion).entryValues[selectedIndex];
+                }
+                return criterion.text;
+            } else if(criterion instanceof TextInputCriterion) {
+                return selectedText;
+            }
+            throw new UnsupportedOperationException("Unknown criterion type"); //$NON-NLS-1$
+        }
     }
 
     private TextView filterName;
@@ -129,10 +164,11 @@ public class CustomFilterActivity extends ListActivity {
                 PermaSql.VALUE_EOD_TOMORROW,
                 PermaSql.VALUE_EOD_DAY_AFTER,
                 PermaSql.VALUE_EOD_NEXT_WEEK,
+                PermaSql.VALUE_EOD_NEXT_MONTH,
         };
         ContentValues values = new ContentValues();
         values.put(Task.DUE_DATE.name, "?");
-        CustomFilterCriterion criterion = new CustomFilterCriterion(
+        CustomFilterCriterion criterion = new MultipleSelectCriterion(
                 IDENTIFIER_DUEDATE,
                 getString(R.string.CFC_dueBefore_text),
                 Query.select(Task.ID).from(Task.TABLE).where(
@@ -159,7 +195,7 @@ public class CustomFilterActivity extends ListActivity {
         };
         values = new ContentValues();
         values.put(Task.IMPORTANCE.name, "?");
-        criterion = new CustomFilterCriterion(
+        criterion = new MultipleSelectCriterion(
                 IDENTIFIER_IMPORTANCE,
                 getString(R.string.CFC_importance_text),
                 Query.select(Task.ID).from(Task.TABLE).where(
@@ -179,7 +215,7 @@ public class CustomFilterActivity extends ListActivity {
         values = new ContentValues();
         values.put(Metadata.KEY.name, TagService.KEY);
         values.put(TagService.TAG.name, "?");
-        criterion = new CustomFilterCriterion(
+        criterion = new MultipleSelectCriterion(
                 IDENTIFIER_TAG,
                 getString(R.string.CFC_tag_text),
                 Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
@@ -191,11 +227,40 @@ public class CustomFilterActivity extends ListActivity {
                 ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap(),
                 getString(R.string.CFC_tag_name));
         criteria.add(criterion);
+
+        // built in criteria: tags containing X
+        criterion = new TextInputCriterion(
+                IDENTIFIER_TAG,
+                getString(R.string.CFC_tag_contains_text),
+                Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
+                        Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
+                                TaskCriteria.activeAndVisible(),
+                                MetadataCriteria.withKey(TagService.KEY),
+                                TagService.TAG.like("%?%"))).toString(),
+                                null, getString(R.string.CFC_tag_contains_name), "",
+                                ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags2)).getBitmap(),
+                                getString(R.string.CFC_tag_contains_name));
+        criteria.add(criterion);
+
+        // built in criteria: title containing X
+        values = new ContentValues();
+        values.put(Task.TITLE.name, "?");
+        criterion = new TextInputCriterion(
+                IDENTIFIER_TAG,
+                getString(R.string.CFC_title_contains_text),
+                Query.select(Task.ID).from(Task.TABLE).where(
+                        Criterion.and(TaskCriteria.activeAndVisible(),
+                                Task.TITLE.like("%?%"))).toString(),
+                    null, getString(R.string.CFC_title_contains_name), "",
+                    ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
+                    getString(R.string.CFC_title_contains_name));
+        criteria.add(criterion);
+
     }
 
     private CriterionInstance getStartingUniverse() {
         CriterionInstance instance = new CriterionInstance();
-        instance.criterion = new CustomFilterCriterion(IDENTIFIER_UNIVERSE,
+        instance.criterion = new MultipleSelectCriterion(IDENTIFIER_UNIVERSE,
                 getString(R.string.CFA_universe_all),
                 null, null, null, null, null, null);
         instance.type = CriterionInstance.TYPE_UNIVERSE;
@@ -206,7 +271,6 @@ public class CustomFilterActivity extends ListActivity {
         ((Button)findViewById(R.id.add)).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                menuItemInstance = null;
                 getListView().showContextMenu();
             }
         });
@@ -249,42 +313,16 @@ public class CustomFilterActivity extends ListActivity {
                 if(menu.hasVisibleItems())
                     return;
 
-                if(menuItemInstance == null) {
-                    for(int i = 0; i < criteria.size(); i++) {
-                        CustomFilterCriterion item = criteria.get(i);
-                        SubMenu subMenu = menu.addSubMenu(item.name);
-                        if(item.icon != null)
-                            subMenu.setIcon(new BitmapDrawable(item.icon));
-
-                        for(int j = 0; j < item.entryTitles.length; j++) {
-                            subMenu.add(CustomFilterActivity.MENU_GROUP_FILTER_OPTION,
-                                    i, j, item.entryTitles[j]);
-                        }
-                    }
-                }
-
-                // was invoked by short-pressing row
-                else {
-                    CustomFilterCriterion criterion = menuItemInstance.criterion;
-                    if(criterion.entryTitles == null ||
-                            criterion.entryTitles.length == 0)
-                        return;
-
-                    menu.setHeaderTitle(criterion.name);
-                    menu.setGroupCheckable(CustomFilterActivity.MENU_GROUP_FILTER_OPTION, true, true);
-
-                    for(int i = 0; i < criterion.entryTitles.length; i++) {
-                        menu.add(CustomFilterActivity.MENU_GROUP_FILTER_OPTION,
-                                -1, i, criterion.entryTitles[i]);
-                    }
+                for(int i = 0; i < criteria.size(); i++) {
+                    CustomFilterCriterion item = criteria.get(i);
+                    menu.add(CustomFilterActivity.MENU_GROUP_FILTER,
+                            i, 0, item.name);
                 }
             }
         });
     }
 
     // --- listeners and action events
-
-    CriterionInstance menuItemInstance = null;
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
@@ -304,15 +342,11 @@ public class CustomFilterActivity extends ListActivity {
         ContentValues values = new ContentValues();
         for(int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
-            if(instance.selectedIndex < 0 && instance.criterion.entryValues != null)
+            String value = instance.getValueFromCriterion();
+            if(value == null && instance.criterion.sql.contains("?"))
                 continue;
 
-            String entryTitle = "";
-            if(instance.criterion.entryTitles != null) {
-                entryTitle = instance.criterion.entryTitles[instance.selectedIndex];
-            }
-            String title = instance.criterion.text.replace("?", entryTitle);
-
+            String title = instance.getTitleFromCriterion();
 
             switch(instance.type) {
             case CriterionInstance.TYPE_ADD:
@@ -333,23 +367,19 @@ public class CustomFilterActivity extends ListActivity {
             }
 
 
-            String entryValue = "";
-            if(instance.criterion.entryValues != null && instance.selectedIndex > -1)
-                entryValue = instance.criterion.entryValues[instance.selectedIndex];
-
             // special code for all tasks universe
             if(instance.criterion.sql == null)
                 sql.append(TaskCriteria.activeAndVisible()).append(' ');
             else {
-                String subSql = instance.criterion.sql.replace("?", entryValue);
+                String subSql = instance.criterion.sql.replace("?", value);
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
             }
 
             if(instance.criterion.valuesForNewTasks != null &&
                     instance.type == CriterionInstance.TYPE_INTERSECT) {
                 for(Entry<String, Object> entry : instance.criterion.valuesForNewTasks.valueSet()) {
-                    values.put(entry.getKey().replace("?", entryValue),
-                            entry.getValue().toString().replace("?", entryValue));
+                    values.put(entry.getKey().replace("?", value),
+                            entry.getValue().toString().replace("?", value));
                 }
             }
         }
@@ -383,11 +413,9 @@ public class CustomFilterActivity extends ListActivity {
 
         for(int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
-            if(instance.selectedIndex < 0 && instance.criterion.entryValues != null) {
-                instance.start = last;
-                instance.end = last;
+            String value = instance.getValueFromCriterion();
+            if(value == null && instance.criterion.sql.contains("?"))
                 continue;
-            }
 
             switch(instance.type) {
             case CriterionInstance.TYPE_ADD:
@@ -406,8 +434,7 @@ public class CustomFilterActivity extends ListActivity {
             if(instance.criterion.sql == null)
                 sql.append(TaskCriteria.activeAndVisible()).append(' ');
             else {
-                String subSql = instance.criterion.sql.replace("?",
-                        instance.criterion.entryValues[instance.selectedIndex]);
+                String subSql = instance.criterion.sql.replace("?", value);
                 subSql = PermaSql.replacePlaceholders(subSql);
                 System.err.println(subSql);
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
@@ -435,26 +462,29 @@ public class CustomFilterActivity extends ListActivity {
 
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
-        if(item.getGroupId() == MENU_GROUP_FILTER_OPTION) {
-            if(menuItemInstance == null) {
-                CustomFilterCriterion criterion = criteria.get(item.getItemId());
-                menuItemInstance = new CriterionInstance();
-                menuItemInstance.criterion = criterion;
-            }
-
-            menuItemInstance.selectedIndex = item.getOrder();
-            if(adapter.getPosition(menuItemInstance) == -1)
-                adapter.add(menuItemInstance);
-            updateList();
+        // group filter option
+        if(item.getGroupId() == MENU_GROUP_FILTER) {
+            // give an initial value for the row before adding it
+            CustomFilterCriterion criterion = criteria.get(item.getItemId());
+            final CriterionInstance instance = new CriterionInstance();
+            instance.criterion = criterion;
+            adapter.showOptionsFor(instance, new Runnable() {
+                public void run() {
+                    adapter.add(instance);
+                    updateList();
+                }
+            });
             return true;
         }
 
+        // item type context item
         else if(item.getGroupId() == MENU_GROUP_CONTEXT_TYPE) {
             CriterionInstance instance = adapter.getItem(item.getOrder());
             instance.type = item.getItemId();
             updateList();
         }
 
+        // delete context item
         else if(item.getGroupId() == MENU_GROUP_CONTEXT_DELETE) {
             CriterionInstance instance = adapter.getItem(item.getOrder());
             adapter.remove(instance);
