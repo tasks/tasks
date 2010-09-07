@@ -4,7 +4,6 @@ import android.test.AndroidTestCase;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.DialogUtilities;
 
 public class AstridDependencyInjectorTests extends AndroidTestCase {
 
@@ -52,7 +51,7 @@ public class AstridDependencyInjectorTests extends AndroidTestCase {
         };
 
         DependencyInjectionService.getInstance().inject(helper);
-        assertTrue(helper.getObject() instanceof DialogUtilities);
+        assertTrue(helper.getObject() instanceof TaskService);
 
         Helper helper2 = new Helper() {
             @Autowired

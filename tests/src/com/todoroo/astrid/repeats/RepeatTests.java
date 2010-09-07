@@ -18,7 +18,7 @@ import com.todoroo.astrid.utility.Preferences;
 
 public class RepeatTests extends DatabaseTestCase {
 
-    private static final int REPEAT_WAIT = 1000;
+    private static final int REPEAT_WAIT = 1500;
 
     @Autowired
     TaskDao taskDao;
