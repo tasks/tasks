@@ -45,6 +45,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.ui.NumberPicker;
 import com.todoroo.astrid.utility.Preferences;
@@ -83,7 +84,7 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
     private void populateFilter(Intent intent) {
         taskId = intent.getLongExtra(TOKEN_ID, -1);
         if(taskId == -1)
-            taskId = 389; // TODO no
+            return;
 
         Filter itemFilter = new Filter(getString(R.string.rmd_NoA_filter),
                 getString(R.string.rmd_NoA_filter),
@@ -124,6 +125,16 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
             @Override
             public void onClick(View arg0) {
                 snooze();
+            }
+        });
+
+        ((Button)findViewById(R.id.done)).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Task task = new Task();
+                task.setId(taskId);
+                taskService.setComplete(task, true);
+                finish();
             }
         });
     }

@@ -42,6 +42,9 @@
   <!-- Name of filter when viewing a reminder -->
   <string name="rmd_NoA_filter">Reminder!</string>
   
+  <!-- Reminder: Task was already done -->
+  <string name="rmd_NoA_done">Already Done!</string>
+  
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Snooze...</string>
   
