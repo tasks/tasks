@@ -3,7 +3,6 @@
  */
 package com.todoroo.astrid.service;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.service.AbstractDependencyInjector;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService.AndroidLogReporter;
@@ -42,15 +41,6 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
 
         // com.todoroo.android.service
         injectables.put("applicationName", "astrid");
-
-        // com.todoroo.android.utility
-        injectables.put("nNumberPickerLayout", R.layout.n_number_picker_dialog);
-        injectables.put("numberPickerLayout", R.layout.number_picker);
-        injectables.put("numberPickerIncrementId", R.id.increment);
-        injectables.put("numberPickerDecrementId", R.id.decrement);
-        injectables.put("numberPickerId", R.id.numberPicker);
-        injectables.put("numberPickerInputId", R.id.timepicker_input);
-        injectables.put("numberPickerDialogLayout", R.layout.number_picker_dialog);
 
         // com.todoroo.astrid.dao
         injectables.put("database", Database.class);

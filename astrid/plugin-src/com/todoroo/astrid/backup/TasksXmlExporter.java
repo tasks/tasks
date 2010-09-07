@@ -17,8 +17,8 @@ import android.widget.Toast;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.PropertyVisitor;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -38,11 +38,15 @@ public class TasksXmlExporter {
     /**
      * Import tasks from the given file
      *
-     * @param input
-     * @param runAfterExport
+     * @param context context
+     * @param isService if false, displays ui dialogs
+     * @param runAfterExport runnable to run after exporting
+     * @param backupDirectoryOverride new backupdirectory, or null to use default
      */
-    public static void exportTasks(Context context, boolean isService, Runnable runAfterExport) {
-        new TasksXmlExporter(context, isService, runAfterExport);
+    public static void exportTasks(Context context, boolean isService,
+            Runnable runAfterExport, File backupDirectoryOverride) {
+        new TasksXmlExporter(context, isService, runAfterExport,
+                backupDirectoryOverride);
     }
 
     // --- implementation
@@ -58,6 +62,7 @@ public class TasksXmlExporter {
 
     private final ProgressDialog progressDialog;
     private final Handler handler;
+    private final File backupDirectory;
 
     private void setProgress(final int taskNumber, final int total) {
         handler.post(new Runnable() {
@@ -69,9 +74,11 @@ public class TasksXmlExporter {
     }
 
     private TasksXmlExporter(final Context context, final boolean isService,
-            final Runnable runAfterExport) {
+            final Runnable runAfterExport, File backupDirectoryOverride) {
         this.context = context;
         this.exportCount = 0;
+        this.backupDirectory = backupDirectoryOverride == null ?
+                BackupConstants.defaultExportDirectory() : backupDirectoryOverride;
 
         handler = new Handler();
         progressDialog = new ProgressDialog(context);
@@ -91,7 +98,7 @@ public class TasksXmlExporter {
             @Override
             public void run() {
                 try {
-                    String output = setupFile(BackupConstants.getExportDirectory(),
+                    String output = setupFile(backupDirectory,
                             isService);
                     int tasks = taskService.countTasks();
 

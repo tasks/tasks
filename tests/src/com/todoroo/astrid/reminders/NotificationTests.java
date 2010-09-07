@@ -23,6 +23,11 @@ public class NotificationTests extends DatabaseTestCase {
         boolean value = false;
     }
 
+    @Override
+    protected void tearDown() throws Exception {
+        Notifications.setNotificationManager(null);
+    }
+
     /** test that a normal task gets a notification */
     public void testAlarmToNotification() {
         final Task task = new Task();

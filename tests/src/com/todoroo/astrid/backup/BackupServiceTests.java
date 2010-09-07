@@ -8,10 +8,13 @@ import java.util.Date;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.test.TodorooTestCase;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.backup.BackupService.BackupDirectorySetting;
 import com.todoroo.astrid.utility.Preferences;
 
 public class BackupServiceTests extends TodorooTestCase {
+
+    private static final long BACKUP_WAIT_TIME = 2000L;
 
     File temporaryDirectory = null;
 
@@ -66,6 +69,8 @@ public class BackupServiceTests extends TodorooTestCase {
             service.setBackupDirectorySetting(setting);
             service.testBackup(getContext());
 
+            AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
+
             // assert file created
             File[] files = temporaryDirectory.listFiles();
             assertEquals(1, files.length);
@@ -97,6 +102,8 @@ public class BackupServiceTests extends TodorooTestCase {
                 }
             });
             service.testBackup(getContext());
+
+            AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
 
             // assert no file created
             File[] files = temporaryDirectory.listFiles();
@@ -140,6 +147,8 @@ public class BackupServiceTests extends TodorooTestCase {
             BackupService service = new BackupService();
             service.setBackupDirectorySetting(setting);
             service.testBackup(getContext());
+
+            AndroidUtilities.sleepDeep(BACKUP_WAIT_TIME);
 
             // assert the oldest file was deleted
             assertTrue(temporaryDirectory.listFiles().length < 11);

@@ -309,22 +309,6 @@ public final class ReminderService  {
         return NO_ALARM;
     }
 
-    /**
-     * Schedule a snooze alarm for this task
-     * @param taskId
-     * @param time
-     */
-    public void scheduleSnoozeAlarm(long taskId, long time) {
-        if(time < DateUtilities.now())
-            return;
-        Task task = taskDao.fetch(taskId, PROPERTIES);
-        scheduler.createAlarm(task, time, TYPE_SNOOZE);
-
-        // record snooze time
-        task.setValue(Task.REMINDER_SNOOZE, time);
-        taskDao.saveExisting(task);
-    }
-
     // --- alarm manager alarm creation
 
     /**

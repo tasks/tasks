@@ -233,7 +233,9 @@ public class TaskDao extends DatabaseDao<Task> {
                 afterComplete(task, values);
             else if(values.containsKey(Task.DUE_DATE.name) ||
                     values.containsKey(Task.REMINDER_FLAGS.name) ||
-                    values.containsKey(Task.REMINDER_PERIOD.name))
+                    values.containsKey(Task.REMINDER_PERIOD.name) ||
+                    values.containsKey(Task.REMINDER_LAST.name) ||
+                    values.containsKey(Task.REMINDER_SNOOZE.name))
                 ReminderService.getInstance().scheduleAlarm(task);
         }
 

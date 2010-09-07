@@ -222,7 +222,10 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
     }
 
     public void snoozeTime(long time) {
-        ReminderService.getInstance().scheduleSnoozeAlarm(taskId, time);
+        Task task = new Task();
+        task.setId(taskId);
+        task.setValue(Task.REMINDER_SNOOZE, time);
+        taskService.save(task);
         finish();
     }
 

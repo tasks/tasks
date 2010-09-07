@@ -62,7 +62,7 @@ public class BackupConstants {
      * @return export directory for tasks, or null if no SD card
      */
     @CheckForNull
-    public static File getExportDirectory() {
+    public static File defaultExportDirectory() {
         String storageState = Environment.getExternalStorageState();
         if (storageState.equals(Environment.MEDIA_MOUNTED)) {
             String path = Environment.getExternalStorageDirectory().getAbsolutePath();

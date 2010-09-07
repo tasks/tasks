@@ -158,7 +158,7 @@ public class StartupService {
         try {
             if(Preferences.getCurrentVersion() > 135 && !context.getDatabasePath(database.getName()).exists()) {
                 // we didn't have a database! restore latest file
-                File directory = BackupConstants.getExportDirectory();
+                File directory = BackupConstants.defaultExportDirectory();
                 if(!directory.exists())
                     return;
                 File[] children = directory.listFiles();

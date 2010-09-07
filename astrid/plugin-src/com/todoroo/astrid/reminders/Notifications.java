@@ -136,11 +136,7 @@ public class Notifications extends BroadcastReceiver {
 
         // update last reminder time
         task.setValue(Task.REMINDER_LAST, DateUtilities.now());
-        boolean saved = taskDao.saveExisting(task);
-
-        // schedule next notification (unless couldn't save last time)
-        if(saved)
-            ReminderService.getInstance().scheduleAlarm(task);
+        taskDao.saveExisting(task);
 
         Context context = ContextManager.getContext();
         String title = context.getString(R.string.app_name);

@@ -2,7 +2,6 @@ package com.todoroo.astrid.service;
 
 import android.test.AndroidTestCase;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -40,31 +39,15 @@ public class AstridDependencyInjectorTests extends AndroidTestCase {
         assertTrue(((String)helper.getObject()).length() > 0);
     }
 
-    public void testWithInteger() {
-
-        Helper helper = new Helper() {
-            @Autowired
-            public Integer informationDialogTitleResource;
-
-            @Override
-            public Object getObject() {
-                return informationDialogTitleResource;
-            };
-        };
-
-        DependencyInjectionService.getInstance().inject(helper);
-        assertEquals(R.string.DLG_information_title, helper.getObject());
-    }
-
     public void testWithClass() {
 
         Helper helper = new Helper() {
             @Autowired
-            public DialogUtilities dialogUtilities;
+            public TaskService taskService;
 
             @Override
             public Object getObject() {
-                return dialogUtilities;
+                return taskService;
             };
         };
 
@@ -73,17 +56,17 @@ public class AstridDependencyInjectorTests extends AndroidTestCase {
 
         Helper helper2 = new Helper() {
             @Autowired
-            public DialogUtilities dialogUtilities;
+            public TaskService taskService;
 
             @Override
             public Object getObject() {
-                return dialogUtilities;
+                return taskService;
             };
         };
 
         DependencyInjectionService.getInstance().inject(helper2);
 
-        assertEquals(helper.getObject(), helper2.getObject());
+        assertTrue(helper.getObject() == helper2.getObject());
 
     }
 }

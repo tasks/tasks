@@ -1,5 +1,7 @@
 package com.todoroo.astrid.reminders;
 
+import java.util.Date;
+
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
@@ -37,22 +39,13 @@ public class ReminderServiceTests extends DatabaseTestCase {
         Task task = new Task();
         task.setValue(Task.TITLE, "water");
         task.setValue(Task.REMINDER_FLAGS, 0);
+        task.setValue(Task.REMINDER_PERIOD, 0L);
         taskDao.save(task);
         service.scheduleAlarm(task);
     }
 
     /** tests with due date */
     public void testDueDates() {
-        // test due date in the past
-        service.setScheduler(new NoAlarmExpected());
-        final Task task = new Task();
-        task.setValue(Task.TITLE, "water");
-        task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_DAY);
-        task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
-        taskDao.save(task);
-
-        // test due date in the future
-        task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_DAY);
         service.setScheduler(new AlarmExpected() {
             @Override
             public void createAlarm(Task task, long time, int type) {
@@ -61,6 +54,16 @@ public class ReminderServiceTests extends DatabaseTestCase {
                 assertEquals(type, ReminderService.TYPE_DUE);
             }
         });
+
+        // test due date in the past
+        final Task task = new Task();
+        task.setValue(Task.TITLE, "water");
+        task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_DAY);
+        task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
+        taskDao.save(task);
+
+        // test due date in the future
+        task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_DAY);
         taskDao.save(task);
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
@@ -87,7 +90,15 @@ public class ReminderServiceTests extends DatabaseTestCase {
     /** tests with overdue */
     public void testOverdue() {
         // test due date in the future
-        service.setScheduler(new NoAlarmExpected());
+        service.setScheduler(new AlarmExpected() {
+            @Override
+            public void createAlarm(Task task, long time, int type) {
+                super.createAlarm(task, time, type);
+                assertTrue(time > task.getValue(Task.DUE_DATE));
+                assertTrue(time < task.getValue(Task.DUE_DATE) + DateUtilities.ONE_DAY);
+                assertEquals(type, ReminderService.TYPE_OVERDUE);
+            }
+        });
         final Task task = new Task();
         task.setValue(Task.TITLE, "water");
         task.setValue(Task.DUE_DATE, DateUtilities.now() + DateUtilities.ONE_DAY);
@@ -100,8 +111,22 @@ public class ReminderServiceTests extends DatabaseTestCase {
             @Override
             public void createAlarm(Task task, long time, int type) {
                 super.createAlarm(task, time, type);
-                assertTrue(time > DateUtilities.now());
+                assertTrue(time > DateUtilities.now() - 1000L);
                 assertTrue(time < DateUtilities.now() + 2 * DateUtilities.ONE_DAY);
+                assertEquals(type, ReminderService.TYPE_OVERDUE);
+            }
+        });
+        taskDao.save(task);
+        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+
+        // test due date in the past, but recently notified
+        task.setValue(Task.REMINDER_LAST, DateUtilities.now());
+        service.setScheduler(new AlarmExpected() {
+            @Override
+            public void createAlarm(Task task, long time, int type) {
+                super.createAlarm(task, time, type);
+                assertTrue(time > DateUtilities.now() + DateUtilities.ONE_HOUR);
+                assertTrue(time < DateUtilities.now() + DateUtilities.ONE_DAY);
                 assertEquals(type, ReminderService.TYPE_OVERDUE);
             }
         });
@@ -149,11 +174,50 @@ public class ReminderServiceTests extends DatabaseTestCase {
         assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
     }
 
+
+    /** tests with snooze */
+    public void testSnoozeReminders() {
+        // test due date and snooze in the future
+        final Task task = new Task();
+        task.setValue(Task.TITLE, "spacemen");
+        task.setValue(Task.DUE_DATE, DateUtilities.now() + 5000L);
+        task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_AT_DEADLINE);
+        task.setValue(Task.REMINDER_SNOOZE, DateUtilities.now() + DateUtilities.ONE_WEEK);
+        service.setScheduler(new AlarmExpected() {
+            @Override
+            public void createAlarm(Task task, long time, int type) {
+                super.createAlarm(task, time, type);
+                assertTrue(time > DateUtilities.now() + DateUtilities.ONE_WEEK - 1000L);
+                assertTrue(time < DateUtilities.now() + DateUtilities.ONE_WEEK + 1000L);
+                assertEquals(type, ReminderService.TYPE_SNOOZE);
+            }
+        });
+        taskDao.save(task);
+        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+
+        // snooze in the past
+        task.setValue(Task.REMINDER_SNOOZE, DateUtilities.now() - DateUtilities.ONE_WEEK);
+        service.setScheduler(new AlarmExpected() {
+            @Override
+            public void createAlarm(Task task, long time, int type) {
+                super.createAlarm(task, time, type);
+                assertTrue(time > DateUtilities.now() - 1000L);
+                assertTrue(time < DateUtilities.now() + 5000L);
+                assertEquals(type, ReminderService.TYPE_DUE);
+            }
+        });
+        taskDao.save(task);
+        assertTrue(((AlarmExpected)service.getScheduler()).alarmCreated);
+    }
+
+
     // --- helper classes
 
     public class NoAlarmExpected implements AlarmScheduler {
         public void createAlarm(Task task, long time, int type) {
-            fail("created alarm, no alarm expected");
+            if(time == 0 || time == Long.MAX_VALUE)
+                return;
+            fail("created alarm, no alarm expected (" + type + ": " + new Date(time));
         }
     }
 

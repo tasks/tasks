@@ -47,7 +47,7 @@ public class BackupActivity extends Activity {
         };
         new FilePickerBuilder(this,
                 getString(R.string.import_file_prompt),
-                BackupConstants.getExportDirectory(),
+                BackupConstants.defaultExportDirectory(),
                 listener).show();
     }
 
@@ -58,7 +58,7 @@ public class BackupActivity extends Activity {
                 setResult(RESULT_OK);
                 finish();
             }
-        });
+        }, null);
     }
 
 }
