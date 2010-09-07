@@ -120,9 +120,6 @@
     <!-- Activity that configures widget -->
     <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity"
               android:theme="@style/Theme">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-      </intent-filter>
     </activity>
 	<!-- Activity to configure Power Pack widget -->
 	<activity android:name="com.todoroo.astrid.widget.ConfigurePowerWidgetActivity">
@@ -283,9 +280,6 @@
         <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-      </intent-filter>
     </activity>
     <activity android:name="com.todoroo.astrid.backup.BackupPreferences" 
               android:label="@string/backup_BPr_header">
@@ -371,9 +365,6 @@
               android:screenOrientation="portrait"
               android:finishOnTaskLaunch="true"
               android:clearTaskOnLaunch="true">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-      </intent-filter>
     </activity>
               
     <!-- producteev -->
@@ -390,9 +381,6 @@
       <intent-filter>   
         <action android:name="com.todoroo.astrid.SETTINGS" />
         <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
       </intent-filter>
     </activity>
     <activity android:name="com.todoroo.astrid.producteev.ProducteevLoginActivity"
@@ -440,9 +428,6 @@
           <intent-filter>   
             <action android:name="com.todoroo.astrid.SETTINGS" />
             <category android:name="android.intent.category.DEFAULT" />
-          </intent-filter>
-          <intent-filter>   
-            <action android:name="android.intent.action.MAIN" />
           </intent-filter>
         </activity>
         <service android:name="org.weloveastrid.rmilk.MilkBackgroundService"/>
