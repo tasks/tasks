@@ -7,7 +7,7 @@
     <!-- Task Edit Activity: Container Label -->
     <string name="alarm_ACS_label">Alarms</string>
     
-    <!-- Task Edit Activity: Add New Alarn -->
+    <!-- Task Edit Activity: Add New Alarm -->
     <string name="alarm_ACS_button">Add an Alarm</string>
     
     <!-- Task Detail for Alarms (%s -> time)-->
@@ -77,6 +77,8 @@
   <string name="backup_TXI_error">Errore d\'importazione</string>
     
   <string name="export_toast">Backup di %s su %s eseguito.</string>
+    
+  <string name="export_toast_no_tasks">No Tasks to Export.</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Esportazione...</string>
@@ -127,113 +129,14 @@
   <!-- permission description for READ_TASKS -->
   <string name="write_permission_desc">crea nuove attività, modifica le attività esistenti</string>
   
-  <!-- ==================================================== Generic Units == -->
-  
-  <plurals name="DUt_years">
-    <!-- plurals: years -->
-    <item quantity="one">1 Anno</item>
-    <!-- plurals: years -->
-    <item quantity="other">%d Anni</item>
-  </plurals>
-  <plurals name="DUt_months">
-    <!-- plurals: months -->
-    <item quantity="one">1 Mese</item>
-    <!-- plurals: months -->
-    <item quantity="other">%d Mesi</item>
-  </plurals>
-  <plurals name="DUt_weeks">
-    <!-- plurals: days -->
-    <item quantity="one">1 Settimana</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d Settimane</item>
-  </plurals>
-  <plurals name="DUt_days">
-    <!-- plurals: days -->
-    <item quantity="one">1 giorno</item>
-    <!-- plurals: days -->
-    <item quantity="other">%d Giorni</item>
-  </plurals>
-  <plurals name="DUt_hours">
-    <!-- plurals: hours -->
-    <item quantity="one">1 ora</item>
-    <!-- plurals: hours -->
-    <item quantity="other">%d ore</item>
-  </plurals>
-  <plurals name="DUt_minutes">
-    <!-- plurals: minutes -->
-    <item quantity="one">1 minuto</item>
-    <!-- plurals: minutes -->
-    <item quantity="other">%d minuti</item>
-  </plurals>
-  <plurals name="DUt_seconds">
-    <!-- plurals: seconds -->
-    <item quantity="one">1 secondo</item>
-    <!-- plurals: seconds -->
-    <item quantity="other">%d secondi</item>
-  </plurals>
-  <plurals name="DUt_hoursShort">
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1 ora</item>
-    <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d ore</item>
-  </plurals>
-  <plurals name="DUt_minutesShort">
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1 min</item>
-    <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d min</item>
-  </plurals>
-  <plurals name="DUt_secondsShort">
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1 sec</item>
-    <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d sec</item>
-  </plurals>
-  <plurals name="Ntasks">
-    <!-- plurals: tasks -->
-    <item quantity="one">1 Attività</item>
-    <!-- plurals: tasks -->
-    <item quantity="other">%d attività</item>
-  </plurals>
-  
   <!-- ================================================== Generic Dialogs == -->
-  
-  <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">Conferma?</string>
-  
-  <!-- question dialog title -->
-  <string name="DLG_question_title">Domanda:</string>
-  
-  <!-- information dialog title -->
-  <string name="DLG_information_title">Informazioni</string>
-  
-  <!-- general dialog yes-->
-  <string name="DLG_yes">Sì</string>
-  
-  <!-- general dialog no-->
-  <string name="DLG_no">No</string>
-  
-  <!-- general dialog close-->
-  <string name="DLG_close">Chiudi</string>
-  
-  <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oops, sembra che ci sia stato qualche problema! Ecco cosa è successo: \n\n%s</string>
-  
+    
   <!-- question for deleting tasks -->
   <string name="DLG_delete_this_task_question">Eliminare questa attività?</string>
 
   <!-- question for deleting items (%s => item name) -->
   <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
-  
-  <!-- Button for being done -->
-  <string name="DLG_done">Completata</string>
-  
-  <!-- Button for canceling out of this page -->
-  <string name="DLG_cancel">Annulla</string>
-  
-  <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">Attendere per favore...</string>
-  
+    
   <!-- Progress dialog shown when upgrading -->
   <string name="DLG_upgrading">Upgrading your tasks...</string>
   
@@ -268,6 +171,9 @@
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
   <string name="TLA_menu_sort">Sort &amp; Hidden</string>
   
+  <!-- Menu: Sync Now -->    
+  <string name="TLA_menu_sync">Sync Now!</string>
+  
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Impostazioni</string>
   
@@ -282,18 +188,6 @@
   
   <!-- Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Aggiungi a questa lista...</string>
-  
-  <!-- Help (HTML)-->
-  <string name="TLA_help"><![CDATA[
-<center><h1>Help: Task Listing</h1></center>
-<b>bar at the top</b>: shows the name of this filter, and a button to go back
-to your list of filters.
-<p />
-<b>middle</b>: shows all your tasks.
-<p />
-<b>bottom</b>: quick add tasks. left button: add straight to the list. right
-button: add task & go to the edit page.
-  ]]></string>
   
   <!-- ====================================================== TaskAdapter == -->
   
@@ -320,6 +214,9 @@ button: add task & go to the edit page.
 
   <!-- Context Item: undelete task -->
   <string name="TAd_contextUndeleteTask">Ripristina Attività</string>
+
+  <!-- Context Item: purge task -->
+  <string name="TAd_contextPurgeTask">Purge Task</string>
   
   <!-- ============================================== SortSelectionDialog == -->
   
@@ -391,23 +288,6 @@ button: add task & go to the edit page.
   <!-- Search Filter name (%s => query) -->
   <string name="FLA_search_filter">Confrontando \'%s\'</string>
   
-  <!-- Help (HTML)-->
-  <string name="FLA_help"><![CDATA[
-<center><h1>Help: Filters Page</h1></center>
-<p>On the Filters page you can see all of the filters that you can use to
-organize your tasks. Some Astrid Add-ons will add new filters to this 
-list.
-</p><p>
-You can turn any filter into a shortcut on your desktop by long-pressing
-to bring up the context menu, then selecting "Create Shortcut". Other options
-that are displayed will depend on the particular plugins that you
-are using.
-</p><p>
-If you are having trouble with a particular plugin, please report errors
-to the plugin creator for fastest service.
-</p>
-  ]]></string>
-  
   <!-- Toast: created shortcut (%s => label) -->
   <string name="FLA_toast_onCreateShortcut">Creata Scorciatoia: %s</string>
   
@@ -441,10 +321,10 @@ to the plugin creator for fastest service.
   <string name="TEA_urgency_label">Scadenza</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">Scade in un tempo specifico?</string>
+  <string name="TEA_urgency_specific_time">At specific time?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">Nessun Tempo di Scadenza</string>
+  <string name="TEA_urgency_time_none">No Time Set</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Nascondi Fino</string>
@@ -470,11 +350,8 @@ to the plugin creator for fastest service.
   <!-- Menu: Delete Task -->
   <string name="TEA_menu_delete">Elimina attività</string>
   
-   <!-- Toast: task saved with deadline (%s => time units) -->
-  <string name="TEA_onTaskSave_due">Attività salvata: scade %s</string>
-  
-  <!-- Toast: task saved with deadline in past (%s => time units) -->
-  <string name="TEA_onTaskSave_overdue">Attvità salvata: scaduta %s fa</string>
+   <!-- Toast: task saved with deadline (%s => preposition + time units) -->
+  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">Attvità salvata</string>
@@ -501,7 +378,7 @@ to the plugin creator for fastest service.
       <item>Attività completata</item>
       <item>Giorno prima della scadenza</item>
       <item>Settimana prima della scadenza</item>
-      <item>Giorno Specifico</item>
+      <item>Giorno/Tempo Specifici</item>
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
@@ -557,17 +434,22 @@ to the plugin creator for fastest service.
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Urgenza Predefinita</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Attualmente Impostato Su: %s</string>
+  <string name="EPr_default_urgency_desc">Currently: %s</string>
   
   <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Importanza Predefinita</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Attualmente Impostato Su: %s</string>
+  <string name="EPr_default_importance_desc">Currently: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">Nascondi Fino Predefinito</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Attualmente Impostato Su: %s</string>
+  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
+  
+  <!-- Preference: Default Reminders Title -->
+  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <!-- Preference: Default Hide Until Description (%s => setting) -->
+  <string name="EPr_default_reminders_desc">Currently: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
@@ -592,7 +474,15 @@ to the plugin creator for fastest service.
       <item>Attività completata</item>
       <item>Giorno prima della scadenza</item>
       <item>Settimana prima della scadenza</item>
-  </string-array>    
+  </string-array>
+  
+  <string-array name="EPr_default_reminders">
+      <!-- reminders: labels for "Task Defaults" preference item. -->
+      <item>No deadline reminders</item>
+      <item>At deadline</item>
+      <item>When overdue</item>
+      <item>At deadline or overdue</item>
+  </string-array>
   
   <!-- ==================================================== AddOnActivity == -->
   
@@ -617,17 +507,9 @@ to the plugin creator for fastest service.
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
   
-  <!-- ========================================== SynchronizationProvider == -->
-          
-  <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Sincronizzando le tue attività...</string>
-  
-  <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Sincronizzando...</string>
-  
   <!-- ====================================================== TasksWidget == -->
 
-  <!-- Widget text when loading tasks -->                                                                                                                                                                          
+  <!-- Widget text when loading tasks -->
   <string name="TWi_loading">Caricamento...</string>
 
   <!-- Widget configuration activity title: select a filter -->
@@ -645,10 +527,7 @@ to the plugin creator for fastest service.
   <string name="marketplace_title">Astrid elenco attività/todo</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">
-Astrid is the much loved open-source todo list / task manager designed to help 
-you get stuff done. It features reminders, tags, sync, a widget and more. 
-  </string>
+  <string name="marketplace_description">Astrid is the much loved open-source todo list / task manager designed to help you get stuff done. It features reminders, tags, sync, a widget and more.</string>
     
 
 
@@ -722,7 +601,7 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
 
     <!-- =========================================== CustomFilterCriteria == -->
         
-    <!-- Criteria: due by X - display text -->
+    <!-- Criteria: due by X - display text (? -> user input) -->
     <string name="CFC_dueBefore_text">Due By: ?</string>
     <!-- Criteria: due by X - name of criteria -->
     <string name="CFC_dueBefore_name">Due By...</string>
@@ -734,17 +613,28 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
         <item>Domani</item>
         <item>Dopodomani</item>
         <item>Prossima Settimana</item>
+        <item>Next Month</item>
     </string-array>
     
-    <!-- Criteria: importance - display text -->
+    <!-- Criteria: importance - display text (? -> user input)-->
     <string name="CFC_importance_text">Importance at least ?</string>
     <!-- Criteria: importance - name of criteria -->
     <string name="CFC_importance_name">Importance...</string>        
     
-    <!-- Criteria: tag - display text -->
+    <!-- Criteria: tag - display text (? -> user input) -->
     <string name="CFC_tag_text">Tagged: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Tagged...</string>        
+    <string name="CFC_tag_name">Tagged...</string>
+    
+    <!-- Criteria: tag_contains - name of criteria -->
+    <string name="CFC_tag_contains_name">Tag contains...</string>
+    <!-- Criteria: tag_contains - text (? -> user input) -->
+    <string name="CFC_tag_contains_text">Tag contains: ?</string>
+    
+    <!-- Criteria: title_contains - name of criteria -->
+    <string name="CFC_title_contains_name">Title contains...</string>
+    <!-- Criteria: title_contains - text (? -> user input) -->
+    <string name="CFC_title_contains_text">Title contains: ?</string>
     
 
 
@@ -769,6 +659,9 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   
   <!-- Toast when unable to open calendar event -->
   <string name="gcal_TEA_calendar_error">Error opening event!</string>
+  
+  <!-- Toast when calendar event updated because task changed -->
+  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -820,8 +713,8 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
 
 
     <!-- ====================== Plugin Boilerplate ========================= -->
-    
-    <!-- filters header: Producteev -->
+
+	<!-- filters header: Producteev -->
     <string name="producteev_FEx_header">Producteev</string>
     
     <!-- filter category for Producteev dashboards -->
@@ -832,6 +725,12 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
     <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+    
+    <!-- detail for showing tasks created by someone else (%s => person name) -->
+    <string name="producteev_PDE_task_from">from %s</string>
+    
+    <!-- replacement string for task edit "Notes" when using Producteev -->
+    <string name="producteev_TEA_notes">Add a Comment</string>
 
     <!-- ==================================================== Preferences == -->
 
@@ -844,7 +743,13 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- dashboard title for tasks that are not synchronized -->
     <string name="producteev_no_dashboard">Do Not Synchronize</string>
 
-    <!-- preference title for default dashboard -->
+    <!-- dashboard spinner entry on TEA for adding a new dashboard -->
+    <string name="producteev_create_dashboard">Add new Workspace...</string>
+
+    <!-- dashboard spinner entry on TEA for adding a new dashboard -->
+    <string name="producteev_create_dashboard_name">Name for new Workspace</string>
+
+	<!-- preference title for default dashboard -->
     <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
 
     <!-- preference description for default dashboard (%s -> setting) -->
@@ -897,8 +802,11 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
 
     <!-- ================================================ Synchronization == -->
         
-    <!-- title for notification tray when synchronizing -->
-    <string name="producteev_notification_title">Astrid: Producteev</string>
+    <!-- title for notification tray after synchronizing -->
+    <string name="producteev_notification_title">Producteev</string>
+    
+    <!-- text for notification tray when synchronizing -->
+    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
     
     <!-- Error msg when io exception  -->
     <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
@@ -967,6 +875,9 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <!-- Name of filter when viewing a reminder -->
   <string name="rmd_NoA_filter">Promemoria!</string>
   
+  <!-- Reminder: Task was already done -->
+  <string name="rmd_NoA_done">Already Done!</string>
+  
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Rimanda...</string>
   
@@ -1024,6 +935,13 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
   <string name="rmd_EPr_nagging_desc_true">Astrid si mostrerà per incoraggiarti durante i promemoria</string>
   <!-- Reminder Preference: Nagging Description (false) -->
   <string name="rmd_EPr_nagging_desc_false">Astrid non ti darà nessun messaggio di incoraggiamento</string>
+
+  <!-- Reminder Preference: Snooze Dialog Title -->  
+  <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
+  <!-- Reminder Preference: Snooze Dialog Description (true) -->
+  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
+  <!-- Reminder Preference: Nagging Description (false) -->
+  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Promemoria Casuali</string>
@@ -1270,77 +1188,12 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
 
     <!-- Milk Preferences Title -->    
     <string name="rmilk_MPr_header">Remember the Milk</string>
-
-    <!-- ======================== SyncPreferences ========================== -->
     
-    <!-- RTM Status Group Label -->    
-    <string name="sync_SPr_group_status">Stato</string>
-    
-    <!-- Sync Status: log in -->    
-    <string name="sync_status_loggedout">Per favore effettua il login!</string>
-    <!-- Status: ongoing -->    
-    <string name="sync_status_ongoing">Sincronizzazione in corso ...</string>
-    <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-    <string name="sync_status_success">Ultima Sincronizzazione: %s</string>
-    <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-    <string name="sync_status_failed">Fallita Su: %s</string>
-    <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-    <string name="sync_status_failed_subtitle">Ultima sincronizzazione eseguita con successo in data: %s</string>
-    <!-- Sync Status: never sync'd -->    
-    <string name="sync_status_never">Mai sincronizzato!</string>
-
-    <!-- RTM Options Group Label -->    
-    <string name="sync_SPr_group_options">Opzioni</string>
-
-    <!-- Preference: Synchronization Interval Title -->    
-    <string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>
-    <!-- Preference: Synchronization Interval Description (when disabled) -->
-    <string name="sync_SPr_interval_desc_disabled">La sincronizzazione in background è disattivata</string>    
-    <!-- Preference: Synchronization Interval Description (%s => setting) -->
-    <string name="sync_SPr_interval_desc">Attualmente impostata su: %s</string>
-    
-    <!-- Preference: Background Wifi Title -->  
-    <string name="sync_SPr_bgwifi_title">Unica Impostazione Wifi</string>    
-    <!-- Preference: Background Wifi Description (enabled) -->
-    <string name="sync_SPr_bgwifi_desc_enabled">la sincronizzazione in background avviene solo quando la rete Wifi è abilitata</string>    
-    <!-- Preference: Background Wifi Description (disabled) -->
-    <string name="sync_SPr_bgwifi_desc_disabled">La sincronizzazione in background avviene sempre</string>
-    
-    <!-- Actions Group Label  -->
-    <string name="sync_SPr_group_actions">Azioni</string>
-
-    <!-- Synchronize Now Button -->    
-    <string name="sync_SPr_sync">Sincronizza Ora!</string>
-    <!-- Synchronize Now Button if not logged in-->    
-    <string name="sync_SPr_sync_log_in">Esegui l\'accesso &amp; Sincronizza!</string>
-    
-    <!-- Sync: Clear Data Title -->
-    <string name="sync_SPr_forget">Esci</string>
-    <!-- Sync: Clear Data Description -->
-    <string name="sync_SPr_forget_description">Cancella tutti i dati di sincronizzazione</string>
-
-    <!-- confirmation dialog for sync log out -->
-    <string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>
-    
-    <string-array name="sync_SPr_interval_entries">
-        <!-- rmilk_MPr_interval_entries: Synchronization Intervals -->
-        <item>disabilita</item>
-        <item>ogni quindici minuti</item>
-        <item>ogni trenta minuti</item>
-        <item>ogni ora</item>
-        <item>ogni tre ore</item>
-        <item>ogni sei ore</item>
-        <item>ogni dodici ore</item>
-        <item>ogni giorno</item>
-        <item>ogni tre giorni</item>
-        <item>Ogni settimana</item>
-    </string-array>
-
     <!-- ======================= MilkLoginActivity ========================= -->
 
     <!-- RTM Login Instructions -->
     <string name="rmilk_MLA_label">Per favore esegui l\'accesso e autorizza Astrid:</string>
-    
+
     <!-- Login Error Dialog (%s => message) -->
     <string name="rmilk_MLA_error">Spiacenti,si è verificato un errore durante la verifica di accesso. Prova di nuovo. \n\n Messaggio di Errore: %s</string>
     
@@ -1407,5 +1260,30 @@ you get stuff done. It features reminders, tags, sync, a widget and more.
     <!-- Filter for Timed Tasks -->
     <string name="TFE_workingOn">Le attività vengono cronometrate</string>
       
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+    
+    <!-- Resources for power pack widget -->
+    
+    <string name="PPW_widget_42_label">Astrid 4x2 (beta!)</string>
+    <string name="PPW_widget_44_label">Astrid 4x4 (beta!)</string>
+    
+    <string name="PPW_configure_title">Configure Widget</string>
+    
+    <string name="PPW_color">Widget color</string>
+    <string name="PPW_enable_calendar">Show calendar events</string>
+    <string name="PPW_disable_encouragements">Hide encouragements</string>
+    <string name="PPW_filter">Select Filter</string>
+    
+    <string name="PPW_due">Due:</string>
+    <string name="PPW_past_due">Past Due:</string>
+    
+    <string-array name="PPW_encouragements">
+    	<item>Ready to work?</item>
+    	<item>Have time to finish something?</item>
+    	<item>Gosh, you are looking suave today!</item>
+    </string-array>
 
 </resources>
