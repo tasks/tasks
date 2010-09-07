@@ -21,14 +21,21 @@ package com.todoroo.astrid.reminders;
 
 import java.util.Date;
 
+import android.app.AlertDialog;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -38,6 +45,8 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
+import com.todoroo.astrid.repeats.RepeatControlSet;
+import com.todoroo.astrid.ui.NumberPicker;
 import com.todoroo.astrid.utility.Preferences;
 
 /**
@@ -74,7 +83,7 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
     private void populateFilter(Intent intent) {
         taskId = intent.getLongExtra(TOKEN_ID, -1);
         if(taskId == -1)
-            return;
+            taskId = 389; // TODO no
 
         Filter itemFilter = new Filter(getString(R.string.rmd_NoA_filter),
                 getString(R.string.rmd_NoA_filter),
@@ -119,20 +128,78 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         });
     }
 
+    public static class SnoozeDialog extends FrameLayout implements DialogInterface.OnClickListener {
+
+        LinearLayout snoozePicker;
+        NumberPicker snoozeValue;
+        Spinner snoozeUnits;
+        NotificationActivity parent;
+
+        public SnoozeDialog(NotificationActivity parent) {
+            super(parent);
+            this.parent = parent;
+
+            LayoutInflater mInflater = (LayoutInflater) parent.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            mInflater.inflate(R.layout.snooze_dialog, this, true);
+
+            snoozePicker = (LinearLayout) findViewById(R.id.snoozePicker);
+            snoozeValue = (NumberPicker) findViewById(R.id.numberPicker);
+            snoozeUnits = (Spinner) findViewById(R.id.numberUnits);
+
+            snoozeValue.setIncrementBy(1);
+            snoozeValue.setRange(1, 99);
+            snoozeUnits.setSelection(RepeatControlSet.INTERVAL_HOURS);
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog, int which) {
+            long time = DateUtilities.now();
+            int value = snoozeValue.getCurrent();
+            switch(snoozeUnits.getSelectedItemPosition()) {
+            case RepeatControlSet.INTERVAL_DAYS:
+                time += value * DateUtilities.ONE_DAY;
+                break;
+            case RepeatControlSet.INTERVAL_HOURS:
+                time += value * DateUtilities.ONE_HOUR;
+                break;
+            case RepeatControlSet.INTERVAL_WEEKS:
+                time += value * 7 * DateUtilities.ONE_DAY;
+                break;
+            case RepeatControlSet.INTERVAL_MONTHS:
+                time += value * 30 * DateUtilities.ONE_DAY;
+                break;
+            }
+
+            parent.snoozeTime(time);
+        }
+
+    }
+
     /**
      * Snooze and re-trigger this alarm
      */
     private void snooze() {
-        Date now = new Date();
-        now.setHours(now.getHours() + 1);
-        int hour = now.getHours();
-        int minute = now.getMinutes();
-        TimePickerDialog timePicker = new TimePickerDialog(this, this,
-                hour, minute, DateUtilities.is24HourFormat(this));
-        timePicker.show();
+        if(Preferences.getBoolean(R.string.p_rmd_snooze_dialog, true)) {
+            Date now = new Date();
+            now.setHours(now.getHours() + 1);
+            int hour = now.getHours();
+            int minute = now.getMinutes();
+            TimePickerDialog tpd = new TimePickerDialog(this, this, hour, minute,
+                    DateUtilities.is24HourFormat(this));
+            tpd.show();
+            tpd.setOwnerActivity(this);
+        } else {
+            SnoozeDialog sd = new SnoozeDialog(this);
+            new AlertDialog.Builder(this)
+                .setTitle(R.string.rmd_NoA_snooze)
+                .setView(sd)
+                .setPositiveButton(android.R.string.ok, sd)
+                .setNegativeButton(android.R.string.cancel, null)
+                .show().setOwnerActivity(this);
+        }
     }
 
-    /** snooze timer set */
+    /** on time dialog return set */
     @Override
     public void onTimeSet(TimePicker picker, int hours, int minutes) {
         Date alarmTime = new Date();
@@ -140,9 +207,12 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         alarmTime.setMinutes(minutes);
         if(alarmTime.getTime() < DateUtilities.now())
             alarmTime.setDate(alarmTime.getDate() + 1);
-        ReminderService.getInstance().scheduleSnoozeAlarm(taskId, alarmTime.getTime());
-        finish();
+        snoozeTime(alarmTime.getTime());
     }
 
+    public void snoozeTime(long time) {
+        ReminderService.getInstance().scheduleSnoozeAlarm(taskId, time);
+        finish();
+    }
 
 }

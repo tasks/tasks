@@ -5,8 +5,8 @@
 <stringAttribute key="ch.zork.quicklaunch.icon" value="14.gif"/>
 <intAttribute key="ch.zork.quicklaunch.index" value="0"/>
 <stringAttribute key="ch.zork.quicklaunch.mode" value="run"/>
-<intAttribute key="com.android.ide.eclipse.adt.action" value="0"/>
-<stringAttribute key="com.android.ide.eclipse.adt.activity" value="com.todoroo.astrid.core.CustomFilterActivity"/>
+<intAttribute key="com.android.ide.eclipse.adt.action" value="1"/>
+<stringAttribute key="com.android.ide.eclipse.adt.activity" value="com.todoroo.astrid.reminders.NotificationActivity"/>
 <stringAttribute key="com.android.ide.eclipse.adt.commandline" value="-scale 0.7"/>
 <intAttribute key="com.android.ide.eclipse.adt.delay" value="0"/>
 <booleanAttribute key="com.android.ide.eclipse.adt.nobootanim" value="true"/>
@@ -15,9 +15,11 @@
 <booleanAttribute key="com.android.ide.eclipse.adt.wipedata" value="false"/>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_PATHS">
 <listEntry value="/astrid"/>
+<listEntry value="/astrid/AndroidManifest.xml"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.core.MAPPED_RESOURCE_TYPES">
 <listEntry value="4"/>
+<listEntry value="1"/>
 </listAttribute>
 <listAttribute key="org.eclipse.debug.ui.favoriteGroups">
 <listEntry value="org.eclipse.debug.ui.launchGroup.debug"/>

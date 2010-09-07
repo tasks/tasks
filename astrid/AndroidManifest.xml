@@ -370,7 +370,11 @@
               android:launchMode="singleTask"
               android:screenOrientation="portrait"
               android:finishOnTaskLaunch="true"
-              android:clearTaskOnLaunch="true" />
+              android:clearTaskOnLaunch="true">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+      </intent-filter>
+    </activity>
               
     <!-- producteev -->
     <receiver android:name="com.todoroo.astrid.producteev.ProducteevFilterExposer">

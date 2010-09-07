@@ -12,13 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
@@ -44,10 +44,10 @@ public class RepeatControlSet implements TaskEditControlSet {
 
     // --- spinner constants
 
-    private static final int INTERVAL_DAYS = 0;
-    private static final int INTERVAL_WEEKS = 1;
-    private static final int INTERVAL_MONTHS = 2;
-    private static final int INTERVAL_HOURS = 3;
+    public static final int INTERVAL_DAYS = 0;
+    public static final int INTERVAL_WEEKS = 1;
+    public static final int INTERVAL_MONTHS = 2;
+    public static final int INTERVAL_HOURS = 3;
 
     private static final int TYPE_DUE_DATE = 0;
     private static final int TYPE_COMPLETION_DATE = 1;
@@ -177,7 +177,7 @@ public class RepeatControlSet implements TaskEditControlSet {
 
         String recurrence = task.getValue(Task.RECURRENCE);
         if(recurrence == null)
-            recurrence = ""; //$NON-NLS-1$
+            recurrence = "";
 
         // read recurrence rule
         if(recurrence.length() > 0) {
@@ -202,7 +202,7 @@ public class RepeatControlSet implements TaskEditControlSet {
                 default:
                     // an unhandled recurrence
                     exceptionService.reportError("repeat-unhandled-rule",  //$NON-NLS-1$
-                            new Exception("Unhandled rrule frequency: " + recurrence)); //$NON-NLS-1$
+                            new Exception("Unhandled rrule frequency: " + recurrence));
                 }
 
                 // clear all day of week checks, then update them
@@ -219,7 +219,7 @@ public class RepeatControlSet implements TaskEditControlSet {
                 setInterval = true;
             } catch (ParseException e) {
                 recurrence = ""; //$NON-NLS-1$
-                exceptionService.reportError("repeat-parse-exception", e);  //$NON-NLS-1$
+                exceptionService.reportError("repeat-parse-exception", e);
             }
         }
         enabled.setChecked(recurrence.length() > 0);
@@ -237,7 +237,7 @@ public class RepeatControlSet implements TaskEditControlSet {
     public String writeToModel(Task task) {
         String result;
         if(!enabled.isChecked())
-            result = ""; //$NON-NLS-1$
+            result = "";
         else {
             RRule rrule = new RRule();
             rrule.setInterval((Integer)value.getTag());

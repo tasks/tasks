@@ -45,7 +45,8 @@ public final class ReminderService  {
         Task.DUE_DATE,
         Task.REMINDER_FLAGS,
         Task.REMINDER_PERIOD,
-        Task.REMINDER_LAST
+        Task.REMINDER_LAST,
+        Task.REMINDER_SNOOZE
     };
 
     /** flag for due date reminder */
@@ -163,6 +164,9 @@ public final class ReminderService  {
         if(task.isCompleted() || task.isDeleted())
             return;
 
+        // snooze reminder
+        long whenSnooze = calculateNextSnoozeReminder(task);
+
         // random reminders
         long whenRandom = calculateNextRandomReminder(task);
 
@@ -176,7 +180,10 @@ public final class ReminderService  {
         if(whenRandom != NO_ALARM && whenDueDate - whenRandom < DateUtilities.ONE_DAY)
             whenRandom = NO_ALARM;
 
-        if(whenRandom < whenDueDate && whenRandom < whenOverdue)
+        // snooze trumps all
+        if(whenSnooze != NO_ALARM)
+            scheduler.createAlarm(task, whenSnooze, TYPE_SNOOZE);
+        else if(whenRandom < whenDueDate && whenRandom < whenOverdue)
             scheduler.createAlarm(task, whenRandom, TYPE_RANDOM);
         else if(whenDueDate < whenOverdue)
             scheduler.createAlarm(task, whenDueDate, TYPE_DUE);
@@ -184,6 +191,21 @@ public final class ReminderService  {
             scheduler.createAlarm(task, whenOverdue, TYPE_OVERDUE);
         else
             scheduler.createAlarm(task, 0, 0);
+    }
+
+    /**
+     * Calculate the next alarm time for snooze.
+     * <p>
+     * Pretty simple - if a snooze time is in the future, we use that. If it
+     * has already passed, we do nothing.
+     *
+     * @param task
+     * @return
+     */
+    private long calculateNextSnoozeReminder(Task task) {
+        if(task.getValue(Task.REMINDER_SNOOZE) > DateUtilities.now())
+            return task.getValue(Task.REMINDER_SNOOZE);
+        return NO_ALARM;
     }
 
     /**
@@ -297,6 +319,10 @@ public final class ReminderService  {
             return;
         Task task = taskDao.fetch(taskId, PROPERTIES);
         scheduler.createAlarm(task, time, TYPE_SNOOZE);
+
+        // record snooze time
+        task.setValue(Task.REMINDER_SNOOZE, time);
+        taskDao.saveExisting(task);
     }
 
     // --- alarm manager alarm creation
