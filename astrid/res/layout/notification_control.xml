@@ -17,21 +17,21 @@
         <Button android:id="@+id/done"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="49"
+            android:textSize="14sp"
             android:drawableLeft="@drawable/tango_check"
             android:text="@string/rmd_NoA_done"/>
         
         <Button android:id="@+id/snooze"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="49"
+            android:textSize="14sp"
             android:drawableLeft="@drawable/tango_clock"
             android:text="@string/rmd_NoA_snooze" />
         
         <Button android:id="@+id/goAway"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="49"
+            android:textSize="14sp"
             android:drawableLeft="@drawable/tango_stop"
             android:text="@string/rmd_NoA_goAway" />
             
