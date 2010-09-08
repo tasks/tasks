@@ -9,8 +9,8 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -133,16 +133,16 @@ public class StartupService {
                     DependencyInjectionService.getInstance().inject(this);
                     exceptionService.reportError("reminder-startup", e); //$NON-NLS-1$
                 }
+
+                // if sync ongoing flag was set, clear it
+                ProducteevUtilities.INSTANCE.stopOngoing();
+
+                ProducteevBackgroundService.scheduleService();
+                BackupService.scheduleService(context);
             }
         }).start();
 
         Preferences.setPreferenceDefaults();
-
-        // if sync ongoing flag was set, clear it
-        ProducteevUtilities.INSTANCE.stopOngoing();
-
-        ProducteevBackgroundService.scheduleService();
-        BackupService.scheduleService(context);
 
         // check for task killers
         if(!Constants.OEM)
