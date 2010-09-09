@@ -88,6 +88,7 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.utility.Preferences;
 import com.todoroo.astrid.widget.PowerWidget;
+import com.todoroo.astrid.widget.PowerWidget42;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -998,6 +999,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                     TasksWidget.UpdateService.class));
             ContextManager.getContext().startService(new Intent(ContextManager.getContext(),
                     PowerWidget.UpdateService.class));
+            ContextManager.getContext().startService(new Intent(ContextManager.getContext(),
+                    PowerWidget42.UpdateService.class));
         }
 
         setUpTaskList();
