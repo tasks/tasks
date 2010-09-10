@@ -13,7 +13,6 @@ import org.weloveastrid.rmilk.api.data.RtmLists;
 import org.weloveastrid.rmilk.sync.MilkTaskContainer;
 
 import android.content.Context;
-import android.database.CursorJoiner;
 
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -22,12 +21,12 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao;
-import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.StoreObjectApiDao;
-import com.todoroo.astrid.data.StoreObjectApiDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
+import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
+import com.todoroo.astrid.data.StoreObjectApiDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 
 public final class MilkDataService {
@@ -76,7 +75,7 @@ public final class MilkDataService {
      * @param properties
      * @return cursor
      */
-    private TodorooCursor<Task> getLocallyModified(Criterion criterion, Property<?>... properties) {
+    private TodorooCursor<Task> getLocallyModifiedHelper(Criterion criterion, Property<?>... properties) {
         long lastSyncDate = MilkUtilities.INSTANCE.getLastSyncDate();
         if(lastSyncDate == 0)
             return taskDao.query(Query.select(Task.ID).where(criterion).orderBy(Order.asc(Task.ID)));
@@ -100,23 +99,29 @@ public final class MilkDataService {
      * @param properties
      * @return
      */
-    public TodorooCursor<Task> getLocallyCreated(Property<?>[] properties) {
-        TodorooCursor<Task> tasks = getLocallyModified(TaskCriteria.isActive(), Task.ID);
-        TodorooCursor<Metadata> metadata = getMilkTaskMetadata();
+    public TodorooCursor<Task> getLocallyCreated(Property<?>... properties) {
+        long lastSyncDate = MilkUtilities.INSTANCE.getLastSyncDate();
+        TodorooCursor<Task> tasks;
+        if(lastSyncDate == 0)
+            tasks = taskDao.query(Query.select(Task.ID).where(TaskCriteria.isActive()).orderBy(Order.asc(Task.ID)));
+        else
+            tasks = taskDao.query(Query.select(Task.ID).where(Criterion.and(TaskCriteria.isActive(),
+                    Task.CREATION_DATE.gt(lastSyncDate))).orderBy(Order.asc(Task.ID)));
 
-        ArrayList<Long> matchingRows = new ArrayList<Long>();
+        try {
+            TodorooCursor<Metadata> metadata = getMilkTaskMetadata();
+            try {
+                ArrayList<Long> matchingRows = new ArrayList<Long>();
+                joinRows(tasks, metadata, matchingRows, false);
 
-        CursorJoiner joiner = new CursorJoiner(tasks, new String[] { Task.ID.name },
-                metadata, new String[] { Metadata.TASK.name });
-        for (CursorJoiner.Result joinerResult : joiner) {
-            // only pick up tasks without metadata
-            if(joinerResult == CursorJoiner.Result.LEFT) {
-                matchingRows.add(tasks.getLong(0));
+                return
+                taskDao.query(Query.select(properties).where(Task.ID.in(matchingRows.toArray(new Long[matchingRows.size()]))));
+            } finally {
+                metadata.close();
             }
+        } finally {
+            tasks.close();
         }
-
-        return
-            taskDao.query(Query.select(properties).where(Task.ID.in(matchingRows.toArray(new Long[matchingRows.size()]))));
     }
 
     /**
@@ -124,23 +129,65 @@ public final class MilkDataService {
      * @param properties
      * @return null if never sync'd
      */
-    public TodorooCursor<Task> getLocallyUpdated(Property<?>[] properties) {
-        TodorooCursor<Task> tasks = getLocallyModified(TaskCriteria.isActive(), Task.ID);
-        TodorooCursor<Metadata> metadata = getMilkTaskMetadata();
+    public TodorooCursor<Task> getLocallyUpdated(Property<?>... properties) {
+        TodorooCursor<Task> tasks;
+        long lastSyncDate = MilkUtilities.INSTANCE.getLastSyncDate();
+        if(lastSyncDate == 0)
+            tasks = taskDao.query(Query.select(Task.ID).orderBy(Order.asc(Task.ID)));
+        else
+            tasks = taskDao.query(Query.select(Task.ID).where(Task.MODIFICATION_DATE.
+                    gt(lastSyncDate)).orderBy(Order.asc(Task.ID)));
+        try {
+            TodorooCursor<Metadata> metadata = getMilkTaskMetadata();
+            try {
 
-        ArrayList<Long> matchingRows = new ArrayList<Long>();
+                ArrayList<Long> matchingRows = new ArrayList<Long>();
+                joinRows(tasks, metadata, matchingRows, true);
 
-        CursorJoiner joiner = new CursorJoiner(tasks, new String[] { Task.ID.name },
-                metadata, new String[] { Metadata.TASK.name });
-        for (CursorJoiner.Result joinerResult : joiner) {
-            // only pick up tasks with metadata
-            if(joinerResult == CursorJoiner.Result.BOTH) {
-                matchingRows.add(tasks.getLong(0));
+                return
+                taskDao.query(Query.select(properties).where(Task.ID.in(matchingRows.toArray(new Long[matchingRows.size()]))));
+            } finally {
+                metadata.close();
             }
+        } finally {
+            tasks.close();
         }
+    }
 
-        return
-            taskDao.query(Query.select(properties).where(Task.ID.in(matchingRows.toArray(new Long[matchingRows.size()]))));
+    /**
+     * Join rows from two cursors on the first column, assuming its an id column
+     * @param left
+     * @param right
+     * @param matchingRows
+     * @param both - if false, returns left join, if true, returns both join
+     */
+    private static void joinRows(TodorooCursor<?> left,
+            TodorooCursor<?> right, ArrayList<Long> matchingRows,
+            boolean both) {
+
+        left.moveToPosition(-1);
+        right.moveToFirst();
+
+        while(true) {
+            left.moveToNext();
+            if(left.isAfterLast())
+                break;
+            long leftValue = left.getLong(0);
+
+            // advance right until it is equal or bigger
+            while(!right.isAfterLast() && right.getLong(0) < leftValue) {
+                right.moveToNext();
+            }
+
+            if(right.isAfterLast()) {
+                if(!both)
+                    matchingRows.add(leftValue);
+                continue;
+            }
+
+            if((right.getLong(0) == leftValue) == both)
+                matchingRows.add(leftValue);
+        }
     }
 
     /**
