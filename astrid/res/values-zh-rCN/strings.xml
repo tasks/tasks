@@ -5,10 +5,10 @@
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task Edit Activity: Container Label -->
-    <string name="alarm_ACS_label">Alarms</string>
+    <string name="alarm_ACS_label">闹钟</string>
     
     <!-- Task Edit Activity: Add New Alarm -->
-    <string name="alarm_ACS_button">Add an Alarm</string>
+    <string name="alarm_ACS_button">新增一个闹钟</string>
     
     <!-- Task Detail for Alarms (%s -> time)-->
     <string name="alarm_ADE_detail">Alarm %s</string>
@@ -31,16 +31,16 @@
     <string name="backup_BPr_header">Backups</string>
 
     <!-- Backup: Status Header -->    
-    <string name="backup_BPr_group_status">Status</string>
+    <string name="backup_BPr_group_status">状态</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
     <string name="backup_status_success">Latest: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
-    <string name="backup_status_failed">Last Backup Failed</string>
+    <string name="backup_status_failed">最近一次备份失败</string>
     <!-- Backup Status: error subtitle -->    
     <string name="backup_status_failed_subtitle">(tap to show error)</string>
     <!-- Backup Status: never backed up -->    
-    <string name="backup_status_never">Never Backed Up!</string>
+    <string name="backup_status_never">从未备份</string>
 
     <!-- Backup Options Group Label -->    
     <string name="backup_BPr_group_options">选项</string>
@@ -76,7 +76,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Import Error</string>
     
-  <string name="export_toast">已备份 %s 到 %s。</string>
+  <string name="export_toast">已备份  %s 到 %s。</string>
     
   <string name="export_toast_no_tasks">No Tasks to Export.</string>
   
@@ -454,7 +454,7 @@ File %s contained %s.\n\n
   <string name="EPr_default_hideUntil_desc">Currently: %s</string>
   
   <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <string name="EPr_default_reminders_title">默认提醒</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Currently: %s</string>
   
@@ -888,7 +888,7 @@ Astrid might not let you know when your tasks are due.\n
   <string name="rmd_NoA_filter">Reminder!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Already Done!</string>
+  <string name="rmd_NoA_done">已经完成!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">稍后提醒</string>

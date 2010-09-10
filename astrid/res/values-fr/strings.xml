@@ -8,14 +8,14 @@
     <string name="alarm_ACS_label">Alarmes</string>
     
     <!-- Task Edit Activity: Add New Alarm -->
-    <string name="alarm_ACS_button">Add an Alarm</string>
+    <string name="alarm_ACS_button">Ajouter une Alarme</string>
     
     <!-- Task Detail for Alarms (%s -> time)-->
-    <string name="alarm_ADE_detail">Alarm %s</string>
+    <string name="alarm_ADE_detail">Alarme %s</string>
    
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
-      <item>Alarm!</item>
+      <item>Alarme!</item>
     </string-array>
     
 
@@ -53,9 +53,9 @@
     <string name="backup_BPr_auto_enabled">Une sauvegarde sera effectuée chaque jour</string>
     
     <!-- Preference screen restoring Tasks Help -->
-    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
+    <string name="backup_BPr_how_to_restore">Comment restaurer une sauvegarde?</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
+    <string name="backup_BPr_how_to_restore_dialog">Vous devez ajouter le Power Pack Astrid pour gérer et restaurer vos sauvegardes. Gracieusement, Astrid sauvegarde automatiquement vos taches, au cas où.</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -78,7 +78,7 @@
     
   <string name="export_toast">Sauvegardé(s) de %s à %s.</string>
     
-  <string name="export_toast_no_tasks">No Tasks to Export.</string>
+  <string name="export_toast_no_tasks">Pas de tâche à exporter.</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Exportation...</string>
@@ -96,7 +96,7 @@
   <string name="import_progress_read">Lecture de la tâche %d...</string>
   
   <!-- Backup: Dialog when unable to open a file -->  
-  <string name="DLG_error_opening">Impossible de trouver :</string>
+  <string name="DLG_error_opening">Impossible de trouver  :</string>
   
   <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
   <string name="DLG_error_sdcard">Impossible d\'accéder au fichier : %s</string>
@@ -135,10 +135,10 @@
   <string name="DLG_delete_this_task_question">Supprimer cette tâche ?</string>
 
   <!-- question for deleting items (%s => item name) -->
-  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
+  <string name="DLG_delete_this_item_question">Effacer cet élément: %s</string>
     
   <!-- Progress dialog shown when upgrading -->
-  <string name="DLG_upgrading">Upgrading your tasks...</string>
+  <string name="DLG_upgrading">Mise à jour de vos tâches...</string>
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Temps (heures : minutes)</string>
@@ -169,10 +169,10 @@
   <string name="TLA_menu_addons">Extensions</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
+  <string name="TLA_menu_sort">Tri &amp; Caché</string>
   
   <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">Sync Now!</string>
+  <string name="TLA_menu_sync">Synchroniser !</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Paramètres</string>
@@ -224,16 +224,16 @@
   <string name="SSD_title">Sorting and Hidden Tasks</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Show Completed Tasks</string>
+  <string name="SSD_completed">Afficher les tâches complétées</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Show Hidden Tasks</string>
+  <string name="SSD_hidden">Afficher les tâches cachées</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
-  <string name="SSD_deleted">Show Deleted Tasks</string>
+  <string name="SSD_deleted">Afficher les tâches supprimées</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sort Options</string>
+  <string name="SSD_sort_header">Options de tri</string>
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Smart Sort</string>
@@ -257,7 +257,7 @@
   <string name="SSD_save_temp">Just Once</string>
   
   <!-- Sort Button: sort permanently -->
-  <string name="SSD_save_always">Always</string>
+  <string name="SSD_save_always">Toujours</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -447,7 +447,7 @@
   <string name="EPr_default_hideUntil_desc">Currently: %s</string>
   
   <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <string name="EPr_default_reminders_title">Rappels par défaut</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Currently: %s</string>
   
@@ -527,7 +527,10 @@
   <string name="marketplace_title">Astrid - Gestionnaire de tâches</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">Astrid is the much loved open-source todo list / task manager designed to help you get stuff done. It features reminders, tags, sync, a widget and more.</string>
+  <string name="marketplace_description">
+Astrid is the much loved open-source todo list / task manager designed to help 
+you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
+  </string>
     
 
 
@@ -542,7 +545,7 @@
     <string name="BFE_Active">Tâches actives</string>
         
     <!-- Search Filter -->
-    <string name="BFE_Search">Rechercher</string>
+    <string name="BFE_Search">Recherche...</string>
     
     <!-- Recently Modified -->
     <string name="BFE_Recent">Récemment modifié</string>
@@ -554,27 +557,27 @@
     <string name="BFE_Saved">Saved Filters</string>
     
     <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">Delete Filter</string>
+    <string name="BFE_Saved_delete">Supprimer le filtre</string>
 
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- Build Your Own Filter Activity Title-->
-    <string name="CFA_title">Custom Filter</string>
+    <string name="CFA_title">Filtre utilisateur</string>
     
     <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
     <string name="CFA_filterName_hint">Name this filter to save it...</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
-    <string name="CFA_filterName_copy">Copy of %s</string>
+    <string name="CFA_filterName_copy">Copie de %s</string>
     
     <!-- Filter Starting Universe: all tasks -->
     <string name="CFA_universe_all">Tâches actives</string>
     
     <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
-    <string name="CFA_type_add">or</string>
+    <string name="CFA_type_add">ou</string>
     
     <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
-    <string name="CFA_type_subtract">not</string>
+    <string name="CFA_type_subtract">non</string>
     
     <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
     <string name="CFA_type_intersect">also</string>
@@ -591,10 +594,10 @@
     then click \"View\"!</string>
     
     <!-- Filter Button: add new -->
-    <string name="CFA_button_add">Add Criteria</string>
+    <string name="CFA_button_add">Ajouter un critère</string>
     
     <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">View</string>
+    <string name="CFA_button_view">Affichage</string>
     
     <!-- Filter Button: save & view filter -->
     <string name="CFA_button_save">Save &amp; View</string>
@@ -608,7 +611,7 @@
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
         <item>No Due Date</item>
-        <item>Yesterday</item>
+        <item>Hier</item>
         <item>Aujourd\'hui</item>
         <item>Demain</item>
         <item>Après-demain</item>
@@ -727,7 +730,7 @@
     <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="producteev_PDE_task_from">from %s</string>
+    <string name="producteev_PDE_task_from">de %s</string>
     
     <!-- replacement string for task edit "Notes" when using Producteev -->
     <string name="producteev_TEA_notes">Add a Comment</string>
@@ -741,7 +744,7 @@
     <string name="producteev_default_dashboard">Default Workspace</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+    <string name="producteev_no_dashboard">Ne Pas Synchroniser</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
     <string name="producteev_create_dashboard">Add new Workspace...</string>
@@ -761,7 +764,7 @@
     <!-- ================================================= Login Activity == -->
 
     <!-- Activity Title: Producteev Login -->    
-    <string name="producteev_PLA_title">Log In to Producteev</string>
+    <string name="producteev_PLA_title">Se Connecter à Producteev</string>
 
     <!-- Instructions: Producteev login -->    
     <string name="producteev_PLA_body">Sign in with your existing
@@ -771,25 +774,25 @@
     <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
 
     <!-- Sign In Button -->    
-    <string name="producteev_PLA_signIn">Sign In</string>
+    <string name="producteev_PLA_signIn">S\'identifier</string>
 
     <!-- Create New User Button -->    
-    <string name="producteev_PLA_createNew">Create New User</string>
+    <string name="producteev_PLA_createNew">Créer un nouvel utilisateur</string>
 
     <!-- E-mail Address Label -->    
     <string name="producteev_PLA_email">E-mail</string>
 
     <!-- Password Label -->    
-    <string name="producteev_PLA_password">Password</string>
+    <string name="producteev_PLA_password">Mot de passe</string>
 
     <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+    <string name="producteev_PLA_confirmPassword">Confirmer le mot de passe</string>
 
     <!-- First Name Label -->    
-    <string name="producteev_PLA_firstName">First Name</string>
+    <string name="producteev_PLA_firstName">Prénom</string>
 
     <!-- Last Name Label -->    
-    <string name="producteev_PLA_lastName">Last Name</string>
+    <string name="producteev_PLA_lastName">Nom</string>
 
     <!-- Error Message when fields aren't filled out -->    
     <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
@@ -876,7 +879,7 @@
   <string name="rmd_NoA_filter">Rappel !</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Already Done!</string>
+  <string name="rmd_NoA_done">Déjà fait !</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Rappeler ultérieurement...</string>
@@ -1143,7 +1146,7 @@
   <string name="repeat_detail_duedate">Tous les %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">%s après complétion</string>
+  <string name="repeat_detail_completion">%s after completion</string>
   
 
 

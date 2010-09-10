@@ -78,7 +78,7 @@
     
   <string name="export_toast">Sikkerhetskopierte %s til %s</string>
     
-  <string name="export_toast_no_tasks">No Tasks to Export.</string>
+  <string name="export_toast_no_tasks">Ingen oppgaver å eksportere.</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Eksporterer...</string>
@@ -135,7 +135,7 @@
   <string name="DLG_delete_this_task_question">Slett denne oppgaven?</string>
 
   <!-- question for deleting items (%s => item name) -->
-  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
+  <string name="DLG_delete_this_item_question">Slett dette elementet: %s?</string>
     
   <!-- Progress dialog shown when upgrading -->
   <string name="DLG_upgrading">Oppgraderer oppgavene dine...</string>
@@ -224,10 +224,10 @@
   <string name="SSD_title">Sorting and Hidden Tasks</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Show Completed Tasks</string>
+  <string name="SSD_completed">Vis fullførte oppgaver</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Show Hidden Tasks</string>
+  <string name="SSD_hidden">Vis skjulte oppgaver</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
   <string name="SSD_deleted">Show Deleted Tasks</string>
@@ -254,10 +254,10 @@
   <string name="SSD_sort_reverse">Reverse Sort</string>
   
   <!-- Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Just Once</string>
+  <string name="SSD_save_temp">Kun en gang</string>
   
   <!-- Sort Button: sort permanently -->
-  <string name="SSD_save_always">Always</string>
+  <string name="SSD_save_always">Alltid</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -351,7 +351,7 @@
   <string name="TEA_menu_delete">Slett oppgave</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
+  <string name="TEA_onTaskSave_due">Oppgave lagret: forfaller %s</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">Oppgave lagret</string>
@@ -447,7 +447,7 @@
   <string name="EPr_default_hideUntil_desc">Currently: %s</string>
   
   <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <string name="EPr_default_reminders_title">Standard påminnere</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Currently: %s</string>
   
@@ -478,8 +478,8 @@
   
   <string-array name="EPr_default_reminders">
       <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>No deadline reminders</item>
-      <item>At deadline</item>
+      <item>Ingen varsling ved forfall</item>
+      <item>Ved forfall</item>
       <item>When overdue</item>
       <item>At deadline or overdue</item>
   </string-array>
@@ -542,99 +542,97 @@
     <string name="BFE_Active">Aktive oppgaver</string>
         
     <!-- Search Filter -->
-    <string name="BFE_Search">Søk</string>
+    <string name="BFE_Search">Søk...</string>
     
     <!-- Recently Modified -->
     <string name="BFE_Recent">Nylig endret</string>
     
     <!-- Build Your Own Filter -->
-    <string name="BFE_Custom">Custom Filter...</string>
+    <string name="BFE_Custom">Egendefinert filter...</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Saved Filters</string>
+    <string name="BFE_Saved">Lagrede filter</string>
     
     <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">Delete Filter</string>
+    <string name="BFE_Saved_delete">Slett filter</string>
 
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- Build Your Own Filter Activity Title-->
-    <string name="CFA_title">Custom Filter</string>
+    <string name="CFA_title">Egendefinert filter</string>
     
     <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
     <string name="CFA_filterName_hint">Name this filter to save it...</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
-    <string name="CFA_filterName_copy">Copy of %s</string>
+    <string name="CFA_filterName_copy">Kopi av %s</string>
     
     <!-- Filter Starting Universe: all tasks -->
     <string name="CFA_universe_all">Aktive oppgaver</string>
     
     <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
-    <string name="CFA_type_add">or</string>
+    <string name="CFA_type_add">eller</string>
     
     <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
-    <string name="CFA_type_subtract">not</string>
+    <string name="CFA_type_subtract">ikke</string>
     
     <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
-    <string name="CFA_type_intersect">also</string>
+    <string name="CFA_type_intersect">og</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
     <string name="CFA_context_chain">Chaining: %s</string>
     
     <!-- Filter Criteria Context Menu: delete -->
-    <string name="CFA_context_delete">Delete Row</string>
+    <string name="CFA_context_delete">Slett rad</string>
     
     <!-- Filter Screen Help Text -->
-    <string name="CFA_help">This screen lets you create a new filters. Add 
-    criteria using the button below, short or long-press them to adjust, and
-    then click \"View\"!</string>
+    <string name="CFA_help">Denne skjermen lar deg lage et nytt filter. Legg til kriterier ved hjelp av knappene under. Trykk eller trykk og hold på et kriterium for å gjøre innstillinger og trykk til slutt \"Vis\"!</string>
     
     <!-- Filter Button: add new -->
-    <string name="CFA_button_add">Add Criteria</string>
+    <string name="CFA_button_add">Legg til kriterium</string>
     
     <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">View</string>
+    <string name="CFA_button_view">Vis</string>
     
     <!-- Filter Button: save & view filter -->
-    <string name="CFA_button_save">Save &amp; View</string>
+    <string name="CFA_button_save">Lagre &amp; vis</string>
 
     <!-- =========================================== CustomFilterCriteria == -->
         
     <!-- Criteria: due by X - display text (? -> user input) -->
-    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <string name="CFC_dueBefore_text">Forfaller innen: ?</string>
     <!-- Criteria: due by X - name of criteria -->
-    <string name="CFC_dueBefore_name">Due By...</string>
+    <string name="CFC_dueBefore_name">Forfaller innen...</string>
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
-        <item>No Due Date</item>
-        <item>Yesterday</item>
+        <item>Ingen forfallsdato</item>
+        <item>I går</item>
         <item>I dag</item>
         <item>I morgen</item>
         <item>I overmorgen</item>
         <item>Neste uke</item>
-        <item>Next Month</item>
+        <item>Neste måned</item>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Importance at least ?</string>
+    <string name="CFC_importance_text">Viktighet minst ?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Importance...</string>        
+    <string name="CFC_importance_name">Viktighet...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">Tagged: ?</string>
+    <string name="CFC_tag_text">Merket: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Tagged...</string>
+    <string name="CFC_tag_name">Merket...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Tag contains...</string>
+    <string name="CFC_tag_contains_name">Merking inneholder...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Tag contains: ?</string>
+    <string name="CFC_tag_contains_text">Merking inneholder: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Title contains...</string>
+    <string name="CFC_title_contains_name">Tittel inneholder...</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">Title contains: ?</string>
+    <string name="CFC_title_contains_text">Tittel inneholder: ?</string>
     
 
 
@@ -661,7 +659,7 @@
   <string name="gcal_TEA_calendar_error">Error opening event!</string>
   
   <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
+  <string name="gcal_TEA_calendar_updated">Kalenderhendelsen ble også oppdatert!</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -721,16 +719,16 @@
     <string name="producteev_FEx_dashboard">Workspaces</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Assigned To</string>
+    <string name="producteev_FEx_responsible">Tildelt til</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
-    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+    <string name="producteev_FEx_responsible_title">Tildelt til \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="producteev_PDE_task_from">from %s</string>
+    <string name="producteev_PDE_task_from">fra %s</string>
     
     <!-- replacement string for task edit "Notes" when using Producteev -->
-    <string name="producteev_TEA_notes">Add a Comment</string>
+    <string name="producteev_TEA_notes">Legg til kommentar</string>
 
     <!-- ==================================================== Preferences == -->
 
@@ -741,7 +739,7 @@
     <string name="producteev_default_dashboard">Default Workspace</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+    <string name="producteev_no_dashboard">Ikke synkroniser</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
     <string name="producteev_create_dashboard">Add new Workspace...</string>
@@ -753,7 +751,7 @@
     <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
 
     <!-- preference description for default dashboard (%s -> setting) -->
-    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+    <string name="producteev_PPr_defaultdash_summary">Nye oppgaver legges til: %s</string>
 
     <!-- preference description for default dashboard (when set to 'not synchronized') -->
     <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
@@ -761,44 +759,43 @@
     <!-- ================================================= Login Activity == -->
 
     <!-- Activity Title: Producteev Login -->    
-    <string name="producteev_PLA_title">Log In to Producteev</string>
+    <string name="producteev_PLA_title">Logg inn til Producteev</string>
 
     <!-- Instructions: Producteev login -->    
-    <string name="producteev_PLA_body">Sign in with your existing
-    Producteev account, or create a new account!</string>
+    <string name="producteev_PLA_body">Logg inn med din Producteev-konto eller opprett en ny konto!</string>
 
     <!-- Producteev Terms Link -->    
-    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+    <string name="producteev_PLA_terms">Vilkår for bruk</string>
 
     <!-- Sign In Button -->    
-    <string name="producteev_PLA_signIn">Sign In</string>
+    <string name="producteev_PLA_signIn">Logg inn</string>
 
     <!-- Create New User Button -->    
-    <string name="producteev_PLA_createNew">Create New User</string>
+    <string name="producteev_PLA_createNew">Lag ny bruker</string>
 
     <!-- E-mail Address Label -->    
-    <string name="producteev_PLA_email">E-mail</string>
+    <string name="producteev_PLA_email">E-post</string>
 
     <!-- Password Label -->    
-    <string name="producteev_PLA_password">Password</string>
+    <string name="producteev_PLA_password">Passord</string>
 
     <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+    <string name="producteev_PLA_confirmPassword">Bekreft passord</string>
 
     <!-- First Name Label -->    
-    <string name="producteev_PLA_firstName">First Name</string>
+    <string name="producteev_PLA_firstName">Fornavn</string>
 
     <!-- Last Name Label -->    
-    <string name="producteev_PLA_lastName">Last Name</string>
+    <string name="producteev_PLA_lastName">Etternavn</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+    <string name="producteev_PLA_errorEmpty">Feil: Alle felt må fylles ut!</string>
 
     <!-- Error Message when passwords don't match -->    
     <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
+    <string name="producteev_PLA_errorAuth">Feil: Feil E-post eller passord!</string>
 
     <!-- ================================================ Synchronization == -->
         
@@ -806,16 +803,16 @@
     <string name="producteev_notification_title">Producteev</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
+    <string name="producteev_notification_text">%s oppdaterte oppgaver / trykk for flere detaljer</string>
     
     <!-- Error msg when io exception  -->
-    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+    <string name="producteev_ioerror">Tilkoblingsfeil! Kontroller at du er koblet til Internett</string>
 
     <!-- Prod Login email not specified-->
-    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+    <string name="producteev_MLA_email_empty">E-post ble ikke spesifisert!</string>
     
     <!-- Prod Login password not specified-->
-    <string name="producteev_MLA_password_empty">Password was not specified!</string>
+    <string name="producteev_MLA_password_empty">Passord ble ikke spesifisert!</string>
     
     <!-- ================================================ labels for layout-elements == -->
     
@@ -876,7 +873,7 @@
   <string name="rmd_NoA_filter">Påminnelse!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Already Done!</string>
+  <string name="rmd_NoA_done">Allerede utført!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Slumre</string>
@@ -1143,7 +1140,7 @@
   <string name="repeat_detail_duedate">Hver %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">%s etter fullført</string>
+  <string name="repeat_detail_completion">%s after completion</string>
   
 
 
@@ -1222,7 +1219,7 @@
   <string name="TEA_tag_hint">Tag navn</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Select a tag</string>
+  <string name="TEA_tag_dropdown">Velg et merke</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1230,7 +1227,7 @@
   <string name="tag_FEx_header">Tagger</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Sorted By Size</string>
+  <string name="tag_FEx_by_size">Sortert etter størrelse</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Umerket</string>
@@ -1270,18 +1267,18 @@
     <string name="PPW_widget_42_label">Astrid 4x2 (beta!)</string>
     <string name="PPW_widget_44_label">Astrid 4x4 (beta!)</string>
     
-    <string name="PPW_configure_title">Configure Widget</string>
+    <string name="PPW_configure_title">Konfigurere skrivebordselement</string>
     
-    <string name="PPW_color">Widget color</string>
-    <string name="PPW_enable_calendar">Show calendar events</string>
-    <string name="PPW_disable_encouragements">Hide encouragements</string>
-    <string name="PPW_filter">Select Filter</string>
+    <string name="PPW_color">Farge på skrivebordselement</string>
+    <string name="PPW_enable_calendar">Vis kalenderhendelser</string>
+    <string name="PPW_disable_encouragements">Skjul oppmuntringer</string>
+    <string name="PPW_filter">Velg filter</string>
     
-    <string name="PPW_due">Due:</string>
+    <string name="PPW_due">Forfall:</string>
     <string name="PPW_past_due">Past Due:</string>
     
     <string-array name="PPW_encouragements">
-    	<item>Ready to work?</item>
+    	<item>Klar for å jobbe?</item>
     	<item>Have time to finish something?</item>
     	<item>Gosh, you are looking suave today!</item>
     </string-array>

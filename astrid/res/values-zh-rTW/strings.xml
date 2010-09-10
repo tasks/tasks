@@ -135,7 +135,7 @@
   <string name="DLG_delete_this_task_question">確認刪除?</string>
 
   <!-- question for deleting items (%s => item name) -->
-  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
+  <string name="DLG_delete_this_item_question">刪除此項目: %s?</string>
     
   <!-- Progress dialog shown when upgrading -->
   <string name="DLG_upgrading">升級您的工作...</string>
@@ -169,7 +169,7 @@
   <string name="TLA_menu_addons">附加程式</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
+  <string name="TLA_menu_sort">排序</string>
   
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Sync Now!</string>
@@ -221,22 +221,22 @@
   <!-- ============================================== SortSelectionDialog == -->
   
   <!-- Sort Selection: dialog title -->    
-  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  <string name="SSD_title">排序和隱藏工作</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Show Completed Tasks</string>
+  <string name="SSD_completed">顯示已完成工作</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Show Hidden Tasks</string>
+  <string name="SSD_hidden">顯示隱藏的工作</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
-  <string name="SSD_deleted">Show Deleted Tasks</string>
+  <string name="SSD_deleted">顯示已刪除工作</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sort Options</string>
+  <string name="SSD_sort_header">排序選項</string>
   
   <!-- Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  <string name="SSD_sort_auto">Astrid智慧排序</string>
   
   <!-- Sort Selection: sort by alpha -->
   <string name="SSD_sort_alpha">依主旨</string>
@@ -248,16 +248,16 @@
   <string name="SSD_sort_importance">依重要性</string>
   
   <!-- Sort Selection: sort by modified date -->
-  <string name="SSD_sort_modified">By Last Modified</string>
+  <string name="SSD_sort_modified">依最後修改</string>
   
   <!-- Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Reverse Sort</string>
+  <string name="SSD_sort_reverse">反向排序</string>
   
   <!-- Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Just Once</string>
+  <string name="SSD_save_temp">僅一次</string>
   
   <!-- Sort Button: sort permanently -->
-  <string name="SSD_save_always">Always</string>
+  <string name="SSD_save_always">總是</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -286,7 +286,7 @@
   <string name="FLA_search_hint">工作搜尋</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">\'%s\' 匹配</string>
+  <string name="FLA_search_filter">比對 \'%s\'</string>
   
   <!-- Toast: created shortcut (%s => label) -->
   <string name="FLA_toast_onCreateShortcut">建立捷徑: %s</string>
@@ -513,7 +513,7 @@
   <string name="TWi_loading">載入中...</string>
 
   <!-- Widget configuration activity title: select a filter -->
-  <string name="WCA_title">Select tasks to view...</string>
+  <string name="WCA_title">選擇工作顯示...</string>
   
   <!-- ============================================================= Misc == -->
   
@@ -527,7 +527,7 @@
   <string name="marketplace_title">Astricd工作/待辦清單</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">Astrid工作管理應用系統是受到高度喜愛的自由軟體. 其具備提醒,標籤,同步和其他許多功能幫助您將事情完成.</string>
+  <string name="marketplace_description">Astrid工作管理是受到高度喜愛的開放源碼應用程式且可以非常簡單的完成工作。內含工作標籤、提醒、同步 、本地端插件、widget和其他功能。</string>
     
 
 
@@ -542,73 +542,71 @@
     <string name="BFE_Active">進行中的工作</string>
         
     <!-- Search Filter -->
-    <string name="BFE_Search">Search...</string>
+    <string name="BFE_Search">搜尋...</string>
     
     <!-- Recently Modified -->
     <string name="BFE_Recent">最近修改過</string>
     
     <!-- Build Your Own Filter -->
-    <string name="BFE_Custom">Custom Filter...</string>
+    <string name="BFE_Custom">自訂篩選...</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Saved Filters</string>
+    <string name="BFE_Saved">儲存篩選</string>
     
     <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">Delete Filter</string>
+    <string name="BFE_Saved_delete">刪除篩選</string>
 
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- Build Your Own Filter Activity Title-->
-    <string name="CFA_title">Custom Filter</string>
+    <string name="CFA_title">自訂篩選</string>
     
     <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
-    <string name="CFA_filterName_hint">Name this filter to save it...</string>
+    <string name="CFA_filterName_hint">命名篩選並儲存...</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
-    <string name="CFA_filterName_copy">Copy of %s</string>
+    <string name="CFA_filterName_copy">複製 %s</string>
     
     <!-- Filter Starting Universe: all tasks -->
     <string name="CFA_universe_all">進行中的工作</string>
     
     <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
-    <string name="CFA_type_add">or</string>
+    <string name="CFA_type_add">或</string>
     
     <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
-    <string name="CFA_type_subtract">not</string>
+    <string name="CFA_type_subtract">非</string>
     
     <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
-    <string name="CFA_type_intersect">also</string>
+    <string name="CFA_type_intersect">也</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">Chaining: %s</string>
+    <string name="CFA_context_chain">連續: %s</string>
     
     <!-- Filter Criteria Context Menu: delete -->
-    <string name="CFA_context_delete">Delete Row</string>
+    <string name="CFA_context_delete">刪除列</string>
     
     <!-- Filter Screen Help Text -->
-    <string name="CFA_help">This screen lets you create a new filters. Add 
-    criteria using the button below, short or long-press them to adjust, and
-    then click \"View\"!</string>
+    <string name="CFA_help">本視窗可讓您建立新的篩選。使用以下按鍵加入條件、排序或長按調整，之後請按 \"檢視\"！</string>
     
     <!-- Filter Button: add new -->
-    <string name="CFA_button_add">Add Criteria</string>
+    <string name="CFA_button_add">加入條件</string>
     
     <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">View</string>
+    <string name="CFA_button_view">檢視</string>
     
     <!-- Filter Button: save & view filter -->
-    <string name="CFA_button_save">Save &amp; View</string>
+    <string name="CFA_button_save">儲存</string>
 
     <!-- =========================================== CustomFilterCriteria == -->
         
     <!-- Criteria: due by X - display text (? -> user input) -->
-    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <string name="CFC_dueBefore_text">期限: ?</string>
     <!-- Criteria: due by X - name of criteria -->
-    <string name="CFC_dueBefore_name">Due By...</string>
+    <string name="CFC_dueBefore_name">期限...</string>
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
-        <item>No Due Date</item>
-        <item>Yesterday</item>
+        <item>無期限</item>
+        <item>昨天</item>
         <item>今天</item>
         <item>明天</item>
         <item>後天</item>
@@ -617,14 +615,14 @@
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Importance at least ?</string>
+    <string name="CFC_importance_text">最低重要性?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Importance...</string>        
+    <string name="CFC_importance_name">重要性...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">Tagged: ?</string>
+    <string name="CFC_tag_text">標籤: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Tagged...</string>
+    <string name="CFC_tag_name">標籤...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
     <string name="CFC_tag_contains_name">Tag contains...</string>
@@ -658,7 +656,7 @@
   <string name="gcal_TEA_showCalendar_label">打開行事曆事項</string>
   
   <!-- Toast when unable to open calendar event -->
-  <string name="gcal_TEA_calendar_error">Error opening event!</string>
+  <string name="gcal_TEA_calendar_error">事件開啟錯誤!</string>
   
   <!-- Toast when calendar event updated because task changed -->
   <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
@@ -718,13 +716,13 @@
     <string name="producteev_FEx_header">Producteev</string>
     
     <!-- filter category for Producteev dashboards -->
-    <string name="producteev_FEx_dashboard">Workspaces</string>
+    <string name="producteev_FEx_dashboard">工作區</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Assigned To</string>
+    <string name="producteev_FEx_responsible">指派給</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
-    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+    <string name="producteev_FEx_responsible_title">指派給 \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
     <string name="producteev_PDE_task_from">from %s</string>
@@ -738,10 +736,10 @@
     <string name="producteev_PPr_header">Producteev</string>
 
     <!-- dashboard title for producteev default dashboard  -->
-    <string name="producteev_default_dashboard">Default Workspace</string>
+    <string name="producteev_default_dashboard">預設工作區</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+    <string name="producteev_no_dashboard">不要同步</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
     <string name="producteev_create_dashboard">Add new Workspace...</string>
@@ -750,55 +748,54 @@
     <string name="producteev_create_dashboard_name">Name for new Workspace</string>
 
 	<!-- preference title for default dashboard -->
-    <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
+    <string name="producteev_PPr_defaultdash_title">預設工作區</string>
 
     <!-- preference description for default dashboard (%s -> setting) -->
-    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+    <string name="producteev_PPr_defaultdash_summary">新工作將加入: %s</string>
 
     <!-- preference description for default dashboard (when set to 'not synchronized') -->
-    <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
+    <string name="producteev_PPr_defaultdash_summary_none">新工作預設將不會執行同步</string>
 
     <!-- ================================================= Login Activity == -->
 
     <!-- Activity Title: Producteev Login -->    
-    <string name="producteev_PLA_title">Log In to Producteev</string>
+    <string name="producteev_PLA_title">登入Producteev</string>
 
     <!-- Instructions: Producteev login -->    
-    <string name="producteev_PLA_body">Sign in with your existing
-    Producteev account, or create a new account!</string>
+    <string name="producteev_PLA_body">使用Producteev帳號登入或建立新帳號!</string>
 
     <!-- Producteev Terms Link -->    
-    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+    <string name="producteev_PLA_terms">條款及條件</string>
 
     <!-- Sign In Button -->    
-    <string name="producteev_PLA_signIn">Sign In</string>
+    <string name="producteev_PLA_signIn">登入</string>
 
     <!-- Create New User Button -->    
-    <string name="producteev_PLA_createNew">Create New User</string>
+    <string name="producteev_PLA_createNew">新建使用者</string>
 
     <!-- E-mail Address Label -->    
-    <string name="producteev_PLA_email">E-mail</string>
+    <string name="producteev_PLA_email">電子郵件</string>
 
     <!-- Password Label -->    
-    <string name="producteev_PLA_password">Password</string>
+    <string name="producteev_PLA_password">密碼</string>
 
     <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+    <string name="producteev_PLA_confirmPassword">確認密碼</string>
 
     <!-- First Name Label -->    
-    <string name="producteev_PLA_firstName">First Name</string>
+    <string name="producteev_PLA_firstName">名字</string>
 
     <!-- Last Name Label -->    
-    <string name="producteev_PLA_lastName">Last Name</string>
+    <string name="producteev_PLA_lastName">姓氏</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+    <string name="producteev_PLA_errorEmpty">錯誤: 所有欄位需要填寫!</string>
 
     <!-- Error Message when passwords don't match -->    
-    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+    <string name="producteev_PLA_errorMatch">錯誤: 密碼不一致!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
+    <string name="producteev_PLA_errorAuth">錯誤: 電子郵件或密碼不正確!</string>
 
     <!-- ================================================ Synchronization == -->
         
@@ -809,27 +806,27 @@
     <string name="producteev_notification_text">%s tasks updated / click for more details</string>
     
     <!-- Error msg when io exception  -->
-    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+    <string name="producteev_ioerror">連結錯誤! 檢查您的網際網路連線.</string>
 
     <!-- Prod Login email not specified-->
-    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+    <string name="producteev_MLA_email_empty">電子郵件未指定!</string>
     
     <!-- Prod Login password not specified-->
-    <string name="producteev_MLA_password_empty">Password was not specified!</string>
+    <string name="producteev_MLA_password_empty">密碼未指定!</string>
     
     <!-- ================================================ labels for layout-elements == -->
     
     <!-- label for task-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
+    <string name="producteev_TEA_task_assign_label">指派工作給此人:</string>
     
     <!-- Spinner-item for unassigned tasks on taskeditactivity -->
-    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    <string name="producteev_TEA_task_unassigned">反指派</string>
     
     <!-- label for dashboard-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
+    <string name="producteev_TEA_dashboard_assign_label">指派工作給此工作區:</string>
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
+    <string name="producteev_TEA_dashboard_default">預設</string>
     
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1140,10 +1137,10 @@
   <string name="repeat_detail_byday">$I 的 $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Every %s</string>
+  <string name="repeat_detail_duedate">每隔 %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">%s after completion</string>
+  <string name="repeat_detail_completion">%s 完成後</string>
   
 
 
@@ -1195,7 +1192,7 @@
     <string name="rmilk_MLA_label">請登入並授權Astrid:</string>
 
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">抱歉, 登入錯誤. 請再試一次. \n\n 錯誤訊息: %s</string>
+    <string name="rmilk_MLA_error">抱歉, 登入錯誤. 請再試一次.  \n\n 錯誤訊息: %s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     
@@ -1222,7 +1219,7 @@
   <string name="TEA_tag_hint">標籤名稱</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Select a tag</string>
+  <string name="TEA_tag_dropdown">選擇標籤</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1230,13 +1227,13 @@
   <string name="tag_FEx_header">標籤</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Sorted By Size</string>
+  <string name="tag_FEx_by_size">依容量大小排序</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">未標記</string>
+  <string name="tag_FEx_untagged">無標籤</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">標記 \'%s\'</string>
+  <string name="tag_FEx_name">\'%s\'</string>
     
 
 

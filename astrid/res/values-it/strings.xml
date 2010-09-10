@@ -447,7 +447,7 @@
   <string name="EPr_default_hideUntil_desc">Currently: %s</string>
   
   <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <string name="EPr_default_reminders_title">Promemoria predefiniti</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Currently: %s</string>
   
@@ -527,7 +527,10 @@
   <string name="marketplace_title">Astrid elenco attività/todo</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">Astrid is the much loved open-source todo list / task manager designed to help you get stuff done. It features reminders, tags, sync, a widget and more.</string>
+  <string name="marketplace_description">
+Astrid is the much loved open-source todo list / task manager designed to help 
+you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
+  </string>
     
 
 
@@ -542,7 +545,7 @@
     <string name="BFE_Active">Attività in corso</string>
         
     <!-- Search Filter -->
-    <string name="BFE_Search">Cerca</string>
+    <string name="BFE_Search">Search...</string>
     
     <!-- Recently Modified -->
     <string name="BFE_Recent">Modificato di recente</string>
@@ -876,7 +879,7 @@
   <string name="rmd_NoA_filter">Promemoria!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Already Done!</string>
+  <string name="rmd_NoA_done">Completata</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Rimanda...</string>

@@ -300,7 +300,7 @@ abstract public class TranslationTests extends TodorooTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        setLocale(Locale.getDefault());
+        setLocale(Locale.ENGLISH);
     }
 
     @Override

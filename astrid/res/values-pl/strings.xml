@@ -454,7 +454,7 @@ File %s contained %s.\n\n
   <string name="EPr_default_hideUntil_desc">Currently: %s</string>
   
   <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <string name="EPr_default_reminders_title">Domyślne Przypomnienia</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Currently: %s</string>
   
@@ -888,7 +888,7 @@ Astrid might not let you know when your tasks are due.\n
   <string name="rmd_NoA_filter">Reminder!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Already Done!</string>
+  <string name="rmd_NoA_done">Już wykonano!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Wstrzymaj</string>

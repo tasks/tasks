@@ -187,7 +187,7 @@
   <string name="TLA_custom">Другой</string>
   
   <!-- Quick Add Edit Box Hint-->
-  <string name="TLA_quick_add_hint">Добавить в этот список…</string>
+  <string name="TLA_quick_add_hint">Добавить в список…</string>
   
   <!-- ====================================================== TaskAdapter == -->
   
@@ -327,7 +327,7 @@
   <string name="TEA_urgency_time_none">No Time Set</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Скрыть до момента</string>
+  <string name="TEA_hideUntil_label">Скрывать до…</string>
   
   <!-- Task note label -->
   <string name="TEA_note_label">Примечания</string>
@@ -375,9 +375,9 @@
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
       <item>Не скрывать</item>
-      <item>Намеченная задача</item>
-      <item>День до намеченного срока</item>
-      <item>Неделя до намеченного срока</item>
+      <item>Времени начала выполнения</item>
+      <item>Дня до намеченного срока</item>
+      <item>Недели до намеченного срока</item>
       <item>Определённый день/время</item>
   </string-array>
   
@@ -447,7 +447,7 @@
   <string name="EPr_default_hideUntil_desc">Currently: %s</string>
   
   <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Currently: %s</string>
   
@@ -471,9 +471,9 @@
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
       <item>Не скрывать</item>
-      <item>Намеченная задача</item>
-      <item>День до намеченного срока</item>
-      <item>Неделя до намеченного срока</item>
+      <item>Времени начала выполнения</item>
+      <item>Дня до намеченного срока</item>
+      <item>Недели до намеченного срока</item>
   </string-array>
   
   <string-array name="EPr_default_reminders">
@@ -527,7 +527,7 @@
   <string name="marketplace_title">Список задач Astrid</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">Astrid - распространённый список задач с открытым исходным кодом разработанный чтобы помочь Вам справиться с делами. Он имеет напоминания, метки, синхронизацию, виджет и много другого.</string>
+  <string name="marketplace_description">Astrid - распространённый список задач с открытым исходным кодом предназначенный помочь Вам справиться с делами. В нём есть напоминания, метки, синхронизация, плагин Locale, виджет и много другого.</string>
     
 
 
@@ -545,7 +545,7 @@
     <string name="BFE_Search">Поиск…</string>
     
     <!-- Recently Modified -->
-    <string name="BFE_Recent">Recently Modified</string>
+    <string name="BFE_Recent">Недавно изменённые</string>
     
     <!-- Build Your Own Filter -->
     <string name="BFE_Custom">Собственный фильтр…</string>
@@ -716,13 +716,13 @@
     <string name="producteev_FEx_header">Producteev</string>
     
     <!-- filter category for Producteev dashboards -->
-    <string name="producteev_FEx_dashboard">Workspaces</string>
+    <string name="producteev_FEx_dashboard">Рабочие области</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Assigned To</string>
+    <string name="producteev_FEx_responsible">Ответственный</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
-    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+    <string name="producteev_FEx_responsible_title">Ответственный \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
     <string name="producteev_PDE_task_from">from %s</string>
@@ -873,7 +873,7 @@
   <string name="rmd_NoA_filter">Напоминание!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Already Done!</string>
+  <string name="rmd_NoA_done">Уже готово!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Дремать…</string>
@@ -945,7 +945,7 @@
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
   <string name="rmd_EPr_defaultRemind_desc_disabled">У новых задач не будет случайных напоминаний</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">Новые задачи будут случайно напоминать: %s</string>
+  <string name="rmd_EPr_defaultRemind_desc">Случайно напоминать о новых задачах %s</string>
   
   <!-- Defaults Title -->
   <string name="rmd_EPr_defaults_header">Параметры по умолчанию для новых задач</string>
@@ -1219,7 +1219,7 @@
   <string name="TEA_tag_hint">Имя метки</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Select a tag</string>
+  <string name="TEA_tag_dropdown">Выберите метку</string>
     
   <!-- ========================================================== Filters == -->
   

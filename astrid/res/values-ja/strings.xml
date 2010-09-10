@@ -11,7 +11,7 @@
     <string name="alarm_ACS_button">アラームを追加する</string>
     
     <!-- Task Detail for Alarms (%s -> time)-->
-    <string name="alarm_ADE_detail">Alarm %s</string>
+    <string name="alarm_ADE_detail">アラーム %s</string>
    
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
@@ -171,10 +171,10 @@
   <string name="TLA_menu_addons">アドオン</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
+  <string name="TLA_menu_sort">表示設定</string>
   
   <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">Sync Now!</string>
+  <string name="TLA_menu_sync">すぐに同期！</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">設定</string>
@@ -223,22 +223,22 @@
   <!-- ============================================== SortSelectionDialog == -->
   
   <!-- Sort Selection: dialog title -->    
-  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  <string name="SSD_title">並び順と表示項目</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Show Completed Tasks</string>
+  <string name="SSD_completed">完了タスクの表示</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Show Hidden Tasks</string>
+  <string name="SSD_hidden">非表示タスクの表示</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
-  <string name="SSD_deleted">Show Deleted Tasks</string>
+  <string name="SSD_deleted">削除済タスクの表示</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sort Options</string>
+  <string name="SSD_sort_header">並び順</string>
   
   <!-- Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  <string name="SSD_sort_auto">自動</string>
   
   <!-- Sort Selection: sort by alpha -->
   <string name="SSD_sort_alpha">タイトル順</string>
@@ -250,24 +250,24 @@
   <string name="SSD_sort_importance">重要度順</string>
   
   <!-- Sort Selection: sort by modified date -->
-  <string name="SSD_sort_modified">By Last Modified</string>
+  <string name="SSD_sort_modified">更新日時順</string>
   
   <!-- Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Reverse Sort</string>
+  <string name="SSD_sort_reverse">逆順</string>
   
   <!-- Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Just Once</string>
+  <string name="SSD_save_temp">今回のみ</string>
   
   <!-- Sort Button: sort permanently -->
-  <string name="SSD_save_always">Always</string>
+  <string name="SSD_save_always">設定の保存</string>
   
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Filter List Activity Title -->    
-  <string name="FLA_title">Astrid: Filters</string>
+  <string name="FLA_title">Astrid: フィルタ</string>
   
   <!-- Displayed when loading filters -->    
-  <string name="FLA_loading">Loading Filters...</string>
+  <string name="FLA_loading">フィルタの読み込み中</string>
   
   <!-- Context Menu: Create Shortcut -->    
   <string name="FLA_context_shortcut">ショートカットの作成</string>
@@ -369,7 +369,7 @@
       <item>日時を指定</item>
       <item>今日</item>
       <item>明日</item>
-      <item>(day after)</item>
+      <item>日後</item>
       <item>来週</item>
       <item>期限なし</item>
   </string-array>
@@ -384,7 +384,7 @@
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_no_addons">No Add-ons Found!</string>
+  <string name="TEA_no_addons">アドオンはありません</string>
   
   <!-- Add Ons button -->
   <string name="TEA_addons_button">Get Some Add-ons</string>
@@ -449,7 +449,7 @@
   <string name="EPr_default_hideUntil_desc">Currently: %s</string>
   
   <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <string name="EPr_default_reminders_title">標準リマインダー</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Currently: %s</string>
   
@@ -489,25 +489,25 @@
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
-  <string name="AOA_title">Astrid: Add Ons</string>
+  <string name="AOA_title">Astrid: アドオン</string>
     
   <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Astrid Team</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
-  <string name="AOA_tab_installed">Installed</string>
+  <string name="AOA_tab_installed">インストール済</string>
   
   <!-- Add-on Activity - available add-ons tab -->
-  <string name="AOA_tab_available">Available</string>
+  <string name="AOA_tab_available">追加</string>
   
   <!-- Add-on Activity - free add-ons label -->
   <string name="AOA_free">Free</string>
   
   <!-- Add-on Activity - menu item to visit add-on website -->
-  <string name="AOA_visit_website">Visit Website</string>
+  <string name="AOA_visit_website">Web サイトの表示</string>
   
   <!-- Add-on Activity - menu item to visit android market -->
-  <string name="AOA_visit_market">Android Market</string>
+  <string name="AOA_visit_market">Android マーケット</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -515,7 +515,7 @@
   <string name="TWi_loading">読み込み中...</string>
 
   <!-- Widget configuration activity title: select a filter -->
-  <string name="WCA_title">Select tasks to view...</string>
+  <string name="WCA_title">ウィジェットに表示する項目</string>
   
   <!-- ============================================================= Misc == -->
   
@@ -547,24 +547,24 @@
     <string name="BFE_Search">検索</string>
     
     <!-- Recently Modified -->
-    <string name="BFE_Recent">Recently Modified</string>
+    <string name="BFE_Recent">最近編集したタスク</string>
     
     <!-- Build Your Own Filter -->
-    <string name="BFE_Custom">Custom Filter...</string>
+    <string name="BFE_Custom">カスタムフィルタ</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Saved Filters</string>
+    <string name="BFE_Saved">保存済フィルタ</string>
     
     <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">Delete Filter</string>
+    <string name="BFE_Saved_delete">フィルタの削除</string>
 
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- Build Your Own Filter Activity Title-->
-    <string name="CFA_title">Custom Filter</string>
+    <string name="CFA_title">カスタムフィルタ</string>
     
     <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
-    <string name="CFA_filterName_hint">Name this filter to save it...</string>
+    <string name="CFA_filterName_hint">フィルタの名称</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
     <string name="CFA_filterName_copy">Copy of %s</string>
@@ -573,44 +573,42 @@
     <string name="CFA_universe_all">進行中のタスク</string>
     
     <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
-    <string name="CFA_type_add">or</string>
+    <string name="CFA_type_add">または</string>
     
     <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
-    <string name="CFA_type_subtract">not</string>
+    <string name="CFA_type_subtract">除外</string>
     
     <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
-    <string name="CFA_type_intersect">also</string>
+    <string name="CFA_type_intersect">かつ</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
     <string name="CFA_context_chain">Chaining: %s</string>
     
     <!-- Filter Criteria Context Menu: delete -->
-    <string name="CFA_context_delete">Delete Row</string>
+    <string name="CFA_context_delete">条件の削除</string>
     
     <!-- Filter Screen Help Text -->
-    <string name="CFA_help">This screen lets you create a new filters. Add 
-    criteria using the button below, short or long-press them to adjust, and
-    then click \"View\"!</string>
+    <string name="CFA_help">新しいフィルタを作るには、左下のボタンで条件を追加し、項目のタップまたは長押しで条件を設定してください。右下のボタンで結果を表示します。</string>
     
     <!-- Filter Button: add new -->
-    <string name="CFA_button_add">Add Criteria</string>
+    <string name="CFA_button_add">条件の追加</string>
     
     <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">View</string>
+    <string name="CFA_button_view">表示</string>
     
     <!-- Filter Button: save & view filter -->
-    <string name="CFA_button_save">Save &amp; View</string>
+    <string name="CFA_button_save">保存と表示</string>
 
     <!-- =========================================== CustomFilterCriteria == -->
         
     <!-- Criteria: due by X - display text (? -> user input) -->
-    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <string name="CFC_dueBefore_text">期限: ?</string>
     <!-- Criteria: due by X - name of criteria -->
-    <string name="CFC_dueBefore_name">Due By...</string>
+    <string name="CFC_dueBefore_name">期限</string>
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
-        <item>No Due Date</item>
-        <item>Yesterday</item>
+        <item>期限なし</item>
+        <item>昨日</item>
         <item>今日</item>
         <item>明日</item>
         <item>明後日</item>
@@ -619,14 +617,14 @@
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Importance at least ?</string>
+    <string name="CFC_importance_text">重要度 ? 以上</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Importance...</string>        
+    <string name="CFC_importance_name">重要度</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">Tagged: ?</string>
+    <string name="CFC_tag_text">タグ: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Tagged...</string>
+    <string name="CFC_tag_name">タグ</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
     <string name="CFC_tag_contains_name">Tag contains...</string>
@@ -879,7 +877,7 @@
   <string name="rmd_NoA_filter">Reminder!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Already Done!</string>
+  <string name="rmd_NoA_done">既に完了しています!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">後で通知</string>
@@ -949,9 +947,9 @@
   <!-- Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">ランダムな通知</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
-  <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
+  <string name="rmd_EPr_defaultRemind_desc_disabled">新規タスクにランダムな通知を設定しません</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
+  <string name="rmd_EPr_defaultRemind_desc">新規タスクにランダムな通知を設定します: %s</string>
   
   <!-- Defaults Title -->
   <string name="rmd_EPr_defaults_header">タスクのデフォルト設定</string>
@@ -1052,14 +1050,14 @@
       <item>Time to start:</item>
       <item>It\'s time!</item>
       <item>Excuse me! Time for</item>
-      <item>You free? Time to</item>
+      <item>手、空いてる? これやらなくちゃ。</item>
   </string-array>
 
   <string-array name="reminders_snooze">
       <!-- reminders related to snooze -->
-      <item>Don\'t be lazy now!</item>
+      <item>今は怠けちゃダメ!</item>
       <item>Snooze time is up!</item>
-      <item>No more snoozing!</item>
+      <item>もう先延ばししないで!</item>
       <item>Now are you ready?</item>
       <item>No more postponing!</item>
   </string-array>
@@ -1127,10 +1125,10 @@
   
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours) -->
-    <item>毎日</item>
-    <item>毎週</item>
-    <item>毎月</item>
-    <item>毎時</item>
+    <item>日毎</item>
+    <item>週毎</item>
+    <item>か月毎</item>
+    <item>時間毎</item>
   </string-array>
   
   <string-array name="repeat_type">
@@ -1143,10 +1141,10 @@
   <string name="repeat_detail_byday">$I ($D 曜日)</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Every %s</string>
+  <string name="repeat_detail_duedate">%s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">%s after completion</string>
+  <string name="repeat_detail_completion">完了日から %s</string>
   
 
 
@@ -1230,7 +1228,7 @@ Error Message: %s
   <string name="TEA_tag_hint">タグ</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Select a tag</string>
+  <string name="TEA_tag_dropdown">既存タグを追加</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1238,13 +1236,13 @@ Error Message: %s
   <string name="tag_FEx_header">タグ</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Sorted By Size</string>
+  <string name="tag_FEx_by_size">件数順</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">タグなし</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">Tagged \'%s\'</string>
+  <string name="tag_FEx_name">%s タグ</string>
     
 
 

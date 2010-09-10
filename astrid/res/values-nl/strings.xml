@@ -48,9 +48,9 @@
     <!-- Preference: Automatic Backup Title -->    
     <string name="backup_BPr_auto_title">Automatic Backups</string>
     <!-- Preference: Automatic Backup Description (when disabled) -->
-    <string name="backup_BPr_auto_disabled">Automatic Backups Disabled</string>    
+    <string name="backup_BPr_auto_disabled">Automatische back-ups uitgeschakeld</string>    
     <!-- Preference: Automatic Backup Description (when enabled) -->
-    <string name="backup_BPr_auto_enabled">Backup will occur daily</string>
+    <string name="backup_BPr_auto_enabled">Back-up wordt dagelijks uitgevoerd</string>
     
     <!-- Preference screen restoring Tasks Help -->
     <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
@@ -63,18 +63,18 @@
   <string name="backup_BAc_label">Backups</string>
 
   <!-- backup activity title -->
-  <string name="backup_BAc_title">Manage Your Backups</string>
+  <string name="backup_BAc_title">Beheer je back-ups</string>
 
   <!-- backup activity import button -->
-  <string name="backup_BAc_import">Import Tasks</string>
+  <string name="backup_BAc_import">Taken importeren</string>
 
   <!-- backup activity export button -->
-  <string name="backup_BAc_export">Export Tasks</string>
+  <string name="backup_BAc_export">Taken exporteren</string>
     
   <!-- ============================================== Importer / Exporter == -->
   
   <!-- Message displayed when error occurs -->
-  <string name="backup_TXI_error">Import Error</string>
+  <string name="backup_TXI_error">Fout tijdens importeren</string>
     
   <string name="export_toast">%s gebackupped naar %s.</string>
     
@@ -165,12 +165,12 @@ File %s contained %s.\n\n
   <string name="WID_dateButtonLabel">$D $T</string>
   
   <!-- String formatter for Disable button -->
-  <string name="WID_disableButton">Disable</string>
+  <string name="WID_disableButton">Deactiveren</string>
   
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    
-  <string name="TLA_no_items">No Tasks!</string>
+  <string name="TLA_no_items">Geen taken!</string>
   
   <!-- Menu: Add-ons -->    
   <string name="TLA_menu_addons">Add-ons</string>
@@ -231,22 +231,22 @@ File %s contained %s.\n\n
   <string name="SSD_title">Sorting and Hidden Tasks</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Show Completed Tasks</string>
+  <string name="SSD_completed">Toon voltooide taken</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Show Hidden Tasks</string>
+  <string name="SSD_hidden">Toon verborgen taken</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
-  <string name="SSD_deleted">Show Deleted Tasks</string>
+  <string name="SSD_deleted">Toon verwijderde taken</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sort Options</string>
+  <string name="SSD_sort_header">Sorteeropties</string>
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Smart Sort</string>
   
   <!-- Sort Selection: sort by alpha -->
-  <string name="SSD_sort_alpha">By Title</string>
+  <string name="SSD_sort_alpha">Op titel</string>
   
   <!-- Sort Selection: sort by due date -->
   <string name="SSD_sort_due">By Due Date</string>
@@ -301,7 +301,7 @@ File %s contained %s.\n\n
   <!-- ================================================= TaskEditActivity == -->
   
   <!-- Title when editing a task (%s => task title) -->
-  <string name="TEA_view_title">Astrid: Editing \'%s\'</string>
+  <string name="TEA_view_title">Astrid: Bewerken \'%s\'</string>
   
   <!-- Title when creating a new task -->
   <string name="TEA_view_titleNew">Astrid: Nieuwe Taak</string>
@@ -310,13 +310,13 @@ File %s contained %s.\n\n
   <string name="TEA_tab_basic">Wat</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">Advanced</string>
+  <string name="TEA_tab_extra">Geavanceerd</string>
   
   <!-- Third Tab - add-ons -->
   <string name="TEA_tab_addons">Add-ons</string>
   
   <!-- Task title label -->
-  <string name="TEA_title_label">Title</string>
+  <string name="TEA_title_label">Titel</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
   <string name="TEA_title_hint">Task Summary</string>
@@ -334,7 +334,7 @@ File %s contained %s.\n\n
   <string name="TEA_urgency_time_none">No Time Set</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide Until</string>
+  <string name="TEA_hideUntil_label">Verbergen totdat</string>
   
   <!-- Task note label -->
   <string name="TEA_note_label">Notities</string>
@@ -349,10 +349,10 @@ File %s contained %s.\n\n
   <string name="TEA_elapsedDuration_label">Tijd besteed tot nu toe</string>
 
   <!-- Menu: Save -->    
-  <string name="TEA_menu_save">Save Changes</string>
+  <string name="TEA_menu_save">Sla wijzigingen op</string>
   
   <!-- Menu: Don't Save -->
-  <string name="TEA_menu_discard">Don\'t Save</string>
+  <string name="TEA_menu_discard">Niet opslaan</string>
   
   <!-- Menu: Delete Task -->
   <string name="TEA_menu_delete">Verwijder taak</string>
@@ -367,21 +367,21 @@ File %s contained %s.\n\n
   <string name="TEA_onTaskCancel">Task Editing Was Canceled</string>
   
   <!-- Toast: task was deleted -->
-  <string name="TEA_onTaskDelete">Task Deleted!</string>
+  <string name="TEA_onTaskDelete">Taak verwijderd!</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
       <item>Specific Day/Time</item>
-      <item>Today</item>
-      <item>Tomorrow</item>
+      <item>Vandaag</item>
+      <item>Morgen</item>
       <item>(day after)</item>
-      <item>Next Week</item>
-      <item>No Deadline</item>
+      <item>Volgende week</item>
+      <item>Geen deadline</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Don\'t hide</item>
+      <item>Niet verbergen</item>
       <item>Task is due</item>
       <item>Day before due</item>
       <item>Week before due</item>
@@ -454,7 +454,7 @@ File %s contained %s.\n\n
   <string name="EPr_default_hideUntil_desc">Currently: %s</string>
   
   <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <string name="EPr_default_reminders_title">Standaard herinneringen</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
   <string name="EPr_default_reminders_desc">Currently: %s</string>
   
@@ -468,16 +468,16 @@ File %s contained %s.\n\n
   
   <string-array name="EPr_default_urgency">
       <!-- urgency: labels for "Task Defaults" preference item. -->
-      <item>No Deadline</item>
-      <item>Today</item>
-      <item>Tomorrow</item>
-      <item>Day After Tomorrow</item>
-      <item>Next Week</item>
+      <item>Geen deadline</item>
+      <item>Vandaag</item>
+      <item>Morgen</item>
+      <item>Overmorgen</item>
+      <item>Volgende week</item>
   </string-array>
   
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
-      <item>Don\'t hide</item>
+      <item>Niet verbergen</item>
       <item>Task is due</item>
       <item>Day before due</item>
       <item>Week before due</item>
@@ -500,7 +500,7 @@ File %s contained %s.\n\n
   <string name="AOA_internal_author">Astrid Team</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
-  <string name="AOA_tab_installed">Installed</string>
+  <string name="AOA_tab_installed">Geïnstalleerd</string>
   
   <!-- Add-on Activity - available add-ons tab -->
   <string name="AOA_tab_available">Available</string>
@@ -509,7 +509,7 @@ File %s contained %s.\n\n
   <string name="AOA_free">Free</string>
   
   <!-- Add-on Activity - menu item to visit add-on website -->
-  <string name="AOA_visit_website">Visit Website</string>
+  <string name="AOA_visit_website">Bezoek website</string>
   
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
@@ -550,7 +550,7 @@ Astrid might not let you know when your tasks are due.\n
     <!-- ================================================= Filter Exposer == -->
     
     <!-- Active Tasks Filter -->
-    <string name="BFE_Active">Active Tasks</string>
+    <string name="BFE_Active">Actieve taken</string>
         
     <!-- Search Filter -->
     <string name="BFE_Search">Search...</string>
@@ -579,7 +579,7 @@ Astrid might not let you know when your tasks are due.\n
     <string name="CFA_filterName_copy">Copy of %s</string>
     
     <!-- Filter Starting Universe: all tasks -->
-    <string name="CFA_universe_all">Active Tasks</string>
+    <string name="CFA_universe_all">Actieve taken</string>
     
     <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
     <string name="CFA_type_add">or</string>
@@ -619,11 +619,11 @@ Astrid might not let you know when your tasks are due.\n
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
         <item>No Due Date</item>
-        <item>Yesterday</item>
-        <item>Today</item>
-        <item>Tomorrow</item>
-        <item>Day After Tomorrow</item>
-        <item>Next Week</item>
+        <item>Gisteren</item>
+        <item>Vandaag</item>
+        <item>Morgen</item>
+        <item>Overmorgen</item>
+        <item>Volgende week</item>
         <item>Next Month</item>
     </string-array>
     
@@ -792,16 +792,16 @@ Astrid might not let you know when your tasks are due.\n
     <string name="producteev_PLA_email">E-mail</string>
 
     <!-- Password Label -->    
-    <string name="producteev_PLA_password">Password</string>
+    <string name="producteev_PLA_password">Wachtwoord</string>
 
     <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+    <string name="producteev_PLA_confirmPassword">Bevestig wachtwoord</string>
 
     <!-- First Name Label -->    
-    <string name="producteev_PLA_firstName">First Name</string>
+    <string name="producteev_PLA_firstName">Voornaam</string>
 
     <!-- Last Name Label -->    
-    <string name="producteev_PLA_lastName">Last Name</string>
+    <string name="producteev_PLA_lastName">Achternaam</string>
 
     <!-- Error Message when fields aren't filled out -->    
     <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
@@ -888,7 +888,7 @@ Astrid might not let you know when your tasks are due.\n
   <string name="rmd_NoA_filter">Reminder!</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Already Done!</string>
+  <string name="rmd_NoA_done">Al gedaan!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">Snooze...</string>
@@ -972,65 +972,65 @@ Astrid might not let you know when your tasks are due.\n
     <item>dagelijks</item>
     <item>wekelijks</item>
     <item>bi-weekly</item>
-    <item>monthly</item>
+    <item>maandelijks</item>
     <item>bi-monthly</item>
   </string-array>
         
   <string-array name="EPr_quiet_hours_start">
     <!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
     <item>uitgeschakeld</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
+    <item>20:00</item>
+    <item>21:00</item>
+    <item>22:00</item>
+    <item>23:00</item>
+    <item>00:00</item>
+    <item>01:00</item>
+    <item>02:00</item>
+    <item>03:00</item>
+    <item>04:00</item>
+    <item>05:00</item>
+    <item>06:00</item>
+    <item>07:00</item>
+    <item>08:00</item>
+    <item>09:00</item>
+    <item>10:00</item>
+    <item>11:00</item>
+    <item>12:00</item>
+    <item>13:00</item>
+    <item>14:00</item>
+    <item>15:00</item>
+    <item>16:00</item>
+    <item>17:00</item>
+    <item>18:00</item>
+    <item>19:00</item>
   </string-array>
   
   <string-array name="EPr_quiet_hours_end">
     <!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times! -->
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
+    <item>09:00</item>
+    <item>10:00</item>
+    <item>11:00</item>
+    <item>12:00</item>
+    <item>13:00</item>
+    <item>14:00</item>
+    <item>15:00</item>
+    <item>16:00</item>
+    <item>17:00</item>
+    <item>18:00</item>
+    <item>19:00</item>
+    <item>20:00</item>
+    <item>21:00</item>
+    <item>22:00</item>
+    <item>23:00</item>
+    <item>00:00</item>
+    <item>01:00</item>
+    <item>02:00</item>
+    <item>03:00</item>
+    <item>04:00</item>
+    <item>05:00</item>
+    <item>06:00</item>
+    <item>07:00</item>
+    <item>08:00</item>
   </string-array>
   
   <!-- =============================================== random reminders == -->
@@ -1048,43 +1048,43 @@ Astrid might not let you know when your tasks are due.\n
       <item>Hier is Astrid!</item>
       <item>Hallo! Mag ik je even storen?</item>
       <item>Mag ik even de aandacht?</item>
-      <item>It\'s a great day to</item>
+      <item>Het is een fantastische dag om</item>
   </string-array>
 
   <string-array name="reminders_due">
       <!-- reminders related to task due date -->
-      <item>Time to work!</item>
+      <item>Tijd om aan de slag te gaan!</item>
       <item>Due date is here!</item>
-      <item>Ready to start?</item>
+      <item>Klaar voor de start?</item>
       <item>You said you would do:</item>
       <item>You\'re supposed to start:</item>
       <item>Time to start:</item>
-      <item>It\'s time!</item>
+      <item>Het is tijd!</item>
       <item>Excuse me! Time for</item>
-      <item>You free? Time to</item>
+      <item>Heb je even? Het is tijd voor:</item>
   </string-array>
 
   <string-array name="reminders_snooze">
       <!-- reminders related to snooze -->
-      <item>Don\'t be lazy now!</item>
+      <item>Niet lui zijn nu!</item>
       <item>Snooze time is up!</item>
       <item>No more snoozing!</item>
-      <item>Now are you ready?</item>
+      <item>Ben je nu eindelijk klaar?</item>
       <item>No more postponing!</item>
   </string-array>
   
   <string-array name="reminder_responses">
       <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
-      <item>I\'ve got something for you!</item> 
+      <item>Ik heb iets voor je!</item> 
       <item>Klaar om af te vinken?</item>
       <item>Why don\'t you get this done?</item>
-      <item>Hoe is\'t, ben je er klaar voor?</item>
+      <item>Hoe is het, ben je er klaar voor?</item>
       <item>Klaar voor de start?</item>
       <item>Kun je dit regelen?</item>
       <item>Eeuwige roem lonkt! Maak dit af!</item>
-      <item>I promise you\'ll feel better if you finish this!</item>
+      <item>Ik beloof je dat je je beter zult voelen als je dit afmaakt!</item>
       <item>Won\'t you do this today?</item>
-      <item>Please finish this, I\'m sick of it!</item>
+      <item>Maak dit alsjeblieft af, ik word er niet goed van!</item>
       <item>Kan dit af? Natuurlijk kan het af!</item>
       <item>Gaat dit ooit afkomen?</item>
       <item>Feel good about yourself! Let\'s go!</item>
@@ -1104,10 +1104,10 @@ Astrid might not let you know when your tasks are due.\n
       <item>Just finish this today, I won\'t tell anyone!</item>
       <item>Waarom uitstellen? Je kan het ook gewoon doen!</item>
       <item>You\'ll finish this eventually, I presume?</item>
-      <item>I think you\'re really great! How about not putting this off?</item>
+      <item>Ik vind je fantastisch! Als je dit nou eens niet uit zou stellen?</item>
       <item>Bereik je doel, maak dit af!</item>
-      <item>Van uitstel komt afstel. Wanneer leer je nou eens?</item>
-      <item>I\'ve had enough with your excuses! Just do it already!</item>
+      <item>Uitstellen, uitstellen, uitstellen. Wanneer leer je het nu eens?</item>
+      <item>Ik heb genoeg van je uitvluchten! Doe het nu maar gewoon!</item>
       <item>Didn\'t you make that excuse last time?</item>
       <item>I can\'t help you organize your life if you do that...</item>
   </string-array>
@@ -1129,7 +1129,7 @@ Astrid might not let you know when your tasks are due.\n
   <string name="repeat_enabled">Herhalingen</string>
   
   <!-- button for "every x" part of repeat (%d -> repeat value)  -->
-  <string name="repeat_every">Every %d</string>
+  <string name="repeat_every">Elke %d</string>
   
   <!-- hint when opening repeat interval -->
   <string name="repeat_interval_prompt">Repeat Interval</string>
