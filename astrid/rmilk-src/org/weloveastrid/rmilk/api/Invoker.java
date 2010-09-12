@@ -176,6 +176,7 @@ public class Invoker {
                     } catch (InterruptedException e) {
                         // ignore
                     }
+                    response.getEntity().consumeContent();
                     return invoke(true, params);
                 }
 

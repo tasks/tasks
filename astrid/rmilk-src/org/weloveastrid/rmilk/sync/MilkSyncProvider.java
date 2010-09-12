@@ -485,7 +485,13 @@ public class MilkSyncProvider extends SyncProvider<MilkTaskContainer> {
         if(remerge) {
             remote = pull(local);
             remote.task.setId(local.task.getId());
-            write(remote);
+
+            // transform local into remote
+            local.task = remote.task;
+            local.listId = remote.listId;
+            local.taskId = remote.taskId;
+            local.repeating = remote.repeating;
+            local.taskSeriesId = remote.taskSeriesId;
         }
     }
 

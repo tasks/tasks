@@ -59,7 +59,7 @@ public class RtmTask
     High, Medium, Low, None;
 
     public static Priority values(Integer value) {
-        value = Math.max(values().length - 1, value);
+        value = Math.min(values().length - 1, value);
         return values()[value];
     }
   }
