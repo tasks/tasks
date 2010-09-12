@@ -101,7 +101,7 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if(from <= V2_14_4)
-            newVersionString(changeLog, "3.3.0 (8/25/10)", new String[] {
+            newVersionString(changeLog, "3.3.0 (9/12/10)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
                     "look and feel, a new add-on system allows Astrid to become " +
                     "more powerful, while other improvements have made it faster " +
@@ -110,8 +110,12 @@ public final class UpgradeService {
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
         if(from >= V3_0_0 && from < V3_3_0)
-            newVersionString(changeLog, "3.3.0 (        )", new String[] {
-                    "something!",
+            newVersionString(changeLog, "3.3.0 (9/12/10)", new String[] {
+                    "Fixed some RTM duplicated tasks issues",
+                    "UI updates based on your feedback",
+                    "Snooze now overrides other alarms",
+                    "Added preference option for selecting snooze style",
+                    "Hide until: now allows you to pick a specific time",
             });
         if(from >= V3_0_0 && from < V3_2_0)
             newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
