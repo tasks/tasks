@@ -3,6 +3,8 @@ package com.todoroo.astrid.service;
 import java.io.File;
 import java.util.List;
 
+import org.weloveastrid.rmilk.MilkUtilities;
+
 import android.Manifest;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -23,14 +25,13 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.alarms.AlarmService;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
-import com.todoroo.astrid.reminders.ReminderService;
+import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 import com.todoroo.astrid.widget.TasksWidget.UpdateService;
@@ -126,16 +127,11 @@ public class StartupService {
                 taskService.cleanup();
 
                 // schedule alarms
-                try {
-                    ReminderService.getInstance().scheduleAllAlarms();
-                    AlarmService.getInstance().scheduleAllAlarms();
-                } catch (Exception e) {
-                    DependencyInjectionService.getInstance().inject(this);
-                    exceptionService.reportError("reminder-startup", e); //$NON-NLS-1$
-                }
+                ReminderStartupReceiver.startReminderSchedulingService(context);
 
                 // if sync ongoing flag was set, clear it
                 ProducteevUtilities.INSTANCE.stopOngoing();
+                MilkUtilities.INSTANCE.stopOngoing();
 
                 ProducteevBackgroundService.scheduleService();
                 BackupService.scheduleService(context);

@@ -382,6 +382,7 @@
               android:finishOnTaskLaunch="true"
               android:clearTaskOnLaunch="true">
     </activity>
+    <service android:name="com.todoroo.astrid.reminders.ReminderSchedulingService"/>
               
     <!-- producteev -->
     <receiver android:name="com.todoroo.astrid.producteev.ProducteevFilterExposer">
