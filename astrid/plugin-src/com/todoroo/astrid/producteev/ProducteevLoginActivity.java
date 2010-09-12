@@ -31,6 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -38,6 +39,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.producteev.api.ApiAuthenticationException;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 /**
@@ -142,6 +144,8 @@ public class ProducteevLoginActivity extends Activity {
                     Preferences.setString(R.string.producteev_PPr_password, password);
                     ProducteevUtilities.INSTANCE.setToken(invoker.getToken());
 
+                    FlurryAgent.onEvent("producteev-login");
+
                     synchronize();
                 } catch (ApiAuthenticationException e) {
                     errorMessage.append(getString(R.string.producteev_PLA_errorAuth));
@@ -181,6 +185,8 @@ public class ProducteevLoginActivity extends Activity {
                     Preferences.setString(R.string.producteev_PPr_password, password);
                     ProducteevUtilities.INSTANCE.setToken(invoker.getToken());
 
+                    FlurryAgent.onEvent("producteev-signup"); //$NON-NLS-1$
+
                     synchronize();
                 } catch (Exception e) {
                     errorMessage.append(e.getMessage());
@@ -206,5 +212,15 @@ public class ProducteevLoginActivity extends Activity {
         startService(new Intent(ProducteevBackgroundService.SYNC_ACTION, null,
                 this, ProducteevBackgroundService.class));
         finish();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+    }
+
+    private void onEn() {
+        FlurryAgent.onEndSession(this);
     }
 }

@@ -145,5 +145,7 @@ public class WidgetConfigActivity extends ExpandableListActivity {
         Preferences.setString(TasksWidget.PREF_TITLE + mAppWidgetId, title);
         Preferences.setString(TasksWidget.PREF_SQL + mAppWidgetId, sql);
         Preferences.setString(TasksWidget.PREF_VALUES + mAppWidgetId, contentValuesString);
+
+        FlurryAgent.onEvent("widget-config"); //$NON-NLS-1$
     }
 }
