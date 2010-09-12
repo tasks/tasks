@@ -173,6 +173,7 @@ public class RepeatControlSet implements TaskEditControlSet {
     }
 
 
+    @SuppressWarnings("nls")
     @Override
     public void readFromTask(Task task) {
         model = task;
@@ -239,7 +240,7 @@ public class RepeatControlSet implements TaskEditControlSet {
     public String writeToModel(Task task) {
         String result;
         if(!enabled.isChecked())
-            result = "";
+            result = ""; //$NON-NLS-1$
         else {
             if(TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
                 FlurryAgent.onEvent("repeat-task-create"); //$NON-NLS-1$
