@@ -259,7 +259,7 @@ public class MilkSyncProvider extends SyncProvider<MilkTaskContainer> {
 
             // try the quick synchronization
             try {
-                Thread.sleep(2000); // throttle
+                Thread.sleep(1000); // throttle
                 RtmTasks tasks = rtmService.tasks_getList(null, filter, lastSyncDate);
                 addTasksToList(tasks, remoteChanges);
             } catch (Exception e) {
