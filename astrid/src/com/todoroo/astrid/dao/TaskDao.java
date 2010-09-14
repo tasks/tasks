@@ -159,10 +159,6 @@ public class TaskDao extends DatabaseDao<Task> {
                 return false;
         }
 
-        // clear task detail cache
-        if(values != null && !values.containsKey(Task.DETAILS.name))
-            values.put(Task.DETAILS.name, ""); //$NON-NLS-1$
-
         if (task.getId() == Task.NO_ID) {
             saveSuccessful = createNew(task);
         } else {

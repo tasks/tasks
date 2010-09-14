@@ -272,7 +272,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             nameView.setText(nameValue);
 
             nameView.setMovementMethod(null);
-            Linkify.addLinks(nameView, Linkify.ALL);
+            if(nameValue.contains(".") || nameValue.contains("-")) //$NON-NLS-1$ //$NON-NLS-2$
+                Linkify.addLinks(nameView, Linkify.EMAIL_ADDRESSES | Linkify.PHONE_NUMBERS |
+                    Linkify.WEB_URLS);
         }
 
         // due date / completion date
@@ -568,7 +570,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         detailImageGetter, null));
             else
                 view.setText(string.trim());
-            Linkify.addLinks(view, Linkify.ALL);
+            if(string.contains(".") || string.contains("-"))
+                Linkify.addLinks(view, Linkify.EMAIL_ADDRESSES | Linkify.PHONE_NUMBERS |
+                    Linkify.WEB_URLS);
         }
 
         @Override
