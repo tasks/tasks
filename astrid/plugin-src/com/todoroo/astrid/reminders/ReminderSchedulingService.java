@@ -6,6 +6,7 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.alarms.AlarmService;
 
 /**
@@ -17,18 +18,34 @@ import com.todoroo.astrid.alarms.AlarmService;
 public class ReminderSchedulingService extends Service {
 
     /** Receive the alarm - start the synchronize service! */
-    @SuppressWarnings("nls")
     @Override
-    public void onStart(Intent intent, int startId) {
-        ContextManager.setContext(this);
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        ContextManager.setContext(ReminderSchedulingService.this);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                delaySchedulingToPreventANRs();
+                scheduleReminders();
+
+                stopSelf();
+            }
+        }).start();
+
+        return START_NOT_STICKY;
+    }
+
+    @SuppressWarnings("nls")
+    private void scheduleReminders() {
         try {
             ReminderService.getInstance().scheduleAllAlarms();
             AlarmService.getInstance().scheduleAllAlarms();
         } catch (Exception e) {
             Log.e("reminder-scheduling", "reminder-startup", e);
         }
-
-        stopSelf();
+    }
+    private void delaySchedulingToPreventANRs() {
+        AndroidUtilities.sleepDeep(5000L);
     }
 
     @Override

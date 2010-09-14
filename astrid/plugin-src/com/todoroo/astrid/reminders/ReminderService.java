@@ -24,6 +24,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
 
@@ -354,7 +355,8 @@ public final class ReminderService  {
                 if(time < DateUtilities.now())
                     time = DateUtilities.now() + 5000L;
 
-                Log.e("Astrid", "Alarm (" + task.getId() + ", " + type +
+                if(Constants.DEBUG)
+                    Log.e("Astrid", "Alarm (" + task.getId() + ", " + type +
                         ") set for " + new Date(time));
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
             }
