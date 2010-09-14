@@ -101,7 +101,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private AddOnService addOnService;
 
     protected final ListActivity activity;
-    protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>();
+    protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
     private OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
     private final int resource;
@@ -288,13 +288,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Overdue);
                 }
 
-                Date dueDateAsDate = DateUtilities.unixtimeToDate(dueDate);
-                String dateValue = formatDate(dueDateAsDate);
+                String dateValue = formatDate(dueDate);
                 dueDateView.setText(dateValue);
                 setVisibility(dueDateView);
             } else if(task.isCompleted()) {
-                String dateValue = DateUtilities.getDateStringWithWeekday(activity,
-                        new Date(task.getValue(Task.COMPLETION_DATE)));
+                String dateValue = formatDate(task.getValue(Task.COMPLETION_DATE));
                 dueDateView.setText(r.getString(R.string.TAd_completed, dateValue));
                 dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
                 setVisibility(dueDateView);
@@ -375,7 +373,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * ============================================================== details
      * ====================================================================== */
 
-    private final HashMap<String, Spanned> htmlCache = new HashMap<String, Spanned>();
+    private final HashMap<String, Spanned> htmlCache = new HashMap<String, Spanned>(8);
 
     private Spanned convertToHtml(String string, ImageGetter imageGetter, TagHandler tagHandler) {
         if(!htmlCache.containsKey(string)) {
@@ -386,17 +384,17 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         return htmlCache.get(string);
     }
 
-    private final HashMap<Date, String> dateCache = new HashMap<Date, String>();
+    private final HashMap<Long, String> dateCache = new HashMap<Long, String>(8);
 
-    private String formatDate(Date date) {
+    private String formatDate(long date) {
         if(dateCache.containsKey(date))
             return dateCache.get(date);
 
         String string;
-        if(Task.hasDueTime(date.getTime()))
-            string = DateUtilities.getDateStringWithTimeAndWeekday(activity, date);
+        if(Task.hasDueTime(date))
+            string = DateUtilities.getDateStringWithTimeAndWeekday(activity, new Date(date));
         else
-            string = DateUtilities.getDateStringWithWeekday(activity, date);
+            string = DateUtilities.getDateStringWithWeekday(activity, new Date(date));
         dateCache.put(date, string);
         return string;
     }
@@ -404,7 +402,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     // implementation note: this map is really costly if users have
     // a large number of tasks to load, since it all goes into memory.
     // it's best to do this, though, in order to append details to each other
-    private final Map<Long, StringBuilder> taskDetailLoader = Collections.synchronizedMap(new HashMap<Long, StringBuilder>());
+    private final Map<Long, StringBuilder> taskDetailLoader = Collections.synchronizedMap(new HashMap<Long, StringBuilder>(0));
 
     private final Task taskDetailContainer = new Task();
 
@@ -417,7 +415,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
             activity.startManagingCursor(fetchCursor);
             try {
-                Task task = new Task();
+                Task task = taskDetailContainer;
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                     task.clear();
                     task.readFromCursor(fetchCursor);
@@ -480,7 +478,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private final ImageGetter detailImageGetter = new ImageGetter() {
         private final HashMap<Integer, Drawable> cache =
-            new HashMap<Integer, Drawable>();
+            new HashMap<Integer, Drawable>(3);
         public Drawable getDrawable(String source) {
             Resources r = activity.getResources();
             int drawable = r.getIdentifier("drawable/" + source, null, Constants.PACKAGE); //$NON-NLS-1$
@@ -534,9 +532,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             //
         }
 
+        private final Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
+
         @Override
         Intent createBroadcastIntent(Task task) {
-            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, true);
             return broadcastIntent;
@@ -546,6 +545,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public void addNew(long taskId, String addOn, String item) {
             super.addNew(taskId, addOn, item);
         }
+
+        private final StringBuilder detailText = new StringBuilder();
 
         @SuppressWarnings("nls")
         @Override
@@ -558,7 +559,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return;
             }
             view.setVisibility(View.VISIBLE);
-            StringBuilder detailText = new StringBuilder();
+            detailText.setLength(0);
             for(Iterator<String> iterator = details.iterator(); iterator.hasNext(); ) {
                 detailText.append(iterator.next());
                 if(iterator.hasNext())
@@ -589,9 +590,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      *
      */
     public class DecorationManager extends AddOnManager<TaskDecoration> {
+        private final Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DECORATIONS);
+
         @Override
         Intent createBroadcastIntent(Task task) {
-            Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DECORATIONS);
             intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
             intent.putExtra(BROADCAST_EXTRA_TASK, task);
             return intent;
@@ -614,7 +616,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             int i = 0;
             boolean colorSet = false;
-            viewHolder.decorations = new View[decorations.size()];
+            if(viewHolder.decorations.length != decorations.size())
+                viewHolder.decorations = new View[decorations.size()];
             for(TaskDecoration decoration : decorations) {
                 if(decoration.color != 0 && !colorSet) {
                     colorSet = true;
@@ -660,11 +663,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
                     LayoutParams.FILL_PARENT, 1f);
 
+        private final Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
+
         @Override
         Intent createBroadcastIntent(Task task) {
-            Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
-            intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            return intent;
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+            return broadcastIntent;
         }
 
         @Override
@@ -858,7 +862,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     abstract public class AddOnManager<TYPE> {
 
         private final Map<Long, HashMap<String, TYPE>> cache =
-            Collections.synchronizedMap(new HashMap<Long, HashMap<String, TYPE>>());
+            Collections.synchronizedMap(new HashMap<Long, HashMap<String, TYPE>>(0));
 
         // --- interface
 
@@ -936,7 +940,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         protected synchronized Collection<TYPE> initialize(long taskId) {
             if(cache.containsKey(taskId) && cache.get(taskId) != null)
                 return get(taskId);
-            cache.put(taskId, new HashMap<String, TYPE>());
+            cache.put(taskId, new HashMap<String, TYPE>(0));
             return null;
         }
 
