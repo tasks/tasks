@@ -422,20 +422,24 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     if(task.isCompleted())
                         continue;
 
-                    if(task.getValue(Task.DETAILS_DATE) < task.getValue(Task.MODIFICATION_DATE)) {
-                        taskDetailLoader.put(task.getId(), new StringBuilder(task.getValue(Task.DETAILS)));
+                    if(task.getValue(Task.DETAILS_DATE) >= task.getValue(Task.MODIFICATION_DATE))
+                        continue;
 
-                        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-                        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-                        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-                        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+                    if(task.getValue(Task.DETAILS_DATE) < DateUtilities.now() - 3 * DateUtilities.ONE_DAY)
+                        continue;
 
-                        if(TextUtils.isEmpty(task.getValue(Task.DETAILS))) {
-                            task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
-                        }
-                        task.setValue(Task.DETAILS_DATE, DateUtilities.now());
-                        taskService.save(task);
+                    taskDetailLoader.put(task.getId(), new StringBuilder(task.getValue(Task.DETAILS)));
+
+                    Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
+                    broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+                    broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
+                    activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+
+                    if(TextUtils.isEmpty(task.getValue(Task.DETAILS))) {
+                        task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
                     }
+                    task.setValue(Task.DETAILS_DATE, DateUtilities.now());
+                    taskService.save(task);
                 }
             } catch (Exception e) {
                 // suppress silently
