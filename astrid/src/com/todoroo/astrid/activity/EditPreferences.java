@@ -14,9 +14,9 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -140,7 +140,7 @@ public class EditPreferences extends TodorooPreferences {
         preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
             public boolean onPreferenceClick(Preference p) {
                 database.openForWriting();
-                Toast.makeText(EditPreferences.this, "" + taskService.clearDetails(),
+                Toast.makeText(EditPreferences.this, "" + taskService.clearDetails(Criterion.all),
                         Toast.LENGTH_LONG).show();
                 return false;
             }
@@ -186,8 +186,10 @@ public class EditPreferences extends TodorooPreferences {
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
             else
                 preference.setSummary(R.string.EPr_showNotes_desc_enabled);
-            if((Boolean)value != Preferences.getBoolean(preference.getKey(), false))
+            if((Boolean)value != Preferences.getBoolean(preference.getKey(), false)) {
+                taskService.clearDetails(Task.NOTES.neq(""));
                 Flags.set(Flags.REFRESH);
+            }
         }
     }
 

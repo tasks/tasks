@@ -6,6 +6,7 @@ import android.content.Intent;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.utility.Flags;
 
@@ -33,7 +34,7 @@ public final class GlobalEventReceiver extends BroadcastReceiver {
         DependencyInjectionService.getInstance().inject(this);
 
         if(AstridApiConstants.BROADCAST_EVENT_FLUSH_DETAILS.equals(intent.getAction())) {
-            taskService.clearDetails();
+            taskService.clearDetails(Criterion.all);
             Flags.set(Flags.REFRESH);
         }
     }

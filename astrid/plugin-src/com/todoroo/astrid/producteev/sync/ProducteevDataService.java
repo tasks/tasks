@@ -84,7 +84,8 @@ public final class ProducteevDataService {
         metadataService.deleteWhere(Metadata.KEY.eq(ProducteevTask.METADATA_KEY));
         metadataService.deleteWhere(Metadata.KEY.eq(ProducteevNote.METADATA_KEY));
         storeObjectDao.deleteWhere(StoreObject.TYPE.eq(ProducteevDashboard.TYPE));
-        PluginServices.getTaskService().clearDetails();
+        PluginServices.getTaskService().clearDetails(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
+                where(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY))));
     }
 
     /**
