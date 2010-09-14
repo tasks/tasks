@@ -16,16 +16,16 @@ import android.database.Cursor;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.text.Html.ImageGetter;
 import android.text.TextUtils;
+import android.text.Html.ImageGetter;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -397,14 +397,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     task.readFromCursor(fetchCursor);
                     if(task.isCompleted())
                         continue;
+
+                    taskDetailLoader.put(task.getId(), new StringBuilder(task.getValue(Task.DETAILS)));
+
+                    Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
+                    broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+                    broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
+                    activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+
                     if(TextUtils.isEmpty(task.getValue(Task.DETAILS))) {
-                        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-                        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-                        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-                        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-
-                        taskDetailLoader.put(task.getId(), new StringBuilder());
-
                         task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
                         taskService.save(task);
                     }
@@ -448,13 +449,20 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     private final ImageGetter detailImageGetter = new ImageGetter() {
+        private final HashMap<Integer, Drawable> cache =
+            new HashMap<Integer, Drawable>();
         public Drawable getDrawable(String source) {
             Resources r = activity.getResources();
             int drawable = r.getIdentifier("drawable/" + source, null, Constants.PACKAGE); //$NON-NLS-1$
             if(drawable == 0)
                 return null;
-            Drawable d = r.getDrawable(drawable);
-            d.setBounds(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
+            Drawable d;
+            if(!cache.containsKey(drawable)) {
+                 d = r.getDrawable(drawable);
+                 d.setBounds(0,0,d.getIntrinsicWidth(),d.getIntrinsicHeight());
+                cache.put(drawable, d);
+            } else
+                d = cache.get(drawable);
             return d;
         }
     };
