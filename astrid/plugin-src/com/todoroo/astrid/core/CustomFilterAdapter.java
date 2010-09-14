@@ -5,7 +5,6 @@ package com.todoroo.astrid.core;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -35,10 +34,10 @@ import com.todoroo.astrid.data.AddOn;
   */
 public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
-    private final Activity activity;
+    private final CustomFilterActivity activity;
     private final LayoutInflater inflater;
 
-    public CustomFilterAdapter(Activity activity, List<CriterionInstance> objects) {
+    public CustomFilterAdapter(CustomFilterActivity activity, List<CriterionInstance> objects) {
         super(activity, R.id.name, objects);
         this.activity = activity;
         inflater = (LayoutInflater) activity.getSystemService(
@@ -59,6 +58,7 @@ public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
             showOptionsFor(viewHolder.item, new Runnable() {
                 @Override
                 public void run() {
+                    activity.updateList();
                     notifyDataSetInvalidated();
                 }
             });

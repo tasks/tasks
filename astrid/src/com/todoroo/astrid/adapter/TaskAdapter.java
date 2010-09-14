@@ -116,7 +116,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     // --- task detail and decoration soft caches
 
-    public final DetailManager extendedDetailManager = new DetailManager();
+    public final ExtendedDetailManager extendedDetailManager = new ExtendedDetailManager();
     public final DecorationManager decorationManager =
         new DecorationManager();
     public final TaskActionManager taskActionManager = new TaskActionManager();
@@ -530,13 +530,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public class DetailManager extends AddOnManager<String> {
+    public class ExtendedDetailManager extends AddOnManager<String> {
+        private final Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
 
-        public DetailManager() {
+        public ExtendedDetailManager() {
             //
         }
-
-        private final Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
 
         @Override
         Intent createBroadcastIntent(Task task) {
@@ -598,6 +597,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         @Override
         Intent createBroadcastIntent(Task task) {
+            // TODO performance hack hack
+            if(task.getValue(Task.TIMER_START) ==  0 &&
+                    task.getValue(Task.ELAPSED_SECONDS) == 0)
+                return null;
             intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
             intent.putExtra(BROADCAST_EXTRA_TASK, task);
             return intent;
@@ -620,7 +623,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             int i = 0;
             boolean colorSet = false;
-            if(viewHolder.decorations.length != decorations.size())
+            if(viewHolder.decorations == null || viewHolder.decorations.length != decorations.size())
                 viewHolder.decorations = new View[decorations.size()];
             for(TaskDecoration decoration : decorations) {
                 if(decoration.color != 0 && !colorSet) {
@@ -886,7 +889,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             // request details
             draw(viewHolder, taskId, get(taskId));
             Intent broadcastIntent = createBroadcastIntent(viewHolder.task);
-            activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            if(broadcastIntent != null)
+                activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
             return true;
         }
 

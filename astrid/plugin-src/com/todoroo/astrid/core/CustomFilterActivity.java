@@ -344,7 +344,7 @@ public class CustomFilterActivity extends ListActivity {
             CriterionInstance instance = adapter.getItem(i);
             String value = instance.getValueFromCriterion();
             if(value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?"))
-                continue;
+                value = "";
 
             String title = instance.getTitleFromCriterion();
 
@@ -415,7 +415,7 @@ public class CustomFilterActivity extends ListActivity {
             CriterionInstance instance = adapter.getItem(i);
             String value = instance.getValueFromCriterion();
             if(value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?"))
-                continue;
+                value = "";
 
             switch(instance.type) {
             case CriterionInstance.TYPE_ADD:
@@ -447,6 +447,7 @@ public class CustomFilterActivity extends ListActivity {
                 instance.end = cursor.getInt(0);
                 last = instance.end;
                 max = Math.max(max, last);
+                System.err.println("updated instance to " + last);
             } finally {
                 cursor.close();
             }
