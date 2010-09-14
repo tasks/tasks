@@ -144,7 +144,7 @@
       <meta-data android:name="android.appwidget.provider"
                  android:resource="@xml/widget_provider_info" />
     </receiver>
-    <receiver android:name="com.todoroo.astrid.widget.PowerWidget"    
+    <!-- receiver android:name="com.todoroo.astrid.widget.PowerWidget"    
                 android:label="@string/PPW_widget_44_label"
                 android:icon="@drawable/icon_pp" >
       <intent-filter>
@@ -162,7 +162,7 @@
       </intent-filter>
       <meta-data android:name="android.appwidget.provider"
                  android:resource="@xml/power_widget_42_provider_info" />
-    </receiver>
+    </receiver -->
 
     <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
       <intent-filter>
