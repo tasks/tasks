@@ -16,8 +16,10 @@ import android.database.Cursor;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.Html.ImageGetter;
+import android.text.Html.TagHandler;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
@@ -284,13 +286,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Overdue);
                 }
 
-                String dateValue;
                 Date dueDateAsDate = DateUtilities.unixtimeToDate(dueDate);
-                if (task.hasDueTime()) {
-                    dateValue = DateUtilities.getDateStringWithTimeAndWeekday(activity, dueDateAsDate);
-                } else {
-                    dateValue = DateUtilities.getDateStringWithWeekday(activity, dueDateAsDate);
-                }
+                String dateValue = formatDate(dueDateAsDate);
                 dueDateView.setText(dateValue);
                 setVisibility(dueDateView);
             } else if(task.isCompleted()) {
@@ -332,7 +329,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.details.setVisibility(View.GONE);
         } else {
             viewHolder.details.setVisibility(View.VISIBLE);
-            viewHolder.details.setText(Html.fromHtml(details.trim().replace("\n", //$NON-NLS-1$
+            viewHolder.details.setText(convertToHtml(details.trim().replace("\n", //$NON-NLS-1$
                     "<br>"), detailImageGetter, null)); //$NON-NLS-1$
         }
 
@@ -376,6 +373,32 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * ============================================================== details
      * ====================================================================== */
 
+    private final HashMap<String, Spanned> htmlCache = new HashMap<String, Spanned>();
+
+    private Spanned convertToHtml(String string, ImageGetter imageGetter, TagHandler tagHandler) {
+        if(!htmlCache.containsKey(string)) {
+            Spanned html = Html.fromHtml(string, imageGetter, tagHandler);
+            htmlCache.put(string, html);
+            return html;
+        }
+        return htmlCache.get(string);
+    }
+
+    private final HashMap<Date, String> dateCache = new HashMap<Date, String>();
+
+    private String formatDate(Date date) {
+        if(dateCache.containsKey(date))
+            return dateCache.get(date);
+
+        String string;
+        if(Task.hasDueTime(date.getTime()))
+            string = DateUtilities.getDateStringWithTimeAndWeekday(activity, date);
+        else
+            string = DateUtilities.getDateStringWithWeekday(activity, date);
+        dateCache.put(date, string);
+        return string;
+    }
+
     // implementation note: this map is really costly if users have
     // a large number of tasks to load, since it all goes into memory.
     // it's best to do this, though, in order to append details to each other
@@ -388,7 +411,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public void run() {
             // for all of the tasks returned by our cursor, verify details
             TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
-                    query.get(), null, Task.ID, Task.DETAILS, Task.COMPLETION_DATE);
+                    query.get(), null, Task.ID, Task.DETAILS, Task.DETAILS_DATE,
+                    Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
             activity.startManagingCursor(fetchCursor);
             try {
                 Task task = new Task();
@@ -398,15 +422,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     if(task.isCompleted())
                         continue;
 
-                    taskDetailLoader.put(task.getId(), new StringBuilder(task.getValue(Task.DETAILS)));
+                    if(task.getValue(Task.DETAILS_DATE) < task.getValue(Task.MODIFICATION_DATE)) {
+                        taskDetailLoader.put(task.getId(), new StringBuilder(task.getValue(Task.DETAILS)));
 
-                    Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-                    broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-                    broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-                    activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+                        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
+                        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+                        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
+                        activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
-                    if(TextUtils.isEmpty(task.getValue(Task.DETAILS))) {
-                        task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
+                        if(TextUtils.isEmpty(task.getValue(Task.DETAILS))) {
+                            task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
+                        }
+                        task.setValue(Task.DETAILS_DATE, DateUtilities.now());
                         taskService.save(task);
                     }
                 }
@@ -434,6 +461,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             details.append(detail);
             taskDetailContainer.setId(id);
             taskDetailContainer.setValue(Task.DETAILS, details.toString());
+            taskDetailContainer.setValue(Task.DETAILS_DATE, DateUtilities.now());
             taskService.save(taskDetailContainer);
         }
 
@@ -536,7 +564,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             }
             String string = detailText.toString();
             if(string.contains("<"))
-                view.setText(Html.fromHtml(string.trim().replace("\n", "<br>"),
+                view.setText(convertToHtml(string.trim().replace("\n", "<br>"),
                         detailImageGetter, null));
             else
                 view.setText(string.trim());
