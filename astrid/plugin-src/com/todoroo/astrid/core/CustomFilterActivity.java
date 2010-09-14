@@ -343,7 +343,7 @@ public class CustomFilterActivity extends ListActivity {
         for(int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
             String value = instance.getValueFromCriterion();
-            if(value == null && instance.criterion.sql.contains("?"))
+            if(value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?"))
                 continue;
 
             String title = instance.getTitleFromCriterion();
@@ -414,7 +414,7 @@ public class CustomFilterActivity extends ListActivity {
         for(int i = 0; i < adapter.getCount(); i++) {
             CriterionInstance instance = adapter.getItem(i);
             String value = instance.getValueFromCriterion();
-            if(value == null && instance.criterion.sql.contains("?"))
+            if(value == null && instance.criterion.sql != null && instance.criterion.sql.contains("?"))
                 continue;
 
             switch(instance.type) {
