@@ -421,8 +421,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     addTaskToLoadingArray(task);
                     requestNewDetails(task);
 
-                    if(TextUtils.isEmpty(task.getValue(Task.DETAILS)))
-                        task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
+                    task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
                     task.setValue(Task.DETAILS_DATE, DateUtilities.now());
                     taskService.save(task);
                 }
@@ -433,15 +432,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         private boolean detailsAreRecentAndUpToDate(Task task) {
             return task.getValue(Task.DETAILS_DATE) > DateUtilities.now() - 3 * DateUtilities.ONE_DAY &&
-                task.getValue(Task.DETAILS_DATE) >= task.getValue(Task.MODIFICATION_DATE);
+                task.getValue(Task.DETAILS_DATE) >= task.getValue(Task.MODIFICATION_DATE) &&
+                !TextUtils.isEmpty(task.getValue(Task.DETAILS));
         }
 
         private void addTaskToLoadingArray(Task task) {
             StringBuilder detailStringBuilder = new StringBuilder();
-            if(TextUtils.isEmpty(task.getValue(Task.DETAILS)) || DETAIL_SEPARATOR.equals(task.getValue(Task.DETAILS)))
-                taskDetailLoader.put(task.getId(), detailStringBuilder);
-            else
-                taskDetailLoader.put(task.getId(), detailStringBuilder.append(task.getValue(Task.DETAILS)));
+            taskDetailLoader.put(task.getId(), detailStringBuilder);
         }
 
         private void requestNewDetails(Task task) {
