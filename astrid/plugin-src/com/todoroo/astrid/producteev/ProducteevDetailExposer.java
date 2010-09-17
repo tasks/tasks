@@ -30,10 +30,6 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        // if we aren't logged in, don't expose features
-        if(!ProducteevUtilities.INSTANCE.isLoggedIn())
-            return;
-
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1)
             return;
@@ -58,7 +54,12 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
 
         StringBuilder builder = new StringBuilder();
 
+        // we always expose pdv notes. but, if we aren't logged in, don't expose other details
+        if(!extended && !ProducteevUtilities.INSTANCE.isLoggedIn())
+            return null;
+
         if(!extended) {
+
             long dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
             long responsibleId = -1;
             if(metadata.containsNonNullValue(ProducteevTask.RESPONSIBLE_ID))
