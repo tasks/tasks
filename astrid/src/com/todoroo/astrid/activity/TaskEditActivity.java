@@ -238,16 +238,10 @@ public final class TaskEditActivity extends TabActivity {
             @Override
             public void run() {
                 AndroidUtilities.sleepDeep(500L);
-                controls.add( new ReminderControlSet(R.id.reminder_due,
-                        R.id.reminder_overdue, R.id.reminder_alarm));
-                controls.add( new RandomReminderControlSet(R.id.reminder_random,
-                        R.id.reminder_random_interval));
 
                 runOnUiThread(new Runnable() {
                     public void run() {
                         // internal add-ins
-                        controls.add(new HideUntilControlSet(R.id.hideUntil));
-                        controls.add(new EditTextControlSet(Task.NOTES, R.id.notes));
                         controls.add(new TagsControlSet(TaskEditActivity.this, R.id.tags_container));
 
                         LinearLayout extrasAddons = (LinearLayout) findViewById(R.id.tab_extra_addons);
@@ -288,6 +282,13 @@ public final class TaskEditActivity extends TabActivity {
                             controlSet.readFromTask(model);
                     }
                 });
+
+                controls.add(new EditTextControlSet(Task.NOTES, R.id.notes));
+                controls.add( new ReminderControlSet(R.id.reminder_due,
+                        R.id.reminder_overdue, R.id.reminder_alarm));
+                controls.add( new RandomReminderControlSet(R.id.reminder_random,
+                        R.id.reminder_random_interval));
+                controls.add(new HideUntilControlSet(R.id.hideUntil));
 
                 // set up listeners
                 setUpListeners();
