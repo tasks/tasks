@@ -737,7 +737,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
+    }
 
+    @Override
+    public void notifyDataSetInvalidated() {
+        ListView view = activity.getListView();
+        int scroll = view.getScrollY();
+        super.notifyDataSetInvalidated();
+        view.scrollTo(0, scroll);
     }
 
     private final View.OnClickListener completeBoxListener = new View.OnClickListener() {
