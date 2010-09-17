@@ -37,6 +37,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.format.DateUtils;
 import android.util.Log;
@@ -225,6 +226,7 @@ public final class TaskEditActivity extends TabActivity {
                 setIndicator(r.getString(R.string.TEA_tab_addons),
                         r.getDrawable(R.drawable.tab_addons)).setContent(
                                 R.id.tab_addons));
+        getTabWidget().setBackgroundColor(Color.BLACK);
 
         // populate control set
         title = (EditText) findViewById(R.id.title);
