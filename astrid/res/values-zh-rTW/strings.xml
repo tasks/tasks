@@ -524,7 +524,7 @@
   <string name="task_killer_help_ok">我不會中止Astrid!</string>
     
   <!-- Astrid's Android Marketplace title. It never appears in the app itself. -->
-  <string name="marketplace_title">Astricd工作/待辦清單</string>
+  <string name="marketplace_title">Astrid工作/待辦清單</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">Astrid工作管理是受到高度喜愛的開放源碼應用程式且可以非常簡單的完成工作。內含工作標籤、提醒、同步 、本地端插件、widget和其他功能。</string>
