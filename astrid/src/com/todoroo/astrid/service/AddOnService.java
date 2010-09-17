@@ -236,7 +236,7 @@ public class AddOnService {
 
         list[3] = new AddOn(true, false, "Remember the Milk", null,
                 "Synchronize with Remember The Milk service.",
-                "org.weloveastrid.rmilk", "http://www.rmilk.com",
+                Constants.PACKAGE, "http://www.rmilk.com",
                 ((BitmapDrawable)r.getDrawable(R.drawable.ic_menu_refresh)).getBitmap());
 
         return list;

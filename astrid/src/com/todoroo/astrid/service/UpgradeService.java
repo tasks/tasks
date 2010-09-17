@@ -62,9 +62,6 @@ public final class UpgradeService {
                     if(from < V3_1_0)
                         new Astrid2To3UpgradeHelper().upgrade3To3_1(context, from);
 
-                    if(from < V3_3_0)
-                        upgrade3To3_3(context);
-
                 } finally {
                     if(context instanceof Activity) {
                         ((Activity)context).runOnUiThread(new Runnable() {
@@ -110,7 +107,7 @@ public final class UpgradeService {
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
         if(from >= V3_0_0 && from < V3_3_0)
-            newVersionString(changeLog, "3.3.0 (9/12/10)", new String[] {
+            newVersionString(changeLog, "3.3.0 (9/17/10)", new String[] {
                     "Fixed some RTM duplicated tasks issues",
                     "UI updates based on your feedback",
                     "Snooze now overrides other alarms",
@@ -171,8 +168,8 @@ public final class UpgradeService {
 
     // --- upgrade functions
 
-    @SuppressWarnings("nls")
-    private void upgrade3To3_3(final Context context) {
+    @SuppressWarnings({"nls", "unused"})
+    private void upgrade3To3_4(final Context context) {
         // if RTM, store RTM to secondary preferences
         if(Preferences.getStringValue("rmilk_token") != null) {
             SharedPreferences settings = context.getSharedPreferences("rtm", Context.MODE_WORLD_READABLE);
