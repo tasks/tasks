@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.ListActivity;
@@ -43,6 +44,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -403,10 +405,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         @Override
         public void run() {
             // for all of the tasks returned by our cursor, verify details
+            AndroidUtilities.sleepDeep(500L);
             TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
                     query.get(), null, Task.ID, Task.DETAILS, Task.DETAILS_DATE,
                     Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
             activity.startManagingCursor(fetchCursor);
+            Random random = new Random();
             try {
                 Task task = taskDetailContainer;
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
@@ -415,8 +419,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     if(task.isCompleted())
                         continue;
 
-                    if(detailsAreRecentAndUpToDate(task))
+                    if(detailsAreRecentAndUpToDate(task)) {
+                        // even if we are up to date, randomly load a fraction
+                        if(random.nextFloat() < 0.2) {
+                            taskDetailLoader.put(task.getId(),
+                                    new StringBuilder(task.getValue(Task.DETAILS)));
+                            requestNewDetails(task);
+                        }
                         continue;
+                    }
 
                     addTaskToLoadingArray(task);
                     requestNewDetails(task);
@@ -466,6 +477,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 details.append(DETAIL_SEPARATOR);
             details.append(detail);
             taskDetailContainer.setId(id);
+            String detailsAsString = details.toString();
+            if(detailsAsString.startsWith(DETAIL_SEPARATOR))
+                detailsAsString = detailsAsString.substring(DETAIL_SEPARATOR.length());
             taskDetailContainer.setValue(Task.DETAILS, details.toString());
             taskDetailContainer.setValue(Task.DETAILS_DATE, DateUtilities.now());
             taskService.save(taskDetailContainer);

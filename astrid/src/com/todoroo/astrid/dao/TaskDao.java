@@ -211,9 +211,10 @@ public class TaskDao extends DatabaseDao<Task> {
 
     @Override
     public boolean saveExisting(Task item) {
-        item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         if(!item.getSetValues().containsKey(Task.DETAILS.name))
             item.setValue(Task.DETAILS, null);
+        if(!item.getSetValues().containsKey(Task.DETAILS_DATE.name))
+            item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         return super.saveExisting(item);
     }
 
