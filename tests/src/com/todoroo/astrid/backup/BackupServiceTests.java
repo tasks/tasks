@@ -7,16 +7,22 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.test.TodorooTestCase;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.backup.BackupService.BackupDirectorySetting;
+import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.Preferences;
 
-public class BackupServiceTests extends TodorooTestCase {
+public class BackupServiceTests extends DatabaseTestCase {
 
-    private static final long BACKUP_WAIT_TIME = 2000L;
+    private static final long BACKUP_WAIT_TIME = 500L;
 
     File temporaryDirectory = null;
+
+    @Autowired
+    private TaskDao taskDao;
 
     BackupDirectorySetting setting = new BackupDirectorySetting() {
         public File getBackupDirectory() {
@@ -34,6 +40,11 @@ public class BackupServiceTests extends TodorooTestCase {
             throw new IOException("Could not delete temp file: " + temporaryDirectory.getAbsolutePath());
         if(!(temporaryDirectory.mkdir()))
             throw new IOException("Could not create temp directory: " + temporaryDirectory.getAbsolutePath());
+
+        // make a temporary task
+        Task task = new Task();
+        task.setValue(Task.TITLE, "helicopter");
+        taskDao.createNew(task);
     }
 
     @Override
@@ -87,7 +98,7 @@ public class BackupServiceTests extends TodorooTestCase {
     /** Test no backup */
     public void testNoBackup() {
         assertEquals(0, temporaryDirectory.list().length);
-
+        System.err.println("test no backup");
         boolean backupSetting = getBackupSetting();
         try {
             setBackupSetting(false);
