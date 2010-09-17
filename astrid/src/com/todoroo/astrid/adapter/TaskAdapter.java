@@ -439,7 +439,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         private boolean detailsAreRecentAndUpToDate(Task task) {
-            return task.getValue(Task.DETAILS_DATE) > DateUtilities.now() - 3 * 5 &&
+            return task.getValue(Task.DETAILS_DATE) > DateUtilities.now() - 3 * DateUtilities.ONE_DAY &&
                 task.getValue(Task.DETAILS_DATE) >= task.getValue(Task.MODIFICATION_DATE);
         }
 
