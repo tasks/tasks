@@ -474,10 +474,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ListView listView = activity.getListView();
-                int scrollPos = listView.getScrollY();
                 notifyDataSetInvalidated();
-                listView.scrollTo(0, scrollPos);
             }
         });
     }
@@ -799,10 +796,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             } else {
                 expanded = taskId;
             }
-            ListView listView = activity.getListView();
-            int scrollPos = listView.getScrollY();
-            notifyDataSetChanged();
-            listView.scrollTo(0, scrollPos);
+            notifyDataSetInvalidated();
         }
     }
 
