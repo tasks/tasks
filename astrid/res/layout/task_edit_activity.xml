@@ -70,6 +70,7 @@
       <Spinner
         android:id="@+id/tags_dropdown"
         android:paddingBottom="5dip"
+        android:entries="@array/TEA_loading"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
               

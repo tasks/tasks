@@ -221,6 +221,9 @@
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Hide Until</string>
   
+  <!-- Task editing data being loaded label -->
+  <string-array name="TEA_loading"><item>Loading...</item></string-array>
+  
   <!-- Task note label -->
   <string name="TEA_note_label">Notes</string>
   
