@@ -138,6 +138,8 @@ public class TaskDao extends DatabaseDao<Task> {
         // delete all metadata
         metadataDao.deleteWhere(MetadataCriteria.byTask(id));
 
+        afterTasklistChange();
+
         return true;
     }
 
@@ -238,6 +240,13 @@ public class TaskDao extends DatabaseDao<Task> {
                 ReminderService.getInstance().scheduleAlarm(task);
         }
 
+        afterTasklistChange();
+    }
+
+    /**
+     * Called when task list has changed
+     */
+    private void afterTasklistChange() {
         Astrid2TaskProvider.notifyDatabaseModification();
         TasksWidget.updateWidgets(ContextManager.getContext());
         PowerWidget.updateWidgets(ContextManager.getContext());
