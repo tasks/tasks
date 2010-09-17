@@ -62,6 +62,10 @@
     <style name="TextAppearance.TAd_ItemDueDate_Overdue" parent="TextAppearance.TAd_ItemDueDate">
         <item name="android:textColor">#ffee5555</item>
     </style>
+    
+    <style name="TextAppearance.TAd_ItemDueDate_Completed" parent="TextAppearance.TAd_ItemDueDate">
+        <item name="android:textColor">#ff777777</item>
+    </style>
 
     <!-- ============================================== FilterListAdapter == -->
 

@@ -294,7 +294,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             } else if(task.isCompleted()) {
                 String dateValue = formatDate(task.getValue(Task.COMPLETION_DATE));
                 dueDateView.setText(r.getString(R.string.TAd_completed, dateValue));
-                dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDetails);
+                dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Completed);
                 setVisibility(dueDateView);
             } else {
                 dueDateView.setVisibility(View.GONE);
@@ -325,7 +325,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             details = taskDetailLoader.get(task.getId()).toString();
         else
             details = task.getValue(Task.DETAILS);
-        if(TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details)) {
+        if(TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details) || task.isCompleted()) {
             viewHolder.details.setVisibility(View.GONE);
         } else {
             viewHolder.details.setVisibility(View.VISIBLE);
