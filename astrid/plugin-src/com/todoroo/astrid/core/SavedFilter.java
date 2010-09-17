@@ -95,13 +95,9 @@ public class SavedFilter {
             CriterionInstance item = adapter.getItem(i);
 
             // criterion|entry|text|type|sql
-            values.append(item.criterion.identifier.replace(AndroidUtilities.SERIALIZATION_SEPARATOR,
-                    AndroidUtilities.SEPARATOR_ESCAPE)).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
-            values.append(item.getValueFromCriterion().replace(AndroidUtilities.SERIALIZATION_SEPARATOR,
-                    AndroidUtilities.SEPARATOR_ESCAPE));
-            values.append(AndroidUtilities.SERIALIZATION_SEPARATOR);
-            values.append(item.criterion.text.replace(AndroidUtilities.SERIALIZATION_SEPARATOR,
-                    AndroidUtilities.SEPARATOR_ESCAPE)).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
+            values.append(escape(item.criterion.identifier)).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
+            values.append(escape(item.getValueFromCriterion())).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
+            values.append(escape(item.criterion.text)).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
             values.append(item.type).append(AndroidUtilities.SERIALIZATION_SEPARATOR);
             if(item.criterion.sql != null)
                 values.append(item.criterion.sql);
@@ -109,6 +105,13 @@ public class SavedFilter {
         }
 
         return values.toString();
+    }
+
+    private static String escape(String item) {
+        if(item == null)
+            return ""; //$NON-NLS-1$
+        return item.replace(AndroidUtilities.SERIALIZATION_SEPARATOR,
+                AndroidUtilities.SEPARATOR_ESCAPE);
     }
 
     /**
