@@ -422,28 +422,40 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     if(task.isCompleted())
                         continue;
 
-                    if(task.getValue(Task.DETAILS_DATE) >= task.getValue(Task.MODIFICATION_DATE))
+                    if(detailsAreRecentAndUpToDate(task))
                         continue;
 
-                    if(task.getValue(Task.DETAILS_DATE) < DateUtilities.now() - 3 * DateUtilities.ONE_DAY)
-                        continue;
+                    addTaskToLoadingArray(task);
+                    requestNewDetails(task);
 
-                    taskDetailLoader.put(task.getId(), new StringBuilder(task.getValue(Task.DETAILS)));
-
-                    Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-                    broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-                    broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-                    activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-
-                    if(TextUtils.isEmpty(task.getValue(Task.DETAILS))) {
+                    if(TextUtils.isEmpty(task.getValue(Task.DETAILS)))
                         task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
-                    }
                     task.setValue(Task.DETAILS_DATE, DateUtilities.now());
                     taskService.save(task);
                 }
             } catch (Exception e) {
                 // suppress silently
             }
+        }
+
+        private boolean detailsAreRecentAndUpToDate(Task task) {
+            return task.getValue(Task.DETAILS_DATE) > DateUtilities.now() - 3 * 5 &&
+                task.getValue(Task.DETAILS_DATE) >= task.getValue(Task.MODIFICATION_DATE);
+        }
+
+        private void addTaskToLoadingArray(Task task) {
+            StringBuilder detailStringBuilder = new StringBuilder();
+            if(TextUtils.isEmpty(task.getValue(Task.DETAILS)) || DETAIL_SEPARATOR.equals(task.getValue(Task.DETAILS)))
+                taskDetailLoader.put(task.getId(), detailStringBuilder);
+            else
+                taskDetailLoader.put(task.getId(), detailStringBuilder.append(task.getValue(Task.DETAILS)));
+        }
+
+        private void requestNewDetails(Task task) {
+            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
+            activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         }
     }
 
@@ -460,7 +472,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         synchronized(details) {
             if(details.toString().contains(detail))
                 return;
-            if(details.length() > 0)
+            if(details.length() > 0 && !details.toString().endsWith(DETAIL_SEPARATOR))
                 details.append(DETAIL_SEPARATOR);
             details.append(detail);
             taskDetailContainer.setId(id);
@@ -597,7 +609,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         @Override
         Intent createBroadcastIntent(Task task) {
-            // TODO performance hack hack
+            // performance hack, get rid of me when task list performance is improved
             if(task.getValue(Task.TIMER_START) ==  0 &&
                     task.getValue(Task.ELAPSED_SECONDS) == 0)
                 return null;
