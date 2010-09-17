@@ -13,11 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -34,6 +34,7 @@ import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.producteev.sync.ProducteevUser;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Control Set for managing task/dashboard assignments in Producteev
@@ -185,7 +186,8 @@ public class ProducteevControlSet implements TaskEditControlSet {
         int responsibleSpinnerIndex = 0;
 
         for (int i = 0; i < this.users.size() ; i++) {
-            if (this.users.get(i).getId() == responsibleId) {
+            if (this.users.get(i).getId() == responsibleId ||
+                    (responsibleId == -1 && this.users.get(i).getId() == Preferences.getLong(ProducteevUtilities.PREF_USER_ID, -1))) {
                 responsibleSpinnerIndex = i;
                 break;
             }
