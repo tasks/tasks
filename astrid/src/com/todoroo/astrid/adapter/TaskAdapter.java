@@ -334,18 +334,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         // details and decorations, expanded
-        if(!isFling) {
-            decorationManager.request(viewHolder);
-            if(expanded == task.getId()) {
-                extendedDetailManager.request(viewHolder);
-                taskActionManager.request(viewHolder);
-            } else {
-                viewHolder.extendedDetails.setVisibility(View.GONE);
-                viewHolder.actions.setVisibility(View.GONE);
-            }
+        decorationManager.request(viewHolder);
+        if(!isFling && expanded == task.getId()) {
+            extendedDetailManager.request(viewHolder);
+            taskActionManager.request(viewHolder);
         } else {
-            long taskId = viewHolder.task.getId();
-            decorationManager.reset(viewHolder, taskId);
             viewHolder.extendedDetails.setVisibility(View.GONE);
             viewHolder.actions.setVisibility(View.GONE);
         }
@@ -610,7 +603,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         @Override
         Intent createBroadcastIntent(Task task) {
             // performance hack, get rid of me when task list performance is improved
-            if(task.getValue(Task.TIMER_START) ==  0 &&
+            if(isFling || task.getValue(Task.TIMER_START) ==  0 &&
                     task.getValue(Task.ELAPSED_SECONDS) == 0)
                 return null;
             intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
