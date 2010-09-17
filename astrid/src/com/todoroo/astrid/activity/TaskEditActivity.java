@@ -228,55 +228,70 @@ public final class TaskEditActivity extends TabActivity {
 
         // populate control set
         title = (EditText) findViewById(R.id.title);
-
         controls.add(new EditTextControlSet(Task.TITLE, R.id.title));
         controls.add(new ImportanceControlSet(R.id.importance_container));
         controls.add(new UrgencyControlSet(R.id.urgency));
-        controls.add(new HideUntilControlSet(R.id.hideUntil));
-        controls.add(new EditTextControlSet(Task.NOTES, R.id.notes));
 
-        controls.add( new ReminderControlSet(R.id.reminder_due,
-                R.id.reminder_overdue, R.id.reminder_alarm));
-        controls.add( new RandomReminderControlSet(R.id.reminder_random,
-                R.id.reminder_random_interval));
-        controls.add(new TagsControlSet(this, R.id.tags_container));
+        new Thread() {
+            @Override
+            public void run() {
+                AndroidUtilities.sleepDeep(500L);
+                controls.add( new ReminderControlSet(R.id.reminder_due,
+                        R.id.reminder_overdue, R.id.reminder_alarm));
+                controls.add( new RandomReminderControlSet(R.id.reminder_random,
+                        R.id.reminder_random_interval));
 
-        // internal add-ins
-        LinearLayout extrasAddons = (LinearLayout) findViewById(R.id.tab_extra_addons);
-        controls.add(new RepeatControlSet(this, extrasAddons));
+                runOnUiThread(new Runnable() {
+                    public void run() {
+                        // internal add-ins
+                        controls.add(new HideUntilControlSet(R.id.hideUntil));
+                        controls.add(new EditTextControlSet(Task.NOTES, R.id.notes));
+                        controls.add(new TagsControlSet(TaskEditActivity.this, R.id.tags_container));
 
-        LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
+                        LinearLayout extrasAddons = (LinearLayout) findViewById(R.id.tab_extra_addons);
+                        controls.add(new RepeatControlSet(TaskEditActivity.this, extrasAddons));
 
-        try {
-            if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
-                controls.add(new ProducteevControlSet(this, addonsAddons));
-                ((TextView)findViewById(R.id.notes)).setHint(R.string.producteev_TEA_notes);
-                ((TextView)findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
+                        LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
+
+                        try {
+                            if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
+                                controls.add(new ProducteevControlSet(TaskEditActivity.this, addonsAddons));
+                                ((TextView)findViewById(R.id.notes)).setHint(R.string.producteev_TEA_notes);
+                                ((TextView)findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
+                            }
+                        } catch (Exception e) {
+                            Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
+                        }
+
+                        if(addOnService.hasPowerPack()) {
+                            controls.add(new GCalControlSet(TaskEditActivity.this, addonsAddons));
+                            controls.add(new TimerControlSet(TaskEditActivity.this, addonsAddons));
+                            controls.add(new AlarmControlSet(TaskEditActivity.this, addonsAddons));
+                        }
+
+                        // show add-on help if necessary
+                        if(addonsAddons.getChildCount() == 0) {
+                            ((View)addonsAddons.getParent()).setVisibility(View.GONE);
+                            findViewById(R.id.addons_empty).setVisibility(View.VISIBLE);
+                            ((Button)findViewById(R.id.addons_button)).setOnClickListener(new View.OnClickListener() {
+                                @Override
+                                public void onClick(View v) {
+                                    startActivity(new Intent(TaskEditActivity.this, AddOnActivity.class));
+                                }
+                            });
+                        }
+
+                        // re-read all
+                        for(TaskEditControlSet controlSet : controls)
+                            controlSet.readFromTask(model);
+                    }
+                });
+
+                // set up listeners
+                setUpListeners();
             }
-        } catch (Exception e) {
-            Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
-        }
+        }.start();
 
-        if(addOnService.hasPowerPack()) {
-            controls.add(new GCalControlSet(this, addonsAddons));
-            controls.add(new TimerControlSet(this, addonsAddons));
-            controls.add(new AlarmControlSet(this, addonsAddons));
-        }
-
-        // show add-on help if necessary
-        if(addonsAddons.getChildCount() == 0) {
-            ((View)addonsAddons.getParent()).setVisibility(View.GONE);
-            findViewById(R.id.addons_empty).setVisibility(View.VISIBLE);
-            ((Button)findViewById(R.id.addons_button)).setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(new Intent(TaskEditActivity.this, AddOnActivity.class));
-                }
-            });
-        }
-
-        // set up listeners
-        setUpListeners();
     }
 
     /** Set up button listeners */
