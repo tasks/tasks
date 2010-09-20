@@ -52,7 +52,7 @@ public class GtasksDecorationExposer implements TaskDecorationExposer {
 
         RemoteViews decoration = new RemoteViews(ContextManager.getContext().getPackageName(),
                 R.layout.gtasks_decoration);
-        decoration.setInt(R.id.indent, "setWidth", indentation * 20); //$NON-NLS-1$
+        decoration.setInt(R.id.indent, "setMinWidth", indentation * 20); //$NON-NLS-1$
         return new TaskDecoration(decoration, TaskDecoration.POSITION_LEFT, 0);
     }
 

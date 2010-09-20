@@ -1,7 +1,6 @@
 package com.todoroo.astrid.gtasks;
 
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.RemoteViews;
 
 import com.todoroo.astrid.api.Filter;
@@ -19,7 +18,7 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
     private TaskDecoration result;
 
     public void testExposeNotLoggedIn() {
-        givenLoggedInStatus(true);
+        givenLoggedInStatus(false);
 
         whenRequestingDecoration(gtasksFilter(), indentedTask(1));
 
@@ -27,7 +26,7 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
     }
 
     public void testExposeLoggedInButNormalFilter() {
-        givenLoggedInStatus(false);
+        givenLoggedInStatus(true);
 
         whenRequestingDecoration(nonGtasksFilter(), indentedTask(1));
 
@@ -42,7 +41,7 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
         thenExpectDecoration(1);
     }
 
-    public void testExposeIndentationWithNormalTask() {
+    public void testExposeIndentationWithTopLevelTask() {
         givenLoggedInStatus(true);
 
         whenRequestingDecoration(gtasksFilter(), nonIndentedTask());
@@ -63,13 +62,14 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
     private void thenExpectWiderThan(Task otherTask) {
         assertNotNull(result);
         RemoteViews view = result.decoration;
-        FrameLayout parent = new FrameLayout(getContext());
-        View inflated = view.apply(getContext(), parent);
-        int width = inflated.getWidth();
+        View inflated = view.apply(getContext(), null);
+        inflated.measure(100, 100);
+        int width = inflated.getMeasuredWidth();
 
         result = new GtasksDecorationExposer().expose(gtasksFilter(), otherTask);
-        View otherInflated = result.decoration.apply(getContext(), parent);
-        int otherWidth = otherInflated.getWidth();
+        View otherInflated = result.decoration.apply(getContext(), null);
+        otherInflated.measure(100, 100);
+        int otherWidth = otherInflated.getMeasuredWidth();
         assertTrue(width + " > " + otherWidth, width > otherWidth);
     }
 
@@ -84,9 +84,9 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
     private void thenExpectDecoration(int minWidth) {
         assertNotNull(result);
         RemoteViews view = result.decoration;
-        FrameLayout parent = new FrameLayout(getContext());
-        View inflated = view.apply(getContext(), parent);
-        assertTrue("actual: " + inflated.getWidth(), inflated.getWidth() > minWidth);
+        View inflated = view.apply(getContext(), null);
+        inflated.measure(100, 100);
+        assertTrue("actual: " + inflated.getMeasuredWidth(), inflated.getMeasuredWidth() > minWidth);
     }
 
     private Filter gtasksFilter() {
@@ -101,13 +101,13 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
         PluginServices.getTaskService().save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata();
         metadata.setValue(GtasksMetadata.INDENTATION, indentation);
+        metadata.setValue(Metadata.TASK, task.getId());
         PluginServices.getMetadataService().save(metadata);
         return task;
     }
 
     private Filter nonGtasksFilter() {
         return CoreFilterExposer.buildInboxFilter(getContext().getResources());
-
     }
 
     @Override

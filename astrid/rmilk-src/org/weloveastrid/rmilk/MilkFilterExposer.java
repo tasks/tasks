@@ -40,6 +40,10 @@ public class MilkFilterExposer extends BroadcastReceiver {
 
     @Autowired private MilkListService milkListService;
 
+    static {
+        MilkDependencyInjector.initialize();
+    }
+
     private Filter filterFromList(Context context, StoreObject list) {
         String listName = list.getValue(MilkListFields.NAME);
         String title = context.getString(R.string.rmilk_FEx_list_title,

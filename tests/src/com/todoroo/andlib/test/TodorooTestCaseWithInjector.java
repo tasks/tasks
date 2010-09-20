@@ -1,7 +1,5 @@
 package com.todoroo.andlib.test;
 
-import android.test.AndroidTestCase;
-
 import com.todoroo.andlib.service.TestDependencyInjector;
 
 /**
@@ -10,7 +8,7 @@ import com.todoroo.andlib.service.TestDependencyInjector;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-abstract public class TodorooTestCaseWithInjector extends AndroidTestCase {
+abstract public class TodorooTestCaseWithInjector extends TodorooTestCase {
 
     protected TestDependencyInjector testInjector;
 

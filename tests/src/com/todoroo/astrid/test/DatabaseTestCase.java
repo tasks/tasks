@@ -15,11 +15,11 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  */
 public class DatabaseTestCase extends TodorooTestCaseWithInjector {
 
-	public static Database database = new TestDatabase();
-
     static {
         AstridDependencyInjector.initialize();
     }
+
+    public static Database database = new TestDatabase();
 
     @Override
     protected void addInjectables() {

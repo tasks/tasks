@@ -11,6 +11,7 @@ import java.util.HashSet;
 import java.util.List;
 
 import org.weloveastrid.rmilk.MilkBackgroundService;
+import org.weloveastrid.rmilk.MilkDependencyInjector;
 import org.weloveastrid.rmilk.MilkLoginActivity;
 import org.weloveastrid.rmilk.MilkPreferences;
 import org.weloveastrid.rmilk.MilkUtilities;
@@ -63,6 +64,10 @@ public class MilkSyncProvider extends SyncProvider<MilkTaskContainer> {
 
     @Autowired private MilkMetadataService milkMetadataService;
     @Autowired private MilkListService milkListService;
+
+    static {
+        MilkDependencyInjector.initialize();
+    }
 
     // ----------------------------------------------------------------------
     // ------------------------------------------------------- public methods
