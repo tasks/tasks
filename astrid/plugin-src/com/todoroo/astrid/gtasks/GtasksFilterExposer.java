@@ -15,7 +15,9 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -50,7 +52,9 @@ public class GtasksFilterExposer extends BroadcastReceiver {
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                         TaskCriteria.activeAndVisible(),
-                        GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))),
+                        GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
+                                Order.asc(Functions.caseStatement(GtasksMetadata.ORDERING.eq(0),
+                                        Task.CREATION_DATE, GtasksMetadata.ORDERING))),
                 values);
 
         return filter;
