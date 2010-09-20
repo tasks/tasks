@@ -21,6 +21,7 @@ public class TodorooTestCase extends AndroidTestCase {
 	@Override
 	protected void setUp() throws Exception {
 	    super.setUp();
+
 	    ContextManager.setContext(this.getContext());
 	    AstridDependencyInjector.flush();
 	    DependencyInjectionService.getInstance().inject(this);

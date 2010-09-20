@@ -9,12 +9,10 @@ import com.todoroo.astrid.sync.SyncProviderUtilities;
  * @author timsu
  *
  */
-public class GtasksUtilities extends SyncProviderUtilities {
+public class GtasksPreferenceService extends SyncProviderUtilities {
 
     /** add-on identifier */
     public static final String IDENTIFIER = "gtasks"; //$NON-NLS-1$
-
-    public static final GtasksUtilities INSTANCE = new GtasksUtilities();
 
     @Override
     public String getIdentifier() {
@@ -28,9 +26,5 @@ public class GtasksUtilities extends SyncProviderUtilities {
 
     /** GTasks user's default list id */
     public static final String PREF_DEFAULT_LIST = IDENTIFIER + "_defaultlist"; //$NON-NLS-1$
-
-    private GtasksUtilities() {
-        // prevent instantiation
-    }
 
 }

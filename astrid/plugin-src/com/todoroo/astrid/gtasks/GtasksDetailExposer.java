@@ -26,18 +26,16 @@ public class GtasksDetailExposer extends BroadcastReceiver {
 
     public static final String DETAIL_SEPARATOR = " | "; //$NON-NLS-1$
 
-    @Autowired
-    private GtasksMetadataService gtasksMetadataService;
-
-    @Autowired
-    private GtasksListService gtasksListService;
+    @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired private GtasksListService gtasksListService;
+    @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
 
         // if we aren't logged in, don't expose features
-        if(!GtasksUtilities.INSTANCE.isLoggedIn())
+        if(!gtasksPreferenceService.isLoggedIn())
             return;
 
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
@@ -50,7 +48,7 @@ public class GtasksDetailExposer extends BroadcastReceiver {
             return;
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, GtasksUtilities.IDENTIFIER);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, GtasksPreferenceService.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);

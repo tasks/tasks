@@ -5,7 +5,9 @@ package com.todoroo.astrid.gtasks;
 
 import java.util.ArrayList;
 
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -22,8 +24,11 @@ import com.todoroo.astrid.sync.SyncProviderUtilities;
  */
 public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskContainer> {
 
+    @Autowired private GtasksPreferenceService gtasksPreferenceService;
+
     public GtasksMetadataService() {
         super(ContextManager.getContext());
+        DependencyInjectionService.getInstance().inject(this);
     }
 
     @Override
@@ -49,7 +54,7 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
 
     @Override
     public SyncProviderUtilities getUtilities() {
-        return GtasksUtilities.INSTANCE;
+        return gtasksPreferenceService;
     }
 
 }

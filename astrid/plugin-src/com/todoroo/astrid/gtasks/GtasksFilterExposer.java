@@ -38,11 +38,12 @@ import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
  */
 public class GtasksFilterExposer extends BroadcastReceiver {
 
-    @Autowired
-    private GtasksListService gtasksListService;
+    @Autowired private GtasksListService gtasksListService;
+    @Autowired private GtasksPreferenceService gtasksPreferenceService;
+
     private StoreObject[] lists;
 
-    private Filter filterFromList(StoreObject list) {
+    public static Filter filterFromList(StoreObject list) {
         String listName = list.getValue(GtasksList.NAME);
         ContentValues values = new ContentValues();
         values.putAll(GtasksMetadata.createEmptyMetadata().getMergedValues());
@@ -66,7 +67,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose features
-        if(!GtasksUtilities.INSTANCE.isLoggedIn())
+        if(!gtasksPreferenceService.isLoggedIn())
             return;
 
         lists = gtasksListService.getLists();

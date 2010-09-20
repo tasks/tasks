@@ -2,8 +2,7 @@ package com.todoroo.astrid.test;
 
 import java.io.File;
 
-import com.todoroo.andlib.service.TestDependencyInjector;
-import com.todoroo.andlib.test.TodorooTestCase;
+import com.todoroo.andlib.test.TodorooTestCaseWithInjector;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.legacy.AlarmDatabase;
 import com.todoroo.astrid.service.AstridDependencyInjector;
@@ -14,7 +13,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class DatabaseTestCase extends TodorooTestCase {
+public class DatabaseTestCase extends TodorooTestCaseWithInjector {
 
 	public static Database database = new TestDatabase();
 
@@ -22,12 +21,13 @@ public class DatabaseTestCase extends TodorooTestCase {
         AstridDependencyInjector.initialize();
     }
 
+    @Override
+    protected void addInjectables() {
+        testInjector.addInjectable("database", database);
+    }
+
 	@Override
 	protected void setUp() throws Exception {
-	    // initialize test dependency injector
-	    TestDependencyInjector injector = TestDependencyInjector.initialize("db");
-	    injector.addInjectable("database", database);
-
 	    // call upstream setup, which invokes dependency injector
 	    super.setUp();
 
@@ -49,6 +49,7 @@ public class DatabaseTestCase extends TodorooTestCase {
     @Override
 	protected void tearDown() throws Exception {
 		database.close();
+		super.tearDown();
 	}
 
 	public static class TestDatabase extends Database {

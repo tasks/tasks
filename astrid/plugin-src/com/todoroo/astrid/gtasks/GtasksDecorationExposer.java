@@ -24,6 +24,7 @@ import com.todoroo.astrid.data.Task;
 public class GtasksDecorationExposer implements TaskDecorationExposer {
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
     public GtasksDecorationExposer() {
         DependencyInjectionService.getInstance().inject(this);
@@ -31,7 +32,7 @@ public class GtasksDecorationExposer implements TaskDecorationExposer {
 
     @Override
     public TaskDecoration expose(Filter activeFilter, Task task) {
-        if(!GtasksUtilities.INSTANCE.isLoggedIn())
+        if(!gtasksPreferenceService.isLoggedIn())
             return null;
 
         if(!activeFilter.sqlQuery.contains(GtasksMetadata.METADATA_KEY))

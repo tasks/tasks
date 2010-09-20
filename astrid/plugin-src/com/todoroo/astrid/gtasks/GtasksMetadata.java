@@ -37,7 +37,7 @@ public class GtasksMetadata {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, GtasksMetadata.METADATA_KEY);
         metadata.setValue(ID, (long)VALUE_UNSET);
-        metadata.setValue(LIST_ID, Preferences.getLong(GtasksUtilities.PREF_DEFAULT_LIST,
+        metadata.setValue(LIST_ID, Preferences.getLong(GtasksPreferenceService.PREF_DEFAULT_LIST,
                 VALUE_UNSET));
         metadata.setValue(OWNER_ID, (long)VALUE_UNSET);
         metadata.setValue(INDENTATION, 0);

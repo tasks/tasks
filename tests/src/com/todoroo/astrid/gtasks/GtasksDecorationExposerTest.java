@@ -1,0 +1,131 @@
+package com.todoroo.astrid.gtasks;
+
+import android.view.View;
+import android.widget.FrameLayout;
+import android.widget.RemoteViews;
+
+import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.TaskDecoration;
+import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.test.DatabaseTestCase;
+
+public class GtasksDecorationExposerTest extends DatabaseTestCase {
+
+    private GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();
+    private TaskDecoration result;
+
+    public void testExposeNotLoggedIn() {
+        givenLoggedInStatus(true);
+
+        whenRequestingDecoration(gtasksFilter(), indentedTask(1));
+
+        thenExpectNoDecoration();
+    }
+
+    public void testExposeLoggedInButNormalFilter() {
+        givenLoggedInStatus(false);
+
+        whenRequestingDecoration(nonGtasksFilter(), indentedTask(1));
+
+        thenExpectNoDecoration();
+    }
+
+    public void testExposeIndentation() {
+        givenLoggedInStatus(true);
+
+        whenRequestingDecoration(gtasksFilter(), indentedTask(1));
+
+        thenExpectDecoration(1);
+    }
+
+    public void testExposeIndentationWithNormalTask() {
+        givenLoggedInStatus(true);
+
+        whenRequestingDecoration(gtasksFilter(), nonIndentedTask());
+
+        thenExpectNoDecoration();
+    }
+
+    public void testMoreIndentationIsWider() {
+        givenLoggedInStatus(true);
+
+        whenRequestingDecoration(gtasksFilter(), indentedTask(2));
+
+        thenExpectWiderThan(indentedTask(1));
+    }
+
+    // --- helpers
+
+    private void thenExpectWiderThan(Task otherTask) {
+        assertNotNull(result);
+        RemoteViews view = result.decoration;
+        FrameLayout parent = new FrameLayout(getContext());
+        View inflated = view.apply(getContext(), parent);
+        int width = inflated.getWidth();
+
+        result = new GtasksDecorationExposer().expose(gtasksFilter(), otherTask);
+        View otherInflated = result.decoration.apply(getContext(), parent);
+        int otherWidth = otherInflated.getWidth();
+        assertTrue(width + " > " + otherWidth, width > otherWidth);
+    }
+
+    private Task nonIndentedTask() {
+        Task task = new Task();
+        PluginServices.getTaskService().save(task);
+        Metadata metadata = GtasksMetadata.createEmptyMetadata();
+        PluginServices.getMetadataService().save(metadata);
+        return task;
+    }
+
+    private void thenExpectDecoration(int minWidth) {
+        assertNotNull(result);
+        RemoteViews view = result.decoration;
+        FrameLayout parent = new FrameLayout(getContext());
+        View inflated = view.apply(getContext(), parent);
+        assertTrue("actual: " + inflated.getWidth(), inflated.getWidth() > minWidth);
+    }
+
+    private Filter gtasksFilter() {
+        StoreObject list = new StoreObject();
+        list.setValue(GtasksList.REMOTE_ID, "1");
+        list.setValue(GtasksList.NAME, "lamo");
+        return GtasksFilterExposer.filterFromList(list);
+    }
+
+    private Task indentedTask(int indentation) {
+        Task task = new Task();
+        PluginServices.getTaskService().save(task);
+        Metadata metadata = GtasksMetadata.createEmptyMetadata();
+        metadata.setValue(GtasksMetadata.INDENTATION, indentation);
+        PluginServices.getMetadataService().save(metadata);
+        return task;
+    }
+
+    private Filter nonGtasksFilter() {
+        return CoreFilterExposer.buildInboxFilter(getContext().getResources());
+
+    }
+
+    @Override
+    protected void addInjectables() {
+        super.addInjectables();
+        testInjector.addInjectable("gtasksPreferenceService", preferences);
+    }
+
+    private void thenExpectNoDecoration() {
+        assertNull(result);
+    }
+
+    private void whenRequestingDecoration(Filter filter, Task task) {
+        result = new GtasksDecorationExposer().expose(filter, task);
+    }
+
+    private void givenLoggedInStatus(boolean status) {
+        preferences.setLoggedIn(status);
+    }
+
+}
