@@ -428,7 +428,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         }
                         continue;
                     }
-
                     addTaskToLoadingArray(task);
                     requestNewDetails(task);
 
@@ -488,7 +487,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                notifyDataSetInvalidated();
+                notifyDataSetChanged();
             }
         });
     }
@@ -753,14 +752,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
     }
 
-    @Override
-    public void notifyDataSetInvalidated() {
-        ListView view = activity.getListView();
-        int scroll = view.getScrollY();
-        super.notifyDataSetInvalidated();
-        view.scrollTo(0, scroll);
-    }
-
     private final View.OnClickListener completeBoxListener = new View.OnClickListener() {
         public void onClick(View v) {
             ViewHolder viewHolder = (ViewHolder)((View)v.getParent().getParent()).getTag();
@@ -817,7 +808,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             } else {
                 expanded = taskId;
             }
-            notifyDataSetInvalidated();
+
+            notifyDataSetChanged();
         }
     }
 
