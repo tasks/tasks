@@ -3,7 +3,8 @@
  */
 package org.weloveastrid.rmilk;
 
-import org.weloveastrid.rmilk.data.MilkDataService;
+import org.weloveastrid.rmilk.data.MilkListService;
+import org.weloveastrid.rmilk.data.MilkMetadataService;
 import org.weloveastrid.rmilk.data.MilkNoteFields;
 import org.weloveastrid.rmilk.data.MilkTaskFields;
 
@@ -13,7 +14,9 @@ import android.content.Intent;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 
@@ -29,6 +32,9 @@ import com.todoroo.astrid.data.Metadata;
 public class MilkDetailExposer extends BroadcastReceiver {
 
     public static final String DETAIL_SEPARATOR = " | "; //$NON-NLS-1$
+
+    @Autowired private MilkMetadataService milkMetadataService;
+    @Autowired private MilkListService milkListService;
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -56,7 +62,8 @@ public class MilkDetailExposer extends BroadcastReceiver {
     }
 
     public String getTaskDetails(Context context, long id, boolean extended) {
-        Metadata metadata = MilkDataService.getInstance(context).getTaskMetadata(id);
+        DependencyInjectionService.getInstance().inject(this);
+        Metadata metadata = milkMetadataService.getTaskMetadata(id);
         if(metadata == null)
             return null;
 
@@ -64,7 +71,7 @@ public class MilkDetailExposer extends BroadcastReceiver {
 
         if(!extended) {
             long listId = metadata.getValue(MilkTaskFields.LIST_ID);
-            String listName = MilkDataService.getInstance(context).getListName(listId);
+            String listName = milkListService.getListName(listId);
             // RTM list is out of date. don't display RTM stuff
             if(listName == null)
                 return null;
@@ -78,7 +85,7 @@ public class MilkDetailExposer extends BroadcastReceiver {
                 builder.append(context.getString(R.string.rmilk_TLA_repeat)).append(DETAIL_SEPARATOR);
             }
         } else {
-            TodorooCursor<Metadata> notesCursor = MilkDataService.getInstance(context).getTaskNotesCursor(id);
+            TodorooCursor<Metadata> notesCursor = milkMetadataService.getTaskNotesCursor(id);
             try {
                 for(notesCursor.moveToFirst(); !notesCursor.isAfterLast(); notesCursor.moveToNext()) {
                     metadata.readFromCursor(notesCursor);

@@ -59,5 +59,10 @@ public class MilkTaskContainer extends SyncContainer {
         }
     }
 
+    @Override
+    public void prepareForSaving() {
+        super.prepareForSaving();
+        metadata.add(MilkTaskFields.create(this));
+    }
 
 }

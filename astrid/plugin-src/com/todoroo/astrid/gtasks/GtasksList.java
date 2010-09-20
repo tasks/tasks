@@ -1,7 +1,6 @@
 package com.todoroo.astrid.gtasks;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
-import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.StoreObject;
 
@@ -17,7 +16,7 @@ public class GtasksList {
     public static final String TYPE = "gtasks-list"; //$NON-NLS-1$
 
     /** list id in g-tasks */
-    public static final LongProperty REMOTE_ID = new LongProperty(StoreObject.TABLE,
+    public static final StringProperty REMOTE_ID = new StringProperty(StoreObject.TABLE,
             StoreObject.ITEM.name);
 
     /** list name */

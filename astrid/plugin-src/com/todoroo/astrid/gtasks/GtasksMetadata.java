@@ -12,7 +12,7 @@ import com.todoroo.astrid.utility.Preferences;
  */
 public class GtasksMetadata {
 
-    private static final int ORDERING_UNSET = -1;
+    private static final int VALUE_UNSET = -1;
 
     /** metadata key */
     public static final String METADATA_KEY = "gtasks"; //$NON-NLS-1$
@@ -36,11 +36,12 @@ public class GtasksMetadata {
     public static Metadata createEmptyMetadata() {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, GtasksMetadata.METADATA_KEY);
-        metadata.setValue(ID, 0L);
-        metadata.setValue(LIST_ID, Preferences.getLong(GtasksUtilities.PREF_DEFAULT_LIST, 0));
-        metadata.setValue(OWNER_ID, 0L);
+        metadata.setValue(ID, (long)VALUE_UNSET);
+        metadata.setValue(LIST_ID, Preferences.getLong(GtasksUtilities.PREF_DEFAULT_LIST,
+                VALUE_UNSET));
+        metadata.setValue(OWNER_ID, (long)VALUE_UNSET);
         metadata.setValue(INDENTATION, 0);
-        metadata.setValue(ORDERING, ORDERING_UNSET);
+        metadata.setValue(ORDERING, VALUE_UNSET);
         return metadata;
     }
 

@@ -3,8 +3,8 @@
  */
 package org.weloveastrid.rmilk;
 
-import org.weloveastrid.rmilk.data.MilkDataService;
 import org.weloveastrid.rmilk.data.MilkListFields;
+import org.weloveastrid.rmilk.data.MilkListService;
 import org.weloveastrid.rmilk.data.MilkTaskFields;
 
 import android.content.BroadcastReceiver;
@@ -13,7 +13,9 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.QueryTemplate;
@@ -35,6 +37,8 @@ import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
  *
  */
 public class MilkFilterExposer extends BroadcastReceiver {
+
+    @Autowired private MilkListService milkListService;
 
     private Filter filterFromList(Context context, StoreObject list) {
         String listName = list.getValue(MilkListFields.NAME);
@@ -64,7 +68,9 @@ public class MilkFilterExposer extends BroadcastReceiver {
         if(!MilkUtilities.INSTANCE.isLoggedIn())
             return;
 
-        StoreObject[] lists = MilkDataService.getInstance(context).getLists();
+        DependencyInjectionService.getInstance().inject(this);
+
+        StoreObject[] lists = milkListService.getLists();
 
         // If user does not have any tags, don't show this section at all
         if(lists.length == 0)

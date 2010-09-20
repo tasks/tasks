@@ -66,7 +66,7 @@ public class GtasksListService {
         for(int i = 0; i < newLists.length(); i++) {
             JSONObject remote = newLists.getJSONObject(i);
 
-            long id = remote.optLong("id");
+            String id = remote.getString("id");
             StoreObject local = null;
             for(StoreObject list : lists) {
                 if(list.getValue(GtasksList.REMOTE_ID).equals(id)) {
