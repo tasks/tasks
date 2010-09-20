@@ -11,6 +11,8 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.gtasks.GtasksListService;
+import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -60,6 +62,10 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("tagTaskTable", "tagTaskMap");
         injectables.put("alertsTable", "alerts");
         injectables.put("syncTable", "sync");
+
+        // com.todoroo.astrid.gtasks
+        injectables.put("gtasksListService", GtasksListService.class);
+        injectables.put("gtasksMetadataService", GtasksMetadataService.class);
 
         // these make reference to fields defined above
         injectables.put("errorReporters", new ErrorReporter[] {

@@ -228,6 +228,10 @@
     <string name="producteev_PPr_email">producteev_email</string>    
     <string name="producteev_PPr_password">producteev_password</string>    
     <string name="producteev_PPr_defaultdash_key">producteev_defaultdash</string>    
+    
+  <!-- =========================================================== GTASKS == -->
+  
+    <string name="gtasks_GPr_interval_key">gtasks_sync_freq</string>
   
   <!-- ============================================================ OTHER == -->
   
