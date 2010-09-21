@@ -58,7 +58,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Pair;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
@@ -76,6 +75,8 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
+import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
@@ -161,6 +162,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private Timer backgroundTimer;
     private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
 
+
+    private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
+
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
@@ -210,12 +214,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if(Constants.DEBUG)
             setTitle("[D] " + filter.title); //$NON-NLS-1$
 
-        // perform caching
-        new Thread(new Runnable() {
-            public void run() {
-                loadContextMenuIntents();
-            }
-        }).start();
+        contextMenuExtensionLoader.loadInNewThread(this);
     }
 
     /**
@@ -746,24 +745,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         return task;
     }
 
-    protected Pair<CharSequence, Intent>[] contextMenuItemCache = null;
-
-    protected void loadContextMenuIntents() {
-        Intent queryIntent = new Intent(AstridApiConstants.ACTION_TASK_CONTEXT_MENU);
-        PackageManager pm = getPackageManager();
-        List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent, 0);
-        int length = resolveInfoList.size();
-        contextMenuItemCache = new Pair[length];
-        for(int i = 0; i < length; i++) {
-            ResolveInfo resolveInfo = resolveInfoList.get(i);
-            Intent intent = new Intent(AstridApiConstants.ACTION_TASK_CONTEXT_MENU);
-            intent.setClassName(resolveInfo.activityInfo.packageName,
-                    resolveInfo.activityInfo.name);
-            CharSequence title = resolveInfo.loadLabel(pm);
-            contextMenuItemCache[i] = Pair.create(title, intent);
-        }
-    }
-
     @SuppressWarnings("nls")
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
@@ -785,25 +766,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE,
                     R.string.TAd_contextDeleteTask);
 
+            long taskId = task.getId();
+            for(ContextMenuItem item : contextMenuExtensionLoader.getList()) {
+                MenuItem menuItem = menu.add(id, CONTEXT_MENU_ADDON_INTENT_ID, Menu.NONE,
+                        item.title);
+                item.intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+                menuItem.setIntent(item.intent);
+            }
+
             if(Constants.DEBUG) {
                 menu.add("--- debug ---");
                 menu.add(id, CONTEXT_MENU_DEBUG, Menu.NONE,
-                        "when alarm?");
+                "when alarm?");
                 menu.add(id, CONTEXT_MENU_DEBUG + 1, Menu.NONE,
-                        "make notification");
-            }
-
-            if(contextMenuItemCache == null)
-                return;
-
-            // ask about plug-ins
-            long taskId = task.getId();
-            for(int i = 0; i < contextMenuItemCache.length; i++) {
-                Intent intent = contextMenuItemCache[i].getRight();
-                MenuItem item = menu.add(id, CONTEXT_MENU_ADDON_INTENT_ID, Menu.NONE,
-                        contextMenuItemCache[i].getLeft());
-                intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-                item.setIntent(intent);
+                "make notification");
             }
         }
     }

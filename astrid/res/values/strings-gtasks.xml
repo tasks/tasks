@@ -2,13 +2,22 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- ============================================= Plugin Boilerplate == -->
+    <!-- =========================================================== Misc == -->
 
     <!-- filters header: GTasks -->
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
     <string name="gtasks_FEx_list">By List</string>
+        
+    <!-- GTasks Indent changed message (%d => new level) -->
+    <string name="gtasks_indent_toast">New Indentation: %d</string>
+        
+    <!-- GTasks label: increase indent -->
+    <string name="gtasks_increase_indent">Move Right</string>
+        
+    <!-- GTasks label: decrease indent -->
+    <string name="gtasks_decrease_indent">Move Left</string>
     
     <!-- ============================================== GtasksPreferences == -->
 
