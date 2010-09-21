@@ -47,7 +47,8 @@ abstract public class GtasksOrderAction extends BroadcastReceiver {
             return;
 
         metadata.setValue(GtasksMetadata.ORDER, newOrder);
-        TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(Query.select(Metadata.ID, GtasksMetadata.INDENT).where(
+        TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(Query.select(Metadata.ID,
+                Metadata.TASK, GtasksMetadata.INDENT).where(
                 Criterion.and(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY),
                         GtasksMetadata.LIST_ID.eq(metadata.getValue(GtasksMetadata.LIST_ID)),
                         GtasksMetadata.ORDER.eq(newOrder))));

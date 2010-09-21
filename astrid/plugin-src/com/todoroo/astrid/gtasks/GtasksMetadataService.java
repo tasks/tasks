@@ -74,11 +74,13 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         Filter filter = GtasksFilterExposer.filterFromList(list);
         TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(filter.sqlQuery, null, Task.ID);
         try {
+            Long[] ids = new Long[cursor.getCount()];
             int order = 0;
             int previousIndent = -1;
             Stack<Long> taskHierarchyStack = new Stack<Long>();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                 long taskId = cursor.getLong(0);
+                ids[order] = taskId;
                 Metadata metadata = getTaskMetadata(taskId);
                 if(metadata == null)
                     continue;
@@ -86,19 +88,27 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
                 metadata.setValue(GtasksMetadata.ORDER, order++);
                 int indent = metadata.getValue(GtasksMetadata.INDENT);
 
-                for(int i = indent; i <= previousIndent; i++)
-                    taskHierarchyStack.pop();
+                for(int i = indent; i <= previousIndent; i++) {
+                    if(!taskHierarchyStack.isEmpty())
+                        taskHierarchyStack.pop();
+                }
 
                 if(indent > 0) {
-                    if(taskHierarchyStack.isEmpty())
+                    if(taskHierarchyStack.isEmpty()) {
+                        metadata.setValue(GtasksMetadata.PARENT_TASK, 0L);
                         metadata.setValue(GtasksMetadata.INDENT, 0);
-                    else
+                    } else
                         metadata.setValue(GtasksMetadata.PARENT_TASK, taskHierarchyStack.peek());
+                } else {
+                    metadata.setValue(GtasksMetadata.PARENT_TASK, 0L);
                 }
 
                 PluginServices.getMetadataService().save(metadata);
                 taskHierarchyStack.push(taskId);
+                previousIndent = indent;
             }
+
+            PluginServices.getTaskService().clearDetails(Task.ID.in(ids));
         } finally {
             cursor.close();
         }
