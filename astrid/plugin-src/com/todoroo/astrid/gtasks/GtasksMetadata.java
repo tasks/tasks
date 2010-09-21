@@ -1,5 +1,6 @@
 package com.todoroo.astrid.gtasks;
 
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -34,7 +35,12 @@ public class GtasksMetadata {
     public static final IntegerProperty ORDERING = new IntegerProperty(Metadata.TABLE,
             Metadata.VALUE5.name);
 
-    public static Metadata createEmptyMetadata() {
+    /**
+     * Creates default GTasks metadata item
+     * @param taskId if > 0, will set metadata task field
+     * @return
+     */
+    public static Metadata createEmptyMetadata(long taskId) {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, GtasksMetadata.METADATA_KEY);
         metadata.setValue(ID, (long)VALUE_UNSET);
@@ -42,6 +48,8 @@ public class GtasksMetadata {
         metadata.setValue(OWNER_ID, (long)VALUE_UNSET);
         metadata.setValue(INDENTATION, 0);
         metadata.setValue(ORDERING, VALUE_UNSET);
+        if(taskId > AbstractModel.NO_ID)
+            metadata.setValue(Metadata.TASK, taskId);
         return metadata;
     }
 

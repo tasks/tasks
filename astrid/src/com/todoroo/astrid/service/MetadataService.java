@@ -71,6 +71,9 @@ public class MetadataService {
      * @param metadata
      */
     public void save(Metadata metadata) {
+        if(!metadata.containsNonNullValue(Metadata.TASK))
+            throw new IllegalArgumentException("metadata needs to be attached to a task: " + metadata.getMergedValues()); //$NON-NLS-1$
+
         metadataDao.persist(metadata);
     }
 

@@ -24,7 +24,7 @@ public class GtasksTaskContainer extends SyncContainer {
         this.metadata = metadata;
         this.gtaskMetadata = gtaskMetadata;
         if(this.gtaskMetadata == null) {
-            this.gtaskMetadata = GtasksMetadata.createEmptyMetadata();
+            this.gtaskMetadata = GtasksMetadata.createEmptyMetadata(task.getId());
         }
     }
 
@@ -41,7 +41,7 @@ public class GtasksTaskContainer extends SyncContainer {
             }
         }
         if(this.gtaskMetadata == null) {
-            this.gtaskMetadata = GtasksMetadata.createEmptyMetadata();
+            this.gtaskMetadata = GtasksMetadata.createEmptyMetadata(task.getId());
         }
     }
 

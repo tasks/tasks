@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -46,7 +47,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
     public static Filter filterFromList(StoreObject list) {
         String listName = list.getValue(GtasksList.NAME);
         ContentValues values = new ContentValues();
-        values.putAll(GtasksMetadata.createEmptyMetadata().getMergedValues());
+        values.putAll(GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
         values.remove(Metadata.TASK.name);
         values.put(GtasksMetadata.LIST_ID.name, list.getValue(GtasksList.REMOTE_ID));
         Filter filter = new Filter(listName, listName, new QueryTemplate().join(

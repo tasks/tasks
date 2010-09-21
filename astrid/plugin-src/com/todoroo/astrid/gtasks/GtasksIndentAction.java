@@ -29,8 +29,9 @@ abstract public class GtasksIndentAction extends BroadcastReceiver {
             return;
 
         Metadata metadata = gtasksMetadataService.getTaskMetadata(taskId);
-        if(metadata == null)
-            metadata = GtasksMetadata.createEmptyMetadata();
+        if(metadata == null) {
+            metadata = GtasksMetadata.createEmptyMetadata(taskId);
+        }
 
         int newIndent = Math.max(0, metadata.getValue(GtasksMetadata.INDENTATION) + getDelta());
         metadata.setValue(GtasksMetadata.INDENTATION, newIndent);

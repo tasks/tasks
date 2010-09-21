@@ -76,7 +76,7 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
     private Task nonIndentedTask() {
         Task task = new Task();
         PluginServices.getTaskService().save(task);
-        Metadata metadata = GtasksMetadata.createEmptyMetadata();
+        Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
         PluginServices.getMetadataService().save(metadata);
         return task;
     }
@@ -99,9 +99,8 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
     private Task indentedTask(int indentation) {
         Task task = new Task();
         PluginServices.getTaskService().save(task);
-        Metadata metadata = GtasksMetadata.createEmptyMetadata();
+        Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.INDENTATION, indentation);
-        metadata.setValue(Metadata.TASK, task.getId());
         PluginServices.getMetadataService().save(metadata);
         return task;
     }
