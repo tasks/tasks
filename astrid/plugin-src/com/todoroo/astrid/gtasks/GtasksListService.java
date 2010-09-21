@@ -53,7 +53,7 @@ public class GtasksListService {
      * @param listId
      * @return NOT_FOUND if no list by this id exists, otherwise list name
      */
-    public String getListName(long listId) {
+    public String getListName(String listId) {
         readLists();
         for(StoreObject list : lists)
             if(list.getValue(GtasksList.REMOTE_ID).equals(listId))
@@ -63,6 +63,7 @@ public class GtasksListService {
 
     @SuppressWarnings("nls")
     public void updateLists(JSONArray newLists) throws JSONException {
+        readLists();
         for(int i = 0; i < newLists.length(); i++) {
             JSONObject remote = newLists.getJSONObject(i);
 

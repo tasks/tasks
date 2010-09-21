@@ -2,6 +2,7 @@ package com.todoroo.astrid.gtasks;
 
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -21,7 +22,7 @@ public class GtasksMetadata {
     public static final LongProperty ID = new LongProperty(Metadata.TABLE,
             Metadata.VALUE1.name);
 
-    public static final LongProperty LIST_ID = new LongProperty(Metadata.TABLE,
+    public static final StringProperty LIST_ID = new StringProperty(Metadata.TABLE,
             Metadata.VALUE2.name);
 
     public static final LongProperty OWNER_ID = new LongProperty(Metadata.TABLE,
@@ -37,8 +38,7 @@ public class GtasksMetadata {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, GtasksMetadata.METADATA_KEY);
         metadata.setValue(ID, (long)VALUE_UNSET);
-        metadata.setValue(LIST_ID, Preferences.getLong(GtasksPreferenceService.PREF_DEFAULT_LIST,
-                VALUE_UNSET));
+        metadata.setValue(LIST_ID, Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST));
         metadata.setValue(OWNER_ID, (long)VALUE_UNSET);
         metadata.setValue(INDENTATION, 0);
         metadata.setValue(ORDERING, VALUE_UNSET);

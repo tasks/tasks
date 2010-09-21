@@ -33,6 +33,7 @@ public class GtasksDetailExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
+        DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose features
         if(!gtasksPreferenceService.isLoggedIn())
@@ -59,17 +60,14 @@ public class GtasksDetailExposer extends BroadcastReceiver {
         if(extended)
             return null;
 
-        DependencyInjectionService.getInstance().inject(this);
-
         Metadata metadata = gtasksMetadataService.getTaskMetadata(id);
         if(metadata == null)
             return null;
 
         StringBuilder builder = new StringBuilder();
 
-        long listId = metadata.getValue(GtasksMetadata.LIST_ID);
+        String listId = metadata.getValue(GtasksMetadata.LIST_ID);
         String listName = gtasksListService.getListName(listId);
-        // RTM list is out of date. don't display RTM stuff
         if(listName == GtasksListService.LIST_NOT_FOUND)
             return null;
 

@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
+        android:visibility="gone"
         android:orientation="vertical">
         
         <Button android:id="@+id/done"

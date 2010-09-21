@@ -13,7 +13,7 @@
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
-    <string name="gtasks_MPr_header">Google Tasks</string>
+    <string name="gtasks_GPr_header">Google Tasks</string>
     
     <!-- ================================================ Synchronization == -->    
     
