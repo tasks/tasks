@@ -187,7 +187,7 @@ public class EditPreferences extends TodorooPreferences {
             else
                 preference.setSummary(R.string.EPr_showNotes_desc_enabled);
             if((Boolean)value != Preferences.getBoolean(preference.getKey(), false)) {
-                taskService.clearDetails(Task.NOTES.neq(""));
+                taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
         }

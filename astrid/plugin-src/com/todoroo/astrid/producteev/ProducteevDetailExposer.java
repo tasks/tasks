@@ -104,7 +104,9 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
                             append(TaskAdapter.DETAIL_SEPARATOR);
             }
 
-        } else {
+        }
+
+        if(Preferences.getBoolean(R.string.p_showNotes, false) == !extended) {
             TodorooCursor<Metadata> notesCursor = ProducteevDataService.getInstance().getTaskNotesCursor(id);
             try {
                 for(notesCursor.moveToFirst(); !notesCursor.isAfterLast(); notesCursor.moveToNext()) {

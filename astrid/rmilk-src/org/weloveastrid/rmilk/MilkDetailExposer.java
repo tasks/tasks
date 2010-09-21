@@ -19,6 +19,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.utility.Preferences;
 
 /**
  * Exposes Task Details for Remember the Milk:
@@ -88,7 +89,9 @@ public class MilkDetailExposer extends BroadcastReceiver {
             if(repeat != 0) {
                 builder.append(context.getString(R.string.rmilk_TLA_repeat)).append(DETAIL_SEPARATOR);
             }
-        } else {
+        }
+
+        if(Preferences.getBoolean(R.string.p_showNotes, false) == !extended) {
             TodorooCursor<Metadata> notesCursor = milkMetadataService.getTaskNotesCursor(id);
             try {
                 for(notesCursor.moveToFirst(); !notesCursor.isAfterLast(); notesCursor.moveToNext()) {
