@@ -875,7 +875,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         case CONTEXT_MENU_ADDON_INTENT_ID: {
             intent = item.getIntent();
-            AndroidUtilities.startExternalIntent(this, intent, ACTIVITY_MENU_EXTERNAL);
+            sendBroadcast(intent);
             return true;
         }
 
