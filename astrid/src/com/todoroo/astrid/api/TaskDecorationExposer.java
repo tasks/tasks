@@ -12,10 +12,10 @@ public interface TaskDecorationExposer {
 
     /**
      * Expose task decorations for the given task
-     *
      * @param task
+     *
      * @return null if no decorations, or decoration
      */
-    public TaskDecoration expose(Filter activeFilter, Task task);
+    public TaskDecoration expose(Task task);
 
 }

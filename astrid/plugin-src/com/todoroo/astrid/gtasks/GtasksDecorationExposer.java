@@ -9,11 +9,11 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.utility.Flags;
 
 /**
  * Exposes {@link TaskDecoration} for GTasks indentation
@@ -31,11 +31,11 @@ public class GtasksDecorationExposer implements TaskDecorationExposer {
     }
 
     @Override
-    public TaskDecoration expose(Filter activeFilter, Task task) {
+    public TaskDecoration expose(Task task) {
         if(!gtasksPreferenceService.isLoggedIn())
             return null;
 
-        if(!activeFilter.sqlQuery.contains(GtasksMetadata.METADATA_KEY))
+        if(Flags.checkAndClear(Flags.GTASKS))
             return null;
 
         return createDecoration(task);

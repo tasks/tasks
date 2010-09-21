@@ -7,12 +7,21 @@ public class Flags {
     /**
      * Whether to refresh the task list
      */
-    public static final int REFRESH = 1;
+    public static final int REFRESH = 1 << 0;
+
+    /**
+     * Whether active filter is GTasks
+     */
+    public static final int GTASKS = 1 << 1;
 
     public static boolean checkAndClear(int flag) {
         boolean set = (state & flag) > 0;
         state &= ~flag;
         return set;
+    }
+
+    public static boolean check(int flag) {
+        return (state & flag) > 0;
     }
 
     public static void set(int flag) {

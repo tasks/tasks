@@ -35,7 +35,6 @@ import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -51,9 +50,13 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
+import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksDecorationExposer;
+import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -118,10 +121,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     // --- task detail and decoration soft caches
 
-    public final ExtendedDetailManager extendedDetailManager = new ExtendedDetailManager();
-    public final DecorationManager decorationManager =
-        new DecorationManager();
-    public final TaskActionManager taskActionManager = new TaskActionManager();
+    public final ExtendedDetailManager extendedDetailManager;
+    public final DecorationManager decorationManager;
+    public final TaskActionManager taskActionManager;
 
     /**
      * Constructor
@@ -159,6 +161,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         detailLoader = new DetailLoaderThread();
         detailLoader.start();
+
+        extendedDetailManager = new ExtendedDetailManager();
+        decorationManager = new DecorationManager();
+        taskActionManager = new TaskActionManager();
     }
 
     /* ======================================================================
@@ -399,8 +405,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     // it's best to do this, though, in order to append details to each other
     private final Map<Long, StringBuilder> taskDetailLoader = Collections.synchronizedMap(new HashMap<Long, StringBuilder>(0));
 
-    private final Task taskDetailContainer = new Task();
-
     public class DetailLoaderThread extends Thread {
         @Override
         public void run() {
@@ -412,7 +416,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             activity.startManagingCursor(fetchCursor);
             Random random = new Random();
             try {
-                Task task = taskDetailContainer;
+                Task task = new Task();
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                     task.clear();
                     task.readFromCursor(fetchCursor);
@@ -425,15 +429,21 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                             taskDetailLoader.put(task.getId(),
                                     new StringBuilder(task.getValue(Task.DETAILS)));
                             requestNewDetails(task);
+                            System.err.println("Refreshing details: " + task.getId());
                         }
                         continue;
+                    } else {
+                        System.err.println("Forced loading of details: " + task.getId() +
+                        		"\n  details: " + new Date(task.getValue(Task.DETAILS_DATE)) +
+                        		"\n  modified: " + new Date(task.getValue(Task.MODIFICATION_DATE)));
                     }
                     addTaskToLoadingArray(task);
-                    requestNewDetails(task);
 
                     task.setValue(Task.DETAILS, DETAIL_SEPARATOR);
                     task.setValue(Task.DETAILS_DATE, DateUtilities.now());
                     taskService.save(task);
+
+                    requestNewDetails(task);
                 }
             } catch (Exception e) {
                 // suppress silently
@@ -472,18 +482,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         synchronized(details) {
             if(details.toString().contains(detail))
                 return;
-            if(details.length() > 0 && !details.toString().endsWith(DETAIL_SEPARATOR))
+            if(details.length() > 0)
                 details.append(DETAIL_SEPARATOR);
-            else if(details.equals(DETAIL_SEPARATOR))
-                details.setLength(0);
             details.append(detail);
-            taskDetailContainer.setId(id);
-            String detailsAsString = details.toString();
-            if(detailsAsString.startsWith(DETAIL_SEPARATOR))
-                detailsAsString = detailsAsString.substring(DETAIL_SEPARATOR.length());
-            taskDetailContainer.setValue(Task.DETAILS, details.toString());
-            taskDetailContainer.setValue(Task.DETAILS_DATE, DateUtilities.now());
-            taskService.save(taskDetailContainer);
+            Task task = new Task();
+            task.setId(id);
+            System.err.println("task " + id + " - '" + details.toString() + "' (" + detail + ")");
+            task.setValue(Task.DETAILS, details.toString());
+            task.setValue(Task.DETAILS_DATE, DateUtilities.now());
+            taskService.save(task);
         }
 
         activity.runOnUiThread(new Runnable() {
@@ -544,14 +551,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public class ExtendedDetailManager extends AddOnManager<String> {
+    public class ExtendedDetailManager extends TaskAdapterAddOnManager<String> {
         private final Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
 
         public ExtendedDetailManager() {
-            //
+            super(activity);
         }
 
         @Override
+        protected
         Intent createBroadcastIntent(Task task) {
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, true);
@@ -567,6 +575,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         @SuppressWarnings("nls")
         @Override
+        protected
         void draw(ViewHolder viewHolder, long taskId, Collection<String> details) {
             if(details == null || viewHolder.task.getId() != taskId)
                 return;
@@ -594,7 +603,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         @Override
-        void reset(ViewHolder viewHolder, long taskId) {
+        protected void reset(ViewHolder viewHolder, long taskId) {
             TextView view = viewHolder.extendedDetails;
             view.setVisibility(View.GONE);
         }
@@ -606,27 +615,45 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public class DecorationManager extends AddOnManager<TaskDecoration> {
-        private final Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DECORATIONS);
+    public class DecorationManager extends TaskAdapterAddOnManager<TaskDecoration> {
 
+        public DecorationManager() {
+            super(activity);
+        }
+
+        private final TaskDecorationExposer[] exposers = new TaskDecorationExposer[] {
+                new TimerDecorationExposer(),
+                new GtasksDecorationExposer()
+        };
+
+        /**
+         * Request add-ons for the given task
+         * @return true if cache miss, false if cache hit
+         */
         @Override
-        Intent createBroadcastIntent(Task task) {
-            // performance hack, get rid of me when task list performance is improved
-            if(isFling || task.getValue(Task.TIMER_START) ==  0 &&
-                    task.getValue(Task.ELAPSED_SECONDS) == 0)
-                return null;
-            intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            intent.putExtra(BROADCAST_EXTRA_TASK, task);
-            return intent;
+        public boolean request(ViewHolder viewHolder) {
+            long taskId = viewHolder.task.getId();
+
+            Collection<TaskDecoration> list = initialize(taskId);
+            if(list != null) {
+                draw(viewHolder, taskId, list);
+                return false;
+            }
+
+            // request details
+            draw(viewHolder, taskId, get(taskId));
+
+            for(TaskDecorationExposer exposer : exposers) {
+                TaskDecoration deco = exposer.expose(viewHolder.task);
+                if(deco != null)
+                    addNew(viewHolder.task.getId(), exposer.getClass().getName(), deco);
+            }
+
+            return true;
         }
 
         @Override
-        public void addNew(long taskId, String addOn, TaskDecoration item) {
-            super.addNew(taskId, addOn, item);
-        }
-
-        @Override
-        void draw(ViewHolder viewHolder, long taskId, Collection<TaskDecoration> decorations) {
+        protected void draw(ViewHolder viewHolder, long taskId, Collection<TaskDecoration> decorations) {
             if(decorations == null || viewHolder.task.getId() != taskId)
                 return;
 
@@ -660,7 +687,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         @Override
-        void reset(ViewHolder viewHolder, long taskId) {
+        protected void reset(ViewHolder viewHolder, long taskId) {
             if(viewHolder.decorations != null) {
                 for(View view : viewHolder.decorations)
                     viewHolder.taskRow.removeView(view);
@@ -670,6 +697,11 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             else
                 viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
         }
+
+        @Override
+        protected Intent createBroadcastIntent(Task task) {
+            return null;
+        }
     }
 
     /**
@@ -678,7 +710,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * @author Tim Su <tim@todoroo.com>
      *
      */
-    public class TaskActionManager extends AddOnManager<TaskAction> {
+    public class TaskActionManager extends TaskAdapterAddOnManager<TaskAction> {
 
         private final LinearLayout.LayoutParams params =
             new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
@@ -686,14 +718,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         private final Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
 
+        public TaskActionManager() {
+            super(activity);
+        }
+
         @Override
-        Intent createBroadcastIntent(Task task) {
+        protected Intent createBroadcastIntent(Task task) {
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
             return broadcastIntent;
         }
 
         @Override
-        void draw(final ViewHolder viewHolder, final long taskId, Collection<TaskAction> actions) {
+        protected void draw(final ViewHolder viewHolder, final long taskId, Collection<TaskAction> actions) {
             if(actions == null || viewHolder.task.getId() != taskId)
                 return;
 
@@ -735,7 +771,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         @Override
-        void reset(ViewHolder viewHolder, long taskId) {
+        protected void reset(ViewHolder viewHolder, long taskId) {
             if(expanded != taskId) {
                 viewHolder.actions.setVisibility(View.GONE);
                 return;
@@ -871,124 +907,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(onCompletedTaskListener != null)
                 onCompletedTaskListener.onCompletedTask(task, newState);
         }
-    }
-
-    /* ======================================================================
-     * ========================================================= addon helper
-     * ====================================================================== */
-
-    abstract public class AddOnManager<TYPE> {
-
-        private final Map<Long, HashMap<String, TYPE>> cache =
-            Collections.synchronizedMap(new HashMap<Long, HashMap<String, TYPE>>(0));
-
-        // --- interface
-
-        /**
-         * Request add-ons for the given task
-         * @return true if cache miss, false if cache hit
-         */
-        public boolean request(ViewHolder viewHolder) {
-            long taskId = viewHolder.task.getId();
-
-            Collection<TYPE> list = initialize(taskId);
-            if(list != null) {
-                draw(viewHolder, taskId, list);
-                return false;
-            }
-
-            // request details
-            draw(viewHolder, taskId, get(taskId));
-            Intent broadcastIntent = createBroadcastIntent(viewHolder.task);
-            if(broadcastIntent != null)
-                activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-            return true;
-        }
-
-        /** creates a broadcast intent for requesting */
-        abstract Intent createBroadcastIntent(Task task);
-
-        /** updates the given view */
-        abstract void draw(ViewHolder viewHolder, long taskId, Collection<TYPE> list);
-
-        /** resets the view as if there was nothing */
-        abstract void reset(ViewHolder viewHolder, long taskId);
-
-        /** on receive an intent */
-        public void addNew(long taskId, String addOn, TYPE item) {
-            if(item == null)
-                return;
-
-            Collection<TYPE> cacheList = addIfNotExists(taskId, addOn, item);
-            if(cacheList != null) {
-                ListView listView = activity.getListView();
-                // update view if it is visible
-                int length = listView.getChildCount();
-                for(int i = 0; i < length; i++) {
-                    ViewHolder viewHolder = (ViewHolder) listView.getChildAt(i).getTag();
-                    if(viewHolder == null || viewHolder.task.getId() != taskId)
-                        continue;
-                    draw(viewHolder, taskId, cacheList);
-                    break;
-                }
-            }
-        }
-
-        /**
-         * Clears the cache
-         */
-        public void clearCache() {
-            cache.clear();
-        }
-
-        /**
-         * Clears single item from cache
-         */
-        public void clearCache(long taskId) {
-            cache.remove(taskId);
-        }
-
-        // --- internal goodies
-
-        /**
-         * Retrieves a list. If it doesn't exist, list is created, but
-         * the method will return null
-         * @param taskId
-         * @return list if there was already one
-         */
-        protected synchronized Collection<TYPE> initialize(long taskId) {
-            if(cache.containsKey(taskId) && cache.get(taskId) != null)
-                return get(taskId);
-            cache.put(taskId, new HashMap<String, TYPE>(0));
-            return null;
-        }
-
-        /**
-         * Adds an item to the cache if it doesn't exist
-         * @param taskId
-         * @param item
-         * @return iterator if item was added, null if it already existed
-         */
-        protected synchronized Collection<TYPE> addIfNotExists(long taskId, String addOn,
-                TYPE item) {
-            HashMap<String, TYPE> list = cache.get(taskId);
-            if(list == null)
-                return null;
-            if(list.containsKey(addOn) && list.get(addOn).equals(item))
-                return null;
-            list.put(addOn, item);
-            return get(taskId);
-        }
-
-        /**
-         * Gets an item at the given index
-         * @param taskId
-         * @return
-         */
-        protected Collection<TYPE> get(long taskId) {
-            return cache.get(taskId).values();
-        }
-
     }
 
 }

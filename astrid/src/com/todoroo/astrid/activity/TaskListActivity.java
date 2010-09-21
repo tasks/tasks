@@ -75,6 +75,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.Notifications;
@@ -617,6 +618,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
                 sqlQueryTemplate.get(), null, TaskAdapter.PROPERTIES);
         startManagingCursor(currentCursor);
+        if(sqlQueryTemplate.get().contains(GtasksMetadata.METADATA_KEY))
+            Flags.set(Flags.GTASKS);
+        else
+            Flags.checkAndClear(Flags.GTASKS);
 
         // set up list adapters
         taskAdapter = new TaskAdapter(this, R.layout.task_adapter_row,

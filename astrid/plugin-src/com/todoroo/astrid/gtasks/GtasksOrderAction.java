@@ -3,9 +3,7 @@ package com.todoroo.astrid.gtasks;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -15,11 +13,11 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.utility.Flags;
 
 /**
- * Context Menu actions for changing indent level of a task
+ * Context Menu actions for changing the order of a task
  * @author Tim Su <tim@todoroo.com>
  *
  */
-abstract public class GtasksIndentAction extends BroadcastReceiver {
+abstract public class GtasksOrderAction extends BroadcastReceiver {
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
 
@@ -39,26 +37,24 @@ abstract public class GtasksIndentAction extends BroadcastReceiver {
             metadata = GtasksMetadata.createEmptyMetadata(taskId);
         }
 
-        int newIndent = Math.max(0, metadata.getValue(GtasksMetadata.INDENTATION) + getDelta());
-        metadata.setValue(GtasksMetadata.INDENTATION, newIndent);
+        // TODO
+
         PluginServices.getMetadataService().save(metadata);
 
         Flags.set(Flags.REFRESH);
-        Toast.makeText(context, context.getString(R.string.gtasks_indent_toast, newIndent),
-                Toast.LENGTH_SHORT).show();
     }
 
-    public static class GtasksIncreaseIndentAction extends GtasksIndentAction {
-        @Override
-        public int getDelta() {
-            return 1;
-        }
-    }
-
-    public static class GtasksDecreaseIndentAction extends GtasksIndentAction {
+    public static class GtasksMoveUpAction extends GtasksOrderAction {
         @Override
         public int getDelta() {
             return -1;
+        }
+    }
+
+    public static class GtasksMoveDownAction extends GtasksOrderAction {
+        @Override
+        public int getDelta() {
+            return 1;
         }
     }
 

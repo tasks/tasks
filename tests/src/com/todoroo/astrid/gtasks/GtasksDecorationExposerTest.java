@@ -66,7 +66,7 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
         inflated.measure(100, 100);
         int width = inflated.getMeasuredWidth();
 
-        result = new GtasksDecorationExposer().expose(gtasksFilter(), otherTask);
+        result = new GtasksDecorationExposer().expose(otherTask);
         View otherInflated = result.decoration.apply(getContext(), null);
         otherInflated.measure(100, 100);
         int otherWidth = otherInflated.getMeasuredWidth();
@@ -120,7 +120,7 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
     }
 
     private void whenRequestingDecoration(Filter filter, Task task) {
-        result = new GtasksDecorationExposer().expose(filter, task);
+        result = new GtasksDecorationExposer().expose(task);
     }
 
     private void givenLoggedInStatus(boolean status) {

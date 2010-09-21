@@ -36,7 +36,7 @@ public class TimerPlugin extends BroadcastReceiver {
     }
 
     /**
-     * stops timer and sets elapsed time. you still need to save the task.
+     * toggles timer and updates elapsed time.
      * @param task
      * @param start if true, start timer. else, stop it
      */
@@ -53,12 +53,10 @@ public class TimerPlugin extends BroadcastReceiver {
             }
         }
         PluginServices.getTaskService().save(task);
-        TimerDecorationExposer.updateTimer(task.getId());
 
         // transmit new intents
         Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
         intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-        new TimerDecorationExposer().onReceive(context, intent);
         new TimerActionExposer().onReceive(context, intent);
 
         // update notification
