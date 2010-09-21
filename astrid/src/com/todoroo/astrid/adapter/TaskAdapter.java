@@ -425,17 +425,18 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
                     if(detailsAreRecentAndUpToDate(task)) {
                         // even if we are up to date, randomly load a fraction
-                        if(random.nextFloat() < 0.2) {
+                        if(random.nextFloat() < 0.1) {
                             taskDetailLoader.put(task.getId(),
                                     new StringBuilder(task.getValue(Task.DETAILS)));
                             requestNewDetails(task);
-                            System.err.println("Refreshing details: " + task.getId());
+                            if(Constants.DEBUG)
+                                System.err.println("Refreshing details: " + task.getId()); //$NON-NLS-1$
                         }
                         continue;
-                    } else {
-                        System.err.println("Forced loading of details: " + task.getId() +
-                        		"\n  details: " + new Date(task.getValue(Task.DETAILS_DATE)) +
-                        		"\n  modified: " + new Date(task.getValue(Task.MODIFICATION_DATE)));
+                    } else if(Constants.DEBUG) {
+                        System.err.println("Forced loading of details: " + task.getId() + //$NON-NLS-1$
+                        		"\n  details: " + new Date(task.getValue(Task.DETAILS_DATE)) + //$NON-NLS-1$
+                        		"\n  modified: " + new Date(task.getValue(Task.MODIFICATION_DATE))); //$NON-NLS-1$
                     }
                     addTaskToLoadingArray(task);
 
@@ -451,8 +452,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         private boolean detailsAreRecentAndUpToDate(Task task) {
-            return task.getValue(Task.DETAILS_DATE) > DateUtilities.now() - 3 * DateUtilities.ONE_DAY &&
-                task.getValue(Task.DETAILS_DATE) >= task.getValue(Task.MODIFICATION_DATE) &&
+            return task.getValue(Task.DETAILS_DATE) >= task.getValue(Task.MODIFICATION_DATE) &&
                 !TextUtils.isEmpty(task.getValue(Task.DETAILS));
         }
 
@@ -487,7 +487,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             details.append(detail);
             Task task = new Task();
             task.setId(id);
-            System.err.println("task " + id + " - '" + details.toString() + "' (" + detail + ")");
             task.setValue(Task.DETAILS, details.toString());
             task.setValue(Task.DETAILS_DATE, DateUtilities.now());
             taskService.save(task);

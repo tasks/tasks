@@ -215,7 +215,6 @@ public class TaskDao extends DatabaseDao<Task> {
             item.setValue(Task.DETAILS, null);
             item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         }
-        System.err.println(">> SAVE EXISTING: " + item.getSetValues());
         return super.saveExisting(item);
     }
 

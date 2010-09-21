@@ -436,7 +436,6 @@ public class CustomFilterActivity extends ListActivity {
             else {
                 String subSql = instance.criterion.sql.replace("?", value);
                 subSql = PermaSql.replacePlaceholders(subSql);
-                System.err.println(subSql);
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
             }
 
@@ -447,7 +446,6 @@ public class CustomFilterActivity extends ListActivity {
                 instance.end = cursor.getInt(0);
                 last = instance.end;
                 max = Math.max(max, last);
-                System.err.println("updated instance to " + last);
             } finally {
                 cursor.close();
             }
