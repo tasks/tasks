@@ -39,8 +39,8 @@ abstract public class GtasksIndentAction extends BroadcastReceiver {
             metadata = GtasksMetadata.createEmptyMetadata(taskId);
         }
 
-        int newIndent = Math.max(0, metadata.getValue(GtasksMetadata.INDENTATION) + getDelta());
-        metadata.setValue(GtasksMetadata.INDENTATION, newIndent);
+        int newIndent = Math.max(0, metadata.getValue(GtasksMetadata.INDENT) + getDelta());
+        metadata.setValue(GtasksMetadata.INDENT, newIndent);
         PluginServices.getMetadataService().save(metadata);
 
         Flags.set(Flags.REFRESH);

@@ -26,13 +26,13 @@ public class GtasksMetadata {
     public static final StringProperty LIST_ID = new StringProperty(Metadata.TABLE,
             Metadata.VALUE2.name);
 
-    public static final LongProperty OWNER_ID = new LongProperty(Metadata.TABLE,
+    public static final LongProperty PARENT_TASK = new LongProperty(Metadata.TABLE,
             Metadata.VALUE3.name);
 
-    public static final IntegerProperty INDENTATION = new IntegerProperty(Metadata.TABLE,
+    public static final IntegerProperty INDENT = new IntegerProperty(Metadata.TABLE,
             Metadata.VALUE4.name);
 
-    public static final IntegerProperty ORDERING = new IntegerProperty(Metadata.TABLE,
+    public static final IntegerProperty ORDER = new IntegerProperty(Metadata.TABLE,
             Metadata.VALUE5.name);
 
     /**
@@ -45,9 +45,9 @@ public class GtasksMetadata {
         metadata.setValue(Metadata.KEY, GtasksMetadata.METADATA_KEY);
         metadata.setValue(ID, (long)VALUE_UNSET);
         metadata.setValue(LIST_ID, Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST));
-        metadata.setValue(OWNER_ID, (long)VALUE_UNSET);
-        metadata.setValue(INDENTATION, 0);
-        metadata.setValue(ORDERING, VALUE_UNSET);
+        metadata.setValue(PARENT_TASK, (long)VALUE_UNSET);
+        metadata.setValue(INDENT, 0);
+        metadata.setValue(ORDER, VALUE_UNSET);
         if(taskId > AbstractModel.NO_ID)
             metadata.setValue(Metadata.TASK, taskId);
         return metadata;

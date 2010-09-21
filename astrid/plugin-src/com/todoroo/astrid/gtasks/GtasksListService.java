@@ -15,6 +15,7 @@ import com.todoroo.astrid.data.StoreObject;
 public class GtasksListService {
 
     public static final String LIST_NOT_FOUND = null;
+    public static final StoreObject LIST_NOT_FOUND_OBJECT = null;
 
     @Autowired
     private StoreObjectDao storeObjectDao;
@@ -54,10 +55,9 @@ public class GtasksListService {
      * @return NOT_FOUND if no list by this id exists, otherwise list name
      */
     public String getListName(String listId) {
-        readLists();
-        for(StoreObject list : lists)
-            if(list.getValue(GtasksList.REMOTE_ID).equals(listId))
-                return list.getValue(GtasksList.NAME);
+        StoreObject list = getList(listId);
+        if(list != LIST_NOT_FOUND_OBJECT)
+            return list.getValue(GtasksList.NAME);
         return LIST_NOT_FOUND;
     }
 
@@ -91,6 +91,14 @@ public class GtasksListService {
 
     private void clearListCache() {
         lists = null;
+    }
+
+    public StoreObject getList(String listId) {
+        readLists();
+        for(StoreObject list : lists)
+            if(list.getValue(GtasksList.REMOTE_ID).equals(listId))
+                return list;
+        return LIST_NOT_FOUND_OBJECT;
     }
 
 }

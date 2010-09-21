@@ -100,7 +100,7 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
         Task task = new Task();
         PluginServices.getTaskService().save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
-        metadata.setValue(GtasksMetadata.INDENTATION, indentation);
+        metadata.setValue(GtasksMetadata.INDENT, indentation);
         PluginServices.getMetadataService().save(metadata);
         return task;
     }

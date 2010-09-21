@@ -46,7 +46,7 @@ public class GtasksDecorationExposer implements TaskDecorationExposer {
         if(metadata == null)
             return null;
 
-        int indentation = metadata.getValue(GtasksMetadata.INDENTATION);
+        int indentation = metadata.getValue(GtasksMetadata.INDENT);
         if(indentation <= 0)
             return null;
 

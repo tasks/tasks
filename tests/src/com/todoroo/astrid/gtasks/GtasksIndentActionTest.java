@@ -64,7 +64,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         Task task = new Task();
         PluginServices.getTaskService().save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
-        metadata.setValue(GtasksMetadata.INDENTATION, indentation);
+        metadata.setValue(GtasksMetadata.INDENT, indentation);
         metadata.setValue(Metadata.TASK, task.getId());
         PluginServices.getMetadataService().save(metadata);
         return task;
@@ -73,7 +73,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     private void thenExpectIndentationLevel(int expected) {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(task.getId());
         assertNotNull("task has metadata", metadata);
-        int indentation = metadata.getValue(GtasksMetadata.INDENTATION);
+        int indentation = metadata.getValue(GtasksMetadata.INDENT);
         assertTrue("indentation: " + indentation,
                 indentation == expected);
     }

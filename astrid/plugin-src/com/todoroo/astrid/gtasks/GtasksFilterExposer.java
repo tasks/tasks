@@ -55,8 +55,8 @@ public class GtasksFilterExposer extends BroadcastReceiver {
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                         TaskCriteria.activeAndVisible(),
                         GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
-                                Order.asc(Functions.caseStatement(GtasksMetadata.ORDERING.eq(0),
-                                        Task.CREATION_DATE, GtasksMetadata.ORDERING))),
+                                Order.asc(Functions.caseStatement(GtasksMetadata.ORDER.eq(0),
+                                        Task.CREATION_DATE, GtasksMetadata.ORDER))),
                 values);
 
         return filter;
