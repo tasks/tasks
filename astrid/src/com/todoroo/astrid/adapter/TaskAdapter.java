@@ -474,6 +474,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return;
             if(details.length() > 0 && !details.toString().endsWith(DETAIL_SEPARATOR))
                 details.append(DETAIL_SEPARATOR);
+            else if(details.equals(DETAIL_SEPARATOR))
+                details.setLength(0);
             details.append(detail);
             taskDetailContainer.setId(id);
             String detailsAsString = details.toString();
