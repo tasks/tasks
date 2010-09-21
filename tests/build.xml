@@ -64,17 +64,22 @@
     -->
     <setup />
 
-    <!-- TODO multiple source folders
     <target name="coverage">
       <subant target="help">
         <fileset file="${tested.project.absolute.dir}/build.xml" />
       </subant>
       <copy todir="${tested.project.absolute.dir}/bin/source">
-        <fileset dir="../../astridApi/src" />
+        <fileset dir="../../astridApi/src" includes="**/*.java" />
+        <fileset dir="src" includes="**/*.java" />
+      </copy>      
+      <!-- copy our own sources to source dir -->
+      <mkdir dir="${source.dir}" />
+      <copy todir="${source.dir}">
+        <fileset dir="src" />
       </copy>
       <antcall target="android_test_rules.coverage">
         <param name="source.dir" value="bin/source" />
       </antcall>
-    </target> -->
+    </target>
 
 </project>
