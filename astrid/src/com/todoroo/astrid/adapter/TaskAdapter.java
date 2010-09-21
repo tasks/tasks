@@ -337,6 +337,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             viewHolder.details.setVisibility(View.GONE);
         } else {
             viewHolder.details.setVisibility(View.VISIBLE);
+            if(details.startsWith(DETAIL_SEPARATOR))
+                details = details.substring(DETAIL_SEPARATOR.length());
             viewHolder.details.setText(convertToHtml(details.trim().replace("\n", //$NON-NLS-1$
                     "<br>"), detailImageGetter, null)); //$NON-NLS-1$
         }
