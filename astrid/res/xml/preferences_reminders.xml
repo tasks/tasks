@@ -18,7 +18,8 @@
         android:title="@string/rmd_EPr_persistent_title"/>
     <CheckBoxPreference
         android:key="@string/p_rmd_vibrate"
-        android:title="@string/rmd_EPr_vibrate_title"/>
+        android:title="@string/rmd_EPr_vibrate_title"
+        android:defaultValue="true"  />
     <CheckBoxPreference
        android:key="@string/p_rmd_nagging"
        android:title="@string/rmd_EPr_nagging_title"
