@@ -239,6 +239,13 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
+    <receiver android:name="com.todoroo.astrid.gtasks.GtasksOrderAction$GtasksMoveUpAction"
+              android:label="@string/gtasks_move_up">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.CONTEXT_MENU" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksIndentAction$GtasksIncreaseIndentAction"
               android:label="@string/gtasks_increase_indent">
       <intent-filter>
@@ -248,13 +255,6 @@
     </receiver>    
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksIndentAction$GtasksDecreaseIndentAction"
               android:label="@string/gtasks_decrease_indent">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.CONTEXT_MENU" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    <receiver android:name="com.todoroo.astrid.gtasks.GtasksOrderAction$GtasksMoveUpAction"
-              android:label="@string/gtasks_move_up">
       <intent-filter>
         <action android:name="com.todoroo.astrid.CONTEXT_MENU" />
         <category android:name="android.intent.category.DEFAULT" />
