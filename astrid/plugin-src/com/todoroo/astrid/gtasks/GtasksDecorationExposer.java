@@ -56,4 +56,9 @@ public class GtasksDecorationExposer implements TaskDecorationExposer {
         return new TaskDecoration(decoration, TaskDecoration.POSITION_LEFT, 0);
     }
 
+    @Override
+    public String getAddon() {
+        return GtasksPreferenceService.IDENTIFIER;
+    }
+
 }

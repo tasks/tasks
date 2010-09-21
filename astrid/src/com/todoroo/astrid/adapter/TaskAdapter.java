@@ -647,7 +647,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             for(TaskDecorationExposer exposer : exposers) {
                 TaskDecoration deco = exposer.expose(viewHolder.task);
                 if(deco != null)
-                    addNew(viewHolder.task.getId(), exposer.getClass().getName(), deco);
+                    addNew(viewHolder.task.getId(), exposer.getAddon(), deco);
             }
 
             return true;

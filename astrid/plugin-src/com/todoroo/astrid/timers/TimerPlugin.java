@@ -58,6 +58,7 @@ public class TimerPlugin extends BroadcastReceiver {
         Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
         intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
         new TimerActionExposer().onReceive(context, intent);
+        new TimerDecorationExposer().updateDecoration(context, task);
 
         // update notification
         TimerPlugin.updateNotifications(context);

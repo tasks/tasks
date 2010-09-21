@@ -18,4 +18,6 @@ public interface TaskDecorationExposer {
      */
     public TaskDecoration expose(Task task);
 
+    public String getAddon();
+
 }

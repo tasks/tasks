@@ -3,6 +3,8 @@
  */
 package com.todoroo.astrid.timers;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.SystemClock;
 import android.text.format.DateUtils;
@@ -12,6 +14,7 @@ import android.widget.RemoteViews;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
@@ -59,8 +62,25 @@ public class TimerDecorationExposer implements TaskDecorationExposer {
         return decoration;
     }
 
+    public void updateDecoration(Context context, Task task) {
+        TaskDecoration decoration = expose(task);
+        if(decoration == null)
+            return;
+
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DECORATIONS);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, TimerPlugin.IDENTIFIER);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, decoration);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+        context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
     private String buildFormat(long elapsed) {
         return DateUtils.formatElapsedTime(elapsed / 1000L);
+    }
+
+    @Override
+    public String getAddon() {
+        return TimerPlugin.IDENTIFIER;
     }
 
 }
