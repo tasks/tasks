@@ -1218,6 +1218,8 @@ public final class TaskEditActivity extends TabActivity {
         @Override
         public String writeToModel(Task task) {
             task.setValue(Task.REMINDER_FLAGS, getValue());
+            // clear snooze if task is being edited
+            task.setValue(Task.REMINDER_SNOOZE, 0L);
             return null;
         }
     }
