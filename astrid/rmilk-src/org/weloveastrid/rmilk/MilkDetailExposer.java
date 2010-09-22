@@ -44,6 +44,7 @@ public class MilkDetailExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
+        DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose features
         if(!MilkUtilities.INSTANCE.isLoggedIn())
@@ -67,7 +68,6 @@ public class MilkDetailExposer extends BroadcastReceiver {
     }
 
     public String getTaskDetails(Context context, long id, boolean extended) {
-        DependencyInjectionService.getInstance().inject(this);
         Metadata metadata = milkMetadataService.getTaskMetadata(id);
         if(metadata == null)
             return null;
