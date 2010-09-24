@@ -29,6 +29,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.flurry.android.FlurryAgent;
@@ -111,6 +112,7 @@ public class ProducteevLoginActivity extends Activity {
                     Editable password = passwordEditText.getText();
                     Editable firstName = ((EditText)findViewById(R.id.firstName)).getText();
                     Editable lastName = ((EditText)findViewById(R.id.lastName)).getText();
+                    String timezone = ((Spinner)findViewById(R.id.timezoneList)).getSelectedItem().toString();
                     if(email.length() == 0 || password.length() == 0 ||
                             firstName.length() == 0 ||
                             lastName.length() == 0) {
@@ -119,7 +121,7 @@ public class ProducteevLoginActivity extends Activity {
                         return;
                     }
                     performSignup(email.toString(), password.toString(),
-                            firstName.toString(), lastName.toString());
+                            firstName.toString(), lastName.toString(), timezone);
                 }
             }
         });
@@ -167,7 +169,7 @@ public class ProducteevLoginActivity extends Activity {
     }
 
     private void performSignup(final String email, final String password,
-            final String firstName, final String lastName) {
+            final String firstName, final String lastName, final String timezone) {
         final ProgressDialog dialog = DialogUtilities.progressDialog(this,
                 getString(R.string.DLG_wait));
         final TextView errors = (TextView) findViewById(R.id.error);
@@ -178,7 +180,7 @@ public class ProducteevLoginActivity extends Activity {
                 ProducteevInvoker invoker = ProducteevSyncProvider.getInvoker();
                 final StringBuilder errorMessage = new StringBuilder();
                 try {
-                    invoker.usersSignUp(email, firstName, lastName, password, null);
+                    invoker.usersSignUp(email, firstName, lastName, password, timezone, null);
                     invoker.authenticate(email, password);
 
                     Preferences.setString(R.string.producteev_PPr_email, email);
