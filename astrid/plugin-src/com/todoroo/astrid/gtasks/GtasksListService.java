@@ -1,8 +1,6 @@
 package com.todoroo.astrid.gtasks;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -11,6 +9,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.StoreObject;
+import com.todoroo.gtasks.GoogleTaskListInfo;
 
 public class GtasksListService {
 
@@ -62,12 +61,12 @@ public class GtasksListService {
     }
 
     @SuppressWarnings("nls")
-    public void updateLists(JSONArray newLists) throws JSONException {
+    public void updateLists(GoogleTaskListInfo[] remoteLists) throws JSONException {
         readLists();
-        for(int i = 0; i < newLists.length(); i++) {
-            JSONObject remote = newLists.getJSONObject(i);
+        for(int i = 0; i < remoteLists.length; i++) {
+            GoogleTaskListInfo remote = remoteLists[i];
 
-            String id = remote.getString("id");
+            String id = remote.getId();
             StoreObject local = null;
             for(StoreObject list : lists) {
                 if(list.getValue(GtasksList.REMOTE_ID).equals(id)) {
@@ -81,7 +80,7 @@ public class GtasksListService {
 
             local.setValue(StoreObject.TYPE, GtasksList.TYPE);
             local.setValue(GtasksList.REMOTE_ID, id);
-            local.setValue(GtasksList.NAME, remote.getString("title"));
+            local.setValue(GtasksList.NAME, remote.getName());
             local.setValue(GtasksList.ORDER, i);
             storeObjectDao.persist(local);
         }

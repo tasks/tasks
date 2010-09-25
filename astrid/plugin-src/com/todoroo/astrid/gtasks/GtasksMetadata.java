@@ -20,7 +20,7 @@ public class GtasksMetadata {
     public static final String METADATA_KEY = "gtasks"; //$NON-NLS-1$
 
     /** task id in google */
-    public static final LongProperty ID = new LongProperty(Metadata.TABLE,
+    public static final StringProperty ID = new StringProperty(Metadata.TABLE,
             Metadata.VALUE1.name);
 
     public static final StringProperty LIST_ID = new StringProperty(Metadata.TABLE,

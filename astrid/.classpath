@@ -14,5 +14,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/jsr305.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/rfc2445-no-joda.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/locale_platform.jar"/>
+	<classpathentry kind="lib" path="libs/todoroo-g.jar"/>
 	<classpathentry kind="output" path="ecbuild"/>
 </classpath>
