@@ -127,7 +127,7 @@
                     <include name="coverage.em" />
                 </infileset>
                 <!-- TODO: reports in other, indicated by user formats -->
-                <html outfile="${reports.dir}/coverage.html" />
+                <html outfile="${reports.dir}/coverage.html" encoding="UTF-8" />
                 <xml outfile="${reports.dir}/coverage.xml" />
            </report>
         </emma>
