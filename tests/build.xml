@@ -64,7 +64,14 @@
     -->
     <setup />
 
-    <target name="coverage">
+    <target name="coverage" depends="-prepare-coverage-source">
+      <antcall target="android-coverage">
+        <param name="source.dir" value="bin/source" />
+      </antcall>
+      <antcall target="pull-junit" />
+    </target>
+
+    <target name="-prepare-coverage-source">
       <subant target="help">
         <fileset file="${tested.project.absolute.dir}/build.xml" />
       </subant>
@@ -77,9 +84,59 @@
       <copy todir="${source.dir}">
         <fileset dir="src" />
       </copy>
-      <antcall target="android_test_rules.coverage">
-        <param name="source.dir" value="bin/source" />
-      </antcall>
     </target>
+
+    <target name="pull-junit">
+      <exec executable="${adb}" failonerror="true">
+        <arg line="${adb.device.arg}"/>
+        <arg value="pull" />
+        <arg value="/data/data/${tested.manifest.package}/files/junit-report.xml" />
+        <arg value="${reports.dir}/junit-report.xml" />
+      </exec>
+    </target>
+
+    <!-- clone of android coverage target with extra purposes:
+         1. generate emma xml report
+         2. use adb device arg to pull coverage file
+      -->
+    <target name="android-coverage" depends="-set-coverage-classpath, -install-instrumented, install"
+                description="Runs the tests against the instrumented code and generates
+                            code coverage report">
+        <run-tests-helper emma.enabled="true">
+            <extra-instrument-args>
+                <arg value="-e" />
+                   <arg value="coverageFile" />
+                   <arg value="${emma.dump.file}" />
+            </extra-instrument-args>
+        </run-tests-helper>
+        <echo>Downloading coverage file into project directory...</echo>
+        <exec executable="${adb}" failonerror="true">
+          <arg line="${adb.device.arg}"/>
+          <arg value="pull" />
+          <arg value="${emma.dump.file}" />
+          <arg value="coverage.ec" />
+        </exec>
+        <echo>Extracting coverage report...</echo>
+        <mkdir dir="${reports.dir}" />
+        <emma>
+            <report sourcepath="${tested.project.absolute.dir}/${source.dir}"
+                              verbosity="${verbosity}">
+                <!-- TODO: report.dir or something like should be introduced if necessary -->
+                <infileset dir=".">
+                    <include name="coverage.ec" />
+                    <include name="coverage.em" />
+                </infileset>
+                <!-- TODO: reports in other, indicated by user formats -->
+                <html outfile="${reports.dir}/coverage.html" />
+                <xml outfile="${reports.dir}/coverage.xml" />
+           </report>
+        </emma>
+        <echo>Cleaning up temporary files...</echo>
+        <delete dir="${instrumentation.absolute.dir}" />
+        <delete file="coverage.ec" />
+        <delete file="coverage.em" />
+        <echo>Saving the report file in ${basedir}/coverage/coverage.html</echo>
+    </target>
+
 
 </project>

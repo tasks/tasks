@@ -2,3 +2,4 @@ bin/
 instrumented/
 coverage.em
 coverage/
+reports/
