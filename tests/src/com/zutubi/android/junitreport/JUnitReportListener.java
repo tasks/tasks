@@ -105,7 +105,6 @@ public class JUnitReportListener implements TestListener {
         this.mFilterTraces = filterTraces;
     }
 
-    @Override
     public void startTest(Test test) {
         try {
             openIfRequired(test);
@@ -147,12 +146,10 @@ public class JUnitReportListener implements TestListener {
         }
     }
 
-    @Override
     public void addError(Test test, Throwable error) {
         addProblem(TAG_ERROR, error);
     }
 
-    @Override
     public void addFailure(Test test, AssertionFailedError error) {
         addProblem(TAG_FAILURE, error);
     }
@@ -181,7 +178,6 @@ public class JUnitReportListener implements TestListener {
         }
     }
 
-    @Override
     public void endTest(Test test) {
         try {
             if (test instanceof TestCase) {
