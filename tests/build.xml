@@ -138,5 +138,24 @@
         <echo>Saving the report file in ${basedir}/coverage/coverage.html</echo>
     </target>
 
+    <macrodef name="run-tests-helper">
+        <attribute name="emma.enabled" default="false" />
+        <element name="extra-instrument-args" optional="yes" />
+        <sequential>
+            <echo>Running tests ...</echo>
+            <exec executable="${adb}" failonerror="true">
+              <arg line="${adb.device.arg}"/>
+                <arg value="shell" />
+                <arg value="am" />
+                   <arg value="instrument" />
+                <arg value="-w" />
+                <arg value="-e" />
+                   <arg value="coverage" />
+                   <arg value="@{emma.enabled}" />
+                <extra-instrument-args />
+                <arg value="${manifest.package}/${test.runner}" />
+            </exec>
+        </sequential>
+    </macrodef>
 
 </project>
