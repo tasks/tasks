@@ -7,17 +7,21 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.TreeSet;
 
-import android.content.BroadcastReceiver;
-import android.content.ContentValues;
-import android.content.Context;
-import android.content.Intent;
+import android.app.Activity;
+import android.content.*;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 
+import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.Toast;
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -35,6 +39,8 @@ import com.todoroo.astrid.tags.TagService.Tag;
  */
 public class TagFilterExposer extends BroadcastReceiver {
 
+    private static final String TAG = "tag";
+
     private TagService tagService;
 
     private Filter filterFromTag(Context context, Tag tag, Criterion criterion) {
@@ -51,16 +57,22 @@ public class TagFilterExposer extends BroadcastReceiver {
         if(tag.count == 0)
             filter.color = Color.GRAY;
 
-//        filters[0].contextMenuLabels = new String[] {
-//            "Rename Tag",
-//            "Delete Tag"
-//        };
-//        filters[0].contextMenuIntents = new Intent[] {
-//                new Intent(),
-//                new Intent()
-//        };
+        filter.contextMenuLabels = new String[] {
+            context.getString(R.string.tag_cm_rename),
+            context.getString(R.string.tag_cm_delete)
+        };
+        filter.contextMenuIntents = new Intent[] {
+                newTagIntent(context, RenameTagActivity.class, tag),
+                newTagIntent(context, DeleteTagActivity.class, tag)
+        };
 
         return filter;
+    }
+
+    private Intent newTagIntent(Context context, Class<? extends Activity> activity, Tag tag) {
+        Intent ret = new Intent(context, activity);
+        ret.putExtra(TAG, tag.tag);
+        return ret;
     }
 
     @Override
@@ -81,15 +93,17 @@ public class TagFilterExposer extends BroadcastReceiver {
             @Override
             public int compare(Tag a, Tag b) {
                 if(a.count == b.count)
-                    return a.tag.toLowerCase().compareTo(b.tag.toLowerCase());
+                    return a.tag.compareTo(b.tag);
                 return b.count - a.count;
             }
         });
         for(Tag tag : tags) {
             if(!actives.containsKey(tag.tag))
                 tag.count = 0;
-            else
+            else {
+                // will decrease tag.count is there are tasks with this tag which are not activeAndVisible but also have not been deleted
                 tag.count = actives.get(tag.tag);
+            }
             sortedTagSet.add(tag);
         }
 
@@ -120,6 +134,117 @@ public class TagFilterExposer extends BroadcastReceiver {
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+    }
+
+    public abstract static class TagActivity extends Activity {
+
+        protected String tag;
+
+        @Autowired
+        public TagService tagService;
+
+        protected TagActivity() {
+            DependencyInjectionService.getInstance().inject(this);
+        }
+
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setTheme(android.R.style.Theme_Dialog);
+
+            tag = getIntent().getStringExtra(TAG);
+            if(tag == null) {
+                finish();
+                return;
+            }
+
+            DependencyInjectionService.getInstance().inject(this); // why?
+
+            showDialog();
+        }
+
+        protected DialogInterface.OnClickListener getOkListener() {
+            return new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        if (ok()) {
+                            setResult(RESULT_OK);
+                        } else {
+                            toastNoChanges();
+                            setResult(RESULT_CANCELED);
+                        }
+                    } finally {
+                        finish();
+                    }
+                }
+            };
+        }
+
+        protected DialogInterface.OnClickListener getCancelListener() {
+            return new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    try {
+                        toastNoChanges();
+                    } finally {
+                        setResult(RESULT_CANCELED);
+                        finish();
+                    }
+                }
+
+            };
+        }
+
+        private void toastNoChanges() {
+            Toast.makeText(this, R.string.TEA_no_tags_modified,
+                        Toast.LENGTH_SHORT).show();
+        }
+
+        protected abstract void showDialog();
+
+        protected abstract boolean ok();
+    }
+
+    public static class DeleteTagActivity extends TagActivity {
+
+        @Override
+        protected void showDialog() {
+            DialogUtilities.okCancelDialog(this, getString(R.string.DLG_delete_this_tag_question, tag), getOkListener(), getCancelListener());
+        }
+
+        @Override
+        protected boolean ok() {
+            int deleted = tagService.delete(tag);
+            Toast.makeText(this, getString(R.string.TEA_tags_deleted, tag, deleted),
+                    Toast.LENGTH_SHORT).show();
+            return true;
+        }
+
+    }
+
+    public static class RenameTagActivity extends TagActivity {
+
+        private EditText editor;
+
+        @Override
+        protected void showDialog() {
+            editor = new EditText(this); // not sure why this can't be done in the RenameTagActivity constructor.
+            DialogUtilities.viewDialog(this, getString(R.string.DLG_rename_this_tag_header, tag), editor, getOkListener(), getCancelListener());
+        }
+
+        @Override
+        protected boolean ok() { // this interface is not going to work well with the dialog that says "Are you sure?"
+            String text = editor.getText().toString();
+            if (text == null || text.length() == 0) {
+                return false;
+            } else {
+                int renamed = tagService.rename(tag, text);
+                Toast.makeText(this, getString(R.string.TEA_tags_renamed, tag, text, renamed),
+                        Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        }
     }
 
 }

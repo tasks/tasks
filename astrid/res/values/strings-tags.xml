@@ -28,5 +28,26 @@
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">Tagged \'%s\'</string>
-    
+
+  <!-- context menu option to rename a tag -->
+  <string name="tag_cm_rename">Rename Tag</string>
+
+  <!-- context menu option to delete a tag -->
+  <string name="tag_cm_delete">Delete Tag</string>
+
+  <!-- Dialog to confirm deletion of a tag -->
+  <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
+
+  <!-- Dialog to rename tag -->
+  <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
+
+  <!-- Toast notification that no changes have been made -->
+  <string name="TEA_no_tags_modified">No changes made</string>
+
+  <!-- Toast notification that a tag has been deleted -->
+  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+
+  <!-- Toast notification that a tag has been renamed -->
+  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+
 </resources>

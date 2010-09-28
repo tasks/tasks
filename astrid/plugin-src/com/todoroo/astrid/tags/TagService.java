@@ -8,11 +8,7 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.Query;
-import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.sql.*;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -20,6 +16,8 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.Flags;
 
 /**
  * Provides operations for working with tags
@@ -53,7 +51,10 @@ public final class TagService {
     @Autowired
     private MetadataDao metadataDao;
 
-    private TagService() {
+    @Autowired
+    private TaskService taskService;
+
+    public TagService() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
@@ -92,12 +93,16 @@ public final class TagService {
          */
         public QueryTemplate queryTemplate(Criterion criterion) {
             return new QueryTemplate().join(Join.inner(Metadata.TABLE,
-                    Task.ID.eq(Metadata.TASK))).where(Criterion.and(
-                            MetadataCriteria.withKey(KEY), TAG.eq(tag),
-                            criterion));
+                    Task.ID.eq(Metadata.TASK))).where(tagEq(tag, criterion));
         }
+
     }
 
+    private static Criterion tagEq(String tag, Criterion additionalCriterion) {
+        return Criterion.and(
+                MetadataCriteria.withKey(KEY), TAG.eq(tag),
+                additionalCriterion);
+    }
     public QueryTemplate untaggedTemplate() {
         return new QueryTemplate().where(Criterion.and(
                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(MetadataCriteria.withKey(KEY)))),
@@ -195,4 +200,35 @@ public final class TagService {
 
         return service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(KEY)) > 0;
     }
+
+    public int delete(String tag) {
+        invalidateTaskCache(tag);
+        return PluginServices.getMetadataService().deleteWhere(tagEq(tag, Criterion.all));
+    }
+
+    public int rename(String oldTag, String newTag) {
+        // First remove newTag from all tasks that have both oldTag and newTag.
+        MetadataService metadataService = PluginServices.getMetadataService();
+        metadataService.deleteWhere(
+                Criterion.and(
+                        Metadata.VALUE1.eq(newTag),
+                        Metadata.TASK.in(rowsWithTag(oldTag, Metadata.TASK))));
+
+        // Then rename all instances of oldTag to newTag.
+        Metadata metadata = new Metadata();
+        metadata.setValue(TAG, newTag);
+        int ret = metadataService.update(tagEq(oldTag, Criterion.all), metadata);
+        invalidateTaskCache(newTag);
+        return ret;
+    }
+
+    private Query rowsWithTag(String tag, Field... projections) {
+        return Query.select(projections).from(Metadata.TABLE).where(Metadata.VALUE1.eq(tag));
+    }
+
+    private void invalidateTaskCache(String tag) {
+        taskService.clearDetails(Task.ID.in(rowsWithTag(tag, Task.ID)));
+        Flags.set(Flags.REFRESH);
+    }
+
 }

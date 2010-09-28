@@ -196,6 +196,8 @@
     </receiver>
     <activity android:name="com.todoroo.astrid.core.CustomFilterActivity" />
     <activity android:name="com.todoroo.astrid.core.CustomFilterExposer$DeleteActivity" />
+    <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$DeleteTagActivity" />
+    <activity android:name="com.todoroo.astrid.tags.TagFilterExposer$RenameTagActivity" />
 
     <!-- alarms -->
     <receiver android:name="com.todoroo.astrid.alarms.AlarmTaskRepeatListener">

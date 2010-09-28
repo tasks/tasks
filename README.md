@@ -18,7 +18,7 @@ Getting Started With Development
 
 3. Use **git** to clone your forked repository (see Github's instructions if you need help). Follow the [Github Line Ending Help](http://help.github.com/dealing-with-lineendings/)
 
-4. Clone the [astridApi](http://github.com/todoroo/astridApi) github project. This is an (Android Library Project)[http://developer.android.com/guide/developing/eclipse-adt.html#libraryProject] and so you will need ADT version 0.9.7+. Put the astridApi folder in the same root level folder as the astrid folder.
+4. Clone the [astridApi](http://github.com/todoroo/astridApi) github project. This is an [Android Library Project](http://developer.android.com/guide/developing/eclipse-adt.html#libraryProject) and so you will need ADT version 0.9.7+. Put the astridApi folder in the same root level folder as the astrid folder.
 
 4. Open up **eclipse** and import the *astrid*, *astridApi*, and *astrid-tests* projects. There should be no compilation errors. If there are, check the Android page of Eclipse Project Properties to verify the astridApi project was found.
 

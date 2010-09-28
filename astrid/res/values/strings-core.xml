@@ -321,7 +321,7 @@
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notes will always displayed</string>  
+  <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">New Task Defaults</string>
