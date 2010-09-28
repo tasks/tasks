@@ -4,7 +4,10 @@
 package com.todoroo.astrid.gtasks;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Stack;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -71,24 +74,25 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         StoreObject list = gtasksListService.getList(listId);
         if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
             return;
-        Filter filter = GtasksFilterExposer.filterFromList(list);
-        TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(filter.sqlQuery, null, Task.ID);
-        try {
-            Long[] ids = new Long[cursor.getCount()];
-            int order = 0;
-            int previousIndent = -1;
-            Stack<Long> taskHierarchyStack = new Stack<Long>();
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                long taskId = cursor.getLong(0);
-                ids[order] = taskId;
+
+        final ArrayList<Long> ids = new ArrayList<Long>();
+        final Stack<Long> taskHierarchyStack = new Stack<Long>();
+
+        final AtomicInteger order = new AtomicInteger(0);
+        final AtomicInteger previousIndent = new AtomicInteger(-1);
+
+        iterateThroughList(list, new ListIterator() {
+            @Override
+            public void processTask(long taskId) {
+                ids.add(taskId);
                 Metadata metadata = getTaskMetadata(taskId);
                 if(metadata == null)
-                    continue;
+                    return;
 
-                metadata.setValue(GtasksMetadata.ORDER, order++);
+                metadata.setValue(GtasksMetadata.ORDER, order.getAndAdd(1));
                 int indent = metadata.getValue(GtasksMetadata.INDENT);
 
-                for(int i = indent; i <= previousIndent; i++) {
+                for(int i = indent; i <= previousIndent.get(); i++) {
                     if(!taskHierarchyStack.isEmpty())
                         taskHierarchyStack.pop();
                 }
@@ -105,10 +109,67 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
 
                 PluginServices.getMetadataService().save(metadata);
                 taskHierarchyStack.push(taskId);
-                previousIndent = indent;
+                previousIndent.set(indent);
+            }
+        });
+
+        PluginServices.getTaskService().clearDetails(Task.ID.in(ids));
+    }
+
+    /**
+     * Create a local tree of tasks to expedite sibling and parent lookups
+     */
+    public void createParentSiblingMaps() {
+        final HashMap<Long, Long> parents = new HashMap<Long, Long>();
+        final HashMap<Long, Long> siblings = new HashMap<Long, Long>();
+
+        for(StoreObject list : gtasksListService.getLists()) {
+            final AtomicLong previousTask = new AtomicLong(-1L);
+            final AtomicInteger previousIndent = new AtomicInteger(-1);
+
+            iterateThroughList(list, new ListIterator() {
+                @Override
+                public void processTask(long taskId) {
+                    Metadata metadata = getTaskMetadata(taskId);
+                    if(metadata == null)
+                        return;
+
+                    int indent = metadata.getValue(GtasksMetadata.INDENT);
+
+                    final long parent, sibling;
+                    if(indent > previousIndent.get()) {
+                        parent = previousTask.get();
+                        sibling = -1L;
+                    } else if(indent == previousIndent.get()) {
+                        sibling = previousTask.get();
+                        parent = parents.get(sibling);
+                    } else {
+                        sibling = parents.get(previousTask.get());
+                        parent = parents.get(sibling);
+                    }
+                    parents.put(taskId, parent);
+                    siblings.put(taskId, sibling);
+
+                    previousTask.set(taskId);
+                    previousIndent.set(indent);
+                }
+            });
+        }
+    }
+
+    private interface ListIterator {
+        public void processTask(long taskId);
+    }
+
+    private void iterateThroughList(StoreObject list, ListIterator iterator) {
+        Filter filter = GtasksFilterExposer.filterFromList(list);
+        TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(filter.sqlQuery, null, Task.ID);
+        try {
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                long taskId = cursor.getLong(0);
+                iterator.processTask(taskId);
             }
 
-            PluginServices.getTaskService().clearDetails(Task.ID.in(ids));
         } finally {
             cursor.close();
         }

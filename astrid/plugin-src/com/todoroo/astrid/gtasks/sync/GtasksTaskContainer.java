@@ -19,6 +19,10 @@ public class GtasksTaskContainer extends SyncContainer {
 
     public Metadata gtaskMetadata;
 
+    // position information
+    public String parentId = null;
+    public String priorSiblingId = null;
+
     public GtasksTaskContainer(Task task, ArrayList<Metadata> metadata, Metadata gtaskMetadata) {
         this.task = task;
         this.metadata = metadata;
