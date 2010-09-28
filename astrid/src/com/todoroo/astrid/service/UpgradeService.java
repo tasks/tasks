@@ -107,7 +107,7 @@ public final class UpgradeService {
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
         if(from >= V3_3_0)
-            newVersionString(changeLog, "3.3.5 (9/27/10)", new String[] {
+            newVersionString(changeLog, "3.3.6 (9/27/10)", new String[] {
                     "Restored alarm functionality",
                     "Producteev: sync can now remove due dates in Producteev",
             });
