@@ -25,6 +25,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * Provides operations for working with alerts
@@ -77,7 +78,10 @@ public class AlarmService {
             metadata.add(item);
         }
 
-        return service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY)) > 0;
+        boolean changed = service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY)) > 0;
+        if(changed)
+            scheduleAlarms(taskId);
+        return changed;
     }
 
     // --- alarm scheduling
@@ -99,7 +103,7 @@ public class AlarmService {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Metadata> getAlarmsForTask(long taskId) {
-        return PluginServices.getMetadataService().query(Query.select(AlarmFields.TIME).
+        return PluginServices.getMetadataService().query(Query.select(Metadata.TASK, AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
                         MetadataCriteria.byTaskAndwithKey(taskId, AlarmFields.METADATA_KEY))));
@@ -129,8 +133,8 @@ public class AlarmService {
      * Schedules alarms for a single task
      * @param task
      */
-    public void scheduleAlarms(Task task) {
-        TodorooCursor<Metadata> cursor = getAlarmsForTask(task.getId());
+    public void scheduleAlarms(long taskId) {
+        TodorooCursor<Metadata> cursor = getAlarmsForTask(taskId);
         try {
             Metadata alarm = new Metadata();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -138,7 +142,7 @@ public class AlarmService {
                 scheduleAlarm(alarm);
             }
         } catch (Exception e) {
-            // suppress
+            Log.i("astrid-alarms", "Error scheduling alarm", e); //$NON-NLS-1$ //$NON-NLS-2$
         } finally {
             cursor.close();
         }
@@ -173,7 +177,8 @@ public class AlarmService {
         if(time == 0 || time == NO_ALARM)
             am.cancel(pendingIntent);
         else if(time > DateUtilities.now()) {
-            Log.e("Astrid", "Alarm (" + taskId + ", " + type +
+            if(Constants.DEBUG)
+                Log.e("Astrid", "Alarm (" + taskId + ", " + type +
                     ") set for " + new Date(time));
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }

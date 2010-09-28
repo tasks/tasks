@@ -356,7 +356,7 @@ public final class ReminderService  {
                     time = DateUtilities.now() + 5000L;
 
                 if(Constants.DEBUG)
-                    Log.e("Astrid", "Alarm (" + task.getId() + ", " + type +
+                    Log.e("Astrid", "Reminder (" + task.getId() + ", " + type +
                         ") set for " + new Date(time));
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
             }

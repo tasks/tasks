@@ -60,9 +60,9 @@ public class AlarmDetailExposer extends BroadcastReceiver {
 
             if(nextTime == -1)
                 return null;
-            CharSequence durationString = DateUtils.getRelativeDateTimeString(context,
-                    nextTime, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS,
-                    DateUtils.FORMAT_ABBREV_ALL);
+            CharSequence durationString = DateUtils.formatDateTime(context, nextTime,
+                    DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME |
+                    DateUtils.FORMAT_SHOW_DATE | DateUtils.FORMAT_NO_YEAR);
             return context.getString(R.string.alarm_ADE_detail, durationString);
         } finally {
             cursor.close();
