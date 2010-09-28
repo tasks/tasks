@@ -256,6 +256,19 @@ public class ProducteevInvoker {
     }
 
     /**
+     * unset a deadline
+     *
+     * @param idTask
+     *
+     * @return array tasks/view
+     */
+    public JSONObject tasksUnsetDeadline(long idTask) throws ApiServiceException, IOException {
+        return callAuthenticated("tasks/unset_deadline.json",
+                "token", token,
+                "id_task", idTask);
+    }
+
+    /**
      * set a workspace
      *
      * @param idTask
