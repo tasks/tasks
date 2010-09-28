@@ -4,8 +4,10 @@ package com.todoroo.andlib.test;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import android.content.res.Configuration;
@@ -265,11 +267,18 @@ abstract public class TranslationTests extends TodorooTestCase {
      */
     public int[] getResourceIds(Class<?> resources) throws Exception {
         Field[] fields = resources.getDeclaredFields();
-        int[] ids = new int[fields.length];
+        List<Integer> ids = new ArrayList<Integer>(fields.length);
         for(int i = 0; i < fields.length; i++) {
-            ids[i] = fields[i].getInt(null);
+            try {
+                ids.add(fields[i].getInt(null));
+            } catch (Exception e) {
+                // not a field we care about
+            }
         }
-        return ids;
+        int[] idsAsIntArray = new int[ids.size()];
+        for(int i = 0; i < ids.size(); i++)
+            idsAsIntArray[i] = ids.get(i);
+        return idsAsIntArray;
     }
 
     /**

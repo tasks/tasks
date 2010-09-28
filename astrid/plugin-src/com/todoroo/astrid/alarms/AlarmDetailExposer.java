@@ -3,12 +3,13 @@
  */
 package com.todoroo.astrid.alarms;
 
+import java.util.Date;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.text.format.DateUtils;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -60,10 +61,16 @@ public class AlarmDetailExposer extends BroadcastReceiver {
 
             if(nextTime == -1)
                 return null;
-            CharSequence durationString = DateUtils.getRelativeDateTimeString(context,
-                    nextTime, DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS,
-                    DateUtils.FORMAT_ABBREV_ALL);
-            return context.getString(R.string.alarm_ADE_detail, durationString);
+            int flags = DateUtils.FORMAT_NUMERIC_DATE | DateUtils.FORMAT_SHOW_TIME;
+            Date today = new Date();
+            Date alarm = new Date(nextTime);
+            if(today.getYear() == alarm.getYear())
+                flags |= DateUtils.FORMAT_NO_YEAR;
+            if(alarm.getTime() - today.getTime() > DateUtilities.ONE_DAY)
+                flags |= DateUtils.FORMAT_SHOW_DATE;
+            CharSequence durationString = DateUtils.formatDateTime(context, nextTime,
+                     flags);
+            return "<img src='silk_clock'/> " + durationString; //$NON-NLS-1$
         } finally {
             cursor.close();
         }

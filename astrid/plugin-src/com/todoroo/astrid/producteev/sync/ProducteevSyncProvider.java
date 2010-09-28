@@ -527,8 +527,12 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             invoker.tasksSetTitle(idTask, local.task.getValue(Task.TITLE));
         if(shouldTransmit(local, Task.IMPORTANCE, remote))
             invoker.tasksSetStar(idTask, createStars(local.task));
-        if(shouldTransmit(local, Task.DUE_DATE, remote) && local.task.hasDueDate()) // temporary can't unset deadline
-            invoker.tasksSetDeadline(idTask, createDeadline(local.task), local.task.hasDueTime() ? 0 : 1);
+        if(shouldTransmit(local, Task.DUE_DATE, remote)) {
+            if(local.task.hasDueDate())
+                invoker.tasksSetDeadline(idTask, createDeadline(local.task), local.task.hasDueTime() ? 0 : 1);
+            else
+                invoker.tasksUnsetDeadline(idTask);
+        }
         if(shouldTransmit(local, Task.COMPLETION_DATE, remote))
             invoker.tasksSetStatus(idTask, local.task.isCompleted() ? 2 : 1);
 

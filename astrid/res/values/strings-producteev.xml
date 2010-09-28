@@ -71,6 +71,9 @@
 
     <!-- Password Label -->    
     <string name="producteev_PLA_password">Password</string>
+    
+    <!-- Timezone Spinner -->
+    <string name="producteev_PLA_timezone">Timezone</string>
 
     <!-- Confirm Password Label -->    
     <string name="producteev_PLA_confirmPassword">Confirm Password</string>

@@ -86,12 +86,13 @@ public class ProducteevInvoker {
      * Sign up as the given user
      */
     public JSONObject usersSignUp(String email, String firstName, String lastName, String
-            password, Long fbUid) throws IOException, ApiServiceException {
+            password, String timezone, Long fbUid) throws IOException, ApiServiceException {
         return invokeGet("users/signup.json",
                 "email", email,
                 "firstname", firstName,
                 "lastname", lastName,
                 "password", password,
+                "timezone", timezone,
                 "fbuid", fbUid);
     }
 
@@ -252,6 +253,19 @@ public class ProducteevInvoker {
                 "id_task", idTask,
                 "deadline", deadline,
                 "all_day", allDay);
+    }
+
+    /**
+     * unset a deadline
+     *
+     * @param idTask
+     *
+     * @return array tasks/view
+     */
+    public JSONObject tasksUnsetDeadline(long idTask) throws ApiServiceException, IOException {
+        return callAuthenticated("tasks/unset_deadline.json",
+                "token", token,
+                "id_task", idTask);
     }
 
     /**
