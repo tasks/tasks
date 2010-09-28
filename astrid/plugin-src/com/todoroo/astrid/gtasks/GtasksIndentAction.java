@@ -22,6 +22,7 @@ import com.todoroo.astrid.utility.Flags;
 abstract public class GtasksIndentAction extends BroadcastReceiver {
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     abstract int getDelta();
 
@@ -43,7 +44,7 @@ abstract public class GtasksIndentAction extends BroadcastReceiver {
         metadata.setValue(GtasksMetadata.INDENT, newIndent);
         PluginServices.getMetadataService().save(metadata);
 
-        gtasksMetadataService.updateMetadataForList(metadata.getValue(GtasksMetadata.LIST_ID));
+        gtasksTaskListUpdater.updateMetadataForList(metadata.getValue(GtasksMetadata.LIST_ID));
 
         Flags.set(Flags.REFRESH);
         Toast.makeText(context, context.getString(R.string.gtasks_indent_toast, newIndent),

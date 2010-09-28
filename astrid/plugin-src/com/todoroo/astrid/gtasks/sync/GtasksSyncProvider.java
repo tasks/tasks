@@ -38,6 +38,7 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
+import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevLoginActivity;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
@@ -66,6 +67,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksMetadataService gtasksMetadataService;
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
+    @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     /** google task service fields */
     private GoogleTaskService taskService = null;
@@ -214,7 +216,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             gtasksListService.updateLists(taskView.getAllLists());
 
-            gtasksMetadataService.createParentSiblingMaps();
+            gtasksTaskListUpdater.createParentSiblingMaps();
 
             // batched read tasks for each list
             ArrayList<GtasksTaskContainer> remoteTasks = new ArrayList<GtasksTaskContainer>();
