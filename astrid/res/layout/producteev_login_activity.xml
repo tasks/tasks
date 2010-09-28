@@ -1,70 +1,102 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
-	android:orientation="vertical" android:background="@drawable/pdv_body">
-
-	<ImageView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:paddingTop="5dip"
-		android:paddingBottom="5dip" android:scaleType="fitCenter"
-		android:src="@drawable/pdv_logo" />
-
-	<TextView android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:gravity="center"
-		android:paddingBottom="10dip" android:textSize="16sp"
-		android:textColor="#ffffff" android:text="@string/producteev_PLA_body" />
-
-	<TextView android:id="@+id/error" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:gravity="center_horizontal"
-		android:paddingBottom="20dip" android:textColor="#ff0000"
-		android:textSize="16sp" android:textStyle="bold" android:visibility="gone" />
-
-	<EditText android:id="@+id/email" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:hint="@string/producteev_PLA_email"
-		android:contentDescription="E-Mail with which you registered to Producteev-service"
-		android:inputType="textEmailAddress" />
-
-	<EditText android:id="@+id/password" android:layout_height="wrap_content"
-		android:layout_width="fill_parent" android:contentDescription="Password for your Producteev account"
-		android:hint="@string/producteev_PLA_password" android:inputType="textPassword" />
-
-
-	<LinearLayout android:id="@+id/newUserLayout"
-		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:orientation="vertical" android:paddingTop="20dip"
-		android:visibility="gone">
-
-		<EditText android:id="@+id/firstName" android:layout_height="wrap_content"
-			android:layout_width="fill_parent" android:hint="@string/producteev_PLA_firstName"
-			android:inputType="textPersonName" />
-
-		<EditText android:id="@+id/lastName" android:layout_height="wrap_content"
-			android:layout_width="fill_parent" android:hint="@string/producteev_PLA_lastName"
-			android:inputType="textPersonName" />
-
-		<Spinner android:layout_height="wrap_content"
-			android:layout_width="fill_parent" android:entries="@array/PLA_timezones_list"
-			android:id="@+id/timezoneList" android:contentDescription="@string/producteev_PLA_timezone" android:prompt="@string/producteev_PLA_timezone"/>
-
-	</LinearLayout>
-
-	<LinearLayout android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:orientation="horizontal"
-		android:paddingTop="5dip" android:baselineAligned="false">
-
-		<Button android:id="@+id/signIn" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_weight="1"
-			android:text="@string/producteev_PLA_signIn" />
-
-		<Button android:id="@+id/createNew" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_weight="1"
-			android:text="@string/producteev_PLA_createNew" />
-
-	</LinearLayout>
-
-
-	<TextView android:id="@+id/terms" android:layout_width="fill_parent"
-		android:layout_height="wrap_content" android:gravity="center"
-		android:paddingTop="10dip" android:textSize="16sp" android:textColor="#0000ff"
-		android:linksClickable="true" android:text="@string/producteev_PLA_terms" />
-
+<LinearLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="fill_parent"
+  android:layout_height="fill_parent"
+  android:orientation="vertical"
+  android:background="@drawable/pdv_body">
+  <ImageView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="5dip"
+    android:paddingBottom="5dip"
+    android:scaleType="fitCenter"
+    android:src="@drawable/pdv_logo" />
+  <TextView
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingBottom="10dip"
+    android:textSize="16sp"
+    android:textColor="#ffffff"
+    android:text="@string/producteev_PLA_body" />
+  <TextView
+    android:id="@+id/error"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_horizontal"
+    android:paddingBottom="20dip"
+    android:textColor="#ff0000"
+    android:textSize="16sp"
+    android:textStyle="bold"
+    android:visibility="gone" />
+  <EditText
+    android:id="@+id/email"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:hint="@string/producteev_PLA_email"
+    android:contentDescription="E-Mail with which you registered to Producteev-service"
+    android:inputType="textEmailAddress" />
+  <EditText
+    android:id="@+id/password"
+    android:layout_height="wrap_content"
+    android:layout_width="fill_parent"
+    android:contentDescription="Password for your Producteev account"
+    android:hint="@string/producteev_PLA_password"
+    android:inputType="textPassword" />
+  <LinearLayout
+    android:id="@+id/newUserLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingTop="20dip"
+    android:visibility="gone">
+    <EditText
+      android:id="@+id/firstName"
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:hint="@string/producteev_PLA_firstName"
+      android:inputType="textPersonName" />
+    <EditText
+      android:id="@+id/lastName"
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:hint="@string/producteev_PLA_lastName"
+      android:inputType="textPersonName" />
+    <Spinner
+      android:layout_height="wrap_content"
+      android:layout_width="fill_parent"
+      android:id="@+id/timezoneList"
+      android:contentDescription="@string/producteev_PLA_timezone"
+      android:prompt="@string/producteev_PLA_timezone" />
+  </LinearLayout>
+  <LinearLayout
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="5dip"
+    android:baselineAligned="false">
+    <Button
+      android:id="@+id/signIn"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="@string/producteev_PLA_signIn" />
+    <Button
+      android:id="@+id/createNew"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:text="@string/producteev_PLA_createNew" />
+  </LinearLayout>
+  <TextView
+    android:id="@+id/terms"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:paddingTop="10dip"
+    android:textSize="16sp"
+    android:textColor="#0000ff"
+    android:linksClickable="true"
+    android:text="@string/producteev_PLA_terms" />
 </LinearLayout>
