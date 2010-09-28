@@ -43,7 +43,7 @@ public class GtasksMetadata {
     public static Metadata createEmptyMetadata(long taskId) {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, GtasksMetadata.METADATA_KEY);
-        metadata.setValue(ID, (long)VALUE_UNSET);
+        metadata.setValue(ID, ""); //$NON-NLS-1$
         metadata.setValue(LIST_ID, Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST));
         metadata.setValue(PARENT_TASK, (long)VALUE_UNSET);
         metadata.setValue(INDENT, 0);

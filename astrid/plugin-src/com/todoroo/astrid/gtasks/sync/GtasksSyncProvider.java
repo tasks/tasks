@@ -48,10 +48,10 @@ import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Preferences;
 import com.todoroo.gtasks.GoogleTaskService;
+import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.GoogleTaskTask;
 import com.todoroo.gtasks.GoogleTaskView;
 import com.todoroo.gtasks.GoogleTasksException;
-import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.actions.Action;
 import com.todoroo.gtasks.actions.Actions;
 import com.todoroo.gtasks.actions.GetTasksAction;
@@ -160,13 +160,14 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             // check if we have a token & it works
             if(authToken != null) {
+
                 taskService.getTaskView();
                 performSync();
             } else {
                 if (email == null && password == null) {
                     // we can't do anything, user is not logged in
                 } else {
-                    authToken = null; // TODO set up auth token
+                    //authToken = null; // TODO set up auth token
                     performSync();
                 }
             }

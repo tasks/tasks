@@ -3,9 +3,7 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -18,6 +16,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.SyncAction;
+import com.todoroo.gtasks.GoogleTaskListInfo;
 
 /**
  * Exposes sync action
@@ -37,15 +36,11 @@ public class GtasksSyncActionExposer extends BroadcastReceiver {
         if(intent.getBooleanExtra("setup", false)) {
             gtasksPreferenceService.setToken("haha");
             try {
-                JSONArray newLists = new JSONArray();
-                JSONObject list = new JSONObject();
-                list.put("id", "1");
-                list.put("title", "Tim's Tasks");
-                newLists.put(list);
-                list = new JSONObject();
-                list.put("id", "2");
-                list.put("title", "Travel");
-                newLists.put(list);
+                GoogleTaskListInfo[] newLists = new GoogleTaskListInfo[2];
+                GoogleTaskListInfo list = new GoogleTaskListInfo("1", "Tim's Tasks");
+                newLists[0] = list;
+                list = new GoogleTaskListInfo("2", "Travel");
+                newLists[1] = list;
                 gtasksListService.updateLists(newLists);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
