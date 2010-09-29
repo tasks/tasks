@@ -5,14 +5,16 @@ import java.util.List;
 import java.util.Map.Entry;
 
 import android.app.ListActivity;
-import android.content.ContentValues;
-import android.content.Intent;
+import android.content.*;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,21 +30,12 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
-import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.activity.TaskListActivity;
-import com.todoroo.astrid.api.CustomFilterCriterion;
-import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.api.MultipleSelectCriterion;
-import com.todoroo.astrid.api.PermaSql;
-import com.todoroo.astrid.api.TextInputCriterion;
+import com.todoroo.astrid.api.*;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TagService.Tag;
 
 /**
  * Activity that allows users to build custom filters
@@ -119,8 +112,11 @@ public class CustomFilterActivity extends ListActivity {
 
     private TextView filterName;
     private CustomFilterAdapter adapter;
+    private boolean criteriaRequested = false;
     private final ArrayList<CustomFilterCriterion> criteria =
         new ArrayList<CustomFilterCriterion>();
+
+    private FilterCriteriaReceiver filterCriteriaReceiver = new FilterCriteriaReceiver();
 
     // --- activity
 
@@ -150,10 +146,15 @@ public class CustomFilterActivity extends ListActivity {
     }
 
     /**
-     * Populate criteria list with built in and plugin criteria
+     * Populate criteria list with built in and plugin criteria. The request is sent to every application
+     * registered to listen for this broadcast. Each plugin can then add criteria to this activity.
      */
     @SuppressWarnings("nls")
     private void populateCriteria() {
+        if (criteriaRequested) return;
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_CUSTOM_FILTER_CRITERIA);
+        sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+
         Resources r = getResources();
 
         // built in criteria: due date
@@ -210,46 +211,6 @@ public class CustomFilterActivity extends ListActivity {
             criteria.add(criterion);
         }
 
-        // built in criteria: tags
-        {
-            Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
-                            TaskCriteria.activeAndVisible());
-            String[] tagNames = new String[tags.length];
-            for(int i = 0; i < tags.length; i++)
-                tagNames[i] = tags[i].tag;
-            ContentValues values = new ContentValues();
-            values.put(Metadata.KEY.name, TagService.KEY);
-            values.put(TagService.TAG.name, "?");
-            CustomFilterCriterion criterion = new MultipleSelectCriterion(
-                    IDENTIFIER_TAG,
-                    getString(R.string.CFC_tag_text),
-                    Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
-                                Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
-                            TaskCriteria.activeAndVisible(),
-                            MetadataCriteria.withKey(TagService.KEY),
-                            TagService.TAG.eq("?"))).toString(),
-                    values, tagNames, tagNames,
-                    ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap(),
-                    getString(R.string.CFC_tag_name));
-            criteria.add(criterion);
-        }
-
-        // built in criteria: tags containing X
-        {
-            CustomFilterCriterion criterion = new TextInputCriterion(
-                            IDENTIFIER_TAG,
-                            getString(R.string.CFC_tag_contains_text),
-                            Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
-                                    Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
-                                            TaskCriteria.activeAndVisible(),
-                                            MetadataCriteria.withKey(TagService.KEY),
-                                            TagService.TAG.like("%?%"))).toString(),
-                                            null, getString(R.string.CFC_tag_contains_name), "",
-                                            ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags2)).getBitmap(),
-                                            getString(R.string.CFC_tag_contains_name));
-            criteria.add(criterion);
-        }
-
         // built in criteria: title containing X
         {
             ContentValues values = new ContentValues();
@@ -266,6 +227,20 @@ public class CustomFilterActivity extends ListActivity {
             criteria.add(criterion);
         }
 
+        criteriaRequested = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        registerReceiver(filterCriteriaReceiver, new IntentFilter(AstridApiConstants.BROADCAST_SEND_CUSTOM_FILTER_CRITERIA));
+        populateCriteria();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        unregisterReceiver(filterCriteriaReceiver);
     }
 
     private CriterionInstance getStartingUniverse() {
@@ -503,4 +478,35 @@ public class CustomFilterActivity extends ListActivity {
         return super.onMenuItemSelected(featureId, item);
     }
 
+    public class FilterCriteriaReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            try {
+                final Parcelable[] filters = intent.getExtras().
+                    getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
+                final List<CustomFilterCriterion> addedCriterions = new ArrayList<CustomFilterCriterion>(filters.length);
+                for (Parcelable filter : filters) {
+                    addedCriterions.add((CustomFilterCriterion)filter);
+                }
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        criteria.addAll(addedCriterions);
+                    }
+                });
+            } catch (Exception e) {
+                String addon;
+                try {
+                    addon = intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON);
+                } catch (Exception e1) {
+                    Log.e("receive-custom-filter-criteria-error-retrieving-addon",
+                            e.toString(), e);
+                    return;
+                }
+                Log.e("receive-custom-filter-criteria-" +  //$NON-NLS-1$
+                        addon,
+                        e.toString(), e);
+            }
+        }
+    }
 }
