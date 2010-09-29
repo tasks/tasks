@@ -3,8 +3,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import org.json.JSONException;
-
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -35,16 +33,12 @@ public class GtasksSyncActionExposer extends BroadcastReceiver {
 
         if(intent.getBooleanExtra("setup", false)) {
             gtasksPreferenceService.setToken("haha");
-            try {
-                GoogleTaskListInfo[] newLists = new GoogleTaskListInfo[2];
-                GoogleTaskListInfo list = new GoogleTaskListInfo("1", "Tim's Tasks");
-                newLists[0] = list;
-                list = new GoogleTaskListInfo("2", "Travel");
-                newLists[1] = list;
-                gtasksListService.updateLists(newLists);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
+            GoogleTaskListInfo[] newLists = new GoogleTaskListInfo[2];
+            GoogleTaskListInfo list = new GoogleTaskListInfo("1", "Tim's Tasks");
+            newLists[0] = list;
+            list = new GoogleTaskListInfo("2", "Travel");
+            newLists[1] = list;
+            gtasksListService.updateLists(newLists);
             System.err.println("you've ben set up the bomb.");
             return;
         }

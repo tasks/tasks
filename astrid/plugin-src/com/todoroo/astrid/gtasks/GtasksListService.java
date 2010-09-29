@@ -1,7 +1,5 @@
 package com.todoroo.astrid.gtasks;
 
-import org.json.JSONException;
-
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -61,7 +59,7 @@ public class GtasksListService {
     }
 
     @SuppressWarnings("nls")
-    public void updateLists(GoogleTaskListInfo[] remoteLists) throws JSONException {
+    public void updateLists(GoogleTaskListInfo[] remoteLists) {
         readLists();
         for(int i = 0; i < remoteLists.length; i++) {
             GoogleTaskListInfo remote = remoteLists[i];
