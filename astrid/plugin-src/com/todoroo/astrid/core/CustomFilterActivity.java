@@ -216,7 +216,7 @@ public class CustomFilterActivity extends ListActivity {
             ContentValues values = new ContentValues();
             values.put(Task.TITLE.name, "?");
             CustomFilterCriterion criterion = new TextInputCriterion(
-                    IDENTIFIER_TAG,
+                    IDENTIFIER_TAG, // really? This isn't IDENTIFIER_TITLE?
                     getString(R.string.CFC_title_contains_text),
                     Query.select(Task.ID).from(Task.TABLE).where(
                             Criterion.and(TaskCriteria.activeAndVisible(),
