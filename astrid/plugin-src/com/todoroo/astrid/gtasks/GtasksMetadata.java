@@ -4,6 +4,7 @@ import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.utility.Preferences;
 
@@ -14,7 +15,7 @@ import com.todoroo.astrid.utility.Preferences;
  */
 public class GtasksMetadata {
 
-    private static final int VALUE_UNSET = -1;
+    static final int VALUE_UNSET = -1;
 
     /** metadata key */
     public static final String METADATA_KEY = "gtasks"; //$NON-NLS-1$
@@ -53,7 +54,7 @@ public class GtasksMetadata {
         metadata.setValue(LIST_ID, defaultList);
         metadata.setValue(PARENT_TASK, (long)VALUE_UNSET);
         metadata.setValue(INDENT, 0);
-        metadata.setValue(ORDER, VALUE_UNSET);
+        metadata.setValue(ORDER, (int)(DateUtilities.now() / 1000L));
         if(taskId > AbstractModel.NO_ID)
             metadata.setValue(Metadata.TASK, taskId);
         return metadata;

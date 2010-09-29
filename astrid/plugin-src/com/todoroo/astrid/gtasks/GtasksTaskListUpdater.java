@@ -99,7 +99,7 @@ public class GtasksTaskListUpdater {
 
                     int indent = metadata.getValue(GtasksMetadata.INDENT);
 
-                    final long parent, sibling;
+                    long parent, sibling;
                     if(indent > previousIndent.get()) {
                         parent = previousTask.get();
                         sibling = -1L;
@@ -107,7 +107,10 @@ public class GtasksTaskListUpdater {
                         sibling = previousTask.get();
                         parent = parents.get(sibling);
                     } else {
-                        sibling = parents.get(previousTask.get());
+                        // move up once for each indent
+                        sibling = previousTask.get();
+                        for(int i = indent; i < previousIndent.get(); i++)
+                            sibling = parents.get(sibling);
                         parent = parents.get(sibling);
                     }
                     parents.put(taskId, parent);
