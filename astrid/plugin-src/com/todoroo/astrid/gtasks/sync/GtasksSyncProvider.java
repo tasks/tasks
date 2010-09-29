@@ -29,9 +29,11 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksBackgroundService;
 import com.todoroo.astrid.gtasks.GtasksList;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
@@ -39,15 +41,14 @@ import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
-import com.todoroo.astrid.producteev.ProducteevBackgroundService;
-import com.todoroo.astrid.producteev.ProducteevLoginActivity;
-import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.producteev.api.ApiServiceException;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.sync.SyncBackgroundService;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.gtasks.GoogleConnectionManager;
+import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTaskService;
 import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.GoogleTaskTask;
@@ -79,7 +80,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     private final HashMap<String, ArrayList<ListAction>> listActions =
         new HashMap<String, ArrayList<ListAction>>();
 
-
     static {
         AstridDependencyInjector.initialize();
     }
@@ -90,6 +90,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     public GtasksSyncProvider() {
         super();
         DependencyInjectionService.getInstance().inject(this);
+        // TODO?
+        gtasksPreferenceService.stopOngoing();
     }
 
     // ----------------------------------------------------------------------
@@ -155,24 +157,15 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         try {
             String authToken = gtasksPreferenceService.getToken();
 
-            String email = "tasktest@todoroo.com"; // TODO
-            String password = "tasktest0000";
-
-            taskService = new GoogleTaskService(email, password);
-
-            // check if we have a token & it works
-            if(authToken != null) {
-
-                taskService.getTaskView();
-                performSync();
+            final GoogleConnectionManager connectionManager;
+            if(authToken == null) {
+                connectionManager = logInHelper();
             } else {
-                if (email == null && password == null) {
-                    // we can't do anything, user is not logged in
-                } else {
-                    //authToken = null; // TODO set up auth token
-                    performSync();
-                }
+                connectionManager = new GoogleConnectionManager(authToken);
             }
+
+            taskService = new GoogleTaskService(connectionManager);
+            performSync();
         } catch (IllegalStateException e) {
             // occurs when application was closed
         } catch (Exception e) {
@@ -182,24 +175,38 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         }
     }
 
+    private GoogleConnectionManager logInHelper() throws GoogleLoginException,
+            IOException {
+        // TODO get email and password or something?
+        String email = "tasktest@todoroo.com";
+        String password = "tasktest0000";
+        GoogleConnectionManager connectionManager = new GoogleConnectionManager(email, password);
+        connectionManager.authenticate(true);
+        gtasksPreferenceService.setToken(connectionManager.getToken());
+        return connectionManager;
+    }
+
     /**
      * If user isn't already signed in, show sign in dialog. Else perform sync.
      */
     @Override
     protected void initiateManual(Activity activity) {
         String authToken = gtasksPreferenceService.getToken();
-        ProducteevUtilities.INSTANCE.stopOngoing();
+        gtasksPreferenceService.stopOngoing();
 
         // check if we have a token & it works
         if(authToken == null) {
-            // display login-activity
-            Intent intent = new Intent(activity, ProducteevLoginActivity.class);
-            activity.startActivityForResult(intent, 0);
-        } else {
-            activity.startService(new Intent(ProducteevBackgroundService.SYNC_ACTION, null,
-                    activity, ProducteevBackgroundService.class));
+            try {
+                logInHelper();
+            } catch (Exception e) {
+                handleException("auth", e, true);
+            }
         }
+
+        activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
+                activity, GtasksBackgroundService.class));
     }
+
 
     // ----------------------------------------------------------------------
     // ----------------------------------------------------- synchronization!
@@ -227,15 +234,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             }
             taskService.executeActions(getTasksActions.toArray(new GetTasksAction[getTasksActions.size()]));
             for(GetTasksAction action : getTasksActions) {
-                List<GoogleTaskTask> remoteTasksInList = action.getGoogleTasks();
-                for(GoogleTaskTask remoteTask : remoteTasksInList) {
-                    GtasksTaskContainer remote = parseRemoteTask(remoteTask);
-                    // update reminder flags for incoming remote tasks to prevent annoying
-                    if(remote.task.hasDueDate() && remote.task.getValue(Task.DUE_DATE) < DateUtilities.now())
-                        remote.task.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
-                    gtasksMetadataService.findLocalMatch(remote);
-                    remoteTasks.add(remote);
-                }
+                List<GoogleTaskTask> list = action.getGoogleTasks();
+                readTasksIntoRemoteTasks(list, remoteTasks);
             }
 
             SyncData<GtasksTaskContainer> syncData = populateSyncData(remoteTasks);
@@ -253,6 +253,51 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         } catch (Exception e) {
             handleException("gtasks-sync", e, true); //$NON-NLS-1$
         }
+    }
+
+    private void readTasksIntoRemoteTasks(List<GoogleTaskTask> list,
+            ArrayList<GtasksTaskContainer> remoteTasks) {
+
+        int order = 0;
+        HashMap<String, String> parents = new HashMap<String, String>();
+        HashMap<String, Integer> indentation = new HashMap<String, Integer>();
+        HashMap<String, String> parentToPriorSiblingMap = new HashMap<String, String>();
+
+        for(GoogleTaskTask remoteTask : list) {
+            GtasksTaskContainer container = parseRemoteTask(remoteTask);
+            String id = remoteTask.getId();
+
+            // update parents, prior sibling
+            for(String child : remoteTask.getChild_ids())
+                parents.put(child, id);
+            String parent = parents.get(id); // can be null, which means top level task
+            if(parentToPriorSiblingMap.containsKey(parent))
+                container.priorSiblingId = parentToPriorSiblingMap.get(parent);
+            parentToPriorSiblingMap.put(parent, id);
+
+            // update order, indent
+            container.gtaskMetadata.setValue(GtasksMetadata.ORDER, order++);
+            int indent = findIndentation(parents, indentation, id);
+            indentation.put(id, indent);
+            container.gtaskMetadata.setValue(GtasksMetadata.INDENT, indent);
+
+            // update reminder flags for incoming remote tasks to prevent annoying
+            if(container.task.hasDueDate() && container.task.getValue(Task.DUE_DATE) < DateUtilities.now())
+                container.task.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
+            gtasksMetadataService.findLocalMatch(container);
+            remoteTasks.add(container);
+        }
+    }
+
+    private int findIndentation(HashMap<String, String> parents,
+            HashMap<String, Integer> indentation, String task) {
+        if(indentation.containsKey(task))
+            return indentation.get(task);
+
+        if(!parents.containsKey(task))
+            return 0;
+
+        return findIndentation(parents, indentation, parents.get(task)) + 1;
     }
 
     // ----------------------------------------------------------------------
@@ -299,6 +344,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         ConvenientTaskCreator createdTask;
         try {
             createdTask = taskService.createTask(list, local.task.getValue(Task.TITLE));
+            createdTask.parentId(local.parentId);
         } catch (JSONException e) {
             throw new RuntimeException(e);
         }
@@ -329,12 +375,10 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             // moving between lists
             if(remote != null && !idList.equals(remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID))) {
-                a.moveTask(idTask, idList, remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), null);
+                batch(a.moveTask(idTask, idList, remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), null));
             }
 
             // other properties
-            if(shouldTransmit(local, Task.TITLE, remote))
-                ((TaskModifier)builder).name(local.task.getValue(Task.TITLE));
             if(shouldTransmit(local, Task.DUE_DATE, remote))
                 builder.taskDate(local.task.getValue(Task.DUE_DATE));
             if(shouldTransmit(local, Task.COMPLETION_DATE, remote))
@@ -344,11 +388,15 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             if(shouldTransmit(local, Task.NOTES, remote))
                 builder.notes(local.task.getValue(Task.NOTES));
 
+            // moving within a list
+            if(remote == null || local.parentId != remote.parentId || local.priorSiblingId != remote.priorSiblingId) {
+                batch(local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID),
+                        l.move(idTask, local.parentId, local.priorSiblingId));
+            }
+
         } catch (JSONException e) {
             throw new GoogleTasksException(e);
         }
-
-        // TODO indentation
     }
 
     /** Create a task container for the given RtmTaskSeries
@@ -363,16 +411,15 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         task.setValue(Task.DELETION_DATE, remoteTask.isDeleted() ? DateUtilities.now() : 0);
 
         long dueDate = remoteTask.getTask_date();
-        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueDate));
+        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate));
         task.setValue(Task.NOTES, remoteTask.getNotes());
 
         Metadata gtasksMetadata = GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID);
         gtasksMetadata.setValue(GtasksMetadata.LIST_ID, remoteTask.getList_id());
-        // TODO gtasksMetadata.setValue(GtasksMetadata.INDENT, remoteTask.???);
 
         GtasksTaskContainer container = new GtasksTaskContainer(task, metadata,
                 gtasksMetadata);
-
+        // TODO indent
         return container;
     }
 
@@ -406,10 +453,15 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     @Override
     protected void push(GtasksTaskContainer local, GtasksTaskContainer remote) throws IOException {
         try {
-            TaskModifier modifyTask = l.modifyTask(remote.gtaskMetadata.getValue(GtasksMetadata.ID));
+            String id = local.gtaskMetadata.getValue(GtasksMetadata.ID);
+            TaskModifier modifyTask = l.modifyTask(id);
             updateTaskHelper(local, remote, modifyTask);
+
+            if(shouldTransmit(local, Task.TITLE, remote))
+                modifyTask.name(local.task.getValue(Task.TITLE));
             ListAction action = modifyTask.done();
             batch(local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), action);
+
         } catch (JSONException e) {
             throw new GoogleTasksException(e);
         }
@@ -420,6 +472,11 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         if(!listActions.containsKey(list))
             listActions.put(list, new ArrayList<ListAction>());
         listActions.get(list).add(action);
+    }
+
+    /** add action to batch */
+    private void batch(Action action) {
+        actions.add(action);
     }
 
     // ----------------------------------------------------------------------

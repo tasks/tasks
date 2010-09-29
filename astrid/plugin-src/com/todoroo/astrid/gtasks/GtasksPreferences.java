@@ -3,6 +3,7 @@ package com.todoroo.astrid.gtasks;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
@@ -29,12 +30,12 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     @Override
     public void startSync() {
-        //
+        new GtasksSyncProvider().synchronize(this);
     }
 
     @Override
     public void logOut() {
-        //
+        new GtasksSyncProvider().signOut();
     }
 
     @Override

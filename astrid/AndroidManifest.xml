@@ -235,6 +235,7 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <service android:name="com.todoroo.astrid.gtasks.GtasksBackgroundService"/>    
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksSyncActionExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />

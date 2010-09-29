@@ -58,7 +58,6 @@ public class GtasksListService {
         return LIST_NOT_FOUND;
     }
 
-    @SuppressWarnings("nls")
     public void updateLists(GoogleTaskListInfo[] remoteLists) {
         readLists();
         for(int i = 0; i < remoteLists.length; i++) {
