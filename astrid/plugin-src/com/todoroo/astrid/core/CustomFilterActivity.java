@@ -157,104 +157,114 @@ public class CustomFilterActivity extends ListActivity {
         Resources r = getResources();
 
         // built in criteria: due date
-        String[] entryValues = new String[] {
-                "0",
-                PermaSql.VALUE_EOD_YESTERDAY,
-                PermaSql.VALUE_EOD,
-                PermaSql.VALUE_EOD_TOMORROW,
-                PermaSql.VALUE_EOD_DAY_AFTER,
-                PermaSql.VALUE_EOD_NEXT_WEEK,
-                PermaSql.VALUE_EOD_NEXT_MONTH,
-        };
-        ContentValues values = new ContentValues();
-        values.put(Task.DUE_DATE.name, "?");
-        CustomFilterCriterion criterion = new MultipleSelectCriterion(
-                IDENTIFIER_DUEDATE,
-                getString(R.string.CFC_dueBefore_text),
-                Query.select(Task.ID).from(Task.TABLE).where(
-                        Criterion.and(
-                                TaskCriteria.activeAndVisible(),
-                                Criterion.or(
-                                        Field.field("?").eq(0),
-                                        Task.DUE_DATE.gt(0)),
-                                Task.DUE_DATE.lte("?"))).toString(),
-                values, r.getStringArray(R.array.CFC_dueBefore_entries),
-                entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap(),
-                getString(R.string.CFC_dueBefore_name));
-        criteria.add(criterion);
+        {
+            String[] entryValues = new String[] {
+                    "0",
+                    PermaSql.VALUE_EOD_YESTERDAY,
+                    PermaSql.VALUE_EOD,
+                    PermaSql.VALUE_EOD_TOMORROW,
+                    PermaSql.VALUE_EOD_DAY_AFTER,
+                    PermaSql.VALUE_EOD_NEXT_WEEK,
+                    PermaSql.VALUE_EOD_NEXT_MONTH,
+            };
+            ContentValues values = new ContentValues();
+            values.put(Task.DUE_DATE.name, "?");
+            CustomFilterCriterion criterion = new MultipleSelectCriterion(
+                    IDENTIFIER_DUEDATE,
+                    getString(R.string.CFC_dueBefore_text),
+                    Query.select(Task.ID).from(Task.TABLE).where(
+                            Criterion.and(
+                                    TaskCriteria.activeAndVisible(),
+                                    Criterion.or(
+                                            Field.field("?").eq(0),
+                                            Task.DUE_DATE.gt(0)),
+                                    Task.DUE_DATE.lte("?"))).toString(),
+                    values, r.getStringArray(R.array.CFC_dueBefore_entries),
+                    entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap(),
+                    getString(R.string.CFC_dueBefore_name));
+            criteria.add(criterion);
+        }
 
         // built in criteria: importance
-        entryValues = new String[] {
-                Integer.toString(Task.IMPORTANCE_DO_OR_DIE),
-                Integer.toString(Task.IMPORTANCE_MUST_DO),
-                Integer.toString(Task.IMPORTANCE_SHOULD_DO),
-                Integer.toString(Task.IMPORTANCE_NONE),
-        };
-        String[] entries = new String[] {
-                "!!!!", "!!!", "!!", "!"
-        };
-        values = new ContentValues();
-        values.put(Task.IMPORTANCE.name, "?");
-        criterion = new MultipleSelectCriterion(
-                IDENTIFIER_IMPORTANCE,
-                getString(R.string.CFC_importance_text),
-                Query.select(Task.ID).from(Task.TABLE).where(
-                        Criterion.and(TaskCriteria.activeAndVisible(),
-                                Task.IMPORTANCE.lte("?"))).toString(),
-                values, entries,
-                entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap(),
-                getString(R.string.CFC_importance_name));
-        criteria.add(criterion);
+        {
+            String[] entryValues = new String[] {
+                            Integer.toString(Task.IMPORTANCE_DO_OR_DIE),
+                            Integer.toString(Task.IMPORTANCE_MUST_DO),
+                            Integer.toString(Task.IMPORTANCE_SHOULD_DO),
+                            Integer.toString(Task.IMPORTANCE_NONE),
+                    };
+            String[] entries = new String[] {
+                    "!!!!", "!!!", "!!", "!"
+            };
+            ContentValues values = new ContentValues();
+            values.put(Task.IMPORTANCE.name, "?");
+            CustomFilterCriterion criterion = new MultipleSelectCriterion(
+                    IDENTIFIER_IMPORTANCE,
+                    getString(R.string.CFC_importance_text),
+                    Query.select(Task.ID).from(Task.TABLE).where(
+                            Criterion.and(TaskCriteria.activeAndVisible(),
+                                    Task.IMPORTANCE.lte("?"))).toString(),
+                    values, entries,
+                    entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap(),
+                    getString(R.string.CFC_importance_name));
+            criteria.add(criterion);
+        }
 
         // built in criteria: tags
-        Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
-                TaskCriteria.activeAndVisible());
-        String[] tagNames = new String[tags.length];
-        for(int i = 0; i < tags.length; i++)
-            tagNames[i] = tags[i].tag;
-        values = new ContentValues();
-        values.put(Metadata.KEY.name, TagService.KEY);
-        values.put(TagService.TAG.name, "?");
-        criterion = new MultipleSelectCriterion(
-                IDENTIFIER_TAG,
-                getString(R.string.CFC_tag_text),
-                Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
-                            Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
-                        TaskCriteria.activeAndVisible(),
-                        MetadataCriteria.withKey(TagService.KEY),
-                        TagService.TAG.eq("?"))).toString(),
-                values, tagNames, tagNames,
-                ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap(),
-                getString(R.string.CFC_tag_name));
-        criteria.add(criterion);
+        {
+            Tag[] tags = TagService.getInstance().getGroupedTags(TagService.GROUPED_TAGS_BY_SIZE,
+                            TaskCriteria.activeAndVisible());
+            String[] tagNames = new String[tags.length];
+            for(int i = 0; i < tags.length; i++)
+                tagNames[i] = tags[i].tag;
+            ContentValues values = new ContentValues();
+            values.put(Metadata.KEY.name, TagService.KEY);
+            values.put(TagService.TAG.name, "?");
+            CustomFilterCriterion criterion = new MultipleSelectCriterion(
+                    IDENTIFIER_TAG,
+                    getString(R.string.CFC_tag_text),
+                    Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
+                                Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
+                            TaskCriteria.activeAndVisible(),
+                            MetadataCriteria.withKey(TagService.KEY),
+                            TagService.TAG.eq("?"))).toString(),
+                    values, tagNames, tagNames,
+                    ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags1)).getBitmap(),
+                    getString(R.string.CFC_tag_name));
+            criteria.add(criterion);
+        }
 
         // built in criteria: tags containing X
-        criterion = new TextInputCriterion(
-                IDENTIFIER_TAG,
-                getString(R.string.CFC_tag_contains_text),
-                Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
-                        Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
-                                TaskCriteria.activeAndVisible(),
-                                MetadataCriteria.withKey(TagService.KEY),
-                                TagService.TAG.like("%?%"))).toString(),
-                                null, getString(R.string.CFC_tag_contains_name), "",
-                                ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags2)).getBitmap(),
-                                getString(R.string.CFC_tag_contains_name));
-        criteria.add(criterion);
+        {
+            CustomFilterCriterion criterion = new TextInputCriterion(
+                            IDENTIFIER_TAG,
+                            getString(R.string.CFC_tag_contains_text),
+                            Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
+                                    Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
+                                            TaskCriteria.activeAndVisible(),
+                                            MetadataCriteria.withKey(TagService.KEY),
+                                            TagService.TAG.like("%?%"))).toString(),
+                                            null, getString(R.string.CFC_tag_contains_name), "",
+                                            ((BitmapDrawable)r.getDrawable(R.drawable.filter_tags2)).getBitmap(),
+                                            getString(R.string.CFC_tag_contains_name));
+            criteria.add(criterion);
+        }
 
         // built in criteria: title containing X
-        values = new ContentValues();
-        values.put(Task.TITLE.name, "?");
-        criterion = new TextInputCriterion(
-                IDENTIFIER_TAG,
-                getString(R.string.CFC_title_contains_text),
-                Query.select(Task.ID).from(Task.TABLE).where(
-                        Criterion.and(TaskCriteria.activeAndVisible(),
-                                Task.TITLE.like("%?%"))).toString(),
-                    null, getString(R.string.CFC_title_contains_name), "",
-                    ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
-                    getString(R.string.CFC_title_contains_name));
-        criteria.add(criterion);
+        {
+            ContentValues values = new ContentValues();
+            values.put(Task.TITLE.name, "?");
+            CustomFilterCriterion criterion = new TextInputCriterion(
+                    IDENTIFIER_TAG,
+                    getString(R.string.CFC_title_contains_text),
+                    Query.select(Task.ID).from(Task.TABLE).where(
+                            Criterion.and(TaskCriteria.activeAndVisible(),
+                                    Task.TITLE.like("%?%"))).toString(),
+                        null, getString(R.string.CFC_title_contains_name), "",
+                        ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
+                        getString(R.string.CFC_title_contains_name));
+            criteria.add(criterion);
+        }
 
     }
 
