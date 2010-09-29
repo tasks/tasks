@@ -17,19 +17,20 @@ import android.widget.Toast;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.PropertyVisitor;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 public class TasksXmlExporter {
 
@@ -141,7 +142,7 @@ public class TasksXmlExporter {
 
         xml.startTag(null, BackupConstants.ASTRID_TAG);
         xml.attribute(null, BackupConstants.ASTRID_ATTR_VERSION,
-                Integer.toString(Preferences.getCurrentVersion()));
+                Integer.toString(AstridPreferences.getCurrentVersion()));
         xml.attribute(null, BackupConstants.ASTRID_ATTR_FORMAT,
                 Integer.toString(FORMAT));
 

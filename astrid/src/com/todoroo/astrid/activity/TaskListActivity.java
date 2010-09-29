@@ -88,7 +88,7 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**

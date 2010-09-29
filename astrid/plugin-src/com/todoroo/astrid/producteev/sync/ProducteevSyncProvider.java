@@ -52,7 +52,7 @@ import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 @SuppressWarnings("nls")
 public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer> {

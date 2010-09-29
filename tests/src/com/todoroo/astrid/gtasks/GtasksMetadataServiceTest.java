@@ -9,7 +9,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 public class GtasksMetadataServiceTest extends DatabaseTestCase {
 

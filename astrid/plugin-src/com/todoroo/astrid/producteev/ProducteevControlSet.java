@@ -34,7 +34,7 @@ import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.producteev.sync.ProducteevUser;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Control Set for managing task/dashboard assignments in Producteev

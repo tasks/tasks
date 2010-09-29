@@ -44,7 +44,7 @@ import com.todoroo.astrid.producteev.api.ApiAuthenticationException;
 import com.todoroo.astrid.producteev.api.ProducteevInvoker;
 import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 /**
  * This activity allows users to sign in or log in to Producteev

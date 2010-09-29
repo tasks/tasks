@@ -2,7 +2,7 @@ package com.todoroo.astrid.producteev;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Displays synchronization preferences and an action panel so users can

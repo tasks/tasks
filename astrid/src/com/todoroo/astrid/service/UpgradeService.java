@@ -12,18 +12,18 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.utility.Preferences;
 
 
 public final class UpgradeService {
 
-    private static final int V3_3_0 = 155;
-    private static final int V3_2_0 = 147;
-    private static final int V3_1_0 = 146;
-    private static final int V3_0_0 = 136;
-    private static final int V2_14_4 = 135;
+    public static final int V3_3_0 = 155;
+    public static final int V3_2_0 = 147;
+    public static final int V3_1_0 = 146;
+    public static final int V3_0_0 = 136;
+    public static final int V2_14_4 = 135;
 
     @Autowired
     private Database database;

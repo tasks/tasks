@@ -42,7 +42,7 @@ import com.todoroo.astrid.legacy.LegacyRepeatInfo;
 import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.legacy.TransitionalAlarm;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 @SuppressWarnings("deprecation")
 public class Astrid2To3UpgradeHelper {

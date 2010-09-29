@@ -9,7 +9,7 @@ import android.net.Uri;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 @SuppressWarnings("nls")
 public class Calendars {

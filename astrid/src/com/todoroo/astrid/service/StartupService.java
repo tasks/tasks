@@ -11,8 +11,8 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -25,6 +25,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
@@ -32,8 +33,8 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Preferences;
 import com.todoroo.astrid.widget.TasksWidget.UpdateService;
 
 /**
@@ -86,7 +87,7 @@ public class StartupService {
         ContextManager.setContext(context);
 
         // read current version
-        int latestSetVersion = Preferences.getCurrentVersion();
+        int latestSetVersion = AstridPreferences.getCurrentVersion();
         int version = 0;
         try {
 
@@ -106,7 +107,7 @@ public class StartupService {
         boolean justUpgraded = latestSetVersion != version;
         if(justUpgraded && version > 0) {
             upgradeService.performUpgrade(context, latestSetVersion);
-        	Preferences.setCurrentVersion(version);
+            AstridPreferences.setCurrentVersion(version);
         }
 
         upgradeService.performSecondaryUpgrade(context);
@@ -138,7 +139,7 @@ public class StartupService {
             }
         }).start();
 
-        Preferences.setPreferenceDefaults();
+        AstridPreferences.setPreferenceDefaults();
 
         // check for task killers
         if(!Constants.OEM)
@@ -152,7 +153,8 @@ public class StartupService {
      */
     private void databaseRestoreIfEmpty(Context context) {
         try {
-            if(Preferences.getCurrentVersion() > 135 && !context.getDatabasePath(database.getName()).exists()) {
+            if(AstridPreferences.getCurrentVersion() >= UpgradeService.V3_0_0 &&
+                    !context.getDatabasePath(database.getName()).exists()) {
                 // we didn't have a database! restore latest file
                 File directory = BackupConstants.defaultExportDirectory();
                 if(!directory.exists())

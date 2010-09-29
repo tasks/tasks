@@ -16,7 +16,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.widget.TodorooPreferences;
 import com.todoroo.astrid.activity.AddOnActivity;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Displays synchronization preferences and an action panel so users can

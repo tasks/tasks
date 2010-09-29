@@ -17,7 +17,7 @@ import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.producteev.sync.ProducteevNote;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Exposes Task Details for Producteev:

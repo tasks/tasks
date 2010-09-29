@@ -6,7 +6,7 @@ import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Metadata entries for a GTasks Task

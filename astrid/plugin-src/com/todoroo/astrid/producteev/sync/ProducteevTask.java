@@ -3,7 +3,7 @@ package com.todoroo.astrid.producteev.sync;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Metadata entries for a Producteev Task

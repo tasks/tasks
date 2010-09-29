@@ -10,7 +10,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 public class TaskTests extends DatabaseTestCase {
 
@@ -35,7 +35,7 @@ public class TaskTests extends DatabaseTestCase {
 
     /** Check defaults */
     public void checkDefaults() {
-        Preferences.setPreferenceDefaults();
+        AstridPreferences.setPreferenceDefaults();
         ContentValues defaults = new Task().getDefaultValues();
         assertTrue(defaults.containsKey(Task.TITLE.name));
         assertTrue(defaults.containsKey(Task.DUE_DATE.name));

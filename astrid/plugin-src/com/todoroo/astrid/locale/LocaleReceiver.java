@@ -19,7 +19,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Receiver is activated when Locale conditions are triggered

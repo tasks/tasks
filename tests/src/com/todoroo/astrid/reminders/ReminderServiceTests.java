@@ -8,7 +8,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.astrid.utility.Preferences;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 public class ReminderServiceTests extends DatabaseTestCase {
 
@@ -23,7 +23,7 @@ public class ReminderServiceTests extends DatabaseTestCase {
         super.setUp();
         service = ReminderService.getInstance();
         original = service.getScheduler();
-        Preferences.setPreferenceDefaults();
+        AstridPreferences.setPreferenceDefaults();
     }
 
     @Override

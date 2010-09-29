@@ -32,6 +32,7 @@ public class GtasksSyncActionExposer extends BroadcastReceiver {
         if(!gtasksPreferenceService.isLoggedIn())
             return;
 
+        // TODO
         Intent syncIntent = new Intent(intent.getAction(), null,
                 context, GtasksSyncActionExposer.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, syncIntent, 0);
