@@ -1,17 +1,23 @@
 package com.todoroo.astrid.gtasks;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.astrid.utility.Preferences;
 import com.todoroo.gtasks.GoogleTaskListInfo;
 
 public class GtasksDetailExposerTest extends DatabaseTestCase {
 
     @Autowired private GtasksListService gtasksListService;
     private GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();
+    private DetailListener detailListener = new DetailListener();
 
     private Task task;
     private String detail;
@@ -104,7 +110,11 @@ public class GtasksDetailExposerTest extends DatabaseTestCase {
     }
 
     private void whenRequestingDetails() {
-        detail = new GtasksDetailExposer().getTaskDetails(task.getId(), false);
+        Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
+        intent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
+        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+        detail = null;
+        new GtasksDetailExposer().onReceive(getContext(), intent);
     }
 
     private void givenLoggedInStatus(boolean status) {
@@ -114,9 +124,21 @@ public class GtasksDetailExposerTest extends DatabaseTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        if(!Preferences.isSet(GtasksPreferenceService.PREF_DEFAULT_LIST))
-            Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, "list");
+        getContext().registerReceiver(detailListener, new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
 
+    }
+
+    @Override
+    protected void tearDown() throws Exception {
+        super.tearDown();
+        getContext().unregisterReceiver(detailListener);
+    }
+
+    private class DetailListener extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            detail = intent.getExtras().getString(AstridApiConstants.EXTRAS_RESPONSE);
+        }
     }
 
 }

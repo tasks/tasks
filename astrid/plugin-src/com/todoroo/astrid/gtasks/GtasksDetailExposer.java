@@ -13,6 +13,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.utility.Constants;
 
 /**
  * Exposes Task Details for Remember the Milk:
@@ -31,10 +32,13 @@ public class GtasksDetailExposer extends BroadcastReceiver {
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
+    public GtasksDetailExposer() {
+        DependencyInjectionService.getInstance().inject(this);
+    }
+
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
-        DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose features
         if(!gtasksPreferenceService.isLoggedIn())
@@ -74,7 +78,7 @@ public class GtasksDetailExposer extends BroadcastReceiver {
 
         builder.append("<img src='silk_folder'/> ").append(listName); //$NON-NLS-1$
 
-        if(metadata.getValue(GtasksMetadata.PARENT_TASK) > AbstractModel.NO_ID) {
+        if(metadata.getValue(GtasksMetadata.PARENT_TASK) > AbstractModel.NO_ID && Constants.DEBUG) {
             builder.append(DETAIL_SEPARATOR).append("Parent: ").append(metadata.getValue(GtasksMetadata.PARENT_TASK));
         }
 

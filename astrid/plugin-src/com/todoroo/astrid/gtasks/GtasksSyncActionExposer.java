@@ -14,7 +14,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.SyncAction;
-import com.todoroo.gtasks.GoogleTaskListInfo;
 
 /**
  * Exposes sync action
@@ -24,33 +23,17 @@ public class GtasksSyncActionExposer extends BroadcastReceiver {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
-    @Autowired private GtasksListService gtasksListService;
-
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
         DependencyInjectionService.getInstance().inject(this);
 
-        if(intent.getBooleanExtra("setup", false)) {
-            gtasksPreferenceService.setToken("haha");
-            GoogleTaskListInfo[] newLists = new GoogleTaskListInfo[2];
-            GoogleTaskListInfo list = new GoogleTaskListInfo("1", "Tim's Tasks");
-            newLists[0] = list;
-            list = new GoogleTaskListInfo("2", "Travel");
-            newLists[1] = list;
-            gtasksListService.updateLists(newLists);
-            System.err.println("you've ben set up the bomb.");
-            return;
-        }
-
-
         // if we aren't logged in, don't expose sync action
-        //if(!gtasksPreferenceService.isLoggedIn())
-        //    return;
+        if(!gtasksPreferenceService.isLoggedIn())
+            return;
 
         Intent syncIntent = new Intent(intent.getAction(), null,
                 context, GtasksSyncActionExposer.class);
-        syncIntent.putExtra("setup", true);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, syncIntent, 0);
         SyncAction syncAction = new SyncAction(context.getString(R.string.gtasks_GPr_header),
                 pendingIntent);
