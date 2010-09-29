@@ -52,7 +52,8 @@ public class GtasksFilterExposer extends BroadcastReceiver {
         Filter filter = new Filter(listName, listName, new QueryTemplate().join(
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                        TaskCriteria.activeAndVisible(),
+                        TaskCriteria.isVisible(),
+                        TaskCriteria.notDeleted(),
                         GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(Order.asc(GtasksMetadata.ORDER)),
                 values);
 

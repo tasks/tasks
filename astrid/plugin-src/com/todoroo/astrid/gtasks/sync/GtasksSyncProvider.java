@@ -353,6 +353,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         String remoteId;
         try {
             remoteId = createdTask.go();
+            gtasksTaskListUpdater.addRemoteTaskMapping(local.task.getId(), remoteId);
         } catch (JSONException e) {
             throw new GoogleTasksException(e);
         }
@@ -415,11 +416,11 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         task.setValue(Task.NOTES, remoteTask.getNotes());
 
         Metadata gtasksMetadata = GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID);
+        gtasksMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
         gtasksMetadata.setValue(GtasksMetadata.LIST_ID, remoteTask.getList_id());
 
         GtasksTaskContainer container = new GtasksTaskContainer(task, metadata,
                 gtasksMetadata);
-        // TODO indent
         return container;
     }
 
@@ -453,6 +454,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     @Override
     protected void push(GtasksTaskContainer local, GtasksTaskContainer remote) throws IOException {
         try {
+            gtasksTaskListUpdater.updateParentAndSibling(local);
+
             String id = local.gtaskMetadata.getValue(GtasksMetadata.ID);
             TaskModifier modifyTask = l.modifyTask(id);
             updateTaskHelper(local, remote, modifyTask);

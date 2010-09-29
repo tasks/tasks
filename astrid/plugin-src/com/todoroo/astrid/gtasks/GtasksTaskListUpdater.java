@@ -139,6 +139,10 @@ public class GtasksTaskListUpdater {
         }
     }
 
+    public void addRemoteTaskMapping(long id, String remoteId) {
+        localToRemoteIdMap.put(id, remoteId);
+    }
+
     // --- private helpers
 
     private interface ListIterator {
