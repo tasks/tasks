@@ -2,6 +2,8 @@ package com.todoroo.astrid.repeats;
 
 import java.util.Date;
 
+import android.content.Intent;
+
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.timsu.astrid.R;
@@ -9,6 +11,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
@@ -17,8 +20,6 @@ import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.Preferences;
 
 public class RepeatTests extends DatabaseTestCase {
-
-    private static final int REPEAT_WAIT = 1500;
 
     @Autowired
     TaskDao taskDao;
@@ -39,10 +40,7 @@ public class RepeatTests extends DatabaseTestCase {
         taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task);
-
-        // wait for repeat handler
-        Thread.sleep(REPEAT_WAIT);
+        saveAndTriggerRepeatListener(task);
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.ID));
         try {
@@ -50,6 +48,16 @@ public class RepeatTests extends DatabaseTestCase {
         } finally {
             cursor.close();
         }
+    }
+
+    private void saveAndTriggerRepeatListener(Task task) {
+        if(task.isSaved())
+            taskDao.saveExisting(task);
+        else
+            taskDao.createNew(task);
+        Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
+        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
+        new RepeatTaskCompleteListener().onReceive(getContext(), intent);
     }
 
     /** test daily repeat from due date, but with no due date set */
@@ -63,10 +71,7 @@ public class RepeatTests extends DatabaseTestCase {
         taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task);
-
-        // wait for repeat handler
-        Thread.sleep(REPEAT_WAIT);
+        saveAndTriggerRepeatListener(task);
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES));
         try {
@@ -105,10 +110,7 @@ public class RepeatTests extends DatabaseTestCase {
         taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task);
-
-        // wait for repeat handler
-        Thread.sleep(REPEAT_WAIT);
+        saveAndTriggerRepeatListener(task);
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES));
         try {
@@ -147,10 +149,7 @@ public class RepeatTests extends DatabaseTestCase {
         taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task);
-
-        // wait for repeat handler
-        Thread.sleep(2 * REPEAT_WAIT);
+        saveAndTriggerRepeatListener(task);
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES));
         try {
@@ -190,10 +189,7 @@ public class RepeatTests extends DatabaseTestCase {
         taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task);
-
-        // wait for repeat handler
-        Thread.sleep(REPEAT_WAIT);
+        saveAndTriggerRepeatListener(task);
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES));
         try {
@@ -235,10 +231,7 @@ public class RepeatTests extends DatabaseTestCase {
         metadataDao.persist(metadata);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task);
-
-        // wait for repeat handler
-        Thread.sleep(REPEAT_WAIT);
+        saveAndTriggerRepeatListener(task);
 
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.TASK));
         try {
@@ -269,10 +262,7 @@ public class RepeatTests extends DatabaseTestCase {
         taskDao.save(task);
 
         task.setValue(Task.COMPLETION_DATE, DateUtilities.now());
-        taskDao.save(task);
-
-        // wait for repeat handler
-        Thread.sleep(REPEAT_WAIT);
+        saveAndTriggerRepeatListener(task);
 
         TodorooCursor<Task> cursor = taskDao.query(Query.select(Task.PROPERTIES));
         try {
