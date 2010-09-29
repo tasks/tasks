@@ -5,6 +5,7 @@ import java.io.File;
 import com.todoroo.andlib.test.TodorooTestCaseWithInjector;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.legacy.AlarmDatabase;
+import com.todoroo.astrid.provider.ProviderTestUtilities;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
@@ -34,6 +35,8 @@ public class DatabaseTestCase extends TodorooTestCaseWithInjector {
 		// empty out test databases
 	    database.clear();
 		database.openForWriting();
+
+		ProviderTestUtilities.setDatabaseOverride(database);
 	}
 
 	/**

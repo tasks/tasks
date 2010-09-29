@@ -65,6 +65,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         PluginServices.getTaskService().save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.INDENT, indentation);
+        metadata.setValue(GtasksMetadata.LIST_ID, "list");
         metadata.setValue(Metadata.TASK, task.getId());
         PluginServices.getMetadataService().save(metadata);
         return task;
@@ -85,11 +86,9 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         action.onReceive(getContext(), intent);
     }
 
-
     private void givenTask(Task taskToTest) {
         task = taskToTest;
     }
-
 
     private Task taskWithoutMetadata() {
         Task task = new Task();

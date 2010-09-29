@@ -14,8 +14,8 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.sync.SyncMetadataService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
@@ -65,6 +65,11 @@ public final class MilkMetadataService extends SyncMetadataService<MilkTaskConta
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
                 where(MetadataCriteria.byTaskAndwithKey(taskId, MilkNoteFields.METADATA_KEY)));
         return cursor;
+    }
+
+    @Override
+    public Criterion getMetadataWithRemoteId() {
+        return MilkTaskFields.TASK_ID.neq(""); //$NON-NLS-1$
     }
 
 }

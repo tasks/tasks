@@ -23,6 +23,7 @@ import com.todoroo.astrid.utility.Flags;
 abstract public class GtasksOrderAction extends BroadcastReceiver {
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     abstract int getDelta();
 
@@ -38,7 +39,7 @@ abstract public class GtasksOrderAction extends BroadcastReceiver {
         if(metadata == null)
             return;
 
-        gtasksMetadataService.updateMetadataForList(metadata.getValue(GtasksMetadata.LIST_ID));
+        gtasksTaskListUpdater.updateMetadataForList(metadata.getValue(GtasksMetadata.LIST_ID));
 
         metadata = gtasksMetadataService.getTaskMetadata(taskId);
         int oldOrder = metadata.getValue(GtasksMetadata.ORDER);

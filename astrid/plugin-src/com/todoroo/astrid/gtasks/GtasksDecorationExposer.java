@@ -35,7 +35,7 @@ public class GtasksDecorationExposer implements TaskDecorationExposer {
         if(!gtasksPreferenceService.isLoggedIn())
             return null;
 
-        if(Flags.checkAndClear(Flags.GTASKS))
+        if(!Flags.check(Flags.GTASKS))
             return null;
 
         return createDecoration(task);

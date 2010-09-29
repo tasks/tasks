@@ -3,10 +3,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -27,41 +23,17 @@ public class GtasksSyncActionExposer extends BroadcastReceiver {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
-    @Autowired private GtasksListService gtasksListService;
-
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
         DependencyInjectionService.getInstance().inject(this);
 
-        if(intent.getBooleanExtra("setup", false)) {
-            gtasksPreferenceService.setToken("haha");
-            try {
-                JSONArray newLists = new JSONArray();
-                JSONObject list = new JSONObject();
-                list.put("id", "1");
-                list.put("title", "Tim's Tasks");
-                newLists.put(list);
-                list = new JSONObject();
-                list.put("id", "2");
-                list.put("title", "Travel");
-                newLists.put(list);
-                gtasksListService.updateLists(newLists);
-            } catch (JSONException e) {
-                throw new RuntimeException(e);
-            }
-            System.err.println("you've ben set up the bomb.");
-            return;
-        }
-
-
         // if we aren't logged in, don't expose sync action
-        //if(!gtasksPreferenceService.isLoggedIn())
-        //    return;
+        if(!gtasksPreferenceService.isLoggedIn())
+            return;
 
         Intent syncIntent = new Intent(intent.getAction(), null,
                 context, GtasksSyncActionExposer.class);
-        syncIntent.putExtra("setup", true);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0, syncIntent, 0);
         SyncAction syncAction = new SyncAction(context.getString(R.string.gtasks_GPr_header),
                 pendingIntent);

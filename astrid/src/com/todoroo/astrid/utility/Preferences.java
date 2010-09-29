@@ -88,6 +88,12 @@ public class Preferences {
         return PreferenceManager.getDefaultSharedPreferences(context);
     }
 
+    /** @return true if given preference is set */
+    public static boolean isSet(String key) {
+        Context context = ContextManager.getContext();
+        return getPrefs(context).contains(key);
+    }
+
     // --- preference fetching (string)
 
     /** Gets an string value from a string preference. Returns null
@@ -275,7 +281,5 @@ public class Preferences {
         editor.putLong(key, value);
         editor.commit();
     }
-
-
 
 }
