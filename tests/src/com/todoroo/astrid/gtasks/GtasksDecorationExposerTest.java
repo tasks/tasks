@@ -11,6 +11,8 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
+import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.utility.Preferences;
 
 public class GtasksDecorationExposerTest extends DatabaseTestCase {
 
@@ -93,6 +95,7 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
         StoreObject list = new StoreObject();
         list.setValue(GtasksList.REMOTE_ID, "1");
         list.setValue(GtasksList.NAME, "lamo");
+        Flags.set(Flags.GTASKS);
         return GtasksFilterExposer.filterFromList(list);
     }
 
@@ -106,6 +109,7 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
     }
 
     private Filter nonGtasksFilter() {
+        Flags.checkAndClear(Flags.GTASKS);
         return CoreFilterExposer.buildInboxFilter(getContext().getResources());
     }
 
@@ -125,6 +129,13 @@ public class GtasksDecorationExposerTest extends DatabaseTestCase {
 
     private void givenLoggedInStatus(boolean status) {
         preferences.setLoggedIn(status);
+    }
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+        if(!Preferences.isSet(GtasksPreferenceService.PREF_DEFAULT_LIST))
+            Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, "list");
     }
 
 }

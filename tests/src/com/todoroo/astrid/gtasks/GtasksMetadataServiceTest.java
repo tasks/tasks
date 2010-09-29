@@ -1,5 +1,7 @@
 package com.todoroo.astrid.gtasks;
 
+import android.content.Context;
+
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -7,6 +9,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
+import com.todoroo.astrid.utility.Preferences;
 
 public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
@@ -147,6 +150,13 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     protected void addInjectables() {
         super.addInjectables();
         testInjector.addInjectable("gtasksPreferenceService", preferences);
+    }
+
+    @Override
+    public void setContext(Context context) {
+        super.setContext(context);
+        if(!Preferences.isSet(GtasksPreferenceService.PREF_DEFAULT_LIST))
+            Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, "list");
     }
 
 }

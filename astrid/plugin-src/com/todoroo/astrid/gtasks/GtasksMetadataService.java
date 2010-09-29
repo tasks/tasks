@@ -57,4 +57,9 @@ public final class GtasksMetadataService extends SyncMetadataService<GtasksTaskC
         return gtasksPreferenceService;
     }
 
+    @Override
+    public Criterion getMetadataWithRemoteId() {
+        return GtasksMetadata.ID.neq(""); //$NON-NLS-1$
+    }
+
 }

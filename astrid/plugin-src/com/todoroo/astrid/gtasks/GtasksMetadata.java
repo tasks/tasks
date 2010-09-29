@@ -45,7 +45,12 @@ public class GtasksMetadata {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, GtasksMetadata.METADATA_KEY);
         metadata.setValue(ID, ""); //$NON-NLS-1$
-        metadata.setValue(LIST_ID, Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST));
+
+        String defaultList = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
+        if(defaultList == null)
+            throw new NullPointerException("No default list has been set."); //$NON-NLS-1$
+
+        metadata.setValue(LIST_ID, defaultList);
         metadata.setValue(PARENT_TASK, (long)VALUE_UNSET);
         metadata.setValue(INDENT, 0);
         metadata.setValue(ORDER, VALUE_UNSET);
