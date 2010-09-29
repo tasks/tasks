@@ -48,7 +48,7 @@
     <string name="CFA_type_intersect">also</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">Chaining: %s</string>
+    <string name="CFA_context_chain">%s has criteria</string>
     
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">Delete Row</string>
