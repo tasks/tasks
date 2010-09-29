@@ -26,6 +26,7 @@ public class GtasksMetadata {
     public static final StringProperty LIST_ID = new StringProperty(Metadata.TABLE,
             Metadata.VALUE2.name);
 
+    /** parent task id, or 0 if top level task */
     public static final LongProperty PARENT_TASK = new LongProperty(Metadata.TABLE,
             Metadata.VALUE3.name);
 

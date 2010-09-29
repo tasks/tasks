@@ -16,15 +16,16 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.sync.GtasksTaskContainer;
 
 public class GtasksTaskListUpdater {
 
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksMetadataService gtasksMetadataService;
 
-    private final HashMap<Long, Long> parents = new HashMap<Long, Long>();
-    private final HashMap<Long, Long> siblings = new HashMap<Long, Long>();
-    private final HashMap<Long, String> localToRemoteIdMap =
+    final HashMap<Long, Long> parents = new HashMap<Long, Long>();
+    final HashMap<Long, Long> siblings = new HashMap<Long, Long>();
+    final HashMap<Long, String> localToRemoteIdMap =
         new HashMap<Long, String>();
 
     public GtasksTaskListUpdater() {
@@ -78,7 +79,7 @@ public class GtasksTaskListUpdater {
             }
         });
 
-        PluginServices.getTaskService().clearDetails(Task.ID.in(ids));
+        PluginServices.getTaskService().clearDetails(Task.ID.in(ids.toArray(new Long[ids.size()])));
     }
 
     /**
@@ -120,6 +121,22 @@ public class GtasksTaskListUpdater {
             });
         }
     }
+
+    public void updateParentAndSibling(GtasksTaskContainer container) {
+        long taskId = container.task.getId();
+        if(parents.containsKey(taskId)) {
+            long parentId = parents.get(taskId);
+            if(localToRemoteIdMap.containsKey(parentId))
+                container.parentId = localToRemoteIdMap.get(parentId);
+        }
+        if(siblings.containsKey(taskId)) {
+            long siblingId = siblings.get(taskId);
+            if(localToRemoteIdMap.containsKey(siblingId))
+                container.priorSiblingId = localToRemoteIdMap.get(siblingId);
+        }
+    }
+
+    // --- private helpers
 
     private interface ListIterator {
         public void processTask(long taskId);
