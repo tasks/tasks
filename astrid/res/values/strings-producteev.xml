@@ -123,5 +123,13 @@
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
     <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
-    
+
+    <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
+
+    <string name="CFC_producteev_in_workspace_name">In workspace...</string>
+
+    <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
+
+    <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
+
 </resources>

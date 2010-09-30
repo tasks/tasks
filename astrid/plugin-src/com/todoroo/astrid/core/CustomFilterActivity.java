@@ -295,13 +295,22 @@ public class CustomFilterActivity extends ListActivity {
             @Override
             public void onCreateContextMenu(ContextMenu menu, View v,
                     ContextMenuInfo menuInfo) {
-                if(menu.hasVisibleItems())
+                if(menu.hasVisibleItems()) {
+                    /* If it has items already, then the user did not click on the "Add Criteria" button, but instead
+                       long held on a row in the list view, which caused CustomFilterAdapter.onCreateContextMenu
+                       to be invoked before this onCreateContextMenu method was invoked.
+                     */
                     return;
+                }
 
                 for(int i = 0; i < criteria.size(); i++) {
                     CustomFilterCriterion item = criteria.get(i);
-                    menu.add(CustomFilterActivity.MENU_GROUP_FILTER,
-                            i, 0, item.name);
+                    try {
+                        menu.add(CustomFilterActivity.MENU_GROUP_FILTER,
+                                i, 0, item.name);
+                    } catch (NullPointerException e) {
+                        throw new NullPointerException("One of the criteria is null. Criteria: " + criteria);
+                    }
                 }
             }
         });
