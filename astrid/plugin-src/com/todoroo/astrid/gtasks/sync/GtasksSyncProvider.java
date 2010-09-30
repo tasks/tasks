@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
 import org.json.JSONException;
 
@@ -50,13 +51,12 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTaskService;
-import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.GoogleTaskTask;
 import com.todoroo.gtasks.GoogleTaskView;
 import com.todoroo.gtasks.GoogleTasksException;
+import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.actions.Action;
 import com.todoroo.gtasks.actions.Actions;
-import com.todoroo.gtasks.actions.GetTasksAction;
 import com.todoroo.gtasks.actions.ListAction;
 import com.todoroo.gtasks.actions.ListActions;
 import com.todoroo.gtasks.actions.ListActions.TaskBuilder;
@@ -227,14 +227,10 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             // batched read tasks for each list
             ArrayList<GtasksTaskContainer> remoteTasks = new ArrayList<GtasksTaskContainer>();
-            ArrayList<GetTasksAction> getTasksActions = new ArrayList<GetTasksAction>();
             for(StoreObject dashboard : gtasksListService.getLists()) {
                 String listId = dashboard.getValue(GtasksList.REMOTE_ID);
-                getTasksActions.add(a.getTasks(listId, true));
-            }
-            taskService.executeActions(getTasksActions.toArray(new GetTasksAction[getTasksActions.size()]));
-            for(GetTasksAction action : getTasksActions) {
-                List<GoogleTaskTask> list = action.getGoogleTasks();
+                List<GoogleTaskTask> list = taskService.getTasks(listId);
+                System.err.println("list " + listId + " read " + list.size() + " tasks");
                 readTasksIntoRemoteTasks(list, remoteTasks);
             }
 
@@ -246,6 +242,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                 syncData.localUpdated.close();
             }
 
+            executeBatchedActions();
             gtasksTaskListUpdater.updateAllMetadata();
 
             gtasksPreferenceService.recordSuccessfulSync();
@@ -482,6 +479,21 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     /** add action to batch */
     private void batch(Action action) {
         actions.add(action);
+    }
+
+    /** execute all batched actions */
+    private void executeBatchedActions() throws IOException, JSONException {
+        if(!actions.isEmpty()) {
+            taskService.executeActions(actions.toArray(new Action[actions.size()]));
+            System.err.println("executed " + actions);
+        }
+        if(!listActions.isEmpty()) {
+            for(Entry<String, ArrayList<ListAction>> entry : listActions.entrySet()) {
+                taskService.executeListActions(entry.getKey(),
+                        entry.getValue().toArray(new ListAction[entry.getValue().size()]));
+                System.err.println("executed " + entry.getValue() + " on " + entry.getKey());
+            }
+        }
     }
 
     // ----------------------------------------------------------------------
