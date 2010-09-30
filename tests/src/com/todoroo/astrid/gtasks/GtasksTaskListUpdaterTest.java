@@ -85,7 +85,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(task.getId());
         long parent = metadata.getValue(GtasksMetadata.PARENT_TASK);
         if(expectedParent == null)
-            assertEquals("Task " + task.getValue(Task.TITLE) + " parent none", parent, 0);
+            assertEquals("Task " + task.getValue(Task.TITLE) + " parent none", 0, parent);
         else
             assertEquals("Task " + task.getValue(Task.TITLE) + " parent " +
                     expectedParent.getValue(Task.TITLE), expectedParent.getId(), parent);

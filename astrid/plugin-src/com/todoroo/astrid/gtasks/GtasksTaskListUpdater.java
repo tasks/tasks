@@ -45,7 +45,8 @@ public class GtasksTaskListUpdater {
 
         iterateThroughList(list, new ListIterator() {
             public void processTask(long taskId, Metadata metadata) {
-                System.err.format("%d: indent:%d, parent:%d\n", taskId, //$NON-NLS-1$
+                System.err.format("%d: %d, indent:%d, parent:%d\n", taskId, //$NON-NLS-1$
+                        metadata.getValue(GtasksMetadata.ORDER),
                         metadata.getValue(GtasksMetadata.INDENT),
                         metadata.getValue(GtasksMetadata.PARENT_TASK));
             }
@@ -281,6 +282,8 @@ public class GtasksTaskListUpdater {
                 metadata.setValue(GtasksMetadata.INDENT, indent);
 
                 long parent = parents.get(taskId);
+                if(parent < 0)
+                    parent = Task.NO_ID;
                 metadata.setValue(GtasksMetadata.PARENT_TASK, parent);
 
                 PluginServices.getMetadataService().save(metadata);
