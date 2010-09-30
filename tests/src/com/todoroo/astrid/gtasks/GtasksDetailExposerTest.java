@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.IntentFilter;
 
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
@@ -115,6 +116,7 @@ public class GtasksDetailExposerTest extends DatabaseTestCase {
         intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
         detail = null;
         new GtasksDetailExposer().onReceive(getContext(), intent);
+        AndroidUtilities.sleepDeep(500);
     }
 
     private void givenLoggedInStatus(boolean status) {

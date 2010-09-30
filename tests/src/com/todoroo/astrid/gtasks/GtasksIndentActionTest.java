@@ -26,8 +26,17 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         thenExpectIndentationLevel(1);
     }
 
+    public void testIndentWithMetadataButNoOtherTasks() {
+        givenTask(taskWithMetadata(0, 0));
+
+        whenTrigger(new GtasksIncreaseIndentAction());
+
+        thenExpectIndentationLevel(0);
+    }
+
     public void testIndentWithMetadata() {
-        givenTask(taskWithMetadata(0));
+        taskWithMetadata(0, 0);
+        givenTask(taskWithMetadata(1, 0));
 
         whenTrigger(new GtasksIncreaseIndentAction());
 
@@ -35,7 +44,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     }
 
     public void testDeindentWithMetadata() {
-        givenTask(taskWithMetadata(1));
+        givenTask(taskWithMetadata(0, 1));
 
         whenTrigger(new GtasksDecreaseIndentAction());
 
@@ -51,20 +60,67 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     }
 
     public void testDeindentWhenAlreadyZero() {
-        givenTask(taskWithMetadata(0));
+        givenTask(taskWithMetadata(0, 0));
 
         whenTrigger(new GtasksDecreaseIndentAction());
 
         thenExpectIndentationLevel(0);
     }
 
+    public void testIndentWithChildren() {
+        taskWithMetadata(0, 0);
+        givenTask(taskWithMetadata(1, 0));
+        Task child = taskWithMetadata(2, 1);
+
+        whenTrigger(new GtasksIncreaseIndentAction());
+
+        thenExpectIndentationLevel(1);
+        thenExpectIndentationLevel(child, 2);
+    }
+
+    public void testDeindentWithChildren() {
+        taskWithMetadata(0, 0);
+        givenTask(taskWithMetadata(1, 1));
+        Task child = taskWithMetadata(2, 2);
+
+        whenTrigger(new GtasksDecreaseIndentAction());
+
+        thenExpectIndentationLevel(0);
+        thenExpectIndentationLevel(child, 1);
+    }
+
+    public void testIndentWithSiblings() {
+        taskWithMetadata(0, 0);
+        givenTask(taskWithMetadata(1, 1));
+        Task sibling = taskWithMetadata(2, 1);
+
+        whenTrigger(new GtasksIncreaseIndentAction());
+
+        thenExpectIndentationLevel(2);
+        thenExpectIndentationLevel(sibling, 1);
+    }
+
+    public void testIndentWithChildrensChildren() {
+        taskWithMetadata(0, 0);
+        givenTask(taskWithMetadata(1, 0));
+        Task child = taskWithMetadata(2, 1);
+        Task grandchild = taskWithMetadata(3, 2);
+
+        whenTrigger(new GtasksIncreaseIndentAction());
+
+        thenExpectIndentationLevel(1);
+        thenExpectIndentationLevel(child, 2);
+        thenExpectIndentationLevel(grandchild, 3);
+    }
+
     // --- helpers
 
-    private Task taskWithMetadata(int indentation) {
+    private Task taskWithMetadata(int order, int indentation) {
         Task task = new Task();
         PluginServices.getTaskService().save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());
         metadata.setValue(GtasksMetadata.INDENT, indentation);
+        metadata.setValue(GtasksMetadata.ORDER, order);
         metadata.setValue(GtasksMetadata.LIST_ID, "list");
         metadata.setValue(Metadata.TASK, task.getId());
         PluginServices.getMetadataService().save(metadata);
@@ -72,13 +128,16 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     }
 
     private void thenExpectIndentationLevel(int expected) {
-        Metadata metadata = gtasksMetadataService.getTaskMetadata(task.getId());
+        thenExpectIndentationLevel(task, expected);
+    }
+
+    private void thenExpectIndentationLevel(Task targetTask, int expected) {
+        Metadata metadata = gtasksMetadataService.getTaskMetadata(targetTask.getId());
         assertNotNull("task has metadata", metadata);
         int indentation = metadata.getValue(GtasksMetadata.INDENT);
         assertTrue("indentation: " + indentation,
                 indentation == expected);
     }
-
 
     private void whenTrigger(BroadcastReceiver action) {
         Intent intent = new Intent(AstridApiConstants.ACTION_TASK_CONTEXT_MENU);
