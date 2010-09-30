@@ -11,10 +11,12 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksIndentAction.GtasksDecreaseIndentAction;
 import com.todoroo.astrid.gtasks.GtasksIndentAction.GtasksIncreaseIndentAction;
 import com.todoroo.astrid.test.DatabaseTestCase;
+import com.todoroo.gtasks.GoogleTaskListInfo;
 
 public class GtasksIndentActionTest extends DatabaseTestCase {
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired private GtasksListService gtasksListService;
 
     private Task task;
 
@@ -23,7 +25,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
 
         whenTrigger(new GtasksIncreaseIndentAction());
 
-        thenExpectIndentationLevel(1);
+        // should not crash
     }
 
     public void testIndentWithMetadataButNoOtherTasks() {
@@ -56,7 +58,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
 
         whenTrigger(new GtasksDecreaseIndentAction());
 
-        thenExpectIndentationLevel(0);
+        // should not crash
     }
 
     public void testDeindentWhenAlreadyZero() {
@@ -91,13 +93,13 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
 
     public void testIndentWithSiblings() {
         taskWithMetadata(0, 0);
-        givenTask(taskWithMetadata(1, 1));
-        Task sibling = taskWithMetadata(2, 1);
+        givenTask(taskWithMetadata(1, 0));
+        Task sibling = taskWithMetadata(2, 0);
 
         whenTrigger(new GtasksIncreaseIndentAction());
 
-        thenExpectIndentationLevel(2);
-        thenExpectIndentationLevel(sibling, 1);
+        thenExpectIndentationLevel(1);
+        thenExpectIndentationLevel(sibling, 0);
     }
 
     public void testIndentWithChildrensChildren() {
@@ -114,6 +116,16 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     }
 
     // --- helpers
+
+    @Override
+    protected void setUp() throws Exception {
+        super.setUp();
+
+        GoogleTaskListInfo[] lists = new GoogleTaskListInfo[1];
+        GoogleTaskListInfo list = new GoogleTaskListInfo("list", "Test Tasks");
+        lists[0] = list;
+        gtasksListService.updateLists(lists);
+    }
 
     private Task taskWithMetadata(int order, int indentation) {
         Task task = new Task();
