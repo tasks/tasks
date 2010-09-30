@@ -206,30 +206,36 @@ public final class ProducteevDataService {
         return cursor;
     }
 
-    // --- dashboard methods
-
-    private StoreObject[] dashboards = null;
+    private void readDashboards() {
+        if (dashboards == null) {
+            dashboards = readStoreObjects(ProducteevDashboard.TYPE);
+        }
+    }
 
     /**
-     * Reads dashboards
+     * Reads store objects.
      */
-    private void readDashboards() {
-        if(dashboards != null)
-            return;
-
+    public StoreObject[] readStoreObjects(String type) {
+        StoreObject[] ret;
         TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.PROPERTIES).
                 where(StoreObjectCriteria.byType(ProducteevDashboard.TYPE)));
         try {
-            dashboards = new StoreObject[cursor.getCount()];
-            for(int i = 0; i < dashboards.length; i++) {
+            ret = new StoreObject[cursor.getCount()];
+            for(int i = 0; i < ret.length; i++) {
                 cursor.moveToNext();
                 StoreObject dashboard = new StoreObject(cursor);
-                dashboards[i] = dashboard;
+                ret[i] = dashboard;
             }
         } finally {
             cursor.close();
         }
+
+        return ret;
     }
+
+    // --- dashboard methods
+
+    private StoreObject[] dashboards = null;
 
     /**
      * @return a list of dashboards

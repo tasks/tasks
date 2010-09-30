@@ -8,7 +8,7 @@ import org.json.JSONObject;
  * @author Arne Jans <arne.jans@gmail.com>
  */
 @SuppressWarnings("nls")
-public class ProducteevUser {
+public class ProducteevUser implements Comparable<ProducteevUser> {
 
     private final long id;
 
@@ -81,5 +81,35 @@ public class ProducteevUser {
                 && email.length() > 0)
             displayString += email;
         return displayString;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ProducteevUser that = (ProducteevUser) o;
+
+        if (id != that.id) return false;
+        if (email != null ? !email.equals(that.email) : that.email != null) return false;
+        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
+        if (lastname != null ? !lastname.equals(that.lastname) : that.lastname != null) return false;
+
+        return true;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (id ^ (id >>> 32));
+        result = 31 * result + (email != null ? email.hashCode() : 0);
+        result = 31 * result + (firstname != null ? firstname.hashCode() : 0);
+        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public int compareTo(ProducteevUser o) {
+        int ret = toString().compareTo(o.toString());
+        return ret == 0 ? (new Long(id).compareTo(o.id)) : ret;
     }
 }
