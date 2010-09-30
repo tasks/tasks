@@ -27,7 +27,8 @@ import java.util.Set;
 import java.util.TreeSet;
 
 public class ProducteevCustomFilterCriteriaExposer extends BroadcastReceiver {
-    private static final String IDENTIFIER_PRODUCTEEV = "producteev"; // still don't really know what this is
+    private static final String IDENTIFIER_PRODUCTEEV_WORKSPACE = "producteev_workspace"; //$NON-NLS-1$
+    private static final String IDENTIFIER_PRODUCTEEV_ASSIGNEE = "producteev_assignee"; //$NON-NLS-1$
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -57,7 +58,7 @@ public class ProducteevCustomFilterCriteriaExposer extends BroadcastReceiver {
             values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
             values.put(ProducteevTask.DASHBOARD_ID.name, "?");
             CustomFilterCriterion criterion = new MultipleSelectCriterion(
-                    IDENTIFIER_PRODUCTEEV,
+                    IDENTIFIER_PRODUCTEEV_WORKSPACE,
                     context.getString(R.string.CFC_producteev_in_workspace_text),
                     // Todo: abstract these metadata queries
                     Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
@@ -91,7 +92,7 @@ public class ProducteevCustomFilterCriteriaExposer extends BroadcastReceiver {
             values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
             values.put(ProducteevTask.RESPONSIBLE_ID.name, "?");
             CustomFilterCriterion criterion = new MultipleSelectCriterion(
-                    IDENTIFIER_PRODUCTEEV, // still not really sure what the point of this identifier is
+                    IDENTIFIER_PRODUCTEEV_ASSIGNEE,
                     context.getString(R.string.CFC_producteev_assigned_to_text),
                     // Todo: abstract these metadata queries, and unify this code with the CustomFilterExposers.
                     Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(

@@ -1,7 +1,6 @@
 package com.todoroo.astrid.core;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.Map.Entry;
 
 import android.app.ListActivity;
@@ -45,7 +44,7 @@ import com.todoroo.astrid.data.Task;
  */
 public class CustomFilterActivity extends ListActivity {
 
-    private static final String IDENTIFIER_TAG = "tag"; //$NON-NLS-1$
+    private static final String IDENTIFIER_TITLE = "title"; //$NON-NLS-1$
     private static final String IDENTIFIER_IMPORTANCE = "importance"; //$NON-NLS-1$
     private static final String IDENTIFIER_DUEDATE = "dueDate"; //$NON-NLS-1$
     private static final String IDENTIFIER_UNIVERSE = "active"; //$NON-NLS-1$
@@ -112,9 +111,7 @@ public class CustomFilterActivity extends ListActivity {
 
     private TextView filterName;
     private CustomFilterAdapter adapter;
-    private boolean criteriaRequested = false;
-    private final ArrayList<CustomFilterCriterion> criteria =
-        new ArrayList<CustomFilterCriterion>();
+    private final Map<String,CustomFilterCriterion> criteria = Collections.synchronizedMap(new LinkedHashMap<String,CustomFilterCriterion>());
 
     private FilterCriteriaReceiver filterCriteriaReceiver = new FilterCriteriaReceiver();
 
@@ -151,7 +148,6 @@ public class CustomFilterActivity extends ListActivity {
      */
     @SuppressWarnings("nls")
     private void populateCriteria() {
-        if (criteriaRequested) return;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_CUSTOM_FILTER_CRITERIA);
         sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
@@ -183,7 +179,7 @@ public class CustomFilterActivity extends ListActivity {
                     values, r.getStringArray(R.array.CFC_dueBefore_entries),
                     entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_calendar)).getBitmap(),
                     getString(R.string.CFC_dueBefore_name));
-            criteria.add(criterion);
+            criteria.put(IDENTIFIER_DUEDATE, criterion);
         }
 
         // built in criteria: importance
@@ -208,7 +204,7 @@ public class CustomFilterActivity extends ListActivity {
                     values, entries,
                     entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap(),
                     getString(R.string.CFC_importance_name));
-            criteria.add(criterion);
+            criteria.put(IDENTIFIER_IMPORTANCE, criterion);
         }
 
         // built in criteria: title containing X
@@ -216,7 +212,7 @@ public class CustomFilterActivity extends ListActivity {
             ContentValues values = new ContentValues();
             values.put(Task.TITLE.name, "?");
             CustomFilterCriterion criterion = new TextInputCriterion(
-                    IDENTIFIER_TAG, // really? This isn't IDENTIFIER_TITLE?
+                    IDENTIFIER_TITLE,
                     getString(R.string.CFC_title_contains_text),
                     Query.select(Task.ID).from(Task.TABLE).where(
                             Criterion.and(TaskCriteria.activeAndVisible(),
@@ -224,10 +220,8 @@ public class CustomFilterActivity extends ListActivity {
                         null, getString(R.string.CFC_title_contains_name), "",
                         ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
                         getString(R.string.CFC_title_contains_name));
-            criteria.add(criterion);
+            criteria.put(IDENTIFIER_TITLE, criterion);
         }
-
-        criteriaRequested = true;
     }
 
     @Override
@@ -303,14 +297,15 @@ public class CustomFilterActivity extends ListActivity {
                     return;
                 }
 
-                for(int i = 0; i < criteria.size(); i++) {
-                    CustomFilterCriterion item = criteria.get(i);
+                int i = 0;
+                for (CustomFilterCriterion item : criteria.values()) {
                     try {
                         menu.add(CustomFilterActivity.MENU_GROUP_FILTER,
                                 i, 0, item.name);
                     } catch (NullPointerException e) {
                         throw new NullPointerException("One of the criteria is null. Criteria: " + criteria);
                     }
+                    i++;
                 }
             }
         });
@@ -453,12 +448,21 @@ public class CustomFilterActivity extends ListActivity {
         adapter.notifyDataSetInvalidated();
     }
 
+    private <V> V getNth(int index, Map<?,V> map) {
+        int i = 0;
+        for (V v : map.values()) {
+            if (i == index) return v;
+            i++;
+        }
+        throw new IllegalArgumentException("out of bounds");
+    }
+
     @Override
     public boolean onMenuItemSelected(int featureId, MenuItem item) {
         // group filter option
         if(item.getGroupId() == MENU_GROUP_FILTER) {
             // give an initial value for the row before adding it
-            CustomFilterCriterion criterion = criteria.get(item.getItemId());
+            CustomFilterCriterion criterion = getNth(item.getItemId(), criteria);
             final CriterionInstance instance = new CriterionInstance();
             instance.criterion = criterion;
             adapter.showOptionsFor(instance, new Runnable() {
@@ -493,16 +497,10 @@ public class CustomFilterActivity extends ListActivity {
             try {
                 final Parcelable[] filters = intent.getExtras().
                     getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
-                final List<CustomFilterCriterion> addedCriterions = new ArrayList<CustomFilterCriterion>(filters.length);
                 for (Parcelable filter : filters) {
-                    addedCriterions.add((CustomFilterCriterion)filter);
+                    CustomFilterCriterion filterCriterion = (CustomFilterCriterion) filter;
+                    criteria.put(filterCriterion.identifier, filterCriterion);
                 }
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        criteria.addAll(addedCriterions);
-                    }
-                });
             } catch (Exception e) {
                 String addon;
                 try {

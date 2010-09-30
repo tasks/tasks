@@ -20,7 +20,8 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
-    private static final String IDENTIFIER_TAG = "tag"; //$NON-NLS-1$
+    private static final String IDENTIFIER_TAG_IS = "tag_is"; //$NON-NLS-1$
+    private static final String IDENTIFIER_TAG_CONTAINS = "tag_contains"; //$NON-NLS-1$
 
     @Override
     public void onReceive(Context context, Intent intent) {
@@ -40,7 +41,7 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
             values.put(Metadata.KEY.name, TagService.KEY);
             values.put(TagService.TAG.name, "?");
             CustomFilterCriterion criterion = new MultipleSelectCriterion(
-                    IDENTIFIER_TAG,
+                    IDENTIFIER_TAG_IS,
                     context.getString(R.string.CFC_tag_text),
                     Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
                                 Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
@@ -56,7 +57,7 @@ public class TagCustomFilterCriteriaExposer extends BroadcastReceiver {
         // built in criteria: tags containing X
         {
             CustomFilterCriterion criterion = new TextInputCriterion(
-                            IDENTIFIER_TAG,
+                            IDENTIFIER_TAG_CONTAINS,
                             context.getString(R.string.CFC_tag_contains_text),
                             Query.select(Metadata.TASK).from(Metadata.TABLE).join(Join.inner(
                                     Task.TABLE, Metadata.TASK.eq(Task.ID))).where(Criterion.and(
