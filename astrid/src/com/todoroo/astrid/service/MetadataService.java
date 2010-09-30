@@ -79,11 +79,11 @@ public class MetadataService {
      * Save a single piece of metadata
      * @param metadata
      */
-    public void save(Metadata metadata) {
+    public boolean save(Metadata metadata) {
         if(!metadata.containsNonNullValue(Metadata.TASK))
             throw new IllegalArgumentException("metadata needs to be attached to a task: " + metadata.getMergedValues()); //$NON-NLS-1$
 
-        metadataDao.persist(metadata);
+        return metadataDao.persist(metadata);
     }
 
     /**
