@@ -38,7 +38,7 @@ abstract public class GtasksOrderAction extends BroadcastReceiver {
         metadata = gtasksMetadataService.getTaskMetadata(taskId);
 
         String listId = metadata.getValue(GtasksMetadata.LIST_ID);
-        gtasksTaskListUpdater.moveUp(listId, taskId);
+        gtasksTaskListUpdater.move(listId, taskId, getDelta());
         gtasksTaskListUpdater.debugPrint(listId);
 
         Flags.set(Flags.REFRESH);

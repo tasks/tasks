@@ -10,6 +10,7 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
@@ -111,26 +112,73 @@ public class GtasksTaskListUpdater {
      * if moving up and first task in list or moving down and last,
      * indents to same as task that we swapped with.
      *
+     * @param delta -1 or 1
+     *
      */
-    public void moveUp(String listId, final long targetTaskId) {
+    public void move(String listId, final long targetTaskId, final int delta) {
         StoreObject list = gtasksListService.getList(listId);
         if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
             return;
 
+        siblings.clear();
         updateParentSiblingMapsFor(list);
 
-        final long priorTask;
-        if(siblings.containsKey(targetTaskId))
-            priorTask = siblings.get(targetTaskId);
-        else if(parents.containsKey(targetTaskId))
-            priorTask = parents.get(targetTaskId);
-        else
-            return;
+        if(delta == -1) {
+            final long priorTaskId;
+            if(siblings.containsKey(targetTaskId) && siblings.get(targetTaskId) != -1L)
+                priorTaskId = siblings.get(targetTaskId);
+            else if(parents.containsKey(targetTaskId) && parents.get(targetTaskId) != -1L)
+                priorTaskId = parents.get(targetTaskId);
+            else
+                return;
 
-        System.err.format("moving %d, prior is %d\n", targetTaskId, priorTask);
+            moveUp(list, targetTaskId, priorTaskId);
+        } else {
+            // if we have a sibling reverse mapping, that is the next task
+            // else, it is the next task in order
 
-        final AtomicInteger priorTaskOrder = new AtomicInteger(0);
-        final AtomicInteger priorTaskIndent = new AtomicInteger(0);
+            long nextTaskId = -1L;
+            Long nextSibling = AndroidUtilities.findKeyInMap(siblings, targetTaskId);
+            if(nextSibling != null)
+                nextTaskId = nextSibling;
+            else {
+                Filter filter = GtasksFilterExposer.filterFromList(list);
+                TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(filter.sqlQuery, null, Task.ID);
+                try {
+                    for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                        long taskId = cursor.getLong(0);
+                        if(taskId == targetTaskId) {
+                            cursor.moveToNext();
+                            if(!cursor.isAfterLast()) {
+                                nextTaskId = cursor.getLong(0);
+                                break;
+                            }
+                        }
+                    }
+                } finally {
+                    cursor.close();
+                }
+            }
+
+            if(nextTaskId == -1L)
+                return;
+
+            Metadata targetTask = gtasksMetadataService.getTaskMetadata(targetTaskId);
+            Metadata nextTask = gtasksMetadataService.getTaskMetadata(nextTaskId);
+
+            int targetIndent = targetTask.getValue(GtasksMetadata.INDENT);
+            int nextIndent = nextTask.getValue(GtasksMetadata.INDENT);
+
+            if(targetIndent != nextIndent)
+                indent(listId, targetTaskId, nextIndent - targetIndent);
+
+            moveUp(list, nextTaskId, targetTaskId);
+        }
+    }
+
+    private void moveUp(StoreObject list, final long targetTaskId, final long priorTaskId) {
+        final AtomicInteger priorTaskOrder = new AtomicInteger(-1);
+        final AtomicInteger priorTaskIndent = new AtomicInteger(-1);
         final AtomicInteger targetTaskOrder = new AtomicInteger(0);
         final AtomicInteger targetTaskIndent = new AtomicInteger(-1);
         final AtomicInteger tasksToMove = new AtomicInteger(1);
@@ -140,10 +188,10 @@ public class GtasksTaskListUpdater {
         iterateThroughList(list, new ListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
-                if(finished.get())
+                if(finished.get() && priorTaskOrder.get() != -1)
                     return;
 
-                if(taskId == priorTask) {
+                if(taskId == priorTaskId) {
                     priorTaskIndent.set(metadata.getValue(GtasksMetadata.INDENT));
                     priorTaskOrder.set(metadata.getValue(GtasksMetadata.ORDER));
                 } else if(targetTaskId == taskId) {
@@ -163,7 +211,7 @@ public class GtasksTaskListUpdater {
         final AtomicBoolean targetFound = new AtomicBoolean(false);
         finished.set(false);
 
-        // step 2. change the order of prior and our tasks
+        // step 2. swap the order of prior and our tasks
         iterateThroughList(list, new ListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
@@ -172,7 +220,7 @@ public class GtasksTaskListUpdater {
 
                 if(targetTaskId == taskId)
                     targetFound.set(true);
-                else if(taskId == priorTask)
+                else if(taskId == priorTaskId)
                     priorFound.set(true);
 
                 if(targetFound.get()) {
@@ -186,13 +234,13 @@ public class GtasksTaskListUpdater {
 
                         metadata.setValue(GtasksMetadata.ORDER, newOrder);
                         metadata.setValue(GtasksMetadata.INDENT, newIndent);
-                        System.err.format("%d: move -> %d. indent %d\n", taskId, newOrder, newIndent);
+                        PluginServices.getMetadataService().save(metadata);
                     }
                 } else if(priorFound.get()) {
                     int newOrder = metadata.getValue(GtasksMetadata.ORDER) +
                             tasksToMove.get();
                     metadata.setValue(GtasksMetadata.ORDER, newOrder);
-                    System.err.format("%d: move -> %d\n", taskId, newOrder);
+                    PluginServices.getMetadataService().save(metadata);
                 }
             }
         });

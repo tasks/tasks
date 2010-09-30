@@ -78,7 +78,7 @@ public class GtasksOrderActionTest extends DatabaseTestCase {
         thenExpectOriginalIndentAndOrder();
     }
 
-    public void testMoveDownThroughSubtasks() {
+    public void testMoveThroughSubtasks() {
         givenTasksABCDEF();
 
         whenTrigger(B, new GtasksMoveDownAction());
@@ -100,7 +100,7 @@ public class GtasksOrderActionTest extends DatabaseTestCase {
         thenExpectOriginalIndentAndOrder();
     }
 
-    public void testMoveAboveParent() {
+    public void testMoveUpAboveParent() {
         givenTasksABCDEF();
 
         whenTrigger(B, new GtasksMoveUpAction());
