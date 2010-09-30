@@ -39,7 +39,7 @@ abstract public class GtasksOrderAction extends BroadcastReceiver {
         if(metadata == null)
             return;
 
-        gtasksTaskListUpdater.updateMetadataForList(metadata.getValue(GtasksMetadata.LIST_ID));
+        gtasksTaskListUpdater.correctMetadataForList(metadata.getValue(GtasksMetadata.LIST_ID));
 
         metadata = gtasksMetadataService.getTaskMetadata(taskId);
         int oldOrder = metadata.getValue(GtasksMetadata.ORDER);

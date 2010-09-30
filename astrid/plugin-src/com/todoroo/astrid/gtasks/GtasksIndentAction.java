@@ -3,14 +3,11 @@ package com.todoroo.astrid.gtasks;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.widget.Toast;
 
-import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.utility.Flags;
 
@@ -40,15 +37,14 @@ abstract public class GtasksIndentAction extends BroadcastReceiver {
             metadata = GtasksMetadata.createEmptyMetadata(taskId);
         }
 
-        int newIndent = Math.max(0, metadata.getValue(GtasksMetadata.INDENT) + getDelta());
-        metadata.setValue(GtasksMetadata.INDENT, newIndent);
-        PluginServices.getMetadataService().save(metadata);
+        if(metadata.getValue(GtasksMetadata.INDENT) + getDelta() < 0)
+            return;
 
-        gtasksTaskListUpdater.updateMetadataForList(metadata.getValue(GtasksMetadata.LIST_ID));
+        String listId = metadata.getValue(GtasksMetadata.LIST_ID);
+        gtasksTaskListUpdater.indent(listId, taskId, getDelta());
+        gtasksTaskListUpdater.debugPrint(listId);
 
         Flags.set(Flags.REFRESH);
-        Toast.makeText(context, context.getString(R.string.gtasks_indent_toast, newIndent),
-                Toast.LENGTH_SHORT).show();
     }
 
     public static class GtasksIncreaseIndentAction extends GtasksIndentAction {

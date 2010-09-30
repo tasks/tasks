@@ -246,6 +246,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                 syncData.localUpdated.close();
             }
 
+            gtasksTaskListUpdater.updateAllMetadata();
+
             gtasksPreferenceService.recordSuccessfulSync();
             FlurryAgent.onEvent("gtasks-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {

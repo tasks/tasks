@@ -125,7 +125,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
 
     private void whenCalculatingOrder() {
         for(StoreObject list : gtasksListService.getLists())
-            gtasksTaskListUpdater.updateMetadataForList(list.getValue(GtasksList.REMOTE_ID));
+            gtasksTaskListUpdater.correctMetadataForList(list.getValue(GtasksList.REMOTE_ID));
     }
 
 
