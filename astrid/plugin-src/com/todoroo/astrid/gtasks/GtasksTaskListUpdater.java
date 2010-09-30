@@ -10,7 +10,6 @@ import android.text.TextUtils;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
@@ -120,59 +119,53 @@ public class GtasksTaskListUpdater {
         if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
             return;
 
-        siblings.clear();
-        updateParentSiblingMapsFor(list);
+        long taskToSwap = -1;
+        if(delta == -1) {
+            // use sibling / parent map to figure out prior task
+            updateParentSiblingMapsFor(list);
+            if(siblings.containsKey(targetTaskId) && siblings.get(targetTaskId) != -1L)
+                taskToSwap = siblings.get(targetTaskId);
+            else if(parents.containsKey(targetTaskId) && parents.get(targetTaskId) != -1L)
+                taskToSwap = parents.get(targetTaskId);
+        } else {
+            // walk through to find the next task
+            Filter filter = GtasksFilterExposer.filterFromList(list);
+            TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(filter.sqlQuery, null, Task.ID);
+            try {
+                int targetIndent = -1;
+                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                    long taskId = cursor.getLong(0);
+
+                    if(targetIndent != -1) {
+                        Metadata metadata = gtasksMetadataService.getTaskMetadata(taskId);
+                        if(metadata.getValue(GtasksMetadata.INDENT) <= targetIndent) {
+                            taskToSwap = taskId;
+                            break;
+                        }
+                    } else if(taskId == targetTaskId) {
+                        Metadata metadata = gtasksMetadataService.getTaskMetadata(taskId);
+                        targetIndent = metadata.getValue(GtasksMetadata.INDENT);
+                    }
+                }
+            } finally {
+                cursor.close();
+            }
+        }
+
+        if(taskToSwap == -1L)
+            return;
 
         if(delta == -1) {
-            final long priorTaskId;
-            if(siblings.containsKey(targetTaskId) && siblings.get(targetTaskId) != -1L)
-                priorTaskId = siblings.get(targetTaskId);
-            else if(parents.containsKey(targetTaskId) && parents.get(targetTaskId) != -1L)
-                priorTaskId = parents.get(targetTaskId);
-            else
-                return;
-
-            moveUp(list, targetTaskId, priorTaskId);
+            moveUp(list, targetTaskId, taskToSwap);
         } else {
-            // if we have a sibling reverse mapping, that is the next task
-            // else, it is the next task in order
-
-            long nextTaskId = -1L;
-            Long nextSibling = AndroidUtilities.findKeyInMap(siblings, targetTaskId);
-            if(nextSibling != null)
-                nextTaskId = nextSibling;
-            else {
-                Filter filter = GtasksFilterExposer.filterFromList(list);
-                TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(filter.sqlQuery, null, Task.ID);
-                try {
-                    for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                        long taskId = cursor.getLong(0);
-                        if(taskId == targetTaskId) {
-                            cursor.moveToNext();
-                            if(!cursor.isAfterLast()) {
-                                nextTaskId = cursor.getLong(0);
-                                break;
-                            }
-                        }
-                    }
-                } finally {
-                    cursor.close();
-                }
-            }
-
-            if(nextTaskId == -1L)
-                return;
-
+            // adjust indent of target task to task to swap
             Metadata targetTask = gtasksMetadataService.getTaskMetadata(targetTaskId);
-            Metadata nextTask = gtasksMetadataService.getTaskMetadata(nextTaskId);
-
+            Metadata nextTask = gtasksMetadataService.getTaskMetadata(taskToSwap);
             int targetIndent = targetTask.getValue(GtasksMetadata.INDENT);
             int nextIndent = nextTask.getValue(GtasksMetadata.INDENT);
-
             if(targetIndent != nextIndent)
                 indent(listId, targetTaskId, nextIndent - targetIndent);
-
-            moveUp(list, nextTaskId, targetTaskId);
+            moveUp(list, taskToSwap, targetTaskId);
         }
     }
 
