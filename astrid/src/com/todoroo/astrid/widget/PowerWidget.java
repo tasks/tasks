@@ -23,6 +23,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.activity.SortSelectionActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
@@ -34,7 +35,6 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Power Pack widget.  Supports 4x4 size.  Configured via
@@ -47,7 +47,7 @@ import com.todoroo.andlib.utility.Preferences;
 public class PowerWidget extends AppWidgetProvider {
     static final String LOG_TAG = "PowerWidget";
 
-    static Class updateService;
+    static Class<?> updateService;
     static {
         AstridDependencyInjector.initialize();
         updateService = PowerWidget.UpdateService.class;
@@ -189,7 +189,7 @@ public class PowerWidget extends AppWidgetProvider {
     }
 
     public static class UpdateService extends Service {
-        static Class widgetClass;
+        static Class<?> widgetClass;
         static int widgetLayout;
 
         static {
