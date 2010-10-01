@@ -69,7 +69,7 @@ public class GtasksDetailExposer extends BroadcastReceiver {
         StringBuilder builder = new StringBuilder();
 
         String listId = metadata.getValue(GtasksMetadata.LIST_ID);
-        if(listId == Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST))
+        if(listId == null || listId.equals(Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST)))
             return null;
         String listName = gtasksListService.getListName(listId);
         if(listName == GtasksListService.LIST_NOT_FOUND)

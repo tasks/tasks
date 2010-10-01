@@ -246,7 +246,7 @@ public class GtasksTaskListUpdater {
 
     private void updateModifiedDate(Task taskContainer, long taskId) {
         taskContainer.setId(taskId);
-        taskContainer.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        taskContainer.setValue(Task.DETAILS_DATE, DateUtilities.now());
         PluginServices.getTaskService().save(taskContainer);
     }
 

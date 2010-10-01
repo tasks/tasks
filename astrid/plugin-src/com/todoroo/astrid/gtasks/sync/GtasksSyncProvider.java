@@ -330,6 +330,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         String list = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
         if(local.gtaskMetadata.containsNonNullValue(GtasksMetadata.LIST_ID))
             list = local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
+        gtasksTaskListUpdater.updateParentAndSibling(local);
 
         ConvenientTaskCreator createdTask;
         try {
@@ -352,10 +353,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         String idTask = local.gtaskMetadata.getValue(GtasksMetadata.ID);
         String idList = local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
 
-        // fetch remote task for comparison
-        if(remote == null && idTask != null)
-            remote = pull(local);
-
         try {
 
             // moving between lists
@@ -374,10 +371,10 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                 builder.notes(local.task.getValue(Task.NOTES));
 
             String id = idList;
-            ListAction moveAction = l.move(idTask, local.parentId, local.priorSiblingId);
 
             // write task
             if(builder instanceof TaskModifier) {
+                ListAction moveAction = l.move(idTask, local.parentId, local.priorSiblingId);
                 ListAction action = ((TaskModifier) builder).done();
                 if(remote == null || local.parentId != remote.parentId || local.priorSiblingId != remote.priorSiblingId)
                     taskService.executeListActions(idList, action, moveAction);
@@ -385,6 +382,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                     taskService.executeListActions(idList, action);
             } else {
                 id = ((ConvenientTaskCreator)builder).go();
+                ListAction moveAction = l.move(id, local.parentId, local.priorSiblingId);
                 taskService.executeListActions(idList, moveAction);
             }
 
