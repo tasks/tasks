@@ -10,6 +10,7 @@ import android.content.Intent;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 
@@ -68,6 +69,8 @@ public class GtasksDetailExposer extends BroadcastReceiver {
         StringBuilder builder = new StringBuilder();
 
         String listId = metadata.getValue(GtasksMetadata.LIST_ID);
+        if(listId == Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST))
+            return null;
         String listName = gtasksListService.getListName(listId);
         if(listName == GtasksListService.LIST_NOT_FOUND)
             return null;
