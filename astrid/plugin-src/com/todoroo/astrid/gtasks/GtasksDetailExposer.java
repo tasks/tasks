@@ -14,10 +14,8 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
 
 /**
- * Exposes Task Details for Remember the Milk:
- * - RTM list
- * - RTM repeat information
- * - RTM notes
+ * Exposes Task Details for Google TAsks:
+ * - list
  *
  * @author Tim Su <tim@todoroo.com>
  *

@@ -3,8 +3,6 @@
  */
 package com.todoroo.astrid.gtasks;
 
-import org.weloveastrid.rmilk.MilkUtilities;
-
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -32,7 +30,7 @@ import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 
 /**
- * Exposes filters based on RTM lists
+ * Exposes filters based on lists
  *
  * @author Tim Su <tim@todoroo.com>
  *
@@ -90,7 +88,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
         list[0] = header;
         list[1] = listsCategory;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, MilkUtilities.IDENTIFIER);
+        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, GtasksPreferenceService.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
