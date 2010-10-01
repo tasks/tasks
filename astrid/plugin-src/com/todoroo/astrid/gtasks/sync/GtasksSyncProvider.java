@@ -261,6 +261,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             for(String child : remoteTask.getChild_ids())
                 parents.put(child, id);
             String parent = parents.get(id); // can be null, which means top level task
+            container.parentId = parent;
             if(parentToPriorSiblingMap.containsKey(parent))
                 container.priorSiblingId = parentToPriorSiblingMap.get(parent);
             parentToPriorSiblingMap.put(parent, id);
