@@ -203,6 +203,7 @@ public class GtasksTaskListUpdater {
 
         final AtomicBoolean priorFound = new AtomicBoolean(false);
         final AtomicBoolean targetFound = new AtomicBoolean(false);
+        final Task taskContainer = new Task();
         finished.set(false);
 
         // step 2. swap the order of prior and our tasks
@@ -229,12 +230,14 @@ public class GtasksTaskListUpdater {
                         metadata.setValue(GtasksMetadata.ORDER, newOrder);
                         metadata.setValue(GtasksMetadata.INDENT, newIndent);
                         PluginServices.getMetadataService().save(metadata);
+                        updateModifiedDate(taskContainer, taskId);
                     }
                 } else if(priorFound.get()) {
                     int newOrder = metadata.getValue(GtasksMetadata.ORDER) +
                             tasksToMove.get();
                     metadata.setValue(GtasksMetadata.ORDER, newOrder);
                     PluginServices.getMetadataService().save(metadata);
+                    updateModifiedDate(taskContainer, taskId);
                 }
             }
         });
