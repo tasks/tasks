@@ -31,6 +31,7 @@ public class ProducteevPreferences extends SyncProviderPreferences {
     @Override
     public void startSync() {
         new ProducteevSyncProvider().synchronize(this);
+        finish();
     }
 
     @Override

@@ -23,6 +23,7 @@ public class MilkPreferences extends SyncProviderPreferences {
     @Override
     public void startSync() {
         new MilkSyncProvider().synchronize(this);
+        finish();
     }
 
     @Override

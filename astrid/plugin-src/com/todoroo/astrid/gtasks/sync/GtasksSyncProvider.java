@@ -16,6 +16,8 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -41,6 +43,8 @@ import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
+import com.todoroo.astrid.gtasks.auth.AuthManager;
+import com.todoroo.astrid.gtasks.auth.AuthManagerFactory;
 import com.todoroo.astrid.producteev.api.ApiServiceException;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.sync.SyncBackgroundService;
@@ -48,7 +52,6 @@ import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.gtasks.GoogleConnectionManager;
-import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTaskService;
 import com.todoroo.gtasks.GoogleTaskTask;
 import com.todoroo.gtasks.GoogleTaskView;
@@ -83,8 +86,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     public GtasksSyncProvider() {
         super();
         DependencyInjectionService.getInstance().inject(this);
-        // TODO?
-        gtasksPreferenceService.stopOngoing();
     }
 
     // ----------------------------------------------------------------------
@@ -152,7 +153,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             final GoogleConnectionManager connectionManager;
             if(authToken == null) {
-                connectionManager = logInHelper();
+                Log.e("astrid-sync", "No token, unable to sync");
+                return;
             } else {
                 connectionManager = new GoogleConnectionManager(authToken);
             }
@@ -168,36 +170,39 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         }
     }
 
-    private GoogleConnectionManager logInHelper() throws GoogleLoginException,
-            IOException {
-        // TODO get email and password or something?
-        String email = "tasktest@todoroo.com";
-        String password = "tasktest0000";
-        GoogleConnectionManager connectionManager = new GoogleConnectionManager(email, password);
-        connectionManager.authenticate(true);
-        gtasksPreferenceService.setToken(connectionManager.getToken());
-        return connectionManager;
-    }
-
     /**
      * If user isn't already signed in, show sign in dialog. Else perform sync.
      */
     @Override
-    protected void initiateManual(Activity activity) {
+    protected void initiateManual(final Activity activity) {
         String authToken = gtasksPreferenceService.getToken();
         gtasksPreferenceService.stopOngoing();
 
         // check if we have a token & it works
         if(authToken == null) {
             try {
-                logInHelper();
+                final AuthManager authManager = AuthManagerFactory.getAuthManager(activity, 0, new Bundle(), true, "goanna_mobile");
+                authManager.invalidateAndRefresh(new Runnable() {
+                    @Override
+                    public void run() {
+                        String token = authManager.getAuthToken();
+                        if(token != null) {
+                            gtasksPreferenceService.setToken(token);
+                            //activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
+                            //    activity, GtasksBackgroundService.class));
+                            System.err.println("yay! " + token);
+                            activity.finish();
+                        }
+                    }
+                });
             } catch (Exception e) {
                 handleException("auth", e, true);
             }
-        }
-
-        activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
+        } else {
+            activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
                 activity, GtasksBackgroundService.class));
+            activity.finish();
+        }
     }
 
 

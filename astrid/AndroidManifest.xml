@@ -22,6 +22,13 @@
   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />    
   <!-- for analytics -->
   <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <!-- for google tasks -->
+  <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+  <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+  <uses-permission android:name="android.permission.USE_CREDENTIALS" />
+  <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH" />
+  <uses-permission android:name="com.google.android.googleapps.permission.GOOGLE_AUTH.goanna_mobile" />
+  <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
   <!-- ============================================== Exported Permissions = -->
 
