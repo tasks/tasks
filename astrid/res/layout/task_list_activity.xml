@@ -38,32 +38,7 @@
 
     </LinearLayout>
     
-    
-    <android.gesture.GestureOverlayView android:id="@+id/gestures"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="100" 
-        
-        android:uncertainGestureColor="#00000000"
-        android:eventsInterceptionEnabled="true"
-        android:orientation="vertical">
-            
-        <!-- No Tasks label -->
-        <TextView android:id="@android:id/empty"
-            android:layout_width="fill_parent" 
-            android:layout_height="fill_parent"
-            android:visibility="gone"
-            android:text="@string/TLA_no_items"
-            style="@style/TextAppearance.TLA_NoItems"/>
-    
-        <!-- Task List -->
-        <ListView android:id="@android:id/list"
-            android:scrollbars="vertical"
-            android:cacheColorHint="#00000000"            
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"/>
-        
-    </android.gesture.GestureOverlayView>
+    <!-- Body goes here -->
         
     <!-- Footer -->
     <LinearLayout

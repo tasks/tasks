@@ -1,0 +1,15 @@
+<resources>
+	<declare-styleable name="TouchListView">
+		<attr name="normal_height" format="dimension" />
+		<attr name="expanded_height" format="dimension" />
+		<attr name="grabber" format="reference" />
+		<attr name="dragndrop_background" format="color" />
+    <attr name="remove_mode">
+			<enum name="none" value="-1" />
+			<enum name="fling" value="0" />
+			<enum name="slide" value="1" />
+			<enum name="slideRight" value="1" />
+			<enum name="slideLeft" value="2" />
+		</attr>
+	</declare-styleable>
+</resources>

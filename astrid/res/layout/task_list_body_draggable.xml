@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<android.gesture.GestureOverlayView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gestures"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="100" 
+    
+    android:uncertainGestureColor="#00000000"
+    android:eventsInterceptionEnabled="true"
+    android:orientation="vertical">
+        
+    <!-- No Tasks label -->
+    <TextView android:id="@android:id/empty"
+        android:layout_width="fill_parent" 
+        android:layout_height="fill_parent"
+        android:visibility="gone"
+        android:text="@string/TLA_no_items"
+        style="@style/TextAppearance.TLA_NoItems"/>
+
+    <com.commonsware.cwac.tlv.TouchListView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tlv="http://schemas.android.com/apk/res/com.timsu.astrid"
+    
+        android:id="@android:id/list"
+        android:scrollbars="vertical"
+        android:cacheColorHint="#00000000"            
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:drawSelectorOnTop="false"
+        
+        tlv:normal_height="40dip"
+        tlv:grabber="@+id/icon"
+        tlv:remove_mode="slideRight"
+    />
+                
+</android.gesture.GestureOverlayView>
