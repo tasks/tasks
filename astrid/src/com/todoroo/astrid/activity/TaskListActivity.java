@@ -181,7 +181,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     /**
      * @return view to attach to the body of the task list. must contain two
      * elements, a view with id android:id/empty and a list view with id
-     * android:id/list
+     * android:id/list. It should NOT be attached to root
      */
     protected View getListBody(ViewGroup root) {
         if(AndroidUtilities.getSdkVersion() > 3)

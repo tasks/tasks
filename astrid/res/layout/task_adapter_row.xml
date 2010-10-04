@@ -58,6 +58,12 @@
                 
         </LinearLayout>
             
+        <ImageView android:id="@+id/icon"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:scaleType="center"
+            android:src="@drawable/grabber"/>
+            
     </LinearLayout>
       
     <TextView android:id="@+id/extendedDetails"
