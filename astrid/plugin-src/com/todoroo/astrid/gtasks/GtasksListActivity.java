@@ -55,6 +55,7 @@ public class GtasksListActivity extends DraggableTaskListActivity {
         public void drop(int from, int to) {
             long targetTaskId = taskAdapter.getItemId(from);
             long destinationTaskId = taskAdapter.getItemId(to);
+            System.err.format("%d -> %d ::: %d -> %d\n", from, to, targetTaskId, destinationTaskId);
             gtasksTaskListUpdater.moveTo(listId, targetTaskId, destinationTaskId);
             loadTaskListContent(true);
         }

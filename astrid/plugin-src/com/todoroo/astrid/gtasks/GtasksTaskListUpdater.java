@@ -52,7 +52,6 @@ public class GtasksTaskListUpdater {
         final AtomicInteger targetTaskIndent = new AtomicInteger(-1);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
         final AtomicLong previousTask = new AtomicLong(-1);
-        final Task taskContainer = new Task();
 
         iterateThroughList(list, new ListIterator() {
             @Override
@@ -71,8 +70,7 @@ public class GtasksTaskListUpdater {
                                     parents.get(parents.get(taskId)));
                         else
                             metadata.setValue(GtasksMetadata.PARENT_TASK, Task.NO_ID);
-                        if(PluginServices.getMetadataService().save(metadata))
-                            updateModifiedDate(taskContainer, taskId);
+                        saveAndUpdateModifiedDate(metadata, taskId);
                     }
                 } else if(targetTaskIndent.get() > -1) {
                     // found first task that is not beneath target
@@ -80,8 +78,7 @@ public class GtasksTaskListUpdater {
                         targetTaskIndent.set(-1);
                     else {
                         metadata.setValue(GtasksMetadata.INDENT, indent + delta);
-                        PluginServices.getMetadataService().save(metadata);
-                        updateModifiedDate(taskContainer, taskId);
+                        saveAndUpdateModifiedDate(metadata, taskId);
                     }
                 } else {
                     previousIndent.set(indent);
@@ -129,20 +126,21 @@ public class GtasksTaskListUpdater {
             sibling.parent.children.add(index, sibling);
         }
 
-        traverseTreeAndWriteValues(root, new AtomicInteger(0), 0, new Task());
+        traverseTreeAndWriteValues(root, new AtomicInteger(0), -1);
     }
 
-    private void traverseTreeAndWriteValues(Node node, AtomicInteger order, int indent, Task taskContainer) {
+    private void traverseTreeAndWriteValues(Node node, AtomicInteger order, int indent) {
         if(node.taskId != -1) {
             Metadata metadata = gtasksMetadataService.getTaskMetadata(node.taskId);
+            System.err.println("task id " + node.taskId + ", order " + order.get());
             metadata.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
             metadata.setValue(GtasksMetadata.INDENT, indent);
-            if(PluginServices.getMetadataService().save(metadata))
-                updateModifiedDate(taskContainer, node.taskId);
+            metadata.setValue(GtasksMetadata.PARENT_TASK, node.parent.taskId);
+            saveAndUpdateModifiedDate(metadata, node.taskId);
         }
 
         for(Node child : node.children) {
-            traverseTreeAndWriteValues(child, order, indent + 1, taskContainer);
+            traverseTreeAndWriteValues(child, order, indent + 1);
         }
     }
 
@@ -159,7 +157,7 @@ public class GtasksTaskListUpdater {
 
     private Node buildTreeModel(StoreObject list) {
         final Node root = new Node(-1, null);
-        final AtomicInteger previoustIndent = new AtomicInteger(0);
+        final AtomicInteger previoustIndent = new AtomicInteger(-1);
         final AtomicReference<Node> currentNode = new AtomicReference<Node>(root);
 
         iterateThroughList(list, new ListIterator() {
@@ -183,6 +181,8 @@ public class GtasksTaskListUpdater {
                     currentNode.set(new Node(taskId, node));
                     node.children.add(currentNode.get());
                 }
+
+                previoustIndent.set(indent);
             }
         });
         return root;
@@ -197,7 +197,7 @@ public class GtasksTaskListUpdater {
 
         iterateThroughList(list, new ListIterator() {
             public void processTask(long taskId, Metadata metadata) {
-                System.err.format("%d: %d, indent:%d, parent:%d\n", taskId, //$NON-NLS-1$
+                System.err.format("id %d: order %d, indent:%d, parent:%d\n", taskId, //$NON-NLS-1$
                         metadata.getValue(GtasksMetadata.ORDER),
                         metadata.getValue(GtasksMetadata.INDENT),
                         metadata.getValue(GtasksMetadata.PARENT_TASK));
@@ -205,7 +205,12 @@ public class GtasksTaskListUpdater {
         });
     }
 
-    private void updateModifiedDate(Task taskContainer, long taskId) {
+    private final Task taskContainer = new Task();
+
+    private void saveAndUpdateModifiedDate(Metadata metadata, long taskId) {
+        if(metadata.getSetValues().size() == 0)
+            return;
+        PluginServices.getMetadataService().save(metadata);
         taskContainer.setId(taskId);
         taskContainer.setValue(Task.DETAILS_DATE, DateUtilities.now());
         PluginServices.getTaskService().save(taskContainer);

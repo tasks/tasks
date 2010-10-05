@@ -30,17 +30,17 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
 
         whenTriggerMove(F, null);
 
-        thenExpectMetadataIndentAndOrder(E, 4, 0);
-        thenExpectMetadataIndentAndOrder(F, 5, 0);
+        thenExpectMetadataOrderAndIndent(E, 4, 0);
+        thenExpectMetadataOrderAndIndent(F, 5, 0);
     }
 
-    public void testMoveDownToListbottom() {
+    public void testMoveDownToListBottom() {
         givenTasksABCDEF();
 
         whenTriggerMove(E, null);
 
-        thenExpectMetadataIndentAndOrder(E, 5, 0);
-        thenExpectMetadataIndentAndOrder(F, 4, 00);
+        thenExpectMetadataOrderAndIndent(E, 5, 0);
+        thenExpectMetadataOrderAndIndent(F, 4, 0);
     }
 
     public void testMoveUpSimple() {
@@ -48,11 +48,11 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
 
         whenTriggerMove(F, E);
 
-        thenExpectMetadataIndentAndOrder(E, 5, 0);
-        thenExpectMetadataIndentAndOrder(F, 4, 00);
+        thenExpectMetadataOrderAndIndent(E, 5, 0);
+        thenExpectMetadataOrderAndIndent(F, 4, 0);
     }
 
-    public void testMoveWithSubtasks() {
+    public void testMoveUpWithSubtasks() {
         givenTasksABCDEF();
 
         whenTriggerMove(C, B);
@@ -64,13 +64,13 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
          *  B
          */
 
-        thenExpectMetadataIndentAndOrder(A, 0, 0);
-        thenExpectMetadataIndentAndOrder(B, 3, 1);
-        thenExpectMetadataIndentAndOrder(C, 1, 1);
-        thenExpectMetadataIndentAndOrder(D, 2, 2);
+        thenExpectMetadataOrderAndIndent(A, 0, 0);
+        thenExpectMetadataOrderAndIndent(B, 3, 1);
+        thenExpectMetadataOrderAndIndent(C, 1, 1);
+        thenExpectMetadataOrderAndIndent(D, 2, 2);
     }
 
-    public void testMoveThroughSubtasks() {
+    public void testMoveDownThroughSubtasks() {
         givenTasksABCDEF();
 
         whenTriggerMove(B, E);
@@ -83,10 +83,10 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
          * E
          */
 
-        thenExpectMetadataIndentAndOrder(A, 0, 0);
-        thenExpectMetadataIndentAndOrder(B, 3, 0);
-        thenExpectMetadataIndentAndOrder(C, 1, 1);
-        thenExpectMetadataIndentAndOrder(D, 2, 2);
+        thenExpectMetadataOrderAndIndent(A, 0, 0);
+        thenExpectMetadataOrderAndIndent(B, 3, 0);
+        thenExpectMetadataOrderAndIndent(C, 1, 1);
+        thenExpectMetadataOrderAndIndent(D, 2, 2);
     }
 
     public void testMoveUpAboveParent() {
@@ -103,9 +103,9 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
          * F
          */
 
-        thenExpectMetadataIndentAndOrder(A, 1, 0);
-        thenExpectMetadataIndentAndOrder(B, 0, 0);
-        thenExpectMetadataIndentAndOrder(C, 2, 1);
+        thenExpectMetadataOrderAndIndent(A, 1, 0);
+        thenExpectMetadataOrderAndIndent(B, 0, 0);
+        thenExpectMetadataOrderAndIndent(C, 2, 1);
     }
 
     public void testMoveDownWithChildren() {
@@ -122,11 +122,11 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
          * F
          */
 
-        thenExpectMetadataIndentAndOrder(A, 0, 0);
-        thenExpectMetadataIndentAndOrder(B, 1, 1);
-        thenExpectMetadataIndentAndOrder(C, 3, 0);
-        thenExpectMetadataIndentAndOrder(D, 4, 1);
-        thenExpectMetadataIndentAndOrder(E, 2, 0);
+        thenExpectMetadataOrderAndIndent(A, 0, 0);
+        thenExpectMetadataOrderAndIndent(B, 1, 1);
+        thenExpectMetadataOrderAndIndent(C, 3, 0);
+        thenExpectMetadataOrderAndIndent(D, 4, 1);
+        thenExpectMetadataOrderAndIndent(E, 2, 0);
     }
 
     public void testMoveDownIndentingTwice() {
@@ -142,11 +142,11 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
          * D
          */
 
-        thenExpectMetadataIndentAndOrder(A, 0, 0);
-        thenExpectMetadataIndentAndOrder(B, 1, 1);
-        thenExpectMetadataIndentAndOrder(C, 2, 1);
-        thenExpectMetadataIndentAndOrder(D, 4, 0);
-        thenExpectMetadataIndentAndOrder(E, 3, 0);
+        thenExpectMetadataOrderAndIndent(A, 0, 0);
+        thenExpectMetadataOrderAndIndent(B, 1, 1);
+        thenExpectMetadataOrderAndIndent(C, 2, 1);
+        thenExpectMetadataOrderAndIndent(D, 4, 0);
+        thenExpectMetadataOrderAndIndent(E, 3, 0);
     }
 
     public void testMoveUpMultiple() {
@@ -161,10 +161,10 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
          *  B
          */
 
-        thenExpectMetadataIndentAndOrder(A, 2, 0);
-        thenExpectMetadataIndentAndOrder(B, 3, 1);
-        thenExpectMetadataIndentAndOrder(C, 0, 0);
-        thenExpectMetadataIndentAndOrder(D, 1, 1);
+        thenExpectMetadataOrderAndIndent(A, 2, 0);
+        thenExpectMetadataOrderAndIndent(B, 3, 1);
+        thenExpectMetadataOrderAndIndent(C, 0, 0);
+        thenExpectMetadataOrderAndIndent(D, 1, 1);
     }
 
     public void testMoveUpIntoSublist() {
@@ -180,12 +180,12 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
          *   D
          */
 
-        thenExpectMetadataIndentAndOrder(A, 0, 0);
-        thenExpectMetadataIndentAndOrder(B, 1, 1);
-        thenExpectMetadataIndentAndOrder(C, 2, 1);
-        thenExpectMetadataIndentAndOrder(D, 4, 2);
-        thenExpectMetadataIndentAndOrder(E, 5, 0);
-        thenExpectMetadataIndentAndOrder(F, 3, 2);
+        thenExpectMetadataOrderAndIndent(A, 0, 0);
+        thenExpectMetadataOrderAndIndent(B, 1, 1);
+        thenExpectMetadataOrderAndIndent(C, 2, 1);
+        thenExpectMetadataOrderAndIndent(D, 4, 2);
+        thenExpectMetadataOrderAndIndent(E, 5, 0);
+        thenExpectMetadataOrderAndIndent(F, 3, 2);
     }
 
     public void testMoveDownMultiple() {
@@ -201,12 +201,12 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
          * B
          */
 
-        thenExpectMetadataIndentAndOrder(A, 0, 0);
-        thenExpectMetadataIndentAndOrder(B, 4, 0);
-        thenExpectMetadataIndentAndOrder(C, 1, 1);
-        thenExpectMetadataIndentAndOrder(D, 2, 2);
-        thenExpectMetadataIndentAndOrder(E, 3, 0);
-        thenExpectMetadataIndentAndOrder(F, 5, 0);
+        thenExpectMetadataOrderAndIndent(A, 0, 0);
+        thenExpectMetadataOrderAndIndent(B, 4, 0);
+        thenExpectMetadataOrderAndIndent(C, 1, 1);
+        thenExpectMetadataOrderAndIndent(D, 2, 2);
+        thenExpectMetadataOrderAndIndent(E, 3, 0);
+        thenExpectMetadataOrderAndIndent(F, 5, 0);
     }
 
 
@@ -215,9 +215,10 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
     /** moveTo = null => move to end */
     private void whenTriggerMove(Task target, Task moveTo) {
         gtasksTaskListUpdater.moveTo("1", target.getId(), moveTo == null ? -1 : moveTo.getId());
+        gtasksTaskListUpdater.debugPrint("1");
     }
 
-    private void thenExpectMetadataIndentAndOrder(Task task, int order, int indent) {
+    private void thenExpectMetadataOrderAndIndent(Task task, int order, int indent) {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(task.getId());
         assertNotNull("metadata was found", metadata);
         assertEquals("order", order, (int)metadata.getValue(GtasksMetadata.ORDER));
@@ -243,7 +244,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
      * F
      */
     private Task[] givenTasksABCDEF() {
-        return new Task[] {
+        Task[] tasks = new Task[] {
             A = createTask("A", 0, 0),
             B = createTask("B", 1, 1),
             C = createTask("C", 2, 1),
@@ -251,6 +252,8 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
             E = createTask("E", 4, 0),
             F = createTask("F", 5, 0),
         };
+        gtasksTaskListUpdater.correctMetadataForList("1");
+        return tasks;
     }
 
     private Task createTask(String title, int order, int indent) {
