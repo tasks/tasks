@@ -45,18 +45,18 @@ import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.auth.AuthManager;
 import com.todoroo.astrid.gtasks.auth.AuthManagerFactory;
-import com.todoroo.astrid.producteev.api.ApiServiceException;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.sync.SyncBackgroundService;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.gtasks.GoogleConnectionManager;
+import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTaskService;
+import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.GoogleTaskTask;
 import com.todoroo.gtasks.GoogleTaskView;
 import com.todoroo.gtasks.GoogleTasksException;
-import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.actions.Actions;
 import com.todoroo.gtasks.actions.ListAction;
 import com.todoroo.gtasks.actions.ListActions;
@@ -126,8 +126,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             exceptionService.reportError(tag + "-caught", e); //$NON-NLS-1$
 
             // occurs when network error
-        } else if(!(e instanceof ApiServiceException) && e instanceof IOException) {
-            message = context.getString(R.string.producteev_ioerror);
+        } else if(!(e instanceof GoogleTasksException) && e instanceof IOException) {
+            message = context.getString(R.string.SyP_ioerror);
         } else {
             message = context.getString(R.string.DLG_error, e.toString());
             exceptionService.reportError(tag + "-unhandled", e); //$NON-NLS-1$
@@ -181,7 +181,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         // check if we have a token & it works
         if(authToken == null) {
             try {
-                final AuthManager authManager = AuthManagerFactory.getAuthManager(activity, 0, new Bundle(), true, "goanna_mobile");
+                final AuthManager authManager = AuthManagerFactory.getAuthManager(
+                        activity, 0, new Bundle(), true, "goanna_mobile");
                 authManager.invalidateAndRefresh(new Runnable() {
                     @Override
                     public void run() {
@@ -224,12 +225,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             gtasksTaskListUpdater.createParentSiblingMaps();
 
             // batched read tasks for each list
-            ArrayList<GtasksTaskContainer> remoteTasks = new ArrayList<GtasksTaskContainer>();
-            for(StoreObject dashboard : gtasksListService.getLists()) {
-                String listId = dashboard.getValue(GtasksList.REMOTE_ID);
-                List<GoogleTaskTask> list = taskService.getTasks(listId);
-                readTasksIntoRemoteTasks(list, remoteTasks);
-            }
+            ArrayList<GtasksTaskContainer> remoteTasks = readAllRemoteTasks();
 
             SyncData<GtasksTaskContainer> syncData = populateSyncData(remoteTasks);
             try {
@@ -250,7 +246,66 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         }
     }
 
-    private void readTasksIntoRemoteTasks(List<GoogleTaskTask> list,
+    @Override
+    protected void readRemotelyUpdated(SyncData<GtasksTaskContainer> data)
+            throws IOException {
+        // first, pull all tasks. then we can write them
+        try {
+            data.remoteUpdated = readAllRemoteTasks();
+        } catch (JSONException e) {
+            throw new GoogleTasksException(e);
+        }
+
+        super.readRemotelyUpdated(data);
+    }
+
+
+    // ----------------------------------------------------------------------
+    // ------------------------------------------------------------ sync data
+    // ----------------------------------------------------------------------
+
+    // all synchronized properties
+    private static final Property<?>[] PROPERTIES = new Property<?>[] {
+            Task.ID,
+            Task.TITLE,
+            Task.DUE_DATE,
+            Task.CREATION_DATE,
+            Task.COMPLETION_DATE,
+            Task.DELETION_DATE,
+            Task.REMINDER_FLAGS,
+            Task.NOTES,
+    };
+
+    /**
+     * Populate SyncData data structure
+     * @throws JSONException
+     */
+    private SyncData<GtasksTaskContainer> populateSyncData(ArrayList<GtasksTaskContainer> remoteTasks) throws JSONException {
+        // fetch locally created tasks
+        TodorooCursor<Task> localCreated = gtasksMetadataService.getLocallyCreated(PROPERTIES);
+
+        // fetch locally updated tasks
+        TodorooCursor<Task> localUpdated = gtasksMetadataService.getLocallyUpdated(PROPERTIES);
+
+        return new SyncData<GtasksTaskContainer>(remoteTasks, localCreated, localUpdated);
+    }
+
+    // ----------------------------------------------------------------------
+    // ------------------------------------------------- create / push / pull
+    // ----------------------------------------------------------------------
+
+    private ArrayList<GtasksTaskContainer> readAllRemoteTasks()
+            throws JSONException, IOException, GoogleLoginException {
+        ArrayList<GtasksTaskContainer> remoteTasks = new ArrayList<GtasksTaskContainer>();
+        for(StoreObject dashboard : gtasksListService.getLists()) {
+            String listId = dashboard.getValue(GtasksList.REMOTE_ID);
+            List<GoogleTaskTask> list = taskService.getTasks(listId);
+            addRemoteTasksToList(list, remoteTasks);
+        }
+        return remoteTasks;
+    }
+
+    private void addRemoteTasksToList(List<GoogleTaskTask> list,
             ArrayList<GtasksTaskContainer> remoteTasks) {
 
         int order = 0;
@@ -296,40 +351,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         return findIndentation(parents, indentation, parents.get(task)) + 1;
     }
 
-    // ----------------------------------------------------------------------
-    // ------------------------------------------------------------ sync data
-    // ----------------------------------------------------------------------
-
-    // all synchronized properties
-    private static final Property<?>[] PROPERTIES = new Property<?>[] {
-            Task.ID,
-            Task.TITLE,
-            Task.DUE_DATE,
-            Task.CREATION_DATE,
-            Task.COMPLETION_DATE,
-            Task.DELETION_DATE,
-            Task.REMINDER_FLAGS,
-            Task.NOTES,
-    };
-
-    /**
-     * Populate SyncData data structure
-     * @throws JSONException
-     */
-    private SyncData<GtasksTaskContainer> populateSyncData(ArrayList<GtasksTaskContainer> remoteTasks) throws JSONException {
-        // fetch locally created tasks
-        TodorooCursor<Task> localCreated = gtasksMetadataService.getLocallyCreated(PROPERTIES);
-
-        // fetch locally updated tasks
-        TodorooCursor<Task> localUpdated = gtasksMetadataService.getLocallyUpdated(PROPERTIES);
-
-        return new SyncData<GtasksTaskContainer>(remoteTasks, localCreated, localUpdated);
-    }
-
-    // ----------------------------------------------------------------------
-    // ------------------------------------------------- create / push / pull
-    // ----------------------------------------------------------------------
-
     @Override
     protected GtasksTaskContainer create(GtasksTaskContainer local) throws IOException {
         String list = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
@@ -361,8 +382,10 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         try {
 
             // moving between lists
-            if(remote != null && !idList.equals(remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID))) {
-                taskService.executeActions(a.moveTask(idTask, idList, remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), null));
+            if(remote != null && !idList.equals(remote.gtaskMetadata.getValue(
+                    GtasksMetadata.LIST_ID))) {
+                taskService.executeActions(a.moveTask(idTask, idList,
+                        remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), null));
             }
 
             // other properties
@@ -377,7 +400,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             String id = idList;
 
-            // write task
+            // write task (and perform move action if requested)
             if(builder instanceof TaskModifier) {
                 ListAction moveAction = l.move(idTask, local.parentId, local.priorSiblingId);
                 ListAction action = ((TaskModifier) builder).done();
@@ -423,24 +446,9 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
     @Override
     protected GtasksTaskContainer pull(GtasksTaskContainer task) throws IOException {
-        if(!task.gtaskMetadata.containsNonNullValue(GtasksMetadata.ID) ||
-                !task.gtaskMetadata.containsNonNullValue(GtasksMetadata.LIST_ID))
-            throw new ApiServiceException("Tried to read an invalid task"); //$NON-NLS-1$
-
-        String idToMatch = task.gtaskMetadata.getValue(GtasksMetadata.ID);
-        List<GoogleTaskTask> tasks;
-        try {
-            tasks = taskService.getTasks(task.gtaskMetadata.getValue(GtasksMetadata.LIST_ID));
-        } catch (JSONException e) {
-            throw new GoogleTasksException(e);
-        }
-        for(GoogleTaskTask remoteTask : tasks) {
-            if(remoteTask.getId().equals(idToMatch)) {
-                return parseRemoteTask(remoteTask);
-            }
-        }
-
-        throw new GoogleTasksException("Could not find remote task to pull.");
+        // we pull all tasks at the end, so here we just
+        // return the task that was requested
+        return task;
     }
 
     /**

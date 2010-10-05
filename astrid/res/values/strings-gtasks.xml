@@ -13,18 +13,6 @@
     <!-- GTasks Indent changed message (%d => new level) -->
     <string name="gtasks_indent_toast">New Indentation: %d</string>
         
-    <!-- GTasks label: move up -->
-    <string name="gtasks_move_up">▲ Move Up</string>
-        
-    <!-- GTasks label: increase indent -->
-    <string name="gtasks_increase_indent">▶ Move Right</string>
-        
-    <!-- GTasks label: decrease indent -->
-    <string name="gtasks_decrease_indent">◀ Move Left</string>
-        
-    <!-- GTasks label: move down -->
-    <string name="gtasks_move_down">▼ Move Down</string>
-    
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    

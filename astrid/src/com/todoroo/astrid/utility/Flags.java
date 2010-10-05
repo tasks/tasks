@@ -9,11 +9,6 @@ public class Flags {
      */
     public static final int REFRESH = 1 << 0;
 
-    /**
-     * Whether active filter is GTasks
-     */
-    public static final int GTASKS = 1 << 1;
-
     public static boolean checkAndClear(int flag) {
         boolean set = (state & flag) > 0;
         state &= ~flag;

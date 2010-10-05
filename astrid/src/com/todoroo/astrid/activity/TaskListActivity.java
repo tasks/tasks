@@ -59,6 +59,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
@@ -76,7 +77,6 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.Notifications;
@@ -89,7 +89,6 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -630,10 +629,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
                 sqlQueryTemplate.get(), null, TaskAdapter.PROPERTIES);
         startManagingCursor(currentCursor);
-        if(sqlQueryTemplate.get().contains(GtasksMetadata.METADATA_KEY))
-            Flags.set(Flags.GTASKS);
-        else
-            Flags.checkAndClear(Flags.GTASKS);
 
         // set up list adapters
         taskAdapter = new TaskAdapter(this, R.layout.task_adapter_row,
