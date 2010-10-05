@@ -92,9 +92,9 @@ public class GtasksTaskListUpdater {
     // --- task moving
 
     private static class Node {
-        public long taskId;
-        public Node parent;
-        public ArrayList<Node> children = new ArrayList<Node>();
+        public final long taskId;
+        public final Node parent;
+        public final ArrayList<Node> children = new ArrayList<Node>();
 
         public Node(long taskId, Node parent) {
             this.taskId = taskId;
@@ -116,14 +116,15 @@ public class GtasksTaskListUpdater {
         Node root = buildTreeModel(list);
         Node target = findNode(root, targetTaskId);
 
-        target.parent.children.remove(target);
 
         if(moveBeforeTaskId == -1) {
+            target.parent.children.remove(target);
             root.children.add(target);
         } else {
             Node sibling = findNode(root, moveBeforeTaskId);
             int index = sibling.parent.children.indexOf(sibling);
-            sibling.parent.children.add(index, sibling);
+            target.parent.children.remove(target);
+            sibling.parent.children.add(index, target);
         }
 
         traverseTreeAndWriteValues(root, new AtomicInteger(0), -1);
@@ -132,7 +133,6 @@ public class GtasksTaskListUpdater {
     private void traverseTreeAndWriteValues(Node node, AtomicInteger order, int indent) {
         if(node.taskId != -1) {
             Metadata metadata = gtasksMetadataService.getTaskMetadata(node.taskId);
-            System.err.println("task id " + node.taskId + ", order " + order.get());
             metadata.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
             metadata.setValue(GtasksMetadata.INDENT, indent);
             metadata.setValue(GtasksMetadata.PARENT_TASK, node.parent.taskId);
