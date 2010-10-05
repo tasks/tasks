@@ -53,7 +53,9 @@ public class GtasksListActivity extends DraggableTaskListActivity {
     private final TouchListView.DropListener dropListener = new DropListener() {
         @Override
         public void drop(int from, int to) {
-            // meep
+            long targetTaskId = taskAdapter.getItemId(from);
+            gtasksTaskListUpdater.move(listId, targetTaskId, to - from);
+            loadTaskListContent(true);
         }
     };
 

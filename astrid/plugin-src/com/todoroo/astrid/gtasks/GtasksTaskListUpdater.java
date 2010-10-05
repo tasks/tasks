@@ -6,11 +6,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 
 import android.text.TextUtils;
-import android.widget.Toast;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -79,7 +77,6 @@ public class GtasksTaskListUpdater {
                     // if indenting is warranted, indent me and my children
                     if(indent + delta <= previousIndent.get() + 1 && indent + delta >= 0) {
                         targetTaskIndent.set(indent);
-                        Toast.makeText(ContextManager.getContext(), "indent: " + (indent + delta), Toast.LENGTH_SHORT).show();
                         metadata.setValue(GtasksMetadata.INDENT, indent + delta);
                         if(delta > 0)
                             metadata.setValue(GtasksMetadata.PARENT_TASK, previousTask.get());
@@ -115,7 +112,7 @@ public class GtasksTaskListUpdater {
      * if moving up and first task in list or moving down and last,
      * indents to same as task that we swapped with.
      *
-     * @param delta -1 or 1
+     * @param delta # of positions to move
      *
      */
     public void move(String listId, final long targetTaskId, final int delta) {

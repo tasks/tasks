@@ -346,7 +346,7 @@ public class TouchListView extends ListView {
 			v.setImageBitmap(bm);
 			mDragBitmap = bm;
 
-			mWindowManager = (WindowManager)getContext().getSystemService("window");
+			mWindowManager = (WindowManager)getContext().getSystemService("window"); //$NON-NLS-1$
 			mWindowManager.addView(v, mWindowParams);
 			mDragView = v;
 	}
@@ -373,7 +373,7 @@ public class TouchListView extends ListView {
 
 	private void stopDragging() {
 			if (mDragView != null) {
-					WindowManager wm = (WindowManager)getContext().getSystemService("window");
+					WindowManager wm = (WindowManager)getContext().getSystemService("window"); //$NON-NLS-1$
 					wm.removeView(mDragView);
 					mDragView.setImageDrawable(null);
 					mDragView = null;
