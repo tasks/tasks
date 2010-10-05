@@ -184,6 +184,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                     public void run() {
                         String token = preferenceActivity.getAuthManager().getAuthToken();
                         if(token != null) {
+                            token = "auth=" + token;
                             gtasksPreferenceService.setToken(token);
                             activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
                                 activity, GtasksBackgroundService.class));
