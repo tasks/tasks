@@ -22,8 +22,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.google.android.googlelogindist.GoogleLoginServiceConstants;
-import com.google.android.googlelogindist.GoogleLoginServiceHelper;
+import com.google.android.googlelogin.GoogleLoginServiceConstants;
+import com.google.android.googlelogin.GoogleLoginServiceHelper;
 
 /**
  * AuthManager keeps track of the current auth token for a user. The advantage
@@ -106,6 +106,7 @@ public class AuthManagerOld implements AuthManager {
   private class LoginRunnable implements Runnable {
     @Override
     public void run() {
+
       GoogleLoginServiceHelper.getCredentials(
           activity, code, extras, requireGoogle, service, true);
     }

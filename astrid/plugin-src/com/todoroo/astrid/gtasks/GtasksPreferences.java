@@ -1,8 +1,13 @@
 package com.todoroo.astrid.gtasks;
 
+import android.content.Intent;
+import android.os.Bundle;
+
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.gtasks.auth.AuthManager;
+import com.todoroo.astrid.gtasks.auth.AuthManagerFactory;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
@@ -18,9 +23,31 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
+    private static final int REQUEST_CODE_GOOGLE = 1;
+
+    private final AuthManager authManager = AuthManagerFactory.getAuthManager(
+            this, REQUEST_CODE_GOOGLE, new Bundle(), false, "goanna_mobile"); //$NON-NLS-1$
+
     public GtasksPreferences() {
         super();
         DependencyInjectionService.getInstance().inject(this);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_GOOGLE){
+            authManager.authResult(resultCode, data);
+        }
+    }
+
+    public AuthManager getAuthManager() {
+        return authManager;
     }
 
     @Override

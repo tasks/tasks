@@ -16,7 +16,6 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.util.Log;
 
 import com.flurry.android.FlurryAgent;
@@ -43,8 +42,6 @@ import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
-import com.todoroo.astrid.gtasks.auth.AuthManager;
-import com.todoroo.astrid.gtasks.auth.AuthManagerFactory;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.sync.SyncBackgroundService;
 import com.todoroo.astrid.sync.SyncContainer;
@@ -80,8 +77,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         AstridDependencyInjector.initialize();
     }
 
-    @Autowired
-    protected ExceptionService exceptionService;
+    @Autowired protected ExceptionService exceptionService;
 
     public GtasksSyncProvider() {
         super();
@@ -128,6 +124,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             // occurs when network error
         } else if(!(e instanceof GoogleTasksException) && e instanceof IOException) {
             message = context.getString(R.string.SyP_ioerror);
+            exceptionService.reportError(tag + "-ioexception", e); //$NON-NLS-1$
         } else {
             message = context.getString(R.string.DLG_error, e.toString());
             exceptionService.reportError(tag + "-unhandled", e); //$NON-NLS-1$
@@ -181,17 +178,15 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         // check if we have a token & it works
         if(authToken == null) {
             try {
-                final AuthManager authManager = AuthManagerFactory.getAuthManager(
-                        activity, 0, new Bundle(), true, "goanna_mobile");
-                authManager.invalidateAndRefresh(new Runnable() {
+                final GtasksPreferences preferenceActivity = (GtasksPreferences)activity;
+                preferenceActivity.getAuthManager().invalidateAndRefresh(new Runnable() {
                     @Override
                     public void run() {
-                        String token = authManager.getAuthToken();
+                        String token = preferenceActivity.getAuthManager().getAuthToken();
                         if(token != null) {
                             gtasksPreferenceService.setToken(token);
-                            //activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
-                            //    activity, GtasksBackgroundService.class));
-                            System.err.println("yay! " + token);
+                            activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
+                                activity, GtasksBackgroundService.class));
                             activity.finish();
                         }
                     }

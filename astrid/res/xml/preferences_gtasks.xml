@@ -35,7 +35,7 @@
             android:key="@string/sync_SPr_forget_key"
             android:title="@string/sync_SPr_forget"
             android:summary="@string/sync_SPr_forget_description" />
-        
+
     </PreferenceCategory>
             
 </PreferenceScreen>  
