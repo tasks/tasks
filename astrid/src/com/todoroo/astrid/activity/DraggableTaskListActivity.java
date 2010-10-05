@@ -114,13 +114,11 @@ public class DraggableTaskListActivity extends TaskListActivity {
             ViewHolder viewHolder = (ViewHolder)container.getTag();
             viewHolder.completeBox.setOnClickListener(completeBoxListener);
 
-            // TODO add listeners
-
             // context menu listener
-            //container.findViewById(R.id.task_row).setOnCreateContextMenuListener(listener);
+            viewHolder.nameView.setOnCreateContextMenuListener(listener);
 
             // tap listener
-            //container.findViewById(R.id.task_row).setOnClickListener(listener);
+            viewHolder.nameView.setOnClickListener(listener);
         }
     }
 
