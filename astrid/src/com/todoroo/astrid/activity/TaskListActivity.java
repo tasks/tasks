@@ -153,13 +153,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected DetailReceiver detailReceiver = new DetailReceiver();
     protected RefreshReceiver refreshReceiver = new RefreshReceiver();
     protected SyncActionReceiver syncActionReceiver = new SyncActionReceiver();
+    protected final AtomicReference<String> sqlQueryTemplate = new AtomicReference<String>();
+    protected Filter filter;
+    protected int sortFlags;
+    protected int sortSort;
 
     private ImageButton quickAddButton;
     private EditText quickAddBox;
-    private Filter filter;
-    private int sortFlags;
-    private int sortSort;
-    private final AtomicReference<String> sqlQueryTemplate = new AtomicReference<String>();
     private Timer backgroundTimer;
     private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
 

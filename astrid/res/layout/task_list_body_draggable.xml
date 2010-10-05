@@ -30,8 +30,7 @@
         android:drawSelectorOnTop="false"
         
         tlv:normal_height="48dip"
-        tlv:grabber="@+id/icon"
-        tlv:remove_mode="slideRight"
+        tlv:grabber="@+id/grabber"
     />
                 
 </android.gesture.GestureOverlayView>

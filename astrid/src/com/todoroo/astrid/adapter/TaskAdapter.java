@@ -208,7 +208,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         view.setTag(viewHolder);
         for(int i = 0; i < view.getChildCount(); i++)
             view.getChildAt(i).setTag(viewHolder);
-        viewHolder.details.setTag(viewHolder);
+        if(viewHolder.details != null)
+            viewHolder.details.setTag(viewHolder);
 
         // add UI component listeners
         addListeners(view);
@@ -328,27 +329,31 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         String details;
-        if(taskDetailLoader.containsKey(task.getId()))
-            details = taskDetailLoader.get(task.getId()).toString();
-        else
-            details = task.getValue(Task.DETAILS);
-        if(TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details) || task.isCompleted()) {
-            viewHolder.details.setVisibility(View.GONE);
-        } else {
-            viewHolder.details.setVisibility(View.VISIBLE);
-            if(details.startsWith(DETAIL_SEPARATOR))
-                details = details.substring(DETAIL_SEPARATOR.length());
-            viewHolder.details.setText(convertToHtml(details.trim().replace("\n", //$NON-NLS-1$
-                    "<br>"), detailImageGetter, null)); //$NON-NLS-1$
+        if(viewHolder.details != null) {
+            if(taskDetailLoader.containsKey(task.getId()))
+                details = taskDetailLoader.get(task.getId()).toString();
+            else
+                details = task.getValue(Task.DETAILS);
+            if(TextUtils.isEmpty(details) || DETAIL_SEPARATOR.equals(details) || task.isCompleted()) {
+                viewHolder.details.setVisibility(View.GONE);
+            } else {
+                viewHolder.details.setVisibility(View.VISIBLE);
+                if(details.startsWith(DETAIL_SEPARATOR))
+                    details = details.substring(DETAIL_SEPARATOR.length());
+                viewHolder.details.setText(convertToHtml(details.trim().replace("\n", //$NON-NLS-1$
+                        "<br>"), detailImageGetter, null)); //$NON-NLS-1$
+            }
         }
 
         // details and decorations, expanded
         decorationManager.request(viewHolder);
         if(!isFling && expanded == task.getId()) {
-            extendedDetailManager.request(viewHolder);
+            if(viewHolder.extendedDetails != null)
+                extendedDetailManager.request(viewHolder);
             taskActionManager.request(viewHolder);
         } else {
-            viewHolder.extendedDetails.setVisibility(View.GONE);
+            if(viewHolder.extendedDetails != null)
+                viewHolder.extendedDetails.setVisibility(View.GONE);
             viewHolder.actions.setVisibility(View.GONE);
         }
     }
@@ -358,17 +363,17 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * Set listeners for this view. This is called once per view when it is
      * created.
      */
-    private void addListeners(final View container) {
+    protected void addListeners(final View container) {
         ViewHolder viewHolder = (ViewHolder)container.getTag();
 
         // check box listener
         viewHolder.completeBox.setOnClickListener(completeBoxListener);
 
         // context menu listener
-        //container.setOnCreateContextMenuListener(listener);
+        container.setOnCreateContextMenuListener(listener);
 
         // tap listener
-        //container.setOnClickListener(listener);
+        container.setOnClickListener(listener);
     }
 
     /* ======================================================================
@@ -789,7 +794,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
     }
 
-    private final View.OnClickListener completeBoxListener = new View.OnClickListener() {
+    protected final View.OnClickListener completeBoxListener = new View.OnClickListener() {
         public void onClick(View v) {
             ViewHolder viewHolder = (ViewHolder)((View)v.getParent().getParent()).getTag();
             Task task = viewHolder.task;
