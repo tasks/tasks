@@ -1,47 +1,43 @@
 package com.todoroo.astrid.gtasks;
 
-import android.content.BroadcastReceiver;
-import android.content.Intent;
-
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksOrderAction.GtasksMoveDownAction;
-import com.todoroo.astrid.gtasks.GtasksOrderAction.GtasksMoveUpAction;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.gtasks.GoogleTaskListInfo;
 
-public class GtasksOrderActionTest extends DatabaseTestCase {
+public class GtasksTaskMovingTest extends DatabaseTestCase {
 
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksMetadataService gtasksMetadataService;
+    @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     private Task A, B, C, D, E, F;
 
-    public void testMoveUpFromListTop() {
-        givenTasksABCDEF();
-
-        whenTrigger(A, new GtasksMoveUpAction());
-
-        thenExpectMetadataIndentAndOrder(A, 0, 0);
-        thenExpectMetadataIndentAndOrder(B, 1, 1);
-    }
+    /* Starting State:
+     *
+     * A
+     *  B
+     *  C
+     *   D
+     * E
+     * F
+     */
 
     public void testMoveDownFromListBottom() {
         givenTasksABCDEF();
 
-        whenTrigger(F, new GtasksMoveDownAction());
+        whenTriggerMove(F, null);
 
         thenExpectMetadataIndentAndOrder(E, 4, 0);
         thenExpectMetadataIndentAndOrder(F, 5, 0);
     }
 
-    public void testMoveDownSimple() {
+    public void testMoveDownToListbottom() {
         givenTasksABCDEF();
 
-        whenTrigger(E, new GtasksMoveDownAction());
+        whenTriggerMove(E, null);
 
         thenExpectMetadataIndentAndOrder(E, 5, 0);
         thenExpectMetadataIndentAndOrder(F, 4, 00);
@@ -50,7 +46,7 @@ public class GtasksOrderActionTest extends DatabaseTestCase {
     public void testMoveUpSimple() {
         givenTasksABCDEF();
 
-        whenTrigger(F, new GtasksMoveUpAction());
+        whenTriggerMove(F, E);
 
         thenExpectMetadataIndentAndOrder(E, 5, 0);
         thenExpectMetadataIndentAndOrder(F, 4, 00);
@@ -59,7 +55,7 @@ public class GtasksOrderActionTest extends DatabaseTestCase {
     public void testMoveWithSubtasks() {
         givenTasksABCDEF();
 
-        whenTrigger(C, new GtasksMoveUpAction());
+        whenTriggerMove(C, B);
 
         /*
          * A
@@ -72,44 +68,39 @@ public class GtasksOrderActionTest extends DatabaseTestCase {
         thenExpectMetadataIndentAndOrder(B, 3, 1);
         thenExpectMetadataIndentAndOrder(C, 1, 1);
         thenExpectMetadataIndentAndOrder(D, 2, 2);
-
-        whenTrigger(C, new GtasksMoveDownAction());
-
-        thenExpectOriginalIndentAndOrder();
     }
 
     public void testMoveThroughSubtasks() {
         givenTasksABCDEF();
 
-        whenTrigger(B, new GtasksMoveDownAction());
+        whenTriggerMove(B, E);
 
         /*
          * A
          *  C
          *   D
-         *  B
+         * B
+         * E
          */
 
         thenExpectMetadataIndentAndOrder(A, 0, 0);
-        thenExpectMetadataIndentAndOrder(B, 3, 1);
+        thenExpectMetadataIndentAndOrder(B, 3, 0);
         thenExpectMetadataIndentAndOrder(C, 1, 1);
         thenExpectMetadataIndentAndOrder(D, 2, 2);
-
-        whenTrigger(B, new GtasksMoveUpAction());
-
-        thenExpectOriginalIndentAndOrder();
     }
 
     public void testMoveUpAboveParent() {
         givenTasksABCDEF();
 
-        whenTrigger(B, new GtasksMoveUpAction());
+        whenTriggerMove(B, A);
 
         /*
          * B
          * A
          *  C
          *   D
+         * E
+         * F
          */
 
         thenExpectMetadataIndentAndOrder(A, 1, 0);
@@ -117,10 +108,10 @@ public class GtasksOrderActionTest extends DatabaseTestCase {
         thenExpectMetadataIndentAndOrder(C, 2, 1);
     }
 
-    public void testMoveDownFromChildren() {
+    public void testMoveDownWithChildren() {
         givenTasksABCDEF();
 
-        whenTrigger(C, new GtasksMoveDownAction());
+        whenTriggerMove(C, F);
 
         /*
          * A
@@ -128,6 +119,7 @@ public class GtasksOrderActionTest extends DatabaseTestCase {
          * E
          * C
          *  D
+         * F
          */
 
         thenExpectMetadataIndentAndOrder(A, 0, 0);
@@ -140,7 +132,7 @@ public class GtasksOrderActionTest extends DatabaseTestCase {
     public void testMoveDownIndentingTwice() {
         givenTasksABCDEF();
 
-        whenTrigger(D, new GtasksMoveDownAction());
+        whenTriggerMove(D, F);
 
         /*
          * A
@@ -157,13 +149,72 @@ public class GtasksOrderActionTest extends DatabaseTestCase {
         thenExpectMetadataIndentAndOrder(E, 3, 0);
     }
 
+    public void testMoveUpMultiple() {
+        givenTasksABCDEF();
+
+        whenTriggerMove(C, A);
+
+        /*
+         * C
+         *  D
+         * A
+         *  B
+         */
+
+        thenExpectMetadataIndentAndOrder(A, 2, 0);
+        thenExpectMetadataIndentAndOrder(B, 3, 1);
+        thenExpectMetadataIndentAndOrder(C, 0, 0);
+        thenExpectMetadataIndentAndOrder(D, 1, 1);
+    }
+
+    public void testMoveUpIntoSublist() {
+        givenTasksABCDEF();
+
+        whenTriggerMove(F, D);
+
+        /*
+         * A
+         *  B
+         *  C
+         *   F
+         *   D
+         */
+
+        thenExpectMetadataIndentAndOrder(A, 0, 0);
+        thenExpectMetadataIndentAndOrder(B, 1, 1);
+        thenExpectMetadataIndentAndOrder(C, 2, 1);
+        thenExpectMetadataIndentAndOrder(D, 4, 2);
+        thenExpectMetadataIndentAndOrder(E, 5, 0);
+        thenExpectMetadataIndentAndOrder(F, 3, 2);
+    }
+
+    public void testMoveDownMultiple() {
+        givenTasksABCDEF();
+
+        whenTriggerMove(B, F);
+
+        /*
+         * A
+         *  C
+         *   D
+         * E
+         * B
+         */
+
+        thenExpectMetadataIndentAndOrder(A, 0, 0);
+        thenExpectMetadataIndentAndOrder(B, 4, 0);
+        thenExpectMetadataIndentAndOrder(C, 1, 1);
+        thenExpectMetadataIndentAndOrder(D, 2, 2);
+        thenExpectMetadataIndentAndOrder(E, 3, 0);
+        thenExpectMetadataIndentAndOrder(F, 5, 0);
+    }
+
 
     // --- helpers
 
-    private void whenTrigger(Task task, BroadcastReceiver action) {
-        Intent intent = new Intent(AstridApiConstants.ACTION_TASK_CONTEXT_MENU);
-        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-        action.onReceive(getContext(), intent);
+    /** moveTo = null => move to end */
+    private void whenTriggerMove(Task target, Task moveTo) {
+        gtasksTaskListUpdater.moveTo("1", target.getId(), moveTo == null ? -1 : moveTo.getId());
     }
 
     private void thenExpectMetadataIndentAndOrder(Task task, int order, int indent) {
@@ -171,15 +222,6 @@ public class GtasksOrderActionTest extends DatabaseTestCase {
         assertNotNull("metadata was found", metadata);
         assertEquals("order", order, (int)metadata.getValue(GtasksMetadata.ORDER));
         assertEquals("indentation", indent, (int)metadata.getValue(GtasksMetadata.INDENT));
-    }
-
-    private void thenExpectOriginalIndentAndOrder() {
-        thenExpectMetadataIndentAndOrder(A, 0, 0);
-        thenExpectMetadataIndentAndOrder(B, 1, 1);
-        thenExpectMetadataIndentAndOrder(C, 2, 1);
-        thenExpectMetadataIndentAndOrder(D, 3, 2);
-        thenExpectMetadataIndentAndOrder(E, 4, 0);
-        thenExpectMetadataIndentAndOrder(F, 5, 0);
     }
 
     @Override

@@ -1,9 +1,10 @@
 package com.todoroo.astrid.gtasks;
 
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.concurrent.atomic.AtomicReference;
 
 import android.text.TextUtils;
 
@@ -36,22 +37,7 @@ public class GtasksTaskListUpdater {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    // --- used during normal ui operations
-
-    public void debugPrint(String listId) {
-        StoreObject list = gtasksListService.getList(listId);
-        if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
-            return;
-
-        iterateThroughList(list, new ListIterator() {
-            public void processTask(long taskId, Metadata metadata) {
-                System.err.format("%d: %d, indent:%d, parent:%d\n", taskId, //$NON-NLS-1$
-                        metadata.getValue(GtasksMetadata.ORDER),
-                        metadata.getValue(GtasksMetadata.INDENT),
-                        metadata.getValue(GtasksMetadata.PARENT_TASK));
-            }
-        });
-    }
+    // --- task indenting
 
     /**
      * Indent a task and all its children
@@ -106,142 +92,117 @@ public class GtasksTaskListUpdater {
         });
     }
 
+    // --- task moving
+
+    private static class Node {
+        public long taskId;
+        public Node parent;
+        public ArrayList<Node> children = new ArrayList<Node>();
+
+        public Node(long taskId, Node parent) {
+            this.taskId = taskId;
+            this.parent = parent;
+        }
+    }
+
     /**
-     * Move a task and all its children.
-     * <p>
-     * if moving up and first task in list or moving down and last,
-     * indents to same as task that we swapped with.
+     * Move a task and all its children to the position right above
+     * taskIdToMoveto. Will change the indent level to match taskIdToMoveTo.
      *
-     * @param delta # of positions to move
-     *
+     * @param newTaskId task we will move above. if -1, moves to end of list
      */
-    public void move(String listId, final long targetTaskId, final int delta) {
+    public void moveTo(String listId, final long targetTaskId, final long moveBeforeTaskId) {
         StoreObject list = gtasksListService.getList(listId);
         if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
             return;
 
-        long taskToSwap = -1;
-        if(delta == -1) {
-            // use sibling / parent map to figure out prior task
-            updateParentSiblingMapsFor(list);
-            if(siblings.containsKey(targetTaskId) && siblings.get(targetTaskId) != -1L)
-                taskToSwap = siblings.get(targetTaskId);
-            else if(parents.containsKey(targetTaskId) && parents.get(targetTaskId) != -1L)
-                taskToSwap = parents.get(targetTaskId);
-        } else {
-            // walk through to find the next task
-            Filter filter = GtasksFilterExposer.filterFromList(list);
-            TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(filter.sqlQuery, null, Task.ID);
-            try {
-                int targetIndent = -1;
-                for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                    long taskId = cursor.getLong(0);
+        Node root = buildTreeModel(list);
+        Node target = findNode(root, targetTaskId);
 
-                    if(targetIndent != -1) {
-                        Metadata metadata = gtasksMetadataService.getTaskMetadata(taskId);
-                        if(metadata.getValue(GtasksMetadata.INDENT) <= targetIndent) {
-                            taskToSwap = taskId;
-                            break;
-                        }
-                    } else if(taskId == targetTaskId) {
-                        Metadata metadata = gtasksMetadataService.getTaskMetadata(taskId);
-                        targetIndent = metadata.getValue(GtasksMetadata.INDENT);
-                    }
-                }
-            } finally {
-                cursor.close();
-            }
+        target.parent.children.remove(target);
+
+        if(moveBeforeTaskId == -1) {
+            root.children.add(target);
+        } else {
+            Node sibling = findNode(root, moveBeforeTaskId);
+            int index = sibling.parent.children.indexOf(sibling);
+            sibling.parent.children.add(index, sibling);
         }
 
-        if(taskToSwap == -1L)
-            return;
+        traverseTreeAndWriteValues(root, new AtomicInteger(0), 0, new Task());
+    }
 
-        if(delta == -1) {
-            moveUp(list, targetTaskId, taskToSwap);
-        } else {
-            // adjust indent of target task to task to swap
-            Metadata targetTask = gtasksMetadataService.getTaskMetadata(targetTaskId);
-            Metadata nextTask = gtasksMetadataService.getTaskMetadata(taskToSwap);
-            int targetIndent = targetTask.getValue(GtasksMetadata.INDENT);
-            int nextIndent = nextTask.getValue(GtasksMetadata.INDENT);
-            if(targetIndent != nextIndent)
-                indent(listId, targetTaskId, nextIndent - targetIndent);
-            moveUp(list, taskToSwap, targetTaskId);
+    private void traverseTreeAndWriteValues(Node node, AtomicInteger order, int indent, Task taskContainer) {
+        if(node.taskId != -1) {
+            Metadata metadata = gtasksMetadataService.getTaskMetadata(node.taskId);
+            metadata.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
+            metadata.setValue(GtasksMetadata.INDENT, indent);
+            if(PluginServices.getMetadataService().save(metadata))
+                updateModifiedDate(taskContainer, node.taskId);
+        }
+
+        for(Node child : node.children) {
+            traverseTreeAndWriteValues(child, order, indent + 1, taskContainer);
         }
     }
 
-    private void moveUp(StoreObject list, final long targetTaskId, final long priorTaskId) {
-        final AtomicInteger priorTaskOrder = new AtomicInteger(-1);
-        final AtomicInteger priorTaskIndent = new AtomicInteger(-1);
-        final AtomicInteger targetTaskOrder = new AtomicInteger(0);
-        final AtomicInteger targetTaskIndent = new AtomicInteger(-1);
-        final AtomicInteger tasksToMove = new AtomicInteger(1);
-        final AtomicBoolean finished = new AtomicBoolean(false);
+    private Node findNode(Node node, long taskId) {
+        if(node.taskId == taskId)
+            return node;
+        for(Node child : node.children) {
+            Node found = findNode(child, taskId);
+            if(found != null)
+                return found;
+        }
+        return null;
+    }
 
-        // step 1. calculate tasks to move
+    private Node buildTreeModel(StoreObject list) {
+        final Node root = new Node(-1, null);
+        final AtomicInteger previoustIndent = new AtomicInteger(0);
+        final AtomicReference<Node> currentNode = new AtomicReference<Node>(root);
+
         iterateThroughList(list, new ListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
-                if(finished.get() && priorTaskOrder.get() != -1)
-                    return;
+                int indent = metadata.getValue(GtasksMetadata.INDENT);
 
-                if(taskId == priorTaskId) {
-                    priorTaskIndent.set(metadata.getValue(GtasksMetadata.INDENT));
-                    priorTaskOrder.set(metadata.getValue(GtasksMetadata.ORDER));
-                } else if(targetTaskId == taskId) {
-                    targetTaskIndent.set(metadata.getValue(GtasksMetadata.INDENT));
-                    targetTaskOrder.set(metadata.getValue(GtasksMetadata.ORDER));
-                } else if(targetTaskIndent.get() > -1) {
-                    // found first task that is not beneath target
-                    if(metadata.getValue(GtasksMetadata.INDENT) <= targetTaskIndent.get())
-                        finished.set(true);
-                    else
-                        tasksToMove.incrementAndGet();
+                int previousIndentValue = previoustIndent.get();
+                if(indent == previousIndentValue) { // sibling
+                    Node parent = currentNode.get().parent;
+                    currentNode.set(new Node(taskId, parent));
+                    parent.children.add(currentNode.get());
+                } else if(indent > previousIndentValue) { // child
+                    Node parent = currentNode.get();
+                    currentNode.set(new Node(taskId, parent));
+                    parent.children.add(currentNode.get());
+                } else { // in a different tree
+                    Node node = currentNode.get().parent;
+                    for(int i = indent; i < previousIndentValue; i++)
+                        node = node.parent;
+                    currentNode.set(new Node(taskId, node));
+                    node.children.add(currentNode.get());
                 }
             }
         });
+        return root;
+    }
 
-        final AtomicBoolean priorFound = new AtomicBoolean(false);
-        final AtomicBoolean targetFound = new AtomicBoolean(false);
-        final Task taskContainer = new Task();
-        finished.set(false);
+    // --- utility
 
-        // step 2. swap the order of prior and our tasks
+    public void debugPrint(String listId) {
+        StoreObject list = gtasksListService.getList(listId);
+        if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
+            return;
+
         iterateThroughList(list, new ListIterator() {
-            @Override
             public void processTask(long taskId, Metadata metadata) {
-                if(finished.get())
-                    return;
-
-                if(targetTaskId == taskId)
-                    targetFound.set(true);
-                else if(taskId == priorTaskId)
-                    priorFound.set(true);
-
-                if(targetFound.get()) {
-                    if(targetTaskId != taskId && metadata.getValue(GtasksMetadata.INDENT) <= targetTaskIndent.get())
-                        finished.set(true);
-                    else {
-                        int newOrder = metadata.getValue(GtasksMetadata.ORDER) -
-                            targetTaskOrder.get() + priorTaskOrder.get();
-                        int newIndent = metadata.getValue(GtasksMetadata.INDENT) -
-                            targetTaskIndent.get() + priorTaskIndent.get();
-
-                        metadata.setValue(GtasksMetadata.ORDER, newOrder);
-                        metadata.setValue(GtasksMetadata.INDENT, newIndent);
-                        PluginServices.getMetadataService().save(metadata);
-                        updateModifiedDate(taskContainer, taskId);
-                    }
-                } else if(priorFound.get()) {
-                    int newOrder = metadata.getValue(GtasksMetadata.ORDER) +
-                            tasksToMove.get();
-                    metadata.setValue(GtasksMetadata.ORDER, newOrder);
-                    PluginServices.getMetadataService().save(metadata);
-                    updateModifiedDate(taskContainer, taskId);
-                }
+                System.err.format("%d: %d, indent:%d, parent:%d\n", taskId, //$NON-NLS-1$
+                        metadata.getValue(GtasksMetadata.ORDER),
+                        metadata.getValue(GtasksMetadata.INDENT),
+                        metadata.getValue(GtasksMetadata.PARENT_TASK));
             }
         });
-
     }
 
     private void updateModifiedDate(Task taskContainer, long taskId) {

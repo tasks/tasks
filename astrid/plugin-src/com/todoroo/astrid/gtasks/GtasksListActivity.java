@@ -54,7 +54,8 @@ public class GtasksListActivity extends DraggableTaskListActivity {
         @Override
         public void drop(int from, int to) {
             long targetTaskId = taskAdapter.getItemId(from);
-            gtasksTaskListUpdater.move(listId, targetTaskId, to - from);
+            long destinationTaskId = taskAdapter.getItemId(to);
+            gtasksTaskListUpdater.moveTo(listId, targetTaskId, destinationTaskId);
             loadTaskListContent(true);
         }
     };
