@@ -45,6 +45,7 @@ import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.api.IntentFilter;
 import com.todoroo.astrid.core.SearchFilter;
 import com.todoroo.astrid.data.Task;
@@ -203,9 +204,17 @@ public class FilterListActivity extends ExpandableListActivity {
     protected boolean onItemClicked(FilterListItem item) {
         if(item instanceof Filter) {
             Filter filter = (Filter)item;
-            Intent intent = new Intent(FilterListActivity.this, TaskListActivity.class);
-            intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
-            startActivity(intent);
+            if(filter instanceof FilterWithCustomIntent) {
+                try {
+                    ((FilterWithCustomIntent)filter).intent.send();
+                } catch (CanceledException e) {
+                    // we won't do anything in this case
+                }
+            } else {
+                Intent intent = new Intent(FilterListActivity.this, TaskListActivity.class);
+                intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+                startActivity(intent);
+            }
             AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
                     new Class<?>[] { Integer.TYPE, Integer.TYPE },
                     R.anim.slide_left_in, R.anim.slide_left_out);

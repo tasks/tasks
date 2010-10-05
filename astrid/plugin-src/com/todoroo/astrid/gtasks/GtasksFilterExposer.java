@@ -3,6 +3,7 @@
  */
 package com.todoroo.astrid.gtasks;
 
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
@@ -23,10 +24,11 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 
 /**
@@ -48,7 +50,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
         values.putAll(GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
         values.remove(Metadata.TASK.name);
         values.put(GtasksMetadata.LIST_ID.name, list.getValue(GtasksList.REMOTE_ID));
-        Filter filter = new Filter(listName, listName, new QueryTemplate().join(
+        FilterWithCustomIntent filter = new FilterWithCustomIntent(listName, listName, new QueryTemplate().join(
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                         TaskCriteria.isVisible(),
@@ -56,6 +58,12 @@ public class GtasksFilterExposer extends BroadcastReceiver {
                         GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
                                 Order.asc(Functions.cast(GtasksMetadata.ORDER, "INTEGER"))), //$NON-NLS-1$
                 values);
+        Intent intent = new Intent(ContextManager.getContext(), GtasksListActivity.class);
+        intent.putExtra(GtasksListActivity.TOKEN_LIST_ID, list.getValue(GtasksList.REMOTE_ID));
+        intent.putExtra(GtasksListActivity.TOKEN_FILTER, filter);
+        PendingIntent pendingIntent = PendingIntent.getActivity(ContextManager.getContext(),
+                0, intent, 0);
+        filter.intent = pendingIntent;
 
         return filter;
     }

@@ -23,6 +23,8 @@ public class GtasksListActivity extends DraggableTaskListActivity {
 
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
+    public static final String TOKEN_LIST_ID = "listId"; //$NON-NLS-1$
+
     // --- gtasks temp stuff
     private final String listId = "17816916813445155620:0:0"; //$NON-NLS-1$
     Filter builtInFilter = new Filter("Tim's Tasks", "Tim's Tasks", new QueryTemplate().join( //$NON-NLS-1$ //$NON-NLS-2$
@@ -43,7 +45,8 @@ public class GtasksListActivity extends DraggableTaskListActivity {
 
     @Override
     public void onCreate(Bundle icicle) {
-        getIntent().putExtra(TOKEN_FILTER, builtInFilter);
+        if(!getIntent().hasExtra(TOKEN_FILTER))
+            getIntent().putExtra(TOKEN_FILTER, builtInFilter);
         super.onCreate(icicle);
 
         getTouchListView().setDropListener(dropListener);
@@ -55,7 +58,6 @@ public class GtasksListActivity extends DraggableTaskListActivity {
         public void drop(int from, int to) {
             long targetTaskId = taskAdapter.getItemId(from);
             long destinationTaskId = taskAdapter.getItemId(to);
-            System.err.format("%d -> %d ::: %d -> %d\n", from, to, targetTaskId, destinationTaskId);
             gtasksTaskListUpdater.moveTo(listId, targetTaskId, destinationTaskId);
             loadTaskListContent(true);
         }
