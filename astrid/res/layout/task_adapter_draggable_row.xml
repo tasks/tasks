@@ -27,12 +27,13 @@
             android:layout_width="0dip"
             android:layout_height="fill_parent"/>
             
-        <!-- completion check-box -->
-        <CheckBox android:id="@+id/completeBox"
+                        
+        <!-- grabber -->
+        <ImageView android:id="@+id/grabber"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:paddingLeft="5dip" 
-            android:button="@drawable/btn_check"/>
+            android:scaleType="center"
+            android:src="@drawable/grabber"/>
             
         <LinearLayout
             android:layout_width="fill_parent"
@@ -58,13 +59,13 @@
                 android:singleLine="true"/>
               
         </LinearLayout>
-            
-        <!-- grabber -->
-        <ImageView android:id="@+id/grabber"
+
+        <!-- completion check-box -->
+        <CheckBox android:id="@+id/completeBox"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:scaleType="center"
-            android:src="@drawable/grabber"/>
+            android:paddingLeft="5dip" 
+            android:button="@drawable/btn_check"/>            
             
     </LinearLayout>
     

@@ -7,8 +7,8 @@ import android.gesture.Gesture;
 import android.gesture.GestureLibraries;
 import android.gesture.GestureLibrary;
 import android.gesture.GestureOverlayView;
-import android.gesture.Prediction;
 import android.gesture.GestureOverlayView.OnGesturePerformedListener;
+import android.gesture.Prediction;
 
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 
@@ -22,7 +22,8 @@ public class Api4GestureDetector implements OnGesturePerformedListener {
 
         if(mLibrary.load()) {
             GestureOverlayView gestures = (GestureOverlayView) activity.findViewById(view);
-            gestures.addOnGesturePerformedListener(this);
+            if(gestures != null)
+                gestures.addOnGesturePerformedListener(this);
         }
     }
 

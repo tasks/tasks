@@ -9,10 +9,10 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Exposes Task Detail for notes
@@ -44,7 +44,6 @@ public class NoteDetailExposer extends BroadcastReceiver {
     }
 
     public String getTaskDetails(long id, boolean extended) {
-
         if(Preferences.getBoolean(R.string.p_showNotes, false)) {
             if(extended)
                 return null;

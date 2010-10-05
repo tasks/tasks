@@ -62,14 +62,14 @@ public class GtasksListActivity extends DraggableTaskListActivity {
         public void swipeRight(int which) {
             long targetTaskId = taskAdapter.getItemId(which);
             gtasksTaskListUpdater.indent(listId, targetTaskId, 1);
-            taskAdapter.notifyDataSetChanged();
+            loadTaskListContent(true);
         }
 
         @Override
         public void swipeLeft(int which) {
             long targetTaskId = taskAdapter.getItemId(which);
             gtasksTaskListUpdater.indent(listId, targetTaskId, -1);
-            taskAdapter.notifyDataSetChanged();
+            loadTaskListContent(true);
         }
     };
 

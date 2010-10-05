@@ -44,6 +44,7 @@ public class TouchListView extends ListView {
 	private int mFirstDragPos; // where was the dragged item originally
 	private int mDragPoint;    // at what offset inside the item did the user grab it
 	private int mCoordOffset;  // the difference between screen coordinates and coordinates in this view
+	private int mDragStartX;
 	private DragListener mDragListener;
 	private DropListener mDropListener;
 	private SwipeListener mSwipeListener;
@@ -123,6 +124,7 @@ public class TouchListView extends ListView {
 											int touchSlop = mTouchSlop;
 											mUpperBound = Math.min(y - touchSlop, mHeight / 3);
 											mLowerBound = Math.max(y + touchSlop, mHeight * 2 /3);
+											mDragStartX = x;
 											return false;
 									}
 									mDragView = null;
@@ -260,13 +262,12 @@ public class TouchListView extends ListView {
 									Rect r = mTempRect;
 									mDragView.getDrawingRect(r);
 									stopDragging();
-
-									if (mRemoveMode == SLIDE_RIGHT && ev.getX() > r.left+(r.width()*3/4)) {
+									if (ev.getX() > mDragStartX + 20) {
 											if (mSwipeListener!= null) {
 													mSwipeListener.swipeRight(mFirstDragPos);
 											}
 											unExpandViews(true);
-									} else if (mRemoveMode == SLIDE_LEFT && ev.getX() < r.left+(r.width()/4)) {
+									} else if (ev.getX() < mDragStartX - 20) {
     									    if (mSwipeListener!= null) {
     									        mSwipeListener.swipeLeft(mFirstDragPos);
     									    }
