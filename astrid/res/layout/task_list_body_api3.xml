@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<FrameView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:layout_weight="100">
@@ -20,4 +20,4 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"/>
     
-</FrameView>
+</FrameLayout>
