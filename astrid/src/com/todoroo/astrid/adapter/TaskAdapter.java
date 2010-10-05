@@ -45,7 +45,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -53,11 +52,13 @@ import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksDecorationExposer;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Adapter for displaying a user's tasks as a list
@@ -628,6 +629,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         private final TaskDecorationExposer[] exposers = new TaskDecorationExposer[] {
                 new TimerDecorationExposer(),
+                new GtasksDecorationExposer()
         };
 
         /**
