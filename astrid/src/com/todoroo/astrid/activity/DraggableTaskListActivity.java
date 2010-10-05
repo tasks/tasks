@@ -16,16 +16,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.TodorooCursor;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.adapter.TaskAdapter;
-import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 /**
@@ -36,40 +27,24 @@ import com.todoroo.astrid.data.Task;
  */
 public class DraggableTaskListActivity extends TaskListActivity {
 
-    // --- gtasks temp stuff
-    private final String listId = "17816916813445155620:0:0"; //$NON-NLS-1$
-    Filter builtInFilter = new Filter("Tim's Tasks", "Tim's Tasks", new QueryTemplate().join( //$NON-NLS-1$ //$NON-NLS-2$
-            Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
-                    MetadataCriteria.withKey("gtasks"), //$NON-NLS-1$
-                    TaskCriteria.isVisible(),
-                    TaskCriteria.notDeleted(),
-                    Metadata.VALUE2.eq(listId))).orderBy(
-                            Order.asc(Functions.cast(Metadata.VALUE5, "INTEGER"))), //$NON-NLS-1$
-            null);
-
-    // --- end
-
-
     // --- task list
 
-    public static final IntegerProperty INDENT = new IntegerProperty(Metadata.TABLE,
-            Metadata.VALUE4.name);
+    /**
+     * If database has an indent property for determining how rows are indented,
+     * return it here so we can read it from the cursor and use it
+     */
+    protected IntegerProperty getIndentProperty() {
+        return null;
+    }
 
-    public static final IntegerProperty ORDER = new IntegerProperty(Metadata.TABLE,
-            Metadata.VALUE5.name);
-
-    public IntegerProperty getIndentProperty() {
-        return INDENT;
+    public TouchListView getTouchListView() {
+        TouchListView tlv = (TouchListView) getListView();
+        return tlv;
     }
 
     @Override
     public void onCreate(Bundle icicle) {
-        getIntent().putExtra(TOKEN_FILTER, builtInFilter);
         super.onCreate(icicle);
-
-        TouchListView tlv = (TouchListView) getListView();
-        tlv.setDropListener(onDrop);
-        tlv.setRemoveListener(onRemove);
     }
 
     @Override
@@ -139,6 +114,8 @@ public class DraggableTaskListActivity extends TaskListActivity {
             ViewHolder viewHolder = (ViewHolder)container.getTag();
             viewHolder.completeBox.setOnClickListener(completeBoxListener);
 
+            // TODO add listeners
+
             // context menu listener
             //container.findViewById(R.id.task_row).setOnCreateContextMenuListener(listener);
 
@@ -146,26 +123,5 @@ public class DraggableTaskListActivity extends TaskListActivity {
             //container.findViewById(R.id.task_row).setOnClickListener(listener);
         }
     }
-
-    // --- drag and swipe handlers
-
-    private final TouchListView.DropListener onDrop = new TouchListView.DropListener() {
-        @Override
-        public void drop(int from, int to) {
-            /*String item = adapter.getItem(from);
-
-            adapter.remove(item);
-            adapter.insert(item, to);*/
-        }
-    };
-
-    private final TouchListView.RemoveListener onRemove = new TouchListView.RemoveListener() {
-        @Override
-        public void remove(int which) {
-            // new GtasksIndentAction.GtasksIncreaseIndentAction().indent(adapter.getItemId(which));
-            // adapter.notifyDataSetChanged();
-            // adapter.remove(adapter.getItem(which));
-        }
-    };
 
 }

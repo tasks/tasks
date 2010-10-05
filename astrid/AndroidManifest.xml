@@ -78,15 +78,6 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <!-- Activity that displays draggable task list -->
-    <activity android:name="com.todoroo.astrid.activity.DraggableTaskListActivity"
-              android:windowSoftInputMode="stateHidden"
-              android:theme="@style/Theme">
-      <intent-filter>
-        <action android:name="android.intent.action.MAIN" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
     <!-- Activity launched from shortcut -->
     <activity android:name="com.todoroo.astrid.activity.ShortcutActivity"
               android:clearTaskOnLaunch="true">
@@ -230,6 +221,14 @@
     </receiver>    
     
     <!-- gtasks -->
+    <activity android:name="com.todoroo.astrid.gtasks.GtasksListActivity"
+              android:windowSoftInputMode="stateHidden"
+              android:theme="@style/Theme">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksFilterExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />

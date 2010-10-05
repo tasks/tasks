@@ -24,7 +24,6 @@ import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
-import android.view.GestureDetector.SimpleOnGestureListener;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -47,7 +46,7 @@ public class TouchListView extends ListView {
 	private int mCoordOffset;  // the difference between screen coordinates and coordinates in this view
 	private DragListener mDragListener;
 	private DropListener mDropListener;
-	private RemoveListener mRemoveListener;
+	private SwipeListener mSwipeListener;
 	private int mUpperBound;
 	private int mLowerBound;
 	private int mHeight;
@@ -91,31 +90,6 @@ public class TouchListView extends ListView {
 
 	@Override
 	public boolean onInterceptTouchEvent(MotionEvent ev) {
-			if (mRemoveListener != null && mGestureDetector == null) {
-					if (mRemoveMode == FLING) {
-							mGestureDetector = new GestureDetector(getContext(), new SimpleOnGestureListener() {
-									@Override
-									public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX,
-													float velocityY) {
-											if (mDragView != null) {
-													if (velocityX > 1000) {
-															Rect r = mTempRect;
-															mDragView.getDrawingRect(r);
-															if ( e2.getX() > r.right * 2 / 3) {
-																	// fast fling right with release near the right edge of the screen
-																	stopDragging();
-																	mRemoveListener.remove(mFirstDragPos);
-																	unExpandViews(true);
-															}
-													}
-													// flinging while dragging should have no effect
-													return true;
-											}
-											return false;
-									}
-							});
-					}
-			}
 			if (mDragListener != null || mDropListener != null) {
 					switch (ev.getAction()) {
 							case MotionEvent.ACTION_DOWN:
@@ -288,14 +262,14 @@ public class TouchListView extends ListView {
 									stopDragging();
 
 									if (mRemoveMode == SLIDE_RIGHT && ev.getX() > r.left+(r.width()*3/4)) {
-											if (mRemoveListener != null) {
-													mRemoveListener.remove(mFirstDragPos);
+											if (mSwipeListener!= null) {
+													mSwipeListener.swipeRight(mFirstDragPos);
 											}
 											unExpandViews(true);
 									} else if (mRemoveMode == SLIDE_LEFT && ev.getX() < r.left+(r.width()/4)) {
-											if (mRemoveListener != null) {
-													mRemoveListener.remove(mFirstDragPos);
-											}
+    									    if (mSwipeListener!= null) {
+    									        mSwipeListener.swipeLeft(mFirstDragPos);
+    									    }
 											unExpandViews(true);
 									} else {
 											if (mDropListener != null && mDragPos >= 0 && mDragPos < getCount()) {
@@ -417,8 +391,8 @@ public class TouchListView extends ListView {
 			mDropListener = l;
 	}
 
-	public void setRemoveListener(RemoveListener l) {
-			mRemoveListener = l;
+	public void setSwipeListener(SwipeListener l) {
+			mSwipeListener = l;
 	}
 
 	public interface DragListener {
@@ -427,7 +401,8 @@ public class TouchListView extends ListView {
 	public interface DropListener {
 			void drop(int from, int to);
 	}
-	public interface RemoveListener {
-			void remove(int which);
+	public interface SwipeListener {
+			void swipeLeft(int which);
+			void swipeRight(int which);
 	}
 }
