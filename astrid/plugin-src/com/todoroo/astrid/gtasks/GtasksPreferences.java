@@ -1,6 +1,7 @@
 package com.todoroo.astrid.gtasks;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 
 import com.google.android.googlelogin.GoogleLoginServiceConstants;
@@ -8,6 +9,7 @@ import com.google.android.googlelogin.GoogleLoginServiceHelper;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
 import com.todoroo.astrid.sync.SyncProviderPreferences;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
@@ -72,7 +74,10 @@ public class GtasksPreferences extends SyncProviderPreferences {
 
     public void getCredentials(OnGetCredentials onGetCredentials) {
         credentialsListener = onGetCredentials;
-        GoogleLoginServiceHelper.getAccount(this, REQUEST_CODE_GOOGLE, false);
+        if(Integer.parseInt(Build.VERSION.SDK) >= 7)
+            credentialsListener.getCredentials(ModernAuthManager.getAccounts(this));
+        else
+            GoogleLoginServiceHelper.getAccount(this, REQUEST_CODE_GOOGLE, false);
     }
 
 }

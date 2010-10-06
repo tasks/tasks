@@ -207,4 +207,12 @@ public class ModernAuthManager implements AuthManager {
       }).start();
     }
   }
+
+    public static String[] getAccounts(Activity activity) {
+        final Account[] accounts = AccountManager.get(activity).getAccountsByType("com.google"); //$NON-NLS-1$
+        String[] accountNames = new String[accounts.length];
+        for(int i = 0; i < accounts.length; i++)
+            accountNames[i] = accounts[i].name;
+        return accountNames;
+    }
 }
