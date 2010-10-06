@@ -40,6 +40,15 @@
 
   <!-- Button for going to Market -->
   <string name="DLG_to_market">Go To Market</string>
+
+  <!-- Button for accepting EULA -->
+  <string name="DLG_accept">Accept EULA</string>
+
+  <!-- Button for declining EULA -->
+  <string name="DLG_decline">Decline EULA</string>
+
+  <!-- EULA title -->
+  <string name="DLG_eula_title">End User License Agreement</string>
   
   <!-- =============================================================== UI == -->
   

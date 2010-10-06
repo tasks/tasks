@@ -209,6 +209,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         database.openForWriting();
         setUpUiComponents();
         onNewIntent(getIntent());
+
+        Eula.showEula(this);
     }
 
     @Override
