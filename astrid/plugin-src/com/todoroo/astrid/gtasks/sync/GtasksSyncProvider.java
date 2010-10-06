@@ -67,6 +67,7 @@ import com.todoroo.gtasks.actions.ListAction;
 import com.todoroo.gtasks.actions.ListActions;
 import com.todoroo.gtasks.actions.ListActions.TaskBuilder;
 import com.todoroo.gtasks.actions.ListActions.TaskModifier;
+import com.todoroo.gtasks.actions.ListCreationAction;
 
 @SuppressWarnings("nls")
 public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
@@ -252,11 +253,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         try {
             GoogleTaskView taskView = taskService.getTaskView();
-            if(taskView.getActiveTaskList() != null)
-                Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST,
-                    taskView.getActiveTaskList().getInfo().getId());
-            else
-                Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, null);
+            getActiveList(taskView);
 
             gtasksListService.updateLists(taskView.getAllLists());
 
@@ -282,6 +279,22 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         } catch (Exception e) {
             handleException("gtasks-sync", e, true); //$NON-NLS-1$
         }
+    }
+
+    private void getActiveList(GoogleTaskView taskView) throws JSONException,
+            IOException, GoogleLoginException {
+        String listId;
+        if(taskView.getActiveTaskList() != null && taskView.getActiveTaskList().getInfo() != null)
+            listId = taskView.getActiveTaskList().getInfo().getId();
+        else if(taskView.getAllLists().length == 0) {
+            ListCreationAction createList = a.createList(0, ContextManager.getString(R.string.app_name));
+            taskService.executeActions(createList);
+            listId = createList.getNewId();
+        } else {
+            listId = taskView.getAllLists()[0].getId();
+        }
+
+        Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, listId);
     }
 
     @Override
