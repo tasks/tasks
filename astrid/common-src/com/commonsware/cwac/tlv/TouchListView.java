@@ -262,12 +262,12 @@ public class TouchListView extends ListView {
 									Rect r = mTempRect;
 									mDragView.getDrawingRect(r);
 									stopDragging();
-									if (ev.getX() > mDragStartX + 20) {
+									if (mDragPos == mFirstDragPos && ev.getX() > mDragStartX + 20) {
 											if (mSwipeListener!= null) {
 													mSwipeListener.swipeRight(mFirstDragPos);
 											}
 											unExpandViews(true);
-									} else if (ev.getX() < mDragStartX - 20) {
+									} else if (mDragPos == mFirstDragPos && ev.getX() < mDragStartX - 20) {
     									    if (mSwipeListener!= null) {
     									        mSwipeListener.swipeLeft(mFirstDragPos);
     									    }
