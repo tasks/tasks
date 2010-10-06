@@ -1,6 +1,6 @@
 package com.todoroo.astrid.gtasks;
 
-import com.flurry.android.FlurryAgent;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
 import com.todoroo.astrid.sync.SyncBackgroundService;
@@ -25,12 +25,12 @@ public class GtasksBackgroundService extends SyncBackgroundService {
     @Override
     public void onCreate() {
         super.onCreate();
-        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+        StatisticsService.sessionStart(this);
     }
 
     @Override
     public void onDestroy() {
-        FlurryAgent.onEndSession(this);
+        StatisticsService.sessionStop(this);
         super.onDestroy();
     }
 

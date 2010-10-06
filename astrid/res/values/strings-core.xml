@@ -318,7 +318,7 @@
   <string name="EPr_title">Astrid: Preferences</string>
 
   <!-- Preference Category: Appearance Title -->
-  <string name="EPr_appearance_header">Appearance</string>
+  <string name="EPr_general_header">General</string>
   
   <!-- Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Task List Size</string>

@@ -20,7 +20,7 @@ import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.flurry.android.FlurryAgent;
+import com.todoroo.astrid.service.StatisticsService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -147,7 +147,7 @@ public class GCalControlSet implements TaskEditControlSet {
     @Override
     public String writeToModel(Task task) {
         if(addToCalendar.isChecked() && calendarUri == null) {
-            FlurryAgent.onEvent("create-calendar-event");
+            StatisticsService.reportEvent("create-calendar-event");
 
             try{
                 Uri uri = Calendars.getCalendarContentUri(Calendars.CALENDAR_CONTENT_EVENTS);

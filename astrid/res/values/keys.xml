@@ -232,6 +232,11 @@
   <!-- =========================================================== GTASKS == -->
   
     <string name="gtasks_GPr_interval_key">gtasks_sync_freq</string>
+
+  <!-- ======================================================== POWERPACK == -->
+
+  <!-- Anonymous usage statistics -->
+  <string name="p_statistics">statistics</string>
   
   <!-- ============================================================ OTHER == -->
   
@@ -242,7 +247,6 @@
 
   <!-- Default Calendar Preference Key (do not translate) -->
   <string name="gcal_p_default">default_calendar_id</string>
-
   
   <!-- placeholder string for info about translators (i.e. YOU!) -->
   <string name="about_translators"></string>

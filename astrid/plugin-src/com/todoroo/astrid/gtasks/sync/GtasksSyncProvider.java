@@ -25,7 +25,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.flurry.android.FlurryAgent;
+import com.todoroo.astrid.service.StatisticsService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -248,7 +248,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     // ----------------------------------------------------------------------
 
     protected void performSync() {
-        FlurryAgent.onEvent("gtasks-started");
+        StatisticsService.reportEvent("gtasks-started");
         gtasksPreferenceService.recordSyncStart();
 
         try {
@@ -273,7 +273,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             gtasksTaskListUpdater.updateAllMetadata();
 
             gtasksPreferenceService.recordSuccessfulSync();
-            FlurryAgent.onEvent("gtasks-sync-finished"); //$NON-NLS-1$
+            StatisticsService.reportEvent("gtasks-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {

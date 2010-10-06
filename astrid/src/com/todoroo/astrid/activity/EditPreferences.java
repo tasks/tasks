@@ -14,9 +14,9 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -25,15 +25,16 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.TodorooPreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
-import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -47,8 +48,8 @@ public class EditPreferences extends TodorooPreferences {
 
     // --- instance variables
 
-    @Autowired
-    private TaskService taskService; // for debugging
+    @Autowired private TaskService taskService; // for debugging
+    @Autowired private AddOnService addOnService;
 
     @Autowired
     private Database database;
@@ -122,6 +123,9 @@ public class EditPreferences extends TodorooPreferences {
                 screen.addPreference(preference);
         }
 
+        // power pack
+        screen.getPreference(1).setEnabled(addOnService.hasPowerPack());
+
         // debugging preferences
         addDebugPreferences();
     }
@@ -180,7 +184,6 @@ public class EditPreferences extends TodorooPreferences {
     @Override
     public void updatePreferences(Preference preference, Object value) {
         Resources r = getResources();
-        // auto
         if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
@@ -190,6 +193,12 @@ public class EditPreferences extends TodorooPreferences {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
+        }
+        else if (r.getString(R.string.p_statistics).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(R.string.EPr_statistics_desc_disabled);
+            else
+                preference.setSummary(R.string.EPr_statistics_desc_enabled);
         }
     }
 

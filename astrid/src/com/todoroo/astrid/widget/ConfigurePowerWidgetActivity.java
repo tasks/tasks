@@ -14,7 +14,7 @@ import android.widget.CheckBox;
 import android.widget.ExpandableListView;
 import android.widget.Spinner;
 
-import com.flurry.android.FlurryAgent;
+import com.todoroo.astrid.service.StatisticsService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
@@ -88,7 +88,7 @@ public class ConfigurePowerWidgetActivity extends ExpandableListActivity {
         Button button = (Button)findViewById(R.id.ok);
         button.setOnClickListener(mOnClickListener);
 
-        FlurryAgent.onEvent("power-widget-config"); //$NON-NLS-1$
+        StatisticsService.reportEvent("power-widget-config"); //$NON-NLS-1$
     }
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -166,13 +166,13 @@ public class ConfigurePowerWidgetActivity extends ExpandableListActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+        StatisticsService.sessionStart(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        FlurryAgent.onEndSession(this);
+        StatisticsService.sessionStop(this);
     }
 
     private void saveConfiguration(FilterListItem filterListItem, String color, boolean enableCalendar, boolean enableEncouragements){

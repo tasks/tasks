@@ -20,7 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
 
-import com.flurry.android.FlurryAgent;
+import com.todoroo.astrid.service.StatisticsService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -204,7 +204,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     // ----------------------------------------------------------------------
 
     protected void performSync() {
-        FlurryAgent.onEvent("producteev-started");
+        StatisticsService.reportEvent("producteev-started");
         preferences.recordSyncStart();
 
         try {
@@ -313,7 +313,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION, lastNotificationId);
             Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY, lastActivityId);
 
-            FlurryAgent.onEvent("pdv-sync-finished"); //$NON-NLS-1$
+            StatisticsService.reportEvent("pdv-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {

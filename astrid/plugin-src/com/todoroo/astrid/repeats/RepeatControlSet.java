@@ -21,7 +21,7 @@ import android.widget.Spinner;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.CompoundButton.OnCheckedChangeListener;
 
-import com.flurry.android.FlurryAgent;
+import com.todoroo.astrid.service.StatisticsService;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
@@ -243,7 +243,7 @@ public class RepeatControlSet implements TaskEditControlSet {
             result = ""; //$NON-NLS-1$
         else {
             if(TextUtils.isEmpty(task.getValue(Task.RECURRENCE))) {
-                FlurryAgent.onEvent("repeat-task-create"); //$NON-NLS-1$
+                StatisticsService.reportEvent("repeat-task-create"); //$NON-NLS-1$
             }
 
             RRule rrule = new RRule();

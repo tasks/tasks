@@ -9,7 +9,6 @@ import java.io.StringWriter;
 
 import android.database.sqlite.SQLiteException;
 
-import com.flurry.android.FlurryAgent;
 import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
 
 public class FlurryReporter implements ErrorReporter {
@@ -45,7 +44,7 @@ public class FlurryReporter implements ErrorReporter {
         trace = trace.replaceAll(SQLiteException.class.getName(), "SqLiEx");
         trace = trace.replaceAll(".java:", ":");
 
-        FlurryAgent.onError(name, message, trace);
+        StatisticsService.reportError(name, message, trace);
     }
 
 }

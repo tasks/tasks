@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 
-import com.flurry.android.FlurryAgent;
+import com.todoroo.astrid.service.StatisticsService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.adapter.FilterAdapter;
@@ -59,7 +59,7 @@ public class WidgetConfigActivity extends ExpandableListActivity {
         Button button = (Button)findViewById(R.id.ok);
         button.setOnClickListener(mOnClickListener);
 
-        FlurryAgent.onEvent("widget-config"); //$NON-NLS-1$
+        StatisticsService.reportEvent("widget-config"); //$NON-NLS-1$
     }
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -122,13 +122,13 @@ public class WidgetConfigActivity extends ExpandableListActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+        StatisticsService.sessionStart(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        FlurryAgent.onEndSession(this);
+        StatisticsService.sessionStop(this);
     }
 
     private void saveConfiguration(FilterListItem filterListItem) {
@@ -146,6 +146,6 @@ public class WidgetConfigActivity extends ExpandableListActivity {
         Preferences.setString(TasksWidget.PREF_SQL + mAppWidgetId, sql);
         Preferences.setString(TasksWidget.PREF_VALUES + mAppWidgetId, contentValuesString);
 
-        FlurryAgent.onEvent("widget-config"); //$NON-NLS-1$
+        StatisticsService.reportEvent("widget-config"); //$NON-NLS-1$
     }
 }

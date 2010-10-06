@@ -35,7 +35,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.flurry.android.FlurryAgent;
+import com.todoroo.astrid.service.StatisticsService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -164,7 +164,7 @@ public class ProducteevLoginActivity extends Activity {
                     Preferences.setString(R.string.producteev_PPr_password, password);
                     ProducteevUtilities.INSTANCE.setToken(invoker.getToken());
 
-                    FlurryAgent.onEvent("producteev-login"); //$NON-NLS-1$
+                    StatisticsService.reportEvent("producteev-login"); //$NON-NLS-1$
 
                     synchronize();
                 } catch (ApiAuthenticationException e) {
@@ -205,7 +205,7 @@ public class ProducteevLoginActivity extends Activity {
                     Preferences.setString(R.string.producteev_PPr_password, password);
                     ProducteevUtilities.INSTANCE.setToken(invoker.getToken());
 
-                    FlurryAgent.onEvent("producteev-signup"); //$NON-NLS-1$
+                    StatisticsService.reportEvent("producteev-signup"); //$NON-NLS-1$
 
                     synchronize();
                 } catch (Exception e) {
@@ -237,13 +237,13 @@ public class ProducteevLoginActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
-        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+        StatisticsService.sessionStart(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        FlurryAgent.onEndSession(this);
+        StatisticsService.sessionStop(this);
     }
 
 }

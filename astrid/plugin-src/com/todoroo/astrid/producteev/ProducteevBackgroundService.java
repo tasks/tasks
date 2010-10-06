@@ -8,14 +8,13 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
 
-import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
-import com.todoroo.astrid.utility.Constants;
-import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.service.StatisticsService;
 
 /**
  * SynchronizationService is the service that performs Astrid's background
@@ -57,9 +56,9 @@ public class ProducteevBackgroundService extends Service {
             return;
 
         PluginServices.getTaskService();
-        FlurryAgent.onStartSession(context, Constants.FLURRY_KEY);
+        StatisticsService.sessionStart(context);
         new ProducteevSyncProvider().synchronize(context);
-        FlurryAgent.onEndSession(context);
+        StatisticsService.sessionStop(context);
     }
 
     // --- alarm management

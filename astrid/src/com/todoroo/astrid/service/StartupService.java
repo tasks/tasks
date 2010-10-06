@@ -17,7 +17,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
-import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -162,9 +161,9 @@ public class StartupService {
                 File[] children = directory.listFiles();
                 AndroidUtilities.sortFilesByDateDesc(children);
                 if(children.length > 0) {
-                    FlurryAgent.onStartSession(context, Constants.FLURRY_KEY);
+                    StatisticsService.sessionStart(context);
                     TasksXmlImporter.importTasks(context, children[0].getAbsolutePath(), null);
-                    FlurryAgent.onEvent("lost-tasks-restored"); //$NON-NLS-1$
+                    StatisticsService.reportEvent("lost-tasks-restored"); //$NON-NLS-1$
                 }
             }
         } catch (Exception e) {

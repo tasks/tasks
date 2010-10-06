@@ -14,7 +14,7 @@ import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 
-import com.flurry.android.FlurryAgent;
+import com.todoroo.astrid.service.StatisticsService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -191,9 +191,9 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
             .setPositiveButton(android.R.string.ok,
                     AddOnActivity.createAddOnClicker(LocaleEditAlerts.this, true))
             .show();
-            FlurryAgent.onEvent("locale-edit-alerts-no-plugin"); //$NON-NLS-1$
+            StatisticsService.reportEvent("locale-edit-alerts-no-plugin"); //$NON-NLS-1$
         } else {
-            FlurryAgent.onEvent("locale-edit-alerts"); //$NON-NLS-1$
+            StatisticsService.reportEvent("locale-edit-alerts"); //$NON-NLS-1$
         }
     }
 
@@ -305,13 +305,13 @@ public final class LocaleEditAlerts extends ExpandableListActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FlurryAgent.onStartSession(this, Constants.FLURRY_KEY);
+        StatisticsService.sessionStart(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        FlurryAgent.onEndSession(this);
+        StatisticsService.sessionStop(this);
     }
 
     /**
