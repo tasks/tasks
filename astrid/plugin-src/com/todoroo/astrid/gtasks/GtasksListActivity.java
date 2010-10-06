@@ -7,17 +7,7 @@ import com.commonsware.cwac.tlv.TouchListView.DropListener;
 import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Join;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.activity.DraggableTaskListActivity;
-import com.todoroo.astrid.api.Filter;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.Task;
 
 public class GtasksListActivity extends DraggableTaskListActivity {
 
@@ -25,18 +15,7 @@ public class GtasksListActivity extends DraggableTaskListActivity {
 
     public static final String TOKEN_LIST_ID = "listId"; //$NON-NLS-1$
 
-    // --- gtasks temp stuff
-    private final String listId = "17816916813445155620:0:0"; //$NON-NLS-1$
-    Filter builtInFilter = new Filter("Tim's Tasks", "Tim's Tasks", new QueryTemplate().join( //$NON-NLS-1$ //$NON-NLS-2$
-            Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
-                    MetadataCriteria.withKey("gtasks"), //$NON-NLS-1$
-                    TaskCriteria.isVisible(),
-                    TaskCriteria.notDeleted(),
-                    Metadata.VALUE2.eq(listId))).orderBy(
-                            Order.asc(Functions.cast(Metadata.VALUE5, "INTEGER"))), //$NON-NLS-1$
-            null);
-
-    // --- end
+    private String listId;
 
     @Override
     protected IntegerProperty getIndentProperty() {
@@ -45,9 +24,9 @@ public class GtasksListActivity extends DraggableTaskListActivity {
 
     @Override
     public void onCreate(Bundle icicle) {
-        if(!getIntent().hasExtra(TOKEN_FILTER))
-            getIntent().putExtra(TOKEN_FILTER, builtInFilter);
         super.onCreate(icicle);
+
+        listId = getIntent().getStringExtra(TOKEN_LIST_ID);
 
         getTouchListView().setDropListener(dropListener);
         getTouchListView().setSwipeListener(swipeListener);

@@ -32,5 +32,18 @@
     <!-- message body for no google accounts found -->
     <string name="no_account_found">We were unable to find a Google account on this phone. You will not be able to synchronize to Google Tasks without one!</string>
     
+    <!-- E-mail Address Label -->    
+    <string name="gtasks_email">E-mail</string>
+
+    <!-- Password Label -->    
+    <string name="gtasks_password">Password</string>
+
+    <!-- Login Message -->    
+    <string name="gtasks_login">Google Account:</string>
+
+    <!-- Login Message when Error -->    
+    <string name="gtasks_login_error">Please try your e-mail and password again.</string>
+    
+    
 </resources>
 

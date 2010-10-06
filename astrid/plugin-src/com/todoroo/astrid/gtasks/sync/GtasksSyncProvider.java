@@ -15,8 +15,15 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.flurry.android.FlurryAgent;
 import com.timsu.astrid.R;
@@ -41,6 +48,7 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
+import com.todoroo.astrid.gtasks.GtasksPreferences.OnGetCredentials;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.sync.SyncBackgroundService;
@@ -177,24 +185,38 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         // check if we have a token & it works
         if(authToken == null) {
-            try {
-                final GtasksPreferences preferenceActivity = (GtasksPreferences)activity;
-                preferenceActivity.getAuthManager().invalidateAndRefresh(new Runnable() {
-                    @Override
-                    public void run() {
-                        String token = preferenceActivity.getAuthManager().getAuthToken();
-                        if(token != null) {
-                            token = "auth=" + token;
-                            gtasksPreferenceService.setToken(token);
-                            activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
-                                activity, GtasksBackgroundService.class));
-                            activity.finish();
-                        }
-                    }
-                });
-            } catch (Exception e) {
-                handleException("auth", e, true);
-            }
+            final GtasksPreferences preferenceActivity = (GtasksPreferences)activity;
+            preferenceActivity.getCredentials(new OnGetCredentials() {
+                @Override
+                public void getCredentials(String[] accounts) {
+                    LinearLayout layout = new LinearLayout(activity);
+                    layout.setPadding(5, -5, 5, 0);
+                    layout.setOrientation(LinearLayout.VERTICAL);
+                    TextView textView = new TextView(activity);
+                    textView.setText(R.string.producteev_PLA_email);
+                    layout.addView(textView);
+                    final EditText email = new EditText(activity);
+                    if(accounts != null && accounts.length > 0)
+                        email.setText(accounts[0]);
+                    layout.addView(email);
+                    textView = new TextView(activity);
+                    textView.setText(R.string.producteev_PLA_password);
+                    layout.addView(textView);
+                    final EditText password = new EditText(activity);
+                    password.setTransformationMethod(new PasswordTransformationMethod());
+                    layout.addView(password);
+
+                    DialogUtilities.viewDialog(activity,
+                            activity.getString(R.string.gtasks_login), layout,
+                            new OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface arg0, int arg1) {
+                                    trySynchronizing(activity, email.getText(), password.getText());
+                                }
+
+                            }, null);
+                }
+            });
         } else {
             activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
                 activity, GtasksBackgroundService.class));
@@ -202,6 +224,23 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         }
     }
 
+    private void trySynchronizing(Activity activity, CharSequence email, CharSequence password) {
+        GoogleConnectionManager gcm = new GoogleConnectionManager(email.toString(), password.toString());
+        try {
+            gcm.authenticate(false);
+        } catch (GoogleLoginException e) {
+            Toast.makeText(activity, R.string.gtasks_login_error, Toast.LENGTH_LONG).show();
+            return;
+        } catch (IOException e) {
+            Toast.makeText(activity, R.string.SyP_ioerror, Toast.LENGTH_LONG).show();
+        }
+        String token = gcm.getToken();
+        System.err.println("got token " + token);
+        gtasksPreferenceService.setToken(token);
+        activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
+            activity, GtasksBackgroundService.class));
+        activity.finish();
+    }
 
     // ----------------------------------------------------------------------
     // ----------------------------------------------------- synchronization!
@@ -213,8 +252,11 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         try {
             GoogleTaskView taskView = taskService.getTaskView();
-            Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST,
+            if(taskView.getActiveTaskList() != null)
+                Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST,
                     taskView.getActiveTaskList().getInfo().getId());
+            else
+                Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, null);
 
             gtasksListService.updateLists(taskView.getAllLists());
 
