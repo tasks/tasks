@@ -10,9 +10,6 @@
     <!-- Task Edit Activity: Add New Alarm -->
     <string name="alarm_ACS_button">Add an Alarm</string>
     
-    <!-- Task Detail for Alarms (%s -> time)-->
-    <string name="alarm_ADE_detail">Alarm %s</string>
-   
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
       <item>Alarm!</item>
@@ -148,6 +145,15 @@
 
   <!-- Button for going to Market -->
   <string name="DLG_to_market">Jít do Android market</string>
+
+  <!-- Button for accepting EULA -->
+  <string name="DLG_accept">I Accept</string>
+
+  <!-- Button for declining EULA -->
+  <string name="DLG_decline">I Decline</string>
+
+  <!-- EULA title -->
+  <string name="DLG_eula_title">Astrid Terms Of Use</string>
   
   <!-- =============================================================== UI == -->
   
@@ -192,10 +198,10 @@
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
-  <string name="TAd_hiddenFormat">%s [hidden]</string>
+  <string name="TAd_hiddenFormat">%s [skrytý]</string>
   
   <!-- Format string to indicate task is deleted (%s => task name) -->
-  <string name="TAd_deletedFormat">%s [deleted]</string>
+  <string name="TAd_deletedFormat">%s [smazán]</string>
   
   <!-- Displayed when adapter is flung (scrolled quickly) -->
   <string name="TAd_flingText"/>
@@ -329,6 +335,9 @@
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Skrýt do</string>
   
+  <!-- Task editing data being loaded label -->
+  <string-array name="TEA_loading"><item>Nahrávám...</item></string-array>
+  
   <!-- Task note label -->
   <string name="TEA_note_label">Poznámky</string>
   
@@ -426,7 +435,7 @@
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notes will always displayed</string>  
+  <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">Výchozí nastavení nového úkolu</string>
@@ -580,7 +589,7 @@
     <string name="CFA_type_intersect">also</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">Chaining: %s</string>
+    <string name="CFA_context_chain">%s has criteria</string>
     
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">Delete Row</string>
@@ -677,6 +686,55 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
+    <!-- =========================================================== Misc == -->
+
+    <!-- filters header: GTasks -->
+    <string name="gtasks_FEx_header">Google Tasks</string>
+    
+    <!-- filter category for GTasks lists -->
+    <string name="gtasks_FEx_list">By List</string>
+        
+    <!-- GTasks Indent changed message (%d => new level) -->
+    <string name="gtasks_indent_toast">New Indentation: %d</string>
+        
+    <!-- ============================================== GtasksPreferences == -->
+
+    <!-- GTasks Preferences Title -->    
+    <string name="gtasks_GPr_header">Google Tasks</string>
+    
+    <!-- ================================================ Synchronization == -->    
+    
+    <!-- title for notification tray when synchronizing -->
+    <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+    
+    <!-- title for picking a google account -->
+    <string name="choose_account_title">Choose Account</string>
+    
+    <!-- title for no google accounts found -->
+    <string name="no_account_found_title">No Accounts Found</string>
+    
+    <!-- message body for no google accounts found -->
+    <string name="no_account_found">We were unable to find a Google account on this phone. You will not be able to synchronize to Google Tasks without one!</string>
+    
+    <!-- E-mail Address Label -->    
+    <string name="gtasks_email">E-mail</string>
+
+    <!-- Password Label -->    
+    <string name="gtasks_password">Password</string>
+
+    <!-- Login Message -->    
+    <string name="gtasks_login">Google Account:</string>
+
+    <!-- Login Message when Error -->    
+    <string name="gtasks_login_error">Please try your e-mail and password again.</string>
+    
+    
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
   <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
@@ -707,6 +765,23 @@
   <!-- Locale Plugin was not found, it is required -->
   <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
      
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
+  <!-- ================================================== EditPreferences == -->
+    
+  <!-- Preference Category: Power Pack -->
+  <string name="EPr_powerpack_header">Astrid Power Pack</string>
+  
+  <!-- Preference: Anonymous User Statistics -->
+  <string name="EPr_statistics_title">Anonymous Usage Stats</string>
+  <!-- Preference: User Statistics (disabled) -->
+  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
+  <!-- Preference: User Statistics (enabled) -->
+  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
+      
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -781,6 +856,9 @@
 
     <!-- Password Label -->    
     <string name="producteev_PLA_password">Password</string>
+    
+    <!-- Timezone Spinner -->
+    <string name="producteev_PLA_timezone">Timezone</string>
 
     <!-- Confirm Password Label -->    
     <string name="producteev_PLA_confirmPassword">Confirm Password</string>
@@ -830,7 +908,15 @@
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
     <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
-    
+
+    <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
+
+    <string name="CFC_producteev_in_workspace_name">In workspace...</string>
+
+    <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
+
+    <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
+
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
@@ -1237,7 +1323,28 @@
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">Označené \'%s\'</string>
-    
+
+  <!-- context menu option to rename a tag -->
+  <string name="tag_cm_rename">Rename Tag</string>
+
+  <!-- context menu option to delete a tag -->
+  <string name="tag_cm_delete">Delete Tag</string>
+
+  <!-- Dialog to confirm deletion of a tag -->
+  <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
+
+  <!-- Dialog to rename tag -->
+  <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
+
+  <!-- Toast notification that no changes have been made -->
+  <string name="TEA_no_tags_modified">No changes made</string>
+
+  <!-- Toast notification that a tag has been deleted -->
+  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+
+  <!-- Toast notification that a tag has been renamed -->
+  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->

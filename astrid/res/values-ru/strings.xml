@@ -10,9 +10,6 @@
     <!-- Task Edit Activity: Add New Alarm -->
     <string name="alarm_ACS_button">Добавить напоминание</string>
     
-    <!-- Task Detail for Alarms (%s -> time)-->
-    <string name="alarm_ADE_detail">Напоминание %s</string>
-   
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
       <item>Напоминание!</item>
@@ -78,7 +75,7 @@
     
   <string name="export_toast">Cохранено %s в %s</string>
     
-  <string name="export_toast_no_tasks">No Tasks to Export.</string>
+  <string name="export_toast_no_tasks">Нет задач для экспорта.</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Экспортирование…</string>
@@ -148,6 +145,15 @@
 
   <!-- Button for going to Market -->
   <string name="DLG_to_market">Перейти в Market</string>
+
+  <!-- Button for accepting EULA -->
+  <string name="DLG_accept">I Accept</string>
+
+  <!-- Button for declining EULA -->
+  <string name="DLG_decline">I Decline</string>
+
+  <!-- EULA title -->
+  <string name="DLG_eula_title">Astrid Terms Of Use</string>
   
   <!-- =============================================================== UI == -->
   
@@ -172,7 +178,7 @@
   <string name="TLA_menu_sort">Сортировка и скрытые задачи</string>
   
   <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">Sync Now!</string>
+  <string name="TLA_menu_sync">Синхронизировать сейчас!</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Параметры</string>
@@ -216,7 +222,7 @@
   <string name="TAd_contextUndeleteTask">Отменить удаление задачи</string>
 
   <!-- Context Item: purge task -->
-  <string name="TAd_contextPurgeTask">Purge Task</string>
+  <string name="TAd_contextPurgeTask">Очистить задачу</string>
   
   <!-- ============================================== SortSelectionDialog == -->
   
@@ -321,13 +327,16 @@
   <string name="TEA_urgency_label">Дата окончания</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">At specific time?</string>
+  <string name="TEA_urgency_specific_time">В указанное время?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Time Set</string>
+  <string name="TEA_urgency_time_none">Время не установлено</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Скрывать до…</string>
+  
+  <!-- Task editing data being loaded label -->
+  <string-array name="TEA_loading"><item>Загрузка…</item></string-array>
   
   <!-- Task note label -->
   <string name="TEA_note_label">Примечания</string>
@@ -351,7 +360,7 @@
   <string name="TEA_menu_delete">Удалить задачу</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
+  <string name="TEA_onTaskSave_due">Задача сохранена: срок %s</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">Задача сохранена</string>
@@ -360,7 +369,7 @@
   <string name="TEA_onTaskCancel">Правка задачи отменена</string>
   
   <!-- Toast: task was deleted -->
-  <string name="TEA_onTaskDelete">Задание удалено!</string>
+  <string name="TEA_onTaskDelete">Задача удалена!</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
@@ -434,22 +443,22 @@
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Актуальность по умолчанию</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently: %s</string>
+  <string name="EPr_default_urgency_desc">Текущая: %s</string>
   
   <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Важность по умолчанию</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently: %s</string>
+  <string name="EPr_default_importance_desc">Текущая: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">Срок скрытия по умолчанию</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
+  <string name="EPr_default_hideUntil_desc">Текущая: %s</string>
   
   <!-- Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">Напоминания по умолчанию</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_reminders_desc">Currently: %s</string>
+  <string name="EPr_default_reminders_desc">Текущая: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
@@ -478,10 +487,10 @@
   
   <string-array name="EPr_default_reminders">
       <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>No deadline reminders</item>
-      <item>At deadline</item>
-      <item>When overdue</item>
-      <item>At deadline or overdue</item>
+      <item>Нет напоминаний</item>
+      <item>В срок</item>
+      <item>Когда просрочена</item>
+      <item>Вовремя или просрочена</item>
   </string-array>
   
   <!-- ==================================================== AddOnActivity == -->
@@ -611,7 +620,7 @@
         <item>Завтра</item>
         <item>Через день</item>
         <item>На следующей неделе</item>
-        <item>Next Month</item>
+        <item>Следующий месяц</item>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
@@ -625,14 +634,14 @@
     <string name="CFC_tag_name">С метками…</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Tag contains...</string>
+    <string name="CFC_tag_contains_name">Содержит метку...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Tag contains: ?</string>
+    <string name="CFC_tag_contains_text">Содержит метку: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Title contains...</string>
+    <string name="CFC_title_contains_name">Название содержит...</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">Title contains: ?</string>
+    <string name="CFC_title_contains_text">Название содержит: ?</string>
     
 
 
@@ -659,7 +668,7 @@
   <string name="gcal_TEA_calendar_error">Ошибка при открытии события!</string>
   
   <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
+  <string name="gcal_TEA_calendar_updated">Календарное событие также обновлено!</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -669,6 +678,55 @@
   <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
   <string name="gcal_GCP_default">Календарь по умолчанию</string>
 
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
+    <!-- =========================================================== Misc == -->
+
+    <!-- filters header: GTasks -->
+    <string name="gtasks_FEx_header">Google Tasks</string>
+    
+    <!-- filter category for GTasks lists -->
+    <string name="gtasks_FEx_list">By List</string>
+        
+    <!-- GTasks Indent changed message (%d => new level) -->
+    <string name="gtasks_indent_toast">New Indentation: %d</string>
+        
+    <!-- ============================================== GtasksPreferences == -->
+
+    <!-- GTasks Preferences Title -->    
+    <string name="gtasks_GPr_header">Google Tasks</string>
+    
+    <!-- ================================================ Synchronization == -->    
+    
+    <!-- title for notification tray when synchronizing -->
+    <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+    
+    <!-- title for picking a google account -->
+    <string name="choose_account_title">Choose Account</string>
+    
+    <!-- title for no google accounts found -->
+    <string name="no_account_found_title">No Accounts Found</string>
+    
+    <!-- message body for no google accounts found -->
+    <string name="no_account_found">We were unable to find a Google account on this phone. You will not be able to synchronize to Google Tasks without one!</string>
+    
+    <!-- E-mail Address Label -->    
+    <string name="gtasks_email">Электронная почта</string>
+
+    <!-- Password Label -->    
+    <string name="gtasks_password">Пароль</string>
+
+    <!-- Login Message -->    
+    <string name="gtasks_login">Google Account:</string>
+
+    <!-- Login Message when Error -->    
+    <string name="gtasks_login_error">Please try your e-mail and password again.</string>
+    
+    
 
 
 
@@ -710,6 +768,23 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
+  <!-- ================================================== EditPreferences == -->
+    
+  <!-- Preference Category: Power Pack -->
+  <string name="EPr_powerpack_header">Astrid Power Pack</string>
+  
+  <!-- Preference: Anonymous User Statistics -->
+  <string name="EPr_statistics_title">Anonymous Usage Stats</string>
+  <!-- Preference: User Statistics (disabled) -->
+  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
+  <!-- Preference: User Statistics (enabled) -->
+  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
+      
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
     <!-- ====================== Plugin Boilerplate ========================= -->
 
 	<!-- filters header: Producteev -->
@@ -725,10 +800,10 @@
     <string name="producteev_FEx_responsible_title">Ответственный \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="producteev_PDE_task_from">from %s</string>
+    <string name="producteev_PDE_task_from">от %s</string>
     
     <!-- replacement string for task edit "Notes" when using Producteev -->
-    <string name="producteev_TEA_notes">Add a Comment</string>
+    <string name="producteev_TEA_notes">Добавить комментарий</string>
 
     <!-- ==================================================== Preferences == -->
 
@@ -742,10 +817,10 @@
     <string name="producteev_no_dashboard">Не синхронизировать</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard">Add new Workspace...</string>
+    <string name="producteev_create_dashboard">Добавить новую рабочую среду</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard_name">Name for new Workspace</string>
+    <string name="producteev_create_dashboard_name">Имя новой рабочей среды</string>
 
 	<!-- preference title for default dashboard -->
     <string name="producteev_PPr_defaultdash_title">Рабочая среда по умолчанию</string>
@@ -778,6 +853,9 @@
 
     <!-- Password Label -->    
     <string name="producteev_PLA_password">Пароль</string>
+    
+    <!-- Timezone Spinner -->
+    <string name="producteev_PLA_timezone">Timezone</string>
 
     <!-- Confirm Password Label -->    
     <string name="producteev_PLA_confirmPassword">Подтверждение пароля</string>
@@ -803,7 +881,7 @@
     <string name="producteev_notification_title">Producteev</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
+    <string name="producteev_notification_text">%s задач обновлено / кликните для подробностей</string>
     
     <!-- Error msg when io exception  -->
     <string name="producteev_ioerror">Ошибка соединения! Проверьте подключение к интернету.</string>
@@ -827,7 +905,15 @@
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
     <string name="producteev_TEA_dashboard_default">&lt;По умолчанию&gt;</string>
-    
+
+    <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
+
+    <string name="CFC_producteev_in_workspace_name">In workspace...</string>
+
+    <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
+
+    <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
+
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
@@ -934,11 +1020,11 @@
   <string name="rmd_EPr_nagging_desc_false">Astrid не будет подбадривать вас сообщениями</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
-  <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
+  <string name="rmd_EPr_snooze_dialog_title">Дремать HH:MM</string>
   <!-- Reminder Preference: Snooze Dialog Description (true) -->
-  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
+  <string name="rmd_EPr_snooze_dialog_desc_true">Дремать введя новое время (HH:MM)</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
+  <string name="rmd_EPr_snooze_dialog_desc_false">Отложить выбрав # дней/часов</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Случайные напоминания</string>
@@ -1234,7 +1320,28 @@
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">С меткой \'%s\'</string>
-    
+
+  <!-- context menu option to rename a tag -->
+  <string name="tag_cm_rename">Rename Tag</string>
+
+  <!-- context menu option to delete a tag -->
+  <string name="tag_cm_delete">Delete Tag</string>
+
+  <!-- Dialog to confirm deletion of a tag -->
+  <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
+
+  <!-- Dialog to rename tag -->
+  <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
+
+  <!-- Toast notification that no changes have been made -->
+  <string name="TEA_no_tags_modified">No changes made</string>
+
+  <!-- Toast notification that a tag has been deleted -->
+  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+
+  <!-- Toast notification that a tag has been renamed -->
+  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1267,20 +1374,20 @@
     <string name="PPW_widget_42_label">Astrid 4x2 (beta!)</string>
     <string name="PPW_widget_44_label">Astrid 4x4 (beta!)</string>
     
-    <string name="PPW_configure_title">Configure Widget</string>
+    <string name="PPW_configure_title">Настройка виджета</string>
     
-    <string name="PPW_color">Widget color</string>
-    <string name="PPW_enable_calendar">Show calendar events</string>
-    <string name="PPW_disable_encouragements">Hide encouragements</string>
-    <string name="PPW_filter">Select Filter</string>
+    <string name="PPW_color">Цвет виджета</string>
+    <string name="PPW_enable_calendar">Показать календарное событие</string>
+    <string name="PPW_disable_encouragements">Скрыть поддержку</string>
+    <string name="PPW_filter">Выберите фильтр</string>
     
-    <string name="PPW_due">Due:</string>
-    <string name="PPW_past_due">Past Due:</string>
+    <string name="PPW_due">Срок:</string>
+    <string name="PPW_past_due">Прошлый срок:</string>
     
     <string-array name="PPW_encouragements">
-    	<item>Ready to work?</item>
-    	<item>Have time to finish something?</item>
-    	<item>Gosh, you are looking suave today!</item>
+    	<item>Готов поработать?</item>
+    	<item>Есть время завершить кое-что?</item>
+    	<item>Черт возьми, ты хорош сегодня!</item>
     </string-array>
 
 </resources>

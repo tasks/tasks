@@ -10,9 +10,6 @@
     <!-- Task Edit Activity: Add New Alarm -->
     <string name="alarm_ACS_button">Afegir una Alarma</string>
     
-    <!-- Task Detail for Alarms (%s -> time)-->
-    <string name="alarm_ADE_detail">Alarma %s</string>
-   
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
       <item>Alarma!!</item>
@@ -148,6 +145,15 @@
 
   <!-- Button for going to Market -->
   <string name="DLG_to_market">Anar al Market</string>
+
+  <!-- Button for accepting EULA -->
+  <string name="DLG_accept">I Accept</string>
+
+  <!-- Button for declining EULA -->
+  <string name="DLG_decline">I Decline</string>
+
+  <!-- EULA title -->
+  <string name="DLG_eula_title">Astrid Terms Of Use</string>
   
   <!-- =============================================================== UI == -->
   
@@ -321,13 +327,16 @@
   <string name="TEA_urgency_label">Data límit</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">At specific time?</string>
+  <string name="TEA_urgency_specific_time">A l\'hora específica?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Time Set</string>
+  <string name="TEA_urgency_time_none">Hora no específicada</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Amagar fins</string>
+  
+  <!-- Task editing data being loaded label -->
+  <string-array name="TEA_loading"><item>Carregant...</item></string-array>
   
   <!-- Task note label -->
   <string name="TEA_note_label">Notes</string>
@@ -611,7 +620,7 @@
         <item>Demà</item>
         <item>Demà passat</item>
         <item>Propera setmana</item>
-        <item>Next Month</item>
+        <item>Mes següent</item>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
@@ -625,14 +634,14 @@
     <string name="CFC_tag_name">Etiquetat..</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Tag contains...</string>
+    <string name="CFC_tag_contains_name">Etiqueta conté...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Tag contains: ?</string>
+    <string name="CFC_tag_contains_text">Etiqueta conté: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Title contains...</string>
+    <string name="CFC_title_contains_name">Títol conté...</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">Title contains: ?</string>
+    <string name="CFC_title_contains_text">Títol conté: ?</string>
     
 
 
@@ -675,6 +684,55 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
+    <!-- =========================================================== Misc == -->
+
+    <!-- filters header: GTasks -->
+    <string name="gtasks_FEx_header">Google Tasks</string>
+    
+    <!-- filter category for GTasks lists -->
+    <string name="gtasks_FEx_list">By List</string>
+        
+    <!-- GTasks Indent changed message (%d => new level) -->
+    <string name="gtasks_indent_toast">New Indentation: %d</string>
+        
+    <!-- ============================================== GtasksPreferences == -->
+
+    <!-- GTasks Preferences Title -->    
+    <string name="gtasks_GPr_header">Google Tasks</string>
+    
+    <!-- ================================================ Synchronization == -->    
+    
+    <!-- title for notification tray when synchronizing -->
+    <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+    
+    <!-- title for picking a google account -->
+    <string name="choose_account_title">Choose Account</string>
+    
+    <!-- title for no google accounts found -->
+    <string name="no_account_found_title">No Accounts Found</string>
+    
+    <!-- message body for no google accounts found -->
+    <string name="no_account_found">We were unable to find a Google account on this phone. You will not be able to synchronize to Google Tasks without one!</string>
+    
+    <!-- E-mail Address Label -->    
+    <string name="gtasks_email">Adreça electrònica</string>
+
+    <!-- Password Label -->    
+    <string name="gtasks_password">Contrasenya</string>
+
+    <!-- Login Message -->    
+    <string name="gtasks_login">Google Account:</string>
+
+    <!-- Login Message when Error -->    
+    <string name="gtasks_login_error">Please try your e-mail and password again.</string>
+    
+    
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
   <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
@@ -705,6 +763,23 @@
   <!-- Locale Plugin was not found, it is required -->
   <string name="locale_plugin_required">Si us plau, instal·la el complement Astrid Locale!</string>        
      
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
+  <!-- ================================================== EditPreferences == -->
+    
+  <!-- Preference Category: Power Pack -->
+  <string name="EPr_powerpack_header">Astrid Power Pack</string>
+  
+  <!-- Preference: Anonymous User Statistics -->
+  <string name="EPr_statistics_title">Anonymous Usage Stats</string>
+  <!-- Preference: User Statistics (disabled) -->
+  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
+  <!-- Preference: User Statistics (enabled) -->
+  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
+      
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -778,6 +853,9 @@
 
     <!-- Password Label -->    
     <string name="producteev_PLA_password">Contrasenya</string>
+    
+    <!-- Timezone Spinner -->
+    <string name="producteev_PLA_timezone">Timezone</string>
 
     <!-- Confirm Password Label -->    
     <string name="producteev_PLA_confirmPassword">Confirma la Contrasenya</string>
@@ -827,7 +905,15 @@
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
     <string name="producteev_TEA_dashboard_default">&lt;Per defecte&gt;</string>
-    
+
+    <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
+
+    <string name="CFC_producteev_in_workspace_name">In workspace...</string>
+
+    <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
+
+    <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
+
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
@@ -934,11 +1020,11 @@
   <string name="rmd_EPr_nagging_desc_false">Astrid no li donarà cap missatge d\'estímul</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
-  <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
+  <string name="rmd_EPr_snooze_dialog_title">Diàleg de retard HH:MM</string>
   <!-- Reminder Preference: Snooze Dialog Description (true) -->
-  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
+  <string name="rmd_EPr_snooze_dialog_desc_true">Retardar seleccionant un nou temps d\'espera (HH:MM)</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
+  <string name="rmd_EPr_snooze_dialog_desc_false">Retardar seleccionant # dies/hores que esperar</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Notificacions al Atzar</string>
@@ -1234,7 +1320,28 @@
   
   <!-- %s => tag name -->
   <string name="tag_FEx_name">Etiquetat \'%s\'</string>
-    
+
+  <!-- context menu option to rename a tag -->
+  <string name="tag_cm_rename">Rename Tag</string>
+
+  <!-- context menu option to delete a tag -->
+  <string name="tag_cm_delete">Delete Tag</string>
+
+  <!-- Dialog to confirm deletion of a tag -->
+  <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
+
+  <!-- Dialog to rename tag -->
+  <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
+
+  <!-- Toast notification that no changes have been made -->
+  <string name="TEA_no_tags_modified">No changes made</string>
+
+  <!-- Toast notification that a tag has been deleted -->
+  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+
+  <!-- Toast notification that a tag has been renamed -->
+  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
