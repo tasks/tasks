@@ -26,9 +26,9 @@ import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.Metadata;
-import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 
 /**
@@ -61,6 +61,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
         Intent intent = new Intent(ContextManager.getContext(), GtasksListActivity.class);
         intent.putExtra(GtasksListActivity.TOKEN_LIST_ID, list.getValue(GtasksList.REMOTE_ID));
         intent.putExtra(GtasksListActivity.TOKEN_FILTER, filter);
+        intent.setType(list.getValue(GtasksList.REMOTE_ID));
         PendingIntent pendingIntent = PendingIntent.getActivity(ContextManager.getContext(),
                 0, intent, 0);
         filter.intent = pendingIntent;
