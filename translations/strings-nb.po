@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: astrid-translation\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-09-09 01:08+0800\n"
+"POT-Creation-Date: 2010-09-17 17:09+0800\n"
 "PO-Revision-Date: 2010-09-09 19:20+0000\n"
 "Last-Translator: Paul Levold <paal.levold@gmail.com>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-09-10 01:51+0000\n"
+"X-Launchpad-Export-Date: 2010-10-07 00:08+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Task Edit Activity: Container Label
@@ -43,7 +43,7 @@ msgid "Backups"
 msgstr "Sikkerhetskopier"
 
 #. Backup: Status Header
-#: translations/strings.xml:34( name="backup_BPr_group_status") translations/strings.xml:1431( name="sync_SPr_group_status")
+#: translations/strings.xml:34( name="backup_BPr_group_status") translations/strings.xml:1434( name="sync_SPr_group_status")
 msgid "Status"
 msgstr "Status"
 
@@ -68,7 +68,7 @@ msgid "Never Backed Up!"
 msgstr "Sikkerhetskopi aldri utført!"
 
 #. Backup Options Group Label
-#: translations/strings.xml:46( name="backup_BPr_group_options") translations/strings.xml:1447( name="sync_SPr_group_options")
+#: translations/strings.xml:46( name="backup_BPr_group_options") translations/strings.xml:1450( name="sync_SPr_group_options")
 msgid "Options"
 msgstr "Alternativer"
 
@@ -319,7 +319,7 @@ msgid "Edit Task"
 msgstr "Rediger oppgave"
 
 #. Context Item: delete task
-#: translations/strings.xml:220( name="TAd_contextDeleteTask") translations/strings.xml:358( name="TEA_menu_delete")
+#: translations/strings.xml:220( name="TAd_contextDeleteTask") translations/strings.xml:361( name="TEA_menu_delete")
 msgid "Delete Task"
 msgstr "Slett oppgave"
 
@@ -498,284 +498,284 @@ msgstr ""
 msgid "Hide Until"
 msgstr "Skjul frem til"
 
+#. Widget text when loading tasks
+#: translations/strings.xml:340(item) translations/strings.xml:523( name="TWi_loading")
+msgid "Loading..."
+msgstr "Laster ..."
+
 #. Task note label
-#: translations/strings.xml:340( name="TEA_note_label")
+#: translations/strings.xml:343( name="TEA_note_label")
 msgid "Notes"
 msgstr "Notater"
 
 #. Task note hint
-#: translations/strings.xml:343( name="TEA_notes_hint")
+#: translations/strings.xml:346( name="TEA_notes_hint")
 msgid "Enter Task Notes..."
 msgstr "Legg inn oppgavenotater..."
 
 #. Estimated time label
-#: translations/strings.xml:346( name="TEA_estimatedDuration_label")
+#: translations/strings.xml:349( name="TEA_estimatedDuration_label")
 msgid "How Long Will it Take?"
 msgstr "Hvor lang tid vil det ta?"
 
 #. Elapsed time label
-#: translations/strings.xml:349( name="TEA_elapsedDuration_label")
+#: translations/strings.xml:352( name="TEA_elapsedDuration_label")
 msgid "Time Already Spent on Task"
 msgstr "Tid allerede brukt på oppgaven"
 
 #. Menu: Save
-#: translations/strings.xml:352( name="TEA_menu_save")
+#: translations/strings.xml:355( name="TEA_menu_save")
 msgid "Save Changes"
 msgstr "Lagre endringer"
 
 #. Menu: Don't Save
-#: translations/strings.xml:355( name="TEA_menu_discard")
+#: translations/strings.xml:358( name="TEA_menu_discard")
 msgid "Don't Save"
 msgstr "Ikke lagre"
 
 #. Toast: task saved with deadline (%s => preposition + time units)
-#: translations/strings.xml:361( name="TEA_onTaskSave_due")
+#: translations/strings.xml:364( name="TEA_onTaskSave_due")
 msgid "Task Saved: due %s"
 msgstr "Oppgave lagret: forfaller %s"
 
 #. Toast: task saved without deadlines
-#: translations/strings.xml:364( name="TEA_onTaskSave_notDue")
+#: translations/strings.xml:367( name="TEA_onTaskSave_notDue")
 msgid "Task Saved"
 msgstr "Oppgave lagret"
 
 #. Toast: task was not saved
-#: translations/strings.xml:367( name="TEA_onTaskCancel")
+#: translations/strings.xml:370( name="TEA_onTaskCancel")
 msgid "Task Editing Was Canceled"
 msgstr "Oppgaveredigering ble avbrutt"
 
 #. Toast: task was deleted
-#: translations/strings.xml:370( name="TEA_onTaskDelete")
+#: translations/strings.xml:373( name="TEA_onTaskDelete")
 msgid "Task Deleted!"
 msgstr "Oppgave slettet!"
 
 #. urgency: labels for edit page. item #4 -> auto filled
-#: translations/strings.xml:374(item) translations/strings.xml:388(item)
+#: translations/strings.xml:377(item) translations/strings.xml:391(item)
 msgid "Specific Day/Time"
 msgstr "Spesifikk dag/tidspunkt"
 
-#: translations/strings.xml:375(item) translations/strings.xml:472(item) translations/strings.xml:626(item)
+#: translations/strings.xml:378(item) translations/strings.xml:475(item) translations/strings.xml:629(item)
 msgid "Today"
 msgstr "I dag"
 
-#: translations/strings.xml:376(item) translations/strings.xml:473(item) translations/strings.xml:627(item)
+#: translations/strings.xml:379(item) translations/strings.xml:476(item) translations/strings.xml:630(item)
 msgid "Tomorrow"
 msgstr "I morgen"
 
-#: translations/strings.xml:377(item)
+#: translations/strings.xml:380(item)
 msgid "(day after)"
 msgstr "(dagen etter)"
 
-#: translations/strings.xml:378(item) translations/strings.xml:475(item) translations/strings.xml:629(item)
+#: translations/strings.xml:381(item) translations/strings.xml:478(item) translations/strings.xml:632(item)
 msgid "Next Week"
 msgstr "Neste uke"
 
 #. urgency: labels for "Task Defaults" preference item.
-#: translations/strings.xml:379(item) translations/strings.xml:471(item)
+#: translations/strings.xml:382(item) translations/strings.xml:474(item)
 msgid "No Deadline"
 msgstr "Ingen frist"
 
 #. hideUntil: labels for edit page.
-#: translations/strings.xml:384(item) translations/strings.xml:480(item)
+#: translations/strings.xml:387(item) translations/strings.xml:483(item)
 msgid "Don't hide"
 msgstr "Ikke skjul"
 
-#: translations/strings.xml:385(item) translations/strings.xml:481(item)
+#: translations/strings.xml:388(item) translations/strings.xml:484(item)
 msgid "Task is due"
 msgstr "Oppgaven forfaller nå"
 
-#: translations/strings.xml:386(item) translations/strings.xml:482(item)
+#: translations/strings.xml:389(item) translations/strings.xml:485(item)
 msgid "Day before due"
 msgstr "Dagen før forfall"
 
-#: translations/strings.xml:387(item) translations/strings.xml:483(item)
+#: translations/strings.xml:390(item) translations/strings.xml:486(item)
 msgid "Week before due"
 msgstr "Uke før forfall"
 
 #. Add Ons tab when no add-ons found
-#: translations/strings.xml:392( name="TEA_no_addons")
+#: translations/strings.xml:395( name="TEA_no_addons")
 msgid "No Add-ons Found!"
 msgstr "Ingen tillegg funnet!"
 
 #. Add Ons button
-#: translations/strings.xml:395( name="TEA_addons_button")
+#: translations/strings.xml:398( name="TEA_addons_button")
 msgid "Get Some Add-ons"
 msgstr "Last ned tillegg"
 
 #. Introduction Window title
-#: translations/strings.xml:400( name="InA_title")
+#: translations/strings.xml:403( name="InA_title")
 msgid "Welcome to Astrid!"
 msgstr "Velkommen til Astrid!"
 
 #. Button to agree to EULA
-#: translations/strings.xml:403( name="InA_agree")
+#: translations/strings.xml:406( name="InA_agree")
 msgid "I Agree!!"
 msgstr "Jeg er enig!"
 
 #. Button to disagree with EULA
-#: translations/strings.xml:406( name="InA_disagree")
+#: translations/strings.xml:409( name="InA_disagree")
 msgid "I Disagree"
 msgstr "Jeg er ikke enig"
 
 #. Help: Button to get support from our website
-#: translations/strings.xml:411( name="HlA_get_support")
+#: translations/strings.xml:414( name="HlA_get_support")
 msgid "Get Support"
 msgstr "Få hjelp"
 
 #. Changelog Window Title
-#: translations/strings.xml:416( name="UpS_changelog_title")
+#: translations/strings.xml:419( name="UpS_changelog_title")
 msgid "What's New In Astrid?"
 msgstr "Hva er nytt i Astrid?"
 
 #. Preference Window Title
-#: translations/strings.xml:421( name="EPr_title")
+#: translations/strings.xml:424( name="EPr_title")
 msgid "Astrid: Preferences"
 msgstr "Astrid: Innstillinger"
 
 #. Preference Category: Appearance Title
-#: translations/strings.xml:424( name="EPr_appearance_header")
+#: translations/strings.xml:427( name="EPr_appearance_header")
 msgid "Appearance"
 msgstr "Utseende"
 
 #. Preference: Task List Font Size Title
-#: translations/strings.xml:427( name="EPr_fontSize_title")
+#: translations/strings.xml:430( name="EPr_fontSize_title")
 msgid "Task List Size"
 msgstr "Størrelse på oppgavelista"
 
 #. Preference: Task List Font Size Description
-#: translations/strings.xml:429( name="EPr_fontSize_desc")
+#: translations/strings.xml:432( name="EPr_fontSize_desc")
 msgid "Font size on the main listing page"
 msgstr "Skriftstørrelse for hovedlisten"
 
 #. Preference: Task List Show Notes
-#: translations/strings.xml:432( name="EPr_showNotes_title")
+#: translations/strings.xml:435( name="EPr_showNotes_title")
 msgid "Show Notes In Task"
 msgstr "Vis notater i oppgavelista"
 
 #. Preference: Task List Show Notes Description (disabled)
-#: translations/strings.xml:434( name="EPr_showNotes_desc_disabled")
+#: translations/strings.xml:437( name="EPr_showNotes_desc_disabled")
 msgid "Notes will be displayed when you tap a task"
 msgstr "Notater vil vises når du klikker på en oppgave"
 
 #. Preference: Task List Show Notes Description (enabled)
-#: translations/strings.xml:436( name="EPr_showNotes_desc_enabled")
+#: translations/strings.xml:439( name="EPr_showNotes_desc_enabled")
 msgid "Notes will always displayed"
 msgstr "Notater vil alltid vises"
 
 #. Preference Category: Defaults Title
-#: translations/strings.xml:439( name="EPr_defaults_header") translations/strings.xml:969( name="rmd_EPr_defaults_header")
+#: translations/strings.xml:442( name="EPr_defaults_header") translations/strings.xml:972( name="rmd_EPr_defaults_header")
 msgid "New Task Defaults"
 msgstr "Nye standardverdier for oppgaver"
 
 #. Preference: Default Urgency Title
-#: translations/strings.xml:442( name="EPr_default_urgency_title")
+#: translations/strings.xml:445( name="EPr_default_urgency_title")
 msgid "Default Urgency"
 msgstr "Standard"
 
 #. Preference: Default Urgency Description (%s => setting)
-#: translations/strings.xml:444( name="EPr_default_urgency_desc") translations/strings.xml:449( name="EPr_default_importance_desc") translations/strings.xml:454( name="EPr_default_hideUntil_desc") translations/strings.xml:459( name="EPr_default_reminders_desc")
+#: translations/strings.xml:447( name="EPr_default_urgency_desc") translations/strings.xml:452( name="EPr_default_importance_desc") translations/strings.xml:457( name="EPr_default_hideUntil_desc") translations/strings.xml:462( name="EPr_default_reminders_desc")
 msgid "Currently: %s"
 msgstr ""
 
 #. Preference: Default Importance Title
-#: translations/strings.xml:447( name="EPr_default_importance_title")
+#: translations/strings.xml:450( name="EPr_default_importance_title")
 msgid "Default Importance"
 msgstr "Standard viktighet"
 
 #. Preference: Default Hide Until Title
-#: translations/strings.xml:452( name="EPr_default_hideUntil_title")
+#: translations/strings.xml:455( name="EPr_default_hideUntil_title")
 msgid "Default Hide Until"
 msgstr "Standard skjul frem til"
 
 #. Preference: Default Reminders Title
-#: translations/strings.xml:457( name="EPr_default_reminders_title")
+#: translations/strings.xml:460( name="EPr_default_reminders_title")
 msgid "Default Reminders"
 msgstr "Standard påminnere"
 
 #. importance: labels for "Task Defaults" preference item.
-#: translations/strings.xml:463(item)
+#: translations/strings.xml:466(item)
 msgid "!!!! (Highest)"
 msgstr "!!!! (Høyest)"
 
-#: translations/strings.xml:464(item)
+#: translations/strings.xml:467(item)
 msgid "!!!"
 msgstr "!!!"
 
-#: translations/strings.xml:465(item)
+#: translations/strings.xml:468(item)
 msgid "!!"
 msgstr "!!"
 
-#: translations/strings.xml:466(item)
+#: translations/strings.xml:469(item)
 msgid "! (Lowest)"
 msgstr "! (Lavest)"
 
-#: translations/strings.xml:474(item) translations/strings.xml:628(item)
+#: translations/strings.xml:477(item) translations/strings.xml:631(item)
 msgid "Day After Tomorrow"
 msgstr "I overmorgen"
 
 #. reminders: labels for "Task Defaults" preference item.
-#: translations/strings.xml:488(item)
+#: translations/strings.xml:491(item)
 msgid "No deadline reminders"
 msgstr "Ingen varsling ved forfall"
 
-#: translations/strings.xml:489(item)
+#: translations/strings.xml:492(item)
 msgid "At deadline"
 msgstr "Ved forfall"
 
-#: translations/strings.xml:490(item)
+#: translations/strings.xml:493(item)
 msgid "When overdue"
 msgstr ""
 
-#: translations/strings.xml:491(item)
+#: translations/strings.xml:494(item)
 msgid "At deadline or overdue"
 msgstr ""
 
 #. Add Ons Activity Title
-#: translations/strings.xml:497( name="AOA_title")
+#: translations/strings.xml:500( name="AOA_title")
 msgid "Astrid: Add Ons"
 msgstr "Astrid: Tillegg"
 
 #. Add-on Activity: author for internal authors
-#: translations/strings.xml:500( name="AOA_internal_author")
+#: translations/strings.xml:503( name="AOA_internal_author")
 msgid "Astrid Team"
 msgstr "Astrid-teamet"
 
 #. Add-on Activity: installed add-ons tab
-#: translations/strings.xml:503( name="AOA_tab_installed")
+#: translations/strings.xml:506( name="AOA_tab_installed")
 msgid "Installed"
 msgstr "Installert"
 
 #. Add-on Activity - available add-ons tab
-#: translations/strings.xml:506( name="AOA_tab_available")
+#: translations/strings.xml:509( name="AOA_tab_available")
 msgid "Available"
 msgstr "Tilgjengelige"
 
 #. Add-on Activity - free add-ons label
-#: translations/strings.xml:509( name="AOA_free")
+#: translations/strings.xml:512( name="AOA_free")
 msgid "Free"
 msgstr "Gratis"
 
 #. Add-on Activity - menu item to visit add-on website
-#: translations/strings.xml:512( name="AOA_visit_website")
+#: translations/strings.xml:515( name="AOA_visit_website")
 msgid "Visit Website"
 msgstr "Besøk Webside"
 
 #. Add-on Activity - menu item to visit android market
-#: translations/strings.xml:515( name="AOA_visit_market")
+#: translations/strings.xml:518( name="AOA_visit_market")
 msgid "Android Market"
 msgstr "Android Market"
 
-#. Widget text when loading tasks
-#: translations/strings.xml:520( name="TWi_loading")
-msgid "Loading..."
-msgstr "Laster ..."
-
 #. Widget configuration activity title: select a filter
-#: translations/strings.xml:523( name="WCA_title")
+#: translations/strings.xml:526( name="WCA_title")
 msgid "Select tasks to view..."
 msgstr ""
 
 #. Displayed when task killer found. %s => name of the application
-#: translations/strings.xml:528( name="task_killer_help")
+#: translations/strings.xml:531( name="task_killer_help")
 msgid ""
 "It looks like you are using an app that can kill processes (%s)! If you can, "
 "add Astrid to the exclusion list so it doesn't get killed. Otherwise, Astrid "
@@ -787,17 +787,17 @@ msgstr ""
 "forfalle."
 
 #. Task killer dialog ok button
-#: translations/strings.xml:535( name="task_killer_help_ok")
+#: translations/strings.xml:538( name="task_killer_help_ok")
 msgid "I Won't Kill Astrid!"
 msgstr "Jeg ønsker ikke å avslutte Astrid!"
 
 #. Astrid's Android Marketplace title. It never appears in the app itself.
-#: translations/strings.xml:538( name="marketplace_title")
+#: translations/strings.xml:541( name="marketplace_title")
 msgid "Astrid Task/Todo List"
 msgstr "Astrid Oppgave/Ting å gjøre liste"
 
 #. Astrid's Android Marketplace description. It never appears in the app itself.
-#: translations/strings.xml:541( name="marketplace_description")
+#: translations/strings.xml:544( name="marketplace_description")
 msgid ""
 "Astrid is the much loved open-source todo list / task manager designed to "
 "help you get stuff done. It features reminders, tags, sync, Locale plug-in, "
@@ -805,77 +805,77 @@ msgid ""
 msgstr ""
 
 #. Active Tasks Filter
-#: translations/strings.xml:556( name="BFE_Active") translations/strings.xml:585( name="CFA_universe_all")
+#: translations/strings.xml:559( name="BFE_Active") translations/strings.xml:588( name="CFA_universe_all")
 msgid "Active Tasks"
 msgstr "Aktive oppgaver"
 
 #. Search Filter
-#: translations/strings.xml:559( name="BFE_Search")
+#: translations/strings.xml:562( name="BFE_Search")
 msgid "Search..."
 msgstr "Søk..."
 
 #. Recently Modified
-#: translations/strings.xml:562( name="BFE_Recent")
+#: translations/strings.xml:565( name="BFE_Recent")
 msgid "Recently Modified"
 msgstr "Nylig endret"
 
 #. Build Your Own Filter
-#: translations/strings.xml:565( name="BFE_Custom")
+#: translations/strings.xml:568( name="BFE_Custom")
 msgid "Custom Filter..."
 msgstr "Egendefinert filter..."
 
 #. Saved Filters Header
-#: translations/strings.xml:568( name="BFE_Saved")
+#: translations/strings.xml:571( name="BFE_Saved")
 msgid "Saved Filters"
 msgstr "Lagrede filter"
 
 #. Saved Filters Context Menu: delete
-#: translations/strings.xml:571( name="BFE_Saved_delete")
+#: translations/strings.xml:574( name="BFE_Saved_delete")
 msgid "Delete Filter"
 msgstr "Slett filter"
 
 #. Build Your Own Filter Activity Title
-#: translations/strings.xml:576( name="CFA_title")
+#: translations/strings.xml:579( name="CFA_title")
 msgid "Custom Filter"
 msgstr "Egendefinert filter"
 
 #. Filter Name edit box hint (if user types here, filter will be saved)
-#: translations/strings.xml:579( name="CFA_filterName_hint")
+#: translations/strings.xml:582( name="CFA_filterName_hint")
 msgid "Name this filter to save it..."
 msgstr ""
 
 #. Filter Name default for copied filters (%s => old filter name)
-#: translations/strings.xml:582( name="CFA_filterName_copy")
+#: translations/strings.xml:585( name="CFA_filterName_copy")
 msgid "Copy of %s"
 msgstr "Kopi av %s"
 
 #. Filter Criteria Type: add (at the begging of title of the criteria)
-#: translations/strings.xml:588( name="CFA_type_add")
+#: translations/strings.xml:591( name="CFA_type_add")
 msgid "or"
 msgstr "eller"
 
 #. Filter Criteria Type: subtract (at the begging of title of the criteria)
-#: translations/strings.xml:591( name="CFA_type_subtract")
+#: translations/strings.xml:594( name="CFA_type_subtract")
 msgid "not"
 msgstr "ikke"
 
 #. Filter Criteria Type: intersect (at the begging of title of the criteria)
-#: translations/strings.xml:594( name="CFA_type_intersect")
+#: translations/strings.xml:597( name="CFA_type_intersect")
 msgid "also"
 msgstr "og"
 
 #. Filter Criteria Context Menu: chaining (%s chain type as above)
-#: translations/strings.xml:597( name="CFA_context_chain")
+#: translations/strings.xml:600( name="CFA_context_chain")
 msgid "Chaining: %s"
 msgstr ""
 
 #. Filter Criteria Context Menu: delete
-#: translations/strings.xml:600( name="CFA_context_delete")
+#: translations/strings.xml:603( name="CFA_context_delete")
 msgid "Delete Row"
 msgstr "Slett rad"
 
 #. Filter Screen Help Text
-#: translations/strings.xml:603( name="CFA_help")
+#: translations/strings.xml:606( name="CFA_help")
 msgid ""
 "This screen lets you create a new filters. Add criteria using the button "
 "below, short or long-press them to adjust, and then click \"View\"!"
@@ -885,130 +885,130 @@ msgstr ""
 "innstillinger og trykk til slutt \"Vis\"!"
 
 #. Filter Button: add new
-#: translations/strings.xml:608( name="CFA_button_add")
+#: translations/strings.xml:611( name="CFA_button_add")
 msgid "Add Criteria"
 msgstr "Legg til kriterium"
 
 #. Filter Button: view without saving
-#: translations/strings.xml:611( name="CFA_button_view")
+#: translations/strings.xml:614( name="CFA_button_view")
 msgid "View"
 msgstr "Vis"
 
 #. Filter Button: save & view filter
-#: translations/strings.xml:614( name="CFA_button_save")
+#: translations/strings.xml:617( name="CFA_button_save")
 msgid "Save &amp; View"
 msgstr "Lagre &amp; vis"
 
 #. Criteria: due by X - display text (? -> user input)
-#: translations/strings.xml:619( name="CFC_dueBefore_text")
+#: translations/strings.xml:622( name="CFC_dueBefore_text")
 msgid "Due By: ?"
 msgstr "Forfaller innen: ?"
 
 #. Criteria: due by X - name of criteria
-#: translations/strings.xml:621( name="CFC_dueBefore_name")
+#: translations/strings.xml:624( name="CFC_dueBefore_name")
 msgid "Due By..."
 msgstr "Forfaller innen..."
 
 #. Criteria: due by X - options
-#: translations/strings.xml:624(item)
+#: translations/strings.xml:627(item)
 msgid "No Due Date"
 msgstr "Ingen forfallsdato"
 
-#: translations/strings.xml:625(item)
+#: translations/strings.xml:628(item)
 msgid "Yesterday"
 msgstr "I går"
 
-#: translations/strings.xml:630(item)
+#: translations/strings.xml:633(item)
 msgid "Next Month"
 msgstr "Neste måned"
 
 #. Criteria: importance - display text (? -> user input)
-#: translations/strings.xml:634( name="CFC_importance_text")
+#: translations/strings.xml:637( name="CFC_importance_text")
 msgid "Importance at least ?"
 msgstr "Viktighet minst ?"
 
 #. Criteria: importance - name of criteria
-#: translations/strings.xml:636( name="CFC_importance_name")
+#: translations/strings.xml:639( name="CFC_importance_name")
 msgid "Importance..."
 msgstr "Viktighet..."
 
 #. Criteria: tag - display text (? -> user input)
-#: translations/strings.xml:639( name="CFC_tag_text")
+#: translations/strings.xml:642( name="CFC_tag_text")
 msgid "Tagged: ?"
 msgstr "Merket: ?"
 
 #. Criteria: tag - name of criteria
-#: translations/strings.xml:641( name="CFC_tag_name")
+#: translations/strings.xml:644( name="CFC_tag_name")
 msgid "Tagged..."
 msgstr "Merket..."
 
 #. Criteria: tag_contains - name of criteria
-#: translations/strings.xml:644( name="CFC_tag_contains_name")
+#: translations/strings.xml:647( name="CFC_tag_contains_name")
 msgid "Tag contains..."
 msgstr "Merking inneholder..."
 
 #. Criteria: tag_contains - text (? -> user input)
-#: translations/strings.xml:646( name="CFC_tag_contains_text")
+#: translations/strings.xml:649( name="CFC_tag_contains_text")
 msgid "Tag contains: ?"
 msgstr "Merking inneholder: ?"
 
 #. Criteria: title_contains - name of criteria
-#: translations/strings.xml:649( name="CFC_title_contains_name")
+#: translations/strings.xml:652( name="CFC_title_contains_name")
 msgid "Title contains..."
 msgstr "Tittel inneholder..."
 
 #. Criteria: title_contains - text (? -> user input)
-#: translations/strings.xml:651( name="CFC_title_contains_text")
+#: translations/strings.xml:654( name="CFC_title_contains_text")
 msgid "Title contains: ?"
 msgstr "Tittel inneholder: ?"
 
 #. Error message for adding to calendar
-#: translations/strings.xml:663( name="gcal_TEA_error")
+#: translations/strings.xml:666( name="gcal_TEA_error")
 msgid "Error adding task to calendar!"
 msgstr "Klarte ikke legge oppgave til kalender!"
 
 #. Label for adding task to calendar
-#: translations/strings.xml:666( name="gcal_TEA_calendar_label")
+#: translations/strings.xml:669( name="gcal_TEA_calendar_label")
 msgid "Calendar Integration:"
 msgstr "Kalenderintegrasjon:"
 
 #. Label for adding task to calendar
-#: translations/strings.xml:669( name="gcal_TEA_addToCalendar_label")
+#: translations/strings.xml:672( name="gcal_TEA_addToCalendar_label")
 msgid "Create Calendar Event"
 msgstr "Opprett kalenderhendelse"
 
 #. Label when calendar event already exists
-#: translations/strings.xml:672( name="gcal_TEA_showCalendar_label")
+#: translations/strings.xml:675( name="gcal_TEA_showCalendar_label")
 msgid "Open Calendar Event"
 msgstr "Åpne kalenderhendelse"
 
 #. Toast when unable to open calendar event
-#: translations/strings.xml:675( name="gcal_TEA_calendar_error")
+#: translations/strings.xml:678( name="gcal_TEA_calendar_error")
 msgid "Error opening event!"
 msgstr ""
 
 #. Toast when calendar event updated because task changed
-#: translations/strings.xml:678( name="gcal_TEA_calendar_updated")
+#: translations/strings.xml:681( name="gcal_TEA_calendar_updated")
 msgid "Calendar event also updated!"
 msgstr "Kalenderhendelsen ble også oppdatert!"
 
 #. Calendar event name when task is completed (%s => task title)
-#: translations/strings.xml:683( name="gcal_completed_title")
+#: translations/strings.xml:686( name="gcal_completed_title")
 msgid "%s (completed)"
 msgstr "%s (fullført)"
 
 #. System Default Calendar (displayed if we can't figure out calendars)
-#: translations/strings.xml:686( name="gcal_GCP_default")
+#: translations/strings.xml:689( name="gcal_GCP_default")
 msgid "Default Calendar"
 msgstr "Standard kalender"
 
 #. Locale Alert Editing Window Title
-#: translations/strings.xml:697( name="locale_edit_alerts_title")
+#: translations/strings.xml:700( name="locale_edit_alerts_title")
 msgid "Astrid Filter Alert"
 msgstr "Astrid filteralarm"
 
 #. Locale Window Help
-#: translations/strings.xml:700( name="locale_edit_intro")
+#: translations/strings.xml:703( name="locale_edit_intro")
 msgid ""
 "Astrid will send you a reminder when you have any tasks in the following "
 "filter:"
@@ -1016,909 +1016,909 @@ msgstr ""
 "Astrid vil gi deg en påminner når du har oppgaver i følgender filter:"
 
 #. Locale Window Filter Picker UI
-#: translations/strings.xml:704( name="locale_pick_filter")
+#: translations/strings.xml:707( name="locale_pick_filter")
 msgid "Filter:"
 msgstr "Filter:"
 
 #. Locale Window Interval Label
-#: translations/strings.xml:707( name="locale_interval_label")
+#: translations/strings.xml:710( name="locale_interval_label")
 msgid "Limit notifications to:"
 msgstr "Begrens påminnelser til:"
 
-#: translations/strings.xml:711(item)
+#: translations/strings.xml:714(item)
 msgid "once an hour"
 msgstr "en gang i timen"
 
-#: translations/strings.xml:712(item)
+#: translations/strings.xml:715(item)
 msgid "once every six hours"
 msgstr "hver sjette time"
 
-#: translations/strings.xml:713(item)
+#: translations/strings.xml:716(item)
 msgid "once every twelve hours"
 msgstr "hver tolvte time"
 
-#: translations/strings.xml:714(item)
+#: translations/strings.xml:717(item)
 msgid "once a day"
 msgstr "en gang om dagen"
 
-#: translations/strings.xml:715(item)
+#: translations/strings.xml:718(item)
 msgid "once every three days"
 msgstr "en gang hver tredje dag"
 
-#: translations/strings.xml:716(item)
+#: translations/strings.xml:719(item)
 msgid "once a week"
 msgstr "en gang i uken"
 
 #. Locale Notification text
-#: translations/strings.xml:720( name="locale_notification")
+#: translations/strings.xml:723( name="locale_notification")
 msgid "You have $NUM matching: $FILTER"
 msgstr "Du har $NUM som matcher: $FILTER"
 
 #. Locale Plugin was not found, it is required
-#: translations/strings.xml:723( name="locale_plugin_required")
+#: translations/strings.xml:726( name="locale_plugin_required")
 msgid "Please install the Astrid Locale plugin!"
 msgstr "Vennligst innstaller Astrid Locale tillegget!"
 
 #. filters header: Producteev
-#: translations/strings.xml:733( name="producteev_FEx_header") translations/strings.xml:753( name="producteev_PPr_header") translations/strings.xml:821( name="producteev_notification_title")
+#: translations/strings.xml:736( name="producteev_FEx_header") translations/strings.xml:756( name="producteev_PPr_header") translations/strings.xml:824( name="producteev_notification_title")
 msgid "Producteev"
 msgstr "Producteev"
 
 #. filter category for Producteev dashboards
-#: translations/strings.xml:736( name="producteev_FEx_dashboard")
+#: translations/strings.xml:739( name="producteev_FEx_dashboard")
 msgid "Workspaces"
 msgstr ""
 
 #. filter category for Producteev responsible person
-#: translations/strings.xml:739( name="producteev_FEx_responsible")
+#: translations/strings.xml:742( name="producteev_FEx_responsible")
 msgid "Assigned To"
 msgstr "Tildelt til"
 
 #. Producteev dashboard filter title (%s => dashboardname)
-#: translations/strings.xml:742( name="producteev_FEx_responsible_title")
+#: translations/strings.xml:745( name="producteev_FEx_responsible_title")
 msgid "Assigned To '%s'"
 msgstr "Tildelt til '%s'"
 
 #. detail for showing tasks created by someone else (%s => person name)
-#: translations/strings.xml:745( name="producteev_PDE_task_from")
+#: translations/strings.xml:748( name="producteev_PDE_task_from")
 msgid "from %s"
 msgstr "fra %s"
 
 #. replacement string for task edit "Notes" when using Producteev
-#: translations/strings.xml:748( name="producteev_TEA_notes")
+#: translations/strings.xml:751( name="producteev_TEA_notes")
 msgid "Add a Comment"
 msgstr "Legg til kommentar"
 
 #. dashboard title for producteev default dashboard
-#: translations/strings.xml:756( name="producteev_default_dashboard") translations/strings.xml:768( name="producteev_PPr_defaultdash_title")
+#: translations/strings.xml:759( name="producteev_default_dashboard") translations/strings.xml:771( name="producteev_PPr_defaultdash_title")
 msgid "Default Workspace"
 msgstr ""
 
 #. dashboard title for tasks that are not synchronized
-#: translations/strings.xml:759( name="producteev_no_dashboard")
+#: translations/strings.xml:762( name="producteev_no_dashboard")
 msgid "Do Not Synchronize"
 msgstr "Ikke synkroniser"
 
 #. dashboard spinner entry on TEA for adding a new dashboard
-#: translations/strings.xml:762( name="producteev_create_dashboard")
+#: translations/strings.xml:765( name="producteev_create_dashboard")
 msgid "Add new Workspace..."
 msgstr ""
 
 #. dashboard spinner entry on TEA for adding a new dashboard
-#: translations/strings.xml:765( name="producteev_create_dashboard_name")
+#: translations/strings.xml:768( name="producteev_create_dashboard_name")
 msgid "Name for new Workspace"
 msgstr ""
 
 #. preference description for default dashboard (%s -> setting)
-#: translations/strings.xml:771( name="producteev_PPr_defaultdash_summary")
+#: translations/strings.xml:774( name="producteev_PPr_defaultdash_summary")
 msgid "New tasks will be added to: %s"
 msgstr "Nye oppgaver legges til: %s"
 
 #. preference description for default dashboard (when set to 'not synchronized')
-#: translations/strings.xml:774( name="producteev_PPr_defaultdash_summary_none")
+#: translations/strings.xml:777( name="producteev_PPr_defaultdash_summary_none")
 msgid "New tasks will not be synchronized by default"
 msgstr ""
 
 #. Activity Title: Producteev Login
-#: translations/strings.xml:779( name="producteev_PLA_title")
+#: translations/strings.xml:782( name="producteev_PLA_title")
 msgid "Log In to Producteev"
 msgstr "Logg inn til Producteev"
 
 #. Instructions: Producteev login
-#: translations/strings.xml:782( name="producteev_PLA_body")
+#: translations/strings.xml:785( name="producteev_PLA_body")
 msgid ""
 "Sign in with your existing Producteev account, or create a new account!"
 msgstr "Logg inn med din Producteev-konto eller opprett en ny konto!"
 
 #. Producteev Terms Link
-#: translations/strings.xml:786( name="producteev_PLA_terms")
+#: translations/strings.xml:789( name="producteev_PLA_terms")
 msgid "Terms &amp; Conditions"
 msgstr "Vilkår for bruk"
 
 #. Sign In Button
-#: translations/strings.xml:789( name="producteev_PLA_signIn")
+#: translations/strings.xml:792( name="producteev_PLA_signIn")
 msgid "Sign In"
 msgstr "Logg inn"
 
 #. Create New User Button
-#: translations/strings.xml:792( name="producteev_PLA_createNew")
+#: translations/strings.xml:795( name="producteev_PLA_createNew")
 msgid "Create New User"
 msgstr "Lag ny bruker"
 
 #. E-mail Address Label
-#: translations/strings.xml:795( name="producteev_PLA_email")
+#: translations/strings.xml:798( name="producteev_PLA_email")
 msgid "E-mail"
 msgstr "E-post"
 
 #. Password Label
-#: translations/strings.xml:798( name="producteev_PLA_password")
+#: translations/strings.xml:801( name="producteev_PLA_password")
 msgid "Password"
 msgstr "Passord"
 
 #. Confirm Password Label
-#: translations/strings.xml:801( name="producteev_PLA_confirmPassword")
+#: translations/strings.xml:804( name="producteev_PLA_confirmPassword")
 msgid "Confirm Password"
 msgstr "Bekreft passord"
 
 #. First Name Label
-#: translations/strings.xml:804( name="producteev_PLA_firstName")
+#: translations/strings.xml:807( name="producteev_PLA_firstName")
 msgid "First Name"
 msgstr "Fornavn"
 
 #. Last Name Label
-#: translations/strings.xml:807( name="producteev_PLA_lastName")
+#: translations/strings.xml:810( name="producteev_PLA_lastName")
 msgid "Last Name"
 msgstr "Etternavn"
 
 #. Error Message when fields aren't filled out
-#: translations/strings.xml:810( name="producteev_PLA_errorEmpty")
+#: translations/strings.xml:813( name="producteev_PLA_errorEmpty")
 msgid "Error: fill out all fields!"
 msgstr "Feil: Alle felt må fylles ut!"
 
 #. Error Message when passwords don't match
-#: translations/strings.xml:813( name="producteev_PLA_errorMatch")
+#: translations/strings.xml:816( name="producteev_PLA_errorMatch")
 msgid "Error: passwords don't match!"
 msgstr ""
 
 #. Error Message when we receive a HTTP 401 Unauthorized
-#: translations/strings.xml:816( name="producteev_PLA_errorAuth")
+#: translations/strings.xml:819( name="producteev_PLA_errorAuth")
 msgid "Error: e-mail or password incorrect!"
 msgstr "Feil: Feil E-post eller passord!"
 
 #. text for notification tray when synchronizing
-#: translations/strings.xml:824( name="producteev_notification_text")
+#: translations/strings.xml:827( name="producteev_notification_text")
 msgid "%s tasks updated / click for more details"
 msgstr "%s oppdaterte oppgaver / trykk for flere detaljer"
 
 #. Error msg when io exception
-#: translations/strings.xml:827( name="producteev_ioerror")
+#: translations/strings.xml:830( name="producteev_ioerror")
 msgid "Connection Error! Check your Internet connection."
 msgstr "Tilkoblingsfeil! Kontroller at du er koblet til Internett"
 
 #. Prod Login email not specified
-#: translations/strings.xml:830( name="producteev_MLA_email_empty")
+#: translations/strings.xml:833( name="producteev_MLA_email_empty")
 msgid "E-Mail was not specified!"
 msgstr "E-post ble ikke spesifisert!"
 
 #. Prod Login password not specified
-#: translations/strings.xml:833( name="producteev_MLA_password_empty")
+#: translations/strings.xml:836( name="producteev_MLA_password_empty")
 msgid "Password was not specified!"
 msgstr "Passord ble ikke spesifisert!"
 
 #. label for task-assignment spinner on taskeditactivity
-#: translations/strings.xml:838( name="producteev_TEA_task_assign_label")
+#: translations/strings.xml:841( name="producteev_TEA_task_assign_label")
 msgid "Assign this task to this person:"
 msgstr ""
 
 #. Spinner-item for unassigned tasks on taskeditactivity
-#: translations/strings.xml:841( name="producteev_TEA_task_unassigned")
+#: translations/strings.xml:844( name="producteev_TEA_task_unassigned")
 msgid "&lt;Unassigned&gt;"
 msgstr ""
 
 #. label for dashboard-assignment spinner on taskeditactivity
-#: translations/strings.xml:844( name="producteev_TEA_dashboard_assign_label")
+#: translations/strings.xml:847( name="producteev_TEA_dashboard_assign_label")
 msgid "Assign this task to this workspace:"
 msgstr ""
 
 #. Spinner-item for default dashboard on taskeditactivity
-#: translations/strings.xml:847( name="producteev_TEA_dashboard_default")
+#: translations/strings.xml:850( name="producteev_TEA_dashboard_default")
 msgid "&lt;Default&gt;"
 msgstr ""
 
 #. Task Edit: Reminder header label
-#: translations/strings.xml:858( name="TEA_reminder_label")
+#: translations/strings.xml:861( name="TEA_reminder_label")
 msgid "Remind me..."
 msgstr "Minn meg på..."
 
 #. Task Edit: Reminder @ deadline
-#: translations/strings.xml:861( name="TEA_reminder_due")
+#: translations/strings.xml:864( name="TEA_reminder_due")
 msgid "... when task is due"
 msgstr "...når oppgaven forfaller"
 
 #. Task Edit: Reminder after deadline
-#: translations/strings.xml:864( name="TEA_reminder_overdue")
+#: translations/strings.xml:867( name="TEA_reminder_overdue")
 msgid "... when task is overdue"
 msgstr "... når oppgaven har forfalt"
 
 #. Task Edit: Reminder at random times (%s => time plural)
-#: translations/strings.xml:867( name="TEA_reminder_random")
+#: translations/strings.xml:870( name="TEA_reminder_random")
 msgid "... randomly once"
 msgstr "... tilfeldig tidspunkt, en gang."
 
 #. Task Edit: Reminder alarm clock label
-#: translations/strings.xml:870( name="TEA_reminder_alarm_label")
+#: translations/strings.xml:873( name="TEA_reminder_alarm_label")
 msgid "Ring/Vibrate Type:"
 msgstr "Ringe- og vibrasjonstype:"
 
 #. Task Edit: Reminder alarm clock toggle: off
-#: translations/strings.xml:873( name="TEA_reminder_alarm_off")
+#: translations/strings.xml:876( name="TEA_reminder_alarm_off")
 msgid "Ring Once"
 msgstr "Ring én gang"
 
 #. Task Edit: Reminder alarm clock toggle: on
-#: translations/strings.xml:876( name="TEA_reminder_alarm_on")
+#: translations/strings.xml:879( name="TEA_reminder_alarm_on")
 msgid "Ring Until I Dismiss Alarm"
 msgstr "Ring til jeg slår av alarmen"
 
 #. random reminder choices for task edit page.
-#: translations/strings.xml:880(item)
+#: translations/strings.xml:883(item)
 msgid "an hour"
 msgstr "i timen"
 
-#: translations/strings.xml:881(item)
+#: translations/strings.xml:884(item)
 msgid "a day"
 msgstr "om dagen"
 
-#: translations/strings.xml:882(item)
+#: translations/strings.xml:885(item)
 msgid "a week"
 msgstr "i uka"
 
-#: translations/strings.xml:883(item)
+#: translations/strings.xml:886(item)
 msgid "in two weeks"
 msgstr "om to uker"
 
-#: translations/strings.xml:884(item)
+#: translations/strings.xml:887(item)
 msgid "a month"
 msgstr "i måneden"
 
-#: translations/strings.xml:885(item)
+#: translations/strings.xml:888(item)
 msgid "in two months"
 msgstr "om to måneder"
 
 #. Name of filter when viewing a reminder
-#: translations/strings.xml:891( name="rmd_NoA_filter")
+#: translations/strings.xml:894( name="rmd_NoA_filter")
 msgid "Reminder!"
 msgstr "Påminnelse!"
 
 #. Reminder: Task was already done
-#: translations/strings.xml:894( name="rmd_NoA_done")
+#: translations/strings.xml:897( name="rmd_NoA_done")
 msgid "Already Done!"
 msgstr "Allerede utført!"
 
 #. Reminder: Snooze button (remind again later)
-#: translations/strings.xml:897( name="rmd_NoA_snooze")
+#: translations/strings.xml:900( name="rmd_NoA_snooze")
 msgid "Snooze..."
 msgstr "Slumre"
 
 #. Reminder: Cancel reminder
-#: translations/strings.xml:900( name="rmd_NoA_goAway")
+#: translations/strings.xml:903( name="rmd_NoA_goAway")
 msgid "Go Away!"
 msgstr "Gå vekk!"
 
 #. Reminder Preference Screen Title
-#: translations/strings.xml:905( name="rmd_EPr_alerts_header")
+#: translations/strings.xml:908( name="rmd_EPr_alerts_header")
 msgid "Reminder Settings"
 msgstr "Instillinger for påminnelse"
 
 #. Reminder Preference: Quiet Hours Start Title
-#: translations/strings.xml:908( name="rmd_EPr_quiet_hours_start_title")
+#: translations/strings.xml:911( name="rmd_EPr_quiet_hours_start_title")
 msgid "Quiet Hours Start"
 msgstr "Stilletimer start"
 
 #. Reminder Preference: Quiet Hours Start Description (%s => time set)
-#: translations/strings.xml:910( name="rmd_EPr_quiet_hours_start_desc")
+#: translations/strings.xml:913( name="rmd_EPr_quiet_hours_start_desc")
 msgid "No notifications will appear after %s"
 msgstr "Ingen varsler vil vises etter %s"
 
 #. Reminder Preference: Quiet Hours Start/End Description (disabled)
-#: translations/strings.xml:912( name="rmd_EPr_quiet_hours_desc_none")
+#: translations/strings.xml:915( name="rmd_EPr_quiet_hours_desc_none")
 msgid "Quiet hours is disabled"
 msgstr "Stilletimer er deaktivert"
 
 #. Reminder Preference: Quiet Hours End Title
-#: translations/strings.xml:915( name="rmd_EPr_quiet_hours_end_title")
+#: translations/strings.xml:918( name="rmd_EPr_quiet_hours_end_title")
 msgid "Quiet Hours End"
 msgstr "Stilletimer slutt"
 
 #. Reminder Preference: Quiet Hours End Description (%s => time set)
-#: translations/strings.xml:917( name="rmd_EPr_quiet_hours_end_desc")
+#: translations/strings.xml:920( name="rmd_EPr_quiet_hours_end_desc")
 msgid "Notifications will begin appearing starting at %s"
 msgstr "Varsler vil vises etter %s"
 
 #. Reminder Preference: Notification Ringtone Title
-#: translations/strings.xml:920( name="rmd_EPr_ringtone_title")
+#: translations/strings.xml:923( name="rmd_EPr_ringtone_title")
 msgid "Notification Ringtone"
 msgstr "Ringetone for meldinger"
 
 #. Reminder Preference: Notification Ringtone Description (when custom tone is set)
-#: translations/strings.xml:922( name="rmd_EPr_ringtone_desc_custom")
+#: translations/strings.xml:925( name="rmd_EPr_ringtone_desc_custom")
 msgid "Custom ringtone has been set"
 msgstr "Tilpasset ringetone er satt"
 
 #. Reminder Preference: Notification Ringtone Description (when silence is set)
-#: translations/strings.xml:924( name="rmd_EPr_ringtone_desc_silent")
+#: translations/strings.xml:927( name="rmd_EPr_ringtone_desc_silent")
 msgid "Ringtone set to silent"
 msgstr "Ringetone satt på Stille"
 
 #. Reminder Preference: Notification Ringtone Description (when custom tone is not set)
-#: translations/strings.xml:926( name="rmd_EPr_ringtone_desc_default")
+#: translations/strings.xml:929( name="rmd_EPr_ringtone_desc_default")
 msgid "Default ringtone will be used"
 msgstr "Standard ringetone vil bli brukt"
 
 #. Reminder Preference: Notification Persistence Title
-#: translations/strings.xml:929( name="rmd_EPr_persistent_title")
+#: translations/strings.xml:932( name="rmd_EPr_persistent_title")
 msgid "Notification Persistence"
 msgstr "Påminnelse intensitet"
 
 #. Reminder Preference: Notification Persistence Description (true)
-#: translations/strings.xml:931( name="rmd_EPr_persistent_desc_true")
+#: translations/strings.xml:934( name="rmd_EPr_persistent_desc_true")
 msgid "Notifications must be viewed individually to be cleared"
 msgstr "Varsler må ses individuelt for å kunne fjernes"
 
 #. Reminder Preference: Notification Persistence Description (false)
-#: translations/strings.xml:933( name="rmd_EPr_persistent_desc_false")
+#: translations/strings.xml:936( name="rmd_EPr_persistent_desc_false")
 msgid "Notifications can be cleared with \"Clear All\" button"
 msgstr "Varsler kan slettes med \"Slett alt\"-knappen"
 
 #. Reminder Preference: Notification Icon Title
-#: translations/strings.xml:936( name="rmd_EPr_notificon_title")
+#: translations/strings.xml:939( name="rmd_EPr_notificon_title")
 msgid "Notification Icon Set"
 msgstr "Velg Symbol for Varsel"
 
 #. Reminder Preference: Notification Icon Description
-#: translations/strings.xml:938( name="rmd_Epr_notificon_desc")
+#: translations/strings.xml:941( name="rmd_Epr_notificon_desc")
 msgid "Choose Astrid's notification bar icon"
 msgstr "Velg symbol for statuslinjen"
 
 #. Reminder Preference: Vibrate Title
-#: translations/strings.xml:941( name="rmd_EPr_vibrate_title")
+#: translations/strings.xml:944( name="rmd_EPr_vibrate_title")
 msgid "Vibrate on Alert"
 msgstr "Vibrasjonsvarsling"
 
 #. Reminder Preference: Vibrate Description (true)
-#: translations/strings.xml:943( name="rmd_EPr_vibrate_desc_true")
+#: translations/strings.xml:946( name="rmd_EPr_vibrate_desc_true")
 msgid "Astrid will vibrate when sending notifications"
 msgstr "Astrid vil vibrere ved varsler/beskjeder"
 
 #. Reminder Preference: Vibrate Description (false)
-#: translations/strings.xml:945( name="rmd_EPr_vibrate_desc_false")
+#: translations/strings.xml:948( name="rmd_EPr_vibrate_desc_false")
 msgid "Astrid will not vibrate when sending notifications"
 msgstr "Astrid vil ikke vibrere ved varsler/beskjeder"
 
 #. Reminder Preference: Nagging Title
-#: translations/strings.xml:948( name="rmd_EPr_nagging_title")
+#: translations/strings.xml:951( name="rmd_EPr_nagging_title")
 msgid "Astrid Reminders"
 msgstr "Astrid påminnelser"
 
 #. Reminder Preference: Nagging Description (true)
-#: translations/strings.xml:950( name="rmd_EPr_nagging_desc_true")
+#: translations/strings.xml:953( name="rmd_EPr_nagging_desc_true")
 msgid "Astrid will show up to give you an encouragement during reminders"
 msgstr "Astid vil vise oppmuntringsbeskjeder ved påminnelser"
 
 #. Reminder Preference: Nagging Description (false)
-#: translations/strings.xml:952( name="rmd_EPr_nagging_desc_false")
+#: translations/strings.xml:955( name="rmd_EPr_nagging_desc_false")
 msgid "Astrid not give you any encouragement messages"
 msgstr "Astrid skal ikke vise oppmuntringsbeskjeder"
 
 #. Reminder Preference: Snooze Dialog Title
-#: translations/strings.xml:955( name="rmd_EPr_snooze_dialog_title")
+#: translations/strings.xml:958( name="rmd_EPr_snooze_dialog_title")
 msgid "Snooze Dialog HH:MM"
 msgstr ""
 
 #. Reminder Preference: Snooze Dialog Description (true)
-#: translations/strings.xml:957( name="rmd_EPr_snooze_dialog_desc_true")
+#: translations/strings.xml:960( name="rmd_EPr_snooze_dialog_desc_true")
 msgid "Snooze by selecting new snooze time (HH:MM)"
 msgstr ""
 
 #. Reminder Preference: Nagging Description (false)
-#: translations/strings.xml:959( name="rmd_EPr_snooze_dialog_desc_false")
+#: translations/strings.xml:962( name="rmd_EPr_snooze_dialog_desc_false")
 msgid "Snooze by selecting # days/hours to snooze"
 msgstr ""
 
 #. Reminder Preference: Default Reminders Title
-#: translations/strings.xml:962( name="rmd_EPr_defaultRemind_title")
+#: translations/strings.xml:965( name="rmd_EPr_defaultRemind_title")
 msgid "Random Reminders"
 msgstr "Tilfeldige påminnelser"
 
 #. Reminder Preference: Default Reminders Setting (disabled)
-#: translations/strings.xml:964( name="rmd_EPr_defaultRemind_desc_disabled")
+#: translations/strings.xml:967( name="rmd_EPr_defaultRemind_desc_disabled")
 msgid "New tasks will have no random reminders"
 msgstr "Nye oppgaver skal ikke påminnes tifeldig"
 
 #. Reminder Preference: Default Reminders Setting (%s => setting)
-#: translations/strings.xml:966( name="rmd_EPr_defaultRemind_desc")
+#: translations/strings.xml:969( name="rmd_EPr_defaultRemind_desc")
 msgid "New tasks will remind randomly: %s"
 msgstr "Nye oppgaver påminnes tilfeldig: %s"
 
 #. Reminder Preference: random reminder choices for preference page.
-#: translations/strings.xml:973(item) translations/strings.xml:984(item)
+#: translations/strings.xml:976(item) translations/strings.xml:987(item)
 msgid "disabled"
 msgstr "deaktivert"
 
-#: translations/strings.xml:974(item)
+#: translations/strings.xml:977(item)
 msgid "hourly"
 msgstr "hver time"
 
-#: translations/strings.xml:975(item)
+#: translations/strings.xml:978(item)
 msgid "daily"
 msgstr "daglig"
 
-#: translations/strings.xml:976(item)
+#: translations/strings.xml:979(item)
 msgid "weekly"
 msgstr "ukentlig"
 
-#: translations/strings.xml:977(item)
+#: translations/strings.xml:980(item)
 msgid "bi-weekly"
 msgstr "hver andre uke"
 
-#: translations/strings.xml:978(item)
+#: translations/strings.xml:981(item)
 msgid "monthly"
 msgstr "månedlig"
 
-#: translations/strings.xml:979(item)
+#: translations/strings.xml:982(item)
 msgid "bi-monthly"
 msgstr "hver andre måned"
 
-#: translations/strings.xml:985(item) translations/strings.xml:1024(item)
+#: translations/strings.xml:988(item) translations/strings.xml:1027(item)
 msgid "8 PM"
 msgstr "20:00"
 
-#: translations/strings.xml:986(item) translations/strings.xml:1025(item)
+#: translations/strings.xml:989(item) translations/strings.xml:1028(item)
 msgid "9 PM"
 msgstr "21:00"
 
-#: translations/strings.xml:987(item) translations/strings.xml:1026(item)
+#: translations/strings.xml:990(item) translations/strings.xml:1029(item)
 msgid "10 PM"
 msgstr "22:00"
 
-#: translations/strings.xml:988(item) translations/strings.xml:1027(item)
+#: translations/strings.xml:991(item) translations/strings.xml:1030(item)
 msgid "11 PM"
 msgstr "23:00"
 
-#: translations/strings.xml:989(item) translations/strings.xml:1028(item)
+#: translations/strings.xml:992(item) translations/strings.xml:1031(item)
 msgid "12 AM"
 msgstr "00:00"
 
-#: translations/strings.xml:990(item) translations/strings.xml:1029(item)
+#: translations/strings.xml:993(item) translations/strings.xml:1032(item)
 msgid "1 AM"
 msgstr "01:00"
 
-#: translations/strings.xml:991(item) translations/strings.xml:1030(item)
+#: translations/strings.xml:994(item) translations/strings.xml:1033(item)
 msgid "2 AM"
 msgstr "02:00"
 
-#: translations/strings.xml:992(item) translations/strings.xml:1031(item)
+#: translations/strings.xml:995(item) translations/strings.xml:1034(item)
 msgid "3 AM"
 msgstr "03:00"
 
-#: translations/strings.xml:993(item) translations/strings.xml:1032(item)
+#: translations/strings.xml:996(item) translations/strings.xml:1035(item)
 msgid "4 AM"
 msgstr "04:00"
 
-#: translations/strings.xml:994(item) translations/strings.xml:1033(item)
+#: translations/strings.xml:997(item) translations/strings.xml:1036(item)
 msgid "5 AM"
 msgstr "05:00"
 
-#: translations/strings.xml:995(item) translations/strings.xml:1034(item)
+#: translations/strings.xml:998(item) translations/strings.xml:1037(item)
 msgid "6 AM"
 msgstr "06:00"
 
-#: translations/strings.xml:996(item) translations/strings.xml:1035(item)
+#: translations/strings.xml:999(item) translations/strings.xml:1038(item)
 msgid "7 AM"
 msgstr "07:00"
 
-#: translations/strings.xml:997(item) translations/strings.xml:1036(item)
+#: translations/strings.xml:1000(item) translations/strings.xml:1039(item)
 msgid "8 AM"
 msgstr "08:00"
 
 #. Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times!
-#: translations/strings.xml:998(item) translations/strings.xml:1013(item)
+#: translations/strings.xml:1001(item) translations/strings.xml:1016(item)
 msgid "9 AM"
 msgstr "09:00"
 
-#: translations/strings.xml:999(item) translations/strings.xml:1014(item)
+#: translations/strings.xml:1002(item) translations/strings.xml:1017(item)
 msgid "10 AM"
 msgstr "10:00"
 
-#: translations/strings.xml:1000(item) translations/strings.xml:1015(item)
+#: translations/strings.xml:1003(item) translations/strings.xml:1018(item)
 msgid "11 AM"
 msgstr "11:00"
 
-#: translations/strings.xml:1001(item) translations/strings.xml:1016(item)
+#: translations/strings.xml:1004(item) translations/strings.xml:1019(item)
 msgid "12 PM"
 msgstr "12:00"
 
-#: translations/strings.xml:1002(item) translations/strings.xml:1017(item)
+#: translations/strings.xml:1005(item) translations/strings.xml:1020(item)
 msgid "1 PM"
 msgstr "13:00"
 
-#: translations/strings.xml:1003(item) translations/strings.xml:1018(item)
+#: translations/strings.xml:1006(item) translations/strings.xml:1021(item)
 msgid "2 PM"
 msgstr "14:00"
 
-#: translations/strings.xml:1004(item) translations/strings.xml:1019(item)
+#: translations/strings.xml:1007(item) translations/strings.xml:1022(item)
 msgid "3 PM"
 msgstr "15:00"
 
-#: translations/strings.xml:1005(item) translations/strings.xml:1020(item)
+#: translations/strings.xml:1008(item) translations/strings.xml:1023(item)
 msgid "4 PM"
 msgstr "16:00"
 
-#: translations/strings.xml:1006(item) translations/strings.xml:1021(item)
+#: translations/strings.xml:1009(item) translations/strings.xml:1024(item)
 msgid "5 PM"
 msgstr "17:00"
 
-#: translations/strings.xml:1007(item) translations/strings.xml:1022(item)
+#: translations/strings.xml:1010(item) translations/strings.xml:1025(item)
 msgid "6 PM"
 msgstr "18:00"
 
-#: translations/strings.xml:1008(item) translations/strings.xml:1023(item)
+#: translations/strings.xml:1011(item) translations/strings.xml:1026(item)
 msgid "7 PM"
 msgstr "19:00"
 
 #. reminders: Make these < 20 chars so the task name is displayed
-#: translations/strings.xml:1043(item)
+#: translations/strings.xml:1046(item)
 msgid "Hi there! Have a sec?"
 msgstr "Hei! Har du tid?"
 
-#: translations/strings.xml:1044(item)
+#: translations/strings.xml:1047(item)
 msgid "Can I see you for a sec?"
 msgstr "Har du litt tid?"
 
-#: translations/strings.xml:1045(item)
+#: translations/strings.xml:1048(item)
 msgid "Have a few minutes?"
 msgstr "Har du noen minutter?"
 
-#: translations/strings.xml:1046(item)
+#: translations/strings.xml:1049(item)
 msgid "Did you forget?"
 msgstr "Har du glemt?"
 
-#: translations/strings.xml:1047(item)
+#: translations/strings.xml:1050(item)
 msgid "Excuse me!"
 msgstr "Unnskyld meg!"
 
-#: translations/strings.xml:1048(item)
+#: translations/strings.xml:1051(item)
 msgid "When you have a minute:"
 msgstr "Når du har tid:"
 
-#: translations/strings.xml:1049(item)
+#: translations/strings.xml:1052(item)
 msgid "On your agenda:"
 msgstr "På din agenda:"
 
-#: translations/strings.xml:1050(item)
+#: translations/strings.xml:1053(item)
 msgid "Free for a moment?"
 msgstr "Ledig for en stund?"
 
-#: translations/strings.xml:1051(item)
+#: translations/strings.xml:1054(item)
 msgid "Astrid here!"
 msgstr "Astrid kaller!"
 
-#: translations/strings.xml:1052(item)
+#: translations/strings.xml:1055(item)
 msgid "Hi! Can I bug you?"
 msgstr "Hei! Kan jeg forstyrre litt?"
 
-#: translations/strings.xml:1053(item)
+#: translations/strings.xml:1056(item)
 msgid "A minute of your time?"
 msgstr "Ett minutt av din tid?"
 
-#: translations/strings.xml:1054(item)
+#: translations/strings.xml:1057(item)
 msgid "It's a great day to"
 msgstr "Det er en fin dag å"
 
 #. reminders related to task due date
-#: translations/strings.xml:1059(item)
+#: translations/strings.xml:1062(item)
 msgid "Time to work!"
 msgstr "På tide å komme i gang!"
 
-#: translations/strings.xml:1060(item)
+#: translations/strings.xml:1063(item)
 msgid "Due date is here!"
 msgstr "Forfallsdatoen er kommet!"
 
-#: translations/strings.xml:1061(item)
+#: translations/strings.xml:1064(item)
 msgid "Ready to start?"
 msgstr "Klar for å starte?"
 
-#: translations/strings.xml:1062(item)
+#: translations/strings.xml:1065(item)
 msgid "You said you would do:"
 msgstr "Du sa du ville gjøre:"
 
-#: translations/strings.xml:1063(item)
+#: translations/strings.xml:1066(item)
 msgid "You're supposed to start:"
 msgstr "Det er meningen du skal starte:"
 
-#: translations/strings.xml:1064(item)
+#: translations/strings.xml:1067(item)
 msgid "Time to start:"
 msgstr "Det er på tide å starte:"
 
-#: translations/strings.xml:1065(item)
+#: translations/strings.xml:1068(item)
 msgid "It's time!"
 msgstr "Det er på tide!"
 
-#: translations/strings.xml:1066(item)
+#: translations/strings.xml:1069(item)
 msgid "Excuse me! Time for"
 msgstr "Unnskyld, det er tid for"
 
-#: translations/strings.xml:1067(item)
+#: translations/strings.xml:1070(item)
 msgid "You free? Time to"
 msgstr "Er du ledig? Det er tid for"
 
 #. reminders related to snooze
-#: translations/strings.xml:1072(item)
+#: translations/strings.xml:1075(item)
 msgid "Don't be lazy now!"
 msgstr "Ikke vær så lat!"
 
-#: translations/strings.xml:1073(item)
+#: translations/strings.xml:1076(item)
 msgid "Snooze time is up!"
 msgstr "Slumretiden er ferdig!"
 
-#: translations/strings.xml:1074(item)
+#: translations/strings.xml:1077(item)
 msgid "No more snoozing!"
 msgstr "Ikke mer slumring!"
 
-#: translations/strings.xml:1075(item)
+#: translations/strings.xml:1078(item)
 msgid "Now are you ready?"
 msgstr "Nå, er du klar?"
 
-#: translations/strings.xml:1076(item)
+#: translations/strings.xml:1079(item)
 msgid "No more postponing!"
 msgstr "Ingen flere utsettelser!"
 
 #. responses to reminder: Astrid says...  (user should answer yes or no)
-#: translations/strings.xml:1081(item)
+#: translations/strings.xml:1084(item)
 msgid "I've got something for you!"
 msgstr "Jeg har noe for deg!"
 
-#: translations/strings.xml:1082(item)
+#: translations/strings.xml:1085(item)
 msgid "Ready to put this in the past?"
 msgstr "Klar til å legge dette bak deg?"
 
-#: translations/strings.xml:1083(item)
+#: translations/strings.xml:1086(item)
 msgid "Why don't you get this done?"
 msgstr "Hvorfor ikke få det gjort?"
 
-#: translations/strings.xml:1084(item)
+#: translations/strings.xml:1087(item)
 msgid "How about it? Ready tiger?"
 msgstr "Nå? Er du klar?"
 
-#: translations/strings.xml:1085(item)
+#: translations/strings.xml:1088(item)
 msgid "Ready to do this?"
 msgstr "Klar til å starte?"
 
-#: translations/strings.xml:1086(item)
+#: translations/strings.xml:1089(item)
 msgid "Can you handle this?"
 msgstr "Takler du dette?"
 
-#: translations/strings.xml:1087(item)
+#: translations/strings.xml:1090(item)
 msgid "You can be happy! Just finish this!"
 msgstr "Du blir glad! Bare bli ferdig!"
 
-#: translations/strings.xml:1088(item)
+#: translations/strings.xml:1091(item)
 msgid "I promise you'll feel better if you finish this!"
 msgstr "Jeg lover at du vil føle deg bedre hvis du avslutter oppgaven!"
 
-#: translations/strings.xml:1089(item)
+#: translations/strings.xml:1092(item)
 msgid "Won't you do this today?"
 msgstr "Skal du ikke gjøre dette i dag?"
 
-#: translations/strings.xml:1090(item)
+#: translations/strings.xml:1093(item)
 msgid "Please finish this, I'm sick of it!"
 msgstr "Kan du ikke bare avslutte oppgaven. Jeg er så lei av den."
 
-#: translations/strings.xml:1091(item)
+#: translations/strings.xml:1094(item)
 msgid "Can you finish this? Yes you can!"
 msgstr "Klare du å avlutte oppgaven? Ja, det klarer du!"
 
-#: translations/strings.xml:1092(item)
+#: translations/strings.xml:1095(item)
 msgid "Are you ever going to do this?"
 msgstr "Skal du noen sinne gjøre dette?"
 
-#: translations/strings.xml:1093(item)
+#: translations/strings.xml:1096(item)
 msgid "Feel good about yourself! Let's go!"
 msgstr "Vær fornøyd med deg selv! Kom igjen!"
 
-#: translations/strings.xml:1094(item)
+#: translations/strings.xml:1097(item)
 msgid "I'm so proud of you! Lets get it done!"
 msgstr "Jeg er så stolt av deg! La oss få det gjort!"
 
-#: translations/strings.xml:1095(item)
+#: translations/strings.xml:1098(item)
 msgid "A little snack after you finish this?"
 msgstr "Litt snacks etter at du har gjort deg ferdig?"
 
-#: translations/strings.xml:1096(item)
+#: translations/strings.xml:1099(item)
 msgid "Just this one task? Please?"
 msgstr "Bare denne ene oppgaven? Vær så snill?"
 
-#: translations/strings.xml:1097(item)
+#: translations/strings.xml:1100(item)
 msgid "Time to shorten your todo list!"
 msgstr "På tide å korte ned på oppgavelista!"
 
 #. Astrid's nagging when user clicks postpone
-#: translations/strings.xml:1102(item)
+#: translations/strings.xml:1105(item)
 msgid "Please tell me it isn't true that you're a procrastinator!"
 msgstr "Ikke fortell meg at du er en somlekopp!"
 
-#: translations/strings.xml:1103(item)
+#: translations/strings.xml:1106(item)
 msgid "Doesn't being lazy get old sometimes?"
 msgstr "Blir du ikke lei av å være lat noen ganger?"
 
-#: translations/strings.xml:1104(item)
+#: translations/strings.xml:1107(item)
 msgid "Somewhere, someone is depending on you to finish this!"
 msgstr "Et sted, er noen avhengig av at du gjør ferdig dette!"
 
-#: translations/strings.xml:1105(item)
+#: translations/strings.xml:1108(item)
 msgid "When you said postpone, you really meant 'I'm doing this', right?"
 msgstr ""
 "Når du sa utsette, du mente egentlig \"jeg skal gjøre dette\", ikke sant?"
 
-#: translations/strings.xml:1106(item)
+#: translations/strings.xml:1109(item)
 msgid "This is the last time you postpone this, right?"
 msgstr "Dette er siste gang du utsetter oppgaven, ikke sant?"
 
-#: translations/strings.xml:1107(item)
+#: translations/strings.xml:1110(item)
 msgid "Just finish this today, I won't tell anyone!"
 msgstr "Bare gjør det ferdig i dag, jeg skal ikke sladre!"
 
-#: translations/strings.xml:1108(item)
+#: translations/strings.xml:1111(item)
 msgid "Why postpone when you can um... not postpone!"
 msgstr "Hvorfor utsette når du kan...la være!"
 
-#: translations/strings.xml:1109(item)
+#: translations/strings.xml:1112(item)
 msgid "You'll finish this eventually, I presume?"
 msgstr "Jeg antar at du kommer til å avlutte denne oppgaven før eller siden?"
 
-#: translations/strings.xml:1110(item)
+#: translations/strings.xml:1113(item)
 msgid "I think you're really great! How about not putting this off?"
 msgstr "Jeg synes du er virkelig flink! Hva med å ikke utsette det?"
 
-#: translations/strings.xml:1111(item)
+#: translations/strings.xml:1114(item)
 msgid "Will you be able to achieve your goals if you do that?"
 msgstr "Vil du være i stand til å nå dine mål hvis du gjør det?"
 
-#: translations/strings.xml:1112(item)
+#: translations/strings.xml:1115(item)
 msgid "Postpone, postpone, postpone. When will you change!"
 msgstr "Utsett, utsett, utsett. Når vil du forandre deg!"
 
-#: translations/strings.xml:1113(item)
+#: translations/strings.xml:1116(item)
 msgid "I've had enough with your excuses! Just do it already!"
 msgstr "Jeg har fått nok av unnskyldningene dine! Bare gjør det!"
 
-#: translations/strings.xml:1114(item)
+#: translations/strings.xml:1117(item)
 msgid "Didn't you make that excuse last time?"
 msgstr "Fant du ikke på en unnskyldning forrige gang?"
 
-#: translations/strings.xml:1115(item)
+#: translations/strings.xml:1118(item)
 msgid "I can't help you organize your life if you do that..."
 msgstr ""
 "Jeg kan ikke hjelpe deg med å organisere livet ditt hvis du gjør det.."
 
 #. repeating plugin name
-#: translations/strings.xml:1126( name="repeat_plugin")
+#: translations/strings.xml:1129( name="repeat_plugin")
 msgid "Repeating Tasks"
 msgstr "Gjentagende oppgaver"
 
 #. repeating plugin description
-#: translations/strings.xml:1129( name="repeat_plugin_desc")
+#: translations/strings.xml:1132( name="repeat_plugin_desc")
 msgid "Allows tasks to repeat"
 msgstr "Tillat gjentagende oppgaver"
 
 #. checkbox for turning on/off repeats
-#: translations/strings.xml:1132( name="repeat_enabled")
+#: translations/strings.xml:1135( name="repeat_enabled")
 msgid "Repeats"
 msgstr "Gjentakelser"
 
 #. button for "every x" part of repeat (%d -> repeat value)
-#: translations/strings.xml:1135( name="repeat_every")
+#: translations/strings.xml:1138( name="repeat_every")
 msgid "Every %d"
 msgstr "Hver %d"
 
 #. hint when opening repeat interval
-#: translations/strings.xml:1138( name="repeat_interval_prompt")
+#: translations/strings.xml:1141( name="repeat_interval_prompt")
 msgid "Repeat Interval"
 msgstr "Gjentagende intervall"
 
 #. repeat interval (days,weeks,months,hours)
-#: translations/strings.xml:1142(item)
+#: translations/strings.xml:1145(item)
 msgid "Day(s)"
 msgstr "Dag(er)"
 
-#: translations/strings.xml:1143(item)
+#: translations/strings.xml:1146(item)
 msgid "Week(s)"
 msgstr "Uke(r)"
 
-#: translations/strings.xml:1144(item)
+#: translations/strings.xml:1147(item)
 msgid "Month(s)"
 msgstr "Måned(er)"
 
-#: translations/strings.xml:1145(item)
+#: translations/strings.xml:1148(item)
 msgid "Hour(s)"
 msgstr "Time(r)"
 
 #. repeat type (date to repeat from)
-#: translations/strings.xml:1150(item)
+#: translations/strings.xml:1153(item)
 msgid "from due date"
 msgstr "fra forfallsdato"
 
-#: translations/strings.xml:1151(item)
+#: translations/strings.xml:1154(item)
 msgid "from completion date"
 msgstr "fra fullført dato"
 
 #. task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday)
-#: translations/strings.xml:1155( name="repeat_detail_byday")
+#: translations/strings.xml:1158( name="repeat_detail_byday")
 msgid "$I on $D"
 msgstr "$I på $D"
 
 #. task detail for repeat from due date (%s -> interval)
-#: translations/strings.xml:1158( name="repeat_detail_duedate")
+#: translations/strings.xml:1161( name="repeat_detail_duedate")
 msgid "Every %s"
 msgstr "Hver %s"
 
 #. task detail for repeat from completion date (%s -> interval)
-#: translations/strings.xml:1161( name="repeat_detail_completion")
+#: translations/strings.xml:1164( name="repeat_detail_completion")
 msgid "%s after completion"
 msgstr ""
 
 #. label for RMilk button in Task Edit Activity
-#: translations/strings.xml:1171( name="rmilk_EOE_button")
+#: translations/strings.xml:1174( name="rmilk_EOE_button")
 msgid "Remember the Milk Settings"
 msgstr "Remember the Milk Innstillinger"
 
 #. task detail showing RTM repeat information
-#: translations/strings.xml:1174( name="rmilk_TLA_repeat")
+#: translations/strings.xml:1177( name="rmilk_TLA_repeat")
 msgid "RTM Repeating Task"
 msgstr "RTM gjentagende oppgave"
 
 #. task detail showing item needs to be synchronized
-#: translations/strings.xml:1177( name="rmilk_TLA_sync")
+#: translations/strings.xml:1180( name="rmilk_TLA_sync")
 msgid "Needs synchronization with RTM"
 msgstr "Trenger synkronisering med RTM"
 
 #. filters header: RTM
-#: translations/strings.xml:1180( name="rmilk_FEx_header") translations/strings.xml:1191( name="rmilk_MEA_title") translations/strings.xml:1205( name="rmilk_MPr_header")
+#: translations/strings.xml:1183( name="rmilk_FEx_header") translations/strings.xml:1194( name="rmilk_MEA_title") translations/strings.xml:1208( name="rmilk_MPr_header")
 msgid "Remember the Milk"
 msgstr "Remember the Milk"
 
 #. filter category for RTM lists
-#: translations/strings.xml:1183( name="rmilk_FEx_list")
+#: translations/strings.xml:1186( name="rmilk_FEx_list")
 msgid "Lists"
 msgstr "Lister"
 
 #. RTM list filter title (%s => list)
-#: translations/strings.xml:1186( name="rmilk_FEx_list_title")
+#: translations/strings.xml:1189( name="rmilk_FEx_list_title")
 msgid "RTM List '%s'"
 msgstr "RTM Liste '%s'"
 
 #. RTM edit List Edit Label
-#: translations/strings.xml:1194( name="rmilk_MEA_list_label")
+#: translations/strings.xml:1197( name="rmilk_MEA_list_label")
 msgid "RTM List:"
 msgstr "RTM Liste:"
 
 #. RTM edit Repeat Label
-#: translations/strings.xml:1197( name="rmilk_MEA_repeat_label")
+#: translations/strings.xml:1200( name="rmilk_MEA_repeat_label")
 msgid "RTM Repeat Status:"
 msgstr "RTM gjentagende status:"
 
 #. RTM edit Repeat Hint
-#: translations/strings.xml:1200( name="rmilk_MEA_repeat_hint")
+#: translations/strings.xml:1203( name="rmilk_MEA_repeat_hint")
 msgid "i.e. every week, after 14 days"
 msgstr "f.eks hver uke, etter 14 dager"
 
 #. RTM Login Instructions
-#: translations/strings.xml:1210( name="rmilk_MLA_label")
+#: translations/strings.xml:1213( name="rmilk_MLA_label")
 msgid "Please Log In and Authorize Astrid:"
 msgstr "Vennligst logg inn og autoriser Astrid"
 
 #. Login Error Dialog (%s => message)
-#: translations/strings.xml:1213( name="rmilk_MLA_error")
+#: translations/strings.xml:1216( name="rmilk_MLA_error")
 msgid ""
 "Sorry, there was an error verifying your login. Please try again. \\n\\n "
 "Error Message: %s"
@@ -1927,12 +1927,12 @@ msgstr ""
 "Feilmelding: %s"
 
 #. title for notification tray when synchronizing
-#: translations/strings.xml:1222( name="rmilk_notification_title")
+#: translations/strings.xml:1225( name="rmilk_notification_title")
 msgid "Astrid: Remember the Milk"
 msgstr "Astrid: Remember the Milk"
 
 #. Error msg when io exception with rmilk
-#: translations/strings.xml:1225( name="rmilk_ioerror")
+#: translations/strings.xml:1228( name="rmilk_ioerror")
 msgid ""
 "Connection Error! Check your Internet connection, or maybe RTM servers "
 "(status.rememberthemilk.com), for possible solutions."
@@ -1941,422 +1941,422 @@ msgstr ""
 "(status.rememberthemilk.com), for mulig feilløsning."
 
 #. Tags label
-#: translations/strings.xml:1239( name="TEA_tags_label")
+#: translations/strings.xml:1242( name="TEA_tags_label")
 msgid "Tags:"
 msgstr "Tagger:"
 
 #. Tags hint
-#: translations/strings.xml:1242( name="TEA_tag_hint")
+#: translations/strings.xml:1245( name="TEA_tag_hint")
 msgid "Tag Name"
 msgstr "Tag navn"
 
 #. Tags dropdown
-#: translations/strings.xml:1245( name="TEA_tag_dropdown")
+#: translations/strings.xml:1248( name="TEA_tag_dropdown")
 msgid "Select a tag"
 msgstr "Velg et merke"
 
 #. filter header for tags
-#: translations/strings.xml:1250( name="tag_FEx_header")
+#: translations/strings.xml:1253( name="tag_FEx_header")
 msgid "Tags"
 msgstr "Tagger"
 
 #. filter header for tags, sorted by size
-#: translations/strings.xml:1253( name="tag_FEx_by_size")
+#: translations/strings.xml:1256( name="tag_FEx_by_size")
 msgid "Sorted By Size"
 msgstr "Sortert etter størrelse"
 
 #. filter for untagged tasks
-#: translations/strings.xml:1256( name="tag_FEx_untagged")
+#: translations/strings.xml:1259( name="tag_FEx_untagged")
 msgid "Untagged"
 msgstr "Umerket"
 
 #. %s => tag name
-#: translations/strings.xml:1259( name="tag_FEx_name")
+#: translations/strings.xml:1262( name="tag_FEx_name")
 msgid "Tagged '%s'"
 msgstr "Merket '%s'"
 
 #. Task List: Start Timer button
-#: translations/strings.xml:1269( name="TAE_startTimer")
+#: translations/strings.xml:1272( name="TAE_startTimer")
 msgid "Start Timer"
 msgstr "Start tidtaker"
 
 #. Task List: Stop Timer button
-#: translations/strings.xml:1272( name="TAE_stopTimer")
+#: translations/strings.xml:1275( name="TAE_stopTimer")
 msgid "Stop Timer"
 msgstr "Stopp tidtaker"
 
 #. Android Notification Title (%s => # tasks)
-#: translations/strings.xml:1275( name="TPl_notification")
+#: translations/strings.xml:1278( name="TPl_notification")
 msgid "Timers Active for %s!"
 msgstr "Tidtaker aktiv for %s!"
 
 #. Filter Header for Timer plugin
-#: translations/strings.xml:1278( name="TFE_category")
+#: translations/strings.xml:1281( name="TFE_category")
 msgid "Timer Filters"
 msgstr "Tidtaker filter"
 
 #. Filter for Timed Tasks
-#: translations/strings.xml:1281( name="TFE_workingOn")
+#: translations/strings.xml:1284( name="TFE_workingOn")
 msgid "Tasks Being Timed"
 msgstr "Tidsbestemte oppgaver"
 
 #. Resources for power pack widget
-#: translations/strings.xml:1290( name="PPW_widget_42_label")
+#: translations/strings.xml:1293( name="PPW_widget_42_label")
 msgid "Astrid 4x2 (beta!)"
 msgstr "Astrid 4x2 (beta!)"
 
-#: translations/strings.xml:1291( name="PPW_widget_44_label")
+#: translations/strings.xml:1294( name="PPW_widget_44_label")
 msgid "Astrid 4x4 (beta!)"
 msgstr "Astrid 4x4 (beta!)"
 
-#: translations/strings.xml:1293( name="PPW_configure_title")
+#: translations/strings.xml:1296( name="PPW_configure_title")
 msgid "Configure Widget"
 msgstr "Konfigurere skrivebordselement"
 
-#: translations/strings.xml:1295( name="PPW_color")
+#: translations/strings.xml:1298( name="PPW_color")
 msgid "Widget color"
 msgstr "Farge på skrivebordselement"
 
-#: translations/strings.xml:1296( name="PPW_enable_calendar")
+#: translations/strings.xml:1299( name="PPW_enable_calendar")
 msgid "Show calendar events"
 msgstr "Vis kalenderhendelser"
 
-#: translations/strings.xml:1297( name="PPW_disable_encouragements")
+#: translations/strings.xml:1300( name="PPW_disable_encouragements")
 msgid "Hide encouragements"
 msgstr "Skjul oppmuntringer"
 
-#: translations/strings.xml:1298( name="PPW_filter")
+#: translations/strings.xml:1301( name="PPW_filter")
 msgid "Select Filter"
 msgstr "Velg filter"
 
-#: translations/strings.xml:1300( name="PPW_due")
+#: translations/strings.xml:1303( name="PPW_due")
 msgid "Due:"
 msgstr "Forfall:"
 
-#: translations/strings.xml:1301( name="PPW_past_due")
+#: translations/strings.xml:1304( name="PPW_past_due")
 msgid "Past Due:"
 msgstr ""
 
-#: translations/strings.xml:1304(item)
+#: translations/strings.xml:1307(item)
 msgid "Ready to work?"
 msgstr "Klar for å jobbe?"
 
-#: translations/strings.xml:1305(item)
+#: translations/strings.xml:1308(item)
 msgid "Have time to finish something?"
 msgstr ""
 
-#: translations/strings.xml:1306(item)
+#: translations/strings.xml:1309(item)
 msgid "Gosh, you are looking suave today!"
 msgstr ""
 
 #. plurals: years
-#: translations/strings.xml:1317( quantity="one")
+#: translations/strings.xml:1320( quantity="one")
 msgid "1 Year"
 msgstr "1 år"
 
 #. plurals: years
-#: translations/strings.xml:1319( quantity="other")
+#: translations/strings.xml:1322( quantity="other")
 msgid "%d Years"
 msgstr "%d år"
 
 #. plurals: months
-#: translations/strings.xml:1323( quantity="one")
+#: translations/strings.xml:1326( quantity="one")
 msgid "1 Month"
 msgstr "1 måned"
 
 #. plurals: months
-#: translations/strings.xml:1325( quantity="other")
+#: translations/strings.xml:1328( quantity="other")
 msgid "%d Months"
 msgstr "%d måneder"
 
 #. plurals: days
-#: translations/strings.xml:1329( quantity="one")
+#: translations/strings.xml:1332( quantity="one")
 msgid "1 Week"
 msgstr "1 uke"
 
 #. plurals: days
-#: translations/strings.xml:1331( quantity="other")
+#: translations/strings.xml:1334( quantity="other")
 msgid "%d Weeks"
 msgstr "%d uker"
 
 #. plurals: days
-#: translations/strings.xml:1335( quantity="one")
+#: translations/strings.xml:1338( quantity="one")
 msgid "1 Day"
 msgstr "1 dag"
 
 #. plurals: days
-#: translations/strings.xml:1337( quantity="other")
+#: translations/strings.xml:1340( quantity="other")
 msgid "%d Days"
 msgstr "%d dager"
 
 #. plurals: hours
-#: translations/strings.xml:1341( quantity="one")
+#: translations/strings.xml:1344( quantity="one")
 msgid "1 Hour"
 msgstr "1 time"
 
 #. plurals: hours
-#: translations/strings.xml:1343( quantity="other")
+#: translations/strings.xml:1346( quantity="other")
 msgid "%d Hours"
 msgstr "%d timer"
 
 #. plurals: minutes
-#: translations/strings.xml:1347( quantity="one")
+#: translations/strings.xml:1350( quantity="one")
 msgid "1 Minute"
 msgstr "1 minutt"
 
 #. plurals: minutes
-#: translations/strings.xml:1349( quantity="other")
+#: translations/strings.xml:1352( quantity="other")
 msgid "%d Minutes"
 msgstr "%d minutter"
 
 #. plurals: seconds
-#: translations/strings.xml:1353( quantity="one")
+#: translations/strings.xml:1356( quantity="one")
 msgid "1 Second"
 msgstr "1 sekund"
 
 #. plurals: seconds
-#: translations/strings.xml:1355( quantity="other")
+#: translations/strings.xml:1358( quantity="other")
 msgid "%d Seconds"
 msgstr "%d sekunder"
 
 #. plurals: hours (abbreviated)
-#: translations/strings.xml:1359( quantity="one")
+#: translations/strings.xml:1362( quantity="one")
 msgid "1 Hr"
 msgstr "1 t"
 
 #. plurals: hours (abbreviated)
-#: translations/strings.xml:1361( quantity="other")
+#: translations/strings.xml:1364( quantity="other")
 msgid "%d Hrs"
 msgstr "%d t"
 
 #. plurals: minutes (abbreviated)
-#: translations/strings.xml:1365( quantity="one")
+#: translations/strings.xml:1368( quantity="one")
 msgid "1 Min"
 msgstr "1 min"
 
 #. plurals: minutes (abbreviated)
-#: translations/strings.xml:1367( quantity="other")
+#: translations/strings.xml:1370( quantity="other")
 msgid "%d Min"
 msgstr "%d min"
 
 #. plurals: seconds (abbreviated)
-#: translations/strings.xml:1371( quantity="one")
+#: translations/strings.xml:1374( quantity="one")
 msgid "1 Sec"
 msgstr "1 s"
 
 #. plurals: seconds (abbreviated)
-#: translations/strings.xml:1373( quantity="other")
+#: translations/strings.xml:1376( quantity="other")
 msgid "%d Sec"
 msgstr "%d s"
 
 #. plurals: tasks
-#: translations/strings.xml:1377( quantity="one")
+#: translations/strings.xml:1380( quantity="one")
 msgid "1 task"
 msgstr "1 oppgave"
 
 #. plurals: tasks
-#: translations/strings.xml:1379( quantity="other")
+#: translations/strings.xml:1382( quantity="other")
 msgid "%d tasks"
 msgstr "%d oppgaver"
 
 #. confirmation dialog title
-#: translations/strings.xml:1385( name="DLG_confirm_title")
+#: translations/strings.xml:1388( name="DLG_confirm_title")
 msgid "Confirm?"
 msgstr "Bekreft?"
 
 #. question dialog title
-#: translations/strings.xml:1388( name="DLG_question_title")
+#: translations/strings.xml:1391( name="DLG_question_title")
 msgid "Question:"
 msgstr "Spørsmål:"
 
 #. information dialog title
-#: translations/strings.xml:1391( name="DLG_information_title")
+#: translations/strings.xml:1394( name="DLG_information_title")
 msgid "Information"
 msgstr "Informasjon"
 
 #. error dialog title
-#: translations/strings.xml:1394( name="DLG_error_title")
+#: translations/strings.xml:1397( name="DLG_error_title")
 msgid "Error!"
 msgstr "Feil!"
 
 #. general dialog yes
-#: translations/strings.xml:1397( name="DLG_yes")
+#: translations/strings.xml:1400( name="DLG_yes")
 msgid "Yes"
 msgstr "Ja"
 
 #. general dialog no
-#: translations/strings.xml:1400( name="DLG_no")
+#: translations/strings.xml:1403( name="DLG_no")
 msgid "No"
 msgstr "Nei"
 
 #. general dialog close
-#: translations/strings.xml:1403( name="DLG_close")
+#: translations/strings.xml:1406( name="DLG_close")
 msgid "Close"
 msgstr "Lukk"
 
 #. general dialog done
-#: translations/strings.xml:1406( name="DLG_done")
+#: translations/strings.xml:1409( name="DLG_done")
 msgid "Done"
 msgstr "Utført"
 
 #. error dialog (%s => error message)
-#: translations/strings.xml:1409( name="DLG_error")
+#: translations/strings.xml:1412( name="DLG_error")
 msgid "Oops, looks like an error occurred! Here's what happened:\\n\\n%s"
 msgstr ""
 "Oi sann! Det ser ut for at en feil oppstod. Her er hva som skjedde:\\n\\n%s"
 
 #. error dialog (no message indicated)
-#: translations/strings.xml:1412( name="DLG_error_generic")
+#: translations/strings.xml:1415( name="DLG_error_generic")
 msgid "Oops, looks like an error occurred!"
 msgstr "Oi sann! Det ser ut for at en feil oppstod"
 
 #. Progress dialog shown when doing something slow
-#: translations/strings.xml:1415( name="DLG_wait")
+#: translations/strings.xml:1418( name="DLG_wait")
 msgid "Please wait..."
 msgstr "Vennligst vent..."
 
 #. Sync Notification: message when sync service active
-#: translations/strings.xml:1420( name="SyP_progress")
+#: translations/strings.xml:1423( name="SyP_progress")
 msgid "Synchronizing your tasks..."
 msgstr "Synkroniserer oppgavene dine..."
 
 #. Sync Notification: toast when sync activated from activity
-#: translations/strings.xml:1423( name="SyP_progress_toast")
+#: translations/strings.xml:1426( name="SyP_progress_toast")
 msgid "Synchronizing..."
 msgstr "Synkroniserer..."
 
 #. Sync Label: used in menu to denote synchronization
-#: translations/strings.xml:1426( name="SyP_label")
+#: translations/strings.xml:1429( name="SyP_label")
 msgid "Synchronization"
 msgstr "Synkronisering"
 
 #. Sync Status: log in
-#: translations/strings.xml:1434( name="sync_status_loggedout")
+#: translations/strings.xml:1437( name="sync_status_loggedout")
 msgid "Not Logged In!"
 msgstr ""
 
 #. Status: ongoing
-#: translations/strings.xml:1436( name="sync_status_ongoing")
+#: translations/strings.xml:1439( name="sync_status_ongoing")
 msgid "Sync Ongoing..."
 msgstr "Synkronisering pågår..."
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
-#: translations/strings.xml:1438( name="sync_status_success")
+#: translations/strings.xml:1441( name="sync_status_success")
 msgid "Last Sync: %s"
 msgstr "Siste synkronisering: %s"
 
 #. Sync Status: error status (%s -> last attempted sync date)
-#: translations/strings.xml:1440( name="sync_status_failed")
+#: translations/strings.xml:1443( name="sync_status_failed")
 msgid "Failed On: %s"
 msgstr "Feilet: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
-#: translations/strings.xml:1442( name="sync_status_failed_subtitle")
+#: translations/strings.xml:1445( name="sync_status_failed_subtitle")
 msgid "Last Successful Sync: %s"
 msgstr "Siste vellykkede synkronisering: %s"
 
 #. Sync Status: never sync'd
-#: translations/strings.xml:1444( name="sync_status_never")
+#: translations/strings.xml:1447( name="sync_status_never")
 msgid "Never Synchronized!"
 msgstr "Aldri synkronisert!"
 
 #. Preference: Synchronization Interval Title
-#: translations/strings.xml:1450( name="sync_SPr_interval_title")
+#: translations/strings.xml:1453( name="sync_SPr_interval_title")
 msgid "Background Sync"
 msgstr "Bakgrunnssynkronisering"
 
 #. Preference: Synchronization Interval Description (when disabled)
-#: translations/strings.xml:1452( name="sync_SPr_interval_desc_disabled")
+#: translations/strings.xml:1455( name="sync_SPr_interval_desc_disabled")
 msgid "Background synchronization is disabled"
 msgstr "Bakgrunnssynkronisering er deaktivert"
 
 #. Preference: Synchronization Interval Description (%s => setting)
-#: translations/strings.xml:1454( name="sync_SPr_interval_desc")
+#: translations/strings.xml:1457( name="sync_SPr_interval_desc")
 msgid "Currently set to: %s"
 msgstr "Foreløpig satt til %s"
 
 #. Preference: Background Wifi Title
-#: translations/strings.xml:1457( name="sync_SPr_bgwifi_title")
+#: translations/strings.xml:1460( name="sync_SPr_bgwifi_title")
 msgid "Wifi Only Setting"
 msgstr "Bare Wifi Innstilling"
 
 #. Preference: Background Wifi Description (enabled)
-#: translations/strings.xml:1459( name="sync_SPr_bgwifi_desc_enabled")
+#: translations/strings.xml:1462( name="sync_SPr_bgwifi_desc_enabled")
 msgid "Background synchronization only happens when on Wifi"
 msgstr "Synkronisering i bakgrunnen skal kun utføres med WiFi-tilkobling"
 
 #. Preference: Background Wifi Description (disabled)
-#: translations/strings.xml:1461( name="sync_SPr_bgwifi_desc_disabled")
+#: translations/strings.xml:1464( name="sync_SPr_bgwifi_desc_disabled")
 msgid "Background synchronization will always occur"
 msgstr "Synkronisering i bakgrunnen skal alltid utføres"
 
 #. Actions Group Label
-#: translations/strings.xml:1464( name="sync_SPr_group_actions")
+#: translations/strings.xml:1467( name="sync_SPr_group_actions")
 msgid "Actions"
 msgstr "Handlinger"
 
 #. Synchronize Now Button
-#: translations/strings.xml:1467( name="sync_SPr_sync")
+#: translations/strings.xml:1470( name="sync_SPr_sync")
 msgid "Synchronize Now!"
 msgstr "Synkroniser nå!"
 
 #. Synchronize Now Button if not logged in
-#: translations/strings.xml:1469( name="sync_SPr_sync_log_in")
+#: translations/strings.xml:1472( name="sync_SPr_sync_log_in")
 msgid "Log In &amp; Synchronize!"
 msgstr "Logg Inn &amp; Synkroniser!"
 
 #. Sync: Clear Data Title
-#: translations/strings.xml:1472( name="sync_SPr_forget")
+#: translations/strings.xml:1475( name="sync_SPr_forget")
 msgid "Log Out"
 msgstr "Logg av"
 
 #. Sync: Clear Data Description
-#: translations/strings.xml:1474( name="sync_SPr_forget_description")
+#: translations/strings.xml:1477( name="sync_SPr_forget_description")
 msgid "Clears all synchronization data"
 msgstr ""
 
 #. confirmation dialog for sync log out
-#: translations/strings.xml:1477( name="sync_forget_confirm")
+#: translations/strings.xml:1480( name="sync_forget_confirm")
 msgid "Log out / clear synchronization data?"
 msgstr "Logge ut / slette synkroniserings data?"
 
 #. sync_SPr_interval_entries: Synchronization Intervals
-#: translations/strings.xml:1481(item)
+#: translations/strings.xml:1484(item)
 msgid "disable"
 msgstr "deaktiver"
 
-#: translations/strings.xml:1482(item)
+#: translations/strings.xml:1485(item)
 msgid "every fifteen minutes"
 msgstr "hvert kvarter"
 
-#: translations/strings.xml:1483(item)
+#: translations/strings.xml:1486(item)
 msgid "every thirty minutes"
 msgstr "hver halvtime"
 
-#: translations/strings.xml:1484(item)
+#: translations/strings.xml:1487(item)
 msgid "every hour"
 msgstr "hver time"
 
-#: translations/strings.xml:1485(item)
+#: translations/strings.xml:1488(item)
 msgid "every three hours"
 msgstr "hver tredje time"
 
-#: translations/strings.xml:1486(item)
+#: translations/strings.xml:1489(item)
 msgid "every six hours"
 msgstr "hver sjette time"
 
-#: translations/strings.xml:1487(item)
+#: translations/strings.xml:1490(item)
 msgid "every twelve hours"
 msgstr "hver tolvte time"
 
-#: translations/strings.xml:1488(item)
+#: translations/strings.xml:1491(item)
 msgid "every day"
 msgstr "daglig"
 
-#: translations/strings.xml:1489(item)
+#: translations/strings.xml:1492(item)
 msgid "every three days"
 msgstr "hver tredje dag"
 
-#: translations/strings.xml:1490(item)
+#: translations/strings.xml:1493(item)
 msgid "every week"
 msgstr "hver uke"
