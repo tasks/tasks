@@ -31,7 +31,7 @@
     <string name="backup_BPr_group_status">狀態</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">最近一次</string>
+    <string name="backup_status_success">最近一次:%s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">上次備份失敗</string>
     <!-- Backup Status: error subtitle -->    

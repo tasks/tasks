@@ -57,6 +57,7 @@ public class AstridTranslationTests extends TranslationTests {
 
                 contains(r, R.string.WID_dateButtonLabel, failures, "$D", "$T");
                 contains(r, R.string.locale_notification, failures, "$NUM", "$FILTER");
+                contains(r, R.string.repeat_detail_byday, failures, "$I", "$D");
             }
         });
 

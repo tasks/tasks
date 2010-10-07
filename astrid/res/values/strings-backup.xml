@@ -65,7 +65,7 @@
   <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">Restore Summary</string>
     
-  <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
+  <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
   <string name="import_summary_message">
 File %s contained %s.\n\n
 %s imported,\n

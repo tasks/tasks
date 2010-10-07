@@ -84,7 +84,7 @@
   <string name="import_summary_title">Podsumowanie odzyskiwania</string>
     
   <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
-  <string name="import_summary_message">Plik %s zawiera %s.\n\n %s zaimportowanych,\n  ju</string>
+  <string name="import_summary_message">Plik %s zawiera %s.\n %s zaimportowanych,\n %s ju,\n %s podczas</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importowanie...</string>
@@ -292,7 +292,7 @@
   <string name="FLA_search_hint">Szukaj zadań</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">Pasujących do</string>
+  <string name="FLA_search_filter">Pasujących do %s</string>
   
   <!-- Toast: created shortcut (%s => label) -->
   <string name="FLA_toast_onCreateShortcut">Utworzono skrót: %s</string>
@@ -840,7 +840,7 @@
     <string name="producteev_PLA_body">Zaloguj się używając aktualnego konta Producteev lub utwórz nowe!</string>
 
     <!-- Producteev Terms Link -->    
-    <string name="producteev_PLA_terms">Zasady %amp; Warunki</string>
+    <string name="producteev_PLA_terms">Zasady &amp; Warunki</string>
 
     <!-- Sign In Button -->    
     <string name="producteev_PLA_signIn">Zaloguj się</string>

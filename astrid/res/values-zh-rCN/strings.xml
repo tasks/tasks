@@ -1220,7 +1220,7 @@
   </string-array>
   
   <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
-  <string name="repeat_detail_byday">$I，%D</string>
+  <string name="repeat_detail_byday">$I，$D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
   <string name="repeat_detail_duedate">每%s</string>
