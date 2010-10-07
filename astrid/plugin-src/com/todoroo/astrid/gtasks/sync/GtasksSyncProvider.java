@@ -16,8 +16,9 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
+import android.text.TextUtils;
 import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.EditText;
@@ -25,7 +26,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.todoroo.astrid.service.StatisticsService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
@@ -48,9 +48,10 @@ import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
-import com.todoroo.astrid.gtasks.GtasksPreferences.OnGetCredentials;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
+import com.todoroo.astrid.gtasks.GtasksPreferences.OnGetCredentials;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncBackgroundService;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
@@ -58,16 +59,16 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTaskService;
-import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.GoogleTaskTask;
 import com.todoroo.gtasks.GoogleTaskView;
 import com.todoroo.gtasks.GoogleTasksException;
+import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.actions.Actions;
 import com.todoroo.gtasks.actions.ListAction;
 import com.todoroo.gtasks.actions.ListActions;
+import com.todoroo.gtasks.actions.ListCreationAction;
 import com.todoroo.gtasks.actions.ListActions.TaskBuilder;
 import com.todoroo.gtasks.actions.ListActions.TaskModifier;
-import com.todoroo.gtasks.actions.ListCreationAction;
 
 @SuppressWarnings("nls")
 public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
@@ -365,6 +366,9 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         HashMap<String, String> parentToPriorSiblingMap = new HashMap<String, String>();
 
         for(GoogleTaskTask remoteTask : list) {
+            if(TextUtils.isEmpty(remoteTask.getName()))
+                continue;
+
             GtasksTaskContainer container = parseRemoteTask(remoteTask);
             String id = remoteTask.getId();
 
