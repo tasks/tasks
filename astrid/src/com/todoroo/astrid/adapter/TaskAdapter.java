@@ -17,18 +17,18 @@ import android.database.Cursor;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.text.Html.ImageGetter;
-import android.text.Html.TagHandler;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.Html.ImageGetter;
+import android.text.Html.TagHandler;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -338,7 +338,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 viewHolder.details.setVisibility(View.GONE);
             } else {
                 viewHolder.details.setVisibility(View.VISIBLE);
-                if(details.startsWith(DETAIL_SEPARATOR))
+                while(details.startsWith(DETAIL_SEPARATOR))
                     details = details.substring(DETAIL_SEPARATOR.length());
                 viewHolder.details.setText(convertToHtml(details.trim().replace("\n", //$NON-NLS-1$
                         "<br>"), detailImageGetter, null)); //$NON-NLS-1$
