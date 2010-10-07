@@ -42,13 +42,13 @@
   <string name="DLG_to_market">Go To Market</string>
 
   <!-- Button for accepting EULA -->
-  <string name="DLG_accept">Accept EULA</string>
+  <string name="DLG_accept">I Accept</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">Decline EULA</string>
+  <string name="DLG_decline">I Decline</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">End User License Agreement</string>
+  <string name="DLG_eula_title">Astrid Terms Of Use</string>
   
   <!-- =============================================================== UI == -->
   
@@ -318,7 +318,7 @@
   <string name="EPr_title">Astrid: Preferences</string>
 
   <!-- Preference Category: Appearance Title -->
-  <string name="EPr_general_header">General</string>
+  <string name="EPr_appearance_header">Appearance</string>
   
   <!-- Preference: Task List Font Size Title -->
   <string name="EPr_fontSize_title">Task List Size</string>
