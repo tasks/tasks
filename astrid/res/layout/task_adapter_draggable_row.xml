@@ -35,7 +35,7 @@
             android:scaleType="center"
             android:src="@drawable/grabber"/>
             
-        <LinearLayout
+        <LinearLayout android:id="@+id/taskText"
             android:layout_width="fill_parent"
             android:layout_height="42dip"
             android:layout_weight="100"

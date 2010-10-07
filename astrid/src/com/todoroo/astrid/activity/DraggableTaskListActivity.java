@@ -14,8 +14,8 @@ import android.widget.TextView;
 import com.commonsware.cwac.tlv.TouchListView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.data.Task;
 
@@ -115,10 +115,12 @@ public class DraggableTaskListActivity extends TaskListActivity {
             viewHolder.completeBox.setOnClickListener(completeBoxListener);
 
             // context menu listener
-            viewHolder.nameView.setOnCreateContextMenuListener(listener);
+            View taskText = container.findViewById(R.id.taskText);
+            taskText.setTag(viewHolder);
+            taskText.setOnCreateContextMenuListener(listener);
 
             // tap listener
-            viewHolder.nameView.setOnClickListener(listener);
+            taskText.setOnClickListener(listener);
         }
     }
 
