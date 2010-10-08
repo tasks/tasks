@@ -124,7 +124,6 @@ public class ShortcutActivity extends Activity {
             startActivity(taskListIntent);
         }
 
-
         finish();
     }
 
@@ -132,25 +131,28 @@ public class ShortcutActivity extends Activity {
         Intent shortcutIntent = new Intent(ContextManager.getContext(),
                 ShortcutActivity.class);
 
-         shortcutIntent.setAction(Intent.ACTION_VIEW);
-        shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE, filter.title);
-        shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL, filter.sqlQuery);
-        if(filter.valuesForNewTasks != null) {
-            for(Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
+        shortcutIntent.setAction(Intent.ACTION_VIEW);
+        shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE,
+                filter.title);
+        shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_SQL,
+                filter.sqlQuery);
+        if (filter.valuesForNewTasks != null) {
+            for (Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
                 String key = TOKEN_FILTER_VALUES_ITEM + item.getKey();
                 Object value = item.getValue();
 
                 // assume one of the big 4...
-                if(value instanceof String)
+                if (value instanceof String)
                     shortcutIntent.putExtra(key, (String) value);
-                else if(value instanceof Integer)
+                else if (value instanceof Integer)
                     shortcutIntent.putExtra(key, (Integer) value);
-                else if(value instanceof Double)
+                else if (value instanceof Double)
                     shortcutIntent.putExtra(key, (Double) value);
-                else if(value instanceof Long)
+                else if (value instanceof Long)
                     shortcutIntent.putExtra(key, (Long) value);
                 else
-                    throw new IllegalStateException("Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
+                    throw new IllegalStateException(
+                            "Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
             }
         }
         return shortcutIntent;
