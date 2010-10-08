@@ -212,6 +212,7 @@ public class GtasksTaskListUpdater {
             return;
         PluginServices.getMetadataService().save(metadata);
         taskContainer.setId(taskId);
+        taskContainer.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         taskContainer.setValue(Task.DETAILS_DATE, DateUtilities.now());
         PluginServices.getTaskService().save(taskContainer);
     }
