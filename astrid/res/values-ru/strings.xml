@@ -83,7 +83,7 @@
   <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">Итог восстановления</string>
     
-  <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
+  <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
   <string name="import_summary_message">Файл %s содержал %s.\n\n %s импортировано,\n %s уже существует\n %s содержали ошибки\n</string>
   
   <!-- Progress Dialog Title for importing -->    
@@ -684,21 +684,21 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
-    <!-- =========================================================== Misc == -->
+    <!-- =========================================================== UI == -->
 
     <!-- filters header: GTasks -->
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
     <string name="gtasks_FEx_list">By List</string>
-        
-    <!-- GTasks Indent changed message (%d => new level) -->
-    <string name="gtasks_indent_toast">New Indentation: %d</string>
+    
+    <!-- filter title for GTasks lists (%s => list name) -->
+    <string name="gtasks_FEx_title">Google Tasks: %s</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
-    <string name="gtasks_GPr_header">Google Tasks</string>
+    <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -725,7 +725,6 @@
 
     <!-- Login Message when Error -->    
     <string name="gtasks_login_error">Please try your e-mail and password again.</string>
-    
     
 
 
@@ -1325,7 +1324,7 @@
   <string name="tag_cm_rename">Rename Tag</string>
 
   <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">Delete Tag</string>
+  <string name="tag_cm_delete">Удалить метку</string>
 
   <!-- Dialog to confirm deletion of a tag -->
   <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>

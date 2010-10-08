@@ -83,8 +83,8 @@
   <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">Ripristina sommario</string>
     
-  <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
-  <string name="import_summary_message">Il File %s contiene %s. \n\ n %s importati,\n %s esiste già \n %s contiene errori \n</string>
+  <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
+  <string name="import_summary_message">Il File% s contiene %s. \n\ n% s importati,\n %s esiste già \n % s contiene errori \n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importazione in corso...</string>
@@ -689,21 +689,21 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
-    <!-- =========================================================== Misc == -->
+    <!-- =========================================================== UI == -->
 
     <!-- filters header: GTasks -->
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
     <string name="gtasks_FEx_list">By List</string>
-        
-    <!-- GTasks Indent changed message (%d => new level) -->
-    <string name="gtasks_indent_toast">New Indentation: %d</string>
+    
+    <!-- filter title for GTasks lists (%s => list name) -->
+    <string name="gtasks_FEx_title">Google Tasks: %s</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
-    <string name="gtasks_GPr_header">Google Tasks</string>
+    <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -730,7 +730,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 
     <!-- Login Message when Error -->    
     <string name="gtasks_login_error">Please try your e-mail and password again.</string>
-    
     
 
 
@@ -1331,7 +1330,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="tag_cm_rename">Rename Tag</string>
 
   <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">Delete Tag</string>
+  <string name="tag_cm_delete">Elimina etichetta</string>
 
   <!-- Dialog to confirm deletion of a tag -->
   <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>

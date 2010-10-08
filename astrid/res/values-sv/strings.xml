@@ -83,7 +83,7 @@
   <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">Återställningssammanfattning</string>
     
-  <!-- Backup: Summary message for import. (%s => total # tasks, %s => imported, %s => skipped) -->
+  <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
   <string name="import_summary_message">Filen %s innehöll %s.\n\n %s importerade,\n %s existerar redan\n %s hade fel\n</string>
   
   <!-- Progress Dialog Title for importing -->    
@@ -693,21 +693,21 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
-    <!-- =========================================================== Misc == -->
+    <!-- =========================================================== UI == -->
 
     <!-- filters header: GTasks -->
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
     <string name="gtasks_FEx_list">By List</string>
-        
-    <!-- GTasks Indent changed message (%d => new level) -->
-    <string name="gtasks_indent_toast">New Indentation: %d</string>
+    
+    <!-- filter title for GTasks lists (%s => list name) -->
+    <string name="gtasks_FEx_title">Google Tasks: %s</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
-    <string name="gtasks_GPr_header">Google Tasks</string>
+    <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -734,7 +734,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 
     <!-- Login Message when Error -->    
     <string name="gtasks_login_error">Please try your e-mail and password again.</string>
-    
     
 
 
@@ -1117,7 +1116,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 
   <string-array name="reminders">
       <!-- reminders: Make these < 20 chars so the task name is displayed -->
-      <item>Hi there! Have a sec?</item>
+      <item>Hej! Har du en sekund?</item>
       <item>Får jag träffa dig en sekund?</item>
       <item>Har du ett par minuter?</item>
       <item>Har du glömt?</item>
@@ -1128,46 +1127,46 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
       <item>Astrid här!</item>
       <item>Hej! Får jag störa dig?</item>
       <item>En minut av din tid?</item>
-      <item>It\'s a great day to</item>
+      <item>Det är en fin dag att</item>
   </string-array>
 
   <string-array name="reminders_due">
       <!-- reminders related to task due date -->
-      <item>Time to work!</item>
-      <item>Due date is here!</item>
-      <item>Ready to start?</item>
-      <item>You said you would do:</item>
-      <item>You\'re supposed to start:</item>
-      <item>Time to start:</item>
-      <item>It\'s time!</item>
-      <item>Excuse me! Time for</item>
-      <item>You free? Time to</item>
+      <item>Dags att arbeta!</item>
+      <item>Förfallodatumet har kommit!</item>
+      <item>Redo att sätta igång?</item>
+      <item>Du sade att du skulle göra:</item>
+      <item>Det är meningen att du ska börja:</item>
+      <item>Dags att börja:</item>
+      <item>Nu är det dags!</item>
+      <item>Ursäkta mig! Det är dags för</item>
+      <item>Är du ledig? Det är dags för</item>
   </string-array>
 
   <string-array name="reminders_snooze">
       <!-- reminders related to snooze -->
-      <item>Don\'t be lazy now!</item>
-      <item>Snooze time is up!</item>
-      <item>No more snoozing!</item>
-      <item>Now are you ready?</item>
-      <item>No more postponing!</item>
+      <item>Var nu inte lat!</item>
+      <item>Paustiden är slut!</item>
+      <item>Ingen paus mer!</item>
+      <item>Är du klar nu då?</item>
+      <item>Skjut inte upp mer!</item>
   </string-array>
   
   <string-array name="reminder_responses">
       <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
-      <item>I\'ve got something for you!</item> 
-      <item>Redo att lägga detta i det förflutna?</item>
-      <item>Why don\'t you get this done?</item>
-      <item>Vad sägs? Redo, tiger?</item>
+      <item>Jag har något till dig!</item> 
+      <item>Ready to put this in the past?</item>
+      <item>Varför får du inte detta gjort?</item>
+      <item>Vad sägs? Är du redo?</item>
       <item>Redo att göra detta?</item>
-      <item>Kan du hantera detta?</item>
+      <item>Klarar du detta?</item>
       <item>Du kan bli lycklig! Avsluta bara detta!</item>
-      <item>I promise you\'ll feel better if you finish this!</item>
-      <item>Won\'t you do this today?</item>
-      <item>Please finish this, I\'m sick of it!</item>
-      <item>Kan du avsluta detta? Ja det kan du!</item>
-      <item>Kommer du göra detta?</item>
-      <item>Feel good about yourself! Let\'s go!</item>
+      <item>Jag lovar att du känner dig bättre om du avslutar detta!</item>
+      <item>Ska du inte göra detta idag?</item>
+      <item>Kan du inte bara avsluta denna uppgift? Jag blir ju led på den!</item>
+      <item>Kan du avsluta detta? Ja, det kan du!</item>
+      <item>Kommer du någonsin att göra detta?</item>
+      <item>Var nöjd med dig själv! Kom igen!</item>
       <item>Jag är så stolt över dig! Få det gjort!</item>
       <item>En liten munsbit efter att du avslutat detta?</item>
       <item>Bara den här uppgiften? Snälla?</item>
@@ -1176,20 +1175,20 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 
   <string-array name="postpone_nags">
       <!-- Astrid's nagging when user clicks postpone -->
-      <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
-      <item>Doesn\'t being lazy get old sometimes?</item>
+      <item>Snälla, säg mig inte att du är en som förhalar!</item>
+      <item>Blir du inte trött på att vara lat ibland?</item>
       <item>Någonstans är någon beroende av att du avslutar detta!</item>
-      <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
+      <item>När du sade \"skjut upp\", så menade du faktiskt \"nu gör jag detta\", eller hur?</item>
       <item>Det här är sista gången du skjuter upp detta, eller hur?</item>
-      <item>Just finish this today, I won\'t tell anyone!</item>
+      <item>Bara gör det här färdigt idag, jag skvallrar inte!</item>
       <item>Varför skjuta upp när du kan eh... inte skjuta upp!</item>
-      <item>You\'ll finish this eventually, I presume?</item>
-      <item>I think you\'re really great! How about not putting this off?</item>
+      <item>Förr eller senare avslutar du detta, antar jag?</item>
+      <item>Jag tycker du är verkligen suverän! Vad sägs att du inte skjuter upp detta?</item>
       <item>Kommer du att kunna uppnå dina mål om du gör sådär?</item>
       <item>Skjut upp, skjut upp, skjut upp. När ska du förändra dig!</item>
-      <item>I\'ve had enough with your excuses! Just do it already!</item>
-      <item>Didn\'t you make that excuse last time?</item>
-      <item>I can\'t help you organize your life if you do that...</item>
+      <item>Jag har fått nog av dina bortförklaringar! Bara gör det!</item>
+      <item>Kom du inte med den där bortförklaringen förra gången?</item>
+      <item>Jag kan inte hjälpa dig med att organisera ditt liv om du gör det...</item>
   </string-array>
     
 
@@ -1200,24 +1199,24 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Resources for built-in repeat plug-in -->
 
   <!-- repeating plugin name -->
-  <string name="repeat_plugin">Repeating Tasks</string>
+  <string name="repeat_plugin">Upprepande uppgifter</string>
   
   <!-- repeating plugin description -->
-  <string name="repeat_plugin_desc">Allows tasks to repeat</string>
+  <string name="repeat_plugin_desc">Tillåt upprepande uppgifter</string>
   
   <!-- checkbox for turning on/off repeats -->
   <string name="repeat_enabled">Upprepningar</string>
   
   <!-- button for "every x" part of repeat (%d -> repeat value)  -->
-  <string name="repeat_every">Every %d</string>
+  <string name="repeat_every">Varje %d</string>
   
   <!-- hint when opening repeat interval -->
-  <string name="repeat_interval_prompt">Repeat Interval</string>
+  <string name="repeat_interval_prompt">Upprepningsintervall</string>
   
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours) -->
     <item>Dag(ar)</item>
-    <item>Vecka/veckor</item>
+    <item>Vecka (veckor)</item>
     <item>Månad(er)</item>
     <item>Timme/timmar</item>
   </string-array>
@@ -1339,7 +1338,7 @@ Error Message: %s
   <string name="tag_cm_rename">Rename Tag</string>
 
   <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">Delete Tag</string>
+  <string name="tag_cm_delete">Radera märkning</string>
 
   <!-- Dialog to confirm deletion of a tag -->
   <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
