@@ -5,7 +5,7 @@
 <stringAttribute key="ch.zork.quicklaunch.icon" value="14.gif"/>
 <intAttribute key="ch.zork.quicklaunch.index" value="0"/>
 <stringAttribute key="ch.zork.quicklaunch.mode" value="run"/>
-<intAttribute key="com.android.ide.eclipse.adt.action" value="1"/>
+<intAttribute key="com.android.ide.eclipse.adt.action" value="0"/>
 <stringAttribute key="com.android.ide.eclipse.adt.activity" value="com.todoroo.astrid.gtasks.GtasksPreferences"/>
 <stringAttribute key="com.android.ide.eclipse.adt.commandline" value="-scale 0.7"/>
 <intAttribute key="com.android.ide.eclipse.adt.delay" value="0"/>
