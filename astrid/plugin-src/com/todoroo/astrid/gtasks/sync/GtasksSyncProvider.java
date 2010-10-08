@@ -461,7 +461,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                 ListAction action = ((TaskModifier) builder).done();
                 if(remote == null || local.parentId != remote.parentId || local.priorSiblingId != remote.priorSiblingId)
                     taskService.executeListActions(idList, action, moveAction);
-                else
+                else if(action.toJson(idList).getJSONObject("entity_delta").length() > 0)
                     taskService.executeListActions(idList, action);
             } else {
                 id = ((ConvenientTaskCreator)builder).go();
