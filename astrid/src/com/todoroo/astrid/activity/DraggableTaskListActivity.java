@@ -104,7 +104,7 @@ public class DraggableTaskListActivity extends TaskListActivity {
             ViewHolder viewHolder = (ViewHolder) view.getTag();
             if(getIndentProperty() != null) {
                 int indent = viewHolder.task.getValue(getIndentProperty());
-                view.findViewById(R.id.indent).getLayoutParams().width = indent * 15;
+                view.findViewById(R.id.indent).getLayoutParams().width = indent * 20;
             }
         }
 
