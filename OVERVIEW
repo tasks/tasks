@@ -1,0 +1,30 @@
+Astrid Project Overview
+----------------------------
+Last Updated: Oct 8, 2010 by Tim
+
+A brief guide of the Astrid project. 
+
+=================
+Files and Folders
+=================
+
+art/              - original art resources
+astrid/           - astrid Android project
+  antlib/         - libraries for ant
+  assets/         - folder for raw assets
+  common-src/     - todoroo-commons source folder
+  gen/            - auto-generated source folder
+  libs/           - external jars
+  plugin-src/     - plugin source folder
+  res/            - android resources
+  src/            - astrid source folder
+  src-legacy/     - astrid v2 source folder
+bin/              - utility shell scripts
+docs/             - astrid project documents
+LICENSE           - license under which source is released
+OVERVIEW          - this file
+README.md         - github project readme
+samples/          - astrid plugin code samples
+tests/            - unit test project
+translations/     - gettext .po and .pot files 
+
