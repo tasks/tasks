@@ -40,6 +40,7 @@
             android:layout_height="42dip"
             android:layout_weight="100"
             android:gravity="center_vertical"
+            android:background="@android:drawable/list_selector_background"
             android:paddingLeft="5dip" 
             android:orientation="vertical">
               
