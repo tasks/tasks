@@ -2,28 +2,28 @@ package com.todoroo.astrid.widget;
 
 import com.timsu.astrid.R;
 
-public class PowerWidget42 extends PowerWidget {
+public class PowerWidget44 extends PowerWidget {
 
     @Override
     public Class<? extends UpdateService> getUpdateService() {
-        return UpdateService42.class;
+        return UpdateService44.class;
     }
 
-    public static class UpdateService42 extends PowerWidget.UpdateService {
+    public static class UpdateService44 extends PowerWidget.UpdateService {
 
         @Override
         public Class<? extends PowerWidget> getWidgetClass() {
-            return PowerWidget42.class;
+            return PowerWidget44.class;
         }
 
         @Override
         public int getWidgetLayout() {
-            return R.layout.widget_power_42;
+            return R.layout.widget_power_44;
         }
 
         @Override
         public int getRowLimit() {
-            return 5;
+            return 10;
         }
     }
 

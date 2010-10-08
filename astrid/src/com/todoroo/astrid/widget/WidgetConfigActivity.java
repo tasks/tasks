@@ -111,9 +111,6 @@ public class WidgetConfigActivity extends ExpandableListActivity {
             // Save configuration options
             saveConfiguration(adapter.getSelection(), color, enableCalendar, !disableEncouragements);
 
-            // Push widget update to surface with newly set prefix
-            PowerWidget.updateAppWidget(context, mAppWidgetId);
-
             // Make sure we pass back the original appWidgetId
             Intent resultValue = new Intent();
             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);

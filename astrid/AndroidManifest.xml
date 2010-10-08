@@ -152,7 +152,7 @@
       <meta-data android:name="android.appwidget.provider"
                  android:resource="@xml/widget_provider_info" />
     </receiver>
-    <receiver android:name="com.todoroo.astrid.widget.PowerWidget" 
+    <receiver android:name="com.todoroo.astrid.widget.PowerWidget44" 
                 android:label="@string/PPW_widget_44_label"
                 android:icon="@drawable/icon_pp">
       <intent-filter>
@@ -180,8 +180,8 @@
     <!-- ======================================================== Services = -->
 
     <service android:name="com.todoroo.astrid.widget.TasksWidget$UpdateService" />
-    <service android:name="com.todoroo.astrid.widget.PowerWidget$UpdateService" />
-    <service android:name="com.todoroo.astrid.widget.PowerWidget42$UpdateService" />
+    <service android:name="com.todoroo.astrid.widget.PowerWidget44$UpdateService44" />
+    <service android:name="com.todoroo.astrid.widget.PowerWidget42$UpdateService42" />
 
     <!-- ======================================================= Providers = -->
 

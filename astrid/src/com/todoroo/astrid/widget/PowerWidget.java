@@ -31,26 +31,31 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.dao.DatabaseUpdateListener;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
 
 /**
- * Power Pack widget.  Supports 4x4 size.  Configured via
- * ConfigurePowerWidgetActivity when widget is added to homescreen.
+ * Power Pack widget
  *
  * @author jwong (jwong@dayspring-tech.com)
  *
  */
 @SuppressWarnings("nls")
-public class PowerWidget extends AppWidgetProvider {
+abstract public class PowerWidget extends AppWidgetProvider implements DatabaseUpdateListener {
     static final String LOG_TAG = "PowerWidget";
 
-    static Class<?> updateService;
+    // --- abstract hooks
+
+    /** service for updating the widget */
+    abstract public Class<? extends UpdateService> getUpdateService();
+
+    // --- implementation
+
     static {
         AstridDependencyInjector.initialize();
-        updateService = PowerWidget.UpdateService.class;
     }
 
 
@@ -100,9 +105,6 @@ public class PowerWidget extends AppWidgetProvider {
         R.id.checkbox3, R.id.checkbox4, R.id.checkbox5, R.id.checkbox6,
         R.id.checkbox7, R.id.checkbox8, R.id.checkbox9, R.id.checkbox10 };
 
-    // # of rows defined in the xml file
-    static int ROW_LIMIT = 10;
-
     public static int[] IMPORTANCE_DRAWABLES = new int[] {
         R.drawable.importance_1, R.drawable.importance_2, R.drawable.importance_3,
         R.drawable.importance_4, R.drawable.importance_5, R.drawable.importance_6
@@ -119,7 +121,7 @@ public class PowerWidget extends AppWidgetProvider {
             super.onUpdate(context, appWidgetManager, appWidgetIds);
 
             // Start in service to prevent Application Not Responding timeout
-            Intent updateIntent = new Intent(context, updateService);
+            Intent updateIntent = new Intent(context, getUpdateService());
             updateIntent.putExtra(APP_WIDGET_IDS, appWidgetIds);
             context.startService(updateIntent);
         } catch (SecurityException e) {
@@ -158,7 +160,7 @@ public class PowerWidget extends AppWidgetProvider {
         if (intent != null && (ACTION_SCROLL_UP.equals(intent.getAction()) ||
                 ACTION_SCROLL_DOWN.equals(intent.getAction()) ||
                 ACTION_MARK_COMPLETE.equals(intent.getAction()))) {
-            Intent updateIntent = new Intent(context, updateService);
+            Intent updateIntent = new Intent(context, getUpdateService());
             updateIntent.setAction(intent.getAction());
             updateIntent.putExtras(intent.getExtras());
             context.startService(updateIntent);
@@ -168,34 +170,36 @@ public class PowerWidget extends AppWidgetProvider {
     }
 
 
-
-    /**
-     * Update all widgets
-     * @param id
-     */
-    public static void updateWidgets(Context context) {
-        context.startService(new Intent(ContextManager.getContext(),
-                updateService));
+    @Override
+    public void onDatabaseUpdated() {
+        Context context = ContextManager.getContext();
+        context.startService(new Intent(context, getUpdateService()));
     }
 
     /**
      * Update widget with the given id
      * @param id
      */
-    public static void updateAppWidget(Context context, int appWidgetId){
-        Intent updateIntent = new Intent(context, updateService);
+    public void updateAppWidget(Context context, int appWidgetId){
+        Intent updateIntent = new Intent(context, getUpdateService());
         updateIntent.putExtra(APP_WIDGET_IDS, new int[]{ appWidgetId });
         context.startService(updateIntent);
     }
 
-    public static class UpdateService extends Service {
-        static Class<?> widgetClass;
-        static int widgetLayout;
+    abstract public static class UpdateService extends Service {
 
-        static {
-            widgetClass = PowerWidget.class;
-            widgetLayout = R.layout.widget_power_44;
-        }
+        // --- abstract hooks
+
+        /** widget class */
+        abstract public Class<? extends PowerWidget> getWidgetClass();
+
+        /** widget layout resource id */
+        abstract public int getWidgetLayout();
+
+        /** # rows defined in the xml file */
+        abstract public int getRowLimit();
+
+        // --- implementation
 
         private static final int SCROLL_OFFSET_UNSET = -1;
 
@@ -232,7 +236,7 @@ public class PowerWidget extends AppWidgetProvider {
                 manager.updateAppWidget(appWidgetId, views);
             } else {
                 if (appWidgetIds == null){
-                    appWidgetIds = manager.getAppWidgetIds(new ComponentName(this, widgetClass));
+                    appWidgetIds = manager.getAppWidgetIds(new ComponentName(this, getWidgetClass()));
                 }
                 for (int id : appWidgetIds) {
                     RemoteViews views = buildUpdate(this, id, scrollOffset);
@@ -250,7 +254,7 @@ public class PowerWidget extends AppWidgetProvider {
             DependencyInjectionService.getInstance().inject(this);
 
             RemoteViews views = new RemoteViews(context.getPackageName(),
-                    widgetLayout);
+                    getWidgetLayout());
 
             String color = Preferences.getStringValue(PowerWidget.PREF_COLOR + appWidgetId);
 
@@ -344,7 +348,7 @@ public class PowerWidget extends AppWidgetProvider {
 
                 scrollOffset = Math.max(0, scrollOffset);
                 query = query.replaceAll("[lL][iI][mM][iI][tT] +[^ ]+", "") + " LIMIT " +
-                    scrollOffset + "," + (ROW_LIMIT + 1);
+                    scrollOffset + "," + (getRowLimit() + 1);
 
                 // load last completed task
                 Task lastCompleted = null;
@@ -364,7 +368,7 @@ public class PowerWidget extends AppWidgetProvider {
 
                 Task task = new Task();
                 int position;
-                for (position = 0; position < cursor.getCount() && position < ROW_LIMIT; position++) {
+                for (position = 0; position < cursor.getCount() && position < getRowLimit(); position++) {
                     if(lastCompleted != null && lastCompletedPosition == position + scrollOffset) {
                         task = lastCompleted;
                     } else {
@@ -386,7 +390,7 @@ public class PowerWidget extends AppWidgetProvider {
                             IMPORTANCE_DRAWABLES[task.getValue(Task.IMPORTANCE)]);
 
                     // check box
-                    Intent markCompleteIntent = new Intent(context, widgetClass);
+                    Intent markCompleteIntent = new Intent(context, getWidgetClass());
                     markCompleteIntent.setAction(ACTION_MARK_COMPLETE);
                     markCompleteIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
                     markCompleteIntent.putExtra(COMPLETED_TASK_ID, taskId);
@@ -441,7 +445,7 @@ public class PowerWidget extends AppWidgetProvider {
                     views.setViewVisibility(TASK_DUE[position], View.VISIBLE);
                 }
 
-                for(; position < ROW_LIMIT; position++) {
+                for(; position < getRowLimit(); position++) {
                     views.setViewVisibility(TASK_IMPORTANCE[position], View.INVISIBLE);
                     views.setViewVisibility(TASK_CHECKBOX[position], View.INVISIBLE);
                     views.setViewVisibility(TASK_TITLE[position], View.INVISIBLE);
@@ -449,7 +453,7 @@ public class PowerWidget extends AppWidgetProvider {
                 }
 
                 // create intent to scroll up
-                Intent scrollUpIntent = new Intent(context, widgetClass);
+                Intent scrollUpIntent = new Intent(context, getWidgetClass());
                 scrollUpIntent.setAction(ACTION_SCROLL_UP);
                 scrollUpIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
                 scrollUpIntent.setType(AppWidgetManager.EXTRA_APPWIDGET_ID + appWidgetId);
@@ -467,7 +471,7 @@ public class PowerWidget extends AppWidgetProvider {
                 views.setOnClickPendingIntent(R.id.scroll_up_alt, pScrollUpIntent);
 
                 // create intent to scroll down
-                Intent scrollDownIntent = new Intent(context, widgetClass);
+                Intent scrollDownIntent = new Intent(context, getWidgetClass());
                 scrollDownIntent.setAction(ACTION_SCROLL_DOWN);
                 scrollDownIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetId);
                 scrollDownIntent.setType(AppWidgetManager.EXTRA_APPWIDGET_ID + appWidgetId);
