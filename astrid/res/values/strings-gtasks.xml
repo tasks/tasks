@@ -2,21 +2,21 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- =========================================================== Misc == -->
+    <!-- =========================================================== UI == -->
 
     <!-- filters header: GTasks -->
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
     <string name="gtasks_FEx_list">By List</string>
-        
-    <!-- GTasks Indent changed message (%d => new level) -->
-    <string name="gtasks_indent_toast">New Indentation: %d</string>
+    
+    <!-- filter title for GTasks lists (%s => list name) -->
+    <string name="gtasks_FEx_title">Google Tasks: %s</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
-    <string name="gtasks_GPr_header">Google Tasks</string>
+    <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -43,7 +43,6 @@
 
     <!-- Login Message when Error -->    
     <string name="gtasks_login_error">Please try your e-mail and password again.</string>
-    
     
 </resources>
 

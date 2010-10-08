@@ -50,7 +50,8 @@ public class GtasksFilterExposer extends BroadcastReceiver {
         values.putAll(GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
         values.remove(Metadata.TASK.name);
         values.put(GtasksMetadata.LIST_ID.name, list.getValue(GtasksList.REMOTE_ID));
-        FilterWithCustomIntent filter = new FilterWithCustomIntent(listName, listName, new QueryTemplate().join(
+        FilterWithCustomIntent filter = new FilterWithCustomIntent(listName,
+                ContextManager.getString(R.string.gtasks_FEx_title, listName), new QueryTemplate().join(
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                         TaskCriteria.isVisible(),

@@ -23,6 +23,7 @@ import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -191,7 +192,9 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             preferenceActivity.getCredentials(new OnGetCredentials() {
                 @Override
                 public void getCredentials(String[] accounts) {
+                    ScrollView layoutScroller = new ScrollView(activity);
                     LinearLayout layout = new LinearLayout(activity);
+                    layoutScroller.addView(layout);
                     layout.setPadding(5, -5, 5, 0);
                     layout.setOrientation(LinearLayout.VERTICAL);
                     TextView textView = new TextView(activity);
@@ -209,7 +212,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                     layout.addView(password);
 
                     DialogUtilities.viewDialog(activity,
-                            activity.getString(R.string.gtasks_login), layout,
+                            activity.getString(R.string.gtasks_login), layoutScroller,
                             new OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface arg0, int arg1) {

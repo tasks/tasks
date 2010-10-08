@@ -3,9 +3,9 @@ package com.todoroo.astrid.activity;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.AlertDialog;
@@ -27,30 +27,29 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView.OnEditorActionListener;
 
-import com.todoroo.astrid.service.StatisticsService;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -86,6 +85,7 @@ import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -251,9 +251,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 R.string.TLA_menu_settings);
         item.setIcon(android.R.drawable.ic_menu_preferences);
 
-        item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
-                R.string.TLA_menu_sort);
-        item.setIcon(android.R.drawable.ic_menu_sort_by_size);
+        if(!(this instanceof DraggableTaskListActivity)) {
+            item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
+                    R.string.TLA_menu_sort);
+            item.setIcon(android.R.drawable.ic_menu_sort_by_size);
+        }
 
         if(syncActions.size() > 0) {
             item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
