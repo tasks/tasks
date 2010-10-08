@@ -11,10 +11,7 @@ import com.timsu.astrid.R;
  * @author jwong (jwong@dayspring-tech.com)
  *
  */
-@SuppressWarnings("nls")
 public class PowerWidget42 extends PowerWidget {
-    static final String LOG_TAG = "PowerWidget42";
-
 
     static {
         // set reference to my UpdateService for calls to launch the service

@@ -22,4 +22,12 @@
     	<item>Have time to finish something?</item>
     	<item>Gosh, you are looking suave today!</item>
     </string-array>
+    
+    <string-array name="PPW_colors">
+        <item>Black</item>
+        <item>White</item>
+        <item>Blue</item>
+        <item>Red</item>
+    </string-array>
+    
 </resources>

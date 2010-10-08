@@ -127,11 +127,24 @@
 	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 	    </intent-filter>
     </activity>
+    <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity$WithColors"
+              android:theme="@style/Theme">
+	    <intent-filter>
+	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+	    </intent-filter>
+    </activity>
+    <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity$WithColorsAndEncouragements"
+              android:theme="@style/Theme">
+	    <intent-filter>
+	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+	    </intent-filter>
+    </activity>
     
     <!-- ======================================================= Receivers = -->
 
     <receiver android:name="com.todoroo.astrid.reminders.Notifications" />
     
+    <!-- widgets -->
     <receiver android:name="com.todoroo.astrid.widget.TasksWidget">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -139,16 +152,18 @@
       <meta-data android:name="android.appwidget.provider"
                  android:resource="@xml/widget_provider_info" />
     </receiver>
-    
-    <receiver android:name="com.todoroo.astrid.widget.TasksWidget">
+    <receiver android:name="com.todoroo.astrid.widget.PowerWidget" 
+                android:label="@string/PPW_widget_44_label"
+                android:icon="@drawable/icon_pp">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
       </intent-filter>
       <meta-data android:name="android.appwidget.provider"
                  android:resource="@xml/power_widget_44_provider_info" />
     </receiver>
-    
-    <receiver android:name="com.todoroo.astrid.widget.TasksWidget">
+    <receiver android:name="com.todoroo.astrid.widget.PowerWidget42" 
+                android:label="@string/PPW_widget_42_label"
+                android:icon="@drawable/icon_pp">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
       </intent-filter>
