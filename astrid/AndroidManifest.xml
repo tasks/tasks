@@ -139,6 +139,22 @@
       <meta-data android:name="android.appwidget.provider"
                  android:resource="@xml/widget_provider_info" />
     </receiver>
+    
+    <receiver android:name="com.todoroo.astrid.widget.TasksWidget">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data android:name="android.appwidget.provider"
+                 android:resource="@xml/power_widget_44_provider_info" />
+    </receiver>
+    
+    <receiver android:name="com.todoroo.astrid.widget.TasksWidget">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data android:name="android.appwidget.provider"
+                 android:resource="@xml/power_widget_42_provider_info" />
+    </receiver>
 
     <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
       <intent-filter>
@@ -217,7 +233,7 @@
     </receiver>    
     
     <!-- gtasks -->
-    <!-- activity android:name="com.todoroo.astrid.gtasks.GtasksListActivity"
+    <activity android:name="com.todoroo.astrid.gtasks.GtasksListActivity"
               android:windowSoftInputMode="stateHidden"
               android:theme="@style/Theme">
       <intent-filter>
@@ -252,7 +268,7 @@
         <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
-    </receiver> -->    
+    </receiver>
     
     <!-- tags -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
