@@ -111,6 +111,9 @@ public class WidgetConfigActivity extends ExpandableListActivity {
             // Save configuration options
             saveConfiguration(adapter.getSelection(), color, enableCalendar, !disableEncouragements);
 
+            // call any of the widget update methods
+            TasksWidget.updateWidget(context, mAppWidgetId);
+
             // Make sure we pass back the original appWidgetId
             Intent resultValue = new Intent();
             resultValue.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, mAppWidgetId);
