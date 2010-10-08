@@ -7,8 +7,10 @@ import java.util.concurrent.atomic.AtomicReference;
 import android.app.ListActivity;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnTouchListener;
 import android.widget.TextView;
 
 import com.commonsware.cwac.tlv.TouchListView;
@@ -79,6 +81,14 @@ public class DraggableTaskListActivity extends TaskListActivity {
         registerForContextMenu(getListView());
 
         loadTaskListContent(false);
+        
+        getTouchListView().setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                taskAdapter.clearSelection();
+                return false;
+            }
+        });
     }
 
     public Property<?>[] getProperties() {
