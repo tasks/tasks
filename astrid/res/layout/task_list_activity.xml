@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:src="@drawable/tango_filters"
+            android:src="@drawable/tango_previous"
             android:scaleType="center"
             android:paddingLeft="5dip" 
             android:paddingRight="5dip"/> 
