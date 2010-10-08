@@ -34,6 +34,13 @@
          should be checked in in Version Control Systems. -->
     <property file="default.properties" />
 
+
+    <taskdef resource="net/sf/antcontrib/antlib.xml">
+      <classpath>
+        <pathelement location="antlib/ant-contrib-1.0b3.jar"/>
+      </classpath>
+    </taskdef>
+
     <!-- Custom Android task to deal with the project target, and import the proper rules.
          This requires ant 1.6.0 or above. -->
     <path id="android.antlibs">
@@ -63,12 +70,6 @@
          build steps are used.
     -->
     <setup />
-
-    <taskdef resource="net/sf/antcontrib/antlib.xml">
-      <classpath>
-        <pathelement location="antlib/ant-contrib-1.0b3.jar"/>
-      </classpath>
-    </taskdef>
 
     <!-- amalgamate sources -->
     <delete dir="${source.dir}" />
