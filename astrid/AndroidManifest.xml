@@ -121,19 +121,19 @@
     <!-- Activity for preferences -->
     <activity android:name="com.todoroo.astrid.activity.EditPreferences" />
     <!-- Activity that configures widget -->
-    <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity"
+    <activity android:name="com.todoroo.astrid.widget.TasksWidget$ConfigActivity"
               android:theme="@style/Theme">
 	    <intent-filter>
 	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 	    </intent-filter>
     </activity>
-    <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity$WithColors"
+    <activity android:name="com.todoroo.astrid.widget.PowerWidget42$ConfigActivity"
               android:theme="@style/Theme">
 	    <intent-filter>
 	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
 	    </intent-filter>
     </activity>
-    <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity$WithColorsAndEncouragements"
+    <activity android:name="com.todoroo.astrid.widget.PowerWidget44$ConfigActivity"
               android:theme="@style/Theme">
 	    <intent-filter>
 	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />

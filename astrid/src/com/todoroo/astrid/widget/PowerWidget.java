@@ -66,12 +66,6 @@ abstract public class PowerWidget extends AppWidgetProvider implements DatabaseU
     static final String ACTION_SCROLL_DOWN = "com.todoroo.astrid.widget.ACTION_SCROLL_DOWN";
 
     // Prefix for Shared Preferences
-    static final String PREF_COLOR = "powerwidget-color-";
-    static final String PREF_ENABLE_CALENDAR = "powerwidget-enableCalendar-";
-    static final String PREF_ENCOURAGEMENTS = "powerwidget-enableEncouragements-";
-    static final String PREF_TITLE = "powerwidget-title-";
-    static final String PREF_SQL = "powerwidget-sql-";
-    static final String PREF_VALUES = "powerwidget-values-";
     static final String PREF_ENCOURAGEMENT_LAST_ROTATION_TIME = "powerwidget-encouragementRotationTime-";
     static final String PREF_ENCOURAGEMENT_CURRENT = "powerwidget-encouragementCurrent-";
     static final String PREF_LAST_COMPLETED_ID = "powerwidget-lastCompletedId-";
@@ -256,7 +250,7 @@ abstract public class PowerWidget extends AppWidgetProvider implements DatabaseU
             RemoteViews views = new RemoteViews(context.getPackageName(),
                     getWidgetLayout());
 
-            String color = Preferences.getStringValue(PowerWidget.PREF_COLOR + appWidgetId);
+            String color = Preferences.getStringValue(WidgetConfigActivity.PREF_COLOR + appWidgetId);
 
             int widgetBackground = R.id.widget_bg_black;
             int textColor = Color.WHITE, overdueColor = context.getResources().getColor(R.color.task_list_overdue);
@@ -284,7 +278,7 @@ abstract public class PowerWidget extends AppWidgetProvider implements DatabaseU
             views.setViewVisibility(widgetBackground, View.VISIBLE);
 
             // set encouragement
-            boolean showEncouragements = Preferences.getBoolean(PowerWidget.PREF_ENCOURAGEMENTS + appWidgetId, true);
+            boolean showEncouragements = Preferences.getBoolean(WidgetConfigActivity.PREF_ENCOURAGEMENTS + appWidgetId, true);
             long lastRotation = Preferences.getLong(PowerWidget.PREF_ENCOURAGEMENT_LAST_ROTATION_TIME + appWidgetId, 0);
             if (showEncouragements){
                 // is it time to update the encouragement?
@@ -501,13 +495,13 @@ abstract public class PowerWidget extends AppWidgetProvider implements DatabaseU
         private Filter getFilter(int widgetId) {
             // base our filter off the inbox filter, replace stuff if we have it
             Filter filter = CoreFilterExposer.buildInboxFilter(getResources());
-            String sql = Preferences.getStringValue(PREF_SQL + widgetId);
+            String sql = Preferences.getStringValue(WidgetConfigActivity.PREF_SQL + widgetId);
             if(sql != null)
                 filter.sqlQuery = sql;
-            String title = Preferences.getStringValue(PREF_TITLE + widgetId);
+            String title = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
             if(title != null)
                 filter.title = title;
-            String contentValues = Preferences.getStringValue(PREF_VALUES + widgetId);
+            String contentValues = Preferences.getStringValue(WidgetConfigActivity.PREF_VALUES + widgetId);
             if(contentValues != null)
                 filter.valuesForNewTasks = AndroidUtilities.contentValuesFromSerializedString(contentValues);
 

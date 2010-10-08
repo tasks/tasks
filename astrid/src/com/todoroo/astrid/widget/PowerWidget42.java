@@ -27,4 +27,15 @@ public class PowerWidget42 extends PowerWidget {
         }
     }
 
+    public static class ConfigActivity extends WidgetConfigActivity {
+        @Override
+        public boolean showColorSelectionSetting() {
+            return true;
+        }
+
+        @Override
+        public void updateWidget() {
+            new PowerWidget42().updateAppWidget(this, mAppWidgetId);
+        }
+    }
 }
