@@ -84,7 +84,7 @@
   <string name="import_summary_title">Ripristina sommario</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">Il File% s contiene %s. \n\ n% s importati,\n %s esiste già \n % s contiene errori \n</string>
+  <string name="import_summary_message">Il File %s contiene %s.\n\n %s importati\n %s esiste già\n %s contiene errori\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importazione in corso...</string>

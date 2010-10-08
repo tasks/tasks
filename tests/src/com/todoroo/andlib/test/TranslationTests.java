@@ -131,12 +131,19 @@ abstract public class TranslationTests extends TodorooTestCase {
         final int[] strings = getResourceIds(getStringResources());
         final FormatStringData[] formatStrings = new FormatStringData[strings.length];
 
+        final StringBuilder failures = new StringBuilder();
+
         for(int i = 0; i < strings.length; i++) {
-            String string = r.getString(strings[i]);
-            formatStrings[i] = new FormatStringData(string);
+            try {
+                String string = r.getString(strings[i]);
+                formatStrings[i] = new FormatStringData(string);
+            } catch (Exception e) {
+                String name = r.getResourceName(strings[i]);
+                failures.append(String.format("error opening %s: %s\n",
+                        name, e.getMessage()));
+            }
         }
 
-        final StringBuilder failures = new StringBuilder();
 
         forEachLocale(new Runnable() {
             public void run() {
@@ -159,7 +166,7 @@ abstract public class TranslationTests extends TodorooTestCase {
             }
         });
 
-        assertEquals(failures.toString(), 0, errorCount(failures));
+        assertTrue(failures.toString(), errorCount(failures) == 0);
     }
 
     /**

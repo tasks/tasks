@@ -292,7 +292,7 @@
   <string name="FLA_search_hint">Szukaj zadań</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">Pasujących do</string>
+  <string name="FLA_search_filter">Pasujących do: %s</string>
   
   <!-- Toast: created shortcut (%s => label) -->
   <string name="FLA_toast_onCreateShortcut">Utworzono skrót: %s</string>
