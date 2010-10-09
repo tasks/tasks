@@ -22,6 +22,8 @@ package com.todoroo.astrid.activity;
 import java.util.Map.Entry;
 
 import android.app.Activity;
+import android.app.PendingIntent;
+import android.app.PendingIntent.CanceledException;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,6 +33,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.Task;
 
 /**
@@ -60,6 +63,8 @@ public class ShortcutActivity extends Activity {
     /** token for passing a {@link Filter}'s values for new tasks through extras as exploded ContentValues */
     public static final String TOKEN_FILTER_VALUES_ITEM = "v4ntp_"; //$NON-NLS-1$
 
+    /** token for passing a PendingIntent to launch */
+    public static final String TOKEN_PENDING_INTENT = "pintent"; //$NON-NLS-1$
 
     // --- implementation
 
@@ -80,7 +85,14 @@ public class ShortcutActivity extends Activity {
     private void launchTaskList(Intent intent) {
         Bundle extras = intent.getExtras();
 
-        if(extras != null && extras.containsKey(TOKEN_FILTER_SQL)) {
+        if(extras != null && extras.containsKey(TOKEN_PENDING_INTENT)) {
+            PendingIntent pending = extras.getParcelable(TOKEN_PENDING_INTENT);
+            try {
+                pending.send();
+            } catch (CanceledException e) {
+                // ignore it
+            }
+        } else if(extras != null && extras.containsKey(TOKEN_FILTER_SQL)) {
             // launched from desktop shortcut, must create a fake filter
             String title = extras.getString(TOKEN_FILTER_TITLE);
             String sql = extras.getString(TOKEN_FILTER_SQL);
@@ -130,6 +142,10 @@ public class ShortcutActivity extends Activity {
     public static Intent createIntent(Filter filter) {
         Intent shortcutIntent = new Intent(ContextManager.getContext(),
                 ShortcutActivity.class);
+
+        if(filter instanceof FilterWithCustomIntent)
+            shortcutIntent.putExtra(ShortcutActivity.TOKEN_PENDING_INTENT,
+                    ((FilterWithCustomIntent)filter).intent);
 
         shortcutIntent.setAction(Intent.ACTION_VIEW);
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE,
