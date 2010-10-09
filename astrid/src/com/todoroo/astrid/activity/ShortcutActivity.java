@@ -62,7 +62,7 @@ public class ShortcutActivity extends Activity {
     /** token for passing a {@link Filter}'s values for new tasks through extras as exploded ContentValues */
     public static final String TOKEN_FILTER_VALUES_ITEM = "v4ntp_"; //$NON-NLS-1$
 
-    /** token for passing a PendingIntent to launch */
+    /** token for passing a ComponentNameto launch */
     public static final String TOKEN_CUSTOM_CLASS = "class"; //$NON-NLS-1$
 
     // --- implementation
@@ -88,7 +88,10 @@ public class ShortcutActivity extends Activity {
 
         if(extras != null && extras.containsKey(TOKEN_CUSTOM_CLASS)) {
             taskListIntent.setComponent(ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS)));
-        } else if(extras != null && extras.containsKey(TOKEN_FILTER_SQL)) {
+            taskListIntent.putExtras(intent.getExtras());
+        }
+
+        if(extras != null && extras.containsKey(TOKEN_FILTER_SQL)) {
             // launched from desktop shortcut, must create a fake filter
             String title = extras.getString(TOKEN_FILTER_TITLE);
             String sql = extras.getString(TOKEN_FILTER_SQL);
@@ -140,8 +143,9 @@ public class ShortcutActivity extends Activity {
 
         if(filter instanceof FilterWithCustomIntent) {
             FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
-            shortcutIntent.getExtras().putAll(customFilter.customExtras);
             shortcutIntent.putExtra(TOKEN_CUSTOM_CLASS, customFilter.customTaskList.flattenToString());
+            for(String key : customFilter.customExtras.keySet())
+                putExtra(shortcutIntent, key, customFilter.customExtras.get(key));
         }
 
         shortcutIntent.setAction(Intent.ACTION_VIEW);
@@ -154,20 +158,24 @@ public class ShortcutActivity extends Activity {
                 String key = TOKEN_FILTER_VALUES_ITEM + item.getKey();
                 Object value = item.getValue();
 
-                // assume one of the big 4...
-                if (value instanceof String)
-                    shortcutIntent.putExtra(key, (String) value);
-                else if (value instanceof Integer)
-                    shortcutIntent.putExtra(key, (Integer) value);
-                else if (value instanceof Double)
-                    shortcutIntent.putExtra(key, (Double) value);
-                else if (value instanceof Long)
-                    shortcutIntent.putExtra(key, (Long) value);
-                else
-                    throw new IllegalStateException(
-                            "Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
+                putExtra(shortcutIntent, key, value);
             }
         }
         return shortcutIntent;
+    }
+
+    private static void putExtra(Intent intent, String key, Object value) {
+        // assume one of the big 4...
+        if (value instanceof String)
+            intent.putExtra(key, (String) value);
+        else if (value instanceof Integer)
+            intent.putExtra(key, (Integer) value);
+        else if (value instanceof Double)
+            intent.putExtra(key, (Double) value);
+        else if (value instanceof Long)
+            intent.putExtra(key, (Long) value);
+        else
+            throw new IllegalStateException(
+                    "Unsupported bundle type " + value.getClass()); //$NON-NLS-1$
     }
 }

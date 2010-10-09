@@ -209,9 +209,8 @@ public class FilterListActivity extends ExpandableListActivity {
                 FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
                 intent.setComponent(customFilter.customTaskList);
                 intent.getExtras().putAll(customFilter.customExtras);
-            } else {
-                startActivity(intent);
             }
+            startActivity(intent);
             AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
                     new Class<?>[] { Integer.TYPE, Integer.TYPE },
                     R.anim.slide_left_in, R.anim.slide_left_out);
