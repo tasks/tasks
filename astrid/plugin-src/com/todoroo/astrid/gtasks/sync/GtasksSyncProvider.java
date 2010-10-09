@@ -426,7 +426,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         String remoteId = updateTaskHelper(local, null, createdTask);
         gtasksTaskListUpdater.addRemoteTaskMapping(local.task.getId(), remoteId);
-        local.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, remoteId);
+        local.gtaskMetadata.setValue(GtasksMetadata.ID, remoteId);
+        local.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, list);
 
         return local;
     }
