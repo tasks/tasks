@@ -206,6 +206,9 @@ abstract public class PowerWidget extends AppWidgetProvider implements DatabaseU
         @Autowired
         private TaskService taskService;
 
+        @Autowired
+        private EncouragementService encouragementService;
+
         public UpdateService() {
             DependencyInjectionService.getInstance().inject(this);
         }
@@ -283,9 +286,8 @@ abstract public class PowerWidget extends AppWidgetProvider implements DatabaseU
             if (showEncouragements){
                 // is it time to update the encouragement?
                 if (System.currentTimeMillis() - lastRotation > ENCOURAGEMENT_CYCLE_TIME){
-                    String[] encouragements =  context.getResources().getStringArray(R.array.PPW_encouragements);
-                    int encouragementIdx = (int)Math.floor(Math.random() * encouragements.length);
-                    Preferences.setString(PowerWidget.PREF_ENCOURAGEMENT_CURRENT + appWidgetId, encouragements[encouragementIdx]);
+                    String encouragement = encouragementService.getEncouragement();
+                    Preferences.setString(PowerWidget.PREF_ENCOURAGEMENT_CURRENT + appWidgetId, encouragement);
                     Preferences.setLong(PowerWidget.PREF_ENCOURAGEMENT_LAST_ROTATION_TIME + appWidgetId, System.currentTimeMillis());
                 }
                 views.setTextViewText(R.id.encouragement_text, Preferences.getStringValue(PowerWidget.PREF_ENCOURAGEMENT_CURRENT + appWidgetId));
