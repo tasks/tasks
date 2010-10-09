@@ -22,8 +22,7 @@ package com.todoroo.astrid.activity;
 import java.util.Map.Entry;
 
 import android.app.Activity;
-import android.app.PendingIntent;
-import android.app.PendingIntent.CanceledException;
+import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
@@ -64,7 +63,7 @@ public class ShortcutActivity extends Activity {
     public static final String TOKEN_FILTER_VALUES_ITEM = "v4ntp_"; //$NON-NLS-1$
 
     /** token for passing a PendingIntent to launch */
-    public static final String TOKEN_PENDING_INTENT = "pintent"; //$NON-NLS-1$
+    public static final String TOKEN_CUSTOM_CLASS = "class"; //$NON-NLS-1$
 
     // --- implementation
 
@@ -85,13 +84,10 @@ public class ShortcutActivity extends Activity {
     private void launchTaskList(Intent intent) {
         Bundle extras = intent.getExtras();
 
-        if(extras != null && extras.containsKey(TOKEN_PENDING_INTENT)) {
-            PendingIntent pending = extras.getParcelable(TOKEN_PENDING_INTENT);
-            try {
-                pending.send();
-            } catch (CanceledException e) {
-                // ignore it
-            }
+        Intent taskListIntent = new Intent(this, TaskListActivity.class);
+
+        if(extras != null && extras.containsKey(TOKEN_CUSTOM_CLASS)) {
+            taskListIntent.setComponent(ComponentName.unflattenFromString(extras.getString(TOKEN_CUSTOM_CLASS)));
         } else if(extras != null && extras.containsKey(TOKEN_FILTER_SQL)) {
             // launched from desktop shortcut, must create a fake filter
             String title = extras.getString(TOKEN_FILTER_TITLE);
@@ -123,19 +119,18 @@ public class ShortcutActivity extends Activity {
             }
 
             Filter filter = new Filter("", title, sql, values); //$NON-NLS-1$
-            Intent taskListIntent = new Intent(this, TaskListActivity.class);
+
             taskListIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
-            startActivity(taskListIntent);
         } else if(extras != null && extras.containsKey(TOKEN_SINGLE_TASK)) {
             Filter filter = new Filter("", getString(R.string.TLA_custom), //$NON-NLS-1$
                     new QueryTemplate().where(Task.ID.eq(extras.getLong(TOKEN_SINGLE_TASK, -1))), null);
 
-            Intent taskListIntent = new Intent(this, TaskListActivity.class);
             taskListIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             taskListIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
             startActivity(taskListIntent);
         }
 
+        startActivity(taskListIntent);
         finish();
     }
 
@@ -143,9 +138,11 @@ public class ShortcutActivity extends Activity {
         Intent shortcutIntent = new Intent(ContextManager.getContext(),
                 ShortcutActivity.class);
 
-        if(filter instanceof FilterWithCustomIntent)
-            shortcutIntent.putExtra(ShortcutActivity.TOKEN_PENDING_INTENT,
-                    ((FilterWithCustomIntent)filter).intent);
+        if(filter instanceof FilterWithCustomIntent) {
+            FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
+            shortcutIntent.getExtras().putAll(customFilter.customExtras);
+            shortcutIntent.putExtra(TOKEN_CUSTOM_CLASS, customFilter.customTaskList.flattenToString());
+        }
 
         shortcutIntent.setAction(Intent.ACTION_VIEW);
         shortcutIntent.putExtra(ShortcutActivity.TOKEN_FILTER_TITLE,

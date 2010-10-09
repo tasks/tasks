@@ -1,8 +1,8 @@
 package com.todoroo.astrid.api;
 
-import android.app.PendingIntent;
+import android.content.ComponentName;
 import android.content.ContentValues;
-import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,7 +10,8 @@ import com.todoroo.andlib.sql.QueryTemplate;
 
 public class FilterWithCustomIntent extends Filter {
 
-    public PendingIntent intent = null;
+    public ComponentName customTaskList = null;
+    public Bundle customExtras = null;
 
     protected FilterWithCustomIntent() {
         super();
@@ -43,13 +44,15 @@ public class FilterWithCustomIntent extends Filter {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeParcelable(intent, 0);
+        dest.writeParcelable(customTaskList, 0);
+        dest.writeParcelable(customExtras, 0);
     }
 
     @Override
     public void readFromParcel(Parcel source) {
         super.readFromParcel(source);
-        intent = source.readParcelable(Intent.class.getClassLoader());
+        customTaskList = source.readParcelable(ComponentName.class.getClassLoader());
+        customExtras = source.readParcelable(Bundle.class.getClassLoader());
     }
 
     /**
