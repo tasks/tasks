@@ -19,6 +19,7 @@ import com.todoroo.astrid.dao.Database;
 
 public final class UpgradeService {
 
+    public static final int V3_4_0 = 162;
     public static final int V3_3_0 = 155;
     public static final int V3_2_0 = 147;
     public static final int V3_1_0 = 146;
@@ -106,10 +107,15 @@ public final class UpgradeService {
                     "If you liked the old version, you can also go back by " +
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
+        newVersionString(changeLog, "3.5.0 beta", new String[] {
+                "Google Tasks (experimental!)",
+                "Power Pack 4x2 and 4x4 Widgets (beta!)",
+        });
         if(from >= V3_3_0)
-            newVersionString(changeLog, "3.3.6 (9/27/10)", new String[] {
-                    "Restored alarm functionality",
-                    "Producteev: sync can now remove due dates in Producteev",
+            newVersionString(changeLog, "3.4.0 (10/08/10)", new String[] {
+                    "End User License Agreement",
+                    "Option to disable usage statistics",
+                    "Bug fixes with Producteev",
             });
         if(from >= V3_0_0 && from < V3_3_0)
             newVersionString(changeLog, "3.3.0 (9/17/10)", new String[] {
