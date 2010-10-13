@@ -69,7 +69,7 @@ public final class MilkMetadataService extends SyncMetadataService<MilkTaskConta
 
     @Override
     public Criterion getMetadataWithRemoteId() {
-        return MilkTaskFields.TASK_ID.neq(""); //$NON-NLS-1$
+        return MilkTaskFields.TASK_ID.gt(0);
     }
 
 }
