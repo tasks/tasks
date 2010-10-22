@@ -42,8 +42,11 @@ public class GtasksTaskListUpdater {
     /**
      * Indent a task and all its children
      */
-    public void indent(String listId, final long targetTaskId, final int delta) {
-        StoreObject list = gtasksListService.getList(listId);
+    public void indent(final long targetTaskId, final int delta) {
+        Metadata targetMetadata = gtasksMetadataService.getTaskMetadata(targetTaskId);
+        if(targetMetadata == null)
+            return;
+        StoreObject list = gtasksListService.getList(targetMetadata.getValue(GtasksMetadata.LIST_ID));
         if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
             return;
 
@@ -108,8 +111,11 @@ public class GtasksTaskListUpdater {
      *
      * @param newTaskId task we will move above. if -1, moves to end of list
      */
-    public void moveTo(String listId, final long targetTaskId, final long moveBeforeTaskId) {
-        StoreObject list = gtasksListService.getList(listId);
+    public void moveTo(final long targetTaskId, final long moveBeforeTaskId) {
+        Metadata targetMetadata = gtasksMetadataService.getTaskMetadata(targetTaskId);
+        if(targetMetadata == null)
+            return;
+        StoreObject list = gtasksListService.getList(targetMetadata.getValue(GtasksMetadata.LIST_ID));
         if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
             return;
 

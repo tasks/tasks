@@ -8,7 +8,6 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
@@ -60,8 +59,6 @@ public class GtasksFilterExposer extends BroadcastReceiver {
                                 Order.asc(Functions.cast(GtasksMetadata.ORDER, "INTEGER"))), //$NON-NLS-1$
                 values);
         filter.customTaskList = new ComponentName(ContextManager.getContext(), GtasksListActivity.class);
-        filter.customExtras = new Bundle();
-        filter.customExtras.putString(GtasksListActivity.TOKEN_LIST_ID, list.getValue(GtasksList.REMOTE_ID));
 
         return filter;
     }
