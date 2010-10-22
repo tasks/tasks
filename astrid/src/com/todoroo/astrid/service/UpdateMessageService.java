@@ -36,7 +36,7 @@ import com.todoroo.astrid.utility.Constants;
 @SuppressWarnings("nls")
 public class UpdateMessageService {
 
-    private static final String URL = "http://localhost/update.php";
+    private static final String URL = "http://www.weloveastrid.com/updates.php";
 
     private static final String PLUGIN_PDV = "pdv";
     private static final String PLUGIN_GTASKS = "gtasks";
@@ -46,20 +46,21 @@ public class UpdateMessageService {
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
     @Autowired private AddOnService addOnService;
 
+    private Context context;
+
     public UpdateMessageService() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    public void processUpdates() {
+    public void processUpdates(Context thisContext) {
+        context = thisContext;
+
         if(shouldSkipUpdates())
             return;
 
         JSONArray updates = checkForUpdates();
 
         if(updates == null || updates.length() == 0)
-            return;
-
-        if(updatesHaveNotChanged(updates))
             return;
 
         StringBuilder builder = buildUpdateMessage(updates);
@@ -70,29 +71,33 @@ public class UpdateMessageService {
     }
 
     protected boolean shouldSkipUpdates() {
-        Context context = ContextManager.getContext();
         return !(context instanceof Activity);
     }
 
-    private boolean updatesHaveNotChanged(JSONArray updates) {
+    private boolean updatesHaveNotChanged(String latest) {
         String savedUpdates = AstridPreferences.getLatestUpdates();
-        String latest = updates.toString();
         if(AndroidUtilities.equals(savedUpdates, latest))
             return true;
         AstridPreferences.setLatestUpdates(latest);
         return false;
     }
 
-    protected void displayUpdateDialog(final StringBuilder builder) {
-        final Activity activity = (Activity) ContextManager.getContext();
+    protected void displayUpdateDialog(StringBuilder builder) {
+        final Activity activity = (Activity) context;
         if(activity == null)
+            return;
+
+        final String html = "<html><body style='color: white'>" +
+            builder.append("</body></html>").toString();
+
+        if(updatesHaveNotChanged(html))
             return;
 
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 DialogUtilities.htmlDialog(activity,
-                        builder.toString(), R.string.UpS_changelog_title);
+                        html, R.string.UpS_updates_title);
             }
         });
     }

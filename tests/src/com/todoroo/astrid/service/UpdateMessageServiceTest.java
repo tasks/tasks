@@ -28,7 +28,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
                 assertTrue(url.contains("version="));
                 return "";
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
     }
 
     public void testIOException() {
@@ -45,7 +45,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
             String getUpdates(String url) throws IOException {
                 throw new IOException("yayaya");
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
     }
 
     public void testNewUpdate() {
@@ -62,7 +62,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'yo'}]";
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
     }
 
     public void testMultipleUpdates() {
@@ -80,7 +80,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'yo'},{message:'cat'}]";
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
     }
 
     public void testExistingUpdate() {
@@ -97,7 +97,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'yo'}]";
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
 
         new TestUpdateMessageService() {
 
@@ -115,7 +115,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'yo'}]";
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
     }
 
     public void testUpdateWithDate() {
@@ -133,7 +133,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'yo',date:'date'}]";
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
     }
 
     public void testUpdateWithInternalPluginOn() {
@@ -151,7 +151,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'rmilk man',plugin:'rmilk'}]";
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
     }
 
     public void testUpdateWithInternalPluginOff() {
@@ -174,7 +174,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'rmilk man',plugin:'rmilk'}]";
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
     }
 
     public void testUpdateWithExternalPluginOn() {
@@ -191,7 +191,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'astrid man',plugin:'" + Constants.PACKAGE + "'}]";
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
     }
 
     public void testUpdateWithExternalPluginOff() {
@@ -213,7 +213,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
             String getUpdates(String url) throws IOException {
                 return "[{message:'astrid man',plugin:'com.bogus.package'}]";
             }
-        }.processUpdates();
+        }.processUpdates(getContext());
     }
 
     // ---

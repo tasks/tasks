@@ -312,6 +312,9 @@
   <!-- Changelog Window Title -->
   <string name="UpS_changelog_title">What\'s New In Astrid?</string>
   
+  <!-- Updates Window Title -->
+  <string name="UpS_updates_title">Latest Astrid News</string>
+  
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Window Title -->

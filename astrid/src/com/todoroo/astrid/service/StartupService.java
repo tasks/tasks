@@ -136,7 +136,7 @@ public class StartupService {
                 BackupService.scheduleService(context);
 
                 // get and display update messages
-                new UpdateMessageService().processUpdates();
+                new UpdateMessageService().processUpdates(context);
             }
         }).start();
 
