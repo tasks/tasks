@@ -235,12 +235,13 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             gcm.authenticate(false);
         } catch (GoogleLoginException e) {
             Toast.makeText(activity, R.string.gtasks_login_error, Toast.LENGTH_LONG).show();
+            Log.e("gtasks", "login", e);
             return;
         } catch (IOException e) {
             Toast.makeText(activity, R.string.SyP_ioerror, Toast.LENGTH_LONG).show();
+            Log.e("gtasks", "login", e);
         }
         String token = gcm.getToken();
-        System.err.println("got token " + token);
         gtasksPreferenceService.setToken(token);
         activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
             activity, GtasksBackgroundService.class));
@@ -426,7 +427,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         String remoteId = updateTaskHelper(local, null, createdTask);
         gtasksTaskListUpdater.addRemoteTaskMapping(local.task.getId(), remoteId);
-        local.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, remoteId);
+        local.gtaskMetadata.setValue(GtasksMetadata.ID, remoteId);
+        local.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, list);
 
         return local;
     }

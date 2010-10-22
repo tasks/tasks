@@ -4,8 +4,8 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:background="@android:drawable/list_selector_background"
-    android:paddingTop="4dip"
-    android:paddingBottom="4dip"
+    android:paddingTop="2dip"
+    android:paddingBottom="2dip"
     android:paddingLeft="4dip"
     android:paddingRight="4dip"
     android:orientation="vertical">
@@ -26,7 +26,6 @@
         <View android:id="@+id/indent"
             android:layout_width="0dip"
             android:layout_height="fill_parent"/>
-            
                         
         <!-- grabber -->
         <ImageView android:id="@+id/grabber"
@@ -37,7 +36,7 @@
             
         <LinearLayout android:id="@+id/taskText"
             android:layout_width="fill_parent"
-            android:layout_height="42dip"
+            android:layout_height="fill_parent"
             android:layout_weight="100"
             android:gravity="center_vertical"
             android:background="@android:drawable/list_selector_background"

@@ -20,6 +20,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.SortSelectionActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
@@ -29,17 +30,12 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.andlib.utility.Preferences;
 
 public class TasksWidget extends AppWidgetProvider {
 
     static {
         AstridDependencyInjector.initialize();
     }
-
-   static final String PREF_TITLE = "taskswidget-title-"; //$NON-NLS-1$
-   static final String PREF_SQL = "taskswidget-sql-"; //$NON-NLS-1$
-   static final String PREF_VALUES = "taskswidget-values-"; //$NON-NLS-1$
 
     public final static int[]   TEXT_IDS      = { R.id.task_1, R.id.task_2,
         R.id.task_3, R.id.task_4, R.id.task_5 };
@@ -79,6 +75,13 @@ public class TasksWidget extends AppWidgetProvider {
                 TasksWidget.UpdateService.class);
         intent.putExtra(UpdateService.EXTRA_WIDGET_ID, id);
         context.startService(intent);
+    }
+
+    public static class ConfigActivity extends WidgetConfigActivity {
+        @Override
+        public void updateWidget() {
+            TasksWidget.updateWidget(this, mAppWidgetId);
+        }
     }
 
     public static class UpdateService extends Service {
@@ -208,13 +211,13 @@ public class TasksWidget extends AppWidgetProvider {
         private Filter getFilter(int widgetId) {
             // base our filter off the inbox filter, replace stuff if we have it
             Filter filter = CoreFilterExposer.buildInboxFilter(getResources());
-            String sql = Preferences.getStringValue(PREF_SQL + widgetId);
+            String sql = Preferences.getStringValue(WidgetConfigActivity.PREF_SQL + widgetId);
             if(sql != null)
                 filter.sqlQuery = sql;
-            String title = Preferences.getStringValue(PREF_TITLE + widgetId);
+            String title = Preferences.getStringValue(WidgetConfigActivity.PREF_TITLE + widgetId);
             if(title != null)
                 filter.title = title;
-            String contentValues = Preferences.getStringValue(PREF_VALUES + widgetId);
+            String contentValues = Preferences.getStringValue(WidgetConfigActivity.PREF_VALUES + widgetId);
             if(contentValues != null)
                 filter.valuesForNewTasks = AndroidUtilities.contentValuesFromSerializedString(contentValues);
 

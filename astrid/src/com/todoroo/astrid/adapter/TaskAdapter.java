@@ -913,4 +913,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     }
 
+    public void clearSelection() {
+        expanded = -1;
+    }
+
 }

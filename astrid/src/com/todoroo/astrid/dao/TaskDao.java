@@ -17,15 +17,16 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
+import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
-import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.widget.PowerWidget;
 import com.todoroo.astrid.widget.PowerWidget42;
+import com.todoroo.astrid.widget.PowerWidget44;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -244,14 +245,26 @@ public class TaskDao extends DatabaseDao<Task> {
         afterTasklistChange();
     }
 
+    private final DatabaseUpdateListener[] taskChangeListeners = new DatabaseUpdateListener[] {
+            new DatabaseUpdateListener() {
+                @Override
+                public void onDatabaseUpdated() {
+                    Astrid2TaskProvider.notifyDatabaseModification();
+                    Astrid3ContentProvider.notifyDatabaseModification();
+                    TasksWidget.updateWidgets(ContextManager.getContext());
+                }
+            },
+            new PowerWidget44(),
+            new PowerWidget42()
+    };
+
     /**
      * Called when task list has changed
      */
     private void afterTasklistChange() {
-        Astrid2TaskProvider.notifyDatabaseModification();
-        TasksWidget.updateWidgets(ContextManager.getContext());
-        PowerWidget.updateWidgets(ContextManager.getContext());
-        PowerWidget42.updateWidgets(ContextManager.getContext());
+        for(DatabaseUpdateListener listener : taskChangeListeners) {
+            listener.onDatabaseUpdated();
+        }
     }
 
     /**

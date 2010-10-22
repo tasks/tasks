@@ -18,8 +18,41 @@
     <string name="PPW_past_due">Past Due:</string>
     
     <string-array name="PPW_encouragements">
-    	<item>Ready to work?</item>
+        <!-- general encouragements -->
+    	<item>Hi there!</item>
     	<item>Have time to finish something?</item>
     	<item>Gosh, you are looking suave today!</item>
+    	<item>Do something great today!</item>
+    	<item>Make me proud today!</item>
+    	<item>How are you doing today?</item>
     </string-array>
+    
+    <string-array name="PPW_encouragements_tod">
+        <!-- encouragements based on time of day -->
+    	<item>Good morning!</item>
+    	<item>Good afternoon!</item>
+    	<item>Good evening!</item>
+    	<item>Late night?</item>
+    	<item>It\s early, get something done!</item>
+    	<item>Afternoon tea, perhaps?</item>
+    	<item>Enjoy the evening!</item>
+    	<item>Sleep is good for you, you know!</item>
+    </string-array>
+    
+    <string-array name="PPW_encouragements_completed">
+        <!-- encouragements based on tasks completed (%d => completed) -->
+    	<item>You\'ve already completed %d tasks!</item>
+    	<item>Score in life: %d tasks completed</item>
+    	<item>Smile! You\'ve already finished %d tasks!</item>
+    </string-array>
+    
+    <string name="PPW_encouragements_completed"></string>
+    
+    <string-array name="PPW_colors">
+        <item>Black</item>
+        <item>White</item>
+        <item>Blue</item>
+        <item>Red</item>
+    </string-array>
+    
 </resources>

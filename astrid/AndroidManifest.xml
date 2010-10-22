@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="3.4.0 (added EULA and option to turn off usage statistics)" 
-          android:versionCode="162">
+          android:versionName="3.5.0-beta" 
+          android:versionCode="163">
           
   <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
   <!--    android:installLocation="internalOnly"> -->
@@ -53,7 +53,7 @@
             android:minSdkVersion="3" />
   <supports-screens />
   
-  <application android:icon="@drawable/icon" 
+  <application android:icon="@drawable/icon" android:debuggable="true"
                android:label="@string/app_name">
     
     <!-- ====================================================== Activities = -->
@@ -118,7 +118,19 @@
     <!-- Activity for preferences -->
     <activity android:name="com.todoroo.astrid.activity.EditPreferences" />
     <!-- Activity that configures widget -->
-    <activity android:name="com.todoroo.astrid.widget.WidgetConfigActivity"
+    <activity android:name="com.todoroo.astrid.widget.TasksWidget$ConfigActivity"
+              android:theme="@style/Theme">
+	    <intent-filter>
+	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+	    </intent-filter>
+    </activity>
+    <activity android:name="com.todoroo.astrid.widget.PowerWidget42$ConfigActivity"
+              android:theme="@style/Theme">
+	    <intent-filter>
+	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
+	    </intent-filter>
+    </activity>
+    <activity android:name="com.todoroo.astrid.widget.PowerWidget44$ConfigActivity"
               android:theme="@style/Theme">
 	    <intent-filter>
 	        <action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" />
@@ -129,12 +141,31 @@
 
     <receiver android:name="com.todoroo.astrid.reminders.Notifications" />
     
+    <!-- widgets -->
     <receiver android:name="com.todoroo.astrid.widget.TasksWidget">
       <intent-filter>
         <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
       </intent-filter>
       <meta-data android:name="android.appwidget.provider"
                  android:resource="@xml/widget_provider_info" />
+    </receiver>
+    <receiver android:name="com.todoroo.astrid.widget.PowerWidget44" 
+                android:label="@string/PPW_widget_44_label"
+                android:icon="@drawable/icon_pp">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data android:name="android.appwidget.provider"
+                 android:resource="@xml/power_widget_44_provider_info" />
+    </receiver>
+    <receiver android:name="com.todoroo.astrid.widget.PowerWidget42" 
+                android:label="@string/PPW_widget_42_label"
+                android:icon="@drawable/icon_pp">
+      <intent-filter>
+        <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+      </intent-filter>
+      <meta-data android:name="android.appwidget.provider"
+                 android:resource="@xml/power_widget_42_provider_info" />
     </receiver>
 
     <receiver android:name="com.todoroo.astrid.service.GlobalEventReceiver">
@@ -146,8 +177,8 @@
     <!-- ======================================================== Services = -->
 
     <service android:name="com.todoroo.astrid.widget.TasksWidget$UpdateService" />
-    <service android:name="com.todoroo.astrid.widget.PowerWidget$UpdateService" />
-    <service android:name="com.todoroo.astrid.widget.PowerWidget42$UpdateService" />
+    <service android:name="com.todoroo.astrid.widget.PowerWidget44$UpdateService44" />
+    <service android:name="com.todoroo.astrid.widget.PowerWidget42$UpdateService42" />
 
     <!-- ======================================================= Providers = -->
 
@@ -214,7 +245,7 @@
     </receiver>    
     
     <!-- gtasks -->
-    <!-- activity android:name="com.todoroo.astrid.gtasks.GtasksListActivity"
+    <activity android:name="com.todoroo.astrid.gtasks.GtasksListActivity"
               android:windowSoftInputMode="stateHidden"
               android:theme="@style/Theme">
       <intent-filter>
@@ -249,7 +280,7 @@
         <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
-    </receiver> -->    
+    </receiver>
     
     <!-- tags -->
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
