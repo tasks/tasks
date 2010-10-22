@@ -49,6 +49,7 @@ import com.todoroo.astrid.sync.SyncBackgroundService;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.utility.Constants;
+import com.todoroo.astrid.utility.Flags;
 import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTaskService;
@@ -57,6 +58,7 @@ import com.todoroo.gtasks.GoogleTaskView;
 import com.todoroo.gtasks.GoogleTasksException;
 import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.actions.Actions;
+import com.todoroo.gtasks.actions.GetTasksAction;
 import com.todoroo.gtasks.actions.ListAction;
 import com.todoroo.gtasks.actions.ListActions;
 import com.todoroo.gtasks.actions.ListCreationAction;
@@ -208,8 +210,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             gtasksTaskListUpdater.createParentSiblingMaps();
 
-            // batched read tasks for each list
-            ArrayList<GtasksTaskContainer> remoteTasks = readAllRemoteTasks();
+            // read non-deleted tasks for each list
+            ArrayList<GtasksTaskContainer> remoteTasks = readAllRemoteTasks(false);
 
             SyncData<GtasksTaskContainer> syncData = populateSyncData(remoteTasks);
             try {
@@ -223,6 +225,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             gtasksPreferenceService.recordSuccessfulSync();
             StatisticsService.reportEvent("gtasks-sync-finished"); //$NON-NLS-1$
+
+            Flags.set(Flags.REFRESH);
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
@@ -250,8 +254,9 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     protected void readRemotelyUpdated(SyncData<GtasksTaskContainer> data)
             throws IOException {
         // first, pull all tasks. then we can write them
+        // include deleted tasks so we can delete them in astrid
         try {
-            data.remoteUpdated = readAllRemoteTasks();
+            data.remoteUpdated = readAllRemoteTasks(true);
         } catch (JSONException e) {
             throw new GoogleTasksException(e);
         }
@@ -294,12 +299,15 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     // ------------------------------------------------- create / push / pull
     // ----------------------------------------------------------------------
 
-    private ArrayList<GtasksTaskContainer> readAllRemoteTasks()
+    private ArrayList<GtasksTaskContainer> readAllRemoteTasks(boolean includeDeleted)
             throws JSONException, IOException, GoogleLoginException {
         ArrayList<GtasksTaskContainer> remoteTasks = new ArrayList<GtasksTaskContainer>();
         for(StoreObject dashboard : gtasksListService.getLists()) {
             String listId = dashboard.getValue(GtasksList.REMOTE_ID);
-            List<GoogleTaskTask> list = taskService.getTasks(listId);
+
+            GetTasksAction action = new GetTasksAction(listId, includeDeleted);
+            taskService.executeActions(action);
+            List<GoogleTaskTask> list = action.getGoogleTasks();
             addRemoteTasksToList(list, remoteTasks);
         }
         return remoteTasks;
