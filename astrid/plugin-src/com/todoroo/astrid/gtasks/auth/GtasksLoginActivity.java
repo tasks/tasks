@@ -21,6 +21,8 @@ package com.todoroo.astrid.gtasks.auth;
 
 import java.io.IOException;
 
+import org.json.JSONException;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -45,6 +47,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncBackgroundService;
 import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleLoginException;
+import com.todoroo.gtasks.GoogleTasksException;
 
 /**
  * This activity allows users to sign in or log in to Producteev
@@ -109,17 +112,25 @@ public class GtasksLoginActivity extends Activity {
                         password.toString(), !isDomain);
                 try {
                     gcm.authenticate(false);
+                    gcm.get();
                     String token = gcm.getToken();
                     gtasksPreferenceService.setToken(token);
                     StatisticsService.reportEvent("gtasks-login");
                     synchronize();
                 } catch (GoogleLoginException e) {
                     errorMessage.append(getString(R.string.gtasks_GLA_errorAuth));
-                    Log.e("gtasks", "login", e);
+                    Log.e("gtasks", "login-auth", e);
                     return;
+                } catch (GoogleTasksException e) {
+                    errorMessage.append(getString(R.string.gtasks_GLA_errorAuth));
+                    Log.e("gtasks", "login-gtasks", e);
+                } catch (JSONException e) {
+                    errorMessage.append(getString(R.string.gtasks_GLA_errorAuth));
+                    Log.e("gtasks", "login-json", e);
                 } catch (IOException e) {
                     errorMessage.append(getString(R.string.SyP_ioerror));
-                    Log.e("gtasks", "login", e);
+                    Log.e("gtasks", "login-io", e);
+                    return;
                 } finally {
                     runOnUiThread(new Runnable() {
                         public void run() {
