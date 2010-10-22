@@ -253,6 +253,8 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <activity android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity" 
+              android:theme="@style/White"/>
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksFilterExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />

@@ -15,17 +15,9 @@ import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.DialogInterface.OnClickListener;
 import android.text.TextUtils;
-import android.text.method.PasswordTransformationMethod;
 import android.util.Log;
-import android.widget.EditText;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
@@ -50,7 +42,7 @@ import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksPreferences;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
-import com.todoroo.astrid.gtasks.GtasksPreferences.OnGetCredentials;
+import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncBackgroundService;
@@ -188,64 +180,13 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         // check if we have a token & it works
         if(authToken == null) {
-            final GtasksPreferences preferenceActivity = (GtasksPreferences)activity;
-            preferenceActivity.getCredentials(new OnGetCredentials() {
-                @Override
-                public void getCredentials(String[] accounts) {
-                    ScrollView layoutScroller = new ScrollView(activity);
-                    LinearLayout layout = new LinearLayout(activity);
-                    layoutScroller.addView(layout);
-                    layout.setPadding(5, -5, 5, 0);
-                    layout.setOrientation(LinearLayout.VERTICAL);
-                    TextView textView = new TextView(activity);
-                    textView.setText(R.string.producteev_PLA_email);
-                    layout.addView(textView);
-                    final EditText email = new EditText(activity);
-                    if(accounts != null && accounts.length > 0)
-                        email.setText(accounts[0]);
-                    layout.addView(email);
-                    textView = new TextView(activity);
-                    textView.setText(R.string.producteev_PLA_password);
-                    layout.addView(textView);
-                    final EditText password = new EditText(activity);
-                    password.setTransformationMethod(new PasswordTransformationMethod());
-                    layout.addView(password);
-
-                    DialogUtilities.viewDialog(activity,
-                            activity.getString(R.string.gtasks_login), layoutScroller,
-                            new OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface arg0, int arg1) {
-                                    trySynchronizing(activity, email.getText(), password.getText());
-                                }
-
-                            }, null);
-                }
-            });
+            Intent intent = new Intent(activity, GtasksLoginActivity.class);
+            activity.startActivityForResult(intent, 0);
         } else {
             activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
                 activity, GtasksBackgroundService.class));
             activity.finish();
         }
-    }
-
-    private void trySynchronizing(Activity activity, CharSequence email, CharSequence password) {
-        GoogleConnectionManager gcm = new GoogleConnectionManager(email.toString(), password.toString());
-        try {
-            gcm.authenticate(false);
-        } catch (GoogleLoginException e) {
-            Toast.makeText(activity, R.string.gtasks_login_error, Toast.LENGTH_LONG).show();
-            Log.e("gtasks", "login", e);
-            return;
-        } catch (IOException e) {
-            Toast.makeText(activity, R.string.SyP_ioerror, Toast.LENGTH_LONG).show();
-            Log.e("gtasks", "login", e);
-        }
-        String token = gcm.getToken();
-        gtasksPreferenceService.setToken(token);
-        activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
-            activity, GtasksBackgroundService.class));
-        activity.finish();
     }
 
     // ----------------------------------------------------------------------

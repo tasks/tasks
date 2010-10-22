@@ -16,6 +16,10 @@
         <item name="android:windowBackground">@null</item>
     </style>
     
+    <style name="White" parent="android:Theme.Light">
+        <item name="android:windowBackground">@null</item>
+    </style>
+    
     <!--=============================================== TaskListActivity == -->
     
     <style name="TextAppearance.TLA_NoItems">
