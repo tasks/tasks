@@ -5,6 +5,7 @@ package com.todoroo.astrid.service;
 
 import com.todoroo.andlib.service.AbstractDependencyInjector;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.HttpRestClient;
 import com.todoroo.andlib.service.ExceptionService.AndroidLogReporter;
 import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
 import com.todoroo.astrid.dao.Database;
@@ -14,8 +15,8 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
-import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
+import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -46,6 +47,7 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
 
         // com.todoroo.android.service
         injectables.put("applicationName", "astrid");
+        injectables.put("restClient", HttpRestClient.class);
 
         // com.todoroo.astrid.dao
         injectables.put("database", Database.class);

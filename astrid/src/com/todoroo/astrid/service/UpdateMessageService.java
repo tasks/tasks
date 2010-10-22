@@ -108,9 +108,9 @@ public class UpdateMessageService {
                 continue;
             }
 
-            String date = update.optString("date");
-            String message = update.optString("message");
-            String plugin = update.optString("plugin");
+            String date = update.optString("date", null);
+            String message = update.optString("message", null);
+            String plugin = update.optString("plugin", null);
 
             if(message == null)
                 continue;

@@ -24,7 +24,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
 
             @Override
             String getUpdates(String url) throws IOException {
-                assertTrue(url.contains("language=EN"));
+                assertTrue(url, url.contains("language=eng"));
                 assertTrue(url.contains("version="));
                 return "";
             }
