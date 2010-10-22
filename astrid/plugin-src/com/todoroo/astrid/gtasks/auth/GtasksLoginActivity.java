@@ -26,6 +26,7 @@ import org.json.JSONException;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.util.Log;
@@ -36,6 +37,8 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.googlelogin.GoogleLoginServiceConstants;
+import com.google.android.googlelogin.GoogleLoginServiceHelper;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
@@ -95,6 +98,15 @@ public class GtasksLoginActivity extends Activity {
             }
 
         });
+
+        getCredentials(new OnGetCredentials() {
+            @Override
+            public void getCredentials(String[] accounts) {
+                if(accounts != null && accounts.length > 0)
+                    emailEditText.setText(accounts[0]);
+            }
+        });
+
     }
 
 
@@ -165,6 +177,33 @@ public class GtasksLoginActivity extends Activity {
     protected void onStop() {
         super.onStop();
         StatisticsService.sessionStop(this);
+    }
+
+    // --- account management
+
+
+    private static final int REQUEST_CODE_GOOGLE = 1;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == REQUEST_CODE_GOOGLE){
+            String accounts[] = data.getExtras().getStringArray(GoogleLoginServiceConstants.ACCOUNTS_KEY);
+            credentialsListener.getCredentials(accounts);
+        }
+    }
+    public interface OnGetCredentials {
+        public void getCredentials(String[] accounts);
+    }
+
+    private OnGetCredentials credentialsListener;
+
+    public void getCredentials(OnGetCredentials onGetCredentials) {
+        credentialsListener = onGetCredentials;
+        if(Integer.parseInt(Build.VERSION.SDK) >= 7)
+            credentialsListener.getCredentials(ModernAuthManager.getAccounts(this));
+        else
+            GoogleLoginServiceHelper.getAccount(this, REQUEST_CODE_GOOGLE, false);
     }
 
 }
