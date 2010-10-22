@@ -44,6 +44,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.GtasksBackgroundService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.StatisticsService;
@@ -128,6 +129,10 @@ public class GtasksLoginActivity extends Activity {
                     String token = gcm.getToken();
                     gtasksPreferenceService.setToken(token);
                     StatisticsService.reportEvent("gtasks-login");
+                    Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, email);
+                    Preferences.setString(GtasksPreferenceService.PREF_PASSWORD, password);
+                    Preferences.setBoolean(GtasksPreferenceService.PREF_IS_DOMAIN, isDomain);
+
                     synchronize();
                 } catch (GoogleLoginException e) {
                     errorMessage.append(getString(R.string.gtasks_GLA_errorAuth));

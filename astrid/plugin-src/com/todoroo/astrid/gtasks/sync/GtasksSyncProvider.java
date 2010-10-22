@@ -156,7 +156,10 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                 Log.e("astrid-sync", "No token, unable to sync");
                 return;
             } else {
-                connectionManager = new GoogleConnectionManager(authToken);
+                connectionManager = new GoogleConnectionManager(
+                        Preferences.getStringValue(GtasksPreferenceService.PREF_USER_NAME),
+                        Preferences.getStringValue(GtasksPreferenceService.PREF_PASSWORD),
+                        !Preferences.getBoolean(GtasksPreferenceService.PREF_IS_DOMAIN, false));
             }
 
             taskService = new GoogleTaskService(connectionManager);
