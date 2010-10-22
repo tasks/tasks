@@ -11,8 +11,8 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -114,7 +114,6 @@ public class StartupService {
         // perform startup activities in a background thread
         new Thread(new Runnable() {
             public void run() {
-
                 // start widget updating alarm
                 AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
                 Intent intent = new Intent(context, UpdateService.class);
@@ -135,6 +134,9 @@ public class StartupService {
 
                 ProducteevBackgroundService.scheduleService();
                 BackupService.scheduleService(context);
+
+                // get and display update messages
+                new UpdateMessageService().processUpdates();
             }
         }).start();
 

@@ -20,9 +20,9 @@ import android.widget.Button;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Astrid Service for managing add-ons
@@ -159,8 +159,18 @@ public class AddOnService {
     }
 
     /**
+     * Check whether an external add-on is installed
+     * @param packageName
+     * @return
+     */
+    public boolean isInstalled(String packageName) {
+        return isInstalled(packageName, false);
+    }
+
+    /**
      * Check whether a given add-on is installed
      * @param addOn
+     * @param internal whether to do api sig check
      * @return
      */
     private boolean isInstalled(String packageName, boolean internal) {
@@ -241,4 +251,5 @@ public class AddOnService {
 
         return list;
     }
+
 }

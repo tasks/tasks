@@ -6,7 +6,6 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.webkit.WebView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -145,16 +144,8 @@ public final class UpgradeService {
         changeLog.append("Enjoy!</body></html>");
         String changeLogHtml = "<html><body style='color: white'>" + changeLog;
 
-        WebView webView = new WebView(context);
-        webView.loadData(changeLogHtml, "text/html", "utf-8");
-        webView.setBackgroundColor(0);
-
-        new AlertDialog.Builder(context)
-        .setTitle(R.string.UpS_changelog_title)
-        .setView(webView)
-        .setIcon(android.R.drawable.ic_dialog_info)
-        .setPositiveButton(android.R.string.ok, null)
-        .show();
+        DialogUtilities.htmlDialog(context, changeLogHtml,
+                R.string.UpS_changelog_title);
     }
 
     /**
