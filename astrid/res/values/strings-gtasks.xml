@@ -12,6 +12,13 @@
     
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
+    
+    <!-- short help title for Gtasks -->
+    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
+    
+    <!-- short help for GTasks list activity -->
+    <string name="gtasks_help_body">Drag the grabber on the left side of a task 
+    to rearrange it. Swipe the grabber left or right to change indentation.</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     

@@ -36,4 +36,7 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
     /** GTasks is apps for domain boolean */
     public static final String PREF_IS_DOMAIN = IDENTIFIER + "_domain"; //$NON-NLS-1$
 
+    /** GTasks whether we have shown list help boolean */
+    public static final String PREF_SHOWN_LIST_HELP = IDENTIFIER + "_list_help"; //$NON-NLS-1$
+
 }
