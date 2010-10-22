@@ -54,6 +54,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
     @Override
     public void startSync() {
         new GtasksSyncProvider().synchronize(this);
+        finish();
     }
 
     @Override

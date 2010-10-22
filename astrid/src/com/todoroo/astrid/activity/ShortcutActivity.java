@@ -144,8 +144,10 @@ public class ShortcutActivity extends Activity {
         if(filter instanceof FilterWithCustomIntent) {
             FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
             shortcutIntent.putExtra(TOKEN_CUSTOM_CLASS, customFilter.customTaskList.flattenToString());
-            for(String key : customFilter.customExtras.keySet())
-                putExtra(shortcutIntent, key, customFilter.customExtras.get(key));
+            if(customFilter.customExtras != null) {
+                for(String key : customFilter.customExtras.keySet())
+                    putExtra(shortcutIntent, key, customFilter.customExtras.get(key));
+            }
         }
 
         shortcutIntent.setAction(Intent.ACTION_VIEW);
