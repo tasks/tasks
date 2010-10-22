@@ -48,7 +48,8 @@
       android:id="@+id/isDomain"
       android:layout_height="wrap_content"
       android:layout_width="fill_parent"
-      android:text="@string/gtasks_GLA_domain" />
+      android:text="@string/gtasks_GLA_domain"
+      android:visibility="gone" />
     <Button
       android:id="@+id/signIn"
       android:layout_width="fill_parent"
