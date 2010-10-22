@@ -18,7 +18,6 @@ import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.widget.EncouragementService;
 
 /**
  * Astrid application dependency injector loads classes in Astrid with the
@@ -77,9 +76,6 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
 
         // com.todoroo.astrid.tags
         injectables.put("tagService", TagService.class);
-
-        // com.todoroo.astrid.widget
-        injectables.put("encouragementService", EncouragementService.class);
 
         // these make reference to fields defined above
         injectables.put("errorReporters", new ErrorReporter[] {

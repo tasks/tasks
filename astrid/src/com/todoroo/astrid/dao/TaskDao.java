@@ -25,8 +25,6 @@ import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
-import com.todoroo.astrid.widget.PowerWidget42;
-import com.todoroo.astrid.widget.PowerWidget44;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -253,9 +251,7 @@ public class TaskDao extends DatabaseDao<Task> {
                     Astrid3ContentProvider.notifyDatabaseModification();
                     TasksWidget.updateWidgets(ContextManager.getContext());
                 }
-            },
-            new PowerWidget44(),
-            new PowerWidget42()
+            }
     };
 
     /**
