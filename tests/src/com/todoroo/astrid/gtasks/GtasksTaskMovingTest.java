@@ -214,7 +214,7 @@ public class GtasksTaskMovingTest extends DatabaseTestCase {
 
     /** moveTo = null => move to end */
     private void whenTriggerMove(Task target, Task moveTo) {
-        gtasksTaskListUpdater.moveTo("1", target.getId(), moveTo == null ? -1 : moveTo.getId());
+        gtasksTaskListUpdater.moveTo(target.getId(), moveTo == null ? -1 : moveTo.getId());
         gtasksTaskListUpdater.debugPrint("1");
     }
 

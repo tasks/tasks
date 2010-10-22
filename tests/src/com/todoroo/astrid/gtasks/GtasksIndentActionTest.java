@@ -1,15 +1,9 @@
 package com.todoroo.astrid.gtasks;
 
-import android.content.BroadcastReceiver;
-import android.content.Intent;
-
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.gtasks.GtasksIndentAction.GtasksDecreaseIndentAction;
-import com.todoroo.astrid.gtasks.GtasksIndentAction.GtasksIncreaseIndentAction;
 import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.gtasks.GoogleTaskListInfo;
 
@@ -17,13 +11,14 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
     @Autowired private GtasksListService gtasksListService;
+    @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
 
     private Task task;
 
     public void testIndentWithoutMetadata() {
         givenTask(taskWithoutMetadata());
 
-        whenTrigger(new GtasksIncreaseIndentAction());
+        whenIncreaseIndent();
 
         // should not crash
     }
@@ -31,7 +26,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     public void testIndentWithMetadataButNoOtherTasks() {
         givenTask(taskWithMetadata(0, 0));
 
-        whenTrigger(new GtasksIncreaseIndentAction());
+        whenIncreaseIndent();
 
         thenExpectIndentationLevel(0);
     }
@@ -40,7 +35,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         taskWithMetadata(0, 0);
         givenTask(taskWithMetadata(1, 0));
 
-        whenTrigger(new GtasksIncreaseIndentAction());
+        whenIncreaseIndent();
 
         thenExpectIndentationLevel(1);
     }
@@ -48,7 +43,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     public void testDeindentWithMetadata() {
         givenTask(taskWithMetadata(0, 1));
 
-        whenTrigger(new GtasksDecreaseIndentAction());
+        whenDecreaseIndent();
 
         thenExpectIndentationLevel(0);
     }
@@ -56,7 +51,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     public void testDeindentWithoutMetadata() {
         givenTask(taskWithoutMetadata());
 
-        whenTrigger(new GtasksDecreaseIndentAction());
+        whenDecreaseIndent();
 
         // should not crash
     }
@@ -64,7 +59,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     public void testDeindentWhenAlreadyZero() {
         givenTask(taskWithMetadata(0, 0));
 
-        whenTrigger(new GtasksDecreaseIndentAction());
+        whenDecreaseIndent();
 
         thenExpectIndentationLevel(0);
     }
@@ -74,7 +69,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         givenTask(taskWithMetadata(1, 0));
         Task child = taskWithMetadata(2, 1);
 
-        whenTrigger(new GtasksIncreaseIndentAction());
+        whenIncreaseIndent();
 
         thenExpectIndentationLevel(1);
         thenExpectIndentationLevel(child, 2);
@@ -85,7 +80,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         givenTask(taskWithMetadata(1, 1));
         Task child = taskWithMetadata(2, 2);
 
-        whenTrigger(new GtasksDecreaseIndentAction());
+        whenDecreaseIndent();
 
         thenExpectIndentationLevel(0);
         thenExpectIndentationLevel(child, 1);
@@ -96,7 +91,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         givenTask(taskWithMetadata(1, 0));
         Task sibling = taskWithMetadata(2, 0);
 
-        whenTrigger(new GtasksIncreaseIndentAction());
+        whenIncreaseIndent();
 
         thenExpectIndentationLevel(1);
         thenExpectIndentationLevel(sibling, 0);
@@ -108,7 +103,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         Task child = taskWithMetadata(2, 1);
         Task grandchild = taskWithMetadata(3, 2);
 
-        whenTrigger(new GtasksIncreaseIndentAction());
+        whenIncreaseIndent();
 
         thenExpectIndentationLevel(1);
         thenExpectIndentationLevel(child, 2);
@@ -116,6 +111,14 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     }
 
     // --- helpers
+
+    private void whenIncreaseIndent() {
+        gtasksTaskListUpdater.indent(task.getId(), 1);
+    }
+
+    private void whenDecreaseIndent() {
+        gtasksTaskListUpdater.indent(task.getId(), -1);
+    }
 
     @Override
     protected void setUp() throws Exception {
@@ -149,12 +152,6 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         int indentation = metadata.getValue(GtasksMetadata.INDENT);
         assertTrue("indentation: " + indentation,
                 indentation == expected);
-    }
-
-    private void whenTrigger(BroadcastReceiver action) {
-        Intent intent = new Intent(AstridApiConstants.ACTION_TASK_CONTEXT_MENU);
-        intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-        action.onReceive(getContext(), intent);
     }
 
     private void givenTask(Task taskToTest) {
