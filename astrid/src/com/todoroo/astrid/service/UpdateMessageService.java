@@ -16,15 +16,20 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.RestClient;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
+import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
-import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 
 /**
@@ -45,6 +50,7 @@ public class UpdateMessageService {
     @Autowired protected RestClient restClient;
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
     @Autowired private AddOnService addOnService;
+    @Autowired private StoreObjectDao storeObjectDao;
 
     private Context context;
 
@@ -74,14 +80,6 @@ public class UpdateMessageService {
         return !(context instanceof Activity);
     }
 
-    private boolean updatesHaveNotChanged(String latest) {
-        String savedUpdates = AstridPreferences.getLatestUpdates();
-        if(AndroidUtilities.equals(savedUpdates, latest))
-            return true;
-        AstridPreferences.setLatestUpdates(latest);
-        return false;
-    }
-
     protected void displayUpdateDialog(StringBuilder builder) {
         final Activity activity = (Activity) context;
         if(activity == null)
@@ -89,9 +87,6 @@ public class UpdateMessageService {
 
         final String html = "<html><body style='color: white'>" +
             builder.append("</body></html>").toString();
-
-        if(updatesHaveNotChanged(html))
-            return;
 
         activity.runOnUiThread(new Runnable() {
             @Override
@@ -137,12 +132,37 @@ public class UpdateMessageService {
                     continue;
                 }
             }
+
+            if(messageAlreadySeen(date, message))
+                continue;
+
             if(date != null)
                 builder.append("<b>" + date + "</b><br />");
             builder.append(message);
             builder.append("<br /><br />");
         }
         return builder;
+    }
+
+    private boolean messageAlreadySeen(String date, String message) {
+        if(date != null)
+            message = date + message;
+        String hash = AndroidUtilities.md5(message);
+
+        TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.ID).
+                where(StoreObjectCriteria.byTypeAndItem(UpdateMessage.TYPE, hash)));
+        try {
+            if(cursor.getCount() > 0)
+                return true;
+        } finally {
+            cursor.close();
+        }
+
+        StoreObject newUpdateMessage = new StoreObject();
+        newUpdateMessage.setValue(StoreObject.TYPE, UpdateMessage.TYPE);
+        newUpdateMessage.setValue(UpdateMessage.HASH, hash);
+        storeObjectDao.persist(newUpdateMessage);
+        return false;
     }
 
     private JSONArray checkForUpdates() {
@@ -164,5 +184,18 @@ public class UpdateMessageService {
             return null;
         }
     }
+
+    /** store object for messages a user has seen */
+    private static class UpdateMessage {
+
+        /** type*/
+        public static final String TYPE = "update-message"; //$NON-NLS-1$
+
+        /** message contents */
+        public static final StringProperty HASH = new StringProperty(StoreObject.TABLE,
+                StoreObject.ITEM.name);
+
+   }
+
 
 }

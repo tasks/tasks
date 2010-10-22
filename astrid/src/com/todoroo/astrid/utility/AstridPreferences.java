@@ -12,7 +12,6 @@ import com.todoroo.andlib.utility.Preferences;
 public class AstridPreferences {
 
     private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
-    private static final String P_LATEST_UPDATES = "up"; //$NON-NLS-1$
 
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults() {
@@ -44,16 +43,6 @@ public class AstridPreferences {
     /** CurrentVersion: the currently installed version of Astrid */
     public static void setCurrentVersion(int version) {
         Preferences.setInt(P_CURRENT_VERSION, version);
-    }
-
-    /** LatestUpdates: latest astrid updates from server */
-    public static String getLatestUpdates() {
-        return Preferences.getStringValue(P_LATEST_UPDATES);
-    }
-
-    /** LatestUpdates: latest astrid updates from server */
-    public static void setLatestUpdates(String updates) {
-        Preferences.setString(P_LATEST_UPDATES, updates);
     }
 
 }
