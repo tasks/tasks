@@ -55,5 +55,12 @@
       android:layout_height="wrap_content"
       android:layout_weight="1"
       android:text="@string/gtasks_GLA_signIn" />
+    <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:paddingTop="10dip"
+      android:textSize="14sp"
+      android:text="@string/gtasks_GLA_further_help" />
   </LinearLayout>
 </ScrollView>

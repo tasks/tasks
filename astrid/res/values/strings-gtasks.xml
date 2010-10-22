@@ -22,6 +22,11 @@
     <string name="gtasks_GLA_body">Please log in to Google Tasks. Astrid will
     not store your password anywhere.</string>
 
+    <!-- Instructions: Gtasks further help -->    
+    <string name="gtasks_GLA_further_help">(To view your tasks with indentation
+    and order preserved, go to the Filters page and select a Google Tasks list.
+    By default, Astrid uses its own sort settings)</string>
+
     <!-- Sign In Button -->    
     <string name="gtasks_GLA_signIn">Sign In</string>
 
