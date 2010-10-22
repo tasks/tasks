@@ -8,15 +8,18 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map.Entry;
 
+import org.weloveastrid.rmilk.MilkPreferences;
+import org.weloveastrid.rmilk.MilkUtilities;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -84,6 +87,10 @@ public class EditPreferences extends TodorooPreferences {
             Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
             intent.setClassName(resolveInfo.activityInfo.packageName,
                     resolveInfo.activityInfo.name);
+
+            if(MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name) &&
+                    !MilkUtilities.INSTANCE.isLoggedIn())
+                continue;
 
             Preference preference = new Preference(this);
             preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
