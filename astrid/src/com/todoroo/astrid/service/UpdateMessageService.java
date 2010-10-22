@@ -186,7 +186,7 @@ public class UpdateMessageService {
     }
 
     /** store object for messages a user has seen */
-    private static class UpdateMessage {
+    static class UpdateMessage {
 
         /** type*/
         public static final String TYPE = "update-message"; //$NON-NLS-1$

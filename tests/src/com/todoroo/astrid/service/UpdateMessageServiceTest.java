@@ -5,15 +5,19 @@ import java.io.IOException;
 import org.json.JSONArray;
 import org.weloveastrid.rmilk.MilkUtilities;
 
+import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.RestClient;
-import com.todoroo.andlib.test.TodorooTestCase;
-import com.todoroo.astrid.utility.AstridPreferences;
+import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
+import com.todoroo.astrid.test.DatabaseTestCase;
 import com.todoroo.astrid.utility.Constants;
 
-public class UpdateMessageServiceTest extends TodorooTestCase {
+public class UpdateMessageServiceTest extends DatabaseTestCase {
+
+    @Autowired private StoreObjectDao storeObjectDao;
 
     public void testNoUpdates() {
-        AstridPreferences.setLatestUpdates(null);
+        clearLatestUpdates();
 
         new TestUpdateMessageService() {
 
@@ -32,7 +36,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
     }
 
     public void testIOException() {
-        AstridPreferences.setLatestUpdates(null);
+        clearLatestUpdates();
 
         new TestUpdateMessageService() {
 
@@ -49,7 +53,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
     }
 
     public void testNewUpdate() {
-        AstridPreferences.setLatestUpdates(null);
+        clearLatestUpdates();
 
         new TestUpdateMessageService() {
 
@@ -66,7 +70,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
     }
 
     public void testMultipleUpdates() {
-        AstridPreferences.setLatestUpdates(null);
+        clearLatestUpdates();
 
         new TestUpdateMessageService() {
 
@@ -84,7 +88,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
     }
 
     public void testExistingUpdate() {
-        AstridPreferences.setLatestUpdates(null);
+        clearLatestUpdates();
 
         new TestUpdateMessageService() {
 
@@ -119,7 +123,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
     }
 
     public void testUpdateWithDate() {
-        AstridPreferences.setLatestUpdates(null);
+        clearLatestUpdates();
 
         new TestUpdateMessageService() {
 
@@ -137,7 +141,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
     }
 
     public void testUpdateWithInternalPluginOn() {
-        AstridPreferences.setLatestUpdates(null);
+        clearLatestUpdates();
         MilkUtilities.INSTANCE.setToken("milk");
 
         new TestUpdateMessageService() {
@@ -155,7 +159,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
     }
 
     public void testUpdateWithInternalPluginOff() {
-        AstridPreferences.setLatestUpdates(null);
+        clearLatestUpdates();
         MilkUtilities.INSTANCE.setToken(null);
 
         new TestUpdateMessageService() {
@@ -178,7 +182,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
     }
 
     public void testUpdateWithExternalPluginOn() {
-        AstridPreferences.setLatestUpdates(null);
+        clearLatestUpdates();
 
         new TestUpdateMessageService() {
 
@@ -195,7 +199,7 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
     }
 
     public void testUpdateWithExternalPluginOff() {
-        AstridPreferences.setLatestUpdates(null);
+        clearLatestUpdates();
 
         new TestUpdateMessageService() {
 
@@ -217,6 +221,10 @@ public class UpdateMessageServiceTest extends TodorooTestCase {
     }
 
     // ---
+
+    private void clearLatestUpdates() {
+        storeObjectDao.deleteWhere(StoreObjectCriteria.byType(UpdateMessageService.UpdateMessage.TYPE));
+    }
 
     /** helper test class */
     abstract public class TestUpdateMessageService extends UpdateMessageService {
