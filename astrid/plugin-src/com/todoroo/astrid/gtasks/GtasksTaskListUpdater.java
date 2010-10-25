@@ -10,6 +10,7 @@ import android.text.TextUtils;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -342,7 +343,7 @@ public class GtasksTaskListUpdater {
     }
 
     private void iterateThroughList(StoreObject list, ListIterator iterator) {
-        Filter filter = GtasksFilterExposer.filterFromList(list);
+        Filter filter = GtasksFilterExposer.filterFromList(ContextManager.getContext(), list);
         TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(filter.sqlQuery, null, Task.ID);
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {

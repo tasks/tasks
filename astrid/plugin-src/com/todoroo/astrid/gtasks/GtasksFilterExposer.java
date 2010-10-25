@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.AbstractModel;
@@ -26,9 +27,9 @@ import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 
 /**
@@ -44,7 +45,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
 
     private StoreObject[] lists;
 
-    public static Filter filterFromList(StoreObject list) {
+    public static Filter filterFromList(Context context, StoreObject list) {
         String listName = list.getValue(GtasksList.NAME);
         ContentValues values = new ContentValues();
         values.putAll(GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
@@ -58,6 +59,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
                         GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
                                 Order.asc(Functions.cast(GtasksMetadata.ORDER, "INTEGER"))), //$NON-NLS-1$
                 values);
+        filter.listingIcon = ((BitmapDrawable)context.getResources().getDrawable(R.drawable.gtasks_icon)).getBitmap();
         filter.customTaskList = new ComponentName(ContextManager.getContext(), GtasksListActivity.class);
 
         return filter;
@@ -80,7 +82,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
 
         Filter[] listFilters = new Filter[lists.length];
         for(int i = 0; i < lists.length; i++)
-            listFilters[i] = filterFromList(lists[i]);
+            listFilters[i] = filterFromList(context, lists[i]);
 
         FilterListHeader header = new FilterListHeader(context.getString(R.string.gtasks_FEx_header));
         FilterCategory listsCategory = new FilterCategory(context.getString(R.string.gtasks_FEx_list),
