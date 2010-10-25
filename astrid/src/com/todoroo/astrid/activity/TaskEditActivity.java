@@ -21,6 +21,7 @@ package com.todoroo.astrid.activity;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
@@ -155,7 +156,8 @@ public final class TaskEditActivity extends TabActivity {
 
     private EditText title;
 
-    private final ArrayList<TaskEditControlSet> controls = new ArrayList<TaskEditControlSet>();
+    private final List<TaskEditControlSet> controls =
+        Collections.synchronizedList(new ArrayList<TaskEditControlSet>());
 
 	// --- other instance variables
 
@@ -1157,7 +1159,11 @@ public final class TaskEditActivity extends TabActivity {
 
         @Override
         public String writeToModel(Task task) {
+            if(adapter == null || spinner == null)
+                return null;
             HideUntilValue item = adapter.getItem(spinner.getSelectedItemPosition());
+            if(item == null)
+                return null;
             long value = task.createHideUntil(item.setting, item.date);
             task.setValue(Task.HIDE_UNTIL, value);
             return null;
@@ -1184,10 +1190,15 @@ public final class TaskEditActivity extends TabActivity {
                     getString(R.string.TEA_reminder_alarm_off),
                     getString(R.string.TEA_reminder_alarm_on),
             };
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                     TaskEditActivity.this, android.R.layout.simple_spinner_item, list);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            mode.setAdapter(adapter);
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    mode.setAdapter(adapter);
+                }
+            });
         }
 
         public void setValue(int flags) {

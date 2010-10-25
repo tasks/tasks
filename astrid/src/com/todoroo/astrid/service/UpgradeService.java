@@ -66,8 +66,7 @@ public final class UpgradeService {
                     if(context instanceof Activity) {
                         ((Activity)context).runOnUiThread(new Runnable() {
                             public void run() {
-                                if(dialog != null)
-                                    dialog.dismiss();
+                                DialogUtilities.dismissDialog((Activity)context, dialog);
 
                                 // display changelog
                                 showChangeLog(context, from);

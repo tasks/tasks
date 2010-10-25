@@ -126,6 +126,8 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
         TreeSet<ProducteevUser> users = new TreeSet<ProducteevUser>();
         for(StoreObject dashboard : dashboards) {
             ProducteevDashboard elDashboard = new ProducteevDashboard(dashboard);
+            if(elDashboard == null)
+                continue;
             users.addAll(elDashboard.getUsers());
         }
 

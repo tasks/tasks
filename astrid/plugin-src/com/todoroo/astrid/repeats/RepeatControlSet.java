@@ -1,7 +1,6 @@
 package com.todoroo.astrid.repeats;
 
 import java.text.DateFormatSymbols;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -13,15 +12,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 
-import com.todoroo.astrid.service.StatisticsService;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
 import com.google.ical.values.Weekday;
@@ -32,6 +30,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.ui.NumberPicker;
 import com.todoroo.astrid.ui.NumberPickerDialog;
 import com.todoroo.astrid.ui.NumberPickerDialog.OnNumberPickedListener;
@@ -220,7 +219,8 @@ public class RepeatControlSet implements TaskEditControlSet {
 
                 // suppress first call to interval.onItemSelected
                 setInterval = true;
-            } catch (ParseException e) {
+            } catch (Exception e) {
+                // invalid RRULE
                 recurrence = ""; //$NON-NLS-1$
                 exceptionService.reportError("repeat-parse-exception", e);
             }
