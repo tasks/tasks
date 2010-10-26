@@ -70,6 +70,7 @@ function import_po2xml
         done
     done
     rm -f .xml2po.mo
+    sed -i 's/\\\\/\\/g' ${android_xml_files_res_dir}-*/* 
 }
 
 function export_xml2po

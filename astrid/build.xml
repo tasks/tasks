@@ -82,4 +82,28 @@
       </sequential>
     </for>
 
+    <target name="get-version">
+      <loadfile property="manifest" srcFile="AndroidManifest.xml" />
+      <propertyregex property="version.code"
+                     input="${manifest}"
+                     regexp="android:versionCode=&quot;(.*)&quot;"
+                     select="\1" />
+      <propertyregex property="version.name"
+                     input="${manifest}"
+                     regexp="android:versionName=&quot;([^ ]*)"
+                     select="\1" />
+    </target>
+      
+                     
+
+    <!-- post build: rename apk -->
+    <target name="release" depends="get-version, android_rules.release">
+      <property name="out.final.package"
+                  location="${out.absolute.dir}/${ant.project.name}-${version.code}-${version.name}-release.apk" />
+
+      <move file="${out.release.package}" tofile="${out.final.package}" />
+      <echo>Final Release Package: ${out.final.package}</echo>
+    </target>
+
+
 </project>
