@@ -21,8 +21,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 
-import com.timsu.astrid.R;
-
 /**
  * Choose which account to upload track information to.
  * @author Sandor Dornbush
@@ -76,7 +74,6 @@ public class AccountChooser {
 
     // Let the user choose.
     final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-    builder.setTitle(R.string.choose_account_title);
     builder.setCancelable(false);
     builder.setPositiveButton(android.R.string.ok,
         new DialogInterface.OnClickListener() {
@@ -111,8 +108,7 @@ public class AccountChooser {
   private void alertNoAccounts(final Activity activity,
       final AccountHandler handler) {
     final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-    builder.setTitle(R.string.no_account_found_title);
-    builder.setMessage(R.string.no_account_found);
+    builder.setMessage("No Accounts Found."); //$NON-NLS-1$
     builder.setCancelable(true);
     builder.setNegativeButton(android.R.string.ok,
         new DialogInterface.OnClickListener() {

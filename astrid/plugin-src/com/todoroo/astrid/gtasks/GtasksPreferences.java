@@ -51,4 +51,10 @@ public class GtasksPreferences extends SyncProviderPreferences {
         return gtasksPreferenceService;
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        new GtasksBackgroundService().scheduleService();
+    }
+
 }

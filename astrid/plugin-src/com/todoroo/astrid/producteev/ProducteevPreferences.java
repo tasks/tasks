@@ -45,6 +45,12 @@ public class ProducteevPreferences extends SyncProviderPreferences {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        new ProducteevBackgroundService().scheduleService();
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 

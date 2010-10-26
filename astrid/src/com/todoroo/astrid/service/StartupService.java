@@ -11,8 +11,8 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
@@ -29,7 +29,6 @@ import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
-import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -132,7 +131,6 @@ public class StartupService {
                 ProducteevUtilities.INSTANCE.stopOngoing();
                 MilkUtilities.INSTANCE.stopOngoing();
 
-                ProducteevBackgroundService.scheduleService();
                 BackupService.scheduleService(context);
 
                 // get and display update messages
