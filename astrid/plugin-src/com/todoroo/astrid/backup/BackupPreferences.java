@@ -13,10 +13,8 @@ import android.view.ViewGroup.OnHierarchyChangeListener;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
-import com.todoroo.andlib.widget.TodorooPreferences;
-import com.todoroo.astrid.activity.AddOnActivity;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.andlib.widget.TodorooPreferences;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -55,22 +53,6 @@ public class BackupPreferences extends TodorooPreferences {
                     view.setBackgroundColor(statusColor);
             }
         });
-
-        if(!PluginServices.getAddOnService().hasPowerPack()) {
-            Preference restorePreference = new Preference(this);
-            restorePreference.setTitle(R.string.backup_BPr_how_to_restore);
-            restorePreference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
-                @Override
-                public boolean onPreferenceClick(Preference preference) {
-                    DialogUtilities.okCancelDialog(BackupPreferences.this,
-                            getString(R.string.DLG_information_title),
-                            getString(R.string.backup_BPr_how_to_restore_dialog),
-                            AddOnActivity.createAddOnClicker(BackupPreferences.this, false), null);
-                    return false;
-                }
-            });
-            getPreferenceScreen().addPreference(restorePreference);
-        }
     }
 
     @Override
