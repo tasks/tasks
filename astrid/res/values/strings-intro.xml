@@ -11,16 +11,13 @@
   <string name="intro_task_1_summary">Create your first task</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">3 ways to add a task\n
+  <string name="intro_task_1_note">Two ways to add a task:\n
   1) Quick Add: Just type the task into the quick entry box and press the + 
   button that appears on the left.\n\n
   
   2) Regular add: Press the button to the right of the quick entry box. 
   Add basic details (due date, tags, notes) or set more advanced options. 
   Save the task with the save button or your phone\'s back button.\n\n
-	
-  3) Keyboard quick add: If you have a keyboard just start typing and you 
-  will create a new task.\n
   </string>
   
   <!-- Task 2 Summary  -->
@@ -48,7 +45,7 @@
   	your tasks with the simple task list provided by Gmail. For more advanced 
   	task features we recommend synchronization with Producteev.\n\n
 
-	To enable sync from Astrid press \"Menu\" -> \"Settings\" -> \"Sync\" and 
+	To enable sync from Astrid press \"Menu\" -> \"Settings\" -> \"Synchronization\" and 
 	choose the sync provider you prefer.
 	</string>
 </resources>
