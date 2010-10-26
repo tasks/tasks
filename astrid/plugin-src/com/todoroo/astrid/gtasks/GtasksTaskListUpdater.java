@@ -301,7 +301,10 @@ public class GtasksTaskListUpdater {
                         sibling = previousTask.get();
                         for(int i = indent; i < previousIndent.get(); i++)
                             sibling = parents.get(sibling);
-                        parent = parents.get(sibling);
+                        if(parents.containsKey(sibling))
+                            parent = parents.get(sibling);
+                        else
+                            parent = -1L;
                     }
                     parents.put(taskId, parent);
                     siblings.put(taskId, sibling);
