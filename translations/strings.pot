@@ -1083,7 +1083,7 @@ msgstr ""
 
 #. Task 2 Note
 #: translations/strings.xml:794( name="intro_task_2_note") 
-msgid "A desktop widget is a great way to keep track of your what you have to do as well as a way to quickly add new tasks.\\n\\n How to add a widget:\\n 1) Long press on your phone's desktop.\\n 2) Choose \"Widget\" form resulting menu\\n 3) Choose the Astrid widget.\\n 4) You can select a Astrid filter. Choose "Active Tasks" for all your tasks\\n\\n Bonus: Use the widget to add a task!"
+msgid "A desktop widget is a great way to keep track of your what you have to do as well as a way to quickly add new tasks.\\n\\n How to add a widget:\\n 1) Long press on your phone's desktop.\\n 2) Choose \"Widget\" form resulting menu\\n 3) Choose the Astrid widget.\\n 4) You can select a Astrid filter. Choose \"Active Tasks\" for all your tasks\\n\\n Bonus: Use the widget to add a task!"
 msgstr ""
 
 #. Task 3 Summary
