@@ -18,6 +18,7 @@ import com.todoroo.astrid.dao.Database;
 
 public final class UpgradeService {
 
+    public static final int V3_5_0 = 165;
     public static final int V3_4_0 = 162;
     public static final int V3_3_0 = 155;
     public static final int V3_2_0 = 147;
@@ -96,8 +97,8 @@ public final class UpgradeService {
 
         StringBuilder changeLog = new StringBuilder();
 
-        if(from <= V2_14_4)
-            newVersionString(changeLog, "3.3.0 (9/12/10)", new String[] {
+        if(from <= V2_14_4) {
+            newVersionString(changeLog, "3.5.0 (10/25/10)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
                     "look and feel, a new add-on system allows Astrid to become " +
                     "more powerful, while other improvements have made it faster " +
@@ -105,43 +106,46 @@ public final class UpgradeService {
                     "If you liked the old version, you can also go back by " +
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
-        newVersionString(changeLog, "3.5.0 beta", new String[] {
-                "Google Tasks (experimental!)",
-                "Power Pack 4x2 and 4x4 Widgets (beta!)",
-        });
-        if(from >= V3_3_0)
-            newVersionString(changeLog, "3.4.0 (10/08/10)", new String[] {
-                    "End User License Agreement",
-                    "Option to disable usage statistics",
-                    "Bug fixes with Producteev",
+        } else {
+            newVersionString(changeLog, "3.5.0", new String[] {
+                    "Google Tasks Sync (beta!)",
+                    "Bug fix with RMilk & new tasks not getting synced",
+                    "Fixed Force Closes and other bugs",
             });
-        if(from >= V3_0_0 && from < V3_3_0)
-            newVersionString(changeLog, "3.3.0 (9/17/10)", new String[] {
-                    "Fixed some RTM duplicated tasks issues",
-                    "UI updates based on your feedback",
-                    "Snooze now overrides other alarms",
-                    "Added preference option for selecting snooze style",
-                    "Hide until: now allows you to pick a specific time",
-            });
-        if(from >= V3_0_0 && from < V3_2_0)
-            newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
-                    "Build your own custom filters from the Filter page",
-                    "Easy task sorting (in the task list menu)",
-                    "Create widgets from any of your filters",
-                    "Synchronize with Producteev! (producteev.com)",
-                    "Select tags by drop-down box",
-                    "Cosmetic improvements, calendar & sync bug fixes",
-            });
-        if(from >= V3_0_0 && from < V3_1_0)
-            newVersionString(changeLog, "3.1.0 (8/9/10)", new String[] {
-                    "Linkify phone numbers, e-mails, and web pages",
-                    "Swipe L => R to go from tasks to filters",
-                    "Moved task priority bar to left side",
-                    "Added ability to create fixed alerts for a task",
-                    "Restored tag hiding when tag begins with underscore (_)",
-                    "FROYO: disabled moving app to SD card, it would break alarms and widget",
-                    "Also gone: a couple force closes, bugs with repeating tasks",
-            });
+            if(from >= V3_3_0 && from < V3_4_0)
+                newVersionString(changeLog, "3.4.0 (10/08/10)", new String[] {
+                        "End User License Agreement",
+                        "Option to disable usage statistics",
+                        "Bug fixes with Producteev",
+                });
+            if(from >= V3_0_0 && from < V3_3_0)
+                newVersionString(changeLog, "3.3.0 (9/17/10)", new String[] {
+                        "Fixed some RTM duplicated tasks issues",
+                        "UI updates based on your feedback",
+                        "Snooze now overrides other alarms",
+                        "Added preference option for selecting snooze style",
+                        "Hide until: now allows you to pick a specific time",
+                });
+            if(from >= V3_0_0 && from < V3_2_0)
+                newVersionString(changeLog, "3.2.0 (8/16/10)", new String[] {
+                        "Build your own custom filters from the Filter page",
+                        "Easy task sorting (in the task list menu)",
+                        "Create widgets from any of your filters",
+                        "Synchronize with Producteev! (producteev.com)",
+                        "Select tags by drop-down box",
+                        "Cosmetic improvements, calendar & sync bug fixes",
+                });
+            if(from >= V3_0_0 && from < V3_1_0)
+                newVersionString(changeLog, "3.1.0 (8/9/10)", new String[] {
+                        "Linkify phone numbers, e-mails, and web pages",
+                        "Swipe L => R to go from tasks to filters",
+                        "Moved task priority bar to left side",
+                        "Added ability to create fixed alerts for a task",
+                        "Restored tag hiding when tag begins with underscore (_)",
+                        "FROYO: disabled moving app to SD card, it would break alarms and widget",
+                        "Also gone: a couple force closes, bugs with repeating tasks",
+                });
+        }
 
         if(changeLog.length() == 0)
             return;
