@@ -8,4 +8,5 @@ ecbuild
 astrid/bin
 dev
 lp-translations/
+translations/strings.xml
 
