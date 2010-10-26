@@ -7,6 +7,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -287,22 +288,26 @@ public class GtasksTaskListUpdater {
             public void processTask(long taskId, Metadata metadata) {
                 int indent = metadata.getValue(GtasksMetadata.INDENT);
 
-                long parent, sibling;
-                if(indent > previousIndent.get()) {
-                    parent = previousTask.get();
-                    sibling = -1L;
-                } else if(indent == previousIndent.get()) {
-                    sibling = previousTask.get();
-                    parent = parents.get(sibling);
-                } else {
-                    // move up once for each indent
-                    sibling = previousTask.get();
-                    for(int i = indent; i < previousIndent.get(); i++)
-                        sibling = parents.get(sibling);
-                    parent = parents.get(sibling);
+                try {
+                    long parent, sibling;
+                    if(indent > previousIndent.get()) {
+                        parent = previousTask.get();
+                        sibling = -1L;
+                    } else if(indent == previousIndent.get()) {
+                        sibling = previousTask.get();
+                        parent = parents.get(sibling);
+                    } else {
+                        // move up once for each indent
+                        sibling = previousTask.get();
+                        for(int i = indent; i < previousIndent.get(); i++)
+                            sibling = parents.get(sibling);
+                        parent = parents.get(sibling);
+                    }
+                    parents.put(taskId, parent);
+                    siblings.put(taskId, sibling);
+                } catch (Exception e) {
+                    Log.e("gtasks-task-updating", "Caught exception", e); //$NON-NLS-1$ //$NON-NLS-2$
                 }
-                parents.put(taskId, parent);
-                siblings.put(taskId, sibling);
 
                 previousTask.set(taskId);
                 previousIndent.set(indent);
