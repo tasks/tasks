@@ -147,10 +147,10 @@
   <string name="DLG_to_market">转到电子市场</string>
 
   <!-- Button for accepting EULA -->
-  <string name="DLG_accept">I Accept</string>
+  <string name="DLG_accept">我同意</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">I Decline</string>
+  <string name="DLG_decline">我不同意</string>
 
   <!-- EULA title -->
   <string name="DLG_eula_title">Astrid Terms Of Use</string>
@@ -416,6 +416,9 @@
   
   <!-- Changelog Window Title -->
   <string name="UpS_changelog_title">Astrid 更新</string>
+  
+  <!-- Updates Window Title -->
+  <string name="UpS_updates_title">Latest Astrid News</string>
   
   <!-- ================================================== EditPreferences == -->
     
@@ -684,7 +687,7 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
-    <!-- =========================================================== UI == -->
+    <!-- ============================================================= UI == -->
 
     <!-- filters header: GTasks -->
     <string name="gtasks_FEx_header">Google Tasks</string>
@@ -694,6 +697,45 @@
     
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
+    
+    <!-- short help title for Gtasks -->
+    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
+    
+    <!-- short help for GTasks list activity -->
+    <string name="gtasks_help_body">Drag the grabber on the left side of a task 
+    to rearrange it. Swipe the grabber left or right to change indentation.</string>
+        
+    <!-- ============================================ GtasksLoginActivity == -->
+    
+    <!-- Activity Title: Gtasks Login -->    
+    <string name="gtasks_GLA_title">Log In to Google Tasks</string>
+
+    <!-- Instructions: Gtasks login -->    
+    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Google Apps
+    for Domain is currently unsupported, we\'re working on that!</string>
+
+    <!-- Instructions: Gtasks further help -->    
+    <string name="gtasks_GLA_further_help">To view your tasks with indentation
+    and order preserved, go to the Filters page and select a Google Tasks list.
+    By default, Astrid uses its own sort settings for tasks.</string>
+
+    <!-- Sign In Button -->    
+    <string name="gtasks_GLA_signIn">登录</string>
+
+    <!-- E-mail Address Label -->    
+    <string name="gtasks_GLA_email">E-mail</string>
+
+    <!-- Password Label -->    
+    <string name="gtasks_GLA_password">密码</string>
+    
+    <!-- Google Apps for Domain checkbox -->
+    <string name="gtasks_GLA_domain">Google Apps for Domain account</string>
+
+    <!-- Error Message when fields aren't filled out -->    
+    <string name="gtasks_GLA_errorEmpty">错误：请填写所有域！</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
+    <string name="gtasks_GLA_errorAuth">错误：e-mail 或密码不正确！</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
@@ -704,29 +746,59 @@
     
     <!-- title for notification tray when synchronizing -->
     <string name="gtasks_notification_title">Astrid: Google Tasks</string>
-    
-    <!-- title for picking a google account -->
-    <string name="choose_account_title">Choose Account</string>
-    
-    <!-- title for no google accounts found -->
-    <string name="no_account_found_title">No Accounts Found</string>
-    
-    <!-- message body for no google accounts found -->
-    <string name="no_account_found">We were unable to find a Google account on this phone. You will not be able to synchronize to Google Tasks without one!</string>
-    
-    <!-- E-mail Address Label -->    
-    <string name="gtasks_email">E-mail</string>
+        
 
-    <!-- Password Label -->    
-    <string name="gtasks_password">密码</string>
 
-    <!-- Login Message -->    
-    <string name="gtasks_login">Google Account:</string>
 
-    <!-- Login Message when Error -->    
-    <string name="gtasks_login_error">Please try your e-mail and password again.</string>
-    
+<!-- See the file "LICENSE" for the full license governing this code. -->
 
+
+    <!-- Resources initial tasks added -->
+  
+   <!-- Intro Tag or click prompt -->
+  <string name="intro_click_prompt">Intro: Press me to see details</string>
+  
+  <!-- Task 1 Summary  -->
+  <string name="intro_task_1_summary">Create your first task</string>
+
+  <!-- Task 1 Note -->
+  <string name="intro_task_1_note">Two ways to add a task:\n
+  1) Quick Add: Just type the task into the quick entry box and press the + 
+  button that appears on the left.\n\n
+  
+  2) Regular add: Press the button to the right of the quick entry box. 
+  Add basic details (due date, tags, notes) or set more advanced options. 
+  Save the task with the save button or your phone\'s back button.\n\n
+  </string>
+  
+  <!-- Task 2 Summary  -->
+  <string name="intro_task_2_summary">Add a widget to your desktop</string>
+
+  <!-- Task 2 Note -->
+  <string name="intro_task_2_note">A desktop widget is a great way to keep 
+  	track of your what you have to do as well as a way to quickly add new 
+  	tasks.\n\n
+	How to add a widget:\n
+	1) Long press on your phone\'s desktop.\n
+	2) Choose \"Widget\" form resulting menu\n
+	3) Choose the Astrid widget.\n
+	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
+	tasks\n\n
+
+	Bonus: Use the widget to add a task!</string>
+  
+    <!-- Task 3 Summary  -->
+  <string name="intro_task_3_summary">Setup sync with Gmail Tasks or 
+  Producteev</string>
+
+  <!-- Task 3 Note -->
+  <string name="intro_task_3_note">Astrid makes it possible for you to sync 
+  	your tasks with the simple task list provided by Gmail. For more advanced 
+  	task features we recommend synchronization with Producteev.\n\n
+
+	To enable sync from Astrid press \"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and 
+	choose the sync provider you prefer.
+	</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -854,7 +926,7 @@
     <string name="producteev_PLA_password">密码</string>
     
     <!-- Timezone Spinner -->
-    <string name="producteev_PLA_timezone">Timezone</string>
+    <string name="producteev_PLA_timezone">时区</string>
 
     <!-- Confirm Password Label -->    
     <string name="producteev_PLA_confirmPassword">确认</string>
@@ -1387,6 +1459,38 @@
     	<item>开始工作吗？</item>
     	<item>有时间完成什么吗？</item>
     	<item>哇，你今天太帅了！</item>
+    	<item>Do something great today!</item>
+    	<item>Make me proud today!</item>
+    	<item>How are you doing today?</item>
     </string-array>
+    
+    <string-array name="PPW_encouragements_tod">
+        <!-- encouragements based on time of day -->
+    	<item>Good morning!</item>
+    	<item>Good afternoon!</item>
+    	<item>Good evening!</item>
+    	<item>Late night?</item>
+    	<item>It\s early, get something done!</item>
+    	<item>Afternoon tea, perhaps?</item>
+    	<item>Enjoy the evening!</item>
+    	<item>Sleep is good for you, you know!</item>
+    </string-array>
+    
+    <string-array name="PPW_encouragements_completed">
+        <!-- encouragements based on tasks completed (%d => completed) -->
+    	<item>You\'ve already completed %d tasks!</item>
+    	<item>Score in life: %d tasks completed</item>
+    	<item>Smile! You\'ve already finished %d tasks!</item>
+    </string-array>
+    
+    <string name="PPW_encouragements_completed"/>
+    
+    <string-array name="PPW_colors">
+        <item>Black</item>
+        <item>White</item>
+        <item>Blue</item>
+        <item>Red</item>
+    </string-array>
+    
 
 </resources>

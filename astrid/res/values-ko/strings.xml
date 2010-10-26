@@ -25,7 +25,7 @@
   <!-- ================================================= BackupPreferences == -->
 
     <!-- Backup Preferences Title -->    
-    <string name="backup_BPr_header">Backups</string>
+    <string name="backup_BPr_header">백업</string>
 
     <!-- Backup: Status Header -->    
     <string name="backup_BPr_group_status">상태</string>
@@ -57,7 +57,7 @@
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Backups</string>
+  <string name="backup_BAc_label">백업</string>
 
   <!-- backup activity title -->
   <string name="backup_BAc_title">백업 관리</string>
@@ -71,7 +71,7 @@
   <!-- ============================================== Importer / Exporter == -->
   
   <!-- Message displayed when error occurs -->
-  <string name="backup_TXI_error">Import Error</string>
+  <string name="backup_TXI_error">가져오기 오류</string>
     
   <string name="export_toast">%s 에서 %s (을)를 백업하다.</string>
     
@@ -84,12 +84,7 @@
   <string name="import_summary_title">간편 복원</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">
-File %s contained %s.\n\n
-%s imported,\n
-%s already exist\n
-%s had errors\n
-  </string>
+  <string name="import_summary_message">%s 파일은 %s 개의 할일을 포함하고 있습니다. \n\n %s 개 가져오기 성공,\n %s 개 이미 존재, \n %s 개 에러 발생\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">가져오는 중...</string>
@@ -101,13 +96,13 @@ File %s contained %s.\n\n
   <string name="DLG_error_opening">이 물품을 찾을 수 없습니다. :</string>
   
   <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
-  <string name="DLG_error_sdcard">파일에 접근할 수 없습니다. : %s</string>
+  <string name="DLG_error_sdcard">폴더에 접근할 수 없습니다.: %s</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
   <string name="DLG_error_sdcard_general">SD 카드 접근할 수 없잖아요!</string>
     
   <!-- Backup: File Selector dialog for import -->
-  <string name="import_file_prompt">복원할 파일 선택하세요.</string>    
+  <string name="import_file_prompt">복원할 파일을 선택하세요.</string>    
         
 
 
@@ -123,21 +118,21 @@ File %s contained %s.\n\n
   <string name="read_permission_label">Astrid 권한</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="read_permission_desc">작업 읽고, 작업 걸러서 보여주기</string>
+  <string name="read_permission_desc">작업 읽기, 필터 보여주기</string>
   
   <!-- permission title for READ_TASKS -->
   <string name="write_permission_label">Astrid 권한</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="write_permission_desc">새로운 작업 생성, 현재 작업 작성</string>
+  <string name="write_permission_desc">새 작업 생성, 작업 편집</string>
   
   <!-- ================================================== Generic Dialogs == -->
     
   <!-- question for deleting tasks -->
-  <string name="DLG_delete_this_task_question">할일을 삭제하시겠습니까?</string>
+  <string name="DLG_delete_this_task_question">작업을 삭제하시겠습니까?</string>
 
   <!-- question for deleting items (%s => item name) -->
-  <string name="DLG_delete_this_item_question">이것 삭제 : %s ?</string>
+  <string name="DLG_delete_this_item_question">이 작업을 지우시겠습니까: %s?</string>
     
   <!-- Progress dialog shown when upgrading -->
   <string name="DLG_upgrading">작업 업그래이드 중....</string>
@@ -152,18 +147,18 @@ File %s contained %s.\n\n
   <string name="DLG_to_market">Market 가기</string>
 
   <!-- Button for accepting EULA -->
-  <string name="DLG_accept">I Accept</string>
+  <string name="DLG_accept">동의</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">I Decline</string>
+  <string name="DLG_decline">거절</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid Terms Of Use</string>
+  <string name="DLG_eula_title">Astrid 사용 약관</string>
   
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
-  <string name="WID_dateButtonUnset">설정 선택</string>
+  <string name="WID_dateButtonUnset">직접 입력</string>
   
   <!-- String formatter for DateButtons ($D => date, $T => time) -->
   <string name="WID_dateButtonLabel">$D $T</string>
@@ -177,13 +172,13 @@ File %s contained %s.\n\n
   <string name="TLA_no_items">작업이 없네요!</string>
   
   <!-- Menu: Add-ons -->    
-  <string name="TLA_menu_addons">Add-ons</string>
+  <string name="TLA_menu_addons">확장기능</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
   <string name="TLA_menu_sort">정렬 &amp; 숨김</string>
   
   <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">지금 연동!</string>
+  <string name="TLA_menu_sync">지금 싱크!</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">설정</string>
@@ -215,16 +210,16 @@ File %s contained %s.\n\n
   <string name="TAd_completed">%s 전에 완료됨</string>
   
   <!-- Action Button: edit task -->
-  <string name="TAd_actionEditTask">수정</string>
+  <string name="TAd_actionEditTask">편집</string>
   
   <!-- Context Item: edit task -->
-  <string name="TAd_contextEditTask">할일수정</string>
+  <string name="TAd_contextEditTask">작업 편집</string>
 
   <!-- Context Item: delete task -->
-  <string name="TAd_contextDeleteTask">할일삭제</string>
+  <string name="TAd_contextDeleteTask">작업 삭제</string>
 
   <!-- Context Item: undelete task -->
-  <string name="TAd_contextUndeleteTask">작업 삭제 안됨</string>
+  <string name="TAd_contextUndeleteTask">작업 삭제 취소</string>
 
   <!-- Context Item: purge task -->
   <string name="TAd_contextPurgeTask">작업 정리</string>
@@ -247,42 +242,42 @@ File %s contained %s.\n\n
   <string name="SSD_sort_header">정렬 옵션</string>
   
   <!-- Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid 똑똑한 정렬</string>
+  <string name="SSD_sort_auto">Astrid 스마트 정렬</string>
   
   <!-- Sort Selection: sort by alpha -->
-  <string name="SSD_sort_alpha">By Title</string>
+  <string name="SSD_sort_alpha">제목순</string>
   
   <!-- Sort Selection: sort by due date -->
-  <string name="SSD_sort_due">By Due Date</string>
+  <string name="SSD_sort_due">완료일자 순</string>
   
   <!-- Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">By Importance</string>
+  <string name="SSD_sort_importance">중요도 순</string>
   
   <!-- Sort Selection: sort by modified date -->
-  <string name="SSD_sort_modified">By Last Modified</string>
+  <string name="SSD_sort_modified">최종수정일 순</string>
   
   <!-- Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Reverse Sort</string>
+  <string name="SSD_sort_reverse">역순 정렬</string>
   
   <!-- Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Just Once</string>
+  <string name="SSD_save_temp">임시 정렬</string>
   
   <!-- Sort Button: sort permanently -->
-  <string name="SSD_save_always">Always</string>
+  <string name="SSD_save_always">항상 정렬</string>
   
   <!-- =============================================== FilterListActivity == -->
 
   <!-- Filter List Activity Title -->    
-  <string name="FLA_title">Astrid: Filters</string>
+  <string name="FLA_title">Astrid: 필터</string>
   
   <!-- Displayed when loading filters -->    
-  <string name="FLA_loading">Loading Filters...</string>
+  <string name="FLA_loading">필터 로딩중...</string>
   
   <!-- Context Menu: Create Shortcut -->    
-  <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
+  <string name="FLA_context_shortcut">바탕화면 바로가기 만들기</string>
   
   <!-- Menu: Search -->
-  <string name="FLA_menu_search">Search Tasks...</string>
+  <string name="FLA_menu_search">작업 검색...</string>
   
   <!-- Menu: Help -->    
   <string name="FLA_menu_help">도움말</string>
@@ -291,54 +286,54 @@ File %s contained %s.\n\n
   <string name="FLA_shortcut_dialog_title">바로가기 만들기</string>
   
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
-  <string name="FLA_shortcut_dialog">Name of shortcut:</string>
+  <string name="FLA_shortcut_dialog">바로가기 이름:</string>
   
   <!-- Search Hint-->
-  <string name="FLA_search_hint">Search For Tasks</string>
+  <string name="FLA_search_hint">작업 검색</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">Matching \'%s\'</string>
+  <string name="FLA_search_filter">\'%s\' 검색중</string>
   
   <!-- Toast: created shortcut (%s => label) -->
-  <string name="FLA_toast_onCreateShortcut">Created Shortcut: %s</string>
+  <string name="FLA_toast_onCreateShortcut">바로가기 생성 완료: %s</string>
   
   <!-- ================================================= TaskEditActivity == -->
   
   <!-- Title when editing a task (%s => task title) -->
-  <string name="TEA_view_title">Astrid: Editing \'%s\'</string>
+  <string name="TEA_view_title">Astrid: \'%s\' 편집중</string>
   
   <!-- Title when creating a new task -->
-  <string name="TEA_view_titleNew">Astrid : 새로운 할일</string>
+  <string name="TEA_view_titleNew">Astrid: 새로운 작업</string>
   
   <!-- First Tab - basic task details -->
-  <string name="TEA_tab_basic">기본</string>
+  <string name="TEA_tab_basic">기본 정보</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">Advanced</string>
+  <string name="TEA_tab_extra">세부 정보</string>
   
   <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_addons">Add-ons</string>
+  <string name="TEA_tab_addons">확장기능</string>
   
   <!-- Task title label -->
-  <string name="TEA_title_label">Title</string>
+  <string name="TEA_title_label">작업명</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Task Summary</string>
+  <string name="TEA_title_hint">요약정보</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">중요도</string>
   
   <!-- Task urgency label -->
-  <string name="TEA_urgency_label">Deadline</string>
+  <string name="TEA_urgency_label">마감일</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">At specific time?</string>
+  <string name="TEA_urgency_specific_time">정해진 시간에?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Time Set</string>
+  <string name="TEA_urgency_time_none">시간 설정 안함</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide Until</string>
+  <string name="TEA_hideUntil_label">숨김 시간</string>
   
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>로딩중...</item></string-array>
@@ -347,179 +342,182 @@ File %s contained %s.\n\n
   <string name="TEA_note_label">노트</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter Task Notes...</string>
+  <string name="TEA_notes_hint">작업 노트 입력...</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">얼마나 오래 걸릴 일입니까?</string>
   
   <!-- Elapsed time label -->
-  <string name="TEA_elapsedDuration_label">이미 일에 시간을 썼습니다.</string>
+  <string name="TEA_elapsedDuration_label">작업에 이미 쓴 시간</string>
 
   <!-- Menu: Save -->    
-  <string name="TEA_menu_save">Save Changes</string>
+  <string name="TEA_menu_save">변경사항 저장</string>
   
   <!-- Menu: Don't Save -->
-  <string name="TEA_menu_discard">Don\'t Save</string>
+  <string name="TEA_menu_discard">저장하지 않음</string>
   
   <!-- Menu: Delete Task -->
-  <string name="TEA_menu_delete">할일삭제</string>
+  <string name="TEA_menu_delete">작업 삭제</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
+  <string name="TEA_onTaskSave_due">작업 저장 완료: 완료일 %s</string>
   
   <!-- Toast: task saved without deadlines -->
-  <string name="TEA_onTaskSave_notDue">할일 저장됨</string>
+  <string name="TEA_onTaskSave_notDue">작업 저장 완료</string>
   
   <!-- Toast: task was not saved -->
-  <string name="TEA_onTaskCancel">Task Editing Was Canceled</string>
+  <string name="TEA_onTaskCancel">작업 편집 취소</string>
   
   <!-- Toast: task was deleted -->
-  <string name="TEA_onTaskDelete">Task Deleted!</string>
+  <string name="TEA_onTaskDelete">작업 삭제 완료!</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>Specific Day/Time</item>
-      <item>Today</item>
-      <item>Tomorrow</item>
-      <item>(day after)</item>
-      <item>Next Week</item>
-      <item>No Deadline</item>
+      <item>정해진 일자/시간</item>
+      <item>오늘</item>
+      <item>내일</item>
+      <item>(몇일 후)</item>
+      <item>다음주</item>
+      <item>마감일 없음</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
-      <item>Don\'t hide</item>
-      <item>Task is due</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
-      <item>Specific Day/Time</item>
+      <item>숨기지 않기</item>
+      <item>작업 마감일</item>
+      <item>작업 마감일 몇일전</item>
+      <item>작업 마감일 1주일 전</item>
+      <item>정해진 일자/시간</item>
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_no_addons">No Add-ons Found!</string>
+  <string name="TEA_no_addons">확장기능 없음!</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get Some Add-ons</string>
+  <string name="TEA_addons_button">확장기능 받기</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
-  <string name="InA_title">Welcome to Astrid!</string>
+  <string name="InA_title">Astrid 사용을 환영합니다!</string>
   
   <!-- Button to agree to EULA -->
-  <string name="InA_agree">I Agree!!</string>
+  <string name="InA_agree">동의합니다!!</string>
   
   <!-- Button to disagree with EULA -->
-  <string name="InA_disagree">I Disagree</string>
+  <string name="InA_disagree">동의하지 않습니다.</string>
   
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
-  <string name="HlA_get_support">Get Support</string>
+  <string name="HlA_get_support">고객지원 받기</string>
     
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">What\'s New In Astrid?</string>
+  <string name="UpS_changelog_title">Astrid 의 새로운 기능</string>
+  
+  <!-- Updates Window Title -->
+  <string name="UpS_updates_title">Latest Astrid News</string>
   
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Window Title -->
-  <string name="EPr_title">Astrid: Preferences</string>
+  <string name="EPr_title">Astrid: 환경 설정</string>
 
   <!-- Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">모양</string>
   
   <!-- Preference: Task List Font Size Title -->
-  <string name="EPr_fontSize_title">Task List Size</string>
+  <string name="EPr_fontSize_title">작업 목록 폰트크기</string>
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
-  <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
+  <string name="EPr_fontSize_desc">작업 메인목록 폰트 크기</string>  
   
   <!-- Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <string name="EPr_showNotes_title">작업과 함께 노트 보이기</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
+  <string name="EPr_showNotes_desc_disabled">노트는 작업을 누르면 보입니다.</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
+  <string name="EPr_showNotes_desc_enabled">노트 항상 보여주기</string>
   
   <!-- Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">New Task Defaults</string>
+  <string name="EPr_defaults_header">새 작업 기본값</string>
   
   <!-- Preference: Default Urgency Title -->
-  <string name="EPr_default_urgency_title">Default Urgency</string>
+  <string name="EPr_default_urgency_title">기본 중요도</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently: %s</string>
+  <string name="EPr_default_urgency_desc">현재 설정: %s</string>
   
   <!-- Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Default Importance</string>
+  <string name="EPr_default_importance_title">기본 중요도</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently: %s</string>
+  <string name="EPr_default_importance_desc">현재 설정: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
-  <string name="EPr_default_hideUntil_title">Default Hide Until</string>
+  <string name="EPr_default_hideUntil_title">기본 숨기기 기간</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
+  <string name="EPr_default_hideUntil_desc">현재 설정: %s</string>
   
   <!-- Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">기본 알림</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_reminders_desc">Currently: %s</string>
+  <string name="EPr_default_reminders_desc">현재 설정: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!!! (Highest)</item>
+      <item>!!! (최고 중요도)</item>
       <item>!!!</item>
       <item>!!</item>
-      <item>! (Lowest)</item>
+      <item>! (최저 중요도)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
       <!-- urgency: labels for "Task Defaults" preference item. -->
-      <item>No Deadline</item>
-      <item>Today</item>
-      <item>Tomorrow</item>
-      <item>Day After Tomorrow</item>
-      <item>Next Week</item>
+      <item>마감일 없음</item>
+      <item>오늘</item>
+      <item>내일</item>
+      <item>모레</item>
+      <item>다음주</item>
   </string-array>
   
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
-      <item>Don\'t hide</item>
-      <item>Task is due</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
+      <item>숨기지 않기</item>
+      <item>작업 마감일</item>
+      <item>작업 마감일 몇일전</item>
+      <item>작업 마감일 1주일 전</item>
   </string-array>
   
   <string-array name="EPr_default_reminders">
       <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>No deadline reminders</item>
-      <item>At deadline</item>
-      <item>When overdue</item>
-      <item>At deadline or overdue</item>
+      <item>마감일 알림 없음</item>
+      <item>마감일</item>
+      <item>마감일 지난 후</item>
+      <item>마감일 혹은 지난 후</item>
   </string-array>
   
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
-  <string name="AOA_title">Astrid: Add Ons</string>
+  <string name="AOA_title">Astrid: 확장기능</string>
     
   <!-- Add-on Activity: author for internal authors  -->
-  <string name="AOA_internal_author">Astrid Team</string>
+  <string name="AOA_internal_author">Astrid 개발팀</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
-  <string name="AOA_tab_installed">Installed</string>
+  <string name="AOA_tab_installed">설치된 항목</string>
   
   <!-- Add-on Activity - available add-ons tab -->
-  <string name="AOA_tab_available">Available</string>
+  <string name="AOA_tab_available">추가 가능</string>
   
   <!-- Add-on Activity - free add-ons label -->
-  <string name="AOA_free">Free</string>
+  <string name="AOA_free">무료</string>
   
   <!-- Add-on Activity - menu item to visit add-on website -->
-  <string name="AOA_visit_website">Visit Website</string>
+  <string name="AOA_visit_website">웹사이트 방문</string>
   
   <!-- Add-on Activity - menu item to visit android market -->
-  <string name="AOA_visit_market">Android Market</string>
+  <string name="AOA_visit_market">안드로이드 마켓</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -527,25 +525,21 @@ File %s contained %s.\n\n
   <string name="TWi_loading">로딩중...</string>
 
   <!-- Widget configuration activity title: select a filter -->
-  <string name="WCA_title">Select tasks to view...</string>
+  <string name="WCA_title">보여줄 작업리스트 선택</string>
   
   <!-- ============================================================= Misc == -->
   
   <!-- Displayed when task killer found. %s => name of the application -->
-  <string name="task_killer_help">
-It looks like you are using an app that can kill processes (%s)! If you can,
-add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
-Astrid might not let you know when your tasks are due.\n
-  </string>
+  <string name="task_killer_help">프로세스를 강제종료 할 수 있는 (%s) 앱을 사용하고 있는 것 같습니다! 가능하시면, 강제종료가 안되도록 제외목록에 포함시켜 주시기 바랍니다. 그렇지 않으면, Astrid 가 당신에게 마감일이 되어도 알려줄 수 없을 수 있습니다. \n</string>
   
   <!-- Task killer dialog ok button -->
-  <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
+  <string name="task_killer_help_ok">Astrid 를 강제종료하지 않겠습니다!</string>
     
   <!-- Astrid's Android Marketplace title. It never appears in the app itself. -->
-  <string name="marketplace_title">Astrid Task/Todo List</string>
+  <string name="marketplace_title">Astrid 작업/할일 목록</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">Astrid는 당신을 방해하지 않을정도로 간단하고 당신의 할일을 달성시켜줄정도로 강력한 오픈-소스 일정관리 플렛폼입니다. 태그, 알림, RememberTheMilk sync, Locale plug-in &amp; 그 이상!</string>
+  <string name="marketplace_description">Astrid 는 많은 사람들로부터 사랑받는 할일/작업 관리 프로그램입니다. 이 프로그램은 당신이 작업들을 마칠 수 있도록 도와줍니다. 마감일 알려주기, 태그기능, 싱크, 언어 추가 기능, 위젯 등 다양한 기능을 제공합니다.</string>
     
 
 
@@ -557,36 +551,36 @@ Astrid might not let you know when your tasks are due.\n
     <!-- ================================================= Filter Exposer == -->
     
     <!-- Active Tasks Filter -->
-    <string name="BFE_Active">Active Tasks</string>
+    <string name="BFE_Active">처리할 작업들</string>
         
     <!-- Search Filter -->
-    <string name="BFE_Search">Search...</string>
+    <string name="BFE_Search">검색...</string>
     
     <!-- Recently Modified -->
-    <string name="BFE_Recent">Recently Modified</string>
+    <string name="BFE_Recent">최근에 수정된 작업</string>
     
     <!-- Build Your Own Filter -->
-    <string name="BFE_Custom">Custom Filter...</string>
+    <string name="BFE_Custom">필터 만들기...</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Saved Filters</string>
+    <string name="BFE_Saved">저장된 필터</string>
     
     <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">Delete Filter</string>
+    <string name="BFE_Saved_delete">필터 삭제</string>
 
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- Build Your Own Filter Activity Title-->
-    <string name="CFA_title">Custom Filter</string>
+    <string name="CFA_title">필터 만들기</string>
     
     <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
-    <string name="CFA_filterName_hint">Name this filter to save it...</string>
+    <string name="CFA_filterName_hint">필터의 저장할 이름을 정하세요...</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
-    <string name="CFA_filterName_copy">Copy of %s</string>
+    <string name="CFA_filterName_copy">%s의 복사</string>
     
     <!-- Filter Starting Universe: all tasks -->
-    <string name="CFA_universe_all">Active Tasks</string>
+    <string name="CFA_universe_all">처리할 작업들</string>
     
     <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
     <string name="CFA_type_add">or</string>
@@ -601,58 +595,56 @@ Astrid might not let you know when your tasks are due.\n
     <string name="CFA_context_chain">%s has criteria</string>
     
     <!-- Filter Criteria Context Menu: delete -->
-    <string name="CFA_context_delete">Delete Row</string>
+    <string name="CFA_context_delete">행 삭제</string>
     
     <!-- Filter Screen Help Text -->
-    <string name="CFA_help">This screen lets you create a new filters. Add 
-    criteria using the button below, short or long-press them to adjust, and
-    then click \"View\"!</string>
+    <string name="CFA_help">이 화면은 당신이 새로운 필터를 생성하도록 도와줍니다. 아래의 버튼을 통해 새로운 필터 기준을 추가하시고, 길게 혹은 짧게 눌러서 수정하실 수 있습니다. 모두 마친후에는 \"보기\" 버튼을 눌어주세요.</string>
     
     <!-- Filter Button: add new -->
-    <string name="CFA_button_add">Add Criteria</string>
+    <string name="CFA_button_add">기준 추가</string>
     
     <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">View</string>
+    <string name="CFA_button_view">보기</string>
     
     <!-- Filter Button: save & view filter -->
-    <string name="CFA_button_save">Save &amp; View</string>
+    <string name="CFA_button_save">저장 &amp; 보기</string>
 
     <!-- =========================================== CustomFilterCriteria == -->
         
     <!-- Criteria: due by X - display text (? -> user input) -->
-    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <string name="CFC_dueBefore_text">마감일: ?</string>
     <!-- Criteria: due by X - name of criteria -->
-    <string name="CFC_dueBefore_name">Due By...</string>
+    <string name="CFC_dueBefore_name">마감일...</string>
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
-        <item>No Due Date</item>
-        <item>Yesterday</item>
-        <item>Today</item>
-        <item>Tomorrow</item>
-        <item>Day After Tomorrow</item>
-        <item>Next Week</item>
-        <item>Next Month</item>
+        <item>마감일 없음</item>
+        <item>어제</item>
+        <item>오늘</item>
+        <item>내일</item>
+        <item>모레</item>
+        <item>다음주</item>
+        <item>다음달</item>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Importance at least ?</string>
+    <string name="CFC_importance_text">중요도 기준 ?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Importance...</string>        
+    <string name="CFC_importance_name">중요도...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">Tagged: ?</string>
+    <string name="CFC_tag_text">태그: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Tagged...</string>
+    <string name="CFC_tag_name">태그...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Tag contains...</string>
+    <string name="CFC_tag_contains_name">다음 태그를 포함...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Tag contains: ?</string>
+    <string name="CFC_tag_contains_text">다음 태그를 포함: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Title contains...</string>
+    <string name="CFC_title_contains_name">다음 제목을 포함...</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">Title contains: ?</string>
+    <string name="CFC_title_contains_text">다음 제목을 포함: ?</string>
     
 
 
@@ -664,30 +656,30 @@ Astrid might not let you know when your tasks are due.\n
   <!-- =============================================== Task Edit Controls == -->
   
   <!-- Error message for adding to calendar  -->
-  <string name="gcal_TEA_error">Error adding task to calendar!</string>
+  <string name="gcal_TEA_error">캘린더에 작업 추가가 실패하였습니다!</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_calendar_label">Calendar Integration:</string>
+  <string name="gcal_TEA_calendar_label">캘린더 연동:</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Create Calendar Event</string>
+  <string name="gcal_TEA_addToCalendar_label">캘린더에 일정 생성하기</string>
   
   <!-- Label when calendar event already exists -->
-  <string name="gcal_TEA_showCalendar_label">달력에 일정 열기</string>
+  <string name="gcal_TEA_showCalendar_label">캘린더 일정 열기</string>
   
   <!-- Toast when unable to open calendar event -->
-  <string name="gcal_TEA_calendar_error">Error opening event!</string>
+  <string name="gcal_TEA_calendar_error">일정 열기 실패!</string>
   
   <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
+  <string name="gcal_TEA_calendar_updated">캘린더 일정도 함께 업데이트 되었습니다!</string>
   
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->
-  <string name="gcal_completed_title">%s (completed)</string>
+  <string name="gcal_completed_title">%s (완료)</string>
 
   <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
-  <string name="gcal_GCP_default">Default Calendar</string>
+  <string name="gcal_GCP_default">기본 캘린더</string>
 
 
 
@@ -695,16 +687,55 @@ Astrid might not let you know when your tasks are due.\n
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
-    <!-- =========================================================== UI == -->
+    <!-- ============================================================= UI == -->
 
     <!-- filters header: GTasks -->
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
-    <string name="gtasks_FEx_list">By List</string>
+    <string name="gtasks_FEx_list">리스트 순</string>
     
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
+    
+    <!-- short help title for Gtasks -->
+    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
+    
+    <!-- short help for GTasks list activity -->
+    <string name="gtasks_help_body">Drag the grabber on the left side of a task 
+    to rearrange it. Swipe the grabber left or right to change indentation.</string>
+        
+    <!-- ============================================ GtasksLoginActivity == -->
+    
+    <!-- Activity Title: Gtasks Login -->    
+    <string name="gtasks_GLA_title">Log In to Google Tasks</string>
+
+    <!-- Instructions: Gtasks login -->    
+    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Google Apps
+    for Domain is currently unsupported, we\'re working on that!</string>
+
+    <!-- Instructions: Gtasks further help -->    
+    <string name="gtasks_GLA_further_help">To view your tasks with indentation
+    and order preserved, go to the Filters page and select a Google Tasks list.
+    By default, Astrid uses its own sort settings for tasks.</string>
+
+    <!-- Sign In Button -->    
+    <string name="gtasks_GLA_signIn">로그인</string>
+
+    <!-- E-mail Address Label -->    
+    <string name="gtasks_GLA_email">E-mail</string>
+
+    <!-- Password Label -->    
+    <string name="gtasks_GLA_password">비밀번호</string>
+    
+    <!-- Google Apps for Domain checkbox -->
+    <string name="gtasks_GLA_domain">Google Apps for Domain account</string>
+
+    <!-- Error Message when fields aren't filled out -->    
+    <string name="gtasks_GLA_errorEmpty">Error: 모든 필드값을 입력하세요!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
+    <string name="gtasks_GLA_errorAuth">Error: 이메일주소나 비밀번호가 맞지 않습니다!</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
@@ -715,29 +746,59 @@ Astrid might not let you know when your tasks are due.\n
     
     <!-- title for notification tray when synchronizing -->
     <string name="gtasks_notification_title">Astrid: Google Tasks</string>
-    
-    <!-- title for picking a google account -->
-    <string name="choose_account_title">Choose Account</string>
-    
-    <!-- title for no google accounts found -->
-    <string name="no_account_found_title">No Accounts Found</string>
-    
-    <!-- message body for no google accounts found -->
-    <string name="no_account_found">We were unable to find a Google account on this phone. You will not be able to synchronize to Google Tasks without one!</string>
-    
-    <!-- E-mail Address Label -->    
-    <string name="gtasks_email">E-mail</string>
+        
 
-    <!-- Password Label -->    
-    <string name="gtasks_password">Password</string>
 
-    <!-- Login Message -->    
-    <string name="gtasks_login">Google Account:</string>
 
-    <!-- Login Message when Error -->    
-    <string name="gtasks_login_error">Please try your e-mail and password again.</string>
-    
+<!-- See the file "LICENSE" for the full license governing this code. -->
 
+
+    <!-- Resources initial tasks added -->
+  
+   <!-- Intro Tag or click prompt -->
+  <string name="intro_click_prompt">Intro: Press me to see details</string>
+  
+  <!-- Task 1 Summary  -->
+  <string name="intro_task_1_summary">Create your first task</string>
+
+  <!-- Task 1 Note -->
+  <string name="intro_task_1_note">Two ways to add a task:\n
+  1) Quick Add: Just type the task into the quick entry box and press the + 
+  button that appears on the left.\n\n
+  
+  2) Regular add: Press the button to the right of the quick entry box. 
+  Add basic details (due date, tags, notes) or set more advanced options. 
+  Save the task with the save button or your phone\'s back button.\n\n
+  </string>
+  
+  <!-- Task 2 Summary  -->
+  <string name="intro_task_2_summary">Add a widget to your desktop</string>
+
+  <!-- Task 2 Note -->
+  <string name="intro_task_2_note">A desktop widget is a great way to keep 
+  	track of your what you have to do as well as a way to quickly add new 
+  	tasks.\n\n
+	How to add a widget:\n
+	1) Long press on your phone\'s desktop.\n
+	2) Choose \"Widget\" form resulting menu\n
+	3) Choose the Astrid widget.\n
+	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
+	tasks\n\n
+
+	Bonus: Use the widget to add a task!</string>
+  
+    <!-- Task 3 Summary  -->
+  <string name="intro_task_3_summary">Setup sync with Gmail Tasks or 
+  Producteev</string>
+
+  <!-- Task 3 Note -->
+  <string name="intro_task_3_note">Astrid makes it possible for you to sync 
+  	your tasks with the simple task list provided by Gmail. For more advanced 
+  	task features we recommend synchronization with Producteev.\n\n
+
+	To enable sync from Astrid press \"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and 
+	choose the sync provider you prefer.
+	</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -749,30 +810,29 @@ Astrid might not let you know when your tasks are due.\n
   <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
-  <string name="locale_edit_intro">Astrid will send you a reminder                                                                                                                                             
-      when you have any tasks in the following filter:</string>
+  <string name="locale_edit_intro">다음 필터에 맞는 작업이 있을 때 Astrid 가 당신께 알려드리도록 하겠습니다.:</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
-  <string name="locale_pick_filter">Filter:</string>        
+  <string name="locale_pick_filter">필터:</string>        
       
   <!-- Locale Window Interval Label -->                                                                                                                                        
   <string name="locale_interval_label">Limit notifications to:</string>        
       
   <!-- Locale Window Interval Values -->                                                                                                                                        
   <string-array name="locale_interval">
-    <item>once an hour</item>
-    <item>once every six hours</item>
-    <item>once every twelve hours</item>
-    <item>once a day</item>
-    <item>once every three days</item>
-    <item>once a week</item>
+    <item>한시간에 한번</item>
+    <item>여섯시간에 한번</item>
+    <item>열두시간에 한번</item>
+    <item>하루에 한번</item>
+    <item>3일에 한번</item>
+    <item>일주일에 한번</item>
   </string-array>        
       
   <!-- Locale Notification text -->                                                                                                                                        
-  <string name="locale_notification">You have $NUM matching: $FILTER</string>     
+  <string name="locale_notification">$NUM 개의 작업이 일치합니다: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
+  <string name="locale_plugin_required">Astrid Locale plugin 을 설치하시기 바랍니다.</string>        
      
 
 
@@ -785,11 +845,11 @@ Astrid might not let you know when your tasks are due.\n
   <string name="EPr_powerpack_header">Astrid Power Pack</string>
   
   <!-- Preference: Anonymous User Statistics -->
-  <string name="EPr_statistics_title">Anonymous Usage Stats</string>
+  <string name="EPr_statistics_title">사용 통계정보(익명보장)</string>
   <!-- Preference: User Statistics (disabled) -->
-  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
+  <string name="EPr_statistics_desc_disabled">사용 정보가 보고되지 않습니다.</string>  
   <!-- Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
+  <string name="EPr_statistics_desc_enabled">익명성이 보장되는 사용 통계정보 전송으로 우리가 Astrid 를 더욱 발전시킬 수 있도록 도와주세요.</string>
       
 
 
@@ -825,7 +885,7 @@ Astrid might not let you know when your tasks are due.\n
     <string name="producteev_default_dashboard">Default Workspace</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+    <string name="producteev_no_dashboard">싱크 중지</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
     <string name="producteev_create_dashboard">Add new Workspace...</string>
@@ -845,47 +905,46 @@ Astrid might not let you know when your tasks are due.\n
     <!-- ================================================= Login Activity == -->
 
     <!-- Activity Title: Producteev Login -->    
-    <string name="producteev_PLA_title">Log In to Producteev</string>
+    <string name="producteev_PLA_title">Producteev 로그인 하기</string>
 
     <!-- Instructions: Producteev login -->    
-    <string name="producteev_PLA_body">Sign in with your existing
-    Producteev account, or create a new account!</string>
+    <string name="producteev_PLA_body">Producteev 계정으로 로그인 하시거나 새로운 계정을 만드세요!</string>
 
     <!-- Producteev Terms Link -->    
-    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+    <string name="producteev_PLA_terms">사용약관</string>
 
     <!-- Sign In Button -->    
-    <string name="producteev_PLA_signIn">Sign In</string>
+    <string name="producteev_PLA_signIn">로그인</string>
 
     <!-- Create New User Button -->    
-    <string name="producteev_PLA_createNew">Create New User</string>
+    <string name="producteev_PLA_createNew">새 사용자 생성</string>
 
     <!-- E-mail Address Label -->    
     <string name="producteev_PLA_email">E-mail</string>
 
     <!-- Password Label -->    
-    <string name="producteev_PLA_password">Password</string>
+    <string name="producteev_PLA_password">비밀번호</string>
     
     <!-- Timezone Spinner -->
-    <string name="producteev_PLA_timezone">Timezone</string>
+    <string name="producteev_PLA_timezone">표준 시간대</string>
 
     <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+    <string name="producteev_PLA_confirmPassword">비밀번호 확인</string>
 
     <!-- First Name Label -->    
-    <string name="producteev_PLA_firstName">First Name</string>
+    <string name="producteev_PLA_firstName">이름</string>
 
     <!-- Last Name Label -->    
-    <string name="producteev_PLA_lastName">Last Name</string>
+    <string name="producteev_PLA_lastName">성</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+    <string name="producteev_PLA_errorEmpty">Error: 모든 필드값을 입력하세요!</string>
 
     <!-- Error Message when passwords don't match -->    
-    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+    <string name="producteev_PLA_errorMatch">Error: 비밀번호가 일치하지 않습니다!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
+    <string name="producteev_PLA_errorAuth">Error: 이메일주소나 비밀번호가 맞지 않습니다!</string>
 
     <!-- ================================================ Synchronization == -->
         
@@ -893,10 +952,10 @@ Astrid might not let you know when your tasks are due.\n
     <string name="producteev_notification_title">Producteev</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
+    <string name="producteev_notification_text">%s 작업 업데이트 완료 / 더 자세한 내용은 클릭</string>
     
     <!-- Error msg when io exception  -->
-    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+    <string name="producteev_ioerror">연결 오류! 인터넷 연결을 확인하세요.</string>
 
     <!-- Prod Login email not specified-->
     <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
@@ -935,34 +994,34 @@ Astrid might not let you know when your tasks are due.\n
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind me...</string>
+  <string name="TEA_reminder_label">알려주세요...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when task is due</string>
+  <string name="TEA_reminder_due">... 마감일이 되었을 때</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">... when task is overdue</string>
+  <string name="TEA_reminder_overdue">... 마감일을 지났을 때</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">... randomly once</string>
+  <string name="TEA_reminder_random">... 아무때나 한번</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
-  <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
+  <string name="TEA_reminder_alarm_label">소리/진동 선택:</string>
 
   <!-- Task Edit: Reminder alarm clock toggle: off -->  
-  <string name="TEA_reminder_alarm_off">Ring Once</string>
+  <string name="TEA_reminder_alarm_off">한번 소리내기</string>
 
   <!-- Task Edit: Reminder alarm clock toggle: on -->  
-  <string name="TEA_reminder_alarm_on">Ring Until I Dismiss Alarm</string>
+  <string name="TEA_reminder_alarm_on">알람끌 때까지 소리내기</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
-    <item>an hour</item>
-    <item>a day</item>
-    <item>a week</item>
-    <item>in two weeks</item>
-    <item>a month</item>
-    <item>in two months</item>
+    <item>한시간</item>
+    <item>하루</item>
+    <item>한주</item>
+    <item>2주 후에</item>
+    <item>한 달</item>
+    <item>두달 후에</item>
   </string-array>
   
   <!-- ==================================================== notifications == -->
@@ -977,143 +1036,143 @@ Astrid might not let you know when your tasks are due.\n
   <string name="rmd_NoA_snooze">Snooze...</string>
   
   <!-- Reminder: Cancel reminder -->
-  <string name="rmd_NoA_goAway">Go Away!</string>
+  <string name="rmd_NoA_goAway">알림 취소!</string>
     
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference Screen Title -->
-  <string name="rmd_EPr_alerts_header">Reminder Settings</string>
+  <string name="rmd_EPr_alerts_header">알림 설정</string>
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
-  <string name="rmd_EPr_quiet_hours_start_title">침묵 시간 시작</string>
+  <string name="rmd_EPr_quiet_hours_start_title">알람 꺼짐 시작시간</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">No notifications will appear after %s</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">%s 후에는 알림 기능이 꺼집니다.</string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
-  <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
+  <string name="rmd_EPr_quiet_hours_desc_none">알람 꺼짐 설정이 꺼졌습니다.</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
-  <string name="rmd_EPr_quiet_hours_end_title">침묵 시간 종료</string>
+  <string name="rmd_EPr_quiet_hours_end_title">알람 꺼짐 시간 종료</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will begin appearing starting at %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">%s 이후에 알림이 다시 시작됩니다.</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
-  <string name="rmd_EPr_ringtone_title">공지 벨소리</string>
+  <string name="rmd_EPr_ringtone_title">알림 벨소리</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
-  <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
+  <string name="rmd_EPr_ringtone_desc_custom">벨소리가 설정되었습니다.</string>
   <!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
-  <string name="rmd_EPr_ringtone_desc_silent">Ringtone set to silent</string>
+  <string name="rmd_EPr_ringtone_desc_silent">벨소리가 소리안남으로 설정되었습니다.</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
-  <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
+  <string name="rmd_EPr_ringtone_desc_default">기본 벨소리가 사용됩니다.</string>
   
   <!-- Reminder Preference: Notification Persistence Title -->
-  <string name="rmd_EPr_persistent_title">Notification Persistence</string>
+  <string name="rmd_EPr_persistent_title">알람 지속시간</string>
   <!-- Reminder Preference: Notification Persistence Description (true) -->
-  <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
+  <string name="rmd_EPr_persistent_desc_true">알람은 반드시 개별적으로 봐야 지워집니다.</string>
   <!-- Reminder Preference: Notification Persistence Description (false) -->
-  <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
+  <string name="rmd_EPr_persistent_desc_false">\"모두 지우기\" 버튼으로 알람을 일괄삭제합니다.</string>
   
   <!-- Reminder Preference: Notification Icon Title -->
-  <string name="rmd_EPr_notificon_title">Notification Icon Set</string>
+  <string name="rmd_EPr_notificon_title">알람 아이콘 설정</string>
   <!-- Reminder Preference: Notification Icon Description -->
-  <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
+  <string name="rmd_Epr_notificon_desc">Astrid 알림바 아이콘 고르기</string>
 
   <!-- Reminder Preference: Vibrate Title -->
-  <string name="rmd_EPr_vibrate_title">Vibrate on Alert</string>
+  <string name="rmd_EPr_vibrate_title">알람시 진동</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
-  <string name="rmd_EPr_vibrate_desc_true">Astrid will vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_true">알람시에 진동합니다.</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_false">알람시 진동하지 않습니다.</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Reminders</string>
+  <string name="rmd_EPr_nagging_title">Astrid 알람</string>
   <!-- Reminder Preference: Nagging Description (true) -->
-  <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
+  <string name="rmd_EPr_nagging_desc_true">Astrid 는 알람시에 응원문구를 보여줍니다.</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid 는 알람시에 응원문구를 보여주지 않습니다.</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
-  <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
+  <string name="rmd_EPr_snooze_dialog_title">알람 지연 HH:MM</string>
   <!-- Reminder Preference: Snooze Dialog Description (true) -->
-  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
+  <string name="rmd_EPr_snooze_dialog_desc_true">새로운 시간 선택하여 알람 지연 (HH:MM)</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
+  <string name="rmd_EPr_snooze_dialog_desc_false">몇일/몇시간을 선택하여 알람 지연</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
-  <string name="rmd_EPr_defaultRemind_title">Random Reminders</string>
+  <string name="rmd_EPr_defaultRemind_title">랜덤 알람</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
-  <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
+  <string name="rmd_EPr_defaultRemind_desc_disabled">새로운 작업은 랜덤 알람을 가지지 않습니다.</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
+  <string name="rmd_EPr_defaultRemind_desc">새로운 작업은 랜덤하게 알람을 보여줍니다: %s</string>
   
   <!-- Defaults Title -->
-  <string name="rmd_EPr_defaults_header">New Task Defaults</string>
+  <string name="rmd_EPr_defaults_header">새 작업 기본값</string>
   
   <string-array name="EPr_reminder_random">
     <!-- Reminder Preference: random reminder choices for preference page. -->
-    <item>사용 불가능</item>
+    <item>미사용</item>
     <item>매시간</item>
     <item>매일</item>
     <item>매주</item>
-    <item>bi-weekly</item>
-    <item>monthly</item>
-    <item>bi-monthly</item>
+    <item>격주로</item>
+    <item>매달</item>
+    <item>격월로</item>
   </string-array>
         
   <string-array name="EPr_quiet_hours_start">
     <!-- Reminder Preference: quiet_hours_start: options for preference menu. Translate but don't change the times!. -->
-    <item>사용 불가능</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
+    <item>미사용</item>
+    <item>오후 8시</item>
+    <item>오후 9시</item>
+    <item>오후 10시</item>
+    <item>오후 11시</item>
+    <item>오후 12시</item>
+    <item>오전 1시</item>
+    <item>오전 2시</item>
+    <item>오전 3시</item>
+    <item>오전 4시</item>
+    <item>오전 5시</item>
+    <item>오전 6시</item>
+    <item>오전 7시</item>
+    <item>오전 8시</item>
+    <item>오전 9시</item>
+    <item>오전 10시</item>
+    <item>오전 11시</item>
+    <item>오후 12시</item>
+    <item>오후 1시</item>
+    <item>오후 2시</item>
+    <item>오후 3시</item>
+    <item>오후 4시</item>
+    <item>오후 5시</item>
+    <item>오후 6시</item>
+    <item>오후 7시</item>
   </string-array>
   
   <string-array name="EPr_quiet_hours_end">
     <!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times! -->
-    <item>9 AM</item>
-    <item>10 AM</item>
-    <item>11 AM</item>
-    <item>12 PM</item>
-    <item>1 PM</item>
-    <item>2 PM</item>
-    <item>3 PM</item>
-    <item>4 PM</item>
-    <item>5 PM</item>
-    <item>6 PM</item>
-    <item>7 PM</item>
-    <item>8 PM</item>
-    <item>9 PM</item>
-    <item>10 PM</item>
-    <item>11 PM</item>
-    <item>12 AM</item>
-    <item>1 AM</item>
-    <item>2 AM</item>
-    <item>3 AM</item>
-    <item>4 AM</item>
-    <item>5 AM</item>
-    <item>6 AM</item>
-    <item>7 AM</item>
-    <item>8 AM</item>
+    <item>오전 9시</item>
+    <item>오전 10시</item>
+    <item>오전 11시</item>
+    <item>오후 12시</item>
+    <item>오후 1시</item>
+    <item>오후 2시</item>
+    <item>오후 3시</item>
+    <item>오후 4시</item>
+    <item>오후 5시</item>
+    <item>오후 6시</item>
+    <item>오후 7시</item>
+    <item>오후 8시</item>
+    <item>오후 9시</item>
+    <item>오후 10시</item>
+    <item>오후 11시</item>
+    <item>오후 12시</item>
+    <item>오전 1시</item>
+    <item>오전 2시</item>
+    <item>오전 3시</item>
+    <item>오전 4시</item>
+    <item>오전 5시</item>
+    <item>오전 6시</item>
+    <item>오전 7시</item>
+    <item>오전 8시</item>
   </string-array>
   
   <!-- =============================================== random reminders == -->
@@ -1136,41 +1195,41 @@ Astrid might not let you know when your tasks are due.\n
 
   <string-array name="reminders_due">
       <!-- reminders related to task due date -->
-      <item>Time to work!</item>
-      <item>Due date is here!</item>
-      <item>Ready to start?</item>
-      <item>You said you would do:</item>
-      <item>You\'re supposed to start:</item>
-      <item>Time to start:</item>
-      <item>It\'s time!</item>
-      <item>Excuse me! Time for</item>
-      <item>You free? Time to</item>
+      <item>일할 시간입니다!</item>
+      <item>마감일이 되었어요!</item>
+      <item>시작할 준비가 되었나요?</item>
+      <item>다음 작업을 해야합니다:</item>
+      <item>이걸 시작해야 합니다:</item>
+      <item>시작할 시가:</item>
+      <item>시간이 되었어요!</item>
+      <item>실례합니다!</item>
+      <item>한가하세요?</item>
   </string-array>
 
   <string-array name="reminders_snooze">
       <!-- reminders related to snooze -->
-      <item>Don\'t be lazy now!</item>
-      <item>Snooze time is up!</item>
-      <item>No more snoozing!</item>
-      <item>Now are you ready?</item>
-      <item>No more postponing!</item>
+      <item>게으름 피우지 마세요!</item>
+      <item>지연시간이 끝났습니다!</item>
+      <item>더이상 지연은 없어요!</item>
+      <item>이제 준비 되었죠?</item>
+      <item>더이상 연기마세요!</item>
   </string-array>
   
   <string-array name="reminder_responses">
       <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
-      <item>I\'ve got something for you!</item> 
-      <item>이거 끝낼 준비 됬어?</item>
-      <item>Why don\'t you get this done?</item>
+      <item>당신이 할일이 있습니다!</item> 
+      <item>이거 끝낼 준비 됐어요?</item>
+      <item>이거 하는게 어때요?</item>
       <item>이건 어때?</item>
-      <item>이거할 준비 됬어?</item>
-      <item>이거 처리할 수 있어?</item>
+      <item>이거 할 준비 됐어?</item>
+      <item>이거 할 수 있어?</item>
       <item>이걸 끝내면 행복해 질 수 있어!</item>
-      <item>I promise you\'ll feel better if you finish this!</item>
-      <item>Won\'t you do this today?</item>
-      <item>Please finish this, I\'m sick of it!</item>
+      <item>이거 마치면 기분이 좋아질거에요! 날 믿어요!</item>
+      <item>이거 오늘 하기로 하지 않았어?</item>
+      <item>이거 마치세요, 질리지도 않아요!</item>
       <item>이걸 끝낼수있어? 그럼 넌 끝낼 수 있어!</item>
       <item>이거 안할꺼야?</item>
-      <item>Feel good about yourself! Let\'s go!</item>
+      <item>자신감을 가져요. 해봅시다!</item>
       <item>난 니가 정말 자랑스러워! 이걸 끝내자!</item>
       <item>이걸 끝내고 약간의 간식 어때?</item>
       <item>그냥 이일 하나만? 응?</item>
@@ -1179,20 +1238,20 @@ Astrid might not let you know when your tasks are due.\n
 
   <string-array name="postpone_nags">
       <!-- Astrid's nagging when user clicks postpone -->
-      <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
-      <item>Doesn\'t being lazy get old sometimes?</item>
-      <item>어딘가 누군가가 이일을 끝내가위해 너가 필요해!</item>
-      <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
+      <item>이걸 연기하기로 했다고 말하지마!</item>
+      <item>늙는거에 대해서는 게으르지 않지?</item>
+      <item>어딘가에서 누군가가 네가 이 일을 마치길 기다리고 있어!</item>
+      <item>네가 연기한다고 말했지만, 사실은 이거 다한거지?</item>
       <item>이게 마지막으로 미루는거지?응?</item>
-      <item>Just finish this today, I won\'t tell anyone!</item>
+      <item>이걸 오늘 마쳐. 이제 더이상 얘기 안할께!</item>
       <item>니가 할수 있을때 왜 미루니..미루지마!</item>
-      <item>You\'ll finish this eventually, I presume?</item>
-      <item>I think you\'re really great! How about not putting this off?</item>
+      <item>결국에는 이거 다 할거지? 맞지?</item>
+      <item>넌 정말 대단하다고 생각해! 이거 연기 안하는게 어때?</item>
       <item>그렇게 하면 니 목표를 이룰 수 있어?</item>
       <item>미루고, 미루고, 또미루고, 언제 바뀔래!</item>
-      <item>I\'ve had enough with your excuses! Just do it already!</item>
-      <item>Didn\'t you make that excuse last time?</item>
-      <item>I can\'t help you organize your life if you do that...</item>
+      <item>변명은 충분히 들었어! 벌써 다 했어야 했잖아!</item>
+      <item>지난번에도 그렇게 변명하지 않았니?</item>
+      <item>네가 그렇게 하면 나는 네 인생을 잘 정리하는걸 도와줄수가 없어...</item>
   </string-array>
     
 
@@ -1203,19 +1262,19 @@ Astrid might not let you know when your tasks are due.\n
   <!-- Resources for built-in repeat plug-in -->
 
   <!-- repeating plugin name -->
-  <string name="repeat_plugin">Repeating Tasks</string>
+  <string name="repeat_plugin">작업 반복하기</string>
   
   <!-- repeating plugin description -->
-  <string name="repeat_plugin_desc">Allows tasks to repeat</string>
+  <string name="repeat_plugin_desc">작업 반복 허락</string>
   
   <!-- checkbox for turning on/off repeats -->
   <string name="repeat_enabled">반복</string>
   
   <!-- button for "every x" part of repeat (%d -> repeat value)  -->
-  <string name="repeat_every">Every %d</string>
+  <string name="repeat_every">매 %d</string>
   
   <!-- hint when opening repeat interval -->
-  <string name="repeat_interval_prompt">Repeat Interval</string>
+  <string name="repeat_interval_prompt">반복 주기</string>
   
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours) -->
@@ -1227,8 +1286,8 @@ Astrid might not let you know when your tasks are due.\n
   
   <string-array name="repeat_type">
     <!-- repeat type (date to repeat from) -->
-    <item>from due date</item>
-    <item>from completion date</item>
+    <item>마감일로부터</item>
+    <item>완료일로부터</item>
   </string-array>
   
   <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
@@ -1238,7 +1297,7 @@ Astrid might not let you know when your tasks are due.\n
   <string name="repeat_detail_duedate">Every %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">%s after completion</string>
+  <string name="repeat_detail_completion">완료후 %s</string>
   
 
 
@@ -1248,22 +1307,22 @@ Astrid might not let you know when your tasks are due.\n
     <!-- ====================== Plugin Boilerplate ========================= -->
 
     <!-- label for RMilk button in Task Edit Activity -->
-    <string name="rmilk_EOE_button">Remember the Milk Settings</string>
+    <string name="rmilk_EOE_button">Remember the Milk 설정</string>
     
     <!-- task detail showing RTM repeat information -->
-    <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
+    <string name="rmilk_TLA_repeat">RTM 반복 작업</string>
     
     <!--  task detail showing item needs to be synchronized -->
-    <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
+    <string name="rmilk_TLA_sync">RTM 과 싱크가 필요</string>
 
     <!-- filters header: RTM -->
     <string name="rmilk_FEx_header">Remember the Milk</string>
     
     <!-- filter category for RTM lists -->
-    <string name="rmilk_FEx_list">Lists</string>
+    <string name="rmilk_FEx_list">리스트</string>
     
     <!--  RTM list filter title (%s => list) -->
-    <string name="rmilk_FEx_list_title">RTM List \'%s\'</string>
+    <string name="rmilk_FEx_list_title">RTM 리스트 \'%s\'</string>
     
     <!-- ======================= MilkEditActivity ========================== -->
     
@@ -1271,13 +1330,13 @@ Astrid might not let you know when your tasks are due.\n
     <string name="rmilk_MEA_title">Remember the Milk</string>
     
     <!--  RTM edit List Edit Label -->
-    <string name="rmilk_MEA_list_label">RTM List:</string>
+    <string name="rmilk_MEA_list_label">RTM 리스트:</string>
     
     <!--  RTM edit Repeat Label -->
-    <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
+    <string name="rmilk_MEA_repeat_label">RTM 반복 설정:</string>
     
     <!--  RTM edit Repeat Hint -->
-    <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
+    <string name="rmilk_MEA_repeat_hint">예. 매주, 14일 후</string>
     
     <!-- ======================== MilkPreferences ========================== -->
 
@@ -1287,14 +1346,10 @@ Astrid might not let you know when your tasks are due.\n
     <!-- ======================= MilkLoginActivity ========================= -->
 
     <!-- RTM Login Instructions -->
-    <string name="rmilk_MLA_label">Please Log In and Authorize Astrid:</string>
+    <string name="rmilk_MLA_label">로그인 후 Astrid 를 승인하세요:</string>
 
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">
-Sorry, there was an error verifying your login. Please try again.
-\n\n
-Error Message: %s
-    </string>
+    <string name="rmilk_MLA_error">로그인 정보 확인헤 실패하였습니다. 다시 시도하세요. \n\n 에러 메시지: %s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     
@@ -1302,8 +1357,7 @@ Error Message: %s
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
     <!-- Error msg when io exception with rmilk -->
-    <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
-    or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
+    <string name="rmilk_ioerror">연결 오류! 인터넷 연결이나 RTM 서버(status.rememberthemilk.com) 를 확인하세요.</string>
             
 
 
@@ -1322,7 +1376,7 @@ Error Message: %s
   <string name="TEA_tag_hint">태그명</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Select a tag</string>
+  <string name="TEA_tag_dropdown">태그 선택</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1330,34 +1384,34 @@ Error Message: %s
   <string name="tag_FEx_header">태그</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Sorted By Size</string>
+  <string name="tag_FEx_by_size">크기별 정렬</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Untagged</string>
+  <string name="tag_FEx_untagged">태그없음</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">Tagged \'%s\'</string>
+  <string name="tag_FEx_name">\'%s\' 태그됨</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Rename Tag</string>
+  <string name="tag_cm_rename">태그 이름 변경</string>
 
   <!-- context menu option to delete a tag -->
   <string name="tag_cm_delete">태그 삭제</string>
 
   <!-- Dialog to confirm deletion of a tag -->
-  <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
+  <string name="DLG_delete_this_tag_question">태그를 삭제살까요: %s? (작업은 지워지지 않습니다.)</string>
 
   <!-- Dialog to rename tag -->
-  <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
+  <string name="DLG_rename_this_tag_header">%s 태그 이름 변경 : </string>
 
   <!-- Toast notification that no changes have been made -->
-  <string name="TEA_no_tags_modified">No changes made</string>
+  <string name="TEA_no_tags_modified">변경 없음.</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+  <string name="TEA_tags_deleted">%s 태그가 %d 작업에서 삭제됨.</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+  <string name="TEA_tags_renamed">Replacd %s with %s on %d tasks.</string>
 
 
 
@@ -1373,10 +1427,10 @@ Error Message: %s
     <string name="TAE_stopTimer">타이머 정지</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
-    <string name="TPl_notification">Timers Active for %s!</string>
+    <string name="TPl_notification">%s 동안 타이머 작동함!</string>
     
     <!-- Filter Header for Timer plugin -->
-    <string name="TFE_category">Timer Filters</string>
+    <string name="TFE_category">타이머 필터</string>
     
     <!-- Filter for Timed Tasks -->
     <string name="TFE_workingOn">Tasks Being Timed</string>
@@ -1391,20 +1445,53 @@ Error Message: %s
     <string name="PPW_widget_42_label">Astrid 4x2 (beta!)</string>
     <string name="PPW_widget_44_label">Astrid 4x4 (beta!)</string>
     
-    <string name="PPW_configure_title">Configure Widget</string>
+    <string name="PPW_configure_title">위젯 설정</string>
     
-    <string name="PPW_color">Widget color</string>
-    <string name="PPW_enable_calendar">Show calendar events</string>
-    <string name="PPW_disable_encouragements">Hide encouragements</string>
-    <string name="PPW_filter">Select Filter</string>
+    <string name="PPW_color">위젯 컬러</string>
+    <string name="PPW_enable_calendar">캘린더 일정 보여주기</string>
+    <string name="PPW_disable_encouragements">응원문구 숨김</string>
+    <string name="PPW_filter">필터 선택</string>
     
-    <string name="PPW_due">Due:</string>
+    <string name="PPW_due">마감일:</string>
     <string name="PPW_past_due">Past Due:</string>
     
     <string-array name="PPW_encouragements">
-    	<item>Ready to work?</item>
-    	<item>Have time to finish something?</item>
-    	<item>Gosh, you are looking suave today!</item>
+        <!-- general encouragements -->
+    	<item>Hi there!</item>
+    	<item>무언가를 마무리할 시간이 있나요?</item>
+    	<item>이런, 오늘 당신 멋져보이네요!</item>
+    	<item>Do something great today!</item>
+    	<item>Make me proud today!</item>
+    	<item>How are you doing today?</item>
     </string-array>
+    
+    <string-array name="PPW_encouragements_tod">
+        <!-- encouragements based on time of day -->
+    	<item>Good morning!</item>
+    	<item>Good afternoon!</item>
+    	<item>Good evening!</item>
+    	<item>Late night?</item>
+    	<item>It\s early, get something done!</item>
+    	<item>Afternoon tea, perhaps?</item>
+    	<item>Enjoy the evening!</item>
+    	<item>Sleep is good for you, you know!</item>
+    </string-array>
+    
+    <string-array name="PPW_encouragements_completed">
+        <!-- encouragements based on tasks completed (%d => completed) -->
+    	<item>You\'ve already completed %d tasks!</item>
+    	<item>Score in life: %d tasks completed</item>
+    	<item>Smile! You\'ve already finished %d tasks!</item>
+    </string-array>
+    
+    <string name="PPW_encouragements_completed"/>
+    
+    <string-array name="PPW_colors">
+        <item>Black</item>
+        <item>White</item>
+        <item>Blue</item>
+        <item>Red</item>
+    </string-array>
+    
 
 </resources>
