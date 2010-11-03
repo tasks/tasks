@@ -165,6 +165,13 @@
               android:readPermission="com.todoroo.astrid.READ"
               android:writePermission="com.todoroo.astrid.WRITE"/>
 
+    <provider android:name="com.todoroo.astrid.provider.SqlContentProvider"
+              android:authorities="com.todoroo.astrid.private"
+              android:multiprocess="true"
+              android:grantUriPermissions="true"
+              android:readPermission="com.todoroo.astrid.READ"
+              android:writePermission="com.todoroo.astrid.WRITE"/>
+
     <!-- ========================================================= Plugins = -->
         
     <!-- core -->
