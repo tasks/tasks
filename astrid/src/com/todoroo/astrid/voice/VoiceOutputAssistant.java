@@ -132,4 +132,15 @@ public class VoiceOutputAssistant implements OnInitListener {
         }
     }
 
+    /**
+     * Has to be called in onDestroy of the activity that uses this instance of VoiceOutputAssistant.
+     */
+    public void onDestroy() {
+        if (mTts != null && isTTSInitialized) {
+            mTts.shutdown();
+            mTts = null;
+            isTTSInitialized = false;
+        }
+    }
+
 }

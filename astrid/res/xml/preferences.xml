@@ -31,7 +31,7 @@
         <CheckBoxPreference
             android:key="@string/p_voiceInputEnabled"
             android:title="@string/EPr_voiceInputEnabled_title"
-            android:defaultValue="true" />
+            android:defaultValue="false" />
         <CheckBoxPreference
             android:key="@string/p_voiceInputCreatesTask"
             android:title="@string/EPr_voiceInputCreatesTask_title"
@@ -39,6 +39,6 @@
         <CheckBoxPreference
             android:key="@string/p_voiceRemindersEnabled"
             android:title="@string/EPr_voiceRemindersEnabled_title"
-            android:defaultValue="true" />
+            android:defaultValue="false" />
     </PreferenceCategory>
 </PreferenceScreen>

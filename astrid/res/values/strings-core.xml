@@ -340,6 +340,10 @@
   
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <!-- Preference: Task List recognition-service is not installed, but available -->
+  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
+  <!-- Preference: Task List recognition-service is not available for this system -->
+  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update your system to 2.1 or later.</string>
   <!-- Preference: Task List Show Voice-button if recognition-service is available -->
   <string name="EPr_voiceInputEnabled_title">Enable voice-input</string>
   <!-- Preference: Task List Voice-button directly creates tasks -->

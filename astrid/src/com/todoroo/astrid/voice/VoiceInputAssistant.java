@@ -64,6 +64,18 @@ public class VoiceInputAssistant {
     }
 
     /**
+     * Creates a new VoiceInputAssistant-instance simply for checking the availability of the
+     * RecognizerService. This is used for Preferences-Screens that dont want to provide
+     * a microphone-button themselves.
+     */
+    public VoiceInputAssistant(Activity activity) {
+        Assert.assertNotNull("Each VoiceInputAssistant must be bound to an activity!", activity);
+        this.activity = activity;
+        this.voiceButton = null;
+        this.textField = null;
+    }
+
+    /**
      * Creates a new VoiceInputAssistance-instance for use with a specified button and textfield.
      * If you need more than one microphone-button on a given Activity, use the other constructor.
      *

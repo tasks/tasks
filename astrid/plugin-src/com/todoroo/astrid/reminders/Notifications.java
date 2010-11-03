@@ -95,6 +95,8 @@ public class Notifications extends BroadcastReceiver {
         if(!showTaskNotification(id, type, reminder)) {
             notificationManager.cancel((int)id);
         }
+        // shutdown the VoiceOutputAssistant for now
+        VoiceOutputAssistant.getInstance().onDestroy();
     }
 
     // --- notification creation
