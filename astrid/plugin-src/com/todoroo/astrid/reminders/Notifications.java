@@ -22,11 +22,12 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 public class Notifications extends BroadcastReceiver {
 
@@ -217,6 +218,7 @@ public class Notifications extends BroadcastReceiver {
         TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
         int callState = tm.getCallState();
 
+        boolean voiceReminder = Preferences.getBoolean(R.string.p_voiceRemindersEnabled, false);
         // if non-stop mode is activated, set up the flags for insistent
         // notification, and increase the volume to full volume, so the user
         // will actually pay attention to the alarm
@@ -225,6 +227,7 @@ public class Notifications extends BroadcastReceiver {
             notification.audioStreamType = AudioManager.STREAM_ALARM;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
                     audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
+            voiceReminder = false;
         } else {
             notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
         }
@@ -232,10 +235,12 @@ public class Notifications extends BroadcastReceiver {
         // quiet hours = no sound
         if(quietHours || callState != TelephonyManager.CALL_STATE_IDLE) {
             notification.sound = null;
+            voiceReminder = false;
         } else {
             String notificationPreference = Preferences.getStringValue(R.string.p_rmd_ringtone);
             if(audioManager.getStreamVolume(AudioManager.STREAM_RING) == 0) {
                 notification.sound = null;
+                voiceReminder = false;
             } else if(notificationPreference != null) {
                 if(notificationPreference.length() > 0) {
                     Uri notificationSound = Uri.parse(notificationPreference);
@@ -266,6 +271,17 @@ public class Notifications extends BroadcastReceiver {
             Log.w("Astrid", "Logging notification: " + text); //$NON-NLS-1$ //$NON-NLS-2$
 
         notificationManager.notify(notificationId, notification);
+        if (voiceReminder) {
+            while (audioManager.getMode() == AudioManager.MODE_RINGTONE) {
+                try {
+                    Thread.sleep(50);
+                } catch (InterruptedException e) {
+                    // TODO Auto-generated catch block
+                    e.printStackTrace();
+                }
+            }
+            VoiceOutputAssistant.getInstance().queueSpeak(text);
+        }
     }
 
     /**

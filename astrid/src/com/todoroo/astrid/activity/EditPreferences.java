@@ -17,9 +17,9 @@ import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -38,6 +38,7 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -200,6 +201,10 @@ public class EditPreferences extends TodorooPreferences {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
+        } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
+                if (value != null && (Boolean)value)
+                    VoiceOutputAssistant.getInstance().checkIsTTSInstalled();
+
         }
         else if (r.getString(R.string.p_statistics).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
@@ -207,6 +212,12 @@ public class EditPreferences extends TodorooPreferences {
             else
                 preference.setSummary(R.string.EPr_statistics_desc_enabled);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        VoiceOutputAssistant.getInstance().handleActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 

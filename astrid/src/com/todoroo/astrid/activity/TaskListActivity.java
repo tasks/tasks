@@ -88,6 +88,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.voice.VoiceInputAssistant;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -157,6 +158,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected int sortFlags;
     protected int sortSort;
 
+    private ImageButton voiceAddButton;
     private ImageButton quickAddButton;
     private EditText quickAddBox;
     private Timer backgroundTimer;
@@ -164,6 +166,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
+    private VoiceInputAssistant voiceInputAssistant;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -374,6 +377,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             }
         });
 
+        // prepare and set listener for voice add button
+        voiceAddButton = (ImageButton) findViewById(R.id.voiceAddButton);
+        int prompt = R.string.TLA_voice_edit_prompt;
+        if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
+            prompt = R.string.TLA_voice_add_prompt;
+        voiceInputAssistant = new VoiceInputAssistant(this,voiceAddButton,quickAddBox);
+        voiceInputAssistant.configureMicrophoneButton(prompt);
+
         // set listener for extended add button
         ((ImageButton)findViewById(R.id.extendedAddButton)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
@@ -437,6 +448,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     @Override
     protected void onResume() {
         super.onResume();
+        if (Preferences.getBoolean(R.string.p_voiceInputEnabled, true) && voiceInputAssistant.isVoiceInputAvailable()) {
+            voiceAddButton.setVisibility(View.VISIBLE);
+        } else {
+            voiceAddButton.setVisibility(View.GONE);
+        }
+
         registerReceiver(detailReceiver,
                 new IntentFilter(AstridApiConstants.BROADCAST_SEND_DETAILS));
         registerReceiver(detailReceiver,
@@ -549,6 +566,17 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // handle the result of voice recognition, put it into the textfield
+        if (voiceInputAssistant.handleActivityResult(requestCode, resultCode, data)) {
+            // if user wants, create the task directly (with defaultvalues) after saying it
+            if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
+                quickAddTask(quickAddBox.getText().toString(), true);
+            super.onActivityResult(requestCode, resultCode, data);
+
+            // the rest of onActivityResult is totally unrelated to voicerecognition, so bail out
+            return;
+        }
+
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode != RESULT_CANCELED) {
@@ -986,5 +1014,4 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         setUpTaskList();
     }
-
 }

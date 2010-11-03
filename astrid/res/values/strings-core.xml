@@ -90,6 +90,10 @@
   <!-- Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Add to this list...</string>
   
+  <!-- Voice Add Prompt Text -->
+  <string name="TLA_voice_add_prompt">Speak to create a task</string>
+  <string name="TLA_voice_edit_prompt">Speak to add a tasktitle</string>
+  
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
@@ -209,6 +213,12 @@
   <!-- Third Tab - add-ons -->
   <string name="TEA_tab_addons">Add-ons</string>
   
+  <!-- Prompt for tasktitle voiceinput -->
+  <string name="TEA_voice_edit_title_prompt">Speak to add to current title</string>
+
+  <!-- Prompt for tasknote voiceinput -->
+  <string name="TEA_voice_edit_note_prompt">Speak to add to current note</string>
+
   <!-- Task title label -->
   <string name="TEA_title_label">Title</string>
   
@@ -330,11 +340,24 @@
   
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <!-- Preference: Task List Show Voice-button if recognition-service is available -->
+  <string name="EPr_voiceInputEnabled_title">Enable voice-input</string>
+  <!-- Preference: Task List Voice-button directly creates tasks -->
+  <string name="EPr_voiceInputCreatesTask_title">Enable direct task-creation per voice</string>
+  <!-- Preference: Voice reminders if TTS-service is available -->
+  <string name="EPr_voiceRemindersEnabled_title">Enable voice-reminders</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
   
+  <!-- Preference Category: Voice Title -->
+  <string name="EPr_voice_header">Voice</string>
+  <!-- Preference: Task List Voice Input Description (disabled) -->
+  <string name="EPr_voiceInput_desc_disabled">Voice-Button will be hidden</string>  
+  <!-- Preference: Task List Voice Input Description (enabled) -->
+  <string name="EPr_voiceInput_desc_enabled">Voice-Button will be shown</string>  
+
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">New Task Defaults</string>
   
