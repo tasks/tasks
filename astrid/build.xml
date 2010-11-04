@@ -98,6 +98,8 @@
 
     <!-- post build: rename apk -->
     <target name="release" depends="get-version, android_rules.release">
+      <property name="out.release.package"
+                location="${out.absolute.dir}/${ant.project.name}-release.apk" />
       <property name="out.final.package"
                   location="${out.absolute.dir}/${ant.project.name}-${version.code}-${version.name}-release.apk" />
 
