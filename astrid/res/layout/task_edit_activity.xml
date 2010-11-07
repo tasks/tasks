@@ -88,26 +88,31 @@
         android:layout_height="wrap_content"
         android:text="@string/TEA_note_label"
         style="@style/TextAppearance.GEN_EditLabel" />
-      <!-- Voice Add Note Button -->
-      <ImageButton android:id="@+id/voiceAddNoteButton"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:visibility="gone"
-          android:src="@drawable/ic_btn_speak_now"
-          android:scaleType="fitCenter"/> 
-      <EditText
-        android:id="@+id/notes"
+      <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:scrollbars="vertical"
-        android:gravity="top"
-        android:hint="@string/TEA_notes_hint"
-        android:autoText="true"
-        android:capitalize="sentences"
-        android:singleLine="false" />
-        
+        android:layout_height="wrap_content">
+	      <!-- Voice Add Note Button -->
+	      <ImageButton android:id="@+id/voiceAddNoteButton"
+	          android:layout_width="wrap_content"
+	          android:layout_height="wrap_content"
+	          android:layout_weight="1"
+	          android:src="@drawable/ic_btn_speak_now"
+	          android:scaleType="fitCenter"
+	          android:visibility="gone"/> 
+	      <EditText
+	        android:id="@+id/notes"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_weight="100"
+	        android:scrollbars="vertical"
+	        android:gravity="top"
+	        android:hint="@string/TEA_notes_hint"
+	        android:autoText="true"
+	        android:capitalize="sentences"
+	        android:singleLine="false" />
+      </LinearLayout>
+
       <!-- buttons -->
       <LinearLayout
         android:orientation="horizontal"

@@ -11,6 +11,7 @@ import java.util.Map.Entry;
 import org.weloveastrid.rmilk.MilkPreferences;
 import org.weloveastrid.rmilk.MilkUtilities;
 
+import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -200,7 +201,7 @@ public class EditPreferences extends TodorooPreferences {
 
     @Override
     public void updatePreferences(final Preference preference, Object value) {
-        Resources r = getResources();
+        final Resources r = getResources();
         if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
@@ -222,11 +223,25 @@ public class EditPreferences extends TodorooPreferences {
                                     @Override
                                     public void onClick(DialogInterface dialog,
                                             int which) {
+                                        dialog.dismiss();
                                         // User wants to install voicesearch, take him to the market
                                         Intent marketIntent = new Intent(Intent.ACTION_VIEW,
                                                 Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
                                                         "com.google.android.voicesearch.x"));
-                                        startActivity(marketIntent);
+                                        try {
+                                            startActivity(marketIntent);
+                                        } catch (ActivityNotFoundException ane) {
+                                            DialogUtilities.okDialog(EditPreferences.this,
+                                                    r.getString(R.string.EPr_marketUnavailable_dlg),
+                                                    new OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog,
+                                                                int which) {
+                                                            ((CheckBoxPreference)preference).setChecked(false);
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                        }
                                     }
                                 },
                                 new OnClickListener() {
@@ -248,7 +263,6 @@ public class EditPreferences extends TodorooPreferences {
                                         dialog.dismiss();
                                     }
                                 });
-
                     }
                 }
         } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
