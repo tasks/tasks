@@ -273,7 +273,9 @@ public final class TaskEditActivity extends TabActivity {
                             ((Button)findViewById(R.id.addons_button)).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {
-                                    startActivity(new Intent(TaskEditActivity.this, AddOnActivity.class));
+                                    Intent addOnActivity = new Intent(TaskEditActivity.this, AddOnActivity.class);
+                                    addOnActivity.putExtra(AddOnActivity.TOKEN_START_WITH_AVAILABLE, true);
+                                    startActivity(addOnActivity);
                                 }
                             });
                         }

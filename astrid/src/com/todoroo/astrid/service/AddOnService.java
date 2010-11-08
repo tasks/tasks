@@ -174,10 +174,6 @@ public class AddOnService {
      * @return
      */
     private boolean isInstalled(String packageName, boolean internal) {
-        if(POWER_PACK_PACKAGE.equals(packageName))
-            return true;
-        if(LOCALE_PACKAGE.equals(packageName))
-            return true;
         if(Constants.PACKAGE.equals(packageName))
             return true;
 
@@ -228,7 +224,7 @@ public class AddOnService {
         Resources r = ContextManager.getContext().getResources();
 
         // temporary temporary
-        AddOn[] list = new AddOn[4];
+        AddOn[] list = new AddOn[3];
         list[0] = new AddOn(false, true, "Astrid Power Pack", null,
                 "Support Astrid and get more productive with the Astrid Power Pack. Backup, widgets, no ads, and calendar integration. Power up today!",
                 POWER_PACK_PACKAGE, "http://www.weloveastrid.com/store",
@@ -243,11 +239,6 @@ public class AddOnService {
                 "Synchronize with Producteev service. Also changes Astrid's importance levels to stars.",
                 Constants.PACKAGE, "http://www.producteev.com",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_producteev)).getBitmap());
-
-        list[3] = new AddOn(true, false, "Remember the Milk", null,
-                "Synchronize with Remember The Milk service.",
-                Constants.PACKAGE, "http://www.rmilk.com",
-                ((BitmapDrawable)r.getDrawable(R.drawable.ic_menu_refresh)).getBitmap());
 
         return list;
     }
