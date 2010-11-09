@@ -11,15 +11,20 @@ import java.util.Map.Entry;
 import org.weloveastrid.rmilk.MilkPreferences;
 import org.weloveastrid.rmilk.MilkUtilities;
 
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -27,6 +32,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.TodorooPreferences;
@@ -38,6 +44,8 @@ import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
+import com.todoroo.astrid.voice.VoiceInputAssistant;
+import com.todoroo.astrid.voice.VoiceOutputAssistant;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -57,6 +65,8 @@ public class EditPreferences extends TodorooPreferences {
     @Autowired
     private Database database;
 
+    private VoiceInputAssistant voiceInputAssistant;
+
     public EditPreferences() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -73,6 +83,7 @@ public class EditPreferences extends TodorooPreferences {
         ContextManager.setContext(this);
 
         PreferenceScreen screen = getPreferenceScreen();
+        voiceInputAssistant = new VoiceInputAssistant(this);
 
         // load plug-ins
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
@@ -189,8 +200,8 @@ public class EditPreferences extends TodorooPreferences {
     }
 
     @Override
-    public void updatePreferences(Preference preference, Object value) {
-        Resources r = getResources();
+    public void updatePreferences(final Preference preference, Object value) {
+        final Resources r = getResources();
         if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
@@ -200,6 +211,64 @@ public class EditPreferences extends TodorooPreferences {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
+        } else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
+            if (value != null && (Boolean)value)
+                if (!voiceInputAssistant.isVoiceInputAvailable()) {
+                    // voicesearch available since 2.1
+                    if (AndroidUtilities.getSdkVersion() > 6) {
+
+                        DialogUtilities.okCancelDialog(this,
+                                r.getString(R.string.EPr_voiceInputInstall_dlg),
+                                new OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                            int which) {
+                                        dialog.dismiss();
+                                        // User wants to install voicesearch, take him to the market
+                                        Intent marketIntent = new Intent(Intent.ACTION_VIEW,
+                                                Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
+                                                        "com.google.android.voicesearch.x"));
+                                        try {
+                                            startActivity(marketIntent);
+                                        } catch (ActivityNotFoundException ane) {
+                                            DialogUtilities.okDialog(EditPreferences.this,
+                                                    r.getString(R.string.EPr_marketUnavailable_dlg),
+                                                    new OnClickListener() {
+                                                        @Override
+                                                        public void onClick(DialogInterface dialog,
+                                                                int which) {
+                                                            ((CheckBoxPreference)preference).setChecked(false);
+                                                            dialog.dismiss();
+                                                        }
+                                                    });
+                                        }
+                                    }
+                                },
+                                new OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                            int which) {
+                                        ((CheckBoxPreference)preference).setChecked(false);
+                                        dialog.dismiss();
+                                    }
+                                });
+                    } else {
+                        DialogUtilities.okDialog(this,
+                                r.getString(R.string.EPr_voiceInputUnavailable_dlg),
+                                new OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog,
+                                            int which) {
+                                        ((CheckBoxPreference)preference).setChecked(false);
+                                        dialog.dismiss();
+                                    }
+                                });
+                    }
+                }
+        } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
+                if (value != null && (Boolean)value)
+                    VoiceOutputAssistant.getInstance().checkIsTTSInstalled();
+
         }
         else if (r.getString(R.string.p_statistics).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
@@ -207,6 +276,12 @@ public class EditPreferences extends TodorooPreferences {
             else
                 preference.setSummary(R.string.EPr_statistics_desc_enabled);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        VoiceOutputAssistant.getInstance().handleActivityResult(requestCode, resultCode, data);
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
 
