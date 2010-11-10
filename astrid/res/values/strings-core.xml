@@ -318,7 +318,7 @@
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Window Title -->
-  <string name="EPr_title">Astrid: Preferences</string>
+  <string name="EPr_title">Astrid: Settings</string>
 
   <!-- Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Appearance</string>
