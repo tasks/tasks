@@ -121,17 +121,6 @@ public class RepeatControlSet implements TaskEditControlSet {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View view, int position, long id) {
                 daysOfWeekContainer.setVisibility(position == INTERVAL_WEEKS ? View.VISIBLE : View.GONE);
-                if(position == INTERVAL_WEEKS) {
-                    Date date;
-                    if(model.getValue(Task.DUE_DATE) == 0)
-                        date = new Date();
-                    else
-                        date = new Date(model.getValue(Task.DUE_DATE));
-
-                    int dayOfWeek = date.getDay();
-                    for(int i = 0; i < 7; i++)
-                        daysOfWeek[i].setChecked(i == dayOfWeek);
-                }
             }
 
             @Override
@@ -181,6 +170,15 @@ public class RepeatControlSet implements TaskEditControlSet {
         if(recurrence == null)
             recurrence = "";
 
+        Date date;
+        if(model.getValue(Task.DUE_DATE) == 0)
+            date = new Date();
+        else
+            date = new Date(model.getValue(Task.DUE_DATE));
+        int dayOfWeek = date.getDay();
+        for(int i = 0; i < 7; i++)
+            daysOfWeek[i].setChecked(i == dayOfWeek);
+
         // read recurrence rule
         if(recurrence.length() > 0) {
             try {
@@ -213,7 +211,7 @@ public class RepeatControlSet implements TaskEditControlSet {
 
                 for(WeekdayNum day : rrule.getByDay()) {
                     for(int i = 0; i < 7; i++)
-                        if(daysOfWeek[i].getTag() == day.wday)
+                        if(daysOfWeek[i].getTag().equals(day.wday))
                             daysOfWeek[i].setChecked(true);
                 }
 
