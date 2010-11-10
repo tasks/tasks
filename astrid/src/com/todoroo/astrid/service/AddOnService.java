@@ -10,8 +10,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -19,6 +17,7 @@ import android.widget.Button;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.AddOn;
@@ -178,20 +177,15 @@ public class AddOnService {
             return true;
 
         Context context = ContextManager.getContext();
-        PackageInfo packageInfo;
-        try {
-            packageInfo = context.getPackageManager().getPackageInfo(packageName,
-                    PackageManager.GET_SIGNATURES);
-        } catch (Exception e) {
-            return false;
-        }
 
-        if(packageInfo == null)
+        String packageSignature = AndroidUtilities.getSignature(context, packageName);
+        if(packageSignature == null)
             return false;
         if(!internal)
             return true;
 
-        return "30820265308201cea00302010202044954bd9c300d06092a864886f70d01010505003076310b3009060355040613025553310b3009060355040813024341311230100603550407130950616c6f20416c746f31183016060355040a130f6173747269642e6c7632352e636f6d311b3019060355040b131241737472696420446576656c6f706d656e74310f300d0603550403130654696d2053753020170d3038313232363131313835325a180f32303633303932393131313835325a3076310b3009060355040613025553310b3009060355040813024341311230100603550407130950616c6f20416c746f31183016060355040a130f6173747269642e6c7632352e636f6d311b3019060355040b131241737472696420446576656c6f706d656e74310f300d0603550403130654696d20537530819f300d06092a864886f70d010101050003818d00308189028181008b8f39e02a50e5f50723bb71208e99bd72dd3cb6266054809cce0dc33a38ebf79c2a1ab74264cc6c88d44a5092e34f45fc28c53188ebe5b7511f0e14862598a82e1a84b0c99e62b0603737c09501b92f723d9e561a0eedbc16ab494e93a513d170135e0e55af6bb40a9af1186df4cfe53ec3a6144336f9f8a338341656c5a3bd0203010001300d06092a864886f70d01010505000381810016352860629e5e17d2d747943170ddb8c01f014932cb4462f52295c2f764970e93fa461c73b44a678ecf8ab8480702fb746221a98ade8ab7562cae151be78973dfa47144d70b8d0b73220dd741755f62cc9230264f570ec21a4ab1f11b0528d799d3662d06354b56d0d7d28d05c260876a98151fb4e89b6ce2a5010c52b3e365".equals(packageInfo.signatures[0].toCharsString());
+        String astridSignature = AndroidUtilities.getSignature(context, Constants.PACKAGE);
+        return packageSignature.equals(astridSignature);
     }
 
     /**
