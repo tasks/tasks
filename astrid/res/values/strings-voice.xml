@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+  <!-- Voice Add Prompt Text -->
+  <string name="voice_add_prompt">Speak to add a task</string>
+  <string name="voice_edit_prompt">Speak to edit this task</string>
+    
+  <!-- Preference: Task List recognition-service is not installed, but available -->
+  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
+  <!-- Preference: Task List recognition-service is not available for this system -->
+  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update your system to 2.1 or later.</string>
+  <!-- Preference: Market is not available for this system -->
+  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voicesearch from another source.</string>
+  <!-- Preference: Task List Show Voice-button if recognition-service is available -->
+  <string name="EPr_voiceInputEnabled_title">Enable voice-input</string>
+  <!-- Preference: Task List Voice-button directly creates tasks -->
+  <string name="EPr_voiceInputCreatesTask_title">Enable direct task-creation per voice</string>
+  <!-- Preference: Voice reminders if TTS-service is available -->
+  <string name="EPr_voiceRemindersEnabled_title">Enable voice-reminders</string>
+    
+  <!-- Preference Category: Voice Title -->
+  <string name="EPr_voice_header">Voice</string>
+  <!-- Preference: Task List Voice Input Description (disabled) -->
+  <string name="EPr_voiceInput_desc_disabled">Voice-Button will be hidden</string>  
+  <!-- Preference: Task List Voice Input Description (enabled) -->
+  <string name="EPr_voiceInput_desc_enabled">Voice-Button will be shown</string>  
+    
+</resources>
