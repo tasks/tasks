@@ -226,21 +226,42 @@ public class TaskDao extends DatabaseDao<Task> {
      * @param database
      * @param task task that was just changed
      * @param values values to be persisted to the database
-     * @param skipHooks whether this save occurs as part of a sync
+     * @param whether this task was newly created
      */
     private void afterSave(Task task, ContentValues values) {
         if(values != null) {
+            if(insignificantChange(values))
+                return;
+
             if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
                 afterComplete(task, values);
-            else if(values.containsKey(Task.DUE_DATE.name) ||
+            else {
+                if(values.containsKey(Task.DUE_DATE.name) ||
                     values.containsKey(Task.REMINDER_FLAGS.name) ||
                     values.containsKey(Task.REMINDER_PERIOD.name) ||
                     values.containsKey(Task.REMINDER_LAST.name) ||
                     values.containsKey(Task.REMINDER_SNOOZE.name))
                 ReminderService.getInstance().scheduleAlarm(task);
-        }
+            }
 
-        afterTasklistChange();
+            afterTasklistChange();
+        }
+    }
+
+    private boolean insignificantChange(ContentValues values) {
+        if(values.size() == 0)
+            return true;
+
+        if(values.containsKey(Task.DETAILS_DATE.name) &&
+                values.containsKey(Task.DETAILS.name) &&
+                values.size() == 2)
+            return true;
+
+        if(values.containsKey(Task.REMINDER_LAST.name) &&
+                values.size() == 1)
+            return true;
+
+        return false;
     }
 
     private final DatabaseUpdateListener[] taskChangeListeners = new DatabaseUpdateListener[] {
@@ -261,6 +282,10 @@ public class TaskDao extends DatabaseDao<Task> {
         for(DatabaseUpdateListener listener : taskChangeListeners) {
             listener.onDatabaseUpdated();
         }
+
+        Context context = ContextManager.getContext();
+        Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_LIST_UPDATED);
+        context.sendOrderedBroadcast(broadcastIntent, null);
     }
 
     /**
@@ -268,10 +293,8 @@ public class TaskDao extends DatabaseDao<Task> {
      *
      * @param task
      * @param values
-     * @param duringSync
      */
     private void afterComplete(Task task, ContentValues values) {
-        // send broadcast
         Context context = ContextManager.getContext();
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
