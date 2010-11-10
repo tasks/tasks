@@ -13,11 +13,14 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListActivity;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 
 public final class UpgradeService {
 
+    public static final int V3_6_0 = 166;
     public static final int V3_5_0 = 165;
     public static final int V3_4_0 = 162;
     public static final int V3_3_0 = 155;
@@ -98,7 +101,7 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if(from <= V2_14_4) {
-            newVersionString(changeLog, "3.5.0 (10/25/10)", new String[] {
+            newVersionString(changeLog, "3.6.0 (11/10/10)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
                     "look and feel, a new add-on system allows Astrid to become " +
                     "more powerful, while other improvements have made it faster " +
@@ -107,12 +110,22 @@ public final class UpgradeService {
                     "<a href='http://bit.ly/oldastrid'>clicking here</a>",
             });
         } else {
-            newVersionString(changeLog, "3.5.0", new String[] {
-                    "Google Tasks Sync (beta!)",
-                    "Bug fix with RMilk & new tasks not getting synced",
-                    "Fixed Force Closes and other bugs",
+            // current message
+            newVersionString(changeLog, "3.6.0 (11/10/10)", new String[] {
+                    "Astrid Power Pack is now launched to the Android Market. " +
+                        "Power Pack features include 4x2 and 4x4 widgets and voice " +
+                        "task reminders and creation. Go to the add-ons page to find out more!",
             });
-            if(from >= V3_3_0 && from < V3_4_0)
+            upgrade3To3_6(context);
+
+            // old messages
+            if(from >= V3_0_0 && from < V3_5_0)
+                newVersionString(changeLog, "3.5.0 (10/25/10)", new String[] {
+                        "Google Tasks Sync (beta!)",
+                        "Bug fix with RMilk & new tasks not getting synced",
+                        "Fixed Force Closes and other bugs",
+                });
+            if(from >= V3_0_0 && from < V3_4_0)
                 newVersionString(changeLog, "3.4.0 (10/08/10)", new String[] {
                         "End User License Agreement",
                         "Option to disable usage statistics",
@@ -200,6 +213,20 @@ public final class UpgradeService {
                 });
             }
         }
+    }
+
+    /**
+     * Moves sorting prefs to public pref store
+     * @param context
+     */
+    private void upgrade3To3_6(final Context context) {
+        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(context);
+        Editor editor = publicPrefs.edit();
+        editor.putInt(SortHelper.PREF_SORT_FLAGS,
+                Preferences.getInt(SortHelper.PREF_SORT_FLAGS, 0));
+        editor.putInt(SortHelper.PREF_SORT_SORT,
+                Preferences.getInt(SortHelper.PREF_SORT_SORT, 0));
+        editor.commit();
     }
 
     // --- secondary upgrade

@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.IBinder;
 import android.util.Log;
@@ -21,15 +22,16 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.activity.SortSelectionActivity;
 import com.todoroo.astrid.activity.TaskEditActivity;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 public class TasksWidget extends AppWidgetProvider {
 
@@ -144,9 +146,10 @@ public class TasksWidget extends AppWidgetProvider {
                 filter = getFilter(widgetId);
                 views.setTextViewText(R.id.widget_title, filter.title);
 
-                int flags = Preferences.getInt(SortSelectionActivity.PREF_SORT_FLAGS, 0);
-                int sort = Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
-                String query = SortSelectionActivity.adjustQueryForFlagsAndSort(
+                SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
+                int flags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+                int sort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
+                String query = SortHelper.adjustQueryForFlagsAndSort(
                         filter.sqlQuery, flags, sort) + " LIMIT " + numberOfTasks;
 
                 database.openForReading();

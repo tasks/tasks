@@ -9,16 +9,17 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnTouchListener;
+import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.commonsware.cwac.tlv.TouchListView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.IntegerProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.data.Task;
 
 /**
@@ -62,7 +63,7 @@ public class DraggableTaskListActivity extends TaskListActivity {
      */
     @Override
     protected void setUpTaskList() {
-        sqlQueryTemplate.set(SortSelectionActivity.adjustQueryForFlagsAndSort(filter.sqlQuery,
+        sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
 
         ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
@@ -81,7 +82,7 @@ public class DraggableTaskListActivity extends TaskListActivity {
         registerForContextMenu(getListView());
 
         loadTaskListContent(false);
-        
+
         getTouchListView().setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {

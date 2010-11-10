@@ -8,6 +8,7 @@ import android.content.res.Resources;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.api.AstridApiConstants;
 
 public class AstridPreferences {
 
@@ -29,6 +30,17 @@ public class AstridPreferences {
         Preferences.setIfUnset(prefs, editor, r, R.string.p_showNotes, false);
 
         editor.commit();
+    }
+
+    /* ======================================================================
+     * ========================================================= public prefs
+     * ====================================================================== */
+
+    /** Get publicly readable preferences */
+    public static SharedPreferences getPublicPrefs(Context context) {
+        context = context.getApplicationContext();
+        return context.getSharedPreferences(AstridApiConstants.PUBLIC_PREFS,
+                Context.MODE_WORLD_READABLE);
     }
 
     /* ======================================================================

@@ -8,7 +8,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
@@ -196,18 +195,6 @@ public class TaskService {
         sql = PermaSql.replacePlaceholders(sql);
 
         return taskDao.query(Query.select(properties).withQueryTemplate(sql));
-    }
-
-    /**
-     * Return the default task ordering
-     * @return
-     */
-    @SuppressWarnings("nls")
-    public static Order defaultTaskOrder() {
-        return Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                DateUtilities.now() + DateUtilities.ONE_WEEK,
-                Task.DUE_DATE) + " + 200000000 * " +
-                Task.IMPORTANCE + " + 2*" + Task.COMPLETION_DATE);
     }
 
     /**

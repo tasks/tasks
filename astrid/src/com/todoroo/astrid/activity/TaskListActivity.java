@@ -17,6 +17,8 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
@@ -58,7 +60,6 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
@@ -71,6 +72,7 @@ import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -86,6 +88,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.widget.TasksWidget;
@@ -144,9 +147,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @Autowired
     protected Database database;
-
-    @Autowired
-    private AddOnService addOnService;
 
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
@@ -391,8 +391,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             // failed check, no gestures :P
         }
 
-        sortFlags = Preferences.getInt(SortSelectionActivity.PREF_SORT_FLAGS, 0);
-        sortSort = Preferences.getInt(SortSelectionActivity.PREF_SORT_SORT, 0);
+        SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
+        sortFlags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
+        sortSort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
 
         // dithering
         getWindow().setFormat(PixelFormat.RGBA_8888);
@@ -619,7 +620,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      * @param withCustomId force task with given custom id to be part of list
      */
     protected void setUpTaskList() {
-        sqlQueryTemplate.set(SortSelectionActivity.adjustQueryForFlagsAndSort(filter.sqlQuery,
+        sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
 
         ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
@@ -978,8 +979,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         sortSort = sort;
 
         if(always) {
-            Preferences.setInt(SortSelectionActivity.PREF_SORT_FLAGS, flags);
-            Preferences.setInt(SortSelectionActivity.PREF_SORT_SORT, sort);
+            SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
+            Editor editor = publicPrefs.edit();
+            editor.putInt(SortHelper.PREF_SORT_FLAGS, flags);
+            editor.putInt(SortHelper.PREF_SORT_SORT, sort);
+            editor.commit();
             ContextManager.getContext().startService(new Intent(ContextManager.getContext(),
                     TasksWidget.UpdateService.class));
         }

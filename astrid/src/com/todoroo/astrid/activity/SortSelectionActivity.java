@@ -9,13 +9,7 @@ import android.widget.CheckBox;
 import android.widget.RadioButton;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.Functions;
-import com.todoroo.andlib.sql.Order;
-import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
-import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.core.SortHelper;
 
 /**
  * Shows the sort / hidden dialog
@@ -24,17 +18,6 @@ import com.todoroo.astrid.service.TaskService;
  *
  */
 public class SortSelectionActivity {
-
-    public static final int FLAG_REVERSE_SORT = 1 << 0;
-    public static final int FLAG_SHOW_COMPLETED = 1 << 1;
-    public static final int FLAG_SHOW_HIDDEN = 1 << 2;
-    public static final int FLAG_SHOW_DELETED = 1 << 3;
-
-    public static final int SORT_AUTO = 0;
-    public static final int SORT_ALPHA = 1;
-    public static final int SORT_DUE = 2;
-    public static final int SORT_IMPORTANCE = 3;
-    public static final int SORT_MODIFIED = 4;
 
     public interface OnSortSelectedListener {
         public void onSortSelected(boolean always, int flags, int sort);
@@ -49,26 +32,26 @@ public class SortSelectionActivity {
             OnSortSelectedListener listener, int flags, int sort) {
         View body = activity.getLayoutInflater().inflate(R.layout.sort_selection_dialog, null);
 
-        if((flags & FLAG_REVERSE_SORT) > 0)
+        if((flags & SortHelper.FLAG_REVERSE_SORT) > 0)
             ((CheckBox)body.findViewById(R.id.reverse)).setChecked(true);
-        if((flags & FLAG_SHOW_COMPLETED) > 0)
+        if((flags & SortHelper.FLAG_SHOW_COMPLETED) > 0)
             ((CheckBox)body.findViewById(R.id.completed)).setChecked(true);
-        if((flags & FLAG_SHOW_HIDDEN) > 0)
+        if((flags & SortHelper.FLAG_SHOW_HIDDEN) > 0)
             ((CheckBox)body.findViewById(R.id.hidden)).setChecked(true);
-        if((flags & FLAG_SHOW_DELETED) > 0)
+        if((flags & SortHelper.FLAG_SHOW_DELETED) > 0)
             ((CheckBox)body.findViewById(R.id.deleted)).setChecked(true);
 
         switch(sort) {
-        case SORT_ALPHA:
+        case SortHelper.SORT_ALPHA:
             ((RadioButton)body.findViewById(R.id.sort_alpha)).setChecked(true);
             break;
-        case SORT_DUE:
+        case SortHelper.SORT_DUE:
             ((RadioButton)body.findViewById(R.id.sort_due)).setChecked(true);
             break;
-        case SORT_IMPORTANCE:
+        case SortHelper.SORT_IMPORTANCE:
             ((RadioButton)body.findViewById(R.id.sort_importance)).setChecked(true);
             break;
-        case SORT_MODIFIED:
+        case SortHelper.SORT_MODIFIED:
             ((RadioButton)body.findViewById(R.id.sort_modified)).setChecked(true);
             break;
         default:
@@ -88,59 +71,7 @@ public class SortSelectionActivity {
         return dialog;
     }
 
-    @SuppressWarnings("nls")
-    public static String adjustQueryForFlagsAndSort(String originalSql, int flags, int sort) {
-        // sort
-        if(!originalSql.toUpperCase().contains("ORDER BY")) {
-            Order order;
-            switch(sort) {
-            case SortSelectionActivity.SORT_ALPHA:
-                order = Order.asc(Functions.upper(Task.TITLE));
-                break;
-            case SortSelectionActivity.SORT_DUE:
-                order = Order.asc(Functions.caseStatement(Task.DUE_DATE.eq(0),
-                        DateUtilities.now()*2, Task.DUE_DATE) + "+" + Task.IMPORTANCE +
-                        "+3*" + Task.COMPLETION_DATE);
-                break;
-            case SortSelectionActivity.SORT_IMPORTANCE:
-                order = Order.asc(Task.IMPORTANCE + "*" + (2*DateUtilities.now()) + //$NON-NLS-1$
-                        "+" + Functions.caseStatement(Task.DUE_DATE.eq(0), //$NON-NLS-1$
-                                Functions.now() + "+" + DateUtilities.ONE_WEEK, //$NON-NLS-1$
-                                Task.DUE_DATE) + "+8*" + Task.COMPLETION_DATE);
-                break;
-            case SortSelectionActivity.SORT_MODIFIED:
-                order = Order.desc(Task.MODIFICATION_DATE);
-                break;
-            default:
-                order = TaskService.defaultTaskOrder();
-            }
-
-            if((flags & SortSelectionActivity.FLAG_REVERSE_SORT) > 0)
-                order = order.reverse();
-            originalSql += " ORDER BY " + order;
-        }
-
-        // flags
-        if((flags & FLAG_SHOW_COMPLETED) > 0)
-            originalSql = originalSql.replace(Task.COMPLETION_DATE.eq(0).toString(),
-                    Criterion.all.toString());
-        if((flags & FLAG_SHOW_HIDDEN) > 0)
-            originalSql = originalSql.replace(TaskCriteria.isVisible().toString(),
-                    Criterion.all.toString());
-        if((flags & FLAG_SHOW_DELETED) > 0)
-            originalSql = originalSql.replace(Task.DELETION_DATE.eq(0).toString(),
-                    Criterion.all.toString());
-
-        return originalSql;
-    }
-
     // --- internal implementation
-
-    /** preference key for sort flags */
-    public static final String PREF_SORT_FLAGS = "sort_flags"; //$NON-NLS-1$
-
-    /** preference key for sort sort */
-    public static final String PREF_SORT_SORT = "sort_sort"; //$NON-NLS-1$
 
     private SortSelectionActivity() {
         // use the static method
@@ -163,24 +94,24 @@ public class SortSelectionActivity {
             int sort = 0;
 
             if(((CheckBox)body.findViewById(R.id.reverse)).isChecked())
-                flags |= FLAG_REVERSE_SORT;
+                flags |= SortHelper.FLAG_REVERSE_SORT;
             if(((CheckBox)body.findViewById(R.id.completed)).isChecked())
-                flags |= FLAG_SHOW_COMPLETED;
+                flags |= SortHelper.FLAG_SHOW_COMPLETED;
             if(((CheckBox)body.findViewById(R.id.hidden)).isChecked())
-                flags |= FLAG_SHOW_HIDDEN;
+                flags |= SortHelper.FLAG_SHOW_HIDDEN;
             if(((CheckBox)body.findViewById(R.id.deleted)).isChecked())
-                flags |= FLAG_SHOW_DELETED;
+                flags |= SortHelper.FLAG_SHOW_DELETED;
 
             if(((RadioButton)body.findViewById(R.id.sort_alpha)).isChecked())
-                sort = SORT_ALPHA;
+                sort = SortHelper.SORT_ALPHA;
             else if(((RadioButton)body.findViewById(R.id.sort_due)).isChecked())
-                sort = SORT_DUE;
+                sort = SortHelper.SORT_DUE;
             else if(((RadioButton)body.findViewById(R.id.sort_importance)).isChecked())
-                sort = SORT_IMPORTANCE;
+                sort = SortHelper.SORT_IMPORTANCE;
             else if(((RadioButton)body.findViewById(R.id.sort_modified)).isChecked())
-                sort = SORT_MODIFIED;
+                sort = SortHelper.SORT_MODIFIED;
             else
-                sort = SORT_AUTO;
+                sort = SortHelper.SORT_AUTO;
 
             listener.onSortSelected(always, flags, sort);
         }
