@@ -1136,20 +1136,23 @@ public final class TaskEditActivity extends TabActivity {
         @Override
         public void readFromTask(Task task) {
             long date = task.getValue(Task.HIDE_UNTIL);
-            long dueDate = task.getValue(Task.DUE_DATE);
+
+            Date dueDay = new Date(task.getValue(Task.DUE_DATE)/1000L*1000L);
+            dueDay.setHours(0);
+            dueDay.setMinutes(0);
+            dueDay.setSeconds(0);
 
             int selection = 0;
             if(date == 0) {
                 selection = 0;
                 date = 0;
-            } else if(Math.abs(date - dueDate) < DateUtilities.ONE_DAY) {
+            } else if(date == dueDay.getTime()) {
                 selection = 1;
                 date = 0;
-            } else if(Math.abs(date - dueDate) < 2 * DateUtilities.ONE_DAY) {
+            } else if(date + DateUtilities.ONE_DAY == dueDay.getTime()) {
                 selection = 2;
                 date = 0;
-            } else if(Math.abs(date - dueDate) > DateUtilities.ONE_WEEK &&
-                    Math.abs(date - dueDate) < (DateUtilities.ONE_WEEK + DateUtilities.ONE_DAY)) {
+            } else if(date + DateUtilities.ONE_WEEK == dueDay.getTime()) {
                 selection = 3;
                 date = 0;
             }
