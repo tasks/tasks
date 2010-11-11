@@ -48,6 +48,15 @@
         android:layout_weight="1"
         android:orientation="horizontal">
         
+        <!-- Voice Add Button -->
+        <ImageButton android:id="@+id/voiceAddButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:src="@drawable/ic_btn_speak_now"
+            android:scaleType="fitCenter"/> 
+    
         <!-- Quick Add Button -->
         <ImageButton android:id="@+id/quickAddButton"
             android:layout_width="wrap_content"

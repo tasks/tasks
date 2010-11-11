@@ -22,6 +22,9 @@
   <!-- ringtone to use for notifications -->
   <string name="p_rmd_ringtone">notification_ringtone</string>
   
+  <!-- if tts is used for notifications -->
+  <string name="p_rmd_voice">notification_voice</string>
+  
   <!-- icon theme for notifications -->
   <string name="p_rmd_icon">notif_theme</string>
   
@@ -127,6 +130,9 @@
   <string name="p_colorize">colorize</string>
   <string name="p_fontSize">font_size</string>
   <string name="p_showNotes">notesVisible</string>
+  <string name="p_voiceInputEnabled">voiceInputEnabled</string>
+  <string name="p_voiceInputCreatesTask">voiceInputCreatesTask</string>
+  <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>
   
   <string-array name="EPr_font_size">
     <!-- font_size: options for preference menu -->

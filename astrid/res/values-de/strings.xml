@@ -435,11 +435,20 @@
   
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Notizen zu Aufgaben anzeigen</string>
+  <!-- Preference: Task List Show Voice-button if recognition-service is available -->
+  <string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notizen werden angezeigt, wenn Sie auf eine Aufgabe tippen</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Notizen werden immer angezeigt</string>  
   
+  <!-- Preference Category: Voice Title -->
+  <string name="EPr_voice_header">Sprachfunktionen</string>
+  <!-- Preference: Task List Voice Input Description (disabled) -->
+  <string name="EPr_voiceInput_desc_disabled">Mikrofon-Button wird ausgeblendet</string>  
+  <!-- Preference: Task List Voice Input Description (enabled) -->
+  <string name="EPr_voiceInput_desc_enabled">Mikrofon-Button wird angezeigt</string>
+
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">Neue Standardeinstellungen für Aufgaben</string>
   

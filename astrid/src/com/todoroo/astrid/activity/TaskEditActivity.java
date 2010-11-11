@@ -40,6 +40,7 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.speech.RecognizerIntent;
 import android.text.format.DateUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -90,6 +91,7 @@ import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
+import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 /**
  * This activity is responsible for creating new tasks and editing existing
@@ -154,6 +156,9 @@ public final class TaskEditActivity extends TabActivity {
 
 	// --- UI components
 
+    private ImageButton voiceAddNoteButton;
+
+    private EditTextControlSet notesControlSet = null;
     private EditText title;
 
     private final List<TaskEditControlSet> controls =
@@ -172,6 +177,11 @@ public final class TaskEditActivity extends TabActivity {
 
 	/** edit control receiver */
 	private final ControlReceiver controlReceiver = new ControlReceiver();
+
+    /** voice assistant for notes-creation */
+    private VoiceInputAssistant voiceNoteAssistant = null;
+
+    private EditText notesEditText;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -235,6 +245,15 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new ImportanceControlSet(R.id.importance_container));
         controls.add(new UrgencyControlSet(R.id.urgency));
 
+        // prepare and set listener for voice-button
+        voiceAddNoteButton = (ImageButton) findViewById(R.id.voiceAddNoteButton);
+        notesEditText = (EditText) findViewById(R.id.notes);
+        int prompt = R.string.TEA_voice_edit_note_prompt;
+        voiceNoteAssistant = new VoiceInputAssistant(this, voiceAddNoteButton,
+                notesEditText);
+        voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+        voiceNoteAssistant.configureMicrophoneButton(prompt);
+
         new Thread() {
             @Override
             public void run() {
@@ -254,7 +273,7 @@ public final class TaskEditActivity extends TabActivity {
                         try {
                             if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
                                 controls.add(new ProducteevControlSet(TaskEditActivity.this, addonsAddons));
-                                ((TextView)findViewById(R.id.notes)).setHint(R.string.producteev_TEA_notes);
+                                notesEditText.setHint(R.string.producteev_TEA_notes);
                                 ((TextView)findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
                             }
                         } catch (Exception e) {
@@ -286,7 +305,8 @@ public final class TaskEditActivity extends TabActivity {
                     }
                 });
 
-                controls.add(new EditTextControlSet(Task.NOTES, R.id.notes));
+                notesControlSet = new EditTextControlSet(Task.NOTES, R.id.notes);
+                controls.add(notesControlSet);
                 controls.add( new ReminderControlSet(R.id.reminder_due,
                         R.id.reminder_overdue, R.id.reminder_alarm));
                 controls.add( new RandomReminderControlSet(R.id.reminder_random,
@@ -597,11 +617,28 @@ public final class TaskEditActivity extends TabActivity {
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        // handle the result of voice recognition, put it into the appropiate textfield
+        voiceNoteAssistant.handleActivityResult(requestCode, resultCode, data);
+
+        // write the voicenote into the model, or it will be deleted by onResume.populateFields
+        // (due to the activity-change)
+        notesControlSet.writeToModel(model);
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
 
         // stick our task into the outState
         outState.putParcelable(TASK_IN_PROGRESS, model);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle inState) {
+        super.onRestoreInstanceState(inState);
     }
 
     @Override
