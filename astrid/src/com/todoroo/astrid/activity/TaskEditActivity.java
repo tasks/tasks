@@ -260,16 +260,16 @@ public final class TaskEditActivity extends TabActivity {
                             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
                         }
 
+                        controls.add(new GCalControlSet(TaskEditActivity.this, addonsAddons));
                         if(addOnService.hasPowerPack()) {
-                            controls.add(new GCalControlSet(TaskEditActivity.this, addonsAddons));
                             controls.add(new TimerControlSet(TaskEditActivity.this, addonsAddons));
                             controls.add(new AlarmControlSet(TaskEditActivity.this, addonsAddons));
-                        }
-
-                        // show add-on help if necessary
-                        if(addonsAddons.getChildCount() == 0) {
-                            ((View)addonsAddons.getParent()).setVisibility(View.GONE);
-                            findViewById(R.id.addons_empty).setVisibility(View.VISIBLE);
+                        } else {
+                            // show add-on help if necessary
+                            View addonsEmpty = findViewById(R.id.addons_empty);
+                            addonsEmpty.setVisibility(View.VISIBLE);
+                            addonsAddons.removeView(addonsEmpty);
+                            addonsAddons.addView(addonsEmpty);
                             ((Button)findViewById(R.id.addons_button)).setOnClickListener(new View.OnClickListener() {
                                 @Override
                                 public void onClick(View v) {

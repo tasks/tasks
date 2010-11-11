@@ -245,39 +245,41 @@
       <LinearLayout android:id="@+id/tab_addons_addons"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical" />
+        android:orientation="vertical">
+        
+        <LinearLayout android:id="@+id/addons_empty"
+          android:layout_width="fill_parent"
+          android:layout_height="fill_parent"
+          android:layout_weight="100"
+          android:gravity="center"
+          android:visibility="gone"
+          android:orientation="vertical">
+          
+          <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dip"
+            android:src="@drawable/icon_pp" />
+          
+          <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/TEA_addons_text"
+            android:padding="10dip"
+            android:gravity="center"
+            style="@style/TextAppearance.TLA_NoItems" />
+          
+          <Button android:id="@+id/addons_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="10dip"
+            android:text="@string/TEA_addons_button" />
+        
+        </LinearLayout>
+        
+      </LinearLayout>
         
     </ScrollView>
-        
-    <LinearLayout android:id="@+id/addons_empty"
-      android:layout_width="fill_parent"
-      android:layout_height="fill_parent"
-      android:layout_weight="100"
-      android:gravity="center"
-      android:visibility="gone"
-      android:orientation="vertical">
-      
-      <ImageView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:padding="20dip"
-        android:src="@drawable/icon_pp" />
-      
-      <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/TEA_no_addons"
-        android:padding="10dip"
-        android:gravity="center"
-        style="@style/TextAppearance.TLA_NoItems" />
-      
-      <Button android:id="@+id/addons_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dip"
-        android:text="@string/TEA_addons_button" />
-      
-    </LinearLayout>
         
     <LinearLayout
       android:layout_width="fill_parent"
