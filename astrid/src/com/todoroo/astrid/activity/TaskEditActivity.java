@@ -247,6 +247,7 @@ public final class TaskEditActivity extends TabActivity {
 
                         LinearLayout extrasAddons = (LinearLayout) findViewById(R.id.tab_extra_addons);
                         controls.add(new RepeatControlSet(TaskEditActivity.this, extrasAddons));
+                        controls.add(new GCalControlSet(TaskEditActivity.this, extrasAddons));
 
                         LinearLayout addonsAddons = (LinearLayout) findViewById(R.id.tab_addons_addons);
 
@@ -260,7 +261,6 @@ public final class TaskEditActivity extends TabActivity {
                             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
                         }
 
-                        controls.add(new GCalControlSet(TaskEditActivity.this, addonsAddons));
                         if(addOnService.hasPowerPack()) {
                             controls.add(new TimerControlSet(TaskEditActivity.this, addonsAddons));
                             controls.add(new AlarmControlSet(TaskEditActivity.this, addonsAddons));
@@ -356,8 +356,12 @@ public final class TaskEditActivity extends TabActivity {
         if(model == null) {
             String valuesAsString = intent.getStringExtra(TOKEN_VALUES);
             ContentValues values = null;
-            if(valuesAsString != null)
-                values = AndroidUtilities.contentValuesFromSerializedString(valuesAsString);
+            try {
+                if(valuesAsString != null)
+                    values = AndroidUtilities.contentValuesFromSerializedString(valuesAsString);
+            } catch (Exception e) {
+                // oops, can't serialize
+            }
             model = TaskListActivity.createWithValues(values, null, taskService, metadataService);
         }
 
