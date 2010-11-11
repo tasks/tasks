@@ -95,11 +95,24 @@ function export_xml2po
 
 }
 
+function export_pot
+{
+    for resource_file in $android_xml_filenames; do
+        echo "Concatenating strings into single XML"
+        ${catxml} "${android_xml_files_res_dir}"/"${resource_file}"-*.xml ../astridApi/res/values/${resource_file}*.xml > "${launchpad_pot_file_dir}/${resource_file}".xml
+        echo "Exporting .xml to .pot: $resource_file"
+        ${xml2po} -a -l en -o \
+            "${launchpad_pot_file_dir}/${resource_file}".pot \
+            "${launchpad_pot_file_dir}/${resource_file}.xml"
+    done
+
+}
 function usage
 {
     echo "Wrapper for xml2po for android and launchpad."
     echo "Usage: androidxml2po -i        Import .xml's from .po's. Updates the .xml's."
     echo "       androidxml2po -e        Export/update .po's from string.xml's. Overwrites the .pot and merges the .po's."
+    echo "       androidxml2po -t        Export/update .pot file"
     echo "Set variables correctly inside. Provide a string with value "translator-credits" for Launchpad."
     echo ""
     echo "Copyright 2009 by pjv. Licensed under GPLv3."
@@ -113,6 +126,9 @@ while [ "$1" != "" ]; do
         					exit
                                 		;;
         -e | --xml2po | --export )    		export_xml2po
+        					exit
+                                		;;
+        -t | --pot )    			export_pot
         					exit
                                 		;;
         -h | --help )           		usage

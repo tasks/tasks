@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2010-11-09 17:28-0800\n"
+"POT-Creation-Date: 2010-11-10 17:59-0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -586,13 +586,13 @@ msgid "Week before due"
 msgstr ""
 
 #. Add Ons tab when no add-ons found
-#: translations/strings.xml:401( name="TEA_no_addons") 
-msgid "No Add-ons Found!"
+#: translations/strings.xml:401( name="TEA_addons_text") 
+msgid "Looking for more features?"
 msgstr ""
 
 #. Add Ons button
 #: translations/strings.xml:404( name="TEA_addons_button") 
-msgid "Get Some Add-ons"
+msgid "Get the Power Pack!"
 msgstr ""
 
 #. Introduction Window title
