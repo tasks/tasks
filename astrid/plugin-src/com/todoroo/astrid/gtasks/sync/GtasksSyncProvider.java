@@ -5,6 +5,7 @@ package com.todoroo.astrid.gtasks.sync;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -31,6 +32,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -53,17 +55,17 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTaskService;
+import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.GoogleTaskTask;
 import com.todoroo.gtasks.GoogleTaskView;
 import com.todoroo.gtasks.GoogleTasksException;
-import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.actions.Actions;
 import com.todoroo.gtasks.actions.GetTasksAction;
 import com.todoroo.gtasks.actions.ListAction;
 import com.todoroo.gtasks.actions.ListActions;
-import com.todoroo.gtasks.actions.ListCreationAction;
 import com.todoroo.gtasks.actions.ListActions.TaskBuilder;
 import com.todoroo.gtasks.actions.ListActions.TaskModifier;
+import com.todoroo.gtasks.actions.ListCreationAction;
 
 @SuppressWarnings("nls")
 public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
@@ -446,6 +448,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         long dueDate = remoteTask.getTask_date();
         task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate));
         task.setValue(Task.NOTES, remoteTask.getNotes());
+        task.setValue(Task.NOTES, remoteTask.getNotes());
 
         Metadata gtasksMetadata = GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID);
         gtasksMetadata.setValue(GtasksMetadata.ID, remoteTask.getId());
@@ -495,7 +498,26 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
     @Override
     protected void write(GtasksTaskContainer task) throws IOException {
+        //  merge astrid dates with google dates
+        if(task.task.isSaved()) {
+            Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE);
+            mergeDates(task.task, local);
+        }
+
         gtasksMetadataService.saveTaskAndMetadata(task);
+    }
+
+    /** pick up due time from local task */
+    private void mergeDates(Task remote, Task local) {
+        if(remote.hasDueDate() && local.hasDueTime()) {
+            Date newDate = new Date(remote.getValue(Task.DUE_DATE));
+            Date oldDate = new Date(local.getValue(Task.DUE_DATE));
+            newDate.setHours(oldDate.getHours());
+            newDate.setMinutes(oldDate.getMinutes());
+            newDate.setSeconds(oldDate.getSeconds());
+            remote.setValue(Task.DUE_DATE, remote.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME,
+                    newDate.getTime()));
+        }
     }
 
     // ----------------------------------------------------------------------
