@@ -97,7 +97,7 @@
 	          android:layout_width="wrap_content"
 	          android:layout_height="wrap_content"
 	          android:layout_weight="1"
-	          android:src="@drawable/ic_btn_speak_now"
+	          android:src="@drawable/tango_microphone"
 	          android:scaleType="fitCenter"
 	          android:visibility="gone"/> 
 	      <EditText

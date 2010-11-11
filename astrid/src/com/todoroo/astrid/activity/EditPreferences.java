@@ -22,6 +22,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
@@ -55,6 +56,8 @@ import com.todoroo.astrid.voice.VoiceOutputAssistant;
  */
 public class EditPreferences extends TodorooPreferences {
 
+    private static final int POWER_PACK_PREFERENCE = 1;
+
     private static final String METADATA_CATEGORY = "category";//$NON-NLS-1$
 
     // --- instance variables
@@ -85,7 +88,16 @@ public class EditPreferences extends TodorooPreferences {
         PreferenceScreen screen = getPreferenceScreen();
         voiceInputAssistant = new VoiceInputAssistant(this);
 
-        // load plug-ins
+        addPluginPreferences(screen);
+
+        screen.getPreference(POWER_PACK_PREFERENCE).setEnabled(addOnService.hasPowerPack());
+
+        addDebugPreferences();
+
+        addPreferenceListeners();
+    }
+
+    private void addPluginPreferences(PreferenceScreen screen) {
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
         PackageManager pm = getPackageManager();
         List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(queryIntent,
@@ -140,12 +152,6 @@ public class EditPreferences extends TodorooPreferences {
             for(Preference preference : entry.getValue())
                 screen.addPreference(preference);
         }
-
-        // power pack
-        screen.getPreference(1).setEnabled(addOnService.hasPowerPack());
-
-        // debugging preferences
-        addDebugPreferences();
     }
 
     @SuppressWarnings("nls")
@@ -211,65 +217,27 @@ public class EditPreferences extends TodorooPreferences {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
-        } else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
-            if (value != null && (Boolean)value)
-                if (!voiceInputAssistant.isVoiceInputAvailable()) {
-                    // voicesearch available since 2.1
-                    if (AndroidUtilities.getSdkVersion() > 6) {
-
-                        DialogUtilities.okCancelDialog(this,
-                                r.getString(R.string.EPr_voiceInputInstall_dlg),
-                                new OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                            int which) {
-                                        dialog.dismiss();
-                                        // User wants to install voicesearch, take him to the market
-                                        Intent marketIntent = new Intent(Intent.ACTION_VIEW,
-                                                Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
-                                                        "com.google.android.voicesearch.x"));
-                                        try {
-                                            startActivity(marketIntent);
-                                        } catch (ActivityNotFoundException ane) {
-                                            DialogUtilities.okDialog(EditPreferences.this,
-                                                    r.getString(R.string.EPr_marketUnavailable_dlg),
-                                                    new OnClickListener() {
-                                                        @Override
-                                                        public void onClick(DialogInterface dialog,
-                                                                int which) {
-                                                            ((CheckBoxPreference)preference).setChecked(false);
-                                                            dialog.dismiss();
-                                                        }
-                                                    });
-                                        }
-                                    }
-                                },
-                                new OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                            int which) {
-                                        ((CheckBoxPreference)preference).setChecked(false);
-                                        dialog.dismiss();
-                                    }
-                                });
-                    } else {
-                        DialogUtilities.okDialog(this,
-                                r.getString(R.string.EPr_voiceInputUnavailable_dlg),
-                                new OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog,
-                                            int which) {
-                                        ((CheckBoxPreference)preference).setChecked(false);
-                                        dialog.dismiss();
-                                    }
-                                });
-                    }
-                }
-        } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
-                if (value != null && (Boolean)value)
-                    VoiceOutputAssistant.getInstance().checkIsTTSInstalled();
-
         }
+
+        // voice input and output
+        else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);
+            else
+                preference.setSummary(R.string.EPr_voiceInputEnabled_desc_enabled);
+        } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_disabled);
+            else
+                preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_enabled);
+        } else if (r.getString(R.string.p_voiceInputCreatesTask).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_disabled);
+            else
+                preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_enabled);
+        }
+
+        // statistics service
         else if (r.getString(R.string.p_statistics).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_statistics_desc_disabled);
@@ -284,5 +252,87 @@ public class EditPreferences extends TodorooPreferences {
         super.onActivityResult(requestCode, resultCode, data);
     }
 
+    public void addPreferenceListeners() {
+        Resources r = getResources();
+        findPreference(r.getString(R.string.p_voiceInputEnabled)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference pref, Object newValue) {
+                onVoiceInputStatusChanged(pref, (Boolean)newValue);
+                return true;
+            }
+        });
+        findPreference(r.getString(R.string.p_voiceRemindersEnabled)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference pref, Object newValue) {
+                onVoiceReminderStatusChanged((Boolean)newValue);
+                return true;
+            }
+        });
+    }
+
+
+    private void onVoiceReminderStatusChanged(boolean newValue) {
+        if(!newValue)
+            return;
+
+        VoiceOutputAssistant.getInstance().checkIsTTSInstalled();
+    }
+
+    private void onVoiceInputStatusChanged(final Preference preference, boolean newValue) {
+        if(!newValue)
+            return;
+
+        final Resources r = getResources();
+        if (!voiceInputAssistant.isVoiceInputAvailable()) {
+            if (AndroidUtilities.getSdkVersion() > 6) {
+                DialogUtilities.okCancelDialog(this,
+                        r.getString(R.string.EPr_voiceInputInstall_dlg),
+                        new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                dialog.dismiss();
+                                // User wants to install voice search, take him to the market
+                                Intent marketIntent = new Intent(Intent.ACTION_VIEW,
+                                        Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
+                                                "com.google.android.voicesearch.x")); //$NON-NLS-1$
+                                try {
+                                    startActivity(marketIntent);
+                                } catch (ActivityNotFoundException ane) {
+                                    DialogUtilities.okDialog(EditPreferences.this,
+                                            r.getString(R.string.EPr_marketUnavailable_dlg),
+                                            new OnClickListener() {
+                                                @Override
+                                                public void onClick(DialogInterface dialog1,
+                                                        int which1) {
+                                                    ((CheckBoxPreference)preference).setChecked(false);
+                                                    dialog1.dismiss();
+                                                }
+                                            });
+                                }
+                            }
+                        },
+                        new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                ((CheckBoxPreference)preference).setChecked(false);
+                                dialog.dismiss();
+                            }
+                        });
+            } else {
+                DialogUtilities.okDialog(this,
+                        r.getString(R.string.EPr_voiceInputUnavailable_dlg),
+                        new OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,
+                                    int which) {
+                                ((CheckBoxPreference)preference).setChecked(false);
+                                dialog.dismiss();
+                            }
+                        });
+            }
+        }
+    }
 
 }

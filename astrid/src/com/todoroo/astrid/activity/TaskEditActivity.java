@@ -246,13 +246,16 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new UrgencyControlSet(R.id.urgency));
 
         // prepare and set listener for voice-button
-        voiceAddNoteButton = (ImageButton) findViewById(R.id.voiceAddNoteButton);
-        notesEditText = (EditText) findViewById(R.id.notes);
-        int prompt = R.string.TEA_voice_edit_note_prompt;
-        voiceNoteAssistant = new VoiceInputAssistant(this, voiceAddNoteButton,
-                notesEditText);
-        voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
-        voiceNoteAssistant.configureMicrophoneButton(prompt);
+        if(addOnService.hasPowerPack()) {
+            voiceAddNoteButton = (ImageButton) findViewById(R.id.voiceAddNoteButton);
+            voiceAddNoteButton.setVisibility(View.VISIBLE);
+            notesEditText = (EditText) findViewById(R.id.notes);
+            int prompt = R.string.TEA_voice_edit_note_prompt;
+            voiceNoteAssistant = new VoiceInputAssistant(this, voiceAddNoteButton,
+                    notesEditText);
+            voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
+            voiceNoteAssistant.configureMicrophoneButton(prompt);
+        }
 
         new Thread() {
             @Override

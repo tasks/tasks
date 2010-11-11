@@ -60,6 +60,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
@@ -148,6 +149,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @Autowired
     protected Database database;
+
+    @Autowired
+    protected AddOnService addOnService;
 
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
@@ -449,7 +453,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     @Override
     protected void onResume() {
         super.onResume();
-        if (Preferences.getBoolean(R.string.p_voiceInputEnabled, true) && voiceInputAssistant.isVoiceInputAvailable()) {
+        if (addOnService.hasPowerPack() &&
+                Preferences.getBoolean(R.string.p_voiceInputEnabled, true) &&
+                voiceInputAssistant.isVoiceInputAvailable()) {
             voiceAddButton.setVisibility(View.VISIBLE);
         } else {
             voiceAddButton.setVisibility(View.GONE);
