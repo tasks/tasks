@@ -1,24 +1,16 @@
 package com.todoroo.astrid.service;
 
-import java.util.Timer;
-import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicInteger;
-
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
-import android.widget.Button;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.AddOn;
 import com.todoroo.astrid.utility.Constants;
@@ -86,57 +78,6 @@ public class AddOnService {
                 ((Activity)context).finish();
         }
     };
-
-    public static void checkForUpgrades(final Activity activity) {
-        if(DateUtilities.now() > Constants.UPGRADE.getTime()) {
-            final AtomicInteger countdown = new AtomicInteger(10);
-            final AlertDialog dialog = new AlertDialog.Builder(activity)
-            .setTitle(R.string.DLG_information_title)
-            .setMessage(R.string.DLG_please_update)
-            .setIcon(android.R.drawable.ic_dialog_alert)
-            .setPositiveButton(R.string.DLG_to_market,
-                    new MarketClickListener(activity, activity.getPackageName()))
-            .setNegativeButton(countdown.toString(), new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface myDialog, int which) {
-                    // do nothing!
-                }
-            })
-            .setCancelable(false)
-            .show();
-            dialog.setOwnerActivity(activity);
-            dialog.getButton(Dialog.BUTTON_NEGATIVE).setEnabled(false);
-
-            final Timer timer = new Timer();
-            timer.scheduleAtFixedRate(new TimerTask() {
-                @Override
-                public void run() {
-                    final int number = countdown.addAndGet(-1);
-
-                    activity.runOnUiThread(new Runnable() {
-                        public void run() {
-                            Button negativeButton =
-                                dialog.getButton(AlertDialog.BUTTON_NEGATIVE);
-                            if(negativeButton == null)
-                                return;
-                            if(number == 0)
-                                timer.cancel();
-
-                            if(number == 0) {
-                                dialog.setCancelable(true);
-                                negativeButton.setText(
-                                        android.R.string.ok);
-                                negativeButton.setEnabled(true);
-                            } else {
-                                negativeButton.setEnabled(false);
-                                negativeButton.setText(Integer.toString(number));
-                            }
-                        }
-                    });
-                }
-            }, 0L, 1000L);
-        }
-    }
 
     /**
      * Record that a version was an OEM install

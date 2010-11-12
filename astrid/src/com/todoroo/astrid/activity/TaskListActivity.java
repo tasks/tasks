@@ -210,8 +210,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if(database == null)
             return;
 
-        AddOnService.checkForUpgrades(this);
-
         database.openForWriting();
         setUpUiComponents();
         onNewIntent(getIntent());

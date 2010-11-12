@@ -1,6 +1,5 @@
 package com.todoroo.astrid.utility;
 
-import java.util.Date;
 
 public final class Constants {
 
@@ -31,11 +30,6 @@ public final class Constants {
      * Whether to turn on debugging logging and UI
      */
     public static final boolean DEBUG = false;
-
-    /**
-     * Upgrade time
-     */
-    public static final Date UPGRADE = new Date(110, 10, 15);
 
     // --- notification id's
 
