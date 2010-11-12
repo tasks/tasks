@@ -22,7 +22,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceChangeListener;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
@@ -219,30 +218,35 @@ public class EditPreferences extends TodorooPreferences {
             }
         }
 
-        // voice input and output
-        else if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
-                preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);
-            else
-                preference.setSummary(R.string.EPr_voiceInputEnabled_desc_enabled);
-        } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
-                preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_disabled);
-            else
-                preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_enabled);
-        } else if (r.getString(R.string.p_voiceInputCreatesTask).equals(preference.getKey())) {
-            if (value != null && !(Boolean)value)
-                preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_disabled);
-            else
-                preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_enabled);
-        }
-
         // statistics service
         else if (r.getString(R.string.p_statistics).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_statistics_desc_disabled);
             else
                 preference.setSummary(R.string.EPr_statistics_desc_enabled);
+        }
+
+        // voice input and output
+        if(!addOnService.hasPowerPack())
+            return;
+
+        if (r.getString(R.string.p_voiceInputEnabled).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(R.string.EPr_voiceInputEnabled_desc_disabled);
+            else
+                preference.setSummary(R.string.EPr_voiceInputEnabled_desc_enabled);
+            onVoiceInputStatusChanged(preference, (Boolean)value);
+        } else if (r.getString(R.string.p_voiceRemindersEnabled).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_disabled);
+            else
+                preference.setSummary(R.string.EPr_voiceRemindersEnabled_desc_enabled);
+            onVoiceReminderStatusChanged(preference, (Boolean)value);
+        } else if (r.getString(R.string.p_voiceInputCreatesTask).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_disabled);
+            else
+                preference.setSummary(R.string.EPr_voiceInputCreatesTask_desc_enabled);
         }
     }
 
@@ -257,34 +261,19 @@ public class EditPreferences extends TodorooPreferences {
     }
 
     public void addPreferenceListeners() {
-        Resources r = getResources();
-        findPreference(r.getString(R.string.p_voiceInputEnabled)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference pref, Object newValue) {
-                onVoiceInputStatusChanged(pref, (Boolean)newValue);
-                return true;
-            }
-        });
-        findPreference(r.getString(R.string.p_voiceRemindersEnabled)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference pref, Object newValue) {
-                onVoiceReminderStatusChanged(pref, (Boolean)newValue);
-                return true;
-            }
-        });
+        //
     }
 
 
-    private void onVoiceReminderStatusChanged(Preference preference, boolean newValue) {
-        System.err.println
-        ("!!!! LAJLKSDJDS " + newValue);
-        if(!newValue)
-            return;
-
+    private void onVoiceReminderStatusChanged(final Preference preference, boolean newValue) {
         try {
-            VoiceOutputService.getVoiceOutputInstance().checkIsTTSInstalled();
+            VoiceOutputService.getVoiceOutputInstance();
+            if(newValue)
+                VoiceOutputService.getVoiceOutputInstance().checkIsTTSInstalled();
         } catch (VerifyError e) {
-            ((CheckBoxPreference)preference).setChecked(false);
+            // doesn't work :(
+            preference.setEnabled(false);
+            Preferences.setBoolean(preference.getKey(), false);
         }
     }
 
@@ -335,10 +324,10 @@ public class EditPreferences extends TodorooPreferences {
                         r.getString(R.string.EPr_voiceInputUnavailable_dlg),
                         new OnClickListener() {
                             @Override
-                            public void onClick(DialogInterface dialog,
-                                    int which) {
+                            public void onClick(DialogInterface dialog1,
+                                    int which1) {
                                 ((CheckBoxPreference)preference).setChecked(false);
-                                dialog.dismiss();
+                                dialog1.dismiss();
                             }
                         });
             }

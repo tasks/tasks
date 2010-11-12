@@ -280,12 +280,11 @@ public class Notifications extends BroadcastReceiver {
         notificationManager.notify(notificationId, notification);
         if (voiceReminder) {
             for(int i = 0; i < 50; i++) {
+                AndroidUtilities.sleepDeep(100);
                 if(audioManager.getMode() != AudioManager.MODE_RINGTONE)
                     break;
-                AndroidUtilities.sleepDeep(100);
             }
             try {
-                System.err.println("QUEUESPEAK " + text);
                 VoiceOutputService.getVoiceOutputInstance().queueSpeak(text);
             } catch (VerifyError e) {
                 // unavailable
