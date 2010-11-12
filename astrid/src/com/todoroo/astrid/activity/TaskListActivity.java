@@ -383,9 +383,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         // prepare and set listener for voice add button
         voiceAddButton = (ImageButton) findViewById(R.id.voiceAddButton);
-        int prompt = R.string.TLA_voice_edit_prompt;
+        int prompt = R.string.voice_edit_title_prompt;
         if (Preferences.getBoolean(R.string.p_voiceInputCreatesTask, false))
-            prompt = R.string.TLA_voice_add_prompt;
+            prompt = R.string.voice_create_prompt;
         voiceInputAssistant = new VoiceInputAssistant(this,voiceAddButton,quickAddBox);
         voiceInputAssistant.configureMicrophoneButton(prompt);
 

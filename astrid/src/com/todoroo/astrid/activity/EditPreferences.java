@@ -46,7 +46,7 @@ import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
-import com.todoroo.astrid.voice.VoiceOutputAssistant;
+import com.todoroo.astrid.voice.VoiceOutputService;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -248,7 +248,11 @@ public class EditPreferences extends TodorooPreferences {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        VoiceOutputAssistant.getInstance().handleActivityResult(requestCode, resultCode, data);
+        try {
+            VoiceOutputService.getVoiceOutputInstance().handleActivityResult(requestCode, resultCode, data);
+        } catch (VerifyError e) {
+            // unavailable
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -264,18 +268,24 @@ public class EditPreferences extends TodorooPreferences {
         findPreference(r.getString(R.string.p_voiceRemindersEnabled)).setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference pref, Object newValue) {
-                onVoiceReminderStatusChanged((Boolean)newValue);
+                onVoiceReminderStatusChanged(pref, (Boolean)newValue);
                 return true;
             }
         });
     }
 
 
-    private void onVoiceReminderStatusChanged(boolean newValue) {
+    private void onVoiceReminderStatusChanged(Preference preference, boolean newValue) {
+        System.err.println
+        ("!!!! LAJLKSDJDS " + newValue);
         if(!newValue)
             return;
 
-        VoiceOutputAssistant.getInstance().checkIsTTSInstalled();
+        try {
+            VoiceOutputService.getVoiceOutputInstance().checkIsTTSInstalled();
+        } catch (VerifyError e) {
+            ((CheckBoxPreference)preference).setChecked(false);
+        }
     }
 
     private void onVoiceInputStatusChanged(final Preference preference, boolean newValue) {

@@ -15,37 +15,31 @@ import android.speech.tts.TextToSpeech.OnInitListener;
 import android.util.Log;
 
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.astrid.voice.VoiceOutputService.VoiceOutputAssistant;
 
 /**
  * @author Arne Jans
  *
  */
-public class VoiceOutputAssistant implements OnInitListener {
+@SuppressWarnings("nls")
+public class Api6VoiceOutputAssistant implements OnInitListener, VoiceOutputAssistant {
 
     private static final int MY_DATA_CHECK_CODE = 2534;
     private static final String TAG = "Astrid.VoiceOutputAssistant";
     private final Context context;
-    private static VoiceOutputAssistant instance = null;
     private TextToSpeech mTts;
     private boolean isTTSInitialized;
     private boolean retryLastSpeak;
-    private String textToSpeak;
-    private static final HashMap<String, String> ttsParams = new HashMap();
+    private String lastTextToSpeak;
+    private static final HashMap<String, String> ttsParams = new HashMap<String, String>();
 
     static {
         ttsParams.put(TextToSpeech.Engine.KEY_PARAM_STREAM,
                 String.valueOf(AudioManager.STREAM_NOTIFICATION));
     }
 
-    private VoiceOutputAssistant() {
+    Api6VoiceOutputAssistant() {
         this.context = ContextManager.getContext().getApplicationContext();
-    }
-
-    public static VoiceOutputAssistant getInstance() {
-        if (instance == null) {
-            instance = new VoiceOutputAssistant();
-        }
-        return instance;
     }
 
     public void checkIsTTSInstalled() {
@@ -92,7 +86,7 @@ public class VoiceOutputAssistant implements OnInitListener {
             }
         } else {
             retryLastSpeak = true;
-            this.textToSpeak = textToSpeak;
+            this.lastTextToSpeak = textToSpeak;
             initTTS();
         }
     }
@@ -120,10 +114,10 @@ public class VoiceOutputAssistant implements OnInitListener {
                 // The TTS engine has been successfully initialized.
                 isTTSInitialized = true;
                 // if this request came from queueSpeak, then speak it and reset the memento
-                if (retryLastSpeak && this.textToSpeak != null) {
-                    this.queueSpeak(this.textToSpeak);
+                if (retryLastSpeak && this.lastTextToSpeak != null) {
+                    this.queueSpeak(this.lastTextToSpeak);
                     retryLastSpeak = false;
-                    textToSpeak = null;
+                    lastTextToSpeak = null;
                 }
             }
         } else {

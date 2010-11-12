@@ -250,7 +250,7 @@ public final class TaskEditActivity extends TabActivity {
             voiceAddNoteButton = (ImageButton) findViewById(R.id.voiceAddNoteButton);
             voiceAddNoteButton.setVisibility(View.VISIBLE);
             notesEditText = (EditText) findViewById(R.id.notes);
-            int prompt = R.string.TEA_voice_edit_note_prompt;
+            int prompt = R.string.voice_edit_note_prompt;
             voiceNoteAssistant = new VoiceInputAssistant(this, voiceAddNoteButton,
                     notesEditText);
             voiceNoteAssistant.setLanguageModel(RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);

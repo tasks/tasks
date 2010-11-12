@@ -21,13 +21,14 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.voice.VoiceOutputAssistant;
+import com.todoroo.astrid.voice.VoiceOutputService;
 
 public class Notifications extends BroadcastReceiver {
 
@@ -96,7 +97,11 @@ public class Notifications extends BroadcastReceiver {
             notificationManager.cancel((int)id);
         }
         // shutdown the VoiceOutputAssistant for now
-        VoiceOutputAssistant.getInstance().onDestroy();
+        try {
+            VoiceOutputService.getVoiceOutputInstance().onDestroy();
+        } catch (VerifyError e) {
+            // unavailable
+        }
     }
 
     // --- notification creation
@@ -274,15 +279,17 @@ public class Notifications extends BroadcastReceiver {
 
         notificationManager.notify(notificationId, notification);
         if (voiceReminder) {
-            while (audioManager.getMode() == AudioManager.MODE_RINGTONE) {
-                try {
-                    Thread.sleep(50);
-                } catch (InterruptedException e) {
-                    // TODO Auto-generated catch block
-                    e.printStackTrace();
-                }
+            for(int i = 0; i < 50; i++) {
+                if(audioManager.getMode() != AudioManager.MODE_RINGTONE)
+                    break;
+                AndroidUtilities.sleepDeep(100);
             }
-            VoiceOutputAssistant.getInstance().queueSpeak(text);
+            try {
+                System.err.println("QUEUESPEAK " + text);
+                VoiceOutputService.getVoiceOutputInstance().queueSpeak(text);
+            } catch (VerifyError e) {
+                // unavailable
+            }
         }
     }
 

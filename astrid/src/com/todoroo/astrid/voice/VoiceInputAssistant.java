@@ -30,6 +30,7 @@ import com.todoroo.andlib.utility.Preferences;
  *
  * @author Arne Jans
  */
+@SuppressWarnings("nls")
 public class VoiceInputAssistant {
 
     /** requestcode for activityresult from voicerecognizer-intent */
@@ -44,8 +45,6 @@ public class VoiceInputAssistant {
     private final Activity activity;
     private final ImageButton voiceButton;
     private final EditText textField;
-
-    private boolean voiceInputAvailable;
 
     private String languageModel = RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH;
 
@@ -138,15 +137,15 @@ public class VoiceInputAssistant {
      * If this method returns false, then it wasnt a request with a RecognizerIntent, so you can handle
      * these other requests as you need.
      *
-     * @param requestCode if this equals the requestCode specified by constructor, then results of voice-recognition
+     * @param activityRequestCode if this equals the requestCode specified by constructor, then results of voice-recognition
      * @param resultCode
      * @param data
      * @return
      */
-    public boolean handleActivityResult(int requestCode, int resultCode, Intent data) {
+    public boolean handleActivityResult(int activityRequestCode, int resultCode, Intent data) {
         boolean result = false;
         // handle the result of voice recognition, put it into the textfield
-        if (requestCode == this.requestCode) {
+        if (activityRequestCode == this.requestCode) {
             // this was handled here, even if voicerecognition fails for any reason
             // so your program flow wont get chaotic if you dont explicitly state
             // your own requestCodes.
