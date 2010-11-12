@@ -2,14 +2,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2010-10-25 17:50-0700\n"
-"PO-Revision-Date: 2010-10-21 15:28+0000\n"
+"POT-Creation-Date: 2010-11-09 17:28-0800\n"
+"PO-Revision-Date: 2010-11-11 16:18+0000\n"
 "Last-Translator: Freddy0419 <Unknown>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-26 03:28+0000\n"
+"X-Launchpad-Export-Date: 2010-11-12 03:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Task Edit Activity: Container Label
@@ -33,7 +33,7 @@ msgid "Backups"
 msgstr "バックアップ"
 
 #. Backup: Status Header
-#: translations/strings.xml:31( name="backup_BPr_group_status") translations/strings.xml:1645( name="sync_SPr_group_status")
+#: translations/strings.xml:31( name="backup_BPr_group_status") translations/strings.xml:1686( name="sync_SPr_group_status")
 msgid "Status"
 msgstr "状況"
 
@@ -58,7 +58,7 @@ msgid "Never Backed Up!"
 msgstr "一度もバックアップしてません!"
 
 #. Backup Options Group Label
-#: translations/strings.xml:43( name="backup_BPr_group_options") translations/strings.xml:1661( name="sync_SPr_group_options")
+#: translations/strings.xml:43( name="backup_BPr_group_options") translations/strings.xml:1702( name="sync_SPr_group_options")
 msgid "Options"
 msgstr "オプション"
 
@@ -484,7 +484,7 @@ msgstr "期限"
 #. Task urgency specific time checkbox
 #: translations/strings.xml:337( name="TEA_urgency_specific_time")
 msgid "At specific time?"
-msgstr "時刻まで設定する"
+msgstr "時刻を設定する"
 
 #. Task urgency specific time title when specific time false
 #: translations/strings.xml:340( name="TEA_urgency_time_none")
@@ -636,8 +636,8 @@ msgstr ""
 
 #. Preference Window Title
 #: translations/strings.xml:433( name="EPr_title")
-msgid "Astrid: Preferences"
-msgstr "Astrid: 設定"
+msgid "Astrid: Settings"
+msgstr ""
 
 #. Preference Category: Appearance Title
 #: translations/strings.xml:436( name="EPr_appearance_header")
@@ -682,7 +682,7 @@ msgstr "期限"
 #. Preference: Default Urgency Description (%s => setting)
 #: translations/strings.xml:456( name="EPr_default_urgency_desc") translations/strings.xml:461( name="EPr_default_importance_desc") translations/strings.xml:466( name="EPr_default_hideUntil_desc") translations/strings.xml:471( name="EPr_default_reminders_desc")
 msgid "Currently: %s"
-msgstr ""
+msgstr "現在の設定: %s"
 
 #. Preference: Default Importance Title
 #: translations/strings.xml:459( name="EPr_default_importance_title")
@@ -723,7 +723,7 @@ msgstr "明後日"
 #. reminders: labels for "Task Defaults" preference item.
 #: translations/strings.xml:500(item)
 msgid "No deadline reminders"
-msgstr ""
+msgstr "期限を通知しない"
 
 #: translations/strings.xml:501(item)
 msgid "At deadline"
@@ -1008,12 +1008,12 @@ msgstr "Google Tasks"
 #. filter category for GTasks lists
 #: translations/strings.xml:712( name="gtasks_FEx_list")
 msgid "By List"
-msgstr ""
+msgstr "リスト別"
 
 #. filter title for GTasks lists (%s => list name)
 #: translations/strings.xml:715( name="gtasks_FEx_title")
 msgid "Google Tasks: %s"
-msgstr ""
+msgstr "Google Tasks: %s"
 
 #. short help title for Gtasks
 #: translations/strings.xml:718( name="gtasks_help_title")
@@ -1025,12 +1025,12 @@ msgstr ""
 msgid ""
 "Drag the grabber on the left side of a task to rearrange it. Swipe the "
 "grabber left or right to change indentation."
-msgstr ""
+msgstr "タスクの左端にあるつまみをドラッグすると、順序を変えられます。つまみを左右に動かすと、インデントを変えることができます。"
 
 #. Activity Title: Gtasks Login
 #: translations/strings.xml:727( name="gtasks_GLA_title")
 msgid "Log In to Google Tasks"
-msgstr ""
+msgstr "Google Tasks のログイン"
 
 #. Instructions: Gtasks login
 #: translations/strings.xml:730( name="gtasks_GLA_body")
@@ -1038,6 +1038,8 @@ msgid ""
 "Please log in to Google Tasks Sync (Beta!). Google Apps for Domain is "
 "currently unsupported, we're working on that!"
 msgstr ""
+"Google Tasks にログインしてください (Beta版です!)。現在 Google Apps for Domain "
+"には対応していませんが、対応を進めています。"
 
 #. Instructions: Gtasks further help
 #: translations/strings.xml:734( name="gtasks_GLA_further_help")
@@ -1065,27 +1067,27 @@ msgstr "パスワード"
 #. Google Apps for Domain checkbox
 #: translations/strings.xml:748( name="gtasks_GLA_domain")
 msgid "Google Apps for Domain account"
-msgstr ""
+msgstr "Google Apps for Domain のアカウント"
 
 #. Error Message when fields aren't filled out
 #: translations/strings.xml:751( name="gtasks_GLA_errorEmpty") translations/strings.xml:959( name="producteev_PLA_errorEmpty")
 msgid "Error: fill out all fields!"
-msgstr ""
+msgstr "エラー: すべての入力欄を入力してください"
 
 #. Error Message when we receive a HTTP 401 Unauthorized
 #: translations/strings.xml:754( name="gtasks_GLA_errorAuth") translations/strings.xml:965( name="producteev_PLA_errorAuth")
 msgid "Error: e-mail or password incorrect!"
-msgstr ""
+msgstr "エラー: メールアドレスかパスワードが正しくありません"
 
 #. GTasks Preferences Title
 #: translations/strings.xml:759( name="gtasks_GPr_header")
 msgid "Google Tasks (Beta!)"
-msgstr ""
+msgstr "Google Tasks (ベータ版!)"
 
 #. title for notification tray when synchronizing
 #: translations/strings.xml:764( name="gtasks_notification_title")
 msgid "Astrid: Google Tasks"
-msgstr ""
+msgstr "Astrid: Google Tasks"
 
 #. Intro Tag or click prompt
 #: translations/strings.xml:775( name="intro_click_prompt")
@@ -1106,11 +1108,14 @@ msgid ""
 "(due date, tags, notes) or set more advanced options. Save the task with the "
 "save button or your phone's back button.\\n\\n"
 msgstr ""
+"タスクを登録する2つの方法\\n\r\n"
+"1) 素早い登録: 入力欄にタスク名を入力し、入力欄の左に表示される + ボタンを押します。\\n\\n2) 標準の登録: "
+"入力欄の右側にあるボタンを押します。期限やタグ、メモやより高度な設定を行えます。保存ボタンか電話機のバックボタンで保存します。\\n\\n"
 
 #. Task 2 Summary
 #: translations/strings.xml:791( name="intro_task_2_summary")
 msgid "Add a widget to your desktop"
-msgstr ""
+msgstr "ホーム画面にウィジェットを追加する"
 
 #. Task 2 Note
 #: translations/strings.xml:794( name="intro_task_2_note")
@@ -1126,7 +1131,7 @@ msgstr ""
 #. Task 3 Summary
 #: translations/strings.xml:807( name="intro_task_3_summary")
 msgid "Setup sync with Gmail Tasks or Producteev"
-msgstr ""
+msgstr "同期の設定"
 
 #. Task 3 Note
 #: translations/strings.xml:811( name="intro_task_3_note")
@@ -1137,6 +1142,9 @@ msgid ""
 "\"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and choose the sync "
 "provider you prefer."
 msgstr ""
+"Astrid は Google Task のシンプルなタスクリストと同期することができます。より高度な機能が必要な場合は、Producteev "
+"と同期することをお勧めします。\\n\\n 同期を有効にするには、Astrid "
+"の画面から「メニューキー」→「設定」→「同期」を開き、利用したいサービスを選んでください。"
 
 #. Locale Alert Editing Window Title
 #: translations/strings.xml:826( name="locale_edit_alerts_title")
@@ -1326,7 +1334,7 @@ msgid "%s tasks updated / click for more details"
 msgstr ""
 
 #. Error msg when io exception
-#: translations/strings.xml:976( name="producteev_ioerror") translations/strings.xml:1640( name="SyP_ioerror")
+#: translations/strings.xml:976( name="producteev_ioerror") translations/strings.xml:1681( name="SyP_ioerror")
 msgid "Connection Error! Check your Internet connection."
 msgstr ""
 
@@ -2182,437 +2190,527 @@ msgstr ""
 msgid "Tasks Being Timed"
 msgstr ""
 
+#. Voice Add Prompt Text
+#: translations/strings.xml:1467( name="voice_add_prompt")
+msgid "Speak to add a task"
+msgstr ""
+
+#: translations/strings.xml:1468( name="voice_edit_prompt")
+msgid "Speak to edit this task"
+msgstr ""
+
+#. Preference: Task List recognition-service is not installed, but available
+#: translations/strings.xml:1471( name="EPr_voiceInputInstall_dlg")
+msgid ""
+"Voice-input is not installed.\\nDo you want to go to the market and install "
+"it?"
+msgstr ""
+
+#. Preference: Task List recognition-service is not available for this system
+#: translations/strings.xml:1473( name="EPr_voiceInputUnavailable_dlg")
+msgid ""
+"Unfortunately voice-input is not available for your system.\\nIf possible, "
+"please update your system to 2.1 or later."
+msgstr ""
+
+#. Preference: Market is not available for this system
+#: translations/strings.xml:1475( name="EPr_marketUnavailable_dlg")
+msgid ""
+"Unfortunately the market is not available for your system.\\nIf possible, "
+"try downloading voicesearch from another source."
+msgstr ""
+
+#. Preference: Task List Show Voice-button if recognition-service is available
+#: translations/strings.xml:1477( name="EPr_voiceInputEnabled_title")
+msgid "Voice Input"
+msgstr ""
+
+#. Preference: voice button description (true)
+#: translations/strings.xml:1479( name="EPr_voiceInputEnabled_desc_enabled")
+msgid "Voice input button will be displayed in task list page"
+msgstr ""
+
+#. Preference: voice button description (false)
+#: translations/strings.xml:1481( name="EPr_voiceInputEnabled_desc_enabled")
+msgid "Voice input button will be hidden on task list page"
+msgstr ""
+
+#. Preference: Task List Voice-button directly creates tasks
+#: translations/strings.xml:1483( name="EPr_voiceInputCreatesTask_title")
+msgid "Voice Input Creates Tasks"
+msgstr ""
+
+#. Preference: Task List Voice-creation description (true)
+#: translations/strings.xml:1485( name="EPr_voiceInputCreatesTask_desc_enabled")
+msgid "Tasks will automatically be created from voice input"
+msgstr ""
+
+#. Preference: Task List Voice-creation description (false)
+#: translations/strings.xml:1487( name="EPr_voiceInputCreatesTask_desc_disabled")
+msgid "You can edit the task title after voice input finishes"
+msgstr ""
+
+#. Preference: Voice reminders if TTS-service is available
+#: translations/strings.xml:1489( name="EPr_voiceRemindersEnabled_title")
+msgid "Voice Reminders"
+msgstr ""
+
+#. Preference: Voice reminders description (true)
+#: translations/strings.xml:1491( name="EPr_voiceRemindersEnabled_desc_enabled")
+msgid "Astrid will speak task names during task reminders"
+msgstr ""
+
+#. Preference: Voice reminders description (false)
+#: translations/strings.xml:1493( name="EPr_voiceRemindersEnabled_desc_disabled")
+msgid "Astrid will sound a ringtone during task reminders"
+msgstr ""
+
+#. Preference Category: Voice Title
+#: translations/strings.xml:1496( name="EPr_voice_header")
+msgid "Voice"
+msgstr ""
+
+#. Preference: Task List Voice Input Description (disabled)
+#: translations/strings.xml:1498( name="EPr_voiceInput_desc_disabled")
+msgid "Voice-Button will be hidden"
+msgstr ""
+
+#. Preference: Task List Voice Input Description (enabled)
+#: translations/strings.xml:1500( name="EPr_voiceInput_desc_enabled")
+msgid "Voice-Button will be shown"
+msgstr ""
+
 #. Resources for power pack widget
-#: translations/strings.xml:1468( name="PPW_widget_42_label")
+#: translations/strings.xml:1509( name="PPW_widget_42_label")
 msgid "Astrid 4x2 (beta!)"
 msgstr ""
 
-#: translations/strings.xml:1469( name="PPW_widget_44_label")
+#: translations/strings.xml:1510( name="PPW_widget_44_label")
 msgid "Astrid 4x4 (beta!)"
 msgstr ""
 
-#: translations/strings.xml:1471( name="PPW_configure_title")
+#: translations/strings.xml:1512( name="PPW_configure_title")
 msgid "Configure Widget"
 msgstr "ウィジェットの設定"
 
-#: translations/strings.xml:1473( name="PPW_color")
+#: translations/strings.xml:1514( name="PPW_color")
 msgid "Widget color"
 msgstr "ウィジェットの背景色"
 
-#: translations/strings.xml:1474( name="PPW_enable_calendar")
+#: translations/strings.xml:1515( name="PPW_enable_calendar")
 msgid "Show calendar events"
 msgstr ""
 
-#: translations/strings.xml:1475( name="PPW_disable_encouragements")
+#: translations/strings.xml:1516( name="PPW_disable_encouragements")
 msgid "Hide encouragements"
 msgstr "励ましメッセージを表示しない"
 
-#: translations/strings.xml:1476( name="PPW_filter")
+#: translations/strings.xml:1517( name="PPW_filter")
 msgid "Select Filter"
 msgstr ""
 
-#: translations/strings.xml:1478( name="PPW_due")
+#: translations/strings.xml:1519( name="PPW_due")
 msgid "Due:"
 msgstr "期限:"
 
-#: translations/strings.xml:1479( name="PPW_past_due")
+#: translations/strings.xml:1520( name="PPW_past_due")
 msgid "Past Due:"
 msgstr ""
 
 #. general encouragements
-#: translations/strings.xml:1483(item)
+#: translations/strings.xml:1524(item)
 msgid "Hi there!"
 msgstr ""
 
-#: translations/strings.xml:1484(item)
+#: translations/strings.xml:1525(item)
 msgid "Have time to finish something?"
 msgstr ""
 
-#: translations/strings.xml:1485(item)
+#: translations/strings.xml:1526(item)
 msgid "Gosh, you are looking suave today!"
 msgstr ""
 
-#: translations/strings.xml:1486(item)
+#: translations/strings.xml:1527(item)
 msgid "Do something great today!"
 msgstr ""
 
-#: translations/strings.xml:1487(item)
+#: translations/strings.xml:1528(item)
 msgid "Make me proud today!"
 msgstr ""
 
-#: translations/strings.xml:1488(item)
+#: translations/strings.xml:1529(item)
 msgid "How are you doing today?"
 msgstr ""
 
 #. encouragements based on time of day
-#: translations/strings.xml:1493(item)
+#: translations/strings.xml:1534(item)
 msgid "Good morning!"
 msgstr ""
 
-#: translations/strings.xml:1494(item)
+#: translations/strings.xml:1535(item)
 msgid "Good afternoon!"
 msgstr ""
 
-#: translations/strings.xml:1495(item)
+#: translations/strings.xml:1536(item)
 msgid "Good evening!"
 msgstr ""
 
-#: translations/strings.xml:1496(item)
+#: translations/strings.xml:1537(item)
 msgid "Late night?"
 msgstr ""
 
-#: translations/strings.xml:1497(item)
+#: translations/strings.xml:1538(item)
 msgid "It\\s early, get something done!"
 msgstr ""
 
-#: translations/strings.xml:1498(item)
+#: translations/strings.xml:1539(item)
 msgid "Afternoon tea, perhaps?"
 msgstr ""
 
-#: translations/strings.xml:1499(item)
+#: translations/strings.xml:1540(item)
 msgid "Enjoy the evening!"
 msgstr ""
 
-#: translations/strings.xml:1500(item)
+#: translations/strings.xml:1541(item)
 msgid "Sleep is good for you, you know!"
 msgstr ""
 
 #. encouragements based on tasks completed (%d => completed)
-#: translations/strings.xml:1505(item)
+#: translations/strings.xml:1546(item)
 msgid "You've already completed %d tasks!"
 msgstr ""
 
-#: translations/strings.xml:1506(item)
+#: translations/strings.xml:1547(item)
 msgid "Score in life: %d tasks completed"
 msgstr ""
 
-#: translations/strings.xml:1507(item)
+#: translations/strings.xml:1548(item)
 msgid "Smile! You've already finished %d tasks!"
 msgstr ""
 
-#: translations/strings.xml:1513(item)
+#: translations/strings.xml:1554(item)
 msgid "Black"
 msgstr ""
 
-#: translations/strings.xml:1514(item)
+#: translations/strings.xml:1555(item)
 msgid "White"
 msgstr ""
 
-#: translations/strings.xml:1515(item)
+#: translations/strings.xml:1556(item)
 msgid "Blue"
 msgstr ""
 
-#: translations/strings.xml:1516(item)
+#: translations/strings.xml:1557(item)
 msgid "Red"
 msgstr ""
 
 #. plurals: years
-#: translations/strings.xml:1528( quantity="one")
+#: translations/strings.xml:1569( quantity="one")
 msgid "1 Year"
 msgstr "1年"
 
 #. plurals: years
-#: translations/strings.xml:1530( quantity="other")
+#: translations/strings.xml:1571( quantity="other")
 msgid "%d Years"
 msgstr "%d 年"
 
 #. plurals: months
-#: translations/strings.xml:1534( quantity="one")
+#: translations/strings.xml:1575( quantity="one")
 msgid "1 Month"
 msgstr "1か月"
 
 #. plurals: months
-#: translations/strings.xml:1536( quantity="other")
+#: translations/strings.xml:1577( quantity="other")
 msgid "%d Months"
 msgstr "%d か月"
 
 #. plurals: days
-#: translations/strings.xml:1540( quantity="one")
+#: translations/strings.xml:1581( quantity="one")
 msgid "1 Week"
 msgstr "1週間"
 
 #. plurals: days
-#: translations/strings.xml:1542( quantity="other")
+#: translations/strings.xml:1583( quantity="other")
 msgid "%d Weeks"
 msgstr "%d 週間"
 
 #. plurals: days
-#: translations/strings.xml:1546( quantity="one")
+#: translations/strings.xml:1587( quantity="one")
 msgid "1 Day"
 msgstr "1 日"
 
 #. plurals: days
-#: translations/strings.xml:1548( quantity="other")
+#: translations/strings.xml:1589( quantity="other")
 msgid "%d Days"
 msgstr "%d 日"
 
 #. plurals: hours
-#: translations/strings.xml:1552( quantity="one")
+#: translations/strings.xml:1593( quantity="one")
 msgid "1 Hour"
 msgstr "1 時間"
 
 #. plurals: hours
-#: translations/strings.xml:1554( quantity="other")
+#: translations/strings.xml:1595( quantity="other")
 msgid "%d Hours"
 msgstr "%d 時間"
 
 #. plurals: minutes
-#: translations/strings.xml:1558( quantity="one")
+#: translations/strings.xml:1599( quantity="one")
 msgid "1 Minute"
 msgstr "1 分"
 
 #. plurals: minutes
-#: translations/strings.xml:1560( quantity="other")
+#: translations/strings.xml:1601( quantity="other")
 msgid "%d Minutes"
 msgstr "%d 分"
 
 #. plurals: seconds
-#: translations/strings.xml:1564( quantity="one")
+#: translations/strings.xml:1605( quantity="one")
 msgid "1 Second"
 msgstr "1 秒"
 
 #. plurals: seconds
-#: translations/strings.xml:1566( quantity="other")
+#: translations/strings.xml:1607( quantity="other")
 msgid "%d Seconds"
 msgstr "%d 秒"
 
 #. plurals: hours (abbreviated)
-#: translations/strings.xml:1570( quantity="one")
+#: translations/strings.xml:1611( quantity="one")
 msgid "1 Hr"
 msgstr "1 時間"
 
 #. plurals: hours (abbreviated)
-#: translations/strings.xml:1572( quantity="other")
+#: translations/strings.xml:1613( quantity="other")
 msgid "%d Hrs"
 msgstr "%d 時間"
 
 #. plurals: minutes (abbreviated)
-#: translations/strings.xml:1576( quantity="one")
+#: translations/strings.xml:1617( quantity="one")
 msgid "1 Min"
 msgstr "1 分"
 
 #. plurals: minutes (abbreviated)
-#: translations/strings.xml:1578( quantity="other")
+#: translations/strings.xml:1619( quantity="other")
 msgid "%d Min"
 msgstr "%d 分"
 
 #. plurals: seconds (abbreviated)
-#: translations/strings.xml:1582( quantity="one")
+#: translations/strings.xml:1623( quantity="one")
 msgid "1 Sec"
 msgstr "1 秒"
 
 #. plurals: seconds (abbreviated)
-#: translations/strings.xml:1584( quantity="other")
+#: translations/strings.xml:1625( quantity="other")
 msgid "%d Sec"
 msgstr "%d 秒"
 
 #. plurals: tasks
-#: translations/strings.xml:1588( quantity="one")
+#: translations/strings.xml:1629( quantity="one")
 msgid "1 task"
 msgstr "タスク 1 件"
 
 #. plurals: tasks
-#: translations/strings.xml:1590( quantity="other")
+#: translations/strings.xml:1631( quantity="other")
 msgid "%d tasks"
 msgstr "タスク %d 件"
 
 #. confirmation dialog title
-#: translations/strings.xml:1596( name="DLG_confirm_title")
+#: translations/strings.xml:1637( name="DLG_confirm_title")
 msgid "Confirm?"
 msgstr "確認"
 
 #. question dialog title
-#: translations/strings.xml:1599( name="DLG_question_title")
+#: translations/strings.xml:1640( name="DLG_question_title")
 msgid "Question:"
 msgstr "確認"
 
 #. information dialog title
-#: translations/strings.xml:1602( name="DLG_information_title")
+#: translations/strings.xml:1643( name="DLG_information_title")
 msgid "Information"
 msgstr "インフォメーション"
 
 #. error dialog title
-#: translations/strings.xml:1605( name="DLG_error_title")
+#: translations/strings.xml:1646( name="DLG_error_title")
 msgid "Error!"
 msgstr "エラー"
 
 #. general dialog yes
-#: translations/strings.xml:1608( name="DLG_yes")
+#: translations/strings.xml:1649( name="DLG_yes")
 msgid "Yes"
 msgstr "はい"
 
 #. general dialog no
-#: translations/strings.xml:1611( name="DLG_no")
+#: translations/strings.xml:1652( name="DLG_no")
 msgid "No"
 msgstr "いいえ"
 
 #. general dialog close
-#: translations/strings.xml:1614( name="DLG_close")
+#: translations/strings.xml:1655( name="DLG_close")
 msgid "Close"
 msgstr "閉じる"
 
 #. general dialog done
-#: translations/strings.xml:1617( name="DLG_done")
+#: translations/strings.xml:1658( name="DLG_done")
 msgid "Done"
 msgstr "完了"
 
 #. error dialog (%s => error message)
-#: translations/strings.xml:1620( name="DLG_error")
+#: translations/strings.xml:1661( name="DLG_error")
 msgid "Oops, looks like an error occurred! Here's what happened:\\n\\n%s"
 msgstr ""
 
 #. error dialog (no message indicated)
-#: translations/strings.xml:1623( name="DLG_error_generic")
+#: translations/strings.xml:1664( name="DLG_error_generic")
 msgid "Oops, looks like an error occurred!"
 msgstr ""
 
 #. Progress dialog shown when doing something slow
-#: translations/strings.xml:1626( name="DLG_wait")
+#: translations/strings.xml:1667( name="DLG_wait")
 msgid "Please wait..."
 msgstr "お待ちください"
 
 #. Sync Notification: message when sync service active
-#: translations/strings.xml:1631( name="SyP_progress")
+#: translations/strings.xml:1672( name="SyP_progress")
 msgid "Synchronizing your tasks..."
 msgstr "タスクの同期中..."
 
 #. Sync Notification: toast when sync activated from activity
-#: translations/strings.xml:1634( name="SyP_progress_toast")
+#: translations/strings.xml:1675( name="SyP_progress_toast")
 msgid "Synchronizing..."
 msgstr "同期中..."
 
 #. Sync Label: used in menu to denote synchronization
-#: translations/strings.xml:1637( name="SyP_label")
+#: translations/strings.xml:1678( name="SyP_label")
 msgid "Synchronization"
 msgstr "同期"
 
 #. Sync Status: log in
-#: translations/strings.xml:1648( name="sync_status_loggedout")
+#: translations/strings.xml:1689( name="sync_status_loggedout")
 msgid "Not Logged In!"
 msgstr "ログインしていません"
 
 #. Status: ongoing
-#: translations/strings.xml:1650( name="sync_status_ongoing")
+#: translations/strings.xml:1691( name="sync_status_ongoing")
 msgid "Sync Ongoing..."
 msgstr "同期中"
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
-#: translations/strings.xml:1652( name="sync_status_success")
+#: translations/strings.xml:1693( name="sync_status_success")
 msgid "Last Sync: %s"
 msgstr "前回の同期: %s"
 
 #. Sync Status: error status (%s -> last attempted sync date)
-#: translations/strings.xml:1654( name="sync_status_failed")
+#: translations/strings.xml:1695( name="sync_status_failed")
 msgid "Failed On: %s"
 msgstr "失敗: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
-#: translations/strings.xml:1656( name="sync_status_failed_subtitle")
+#: translations/strings.xml:1697( name="sync_status_failed_subtitle")
 msgid "Last Successful Sync: %s"
 msgstr "最後の同期: %s"
 
 #. Sync Status: never sync'd
-#: translations/strings.xml:1658( name="sync_status_never")
+#: translations/strings.xml:1699( name="sync_status_never")
 msgid "Never Synchronized!"
 msgstr "同期していません"
 
 #. Preference: Synchronization Interval Title
-#: translations/strings.xml:1664( name="sync_SPr_interval_title")
+#: translations/strings.xml:1705( name="sync_SPr_interval_title")
 msgid "Background Sync"
 msgstr "バックグラウンド同期"
 
 #. Preference: Synchronization Interval Description (when disabled)
-#: translations/strings.xml:1666( name="sync_SPr_interval_desc_disabled")
+#: translations/strings.xml:1707( name="sync_SPr_interval_desc_disabled")
 msgid "Background synchronization is disabled"
 msgstr "バックグラウンド同期は無効になっています"
 
 #. Preference: Synchronization Interval Description (%s => setting)
-#: translations/strings.xml:1668( name="sync_SPr_interval_desc")
+#: translations/strings.xml:1709( name="sync_SPr_interval_desc")
 msgid "Currently set to: %s"
 msgstr "現在の設定: %s"
 
 #. Preference: Background Wifi Title
-#: translations/strings.xml:1671( name="sync_SPr_bgwifi_title")
+#: translations/strings.xml:1712( name="sync_SPr_bgwifi_title")
 msgid "Wifi Only Setting"
 msgstr "Wi-Fi のみ"
 
 #. Preference: Background Wifi Description (enabled)
-#: translations/strings.xml:1673( name="sync_SPr_bgwifi_desc_enabled")
+#: translations/strings.xml:1714( name="sync_SPr_bgwifi_desc_enabled")
 msgid "Background synchronization only happens when on Wifi"
 msgstr "Wi-Fi が有効なときだけバックグラウンドで同期する"
 
 #. Preference: Background Wifi Description (disabled)
-#: translations/strings.xml:1675( name="sync_SPr_bgwifi_desc_disabled")
+#: translations/strings.xml:1716( name="sync_SPr_bgwifi_desc_disabled")
 msgid "Background synchronization will always occur"
 msgstr ""
 
 #. Actions Group Label
-#: translations/strings.xml:1678( name="sync_SPr_group_actions")
+#: translations/strings.xml:1719( name="sync_SPr_group_actions")
 msgid "Actions"
 msgstr "アクション"
 
 #. Synchronize Now Button
-#: translations/strings.xml:1681( name="sync_SPr_sync")
+#: translations/strings.xml:1722( name="sync_SPr_sync")
 msgid "Synchronize Now!"
 msgstr "すぐに同期!"
 
 #. Synchronize Now Button if not logged in
-#: translations/strings.xml:1683( name="sync_SPr_sync_log_in")
+#: translations/strings.xml:1724( name="sync_SPr_sync_log_in")
 msgid "Log In &amp; Synchronize!"
 msgstr "ログインと同期"
 
 #. Sync: Clear Data Title
-#: translations/strings.xml:1686( name="sync_SPr_forget")
+#: translations/strings.xml:1727( name="sync_SPr_forget")
 msgid "Log Out"
 msgstr "ログアウト"
 
 #. Sync: Clear Data Description
-#: translations/strings.xml:1688( name="sync_SPr_forget_description")
+#: translations/strings.xml:1729( name="sync_SPr_forget_description")
 msgid "Clears all synchronization data"
 msgstr "すべての同期データを消去します"
 
 #. confirmation dialog for sync log out
-#: translations/strings.xml:1691( name="sync_forget_confirm")
+#: translations/strings.xml:1732( name="sync_forget_confirm")
 msgid "Log out / clear synchronization data?"
 msgstr "ログアウトと同期データを消去しますか?"
 
 #. sync_SPr_interval_entries: Synchronization Intervals
-#: translations/strings.xml:1695(item)
+#: translations/strings.xml:1736(item)
 msgid "disable"
 msgstr "無効"
 
-#: translations/strings.xml:1696(item)
+#: translations/strings.xml:1737(item)
 msgid "every fifteen minutes"
 msgstr "15分毎"
 
-#: translations/strings.xml:1697(item)
+#: translations/strings.xml:1738(item)
 msgid "every thirty minutes"
 msgstr "30分毎"
 
-#: translations/strings.xml:1698(item)
+#: translations/strings.xml:1739(item)
 msgid "every hour"
 msgstr "1時間毎"
 
-#: translations/strings.xml:1699(item)
+#: translations/strings.xml:1740(item)
 msgid "every three hours"
 msgstr "3時間毎"
 
-#: translations/strings.xml:1700(item)
+#: translations/strings.xml:1741(item)
 msgid "every six hours"
 msgstr "6時間毎"
 
-#: translations/strings.xml:1701(item)
+#: translations/strings.xml:1742(item)
 msgid "every twelve hours"
 msgstr "12時間毎"
 
-#: translations/strings.xml:1702(item)
+#: translations/strings.xml:1743(item)
 msgid "every day"
 msgstr "毎日"
 
-#: translations/strings.xml:1703(item)
+#: translations/strings.xml:1744(item)
 msgid "every three days"
 msgstr "3日に一度"
 
-#: translations/strings.xml:1704(item)
+#: translations/strings.xml:1745(item)
 msgid "every week"
 msgstr "毎週"

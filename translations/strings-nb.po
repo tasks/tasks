@@ -7,14 +7,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: astrid-translation\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
-"POT-Creation-Date: 2010-10-25 17:50-0700\n"
+"POT-Creation-Date: 2010-11-09 17:28-0800\n"
 "PO-Revision-Date: 2010-10-14 10:31+0000\n"
 "Last-Translator: Adrian West <Unknown>\n"
 "Language-Team: Norwegian Bokmal <nb@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-10-26 03:28+0000\n"
+"X-Launchpad-Export-Date: 2010-11-12 03:04+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Task Edit Activity: Container Label
@@ -38,7 +38,7 @@ msgid "Backups"
 msgstr "Sikkerhetskopier"
 
 #. Backup: Status Header
-#: translations/strings.xml:31( name="backup_BPr_group_status") translations/strings.xml:1645( name="sync_SPr_group_status")
+#: translations/strings.xml:31( name="backup_BPr_group_status") translations/strings.xml:1686( name="sync_SPr_group_status")
 msgid "Status"
 msgstr "Status"
 
@@ -63,7 +63,7 @@ msgid "Never Backed Up!"
 msgstr "Sikkerhetskopi aldri utført!"
 
 #. Backup Options Group Label
-#: translations/strings.xml:43( name="backup_BPr_group_options") translations/strings.xml:1661( name="sync_SPr_group_options")
+#: translations/strings.xml:43( name="backup_BPr_group_options") translations/strings.xml:1702( name="sync_SPr_group_options")
 msgid "Options"
 msgstr "Alternativer"
 
@@ -648,8 +648,8 @@ msgstr ""
 
 #. Preference Window Title
 #: translations/strings.xml:433( name="EPr_title")
-msgid "Astrid: Preferences"
-msgstr "Astrid: Innstillinger"
+msgid "Astrid: Settings"
+msgstr ""
 
 #. Preference Category: Appearance Title
 #: translations/strings.xml:436( name="EPr_appearance_header")
@@ -1343,7 +1343,7 @@ msgid "%s tasks updated / click for more details"
 msgstr "%s oppdaterte oppgaver / trykk for flere detaljer"
 
 #. Error msg when io exception
-#: translations/strings.xml:976( name="producteev_ioerror") translations/strings.xml:1640( name="SyP_ioerror")
+#: translations/strings.xml:976( name="producteev_ioerror") translations/strings.xml:1681( name="SyP_ioerror")
 msgid "Connection Error! Check your Internet connection."
 msgstr "Tilkoblingsfeil! Kontroller at du er koblet til Internett"
 
@@ -2203,438 +2203,528 @@ msgstr "Tidtaker filter"
 msgid "Tasks Being Timed"
 msgstr "Tidsbestemte oppgaver"
 
+#. Voice Add Prompt Text
+#: translations/strings.xml:1467( name="voice_add_prompt")
+msgid "Speak to add a task"
+msgstr ""
+
+#: translations/strings.xml:1468( name="voice_edit_prompt")
+msgid "Speak to edit this task"
+msgstr ""
+
+#. Preference: Task List recognition-service is not installed, but available
+#: translations/strings.xml:1471( name="EPr_voiceInputInstall_dlg")
+msgid ""
+"Voice-input is not installed.\\nDo you want to go to the market and install "
+"it?"
+msgstr ""
+
+#. Preference: Task List recognition-service is not available for this system
+#: translations/strings.xml:1473( name="EPr_voiceInputUnavailable_dlg")
+msgid ""
+"Unfortunately voice-input is not available for your system.\\nIf possible, "
+"please update your system to 2.1 or later."
+msgstr ""
+
+#. Preference: Market is not available for this system
+#: translations/strings.xml:1475( name="EPr_marketUnavailable_dlg")
+msgid ""
+"Unfortunately the market is not available for your system.\\nIf possible, "
+"try downloading voicesearch from another source."
+msgstr ""
+
+#. Preference: Task List Show Voice-button if recognition-service is available
+#: translations/strings.xml:1477( name="EPr_voiceInputEnabled_title")
+msgid "Voice Input"
+msgstr ""
+
+#. Preference: voice button description (true)
+#: translations/strings.xml:1479( name="EPr_voiceInputEnabled_desc_enabled")
+msgid "Voice input button will be displayed in task list page"
+msgstr ""
+
+#. Preference: voice button description (false)
+#: translations/strings.xml:1481( name="EPr_voiceInputEnabled_desc_enabled")
+msgid "Voice input button will be hidden on task list page"
+msgstr ""
+
+#. Preference: Task List Voice-button directly creates tasks
+#: translations/strings.xml:1483( name="EPr_voiceInputCreatesTask_title")
+msgid "Voice Input Creates Tasks"
+msgstr ""
+
+#. Preference: Task List Voice-creation description (true)
+#: translations/strings.xml:1485( name="EPr_voiceInputCreatesTask_desc_enabled")
+msgid "Tasks will automatically be created from voice input"
+msgstr ""
+
+#. Preference: Task List Voice-creation description (false)
+#: translations/strings.xml:1487( name="EPr_voiceInputCreatesTask_desc_disabled")
+msgid "You can edit the task title after voice input finishes"
+msgstr ""
+
+#. Preference: Voice reminders if TTS-service is available
+#: translations/strings.xml:1489( name="EPr_voiceRemindersEnabled_title")
+msgid "Voice Reminders"
+msgstr ""
+
+#. Preference: Voice reminders description (true)
+#: translations/strings.xml:1491( name="EPr_voiceRemindersEnabled_desc_enabled")
+msgid "Astrid will speak task names during task reminders"
+msgstr ""
+
+#. Preference: Voice reminders description (false)
+#: translations/strings.xml:1493( name="EPr_voiceRemindersEnabled_desc_disabled")
+msgid "Astrid will sound a ringtone during task reminders"
+msgstr ""
+
+#. Preference Category: Voice Title
+#: translations/strings.xml:1496( name="EPr_voice_header")
+msgid "Voice"
+msgstr ""
+
+#. Preference: Task List Voice Input Description (disabled)
+#: translations/strings.xml:1498( name="EPr_voiceInput_desc_disabled")
+msgid "Voice-Button will be hidden"
+msgstr ""
+
+#. Preference: Task List Voice Input Description (enabled)
+#: translations/strings.xml:1500( name="EPr_voiceInput_desc_enabled")
+msgid "Voice-Button will be shown"
+msgstr ""
+
 #. Resources for power pack widget
-#: translations/strings.xml:1468( name="PPW_widget_42_label")
+#: translations/strings.xml:1509( name="PPW_widget_42_label")
 msgid "Astrid 4x2 (beta!)"
 msgstr "Astrid 4x2 (beta!)"
 
-#: translations/strings.xml:1469( name="PPW_widget_44_label")
+#: translations/strings.xml:1510( name="PPW_widget_44_label")
 msgid "Astrid 4x4 (beta!)"
 msgstr "Astrid 4x4 (beta!)"
 
-#: translations/strings.xml:1471( name="PPW_configure_title")
+#: translations/strings.xml:1512( name="PPW_configure_title")
 msgid "Configure Widget"
 msgstr ""
 
-#: translations/strings.xml:1473( name="PPW_color")
+#: translations/strings.xml:1514( name="PPW_color")
 msgid "Widget color"
 msgstr "Farge på skrivebordselement"
 
-#: translations/strings.xml:1474( name="PPW_enable_calendar")
+#: translations/strings.xml:1515( name="PPW_enable_calendar")
 msgid "Show calendar events"
 msgstr "Vis kalenderhendelser"
 
-#: translations/strings.xml:1475( name="PPW_disable_encouragements")
+#: translations/strings.xml:1516( name="PPW_disable_encouragements")
 msgid "Hide encouragements"
 msgstr "Skjul oppmuntringer"
 
-#: translations/strings.xml:1476( name="PPW_filter")
+#: translations/strings.xml:1517( name="PPW_filter")
 msgid "Select Filter"
 msgstr "Velg filter"
 
-#: translations/strings.xml:1478( name="PPW_due")
+#: translations/strings.xml:1519( name="PPW_due")
 msgid "Due:"
 msgstr "Forfall:"
 
-#: translations/strings.xml:1479( name="PPW_past_due")
+#: translations/strings.xml:1520( name="PPW_past_due")
 msgid "Past Due:"
 msgstr ""
 
 #. general encouragements
-#: translations/strings.xml:1483(item)
+#: translations/strings.xml:1524(item)
 msgid "Hi there!"
 msgstr ""
 
-#: translations/strings.xml:1484(item)
+#: translations/strings.xml:1525(item)
 msgid "Have time to finish something?"
 msgstr ""
 
-#: translations/strings.xml:1485(item)
+#: translations/strings.xml:1526(item)
 msgid "Gosh, you are looking suave today!"
 msgstr "-"
 
-#: translations/strings.xml:1486(item)
+#: translations/strings.xml:1527(item)
 msgid "Do something great today!"
 msgstr ""
 
-#: translations/strings.xml:1487(item)
+#: translations/strings.xml:1528(item)
 msgid "Make me proud today!"
 msgstr ""
 
-#: translations/strings.xml:1488(item)
+#: translations/strings.xml:1529(item)
 msgid "How are you doing today?"
 msgstr ""
 
 #. encouragements based on time of day
-#: translations/strings.xml:1493(item)
+#: translations/strings.xml:1534(item)
 msgid "Good morning!"
 msgstr ""
 
-#: translations/strings.xml:1494(item)
+#: translations/strings.xml:1535(item)
 msgid "Good afternoon!"
 msgstr ""
 
-#: translations/strings.xml:1495(item)
+#: translations/strings.xml:1536(item)
 msgid "Good evening!"
 msgstr ""
 
-#: translations/strings.xml:1496(item)
+#: translations/strings.xml:1537(item)
 msgid "Late night?"
 msgstr ""
 
-#: translations/strings.xml:1497(item)
+#: translations/strings.xml:1538(item)
 msgid "It\\s early, get something done!"
 msgstr ""
 
-#: translations/strings.xml:1498(item)
+#: translations/strings.xml:1539(item)
 msgid "Afternoon tea, perhaps?"
 msgstr ""
 
-#: translations/strings.xml:1499(item)
+#: translations/strings.xml:1540(item)
 msgid "Enjoy the evening!"
 msgstr ""
 
-#: translations/strings.xml:1500(item)
+#: translations/strings.xml:1541(item)
 msgid "Sleep is good for you, you know!"
 msgstr ""
 
 #. encouragements based on tasks completed (%d => completed)
-#: translations/strings.xml:1505(item)
+#: translations/strings.xml:1546(item)
 msgid "You've already completed %d tasks!"
 msgstr ""
 
-#: translations/strings.xml:1506(item)
+#: translations/strings.xml:1547(item)
 msgid "Score in life: %d tasks completed"
 msgstr ""
 
-#: translations/strings.xml:1507(item)
+#: translations/strings.xml:1548(item)
 msgid "Smile! You've already finished %d tasks!"
 msgstr ""
 
-#: translations/strings.xml:1513(item)
+#: translations/strings.xml:1554(item)
 msgid "Black"
 msgstr ""
 
-#: translations/strings.xml:1514(item)
+#: translations/strings.xml:1555(item)
 msgid "White"
 msgstr ""
 
-#: translations/strings.xml:1515(item)
+#: translations/strings.xml:1556(item)
 msgid "Blue"
 msgstr ""
 
-#: translations/strings.xml:1516(item)
+#: translations/strings.xml:1557(item)
 msgid "Red"
 msgstr ""
 
 #. plurals: years
-#: translations/strings.xml:1528( quantity="one")
+#: translations/strings.xml:1569( quantity="one")
 msgid "1 Year"
 msgstr "1 år"
 
 #. plurals: years
-#: translations/strings.xml:1530( quantity="other")
+#: translations/strings.xml:1571( quantity="other")
 msgid "%d Years"
 msgstr "%d år"
 
 #. plurals: months
-#: translations/strings.xml:1534( quantity="one")
+#: translations/strings.xml:1575( quantity="one")
 msgid "1 Month"
 msgstr "1 måned"
 
 #. plurals: months
-#: translations/strings.xml:1536( quantity="other")
+#: translations/strings.xml:1577( quantity="other")
 msgid "%d Months"
 msgstr "%d måneder"
 
 #. plurals: days
-#: translations/strings.xml:1540( quantity="one")
+#: translations/strings.xml:1581( quantity="one")
 msgid "1 Week"
 msgstr "1 uke"
 
 #. plurals: days
-#: translations/strings.xml:1542( quantity="other")
+#: translations/strings.xml:1583( quantity="other")
 msgid "%d Weeks"
 msgstr "%d uker"
 
 #. plurals: days
-#: translations/strings.xml:1546( quantity="one")
+#: translations/strings.xml:1587( quantity="one")
 msgid "1 Day"
 msgstr "1 dag"
 
 #. plurals: days
-#: translations/strings.xml:1548( quantity="other")
+#: translations/strings.xml:1589( quantity="other")
 msgid "%d Days"
 msgstr "%d dager"
 
 #. plurals: hours
-#: translations/strings.xml:1552( quantity="one")
+#: translations/strings.xml:1593( quantity="one")
 msgid "1 Hour"
 msgstr "1 time"
 
 #. plurals: hours
-#: translations/strings.xml:1554( quantity="other")
+#: translations/strings.xml:1595( quantity="other")
 msgid "%d Hours"
 msgstr "%d timer"
 
 #. plurals: minutes
-#: translations/strings.xml:1558( quantity="one")
+#: translations/strings.xml:1599( quantity="one")
 msgid "1 Minute"
 msgstr "1 minutt"
 
 #. plurals: minutes
-#: translations/strings.xml:1560( quantity="other")
+#: translations/strings.xml:1601( quantity="other")
 msgid "%d Minutes"
 msgstr "%d minutter"
 
 #. plurals: seconds
-#: translations/strings.xml:1564( quantity="one")
+#: translations/strings.xml:1605( quantity="one")
 msgid "1 Second"
 msgstr "1 sekund"
 
 #. plurals: seconds
-#: translations/strings.xml:1566( quantity="other")
+#: translations/strings.xml:1607( quantity="other")
 msgid "%d Seconds"
 msgstr "%d sekunder"
 
 #. plurals: hours (abbreviated)
-#: translations/strings.xml:1570( quantity="one")
+#: translations/strings.xml:1611( quantity="one")
 msgid "1 Hr"
 msgstr "1 t"
 
 #. plurals: hours (abbreviated)
-#: translations/strings.xml:1572( quantity="other")
+#: translations/strings.xml:1613( quantity="other")
 msgid "%d Hrs"
 msgstr "%d t"
 
 #. plurals: minutes (abbreviated)
-#: translations/strings.xml:1576( quantity="one")
+#: translations/strings.xml:1617( quantity="one")
 msgid "1 Min"
 msgstr "1 min"
 
 #. plurals: minutes (abbreviated)
-#: translations/strings.xml:1578( quantity="other")
+#: translations/strings.xml:1619( quantity="other")
 msgid "%d Min"
 msgstr "%d min"
 
 #. plurals: seconds (abbreviated)
-#: translations/strings.xml:1582( quantity="one")
+#: translations/strings.xml:1623( quantity="one")
 msgid "1 Sec"
 msgstr "1 s"
 
 #. plurals: seconds (abbreviated)
-#: translations/strings.xml:1584( quantity="other")
+#: translations/strings.xml:1625( quantity="other")
 msgid "%d Sec"
 msgstr "%d s"
 
 #. plurals: tasks
-#: translations/strings.xml:1588( quantity="one")
+#: translations/strings.xml:1629( quantity="one")
 msgid "1 task"
 msgstr "1 oppgave"
 
 #. plurals: tasks
-#: translations/strings.xml:1590( quantity="other")
+#: translations/strings.xml:1631( quantity="other")
 msgid "%d tasks"
 msgstr "%d oppgaver"
 
 #. confirmation dialog title
-#: translations/strings.xml:1596( name="DLG_confirm_title")
+#: translations/strings.xml:1637( name="DLG_confirm_title")
 msgid "Confirm?"
 msgstr "Bekreft?"
 
 #. question dialog title
-#: translations/strings.xml:1599( name="DLG_question_title")
+#: translations/strings.xml:1640( name="DLG_question_title")
 msgid "Question:"
 msgstr "Spørsmål:"
 
 #. information dialog title
-#: translations/strings.xml:1602( name="DLG_information_title")
+#: translations/strings.xml:1643( name="DLG_information_title")
 msgid "Information"
 msgstr "Informasjon"
 
 #. error dialog title
-#: translations/strings.xml:1605( name="DLG_error_title")
+#: translations/strings.xml:1646( name="DLG_error_title")
 msgid "Error!"
 msgstr "Feil!"
 
 #. general dialog yes
-#: translations/strings.xml:1608( name="DLG_yes")
+#: translations/strings.xml:1649( name="DLG_yes")
 msgid "Yes"
 msgstr "Ja"
 
 #. general dialog no
-#: translations/strings.xml:1611( name="DLG_no")
+#: translations/strings.xml:1652( name="DLG_no")
 msgid "No"
 msgstr "Nei"
 
 #. general dialog close
-#: translations/strings.xml:1614( name="DLG_close")
+#: translations/strings.xml:1655( name="DLG_close")
 msgid "Close"
 msgstr "Lukk"
 
 #. general dialog done
-#: translations/strings.xml:1617( name="DLG_done")
+#: translations/strings.xml:1658( name="DLG_done")
 msgid "Done"
 msgstr "Utført"
 
 #. error dialog (%s => error message)
-#: translations/strings.xml:1620( name="DLG_error")
+#: translations/strings.xml:1661( name="DLG_error")
 msgid "Oops, looks like an error occurred! Here's what happened:\\n\\n%s"
 msgstr ""
 "Oi sann! Det ser ut for at en feil oppstod. Her er hva som skjedde:\\n\\n%s"
 
 #. error dialog (no message indicated)
-#: translations/strings.xml:1623( name="DLG_error_generic")
+#: translations/strings.xml:1664( name="DLG_error_generic")
 msgid "Oops, looks like an error occurred!"
 msgstr "Oi sann! Det ser ut for at en feil oppstod"
 
 #. Progress dialog shown when doing something slow
-#: translations/strings.xml:1626( name="DLG_wait")
+#: translations/strings.xml:1667( name="DLG_wait")
 msgid "Please wait..."
 msgstr "Vennligst vent..."
 
 #. Sync Notification: message when sync service active
-#: translations/strings.xml:1631( name="SyP_progress")
+#: translations/strings.xml:1672( name="SyP_progress")
 msgid "Synchronizing your tasks..."
 msgstr "Synkroniserer oppgavene dine..."
 
 #. Sync Notification: toast when sync activated from activity
-#: translations/strings.xml:1634( name="SyP_progress_toast")
+#: translations/strings.xml:1675( name="SyP_progress_toast")
 msgid "Synchronizing..."
 msgstr "Synkroniserer..."
 
 #. Sync Label: used in menu to denote synchronization
-#: translations/strings.xml:1637( name="SyP_label")
+#: translations/strings.xml:1678( name="SyP_label")
 msgid "Synchronization"
 msgstr "Synkronisering"
 
 #. Sync Status: log in
-#: translations/strings.xml:1648( name="sync_status_loggedout")
+#: translations/strings.xml:1689( name="sync_status_loggedout")
 msgid "Not Logged In!"
 msgstr ""
 
 #. Status: ongoing
-#: translations/strings.xml:1650( name="sync_status_ongoing")
+#: translations/strings.xml:1691( name="sync_status_ongoing")
 msgid "Sync Ongoing..."
 msgstr "Synkronisering pågår..."
 
 #. Sync Status: success status (%s -> last sync date). Keep it short!
-#: translations/strings.xml:1652( name="sync_status_success")
+#: translations/strings.xml:1693( name="sync_status_success")
 msgid "Last Sync: %s"
 msgstr "Siste synkronisering: %s"
 
 #. Sync Status: error status (%s -> last attempted sync date)
-#: translations/strings.xml:1654( name="sync_status_failed")
+#: translations/strings.xml:1695( name="sync_status_failed")
 msgid "Failed On: %s"
 msgstr "Feilet: %s"
 
 #. Sync Status: error subtitle (%s -> last successful sync date)
-#: translations/strings.xml:1656( name="sync_status_failed_subtitle")
+#: translations/strings.xml:1697( name="sync_status_failed_subtitle")
 msgid "Last Successful Sync: %s"
 msgstr "Siste vellykkede synkronisering: %s"
 
 #. Sync Status: never sync'd
-#: translations/strings.xml:1658( name="sync_status_never")
+#: translations/strings.xml:1699( name="sync_status_never")
 msgid "Never Synchronized!"
 msgstr "Aldri synkronisert!"
 
 #. Preference: Synchronization Interval Title
-#: translations/strings.xml:1664( name="sync_SPr_interval_title")
+#: translations/strings.xml:1705( name="sync_SPr_interval_title")
 msgid "Background Sync"
 msgstr "Bakgrunnssynkronisering"
 
 #. Preference: Synchronization Interval Description (when disabled)
-#: translations/strings.xml:1666( name="sync_SPr_interval_desc_disabled")
+#: translations/strings.xml:1707( name="sync_SPr_interval_desc_disabled")
 msgid "Background synchronization is disabled"
 msgstr "Bakgrunnssynkronisering er deaktivert"
 
 #. Preference: Synchronization Interval Description (%s => setting)
-#: translations/strings.xml:1668( name="sync_SPr_interval_desc")
+#: translations/strings.xml:1709( name="sync_SPr_interval_desc")
 msgid "Currently set to: %s"
 msgstr "Foreløpig satt til %s"
 
 #. Preference: Background Wifi Title
-#: translations/strings.xml:1671( name="sync_SPr_bgwifi_title")
+#: translations/strings.xml:1712( name="sync_SPr_bgwifi_title")
 msgid "Wifi Only Setting"
 msgstr "Bare Wifi Innstilling"
 
 #. Preference: Background Wifi Description (enabled)
-#: translations/strings.xml:1673( name="sync_SPr_bgwifi_desc_enabled")
+#: translations/strings.xml:1714( name="sync_SPr_bgwifi_desc_enabled")
 msgid "Background synchronization only happens when on Wifi"
 msgstr "Synkronisering i bakgrunnen skal kun utføres med WiFi-tilkobling"
 
 #. Preference: Background Wifi Description (disabled)
-#: translations/strings.xml:1675( name="sync_SPr_bgwifi_desc_disabled")
+#: translations/strings.xml:1716( name="sync_SPr_bgwifi_desc_disabled")
 msgid "Background synchronization will always occur"
 msgstr "Synkronisering i bakgrunnen skal alltid utføres"
 
 #. Actions Group Label
-#: translations/strings.xml:1678( name="sync_SPr_group_actions")
+#: translations/strings.xml:1719( name="sync_SPr_group_actions")
 msgid "Actions"
 msgstr "Handlinger"
 
 #. Synchronize Now Button
-#: translations/strings.xml:1681( name="sync_SPr_sync")
+#: translations/strings.xml:1722( name="sync_SPr_sync")
 msgid "Synchronize Now!"
 msgstr "Synkroniser nå!"
 
 #. Synchronize Now Button if not logged in
-#: translations/strings.xml:1683( name="sync_SPr_sync_log_in")
+#: translations/strings.xml:1724( name="sync_SPr_sync_log_in")
 msgid "Log In &amp; Synchronize!"
 msgstr "Logg Inn &amp; Synkroniser!"
 
 #. Sync: Clear Data Title
-#: translations/strings.xml:1686( name="sync_SPr_forget")
+#: translations/strings.xml:1727( name="sync_SPr_forget")
 msgid "Log Out"
 msgstr "Logg av"
 
 #. Sync: Clear Data Description
-#: translations/strings.xml:1688( name="sync_SPr_forget_description")
+#: translations/strings.xml:1729( name="sync_SPr_forget_description")
 msgid "Clears all synchronization data"
 msgstr ""
 
 #. confirmation dialog for sync log out
-#: translations/strings.xml:1691( name="sync_forget_confirm")
+#: translations/strings.xml:1732( name="sync_forget_confirm")
 msgid "Log out / clear synchronization data?"
 msgstr "Logge ut / slette synkroniserings data?"
 
 #. sync_SPr_interval_entries: Synchronization Intervals
-#: translations/strings.xml:1695(item)
+#: translations/strings.xml:1736(item)
 msgid "disable"
 msgstr "deaktiver"
 
-#: translations/strings.xml:1696(item)
+#: translations/strings.xml:1737(item)
 msgid "every fifteen minutes"
 msgstr "hvert kvarter"
 
-#: translations/strings.xml:1697(item)
+#: translations/strings.xml:1738(item)
 msgid "every thirty minutes"
 msgstr "hver halvtime"
 
-#: translations/strings.xml:1698(item)
+#: translations/strings.xml:1739(item)
 msgid "every hour"
 msgstr "hver time"
 
-#: translations/strings.xml:1699(item)
+#: translations/strings.xml:1740(item)
 msgid "every three hours"
 msgstr "hver tredje time"
 
-#: translations/strings.xml:1700(item)
+#: translations/strings.xml:1741(item)
 msgid "every six hours"
 msgstr "hver sjette time"
 
-#: translations/strings.xml:1701(item)
+#: translations/strings.xml:1742(item)
 msgid "every twelve hours"
 msgstr "hver tolvte time"
 
-#: translations/strings.xml:1702(item)
+#: translations/strings.xml:1743(item)
 msgid "every day"
 msgstr "daglig"
 
-#: translations/strings.xml:1703(item)
+#: translations/strings.xml:1744(item)
 msgid "every three days"
 msgstr "hver tredje dag"
 
-#: translations/strings.xml:1704(item)
+#: translations/strings.xml:1745(item)
 msgid "every week"
 msgstr "hver uke"
