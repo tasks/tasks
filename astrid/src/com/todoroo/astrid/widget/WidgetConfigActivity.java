@@ -8,9 +8,7 @@ import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ExpandableListView;
-import android.widget.Spinner;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -24,9 +22,6 @@ import com.todoroo.astrid.service.StatisticsService;
 @SuppressWarnings("nls")
 abstract public class WidgetConfigActivity extends ExpandableListActivity {
 
-    static final String PREF_COLOR = "widget-color-";
-    static final String PREF_ENABLE_CALENDAR = "widget-enableCalendar-";
-    static final String PREF_ENCOURAGEMENTS = "widget-enableEncouragements-";
     static final String PREF_TITLE = "widget-title-";
     static final String PREF_SQL = "widget-sql-";
     static final String PREF_VALUES = "widget-values-";
@@ -36,29 +31,11 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
 
     FilterAdapter adapter = null;
 
-    @SuppressWarnings("nls")
-    public String[] COLORS = new String[] {
-            "Black",
-            "White",
-            "Blue",
-            "Red"
-    };
-
     public WidgetConfigActivity() {
         super();
     }
 
     abstract public void updateWidget();
-
-    /** whether to show 'hide encouragements' */
-    public boolean showEncouragementSetting() {
-        return false;
-    }
-
-    /** whether to show color selection */
-    public boolean showColorSelectionSetting() {
-        return false;
-    }
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -71,7 +48,7 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
         // Set the view layout resource to use.
         setContentView(R.layout.widget_config_activity);
 
-        setTitle(R.string.PPW_configure_title);
+        setTitle(R.string.WCA_title);
 
         // Find the widget id from the intent.
         Intent intent = getIntent();
@@ -86,12 +63,6 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
             finish();
         }
 
-        if(!showColorSelectionSetting())
-            findViewById(R.id.colors).setVisibility(View.GONE);
-
-        if(!showEncouragementSetting())
-            findViewById(R.id.PPW_disable_encouragements).setVisibility(View.GONE);
-
         // set up ui
         adapter = new FilterAdapter(this, getExpandableListView(),
                 R.layout.filter_adapter_row, true);
@@ -105,19 +76,8 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
 
     View.OnClickListener mOnClickListener = new View.OnClickListener() {
         public void onClick(View v) {
-            Spinner colorSpinner = (Spinner) findViewById(R.id.PPW_color);
-            int colorPos = colorSpinner.getSelectedItemPosition();
-            String color = COLORS[colorPos];
-
-            boolean enableCalendar = false;
-
-            CheckBox chk_disableEncouragements = (CheckBox) findViewById(R.id.PPW_disable_encouragements);
-            boolean disableEncouragements = chk_disableEncouragements.isChecked();
-            if(!showEncouragementSetting())
-                disableEncouragements = true;
-
             // Save configuration options
-            saveConfiguration(adapter.getSelection(), color, enableCalendar, disableEncouragements);
+            saveConfiguration(adapter.getSelection());
 
             updateWidget();
 
@@ -182,7 +142,7 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
         StatisticsService.sessionStop(this);
     }
 
-    private void saveConfiguration(FilterListItem filterListItem, String color, boolean enableCalendar, boolean disableEncouragements){
+    private void saveConfiguration(FilterListItem filterListItem){
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
@@ -199,10 +159,6 @@ abstract public class WidgetConfigActivity extends ExpandableListActivity {
         Preferences.setString(WidgetConfigActivity.PREF_TITLE + mAppWidgetId, title);
         Preferences.setString(WidgetConfigActivity.PREF_SQL + mAppWidgetId, sql);
         Preferences.setString(WidgetConfigActivity.PREF_VALUES + mAppWidgetId, contentValuesString);
-
-        Preferences.setString(WidgetConfigActivity.PREF_COLOR + mAppWidgetId, color);
-        Preferences.setBoolean(WidgetConfigActivity.PREF_ENABLE_CALENDAR + mAppWidgetId, enableCalendar);
-        Preferences.setBoolean(WidgetConfigActivity.PREF_ENCOURAGEMENTS + mAppWidgetId, !disableEncouragements);
     }
 
 }
