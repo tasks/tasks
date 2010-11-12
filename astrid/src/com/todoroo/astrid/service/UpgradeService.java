@@ -1,7 +1,6 @@
 package com.todoroo.astrid.service;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -101,7 +100,7 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if(from <= V2_14_4) {
-            newVersionString(changeLog, "3.6.0 (11/10/10)", new String[] {
+            newVersionString(changeLog, "3.6.0 (11/12/10)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
                     "look and feel, a new add-on system allows Astrid to become " +
                     "more powerful, while other improvements have made it faster " +
@@ -111,10 +110,12 @@ public final class UpgradeService {
             });
         } else {
             // current message
-            newVersionString(changeLog, "3.6.0 (11/10/10)", new String[] {
+            newVersionString(changeLog, "3.6.0 (11/12/10)", new String[] {
                     "Astrid Power Pack is now launched to the Android Market. " +
-                        "Power Pack features include 4x2 and 4x4 widgets and voice " +
+                        "New Power Pack features include 4x2 and 4x4 widgets and voice " +
                         "task reminders and creation. Go to the add-ons page to find out more!",
+                    "Fix for Google Tasks: due times got lost on sync",
+                    "Fix for task alarms not always firing if multiple set"
             });
             upgrade3To3_6(context);
 
@@ -125,12 +126,13 @@ public final class UpgradeService {
                         "Bug fix with RMilk & new tasks not getting synced",
                         "Fixed Force Closes and other bugs",
                 });
-            if(from >= V3_0_0 && from < V3_4_0)
+            if(from >= V3_0_0 && from < V3_4_0) {
                 newVersionString(changeLog, "3.4.0 (10/08/10)", new String[] {
                         "End User License Agreement",
                         "Option to disable usage statistics",
                         "Bug fixes with Producteev",
                 });
+            }
             if(from >= V3_0_0 && from < V3_3_0)
                 newVersionString(changeLog, "3.3.0 (9/17/10)", new String[] {
                         "Fixed some RTM duplicated tasks issues",
@@ -185,35 +187,6 @@ public final class UpgradeService {
     }
 
     // --- upgrade functions
-
-    @SuppressWarnings({"nls", "unused"})
-    private void upgrade3To3_4(final Context context) {
-        // if RTM, store RTM to secondary preferences
-        if(Preferences.getStringValue("rmilk_token") != null) {
-            SharedPreferences settings = context.getSharedPreferences("rtm", Context.MODE_WORLD_READABLE);
-            Editor editor = settings.edit();
-            editor.putString("rmilk_token", Preferences.getStringValue("rmilk_token"));
-            editor.putLong("rmilk_last_sync", Preferences.getLong("rmilk_last_sync", 0));
-            editor.commit();
-
-            final String message = "Hi, it looks like you are a Remember the Milk user! " +
-            		"In this version of Astrid, RTM is now a community-supported " +
-            		"add-on. Please go to the Android market to install it!";
-            if(context instanceof Activity) {
-                ((Activity)context).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        new AlertDialog.Builder(context)
-                        .setTitle(com.todoroo.astrid.api.R.string.DLG_information_title)
-                        .setMessage(message)
-                        .setPositiveButton("Go To Market", new AddOnService.MarketClickListener(context, "org.weloveastrid.rmilk"))
-                        .setNegativeButton("Later", null)
-                        .show();
-                    }
-                });
-            }
-        }
-    }
 
     /**
      * Moves sorting prefs to public pref store

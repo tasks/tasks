@@ -9,6 +9,7 @@ import android.content.Intent;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.adapter.TaskAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
@@ -17,7 +18,6 @@ import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.producteev.sync.ProducteevNote;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
-import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Exposes Task Details for Producteev:
@@ -35,7 +35,12 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
             return;
 
         boolean extended = intent.getBooleanExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-        String taskDetail = getTaskDetails(context, taskId, extended);
+        String taskDetail;
+        try {
+            taskDetail = getTaskDetails(context, taskId, extended);
+        } catch (Exception e) {
+            return;
+        }
         if(taskDetail == null)
             return;
 
@@ -59,8 +64,9 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
             return null;
 
         if(!extended) {
-
-            long dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
+            long dashboardId = -1;
+            if(metadata.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
+                dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
             long responsibleId = -1;
             if(metadata.containsNonNullValue(ProducteevTask.RESPONSIBLE_ID))
                 responsibleId = metadata.getValue(ProducteevTask.RESPONSIBLE_ID);

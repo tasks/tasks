@@ -28,13 +28,13 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.andlib.utility.Preferences;
 
 public class FilterAdapter extends BaseExpandableListAdapter {
 
@@ -80,7 +80,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
     // nothing to do (corePoolSize == 0, which makes it available for garbage collection), and will wake itself up
     // if new filters are queued (obviously it cannot be garbage collected if it is possible for new filters to
     // be added).
-    private ThreadPoolExecutor filterExecutor = new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
+    private final ThreadPoolExecutor filterExecutor = new ThreadPoolExecutor(0, 1, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<Runnable>());
 
     public FilterAdapter(Activity activity, ExpandableListView listView,
             int rowLayout, boolean skipIntentFilters) {
@@ -210,6 +210,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
      * ====================================================================== */
 
     public Object getGroup(int groupPosition) {
+        if(groupPosition >= items.size())
+            return null;
         return items.get(groupPosition);
     }
 
