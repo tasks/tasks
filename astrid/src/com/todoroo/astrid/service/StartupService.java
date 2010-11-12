@@ -157,21 +157,18 @@ public class StartupService {
      */
     private void onFirstTime() {
         Resources r = ContextManager.getResources();
+
+        addIntroTask(r, R.string.intro_task_1_summary, R.string.intro_task_1_note);
+        addIntroTask(r, R.string.intro_task_2_summary, R.string.intro_task_2_note);
+        addIntroTask(r, R.string.intro_task_3_summary, R.string.intro_task_3_note);
+    }
+
+    private void addIntroTask(Resources r, int summary, int note) {
         Task task = new Task();
-        task.setValue(Task.TITLE, r.getString(R.string.intro_task_1_summary));
+        task.setValue(Task.TITLE, r.getString(summary));
         task.setValue(Task.DETAILS, r.getString(R.string.intro_click_prompt));
         task.setValue(Task.DETAILS_DATE, 2*DateUtilities.now());
-        task.setValue(Task.NOTES, r.getString(R.string.intro_task_1_note));
-        taskService.save(task);
-
-        task = new Task();
-        task.setValue(Task.TITLE, r.getString(R.string.intro_task_2_summary));
-        task.setValue(Task.NOTES, r.getString(R.string.intro_task_2_note));
-        taskService.save(task);
-
-        task = new Task();
-        task.setValue(Task.TITLE, r.getString(R.string.intro_task_3_summary));
-        task.setValue(Task.NOTES, r.getString(R.string.intro_task_3_note));
+        task.setValue(Task.NOTES, r.getString(note));
         taskService.save(task);
     }
 
