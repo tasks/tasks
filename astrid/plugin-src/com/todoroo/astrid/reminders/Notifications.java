@@ -96,7 +96,7 @@ public class Notifications extends BroadcastReceiver {
         if(!showTaskNotification(id, type, reminder)) {
             notificationManager.cancel((int)id);
         }
-        // shutdown the VoiceOutputAssistant for now
+
         try {
             VoiceOutputService.getVoiceOutputInstance().onDestroy();
         } catch (VerifyError e) {
@@ -151,8 +151,9 @@ public class Notifications extends BroadcastReceiver {
         String text = reminder + " " + taskTitle; //$NON-NLS-1$
 
         Intent notifyIntent = new Intent(context, NotificationActivity.class);
+        notifyIntent.setAction("NOTIFY" + id); //$NON-NLS-1$
         notifyIntent.putExtra(NotificationActivity.TOKEN_ID, id);
-        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
+        notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
 
         showNotification((int)id, notifyIntent, type, title, text, nonstopMode);
         return true;
@@ -184,7 +185,7 @@ public class Notifications extends BroadcastReceiver {
         }
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
-                notificationId, intent, PendingIntent.FLAG_ONE_SHOT);
+                notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         // set up properties (name and icon) for the notification
         int icon;

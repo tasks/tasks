@@ -92,7 +92,7 @@ public class AlarmService {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Metadata> getActiveAlarms() {
-        return PluginServices.getMetadataService().query(Query.select(AlarmFields.TIME).
+        return PluginServices.getMetadataService().query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(), MetadataCriteria.withKey(AlarmFields.METADATA_KEY))));
     }
@@ -102,8 +102,8 @@ public class AlarmService {
      * @param properties
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
-    private TodorooCursor<Metadata> getAlarmsForTask(long taskId) {
-        return PluginServices.getMetadataService().query(Query.select(Metadata.TASK, AlarmFields.TIME).
+    private TodorooCursor<Metadata> getActiveAlarmsForTask(long taskId) {
+        return PluginServices.getMetadataService().query(Query.select(Metadata.ID, Metadata.TASK, AlarmFields.TIME).
                 join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
                 where(Criterion.and(TaskCriteria.isActive(),
                         MetadataCriteria.byTaskAndwithKey(taskId, AlarmFields.METADATA_KEY))));
@@ -134,7 +134,7 @@ public class AlarmService {
      * @param task
      */
     public void scheduleAlarms(long taskId) {
-        TodorooCursor<Metadata> cursor = getAlarmsForTask(taskId);
+        TodorooCursor<Metadata> cursor = getActiveAlarmsForTask(taskId);
         try {
             Metadata alarm = new Metadata();
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
@@ -164,14 +164,13 @@ public class AlarmService {
 
         Context context = ContextManager.getContext();
         Intent intent = new Intent(context, Notifications.class);
-        intent.setType("ALARM" + Long.toString(taskId)); //$NON-NLS-1$
-        intent.setAction(Integer.toString(type));
+        intent.setAction("ALARM" + alarm.getId()); //$NON-NLS-1$
         intent.putExtra(Notifications.ID_KEY, taskId);
         intent.putExtra(Notifications.TYPE_KEY, type);
 
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
-                intent, 0);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, (int)alarm.getId(),
+                intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         long time = alarm.getValue(AlarmFields.TIME);
         if(time == 0 || time == NO_ALARM)
@@ -179,7 +178,7 @@ public class AlarmService {
         else if(time > DateUtilities.now()) {
             if(Constants.DEBUG)
                 Log.e("Astrid", "Alarm (" + taskId + ", " + type +
-                    ") set for " + new Date(time));
+                    ", " + alarm.getId() + ") set for " + new Date(time));
             am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);
         }
     }
