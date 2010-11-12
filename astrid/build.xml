@@ -84,11 +84,11 @@
 
     <target name="get-version">
       <loadfile property="manifest" srcFile="AndroidManifest.xml" />
-      <propertyregex property="version.code"
+      <propertyregex property="astrid.version.code"
                      input="${manifest}"
                      regexp="android:versionCode=&quot;(.*)&quot;"
                      select="\1" />
-      <propertyregex property="version.name"
+      <propertyregex property="astrid.version.name"
                      input="${manifest}"
                      regexp="android:versionName=&quot;([^ ]*)"
                      select="\1" />
@@ -101,7 +101,7 @@
       <property name="out.release.package"
                 location="${out.absolute.dir}/${ant.project.name}-release.apk" />
       <property name="out.final.package"
-                  location="${out.absolute.dir}/${ant.project.name}-${version.code}-${version.name}-release.apk" />
+                  location="${out.absolute.dir}/${ant.project.name}-${astrid.version.code}-${astrid.version.name}-release.apk" />
 
       <move file="${out.release.package}" tofile="${out.final.package}" />
       <echo>Final Release Package: ${out.final.package}</echo>
