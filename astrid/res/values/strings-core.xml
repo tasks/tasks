@@ -414,6 +414,9 @@
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
   
+  <!-- Add-on Activity - when list is empty -->
+  <string name="AOA_no_addons">Empty List!</string>
+  
   <!-- ====================================================== TasksWidget == -->
 
   <!-- Widget text when loading tasks -->

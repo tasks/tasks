@@ -8,6 +8,7 @@ import android.app.TabActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,6 +57,7 @@ public class AddOnActivity extends TabActivity {
                 setIndicator(r.getString(R.string.AOA_tab_available),
                         r.getDrawable(R.drawable.tab_add)).setContent(
                                 R.id.tab_available));
+        getTabWidget().setBackgroundColor(Color.BLACK);
 
         setTitle(R.string.AOA_title);
 
