@@ -15,6 +15,7 @@ import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.util.Log;
 
 import com.timsu.astrid.R;
@@ -24,11 +25,13 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.ExceptionService.TodorooUncaughtExceptionHandler;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.backup.BackupConstants;
 import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -88,7 +91,6 @@ public class StartupService {
         int latestSetVersion = AstridPreferences.getCurrentVersion();
         int version = 0;
         try {
-
             PackageManager pm = context.getPackageManager();
             PackageInfo pi = pm.getPackageInfo(Constants.PACKAGE, PackageManager.GET_META_DATA);
             version = pi.versionCode;
@@ -106,6 +108,9 @@ public class StartupService {
         if(justUpgraded && version > 0) {
             upgradeService.performUpgrade(context, latestSetVersion);
             AstridPreferences.setCurrentVersion(version);
+        }
+        if(latestSetVersion == 0) {
+            onFirstTime();
         }
 
         upgradeService.performSecondaryUpgrade(context);
@@ -145,6 +150,29 @@ public class StartupService {
             showTaskKillerHelp(context);
 
         hasStartedUp = true;
+    }
+
+    /**
+     * Create tasks for first time users
+     */
+    private void onFirstTime() {
+        Resources r = ContextManager.getResources();
+        Task task = new Task();
+        task.setValue(Task.TITLE, r.getString(R.string.intro_task_1_summary));
+        task.setValue(Task.DETAILS, r.getString(R.string.intro_click_prompt));
+        task.setValue(Task.DETAILS_DATE, 2*DateUtilities.now());
+        task.setValue(Task.NOTES, r.getString(R.string.intro_task_1_note));
+        taskService.save(task);
+
+        task = new Task();
+        task.setValue(Task.TITLE, r.getString(R.string.intro_task_2_summary));
+        task.setValue(Task.NOTES, r.getString(R.string.intro_task_2_note));
+        taskService.save(task);
+
+        task = new Task();
+        task.setValue(Task.TITLE, r.getString(R.string.intro_task_3_summary));
+        task.setValue(Task.NOTES, r.getString(R.string.intro_task_3_note));
+        taskService.save(task);
     }
 
     /**
