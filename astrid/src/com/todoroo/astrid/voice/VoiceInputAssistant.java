@@ -10,7 +10,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.speech.RecognizerIntent;
-import android.text.Editable;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
@@ -156,16 +155,12 @@ public class VoiceInputAssistant {
                         RecognizerIntent.EXTRA_RESULTS);
                 // make sure we only do this if there is SomeThing (tm) returned
                 if (match != null && match.size() > 0 && match.get(0).length() > 0) {
-                    Editable currentText = textField.getText();
                     String recognizedSpeech = match.get(0);
+                    if(recognizedSpeech.length() > 0)
+                        recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
+                            recognizedSpeech.substring(1).toLowerCase();
 
-                    if (currentText.length() > 0) {
-                        // if something is already typed in, append the recognized speech,
-                        // add a space if it isn't already there
-                        textField.append((currentText.toString().endsWith(" ") ? recognizedSpeech : " "+recognizedSpeech ));
-                    } else {
-                        textField.setText(recognizedSpeech);
-                    }
+                    textField.setText(recognizedSpeech);
                 }
             }
         }
