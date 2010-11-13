@@ -100,7 +100,7 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if(from <= V2_14_4) {
-            newVersionString(changeLog, "3.6.0 (11/12/10)", new String[] {
+            newVersionString(changeLog, "3.6.0 (11/13/10)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
                     "look and feel, a new add-on system allows Astrid to become " +
                     "more powerful, while other improvements have made it faster " +
@@ -110,12 +110,14 @@ public final class UpgradeService {
             });
         } else {
             // current message
-            newVersionString(changeLog, "3.6.0 (11/12/10)", new String[] {
+            newVersionString(changeLog, "3.6.0 (11/13/10)", new String[] {
                     "Astrid Power Pack is now launched to the Android Market. " +
                         "New Power Pack features include 4x2 and 4x4 widgets and voice " +
                         "task reminders and creation. Go to the add-ons page to find out more!",
                     "Fix for Google Tasks: due times got lost on sync",
-                    "Fix for task alarms not always firing if multiple set"
+                    "Fix for Google Tasks: repeating tasks not repeated",
+                    "Fix for task alarms not always firing if multiple set",
+                    "Fix for various force closes",
             });
             upgrade3To3_6(context);
 
