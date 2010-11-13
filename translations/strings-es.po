@@ -8,13 +8,13 @@ msgstr ""
 "Project-Id-Version: astrid-translation\n"
 "Report-Msgid-Bugs-To: FULL NAME <EMAIL@ADDRESS>\n"
 "POT-Creation-Date: 2010-11-09 17:28-0800\n"
-"PO-Revision-Date: 2010-10-13 18:39+0000\n"
-"Last-Translator: Paco Molinero <paco@byasl.com>\n"
+"PO-Revision-Date: 2010-11-12 22:52+0000\n"
+"Last-Translator: Dept.Técnico (Extreme Micro S.L.) <Unknown>\n"
 "Language-Team: Spanish <es@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2010-11-12 03:04+0000\n"
+"X-Launchpad-Export-Date: 2010-11-13 21:44+0000\n"
 "X-Generator: Launchpad (build Unknown)\n"
 
 #. Task Edit Activity: Container Label
@@ -644,12 +644,12 @@ msgstr "¿Que hay de nuevo en Astrid?"
 #. Updates Window Title
 #: translations/strings.xml:428( name="UpS_updates_title")
 msgid "Latest Astrid News"
-msgstr ""
+msgstr "Últimas Noticias de Astrid"
 
 #. Preference Window Title
 #: translations/strings.xml:433( name="EPr_title")
 msgid "Astrid: Settings"
-msgstr ""
+msgstr "Astrid: Preferencias"
 
 #. Preference Category: Appearance Title
 #: translations/strings.xml:436( name="EPr_appearance_header")
@@ -1033,12 +1033,12 @@ msgstr "Lista"
 #. filter title for GTasks lists (%s => list name)
 #: translations/strings.xml:715( name="gtasks_FEx_title")
 msgid "Google Tasks: %s"
-msgstr ""
+msgstr "Google Tasks: %s"
 
 #. short help title for Gtasks
 #: translations/strings.xml:718( name="gtasks_help_title")
 msgid "Welcome to Google Tasks!"
-msgstr ""
+msgstr "Bienvenido a Google Tasks!"
 
 #. short help for GTasks list activity
 #: translations/strings.xml:721( name="gtasks_help_body")
@@ -1100,7 +1100,7 @@ msgstr "Error: correo o contraseña incorrectos!"
 #. GTasks Preferences Title
 #: translations/strings.xml:759( name="gtasks_GPr_header")
 msgid "Google Tasks (Beta!)"
-msgstr ""
+msgstr "Google Tasks (Beta!)"
 
 #. title for notification tray when synchronizing
 #: translations/strings.xml:764( name="gtasks_notification_title")
@@ -1115,7 +1115,7 @@ msgstr ""
 #. Task 1 Summary
 #: translations/strings.xml:778( name="intro_task_1_summary")
 msgid "Create your first task"
-msgstr ""
+msgstr "Crea su primera tarea"
 
 #. Task 1 Note
 #: translations/strings.xml:781( name="intro_task_1_note")
@@ -2212,11 +2212,11 @@ msgstr "Tareas siendo cronometradas"
 #. Voice Add Prompt Text
 #: translations/strings.xml:1467( name="voice_add_prompt")
 msgid "Speak to add a task"
-msgstr ""
+msgstr "Hable para añadir una tarea"
 
 #: translations/strings.xml:1468( name="voice_edit_prompt")
 msgid "Speak to edit this task"
-msgstr ""
+msgstr "Hable para editar esta tarea"
 
 #. Preference: Task List recognition-service is not installed, but available
 #: translations/strings.xml:1471( name="EPr_voiceInputInstall_dlg")
@@ -2224,6 +2224,8 @@ msgid ""
 "Voice-input is not installed.\\nDo you want to go to the market and install "
 "it?"
 msgstr ""
+"La entrada de datos por voz no está instalada.\\nDesea ir al market e "
+"instalarla?"
 
 #. Preference: Task List recognition-service is not available for this system
 #: translations/strings.xml:1473( name="EPr_voiceInputUnavailable_dlg")
