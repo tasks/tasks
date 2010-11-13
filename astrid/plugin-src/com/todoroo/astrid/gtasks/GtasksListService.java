@@ -58,8 +58,12 @@ public class GtasksListService {
         return LIST_NOT_FOUND;
     }
 
+    @SuppressWarnings("nls")
     public void updateLists(GoogleTaskListInfo[] remoteLists) {
         readLists();
+        for(StoreObject list : lists)
+            list.setValue(StoreObject.TYPE, "");
+
         for(int i = 0; i < remoteLists.length; i++) {
             GoogleTaskListInfo remote = remoteLists[i];
 
@@ -81,6 +85,11 @@ public class GtasksListService {
             local.setValue(GtasksList.ORDER, i);
             storeObjectDao.persist(local);
         }
+
+        // check for lists that aren't on remote server
+        for(StoreObject list : lists)
+            if(list.getValue(StoreObject.TYPE).equals(""))
+                storeObjectDao.delete(list.getId());
 
         clearListCache();
     }
