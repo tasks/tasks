@@ -44,6 +44,7 @@ public class VoiceInputAssistant {
     private final Activity activity;
     private final ImageButton voiceButton;
     private final EditText textField;
+    private boolean append = false;
 
     private String languageModel = RecognizerIntent.LANGUAGE_MODEL_WEB_SEARCH;
 
@@ -59,6 +60,11 @@ public class VoiceInputAssistant {
      */
     public String getLanguageModel() {
         return languageModel;
+    }
+
+    /** Sets whether voice input will append into field */
+    public void setAppend(boolean append) {
+        this.append = append;
     }
 
     /**
@@ -156,11 +162,13 @@ public class VoiceInputAssistant {
                 // make sure we only do this if there is SomeThing (tm) returned
                 if (match != null && match.size() > 0 && match.get(0).length() > 0) {
                     String recognizedSpeech = match.get(0);
-                    if(recognizedSpeech.length() > 0)
-                        recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
-                            recognizedSpeech.substring(1).toLowerCase();
+                    recognizedSpeech = recognizedSpeech.substring(0, 1).toUpperCase() +
+                        recognizedSpeech.substring(1).toLowerCase();
 
-                    textField.setText(recognizedSpeech);
+                    if(append)
+                        textField.setText((textField.getText() + " " + recognizedSpeech).trim());
+                    else
+                        textField.setText(recognizedSpeech);
                 }
             }
         }
