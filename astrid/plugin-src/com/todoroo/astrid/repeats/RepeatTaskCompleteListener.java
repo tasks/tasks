@@ -62,6 +62,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
             // clear recurrence from completed task so it can be re-completed
             task.setValue(Task.RECURRENCE, ""); //$NON-NLS-1$
+            task.setValue(Task.DETAILS_DATE, 0);
             PluginServices.getTaskService().save(task);
 
             // send a broadcast
