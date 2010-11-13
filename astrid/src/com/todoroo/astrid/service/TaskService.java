@@ -13,11 +13,13 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksMetadata;
+import com.todoroo.astrid.producteev.sync.ProducteevTask;
 
 /**
  * Service layer for {@link Task}-centered activities.
@@ -101,6 +103,13 @@ public class TaskService {
                 long newId = newTask.getId();
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     metadata.readFromCursor(cursor);
+
+                    // don't clone sync metadata
+                    if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
+                        continue;
+                    if(ProducteevTask.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
+                        continue;
+
                     metadata.setValue(Metadata.TASK, newId);
                     metadata.clearValue(Metadata.ID);
                     metadataDao.createNew(metadata);
