@@ -114,8 +114,7 @@ public final class UpgradeService {
                     "Astrid Power Pack is now launched to the Android Market. " +
                         "New Power Pack features include 4x2 and 4x4 widgets and voice " +
                         "task reminders and creation. Go to the add-ons page to find out more!",
-                    "Fix for Google Tasks: due times got lost on sync",
-                    "Fix for Google Tasks: repeating tasks not repeated",
+                    "Fix for Google Tasks: due times got lost on sync, repeating tasks not repeated",
                     "Fix for task alarms not always firing if multiple set",
                     "Fix for various force closes",
             });
