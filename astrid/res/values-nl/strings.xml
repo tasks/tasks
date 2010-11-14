@@ -5,10 +5,10 @@
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task Edit Activity: Container Label -->
-    <string name="alarm_ACS_label">Alarms</string>
+    <string name="alarm_ACS_label">Alarmen</string>
     
     <!-- Task Edit Activity: Add New Alarm -->
-    <string name="alarm_ACS_button">Add an Alarm</string>
+    <string name="alarm_ACS_button">Alarm toevoegen</string>
     
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
@@ -37,7 +37,7 @@
     <!-- Backup Status: error subtitle -->    
     <string name="backup_status_failed_subtitle">(tap to show error)</string>
     <!-- Backup Status: never backed up -->    
-    <string name="backup_status_never">Never Backed Up!</string>
+    <string name="backup_status_never">Nog nooit een reservekopie gemaakt!</string>
 
     <!-- Backup Options Group Label -->    
     <string name="backup_BPr_group_options">Opties</string>
@@ -50,9 +50,9 @@
     <string name="backup_BPr_auto_enabled">Back-up wordt dagelijks uitgevoerd</string>
     
     <!-- Preference screen restoring Tasks Help -->
-    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
+    <string name="backup_BPr_how_to_restore">Hoe herstel ik reservekopieen</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
+    <string name="backup_BPr_how_to_restore_dialog">Het Astrid Power Pack is nodig om reservekopieen in te stellen en te herstellen. Als extra maakt Astrid een automatische kopie van de taken, voor het geval dat.</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -75,39 +75,34 @@
     
   <string name="export_toast">%s gebackupped naar %s.</string>
     
-  <string name="export_toast_no_tasks">No Tasks to Export.</string>
+  <string name="export_toast_no_tasks">Geen taken om te Exporteren</string>
   
   <!-- Progress Dialog Title for exporting -->    
-  <string name="export_progress_title">Exporting...</string>
+  <string name="export_progress_title">Exporteren...</string>
   
   <!-- Backup: Title of Import Summary Dialog -->
   <string name="import_summary_title">Herstel samenvatting</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">
-File %s contained %s.\n\n
-%s imported,\n
-%s already exist\n
-%s had errors\n
-  </string>
+  <string name="import_summary_message">%s bestanden bevatten %s.\n\n %s geimporteerd,\n %s bestaan al\n %s hadden fouten\n</string>
   
   <!-- Progress Dialog Title for importing -->    
-  <string name="import_progress_title">Importing...</string>
+  <string name="import_progress_title">Importeren...</string>
   
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
-  <string name="import_progress_read">Reading task %d...</string>
+  <string name="import_progress_read">Taak %d aan het lezen ...</string>
   
   <!-- Backup: Dialog when unable to open a file -->  
-  <string name="DLG_error_opening">Could not find this item: </string>
+  <string name="DLG_error_opening">Kon dit item niet vinden:</string>
   
   <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
   <string name="DLG_error_sdcard">Cannot access folder: %s</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
-  <string name="DLG_error_sdcard_general">Cannot access your SD card!</string>
+  <string name="DLG_error_sdcard_general">Kan geen toegang krijgen tot de SD kaart!</string>
     
   <!-- Backup: File Selector dialog for import -->
-  <string name="import_file_prompt">Select a File to Restore</string>    
+  <string name="import_file_prompt">Kies een bestand om te herstellen</string>    
         
 
 
@@ -117,19 +112,19 @@ File %s contained %s.\n\n
   <!-- ================================================== AndroidManifest == -->
 
   <!-- Application Name (shown on home screen & in launcher) -->
-  <string name="app_name">Astrid Tasks</string>
+  <string name="app_name">Astrid Taken</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="read_permission_label">Astrid Permission</string>
+  <string name="read_permission_label">Astrid Rechten</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="read_permission_desc">read tasks, display task filters</string>
+  <string name="read_permission_desc">lees taken, laat taak filters zien</string>
   
   <!-- permission title for READ_TASKS -->
-  <string name="write_permission_label">Astrid Permission</string>
+  <string name="write_permission_label">Astrid Rechten</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="write_permission_desc">create new tasks, edit existing tasks</string>
+  <string name="write_permission_desc">maak nieuwe taken, bewerk bestaande</string>
   
   <!-- ================================================== Generic Dialogs == -->
     
@@ -137,35 +132,33 @@ File %s contained %s.\n\n
   <string name="DLG_delete_this_task_question">Verwijder deze taak?</string>
 
   <!-- question for deleting items (%s => item name) -->
-  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
+  <string name="DLG_delete_this_item_question">Dit item verwijderen: %s?</string>
     
   <!-- Progress dialog shown when upgrading -->
-  <string name="DLG_upgrading">Upgrading your tasks...</string>
+  <string name="DLG_upgrading">Taken opwaarderen...</string>
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
   
   <!-- Dialog for Astrid having a critical update -->
-  <string name="DLG_please_update">Astrid should to be updated to the latest
-  version in the Android market! Please do that before continuing, or wait a 
-  few seconds.</string>
+  <string name="DLG_please_update">Astrid moet worden opgewaardeerd naar de laatste versie in de Android market! Doe dit aub voor u doorgaat, of wacht een paar seconden.</string>
 
   <!-- Button for going to Market -->
-  <string name="DLG_to_market">Go To Market</string>
+  <string name="DLG_to_market">Ga naar Market</string>
 
   <!-- Button for accepting EULA -->
-  <string name="DLG_accept">I Accept</string>
+  <string name="DLG_accept">Accoord</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">I Decline</string>
+  <string name="DLG_decline">Niet accoord</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid Terms Of Use</string>
+  <string name="DLG_eula_title">Astrid Algemene Voorwaarden</string>
   
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
-  <string name="WID_dateButtonUnset">Click To Set</string>
+  <string name="WID_dateButtonUnset">Click om in te stellen</string>
   
   <!-- String formatter for DateButtons ($D => date, $T => time) -->
   <string name="WID_dateButtonLabel">$D $T</string>
@@ -179,13 +172,13 @@ File %s contained %s.\n\n
   <string name="TLA_no_items">Geen taken!</string>
   
   <!-- Menu: Add-ons -->    
-  <string name="TLA_menu_addons">Add-ons</string>
+  <string name="TLA_menu_addons">Toevoegingen</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
+  <string name="TLA_menu_sort">Sorteer  Verborgen</string>
   
   <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">Sync Now!</string>
+  <string name="TLA_menu_sync">Sync Nu!</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Instellingen</string>
@@ -194,21 +187,21 @@ File %s contained %s.\n\n
   <string name="TLA_menu_help">Help</string>
   
   <!-- Search Label-->
-  <string name="TLA_search_label">Search This List</string>
+  <string name="TLA_search_label">Zoek deze lijst</string>
   
   <!-- Window title for displaying Custom Filter -->
-  <string name="TLA_custom">Custom</string>
+  <string name="TLA_custom">Aangepast</string>
   
   <!-- Quick Add Edit Box Hint-->
-  <string name="TLA_quick_add_hint">Add to this list...</string>
+  <string name="TLA_quick_add_hint">Voeg toe aan deze lijst...</string>
   
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
-  <string name="TAd_hiddenFormat">%s [hidden]</string>
+  <string name="TAd_hiddenFormat">%s [verborgen]</string>
   
   <!-- Format string to indicate task is deleted (%s => task name) -->
-  <string name="TAd_deletedFormat">%s [deleted]</string>
+  <string name="TAd_deletedFormat">%s [verwijderd]</string>
   
   <!-- Displayed when adapter is flung (scrolled quickly) -->
   <string name="TAd_flingText"/>
@@ -226,15 +219,15 @@ File %s contained %s.\n\n
   <string name="TAd_contextDeleteTask">Verwijder taak</string>
 
   <!-- Context Item: undelete task -->
-  <string name="TAd_contextUndeleteTask">Undelete Task</string>
+  <string name="TAd_contextUndeleteTask">Taak Terughalen</string>
 
   <!-- Context Item: purge task -->
-  <string name="TAd_contextPurgeTask">Purge Task</string>
+  <string name="TAd_contextPurgeTask">Taak Opschonen</string>
   
   <!-- ============================================== SortSelectionDialog == -->
   
   <!-- Sort Selection: dialog title -->    
-  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  <string name="SSD_title">Sorteren en Verborgen Taken</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
   <string name="SSD_completed">Toon voltooide taken</string>
@@ -249,28 +242,28 @@ File %s contained %s.\n\n
   <string name="SSD_sort_header">Sorteeropties</string>
   
   <!-- Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  <string name="SSD_sort_auto">Astrid Slim Sorteren</string>
   
   <!-- Sort Selection: sort by alpha -->
   <string name="SSD_sort_alpha">Op titel</string>
   
   <!-- Sort Selection: sort by due date -->
-  <string name="SSD_sort_due">By Due Date</string>
+  <string name="SSD_sort_due">Per Einddatum</string>
   
   <!-- Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">By Importance</string>
+  <string name="SSD_sort_importance">Per Prioriteit</string>
   
   <!-- Sort Selection: sort by modified date -->
-  <string name="SSD_sort_modified">By Last Modified</string>
+  <string name="SSD_sort_modified">Per Laatst gewijzigd</string>
   
   <!-- Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Reverse Sort</string>
+  <string name="SSD_sort_reverse">Sorteren omkeren</string>
   
   <!-- Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Just Once</string>
+  <string name="SSD_save_temp">Eenmalig</string>
   
   <!-- Sort Button: sort permanently -->
-  <string name="SSD_save_always">Always</string>
+  <string name="SSD_save_always">Altijd</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -278,13 +271,13 @@ File %s contained %s.\n\n
   <string name="FLA_title">Astrid: Filters</string>
   
   <!-- Displayed when loading filters -->    
-  <string name="FLA_loading">Loading Filters...</string>
+  <string name="FLA_loading">Filters laden...</string>
   
   <!-- Context Menu: Create Shortcut -->    
-  <string name="FLA_context_shortcut">Create Shortcut On Desktop</string>
+  <string name="FLA_context_shortcut">Maak Snelkoppeling op Desktop</string>
   
   <!-- Menu: Search -->
-  <string name="FLA_menu_search">Search Tasks...</string>
+  <string name="FLA_menu_search">Taken Zoeken...</string>
   
   <!-- Menu: Help -->    
   <string name="FLA_menu_help">Help</string>
@@ -293,16 +286,16 @@ File %s contained %s.\n\n
   <string name="FLA_shortcut_dialog_title">Maak Shortcut</string>
   
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
-  <string name="FLA_shortcut_dialog">Name of shortcut:</string>
+  <string name="FLA_shortcut_dialog">Naam van snelkoppeling:</string>
   
   <!-- Search Hint-->
-  <string name="FLA_search_hint">Search For Tasks</string>
+  <string name="FLA_search_hint">Zoeken Naar Taken</string>
   
   <!-- Search Filter name (%s => query) -->
-  <string name="FLA_search_filter">Matching \'%s\'</string>
+  <string name="FLA_search_filter">Met \'%s\'</string>
   
   <!-- Toast: created shortcut (%s => label) -->
-  <string name="FLA_toast_onCreateShortcut">Created Shortcut: %s</string>
+  <string name="FLA_toast_onCreateShortcut">Snelkoppeling gemaakt: %s</string>
   
   <!-- ================================================= TaskEditActivity == -->
   
@@ -319,13 +312,13 @@ File %s contained %s.\n\n
   <string name="TEA_tab_extra">Geavanceerd</string>
   
   <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_addons">Add-ons</string>
+  <string name="TEA_tab_addons">Toevoegingen</string>
   
   <!-- Task title label -->
   <string name="TEA_title_label">Titel</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Task Summary</string>
+  <string name="TEA_title_hint">Taak Samenvatting</string>
   
   <!-- Task importance label -->
   <string name="TEA_importance_label">Mate van belangrijkheid</string>
@@ -334,10 +327,10 @@ File %s contained %s.\n\n
   <string name="TEA_urgency_label">Deadline</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">At specific time?</string>
+  <string name="TEA_urgency_specific_time">Op een specifieke tijd?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Time Set</string>
+  <string name="TEA_urgency_time_none">Geen Tijd Ingesteld</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Verbergen totdat</string>
@@ -349,7 +342,7 @@ File %s contained %s.\n\n
   <string name="TEA_note_label">Notities</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Enter Task Notes...</string>
+  <string name="TEA_notes_hint">Invoeren Taak Opmerkingen...</string>
   
   <!-- Estimated time label -->
   <string name="TEA_estimatedDuration_label">Hoe lang duurt het?</string>
@@ -367,20 +360,20 @@ File %s contained %s.\n\n
   <string name="TEA_menu_delete">Verwijder taak</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
+  <string name="TEA_onTaskSave_due">Taak Opgeslagen: eind %s</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">Taak opgeslagen</string>
   
   <!-- Toast: task was not saved -->
-  <string name="TEA_onTaskCancel">Task Editing Was Canceled</string>
+  <string name="TEA_onTaskCancel">Taak Bewerken Afgebroken</string>
   
   <!-- Toast: task was deleted -->
   <string name="TEA_onTaskDelete">Taak verwijderd!</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>Specific Day/Time</item>
+      <item>Specifieke Dag/Tijd</item>
       <item>Vandaag</item>
       <item>Morgen</item>
       <item>(day after)</item>
@@ -391,54 +384,54 @@ File %s contained %s.\n\n
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
       <item>Niet verbergen</item>
-      <item>Task is due</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
-      <item>Specific Day/Time</item>
+      <item>(volgende dag)</item>
+      <item>Dag voor einddatum</item>
+      <item>Week voor einddatum</item>
+      <item>Specifieke Dag/Tijd</item>
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_no_addons">No Add-ons Found!</string>
+  <string name="TEA_addons_text">Looking for more features?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get Some Add-ons</string>
+  <string name="TEA_addons_button">Get the Power Pack!</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
   <!-- Introduction Window title -->
-  <string name="InA_title">Welcome to Astrid!</string>
+  <string name="InA_title">Welkom bij Astrid!</string>
   
   <!-- Button to agree to EULA -->
-  <string name="InA_agree">I Agree!!</string>
+  <string name="InA_agree">Accoord!!</string>
   
   <!-- Button to disagree with EULA -->
-  <string name="InA_disagree">I Disagree</string>
+  <string name="InA_disagree">Niet accoord</string>
   
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
-  <string name="HlA_get_support">Get Support</string>
+  <string name="HlA_get_support">Hulp vragen</string>
     
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">What\'s New In Astrid?</string>
+  <string name="UpS_changelog_title">Wat is nieuw in Astrid?</string>
   
   <!-- Updates Window Title -->
-  <string name="UpS_updates_title">Latest Astrid News</string>
+  <string name="UpS_updates_title">Laatste Astrid nieuws</string>
   
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Window Title -->
-  <string name="EPr_title">Astrid: Preferences</string>
+  <string name="EPr_title">Astrid: Settings</string>
 
   <!-- Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Uiterlijke kenmerken</string>
   
   <!-- Preference: Task List Font Size Title -->
-  <string name="EPr_fontSize_title">Task List Size</string>
+  <string name="EPr_fontSize_title">Taaklijst Grootte</string>
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
-  <string name="EPr_fontSize_desc">Font size on the main listing page</string>  
+  <string name="EPr_fontSize_desc">Tekengrootte op hoofdpagina</string>  
   
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Show Notes In Task</string>
@@ -490,9 +483,9 @@ File %s contained %s.\n\n
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
       <item>Niet verbergen</item>
-      <item>Task is due</item>
-      <item>Day before due</item>
-      <item>Week before due</item>
+      <item>(volgende dag)</item>
+      <item>Dag voor einddatum</item>
+      <item>Week voor einddatum</item>
   </string-array>
   
   <string-array name="EPr_default_reminders">
@@ -525,6 +518,9 @@ File %s contained %s.\n\n
   
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
+  
+  <!-- Add-on Activity - when list is empty -->
+  <string name="AOA_no_addons">Empty List!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -1463,58 +1459,38 @@ Error Message: %s
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
     
-    <!-- Resources for power pack widget -->
+  <!-- Voice Add Prompt Text -->
+  <string name="voice_create_prompt">Speak to create a task</string>
+  <string name="voice_edit_title_prompt">Speak to set task title</string>
+  <string name="voice_edit_note_prompt">Speak to set task notes</string>
     
-    <string name="PPW_widget_42_label">Astrid 4x2 (beta!)</string>
-    <string name="PPW_widget_44_label">Astrid 4x4 (beta!)</string>
-    
-    <string name="PPW_configure_title">Configure Widget</string>
-    
-    <string name="PPW_color">Widget color</string>
-    <string name="PPW_enable_calendar">Show calendar events</string>
-    <string name="PPW_disable_encouragements">Hide encouragements</string>
-    <string name="PPW_filter">Select Filter</string>
-    
-    <string name="PPW_due">Due:</string>
-    <string name="PPW_past_due">Past Due:</string>
-    
-    <string-array name="PPW_encouragements">
-        <!-- general encouragements -->
-    	<item>Hi there!</item>
-    	<item>Have time to finish something?</item>
-    	<item>Gosh, you are looking suave today!</item>
-    	<item>Do something great today!</item>
-    	<item>Make me proud today!</item>
-    	<item>How are you doing today?</item>
-    </string-array>
-    
-    <string-array name="PPW_encouragements_tod">
-        <!-- encouragements based on time of day -->
-    	<item>Good morning!</item>
-    	<item>Good afternoon!</item>
-    	<item>Good evening!</item>
-    	<item>Late night?</item>
-    	<item>It\s early, get something done!</item>
-    	<item>Afternoon tea, perhaps?</item>
-    	<item>Enjoy the evening!</item>
-    	<item>Sleep is good for you, you know!</item>
-    </string-array>
-    
-    <string-array name="PPW_encouragements_completed">
-        <!-- encouragements based on tasks completed (%d => completed) -->
-    	<item>You\'ve already completed %d tasks!</item>
-    	<item>Score in life: %d tasks completed</item>
-    	<item>Smile! You\'ve already finished %d tasks!</item>
-    </string-array>
-    
-    <string name="PPW_encouragements_completed"/>
-    
-    <string-array name="PPW_colors">
-        <item>Black</item>
-        <item>White</item>
-        <item>Blue</item>
-        <item>Red</item>
-    </string-array>
+  <!-- Preference: Task List recognition-service is not installed, but available -->
+  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
+  <!-- Preference: Task List recognition-service is not available for this system -->
+  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
+  <!-- Preference: Market is not available for this system -->
+  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
+  <!-- Preference: Task List Show Voice-button if recognition-service is available -->
+  <string name="EPr_voiceInputEnabled_title">Voice Input</string>
+  <!-- Preference: voice button description (true) -->
+  <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
+  <!-- Preference: voice button description (false) -->
+  <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
+  <!-- Preference: Task List Voice-button directly creates tasks -->
+  <string name="EPr_voiceInputCreatesTask_title">Directly Create Tasks</string>
+  <!-- Preference: Task List Voice-creation description (true) -->
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
+  <!-- Preference: Task List Voice-creation description (false) -->
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
+  <!-- Preference: Voice reminders if TTS-service is available -->
+  <string name="EPr_voiceRemindersEnabled_title">Voice Reminders</string>
+  <!-- Preference: Voice reminders description (true) -->
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
+  <!-- Preference: Voice reminders description (false) -->
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
+  
+  <!-- Preference Category: Voice Title -->
+  <string name="EPr_voice_header">Voice Input Settings</string>
     
 
 </resources>

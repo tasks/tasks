@@ -147,13 +147,13 @@
   <string name="DLG_to_market">Gehe zum Market</string>
 
   <!-- Button for accepting EULA -->
-  <string name="DLG_accept">I Accept</string>
+  <string name="DLG_accept">Zustimmen</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">I Decline</string>
+  <string name="DLG_decline">Ablehnen</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid Terms Of Use</string>
+  <string name="DLG_eula_title">Nutzungsbedingungen</string>
   
   <!-- =============================================================== UI == -->
   
@@ -327,10 +327,10 @@
   <string name="TEA_urgency_label">Fälligkeit</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">At specific time?</string>
+  <string name="TEA_urgency_specific_time">Zu einer bestimmten Zeit?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Time Set</string>
+  <string name="TEA_urgency_time_none">Keine Uhzeit gesetzt</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Verstecken bis</string>
@@ -391,10 +391,10 @@
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_no_addons">Keine Erweiterungen gefunden!</string>
+  <string name="TEA_addons_text">Looking for more features?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Erweiterungen hinzufügen</string>
+  <string name="TEA_addons_button">Get the Power Pack!</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -418,7 +418,7 @@
   <string name="UpS_changelog_title">Was ist neu bei Astrid</string>
   
   <!-- Updates Window Title -->
-  <string name="UpS_updates_title">Latest Astrid News</string>
+  <string name="UpS_updates_title">Astrid Neuigkeiten</string>
   
   <!-- ================================================== EditPreferences == -->
     
@@ -435,20 +435,11 @@
   
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Notizen zu Aufgaben anzeigen</string>
-  <!-- Preference: Task List Show Voice-button if recognition-service is available -->
-  <string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notizen werden angezeigt, wenn Sie auf eine Aufgabe tippen</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notizen werden immer angezeigt</string>  
+  <string name="EPr_showNotes_desc_enabled">Benachrichtigungen werden immer angezeigt</string>
   
-  <!-- Preference Category: Voice Title -->
-  <string name="EPr_voice_header">Sprachfunktionen</string>
-  <!-- Preference: Task List Voice Input Description (disabled) -->
-  <string name="EPr_voiceInput_desc_disabled">Mikrofon-Button wird ausgeblendet</string>  
-  <!-- Preference: Task List Voice Input Description (enabled) -->
-  <string name="EPr_voiceInput_desc_enabled">Mikrofon-Button wird angezeigt</string>
-
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">Neue Standardeinstellungen für Aufgaben</string>
   
@@ -528,6 +519,9 @@
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
   
+  <!-- Add-on Activity - when list is empty -->
+  <string name="AOA_no_addons">Empty List!</string>
+  
   <!-- ====================================================== TasksWidget == -->
 
   <!-- Widget text when loading tasks -->
@@ -601,7 +595,7 @@
     <string name="CFA_type_intersect">auch</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">%s has criteria</string>
+    <string name="CFA_context_chain">%s hat Kriterien</string>
     
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">Zeile löschen</string>
@@ -632,7 +626,7 @@
         <item>Morgen</item>
         <item>Übermorgen</item>
         <item>Nächste Woche</item>
-        <item>Next Month</item>
+        <item>Nächster Monat</item>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
@@ -646,14 +640,14 @@
     <string name="CFC_tag_name">Getaggt...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Tag contains...</string>
+    <string name="CFC_tag_contains_name">Tag beinhaltet...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Tag contains: ?</string>
+    <string name="CFC_tag_contains_text">Tag beinhaltet: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Title contains...</string>
+    <string name="CFC_title_contains_name">Titel enthält...</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">Title contains: ?</string>
+    <string name="CFC_title_contains_text">Titel enthält: ?</string>
     
 
 
@@ -702,13 +696,13 @@
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
-    <string name="gtasks_FEx_list">By List</string>
+    <string name="gtasks_FEx_list">Nach Liste</string>
     
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
     <!-- short help title for Gtasks -->
-    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
+    <string name="gtasks_help_title">Wilkommen zu Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
     <string name="gtasks_help_body">Drag the grabber on the left side of a task 
@@ -717,11 +711,10 @@
     <!-- ============================================ GtasksLoginActivity == -->
     
     <!-- Activity Title: Gtasks Login -->    
-    <string name="gtasks_GLA_title">Log In to Google Tasks</string>
+    <string name="gtasks_GLA_title">Bei Google Tasks einloggen</string>
 
     <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Google Apps
-    for Domain is currently unsupported, we\'re working on that!</string>
+    <string name="gtasks_GLA_body">Bitte loggen Sie sich bei Google Tasks Sync (Beta!) ein. Google Apps für Domänen wird zur Zeit nicht unterstützt, wir arbeiten daran!</string>
 
     <!-- Instructions: Gtasks further help -->    
     <string name="gtasks_GLA_further_help">To view your tasks with indentation
@@ -738,7 +731,7 @@
     <string name="gtasks_GLA_password">Kennwort</string>
     
     <!-- Google Apps for Domain checkbox -->
-    <string name="gtasks_GLA_domain">Google Apps for Domain account</string>
+    <string name="gtasks_GLA_domain">Google Apps for Domain Zugang</string>
 
     <!-- Error Message when fields aren't filled out -->    
     <string name="gtasks_GLA_errorEmpty">Fehler: Füllen Sie alle Felder aus!</string>
@@ -765,10 +758,10 @@
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see details</string>
+  <string name="intro_click_prompt">Einführung: Hier berühren für Details</string>
   
   <!-- Task 1 Summary  -->
-  <string name="intro_task_1_summary">Create your first task</string>
+  <string name="intro_task_1_summary">Den ersten Task anlegen</string>
 
   <!-- Task 1 Note -->
   <string name="intro_task_1_note">Two ways to add a task:\n
@@ -781,7 +774,7 @@
   </string>
   
   <!-- Task 2 Summary  -->
-  <string name="intro_task_2_summary">Add a widget to your desktop</string>
+  <string name="intro_task_2_summary">Widget zum Desktop zufügen</string>
 
   <!-- Task 2 Note -->
   <string name="intro_task_2_note">A desktop widget is a great way to keep 
@@ -797,8 +790,7 @@
 	Bonus: Use the widget to add a task!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Setup sync with Gmail Tasks or 
-  Producteev</string>
+  <string name="intro_task_3_summary">Die Synchronisation mit Gmail Tasks oder Producteev einrichten</string>
 
   <!-- Task 3 Note -->
   <string name="intro_task_3_note">Astrid makes it possible for you to sync 
@@ -854,9 +846,9 @@
   <string name="EPr_powerpack_header">Astrid Power Pack</string>
   
   <!-- Preference: Anonymous User Statistics -->
-  <string name="EPr_statistics_title">Anonymous Usage Stats</string>
+  <string name="EPr_statistics_title">Anonyme Nutzungsstatistiken</string>
   <!-- Preference: User Statistics (disabled) -->
-  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
+  <string name="EPr_statistics_desc_disabled">Nutzungsstatistik wird nicht übertragen</string>  
   <!-- Preference: User Statistics (enabled) -->
   <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
       
@@ -935,7 +927,7 @@
     <string name="producteev_PLA_password">Kennwort</string>
     
     <!-- Timezone Spinner -->
-    <string name="producteev_PLA_timezone">Timezone</string>
+    <string name="producteev_PLA_timezone">Zeitzone</string>
 
     <!-- Confirm Password Label -->    
     <string name="producteev_PLA_confirmPassword">Kennwort bestätigen</string>
@@ -990,9 +982,9 @@
 
     <string name="CFC_producteev_in_workspace_name">In workspace...</string>
 
-    <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
+    <string name="CFC_producteev_assigned_to_text">Zugeordnet: ?</string>
 
-    <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
+    <string name="CFC_producteev_assigned_to_name">Zugeordnet zu...</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1414,13 +1406,13 @@
   <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
 
   <!-- Toast notification that no changes have been made -->
-  <string name="TEA_no_tags_modified">No changes made</string>
+  <string name="TEA_no_tags_modified">Es gibt keine Änderungen</string>
 
   <!-- Toast notification that a tag has been deleted -->
   <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+  <string name="TEA_tags_renamed">Es wurde %s mit %s ersetzt in %d Tasks</string>
 
 
 
@@ -1449,58 +1441,38 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
     
-    <!-- Resources for power pack widget -->
+  <!-- Voice Add Prompt Text -->
+  <string name="voice_create_prompt">Speak to create a task</string>
+  <string name="voice_edit_title_prompt">Speak to set task title</string>
+  <string name="voice_edit_note_prompt">Speak to set task notes</string>
     
-    <string name="PPW_widget_42_label">Astrid 4x2 (beta!)</string>
-    <string name="PPW_widget_44_label">Astrid 4x4 (beta!)</string>
-    
-    <string name="PPW_configure_title">Widget konfigurieren</string>
-    
-    <string name="PPW_color">Widget-Farbe</string>
-    <string name="PPW_enable_calendar">Kalendereinträge anzeigen</string>
-    <string name="PPW_disable_encouragements">Ermutigungen verstecken</string>
-    <string name="PPW_filter">Filter auswählen</string>
-    
-    <string name="PPW_due">Fällig:</string>
-    <string name="PPW_past_due">Überfällig:</string>
-    
-    <string-array name="PPW_encouragements">
-        <!-- general encouragements -->
-    	<item>Hi there!</item>
-    	<item>Haben Sie Zeit etwas abzuschliessen?</item>
-    	<item>Donnerwetter, Sie sehen charmant aus heute!</item>
-    	<item>Do something great today!</item>
-    	<item>Make me proud today!</item>
-    	<item>How are you doing today?</item>
-    </string-array>
-    
-    <string-array name="PPW_encouragements_tod">
-        <!-- encouragements based on time of day -->
-    	<item>Good morning!</item>
-    	<item>Good afternoon!</item>
-    	<item>Good evening!</item>
-    	<item>Late night?</item>
-    	<item>It\s early, get something done!</item>
-    	<item>Afternoon tea, perhaps?</item>
-    	<item>Enjoy the evening!</item>
-    	<item>Sleep is good for you, you know!</item>
-    </string-array>
-    
-    <string-array name="PPW_encouragements_completed">
-        <!-- encouragements based on tasks completed (%d => completed) -->
-    	<item>You\'ve already completed %d tasks!</item>
-    	<item>Score in life: %d tasks completed</item>
-    	<item>Smile! You\'ve already finished %d tasks!</item>
-    </string-array>
-    
-    <string name="PPW_encouragements_completed"/>
-    
-    <string-array name="PPW_colors">
-        <item>Black</item>
-        <item>White</item>
-        <item>Blue</item>
-        <item>Red</item>
-    </string-array>
+  <!-- Preference: Task List recognition-service is not installed, but available -->
+  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
+  <!-- Preference: Task List recognition-service is not available for this system -->
+  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
+  <!-- Preference: Market is not available for this system -->
+  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
+  <!-- Preference: Task List Show Voice-button if recognition-service is available -->
+  <string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
+  <!-- Preference: voice button description (true) -->
+  <string name="EPr_voiceInputEnabled_desc_enabled">Mikrofon-Button wird angezeigt</string>
+  <!-- Preference: voice button description (false) -->
+  <string name="EPr_voiceInputEnabled_desc_disabled">Mikrofon-Button wird ausgeblendet</string>
+  <!-- Preference: Task List Voice-button directly creates tasks -->
+  <string name="EPr_voiceInputCreatesTask_title">Directly Create Tasks</string>
+  <!-- Preference: Task List Voice-creation description (true) -->
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
+  <!-- Preference: Task List Voice-creation description (false) -->
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
+  <!-- Preference: Voice reminders if TTS-service is available -->
+  <string name="EPr_voiceRemindersEnabled_title">Voice Reminders</string>
+  <!-- Preference: Voice reminders description (true) -->
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
+  <!-- Preference: Voice reminders description (false) -->
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
+  
+  <!-- Preference Category: Voice Title -->
+  <string name="EPr_voice_header">Sprachfunktionen</string>
     
 
 </resources>

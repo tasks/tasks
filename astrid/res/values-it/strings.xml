@@ -147,13 +147,13 @@
   <string name="DLG_to_market">Vai al Market</string>
 
   <!-- Button for accepting EULA -->
-  <string name="DLG_accept">I Accept</string>
+  <string name="DLG_accept">Accetto</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">I Decline</string>
+  <string name="DLG_decline">Rifiuto</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid Terms Of Use</string>
+  <string name="DLG_eula_title">Termini di Utilizzo di Astrid</string>
   
   <!-- =============================================================== UI == -->
   
@@ -222,7 +222,7 @@
   <string name="TAd_contextUndeleteTask">Ripristina Attività</string>
 
   <!-- Context Item: purge task -->
-  <string name="TAd_contextPurgeTask">Purge Task</string>
+  <string name="TAd_contextPurgeTask">Elimina Attività</string>
   
   <!-- ============================================== SortSelectionDialog == -->
   
@@ -230,16 +230,16 @@
   <string name="SSD_title">Sorting and Hidden Tasks</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Show Completed Tasks</string>
+  <string name="SSD_completed">Mostra Attività Collegate</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Show Hidden Tasks</string>
+  <string name="SSD_hidden">Mostra Attività Nascoste</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
-  <string name="SSD_deleted">Show Deleted Tasks</string>
+  <string name="SSD_deleted">Mostra Attività Cancellate</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sort Options</string>
+  <string name="SSD_sort_header">Ordina Opzioni</string>
   
   <!-- Sort Selection: smart sort -->
   <string name="SSD_sort_auto">Astrid Smart Sort</string>
@@ -254,16 +254,16 @@
   <string name="SSD_sort_importance">Per Importanza</string>
   
   <!-- Sort Selection: sort by modified date -->
-  <string name="SSD_sort_modified">By Last Modified</string>
+  <string name="SSD_sort_modified">Per Ultima Modifica</string>
   
   <!-- Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Reverse Sort</string>
+  <string name="SSD_sort_reverse">Inverti Ordinamento</string>
   
   <!-- Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Just Once</string>
+  <string name="SSD_save_temp">Solo una Volta</string>
   
   <!-- Sort Button: sort permanently -->
-  <string name="SSD_save_always">Always</string>
+  <string name="SSD_save_always">Sempre</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -327,10 +327,10 @@
   <string name="TEA_urgency_label">Scadenza</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">At specific time?</string>
+  <string name="TEA_urgency_specific_time">In un orario specifico?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Time Set</string>
+  <string name="TEA_urgency_time_none">Nessun orario impostato</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Nascondi Fino</string>
@@ -391,10 +391,10 @@
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_no_addons">No Add-ons Found!</string>
+  <string name="TEA_addons_text">Looking for more features?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get Some Add-ons</string>
+  <string name="TEA_addons_button">Get the Power Pack!</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -418,7 +418,7 @@
   <string name="UpS_changelog_title">Novità in Astrid?</string>
   
   <!-- Updates Window Title -->
-  <string name="UpS_updates_title">Latest Astrid News</string>
+  <string name="UpS_updates_title">Ultime Novità di Astrid</string>
   
   <!-- ================================================== EditPreferences == -->
     
@@ -434,11 +434,11 @@
   <string name="EPr_fontSize_desc">Dimensione carattere nella pagina principale</string>  
   
   <!-- Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <string name="EPr_showNotes_title">Mostra Note nell\'Attività</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
   <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
+  <string name="EPr_showNotes_desc_enabled">Le note verranno visualizzate sempre</string>
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">Nuove impostazioni predefinite attività</string>
@@ -446,22 +446,22 @@
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Urgenza Predefinita</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently: %s</string>
+  <string name="EPr_default_urgency_desc">Attualmente: %s</string>
   
   <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Importanza Predefinita</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently: %s</string>
+  <string name="EPr_default_importance_desc">Attualmente: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">Nascondi Fino Predefinito</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
+  <string name="EPr_default_hideUntil_desc">Attualmente: %s</string>
   
   <!-- Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">Promemoria predefiniti</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_reminders_desc">Currently: %s</string>
+  <string name="EPr_default_reminders_desc">Attualmente: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
@@ -499,25 +499,28 @@
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
-  <string name="AOA_title">Astrid: Add Ons</string>
+  <string name="AOA_title">Astrid: Componenti Aggiuntivi</string>
     
   <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Team Astrid</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
-  <string name="AOA_tab_installed">Installed</string>
+  <string name="AOA_tab_installed">Installato</string>
   
   <!-- Add-on Activity - available add-ons tab -->
-  <string name="AOA_tab_available">Available</string>
+  <string name="AOA_tab_available">Disponibile</string>
   
   <!-- Add-on Activity - free add-ons label -->
-  <string name="AOA_free">Free</string>
+  <string name="AOA_free">Gratuito</string>
   
   <!-- Add-on Activity - menu item to visit add-on website -->
-  <string name="AOA_visit_website">Visit Website</string>
+  <string name="AOA_visit_website">Visita il Sito Web</string>
   
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
+  
+  <!-- Add-on Activity - when list is empty -->
+  <string name="AOA_no_addons">Empty List!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -525,7 +528,7 @@
   <string name="TWi_loading">Caricamento...</string>
 
   <!-- Widget configuration activity title: select a filter -->
-  <string name="WCA_title">Select tasks to view...</string>
+  <string name="WCA_title">Seleziona le attività da visualizzare...</string>
   
   <!-- ============================================================= Misc == -->
   
@@ -557,48 +560,48 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="BFE_Active">Attività in corso</string>
         
     <!-- Search Filter -->
-    <string name="BFE_Search">Search...</string>
+    <string name="BFE_Search">Cerca...</string>
     
     <!-- Recently Modified -->
     <string name="BFE_Recent">Modificato di recente</string>
     
     <!-- Build Your Own Filter -->
-    <string name="BFE_Custom">Custom Filter...</string>
+    <string name="BFE_Custom">Filtro Personalizzato...</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Saved Filters</string>
+    <string name="BFE_Saved">Filtri Salvati</string>
     
     <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">Delete Filter</string>
+    <string name="BFE_Saved_delete">Cancella Filtro</string>
 
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- Build Your Own Filter Activity Title-->
-    <string name="CFA_title">Custom Filter</string>
+    <string name="CFA_title">Filtro Personalizzato</string>
     
     <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
     <string name="CFA_filterName_hint">Name this filter to save it...</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
-    <string name="CFA_filterName_copy">Copy of %s</string>
+    <string name="CFA_filterName_copy">Copia di %s</string>
     
     <!-- Filter Starting Universe: all tasks -->
     <string name="CFA_universe_all">Attività in corso</string>
     
     <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
-    <string name="CFA_type_add">or</string>
+    <string name="CFA_type_add">o</string>
     
     <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
-    <string name="CFA_type_subtract">not</string>
+    <string name="CFA_type_subtract">non</string>
     
     <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
-    <string name="CFA_type_intersect">also</string>
+    <string name="CFA_type_intersect">anche</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">%s has criteria</string>
+    <string name="CFA_context_chain">%s ha dei criteri</string>
     
     <!-- Filter Criteria Context Menu: delete -->
-    <string name="CFA_context_delete">Delete Row</string>
+    <string name="CFA_context_delete">Cancella Riga</string>
     
     <!-- Filter Screen Help Text -->
     <string name="CFA_help">This screen lets you create a new filters. Add 
@@ -606,13 +609,13 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     then click \"View\"!</string>
     
     <!-- Filter Button: add new -->
-    <string name="CFA_button_add">Add Criteria</string>
+    <string name="CFA_button_add">Aggiungi Criteri</string>
     
     <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">View</string>
+    <string name="CFA_button_view">Visualizza</string>
     
     <!-- Filter Button: save & view filter -->
-    <string name="CFA_button_save">Save &amp; View</string>
+    <string name="CFA_button_save">Salva &amp; Visualizzazione</string>
 
     <!-- =========================================== CustomFilterCriteria == -->
         
@@ -623,18 +626,18 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
         <item>No Due Date</item>
-        <item>Yesterday</item>
+        <item>Ieri</item>
         <item>Oggi</item>
         <item>Domani</item>
         <item>Dopodomani</item>
         <item>Prossima Settimana</item>
-        <item>Next Month</item>
+        <item>Mese successivo</item>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
     <string name="CFC_importance_text">Importance at least ?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Importance...</string>        
+    <string name="CFC_importance_name">Importanza...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
     <string name="CFC_tag_text">Tagged: ?</string>
@@ -647,9 +650,9 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="CFC_tag_contains_text">Tag contains: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Title contains...</string>
+    <string name="CFC_title_contains_name">Il titolo contiene...</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">Title contains: ?</string>
+    <string name="CFC_title_contains_text">Il titolo contiene: ?</string>
     
 
 
@@ -673,10 +676,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="gcal_TEA_showCalendar_label">Apri Calendario Eventi</string>
   
   <!-- Toast when unable to open calendar event -->
-  <string name="gcal_TEA_calendar_error">Error opening event!</string>
+  <string name="gcal_TEA_calendar_error">Errore nell\'apertura dell\'evento!</string>
   
   <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
+  <string name="gcal_TEA_calendar_updated">Evento del calendario aggiornato!</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -698,13 +701,13 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
-    <string name="gtasks_FEx_list">By List</string>
+    <string name="gtasks_FEx_list">Per Lista</string>
     
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
     <!-- short help title for Gtasks -->
-    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
+    <string name="gtasks_help_title">Benvenuto a Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
     <string name="gtasks_help_body">Drag the grabber on the left side of a task 
@@ -713,7 +716,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- ============================================ GtasksLoginActivity == -->
     
     <!-- Activity Title: Gtasks Login -->    
-    <string name="gtasks_GLA_title">Log In to Google Tasks</string>
+    <string name="gtasks_GLA_title">Accedi a Google Tasks</string>
 
     <!-- Instructions: Gtasks login -->    
     <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Google Apps
@@ -764,7 +767,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="intro_click_prompt">Intro: Press me to see details</string>
   
   <!-- Task 1 Summary  -->
-  <string name="intro_task_1_summary">Create your first task</string>
+  <string name="intro_task_1_summary">Crea la tua prima attività</string>
 
   <!-- Task 1 Note -->
   <string name="intro_task_1_note">Two ways to add a task:\n
@@ -777,7 +780,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   </string>
   
   <!-- Task 2 Summary  -->
-  <string name="intro_task_2_summary">Add a widget to your desktop</string>
+  <string name="intro_task_2_summary">Aggiungi un widget sul tuo desktop</string>
 
   <!-- Task 2 Note -->
   <string name="intro_task_2_note">A desktop widget is a great way to keep 
@@ -837,7 +840,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="locale_notification">Hai $NUM corrispondenti: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
+  <string name="locale_plugin_required">Installare il plugin di Localizzazione di Astrid!</string>        
      
 
 
@@ -876,10 +879,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="producteev_PDE_task_from">from %s</string>
+    <string name="producteev_PDE_task_from">da %s</string>
     
     <!-- replacement string for task edit "Notes" when using Producteev -->
-    <string name="producteev_TEA_notes">Add a Comment</string>
+    <string name="producteev_TEA_notes">Aggiungi un Commento</string>
 
     <!-- ==================================================== Preferences == -->
 
@@ -887,43 +890,43 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_PPr_header">Producteev</string>
 
     <!-- dashboard title for producteev default dashboard  -->
-    <string name="producteev_default_dashboard">Default Workspace</string>
+    <string name="producteev_default_dashboard">Spazio di lavoro predefinito</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+    <string name="producteev_no_dashboard">Non Sincronizzare</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard">Add new Workspace...</string>
+    <string name="producteev_create_dashboard">Aggiungi un nuovo Spazio di Lavoro...</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard_name">Name for new Workspace</string>
+    <string name="producteev_create_dashboard_name">Nome per il nuovo Spazio di Lavoro</string>
 
 	<!-- preference title for default dashboard -->
-    <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
+    <string name="producteev_PPr_defaultdash_title">Spazio di lavoro predefinito</string>
 
     <!-- preference description for default dashboard (%s -> setting) -->
-    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+    <string name="producteev_PPr_defaultdash_summary">Le nuove attività verranno aggiunte a: %s</string>
 
     <!-- preference description for default dashboard (when set to 'not synchronized') -->
-    <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
+    <string name="producteev_PPr_defaultdash_summary_none">Le nuove attività non verranno sincronizzate in modo predefinito</string>
 
     <!-- ================================================= Login Activity == -->
 
     <!-- Activity Title: Producteev Login -->    
-    <string name="producteev_PLA_title">Log In to Producteev</string>
+    <string name="producteev_PLA_title">Accedi a Producteev</string>
 
     <!-- Instructions: Producteev login -->    
     <string name="producteev_PLA_body">Sign in with your existing
     Producteev account, or create a new account!</string>
 
     <!-- Producteev Terms Link -->    
-    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+    <string name="producteev_PLA_terms">Termini &amp; Condizioni</string>
 
     <!-- Sign In Button -->    
     <string name="producteev_PLA_signIn">Sign In</string>
 
     <!-- Create New User Button -->    
-    <string name="producteev_PLA_createNew">Create New User</string>
+    <string name="producteev_PLA_createNew">Crea Nuovo Utente</string>
 
     <!-- E-mail Address Label -->    
     <string name="producteev_PLA_email">E-mail</string>
@@ -935,19 +938,19 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_PLA_timezone">Timezone</string>
 
     <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+    <string name="producteev_PLA_confirmPassword">Conferma Password</string>
 
     <!-- First Name Label -->    
-    <string name="producteev_PLA_firstName">First Name</string>
+    <string name="producteev_PLA_firstName">Nome</string>
 
     <!-- Last Name Label -->    
-    <string name="producteev_PLA_lastName">Last Name</string>
+    <string name="producteev_PLA_lastName">Cognome</string>
 
     <!-- Error Message when fields aren't filled out -->    
     <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
 
     <!-- Error Message when passwords don't match -->    
-    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+    <string name="producteev_PLA_errorMatch">Errore: password diverse!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
@@ -961,13 +964,13 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_notification_text">%s tasks updated / click for more details</string>
     
     <!-- Error msg when io exception  -->
-    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+    <string name="producteev_ioerror">Errore di Connessione! Controlla la tua connessione Internet.</string>
 
     <!-- Prod Login email not specified-->
-    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+    <string name="producteev_MLA_email_empty">L\'email non è stata inserita!</string>
     
     <!-- Prod Login password not specified-->
-    <string name="producteev_MLA_password_empty">Password was not specified!</string>
+    <string name="producteev_MLA_password_empty">La password non è stata inserita!</string>
     
     <!-- ================================================ labels for layout-elements == -->
     
@@ -975,21 +978,21 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
     
     <!-- Spinner-item for unassigned tasks on taskeditactivity -->
-    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    <string name="producteev_TEA_task_unassigned">&lt;Non assegnata&gt;</string>
     
     <!-- label for dashboard-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
+    <string name="producteev_TEA_dashboard_assign_label">Assegna questa attività a questo spazio di lavoro:</string>
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
+    <string name="producteev_TEA_dashboard_default">&lt;Predefinito&gt;</string>
 
-    <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
+    <string name="CFC_producteev_in_workspace_text">Nello spazio di lavoro: ?</string>
 
-    <string name="CFC_producteev_in_workspace_name">In workspace...</string>
+    <string name="CFC_producteev_in_workspace_name">Nello spazio di lavoro...</string>
 
-    <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
+    <string name="CFC_producteev_assigned_to_text">Assegnato a: ?</string>
 
-    <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
+    <string name="CFC_producteev_assigned_to_name">Assegnato a...</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1059,7 +1062,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Ora fine silenzio</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifiche inizieranno ad apparire a partire dalle %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Notifiche inizieranno ad apparire a partire dalle % s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">Suoneria notifiche</string>
@@ -1205,7 +1208,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
       <item>La scadenza è qui!</item>
       <item>Pronto per iniziare?</item>
       <item>Hai detto che avresti fatto:</item>
-      <item>You\'re supposed to start:</item>
+      <item>Dovresti iniziare:</item>
       <item>Tempo per iniziare:</item>
       <item>E\' il momento!</item>
       <item>Scusamii! Tempo di</item>
@@ -1297,10 +1300,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   </string-array>
   
   <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
-  <string name="repeat_detail_byday">$I on $D</string>
+  <string name="repeat_detail_byday">$I su $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Every %s</string>
+  <string name="repeat_detail_duedate">Ogni %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
   <string name="repeat_detail_completion">%s after completion</string>
@@ -1355,7 +1358,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="rmilk_MLA_label">Per favore esegui l\'accesso e autorizza Astrid:</string>
 
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">Spiacenti,si è verificato un errore durante la verifica di accesso. Prova di nuovo. \n\n Messaggio di Errore: %s</string>
+    <string name="rmilk_MLA_error">Spiacenti,si è verificato un errore durante la verifica di accesso. Prova di nuovo. \n\n Messaggio di Errore:% s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     
@@ -1390,7 +1393,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="tag_FEx_header">Etichette</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Sorted By Size</string>
+  <string name="tag_FEx_by_size">Ordinati Per Dimensione</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Senza etichetta</string>
@@ -1411,7 +1414,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
 
   <!-- Toast notification that no changes have been made -->
-  <string name="TEA_no_tags_modified">No changes made</string>
+  <string name="TEA_no_tags_modified">Nessuna modifica effettuata</string>
 
   <!-- Toast notification that a tag has been deleted -->
   <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
@@ -1446,58 +1449,38 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
     
-    <!-- Resources for power pack widget -->
+  <!-- Voice Add Prompt Text -->
+  <string name="voice_create_prompt">Speak to create a task</string>
+  <string name="voice_edit_title_prompt">Speak to set task title</string>
+  <string name="voice_edit_note_prompt">Speak to set task notes</string>
     
-    <string name="PPW_widget_42_label">Astrid 4x2 (beta!)</string>
-    <string name="PPW_widget_44_label">Astrid 4x4 (beta!)</string>
-    
-    <string name="PPW_configure_title">Configure Widget</string>
-    
-    <string name="PPW_color">Widget color</string>
-    <string name="PPW_enable_calendar">Show calendar events</string>
-    <string name="PPW_disable_encouragements">Hide encouragements</string>
-    <string name="PPW_filter">Select Filter</string>
-    
-    <string name="PPW_due">Due:</string>
-    <string name="PPW_past_due">Past Due:</string>
-    
-    <string-array name="PPW_encouragements">
-        <!-- general encouragements -->
-    	<item>Hi there!</item>
-    	<item>Have time to finish something?</item>
-    	<item>Gosh, you are looking suave today!</item>
-    	<item>Do something great today!</item>
-    	<item>Make me proud today!</item>
-    	<item>How are you doing today?</item>
-    </string-array>
-    
-    <string-array name="PPW_encouragements_tod">
-        <!-- encouragements based on time of day -->
-    	<item>Good morning!</item>
-    	<item>Good afternoon!</item>
-    	<item>Good evening!</item>
-    	<item>Late night?</item>
-    	<item>It\s early, get something done!</item>
-    	<item>Afternoon tea, perhaps?</item>
-    	<item>Enjoy the evening!</item>
-    	<item>Sleep is good for you, you know!</item>
-    </string-array>
-    
-    <string-array name="PPW_encouragements_completed">
-        <!-- encouragements based on tasks completed (%d => completed) -->
-    	<item>You\'ve already completed %d tasks!</item>
-    	<item>Score in life: %d tasks completed</item>
-    	<item>Smile! You\'ve already finished %d tasks!</item>
-    </string-array>
-    
-    <string name="PPW_encouragements_completed"/>
-    
-    <string-array name="PPW_colors">
-        <item>Black</item>
-        <item>White</item>
-        <item>Blue</item>
-        <item>Red</item>
-    </string-array>
+  <!-- Preference: Task List recognition-service is not installed, but available -->
+  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
+  <!-- Preference: Task List recognition-service is not available for this system -->
+  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
+  <!-- Preference: Market is not available for this system -->
+  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
+  <!-- Preference: Task List Show Voice-button if recognition-service is available -->
+  <string name="EPr_voiceInputEnabled_title">Voice Input</string>
+  <!-- Preference: voice button description (true) -->
+  <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
+  <!-- Preference: voice button description (false) -->
+  <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
+  <!-- Preference: Task List Voice-button directly creates tasks -->
+  <string name="EPr_voiceInputCreatesTask_title">Directly Create Tasks</string>
+  <!-- Preference: Task List Voice-creation description (true) -->
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
+  <!-- Preference: Task List Voice-creation description (false) -->
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
+  <!-- Preference: Voice reminders if TTS-service is available -->
+  <string name="EPr_voiceRemindersEnabled_title">Voice Reminders</string>
+  <!-- Preference: Voice reminders description (true) -->
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
+  <!-- Preference: Voice reminders description (false) -->
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
+  
+  <!-- Preference Category: Voice Title -->
+  <string name="EPr_voice_header">Voice Input Settings</string>
     
 
 </resources>

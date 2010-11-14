@@ -391,10 +391,10 @@
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_no_addons">No se han encontrado complementos!</string>
+  <string name="TEA_addons_text">Looking for more features?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Obtener algunos complementos</string>
+  <string name="TEA_addons_button">Get the Power Pack!</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -418,7 +418,7 @@
   <string name="UpS_changelog_title">¿Que hay de nuevo en Astrid?</string>
   
   <!-- Updates Window Title -->
-  <string name="UpS_updates_title">Latest Astrid News</string>
+  <string name="UpS_updates_title">Últimas Noticias de Astrid</string>
   
   <!-- ================================================== EditPreferences == -->
     
@@ -518,6 +518,9 @@
   
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
+  
+  <!-- Add-on Activity - when list is empty -->
+  <string name="AOA_no_addons">Empty List!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -700,7 +703,7 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
     <!-- short help title for Gtasks -->
-    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
+    <string name="gtasks_help_title">Bienvenido a Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
     <string name="gtasks_help_body">Drag the grabber on the left side of a task 
@@ -760,7 +763,7 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
   <string name="intro_click_prompt">Intro: Press me to see details</string>
   
   <!-- Task 1 Summary  -->
-  <string name="intro_task_1_summary">Create your first task</string>
+  <string name="intro_task_1_summary">Crea su primera tarea</string>
 
   <!-- Task 1 Note -->
   <string name="intro_task_1_note">Two ways to add a task:\n
@@ -1441,58 +1444,38 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
     
-    <!-- Resources for power pack widget -->
+  <!-- Voice Add Prompt Text -->
+  <string name="voice_create_prompt">Speak to create a task</string>
+  <string name="voice_edit_title_prompt">Speak to set task title</string>
+  <string name="voice_edit_note_prompt">Speak to set task notes</string>
     
-    <string name="PPW_widget_42_label">Astrid 4x2 (beta!)</string>
-    <string name="PPW_widget_44_label">Astrid 4x4 (beta!)</string>
-    
-    <string name="PPW_configure_title">Configurar widget</string>
-    
-    <string name="PPW_color">Color del widget</string>
-    <string name="PPW_enable_calendar">Mostrar eventos del calendario</string>
-    <string name="PPW_disable_encouragements">Ocultar estímulos</string>
-    <string name="PPW_filter">Seleccionar filtro</string>
-    
-    <string name="PPW_due">Vencimiento:</string>
-    <string name="PPW_past_due">Vencido:</string>
-    
-    <string-array name="PPW_encouragements">
-        <!-- general encouragements -->
-    	<item>Hi there!</item>
-    	<item>Tiene tiempo para acabar una cosa?</item>
-    	<item>Vaya, se le ve muy tranquilo hoy!</item>
-    	<item>Do something great today!</item>
-    	<item>Make me proud today!</item>
-    	<item>How are you doing today?</item>
-    </string-array>
-    
-    <string-array name="PPW_encouragements_tod">
-        <!-- encouragements based on time of day -->
-    	<item>Good morning!</item>
-    	<item>Good afternoon!</item>
-    	<item>Good evening!</item>
-    	<item>Late night?</item>
-    	<item>It\s early, get something done!</item>
-    	<item>Afternoon tea, perhaps?</item>
-    	<item>Enjoy the evening!</item>
-    	<item>Sleep is good for you, you know!</item>
-    </string-array>
-    
-    <string-array name="PPW_encouragements_completed">
-        <!-- encouragements based on tasks completed (%d => completed) -->
-    	<item>You\'ve already completed %d tasks!</item>
-    	<item>Score in life: %d tasks completed</item>
-    	<item>Smile! You\'ve already finished %d tasks!</item>
-    </string-array>
-    
-    <string name="PPW_encouragements_completed"/>
-    
-    <string-array name="PPW_colors">
-        <item>Black</item>
-        <item>White</item>
-        <item>Blue</item>
-        <item>Red</item>
-    </string-array>
+  <!-- Preference: Task List recognition-service is not installed, but available -->
+  <string name="EPr_voiceInputInstall_dlg">La entrada de datos por voz no está instalada.\nDesea ir al market e instalarla?</string>
+  <!-- Preference: Task List recognition-service is not available for this system -->
+  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
+  <!-- Preference: Market is not available for this system -->
+  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
+  <!-- Preference: Task List Show Voice-button if recognition-service is available -->
+  <string name="EPr_voiceInputEnabled_title">Voice Input</string>
+  <!-- Preference: voice button description (true) -->
+  <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
+  <!-- Preference: voice button description (false) -->
+  <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
+  <!-- Preference: Task List Voice-button directly creates tasks -->
+  <string name="EPr_voiceInputCreatesTask_title">Directly Create Tasks</string>
+  <!-- Preference: Task List Voice-creation description (true) -->
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
+  <!-- Preference: Task List Voice-creation description (false) -->
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
+  <!-- Preference: Voice reminders if TTS-service is available -->
+  <string name="EPr_voiceRemindersEnabled_title">Voice Reminders</string>
+  <!-- Preference: Voice reminders description (true) -->
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
+  <!-- Preference: Voice reminders description (false) -->
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
+  
+  <!-- Preference Category: Voice Title -->
+  <string name="EPr_voice_header">Voice Input Settings</string>
     
 
 </resources>
