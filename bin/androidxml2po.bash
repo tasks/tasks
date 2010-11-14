@@ -55,7 +55,12 @@ android_xml_filenames="strings"
 #Location of xml2po
 xml2po="`dirname $0`/xml2po.py"
 catxml="`dirname $0`/catxml"
-xmlfiles= "${android_xml_files_res_dir}"/"${resource_file}"-*.xml ../astridApi/res/values/${resource_file}*.xml ../astrid-plugins/astrid-power-pack/res/values/${resource_file}*.xml
+
+function cat_all_xml() {
+    ${catxml} "${android_xml_files_res_dir}"/"${resource_file}"-*.xml ../astridApi/res/values/${resource_file}*.xml \
+        ../astrid-plugins/astrid-power-pack/res/values/${resource_file}*.xml \
+        > "${launchpad_pot_file_dir}/${resource_file}".xml
+}
 
 function import_po2xml
 {
@@ -78,7 +83,7 @@ function export_xml2po
 {
     for resource_file in $android_xml_filenames; do
         echo "Concatenating strings into single XML"
-        ${catxml} $xmlfiles > "${launchpad_pot_file_dir}/${resource_file}".xml
+        cat_all_xml
         echo "Exporting .xml to .pot: $resource_file"
         ${xml2po} -a -l en -o \
             "${launchpad_pot_file_dir}/${resource_file}".pot \
@@ -100,7 +105,7 @@ function export_pot
 {
     for resource_file in $android_xml_filenames; do
         echo "Concatenating strings into single XML"
-        ${catxml} $xmlfiles > "${launchpad_pot_file_dir}/${resource_file}".xml
+        cat_all_xml
         echo "Exporting .xml to .pot: $resource_file"
         ${xml2po} -a -l en -o \
             "${launchpad_pot_file_dir}/${resource_file}".pot \
