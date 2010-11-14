@@ -1096,7 +1096,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
   <string name="rmd_EPr_defaultRemind_desc_disabled">新規タスクにランダムな通知を設定しません</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">新規タスクにランダムな通知を設定します:</string>
+  <string name="rmd_EPr_defaultRemind_desc">新規タスクにランダムな通知を設定します:%s</string>
   
   <!-- Defaults Title -->
   <string name="rmd_EPr_defaults_header">タスクのデフォルト設定</string>
