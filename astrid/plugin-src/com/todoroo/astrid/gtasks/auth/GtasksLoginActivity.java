@@ -47,6 +47,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.GtasksBackgroundService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncBackgroundService;
 import com.todoroo.gtasks.GoogleConnectionManager;
@@ -64,6 +65,10 @@ public class GtasksLoginActivity extends Activity {
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
     // --- ui initialization
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     public GtasksLoginActivity() {
         super();

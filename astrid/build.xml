@@ -99,7 +99,13 @@
       <echo>====== context classes without setContext =====</echo>
       <exec executable="sh">
         <arg value="-c" />
-        <arg value="cd bin/source; grep -L '\(setContext\|DependencyInjectionService\)' `grep -l -R '^\(public\).*class .* \(Activity\|Service\|BroadcastReceiver\)' .`" />
+        <arg value="cd bin/source; grep -L '\(setContext\|DependencyInjectionService\)' `grep -l -R '^\(public\).*class .* \(Activity\|Service\|BroadcastReceiver\)' .` | grep -v '.*\(CriteriaExposer\|DetailExposer\|Plugin\).java$'" />
+      </exec>
+      <echo />
+      <echo>====== entry points without initializing Astrid DI =====</echo>
+      <exec executable="sh">
+        <arg value="-c" />
+        <arg value="cd bin/source; grep -L '\(AstridDependencyInjector\)' $(grep -l '@Autowired' `grep -l -R '^\(public\).*class .* \(Activity\|Service\|BroadcastReceiver\)' .`)" />
       </exec>
     </target>
 

@@ -14,6 +14,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.SyncAction;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.sync.SyncBackgroundService;
 
 /**
@@ -23,6 +24,10 @@ import com.todoroo.astrid.sync.SyncBackgroundService;
 public class GtasksSyncActionExposer extends BroadcastReceiver {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {

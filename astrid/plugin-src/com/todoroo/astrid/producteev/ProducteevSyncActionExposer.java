@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.SyncAction;
 
@@ -20,6 +21,7 @@ public class ProducteevSyncActionExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        ContextManager.setContext(context);
         // if we aren't logged in, don't expose sync action
         if(!ProducteevUtilities.INSTANCE.isLoggedIn())
             return;

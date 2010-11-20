@@ -31,6 +31,7 @@ import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Exposes filters based on lists
@@ -42,6 +43,10 @@ public class GtasksFilterExposer extends BroadcastReceiver {
 
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     private StoreObject[] lists;
 

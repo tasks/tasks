@@ -13,6 +13,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Exposes Task Details for Google TAsks:
@@ -28,6 +29,10 @@ public class GtasksDetailExposer extends BroadcastReceiver {
     @Autowired private GtasksMetadataService gtasksMetadataService;
     @Autowired private GtasksListService gtasksListService;
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     public GtasksDetailExposer() {
         DependencyInjectionService.getInstance().inject(this);
