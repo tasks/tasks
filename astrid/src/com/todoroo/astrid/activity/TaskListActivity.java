@@ -180,10 +180,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         AstridDependencyInjector.initialize();
     }
 
-    public TaskListActivity() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
     /**
      * @return view to attach to the body of the task list. must contain two
      * elements, a view with id android:id/empty and a list view with id
@@ -199,6 +195,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     /**  Called when loading up the activity */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        DependencyInjectionService.getInstance().inject(this);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
 
