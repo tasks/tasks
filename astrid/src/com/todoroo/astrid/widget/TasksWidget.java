@@ -97,9 +97,17 @@ public class TasksWidget extends AppWidgetProvider {
         TaskService taskService;
 
         @Override
-        public void onStart(Intent intent, int startId) {
+        public void onStart(final Intent intent, int startId) {
             ContextManager.setContext(this);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    startServiceInBackgroundThread(intent);
+                }
+            }).start();
+        }
 
+        public void startServiceInBackgroundThread(Intent intent) {
             ComponentName thisWidget = new ComponentName(this,
                     TasksWidget.class);
             AppWidgetManager manager = AppWidgetManager.getInstance(this);
@@ -117,6 +125,8 @@ public class TasksWidget extends AppWidgetProvider {
                 RemoteViews updateViews = buildUpdate(this, id);
                 manager.updateAppWidget(id, updateViews);
             }
+
+            stopSelf();
         }
 
         @Override
