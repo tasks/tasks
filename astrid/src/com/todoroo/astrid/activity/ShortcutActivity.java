@@ -70,6 +70,7 @@ public class ShortcutActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ContextManager.setContext(this);
 
         launchTaskList(getIntent());
     }

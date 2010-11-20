@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -78,6 +79,7 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        ContextManager.setContext(context);
         // if we aren't logged in, don't expose features
         if(!ProducteevUtilities.INSTANCE.isLoggedIn())
             return;

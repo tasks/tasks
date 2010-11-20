@@ -7,12 +7,14 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 
 public class BackupActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ContextManager.setContext(this);
         setContentView(R.layout.backup_activity);
         setTitle(R.string.backup_BAc_title);
 

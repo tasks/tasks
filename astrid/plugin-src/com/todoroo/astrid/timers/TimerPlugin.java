@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.Query;
@@ -27,6 +28,7 @@ public class TimerPlugin extends BroadcastReceiver {
     @Override
     @SuppressWarnings("nls")
     public void onReceive(Context context, Intent intent) {
+        ContextManager.setContext(context);
         Addon plugin = new Addon(IDENTIFIER, "Timer", "Todoroo",
                 "Lets you time how long it takes to complete tasks.");
 

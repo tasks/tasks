@@ -8,6 +8,7 @@ import com.commonsware.cwac.tlv.TouchListView.SwipeListener;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.DraggableTaskListActivity;
@@ -24,6 +25,7 @@ public class GtasksListActivity extends DraggableTaskListActivity {
     @Override
     public void onCreate(Bundle icicle) {
         super.onCreate(icicle);
+        DependencyInjectionService.getInstance().inject(this);
 
         getTouchListView().setDropListener(dropListener);
         getTouchListView().setSwipeListener(swipeListener);

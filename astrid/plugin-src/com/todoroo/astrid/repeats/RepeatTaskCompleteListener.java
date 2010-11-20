@@ -16,6 +16,7 @@ import com.google.ical.values.DateValue;
 import com.google.ical.values.DateValueImpl;
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
@@ -25,6 +26,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        ContextManager.setContext(context);
         long taskId = intent.getLongExtra(AstridApiConstants.EXTRAS_TASK_ID, -1);
         if(taskId == -1)
             return;
