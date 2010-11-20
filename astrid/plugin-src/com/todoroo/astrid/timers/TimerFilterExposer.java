@@ -11,6 +11,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.activity.FilterListActivity;
@@ -30,7 +31,7 @@ public final class TimerFilterExposer extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
-
+        ContextManager.setContext(context);
         if(PluginServices.getTaskService().count(Query.select(Task.ID).
                 where(Task.TIMER_START.gt(0))) == 0)
             return;

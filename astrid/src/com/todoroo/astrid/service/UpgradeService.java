@@ -110,15 +110,17 @@ public final class UpgradeService {
             });
         } else {
             // current message
-            newVersionString(changeLog, "3.6.0 (11/13/10)", new String[] {
-                    "Astrid Power Pack is now launched to the Android Market. " +
-                        "New Power Pack features include 4x2 and 4x4 widgets and voice " +
-                        "task reminders and creation. Go to the add-ons page to find out more!",
-                    "Fix for Google Tasks: due times got lost on sync, repeating tasks not repeated",
-                    "Fix for task alarms not always firing if multiple set",
-                    "Fix for various force closes",
-            });
-            upgrade3To3_6(context);
+            if(from < V3_6_0) {
+                newVersionString(changeLog, "3.6.0 (11/13/10)", new String[] {
+                        "Astrid Power Pack is now launched to the Android Market. " +
+                            "New Power Pack features include 4x2 and 4x4 widgets and voice " +
+                            "task reminders and creation. Go to the add-ons page to find out more!",
+                        "Fix for Google Tasks: due times got lost on sync, repeating tasks not repeated",
+                        "Fix for task alarms not always firing if multiple set",
+                        "Fix for various force closes",
+                });
+                upgrade3To3_6(context);
+            }
 
             // old messages
             if(from >= V3_0_0 && from < V3_5_0)

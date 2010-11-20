@@ -8,14 +8,18 @@ import java.util.HashMap;
 import java.util.TreeSet;
 
 import android.app.Activity;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.ContentValues;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -29,6 +33,7 @@ import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.tags.TagService.Tag;
 
 /**
@@ -141,8 +146,11 @@ public class TagFilterExposer extends BroadcastReceiver {
 
         protected String tag;
 
-        @Autowired
-        public TagService tagService;
+        @Autowired public TagService tagService;
+
+        static {
+            AstridDependencyInjector.initialize();
+        }
 
         protected TagActivity() {
             DependencyInjectionService.getInstance().inject(this);

@@ -10,6 +10,7 @@ import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
@@ -35,6 +36,7 @@ public final class CoreFilterExposer extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Resources r = context.getResources();
+        ContextManager.setContext(context);
 
         // core filters
         Filter inbox = buildInboxFilter(r);

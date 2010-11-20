@@ -1,11 +1,15 @@
 package com.todoroo.astrid.producteev;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.drawable.BitmapDrawable;
+
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
@@ -22,9 +26,6 @@ import com.todoroo.astrid.producteev.sync.ProducteevDashboard;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.producteev.sync.ProducteevUser;
-
-import java.util.Set;
-import java.util.TreeSet;
 
 public class ProducteevCustomFilterCriteriaExposer extends BroadcastReceiver {
     private static final String IDENTIFIER_PRODUCTEEV_WORKSPACE = "producteev_workspace"; //$NON-NLS-1$

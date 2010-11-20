@@ -16,8 +16,8 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.text.TextUtils;
 
 import com.timsu.astrid.R;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -111,26 +111,17 @@ public class UpdateMessageService {
             String date = update.optString("date", null);
             String message = update.optString("message", null);
             String plugin = update.optString("plugin", null);
+            String notPlugin = update.optString("notplugin", null);
 
             if(message == null)
                 continue;
             if(plugin != null) {
-                // handle internal plugin specially
-                if(PLUGIN_PDV.equals(plugin)) {
-                    if(!ProducteevUtilities.INSTANCE.isLoggedIn())
-                        continue;
-                }
-                else if(PLUGIN_GTASKS.equals(plugin)) {
-                    if(!gtasksPreferenceService.isLoggedIn())
-                        continue;
-                }
-                else if(PLUGIN_RMILK.equals(plugin)) {
-                    if(!MilkUtilities.INSTANCE.isLoggedIn())
-                        continue;
-                }
-                else if(!addOnService.isInstalled(plugin)) {
+                if(pluginConditionMatches(plugin))
                     continue;
-                }
+            }
+            if(notPlugin != null) {
+                if(!pluginConditionMatches(notPlugin))
+                    continue;
             }
 
             if(messageAlreadySeen(date, message))
@@ -142,6 +133,21 @@ public class UpdateMessageService {
             builder.append("<br /><br />");
         }
         return builder;
+    }
+
+    private boolean pluginConditionMatches(String plugin) {
+        // handle internal plugin specially
+        if(PLUGIN_PDV.equals(plugin)) {
+            return ProducteevUtilities.INSTANCE.isLoggedIn();
+        }
+        else if(PLUGIN_GTASKS.equals(plugin)) {
+            return gtasksPreferenceService.isLoggedIn();
+        }
+        else if(PLUGIN_RMILK.equals(plugin)) {
+            return !MilkUtilities.INSTANCE.isLoggedIn();
+        }
+        else
+            return addOnService.isInstalled(plugin);
     }
 
     private boolean messageAlreadySeen(String date, String message) {

@@ -23,6 +23,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.activity.TaskListActivity;
 
 /**
@@ -40,6 +41,7 @@ public class TaskList extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ContextManager.setContext(this);
 
         launchTaskList(getIntent());
     }
