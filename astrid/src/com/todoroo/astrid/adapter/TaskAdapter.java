@@ -17,18 +17,18 @@ import android.database.Cursor;
 import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.text.Html.ImageGetter;
-import android.text.Html.TagHandler;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.Html.ImageGetter;
+import android.text.Html.TagHandler;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -419,9 +419,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             TodorooCursor<Task> fetchCursor = taskService.fetchFiltered(
                     query.get(), null, Task.ID, Task.DETAILS, Task.DETAILS_DATE,
                     Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
-            activity.startManagingCursor(fetchCursor);
-            Random random = new Random();
             try {
+                activity.startManagingCursor(fetchCursor);
+                Random random = new Random();
+
                 Task task = new Task();
                 for(fetchCursor.moveToFirst(); !fetchCursor.isAfterLast(); fetchCursor.moveToNext()) {
                     task.clear();
@@ -454,6 +455,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 }
             } catch (Exception e) {
                 // suppress silently
+            } finally {
+                fetchCursor.close();
             }
         }
 
