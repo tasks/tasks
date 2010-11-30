@@ -229,24 +229,28 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 JSONArray labels = invoker.labelsShowList(dashboardId, null);
                 readLabels(labels);
 
-                JSONArray tasks = invoker.tasksShowList(dashboardId, lastServerSync);
-                for(int i = 0; i < tasks.length(); i++) {
-                    ProducteevTaskContainer remote = parseRemoteTask(tasks.getJSONObject(i));
-                    // update reminder flags for incoming remote tasks to prevent annoying
-                    if(remote.task.hasDueDate() && remote.task.getValue(Task.DUE_DATE) < DateUtilities.now())
-                        remote.task.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
-                    boolean foundLocal = dataService.findLocalMatch(remote);
+                try {
+                    // This invocation throws ApiServiceException for workspaces that need to be upgraded
+                    JSONArray tasks = invoker.tasksShowList(dashboardId, lastServerSync);
+                    for(int i = 0; i < tasks.length(); i++) {
+                        ProducteevTaskContainer remote = parseRemoteTask(tasks.getJSONObject(i));
+                        // update reminder flags for incoming remote tasks to prevent annoying
+                        if(remote.task.hasDueDate() && remote.task.getValue(Task.DUE_DATE) < DateUtilities.now())
+                            remote.task.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
+                        boolean foundLocal = dataService.findLocalMatch(remote);
 
-                    // if creator & responsible != current user, skip / delete it
-                    if(userId != remote.pdvTask.getValue(ProducteevTask.CREATOR_ID) &&
-                            userId != remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID)) {
-                        if(foundLocal)
-                            remote.task.setValue(Task.DELETION_DATE, DateUtilities.now());
+                        // if creator & responsible != current user, set it to readonly
+                        if(userId != remote.pdvTask.getValue(ProducteevTask.CREATOR_ID) &&
+                              userId != remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID))
+                            remote.task.setFlag(Task.FLAGS, Task.FLAG_IS_READONLY, true);
                         else
-                            continue;
-                    }
+                            remote.task.setFlag(Task.FLAGS, Task.FLAG_IS_READONLY, false);
 
-                    remoteTasks.add(remote);
+                        remoteTasks.add(remote);
+                    }
+                } catch (ApiServiceException ase) {
+                    // catch it here, so that other dashboards can still be synchronized
+                    handleException("pdv-sync", ase, true); //$NON-NLS-1$
                 }
             }
 
