@@ -27,16 +27,15 @@ import java.util.LinkedList;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.TabActivity;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -49,11 +48,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
@@ -64,7 +63,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -89,6 +87,7 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagsControlSet;
 import com.todoroo.astrid.timers.TimerControlSet;
+import com.todoroo.astrid.ui.CalendarDialog;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
@@ -182,6 +181,8 @@ public final class TaskEditActivity extends TabActivity {
     private VoiceInputAssistant voiceNoteAssistant = null;
 
     private EditText notesEditText;
+
+    private boolean cancelled = false;
 
     /* ======================================================================
      * ======================================================= initialization
@@ -796,7 +797,7 @@ public final class TaskEditActivity extends TabActivity {
     // --- UrgencyControlSet
 
     private class UrgencyControlSet implements TaskEditControlSet,
-            OnItemSelectedListener, OnDeadlineTimeSetListener, OnDateSetListener,
+            OnItemSelectedListener, OnDeadlineTimeSetListener,
             OnCancelListener {
 
         private static final int SPECIFIC_DATE = -1;
@@ -918,10 +919,30 @@ public final class TaskEditActivity extends TabActivity {
                 customSetting = item.setting;
                 customDate = new Date(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
                 customDate.setSeconds(0);
-                DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
-                        this, 1900 + customDate.getYear(), customDate.getMonth(), customDate.getDate());
-                datePicker.setOnCancelListener(this);
-                datePicker.show();
+                /***** Calendar Dialog Changes -- Start *****/
+                final CalendarDialog calendarDialog = new CalendarDialog(TaskEditActivity.this, customDate);
+                calendarDialog.show();
+                calendarDialog.setOnDismissListener(new OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface arg0) {
+                        if (!cancelled) {
+                            setDate(calendarDialog);
+                        }
+                        cancelled = false;
+                    }
+                });
+
+                calendarDialog.setOnCancelListener(new OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface arg0) {
+                        cancelled = true;
+                    }
+                });
+                /***** Calendar Dialog Changes -- End *****/
+//                DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
+//                        this, 1900 + customDate.getYear(), customDate.getMonth(), customDate.getDate());
+//                datePicker.setOnCancelListener(this);
+//                datePicker.show();
 
                 spinner.setSelection(previousSetting);
             } else {
@@ -938,7 +959,31 @@ public final class TaskEditActivity extends TabActivity {
         Date customDate;
         int customSetting;
 
-        public void onDateSet(DatePicker view, int year, int month, int monthDay) {
+        private void setDate(CalendarDialog calendarDialog) {
+            customDate = calendarDialog.getCalendarDate();
+            customDate.setMinutes(0);
+
+            if(customSetting != Task.URGENCY_SPECIFIC_DAY_TIME) {
+                customDateFinished();
+                return;
+            }
+
+            boolean specificTime = existingDateHour != SPECIFIC_DATE;
+            if(existingDateHour < 0) {
+                existingDateHour = customDate.getHours();
+                existingDateMinutes= customDate.getMinutes();
+            }
+
+            DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(TaskEditActivity.this, this,
+                    existingDateHour, existingDateMinutes,
+                    DateUtilities.is24HourFormat(TaskEditActivity.this),
+                    specificTime);
+
+            timePicker.setOnCancelListener(this);
+            timePicker.show();
+        }
+
+        /*public void onDateSet(DatePicker view, int year, int month, int monthDay) {
             customDate.setYear(year - 1900);
             customDate.setMonth(month);
             customDate.setDate(monthDay);
@@ -962,7 +1007,7 @@ public final class TaskEditActivity extends TabActivity {
 
             timePicker.setOnCancelListener(this);
             timePicker.show();
-        }
+        }*/
 
         public void onTimeSet(TimePicker view, boolean hasTime, int hourOfDay, int minute) {
             if(!hasTime)
@@ -1013,7 +1058,7 @@ public final class TaskEditActivity extends TabActivity {
      *
      */
     private class HideUntilControlSet implements TaskEditControlSet,
-            OnItemSelectedListener, OnDateSetListener, OnCancelListener,
+            OnItemSelectedListener, OnCancelListener,
             OnDeadlineTimeSetListener {
 
         private static final int SPECIFIC_DATE = -1;
@@ -1103,10 +1148,31 @@ public final class TaskEditActivity extends TabActivity {
             if(item.date == SPECIFIC_DATE) {
                 customDate = new Date(existingDate == EXISTING_TIME_UNSET ? DateUtilities.now() : existingDate);
                 customDate.setSeconds(0);
-                DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
+
+                /***** Calendar Dialog Changes -- Start *****/
+                final CalendarDialog calendarDialog = new CalendarDialog(TaskEditActivity.this, customDate);
+                calendarDialog.show();
+                calendarDialog.setOnDismissListener(new OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface arg0) {
+                        if (!cancelled) {
+                            setDate(calendarDialog);
+                        }
+                        cancelled = false;
+                    }
+                });
+
+                calendarDialog.setOnCancelListener(new OnCancelListener() {
+                    @Override
+                    public void onCancel(DialogInterface arg0) {
+                        cancelled = true;
+                    }
+                });
+                /***** Calendar Dialog Changes -- End *****/
+                /*DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
                         this, 1900 + customDate.getYear(), customDate.getMonth(), customDate.getDate());
                 datePicker.setOnCancelListener(this);
-                datePicker.show();
+                datePicker.show();*/
 
                 spinner.setSelection(previousSetting);
             } else {
@@ -1122,7 +1188,25 @@ public final class TaskEditActivity extends TabActivity {
 
         Date customDate;
 
-        public void onDateSet(DatePicker view, int year, int month, int monthDay) {
+        private void setDate(CalendarDialog calendarDialog) {
+            customDate = calendarDialog.getCalendarDate();
+
+            boolean specificTime = existingDateHour != SPECIFIC_DATE;
+            if(existingDateHour < 0) {
+                existingDateHour = customDate.getHours();
+                existingDateMinutes= customDate.getMinutes();
+            }
+
+            DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(TaskEditActivity.this, this,
+                    existingDateHour, existingDateMinutes,
+                    DateUtilities.is24HourFormat(TaskEditActivity.this),
+                    specificTime);
+
+            timePicker.setOnCancelListener(this);
+            timePicker.show();
+        }
+
+        /*public void onDateSet(DatePicker view, int year, int month, int monthDay) {
             customDate.setYear(year - 1900);
             customDate.setMonth(month);
             customDate.setDate(monthDay);
@@ -1140,7 +1224,7 @@ public final class TaskEditActivity extends TabActivity {
 
             timePicker.setOnCancelListener(this);
             timePicker.show();
-        }
+        }*/
 
         public void onTimeSet(TimePicker view, boolean hasTime, int hourOfDay, int minute) {
             if(!hasTime) {
