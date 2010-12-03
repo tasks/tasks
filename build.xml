@@ -1,0 +1,42 @@
+<project name="astrid-project">
+
+  <taskdef resource="net/sf/antcontrib/antlib.xml">
+    <classpath>
+      <pathelement location="astrid/antlib/ant-contrib-1.0b3.jar"/>
+    </classpath>
+  </taskdef>
+
+  <target name="clean">
+    <delete dir="release" />
+  </target>
+
+  <target name="get-version">
+    <loadfile property="manifest" srcFile="astrid/AndroidManifest.xml" />
+    <propertyregex property="manifest.version.code"
+                   input="${manifest}"
+                   regexp="android:versionCode=&quot;(.*)&quot;"
+                   select="\1" />
+    <propertyregex property="manifest.version.name"
+                   input="${manifest}"
+                   regexp="android:versionName=&quot;([^&quot; ]*)"
+                   select="\1" />
+    <echo message="Astrid Project: version ${manifest.version.code}, named ${manifest.version.name}" />
+  </target>
+
+  <target name="release" depends="clean,get-version">    
+    <subant target="release">
+      <fileset file="astrid/build.xml" />
+    </subant>
+
+    <!-- custom builds -->
+    <for list="getjar,amazon,verizon,sprint,orange,vodafone,other" param="name">
+      <sequential>
+        <subant target="release-custom">
+          <fileset file="astrid/build.xml" />
+          <property name="custom.version.name" value="@{name}" />
+        </subant>
+      </sequential>
+    </for>
+  </target>
+</project>
+

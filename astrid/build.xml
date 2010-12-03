@@ -95,30 +95,67 @@
       <echo message="Astrid: version ${manifest.version.code}, named ${manifest.version.name}" />
     </target>
       
+    <!-- check for files with warnings -->
     <target name="warnings">
       <echo>====== context classes without setContext =====</echo>
       <exec executable="sh">
         <arg value="-c" />
-        <arg value="cd bin/source; grep -L '\(setContext\|DependencyInjectionService\)' `grep -l -R '^\(public\).*class .* \(Activity\|Service\|BroadcastReceiver\)' .` | grep -v '.*\(CriteriaExposer\|DetailExposer\|Plugin\).java$'" />
+        <arg value="cd bin/source; grep -L '\(setContext\|DependencyInjectionService\)' `grep -l -R '^\(public\).*class .* \(Activity\|Service\|BroadcastReceiver\)' .` | grep -v '.*\(CriteriaExposer\|DetailExposer\|Plugin\).java$' | grep -v rmilk" />
       </exec>
       <echo />
       <echo>====== entry points without initializing Astrid DI =====</echo>
       <exec executable="sh">
         <arg value="-c" />
-        <arg value="cd bin/source; grep -L '\(AstridDependencyInjector\)' $(grep -l '@Autowired' `grep -l -R '^\(public\).*class .* \(Activity\|Service\|BroadcastReceiver\)' .`)" />
+        <arg value="cd bin/source; grep -L '\(AstridDependencyInjector\)' $(grep -l '@Autowired' `grep -l -R '^\(public\).*class .* \(Activity\|Service\|BroadcastReceiver\)' .`) | grep -v rmilk" />
       </exec>
     </target>
 
     <!-- post build: rename apk -->
     <target name="release" depends="get-version, warnings, android_rules.release">
-      <property name="out.release.package"
-                location="${out.absolute.dir}/${ant.project.name}-release.apk" />
+      <mkdir dir="../release" />
       <property name="out.final.package"
-                  location="${out.absolute.dir}/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
+                location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
+      <antcall target="signjar">
+        <param name="source"
+               value="${out.absolute.dir}/${ant.project.name}-unsigned.apk" />
+        <param name="dest"
+               value="${out.final.package}" />
+      </antcall>
 
-      <move file="${out.release.package}" tofile="${out.final.package}" />
       <echo>Final Release Package: ${out.final.package}</echo>
     </target>
 
+    <!-- jar signing -->
+    <target name="signjar" description="signs the jar">
+      <fail unless="source" message="need {source} to sign (jar base name)" />
+      <property file="${signjar.passfile}" /> <echo message="${signjar.passfile}" />
+      <signjar alias="${signjar.keyalias}" keystore="${signjar.keystore}"
+               storepass="${signjar.password}" jar="${source}"
+               signedjar="${source}-unaligned" />
+      <exec executable="${sdk.dir}/tools/zipalign" failonerror="true">
+        <arg value="-f" />
+        <arg value="4" />
+        <arg value="${source}-unaligned" />
+        <arg value="${dest}" />
+      </exec>
+    </target>
+
+    <!-- build custom release package with updated version name -->
+    <target name="release-custom">
+      <fail message="need to set custom.version.name">
+        <condition>
+          <not>
+            <isset property="custom.version.name" />
+          </not>
+        </condition>
+      </fail>
+      <copy file="AndroidManifest.xml" tofile="AndroidManifest_old.xml" />
+      <replaceregexp file="AndroidManifest.xml"
+                     match="(android:versionName=&quot;[^&quot; ]*)[^&quot;]*"
+                     replace="\1-${custom.version.name}" />
+      <antcall target="release" />
+
+      <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />
+    </target>
 
 </project>

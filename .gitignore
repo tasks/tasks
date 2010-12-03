@@ -6,6 +6,7 @@ gen
 local.properties
 ecbuild
 astrid/bin
+release
 dev
 lp-translations/
 translations/strings.xml
