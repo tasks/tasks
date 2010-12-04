@@ -36,6 +36,7 @@ public class CalendarView extends View {
 	private Paint whiteRightAlignPaint;
 	private Paint dayPaint;
 	private Paint calendarPaint;
+	private float density;
 
 	private int leftArrowHeight;
 	private int leftArrowWidth;
@@ -86,6 +87,7 @@ public class CalendarView extends View {
 
         DisplayMetrics metrics = new DisplayMetrics();
         display.getMetrics(metrics);
+        density = metrics.density;
 
     	borderPaint = new Paint();
     	borderPaint.setAntiAlias(true);
@@ -94,7 +96,7 @@ public class CalendarView extends View {
     	borderRightAlignPaint = new Paint();
     	borderRightAlignPaint.setAntiAlias(true);
     	borderRightAlignPaint.setColor(Color.BLACK);
-    	borderRightAlignPaint.setTextSize(TEXT_SIZE);
+    	borderRightAlignPaint.setTextSize(TEXT_SIZE * density);
     	borderRightAlignPaint.setTextAlign(Paint.Align.RIGHT);
 
     	dayPaint = new Paint();
@@ -109,13 +111,13 @@ public class CalendarView extends View {
     	whiteCenterAlignLargePaint.setAntiAlias(true);
     	whiteCenterAlignLargePaint.setColor(Color.WHITE);
     	whiteCenterAlignLargePaint.setTextAlign(Paint.Align.CENTER);
-    	whiteCenterAlignLargePaint.setTextSize(MONTH_TEXT_SIZE * metrics.density);
+    	whiteCenterAlignLargePaint.setTextSize(MONTH_TEXT_SIZE * density);
 
     	whiteRightAlignPaint = new Paint();
     	whiteRightAlignPaint.setAntiAlias(true);
-    	whiteRightAlignPaint.setColor(Color.WHITE);
+    	whiteRightAlignPaint.setColor(Color.rgb(40, 40, 40));
     	whiteRightAlignPaint.setTextAlign(Paint.Align.RIGHT);
-    	whiteRightAlignPaint.setTextSize(TEXT_SIZE * metrics.density);
+    	whiteRightAlignPaint.setTextSize(TEXT_SIZE * density);
 
     	backColorPaint = new Paint();
     	backColorPaint.setAntiAlias(true);
@@ -206,7 +208,6 @@ public class CalendarView extends View {
         leftArrowWidth = leftArrow.getWidth();
         leftArrowX = 24;
         leftArrowY = 8 + (int)((getMeasuredHeight() * 0.2 / 2) - (leftArrowHeight/2));
-        System.out.println("Left arrow x, y, height, width : " + leftArrowX + ", " + leftArrowY + ", " + leftArrowHeight + ", " + leftArrowWidth);
         canvas.drawBitmap(leftArrow, leftArrowX, leftArrowY, null);
         // Month left arrow -- End
 
@@ -217,14 +218,13 @@ public class CalendarView extends View {
         rightArrowWidth = rightArrow.getWidth();
         rightArrowX = getMeasuredWidth() - 16 - (PADDING*3) - rightArrow.getWidth();
         rightArrowY = 8 + (int)((getMeasuredHeight() * 0.2 / 2) - (rightArrowHeight/2));
-        // System.out.println("Right arrow x, y, height, width : " + rightArrowX + ", " + rightArrowY + ", " + rightArrowHeight + ", " + rightArrowWidth);
         canvas.drawBitmap(rightArrow, rightArrowX, rightArrowY, null);
         // Month right arrow -- End
 
         // Month text -- Start
         int monthX = getMeasuredWidth() / 2;
         int monthY = (int) (getMeasuredHeight() * 0.2 / 2) + 14;
-        String monthYear = (String) DateFormat.format("MMMM yyyy", calendarDate);
+        String monthYear = (String) DateFormat.format("MMMM yyyy", calendarDate); //$NON-NLS-1$
         canvas.drawText(monthYear, monthX, monthY, whiteCenterAlignLargePaint);
         // Month text -- End
 
@@ -234,7 +234,6 @@ public class CalendarView extends View {
 
         boxWidth = (getMeasuredWidth() - 38 - (PADDING*2)) / 7;
         boxHeight = (int) (((getMeasuredHeight() - (getMeasuredHeight() * 0.2) - 16) - (PADDING * 8)) / 7);
-//        int boxHeight = boxWidth;
 
         int textX = 0;
         int textY = 0;
@@ -270,10 +269,9 @@ public class CalendarView extends View {
         int lastDateOfThisMonth = calendar.getActualMaximum(Calendar.DATE);
 
         calendar.set(Calendar.DATE, 1);
-        // SUNDAY is 1 in java.util.Calendar
+        // offset for day of week
+        calendar.add(Calendar.DATE, firstDayOfWeek - Calendar.SUNDAY);
         int firstDay = calendar.get(Calendar.DAY_OF_WEEK);
-        if(firstDayOfWeek == Calendar.SUNDAY)
-            firstDay = firstDay == Calendar.SUNDAY ? 7 : firstDay - 1;
         boolean firstTime = true;
         int dayOfMonth = 1;
         Paint colorPaint, textPaint;
