@@ -9,7 +9,7 @@
       android:layout_width="fill_parent"
       android:layout_height="fill_parent"
       android:layout_weight="1">
-      <com.company.view.CalendarView
+      <com.todoroo.astrid.ui.CalendarView
             android:id="@+id/CalendarView"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
@@ -21,9 +21,6 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:layout_weight="7">
-    <Button android:layout_width="wrap_content"
-		android:layout_height="fill_parent" android:text="Set" android:id="@+id/SetButton"
-		android:layout_weight="1" />
     <Button android:layout_width="wrap_content"
 		android:layout_height="fill_parent" android:text="Cancel" android:id="@+id/CancelButton"
 		android:layout_weight="1" />

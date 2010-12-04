@@ -1,7 +1,6 @@
 package com.todoroo.astrid.ui;
 
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -13,9 +12,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.text.format.DateFormat;
+import android.text.format.DateUtils;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.timsu.astrid.R;
 
@@ -24,12 +27,12 @@ public class CalendarView extends View {
 	private static final int PADDING = 3;
 	private final static int CURVE_RADIUS = 5;
 	private final static int TEXT_SIZE = 16;
-	private final static String[] DAYS = {"Mo", "Tu", "We", "Th", "Fr", "Sa", "Su"};
+    private static final float MONTH_TEXT_SIZE = 22;
 
 	private Paint borderPaint;
 	private Paint borderRightAlignPaint;
 	private Paint backColorPaint;
-	private Paint whiteCenterAlignPaint;
+	private Paint whiteCenterAlignLargePaint;
 	private Paint whiteRightAlignPaint;
 	private Paint dayPaint;
 	private Paint calendarPaint;
@@ -52,6 +55,16 @@ public class CalendarView extends View {
 	private Date calendarDate = new Date();
 	private int currentHighlightDay = -1;
 
+	public interface OnSelectedDateListener {
+	    public void onSelectedDate(Date date);
+	}
+	private OnSelectedDateListener onSelectedDateListener;
+
+	public void setOnSelectedDateListener(
+            OnSelectedDateListener onSelectedDateListener) {
+        this.onSelectedDateListener = onSelectedDateListener;
+    }
+
     /**
      * Constructor.  This version is only needed if you will be instantiating
      * the object manually (not from a layout XML file).
@@ -59,15 +72,21 @@ public class CalendarView extends View {
      */
     public CalendarView(Context context) {
         super(context);
-        initCalendarView();
+        initCalendarView(context);
     }
 
     public CalendarView(Context context, AttributeSet attrs) {
         super(context, attrs);
-        initCalendarView();
+        initCalendarView(context);
     }
 
-    private final void initCalendarView() {
+    private final void initCalendarView(Context context) {
+        Display display = ((WindowManager) context.getSystemService(
+                Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        display.getMetrics(metrics);
+
     	borderPaint = new Paint();
     	borderPaint.setAntiAlias(true);
     	borderPaint.setColor(Color.BLACK);
@@ -86,17 +105,17 @@ public class CalendarView extends View {
     	calendarPaint.setAntiAlias(true);
     	calendarPaint.setColor(Color.rgb(202, 201, 194));
 
-    	whiteCenterAlignPaint = new Paint();
-    	whiteCenterAlignPaint.setAntiAlias(true);
-    	whiteCenterAlignPaint.setColor(Color.WHITE);
-    	whiteCenterAlignPaint.setTextAlign(Paint.Align.CENTER);
-    	whiteCenterAlignPaint.setTextSize(TEXT_SIZE);
+    	whiteCenterAlignLargePaint = new Paint();
+    	whiteCenterAlignLargePaint.setAntiAlias(true);
+    	whiteCenterAlignLargePaint.setColor(Color.WHITE);
+    	whiteCenterAlignLargePaint.setTextAlign(Paint.Align.CENTER);
+    	whiteCenterAlignLargePaint.setTextSize(MONTH_TEXT_SIZE * metrics.density);
 
     	whiteRightAlignPaint = new Paint();
     	whiteRightAlignPaint.setAntiAlias(true);
     	whiteRightAlignPaint.setColor(Color.WHITE);
     	whiteRightAlignPaint.setTextAlign(Paint.Align.RIGHT);
-    	whiteRightAlignPaint.setTextSize(TEXT_SIZE);
+    	whiteRightAlignPaint.setTextSize(TEXT_SIZE * metrics.density);
 
     	backColorPaint = new Paint();
     	backColorPaint.setAntiAlias(true);
@@ -176,7 +195,7 @@ public class CalendarView extends View {
         canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, borderPaint);
 
         rectF.set(16, 16, getMeasuredWidth() - 16, (int)(getMeasuredHeight() * 0.2) - 1);
-        canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, backColorPaint);
+        // canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, backColorPaint);
         // Month border -- end
 
         // Month left arrow -- Start
@@ -206,7 +225,7 @@ public class CalendarView extends View {
         int monthX = getMeasuredWidth() / 2;
         int monthY = (int) (getMeasuredHeight() * 0.2 / 2) + 14;
         String monthYear = (String) DateFormat.format("MMMM yyyy", calendarDate);
-        canvas.drawText(monthYear, monthX, monthY, whiteCenterAlignPaint);
+        canvas.drawText(monthYear, monthX, monthY, whiteCenterAlignLargePaint);
         // Month text -- End
 
         // Day heading -- Start
@@ -219,15 +238,20 @@ public class CalendarView extends View {
 
         int textX = 0;
         int textY = 0;
-        for (String day : DAYS) {
+
+        Calendar calendar = Calendar.getInstance();
+        int firstDayOfWeek = calendar.getFirstDayOfWeek();
+        calendar.set(Calendar.DAY_OF_WEEK, firstDayOfWeek);
+        for(int i = 0; i < 7; i++) {
+            int dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            String day = DateUtils.getDayOfWeekString(dayOfWeek, DateUtils.LENGTH_SHORT);
+            calendar.add(Calendar.DATE, 1);
+
         	rectF.set(dayLeft, dayTop, dayLeft + boxWidth, dayTop + boxHeight);
             canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, borderPaint);
 
             rectF.set(dayLeft+1, dayTop+1, dayLeft + boxWidth - 1, dayTop + boxHeight - 1);
             canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, dayPaint);
-
-            String strDateFormat = "E";
-            SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
 
             textX = dayLeft + boxWidth - PADDING * 2;
             textY = dayTop + (boxHeight - boxHeight/8) - PADDING * 2;
@@ -238,7 +262,6 @@ public class CalendarView extends View {
         // Day heading -- End
 
         // Calendar -- Start
-        Calendar calendar = Calendar.getInstance();
         calendar.setTime(calendarDate);
 
         if (currentHighlightDay == -1) {
@@ -249,12 +272,8 @@ public class CalendarView extends View {
         calendar.set(Calendar.DATE, 1);
         // SUNDAY is 1 in java.util.Calendar
         int firstDay = calendar.get(Calendar.DAY_OF_WEEK);
-        // Setting as per our calendar, as it starts from monday and not sunday
-        if (firstDay == Calendar.SUNDAY) {
-        	firstDay = 7;
-        } else {
-        	firstDay--;
-        }
+        if(firstDayOfWeek == Calendar.SUNDAY)
+            firstDay = firstDay == Calendar.SUNDAY ? 7 : firstDay - 1;
         boolean firstTime = true;
         int dayOfMonth = 1;
         Paint colorPaint, textPaint;
@@ -371,6 +390,9 @@ public class CalendarView extends View {
 
 					calendarDate = calendar.getTime();
 		            this.invalidate();
+
+		            if(onSelectedDateListener != null)
+		                onSelectedDateListener.onSelectedDate(calendarDate);
 				}
 			}
 		}
