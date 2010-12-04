@@ -10,6 +10,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 import android.graphics.RectF;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
@@ -95,7 +96,7 @@ public class CalendarView extends View {
 
     	borderRightAlignPaint = new Paint();
     	borderRightAlignPaint.setAntiAlias(true);
-    	borderRightAlignPaint.setColor(Color.BLACK);
+    	borderRightAlignPaint.setColor(Color.WHITE);
     	borderRightAlignPaint.setTextSize(TEXT_SIZE * density);
     	borderRightAlignPaint.setTextAlign(Paint.Align.RIGHT);
 
@@ -204,21 +205,25 @@ public class CalendarView extends View {
         InputStream is = getResources().openRawResource(R.drawable.leftarrow);
         Bitmap leftArrow = BitmapFactory.decodeStream(is);
 
-        leftArrowHeight = leftArrow.getHeight();
-        leftArrowWidth = leftArrow.getWidth();
+        leftArrowHeight = (int)(leftArrow.getHeight() * density);
+        leftArrowWidth = (int)(leftArrow.getWidth() * density);
         leftArrowX = 24;
         leftArrowY = 8 + (int)((getMeasuredHeight() * 0.2 / 2) - (leftArrowHeight/2));
-        canvas.drawBitmap(leftArrow, leftArrowX, leftArrowY, null);
+        canvas.drawBitmap(leftArrow, new Rect(0,0,leftArrow.getWidth(),leftArrow.getHeight()),
+                new Rect(leftArrowX, leftArrowY, leftArrowX + leftArrowWidth,
+                        leftArrowY + leftArrowHeight), null);
         // Month left arrow -- End
 
         // Month right arrow -- Start
         is = getResources().openRawResource(R.drawable.rightarrow);
         Bitmap rightArrow = BitmapFactory.decodeStream(is);
-        rightArrowHeight = rightArrow.getHeight();
-        rightArrowWidth = rightArrow.getWidth();
+        rightArrowHeight = (int)(rightArrow.getHeight() * density);
+        rightArrowWidth = (int)(rightArrow.getWidth() * density);
         rightArrowX = getMeasuredWidth() - 16 - (PADDING*3) - rightArrow.getWidth();
         rightArrowY = 8 + (int)((getMeasuredHeight() * 0.2 / 2) - (rightArrowHeight/2));
-        canvas.drawBitmap(rightArrow, rightArrowX, rightArrowY, null);
+        canvas.drawBitmap(rightArrow, new Rect(0,0,rightArrow.getWidth(),rightArrow.getHeight()),
+                new Rect(rightArrowX, rightArrowY, rightArrowX + rightArrowWidth,
+                        rightArrowY + rightArrowHeight), null);
         // Month right arrow -- End
 
         // Month text -- Start
@@ -333,8 +338,8 @@ public class CalendarView extends View {
     private void performClick(int x, int y) {
     	// System.out.println("---------------------Current x, y : " + x + ", " + y);
     	// Handle left-right arrow click -- start
-		if ((x > leftArrowX && x < (leftArrowX + leftArrowWidth))
-				&& (y > leftArrowY && y < (leftArrowY + leftArrowHeight))) {
+		if ((x > leftArrowX && x < (leftArrowX + leftArrowWidth * 2))
+				&& (y > 5 && y < (leftArrowY * 2))) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(calendarDate);
 			int prevMonth = calendar.get(Calendar.MONTH);
@@ -355,8 +360,8 @@ public class CalendarView extends View {
 			}
 			currentHighlightDay = calendar.get(Calendar.DATE);
 			this.invalidate();
-		} else if ((x > rightArrowX && x < (rightArrowX + rightArrowWidth))
-				&& (y > rightArrowY && y < (rightArrowY + rightArrowHeight))) {
+		} else if ((x > rightArrowX - rightArrowWidth && x < (rightArrowX + rightArrowWidth))
+				&& (y > 5 && y < (rightArrowY * 2))) {
 			Calendar calendar = Calendar.getInstance();
 			calendar.setTime(calendarDate);
 			int prevMonth = calendar.get(Calendar.MONTH);
