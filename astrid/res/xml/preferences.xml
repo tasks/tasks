@@ -18,11 +18,6 @@
             android:defaultValue="false" />
     </PreferenceCategory>
 
-    <CheckBoxPreference
-        android:key="@string/p_statistics"
-        android:title="@string/EPr_statistics_title"
-        android:defaultValue="true" />
-        
     <PreferenceCategory
         android:title="@string/EPr_powerpack_header">
         <PreferenceScreen
@@ -44,5 +39,10 @@
             
         </PreferenceScreen>
     </PreferenceCategory>
+
+    <CheckBoxPreference
+        android:key="@string/p_statistics"
+        android:title="@string/EPr_statistics_title"
+        android:defaultValue="true" />
     
 </PreferenceScreen>
