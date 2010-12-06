@@ -54,7 +54,6 @@ import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
-import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.utility.Constants;
@@ -100,9 +99,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     @Autowired
     private TaskService taskService;
-
-    @Autowired
-    private AddOnService addOnService;
 
     protected final ListActivity activity;
     protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
@@ -891,7 +887,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             name.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemTitle);
         }
         name.setTextSize(fontSize);
-        viewHolder.details.setTextSize(Math.max(12, fontSize * 14 / 20));
+        float detailTextSize = Math.max(12, fontSize * 14 / 20);
+        viewHolder.details.setTextSize(detailTextSize);
+        viewHolder.dueDate.setTextSize(detailTextSize);
     }
 
     /**
