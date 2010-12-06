@@ -22,16 +22,20 @@ package com.todoroo.andlib.widget;
 import java.text.Format;
 import java.util.Date;
 
-import android.app.DatePickerDialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog;
+import android.app.DatePickerDialog.OnDateSetListener;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnDismissListener;
 import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.TimePicker;
+
+import com.todoroo.astrid.ui.CalendarDialog;
 
 public class DateControlSet implements OnTimeSetListener,
         OnDateSetListener, View.OnClickListener {
@@ -106,12 +110,32 @@ public class DateControlSet implements OnTimeSetListener,
             timeButton.setText(timeFormatter.format(date));
     }
 
+    private boolean dialogCancelled = false;
+
     public void onClick(View v) {
         if(v == timeButton)
             new TimePickerDialog(context, this, date.getHours(),
                 date.getMinutes(), false).show();
-        else
-            new DatePickerDialog(context, this, 1900 +
-                    date.getYear(), date.getMonth(), date.getDate()).show();
+        else if(v == dateButton){
+            final CalendarDialog calendarDialog = new CalendarDialog(context, date);
+            calendarDialog.show();
+            calendarDialog.setOnDismissListener(new OnDismissListener() {
+                @Override
+                public void onDismiss(DialogInterface arg0) {
+                    if (!dialogCancelled) {
+                        date = calendarDialog.getCalendarDate();
+                        updateDate();
+                    }
+                    dialogCancelled = false;
+                }
+            });
+
+            calendarDialog.setOnCancelListener(new OnCancelListener() {
+                @Override
+                public void onCancel(DialogInterface arg0) {
+                    dialogCancelled = true;
+                }
+            });
+        }
     }
 }

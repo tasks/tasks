@@ -940,10 +940,6 @@ public final class TaskEditActivity extends TabActivity {
                     }
                 });
                 /***** Calendar Dialog Changes -- End *****/
-//                DatePickerDialog datePicker = new DatePickerDialog(TaskEditActivity.this,
-//                        this, 1900 + customDate.getYear(), customDate.getMonth(), customDate.getDate());
-//                datePicker.setOnCancelListener(this);
-//                datePicker.show();
 
                 spinner.setSelection(previousSetting);
             } else {
@@ -983,32 +979,6 @@ public final class TaskEditActivity extends TabActivity {
             timePicker.setOnCancelListener(this);
             timePicker.show();
         }
-
-        /*public void onDateSet(DatePicker view, int year, int month, int monthDay) {
-            customDate.setYear(year - 1900);
-            customDate.setMonth(month);
-            customDate.setDate(monthDay);
-            customDate.setMinutes(0);
-
-            if(customSetting != Task.URGENCY_SPECIFIC_DAY_TIME) {
-                customDateFinished();
-                return;
-            }
-
-            boolean specificTime = existingDateHour != SPECIFIC_DATE;
-            if(existingDateHour < 0) {
-                existingDateHour = customDate.getHours();
-                existingDateMinutes= customDate.getMinutes();
-            }
-
-            DeadlineTimePickerDialog timePicker = new DeadlineTimePickerDialog(TaskEditActivity.this, this,
-                    existingDateHour, existingDateMinutes,
-                    DateUtilities.is24HourFormat(TaskEditActivity.this),
-                    specificTime);
-
-            timePicker.setOnCancelListener(this);
-            timePicker.show();
-        }*/
 
         public void onTimeSet(TimePicker view, boolean hasTime, int hourOfDay, int minute) {
             if(!hasTime)

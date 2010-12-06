@@ -30,6 +30,7 @@
         android:layout_height="wrap_content"
         android:hint="@string/TEA_title_hint"
         android:autoText="true"
+        android:text=""
         android:capitalize="sentences" />
         
       <!-- importance -->
