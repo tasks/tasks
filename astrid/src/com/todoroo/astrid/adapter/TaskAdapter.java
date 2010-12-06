@@ -891,6 +891,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             name.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemTitle);
         }
         name.setTextSize(fontSize);
+        viewHolder.details.setTextSize(Math.max(12, fontSize * 14 / 20));
     }
 
     /**
