@@ -742,7 +742,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return;
 
             // hack because we know we have > 1 button
-            if(addOnService.hasPowerPack() && actions.size() == 0)
+            if(actions.size() == 0)
                 return;
 
             for(int i = viewHolder.actions.getChildCount(); i < actions.size() + 1; i++) {

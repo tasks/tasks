@@ -33,9 +33,6 @@ public class TimerActionExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        if(!PluginServices.getAddOnService().hasPowerPack())
-            return;
-
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TIMER_START,
                 Task.ELAPSED_SECONDS);
 
