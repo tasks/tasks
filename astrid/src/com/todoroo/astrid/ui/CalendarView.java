@@ -1,17 +1,15 @@
 package com.todoroo.astrid.ui;
 
-import java.io.InputStream;
 import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 import android.util.AttributeSet;
@@ -34,7 +32,8 @@ public class CalendarView extends View {
 	private Paint borderRightAlignPaint;
 	private Paint backColorPaint;
 	private Paint whiteCenterAlignLargePaint;
-	private Paint whiteRightAlignPaint;
+	private Paint darkRightAlignPaint;
+	private Paint todayCalendarPaint;
 	private Paint dayPaint;
 	private Paint calendarPaint;
 	private float density;
@@ -114,11 +113,15 @@ public class CalendarView extends View {
     	whiteCenterAlignLargePaint.setTextAlign(Paint.Align.CENTER);
     	whiteCenterAlignLargePaint.setTextSize(MONTH_TEXT_SIZE * density);
 
-    	whiteRightAlignPaint = new Paint();
-    	whiteRightAlignPaint.setAntiAlias(true);
-    	whiteRightAlignPaint.setColor(Color.rgb(40, 40, 40));
-    	whiteRightAlignPaint.setTextAlign(Paint.Align.RIGHT);
-    	whiteRightAlignPaint.setTextSize(TEXT_SIZE * density);
+    	darkRightAlignPaint = new Paint();
+    	darkRightAlignPaint.setAntiAlias(true);
+    	darkRightAlignPaint.setColor(Color.rgb(40, 40, 40));
+    	darkRightAlignPaint.setTextAlign(Paint.Align.RIGHT);
+    	darkRightAlignPaint.setTextSize(TEXT_SIZE * density);
+
+    	todayCalendarPaint = new Paint();
+    	todayCalendarPaint.setAntiAlias(true);
+    	todayCalendarPaint.setColor(Color.rgb(222, 221, 154));
 
     	backColorPaint = new Paint();
     	backColorPaint.setAntiAlias(true);
@@ -194,41 +197,35 @@ public class CalendarView extends View {
         // Month border -- Start
         RectF rectF = new RectF();
 
-        rectF.set(15, 15, getMeasuredWidth() - 15, (int)(getMeasuredHeight() * 0.2)); // 20% height is given to month border
+        float monthBorder = MONTH_TEXT_SIZE * density + 10;
+        rectF.set(15, 15, getMeasuredWidth() - 15, monthBorder);
         canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, borderPaint);
 
-        rectF.set(16, 16, getMeasuredWidth() - 16, (int)(getMeasuredHeight() * 0.2) - 1);
+        rectF.set(16, 16, getMeasuredWidth() - 16, monthBorder - 1);
         // canvas.drawRoundRect(rectF, CURVE_RADIUS, CURVE_RADIUS, backColorPaint);
         // Month border -- end
 
         // Month left arrow -- Start
-        InputStream is = getResources().openRawResource(R.drawable.leftarrow);
-        Bitmap leftArrow = BitmapFactory.decodeStream(is);
-
-        leftArrowHeight = (int)(leftArrow.getHeight() * density);
-        leftArrowWidth = (int)(leftArrow.getWidth() * density);
+        Bitmap leftArrow = ((BitmapDrawable)getResources().getDrawable(R.drawable.cal_left)).getBitmap();
+        leftArrowHeight = (int)(leftArrow.getHeight());
+        leftArrowWidth = (int)(leftArrow.getWidth());
         leftArrowX = 24;
-        leftArrowY = 8 + (int)((getMeasuredHeight() * 0.2 / 2) - (leftArrowHeight/2));
-        canvas.drawBitmap(leftArrow, new Rect(0,0,leftArrow.getWidth(),leftArrow.getHeight()),
-                new Rect(leftArrowX, leftArrowY, leftArrowX + leftArrowWidth,
-                        leftArrowY + leftArrowHeight), null);
+        leftArrowY = 8 + (int)((monthBorder / 2 - leftArrowHeight/2));
+        canvas.drawBitmap(leftArrow, leftArrowX, leftArrowY, null);
         // Month left arrow -- End
 
         // Month right arrow -- Start
-        is = getResources().openRawResource(R.drawable.rightarrow);
-        Bitmap rightArrow = BitmapFactory.decodeStream(is);
-        rightArrowHeight = (int)(rightArrow.getHeight() * density);
-        rightArrowWidth = (int)(rightArrow.getWidth() * density);
+        Bitmap rightArrow = ((BitmapDrawable)getResources().getDrawable(R.drawable.cal_right)).getBitmap();
+        rightArrowHeight = (int)(rightArrow.getHeight());
+        rightArrowWidth = (int)(rightArrow.getWidth());
         rightArrowX = getMeasuredWidth() - 16 - (PADDING*3) - rightArrow.getWidth();
-        rightArrowY = 8 + (int)((getMeasuredHeight() * 0.2 / 2) - (rightArrowHeight/2));
-        canvas.drawBitmap(rightArrow, new Rect(0,0,rightArrow.getWidth(),rightArrow.getHeight()),
-                new Rect(rightArrowX, rightArrowY, rightArrowX + rightArrowWidth,
-                        rightArrowY + rightArrowHeight), null);
+        rightArrowY = 8 + (int)((monthBorder / 2 - rightArrowHeight/2));
+        canvas.drawBitmap(rightArrow, rightArrowX, rightArrowY, null);
         // Month right arrow -- End
 
         // Month text -- Start
         int monthX = getMeasuredWidth() / 2;
-        int monthY = (int) (getMeasuredHeight() * 0.2 / 2) + 14;
+        int monthY = (int) (monthBorder / 2 + MONTH_TEXT_SIZE / 2);
         String monthYear = (String) DateFormat.format("MMMM yyyy", calendarDate); //$NON-NLS-1$
         canvas.drawText(monthYear, monthX, monthY, whiteCenterAlignLargePaint);
         // Month text -- End
@@ -259,7 +256,7 @@ public class CalendarView extends View {
 
             textX = dayLeft + boxWidth - PADDING * 2;
             textY = dayTop + (boxHeight - boxHeight/8) - PADDING * 2;
-            canvas.drawText(day, textX, textY, whiteRightAlignPaint);
+            canvas.drawText(day, textX, textY, darkRightAlignPaint);
 
             dayLeft += boxWidth + PADDING;
         }
@@ -271,12 +268,16 @@ public class CalendarView extends View {
         if (currentHighlightDay == -1) {
         	currentHighlightDay = calendar.get(Calendar.DATE);
         }
+        int today = -1;
+        Calendar todayCalendar = Calendar.getInstance();
+        if(calendar.get(Calendar.MONTH) == todayCalendar.get(Calendar.MONTH) &&
+                calendar.get(Calendar.YEAR) == todayCalendar.get(Calendar.YEAR))
+            today = todayCalendar.get(Calendar.DATE);
         int lastDateOfThisMonth = calendar.getActualMaximum(Calendar.DATE);
 
         calendar.set(Calendar.DATE, 1);
         // offset for day of week
-        calendar.add(Calendar.DATE, firstDayOfWeek - Calendar.SUNDAY);
-        int firstDay = calendar.get(Calendar.DAY_OF_WEEK);
+        int firstDayOffset = calendar.get(Calendar.DAY_OF_WEEK) + firstDayOfWeek - Calendar.SUNDAY;
         boolean firstTime = true;
         int dayOfMonth = 1;
         Paint colorPaint, textPaint;
@@ -287,7 +288,7 @@ public class CalendarView extends View {
         	dayLeft = 15;
 	        dayTop += boxHeight + PADDING;
 			for (int j = 1; j <= 7; j++) {
-				if (firstTime && j != firstDay) {
+				if (firstTime && j != firstDayOffset) {
 					dayLeft += boxWidth + PADDING;
 					continue;
 				}
@@ -296,11 +297,14 @@ public class CalendarView extends View {
 
 				if (dayOfMonth <= lastDateOfThisMonth) {
 					if (currentHighlightDay == dayOfMonth) {
-						colorPaint = whiteRightAlignPaint;
+						colorPaint = darkRightAlignPaint;
 						textPaint = borderRightAlignPaint;
+					} else if(today == dayOfMonth) {
+					    colorPaint = todayCalendarPaint;
+					    textPaint = darkRightAlignPaint;
 					} else {
 						colorPaint = calendarPaint;
-						textPaint = whiteRightAlignPaint;
+						textPaint = darkRightAlignPaint;
 					}
 					dayLeftArr[dayOfMonth-1] = dayLeft;
 					dayTopArr[dayOfMonth-1] = dayTop;
@@ -338,50 +342,46 @@ public class CalendarView extends View {
     private void performClick(int x, int y) {
     	// System.out.println("---------------------Current x, y : " + x + ", " + y);
     	// Handle left-right arrow click -- start
-		if ((x > leftArrowX && x < (leftArrowX + leftArrowWidth * 2))
-				&& (y > 5 && y < (leftArrowY * 2))) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(calendarDate);
-			int prevMonth = calendar.get(Calendar.MONTH);
+        if ((x > leftArrowX && x < (leftArrowX + leftArrowWidth * 2))
+                && (y > 5 && y < (leftArrowY * 2))) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(calendarDate);
+            calendar.add(-1, Calendar.MONTH);
+            int prevDay = calendar.get(Calendar.DAY_OF_MONTH);
+            calendar.set(1, Calendar.DAY_OF_MONTH);
 
-			int currentMonth = calendar.get(Calendar.MONTH);
-			if (currentMonth == Calendar.JANUARY) {
-				calendar.set(Calendar.MONTH, Calendar.DECEMBER);
-				calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
-			} else {
-				calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1);
-			}
-			calendarDate = calendar.getTime();
-			calendar.setTime(calendarDate);
-			if (prevMonth == calendar.get(Calendar.MONTH)) {
-				calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1);
-				calendar.set(Calendar.DATE, 1);
-				calendarDate = calendar.getTime();
-			}
-			currentHighlightDay = calendar.get(Calendar.DATE);
-			this.invalidate();
-		} else if ((x > rightArrowX - rightArrowWidth && x < (rightArrowX + rightArrowWidth))
-				&& (y > 5 && y < (rightArrowY * 2))) {
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(calendarDate);
-			int prevMonth = calendar.get(Calendar.MONTH);
+            int currentMonth = calendar.get(Calendar.MONTH);
+            if (currentMonth == Calendar.JANUARY) {
+                calendar.set(Calendar.MONTH, Calendar.DECEMBER);
+                calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) - 1);
+            } else {
+                calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1);
+            }
+            int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            calendar.set(Math.min(prevDay, lastDay), Calendar.DAY_OF_MONTH);
+            calendarDate = calendar.getTime();
+            currentHighlightDay = calendar.get(Calendar.DATE);
+            this.invalidate();
+        } else if ((x > rightArrowX - rightArrowWidth && x < (rightArrowX + rightArrowWidth))
+                && (y > 5 && y < (rightArrowY * 2))) {
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(calendarDate);
+            int prevDay = calendar.get(Calendar.DAY_OF_MONTH);
+            calendar.set(1, Calendar.DAY_OF_MONTH);
 
-			int currentMonth = calendar.get(Calendar.MONTH);
-			if (currentMonth == Calendar.DECEMBER) {
-				calendar.set(Calendar.MONTH, Calendar.JANUARY);
-				calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
-			} else {
-				calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) + 1);
-			}
-			calendarDate = calendar.getTime();
-			if (prevMonth == calendar.get(Calendar.MONTH)) {
-				calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) - 1);
-				calendar.set(Calendar.DATE, 1);
-				calendarDate = calendar.getTime();
-			}
-			currentHighlightDay = calendar.get(Calendar.DATE);
-			this.invalidate();
-			// Handle left-right arrow click -- end
+            int currentMonth = calendar.get(Calendar.MONTH);
+            if (currentMonth == Calendar.DECEMBER) {
+                calendar.set(Calendar.MONTH, Calendar.JANUARY);
+                calendar.set(Calendar.YEAR, calendar.get(Calendar.YEAR) + 1);
+            } else {
+                calendar.set(Calendar.MONTH, calendar.get(Calendar.MONTH) + 1);
+            }
+            int lastDay = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+            calendar.set(Math.min(prevDay, lastDay), Calendar.DAY_OF_MONTH);
+            calendarDate = calendar.getTime();
+            currentHighlightDay = calendar.get(Calendar.DATE);
+            this.invalidate();
+            // Handle left-right arrow click -- end
 		} else {
 			// Check if clicked on date
 			for (int i=0; i<dayLeftArr.length; i++) {
