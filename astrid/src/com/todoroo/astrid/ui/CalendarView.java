@@ -221,7 +221,7 @@ public class CalendarView extends View {
         Bitmap rightArrow = ((BitmapDrawable)getResources().getDrawable(R.drawable.cal_right)).getBitmap();
         rightArrowHeight = (int)(rightArrow.getHeight()*density);
         rightArrowWidth = (int)(rightArrow.getWidth()*density);
-        rightArrowX = getMeasuredWidth() - 24 - (PADDING*3) - rightArrow.getWidth();
+        rightArrowX = (int) (getMeasuredWidth() - (16 * density) - (PADDING*3) - rightArrow.getWidth());
         rightArrowY = 8 + (int)((monthTitleHeight / 2 - rightArrowHeight/2));
         canvas.drawBitmap(rightArrow, new Rect(0,0,rightArrow.getWidth(),rightArrow.getHeight()),
                 new Rect(rightArrowX, rightArrowY, rightArrowX + rightArrowWidth,
