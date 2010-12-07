@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="@string/TEA_title_label"
         style="@style/TextAppearance.GEN_EditLabel" />
-      <EditText
+      <com.todoroo.astrid.ui.ErrorCatchingEditText
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
