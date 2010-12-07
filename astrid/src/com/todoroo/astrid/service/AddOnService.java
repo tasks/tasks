@@ -161,7 +161,7 @@ public class AddOnService {
         // temporary temporary
         AddOn[] list = new AddOn[3];
         list[0] = new AddOn(false, true, "Astrid Power Pack", null,
-                "Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets, timer, and voice integration. Power up today!",
+                "Support Astrid and get more productive with the Astrid Power Pack. 4x2 and 4x4 widgets and voice integration. Power up today!",
                 POWER_PACK_PACKAGE, "http://www.weloveastrid.com/store",
                 ((BitmapDrawable)r.getDrawable(R.drawable.icon_pp)).getBitmap());
 
