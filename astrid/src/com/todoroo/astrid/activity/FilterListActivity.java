@@ -171,13 +171,15 @@ public class FilterListActivity extends ExpandableListActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        adapter.registerRecevier();
+        if(adapter != null)
+            adapter.registerRecevier();
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        adapter.unregisterRecevier();
+        if(adapter != null)
+            adapter.unregisterRecevier();
     }
 
     /* ======================================================================

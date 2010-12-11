@@ -888,8 +888,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
         name.setTextSize(fontSize);
         float detailTextSize = Math.max(12, fontSize * 14 / 20);
-        viewHolder.details.setTextSize(detailTextSize);
-        viewHolder.dueDate.setTextSize(detailTextSize);
+        if(viewHolder.details != null)
+            viewHolder.details.setTextSize(detailTextSize);
+        if(viewHolder.dueDate != null)
+            viewHolder.dueDate.setTextSize(detailTextSize);
     }
 
     /**
