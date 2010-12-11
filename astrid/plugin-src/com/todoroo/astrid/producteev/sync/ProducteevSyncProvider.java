@@ -482,8 +482,6 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
         // if local is marked do not sync, handle accordingly
         if(idDashboard == ProducteevUtilities.DASHBOARD_NO_SYNC) {
-            if(idTask != 1)
-                invoker.tasksDelete(idTask);
             return;
         }
 
