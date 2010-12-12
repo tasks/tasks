@@ -31,7 +31,7 @@
     <string name="producteev_default_dashboard">Default Workspace</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+    <string name="producteev_no_dashboard">(Do Not Synchronize)</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
     <string name="producteev_create_dashboard">Add new Workspace...</string>
