@@ -259,8 +259,8 @@ public class GtasksTaskListUpdater {
                     indent = previousIndent.get() + 1;
                 metadata.setValue(GtasksMetadata.INDENT, indent);
 
-                long parent = parents.get(taskId);
-                if(parent < 0)
+                Long parent = parents.get(taskId);
+                if(parent == null || parent < 0)
                     parent = Task.NO_ID;
                 metadata.setValue(GtasksMetadata.PARENT_TASK, parent);
 
