@@ -245,12 +245,12 @@ public final class TaskEditActivity extends TabActivity {
         controls.add(new EditTextControlSet(Task.TITLE, R.id.title));
         controls.add(new ImportanceControlSet(R.id.importance_container));
         controls.add(new UrgencyControlSet(R.id.urgency));
+        notesEditText = (EditText) findViewById(R.id.notes);
 
         // prepare and set listener for voice-button
         if(addOnService.hasPowerPack()) {
             voiceAddNoteButton = (ImageButton) findViewById(R.id.voiceAddNoteButton);
             voiceAddNoteButton.setVisibility(View.VISIBLE);
-            notesEditText = (EditText) findViewById(R.id.notes);
             int prompt = R.string.voice_edit_note_prompt;
             voiceNoteAssistant = new VoiceInputAssistant(this, voiceAddNoteButton,
                     notesEditText);
