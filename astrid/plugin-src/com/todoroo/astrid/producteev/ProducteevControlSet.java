@@ -24,6 +24,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
@@ -34,7 +35,6 @@ import com.todoroo.astrid.producteev.sync.ProducteevSyncProvider;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.producteev.sync.ProducteevUser;
 import com.todoroo.astrid.service.MetadataService;
-import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Control Set for managing task/dashboard assignments in Producteev
@@ -203,7 +203,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
             metadata = ProducteevTask.newMetadata();
 
         // Fill the dashboard-spinner and set the current dashboard
-        long dashboardId = -1;
+        long dashboardId = ProducteevUtilities.INSTANCE.getDefaultDashboard();
         if(metadata.containsNonNullValue(ProducteevTask.DASHBOARD_ID))
             dashboardId = metadata.getValue(ProducteevTask.DASHBOARD_ID);
 
@@ -224,7 +224,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
 
         //dashboard to not sync as first spinner-entry
         dashboards.add(0, new ProducteevDashboard(ProducteevUtilities.DASHBOARD_NO_SYNC, activity.getString(R.string.producteev_no_dashboard),null));
-        // dummyentry for adding a new dashboard
+        // dummy entry for adding a new dashboard
         dashboards.add(new ProducteevDashboard(ProducteevUtilities.DASHBOARD_CREATE, activity.getString(R.string.producteev_create_dashboard),null));
 
         ArrayAdapter<ProducteevDashboard> dashAdapter = new ArrayAdapter<ProducteevDashboard>(activity,
