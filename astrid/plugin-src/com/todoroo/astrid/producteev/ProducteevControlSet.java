@@ -13,11 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -264,6 +264,11 @@ public class ProducteevControlSet implements TaskEditControlSet {
                 metadata.setValue(ProducteevTask.RESPONSIBLE_ID, 0L);
             else
                 metadata.setValue(ProducteevTask.RESPONSIBLE_ID, responsibleUser.getId());
+
+            // Erase PDTV-repeating-info if task itself is repeating with Astrid-repeat
+            if (task.containsNonNullValue(Task.RECURRENCE) && task.getValue(Task.RECURRENCE).length()>0) {
+                metadata.setValue(ProducteevTask.REPEATING_SETTING, "");
+            }
 
             if(metadata.getSetValues().size() > 0) {
                 metadataService.save(metadata);

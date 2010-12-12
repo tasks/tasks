@@ -1,9 +1,10 @@
 package com.todoroo.astrid.producteev.sync;
 
 import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
-import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Metadata entries for a Producteev Task
@@ -30,6 +31,10 @@ public class ProducteevTask {
     /** responsible id */
     public static final LongProperty RESPONSIBLE_ID = new LongProperty(Metadata.TABLE,
             Metadata.VALUE4.name);
+
+    /** repeating settings */
+    public static final StringProperty REPEATING_SETTING = new StringProperty(Metadata.TABLE,
+            Metadata.VALUE5.name);
 
     public static Metadata newMetadata() {
         Metadata metadata = new Metadata();

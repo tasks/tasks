@@ -3,6 +3,9 @@
  */
 package com.todoroo.astrid.producteev;
 
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -75,6 +78,9 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
             long creatorId = -1;
             if(metadata.containsNonNullValue(ProducteevTask.CREATOR_ID))
                 creatorId = metadata.getValue(ProducteevTask.CREATOR_ID);
+            String repeatSetting = null;
+            if(metadata.containsNonNullValue(ProducteevTask.REPEATING_SETTING))
+                repeatSetting = metadata.getValue(ProducteevTask.REPEATING_SETTING);
 
             // display dashboard if not "no sync" or "default"
             StoreObject ownerDashboard = null;
@@ -112,6 +118,62 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
                             append(TaskAdapter.DETAIL_SEPARATOR);
             }
 
+            // display repeating task information
+            if (repeatSetting != null && repeatSetting.length() > 0) {
+                String interval = null;
+                String[] pdvRepeating = repeatSetting.split(",");
+                int pdvRepeatingValue = 0;
+                String pdvRepeatingDay = null;
+                try {
+                    pdvRepeatingValue = Integer.parseInt(pdvRepeating[0]);
+                } catch (Exception e) {
+                    pdvRepeatingDay = pdvRepeating[0];
+                    pdvRepeatingValue = 1;
+                }
+                String pdvRepeatingInterval = pdvRepeating[1];
+
+                if (pdvRepeatingInterval.startsWith("day")) {
+                    interval = context.getResources().getQuantityString(R.plurals.DUt_days, pdvRepeatingValue,
+                            pdvRepeatingValue);
+                } else if (pdvRepeatingInterval.startsWith("weekday")) {
+                    interval = context.getResources().getQuantityString(R.plurals.DUt_weekdays, pdvRepeatingValue,
+                            pdvRepeatingValue);
+                } else if (pdvRepeatingInterval.startsWith("week")) {
+                    interval = context.getResources().getQuantityString(R.plurals.DUt_weeks, pdvRepeatingValue,
+                            pdvRepeatingValue);
+                } else if (pdvRepeatingInterval.startsWith("month")) {
+                    interval = context.getResources().getQuantityString(R.plurals.DUt_months, pdvRepeatingValue,
+                            pdvRepeatingValue);
+                } else if (pdvRepeatingInterval.startsWith("year")) {
+                    interval = context.getResources().getQuantityString(R.plurals.DUt_years, pdvRepeatingValue,
+                            pdvRepeatingValue);
+                }
+                interval = "<b>" + interval + "</b>";  //$NON-NLS-1$//$NON-NLS-2$
+                if (pdvRepeatingDay != null) {
+                    DateFormatSymbols dfs = new DateFormatSymbols();
+                    String[] weekdays = dfs.getShortWeekdays();
+                    if (pdvRepeatingDay.equals("monday")) {
+                        pdvRepeatingDay = weekdays[Calendar.MONDAY];
+                    } else if (pdvRepeatingDay.equals("tuesday")) {
+                        pdvRepeatingDay = weekdays[Calendar.TUESDAY];
+                    } else if (pdvRepeatingDay.equals("wednesday")) {
+                        pdvRepeatingDay = weekdays[Calendar.WEDNESDAY];
+                    } else if (pdvRepeatingDay.equals("thursday")) {
+                        pdvRepeatingDay = weekdays[Calendar.THURSDAY];
+                    } else if (pdvRepeatingDay.equals("friday")) {
+                        pdvRepeatingDay = weekdays[Calendar.FRIDAY];
+                    } else if (pdvRepeatingDay.equals("saturday")) {
+                        pdvRepeatingDay = weekdays[Calendar.SATURDAY];
+                    } else if (pdvRepeatingDay.equals("sunday")) {
+                        pdvRepeatingDay = weekdays[Calendar.SUNDAY];
+                    }
+                    interval = context.getResources().getString(R.string.repeat_detail_byday).replace("$I",  //$NON-NLS-1$
+                            interval).replace("$D", pdvRepeatingDay); //$NON-NLS-1$
+                }
+                String detail = context.getString(R.string.repeat_detail_duedate, interval);
+                builder.append("<img src='repeating_deadline'/> ").append(detail). //$NON-NLS-1$
+                        append(TaskAdapter.DETAIL_SEPARATOR);
+            }
         }
 
         if(Preferences.getBoolean(R.string.p_showNotes, false) == !extended) {

@@ -274,6 +274,40 @@ public class ProducteevInvoker {
     }
 
     /**
+     * set repeating
+     *
+     * @param idTask
+     * @param repeatInterval
+     * @param repeatValue
+     *
+     * @return array tasks/view
+     * @throws IOException
+     * @throws ApiServiceException
+     */
+    public JSONObject tasksSetRepeating(long idTask, String repeatInterval, Integer repeatValue) throws ApiServiceException, IOException {
+        return callAuthenticated("tasks/set_repeating.json",
+                "token", token,
+                "id_task", idTask,
+                "repeat_interval", repeatInterval,
+                "repeat_value", (repeatValue == null ? 1 : repeatValue));
+    }
+
+    /**
+     * unset repeating
+     *
+     * @param idTask
+     *
+     * @return array tasks/view
+     * @throws IOException
+     * @throws ApiServiceException
+     */
+    public JSONObject tasksUnsetRepeating(long idTask) throws ApiServiceException, IOException {
+        return callAuthenticated("tasks/unset_repeating.json",
+                "token", token,
+                "id_task", idTask);
+    }
+
+    /**
      * set a workspace
      *
      * @param idTask

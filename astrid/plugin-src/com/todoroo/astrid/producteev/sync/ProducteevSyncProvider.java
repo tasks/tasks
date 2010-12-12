@@ -364,6 +364,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             Task.DELETION_DATE,
             Task.REMINDER_FLAGS,
             Task.NOTES,
+            Task.RECURRENCE
     };
 
     /**
@@ -476,6 +477,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      */
     @Override
     protected void push(ProducteevTaskContainer local, ProducteevTaskContainer remote) throws IOException {
+        boolean remerge = false;
+
         long idTask = local.pdvTask.getValue(ProducteevTask.ID);
         long idDashboard = local.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
         long idResponsible = local.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID);
@@ -528,8 +531,28 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             else
                 invoker.tasksUnsetDeadline(idTask);
         }
-        if(shouldTransmit(local, Task.COMPLETION_DATE, remote))
+
+        boolean isPDVRepeating = ((local.pdvTask.containsNonNullValue(ProducteevTask.REPEATING_SETTING) &&
+                local.pdvTask.getValue(ProducteevTask.REPEATING_SETTING).length()>0) ||
+                (remote != null && remote.pdvTask.containsNonNullValue(ProducteevTask.REPEATING_SETTING) &&
+                        remote.pdvTask.getValue(ProducteevTask.REPEATING_SETTING).length()>0));
+
+        boolean isAstridRepeating = local.task.containsNonNullValue(Task.RECURRENCE) &&
+            local.task.getValue(Task.RECURRENCE).length() > 0;
+
+        if (isAstridRepeating && isPDVRepeating) {
+            // Astrid-repeat overrides PDV-repeat
+            invoker.tasksUnsetRepeating(idTask);
+        }
+
+        if(shouldTransmit(local, Task.COMPLETION_DATE, remote)) {
             invoker.tasksSetStatus(idTask, local.task.isCompleted() ? 2 : 1);
+            if (local.task.isCompleted() && !isAstridRepeating &&
+                    isPDVRepeating) {
+                local.task.setValue(Task.COMPLETION_DATE, 0L);
+                remerge = true;
+            }
+        }
 
 
         try {
@@ -561,6 +584,19 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                         local.metadata.add(ProducteevNote.create(result.getJSONObject("note")));
                     }
                 }
+            }
+
+            if(remerge) {
+                remote = pull(local);
+                remote.task.setId(local.task.getId());
+
+                // transform local into remote
+                local.task = remote.task;
+                local.pdvTask.setValue(ProducteevTask.ID, remote.pdvTask.getValue(ProducteevTask.ID));
+                local.pdvTask.setValue(ProducteevTask.DASHBOARD_ID, remote.pdvTask.getValue(ProducteevTask.DASHBOARD_ID));
+                local.pdvTask.setValue(ProducteevTask.CREATOR_ID, remote.pdvTask.getValue(ProducteevTask.CREATOR_ID));
+                local.pdvTask.setValue(ProducteevTask.RESPONSIBLE_ID, remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID));
+                local.pdvTask.setValue(ProducteevTask.REPEATING_SETTING, remote.pdvTask.getValue(ProducteevTask.REPEATING_SETTING));
             }
         } catch (JSONException e) {
             throw new ApiResponseParseException(e);
@@ -631,7 +667,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         int length = tasks.size();
         for(int i = 0; i < length; i++) {
             ProducteevTaskContainer task = tasks.get(i);
-            if(AndroidUtilities.equals(task.pdvTask, target.pdvTask))
+//            if(AndroidUtilities.equals(task.pdvTask, target.pdvTask))
+            if (target.pdvTask.containsNonNullValue(ProducteevTask.ID) &&
+                    task.pdvTask.getValue(ProducteevTask.ID).equals(target.pdvTask.getValue(ProducteevTask.ID)))
                 return i;
         }
         return -1;
