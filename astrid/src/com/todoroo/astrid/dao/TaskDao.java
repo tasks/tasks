@@ -23,6 +23,7 @@ import com.todoroo.astrid.provider.Astrid2TaskProvider;
 import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.widget.TasksWidget;
 
 /**
@@ -269,6 +270,7 @@ public class TaskDao extends DatabaseDao<Task> {
      */
     private static void afterComplete(Task task, ContentValues values) {
         Notifications.cancelNotifications(task.getId());
+        StatisticsService.reportEvent("complete-task"); //$NON-NLS-1$
     }
 
 }
