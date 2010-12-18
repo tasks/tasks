@@ -19,6 +19,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_6_3 = 169;
     public static final int V3_6_2 = 168;
     public static final int V3_6_0 = 166;
     public static final int V3_5_0 = 165;
@@ -111,6 +112,15 @@ public final class UpgradeService {
             });
         } else {
             // current message
+            if(from >= V3_6_0 && from < V3_6_3) {
+                newVersionString(changeLog, "3.6.3 (12/18/10)", new String[] {
+                        "Added support for Producteev repeating tasks",
+                        "Fix for Producteev sync duplicate task issues",
+                });
+                upgrade3To3_6(context);
+            }
+
+            // old messages
             if(from >= V3_6_0 && from < V3_6_2) {
                 newVersionString(changeLog, "3.6.2 (12/11/10)", new String[] {
                         "Fix for Google Tasks crash on view list",
@@ -118,8 +128,6 @@ public final class UpgradeService {
                 });
                 upgrade3To3_6(context);
             }
-
-            // old messages
             if(from >= V3_0_0 && from < V3_6_0) {
                 newVersionString(changeLog, "3.6.0 (11/13/10)", new String[] {
                         "Astrid Power Pack is now launched to the Android Market. " +
