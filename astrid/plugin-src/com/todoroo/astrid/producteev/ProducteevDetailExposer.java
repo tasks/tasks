@@ -57,6 +57,7 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
+    @SuppressWarnings("nls")
     public String getTaskDetails(Context context, long id, boolean extended) {
         Metadata metadata = ProducteevDataService.getInstance().getTaskMetadata(id);
         if(metadata == null)
