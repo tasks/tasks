@@ -477,6 +477,7 @@ public class ProducteevInvoker {
             throws IOException, ApiServiceException {
         try {
             String request = createFetchUrl(method, getParameters);
+            System.err.println("invoking: " + request);
             String response = null;
             try {
                 response = restClient.get(request);
@@ -504,9 +505,12 @@ public class ProducteevInvoker {
                 System.err.println(response);
                 return new JSONObject();
             }
-            return new JSONObject(response);
-        } catch (JSONException e) {
-            throw new ApiResponseParseException(e);
+            try {
+                return new JSONObject(response);
+            } catch (JSONException e) {
+                System.err.println(response);
+                throw new ApiResponseParseException(e);
+            }
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }
