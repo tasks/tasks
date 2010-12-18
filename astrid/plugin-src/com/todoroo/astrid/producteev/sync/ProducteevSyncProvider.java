@@ -63,6 +63,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     private ProducteevInvoker invoker = null;
     private final ProducteevUtilities preferences = ProducteevUtilities.INSTANCE;
 
+    /** producteev user id. set during sync */
+    private long userId;
+
     /** map of producteev dashboard id + label name  to id's */
     private final HashMap<String, Long> labelMap = new HashMap<String, Long>();
 
@@ -233,6 +236,11 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                     JSONArray tasks = invoker.tasksShowList(dashboardId, lastServerSync);
                     for(int i = 0; i < tasks.length(); i++) {
                         ProducteevTaskContainer remote = parseRemoteTask(tasks.getJSONObject(i));
+
+                        if(remote.pdvTask.getValue(ProducteevTask.CREATOR_ID) != userId &&
+                                remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID) != userId)
+                            continue;
+
                         // update reminder flags for incoming remote tasks to prevent annoying
                         if(remote.task.hasDueDate() && remote.task.getValue(Task.DUE_DATE) < DateUtilities.now())
                             remote.task.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
@@ -342,7 +350,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
     private void saveUserData(JSONObject user) throws JSONException {
         long defaultDashboard = user.getLong("default_dashboard");
-        long userId = user.getLong("id_user");
+        userId = user.getLong("id_user");
         Preferences.setLong(ProducteevUtilities.PREF_DEFAULT_DASHBOARD, defaultDashboard);
         Preferences.setLong(ProducteevUtilities.PREF_USER_ID, userId);
 
