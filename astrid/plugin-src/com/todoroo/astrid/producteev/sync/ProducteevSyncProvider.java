@@ -604,6 +604,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                     id = labelMap.get(pdvLabel);
                 labels[index++] = id;
             }
+            invoker.tasksChangeLabel(idTask, labels);
         }
     }
 

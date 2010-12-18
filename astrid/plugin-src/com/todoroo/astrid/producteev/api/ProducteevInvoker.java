@@ -4,8 +4,9 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.json.JSONArray;
@@ -13,6 +14,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.text.TextUtils;
+
+import com.todoroo.andlib.utility.Pair;
 
 @SuppressWarnings("nls")
 public class ProducteevInvoker {
@@ -576,19 +579,27 @@ public class ProducteevInvoker {
      * @throws NoSuchAlgorithmException
      */
     String createFetchUrl(String method, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        TreeMap<String, Object> treeMap = new TreeMap<String, Object>();
+        ArrayList<Pair<String, Object>> params = new ArrayList<Pair<String, Object>>();
         for(int i = 0; i < getParameters.length; i += 2)
-            treeMap.put(getParameters[i].toString(), getParameters[i+1]);
-        treeMap.put("api_key", apiKey);
+            params.add(new Pair<String, Object>(getParameters[i].toString(), getParameters[i+1]));
+        params.add(new Pair<String, Object>("api_key", apiKey));
+
+        Collections.sort(params, new Comparator<Pair<String, Object>>() {
+            @Override
+            public int compare(Pair<String, Object> object1,
+                    Pair<String, Object> object2) {
+                return object1.getLeft().compareTo(object2.getLeft());
+            }
+        });
 
         StringBuilder requestBuilder = new StringBuilder(URL).append(method).append('?');
         StringBuilder sigBuilder = new StringBuilder();
-        for(Map.Entry<String, Object> entry : treeMap.entrySet()) {
-            if(entry.getValue() == null)
+        for(Pair<String, Object> entry : params) {
+            if(entry.getRight() == null)
                 continue;
 
-            String key = entry.getKey();
-            String value = entry.getValue().toString();
+            String key = entry.getLeft();
+            String value = entry.getRight().toString();
             String encoded = URLEncoder.encode(value, "UTF-8");
 
             requestBuilder.append(key).append('=').append(encoded).append('&');
