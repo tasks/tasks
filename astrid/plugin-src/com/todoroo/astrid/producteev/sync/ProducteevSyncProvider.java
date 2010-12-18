@@ -667,7 +667,6 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         int length = tasks.size();
         for(int i = 0; i < length; i++) {
             ProducteevTaskContainer task = tasks.get(i);
-//            if(AndroidUtilities.equals(task.pdvTask, target.pdvTask))
             if (target.pdvTask.containsNonNullValue(ProducteevTask.ID) &&
                     task.pdvTask.getValue(ProducteevTask.ID).equals(target.pdvTask.getValue(ProducteevTask.ID)))
                 return i;
