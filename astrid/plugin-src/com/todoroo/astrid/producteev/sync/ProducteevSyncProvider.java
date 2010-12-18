@@ -592,30 +592,17 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         }
 
         if(!localTags.equals(remoteTags)) {
-            HashSet<String> toAdd = new HashSet<String>(localTags);
-            toAdd.removeAll(remoteTags);
-            HashSet<String> toRemove = remoteTags;
-            toRemove.removeAll(localTags);
-
-            if(toAdd.size() > 0) {
-                for(String label : toAdd) {
-                    String pdvLabel = idDashboard + label;
-                    if(!labelMap.containsKey(pdvLabel)) {
-                        JSONObject result = invoker.labelsCreate(idDashboard, label).getJSONObject("label");
-                        long id = putLabelIntoCache(result);
-                        invoker.tasksSetLabel(idTask, id);
-                    } else
-                        invoker.tasksSetLabel(idTask, labelMap.get(pdvLabel));
-                }
-            }
-
-            if(toRemove.size() > 0) {
-                for(String label : toRemove) {
-                    String pdvLabel = idDashboard + label;
-                    if(!labelMap.containsKey(pdvLabel))
-                        continue;
-                    invoker.tasksUnsetLabel(idTask, labelMap.get(pdvLabel));
-                }
+            long[] labels = new long[localTags.size()];
+            int index = 0;
+            for(String label : localTags) {
+                String pdvLabel = idDashboard + label;
+                final long id;
+                if(!labelMap.containsKey(pdvLabel)) {
+                    JSONObject result = invoker.labelsCreate(idDashboard, label).getJSONObject("label");
+                    id = putLabelIntoCache(result);
+                } else
+                    id = labelMap.get(pdvLabel);
+                labels[index++] = id;
             }
         }
     }

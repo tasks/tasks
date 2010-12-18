@@ -12,6 +12,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.text.TextUtils;
+
 @SuppressWarnings("nls")
 public class ProducteevInvoker {
 
@@ -310,6 +312,25 @@ public class ProducteevInvoker {
     }
 
     /**
+     * change labels for a task
+     *
+     * @param idTask
+     * @param idLabels
+     *
+     * @return array: tasks/view
+     */
+    public JSONObject tasksChangeLabel(long idTask, long... idLabels) throws ApiServiceException, IOException {
+        Object[] parameters = new Object[2 * (idLabels.length + 2)];
+        parameters[0] = "token"; parameters[1] = token;
+        parameters[2] = "id_task"; parameters[3] = idTask;
+        for(int i = 0; i < idLabels.length; i++) {
+            parameters[i * 2 + 4] = "id_label[]";
+            parameters[i * 2 + 5] = idLabels[i];
+        }
+        return callAuthenticated("tasks/change_labels.json", parameters);
+    }
+
+    /**
      * set a labels to a task
      *
      * @param idTask
@@ -317,6 +338,7 @@ public class ProducteevInvoker {
      *
      * @return array: tasks/view
      */
+    @Deprecated
     public JSONObject tasksSetLabel(long idTask, long idLabel) throws ApiServiceException, IOException {
         return callAuthenticated("tasks/set_label.json",
                 "token", token,
@@ -332,6 +354,7 @@ public class ProducteevInvoker {
      *
      * @return array: tasks/view
      */
+    @Deprecated
     public JSONObject tasksUnsetLabel(long idTask, long idLabel) throws ApiServiceException, IOException {
         return callAuthenticated("tasks/unset_label.json",
                 "token", token,
@@ -506,6 +529,9 @@ public class ProducteevInvoker {
                 return new JSONObject();
             }
             try {
+                if(TextUtils.isEmpty(response))
+                    return new JSONObject();
+
                 return new JSONObject(response);
             } catch (JSONException e) {
                 System.err.println(response);
@@ -566,7 +592,9 @@ public class ProducteevInvoker {
             String encoded = URLEncoder.encode(value, "UTF-8");
 
             requestBuilder.append(key).append('=').append(encoded).append('&');
-            sigBuilder.append(key).append(value);
+
+            if(!key.endsWith("[]"))
+                sigBuilder.append(key).append(value);
         }
 
         sigBuilder.append(apiSecret);
