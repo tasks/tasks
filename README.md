@@ -17,7 +17,9 @@ Getting Started With Development
  • *[Android SDK](http://developer.android.com/sdk/index.html)*
 
 3. Use **git** to clone your forked repository 
+
 `git clone git@github.com:yourgithubid/astrid.git` 
+
 (see Github's instructions if you need help). Follow the [Github Line Ending Help](http://help.github.com/dealing-with-lineendings/)
 
 4. Clone the [astridApi](http://github.com/todoroo/astridApi) github project. This is an [Android Library Project](http://developer.android.com/guide/developing/eclipse-adt.html#libraryProject) and so you will need ADT version 0.9.7+. Put the astridApi folder in the same root level folder as the astrid folder.
@@ -31,14 +33,17 @@ Getting Started With Development
 7. Check out the [Product Roadmap](http://wiki.github.com/todoroo/astrid/) and [Issues](http://github.com/todoroo/astrid/issues), and look for something you'd want to tackle.
 
 8. Follow the following contributors workflow:
-Suggested workflow:
 
+*Suggested workflow:*
 
+*Setup:*
 
-`git clone git@github.com:yourgithubid/astridApi.git`
-
+`git clone git@github.com:yourgithubid/astrid.git`
+`git clone git@github.com:todoroo/astridApi.git`
 `git remote add astrid git://github.com/todoroo/astrid.git`
-  
+
+*Working on new features/fixes:*  
+
 `git checkout -b my-new-features`  
 
 work, work, work! 
@@ -51,7 +56,7 @@ work, work, work!
   
 `git push origin my-new-features`
   
-then go to github and submit a pull request
+then go to github and submit a pull request!  
 
 Contact
 -------
