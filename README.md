@@ -34,9 +34,10 @@ Getting Started With Development
 
 8. Follow the following contributors workflow:
 
-*Suggested workflow:*
+Suggested workflow
+---------------
 
-*Setup:*
+**Setup:**
 
 `git clone git@github.com:yourgithubid/astrid.git`
 
@@ -44,7 +45,7 @@ Getting Started With Development
 
 `git remote add astrid git://github.com/todoroo/astrid.git`
 
-*Working on new features/fixes:*  
+**Working on new features/fixes:**
 
 `git checkout -b my-new-features`  
 
