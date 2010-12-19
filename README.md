@@ -39,7 +39,9 @@ Getting Started With Development
 *Setup:*
 
 `git clone git@github.com:yourgithubid/astrid.git`
+
 `git clone git@github.com:todoroo/astridApi.git`
+
 `git remote add astrid git://github.com/todoroo/astrid.git`
 
 *Working on new features/fixes:*  
