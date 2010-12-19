@@ -24,17 +24,19 @@ Getting Started With Development
 
 4. Clone the [astridApi](http://github.com/todoroo/astridApi) github project. This is an [Android Library Project](http://developer.android.com/guide/developing/eclipse-adt.html#libraryProject) and so you will need ADT version 0.9.7+. Put the astridApi folder in the same root level folder as the astrid folder.
 
-4. Open up **eclipse** and import the *astrid*, *astridApi*, and *astrid-tests* projects. There should be no compilation errors. If there are, check the Android page of Eclipse Project Properties to verify the astridApi project was found.
+5. Open up **eclipse** and import the *astrid*, *astridApi*, and *astrid-tests* projects. There should be no compilation errors. If there are, check the Android page of Eclipse Project Properties to verify the astridApi project was found.
 
-5. Launch the *astrid* project as an **Android Application**, or the *astrid-tests* project as an **Android JUnit Test Suite**.
+6. Launch the *astrid* project as an **Android Application**, or the *astrid-tests* project as an **Android JUnit Test Suite**.
 
-6. Join the [Astrid Power-Users List](http://groups.google.com/group/astrid-power).
+7. Join the [Astrid Power-Users List](http://groups.google.com/group/astrid-power).
 
-7. Check out the [Product Roadmap](http://wiki.github.com/todoroo/astrid/) and [Issues](http://github.com/todoroo/astrid/issues), and look for something you'd want to tackle.
+8. Check out the [Product Roadmap](http://wiki.github.com/todoroo/astrid/) and [Issues](http://github.com/todoroo/astrid/issues), and look for something you'd want to tackle.
 
-8. Follow the following contributors workflow:
+9. Follow the following contributors workflow and help make Astrid better!
 
-Suggested workflow
+10. Sign a [Contributors License Agreement](https://github.com/downloads/todoroo/astrid/Contributors%20Licensing%20Agreement.pdf) and send it to astrid AT todoroo.com 
+
+Contributors workflow
 ---------------
 
 **Setup:**
