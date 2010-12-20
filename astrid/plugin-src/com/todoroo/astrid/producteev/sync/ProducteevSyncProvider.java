@@ -245,6 +245,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                         if(remote.task.hasDueDate() && remote.task.getValue(Task.DUE_DATE) < DateUtilities.now())
                             remote.task.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
 
+                        dataService.findLocalMatch(remote);
+
                         remoteTasks.add(remote);
                     }
                 } catch (ApiServiceException ase) {
@@ -604,7 +606,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                 local.pdvTask.setValue(ProducteevTask.DASHBOARD_ID, remote.pdvTask.getValue(ProducteevTask.DASHBOARD_ID));
                 local.pdvTask.setValue(ProducteevTask.CREATOR_ID, remote.pdvTask.getValue(ProducteevTask.CREATOR_ID));
                 local.pdvTask.setValue(ProducteevTask.RESPONSIBLE_ID, remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID));
-                local.pdvTask.setValue(ProducteevTask.REPEATING_SETTING, remote.pdvTask.getValue(ProducteevTask.REPEATING_SETTING));
+                if(remote.pdvTask.containsNonNullValue(ProducteevTask.REPEATING_SETTING))
+                    local.pdvTask.setValue(ProducteevTask.REPEATING_SETTING, remote.pdvTask.getValue(ProducteevTask.REPEATING_SETTING));
             }
         } catch (JSONException e) {
             throw new ApiResponseParseException(e);
