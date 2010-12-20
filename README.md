@@ -9,7 +9,7 @@ If you would like to help out with the Astrid project, you're in the right place
 Getting Started With Development
 ---------------
 
-1. Create your own fork of Astrid by clicking on Github's *Fork* button above (you may have to log in first).
+1. Create your own fork of Astrid by clicking on Github's *Fork* button above (you may have to log in first - [github help](http://help.github.com/forking/)).
 
 2. Install the following: 
  • *[git](http://git.or.cz/)*
@@ -24,7 +24,9 @@ Getting Started With Development
 
 4. Clone the [astridApi](http://github.com/todoroo/astridApi) github project. This is an [Android Library Project](http://developer.android.com/guide/developing/eclipse-adt.html#libraryProject) and so you will need ADT version 0.9.7+. Put the astridApi folder in the same root level folder as the astrid folder.
 
-5. Open up **eclipse** and import the *astrid*, *astridApi*, and *astrid-tests* projects. There should be no compilation errors. If there are, check the Android page of Eclipse Project Properties to verify the astridApi project was found.
+5. Open up **eclipse** and import the *astrid*, *astridApi*, and *astrid-tests* projects. There should be no compilation errors. If there are, check the Android page of Eclipse Project Properties to verify the astridApi project was found. You might have to **clean** the projects from within **eclipse** 
+
+*from Eclipse: project-menu -> clean -> select projects -> check "start a build immediately" if "automatic build" is not enabled*
 
 6. Launch the *astrid* project as an **Android Application**, or the *astrid-tests* project as an **Android JUnit Test Suite**.
 
@@ -45,7 +47,7 @@ Contributors workflow
 
 `git clone git@github.com:todoroo/astridApi.git`
 
-`git remote add astrid git://github.com/todoroo/astrid.git`
+`git remote add upstream git://github.com/todoroo/astrid.git`
 
 **Working on new features/fixes:**
 
@@ -55,9 +57,9 @@ work, work, work!
   
 `git commit` (a separate commit for each bug fix, feature change, style or copy edit please!)
   
-`git fetch astrid`
+`git fetch upstream`
 
-`git rebase -i astrid/master` (i like to rebase -i to verify what i'm committing and squish small commits)
+`git rebase -i upstream/master` (i like to rebase -i to verify what i'm committing and squish small commits)
   
 `git push origin my-new-features`
   
