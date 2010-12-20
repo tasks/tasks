@@ -43,6 +43,7 @@ public class ProducteevTask {
         metadata.setValue(DASHBOARD_ID, ProducteevUtilities.INSTANCE.getDefaultDashboard());
         metadata.setValue(CREATOR_ID, Preferences.getLong(ProducteevUtilities.PREF_USER_ID, 0L));
         metadata.setValue(RESPONSIBLE_ID, Preferences.getLong(ProducteevUtilities.PREF_USER_ID, 0L));
+        metadata.setValue(REPEATING_SETTING, ""); //$NON-NLS-1$
         return metadata;
     }
 
