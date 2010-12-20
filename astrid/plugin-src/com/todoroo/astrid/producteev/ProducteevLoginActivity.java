@@ -222,7 +222,7 @@ public class ProducteevLoginActivity extends Activity {
      * Perform synchronization
      */
     protected void synchronize() {
-        startService(new Intent(ProducteevBackgroundService.SYNC_ACTION, null,
+        startService(new Intent(null, null,
                 this, ProducteevBackgroundService.class));
         finish();
     }

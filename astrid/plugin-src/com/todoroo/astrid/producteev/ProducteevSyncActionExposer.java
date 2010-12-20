@@ -26,7 +26,7 @@ public class ProducteevSyncActionExposer extends BroadcastReceiver {
         if(!ProducteevUtilities.INSTANCE.isLoggedIn())
             return;
 
-        Intent syncIntent = new Intent(ProducteevBackgroundService.SYNC_ACTION, null,
+        Intent syncIntent = new Intent(null, null,
                 context, ProducteevBackgroundService.class);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         SyncAction syncAction = new SyncAction(context.getString(R.string.producteev_PPr_header),

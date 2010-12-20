@@ -15,7 +15,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.service.AstridDependencyInjector;
-import com.todoroo.astrid.sync.SyncBackgroundService;
 
 /**
  * Exposes sync action
@@ -38,7 +37,7 @@ public class GtasksSyncActionExposer extends BroadcastReceiver {
         if(!gtasksPreferenceService.isLoggedIn())
             return;
 
-        Intent syncIntent = new Intent(SyncBackgroundService.SYNC_ACTION, null,
+        Intent syncIntent = new Intent(null, null,
                 context, GtasksBackgroundService.class);
         PendingIntent pendingIntent = PendingIntent.getService(context, 0, syncIntent, PendingIntent.FLAG_UPDATE_CURRENT);
         SyncAction syncAction = new SyncAction(context.getString(R.string.gtasks_GPr_header),

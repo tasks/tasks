@@ -49,7 +49,6 @@ import com.todoroo.astrid.gtasks.GtasksBackgroundService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.sync.SyncBackgroundService;
 import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTasksException;
@@ -172,7 +171,7 @@ public class GtasksLoginActivity extends Activity {
      * Perform synchronization
      */
     protected void synchronize() {
-        startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
+        startService(new Intent(null, null,
                 this, GtasksBackgroundService.class));
         finish();
     }

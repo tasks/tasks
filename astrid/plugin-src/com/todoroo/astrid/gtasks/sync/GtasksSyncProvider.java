@@ -47,7 +47,6 @@ import com.todoroo.astrid.gtasks.GtasksTaskListUpdater;
 import com.todoroo.astrid.gtasks.auth.GtasksLoginActivity;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.sync.SyncBackgroundService;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.utility.Constants;
@@ -55,17 +54,17 @@ import com.todoroo.astrid.utility.Flags;
 import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTaskService;
-import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.GoogleTaskTask;
 import com.todoroo.gtasks.GoogleTaskView;
 import com.todoroo.gtasks.GoogleTasksException;
+import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.actions.Actions;
 import com.todoroo.gtasks.actions.GetTasksAction;
 import com.todoroo.gtasks.actions.ListAction;
 import com.todoroo.gtasks.actions.ListActions;
+import com.todoroo.gtasks.actions.ListCreationAction;
 import com.todoroo.gtasks.actions.ListActions.TaskBuilder;
 import com.todoroo.gtasks.actions.ListActions.TaskModifier;
-import com.todoroo.gtasks.actions.ListCreationAction;
 
 @SuppressWarnings("nls")
 public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
@@ -190,7 +189,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             Intent intent = new Intent(activity, GtasksLoginActivity.class);
             activity.startActivityForResult(intent, 0);
         } else {
-            activity.startService(new Intent(SyncBackgroundService.SYNC_ACTION, null,
+            activity.startService(new Intent(null, null,
                 activity, GtasksBackgroundService.class));
             activity.finish();
         }

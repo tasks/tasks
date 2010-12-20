@@ -253,7 +253,12 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <service android:name="com.todoroo.astrid.gtasks.GtasksBackgroundService"/>    
+    <service android:name="com.todoroo.astrid.gtasks.GtasksBackgroundService">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.gtasks.SYNC" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </service>        
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksSyncActionExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
@@ -437,7 +442,12 @@
     </activity>
     <activity android:name="com.todoroo.astrid.producteev.ProducteevLoginActivity"
               android:theme="@style/Theme" />
-    <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService"/>
+    <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.producteev.SYNC" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </service>
     <receiver android:name="com.todoroo.astrid.producteev.ProducteevStartupReceiver">
       <intent-filter>
         <action android:name="android.intent.action.BOOT_COMPLETED" />

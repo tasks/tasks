@@ -192,7 +192,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             Intent intent = new Intent(activity, ProducteevLoginActivity.class);
             activity.startActivityForResult(intent, 0);
         } else {
-            activity.startService(new Intent(ProducteevBackgroundService.SYNC_ACTION, null,
+            activity.startService(new Intent(null, null,
                     activity, ProducteevBackgroundService.class));
         }
     }
