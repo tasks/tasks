@@ -537,7 +537,6 @@ public class ProducteevInvoker {
             throws IOException, ApiServiceException {
         try {
             String request = createFetchUrl(method, getParameters);
-            System.err.println("invoking: " + request);
             String response = null;
             try {
                 response = restClient.get(request);
