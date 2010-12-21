@@ -51,6 +51,10 @@
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Error: e-mail or password incorrect!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
+    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
+    Try logging in from the browser, then come back to try again:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
