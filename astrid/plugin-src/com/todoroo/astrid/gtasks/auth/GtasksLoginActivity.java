@@ -29,6 +29,8 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.Html;
+import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -114,6 +116,7 @@ public class GtasksLoginActivity extends Activity {
 
     }
 
+    private int loginTries = 0;
 
     private void performLogin(final String email, final String password, final boolean isDomain) {
         final ProgressDialog dialog = DialogUtilities.progressDialog(this,
@@ -127,6 +130,9 @@ public class GtasksLoginActivity extends Activity {
                 final StringBuilder errorMessage = new StringBuilder();
                 GoogleConnectionManager gcm = new GoogleConnectionManager(email.toString(),
                         password.toString(), !isDomain);
+
+                loginTries++;
+
                 try {
                     gcm.authenticate(false);
                     gcm.get();
@@ -140,6 +146,13 @@ public class GtasksLoginActivity extends Activity {
                     synchronize();
                 } catch (GoogleLoginException e) {
                     errorMessage.append(getString(R.string.gtasks_GLA_errorAuth));
+
+                    if(loginTries > 1) {
+                        errorMessage.append("<br/><br/>").append(getString(
+                                R.string.gtasks_GLA_errorAuth_captcha)).append(
+                                        "<br/><a href='https://www.google.com/accounts/ServiceLogin'>Google Sign In</a>");
+                    }
+
                     Log.e("gtasks", "login-auth", e);
                     return;
                 } catch (GoogleTasksException e) {
@@ -158,7 +171,8 @@ public class GtasksLoginActivity extends Activity {
                             dialog.dismiss();
                             if(errorMessage.length() > 0) {
                                 errors.setVisibility(View.VISIBLE);
-                                errors.setText(errorMessage);
+                                errors.setText(Html.fromHtml(errorMessage.toString()));
+                                errors.setMovementMethod(LinkMovementMethod.getInstance());
                             }
                         }
                     });
