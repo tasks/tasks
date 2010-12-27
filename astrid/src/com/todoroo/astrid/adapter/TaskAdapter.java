@@ -308,7 +308,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // complete box
         final CheckBox completeBox = viewHolder.completeBox; {
             // show item as completed if it was recently checked
-            if(completedItems.containsKey(task.getId())) {
+            if(completedItems.get(task.getId()) != null) {
                 task.setValue(Task.COMPLETION_DATE,
                         completedItems.get(task.getId()) ? DateUtilities.now() : 0);
             }
