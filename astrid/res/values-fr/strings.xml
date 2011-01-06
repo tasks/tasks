@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Erreur d\'importation</string>
     
-  <string name="export_toast">Sauvegardé(s) de %s à %s.</string>
+  <string name="export_toast">Sauvegardé(s) de %1$s à %2$s.</string>
     
   <string name="export_toast_no_tasks">Pas de tâche à exporter.</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">Restauration de l\'index</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">Le fichier %s contenait %s.\n\n %s importé,\n %s existe déjà\n %s contenait des erreurs\n</string>
+  <string name="import_summary_message">Le fichier %1$s contenait %2$s.\n\n %3$s importé,\n %4$s existe déjà\n %5$s contenait des erreurs\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importation...</string>
@@ -1383,10 +1383,10 @@
   <string name="TEA_no_tags_modified">Aucun changement effectué</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Étiquette %s supprimée de %d tâches</string>
+  <string name="TEA_tags_deleted">Étiquette %1$s supprimée de %2$d tâches</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Remplacement de %s par %s dans %d tâches</string>
+  <string name="TEA_tags_renamed">Remplacement de %1$s par %2$s dans %3$d tâches</string>
 
 
 

@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">インポートに失敗</string>
     
-  <string name="export_toast">%s を %s にバックアップしました。</string>
+  <string name="export_toast">%1$s を %2$s にバックアップしました。</string>
     
   <string name="export_toast_no_tasks">エクスポートするタスクがありません</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">復元の概要</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">ファイル %s の %s 中、\n\n成功: %s\n既に存在: %s\n失敗: %s\n</string>
+  <string name="import_summary_message">ファイル %1$s の %2$s 中、\n\n成功: %3$s\n既に存在: %4$s\n失敗: %5$s\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">インポート中</string>
@@ -1406,10 +1406,10 @@ Error Message: %s
   <string name="TEA_no_tags_modified">変更されませんでした</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag \'%s\' removed from %d tasks</string>
+  <string name="TEA_tags_deleted">Tag \'%1$s\' removed from %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
 
 
 

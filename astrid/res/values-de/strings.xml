@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Fehler beim Importieren</string>
     
-  <string name="export_toast">%s auf %s gesichert.</string>
+  <string name="export_toast">%1$s auf %2$s gesichert.</string>
     
   <string name="export_toast_no_tasks">Keine Aufgaben für den Export.</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">Zusammenfassung \"Wiederherstellen\"</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">Datei %s beeinhaltet %s.\n\n %s importiert,\n %s existiert bereits\n %s hat Fehler\n</string>
+  <string name="import_summary_message">Datei %1$s beeinhaltet %2$s.\n\n %3$s importiert,\n %4$s existiert bereits\n %5$s hat Fehler\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importiere...</string>
@@ -1409,10 +1409,10 @@
   <string name="TEA_no_tags_modified">Es gibt keine Änderungen</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Es wurde %s mit %s ersetzt in %d Tasks</string>
+  <string name="TEA_tags_renamed">Es wurde %1$s mit %2$s ersetzt in %3$d Tasks</string>
 
 
 

@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Errore d\'importazione</string>
     
-  <string name="export_toast">Backup di %s su %s eseguito.</string>
+  <string name="export_toast">Backup di %1$s su %2$s eseguito.</string>
     
   <string name="export_toast_no_tasks">Nessuna attività di esportazione</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">Ripristina sommario</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">Il File %s contiene %s.\n\n %s importati\n %s esiste già\n %s contiene errori\n</string>
+  <string name="import_summary_message">Il File %1$s contiene %2$s.\n\n %3$s importati\n %4$s esiste già\n %5$s contiene errori\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importazione in corso...</string>
@@ -1417,10 +1417,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="TEA_no_tags_modified">Nessuna modifica effettuata</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
 
 
 

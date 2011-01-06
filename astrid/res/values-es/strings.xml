@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Error de importación</string>
     
-  <string name="export_toast">Se hicieron copias de seguridad de %s tareas en %s.</string>
+  <string name="export_toast">Se hicieron copias de seguridad de %1$s tareas en %2$s.</string>
     
   <string name="export_toast_no_tasks">No hay tareas para exportar</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">Resumen de restauración</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">El archivo %s contenido en %s.\n\n %s importados,\n %s ya existentes\n %s tuvieron errores\n</string>
+  <string name="import_summary_message">El archivo %1$s contenido en %2$s.\n\n %3$s importados,\n %4$s ya existentes\n %5$s tuvieron errores\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importando...</string>
@@ -1412,10 +1412,10 @@ Si puede añada Astrid a la lista de exclusión de modo que no sea matada. De ot
   <string name="TEA_no_tags_modified">No se realizaron cambios</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Se eliminó la etiqueta %s de %d tareas</string>
+  <string name="TEA_tags_deleted">Se eliminó la etiqueta %1$s de %2$d tareas</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Se reemplazó %s con %s en %d tareas</string>
+  <string name="TEA_tags_renamed">Se reemplazó %1$s con %2$s en %3$d tareas</string>
 
 
 

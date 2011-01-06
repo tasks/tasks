@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">가져오기 오류</string>
     
-  <string name="export_toast">%s 에서 %s (을)를 백업하다.</string>
+  <string name="export_toast">%1$s 에서 %2$s (을)를 백업하다.</string>
     
   <string name="export_toast_no_tasks">내보낼 작업 없음.</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">간편 복원</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">%s 파일은 %s 개의 할일을 포함하고 있습니다. \n\n %s 개 가져오기 성공,\n %s 개 이미 존재, \n %s 개 에러 발생\n</string>
+  <string name="import_summary_message">%1$s 파일은 %2$s 개의 할일을 포함하고 있습니다. \n\n %3$s 개 가져오기 성공,\n %4$s 개 이미 존재, \n %5$s 개 에러 발생\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">가져오는 중...</string>
@@ -1411,7 +1411,7 @@
   <string name="TEA_no_tags_modified">변경 없음.</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">%s 태그가 %d 작업에서 삭제됨.</string>
+  <string name="TEA_tags_deleted">%1$s 태그가 %2$d 작업에서 삭제됨.</string>
 
   <!-- Toast notification that a tag has been renamed -->
 

@@ -55,7 +55,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Import Error</string>
     
-  <string name="export_toast">Backed Up %s to %s.</string>
+  <string name="export_toast">Backed Up %1$s to %2$s.</string>
     
   <string name="export_toast_no_tasks">No Tasks to Export.</string>
   
@@ -67,10 +67,10 @@
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
   <string name="import_summary_message">
-File %s contained %s.\n\n
-%s imported,\n
-%s already exist\n
-%s had errors\n
+File %1$s contained %2$s.\n\n
+%3$s imported,\n
+%4$s already exist\n
+%5$s had errors\n
   </string>
   
   <!-- Progress Dialog Title for importing -->    

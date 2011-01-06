@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Importfeil</string>
     
-  <string name="export_toast">Sikkerhetskopierte %s til %s</string>
+  <string name="export_toast">Sikkerhetskopierte %1$s til %2$s</string>
     
   <string name="export_toast_no_tasks">Ingen oppgaver å eksportere</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">Gjennopprettingssammendrag</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">Filen %s inneholdt %s.\n\n %s importerte,\n %s eksisterer allerede\n %s hadde feil\n</string>
+  <string name="import_summary_message">Filen %1$s inneholdt %2$s.\n\n %3$s importerte,\n %4$s eksisterer allerede\n %5$s hadde feil\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importerer...</string>
@@ -1411,10 +1411,10 @@
   <string name="TEA_no_tags_modified">No changes made</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
 
 
 

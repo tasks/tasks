@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Ошибка импорта</string>
     
-  <string name="export_toast">Cохранено %s в %s</string>
+  <string name="export_toast">Cохранено %1$s в %2$s</string>
     
   <string name="export_toast_no_tasks">Нет задач для экспорта.</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">Итог восстановления</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">Файл %s содержал %s.\n\n %s импортировано,\n %s уже существует\n %s содержали ошибки\n</string>
+  <string name="import_summary_message">Файл %1$s содержал %2$s.\n\n %3$s импортировано,\n %4$s уже существует\n %5$s содержали ошибки\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Импортирование…</string>
@@ -1403,10 +1403,10 @@
   <string name="TEA_no_tags_modified">Без изменений</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Метка %s удалена из %d задач</string>
+  <string name="TEA_tags_deleted">Метка %1$s удалена из %2$d задач</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Заменено %s на %s в %d задачах</string>
+  <string name="TEA_tags_renamed">Заменено %1$s на %2$s в %3$d задачах</string>
 
 
 

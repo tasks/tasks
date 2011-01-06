@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Importfel</string>
     
-  <string name="export_toast">Säkerhetskopierade %s till %s.</string>
+  <string name="export_toast">Säkerhetskopierade %1$s till %2$s.</string>
     
   <string name="export_toast_no_tasks">Inga uppgifter att exportera</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">Återställningssammanfattning</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">Filen %s innehöll %s.\n\n %s importerade,\n %s existerar redan\n %s hade fel\n</string>
+  <string name="import_summary_message">Filen %1$s innehöll %2$s.\n\n %3$s importerade,\n %4$s existerar redan\n %5$s hade fel\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importerar...</string>
@@ -1414,10 +1414,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="TEA_no_tags_modified">Inga ändringar gjordes</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Taggen %s togs bort från %d uppgifter</string>
+  <string name="TEA_tags_deleted">Taggen %1$s togs bort från %2$d uppgifter</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Ersatte %s med %s i %d uppgifter</string>
+  <string name="TEA_tags_renamed">Ersatte %1$s med %2$s i %3$d uppgifter</string>
 
 
 

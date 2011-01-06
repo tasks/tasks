@@ -45,9 +45,9 @@
   <string name="TEA_no_tags_modified">No changes made</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
 
 </resources>

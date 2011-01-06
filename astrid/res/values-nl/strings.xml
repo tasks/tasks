@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Fout tijdens importeren</string>
     
-  <string name="export_toast">%s gebackupped naar %s.</string>
+  <string name="export_toast">%1$s gebackupped naar %2$s.</string>
     
   <string name="export_toast_no_tasks">Geen taken om te Exporteren</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">Herstel samenvatting</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">%s bestanden bevatten %s.\n\n %s geimporteerd,\n %s bestaan al\n %s hadden fouten\n</string>
+  <string name="import_summary_message">%1$s bestanden bevatten %2$s.\n\n %3$s geimporteerd,\n %4$s bestaan al\n %5$s hadden fouten\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Importeren...</string>
@@ -1427,10 +1427,10 @@ Error Message: %s
   <string name="TEA_no_tags_modified">No changes made</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
 
 
 

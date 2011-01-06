@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Chyba v importu</string>
     
-  <string name="export_toast">Odzálohovány %s do %s.</string>
+  <string name="export_toast">Odzálohovány %1$s do %2$s.</string>
     
   <string name="export_toast_no_tasks">No Tasks to Export.</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">Souhrn obnovy</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">Soubor %s obsahoval %s.\n\n %s importováno,\n %s již existuje\n %s obsahovalo chyby\n</string>
+  <string name="import_summary_message">Soubor %1$s obsahoval %2$s.\n\n %3$s importováno,\n %4$s již existuje\n %5$s obsahovalo chyby\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Probíhá import...</string>
@@ -1414,10 +1414,10 @@
   <string name="TEA_no_tags_modified">No changes made</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
 
 
 

@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">导入错误</string>
     
-  <string name="export_toast">已备份 %s 到 %s。</string>
+  <string name="export_toast">已备份 %1$s 到 %2$s。</string>
     
   <string name="export_toast_no_tasks">没有待导出的任务。</string>
   
@@ -84,7 +84,7 @@
   <string name="import_summary_title">恢复概要</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">文件 %s 包含%s个任务。\n\n %s个已导入 \n %s个已存在 \n %s个有错误\n</string>
+  <string name="import_summary_message">文件 %1$s 包含%2$s个任务。\n\n %3$s个已导入 \n %4$s个已存在 \n %5$s个有错误\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">正在导入...</string>
@@ -1408,10 +1408,10 @@
   <string name="TEA_no_tags_modified">No changes made</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %s removed from %d tasks</string>
+  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %s with %s on %d tasks</string>
+  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
 
 
 
