@@ -1,5 +1,10 @@
 package com.todoroo.astrid.adapter;
 
+import greendroid.widget.QuickAction;
+import greendroid.widget.QuickActionBar;
+import greendroid.widget.QuickActionWidget;
+import greendroid.widget.QuickActionWidget.OnQuickActionClickListener;
+
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
@@ -15,26 +20,27 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Paint;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.text.Html;
-import android.text.Spanned;
-import android.text.TextUtils;
 import android.text.Html.ImageGetter;
 import android.text.Html.TagHandler;
+import android.text.Spanned;
+import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
+import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
@@ -113,6 +119,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     // the task that's expanded
     private long expanded = -1;
+
+    // actions for QuickActionBar/mel
+    private QuickActionWidget mBar;
+    //private View mBarAnchor;
 
     // --- task detail and decoration soft caches
 
@@ -734,55 +744,100 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return broadcastIntent;
         }
 
+        //quickactionbar
+        //private QuickActionWidget mBar;
+
+        @Override
+        public synchronized void addNew(long taskId, String addOn, final TaskAction item) {
+            // TODO Auto-generated method stub
+            addIfNotExists(taskId, addOn, item);
+            if(mBar != null) {
+                ListView listView = activity.getListView();
+                ViewHolder myHolder = null;
+                // update view if it is visible
+                int length = listView.getChildCount();
+                for(int i = 0; i < length; i++) {
+                    ViewHolder viewHolder = (ViewHolder) listView.getChildAt(i).getTag();
+                    if(viewHolder == null || viewHolder.task.getId() != taskId)
+                        continue;
+                    myHolder = viewHolder;
+                    break;
+                }
+
+                if(myHolder != null) {
+                    final ViewHolder viewHolder = myHolder;
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            Drawable drawable = new BitmapDrawable(activity.getResources(), item.icon);
+                            mBar.addQuickAction(new QuickAction(drawable, item.text));
+                            mBar.setOnQuickActionClickListener(new QuickActionListener(item, viewHolder));
+                            mBar.show(viewHolder.view);
+                        }
+                    });
+                }
+            }
+        }
+
+        @Override
+        public Collection<TaskAction> get(long taskId) {
+            return super.get(taskId);
+        }
+
         @Override
         protected void draw(final ViewHolder viewHolder, final long taskId, Collection<TaskAction> actions) {
-            if(actions == null || viewHolder.task.getId() != taskId)
-                return;
-
-            // hack because we know we have > 1 button
-            if(actions.size() == 0)
-                return;
-
-            for(int i = viewHolder.actions.getChildCount(); i < actions.size() + 1; i++) {
-                Button editButton = new Button(activity);
-                editButton.setLayoutParams(params);
-                viewHolder.actions.addView(editButton);
-            }
-            for(int i = actions.size() + 1; i < viewHolder.actions.getChildCount(); i++) {
-                viewHolder.actions.getChildAt(i).setVisibility(View.GONE);
-            }
-
-            int i = 0;
-            Button button = (Button) viewHolder.actions.getChildAt(i++);
-
-            button.setText(R.string.TAd_actionEditTask);
-            button.setVisibility(View.VISIBLE);
-            button.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View arg0) {
-                    Intent intent = new Intent(activity, TaskEditActivity.class);
-                    intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
-                    activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
-                }
-            });
-
-            for(TaskAction action : actions) {
-                button = (Button) viewHolder.actions.getChildAt(i++);
-                button.setText(action.text);
-                button.setVisibility(View.VISIBLE);
-                button.setOnClickListener(new ActionClickListener(action, viewHolder));
-            }
-
-            reset(viewHolder, taskId);
+            // do not draw!
         }
+
+        /*
+        //preparing quickActionBar
+        private void prepareQuickActionBar(ViewHolder viewHolder, Collection<TaskAction> actions){
+
+            mBar = new QuickActionBar(viewHolder.view.getContext());
+            QuickAction editAction = new QuickAction(viewHolder.view.getContext(), R.drawable.tango_edit, "   Edit   ");
+            mBar.addQuickAction(editAction);
+            for(TaskAction action : actions) {
+
+                mBar.addQuickAction(new QuickAction(viewHolder.view.getContext(), R.drawable.tango_clock, action.text));
+                mBar.setOnQuickActionClickListener(new quickActionListener(action, viewHolder));
+            }
+
+        }
+        */
+        /*
+        protected synchronized void showQuickActionBar(ViewHolder viewHolder, long taskId, Collection<TaskAction> actions) {
+            if(mBar != null){
+                mBar.dismiss();
+            }
+            if(expanded != taskId) {
+                //viewHolder.actions.setVisibility(View.GONE);
+                return;
+            }
+            //display quickactionbar
+            else {
+                prepareQuickActionBar(viewHolder, actions);
+                mBar.show(viewHolder.view);
+
+             }
+            //viewHolder.actions.setVisibility(View.VISIBLE);
+        }
+         */
 
         @Override
         protected void reset(ViewHolder viewHolder, long taskId) {
             if(expanded != taskId) {
-                viewHolder.actions.setVisibility(View.GONE);
+                mBar.dismiss();
+                //viewHolder.actions.setVisibility(View.GONE);
                 return;
             }
-            viewHolder.actions.setVisibility(View.VISIBLE);
+            //display quickactionbar
+            /*
+            else{
+                prepareQuickActionBar(viewHolder);
+                mBar.show(viewHolder.view);
+            }
+            */
+            //viewHolder.actions.setVisibility(View.VISIBLE);
         }
     }
 
@@ -794,6 +849,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
+
     }
 
     protected final View.OnClickListener completeBoxListener = new View.OnClickListener() {
@@ -808,6 +864,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     };
 
+/*
     private final class ActionClickListener implements View.OnClickListener {
         private final TaskAction action;
         private final ViewHolder viewHolder;
@@ -830,8 +887,65 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             taskActionManager.request(viewHolder);
         }
     };
+*/
+
+    private final class QuickActionListener implements OnQuickActionClickListener {
+        private final TaskAction action;
+        private final ViewHolder viewHolder;
+
+        public QuickActionListener(TaskAction action, ViewHolder viewHolder) {
+            this.action = action;
+            this.viewHolder = viewHolder;
+        }
+
+        public void onQuickActionClicked(QuickActionWidget widget, int position){
+            mBar.dismiss();
+            mBar = null;
+
+            if(position == 0){
+
+                Intent intent = new Intent(activity, TaskEditActivity.class);
+                intent.putExtra(TaskEditActivity.TOKEN_ID, viewHolder.task.getId());
+                activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
+            }
+            else{
+                flushSpecific(viewHolder.task.getId());
+                try {
+                    action.intent.send();
+                } catch (Exception e) {
+                    exceptionService.displayAndReportError(activity,
+                            "Error launching action", e); //$NON-NLS-1$
+                }
+                decorationManager.request(viewHolder);
+                extendedDetailManager.request(viewHolder);
+                taskActionManager.request(viewHolder);
+            }
+            clearSelection();
+            notifyDataSetChanged();
+
+        }
+    }
 
     private class TaskRowListener implements OnCreateContextMenuListener, OnClickListener {
+
+        //prep quick action bar
+        private void prepareQuickActionBar(ViewHolder viewHolder, Collection<TaskAction> collection){
+
+            mBar = new QuickActionBar(viewHolder.view.getContext());
+            QuickAction editAction = new QuickAction(activity, R.drawable.tango_edit, "   Edit   ");
+            mBar.addQuickAction(editAction);
+
+
+            if(collection != null) {
+                for(TaskAction item : collection) {
+                    Drawable drawable = new BitmapDrawable(activity.getResources(), item.icon);
+                    mBar.addQuickAction(new QuickAction(drawable, item.text));
+                    mBar.setOnQuickActionClickListener(new QuickActionListener(item, viewHolder));
+                }
+            }
+
+
+        }
 
         public void onCreateContextMenu(ContextMenu menu, View v,
                 ContextMenuInfo menuInfo) {
@@ -847,11 +961,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 return;
 
             long taskId = viewHolder.task.getId();
-            if(expanded == taskId) {
-                expanded = -1;
-            } else {
-                expanded = taskId;
-            }
+
+            Collection<TaskAction> actions = taskActionManager.get(taskId);
+            prepareQuickActionBar(viewHolder, actions);
+            //mBarAnchor = v;
+            System.err.println("view is ID " + v.getId());
+            if(actions != null)
+                mBar.show(v);
+            System.err.println("! Request for " + taskId);
+            taskActionManager.request(viewHolder);
+
 
             notifyDataSetChanged();
         }

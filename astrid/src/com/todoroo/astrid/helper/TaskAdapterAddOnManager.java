@@ -134,6 +134,8 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
      * @return
      */
     protected Collection<TYPE> get(long taskId) {
+        if(cache.get(taskId) == null)
+            return null;
         return cache.get(taskId).values();
     }
 

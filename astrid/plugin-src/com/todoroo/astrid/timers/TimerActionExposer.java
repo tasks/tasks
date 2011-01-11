@@ -7,6 +7,9 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
@@ -45,8 +48,10 @@ public class TimerActionExposer extends BroadcastReceiver {
                 label = context.getString(R.string.TAE_stopTimer);
             Intent newIntent = new Intent(TIMER_ACTION);
             newIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
+            Drawable timer = context.getResources().getDrawable(R.drawable.tango_clock);
+            Bitmap icon = ((BitmapDrawable)timer).getBitmap();
             TaskAction action = new TaskAction(label,
-                    PendingIntent.getBroadcast(context, (int)taskId, newIntent, 0));
+                    PendingIntent.getBroadcast(context, (int)taskId, newIntent, 0), icon);
 
             // transmit
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_ACTIONS);

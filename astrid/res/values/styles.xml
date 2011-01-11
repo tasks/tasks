@@ -12,7 +12,7 @@
         <item name="android:textStyle">bold</item>
     </style>
     
-    <style name="Theme" parent="android:Theme">
+    <style name="Theme" parent="@style/Theme.GreenDroid">
         <item name="android:windowBackground">@null</item>
     </style>
     
