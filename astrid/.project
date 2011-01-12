@@ -38,9 +38,9 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>astridApi</name>
+			<name>astridApi_src</name>
 			<type>2</type>
-			<locationURI>_android_astridApi/src</locationURI>
+			<locationURI>_android_astridApi_98e6a2cf/src</locationURI>
 		</link>
 		<link>
 			<name>astridApi_src</name>
