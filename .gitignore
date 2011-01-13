@@ -6,6 +6,7 @@ gen
 local.properties
 ecbuild
 astrid/bin
+astrid/src-combined
 release
 dev
 lp-translations/
