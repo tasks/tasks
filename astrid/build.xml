@@ -111,7 +111,7 @@
     </target>
 
     <!-- post build: rename apk -->
-    <target name="release" depends="get-version, warnings, android_rules.release">
+    <target name="release" depends="clean, get-version, warnings, android_rules.release">
       <mkdir dir="../release" />
       <property name="out.final.package"
                 location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
@@ -152,7 +152,7 @@
       <copy file="AndroidManifest.xml" tofile="AndroidManifest_old.xml" />
       <replaceregexp file="AndroidManifest.xml"
                      match="(android:versionName=&quot;[^&quot; ]*)[^&quot;]*"
-                     replace="\1-${custom.version.name}" />
+                     replace="\1${custom.version.name}" />
       <antcall target="release" />
 
       <move file="AndroidManifest_old.xml" tofile="AndroidManifest.xml" />

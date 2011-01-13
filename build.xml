@@ -29,7 +29,7 @@
     </subant>
 
     <!-- custom builds -->
-    <for list="getjar,amazon,verizon,sprint,orange,vodafone,other" param="name">
+    <for list="-getjar,.1000,-verizon,-sprint,-orange,-vodafone,-other" param="name">
       <sequential>
         <subant target="release-custom">
           <fileset file="astrid/build.xml" />
