@@ -13,8 +13,8 @@ import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
@@ -22,9 +22,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -39,6 +39,7 @@ import com.todoroo.andlib.widget.TodorooPreferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
@@ -104,6 +105,9 @@ public class EditPreferences extends TodorooPreferences {
         int length = resolveInfoList.size();
         LinkedHashMap<String, ArrayList<Preference>> categoryPreferences =
             new LinkedHashMap<String, ArrayList<Preference>>();
+
+        // Loop through a list of all packages (including plugins, addons)
+        // that have a settings action
         for(int i = 0; i < length; i++) {
             ResolveInfo resolveInfo = resolveInfoList.get(i);
             Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
@@ -118,23 +122,7 @@ public class EditPreferences extends TodorooPreferences {
             preference.setTitle(resolveInfo.activityInfo.loadLabel(pm));
             preference.setIntent(intent);
 
-            // category - either from metadata, or the application name
-            String category = null;
-            if(resolveInfo.activityInfo.metaData != null &&
-                    resolveInfo.activityInfo.metaData.containsKey(METADATA_CATEGORY)) {
-                int resource = resolveInfo.activityInfo.metaData.getInt(METADATA_CATEGORY, -1);
-                if(resource > -1) {
-                    try {
-                        category = pm.getResourcesForApplication(resolveInfo.activityInfo.applicationInfo).getString(resource);
-                    } catch (Exception e) {
-                        //
-                    }
-                } else {
-                    category = resolveInfo.activityInfo.metaData.getString(METADATA_CATEGORY);
-                }
-            }
-            if(category == null)
-                category = resolveInfo.activityInfo.applicationInfo.loadLabel(pm).toString();
+            String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
 
             if(!categoryPreferences.containsKey(category))
                 categoryPreferences.put(category, new ArrayList<Preference>());

@@ -38,6 +38,12 @@ Getting Started With Development
 
 9. Sign a [Contributors License Agreement](https://github.com/downloads/todoroo/astrid/Contributors%20Licensing%20Agreement.pdf) and send it to astrid AT todoroo.com 
 
+Testing on a device - debugging
+---------------
+If you have trouble running Astrid on your device, it is recommended to:
+1. Fully uninstall Astrid from the device: adb uninstall com.timsu.astrid
+2. Restart Eclipse
+
 Contributors workflow
 ---------------
 

@@ -1,11 +1,12 @@
 package com.todoroo.astrid.activity;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.AlertDialog;
@@ -29,28 +30,28 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.ContextMenu.ContextMenuInfo;
+import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.TextView.OnEditorActionListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
@@ -78,6 +79,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
 import com.todoroo.astrid.reminders.Notifications;
@@ -258,11 +260,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             item.setIcon(android.R.drawable.ic_menu_sort_by_size);
         }
 
-        if(syncActions.size() > 0) {
-            item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
-                    R.string.TLA_menu_sync);
-            item.setIcon(R.drawable.ic_menu_refresh);
-        }
+        item = menu.add(Menu.NONE, MENU_SYNC_ID, Menu.NONE,
+                R.string.TLA_menu_sync);
+        item.setIcon(R.drawable.ic_menu_refresh);
 
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.TLA_menu_help);
@@ -347,6 +347,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 return false;
             }
         });
+
 
         // set listener for showing quick add button if text not empty
         quickAddButton = ((ImageButton)findViewById(R.id.quickAddButton));
@@ -841,10 +842,62 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 .show();
     }
 
+    /**
+     * Intent object with custom label returned by toString.
+     * @author joshuagross <joshua.gross@gmail.com>
+     */
+    private class IntentWithLabel extends Intent {
+        private final String label;
+        public IntentWithLabel (Intent in, String labelIn) {
+            super(in);
+            label = labelIn;
+        }
+        @Override
+        public String toString () {
+            return label;
+        }
+    }
+
     private void performSyncAction() {
-        if(syncActions.size() == 0)
-            return;
-        if(syncActions.size() == 1) {
+        if (syncActions.size() == 0) {
+            String desiredCategory = getString(R.string.SyP_label);
+
+            // Get a list of all sync plugins and bring user to the prefs pane
+            // for one of them
+            Intent queryIntent = new Intent(AstridApiConstants.ACTION_SETTINGS);
+            PackageManager pm = getPackageManager();
+            List<ResolveInfo> resolveInfoList = pm.queryIntentActivities(
+                    queryIntent, PackageManager.GET_META_DATA);
+            int length = resolveInfoList.size();
+            ArrayList<Intent> syncIntents = new ArrayList<Intent>();
+
+            // Loop through a list of all packages (including plugins, addons)
+            // that have a settings action: filter to sync actions
+            for (int i = 0; i < length; i++) {
+                ResolveInfo resolveInfo = resolveInfoList.get(i);
+                Intent intent = new Intent(AstridApiConstants.ACTION_SETTINGS);
+                intent.setClassName(resolveInfo.activityInfo.packageName,
+                        resolveInfo.activityInfo.name);
+
+                String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
+
+                if (category.equals(desiredCategory)) {
+                    syncIntents.add(new IntentWithLabel(intent,
+                            resolveInfo.activityInfo.loadLabel(pm).toString()));
+                }
+            }
+
+            final Intent[] actions = syncIntents.toArray(new Intent[syncIntents.size()]);
+            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface click, int which) {
+                    startActivity(actions[which]);
+                }
+            };
+
+            showSyncOptionMenu(actions, listener);
+        }
+        else if(syncActions.size() == 1) {
             SyncAction syncAction = syncActions.iterator().next();
             try {
                 syncAction.intent.send();
@@ -854,9 +907,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 //
             }
         } else {
+            // We have >1 sync actions, pop up a dialogue so the user can
+            // select just one of them (only sync one at a time)
             final SyncAction[] actions = syncActions.toArray(new SyncAction[syncActions.size()]);
-            ArrayAdapter<SyncAction> adapter = new ArrayAdapter<SyncAction>(this,
-                    android.R.layout.simple_spinner_dropdown_item, actions);
             DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface click, int which) {
@@ -869,14 +922,26 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                     }
                 }
             };
-
-            // show a menu of available options
-            new AlertDialog.Builder(this)
-            .setTitle(R.string.SyP_label)
-            .setAdapter(adapter, listener)
-            .show().setOwnerActivity(this);
-
+            showSyncOptionMenu(actions, listener);
         }
+    }
+
+    /**
+     * Show menu of sync options. This is shown when you're not logged into any services, or logged into
+     * more than one.
+     * @param <TYPE>
+     * @param items
+     * @param listener
+     */
+    private <TYPE> void showSyncOptionMenu(TYPE[] items, DialogInterface.OnClickListener listener) {
+        ArrayAdapter<TYPE> adapter = new ArrayAdapter<TYPE>(this,
+                android.R.layout.simple_spinner_dropdown_item, items);
+
+        // show a menu of available options
+        new AlertDialog.Builder(this)
+        .setTitle(R.string.SyP_label)
+        .setAdapter(adapter, listener)
+        .show().setOwnerActivity(this);
     }
 
     @Override
@@ -904,7 +969,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return true;
         case MENU_HELP_ID:
             intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/")); //$NON-NLS-1$
+                    Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/"));
             startActivity(intent);
             return true;
         case MENU_ADDON_INTENT_ID:
@@ -966,21 +1031,21 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                     if(time == 0 || time == Long.MAX_VALUE)
                         return;
 
-                    Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " + //$NON-NLS-1$
+                    Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " +
                             new Date(time), Toast.LENGTH_LONG).show();
                     ReminderService.getInstance().setScheduler(null);
                 }
             });
             ReminderService.getInstance().scheduleAlarm(task);
             if(ReminderService.getInstance().getScheduler() != null)
-                Toast.makeText(this, "No alarms", Toast.LENGTH_LONG).show(); //$NON-NLS-1$
+                Toast.makeText(this, "No alarms", Toast.LENGTH_LONG).show();
             ReminderService.getInstance().setScheduler(original);
             return true;
         }
 
         case CONTEXT_MENU_DEBUG + 1: {
             itemId = item.getGroupId();
-            new Notifications().showTaskNotification(itemId, 0, "test reminder"); //$NON-NLS-1$
+            new Notifications().showTaskNotification(itemId, 0, "test reminder");
             return true;
         }
 

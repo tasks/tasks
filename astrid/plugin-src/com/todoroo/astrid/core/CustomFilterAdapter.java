@@ -31,7 +31,7 @@ import com.todoroo.astrid.data.AddOn;
  *
  * @author Tim Su <tim@todoroo.com>
  *
-  */
+ */
 public class CustomFilterAdapter extends ArrayAdapter<CriterionInstance> {
 
     private final CustomFilterActivity activity;
