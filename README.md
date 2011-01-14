@@ -41,17 +41,24 @@ Getting Started With Development
 Testing on a device - Debugging
 ---------------
 How to debug/test on a USB device: (JoshuaGross Jan 14, 2011)
+
 1. Plug in your device and make sure you can see it by running `adb devices`
+
 2. If you cannot see the device, or want to restart debugging, do:
-	`adb kill-server`
-	`adb usb`
-	`adb devices` (make sure your device is listed)
-	`adb uninstall com.todoroo.astrid.tests` (you should see "Failure" if this was uninstalled already)
-	`adb uninstall com.todoroo.astrid` (you should see "Failure" if this was uninstalled already)
-3. If you have not already, set up Run configurations in Eclipse; either under the "Run" or "Debug" menus. 
-   To test the application, set up "Android Application". To run JUnit tests, set up "Android JUnit Tests".
-   Settings should autofill for you, you should be able to open a new configuration and run it.
-   If you run it in debug mode, see #2 above for getting adb to work in case it is finicky.
+
+`adb kill-server`
+
+`adb usb`
+
+`adb devices` (make sure your device is listed)
+
+`adb uninstall com.todoroo.astrid.tests` (you should see "Failure" if this was uninstalled already)
+
+`adb uninstall com.todoroo.astrid` (you should see "Failure" if this was uninstalled already)
+
+3. If you have not already, set up Run configurations in Eclipse; either under the "Run" or "Debug" menus. To test the application, set up "Android Application". To run JUnit tests, set up "Android JUnit Tests". Settings should autofill for you, you should be able to open a new configuration and run it. If you run it in debug mode, see #2 above for getting adb to work in case it is finicky.
+
+4. When running unit tests: make sure to *close all JUnit windows* before running tests. JUnit/Eclipse/Android work together in a very, very janky way. You may get incorrect results if you do not close the window out before running tests. You have been warned.
 
 Contributors workflow
 ---------------
