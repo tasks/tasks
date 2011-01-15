@@ -1,5 +1,6 @@
 package com.todoroo.astrid.gtasks;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
@@ -8,6 +9,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
+import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleTaskListInfo;
 import com.todoroo.gtasks.GoogleTaskService;
 import com.todoroo.gtasks.GoogleTaskTask;
@@ -18,7 +20,7 @@ import com.todoroo.gtasks.actions.ListActions;
 
 public class GtasksSyncTest extends DatabaseTestCase {
 
-    private static final String TEST_USERNAME = "tasktest@todoroo.com";
+    private static final String TEST_USERNAME = "astridtasktest@gmail.com";
     private static final String TEST_PASSWORD = "tasktest0000";
 
     private static boolean initialized = false;
@@ -26,6 +28,7 @@ public class GtasksSyncTest extends DatabaseTestCase {
     private static GoogleTaskListInfo taskList;
 
     @Autowired TaskService taskService;
+    @Autowired GtasksPreferenceService gtasksPreferenceService;
 
     // --- tests
 
@@ -68,7 +71,8 @@ public class GtasksSyncTest extends DatabaseTestCase {
     }
 
     private GoogleTaskTask thenAssertTaskExistsRemotely(Task task) throws Exception {
-        for(GoogleTaskTask remote : testService.getTasks(taskList.getId())) {
+        List<GoogleTaskTask> tasks = testService.getTasks(taskList.getId());
+        for(GoogleTaskTask remote : tasks) { 
             if(remote.getName().equals(task.getValue(Task.TITLE)))
                 return remote;
         }
@@ -82,7 +86,7 @@ public class GtasksSyncTest extends DatabaseTestCase {
 
     private Task givenTask(String title) {
         Task task = new Task();
-        task.setValue(Task.TITLE, title);
+        task.setValue(Task.TITLE, title + System.currentTimeMillis());
         taskService.save(task);
         return task;
     }
@@ -106,8 +110,9 @@ public class GtasksSyncTest extends DatabaseTestCase {
         testService.executeListActions(taskList.getId(), actions.toArray(new ListAction[actions.size()]));
     }
 
-    public static void initializeTestService() throws Exception {
-        testService = new GoogleTaskService(TEST_USERNAME, TEST_PASSWORD);
+    public void initializeTestService() throws Exception {
+        GoogleConnectionManager gcm = new GoogleConnectionManager(TEST_USERNAME, TEST_PASSWORD);
+        testService = new GoogleTaskService(gcm);
         GoogleTaskView taskView = testService.getTaskView();
         GoogleTaskListInfo[] lists = taskView.getAllLists();
         outer: {
@@ -124,6 +129,7 @@ public class GtasksSyncTest extends DatabaseTestCase {
         Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, taskList.getId());
         Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, TEST_USERNAME);
         Preferences.setString(GtasksPreferenceService.PREF_PASSWORD, TEST_PASSWORD);
+        gtasksPreferenceService.setToken(gcm.getToken());
     }
 
 

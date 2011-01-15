@@ -144,7 +144,7 @@ public class UpdateMessageService {
             return gtasksPreferenceService.isLoggedIn();
         }
         else if(PLUGIN_RMILK.equals(plugin)) {
-            return !MilkUtilities.INSTANCE.isLoggedIn();
+            return MilkUtilities.INSTANCE.isLoggedIn();
         }
         else
             return addOnService.isInstalled(plugin);

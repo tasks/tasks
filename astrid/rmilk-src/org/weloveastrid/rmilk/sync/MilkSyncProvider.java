@@ -35,7 +35,6 @@ import org.weloveastrid.rmilk.data.MilkNoteFields;
 import android.app.Activity;
 import android.app.Notification;
 import android.app.PendingIntent;
-import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -154,7 +153,7 @@ public class MilkSyncProvider extends SyncProvider<MilkTaskContainer> {
      */
     @Override
     @SuppressWarnings("nls")
-    protected void initiateBackground(Service service) {
+    protected void initiateBackground() {
         DependencyInjectionService.getInstance().inject(this);
 
         try {
