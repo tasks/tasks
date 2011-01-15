@@ -60,6 +60,8 @@ How to debug/test on a USB device: (JoshuaGross Jan 14, 2011)
 
 4. When running unit tests: make sure to *close all JUnit windows* before running tests. JUnit/Eclipse/Android work together in a very, very janky way. You may get incorrect results if you do not close the window out before running tests. You have been warned.
 
+5. Make sure to commit changes both to the "astrid" project and the "astridApi" project while developing.
+
 Contributors workflow
 ---------------
 

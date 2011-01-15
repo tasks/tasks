@@ -209,6 +209,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         if(database == null)
             return;
 
+        // TODO: document debug code
+        //AndroidUtilities.copyDatabases(this, "/sdcard/dump"); // adb pull /sdcard/dump/database database
+
         database.openForWriting();
         setUpUiComponents();
         onNewIntent(getIntent());

@@ -7,13 +7,16 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.AstridPreferences;
 
 
@@ -33,6 +36,8 @@ public final class UpgradeService {
 
     @Autowired
     private Database database;
+
+    @Autowired private TaskService taskService;
 
     public UpgradeService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -210,6 +215,21 @@ public final class UpgradeService {
     }
 
     // --- upgrade functions
+
+    /**
+     * Fixes task filter missing tasks bug
+     */
+    private void upgrade3To3_7(final Context context) {
+        TodorooCursor<Task> t = taskService.query(Query.select(Task.ID, Task.DUE_DATE).where(Task.DUE_DATE.gt(0)));
+        Task task = new Task();
+        for(t.moveToFirst(); !t.isAfterLast(); t.moveToNext()) {
+            task.readFromCursor(t);
+            if(task.hasDueDate()) {
+                task.setValue(Task.DUE_DATE, task.getValue(Task.DUE_DATE) / 1000L * 1000L);
+                taskService.save(task);
+            }
+        }
+    }
 
     /**
      * Moves sorting prefs to public pref store
