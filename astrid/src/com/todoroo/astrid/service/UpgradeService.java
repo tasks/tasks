@@ -22,6 +22,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_7_0 = 171;
     public static final int V3_6_4 = 170;
     public static final int V3_6_3 = 169;
     public static final int V3_6_2 = 168;
@@ -118,13 +119,16 @@ public final class UpgradeService {
             });
         } else {
             // current message
+            if(from < V3_7_0) {
+                upgrade3To3_7();
+            }
+
+            // old messages
             if(from >= V3_6_0 && from < V3_6_4) {
                 newVersionString(changeLog, "3.6.4 (12/28/10)", new String[] {
                         "Fix crash occuring when using timers",
                 });
             }
-
-            // old messages
             if(from >= V3_6_0 && from < V3_6_3) {
                 newVersionString(changeLog, "3.6.3 (12/18/10)", new String[] {
                         "Added support for Producteev repeating tasks",
@@ -219,7 +223,7 @@ public final class UpgradeService {
     /**
      * Fixes task filter missing tasks bug
      */
-    private void upgrade3To3_7(final Context context) {
+    private void upgrade3To3_7() {
         TodorooCursor<Task> t = taskService.query(Query.select(Task.ID, Task.DUE_DATE).where(Task.DUE_DATE.gt(0)));
         Task task = new Task();
         for(t.moveToFirst(); !t.isAfterLast(); t.moveToNext()) {
