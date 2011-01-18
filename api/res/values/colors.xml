@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <color name="importance_1">#ffff5555</color>
+    <color name="importance_2">#fffea400</color>
+    <color name="importance_3">#ff33a5e8</color>
+    <color name="importance_4">#ff808080</color>    
+    <color name="importance_5">#ff505050</color>    
+    <color name="importance_6">#ff202020</color>
+        
+</resources>
+

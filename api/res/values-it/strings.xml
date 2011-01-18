@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- ==================================================== Generic Units == -->
+  
+  <plurals name="DUt_years">
+    <!-- plurals: years -->
+    <item quantity="one">1 Anno</item>
+    <!-- plurals: years -->
+    <item quantity="other">%d Anni</item>
+  </plurals>
+  <plurals name="DUt_months">
+    <!-- plurals: months -->
+    <item quantity="one">1 Mese</item>
+    <!-- plurals: months -->
+    <item quantity="other">%d Mesi</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <!-- plurals: days -->
+    <item quantity="one">1 Settimana</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d Settimane</item>
+  </plurals>
+  <plurals name="DUt_days">
+    <!-- plurals: days -->
+    <item quantity="one">1 giorno</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d Giorni</item>
+  </plurals>
+  <plurals name="DUt_hours">
+    <!-- plurals: hours -->
+    <item quantity="one">1 ora</item>
+    <!-- plurals: hours -->
+    <item quantity="other">%d ore</item>
+  </plurals>
+  <plurals name="DUt_minutes">
+    <!-- plurals: minutes -->
+    <item quantity="one">1 minuto</item>
+    <!-- plurals: minutes -->
+    <item quantity="other">%d minuti</item>
+  </plurals>
+  <plurals name="DUt_seconds">
+    <!-- plurals: seconds -->
+    <item quantity="one">1 secondo</item>
+    <!-- plurals: seconds -->
+    <item quantity="other">%d secondi</item>
+  </plurals>
+  <plurals name="DUt_hoursShort">
+    <!-- plurals: hours (abbreviated) -->
+    <item quantity="one">1 ora</item>
+    <!-- plurals: hours (abbreviated) -->
+    <item quantity="other">%d ore</item>
+  </plurals>
+  <plurals name="DUt_minutesShort">
+    <!-- plurals: minutes (abbreviated) -->
+    <item quantity="one">1 min</item>
+    <!-- plurals: minutes (abbreviated) -->
+    <item quantity="other">%d min</item>
+  </plurals>
+  <plurals name="DUt_secondsShort">
+    <!-- plurals: seconds (abbreviated) -->
+    <item quantity="one">1 sec</item>
+    <!-- plurals: seconds (abbreviated) -->
+    <item quantity="other">%d sec</item>
+  </plurals>
+  <plurals name="Ntasks">
+    <!-- plurals: tasks -->
+    <item quantity="one">1 Attività</item>
+    <!-- plurals: tasks -->
+    <item quantity="other">%d attività</item>
+  </plurals>
+  
+  <!-- ================================================== Generic Dialogs == -->
+  
+  <!-- confirmation dialog title -->
+  <string name="DLG_confirm_title">Conferma?</string>
+  
+  <!-- question dialog title -->
+  <string name="DLG_question_title">Domanda:</string>
+  
+  <!-- information dialog title -->
+  <string name="DLG_information_title">Informazioni</string>
+  
+  <!-- error dialog title -->
+  <string name="DLG_error_title">Error!</string>
+  
+  <!-- general dialog yes-->
+  <string name="DLG_yes">Sì</string>
+  
+  <!-- general dialog no-->
+  <string name="DLG_no">No</string>
+  
+  <!-- general dialog close-->
+  <string name="DLG_close">Chiudi</string>
+  
+  <!-- general dialog done -->
+  <string name="DLG_done">Completata</string>
+  
+  <!-- error dialog (%s => error message)-->
+  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
+  
+  <!-- error dialog (no message indicated)-->
+  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
+  
+  <!-- Progress dialog shown when doing something slow -->
+  <string name="DLG_wait">Attendere per favore...</string>
+
+ <!-- ====================================================== SyncProvider == -->
+          
+  <!-- Sync Notification: message when sync service active -->
+  <string name="SyP_progress">Sincronizzando le tue attività...</string>
+  
+  <!-- Sync Notification: toast when sync activated from activity -->
+  <string name="SyP_progress_toast">Sincronizzando...</string>
+  
+  <!-- Sync Label: used in menu to denote synchronization -->
+  <string name="SyP_label">Sincronizzazione</string>  
+
+  <!-- Error msg when io exception  -->
+  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+
+  <!-- ================================================== SyncPreferences == -->
+  
+  <!-- Status Group Label -->    
+  <string name="sync_SPr_group_status">Stato</string>
+  
+  <!-- Sync Status: log in -->    
+  <string name="sync_status_loggedout">Not Logged In!</string>
+  <!-- Status: ongoing -->    
+  <string name="sync_status_ongoing">Sincronizzazione in corso ...</string>
+  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
+  <string name="sync_status_success">Ultima Sincronizzazione: %s</string>
+  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
+  <string name="sync_status_failed">Fallita Su: %s</string>
+  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
+  <string name="sync_status_failed_subtitle">Ultima sincronizzazione eseguita con successo in data: %s</string>
+  <!-- Sync Status: never sync'd -->    
+  <string name="sync_status_never">Mai sincronizzato!</string>
+
+  <!-- Options Group Label -->    
+  <string name="sync_SPr_group_options">Opzioni</string>
+
+  <!-- Preference: Synchronization Interval Title -->    
+  <string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>
+  <!-- Preference: Synchronization Interval Description (when disabled) -->
+  <string name="sync_SPr_interval_desc_disabled">La sincronizzazione in background è disattivata</string>    
+  <!-- Preference: Synchronization Interval Description (%s => setting) -->
+  <string name="sync_SPr_interval_desc">Attualmente impostata su: %s</string>
+  
+  <!-- Preference: Background Wifi Title -->  
+  <string name="sync_SPr_bgwifi_title">Unica Impostazione Wifi</string>    
+  <!-- Preference: Background Wifi Description (enabled) -->
+  <string name="sync_SPr_bgwifi_desc_enabled">la sincronizzazione in background avviene solo quando la rete Wifi è abilitata</string>    
+  <!-- Preference: Background Wifi Description (disabled) -->
+  <string name="sync_SPr_bgwifi_desc_disabled">La sincronizzazione in background avviene sempre</string>
+  
+  <!-- Actions Group Label  -->
+  <string name="sync_SPr_group_actions">Azioni</string>
+
+  <!-- Synchronize Now Button -->    
+  <string name="sync_SPr_sync">Sincronizza Ora!</string>
+  <!-- Synchronize Now Button if not logged in-->    
+  <string name="sync_SPr_sync_log_in">Esegui l\'accesso &amp; Sincronizza!</string>
+  
+  <!-- Sync: Clear Data Title -->
+  <string name="sync_SPr_forget">Esci</string>
+  <!-- Sync: Clear Data Description -->
+  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+
+  <!-- confirmation dialog for sync log out -->
+  <string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>
+  
+  <string-array name="sync_SPr_interval_entries">
+      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
+      <item>disabilita</item>
+      <item>ogni quindici minuti</item>
+      <item>ogni trenta minuti</item>
+      <item>ogni ora</item>
+      <item>ogni tre ore</item>
+      <item>ogni sei ore</item>
+      <item>ogni dodici ore</item>
+      <item>ogni giorno</item>
+      <item>ogni tre giorni</item>
+      <item>Ogni settimana</item>
+  </string-array>    
+    
+
+</resources>

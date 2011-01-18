@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- ==================================================== Generic Units == -->
+  
+  <plurals name="DUt_years">
+    <!-- plurals: years -->
+    <item quantity="one">1年</item>
+    <!-- plurals: years -->
+    <item quantity="other">%d年</item>
+  </plurals>
+  <plurals name="DUt_months">
+    <!-- plurals: months -->
+    <item quantity="one">1个月</item>
+    <!-- plurals: months -->
+    <item quantity="other">%d个月</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <!-- plurals: days -->
+    <item quantity="one">1周</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d周</item>
+  </plurals>
+  <plurals name="DUt_days">
+    <!-- plurals: days -->
+    <item quantity="one">1天</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d天</item>
+  </plurals>
+  <plurals name="DUt_hours">
+    <!-- plurals: hours -->
+    <item quantity="one">1小时</item>
+    <!-- plurals: hours -->
+    <item quantity="other">%d小时</item>
+  </plurals>
+  <plurals name="DUt_minutes">
+    <!-- plurals: minutes -->
+    <item quantity="one">1分钟</item>
+    <!-- plurals: minutes -->
+    <item quantity="other">%d分钟</item>
+  </plurals>
+  <plurals name="DUt_seconds">
+    <!-- plurals: seconds -->
+    <item quantity="one">1秒</item>
+    <!-- plurals: seconds -->
+    <item quantity="other">%d秒</item>
+  </plurals>
+  <plurals name="DUt_hoursShort">
+    <!-- plurals: hours (abbreviated) -->
+    <item quantity="one">1小时</item>
+    <!-- plurals: hours (abbreviated) -->
+    <item quantity="other">%d小时</item>
+  </plurals>
+  <plurals name="DUt_minutesShort">
+    <!-- plurals: minutes (abbreviated) -->
+    <item quantity="one">1分钟</item>
+    <!-- plurals: minutes (abbreviated) -->
+    <item quantity="other">%d分钟</item>
+  </plurals>
+  <plurals name="DUt_secondsShort">
+    <!-- plurals: seconds (abbreviated) -->
+    <item quantity="one">1秒</item>
+    <!-- plurals: seconds (abbreviated) -->
+    <item quantity="other">%d秒</item>
+  </plurals>
+  <plurals name="Ntasks">
+    <!-- plurals: tasks -->
+    <item quantity="one">1任务</item>
+    <!-- plurals: tasks -->
+    <item quantity="other">%d任务</item>
+  </plurals>
+  
+  <!-- ================================================== Generic Dialogs == -->
+  
+  <!-- confirmation dialog title -->
+  <string name="DLG_confirm_title">确认？</string>
+  
+  <!-- question dialog title -->
+  <string name="DLG_question_title">问题：</string>
+  
+  <!-- information dialog title -->
+  <string name="DLG_information_title">信息</string>
+  
+  <!-- error dialog title -->
+  <string name="DLG_error_title">错误！</string>
+  
+  <!-- general dialog yes-->
+  <string name="DLG_yes">是</string>
+  
+  <!-- general dialog no-->
+  <string name="DLG_no">否</string>
+  
+  <!-- general dialog close-->
+  <string name="DLG_close">关闭</string>
+  
+  <!-- general dialog done -->
+  <string name="DLG_done">完成</string>
+  
+  <!-- error dialog (%s => error message)-->
+  <string name="DLG_error">哇，看来出错了！情况如下：\n\n%s</string>
+  
+  <!-- error dialog (no message indicated)-->
+  <string name="DLG_error_generic">哇，看来出错了！</string>
+  
+  <!-- Progress dialog shown when doing something slow -->
+  <string name="DLG_wait">请稍候...</string>
+
+ <!-- ====================================================== SyncProvider == -->
+          
+  <!-- Sync Notification: message when sync service active -->
+  <string name="SyP_progress">正在同步任务...</string>
+  
+  <!-- Sync Notification: toast when sync activated from activity -->
+  <string name="SyP_progress_toast">正在同步...</string>
+  
+  <!-- Sync Label: used in menu to denote synchronization -->
+  <string name="SyP_label">同步</string>  
+
+  <!-- Error msg when io exception  -->
+  <string name="SyP_ioerror">连接错误！查看您的网络连接。</string>
+
+  <!-- ================================================== SyncPreferences == -->
+  
+  <!-- Status Group Label -->    
+  <string name="sync_SPr_group_status">状态</string>
+  
+  <!-- Sync Status: log in -->    
+  <string name="sync_status_loggedout">未登录！</string>
+  <!-- Status: ongoing -->    
+  <string name="sync_status_ongoing">正在同步...</string>
+  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
+  <string name="sync_status_success">上一次同步：%s</string>
+  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
+  <string name="sync_status_failed">同步失败：%s</string>
+  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
+  <string name="sync_status_failed_subtitle">上一次成功同步：%s</string>
+  <!-- Sync Status: never sync'd -->    
+  <string name="sync_status_never">从未同步！</string>
+
+  <!-- Options Group Label -->    
+  <string name="sync_SPr_group_options">选项</string>
+
+  <!-- Preference: Synchronization Interval Title -->    
+  <string name="sync_SPr_interval_title">后台同步</string>
+  <!-- Preference: Synchronization Interval Description (when disabled) -->
+  <string name="sync_SPr_interval_desc_disabled">后台同步已禁用</string>    
+  <!-- Preference: Synchronization Interval Description (%s => setting) -->
+  <string name="sync_SPr_interval_desc">当前设置为：%s</string>
+  
+  <!-- Preference: Background Wifi Title -->  
+  <string name="sync_SPr_bgwifi_title">仅使用 Wifi</string>    
+  <!-- Preference: Background Wifi Description (enabled) -->
+  <string name="sync_SPr_bgwifi_desc_enabled">仅当 Wifi 打开时使用后台同步</string>    
+  <!-- Preference: Background Wifi Description (disabled) -->
+  <string name="sync_SPr_bgwifi_desc_disabled">总是使用后台同步</string>
+  
+  <!-- Actions Group Label  -->
+  <string name="sync_SPr_group_actions">行动</string>
+
+  <!-- Synchronize Now Button -->    
+  <string name="sync_SPr_sync">现在同步!</string>
+  <!-- Synchronize Now Button if not logged in-->    
+  <string name="sync_SPr_sync_log_in">登录&amp;同步</string>
+  
+  <!-- Sync: Clear Data Title -->
+  <string name="sync_SPr_forget">注销</string>
+  <!-- Sync: Clear Data Description -->
+  <string name="sync_SPr_forget_description">清除所有同步数据</string>
+
+  <!-- confirmation dialog for sync log out -->
+  <string name="sync_forget_confirm">注销并清除同步数据？</string>
+  
+  <string-array name="sync_SPr_interval_entries">
+      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
+      <item>禁用</item>
+      <item>每十五分钟</item>
+      <item>每半小时</item>
+      <item>每小时</item>
+      <item>每三小时</item>
+      <item>每六小时</item>
+      <item>每十二小时</item>
+      <item>每天</item>
+      <item>每三天</item>
+      <item>每周</item>
+  </string-array>    
+    
+
+</resources>
