@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- ==================================================== Generic Units == -->
+  
+  <plurals name="DUt_years">
+    <!-- plurals: years -->
+    <item quantity="one">1 jaar</item>
+    <!-- plurals: years -->
+    <item quantity="other">%d jaren</item>
+  </plurals>
+  <plurals name="DUt_months">
+    <!-- plurals: months -->
+    <item quantity="one">1 maand</item>
+    <!-- plurals: months -->
+    <item quantity="other">%d maanden</item>
+  </plurals>
+  <plurals name="DUt_weeks">
+    <!-- plurals: days -->
+    <item quantity="one">1 week</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d weken</item>
+  </plurals>
+  <plurals name="DUt_days">
+    <!-- plurals: days -->
+    <item quantity="one">1 dag</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d Dagen</item>
+  </plurals>
+  <plurals name="DUt_hours">
+    <!-- plurals: hours -->
+    <item quantity="one">1 Uur</item>
+    <!-- plurals: hours -->
+    <item quantity="other">%d Uren</item>
+  </plurals>
+  <plurals name="DUt_minutes">
+    <!-- plurals: minutes -->
+    <item quantity="one">1 Minuut</item>
+    <!-- plurals: minutes -->
+    <item quantity="other">%d Minuten</item>
+  </plurals>
+  <plurals name="DUt_seconds">
+    <!-- plurals: seconds -->
+    <item quantity="one">1 Seconde</item>
+    <!-- plurals: seconds -->
+    <item quantity="other">%d Seconden</item>
+  </plurals>
+  <plurals name="DUt_hoursShort">
+    <!-- plurals: hours (abbreviated) -->
+    <item quantity="one">1 U</item>
+    <!-- plurals: hours (abbreviated) -->
+    <item quantity="other">%d Uur</item>
+  </plurals>
+  <plurals name="DUt_minutesShort">
+    <!-- plurals: minutes (abbreviated) -->
+    <item quantity="one">1 Min</item>
+    <!-- plurals: minutes (abbreviated) -->
+    <item quantity="other">%d Min</item>
+  </plurals>
+  <plurals name="DUt_secondsShort">
+    <!-- plurals: seconds (abbreviated) -->
+    <item quantity="one">1 Sec</item>
+    <!-- plurals: seconds (abbreviated) -->
+    <item quantity="other">%d Sec</item>
+  </plurals>
+  <plurals name="Ntasks">
+    <!-- plurals: tasks -->
+    <item quantity="one">1 task</item>
+    <!-- plurals: tasks -->
+    <item quantity="other">%d tasks</item>
+  </plurals>
+  
+  <!-- ================================================== Generic Dialogs == -->
+  
+  <!-- confirmation dialog title -->
+  <string name="DLG_confirm_title">Confirm?</string>
+  
+  <!-- question dialog title -->
+  <string name="DLG_question_title">Vraag:</string>
+  
+  <!-- information dialog title -->
+  <string name="DLG_information_title">Informatie</string>
+  
+  <!-- error dialog title -->
+  <string name="DLG_error_title">Error!</string>
+  
+  <!-- general dialog yes-->
+  <string name="DLG_yes">Ja</string>
+  
+  <!-- general dialog no-->
+  <string name="DLG_no">Nee</string>
+  
+  <!-- general dialog close-->
+  <string name="DLG_close">Sluiten</string>
+  
+  <!-- general dialog done -->
+  <string name="DLG_done">Voltooid</string>
+  
+  <!-- error dialog (%s => error message)-->
+  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
+  
+  <!-- error dialog (no message indicated)-->
+  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
+  
+  <!-- Progress dialog shown when doing something slow -->
+  <string name="DLG_wait">Even geduld alstublieft...</string>
+
+ <!-- ====================================================== SyncProvider == -->
+          
+  <!-- Sync Notification: message when sync service active -->
+  <string name="SyP_progress">Synchronizing your tasks...</string>
+  
+  <!-- Sync Notification: toast when sync activated from activity -->
+  <string name="SyP_progress_toast">Bezig met synchroniseren...</string>
+  
+  <!-- Sync Label: used in menu to denote synchronization -->
+  <string name="SyP_label">Synchronisatie</string>  
+
+  <!-- Error msg when io exception  -->
+  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+
+  <!-- ================================================== SyncPreferences == -->
+  
+  <!-- Status Group Label -->    
+  <string name="sync_SPr_group_status">Status</string>
+  
+  <!-- Sync Status: log in -->    
+  <string name="sync_status_loggedout">Not Logged In!</string>
+  <!-- Status: ongoing -->    
+  <string name="sync_status_ongoing">Sync Ongoing...</string>
+  <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
+  <string name="sync_status_success">Last Sync: %s</string>
+  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
+  <string name="sync_status_failed">Failed On: %s</string>
+  <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
+  <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
+  <!-- Sync Status: never sync'd -->    
+  <string name="sync_status_never">Never Synchronized!</string>
+
+  <!-- Options Group Label -->    
+  <string name="sync_SPr_group_options">Opties</string>
+
+  <!-- Preference: Synchronization Interval Title -->    
+  <string name="sync_SPr_interval_title">Background Sync</string>
+  <!-- Preference: Synchronization Interval Description (when disabled) -->
+  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>    
+  <!-- Preference: Synchronization Interval Description (%s => setting) -->
+  <string name="sync_SPr_interval_desc">Currently set to: %s</string>
+  
+  <!-- Preference: Background Wifi Title -->  
+  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
+  <!-- Preference: Background Wifi Description (enabled) -->
+  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
+  <!-- Preference: Background Wifi Description (disabled) -->
+  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
+  
+  <!-- Actions Group Label  -->
+  <string name="sync_SPr_group_actions">Acties</string>
+
+  <!-- Synchronize Now Button -->    
+  <string name="sync_SPr_sync">Synchroniseer nu!</string>
+  <!-- Synchronize Now Button if not logged in-->    
+  <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
+  
+  <!-- Sync: Clear Data Title -->
+  <string name="sync_SPr_forget">Afmelden</string>
+  <!-- Sync: Clear Data Description -->
+  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+
+  <!-- confirmation dialog for sync log out -->
+  <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
+  
+  <string-array name="sync_SPr_interval_entries">
+      <!-- sync_SPr_interval_entries: Synchronization Intervals -->
+      <item>uit</item>
+      <item>elke 15 minuten</item>
+      <item>elke 30 minuten</item>
+      <item>elk uur</item>
+      <item>elke 3 uur</item>
+      <item>elke 6 uur</item>
+      <item>elke 12 uur</item>
+      <item>elke dag</item>
+      <item>elke 3 dagen</item>
+      <item>elke week</item>
+  </string-array>    
+    
+
+</resources>
