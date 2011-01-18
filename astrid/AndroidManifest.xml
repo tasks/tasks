@@ -53,7 +53,7 @@
   <!-- ========================================================== Metadata = -->
 
   <uses-sdk android:targetSdkVersion="8"
-            android:minSdkVersion="3" />
+            android:minSdkVersion="4" />
   <supports-screens />
   
   <application android:icon="@drawable/icon" android:label="@string/app_name">
