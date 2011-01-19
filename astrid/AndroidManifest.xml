@@ -357,7 +357,15 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>    
-    
+    <receiver android:name="com.todoroo.astrid.notes.NotesActionExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    <activity android:name="com.todoroo.astrid.notes.NoteViewingActivity"
+              android:theme="@android:style/Theme.Dialog" />
+        
     <!-- locale -->
     <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
               android:label="@string/locale_edit_alerts_title"

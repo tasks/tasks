@@ -119,9 +119,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     // the task that's expanded
     private long expanded = -1;
 
-    // actions for QuickActionBar/mel
+    // quick action bar
     private QuickActionWidget mBar;
-    //private View mBarAnchor;
+    private final QuickActionListener mBarListener = new QuickActionListener();
 
     // --- task detail and decoration soft caches
 
@@ -739,12 +739,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             return broadcastIntent;
         }
 
-        //quickactionbar
-        //private QuickActionWidget mBar;
-
         @Override
         public synchronized void addNew(long taskId, String addOn, final TaskAction item) {
-            // TODO Auto-generated method stub
             addIfNotExists(taskId, addOn, item);
             if(mBar != null) {
                 ListView listView = activity.getListView();
@@ -765,8 +761,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         @Override
                         public void run() {
                             Drawable drawable = new BitmapDrawable(activity.getResources(), item.icon);
-                            mBar.addQuickAction(new QuickAction(drawable, item.text));
-                            mBar.setOnQuickActionClickListener(new QuickActionListener(item, viewHolder));
+                            mBarListener.addWithAction(new QuickAction(drawable, item.text), item);
                             mBar.show(viewHolder.view);
                         }
                     });
@@ -781,58 +776,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         @Override
         protected void draw(final ViewHolder viewHolder, final long taskId, Collection<TaskAction> actions) {
-            // do not draw!
+            // do not draw
         }
-
-        /*
-        //preparing quickActionBar
-        private void prepareQuickActionBar(ViewHolder viewHolder, Collection<TaskAction> actions){
-
-            mBar = new QuickActionBar(viewHolder.view.getContext());
-            QuickAction editAction = new QuickAction(viewHolder.view.getContext(), R.drawable.tango_edit, "   Edit   ");
-            mBar.addQuickAction(editAction);
-            for(TaskAction action : actions) {
-
-                mBar.addQuickAction(new QuickAction(viewHolder.view.getContext(), R.drawable.tango_clock, action.text));
-                mBar.setOnQuickActionClickListener(new quickActionListener(action, viewHolder));
-            }
-
-        }
-        */
-        /*
-        protected synchronized void showQuickActionBar(ViewHolder viewHolder, long taskId, Collection<TaskAction> actions) {
-            if(mBar != null){
-                mBar.dismiss();
-            }
-            if(expanded != taskId) {
-                //viewHolder.actions.setVisibility(View.GONE);
-                return;
-            }
-            //display quickactionbar
-            else {
-                prepareQuickActionBar(viewHolder, actions);
-                mBar.show(viewHolder.view);
-
-             }
-            //viewHolder.actions.setVisibility(View.VISIBLE);
-        }
-         */
 
         @Override
         protected void reset(ViewHolder viewHolder, long taskId) {
-            if(expanded != taskId) {
-                mBar.dismiss();
-                //viewHolder.actions.setVisibility(View.GONE);
-                return;
-            }
-            //display quickactionbar
-            /*
-            else{
-                prepareQuickActionBar(viewHolder);
-                mBar.show(viewHolder.view);
-            }
-            */
-            //viewHolder.actions.setVisibility(View.VISIBLE);
+            // do not draw
         }
     }
 
@@ -860,39 +809,45 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     };
 
     private final class QuickActionListener implements OnQuickActionClickListener {
-        private final TaskAction action;
-        private final ViewHolder viewHolder;
+        private final HashMap<Integer, TaskAction> positionActionMap =
+            new HashMap<Integer, TaskAction>(2);
+        private long taskId;
+        private int itemCount = 0;
 
-        public QuickActionListener(TaskAction action, ViewHolder viewHolder) {
-            this.action = action;
-            this.viewHolder = viewHolder;
+        public void initialize(long newTaskId) {
+            this.taskId = newTaskId;
+            itemCount = 0;
+            positionActionMap.clear();
+            mBar.setOnQuickActionClickListener(this);
+        }
+
+        public void addWithAction(QuickAction quickAction, TaskAction taskAction) {
+            positionActionMap.put(itemCount++, taskAction);
+            mBar.addQuickAction(quickAction);
         }
 
         public void onQuickActionClicked(QuickActionWidget widget, int position){
             mBar.dismiss();
             mBar = null;
 
-            if(position == 0){
-
+            if(position == 0) {
                 Intent intent = new Intent(activity, TaskEditActivity.class);
-                intent.putExtra(TaskEditActivity.TOKEN_ID, viewHolder.task.getId());
+                intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                 activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
-            }
-            else{
-                flushSpecific(viewHolder.task.getId());
+            } else {
+                flushSpecific(taskId);
                 try {
-                    action.intent.send();
+                    TaskAction taskAction = positionActionMap.get(position);
+                    if(taskAction != null) {
+                        taskAction.intent.send();
+                    }
                 } catch (Exception e) {
                     exceptionService.displayAndReportError(activity,
                             "Error launching action", e); //$NON-NLS-1$
                 }
-                decorationManager.request(viewHolder);
-                extendedDetailManager.request(viewHolder);
-                taskActionManager.request(viewHolder);
             }
             clearSelection();
             notifyDataSetChanged();
-
         }
     }
 
@@ -900,18 +855,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         //prep quick action bar
         private void prepareQuickActionBar(ViewHolder viewHolder, Collection<TaskAction> collection){
-
             mBar = new QuickActionBar(viewHolder.view.getContext());
             QuickAction editAction = new QuickAction(activity, R.drawable.tango_edit,
                     activity.getString(R.string.TAd_actionEditTask));
-            mBar.addQuickAction(editAction);
-
+            mBarListener.initialize(viewHolder.task.getId());
+            mBarListener.addWithAction(editAction, null);
 
             if(collection != null) {
                 for(TaskAction item : collection) {
                     Drawable drawable = new BitmapDrawable(activity.getResources(), item.icon);
-                    mBar.addQuickAction(new QuickAction(drawable, item.text));
-                    mBar.setOnQuickActionClickListener(new QuickActionListener(item, viewHolder));
+                    mBarListener.addWithAction(new QuickAction(drawable, item.text), item);
                 }
             }
 
