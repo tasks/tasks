@@ -364,7 +364,7 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.notes.NoteViewingActivity"
-              android:theme="@android:style/Theme.Dialog" />
+              android:theme="@style/Theme.Dialog" />
         
     <!-- locale -->
     <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
