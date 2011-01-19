@@ -13,8 +13,8 @@ import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
@@ -22,9 +22,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceCategory;
 import android.preference.PreferenceScreen;
-import android.preference.Preference.OnPreferenceClickListener;
 import android.widget.Toast;
 
 import com.timsu.astrid.R;
@@ -57,8 +57,6 @@ import com.todoroo.astrid.voice.VoiceOutputService;
 public class EditPreferences extends TodorooPreferences {
 
     private static final int POWER_PACK_PREFERENCE = 1;
-
-    private static final String METADATA_CATEGORY = "category";//$NON-NLS-1$
 
     // --- instance variables
 

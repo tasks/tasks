@@ -4,9 +4,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicReference;
 
 import android.app.AlertDialog;
@@ -30,28 +30,28 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
@@ -208,9 +208,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         if(database == null)
             return;
-
-        // TODO: document debug code
-        //AndroidUtilities.copyDatabases(this, "/sdcard/dump"); // adb pull /sdcard/dump/database database
 
         database.openForWriting();
         setUpUiComponents();
@@ -948,6 +945,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     }
 
     @Override
+    @SuppressWarnings("nls")
     public boolean onMenuItemSelected(int featureId, final MenuItem item) {
         Intent intent;
         long itemId;
@@ -972,7 +970,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return true;
         case MENU_HELP_ID:
             intent = new Intent(Intent.ACTION_VIEW,
-                    Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/"));
+                    Uri.parse(Constants.HELP_URL));
             startActivity(intent);
             return true;
         case MENU_ADDON_INTENT_ID:

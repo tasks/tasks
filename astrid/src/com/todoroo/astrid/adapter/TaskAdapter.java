@@ -35,7 +35,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnCreateContextMenuListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.CursorAdapter;
 import android.widget.Filterable;
@@ -728,10 +727,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      */
     public class TaskActionManager extends TaskAdapterAddOnManager<TaskAction> {
 
-        private final LinearLayout.LayoutParams params =
-            new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
-                    LayoutParams.FILL_PARENT, 1f);
-
         private final Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_ACTIONS);
 
         public TaskActionManager() {
@@ -864,31 +859,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     };
 
-/*
-    private final class ActionClickListener implements View.OnClickListener {
-        private final TaskAction action;
-        private final ViewHolder viewHolder;
-
-        public ActionClickListener(TaskAction action, ViewHolder viewHolder) {
-            this.action = action;
-            this.viewHolder = viewHolder;
-        }
-
-        public void onClick(View v) {
-            flushSpecific(viewHolder.task.getId());
-            try {
-                action.intent.send();
-            } catch (Exception e) {
-                exceptionService.displayAndReportError(activity,
-                        "Error launching action", e); //$NON-NLS-1$
-            }
-            decorationManager.request(viewHolder);
-            extendedDetailManager.request(viewHolder);
-            taskActionManager.request(viewHolder);
-        }
-    };
-*/
-
     private final class QuickActionListener implements OnQuickActionClickListener {
         private final TaskAction action;
         private final ViewHolder viewHolder;
@@ -932,7 +902,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         private void prepareQuickActionBar(ViewHolder viewHolder, Collection<TaskAction> collection){
 
             mBar = new QuickActionBar(viewHolder.view.getContext());
-            QuickAction editAction = new QuickAction(activity, R.drawable.tango_edit, "   Edit   ");
+            QuickAction editAction = new QuickAction(activity, R.drawable.tango_edit,
+                    activity.getString(R.string.TAd_actionEditTask));
             mBar.addQuickAction(editAction);
 
 
@@ -965,10 +936,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             Collection<TaskAction> actions = taskActionManager.get(taskId);
             prepareQuickActionBar(viewHolder, actions);
             //mBarAnchor = v;
-            System.err.println("view is ID " + v.getId());
             if(actions != null)
                 mBar.show(v);
-            System.err.println("! Request for " + taskId);
             taskActionManager.request(viewHolder);
 
 

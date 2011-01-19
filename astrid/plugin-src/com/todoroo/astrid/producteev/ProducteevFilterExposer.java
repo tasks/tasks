@@ -123,13 +123,10 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
      * @param dashboards
      * @return people in a map of name => pair(dashboard id, user id)
      */
-    @SuppressWarnings("nls")
-    private TreeSet<ProducteevUser> loadResponsiblePeople(StoreObject[] dashboards) {
+        private TreeSet<ProducteevUser> loadResponsiblePeople(StoreObject[] dashboards) {
         TreeSet<ProducteevUser> users = new TreeSet<ProducteevUser>();
         for(StoreObject dashboard : dashboards) {
             ProducteevDashboard elDashboard = new ProducteevDashboard(dashboard);
-            if(elDashboard == null)
-                continue;
             users.addAll(elDashboard.getUsers());
         }
 

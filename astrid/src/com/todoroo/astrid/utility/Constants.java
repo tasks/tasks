@@ -31,6 +31,11 @@ public final class Constants {
      */
     public static final boolean DEBUG = false;
 
+    /**
+     * Astrid Help URL
+     */
+    public static final String HELP_URL = "http://weloveastrid.com/help-user-guide-astrid-v3/active-tasks/"; //$NON-NLS-1$
+
     // --- notification id's
 
     /** Notification Manager id for sync notifications */
@@ -44,5 +49,6 @@ public final class Constants {
 
     /** Notification Manager id for producteev notifications*/
     public static final int NOTIFICATION_PRODUCTEEV_NOTIFICATIONS = -4;
+
 
 }

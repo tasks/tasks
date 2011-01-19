@@ -31,6 +31,7 @@ public class ProducteevCustomFilterCriteriaExposer extends BroadcastReceiver {
     private static final String IDENTIFIER_PRODUCTEEV_WORKSPACE = "producteev_workspace"; //$NON-NLS-1$
     private static final String IDENTIFIER_PRODUCTEEV_ASSIGNEE = "producteev_assignee"; //$NON-NLS-1$
 
+    @SuppressWarnings("nls")
     @Override
     public void onReceive(Context context, Intent intent) {
         // if we aren't logged in, don't expose features

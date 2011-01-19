@@ -44,7 +44,7 @@ import com.todoroo.astrid.tags.TagService.Tag;
  */
 public class TagFilterExposer extends BroadcastReceiver {
 
-    private static final String TAG = "tag";
+    private static final String TAG = "tag"; //$NON-NLS-1$
 
     private TagService tagService;
 

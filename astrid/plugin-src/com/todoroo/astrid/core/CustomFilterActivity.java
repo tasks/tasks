@@ -113,7 +113,7 @@ public class CustomFilterActivity extends ListActivity {
     private CustomFilterAdapter adapter;
     private final Map<String,CustomFilterCriterion> criteria = Collections.synchronizedMap(new LinkedHashMap<String,CustomFilterCriterion>());
 
-    private FilterCriteriaReceiver filterCriteriaReceiver = new FilterCriteriaReceiver();
+    private final FilterCriteriaReceiver filterCriteriaReceiver = new FilterCriteriaReceiver();
 
     // --- activity
 
@@ -303,7 +303,7 @@ public class CustomFilterActivity extends ListActivity {
                         menu.add(CustomFilterActivity.MENU_GROUP_FILTER,
                                 i, 0, item.name);
                     } catch (NullPointerException e) {
-                        throw new NullPointerException("One of the criteria is null. Criteria: " + criteria);
+                        throw new NullPointerException("One of the criteria is null. Criteria: " + criteria); //$NON-NLS-1$
                     }
                     i++;
                 }
@@ -448,6 +448,7 @@ public class CustomFilterActivity extends ListActivity {
         adapter.notifyDataSetInvalidated();
     }
 
+    @SuppressWarnings("nls")
     private <V> V getNth(int index, Map<?,V> map) {
         int i = 0;
         for (V v : map.values()) {
@@ -506,7 +507,7 @@ public class CustomFilterActivity extends ListActivity {
                 try {
                     addon = intent.getStringExtra(AstridApiConstants.EXTRAS_ADDON);
                 } catch (Exception e1) {
-                    Log.e("receive-custom-filter-criteria-error-retrieving-addon",
+                    Log.e("receive-custom-filter-criteria-error-retrieving-addon", //$NON-NLS-1$
                             e.toString(), e);
                     return;
                 }

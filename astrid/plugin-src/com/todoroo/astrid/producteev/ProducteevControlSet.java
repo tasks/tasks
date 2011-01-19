@@ -267,7 +267,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
 
             // Erase PDTV-repeating-info if task itself is repeating with Astrid-repeat
             if (task.containsNonNullValue(Task.RECURRENCE) && task.getValue(Task.RECURRENCE).length()>0) {
-                metadata.setValue(ProducteevTask.REPEATING_SETTING, "");
+                metadata.setValue(ProducteevTask.REPEATING_SETTING, ""); //$NON-NLS-1$
             }
 
             if(metadata.getSetValues().size() > 0) {

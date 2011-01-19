@@ -21,10 +21,10 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.dao.StoreObjectDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
@@ -218,7 +218,7 @@ public final class ProducteevDataService {
     public StoreObject[] readStoreObjects(String type) {
         StoreObject[] ret;
         TodorooCursor<StoreObject> cursor = storeObjectDao.query(Query.select(StoreObject.PROPERTIES).
-                where(StoreObjectCriteria.byType(ProducteevDashboard.TYPE)));
+                where(StoreObjectCriteria.byType(type)));
         try {
             ret = new StoreObject[cursor.getCount()];
             for(int i = 0; i < ret.length; i++) {
