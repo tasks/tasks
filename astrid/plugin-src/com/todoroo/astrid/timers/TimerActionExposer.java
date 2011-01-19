@@ -41,15 +41,18 @@ public class TimerActionExposer extends BroadcastReceiver {
 
         // was part of a broadcast for actions
         if(AstridApiConstants.BROADCAST_REQUEST_ACTIONS.equals(intent.getAction())) {
-            String label;
-            if(task.getValue(Task.TIMER_START) == 0)
+            final String label;
+            final Drawable drawable;
+            if(task.getValue(Task.TIMER_START) == 0) {
                 label = context.getString(R.string.TAE_startTimer);
-            else
+                drawable = context.getResources().getDrawable(R.drawable.tango_clock_start);
+            } else {
                 label = context.getString(R.string.TAE_stopTimer);
+                drawable = context.getResources().getDrawable(R.drawable.tango_clock_stop);
+            }
+            Bitmap icon = ((BitmapDrawable)drawable).getBitmap();
             Intent newIntent = new Intent(TIMER_ACTION);
             newIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-            Drawable timer = context.getResources().getDrawable(R.drawable.tango_clock);
-            Bitmap icon = ((BitmapDrawable)timer).getBitmap();
             TaskAction action = new TaskAction(label,
                     PendingIntent.getBroadcast(context, (int)taskId, newIntent, 0), icon);
 
