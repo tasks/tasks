@@ -26,6 +26,8 @@
  
     <style name="Theme.Dialog" parent="android:Theme.Dialog">
         <item name="android:windowTitleBackgroundStyle">@style/DialogTitleBackground</item>
+        <item name="android:windowTitleSize">32dip</item>
+        <item name="android:layout_width">fill_parent</item>
     </style>
     
     <!--=============================================== TaskListActivity == -->

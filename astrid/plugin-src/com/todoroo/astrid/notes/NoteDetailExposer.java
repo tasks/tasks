@@ -44,20 +44,20 @@ public class NoteDetailExposer extends BroadcastReceiver {
     }
 
     public String getTaskDetails(long id, boolean extended) {
-        if(Preferences.getBoolean(R.string.p_showNotes, false)) {
-            if(extended)
-                return null;
-        } else {
-            if(!extended)
-                return null;
-        }
-
         Task task = PluginServices.getTaskService().fetchById(id, Task.NOTES);
         if(task == null)
             return null;
         String notes = task.getValue(Task.NOTES);
         if(notes.length() == 0)
             return null;
+
+        if(Preferences.getBoolean(R.string.p_showNotes, false)) {
+            if(extended)
+                return null;
+        } else {
+            if(!extended)
+                return "<img src='silk_note'/>"; //$NON-NLS-1$
+        }
 
         return "<img src='silk_note'/> " + notes; //$NON-NLS-1$
     }

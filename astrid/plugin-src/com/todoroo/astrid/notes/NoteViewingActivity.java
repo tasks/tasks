@@ -8,6 +8,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -25,6 +26,7 @@ public class NoteViewingActivity extends Activity {
         requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.empty_linear_layout);
         getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.dialog_title_bar);
+        getWindow().setLayout(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 
         LinearLayout body = (LinearLayout) findViewById(R.id.body);
 
@@ -35,7 +37,7 @@ public class NoteViewingActivity extends Activity {
         ScrollView scrollView = new ScrollView(this);
 
         TextView linkifiedTextView = new TextView(this);
-        linkifiedTextView.setText(task.getValue(Task.NOTES) + "\n\n"); //$NON-NLS-1$
+        linkifiedTextView.setText(task.getValue(Task.NOTES) + "\n"); //$NON-NLS-1$
         Linkify.addLinks(linkifiedTextView, Linkify.ALL);
 
         scrollView.addView(linkifiedTextView);

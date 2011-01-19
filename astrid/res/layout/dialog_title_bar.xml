@@ -6,6 +6,6 @@
   android:layout_width="fill_parent"
   android:layout_height="fill_parent"
   android:textColor="#ffffff"
-  android:padding="6px"
+  android:paddingLeft="6dip"
   android:ellipsize="marquee"
-  android:textSize="24px" />
+  android:textSize="20dip" />
