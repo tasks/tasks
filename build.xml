@@ -23,11 +23,13 @@
     <echo message="Astrid Project: version ${manifest.version.code}, named ${manifest.version.name}" />
   </target>
 
-  <target name="release" depends="clean,get-version">    
+  <target name="release" depends="clean,get-version">
     <subant target="release">
       <fileset file="astrid/build.xml" />
     </subant>
+  </target>
 
+  <target name="release-all" depends="clean,get-version,release">    
     <!-- custom builds -->
     <for list="-getjar,.1000,-verizon,-sprint,-orange,-vodafone,-other" param="name">
       <sequential>
