@@ -15,7 +15,7 @@ Getting Started With Development
  • *[git](http://git.or.cz/)*
  • *[Eclipse](http://eclipse.org)* (preferred: Eclipse IDE for Java Developers)
  • *[Android SDK](http://developer.android.com/sdk/index.html)* (last tested with SDK v8)
- • *[ADT Plugin for Eclipse](http://developer.android.com/sdk/eclipse-adt.html)* (last tested with ADT v8.0)
+ • *[ADT Plugin for Eclipse](http://developer.android.com/sdk/eclipse-adt.html)* (SDK Tools 8, Platform-tools 1, SDK Platform Android 2.3, 2.2, and 1.6)
 
 3. Use **git** to clone your forked repositories 
 
@@ -23,19 +23,21 @@ Getting Started With Development
 
 (see Github's instructions if you need help). Follow the [Github Line Ending Help](http://help.github.com/dealing-with-lineendings/)
 
-4. Open up **eclipse** and import the *astrid*, *astridApi*, *astrid-tests*, and *GreenDroid* projects. There should be no compilation errors. If there are, you might have to **refresh** and **clean** the projects a few times from within **eclipse** 
+4. Open up **eclipse** and import the *astrid*, *astridApi*, *astrid-tests*, and *GreenDroid* projects. 
+
+5. In Eclipse preferences -> Android build settings, set the SDK location (you installed it in step 2). At this point, there should be no compilation errors. If there are, you might have to **refresh** and **clean** the projects a few times from within **eclipse** 
 
 *from Eclipse: project-menu -> clean -> select projects -> check "start a build immediately" if "automatic build" is not enabled*
 
-5. Launch the *astrid* project as an **Android Application**, or the *astrid-tests* project as an **Android JUnit Test Suite**.
+6. Launch the *astrid* project as an **Android Application**, or the *astrid-tests* project as an **Android JUnit Test Suite**.
 
-6. Join the [Astrid Power-Users List](http://groups.google.com/group/astrid-power).
+7. Join the [Astrid Power-Users List](http://groups.google.com/group/astrid-power).
 
-7. Check out the [Product Roadmap](http://wiki.github.com/todoroo/astrid/) and [Issues](http://github.com/todoroo/astrid/issues), and look for something you'd want to tackle.
+8. Check out the [Product Roadmap](http://wiki.github.com/todoroo/astrid/) and [Issues](http://github.com/todoroo/astrid/issues), and look for something you'd want to tackle.
 
-8. Follow the following contributors workflow and help make Astrid better!
+9. Read the following contributor and debugging workflow and help make Astrid better!
 
-9. Sign a [Contributors License Agreement](https://github.com/downloads/todoroo/astrid/Contributors%20Licensing%20Agreement.pdf) and send it to astrid AT todoroo.com 
+10. Sign a [Contributors License Agreement](https://github.com/downloads/todoroo/astrid/Contributors%20Licensing%20Agreement.pdf) and send it to astrid AT todoroo.com 
 
 Testing on a device - Debugging
 ---------------
