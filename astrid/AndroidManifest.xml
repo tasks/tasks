@@ -56,7 +56,9 @@
             android:minSdkVersion="4" />
   <supports-screens />
   
-  <application android:icon="@drawable/icon" android:label="@string/app_name">
+  <application android:icon="@drawable/icon" android:label="@string/app_name"
+               android:theme="@style/Theme">
+               
     <!-- ====================================================== Activities = -->
         
     <!-- Activity that displays task list -->
