@@ -121,7 +121,7 @@ public class Notifications extends BroadcastReceiver {
         Task task;
         try {
             task = taskDao.fetch(id, Task.ID, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
-                    Task.DELETION_DATE, Task.REMINDER_FLAGS);
+                        Task.DUE_DATE, Task.DELETION_DATE, Task.REMINDER_FLAGS);
             if(task == null)
                 throw new IllegalArgumentException("cound not find item with id"); //$NON-NLS-1$
 
@@ -136,6 +136,11 @@ public class Notifications extends BroadcastReceiver {
 
         // it's hidden - don't sound, don't delete
         if(task.isHidden() && type == ReminderService.TYPE_RANDOM)
+            return true;
+
+        // task due date was changed, but alarm wasn't rescheduled
+        if((type == ReminderService.TYPE_DUE || type == ReminderService.TYPE_OVERDUE) &&
+                !task.hasDueDate() || task.getValue(Task.DUE_DATE) > DateUtilities.now())
             return true;
 
         // read properties
