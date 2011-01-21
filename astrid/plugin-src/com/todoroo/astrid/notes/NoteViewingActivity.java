@@ -5,12 +5,11 @@ import android.os.Bundle;
 import android.text.util.Linkify;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.LinearLayout.LayoutParams;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
@@ -23,16 +22,13 @@ public class NoteViewingActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_CUSTOM_TITLE);
         setContentView(R.layout.empty_linear_layout);
-        getWindow().setFeatureInt(Window.FEATURE_CUSTOM_TITLE, R.layout.dialog_title_bar);
         getWindow().setLayout(LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 
         LinearLayout body = (LinearLayout) findViewById(R.id.body);
 
         task = getIntent().getParcelableExtra(NotesActionExposer.EXTRA_TASK);
-        TextView title = (TextView) findViewById(R.id.title);
-        title.setText(task.getValue(Task.TITLE));
+        setTitle(task.getValue(Task.TITLE));
 
         ScrollView scrollView = new ScrollView(this);
 
