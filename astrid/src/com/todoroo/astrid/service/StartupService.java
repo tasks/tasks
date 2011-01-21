@@ -11,8 +11,8 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -166,7 +166,8 @@ public class StartupService {
     private void addIntroTask(Resources r, int summary, int note) {
         Task task = new Task();
         task.setValue(Task.TITLE, r.getString(summary));
-        task.setValue(Task.DETAILS, r.getString(R.string.intro_click_prompt));
+        task.setValue(Task.DETAILS, "<img src='silk_note'/> | " + //$NON-NLS-1$
+                r.getString(R.string.intro_click_prompt));
         task.setValue(Task.DETAILS_DATE, 2*DateUtilities.now());
         task.setValue(Task.NOTES, r.getString(note));
         taskService.save(task);
