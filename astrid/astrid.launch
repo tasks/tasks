@@ -7,6 +7,7 @@
 <stringAttribute key="ch.zork.quicklaunch.mode" value="run"/>
 <intAttribute key="com.android.ide.eclipse.adt.action" value="0"/>
 <stringAttribute key="com.android.ide.eclipse.adt.activity" value="com.todoroo.astrid.gtasks.GtasksPreferences"/>
+<stringAttribute key="com.android.ide.eclipse.adt.avd" value="galaxy_tab"/>
 <stringAttribute key="com.android.ide.eclipse.adt.commandline" value="-scale 0.7"/>
 <intAttribute key="com.android.ide.eclipse.adt.delay" value="0"/>
 <booleanAttribute key="com.android.ide.eclipse.adt.nobootanim" value="true"/>
