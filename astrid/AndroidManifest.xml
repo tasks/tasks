@@ -82,6 +82,15 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <!-- Activity launched from ShareLink menu item -->
+    <activity android:name="com.todoroo.astrid.activity.ShareLinkActivity"
+    	android:clearTaskOnLaunch="true">
+        <intent-filter>
+            <action android:name="android.intent.action.SEND" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <data android:mimeType="text/plain" />
+        </intent-filter>
+    </activity>
     <!-- Legacy Task List shortcut activity -->
     <activity android:name=".activities.TaskList">
         <intent-filter>
