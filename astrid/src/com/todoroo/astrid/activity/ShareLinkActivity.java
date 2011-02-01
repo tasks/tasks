@@ -24,7 +24,7 @@ public final class ShareLinkActivity extends TaskListActivity {
 
         Intent callerIntent = getIntent();
 
-        Task task = quickAddTask("", false);//$NON-NLS-1$
+        Task task = quickAddTask(callerIntent.getStringExtra(Intent.EXTRA_SUBJECT), false);
         task.setValue(Task.NOTES, callerIntent.getStringExtra(Intent.EXTRA_TEXT));
         taskService.save(task);
         Intent intent = new Intent(this, TaskEditActivity.class);
