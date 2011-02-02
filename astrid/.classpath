@@ -15,8 +15,6 @@
 	<classpathentry exported="true" kind="lib" path="libs/locale_platform.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/todoroo-g.jar"/>
 	<classpathentry kind="lib" path="libs/framework.jar"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/astridApi"/>
-	<classpathentry combineaccessrules="false" exported="true" kind="src" path="/GreenDroid"/>
 	<classpathentry kind="src" path="GreenDroid_src"/>
 	<classpathentry kind="src" path="astridApi_src"/>
 	<classpathentry kind="output" path="ecbuild"/>
