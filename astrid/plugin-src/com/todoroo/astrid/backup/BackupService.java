@@ -16,8 +16,8 @@ import android.util.Log;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.core.PluginServices;
 
 /**
  * Inspired heavily by SynchronizationService
@@ -127,6 +127,9 @@ public class BackupService extends Service {
 
         // grab all backup files, sort by modified date, delete old ones
         File[] files = astridDir.listFiles(backupFileFilter);
+        if(files == null)
+            return;
+
         Arrays.sort(files, new Comparator<File>() {
             @Override
             public int compare(File file1, File file2) {
