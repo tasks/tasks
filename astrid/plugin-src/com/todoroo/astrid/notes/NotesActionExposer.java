@@ -28,8 +28,6 @@ import com.todoroo.astrid.data.Task;
  */
 public class NotesActionExposer extends BroadcastReceiver {
 
-    static final String EXTRA_TASK = "task"; //$NON-NLS-1$
-
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
@@ -50,7 +48,7 @@ public class NotesActionExposer extends BroadcastReceiver {
 
     private void displayNote(Context context, Task task) {
         Intent intent = new Intent(context, NoteViewingActivity.class);
-        intent.putExtra(EXTRA_TASK, task);
+        intent.putExtra(NoteViewingActivity.EXTRA_TASK, task);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }

@@ -59,6 +59,7 @@ import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
+import com.todoroo.astrid.notes.NotesDecorationExposer;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.utility.Constants;
@@ -639,6 +640,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         private final TaskDecorationExposer[] exposers = new TaskDecorationExposer[] {
                 new TimerDecorationExposer(),
+                new NotesDecorationExposer(),
         };
 
         /**
@@ -660,8 +662,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             for(TaskDecorationExposer exposer : exposers) {
                 TaskDecoration deco = exposer.expose(viewHolder.task);
-                if(deco != null)
+                if(deco != null) {
                     addNew(viewHolder.task.getId(), exposer.getAddon(), deco);
+                    System.err.println("new chilli - " + exposer.getAddon());
+                }
             }
 
             return true;
@@ -694,6 +698,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         viewHolder.taskRow.addView(view, 2);
                         break;
                     case TaskDecoration.POSITION_RIGHT:
+                        System.err.println("addin da child");
                         viewHolder.taskRow.addView(view, viewHolder.taskRow.getChildCount() - 1);
                     }
                 }

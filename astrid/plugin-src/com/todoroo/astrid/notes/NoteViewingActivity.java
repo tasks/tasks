@@ -7,14 +7,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.LinearLayout.LayoutParams;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.Task;
 
 public class NoteViewingActivity extends Activity {
+
+    public static final String EXTRA_TASK = "task"; //$NON-NLS-1$
 
     private Task task;
 
@@ -27,7 +29,7 @@ public class NoteViewingActivity extends Activity {
 
         LinearLayout body = (LinearLayout) findViewById(R.id.body);
 
-        task = getIntent().getParcelableExtra(NotesActionExposer.EXTRA_TASK);
+        task = getIntent().getParcelableExtra(EXTRA_TASK);
         setTitle(task.getValue(Task.TITLE));
 
         ScrollView scrollView = new ScrollView(this);
