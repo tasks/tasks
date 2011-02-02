@@ -46,6 +46,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -59,6 +60,7 @@ import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
+import com.todoroo.astrid.notes.NoteViewingActivity;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
@@ -890,6 +892,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             long taskId = viewHolder.task.getId();
 
+            if(isIntroTask(viewHolder.task)) {
+                Intent intent = new Intent(ContextManager.getContext(), NoteViewingActivity.class);
+                intent.putExtra(NoteViewingActivity.EXTRA_TASK, viewHolder.task);
+                activity.startActivity(intent);
+                return;
+            }
+
             Collection<TaskAction> actions = taskActionManager.get(taskId);
             prepareQuickActionBar(viewHolder, actions);
             //mBarAnchor = v;
@@ -899,6 +908,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
 
             notifyDataSetChanged();
+        }
+
+        private boolean isIntroTask(Task task) {
+            if(activity.getString(R.string.intro_click_prompt).equals(task.getValue(Task.DETAILS)))
+                return true;
+            return false;
         }
     }
 

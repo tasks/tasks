@@ -4,7 +4,8 @@
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:paddingLeft="3px">
+    android:paddingLeft="5px"
+    android:paddingRight="3px">
     
     <ImageView android:id="@+id/icon"
         android:layout_width="fill_parent"

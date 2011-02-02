@@ -43,6 +43,8 @@ public class NoteViewingActivity extends Activity {
 
         Button ok = new Button(this);
         ok.setText(android.R.string.ok);
+        ok.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.FILL_PARENT,
+                LayoutParams.WRAP_CONTENT));
         ok.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View arg0) {
