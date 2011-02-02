@@ -360,22 +360,6 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-    
-    <!-- notes -->
-    <receiver android:name="com.todoroo.astrid.notes.NoteDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    <receiver android:name="com.todoroo.astrid.notes.NotesActionExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>
-    <activity android:name="com.todoroo.astrid.notes.NoteViewingActivity"
-              android:theme="@style/Theme.Dialog" />
         
     <!-- locale -->
     <activity android:name="com.todoroo.astrid.locale.LocaleEditAlerts"
@@ -412,7 +396,23 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-
+    
+    <!-- notes -->
+    <receiver android:name="com.todoroo.astrid.notes.NoteDetailExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>    
+    <receiver android:name="com.todoroo.astrid.notes.NotesActionExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    <activity android:name="com.todoroo.astrid.notes.NoteViewingActivity"
+              android:theme="@style/Theme.Dialog" />
+              
     <!-- reminders -->        
     <activity android:name="com.todoroo.astrid.reminders.ReminderPreferences" 
               android:label="@string/rmd_EPr_alerts_header">
