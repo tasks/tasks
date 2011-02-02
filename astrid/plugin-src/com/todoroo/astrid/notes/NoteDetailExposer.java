@@ -8,8 +8,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.timsu.astrid.R;
-import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
@@ -47,19 +45,7 @@ public class NoteDetailExposer extends BroadcastReceiver {
         Task task = PluginServices.getTaskService().fetchById(id, Task.NOTES);
         if(task == null)
             return null;
-        String notes = task.getValue(Task.NOTES);
-        if(notes.length() == 0)
-            return null;
-
-        if(Preferences.getBoolean(R.string.p_showNotes, false)) {
-            if(extended)
-                return null;
-        } else {
-            if(!extended)
-                return "<img src='silk_note'/>"; //$NON-NLS-1$
-        }
-
-        return "<img src='silk_note'/> " + notes; //$NON-NLS-1$
+        return null;
     }
 
 }

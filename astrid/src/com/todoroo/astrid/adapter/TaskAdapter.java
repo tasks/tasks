@@ -94,6 +94,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.DETAILS,
         Task.ELAPSED_SECONDS,
         Task.TIMER_START,
+        Task.NOTES
     };
 
     private static int[] IMPORTANCE_COLORS = null;
@@ -664,7 +665,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 TaskDecoration deco = exposer.expose(viewHolder.task);
                 if(deco != null) {
                     addNew(viewHolder.task.getId(), exposer.getAddon(), deco);
-                    System.err.println("new chilli - " + exposer.getAddon());
                 }
             }
 
@@ -698,8 +698,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         viewHolder.taskRow.addView(view, 2);
                         break;
                     case TaskDecoration.POSITION_RIGHT:
-                        System.err.println("addin da child");
-                        viewHolder.taskRow.addView(view, viewHolder.taskRow.getChildCount() - 1);
+                        viewHolder.taskRow.addView(view, viewHolder.taskRow.getChildCount());
                     }
                 }
                 i++;

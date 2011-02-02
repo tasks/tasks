@@ -12,7 +12,7 @@
         android:layout_weight="5"
         android:gravity="center_horizontal"
         android:scaleType="center"
-        android:src="@drawable/tango_notes" />
+        android:src="@drawable/silk_note" />
               
 </LinearLayout>
 
