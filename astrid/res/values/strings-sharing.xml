@@ -7,5 +7,14 @@
     <!-- task action: Share -->
     <string name="sharing_action">Share</string>
 
+    <!-- task action: Sharing Description -->
+    <string name="sharing_SLA_body">MyAstrid lets you share your tasks with
+    others. Let your friends encourage and keep you accountable!</string>
+
+    <!-- task action: Sharing Login Prompt -->
+    <string name="sharing_SLA_login">Log in via Facebook or e-mail:</string>
+    
+    
+
 </resources>
 
