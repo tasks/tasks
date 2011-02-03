@@ -7,6 +7,8 @@
   <LinearLayout
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:paddingLeft="5px"
+    android:paddingRight="5px"
     android:orientation="vertical">
     <ImageView
       android:layout_width="fill_parent"
@@ -29,10 +31,11 @@
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:gravity="center"
-      android:paddingBottom="5dip"
+      android:paddingBottom="20dip"
       android:textSize="20sp"
       android:textColor="#333333"
-      android:text="@string/sharing_SLA_login" android:textStyle="bold"/>
+      android:text="@string/sharing_SLA_login"
+      android:textStyle="bold" />
     <TextView
       android:id="@+id/error"
       android:layout_width="fill_parent"
@@ -43,23 +46,50 @@
       android:textSize="16sp"
       android:textStyle="bold"
       android:visibility="gone" />
-    <EditText
-      android:id="@+id/email"
-      android:layout_height="wrap_content"
-      android:layout_width="fill_parent"
-      android:hint="@string/gtasks_GLA_email"
-      android:inputType="textEmailAddress" />
-    <EditText
-      android:id="@+id/password"
-      android:layout_height="wrap_content"
-      android:layout_width="fill_parent"
-      android:hint="@string/gtasks_GLA_password"
-      android:inputType="textPassword" />
-    <Button
-      android:id="@+id/signIn"
+      
+    <LinearLayout
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:layout_weight="1"
-      android:text="@string/gtasks_GLA_signIn" />
+      android:orientation="horizontal">
+      <com.facebook.android.LoginButton
+        android:id="@+id/fb_login"
+        android:src="@drawable/facebook_64"
+        android:background="#00000000"
+        android:gravity="right"
+        android:paddingLeft="10px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1" />
+      <ImageButton
+        android:id="@+id/google_login"
+        android:src="@drawable/google_64"
+        android:background="#00000000"
+        android:gravity="left"
+        android:paddingRight="10px"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"/>
+    </LinearLayout>
+      
+    <TextView
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:paddingTop="10dip"
+      android:paddingBottom="20dip"
+      android:textSize="14sp"
+      android:textColor="#333333"
+      android:text="@string/sharing_SLA_next_step" />
+      
+    <TextView
+      android:id="@+id/taskInfo"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:gravity="center"
+      android:textSize="20sp"
+      android:textColor="#333333"
+      android:text="@string/sharing_SLA_task"
+      android:textStyle="bold" />
+      
   </LinearLayout>
 </ScrollView>

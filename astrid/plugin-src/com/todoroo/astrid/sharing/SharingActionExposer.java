@@ -10,15 +10,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.text.TextUtils;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
-import com.todoroo.astrid.core.PluginServices;
-import com.todoroo.astrid.data.Task;
 
 /**
  * Exposes {@link TaskDecoration} for timers
@@ -37,15 +34,17 @@ public class SharingActionExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TITLE, Task.NOTES);
-        if(!task.containsNonNullValue(Task.NOTES) || TextUtils.isEmpty(task.getValue(Task.NOTES)))
-            return;
-
         if(AstridApiConstants.BROADCAST_REQUEST_ACTIONS.equals(intent.getAction())) {
             sendAction(context, taskId);
         } else {
-            //
+            performAction(context, taskId);
         }
+    }
+
+    private void performAction(Context context, long taskId) {
+        Intent intent = new Intent(context, SharingLoginActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
     }
 
     private void sendAction(Context context, long taskId) {
