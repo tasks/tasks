@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -287,11 +288,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(hiddenUntil > DateUtilities.now())
                 nameValue = r.getString(R.string.TAd_hiddenFormat, nameValue);
             nameView.setText(nameValue);
-
-            nameView.setMovementMethod(null);
-            if(nameValue.contains(".") || nameValue.contains("-")) //$NON-NLS-1$ //$NON-NLS-2$
-                Linkify.addLinks(nameView, Linkify.EMAIL_ADDRESSES | Linkify.PHONE_NUMBERS |
-                    Linkify.WEB_URLS);
         }
 
         // due date / completion date
@@ -751,6 +747,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             if(mBar != null) {
                 ListView listView = activity.getListView();
                 ViewHolder myHolder = null;
+
                 // update view if it is visible
                 int length = listView.getChildCount();
                 for(int i = 0; i < length; i++) {
@@ -766,8 +763,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     activity.runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            Drawable drawable = new BitmapDrawable(activity.getResources(), item.icon);
-                            mBarListener.addWithAction(new QuickAction(drawable, item.text), item);
+                            mBarListener.addWithAction(item);
                             mBar.show(viewHolder.view);
                         }
                     });
@@ -819,12 +815,20 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             new HashMap<Integer, TaskAction>(2);
         private long taskId;
         private int itemCount = 0;
+        private int iconWidth;
 
         public void initialize(long newTaskId) {
             this.taskId = newTaskId;
             itemCount = 0;
             positionActionMap.clear();
             mBar.setOnQuickActionClickListener(this);
+            iconWidth = activity.getResources().getDrawable(R.drawable.tango_edit).getIntrinsicHeight();
+        }
+
+        public void addWithAction(TaskAction item) {
+            Bitmap scaledBitmap = Bitmap.createScaledBitmap(item.icon, iconWidth, iconWidth, true);
+            Drawable drawable = new BitmapDrawable(activity.getResources(), scaledBitmap);
+            addWithAction(new QuickAction(drawable, item.text), item);
         }
 
         public void addWithAction(QuickAction quickAction, TaskAction taskAction) {
@@ -859,7 +863,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private class TaskRowListener implements OnCreateContextMenuListener, OnClickListener {
 
-        //prep quick action bar
+        // prepare quick action bar
         private void prepareQuickActionBar(ViewHolder viewHolder, Collection<TaskAction> collection){
             mBar = new QuickActionBar(viewHolder.view.getContext());
             QuickAction editAction = new QuickAction(activity, R.drawable.tango_edit,
@@ -869,8 +873,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             if(collection != null) {
                 for(TaskAction item : collection) {
-                    Drawable drawable = new BitmapDrawable(activity.getResources(), item.icon);
-                    mBarListener.addWithAction(new QuickAction(drawable, item.text), item);
+                    mBarListener.addWithAction(item);
                 }
             }
 

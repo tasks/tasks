@@ -3,6 +3,7 @@
  */
 package com.todoroo.astrid.helper;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
@@ -27,8 +28,8 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
         this.activity = activity;
     }
 
-    private final Map<Long, HashMap<String, TYPE>> cache =
-        Collections.synchronizedMap(new HashMap<Long, HashMap<String, TYPE>>(0));
+    private final Map<Long, ArrayList<TYPE>> cache =
+        Collections.synchronizedMap(new HashMap<Long, ArrayList<TYPE>>(0));
 
     // --- interface
 
@@ -107,7 +108,7 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
     protected synchronized Collection<TYPE> initialize(long taskId) {
         if(cache.containsKey(taskId) && cache.get(taskId) != null)
             return get(taskId);
-        cache.put(taskId, new HashMap<String, TYPE>(0));
+        cache.put(taskId, new ArrayList<TYPE>(0));
         return null;
     }
 
@@ -117,14 +118,15 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
      * @param item
      * @return iterator if item was added, null if it already existed
      */
+    @SuppressWarnings("unused")
     protected synchronized Collection<TYPE> addIfNotExists(long taskId, String addOn,
             TYPE item) {
-        HashMap<String, TYPE> list = cache.get(taskId);
+        ArrayList<TYPE> list = cache.get(taskId);
         if(list == null)
             return null;
-        if(list.containsKey(addOn) && list.get(addOn).equals(item))
+        if(list.contains(item))
             return null;
-        list.put(addOn, item);
+        list.add(item);
         return get(taskId);
     }
 
@@ -136,7 +138,7 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
     protected Collection<TYPE> get(long taskId) {
         if(cache.get(taskId) == null)
             return null;
-        return cache.get(taskId).values();
+        return cache.get(taskId);
     }
 
 }
