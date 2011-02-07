@@ -26,22 +26,20 @@ public class SharingDetailExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        boolean extended = intent.getBooleanExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-        String taskDetail = getTaskDetails(taskId, extended);
+        String taskDetail = getTaskDetails(taskId);
         if(taskDetail == null)
             return;
 
         // transmit
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    public String getTaskDetails(long id, boolean extended) {
+    public String getTaskDetails(long id) {
         Metadata metadata = PluginServices.getMetadataByTaskAndWithKey(id, SharingFields.METADATA_KEY);
-        if(metadata == null || extended)
+        if(metadata == null)
             return null;
 
         if(metadata.getValue(SharingFields.PRIVACY) == SharingFields.PRIVACY_PUBLIC)

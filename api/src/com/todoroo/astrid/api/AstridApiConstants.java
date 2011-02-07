@@ -61,11 +61,6 @@ public class AstridApiConstants {
     public static final String EXTRAS_ADDON = "addon";
 
     /**
-     * Extras name for whether task detail request is extended
-     */
-    public static final String EXTRAS_EXTENDED = "extended";
-
-    /**
      * Extras name for old task due date
      */
     public static final String EXTRAS_OLD_DUE_DATE= "oldDueDate";

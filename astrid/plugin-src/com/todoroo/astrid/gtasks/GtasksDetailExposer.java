@@ -50,23 +50,18 @@ public class GtasksDetailExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        boolean extended = intent.getBooleanExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-        String taskDetail = getTaskDetails(taskId, extended);
+        String taskDetail = getTaskDetails(taskId);
         if(taskDetail == null)
             return;
 
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, GtasksPreferenceService.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    public String getTaskDetails(long id, boolean extended) {
-        if(extended)
-            return null;
-
+    public String getTaskDetails(long id) {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(id);
         if(metadata == null)
             return null;

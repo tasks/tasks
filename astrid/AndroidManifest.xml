@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.timsu.astrid"
-          android:versionName="3.7.0-prerelease"
-          android:versionCode="171">
+          android:versionName="3.7.0"
+          android:versionCode="172">
           
   <!-- widgets, alarms, and services will break if Astrid is installed on SD card -->
   <!--    android:installLocation="internalOnly"> -->
@@ -128,7 +128,8 @@
               android:windowSoftInputMode="stateHidden"
               android:theme="@style/Theme" />
     <!-- Activity for preferences -->
-    <activity android:name="com.todoroo.astrid.activity.EditPreferences" />
+    <activity android:name="com.todoroo.astrid.activity.EditPreferences" 
+        android:theme="@android:style/Theme" />
     <!-- Activity that configures widget -->
     <activity android:name="com.todoroo.astrid.widget.TasksWidget$ConfigActivity"
               android:theme="@style/Theme">
@@ -197,7 +198,8 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-    <activity android:name="com.todoroo.astrid.core.DefaultsPreferences" 
+    <activity android:name="com.todoroo.astrid.core.DefaultsPreferences"
+              android:theme="@android:style/Theme" 
               android:label="@string/EPr_defaults_header">
       <intent-filter>
         <action android:name="com.todoroo.astrid.SETTINGS" />
@@ -255,6 +257,7 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.gtasks.GtasksPreferences"
+              android:theme="@android:style/Theme"
               android:label="@string/gtasks_GPr_header">
       <meta-data android:name="category"
                  android:resource="@string/SyP_label" />
@@ -347,7 +350,8 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
-    <activity android:name="com.todoroo.astrid.backup.BackupPreferences" 
+    <activity android:name="com.todoroo.astrid.backup.BackupPreferences"
+              android:theme="@android:style/Theme" 
               android:label="@string/backup_BPr_header">
       <intent-filter>
         <action android:name="com.todoroo.astrid.SETTINGS" />
@@ -398,7 +402,7 @@
     </receiver>
     
     <!-- notes -->
-    <receiver android:name="com.todoroo.astrid.notes.NoteDetailExposer">
+    <receiver android:name="com.todoroo.astrid.notes.NotesDetailExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
         <category android:name="android.intent.category.DEFAULT" />
@@ -408,7 +412,8 @@
               android:theme="@style/Theme.Dialog" />
               
     <!-- reminders -->        
-    <activity android:name="com.todoroo.astrid.reminders.ReminderPreferences" 
+    <activity android:name="com.todoroo.astrid.reminders.ReminderPreferences"
+              android:theme="@android:style/Theme" 
               android:label="@string/rmd_EPr_alerts_header">
       <intent-filter>
         <action android:name="com.todoroo.astrid.SETTINGS" />
@@ -444,6 +449,7 @@
       </intent-filter>
     </receiver>
     <activity android:name="com.todoroo.astrid.producteev.ProducteevPreferences"
+              android:theme="@android:style/Theme"
               android:label="@string/producteev_PPr_header">
       <meta-data android:name="category"
                  android:resource="@string/SyP_label" />
@@ -494,6 +500,7 @@
     </receiver>
     <activity android:name="org.weloveastrid.rmilk.MilkLoginActivity" />
     <activity android:name="org.weloveastrid.rmilk.MilkPreferences"
+              android:theme="@android:style/Theme"
               android:icon="@drawable/icon"
               android:label="@string/rmilk_MPr_header">
       <meta-data android:name="category"
@@ -521,6 +528,7 @@
       </intent-filter>
     </receiver>    
 
+    <!-- other task actions -->
     <receiver android:name="com.todoroo.astrid.core.LinkActionExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />

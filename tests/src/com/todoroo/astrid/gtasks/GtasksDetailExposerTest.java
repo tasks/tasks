@@ -112,7 +112,6 @@ public class GtasksDetailExposerTest extends DatabaseTestCase {
 
     private void whenRequestingDetails() {
         Intent intent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-        intent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
         intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
         detail = null;
         new GtasksDetailExposer().onReceive(getContext(), intent);

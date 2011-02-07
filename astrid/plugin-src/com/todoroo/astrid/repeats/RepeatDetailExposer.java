@@ -35,8 +35,7 @@ public class RepeatDetailExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        boolean extended = intent.getBooleanExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-        String taskDetail = getTaskDetails(context, taskId, extended);
+        String taskDetail = getTaskDetails(context, taskId);
         if(taskDetail == null)
             return;
 
@@ -44,15 +43,11 @@ public class RepeatDetailExposer extends BroadcastReceiver {
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, RepeatsPlugin.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    public String getTaskDetails(Context context, long id, boolean extended) {
-        if(extended)
-            return null;
-
+    public String getTaskDetails(Context context, long id) {
         Task task = PluginServices.getTaskService().fetchById(id, Task.FLAGS, Task.RECURRENCE);
         if(task == null)
             return null;

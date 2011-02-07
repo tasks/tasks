@@ -15,6 +15,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Join;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
@@ -63,6 +64,9 @@ public class MetadataDao extends DatabaseDao<Metadata> {
 
     @Override
     public boolean persist(Metadata item) {
+        if(!item.containsValue(Metadata.CREATION_DATE))
+            item.setValue(Metadata.CREATION_DATE, DateUtilities.now());
+
         boolean state = super.persist(item);
         Astrid2TaskProvider.notifyDatabaseModification();
         return state;

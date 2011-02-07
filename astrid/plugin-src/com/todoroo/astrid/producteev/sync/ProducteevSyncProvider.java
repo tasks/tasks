@@ -458,7 +458,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         JSONArray notes = remoteTask.getJSONArray("notes");
         for(int i = notes.length() - 1; i >= 0; i--) {
             JSONObject note = notes.getJSONObject(i).getJSONObject("note");
-            metadata.add(ProducteevNote.create(note));
+            metadata.add(ApiUtilities.createNoteMetadata(note));
         }
 
         ProducteevTaskContainer container = new ProducteevTaskContainer(task, metadata, remoteTask);
@@ -572,27 +572,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             if(!TextUtils.isEmpty(local.task.getValue(Task.NOTES))) {
                 String note = local.task.getValue(Task.NOTES);
                 JSONObject result = invoker.tasksNoteCreate(idTask, note);
-                local.metadata.add(ProducteevNote.create(result.getJSONObject("note")));
+                local.metadata.add(ApiUtilities.createNoteMetadata(result.getJSONObject("note")));
                 local.task.setValue(Task.NOTES, "");
-            }
-
-            // milk note => producteev note
-            if(local.findMetadata(ProducteevDataService.MILK_NOTE_KEY) != null && (remote == null ||
-                    (remote.findMetadata(ProducteevNote.METADATA_KEY) == null))) {
-                for(Metadata item : local.metadata) {
-                    if(ProducteevDataService.MILK_NOTE_KEY.equals(item.getValue(Metadata.KEY))) {
-                        String title = item.getValue(Metadata.VALUE2);
-                        String text = item.getValue(Metadata.VALUE3);
-                        String message;
-                        if(!TextUtils.isEmpty(title))
-                            message = title + "\n" + text;
-                        else
-                            message = text;
-
-                        JSONObject result = invoker.tasksNoteCreate(idTask, message);
-                        local.metadata.add(ProducteevNote.create(result.getJSONObject("note")));
-                    }
-                }
             }
 
             if(remerge) {

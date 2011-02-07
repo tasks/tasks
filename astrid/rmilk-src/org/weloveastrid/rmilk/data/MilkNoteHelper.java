@@ -4,9 +4,8 @@ import org.weloveastrid.rmilk.api.data.RtmTaskNote;
 
 import android.text.TextUtils;
 
-import com.todoroo.andlib.data.Property.LongProperty;
-import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.notes.NoteMetadata;
 
 /**
  * Metadata entries for a Remember the Milk note. The first RMilk note becomes
@@ -16,31 +15,19 @@ import com.todoroo.astrid.data.Metadata;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class MilkNoteFields {
+public class MilkNoteHelper {
 
     /** metadata key */
-    public static final String METADATA_KEY = "rmilk-note"; //$NON-NLS-1$
-
-    /** note id */
-    public static final StringProperty ID = Metadata.VALUE1;
-
-    /** note title */
-    public static final StringProperty TITLE = Metadata.VALUE2;
-
-    /** note text */
-    public static final StringProperty TEXT = Metadata.VALUE3;
-
-    /** note creation date */
-    public static final LongProperty CREATED = new LongProperty(Metadata.TABLE,
-            Metadata.VALUE4.name);
+    public static final String PROVIDER = "rmilk"; //$NON-NLS-1$
 
     public static Metadata create(RtmTaskNote note) {
         Metadata metadata = new Metadata();
-        metadata.setValue(Metadata.KEY, METADATA_KEY);
-        metadata.setValue(ID, note.getId());
-        metadata.setValue(TITLE, note.getTitle());
-        metadata.setValue(TEXT, note.getText());
-        metadata.setValue(CREATED, note.getCreated().getTime());
+        metadata.setValue(Metadata.KEY, NoteMetadata.METADATA_KEY);
+        metadata.setValue(NoteMetadata.EXT_ID, note.getId());
+        metadata.setValue(NoteMetadata.EXT_PROVIDER, PROVIDER);
+        metadata.setValue(NoteMetadata.TITLE, note.getTitle());
+        metadata.setValue(NoteMetadata.BODY, note.getText());
+        metadata.setValue(Metadata.CREATION_DATE, note.getCreated().getTime());
         return metadata;
     }
 
@@ -84,25 +71,6 @@ public class MilkNoteFields {
             result[0] = "";
             result[1] = value;
         }
-        return result;
-    }
-
-    /**
-     * Turn a note's title and text into an HTML string for notes
-     * @param metadata
-     * @return
-     */
-    @SuppressWarnings("nls")
-    public static String toTaskDetail(Metadata metadata) {
-        String title = metadata.getValue(TITLE);
-        String text = metadata.getValue(TEXT);
-
-        String result;
-        if(!TextUtils.isEmpty(title))
-            result = "<b>" + title + "</b> " + text;
-        else
-            result = text;
-
         return result;
     }
 

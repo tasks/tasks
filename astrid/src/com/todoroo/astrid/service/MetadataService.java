@@ -5,6 +5,7 @@ import java.util.HashSet;
 
 import android.content.ContentValues;
 
+import com.todoroo.andlib.data.Property.CountProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -136,5 +137,20 @@ public class MetadataService {
         }
 
         return written;
+    }
+
+    /**
+     * Does metadata with this key and task exist?
+     */
+    public boolean hasMetadata(long id, String key) {
+        CountProperty count = new CountProperty();
+        TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(
+                count).where(MetadataCriteria.byTaskAndwithKey(id, key)));
+        try {
+            cursor.moveToFirst();
+            return cursor.get(count) > 0;
+        } finally {
+            cursor.close();
+        }
     }
 }

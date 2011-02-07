@@ -16,6 +16,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.sync.SyncMetadataService;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
@@ -45,7 +46,8 @@ public final class MilkMetadataService extends SyncMetadataService<MilkTaskConta
     public Criterion getMetadataCriteria() {
         return Criterion.or(MetadataCriteria.withKey(TAG_KEY),
                 MetadataCriteria.withKey(MilkTaskFields.METADATA_KEY),
-                MetadataCriteria.withKey(MilkNoteFields.METADATA_KEY));
+                Criterion.and(MetadataCriteria.withKey(NoteMetadata.METADATA_KEY),
+                        NoteMetadata.EXT_PROVIDER.eq(MilkNoteHelper.PROVIDER)));
     }
 
     @Override
@@ -63,7 +65,7 @@ public final class MilkMetadataService extends SyncMetadataService<MilkTaskConta
      */
     public TodorooCursor<Metadata> getTaskNotesCursor(long taskId) {
         TodorooCursor<Metadata> cursor = metadataDao.query(Query.select(Metadata.PROPERTIES).
-                where(MetadataCriteria.byTaskAndwithKey(taskId, MilkNoteFields.METADATA_KEY)));
+                where(MetadataCriteria.byTaskAndwithKey(taskId, NoteMetadata.METADATA_KEY)));
         return cursor;
     }
 

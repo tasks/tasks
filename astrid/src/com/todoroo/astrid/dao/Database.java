@@ -28,7 +28,7 @@ public class Database extends AbstractDatabase {
      * Database version number. This variable must be updated when database
      * tables are updated, as it determines whether a database needs updating.
      */
-    public static final int VERSION = 7;
+    public static final int VERSION = 8;
 
     /**
      * Database name (must be unique)
@@ -125,11 +125,15 @@ public class Database extends AbstractDatabase {
         }
         case 5: {
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
-                    Task.REMINDER_SNOOZE.accept(visitor, null));
+                Task.REMINDER_SNOOZE.accept(visitor, null));
         }
         case 6: {
             database.execSQL("ALTER TABLE " + Task.TABLE.name + " ADD " +
-                    Task.DETAILS_DATE.accept(visitor, null));
+                Task.DETAILS_DATE.accept(visitor, null));
+        }
+        case 7: {
+            database.execSQL("ALTER TABLE " + Metadata.TABLE.name + " ADD " +
+                Metadata.CREATION_DATE.accept(visitor, null));
         }
 
         return true;

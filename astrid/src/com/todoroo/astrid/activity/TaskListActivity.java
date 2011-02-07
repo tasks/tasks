@@ -4,10 +4,13 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Map.Entry;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicReference;
+
+import org.weloveastrid.rmilk.MilkPreferences;
+import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.app.AlertDialog;
 import android.app.ListActivity;
@@ -30,28 +33,28 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.view.View.OnClickListener;
-import android.view.View.OnKeyListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AbsListView;
+import android.widget.AbsListView.OnScrollListener;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AbsListView.OnScrollListener;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
@@ -543,10 +546,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                     taskAdapter.decorationManager.addNew(taskId, addOn, deco);
                 } else if(AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
                     String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
-                    if(extras.getBoolean(AstridApiConstants.EXTRAS_EXTENDED))
-                        taskAdapter.extendedDetailManager.addNew(taskId, addOn, detail);
-                    else
-                        taskAdapter.addDetails(taskId, detail);
+                    taskAdapter.addDetails(taskId, detail);
                 } else if(AstridApiConstants.BROADCAST_SEND_ACTIONS.equals(intent.getAction())) {
                     TaskAction action = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.taskActionManager.addNew(taskId, addOn, action);
@@ -880,6 +880,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                         resolveInfo.activityInfo.name);
 
                 String category = MetadataHelper.resolveActivityCategoryName(resolveInfo, pm);
+                if(MilkPreferences.class.getName().equals(resolveInfo.activityInfo.name) &&
+                        !MilkUtilities.INSTANCE.isLoggedIn())
+                    continue;
 
                 if (category.equals(desiredCategory)) {
                     syncIntents.add(new IntentWithLabel(intent,

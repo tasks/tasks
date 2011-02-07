@@ -9,7 +9,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
@@ -28,7 +27,6 @@ import android.text.Html.ImageGetter;
 import android.text.Html.TagHandler;
 import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.util.Linkify;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -130,7 +128,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     // --- task detail and decoration soft caches
 
-    public final ExtendedDetailManager extendedDetailManager;
     public final DecorationManager decorationManager;
     public final TaskActionManager taskActionManager;
 
@@ -171,7 +168,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         detailLoader = new DetailLoaderThread();
         detailLoader.start();
 
-        extendedDetailManager = new ExtendedDetailManager();
         decorationManager = new DecorationManager();
         taskActionManager = new TaskActionManager();
     }
@@ -352,15 +348,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         // details and decorations, expanded
         decorationManager.request(viewHolder);
-        if(!isFling && expanded == task.getId()) {
-            if(viewHolder.extendedDetails != null)
-                extendedDetailManager.request(viewHolder);
-            taskActionManager.request(viewHolder);
-        } else {
-            if(viewHolder.extendedDetails != null)
-                viewHolder.extendedDetails.setVisibility(View.GONE);
-            viewHolder.actions.setVisibility(View.GONE);
-        }
     }
 
     protected TaskRowListener listener = new TaskRowListener();
@@ -478,7 +465,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         private void requestNewDetails(Task task) {
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
             activity.sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         }
     }
@@ -542,7 +528,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      */
     public void flushCaches() {
         completedItems.clear();
-        extendedDetailManager.clearCache();
         decorationManager.clearCache();
         taskActionManager.clearCache();
         taskDetailLoader.clear();
@@ -555,74 +540,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      */
     public void flushSpecific(long taskId) {
         completedItems.put(taskId, null);
-        extendedDetailManager.clearCache(taskId);
         decorationManager.clearCache(taskId);
         taskActionManager.clearCache(taskId);
         taskDetailLoader.remove(taskId);
-    }
-
-    /**
-     * AddOnManager for Details
-     * @author Tim Su <tim@todoroo.com>
-     *
-     */
-    public class ExtendedDetailManager extends TaskAdapterAddOnManager<String> {
-        private final Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_REQUEST_DETAILS);
-
-        public ExtendedDetailManager() {
-            super(activity);
-        }
-
-        @Override
-        protected
-        Intent createBroadcastIntent(Task task) {
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, true);
-            return broadcastIntent;
-        }
-
-        @Override
-        public void addNew(long taskId, String addOn, String item) {
-            super.addNew(taskId, addOn, item);
-        }
-
-        private final StringBuilder detailText = new StringBuilder();
-
-        @SuppressWarnings("nls")
-        @Override
-        protected
-        void draw(ViewHolder viewHolder, long taskId, Collection<String> details) {
-            if(details == null || viewHolder.task.getId() != taskId)
-                return;
-            TextView view = viewHolder.extendedDetails;
-            if(details.isEmpty() || (expanded != taskId)) {
-                reset(viewHolder, taskId);
-                return;
-            }
-            view.setVisibility(View.VISIBLE);
-            detailText.setLength(0);
-            for(Iterator<String> iterator = details.iterator(); iterator.hasNext(); ) {
-                detailText.append(iterator.next());
-                if(iterator.hasNext())
-                    detailText.append(DETAIL_SEPARATOR);
-            }
-            String string = detailText.toString();
-            if(string.contains("<"))
-                view.setText(convertToHtml(string.trim().replace("\n", "<br>"),
-                        detailImageGetter, null));
-            else
-                view.setText(string.trim());
-            if(string.contains(".") || string.contains("-"))
-                Linkify.addLinks(view, Linkify.EMAIL_ADDRESSES | Linkify.PHONE_NUMBERS |
-                    Linkify.WEB_URLS);
-        }
-
-        @Override
-        protected void reset(ViewHolder viewHolder, long taskId) {
-            TextView view = viewHolder.extendedDetails;
-            if(view != null)
-                view.setVisibility(View.GONE);
-        }
     }
 
     /**

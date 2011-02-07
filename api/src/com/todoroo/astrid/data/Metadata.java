@@ -9,10 +9,10 @@ import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Table;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.Table;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.astrid.api.AstridApiConstants;
 
 /**
@@ -66,6 +66,10 @@ public class Metadata extends AbstractModel {
     /** Metadata Text Value Column 5 */
     public static final StringProperty VALUE5 = new StringProperty(
             TABLE, "value5");
+
+    /** Unixtime Metadata was created */
+    public static final LongProperty CREATION_DATE = new LongProperty(
+            TABLE, "created");
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Metadata.class);

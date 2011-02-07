@@ -29,6 +29,7 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.producteev.api.ApiUtilities;
 import com.todoroo.astrid.service.MetadataService;
@@ -41,7 +42,8 @@ public final class ProducteevDataService {
     /** Utility for joining tasks with metadata */
     public static final Join METADATA_JOIN = Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK));
 
-    public static final String MILK_NOTE_KEY = "rmilk-note"; //$NON-NLS-1$
+    /** NoteMetadata provider string */
+    public static final String NOTE_PROVIDER = "producteev"; //$NON-NLS-1$
 
     // --- singleton
 
@@ -82,7 +84,6 @@ public final class ProducteevDataService {
      */
     public void clearMetadata() {
         metadataService.deleteWhere(Metadata.KEY.eq(ProducteevTask.METADATA_KEY));
-        metadataService.deleteWhere(Metadata.KEY.eq(ProducteevNote.METADATA_KEY));
         storeObjectDao.deleteWhere(StoreObject.TYPE.eq(ProducteevDashboard.TYPE));
         PluginServices.getTaskService().clearDetails(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
                 where(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY))));
@@ -148,7 +149,8 @@ public final class ProducteevDataService {
         task.metadata.add(task.pdvTask);
         metadataService.synchronizeMetadata(task.task.getId(), task.metadata,
                 Criterion.or(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                        MetadataCriteria.withKey(ProducteevNote.METADATA_KEY),
+                        Criterion.and(MetadataCriteria.withKey(NoteMetadata.METADATA_KEY),
+                                NoteMetadata.EXT_PROVIDER.eq(NOTE_PROVIDER)),
                         MetadataCriteria.withKey(TagService.KEY)));
     }
 
@@ -166,8 +168,7 @@ public final class ProducteevDataService {
                 where(Criterion.and(MetadataCriteria.byTask(task.getId()),
                         Criterion.or(MetadataCriteria.withKey(TagService.KEY),
                                 MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                                MetadataCriteria.withKey(MILK_NOTE_KEY), // to sync rmilk notes
-                                MetadataCriteria.withKey(ProducteevNote.METADATA_KEY)))));
+                                MetadataCriteria.withKey(NoteMetadata.METADATA_KEY)))));
         try {
             for(metadataCursor.moveToFirst(); !metadataCursor.isAfterLast(); metadataCursor.moveToNext()) {
                 metadata.add(new Metadata(metadataCursor));
@@ -202,7 +203,7 @@ public final class ProducteevDataService {
      */
     public TodorooCursor<Metadata> getTaskNotesCursor(long taskId) {
         TodorooCursor<Metadata> cursor = metadataService.query(Query.select(Metadata.PROPERTIES).
-                where(MetadataCriteria.byTaskAndwithKey(taskId, ProducteevNote.METADATA_KEY)));
+                where(MetadataCriteria.byTaskAndwithKey(taskId, NoteMetadata.METADATA_KEY)));
         return cursor;
     }
 

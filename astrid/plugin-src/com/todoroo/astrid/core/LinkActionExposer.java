@@ -86,6 +86,9 @@ public class LinkActionExposer extends BroadcastReceiver {
         Drawable icon = resolveInfoList.get(0).loadIcon(pm);
         Bitmap bitmap = ((BitmapDrawable)icon).getBitmap();
 
+        if(text.length() > 15)
+            text = text.substring(0, 12) + "..."; //$NON-NLS-1$
+
         TaskAction action = new TaskAction(text,
                 PendingIntent.getActivity(context, 0, actionIntent, 0), bitmap);
 

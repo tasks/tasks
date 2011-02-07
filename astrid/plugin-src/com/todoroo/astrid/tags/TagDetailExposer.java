@@ -24,8 +24,7 @@ public class TagDetailExposer extends BroadcastReceiver {
         if(taskId == -1)
             return;
 
-        boolean extended = intent.getBooleanExtra(AstridApiConstants.EXTRAS_EXTENDED, false);
-        String taskDetail = getTaskDetails(taskId, extended);
+        String taskDetail = getTaskDetails(taskId);
         if(taskDetail == null)
             return;
 
@@ -33,15 +32,11 @@ public class TagDetailExposer extends BroadcastReceiver {
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_DETAILS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, TagsPlugin.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, taskDetail);
-        broadcastIntent.putExtra(AstridApiConstants.EXTRAS_EXTENDED, extended);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
         context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
-    public String getTaskDetails(long id, boolean extended) {
-        if(extended)
-            return null;
-
+    public String getTaskDetails(long id) {
         String tagList = TagService.getInstance().getTagsAsString(id);
         if(tagList.length() == 0)
             return null;

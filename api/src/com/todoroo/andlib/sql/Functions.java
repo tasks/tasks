@@ -36,4 +36,8 @@ public final class Functions {
         return new Field("MAX(" + field.toString() + ")");
     }
 
+    public static Field count() {
+        return new Field("COUNT(1)");
+    }
+
 }

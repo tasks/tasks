@@ -2,11 +2,18 @@ package com.todoroo.astrid.producteev.api;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
+
+import org.json.JSONObject;
 
 import android.text.Html;
 
+import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.notes.NoteMetadata;
+import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 
 /**
  * Utilities for working with API responses and JSON objects
@@ -65,11 +72,34 @@ public final class ApiUtilities {
     }
 
     /**
-     * Unescape a Producteev string
+     * Un-escape a Producteev string
      * @param string
      * @return
      */
     public static String decode(String string) {
+        string = string.replace("\n", "<br/>"); //$NON-NLS-1$ //$NON-NLS-2$
         return Html.fromHtml(string).toString();
+    }
+
+    /**
+     * Create metadata from json object
+     * @param note JSON object with params id_note and message
+     * @return
+     */
+    @SuppressWarnings("nls")
+    public static Metadata createNoteMetadata(JSONObject note) {
+        Metadata metadata = new Metadata();
+        metadata.setValue(Metadata.KEY, NoteMetadata.METADATA_KEY);
+        metadata.setValue(NoteMetadata.EXT_ID, note.optString("id_note"));
+        metadata.setValue(NoteMetadata.EXT_PROVIDER, ProducteevDataService.NOTE_PROVIDER);
+        metadata.setValue(NoteMetadata.BODY, ApiUtilities.decode(note.optString("message")));
+
+        long created = ApiUtilities.producteevToUnixTime(note.optString("time_create"), 0);
+        metadata.setValue(Metadata.CREATION_DATE, created);
+
+        // TODO if id_creator != yourself, update the title
+        metadata.setValue(NoteMetadata.TITLE, DateUtilities.getDateStringWithWeekday(ContextManager.getContext(),
+                new Date(created)));
+        return metadata;
     }
 }

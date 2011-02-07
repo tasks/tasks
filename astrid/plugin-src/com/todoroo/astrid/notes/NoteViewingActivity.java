@@ -1,7 +1,9 @@
 package com.todoroo.astrid.notes;
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.text.util.Linkify;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,6 +14,11 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.sql.Query;
+import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 
 public class NoteViewingActivity extends Activity {
@@ -33,13 +40,42 @@ public class NoteViewingActivity extends Activity {
         setTitle(task.getValue(Task.TITLE));
 
         ScrollView scrollView = new ScrollView(this);
-
-        TextView linkifiedTextView = new TextView(this);
-        linkifiedTextView.setText(task.getValue(Task.NOTES) + "\n"); //$NON-NLS-1$
-        Linkify.addLinks(linkifiedTextView, Linkify.ALL);
-
-        scrollView.addView(linkifiedTextView);
+        LinearLayout scrollViewBody = new LinearLayout(this);
+        scrollViewBody.setOrientation(LinearLayout.VERTICAL);
+        scrollView.addView(scrollViewBody);
         body.addView(scrollView);
+
+        if(!TextUtils.isEmpty(task.getValue(Task.NOTES))) {
+            TextView note = new TextView(this);
+            note.setText(task.getValue(Task.NOTES));
+            Linkify.addLinks(note, Linkify.ALL);
+            note.setPadding(0, 0, 0, 10);
+            scrollViewBody.addView(note);
+        }
+
+        TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(
+                Query.select(Metadata.PROPERTIES).where(
+                        MetadataCriteria.byTaskAndwithKey(task.getId(),
+                                NoteMetadata.METADATA_KEY)));
+        Metadata metadata = new Metadata();
+        try {
+            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+                metadata.readFromCursor(cursor);
+
+                TextView title = new TextView(this);
+                title.setTypeface(Typeface.DEFAULT_BOLD);
+                title.setText(metadata.getValue(NoteMetadata.TITLE));
+                scrollViewBody.addView(title);
+
+                TextView note = new TextView(this);
+                note.setText(metadata.getValue(NoteMetadata.BODY));
+                Linkify.addLinks(note, Linkify.ALL);
+                note.setPadding(0, 0, 0, 10);
+                scrollViewBody.addView(note);
+            }
+        } finally {
+            cursor.close();
+        }
 
         Button ok = new Button(this);
         ok.setText(android.R.string.ok);

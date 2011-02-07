@@ -30,7 +30,7 @@ import org.weloveastrid.rmilk.api.data.RtmAuth.Perms;
 import org.weloveastrid.rmilk.api.data.RtmTask.Priority;
 import org.weloveastrid.rmilk.data.MilkListService;
 import org.weloveastrid.rmilk.data.MilkMetadataService;
-import org.weloveastrid.rmilk.data.MilkNoteFields;
+import org.weloveastrid.rmilk.data.MilkNoteHelper;
 
 import android.app.Activity;
 import android.app.Notification;
@@ -478,7 +478,7 @@ public class MilkSyncProvider extends SyncProvider<MilkTaskContainer> {
 
         // notes
         if(shouldTransmit(local, Task.NOTES, remote)) {
-            String[] titleAndText = MilkNoteFields.fromNoteField(local.task.getValue(Task.NOTES));
+            String[] titleAndText = MilkNoteHelper.fromNoteField(local.task.getValue(Task.NOTES));
             List<RtmTaskNote> notes = null;
             if(remote != null && remote.remote.getNotes() != null)
                 notes = remote.remote.getNotes().getNotes();
@@ -540,9 +540,9 @@ public class MilkSyncProvider extends SyncProvider<MilkTaskContainer> {
             for(RtmTaskNote note : rtmTaskSeries.getNotes().getNotes()) {
                 if(firstNote) {
                     firstNote = false;
-                    task.setValue(Task.NOTES, MilkNoteFields.toNoteField(note));
+                    task.setValue(Task.NOTES, MilkNoteHelper.toNoteField(note));
                 } else
-                    metadata.add(MilkNoteFields.create(note));
+                    metadata.add(MilkNoteHelper.create(note));
             }
         }
 
