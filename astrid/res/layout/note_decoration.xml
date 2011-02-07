@@ -3,15 +3,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:paddingLeft="5px"
-    android:paddingRight="3px">
+    android:orientation="vertical">
     
-    <ImageView android:id="@+id/icon"
+    <ImageButton android:id="@+id/icon"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="5"
+        android:paddingLeft="5px"
+        android:paddingRight="5px"
         android:gravity="center_horizontal"
+        android:background="#00000000"
         android:scaleType="center"
         android:src="@drawable/silk_note" />
               
