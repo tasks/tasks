@@ -656,6 +656,8 @@ public class ProducteevInvoker {
      */
     private JSONArray getResponse(JSONObject response, String field) throws ApiResponseParseException {
         try {
+            if(!response.has(field))
+                return new JSONArray();
             return response.getJSONArray(field);
         } catch (JSONException e) {
             throw new ApiResponseParseException(e);
