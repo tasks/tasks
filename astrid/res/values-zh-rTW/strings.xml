@@ -147,13 +147,13 @@
   <string name="DLG_to_market">前往市集</string>
 
   <!-- Button for accepting EULA -->
-  <string name="DLG_accept">I Accept</string>
+  <string name="DLG_accept">接受</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">I Decline</string>
+  <string name="DLG_decline">不接受</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid Terms Of Use</string>
+  <string name="DLG_eula_title">Astrid 使用條款</string>
   
   <!-- =============================================================== UI == -->
   
@@ -178,7 +178,7 @@
   <string name="TLA_menu_sort">排序</string>
   
   <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">Sync Now!</string>
+  <string name="TLA_menu_sync">立刻同步</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">設定</string>
@@ -739,6 +739,10 @@
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">錯誤: 電子郵件或密碼不正確!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
+    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
+    Try logging in from the browser, then come back to try again:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
@@ -759,7 +763,7 @@
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see details</string>
+  <string name="intro_click_prompt">Intro: Press me to see notes</string>
   
   <!-- Task 1 Summary  -->
   <string name="intro_task_1_summary">Create your first task</string>
@@ -1362,6 +1366,34 @@
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">連線錯誤! 檢查網路連線或RTM伺服器(status.rememberthemilk.com).</string>
             
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
+    <!-- ============================================================= UI == -->
+
+    <!-- task action: Share -->
+    <string name="sharing_action">Share</string>
+
+    <!-- share login: Title -->
+    <string name="sharing_SLA_title">Share This Task</string>
+
+    <!-- share login: Sharing Description -->
+    <string name="sharing_SLA_body">My Astrid lets you post tasks to the web to share with
+    others. Let your friends encourage and keep you accountable!</string>
+
+    <!-- share login: Sharing Login Prompt -->
+    <string name="sharing_SLA_login">Sign in using your Facebook or Google account:</string>
+
+    <!-- share login: Next Step information -->
+    <string name="sharing_SLA_next_step">On the next page, 
+    you can choose how to share this task and choose recipients.</string>
+
+    <!-- share login: Sharing Task Information -->
+    <string name="sharing_SLA_task">Task to Share:</string>   
+
 
 
 

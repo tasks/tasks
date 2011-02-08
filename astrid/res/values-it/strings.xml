@@ -5,14 +5,14 @@
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task Edit Activity: Container Label -->
-    <string name="alarm_ACS_label">Allarmi</string>
+    <string name="alarm_ACS_label">Promemoria</string>
     
     <!-- Task Edit Activity: Add New Alarm -->
-    <string name="alarm_ACS_button">Aggiungi un\'allarme</string>
+    <string name="alarm_ACS_button">Aggiungi un promemoria</string>
     
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
-      <item>allarme!</item>
+      <item>Promemoria!</item>
     </string-array>
     
 
@@ -40,7 +40,7 @@
     <string name="backup_status_never">Mai eseguito!</string>
 
     <!-- Backup Options Group Label -->    
-    <string name="backup_BPr_group_options">Opzioni</string>
+    <string name="backup_BPr_group_options">Preferenze</string>
 
     <!-- Preference: Automatic Backup Title -->    
     <string name="backup_BPr_auto_title">Backup automatici</string>
@@ -52,7 +52,7 @@
     <!-- Preference screen restoring Tasks Help -->
     <string name="backup_BPr_how_to_restore">Come faccio a ripristinare i backup?</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
+    <string name="backup_BPr_how_to_restore_dialog">E\' necessario aggiungere l\'Astrid Power Pack per gestire e ripristinare i backup. Come cortesia, Astrid farà un backup automatico delle tue attività. Non si sa mai...</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -75,7 +75,7 @@
     
   <string name="export_toast">Backup di %1$s su %2$s eseguito.</string>
     
-  <string name="export_toast_no_tasks">Nessuna attività di esportazione</string>
+  <string name="export_toast_no_tasks">Nessuna attività da esportare.</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Esportazione...</string>
@@ -227,7 +227,7 @@
   <!-- ============================================== SortSelectionDialog == -->
   
   <!-- Sort Selection: dialog title -->    
-  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  <string name="SSD_title">Ordinamento e Attività Nascoste</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
   <string name="SSD_completed">Mostra Attività Collegate</string>
@@ -242,7 +242,7 @@
   <string name="SSD_sort_header">Ordina Opzioni</string>
   
   <!-- Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  <string name="SSD_sort_auto">Ordinamento Intelligente</string>
   
   <!-- Sort Selection: sort by alpha -->
   <string name="SSD_sort_alpha">Per Titotlo</string>
@@ -360,7 +360,7 @@
   <string name="TEA_menu_delete">Elimina attività</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
+  <string name="TEA_onTaskSave_due">Attività Salvata: entro %s</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">Attvità salvata</string>
@@ -391,10 +391,10 @@
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_addons_text">Looking for more features?</string>
+  <string name="TEA_addons_text">Cerchi altre funzionalità?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get the Power Pack!</string>
+  <string name="TEA_addons_button">Scarica il Power Pack!</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -436,7 +436,7 @@
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Mostra Note nell\'Attività</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
+  <string name="EPr_showNotes_desc_disabled">Le note verranno mostrate quando tocchi l\'attività</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Le note verranno visualizzate sempre</string>
   
@@ -490,10 +490,10 @@
   
   <string-array name="EPr_default_reminders">
       <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>No deadline reminders</item>
-      <item>At deadline</item>
-      <item>When overdue</item>
-      <item>At deadline or overdue</item>
+      <item>Nessun promemoria scadenza</item>
+      <item>Alla scadenza</item>
+      <item>Quando scaduto</item>
+      <item>Alla scadenza o quando scaduto</item>
   </string-array>
   
   <!-- ==================================================== AddOnActivity == -->
@@ -520,7 +520,7 @@
   <string name="AOA_visit_market">Android Market</string>
   
   <!-- Add-on Activity - when list is empty -->
-  <string name="AOA_no_addons">Empty List!</string>
+  <string name="AOA_no_addons">Lista vuota!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -542,10 +542,7 @@
   <string name="marketplace_title">Astrid elenco attività/todo</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">
-Astrid is the much loved open-source todo list / task manager designed to help 
-you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
-  </string>
+  <string name="marketplace_description">Astrid è la lista / gestore di attività personali open-source che tutti amano, preparata per aiutarti a portare a termine le tue attività. Ti permette di impostare promemoria, etichette, di sincronizzare, ha un plugin per la localizzazione, un widget e molto altro.</string>
     
 
 
@@ -580,7 +577,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="CFA_title">Filtro Personalizzato</string>
     
     <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
-    <string name="CFA_filterName_hint">Name this filter to save it...</string>
+    <string name="CFA_filterName_hint">Dai un nome al filtro per salvarlo...</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
     <string name="CFA_filterName_copy">Copia di %s</string>
@@ -604,9 +601,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="CFA_context_delete">Cancella Riga</string>
     
     <!-- Filter Screen Help Text -->
-    <string name="CFA_help">This screen lets you create a new filters. Add 
-    criteria using the button below, short or long-press them to adjust, and
-    then click \"View\"!</string>
+    <string name="CFA_help">Questa schermata permette di creare nuovi filtri. Aggiungi criteri usando il tasto più in basso, premi brevemente o a lungo per sistemarli, e clicca \"Mostra\"!</string>
     
     <!-- Filter Button: add new -->
     <string name="CFA_button_add">Aggiungi Criteri</string>
@@ -620,12 +615,12 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- =========================================== CustomFilterCriteria == -->
         
     <!-- Criteria: due by X - display text (? -> user input) -->
-    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <string name="CFC_dueBefore_text">Entro: ?</string>
     <!-- Criteria: due by X - name of criteria -->
-    <string name="CFC_dueBefore_name">Due By...</string>
+    <string name="CFC_dueBefore_name">Entro...</string>
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
-        <item>No Due Date</item>
+        <item>Nessuna Data di Terminazione</item>
         <item>Ieri</item>
         <item>Oggi</item>
         <item>Domani</item>
@@ -635,19 +630,19 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Importance at least ?</string>
+    <string name="CFC_importance_text">Importanza almeno ?</string>
     <!-- Criteria: importance - name of criteria -->
     <string name="CFC_importance_name">Importanza...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">Tagged: ?</string>
+    <string name="CFC_tag_text">Con l\'etichetta: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Tagged...</string>
+    <string name="CFC_tag_name">Etichetta...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Tag contains...</string>
+    <string name="CFC_tag_contains_name">L\'etichetta contiene...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Tag contains: ?</string>
+    <string name="CFC_tag_contains_text">L\'etichetta contiene: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
     <string name="CFC_title_contains_name">Il titolo contiene...</string>
@@ -710,8 +705,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="gtasks_help_title">Benvenuto a Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Drag the grabber on the left side of a task 
-    to rearrange it. Swipe the grabber left or right to change indentation.</string>
+    <string name="gtasks_help_body">Trascina la maniglia nella parte sinistra di un\'attività per spostarla. Trascina la maniglia a destra o a sinistra per cambiare l\'indentazione.</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
@@ -719,16 +713,13 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="gtasks_GLA_title">Accedi a Google Tasks</string>
 
     <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Google Apps
-    for Domain is currently unsupported, we\'re working on that!</string>
+    <string name="gtasks_GLA_body">Per favore, fai il login su Google Tasks Sync (Beta!). Google Apps for Domain non è attualmente supportato, ci stiamo lavorando!</string>
 
     <!-- Instructions: Gtasks further help -->    
-    <string name="gtasks_GLA_further_help">To view your tasks with indentation
-    and order preserved, go to the Filters page and select a Google Tasks list.
-    By default, Astrid uses its own sort settings for tasks.</string>
+    <string name="gtasks_GLA_further_help">Per vedere le tue attività preservando indentazione e ordine, vai nella pagina dei filtri e seleziona una lista di Google Tasks. Di default, Astrid usa un suo ordine personale per ordinare le attività.</string>
 
     <!-- Sign In Button -->    
-    <string name="gtasks_GLA_signIn">Sign In</string>
+    <string name="gtasks_GLA_signIn">Accedi</string>
 
     <!-- E-mail Address Label -->    
     <string name="gtasks_GLA_email">E-mail</string>
@@ -737,13 +728,17 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="gtasks_GLA_password">Password</string>
     
     <!-- Google Apps for Domain checkbox -->
-    <string name="gtasks_GLA_domain">Google Apps for Domain account</string>
+    <string name="gtasks_GLA_domain">Account Google Apps for Domain</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="gtasks_GLA_errorEmpty">Error: fill out all fields!</string>
+    <string name="gtasks_GLA_errorEmpty">Errore: riempi tutti i campi!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="gtasks_GLA_errorAuth">Error: e-mail or password incorrect!</string>
+    <string name="gtasks_GLA_errorAuth">Errore: e-mail o password sbagliate!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
+    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
+    Try logging in from the browser, then come back to try again:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
@@ -764,49 +759,25 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see details</string>
+  <string name="intro_click_prompt">Intro: Press me to see notes</string>
   
   <!-- Task 1 Summary  -->
   <string name="intro_task_1_summary">Crea la tua prima attività</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Just type the task into the quick entry box and press the + 
-  button that appears on the left.\n\n
-  
-  2) Regular add: Press the button to the right of the quick entry box. 
-  Add basic details (due date, tags, notes) or set more advanced options. 
-  Save the task with the save button or your phone\'s back button.\n\n
-  </string>
+  <string name="intro_task_1_note">Due modi per aggiungere un\'attività:\n 1) Aggiunta Rapida: scrivi il titolo dell\'attività nel campo in basso e premi il pulsante + che appare a sinistra.\n\n 2) Aggiunta normale: premi il pulsante sulla destra del campo in basso. Aggiungi le informazioni base (data di terminazione, etichette, note) o imposta opzioni più avanzate. Salva l\'attività con il pulsante di salvataggio o il pulsante indietro sul tuo telefono.\n\n</string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">Aggiungi un widget sul tuo desktop</string>
 
   <!-- Task 2 Note -->
-  <string name="intro_task_2_note">A desktop widget is a great way to keep 
-  	track of your what you have to do as well as a way to quickly add new 
-  	tasks.\n\n
-	How to add a widget:\n
-	1) Long press on your phone\'s desktop.\n
-	2) Choose \"Widget\" form resulting menu\n
-	3) Choose the Astrid widget.\n
-	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
-	tasks\n\n
-
-	Bonus: Use the widget to add a task!</string>
+  <string name="intro_task_2_note">Un widget è un ottimo modo per tenere traccia di quello che devi fare e per aggiungere rapidamente nuove attività.\n\n Come aggiungere un widget: 1) Premi per qualche secondo sul desktop del telefono.\n 2) Scegli \"Widget\" dal menù che compare.\n 3) Scegli il widget di Astrid.\n 4) Puoi scegliere un filtro di Astrid. Scegli \"Attività in corso\" per tutte le attività.\n\n Bonus: usa il widget per aggiungere un\'attività!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Setup sync with Gmail Tasks or 
-  Producteev</string>
+  <string name="intro_task_3_summary">Prepara la sincronizzazione con Gmail Tasks o Producteev</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">Astrid makes it possible for you to sync 
-  	your tasks with the simple task list provided by Gmail. For more advanced 
-  	task features we recommend synchronization with Producteev.\n\n
-
-	To enable sync from Astrid press \"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and 
-	choose the sync provider you prefer.
-	</string>
+  <string name="intro_task_3_note">Astrid permette di sincronizzare le tue attività con la lista presente in Gmail. Per delle funzionalità avanzate, raccomandiamo la sincronizzazione con Producteev.\n\n Per abilitare la sincronizzazione da Astrid, premi \"Menu\" -&gt; \"Preferenze\" -&gt; \"Sincronizzazione\" e scegli il servizio di sincronizzazione che preferisci.</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -815,7 +786,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Resources for built-in locale plug-in -->
 
   <!-- Locale Alert Editing Window Title -->
-  <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
+  <string name="locale_edit_alerts_title">Filtro Promemoria Astrid</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
   <string name="locale_edit_intro">Astrid ti invierà un promemoria quando avrai qualsiasi attività nel seguente filtro:</string>
@@ -853,11 +824,11 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="EPr_powerpack_header">Astrid Power Pack</string>
   
   <!-- Preference: Anonymous User Statistics -->
-  <string name="EPr_statistics_title">Anonymous Usage Stats</string>
+  <string name="EPr_statistics_title">Statistiche Anomime Utilizzo</string>
   <!-- Preference: User Statistics (disabled) -->
-  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
+  <string name="EPr_statistics_desc_disabled">Nessun dato verrà inviato</string>  
   <!-- Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
+  <string name="EPr_statistics_desc_enabled">Aiutaci a migliorare Astrid inviando informazioni anonime sull\'utilizzo</string>
       
 
 
@@ -870,13 +841,13 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_FEx_header">Producteev</string>
     
     <!-- filter category for Producteev dashboards -->
-    <string name="producteev_FEx_dashboard">Workspaces</string>
+    <string name="producteev_FEx_dashboard">Aree di lavoro</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Assigned To</string>
+    <string name="producteev_FEx_responsible">Assegnato a</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
-    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+    <string name="producteev_FEx_responsible_title">Assegnato a \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
     <string name="producteev_PDE_task_from">da %s</string>
@@ -916,14 +887,13 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_PLA_title">Accedi a Producteev</string>
 
     <!-- Instructions: Producteev login -->    
-    <string name="producteev_PLA_body">Sign in with your existing
-    Producteev account, or create a new account!</string>
+    <string name="producteev_PLA_body">Entra con il tuo account Producteev, o registra un nuovo account!</string>
 
     <!-- Producteev Terms Link -->    
     <string name="producteev_PLA_terms">Termini &amp; Condizioni</string>
 
     <!-- Sign In Button -->    
-    <string name="producteev_PLA_signIn">Sign In</string>
+    <string name="producteev_PLA_signIn">Accedi</string>
 
     <!-- Create New User Button -->    
     <string name="producteev_PLA_createNew">Crea Nuovo Utente</string>
@@ -935,7 +905,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_PLA_password">Password</string>
     
     <!-- Timezone Spinner -->
-    <string name="producteev_PLA_timezone">Timezone</string>
+    <string name="producteev_PLA_timezone">Fuso orario</string>
 
     <!-- Confirm Password Label -->    
     <string name="producteev_PLA_confirmPassword">Conferma Password</string>
@@ -947,13 +917,13 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_PLA_lastName">Cognome</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+    <string name="producteev_PLA_errorEmpty">Errore: riempi tutti i campi!</string>
 
     <!-- Error Message when passwords don't match -->    
     <string name="producteev_PLA_errorMatch">Errore: password diverse!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
+    <string name="producteev_PLA_errorAuth">Errore: e-mail o password sbagliate!</string>
 
     <!-- ================================================ Synchronization == -->
         
@@ -961,7 +931,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_notification_title">Producteev</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
+    <string name="producteev_notification_text">%s attività aggiornate / clicca per i dettagli</string>
     
     <!-- Error msg when io exception  -->
     <string name="producteev_ioerror">Errore di Connessione! Controlla la tua connessione Internet.</string>
@@ -975,7 +945,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- ================================================ labels for layout-elements == -->
     
     <!-- label for task-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
+    <string name="producteev_TEA_task_assign_label">Assegna questa attività alla persona seguente:</string>
     
     <!-- Spinner-item for unassigned tasks on taskeditactivity -->
     <string name="producteev_TEA_task_unassigned">&lt;Non assegnata&gt;</string>
@@ -1006,7 +976,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="TEA_reminder_label">Ricordami...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when task is due</string>
+  <string name="TEA_reminder_due">... quando l\'attività deve terminare</string>
 
   <!-- Task Edit: Reminder after deadline -->  
   <string name="TEA_reminder_overdue">... quando l\'attività è in ritardo</string>
@@ -1055,14 +1025,14 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Ora inizio silenzio</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">Nessuna verrà visualizzata nessuna notifica dopo %s</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">Nessuna notifica apparirà dopo le %s</string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
   <string name="rmd_EPr_quiet_hours_desc_none">Ora inizio silenzio non abilitato</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Ora fine silenzio</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifiche inizieranno ad apparire a partire dalle %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Le notifiche inizieranno ad apparire a partire dalle %s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">Suoneria notifiche</string>
@@ -1100,11 +1070,11 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="rmd_EPr_nagging_desc_false">Astrid non ti darà nessun messaggio di incoraggiamento</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
-  <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
+  <string name="rmd_EPr_snooze_dialog_title">Posticipa a HH:MM</string>
   <!-- Reminder Preference: Snooze Dialog Description (true) -->
-  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
+  <string name="rmd_EPr_snooze_dialog_desc_true">Posticipa scegliendo un nuovo orario (HH:MM)</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
+  <string name="rmd_EPr_snooze_dialog_desc_false">Posticipa scegliendo il numero di giorni/ore</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Promemoria Casuali</string>
@@ -1218,7 +1188,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string-array name="reminders_snooze">
       <!-- reminders related to snooze -->
       <item>Non essere pigro ora!</item>
-      <item>Snooze time is up!</item>
+      <item>Posticipo terminato!</item>
       <item>Nessun ronzio di più!</item>
       <item>Adesso sei pronto?</item>
       <item>Non rimandare più!</item>
@@ -1247,7 +1217,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 
   <string-array name="postpone_nags">
       <!-- Astrid's nagging when user clicks postpone -->
-      <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
+      <item>Non dirmi che sei uno che continua a posticipare!</item>
       <item>Non essere pigro fa invecchiare qualche volta?</item>
       <item>Da qualche parte, qualcuno dipende da te nel finire ciò!</item>
       <item>Quando hai detto \"rimando\", volevi dire \"lo sto facendo\", giusto?</item>
@@ -1306,7 +1276,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="repeat_detail_duedate">Ogni %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">%s after completion</string>
+  <string name="repeat_detail_completion">%s dopo il completamento</string>
   
 
 
@@ -1358,7 +1328,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="rmilk_MLA_label">Per favore esegui l\'accesso e autorizza Astrid:</string>
 
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">Spiacenti,si è verificato un errore durante la verifica di accesso. Prova di nuovo. \n\n Messaggio di Errore: %s</string>
+    <string name="rmilk_MLA_error">Spiacenti,si è verificato un errore durante la verifica di accesso. Prova di nuovo. \n\n Messaggio di Errore:% s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     
@@ -1368,6 +1338,34 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Errore di connessione! Verificare la connessione Internet, o magari i server RTM (status.rememberthemilk.com), per le possibili soluzioni.</string>
             
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
+    <!-- ============================================================= UI == -->
+
+    <!-- task action: Share -->
+    <string name="sharing_action">Share</string>
+
+    <!-- share login: Title -->
+    <string name="sharing_SLA_title">Share This Task</string>
+
+    <!-- share login: Sharing Description -->
+    <string name="sharing_SLA_body">My Astrid lets you post tasks to the web to share with
+    others. Let your friends encourage and keep you accountable!</string>
+
+    <!-- share login: Sharing Login Prompt -->
+    <string name="sharing_SLA_login">Sign in using your Facebook or Google account:</string>
+
+    <!-- share login: Next Step information -->
+    <string name="sharing_SLA_next_step">On the next page, 
+    you can choose how to share this task and choose recipients.</string>
+
+    <!-- share login: Sharing Task Information -->
+    <string name="sharing_SLA_task">Task to Share:</string>   
+
 
 
 
@@ -1385,7 +1383,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="TEA_tag_hint">Nome etichetta</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Select a tag</string>
+  <string name="TEA_tag_dropdown">Seleziona un\'etichetta</string>
     
   <!-- ========================================================== Filters == -->
   
@@ -1402,16 +1400,16 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="tag_FEx_name">Etichettato come \'%s\'</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Rename Tag</string>
+  <string name="tag_cm_rename">Rinomina Etichetta</string>
 
   <!-- context menu option to delete a tag -->
   <string name="tag_cm_delete">Elimina etichetta</string>
 
   <!-- Dialog to confirm deletion of a tag -->
-  <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
+  <string name="DLG_delete_this_tag_question">Cancellare questa etichetta: %s? (Nessuna attività verrà cancellata)</string>
 
   <!-- Dialog to rename tag -->
-  <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
+  <string name="DLG_rename_this_tag_header">Rinomina etichetta %s come:</string>
 
   <!-- Toast notification that no changes have been made -->
   <string name="TEA_no_tags_modified">Nessuna modifica effettuata</string>
@@ -1450,37 +1448,37 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 
     
   <!-- Voice Add Prompt Text -->
-  <string name="voice_create_prompt">Speak to create a task</string>
-  <string name="voice_edit_title_prompt">Speak to set task title</string>
-  <string name="voice_edit_note_prompt">Speak to set task notes</string>
+  <string name="voice_create_prompt">Parla per creare un\'attività</string>
+  <string name="voice_edit_title_prompt">Parla per aggiungere il titolo</string>
+  <string name="voice_edit_note_prompt">Parla per aggiungere le note</string>
     
   <!-- Preference: Task List recognition-service is not installed, but available -->
-  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
+  <string name="EPr_voiceInputInstall_dlg">Riconoscimento vocale non installato.\nVuoi andare al market e installarlo?</string>
   <!-- Preference: Task List recognition-service is not available for this system -->
-  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
+  <string name="EPr_voiceInputUnavailable_dlg">Sfortunatamente il riconoscimento vocale non è disponibile per il tuo sistema.\nSe possibile, aggiorna Android alla versione 2.1 o superiore.</string>
   <!-- Preference: Market is not available for this system -->
-  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
+  <string name="EPr_marketUnavailable_dlg">Sfortunatamente il market non è dsponibile sul tuo sistema.\nSe possibile, prova a scaricare il riconoscimento vocale da un\'altra fonte.</string>
   <!-- Preference: Task List Show Voice-button if recognition-service is available -->
-  <string name="EPr_voiceInputEnabled_title">Voice Input</string>
+  <string name="EPr_voiceInputEnabled_title">Riconoscimento Vocale</string>
   <!-- Preference: voice button description (true) -->
-  <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
+  <string name="EPr_voiceInputEnabled_desc_enabled">Il pulsante per il riconoscimento vocale sarà visibile nella lista delle attività</string>
   <!-- Preference: voice button description (false) -->
-  <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
+  <string name="EPr_voiceInputEnabled_desc_disabled">Il pulsante per il riconoscimento vocale sarà nascosto nella lista delle attività</string>
   <!-- Preference: Task List Voice-button directly creates tasks -->
-  <string name="EPr_voiceInputCreatesTask_title">Directly Create Tasks</string>
+  <string name="EPr_voiceInputCreatesTask_title">Crea direttamente attività</string>
   <!-- Preference: Task List Voice-creation description (true) -->
-  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">Le attività saranno create automaticamente con il riconoscimento vocale</string>
   <!-- Preference: Task List Voice-creation description (false) -->
-  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">Potrai modificare il titolo dell\'attività dopo il riconoscimento vocale</string>
   <!-- Preference: Voice reminders if TTS-service is available -->
-  <string name="EPr_voiceRemindersEnabled_title">Voice Reminders</string>
+  <string name="EPr_voiceRemindersEnabled_title">Promemoria Vocali</string>
   <!-- Preference: Voice reminders description (true) -->
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid pronuncerà il nome dell\'attività durante i promemoria</string>
   <!-- Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid emetterà una suoneria durante i promemoria</string>    
   
   <!-- Preference Category: Voice Title -->
-  <string name="EPr_voice_header">Voice Input Settings</string>
+  <string name="EPr_voice_header">Preferenze Riconoscimento Vocale</string>
     
 
 </resources>

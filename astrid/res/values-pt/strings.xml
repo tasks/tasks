@@ -75,7 +75,7 @@
     
   <string name="export_toast">Cópia de Segurança de %1$s para %2$s</string>
     
-  <string name="export_toast_no_tasks">No Tasks to Export.</string>
+  <string name="export_toast_no_tasks">Não existem Tarefas para Exportar.</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">A exportar...</string>
@@ -135,7 +135,7 @@
   <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
     
   <!-- Progress dialog shown when upgrading -->
-  <string name="DLG_upgrading">Upgrading your tasks...</string>
+  <string name="DLG_upgrading">A actualizar as suas tarefas...</string>
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Tempo (horas : minutos)</string>
@@ -198,7 +198,7 @@
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
-  <string name="TAd_hiddenFormat">%s [oculto]</string>
+  <string name="TAd_hiddenFormat">%s [omissa]</string>
   
   <!-- Format string to indicate task is deleted (%s => task name) -->
   <string name="TAd_deletedFormat">%s [apagado]</string>
@@ -263,7 +263,7 @@
   <string name="SSD_save_temp">Just Once</string>
   
   <!-- Sort Button: sort permanently -->
-  <string name="SSD_save_always">Always</string>
+  <string name="SSD_save_always">Sempre</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -423,7 +423,7 @@
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Window Title -->
-  <string name="EPr_title">Astrid: Preferências</string>
+  <string name="EPr_title">Astrid: Settings</string>
 
   <!-- Preference Category: Appearance Title -->
   <string name="EPr_appearance_header">Aparência</string>
@@ -520,7 +520,7 @@
   <string name="AOA_visit_market">Android Market</string>
   
   <!-- Add-on Activity - when list is empty -->
-  <string name="AOA_no_addons">Empty List!</string>
+  <string name="AOA_no_addons">Lista Vazia!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -570,7 +570,7 @@ Astrid might not let you know when your tasks are due.\n
     <string name="BFE_Custom">Custom Filter...</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Saved Filters</string>
+    <string name="BFE_Saved">Filtros Guardados</string>
     
     <!-- Saved Filters Context Menu: delete -->
     <string name="BFE_Saved_delete">Delete Filter</string>
@@ -745,6 +745,10 @@ Astrid might not let you know when your tasks are due.\n
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Error: e-mail or password incorrect!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
+    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
+    Try logging in from the browser, then come back to try again:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
@@ -765,7 +769,7 @@ Astrid might not let you know when your tasks are due.\n
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see details</string>
+  <string name="intro_click_prompt">Intro: Press me to see notes</string>
   
   <!-- Task 1 Summary  -->
   <string name="intro_task_1_summary">Create your first task</string>
@@ -895,7 +899,7 @@ Astrid might not let you know when your tasks are due.\n
     <string name="producteev_default_dashboard">Default Workspace</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+    <string name="producteev_no_dashboard">(Do Not Synchronize)</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
     <string name="producteev_create_dashboard">Add new Workspace...</string>
@@ -1375,6 +1379,34 @@ Error Message: %s
     <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
     or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
             
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
+    <!-- ============================================================= UI == -->
+
+    <!-- task action: Share -->
+    <string name="sharing_action">Share</string>
+
+    <!-- share login: Title -->
+    <string name="sharing_SLA_title">Share This Task</string>
+
+    <!-- share login: Sharing Description -->
+    <string name="sharing_SLA_body">My Astrid lets you post tasks to the web to share with
+    others. Let your friends encourage and keep you accountable!</string>
+
+    <!-- share login: Sharing Login Prompt -->
+    <string name="sharing_SLA_login">Sign in using your Facebook or Google account:</string>
+
+    <!-- share login: Next Step information -->
+    <string name="sharing_SLA_next_step">On the next page, 
+    you can choose how to share this task and choose recipients.</string>
+
+    <!-- share login: Sharing Task Information -->
+    <string name="sharing_SLA_task">Task to Share:</string>   
+
 
 
 

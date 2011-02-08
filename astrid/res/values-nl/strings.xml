@@ -8,7 +8,7 @@
     <string name="alarm_ACS_label">Alarmen</string>
     
     <!-- Task Edit Activity: Add New Alarm -->
-    <string name="alarm_ACS_button">Alarm toevoegen</string>
+    <string name="alarm_ACS_button">Voeg Alarm toe</string>
     
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
@@ -25,7 +25,7 @@
   <!-- ================================================= BackupPreferences == -->
 
     <!-- Backup Preferences Title -->    
-    <string name="backup_BPr_header">Reservekopieën</string>
+    <string name="backup_BPr_header">Backups</string>
 
     <!-- Backup: Status Header -->    
     <string name="backup_BPr_group_status">Status</string>
@@ -33,34 +33,34 @@
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
     <string name="backup_status_success">Laatste: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
-    <string name="backup_status_failed">Laatste reservekopie mislukt</string>
+    <string name="backup_status_failed">Laatste backup mislukt</string>
     <!-- Backup Status: error subtitle -->    
-    <string name="backup_status_failed_subtitle">(tap to show error)</string>
+    <string name="backup_status_failed_subtitle">(tikken voor fout)</string>
     <!-- Backup Status: never backed up -->    
-    <string name="backup_status_never">Nog nooit een reservekopie gemaakt!</string>
+    <string name="backup_status_never">Backup nooit eerder gemaakt!</string>
 
     <!-- Backup Options Group Label -->    
     <string name="backup_BPr_group_options">Opties</string>
 
     <!-- Preference: Automatic Backup Title -->    
-    <string name="backup_BPr_auto_title">Automatic Backups</string>
+    <string name="backup_BPr_auto_title">Automatische backups</string>
     <!-- Preference: Automatic Backup Description (when disabled) -->
-    <string name="backup_BPr_auto_disabled">Automatische back-ups uitgeschakeld</string>    
+    <string name="backup_BPr_auto_disabled">Automatische backups uitgeschakeld</string>    
     <!-- Preference: Automatic Backup Description (when enabled) -->
-    <string name="backup_BPr_auto_enabled">Back-up wordt dagelijks uitgevoerd</string>
+    <string name="backup_BPr_auto_enabled">Backup dagelijks uitvoeren</string>
     
     <!-- Preference screen restoring Tasks Help -->
-    <string name="backup_BPr_how_to_restore">Hoe herstel ik reservekopieen</string>    
+    <string name="backup_BPr_how_to_restore">Hoe herstel ik Backups?</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">Het Astrid Power Pack is nodig om reservekopieen in te stellen en te herstellen. Als extra maakt Astrid een automatische kopie van de taken, voor het geval dat.</string>
+    <string name="backup_BPr_how_to_restore_dialog">Voor het beheren van Backups heeft u het Astrid Power Pack nodig. Astrid maakt voor de  veiligheid wel altijd een automatische kopie van de taken, voor het geval dat.</string>
   
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Reservekopieën</string>
+  <string name="backup_BAc_label">Backups</string>
 
   <!-- backup activity title -->
-  <string name="backup_BAc_title">Beheer je back-ups</string>
+  <string name="backup_BAc_title">Mijn backups beheren</string>
 
   <!-- backup activity import button -->
   <string name="backup_BAc_import">Taken importeren</string>
@@ -71,38 +71,38 @@
   <!-- ============================================== Importer / Exporter == -->
   
   <!-- Message displayed when error occurs -->
-  <string name="backup_TXI_error">Fout tijdens importeren</string>
+  <string name="backup_TXI_error">Importfout</string>
     
   <string name="export_toast">%1$s gebackupped naar %2$s.</string>
     
-  <string name="export_toast_no_tasks">Geen taken om te Exporteren</string>
+  <string name="export_toast_no_tasks">Geen taken om te exporteren</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Exporteren...</string>
   
   <!-- Backup: Title of Import Summary Dialog -->
-  <string name="import_summary_title">Herstel samenvatting</string>
+  <string name="import_summary_title">Samenvatting herstellen:</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
   <string name="import_summary_message">%1$s bestanden bevatten %2$s.\n\n %3$s geimporteerd,\n %4$s bestaan al\n %5$s hadden fouten\n</string>
   
   <!-- Progress Dialog Title for importing -->    
-  <string name="import_progress_title">Importeren...</string>
+  <string name="import_progress_title">Importeren…</string>
   
   <!-- Progress Dialog text for import reading task (%d -> task number)-->    
-  <string name="import_progress_read">Taak %d aan het lezen ...</string>
+  <string name="import_progress_read">Taak %d lezen...</string>
   
   <!-- Backup: Dialog when unable to open a file -->  
-  <string name="DLG_error_opening">Kon dit item niet vinden:</string>
+  <string name="DLG_error_opening">Item niet gevonden</string>
   
   <!-- Backup: Dialog when unable to open SD card folder (%s => folder) -->
-  <string name="DLG_error_sdcard">Cannot access folder: %s</string>
+  <string name="DLG_error_sdcard">Toegang geweigerd: %s</string>
   
   <!-- Backup: Dialog when unable to open SD card in general -->
-  <string name="DLG_error_sdcard_general">Kan geen toegang krijgen tot de SD kaart!</string>
+  <string name="DLG_error_sdcard_general">Toegang tot SD kaart geweigerd!</string>
     
   <!-- Backup: File Selector dialog for import -->
-  <string name="import_file_prompt">Kies een bestand om te herstellen</string>    
+  <string name="import_file_prompt">Kies een backup om te herstellen</string>    
         
 
 
@@ -118,7 +118,7 @@
   <string name="read_permission_label">Astrid Rechten</string>
   
   <!-- permission description for READ_TASKS -->
-  <string name="read_permission_desc">lees taken, laat taak filters zien</string>
+  <string name="read_permission_desc">lees taken, toon taak filters</string>
   
   <!-- permission title for READ_TASKS -->
   <string name="write_permission_label">Astrid Rechten</string>
@@ -129,19 +129,19 @@
   <!-- ================================================== Generic Dialogs == -->
     
   <!-- question for deleting tasks -->
-  <string name="DLG_delete_this_task_question">Verwijder deze taak?</string>
+  <string name="DLG_delete_this_task_question">Taak verwijderen?</string>
 
   <!-- question for deleting items (%s => item name) -->
   <string name="DLG_delete_this_item_question">Dit item verwijderen: %s?</string>
     
   <!-- Progress dialog shown when upgrading -->
-  <string name="DLG_upgrading">Taken opwaarderen...</string>
+  <string name="DLG_upgrading">Taken bijwerken...</string>
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Tijd (uren : minuten)</string>
   
   <!-- Dialog for Astrid having a critical update -->
-  <string name="DLG_please_update">Astrid moet worden opgewaardeerd naar de laatste versie in de Android market! Doe dit aub voor u doorgaat, of wacht een paar seconden.</string>
+  <string name="DLG_please_update">Er is een nieuwe versie van Astrid beschikbaar in de Android Market! Update Astrid voor u verder gaat, of wacht een paar seconden.</string>
 
   <!-- Button for going to Market -->
   <string name="DLG_to_market">Ga naar Market</string>
@@ -150,7 +150,7 @@
   <string name="DLG_accept">Accoord</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">Niet accoord</string>
+  <string name="DLG_decline">Afwijzen</string>
 
   <!-- EULA title -->
   <string name="DLG_eula_title">Astrid Algemene Voorwaarden</string>
@@ -158,13 +158,13 @@
   <!-- =============================================================== UI == -->
   
   <!-- Label for DateButtons with no value -->
-  <string name="WID_dateButtonUnset">Click om in te stellen</string>
+  <string name="WID_dateButtonUnset">Klikken om in te stellen</string>
   
   <!-- String formatter for DateButtons ($D => date, $T => time) -->
   <string name="WID_dateButtonLabel">$D $T</string>
   
   <!-- String formatter for Disable button -->
-  <string name="WID_disableButton">Deactiveren</string>
+  <string name="WID_disableButton">Uitschakelen</string>
   
   <!-- ================================================= TaskListActivity == -->
   
@@ -172,10 +172,10 @@
   <string name="TLA_no_items">Geen taken!</string>
   
   <!-- Menu: Add-ons -->    
-  <string name="TLA_menu_addons">Toevoegingen</string>
+  <string name="TLA_menu_addons">Uitbreidingen</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sorteer  Verborgen</string>
+  <string name="TLA_menu_sort">Sorteren  verbergen</string>
   
   <!-- Menu: Sync Now -->    
   <string name="TLA_menu_sync">Sync Nu!</string>
@@ -187,13 +187,13 @@
   <string name="TLA_menu_help">Help</string>
   
   <!-- Search Label-->
-  <string name="TLA_search_label">Zoek deze lijst</string>
+  <string name="TLA_search_label">In deze lijst zoeken</string>
   
   <!-- Window title for displaying Custom Filter -->
   <string name="TLA_custom">Aangepast</string>
   
   <!-- Quick Add Edit Box Hint-->
-  <string name="TLA_quick_add_hint">Voeg toe aan deze lijst...</string>
+  <string name="TLA_quick_add_hint">Aan deze lijst toevoegen...</string>
   
   <!-- ====================================================== TaskAdapter == -->
   
@@ -213,30 +213,30 @@
   <string name="TAd_actionEditTask">Bewerken</string>
   
   <!-- Context Item: edit task -->
-  <string name="TAd_contextEditTask">Bewerk taak</string>
+  <string name="TAd_contextEditTask">Taak bewerken</string>
 
   <!-- Context Item: delete task -->
-  <string name="TAd_contextDeleteTask">Verwijder taak</string>
+  <string name="TAd_contextDeleteTask">Taak verwijderen</string>
 
   <!-- Context Item: undelete task -->
-  <string name="TAd_contextUndeleteTask">Taak Terughalen</string>
+  <string name="TAd_contextUndeleteTask">Taak herstellen</string>
 
   <!-- Context Item: purge task -->
-  <string name="TAd_contextPurgeTask">Taak Opschonen</string>
+  <string name="TAd_contextPurgeTask">Taak opruimen</string>
   
   <!-- ============================================== SortSelectionDialog == -->
   
   <!-- Sort Selection: dialog title -->    
-  <string name="SSD_title">Sorteren en Verborgen Taken</string>
+  <string name="SSD_title">Sorteren en verborgen taken</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Toon voltooide taken</string>
+  <string name="SSD_completed">Voltooide taken tonen</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Toon verborgen taken</string>
+  <string name="SSD_hidden">Verborgen taken tonen</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
-  <string name="SSD_deleted">Toon verwijderde taken</string>
+  <string name="SSD_deleted">Verwijderde taken tonen</string>
   
   <!-- Sort Selection: sort options header -->    
   <string name="SSD_sort_header">Sorteeropties</string>
@@ -248,16 +248,16 @@
   <string name="SSD_sort_alpha">Op titel</string>
   
   <!-- Sort Selection: sort by due date -->
-  <string name="SSD_sort_due">Per Einddatum</string>
+  <string name="SSD_sort_due">Op einddatum</string>
   
   <!-- Sort Selection: sort by importance -->
-  <string name="SSD_sort_importance">Per Prioriteit</string>
+  <string name="SSD_sort_importance">Op prioriteit</string>
   
   <!-- Sort Selection: sort by modified date -->
-  <string name="SSD_sort_modified">Per Laatst gewijzigd</string>
+  <string name="SSD_sort_modified">Op datum gewijzigd</string>
   
   <!-- Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Sorteren omkeren</string>
+  <string name="SSD_sort_reverse">Omgekeerd sorteren</string>
   
   <!-- Sort Button: sort temporarily -->
   <string name="SSD_save_temp">Eenmalig</string>
@@ -274,66 +274,66 @@
   <string name="FLA_loading">Filters laden...</string>
   
   <!-- Context Menu: Create Shortcut -->    
-  <string name="FLA_context_shortcut">Maak Snelkoppeling op Desktop</string>
+  <string name="FLA_context_shortcut">Snelkoppeling op Desktop maken</string>
   
   <!-- Menu: Search -->
-  <string name="FLA_menu_search">Taken Zoeken...</string>
+  <string name="FLA_menu_search">Taak zoeken...</string>
   
   <!-- Menu: Help -->    
   <string name="FLA_menu_help">Help</string>
   
   <!-- Create Shortcut Dialog Title -->    
-  <string name="FLA_shortcut_dialog_title">Maak Shortcut</string>
+  <string name="FLA_shortcut_dialog_title">Snelkoppeling maken</string>
   
   <!-- Create Shortcut Dialog (asks to name shortcut) -->    
-  <string name="FLA_shortcut_dialog">Naam van snelkoppeling:</string>
+  <string name="FLA_shortcut_dialog">Naam snelkoppeling</string>
   
   <!-- Search Hint-->
-  <string name="FLA_search_hint">Zoeken Naar Taken</string>
+  <string name="FLA_search_hint">Naar taken zoeken</string>
   
   <!-- Search Filter name (%s => query) -->
   <string name="FLA_search_filter">Met \'%s\'</string>
   
   <!-- Toast: created shortcut (%s => label) -->
-  <string name="FLA_toast_onCreateShortcut">Snelkoppeling gemaakt: %s</string>
+  <string name="FLA_toast_onCreateShortcut">Gemaakte snelkoppeling: %s</string>
   
   <!-- ================================================= TaskEditActivity == -->
   
   <!-- Title when editing a task (%s => task title) -->
-  <string name="TEA_view_title">Astrid: Bewerken \'%s\'</string>
+  <string name="TEA_view_title">Astrid: \'%s\' bewerken</string>
   
   <!-- Title when creating a new task -->
-  <string name="TEA_view_titleNew">Astrid: Nieuwe Taak</string>
+  <string name="TEA_view_titleNew">Astrid: Nieuwe taak</string>
   
   <!-- First Tab - basic task details -->
-  <string name="TEA_tab_basic">Wat</string>
+  <string name="TEA_tab_basic">Algemeen</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">Geavanceerd</string>
+  <string name="TEA_tab_extra">Details</string>
   
   <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_addons">Toevoegingen</string>
+  <string name="TEA_tab_addons">Uitbreidingen</string>
   
   <!-- Task title label -->
   <string name="TEA_title_label">Titel</string>
   
   <!-- Task title hint (displayed when edit box is empty) -->
-  <string name="TEA_title_hint">Taak Samenvatting</string>
+  <string name="TEA_title_hint">Samenvatting taak</string>
   
   <!-- Task importance label -->
-  <string name="TEA_importance_label">Mate van belangrijkheid</string>
+  <string name="TEA_importance_label">Belangrijkheid</string>
   
   <!-- Task urgency label -->
-  <string name="TEA_urgency_label">Deadline</string>
+  <string name="TEA_urgency_label">Einddatum</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">Op een specifieke tijd?</string>
+  <string name="TEA_urgency_specific_time">Specifieke tijd?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">Geen Tijd Ingesteld</string>
+  <string name="TEA_urgency_time_none">Zonder tijdstip</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Verbergen totdat</string>
+  <string name="TEA_hideUntil_label">Verbergen tot</string>
   
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>Laden…</item></string-array>
@@ -342,59 +342,59 @@
   <string name="TEA_note_label">Notities</string>
   
   <!-- Task note hint -->
-  <string name="TEA_notes_hint">Invoeren Taak Opmerkingen...</string>
+  <string name="TEA_notes_hint">Notitie toevoegen...</string>
   
   <!-- Estimated time label -->
-  <string name="TEA_estimatedDuration_label">Hoe lang duurt het?</string>
+  <string name="TEA_estimatedDuration_label">Tijdsduur</string>
   
   <!-- Elapsed time label -->
-  <string name="TEA_elapsedDuration_label">Tijd besteed tot nu toe</string>
+  <string name="TEA_elapsedDuration_label">Bestede tijd tot nu toe</string>
 
   <!-- Menu: Save -->    
-  <string name="TEA_menu_save">Sla wijzigingen op</string>
+  <string name="TEA_menu_save">Wijzigingen opslaan</string>
   
   <!-- Menu: Don't Save -->
   <string name="TEA_menu_discard">Niet opslaan</string>
   
   <!-- Menu: Delete Task -->
-  <string name="TEA_menu_delete">Verwijder taak</string>
+  <string name="TEA_menu_delete">Taak verwijderen</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">Taak Opgeslagen: eind %s</string>
+  <string name="TEA_onTaskSave_due">Taak opgeslagen: eind %s</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">Taak opgeslagen</string>
   
   <!-- Toast: task was not saved -->
-  <string name="TEA_onTaskCancel">Taak Bewerken Afgebroken</string>
+  <string name="TEA_onTaskCancel">Taakbewerking afgebroken</string>
   
   <!-- Toast: task was deleted -->
   <string name="TEA_onTaskDelete">Taak verwijderd!</string>
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
-      <item>Specifieke Dag/Tijd</item>
+      <item>Specifieke dag/tijd</item>
       <item>Vandaag</item>
       <item>Morgen</item>
-      <item>(day after)</item>
+      <item>(volgende dag)</item>
       <item>Volgende week</item>
-      <item>Geen deadline</item>
+      <item>Geen einddatum</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
       <item>Niet verbergen</item>
-      <item>(volgende dag)</item>
+      <item>Taak einddatum</item>
       <item>Dag voor einddatum</item>
       <item>Week voor einddatum</item>
-      <item>Specifieke Dag/Tijd</item>
+      <item>Specifieke dag/tijd</item>
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_addons_text">Looking for more features?</string>
+  <string name="TEA_addons_text">Meer functies</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get the Power Pack!</string>
+  <string name="TEA_addons_button">Download het Power Pack!</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -402,7 +402,7 @@
   <string name="InA_title">Welkom bij Astrid!</string>
   
   <!-- Button to agree to EULA -->
-  <string name="InA_agree">Accoord!!</string>
+  <string name="InA_agree">Accoord!</string>
   
   <!-- Button to disagree with EULA -->
   <string name="InA_disagree">Niet accoord</string>
@@ -410,12 +410,12 @@
   <!-- ===================================================== HelpActivity == -->
   
   <!-- Help: Button to get support from our website -->
-  <string name="HlA_get_support">Hulp vragen</string>
+  <string name="HlA_get_support">Ondersteuning</string>
     
   <!-- ==================================================== UpdateService == -->
   
   <!-- Changelog Window Title -->
-  <string name="UpS_changelog_title">Wat is nieuw in Astrid?</string>
+  <string name="UpS_changelog_title">Nieuw in Astrid</string>
   
   <!-- Updates Window Title -->
   <string name="UpS_updates_title">Laatste Astrid nieuws</string>
@@ -423,57 +423,57 @@
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Window Title -->
-  <string name="EPr_title">Astrid: Settings</string>
+  <string name="EPr_title">Astrid: Instellingen</string>
 
   <!-- Preference Category: Appearance Title -->
-  <string name="EPr_appearance_header">Uiterlijke kenmerken</string>
+  <string name="EPr_appearance_header">Uiterlijk</string>
   
   <!-- Preference: Task List Font Size Title -->
-  <string name="EPr_fontSize_title">Taaklijst Grootte</string>
+  <string name="EPr_fontSize_title">Taaklijst lettergrootte</string>
   <!-- Preference: Task List Font Size Description -->                                                                                                                                                  
-  <string name="EPr_fontSize_desc">Tekengrootte op hoofdpagina</string>  
+  <string name="EPr_fontSize_desc">Lettergrootte takenlijst</string>  
   
   <!-- Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <string name="EPr_showNotes_title">Notities bij taak tonen</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
+  <string name="EPr_showNotes_desc_disabled">Notities weergeven bij aantikken taak</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
+  <string name="EPr_showNotes_desc_enabled">Notities altijd weergeven</string>
   
   <!-- Preference Category: Defaults Title -->
-  <string name="EPr_defaults_header">New Task Defaults</string>
+  <string name="EPr_defaults_header">Basisinstellingen nieuwe taak</string>
   
   <!-- Preference: Default Urgency Title -->
-  <string name="EPr_default_urgency_title">Default Urgency</string>
+  <string name="EPr_default_urgency_title">Standaard urgentie</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently: %s</string>
+  <string name="EPr_default_urgency_desc">Nu: %s</string>
   
   <!-- Preference: Default Importance Title -->
-  <string name="EPr_default_importance_title">Default Importance</string>
+  <string name="EPr_default_importance_title">Standaard prioriteit</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently: %s</string>
+  <string name="EPr_default_importance_desc">Nu: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
-  <string name="EPr_default_hideUntil_title">Default Hide Until</string>
+  <string name="EPr_default_hideUntil_title">Standaard verbergen tot</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
+  <string name="EPr_default_hideUntil_desc">Nu: %s</string>
   
   <!-- Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">Standaard herinneringen</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_reminders_desc">Currently: %s</string>
+  <string name="EPr_default_reminders_desc">Nu: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
-      <item>!!!! (Highest)</item>
+      <item>!!!! (Hoogste)</item>
       <item>!!!</item>
       <item>!!</item>
-      <item>! (Lowest)</item>
+      <item>! (Laagste)</item>
   </string-array>
   
   <string-array name="EPr_default_urgency">
       <!-- urgency: labels for "Task Defaults" preference item. -->
-      <item>Geen deadline</item>
+      <item>Geen einddatum</item>
       <item>Vandaag</item>
       <item>Morgen</item>
       <item>Overmorgen</item>
@@ -483,23 +483,23 @@
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
       <item>Niet verbergen</item>
-      <item>(volgende dag)</item>
+      <item>Taak einddatum</item>
       <item>Dag voor einddatum</item>
       <item>Week voor einddatum</item>
   </string-array>
   
   <string-array name="EPr_default_reminders">
       <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>No deadline reminders</item>
-      <item>At deadline</item>
-      <item>When overdue</item>
-      <item>At deadline or overdue</item>
+      <item>Herinneringen zonder einddatum</item>
+      <item>Op de einddatum</item>
+      <item>Na de einddatum</item>
+      <item>Op of na de einddatum</item>
   </string-array>
   
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
-  <string name="AOA_title">Astrid: Add Ons</string>
+  <string name="AOA_title">Astrid: Uitbreidingen</string>
     
   <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Astrid Team</string>
@@ -508,19 +508,19 @@
   <string name="AOA_tab_installed">Geïnstalleerd</string>
   
   <!-- Add-on Activity - available add-ons tab -->
-  <string name="AOA_tab_available">Available</string>
+  <string name="AOA_tab_available">Beschikbaar</string>
   
   <!-- Add-on Activity - free add-ons label -->
-  <string name="AOA_free">Free</string>
+  <string name="AOA_free">Gratis</string>
   
   <!-- Add-on Activity - menu item to visit add-on website -->
-  <string name="AOA_visit_website">Bezoek website</string>
+  <string name="AOA_visit_website">Website bezoeken</string>
   
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
   
   <!-- Add-on Activity - when list is empty -->
-  <string name="AOA_no_addons">Empty List!</string>
+  <string name="AOA_no_addons">Lijst is leeg!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -528,28 +528,21 @@
   <string name="TWi_loading">Laden…</string>
 
   <!-- Widget configuration activity title: select a filter -->
-  <string name="WCA_title">Select tasks to view...</string>
+  <string name="WCA_title">Selecteer te bekijken taken</string>
   
   <!-- ============================================================= Misc == -->
   
   <!-- Displayed when task killer found. %s => name of the application -->
-  <string name="task_killer_help">
-It looks like you are using an app that can kill processes (%s)! If you can,
-add Astrid to the exclusion list so it doesn\'t get killed. Otherwise,
-Astrid might not let you know when your tasks are due.\n
-  </string>
+  <string name="task_killer_help">U gebruikt waarschijnlijk een applicatie die processen kan afsluiten (%s)! Voeg Astrid indien mogelijk toe aan de lijst met uitgezonderde programma\'s. Als u dit niet doet kan Astrid u niet helpen met taken herinneren!\n</string>
   
   <!-- Task killer dialog ok button -->
-  <string name="task_killer_help_ok">I Won\'t Kill Astrid!</string>
+  <string name="task_killer_help_ok">Astrid niet afsluiten</string>
     
   <!-- Astrid's Android Marketplace title. It never appears in the app itself. -->
-  <string name="marketplace_title">Astrid Taak/Todo Lijst</string>
+  <string name="marketplace_title">Astrid Takenlijst</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
-  <string name="marketplace_description">
-Astrid is the much loved open-source todo list / task manager designed to help 
-you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
-  </string>
+  <string name="marketplace_description">Astrid is de geliefde open-source Takenbeheerder, ontworpen om je taken gedaan te krijgen. Astrid heeft functies als herinneringen, bundelen van taken, synchronisatie, LBS plug-ins, widgets en nog veel meer!</string>
     
 
 
@@ -564,99 +557,97 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="BFE_Active">Actieve taken</string>
         
     <!-- Search Filter -->
-    <string name="BFE_Search">Search...</string>
+    <string name="BFE_Search">Zoeken…</string>
     
     <!-- Recently Modified -->
-    <string name="BFE_Recent">Recently Modified</string>
+    <string name="BFE_Recent">Onlangs aangepast</string>
     
     <!-- Build Your Own Filter -->
-    <string name="BFE_Custom">Custom Filter...</string>
+    <string name="BFE_Custom">Eigen filter...</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Saved Filters</string>
+    <string name="BFE_Saved">Opgeslagen filters</string>
     
     <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">Delete Filter</string>
+    <string name="BFE_Saved_delete">Filter verwijderen</string>
 
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- Build Your Own Filter Activity Title-->
-    <string name="CFA_title">Custom Filter</string>
+    <string name="CFA_title">Eigen filter</string>
     
     <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
-    <string name="CFA_filterName_hint">Name this filter to save it...</string>
+    <string name="CFA_filterName_hint">Omschrijf dit filter om op te slaan</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
-    <string name="CFA_filterName_copy">Copy of %s</string>
+    <string name="CFA_filterName_copy">Kopie van %s</string>
     
     <!-- Filter Starting Universe: all tasks -->
     <string name="CFA_universe_all">Actieve taken</string>
     
     <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
-    <string name="CFA_type_add">or</string>
+    <string name="CFA_type_add">of</string>
     
     <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
-    <string name="CFA_type_subtract">not</string>
+    <string name="CFA_type_subtract">niet</string>
     
     <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
-    <string name="CFA_type_intersect">also</string>
+    <string name="CFA_type_intersect">en</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">%s has criteria</string>
+    <string name="CFA_context_chain">%s met criteria</string>
     
     <!-- Filter Criteria Context Menu: delete -->
-    <string name="CFA_context_delete">Delete Row</string>
+    <string name="CFA_context_delete">Regel verwijderen</string>
     
     <!-- Filter Screen Help Text -->
-    <string name="CFA_help">This screen lets you create a new filters. Add 
-    criteria using the button below, short or long-press them to adjust, and
-    then click \"View\"!</string>
+    <string name="CFA_help">Met dit scherm kunnen nieuwe filters worden gemaakt. Criteria kunnen met onderstaande knop worden toegevoegd, kort of lang drukken om ze aan te passen en klik daarna op \"Bekijken!\"</string>
     
     <!-- Filter Button: add new -->
-    <string name="CFA_button_add">Add Criteria</string>
+    <string name="CFA_button_add">Criteria toevoegen</string>
     
     <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">View</string>
+    <string name="CFA_button_view">Bekijken</string>
     
     <!-- Filter Button: save & view filter -->
-    <string name="CFA_button_save">Save &amp; View</string>
+    <string name="CFA_button_save">Bewaren &amp; Bekijken</string>
 
     <!-- =========================================== CustomFilterCriteria == -->
         
     <!-- Criteria: due by X - display text (? -> user input) -->
-    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <string name="CFC_dueBefore_text">Loopt af op: ?</string>
     <!-- Criteria: due by X - name of criteria -->
-    <string name="CFC_dueBefore_name">Due By...</string>
+    <string name="CFC_dueBefore_name">Loopt af op...</string>
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
-        <item>No Due Date</item>
+        <item>Geen einddatum</item>
         <item>Gisteren</item>
         <item>Vandaag</item>
         <item>Morgen</item>
         <item>Overmorgen</item>
         <item>Volgende week</item>
-        <item>Next Month</item>
+        <item>Volgende maand</item>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Importance at least ?</string>
+    <string name="CFC_importance_text">Prioriteit tenminste?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Importance...</string>        
+    <string name="CFC_importance_name">Prioriteit...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">Tagged: ?</string>
+    <string name="CFC_tag_text">Label: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Tagged...</string>
+    <string name="CFC_tag_name">Label...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Tag contains...</string>
+    <string name="CFC_tag_contains_name">Label bevat...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Tag contains: ?</string>
+    <string name="CFC_tag_contains_text">Label bevat: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Title contains...</string>
+    <string name="CFC_title_contains_name">Naam bevat...</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">Title contains: ?</string>
+    <string name="CFC_title_contains_text">Naam bevat: ?</string>
     
 
 
@@ -668,30 +659,30 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- =============================================== Task Edit Controls == -->
   
   <!-- Error message for adding to calendar  -->
-  <string name="gcal_TEA_error">Error adding task to calendar!</string>
+  <string name="gcal_TEA_error">Fout bij toevoegen taak aan agenda!</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_calendar_label">Calendar Integration:</string>
+  <string name="gcal_TEA_calendar_label">Agenda integratie:</string>
 
   <!-- Label for adding task to calendar -->
-  <string name="gcal_TEA_addToCalendar_label">Create Calendar Event</string>
+  <string name="gcal_TEA_addToCalendar_label">Gebeurtenis aanmaken</string>
   
   <!-- Label when calendar event already exists -->
-  <string name="gcal_TEA_showCalendar_label">Open taak in kalender</string>
+  <string name="gcal_TEA_showCalendar_label">Gebeurtenis openen</string>
   
   <!-- Toast when unable to open calendar event -->
-  <string name="gcal_TEA_calendar_error">Error opening event!</string>
+  <string name="gcal_TEA_calendar_error">Fout bij openen gebeurtenis!</string>
   
   <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
+  <string name="gcal_TEA_calendar_updated">Gebeurtenis ook bijgewerkt!</string>
   
   <!-- ======================================================== Calendars == -->
   
   <!-- Calendar event name when task is completed (%s => task title) -->
-  <string name="gcal_completed_title">%s (completed)</string>
+  <string name="gcal_completed_title">%s (voltooid)</string>
 
   <!-- System Default Calendar (displayed if we can't figure out calendars)  -->
-  <string name="gcal_GCP_default">Default Calendar</string>
+  <string name="gcal_GCP_default">Standaard agenda</string>
 
 
 
@@ -702,37 +693,33 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- ============================================================= UI == -->
 
     <!-- filters header: GTasks -->
-    <string name="gtasks_FEx_header">Google Tasks</string>
+    <string name="gtasks_FEx_header">Google Taken</string>
     
     <!-- filter category for GTasks lists -->
-    <string name="gtasks_FEx_list">By List</string>
+    <string name="gtasks_FEx_list">Per Lijst</string>
     
     <!-- filter title for GTasks lists (%s => list name) -->
-    <string name="gtasks_FEx_title">Google Tasks: %s</string>
+    <string name="gtasks_FEx_title">Google Taken: %s</string>
     
     <!-- short help title for Gtasks -->
-    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
+    <string name="gtasks_help_title">Welkom bij Google Taken!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Drag the grabber on the left side of a task 
-    to rearrange it. Swipe the grabber left or right to change indentation.</string>
+    <string name="gtasks_help_body">Sleep de aanwijzer aan de linker kant van een taak om hem te verplaatsen. Schuif de aanwijzer naar links of recht om de inspring te wijzigen.</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
     <!-- Activity Title: Gtasks Login -->    
-    <string name="gtasks_GLA_title">Log In to Google Tasks</string>
+    <string name="gtasks_GLA_title">Log in bij Google Tasks</string>
 
     <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Google Apps
-    for Domain is currently unsupported, we\'re working on that!</string>
+    <string name="gtasks_GLA_body">Aanmelden bij Google Taken is vereist om te synchroniseren. Google Apps voor Domeinen is op dit moment nog niet ondersteund, daar wordt aan gewerkt!</string>
 
     <!-- Instructions: Gtasks further help -->    
-    <string name="gtasks_GLA_further_help">To view your tasks with indentation
-    and order preserved, go to the Filters page and select a Google Tasks list.
-    By default, Astrid uses its own sort settings for tasks.</string>
+    <string name="gtasks_GLA_further_help">Om je taken met inspring en behoud van volgorde te bekijken, gebruik daarvoor de Filters pagina en selecteer een Google Takenlijst. Astrid maakt normaliter gebruik van eigen instellingen.</string>
 
     <!-- Sign In Button -->    
-    <string name="gtasks_GLA_signIn">Sign In</string>
+    <string name="gtasks_GLA_signIn">Aanmelden</string>
 
     <!-- E-mail Address Label -->    
     <string name="gtasks_GLA_email">E-mail</string>
@@ -741,23 +728,27 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="gtasks_GLA_password">Wachtwoord</string>
     
     <!-- Google Apps for Domain checkbox -->
-    <string name="gtasks_GLA_domain">Google Apps for Domain account</string>
+    <string name="gtasks_GLA_domain">Google Apps voor Domeinen account</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="gtasks_GLA_errorEmpty">Error: fill out all fields!</string>
+    <string name="gtasks_GLA_errorEmpty">Fout: vul alle velden in!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="gtasks_GLA_errorAuth">Error: e-mail or password incorrect!</string>
+    <string name="gtasks_GLA_errorAuth">Fout: e-mail of wachtwoord verkeerd ingevuld!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
+    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
+    Try logging in from the browser, then come back to try again:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
-    <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
+    <string name="gtasks_GPr_header">Google Taken (Beta!)</string>
     
     <!-- ================================================ Synchronization == -->    
     
     <!-- title for notification tray when synchronizing -->
-    <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+    <string name="gtasks_notification_title">Google Taken</string>
         
 
 
@@ -768,49 +759,27 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see details</string>
+  <string name="intro_click_prompt">Intro: Press me to see notes</string>
   
   <!-- Task 1 Summary  -->
-  <string name="intro_task_1_summary">Create your first task</string>
+  <string name="intro_task_1_summary">Maak je eerste taak</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Just type the task into the quick entry box and press the + 
-  button that appears on the left.\n\n
-  
-  2) Regular add: Press the button to the right of the quick entry box. 
-  Add basic details (due date, tags, notes) or set more advanced options. 
-  Save the task with the save button or your phone\'s back button.\n\n
-  </string>
+  <string name="intro_task_1_note">Twee manieren om een taak te maken:\n
+1] Snel toevoegen: Beschrijf de taak in de box onderin en druk op de + knop die aan de linker kant staat.\n\n
+2] Normaal toevoegen: Druk op de knop aan de rechter kant van de box onderin. Vul de standaard details in (datum, label, notitie) of gebruik de uitgebreide opties. Bewaar de taak met de bewaarknop of gebruik de \'terug\' toets op je toestel.\n\n</string>
   
   <!-- Task 2 Summary  -->
-  <string name="intro_task_2_summary">Add a widget to your desktop</string>
+  <string name="intro_task_2_summary">Voeg een widget toe aan je hoofdscherm</string>
 
   <!-- Task 2 Note -->
-  <string name="intro_task_2_note">A desktop widget is a great way to keep 
-  	track of your what you have to do as well as a way to quickly add new 
-  	tasks.\n\n
-	How to add a widget:\n
-	1) Long press on your phone\'s desktop.\n
-	2) Choose \"Widget\" form resulting menu\n
-	3) Choose the Astrid widget.\n
-	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
-	tasks\n\n
-
-	Bonus: Use the widget to add a task!</string>
+  <string name="intro_task_2_note">Een widget op je hoofdscherm is een geweldige manier om je voortgang in de gaten te houden.\n\n Zo installeer je een widget:\n 1] Druk lang op het hoofdscherm op een lege plek.\n 2] Kies in het menu voor \"Widget\"\n 3] Kies in het widget overzicht voor de Astrid widget.\n 4] Je kan een specifiek filter toewijzen aan een widget voor bijvoorbeeld een overzicht van alle \'actieve taken\'.\n\n Bonus: gebruik de + in de widget om snel een taak toe te voegen!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Setup sync with Gmail Tasks or 
-  Producteev</string>
+  <string name="intro_task_3_summary">Instellingen voor sync met Gmail Taken of Producteev</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">Astrid makes it possible for you to sync 
-  	your tasks with the simple task list provided by Gmail. For more advanced 
-  	task features we recommend synchronization with Producteev.\n\n
-
-	To enable sync from Astrid press \"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and 
-	choose the sync provider you prefer.
-	</string>
+  <string name="intro_task_3_note">Astrid laat je je taken uitwisselen (synchroniseren) met de takenlijst in Gmail. Voor meer complexere functionaliteiten raden we Producteev aan.\n\n  Om synchronisatie te gebruiken, druk de \'menu\' toets op je toestel -&gt; \"Instellingen\" -&gt; \"Synchronisatie\" en selecteer de synchronisatie dienst van je voorkeur.</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -822,30 +791,29 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="locale_edit_alerts_title">Astrid Filter Alert</string>
   
   <!-- Locale Window Help -->                                                                                                                                            
-  <string name="locale_edit_intro">Astrid will send you a reminder                                                                                                                                             
-      when you have any tasks in the following filter:</string>
+  <string name="locale_edit_intro">Astrid  waarschuwt je als je een taak hebt met het volgende filter:</string>
       
   <!-- Locale Window Filter Picker UI -->                                                                                                                                        
   <string name="locale_pick_filter">Filter:</string>        
       
   <!-- Locale Window Interval Label -->                                                                                                                                        
-  <string name="locale_interval_label">Limit notifications to:</string>        
+  <string name="locale_interval_label">Beperk mededelingen tot:</string>        
       
   <!-- Locale Window Interval Values -->                                                                                                                                        
   <string-array name="locale_interval">
-    <item>once an hour</item>
-    <item>once every six hours</item>
-    <item>once every twelve hours</item>
-    <item>once a day</item>
-    <item>once every three days</item>
-    <item>once a week</item>
+    <item>Eens per uur</item>
+    <item>Eens per 6 uur</item>
+    <item>Eens per 12 uur</item>
+    <item>Een keer per dag</item>
+    <item>Een keer per drie dagen</item>
+    <item>Een keer per week</item>
   </string-array>        
       
   <!-- Locale Notification text -->                                                                                                                                        
-  <string name="locale_notification">You have $NUM matching: $FILTER</string>     
+  <string name="locale_notification">Er zijn $NUM taken voor: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
+  <string name="locale_plugin_required">Installeer de Astrid Locale plugin aub!</string>        
      
 
 
@@ -858,11 +826,11 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="EPr_powerpack_header">Astrid Power Pack</string>
   
   <!-- Preference: Anonymous User Statistics -->
-  <string name="EPr_statistics_title">Anonymous Usage Stats</string>
+  <string name="EPr_statistics_title">Anonieme Statistieken</string>
   <!-- Preference: User Statistics (disabled) -->
-  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
+  <string name="EPr_statistics_desc_disabled">Geen statistieken doorgeven</string>  
   <!-- Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
+  <string name="EPr_statistics_desc_enabled">Help ons Astrid nóg beter te maken door anoniem statistieken over uw gebruik met ons te delen</string>
       
 
 
@@ -884,10 +852,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="producteev_PDE_task_from">from %s</string>
+    <string name="producteev_PDE_task_from">van %s</string>
     
     <!-- replacement string for task edit "Notes" when using Producteev -->
-    <string name="producteev_TEA_notes">Add a Comment</string>
+    <string name="producteev_TEA_notes">Voeg commentaar toe</string>
 
     <!-- ==================================================== Preferences == -->
 
@@ -895,43 +863,42 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_PPr_header">Producteev</string>
 
     <!-- dashboard title for producteev default dashboard  -->
-    <string name="producteev_default_dashboard">Default Workspace</string>
+    <string name="producteev_default_dashboard">Standaard Workspace</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+    <string name="producteev_no_dashboard">(Do Not Synchronize)</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard">Add new Workspace...</string>
+    <string name="producteev_create_dashboard">Nieuwe Workspace toevoegen...</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard_name">Name for new Workspace</string>
+    <string name="producteev_create_dashboard_name">Naam voor nieuwe Workspace</string>
 
 	<!-- preference title for default dashboard -->
-    <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
+    <string name="producteev_PPr_defaultdash_title">Standaard Workspace</string>
 
     <!-- preference description for default dashboard (%s -> setting) -->
-    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+    <string name="producteev_PPr_defaultdash_summary">Nieuwe taken worden toegevoegd aan: %s</string>
 
     <!-- preference description for default dashboard (when set to 'not synchronized') -->
-    <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
+    <string name="producteev_PPr_defaultdash_summary_none">Nieuwe taken worden standaard niet gesynchroniseerd</string>
 
     <!-- ================================================= Login Activity == -->
 
     <!-- Activity Title: Producteev Login -->    
-    <string name="producteev_PLA_title">Log In to Producteev</string>
+    <string name="producteev_PLA_title">Aanmelden bij Producteev</string>
 
     <!-- Instructions: Producteev login -->    
-    <string name="producteev_PLA_body">Sign in with your existing
-    Producteev account, or create a new account!</string>
+    <string name="producteev_PLA_body">Meld je aan bij Producteev met je bestaande gegevens of maak een nieuw account aan.</string>
 
     <!-- Producteev Terms Link -->    
-    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+    <string name="producteev_PLA_terms">Algemene Voorwaarden</string>
 
     <!-- Sign In Button -->    
-    <string name="producteev_PLA_signIn">Sign In</string>
+    <string name="producteev_PLA_signIn">Aanmelden</string>
 
     <!-- Create New User Button -->    
-    <string name="producteev_PLA_createNew">Create New User</string>
+    <string name="producteev_PLA_createNew">Maak gebruikersaccount</string>
 
     <!-- E-mail Address Label -->    
     <string name="producteev_PLA_email">E-mail</string>
@@ -940,10 +907,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_PLA_password">Wachtwoord</string>
     
     <!-- Timezone Spinner -->
-    <string name="producteev_PLA_timezone">Timezone</string>
+    <string name="producteev_PLA_timezone">Tijdzone</string>
 
     <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Bevestig wachtwoord</string>
+    <string name="producteev_PLA_confirmPassword">Bevestig Wachtwoord</string>
 
     <!-- First Name Label -->    
     <string name="producteev_PLA_firstName">Voornaam</string>
@@ -952,13 +919,13 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_PLA_lastName">Achternaam</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+    <string name="producteev_PLA_errorEmpty">Fout: vul alle velden in!</string>
 
     <!-- Error Message when passwords don't match -->    
-    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+    <string name="producteev_PLA_errorMatch">Fout: Wachtwoorden niet hetzelfde</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
+    <string name="producteev_PLA_errorAuth">Fout: e-mail of wachtwoord verkeerd ingevuld!</string>
 
     <!-- ================================================ Synchronization == -->
         
@@ -966,38 +933,38 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_notification_title">Producteev</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
+    <string name="producteev_notification_text">%s taken geüpdated / click voor details</string>
     
     <!-- Error msg when io exception  -->
-    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+    <string name="producteev_ioerror">Verbindingsfout! Controleer de verbinding met Internet</string>
 
     <!-- Prod Login email not specified-->
-    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+    <string name="producteev_MLA_email_empty">E-Mail adres niet ingevuld!</string>
     
     <!-- Prod Login password not specified-->
-    <string name="producteev_MLA_password_empty">Password was not specified!</string>
+    <string name="producteev_MLA_password_empty">Wachtwoord niet ingevuld!</string>
     
     <!-- ================================================ labels for layout-elements == -->
     
     <!-- label for task-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
+    <string name="producteev_TEA_task_assign_label">Wijs taak aan deze persoon toe:</string>
     
     <!-- Spinner-item for unassigned tasks on taskeditactivity -->
-    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    <string name="producteev_TEA_task_unassigned">&lt;Niemand&gt;</string>
     
     <!-- label for dashboard-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
+    <string name="producteev_TEA_dashboard_assign_label">Taak hoort bij Workspace:</string>
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
+    <string name="producteev_TEA_dashboard_default">&lt;Standaard&gt;</string>
 
-    <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
+    <string name="CFC_producteev_in_workspace_text">In Workspace: ?</string>
 
-    <string name="CFC_producteev_in_workspace_name">In workspace...</string>
+    <string name="CFC_producteev_in_workspace_name">In Workspace...</string>
 
-    <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
+    <string name="CFC_producteev_assigned_to_text">Toegewezen aan: ?</string>
 
-    <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
+    <string name="CFC_producteev_assigned_to_name">Toegewezen aan...</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1008,40 +975,40 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind me...</string>
+  <string name="TEA_reminder_label">Herinner mij...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when task is due</string>
+  <string name="TEA_reminder_due">... op deadline</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">... when task is overdue</string>
+  <string name="TEA_reminder_overdue">... na deadline</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">... randomly once</string>
+  <string name="TEA_reminder_random">... willekeurig</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
-  <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
+  <string name="TEA_reminder_alarm_label">Audio / Trilstand:</string>
 
   <!-- Task Edit: Reminder alarm clock toggle: off -->  
-  <string name="TEA_reminder_alarm_off">Ring Once</string>
+  <string name="TEA_reminder_alarm_off">Maak 1x geluid</string>
 
   <!-- Task Edit: Reminder alarm clock toggle: on -->  
-  <string name="TEA_reminder_alarm_on">Ring Until I Dismiss Alarm</string>
+  <string name="TEA_reminder_alarm_on">Maak geluid totdat ik uitzet</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
-    <item>an hour</item>
-    <item>a day</item>
-    <item>a week</item>
-    <item>in two weeks</item>
-    <item>a month</item>
-    <item>in two months</item>
+    <item>eens per uur</item>
+    <item>eens per dag</item>
+    <item>eens per week</item>
+    <item>eens per 14 dagen</item>
+    <item>eens per maand</item>
+    <item>eens per twee maanden</item>
   </string-array>
   
   <!-- ==================================================== notifications == -->
   
   <!-- Name of filter when viewing a reminder -->
-  <string name="rmd_NoA_filter">Reminder!</string>
+  <string name="rmd_NoA_filter">Herinnering!</string>
   
   <!-- Reminder: Task was already done -->
   <string name="rmd_NoA_done">Al gedaan!</string>
@@ -1055,71 +1022,71 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference Screen Title -->
-  <string name="rmd_EPr_alerts_header">Reminder Settings</string>
+  <string name="rmd_EPr_alerts_header">Instellingen Herinneringen</string>
     
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Rustperiode begint</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">No notifications will appear after %s</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">Herinneringen uitschakelen vanaf %s</string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
-  <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
+  <string name="rmd_EPr_quiet_hours_desc_none">Rustperiode negeren</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Rustperiode eindigt</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will begin appearing starting at %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Rustperiode eindigt vanaf %s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">Geluid voor herinneringen</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is set) -->
-  <string name="rmd_EPr_ringtone_desc_custom">Custom ringtone has been set</string>
+  <string name="rmd_EPr_ringtone_desc_custom">Eigen geluid ingesteld</string>
   <!-- Reminder Preference: Notification Ringtone Description (when silence is set) -->
-  <string name="rmd_EPr_ringtone_desc_silent">Ringtone set to silent</string>
+  <string name="rmd_EPr_ringtone_desc_silent">Geluid op stil gezet</string>
   <!-- Reminder Preference: Notification Ringtone Description (when custom tone is not set) -->
-  <string name="rmd_EPr_ringtone_desc_default">Default ringtone will be used</string>
+  <string name="rmd_EPr_ringtone_desc_default">Standaard geluid ingesteld</string>
   
   <!-- Reminder Preference: Notification Persistence Title -->
-  <string name="rmd_EPr_persistent_title">Notification Persistence</string>
+  <string name="rmd_EPr_persistent_title">Astrid\'s koppigheid</string>
   <!-- Reminder Preference: Notification Persistence Description (true) -->
-  <string name="rmd_EPr_persistent_desc_true">Notifications must be viewed individually to be cleared</string>
+  <string name="rmd_EPr_persistent_desc_true">Herinneringen per stuk afmelden</string>
   <!-- Reminder Preference: Notification Persistence Description (false) -->
-  <string name="rmd_EPr_persistent_desc_false">Notifications can be cleared with \"Clear All\" button</string>
+  <string name="rmd_EPr_persistent_desc_false">Herinneringen kunnen tegelijk met \"Alles weg\" knop uitgezet worden</string>
   
   <!-- Reminder Preference: Notification Icon Title -->
-  <string name="rmd_EPr_notificon_title">Notification Icon Set</string>
+  <string name="rmd_EPr_notificon_title">Icoon voor herinnering</string>
   <!-- Reminder Preference: Notification Icon Description -->
-  <string name="rmd_Epr_notificon_desc">Choose Astrid\'s notification bar icon</string>
+  <string name="rmd_Epr_notificon_desc">Kies het icoon voor Astrid in de notificatiebalk</string>
 
   <!-- Reminder Preference: Vibrate Title -->
-  <string name="rmd_EPr_vibrate_title">Vibrate on Alert</string>
+  <string name="rmd_EPr_vibrate_title">Trilstand bij herinnering aan</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
-  <string name="rmd_EPr_vibrate_desc_true">Astrid will vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_true">Astrid laat telefoon trillen bij herinnering</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
+  <string name="rmd_EPr_vibrate_desc_false">Astrid laat telefoon niet trillen bij herinnering</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Reminders</string>
+  <string name="rmd_EPr_nagging_title">Astrid herinneringen</string>
   <!-- Reminder Preference: Nagging Description (true) -->
-  <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
+  <string name="rmd_EPr_nagging_desc_true">Astrid geeft je motiverend commentaar</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid geeft je geen motiverend commentaar</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
-  <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
+  <string name="rmd_EPr_snooze_dialog_title">Snooze dialoog HH:MM</string>
   <!-- Reminder Preference: Snooze Dialog Description (true) -->
-  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
+  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze door tijd in te stellen (HH:MM)</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
+  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze door het aantal dagen/uren snoozen in te stellen</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
-  <string name="rmd_EPr_defaultRemind_title">Random Reminders</string>
+  <string name="rmd_EPr_defaultRemind_title">Willekeurige herinneringen</string>
   <!-- Reminder Preference: Default Reminders Setting (disabled) -->
-  <string name="rmd_EPr_defaultRemind_desc_disabled">New tasks will have no random reminders</string>
+  <string name="rmd_EPr_defaultRemind_desc_disabled">Nieuwe taken hebben geen willekeurige herinneringen</string>
   <!-- Reminder Preference: Default Reminders Setting (%s => setting) -->
-  <string name="rmd_EPr_defaultRemind_desc">New tasks will remind randomly: %s</string>
+  <string name="rmd_EPr_defaultRemind_desc">Nieuwe taken herinneren willekeurig: %s</string>
   
   <!-- Defaults Title -->
-  <string name="rmd_EPr_defaults_header">New Task Defaults</string>
+  <string name="rmd_EPr_defaults_header">Basisinstellingen nieuwe taak</string>
   
   <string-array name="EPr_reminder_random">
     <!-- Reminder Preference: random reminder choices for preference page. -->
@@ -1127,9 +1094,9 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <item>elk uur</item>
     <item>dagelijks</item>
     <item>wekelijks</item>
-    <item>bi-weekly</item>
+    <item>Tweewekelijks</item>
     <item>maandelijks</item>
-    <item>bi-monthly</item>
+    <item>tweemaandelijks</item>
   </string-array>
         
   <string-array name="EPr_quiet_hours_start">
@@ -1197,54 +1164,54 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
       <item>Kan ik je even spreken?</item>
       <item>Heb je een paar minuutjes?</item>
       <item>Was je dit vergeten?</item>
-      <item>Eehm....</item>
-      <item>Als je een minuutje over hebt:</item>
+      <item>Mag ik even?</item>
+      <item>Luister even...</item>
       <item>In je agenda:</item>
-      <item>Heb je even niks te doen?</item>
+      <item>Niks te doen?</item>
       <item>Hier is Astrid!</item>
-      <item>Hallo! Mag ik je even storen?</item>
+      <item>En dan nog even dit...</item>
       <item>Mag ik even de aandacht?</item>
-      <item>Het is een fantastische dag om</item>
+      <item>Dit is het moment om</item>
   </string-array>
 
   <string-array name="reminders_due">
       <!-- reminders related to task due date -->
-      <item>Tijd om aan de slag te gaan!</item>
-      <item>Due date is here!</item>
+      <item>Tijd om te knallen!</item>
+      <item>Deadline in zicht!</item>
       <item>Klaar voor de start?</item>
-      <item>You said you would do:</item>
-      <item>You\'re supposed to start:</item>
-      <item>Time to start:</item>
+      <item>Je hebt \'t beloofd:</item>
+      <item>Je zou beginnen met:</item>
+      <item>Start nu:</item>
       <item>Het is tijd!</item>
-      <item>Excuse me! Time for</item>
+      <item>Sorry hoor! Nu moet</item>
       <item>Heb je even? Het is tijd voor:</item>
   </string-array>
 
   <string-array name="reminders_snooze">
       <!-- reminders related to snooze -->
       <item>Niet lui zijn nu!</item>
-      <item>Snooze time is up!</item>
-      <item>No more snoozing!</item>
-      <item>Ben je nu eindelijk klaar?</item>
-      <item>No more postponing!</item>
+      <item>Uitgesnoozed!</item>
+      <item>De tijd van snoozen is voorbij!</item>
+      <item>Ben je nu eindelijk vrij?</item>
+      <item>Peper in je reet!</item>
   </string-array>
   
   <string-array name="reminder_responses">
       <!-- responses to reminder: Astrid says...  (user should answer yes or no)  -->
       <item>Ik heb iets voor je!</item> 
       <item>Klaar om af te vinken?</item>
-      <item>Why don\'t you get this done?</item>
-      <item>Hoe is het, ben je er klaar voor?</item>
+      <item>Zou je dit niet kunnen doen?</item>
+      <item>Hoe is \'t, ben je er klaar voor?</item>
       <item>Klaar voor de start?</item>
       <item>Kun je dit regelen?</item>
       <item>Eeuwige roem lonkt! Maak dit af!</item>
-      <item>Ik beloof je dat je je beter zult voelen als je dit afmaakt!</item>
-      <item>Won\'t you do this today?</item>
-      <item>Maak dit alsjeblieft af, ik word er niet goed van!</item>
-      <item>Kan dit af? Natuurlijk kan het af!</item>
+      <item>Lege lijsten zijn mooie lijsten...</item>
+      <item>Waarom niet vandaag?</item>
+      <item>Maak het af, ik word er niet goed van!</item>
+      <item>Kan dit af? Natuurlijk kan dit af!</item>
       <item>Gaat dit ooit afkomen?</item>
-      <item>Feel good about yourself! Let\'s go!</item>
-      <item>Ik ben zo trots! Doe het!</item>
+      <item>Zo gaat \'ie goed! Zet door!</item>
+      <item>Ik ben trots op je! Kom op!</item>
       <item>Kopje koffie hierna?</item>
       <item>Aaah, nog eentje dan? Alsjeblieft?</item>
       <item>Tijd om je todo lijst op te schonen!</item>
@@ -1252,20 +1219,20 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 
   <string-array name="postpone_nags">
       <!-- Astrid's nagging when user clicks postpone -->
-      <item>Please tell me it isn\'t true that you\'re a procrastinator!</item>
-      <item>Doesn\'t being lazy get old sometimes?</item>
+      <item>Hee, je bent toch geen slakkie!?</item>
+      <item>Ik word zo moe van uitstellen...</item>
       <item>Maak je onsterfelijk, doe dit!</item>
-      <item>When you said postpone, you really meant \'I\'m doing this\', right?</item>
-      <item>Dit is de laatste keer dat je dit uitstelt, oke?</item>
-      <item>Just finish this today, I won\'t tell anyone!</item>
-      <item>Waarom uitstellen? Je kan het ook gewoon doen!</item>
-      <item>You\'ll finish this eventually, I presume?</item>
-      <item>Ik vind je fantastisch! Als je dit nou eens niet uit zou stellen?</item>
+      <item>Toen je zei \'Snooze\' bedoelde je dat je er mee bezig was, toch?</item>
+      <item>Dit is de laatste keer dat je dit uitstelt, oké?</item>
+      <item>Pssst, ik wil niks zeggen maar....</item>
+      <item>Waarom uitstellen? Gewoon doen!</item>
+      <item>Straks? Wie zei straks? Nu bedoel je!</item>
+      <item>Ik vind je geweldig! Dit kun je vast ook:</item>
       <item>Bereik je doel, maak dit af!</item>
-      <item>Uitstellen, uitstellen, uitstellen. Wanneer leer je het nu eens?</item>
-      <item>Ik heb genoeg van je uitvluchten! Doe het nu maar gewoon!</item>
-      <item>Didn\'t you make that excuse last time?</item>
-      <item>I can\'t help you organize your life if you do that...</item>
+      <item>Van uitstel komt afstel. Wanneer leer je nou eens?</item>
+      <item>Ik heb genoeg van je smoesjes! Doe het nu maar gewoon!</item>
+      <item>Gebruikte je die smoes vorige keer niet al?</item>
+      <item>Ik kan je niet helpen als je me blijft negeren...</item>
   </string-array>
     
 
@@ -1276,10 +1243,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Resources for built-in repeat plug-in -->
 
   <!-- repeating plugin name -->
-  <string name="repeat_plugin">Repeating Tasks</string>
+  <string name="repeat_plugin">Herhaalbare taken</string>
   
   <!-- repeating plugin description -->
-  <string name="repeat_plugin_desc">Allows tasks to repeat</string>
+  <string name="repeat_plugin_desc">Taken kunnen herhalen</string>
   
   <!-- checkbox for turning on/off repeats -->
   <string name="repeat_enabled">Herhalingen</string>
@@ -1288,7 +1255,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <string name="repeat_every">Elke %d</string>
   
   <!-- hint when opening repeat interval -->
-  <string name="repeat_interval_prompt">Repeat Interval</string>
+  <string name="repeat_interval_prompt">Herhaal interval</string>
   
   <string-array name="repeat_interval">
     <!-- repeat interval (days,weeks,months,hours) -->
@@ -1300,18 +1267,18 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   
   <string-array name="repeat_type">
     <!-- repeat type (date to repeat from) -->
-    <item>from due date</item>
-    <item>from completion date</item>
+    <item>Vanaf einddatum</item>
+    <item>Vanaf voltooide datum</item>
   </string-array>
   
   <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
-  <string name="repeat_detail_byday">$I on $D</string>
+  <string name="repeat_detail_byday">$I op $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Every %s</string>
+  <string name="repeat_detail_duedate">Elke %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">%s after completion</string>
+  <string name="repeat_detail_completion">%s na voltooien</string>
   
 
 
@@ -1321,22 +1288,22 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- ====================== Plugin Boilerplate ========================= -->
 
     <!-- label for RMilk button in Task Edit Activity -->
-    <string name="rmilk_EOE_button">Remember the Milk Settings</string>
+    <string name="rmilk_EOE_button">Remember the Milk instellingen</string>
     
     <!-- task detail showing RTM repeat information -->
-    <string name="rmilk_TLA_repeat">RTM Repeating Task</string>
+    <string name="rmilk_TLA_repeat">RTM herhalingen taak</string>
     
     <!--  task detail showing item needs to be synchronized -->
-    <string name="rmilk_TLA_sync">Needs synchronization with RTM</string>
+    <string name="rmilk_TLA_sync">Moet gesynct worden met RTM</string>
 
     <!-- filters header: RTM -->
     <string name="rmilk_FEx_header">Remember the Milk</string>
     
     <!-- filter category for RTM lists -->
-    <string name="rmilk_FEx_list">Lists</string>
+    <string name="rmilk_FEx_list">Lijsten</string>
     
     <!--  RTM list filter title (%s => list) -->
-    <string name="rmilk_FEx_list_title">RTM List \'%s\'</string>
+    <string name="rmilk_FEx_list_title">RTM Lijst \'%s\'</string>
     
     <!-- ======================= MilkEditActivity ========================== -->
     
@@ -1344,13 +1311,13 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="rmilk_MEA_title">Remember the Milk</string>
     
     <!--  RTM edit List Edit Label -->
-    <string name="rmilk_MEA_list_label">RTM List:</string>
+    <string name="rmilk_MEA_list_label">RTM Lijst:</string>
     
     <!--  RTM edit Repeat Label -->
-    <string name="rmilk_MEA_repeat_label">RTM Repeat Status:</string>
+    <string name="rmilk_MEA_repeat_label">RTM Herhaal Status:</string>
     
     <!--  RTM edit Repeat Hint -->
-    <string name="rmilk_MEA_repeat_hint">i.e. every week, after 14 days</string>
+    <string name="rmilk_MEA_repeat_hint">Bijv. wekelijks, na 14 dagen</string>
     
     <!-- ======================== MilkPreferences ========================== -->
 
@@ -1360,14 +1327,10 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <!-- ======================= MilkLoginActivity ========================= -->
 
     <!-- RTM Login Instructions -->
-    <string name="rmilk_MLA_label">Please Log In and Authorize Astrid:</string>
+    <string name="rmilk_MLA_label">Aanmelden en Astrid toestaan:</string>
 
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">
-Sorry, there was an error verifying your login. Please try again.
-\n\n
-Error Message: %s
-    </string>
+    <string name="rmilk_MLA_error">Helaas, er is iets misgegaan met aanmelden. Probeer het nog eens. \n\n Foutmelding: %s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     
@@ -1375,9 +1338,36 @@ Error Message: %s
     <string name="rmilk_notification_title">Astrid: Remember the Milk</string>
     
     <!-- Error msg when io exception with rmilk -->
-    <string name="rmilk_ioerror">Connection Error! Check your Internet connection, 
-    or maybe RTM servers (status.rememberthemilk.com), for possible solutions.</string>
+    <string name="rmilk_ioerror">Verbindingsfout! Controleer de verbinding met Internet of de RTM servers (status.rememberthemilk.com), voor mogelijke oplossingen.</string>
             
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
+    <!-- ============================================================= UI == -->
+
+    <!-- task action: Share -->
+    <string name="sharing_action">Share</string>
+
+    <!-- share login: Title -->
+    <string name="sharing_SLA_title">Share This Task</string>
+
+    <!-- share login: Sharing Description -->
+    <string name="sharing_SLA_body">My Astrid lets you post tasks to the web to share with
+    others. Let your friends encourage and keep you accountable!</string>
+
+    <!-- share login: Sharing Login Prompt -->
+    <string name="sharing_SLA_login">Sign in using your Facebook or Google account:</string>
+
+    <!-- share login: Next Step information -->
+    <string name="sharing_SLA_next_step">On the next page, 
+    you can choose how to share this task and choose recipients.</string>
+
+    <!-- share login: Sharing Task Information -->
+    <string name="sharing_SLA_task">Task to Share:</string>   
+
 
 
 
@@ -1389,42 +1379,42 @@ Error Message: %s
   <!-- =============================================== Task Edit Controls == -->
 
   <!-- Tags label -->
-  <string name="TEA_tags_label">Tags:</string>
+  <string name="TEA_tags_label">Labels:</string>
   
   <!-- Tags hint -->
-  <string name="TEA_tag_hint">Tag naam</string>
+  <string name="TEA_tag_hint">Label naam</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Select a tag</string>
+  <string name="TEA_tag_dropdown">Kies een label</string>
     
   <!-- ========================================================== Filters == -->
   
   <!-- filter header for tags -->
-  <string name="tag_FEx_header">Tags</string>
+  <string name="tag_FEx_header">Labels</string>
   
   <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Sorted By Size</string>
+  <string name="tag_FEx_by_size">Sorteer op grootte</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Untagged</string>
+  <string name="tag_FEx_untagged">Zonder label</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">Tagged \'%s\'</string>
+  <string name="tag_FEx_name">Gelabeld \'%s\'</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Rename Tag</string>
+  <string name="tag_cm_rename">Label hernoemen</string>
 
   <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">Tag Verwijderen</string>
+  <string name="tag_cm_delete">Label verwijderen</string>
 
   <!-- Dialog to confirm deletion of a tag -->
-  <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
+  <string name="DLG_delete_this_tag_question">Label %s verwijderen?</string>
 
   <!-- Dialog to rename tag -->
-  <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
+  <string name="DLG_rename_this_tag_header">Naam label %s wijzigen naar:</string>
 
   <!-- Toast notification that no changes have been made -->
-  <string name="TEA_no_tags_modified">No changes made</string>
+  <string name="TEA_no_tags_modified">Niets gewijzigd</string>
 
   <!-- Toast notification that a tag has been deleted -->
   <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
@@ -1446,13 +1436,13 @@ Error Message: %s
     <string name="TAE_stopTimer">Stop Timer</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
-    <string name="TPl_notification">Timers Active for %s!</string>
+    <string name="TPl_notification">Timers actief voor %s!</string>
     
     <!-- Filter Header for Timer plugin -->
     <string name="TFE_category">Timer Filters</string>
     
     <!-- Filter for Timed Tasks -->
-    <string name="TFE_workingOn">Tasks Being Timed</string>
+    <string name="TFE_workingOn">Taken worden getimed</string>
       
 
 
@@ -1460,37 +1450,37 @@ Error Message: %s
 
     
   <!-- Voice Add Prompt Text -->
-  <string name="voice_create_prompt">Speak to create a task</string>
-  <string name="voice_edit_title_prompt">Speak to set task title</string>
-  <string name="voice_edit_note_prompt">Speak to set task notes</string>
+  <string name="voice_create_prompt">Spreek om taak te maken</string>
+  <string name="voice_edit_title_prompt">Spreek titel van taak in</string>
+  <string name="voice_edit_note_prompt">Spreek notities van taak in</string>
     
   <!-- Preference: Task List recognition-service is not installed, but available -->
-  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
+  <string name="EPr_voiceInputInstall_dlg">Spraakmodule niet geïnstalleerd.\nWil je naar de Android Market en de spraakmodule installeren?</string>
   <!-- Preference: Task List recognition-service is not available for this system -->
-  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
+  <string name="EPr_voiceInputUnavailable_dlg">Helaas is de spraakmodule niet beschikbaar voor je toestel.\nIndien mogelijk, update je toestelversie van Android naar 2.1 of hoger.</string>
   <!-- Preference: Market is not available for this system -->
-  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
+  <string name="EPr_marketUnavailable_dlg">Helaas is de Android Market niet beschikbaar voor je toestel.\nIndien mogelijk, probeer Voice Search via je marktplaats te downloaden.</string>
   <!-- Preference: Task List Show Voice-button if recognition-service is available -->
-  <string name="EPr_voiceInputEnabled_title">Voice Input</string>
+  <string name="EPr_voiceInputEnabled_title">Spraakinvoer</string>
   <!-- Preference: voice button description (true) -->
-  <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
+  <string name="EPr_voiceInputEnabled_desc_enabled">Spraak knop laten zien in takenlijst</string>
   <!-- Preference: voice button description (false) -->
-  <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
+  <string name="EPr_voiceInputEnabled_desc_disabled">Spraak knop verbergen in takenlijst</string>
   <!-- Preference: Task List Voice-button directly creates tasks -->
-  <string name="EPr_voiceInputCreatesTask_title">Directly Create Tasks</string>
+  <string name="EPr_voiceInputCreatesTask_title">Maak direct taken bij inspreken</string>
   <!-- Preference: Task List Voice-creation description (true) -->
-  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">Taken worden gemaakt bij inspreken</string>
   <!-- Preference: Task List Voice-creation description (false) -->
-  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">Je kan de titel van de taak naderhand bewerken</string>
   <!-- Preference: Voice reminders if TTS-service is available -->
-  <string name="EPr_voiceRemindersEnabled_title">Voice Reminders</string>
+  <string name="EPr_voiceRemindersEnabled_title">Gesproken herinneringen</string>
   <!-- Preference: Voice reminders description (true) -->
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid leest de herinnering voor</string>
   <!-- Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid laat een geluid horen voor een herinnering</string>    
   
   <!-- Preference Category: Voice Title -->
-  <string name="EPr_voice_header">Voice Input Settings</string>
+  <string name="EPr_voice_header">Spraakinstellingen</string>
     
 
 </resources>

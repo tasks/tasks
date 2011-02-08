@@ -739,6 +739,10 @@
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Error: 이메일주소나 비밀번호가 맞지 않습니다!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
+    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
+    Try logging in from the browser, then come back to try again:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
@@ -759,7 +763,7 @@
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see details</string>
+  <string name="intro_click_prompt">Intro: Press me to see notes</string>
   
   <!-- Task 1 Summary  -->
   <string name="intro_task_1_summary">Create your first task</string>
@@ -1368,6 +1372,34 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
+    <!-- ============================================================= UI == -->
+
+    <!-- task action: Share -->
+    <string name="sharing_action">Share</string>
+
+    <!-- share login: Title -->
+    <string name="sharing_SLA_title">Share This Task</string>
+
+    <!-- share login: Sharing Description -->
+    <string name="sharing_SLA_body">My Astrid lets you post tasks to the web to share with
+    others. Let your friends encourage and keep you accountable!</string>
+
+    <!-- share login: Sharing Login Prompt -->
+    <string name="sharing_SLA_login">Sign in using your Facebook or Google account:</string>
+
+    <!-- share login: Next Step information -->
+    <string name="sharing_SLA_next_step">On the next page, 
+    you can choose how to share this task and choose recipients.</string>
+
+    <!-- share login: Sharing Task Information -->
+    <string name="sharing_SLA_task">Task to Share:</string>   
+
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
     <!-- Resources for built-in tag plug-in -->
 
   <!-- =============================================== Task Edit Controls == -->
@@ -1414,6 +1446,7 @@
   <string name="TEA_tags_deleted">%1$s 태그가 %2$d 작업에서 삭제됨.</string>
 
   <!-- Toast notification that a tag has been renamed -->
+  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
 
 
 

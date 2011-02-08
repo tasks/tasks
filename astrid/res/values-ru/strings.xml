@@ -391,10 +391,10 @@
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_addons_text">Looking for more features?</string>
+  <string name="TEA_addons_text">Ищете еще возможностей?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get the Power Pack!</string>
+  <string name="TEA_addons_button">Скачать Расширенный пакет!</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -520,7 +520,7 @@
   <string name="AOA_visit_market">Android Market</string>
   
   <!-- Add-on Activity - when list is empty -->
-  <string name="AOA_no_addons">Empty List!</string>
+  <string name="AOA_no_addons">Пустой список!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -711,11 +711,10 @@
     <!-- ============================================ GtasksLoginActivity == -->
     
     <!-- Activity Title: Gtasks Login -->    
-    <string name="gtasks_GLA_title">Log In to Google Tasks</string>
+    <string name="gtasks_GLA_title">Подключение к Задачам Google</string>
 
     <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Google Apps
-    for Domain is currently unsupported, we\'re working on that!</string>
+    <string name="gtasks_GLA_body">Пожалуйста подключитесь к задачам Google. Приложения Google пока не поддерживаются, мы работаем над этим!</string>
 
     <!-- Instructions: Gtasks further help -->    
     <string name="gtasks_GLA_further_help">To view your tasks with indentation
@@ -739,6 +738,10 @@
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Ошибка: неправильная почта или пароль!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
+    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
+    Try logging in from the browser, then come back to try again:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
@@ -1360,6 +1363,34 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
+    <!-- ============================================================= UI == -->
+
+    <!-- task action: Share -->
+    <string name="sharing_action">Share</string>
+
+    <!-- share login: Title -->
+    <string name="sharing_SLA_title">Share This Task</string>
+
+    <!-- share login: Sharing Description -->
+    <string name="sharing_SLA_body">My Astrid lets you post tasks to the web to share with
+    others. Let your friends encourage and keep you accountable!</string>
+
+    <!-- share login: Sharing Login Prompt -->
+    <string name="sharing_SLA_login">Sign in using your Facebook or Google account:</string>
+
+    <!-- share login: Next Step information -->
+    <string name="sharing_SLA_next_step">On the next page, 
+    you can choose how to share this task and choose recipients.</string>
+
+    <!-- share login: Sharing Task Information -->
+    <string name="sharing_SLA_task">Task to Share:</string>   
+
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
     <!-- Resources for built-in tag plug-in -->
 
   <!-- =============================================== Task Edit Controls == -->
@@ -1403,10 +1434,10 @@
   <string name="TEA_no_tags_modified">Без изменений</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Метка %1$s удалена из %2$d задач</string>
+  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Заменено %1$s на %2$s в %3$d задачах</string>
+  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
 
 
 
@@ -1436,37 +1467,37 @@
 
     
   <!-- Voice Add Prompt Text -->
-  <string name="voice_create_prompt">Speak to create a task</string>
-  <string name="voice_edit_title_prompt">Speak to set task title</string>
-  <string name="voice_edit_note_prompt">Speak to set task notes</string>
+  <string name="voice_create_prompt">Говорите чтобы создать задачу</string>
+  <string name="voice_edit_title_prompt">Произнесите название задачи</string>
+  <string name="voice_edit_note_prompt">Произнесите заметки задачи</string>
     
   <!-- Preference: Task List recognition-service is not installed, but available -->
-  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
+  <string name="EPr_voiceInputInstall_dlg">Голосовой ввод не установлен.\n Хотите перейти на Market и установить?</string>
   <!-- Preference: Task List recognition-service is not available for this system -->
-  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
+  <string name="EPr_voiceInputUnavailable_dlg">К сожалению голосовой ввод недоступен для вашей системы.\n Если возможно, обновитесь до версии 2.1 или выше.</string>
   <!-- Preference: Market is not available for this system -->
-  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
+  <string name="EPr_marketUnavailable_dlg">К сожалению Market не доступен для вашей системы.\nЕсли возможно, установите его из другого источника.</string>
   <!-- Preference: Task List Show Voice-button if recognition-service is available -->
-  <string name="EPr_voiceInputEnabled_title">Voice Input</string>
+  <string name="EPr_voiceInputEnabled_title">Голосовой ввод</string>
   <!-- Preference: voice button description (true) -->
-  <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
+  <string name="EPr_voiceInputEnabled_desc_enabled">Кнопка голосового ввода будет показана на странице списка задач</string>
   <!-- Preference: voice button description (false) -->
-  <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
+  <string name="EPr_voiceInputEnabled_desc_disabled">Кнопка голосового ввода будет скрыта со страницы списка задач</string>
   <!-- Preference: Task List Voice-button directly creates tasks -->
-  <string name="EPr_voiceInputCreatesTask_title">Directly Create Tasks</string>
+  <string name="EPr_voiceInputCreatesTask_title">Прямое создание задач</string>
   <!-- Preference: Task List Voice-creation description (true) -->
-  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">Задачи будут автоматически созданы с помощью голосового ввода</string>
   <!-- Preference: Task List Voice-creation description (false) -->
-  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">Вы сможете редактировать заголовок после завершения  голосового ввода</string>
   <!-- Preference: Voice reminders if TTS-service is available -->
-  <string name="EPr_voiceRemindersEnabled_title">Voice Reminders</string>
+  <string name="EPr_voiceRemindersEnabled_title">Голосовые напоминания</string>
   <!-- Preference: Voice reminders description (true) -->
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid должен произносить название задач во время напоминаний</string>
   <!-- Preference: Voice reminders description (false) -->
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
   
   <!-- Preference Category: Voice Title -->
-  <string name="EPr_voice_header">Voice Input Settings</string>
+  <string name="EPr_voice_header">Параметры голосового ввода</string>
     
 
 </resources>

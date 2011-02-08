@@ -5,10 +5,10 @@
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task Edit Activity: Container Label -->
-    <string name="alarm_ACS_label">Alarms</string>
+    <string name="alarm_ACS_label">Alarmy</string>
     
     <!-- Task Edit Activity: Add New Alarm -->
-    <string name="alarm_ACS_button">Add an Alarm</string>
+    <string name="alarm_ACS_button">Přidat alarm</string>
     
     <string-array name="reminders_alarm">
       <!-- reminders related to alarm -->
@@ -50,9 +50,9 @@
     <string name="backup_BPr_auto_enabled">Zálohování se bude provádět denně</string>
     
     <!-- Preference screen restoring Tasks Help -->
-    <string name="backup_BPr_how_to_restore">How do I restore backups?</string>    
+    <string name="backup_BPr_how_to_restore">Jak mohu obnovit zálohy?</string>    
     <!-- Preference screen Restoring Tasks Help Dialog Text-->
-    <string name="backup_BPr_how_to_restore_dialog">You need to add the Astrid Power Pack to manage and restore your backups. As a favor, Astrid also automatically backs up your tasks, just in case.</string>
+    <string name="backup_BPr_how_to_restore_dialog">Pro správu a obnovení vašich záloh musíte zakoupit \"Astrid Power Pack\". Získáte tím také funkci automatického zálohování vašich úkolů.</string>
   
   <!-- ================================================= BackupActivity == -->
 
@@ -75,7 +75,7 @@
     
   <string name="export_toast">Odzálohovány %1$s do %2$s.</string>
     
-  <string name="export_toast_no_tasks">No Tasks to Export.</string>
+  <string name="export_toast_no_tasks">Žádné úkoly pro export.</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">Exportuji...</string>
@@ -132,10 +132,10 @@
   <string name="DLG_delete_this_task_question">Smazat tento úkol?</string>
 
   <!-- question for deleting items (%s => item name) -->
-  <string name="DLG_delete_this_item_question">Delete this item: %s?</string>
+  <string name="DLG_delete_this_item_question">Smazat tuto položku? %s</string>
     
   <!-- Progress dialog shown when upgrading -->
-  <string name="DLG_upgrading">Upgrading your tasks...</string>
+  <string name="DLG_upgrading">Obnovování vašich úkolů...</string>
   
   <!-- Title for dialog selecting a time (hours and minutes) -->
   <string name="DLG_hour_minutes">Čas (hodin : minut)</string>
@@ -147,13 +147,13 @@
   <string name="DLG_to_market">Jít do Android market</string>
 
   <!-- Button for accepting EULA -->
-  <string name="DLG_accept">I Accept</string>
+  <string name="DLG_accept">Souhlasím</string>
 
   <!-- Button for declining EULA -->
-  <string name="DLG_decline">I Decline</string>
+  <string name="DLG_decline">Odmítám</string>
 
   <!-- EULA title -->
-  <string name="DLG_eula_title">Astrid Terms Of Use</string>
+  <string name="DLG_eula_title">Podmínky užívání programu Astrid</string>
   
   <!-- =============================================================== UI == -->
   
@@ -175,10 +175,10 @@
   <string name="TLA_menu_addons">Doplňky</string>
   
   <!-- Menu: Adjust Sort and Hidden Task Settings -->    
-  <string name="TLA_menu_sort">Sort &amp; Hidden</string>
+  <string name="TLA_menu_sort">Třídit &amp; skryté</string>
   
   <!-- Menu: Sync Now -->    
-  <string name="TLA_menu_sync">Sync Now!</string>
+  <string name="TLA_menu_sync">Synchronizovat!</string>
   
   <!-- Menu: Settings -->    
   <string name="TLA_menu_settings">Nastavení</string>
@@ -222,27 +222,27 @@
   <string name="TAd_contextUndeleteTask">Obnovit úkol</string>
 
   <!-- Context Item: purge task -->
-  <string name="TAd_contextPurgeTask">Purge Task</string>
+  <string name="TAd_contextPurgeTask">Smazat úkol</string>
   
   <!-- ============================================== SortSelectionDialog == -->
   
   <!-- Sort Selection: dialog title -->    
-  <string name="SSD_title">Sorting and Hidden Tasks</string>
+  <string name="SSD_title">Tříděné a skryté úkoly</string>
   
   <!-- Hidden Task Selection: show completed tasks -->    
-  <string name="SSD_completed">Show Completed Tasks</string>
+  <string name="SSD_completed">Ukázat dokončené úkoly</string>
   
   <!-- Hidden Task Selection: show hidden tasks -->    
-  <string name="SSD_hidden">Show Hidden Tasks</string>
+  <string name="SSD_hidden">Ukázat skryté úkoly</string>
   
   <!-- Hidden Task Selection: show deleted tasks -->    
-  <string name="SSD_deleted">Show Deleted Tasks</string>
+  <string name="SSD_deleted">Ukázat smazané úkoly</string>
   
   <!-- Sort Selection: sort options header -->    
-  <string name="SSD_sort_header">Sort Options</string>
+  <string name="SSD_sort_header">Možnosti třídění</string>
   
   <!-- Sort Selection: smart sort -->
-  <string name="SSD_sort_auto">Astrid Smart Sort</string>
+  <string name="SSD_sort_auto">Astrid-chytré třídění</string>
   
   <!-- Sort Selection: sort by alpha -->
   <string name="SSD_sort_alpha">Podle názvu</string>
@@ -254,16 +254,16 @@
   <string name="SSD_sort_importance">Podle důležitosti</string>
   
   <!-- Sort Selection: sort by modified date -->
-  <string name="SSD_sort_modified">By Last Modified</string>
+  <string name="SSD_sort_modified">Podle naposled upraveného</string>
   
   <!-- Sort Selection: reverse -->
-  <string name="SSD_sort_reverse">Reverse Sort</string>
+  <string name="SSD_sort_reverse">Obrácené třídění</string>
   
   <!-- Sort Button: sort temporarily -->
-  <string name="SSD_save_temp">Just Once</string>
+  <string name="SSD_save_temp">Pouze jednou</string>
   
   <!-- Sort Button: sort permanently -->
-  <string name="SSD_save_always">Always</string>
+  <string name="SSD_save_always">Vždy</string>
   
   <!-- =============================================== FilterListActivity == -->
 
@@ -327,10 +327,10 @@
   <string name="TEA_urgency_label">Termín</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">At specific time?</string>
+  <string name="TEA_urgency_specific_time">V přesně daný čas?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Time Set</string>
+  <string name="TEA_urgency_time_none">Čas není nastaven</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Skrýt do</string>
@@ -360,7 +360,7 @@
   <string name="TEA_menu_delete">Smazat úkol</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
+  <string name="TEA_onTaskSave_due">Úkol uložen: termín je %s</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">Úkol uložen</string>
@@ -384,17 +384,17 @@
   <string-array name="TEA_hideUntil">
       <!-- hideUntil: labels for edit page. -->
       <item>Neskrývat</item>
-      <item>Task is due</item>
+      <item>Nastal termín úkolu</item>
       <item>Den před ukončením</item>
       <item>Týden před ukončením</item>
       <item>Určitý den/čas</item>
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_addons_text">Looking for more features?</string>
+  <string name="TEA_addons_text">Rádi byste více funkcí?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get the Power Pack!</string>
+  <string name="TEA_addons_button">Získat \"Power Pack\"</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -418,7 +418,7 @@
   <string name="UpS_changelog_title">Co je nového v Astrid?</string>
   
   <!-- Updates Window Title -->
-  <string name="UpS_updates_title">Latest Astrid News</string>
+  <string name="UpS_updates_title">Poslední \"Astrid\" novinky</string>
   
   <!-- ================================================== EditPreferences == -->
     
@@ -434,11 +434,11 @@
   <string name="EPr_fontSize_desc">Velikost písma na hlavní straně seznamu</string>  
   
   <!-- Preference: Task List Show Notes -->
-  <string name="EPr_showNotes_title">Show Notes In Task</string>
+  <string name="EPr_showNotes_title">Zobrazit poznámky v úkolu</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Notes will be displayed when you tap a task</string>  
+  <string name="EPr_showNotes_desc_disabled">Poznámky budou zobrazeny, když kliknete na úkol</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
-  <string name="EPr_showNotes_desc_enabled">Notes will always be displayed</string>
+  <string name="EPr_showNotes_desc_enabled">Poznámky budou vždy zobrazeny</string>
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">Výchozí nastavení nového úkolu</string>
@@ -446,22 +446,22 @@
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">Výchozí urgentnost</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently: %s</string>
+  <string name="EPr_default_urgency_desc">Aktuální: %s</string>
   
   <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">Výchozí důležitost</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently: %s</string>
+  <string name="EPr_default_importance_desc">Aktuální: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">Výchozí Skrýt do</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
+  <string name="EPr_default_hideUntil_desc">Aktuální: %s</string>
   
   <!-- Preference: Default Reminders Title -->
   <string name="EPr_default_reminders_title">Výchozí připomenutí</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_reminders_desc">Currently: %s</string>
+  <string name="EPr_default_reminders_desc">Aktuální: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
@@ -483,44 +483,44 @@
   <string-array name="EPr_default_hideUntil">
       <!-- hideUntil: labels for "Task Defaults" preference item. -->
       <item>Neskrývat</item>
-      <item>Task is due</item>
+      <item>Nastal termín úkolu</item>
       <item>Den před ukončením</item>
       <item>Týden před ukončením</item>
   </string-array>
   
   <string-array name="EPr_default_reminders">
       <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>No deadline reminders</item>
-      <item>At deadline</item>
-      <item>When overdue</item>
-      <item>At deadline or overdue</item>
+      <item>Žádné upomínky v termínu</item>
+      <item>V termínu</item>
+      <item>Po termínu</item>
+      <item>V termínu nebo po něm</item>
   </string-array>
   
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
-  <string name="AOA_title">Astrid: Add Ons</string>
+  <string name="AOA_title">Astrid: doplňky</string>
     
   <!-- Add-on Activity: author for internal authors  -->
   <string name="AOA_internal_author">Astrid tým</string>
     
   <!-- Add-on Activity: installed add-ons tab -->
-  <string name="AOA_tab_installed">Installed</string>
+  <string name="AOA_tab_installed">Nainstalováno</string>
   
   <!-- Add-on Activity - available add-ons tab -->
-  <string name="AOA_tab_available">Available</string>
+  <string name="AOA_tab_available">K dispozici</string>
   
   <!-- Add-on Activity - free add-ons label -->
-  <string name="AOA_free">Free</string>
+  <string name="AOA_free">Zdarma</string>
   
   <!-- Add-on Activity - menu item to visit add-on website -->
-  <string name="AOA_visit_website">Visit Website</string>
+  <string name="AOA_visit_website">Navštívit stránku</string>
   
   <!-- Add-on Activity - menu item to visit android market -->
   <string name="AOA_visit_market">Android Market</string>
   
   <!-- Add-on Activity - when list is empty -->
-  <string name="AOA_no_addons">Empty List!</string>
+  <string name="AOA_no_addons">Prázdný list!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -528,7 +528,7 @@
   <string name="TWi_loading">Nahrávám...</string>
 
   <!-- Widget configuration activity title: select a filter -->
-  <string name="WCA_title">Select tasks to view...</string>
+  <string name="WCA_title">Označte úkol pro zobrazení</string>
   
   <!-- ============================================================= Misc == -->
   
@@ -557,99 +557,97 @@
     <string name="BFE_Active">Aktivní úkoly</string>
         
     <!-- Search Filter -->
-    <string name="BFE_Search">Search...</string>
+    <string name="BFE_Search">Hledat...</string>
     
     <!-- Recently Modified -->
     <string name="BFE_Recent">Nedávno upravené</string>
     
     <!-- Build Your Own Filter -->
-    <string name="BFE_Custom">Custom Filter...</string>
+    <string name="BFE_Custom">Vlastní filtr</string>
     
     <!-- Saved Filters Header -->
-    <string name="BFE_Saved">Saved Filters</string>
+    <string name="BFE_Saved">Uložené filtry</string>
     
     <!-- Saved Filters Context Menu: delete -->
-    <string name="BFE_Saved_delete">Delete Filter</string>
+    <string name="BFE_Saved_delete">Smazat filtr</string>
 
     <!-- =========================================== CustomFilterActivity == -->
     
     <!-- Build Your Own Filter Activity Title-->
-    <string name="CFA_title">Custom Filter</string>
+    <string name="CFA_title">Vlastní filtr</string>
     
     <!-- Filter Name edit box hint (if user types here, filter will be saved) -->
-    <string name="CFA_filterName_hint">Name this filter to save it...</string>
+    <string name="CFA_filterName_hint">Pojmenujte tento filtr pro jeho uložení</string>
     
     <!-- Filter Name default for copied filters (%s => old filter name) -->
-    <string name="CFA_filterName_copy">Copy of %s</string>
+    <string name="CFA_filterName_copy">Kopie</string>
     
     <!-- Filter Starting Universe: all tasks -->
     <string name="CFA_universe_all">Aktivní úkoly</string>
     
     <!-- Filter Criteria Type: add (at the begging of title of the criteria) -->
-    <string name="CFA_type_add">or</string>
+    <string name="CFA_type_add">nebo</string>
     
     <!-- Filter Criteria Type: subtract (at the begging of title of the criteria) -->
-    <string name="CFA_type_subtract">not</string>
+    <string name="CFA_type_subtract">ne</string>
     
     <!-- Filter Criteria Type: intersect (at the begging of title of the criteria) -->
-    <string name="CFA_type_intersect">also</string>
+    <string name="CFA_type_intersect">také</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">%s has criteria</string>
+    <string name="CFA_context_chain">%s má kritéria</string>
     
     <!-- Filter Criteria Context Menu: delete -->
-    <string name="CFA_context_delete">Delete Row</string>
+    <string name="CFA_context_delete">Odstranit řádek</string>
     
     <!-- Filter Screen Help Text -->
-    <string name="CFA_help">This screen lets you create a new filters. Add 
-    criteria using the button below, short or long-press them to adjust, and
-    then click \"View\"!</string>
+    <string name="CFA_help">Zde můžete vytvořit vlastní filtry. Tlačítkem níže přidejte kritéria. Krátkým, nebo dlouhým stiskem je upravíte. Poté zvolte \"Zobrazit\"!</string>
     
     <!-- Filter Button: add new -->
-    <string name="CFA_button_add">Add Criteria</string>
+    <string name="CFA_button_add">Přidat podmínku</string>
     
     <!-- Filter Button: view without saving -->
-    <string name="CFA_button_view">View</string>
+    <string name="CFA_button_view">Zobrazit</string>
     
     <!-- Filter Button: save & view filter -->
-    <string name="CFA_button_save">Save &amp; View</string>
+    <string name="CFA_button_save">Uložit &amp; Zobrazit</string>
 
     <!-- =========================================== CustomFilterCriteria == -->
         
     <!-- Criteria: due by X - display text (? -> user input) -->
-    <string name="CFC_dueBefore_text">Due By: ?</string>
+    <string name="CFC_dueBefore_text">Podle termínu: ?</string>
     <!-- Criteria: due by X - name of criteria -->
-    <string name="CFC_dueBefore_name">Due By...</string>
+    <string name="CFC_dueBefore_name">Podle termínu...</string>
     <string-array name="CFC_dueBefore_entries">
         <!-- Criteria: due by X - options -->
-        <item>No Due Date</item>
-        <item>Yesterday</item>
+        <item>Žádný termín</item>
+        <item>Včera</item>
         <item>Dnes</item>
         <item>Zítra</item>
         <item>Pozítří</item>
         <item>Příští týden</item>
-        <item>Next Month</item>
+        <item>Příští měsíc</item>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
-    <string name="CFC_importance_text">Importance at least ?</string>
+    <string name="CFC_importance_text">Alespoň důležitost?</string>
     <!-- Criteria: importance - name of criteria -->
-    <string name="CFC_importance_name">Importance...</string>        
+    <string name="CFC_importance_name">Důležitost...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">Tagged: ?</string>
+    <string name="CFC_tag_text">Označeno: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Tagged...</string>
+    <string name="CFC_tag_name">Označeno...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Tag contains...</string>
+    <string name="CFC_tag_contains_name">Značka obsahuje...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Tag contains: ?</string>
+    <string name="CFC_tag_contains_text">Obsahuje značka: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Title contains...</string>
+    <string name="CFC_title_contains_name">Název obsahuje...</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">Title contains: ?</string>
+    <string name="CFC_title_contains_text">Obsahuje název: ?</string>
     
 
 
@@ -673,10 +671,10 @@
   <string name="gcal_TEA_showCalendar_label">Otevřít událost v kalendáři</string>
   
   <!-- Toast when unable to open calendar event -->
-  <string name="gcal_TEA_calendar_error">Error opening event!</string>
+  <string name="gcal_TEA_calendar_error">Chyba při otevírání události!</string>
   
   <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
+  <string name="gcal_TEA_calendar_updated">Událost kalendáře také aktualizována!</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -698,13 +696,13 @@
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
-    <string name="gtasks_FEx_list">By List</string>
+    <string name="gtasks_FEx_list">Podle listu</string>
     
     <!-- filter title for GTasks lists (%s => list name) -->
-    <string name="gtasks_FEx_title">Google Tasks: %s</string>
+    <string name="gtasks_FEx_title">Google úkoly: %s</string>
     
     <!-- short help title for Gtasks -->
-    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
+    <string name="gtasks_help_title">Vítejte v Google úkolech!</string>
     
     <!-- short help for GTasks list activity -->
     <string name="gtasks_help_body">Drag the grabber on the left side of a task 
@@ -713,11 +711,10 @@
     <!-- ============================================ GtasksLoginActivity == -->
     
     <!-- Activity Title: Gtasks Login -->    
-    <string name="gtasks_GLA_title">Log In to Google Tasks</string>
+    <string name="gtasks_GLA_title">Přihlašte se do Google úkolů</string>
 
     <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Google Apps
-    for Domain is currently unsupported, we\'re working on that!</string>
+    <string name="gtasks_GLA_body">Prosím, přihlaste se do Google úkolů. Účty Google Apps nejsou prozatím podporované, pracujeme na tom!</string>
 
     <!-- Instructions: Gtasks further help -->    
     <string name="gtasks_GLA_further_help">To view your tasks with indentation
@@ -725,32 +722,36 @@
     By default, Astrid uses its own sort settings for tasks.</string>
 
     <!-- Sign In Button -->    
-    <string name="gtasks_GLA_signIn">Sign In</string>
+    <string name="gtasks_GLA_signIn">Přihlásit se</string>
 
     <!-- E-mail Address Label -->    
     <string name="gtasks_GLA_email">E-mail</string>
 
     <!-- Password Label -->    
-    <string name="gtasks_GLA_password">Password</string>
+    <string name="gtasks_GLA_password">Heslo</string>
     
     <!-- Google Apps for Domain checkbox -->
-    <string name="gtasks_GLA_domain">Google Apps for Domain account</string>
+    <string name="gtasks_GLA_domain">Účet Google Apps</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="gtasks_GLA_errorEmpty">Error: fill out all fields!</string>
+    <string name="gtasks_GLA_errorEmpty">Chyba: vyplňte všechna pole!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="gtasks_GLA_errorAuth">Error: e-mail or password incorrect!</string>
+    <string name="gtasks_GLA_errorAuth">Chyba: Nesprávný e-mail, nebo heslo!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
+    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
+    Try logging in from the browser, then come back to try again:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
-    <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
+    <string name="gtasks_GPr_header">Google Úkoly (Beta!)</string>
     
     <!-- ================================================ Synchronization == -->    
     
     <!-- title for notification tray when synchronizing -->
-    <string name="gtasks_notification_title">Astrid: Google Tasks</string>
+    <string name="gtasks_notification_title">Astrid: Google Úkoly</string>
         
 
 
@@ -761,23 +762,16 @@
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see details</string>
+  <string name="intro_click_prompt">Intro: Press me to see notes</string>
   
   <!-- Task 1 Summary  -->
-  <string name="intro_task_1_summary">Create your first task</string>
+  <string name="intro_task_1_summary">Vytvoř svůj první úkol</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Just type the task into the quick entry box and press the + 
-  button that appears on the left.\n\n
-  
-  2) Regular add: Press the button to the right of the quick entry box. 
-  Add basic details (due date, tags, notes) or set more advanced options. 
-  Save the task with the save button or your phone\'s back button.\n\n
-  </string>
+  <string name="intro_task_1_note">Dva způsoby, jak přidat úkol:\n 1) Rychlé zadání: jednoduše zapište úkol do řádku \"rychlého vytvoření úkolu\" a stiskněte +, které se zobrazí vlevo.\n\n 2) Obvyklé zadání: Stiskněte tlačítko vpravo od řádku \"rychlého vytvoření úkolu\". Vložte základní údaje (termín, značky, poznámky) nebo zvolte pokročilé nastavení. Úkol uložte tlačítkem \"uložit\" nebo tlačítkem \"zpět\" na vašem telefonu.\n\n</string>
   
   <!-- Task 2 Summary  -->
-  <string name="intro_task_2_summary">Add a widget to your desktop</string>
+  <string name="intro_task_2_summary">Vložte widget na vaši plochu</string>
 
   <!-- Task 2 Note -->
   <string name="intro_task_2_note">A desktop widget is a great way to keep 
@@ -793,8 +787,7 @@
 	Bonus: Use the widget to add a task!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Setup sync with Gmail Tasks or 
-  Producteev</string>
+  <string name="intro_task_3_summary">Nastavení Google úkolů, nebo Producteev</string>
 
   <!-- Task 3 Note -->
   <string name="intro_task_3_note">Astrid makes it possible for you to sync 
@@ -834,10 +827,10 @@
   </string-array>        
       
   <!-- Locale Notification text -->                                                                                                                                        
-  <string name="locale_notification">Máš $NUM souhlasející: $FILTER</string>     
+  <string name="locale_notification">Máš $NUM se značkou $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
-  <string name="locale_plugin_required">Please install the Astrid Locale plugin!</string>        
+  <string name="locale_plugin_required">Prosím nainstalujte zásuvný modul Astrid Locale!</string>        
      
 
 
@@ -850,11 +843,11 @@
   <string name="EPr_powerpack_header">Astrid Power Pack</string>
   
   <!-- Preference: Anonymous User Statistics -->
-  <string name="EPr_statistics_title">Anonymous Usage Stats</string>
+  <string name="EPr_statistics_title">Anonymní statistiky používání</string>
   <!-- Preference: User Statistics (disabled) -->
-  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
+  <string name="EPr_statistics_desc_disabled">Nebudou oznámena žádná data o využití</string>  
   <!-- Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
+  <string name="EPr_statistics_desc_enabled">Pomozte nám dělat Astrid lepší, anonymním odesláním dat o používání</string>
       
 
 
@@ -870,16 +863,16 @@
     <string name="producteev_FEx_dashboard">Workspaces</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Assigned To</string>
+    <string name="producteev_FEx_responsible">Přiřazeno k</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
-    <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
+    <string name="producteev_FEx_responsible_title">Přiřazeno k \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="producteev_PDE_task_from">from %s</string>
+    <string name="producteev_PDE_task_from">od %s</string>
     
     <!-- replacement string for task edit "Notes" when using Producteev -->
-    <string name="producteev_TEA_notes">Add a Comment</string>
+    <string name="producteev_TEA_notes">Přidat komentář</string>
 
     <!-- ==================================================== Preferences == -->
 
@@ -887,25 +880,25 @@
     <string name="producteev_PPr_header">Producteev</string>
 
     <!-- dashboard title for producteev default dashboard  -->
-    <string name="producteev_default_dashboard">Default Workspace</string>
+    <string name="producteev_default_dashboard">Výchozí pracovní plocha</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">Do Not Synchronize</string>
+    <string name="producteev_no_dashboard">(Do Not Synchronize)</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard">Add new Workspace...</string>
+    <string name="producteev_create_dashboard">Přidat novou pracovní plochu...</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard_name">Name for new Workspace</string>
+    <string name="producteev_create_dashboard_name">Název nové pracovní plochy</string>
 
 	<!-- preference title for default dashboard -->
-    <string name="producteev_PPr_defaultdash_title">Default Workspace</string>
+    <string name="producteev_PPr_defaultdash_title">Výchozí pracovní plocha</string>
 
     <!-- preference description for default dashboard (%s -> setting) -->
-    <string name="producteev_PPr_defaultdash_summary">New tasks will be added to: %s</string>
+    <string name="producteev_PPr_defaultdash_summary">Nové úkoly budou přidány do: %s</string>
 
     <!-- preference description for default dashboard (when set to 'not synchronized') -->
-    <string name="producteev_PPr_defaultdash_summary_none">New tasks will not be synchronized by default</string>
+    <string name="producteev_PPr_defaultdash_summary_none">Nové úkoly nebudou standardně synchronizovány</string>
 
     <!-- ================================================= Login Activity == -->
 
@@ -920,37 +913,37 @@
     <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
 
     <!-- Sign In Button -->    
-    <string name="producteev_PLA_signIn">Sign In</string>
+    <string name="producteev_PLA_signIn">Přihlásit se</string>
 
     <!-- Create New User Button -->    
-    <string name="producteev_PLA_createNew">Create New User</string>
+    <string name="producteev_PLA_createNew">Vytvořit nového uživatele</string>
 
     <!-- E-mail Address Label -->    
     <string name="producteev_PLA_email">E-mail</string>
 
     <!-- Password Label -->    
-    <string name="producteev_PLA_password">Password</string>
+    <string name="producteev_PLA_password">Heslo</string>
     
     <!-- Timezone Spinner -->
-    <string name="producteev_PLA_timezone">Timezone</string>
+    <string name="producteev_PLA_timezone">Časové pásmo</string>
 
     <!-- Confirm Password Label -->    
-    <string name="producteev_PLA_confirmPassword">Confirm Password</string>
+    <string name="producteev_PLA_confirmPassword">Potvrdit heslo</string>
 
     <!-- First Name Label -->    
-    <string name="producteev_PLA_firstName">First Name</string>
+    <string name="producteev_PLA_firstName">Křestní jméno</string>
 
     <!-- Last Name Label -->    
-    <string name="producteev_PLA_lastName">Last Name</string>
+    <string name="producteev_PLA_lastName">Příjmení</string>
 
     <!-- Error Message when fields aren't filled out -->    
-    <string name="producteev_PLA_errorEmpty">Error: fill out all fields!</string>
+    <string name="producteev_PLA_errorEmpty">Chyba: vyplňte všechna pole!</string>
 
     <!-- Error Message when passwords don't match -->    
-    <string name="producteev_PLA_errorMatch">Error: passwords don\'t match!</string>
+    <string name="producteev_PLA_errorMatch">Chyba: hesla se neshodují!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="producteev_PLA_errorAuth">Error: e-mail or password incorrect!</string>
+    <string name="producteev_PLA_errorAuth">Chyba: Nesprávný e-mail, nebo heslo!</string>
 
     <!-- ================================================ Synchronization == -->
         
@@ -961,13 +954,13 @@
     <string name="producteev_notification_text">%s tasks updated / click for more details</string>
     
     <!-- Error msg when io exception  -->
-    <string name="producteev_ioerror">Connection Error! Check your Internet connection.</string>
+    <string name="producteev_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.</string>
 
     <!-- Prod Login email not specified-->
-    <string name="producteev_MLA_email_empty">E-Mail was not specified!</string>
+    <string name="producteev_MLA_email_empty">Nebyl určen e-mail!</string>
     
     <!-- Prod Login password not specified-->
-    <string name="producteev_MLA_password_empty">Password was not specified!</string>
+    <string name="producteev_MLA_password_empty">Nebylo určeno heslo!</string>
     
     <!-- ================================================ labels for layout-elements == -->
     
@@ -983,9 +976,9 @@
     <!-- Spinner-item for default dashboard on taskeditactivity -->
     <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
 
-    <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
+    <string name="CFC_producteev_in_workspace_text">Na pracovní ploše: ?</string>
 
-    <string name="CFC_producteev_in_workspace_name">In workspace...</string>
+    <string name="CFC_producteev_in_workspace_name">Na pracovní ploše...</string>
 
     <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
 
@@ -1300,7 +1293,7 @@
   <string name="repeat_detail_byday">$I na $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
-  <string name="repeat_detail_duedate">Every %s</string>
+  <string name="repeat_detail_duedate">Každý %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
   <string name="repeat_detail_completion">%s after completion</string>
@@ -1365,6 +1358,34 @@
     <!-- Error msg when io exception with rmilk -->
     <string name="rmilk_ioerror">Chyba připojení! Zkontroluj Tvé Internetové připojení nebo možná RTM servery (status.rememberthemilk.com), pro možná řešení.</string>
             
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
+    <!-- ============================================================= UI == -->
+
+    <!-- task action: Share -->
+    <string name="sharing_action">Share</string>
+
+    <!-- share login: Title -->
+    <string name="sharing_SLA_title">Share This Task</string>
+
+    <!-- share login: Sharing Description -->
+    <string name="sharing_SLA_body">My Astrid lets you post tasks to the web to share with
+    others. Let your friends encourage and keep you accountable!</string>
+
+    <!-- share login: Sharing Login Prompt -->
+    <string name="sharing_SLA_login">Sign in using your Facebook or Google account:</string>
+
+    <!-- share login: Next Step information -->
+    <string name="sharing_SLA_next_step">On the next page, 
+    you can choose how to share this task and choose recipients.</string>
+
+    <!-- share login: Sharing Task Information -->
+    <string name="sharing_SLA_task">Task to Share:</string>   
+
 
 
 
@@ -1458,7 +1479,7 @@
   <!-- Preference: Market is not available for this system -->
   <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
   <!-- Preference: Task List Show Voice-button if recognition-service is available -->
-  <string name="EPr_voiceInputEnabled_title">Voice Input</string>
+  <string name="EPr_voiceInputEnabled_title">Hlasový vstup</string>
   <!-- Preference: voice button description (true) -->
   <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
   <!-- Preference: voice button description (false) -->
@@ -1477,7 +1498,7 @@
   <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
   
   <!-- Preference Category: Voice Title -->
-  <string name="EPr_voice_header">Voice Input Settings</string>
+  <string name="EPr_voice_header">Nastavení hlasového vstupu</string>
     
 
 </resources>

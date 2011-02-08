@@ -73,7 +73,7 @@
   <!-- Message displayed when error occurs -->
   <string name="backup_TXI_error">Fehler beim Importieren</string>
     
-  <string name="export_toast">%1$s auf %2$s gesichert.</string>
+  <string name="export_toast">Backed Up %1$s to %2$s.</string>
     
   <string name="export_toast_no_tasks">Keine Aufgaben für den Export.</string>
   
@@ -391,10 +391,10 @@
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_addons_text">Looking for more features?</string>
+  <string name="TEA_addons_text">Wollen Sie mehr von Astrid?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get the Power Pack!</string>
+  <string name="TEA_addons_button">Download das Power Pack!</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -520,7 +520,7 @@
   <string name="AOA_visit_market">Android Market</string>
   
   <!-- Add-on Activity - when list is empty -->
-  <string name="AOA_no_addons">Empty List!</string>
+  <string name="AOA_no_addons">Liste ist leer!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -705,8 +705,7 @@
     <string name="gtasks_help_title">Wilkommen zu Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Drag the grabber on the left side of a task 
-    to rearrange it. Swipe the grabber left or right to change indentation.</string>
+    <string name="gtasks_help_body">Bewege den Griff links einer aktivität zum umordnen. Zieh den Griff links oder rechts für ändern des Einzugs</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
@@ -717,9 +716,7 @@
     <string name="gtasks_GLA_body">Bitte loggen Sie sich bei Google Tasks Sync (Beta!) ein. Google Apps für Domänen wird zur Zeit nicht unterstützt, wir arbeiten daran!</string>
 
     <!-- Instructions: Gtasks further help -->    
-    <string name="gtasks_GLA_further_help">To view your tasks with indentation
-    and order preserved, go to the Filters page and select a Google Tasks list.
-    By default, Astrid uses its own sort settings for tasks.</string>
+    <string name="gtasks_GLA_further_help">Für wiedergabe der Liste mit Einzug behalten, gehen Sie zu den Filtern und selektieren einen Google Aufgabenplaner. Standard nützt Astrid ihre eigene einstellungen</string>
 
     <!-- Sign In Button -->    
     <string name="gtasks_GLA_signIn">Anmelden</string>
@@ -738,6 +735,10 @@
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
     <string name="gtasks_GLA_errorAuth">Fehler: E-Mail oder Kennwort inkorrekt!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
+    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
+    Try logging in from the browser, then come back to try again:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
@@ -764,42 +765,19 @@
   <string name="intro_task_1_summary">Den ersten Task anlegen</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Just type the task into the quick entry box and press the + 
-  button that appears on the left.\n\n
-  
-  2) Regular add: Press the button to the right of the quick entry box. 
-  Add basic details (due date, tags, notes) or set more advanced options. 
-  Save the task with the save button or your phone\'s back button.\n\n
-  </string>
+  <string name="intro_task_1_note">Es gibt zwei möglichkeiten eine Aufgabe zuzufügen:\n 1] Schnell eingeben: Schreiben Sie die Aufgabe in den unteren Feld und drücken Sie das + zeichen links.\n\n 2] Normale eingabe: Drücken Sie den Knopf an der rechten Seite des Eingabefeldes. Geben Sie standard details ein (verfalldatum, label, notizen) oder weitere optionen. Speichern sie mit den Knopf Speichern oder mit der \'zurück\' taste auf ihr Smartphone.\n\n</string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">Widget zum Desktop zufügen</string>
 
   <!-- Task 2 Note -->
-  <string name="intro_task_2_note">A desktop widget is a great way to keep 
-  	track of your what you have to do as well as a way to quickly add new 
-  	tasks.\n\n
-	How to add a widget:\n
-	1) Long press on your phone\'s desktop.\n
-	2) Choose \"Widget\" form resulting menu\n
-	3) Choose the Astrid widget.\n
-	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
-	tasks\n\n
-
-	Bonus: Use the widget to add a task!</string>
+  <string name="intro_task_2_note">Mit einem Widget kann man superschnell sehen welche Aufgaben noch verbleiben, oder neue hinzufügen.\n\n Wie mann ein Widget einstellt:\n 1] Drücken Sie lange auf eine freie Stelle in ihrem heim wand.\n 2] Wählen Sie \"Widget\" aus dem Menü\n 3] Wählen sie den Astrid Widget.\n 4] Sie können einen Filter einstellen. Z.b. Aktive Aufgaben für alle Aufgaben die jetzt gefragt sind.\n\n Extra: Nutzen sie das + zeichen um eine Aufgabe zu machen!</string>
   
     <!-- Task 3 Summary  -->
   <string name="intro_task_3_summary">Die Synchronisation mit Gmail Tasks oder Producteev einrichten</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">Astrid makes it possible for you to sync 
-  	your tasks with the simple task list provided by Gmail. For more advanced 
-  	task features we recommend synchronization with Producteev.\n\n
-
-	To enable sync from Astrid press \"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and 
-	choose the sync provider you prefer.
-	</string>
+  <string name="intro_task_3_note">Mit Astrid synchronisieren Sie Ihre Aufgaben mit der einfachen Aufgabenliste von Gmail. Für weiterführende Funktionen empfehlen wird die Synchronisation mit Producteev.\n\nUm die Synchronisation aus Astrid zu aktivieren, wählen Sie \"Menü\" -&gt; \"Einstellungen\" -&gt; \"Synchronisation\" und danach den gewünschten Anbieter.</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -850,7 +828,7 @@
   <!-- Preference: User Statistics (disabled) -->
   <string name="EPr_statistics_desc_disabled">Nutzungsstatistik wird nicht übertragen</string>  
   <!-- Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
+  <string name="EPr_statistics_desc_enabled">Helfen Sie uns, Astrid durch anonymisierte Nutzungsdaten besser zu machen</string>
       
 
 
@@ -978,9 +956,9 @@
     <!-- Spinner-item for default dashboard on taskeditactivity -->
     <string name="producteev_TEA_dashboard_default">&lt;Standard&gt;</string>
 
-    <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
+    <string name="CFC_producteev_in_workspace_text">Im Workspace: ?</string>
 
-    <string name="CFC_producteev_in_workspace_name">In workspace...</string>
+    <string name="CFC_producteev_in_workspace_name">Im Workspace...</string>
 
     <string name="CFC_producteev_assigned_to_text">Zugeordnet: ?</string>
 
@@ -1092,11 +1070,11 @@
   <string name="rmd_EPr_nagging_desc_false">Astrid wird keine Ermutigungen abgeben</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
-  <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
+  <string name="rmd_EPr_snooze_dialog_title">Schlummer-Dialog HH:MM</string>
   <!-- Reminder Preference: Snooze Dialog Description (true) -->
-  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
+  <string name="rmd_EPr_snooze_dialog_desc_true">Schlummerfunktion durch Auswahl neuer Zeit (HH:MM) aktivieren</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
+  <string name="rmd_EPr_snooze_dialog_desc_false">Schlummern durch Auswahl von # Tagen/Stunden</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">Zufällige Erinnerungen</string>
@@ -1366,6 +1344,34 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
+    <!-- ============================================================= UI == -->
+
+    <!-- task action: Share -->
+    <string name="sharing_action">Share</string>
+
+    <!-- share login: Title -->
+    <string name="sharing_SLA_title">Share This Task</string>
+
+    <!-- share login: Sharing Description -->
+    <string name="sharing_SLA_body">My Astrid lets you post tasks to the web to share with
+    others. Let your friends encourage and keep you accountable!</string>
+
+    <!-- share login: Sharing Login Prompt -->
+    <string name="sharing_SLA_login">Sign in using your Facebook or Google account:</string>
+
+    <!-- share login: Next Step information -->
+    <string name="sharing_SLA_next_step">On the next page, 
+    you can choose how to share this task and choose recipients.</string>
+
+    <!-- share login: Sharing Task Information -->
+    <string name="sharing_SLA_task">Task to Share:</string>   
+
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
     <!-- Resources for built-in tag plug-in -->
 
   <!-- =============================================== Task Edit Controls == -->
@@ -1394,16 +1400,16 @@
   <string name="tag_FEx_name">Tag \'%s\'</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Rename Tag</string>
+  <string name="tag_cm_rename">Tag umbenennen</string>
 
   <!-- context menu option to delete a tag -->
   <string name="tag_cm_delete">Tag löschen</string>
 
   <!-- Dialog to confirm deletion of a tag -->
-  <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
+  <string name="DLG_delete_this_tag_question">Dieses Tag ändern: %s? (Aufgaben werden nicht gelöscht.)</string>
 
   <!-- Dialog to rename tag -->
-  <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
+  <string name="DLG_rename_this_tag_header">Tag %s umbenennen in:</string>
 
   <!-- Toast notification that no changes have been made -->
   <string name="TEA_no_tags_modified">Es gibt keine Änderungen</string>
@@ -1442,16 +1448,16 @@
 
     
   <!-- Voice Add Prompt Text -->
-  <string name="voice_create_prompt">Speak to create a task</string>
-  <string name="voice_edit_title_prompt">Speak to set task title</string>
-  <string name="voice_edit_note_prompt">Speak to set task notes</string>
+  <string name="voice_create_prompt">Sprechen Sie, um eine Aufgabe anzulegen</string>
+  <string name="voice_edit_title_prompt">Sprechen Sie, um einen Auftragsnamen zu vergeben</string>
+  <string name="voice_edit_note_prompt">Sprechen Sie, um Aufgabennotizen zu setzen</string>
     
   <!-- Preference: Task List recognition-service is not installed, but available -->
-  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
+  <string name="EPr_voiceInputInstall_dlg">Spracheingabe ist nicht installiert.\nWollen Sie in den Markt wechseln und das nachholen?</string>
   <!-- Preference: Task List recognition-service is not available for this system -->
-  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
+  <string name="EPr_voiceInputUnavailable_dlg">Leider ist Spracheingabe für Ihr System nicht verfügbar.\nWenn möglich, aktualisieren Sie bitte auf Android 2.1 oder höher.</string>
   <!-- Preference: Market is not available for this system -->
-  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
+  <string name="EPr_marketUnavailable_dlg">Leider ist der Marktplatz für Ihr System nicht verfügbar.\nWenn möglich, laden Sie die sprachgestützte Suchfunktion bitte aus einer anderen Quelle herunter.</string>
   <!-- Preference: Task List Show Voice-button if recognition-service is available -->
   <string name="EPr_voiceInputEnabled_title">Spracheingabe aktivieren</string>
   <!-- Preference: voice button description (true) -->
@@ -1459,17 +1465,17 @@
   <!-- Preference: voice button description (false) -->
   <string name="EPr_voiceInputEnabled_desc_disabled">Mikrofon-Button wird ausgeblendet</string>
   <!-- Preference: Task List Voice-button directly creates tasks -->
-  <string name="EPr_voiceInputCreatesTask_title">Directly Create Tasks</string>
+  <string name="EPr_voiceInputCreatesTask_title">Aufgaben direkt erzeugen</string>
   <!-- Preference: Task List Voice-creation description (true) -->
-  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">Aufgaben werden direkt aus Spracheingaben erzeugt</string>
   <!-- Preference: Task List Voice-creation description (false) -->
-  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">Sie können die Aufgabentitel nach der Spracheingabe ändern</string>
   <!-- Preference: Voice reminders if TTS-service is available -->
-  <string name="EPr_voiceRemindersEnabled_title">Voice Reminders</string>
+  <string name="EPr_voiceRemindersEnabled_title">Sprach-Erinnerungen</string>
   <!-- Preference: Voice reminders description (true) -->
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid wird Aufgabennamen bei der Erinnerung aussprechen</string>
   <!-- Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid wird bei der Erinnerung einen Klingelton abspielen</string>    
   
   <!-- Preference Category: Voice Title -->
   <string name="EPr_voice_header">Sprachfunktionen</string>
