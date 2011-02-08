@@ -62,8 +62,8 @@ public class QuickAddMarkupTest extends TodorooTestCase {
     private Task task;
     private ArrayList<String> tags = new ArrayList<String>();
 
-    private void assertTagsAre(String... tags) {
-        List<String> expected = Arrays.asList(tags);
+    private void assertTagsAre(String... expectedTags) {
+        List<String> expected = Arrays.asList(expectedTags);
         assertEquals(expected.toString(), tags.toString());
     }
 

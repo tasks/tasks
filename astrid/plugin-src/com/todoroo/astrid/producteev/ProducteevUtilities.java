@@ -2,7 +2,6 @@ package com.todoroo.astrid.producteev;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.sync.SyncProviderUtilities;
 
 /**
@@ -27,10 +26,6 @@ public class ProducteevUtilities extends SyncProviderUtilities {
 
     /** setting for dashboard to use default one */
     public static final int DASHBOARD_DEFAULT = 0;
-
-    static {
-        Task.IMPORTANCE_LEAST = 5;
-    }
 
     @Override
     public String getIdentifier() {

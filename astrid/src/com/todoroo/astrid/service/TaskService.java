@@ -23,6 +23,7 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
+import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
 import com.todoroo.astrid.tags.TagService;
 
@@ -322,25 +323,29 @@ public class TaskService {
         Pattern importancePattern = Pattern.compile("(\\s|^)!(\\d)(\\s|$)");
         while(true) {
             Matcher m = tagPattern.matcher(title);
-            if(m.matches()) {
+            if(m.find()) {
                 tags.add(m.group(2));
             } else {
                 m = contextPattern.matcher(title);
-                if(m.matches()) {
+                if(m.find()) {
                     tags.add(m.group(2));
                 } else {
                     m = importancePattern.matcher(title);
-                    if(m.matches()) {
-                        int importance = Integer.parseInt(m.group(2));
-                        task.setValue(Task.IMPORTANCE, Task.IMPORTANCE_LEAST + 1 - importance);
-                        if(task.getValue(Task.IMPORTANCE) < Task.IMPORTANCE_MOST)
-                            task.setValue(Task.IMPORTANCE, Task.IMPORTANCE_MOST);
+                    if(m.find()) {
+                        int value = Integer.parseInt(m.group(2));
+                        // not in producteev world: !1 to !4 => importance 3 to 0
+                        int importance = Math.max(Task.IMPORTANCE_MOST, Task.IMPORTANCE_LEAST + 1 - value);
+                        // in the producteev world, !1 to !4 => importance 4 to 1
+                        if(ProducteevUtilities.INSTANCE.isLoggedIn())
+                            importance++;
+
+                        task.setValue(Task.IMPORTANCE, importance);
                     } else
                         break;
                 }
             }
 
-            title = title.substring(0, m.start()) + title.substring(m.end() + 1);
+            title = title.substring(0, m.start()) + title.substring(m.end());
         }
         task.setValue(Task.TITLE, title.trim());
     }

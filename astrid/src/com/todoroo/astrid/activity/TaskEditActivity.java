@@ -730,7 +730,8 @@ public final class TaskEditActivity extends TabActivity {
 
             int min = Task.IMPORTANCE_MOST;
             int max = Task.IMPORTANCE_LEAST;
-            int importanceOffset = max;
+            if(ProducteevUtilities.INSTANCE.isLoggedIn())
+                max = 5;
 
             for(int i = min; i <= max; i++) {
                 final ToggleButton button = new ToggleButton(TaskEditActivity.this);
@@ -741,7 +742,7 @@ public final class TaskEditActivity extends TabActivity {
                 if(ProducteevUtilities.INSTANCE.isLoggedIn())
                     label.append(5 - i).append("\n\u2605"); //$NON-NLS-1$
                 else {
-                    for(int j = importanceOffset; j >= i; j--)
+                    for(int j = Task.IMPORTANCE_LEAST; j >= i; j--)
                         label.append('!');
                 }
 

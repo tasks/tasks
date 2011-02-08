@@ -135,11 +135,12 @@ public final class UpgradeService {
             if(from < V3_7_0) {
                 newVersionString(changeLog, "3.7.0 (2/7/10)", new String[] {
                         "Improved UI for displaying task actions. Tap a task to " +
-                            "bring up an action bar, tap anywhere to dismiss.",
+                            "bring actions, tap again to dismiss.",
                         "Task notes can be viewed by tapping the note icon to " +
                             "the right of the task.",
-                        "Added Astrid to 'Send-To' menu of Android Browser and " +
-                            "other apps for easy task creation.",
+                        "Added Astrid as 'Send-To' choice in Android Browser and " +
+                            "other apps.",
+                        "Quick-add tasks with #tags, @contexts, or !4 importance",
                         "Fixed bug with custom filters & tasks being hidden",
                 });
                 upgrade3To3_7();
