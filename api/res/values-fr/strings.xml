@@ -28,6 +28,12 @@
     <!-- plurals: days -->
     <item quantity="other">%d jours</item>
   </plurals>
+  <plurals name="DUt_weekdays">
+    <!-- plurals: days -->
+    <item quantity="one">1 Weekday</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d Weekdays</item>
+  </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
     <item quantity="one">1 heure</item>
@@ -98,10 +104,10 @@
   <string name="DLG_done">Terminé</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
+  <string name="DLG_error">Oups, une erreur est survenue ! Voici ce qu\'il s\'est passé :\n\n%s</string>
   
   <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
+  <string name="DLG_error_generic">Oups, une erreur est survenue !</string>
   
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Veuillez patienter...</string>
@@ -118,7 +124,7 @@
   <string name="SyP_label">Synchronisation</string>  
 
   <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="SyP_ioerror">Erreur de connexion ! Veuillez vérifier votre connexion Internet.</string>
 
   <!-- ================================================== SyncPreferences == -->
   
@@ -126,7 +132,7 @@
   <string name="sync_SPr_group_status">Statut</string>
   
   <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Not Logged In!</string>
+  <string name="sync_status_loggedout">Pas connecté !</string>
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Synchronisation en cours...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
@@ -166,7 +172,7 @@
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Se déconnecter</string>
   <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+  <string name="sync_SPr_forget_description">Purger toutes les données de synchronisation</string>
 
   <!-- confirmation dialog for sync log out -->
   <string name="sync_forget_confirm">Se déconnecter/purger les données de synchronisation ?</string>

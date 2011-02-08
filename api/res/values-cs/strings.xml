@@ -28,6 +28,12 @@
     <!-- plurals: days -->
     <item quantity="other">%d Dnů</item>
   </plurals>
+  <plurals name="DUt_weekdays">
+    <!-- plurals: days -->
+    <item quantity="one">1 Weekday</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d Weekdays</item>
+  </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
     <item quantity="one">1 hodina</item>
@@ -83,7 +89,7 @@
   <string name="DLG_information_title">Informace</string>
   
   <!-- error dialog title -->
-  <string name="DLG_error_title">Error!</string>
+  <string name="DLG_error_title">Chyba!</string>
   
   <!-- general dialog yes-->
   <string name="DLG_yes">Ano</string>
@@ -118,7 +124,7 @@
   <string name="SyP_label">Synchronizace</string>  
 
   <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="SyP_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.</string>
 
   <!-- ================================================== SyncPreferences == -->
   
@@ -126,7 +132,7 @@
   <string name="sync_SPr_group_status">Stav</string>
   
   <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Not Logged In!</string>
+  <string name="sync_status_loggedout">Nejste přihlášen!</string>
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Probíhá synchronizace...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
@@ -134,7 +140,7 @@
   <!-- Sync Status: error status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Selhalo: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
+  <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace</string>
   <!-- Sync Status: never sync'd -->    
   <string name="sync_status_never">Nikdo nesynchronizováno!</string>
 

@@ -28,6 +28,12 @@
     <!-- plurals: days -->
     <item quantity="other">%d dager</item>
   </plurals>
+  <plurals name="DUt_weekdays">
+    <!-- plurals: days -->
+    <item quantity="one">1 Weekday</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d Weekdays</item>
+  </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
     <item quantity="one">1 time</item>
@@ -98,10 +104,10 @@
   <string name="DLG_done">Utført</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oi sann! Det ser ut for at en feil oppstod. Her er hva som skjedde:\n\n%s</string>
+  <string name="DLG_error">Oi, det oppstod en feil! Dette skjedde:\n\n%s</string>
   
   <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Oi sann! Det ser ut for at en feil oppstod</string>
+  <string name="DLG_error_generic">Oi, det oppstod en feil!</string>
   
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Vennligst vent...</string>
@@ -118,7 +124,7 @@
   <string name="SyP_label">Synkronisering</string>  
 
   <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Tilkoblingsfeil! Kontroller at du er koblet til Internett</string>
+  <string name="SyP_ioerror">Tilkoblingsfeil! Kontroller tilkoblingen til Internett</string>
 
   <!-- ================================================== SyncPreferences == -->
   
@@ -126,13 +132,13 @@
   <string name="sync_SPr_group_status">Status</string>
   
   <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Not Logged In!</string>
+  <string name="sync_status_loggedout">Ikke innlogget!</string>
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Synkronisering pågår...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
   <string name="sync_status_success">Siste synkronisering: %s</string>
   <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">Feilet: %s</string>
+  <string name="sync_status_failed">Mislykket: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Siste vellykkede synkronisering: %s</string>
   <!-- Sync Status: never sync'd -->    
@@ -146,14 +152,14 @@
   <!-- Preference: Synchronization Interval Description (when disabled) -->
   <string name="sync_SPr_interval_desc_disabled">Bakgrunnssynkronisering er deaktivert</string>    
   <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">Foreløpig satt til %s</string>
+  <string name="sync_SPr_interval_desc">Aktuell innstilling: %s</string>
   
   <!-- Preference: Background Wifi Title -->  
   <string name="sync_SPr_bgwifi_title">Bare Wifi Innstilling</string>    
   <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">Synkronisering i bakgrunnen skal kun utføres med WiFi-tilkobling</string>    
+  <string name="sync_SPr_bgwifi_desc_enabled">Bakgrunnssynkronisering skjer kun med Wifi-tilkobling</string>    
   <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">Synkronisering i bakgrunnen skal alltid utføres</string>
+  <string name="sync_SPr_bgwifi_desc_disabled">Bakgrunnssynkronisering skjer alltid</string>
   
   <!-- Actions Group Label  -->
   <string name="sync_SPr_group_actions">Handlinger</string>
@@ -161,15 +167,15 @@
   <!-- Synchronize Now Button -->    
   <string name="sync_SPr_sync">Synkroniser nå!</string>
   <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">Logg Inn &amp; Synkroniser!</string>
+  <string name="sync_SPr_sync_log_in">Logg inn &amp; Synkroniser!</string>
   
   <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">Logg av</string>
+  <string name="sync_SPr_forget">Logg ut</string>
   <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+  <string name="sync_SPr_forget_description">Sletter all synkroniseringsdata</string>
 
   <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">Logge ut / slette synkroniserings data?</string>
+  <string name="sync_forget_confirm">Logg ut / slett synkroniseringsdata?</string>
   
   <string-array name="sync_SPr_interval_entries">
       <!-- sync_SPr_interval_entries: Synchronization Intervals -->

@@ -28,6 +28,12 @@
     <!-- plurals: days -->
     <item quantity="other">%d天</item>
   </plurals>
+  <plurals name="DUt_weekdays">
+    <!-- plurals: days -->
+    <item quantity="one">1 Weekday</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d Weekdays</item>
+  </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
     <item quantity="one">1小时</item>

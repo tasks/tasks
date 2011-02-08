@@ -6,27 +6,27 @@
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
-    <item quantity="one">1 年</item>
+    <item quantity="one">1 Year</item>
     <!-- plurals: years -->
-    <item quantity="other">%d 年</item>
+    <item quantity="other">%d Years</item>
   </plurals>
   <plurals name="DUt_months">
     <!-- plurals: months -->
-    <item quantity="one">1 個月</item>
+    <item quantity="one">1 Month</item>
     <!-- plurals: months -->
-    <item quantity="other">%d 月</item>
+    <item quantity="other">%d Months</item>
   </plurals>
   <plurals name="DUt_weeks">
     <!-- plurals: days -->
-    <item quantity="one">1 週</item>
+    <item quantity="one">1 Week</item>
     <!-- plurals: days -->
-    <item quantity="other">%d 週</item>
+    <item quantity="other">%d Weeks</item>
   </plurals>
   <plurals name="DUt_days">
     <!-- plurals: days -->
-    <item quantity="one">1 天</item>
+    <item quantity="one">1 วัน</item>
     <!-- plurals: days -->
-    <item quantity="other">%d 天</item>
+    <item quantity="other">%d วัน</item>
   </plurals>
   <plurals name="DUt_weekdays">
     <!-- plurals: days -->
@@ -36,72 +36,72 @@
   </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
-    <item quantity="one">1 小時</item>
+    <item quantity="one">1 ชั่วโมง</item>
     <!-- plurals: hours -->
-    <item quantity="other">%d 小時</item>
+    <item quantity="other">%d ชั่วโมง</item>
   </plurals>
   <plurals name="DUt_minutes">
     <!-- plurals: minutes -->
-    <item quantity="one">1 分鐘</item>
+    <item quantity="one">1 นาที</item>
     <!-- plurals: minutes -->
-    <item quantity="other">%d 分鐘</item>
+    <item quantity="other">%d นาที</item>
   </plurals>
   <plurals name="DUt_seconds">
     <!-- plurals: seconds -->
-    <item quantity="one">1 秒</item>
+    <item quantity="one">1 วินาที</item>
     <!-- plurals: seconds -->
-    <item quantity="other">%d 秒</item>
+    <item quantity="other">%d วินาที</item>
   </plurals>
   <plurals name="DUt_hoursShort">
     <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1 小時</item>
+    <item quantity="one">1 ช.ม.</item>
     <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d 小時</item>
+    <item quantity="other">%d ช.ม.</item>
   </plurals>
   <plurals name="DUt_minutesShort">
     <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1 分鐘</item>
+    <item quantity="one">1 นาที</item>
     <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d 分鐘</item>
+    <item quantity="other">%d นาที</item>
   </plurals>
   <plurals name="DUt_secondsShort">
     <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1 秒</item>
+    <item quantity="one">1 วิ.</item>
     <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d 秒</item>
+    <item quantity="other">%d วิ.</item>
   </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
-    <item quantity="one">1 個工作</item>
+    <item quantity="one">1 task</item>
     <!-- plurals: tasks -->
-    <item quantity="other">%d 個工作</item>
+    <item quantity="other">%d tasks</item>
   </plurals>
   
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">確認?</string>
+  <string name="DLG_confirm_title">Confirm?</string>
   
   <!-- question dialog title -->
-  <string name="DLG_question_title">問題：</string>
+  <string name="DLG_question_title">Question:</string>
   
   <!-- information dialog title -->
-  <string name="DLG_information_title">資訊</string>
+  <string name="DLG_information_title">ข้อมูล</string>
   
   <!-- error dialog title -->
   <string name="DLG_error_title">Error!</string>
   
   <!-- general dialog yes-->
-  <string name="DLG_yes">確定</string>
+  <string name="DLG_yes">Yes</string>
   
   <!-- general dialog no-->
-  <string name="DLG_no">取消</string>
+  <string name="DLG_no">No</string>
   
   <!-- general dialog close-->
-  <string name="DLG_close">關閉</string>
+  <string name="DLG_close">Close</string>
   
   <!-- general dialog done -->
-  <string name="DLG_done">完成</string>
+  <string name="DLG_done">เสร็จแล้ว</string>
   
   <!-- error dialog (%s => error message)-->
   <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
@@ -110,85 +110,85 @@
   <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
   
   <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">請稍候...</string>
+  <string name="DLG_wait">Please wait...</string>
 
  <!-- ====================================================== SyncProvider == -->
           
   <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">同步工作中...</string>
+  <string name="SyP_progress">Synchronizing your tasks...</string>
   
   <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">正在同步中...</string>
+  <string name="SyP_progress_toast">Synchronizing...</string>
   
   <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">同步</string>  
+  <string name="SyP_label">การปรับปรุงข้อมูลให้ตรงกัน</string>  
 
   <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">連結錯誤! 檢查您的網際網路連線.</string>
+  <string name="SyP_ioerror">ข้อผิดพลาดในการเชื่อมต่อ! ตรวจดูการเชื่อมต่ออินเตอร์เน็ท</string>
 
   <!-- ================================================== SyncPreferences == -->
   
   <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">狀態</string>
+  <string name="sync_SPr_group_status">สถานะ</string>
   
   <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">未登入!</string>
+  <string name="sync_status_loggedout">Not Logged In!</string>
   <!-- Status: ongoing -->    
-  <string name="sync_status_ongoing">同步中...</string>
+  <string name="sync_status_ongoing">Sync Ongoing...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">上次同步: %s</string>
+  <string name="sync_status_success">Last Sync: %s</string>
   <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">失敗: %s</string>
+  <string name="sync_status_failed">Failed On: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">上次成功同步: %s</string>
+  <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
   <!-- Sync Status: never sync'd -->    
-  <string name="sync_status_never">未同步過!</string>
+  <string name="sync_status_never">Never Synchronized!</string>
 
   <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">選項</string>
+  <string name="sync_SPr_group_options">ตัวเลือก</string>
 
   <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">背景同步</string>
+  <string name="sync_SPr_interval_title">Background Sync</string>
   <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">背景同步關閉</string>    
+  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>    
   <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">目前同步設定: %s</string>
+  <string name="sync_SPr_interval_desc">Currently set to: %s</string>
   
   <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Wifi 才可使用之設定</string>    
+  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
   <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">使用Wifi才啟動背景同步</string>    
+  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
   <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">總是使用背景同步</string>
+  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
   
   <!-- Actions Group Label  -->
-  <string name="sync_SPr_group_actions">動作</string>
+  <string name="sync_SPr_group_actions">การดำเนินการ</string>
 
   <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">現在同步!</string>
+  <string name="sync_SPr_sync">ปรับข้อมูลเดี๋ยวนี้!</string>
   <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">登入並同步!</string>
+  <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
   
   <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">登出</string>
+  <string name="sync_SPr_forget">Log Out</string>
   <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">清除所有同步資料</string>
+  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
 
   <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">登出 / 清除同步資料?</string>
+  <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
   
   <string-array name="sync_SPr_interval_entries">
       <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>停用</item>
-      <item>每15分</item>
-      <item>每30分</item>
-      <item>每小時</item>
-      <item>每3小時</item>
-      <item>每6小時</item>
-      <item>每12小時</item>
-      <item>每天</item>
-      <item>每3天</item>
-      <item>每週</item>
+      <item>disable</item>
+      <item>every fifteen minutes</item>
+      <item>every thirty minutes</item>
+      <item>every hour</item>
+      <item>every three hours</item>
+      <item>every six hours</item>
+      <item>every twelve hours</item>
+      <item>every day</item>
+      <item>every three days</item>
+      <item>every week</item>
   </string-array>    
     
 

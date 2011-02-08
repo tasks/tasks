@@ -6,27 +6,27 @@
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
-    <item quantity="one">1 año</item>
+    <item quantity="one">1 år</item>
     <!-- plurals: years -->
-    <item quantity="other">%d años</item>
+    <item quantity="other">%d År</item>
   </plurals>
   <plurals name="DUt_months">
     <!-- plurals: months -->
-    <item quantity="one">1 Mes</item>
+    <item quantity="one">1 måned</item>
     <!-- plurals: months -->
-    <item quantity="other">%d meses</item>
+    <item quantity="other">%d måneder</item>
   </plurals>
   <plurals name="DUt_weeks">
     <!-- plurals: days -->
-    <item quantity="one">1 semana</item>
+    <item quantity="one">1 uge</item>
     <!-- plurals: days -->
-    <item quantity="other">%d semanas</item>
+    <item quantity="other">%d uger</item>
   </plurals>
   <plurals name="DUt_days">
     <!-- plurals: days -->
-    <item quantity="one">1 día</item>
+    <item quantity="one">1 dag</item>
     <!-- plurals: days -->
-    <item quantity="other">%d días</item>
+    <item quantity="other">%d dage</item>
   </plurals>
   <plurals name="DUt_weekdays">
     <!-- plurals: days -->
@@ -36,159 +36,159 @@
   </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
-    <item quantity="one">1 hora</item>
+    <item quantity="one">1 time</item>
     <!-- plurals: hours -->
-    <item quantity="other">%d horas</item>
+    <item quantity="other">%d timer</item>
   </plurals>
   <plurals name="DUt_minutes">
     <!-- plurals: minutes -->
-    <item quantity="one">1 minuto</item>
+    <item quantity="one">1 minut</item>
     <!-- plurals: minutes -->
-    <item quantity="other">%d minutos</item>
+    <item quantity="other">%d minutter</item>
   </plurals>
   <plurals name="DUt_seconds">
     <!-- plurals: seconds -->
-    <item quantity="one">1 segundo</item>
+    <item quantity="one">1 sekund</item>
     <!-- plurals: seconds -->
-    <item quantity="other">%d segundos</item>
+    <item quantity="other">%d sekunder</item>
   </plurals>
   <plurals name="DUt_hoursShort">
     <!-- plurals: hours (abbreviated) -->
-    <item quantity="one">1 hora</item>
+    <item quantity="one">1 time</item>
     <!-- plurals: hours (abbreviated) -->
-    <item quantity="other">%d horas</item>
+    <item quantity="other">%d timer</item>
   </plurals>
   <plurals name="DUt_minutesShort">
     <!-- plurals: minutes (abbreviated) -->
-    <item quantity="one">1 minuto</item>
+    <item quantity="one">1 min.</item>
     <!-- plurals: minutes (abbreviated) -->
-    <item quantity="other">%d minutos</item>
+    <item quantity="other">%d min.</item>
   </plurals>
   <plurals name="DUt_secondsShort">
     <!-- plurals: seconds (abbreviated) -->
-    <item quantity="one">1 segundo</item>
+    <item quantity="one">1 sek.</item>
     <!-- plurals: seconds (abbreviated) -->
-    <item quantity="other">%d segundos</item>
+    <item quantity="other">%d sek.</item>
   </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
-    <item quantity="one">1 tarea</item>
+    <item quantity="one">1 opgave</item>
     <!-- plurals: tasks -->
-    <item quantity="other">%d tareas</item>
+    <item quantity="other">%d opgaver</item>
   </plurals>
   
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->
-  <string name="DLG_confirm_title">¿Confirmar?</string>
+  <string name="DLG_confirm_title">Bekræft?</string>
   
   <!-- question dialog title -->
-  <string name="DLG_question_title">Pregunta:</string>
+  <string name="DLG_question_title">Spørsmål:</string>
   
   <!-- information dialog title -->
-  <string name="DLG_information_title">Información</string>
+  <string name="DLG_information_title">Information</string>
   
   <!-- error dialog title -->
-  <string name="DLG_error_title">¡Error!</string>
+  <string name="DLG_error_title">Error!</string>
   
   <!-- general dialog yes-->
-  <string name="DLG_yes">Sí</string>
+  <string name="DLG_yes">Ja</string>
   
   <!-- general dialog no-->
-  <string name="DLG_no">No</string>
+  <string name="DLG_no">Nej</string>
   
   <!-- general dialog close-->
-  <string name="DLG_close">Cerrar</string>
+  <string name="DLG_close">Luk</string>
   
   <!-- general dialog done -->
-  <string name="DLG_done">Listo</string>
+  <string name="DLG_done">Færdig</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">¡Uy, al parecer hay algún problema! Esto es lo que pasó:\n\n%s</string>
+  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
   
   <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">¡Uy, al parecer hay algún problema!</string>
+  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
   
   <!-- Progress dialog shown when doing something slow -->
-  <string name="DLG_wait">Espere un momento...</string>
+  <string name="DLG_wait">Vent venligst...</string>
 
  <!-- ====================================================== SyncProvider == -->
           
   <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">Sincronizando sus tareas...</string>
+  <string name="SyP_progress">Synchronizing your tasks...</string>
   
   <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Sincronizando...</string>
+  <string name="SyP_progress_toast">Synkroniserer...</string>
   
   <!-- Sync Label: used in menu to denote synchronization -->
-  <string name="SyP_label">Sincronización</string>  
+  <string name="SyP_label">Synkronisering</string>  
 
   <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Error de conexión! Verifique su conexión a internet.</string>
+  <string name="SyP_ioerror">Forbindelsesfejl! Tjek din internetforbindelse.</string>
 
   <!-- ================================================== SyncPreferences == -->
   
   <!-- Status Group Label -->    
-  <string name="sync_SPr_group_status">Estado</string>
+  <string name="sync_SPr_group_status">Status</string>
   
   <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">No conectado!</string>
+  <string name="sync_status_loggedout">Not Logged In!</string>
   <!-- Status: ongoing -->    
-  <string name="sync_status_ongoing">Sincronización en curso...</string>
+  <string name="sync_status_ongoing">Sync Ongoing...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">Última sincronización: %s</string>
+  <string name="sync_status_success">Last Sync: %s</string>
   <!-- Sync Status: error status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">Falló el: %s</string>
+  <string name="sync_status_failed">Failed On: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Última sincronización exitosa: %s</string>
+  <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
   <!-- Sync Status: never sync'd -->    
-  <string name="sync_status_never">¡Jamás se sincronizó!</string>
+  <string name="sync_status_never">Never Synchronized!</string>
 
   <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">Opciones</string>
+  <string name="sync_SPr_group_options">Indstillinger</string>
 
   <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">Sincronizar en segundo plano</string>
+  <string name="sync_SPr_interval_title">Background Sync</string>
   <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">Sincronización en segundo plano desactivada</string>    
+  <string name="sync_SPr_interval_desc_disabled">Background synchronization is disabled</string>    
   <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">Actualmente configurado para: %s</string>
+  <string name="sync_SPr_interval_desc">Currently set to: %s</string>
   
   <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Sólo Configuración Wifi</string>    
+  <string name="sync_SPr_bgwifi_title">Wifi Only Setting</string>    
   <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">La sincronización en segundo plano sólo funciona con el Wifi activado</string>    
+  <string name="sync_SPr_bgwifi_desc_enabled">Background synchronization only happens when on Wifi</string>    
   <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">La sincronización en segundo plano funciona siempre</string>
+  <string name="sync_SPr_bgwifi_desc_disabled">Background synchronization will always occur</string>
   
   <!-- Actions Group Label  -->
-  <string name="sync_SPr_group_actions">Acciones</string>
+  <string name="sync_SPr_group_actions">Handlinger</string>
 
   <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">¡Sincronizar ahora!</string>
+  <string name="sync_SPr_sync">Synkroniser nu!</string>
   <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">Iniciar sesión y sincronizar!</string>
+  <string name="sync_SPr_sync_log_in">Log In &amp; Synchronize!</string>
   
   <!-- Sync: Clear Data Title -->
-  <string name="sync_SPr_forget">Cerrar sesión</string>
+  <string name="sync_SPr_forget">Log af</string>
   <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">Borra todos los datos de sincronización</string>
+  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
 
   <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">Cierre de sesión / cancelar la sincronización de datos?</string>
+  <string name="sync_forget_confirm">Log out / clear synchronization data?</string>
   
   <string-array name="sync_SPr_interval_entries">
       <!-- sync_SPr_interval_entries: Synchronization Intervals -->
-      <item>desactivar</item>
-      <item>cada quince minutos</item>
-      <item>cada treinta minutos</item>
-      <item>cada hora</item>
-      <item>cada tres horas</item>
-      <item>cada seis horas</item>
-      <item>cada doce horas</item>
-      <item>cada día</item>
-      <item>cada tres días</item>
-      <item>cada semana</item>
+      <item>disable</item>
+      <item>every fifteen minutes</item>
+      <item>every thirty minutes</item>
+      <item>hver time</item>
+      <item>hver 3. time</item>
+      <item>hver 6. time</item>
+      <item>hver 12. time</item>
+      <item>hver dag</item>
+      <item>hver 3. dag</item>
+      <item>hver uge</item>
   </string-array>    
     
 

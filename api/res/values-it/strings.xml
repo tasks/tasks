@@ -28,6 +28,12 @@
     <!-- plurals: days -->
     <item quantity="other">%d Giorni</item>
   </plurals>
+  <plurals name="DUt_weekdays">
+    <!-- plurals: days -->
+    <item quantity="one">1 Weekday</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d Weekdays</item>
+  </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
     <item quantity="one">1 ora</item>
@@ -83,7 +89,7 @@
   <string name="DLG_information_title">Informazioni</string>
   
   <!-- error dialog title -->
-  <string name="DLG_error_title">Error!</string>
+  <string name="DLG_error_title">Errore!</string>
   
   <!-- general dialog yes-->
   <string name="DLG_yes">Sì</string>
@@ -98,10 +104,10 @@
   <string name="DLG_done">Completata</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
+  <string name="DLG_error">Oops, sembra che ci sia stato un errore! E\' successo questo:\n\n%s</string>
   
   <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
+  <string name="DLG_error_generic">Oops, sembra che ci sia stato un errore!</string>
   
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Attendere per favore...</string>
@@ -118,7 +124,7 @@
   <string name="SyP_label">Sincronizzazione</string>  
 
   <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">Connection Error! Check your Internet connection.</string>
+  <string name="SyP_ioerror">Errore di Connessione! Controlla la tua connessione Internet.</string>
 
   <!-- ================================================== SyncPreferences == -->
   
@@ -126,7 +132,7 @@
   <string name="sync_SPr_group_status">Stato</string>
   
   <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">Not Logged In!</string>
+  <string name="sync_status_loggedout">Accesso Non Effettuato!</string>
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">Sincronizzazione in corso ...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
@@ -139,7 +145,7 @@
   <string name="sync_status_never">Mai sincronizzato!</string>
 
   <!-- Options Group Label -->    
-  <string name="sync_SPr_group_options">Opzioni</string>
+  <string name="sync_SPr_group_options">Preferenze</string>
 
   <!-- Preference: Synchronization Interval Title -->    
   <string name="sync_SPr_interval_title">Sincronizzazione eseguita in background</string>
@@ -166,7 +172,7 @@
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">Esci</string>
   <!-- Sync: Clear Data Description -->
-  <string name="sync_SPr_forget_description">Clears all synchronization data</string>
+  <string name="sync_SPr_forget_description">Cancella tutti i dati di sincronizzazione</string>
 
   <!-- confirmation dialog for sync log out -->
   <string name="sync_forget_confirm">Esci / cancella i file di sincronizzazione?</string>

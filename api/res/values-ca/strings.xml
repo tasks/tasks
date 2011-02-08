@@ -28,6 +28,12 @@
     <!-- plurals: days -->
     <item quantity="other">%d Dies</item>
   </plurals>
+  <plurals name="DUt_weekdays">
+    <!-- plurals: days -->
+    <item quantity="one">1 Weekday</item>
+    <!-- plurals: days -->
+    <item quantity="other">%d Weekdays</item>
+  </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
     <item quantity="one">1 Hora</item>
@@ -112,7 +118,7 @@
   <string name="SyP_progress">Sincronitzant les seves tasques...</string>
   
   <!-- Sync Notification: toast when sync activated from activity -->
-  <string name="SyP_progress_toast">Sincronitzant...</string>
+  <string name="SyP_progress_toast">S\'està sincronitzant...</string>
   
   <!-- Sync Label: used in menu to denote synchronization -->
   <string name="SyP_label">Sincronització</string>  
