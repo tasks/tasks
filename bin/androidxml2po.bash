@@ -57,7 +57,7 @@ xml2po="`dirname $0`/xml2po.py"
 catxml="`dirname $0`/catxml"
 
 function cat_all_xml() {
-    ${catxml} "${android_xml_files_res_dir}"/"${resource_file}"-*.xml ../astridApi/res/values/${resource_file}*.xml \
+    ${catxml} "${android_xml_files_res_dir}"/"${resource_file}"-*.xml .api/res/values/${resource_file}*.xml \
         ../astrid-plugins/astrid-power-pack/res/values/${resource_file}*.xml \
         > "${launchpad_pot_file_dir}/${resource_file}".xml
 }

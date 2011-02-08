@@ -1328,7 +1328,7 @@
     <string name="rmilk_MLA_label">Per favore esegui l\'accesso e autorizza Astrid:</string>
 
     <!-- Login Error Dialog (%s => message) -->
-    <string name="rmilk_MLA_error">Spiacenti,si è verificato un errore durante la verifica di accesso. Prova di nuovo. \n\n Messaggio di Errore:% s</string>
+    <string name="rmilk_MLA_error">Spiacenti,si è verificato un errore durante la verifica di accesso. Prova di nuovo. \n\n Messaggio di Errore: %s</string>
     
     <!-- ======================== Synchronization ========================== -->    
     

@@ -31,7 +31,7 @@
     <string name="backup_BPr_group_status">Estat</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Més recent:</string>
+    <string name="backup_status_success">Més recent: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Còpia de seguretat Fallida</string>
     <!-- Backup Status: error subtitle -->    
@@ -137,7 +137,7 @@ File %1$s contained %2$s.\n\n
   <string name="DLG_delete_this_task_question">Eliminar aquesta tasca?</string>
 
   <!-- question for deleting items (%s => item name) -->
-  <string name="DLG_delete_this_item_question">Eliminar aquest</string>
+  <string name="DLG_delete_this_item_question">Eliminar aquest: %s?</string>
     
   <!-- Progress dialog shown when upgrading -->
   <string name="DLG_upgrading">Actualitzant les seves tasques...</string>
@@ -206,7 +206,7 @@ File %1$s contained %2$s.\n\n
   <string name="TAd_hiddenFormat">%s [ocult]</string>
   
   <!-- Format string to indicate task is deleted (%s => task name) -->
-  <string name="TAd_deletedFormat">% [eliminat]</string>
+  <string name="TAd_deletedFormat">%s [eliminat]</string>
   
   <!-- Displayed when adapter is flung (scrolled quickly) -->
   <string name="TAd_flingText"/>
