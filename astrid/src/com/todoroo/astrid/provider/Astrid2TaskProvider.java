@@ -286,7 +286,13 @@ public class Astrid2TaskProvider extends ContentProvider {
 		if (LOGD)
 			Log.d(TAG, "notifyDatabaseModification");
 
-		ctx.getContentResolver().notifyChange(CONTENT_URI, null);
+		if(ctx == null)
+		    ctx = ContextManager.getContext();
+		try {
+		    ctx.getContentResolver().notifyChange(CONTENT_URI, null);
+		} catch (Exception e) {
+		    // no context was available
+		}
 	}
 
 }

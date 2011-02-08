@@ -32,10 +32,10 @@ import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.DialogInterface.OnCancelListener;
 import android.content.DialogInterface.OnDismissListener;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -48,6 +48,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -62,7 +63,6 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
-import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -340,19 +340,23 @@ public final class TaskEditActivity extends TabActivity {
         };
 
         // set up save, cancel, and delete buttons
-        ImageButton saveButtonGeneral = (ImageButton) findViewById(R.id.save_basic);
-        saveButtonGeneral.setOnClickListener(mSaveListener);
-        ImageButton saveButtonDates = (ImageButton) findViewById(R.id.save_extra);
-        saveButtonDates.setOnClickListener(mSaveListener);
-        ImageButton saveButtonNotify = (ImageButton) findViewById(R.id.save_addons);
-        saveButtonNotify.setOnClickListener(mSaveListener);
+        try {
+            ImageButton saveButtonGeneral = (ImageButton) findViewById(R.id.save_basic);
+            saveButtonGeneral.setOnClickListener(mSaveListener);
+            ImageButton saveButtonDates = (ImageButton) findViewById(R.id.save_extra);
+            saveButtonDates.setOnClickListener(mSaveListener);
+            ImageButton saveButtonNotify = (ImageButton) findViewById(R.id.save_addons);
+            saveButtonNotify.setOnClickListener(mSaveListener);
 
-        ImageButton discardButtonGeneral = (ImageButton) findViewById(R.id.discard_basic);
-        discardButtonGeneral.setOnClickListener(mDiscardListener);
-        ImageButton discardButtonDates = (ImageButton) findViewById(R.id.discard_extra);
-        discardButtonDates.setOnClickListener(mDiscardListener);
-        ImageButton discardButtonNotify = (ImageButton) findViewById(R.id.discard_addons);
-        discardButtonNotify.setOnClickListener(mDiscardListener);
+            ImageButton discardButtonGeneral = (ImageButton) findViewById(R.id.discard_basic);
+            discardButtonGeneral.setOnClickListener(mDiscardListener);
+            ImageButton discardButtonDates = (ImageButton) findViewById(R.id.discard_extra);
+            discardButtonDates.setOnClickListener(mDiscardListener);
+            ImageButton discardButtonNotify = (ImageButton) findViewById(R.id.discard_addons);
+            discardButtonNotify.setOnClickListener(mDiscardListener);
+        } catch (Exception e) {
+            // error loading the proper activity
+        }
     }
 
     /* ======================================================================

@@ -158,9 +158,14 @@ public class StartupService {
     private void onFirstTime() {
         Resources r = ContextManager.getResources();
 
-        addIntroTask(r, R.string.intro_task_1_summary, R.string.intro_task_1_note);
-        addIntroTask(r, R.string.intro_task_2_summary, R.string.intro_task_2_note);
-        addIntroTask(r, R.string.intro_task_3_summary, R.string.intro_task_3_note);
+        try {
+            database.openForWriting();
+            addIntroTask(r, R.string.intro_task_1_summary, R.string.intro_task_1_note);
+            addIntroTask(r, R.string.intro_task_2_summary, R.string.intro_task_2_note);
+            addIntroTask(r, R.string.intro_task_3_summary, R.string.intro_task_3_note);
+        } catch (Exception e) {
+            exceptionService.reportError("on-first-time", e); //$NON-NLS-1$
+        }
     }
 
     private void addIntroTask(Resources r, int summary, int note) {

@@ -25,6 +25,7 @@ import android.graphics.drawable.Drawable;
 import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.text.Html.TagHandler;
+import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.view.ContextMenu;
@@ -376,7 +377,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     private Spanned convertToHtml(String string, ImageGetter imageGetter, TagHandler tagHandler) {
         if(!htmlCache.containsKey(string)) {
-            Spanned html = Html.fromHtml(string, imageGetter, tagHandler);
+            Spanned html;
+            try {
+                html = Html.fromHtml(string, imageGetter, tagHandler);
+            } catch (RuntimeException e) {
+                html = Spannable.Factory.getInstance().newSpannable(string);
+            }
             htmlCache.put(string, html);
             return html;
         }

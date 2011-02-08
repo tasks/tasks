@@ -10,7 +10,8 @@
   <ScrollView
     android:id="@+id/tab_basic"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:layout_weight="100">
     <LinearLayout
       android:id="@+id/event"
       android:paddingRight="8dip"
@@ -119,6 +120,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_marginTop="10dip"
         android:padding="5dip"
         android:background="@drawable/edit_header"
@@ -144,7 +146,8 @@
   <ScrollView
     android:id="@+id/tab_extra"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:layout_weight="100">
     <LinearLayout
       android:paddingRight="8dip"
       android:orientation="vertical"
@@ -222,6 +225,7 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_weight="1"
         android:layout_marginTop="10dip"
         android:padding="5dip"
         android:background="@drawable/edit_header"
