@@ -14,11 +14,11 @@ import android.net.Uri;
 
 import com.todoroo.andlib.data.AbstractModel;
 import com.todoroo.andlib.data.Property;
-import com.todoroo.andlib.data.Table;
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
+import com.todoroo.andlib.data.Table;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.R;
@@ -172,8 +172,8 @@ public final class Task extends AbstractModel {
         };
     }
 
-    public static final int IMPORTANCE_MOST = IMPORTANCE_DO_OR_DIE;
-    public static final int IMPORTANCE_LEAST = IMPORTANCE_NONE;
+    public static int IMPORTANCE_MOST = IMPORTANCE_DO_OR_DIE;
+    public static int IMPORTANCE_LEAST = IMPORTANCE_NONE;
 
     // --- defaults
 

@@ -757,6 +757,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         Task task = new Task();
         if(title != null)
             task.setValue(Task.TITLE, title);
+
         ContentValues forMetadata = null;
         if(values != null && values.size() > 0) {
             ContentValues forTask = new ContentValues();
@@ -777,7 +778,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             }
             task.mergeWith(forTask);
         }
-        taskService.save(task);
+        taskService.quickAdd(task);
         if(forMetadata != null && forMetadata.size() > 0) {
             Metadata metadata = new Metadata();
             metadata.setValue(Metadata.TASK, task.getId());

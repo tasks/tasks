@@ -731,10 +731,6 @@ public final class TaskEditActivity extends TabActivity {
             int min = Task.IMPORTANCE_MOST;
             int max = Task.IMPORTANCE_LEAST;
             int importanceOffset = max;
-            if(ProducteevUtilities.INSTANCE.isLoggedIn()) {
-                max = 5;
-                importanceOffset = max - 1;
-            }
 
             for(int i = min; i <= max; i++) {
                 final ToggleButton button = new ToggleButton(TaskEditActivity.this);

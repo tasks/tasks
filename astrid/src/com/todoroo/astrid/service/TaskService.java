@@ -1,5 +1,9 @@
 package com.todoroo.astrid.service;
 
+import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.Property;
@@ -13,13 +17,14 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.MetadataDao;
-import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.GtasksMetadata;
 import com.todoroo.astrid.producteev.sync.ProducteevTask;
+import com.todoroo.astrid.tags.TagService;
 
 /**
  * Service layer for {@link Task}-centered activities.
@@ -285,6 +290,59 @@ public class TaskService {
      */
     public void deleteWhere(Criterion criteria) {
         taskDao.deleteWhere(criteria);
+    }
+
+    /**
+     * Save task, parsing quick-add mark-up:
+     * <ul>
+     * <li>#tag - add the tag "tag"
+     * <li>@context - add the tag "@context"
+     * <li>!4 - set priority to !!!!
+     */
+    public void quickAdd(Task task) {
+        ArrayList<String> tags = new ArrayList<String>();
+        parseQuickAddMarkup(task, tags);
+        save(task);
+
+        Metadata metadata = new Metadata();
+        for(String tag : tags) {
+            metadata.setValue(Metadata.KEY, TagService.KEY);
+            metadata.setValue(Metadata.TASK, task.getId());
+            metadata.setValue(TagService.TAG, tag);
+            metadataDao.createNew(metadata);
+        }
+    }
+
+    @SuppressWarnings("nls")
+    public static void parseQuickAddMarkup(Task task, ArrayList<String> tags) {
+        String title = task.getValue(Task.TITLE);
+
+        Pattern tagPattern = Pattern.compile("(\\s|^)#([^\\s]+)");
+        Pattern contextPattern = Pattern.compile("(\\s|^)(@[^\\s]+)");
+        Pattern importancePattern = Pattern.compile("(\\s|^)!(\\d)(\\s|$)");
+        while(true) {
+            Matcher m = tagPattern.matcher(title);
+            if(m.matches()) {
+                tags.add(m.group(2));
+            } else {
+                m = contextPattern.matcher(title);
+                if(m.matches()) {
+                    tags.add(m.group(2));
+                } else {
+                    m = importancePattern.matcher(title);
+                    if(m.matches()) {
+                        int importance = Integer.parseInt(m.group(2));
+                        task.setValue(Task.IMPORTANCE, Task.IMPORTANCE_LEAST + 1 - importance);
+                        if(task.getValue(Task.IMPORTANCE) < Task.IMPORTANCE_MOST)
+                            task.setValue(Task.IMPORTANCE, Task.IMPORTANCE_MOST);
+                    } else
+                        break;
+                }
+            }
+
+            title = title.substring(0, m.start()) + title.substring(m.end() + 1);
+        }
+        task.setValue(Task.TITLE, title.trim());
     }
 
 }
