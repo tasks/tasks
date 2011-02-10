@@ -225,9 +225,12 @@ public class TasksXmlImporter {
 
             String title = xpp.getAttributeValue(null, Task.TITLE.name);
             String created = xpp.getAttributeValue(null, Task.CREATION_DATE.name);
+            String dueDate = xpp.getAttributeValue(null, Task.DUE_DATE.name);
+            String completionDate = xpp.getAttributeValue(null, Task.COMPLETION_DATE.name);
 
             // if we don't have task name or creation date, skip
-            if (created == null || title == null) {
+            if (created == null || title == null || dueDate == null
+                    || completionDate == null) {
                 skipCount++;
                 return;
             }
@@ -235,7 +238,9 @@ public class TasksXmlImporter {
             // if the task's name and creation date match an existing task, skip
             TodorooCursor<Task> cursor = taskService.query(Query.select(Task.ID).
                     where(Criterion.and(Task.TITLE.eq(title),
-                            Task.CREATION_DATE.eq(created))));
+                            Task.CREATION_DATE.eq(created),
+                            Task.DUE_DATE.eq(dueDate),
+                            Task.COMPLETION_DATE.eq(completionDate))));
             try {
                 if(cursor.getCount() > 0) {
                     skipCount++;
