@@ -64,6 +64,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
@@ -77,6 +78,7 @@ import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
@@ -129,10 +131,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 6;
 
     private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 20;
-    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 21;
-    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 22;
-    private static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 23;
-    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 24;
+    private static final int CONTEXT_MENU_COPY_TASK_ID = Menu.FIRST + 21;
+    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 22;
+    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 23;
+    private static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 24;
+    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 25;
 
     private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 30;
 
@@ -808,6 +811,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         } else {
             menu.add(id, CONTEXT_MENU_EDIT_TASK_ID, Menu.NONE,
                         R.string.TAd_contextEditTask);
+            menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE,
+                    R.string.TAd_contextCopyTask);
             menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE,
                     R.string.TAd_contextDeleteTask);
 
@@ -997,6 +1002,23 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, itemId);
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+            return true;
+        }
+
+        case CONTEXT_MENU_COPY_TASK_ID: {
+            itemId = item.getGroupId();
+            Task original = new Task();
+            original.setId(itemId);
+
+            Task clone = PluginServices.getTaskService().clone(original);
+            clone.setValue(Task.CREATION_DATE, DateUtilities.now());
+            clone.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+            PluginServices.getTaskService().save(clone);
+
+            intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+            intent.putExtra(TaskEditActivity.TOKEN_ID, clone.getId());
+            startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+
             return true;
         }
 

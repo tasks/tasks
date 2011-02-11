@@ -113,6 +113,9 @@
   <!-- Context Item: edit task -->
   <string name="TAd_contextEditTask">Edit Task</string>
 
+  <!-- Context Item: copy task -->
+  <string name="TAd_contextCopyTask">Copy Task</string>
+
   <!-- Context Item: delete task -->
   <string name="TAd_contextDeleteTask">Delete Task</string>
 
