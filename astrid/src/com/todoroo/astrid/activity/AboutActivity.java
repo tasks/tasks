@@ -20,33 +20,27 @@ import java.util.Formatter;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.res.Resources;
+import android.text.util.Linkify;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 
 /**
- * Displays an About ("End User License Agreement") that the user has to accept
- * before using the application. Your application should call
- * {@link About#showAbout(android.app.Activity)} in the onCreate() method of the
- * first activity. If the user accepts the About, it will never be shown again.
- * If the user refuses, {@link android.app.Activity#finish()} is invoked on your
- * activity.
+ * Displays an About dialog.
  */
 class About {
-    private static final String PREFERENCES_ABOUT = "About"; //$NON-NLS-1$
-
     /**
-     * Displays the About if necessary. This method should be called from the
-     * onCreate() method of your main Activity.
+     * Displays the About dialog from the settings menu.
      *
-     * @param activity
-     *            The Activity to finish if the user rejects the About
+     * @param activity For context.
      */
     static void showAbout(final Activity activity, final Resources r, final String versionName) {
-        final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle(R.string.p_about);
-        builder.setCancelable(true);
-        builder.setMessage((new Formatter()).format(r.getString(R.string.p_about_text), versionName).toString());
-        builder.show();
+        final AlertDialog.Builder d = new AlertDialog.Builder(activity);
+        final TextView t = new TextView(activity);
+        t.setText((new Formatter()).format(r.getString(R.string.p_about_text), versionName).toString());
+        Linkify.addLinks(t, Linkify.ALL);
+        d.setView(t);
+        d.show();
     }
 
     private About() {
