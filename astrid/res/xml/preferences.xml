@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/EPr_title">
 
+    <PreferenceScreen android:title="" android:key="@string/p_about"></PreferenceScreen>
     <PreferenceCategory
         android:title="@string/EPr_appearance_header">
         <ListPreference
@@ -45,4 +46,5 @@
         android:title="@string/EPr_statistics_title"
         android:defaultValue="true" />
     
+
 </PreferenceScreen>

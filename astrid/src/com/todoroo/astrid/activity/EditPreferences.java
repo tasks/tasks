@@ -16,6 +16,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -56,7 +57,8 @@ import com.todoroo.astrid.voice.VoiceOutputService;
  */
 public class EditPreferences extends TodorooPreferences {
 
-    private static final int POWER_PACK_PREFERENCE = 1;
+    private static final int ABOUT_PREFERENCE = 0; // see preferences.xml for order of prefs
+    private static final int POWER_PACK_PREFERENCE = 2;
 
     // --- instance variables
 
@@ -90,9 +92,28 @@ public class EditPreferences extends TodorooPreferences {
 
         screen.getPreference(POWER_PACK_PREFERENCE).setEnabled(addOnService.hasPowerPack());
 
+        final Resources r = getResources();
+        // About pref
+        Preference preference = screen.getPreference(ABOUT_PREFERENCE);
+        preference.setTitle(r.getString(R.string.p_about));
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference p) {
+                showAbout();
+                return true;
+            }
+        });
+
         addDebugPreferences();
 
         addPreferenceListeners();
+    }
+
+    private void showAbout ()
+    {
+        try {
+            About.showAbout(this, getResources(), getPackageManager().getPackageInfo("com.timsu.astrid", 0).versionName);
+        } catch (NameNotFoundException e) {
+        }
     }
 
     private void addPluginPreferences(PreferenceScreen screen) {
@@ -193,6 +214,8 @@ public class EditPreferences extends TodorooPreferences {
     @Override
     public void updatePreferences(final Preference preference, Object value) {
         final Resources r = getResources();
+
+
         if (r.getString(R.string.p_showNotes).equals(preference.getKey())) {
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_showNotes_desc_disabled);
@@ -203,6 +226,7 @@ public class EditPreferences extends TodorooPreferences {
                 Flags.set(Flags.REFRESH);
             }
         }
+
 
         // statistics service
         else if (r.getString(R.string.p_statistics).equals(preference.getKey())) {
