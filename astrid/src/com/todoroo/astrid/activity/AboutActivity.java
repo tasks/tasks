@@ -38,8 +38,9 @@ class About {
         final AlertDialog.Builder d = new AlertDialog.Builder(activity);
         final TextView t = new TextView(activity);
         t.setText((new Formatter()).format(r.getString(R.string.p_about_text), versionName).toString());
-        Linkify.addLinks(t, Linkify.ALL);
+        t.setAutoLinkMask(Linkify.ALL);
         d.setView(t);
+        d.setTitle(r.getString(R.string.p_about));
         d.show();
     }
 
