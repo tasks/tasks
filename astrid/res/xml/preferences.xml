@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:title="@string/EPr_title">
 
-    <PreferenceScreen android:title="" android:key="@string/p_about"></PreferenceScreen>
+    <PreferenceScreen android:title="" android:key="@string/p_about" />
     <PreferenceCategory
         android:title="@string/EPr_appearance_header">
         <ListPreference

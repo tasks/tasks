@@ -430,17 +430,10 @@
   <!-- Title of "About" option in settings -->
   <string name="p_about">About Astrid</string>
   
-  <!-- About text -->
-<string name="p_about_text">Astrid Tasks\n\n
+  <!-- About text (%s => current version)-->
+<string name="p_about_text">Current version: %s\n\n
 
-Current version: %s\n\n
-
-Astrid is open-source and proudly maintained by Todoroo, Inc.\n\n
-
-Source: <a href="http://github.com/todoroo/astrid">http://github.com/todoroo/astrid</a>\n
-Privacy Policy: http://www.todoroo.com/privacy\n
-Terms of Use: http://www.todoroo.com/terms\n
-Visit http://weloveastrid.com for more information, to add translations or help make Astrid better!</string>
+Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   
   <!-- ============================================================= Misc == -->
   

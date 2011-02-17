@@ -108,12 +108,15 @@ public class EditPreferences extends TodorooPreferences {
         addPreferenceListeners();
     }
 
-    private void showAbout ()
-    {
+    /** Show about dialog */
+    private void showAbout () {
+        String version = "unknown"; //$NON-NLS-1$
         try {
-            About.showAbout(this, getResources(), getPackageManager().getPackageInfo("com.timsu.astrid", 0).versionName);
+            version = getPackageManager().getPackageInfo(Constants.PACKAGE, 0).versionName;
         } catch (NameNotFoundException e) {
+            // sadness
         }
+        About.showAbout(this, version);
     }
 
     private void addPluginPreferences(PreferenceScreen screen) {

@@ -15,13 +15,11 @@
  */
 package com.todoroo.astrid.activity;
 
-import java.util.Formatter;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.res.Resources;
-import android.text.util.Linkify;
-import android.widget.TextView;
+import android.text.Html;
+import android.text.Spanned;
 
 import com.timsu.astrid.R;
 
@@ -34,12 +32,25 @@ class About {
      *
      * @param activity For context.
      */
-    static void showAbout(final Activity activity, final Resources r, final String versionName) {
+    @SuppressWarnings("nls")
+    public static void showAbout(final Activity activity, final String versionName) {
+
+        Resources r = activity.getResources();
+
+        StringBuilder aboutText = new StringBuilder();
+        aboutText.append("<b>").append(r.getString(R.string.app_name)).append("</b><br />").
+            append(r.getString(R.string.p_about_text, versionName).replace("\n", "<br />")).append("<br /><br />").
+            append("<a href='http://github.com/todoroo/astrid'>Source Code</a><br />").
+    		append("<a href='http://www.todoroo.com/privacy'>Privacy Policy</a><br />").
+    		append("<a href='http://www.todoroo.com/terms'>Terms of Use</a><br /><br />").
+    		append("Visit <a href='http://www.weloveastrid.com'>weloveastrid</a> for more information, to add translations or help make Astrid better!");
+
         final AlertDialog.Builder d = new AlertDialog.Builder(activity);
-        final TextView t = new TextView(activity);
-        t.setText((new Formatter()).format(r.getString(R.string.p_about_text), versionName).toString());
-        t.setAutoLinkMask(Linkify.ALL);
-        d.setView(t);
+
+        Spanned body = Html.fromHtml(aboutText.toString());
+
+        d.setIcon(android.R.drawable.ic_dialog_info);
+        d.setMessage(body);
         d.setTitle(r.getString(R.string.p_about));
         d.show();
     }
