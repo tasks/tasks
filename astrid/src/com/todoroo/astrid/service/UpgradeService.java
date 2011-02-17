@@ -34,6 +34,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_7_1 = 173;
     public static final int V3_7_0 = 172;
     public static final int V3_6_4 = 170;
     public static final int V3_6_3 = 169;
@@ -132,7 +133,14 @@ public final class UpgradeService {
             });
         } else {
             // current message
-            if(from < V3_7_0) {
+            if(from < V3_7_1) {
+                newVersionString(changeLog, "3.7.1 (2/17/10)", new String[] {
+                    "Fixed due date reminders not being displayed",
+                    "Added an 'About' screen for displaying current version.",
+                    "Fixed several user-reported crashes! Keep 'em coming :)",
+                });
+            }
+            if(from >= V3_0_0 && from < V3_7_0) {
                 newVersionString(changeLog, "3.7.0 (2/7/10)", new String[] {
                         "Improved UI for displaying task actions. Tap a task to " +
                             "bring up actions, tap again to dismiss.",
