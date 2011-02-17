@@ -49,7 +49,11 @@ public class AstridPreferences {
 
 	/** CurrentVersion: the currently installed version of Astrid */
     public static int getCurrentVersion() {
-        return Preferences.getInt(P_CURRENT_VERSION, 0);
+        try {
+            return Preferences.getInt(P_CURRENT_VERSION, 0);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     /** CurrentVersion: the currently installed version of Astrid */

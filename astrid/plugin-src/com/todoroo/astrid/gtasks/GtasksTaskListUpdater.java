@@ -130,9 +130,11 @@ public class GtasksTaskListUpdater {
             root.children.add(target);
         } else {
             Node sibling = findNode(root, moveBeforeTaskId);
-            int index = sibling.parent.children.indexOf(sibling);
-            target.parent.children.remove(target);
-            sibling.parent.children.add(index, target);
+            if(sibling != null) {
+                int index = sibling.parent.children.indexOf(sibling);
+                target.parent.children.remove(target);
+                sibling.parent.children.add(index, target);
+            }
         }
 
         traverseTreeAndWriteValues(root, new AtomicInteger(0), -1);

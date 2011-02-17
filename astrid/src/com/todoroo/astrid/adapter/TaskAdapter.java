@@ -763,7 +763,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         public void onQuickActionClicked(QuickActionWidget widget, int position){
-            mBar.dismiss();
+            if(mBar != null)
+                mBar.dismiss();
             mBar = null;
 
             if(position == 0) {

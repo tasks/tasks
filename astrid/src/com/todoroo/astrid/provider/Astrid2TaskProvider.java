@@ -95,7 +95,11 @@ public class Astrid2TaskProvider extends ContentProvider {
 	}
 
 	public Astrid2TaskProvider() {
-	    DependencyInjectionService.getInstance().inject(this);
+	    try {
+	        DependencyInjectionService.getInstance().inject(this);
+	    } catch (Exception e) {
+	        // can't do anything about this
+	    }
     }
 
 	@Override

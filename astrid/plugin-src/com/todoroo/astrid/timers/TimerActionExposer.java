@@ -38,6 +38,8 @@ public class TimerActionExposer extends BroadcastReceiver {
 
         Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.TIMER_START,
                 Task.ELAPSED_SECONDS);
+        if(task == null)
+            return;
 
         // was part of a broadcast for actions
         if(AstridApiConstants.BROADCAST_REQUEST_ACTIONS.equals(intent.getAction())) {
