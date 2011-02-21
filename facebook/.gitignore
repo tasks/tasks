@@ -2,9 +2,9 @@
 *.DS_Store
 *.class
 *java#
-*.classpath
-*.project
-*.settings
+examples/*/.classpath
+examples/*/.project
+examples/*/.settings
 facebook/bin/
 facebook/gen/
 examples/stream/bin/
