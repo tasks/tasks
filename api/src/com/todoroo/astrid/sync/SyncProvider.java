@@ -276,8 +276,8 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
                     TYPE remote = data.remoteUpdated.get(remoteIndex);
                     push(local, remote);
 
-                    // re-read remote task after merge
-                    remote = pull(remote);
+                    // re-read remote task after merge (with local's title)
+                    remote = pull(local);
                     remote.task.setId(local.task.getId());
                     data.remoteUpdated.set(remoteIndex, remote);
                 } else {
