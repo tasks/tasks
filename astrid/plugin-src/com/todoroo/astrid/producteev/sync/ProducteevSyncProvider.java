@@ -227,7 +227,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             ArrayList<ProducteevTaskContainer> remoteTasks = new ArrayList<ProducteevTaskContainer>();
             for(StoreObject dashboard : dataService.getDashboards()) {
                 long dashboardId = dashboard.getValue(ProducteevDashboard.REMOTE_ID);
-                JSONArray labels = invoker.labelsShowList(dashboardId, null);
+                JSONArray labels = invoker.labelsShowList(dashboardId, lastServerSync);
                 readLabels(labels);
 
                 try {
