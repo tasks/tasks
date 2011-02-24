@@ -8,7 +8,12 @@ import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.sql.*;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
+import com.todoroo.andlib.sql.Join;
+import com.todoroo.andlib.sql.Order;
+import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -107,6 +112,7 @@ public final class TagService {
         return new QueryTemplate().where(Criterion.and(
                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(MetadataCriteria.withKey(KEY)))),
                 TaskCriteria.isActive(),
+                Criterion.not(TaskCriteria.isReadOnly()),
                 TaskCriteria.isVisible()));
     }
 

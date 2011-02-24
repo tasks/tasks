@@ -11,9 +11,12 @@
     <string name="producteev_FEx_dashboard">Workspaces</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Assigned To</string>
+    <string name="producteev_FEx_responsible_byme">Assigned by me to</string>
     
-    <!--  Producteev dashboard filter title (%s => dashboardname) -->
+    <!-- filter category for Producteev responsible person -->
+    <string name="producteev_FEx_responsible_byothers">Assigned by others to</string>
+    
+    <!--  Producteev responsible filter title (%s => responsiblename) -->
     <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->

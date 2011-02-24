@@ -88,6 +88,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     public static final Property<?>[] PROPERTIES = new Property<?>[] {
         Task.ID,
         Task.TITLE,
+        Task.FLAGS,
         Task.IMPORTANCE,
         Task.DUE_DATE,
         Task.COMPLETION_DATE,
@@ -319,6 +320,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         completedItems.get(task.getId()) ? DateUtilities.now() : 0);
             }
             completeBox.setChecked(task.isCompleted());
+            // disable checkbox if task is readonly
+            completeBox.setEnabled(!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY));
         }
 
         // importance bar
@@ -689,7 +692,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                         @Override
                         public void run() {
                             mBarListener.addWithAction(item);
-                            mBar.show(viewHolder.view);
+                            if (!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY))
+                                mBar.show(viewHolder.view);
                         }
                     });
                 }
@@ -831,7 +835,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             Collection<TaskAction> actions = taskActionManager.get(taskId);
             prepareQuickActionBar(viewHolder, actions);
             //mBarAnchor = v;
-            if(actions != null)
+            if(actions != null && !viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY))
                 mBar.show(v);
             taskActionManager.request(viewHolder);
 
@@ -868,6 +872,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         boolean state = task.isCompleted();
 
         viewHolder.completeBox.setChecked(state);
+        viewHolder.completeBox.setEnabled(!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY));
 
         TextView name = viewHolder.nameView;
         if(state) {

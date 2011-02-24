@@ -844,10 +844,13 @@
     <string name="producteev_FEx_dashboard">Arbeitsbereiche</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Zugeordnet an</string>
+    <string name="producteev_FEx_responsible_byme">Von mir übertragen an</string>
+    
+    <!-- filter category for Producteev responsible person -->
+    <string name="producteev_FEx_responsible_byothers">Von anderen übertragen an</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
-    <string name="producteev_FEx_responsible_title">Zugeordnet an \'%s\'</string>
+    <string name="producteev_FEx_responsible_title">Übertragen an \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
     <string name="producteev_PDE_task_from">von %s</string>

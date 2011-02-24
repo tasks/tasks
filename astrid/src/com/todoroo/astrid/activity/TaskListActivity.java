@@ -794,6 +794,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             ContextMenuInfo menuInfo) {
         AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo)menuInfo;
         Task task = ((ViewHolder)adapterInfo.targetView.getTag()).task;
+        if (task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY))
+            return;
+
         int id = (int)task.getId();
         menu.setHeaderTitle(task.getValue(Task.TITLE));
 

@@ -13,6 +13,7 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -62,6 +63,10 @@ public class TaskDao extends DatabaseDao<Task> {
     	/** @return tasks that were deleted */
     	public static Criterion isDeleted() {
     	    return Task.DELETION_DATE.neq(0);
+    	}
+
+    	public static Criterion isReadOnly() {
+    	    return Field.field(Task.FLAGS.name+" & "+Task.FLAG_IS_READONLY).eq(Task.FLAG_IS_READONLY);
     	}
 
     	/** @return tasks that were not deleted */

@@ -14,6 +14,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -39,7 +40,7 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
     /**
      * @param context
      */
-    public static Filter filterFromList(Context context, ProducteevDashboard dashboard) {
+    public static Filter filterFromList(Context context, ProducteevDashboard dashboard, long currentUserId) {
         String dashboardTitle = dashboard.getName();
         String title = dashboard.getName();
         ContentValues values = new ContentValues();
@@ -48,18 +49,49 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
         values.put(ProducteevTask.ID.name, 0);
         values.put(ProducteevTask.CREATOR_ID.name, 0);
         values.put(ProducteevTask.RESPONSIBLE_ID.name, 0);
-        Filter filter = new Filter(dashboardTitle, title, new QueryTemplate().join(
-                ProducteevDataService.METADATA_JOIN).where(Criterion.and(
-                        MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                        TaskCriteria.isActive(),
-                        TaskCriteria.isVisible(),
-                        ProducteevTask.DASHBOARD_ID.eq(dashboard.getId()))),
-                values);
+        Filter filter;
+        if (currentUserId != -1)
+            filter = new Filter(dashboardTitle, title, new QueryTemplate().join(
+                    ProducteevDataService.METADATA_JOIN).where(Criterion.and(
+                            MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
+                            TaskCriteria.isActive(),
+                            TaskCriteria.isVisible(),
+                            Criterion.or(ProducteevTask.CREATOR_ID.eq(currentUserId),
+                                    ProducteevTask.RESPONSIBLE_ID.eq(currentUserId)),
+                            ProducteevTask.DASHBOARD_ID.eq(dashboard.getId()))),
+                    values);
+        else
+            filter = new Filter(dashboardTitle, title, new QueryTemplate().join(
+                    ProducteevDataService.METADATA_JOIN).where(Criterion.and(
+                            MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
+                            TaskCriteria.isActive(),
+                            TaskCriteria.isVisible(),
+                            ProducteevTask.DASHBOARD_ID.eq(dashboard.getId()))),
+                    values);
 
         return filter;
     }
 
-    private Filter filterFromUser(Context context, ProducteevUser user) {
+    private Filter filterUserAssignedByMe(Context context, ProducteevUser user, long currentUserId) {
+        String title = context.getString(R.string.producteev_FEx_responsible_title, user.toString());
+        ContentValues values = new ContentValues();
+        values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
+        values.put(ProducteevTask.ID.name, 0);
+        values.put(ProducteevTask.CREATOR_ID.name, currentUserId);
+        values.put(ProducteevTask.RESPONSIBLE_ID.name, user.getId());
+        Filter filter = new Filter(user.toString(), title, new QueryTemplate().join(
+                ProducteevDataService.METADATA_JOIN).where(Criterion.and(
+                        MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
+                        TaskCriteria.isActive(),
+                        TaskCriteria.isVisible(),
+                        ProducteevTask.CREATOR_ID.eq(currentUserId),
+                        ProducteevTask.RESPONSIBLE_ID.eq(user.getId()))),
+                        values);
+
+        return filter;
+    }
+
+    private Filter filterUserAssignedByOthers(Context context, ProducteevUser user, long currentUserId) {
         String title = context.getString(R.string.producteev_FEx_responsible_title, user.toString());
         ContentValues values = new ContentValues();
         values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
@@ -71,6 +103,7 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
                         MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
                         TaskCriteria.isActive(),
                         TaskCriteria.isVisible(),
+                        Criterion.not(ProducteevTask.CREATOR_ID.eq(currentUserId)),
                         ProducteevTask.RESPONSIBLE_ID.eq(user.getId()))),
                         values);
 
@@ -92,27 +125,38 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
 
         FilterListHeader producteevHeader = new FilterListHeader(context.getString(R.string.producteev_FEx_header));
 
+        long currentUserId = Preferences.getLong(ProducteevUtilities.PREF_USER_ID, -1);
+
         // load dashboards
         Filter[] dashboardFilters = new Filter[dashboards.length];
         for(int i = 0; i < dashboards.length; i++)
-            dashboardFilters[i] = filterFromList(context, new ProducteevDashboard(dashboards[i]));
+            dashboardFilters[i] = filterFromList(context, new ProducteevDashboard(dashboards[i]), currentUserId);
         FilterCategory producteevDashboards = new FilterCategory(context.getString(R.string.producteev_FEx_dashboard),
                 dashboardFilters);
 
-        // load responsible people
+        // load responsible people, assigned by me
         TreeSet<ProducteevUser> people = loadResponsiblePeople(dashboards);
-        Filter[] peopleFilters = new Filter[people.size()];
+        Filter[] peopleByMeFilters = new Filter[people.size()];
         int index = 0;
         for (ProducteevUser person : people)
-            peopleFilters[index++] = filterFromUser(context, person);
-        FilterCategory producteevUsers = new FilterCategory(context.getString(R.string.producteev_FEx_responsible),
-                peopleFilters);
+            peopleByMeFilters[index++] = filterUserAssignedByMe(context, person, currentUserId);
+        FilterCategory producteevUsersByMeCategory = new FilterCategory(context.getString(R.string.producteev_FEx_responsible_byme),
+                peopleByMeFilters);
+
+        // load responsible people, assigned by others
+        Filter[] peopleByOthersFilters = new Filter[people.size()];
+        index = 0;
+        for (ProducteevUser person : people)
+            peopleByOthersFilters[index++] = filterUserAssignedByOthers(context, person, currentUserId);
+        FilterCategory producteevUsersByOthersCategory = new FilterCategory(context.getString(R.string.producteev_FEx_responsible_byothers),
+                peopleByOthersFilters);
 
         // transmit filter list
-        FilterListItem[] list = new FilterListItem[3];
+        FilterListItem[] list = new FilterListItem[4];
         list[0] = producteevHeader;
         list[1] = producteevDashboards;
-        list[2] = producteevUsers;
+        list[2] = producteevUsersByMeCategory;
+        list[3] = producteevUsersByOthersCategory;
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, ProducteevUtilities.IDENTIFIER);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, list);

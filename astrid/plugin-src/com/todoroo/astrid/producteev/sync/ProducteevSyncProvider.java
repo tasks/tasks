@@ -238,7 +238,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
                         if(remote.pdvTask.getValue(ProducteevTask.CREATOR_ID) != userId &&
                                 remote.pdvTask.getValue(ProducteevTask.RESPONSIBLE_ID) != userId)
-                            continue;
+                            remote.task.setFlag(Task.FLAGS, Task.FLAG_IS_READONLY, true);
+                        else
+                            remote.task.setFlag(Task.FLAGS, Task.FLAG_IS_READONLY, false);
 
                         // update reminder flags for incoming remote tasks to prevent annoying
                         if(remote.task.hasDueDate() && remote.task.getValue(Task.DUE_DATE) < DateUtilities.now())
@@ -302,7 +304,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
                     Notification notification = new Notification(icon, null, when);
                     CharSequence contentTitle = context.getString(R.string.producteev_notification_title)+": "+dashboard.getName();
 
-                    Filter filter = ProducteevFilterExposer.filterFromList(context, dashboard);
+                    Filter filter = ProducteevFilterExposer.filterFromList(context, dashboard, userId);
                     Intent notificationIntent = ShortcutActivity.createIntent(filter);
 
                     // filter the tags from the message

@@ -130,7 +130,8 @@ public class TagFilterExposer extends BroadcastReceiver {
         Filter[] filters = new Filter[sortedTagSet.size()];
         int index = 0;
         for(Tag tag : sortedTagSet) {
-            filters[index++] = filterFromTag(context, tag, TaskCriteria.activeAndVisible());
+            filters[index++] = filterFromTag(context, tag,
+                    Criterion.and(TaskCriteria.activeAndVisible(), Criterion.not(TaskCriteria.isReadOnly())));
         }
         FilterCategory tagsFilter = new FilterCategory(context.getString(R.string.tag_FEx_by_size), filters);
         list[2] = tagsFilter;
