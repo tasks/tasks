@@ -7,9 +7,8 @@ import java.util.Locale;
 
 import org.json.JSONObject;
 
-import android.text.Html;
-
 import com.todoroo.andlib.service.ContextManager;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.notes.NoteMetadata;
@@ -77,9 +76,10 @@ public final class ApiUtilities {
      * @return
      */
     public static String decode(String string) {
-        string = string.replace("\n", "<br/>"); //$NON-NLS-1$ //$NON-NLS-2$
-        return Html.fromHtml(string).toString();
+        return AndroidUtilities.unescapeHTML(string);
     }
+
+
 
     /**
      * Create metadata from json object
