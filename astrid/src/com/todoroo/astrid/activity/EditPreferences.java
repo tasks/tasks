@@ -11,7 +11,6 @@ import java.util.Map.Entry;
 import org.weloveastrid.rmilk.MilkPreferences;
 import org.weloveastrid.rmilk.MilkUtilities;
 
-import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -19,7 +18,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.ResolveInfo;
 import android.content.res.Resources;
-import android.net.Uri;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.Preference;
@@ -303,25 +301,13 @@ public class EditPreferences extends TodorooPreferences {
                             @Override
                             public void onClick(DialogInterface dialog,
                                     int which) {
-                                dialog.dismiss();
-                                // User wants to install voice search, take him to the market
-                                Intent marketIntent = new Intent(Intent.ACTION_VIEW,
-                                        Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
-                                                "com.google.android.voicesearch.x")); //$NON-NLS-1$
-                                try {
-                                    startActivity(marketIntent);
-                                } catch (ActivityNotFoundException ane) {
-                                    DialogUtilities.okDialog(EditPreferences.this,
-                                            r.getString(R.string.EPr_marketUnavailable_dlg),
-                                            new OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface dialog1,
-                                                        int which1) {
-                                                    ((CheckBoxPreference)preference).setChecked(false);
-                                                    dialog1.dismiss();
-                                                }
-                                            });
-                                }
+                                voiceInputAssistant.showVoiceInputMarketSearch(new OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog1,
+                                            int which1) {
+                                        ((CheckBoxPreference)preference).setChecked(false);
+                                    }
+                                });
                             }
                         },
                         new OnClickListener() {

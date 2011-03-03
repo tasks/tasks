@@ -6,9 +6,12 @@ import java.util.List;
 
 import junit.framework.Assert;
 import android.app.Activity;
+import android.content.ActivityNotFoundException;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.speech.RecognizerIntent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 
 /**
@@ -202,6 +207,25 @@ public class VoiceInputAssistant {
             });
         } else {
             voiceButton.setVisibility(View.GONE);
+        }
+    }
+
+    public void showVoiceInputMarketSearch(DialogInterface.OnClickListener onFail) {
+        String packageName;
+        if(AndroidUtilities.getSdkVersion() <= 7)
+            packageName = "com.google.android.voicesearch.x";
+        else
+            packageName = "com.google.android.voicesearch";
+
+        // User wants to install voice search, take him to the market
+        Intent marketIntent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("market://search?q=pname:" + packageName)); //$NON-NLS-1$
+        try {
+            activity.startActivity(marketIntent);
+        } catch (ActivityNotFoundException ane) {
+            DialogUtilities.okDialog(activity,
+                    activity.getString(R.string.EPr_marketUnavailable_dlg),
+                    onFail);
         }
     }
 }
