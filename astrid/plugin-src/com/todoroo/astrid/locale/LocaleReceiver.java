@@ -13,13 +13,13 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.andlib.utility.Preferences;
 
 /**
  * Receiver is activated when Locale conditions are triggered
@@ -91,7 +91,7 @@ public class LocaleReceiver extends BroadcastReceiver {
                     Intent notifyIntent = ShortcutActivity.createIntent(filter);
                     notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     Notifications.showNotification(Constants.NOTIFICATION_LOCALE,
-                            notifyIntent, 0, notificationTitle, reminder, false);
+                            notifyIntent, 0, notificationTitle, reminder, 1);
 
                     Preferences.setLong(preferenceKey, DateUtilities.now());
                 } finally {

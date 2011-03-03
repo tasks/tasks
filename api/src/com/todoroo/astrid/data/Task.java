@@ -149,7 +149,10 @@ public final class Task extends AbstractModel {
     public static final int NOTIFY_AFTER_DEADLINE = 1 << 2;
 
     /** reminder mode non-stop */
-    public static final int NOTIFY_NONSTOP = 1 << 3;
+    public static final int NOTIFY_MODE_NONSTOP = 1 << 3;
+
+    /** reminder mode five times (exclusive with non-stop) */
+    public static final int NOTIFY_MODE_FIVE = 1 << 4;
 
     // --- importance settings (note: importance > 3 are supported via plugin)
 

@@ -21,11 +21,14 @@
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
 
-  <!-- Task Edit: Reminder alarm clock toggle: off -->  
-  <string name="TEA_reminder_alarm_off">Ring Once</string>
+  <!-- Task Edit: Reminder mode: ring once -->  
+  <string name="TEA_reminder_mode_once">Ring Once</string>
 
-  <!-- Task Edit: Reminder alarm clock toggle: on -->  
-  <string name="TEA_reminder_alarm_on">Ring Until I Dismiss Alarm</string>
+  <!-- Task Edit: Reminder mode: ring five times -->  
+  <string name="TEA_reminder_mode_five">Ring Five Times</string>
+
+  <!-- Task Edit: Reminder mode: ring nonstop -->  
+  <string name="TEA_reminder_mode_nonstop">Ring Until I Dismiss Alarm</string>
 
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->

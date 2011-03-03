@@ -90,6 +90,9 @@
   <!-- Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Add to this list...</string>
   
+  <!-- Notification Volumne notification-->
+  <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
+  
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->

@@ -6,6 +6,7 @@ import java.util.List;
 import org.weloveastrid.rmilk.MilkUtilities;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.PendingIntent;
@@ -16,7 +17,9 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
+import android.media.AudioManager;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -80,6 +83,13 @@ public class StartupService {
     public synchronized void onStartupApplication(final Context context) {
         if(hasStartedUp)
             return;
+
+        if(context instanceof Activity) {
+            AudioManager audioManager = (AudioManager)context.getSystemService(
+                Context.AUDIO_SERVICE);
+            if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0)
+                Toast.makeText(context, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
+        }
 
         // set uncaught exception handler
         Thread.setDefaultUncaughtExceptionHandler(new TodorooUncaughtExceptionHandler());

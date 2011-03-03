@@ -304,7 +304,7 @@ public final class TaskEditActivity extends TabActivity {
                             });
                         }
 
-                        controls.add( new ReminderControlSet(R.id.reminder_due,
+                        controls.add(new ReminderControlSet(R.id.reminder_due,
                                 R.id.reminder_overdue, R.id.reminder_alarm));
                         controls.add(new RandomReminderControlSet(R.id.reminder_random,
                                 R.id.reminder_random_interval));
@@ -1293,8 +1293,9 @@ public final class TaskEditActivity extends TabActivity {
             mode = (Spinner)findViewById(modeId);
 
             String[] list = new String[] {
-                    getString(R.string.TEA_reminder_alarm_off),
-                    getString(R.string.TEA_reminder_alarm_on),
+                    getString(R.string.TEA_reminder_mode_once),
+                    getString(R.string.TEA_reminder_mode_five),
+                    getString(R.string.TEA_reminder_mode_nonstop),
             };
             final ArrayAdapter<String> adapter = new ArrayAdapter<String>(
                     TaskEditActivity.this, android.R.layout.simple_spinner_item, list);
@@ -1311,8 +1312,13 @@ public final class TaskEditActivity extends TabActivity {
             during.setChecked((flags & Task.NOTIFY_AT_DEADLINE) > 0);
             after.setChecked((flags &
                     Task.NOTIFY_AFTER_DEADLINE) > 0);
-            mode.setSelection((flags &
-                    Task.NOTIFY_NONSTOP) > 0 ? 1 : 0);
+
+            if((flags & Task.NOTIFY_MODE_NONSTOP) > 0)
+                mode.setSelection(2);
+            else if((flags & Task.NOTIFY_MODE_FIVE) > 0)
+                mode.setSelection(1);
+            else
+                mode.setSelection(0);
         }
 
         public int getValue() {
@@ -1321,8 +1327,13 @@ public final class TaskEditActivity extends TabActivity {
                 value |= Task.NOTIFY_AT_DEADLINE;
             if(after.isChecked())
                 value |= Task.NOTIFY_AFTER_DEADLINE;
-            if(mode.getSelectedItemPosition() == 1)
-                value |= Task.NOTIFY_NONSTOP;
+
+            value &= ~(Task.NOTIFY_MODE_FIVE | Task.NOTIFY_MODE_NONSTOP);
+            if(mode.getSelectedItemPosition() == 2)
+                value |= Task.NOTIFY_MODE_NONSTOP;
+            else if(mode.getSelectedItemPosition() == 1)
+                value |= Task.NOTIFY_MODE_FIVE;
+
             return value;
         }
 

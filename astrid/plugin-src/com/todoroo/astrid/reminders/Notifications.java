@@ -145,7 +145,9 @@ public class Notifications extends BroadcastReceiver {
 
         // read properties
         String taskTitle = task.getValue(Task.TITLE);
-        boolean nonstopMode = task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_NONSTOP);
+        boolean nonstopMode = task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_MODE_NONSTOP);
+        boolean ringFiveMode = task.getFlag(Task.REMINDER_FLAGS, Task.NOTIFY_MODE_FIVE);
+        int ringTimes = nonstopMode ? -1 : (ringFiveMode ? 5 : 1);
 
         // update last reminder time
         task.setValue(Task.REMINDER_LAST, DateUtilities.now());
@@ -160,16 +162,17 @@ public class Notifications extends BroadcastReceiver {
         notifyIntent.putExtra(NotificationActivity.TOKEN_ID, id);
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
 
-        showNotification((int)id, notifyIntent, type, title, text, nonstopMode);
+        showNotification((int)id, notifyIntent, type, title, text, ringTimes);
         return true;
     }
 
     /**
      * Shows an Astrid notification. Pulls in ring tone and quiet hour settings
      * from preferences. You can make it say anything you like.
+     * @param ringTimes number of times to ring (-1 = nonstop)
      */
     public static void showNotification(int notificationId, Intent intent, int type, String title,
-            String text, boolean nonstopMode) {
+            String text, int ringTimes) {
         Context context = ContextManager.getContext();
         if(notificationManager == null)
             notificationManager = new AndroidNotificationManager(context);
@@ -178,7 +181,7 @@ public class Notifications extends BroadcastReceiver {
         boolean quietHours = false;
         int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
         int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd, -1);
-        if(quietHoursStart != -1 && quietHoursEnd != -1 && !nonstopMode) {
+        if(quietHoursStart != -1 && quietHoursEnd != -1 && ringTimes >= 0) {
             int hour = new Date().getHours();
             if(quietHoursStart <= quietHoursEnd) {
                 if(hour >= quietHoursStart && hour < quietHoursEnd)
@@ -235,7 +238,7 @@ public class Notifications extends BroadcastReceiver {
         // if non-stop mode is activated, set up the flags for insistent
         // notification, and increase the volume to full volume, so the user
         // will actually pay attention to the alarm
-        if(nonstopMode && (type != ReminderService.TYPE_RANDOM)) {
+        if(ringTimes < 0 && (type != ReminderService.TYPE_RANDOM)) {
             notification.flags |= Notification.FLAG_INSISTENT;
             notification.audioStreamType = AudioManager.STREAM_ALARM;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
@@ -243,6 +246,9 @@ public class Notifications extends BroadcastReceiver {
             voiceReminder = false;
         } else {
             notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
+            if(ringTimes > 3)
+                audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION,
+                        audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION), 0);
         }
 
         // quiet hours = no sound
@@ -283,9 +289,13 @@ public class Notifications extends BroadcastReceiver {
         if(Constants.DEBUG)
             Log.w("Astrid", "Logging notification: " + text); //$NON-NLS-1$ //$NON-NLS-2$
 
-        notificationManager.notify(notificationId, notification);
+        for(int i = 0; i < Math.max(ringTimes, 1); i++) {
+            notificationManager.notify(notificationId, notification);
+            AndroidUtilities.sleepDeep(500);
+        }
+
         if (voiceReminder) {
-            AndroidUtilities.sleepDeep(1000);
+            AndroidUtilities.sleepDeep(2000);
             for(int i = 0; i < 50; i++) {
                 AndroidUtilities.sleepDeep(500);
                 if(audioManager.getMode() != AudioManager.MODE_RINGTONE)
