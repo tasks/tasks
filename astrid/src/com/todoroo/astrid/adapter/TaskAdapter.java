@@ -418,7 +418,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                     query.get(), null, Task.ID, Task.DETAILS, Task.DETAILS_DATE,
                     Task.MODIFICATION_DATE, Task.COMPLETION_DATE);
             try {
-                activity.startManagingCursor(fetchCursor);
                 Random random = new Random();
 
                 Task task = new Task();
