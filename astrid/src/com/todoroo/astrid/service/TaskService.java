@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.weloveastrid.rmilk.data.MilkTaskFields;
+
 import android.content.ContentValues;
 
 import com.todoroo.andlib.data.Property;
@@ -114,6 +116,8 @@ public class TaskService {
                     if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         continue;
                     if(ProducteevTask.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
+                        continue;
+                    if(MilkTaskFields.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         continue;
 
                     metadata.setValue(Metadata.TASK, newId);

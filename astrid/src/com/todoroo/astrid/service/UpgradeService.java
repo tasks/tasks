@@ -124,7 +124,7 @@ public final class UpgradeService {
         StringBuilder changeLog = new StringBuilder();
 
         if(from <= V2_14_4) {
-            newVersionString(changeLog, "3.6.0 (11/13/10)", new String[] {
+            newVersionString(changeLog, "3.7.2 (3/04/11)", new String[] {
                     "Astrid is brand new inside and out! In addition to a new " +
                     "look and feel, a new add-on system allows Astrid to become " +
                     "more powerful, while other improvements have made it faster " +
