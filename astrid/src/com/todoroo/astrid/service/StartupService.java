@@ -79,23 +79,31 @@ public class StartupService {
      */
     private static boolean hasStartedUp = false;
 
+    /**
+     * Call to skip initialization steps (i.e. if only a notification screen is needed)
+     */
+    public synchronized static void bypassInitialization() {
+        hasStartedUp = true;
+    }
+
     /** Called when this application is started up */
     public synchronized void onStartupApplication(final Context context) {
         if(hasStartedUp)
             return;
-
-        if(context instanceof Activity) {
-            AudioManager audioManager = (AudioManager)context.getSystemService(
-                Context.AUDIO_SERVICE);
-            if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0)
-                Toast.makeText(context, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
-        }
 
         // set uncaught exception handler
         Thread.setDefaultUncaughtExceptionHandler(new TodorooUncaughtExceptionHandler());
 
         // sets up context manager
         ContextManager.setContext(context);
+
+        // show notification if reminders are silenced
+        if(context instanceof Activity) {
+            AudioManager audioManager = (AudioManager)context.getSystemService(
+                Context.AUDIO_SERVICE);
+            if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0)
+                Toast.makeText(context, R.string.TLA_notification_volume_low, Toast.LENGTH_LONG).show();
+        }
 
         // read current version
         int latestSetVersion = AstridPreferences.getCurrentVersion();

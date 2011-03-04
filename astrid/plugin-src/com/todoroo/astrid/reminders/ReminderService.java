@@ -21,11 +21,11 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.andlib.utility.Preferences;
 
 
 /**
@@ -176,6 +176,18 @@ public final class ReminderService  {
 
         // notifications after due date
         long whenOverdue = calculateNextOverdueReminder(task);
+
+        /*if(Constants.DEBUG) {
+            System.err.println("TASK: " + task.getValue(Task.TITLE));
+            System.err.println("LAST REMINDER: " + new Date(task.getValue(Task.REMINDER_LAST)));
+            if(task.hasDueDate())
+                System.err.println("DUEDATE: " + new Date(task.getValue(Task.DUE_DATE)));
+            System.err.println("WHEN OVERDUE: " + (whenOverdue));
+            System.err.println("WHEN DUED: " + (whenDueDate));
+            System.err.println("WHEN SNOOZ: " + (whenSnooze));
+            System.err.println("WHEN RANDO: " + (whenRandom));
+        }*/
+
 
         // if random reminders are too close to due date, favor due date
         if(whenRandom != NO_ALARM && whenDueDate - whenRandom < DateUtilities.ONE_DAY)
@@ -355,7 +367,7 @@ public final class ReminderService  {
                 if(time < DateUtilities.now())
                     time = DateUtilities.now() + 5000L;
 
-                if(Constants.DEBUG)
+               if(Constants.DEBUG)
                     Log.e("Astrid", "Reminder (" + task.getId() + ", " + type +
                         ") set for " + new Date(time));
                 am.set(AlarmManager.RTC_WAKEUP, time, pendingIntent);

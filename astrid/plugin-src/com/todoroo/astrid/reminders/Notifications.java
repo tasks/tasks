@@ -235,21 +235,25 @@ public class Notifications extends BroadcastReceiver {
         int callState = tm.getCallState();
 
         boolean voiceReminder = Preferences.getBoolean(R.string.p_voiceRemindersEnabled, false);
-        // if non-stop mode is activated, set up the flags for insistent
+
+        // if multi-ring is activated, set up the flags for insistent
         // notification, and increase the volume to full volume, so the user
         // will actually pay attention to the alarm
-        if(ringTimes < 0 && (type != ReminderService.TYPE_RANDOM)) {
-            notification.flags |= Notification.FLAG_INSISTENT;
+        if(ringTimes != 1 && (type != ReminderService.TYPE_RANDOM)) {
             notification.audioStreamType = AudioManager.STREAM_ALARM;
             audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
                     audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
-            voiceReminder = false;
+
+            // insistent rings until notification is disabled
+            if(ringTimes < 0) {
+                notification.flags |= Notification.FLAG_INSISTENT;
+                voiceReminder = false;
+            }
+
         } else {
             notification.audioStreamType = AudioManager.STREAM_NOTIFICATION;
-            if(ringTimes > 3)
-                audioManager.setStreamVolume(AudioManager.STREAM_NOTIFICATION,
-                        audioManager.getStreamMaxVolume(AudioManager.STREAM_NOTIFICATION), 0);
         }
+
 
         // quiet hours = no sound
         if(quietHours || callState != TelephonyManager.CALL_STATE_IDLE) {

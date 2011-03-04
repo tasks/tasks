@@ -30,8 +30,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -42,13 +42,14 @@ import android.widget.TimePicker;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.ui.NumberPicker;
-import com.todoroo.andlib.utility.Preferences;
 
 /**
  * This activity is launched when a user opens up a notification from the
@@ -70,6 +71,8 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        StartupService.bypassInitialization();
+
         super.onCreate(savedInstanceState);
 
         displayNotificationPopup();
