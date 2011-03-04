@@ -539,26 +539,23 @@ public class ProducteevInvoker {
             String request = createFetchUrl(method, getParameters);
             String response = null;
             try {
-                System.err.println("el request: " + request);
                 response = restClient.get(request);
             } catch (ApiSignatureException e) {
-                System.err.println("HAHAHAHAHA look dude: " + e);
                 // clear cookies, get new token, retry
-                for(int retry = 0; retry < 2; retry++) {
-                    String oldToken = token;
-                    restClient.reset();
-                    authenticate(retryEmail, retryPassword);
-                    for(int i = 0; i < getParameters.length; i++)
-                        if(oldToken.equals(getParameters[i])) {
-                            getParameters[i] = getToken();
-                        }
-                    request = createFetchUrl(method, getParameters);
-                    try {
-                        response = restClient.get(request);
-                    } catch (ApiSignatureException newException) {
-                        //
+                String oldToken = token;
+                restClient.reset();
+                authenticate(retryEmail, retryPassword);
+                for(int i = 0; i < getParameters.length; i++)
+                    if(oldToken.equals(getParameters[i])) {
+                        getParameters[i] = getToken();
                     }
+                request = createFetchUrl(method, getParameters);
+                try {
+                    response = restClient.get(request);
+                } catch (ApiSignatureException newException) {
+                    //
                 }
+
                 if(response == null)
                     throw e;
             }
