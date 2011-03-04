@@ -96,10 +96,12 @@ public final class ProducteevDataService {
      */
     public TodorooCursor<Task> getLocallyCreated(Property<?>[] properties) {
         return
-            taskDao.query(Query.select(properties).join(ProducteevDataService.METADATA_JOIN).where(Criterion.and(
-                    Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
-                            where(Criterion.and(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY), ProducteevTask.ID.gt(0))))),
-                    TaskCriteria.isActive())).groupBy(Task.ID));
+            taskDao.query(Query.select(properties).join(ProducteevDataService.METADATA_JOIN).where(
+                    Criterion.and(
+                            Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
+                                    where(Criterion.and(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY), ProducteevTask.ID.gt(0))))),
+                            TaskCriteria.isActive())).
+                    groupBy(Task.ID));
     }
 
     /**
@@ -112,9 +114,12 @@ public final class ProducteevDataService {
         if(lastSyncDate == 0)
             return taskDao.query(Query.select(Task.ID).where(Criterion.none));
         return
-            taskDao.query(Query.select(properties).join(ProducteevDataService.METADATA_JOIN).
-                    where(Criterion.and(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
-                            Task.MODIFICATION_DATE.gt(lastSyncDate))).groupBy(Task.ID));
+            taskDao.query(Query.select(properties).join(ProducteevDataService.METADATA_JOIN).where(
+                    Criterion.and(
+                            MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
+                            ProducteevTask.ID.gt(0),
+                            Task.MODIFICATION_DATE.gt(lastSyncDate))).
+                    groupBy(Task.ID));
     }
 
     /**
