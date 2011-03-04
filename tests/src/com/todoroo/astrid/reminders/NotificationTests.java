@@ -9,10 +9,10 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.andlib.utility.Preferences;
 
 public class NotificationTests extends DatabaseTestCase {
 
@@ -161,7 +161,7 @@ public class NotificationTests extends DatabaseTestCase {
         new Notifications().onReceive(getContext(), intent);
 
         // nonstop notification still sounds
-        task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_NONSTOP);
+        task.setValue(Task.REMINDER_FLAGS, Task.NOTIFY_MODE_NONSTOP);
         taskDao.persist(task);
         Notifications.setNotificationManager(new TestNotificationManager() {
             public void notify(int id, Notification notification) {

@@ -243,7 +243,7 @@
       </intent-filter>
     </activity>
     <activity android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity" 
-              android:theme="@style/White"/>
+              android:theme="@style/White" android:configChanges="orientation|keyboardHidden"/>
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksFilterExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />
@@ -344,6 +344,7 @@
     <activity android:name="com.todoroo.astrid.backup.BackupActivity"
               android:theme="@android:style/Theme.Dialog"
               android:icon="@drawable/ic_menu_archive"
+              android:configChanges="orientation|keyboardHidden"
               android:label="@string/backup_BAc_label">
       <intent-filter>   
         <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />
@@ -459,7 +460,7 @@
       </intent-filter>
     </activity>
     <activity android:name="com.todoroo.astrid.producteev.ProducteevLoginActivity"
-              android:theme="@style/Theme" />
+              android:theme="@style/Theme" android:configChanges="orientation|keyboardHidden" />
     <service android:name="com.todoroo.astrid.producteev.ProducteevBackgroundService">
       <intent-filter>
         <action android:name="com.todoroo.astrid.producteev.SYNC" />

@@ -539,8 +539,10 @@ public class ProducteevInvoker {
             String request = createFetchUrl(method, getParameters);
             String response = null;
             try {
+                System.err.println("el request: " + request);
                 response = restClient.get(request);
             } catch (ApiSignatureException e) {
+                System.err.println("HAHAHAHAHA look dude: " + e);
                 // clear cookies, get new token, retry
                 for(int retry = 0; retry < 2; retry++) {
                     String oldToken = token;

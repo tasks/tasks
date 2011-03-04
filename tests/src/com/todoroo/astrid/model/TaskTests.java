@@ -26,7 +26,7 @@ public class TaskTests extends DatabaseTestCase {
         ArrayList<Integer> reminderFlags = new ArrayList<Integer>();
         reminderFlags.add(Task.NOTIFY_AFTER_DEADLINE);
         reminderFlags.add(Task.NOTIFY_AT_DEADLINE);
-        reminderFlags.add(Task.NOTIFY_NONSTOP);
+        reminderFlags.add(Task.NOTIFY_MODE_NONSTOP);
 
         // assert no duplicates
         assertEquals(new TreeSet<Integer>(reminderFlags).size(),
