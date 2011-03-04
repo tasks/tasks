@@ -34,6 +34,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_7_2 = 174;
     public static final int V3_7_1 = 173;
     public static final int V3_7_0 = 172;
     public static final int V3_6_4 = 170;
@@ -133,15 +134,24 @@ public final class UpgradeService {
             });
         } else {
             // current message
-            if(from < V3_7_1) {
-                newVersionString(changeLog, "3.7.1 (2/17/10)", new String[] {
+            if(from < V3_7_2) {
+                newVersionString(changeLog, "3.7.2 (3/04/11)", new String[] {
+                        "Added a 'Ring 5 times' setting to task reminders",
+                        "Added 'Copy Task' to the long-press menu",
+                        "Fixed crash for Motorola Xoom / Android Honeycomb users",
+                        "Fixed some Producteev-related errors and duplicated task issues.",
+                        "Fixed issue with importing repeating tasks from XML",
+                });
+            }
+            if(from >= V3_7_0 && from < V3_7_1) {
+                newVersionString(changeLog, "3.7.1 (2/17/11)", new String[] {
                     "Fixed due date reminders not being displayed",
                     "Added an 'About' screen for displaying current version.",
                     "Fixed several user-reported crashes! Keep 'em coming :)",
                 });
             }
             if(from >= V3_0_0 && from < V3_7_0) {
-                newVersionString(changeLog, "3.7.0 (2/7/10)", new String[] {
+                newVersionString(changeLog, "3.7.0 (2/7/11)", new String[] {
                         "Improved UI for displaying task actions. Tap a task to " +
                             "bring up actions, tap again to dismiss.",
                         "Task notes can be viewed by tapping the note icon to " +
