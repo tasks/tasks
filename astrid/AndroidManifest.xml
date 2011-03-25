@@ -533,8 +533,8 @@
         <action android:name="com.todoroo.astrid.REQUEST_SYNC_ACTIONS" />
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
-    </receiver>    
-
+    </receiver>
+    
     <!-- other task actions -->
     <receiver android:name="com.todoroo.astrid.core.LinkActionExposer">
       <intent-filter>

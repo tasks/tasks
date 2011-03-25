@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen  
+    xmlns:android="http://schemas.android.com/apk/res/android">  
+       
+    <PreferenceCategory
+        android:title="@string/sync_SPr_group_status">
+    
+        <Preference 
+            android:layout="@layout/status_preference"
+            android:key="@string/sync_SPr_status_key"  
+            android:textSize="24sp"
+            android:gravity="center"/>
+        
+    </PreferenceCategory>
+            
+    <PreferenceCategory
+        android:title="@string/sync_SPr_group_options">
+    
+        <ListPreference  
+            android:key="@string/opencrx_PPr_interval_key"  
+            android:entries="@array/sync_SPr_interval_entries"  
+            android:entryValues="@array/sync_SPr_interval_values"  
+            android:title="@string/sync_SPr_interval_title" />
+    
+        <ListPreference  
+            android:key="@string/opencrx_PPr_defaultcreator_key"  
+            android:title="@string/opencrx_PPr_defaultcreator_title" />
+            
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/opencrx_group">
+        <EditTextPreference 
+        	android:key="@string/opencrx_PPr_host_key" 
+        	android:title="@string/opencrx_host_title"
+        	android:dialogTitle="@string/opencrx_host_dialog_title"
+        	android:summary="@string/opencrx_host_summary"
+        	/>
+        <EditTextPreference 
+        	android:key="@string/opencrx_PPr_segment_key" 
+        	android:title="@string/opencrx_segment_title"
+        	android:dialogTitle="@string/opencrx_segment_dialog_title"
+        	android:summary="@string/opencrx_segment_summary"
+        	android:defaultValue="@string/opencrx_segment_default"
+        	/>
+        <EditTextPreference 
+        	android:key="@string/opencrx_PPr_provider_key" 
+        	android:title="@string/opencrx_provider_title"
+        	android:dialogTitle="@string/opencrx_provider_dialog_title"
+        	android:summary="@string/opencrx_provider_summary"
+        	android:defaultValue="@string/opencrx_provider_default"
+        	/>
+    </PreferenceCategory>
+    
+    <PreferenceCategory
+        android:title="@string/sync_SPr_group_actions">
+        <Preference 
+            android:key="@string/sync_SPr_sync_key"
+            android:title="@string/sync_SPr_sync" />
+    
+        <Preference 
+            android:key="@string/sync_SPr_forget_key"
+            android:title="@string/sync_SPr_forget"
+            android:summary="@string/sync_SPr_forget_description" />
+    </PreferenceCategory>
+            
+</PreferenceScreen>  

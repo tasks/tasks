@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ====================== Plugin Boilerplate ========================= -->
+
+	<!-- filters header: OpenCRX -->
+    <string name="opencrx_FEx_header">OpenCRX</string>
+    
+    <!-- filter category for OpenCRX ActivityCreators -->
+    <string name="opencrx_FEx_dashboard">Workspaces</string>
+    
+    <!-- filter category for OpenCRX responsible person -->
+    <string name="opencrx_FEx_responsible">Assigned To</string>
+    
+    <!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
+    <string name="opencrx_FEx_responsible_title">Assigned To \'%s\'</string>
+    
+    <!-- detail for showing tasks created by someone else (%s => person name) -->
+    <string name="opencrx_PDE_task_from">from %s</string>
+    
+    <!-- replacement string for task edit "Notes" when using OpenCRX -->
+    <string name="opencrx_TEA_notes">Add a Comment</string>
+    
+    <string name="opencrx_creator_input_hint">Creator</string>
+
+    <string name="opencrx_contact_input_hint">Assigned to</string>
+    <!-- ==================================================== Preferences == -->
+
+    <!-- Preferences Title: OpenCRX -->    
+    <string name="opencrx_PPr_header">OpenCRX</string>
+
+    <!-- creator title for tasks that are not synchronized -->
+    <string name="opencrx_no_creator">(Do Not Synchronize)</string>
+
+	<!-- preference title for default creator -->
+    <string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
+
+    <!-- preference description for default creator (%s -> setting) -->
+    <string name="opencrx_PPr_defaultcreator_summary">New activities will be created by: %s</string>
+
+    <!-- preference description for default dashboard (when set to 'not synchronized') -->
+    <string name="opencrx_PPr_defaultcreator_summary_none">New activities will not be synchronized by default</string>
+    
+    <!--  OpenCRX host and segment group name -->
+    <string name="opencrx_group">OpenCRX server</string>
+
+    <!--  preference description for OpenCRX host -->
+    <string name="opencrx_host_title">Host</string>
+
+    <!--  dialog title for OpenCRX host -->
+    <string name="opencrx_host_dialog_title">OpenCRX host</string>
+    
+    <!--  example for OpenCRX host -->
+    <string name="opencrx_host_summary">For example: <i>mydomain.com</i></string>
+    
+    <!--  preference description for OpenCRX segment -->
+    <string name="opencrx_segment_title">Segment</string>
+
+    <!--  dialog title for OpenCRX segment -->
+    <string name="opencrx_segment_dialog_title">Synchronized segment</string>
+    
+    <!--  example for OpenCRX segment -->
+    <string name="opencrx_segment_summary">For example: <i>Standard</i></string>
+    
+    <!--  default value for OpenCRX segment -->
+    <string name="opencrx_segment_default">Standard</string>
+    
+    <!--  preference description for OpenCRX provider -->
+    <string name="opencrx_provider_title">Provider</string>
+
+    <!--  dialog title for OpenCRX provider -->
+    <string name="opencrx_provider_dialog_title">OpenCRX data provider</string>
+    
+    <!--  example for OpenCRX provider -->
+    <string name="opencrx_provider_summary">For example: <i>CRX</i></string>
+    
+    <!--  default value for OpenCRX provider -->
+    <string name="opencrx_provider_default">CRX</string>
+    <!-- ================================================= Login Activity == -->
+
+    <!-- Activity Title: Opencrx Login -->    
+    <string name="opencrx_PLA_title">Log In to OpenCRX</string>
+
+    <!-- Instructions: Opencrx login -->    
+    <string name="opencrx_PLA_body">Sign in with your OpenCRX account</string>
+
+    <!-- Sign In Button -->    
+    <string name="opencrx_PLA_signIn">Sign In</string>
+
+    <!-- Login Label -->    
+    <string name="opencrx_PLA_login">Login</string>
+
+    <!-- Password Label -->    
+    <string name="opencrx_PLA_password">Password</string>
+    
+        <!-- Error Message when fields aren't filled out -->    
+    <string name="opencrx_PLA_errorEmpty">Error: fillout all fields</string>
+    
+    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
+    <string name="opencrx_PLA_errorAuth">Error: login or password incorrect!</string>
+
+    <!-- ================================================ Synchronization == -->
+        
+    <!-- title for notification tray after synchronizing -->
+    <string name="opencrx_notification_title">OpenCRX</string>
+    
+    <!-- text for notification tray when synchronizing -->
+    <string name="opencrx_notification_text">%s tasks updated / click for more details</string>
+    
+    <!-- Error msg when io exception  -->
+    <string name="opencrx_ioerror">Connection Error! Check your Internet connection.</string>
+
+    <!-- opencrx Login not specified-->
+    <string name="opencrx_MLA_email_empty">Login was not specified!</string>
+    
+    <!-- opencrx password not specified-->
+    <string name="opencrx_MLA_password_empty">Password was not specified!</string>
+    
+    <!-- ================================================ labels for layout-elements == -->
+    
+    <!-- label for task-assignment spinner on taskeditactivity -->
+    <string name="opencrx_TEA_task_assign_label">Assign this task to this person:</string>
+    
+    <!-- Spinner-item for unassigned tasks on taskeditactivity -->
+    <string name="opencrx_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    
+    <!-- label for dashboard-assignment spinner on taskeditactivity -->
+    <string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
+
+    <!-- Spinner-item for default dashboard on taskeditactivity -->
+    <string name="opencrx_TEA_dashboard_default">&lt;Default&gt;</string>
+
+    <string name="CFC_opencrx_in_workspace_text">In workspace: ?</string>
+
+    <string name="CFC_opencrx_in_workspace_name">In workspace...</string>
+
+    <string name="CFC_opencrx_assigned_to_text">Assigned to: ?</string>
+
+    <string name="CFC_opencrx_assigned_to_name">Assigned to...</string>
+
+</resources>

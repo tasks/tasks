@@ -16,7 +16,8 @@
 	<classpathentry exported="true" kind="lib" path="libs/todoroo-g.jar"/>
 	<classpathentry kind="lib" path="libs/framework.jar"/>
 	<classpathentry kind="src" path="GreenDroid_src"/>
-	<classpathentry kind="src" path="astridApi_src"/>
 	<classpathentry kind="src" path="facebook_src"/>
+	<classpathentry kind="src" path="astridApi_src"/>
+	<classpathentry kind="src" path="facebook_android_src"/>
 	<classpathentry kind="output" path="ecbuild"/>
 </classpath>

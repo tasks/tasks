@@ -48,6 +48,11 @@
 			<locationURI>_android_astridApi_98e6a2cf/src</locationURI>
 		</link>
 		<link>
+			<name>facebook_android_src</name>
+			<type>2</type>
+			<locationURI>_android_facebook_android_1d8d51f6/src</locationURI>
+		</link>
+		<link>
 			<name>facebook_src</name>
 			<type>2</type>
 			<locationURI>_android_facebook_1da19ac6/src</locationURI>

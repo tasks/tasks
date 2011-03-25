@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.weloveastrid.rmilk.MilkUtilities;
 
+import ru.otdelit.astrid.opencrx.OpencrxCoreUtils;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -12,8 +13,8 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
+import android.content.DialogInterface.OnClickListener;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -153,6 +154,7 @@ public class StartupService {
                 // if sync ongoing flag was set, clear it
                 ProducteevUtilities.INSTANCE.stopOngoing();
                 MilkUtilities.INSTANCE.stopOngoing();
+                OpencrxCoreUtils.INSTANCE.stopOngoing();
 
                 BackupService.scheduleService(context);
 

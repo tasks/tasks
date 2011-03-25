@@ -72,6 +72,8 @@ public class DependencyInjectionService {
             return true;
         if(packageName.startsWith("org.weloveastrid"))
             return true;
+        if(packageName.startsWith("ru.otdelit"))
+            return true;
         return false;
     }
 

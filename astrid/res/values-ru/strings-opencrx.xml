@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- ====================== Plugin Boilerplate OpenCRX ========================= -->
+
+	<!-- filters header: Opencrx -->
+    <string name="opencrx_FEx_header">OpenCRX</string>
+    
+    <!-- filter category for opencrx dashboards -->
+    <string name="opencrx_FEx_dashboard">Создатели деятельности</string>
+    
+    <!-- filter category for opencrx responsible person -->
+    <string name="opencrx_FEx_responsible">Ответственный</string>
+    
+    <!--  opencrx dashboard filter title (%s => dashboardname) -->
+    <string name="opencrx_FEx_responsible_title">Ответственный \'%s\'</string>
+    
+    <!-- opencrx detail for showing tasks created by someone else (%s => person name) -->
+    <string name="opencrx_PDE_task_from">от %s</string>
+    
+    <!-- replacement string for task edit "Notes" when using opencrx -->
+    <string name="opencrx_TEA_notes">Добавить комментарий</string>
+
+    <!-- ==================================================== Preferences == -->
+
+    <!-- Preferences Title: opencrx -->    
+    <string name="opencrx_PPr_header">OpenCRX</string>
+
+    <!-- dashboard title for tasks that are not synchronized opencrx -->
+    <string name="opencrx_no_creator">Не синхронизировать</string>
+
+	<!-- preference title for default dashboard opencrx -->
+    <string name="opencrx_PPr_defaultcreator_title">Создатель деятельности по умолчанию</string>
+
+    <!-- preference description for default dashboard (%s -> setting) opencrx -->
+    <string name="opencrx_PPr_defaultcreator_summary">Добавлять новые задачи в %s</string>
+
+    <!-- preference description for default dashboard (when set to 'not synchronized') opencrx -->
+    <string name="opencrx_PPr_defaultcreator_summary_none">Новые задачи не будут синхонизированы по умолчанию</string>
+    
+        <!--  OpenCRX host and segment group name -->
+    <string name="opencrx_group">Адрес OpenCRX</string>
+
+    <!--  preference description for OpenCRX host -->
+    <string name="opencrx_host_title">Адрес</string>
+
+    <!--  dialog title for OpenCRX host -->
+    <string name="opencrx_host_dialog_title">Адрес OpenCRX</string>
+    
+    <!--  example for OpenCRX host -->
+    <string name="opencrx_host_summary">Например: <i>mydomain.com/opencrx-rest-CRX</i></string>
+    
+    <!--  preference description for OpenCRX segment -->
+    <string name="opencrx_segment_title">Сегмент</string>
+
+    <!--  dialog title for OpenCRX segment -->
+    <string name="opencrx_segment_dialog_title">Синхронизируемый сегмент</string>
+    
+    <!--  example for OpenCRX segment -->
+    <string name="opencrx_segment_summary">Например: <i>Standard</i></string>
+    
+    <!--  default value for OpenCRX segment -->
+    <string name="opencrx_segment_default">Standard</string>
+    
+    <!--  preference description for OpenCRX provider -->
+    <string name="opencrx_provider_title">Provider</string>
+
+    <!--  dialog title for OpenCRX provider -->
+    <string name="opencrx_provider_dialog_title">OpenCRX data provider</string>
+    
+    <!--  example for OpenCRX provider -->
+    <string name="opencrx_provider_summary">Например: <i>CRX</i></string>
+    
+    <!--  default value for OpenCRX provider -->
+    <string name="opencrx_provider_default">CRX</string>
+    
+
+    <!-- ================================================= Login Activity == -->
+
+    <!-- Activity Title: OpenCRX Login -->    
+    <string name="opencrx_PLA_title">Войти в OpenCRX</string>
+
+    <!-- Instructions: OpenCRX login -->    
+    <string name="opencrx_PLA_body">Войдите в OpenCRX, используя существующую учётную запись!</string>
+
+    <!-- Sign In Button opencrx -->    
+    <string name="opencrx_PLA_signIn">Войти</string>
+
+    <!-- Login Label OpenCRX -->    
+    <string name="opencrx_PLA_login">Имя пользователя</string>
+
+    <!-- Password Label OpenCRX -->    
+    <string name="opencrx_PLA_password">Пароль</string>
+    
+    <!-- Error Message when fields aren't filled out opencrx -->    
+    <string name="opencrx_PLA_errorEmpty">Ошибка: заполните все поля!</string>
+
+    <!-- Error Message when we receive a HTTP 401 Unauthorized opencrx -->    
+    <string name="opencrx_PLA_errorAuth">Ошибка: неправильное имя пользователя или пароль!</string>
+
+    <!-- ================================================ Synchronization == -->
+        
+    <!-- title for notification tray after synchronizing opencrx -->
+    <string name="opencrx_notification_title">OpenCRX</string>
+    
+    <!-- text for notification tray when synchronizing opencrx -->
+    <string name="opencrx_notification_text">%s задач обновлено / кликните для подробностей</string>
+    
+    <!-- Error msg when io exception opencrx  -->
+    <string name="opencrx_ioerror">Ошибка соединения! Проверьте подключение к интернету.</string>
+
+    <!-- Prod Login email not specified opencrx-->
+    <string name="opencrx_MLA_email_empty">Не указано имя пользователя!</string>
+    
+    <!-- Prod Login password not specified opencrx-->
+    <string name="opencrx_MLA_password_empty">Не указан пароль!</string>
+    
+    <!-- ================================================ labels for layout-elements  opencrx== -->
+    
+    <!-- label for task-assignment spinner on taskeditactivity opencrx -->
+    <string name="opencrx_TEA_task_assign_label">Назначить эту задачу этому человеку:</string>
+    
+    <!-- Spinner-item for unassigned tasks on taskeditactivity opencrx -->
+    <string name="opencrx_TEA_task_unassigned">&lt;Без назначения&gt;</string>
+    
+    <!-- label for dashboard-assignment spinner on taskeditactivity opencrx -->
+    <string name="opencrx_TEA_creator_assign_label">Назначить эту задачу этому создателю деятельности:</string>
+
+    <!-- Spinner-item for default dashboard on taskeditactivity opencrx -->
+    <string name="opencrx_TEA_dashboard_default">&lt;По умолчанию&gt;</string>
+
+    <string name="CFC_opencrx_in_workspace_text">в среде: ?</string>
+
+    <string name="CFC_opencrx_in_workspace_name">в среде...</string>
+
+    <string name="CFC_opencrx_assigned_to_text">Присвоено: ?</string>
+
+    <string name="CFC_opencrx_assigned_to_name">Присвоено ...</string>
+
+
+</resources>

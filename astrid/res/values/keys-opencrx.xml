@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  This file contains preference keys and preference list values.
+  These should not be translated 
+-->
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string name="opencrx_PPr_interval_key">opencrx_sync_freq</string>
+    <string name="opencrx_PPr_login">opencrx_email</string>    
+    <string name="opencrx_PPr_password">opencrx_password</string>    
+    <string name="opencrx_PPr_defaultcreator_key">opencrx_defaultcreator</string>
+    <string name="opencrx_PPr_host_key">opencrx_host</string>    
+    <string name="opencrx_PPr_segment_key">opencrx_segment</string>    
+    <string name="opencrx_PPr_provider_key">opencrx_provider</string>    
+</resources>

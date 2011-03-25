@@ -26,16 +26,18 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import ru.otdelit.astrid.opencrx.OpencrxControlSet;
+import ru.otdelit.astrid.opencrx.OpencrxCoreUtils;
 import android.app.AlertDialog;
 import android.app.TabActivity;
 import android.content.BroadcastReceiver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.DialogInterface.OnCancelListener;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -48,7 +50,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -63,6 +64,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ToggleButton;
+import android.widget.AdapterView.OnItemSelectedListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property.StringProperty;
@@ -280,6 +282,16 @@ public final class TaskEditActivity extends TabActivity {
                                 controls.add(new ProducteevControlSet(TaskEditActivity.this, addonsAddons));
                                 notesEditText.setHint(R.string.producteev_TEA_notes);
                                 ((TextView)findViewById(R.id.notes_label)).setHint(R.string.producteev_TEA_notes);
+                            }
+                        } catch (Exception e) {
+                            Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
+                        }
+
+                        try {
+                            if(OpencrxCoreUtils.INSTANCE.isLoggedIn()) {
+                                controls.add(new OpencrxControlSet(TaskEditActivity.this, addonsAddons));
+                                notesEditText.setHint(R.string.opencrx_TEA_notes);
+                                ((TextView)findViewById(R.id.notes_label)).setHint(R.string.opencrx_TEA_notes);
                             }
                         } catch (Exception e) {
                             Log.e("astrid-error", "loading-control-set", e); //$NON-NLS-1$ //$NON-NLS-2$
@@ -736,7 +748,7 @@ public final class TaskEditActivity extends TabActivity {
 
             int min = Task.IMPORTANCE_MOST;
             int max = Task.IMPORTANCE_LEAST;
-            if(ProducteevUtilities.INSTANCE.isLoggedIn())
+            if(ProducteevUtilities.INSTANCE.isLoggedIn() || OpencrxCoreUtils.INSTANCE.isLoggedIn())
                 max = 5;
 
             for(int i = min; i <= max; i++) {
@@ -745,7 +757,7 @@ public final class TaskEditActivity extends TabActivity {
                         LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT, 1));
 
                 StringBuilder label = new StringBuilder();
-                if(ProducteevUtilities.INSTANCE.isLoggedIn())
+                if(ProducteevUtilities.INSTANCE.isLoggedIn() || OpencrxCoreUtils.INSTANCE.isLoggedIn())
                     label.append(5 - i).append("\n\u2605"); //$NON-NLS-1$
                 else {
                     for(int j = Task.IMPORTANCE_LEAST; j >= i; j--)
