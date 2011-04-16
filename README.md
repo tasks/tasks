@@ -23,7 +23,7 @@ Getting Started With Development
 
 (see Github's instructions if you need help). Follow the [Github Line Ending Help](http://help.github.com/dealing-with-lineendings/)
 
-4. Open up **eclipse** and import the *astrid*, *astridApi*, *astrid-tests*, and *GreenDroid* projects. 
+4. Open up **eclipse** and import the *astrid*, *astridApi*, *astrid-tests*, *facebook*, and *GreenDroid* projects. 
 
 5. In Eclipse preferences -> Android build settings, set the SDK location (you installed it in step 2). At this point, there should be no compilation errors. If there are, you might have to **refresh** and **clean** the projects a few times from within **eclipse** 
 
@@ -74,7 +74,7 @@ Contributors workflow
 
 **Working on new features/fixes:**
 
-`git checkout -b my-new-features`  
+`git checkout -b my-new-features upstream/master`  
 
 work, work, work! 
   
@@ -84,9 +84,11 @@ work, work, work!
 
 `git rebase -i upstream/master` (i like to rebase -i to verify what i'm committing and squish small commits)
   
-`git push origin my-new-features`
+`git push origin HEAD`
   
 then go to github and submit a pull request!  
+
+For further information, read [Tim's Collaborator Guide](http://www.betaful.com/2011/04/git-for-ongoing-collaboration/).
 
 Contact
 -------
