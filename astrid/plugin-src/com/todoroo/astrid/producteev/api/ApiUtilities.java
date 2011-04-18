@@ -5,10 +5,10 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.json.JSONObject;
 
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.notes.NoteMetadata;
@@ -76,7 +76,7 @@ public final class ApiUtilities {
      * @return
      */
     public static String decode(String string) {
-        return AndroidUtilities.unescapeHTML(string);
+        return StringEscapeUtils.unescapeHtml(string);
     }
 
 
