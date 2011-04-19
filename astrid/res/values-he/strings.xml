@@ -1033,12 +1033,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">סוג צלצול/רטט:</string>
 
-  <!-- Task Edit: Reminder alarm clock toggle: off -->  
-  <string name="TEA_reminder_alarm_off">צלצול יחיד</string>
-
-  <!-- Task Edit: Reminder alarm clock toggle: on -->  
-  <string name="TEA_reminder_alarm_on">צלצול עד להתעלמות מהאזעקה</string>
-
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
     <item>an hour</item>
