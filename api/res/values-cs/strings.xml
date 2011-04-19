@@ -140,7 +140,7 @@
   <!-- Sync Status: error status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Selhalo: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace</string>
+  <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace %s</string>
   <!-- Sync Status: never sync'd -->    
   <string name="sync_status_never">Nikdo nesynchronizováno!</string>
 
