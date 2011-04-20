@@ -45,6 +45,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
@@ -136,7 +137,7 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
             public void onClick(View arg0) {
                 Task task = new Task();
                 task.setId(taskId);
-                taskService.setComplete(task, true);
+                PluginServices.getTaskService().setComplete(task, true);
                 finish();
             }
         });
@@ -228,7 +229,7 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         Task task = new Task();
         task.setId(taskId);
         task.setValue(Task.REMINDER_SNOOZE, time);
-        taskService.save(task);
+        PluginServices.getTaskService().save(task);
         finish();
     }
 

@@ -1,9 +1,6 @@
 package com.todoroo.astrid.activity;
 
-import java.text.Collator;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map.Entry;
@@ -65,8 +62,6 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
-import com.todoroo.andlib.sql.Criterion;
-import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -80,6 +75,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.api.SyncAction;
 import com.todoroo.astrid.api.TaskAction;
+import com.todoroo.astrid.api.TaskContextActionExposer;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.core.SortHelper;
@@ -90,17 +86,14 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader;
 import com.todoroo.astrid.helper.TaskListContextMenuExtensionLoader.ContextMenuItem;
-import com.todoroo.astrid.reminders.Notifications;
-import com.todoroo.astrid.reminders.ReminderService;
-import com.todoroo.astrid.reminders.ReminderService.AlarmScheduler;
+import com.todoroo.astrid.reminders.ReminderDebugContextActions;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.tags.TagService.Tag;
+import com.todoroo.astrid.tags.FilterByTagContextAction;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -137,13 +130,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 20;
     private static final int CONTEXT_MENU_COPY_TASK_ID = Menu.FIRST + 21;
-    private static final int CONTEXT_MENU_FILTER_BY_TAG_ID = Menu.FIRST + 22;
-    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 23;
-    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 24;
-    private static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 25;
-    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 26;
-
-    private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 30;
+    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 22;
+    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 23;
+    private static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 24;
+    private static final int CONTEXT_MENU_BROADCAST_INTENT_ID = Menu.FIRST + 25;
+    private static final int CONTEXT_MENU_PLUGIN_ID_FIRST = Menu.FIRST + 26;
 
     // --- constants
 
@@ -152,20 +143,21 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     // --- instance variables
 
-    @Autowired
-    protected ExceptionService exceptionService;
+    @Autowired ExceptionService exceptionService;
 
-    @Autowired
-    protected TaskService taskService;
+    @Autowired TaskService taskService;
 
-    @Autowired
-    protected MetadataService metadataService;
+    @Autowired MetadataService metadataService;
 
-    @Autowired
-    protected Database database;
+    @Autowired Database database;
 
-    @Autowired
-    protected AddOnService addOnService;
+    @Autowired AddOnService addOnService;
+
+    private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
+            new FilterByTagContextAction(),
+            new ReminderDebugContextActions.MakeNotification(),
+            new ReminderDebugContextActions.WhenReminder(),
+    };
 
     protected TaskAdapter taskAdapter = null;
     protected DetailReceiver detailReceiver = new DetailReceiver();
@@ -799,7 +791,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         return task;
     }
 
-    @SuppressWarnings("nls")
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
@@ -820,31 +811,27 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE,
                     R.string.TAd_contextCopyTask);
 
-            TodorooCursor<Metadata> cursor = TagService.getInstance().getTags(
-                    id);
-            menu.add(id, CONTEXT_MENU_FILTER_BY_TAG_ID, Menu.NONE,
-                    R.string.TAd_contextFilterByTag).setEnabled(
-                    cursor.getCount() > 0);
-            cursor.close();
-
-            menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE,
-                    R.string.TAd_contextDeleteTask);
+            for(int i = 0; i < contextItemExposers.length; i++) {
+                Object label = contextItemExposers[i].getLabel(task);
+                if(label != null) {
+                    if(label instanceof Integer)
+                        menu.add(id, CONTEXT_MENU_PLUGIN_ID_FIRST + i, Menu.NONE, (Integer)label);
+                    else
+                        menu.add(id, CONTEXT_MENU_PLUGIN_ID_FIRST + i, Menu.NONE, (String)label);
+                }
+            }
 
             long taskId = task.getId();
             for(ContextMenuItem item : contextMenuExtensionLoader.getList()) {
-                MenuItem menuItem = menu.add(id, CONTEXT_MENU_ADDON_INTENT_ID, Menu.NONE,
+                MenuItem menuItem = menu.add(id, CONTEXT_MENU_BROADCAST_INTENT_ID, Menu.NONE,
                         item.title);
                 item.intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
                 menuItem.setIntent(item.intent);
             }
 
-            if(Constants.DEBUG) {
-                menu.add("--- debug ---");
-                menu.add(id, CONTEXT_MENU_DEBUG, Menu.NONE,
-                "when alarm?");
-                menu.add(id, CONTEXT_MENU_DEBUG + 1, Menu.NONE,
-                "make notification");
-            }
+            menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE,
+                    R.string.TAd_contextDeleteTask);
+
         }
     }
 
@@ -970,7 +957,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     }
 
     @Override
-    @SuppressWarnings("nls")
     public boolean onMenuItemSelected(int featureId, final MenuItem item) {
         Intent intent;
         long itemId;
@@ -1005,7 +991,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         // --- context menu items
 
-        case CONTEXT_MENU_ADDON_INTENT_ID: {
+        case CONTEXT_MENU_BROADCAST_INTENT_ID: {
             intent = item.getIntent();
             sendBroadcast(intent);
             return true;
@@ -1037,68 +1023,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return true;
         }
 
-        case CONTEXT_MENU_FILTER_BY_TAG_ID: {
-            itemId = item.getGroupId();
-
-            final TodorooCursor<Metadata> cursor = TagService.getInstance().getTags(
-                    itemId);
-            if (!cursor.moveToFirst()) {
-                cursor.close();
-                return false;
-            }
-            final List<String> tags = new ArrayList<String>();
-            do {
-                tags.add(cursor.get(TagService.TAG));
-            } while (cursor.moveToNext());
-            cursor.close();
-
-            Collator collator = Collator.getInstance();
-            collator.setStrength(Collator.PRIMARY);
-            Collections.sort(tags, collator);
-
-            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
-
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Tag tag = new Tag(tags.get(which), 0);
-
-                    String listTitle = tag.tag;
-                    String title = TaskListActivity.this.getString(
-                            R.string.tag_FEx_name, tag.tag);
-                    Criterion criterion = TaskCriteria.activeAndVisible();
-                    QueryTemplate tagTemplate = tag.queryTemplate(criterion);
-                    ContentValues contentValues = new ContentValues();
-                    contentValues.put(Metadata.KEY.name, TagService.KEY);
-                    contentValues.put(TagService.TAG.name, tag.tag);
-
-                    Filter tagFilter = new Filter(listTitle, title,
-                            tagTemplate, contentValues);
-                    Intent tagIntent = new Intent(TaskListActivity.this,
-                            TaskListActivity.class);
-                    tagIntent.putExtra(TaskListActivity.TOKEN_FILTER, tagFilter);
-
-                    startActivity(tagIntent);
-                    AndroidUtilities.callApiMethod(5,
-                            this,
-                            "overridePendingTransition", //$NON-NLS-1$
-                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                            R.anim.slide_left_in, R.anim.slide_left_out);
-                }
-            };
-
-            if (tags.size() == 1) {
-                listener.onClick(null, 0);
-            } else {
-                new AlertDialog.Builder(this).setTitle(
-                        R.string.TAd_contextFilterByTag).setAdapter(
-                        new ArrayAdapter<String>(this,
-                                android.R.layout.select_dialog_item, tags),
-                        listener).show();
-            }
-
-            return true;
-        }
-
         case CONTEXT_MENU_DELETE_TASK_ID: {
             itemId = item.getGroupId();
             Task task = new Task();
@@ -1124,41 +1048,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             return true;
         }
 
-        // --- debug
+        default: {
+            if(item.getItemId() < CONTEXT_MENU_PLUGIN_ID_FIRST)
+                return false;
+            if(item.getItemId() - CONTEXT_MENU_PLUGIN_ID_FIRST >= contextItemExposers.length)
+                return false;
 
-        case CONTEXT_MENU_DEBUG: {
-            itemId = item.getGroupId();
-            Task task = new Task();
-            task.setId(itemId);
-            AlarmScheduler original = ReminderService.getInstance().getScheduler();
-            ReminderService.getInstance().setScheduler(new AlarmScheduler() {
-                @Override
-                public void createAlarm(Task theTask, long time, int type) {
-                    if(time == 0 || time == Long.MAX_VALUE)
-                        return;
+            AdapterContextMenuInfo adapterInfo = (AdapterContextMenuInfo) item.getMenuInfo();
+            Task task = ((ViewHolder)adapterInfo.targetView.getTag()).task;
+            contextItemExposers[item.getItemId() - CONTEXT_MENU_PLUGIN_ID_FIRST].invoke(task);
 
-                    Toast.makeText(TaskListActivity.this, "Scheduled Alarm: " +
-                            new Date(time), Toast.LENGTH_LONG).show();
-                    ReminderService.getInstance().setScheduler(null);
-                }
-            });
-            ReminderService.getInstance().scheduleAlarm(task);
-            if(ReminderService.getInstance().getScheduler() != null)
-                Toast.makeText(this, "No alarms", Toast.LENGTH_LONG).show();
-            ReminderService.getInstance().setScheduler(original);
-            return true;
-        }
-
-        case CONTEXT_MENU_DEBUG + 1: {
-            itemId = item.getGroupId();
-            new Notifications().showTaskNotification(itemId,
-                        ReminderService.TYPE_SNOOZE, "test reminder");
             return true;
         }
 
         }
-
-        return false;
     }
 
     @SuppressWarnings("nls")

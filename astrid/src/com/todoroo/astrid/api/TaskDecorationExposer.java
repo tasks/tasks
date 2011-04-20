@@ -3,7 +3,11 @@ package com.todoroo.astrid.api;
 import com.todoroo.astrid.data.Task;
 
 /**
- * Internal API for exposing task decorations
+ * API for exposing decorations displayed in the task list.
+ *
+ * Due to the limitations of the Android platform, this is currently
+ * internal-use only, though if it can be done well, I would be open to creating
+ * an external API.
  *
  * @author Tim Su <tim@todoroo.com>
  *
