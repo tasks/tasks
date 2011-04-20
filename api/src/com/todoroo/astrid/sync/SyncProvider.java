@@ -15,8 +15,8 @@ import android.app.Service;
 import android.content.Context;
 import android.widget.Toast;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.data.Property.LongProperty;
+import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.astrid.api.R;
 import com.todoroo.astrid.data.Task;
@@ -303,7 +303,7 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
 
                 /* If there exists an incoming remote task with the same name and no
                  * mapping, we don't want to create this on the remote server,
-                 * because user could have synchronized like this before. Instead,
+                 * because user could have synchronized this before. Instead,
                  * we create a mapping and do an update.
                  */
                 if (remoteNewTaskNameMap.containsKey(taskTitle)) {

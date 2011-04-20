@@ -53,15 +53,16 @@ import com.todoroo.astrid.utility.Constants;
 import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTaskService;
-import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.GoogleTaskTask;
 import com.todoroo.gtasks.GoogleTaskView;
 import com.todoroo.gtasks.GoogleTasksException;
+import com.todoroo.gtasks.actions.Action;
 import com.todoroo.gtasks.actions.Actions;
 import com.todoroo.gtasks.actions.GetTasksAction;
 import com.todoroo.gtasks.actions.ListAction;
 import com.todoroo.gtasks.actions.ListActions;
 import com.todoroo.gtasks.actions.ListActions.TaskBuilder;
+import com.todoroo.gtasks.actions.ListActions.TaskCreator;
 import com.todoroo.gtasks.actions.ListActions.TaskModifier;
 import com.todoroo.gtasks.actions.ListCreationAction;
 
@@ -77,6 +78,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     private GoogleTaskService taskService = null;
     private static final Actions a = new Actions();
     private static final ListActions l = new ListActions();
+
+    ArrayList<GtasksTaskContainer> createdWithoutId;
 
     static {
         AstridDependencyInjector.initialize();
@@ -201,6 +204,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     protected void performSync() {
         StatisticsService.reportEvent("gtasks-started");
         gtasksPreferenceService.recordSyncStart();
+        System.err.println("- -------- SYNC START!!!!");
+        createdWithoutId = new ArrayList<GtasksTaskContainer>();
 
         try {
             GoogleTaskView taskView = taskService.getTaskView();
@@ -211,9 +216,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             gtasksTaskListUpdater.createParentSiblingMaps();
 
             // read non-deleted tasks for each list
-            ArrayList<GtasksTaskContainer> remoteTasks = readAllRemoteTasks(false);
-
-            SyncData<GtasksTaskContainer> syncData = populateSyncData(remoteTasks);
+            SyncData<GtasksTaskContainer> syncData = populateSyncData();
             try {
                 synchronizeTasks(syncData);
             } finally {
@@ -228,6 +231,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+            System.err.println("- ------ SYNC FINITO!!!!");
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
@@ -242,6 +246,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             listId = taskView.getActiveTaskList().getInfo().getId();
         else if(taskView.getAllLists().length == 0) {
             ListCreationAction createList = a.createList(0, ContextManager.getString(R.string.app_name));
+            System.err.println("ACTION: createList(4)");
             taskService.executeActions(createList);
             listId = createList.getNewId();
         } else {
@@ -260,6 +265,41 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             data.remoteUpdated = readAllRemoteTasks(true);
         } catch (JSONException e) {
             throw new GoogleTasksException(e);
+        }
+
+        // match remote tasks to locally created tasks
+        HashMap<String, GtasksTaskContainer> locals = new HashMap<String, GtasksTaskContainer>();
+        for(GtasksTaskContainer task : createdWithoutId) {
+            locals.put(task.task.getValue(Task.TITLE), task);
+        }
+        ArrayList<Action> moveActions = new ArrayList<Action>();
+        for(GtasksTaskContainer remote : data.remoteUpdated) {
+            if(remote.task.getId() < 1) {
+                GtasksTaskContainer local = locals.get(remote.task.getValue(Task.TITLE));
+                if(local != null) {
+                    System.err.println("FOUND LOCAL - " + remote.task.getValue(Task.TITLE));
+                    remote.task.setId(local.task.getId());
+
+                    String remoteList = remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
+                    String localList = local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
+                    if(!remoteList.equals(localList)) {
+                        try {
+                            System.err.println("MOVE: " + remoteList + " to " + localList);
+                            moveActions.add(a.moveTask(remote.gtaskMetadata.getValue(GtasksMetadata.ID),
+                                remoteList, localList, local.parentId));
+                        } catch (JSONException e) {
+                            Log.e("gtasks-sync", "Error Moving Local Task", e);
+                        }
+                    }
+                }
+            }
+        }
+        if(moveActions.size() > 0) {
+            try {
+                taskService.executeActions(moveActions.toArray(new Action[moveActions.size()]));
+            } catch (JSONException e) {
+                Log.e("gtasks-sync", "Error Running Local Action", e);
+            }
         }
 
         super.readRemotelyUpdated(data);
@@ -286,7 +326,12 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
      * Populate SyncData data structure
      * @throws JSONException
      */
-    private SyncData<GtasksTaskContainer> populateSyncData(ArrayList<GtasksTaskContainer> remoteTasks) throws JSONException {
+    private SyncData<GtasksTaskContainer> populateSyncData() throws JSONException,
+            GoogleLoginException, IOException {
+
+        // fetch remote tasks
+        ArrayList<GtasksTaskContainer> remoteTasks = readAllRemoteTasks(false);
+
         // fetch locally created tasks
         TodorooCursor<Task> localCreated = gtasksMetadataService.getLocallyCreated(PROPERTIES);
 
@@ -306,6 +351,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         for(StoreObject dashboard : gtasksListService.getLists()) {
             String listId = dashboard.getValue(GtasksList.REMOTE_ID);
 
+            System.err.println("ACTION: getTasks, " + listId);
             GetTasksAction action = new GetTasksAction(listId, includeDeleted);
             taskService.executeActions(action);
             List<GoogleTaskTask> list = action.getGoogleTasks();
@@ -369,19 +415,17 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         if(local.gtaskMetadata.containsNonNullValue(GtasksMetadata.LIST_ID))
             list = local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
         gtasksTaskListUpdater.updateParentAndSibling(local);
-
-        ConvenientTaskCreator createdTask;
-        try {
-            createdTask = taskService.createTask(list, local.task.getValue(Task.TITLE));
-            createdTask.parentId(local.parentId);
-        } catch (JSONException e) {
-            throw new RuntimeException(e);
-        }
-
-        String remoteId = updateTaskHelper(local, null, createdTask);
-        gtasksTaskListUpdater.addRemoteTaskMapping(local.task.getId(), remoteId);
-        local.gtaskMetadata.setValue(GtasksMetadata.ID, remoteId);
+        local.gtaskMetadata.setValue(GtasksMetadata.ID, null);
         local.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, list);
+
+        createdWithoutId.add(local);
+        try {
+            TaskCreator createdTask = l.createTask(local.task.getValue(Task.TITLE));
+            createdTask.parentId(local.parentId);
+            updateTaskHelper(local, null, createdTask);
+        } catch (JSONException e) {
+            throw new GoogleTasksException(e);
+        }
 
         return local;
     }
@@ -397,6 +441,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             // moving between lists
             if(remote != null && !idList.equals(remote.gtaskMetadata.getValue(
                     GtasksMetadata.LIST_ID))) {
+                System.err.println("ACTION: moveTask(5), " + idTask + ", " + idList + " to " +
+                        remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID));
                 taskService.executeActions(a.moveTask(idTask, idList,
                         remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), null));
             }
@@ -414,18 +460,23 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             String id = idList;
 
             // write task (and perform move action if requested)
+            ListAction action;
             if(builder instanceof TaskModifier) {
+                System.err.println("ACTION: task edit (6), " + idTask);
+                action = ((TaskModifier) builder).done();
+            } else if(builder instanceof TaskCreator) {
+                System.err.println("ACTION: task create (7), " + local.task.getValue(Task.TITLE));
+                action = ((TaskCreator) builder).done();
+            } else
+                throw new GoogleTasksException("Unknown builder " + builder.getClass());
+
+            if(idTask != null && local.parentId != null && (remote == null || local.parentId != remote.parentId ||
+                    local.priorSiblingId != remote.priorSiblingId)) {
+                System.err.println("ACTION: move(1) - " + idTask + ", " + local.parentId + ", " + local.priorSiblingId);
                 ListAction moveAction = l.move(idTask, local.parentId, local.priorSiblingId);
-                ListAction action = ((TaskModifier) builder).done();
-                if(remote == null || local.parentId != remote.parentId || local.priorSiblingId != remote.priorSiblingId)
-                    taskService.executeListActions(idList, action, moveAction);
-                else if(action.toJson(idList).getJSONObject("entity_delta").length() > 0)
-                    taskService.executeListActions(idList, action);
-            } else {
-                id = ((ConvenientTaskCreator)builder).go();
-                ListAction moveAction = l.move(id, local.parentId, local.priorSiblingId);
-                taskService.executeListActions(idList, moveAction);
-            }
+                taskService.executeListActions(idList, action, moveAction);
+            } else if(action.toJson(idList).getJSONObject("entity_delta").length() > 0)
+                taskService.executeListActions(idList, action);
 
             return id;
         } catch (JSONException e) {
@@ -476,6 +527,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             gtasksTaskListUpdater.updateParentAndSibling(local);
 
             String id = local.gtaskMetadata.getValue(GtasksMetadata.ID);
+            System.err.println("ACTION: modifyTask(3) - " + id);
             TaskModifier modifyTask = l.modifyTask(id);
             if(shouldTransmit(local, Task.TITLE, remote))
                 modifyTask.name(local.task.getValue(Task.TITLE));
