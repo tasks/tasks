@@ -32,6 +32,7 @@ public class NotificationTests extends DatabaseTestCase {
     public void testAlarmToNotification() {
         final Task task = new Task();
         task.setValue(Task.TITLE, "rubberduck");
+        task.setValue(Task.DUE_DATE, DateUtilities.now() - DateUtilities.ONE_DAY);
         taskDao.persist(task);
 
         final MutableBoolean triggered = new MutableBoolean();

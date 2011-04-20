@@ -96,8 +96,7 @@ public class GtasksSyncTest extends DatabaseTestCase {
     // --- setup stuff
 
     // set up task list and clean it out
-    @Override
-    protected void setUp() throws Exception {
+    protected void DISABLED_setUp() throws Exception {
         super.setUp();
 
         if(!initialized)

@@ -881,7 +881,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
     <string name="producteev_FEx_dashboard">พื้นที่ทำงาน</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">มอบหมายให้กับ</string>
+    <string name="producteev_FEx_responsible_byme">มอบหมายให้กับ</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
     <string name="producteev_FEx_responsible_title">มอบหมายให้กับ \'%s\'</string>

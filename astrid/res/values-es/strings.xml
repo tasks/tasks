@@ -862,7 +862,7 @@
     <string name="producteev_FEx_dashboard">Espacios de trabajo</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Asignado a</string>
+    <string name="producteev_FEx_responsible_byme">Asignado a</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
     <string name="producteev_FEx_responsible_title">Asignado a \'%s\'</string>

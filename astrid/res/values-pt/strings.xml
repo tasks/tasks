@@ -879,7 +879,7 @@ Astrid might not let you know when your tasks are due.\n
     <string name="producteev_FEx_dashboard">Workspaces</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Assigned To</string>
+    <string name="producteev_FEx_responsible_byme">Assigned To</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
     <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>

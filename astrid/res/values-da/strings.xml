@@ -860,7 +860,7 @@ File %1$s contained %2$s.\n\n
     <string name="producteev_FEx_dashboard">Arbejdsområder</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Assigned To</string>
+    <string name="producteev_FEx_responsible_byme">Assigned To</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
     <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>

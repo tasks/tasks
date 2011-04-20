@@ -844,7 +844,7 @@
     <string name="producteev_FEx_dashboard">Aree di lavoro</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Assegnato a</string>
+    <string name="producteev_FEx_responsible_byme">Assegnato a</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
     <string name="producteev_FEx_responsible_title">Assegnato a \'%s\'</string>

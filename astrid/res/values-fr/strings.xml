@@ -844,7 +844,7 @@
     <string name="producteev_FEx_dashboard">Espaces de travail</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Confié à</string>
+    <string name="producteev_FEx_responsible_byme">Confié à</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
     <string name="producteev_FEx_responsible_title">Attribué à « %s »</string>

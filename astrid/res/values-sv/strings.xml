@@ -851,7 +851,7 @@
     <string name="producteev_FEx_dashboard">Arbetsytor</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible">Tilldelad</string>
+    <string name="producteev_FEx_responsible_byme">Tilldelad</string>
     
     <!--  Producteev dashboard filter title (%s => dashboardname) -->
     <string name="producteev_FEx_responsible_title">Tilldelad \'%s\'</string>
