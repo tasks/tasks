@@ -61,6 +61,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                         TaskCriteria.notDeleted(),
+                        TaskCriteria.isActive(),
                         GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
                                 Order.asc(Functions.cast(GtasksMetadata.ORDER, "INTEGER"))), //$NON-NLS-1$
                 values);
