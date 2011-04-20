@@ -1015,12 +1015,6 @@
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">소리/진동 선택:</string>
 
-  <!-- Task Edit: Reminder alarm clock toggle: off -->  
-  <string name="TEA_reminder_alarm_off">한번 소리내기</string>
-
-  <!-- Task Edit: Reminder alarm clock toggle: on -->  
-  <string name="TEA_reminder_alarm_on">알람끌 때까지 소리내기</string>
-
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
     <item>한시간</item>

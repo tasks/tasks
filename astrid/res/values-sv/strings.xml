@@ -994,12 +994,6 @@
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Ring/Vibrationsinställning:</string>
 
-  <!-- Task Edit: Reminder alarm clock toggle: off -->  
-  <string name="TEA_reminder_alarm_off">Ring en gång</string>
-
-  <!-- Task Edit: Reminder alarm clock toggle: on -->  
-  <string name="TEA_reminder_alarm_on">Ring tills jag stänger av alarmet</string>
-
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
     <item>i timmen</item>

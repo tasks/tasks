@@ -987,12 +987,6 @@
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Type de sonnerie/vibration :</string>
 
-  <!-- Task Edit: Reminder alarm clock toggle: off -->  
-  <string name="TEA_reminder_alarm_off">Sonner une fois</string>
-
-  <!-- Task Edit: Reminder alarm clock toggle: on -->  
-  <string name="TEA_reminder_alarm_on">Sonner jusqu\'à ce que je l\'interrompe</string>
-
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
     <item>une heure</item>
