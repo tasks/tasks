@@ -286,6 +286,13 @@
     </receiver>
     
     <!-- tags -->
+    <receiver android:name="com.todoroo.astrid.tags.FilterByTagExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
+        <action android:name="com.todoroo.astrid.FILTER_BY_TAG" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
     <receiver android:name="com.todoroo.astrid.tags.TagsPlugin">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_ADDONS" />

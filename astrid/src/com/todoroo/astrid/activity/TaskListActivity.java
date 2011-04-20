@@ -93,7 +93,6 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.tags.FilterByTagContextAction;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -154,7 +153,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     @Autowired AddOnService addOnService;
 
     private final TaskContextActionExposer[] contextItemExposers = new TaskContextActionExposer[] {
-            new FilterByTagContextAction(),
             new ReminderDebugContextActions.MakeNotification(),
             new ReminderDebugContextActions.WhenReminder(),
     };
