@@ -52,7 +52,7 @@ public class FilterByTagExposer extends BroadcastReceiver {
 
         if(AstridApiConstants.BROADCAST_REQUEST_ACTIONS.equals(intent.getAction())) {
             final String label = context.getString(R.string.TAd_contextFilterByTag);
-            final Drawable drawable = context.getResources().getDrawable(R.drawable.silk_tag_pink);
+            final Drawable drawable = context.getResources().getDrawable(R.drawable.med_tag);
             Intent newIntent = new Intent(FILTER_ACTION);
             newIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
             Bitmap icon = ((BitmapDrawable)drawable).getBitmap();
