@@ -101,16 +101,15 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
             String user = getUserFromDashboard(ownerDashboard, responsibleId);
             if(user != null)
                 builder.append("<img src='silk_user_gray'/> ").append(user).append(TaskAdapter.DETAIL_SEPARATOR); //$NON-NLS-1$
-        }
-
-        // display creator user if not the current one
-        if(creatorId > 0 && ownerDashboard != null && creatorId !=
-                Preferences.getLong(ProducteevUtilities.PREF_USER_ID, 0L)) {
-            String user = getUserFromDashboard(ownerDashboard, creatorId);
-            if(user != null)
-                builder.append("<img src='silk_user_orange'/> ").append( //$NON-NLS-1$
-                        context.getString(R.string.producteev_PDE_task_from, user)).
-                        append(TaskAdapter.DETAIL_SEPARATOR);
+        } else {
+            // display creator user if not responsible user
+            if(creatorId > 0 && ownerDashboard != null && creatorId != responsibleId) {
+                String user = getUserFromDashboard(ownerDashboard, creatorId);
+                if(user != null)
+                    builder.append("<img src='silk_user_orange'/> ").append( //$NON-NLS-1$
+                            context.getString(R.string.producteev_PDE_task_from, user)).
+                            append(TaskAdapter.DETAIL_SEPARATOR);
+            }
         }
 
         // display repeating task information
