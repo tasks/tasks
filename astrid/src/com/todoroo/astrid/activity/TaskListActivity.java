@@ -1,6 +1,8 @@
 package com.todoroo.astrid.activity;
 
+import java.text.Collator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -63,6 +65,8 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
+import com.todoroo.andlib.sql.Criterion;
+import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -95,6 +99,8 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -131,10 +137,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 20;
     private static final int CONTEXT_MENU_COPY_TASK_ID = Menu.FIRST + 21;
-    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 22;
-    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 23;
-    private static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 24;
-    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 25;
+    private static final int CONTEXT_MENU_FILTER_BY_TAG_ID = Menu.FIRST + 22;
+    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 23;
+    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 24;
+    private static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 25;
+    private static final int CONTEXT_MENU_ADDON_INTENT_ID = Menu.FIRST + 26;
 
     private static final int CONTEXT_MENU_DEBUG = Menu.FIRST + 30;
 
@@ -812,6 +819,14 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                         R.string.TAd_contextEditTask);
             menu.add(id, CONTEXT_MENU_COPY_TASK_ID, Menu.NONE,
                     R.string.TAd_contextCopyTask);
+
+            TodorooCursor<Metadata> cursor = TagService.getInstance().getTags(
+                    id);
+            menu.add(id, CONTEXT_MENU_FILTER_BY_TAG_ID, Menu.NONE,
+                    R.string.TAd_contextFilterByTag).setEnabled(
+                    cursor.getCount() > 0);
+            cursor.close();
+
             menu.add(id, CONTEXT_MENU_DELETE_TASK_ID, Menu.NONE,
                     R.string.TAd_contextDeleteTask);
 
@@ -1018,6 +1033,68 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
             intent.putExtra(TaskEditActivity.TOKEN_ID, clone.getId());
             startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+
+            return true;
+        }
+
+        case CONTEXT_MENU_FILTER_BY_TAG_ID: {
+            itemId = item.getGroupId();
+
+            final TodorooCursor<Metadata> cursor = TagService.getInstance().getTags(
+                    itemId);
+            if (!cursor.moveToFirst()) {
+                cursor.close();
+                return false;
+            }
+            final List<String> tags = new ArrayList<String>();
+            do {
+                tags.add(cursor.get(TagService.TAG));
+            } while (cursor.moveToNext());
+            cursor.close();
+
+            Collator collator = Collator.getInstance();
+            collator.setStrength(Collator.PRIMARY);
+            Collections.sort(tags, collator);
+
+            DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
+
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Tag tag = new Tag(tags.get(which), 0);
+
+                    String listTitle = tag.tag;
+                    String title = TaskListActivity.this.getString(
+                            R.string.tag_FEx_name, tag.tag);
+                    Criterion criterion = TaskCriteria.activeAndVisible();
+                    QueryTemplate tagTemplate = tag.queryTemplate(criterion);
+                    ContentValues contentValues = new ContentValues();
+                    contentValues.put(Metadata.KEY.name, TagService.KEY);
+                    contentValues.put(TagService.TAG.name, tag.tag);
+
+                    Filter tagFilter = new Filter(listTitle, title,
+                            tagTemplate, contentValues);
+                    Intent tagIntent = new Intent(TaskListActivity.this,
+                            TaskListActivity.class);
+                    tagIntent.putExtra(TaskListActivity.TOKEN_FILTER, tagFilter);
+
+                    startActivity(tagIntent);
+                    AndroidUtilities.callApiMethod(5,
+                            this,
+                            "overridePendingTransition", //$NON-NLS-1$
+                            new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                            R.anim.slide_left_in, R.anim.slide_left_out);
+                }
+            };
+
+            if (tags.size() == 1) {
+                listener.onClick(null, 0);
+            } else {
+                new AlertDialog.Builder(this).setTitle(
+                        R.string.TAd_contextFilterByTag).setAdapter(
+                        new ArrayAdapter<String>(this,
+                                android.R.layout.select_dialog_item, tags),
+                        listener).show();
+            }
 
             return true;
         }
