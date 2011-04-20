@@ -31,6 +31,7 @@ import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
@@ -49,21 +50,20 @@ import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.utility.Flags;
 import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleLoginException;
 import com.todoroo.gtasks.GoogleTaskService;
+import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.GoogleTaskTask;
 import com.todoroo.gtasks.GoogleTaskView;
 import com.todoroo.gtasks.GoogleTasksException;
-import com.todoroo.gtasks.GoogleTaskService.ConvenientTaskCreator;
 import com.todoroo.gtasks.actions.Actions;
 import com.todoroo.gtasks.actions.GetTasksAction;
 import com.todoroo.gtasks.actions.ListAction;
 import com.todoroo.gtasks.actions.ListActions;
-import com.todoroo.gtasks.actions.ListCreationAction;
 import com.todoroo.gtasks.actions.ListActions.TaskBuilder;
 import com.todoroo.gtasks.actions.ListActions.TaskModifier;
+import com.todoroo.gtasks.actions.ListCreationAction;
 
 @SuppressWarnings("nls")
 public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
@@ -226,7 +226,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             gtasksPreferenceService.recordSuccessfulSync();
             StatisticsService.reportEvent("gtasks-sync-finished"); //$NON-NLS-1$
 
-            Flags.set(Flags.REFRESH);
+            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+            ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {

@@ -56,7 +56,7 @@ public class ProducteevCustomFilterCriteriaExposer extends BroadcastReceiver {
                 workspaceNames[i] = dashboards[i].getName();
                 workspaceIds[i] = String.valueOf(dashboards[i].getId());
             }
-            ContentValues values = new ContentValues(2);
+            ContentValues values = new ContentValues();
             values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
             values.put(ProducteevTask.DASHBOARD_ID.name, "?");
             CustomFilterCriterion criterion = new MultipleSelectCriterion(
@@ -68,7 +68,7 @@ public class ProducteevCustomFilterCriteriaExposer extends BroadcastReceiver {
                             TaskDao.TaskCriteria.activeAndVisible(),
                             MetadataDao.MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
                             ProducteevTask.DASHBOARD_ID.eq("?"))).toString(),
-                    values, // what is this?
+                    values,
                     workspaceNames,
                     workspaceIds,
                     ((BitmapDrawable)r.getDrawable(R.drawable.silk_folder)).getBitmap(),
@@ -102,7 +102,7 @@ public class ProducteevCustomFilterCriteriaExposer extends BroadcastReceiver {
                             TaskDao.TaskCriteria.activeAndVisible(),
                             MetadataDao.MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
                             ProducteevTask.RESPONSIBLE_ID.eq("?"))).toString(),
-                    values, // what is this?
+                    values,
                     userNames,
                     userIds,
                     ((BitmapDrawable)r.getDrawable(R.drawable.silk_user_gray)).getBitmap(),

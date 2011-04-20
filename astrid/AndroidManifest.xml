@@ -244,6 +244,12 @@
     </activity>
     <activity android:name="com.todoroo.astrid.gtasks.auth.GtasksLoginActivity" 
               android:theme="@style/White" android:configChanges="orientation|keyboardHidden"/>
+    <receiver android:name="com.todoroo.astrid.gtasks.GtasksCustomFilterCriteriaExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_CUSTOM_FILTER_CRITERIA" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
     <receiver android:name="com.todoroo.astrid.gtasks.GtasksFilterExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_FILTERS" />

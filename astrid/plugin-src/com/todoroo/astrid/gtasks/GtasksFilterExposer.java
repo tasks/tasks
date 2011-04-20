@@ -26,11 +26,11 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
@@ -60,8 +60,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
                 ContextManager.getString(R.string.gtasks_FEx_title, listName), new QueryTemplate().join(
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
-                        TaskCriteria.notDeleted(),
-                        TaskCriteria.isActive(),
+                        TaskCriteria.activeAndVisible(),
                         GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
                                 Order.asc(Functions.cast(GtasksMetadata.ORDER, "INTEGER"))), //$NON-NLS-1$
                 values);
