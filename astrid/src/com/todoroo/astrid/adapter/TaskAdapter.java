@@ -844,7 +844,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
 
         private boolean isIntroTask(Task task) {
-            if(activity.getString(R.string.intro_click_prompt).equals(task.getValue(Task.DETAILS)))
+            if(task.getId() <= 3)
                 return true;
             return false;
         }

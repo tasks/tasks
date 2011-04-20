@@ -52,7 +52,7 @@
   
   <!-- ========================================================== Metadata = -->
 
-  <uses-sdk android:targetSdkVersion="8"
+  <uses-sdk android:targetSdkVersion="10"
             android:minSdkVersion="4" />
   <supports-screens />
   

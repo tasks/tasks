@@ -140,7 +140,7 @@ public final class Task extends AbstractModel {
     /** whether repeat occurs relative to completion date instead of due date */
     public static final int FLAG_REPEAT_AFTER_COMPLETION = 1 << 1;
 
-    /** whether task is readonly */
+    /** whether task is read-only */
     public static final int FLAG_IS_READONLY = 1 << 2;
 
     // --- notification flags
