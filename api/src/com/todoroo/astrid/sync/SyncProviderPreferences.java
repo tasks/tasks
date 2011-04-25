@@ -119,17 +119,26 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                 status = r.getString(R.string.sync_status_ongoing);
                 statusColor = Color.rgb(0, 0, 100);
             }
-            // last sync was error
-            else if(getUtilities().getLastAttemptedSyncDate() != 0) {
-                status = r.getString(R.string.sync_status_failed,
+            // last sync had errors
+            else if(getUtilities().getLastError() != null || getUtilities().getLastAttemptedSyncDate() != 0) {
+                // last sync was failure
+                if(getUtilities().getLastAttemptedSyncDate() != 0) {
+                    status = r.getString(R.string.sync_status_failed,
                         DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
                         new Date(getUtilities().getLastAttemptedSyncDate())));
-                if(getUtilities().getLastSyncDate() > 0) {
-                    subtitle = r.getString(R.string.sync_status_failed_subtitle,
+                    statusColor = Color.rgb(100, 0, 0);
+
+                    if(getUtilities().getLastSyncDate() > 0) {
+                        subtitle = r.getString(R.string.sync_status_failed_subtitle,
+                                DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
+                                        new Date(getUtilities().getLastSyncDate())));
+                    }
+                } else {
+                    status = r.getString(R.string.sync_status_errors,
                             DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
-                            new Date(getUtilities().getLastSyncDate())));
+                                    new Date(getUtilities().getLastSyncDate())));
+                    statusColor = Color.rgb(100, 100, 0);
                 }
-                statusColor = Color.rgb(100, 0, 0);
                 preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
                     public boolean onPreferenceClick(Preference p) {
                         String error = getUtilities().getLastError();
@@ -138,7 +147,8 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
                         return true;
                     }
                 });
-            } else if(getUtilities().getLastSyncDate() > 0) {
+            }
+            else if(getUtilities().getLastSyncDate() > 0) {
                 status = r.getString(R.string.sync_status_success,
                         DateUtilities.getDateStringWithTime(SyncProviderPreferences.this,
                         new Date(getUtilities().getLastSyncDate())));
