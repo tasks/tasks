@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.Semaphore;
 
 import org.json.JSONException;
 
@@ -204,7 +205,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     protected void performSync() {
         StatisticsService.reportEvent("gtasks-started");
         gtasksPreferenceService.recordSyncStart();
-        System.err.println("- -------- SYNC START!!!!");
+        System.err.println("- -------- SYNC STARTED");
         createdWithoutId = new ArrayList<GtasksTaskContainer>();
 
         try {
@@ -231,7 +232,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-            System.err.println("- ------ SYNC FINITO!!!!");
+            System.err.println("- ------ SYNC FINISHED");
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
@@ -261,11 +262,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             throws IOException {
         // first, pull all tasks. then we can write them
         // include deleted tasks so we can delete them in astrid
-        try {
-            data.remoteUpdated = readAllRemoteTasks(true);
-        } catch (JSONException e) {
-            throw new GoogleTasksException(e);
-        }
+        data.remoteUpdated = readAllRemoteTasks(true);
 
         // match remote tasks to locally created tasks
         HashMap<String, GtasksTaskContainer> locals = new HashMap<String, GtasksTaskContainer>();
@@ -345,17 +342,36 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     // ------------------------------------------------- create / push / pull
     // ----------------------------------------------------------------------
 
-    private ArrayList<GtasksTaskContainer> readAllRemoteTasks(boolean includeDeleted)
-            throws JSONException, IOException, GoogleLoginException {
-        ArrayList<GtasksTaskContainer> remoteTasks = new ArrayList<GtasksTaskContainer>();
-        for(StoreObject dashboard : gtasksListService.getLists()) {
-            String listId = dashboard.getValue(GtasksList.REMOTE_ID);
+    private ArrayList<GtasksTaskContainer> readAllRemoteTasks(final boolean includeDeleted) {
+        final ArrayList<GtasksTaskContainer> remoteTasks = new ArrayList<GtasksTaskContainer>();
+        final Semaphore listsFinished = new Semaphore(0);
 
-            System.err.println("ACTION: getTasks, " + listId);
-            GetTasksAction action = new GetTasksAction(listId, includeDeleted);
-            taskService.executeActions(action);
-            List<GoogleTaskTask> list = action.getGoogleTasks();
-            addRemoteTasksToList(list, remoteTasks);
+        // launch threads
+        StoreObject[] lists = gtasksListService.getLists();
+        for(final StoreObject dashboard : lists) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        String listId = dashboard.getValue(GtasksList.REMOTE_ID);
+                        System.err.println("ACTION: getTasks, " + listId);
+                        GetTasksAction action = new GetTasksAction(listId, includeDeleted);
+                        taskService.executeActions(action);
+                        List<GoogleTaskTask> list = action.getGoogleTasks();
+                        addRemoteTasksToList(list, remoteTasks);
+                    } catch (Exception e) {
+                        handleException("read-remotes", e, false);
+                    } finally {
+                        listsFinished.release();
+                    }
+                }
+            }).start();
+        }
+
+        try {
+            listsFinished.acquire(lists.length);
+        } catch (InterruptedException e) {
+            handleException("wait-for-remotes", e, false);
         }
         return remoteTasks;
     }
@@ -430,24 +446,14 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         return local;
     }
 
-    private String updateTaskHelper(GtasksTaskContainer local,
-            GtasksTaskContainer remote, TaskBuilder<?> builder) throws IOException {
+    private void updateTaskHelper(final GtasksTaskContainer local,
+            final GtasksTaskContainer remote, TaskBuilder<?> builder) throws IOException {
 
-        String idTask = local.gtaskMetadata.getValue(GtasksMetadata.ID);
-        String idList = local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
+        final String idTask = local.gtaskMetadata.getValue(GtasksMetadata.ID);
+        final String idList = local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
 
         try {
-
-            // moving between lists
-            if(remote != null && !idList.equals(remote.gtaskMetadata.getValue(
-                    GtasksMetadata.LIST_ID))) {
-                System.err.println("ACTION: moveTask(5), " + idTask + ", " + idList + " to " +
-                        remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID));
-                taskService.executeActions(a.moveTask(idTask, idList,
-                        remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), null));
-            }
-
-            // other properties
+            // set properties
             if(shouldTransmit(local, Task.DUE_DATE, remote))
                 builder.taskDate(local.task.getValue(Task.DUE_DATE));
             if(shouldTransmit(local, Task.COMPLETION_DATE, remote))
@@ -457,10 +463,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             if(shouldTransmit(local, Task.NOTES, remote))
                 builder.notes(local.task.getValue(Task.NOTES));
 
-            String id = idList;
-
             // write task (and perform move action if requested)
-            ListAction action;
+            final ListAction action;
             if(builder instanceof TaskModifier) {
                 System.err.println("ACTION: task edit (6), " + idTask);
                 action = ((TaskModifier) builder).done();
@@ -470,15 +474,35 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             } else
                 throw new GoogleTasksException("Unknown builder " + builder.getClass());
 
-            if(idTask != null && local.parentId != null && (remote == null || local.parentId != remote.parentId ||
-                    local.priorSiblingId != remote.priorSiblingId)) {
-                System.err.println("ACTION: move(1) - " + idTask + ", " + local.parentId + ", " + local.priorSiblingId);
-                ListAction moveAction = l.move(idTask, local.parentId, local.priorSiblingId);
-                taskService.executeListActions(idList, action, moveAction);
-            } else if(action.toJson(idList).getJSONObject("entity_delta").length() > 0)
-                taskService.executeListActions(idList, action);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        if(idTask != null && local.parentId != null && (remote == null || local.parentId != remote.parentId ||
+                                local.priorSiblingId != remote.priorSiblingId)) {
+                            System.err.println("ACTION: move(1) - " + idTask + ", " + local.parentId + ", " + local.priorSiblingId);
+                            ListAction moveAction = l.move(idTask, local.parentId, local.priorSiblingId);
+                            taskService.executeListActions(idList, action, moveAction);
+                        } else if(action.toJson(idList).getJSONObject("entity_delta").length() > 0) {
+                            taskService.executeListActions(idList, action);
+                        }
 
-            return id;
+                        // moving between lists
+                        if(remote != null && !idList.equals(remote.gtaskMetadata.getValue(
+                                GtasksMetadata.LIST_ID))) {
+                            System.err.println("ACTION: moveTask(5), " + idTask + ", " + idList + " to " +
+                                    remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID));
+                            taskService.executeActions(a.moveTask(idTask, idList,
+                                    remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), null));
+                        }
+                    } catch (IOException e) {
+                        handleException("update-task", e, false);
+                    } catch (JSONException e) {
+                        handleException("update-task-json", e, false);
+                    }
+                }
+            }).start();
+
         } catch (JSONException e) {
             throw new GoogleTasksException(e);
         }
