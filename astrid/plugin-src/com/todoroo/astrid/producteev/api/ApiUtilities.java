@@ -5,7 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.json.JSONObject;
 
 import com.todoroo.andlib.service.ContextManager;
