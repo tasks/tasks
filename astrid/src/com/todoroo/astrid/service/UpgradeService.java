@@ -27,6 +27,7 @@ import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.gtasks.GtasksPreferenceService;
 import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.sync.ProducteevDataService;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -34,6 +35,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_7_3 = 175;
     public static final int V3_7_2 = 174;
     public static final int V3_7_1 = 173;
     public static final int V3_7_0 = 172;
@@ -54,6 +56,8 @@ public final class UpgradeService {
     @Autowired TaskService taskService;
 
     @Autowired MetadataService metadataService;
+
+    @Autowired GtasksPreferenceService gtasksPreferenceService;
 
     public UpgradeService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -134,7 +138,18 @@ public final class UpgradeService {
             });
         } else {
             // current message
-            if(from < V3_7_2) {
+            if(from < V3_7_3) {
+                newVersionString(changeLog, "3.7.3 (4/26/11)", new String[] {
+                        "Fixed 'Show Notes' setting not working",
+                        "Added setting for transparent background in Astrid",
+                        "Google Tasks list no longer shows completed tasks",
+                        "Added Google Tasks lists to custom filter",
+                        "Fixed bugs and increased speed in Google Tasks sync",
+                });
+                if(gtasksPreferenceService.isLoggedIn())
+                    taskService.clearDetails(Criterion.all);
+            }
+            if(from >= V3_7_0 && from < V3_7_2) {
                 newVersionString(changeLog, "3.7.2 (3/04/11)", new String[] {
                         "Added a 'Ring 5 times' setting to task reminders",
                         "Added 'Copy Task' to the long-press menu",

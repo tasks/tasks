@@ -75,7 +75,7 @@ public class GtasksDetailExposer extends BroadcastReceiver {
         if(listName == GtasksListService.LIST_NOT_FOUND)
             return null;
 
-        builder.append("<img src='silk_folder'/> ").append(listName); //$NON-NLS-1$
+        builder.append("<img src='gtasks_detail'/> ").append(listName); //$NON-NLS-1$
 
         return builder.toString();
     }
