@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Semaphore;
 
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONException;
 
 import android.app.Activity;
@@ -123,6 +124,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     protected void handleException(String tag, Exception e, boolean displayError) {
         final Context context = ContextManager.getContext();
         gtasksPreferenceService.setLastError(e.toString());
+        System.err.println("SET LAST ERROR TO >>> " + e.toString());
 
         String message = null;
 
@@ -478,7 +480,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                 @Override
                 public void run() {
                     try {
-                        if(idTask != null && local.parentId != null && (remote == null || local.parentId != remote.parentId ||
+                        if(!StringUtils.isEmpty(idTask) &&
+                                !StringUtils.isEmpty(local.parentId) && (remote == null || local.parentId != remote.parentId ||
                                 local.priorSiblingId != remote.priorSiblingId)) {
                             System.err.println("ACTION: move(1) - " + idTask + ", " + local.parentId + ", " + local.priorSiblingId);
                             ListAction moveAction = l.move(idTask, local.parentId, local.priorSiblingId);
