@@ -53,6 +53,7 @@ class About {
         TextView textView = new TextView(activity);
         textView.setText(body);
         textView.setMovementMethod(LinkMovementMethod.getInstance());
+        textView.setPadding(5, 0, 5, 0);
 
         d.setIcon(android.R.drawable.ic_dialog_info);
         d.setView(textView);
