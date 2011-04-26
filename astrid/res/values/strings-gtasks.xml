@@ -20,9 +20,9 @@
     <string name="gtasks_help_body">Drag the grabber on the left side of a task 
     to rearrange it. Swipe the grabber left or right to change indentation.</string>
 
-    <string name="CFC_gtasks_list_text">In list: ?</string>
+    <string name="CFC_gtasks_list_text">In List: ?</string>
 
-    <string name="CFC_gtasks_list_name">In list...</string>
+    <string name="CFC_gtasks_list_name">In GTasks List...</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
