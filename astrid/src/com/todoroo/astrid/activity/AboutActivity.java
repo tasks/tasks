@@ -20,6 +20,8 @@ import android.app.AlertDialog;
 import android.content.res.Resources;
 import android.text.Html;
 import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.widget.TextView;
 
 import com.timsu.astrid.R;
 
@@ -48,9 +50,12 @@ class About {
         final AlertDialog.Builder d = new AlertDialog.Builder(activity);
 
         Spanned body = Html.fromHtml(aboutText.toString());
+        TextView textView = new TextView(activity);
+        textView.setText(body);
+        textView.setMovementMethod(LinkMovementMethod.getInstance());
 
         d.setIcon(android.R.drawable.ic_dialog_info);
-        d.setMessage(body);
+        d.setView(textView);
         d.setTitle(r.getString(R.string.p_about));
         d.show();
     }
