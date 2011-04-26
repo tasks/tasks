@@ -209,7 +209,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     protected void performSync() {
         StatisticsService.reportEvent("gtasks-started");
         gtasksPreferenceService.recordSyncStart();
-        System.err.println("- -------- SYNC STARTED");
+        if(Constants.DEBUG)
+            Log.e("gtasks-debug", "- -------- SYNC STARTED");
         createdWithoutId = new ArrayList<GtasksTaskContainer>();
 
         try {
@@ -236,7 +237,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
-            System.err.println("- ------ SYNC FINISHED");
+            if(Constants.DEBUG)
+                Log.e("gtasks-debug", "- ------ SYNC FINISHED");
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
@@ -251,7 +253,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             listId = taskView.getActiveTaskList().getInfo().getId();
         else if(taskView.getAllLists().length == 0) {
             ListCreationAction createList = a.createList(0, ContextManager.getString(R.string.app_name));
-            System.err.println("ACTION: createList(4)");
+            if(Constants.DEBUG)
+                Log.e("gtasks-debug", "ACTION: createList(4)");
             taskService.executeActions(createList);
             listId = createList.getNewId();
         } else {
@@ -286,7 +289,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             if(remote.task.getId() < 1) {
                 GtasksTaskContainer local = locals.get(remote.task.getValue(Task.TITLE));
                 if(local != null) {
-                    System.err.println("FOUND LOCAL - " + remote.task.getValue(Task.TITLE));
+                    if(Constants.DEBUG)
+                        Log.e("gtasks-debug", "FOUND LOCAL - " + remote.task.getValue(Task.TITLE));
                     remote.task.setId(local.task.getId());
                 }
             }
@@ -354,7 +358,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                 public void run() {
                     try {
                         String listId = dashboard.getValue(GtasksList.REMOTE_ID);
-                        System.err.println("ACTION: getTasks, " + listId);
+                        if(Constants.DEBUG)
+                            Log.e("gtasks-debug", "ACTION: getTasks, " + listId);
                         GetTasksAction action = new GetTasksAction(listId, includeDeleted);
                         taskService.executeActions(action);
                         List<GoogleTaskTask> list = action.getGoogleTasks();
@@ -466,10 +471,12 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             // write task (and perform move action if requested)
             final ListAction action;
             if(builder instanceof TaskModifier) {
-                System.err.println("ACTION: task edit (6), " + idTask);
+                if(Constants.DEBUG)
+                    Log.e("gtasks-debug", "ACTION: task edit (6), " + idTask);
                 action = ((TaskModifier) builder).done();
             } else if(builder instanceof TaskCreator) {
-                System.err.println("ACTION: task create (7), " + local.task.getValue(Task.TITLE));
+                if(Constants.DEBUG)
+                    Log.e("gtasks-debug", "ACTION: task create (7), " + local.task.getValue(Task.TITLE));
                 action = ((TaskCreator) builder).done();
             } else
                 throw new GoogleTasksException("Unknown builder " + builder.getClass());
@@ -482,7 +489,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                         if(!TextUtils.isEmpty(idTask) &&
                                 !TextUtils.isEmpty(local.parentId) && (remote == null || local.parentId != remote.parentId ||
                                 local.priorSiblingId != remote.priorSiblingId)) {
-                            System.err.println("ACTION: move(1) - " + idTask + ", " + local.parentId + ", " + local.priorSiblingId);
+                            if(Constants.DEBUG)
+                                Log.e("gtasks-debug", "ACTION: move(1) - " + idTask + ", " + local.parentId + ", " + local.priorSiblingId);
                             ListAction moveAction = l.move(idTask, local.parentId, local.priorSiblingId);
                             taskService.executeListActions(idList, action, moveAction);
                         } else if(action.toJson(idList).getJSONObject("entity_delta").length() > 0) {
@@ -492,7 +500,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                         // moving between lists
                         if(remote != null && !idList.equals(remote.gtaskMetadata.getValue(
                                 GtasksMetadata.LIST_ID))) {
-                            System.err.println("ACTION: moveTask(5), " + idTask + ", " + idList + " to " +
+                            if(Constants.DEBUG)
+                                Log.e("gtasks-debug", "ACTION: moveTask(5), " + idTask + ", " + idList + " to " +
                                     remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID));
                             taskService.executeActions(a.moveTask(idTask, idList,
                                     remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), null));
@@ -555,7 +564,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             gtasksTaskListUpdater.updateParentAndSibling(local);
 
             String id = local.gtaskMetadata.getValue(GtasksMetadata.ID);
-            System.err.println("ACTION: modifyTask(3) - " + id);
+            if(Constants.DEBUG)
+                Log.e("gtasks-debug", "ACTION: modifyTask(3) - " + id);
             TaskModifier modifyTask = l.modifyTask(id);
             if(shouldTransmit(local, Task.TITLE, remote))
                 modifyTask.name(local.task.getValue(Task.TITLE));
