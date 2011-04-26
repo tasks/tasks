@@ -93,6 +93,7 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
@@ -207,6 +208,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_activity, null);
         parent.addView(getListBody(parent), 1);
         setContentView(parent);
+        ThemeService.applyTheme(this);
 
         if(database == null)
             return;
@@ -577,6 +579,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
             // the rest of onActivityResult is totally unrelated to voicerecognition, so bail out
             return;
+        }
+
+        if(requestCode == ACTIVITY_SETTINGS) {
+            ThemeService.applyTheme(this);
         }
 
         super.onActivityResult(requestCode, resultCode, data);

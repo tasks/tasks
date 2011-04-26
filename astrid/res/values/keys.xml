@@ -130,6 +130,7 @@
   <string name="p_colorize">colorize</string>
   <string name="p_fontSize">font_size</string>
   <string name="p_showNotes">notesVisible</string>
+  <string name="p_transparent">transparent</string>
   <string name="p_voiceInputEnabled">voiceInputEnabled</string>
   <string name="p_voiceInputCreatesTask">voiceInputCreatesTask</string>
   <string name="p_voiceRemindersEnabled">voiceRemindersEnabled</string>

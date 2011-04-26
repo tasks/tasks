@@ -17,6 +17,11 @@
             android:key="@string/p_showNotes"
             android:title="@string/EPr_showNotes_title"
             android:defaultValue="false" />
+            
+        <CheckBoxPreference
+            android:key="@string/p_transparent"
+            android:title="@string/EPr_transparent_title"
+            android:defaultValue="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

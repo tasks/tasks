@@ -226,6 +226,11 @@ public class EditPreferences extends TodorooPreferences {
                 taskService.clearDetails(Criterion.all);
                 Flags.set(Flags.REFRESH);
             }
+        } else if (r.getString(R.string.p_transparent).equals(preference.getKey())) {
+            if (value != null && !(Boolean)value)
+                preference.setSummary(R.string.EPr_transparent_desc_disabled);
+            else
+                preference.setSummary(R.string.EPr_transparent_desc_enabled);
         }
 
 
