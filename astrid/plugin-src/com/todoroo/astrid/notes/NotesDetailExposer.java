@@ -59,7 +59,7 @@ public class NotesDetailExposer extends BroadcastReceiver {
 
         String notes = task.getValue(Task.NOTES);
         if(!TextUtils.isEmpty(notes))
-            notesBuilder.append(notesBuilder);
+            notesBuilder.append(notes);
 
         TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(
                 Query.select(Metadata.PROPERTIES).where(
