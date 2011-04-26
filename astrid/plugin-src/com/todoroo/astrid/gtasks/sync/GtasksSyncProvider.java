@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.json.JSONException;
 
@@ -80,7 +81,10 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     private static final Actions a = new Actions();
     private static final ListActions l = new ListActions();
 
+    /** tasks to read id for */
     ArrayList<GtasksTaskContainer> createdWithoutId;
+    Semaphore pushedTaskSemaphore = new Semaphore(0);
+    AtomicInteger pushedTaskCount = new AtomicInteger(0);
 
     static {
         AstridDependencyInjector.initialize();
@@ -123,7 +127,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     protected void handleException(String tag, Exception e, boolean displayError) {
         final Context context = ContextManager.getContext();
         gtasksPreferenceService.setLastError(e.toString());
-        System.err.println("SET LAST ERROR TO >>> " + e.toString());
 
         String message = null;
 
@@ -261,6 +264,14 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     @Override
     protected void readRemotelyUpdated(SyncData<GtasksTaskContainer> data)
             throws IOException {
+
+        // wait for pushed threads
+        try {
+            pushedTaskSemaphore.acquire(pushedTaskCount.get());
+        } catch (InterruptedException e) {
+            return;
+        }
+
         // first, pull all tasks. then we can write them
         // include deleted tasks so we can delete them in astrid
         data.remoteUpdated = readAllRemoteTasks(true);
@@ -277,18 +288,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                 if(local != null) {
                     System.err.println("FOUND LOCAL - " + remote.task.getValue(Task.TITLE));
                     remote.task.setId(local.task.getId());
-
-                    String remoteList = remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
-                    String localList = local.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
-                    if(!remoteList.equals(localList)) {
-                        try {
-                            System.err.println("MOVE: " + remoteList + " to " + localList);
-                            moveActions.add(a.moveTask(remote.gtaskMetadata.getValue(GtasksMetadata.ID),
-                                remoteList, localList, local.parentId));
-                        } catch (JSONException e) {
-                            Log.e("gtasks-sync", "Error Moving Local Task", e);
-                        }
-                    }
                 }
             }
         }
@@ -475,6 +474,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             } else
                 throw new GoogleTasksException("Unknown builder " + builder.getClass());
 
+            pushedTaskCount.incrementAndGet();
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -501,6 +501,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                         handleException("update-task", e, false);
                     } catch (JSONException e) {
                         handleException("update-task-json", e, false);
+                    } finally {
+                        pushedTaskSemaphore.release();
                     }
                 }
             }).start();
