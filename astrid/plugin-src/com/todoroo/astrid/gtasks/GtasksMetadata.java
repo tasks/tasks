@@ -5,8 +5,8 @@ import com.todoroo.andlib.data.Property.IntegerProperty;
 import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.data.Metadata;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.data.Metadata;
 
 /**
  * Metadata entries for a GTasks Task
@@ -49,7 +49,7 @@ public class GtasksMetadata {
 
         String defaultList = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
         if(defaultList == null)
-            throw new NullPointerException("No default list has been set."); //$NON-NLS-1$
+            defaultList = ""; //$NON-NLS-1$
 
         metadata.setValue(LIST_ID, defaultList);
         metadata.setValue(PARENT_TASK, (long)VALUE_UNSET);

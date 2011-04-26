@@ -374,7 +374,7 @@ public class CalendarView extends View {
             currentHighlightDay = calendar.get(Calendar.DATE);
             this.invalidate();
             // Handle left-right arrow click -- end
-		} else {
+		} else if(dayLeftArr != null) {
 			// Check if clicked on date
 			for (int i=0; i<dayLeftArr.length; i++) {
 				if ((x > dayLeftArr[i] && x < dayLeftArr[i]+boxWidth) && (y > dayTopArr[i] && y < dayTopArr[i] + boxHeight)) {

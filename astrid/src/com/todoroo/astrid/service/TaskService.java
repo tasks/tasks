@@ -101,6 +101,8 @@ public class TaskService {
      */
     public Task clone(Task task) {
         Task newTask = fetchById(task.getId(), Task.PROPERTIES);
+        if(newTask == null)
+            return new Task();
         newTask.clearValue(Task.ID);
         taskDao.createNew(newTask);
         TodorooCursor<Metadata> cursor = metadataDao.query(

@@ -142,7 +142,11 @@ public abstract class AbstractModel implements Parcelable {
         setValues = null;
 
         for (Property<?> property : cursor.getProperties()) {
-            saver.save(property, values, cursor.get(property));
+            try {
+                saver.save(property, values, cursor.get(property));
+            } catch (IllegalArgumentException e) {
+                // underlying cursor may have changed, suppress
+            }
         }
     }
 

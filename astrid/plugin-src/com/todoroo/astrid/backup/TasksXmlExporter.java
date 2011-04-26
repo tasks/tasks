@@ -177,7 +177,7 @@ public class TasksXmlExporter {
         }
     }
 
-    private void serializeMetadata(Task task) throws IOException {
+    private synchronized void serializeMetadata(Task task) throws IOException {
         TodorooCursor<Metadata> cursor = metadataService.query(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
         try {
