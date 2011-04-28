@@ -347,6 +347,8 @@
   <string name="EPr_transparent_desc_disabled">Desktop wallpaper will not be shown</string>  
   <!-- Preference: Transparent Description (enabled) -->
   <string name="EPr_transparent_desc_enabled">Desktop wallpaper will be shown</string>
+  <!-- Preference: Transparent Description (android 1.6) -->
+  <string name="EPr_transparent_desc_unsupported">Setting requires Android 2.0+</string>
   
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">New Task Defaults</string>
