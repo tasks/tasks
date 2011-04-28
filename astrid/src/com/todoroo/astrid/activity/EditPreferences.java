@@ -227,6 +227,8 @@ public class EditPreferences extends TodorooPreferences {
                 Flags.set(Flags.REFRESH);
             }
         } else if (r.getString(R.string.p_transparent).equals(preference.getKey())) {
+            if(AndroidUtilities.getSdkVersion() < 5)
+                preference.setEnabled(false);
             if (value != null && !(Boolean)value)
                 preference.setSummary(R.string.EPr_transparent_desc_disabled);
             else
