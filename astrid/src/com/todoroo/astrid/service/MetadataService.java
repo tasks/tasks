@@ -114,6 +114,7 @@ public class MetadataService {
 
                 // clear item id when matching with incoming values
                 item.clearValue(Metadata.ID);
+                item.clearValue(Metadata.CREATION_DATE);
                 ContentValues itemMergedValues = item.getMergedValues();
                 if(newMetadataValues.contains(itemMergedValues)) {
                     newMetadataValues.remove(itemMergedValues);
