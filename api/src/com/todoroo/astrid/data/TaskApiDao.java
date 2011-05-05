@@ -143,7 +143,11 @@ public class TaskApiDao extends ContentResolverDao<Task> {
             return true;
 
         if(values.containsKey(Task.REMINDER_LAST.name) &&
-                values.size() == 1)
+                values.size() <= 2)
+            return true;
+
+        if(values.containsKey(Task.REMINDER_SNOOZE.name) &&
+                values.size() <= 2)
             return true;
 
         return false;

@@ -159,11 +159,6 @@ public class TaskDao extends DatabaseDao<Task> {
         boolean saveSuccessful;
 
         ContentValues values = task.getSetValues();
-        if(values == null || values.size() == 0) {
-            if(task.getDatabaseValues() != null)
-                return false;
-        }
-
         if (task.getId() == Task.NO_ID) {
             saveSuccessful = createNew(task);
         } else {
@@ -180,6 +175,12 @@ public class TaskDao extends DatabaseDao<Task> {
 
     @Override
     public boolean createNew(Task item) {
+        ContentValues values = item.getSetValues();
+        if(values == null || values.size() == 0) {
+            if(item.getDatabaseValues() != null)
+                return false;
+        }
+
         if(!item.containsValue(Task.CREATION_DATE))
             item.setValue(Task.CREATION_DATE, DateUtilities.now());
         item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
@@ -214,7 +215,14 @@ public class TaskDao extends DatabaseDao<Task> {
 
     @Override
     public boolean saveExisting(Task item) {
-        if(!item.getSetValues().containsKey(Task.DETAILS_DATE.name)) {
+        ContentValues values = item.getSetValues();
+        if(values == null || values.size() == 0)
+            return false;
+
+        //
+        if(!item.getSetValues().containsKey(Task.DETAILS_DATE.name) &&
+                !item.getSetValues().containsKey(Task.REMINDER_LAST.name) &&
+                !item.getSetValues().containsKey(Task.REMINDER_SNOOZE.name)) {
             item.setValue(Task.DETAILS, null);
             item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         }
