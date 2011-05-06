@@ -15,14 +15,12 @@
  */
 package greendroid.app;
 
-import com.cyrilmottier.android.greendroid.R;
-
 import greendroid.util.Config;
 import greendroid.widget.ActionBar;
-import greendroid.widget.ActionBarHost;
-import greendroid.widget.ActionBarItem;
 import greendroid.widget.ActionBar.OnActionBarListener;
 import greendroid.widget.ActionBar.Type;
+import greendroid.widget.ActionBarHost;
+import greendroid.widget.ActionBarItem;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -33,6 +31,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
+
+import com.cyrilmottier.android.greendroid.R;
 
 /**
  * <p>

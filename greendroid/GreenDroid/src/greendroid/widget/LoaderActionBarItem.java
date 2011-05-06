@@ -17,6 +17,7 @@ package greendroid.widget;
 
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import com.cyrilmottier.android.greendroid.R;
 

@@ -25,7 +25,6 @@ import android.view.View;
 import android.view.View.MeasureSpec;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Interpolator;
@@ -33,8 +32,6 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.LinearLayout;
-
 
 import com.cyrilmottier.android.greendroid.R;
 

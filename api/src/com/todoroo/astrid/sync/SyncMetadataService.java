@@ -14,9 +14,9 @@ import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao;
+import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
-import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
 import com.todoroo.astrid.data.TaskApiDao.TaskCriteria;
 
 abstract public class SyncMetadataService<TYPE extends SyncContainer> {
