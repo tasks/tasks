@@ -22,8 +22,8 @@ package com.todoroo.andlib.widget;
 import java.text.Format;
 import java.util.Date;
 
-import android.app.TimePickerDialog;
 import android.app.DatePickerDialog.OnDateSetListener;
+import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
 import android.content.DialogInterface;

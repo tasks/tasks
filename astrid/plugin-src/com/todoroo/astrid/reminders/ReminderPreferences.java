@@ -8,8 +8,8 @@ import android.preference.Preference;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
-import com.todoroo.andlib.widget.TodorooPreferences;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.andlib.widget.TodorooPreferences;
 
 /**
  * Displays the preference screen for users to edit their preferences
