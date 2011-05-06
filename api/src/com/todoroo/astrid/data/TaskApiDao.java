@@ -150,6 +150,14 @@ public class TaskApiDao extends ContentResolverDao<Task> {
                 values.size() <= 2)
             return true;
 
+        if(values.containsKey(Task.TIMER_START.name) &&
+                values.size() <= 2)
+            return true;
+
+        if(values.containsKey(Task.ELAPSED_SECONDS.name) &&
+                values.size() <= 2)
+            return true;
+
         return false;
     }
 
