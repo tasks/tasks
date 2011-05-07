@@ -311,8 +311,10 @@ public final class TaskEditActivity extends TabActivity {
                         controls.add(new HideUntilControlSet(R.id.hideUntil));
 
                         // re-read all
-                        for(TaskEditControlSet controlSet : controls)
-                            controlSet.readFromTask(model);
+                        synchronized(controls) {
+                            for(TaskEditControlSet controlSet : controls)
+                                controlSet.readFromTask(model);
+                        }
                     }
                 });
 
@@ -426,17 +428,21 @@ public final class TaskEditActivity extends TabActivity {
         else
             setTitle(r.getString(R.string.TEA_view_title, model.getValue(Task.TITLE)));
 
-        for(TaskEditControlSet controlSet : controls)
-            controlSet.readFromTask(model);
+        synchronized(controls) {
+            for(TaskEditControlSet controlSet : controls)
+                controlSet.readFromTask(model);
+        }
     }
 
     /** Save task model from values in UI components */
     private void save() {
         StringBuilder toast = new StringBuilder();
-        for(TaskEditControlSet controlSet : controls) {
-            String toastText = controlSet.writeToModel(model);
-            if(toastText != null)
-                toast.append('\n').append(toastText);
+        synchronized(controls) {
+            for(TaskEditControlSet controlSet : controls) {
+                String toastText = controlSet.writeToModel(model);
+                if(toastText != null)
+                    toast.append('\n').append(toastText);
+            }
         }
 
         if(title.getText().length() > 0)
