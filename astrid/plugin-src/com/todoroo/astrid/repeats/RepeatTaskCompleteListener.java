@@ -82,15 +82,24 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
         DateValue today = new DateValueImpl(repeatFromDate.getYear() + 1900,
                 repeatFromDate.getMonth() + 1, repeatFromDate.getDate());
-        if(task.hasDueDate() && !task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION)) {
+        boolean repeatAfterCompletion = task.getFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION);
+        if(task.hasDueDate() && !repeatAfterCompletion) {
             repeatFromDate = new Date(task.getValue(Task.DUE_DATE));
             if(task.hasDueTime()) {
                 repeatFrom = new DateTimeValueImpl(repeatFromDate.getYear() + 1900,
                         repeatFromDate.getMonth() + 1, repeatFromDate.getDate(),
                         repeatFromDate.getHours(), repeatFromDate.getMinutes(), repeatFromDate.getSeconds());
             } else {
-                repeatFrom = new DateValueImpl(repeatFromDate.getYear() + 1900,
-                        repeatFromDate.getMonth() + 1, repeatFromDate.getDate());
+                repeatFrom = today;
+            }
+        } else if (task.hasDueDate() && repeatAfterCompletion) {
+            repeatFromDate = new Date(task.getValue(Task.DUE_DATE));
+            if(task.hasDueTime()) {
+                repeatFrom = new DateTimeValueImpl(today.year(),
+                        today.month(), today.day(),
+                        repeatFromDate.getHours(), repeatFromDate.getMinutes(), repeatFromDate.getSeconds());
+            } else {
+                repeatFrom = today;
             }
         } else {
             repeatFrom = today;
@@ -141,7 +150,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                                     nextDate.day()).getTime());
                 }
 
-                if(newDueDate > DateUtilities.now() && newDueDate != repeatFromDate.getTime())
+                if(newDueDate > DateUtilities.now() && (repeatAfterCompletion || (newDueDate != repeatFromDate.getTime())))
                     break;
 
             }
