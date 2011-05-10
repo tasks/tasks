@@ -1,4 +1,4 @@
-package ru.otdelit.astrid.opencrx;
+package com.todoroo.astrid.opencrx;
 
 import java.util.ArrayList;
 

@@ -5,7 +5,6 @@ import java.util.List;
 
 import org.weloveastrid.rmilk.MilkUtilities;
 
-import ru.otdelit.astrid.opencrx.OpencrxCoreUtils;
 import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -13,8 +12,8 @@ import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -36,6 +35,7 @@ import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.utility.AstridPreferences;

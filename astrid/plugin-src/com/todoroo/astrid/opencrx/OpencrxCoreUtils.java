@@ -1,4 +1,4 @@
-package ru.otdelit.astrid.opencrx;
+package com.todoroo.astrid.opencrx;
 
 import android.content.Context;
 import android.content.SharedPreferences;

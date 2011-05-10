@@ -3,6 +3,9 @@ package com.todoroo.andlib.service;
 import java.lang.reflect.Field;
 import java.util.LinkedList;
 
+import com.todoroo.andlib.service.ExceptionService.AndroidLogReporter;
+import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
+
 
 
 /**
@@ -72,8 +75,6 @@ public class DependencyInjectionService {
             return true;
         if(packageName.startsWith("org.weloveastrid"))
             return true;
-        if(packageName.startsWith("ru.otdelit"))
-            return true;
         return false;
     }
 
@@ -124,6 +125,9 @@ public class DependencyInjectionService {
         protected void addInjectables() {
             injectables.put("debug", false);
             injectables.put("exceptionService", ExceptionService.class);
+            injectables.put("errorReporters", new ErrorReporter[] {
+                    new AndroidLogReporter(),
+            });
         }
     }
 
