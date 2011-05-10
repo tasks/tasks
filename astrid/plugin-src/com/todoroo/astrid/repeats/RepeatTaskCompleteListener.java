@@ -21,6 +21,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.utility.Flags;
 
 public class RepeatTaskCompleteListener extends BroadcastReceiver {
 
@@ -73,6 +74,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_OLD_DUE_DATE, task.getValue(Task.DUE_DATE));
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_NEW_DUE_DATE, newDueDate);
             context.sendOrderedBroadcast(broadcastIntent, null);
+            Flags.set(Flags.REFRESH);
         }
     }
 

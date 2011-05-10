@@ -47,8 +47,8 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
         values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
         values.put(ProducteevTask.DASHBOARD_ID.name, dashboard.getId());
         values.put(ProducteevTask.ID.name, 0);
-        values.put(ProducteevTask.CREATOR_ID.name, 0);
-        values.put(ProducteevTask.RESPONSIBLE_ID.name, 0);
+        values.put(ProducteevTask.CREATOR_ID.name, currentUserId);
+        values.put(ProducteevTask.RESPONSIBLE_ID.name, currentUserId);
         Filter filter;
         if (currentUserId != -1)
             filter = new Filter(dashboardTitle, title, new QueryTemplate().join(
@@ -97,7 +97,7 @@ public class ProducteevFilterExposer extends BroadcastReceiver {
         values.put(Metadata.KEY.name, ProducteevTask.METADATA_KEY);
         values.put(ProducteevTask.ID.name, 0);
         values.put(ProducteevTask.CREATOR_ID.name, 0);
-        values.put(ProducteevTask.RESPONSIBLE_ID.name, user.getId());
+        values.put(ProducteevTask.RESPONSIBLE_ID.name, currentUserId);
         Filter filter = new Filter(user.toString(), title, new QueryTemplate().join(
                 ProducteevDataService.METADATA_JOIN).where(Criterion.and(
                         MetadataCriteria.withKey(ProducteevTask.METADATA_KEY),
