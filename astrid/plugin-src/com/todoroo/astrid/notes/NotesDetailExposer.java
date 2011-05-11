@@ -11,6 +11,7 @@ import android.text.TextUtils;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -51,7 +52,7 @@ public class NotesDetailExposer extends BroadcastReceiver {
         if(!Preferences.getBoolean(R.string.p_showNotes, false))
             return null;
 
-        Task task = PluginServices.getTaskService().fetchById(id, Task.NOTES);
+        Task task = PluginServices.getTaskService().fetchById(id, Task.ID, Task.NOTES);
         if(task == null)
             return null;
 
@@ -64,7 +65,7 @@ public class NotesDetailExposer extends BroadcastReceiver {
         TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(
                 Query.select(Metadata.PROPERTIES).where(
                         MetadataCriteria.byTaskAndwithKey(task.getId(),
-                                NoteMetadata.METADATA_KEY)));
+                                NoteMetadata.METADATA_KEY)).orderBy(Order.asc(Metadata.CREATION_DATE)));
         Metadata metadata = new Metadata();
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
+import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -56,7 +57,7 @@ public class NoteViewingActivity extends Activity {
         TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(
                 Query.select(Metadata.PROPERTIES).where(
                         MetadataCriteria.byTaskAndwithKey(task.getId(),
-                                NoteMetadata.METADATA_KEY)));
+                                NoteMetadata.METADATA_KEY)).orderBy(Order.desc(Metadata.CREATION_DATE)));
         Metadata metadata = new Metadata();
         try {
             for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
