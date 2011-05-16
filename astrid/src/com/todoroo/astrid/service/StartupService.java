@@ -109,7 +109,7 @@ public class StartupService {
         // read current version
         int latestSetVersion = 0;
         try {
-            AstridPreferences.getCurrentVersion();
+            latestSetVersion = AstridPreferences.getCurrentVersion();
         } catch (Exception e) {
             exceptionService.reportError("astrid-startup-version-read", e); //$NON-NLS-1$
         }
