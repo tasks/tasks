@@ -115,15 +115,17 @@ public class TaskService {
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     metadata.readFromCursor(cursor);
 
-                    // don't clone sync metadata
                     if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
-                        continue;
+                    {
+                        metadata.setValue(GtasksMetadata.ID, "0");
+                    }
                     if(ProducteevTask.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
-                        continue;
+                    {
+                        metadata.setValue(ProducteevTask.ID, 0L);
+                    }
+                    // don't clone sync metadata
                     if(MilkTaskFields.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
-                        continue;
-                    if(OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
-                        continue;
+                        continue; // FIXME do the same as for the others
 
                     metadata.setValue(Metadata.TASK, newId);
                     metadata.clearValue(Metadata.ID);

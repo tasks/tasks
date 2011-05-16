@@ -175,12 +175,6 @@ public class TaskDao extends DatabaseDao<Task> {
 
     @Override
     public boolean createNew(Task item) {
-        ContentValues values = item.getSetValues();
-        if(values == null || values.size() == 0) {
-            if(item.getDatabaseValues() != null)
-                return false;
-        }
-
         if(!item.containsValue(Task.CREATION_DATE))
             item.setValue(Task.CREATION_DATE, DateUtilities.now());
         item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
