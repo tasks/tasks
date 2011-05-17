@@ -123,7 +123,7 @@ public class TaskService {
                         metadata.setValue(MilkTaskFields.TASK_ID, 0L);
                         metadata.setValue(MilkTaskFields.TASK_SERIES_ID, 0L);
                     }
-                    if(OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY.equals(metadata.getValue(Metadata.KEY))) {
+                    if(OpencrxCoreUtils.OPENCRX_ACTIVITY_METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(OpencrxCoreUtils.ACTIVITY_ID, 0L);
 
                     metadata.setValue(Metadata.TASK, newId);

@@ -186,6 +186,11 @@ public class StartupService {
 
         try {
             database.openForWriting();
+
+            if(taskService.countTasks() > 0)
+                return;
+
+            // change count below as well
             addIntroTask(r, R.string.intro_task_1_summary, R.string.intro_task_1_note);
             addIntroTask(r, R.string.intro_task_2_summary, R.string.intro_task_2_note);
             addIntroTask(r, R.string.intro_task_3_summary, R.string.intro_task_3_note);
@@ -193,6 +198,8 @@ public class StartupService {
             exceptionService.reportError("on-first-time", e); //$NON-NLS-1$
         }
     }
+
+    public static final int INTRO_TASK_SIZE = 3;
 
     private void addIntroTask(Resources r, int summary, int note) {
         Task task = new Task();

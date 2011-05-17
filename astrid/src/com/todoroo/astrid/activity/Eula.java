@@ -21,7 +21,11 @@ import android.content.DialogInterface;
 import android.content.SharedPreferences;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.service.Autowired;
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.TaskService;
 
 /**
  * Displays an EULA ("End User License Agreement") that the user has to accept
@@ -35,6 +39,8 @@ class Eula {
     private static final String PREFERENCE_EULA_ACCEPTED = "eula.accepted"; //$NON-NLS-1$
     private static final String PREFERENCES_EULA = "eula"; //$NON-NLS-1$
 
+    @Autowired TaskService taskService;
+
     /**
      * Displays the EULA if necessary. This method should be called from the
      * onCreate() method of your main Activity.
@@ -45,9 +51,8 @@ class Eula {
     static void showEula(final Activity activity) {
         final SharedPreferences preferences = activity.getSharedPreferences(
                 PREFERENCES_EULA, Activity.MODE_PRIVATE);
-        if (preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false)) {
+        if(!new Eula().shouldShowEula(preferences))
             return;
-        }
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(R.string.DLG_eula_title);
@@ -76,6 +81,14 @@ class Eula {
         builder.show();
     }
 
+    private boolean shouldShowEula(SharedPreferences preferences) {
+        if(preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false))
+            return false;
+        if(taskService.countTasks() > StartupService.INTRO_TASK_SIZE)
+            return false;
+        return true;
+    }
+
     @SuppressWarnings("unused")
     private static void accept(Activity activity, SharedPreferences preferences) {
         preferences.edit().putBoolean(PREFERENCE_EULA_ACCEPTED, true).commit();
@@ -87,5 +100,6 @@ class Eula {
 
     private Eula() {
         // don't construct me
+        DependencyInjectionService.getInstance().inject(this);
     }
 }
