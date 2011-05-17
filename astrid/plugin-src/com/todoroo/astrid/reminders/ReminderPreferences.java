@@ -9,7 +9,7 @@ import android.preference.Preference;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.andlib.widget.TodorooPreferences;
+import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 
 /**
  * Displays the preference screen for users to edit their preferences
@@ -17,7 +17,7 @@ import com.todoroo.andlib.widget.TodorooPreferences;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class ReminderPreferences extends TodorooPreferences {
+public class ReminderPreferences extends TodorooPreferenceActivity {
 
     @Override
     public int getPreferenceResource() {

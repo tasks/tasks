@@ -24,6 +24,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 
@@ -35,9 +36,8 @@ import com.todoroo.astrid.service.TaskService;
  * If the user refuses, {@link android.app.Activity#finish()} is invoked on your
  * activity.
  */
-class Eula {
-    private static final String PREFERENCE_EULA_ACCEPTED = "eula.accepted"; //$NON-NLS-1$
-    private static final String PREFERENCES_EULA = "eula"; //$NON-NLS-1$
+public final class Eula {
+    public static final String PREFERENCE_EULA_ACCEPTED = "eula.accepted"; //$NON-NLS-1$
 
     @Autowired TaskService taskService;
 
@@ -49,9 +49,7 @@ class Eula {
      *            The Activity to finish if the user rejects the EULA
      */
     static void showEula(final Activity activity) {
-        final SharedPreferences preferences = activity.getSharedPreferences(
-                PREFERENCES_EULA, Activity.MODE_PRIVATE);
-        if(!new Eula().shouldShowEula(preferences))
+        if(!new Eula().shouldShowEula(activity))
             return;
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(activity);
@@ -61,7 +59,7 @@ class Eula {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        accept(activity, preferences);
+                        accept(activity);
                     }
                 });
         builder.setNegativeButton(R.string.DLG_decline,
@@ -81,17 +79,22 @@ class Eula {
         builder.show();
     }
 
-    private boolean shouldShowEula(SharedPreferences preferences) {
-        if(preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false))
+    private boolean shouldShowEula(Activity activity) {
+        if(Preferences.getBoolean(PREFERENCE_EULA_ACCEPTED, false))
             return false;
+
+        SharedPreferences p = activity.getSharedPreferences("eula", Activity.MODE_PRIVATE); //$NON-NLS-1$
+        if(p.getBoolean(PREFERENCE_EULA_ACCEPTED, false))
+            return false;
+
         if(taskService.countTasks() > StartupService.INTRO_TASK_SIZE)
             return false;
         return true;
     }
 
     @SuppressWarnings("unused")
-    private static void accept(Activity activity, SharedPreferences preferences) {
-        preferences.edit().putBoolean(PREFERENCE_EULA_ACCEPTED, true).commit();
+    private static void accept(Activity activity) {
+        Preferences.setBoolean(PREFERENCE_EULA_ACCEPTED, true);
     }
 
     private static void refuse(Activity activity) {

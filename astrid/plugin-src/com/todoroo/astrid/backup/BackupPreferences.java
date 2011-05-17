@@ -14,7 +14,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.andlib.widget.TodorooPreferences;
+import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 
 /**
  * Displays synchronization preferences and an action panel so users can
@@ -23,7 +23,7 @@ import com.todoroo.andlib.widget.TodorooPreferences;
  * @author timsu
  *
  */
-public class BackupPreferences extends TodorooPreferences {
+public class BackupPreferences extends TodorooPreferenceActivity {
 
     static final String PREF_BACKUP_LAST_DATE = "backupDate"; //$NON-NLS-1$
 

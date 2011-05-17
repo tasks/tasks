@@ -34,7 +34,7 @@ import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
-import com.todoroo.andlib.widget.TodorooPreferences;
+import com.todoroo.andlib.utility.TodorooPreferenceActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
@@ -53,7 +53,7 @@ import com.todoroo.astrid.voice.VoiceOutputService;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public class EditPreferences extends TodorooPreferences {
+public class EditPreferences extends TodorooPreferenceActivity {
 
     private static final int ABOUT_PREFERENCE = 0; // see preferences.xml for order of prefs
     private static final int POWER_PACK_PREFERENCE = 2;

@@ -50,10 +50,26 @@ public class Preferences {
      * ======================================================= helper methods
      * ====================================================================== */
 
+    private static SharedPreferences preferences = null;
+
     /** Get preferences object from the context */
     public static SharedPreferences getPrefs(Context context) {
+        if(preferences != null)
+            return preferences;
+
         context = context.getApplicationContext();
-        return PreferenceManager.getDefaultSharedPreferences(context);
+        try {
+            preferences = PreferenceManager.getDefaultSharedPreferences(context);
+
+            // try writing
+            preferences.edit().commit();
+
+        } catch (Exception e) {
+            String alternate = "preferences" + android.os.Process.myUid(); //$NON-NLS-1$
+            preferences = context.getSharedPreferences(alternate, Context.MODE_PRIVATE);
+        }
+
+        return preferences;
     }
 
     /** @return true if given preference is set */

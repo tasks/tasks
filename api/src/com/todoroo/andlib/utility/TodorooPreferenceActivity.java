@@ -4,6 +4,7 @@ package com.todoroo.andlib.utility;
  */
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.CheckBoxPreference;
 import android.preference.EditTextPreference;
@@ -44,6 +45,11 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
 
         ContextManager.setContext(this);
         addPreferencesFromResource(getPreferenceResource());
+    }
+
+    @Override
+    public SharedPreferences getSharedPreferences(String name, int mode) {
+        return Preferences.getPrefs(this);
     }
 
     protected void initializePreference(Preference preference) {

@@ -22,6 +22,7 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.activity.Eula;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.core.SortHelper;
 import com.todoroo.astrid.dao.Database;
@@ -35,6 +36,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_7_4 = 178;
     public static final int V3_7_3 = 175;
     public static final int V3_7_2 = 174;
     public static final int V3_7_1 = 173;
@@ -138,6 +140,12 @@ public final class UpgradeService {
             });
         } else {
             // current message
+            if(from < V3_7_4) {
+                newVersionString(changeLog, "3.7.4 (5/16/11)", new String[] {
+                        "stuff...",
+                });
+                Preferences.setBoolean(Eula.PREFERENCE_EULA_ACCEPTED, true);
+            }
             if(from < V3_7_3) {
                 newVersionString(changeLog, "3.7.3 (4/26/11)", new String[] {
                         "Fixed 'Show Notes' setting not working",
