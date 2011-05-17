@@ -5,6 +5,8 @@
  */
 package com.todoroo.andlib.data;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -81,6 +83,30 @@ abstract public class AbstractDatabase {
      * database and a wrapper by making a single monolithic interface
      */
     protected SQLiteDatabase database = null;
+
+    // --- listeners
+
+    /**
+     * Interface for responding to database changes
+     */
+    public interface DatabaseUpdateListener {
+        /**
+         * Called when an INSERT, UPDATE, or DELETE occurs
+         */
+        public void onDatabaseUpdated();
+    }
+
+    private final ArrayList<DatabaseUpdateListener> listeners = new ArrayList<DatabaseUpdateListener>();
+
+    public void addListener(DatabaseUpdateListener listener) {
+        listeners.add(listener);
+    }
+
+    protected void onDatabaseUpdated() {
+        for(DatabaseUpdateListener listener : listeners) {
+            listener.onDatabaseUpdated();
+        }
+    }
 
 	// --- internal implementation
 
@@ -204,21 +230,27 @@ abstract public class AbstractDatabase {
      * @see android.database.sqlite.SQLiteDatabase#insert(String  table, String  nullColumnHack, ContentValues  values)
      */
     public synchronized long insert(String table, String nullColumnHack, ContentValues values) {
-        return getDatabase().insert(table, nullColumnHack, values);
+        long result = getDatabase().insert(table, nullColumnHack, values);
+        onDatabaseUpdated();
+        return result;
     }
 
     /*
      * @see android.database.sqlite.SQLiteDatabase#delete(String  table, String  whereClause, String[] whereArgs)
      */
     public synchronized int delete(String table, String whereClause, String[] whereArgs) {
-        return getDatabase().delete(table, whereClause, whereArgs);
+        int result = getDatabase().delete(table, whereClause, whereArgs);
+        onDatabaseUpdated();
+        return result;
     }
 
     /*
      * @see android.database.sqlite.SQLiteDatabase#update(String  table, ContentValues  values, String  whereClause, String[] whereArgs)
      */
     public synchronized int update(String  table, ContentValues  values, String  whereClause, String[] whereArgs) {
-        return getDatabase().update(table, values, whereClause, whereArgs);
+        int result = getDatabase().update(table, values, whereClause, whereArgs);
+        onDatabaseUpdated();
+        return result;
     }
 
     // --- helper classes

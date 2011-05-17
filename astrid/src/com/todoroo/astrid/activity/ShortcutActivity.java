@@ -144,11 +144,9 @@ public class ShortcutActivity extends Activity {
 
         if(filter instanceof FilterWithCustomIntent) {
             FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
+            if(customFilter.customExtras != null)
+                shortcutIntent.putExtras(customFilter.customExtras);
             shortcutIntent.putExtra(TOKEN_CUSTOM_CLASS, customFilter.customTaskList.flattenToString());
-            if(customFilter.customExtras != null) {
-                for(String key : customFilter.customExtras.keySet())
-                    putExtra(shortcutIntent, key, customFilter.customExtras.get(key));
-            }
         }
 
         shortcutIntent.setAction(Intent.ACTION_VIEW);
@@ -160,7 +158,6 @@ public class ShortcutActivity extends Activity {
             for (Entry<String, Object> item : filter.valuesForNewTasks.valueSet()) {
                 String key = TOKEN_FILTER_VALUES_ITEM + item.getKey();
                 Object value = item.getValue();
-
                 putExtra(shortcutIntent, key, value);
             }
         }

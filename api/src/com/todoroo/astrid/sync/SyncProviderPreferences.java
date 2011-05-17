@@ -12,6 +12,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 import android.view.View;
 import android.view.ViewGroup.OnHierarchyChangeListener;
 
+import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
@@ -54,6 +55,10 @@ abstract public class SyncProviderPreferences extends TodorooPreferenceActivity 
     // --- implementation
 
     private int statusColor = Color.BLACK;
+
+    public SyncProviderPreferences() {
+        DependencyInjectionService.getInstance().inject(this);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

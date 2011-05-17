@@ -1,5 +1,6 @@
 package com.todoroo.astrid.adapter;
 
+import greendroid.widget.AsyncImageView;
 import greendroid.widget.QuickAction;
 import greendroid.widget.QuickActionBar;
 import greendroid.widget.QuickActionWidget;
@@ -12,6 +13,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 import java.util.concurrent.atomic.AtomicReference;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.ListActivity;
 import android.content.Context;
@@ -28,6 +32,7 @@ import android.text.Html.TagHandler;
 import android.text.Spannable;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -97,7 +102,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.DETAILS,
         Task.ELAPSED_SECONDS,
         Task.TIMER_START,
-        Task.NOTES
+        Task.NOTES,
+        Task.USER_ID,
+        Task.USER
     };
 
     private static int[] IMPORTANCE_COLORS = null;
@@ -205,6 +212,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.task = new Task();
         viewHolder.view = view;
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
+        viewHolder.picture = (AsyncImageView)view.findViewById(R.id.picture);
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.details = (TextView)view.findViewById(R.id.details);
@@ -261,6 +269,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public View view;
         public TextView nameView;
         public CheckBox completeBox;
+        public AsyncImageView picture;
         public TextView dueDate;
         public TextView details;
         public TextView extendedDetails;
@@ -322,6 +331,22 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             completeBox.setChecked(task.isCompleted());
             // disable checkbox if task is readonly
             completeBox.setEnabled(!viewHolder.task.getFlag(Task.FLAGS, Task.FLAG_IS_READONLY));
+        }
+
+        // image view
+        final AsyncImageView pictureView = viewHolder.picture; {
+            if(task.getValue(Task.USER_ID) == 0) {
+                pictureView.setVisibility(View.GONE);
+            } else {
+                pictureView.setVisibility(View.VISIBLE);
+                pictureView.setUrl(null);
+                try {
+                    JSONObject user = new JSONObject(task.getValue(Task.USER));
+                    pictureView.setUrl(user.optString("picture")); //$NON-NLS-1$
+                } catch (JSONException e) {
+                    Log.w("astrid", "task-adapter-image", e); //$NON-NLS-1$ //$NON-NLS-2$
+                }
+            }
         }
 
         // importance bar

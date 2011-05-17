@@ -267,6 +267,10 @@
   <!-- =========================================================== GTASKS == -->
   
     <string name="gtasks_GPr_interval_key">gtasks_sync_freq</string>
+    
+  <!-- ========================================================== SHARING == -->
+  
+    <string name="actfm_APr_interval_key">actfm_sync_freq</string>
 
   <!-- ======================================================== POWERPACK == -->
 

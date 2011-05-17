@@ -92,7 +92,7 @@ public class FilterByTagExposer extends BroadcastReceiver {
         DialogInterface.OnClickListener listener = new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                Tag tag = new Tag(tags.get(which), 0);
+                Tag tag = new Tag(tags.get(which), 0, 0);
 
                 String listTitle = tag.tag;
                 String title = ContextManager.getString(

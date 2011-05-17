@@ -107,6 +107,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             @Override
             public void run() {
                 try {
+                    if(filter.listingTitle.matches(".* \\(\\d\\)$")) //$NON-NLS-1$
+                        return;
                     int size = taskService.countTasks(filter);
                     filter.listingTitle = filter.listingTitle + (" (" + //$NON-NLS-1$
                         size + ")"); //$NON-NLS-1$

@@ -26,7 +26,7 @@ public final class ShareLinkActivity extends TaskListActivity {
 
         String subject = callerIntent.getStringExtra(Intent.EXTRA_SUBJECT);
         if(subject == null)
-            subject = "";
+            subject = ""; //$NON-NLS-1$
         Task task = quickAddTask(subject, false);
         task.setValue(Task.NOTES, callerIntent.getStringExtra(Intent.EXTRA_TEXT));
         taskService.save(task);

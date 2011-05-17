@@ -1,4 +1,4 @@
-package com.todoroo.astrid.sharing;
+package com.todoroo.astrid.actfm.sync;
 
 import java.io.IOException;
 

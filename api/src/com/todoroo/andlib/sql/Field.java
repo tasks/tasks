@@ -83,7 +83,7 @@ public class Field extends DBObject<Field> {
         return UnaryCriterion.like(this, value, escape);
     }
 
-    public <T> Criterion in(final T... value) {
+    public <T> Criterion in(final T[] value) {
         final Field field = this;
         return new Criterion(Operator.in) {
 

@@ -3,15 +3,19 @@
  */
 package com.todoroo.astrid.activity;
 
+import java.io.IOException;
+
+import org.json.JSONException;
+
 import android.app.AlertDialog;
 import android.app.ExpandableListActivity;
 import android.app.PendingIntent.CanceledException;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.PixelFormat;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -23,7 +27,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -40,6 +43,9 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Functions;
 import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.adapter.FilterAdapter;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -65,16 +71,18 @@ public class FilterListActivity extends ExpandableListActivity {
 
     private static final int MENU_SEARCH_ID = Menu.FIRST + 0;
     private static final int MENU_HELP_ID = Menu.FIRST + 1;
+    private static final int MENU_REFRESH_ID = Menu.FIRST + 2;
 
-    private static final int CONTEXT_MENU_SHORTCUT = Menu.FIRST + 2;
-    private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 3;
+    private static final int CONTEXT_MENU_SHORTCUT = Menu.FIRST + 3;
+    private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
 
     private static final int REQUEST_CUSTOM_INTENT = 1;
 
     // --- instance variables
 
-    @Autowired
-    protected ExceptionService exceptionService;
+    @Autowired ExceptionService exceptionService;
+    @Autowired ActFmPreferenceService actFmPreferenceService;
+    @Autowired ActFmSyncService actFmSyncService;
 
     FilterAdapter adapter = null;
 
@@ -99,10 +107,6 @@ public class FilterListActivity extends ExpandableListActivity {
         setTitle(R.string.FLA_title);
 
         onNewIntent(getIntent());
-
-        // dithering
-        getWindow().setFormat(PixelFormat.RGBA_8888);
-        getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
     }
 
     /**
@@ -146,6 +150,12 @@ public class FilterListActivity extends ExpandableListActivity {
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
+
+        if(actFmPreferenceService.isLoggedIn()) {
+            item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
+                    R.string.actfm_FLA_menu_refresh);
+            item.setIcon(R.drawable.ic_menu_refresh);
+        }
 
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.FLA_menu_help);
@@ -213,7 +223,7 @@ public class FilterListActivity extends ExpandableListActivity {
                 FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
                 intent.setComponent(customFilter.customTaskList);
                 if(customFilter.customExtras != null)
-                    intent.getExtras().putAll(customFilter.customExtras);
+                    intent.putExtras(customFilter.customExtras);
             }
             startActivity(intent);
             AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
@@ -344,6 +354,11 @@ public class FilterListActivity extends ExpandableListActivity {
             return true;
         }
 
+        case MENU_REFRESH_ID: {
+            onRefreshRequested();
+            return true;
+        }
+
         case MENU_HELP_ID: {
             Intent intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/filters/")); //$NON-NLS-1$
@@ -370,6 +385,33 @@ public class FilterListActivity extends ExpandableListActivity {
         }
 
         return false;
+    }
+
+    /**
+     * Refresh user tags
+     */
+    private void onRefreshRequested() {
+        final ProgressDialog progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
+
+        new Thread(new Runnable() {
+            @SuppressWarnings("nls")
+            @Override
+            public void run() {
+                try {
+                    actFmSyncService.fetchTags();
+
+                    adapter.clear();
+                    adapter.getLists();
+
+                } catch (IOException e) {
+                    exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-io", e);
+                } catch (JSONException e) {
+                    exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-json", e);
+                } finally {
+                    progressDialog.dismiss();
+                }
+            }
+        }).start();
     }
 
     private void showCreateShortcutDialog(final Intent shortcutIntent,

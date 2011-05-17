@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigInteger;
@@ -300,16 +301,38 @@ public class AndroidUtilities {
         FileInputStream fis = new FileInputStream(in);
         FileOutputStream fos = new FileOutputStream(out);
         try {
-            byte[] buf = new byte[1024];
-            int i = 0;
-            while ((i = fis.read(buf)) != -1) {
-                fos.write(buf, 0, i);
-            }
+            copyStream(fis, fos);
         } catch (Exception e) {
             throw e;
         } finally {
             fis.close();
             fos.close();
+        }
+    }
+
+    /**
+     * Copy stream from source to destination
+     * @param source
+     * @param dest
+     * @throws IOException
+     */
+    public static void copyStream(InputStream source, OutputStream dest) throws IOException {
+        int bytes;
+        byte[] buffer;
+        int BUFFER_SIZE = 1024;
+        buffer = new byte[BUFFER_SIZE];
+        while ((bytes = source.read(buffer)) != -1) {
+            if (bytes == 0) {
+                bytes = source.read();
+                if (bytes < 0)
+                    break;
+                dest.write(bytes);
+                dest.flush();
+                continue;
+            }
+
+            dest.write(buffer, 0, bytes);
+            dest.flush();
         }
     }
 
@@ -542,6 +565,22 @@ public class AndroidUtilities {
                     exceptionService = new ExceptionService();
             }
         return exceptionService;
+    }
+
+    /**
+     * Concatenate additional stuff to the end of the array
+     * @param params
+     * @param additional
+     * @return
+     */
+    public static <TYPE> TYPE[] concat(TYPE[] dest, TYPE[] source, TYPE... additional) {
+        int i = 0;
+        for(; i < Math.min(dest.length, source.length); i++)
+            dest[i] = source[i];
+        int base = i;
+        for(; i < dest.length; i++)
+            dest[i] = additional[i - base];
+        return dest;
     }
 
 }

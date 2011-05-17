@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 
 import com.todoroo.andlib.data.Property.CountProperty;
+import com.todoroo.andlib.data.Property.LongProperty;
 import com.todoroo.andlib.data.Property.StringProperty;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
@@ -40,6 +41,9 @@ public final class TagService {
 
     /** Property for reading tag values */
     public static final StringProperty TAG = Metadata.VALUE1;
+
+    /** Property for astrid.com remote id */
+    public static final LongProperty REMOTE_ID = new LongProperty(Metadata.TABLE, Metadata.VALUE2.name);
 
     // --- singleton
 
@@ -79,10 +83,12 @@ public final class TagService {
     public static final class Tag {
         public String tag;
         int count;
+        long remoteId;
 
-        public Tag(String tag, int count) {
+        public Tag(String tag, int count, long remoteId) {
             this.tag = tag;
             this.count = count;
+            this.remoteId = remoteId;
         }
 
         @Override
@@ -112,7 +118,7 @@ public final class TagService {
         return new QueryTemplate().where(Criterion.and(
                 Criterion.not(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).where(MetadataCriteria.withKey(KEY)))),
                 TaskCriteria.isActive(),
-                Criterion.not(TaskCriteria.isReadOnly()),
+                TaskCriteria.ownedByMe(),
                 TaskCriteria.isVisible()));
     }
 
@@ -124,7 +130,7 @@ public final class TagService {
      * @return empty array if no tags, otherwise array
      */
     public Tag[] getGroupedTags(Order order, Criterion activeStatus) {
-        Query query = Query.select(TAG.as(TAG.name), COUNT).
+        Query query = Query.select(TAG, REMOTE_ID, COUNT).
             join(Join.inner(Task.TABLE, Metadata.TASK.eq(Task.ID))).
             where(Criterion.and(activeStatus, MetadataCriteria.withKey(KEY))).
             orderBy(order).groupBy(TAG);
@@ -133,7 +139,7 @@ public final class TagService {
             Tag[] array = new Tag[cursor.getCount()];
             for (int i = 0; i < array.length; i++) {
                 cursor.moveToNext();
-                array[i] = new Tag(cursor.get(TAG), cursor.get(COUNT));
+                array[i] = new Tag(cursor.get(TAG), cursor.get(COUNT), cursor.get(REMOTE_ID));
             }
             return array;
         } finally {
@@ -148,7 +154,7 @@ public final class TagService {
      * @return cursor. PLEASE CLOSE THE CURSOR!
      */
     public TodorooCursor<Metadata> getTags(long taskId) {
-        Query query = Query.select(TAG).where(Criterion.and(MetadataCriteria.withKey(KEY),
+        Query query = Query.select(TAG, REMOTE_ID).where(Criterion.and(MetadataCriteria.withKey(KEY),
                 MetadataCriteria.byTask(taskId)));
         return metadataDao.query(query);
     }

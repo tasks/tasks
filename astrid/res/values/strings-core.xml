@@ -49,6 +49,9 @@
 
   <!-- EULA title -->
   <string name="DLG_eula_title">Astrid Terms Of Use</string>
+
+  <!-- Progress Dialog generic text -->
+  <string name="DLG_please_wait">Please Wait</string>
   
   <!-- =============================================================== UI == -->
   
@@ -61,6 +64,15 @@
   <!-- String formatter for Disable button -->
   <string name="WID_disableButton">Disable</string>
   
+  <!--  ============================================================= notes -->
+  
+  <!-- Note screen: quick-add comment text -->    
+  <string name="notes_quick_add_comment_hint">Add a comment...</string>
+  
+  <!-- Note screen: blank notes -->    
+  <string name="notes_blank">No notes!</string>
+
+
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    

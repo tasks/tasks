@@ -184,7 +184,7 @@ public class CustomFilterActivity extends ListActivity {
                     getString(R.string.CFC_dueBefore_text),
                     Query.select(Task.ID).from(Task.TABLE).where(
                             Criterion.and(
-                                    TaskCriteria.activeAndVisible(),
+                                    TaskCriteria.activeVisibleMine(),
                                     Criterion.or(
                                             Field.field("?").eq(0),
                                             Task.DUE_DATE.gt(0)),
@@ -212,7 +212,7 @@ public class CustomFilterActivity extends ListActivity {
                     IDENTIFIER_IMPORTANCE,
                     getString(R.string.CFC_importance_text),
                     Query.select(Task.ID).from(Task.TABLE).where(
-                            Criterion.and(TaskCriteria.activeAndVisible(),
+                            Criterion.and(TaskCriteria.activeVisibleMine(),
                                     Task.IMPORTANCE.lte("?"))).toString(),
                     values, entries,
                     entryValues, ((BitmapDrawable)r.getDrawable(R.drawable.tango_warning)).getBitmap(),
@@ -228,7 +228,7 @@ public class CustomFilterActivity extends ListActivity {
                     IDENTIFIER_TITLE,
                     getString(R.string.CFC_title_contains_text),
                     Query.select(Task.ID).from(Task.TABLE).where(
-                            Criterion.and(TaskCriteria.activeAndVisible(),
+                            Criterion.and(TaskCriteria.activeVisibleMine(),
                                     Task.TITLE.like("%?%"))).toString(),
                         null, getString(R.string.CFC_title_contains_name), "",
                         ((BitmapDrawable)r.getDrawable(R.drawable.tango_alpha)).getBitmap(),
@@ -371,9 +371,9 @@ public class CustomFilterActivity extends ListActivity {
 
             // special code for all tasks universe
             if(instance.criterion.sql == null)
-                sql.append(TaskCriteria.activeAndVisible()).append(' ');
+                sql.append(TaskCriteria.activeVisibleMine()).append(' ');
             else {
-                String subSql = instance.criterion.sql.replace("?", value);
+                String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
             }
 
@@ -434,7 +434,7 @@ public class CustomFilterActivity extends ListActivity {
 
             // special code for all tasks universe
             if(instance.criterion.sql == null)
-                sql.append(TaskCriteria.activeAndVisible()).append(' ');
+                sql.append(TaskCriteria.activeVisibleMine()).append(' ');
             else {
                 String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
                 subSql = PermaSql.replacePlaceholders(subSql);

@@ -15,6 +15,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Handler;
 import android.text.TextUtils;
@@ -31,6 +32,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
@@ -41,7 +43,6 @@ import com.todoroo.astrid.legacy.LegacyTaskModel;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
-import com.todoroo.astrid.utility.Flags;
 
 public class TasksXmlImporter {
 
@@ -146,7 +147,8 @@ public class TasksXmlImporter {
                 }
             }
         } finally {
-            Flags.set(Flags.REFRESH);
+            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+            ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
             handler.post(new Runnable() {
                 @Override
                 public void run() {
@@ -504,7 +506,7 @@ public class TasksXmlImporter {
                 String preferred = xpp.getAttributeValue(null, LegacyTaskModel.PREFERRED_DUE_DATE);
                 if(preferred != null) {
                     Date preferredDate = BackupDateUtilities.getDateFromIso8601String(value);
-                    upgradeNotes = "Goal Deadline: " +
+                    upgradeNotes = "Project Deadline: " +
                             DateUtilities.getDateString(ContextManager.getContext(),
                                     preferredDate);
                 }

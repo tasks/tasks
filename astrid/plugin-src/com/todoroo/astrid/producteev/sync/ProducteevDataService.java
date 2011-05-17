@@ -83,10 +83,10 @@ public final class ProducteevDataService {
      * Clears metadata information. Used when user logs out of service
      */
     public void clearMetadata() {
-        metadataService.deleteWhere(Metadata.KEY.eq(ProducteevTask.METADATA_KEY));
-        storeObjectDao.deleteWhere(StoreObject.TYPE.eq(ProducteevDashboard.TYPE));
         PluginServices.getTaskService().clearDetails(Task.ID.in(Query.select(Metadata.TASK).from(Metadata.TABLE).
                 where(MetadataCriteria.withKey(ProducteevTask.METADATA_KEY))));
+        metadataService.deleteWhere(Metadata.KEY.eq(ProducteevTask.METADATA_KEY));
+        storeObjectDao.deleteWhere(StoreObject.TYPE.eq(ProducteevDashboard.TYPE));
     }
 
     /**

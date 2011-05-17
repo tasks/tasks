@@ -27,11 +27,8 @@ import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
-import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
@@ -51,6 +48,7 @@ import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.sync.SyncContainer;
 import com.todoroo.astrid.sync.SyncProvider;
+import com.todoroo.astrid.sync.SyncProviderUtilities;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.gtasks.GoogleConnectionManager;
 import com.todoroo.gtasks.GoogleLoginException;
@@ -90,16 +88,14 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         AstridDependencyInjector.initialize();
     }
 
-    @Autowired protected ExceptionService exceptionService;
-
-    public GtasksSyncProvider() {
-        super();
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
     // ----------------------------------------------------------------------
     // ------------------------------------------------------ utility methods
     // ----------------------------------------------------------------------
+
+    @Override
+    protected SyncProviderUtilities getUtilities() {
+        return gtasksPreferenceService;
+    }
 
     /**
      * Sign out of service, deleting all synchronization metadata
@@ -109,44 +105,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         gtasksPreferenceService.setToken(null);
 
         gtasksMetadataService.clearMetadata();
-    }
-
-    /**
-     * Deal with a synchronization exception. If requested, will show an error
-     * to the user (unless synchronization is happening in background)
-     *
-     * @param context
-     * @param tag
-     *            error tag
-     * @param e
-     *            exception
-     * @param showError
-     *            whether to display a dialog
-     */
-    @Override
-    protected void handleException(String tag, Exception e, boolean displayError) {
-        final Context context = ContextManager.getContext();
-        gtasksPreferenceService.setLastError(e.toString());
-
-        String message = null;
-
-        // occurs when application was closed
-        if(e instanceof IllegalStateException) {
-            exceptionService.reportError(tag + "-caught", e); //$NON-NLS-1$
-
-            // occurs when network error
-        } else if(!(e instanceof GoogleTasksException) && e instanceof IOException) {
-            message = context.getString(R.string.SyP_ioerror);
-            exceptionService.reportError(tag + "-ioexception", e); //$NON-NLS-1$
-        } else {
-            message = context.getString(R.string.DLG_error, e.toString());
-            exceptionService.reportError(tag + "-unhandled", e); //$NON-NLS-1$
-        }
-
-        if(displayError && context instanceof Activity && message != null) {
-            DialogUtilities.okDialog((Activity)context,
-                    message, null);
-        }
     }
 
     // ----------------------------------------------------------------------
@@ -444,11 +402,10 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             TaskCreator createdTask = l.createTask(local.task.getValue(Task.TITLE));
             createdTask.parentId(local.parentId);
             updateTaskHelper(local, null, createdTask);
+            return local;
         } catch (JSONException e) {
             throw new GoogleTasksException(e);
         }
-
-        return local;
     }
 
     private void updateTaskHelper(final GtasksTaskContainer local,
@@ -559,7 +516,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
      * have changed.
      */
     @Override
-    protected void push(GtasksTaskContainer local, GtasksTaskContainer remote) throws IOException {
+    protected GtasksTaskContainer push(GtasksTaskContainer local, GtasksTaskContainer remote) throws IOException {
         try {
             gtasksTaskListUpdater.updateParentAndSibling(local);
 
@@ -574,6 +531,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         } catch (JSONException e) {
             throw new GoogleTasksException(e);
         }
+
+        return pull(remote);
     }
 
     // ----------------------------------------------------------------------

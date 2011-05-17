@@ -7,6 +7,7 @@ package com.todoroo.andlib.data;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -66,6 +67,25 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             return;
         this.database = database;
         table = database.getTable(modelClass);
+    }
+
+    // --- listeners
+
+    public interface ModelUpdateListener<MTYPE> {
+        public void onModelUpdated(MTYPE model);
+    }
+
+    private final ArrayList<ModelUpdateListener<TYPE>> listeners =
+        new ArrayList<ModelUpdateListener<TYPE>>();
+
+    public void addListener(ModelUpdateListener<TYPE> listener) {
+        listeners.add(listener);
+    }
+
+    protected void onModelUpdated(TYPE model) {
+        for(ModelUpdateListener<TYPE> listener : listeners) {
+            listener.onModelUpdated(model);
+        }
     }
 
     // --- dao methods
@@ -207,12 +227,14 @@ public class DatabaseDao<TYPE extends AbstractModel> {
      * @return returns true on success.
      */
     public boolean createNew(TYPE item) {
+        item.clearValue(AbstractModel.ID_PROPERTY);
         long newRow = database.insert(table.name,
                 AbstractModel.ID_PROPERTY.name, item.getMergedValues());
         boolean result = newRow >= 0;
         if(result) {
-            item.markSaved();
             item.setId(newRow);
+            onModelUpdated(item);
+            item.markSaved();
         }
         return result;
     }
@@ -233,8 +255,10 @@ public class DatabaseDao<TYPE extends AbstractModel> {
             return true;
         boolean result = database.update(table.name, values,
                 AbstractModel.ID_PROPERTY.eq(item.getId()).toString(), null) > 0;
-        if(result)
+        if(result) {
+            onModelUpdated(item);
             item.markSaved();
+        }
         return result;
     }
 

@@ -105,6 +105,7 @@ public class TaskService {
         if(newTask == null)
             return new Task();
         newTask.clearValue(Task.ID);
+        newTask.clearValue(Task.REMOTE_ID);
         taskDao.createNew(newTask);
         TodorooCursor<Metadata> cursor = metadataDao.query(
                 Query.select(Metadata.PROPERTIES).where(MetadataCriteria.byTask(task.getId())));
@@ -114,6 +115,9 @@ public class TaskService {
                 long newId = newTask.getId();
                 for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
                     metadata.readFromCursor(cursor);
+
+                    if(!metadata.containsNonNullValue(Metadata.KEY))
+                        continue;
 
                     if(GtasksMetadata.METADATA_KEY.equals(metadata.getValue(Metadata.KEY)))
                         metadata.setValue(GtasksMetadata.ID, "0"); //$NON-NLS-1$
@@ -244,7 +248,7 @@ public class TaskService {
      */
     public int clearDetails(Criterion criterion) {
         ContentValues values = new ContentValues();
-        values.put(Task.DETAILS.name, (String) null);
+        values.put(Task.DETAILS_DATE.name, 0);
         return taskDao.updateMultiple(values, criterion);
     }
 

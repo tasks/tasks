@@ -11,4 +11,5 @@ release
 dev
 lp-translations/
 translations/strings.xml
-
+.DS_Store
+greendroid/GDCatalog/.project

@@ -102,7 +102,7 @@ abstract public class SyncProviderUtilities {
     /** Set Last Successful Sync Date */
     public void recordSuccessfulSync() {
         Editor editor = getPrefs().edit();
-        editor.putLong(getIdentifier() + PREF_LAST_SYNC, DateUtilities.now());
+        editor.putLong(getIdentifier() + PREF_LAST_SYNC, DateUtilities.now() + 1000);
         editor.putLong(getIdentifier() + PREF_LAST_ATTEMPTED_SYNC, 0);
         editor.commit();
     }

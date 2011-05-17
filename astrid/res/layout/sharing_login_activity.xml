@@ -1,95 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"
-  android:background="#ffffff">
-  <LinearLayout
+
+  <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="5px"
-    android:paddingRight="5px"
-    android:orientation="vertical">
-    <ImageView
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:paddingTop="3dip"
-      android:paddingBottom="3dip"
-      android:background="#2d1110"
-      android:scaleType="fitCenter"
-      android:src="@drawable/sharing_logo" />
+    android:layout_height="fill_parent"
+    android:paddingLeft="4px"
+    android:paddingRight="4px"
+    android:background="@drawable/sharing_gradient">
+
     <TextView
+      android:id="@+id/intro"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
       android:gravity="center"
-      android:paddingTop="5dip"
-      android:paddingBottom="10dip"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentLeft="true"
       android:textSize="16sp"
-      android:textColor="#333333"
+      android:paddingTop="20dip"
+      android:textColor="#ffffff"
       android:text="@string/sharing_SLA_body" />
-    <TextView
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center"
-      android:paddingBottom="20dip"
-      android:textSize="20sp"
-      android:textColor="#333333"
-      android:text="@string/sharing_SLA_login"
-      android:textStyle="bold" />
+      
     <TextView
       android:id="@+id/error"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
-      android:gravity="center_horizontal"
-      android:paddingBottom="20dip"
-      android:textColor="#ff0000"
-      android:textSize="16sp"
-      android:textStyle="bold"
-      android:visibility="gone" />
-      
-    <LinearLayout
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal">
-      <com.facebook.android.LoginButton
-        android:id="@+id/fb_login"
-        android:src="@drawable/facebook_64"
-        android:background="#00000000"
-        android:gravity="right"
-        android:paddingLeft="10px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1" />
-      <ImageButton
-        android:id="@+id/google_login"
-        android:src="@drawable/google_64"
-        android:background="#00000000"
-        android:gravity="left"
-        android:paddingRight="10px"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"/>
-    </LinearLayout>
-      
-    <TextView
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
+      android:layout_below="@id/intro"
+      android:layout_alignParentLeft="true"
       android:gravity="center"
       android:paddingTop="10dip"
-      android:paddingBottom="20dip"
-      android:textSize="14sp"
-      android:textColor="#333333"
-      android:text="@string/sharing_SLA_next_step" />
-      
-    <TextView
-      android:id="@+id/taskInfo"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:gravity="center"
-      android:textSize="20sp"
-      android:textColor="#333333"
-      android:text="@string/sharing_SLA_task"
+      android:textColor="#ff0000"
+      android:textSize="16sp"
       android:textStyle="bold" />
       
-  </LinearLayout>
-</ScrollView>
+    <ImageView
+      android:layout_width="fill_parent"
+      android:layout_height="fill_parent"
+      android:layout_alignParentTop="true"
+      android:layout_alignParentLeft="true"
+      android:scaleType="fitCenter"
+      android:paddingLeft="20dip"
+      android:paddingRight="20dip"
+      android:src="@drawable/sharing_logo" />
+      
+    <TextView
+      android:id="@+id/notice"
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_alignParentBottom="true"
+      android:layout_alignParentLeft="true"
+      android:gravity="center"
+      android:paddingTop="30dip"
+      android:paddingBottom="30dip"
+      android:textSize="14sp"
+      android:textColor="#cccccc"
+      android:text="@string/sharing_SLA_notice" />
+            
+    <com.facebook.android.LoginButton
+      android:id="@+id/fb_login"
+      android:layout_width="fill_parent"
+      android:layout_height="50dip"
+      android:layout_above="@id/notice"
+      android:layout_alignParentLeft="true"
+      android:paddingLeft="20dip"
+      android:paddingRight="20dip"
+      android:textSize="18sp"
+      android:text="@string/sharing_SLA_login" />
+      
+  </RelativeLayout>

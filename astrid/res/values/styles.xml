@@ -22,19 +22,16 @@
     
     <!--================================================== Custom Dialogs == -->
     
-    <style name="DialogTitleText" parent="android:TextAppearance.WindowTitle">
-        <item name="android:textSize">20dip</item>
-    </style>
-    
      <style name="DialogTitle" parent="android:WindowTitle">
+        <item name="android:textSize">18sp</item>
         <item name="android:background">#323331</item>
-        <item name="android:layout_height">26dip</item>
-        <item name="android:textAppearance">@style/DialogTitleText</item>
     </style>
       
     <style name="Theme.Dialog" parent="android:Theme.Dialog">
         <item name="android:layout_width">fill_parent</item>
+        <item name="android:windowTitleSize">18dip</item>
         <item name="android:windowTitleStyle">@style/DialogTitle</item>
+        <item name="android:windowTitleBackgroundStyle">@style/DialogTitle</item>
     </style>
     
     <!--=============================================== TaskListActivity == -->

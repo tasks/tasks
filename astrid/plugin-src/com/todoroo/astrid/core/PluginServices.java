@@ -12,6 +12,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 
 /**
@@ -38,6 +39,9 @@ public final class PluginServices {
     AddOnService addOnService;
 
     @Autowired
+    TagDataService tagDataService;
+
+    @Autowired
     StoreObjectDao storeObjectDao;
 
     private static PluginServices instance;
@@ -59,6 +63,10 @@ public final class PluginServices {
     public static TaskService getTaskService() {
         getInstance().database.openForWriting();
         return getInstance().taskService;
+    }
+
+    public static TagDataService getProjectService() {
+        return getInstance().tagDataService;
     }
 
     public static ExceptionService getExceptionService() {
@@ -87,9 +95,10 @@ public final class PluginServices {
         TodorooCursor<Metadata> cursor = PluginServices.getMetadataService().query(Query.select(
                 Metadata.PROPERTIES).where(MetadataCriteria.byTaskAndwithKey(taskId, metadataKey)));
                 try {
-            if(cursor.getCount() > 0)
+            if(cursor.getCount() > 0) {
+                cursor.moveToNext();
                 return new Metadata(cursor);
-            else
+            } else
                 return null;
         } finally {
             cursor.close();

@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<TabHost xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
+    android:id="@android:id/tabhost"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_weight="100">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
+
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-2dp"
+            android:layout_marginRight="-2dp"
+            android:layout_weight="1"
+            android:background="@null" />
+
+        <FrameLayout
+            android:id="@android:id/tabcontent"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="100">
+            
+            <!-- task list body automatically inserted -->
+            
+            <!-- updates tab -->
+            <ListView 
+                android:id="@+id/tab_updates"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+            
+            <!-- settings tab -->
+            <ScrollView
+                android:id="@+id/tab_settings"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+                
+                <LinearLayout 
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:padding="5dip"
+                    android:orientation="vertical">
+            
+                    <RelativeLayout
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingBottom="10dip">
+                    
+                        <greendroid.widget.AsyncImageView 
+                            android:id="@+id/picture"
+                            android:layout_width="80dip"
+                            android:layout_height="80dip"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:scaleType="fitCenter"
+                            android:paddingRight="10dip"
+                            astrid:defaultSrc="@android:drawable/ic_menu_gallery" />
+                      
+                        <TextView 
+                            android:id="@+id/tag_label"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@id/picture"
+                            android:layout_alignParentTop="true"
+                            android:layout_marginTop="10dip"
+                            android:text="@string/actfm_TVA_tag_label" />
+                          
+                        <EditText
+                            android:id="@+id/tag_name"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" 
+                            android:layout_toRightOf="@id/picture"
+                            android:layout_below="@id/tag_label"
+                            android:layout_marginTop="10dip" />
+                          
+                    </RelativeLayout>
+                  
+                    <TextView 
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:text="@string/actfm_TVA_tag_owner_label" />
+                      
+                    <TextView
+                        android:id="@+id/tag_owner"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" 
+                        android:layout_marginBottom="10dip" 
+                        android:textSize="20sp"/>
+                          
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="1dip"
+                        android:background="@android:drawable/divider_horizontal_dark" />
+                        
+                    <TextView 
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dip"
+                        android:paddingBottom="5dip"
+                        android:text="@string/actfm_TVA_members_label" />
+                    
+                    <com.todoroo.astrid.ui.PeopleContainer
+                        android:id="@+id/members_container"
+                        android:orientation="vertical"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content" />
+                                        
+                </LinearLayout>
+              
+            </ScrollView>                
+            
+        </FrameLayout>
+      
+        <!-- Footer -->
+        <LinearLayout
+            android:id="@+id/updatesFooter"
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:orientation="horizontal">
+            
+            <!-- Add Button -->
+            <ImageButton android:id="@+id/commentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:visibility="gone"
+                android:src="@drawable/tango_chat"
+                android:scaleType="fitCenter"/> 
+        
+            <!-- Comment Field -->
+            <EditText android:id="@+id/commentField"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+                android:layout_weight="100"
+                android:hint="@string/TVA_add_comment"
+                android:singleLine="true"
+                android:autoText="true"
+                android:capitalize="sentences"/>
+            
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/membersFooter"
+            android:layout_width="fill_parent" 
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:visibility="gone"
+            android:layout_marginTop="10dip"
+            android:padding="5dip"
+            android:background="@drawable/edit_header"
+            android:orientation="horizontal"
+            android:baselineAligned="false">
+            
+            <ImageButton
+                android:id="@+id/saveMembers"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/tango_save" />
+              
+        </LinearLayout>
+
+    </LinearLayout>
+
+</TabHost>
+        
+

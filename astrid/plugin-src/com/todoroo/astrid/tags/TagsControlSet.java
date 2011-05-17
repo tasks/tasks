@@ -30,6 +30,7 @@ import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.tags.TagService.Tag;
+import com.todoroo.astrid.utility.Flags;
 
 /**
  * Control set to manage adding and removing tags
@@ -57,7 +58,7 @@ public final class TagsControlSet implements TaskEditControlSet {
             tagSpinner.setVisibility(View.GONE);
         } else {
             ArrayList<Tag> dropDownList = new ArrayList<Tag>(Arrays.asList(allTags));
-            dropDownList.add(0, new Tag(activity.getString(R.string.TEA_tag_dropdown), 0));
+            dropDownList.add(0, new Tag(activity.getString(R.string.TEA_tag_dropdown), 0, 0));
             ArrayAdapter<Tag> tagAdapter = new ArrayAdapter<Tag>(activity,
                     android.R.layout.simple_spinner_item,
                     dropDownList);
@@ -116,8 +117,10 @@ public final class TagsControlSet implements TaskEditControlSet {
             tags.add(tagName.getText().toString());
         }
 
-        if(TagService.getInstance().synchronizeTags(task.getId(), tags))
+        if(TagService.getInstance().synchronizeTags(task.getId(), tags)) {
+            Flags.set(Flags.TAGS_CHANGED);
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+        }
 
         return null;
     }

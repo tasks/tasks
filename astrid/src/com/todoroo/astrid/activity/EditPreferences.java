@@ -42,6 +42,7 @@ import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.AddOnService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.ui.ContactListAdapter;
 import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.utility.Flags;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
@@ -205,6 +206,17 @@ public class EditPreferences extends TodorooPreferenceActivity {
             public boolean onPreferenceClick(Preference p) {
                 database.openForWriting();
                 taskService.deleteWhere(Criterion.all);
+                DialogUtilities.okDialog(EditPreferences.this, "done", null);
+                return false;
+            }
+        });
+        group.addPreference(preference);
+
+        preference = new Preference(this);
+        preference.setTitle("Make lots of contacts");
+        preference.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference p) {
+                ContactListAdapter.makeLotsOfContacts();
                 DialogUtilities.okDialog(EditPreferences.this, "done", null);
                 return false;
             }

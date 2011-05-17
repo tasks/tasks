@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:background="@drawable/background_gradient">
+    
+    <ScrollView 
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_weight="100">
+
+        <LinearLayout 
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="5dip"
+            android:orientation="vertical">
+        
+          <TextView 
+              android:id="@+id/title"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:gravity="center"
+              style="@style/TextAppearance.TAd_ItemTitle"
+              android:paddingBottom="15dip"
+              android:paddingTop="10dip"
+              android:textSize="22sp" />
+              
+          <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:background="@android:drawable/divider_horizontal_dark" />
+            
+          <TextView 
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:paddingTop="15dip"
+              android:paddingBottom="5dip"
+              android:text="@string/actfm_EPA_assign_label" />
+          
+          <LinearLayout
+              android:orientation="horizontal"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+            
+             <Spinner
+                  android:id="@+id/assigned_spinner"
+                  android:layout_width="fill_parent"
+                  android:layout_height="45dip"
+                  android:layout_weight="1"
+                  android:layout_gravity="center_vertical"
+                  android:hint="@string/actfm_person_hint" />
+            
+             <com.todoroo.astrid.ui.ContactsAutoComplete
+                  android:id="@+id/assigned_custom"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:layout_weight="1"
+                  android:layout_gravity="center_vertical"
+                  android:visibility="gone"
+                  android:hint="@string/actfm_person_hint" />
+                  
+              <ImageButton android:id="@+id/assigned_clear"
+                  style="?android:attr/buttonStyleInset"
+                  android:src="@android:drawable/ic_delete"
+                  android:layout_width="wrap_content"
+                  android:layout_height="fill_parent"
+                  android:layout_marginTop="2dip"
+                  android:layout_marginRight="2dip"
+                  android:layout_marginBottom="2dip"
+                  android:visibility="gone"
+                  android:gravity="center_vertical" />
+          </LinearLayout>
+                    
+          <TextView 
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:paddingBottom="5dip"
+              android:text="@string/actfm_EPA_share_with" />
+          
+          <com.todoroo.astrid.ui.PeopleContainer
+              android:id="@+id/share_container"
+              android:orientation="vertical"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              astrid:completeTags="true" />
+          
+          <LinearLayout
+              android:id="@+id/share_additional"
+              android:orientation="vertical"
+              android:padding="5dip"
+              android:visibility="gone"
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content">
+              
+              <View
+                  android:layout_width="fill_parent"
+                  android:layout_height="1dip"
+                  android:background="@android:drawable/divider_horizontal_dark" />
+                        
+              <TextView 
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:paddingTop="5dip"
+                  android:paddingBottom="5dip"
+                  android:text="@string/actfm_EPA_message_text" />
+              
+              <EditText
+                  android:id="@+id/message"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:scrollbars="vertical"
+                  android:text="@string/actfm_EPA_message_body"
+                  android:autoText="true"
+                  android:capitalize="sentences"
+                  android:singleLine="false" />
+                        
+              <TextView 
+                  android:id="@+id/tag_label"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:paddingBottom="5dip"
+                  android:visibility="gone"
+                  android:text="@string/actfm_EPA_tag_label" />
+          
+              <EditText
+                  android:id="@+id/tag_name"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content"
+                  android:visibility="gone"
+                  android:hint="@string/actfm_EPA_tag_hint" />
+                  
+              <View
+                  android:layout_width="fill_parent"
+                  android:layout_height="1dip"
+                  android:background="@android:drawable/divider_horizontal_dark" />
+                  
+          </LinearLayout>
+          
+          <CheckBox 
+              android:id="@+id/checkbox_facebook"
+              android:text="@string/actfm_EPA_facebook" 
+              android:paddingLeft="45dip"
+              android:visibility="gone"
+              android:layout_width="fill_parent" 
+              android:layout_height="wrap_content"/>
+          
+          <CheckBox 
+              android:id="@+id/checkbox_twitter"
+              android:text="@string/actfm_EPA_twitter" 
+              android:paddingLeft="45dip"
+              android:visibility="gone"
+              android:layout_width="fill_parent" 
+              android:layout_height="wrap_content"/>
+              
+      </LinearLayout>
+      
+  </ScrollView>
+         
+  <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginTop="10dip"
+      android:padding="5dip"
+      android:orientation="horizontal"
+      android:background="@drawable/edit_header"
+      android:baselineAligned="false">
+      
+      <ImageButton
+          android:id="@+id/save"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:src="@drawable/tango_save" />
+      <ImageButton
+          android:id="@+id/discard"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:src="@drawable/tango_stop" />
+        
+    </LinearLayout>
+            
+</LinearLayout>

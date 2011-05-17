@@ -121,7 +121,7 @@ public class Notifications extends BroadcastReceiver {
         Task task;
         try {
             task = taskDao.fetch(id, Task.ID, Task.TITLE, Task.HIDE_UNTIL, Task.COMPLETION_DATE,
-                        Task.DUE_DATE, Task.DELETION_DATE, Task.REMINDER_FLAGS);
+                        Task.DUE_DATE, Task.DELETION_DATE, Task.REMINDER_FLAGS, Task.USER_ID);
             if(task == null)
                 throw new IllegalArgumentException("cound not find item with id"); //$NON-NLS-1$
 
@@ -130,8 +130,8 @@ public class Notifications extends BroadcastReceiver {
             return false;
         }
 
-        // you're done - don't sound, do delete
-        if(task.isCompleted() || task.isDeleted())
+        // you're done, or not yours - don't sound, do delete
+        if(task.isCompleted() || task.isDeleted() || task.getValue(Task.USER_ID) != 0)
             return false;
 
         // it's hidden - don't sound, don't delete
@@ -178,19 +178,7 @@ public class Notifications extends BroadcastReceiver {
             notificationManager = new AndroidNotificationManager(context);
 
         // quiet hours? unless alarm clock
-        boolean quietHours = false;
-        int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
-        int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd, -1);
-        if(quietHoursStart != -1 && quietHoursEnd != -1 && ringTimes >= 0) {
-            int hour = new Date().getHours();
-            if(quietHoursStart <= quietHoursEnd) {
-                if(hour >= quietHoursStart && hour < quietHoursEnd)
-                    quietHours = true;
-            } else { // wrap across 24/hour boundary
-                if(hour >= quietHoursStart || hour < quietHoursEnd)
-                    quietHours = true;
-            }
-        }
+        boolean quietHours = ringTimes < 0 ? false : isQuietHours();
 
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 notificationId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -311,6 +299,25 @@ public class Notifications extends BroadcastReceiver {
                 // unavailable
             }
         }
+    }
+
+    /**
+     * @return whether we're in quiet hours
+     */
+    public static boolean isQuietHours() {
+        int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
+        int quietHoursEnd = Preferences.getIntegerFromString(R.string.p_rmd_quietEnd, -1);
+        if(quietHoursStart != -1 && quietHoursEnd != -1) {
+            int hour = new Date().getHours();
+            if(quietHoursStart <= quietHoursEnd) {
+                if(hour >= quietHoursStart && hour < quietHoursEnd)
+                    return true;
+            } else { // wrap across 24/hour boundary
+                if(hour >= quietHoursStart || hour < quietHoursEnd)
+                    return true;
+            }
+        }
+        return false;
     }
 
     /**

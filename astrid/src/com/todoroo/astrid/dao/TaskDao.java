@@ -10,7 +10,6 @@ import android.content.ContentValues;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.DatabaseDao;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
@@ -20,12 +19,9 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
-import com.todoroo.astrid.provider.Astrid2TaskProvider;
-import com.todoroo.astrid.provider.Astrid3ContentProvider;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.astrid.widget.TasksWidget;
 
 /**
  * Data Access layer for {@link Task}-related operations.
@@ -65,8 +61,11 @@ public class TaskDao extends DatabaseDao<Task> {
     	    return Task.DELETION_DATE.neq(0);
     	}
 
-    	public static Criterion isReadOnly() {
-    	    return Field.field(Task.FLAGS.name+" & "+Task.FLAG_IS_READONLY).eq(Task.FLAG_IS_READONLY);
+    	/** Check if a given task belongs to someone else & is read-only */
+        public static Criterion ownedByMe() {
+             return Criterion.and(Field.field(Task.FLAGS.name+ " & " + //$NON-NLS-1$
+                     Task.FLAG_IS_READONLY).eq(0),
+                     Task.USER_ID.eq(0));
     	}
 
     	/** @return tasks that were not deleted */
@@ -79,6 +78,16 @@ public class TaskDao extends DatabaseDao<Task> {
     	    return Criterion.and(Task.COMPLETION_DATE.eq(0),
     	            Task.DELETION_DATE.eq(0),
     	            Task.HIDE_UNTIL.lt(Functions.now()));
+    	}
+
+    	/** @return tasks that have not yet been completed or deleted */
+    	public static Criterion activeVisibleMine() {
+            return Criterion.and(Task.COMPLETION_DATE.eq(0),
+                    Task.DELETION_DATE.eq(0),
+                    Task.HIDE_UNTIL.lt(Functions.now()),
+                    Field.field(Task.FLAGS.name + " & " + //$NON-NLS-1$
+                            Task.FLAG_IS_READONLY).eq(0),
+                    Task.USER_ID.eq(0));
     	}
 
     	/** @return tasks that have not yet been completed or deleted */
@@ -141,7 +150,7 @@ public class TaskDao extends DatabaseDao<Task> {
         // delete all metadata
         metadataDao.deleteWhere(MetadataCriteria.byTask(id));
 
-        afterTaskListChanged();
+        TaskApiDao.afterTaskListChanged();
 
         return true;
     }
@@ -214,7 +223,8 @@ public class TaskDao extends DatabaseDao<Task> {
             return false;
         if(!TaskApiDao.insignificantChange(values))    {
             item.setValue(Task.DETAILS, null);
-            item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
+            if(!values.containsKey(Task.MODIFICATION_DATE.name))
+                item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         }
         return super.saveExisting(item);
     }
@@ -239,34 +249,9 @@ public class TaskDao extends DatabaseDao<Task> {
             ReminderService.getInstance().scheduleAlarm(task);
         }
 
-        if(TaskApiDao.insignificantChange(values))
-            return;
-
         // run api save hooks
         TaskApiDao.afterSave(task, values);
-
-        for(DatabaseUpdateListener listener : taskChangeListeners) {
-            listener.onDatabaseUpdated();
-        }
     }
-
-    public static void afterTaskListChanged() {
-        for(DatabaseUpdateListener listener : taskChangeListeners) {
-            listener.onDatabaseUpdated();
-        }
-        TaskApiDao.afterTaskListChanged();
-    }
-
-    private static final DatabaseUpdateListener[] taskChangeListeners = new DatabaseUpdateListener[] {
-        new DatabaseUpdateListener() {
-            @Override
-            public void onDatabaseUpdated() {
-                Astrid2TaskProvider.notifyDatabaseModification();
-                Astrid3ContentProvider.notifyDatabaseModification();
-                TasksWidget.updateWidgets(ContextManager.getContext());
-            }
-        }
-    };
 
     /**
      * Called after the task was just completed

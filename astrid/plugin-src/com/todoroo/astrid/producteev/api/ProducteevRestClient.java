@@ -10,7 +10,6 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
@@ -151,7 +150,7 @@ public class ProducteevRestClient implements RestClient {
      *            url-encoded data
      * @throws IOException
      */
-    public synchronized String post(String url, String data) throws IOException {
+    public synchronized String post(String url, HttpEntity data) throws IOException {
         initializeHttpClient();
 
         if(Constants.DEBUG)
@@ -159,7 +158,7 @@ public class ProducteevRestClient implements RestClient {
 
         try {
             HttpPost httpPost = new HttpPost(url);
-            httpPost.setEntity(new StringEntity(data));
+            httpPost.setEntity(data);
             HttpResponse response = httpClient.execute(httpPost);
 
             return processHttpResponse(response);

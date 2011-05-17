@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- See the file "LICENSE" for the full license governing this code. -->
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- ================================================== general terms == -->
+
+  <!-- People Editing Activity -->    
+  <string name="EPE_action">Share</string>
+  
+  <!-- task sharing dialog: assigned hint -->
+  <string name="actfm_person_hint">Contact Name</string>
+  
+  <!-- task sharing dialog: shared with hint -->
+  <string name="actfm_person_or_tag_hint">Contact or Shared Tag</string>
+
+  <!-- toast on transmit success -->
+  <string name="actfm_toast_success">Saved on Server</string>
+
+  <!-- toast on transmit error -->
+  <string name="actfm_toast_error">Save Unsuccessful</string>
+
+  <!-- can't rename or delete shared tag message -->
+  <string name="actfm_tag_operation_disabled">Please view shared tags to rename or delete them.</string>
+
+  <!-- menu item to take a picture -->
+  <string name="actfm_picture_camera">Take a Picture</string>
+
+  <!-- menu item to select from gallery -->
+  <string name="actfm_picture_gallery">Pick from Gallery</string>
+
+  <!-- filter list activity: refresh tags -->
+  <string name="actfm_FLA_menu_refresh">Refresh Tags</string>
+  
+  <!-- =============================================== ProjectViewActivity == -->
+
+  <!-- Tag View Activity: Add Comment hint -->    
+  <string name="TVA_add_comment">Add a comment...</string>
+
+  <!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->    
+  <string name="UAd_title_comment">%1$s re: %2$s</string>
+  
+  <!-- Tabs for Tag view -->
+  <string-array name="TVA_tabs">
+    <!-- Tab for showing tasks -->
+    <item>Tasks</item>
+    <!-- Tab for showing comments & updates -->
+    <item>Activity</item>
+    <!-- Tab for showing setting -->
+    <item>Members</item>
+  </string-array>
+
+  <!-- Tag View Menu: refresh -->
+  <string name="actfm_TVA_menu_refresh">Refresh</string>
+
+  <!-- Tag Members: tag name label -->
+  <string name="actfm_TVA_tag_label">Tag Name:</string>
+
+  <!-- Tag Members: tag owner label -->
+  <string name="actfm_TVA_tag_owner_label">Tag Owner:</string>
+
+  <!-- Tag Members: tag owner value when there is no owner -->
+  <string name="actfm_TVA_tag_owner_none">none</string>
+
+  <!-- Tag Members: team members label -->
+  <string name="actfm_TVA_members_label">Team Members:</string>
+
+  <!-- Tag Members: tag picture -->
+  <string name="actfm_TVA_tag_picture">Tag Picture</string>
+
+  <!-- ============================================ edit people dialog == -->
+  
+  <!-- task sharing dialog: window title -->
+  <string name="actfm_EPA_title">Share / Assign</string>
+  
+  <!-- task sharing dialog: assigned label -->
+  <string name="actfm_EPA_assign_label">Assigned to:</string>
+  
+  <!-- task sharing dialog: assigned to me -->
+  <string name="actfm_EPA_assign_me">Me</string>
+  
+  <!-- task sharing dialog: custom email assignment -->
+  <string name="actfm_EPA_assign_custom">Custom...</string>
+  
+  <!-- task sharing dialog: shared with label -->
+  <string name="actfm_EPA_share_with">Shared With:</string>
+  
+  <!-- task sharing dialog: assigned hint -->
+  <string name="actfm_EPA_assigned_hint">Contact Name</string>
+  
+  <!-- task sharing dialog: message label text -->
+  <string name="actfm_EPA_message_text">Invitation Message:</string>
+  
+  <!-- task sharing dialog: message body -->
+  <string name="actfm_EPA_message_body">Help me get this done!</string>
+  
+  <!-- task sharing dialog: message hint -->
+  <string name="actfm_EPA_tag_label">Create a shared tag?</string>
+  
+  <!-- task sharing dialog: message hint -->
+  <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
+  
+  <!-- task sharing dialog: share with Facebook -->
+  <string name="actfm_EPA_facebook">Facebook</string>
+  
+  <!-- task sharing dialog: share with Twitter -->
+  <string name="actfm_EPA_twitter">Twitter</string>
+
+  <!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
+  <string name="actfm_EPA_emailed_toast">Task shared with %s</string>
+
+  <!-- task sharing dialog: edit people settings saved -->
+  <string name="actfm_EPA_saved_toast">People Settings Saved</string>
+
+  <!-- task sharing dialog: invalid email (%s => email) -->
+  <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
+
+  <!-- task sharing dialog: tag not found (%s => tag) -->
+  <string name="actfm_EPA_invalid_tag">Tag Not Found: %s</string>
+
+  <!-- ========================================= sharing login activity == -->
+
+  <!-- share login: Title -->
+  <string name="sharing_SLA_title">Welcome to Astrid.com!</string>
+
+  <!-- share login: Sharing Description -->
+  <string name="sharing_SLA_body">Astrid.com lets you access your tasks online,
+  and share &amp; delegate with others. Perfect for personal use, friends &amp; family,
+  or your work groups!</string>
+
+  <!-- share login: Sharing Login Prompt -->
+  <string name="sharing_SLA_login">Sign in using Facebook</string>
+
+  <!-- share login: Sharing notice -->
+  <string name="sharing_SLA_notice">We won\'t post messages or send
+  e-mails without your permission.</string>
+
+  <!-- ================================================ Synchronization == -->
+      
+  <!-- Preferences Title: Act.fm -->    
+  <string name="actfm_APr_header">Astrid.com (Beta!)</string>
+
+  <!-- title for notification tray after synchronizing -->
+  <string name="actfm_notification_title">Astrid.com Sync</string>
+  
+  <!-- text for notification when comments are received -->
+  <string name="actfm_notification_comments">New comments received / click for more details</string>
+    
+</resources>
+

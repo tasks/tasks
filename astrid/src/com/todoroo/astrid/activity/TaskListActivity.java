@@ -121,20 +121,20 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     // --- menu codes
 
-    private static final int MENU_ADDONS_ID = Menu.FIRST + 1;
-    private static final int MENU_SETTINGS_ID = Menu.FIRST + 2;
-    private static final int MENU_SORT_ID = Menu.FIRST + 3;
-    private static final int MENU_SYNC_ID = Menu.FIRST + 4;
-    private static final int MENU_HELP_ID = Menu.FIRST + 5;
-    private static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 6;
+    protected static final int MENU_ADDONS_ID = Menu.FIRST + 1;
+    protected static final int MENU_SETTINGS_ID = Menu.FIRST + 2;
+    protected static final int MENU_SORT_ID = Menu.FIRST + 3;
+    protected static final int MENU_SYNC_ID = Menu.FIRST + 4;
+    protected static final int MENU_HELP_ID = Menu.FIRST + 5;
+    protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 6;
 
-    private static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 20;
-    private static final int CONTEXT_MENU_COPY_TASK_ID = Menu.FIRST + 21;
-    private static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 22;
-    private static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 23;
-    private static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 24;
-    private static final int CONTEXT_MENU_BROADCAST_INTENT_ID = Menu.FIRST + 25;
-    private static final int CONTEXT_MENU_PLUGIN_ID_FIRST = Menu.FIRST + 26;
+    protected static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 20;
+    protected static final int CONTEXT_MENU_COPY_TASK_ID = Menu.FIRST + 21;
+    protected static final int CONTEXT_MENU_DELETE_TASK_ID = Menu.FIRST + 22;
+    protected static final int CONTEXT_MENU_UNDELETE_TASK_ID = Menu.FIRST + 23;
+    protected static final int CONTEXT_MENU_PURGE_TASK_ID = Menu.FIRST + 24;
+    protected static final int CONTEXT_MENU_BROADCAST_INTENT_ID = Menu.FIRST + 25;
+    protected static final int CONTEXT_MENU_PLUGIN_ID_FIRST = Menu.FIRST + 26;
 
     // --- constants
 
@@ -657,7 +657,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     protected void setUpTaskList() {
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
-
         ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
 
         // perform query

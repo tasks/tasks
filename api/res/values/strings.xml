@@ -76,6 +76,12 @@
     <!-- plurals: tasks -->
     <item quantity="other">%d tasks</item>
   </plurals>
+  <plurals name="Npeople">
+    <!-- plurals: people -->
+    <item quantity="one">1 person</item>
+    <!-- plurals: people -->
+    <item quantity="other">%d people</item>
+  </plurals>
   
   <!-- ================================================== Generic Dialogs == -->
   

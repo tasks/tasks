@@ -30,7 +30,7 @@ import com.todoroo.andlib.data.Property.PropertyVisitor;
  * @author Tim Su <tim@todoroo.com>
  *
  */
-public abstract class AbstractModel implements Parcelable {
+public abstract class AbstractModel implements Parcelable, Cloneable {
 
     // --- static variables
 
@@ -129,6 +129,21 @@ public abstract class AbstractModel implements Parcelable {
         return getMergedValues().hashCode() ^ getClass().hashCode();
     }
 
+    @Override
+    public AbstractModel clone() {
+        AbstractModel clone;
+        try {
+            clone = (AbstractModel) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+        }
+        if(setValues != null)
+            clone.setValues = new ContentValues(setValues);
+        if(values != null)
+            clone.values = new ContentValues(values);
+        return clone;
+    }
+
     // --- data retrieval
 
     /**
@@ -201,7 +216,7 @@ public abstract class AbstractModel implements Parcelable {
             setValues = new ContentValues();
 
         if(id == NO_ID)
-            setValues.remove(ID_PROPERTY_NAME);
+            clearValue(ID_PROPERTY);
         else
             setValues.put(ID_PROPERTY_NAME, id);
     }
@@ -294,10 +309,30 @@ public abstract class AbstractModel implements Parcelable {
     public synchronized void clearValue(Property<?> property) {
         if(setValues != null && setValues.containsKey(property.name))
             setValues.remove(property.name);
-        else if(values != null && values.containsKey(property.name))
+        if(values != null && values.containsKey(property.name))
             values.remove(property.name);
-        else if(getDefaultValues().containsKey(property.name))
-            throw new IllegalArgumentException("Property has a default value"); //$NON-NLS-1$
+    }
+
+    /**
+     * Sets the state of the given flag on the given property
+     * @param property
+     * @param flag
+     * @param value
+     */
+    public void setFlag(IntegerProperty property, int flag, boolean value) {
+        if(value)
+            setValue(property, getValue(property) | flag);
+        else
+            setValue(property, getValue(property) & ~flag);
+    }
+
+    /**
+     * Gets  the state of the given flag on the given property
+     * @param property
+     * @param flag
+     */
+    public boolean getFlag(IntegerProperty property, int flag) {
+        return (getValue(property) & flag) > 0;
     }
 
     // --- property management
@@ -318,6 +353,8 @@ public abstract class AbstractModel implements Parcelable {
             if(!Property.class.isAssignableFrom(field.getType()))
                 continue;
             try {
+                if(((Property<?>) field.get(null)).table == null)
+                    continue;
                 properties.add((Property<?>) field.get(null));
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException(e);

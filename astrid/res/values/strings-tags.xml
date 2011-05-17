@@ -25,8 +25,14 @@
   <!-- filter header for tags -->
   <string name="tag_FEx_header">Tags</string>
   
-  <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Sorted By Size</string>
+  <!-- filter header for tags user created -->
+  <string name="tag_FEx_category_mine">My Tags</string>
+  
+  <!-- filter header for tags, shared with user -->
+  <string name="tag_FEx_category_shared">Shared With Me</string>
+  
+  <!-- filter header for tags which have no active tasks -->
+  <string name="tag_FEx_category_inactive">Inactive</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Untagged</string>

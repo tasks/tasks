@@ -30,7 +30,7 @@ import com.todoroo.astrid.api.R;
  *
  */
 @SuppressWarnings("nls")
-public final class Task extends AbstractModel {
+public final class Task extends RemoteModel {
 
     // --- table and uri
 
@@ -89,8 +89,10 @@ public final class Task extends AbstractModel {
     public static final LongProperty DETAILS_DATE = new LongProperty(
             TABLE, "detailsDate");
 
-    // --- for migration purposes from astrid 2 (eventually we may want to
-    //     move these into the metadata table and treat them as plug-ins
+    public static final IntegerProperty FLAGS = new IntegerProperty(
+            TABLE, "flags");
+
+    // --- non-core task metadata
 
     public static final StringProperty NOTES = new StringProperty(
             TABLE, "notes");
@@ -126,11 +128,37 @@ public final class Task extends AbstractModel {
     public static final StringProperty RECURRENCE = new StringProperty(
             TABLE, "recurrence");
 
-    public static final IntegerProperty FLAGS = new IntegerProperty(
-            TABLE, "flags");
-
     public static final StringProperty CALENDAR_URI = new StringProperty(
             TABLE, "calendarUri");
+
+    // --- for astrid.com
+
+    /** Remote id */
+    public static final LongProperty REMOTE_ID = new LongProperty(
+            TABLE, REMOTE_ID_PROPERTY_NAME);
+
+    /** Assigned user id */
+    public static final LongProperty USER_ID = new LongProperty(
+            TABLE, USER_ID_PROPERTY_NAME);
+
+    /** User Object (JSON) */
+    public static final StringProperty USER = new StringProperty(
+            TABLE, USER_JSON_PROPERTY_NAME);
+
+    /** Creator user id */
+    public static final LongProperty CREATOR_ID = new LongProperty(
+            TABLE, "creatorId");
+
+    public static final StringProperty SHARED_WITH = new StringProperty(
+            TABLE, "sharedWith");
+
+    /** Comment Count */
+    public static final IntegerProperty COMMENT_COUNT = new IntegerProperty(
+            TABLE, "commentCount");
+
+    /** Last Sync date */
+    public static final LongProperty LAST_SYNC = new LongProperty(
+            TABLE, "lastSync");
 
     /** List of all properties for this model */
     public static final Property<?>[] PROPERTIES = generateProperties(Task.class);
@@ -208,6 +236,12 @@ public final class Task extends AbstractModel {
         defaultValues.put(TIMER_START.name, 0);
         defaultValues.put(DETAILS.name, (String)null);
         defaultValues.put(DETAILS_DATE.name, 0);
+
+        defaultValues.put(LAST_SYNC.name, 0);
+        defaultValues.put(REMOTE_ID.name, 0);
+        defaultValues.put(USER_ID.name, 0);
+        defaultValues.put(USER.name, "");
+        defaultValues.put(SHARED_WITH.name, "");
     }
 
     @Override
@@ -276,21 +310,9 @@ public final class Task extends AbstractModel {
      * @param flag
      * @return
      */
+    @Override
     public boolean getFlag(IntegerProperty property, int flag) {
         return (getValue(property) & flag) > 0;
-    }
-
-    /**
-     * Sets the state of the given flag on the given property
-     * @param property
-     * @param flag
-     * @param value
-     */
-    public void setFlag(IntegerProperty property, int flag, boolean value) {
-        if(value)
-            setValue(property, getValue(property) | flag);
-        else
-            setValue(property, getValue(property) & ~flag);
     }
 
     // --- due and hide until date management

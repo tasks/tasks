@@ -11,7 +11,14 @@ import com.todoroo.andlib.sql.QueryTemplate;
 
 public class FilterWithCustomIntent extends Filter {
 
+    /**
+     * Custom activity name
+     */
     public ComponentName customTaskList = null;
+
+    /**
+     * Bundle with extras set. Can be null
+     */
     public Bundle customExtras = null;
 
     protected FilterWithCustomIntent() {

@@ -8,10 +8,16 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService.AndroidLogReporter;
 import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
 import com.todoroo.andlib.service.HttpRestClient;
+import com.todoroo.astrid.actfm.sync.ActFmDataService;
+import com.todoroo.astrid.actfm.sync.ActFmInvoker;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.StoreObjectDao;
+import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
+import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.gtasks.GtasksListService;
 import com.todoroo.astrid.gtasks.GtasksMetadataService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
@@ -53,11 +59,14 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("database", Database.class);
         injectables.put("taskDao", TaskDao.class);
         injectables.put("metadataDao", MetadataDao.class);
+        injectables.put("tagDataDao", TagDataDao.class);
         injectables.put("storeObjectDao", StoreObjectDao.class);
+        injectables.put("updateDao", UpdateDao.class);
 
         // com.todoroo.astrid.service
         injectables.put("taskService", TaskService.class);
         injectables.put("metadataService", MetadataService.class);
+        injectables.put("tagDataService", TagDataService.class);
         injectables.put("upgradeService", UpgradeService.class);
         injectables.put("addOnService", AddOnService.class);
 
@@ -67,6 +76,12 @@ public class AstridDependencyInjector extends AbstractDependencyInjector {
         injectables.put("tagTaskTable", "tagTaskMap");
         injectables.put("alertsTable", "alerts");
         injectables.put("syncTable", "sync");
+
+        // com.todoroo.astrid.sharing
+        injectables.put("actFmPreferenceService", ActFmPreferenceService.class);
+        injectables.put("actFmDataService", ActFmDataService.class);
+        injectables.put("actFmInvoker", ActFmInvoker.class);
+        injectables.put("actFmSyncService", ActFmSyncService.class);
 
         // com.todoroo.astrid.gtasks
         injectables.put("gtasksPreferenceService", GtasksPreferenceService.class);

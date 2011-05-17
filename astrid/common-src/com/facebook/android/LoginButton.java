@@ -18,15 +18,14 @@ package com.facebook.android;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.Button;
 
 import com.facebook.android.Facebook.DialogListener;
 
-public class LoginButton extends ImageButton {
+public class LoginButton extends Button {
 
     private Facebook mFb;
     private AuthListener mListener;
@@ -56,23 +55,14 @@ public class LoginButton extends ImageButton {
         mPermissions = permissions;
         mListener = listener;
 
-        setBackgroundColor(Color.TRANSPARENT);
-        setAdjustViewBounds(true);
-        drawableStateChanged();
-
         setOnClickListener(new ButtonOnClickListener());
     }
 
     private final class ButtonOnClickListener implements OnClickListener {
 
         public void onClick(View arg0) {
-            if (mFb.isSessionValid()) {
-                AsyncFacebookRunner asyncRunner = new AsyncFacebookRunner(mFb);
-                asyncRunner.logout(getContext(), null);
-            } else {
-                mFb.authorize(mActivity, mPermissions,
-                              new LoginDialogListener());
-            }
+            mFb.authorize(mActivity, mPermissions,
+                    new LoginDialogListener());
         }
     }
 

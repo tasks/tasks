@@ -50,7 +50,8 @@ public final class ReminderService  {
         Task.REMINDER_FLAGS,
         Task.REMINDER_PERIOD,
         Task.REMINDER_LAST,
-        Task.REMINDER_SNOOZE
+        Task.REMINDER_SNOOZE,
+        Task.FLAGS,
     };
 
     /** flag for due date reminder */
@@ -176,7 +177,7 @@ public final class ReminderService  {
             }
         }
 
-        if(task.isCompleted() || task.isDeleted()) {
+        if(task.isCompleted() || task.isDeleted() || task.getValue(Task.USER_ID) != 0) {
             clearAllAlarms(task);
             return;
         }
@@ -192,18 +193,6 @@ public final class ReminderService  {
 
         // notifications after due date
         long whenOverdue = calculateNextOverdueReminder(task);
-
-        /*if(Constants.DEBUG) {
-            System.err.println("TASK: " + task.getValue(Task.TITLE));
-            System.err.println("LAST REMINDER: " + new Date(task.getValue(Task.REMINDER_LAST)));
-            if(task.hasDueDate())
-                System.err.println("DUEDATE: " + new Date(task.getValue(Task.DUE_DATE)));
-            System.err.println("WHEN OVERDUE: " + (whenOverdue));
-            System.err.println("WHEN DUED: " + (whenDueDate));
-            System.err.println("WHEN SNOOZ: " + (whenSnooze));
-            System.err.println("WHEN RANDO: " + (whenRandom));
-        }*/
-
 
         // if random reminders are too close to due date, favor due date
         if(whenRandom != NO_ALARM && whenDueDate - whenRandom < DateUtilities.ONE_DAY)
@@ -484,7 +473,7 @@ public final class ReminderService  {
     private TodorooCursor<Task> getTasksWithReminders(Property<?>... properties) {
         return taskDao.query(Query.select(properties).where(Criterion.and(
                 TaskCriteria.isActive(),
-                Criterion.not(TaskCriteria.isReadOnly()),
+                TaskCriteria.ownedByMe(),
                 Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0)))));
     }
 
