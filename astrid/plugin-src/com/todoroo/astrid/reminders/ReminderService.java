@@ -383,7 +383,9 @@ public final class ReminderService  {
      * @return todoroo cursor. PLEASE CLOSE THIS CURSOR!
      */
     private TodorooCursor<Task> getTasksWithReminders(Property<?>... properties) {
-        return taskDao.query(Query.select(properties).where(Criterion.and(TaskCriteria.isActive(),
+        return taskDao.query(Query.select(properties).where(Criterion.and(
+                TaskCriteria.isActive(),
+                Criterion.not(TaskCriteria.isReadOnly()),
                 Criterion.or(Task.REMINDER_FLAGS.gt(0), Task.REMINDER_PERIOD.gt(0)))));
     }
 
