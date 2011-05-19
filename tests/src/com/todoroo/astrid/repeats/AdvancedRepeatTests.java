@@ -27,9 +27,9 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         // repeat once => due date should become tomorrow
         long past = task.createDueDate(Task.URGENCY_SPECIFIC_DAY, new Date(110, 7, 1).getTime());
         task.setValue(Task.DUE_DATE, past);
-        long today = task.createDueDate(Task.URGENCY_SPECIFIC_DAY, DateUtilities.now());
+        long tomorrow = task.createDueDate(Task.URGENCY_SPECIFIC_DAY, DateUtilities.now() + DateUtilities.ONE_DAY);
         long nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
-        assertDatesEqual(today, nextDueDate);
+        assertDatesEqual(tomorrow, nextDueDate);
 
         // test specific day & time
         long pastWithTime = task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, new Date(110, 7, 1, 10, 4).getTime());

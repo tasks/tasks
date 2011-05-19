@@ -222,14 +222,11 @@ public class TaskDao extends DatabaseDao<Task> {
     /**
      * Called after the task is saved. This differs from the call in
      * TaskApiDao in that it runs hooks that need to be run from within
-     * Astrid.
+     * Astrid. Order matters here!
      */
     public static void afterSave(Task task, ContentValues values) {
-        if(TaskApiDao.insignificantChange(values))
+        if(values == null)
             return;
-
-        // run global save hooks
-        TaskApiDao.afterSave(task, values);
 
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
             afterComplete(task, values);
@@ -241,6 +238,12 @@ public class TaskDao extends DatabaseDao<Task> {
                 values.containsKey(Task.REMINDER_SNOOZE.name))
             ReminderService.getInstance().scheduleAlarm(task);
         }
+
+        if(TaskApiDao.insignificantChange(values))
+            return;
+
+        // run api save hooks
+        TaskApiDao.afterSave(task, values);
 
         for(DatabaseUpdateListener listener : taskChangeListeners) {
             listener.onDatabaseUpdated();
