@@ -141,8 +141,14 @@ public final class UpgradeService {
         } else {
             // current message
             if(from < V3_7_4) {
-                newVersionString(changeLog, "3.7.4 (5/16/11)", new String[] {
-                        "stuff...",
+                newVersionString(changeLog, "3.7.4 (5/19/11)", new String[] {
+                        "Fix for Galaxy S preference issue duplicating intro tasks",
+                        "Fix for Producteev note order incorrect",
+                        "Fix for repeating tasks causing duplicates during sync",
+                        "Fix for quick-add tasks in a Producteev workspace not working",
+                        "Fix for repeat from completion date losing due time",
+                        "Fix for viewing a task causng local changes to overwrite during sync",
+                        "Integration with OpenCRX (opencrx.org)",
                 });
                 Preferences.setBoolean(Eula.PREFERENCE_EULA_ACCEPTED, true);
             }
