@@ -131,7 +131,8 @@ public class StartupService {
         // invoke upgrade service
         boolean justUpgraded = latestSetVersion != version;
         if(justUpgraded && version > 0) {
-            upgradeService.performUpgrade(context, latestSetVersion);
+            if(latestSetVersion > 0)
+                upgradeService.performUpgrade(context, latestSetVersion);
             AstridPreferences.setCurrentVersion(version);
         }
         if(latestSetVersion == 0) {
@@ -182,24 +183,35 @@ public class StartupService {
      * Create tasks for first time users
      */
     private void onFirstTime() {
-        Resources r = ContextManager.getResources();
+        final Resources r = ContextManager.getResources();
 
         try {
-            database.openForWriting();
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    database.openForWriting();
 
-            if(taskService.countTasks() > 0)
-                return;
+                    if(taskService.countTasks() > 0)
+                        return;
 
-            // change count below as well
-            addIntroTask(r, R.string.intro_task_1_summary, R.string.intro_task_1_note);
-            addIntroTask(r, R.string.intro_task_2_summary, R.string.intro_task_2_note);
-            addIntroTask(r, R.string.intro_task_3_summary, R.string.intro_task_3_note);
+                    for(int i = 0; i < INTRO_TASKS.length; i += 2)
+                        addIntroTask(r, INTRO_TASKS[i], INTRO_TASKS[i + 1]);
+                }
+            }).start();
         } catch (Exception e) {
             exceptionService.reportError("on-first-time", e); //$NON-NLS-1$
         }
     }
 
-    public static final int INTRO_TASK_SIZE = 3;
+    private static final int[] INTRO_TASKS = new int[] {
+        R.string.intro_task_1_summary,
+        R.string.intro_task_1_note,
+        R.string.intro_task_2_summary,
+        R.string.intro_task_2_note,
+        R.string.intro_task_3_summary,
+        R.string.intro_task_3_note,
+    };
+    public static final int INTRO_TASK_SIZE = INTRO_TASKS.length / 2;
 
     private void addIntroTask(Resources r, int summary, int note) {
         Task task = new Task();

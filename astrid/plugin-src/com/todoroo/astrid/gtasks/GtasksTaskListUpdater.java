@@ -124,16 +124,17 @@ public class GtasksTaskListUpdater {
         Node root = buildTreeModel(list);
         Node target = findNode(root, targetTaskId);
 
-
-        if(moveBeforeTaskId == -1) {
-            target.parent.children.remove(target);
-            root.children.add(target);
-        } else {
-            Node sibling = findNode(root, moveBeforeTaskId);
-            if(sibling != null) {
-                int index = sibling.parent.children.indexOf(sibling);
+        if(target != null && target.parent != null) {
+            if(moveBeforeTaskId == -1) {
                 target.parent.children.remove(target);
-                sibling.parent.children.add(index, target);
+                root.children.add(target);
+            } else {
+                Node sibling = findNode(root, moveBeforeTaskId);
+                if(sibling != null) {
+                    int index = sibling.parent.children.indexOf(sibling);
+                    target.parent.children.remove(target);
+                    sibling.parent.children.add(index, target);
+                }
             }
         }
 

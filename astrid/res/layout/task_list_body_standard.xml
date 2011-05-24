@@ -6,6 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_weight="100" 
     
+    android:gestureColor="#00000000"
     android:uncertainGestureColor="#00000000"
     android:eventsInterceptionEnabled="true"
     android:orientation="vertical">

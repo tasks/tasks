@@ -77,9 +77,9 @@ public final class UpgradeService {
         if(from == 135)
             AddOnService.recordOem();
 
-        // pop up a progress dialog
+        // long running tasks: pop up a progress dialog
         final ProgressDialog dialog;
-        if(context instanceof Activity)
+        if(from < V3_0_0 && context instanceof Activity)
             dialog = DialogUtilities.progressDialog(context,
                     context.getString(R.string.DLG_upgrading));
         else
