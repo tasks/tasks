@@ -37,6 +37,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Field;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.sql.UnaryCriterion;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.CustomFilterCriterion;
@@ -435,7 +436,7 @@ public class CustomFilterActivity extends ListActivity {
             if(instance.criterion.sql == null)
                 sql.append(TaskCriteria.activeAndVisible()).append(' ');
             else {
-                String subSql = instance.criterion.sql.replace("?", value);
+                String subSql = instance.criterion.sql.replace("?", UnaryCriterion.sanitize(value));
                 subSql = PermaSql.replacePlaceholders(subSql);
                 sql.append(Task.ID).append(" IN (").append(subSql).append(") ");
             }
