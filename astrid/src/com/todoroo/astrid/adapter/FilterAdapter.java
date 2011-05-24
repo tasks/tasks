@@ -382,6 +382,8 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     public void populateView(ViewHolder viewHolder, boolean isChild, boolean isExpanded) {
         FilterListItem filter = viewHolder.item;
+        if(filter == null)
+            return;
 
         viewHolder.view.setBackgroundResource(0);
         viewHolder.expander.setVisibility(View.GONE);

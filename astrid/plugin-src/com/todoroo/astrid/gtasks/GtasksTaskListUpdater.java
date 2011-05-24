@@ -144,6 +144,8 @@ public class GtasksTaskListUpdater {
     private void traverseTreeAndWriteValues(Node node, AtomicInteger order, int indent) {
         if(node.taskId != -1) {
             Metadata metadata = gtasksMetadataService.getTaskMetadata(node.taskId);
+            if(metadata == null)
+                metadata = GtasksMetadata.createEmptyMetadata(node.taskId);
             metadata.setValue(GtasksMetadata.ORDER, order.getAndIncrement());
             metadata.setValue(GtasksMetadata.INDENT, indent);
             metadata.setValue(GtasksMetadata.PARENT_TASK, node.parent.taskId);

@@ -34,13 +34,10 @@ public class MilkDetailExposer extends BroadcastReceiver {
     @Autowired private MilkMetadataService milkMetadataService;
     @Autowired private MilkListService milkListService;
 
-    static {
-        MilkDependencyInjector.initialize();
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
         ContextManager.setContext(context);
+        MilkDependencyInjector.initialize();
         DependencyInjectionService.getInstance().inject(this);
 
         // if we aren't logged in, don't expose features
