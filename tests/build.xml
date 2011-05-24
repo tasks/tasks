@@ -76,7 +76,7 @@
         <fileset file="${tested.project.absolute.dir}/build.xml" />
       </subant>
       <copy todir="${tested.project.absolute.dir}/bin/source">
-        <fileset dir="../../astridApi/src" includes="**/*.java" />
+        <fileset dir="../api/src" includes="**/*.java" />
         <fileset dir="src" includes="**/*.java" />
       </copy>      
       <!-- copy our own sources to source dir -->
