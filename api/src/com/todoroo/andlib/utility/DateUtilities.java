@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.Locale;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
 
@@ -66,10 +67,11 @@ public class DateUtilities {
         if(is24HourOverride != null)
             return is24HourOverride;
 
-        String value = android.provider.Settings.System.getString(context.getContentResolver(),
-                android.provider.Settings.System.TIME_12_24);
-        boolean b24 =  !(value == null || value.equals("12"));
-        return b24;
+//        String value = android.provider.Settings.System.getString(context.getContentResolver(),
+//                android.provider.Settings.System.TIME_12_24);
+//        boolean b24 =  !(value == null || value.equals("12"));
+//        return b24;
+        return DateFormat.is24HourFormat(context);
     }
 
     /**
