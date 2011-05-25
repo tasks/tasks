@@ -52,6 +52,10 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
                 String setting = r.getStringArray(R.array.EPr_quiet_hours_end)[index];
                 preference.setSummary(r.getString(R.string.rmd_EPr_quiet_hours_end_desc, setting));
             }
+        } else if(r.getString(R.string.p_rmd_time).equals(preference.getKey())) {
+            int index = AndroidUtilities.indexOf(r.getStringArray(R.array.EPr_rmd_time_values), (String)value);
+            String setting = r.getStringArray(R.array.EPr_rmd_time)[index];
+            preference.setSummary(r.getString(R.string.rmd_EPr_rmd_time_desc, setting));
         } else if(r.getString(R.string.p_rmd_ringtone).equals(preference.getKey())) {
             if(value == null || "content://settings/system/notification_sound".equals(value)) //$NON-NLS-1$
                 preference.setSummary(r.getString(R.string.rmd_EPr_ringtone_desc_default));

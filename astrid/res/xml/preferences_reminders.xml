@@ -13,6 +13,11 @@
         android:entries="@array/EPr_quiet_hours_end"
         android:entryValues="@array/EPr_quiet_hours_end_values"
         android:title="@string/rmd_EPr_quiet_hours_end_title"/>
+    <ListPreference
+        android:key="@string/p_rmd_time"
+        android:entries="@array/EPr_rmd_time"
+        android:entryValues="@array/EPr_rmd_time_values"
+        android:title="@string/rmd_EPr_rmd_time_title"/>
     <CheckBoxPreference
         android:key="@string/p_rmd_persistent"
         android:title="@string/rmd_EPr_persistent_title"/>

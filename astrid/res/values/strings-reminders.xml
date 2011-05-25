@@ -53,7 +53,11 @@
   
   <!-- Reminder: Cancel reminder -->
   <string name="rmd_NoA_goAway">Go Away!</string>
-    
+
+  <!--  Reminder: save toast for changing the past default due reminder for today -->    
+  <string name="rmd_time_toast">Default due reminder for today is in the past!\nThe next reminder will be %s.</string>
+  <string name="rmd_time_toast_quiet">Default due reminder for today is in the past and its already quiet time!\nNo reminder scheduled for today.</string>
+  
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference Screen Title -->
@@ -70,6 +74,11 @@
   <string name="rmd_EPr_quiet_hours_end_title">Quiet Hours End</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
   <string name="rmd_EPr_quiet_hours_end_desc">Notifications will begin appearing starting at %s</string>
+
+  <!-- Reminder Preference: Default Reminder Title -->
+  <string name="rmd_EPr_rmd_time_title">Default Reminder</string>
+  <!-- Reminder Preference: Default Reminder Description (%s => time set) -->
+  <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without duetimes will appear at %s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">Notification Ringtone</string>
@@ -191,6 +200,34 @@
     <item>8 AM</item>
   </string-array>
   
+  <string-array name="EPr_rmd_time">
+    <!-- Reminder Preference: rmd_time: options for preference menu. Translate but don't change the times! -->
+    <item>9 AM</item>
+    <item>10 AM</item>
+    <item>11 AM</item>
+    <item>12 PM</item>
+    <item>1 PM</item>
+    <item>2 PM</item>
+    <item>3 PM</item>
+    <item>4 PM</item>
+    <item>5 PM</item>
+    <item>6 PM</item>
+    <item>7 PM</item>
+    <item>8 PM</item>
+    <item>9 PM</item>
+    <item>10 PM</item>
+    <item>11 PM</item>
+    <item>12 AM</item>
+    <item>1 AM</item>
+    <item>2 AM</item>
+    <item>3 AM</item>
+    <item>4 AM</item>
+    <item>5 AM</item>
+    <item>6 AM</item>
+    <item>7 AM</item>
+    <item>8 AM</item>
+  </string-array>
+  
   <!-- =============================================== random reminders == -->
 
   <string-array name="reminders">
@@ -269,5 +306,4 @@
       <item>Didn\'t you make that excuse last time?</item>
       <item>I can\'t help you organize your life if you do that...</item>
   </string-array>
-    
 </resources>
