@@ -36,6 +36,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_7_5 = 179;
     public static final int V3_7_4 = 178;
     public static final int V3_7_3 = 175;
     public static final int V3_7_2 = 174;
@@ -140,7 +141,15 @@ public final class UpgradeService {
             });
         } else {
             // current message
-            if(from < V3_7_4) {
+            if(from < V3_7_5) {
+                newVersionString(changeLog, "3.7.5 (5/24/11)", new String[] {
+                        "Fix for custom filter not working with tags with apostrophes",
+                        "Fix for crashes when rearranging tasks in a Google list",
+                        "Fix for yellow line drawn when swiping",
+                        "Fix for various crashes",
+                });
+            }
+            if(from >= V3_7_0 && from < V3_7_4) {
                 newVersionString(changeLog, "3.7.4 (5/19/11)", new String[] {
                         "Fix for Galaxy S preference issue duplicating intro tasks",
                         "Fix for Producteev note order incorrect",
@@ -152,7 +161,7 @@ public final class UpgradeService {
                 });
                 Preferences.setBoolean(Eula.PREFERENCE_EULA_ACCEPTED, true);
             }
-            if(from < V3_7_3) {
+            if(from >= V3_7_0 && from < V3_7_3) {
                 newVersionString(changeLog, "3.7.3 (4/26/11)", new String[] {
                         "Fixed 'Show Notes' setting not working",
                         "Added setting for transparent background in Astrid",
