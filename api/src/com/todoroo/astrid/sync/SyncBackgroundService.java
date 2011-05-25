@@ -123,7 +123,7 @@ abstract public class SyncBackgroundService extends Service {
      */
     private void unscheduleService(Context context) {
         AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-        PendingIntent pendingIntent = PendingIntent.getService(context, 0,
+        PendingIntent pendingIntent = PendingIntent.getService(context, getSyncUtilities().getSyncIntervalKey(),
                 createAlarmIntent(context), PendingIntent.FLAG_UPDATE_CURRENT);
         am.cancel(pendingIntent);
     }
