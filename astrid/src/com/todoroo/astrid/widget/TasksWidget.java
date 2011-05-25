@@ -10,8 +10,11 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.IBinder;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.RemoteViews;
 
 import com.timsu.astrid.R;
@@ -197,6 +200,8 @@ public class TasksWidget extends AppWidgetProvider {
                     cursor.close();
             }
 
+            updateForScreenSize(views);
+
             Intent listIntent = new Intent(context, TaskListActivity.class);
             listIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
             if(filter != null) {
@@ -219,6 +224,19 @@ public class TasksWidget extends AppWidgetProvider {
             views.setOnClickPendingIntent(R.id.widget_button, pendingIntent);
 
             return views;
+        }
+
+        private void updateForScreenSize(RemoteViews views) {
+            Display display = ((WindowManager) this.getSystemService(
+                    Context.WINDOW_SERVICE)).getDefaultDisplay();
+
+            DisplayMetrics metrics = new DisplayMetrics();
+            display.getMetrics(metrics);
+
+            if(metrics.density <= 0.75) {
+                views.setViewVisibility(SEPARATOR_IDS[3], View.INVISIBLE);
+                views.setViewVisibility(TEXT_IDS[4], View.INVISIBLE);
+            }
         }
 
         private Filter getFilter(int widgetId) {
