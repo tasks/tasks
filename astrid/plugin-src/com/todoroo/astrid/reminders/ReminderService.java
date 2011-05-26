@@ -287,7 +287,6 @@ public final class ReminderService  {
                     // if the default reminder is in the past, then reschedule it
                     // on this day before start of quiet hours or after quiet hours
                     // randomly placed in this interval
-                    boolean quietHours = false;
                     int quietHoursStart = Preferences.getIntegerFromString(R.string.p_rmd_quietStart, -1);
                     Date quietHoursStartDate = new Date();
                     quietHoursStartDate.setHours(quietHoursStart);
@@ -310,7 +309,6 @@ public final class ReminderService  {
                         int hour = new Date().getHours();
                         if(quietHoursStart <= quietHoursEnd) {
                             if(hour >= quietHoursStart && hour < quietHoursEnd) {
-                                quietHours = true;
                                 // its quiet now, quietHoursEnd is 23 max,
                                 // so put the default reminder to the end of the quiethours
                                 date.setHours(quietHoursEnd);
@@ -332,10 +330,8 @@ public final class ReminderService  {
                         } else { // wrap across 24/hour boundary
                             if(hour >= quietHoursStart) {
                                 // do nothing for the end of day, dont let it even vibrate
-                                quietHours = true;
                                 dueDateAlarm = NO_ALARM;
                             } else if (hour < quietHoursEnd) {
-                                quietHours = true;
                                 date.setHours(quietHoursEnd);
                                 dueDateAlarm = date.getTime();
                             } else {
