@@ -45,7 +45,8 @@ class About {
             append("<a href='http://github.com/todoroo/astrid'>Source Code</a><br />").
     		append("<a href='http://www.todoroo.com/privacy'>Privacy Policy</a><br />").
     		append("<a href='http://www.todoroo.com/terms'>Terms of Use</a><br /><br />").
-    		append("Visit <a href='http://www.weloveastrid.com'>weloveastrid</a> for more information, to add translations or help make Astrid better!");
+    		append("Visit <a href='http://www.weloveastrid.com'>weloveastrid</a> " +
+    				"for more information, to add translations or help make Astrid better!");
 
         final AlertDialog.Builder d = new AlertDialog.Builder(activity);
 
