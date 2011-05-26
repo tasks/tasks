@@ -16,6 +16,7 @@
 package greendroid.app;
 
 import greendroid.util.Config;
+import greendroid.widget.ActionBar;
 import android.app.ListActivity;
 import android.os.Handler;
 import android.util.Log;
@@ -25,7 +26,6 @@ import android.widget.ListAdapter;
 import android.widget.ListView;
 
 import com.cyrilmottier.android.greendroid.R;
-
 
 /**
  * An equivalent to {@link ListActivity} that manages a ListView.
@@ -49,6 +49,14 @@ public class GDListActivity extends GDActivity {
             mList.focusableViewAvailable(mList);
         }
     };
+    
+    public GDListActivity() {
+        super();
+    }
+
+    public GDListActivity(ActionBar.Type actionBarType) {
+        super(actionBarType);
+    }
 
     /**
      * This method will be called when an item in the list is selected.
@@ -119,7 +127,16 @@ public class GDListActivity extends GDActivity {
         if (Config.GD_INFO_LOGS_ENABLED) {
             Log.d(LOG_TAG, "No layout specified : creating the default layout");
         }
-        return R.layout.gd_list_content;
+        
+        switch (getActionBarType()) {
+            case Dashboard:
+                return R.layout.gd_list_content_dashboard;
+            case Empty:
+                return R.layout.gd_list_content_empty;
+            case Normal:
+            default:
+                return R.layout.gd_list_content_normal;
+        }
     }
 
     @Override

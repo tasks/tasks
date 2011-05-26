@@ -18,14 +18,14 @@
 -->
 
 <greendroid.widget.itemview.TextItemView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="?attr/gdTextItemViewStyle"
-    android:id="@+id/gd_text"
-    android:layout_height="?attr/gdItemViewPreferredHeight"
-    android:minHeight="?attr/gdItemViewPreferredHeight"
-    android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="?attr/gdTextItemViewStyle"
+	android:id="@+id/gd_text"
+	android:layout_height="?attr/gdItemViewPreferredHeight"
+	android:minHeight="?attr/gdItemViewPreferredHeight"
+	android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft"
 
-    android:singleLine="true"
-    android:ellipsize="end"
+	android:singleLine="true"
+	android:ellipsize="end"
 
-    android:gravity="center_vertical" />
+	android:gravity="center_vertical" />

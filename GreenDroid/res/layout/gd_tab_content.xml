@@ -18,57 +18,57 @@
 -->
 
 <greendroid.widget.ActionBarHost
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/gd_action_bar_host"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@id/gd_action_bar_host"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent"
+	android:orientation="vertical">
 
-    <greendroid.widget.ActionBar
-        android:id="@id/gd_action_bar"
-        android:layout_height="@dimen/gd_action_bar_height"
-        android:layout_width="fill_parent"
-        android:background="?attr/gdActionBarBackground" />
+	<greendroid.widget.ActionBar
+		android:id="@id/gd_action_bar"
+		android:layout_height="@dimen/gd_action_bar_height"
+		android:layout_width="fill_parent"
+		android:background="?attr/gdActionBarBackground" />
 
-    <FrameLayout
-        android:id="@id/gd_action_bar_content_view"
-        android:layout_height="0dp"
-        android:layout_width="fill_parent"
-        android:layout_weight="1">
+	<FrameLayout
+		android:id="@id/gd_action_bar_content_view"
+		android:layout_height="0dp"
+		android:layout_width="fill_parent"
+		android:layout_weight="1">
 
-        <!-- 
-            Including android.R.layout.tab_content would have been better. 
-            Unfortunately this resource is private.
-        -->
-        <TabHost
-            android:id="@android:id/tabhost"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:paddingTop="5dp">
+		<!-- 
+			Including android.R.layout.tab_content would have been better. 
+			Unfortunately this resource is private.
+		-->
+		<TabHost
+			android:id="@android:id/tabhost"
+			android:layout_width="fill_parent"
+			android:layout_height="fill_parent"
+			android:paddingTop="5dp">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
+			<LinearLayout
+				android:orientation="vertical"
+				android:layout_width="fill_parent"
+				android:layout_height="fill_parent">
 
-                <TabWidget
-                    android:id="@android:id/tabs"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="-2dp"
-                    android:layout_marginRight="-2dp"
-                    android:background="@null" />
+				<TabWidget
+					android:id="@android:id/tabs"
+					android:layout_width="fill_parent"
+					android:layout_height="wrap_content"
+					android:layout_marginLeft="-2dp"
+					android:layout_marginRight="-2dp"
+					android:background="@null" />
 
-                <FrameLayout
-                    android:id="@android:id/tabcontent"
-                    android:layout_width="fill_parent"
-                    android:layout_height="0dip"
-                    android:layout_weight="1" />
+				<FrameLayout
+					android:id="@android:id/tabcontent"
+					android:layout_width="fill_parent"
+					android:layout_height="0dip"
+					android:layout_weight="1" />
 
-            </LinearLayout>
+			</LinearLayout>
 
-        </TabHost>
+		</TabHost>
 
-    </FrameLayout>
+	</FrameLayout>
 
 </greendroid.widget.ActionBarHost>

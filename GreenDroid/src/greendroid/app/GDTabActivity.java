@@ -100,6 +100,9 @@ public class GDTabActivity extends TabActivity implements ActionBarActivity {
                 // Do nothing
             }
         }
+        
+        final int visibility = intent.getIntExtra(ActionBarActivity.GD_ACTION_BAR_VISIBILITY, View.VISIBLE);
+        getActionBar().setVisibility(visibility);
     }
 
     // @Override
@@ -121,12 +124,20 @@ public class GDTabActivity extends TabActivity implements ActionBarActivity {
         return mActionBarHost.getActionBar();
     }
 
-    public void addActionBarItem(ActionBarItem item) {
-        getActionBar().addItem(item);
+    public ActionBarItem addActionBarItem(ActionBarItem item) {
+        return getActionBar().addItem(item);
+    }
+    
+    public ActionBarItem addActionBarItem(ActionBarItem item, int itemId) {
+        return getActionBar().addItem(item, itemId);
     }
 
-    public void addActionBarItem(ActionBarItem.Type actionBarItemType) {
-        getActionBar().addItem(actionBarItemType);
+    public ActionBarItem addActionBarItem(ActionBarItem.Type actionBarItemType) {
+        return getActionBar().addItem(actionBarItemType);
+    }
+    
+    public ActionBarItem addActionBarItem(ActionBarItem.Type actionBarItemType, int itemId) {
+        return getActionBar().addItem(actionBarItemType, itemId);
     }
 
     public FrameLayout getContentView() {
@@ -142,7 +153,7 @@ public class GDTabActivity extends TabActivity implements ActionBarActivity {
             if (position == OnActionBarListener.HOME_ITEM) {
 
                 final Class<?> klass = getGDApplication().getHomeActivityClass();
-                if (klass != null && !klass.equals(getClass())) {
+                if (klass != null && !klass.equals(GDTabActivity.class.getClass())) {
                     if (Config.GD_INFO_LOGS_ENABLED) {
                         Log.i(LOG_TAG, "Going back to the home activity");
                     }

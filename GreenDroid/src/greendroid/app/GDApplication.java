@@ -15,6 +15,15 @@
  */
 package greendroid.app;
 
+import greendroid.image.ImageCache;
+
+import java.lang.ref.WeakReference;
+import java.util.ArrayList;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ThreadFactory;
+import java.util.concurrent.atomic.AtomicInteger;
+
 import android.app.Activity;
 import android.app.Application;
 import android.content.Intent;
@@ -26,6 +35,51 @@ import android.content.Intent;
  * @author Cyril Mottier
  */
 public class GDApplication extends Application {
+    
+    /**
+     * Used for receiving low memory system notification. You should definitely
+     * use it in order to clear caches and not important data everytime the
+     * system need memory.
+     * 
+     * @author Cyril Mottier
+     * @see GDApplication#registerOnLowMemoryListener(OnLowMemoryListener)
+     * @see GDApplication#unregisterOnLowMemoryListener(OnLowMemoryListener)
+     */
+    public static interface OnLowMemoryListener {
+        public void onLowMemoryReceived();
+    }
+
+    private static final int CORE_POOL_SIZE = 5;
+
+    private static final ThreadFactory sThreadFactory = new ThreadFactory() {
+        private final AtomicInteger mCount = new AtomicInteger(1);
+
+        public Thread newThread(Runnable r) {
+            return new Thread(r, "GreenDroid thread #" + mCount.getAndIncrement());
+        }
+    };
+    
+    private ExecutorService mExecutorService;
+    private ImageCache mImageCache;
+    private ArrayList<WeakReference<OnLowMemoryListener>> mLowMemoryListeners;
+
+    public GDApplication() {
+        mLowMemoryListeners = new ArrayList<WeakReference<OnLowMemoryListener>>();
+    }
+    
+    public ExecutorService getExecutor() {
+        if (mExecutorService == null) {
+            mExecutorService = Executors.newFixedThreadPool(CORE_POOL_SIZE, sThreadFactory);
+        }
+        return mExecutorService;
+    }
+
+    public ImageCache getImageCache() {
+        if (mImageCache == null) {
+            mImageCache = new ImageCache(this);
+        }
+        return mImageCache;
+    }
 
     /**
      * Returns the class of the home {@link Activity}. The home {@link Activity}
@@ -47,5 +101,52 @@ public class GDApplication extends Application {
      */
     public Intent getMainApplicationIntent() {
         return null;
+    }
+    
+    /**
+     * Adds a new listener to the list
+     * 
+     * @param listener The listener to unregister
+     * @see {@link OnLowMemoryListener}
+     */
+    public void registerOnLowMemoryListener(OnLowMemoryListener listener) {
+        if (listener != null) {
+            mLowMemoryListeners.add(new WeakReference<OnLowMemoryListener>(listener));
+        }
+    }
+
+    /**
+     * Removes a previously registered listener
+     * 
+     * @param listener The listener to unregister
+     * @see {@link OnLowMemoryListener}
+     */
+    public void unregisterOnLowMemoryListener(OnLowMemoryListener listener) {
+        if (listener != null) {
+            int i = 0;
+            while (i < mLowMemoryListeners.size()) {
+                final OnLowMemoryListener l = mLowMemoryListeners.get(i).get();
+                if (l == null || l == listener) {
+                    mLowMemoryListeners.remove(i);
+                } else {
+                    i++;
+                }
+            }
+        }
+    }
+
+    @Override
+    public void onLowMemory() {
+        super.onLowMemory();
+        int i = 0;
+        while (i < mLowMemoryListeners.size()) {
+            final OnLowMemoryListener listener = mLowMemoryListeners.get(i).get();
+            if (listener == null) {
+                mLowMemoryListeners.remove(i);
+            } else {
+                listener.onLowMemoryReceived();
+                i++;
+            }
+        }
     }
 }

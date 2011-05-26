@@ -18,14 +18,14 @@
 -->
 
 <TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="0dp"
-    android:layout_height="?attr/gdTabIndicatorHeight"
-    android:layout_weight="1"
-    android:gravity="center"
-    android:paddingRight="4dp"
-    android:paddingLeft="4dp"
-    android:singleLine="true"
-    android:ellipsize="end"
-    android:textAppearance="?attr/gdTabIndicatorTextAppearance"
-    android:background="?attr/gdTabIndicatorBackground" />
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="0dp"
+	android:layout_height="?attr/gdTabIndicatorHeight"
+	android:layout_weight="1"
+	android:gravity="center"
+	android:paddingRight="4dp"
+	android:paddingLeft="4dp"
+	android:singleLine="true"
+	android:ellipsize="end"
+	android:textAppearance="?attr/gdTabIndicatorTextAppearance"
+	android:background="?attr/gdTabIndicatorBackground" />

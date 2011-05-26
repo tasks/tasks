@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/*
+** Copyright (C) 2010 Cyril Mottier (http://www.cyrilmottier.com)
+**
+** Licensed under the Apache License, Version 2.0 (the "License");
+** you may not use this file except in compliance with the License.
+** You may obtain a copy of the License at
+**
+**     http://www.apache.org/licenses/LICENSE-2.0
+**
+** Unless required by applicable law or agreed to in writing, software
+** distributed under the License is distributed on an "AS IS" BASIS,
+** WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+** See the License for the specific language governing permissions and
+** limitations under the License.
+*/
+-->
+
+<resources>
+
+	<string name="gd_go_home">Heim</string>
+	<string name="gd_search">Suchen</string>
+	<string name="gd_talk">Sprechen</string>
+	<string name="gd_compose">Erstellen</string>
+	<string name="gd_export">Export</string>
+	<string name="gd_share">Teilen</string>
+	<string name="gd_refresh">Neu laden</string>
+	<string name="gd_take_photo">Foto aufnehmen</string>
+	<string name="gd_pick_photo">Foto auswählen</string>
+	<string name="gd_locate">Lokalisieren</string>
+	<string name="gd_edit">Bearbeiten</string>
+	<string name="gd_add">Hinzufügen</string>
+	<string name="gd_star">Stern</string>
+	<string name="gd_sort_by_size">Nach Größe ordnen</string>
+	<string name="gd_locate_myself">Sich selbst lokalisieren</string>
+	<string name="gd_compass">Kompass</string>
+	<string name="gd_help">Hilfe</string>
+	<string name="gd_info">Info</string>
+	<string name="gd_settings">Einstellungen</string>
+	<string name="gd_list">Auflisten</string>
+	<string name="gd_trashcan">Löschen</string>
+	<string name="gd_eye">Siehe</string>
+	<string name="gd_all_friends">Alle Freunde</string>
+	<string name="gd_group">Gruppe</string>
+	<string name="gd_gallery">Gallerie</string>
+	<string name="gd_slideshow">Slideshow</string>
+	<string name="gd_mail">E-Mail</string>
+
+</resources>

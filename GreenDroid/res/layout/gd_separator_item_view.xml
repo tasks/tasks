@@ -18,11 +18,11 @@
 -->
 
 <greendroid.widget.itemview.SeparatorItemView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="?attr/gdSeparatorItemViewStyle"
-    android:id="@+id/gd_separator_text"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="?attr/gdSeparatorItemViewPreferredHeight"
-    
-    android:gravity="center_vertical" />
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="?attr/gdSeparatorItemViewStyle"
+	android:id="@+id/gd_separator_text"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:minHeight="?attr/gdSeparatorItemViewPreferredHeight"
+	
+	android:gravity="center_vertical" />

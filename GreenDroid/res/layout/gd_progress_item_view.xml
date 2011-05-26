@@ -18,36 +18,36 @@
 -->
 
 <greendroid.widget.itemview.ProgressItemView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content">
 
-    <LinearLayout
-        style="?attr/gdProgressItemViewStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:minHeight="?attr/gdItemViewPreferredHeight"
-        android:orientation="horizontal">
+	<LinearLayout
+		style="?attr/gdProgressItemViewStyle"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_gravity="center_horizontal"
+		android:minHeight="?attr/gdItemViewPreferredHeight"
+		android:orientation="horizontal">
 
-        <ProgressBar
-            android:id="@+id/gd_progress_bar"
-            style="?attr/gdProgressItemViewStyleProgressBar"
-            
-            android:layout_gravity="center_vertical"
-            android:indeterminate="true" />
+		<ProgressBar
+			android:id="@+id/gd_progress_bar"
+			style="?attr/gdProgressItemViewStyleProgressBar"
+			
+			android:layout_gravity="center_vertical"
+			android:indeterminate="true" />
 
-        <TextView
-            android:id="@+id/gd_text"
-            style="?attr/gdProgressItemViewStyleText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:gravity="center_vertical"
-            
-            android:singleLine="true"
-            android:ellipsize="end" />
+		<TextView
+			android:id="@+id/gd_text"
+			style="?attr/gdProgressItemViewStyleText"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_gravity="center_vertical"
+			android:gravity="center_vertical"
+			
+			android:singleLine="true"
+			android:ellipsize="end" />
 
-    </LinearLayout>
+	</LinearLayout>
 
 </greendroid.widget.itemview.ProgressItemView>

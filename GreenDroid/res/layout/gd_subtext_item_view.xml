@@ -18,32 +18,32 @@
 -->
 
 <greendroid.widget.itemview.SubtextItemView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="?attr/gdSubtextItemViewStyle"
-    android:minHeight="?attr/gdItemViewPreferredHeight"
-    android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="?attr/gdSubtextItemViewStyle"
+	android:minHeight="?attr/gdItemViewPreferredHeight"
+	android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft"
 
-    android:orientation="vertical">
+	android:orientation="vertical">
 
-    <TextView
-        style="?attr/gdSubtextItemViewStyleText"
-        android:id="@+id/gd_text"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+	<TextView
+		style="?attr/gdSubtextItemViewStyleText"
+		android:id="@+id/gd_text"
+		android:layout_width="fill_parent"
+		android:layout_height="0dp"
+		android:layout_weight="0.5"
 
-        android:gravity="bottom|left"
+		android:gravity="bottom|left"
 
-        android:singleLine="true"
-        android:ellipsize="end" />
+		android:singleLine="true"
+		android:ellipsize="end" />
 
-    <TextView
-        style="?attr/gdSubtextItemViewStyleSubtext"
-        android:id="@+id/gd_subtext"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+	<TextView
+		style="?attr/gdSubtextItemViewStyleSubtext"
+		android:id="@+id/gd_subtext"
+		android:layout_width="fill_parent"
+		android:layout_height="0dp"
+		android:layout_weight="0.5"
 
-        android:gravity="top|left" />
+		android:gravity="top|left" />
 
 </greendroid.widget.itemview.SubtextItemView>

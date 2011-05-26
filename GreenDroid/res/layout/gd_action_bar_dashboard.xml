@@ -18,22 +18,22 @@
 -->
 
 <merge
-    xmlns:android="http://schemas.android.com/apk/res/android">
+	xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageButton
-        android:id="@+id/gd_action_bar_home_item"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:scaleType="center"
-        android:paddingLeft="7dp"
-        android:src="?attr/gdActionBarApplicationDrawable"
-        android:background="@null" />
+	<ImageButton
+		android:id="@+id/gd_action_bar_home_item"
+		android:layout_width="wrap_content"
+		android:layout_height="fill_parent"
+		android:scaleType="center"
+		android:paddingLeft="7dp"
+		android:src="?attr/gdActionBarApplicationDrawable"
+		android:background="@null" />
 
-    <!-- Spacer view to right-align dashboard icons -->
-    <View
-      	android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="1.0"
-        android:visibility="invisible" />
+	<!-- Spacer view to right-align dashboard icons -->
+	<View
+	  	android:layout_width="0dp"
+		android:layout_height="fill_parent"
+		android:layout_weight="1.0"
+		android:visibility="invisible" />
 
 </merge>

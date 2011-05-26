@@ -18,40 +18,40 @@
 -->
 
 <greendroid.widget.itemview.ThumbnailItemView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="?attr/gdThumbnailItemViewStyle"
-    android:layout_height="wrap_content"
-    android:minHeight="?attr/gdItemViewPreferredHeight"
-    android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft">
-    
-    <ImageView
-        style="?attr/gdThumbnailItemViewStyleThumbnail"
-        android:id="@+id/gd_thumbnail"
-        android:layout_height="?attr/gdItemViewPreferredHeight"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="?attr/gdThumbnailItemViewStyle"
+	android:layout_height="wrap_content"
+	android:minHeight="?attr/gdItemViewPreferredHeight"
+	android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft">
+	
+	<ImageView
+		style="?attr/gdThumbnailItemViewStyleThumbnail"
+		android:id="@+id/gd_thumbnail"
+		android:layout_height="?attr/gdItemViewPreferredHeight"
 
-        android:scaleType="centerInside" />
+		android:scaleType="centerInside" />
 
-    <TextView
-        style="?attr/gdThumbnailItemViewStyleText"
-        android:id="@+id/gd_text"
-        android:layout_width="fill_parent"
-        android:layout_toRightOf="@id/gd_thumbnail"
-        
-        android:gravity="bottom"
-        android:singleLine="true"
-        android:ellipsize="end" />
+	<TextView
+		style="?attr/gdThumbnailItemViewStyleText"
+		android:id="@+id/gd_text"
+		android:layout_width="fill_parent"
+		android:layout_toRightOf="@id/gd_thumbnail"
+		
+		android:gravity="bottom"
+		android:singleLine="true"
+		android:ellipsize="end" />
 
-    <TextView
-        style="?attr/gdThumbnailItemViewStyleSubtitle"
-        android:id="@+id/gd_subtitle"
-        android:layout_width="fill_parent"
-        android:layout_toRightOf="@id/gd_thumbnail"
-        android:layout_below="@+id/gd_text"
-        android:layout_alignLeft="@id/gd_text"
-        android:layout_alignParentBottom="true"
-        
-        android:gravity="top"
-        android:singleLine="true"
-        android:ellipsize="end" />
+	<TextView
+		style="?attr/gdThumbnailItemViewStyleSubtitle"
+		android:id="@+id/gd_subtitle"
+		android:layout_width="fill_parent"
+		android:layout_toRightOf="@id/gd_thumbnail"
+		android:layout_below="@+id/gd_text"
+		android:layout_alignLeft="@id/gd_text"
+		android:layout_alignParentBottom="true"
+		
+		android:gravity="top"
+		android:singleLine="true"
+		android:ellipsize="end" />
 
 </greendroid.widget.itemview.ThumbnailItemView>

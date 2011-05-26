@@ -18,17 +18,17 @@
 -->
 
 <resources>
-    
+	
 	<!-- QuickAction related styles -->
-    <style name="GreenDroid.Widget.QuickAction.Grid">
-    	<item name="android:padding">7dp</item>
-    	<item name="android:listSelector">@drawable/gd_quick_action_grid_selector</item>
-    	<item name="android:background">@drawable/gd_quick_action_grid_bg</item>
-    	<item name="android:gravity">center</item>
-    	<item name="android:fadingEdgeLength">0dp</item>
-    	<item name="android:stretchMode">columnWidth</item>
-    	<item name="android:verticalSpacing">7dp</item>
-    	<item name="android:numColumns">5</item>
+	<style name="GreenDroid.Widget.QuickAction.Grid">
+		<item name="android:padding">7dp</item>
+		<item name="android:listSelector">@drawable/gd_quick_action_grid_selector</item>
+		<item name="android:background">@drawable/gd_quick_action_grid_bg</item>
+		<item name="android:gravity">center</item>
+		<item name="android:fadingEdgeLength">0dp</item>
+		<item name="android:stretchMode">columnWidth</item>
+		<item name="android:verticalSpacing">7dp</item>
+		<item name="android:numColumns">5</item>
 	</style>
-    
+	
 </resources>

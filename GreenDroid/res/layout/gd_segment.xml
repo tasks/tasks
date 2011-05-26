@@ -18,14 +18,14 @@
 -->
 
 <CheckBox
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_height="wrap_content"
-    android:layout_width="0dp"
-    android:layout_weight="1"
-    android:singleLine="true"
-    android:ellipsize="marquee"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="0dp"
+	android:layout_weight="1"
+	android:singleLine="true"
+	android:ellipsize="marquee"
 
-    android:textColor="?attr/gdSegmentTextColor"
-    android:textSize="?attr/gdSegmentTextSize"
-    android:background="?attr/gdSegmentBackground"
-    android:button="?attr/gdSegmentCheckmark" />
+	android:textColor="?attr/gdSegmentTextColor"
+	android:textSize="?attr/gdSegmentTextSize"
+	android:background="?attr/gdSegmentBackground"
+	android:button="?attr/gdSegmentCheckmark" />

@@ -19,176 +19,181 @@
 
 <resources>
 
-    <style name="TextAppearance">
+	<style name="TextAppearance">
 		<item name="android:textColor">?android:attr/textColorPrimary</item>
 		<item name="android:textColorHighlight">#FFFF9200</item>
 		<item name="android:textColorHint">?android:attr/textColorHint</item>
 		<item name="android:textColorLink">#5C5CFF</item>
 		<item name="android:textSize">16sp</item>
 		<item name="android:textStyle">normal</item>
-    </style>
-    <style name="TextAppearance.Large">
-        <item name="android:textSize">22sp</item>
-    </style>
-    <style name="TextAppearance.Medium">
-        <item name="android:textSize">18sp</item>
-    </style>
-    <style name="TextAppearance.Small">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textColor">?android:attr/textColorSecondary</item>
-    </style>
-    <style name="TextAppearance.Separator">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/white</item>
-    </style>
-    
-    <style name="TextAppearance.TabIndicator">
-        <item name="android:textSize">14sp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:textColor">@android:color/black</item>
-    </style>
-    
-    <style name="GreenDroid">
-        <item name="android:layout_width">fill_parent</item>
-        <item name="android:textAppearance">?attr/gdTextAppearance</item>
-    </style>
-    
-    <style name="GreenDroid.Widget" />
+	</style>
+	<style name="TextAppearance.Large">
+		<item name="android:textSize">22sp</item>
+	</style>
+	<style name="TextAppearance.Medium">
+		<item name="android:textSize">18sp</item>
+	</style>
+	<style name="TextAppearance.Small">
+		<item name="android:textSize">14sp</item>
+		<item name="android:textColor">?android:attr/textColorSecondary</item>
+	</style>
+	<style name="TextAppearance.Separator">
+		<item name="android:textSize">14sp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@android:color/white</item>
+	</style>
+	
+	<style name="TextAppearance.TabIndicator">
+		<item name="android:textSize">14sp</item>
+		<item name="android:textStyle">bold</item>
+		<item name="android:textColor">@android:color/black</item>
+	</style>
+	
+	<style name="GreenDroid" />
+	<style name="GreenDroid.Widget" />
+	
+	<style name="GreenDroid.Widget.ItemView">
+		<item name="android:layout_width">fill_parent</item>
+		<item name="android:textAppearance">?attr/gdTextAppearance</item>
+	</style>
 
-    <!-- Styles for the TextItemView -->
-	<style name="GreenDroid.TextItemView">
+	<!-- Styles for the TextItemView -->
+	<style name="GreenDroid.Widget.ItemView.TextItemView">
 		<item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
 	</style>
-    
-    <!-- Styles for the LongTextItemView -->
-    <style name="GreenDroid.LongTextItemView">
-        <item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
-    </style>
-    
-    <!-- Styles for the DescriptionItemView -->
-    <style name="GreenDroid.DescriptionItemView">
-        <item name="android:textAppearance">?attr/gdTextAppearanceSmall</item>
-    </style>
-    
-        
-    <!-- Styles for the SeparatorItemView -->
-    <style name="GreenDroid.SeparatorItemView">
-        <item name="android:background">#181818</item>
-        <item name="android:textAppearance">?attr/gdTextAppearanceSeparator</item>
-        <item name="android:paddingLeft">20dp</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:ellipsize">end</item>
-    </style>
-    
-    <!-- Styles for the DrawableItemView -->
-    <style name="GreenDroid.DrawableItemView" />
-    <style name="GreenDroid.DrawableItemView.Drawable">
-        <item name="android:layout_width">?attr/gdDrawableWidth</item>
-        <item name="android:layout_height">?attr/gdDrawableHeight</item>
-        <item name="android:layout_marginRight">?attr/gdDrawableMargin</item>
-        <item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
-        <item name="android:scaleType">center</item>
-    </style>
-    <style name="GreenDroid.DrawableItemView.Text">
-        <item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
-    </style>
-    
-    <!-- Styles for the ProgressItemView -->
-    <style name="GreenDroid.ProgressItemView" />
-    <style name="GreenDroid.ProgressItemView.ProgressBar">
-        <item name="android:layout_width">?attr/gdProgressBarWidth</item>
-        <item name="android:layout_height">?attr/gdProgressBarHeight</item>
-        <item name="android:layout_marginRight">?attr/gdDrawableMargin</item>
-    </style>
-    <style name="GreenDroid.ProgressItemView.Text">
-        <item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
-    </style>
-    
-    <!-- Styles for the SubtitleItemView -->
-    <style name="GreenDroid.SubtitleItemView" />
-    <style name="GreenDroid.SubtitleItemView.Text">
-        <item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
-    </style>
-    <style name="GreenDroid.SubtitleItemView.Subtitle">
-        <item name="android:textAppearance">?attr/gdTextAppearanceSmall</item>
-    </style>
-    
-    <!-- Styles for the SubtextItemView -->
-    <style name="GreenDroid.SubtextItemView" parent="GreenDroid.SubtitleItemView" />
-    <style name="GreenDroid.SubtextItemView.Text" parent="GreenDroid.SubtitleItemView.Text" />
-    <style name="GreenDroid.SubtextItemView.Subtext" parent="GreenDroid.SubtitleItemView.Subtitle" />
-    
-    <!-- Styles for the ThumbnailItemView -->
-    <style name="GreenDroid.ThumbnailItemView" />
-    <style name="GreenDroid.ThumbnailItemView.Text">
-        <item name="android:layout_height">?attr/gdItemViewPreferredHalfHeight</item>
-        <item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
-    </style>
-    <style name="GreenDroid.ThumbnailItemView.Subtitle">
-        <item name="android:layout_height">?attr/gdItemViewPreferredHalfHeight</item>
-        <item name="android:textAppearance">?attr/gdTextAppearanceSmall</item>
-    </style>
-    <style name="GreenDroid.ThumbnailItemView.Thumbnail">
-        <item name="android:layout_width">?attr/gdItemViewPreferredHeight</item>
-        <item name="android:layout_marginRight">?attr/gdDrawableMargin</item>
-    </style>
-    
-    
-    <style name="GreenDroid.SegmentedBar">
-        <item name="dividerDrawable">@drawable/gd_segment_divider</item>
-    </style>
-    
-    <style name="GreenDroid.SegmentedHost">
-        <item name="segmentedBar">@id/gd_segmented_bar</item>
-        <item name="segmentedContentView">@id/gd_segmented_content_view</item>
-    </style>
+	
+	<!-- Styles for the LongTextItemView -->
+	<style name="GreenDroid.Widget.ItemView.LongTextItemView">
+		<item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
+	</style>
+	
+	<!-- Styles for the DescriptionItemView -->
+	<style name="GreenDroid.Widget.ItemView.DescriptionItemView">
+		<item name="android:textAppearance">?attr/gdTextAppearanceSmall</item>
+	</style>
+	
+		
+	<!-- Styles for the SeparatorItemView -->
+	<style name="GreenDroid.Widget.ItemView.SeparatorItemView">
+		<item name="android:background">#181818</item>
+		<item name="android:textAppearance">?attr/gdTextAppearanceSeparator</item>
+		<item name="android:paddingLeft">20dp</item>
+		<item name="android:singleLine">true</item>
+		<item name="android:ellipsize">end</item>
+	</style>
+	
+	<!-- Styles for the DrawableItemView -->
+	<style name="GreenDroid.Widget.ItemView.DrawableItemView" />
+	<style name="GreenDroid.Widget.ItemView.DrawableItemView.Drawable">
+		<item name="android:layout_width">?attr/gdDrawableWidth</item>
+		<item name="android:layout_height">?attr/gdDrawableHeight</item>
+		<item name="android:layout_marginRight">?attr/gdDrawableMargin</item>
+		<item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
+		<item name="android:scaleType">center</item>
+	</style>
+	<style name="GreenDroid.Widget.ItemView.DrawableItemView.Text">
+		<item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
+	</style>
+	
+	<!-- Styles for the ProgressItemView -->
+	<style name="GreenDroid.Widget.ItemView.ProgressItemView" />
+	<style name="GreenDroid.Widget.ItemView.ProgressItemView.ProgressBar">
+		<item name="android:layout_width">?attr/gdProgressBarWidth</item>
+		<item name="android:layout_height">?attr/gdProgressBarHeight</item>
+		<item name="android:layout_marginRight">?attr/gdDrawableMargin</item>
+	</style>
+	<style name="GreenDroid.Widget.ItemView.ProgressItemView.Text">
+		<item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
+	</style>
+	
+	<!-- Styles for the SubtitleItemView -->
+	<style name="GreenDroid.Widget.ItemView.SubtitleItemView" />
+	<style name="GreenDroid.Widget.ItemView.SubtitleItemView.Text">
+		<item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
+	</style>
+	<style name="GreenDroid.Widget.ItemView.SubtitleItemView.Subtitle">
+		<item name="android:textAppearance">?attr/gdTextAppearanceSmall</item>
+	</style>
+	
+	<!-- Styles for the SubtextItemView -->
+	<style name="GreenDroid.Widget.ItemView.SubtextItemView" parent="GreenDroid.Widget.ItemView.SubtitleItemView" />
+	<style name="GreenDroid.Widget.ItemView.SubtextItemView.Text" parent="GreenDroid.Widget.ItemView.SubtitleItemView.Text" />
+	<style name="GreenDroid.Widget.ItemView.SubtextItemView.Subtext" parent="GreenDroid.Widget.ItemView.SubtitleItemView.Subtitle" />
+	
+	<!-- Styles for the ThumbnailItemView -->
+	<style name="GreenDroid.Widget.ItemView.ThumbnailItemView" />
+	<style name="GreenDroid.Widget.ItemView.ThumbnailItemView.Text">
+		<item name="android:layout_height">?attr/gdItemViewPreferredHalfHeight</item>
+		<item name="android:textAppearance">?attr/gdTextAppearanceLarge</item>
+	</style>
+	<style name="GreenDroid.Widget.ItemView.ThumbnailItemView.Subtitle">
+		<item name="android:layout_height">?attr/gdItemViewPreferredHalfHeight</item>
+		<item name="android:textAppearance">?attr/gdTextAppearanceSmall</item>
+	</style>
+	<style name="GreenDroid.Widget.ItemView.ThumbnailItemView.Thumbnail">
+		<item name="android:layout_width">?attr/gdItemViewPreferredHeight</item>
+		<item name="android:layout_marginRight">?attr/gdDrawableMargin</item>
+	</style>
+	
+	
+	<style name="GreenDroid.Widget.SegmentedBar">
+		<item name="dividerDrawable">@drawable/gd_segment_divider</item>
+	</style>
+	
+	<style name="GreenDroid.Widget.SegmentedHost">
+		<item name="segmentedBar">@id/gd_segmented_bar</item>
+		<item name="segmentedContentView">@id/gd_segmented_content_view</item>
+	</style>
 
 
 	<!-- ActionBar related styles -->
-    <style name="GreenDroid.Widget.ActionBar">
-        <item name="android:background">?attr/gdActionBarBackground</item>
-        <item name="android:layout_height">@dimen/gd_action_bar_height</item>
-        <item name="android:layout_width">fill_parent</item>
-        <item name="dividerDrawable">?attr/gdActionBarDividerDrawable</item>
-        <item name="dividerWidth">?attr/gdActionBarDividerWidth</item>
-        <item name="homeDrawable">?attr/gdActionBarHomeDrawable</item>
-    </style>
-    
-    <style name="GreenDroid.Widget.ActionBar.Dashboard">
-    	<item name="type">dashboard</item>
-    </style>
-    
-    <style name="GreenDroid.Widget.ActionBar.Item">
-    	<item name="android:layout_width">@dimen/gd_action_bar_height</item>
-        <item name="android:background">?attr/gdActionBarItemBackground</item>
-    </style>
-    
-    <style name="GreenDroid.Widget.ActionBar.Title">
-        <item name="android:textColor">?attr/gdActionBarTitleColor</item>
-    </style>
-    
-    <style name="GreenDroid.Widget.QuickAction" />
-    <style name="GreenDroid.Widget.QuickAction.Bar" />
-    <style name="GreenDroid.Widget.QuickAction.Grid">
-        <item name="android:padding">7dp</item>
-    	<item name="android:listSelector">@drawable/gd_quick_action_grid_selector</item>
-    	<item name="android:background">@drawable/gd_quick_action_grid_bg</item>
-    	<item name="android:gravity">center</item>
-    	<item name="android:fadingEdgeLength">0dp</item>
-    	<item name="android:stretchMode">columnWidth</item>
-    	<item name="android:verticalSpacing">7dp</item>
-    	<item name="android:numColumns">3</item>
-    </style>
-    
-    <style name="GreenDroid.Widget.QuickAction.Item">
-    	<item name="android:layout_height">fill_parent</item>
+	<style name="GreenDroid.Widget.ActionBar">
+		<item name="android:background">?attr/gdActionBarBackground</item>
+		<item name="android:layout_height">@dimen/gd_action_bar_height</item>
+		<item name="android:layout_width">fill_parent</item>
+		<item name="dividerDrawable">?attr/gdActionBarDividerDrawable</item>
+		<item name="dividerWidth">?attr/gdActionBarDividerWidth</item>
+		<item name="homeDrawable">?attr/gdActionBarHomeDrawable</item>
+	</style>
+	
+	<style name="GreenDroid.Widget.ActionBar.Dashboard">
+		<item name="type">dashboard</item>
+	</style>
+	
+	<style name="GreenDroid.Widget.ActionBar.Empty">
+		<item name="type">empty</item>
+	</style>
+	
+	<style name="GreenDroid.Widget.ActionBar.Item" parent="@style/GreenDroid.Widget">
+		<item name="android:layout_width">@dimen/gd_action_bar_height</item>
+		<item name="android:background">?attr/gdActionBarItemBackground</item>
+	</style>
+	
+	<style name="GreenDroid.Widget.ActionBar.Title" parent="@style/GreenDroid.Widget">
+		<item name="android:textColor">?attr/gdActionBarTitleColor</item>
+	</style>
+	
+	<style name="GreenDroid.Widget.QuickAction" />
+	<style name="GreenDroid.Widget.QuickAction.Bar" />
+	<style name="GreenDroid.Widget.QuickAction.Grid">
+		<item name="android:padding">7dp</item>
+		<item name="android:listSelector">@drawable/gd_quick_action_grid_selector</item>
+		<item name="android:background">@drawable/gd_quick_action_grid_bg</item>
+		<item name="android:gravity">center</item>
+		<item name="android:fadingEdgeLength">0dp</item>
+		<item name="android:stretchMode">columnWidth</item>
+		<item name="android:verticalSpacing">7dp</item>
+		<item name="android:numColumns">3</item>
+	</style>
+	
+	<style name="GreenDroid.Widget.QuickAction.Item">
+		<item name="android:layout_height">fill_parent</item>
 		<item name="android:paddingRight">10dp</item>
 		<item name="android:paddingLeft">10dp</item>
 		<item name="android:drawablePadding">5dp</item>
 		<item name="android:textSize">14sp</item>
 		<item name="android:textColor">#333</item>
-    </style>
+	</style>
 	<style name="GreenDroid.Widget.QuickAction.Bar.Item" parent="@style/GreenDroid.Widget.QuickAction.Item">
 		<item name="android:layout_width">wrap_content</item>
 		<item name="android:minWidth">80dp</item>
@@ -198,8 +203,8 @@
 		<item name="android:layout_width">fill_parent</item>
 		<item name="android:layout_height">65dp</item>
 	</style>
-   	
-   	<!-- PopDownMenu -->
+	   
+	   <!-- PopDownMenu -->
 	<style name="GreenDroid.Animation" />
 	
 	<style name="GreenDroid.Animation.PopDown" />
@@ -229,5 +234,5 @@
 		<item name="@android:windowEnterAnimation">@anim/gd_grow_from_bottom</item>
 		<item name="@android:windowExitAnimation">@anim/gd_shrink_from_top</item>
 	</style>
-	
+
 </resources>

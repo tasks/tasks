@@ -31,8 +31,8 @@ import android.view.ViewGroup;
 import com.cyrilmottier.android.greendroid.R;
 
 /**
- * A ThumbnailItem item is an complex item that wrap a drawable and two strings
- * : A title and a subtitle. The representation of that item is quite common to
+ * A ThumbnailItem item is a complex item that wraps a drawable and two strings
+ * : a title and a subtitle. The representation of that item is quite common to
  * Android users: The drawable is on the left of the item view and on the right
  * the title and the subtitle are displayed like a {@link SubtitleItem}.
  * 

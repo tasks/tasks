@@ -19,15 +19,15 @@
 
 <greendroid.widget.ActionBarHost
 	xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@id/gd_action_bar_host"
+	android:id="@id/gd_action_bar_host"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
 	android:orientation="vertical">
 
 	<greendroid.widget.ActionBar
 		android:id="@id/gd_action_bar"
-        android:layout_height="@dimen/gd_action_bar_height"
-        android:layout_width="fill_parent"
+		android:layout_height="@dimen/gd_action_bar_height"
+		android:layout_width="fill_parent"
 		android:background="?attr/gdActionBarBackground" />
 
 	<FrameLayout
