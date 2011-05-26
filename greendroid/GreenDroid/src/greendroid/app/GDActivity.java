@@ -15,12 +15,14 @@
  */
 package greendroid.app;
 
+import com.cyrilmottier.android.greendroid.R;
+
 import greendroid.util.Config;
 import greendroid.widget.ActionBar;
-import greendroid.widget.ActionBar.OnActionBarListener;
-import greendroid.widget.ActionBar.Type;
 import greendroid.widget.ActionBarHost;
 import greendroid.widget.ActionBarItem;
+import greendroid.widget.ActionBar.OnActionBarListener;
+import greendroid.widget.ActionBar.Type;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -31,8 +33,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
-
-import com.cyrilmottier.android.greendroid.R;
 
 /**
  * <p>
@@ -82,7 +82,7 @@ import com.cyrilmottier.android.greendroid.R;
  * </p>
  * 
  * @see {@link GDApplication#getHomeActivityClass()}
- * @see {@link GDActivity#GD_ACTION_BAR_TITLE}
+ * @see {@link ActionBarActivity#GD_ACTION_BAR_TITLE}
  * @see {@link GDActivity#setActionBarContentView(int)}
  * @see {@link GDActivity#setActionBarContentView(View)}
  * @see {@link GDActivity#setActionBarContentView(View, LayoutParams)}
@@ -141,6 +141,8 @@ public class GDActivity extends Activity implements ActionBarActivity {
         switch (mActionBarType) {
             case Dashboard:
                 return R.layout.gd_content_dashboard;
+            case Empty:
+                return R.layout.gd_content_empty;
             case Normal:
             default:
                 return R.layout.gd_content_normal;
@@ -203,6 +205,9 @@ public class GDActivity extends Activity implements ActionBarActivity {
                 // Do nothing
             }
         }
+
+        final int visibility = intent.getIntExtra(ActionBarActivity.GD_ACTION_BAR_VISIBILITY, View.VISIBLE);
+        getActionBar().setVisibility(visibility);
     }
 
     @Override
@@ -220,12 +225,20 @@ public class GDActivity extends Activity implements ActionBarActivity {
         return mActionBarHost.getActionBar();
     }
 
-    public void addActionBarItem(ActionBarItem item) {
-        getActionBar().addItem(item);
+    public ActionBarItem addActionBarItem(ActionBarItem item) {
+        return getActionBar().addItem(item);
     }
 
-    public void addActionBarItem(ActionBarItem.Type actionBarItemType) {
-        getActionBar().addItem(actionBarItemType);
+    public ActionBarItem addActionBarItem(ActionBarItem item, int itemId) {
+        return getActionBar().addItem(item, itemId);
+    }
+
+    public ActionBarItem addActionBarItem(ActionBarItem.Type actionBarItemType) {
+        return getActionBar().addItem(actionBarItemType);
+    }
+
+    public ActionBarItem addActionBarItem(ActionBarItem.Type actionBarItemType, int itemId) {
+        return getActionBar().addItem(actionBarItemType, itemId);
     }
 
     public FrameLayout getContentView() {

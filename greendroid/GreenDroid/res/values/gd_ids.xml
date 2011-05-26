@@ -23,7 +23,7 @@
 	<item type="id" name="gd_segmented_content_view" />
 
 	<item type="id" name="gd_action_bar" />
-    <item type="id" name="gd_action_bar_host" />
-    <item type="id" name="gd_action_bar_content_view" />
-    
+	<item type="id" name="gd_action_bar_host" />
+	<item type="id" name="gd_action_bar_content_view" />
+
 </resources>

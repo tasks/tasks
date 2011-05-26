@@ -19,6 +19,7 @@ import greendroid.widget.ActionBar;
 import greendroid.widget.ActionBarItem;
 import android.app.Activity;
 import android.app.Application;
+import android.view.View;
 import android.widget.FrameLayout;
 
 /**
@@ -29,9 +30,23 @@ import android.widget.FrameLayout;
 public interface ActionBarActivity {
 
     /**
-     * The key to use to set the title of the launched ActionBarActivity
+     * The optional title of the launched ActionBarActivity
+     * 
+     * @see Activity#setTitle(CharSequence)
+     * @see Activity#setTitle(int)
      */
     static final String GD_ACTION_BAR_TITLE = "greendroid.app.ActionBarActivity.GD_ACTION_BAR_TITLE";
+
+    /**
+     * An integer that can be used to force the ActionBar to a particular
+     * visibility. This is especially useful when using GDActivity inside a
+     * GDTabActivity.
+     * 
+     * @see View#VISIBLE
+     * @see View#INVISIBLE
+     * @see View#GONE
+     */
+    static final String GD_ACTION_BAR_VISIBILITY = "greendroid.app.ActionBarActivity.GD_ACTION_BAR_VISIBILITY";
 
     /**
      * Clients may use this method to listen to {@link ActionBarItem}s clicks.
@@ -47,7 +62,8 @@ public interface ActionBarActivity {
 
     /**
      * Returns the content view. Please note the content view is not the entire
-     * view but a {@link FrameLayout} that contains everything but the {@link ActionBar}.
+     * view but a {@link FrameLayout} that contains everything but the
+     * {@link ActionBar}.
      * 
      * @return The content view
      */
@@ -79,14 +95,32 @@ public interface ActionBarActivity {
      * 
      * @param item The item to add to the {@link ActionBar}
      */
-    void addActionBarItem(ActionBarItem item);
+    ActionBarItem addActionBarItem(ActionBarItem item);
+
+    /**
+     * Add a new item to the {@link ActionBar}.
+     * 
+     * @param item The item to add to the {@link ActionBar}
+     * @param itemId Unique item ID. Use {@link ActionBar#NONE} if you do not
+     *            need a unique ID.
+     */
+    ActionBarItem addActionBarItem(ActionBarItem item, int itemId);
 
     /**
      * Adds a new item of type <em>type</em> to the {@link ActionBar}.
      * 
      * @param actionBarItemType The item to add to the {@link ActionBar}
      */
-    void addActionBarItem(ActionBarItem.Type actionBarItemType);
+    ActionBarItem addActionBarItem(ActionBarItem.Type actionBarItemType);
+
+    /**
+     * Adds a new item of type <em>type</em> to the {@link ActionBar}.
+     * 
+     * @param actionBarItemType The item to add to the {@link ActionBar}
+     * @param itemId Unique item ID. Use {@link ActionBar#NONE} if you do not
+     *            need a unique ID.
+     */
+    ActionBarItem addActionBarItem(ActionBarItem.Type actionBarItemType, int itemId);
 
     /**
      * Returns the identifier of the layout that needs to be created for this

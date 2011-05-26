@@ -19,8 +19,8 @@
 
 <resources>
 
-    <style name="SeparatorItemView" parent="GreenDroid.SeparatorItemView">
-        <item name="android:background">@drawable/header_bg</item>
+    <style name="SeparatorItemView" parent="GreenDroid.Widget.ItemView.SeparatorItemView">
+        <item name="android:background">@drawable/separator_bg</item>
     </style>
     
     <style name="TextAppearanceLarge" parent="@style/TextAppearance.Large">

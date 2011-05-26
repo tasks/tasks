@@ -33,21 +33,17 @@ public class TabbedActionBarActivity extends GDTabActivity {
         super.onCreate(savedInstanceState);
         
         setTitle("Screen 2");
-        
-        Intent intent = new Intent(this, FakeActivity.class);
-        intent.putExtra(FakeActivity.EXTRA_COLOR, Color.BLACK);
-        intent.putExtra(FakeActivity.EXTRA_TEXT, "Content of tab #1");
-        addTab(TAB1, "Tab One", intent);
 
-        intent = new Intent(this, FakeActivity.class);
-        intent.putExtra(FakeActivity.EXTRA_COLOR, Color.rgb(20, 20, 20));
-        intent.putExtra(FakeActivity.EXTRA_TEXT, "Content of tab #2");
-        addTab(TAB2, "Tab Two", intent);
-
-        intent = new Intent(this, FakeActivity.class);
-        intent.putExtra(FakeActivity.EXTRA_COLOR, Color.rgb(40, 40, 40));
-        intent.putExtra(FakeActivity.EXTRA_TEXT, "Content of tab #3");
-        addTab(TAB3, "Tab Three", intent);
+        addTab(TAB1, "Tab One", Color.BLACK, "Content of tab #1");
+        addTab(TAB2, "Tab Two", Color.rgb(20, 20, 20), "Content of tab #2");
+        addTab(TAB3, "Tab Three", Color.rgb(40, 40, 40), "Content of tab #3");
+    }
+    
+    private void addTab(String tag, CharSequence label, int color, String text) {
+        final Intent intent = new Intent(this, FakeActivity.class);
+        intent.putExtra(FakeActivity.EXTRA_COLOR, color);
+        intent.putExtra(FakeActivity.EXTRA_TEXT, text);
+        addTab(tag, label, intent);
     }
 
     public static class FakeActivity extends Activity {

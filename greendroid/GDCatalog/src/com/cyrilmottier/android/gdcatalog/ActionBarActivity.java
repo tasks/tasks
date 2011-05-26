@@ -35,39 +35,36 @@ public class ActionBarActivity extends GDActivity {
         super.onCreate(savedInstanceState);
 
         setActionBarContentView(R.layout.text);
-        ((TextView) findViewById(R.id.text)).setText("Screen 1");
+        ((TextView) findViewById(R.id.text)).setText(R.string.first_screen);
 
-        addActionBarItem(Type.Refresh);
-        
-        ActionBarItem item = getActionBar().newActionBarItem(NormalActionBarItem.class);
-        item.setDrawable(R.drawable.ic_title_export).setContentDescription(R.string.gd_export);
-        addActionBarItem(item);
-        
-        addActionBarItem(Type.Locate);
+        addActionBarItem(Type.Refresh, R.id.action_bar_refresh);
+        addActionBarItem(getActionBar()
+                .newActionBarItem(NormalActionBarItem.class)
+                .setDrawable(R.drawable.ic_title_export)
+                .setContentDescription(R.string.gd_export), R.id.action_bar_export);
+        addActionBarItem(Type.Locate, R.id.action_bar_locate);
     }
 
     @Override
     public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
 
-        switch (position) {
-            case 2:
-                Intent intent = new Intent(this, TabbedActionBarActivity.class);
-                startActivity(intent);
+        switch (item.getItemId()) {
+            case R.id.action_bar_locate:
+                startActivity(new Intent(this, TabbedActionBarActivity.class));
                 break;
 
-            case 0:
+            case R.id.action_bar_refresh:
                 final LoaderActionBarItem loaderItem = (LoaderActionBarItem) item;
                 mHandler.postDelayed(new Runnable() {
                     public void run() {
                         loaderItem.setLoading(false);
                     }
                 }, 2000);
-                Toast.makeText(this, "You've just pressed a ActionBarItem.Type.Refresh button", Toast.LENGTH_SHORT)
-                        .show();
+                Toast.makeText(this, R.string.refresh_pressed, Toast.LENGTH_SHORT).show();
                 break;
 
-            case 1:
-                Toast.makeText(this, "Custom drawable. Click on another item instead", Toast.LENGTH_SHORT).show();
+            case R.id.action_bar_export:
+                Toast.makeText(this, R.string.custom_drawable, Toast.LENGTH_SHORT).show();
                 break;
 
             default:

@@ -18,12 +18,12 @@
 -->
 
 <greendroid.widget.itemview.DescriptionItemView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="?attr/gdLongTextItemViewStyle"
-    
-    android:id="@+id/gd_text"
-    android:layout_height="wrap_content"
-    android:minHeight="?attr/gdItemViewPreferredHeight"
-    android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="?attr/gdLongTextItemViewStyle"
+	
+	android:id="@+id/gd_text"
+	android:layout_height="wrap_content"
+	android:minHeight="?attr/gdItemViewPreferredHeight"
+	android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft"
 
-    android:gravity="center_vertical" />
+	android:gravity="center_vertical" />

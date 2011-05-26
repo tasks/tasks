@@ -18,13 +18,14 @@
 -->
 
 <selector
-    xmlns:android="http://schemas.android.com/apk/res/android">
+	xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:state_pressed="true"
-        android:drawable="@drawable/gd_action_bar_item_pressed" />
-    <item
-        android:state_focused="true"
-        android:drawable="@drawable/gd_action_bar_item_focused" />
+	<item
+		android:state_pressed="true"
+		android:drawable="@drawable/gd_action_bar_item_pressed" />
+
+	<item
+		android:state_focused="true"
+		android:drawable="@drawable/gd_action_bar_item_focused" />
 
 </selector>

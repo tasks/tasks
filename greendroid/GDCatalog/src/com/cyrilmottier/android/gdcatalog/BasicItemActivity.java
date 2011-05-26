@@ -50,7 +50,7 @@ public class BasicItemActivity extends GDListActivity {
         items.add(new DescriptionItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus consequat leo, et tincidunt justo tristique in."));
         
         items.add(new SeparatorItem("Class 3"));
-        items.add(new ThumbnailItem("Multi-axis", "Looks like a tiny place", R.drawable.class3));
+        items.add(new ThumbnailItem("Multi-axis", "Looks like a tiny plane", R.drawable.class3));
         items.add(new DescriptionItem("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed tempus consequat leo, et tincidunt justo tristique in."));
         
         items.add(new SeparatorItem("Class 4"));
@@ -80,11 +80,9 @@ public class BasicItemActivity extends GDListActivity {
                 adapter.remove(item2);
                 adapter.remove(item3);
                 adapter.remove(progressItem);
-                adapter.insert(new ThumbnailItem("Ultralight aviation", "List of French 'ULM' classes", R.drawable.greendroid_icon), 0);
+                adapter.insert(new ThumbnailItem("Ultralight aviation", "List of French 'ULM' classes", R.drawable.ic_gdcatalog), 0);
                 adapter.notifyDataSetChanged();
             }
         },8000);
-        
     }
-
 }

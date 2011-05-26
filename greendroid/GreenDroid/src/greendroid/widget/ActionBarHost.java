@@ -47,7 +47,7 @@ public class ActionBarHost extends LinearLayout {
 
         mContentView = (FrameLayout) findViewById(R.id.gd_action_bar_content_view);
         if (mContentView == null || !(mContentView instanceof FrameLayout)) {
-            throw new IllegalArgumentException("No content view with the id R.id.gd_content_view found in the layout.");
+            throw new IllegalArgumentException("No FrameLayout with the id R.id.gd_action_bar_content_view found in the layout.");
         }
     }
 

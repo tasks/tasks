@@ -24,12 +24,15 @@
 	<item
 		android:state_window_focused="false"
 		android:drawable="@drawable/gd_quick_action_bar_item_normal" />
+		
 	<item
 		android:state_pressed="true"
 		android:drawable="@drawable/gd_quick_action_bar_item_pressed" />
+		
 	<item
 		android:state_focused="true"
 		android:drawable="@drawable/gd_quick_action_bar_item_selected" />
+		
 	<item
 		android:drawable="@drawable/gd_quick_action_bar_item_normal" />
 

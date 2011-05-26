@@ -19,23 +19,23 @@
 
 <resources>
 
-    <dimen name="gd_separator_item_view_height">25dp</dimen>
-    <dimen name="gd_separator_item_view_padding_left">16dp</dimen>
+	<dimen name="gd_separator_item_view_height">25dp</dimen>
+	<dimen name="gd_separator_item_view_padding_left">16dp</dimen>
 
-    <dimen name="gd_item_view_height">64dp</dimen>
-    <dimen name="gd_item_view_half_height">32dp</dimen>
-    <dimen name="gd_item_view_padding_left">6dp</dimen>
-    
-    <dimen name="gd_drawable_width">50dp</dimen>
-    <dimen name="gd_drawable_height">50dp</dimen>
-    <dimen name="gd_drawable_margin">6dp</dimen>
-    
-    <dimen name="gd_progress_bar_width">20dp</dimen>
-    <dimen name="gd_progress_bar_height">20dp</dimen>
-    <dimen name="gd_progress_bar_margin">6dp</dimen>
-    
-    <dimen name="gd_action_bar_height">45dp</dimen>
-    
-    <dimen name="gd_arrow_offset">5dp</dimen>
-    
+	<dimen name="gd_item_view_height">64dp</dimen>
+	<dimen name="gd_item_view_half_height">32dp</dimen>
+	<dimen name="gd_item_view_padding_left">6dp</dimen>
+
+	<dimen name="gd_drawable_width">50dp</dimen>
+	<dimen name="gd_drawable_height">50dp</dimen>
+	<dimen name="gd_drawable_margin">6dp</dimen>
+
+	<dimen name="gd_progress_bar_width">20dp</dimen>
+	<dimen name="gd_progress_bar_height">20dp</dimen>
+	<dimen name="gd_progress_bar_margin">6dp</dimen>
+
+	<dimen name="gd_action_bar_height">45dp</dimen>
+
+	<dimen name="gd_arrow_offset">5dp</dimen>
+
 </resources>

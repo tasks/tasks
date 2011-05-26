@@ -15,62 +15,63 @@
  */
 package com.cyrilmottier.android.gdcatalog;
 
-import greendroid.app.GDActivity;
+import greendroid.app.GDListActivity;
+import greendroid.graphics.drawable.ActionBarDrawable;
+import greendroid.widget.ActionBarItem;
 import greendroid.widget.ItemAdapter;
-import greendroid.widget.ActionBar.Type;
+import greendroid.widget.NormalActionBarItem;
 import greendroid.widget.item.TextItem;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
-public class CatalogActivity extends GDActivity {
-
-    private ListView mListView;
-    private Class<?>[] mDemoClasses = {
-            BasicItemActivity.class, XmlItemActivity.class, TweakedItemViewActivity.class, SegmentedActivity.class,
-            ActionBarActivity.class, QuickActionActivity.class
-    };
-
-    public CatalogActivity() {
-        super(Type.Dashboard);
-    }
+public class CatalogActivity extends GDListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setActionBarContentView(R.layout.list);
-
         ItemAdapter adapter = new ItemAdapter(this);
-        adapter.add(new TextItem("Basic items"));
-        adapter.add(new TextItem("XML items"));
-        adapter.add(new TextItem("Tweaked item cell"));
-        adapter.add(new TextItem("SegmentedBar"));
-        adapter.add(new TextItem("ActionBarActivity"));
-        adapter.add(new TextItem("QuickActionActivity"));
-        
-        mListView = (ListView) findViewById(android.R.id.list);
-        mListView.setAdapter(adapter);
-        mListView.setOnItemClickListener(mItemClickHandler);
+        adapter.add(createTextItem(R.string.basic_item_label, BasicItemActivity.class));
+        adapter.add(createTextItem(R.string.xml_item_label, XmlItemActivity.class));
+        adapter.add(createTextItem(R.string.tweaked_item_view_label, TweakedItemViewActivity.class));
+        adapter.add(createTextItem(R.string.segmented_label, SegmentedActivity.class));
+        adapter.add(createTextItem(R.string.action_bar_activity_label, ActionBarActivity.class));
+        adapter.add(createTextItem(R.string.quick_action_label, QuickActionActivity.class));
+        adapter.add(createTextItem(R.string.simple_async_image_view_label, SimpleAsyncImageViewActivity.class));
+        adapter.add(createTextItem(R.string.async_image_view_list_view_label, AsyncImageViewListActivity.class));
+
+        setListAdapter(adapter);
+
+        addActionBarItem(getActionBar()
+                .newActionBarItem(NormalActionBarItem.class)
+                .setDrawable(new ActionBarDrawable(getResources(), R.drawable.ic_action_bar_info)), R.id.action_bar_view_info);
     }
 
-    private OnItemClickListener mItemClickHandler = new OnItemClickListener() {
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if (position >= 0 && position < mDemoClasses.length) {
-                Intent intent = new Intent(CatalogActivity.this, mDemoClasses[position]);
-                
-                switch (position) {
-                    case 4:
-                        intent.putExtra(greendroid.app.ActionBarActivity.GD_ACTION_BAR_TITLE, "ActionBarActivity");
-                        break;
-                }
-                
-                startActivity(intent);
-            }
-        }
-    };
+    private TextItem createTextItem(int stringId, Class<?> klass) {
+        final TextItem textItem = new TextItem(getString(stringId));
+        textItem.setTag(klass);
+        return textItem;
+    }
 
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        final TextItem textItem = (TextItem) l.getAdapter().getItem(position);
+        Intent intent = new Intent(CatalogActivity.this, (Class<?>) textItem.getTag());
+        intent.putExtra(ActionBarActivity.GD_ACTION_BAR_TITLE, textItem.text);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onHandleActionBarItemClick(ActionBarItem item, int position) {
+        switch (item.getItemId()) {
+            case R.id.action_bar_view_info:
+                startActivity(new Intent(this, InfoTabActivity.class));
+                return true;
+
+            default:
+                return super.onHandleActionBarItemClick(item, position);
+        }
+    }
 }

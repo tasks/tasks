@@ -35,7 +35,7 @@ public class SegmentedActivity extends GDActivity {
 
         setActionBarContentView(R.layout.segmented_controls);
 
-        SegmentedHost segmentedHost = (SegmentedHost) findViewById(R.id.segmentedHost);
+        SegmentedHost segmentedHost = (SegmentedHost) findViewById(R.id.segmented_host);
 
         mAdapter = new PeopleSegmentedAdapter();
         mHandler.postDelayed(new Runnable() {

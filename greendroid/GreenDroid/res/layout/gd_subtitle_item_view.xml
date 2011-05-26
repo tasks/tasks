@@ -18,36 +18,36 @@
 -->
 
 <greendroid.widget.itemview.SubtitleItemView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    style="?attr/gdSubtitleItemViewStyle"
-    android:layout_height="wrap_content"
-    android:minHeight="?attr/gdItemViewPreferredHeight"
-    android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft"
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	style="?attr/gdSubtitleItemViewStyle"
+	android:layout_height="wrap_content"
+	android:minHeight="?attr/gdItemViewPreferredHeight"
+	android:paddingLeft="?attr/gdItemViewPreferredPaddingLeft"
 
-    android:orientation="vertical">
+	android:orientation="vertical">
 
-    <TextView
-        style="?attr/gdSubtitleItemViewStyleText"
-        android:id="@+id/gd_text"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
+	<TextView
+		style="?attr/gdSubtitleItemViewStyleText"
+		android:id="@+id/gd_text"
+		android:layout_width="fill_parent"
+		android:layout_height="0dp"
+		android:layout_weight="0.5"
 
-        android:gravity="bottom|left"
+		android:gravity="bottom|left"
 
-        android:singleLine="true"
-        android:ellipsize="end" />
+		android:singleLine="true"
+		android:ellipsize="end" />
 
-    <TextView
-        style="?attr/gdSubtitleItemViewStyleSubtitle"
-        android:id="@+id/gd_subtitle"
-        android:layout_width="fill_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        
-        android:gravity="top|left"
+	<TextView
+		style="?attr/gdSubtitleItemViewStyleSubtitle"
+		android:id="@+id/gd_subtitle"
+		android:layout_width="fill_parent"
+		android:layout_height="0dp"
+		android:layout_weight="0.5"
+		
+		android:gravity="top|left"
 
-        android:singleLine="true"
-        android:ellipsize="end" />
+		android:singleLine="true"
+		android:ellipsize="end" />
 
 </greendroid.widget.itemview.SubtitleItemView>
