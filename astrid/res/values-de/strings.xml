@@ -1026,14 +1026,14 @@
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Ruhestunden beginnen</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">Keine Erinnerungen werden nach %s erscheinen</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">Erinnerungen sind stumm nach %s Uhr.\Hinweis: der Vibrationsalarm wird durch die entsprechende Einstellung weiter unten kontrolliert! </string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
-  <string name="rmd_EPr_quiet_hours_desc_none">Stille Stunden sind deaktiviert</string>
+  <string name="rmd_EPr_quiet_hours_desc_none">Ruhestunden sind deaktiviert</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Ruhestunden beenden</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Erinnerungen werden angezeigt ab: %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Erinnerungen ertönen ab %s Uhr.</string>
 
   <!-- Reminder Preference: Default Reminder Title -->
   <string name="rmd_EPr_rmd_time_title">Standarderinnerungszeit</string>
@@ -1069,7 +1069,7 @@
   <string name="rmd_EPr_vibrate_desc_false">Astrid wird bei Erinnerungen nicht vibrieren</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Erinnerungen</string>
+  <string name="rmd_EPr_nagging_title">Astrid Ermutigungen</string>
   <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">Astrid soll Ermutigungen zu den Erinnerungen hinzufügen</string>
   <!-- Reminder Preference: Nagging Description (false) -->

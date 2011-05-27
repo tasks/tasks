@@ -66,14 +66,14 @@
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Quiet Hours Start</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">No notifications will appear after %s</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">Notifications will be silent after %s.\nNote: vibrations are controlled by the setting below! </string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
   <string name="rmd_EPr_quiet_hours_desc_none">Quiet hours is disabled</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Quiet Hours End</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will begin appearing starting at %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will stop being silent starting at %s</string>
 
   <!-- Reminder Preference: Default Reminder Title -->
   <string name="rmd_EPr_rmd_time_title">Default Reminder</string>
@@ -109,11 +109,11 @@
   <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Reminders</string>
+  <string name="rmd_EPr_nagging_title">Astrid Encouragements</string>
   <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid will not give you any encouragement messages</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
   <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
