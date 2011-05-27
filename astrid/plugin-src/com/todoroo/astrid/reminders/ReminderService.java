@@ -164,8 +164,13 @@ public final class ReminderService  {
             }
         }
 
-        if(task.isCompleted() || task.isDeleted())
+        if(task.isCompleted() || task.isDeleted()) {
+            scheduler.createAlarm(task, NO_ALARM, TYPE_SNOOZE);
+            scheduler.createAlarm(task, NO_ALARM, TYPE_RANDOM);
+            scheduler.createAlarm(task, NO_ALARM, TYPE_DUE);
+            scheduler.createAlarm(task, NO_ALARM, TYPE_OVERDUE);
             return;
+        }
 
         // snooze reminder
         long whenSnooze = calculateNextSnoozeReminder(task);
