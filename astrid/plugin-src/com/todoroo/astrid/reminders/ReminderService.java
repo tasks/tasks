@@ -142,6 +142,17 @@ public final class ReminderService  {
         scheduleAlarm(task, true);
     }
 
+    public void clearAllAlarms(Task task) {
+        scheduler.createAlarm(task, NO_ALARM, TYPE_SNOOZE);
+        scheduler.createAlarm(task, NO_ALARM, TYPE_RANDOM);
+        scheduler.createAlarm(task, NO_ALARM, TYPE_DUE);
+        scheduler.createAlarm(task, NO_ALARM, TYPE_OVERDUE);
+    }
+
+    public void clearAlarm(Task task, int type) {
+        scheduler.createAlarm(task, NO_ALARM, type);
+    }
+
     /**
      * Schedules alarms for a single task
      *
@@ -165,10 +176,7 @@ public final class ReminderService  {
         }
 
         if(task.isCompleted() || task.isDeleted()) {
-            scheduler.createAlarm(task, NO_ALARM, TYPE_SNOOZE);
-            scheduler.createAlarm(task, NO_ALARM, TYPE_RANDOM);
-            scheduler.createAlarm(task, NO_ALARM, TYPE_DUE);
-            scheduler.createAlarm(task, NO_ALARM, TYPE_OVERDUE);
+            clearAllAlarms(task);
             return;
         }
 
@@ -439,11 +447,14 @@ public final class ReminderService  {
             intent.putExtra(Notifications.ID_KEY, task.getId());
             intent.putExtra(Notifications.TYPE_KEY, type);
 
+            // calculate the unique requestCode as a combination of the task-id and alarm-type:
+            // concatenate id+type to keep the combo unique
+            String rc = ""+task.getId()+type;
             AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, 0,
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(rc),
                     intent, 0);
 
-            if(time == 0 || time == NO_ALARM)
+            if (time == 0 || time == NO_ALARM)
                 am.cancel(pendingIntent);
             else {
                 if(time < DateUtilities.now())

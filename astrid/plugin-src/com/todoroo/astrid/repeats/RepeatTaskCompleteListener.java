@@ -61,6 +61,8 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             clone.setValue(Task.COMPLETION_DATE, 0L);
             clone.setValue(Task.TIMER_START, 0L);
             clone.setValue(Task.ELAPSED_SECONDS, 0);
+            // Fix for 13186799: clear snooze from old task
+            clone.setValue(Task.REMINDER_SNOOZE, 0L);
             PluginServices.getTaskService().save(clone);
 
             // clear recurrence from completed task so it can be re-completed
