@@ -32,7 +32,7 @@
     <CheckBoxPreference
        android:key="@string/p_rmd_snooze_dialog"
        android:title="@string/rmd_EPr_snooze_dialog_title"
-       android:defaultValue="true"  />
+       android:defaultValue="false"  />
     <RingtonePreference
         android:key="@string/p_rmd_ringtone"
         android:title="@string/rmd_EPr_ringtone_title"
