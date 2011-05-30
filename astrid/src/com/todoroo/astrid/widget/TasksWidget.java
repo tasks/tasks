@@ -162,8 +162,9 @@ public class TasksWidget extends AppWidgetProvider {
                 SharedPreferences publicPrefs = AstridPreferences.getPublicPrefs(this);
                 int flags = publicPrefs.getInt(SortHelper.PREF_SORT_FLAGS, 0);
                 int sort = publicPrefs.getInt(SortHelper.PREF_SORT_SORT, 0);
+                // FIXME: Hotfix for task limit in recently modified tasks-filter
                 String query = SortHelper.adjustQueryForFlagsAndSort(
-                        filter.sqlQuery, flags, sort) + " LIMIT " + numberOfTasks;
+                        filter.sqlQuery, flags, sort).replaceAll("LIMIT 15", "") + " LIMIT " + numberOfTasks;
 
                 database.openForReading();
                 cursor = taskService.fetchFiltered(query, null, Task.ID, Task.TITLE, Task.DUE_DATE, Task.COMPLETION_DATE);
