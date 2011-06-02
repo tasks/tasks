@@ -3,6 +3,7 @@ package com.todoroo.astrid.reminders;
 import java.util.Date;
 import java.util.Random;
 
+import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -361,16 +362,22 @@ public final class ReminderService  {
                     if(dueDate > DateUtilities.now() && dueDateAlarm < DateUtilities.now())
                         dueDateAlarm = dueDate;
 
-                    String toastMessage;
-                    Context context = ContextManager.getContext();
-                    CharSequence formattedDate =
-                        DateUtils.getRelativeTimeSpanString(dueDateAlarm);
-                    toastMessage = context.getString(R.string.rmd_time_toast, formattedDate);
-
-                    if (dueDateAlarm != NO_ALARM)
-                        Toast.makeText(context, toastMessage, 5).show();
-                    else
-                        Toast.makeText(context, context.getString(R.string.rmd_time_toast_quiet), 5).show();
+                    final Context context = ContextManager.getContext();
+                    if(context instanceof Activity) {
+                        final long alarm = dueDateAlarm;
+                        CharSequence formattedDate =
+                            DateUtils.getRelativeTimeSpanString(dueDateAlarm);
+                        final String toastMessage = context.getString(R.string.rmd_time_toast, formattedDate);
+                        ((Activity)context).runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (alarm != NO_ALARM)
+                                    Toast.makeText(context, toastMessage, 5).show();
+                                else
+                                    Toast.makeText(context, context.getString(R.string.rmd_time_toast_quiet), 5).show();
+                            }
+                        });
+                    }
                 }
             }
 
