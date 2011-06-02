@@ -62,15 +62,10 @@ public class DateUtilities {
 
     static Boolean is24HourOverride = null;
 
-    @SuppressWarnings("nls")
     public static boolean is24HourFormat(Context context) {
         if(is24HourOverride != null)
             return is24HourOverride;
 
-//        String value = android.provider.Settings.System.getString(context.getContentResolver(),
-//                android.provider.Settings.System.TIME_12_24);
-//        boolean b24 =  !(value == null || value.equals("12"));
-//        return b24;
         return DateFormat.is24HourFormat(context);
     }
 
