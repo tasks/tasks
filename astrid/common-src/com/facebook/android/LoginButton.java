@@ -27,6 +27,8 @@ import com.facebook.android.Facebook.DialogListener;
 
 public class LoginButton extends Button {
 
+    public static final int REQUEST_CODE_FACEBOOK = 21421;
+
     private Facebook mFb;
     private AuthListener mListener;
     private String[] mPermissions;
@@ -61,7 +63,7 @@ public class LoginButton extends Button {
     private final class ButtonOnClickListener implements OnClickListener {
 
         public void onClick(View arg0) {
-            mFb.authorize(mActivity, mPermissions,
+            mFb.authorize(mActivity, mPermissions, REQUEST_CODE_FACEBOOK,
                     new LoginDialogListener());
         }
     }

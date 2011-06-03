@@ -426,12 +426,7 @@
               android:theme="@style/Theme" />
     <activity android:name="com.todoroo.astrid.actfm.EditPeopleActivity"
               android:windowSoftInputMode="stateHidden"
-              android:theme="@style/Theme">
-      <intent-filter>
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>            
-    </activity>
+              android:theme="@style/Theme" />            
     <receiver android:name="com.todoroo.astrid.actfm.EditPeopleExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />

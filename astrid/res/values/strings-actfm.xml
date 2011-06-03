@@ -120,18 +120,41 @@
   <!-- ========================================= sharing login activity == -->
 
   <!-- share login: Title -->
-  <string name="sharing_SLA_title">Welcome to Astrid.com!</string>
+  <string name="actfm_ALA_title">Welcome to Astrid.com!</string>
 
   <!-- share login: Sharing Description -->
-  <string name="sharing_SLA_body">Astrid.com lets you access your tasks online,
-  and share &amp; delegate with others. Perfect for personal use, friends &amp; family,
-  or your work groups!</string>
+  <string name="actfm_ALA_body">Astrid.com lets you access your tasks online,
+  share, and delegate with others. Perfect for personal use, friends, family, and coworkers!</string>
 
-  <!-- share login: Sharing Login Prompt -->
-  <string name="sharing_SLA_login">Sign in using Facebook</string>
+  <!-- share login: Sharing Login FB Prompt -->
+  <string name="actfm_ALA_fb_login">Login with Facebook</string>
+
+  <!-- share login: Sharing Login Password Prompt -->
+  <string name="actfm_ALA_pw_login">Login</string>
+
+  <!-- share login: Sharing Sign Up Prompt -->
+  <string name="actfm_ALA_pw_signup">Sign Up</string>
+
+  <!-- share login: Name -->
+  <string name="actfm_ALA_name_label">Name</string>
+
+  <!-- share login: Email -->
+  <string name="actfm_ALA_email_label">Email</string>
+
+  <!-- share login: Username / Email -->
+  <string name="actfm_ALA_username_email_label">Username / Email</string>
+
+  <!-- share login: Password -->
+  <string name="actfm_ALA_password_label">Password</string>
+
+  <!-- share login: Sign Up Title -->
+  <string name="actfm_ALA_signup_title">Create New Account</string>
+
+  <!-- share login: Login Title -->
+  <string name="actfm_ALA_login_title">Login to Astrid.com</string>
 
   <!-- share login: Sharing notice -->
-  <string name="sharing_SLA_notice">We won\'t post messages or send
+  <string name="actfm_ALA_notice">We promise not to post messages or send
   e-mails without your permission.</string>
 
   <!-- ================================================ Synchronization == -->

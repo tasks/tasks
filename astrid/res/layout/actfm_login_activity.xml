@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:paddingLeft="4px"
     android:paddingRight="4px"
-    android:background="@drawable/sharing_gradient">
+    android:background="@drawable/astrid_com_gradient">
 
     <TextView
       android:id="@+id/intro"
@@ -18,7 +18,7 @@
       android:textSize="16sp"
       android:paddingTop="20dip"
       android:textColor="#ffffff"
-      android:text="@string/sharing_SLA_body" />
+      android:text="@string/actfm_ALA_body" />
       
     <TextView
       android:id="@+id/error"
@@ -27,7 +27,7 @@
       android:layout_below="@id/intro"
       android:layout_alignParentLeft="true"
       android:gravity="center"
-      android:paddingTop="10dip"
+      android:paddingTop="5dip"
       android:textColor="#ff0000"
       android:textSize="16sp"
       android:textStyle="bold" />
@@ -40,7 +40,8 @@
       android:scaleType="fitCenter"
       android:paddingLeft="20dip"
       android:paddingRight="20dip"
-      android:src="@drawable/sharing_logo" />
+      android:layout_marginBottom="95dip"
+      android:src="@drawable/astrid_com_logo" />
       
     <TextView
       android:id="@+id/notice"
@@ -49,21 +50,46 @@
       android:layout_alignParentBottom="true"
       android:layout_alignParentLeft="true"
       android:gravity="center"
-      android:paddingTop="30dip"
-      android:paddingBottom="30dip"
-      android:textSize="14sp"
+      android:layout_marginBottom="20dip"
+      android:textSize="12sp"
       android:textColor="#cccccc"
-      android:text="@string/sharing_SLA_notice" />
+      android:text="@string/actfm_ALA_notice" />
+            
+    <Button
+      android:id="@+id/pw_signup"
+      android:layout_width="fill_parent"
+      android:layout_height="45dip"
+      android:layout_above="@id/notice"
+      android:layout_alignParentLeft="true"
+      android:layout_marginBottom="15dip"
+      android:paddingLeft="20dip"
+      android:paddingRight="20dip"
+      android:textSize="16sp"
+      android:text="@string/actfm_ALA_pw_signup" />
+            
+    <Button
+      android:id="@+id/pw_login"
+      android:layout_width="fill_parent"
+      android:layout_height="45dip"
+      android:layout_above="@id/pw_signup"
+      android:layout_alignParentLeft="true"
+      android:layout_marginBottom="3dip"
+      android:paddingLeft="20dip"
+      android:paddingRight="20dip"
+      android:textSize="16sp"
+      android:text="@string/actfm_ALA_pw_login" />
             
     <com.facebook.android.LoginButton
       android:id="@+id/fb_login"
       android:layout_width="fill_parent"
-      android:layout_height="50dip"
-      android:layout_above="@id/notice"
+      android:layout_height="45dip"
+      android:layout_above="@id/pw_login"
       android:layout_alignParentLeft="true"
+      android:layout_marginBottom="3dip"
       android:paddingLeft="20dip"
       android:paddingRight="20dip"
-      android:textSize="18sp"
-      android:text="@string/sharing_SLA_login" />
-      
+      android:textSize="16sp"
+      android:drawableLeft="@drawable/facebook"
+      android:text="@string/actfm_ALA_fb_login" />
+            
   </RelativeLayout>

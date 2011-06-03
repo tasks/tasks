@@ -30,6 +30,7 @@ public class ActFmInvoker {
 
     public static final String PROVIDER_FACEBOOK = "facebook";
     public static final String PROVIDER_GOOGLE= "google";
+    public static final String PROVIDER_PASSWORD = "password";
 
     @Autowired private RestClient restClient;
 
