@@ -110,8 +110,11 @@
       </exec>
     </target>
 
+    <target name="debug" depends="clean, updatekeys, android_rules.debug">
+    </target>
+
     <!-- post build: rename apk -->
-    <target name="release" depends="clean, get-version, warnings, updatekeys, android_rules.release">
+    <target name="release" depends="clean, get-version, warnings, updatekeys-release, android_rules.release">
       <mkdir dir="../release" />
       <property name="out.final.package"
                 location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
@@ -128,16 +131,21 @@
     <!-- update api keys -->
     <target name="updatekeys" description="update api key values">
       <property file="${apikey.keyfile}" />
-      <replaceregexp file="${source.dir}/com/todoroo/astrid/sharing/sync/ActFmInvoker.java"
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/sync/ActFmInvoker.java"
                      match="URL = .*"
                      replace="URL = &quot;${apikey.actfm.url}&quot;;" />
-      <replaceregexp file="${source.dir}/com/todoroo/astrid/sharing/sync/ActFmInvoker.java"
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/sync/ActFmInvoker.java"
                      match="APP_ID = .*"
                      replace="APP_ID = &quot;${apikey.actfm.id}&quot;;" />
-      <replaceregexp file="${source.dir}/com/todoroo/astrid/sharing/sync/ActFmInvoker.java"
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/sync/ActFmInvoker.java"
                      match="APP_SECRET = .*"
                      replace="APP_SECRET = &quot;${apikey.actfm.secret}&quot;;" />
-      <replaceregexp file="${source.dir}/com/todoroo/astrid/sharing/SharingLoginActivity.java"
+    </target>
+
+    <!-- update api keys that require release signing -->
+    <target name="updatekeys-release" description="update api key values">
+      <property file="${apikey.keyfile}" />
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/ActFmLoginActivity.java"
                      match="APP_ID = .*"
                      replace="APP_ID = &quot;${apikey.facebook.id}&quot;;" />      
     </target>
