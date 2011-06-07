@@ -47,8 +47,8 @@ public class NotesActionExposer extends BroadcastReceiver {
     }
 
     private void displayNote(Context context, Task task) {
-        Intent intent = new Intent(context, NoteViewingActivity.class);
-        intent.putExtra(NoteViewingActivity.EXTRA_TASK, task);
+        Intent intent = new Intent(context, EditNoteActivity.class);
+        intent.putExtra(EditNoteActivity.EXTRA_TASK_ID, task);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(intent);
     }

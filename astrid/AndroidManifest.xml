@@ -168,7 +168,7 @@
 
     <!-- ======================================================== Services = -->
 
-    <service android:name="com.todoroo.astrid.widget.TasksWidget$UpdateService" />
+    <service android:name="com.todoroo.astrid.widget.TasksWidget$WidgetUpdateService" />
 
     <!-- ======================================================= Providers = -->
 
@@ -395,7 +395,23 @@
         <action android:name="com.twofortyfouram.locale.intent.action.FIRE_SETTING" />
       </intent-filter>
     </receiver>
-        
+    
+    <!-- notes -->
+    <receiver android:name="com.todoroo.astrid.notes.NotesDetailExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+    <activity android:name="com.todoroo.astrid.notes.EditNoteActivity" />
+    <receiver android:name="com.todoroo.astrid.notes.EditNoteExposer">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />
+        <action android:name="com.todoroo.astrid.EDIT_NOTES" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </receiver>
+            
     <!-- actfm -->
     <activity android:name="com.todoroo.astrid.actfm.ActFmLoginActivity">
     </activity>
@@ -467,16 +483,6 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </receiver>
-    
-    <!-- notes -->
-    <receiver android:name="com.todoroo.astrid.notes.NotesDetailExposer">
-      <intent-filter>
-        <action android:name="com.todoroo.astrid.REQUEST_DETAILS" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </receiver>    
-    <activity android:name="com.todoroo.astrid.notes.NoteViewingActivity"
-              android:theme="@style/Theme.Dialog" />
               
     <!-- reminders -->        
     <activity android:name="com.todoroo.astrid.reminders.ReminderPreferences"

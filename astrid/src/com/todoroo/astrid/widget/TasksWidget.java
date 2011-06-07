@@ -68,7 +68,7 @@ public class TasksWidget extends AppWidgetProvider {
      */
     public static void updateWidgets(Context context) {
         context.startService(new Intent(context,
-                TasksWidget.UpdateService.class));
+                TasksWidget.WidgetUpdateService.class));
     }
 
     /**
@@ -77,8 +77,8 @@ public class TasksWidget extends AppWidgetProvider {
      */
     public static void updateWidget(Context context, int id) {
         Intent intent = new Intent(ContextManager.getContext(),
-                TasksWidget.UpdateService.class);
-        intent.putExtra(UpdateService.EXTRA_WIDGET_ID, id);
+                TasksWidget.WidgetUpdateService.class);
+        intent.putExtra(WidgetUpdateService.EXTRA_WIDGET_ID, id);
         context.startService(intent);
     }
 
@@ -89,7 +89,7 @@ public class TasksWidget extends AppWidgetProvider {
         }
     }
 
-    public static class UpdateService extends Service {
+    public static class WidgetUpdateService extends Service {
 
         public static String EXTRA_WIDGET_ID = "widget_id"; //$NON-NLS-1$
 

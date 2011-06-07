@@ -43,7 +43,7 @@ import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.utility.AstridPreferences;
 import com.todoroo.astrid.utility.Constants;
-import com.todoroo.astrid.widget.TasksWidget.UpdateService;
+import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
 
 /**
  * Service which handles jobs that need to be run when Astrid starts up.
@@ -150,7 +150,7 @@ public class StartupService {
             public void run() {
                 // start widget updating alarm
                 AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-                Intent intent = new Intent(context, UpdateService.class);
+                Intent intent = new Intent(context, WidgetUpdateService.class);
                 PendingIntent pendingIntent = PendingIntent.getService(context,
                         0, intent, PendingIntent.FLAG_CANCEL_CURRENT);
                 am.setInexactRepeating(AlarmManager.RTC, 0,

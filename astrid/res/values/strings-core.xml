@@ -66,13 +66,18 @@
   
   <!--  ============================================================= notes -->
   
-  <!-- Note screen: quick-add comment text -->    
-  <string name="notes_quick_add_comment_hint">Add a comment...</string>
+  <!-- Note Exposer -->    
+  <string name="ENE_label">Notes</string>
   
-  <!-- Note screen: blank notes -->    
-  <string name="notes_blank">No notes!</string>
-
-
+  <!-- Note Exposer / Comments -->    
+  <string name="ENE_label_comments">Comments</string>
+  
+  <!-- EditNoteActivity - no comments -->
+  <string name="ENA_no_comments">No Comments</string>
+  
+  <!-- EditNoteActivity - refresh comments -->
+  <string name="ENA_refresh_comments">Refresh Comments</string>
+  
   <!-- ================================================= TaskListActivity == -->
   
   <!-- Task List: Displayed instead of list when no items present -->    

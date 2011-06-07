@@ -56,10 +56,10 @@ public class UpdateAdapter extends CursorAdapter {
             OnCompletedTaskListener onCompletedTaskListener) {
         super(activity, c, autoRequery);
         DependencyInjectionService.getInstance().inject(this);
-
+    
         inflater = (LayoutInflater) activity.getSystemService(
                 Context.LAYOUT_INFLATER_SERVICE);
-
+    
         this.resource = resource;
         this.activity = activity;
     }

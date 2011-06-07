@@ -42,7 +42,7 @@ import com.timsu.astrid.data.sync.SyncDataController;
 import com.timsu.astrid.data.task.AbstractTaskModel.RepeatInfo;
 import com.timsu.astrid.data.task.AbstractTaskModel.TaskModelDatabaseHelper;
 import com.todoroo.astrid.provider.Astrid2TaskProvider;
-import com.todoroo.astrid.widget.TasksWidget.UpdateService;
+import com.todoroo.astrid.widget.TasksWidget.WidgetUpdateService;
 
 /**
  * Controller for task-related operations
@@ -277,7 +277,7 @@ public class TaskController extends AbstractController {
 
         // notify widget that something changed
         if(saveSucessful) {
-            Intent intent = new Intent(context, UpdateService.class);
+            Intent intent = new Intent(context, WidgetUpdateService.class);
             context.startService(intent);
         }
 

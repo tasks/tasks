@@ -612,6 +612,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         update.setValue(Update.USER_ID, 0L);
         update.setValue(Update.TAG, tagData.getId());
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
+        Flags.checkAndClear(Flags.SUPPRESS_SYNC);
         updateDao.createNew(update);
 
         addCommentField.setText(""); //$NON-NLS-1$

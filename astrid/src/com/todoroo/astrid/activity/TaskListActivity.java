@@ -1095,7 +1095,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             editor.putInt(SortHelper.PREF_SORT_SORT, sort);
             editor.commit();
             ContextManager.getContext().startService(new Intent(ContextManager.getContext(),
-                    TasksWidget.UpdateService.class));
+                    TasksWidget.WidgetUpdateService.class));
         }
 
         setUpTaskList();

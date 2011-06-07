@@ -43,11 +43,11 @@ public class Update extends RemoteModel {
     public static final LongProperty REMOTE_ID = new LongProperty(
             TABLE, REMOTE_ID_PROPERTY_NAME);
 
-    /** Associated Task (if any) */
+    /** Associated Task remote-id (if any) */
     public static final LongProperty TASK = new LongProperty(
             TABLE, "task");
 
-    /** Associated Project (if any) */
+    /** Associated Tag local-id (if any) */
     public static final LongProperty TAG = new LongProperty(
             TABLE, "tag");
 

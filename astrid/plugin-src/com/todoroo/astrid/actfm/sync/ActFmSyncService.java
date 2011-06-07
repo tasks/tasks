@@ -158,10 +158,7 @@ public final class ActFmSyncService {
         }
 
         if(update.getValue(Update.TASK) > 0) {
-            Task task = taskService.fetchById(update.getValue(Update.TASK), Task.REMOTE_ID);
-            if(task == null || task.getValue(Task.REMOTE_ID) == 0)
-                return;
-            params.add("task"); params.add(task.getValue(Task.REMOTE_ID));
+            params.add("task_id"); params.add(update.getValue(Update.TASK));
         }
         if(!checkForToken())
             return;
@@ -460,6 +457,7 @@ public final class ActFmSyncService {
                     Flags.set(Flags.SUPPRESS_SYNC);
                     taskService.save(remote);
                     metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
+                    remote.clear();
                 }
 
                 if(manual) {
@@ -479,7 +477,7 @@ public final class ActFmSyncService {
     }
 
     /**
-     * Fetch tasks for the given tagData asynchronously
+     * Fetch updates for the given tagData asynchronously
      * @param tagData
      * @param manual
      * @param done
@@ -499,6 +497,7 @@ public final class ActFmSyncService {
                         updateDao.createNew(remote);
                     else
                         updateDao.saveExisting(remote);
+                    remote.clear();
                 }
             }
 
@@ -510,6 +509,42 @@ public final class ActFmSyncService {
                 return cursorToMap(cursor, updateDao, Update.REMOTE_ID, Update.ID);
             }
         }, done, "updates:" + tagData.getId(), "tag_id", tagData.getValue(TagData.REMOTE_ID));
+    }
+
+    /**
+     * Fetch updates for the given task asynchronously
+     * @param task
+     * @param manual
+     * @param runnable
+     */
+    public void fetchUpdatesForTask(final Task task, boolean manual, Runnable done) {
+        invokeFetchList("activity", manual, new ListItemProcessor<Update>() {
+            @Override
+            protected void mergeAndSave(JSONArray list, HashMap<Long,Long> locals) throws JSONException {
+                Update remote = new Update();
+                for(int i = 0; i < list.length(); i++) {
+                    JSONObject item = list.getJSONObject(i);
+                    readIds(locals, item, remote);
+                    JsonHelper.updateFromJson(item, null, remote);
+                    System.err.println("GOJI BERRY: (" + remote.getId() + ") - " + remote.getSetValues());
+
+                    Flags.set(Flags.SUPPRESS_SYNC);
+                    if(remote.getId() == AbstractModel.NO_ID)
+                        updateDao.createNew(remote);
+                    else
+                        updateDao.saveExisting(remote);
+                    remote.clear();
+                }
+            }
+
+            @Override
+            protected HashMap<Long, Long> getLocalModels() {
+                TodorooCursor<Update> cursor = updateDao.query(Query.select(Update.ID,
+                        Update.REMOTE_ID).where(Update.REMOTE_ID.in(remoteIds)).orderBy(
+                                Order.asc(Update.REMOTE_ID)));
+                return cursorToMap(cursor, updateDao, Update.REMOTE_ID, Update.ID);
+            }
+        }, done, "comments:" + task.getId(), "task_id", task.getValue(Task.REMOTE_ID));
     }
 
     /**
@@ -659,7 +694,7 @@ public final class ActFmSyncService {
             return item.optLong(key, 0) * 1000L;
         }
 
-        public static void updateFromJson(JSONObject json, TagData tagData,
+        public static void updateFromJson(JSONObject json, TagData tag,
                 Update model) throws JSONException {
             model.setValue(Update.REMOTE_ID, json.getLong("id"));
             readUser(json.getJSONObject("user"), model, Update.USER_ID, Update.USER);
@@ -672,7 +707,8 @@ public final class ActFmSyncService {
                 model.setValue(Update.MESSAGE, json.getString("message"));
             model.setValue(Update.PICTURE, json.getString("picture"));
             model.setValue(Update.CREATION_DATE, readDate(json, "created_at"));
-            model.setValue(Update.TAG, tagData.getId());
+            model.setValue(Update.TAG, tag == null ? 0L : tag.getId());
+            model.setValue(Update.TASK, json.optLong("task_id", 0));
         }
 
         public static void readUser(JSONObject user, AbstractModel model, LongProperty idProperty,

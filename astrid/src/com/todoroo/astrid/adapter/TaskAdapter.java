@@ -65,8 +65,7 @@ import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
-import com.todoroo.astrid.notes.NoteViewingActivity;
-import com.todoroo.astrid.notes.NotesDecorationExposer;
+import com.todoroo.astrid.notes.EditNoteActivity;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.utility.Constants;
@@ -592,7 +591,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         private final TaskDecorationExposer[] exposers = new TaskDecorationExposer[] {
                 new TimerDecorationExposer(),
-                new NotesDecorationExposer(),
         };
 
         /**
@@ -851,8 +849,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             long taskId = viewHolder.task.getId();
 
             if(isIntroTask(viewHolder.task)) {
-                Intent intent = new Intent(ContextManager.getContext(), NoteViewingActivity.class);
-                intent.putExtra(NoteViewingActivity.EXTRA_TASK, viewHolder.task);
+                Intent intent = new Intent(ContextManager.getContext(), EditNoteActivity.class);
+                intent.putExtra(EditNoteActivity.EXTRA_TASK_ID, viewHolder.task);
                 activity.startActivity(intent);
                 return;
             }
