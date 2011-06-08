@@ -1377,9 +1377,6 @@
   <!-- filter header for tags -->
   <string name="tag_FEx_header">标签</string>
   
-  <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">按任务数量排序</string>
-  
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">未加标签</string>
   

@@ -1788,9 +1788,6 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- filter header for tags -->
   <string name="tag_FEx_header">Značky</string>
   
-  <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Sorted By Size</string>
-  
   <!-- filter header for tags, shared with user -->
   <string name="tag_FEx_category_shared">Shared With Me</string>
   
