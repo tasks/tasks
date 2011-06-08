@@ -17,7 +17,6 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -66,6 +65,7 @@ public class EditNoteActivity extends ListActivity {
     private final ArrayList<NoteOrUpdate> items = new ArrayList<NoteOrUpdate>();
     private NoteAdapter adapter;
     private EditText commentField;
+    private TextView loadingText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,13 +75,15 @@ public class EditNoteActivity extends ListActivity {
 
         long taskId = getIntent().getLongExtra(EXTRA_TASK_ID, -1);
         task = PluginServices.getTaskService().fetchById(taskId, Task.NOTES, Task.ID, Task.REMOTE_ID, Task.TITLE);
-        if(task == null)
+        if(task == null) {
+            finish();
             return;
+        }
 
         setTitle(task.getValue(Task.TITLE));
 
-        setUpListAdapter();
         setUpInterface();
+        setUpListAdapter();
 
         if(actFmPreferenceService.isLoggedIn() && task.getValue(Task.REMOTE_ID) > 0) {
             findViewById(R.id.add_comment).setVisibility(View.VISIBLE);
@@ -91,6 +93,10 @@ public class EditNoteActivity extends ListActivity {
             if(DateUtilities.now() > lastFetchDate + 300000L) {
                 refreshData(false);
                 Preferences.setLong(fetchKey, DateUtilities.now());
+            } else {
+                loadingText.setText(R.string.ENA_no_comments);
+                if(items.size() == 0)
+                    loadingText.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -133,11 +139,13 @@ public class EditNoteActivity extends ListActivity {
 
         if(!TextUtils.isEmpty(task.getValue(Task.NOTES))) {
             TextView notes = new TextView(this);
-            notes.setGravity(Gravity.CENTER);
-            notes.setTextSize(20);
+            notes.setTextAppearance(this, R.style.TextAppearance_TAd_ItemTitle);
+            notes.setTextSize(18);
             getListView().addHeaderView(notes);
             notes.setText(task.getValue(Task.NOTES));
+            notes.setPadding(5, 10, 5, 10);
         }
+        loadingText = (TextView) findViewById(R.id.loading);
     }
 
     private void setUpListAdapter() {
@@ -207,6 +215,8 @@ public class EditNoteActivity extends ListActivity {
                     @Override
                     public void run() {
                         setUpListAdapter();
+                        loadingText.setText(R.string.ENA_no_comments);
+                        loadingText.setVisibility(items.size() == 0 ? View.VISIBLE : View.GONE);
                         DialogUtilities.dismissDialog(EditNoteActivity.this, progressDialog);
                     }
                 });

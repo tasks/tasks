@@ -12,13 +12,13 @@
         android:layout_weight="100">
         
         <TextView
-            android:id="@android:id/empty"
+            android:id="@+id/loading"
             android:layout_width="fill_parent" 
             android:layout_height="fill_parent"
             android:layout_weight="100"
             android:gravity="center"
             android:visibility="gone"
-            android:text="@string/ENA_no_comments"
+            android:text="@string/ENA_loading"
             style="@style/TextAppearance.TLA_NoItems" />
         
         <ListView

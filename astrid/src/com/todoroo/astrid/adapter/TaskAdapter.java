@@ -850,7 +850,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             if(isIntroTask(viewHolder.task)) {
                 Intent intent = new Intent(ContextManager.getContext(), EditNoteActivity.class);
-                intent.putExtra(EditNoteActivity.EXTRA_TASK_ID, viewHolder.task);
+                intent.putExtra(EditNoteActivity.EXTRA_TASK_ID, viewHolder.task.getId());
                 activity.startActivity(intent);
                 return;
             }
