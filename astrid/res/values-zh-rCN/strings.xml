@@ -829,7 +829,7 @@
   </string-array>        
       
   <!-- Locale Notification text -->                                                                                                                                        
-  <string name="locale_notification">您有在 $FILTER 中有 $NUM 个任务</string>     
+  <string name="locale_notification">您有 $NUM 符合: $FILTER</string>     
       
   <!-- Locale Plugin was not found, it is required -->
   <string name="locale_plugin_required">请安装 Astrid Locale 插件！</string>        
@@ -1285,7 +1285,7 @@
   </string-array>
   
   <!-- task detail weekly by day ($I -> interval, i.e. 1 week, $D -> days, i.e. Monday, Tuesday) -->
-  <string name="repeat_detail_byday">$I，$D</string>
+  <string name="repeat_detail_byday">$I 的 $D</string>
   
   <!-- task detail for repeat from due date (%s -> interval) -->
   <string name="repeat_detail_duedate">每%s</string>
