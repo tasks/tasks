@@ -1,6 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+  <!-- ================================================== general terms == -->
+
+  <!-- People Editing Activity -->    
+  <string name="EPE_action">Share</string>
+  
+  <!-- task sharing dialog: assigned hint -->
+  <string name="actfm_person_hint">Contact Name</string>
+  
+  <!-- task sharing dialog: shared with hint -->
+  <string name="actfm_person_or_tag_hint">Contact or Shared Tag</string>
+
+  <!-- toast on transmit success -->
+  <string name="actfm_toast_success">Saved on Server</string>
+
+  <!-- toast on transmit error -->
+  <string name="actfm_toast_error">Save Unsuccessful</string>
+
+  <!-- can't rename or delete shared tag message -->
+  <string name="actfm_tag_operation_disabled">Please view shared tags to rename or delete them.</string>
+
+  <!-- menu item to take a picture -->
+  <string name="actfm_picture_camera">Take a Picture</string>
+
+  <!-- menu item to select from gallery -->
+  <string name="actfm_picture_gallery">Pick from Gallery</string>
+
+  <!-- filter list activity: refresh tags -->
+  <string name="actfm_FLA_menu_refresh">Refresh Tags</string>
+  
+  <!-- =============================================== ProjectViewActivity == -->
+
+  <!-- Tag View Activity: Add Comment hint -->    
+  <string name="TVA_add_comment">Add a comment...</string>
+
+  <!-- Tag View Activity: task comment ($1 - user name, $2 - task title) -->    
+  <string name="UAd_title_comment">%1$s re: %2$s</string>
+  
+  <!-- Tabs for Tag view -->
+  <string-array name="TVA_tabs">
+    <!-- Tab for showing tasks -->
+    <item>Tasks</item>
+    <!-- Tab for showing comments & updates -->
+    <item>Activity</item>
+    <!-- Tab for showing setting -->
+    <item>Members</item>
+  </string-array>
+
+  <!-- Tag View Menu: refresh -->
+  <string name="actfm_TVA_menu_refresh">Refresh</string>
+
+  <!-- Tag Members: tag name label -->
+  <string name="actfm_TVA_tag_label">Tag Name:</string>
+
+  <!-- Tag Members: tag owner label -->
+  <string name="actfm_TVA_tag_owner_label">Tag Owner:</string>
+
+  <!-- Tag Members: tag owner value when there is no owner -->
+  <string name="actfm_TVA_tag_owner_none">none</string>
+
+  <!-- Tag Members: team members label -->
+  <string name="actfm_TVA_members_label">Team Members:</string>
+
+  <!-- Tag Members: tag picture -->
+  <string name="actfm_TVA_tag_picture">Tag Picture</string>
+
+  <!-- ============================================ edit people dialog == -->
+  
+  <!-- task sharing dialog: window title -->
+  <string name="actfm_EPA_title">Share / Assign</string>
+  
+  <!-- task sharing dialog: assigned label -->
+  <string name="actfm_EPA_assign_label">Assigned to:</string>
+  
+  <!-- task sharing dialog: assigned to me -->
+  <string name="actfm_EPA_assign_me">Me</string>
+  
+  <!-- task sharing dialog: custom email assignment -->
+  <string name="actfm_EPA_assign_custom">Custom...</string>
+  
+  <!-- task sharing dialog: shared with label -->
+  <string name="actfm_EPA_share_with">Shared With:</string>
+  
+  <!-- task sharing dialog: assigned hint -->
+  <string name="actfm_EPA_assigned_hint">Contact Name</string>
+  
+  <!-- task sharing dialog: message label text -->
+  <string name="actfm_EPA_message_text">Invitation Message:</string>
+  
+  <!-- task sharing dialog: message body -->
+  <string name="actfm_EPA_message_body">Help me get this done!</string>
+  
+  <!-- task sharing dialog: message hint -->
+  <string name="actfm_EPA_tag_label">Create a shared tag?</string>
+  
+  <!-- task sharing dialog: message hint -->
+  <string name="actfm_EPA_tag_hint">(i.e. Silly Hats Club)</string>
+  
+  <!-- task sharing dialog: share with Facebook -->
+  <string name="actfm_EPA_facebook">Facebook</string>
+  
+  <!-- task sharing dialog: share with Twitter -->
+  <string name="actfm_EPA_twitter">Twitter</string>
+
+  <!-- task sharing dialog: # of e-mails sent (%s => # people plural string) -->
+  <string name="actfm_EPA_emailed_toast">Task shared with %s</string>
+
+  <!-- task sharing dialog: edit people settings saved -->
+  <string name="actfm_EPA_saved_toast">People Settings Saved</string>
+
+  <!-- task sharing dialog: invalid email (%s => email) -->
+  <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
+
+  <!-- task sharing dialog: tag not found (%s => tag) -->
+  <string name="actfm_EPA_invalid_tag">Tag Not Found: %s</string>
+
+  <!-- ========================================= sharing login activity == -->
+
+  <!-- share login: Title -->
+  <string name="actfm_ALA_title">Welcome to Astrid.com!</string>
+
+  <!-- share login: Sharing Description -->
+  <string name="actfm_ALA_body">Astrid.com lets you access your tasks online,
+  share, and delegate with others. Perfect for personal use, friends, family, and coworkers!</string>
+
+  <!-- share login: Sharing Login FB Prompt -->
+  <string name="actfm_ALA_fb_login">Login with Facebook</string>
+
+  <!-- share login: Sharing Login Password Prompt -->
+  <string name="actfm_ALA_pw_login">Login</string>
+
+  <!-- share login: Sharing Sign Up Prompt -->
+  <string name="actfm_ALA_pw_signup">Sign Up</string>
+
+  <!-- share login: Name -->
+  <string name="actfm_ALA_name_label">Name</string>
+
+  <!-- share login: Email -->
+  <string name="actfm_ALA_email_label">Email</string>
+
+  <!-- share login: Username / Email -->
+  <string name="actfm_ALA_username_email_label">Username / Email</string>
+
+  <!-- share login: Password -->
+  <string name="actfm_ALA_password_label">Adgangskode</string>
+
+  <!-- share login: Sign Up Title -->
+  <string name="actfm_ALA_signup_title">Create New Account</string>
+
+  <!-- share login: Login Title -->
+  <string name="actfm_ALA_login_title">Login to Astrid.com</string>
+
+  <!-- share login: Sharing notice -->
+  <string name="actfm_ALA_notice">We promise not to post messages or send
+  e-mails without your permission.</string>
+
+  <!-- ================================================ Synchronization == -->
+      
+  <!-- Preferences Title: Act.fm -->    
+  <string name="actfm_APr_header">Astrid.com (Beta!)</string>
+
+  <!-- title for notification tray after synchronizing -->
+  <string name="actfm_notification_title">Astrid.com Sync</string>
+  
+  <!-- text for notification when comments are received -->
+  <string name="actfm_notification_comments">New comments received / click for more details</string>
+    
+
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
     
     <!-- Resources for built-in timers plug-in -->
     
@@ -159,6 +331,9 @@ File %1$s contained %2$s.\n\n
 
   <!-- EULA title -->
   <string name="DLG_eula_title">Astrid Brugsbetingelser</string>
+
+  <!-- Progress Dialog generic text -->
+  <string name="DLG_please_wait">Please Wait</string>
   
   <!-- =============================================================== UI == -->
   
@@ -170,6 +345,20 @@ File %1$s contained %2$s.\n\n
   
   <!-- String formatter for Disable button -->
   <string name="WID_disableButton">Deaktiver</string>
+  
+  <!--  ============================================================= notes -->
+  
+  <!-- Note Exposer -->    
+  <string name="ENE_label">Noter</string>
+  
+  <!-- Note Exposer / Comments -->    
+  <string name="ENE_label_comments">Comments</string>
+  
+  <!-- EditNoteActivity - no comments -->
+  <string name="ENA_no_comments">No Comments</string>
+  
+  <!-- EditNoteActivity - refresh comments -->
+  <string name="ENA_refresh_comments">Refresh Comments</string>
   
   <!-- ================================================= TaskListActivity == -->
   
@@ -200,6 +389,9 @@ File %1$s contained %2$s.\n\n
   <!-- Quick Add Edit Box Hint-->
   <string name="TLA_quick_add_hint">Føj til denne liste...</string>
   
+  <!-- Notification Volumne notification-->
+  <string name="TLA_notification_volume_low">Notifications are muted. You won\'t be able to hear Astrid!</string>
+  
   <!-- ====================================================== TaskAdapter == -->
   
   <!-- Format string to indicate task is hidden (%s => task name) -->
@@ -219,6 +411,9 @@ File %1$s contained %2$s.\n\n
   
   <!-- Context Item: edit task -->
   <string name="TAd_contextEditTask">Rediger opgave</string>
+
+  <!-- Context Item: copy task -->
+  <string name="TAd_contextCopyTask">Copy Task</string>
 
   <!-- Context Item: delete task -->
   <string name="TAd_contextDeleteTask">Slet opgave</string>
@@ -445,6 +640,15 @@ File %1$s contained %2$s.\n\n
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Noter vises altid</string>
   
+  <!-- Preference: Transparent -->
+  <string name="EPr_transparent_title">Transparency</string>
+  <!-- Preference: Transparent Description (disabled) -->
+  <string name="EPr_transparent_desc_disabled">Desktop wallpaper will not be shown</string>  
+  <!-- Preference: Transparent Description (enabled) -->
+  <string name="EPr_transparent_desc_enabled">Desktop wallpaper will be shown</string>
+  <!-- Preference: Transparent Description (android 1.6) -->
+  <string name="EPr_transparent_desc_unsupported">Setting requires Android 2.0+</string>
+  
   <!-- Preference Category: Defaults Title -->
   <string name="EPr_defaults_header">Standard for nye opgaver</string>
   
@@ -534,6 +738,16 @@ File %1$s contained %2$s.\n\n
 
   <!-- Widget configuration activity title: select a filter -->
   <string name="WCA_title">Vælg opgaver der skal vises...</string>
+
+  <!-- ============================================================= About == -->
+  
+  <!-- Title of "About" option in settings -->
+  <string name="p_about">About Astrid</string>
+  
+  <!-- About text (%s => current version)-->
+<string name="p_about_text">Current version: %s\n\n
+
+Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   
   <!-- ============================================================= Misc == -->
   
@@ -712,6 +926,10 @@ File %1$s contained %2$s.\n\n
     <!-- short help for GTasks list activity -->
     <string name="gtasks_help_body">Drag the grabber on the left side of a task 
     to rearrange it. Swipe the grabber left or right to change indentation.</string>
+
+    <string name="CFC_gtasks_list_text">In List: ?</string>
+
+    <string name="CFC_gtasks_list_name">In GTasks List...</string>
         
     <!-- ============================================ GtasksLoginActivity == -->
     
@@ -834,6 +1052,147 @@ File %1$s contained %2$s.\n\n
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
+    <!-- ====================== Plugin Boilerplate ========================= -->
+
+	<!-- filters header: OpenCRX -->
+    <string name="opencrx_FEx_header">OpenCRX</string>
+    
+    <!-- filter category for OpenCRX ActivityCreators -->
+    <string name="opencrx_FEx_dashboard">Arbejdsområder</string>
+    
+    <!-- filter category for OpenCRX responsible person -->
+    <string name="opencrx_FEx_responsible">Assigned To</string>
+    
+    <!--  OpenCRX assignedTo filter title (%s => assigned contact) -->
+    <string name="opencrx_FEx_responsible_title">Assigned To \'%s\'</string>
+    
+    <!-- detail for showing tasks created by someone else (%s => person name) -->
+    <string name="opencrx_PDE_task_from">fra %s</string>
+    
+    <!-- replacement string for task edit "Notes" when using OpenCRX -->
+    <string name="opencrx_TEA_notes">Tilføj en kommentar</string>
+    
+    <string name="opencrx_creator_input_hint">Creator</string>
+
+    <string name="opencrx_contact_input_hint">Assigned to</string>
+    <!-- ==================================================== Preferences == -->
+
+    <!-- Preferences Title: OpenCRX -->    
+    <string name="opencrx_PPr_header">OpenCRX</string>
+
+    <!-- creator title for tasks that are not synchronized -->
+    <string name="opencrx_no_creator">(Do Not Synchronize)</string>
+
+	<!-- preference title for default creator -->
+    <string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
+
+    <!-- preference description for default creator (%s -> setting) -->
+    <string name="opencrx_PPr_defaultcreator_summary">New activities will be created by: %s</string>
+
+    <!-- preference description for default dashboard (when set to 'not synchronized') -->
+    <string name="opencrx_PPr_defaultcreator_summary_none">New activities will not be synchronized by default</string>
+    
+    <!--  OpenCRX host and segment group name -->
+    <string name="opencrx_group">OpenCRX server</string>
+
+    <!--  preference description for OpenCRX host -->
+    <string name="opencrx_host_title">Host</string>
+
+    <!--  dialog title for OpenCRX host -->
+    <string name="opencrx_host_dialog_title">OpenCRX host</string>
+    
+    <!--  example for OpenCRX host -->
+    <string name="opencrx_host_summary">For example: <i>mydomain.com</i></string>
+    
+    <!--  preference description for OpenCRX segment -->
+    <string name="opencrx_segment_title">Segment</string>
+
+    <!--  dialog title for OpenCRX segment -->
+    <string name="opencrx_segment_dialog_title">Synchronized segment</string>
+    
+    <!--  example for OpenCRX segment -->
+    <string name="opencrx_segment_summary">For example: <i>Standard</i></string>
+    
+    <!--  default value for OpenCRX segment -->
+    <string name="opencrx_segment_default">Standard</string>
+    
+    <!--  preference description for OpenCRX provider -->
+    <string name="opencrx_provider_title">Provider</string>
+
+    <!--  dialog title for OpenCRX provider -->
+    <string name="opencrx_provider_dialog_title">OpenCRX data provider</string>
+    
+    <!--  example for OpenCRX provider -->
+    <string name="opencrx_provider_summary">For example: <i>CRX</i></string>
+    
+    <!--  default value for OpenCRX provider -->
+    <string name="opencrx_provider_default">CRX</string>
+    <!-- ================================================= Login Activity == -->
+
+    <!-- Activity Title: Opencrx Login -->    
+    <string name="opencrx_PLA_title">Log In to OpenCRX</string>
+
+    <!-- Instructions: Opencrx login -->    
+    <string name="opencrx_PLA_body">Sign in with your OpenCRX account</string>
+
+    <!-- Sign In Button -->    
+    <string name="opencrx_PLA_signIn">Log ind</string>
+
+    <!-- Login Label -->    
+    <string name="opencrx_PLA_login">Login</string>
+
+    <!-- Password Label -->    
+    <string name="opencrx_PLA_password">Adgangskode</string>
+    
+        <!-- Error Message when fields aren't filled out -->    
+    <string name="opencrx_PLA_errorEmpty">Error: fillout all fields</string>
+    
+    <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
+    <string name="opencrx_PLA_errorAuth">Error: login or password incorrect!</string>
+
+    <!-- ================================================ Synchronization == -->
+        
+    <!-- title for notification tray after synchronizing -->
+    <string name="opencrx_notification_title">OpenCRX</string>
+    
+    <!-- text for notification tray when synchronizing -->
+    <string name="opencrx_notification_text">%s opgaver opdateret / tryk for flere detaljer</string>
+    
+    <!-- Error msg when io exception  -->
+    <string name="opencrx_ioerror">Forbindelsesfejl! Tjek din internetforbindelse.</string>
+
+    <!-- opencrx Login not specified-->
+    <string name="opencrx_MLA_email_empty">Login was not specified!</string>
+    
+    <!-- opencrx password not specified-->
+    <string name="opencrx_MLA_password_empty">Adgangskode blev ikke angivet!</string>
+    
+    <!-- ================================================ labels for layout-elements == -->
+    
+    <!-- label for task-assignment spinner on taskeditactivity -->
+    <string name="opencrx_TEA_task_assign_label">Assign this task to this person:</string>
+    
+    <!-- Spinner-item for unassigned tasks on taskeditactivity -->
+    <string name="opencrx_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    
+    <!-- label for dashboard-assignment spinner on taskeditactivity -->
+    <string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
+
+    <!-- Spinner-item for default dashboard on taskeditactivity -->
+    <string name="opencrx_TEA_dashboard_default">&lt;Standard&gt;</string>
+
+    <string name="CFC_opencrx_in_workspace_text">I arbejdsområde: ?</string>
+
+    <string name="CFC_opencrx_in_workspace_name">I arbejdsområde...</string>
+
+    <string name="CFC_opencrx_assigned_to_text">Assigned to: ?</string>
+
+    <string name="CFC_opencrx_assigned_to_name">Assigned to...</string>
+
+
+<!-- See the file "LICENSE" for the full license governing this code. -->
+
+
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Category: Power Pack -->
@@ -860,9 +1219,12 @@ File %1$s contained %2$s.\n\n
     <string name="producteev_FEx_dashboard">Arbejdsområder</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible_byme">Assigned To</string>
+    <string name="producteev_FEx_responsible_byme">Assigned by me to</string>
     
-    <!--  Producteev dashboard filter title (%s => dashboardname) -->
+    <!-- filter category for Producteev responsible person -->
+    <string name="producteev_FEx_responsible_byothers">Assigned by others to</string>
+    
+    <!--  Producteev responsible filter title (%s => responsiblename) -->
     <string name="producteev_FEx_responsible_title">Assigned To \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
@@ -1003,6 +1365,15 @@ File %1$s contained %2$s.\n\n
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Ring/Vibrate Type:</string>
 
+  <!-- Task Edit: Reminder mode: ring once -->  
+  <string name="TEA_reminder_mode_once">Ring en gang</string>
+
+  <!-- Task Edit: Reminder mode: ring five times -->  
+  <string name="TEA_reminder_mode_five">Ring Five Times</string>
+
+  <!-- Task Edit: Reminder mode: ring nonstop -->  
+  <string name="TEA_reminder_mode_nonstop">Ring indtil jeg slår alarmen fra</string>
+
   <string-array name="TEA_reminder_random">
     <!-- random reminder choices for task edit page. -->
     <item>en time</item>
@@ -1026,7 +1397,11 @@ File %1$s contained %2$s.\n\n
   
   <!-- Reminder: Cancel reminder -->
   <string name="rmd_NoA_goAway">Gå væk!</string>
-    
+
+  <!--  Reminder: save toast for changing the past default due reminder for today -->    
+  <string name="rmd_time_toast">Default due reminder for today is in the past!\nThe next reminder will be %s.</string>
+  <string name="rmd_time_toast_quiet">Default due reminder for today is in the past and its already quiet time!\nNo reminder scheduled for today.</string>
+  
   <!-- ============================================= reminder preferences == -->
   
   <!-- Reminder Preference Screen Title -->
@@ -1042,7 +1417,12 @@ File %1$s contained %2$s.\n\n
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Stille timer slut</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Påmindelser vil begynde at blive vist fra %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will stop being silent starting at %s</string>
+
+  <!-- Reminder Preference: Default Reminder Title -->
+  <string name="rmd_EPr_rmd_time_title">Default Reminder</string>
+  <!-- Reminder Preference: Default Reminder Description (%s => time set) -->
+  <string name="rmd_EPr_rmd_time_desc">Notifications for tasks without duetimes will appear at %s</string>
 
   <!-- Reminder Preference: Notification Ringtone Title -->
   <string name="rmd_EPr_ringtone_title">Påmindelsesringetone</string>
@@ -1073,11 +1453,11 @@ File %1$s contained %2$s.\n\n
   <string name="rmd_EPr_vibrate_desc_false">Astrid will not vibrate when sending notifications</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid Reminders</string>
+  <string name="rmd_EPr_nagging_title">Astrid Encouragements</string>
   <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">Astrid will show up to give you an encouragement during reminders</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid not give you any encouragement messages</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid will not give you any encouragement messages</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
   <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
@@ -1138,6 +1518,34 @@ File %1$s contained %2$s.\n\n
   
   <string-array name="EPr_quiet_hours_end">
     <!-- Reminder Preference: quiet_hours_end: options for preference menu. Translate but don't change the times! -->
+    <item>9 AM</item>
+    <item>10 AM</item>
+    <item>11 AM</item>
+    <item>12 PM</item>
+    <item>1 PM</item>
+    <item>2 PM</item>
+    <item>3 PM</item>
+    <item>4 PM</item>
+    <item>5 PM</item>
+    <item>6 PM</item>
+    <item>7 PM</item>
+    <item>8 PM</item>
+    <item>9 PM</item>
+    <item>10 PM</item>
+    <item>11 PM</item>
+    <item>12 AM</item>
+    <item>1 AM</item>
+    <item>2 AM</item>
+    <item>3 AM</item>
+    <item>4 AM</item>
+    <item>5 AM</item>
+    <item>6 AM</item>
+    <item>7 AM</item>
+    <item>8 AM</item>
+  </string-array>
+  
+  <string-array name="EPr_rmd_time">
+    <!-- Reminder Preference: rmd_time: options for preference menu. Translate but don't change the times! -->
     <item>9 AM</item>
     <item>10 AM</item>
     <item>11 AM</item>
@@ -1242,7 +1650,6 @@ File %1$s contained %2$s.\n\n
       <item>Didn\'t you make that excuse last time?</item>
       <item>I can\'t help you organize your life if you do that...</item>
   </string-array>
-    
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1359,34 +1766,6 @@ Error Message: %s
 <!-- See the file "LICENSE" for the full license governing this code. -->
 
 
-    <!-- ============================================================= UI == -->
-
-    <!-- task action: Share -->
-    <string name="sharing_action">Share</string>
-
-    <!-- share login: Title -->
-    <string name="sharing_SLA_title">Share This Task</string>
-
-    <!-- share login: Sharing Description -->
-    <string name="sharing_SLA_body">My Astrid lets you post tasks to the web to share with
-    others. Let your friends encourage and keep you accountable!</string>
-
-    <!-- share login: Sharing Login Prompt -->
-    <string name="sharing_SLA_login">Sign in using your Facebook or Google account:</string>
-
-    <!-- share login: Next Step information -->
-    <string name="sharing_SLA_next_step">On the next page, 
-    you can choose how to share this task and choose recipients.</string>
-
-    <!-- share login: Sharing Task Information -->
-    <string name="sharing_SLA_task">Task to Share:</string>   
-
-
-
-
-<!-- See the file "LICENSE" for the full license governing this code. -->
-
-
     <!-- Resources for built-in tag plug-in -->
 
   <!-- =============================================== Task Edit Controls == -->
@@ -1400,13 +1779,24 @@ Error Message: %s
   <!-- Tags dropdown -->
   <string name="TEA_tag_dropdown">Select a tag</string>
     
+  <!-- ========================================================== Extras == -->
+  
+    <!-- Context Item: show tag -->
+  <string name="TAd_contextFilterByTag">Show Tag</string>
+  
   <!-- ========================================================== Filters == -->
   
   <!-- filter header for tags -->
   <string name="tag_FEx_header">Mærker</string>
   
-  <!-- filter header for tags, sorted by size -->
-  <string name="tag_FEx_by_size">Sorted By Size</string>
+  <!-- filter header for tags user created -->
+  <string name="tag_FEx_category_mine">My Tags</string>
+  
+  <!-- filter header for tags, shared with user -->
+  <string name="tag_FEx_category_shared">Shared With Me</string>
+  
+  <!-- filter header for tags which have no active tasks -->
+  <string name="tag_FEx_category_inactive">Inactive</string>
   
   <!-- filter for untagged tasks -->
   <string name="tag_FEx_untagged">Untagged</string>
