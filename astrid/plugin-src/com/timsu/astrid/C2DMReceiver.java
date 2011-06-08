@@ -43,6 +43,7 @@ public class C2DMReceiver extends BroadcastReceiver {
     public static final String C2DM_SENDER = "c2dm@astrid.com"; //$NON-NLS-1$
 
     private static final String PREF_REGISTRATION = "c2dm_key";
+    private static final String PREF_LAST_C2DM = "c2dm_last";
 
     @Autowired ActFmSyncService actFmSyncService;
     @Autowired TagDataService tagDataService;
@@ -69,6 +70,10 @@ public class C2DMReceiver extends BroadcastReceiver {
         String message = intent.getStringExtra("alert");
         Context context = ContextManager.getContext();
 
+        long lastNotification = Preferences.getLong(PREF_LAST_C2DM, 0);
+        if(DateUtilities.now() - lastNotification < 5000L)
+            return;
+        Preferences.setLong(PREF_LAST_C2DM, DateUtilities.now());
         Intent notifyIntent = null;
         int notifId;
 

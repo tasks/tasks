@@ -221,7 +221,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     }
 
     public void onFBAuthFail(String error) {
-        DialogUtilities.okDialog(this, getString(R.string.sharing_SLA_title),
+        DialogUtilities.okDialog(this, getString(R.string.actfm_ALA_title),
                 android.R.drawable.ic_dialog_alert, error, null);
     }
 
