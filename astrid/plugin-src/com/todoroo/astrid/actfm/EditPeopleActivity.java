@@ -337,11 +337,10 @@ public class EditPeopleActivity extends Activity {
         Flags.set(Flags.REFRESH);
         try {
             JSONObject userJson;
-            AssignedToUser assignedTo = (AssignedToUser) assignedSpinner.getSelectedItem();
-            if(assignedTo == null)
+            if(assignedCustom.getVisibility() == View.VISIBLE)
                 userJson = PeopleContainer.createUserJson(assignedCustom);
             else
-                userJson = assignedTo.user;
+                userJson = ((AssignedToUser) assignedSpinner.getSelectedItem()).user;
             if(userJson == null || userJson.optLong("id", -1) == 0) {
                 task.setValue(Task.USER_ID, 0L);
                 task.setValue(Task.USER, "{}");
