@@ -65,7 +65,7 @@ public final class PluginServices {
         return getInstance().taskService;
     }
 
-    public static TagDataService getProjectService() {
+    public static TagDataService getTagDataService() {
         return getInstance().tagDataService;
     }
 

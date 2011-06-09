@@ -302,6 +302,10 @@ public final class ActFmSyncService {
             params.add("name"); params.add(tagData.getValue(TagData.NAME));
         }
 
+        if(values.containsKey(TagData.DELETION_DATE.name)) {
+            params.add("deleted_at"); params.add(tagData.getValue(TagData.DELETION_DATE));
+        }
+
         if(values.containsKey(TagData.MEMBERS.name)) {
             params.add("members");
             try {

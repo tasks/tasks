@@ -20,7 +20,7 @@
   <string name="actfm_toast_error">Save Unsuccessful</string>
 
   <!-- can't rename or delete shared tag message -->
-  <string name="actfm_tag_operation_disabled">Please view shared tags to rename or delete them.</string>
+  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
 
   <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">Take a Picture</string>

@@ -32,6 +32,8 @@ public class ActFmInvoker {
     public static final String PROVIDER_GOOGLE= "google";
     public static final String PROVIDER_PASSWORD = "password";
 
+    private static final int API_VERSION = 1;
+
     @Autowired private RestClient restClient;
 
     private String token = null;
@@ -159,6 +161,7 @@ public class ActFmInvoker {
         }
         params.add(new Pair<String, Object>("app_id", APP_ID));
         params.add(new Pair<String, Object>("time", System.currentTimeMillis() / 1000L));
+        params.add(new Pair<String, Object>("api", API_VERSION));
         if(token != null)
             params.add(new Pair<String, Object>("token", token));
 

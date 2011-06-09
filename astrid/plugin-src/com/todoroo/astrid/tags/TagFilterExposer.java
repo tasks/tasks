@@ -17,6 +17,7 @@ import android.content.res.Resources;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.sql.QueryTemplate;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewActivity;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
@@ -38,6 +40,7 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
@@ -158,7 +161,7 @@ public class TagFilterExposer extends BroadcastReceiver {
 
         // find all tag data not in active tag list
         TodorooCursor<TagData> cursor = tagDataService.query(Query.select(
-                TagData.NAME, TagData.TASK_COUNT, TagData.REMOTE_ID));
+                TagData.NAME, TagData.TASK_COUNT, TagData.REMOTE_ID).where(TagData.DELETION_DATE.eq(0)));
         ArrayList<Tag> notListed = new ArrayList<Tag>();
         try {
             ArrayList<Tag> sharedTags = new ArrayList<Tag>();
@@ -184,7 +187,7 @@ public class TagFilterExposer extends BroadcastReceiver {
         Tag[] inactiveTags = tagService.getGroupedTags(TagService.GROUPED_TAGS_BY_ALPHA,
                 Criterion.and(TaskCriteria.notDeleted(), Criterion.not(TaskCriteria.activeAndVisible())));
         for(Tag tag : inactiveTags) {
-            if(!tagNames.contains(tag.tag)) {
+            if(!tagNames.contains(tag.tag) && !TextUtils.isEmpty(tag.tag)) {
                 notListed.add(tag);
                 tag.count = 0;
             }
@@ -290,6 +293,9 @@ public class TagFilterExposer extends BroadcastReceiver {
         @Override
         protected boolean ok() {
             int deleted = tagService.delete(tag);
+            TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.DELETION_DATE);
+            tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
+            PluginServices.getTagDataService().save(tagData);
             Toast.makeText(this, getString(R.string.TEA_tags_deleted, tag, deleted),
                     Toast.LENGTH_SHORT).show();
             return true;
