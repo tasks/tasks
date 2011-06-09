@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_height="fill_parent"
     android:orientation="vertical"
     android:background="@drawable/widget_frame">
 
@@ -100,9 +100,7 @@
 	        android:src="@drawable/separator"
 	    	android:layout_gravity="center_horizontal" 
 	    	android:layout_height="wrap_content" 
-	    	android:layout_marginTop="50dip"/>
-
-        <!--  note that this separator has a huge margin so that no more tasks are displayed -->
+	    	android:layout_marginTop="4dip"/>
 
     	<TextView
 	        android:id="@+id/task_4"
