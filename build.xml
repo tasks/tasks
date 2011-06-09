@@ -31,7 +31,7 @@
 
   <target name="release-all" depends="clean,get-version,release">    
     <!-- custom builds -->
-    <for list="-getjar,.1000,-verizon,-sprint,-orange,-vodafone,-other" param="name">
+    <for list="-getjar,-verizon,-sprint,-orange,-vodafone,-other" param="name">
       <sequential>
         <subant target="release-custom">
           <fileset file="astrid/build.xml" />
@@ -39,6 +39,13 @@
         </subant>
       </sequential>
     </for>
+    <!-- amazon -->
+    <subant>
+      <fileset file="astrid/build.xml" />
+      <property name="custom.version.name" value=".1000" />
+      <property name="custom.market.disabled" value="true" />
+      <target name="release-custom" />
+    </subant>
   </target>
 </project>
 
