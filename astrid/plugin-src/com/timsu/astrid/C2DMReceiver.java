@@ -170,7 +170,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                         message = message.substring(message.indexOf(':') + 2);
                     update.setValue(Update.MESSAGE, message);
                     update.setValue(Update.CREATION_DATE, DateUtilities.now());
-                    update.setValue(Update.TAG, tagData.getId());
+                    update.setValue(Update.TAGS, "," + intent.getStringExtra("tag_id") + ",");
                     updateDao.createNew(update);
                 } catch (JSONException e) {
                     //

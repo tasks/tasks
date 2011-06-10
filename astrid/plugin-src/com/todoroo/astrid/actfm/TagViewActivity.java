@@ -605,12 +605,16 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         }).start();
     }
 
+    @SuppressWarnings("nls")
     private void addComment() {
+        if(tagData.getValue(TagData.REMOTE_ID) == 0L)
+            return;
+
         Update update = new Update();
         update.setValue(Update.MESSAGE, addCommentField.getText().toString());
-        update.setValue(Update.ACTION_CODE, "tag_comment"); //$NON-NLS-1$
+        update.setValue(Update.ACTION_CODE, "tag_comment");
         update.setValue(Update.USER_ID, 0L);
-        update.setValue(Update.TAG, tagData.getId());
+        update.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
         Flags.checkAndClear(Flags.SUPPRESS_SYNC);
         updateDao.createNew(update);

@@ -150,11 +150,10 @@ public final class ActFmSyncService {
         ArrayList<Object> params = new ArrayList<Object>();
         params.add("message"); params.add(update.getValue(Update.MESSAGE));
 
-        if(update.getValue(Update.TAG) > 0) {
-            TagData tagData = tagDataService.fetchById(update.getValue(Update.TAG), TagData.REMOTE_ID);
-            if(tagData == null || tagData.getValue(TagData.REMOTE_ID) == 0)
-                return;
-            params.add("tag_id"); params.add(tagData.getValue(TagData.REMOTE_ID));
+        if(update.getValue(Update.TAGS).length() > 0) {
+            String tagId = update.getValue(Update.TAGS);
+            tagId = tagId.substring(1, tagId.indexOf(',', 1));
+            params.add("tag_id"); params.add(tagId);
         }
 
         if(update.getValue(Update.TASK) > 0) {
@@ -494,7 +493,7 @@ public final class ActFmSyncService {
                 for(int i = 0; i < list.length(); i++) {
                     JSONObject item = list.getJSONObject(i);
                     readIds(locals, item, remote);
-                    JsonHelper.updateFromJson(item, tagData, remote);
+                    JsonHelper.updateFromJson(item, remote);
 
                     Flags.set(Flags.SUPPRESS_SYNC);
                     if(remote.getId() == AbstractModel.NO_ID)
@@ -529,7 +528,7 @@ public final class ActFmSyncService {
                 for(int i = 0; i < list.length(); i++) {
                     JSONObject item = list.getJSONObject(i);
                     readIds(locals, item, remote);
-                    JsonHelper.updateFromJson(item, null, remote);
+                    JsonHelper.updateFromJson(item, remote);
                     System.err.println("GOJI BERRY: (" + remote.getId() + ") - " + remote.getSetValues());
 
                     Flags.set(Flags.SUPPRESS_SYNC);
@@ -698,8 +697,7 @@ public final class ActFmSyncService {
             return item.optLong(key, 0) * 1000L;
         }
 
-        public static void updateFromJson(JSONObject json, TagData tag,
-                Update model) throws JSONException {
+        public static void updateFromJson(JSONObject json, Update model) throws JSONException {
             model.setValue(Update.REMOTE_ID, json.getLong("id"));
             readUser(json.getJSONObject("user"), model, Update.USER_ID, Update.USER);
             model.setValue(Update.ACTION, json.getString("action"));
@@ -711,7 +709,7 @@ public final class ActFmSyncService {
                 model.setValue(Update.MESSAGE, json.getString("message"));
             model.setValue(Update.PICTURE, json.getString("picture"));
             model.setValue(Update.CREATION_DATE, readDate(json, "created_at"));
-            model.setValue(Update.TAG, tag == null ? 0L : tag.getId());
+            model.setValue(Update.TAGS, json.optString("tag_ids", ""));
             model.setValue(Update.TASK, json.optLong("task_id", 0));
         }
 

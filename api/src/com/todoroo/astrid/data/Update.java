@@ -47,8 +47,8 @@ public class Update extends RemoteModel {
     public static final LongProperty TASK = new LongProperty(
             TABLE, "task");
 
-    /** Associated Tag local-id (if any) */
-    public static final LongProperty TAG = new LongProperty(
+    /** Associated Tag remote-ids (comma separated list with leading and trailing commas) */
+    public static final StringProperty TAGS = new StringProperty(
             TABLE, "tag");
 
     /** From user id */
@@ -99,7 +99,7 @@ public class Update extends RemoteModel {
     static {
         defaultValues.put(REMOTE_ID.name, 0);
         defaultValues.put(TASK.name, 0);
-        defaultValues.put(TAG.name, 0);
+        defaultValues.put(TAGS.name, 0);
         defaultValues.put(USER_ID.name, 0);
         defaultValues.put(USER.name, "");
         defaultValues.put(ACTION.name, "");

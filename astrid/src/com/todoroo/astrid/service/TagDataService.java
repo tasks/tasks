@@ -13,6 +13,7 @@ import com.todoroo.astrid.dao.TagDataDao;
 import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 
 /**
@@ -123,9 +124,11 @@ public class TagDataService {
      * Get updates for this tagData
      * @return
      */
+    @SuppressWarnings("nls")
     public TodorooCursor<Update> getUpdates(TagData tagData) {
         return updateDao.query(Query.select(Update.PROPERTIES).where(
-                Update.TAG.eq(tagData.getId())).orderBy(Order.desc(Update.CREATION_DATE)));
+                Update.TAGS.like("%" + tagData.getValue(Task.REMOTE_ID) + ",%")).
+                orderBy(Order.desc(Update.CREATION_DATE)));
     }
 
 }

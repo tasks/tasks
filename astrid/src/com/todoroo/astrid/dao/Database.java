@@ -125,7 +125,7 @@ public class Database extends AbstractDatabase {
 
         sql.append("CREATE INDEX IF NOT EXISTS up_pid ON ").
             append(Update.TABLE).append('(').
-                append(Update.TAG.name).
+                append(Update.TAGS.name).
             append(')');
         database.execSQL(sql.toString());
         sql.setLength(0);
@@ -196,7 +196,7 @@ public class Database extends AbstractDatabase {
         }
         case 12: try {
             database.execSQL("ALTER TABLE " + Update.TABLE.name + " ADD " +
-                    Update.TAG.accept(visitor, null));
+                    Update.TAGS.accept(visitor, null));
         } catch (SQLiteException e) {
             Log.e("astrid", "db-upgrade-" + oldVersion + "-" + newVersion, e);
         }
