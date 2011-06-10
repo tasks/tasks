@@ -3,7 +3,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/widget"
     android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/widget_frame">
 
@@ -11,14 +11,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:paddingTop="2dp"
         android:paddingLeft="40dp">
         
         <TextView
             android:id="@+id/widget_title"
             android:layout_gravity="left" 
             android:layout_width="128dp" 
-            android:layout_height="47dp"
+            android:layout_height="40dp"
             android:textColor="#ffffff"
             android:textSize="14sp"
             android:textStyle="bold"
