@@ -138,7 +138,6 @@ public class TaskApiDao extends ContentResolverDao<Task> {
             return true;
 
         if(values.containsKey(Task.DETAILS_DATE.name) &&
-                values.containsKey(Task.DETAILS.name) &&
                 values.size() <= 3)
             return true;
 
