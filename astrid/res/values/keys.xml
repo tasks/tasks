@@ -165,6 +165,8 @@
   
   <string-array name="EPr_font_size">
     <!-- font_size: options for preference menu -->
+    <item>10</item>
+    <item>12</item>
     <item>14</item>
     <item>16</item>
     <item>18</item>

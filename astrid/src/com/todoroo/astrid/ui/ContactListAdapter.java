@@ -186,7 +186,7 @@ public class ContactListAdapter extends CursorAdapter {
                         Contacts.ContactMethods.TYPE_HOME);
                 emailValues.put(Contacts.ContactMethods.DATA,
                     "john." + i + ".doe@test.com");
-                Uri emailUpdate = cr.insert(emailUri, emailValues);
+                cr.insert(emailUri, emailValues);
             }
         }
     }

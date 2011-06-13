@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="fill_parent"
-    android:orientation="vertical">
+    android:layout_height="wrap_content"
+    android:layout_gravity="top">
     
-    <ImageButton android:id="@+id/icon"
-        android:layout_width="fill_parent"
+    <ImageButton 
+        android:id="@+id/icon"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="5"
-        android:paddingLeft="8px"
-        android:paddingRight="8px"
-        android:gravity="center_horizontal"
-        android:background="#00000000"
+        android:paddingTop="8dip"
+        android:paddingLeft="8dip"
+        android:paddingRight="8dip"
         android:scaleType="center"
-        android:src="@drawable/silk_note" />
-              
-</LinearLayout>
+        android:background="#00000000"
+        android:src="@drawable/task_notes" />
+        
+</FrameLayout>              
+
 

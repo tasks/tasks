@@ -7,9 +7,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
@@ -37,12 +34,12 @@ public class EditPeopleExposer extends BroadcastReceiver {
 
         if(AstridApiConstants.BROADCAST_REQUEST_ACTIONS.equals(intent.getAction())) {
             final String label = context.getString(R.string.EPE_action);
-            final Drawable drawable = context.getResources().getDrawable(R.drawable.tango_users);
+            final int drawable = R.drawable.ic_qbar_share;
             Intent newIntent = new Intent(ACTION);
             newIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-            Bitmap icon = ((BitmapDrawable)drawable).getBitmap();
             TaskAction action = new TaskAction(label,
-                    PendingIntent.getBroadcast(context, (int)taskId, newIntent, 0), icon);
+                    PendingIntent.getBroadcast(context, (int)taskId, newIntent, 0), null);
+            action.drawable = drawable;
 
             // transmit
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_ACTIONS);

@@ -7,9 +7,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 
 import com.timsu.astrid.R;
@@ -45,27 +42,27 @@ public class EditNoteExposer extends BroadcastReceiver {
 
         if(AstridApiConstants.BROADCAST_REQUEST_ACTIONS.equals(intent.getAction())) {
             String label;
-            Drawable drawable;
+            int drawable;
 
             if(!actFmPreferenceService.isLoggedIn()) {
                 Task task = PluginServices.getTaskService().fetchById(taskId, Task.NOTES);
                 if(task == null || TextUtils.isEmpty(task.getValue(Task.NOTES)))
                     return;
                 label = context.getString(R.string.ENE_label);
-                drawable = context.getResources().getDrawable(R.drawable.tango_notes);
+                drawable = R.drawable.ic_qbar_comments;
             } else {
                 label = context.getString(R.string.ENE_label_comments);
-                drawable = context.getResources().getDrawable(R.drawable.tango_chat);
+                drawable = R.drawable.ic_qbar_comments;
             }
             Intent newIntent = new Intent(ACTION);
             newIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
-            Bitmap icon = ((BitmapDrawable)drawable).getBitmap();
             TaskAction action = new TaskAction(label,
-                    PendingIntent.getBroadcast(context, (int)taskId, newIntent, 0), icon);
+                    PendingIntent.getBroadcast(context, (int)taskId, newIntent, 0), null);
+            action.drawable = drawable;
 
             // transmit
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_ACTIONS);
-            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, ActFmPreferenceService.IDENTIFIER);
+            broadcastIntent.putExtra(AstridApiConstants.EXTRAS_ADDON, NotesPlugin.IDENTIFIER);
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, action);
             broadcastIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
             context.sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);

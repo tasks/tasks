@@ -1,16 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- See the file "LICENSE" for the full license governing this code. -->
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent" 
     android:layout_height="fill_parent"
-    android:background="@drawable/background_gradient">
+    android:background="@drawable/background_gradient"
+    android:orientation="vertical">
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="fill_parent" 
+        android:layout_height="43dip"
+        android:layout_weight="1"
+        android:orientation="horizontal"
+        android:background="@drawable/header_background">
+    
+        <!-- Filters Button -->
+        <ImageView android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:src="@drawable/header_tags_active"
+            android:scaleType="center" /> 
+        
+        <!-- Title -->
+        <TextView android:id="@+id/listLabel"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="100"
+            android:gravity="center"
+            android:paddingRight="50dip"
+            android:text="@string/FLA_title"
+            style="@style/TextAppearance.TLA_Header"/>
+
+    </LinearLayout>
+    
 
     <!-- List -->
     <ExpandableListView android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_weight="100"
         android:scrollbars="vertical"
         android:cacheColorHint="#00000000"/>
     
-</FrameLayout>
+</LinearLayout>
     

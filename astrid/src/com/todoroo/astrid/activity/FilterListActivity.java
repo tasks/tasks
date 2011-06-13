@@ -27,6 +27,8 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.Window;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -68,28 +70,28 @@ import com.todoroo.astrid.service.ThemeService;
 public class FilterListActivity extends ExpandableListActivity {
 
     // --- menu codes
-    
+
     private static final int MENU_SEARCH_ID = Menu.FIRST + 0;
     private static final int MENU_HELP_ID = Menu.FIRST + 1;
     private static final int MENU_REFRESH_ID = Menu.FIRST + 2;
-    
+
     private static final int CONTEXT_MENU_SHORTCUT = Menu.FIRST + 3;
     private static final int CONTEXT_MENU_INTENT = Menu.FIRST + 4;
-    
+
     private static final int REQUEST_CUSTOM_INTENT = 1;
-    
+
     // --- instance variables
-    
+
     @Autowired ExceptionService exceptionService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired ActFmSyncService actFmSyncService;
-    
+
     FilterAdapter adapter = null;
 
     /* ======================================================================
      * ======================================================= initialization
      * ====================================================================== */
-    
+
     public FilterListActivity() {
         DependencyInjectionService.getInstance().inject(this);
     }
@@ -97,6 +99,7 @@ public class FilterListActivity extends ExpandableListActivity {
     /**  Called when loading up the activity */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         new StartupService().onStartupApplication(this);
 
@@ -104,7 +107,15 @@ public class FilterListActivity extends ExpandableListActivity {
         ThemeService.applyTheme(this);
         setDefaultKeyMode(DEFAULT_KEYS_SEARCH_LOCAL);
 
-        setTitle(R.string.FLA_title);
+        findViewById(R.id.back).setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+                AndroidUtilities.callApiMethod(5, FilterListActivity.this, "overridePendingTransition", //$NON-NLS-1$
+                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                        R.anim.slide_left_in, R.anim.slide_left_out);
+            }
+        });
 
         onNewIntent(getIntent());
     }
@@ -144,23 +155,23 @@ public class FilterListActivity extends ExpandableListActivity {
     public boolean onPrepareOptionsMenu(Menu menu) {
         if(menu.size() > 0)
             return true;
-    
+
         MenuItem item;
-    
+
         item = menu.add(Menu.NONE, MENU_SEARCH_ID, Menu.NONE,
                 R.string.FLA_menu_search);
         item.setIcon(android.R.drawable.ic_menu_search);
-    
+
         if(actFmPreferenceService.isLoggedIn()) {
             item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
                     R.string.actfm_FLA_menu_refresh);
             item.setIcon(R.drawable.ic_menu_refresh);
         }
-    
+
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.FLA_menu_help);
         item.setIcon(android.R.drawable.ic_menu_help);
-    
+
         return true;
     }
 
@@ -346,44 +357,44 @@ public class FilterListActivity extends ExpandableListActivity {
 
     @Override
     public boolean onMenuItemSelected(int featureId, final MenuItem item) {
-    
+
         // handle my own menus
         switch (item.getItemId()) {
         case MENU_SEARCH_ID: {
             onSearchRequested();
             return true;
         }
-    
+
         case MENU_REFRESH_ID: {
             onRefreshRequested();
             return true;
         }
-    
+
         case MENU_HELP_ID: {
             Intent intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("http://weloveastrid.com/help-user-guide-astrid-v3/filters/")); //$NON-NLS-1$
             startActivity(intent);
             return true;
         }
-    
+
         case CONTEXT_MENU_SHORTCUT: {
             ExpandableListContextMenuInfo info = (ExpandableListContextMenuInfo)item.getMenuInfo();
-    
+
             final Intent shortcutIntent = item.getIntent();
             FilterListItem filter = ((FilterAdapter.ViewHolder)info.targetView.getTag()).item;
             if(filter instanceof Filter)
                 showCreateShortcutDialog(shortcutIntent, (Filter)filter);
-    
+
             return true;
         }
-    
+
         case CONTEXT_MENU_INTENT: {
             Intent intent = item.getIntent();
             startActivityForResult(intent, REQUEST_CUSTOM_INTENT);
             return true;
         }
         }
-    
+
         return false;
     }
 

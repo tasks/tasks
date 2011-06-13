@@ -14,6 +14,8 @@ import android.content.Context;
 import android.text.format.DateFormat;
 import android.text.format.DateUtils;
 
+import com.todoroo.astrid.api.R;
+
 
 public class DateUtilities {
 
@@ -128,6 +130,24 @@ public class DateUtilities {
     @SuppressWarnings("nls")
     public static String getDateStringWithTime(Context context, Date date) {
         return getDateString(context, date) + " " + getTimeString(context, date);
+    }
+
+    /**
+     * @return yesterday, today, tomorrow, or null
+     */
+    public static String getRelativeDay(Context context, long date) {
+        Date today = new Date();
+        if(Math.abs(today.getTime() - date) > DateUtilities.ONE_DAY)
+            return null;
+        int todayDate = today.getDate();
+        int otherDate = unixtimeToDate(date).getDate();
+
+        if(todayDate == otherDate)
+            return context.getString(R.string.today);
+        if(today.getTime() > date)
+            return context.getString(R.string.yesterday);
+        return context.getString(R.string.tomorrow);
+
     }
 
 }

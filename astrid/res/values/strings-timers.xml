@@ -5,10 +5,10 @@
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task List: Start Timer button -->
-    <string name="TAE_startTimer">Start Timer</string>
+    <string name="TAE_startTimer">Timer</string>
     
     <!-- Task List: Stop Timer button -->
-    <string name="TAE_stopTimer">Stop Timer</string>
+    <string name="TAE_stopTimer">Stop</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">Timers Active for %s!</string>

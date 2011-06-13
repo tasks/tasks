@@ -83,6 +83,15 @@
     <item quantity="other">%d people</item>
   </plurals>
   
+  <!-- today -->
+  <string name="today">Today</string>
+  
+  <!-- tomorrow -->
+  <string name="tomorrow">Tomorrow</string>
+  
+  <!-- today -->
+  <string name="yesterday">Yesterday</string>
+  
   <!-- ================================================== Generic Dialogs == -->
   
   <!-- confirmation dialog title -->

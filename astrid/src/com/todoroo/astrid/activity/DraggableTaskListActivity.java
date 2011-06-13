@@ -86,7 +86,6 @@ public class DraggableTaskListActivity extends TaskListActivity {
         getTouchListView().setOnTouchListener(new OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                taskAdapter.clearSelection();
                 return false;
             }
         });

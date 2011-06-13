@@ -32,6 +32,11 @@ public class TaskAction implements Parcelable {
     public Bitmap icon = null;
 
     /**
+     * Quick action drawable resource
+     */
+    public int drawable = 0;
+
+    /**
      * Create an EditOperation object
      *
      * @param text
@@ -62,6 +67,7 @@ public class TaskAction implements Parcelable {
         dest.writeString(text);
         dest.writeParcelable(intent, 0);
         dest.writeParcelable(icon, 0);
+        dest.writeInt(drawable);
     }
 
     /**
@@ -72,9 +78,11 @@ public class TaskAction implements Parcelable {
          * {@inheritDoc}
          */
         public TaskAction createFromParcel(Parcel source) {
-            return new TaskAction(source.readString(),
+            TaskAction action = new TaskAction(source.readString(),
                     (PendingIntent)source.readParcelable(PendingIntent.class.getClassLoader()),
                     (Bitmap)source.readParcelable(Bitmap.class.getClassLoader()));
+            action.drawable = source.readInt();
+            return action;
         }
 
         /**

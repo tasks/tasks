@@ -99,7 +99,7 @@ public class Update extends RemoteModel {
     static {
         defaultValues.put(REMOTE_ID.name, 0);
         defaultValues.put(TASK.name, 0);
-        defaultValues.put(TAGS.name, 0);
+        defaultValues.put(TAGS.name, "");
         defaultValues.put(USER_ID.name, 0);
         defaultValues.put(USER.name, "");
         defaultValues.put(ACTION.name, "");

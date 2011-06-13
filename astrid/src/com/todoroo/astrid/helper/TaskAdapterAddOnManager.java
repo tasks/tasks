@@ -3,10 +3,10 @@
  */
 package com.todoroo.astrid.helper;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import android.app.ListActivity;
@@ -28,8 +28,8 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
         this.activity = activity;
     }
 
-    private final Map<Long, ArrayList<TYPE>> cache =
-        Collections.synchronizedMap(new HashMap<Long, ArrayList<TYPE>>(0));
+    private final Map<Long, LinkedHashMap<String, TYPE>> cache =
+        Collections.synchronizedMap(new HashMap<Long, LinkedHashMap<String, TYPE>>(0));
 
     // --- interface
 
@@ -64,21 +64,25 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
     abstract protected void reset(ViewHolder viewHolder, long taskId);
 
     /** on receive an intent */
-    public void addNew(long taskId, String addOn, TYPE item) {
+    public void addNew(long taskId, String addOn, TYPE item, ViewHolder thisViewHolder) {
         if(item == null)
             return;
 
         Collection<TYPE> cacheList = addIfNotExists(taskId, addOn, item);
         if(cacheList != null) {
-            ListView listView = activity.getListView();
-            // update view if it is visible
-            int length = listView.getChildCount();
-            for(int i = 0; i < length; i++) {
-                ViewHolder viewHolder = (ViewHolder) listView.getChildAt(i).getTag();
-                if(viewHolder == null || viewHolder.task.getId() != taskId)
-                    continue;
-                draw(viewHolder, taskId, cacheList);
-                break;
+            if(thisViewHolder != null)
+                draw(thisViewHolder, taskId, cacheList);
+            else {
+                ListView listView = activity.getListView();
+                // update view if it is visible
+                int length = listView.getChildCount();
+                for(int i = 0; i < length; i++) {
+                    ViewHolder viewHolder = (ViewHolder) listView.getChildAt(i).getTag();
+                    if(viewHolder == null || viewHolder.task.getId() != taskId)
+                        continue;
+                    draw(viewHolder, taskId, cacheList);
+                    break;
+                }
             }
         }
     }
@@ -108,7 +112,7 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
     protected synchronized Collection<TYPE> initialize(long taskId) {
         if(cache.containsKey(taskId) && cache.get(taskId) != null)
             return get(taskId);
-        cache.put(taskId, new ArrayList<TYPE>(0));
+        cache.put(taskId, new LinkedHashMap<String, TYPE>(0));
         return null;
     }
 
@@ -118,15 +122,14 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
      * @param item
      * @return iterator if item was added, null if it already existed
      */
-    @SuppressWarnings("unused")
     protected synchronized Collection<TYPE> addIfNotExists(long taskId, String addOn,
             TYPE item) {
-        ArrayList<TYPE> list = cache.get(taskId);
+        LinkedHashMap<String, TYPE> list = cache.get(taskId);
         if(list == null)
             return null;
-        if(list.contains(item))
+        if(list.containsValue(item))
             return null;
-        list.add(item);
+        list.put(addOn, item);
         return get(taskId);
     }
 
@@ -138,7 +141,7 @@ abstract public class TaskAdapterAddOnManager<TYPE> {
     protected Collection<TYPE> get(long taskId) {
         if(cache.get(taskId) == null)
             return null;
-        return cache.get(taskId);
+        return cache.get(taskId).values();
     }
 
 }

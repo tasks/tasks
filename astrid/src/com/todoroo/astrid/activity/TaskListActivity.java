@@ -229,6 +229,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             filter = extras.getParcelable(TOKEN_FILTER);
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
+            findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
+            findViewById(R.id.listLabel).setVisibility(View.GONE);
         }
 
         setUpTaskList();
@@ -546,13 +548,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
                 if(AstridApiConstants.BROADCAST_SEND_DECORATIONS.equals(intent.getAction())) {
                     TaskDecoration deco = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-                    taskAdapter.decorationManager.addNew(taskId, addOn, deco);
+                    taskAdapter.decorationManager.addNew(taskId, addOn, deco, null);
                 } else if(AstridApiConstants.BROADCAST_SEND_DETAILS.equals(intent.getAction())) {
                     String detail = extras.getString(AstridApiConstants.EXTRAS_RESPONSE);
                     taskAdapter.addDetails(taskId, detail);
                 } else if(AstridApiConstants.BROADCAST_SEND_ACTIONS.equals(intent.getAction())) {
                     TaskAction action = extras.getParcelable(AstridApiConstants.EXTRAS_RESPONSE);
-                    taskAdapter.taskActionManager.addNew(taskId, addOn, action);
+                    taskAdapter.taskActionManager.addNew(taskId, addOn, action, null);
                 }
             } catch (Exception e) {
                 exceptionService.reportError("receive-detail-" + //$NON-NLS-1$

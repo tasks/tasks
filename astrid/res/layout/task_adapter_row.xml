@@ -4,98 +4,88 @@
     xmlns:astrid="http://schemas.android.com/apk/res/com.timsu.astrid"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:background="@android:drawable/list_selector_background"
-    android:paddingTop="4dip"
-    android:paddingBottom="4dip"
     android:paddingLeft="4dip"
     android:paddingRight="4dip"
-    android:orientation="vertical">
-            
-    <LinearLayout android:id="@+id/task_row"
+    android:minHeight="40dip"
+    android:orientation="horizontal">
+    
+    <!-- importance -->
+    <View android:id="@+id/importance"
+        android:layout_width="4dip"
+        android:layout_height="fill_parent"
+        android:layout_marginRight="5dip" />
+        
+    <RelativeLayout android:id="@+id/rowBody" 
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="100"
-        android:minHeight="40dip"
-        android:orientation="horizontal">
-    
-        <!-- importance -->
-        <View android:id="@+id/importance"
-            android:layout_width="3dip"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="5dip" />
-            
+        android:paddingTop="4dip"
+        android:paddingBottom="4dip">
+        
         <!-- completion check-box -->
         <CheckBox android:id="@+id/completeBox"
-            android:layout_width="34dip"
-            android:layout_height="fill_parent"
-            android:paddingLeft="5dip" 
+            android:layout_width="wrap_content"
+            android:layout_height="26dip"        
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="3dip"
+            android:layout_gravity="top"
+            android:paddingRight="5dip"
+            android:paddingBottom="2dip"
             android:button="@drawable/btn_check"/>
             
-        <LinearLayout
+        <LinearLayout android:id="@+id/task_row"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="100"
-            android:paddingLeft="8dip" 
-            android:orientation="vertical">
-              
+            android:layout_toRightOf="@id/completeBox"
+            android:layout_alignParentTop="true"
+            android:orientation="horizontal">
+        
             <!-- task name -->
             <TextView android:id="@+id/title"
                 android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="100"
+                style="@style/TextAppearance.TAd_ItemTitle"/>
+            
+            <!-- assignee photo -->
+            <greendroid.widget.AsyncImageView android:id="@+id/picture"
+                android:layout_width="35dip"
                 android:layout_height="fill_parent"
-                style="@style/TextAppearance.TAd_ItemTitle"
-                android:gravity="center_vertical"/>
-        
-            <!-- due date -->
-            <TextView android:id="@+id/dueDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:singleLine="true"/>
-              
-            <TextView android:id="@+id/details"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                style="@style/TextAppearance.TAd_ItemDetails"
-                android:visibility="gone" />
-                
+                android:padding="5dip" 
+                android:scaleType="fitCenter"
+                astrid:defaultSrc="@drawable/ic_contact_picture_2"
+                android:visibility="gone"/>
+    
         </LinearLayout>
         
-        <!-- assignee photo -->
-        <greendroid.widget.AsyncImageView android:id="@+id/picture"
-            android:layout_width="35dip"
-            android:layout_height="fill_parent"
-            android:padding="5dip" 
-            android:scaleType="fitCenter"
-            astrid:defaultSrc="@drawable/ic_contact_picture_2"
-            android:visibility="gone"/>
-                    
-    </LinearLayout>
-      
-    <TextView android:id="@+id/extendedDetails"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="4dip"
-        style="@style/TextAppearance.TAd_ItemTitle"
-        android:visibility="gone" />
-        
-    <LinearLayout android:id="@+id/actions"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="#4499bbcc" 
-        android:visibility="gone"
-        android:paddingTop="4dip"
-        android:paddingLeft="4dip"
-        android:orientation="horizontal">
-        
-        <Button
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_weight="1" />
+        <!-- due date -->
+        <TextView android:id="@+id/dueDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/task_row"
+            android:layout_alignParentRight="true"
+            android:singleLine="true"/>
           
-        <Button
-          android:layout_width="fill_parent"
-          android:layout_height="wrap_content"
-          android:layout_weight="1" />
+        <!-- details line 1 -->
+        <TextView android:id="@+id/details1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/task_row"
+            android:layout_toRightOf="@id/completeBox"
+            android:layout_marginTop="-1dip"
+            style="@style/TextAppearance.TAd_ItemDetails"
+            android:visibility="gone" />
           
-    </LinearLayout>
+        <!-- details line 2 -->
+        <TextView android:id="@+id/details2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/details1"
+            android:layout_toRightOf="@id/completeBox"
+            style="@style/TextAppearance.TAd_ItemDetails"
+            android:visibility="gone" />
             
+    </RelativeLayout>
+    
 </LinearLayout>
+

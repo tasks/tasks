@@ -7,9 +7,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.ContextManager;
@@ -44,19 +41,19 @@ public class TimerActionExposer extends BroadcastReceiver {
         // was part of a broadcast for actions
         if(AstridApiConstants.BROADCAST_REQUEST_ACTIONS.equals(intent.getAction())) {
             final String label;
-            final Drawable drawable;
+            final int drawable;
             if(task.getValue(Task.TIMER_START) == 0) {
                 label = context.getString(R.string.TAE_startTimer);
-                drawable = context.getResources().getDrawable(R.drawable.tango_clock_start);
+                drawable = R.drawable.ic_qbar_timer_start;
             } else {
                 label = context.getString(R.string.TAE_stopTimer);
-                drawable = context.getResources().getDrawable(R.drawable.tango_clock_stop);
+                drawable = R.drawable.ic_qbar_timer_stop;
             }
-            Bitmap icon = ((BitmapDrawable)drawable).getBitmap();
             Intent newIntent = new Intent(TIMER_ACTION);
             newIntent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, taskId);
             TaskAction action = new TaskAction(label,
-                    PendingIntent.getBroadcast(context, (int)taskId, newIntent, 0), icon);
+                    PendingIntent.getBroadcast(context, (int)taskId, newIntent, 0), null);
+            action.drawable = drawable;
 
             // transmit
             Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_ACTIONS);

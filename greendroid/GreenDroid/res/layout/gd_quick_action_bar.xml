@@ -44,7 +44,7 @@
 			android:layout_width="wrap_content"
 			android:layout_height="wrap_content"
 			android:layout_gravity="center_vertical"
-			android:padding="4dip"
+			android:padding="2dip"
 			android:orientation="horizontal">
 
 			<View
