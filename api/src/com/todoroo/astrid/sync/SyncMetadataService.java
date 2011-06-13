@@ -95,7 +95,7 @@ abstract public class SyncMetadataService<TYPE extends SyncContainer> {
         TodorooCursor<Task> tasks;
         long lastSyncDate = getUtilities().getLastSyncDate();
         if(lastSyncDate == 0)
-            tasks = taskDao.query(Query.select(Task.ID).orderBy(Order.asc(Task.ID)));
+            tasks = taskDao.query(Query.select(Task.ID).where(Criterion.none));
         else
             tasks = taskDao.query(Query.select(Task.ID).where(Task.MODIFICATION_DATE.
                     gt(lastSyncDate)).orderBy(Order.asc(Task.ID)));

@@ -92,6 +92,7 @@ import com.todoroo.astrid.timers.TimerControlSet;
 import com.todoroo.astrid.ui.CalendarDialog;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog;
 import com.todoroo.astrid.ui.DeadlineTimePickerDialog.OnDeadlineTimeSetListener;
+import com.todoroo.astrid.utility.Constants;
 import com.todoroo.astrid.voice.VoiceInputAssistant;
 
 /**
@@ -300,7 +301,7 @@ public final class TaskEditActivity extends TabActivity {
                         controls.add(new TimerControlSet(TaskEditActivity.this, addonsAddons));
                         controls.add(new AlarmControlSet(TaskEditActivity.this, addonsAddons));
 
-                        if(!addOnService.hasPowerPack()) {
+                        if(!Constants.MARKET_DISABLED && !addOnService.hasPowerPack()) {
                             // show add-on help if necessary
                             View addonsEmpty = findViewById(R.id.addons_empty);
                             addonsEmpty.setVisibility(View.VISIBLE);

@@ -250,9 +250,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         MenuItem item;
 
-        item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
-                R.string.TLA_menu_addons);
-        item.setIcon(android.R.drawable.ic_menu_set_as);
+        if(!Constants.MARKET_DISABLED) {
+            item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
+                    R.string.TLA_menu_addons);
+            item.setIcon(android.R.drawable.ic_menu_set_as);
+        }
 
         item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
                 R.string.TLA_menu_settings);

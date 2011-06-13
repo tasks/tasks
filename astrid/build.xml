@@ -34,7 +34,6 @@
          should be checked in in Version Control Systems. -->
     <property file="default.properties" />
 
-
     <taskdef resource="net/sf/antcontrib/antlib.xml">
       <classpath>
         <pathelement location="antlib/ant-contrib-1.0b3.jar"/>
@@ -114,7 +113,7 @@
     </target>
 
     <!-- post build: rename apk -->
-    <target name="release" depends="clean, get-version, warnings, updatekeys-release, android_rules.release">
+    <target name="release" depends="clean, get-version, warnings, updatekeys-release, disable-market, android_rules.release">
       <mkdir dir="../release" />
       <property name="out.final.package"
                 location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
@@ -163,6 +162,15 @@
         <arg value="${source}-unaligned" />
         <arg value="${dest}" />
       </exec>
+    </target>
+
+    <target name="disable-market" if="custom.market.disabled">
+      <echo message="Disabling android market links" />
+      <replace token="market://" value="disabled://" 
+               dir="${source.dir}" />
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/utility/Constants.java"
+                     match="(MARKET_DISABLED.*=).*"
+                     replace="\1 true;" />
     </target>
 
     <!-- build custom release package with updated version name -->

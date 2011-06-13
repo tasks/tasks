@@ -217,7 +217,7 @@ public class VoiceInputAssistant {
         else
             packageName = "com.google.android.voicesearch";
 
-        // User wants to install voice search, take him to the market
+        // User wants to install voice search, take them to the market
         Intent marketIntent = new Intent(Intent.ACTION_VIEW,
                 Uri.parse("market://search?q=pname:" + packageName)); //$NON-NLS-1$
         try {

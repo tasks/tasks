@@ -170,7 +170,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         if(Constants.DEBUG)
             Log.e("gtasks-debug", "- -------- SYNC STARTED");
         createdWithoutId = new ArrayList<GtasksTaskContainer>();
-
         try {
             GoogleTaskView taskView = taskService.getTaskView();
             getActiveList(taskView);
