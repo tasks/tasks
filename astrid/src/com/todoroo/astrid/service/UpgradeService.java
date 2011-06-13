@@ -36,6 +36,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_7_6 = 182;
     public static final int V3_7_5 = 179;
     public static final int V3_7_4 = 178;
     public static final int V3_7_3 = 175;
@@ -141,7 +142,14 @@ public final class UpgradeService {
             });
         } else {
             // current message
-            if(from < V3_7_5) {
+            if(from < V3_7_6) {
+                newVersionString(changeLog, "3.7.6 (6/13/11)", new String[] {
+                        "Fix for Astrid overwriting Google / Producteev values during sync",
+                        "No more snoozes for old repeating task iterations",
+                        "Fix for some alarms not being cancelled when due date changes",
+                });
+            }
+            if(from >= V3_7_0 && from < V3_7_5) {
                 newVersionString(changeLog, "3.7.5 (5/24/11)", new String[] {
                         "Fix for custom filter not working with tags with apostrophes",
                         "Fix for crashes when rearranging tasks in a Google list",
