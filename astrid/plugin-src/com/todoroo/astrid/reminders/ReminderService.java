@@ -3,7 +3,6 @@ package com.todoroo.astrid.reminders;
 import java.util.Date;
 import java.util.Random;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -11,9 +10,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.res.Resources;
-import android.text.format.DateUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
@@ -350,23 +347,6 @@ public final class ReminderService  {
 
                     if(dueDate > DateUtilities.now() && dueDateAlarm < DateUtilities.now())
                         dueDateAlarm = dueDate;
-
-                    final Context context = ContextManager.getContext();
-                    if(context instanceof Activity) {
-                        final long alarm = dueDateAlarm;
-                        CharSequence formattedDate =
-                            DateUtils.getRelativeTimeSpanString(dueDateAlarm);
-                        final String toastMessage = context.getString(R.string.rmd_time_toast, formattedDate);
-                        ((Activity)context).runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (alarm != NO_ALARM)
-                                    Toast.makeText(context, toastMessage, 5).show();
-                                else
-                                    Toast.makeText(context, context.getString(R.string.rmd_time_toast_quiet), 5).show();
-                            }
-                        });
-                    }
                 }
             }
 

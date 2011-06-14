@@ -53,10 +53,6 @@
   
   <!-- Reminder: Cancel reminder -->
   <string name="rmd_NoA_goAway">Go Away!</string>
-
-  <!--  Reminder: save toast for changing the past default due reminder for today -->    
-  <string name="rmd_time_toast">Default due reminder for today is in the past!\nThe next reminder will be %s.</string>
-  <string name="rmd_time_toast_quiet">Default due reminder for today is in the past and its already quiet time!\nNo reminder scheduled for today.</string>
   
   <!-- ============================================= reminder preferences == -->
   
