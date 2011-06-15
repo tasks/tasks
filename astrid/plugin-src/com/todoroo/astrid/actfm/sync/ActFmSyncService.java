@@ -715,7 +715,8 @@ public final class ActFmSyncService {
                 model.setValue(Update.MESSAGE, json.getString("message"));
             model.setValue(Update.PICTURE, json.getString("picture"));
             model.setValue(Update.CREATION_DATE, readDate(json, "created_at"));
-            model.setValue(Update.TAGS, json.optString("tag_ids", ""));
+            String tagIds = "," + json.optString("tag_ids", "") + ",";
+            model.setValue(Update.TAGS, tagIds);
             model.setValue(Update.TASK, json.optLong("task_id", 0));
         }
 
