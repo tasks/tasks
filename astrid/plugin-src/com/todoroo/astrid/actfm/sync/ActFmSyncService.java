@@ -7,6 +7,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import org.apache.http.entity.mime.MultipartEntity;
 import org.apache.http.entity.mime.content.ByteArrayBody;
@@ -31,6 +32,7 @@ import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -432,10 +434,15 @@ public final class ActFmSyncService {
 
         JSONObject result = actFmInvoker.invoke("tag_list", "token", token);
         JSONArray tags = result.getJSONArray("list");
+        HashSet<Long> remoteIds = new HashSet<Long>(tags.length());
         for(int i = 0; i < tags.length(); i++) {
             JSONObject tagObject = tags.getJSONObject(i);
             actFmDataService.saveTagData(tagObject);
+            remoteIds.add(tagObject.getLong("id"));
         }
+
+        Long[] remoteIdArray = remoteIds.toArray(new Long[remoteIds.size()]);
+        tagDataService.deleteWhere(Criterion.not(TagData.REMOTE_ID.in(remoteIdArray)));
     }
 
     /**
@@ -529,7 +536,6 @@ public final class ActFmSyncService {
                     JSONObject item = list.getJSONObject(i);
                     readIds(locals, item, remote);
                     JsonHelper.updateFromJson(item, remote);
-                    System.err.println("GOJI BERRY: (" + remote.getId() + ") - " + remote.getSetValues());
 
                     Flags.set(Flags.SUPPRESS_SYNC);
                     if(remote.getId() == AbstractModel.NO_ID)

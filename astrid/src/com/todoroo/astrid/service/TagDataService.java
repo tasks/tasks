@@ -59,6 +59,13 @@ public class TagDataService {
     }
 
     /**
+     * Delete many
+     */
+    public void deleteWhere(Criterion where) {
+        tagDataDao.deleteWhere(where);
+    }
+
+    /**
      *
      * @param properties
      * @param id id
