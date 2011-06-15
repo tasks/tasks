@@ -1384,8 +1384,8 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="rmd_NoA_goAway">Hau ab!</string>
 
   <!--  Reminder: save toast for changing the past default due reminder for today -->    
-  <string name="rmd_time_toast">Die Standarderinnerungszeit für heute liegt in der Vergangenheit!\nDie nächste Erinnerung erscheint daher %s.</string>
-  <string name="rmd_time_toast_quiet">Die Standarderinnerungszeit für heute liegt in der Vergangenheit und Stille Stunden sind aktiv!\nFür heute wird daher keine Erinnerung mehr angezeigt.</string>
+
+
 
   <!-- ============================================= reminder preferences == -->
   
