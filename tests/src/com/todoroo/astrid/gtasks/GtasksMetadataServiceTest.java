@@ -5,15 +5,15 @@ import android.content.Context;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.andlib.utility.Preferences;
 
 public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
-    private GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();
+    private final GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();
     @Autowired private GtasksMetadataService gtasksMetadataService;
 
     private Task task;
@@ -62,6 +62,7 @@ public class GtasksMetadataServiceTest extends DatabaseTestCase {
     }
 
     public void testLocallyUpdatedHasItem() {
+        givenSyncDate(DateUtilities.now() - 5000L);
         givenTask(taskWithMetadata("ok"));
 
         whenReadLocalUpdated();
