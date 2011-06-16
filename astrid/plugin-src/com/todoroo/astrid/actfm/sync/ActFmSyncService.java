@@ -787,7 +787,6 @@ public final class ActFmSyncService {
             metadata.clear();
             model.clearValue(Task.REMOTE_ID);
             model.setValue(Task.REMOTE_ID, json.getLong("id"));
-            model.setValue(Task.FLAGS, 0);
             readUser(json.getJSONObject("user"), model, Task.USER_ID, Task.USER);
             readUser(json.getJSONObject("creator"), model, Task.CREATOR_ID, null);
             model.setValue(Task.COMMENT_COUNT, json.getInt("comment_count"));
