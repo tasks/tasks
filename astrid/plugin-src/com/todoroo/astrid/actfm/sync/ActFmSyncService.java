@@ -49,6 +49,7 @@ import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagService;
@@ -463,6 +464,14 @@ public final class ActFmSyncService {
                     JSONObject item = list.getJSONObject(i);
                     readIds(locals, item, remote);
                     JsonHelper.taskFromJson(item, remote, metadata);
+
+                    if(remote.getValue(Task.USER_ID) == 0) {
+                        if(!remote.isSaved())
+                            StatisticsService.reportEvent("actfm-task-created");
+                        else if(remote.isCompleted())
+                            StatisticsService.reportEvent("actfm-task-completed");
+                    }
+
 
                     Flags.set(Flags.SUPPRESS_SYNC);
                     taskService.save(remote);

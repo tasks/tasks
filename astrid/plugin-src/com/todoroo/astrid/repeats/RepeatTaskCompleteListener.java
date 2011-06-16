@@ -21,6 +21,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.Flags;
 
 public class RepeatTaskCompleteListener extends BroadcastReceiver {
@@ -40,6 +41,8 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         // don't repeat when it repeats on the server
         if(task.getValue(Task.REMOTE_ID) > 0)
             return;
+
+        StatisticsService.reportEvent("task-repeat"); //$NON-NLS-1$
 
         String recurrence = task.getValue(Task.RECURRENCE);
         if(recurrence != null && recurrence.length() > 0) {

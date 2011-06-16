@@ -33,6 +33,7 @@ import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -615,6 +616,13 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
     @Override
     protected void write(ProducteevTaskContainer task) throws IOException {
+        if(task.task.isSaved()) {
+            Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE);
+            if(task.task.isCompleted() && !local.isCompleted())
+                StatisticsService.reportEvent("pdv-task-completed"); //$NON-NLS-1$
+        } else {
+            StatisticsService.reportEvent("pdv-task-created"); //$NON-NLS-1$
+        }
         dataService.saveTaskAndMetadata(task);
     }
 

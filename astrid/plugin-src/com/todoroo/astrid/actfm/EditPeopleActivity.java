@@ -43,6 +43,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.service.ThemeService;
@@ -452,10 +453,11 @@ public class EditPeopleActivity extends Activity {
 
                     int count = result.optInt("shared", 0);
                     final String toast;
-                    if(count > 0)
+                    if(count > 0) {
                         toast = getString(R.string.actfm_EPA_emailed_toast,
                             getResources().getQuantityString(R.plurals.Npeople, count, count));
-                    else
+                        StatisticsService.reportEvent("actfm-task-shared"); //$NON-NLS-1$
+                    } else
                         toast = getString(R.string.actfm_EPA_saved_toast);
 
                     Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);

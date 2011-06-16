@@ -48,6 +48,7 @@ import com.todoroo.astrid.api.TextInputCriterion;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.StatisticsService;
 
 /**
  * Activity that allows users to build custom filters
@@ -238,6 +239,18 @@ public class CustomFilterActivity extends ListActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        StatisticsService.sessionStart(this);
+    }
+
+    @Override
+    protected void onStop() {
+        StatisticsService.sessionStop(this);
+        super.onStop();
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         registerReceiver(filterCriteriaReceiver, new IntentFilter(AstridApiConstants.BROADCAST_SEND_CUSTOM_FILTER_CRITERIA));
@@ -246,6 +259,7 @@ public class CustomFilterActivity extends ListActivity {
 
     @Override
     protected void onPause() {
+        StatisticsService.sessionPause();
         super.onPause();
         unregisterReceiver(filterCriteriaReceiver);
     }

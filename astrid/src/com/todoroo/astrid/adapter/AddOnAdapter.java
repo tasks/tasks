@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.timsu.astrid.R;
 import com.todoroo.astrid.data.AddOn;
+import com.todoroo.astrid.service.StatisticsService;
 
 /**
  * Adapter for {@link AddOn}s
@@ -50,9 +51,11 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
     View.OnClickListener intentClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            Intent intent = (Intent) v.getTag();
-            if(intent != null)
-                activity.startActivity(intent);
+            ButtonTag buttonTag = (ButtonTag) v.getTag();
+            if(buttonTag != null) {
+                activity.startActivity(buttonTag.intent);
+                StatisticsService.reportEvent("addon-" + buttonTag.event); //$NON-NLS-1$
+            }
         }
     };
 
@@ -91,6 +94,15 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
         public ImageView installedIcon;
     }
 
+    private class ButtonTag {
+        String event;
+        Intent intent;
+        public ButtonTag(String message, Intent intent) {
+            this.event = message;
+            this.intent = intent;
+        }
+    }
+
     private void initializeView(View convertView) {
         ViewHolder viewHolder = (ViewHolder) convertView.getTag();
         AddOn item = viewHolder.item;
@@ -105,7 +117,8 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
             viewHolder.web.setVisibility(View.VISIBLE);
             Intent webPageIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(item.getWebPage()));
-            viewHolder.web.setTag(webPageIntent);
+            viewHolder.web.setTag(new ButtonTag("web-" + item.getPackageName(), //$NON-NLS-1$
+                    webPageIntent));
             Drawable icon = getIntentIcon(webPageIntent);
             if(icon == null)
                 viewHolder.web.setImageResource(
@@ -125,7 +138,8 @@ public class AddOnAdapter extends ArrayAdapter<AddOn> {
             Intent marketIntent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse("market://search?q=pname:" + //$NON-NLS-1$
                             item.getPackageName()));
-            viewHolder.market.setTag(marketIntent);
+            viewHolder.market.setTag(new ButtonTag("market-" + item.getPackageName(), //$NON-NLS-1$
+                    marketIntent));
             Drawable icon = getIntentIcon(marketIntent);
             if(icon == null)
                 viewHolder.market.setImageResource(

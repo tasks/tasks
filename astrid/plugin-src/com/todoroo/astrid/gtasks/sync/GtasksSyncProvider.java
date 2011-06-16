@@ -547,8 +547,12 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     protected void write(GtasksTaskContainer task) throws IOException {
         //  merge astrid dates with google dates
         if(task.task.isSaved()) {
-            Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE);
+            Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.DUE_DATE, Task.COMPLETION_DATE);
             mergeDates(task.task, local);
+            if(task.task.isCompleted() && !local.isCompleted())
+                StatisticsService.reportEvent("gtasks-task-completed"); //$NON-NLS-1$
+        } else {
+            StatisticsService.reportEvent("gtasks-task-created"); //$NON-NLS-1$
         }
 
         gtasksMetadataService.saveTaskAndMetadata(task);

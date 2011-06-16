@@ -69,6 +69,7 @@ import com.todoroo.andlib.widget.GestureService;
 import com.todoroo.andlib.widget.GestureService.GestureInterface;
 import com.todoroo.astrid.activity.SortSelectionActivity.OnSortSelectedListener;
 import com.todoroo.astrid.adapter.TaskAdapter;
+import com.todoroo.astrid.adapter.TaskAdapter.OnCompletedTaskListener;
 import com.todoroo.astrid.adapter.TaskAdapter.ViewHolder;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
@@ -141,6 +142,9 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     /** token for passing a {@link Filter} object through extras */
     public static final String TOKEN_FILTER = "filter"; //$NON-NLS-1$
 
+    /** token for indicating source of TLA launch */
+    public static final String TOKEN_SOURCE = "source"; //$NON-NLS-1$
+
     // --- instance variables
 
     @Autowired ExceptionService exceptionService;
@@ -172,7 +176,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private EditText quickAddBox;
     private Timer backgroundTimer;
     private final LinkedHashSet<SyncAction> syncActions = new LinkedHashSet<SyncAction>();
-
+    private boolean isInbox;
 
     private final TaskListContextMenuExtensionLoader contextMenuExtensionLoader = new TaskListContextMenuExtensionLoader();
     private VoiceInputAssistant voiceInputAssistant;
@@ -218,6 +222,26 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         onNewIntent(getIntent());
 
         Eula.showEula(this);
+
+        if(getIntent().hasExtra(TOKEN_SOURCE)) {
+            switch(getIntent().getIntExtra(TOKEN_SOURCE, Constants.SOURCE_DEFAULT)) {
+            case Constants.SOURCE_NOTIFICATION:
+                StatisticsService.reportEvent("launch-from-notification"); //$NON-NLS-1$
+                break;
+            case Constants.SOURCE_OTHER:
+                StatisticsService.reportEvent("launch-from-other"); //$NON-NLS-1$
+                break;
+            case Constants.SOURCE_PPWIDGET:
+                StatisticsService.reportEvent("launch-from-ppw"); //$NON-NLS-1$
+                break;
+            case Constants.SOURCE_WIDGET:
+                StatisticsService.reportEvent("launch-from-widget"); //$NON-NLS-1$
+                break;
+            case Constants.SOURCE_C2DM:
+                StatisticsService.reportEvent("launch-from-c2dm"); //$NON-NLS-1$
+                break;
+            }
+        }
     }
 
     @Override
@@ -227,10 +251,12 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         Bundle extras = intent.getExtras();
         if(extras != null && extras.containsKey(TOKEN_FILTER)) {
             filter = extras.getParcelable(TOKEN_FILTER);
+            isInbox = true;
         } else {
             filter = CoreFilterExposer.buildInboxFilter(getResources());
             findViewById(R.id.headerLogo).setVisibility(View.VISIBLE);
             findViewById(R.id.listLabel).setVisibility(View.GONE);
+            isInbox = false;
         }
 
         setUpTaskList();
@@ -671,7 +697,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         // set up list adapters
         taskAdapter = new TaskAdapter(this, R.layout.task_adapter_row,
-                currentCursor, sqlQueryTemplate, false, null);
+                currentCursor, sqlQueryTemplate, false, new OnCompletedTaskListener() {
+            @Override
+            public void onCompletedTask(Task item, boolean newState) {
+                if(newState == true)
+                    onTaskCompleted(item);
+            }
+        });
         setListAdapter(taskAdapter);
         getListView().setOnScrollListener(this);
         registerForContextMenu(getListView());
@@ -728,6 +760,18 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      * ====================================================================== */
 
     /**
+     * A task was completed from the task adapter
+     * @param item task that was completed
+     */
+    @SuppressWarnings("nls")
+    protected void onTaskCompleted(Task item) {
+        if(isInbox)
+            StatisticsService.reportEvent("task-completed-inbox");
+        else
+            StatisticsService.reportEvent("task-completed-filter");
+    }
+
+    /**
      * Quick-add a new task
      * @param title
      * @return
@@ -748,6 +792,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 selectCustomId(task.getId());
             }
 
+            StatisticsService.reportEvent("task-created-tasklist");
             return task;
         } catch (Exception e) {
             exceptionService.displayAndReportError(this, "quick-add-task", e);
@@ -975,22 +1020,27 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         // handle my own menus
         switch (item.getItemId()) {
         case MENU_ADDONS_ID:
+            StatisticsService.reportEvent("tla-menu-addons"); //$NON-NLS-1$
             intent = new Intent(this, AddOnActivity.class);
             startActivityForResult(intent, ACTIVITY_ADDONS);
             return true;
         case MENU_SETTINGS_ID:
+            StatisticsService.reportEvent("tla-menu-settings"); //$NON-NLS-1$
             intent = new Intent(this, EditPreferences.class);
             startActivityForResult(intent, ACTIVITY_SETTINGS);
             return true;
         case MENU_SORT_ID:
+            StatisticsService.reportEvent("tla-menu-sort"); //$NON-NLS-1$
             AlertDialog dialog = SortSelectionActivity.createDialog(this,
                     this, sortFlags, sortSort);
             dialog.show();
             return true;
         case MENU_SYNC_ID:
+            StatisticsService.reportEvent("tla-menu-sync"); //$NON-NLS-1$
             performSyncAction();
             return true;
         case MENU_HELP_ID:
+            StatisticsService.reportEvent("tla-menu-help"); //$NON-NLS-1$
             intent = new Intent(Intent.ACTION_VIEW,
                     Uri.parse(Constants.HELP_URL));
             startActivity(intent);

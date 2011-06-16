@@ -29,6 +29,7 @@ import com.todoroo.astrid.actfm.ActFmLoginActivity;
 import com.todoroo.astrid.actfm.ActFmPreferences;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService.JsonHelper;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.notes.NoteMetadata;
@@ -277,6 +278,13 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
 
     @Override
     protected void write(ActFmTaskContainer task) throws IOException {
+        if(task.task.isSaved()) {
+            Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE);
+            if(task.task.isCompleted() && !local.isCompleted())
+                StatisticsService.reportEvent("actfm-task-completed"); //$NON-NLS-1$
+        } else {
+            StatisticsService.reportEvent("actfm-task-created"); //$NON-NLS-1$
+        }
         actFmDataService.saveTaskAndMetadata(task);
     }
 

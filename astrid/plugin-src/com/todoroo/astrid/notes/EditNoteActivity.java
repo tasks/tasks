@@ -47,6 +47,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.Flags;
 
 public class EditNoteActivity extends ListActivity {
@@ -236,6 +237,8 @@ public class EditNoteActivity extends ListActivity {
 
         commentField.setText(""); //$NON-NLS-1$
         setUpListAdapter();
+
+        StatisticsService.reportEvent("actfm-task-comment"); //$NON-NLS-1$
     }
 
     @Override

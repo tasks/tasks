@@ -1023,4 +1023,23 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         }
     }
 
+    /**
+     * Add a new listener
+     * @param newListener
+     */
+    public void addOnCompletedTaskListener(final OnCompletedTaskListener newListener) {
+        if(this.onCompletedTaskListener == null)
+            this.onCompletedTaskListener = newListener;
+        else {
+            final OnCompletedTaskListener old = this.onCompletedTaskListener;
+            this.onCompletedTaskListener = new OnCompletedTaskListener() {
+                @Override
+                public void onCompletedTask(Task item, boolean newState) {
+                    old.onCompletedTask(item, newState);
+                    newListener.onCompletedTask(item, newState);
+                }
+            };
+        }
+    }
+
 }

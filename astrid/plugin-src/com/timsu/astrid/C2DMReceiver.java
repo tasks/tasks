@@ -89,6 +89,7 @@ public class C2DMReceiver extends BroadcastReceiver {
             notifyIntent = ShortcutActivity.createIntent(CoreFilterExposer.buildInboxFilter(context.getResources()));
 
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_C2DM);
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 Constants.NOTIFICATION_ACTFM, notifyIntent, 0);
 

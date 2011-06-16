@@ -35,6 +35,7 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.AstridPreferences;
+import com.todoroo.astrid.utility.Constants;
 
 public class TasksWidget extends AppWidgetProvider {
 
@@ -204,6 +205,7 @@ public class TasksWidget extends AppWidgetProvider {
 
             Intent listIntent = new Intent(context, TaskListActivity.class);
             listIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_MULTIPLE_TASK);
+            listIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_WIDGET);
             if(filter != null) {
                 listIntent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
                 listIntent.setType(filter.sqlQuery);

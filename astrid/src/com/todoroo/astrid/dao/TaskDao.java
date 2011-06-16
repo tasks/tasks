@@ -167,16 +167,10 @@ public class TaskDao extends DatabaseDao<Task> {
     public boolean save(Task task) {
         boolean saveSuccessful;
 
-        ContentValues values = task.getSetValues();
         if (task.getId() == Task.NO_ID) {
             saveSuccessful = createNew(task);
         } else {
             saveSuccessful = saveExisting(task);
-        }
-
-        if(saveSuccessful) {
-            task.markSaved();
-            afterSave(task, values);
         }
 
         return saveSuccessful;
@@ -213,7 +207,11 @@ public class TaskDao extends DatabaseDao<Task> {
                             Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE));
         }
 
-        return super.createNew(item);
+        ContentValues values = item.getSetValues();
+        boolean result = super.createNew(item);
+        if(result)
+            afterSave(item, values);
+        return result;
     }
 
     @Override
@@ -226,7 +224,10 @@ public class TaskDao extends DatabaseDao<Task> {
             if(!values.containsKey(Task.MODIFICATION_DATE.name))
                 item.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
         }
-        return super.saveExisting(item);
+        boolean result = super.saveExisting(item);
+        if(result)
+            afterSave(item, values);
+        return result;
     }
 
     /**
@@ -238,6 +239,7 @@ public class TaskDao extends DatabaseDao<Task> {
         if(values == null)
             return;
 
+        task.markSaved();
         if(values.containsKey(Task.COMPLETION_DATE.name) && task.isCompleted())
             afterComplete(task, values);
         else {
@@ -260,8 +262,8 @@ public class TaskDao extends DatabaseDao<Task> {
      * @param values
      */
     private static void afterComplete(Task task, ContentValues values) {
+        StatisticsService.reportEvent("task-completed"); //$NON-NLS-1$
         Notifications.cancelNotifications(task.getId());
-        StatisticsService.reportEvent("complete-task"); //$NON-NLS-1$
     }
 
 }

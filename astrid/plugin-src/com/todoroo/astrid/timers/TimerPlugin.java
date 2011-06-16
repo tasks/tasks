@@ -19,6 +19,7 @@ import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.utility.Constants;
 
 public class TimerPlugin extends BroadcastReceiver {
@@ -44,14 +45,17 @@ public class TimerPlugin extends BroadcastReceiver {
      */
     public static void updateTimer(Context context, Task task, boolean start) {
         if(start) {
-            if(task.getValue(Task.TIMER_START) == 0)
+            if(task.getValue(Task.TIMER_START) == 0) {
                 task.setValue(Task.TIMER_START, DateUtilities.now());
+                StatisticsService.reportEvent("timer-start"); //$NON-NLS-1$
+            }
         } else {
             if(task.getValue(Task.TIMER_START) > 0) {
                 int newElapsed = (int)((DateUtilities.now() - task.getValue(Task.TIMER_START)) / 1000L);
                 task.setValue(Task.TIMER_START, 0L);
                 task.setValue(Task.ELAPSED_SECONDS,
                         task.getValue(Task.ELAPSED_SECONDS) + newElapsed);
+                StatisticsService.reportEvent("timer-stop"); //$NON-NLS-1$
             }
         }
         PluginServices.getTaskService().save(task);

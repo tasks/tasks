@@ -63,6 +63,7 @@ import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.service.AstridDependencyInjector;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 
 /**
@@ -162,6 +163,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                 public void onClick(DialogInterface dialog, int which) {
                     authenticate(email.getText().toString(), name.getText().toString(),
                             ActFmInvoker.PROVIDER_PASSWORD, password.getText().toString());
+                    StatisticsService.reportEvent("actfm-signup-pw"); //$NON-NLS-1$
                 }
             })
             .setNegativeButton(android.R.string.cancel, null)
@@ -197,6 +199,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                 public void onClick(DialogInterface dialog, int which) {
                     authenticate(email.getText().toString(), null,
                             ActFmInvoker.PROVIDER_PASSWORD, password.getText().toString());
+                    StatisticsService.reportEvent("actfm-login-pw"); //$NON-NLS-1$
                 }
             })
             .setNegativeButton(android.R.string.cancel, null)
@@ -253,6 +256,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
                 authenticate(email, name, ActFmInvoker.PROVIDER_FACEBOOK,
                         facebook.getAccessToken());
+                StatisticsService.reportEvent("actfm-login-fb"); //$NON-NLS-1$
             } catch (FacebookError e) {
                 handleError(e);
             } catch (JSONException e) {

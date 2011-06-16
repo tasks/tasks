@@ -50,6 +50,7 @@ import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.repeats.RepeatControlSet;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.ui.NumberPicker;
 
 /**
@@ -75,8 +76,12 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         StartupService.bypassInitialization();
 
         super.onCreate(savedInstanceState);
-
         displayNotificationPopup();
+    }
+
+    @Override
+    protected void onTaskCompleted(Task item) {
+        StatisticsService.reportEvent("task-completed-notification"); //$NON-NLS-1$
     }
 
     @Override
@@ -231,6 +236,7 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
         task.setValue(Task.REMINDER_SNOOZE, time);
         PluginServices.getTaskService().save(task);
         finish();
+        StatisticsService.reportEvent("task-snooze"); //$NON-NLS-1$
     }
 
 }
