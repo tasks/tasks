@@ -24,6 +24,9 @@ public class StatisticsService {
         if(dontCollectStatistics())
             return;
 
+        if(localyticsSession != null)
+            return;
+
         localyticsSession = new LocalyticsSession(context.getApplicationContext(),
                 Constants.LOCALYTICS_KEY);
         localyticsSession.open();
@@ -39,14 +42,19 @@ public class StatisticsService {
         if(dontCollectStatistics())
             return;
 
-        localyticsSession.upload();
+        if(localyticsSession != null)
+            localyticsSession.upload();
     }
 
     /**
      * Indicate session was paused
      */
     public static void sessionPause() {
-        localyticsSession.close();
+        if(dontCollectStatistics())
+            return;
+
+        if(localyticsSession != null)
+            localyticsSession.close();
     }
 
     /**
@@ -67,7 +75,8 @@ public class StatisticsService {
         if(dontCollectStatistics())
             return;
 
-        localyticsSession.tagEvent(event);
+        if(localyticsSession != null)
+            localyticsSession.tagEvent(event);
     }
 
     private static boolean dontCollectStatistics() {

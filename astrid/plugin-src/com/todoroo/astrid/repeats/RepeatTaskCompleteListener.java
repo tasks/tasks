@@ -68,7 +68,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
             clone.setValue(Task.COMPLETION_DATE, 0L);
             clone.setValue(Task.TIMER_START, 0L);
             clone.setValue(Task.ELAPSED_SECONDS, 0);
-            // Fix for 13186799: clear snooze from old task
             clone.setValue(Task.REMINDER_SNOOZE, 0L);
             PluginServices.getTaskService().save(clone);
 
@@ -104,14 +103,15 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 repeatFrom = today;
             }
         } else if (task.hasDueDate() && repeatAfterCompletion) {
-            repeatFromDate = new Date(task.getValue(Task.DUE_DATE));
             if(task.hasDueTime()) {
+                repeatFromDate = new Date(task.getValue(Task.DUE_DATE));
                 repeatFrom = new DateTimeValueImpl(today.year(),
                         today.month(), today.day(),
                         repeatFromDate.getHours(), repeatFromDate.getMinutes(), repeatFromDate.getSeconds());
             } else {
                 repeatFrom = today;
             }
+            repeatFromDate = new Date();
         } else {
             repeatFrom = today;
         }
@@ -161,9 +161,15 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                                     nextDate.day()).getTime());
                 }
 
-                if(newDueDate > DateUtilities.now() && (repeatAfterCompletion || (newDueDate != repeatFromDate.getTime())))
-                    break;
-
+                // detect if we finished
+                if(newDueDate > DateUtilities.now()) {
+                    // if byDay is set and interval > 1, we need to run again
+                    if(rrule.getByDay().size() > 0 && rrule.getInterval() > 0) {
+                        if(newDueDate - repeatFromDate.getTime() > DateUtilities.ONE_WEEK)
+                            break;
+                    } else if(newDueDate > repeatFromDate.getTime())
+                        break;
+                }
             }
         }
 

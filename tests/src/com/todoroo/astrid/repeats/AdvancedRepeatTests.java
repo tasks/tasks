@@ -1,10 +1,13 @@
 package com.todoroo.astrid.repeats;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 
 import com.google.ical.values.Frequency;
 import com.google.ical.values.RRule;
+import com.google.ical.values.Weekday;
+import com.google.ical.values.WeekdayNum;
 import com.todoroo.andlib.test.TodorooTestCase;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.astrid.data.Task;
@@ -61,5 +64,28 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         assertNotSame(nextDueDate, evenMoreNextDueDate);
     }
 
+    /** test alternate completion flag */
+    public void testAfterCompleteMultipleWeeks() throws Exception {
+        // create a weekly task due a couple days in the past, but with the 'after completion'
+        // specified. should be due 7 days from now
+        Task task = new Task();
+        long originalDueDate = (DateUtilities.now() - 1 * DateUtilities.ONE_DAY) / 1000L * 1000L;
+        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, originalDueDate));
+        task.setFlag(Task.FLAGS, Task.FLAG_REPEAT_AFTER_COMPLETION, true);
+
+        RRule rrule = new RRule();
+        rrule.setInterval(5);
+        rrule.setFreq(Frequency.WEEKLY);
+        for(Weekday day : Weekday.values()) {
+            ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
+            days.add(new WeekdayNum(0, day));
+            rrule.setByDay(days);
+
+            long nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
+            assertTrue("Due date is '" + new Date(nextDueDate) + "', expected more like '" +
+                    new Date(DateUtilities.now() + 5 * DateUtilities.ONE_WEEK) + "'",
+                    Math.abs(nextDueDate - DateUtilities.now() - 5 * DateUtilities.ONE_WEEK) < DateUtilities.ONE_WEEK);
+        }
+    }
 
 }
