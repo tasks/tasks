@@ -187,8 +187,8 @@ public class FilterListActivity extends ExpandableListActivity {
 
     @Override
     protected void onStop() {
-        super.onStop();
         StatisticsService.sessionStop(this);
+        super.onStop();
     }
 
     @Override
@@ -200,6 +200,7 @@ public class FilterListActivity extends ExpandableListActivity {
 
     @Override
     protected void onPause() {
+        StatisticsService.sessionPause();
         super.onPause();
         if(adapter != null)
             adapter.unregisterRecevier();

@@ -6,9 +6,9 @@ public final class Constants {
     // --- general application constants
 
     /**
-     * Flurry API Key
+     * LCL API Key
      */
-    public static final String FLURRY_KEY = "T3JAY9TV2JFMJR4YTG16"; //$NON-NLS-1$
+    public static final String LOCALYTICS_KEY = "ae35a010c66a997ab129ab7-3e2adf46-8bb3-11e0-fe8b-007f58cb3154"; //$NON-NLS-1$
 
     /**
      * Application Package

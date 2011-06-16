@@ -450,8 +450,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @Override
     protected void onStop() {
-        super.onStop();
         StatisticsService.sessionStop(this);
+        super.onStop();
     }
 
     @Override
@@ -480,6 +480,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     @Override
     protected void onPause() {
+        StatisticsService.sessionPause();
         super.onPause();
         unregisterReceiver(detailReceiver);
         unregisterReceiver(refreshReceiver);

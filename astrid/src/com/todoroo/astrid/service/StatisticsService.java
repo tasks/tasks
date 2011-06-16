@@ -6,12 +6,14 @@ package com.todoroo.astrid.service;
 
 import android.content.Context;
 
-import com.flurry.android.FlurryAgent;
+import com.localytics.android.LocalyticsSession;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.utility.Constants;
 
 public class StatisticsService {
+
+    private static LocalyticsSession localyticsSession;
 
     /**
      * Indicate session started
@@ -22,7 +24,10 @@ public class StatisticsService {
         if(dontCollectStatistics())
             return;
 
-        FlurryAgent.onStartSession(context, Constants.FLURRY_KEY);
+        localyticsSession = new LocalyticsSession(context.getApplicationContext(),
+                Constants.LOCALYTICS_KEY);
+        localyticsSession.open();
+        localyticsSession.upload();
     }
 
     /**
@@ -34,21 +39,35 @@ public class StatisticsService {
         if(dontCollectStatistics())
             return;
 
-        FlurryAgent.onEndSession(context);
+        localyticsSession.upload();
     }
 
+    /**
+     * Indicate session was paused
+     */
+    public static void sessionPause() {
+        localyticsSession.close();
+    }
+
+    /**
+     * Indicates an error occurred
+     * @param name
+     * @param message
+     * @param trace
+     */
     public static void reportError(String name, String message, String trace) {
-        if(dontCollectStatistics())
-            return;
-
-        FlurryAgent.onError(name, message, trace);
+        // no reports yet
     }
 
+    /**
+     * Indicates an event should be reported
+     * @param event
+     */
     public static void reportEvent(String event) {
         if(dontCollectStatistics())
             return;
 
-        FlurryAgent.onEvent(event);
+        localyticsSession.tagEvent(event);
     }
 
     private static boolean dontCollectStatistics() {
