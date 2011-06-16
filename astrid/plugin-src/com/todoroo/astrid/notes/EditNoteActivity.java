@@ -17,6 +17,7 @@ import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.format.DateUtils;
+import android.text.util.Linkify;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -142,6 +143,7 @@ public class EditNoteActivity extends ListActivity {
             TextView notes = new TextView(this);
             notes.setTextAppearance(this, R.style.TextAppearance_TAd_ItemTitle);
             notes.setTextSize(18);
+            Linkify.addLinks(notes, Linkify.ALL);
             getListView().addHeaderView(notes);
             notes.setText(task.getValue(Task.NOTES));
             notes.setPadding(5, 10, 5, 10);
