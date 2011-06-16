@@ -111,9 +111,16 @@ public class DateUtilities {
      */
     @SuppressWarnings("nls")
     public static String getDateStringWithWeekday(Context context, Date date) {
-        String weekday = DateUtils.getDayOfWeekString(date.getDay() + Calendar.SUNDAY,
-                DateUtils.LENGTH_LONG);
+        String weekday = getWeekday(date);
         return weekday + ", " + getDateString(context, date);
+    }
+
+    /**
+     * @return weekday
+     */
+    public static String getWeekday(Date date) {
+        return DateUtils.getDayOfWeekString(date.getDay() + Calendar.SUNDAY,
+                DateUtils.LENGTH_LONG);
     }
 
     /**

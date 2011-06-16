@@ -483,10 +483,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             else
                 string = DateUtilities.getRelativeDay(activity, date).toLowerCase();
         } else {
-            string = DateUtils.getRelativeDateTimeString(activity, date,
-                    DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0).toString();
-            if(!Task.hasDueTime(date))
-                string = string.substring(0, string.lastIndexOf(','));
+            if(Task.hasDueTime(date))
+                string = DateUtils.getRelativeDateTimeString(activity, date,
+                        DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0).toString();
+            else if(Math.abs(date - DateUtilities.now()) < DateUtilities.ONE_WEEK)
+                string = DateUtilities.getWeekday(new Date(date));
+            else
+                string = DateUtilities.getDateString(activity, new Date(date));
+
         }
 
         dateCache.put(date, string);
