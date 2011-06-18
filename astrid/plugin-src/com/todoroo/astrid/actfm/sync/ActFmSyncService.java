@@ -585,8 +585,8 @@ public final class ActFmSyncService {
         byte[] bytes = baos.toByteArray();
         MultipartEntity data = new MultipartEntity();
         data.addPart("picture", new ByteArrayBody(bytes, "image/jpg", "image.jpg"));
-        JSONObject result = actFmInvoker.post("tag_set_picture", data, "id", tagId, "token", token);
-        return result.optString("url");
+        JSONObject result = actFmInvoker.post("tag_save", data, "id", tagId, "token", token);
+        return result.optString("picture");
     }
 
     // --- generic invokation
