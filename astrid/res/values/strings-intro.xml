@@ -37,13 +37,11 @@
 	Bonus: Use the widget to add a task!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Setup sync with Gmail Tasks or 
-  Producteev</string>
+  <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
 
   <!-- Task 3 Note -->
   <string name="intro_task_3_note">Astrid makes it possible for you to sync 
-  	your tasks with the simple task list provided by Gmail. For more advanced 
-  	task features we recommend synchronization with Producteev.\n\n
+  	your tasks with Astrid.com, Google Tasks, and Producteev.\n\n
 
 	To enable sync from Astrid press \"Menu\" -> \"Settings\" -> \"Synchronization\" and 
 	choose the sync provider you prefer.

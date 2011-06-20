@@ -57,7 +57,6 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.data.Property;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
@@ -71,8 +70,9 @@ import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.api.TaskDecorationExposer;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
-import com.todoroo.astrid.notes.EditNoteActivity;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
+import com.todoroo.astrid.notes.NotesPlugin;
+import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.utility.Constants;
@@ -777,6 +777,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         @Override
         public synchronized void addNew(long taskId, String addOn, final TaskAction item, ViewHolder thisViewHolder) {
+            if(isIntroTask(taskId) && !NotesPlugin.IDENTIFIER.equals(addOn))
+                return;
+
             addIfNotExists(taskId, addOn, item);
             if(mBar != null) {
                 ListView listView = activity.getListView();
@@ -881,7 +884,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 mBar.dismiss();
             mBar = null;
 
-            if(position == 0) {
+            if(position == 0 && !isIntroTask(taskId)) {
                 Intent intent = new Intent(activity, TaskEditActivity.class);
                 intent.putExtra(TaskEditActivity.TOKEN_ID, taskId);
                 activity.startActivityForResult(intent, TaskListActivity.ACTIVITY_EDIT_TASK);
@@ -909,15 +912,15 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
             QuickAction editAction = new QuickAction(activity, R.drawable.ic_qbar_edit,
                     activity.getString(R.string.TAd_actionEditTask));
             mBarListener.initialize(viewHolder.task.getId());
-            mBarListener.addWithAction(editAction, null);
+
+            if(!isIntroTask(viewHolder.task.getId()))
+                mBarListener.addWithAction(editAction, null);
 
             if(collection != null) {
                 for(TaskAction item : collection) {
                     mBarListener.addWithAction(item);
                 }
             }
-
-
         }
 
         public void onCreateContextMenu(ContextMenu menu, View v,
@@ -935,13 +938,6 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             long taskId = viewHolder.task.getId();
 
-            if(isIntroTask(viewHolder.task)) {
-                Intent intent = new Intent(ContextManager.getContext(), EditNoteActivity.class);
-                intent.putExtra(EditNoteActivity.EXTRA_TASK_ID, viewHolder.task.getId());
-                activity.startActivity(intent);
-                return;
-            }
-
             Collection<TaskAction> actions = taskActionManager.get(taskId);
             prepareQuickActionBar(viewHolder, actions);
             //mBarAnchor = v;
@@ -952,12 +948,12 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             notifyDataSetChanged();
         }
+    }
 
-        private boolean isIntroTask(Task task) {
-            if(task.getId() <= 3)
-                return true;
-            return false;
-        }
+    private boolean isIntroTask(long taskId) {
+        if(taskId <= StartupService.INTRO_TASK_SIZE)
+            return true;
+        return false;
     }
 
     /**

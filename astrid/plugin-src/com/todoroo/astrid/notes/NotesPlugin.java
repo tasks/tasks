@@ -12,7 +12,7 @@ import com.todoroo.astrid.data.Task;
 
 public class NotesPlugin extends BroadcastReceiver {
 
-    static final String IDENTIFIER = "notes"; //$NON-NLS-1$
+    public static final String IDENTIFIER = "notes"; //$NON-NLS-1$
 
     @Override
     @SuppressWarnings("nls")
