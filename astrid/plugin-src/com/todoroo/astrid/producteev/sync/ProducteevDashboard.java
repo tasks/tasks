@@ -102,4 +102,14 @@ public class ProducteevDashboard {
     public ArrayList<ProducteevUser> getUsers() {
         return users;
     }
+
+    /** Try and find user in the dashboard. return null if un-findable */
+    public static String getUserFromDashboard(StoreObject dashboard, long userId) {
+        String users = ";" + dashboard.getValue(USERS); //$NON-NLS-1$
+        int index = users.indexOf(";" + userId + ","); //$NON-NLS-1$ //$NON-NLS-2$
+        if(index > -1)
+            return users.substring(users.indexOf(',', index) + 1,
+                    users.indexOf(';', index + 1));
+        return null;
+    }
 }

@@ -3,7 +3,6 @@
  */
 package com.todoroo.astrid.notes;
 
-import android.text.TextUtils;
 import android.widget.RemoteViews;
 
 import com.timsu.astrid.R;
@@ -25,9 +24,8 @@ public class NotesDecorationExposer implements TaskDecorationExposer {
     public TaskDecoration expose(Task task) {
         if(Preferences.getBoolean(R.string.p_showNotes, false))
             return null;
-        if(task == null || TextUtils.isEmpty(task.getValue(Task.NOTES)))
+        if(task == null || !NotesPlugin.hasNotes(task))
             return null;
-
 
         TaskDecoration decoration;
         RemoteViews remoteViews = new RemoteViews(ContextManager.getContext().getPackageName(),

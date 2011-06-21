@@ -27,6 +27,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.service.NotificationManager;
+import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -37,6 +38,7 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.notes.NoteMetadata;
 import com.todoroo.astrid.producteev.ProducteevBackgroundService;
 import com.todoroo.astrid.producteev.ProducteevFilterExposer;
 import com.todoroo.astrid.producteev.ProducteevLoginActivity;
@@ -184,8 +186,6 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             saveUserData(user);
 
             String lastServerSync = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_SYNC);
-            String lastNotificationId = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION);
-            String lastActivityId = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY);
 
             // read dashboards
             JSONArray dashboards = invoker.dashboardsShowList(lastServerSync);
@@ -239,54 +239,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
             // notification/activities stuff
-            JSONArray notifications = invoker.activitiesShowNotifications(null, (lastNotificationId == null ? null : new Long(lastNotificationId)));
-            String[] notificationsList = parseActivities(notifications);
-            // update lastIds
-            if (notifications.length() > 0) {
-                lastNotificationId = ""+notifications.getJSONObject(0).getJSONObject("activity").getLong("id_activity");
-            }
-
-            // display notifications from producteev-log
-            Context context = ContextManager.getContext();
-            final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
-            for (int i = 0; i< notificationsList.length; i++) {
-                long id_dashboard = notifications.getJSONObject(i).getJSONObject("activity").getLong("id_dashboard");
-                String dashboardName = null;
-                StoreObject[] dashboardsData = ProducteevDataService.getInstance().getDashboards();
-                ProducteevDashboard dashboard = null;
-                if (dashboardsData != null) {
-                    for (int j=0; i<dashboardsData.length;i++) {
-                        long id = dashboardsData[j].getValue(ProducteevDashboard.REMOTE_ID);
-                        if (id == id_dashboard) {
-                            dashboardName = dashboardsData[j].getValue(ProducteevDashboard.NAME);
-                            dashboard = new ProducteevDashboard(id, dashboardName, null);
-                            break;
-                        }
-                    }
-                }
-                // it seems dashboard is null if we get a notification about an unknown dashboard, just filter it.
-                if (dashboard != null) {
-                    // initialize notification
-                    int icon = R.drawable.ic_producteev_notification;
-                    long when = System.currentTimeMillis();
-                    Notification notification = new Notification(icon, null, when);
-                    CharSequence contentTitle = context.getString(R.string.producteev_notification_title)+": "+dashboard.getName();
-
-                    Filter filter = ProducteevFilterExposer.filterFromList(context, dashboard, userId);
-                    Intent notificationIntent = ShortcutActivity.createIntent(filter);
-
-                    // filter the tags from the message
-                    String message = notificationsList[i].replaceAll("<[^>]+>", "");
-                    PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
-                    notification.setLatestEventInfo(context, contentTitle, message, contentIntent);
-
-                    nm.notify(Constants.NOTIFICATION_PRODUCTEEV_NOTIFICATIONS-i, notification);
-                }
-            }
-
-            // store lastIds in Preferences
-            Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION, lastNotificationId);
-            Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY, lastActivityId);
+            processNotifications();
 
             StatisticsService.reportEvent("pdv-sync-finished"); //$NON-NLS-1$
         } catch (IllegalStateException e) {
@@ -391,7 +344,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         return newRemoteTask;
     }
 
-    /** Create a task container for the given RtmTaskSeries
+    /** Create a task container for the given ProducteevTask
      * @throws JSONException */
     private ProducteevTaskContainer parseRemoteTask(JSONObject remoteTask) throws JSONException {
         Task task = new Task();
@@ -424,15 +377,33 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             metadata.add(tagData);
         }
 
+        ProducteevTaskContainer container = new ProducteevTaskContainer(task, metadata, remoteTask);
+
         JSONArray notes = remoteTask.getJSONArray("notes");
         for(int i = notes.length() - 1; i >= 0; i--) {
             JSONObject note = notes.getJSONObject(i).getJSONObject("note");
-            metadata.add(ApiUtilities.createNoteMetadata(note));
+            if(note.getLong("deleted") != 0) {
+                PluginServices.getMetadataService().deleteWhere(Criterion.and(Metadata.KEY.eq(NoteMetadata.METADATA_KEY),
+                                NoteMetadata.EXT_ID.eq(note.getString("id_note"))));
+                continue;
+            }
+
+            long creator = note.getLong("id_creator");
+            metadata.add(ApiUtilities.createNoteMetadata(note, creatorName(container, creator)));
         }
 
-        ProducteevTaskContainer container = new ProducteevTaskContainer(task, metadata, remoteTask);
-
         return container;
+    }
+
+    private String creatorName(ProducteevTaskContainer container, long creator) {
+        StoreObject[] dashboards = dataService.getDashboards();
+        for(int i = 0; i < dashboards.length; i++) {
+            Long dashboard = container.pdvTask.getValue(ProducteevTask.DASHBOARD_ID);
+            if(dashboard.equals(dashboards[i].getValue(ProducteevDashboard.REMOTE_ID))) {
+                return ProducteevDashboard.getUserFromDashboard(dashboards[i], creator);
+            }
+        }
+        return null;
     }
 
     @Override
@@ -541,7 +512,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             if(!TextUtils.isEmpty(local.task.getValue(Task.NOTES))) {
                 String note = local.task.getValue(Task.NOTES);
                 JSONObject result = invoker.tasksNoteCreate(idTask, note);
-                local.metadata.add(ApiUtilities.createNoteMetadata(result.getJSONObject("note")));
+                local.metadata.add(ApiUtilities.createNoteMetadata(result.getJSONObject("note"), null));
                 local.task.setValue(Task.NOTES, "");
             }
 
@@ -743,6 +714,68 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
         long dashboard = label.getLong("id_dashboard");
         labelMap.put(dashboard + name, label.getLong("id_label"));
         return label.getLong("id_label");
+    }
+
+    /**
+     * Show workspace notifications
+     *
+     * @throws ApiResponseParseException
+     * @throws ApiServiceException
+     * @throws IOException
+     * @throws JSONException
+     */
+    private void processNotifications() throws ApiResponseParseException,
+            ApiServiceException, IOException, JSONException {
+        String lastNotificationId = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION);
+        String lastActivityId = Preferences.getStringValue(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY);
+        JSONArray notifications = invoker.activitiesShowNotifications(null, (lastNotificationId == null ? null : new Long(lastNotificationId)));
+        String[] notificationsList = parseActivities(notifications);
+        // update lastIds
+        if (notifications.length() > 0) {
+            lastNotificationId = ""+notifications.getJSONObject(0).getJSONObject("activity").getLong("id_activity");
+        }
+
+        // display notifications from producteev-log
+        Context context = ContextManager.getContext();
+        final NotificationManager nm = new NotificationManager.AndroidNotificationManager(context);
+        for (int i = 0; i< notificationsList.length; i++) {
+            long id_dashboard = notifications.getJSONObject(i).getJSONObject("activity").getLong("id_dashboard");
+            String dashboardName = null;
+            StoreObject[] dashboardsData = ProducteevDataService.getInstance().getDashboards();
+            ProducteevDashboard dashboard = null;
+            if (dashboardsData != null) {
+                for (int j=0; i<dashboardsData.length;i++) {
+                    long id = dashboardsData[j].getValue(ProducteevDashboard.REMOTE_ID);
+                    if (id == id_dashboard) {
+                        dashboardName = dashboardsData[j].getValue(ProducteevDashboard.NAME);
+                        dashboard = new ProducteevDashboard(id, dashboardName, null);
+                        break;
+                    }
+                }
+            }
+            // it seems dashboard is null if we get a notification about an unknown dashboard, just filter it.
+            if (dashboard != null) {
+                // initialize notification
+                int icon = R.drawable.ic_producteev_notification;
+                long when = System.currentTimeMillis();
+                Notification notification = new Notification(icon, null, when);
+                CharSequence contentTitle = context.getString(R.string.producteev_notification_title)+": "+dashboard.getName();
+
+                Filter filter = ProducteevFilterExposer.filterFromList(context, dashboard, userId);
+                Intent notificationIntent = ShortcutActivity.createIntent(filter);
+
+                // filter the tags from the message
+                String message = notificationsList[i].replaceAll("<[^>]+>", "");
+                PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, 0);
+                notification.setLatestEventInfo(context, contentTitle, message, contentIntent);
+
+                nm.notify(Constants.NOTIFICATION_PRODUCTEEV_NOTIFICATIONS-i, notification);
+            }
+        }
+
+        // store lastIds in Preferences
+        Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_NOTIFICATION, lastNotificationId);
+        Preferences.setString(ProducteevUtilities.PREF_SERVER_LAST_ACTIVITY, lastActivityId);
     }
 
     // ----------------------------------------------------------------------

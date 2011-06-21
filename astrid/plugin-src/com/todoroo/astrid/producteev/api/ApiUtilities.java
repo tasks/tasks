@@ -83,10 +83,11 @@ public final class ApiUtilities {
     /**
      * Create metadata from json object
      * @param note JSON object with params id_note and message
+     * @param creatorName
      * @return
      */
     @SuppressWarnings("nls")
-    public static Metadata createNoteMetadata(JSONObject note) {
+    public static Metadata createNoteMetadata(JSONObject note, String creatorName) {
         Metadata metadata = new Metadata();
         metadata.setValue(Metadata.KEY, NoteMetadata.METADATA_KEY);
         metadata.setValue(NoteMetadata.EXT_ID, note.optString("id_note"));
@@ -96,8 +97,10 @@ public final class ApiUtilities {
         long created = ApiUtilities.producteevToUnixTime(note.optString("time_create"), 0);
         metadata.setValue(Metadata.CREATION_DATE, created);
 
-        // TODO if id_creator != yourself, update the title
-        metadata.setValue(NoteMetadata.TITLE, DateUtilities.getDateStringWithWeekday(ContextManager.getContext(),
+        if(creatorName != null)
+            metadata.setValue(NoteMetadata.TITLE, creatorName);
+        else
+            metadata.setValue(NoteMetadata.TITLE, DateUtilities.getDateStringWithWeekday(ContextManager.getContext(),
                 new Date(created)));
         return metadata;
     }

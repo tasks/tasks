@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -45,8 +44,8 @@ public class EditNoteExposer extends BroadcastReceiver {
             int drawable;
 
             if(!actFmPreferenceService.isLoggedIn()) {
-                Task task = PluginServices.getTaskService().fetchById(taskId, Task.NOTES);
-                if(task == null || TextUtils.isEmpty(task.getValue(Task.NOTES)))
+                Task task = PluginServices.getTaskService().fetchById(taskId, Task.ID, Task.NOTES);
+                if(task == null || !NotesPlugin.hasNotes(task))
                     return;
                 label = context.getString(R.string.ENE_label);
                 drawable = R.drawable.ic_qbar_comments;

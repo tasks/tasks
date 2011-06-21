@@ -98,13 +98,13 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
         // display responsible user if not current one
         if(responsibleId > 0 && ownerDashboard != null && responsibleId !=
                 Preferences.getLong(ProducteevUtilities.PREF_USER_ID, 0L)) {
-            String user = getUserFromDashboard(ownerDashboard, responsibleId);
+            String user = ProducteevDashboard.getUserFromDashboard(ownerDashboard, responsibleId);
             if(user != null)
                 builder.append("<img src='silk_user_gray'/> ").append(user).append(TaskAdapter.DETAIL_SEPARATOR); //$NON-NLS-1$
         } else {
             // display creator user if not responsible user
             if(creatorId > 0 && ownerDashboard != null && creatorId != responsibleId) {
-                String user = getUserFromDashboard(ownerDashboard, creatorId);
+                String user = ProducteevDashboard.getUserFromDashboard(ownerDashboard, creatorId);
                 if(user != null)
                     builder.append("<img src='silk_user_orange'/> ").append( //$NON-NLS-1$
                             context.getString(R.string.producteev_PDE_task_from, user)).
@@ -173,16 +173,6 @@ public class ProducteevDetailExposer extends BroadcastReceiver {
             return null;
         String result = builder.toString();
         return result.substring(0, result.length() - TaskAdapter.DETAIL_SEPARATOR.length());
-    }
-
-    /** Try and find user in the dashboard. return null if un-findable */
-    private String getUserFromDashboard(StoreObject dashboard, long userId) {
-        String users = ";" + dashboard.getValue(ProducteevDashboard.USERS); //$NON-NLS-1$
-        int index = users.indexOf(";" + userId + ","); //$NON-NLS-1$ //$NON-NLS-2$
-        if(index > -1)
-            return users.substring(users.indexOf(',', index) + 1,
-                    users.indexOf(';', index + 1));
-        return null;
     }
 
 }

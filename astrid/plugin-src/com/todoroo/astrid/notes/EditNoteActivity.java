@@ -275,6 +275,9 @@ public class EditNoteActivity extends ListActivity {
         }
 
         public static NoteOrUpdate fromMetadata(Metadata m) {
+            if(!m.containsNonNullValue(NoteMetadata.THUMBNAIL))
+                m.setValue(NoteMetadata.THUMBNAIL, ""); //$NON-NLS-1$
+
             return new NoteOrUpdate(m.getValue(NoteMetadata.THUMBNAIL),
                     m.getValue(NoteMetadata.TITLE),
                     m.getValue(NoteMetadata.BODY),
@@ -323,7 +326,12 @@ public class EditNoteActivity extends ListActivity {
         public synchronized void bindView(View view, NoteOrUpdate item) {
             // picture
             final AsyncImageView pictureView = (AsyncImageView)view.findViewById(R.id.picture); {
-                pictureView.setUrl(item.picture);
+                if(TextUtils.isEmpty(item.picture))
+                    pictureView.setVisibility(View.GONE);
+                else {
+                    pictureView.setVisibility(View.VISIBLE);
+                    pictureView.setUrl(item.picture);
+                }
             }
 
             // name
