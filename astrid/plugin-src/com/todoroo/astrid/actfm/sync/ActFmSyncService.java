@@ -19,6 +19,7 @@ import android.content.ContentValues;
 import android.graphics.Bitmap;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -414,10 +415,12 @@ public final class ActFmSyncService {
         if(!checkForToken())
             return;
 
-        if(tagData.getValue(TagData.REMOTE_ID) == 0)
+        if(tagData.getValue(TagData.REMOTE_ID) == 0) {
+            if(TextUtils.isEmpty(tagData.getValue(TagData.NAME)))
+                return;
             result = actFmInvoker.invoke("tag_show", "name", tagData.getValue(TagData.NAME),
                     "token", token);
-        else
+        } else
             result = actFmInvoker.invoke("tag_show", "id", tagData.getValue(TagData.REMOTE_ID),
                     "token", token);
 
@@ -805,6 +808,8 @@ public final class ActFmSyncService {
             for(int i = 0; i < tags.length(); i++) {
                 JSONObject tag = tags.getJSONObject(i);
                 String name = tag.getString("name");
+                if(TextUtils.isEmpty(name))
+                    continue;
                 Metadata tagMetadata = new Metadata();
                 tagMetadata.setValue(Metadata.KEY, TagService.KEY);
                 tagMetadata.setValue(TagService.TAG, name);
