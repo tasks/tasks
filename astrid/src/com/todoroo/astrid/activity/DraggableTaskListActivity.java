@@ -74,8 +74,8 @@ public class DraggableTaskListActivity extends TaskListActivity {
         startManagingCursor(currentCursor);
 
         // set up list adapters
-        taskAdapter = new DraggableTaskAdapter(this, R.layout.task_adapter_draggable_row, currentCursor, sqlQueryTemplate,
-                false, null);
+        taskAdapter = new DraggableTaskAdapter(this, R.layout.task_adapter_draggable_row,
+                currentCursor, sqlQueryTemplate, false, null);
 
         setListAdapter(taskAdapter);
         getListView().setOnScrollListener(this);
@@ -105,6 +105,8 @@ public class DraggableTaskListActivity extends TaskListActivity {
                 OnCompletedTaskListener onCompletedTaskListener) {
             super(activity, resource, c, query, autoRequery,
                     onCompletedTaskListener);
+
+            applyListenersToRowBody = true;
         }
 
         @Override
@@ -114,23 +116,9 @@ public class DraggableTaskListActivity extends TaskListActivity {
             ViewHolder viewHolder = (ViewHolder) view.getTag();
             if(getIndentProperty() != null) {
                 int indent = viewHolder.task.getValue(getIndentProperty());
-                view.findViewById(R.id.indent).getLayoutParams().width = indent * 20;
+                view.findViewById(R.id.indent).getLayoutParams().width =
+                    (int) (displayMetrics.density * (indent * 20));
             }
-        }
-
-        @Override
-        protected void addListeners(final View container) {
-            // super.addListeners(container);
-            ViewHolder viewHolder = (ViewHolder)container.getTag();
-            viewHolder.completeBox.setOnClickListener(completeBoxListener);
-
-            // context menu listener
-            View taskText = container.findViewById(R.id.taskText);
-            taskText.setTag(viewHolder);
-            taskText.setOnCreateContextMenuListener(listener);
-
-            // tap listener
-            taskText.setOnClickListener(listener);
         }
     }
 

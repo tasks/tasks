@@ -24,7 +24,7 @@
         android:layout_height="fill_parent"
         android:drawSelectorOnTop="false"
         
-        tlv:normal_height="48dip"
+        tlv:normal_height="52dip"
         tlv:grabber="@+id/grabber"
     />
                 

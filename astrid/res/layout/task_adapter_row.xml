@@ -29,7 +29,6 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="3dip"
             android:layout_gravity="top"
-            android:paddingRight="5dip"
             android:paddingBottom="2dip"
             android:button="@drawable/btn_check"/>
             
@@ -38,6 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/completeBox"
             android:layout_alignParentTop="true"
+            android:paddingLeft="5dip"
             android:orientation="horizontal">
         
             <!-- task name -->

@@ -130,12 +130,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
     protected final ListActivity activity;
     protected final HashMap<Long, Boolean> completedItems = new HashMap<Long, Boolean>(0);
-    private OnCompletedTaskListener onCompletedTaskListener = null;
+    protected OnCompletedTaskListener onCompletedTaskListener = null;
     public boolean isFling = false;
     private final int resource;
     private final LayoutInflater inflater;
-    private int fontSize;
     private DetailLoaderThread detailLoader;
+    private int fontSize;
+    protected boolean applyListenersToRowBody = false;
 
     private final AtomicReference<String> query;
 
@@ -144,8 +145,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private final QuickActionListener mBarListener = new QuickActionListener();
 
     // measure utilities
-    private final Paint paint;
-    private final DisplayMetrics dm;
+    protected final Paint paint;
+    protected final DisplayMetrics displayMetrics;
 
     // --- task detail and decoration soft caches
 
@@ -181,8 +182,8 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
         fontSize = Preferences.getIntegerFromString(R.string.p_fontSize, 20);
         paint = new Paint();
-        dm = new DisplayMetrics();
-        activity.getWindowManager().getDefaultDisplay().getMetrics(dm);
+        displayMetrics = new DisplayMetrics();
+        activity.getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
 
         detailLoader = new DetailLoaderThread();
         detailLoader.start();
@@ -400,9 +401,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         details = details.trim().replace("\n", "<br>");
         String[] splitDetails = details.split("\\|");
         viewHolder.completeBox.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED);
+        rightWidth = rightWidth + viewHolder.dueDate.getPaddingRight();
         float left = viewHolder.completeBox.getMeasuredWidth() +
             ((MarginLayoutParams)viewHolder.completeBox.getLayoutParams()).leftMargin;
-        int availableWidth = (int) (dm.widthPixels - left - (rightWidth + 16) * dm.density);
+        int availableWidth = (int) (displayMetrics.widthPixels - left - (rightWidth + 16) * displayMetrics.density);
 
         int i = 0;
         for(; i < splitDetails.length; i++) {
@@ -432,6 +434,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     }
 
     protected TaskRowListener listener = new TaskRowListener();
+
     /**
      * Set listeners for this view. This is called once per view when it is
      * created.
@@ -442,11 +445,13 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         // check box listener
         viewHolder.completeBox.setOnClickListener(completeBoxListener);
 
-        // context menu listener
-        container.setOnCreateContextMenuListener(listener);
-
-        // tap listener
-        container.setOnClickListener(listener);
+        if(applyListenersToRowBody) {
+            viewHolder.rowBody.setOnCreateContextMenuListener(listener);
+            viewHolder.rowBody.setOnClickListener(listener);
+        } else {
+            container.setOnCreateContextMenuListener(listener);
+            container.setOnClickListener(listener);
+        }
     }
 
     /* ======================================================================
