@@ -3,7 +3,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- ==================================================== Generic Units == -->
-  
+    <string name="yesterday">Вчера</string>
+    <string name="today">Сегодня</string>
+    <string name="tomorrow">Завтра</string>  
   <plurals name="DUt_years">
     <!-- plurals: years -->
     <item quantity="one">1 год</item>

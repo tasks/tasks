@@ -3,7 +3,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- ==================================================== Generic Units == -->
-  
+     <string name="yesterday">Gisteren</string>
+    <string name="today">Vandaag</string>
+    <string name="tomorrow">Morgen</string>
+ 
   <plurals name="DUt_years">
     <!-- plurals: years -->
     <item quantity="one">1 jaar</item>

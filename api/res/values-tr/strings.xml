@@ -3,7 +3,10 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- ==================================================== Generic Units == -->
-  
+      <string name="yesterday">Dün</string>
+    <string name="today">Bugün</string>
+    <string name="tomorrow">Yarın</string>
+
   <plurals name="DUt_years">
     <!-- plurals: years -->
     <item quantity="one">1 Year</item>
