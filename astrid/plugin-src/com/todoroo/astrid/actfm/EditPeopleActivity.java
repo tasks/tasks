@@ -442,6 +442,11 @@ public class EditPeopleActivity extends Activity {
                         task.setValue(Task.REMOTE_ID, taskService.fetchById(task.getId(),
                                 Task.REMOTE_ID).getValue(Task.REMOTE_ID));
                     }
+                    if(task.getValue(Task.REMOTE_ID) == 0) {
+                        DialogUtilities.okDialog(EditPeopleActivity.this, "We had an error saving " +
+                                "this task to Astrid.com. Could you let us know why this happened?", null);
+                        return;
+                    }
 
                     Object[] args = buildSharingArgs(emails, metadata);
                     JSONObject result = invoker.invoke("task_share", args);
