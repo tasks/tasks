@@ -17,28 +17,27 @@
             android:layout_height="wrap_content"
             android:padding="5dip"
             android:orientation="vertical">
-        
+
           <TextView 
               android:id="@+id/title"
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
               android:gravity="center"
               style="@style/TextAppearance.TAd_ItemTitle"
-              android:paddingBottom="15dip"
               android:paddingTop="10dip"
               android:textSize="22sp" />
               
           <View
             android:layout_width="fill_parent"
             android:layout_height="1dip"
+            android:layout_margin="15dip"
             android:background="@android:drawable/divider_horizontal_dark" />
             
           <TextView 
               android:layout_width="fill_parent"
               android:layout_height="wrap_content"
-              android:paddingTop="15dip"
               android:paddingBottom="5dip"
-              android:text="@string/actfm_EPA_assign_label" />
+              android:text="@string/actfm_EPA_assign_label" />        
           
           <LinearLayout
               android:orientation="horizontal"
@@ -155,6 +154,20 @@
               android:layout_width="fill_parent" 
               android:layout_height="wrap_content"/>
               
+          <View
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_margin="15dip"
+            android:background="@android:drawable/divider_horizontal_dark" />
+            
+          <TextView 
+              android:layout_width="fill_parent"
+              android:layout_height="wrap_content"
+              android:paddingTop="15dip"
+              android:text="@string/actfm_EPA_intro"
+              android:gravity="center"
+              android:textColor="#ffaa00"/>
+                    
       </LinearLayout>
       
   </ScrollView>
