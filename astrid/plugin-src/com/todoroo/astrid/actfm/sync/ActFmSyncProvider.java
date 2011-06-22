@@ -30,6 +30,7 @@ import com.todoroo.astrid.actfm.ActFmPreferences;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService.JsonHelper;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.notes.NoteMetadata;
@@ -223,6 +224,7 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
      * @throws JSONException */
     private ActFmTaskContainer parseRemoteTask(JSONObject remoteTask) throws JSONException {
         Task task = new Task();
+        TaskDao.setDefaultReminders(task);
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
 
         JsonHelper.taskFromJson(remoteTask, task, metadata);

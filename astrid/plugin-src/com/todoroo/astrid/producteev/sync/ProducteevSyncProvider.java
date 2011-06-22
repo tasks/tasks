@@ -35,6 +35,7 @@ import com.todoroo.astrid.activity.ShortcutActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -348,6 +349,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
      * @throws JSONException */
     private ProducteevTaskContainer parseRemoteTask(JSONObject remoteTask) throws JSONException {
         Task task = new Task();
+        TaskDao.setDefaultReminders(task);
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
 
         if(remoteTask.has("task"))

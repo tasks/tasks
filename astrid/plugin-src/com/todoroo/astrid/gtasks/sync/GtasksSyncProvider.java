@@ -32,6 +32,7 @@ import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
+import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
@@ -371,6 +372,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             // update reminder flags for incoming remote tasks to prevent annoying
             if(container.task.hasDueDate() && container.task.getValue(Task.DUE_DATE) < DateUtilities.now())
                 container.task.setFlag(Task.REMINDER_FLAGS, Task.NOTIFY_AFTER_DEADLINE, false);
+
             gtasksMetadataService.findLocalMatch(container);
             remoteTasks.add(container);
         }
@@ -477,10 +479,12 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         }
     }
 
-    /** Create a task container for the given RtmTaskSeries
+    /** Create a task container for the given remote task
      * @throws JSONException */
     private GtasksTaskContainer parseRemoteTask(GoogleTaskTask remoteTask) {
         Task task = new Task();
+        TaskDao.setDefaultReminders(task);
+
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
 
         task.setValue(Task.TITLE, remoteTask.getName());

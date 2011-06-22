@@ -196,6 +196,21 @@ public class TaskDao extends DatabaseDao<Task> {
                     Task.HIDE_UNTIL_NONE);
             item.setValue(Task.HIDE_UNTIL, item.createHideUntil(setting, 0));
         }
+
+        setDefaultReminders(item);
+
+        ContentValues values = item.getSetValues();
+        boolean result = super.createNew(item);
+        if(result)
+            afterSave(item, values);
+        return result;
+    }
+
+    /**
+     * Sets default reminders for the given task if reminders are not set
+     * @param item
+     */
+    public static void setDefaultReminders(Task item) {
         if(!item.containsValue(Task.REMINDER_PERIOD)) {
             item.setValue(Task.REMINDER_PERIOD, DateUtilities.ONE_HOUR *
                     Preferences.getIntegerFromString(R.string.p_rmd_default_random_hours,
@@ -206,12 +221,6 @@ public class TaskDao extends DatabaseDao<Task> {
                     Preferences.getIntegerFromString(R.string.p_default_reminders_key,
                             Task.NOTIFY_AT_DEADLINE | Task.NOTIFY_AFTER_DEADLINE));
         }
-
-        ContentValues values = item.getSetValues();
-        boolean result = super.createNew(item);
-        if(result)
-            afterSave(item, values);
-        return result;
     }
 
     @Override
