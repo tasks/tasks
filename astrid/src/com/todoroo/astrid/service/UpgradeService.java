@@ -36,6 +36,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_7_7 = 184;
     public static final int V3_7_6 = 182;
     public static final int V3_7_5 = 179;
     public static final int V3_7_4 = 178;
@@ -142,7 +143,15 @@ public final class UpgradeService {
             });
         } else {
             // current message
-            if(from < V3_7_6) {
+            if(from < V3_7_7) {
+                newVersionString(changeLog, "3.7.7 (6/22/11, bug fixes, usability, cosmetic)", new String[] {
+                        "Moved note viewing into quick action bar based on usability feedback",
+                        "Fix for repeats not working with weekly intervals over 1 week",
+                        "Fix for Producteev notes being cleared when new notes arrive",
+                        "Fix for default reminder settings not being applied to Google/Producteev tasks",
+                });
+            }
+            if(from >= V3_7_0 && from < V3_7_6) {
                 newVersionString(changeLog, "3.7.6 (6/13/11)", new String[] {
                         "Fix for Astrid overwriting Google / Producteev values during sync",
                         "No more snoozes for old repeating task iterations",
@@ -285,7 +294,7 @@ public final class UpgradeService {
         if(changeLog.length() == 0)
             return;
 
-        changeLog.append("Enjoy!</body></html>");
+        changeLog.append("Astrid thinks you are very special!</body></html>");
         String changeLogHtml = "<html><body style='color: white'>" + changeLog;
 
         DialogUtilities.htmlDialog(context, changeLogHtml,

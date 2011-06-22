@@ -178,7 +178,7 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     // ----------------------------------------------------------------------
 
     protected void performSync() {
-        StatisticsService.reportEvent("producteev-started");
+        StatisticsService.reportEvent("pdv-started");
         preferences.recordSyncStart();
 
         try {
