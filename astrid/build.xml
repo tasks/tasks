@@ -70,16 +70,18 @@
     -->
     <setup />
 
-    <!-- amalgamate sources -->
-    <delete dir="${source.dir}" />
-    <mkdir dir="${source.dir}" />
-    <for list="${astrid.sources}" param="dir">
-      <sequential>
-        <copy todir="${source.dir}">
-          <fileset dir="@{dir}" />
-        </copy>
-      </sequential>
-    </for>
+    <target name="copy-sources">
+      <!-- amalgamate sources -->
+      <delete dir="${source.dir}" />
+      <mkdir dir="${source.dir}" />
+      <for list="${astrid.sources}" param="dir">
+        <sequential>
+          <copy todir="${source.dir}">
+            <fileset dir="@{dir}" />
+          </copy>
+        </sequential>
+      </for>
+    </target>
 
     <target name="get-version">
       <loadfile property="manifest" srcFile="AndroidManifest.xml" />
@@ -109,11 +111,11 @@
       </exec>
     </target>
 
-    <target name="debug" depends="clean, updatekeys, android_rules.debug">
+    <target name="debug" depends="clean, copy-sources, updatekeys, android_rules.debug">
     </target>
 
     <!-- post build: rename apk -->
-    <target name="release" depends="clean, get-version, warnings, updatekeys, updatekeys-release, disable-market, android_rules.release">
+    <target name="release" depends="clean, get-version, copy-sources, warnings, updatekeys, updatekeys-release, disable-market, android_rules.release">
       <mkdir dir="../release" />
       <property name="out.final.package"
                 location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
