@@ -143,10 +143,10 @@ public class EditNoteActivity extends ListActivity {
             TextView notes = new TextView(this);
             notes.setTextAppearance(this, R.style.TextAppearance_TAd_ItemTitle);
             notes.setTextSize(18);
-            Linkify.addLinks(notes, Linkify.ALL);
             getListView().addHeaderView(notes);
             notes.setText(task.getValue(Task.NOTES));
             notes.setPadding(5, 10, 5, 10);
+            Linkify.addLinks(notes, Linkify.ALL);
         }
         loadingText = (TextView) findViewById(R.id.loading);
     }
@@ -342,6 +342,7 @@ public class EditNoteActivity extends ListActivity {
             // description
             final TextView descriptionView = (TextView)view.findViewById(R.id.description); {
                 descriptionView.setText(item.body);
+                Linkify.addLinks(descriptionView, Linkify.ALL);
             }
 
             // date
