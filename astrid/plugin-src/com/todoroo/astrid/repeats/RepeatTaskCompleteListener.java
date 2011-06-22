@@ -42,8 +42,6 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
         if(task.getValue(Task.REMOTE_ID) > 0)
             return;
 
-        StatisticsService.reportEvent("task-repeat"); //$NON-NLS-1$
-
         String recurrence = task.getValue(Task.RECURRENCE);
         if(recurrence != null && recurrence.length() > 0) {
             long newDueDate;
@@ -55,6 +53,8 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 PluginServices.getExceptionService().reportError("repeat-parse", e); //$NON-NLS-1$
                 return;
             }
+
+            StatisticsService.reportEvent("task-repeated"); //$NON-NLS-1$
 
             long hideUntil = task.getValue(Task.HIDE_UNTIL);
             if(hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {
