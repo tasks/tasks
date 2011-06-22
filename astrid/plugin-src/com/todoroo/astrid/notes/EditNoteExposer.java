@@ -18,6 +18,7 @@ import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Exposes {@link TaskDecoration} for timers
@@ -30,6 +31,10 @@ public class EditNoteExposer extends BroadcastReceiver {
     private static final String ACTION = "com.todoroo.astrid.EDIT_NOTES"; //$NON-NLS-1$
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {

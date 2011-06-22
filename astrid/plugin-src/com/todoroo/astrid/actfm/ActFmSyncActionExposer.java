@@ -15,6 +15,7 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.SyncAction;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Exposes sync action
@@ -23,6 +24,10 @@ import com.todoroo.astrid.api.SyncAction;
 public class ActFmSyncActionExposer extends BroadcastReceiver {
 
     @Autowired ActFmPreferenceService actFmPreferenceService;
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {

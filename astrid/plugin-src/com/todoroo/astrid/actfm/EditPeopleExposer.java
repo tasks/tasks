@@ -14,6 +14,7 @@ import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.TaskAction;
 import com.todoroo.astrid.api.TaskDecoration;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 
 /**
  * Exposes {@link TaskDecoration} for timers
@@ -24,6 +25,10 @@ import com.todoroo.astrid.api.TaskDecoration;
 public class EditPeopleExposer extends BroadcastReceiver {
 
     private static final String ACTION = "com.todoroo.astrid.EDIT_PEOPLE"; //$NON-NLS-1$
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     @Override
     public void onReceive(Context context, Intent intent) {

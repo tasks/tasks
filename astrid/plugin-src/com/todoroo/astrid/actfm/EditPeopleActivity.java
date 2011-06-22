@@ -42,6 +42,7 @@ import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
@@ -85,6 +86,10 @@ public class EditPeopleActivity extends Activity {
     private EditText assignedCustom;
 
     private final ArrayList<AssignedToUser> spinnerValues = new ArrayList<AssignedToUser>();
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     public EditPeopleActivity() {
         DependencyInjectionService.getInstance().inject(this);

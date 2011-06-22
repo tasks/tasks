@@ -32,6 +32,7 @@ import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.reminders.Notifications;
+import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.utility.Constants;
@@ -48,6 +49,10 @@ public class C2DMReceiver extends BroadcastReceiver {
     @Autowired ActFmSyncService actFmSyncService;
     @Autowired TagDataService tagDataService;
     @Autowired UpdateDao updateDao;
+
+    static {
+        AstridDependencyInjector.initialize();
+    }
 
     @Override
     public void onReceive(Context context, final Intent intent) {
