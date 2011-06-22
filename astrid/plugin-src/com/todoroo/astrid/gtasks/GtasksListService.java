@@ -101,7 +101,7 @@ public class GtasksListService {
     public StoreObject getList(String listId) {
         readLists();
         for(StoreObject list : lists)
-            if(list.getValue(GtasksList.REMOTE_ID).equals(listId))
+            if(list != null && list.getValue(GtasksList.REMOTE_ID).equals(listId))
                 return list;
         return LIST_NOT_FOUND_OBJECT;
     }

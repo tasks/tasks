@@ -416,6 +416,9 @@ public final class ReminderService  {
          */
         @SuppressWarnings("nls")
         public void createAlarm(Task task, long time, int type) {
+            if(task.getId() == Task.NO_ID)
+                return;
+
             Context context = ContextManager.getContext();
             Intent intent = new Intent(context, Notifications.class);
             intent.setType(Long.toString(task.getId()));
@@ -425,9 +428,15 @@ public final class ReminderService  {
 
             // calculate the unique requestCode as a combination of the task-id and alarm-type:
             // concatenate id+type to keep the combo unique
-            String rc = ""+task.getId()+type;
+            String rc = String.format("%d%d", task.getId(), type);
+            int requestCode;
+            try {
+                requestCode = Integer.parseInt(rc);
+            } catch (Exception e) {
+                requestCode = type;
+            }
             AlarmManager am = (AlarmManager)context.getSystemService(Context.ALARM_SERVICE);
-            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, Integer.parseInt(rc),
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(context, requestCode,
                     intent, 0);
 
             if (time == 0 || time == NO_ALARM)
