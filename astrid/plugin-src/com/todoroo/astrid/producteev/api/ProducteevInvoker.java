@@ -475,6 +475,12 @@ public class ProducteevInvoker {
                 "title", title);
     }
 
+    public JSONObject labelsDelete(long idLabel) throws ApiServiceException, IOException {
+        return callAuthenticated("labels/delete.json",
+                "token", token,
+                "id_label", idLabel);
+    }
+
     // --- notifications/activities
 
     /**
@@ -518,6 +524,11 @@ public class ProducteevInvoker {
         return callAuthenticated("users/view.json",
                 "token", token,
                 "id_colleague", idColleague);
+    }
+
+    public JSONObject usersColleagues() throws ApiServiceException, IOException {
+        return callAuthenticated("users/colleagues.json",
+                "token", token);
     }
 
     // --- invocation
