@@ -1,5 +1,6 @@
 package com.todoroo.astrid.gtasks;
 
+import com.google.api.services.tasks.v1.model.TaskLists;
 import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
@@ -7,7 +8,6 @@ import com.todoroo.andlib.sql.Query;
 import com.todoroo.astrid.dao.StoreObjectDao;
 import com.todoroo.astrid.dao.StoreObjectDao.StoreObjectCriteria;
 import com.todoroo.astrid.data.StoreObject;
-import com.todoroo.gtasks.GoogleTaskListInfo;
 
 public class GtasksListService {
 
@@ -58,16 +58,33 @@ public class GtasksListService {
         return LIST_NOT_FOUND;
     }
 
-    @SuppressWarnings("nls")
-    public void updateLists(GoogleTaskListInfo[] remoteLists) {
+    public void migrateListIds (TaskLists remoteLists) {
         readLists();
+
+        for (int i = 0; i < remoteLists.items.size(); i++) {
+            com.google.api.services.tasks.v1.model.TaskList remote = remoteLists.items.get(i);
+
+            for (StoreObject list : lists) {
+                if (list.getValue(GtasksList.NAME).equals(remote.title)) {
+                    list.setValue(GtasksList.REMOTE_ID, remote.id);
+                    storeObjectDao.persist(list);
+                    break;
+                }
+            }
+        }
+    }
+
+    @SuppressWarnings("nls")
+    public void updateLists(TaskLists remoteLists) {
+        readLists();
+
         for(StoreObject list : lists)
             list.setValue(StoreObject.TYPE, "");
 
-        for(int i = 0; i < remoteLists.length; i++) {
-            GoogleTaskListInfo remote = remoteLists[i];
+        for(int i = 0; i < remoteLists.items.size(); i++) {
+            com.google.api.services.tasks.v1.model.TaskList remote = remoteLists.items.get(i);
 
-            String id = remote.getId();
+            String id = remote.id;
             StoreObject local = null;
             for(StoreObject list : lists) {
                 if(list.getValue(GtasksList.REMOTE_ID).equals(id)) {
@@ -81,7 +98,7 @@ public class GtasksListService {
 
             local.setValue(StoreObject.TYPE, GtasksList.TYPE);
             local.setValue(GtasksList.REMOTE_ID, id);
-            local.setValue(GtasksList.NAME, remote.getName());
+            local.setValue(GtasksList.NAME, remote.title);
             local.setValue(GtasksList.ORDER, i);
             storeObjectDao.persist(local);
         }

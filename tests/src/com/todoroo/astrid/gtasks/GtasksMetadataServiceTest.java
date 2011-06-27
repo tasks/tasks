@@ -11,6 +11,7 @@ import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
 
+@SuppressWarnings("nls")
 public class GtasksMetadataServiceTest extends DatabaseTestCase {
 
     private final GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();

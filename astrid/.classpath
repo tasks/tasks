@@ -11,11 +11,17 @@
 	<classpathentry exported="true" kind="lib" path="libs/commons-codec-1.3.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/jsr305.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/locale_platform.jar"/>
-	<classpathentry exported="true" kind="lib" path="libs/todoroo-g.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/framework.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/httpmime-4.1.1.jar"/>
 	<classpathentry exported="true" kind="lib" path="libs/rfc2445-4Mar2011.jar"/>
 	<classpathentry kind="src" path="GreenDroid_src"/>
+	<classpathentry exported="true" kind="lib" path="libs/google-api-client-1.4.1-beta.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/google-api-client-googleapis-1.4.1-beta.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/google-api-services-tasks-v1-1.0.0-beta.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/guava-r09.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/jackson-core-asl-1.6.7.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/google-api-client-googleapis-extensions-android2-1.4.1-beta.jar"/>
+	<classpathentry exported="true" kind="lib" path="libs/google-api-client-extensions-android2-1.4.1-beta.jar"/>
 	<classpathentry kind="src" path="astridApi_src"/>
 	<classpathentry kind="src" path="facebook_src"/>
 	<classpathentry kind="output" path="ecbuild"/>
