@@ -179,8 +179,9 @@ public class C2DMReceiver extends BroadcastReceiver {
                     updateDao.createNew(update);
                 } catch (JSONException e) {
                     //
+                } catch (NumberFormatException e) {
+                    //
                 }
-
             }
 
             Intent launchIntent = new Intent();
