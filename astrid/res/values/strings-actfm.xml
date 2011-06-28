@@ -11,7 +11,7 @@
   <string name="actfm_person_hint">Contact Name</string>
   
   <!-- task sharing dialog: shared with hint -->
-  <string name="actfm_person_or_tag_hint">Contact or Shared Tag</string>
+  <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
 
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">Saved on Server</string>
@@ -53,10 +53,10 @@
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
   <!-- Tag Members: tag name label -->
-  <string name="actfm_TVA_tag_label">Tag Name:</string>
+  <string name="actfm_TVA_tag_label">List Name:</string>
 
   <!-- Tag Members: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">Tag Owner:</string>
+  <string name="actfm_TVA_tag_owner_label">List Owner:</string>
 
   <!-- Tag Members: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">none</string>
@@ -65,7 +65,7 @@
   <string name="actfm_TVA_members_label">Team Members:</string>
 
   <!-- Tag Members: tag picture -->
-  <string name="actfm_TVA_tag_picture">Tag Picture</string>
+  <string name="actfm_TVA_tag_picture">List Picture</string>
 
   <!-- ============================================ edit people dialog == -->
 
@@ -121,7 +121,7 @@
   <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  <string name="actfm_EPA_invalid_tag">Tag Not Found: %s</string>
+  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
 
   <!-- ========================================= sharing login activity == -->
 
