@@ -260,13 +260,6 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     }
 
     protected void setUpUpdateList() {
-        TodorooCursor<Update> currentCursor = tagDataService.getUpdates(tagData);
-        startManagingCursor(currentCursor);
-
-        updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
-                currentCursor, false, null);
-        ((ListView)findViewById(R.id.tab_updates)).setAdapter(updateAdapter);
-
         final ImageButton quickAddButton = (ImageButton) findViewById(R.id.commentButton);
         addCommentField = (EditText) findViewById(R.id.commentField);
         addCommentField.setOnEditorActionListener(new OnEditorActionListener() {
@@ -299,6 +292,8 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                 addComment();
             }
         });
+
+        refreshUpdatesList();
     }
 
     // --- data loading
@@ -347,9 +342,20 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     }
 
     private void refreshUpdatesList() {
-        Cursor cursor = updateAdapter.getCursor();
-        cursor.requery();
-        startManagingCursor(cursor);
+        if(tagData.getValue(TagData.REMOTE_ID) == 0)
+            return;
+        if(updateAdapter == null) {
+            TodorooCursor<Update> currentCursor = tagDataService.getUpdates(tagData);
+            startManagingCursor(currentCursor);
+
+            updateAdapter = new UpdateAdapter(this, R.layout.update_adapter_row,
+                    currentCursor, false, null);
+            ((ListView)findViewById(R.id.tab_updates)).setAdapter(updateAdapter);
+        } else {
+            Cursor cursor = updateAdapter.getCursor();
+            cursor.requery();
+            startManagingCursor(cursor);
+        }
     }
 
     @Override

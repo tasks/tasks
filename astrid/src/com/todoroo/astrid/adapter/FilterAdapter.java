@@ -442,6 +442,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             add.setTextColor(Color.WHITE);
             add.setCompoundDrawablesWithIntrinsicBounds(R.drawable.tango_add,0,0,0);
             viewHolder.decoration = add;
+            add.setHeight((int)(35 * metrics.density));
             ((ViewGroup)viewHolder.view).addView(add);
 
             add.setOnClickListener(new View.OnClickListener() {

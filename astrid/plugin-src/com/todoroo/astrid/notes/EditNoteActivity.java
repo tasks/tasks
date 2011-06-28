@@ -87,18 +87,22 @@ public class EditNoteActivity extends ListActivity {
         setUpInterface();
         setUpListAdapter();
 
-        if(actFmPreferenceService.isLoggedIn() && task.getValue(Task.REMOTE_ID) > 0) {
+        if(actFmPreferenceService.isLoggedIn()) {
             findViewById(R.id.add_comment).setVisibility(View.VISIBLE);
 
-            String fetchKey = LAST_FETCH_KEY + task.getId();
-            long lastFetchDate = Preferences.getLong(fetchKey, 0);
-            if(DateUtilities.now() > lastFetchDate + 300000L) {
-                refreshData(false);
-                Preferences.setLong(fetchKey, DateUtilities.now());
-            } else {
-                loadingText.setText(R.string.ENA_no_comments);
-                if(items.size() == 0)
-                    loadingText.setVisibility(View.VISIBLE);
+            if(task.getValue(Task.REMOTE_ID) == 0)
+                refreshData(true);
+            else {
+                String fetchKey = LAST_FETCH_KEY + task.getId();
+                long lastFetchDate = Preferences.getLong(fetchKey, 0);
+                if(DateUtilities.now() > lastFetchDate + 300000L) {
+                    refreshData(false);
+                    Preferences.setLong(fetchKey, DateUtilities.now());
+                } else {
+                    loadingText.setText(R.string.ENA_no_comments);
+                    if(items.size() == 0)
+                        loadingText.setVisibility(View.VISIBLE);
+                }
             }
         }
     }
@@ -166,17 +170,21 @@ public class EditNoteActivity extends ListActivity {
         } finally {
             notes.close();
         }
-        TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
-                        Update.TASK.eq(task.getValue(Task.REMOTE_ID))).orderBy(Order.desc(Update.CREATION_DATE)));
-        try {
-            Update update = new Update();
-            for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
-                update.readFromCursor(updates);
-                items.add(NoteOrUpdate.fromUpdate(update));
+
+        if(task.getValue(Task.REMOTE_ID) > 0) {
+            TodorooCursor<Update> updates = updateDao.query(Query.select(Update.PROPERTIES).where(
+                            Update.TASK.eq(task.getValue(Task.REMOTE_ID))).orderBy(Order.desc(Update.CREATION_DATE)));
+            try {
+                Update update = new Update();
+                for(updates.moveToFirst(); !updates.isAfterLast(); updates.moveToNext()) {
+                    update.readFromCursor(updates);
+                    items.add(NoteOrUpdate.fromUpdate(update));
+                }
+            } finally {
+                updates.close();
             }
-        } finally {
-            updates.close();
         }
+
         Collections.sort(items, new Comparator<NoteOrUpdate>() {
             @Override
             public int compare(NoteOrUpdate a, NoteOrUpdate b) {
@@ -210,6 +218,19 @@ public class EditNoteActivity extends ListActivity {
             progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
         else
             progressDialog = null;
+
+        if(task.getValue(Task.REMOTE_ID) == 0) {
+            // push task if it hasn't been pushed
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    actFmSyncService.pushTask(task.getId());
+                    refreshData(false);
+                    DialogUtilities.dismissDialog(EditNoteActivity.this, progressDialog);
+                }
+            }).start();
+            return;
+        }
 
         actFmSyncService.fetchUpdatesForTask(task, manual, new Runnable() {
             @Override
