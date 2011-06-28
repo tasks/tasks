@@ -128,6 +128,8 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         getWindow().setFormat(PixelFormat.RGBA_8888);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
 
+        StatisticsService.reportEvent("actfm-login-show"); //$NON-NLS-1$
+
         setResult(RESULT_CANCELED);
     }
 
