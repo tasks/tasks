@@ -39,7 +39,7 @@
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Backups</string>
+  <string name="backup_BAc_label">Manage Backups</string>
 
   <!-- backup activity title -->
   <string name="backup_BAc_title">Manage Your Backups</string>

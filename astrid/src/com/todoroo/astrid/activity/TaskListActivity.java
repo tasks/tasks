@@ -121,12 +121,13 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
     // --- menu codes
 
-    protected static final int MENU_ADDONS_ID = Menu.FIRST + 1;
-    protected static final int MENU_SETTINGS_ID = Menu.FIRST + 2;
-    protected static final int MENU_SORT_ID = Menu.FIRST + 3;
-    protected static final int MENU_SYNC_ID = Menu.FIRST + 4;
-    protected static final int MENU_HELP_ID = Menu.FIRST + 5;
-    protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 6;
+    protected static final int MENU_LISTS_ID = Menu.FIRST + 1;
+    protected static final int MENU_ADDONS_ID = Menu.FIRST + 2;
+    protected static final int MENU_SETTINGS_ID = Menu.FIRST + 3;
+    protected static final int MENU_SORT_ID = Menu.FIRST + 4;
+    protected static final int MENU_SYNC_ID = Menu.FIRST + 5;
+    protected static final int MENU_HELP_ID = Menu.FIRST + 6;
+    protected static final int MENU_ADDON_INTENT_ID = Menu.FIRST + 7;
 
     protected static final int CONTEXT_MENU_EDIT_TASK_ID = Menu.FIRST + 20;
     protected static final int CONTEXT_MENU_COPY_TASK_ID = Menu.FIRST + 21;
@@ -277,16 +278,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         MenuItem item;
 
-        if(!Constants.MARKET_DISABLED) {
-            item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
-                    R.string.TLA_menu_addons);
-            item.setIcon(android.R.drawable.ic_menu_set_as);
-        }
-
-        item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
-                R.string.TLA_menu_settings);
-        item.setIcon(android.R.drawable.ic_menu_preferences);
-
         if(!(this instanceof DraggableTaskListActivity)) {
             item = menu.add(Menu.NONE, MENU_SORT_ID, Menu.NONE,
                     R.string.TLA_menu_sort);
@@ -297,9 +288,23 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
                 R.string.TLA_menu_sync);
         item.setIcon(R.drawable.ic_menu_refresh);
 
+        item = menu.add(Menu.NONE, MENU_LISTS_ID, Menu.NONE,
+                R.string.tag_TLA_menu);
+        item.setIcon(R.drawable.ic_menu_lists);
+
+        if(!Constants.MARKET_DISABLED) {
+            item = menu.add(Menu.NONE, MENU_ADDONS_ID, Menu.NONE,
+                    R.string.TLA_menu_addons);
+            item.setIcon(android.R.drawable.ic_menu_set_as);
+        }
+
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.TLA_menu_help);
         item.setIcon(android.R.drawable.ic_menu_help);
+
+        item = menu.add(Menu.NONE, MENU_SETTINGS_ID, Menu.NONE,
+                R.string.TLA_menu_settings);
+        item.setIcon(android.R.drawable.ic_menu_preferences);
 
         // ask about plug-ins
         Intent queryIntent = new Intent(AstridApiConstants.ACTION_TASK_LIST_MENU);
@@ -324,12 +329,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     private void setUpUiComponents() {
         ((ImageView)findViewById(R.id.back)).setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(TaskListActivity.this,
-                        FilterListActivity.class);
-                startActivity(intent);
-                AndroidUtilities.callApiMethod(5, TaskListActivity.this, "overridePendingTransition", //$NON-NLS-1$
-                        new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                        R.anim.slide_right_in, R.anim.slide_right_out);
+                showFilterListActivity();
             }
         });
 
@@ -1006,6 +1006,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
 
         // handle my own menus
         switch (item.getItemId()) {
+        case MENU_LISTS_ID:
+            StatisticsService.reportEvent("tla-menu-lists"); //$NON-NLS-1$
+            showFilterListActivity();
+            return true;
         case MENU_ADDONS_ID:
             StatisticsService.reportEvent("tla-menu-addons"); //$NON-NLS-1$
             intent = new Intent(this, AddOnActivity.class);
@@ -1116,13 +1120,17 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
     @Override
     public void gesturePerformed(String gesture) {
         if("nav_right".equals(gesture)) {
-            Intent intent = new Intent(TaskListActivity.this,
-                    FilterListActivity.class);
-            startActivity(intent);
-            AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
-                    new Class<?>[] { Integer.TYPE, Integer.TYPE },
-                    R.anim.slide_right_in, R.anim.slide_right_out);
+            showFilterListActivity();
         }
+    }
+
+    private void showFilterListActivity() {
+        Intent intent = new Intent(TaskListActivity.this,
+                FilterListActivity.class);
+        startActivity(intent);
+        AndroidUtilities.callApiMethod(5, this, "overridePendingTransition",
+                new Class<?>[] { Integer.TYPE, Integer.TYPE },
+                R.anim.slide_right_in, R.anim.slide_right_out);
     }
 
     @Override

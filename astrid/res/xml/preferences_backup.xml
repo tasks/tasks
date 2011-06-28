@@ -22,5 +22,11 @@
             android:defaultValue="true" />
             
     </PreferenceCategory>
+    
+    <Preference
+            android:key="@string/backup_BAc_label" 
+            android:title="@string/backup_BAc_label" 
+            android:textSize="24sp"
+            android:gravity="center"/>
             
 </PreferenceScreen>  

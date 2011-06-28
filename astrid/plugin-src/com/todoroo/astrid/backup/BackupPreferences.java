@@ -2,6 +2,7 @@ package com.todoroo.astrid.backup;
 
 import java.util.Date;
 
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -51,6 +52,15 @@ public class BackupPreferences extends TodorooPreferenceActivity {
                 View view = findViewById(R.id.status);
                 if(view != null)
                     view.setBackgroundColor(statusColor);
+            }
+        });
+
+        findPreference(getString(R.string.backup_BAc_label)).setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            @Override
+            public boolean onPreferenceClick(Preference preference) {
+                Intent intent = new Intent(BackupPreferences.this, BackupActivity.class);
+                startActivity(intent);
+                return false;
             }
         });
     }

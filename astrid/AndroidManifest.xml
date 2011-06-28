@@ -357,15 +357,7 @@
     <!-- backup -->
     <service android:name="com.todoroo.astrid.backup.BackupService"/>
     <activity android:name="com.todoroo.astrid.backup.BackupActivity"
-              android:theme="@android:style/Theme.Dialog"
-              android:icon="@drawable/ic_menu_archive"
-              android:configChanges="orientation|keyboardHidden"
-              android:label="@string/backup_BAc_label">
-      <intent-filter>   
-        <action android:name="com.todoroo.astrid.TASK_LIST_MENU" />
-        <category android:name="android.intent.category.DEFAULT" />
-      </intent-filter>
-    </activity>
+              android:theme="@android:style/Theme.Dialog" />
     <activity android:name="com.todoroo.astrid.backup.BackupPreferences"
               android:theme="@android:style/Theme" 
               android:label="@string/backup_BPr_header">
