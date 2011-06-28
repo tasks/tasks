@@ -182,12 +182,13 @@
       android:background="@drawable/edit_header"
       android:baselineAligned="false">
       
-      <ImageButton
+      <Button
           android:id="@+id/save"
           android:layout_width="fill_parent"
           android:layout_height="wrap_content"
           android:layout_weight="1"
-          android:src="@drawable/tango_save" />
+          android:text="@string/actfm_EPA_save"
+          android:drawableLeft="@drawable/tango_save" />
       <ImageButton
           android:id="@+id/discard"
           android:layout_width="fill_parent"

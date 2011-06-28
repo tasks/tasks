@@ -74,6 +74,9 @@
     
   <!-- task sharing dialog: window title -->
   <string name="actfm_EPA_title">Share / Assign</string>
+    
+  <!-- task sharing dialog: save button -->
+  <string name="actfm_EPA_save">Save &amp; Share</string>
   
   <!-- task sharing dialog: assigned label -->
   <string name="actfm_EPA_assign_label">Assigned to:</string>
