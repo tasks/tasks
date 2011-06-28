@@ -66,7 +66,7 @@ public class TagFilterExposer extends BroadcastReceiver {
 
     /** Create filter from new tag object */
     @SuppressWarnings("nls")
-    public static Filter filterFromTag(Context context, Tag tag, Criterion criterion, boolean useTagViewActivity) {
+    public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion, boolean useTagViewActivity) {
         String listTitle = tag.tag + " (" + tag.count + ")";
         String title = context.getString(R.string.tag_FEx_name, tag.tag);
         QueryTemplate tagTemplate = tag.queryTemplate(criterion);
@@ -139,8 +139,6 @@ public class TagFilterExposer extends BroadcastReceiver {
         addTags(list);
 
         // transmit filter list
-        if(list.size() <= 2)
-            return;
         FilterListItem[] listAsArray = list.toArray(new FilterListItem[list.size()]);
         Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_SEND_FILTERS);
         broadcastIntent.putExtra(AstridApiConstants.EXTRAS_RESPONSE, listAsArray);

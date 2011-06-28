@@ -29,7 +29,7 @@
   <string name="actfm_picture_gallery">Pick from Gallery</string>
 
   <!-- filter list activity: refresh tags -->
-  <string name="actfm_FLA_menu_refresh">Refresh Tags</string>
+  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
 
   <!-- ================================================== TagViewActivity == -->  
 

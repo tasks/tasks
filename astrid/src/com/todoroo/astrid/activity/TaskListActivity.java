@@ -1124,6 +1124,7 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         }
     }
 
+    @SuppressWarnings("nls")
     private void showFilterListActivity() {
         Intent intent = new Intent(TaskListActivity.this,
                 FilterListActivity.class);

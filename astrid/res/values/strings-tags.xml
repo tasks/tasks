@@ -25,7 +25,13 @@
     <!-- Context Item: show tag -->
   <string name="TAd_contextFilterByTag">Show List</string>
   
+    <!-- Dialog: new list -->
+  <string name="tag_new_list">New List Name:</string>
+  
   <!-- ========================================================== Filters == -->
+  
+  <!-- filter button to add tag -->
+  <string name="tag_FEx_add_new">New</string>
   
   <!-- filter header for tags -->
   <string name="tag_FEx_header">Lists</string>

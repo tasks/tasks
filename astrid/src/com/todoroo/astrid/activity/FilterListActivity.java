@@ -229,15 +229,14 @@ public class FilterListActivity extends ExpandableListActivity {
     protected boolean onItemClicked(FilterListItem item) {
         if(item instanceof Filter) {
             Filter filter = (Filter)item;
-            Intent intent = new Intent(FilterListActivity.this, TaskListActivity.class);
-            intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
             if(filter instanceof FilterWithCustomIntent) {
                 FilterWithCustomIntent customFilter = ((FilterWithCustomIntent)filter);
-                intent.setComponent(customFilter.customTaskList);
-                if(customFilter.customExtras != null)
-                    intent.putExtras(customFilter.customExtras);
+                customFilter.start(this);
+            } else {
+                Intent intent = new Intent(FilterListActivity.this, TaskListActivity.class);
+                intent.putExtra(TaskListActivity.TOKEN_FILTER, filter);
+                startActivity(intent);
             }
-            startActivity(intent);
             AndroidUtilities.callApiMethod(5, this, "overridePendingTransition", //$NON-NLS-1$
                     new Class<?>[] { Integer.TYPE, Integer.TYPE },
                     R.anim.slide_left_in, R.anim.slide_left_out);

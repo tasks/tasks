@@ -21,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.service.TaskService;
+import com.todoroo.astrid.tags.TagsPlugin;
 
 public class FilterAdapter extends BaseExpandableListAdapter {
 
@@ -159,6 +161,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             viewHolder.icon = (ImageView)convertView.findViewById(R.id.icon);
             viewHolder.name = (TextView)convertView.findViewById(R.id.name);
             viewHolder.selected = (ImageView)convertView.findViewById(R.id.selected);
+            viewHolder.decoration = null;
             convertView.setTag(viewHolder);
         }
         return convertView;
@@ -171,6 +174,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         public TextView name;
         public ImageView selected;
         public View view;
+        public View decoration;
     }
 
     /* ======================================================================
@@ -390,6 +394,11 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         viewHolder.view.setBackgroundResource(0);
         viewHolder.expander.setVisibility(View.GONE);
 
+        if(viewHolder.decoration != null) {
+            ((ViewGroup)viewHolder.view).removeView(viewHolder.decoration);
+            viewHolder.decoration = null;
+        }
+
         if(viewHolder.item instanceof FilterListHeader) {
             viewHolder.name.setTextAppearance(activity, headerStyle);
             viewHolder.view.setBackgroundResource(R.drawable.edit_titlebar);
@@ -420,6 +429,28 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             viewHolder.view.setBackgroundColor(Color.rgb(128, 230, 0));
         } else
             viewHolder.selected.setVisibility(View.GONE);
+
+        updateForActFm(viewHolder);
+    }
+
+    private void updateForActFm(ViewHolder viewHolder) {
+        if(viewHolder.item instanceof FilterListHeader &&
+                viewHolder.item.listingTitle.equals(activity.getString(R.string.tag_FEx_header))) {
+            Button add = new Button(activity);
+            add.setText(R.string.tag_FEx_add_new);
+            add.setBackgroundColor(Color.TRANSPARENT);
+            add.setTextColor(Color.WHITE);
+            add.setCompoundDrawablesWithIntrinsicBounds(R.drawable.tango_add,0,0,0);
+            viewHolder.decoration = add;
+            ((ViewGroup)viewHolder.view).addView(add);
+
+            add.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    new TagsPlugin().showNewTagDialog(activity);
+                }
+            });
+        }
     }
 
 }
