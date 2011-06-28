@@ -210,7 +210,7 @@ public final class TagService {
             metadata.add(item);
         }
 
-        return service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(KEY)) > 0;
+        return service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(KEY));
     }
 
     public int delete(String tag) {

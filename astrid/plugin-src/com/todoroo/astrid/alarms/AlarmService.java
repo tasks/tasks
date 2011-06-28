@@ -78,7 +78,7 @@ public class AlarmService {
             metadata.add(item);
         }
 
-        boolean changed = service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY)) > 0;
+        boolean changed = service.synchronizeMetadata(taskId, metadata, Metadata.KEY.eq(AlarmFields.METADATA_KEY));
         if(changed)
             scheduleAlarms(taskId);
         return changed;

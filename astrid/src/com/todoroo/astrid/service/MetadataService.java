@@ -92,10 +92,11 @@ public class MetadataService {
      * @param id
      * @param metadata
      * @param metadataKeys
-     * @return number of items saved
+     * @return true if there were changes
      */
-    public int synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
+    public boolean synchronizeMetadata(long taskId, ArrayList<Metadata> metadata,
             Criterion metadataCriterion) {
+        boolean dirty = false;
         HashSet<ContentValues> newMetadataValues = new HashSet<ContentValues>();
         for(Metadata metadatum : metadata) {
             metadatum.setValue(Metadata.TASK, taskId);
@@ -123,21 +124,21 @@ public class MetadataService {
 
                 // not matched. cut it
                 metadataDao.delete(id);
+                dirty = true;
             }
         } finally {
             cursor.close();
         }
 
         // everything that remains shall be written
-        int written = 0;
         for(ContentValues values : newMetadataValues) {
             item.clear();
             item.mergeWith(values);
             metadataDao.persist(item);
-            ++written;
+            dirty = true;
         }
 
-        return written;
+        return dirty;
     }
 
     /**
