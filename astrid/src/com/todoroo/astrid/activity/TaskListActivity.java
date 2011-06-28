@@ -28,9 +28,7 @@ import android.database.Cursor;
 import android.graphics.PixelFormat;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.KeyEvent;
@@ -39,6 +37,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnKeyListener;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
@@ -383,30 +382,16 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         });
 
 
-        // set listener for showing quick add button if text not empty
         quickAddButton = ((ImageButton)findViewById(R.id.quickAddButton));
-        quickAddBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void afterTextChanged(Editable s) {
-                quickAddButton.setVisibility((s.length() > 0) ? View.VISIBLE : View.GONE);
-            }
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count,
-                    int after) {
-                //
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                    int count) {
-                //
-            }
-        });
 
         // set listener for quick add button
         quickAddButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if(quickAddBox.getText().length() > 0) {
                     quickAddTask(quickAddBox.getText().toString(), true);
+                } else {
+                    Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+                    startActivityForResult(intent, ACTIVITY_EDIT_TASK);
                 }
             }
         });
@@ -419,13 +404,15 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         voiceInputAssistant = new VoiceInputAssistant(this,voiceAddButton,quickAddBox);
         voiceInputAssistant.configureMicrophoneButton(prompt);
 
-        // set listener for extended add button
-        ((ImageButton)findViewById(R.id.extendedAddButton)).setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
+        // set listener for extended addbutton
+        quickAddButton.setOnLongClickListener(new OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(), false);
                 Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
                 intent.putExtra(TaskEditActivity.TOKEN_ID, task.getId());
                 startActivityForResult(intent, ACTIVITY_EDIT_TASK);
+                return true;
             }
         });
 
