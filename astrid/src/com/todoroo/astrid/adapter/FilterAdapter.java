@@ -438,8 +438,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
                 viewHolder.item.listingTitle.equals(activity.getString(R.string.tag_FEx_header))) {
             Button add = new Button(activity);
             add.setText(R.string.tag_FEx_add_new);
-            add.setBackgroundColor(Color.TRANSPARENT);
-            add.setTextColor(Color.WHITE);
+            add.setBackgroundResource(android.R.drawable.btn_default_small);
             add.setCompoundDrawablesWithIntrinsicBounds(R.drawable.tango_add,0,0,0);
             viewHolder.decoration = add;
             add.setHeight((int)(35 * metrics.density));
