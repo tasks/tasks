@@ -283,6 +283,7 @@ public class EditPeopleActivity extends Activity {
                     assignedCustom.setVisibility(View.VISIBLE);
                     assignedClear.setVisibility(View.VISIBLE);
                     assignedSpinner.setVisibility(View.GONE);
+                    assignedCustom.requestFocus();
                 }
             }
             @Override

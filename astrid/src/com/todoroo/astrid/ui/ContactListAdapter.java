@@ -1,5 +1,7 @@
 package com.todoroo.astrid.ui;
 
+import java.io.InputStream;
+
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentUris;
@@ -8,11 +10,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.MergeCursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.Contacts;
-import android.provider.Contacts.ContactMethods;
-import android.provider.Contacts.People;
+import android.provider.ContactsContract;
+import android.provider.ContactsContract.CommonDataKinds.Email;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,9 +42,7 @@ public class ContactListAdapter extends CursorAdapter {
     private final Activity activity;
 
     private static final String[] PEOPLE_PROJECTION = new String[] {
-        People._ID,
-        People.NAME,
-        ContactMethods.DATA
+        Email._ID, Email.CONTACT_ID, ContactsContract.Contacts.DISPLAY_NAME, Email.DATA
     };
 
     private boolean completeSharedTags = false;
@@ -73,7 +74,7 @@ public class ContactListAdapter extends CursorAdapter {
         if(cursor.getColumnNames().length == PEOPLE_PROJECTION.length) {
             text.setText(convertToString(cursor));
             imageView.setImageResource(android.R.drawable.ic_menu_gallery);
-            Uri uri = ContentUris.withAppendedId(People.CONTENT_URI, cursor.getLong(0));
+            Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, cursor.getLong(0));
             imageView.setTag(uri);
             ContactImageTask ciTask = new ContactImageTask(imageView);
             ciTask.execute(uri);
@@ -96,7 +97,10 @@ public class ContactListAdapter extends CursorAdapter {
         @Override
         protected Bitmap doInBackground(Uri... params) {
             uri = params[0];
-            return Contacts.People.loadContactPhoto(activity, uri, 0, null);
+            InputStream input = ContactsContract.Contacts.openContactPhotoInputStream(mContent, uri);
+            if (input == null)
+                 return null;
+            return BitmapFactory.decodeStream(input);
         }
 
         @Override
@@ -110,9 +114,9 @@ public class ContactListAdapter extends CursorAdapter {
 
     @Override
     public String convertToString(Cursor cursor) {
-        if(cursor.getColumnNames().length == PEOPLE_PROJECTION.length) {
-            int name = cursor.getColumnIndexOrThrow(People.NAME);
-            int email = cursor.getColumnIndexOrThrow(ContactMethods.DATA);
+        if(cursor.getColumnIndex(Email.DATA) > -1) {
+            int name = cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME);
+            int email = cursor.getColumnIndexOrThrow(Email.DATA);
             if(cursor.isNull(name))
                 return cursor.getString(email);
             return cursor.getString(name) + " <" + cursor.getString(email) +">";
@@ -128,23 +132,11 @@ public class ContactListAdapter extends CursorAdapter {
             return getFilterQueryProvider().runQuery(constraint);
         }
 
-        StringBuilder buffer = new StringBuilder();
-        String[] args = null;
-        if(constraint != null && constraint.length() > 1) {
-            constraint = constraint.toString().trim();
-            buffer.append("UPPER(").append(People.NAME).append(") GLOB ?");
-            buffer.append(" OR ");
-            buffer.append("UPPER(").append(ContactMethods.DATA).append(") GLOB ?");
-            args = new String[] { constraint.toString().toUpperCase() + "*",
-                    constraint.toString().toUpperCase() + "*" };
-        } else {
-            buffer.append("0");
-        }
-
-        String sort = Contacts.People.DEFAULT_SORT_ORDER + " LIMIT 20";
-        Cursor peopleCursor = mContent.query(Contacts.ContactMethods.CONTENT_EMAIL_URI,
-                PEOPLE_PROJECTION, buffer.toString(), args,
-                sort);
+        String filterParams = constraint == null ? "" : Uri.encode(constraint.toString());
+        Uri uri = Uri.withAppendedPath(Email.CONTENT_FILTER_URI, filterParams);
+        String sort = Email.TIMES_CONTACTED + " DESC LIMIT 20";
+        Cursor peopleCursor = mContent.query(uri, PEOPLE_PROJECTION,
+                null, null, sort);
         activity.startManagingCursor(peopleCursor);
 
         if(!completeSharedTags)
