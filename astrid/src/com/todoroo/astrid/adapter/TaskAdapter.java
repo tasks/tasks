@@ -548,6 +548,14 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
                     requestNewDetails(task);
                 }
+                if(taskDetailLoader.size() > 0) {
+                    activity.runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            notifyDataSetChanged();
+                        }
+                    });
+                }
             } catch (Exception e) {
                 // suppress silently
             } finally {
