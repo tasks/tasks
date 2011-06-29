@@ -32,7 +32,7 @@
         
     </LinearLayout>
         
-	<WebView android:id="@+id/browser"
+    <WebView android:id="@+id/browser"
         android:layout_weight="1"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"/>

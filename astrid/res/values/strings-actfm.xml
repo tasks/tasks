@@ -133,13 +133,16 @@
   share, and delegate with others. Perfect for personal use, friends, family, and coworkers!</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Login with Facebook</string>
+  <string name="actfm_ALA_fb_login">Facebook</string>
+
+  <!-- share login: Sharing Login GG Prompt -->
+  <string name="actfm_ALA_gg_login">Google</string>
 
   <!-- share login: Sharing Login Password Prompt -->
   <string name="actfm_ALA_pw_login">Login</string>
 
   <!-- share login: Sharing Sign Up Prompt -->
-  <string name="actfm_ALA_pw_signup">Sign Up</string>
+  <string name="actfm_ALA_pw_signup">Join Now</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
@@ -158,6 +161,9 @@
 
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>
+
+  <!-- share login: OAUTH Login Prompt -->
+  <string name="actfm_OLA_prompt">Please connect to Google:</string>
 
   <!-- share login: Sharing notice -->
   <string name="actfm_ALA_notice">We promise not to post messages or send

@@ -79,17 +79,31 @@
       android:textSize="16sp"
       android:text="@string/actfm_ALA_pw_login" />
             
-    <com.facebook.android.LoginButton
-      android:id="@+id/fb_login"
+    <LinearLayout
       android:layout_width="fill_parent"
-      android:layout_height="45dip"
+      android:layout_height="wrap_content"
       android:layout_above="@id/pw_login"
       android:layout_alignParentLeft="true"
-      android:layout_marginBottom="3dip"
-      android:paddingLeft="20dip"
-      android:paddingRight="20dip"
-      android:textSize="16sp"
-      android:drawableLeft="@drawable/facebook"
-      android:text="@string/actfm_ALA_fb_login" />
+      android:layout_marginBottom="3dip">
+      
+        <Button
+          android:id="@+id/gg_login"
+          android:layout_weight="1"
+          android:layout_width="fill_parent"
+          android:layout_height="45dip"
+          android:textSize="16sp"
+          android:drawableLeft="@drawable/google"
+          android:text="@string/actfm_ALA_gg_login" />
+      
+        <com.facebook.android.LoginButton
+          android:id="@+id/fb_login"
+          android:layout_weight="1"
+          android:layout_width="fill_parent"
+          android:layout_height="45dip"
+          android:textSize="16sp"
+          android:drawableLeft="@drawable/facebook"
+          android:text="@string/actfm_ALA_fb_login" />
+      
+    </LinearLayout>
             
   </RelativeLayout>

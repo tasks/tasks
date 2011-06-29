@@ -21,7 +21,9 @@ package com.todoroo.astrid.actfm;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
+import java.security.NoSuchAlgorithmException;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +37,6 @@ import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
@@ -57,6 +58,7 @@ import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
@@ -76,6 +78,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
     public static final String APP_ID = "183862944961271"; //$NON-NLS-1$
 
+    @Autowired ExceptionService exceptionService;
     @Autowired TaskService taskService;
     @Autowired ActFmPreferenceService actFmPreferenceService;
     private final ActFmInvoker actFmInvoker = new ActFmInvoker();
@@ -87,7 +90,8 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
     // --- ui initialization
 
-    private static final int REQUEST_CODE_GOOGLE = 1;
+    private static final int REQUEST_CODE_GOOGLE_ACCOUNTS = 1;
+    private static final int REQUEST_CODE_OAUTH = 2;
 
     static {
         AstridDependencyInjector.initialize();
@@ -122,6 +126,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                 "publish_stream"
         });
 
+        findViewById(R.id.gg_login).setOnClickListener(googleListener);
         findViewById(R.id.pw_signup).setOnClickListener(signUpListener);
         findViewById(R.id.pw_login).setOnClickListener(loginListener);
 
@@ -134,6 +139,23 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     }
 
     // --- event handler
+
+    private final OnClickListener googleListener = new OnClickListener() {
+        @Override
+        @SuppressWarnings("nls")
+        public void onClick(View arg0) {
+            Intent intent = new Intent(ActFmLoginActivity.this, OAuthLoginActivity.class);
+            try {
+                String url = actFmInvoker.createFetchUrl("user_oauth", "provider", "google");
+                intent.putExtra(OAuthLoginActivity.URL_TOKEN, url);
+                startActivityForResult(intent, REQUEST_CODE_OAUTH);
+            } catch (UnsupportedEncodingException e) {
+                handleError(e);
+            } catch (NoSuchAlgorithmException e) {
+                handleError(e);
+            }
+        }
+    };
 
     private final OnClickListener signUpListener = new OnClickListener() {
         @Override
@@ -292,7 +314,6 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
     // --- utilities
 
-    @SuppressWarnings("nls")
     public void authenticate(String email, String name, String provider, String secret) {
         if(progressDialog == null)
             progressDialog = DialogUtilities.progressDialog(this, getString(R.string.DLG_please_wait));
@@ -300,24 +321,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         try {
             JSONObject result = actFmInvoker.authenticate(email, name, provider, secret);
             String token = actFmInvoker.getToken();
-            actFmPreferenceService.setToken(token);
-
-            if(Preferences.getStringValue(R.string.actfm_APr_interval_key) == null)
-                Preferences.setStringFromInteger(R.string.actfm_APr_interval_key, 3600);
-
-            Preferences.setLong(ActFmPreferenceService.PREF_USER_ID,
-                    result.optLong("id"));
-            Preferences.setString(ActFmPreferenceService.PREF_NAME, result.optString("name"));
-            Preferences.setString(ActFmPreferenceService.PREF_EMAIL, result.optString("email"));
-            Preferences.setString(ActFmPreferenceService.PREF_PICTURE, result.optString("picture"));
-
-            C2DMReceiver.register();
-
-            setResult(RESULT_OK);
-            finish();
-
-            if(!noSync)
-                synchronize();
+            postAuthenticate(result, token);
         } catch (IOException e) {
             handleError(e);
         } finally {
@@ -325,9 +329,36 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         }
     }
 
+    @SuppressWarnings("nls")
+    private void postAuthenticate(JSONObject result, String token) {
+        actFmPreferenceService.setToken(token);
+
+        if(Preferences.getStringValue(R.string.actfm_APr_interval_key) == null)
+            Preferences.setStringFromInteger(R.string.actfm_APr_interval_key, 3600);
+
+        Preferences.setLong(ActFmPreferenceService.PREF_USER_ID,
+                result.optLong("id"));
+        Preferences.setString(ActFmPreferenceService.PREF_NAME, result.optString("name"));
+        Preferences.setString(ActFmPreferenceService.PREF_EMAIL, result.optString("email"));
+        Preferences.setString(ActFmPreferenceService.PREF_PICTURE, result.optString("picture"));
+
+        setResult(RESULT_OK);
+        finish();
+
+        if(!noSync)
+            synchronize();
+
+        try {
+            C2DMReceiver.register();
+        } catch (Exception e) {
+            // phone may not support c2dm
+            exceptionService.reportError("error-c2dm-register", e);
+        }
+    }
+
     private void handleError(final Throwable e) {
         DialogUtilities.dismissDialog(this, progressDialog);
-        Log.e("astrid-sharing", "error-doing-sla", e); //$NON-NLS-1$ //$NON-NLS-2$
+        exceptionService.reportError("astrid-sharing-login", e); //$NON-NLS-1$
 
         runOnUiThread(new Runnable() {
             @Override
@@ -349,7 +380,11 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     @Override
     protected void onActivityResult(int requestCode, int resultCode,
                                     Intent data) {
-        if(requestCode == REQUEST_CODE_GOOGLE){
+
+        if(resultCode == RESULT_CANCELED)
+            return;
+
+        if(requestCode == REQUEST_CODE_GOOGLE_ACCOUNTS){
             String accounts[] = data.getExtras().getStringArray(GoogleLoginServiceConstants.ACCOUNTS_KEY);
             credentialsListener.getCredentials(accounts);
         } else if(requestCode == LoginButton.REQUEST_CODE_FACEBOOK) {
@@ -370,6 +405,14 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                 onFBAuthSucceed();
             }
             errors.setVisibility(View.GONE);
+        } else if(requestCode == REQUEST_CODE_OAUTH) {
+            String result = data.getStringExtra(OAuthLoginActivity.DATA_RESPONSE);
+            try {
+                JSONObject json = new JSONObject(result);
+                postAuthenticate(json, json.getString("token"));
+            } catch (JSONException e) {
+                handleError(e);
+            }
         }
     }
     public interface OnGetCredentials {
@@ -383,7 +426,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         if(Integer.parseInt(Build.VERSION.SDK) >= 7)
             credentialsListener.getCredentials(ModernAuthManager.getAccounts(this));
         else
-            GoogleLoginServiceHelper.getAccount(this, REQUEST_CODE_GOOGLE, false);
+            GoogleLoginServiceHelper.getAccount(this, REQUEST_CODE_GOOGLE_ACCOUNTS, false);
     }
 
 }

@@ -148,7 +148,7 @@ public class ActFmInvoker {
      * @throws UnsupportedEncodingException
      * @throws NoSuchAlgorithmException
      */
-    private String createFetchUrl(String method, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public String createFetchUrl(String method, Object... getParameters) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         ArrayList<Pair<String, Object>> params = new ArrayList<Pair<String, Object>>();
         for(int i = 0; i < getParameters.length; i += 2) {
             if(getParameters[i+1] instanceof ArrayList) {
