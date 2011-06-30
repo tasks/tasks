@@ -430,6 +430,29 @@ public final class ActFmSyncService {
     }
 
     /**
+     * Get details for this task
+     * @param task
+     * @throws IOException
+     * @throws JSONException
+     */
+    public void fetchTask(Task task) throws IOException, JSONException {
+        JSONObject result;
+        if(!checkForToken())
+            return;
+
+        if(task.getValue(TagData.REMOTE_ID) == 0)
+            return;
+        result = actFmInvoker.invoke("task_show", "id", task.getValue(Task.REMOTE_ID),
+                    "token", token);
+
+        ArrayList<Metadata> metadata = new ArrayList<Metadata>();
+        JsonHelper.taskFromJson(result, task, metadata);
+        Flags.set(Flags.SUPPRESS_SYNC);
+        taskService.save(task);
+        metadataService.synchronizeMetadata(task.getId(), metadata, Metadata.KEY.eq(TagService.KEY));
+    }
+
+    /**
      * Fetch all tags
      */
     public void fetchTags() throws JSONException, IOException {
