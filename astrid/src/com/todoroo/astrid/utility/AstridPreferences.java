@@ -14,6 +14,8 @@ public class AstridPreferences {
 
     private static final String P_CURRENT_VERSION = "cv"; //$NON-NLS-1$
 
+    public static final String P_FIRST_ACTION = "fa"; //$NON-NLS-1$
+
     /** Set preference defaults, if unset. called at startup */
     public static void setPreferenceDefaults() {
         Context context = ContextManager.getContext();

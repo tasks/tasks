@@ -22,6 +22,7 @@ import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.reminders.Notifications;
 import com.todoroo.astrid.reminders.ReminderService;
 import com.todoroo.astrid.service.StatisticsService;
+import com.todoroo.astrid.utility.AstridPreferences;
 
 /**
  * Data Access layer for {@link Task}-related operations.
@@ -201,8 +202,14 @@ public class TaskDao extends DatabaseDao<Task> {
 
         ContentValues values = item.getSetValues();
         boolean result = super.createNew(item);
-        if(result)
+        if(result) {
+            StatisticsService.reportEvent("dao-task-created"); //$NON-NLS-1$
+            if(Preferences.getBoolean(AstridPreferences.P_FIRST_ACTION, true)) {
+                StatisticsService.reportEvent("user-first-task"); //$NON-NLS-1$
+                Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, false);
+            }
             afterSave(item, values);
+        }
         return result;
     }
 
@@ -271,7 +278,6 @@ public class TaskDao extends DatabaseDao<Task> {
      * @param values
      */
     private static void afterComplete(Task task, ContentValues values) {
-        StatisticsService.reportEvent("task-completed"); //$NON-NLS-1$
         Notifications.cancelNotifications(task.getId());
     }
 

@@ -73,6 +73,7 @@ import com.todoroo.astrid.helper.TaskAdapterAddOnManager;
 import com.todoroo.astrid.notes.NotesDecorationExposer;
 import com.todoroo.astrid.notes.NotesPlugin;
 import com.todoroo.astrid.service.StartupService;
+import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.timers.TimerDecorationExposer;
 import com.todoroo.astrid.utility.Constants;
@@ -1033,6 +1034,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
 
             if(onCompletedTaskListener != null)
                 onCompletedTaskListener.onCompletedTask(task, newState);
+
+            if(newState)
+                StatisticsService.reportEvent("task-completed-v2"); //$NON-NLS-1$
         }
     }
 
