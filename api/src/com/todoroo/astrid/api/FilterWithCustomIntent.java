@@ -10,7 +10,6 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.todoroo.andlib.sql.QueryTemplate;
-import com.todoroo.astrid.activity.TaskListActivity;
 
 public class FilterWithCustomIntent extends Filter {
 
@@ -40,7 +39,7 @@ public class FilterWithCustomIntent extends Filter {
 
     public void start(Context context) {
         Intent intent = new Intent();
-        intent.putExtra(TaskListActivity.TOKEN_FILTER, this);
+        intent.putExtra("filter", this); //$NON-NLS-1$
         intent.setComponent(customTaskList);
         if(customExtras != null)
             intent.putExtras(customExtras);
