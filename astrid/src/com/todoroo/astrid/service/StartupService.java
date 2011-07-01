@@ -37,8 +37,8 @@ import com.todoroo.astrid.backup.BackupService;
 import com.todoroo.astrid.backup.TasksXmlImporter;
 import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
-import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.opencrx.OpencrxCoreUtils;
 import com.todoroo.astrid.producteev.ProducteevUtilities;
 import com.todoroo.astrid.reminders.ReminderStartupReceiver;
 import com.todoroo.astrid.utility.AstridPreferences;
@@ -190,6 +190,7 @@ public class StartupService {
      */
     private void onFirstTime() {
         final Resources r = ContextManager.getResources();
+        Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, true);
 
         try {
             new Thread(new Runnable() {

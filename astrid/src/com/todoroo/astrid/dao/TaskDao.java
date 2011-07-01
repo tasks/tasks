@@ -204,7 +204,7 @@ public class TaskDao extends DatabaseDao<Task> {
         boolean result = super.createNew(item);
         if(result) {
             StatisticsService.reportEvent("dao-task-created"); //$NON-NLS-1$
-            if(Preferences.getBoolean(AstridPreferences.P_FIRST_ACTION, true)) {
+            if(Preferences.getBoolean(AstridPreferences.P_FIRST_ACTION, false)) {
                 StatisticsService.reportEvent("user-first-task"); //$NON-NLS-1$
                 Preferences.setBoolean(AstridPreferences.P_FIRST_ACTION, false);
             }
