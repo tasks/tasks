@@ -26,6 +26,11 @@ public class Flags {
      */
     public static final int SUPPRESS_SYNC = 1 << 3;
 
+    /**
+     * If set, indicates save hooks should be suppressed
+     */
+    public static final int SUPPRESS_HOOKS = 1 << 4;
+
     public static boolean checkAndClear(int flag) {
         boolean set = (state & flag) > 0;
         state &= ~flag;

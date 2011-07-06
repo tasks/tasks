@@ -18,6 +18,7 @@ import com.todoroo.astrid.dao.TaskDao;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
+import com.todoroo.astrid.utility.Flags;
 
 public class RepeatTests extends DatabaseTestCase {
 
@@ -51,14 +52,11 @@ public class RepeatTests extends DatabaseTestCase {
     }
 
     private void saveAndTriggerRepeatListener(Task task) {
+        Flags.set(Flags.SUPPRESS_HOOKS);
         if(task.isSaved())
             taskDao.saveExisting(task);
         else
             taskDao.createNew(task);
-
-        TodorooCursor<Task> query = taskDao.query(Query.select(Task.PROPERTIES));
-        System.err.println("START TRIGGER REPEAT LISTENER - " + query.getCount());
-        query.close();
 
         Intent intent = new Intent(AstridApiConstants.BROADCAST_EVENT_TASK_COMPLETED);
         intent.putExtra(AstridApiConstants.EXTRAS_TASK_ID, task.getId());
