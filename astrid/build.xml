@@ -143,13 +143,14 @@
     </target>
 
     <!-- jar signing -->
-    <target name="-release-nosign" description="override to set signature">
+    <target name="-release-prompt-for-password" description="override to set signature">
       <property file="${signjar.passfile}" /> <echo message="${signjar.passfile}" />
       <property name="key.alias" value="${signjar.keyalias}" />
       <property name="key.store" value="${signjar.keystore}" />
       <property name="key.alias.password" value="${signjar.password}" />
       <property name="key.store.password" value="${signjar.password}" />
       <property name="key.alias" value="${signjar.keyalias}" />
+      <property name="has.keystore" value="true" />
     </target>
 
     <target name="disable-market" if="custom.market.disabled">

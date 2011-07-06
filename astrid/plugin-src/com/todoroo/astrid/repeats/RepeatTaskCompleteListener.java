@@ -54,6 +54,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 return;
             }
 
+            System.err.println("REPEATING, time to clonear");
             StatisticsService.reportEvent("v2-task-repeat"); //$NON-NLS-1$
 
             long hideUntil = task.getValue(Task.HIDE_UNTIL);
