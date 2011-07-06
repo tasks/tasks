@@ -34,21 +34,14 @@
          should be checked in in Version Control Systems. -->
     <property file="default.properties" />
 
+    <!-- Required pre-setup import -->
+    <import file="${sdk.dir}/tools/ant/pre_setup.xml" />
+
     <taskdef resource="net/sf/antcontrib/antlib.xml">
       <classpath>
         <pathelement location="antlib/ant-contrib-1.0b3.jar"/>
       </classpath>
     </taskdef>
-
-    <!-- Custom Android task to deal with the project target, and import the proper rules.
-         This requires ant 1.6.0 or above. -->
-    <path id="android.antlibs">
-        <pathelement path="${sdk.dir}/tools/lib/anttasks.jar" />
-        <pathelement path="${sdk.dir}/tools/lib/sdklib.jar" />
-        <pathelement path="${sdk.dir}/tools/lib/androidprefs.jar" />
-        <pathelement path="${sdk.dir}/tools/lib/apkbuilder.jar" />
-        <pathelement path="${sdk.dir}/tools/lib/jarutils.jar" />
-    </path>
 
     <taskdef name="setup"
         classname="com.android.ant.SetupTask"
@@ -69,6 +62,11 @@
          build steps are used.
     -->
     <setup />
+
+    <!-- pre-build steps -->
+
+    <target name="-pre-build" depends="clean, get-version, copy-sources, updatekeys, updatekeys-release, disable-market">
+    </target>
 
     <target name="copy-sources">
       <!-- amalgamate sources -->
@@ -96,7 +94,6 @@
       <echo message="Astrid: version ${manifest.version.code}, named ${manifest.version.name}" />
     </target>
       
-    <!-- check for files with warnings -->
     <target name="warnings">
       <echo>====== context classes without setContext =====</echo>
       <exec executable="sh">
@@ -111,20 +108,13 @@
       </exec>
     </target>
 
-    <target name="debug" depends="clean, copy-sources, updatekeys, android_rules.debug">
-    </target>
-
     <!-- post build: rename apk -->
-    <target name="release" depends="clean, get-version, copy-sources, warnings, updatekeys, updatekeys-release, disable-market, android_rules.release">
+    <target name="release" depends="android_rules.release">
       <mkdir dir="../release" />
       <property name="out.final.package"
                 location="../release/${ant.project.name}-${manifest.version.code}-${manifest.version.name}-release.apk" />
-      <antcall target="signjar">
-        <param name="source"
-               value="${out.absolute.dir}/${ant.project.name}-unsigned.apk" />
-        <param name="dest"
-               value="${out.final.package}" />
-      </antcall>
+      <copy file="${out.release.file}"
+            tofile="${out.final.package}" />
 
       <echo>Final Release Package: ${out.final.package}</echo>
     </target>
@@ -144,7 +134,8 @@
     </target>
 
     <!-- update api keys that require release signing -->
-    <target name="updatekeys-release" description="update release-only api key values">
+    <target name="updatekeys-release" if="build.mode.release" 
+            description="update release-only api key values">
       <property file="${apikey.keyfile}" />
       <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/ActFmLoginActivity.java"
                      match="APP_ID = .*"
@@ -152,18 +143,13 @@
     </target>
 
     <!-- jar signing -->
-    <target name="signjar" description="signs the jar">
-      <fail unless="source" message="need {source} to sign (jar base name)" />
+    <target name="-release-nosign" description="override to set signature">
       <property file="${signjar.passfile}" /> <echo message="${signjar.passfile}" />
-      <signjar alias="${signjar.keyalias}" keystore="${signjar.keystore}"
-               storepass="${signjar.password}" jar="${source}"
-               signedjar="${source}-unaligned" />
-      <exec executable="${sdk.dir}/tools/zipalign" failonerror="true">
-        <arg value="-f" />
-        <arg value="4" />
-        <arg value="${source}-unaligned" />
-        <arg value="${dest}" />
-      </exec>
+      <property name="key.alias" value="${signjar.keyalias}" />
+      <property name="key.store" value="${signjar.keystore}" />
+      <property name="key.alias.password" value="${signjar.password}" />
+      <property name="key.store.password" value="${signjar.password}" />
+      <property name="key.alias" value="${signjar.keyalias}" />
     </target>
 
     <target name="disable-market" if="custom.market.disabled">
