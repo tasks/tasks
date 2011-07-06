@@ -4,6 +4,8 @@
 
 package com.todoroo.astrid.service;
 
+import java.util.HashMap;
+
 import android.content.Context;
 
 import com.localytics.android.LocalyticsSession;
@@ -71,12 +73,19 @@ public class StatisticsService {
      * Indicates an event should be reported
      * @param event
      */
-    public static void reportEvent(String event) {
+    public static void reportEvent(String event, String... attributes) {
         if(dontCollectStatistics())
             return;
 
-        if(localyticsSession != null)
-            localyticsSession.tagEvent(event);
+        if(localyticsSession != null) {
+            if(attributes.length > 0) {
+                HashMap<String, String> attrMap = new HashMap<String, String>();
+                for(int i = 1; i < attributes.length; i += 2)
+                    attrMap.put(attributes[i-1], attributes[i]);
+                localyticsSession.tagEvent(event, attrMap);
+            } else
+                localyticsSession.tagEvent(event);
+        }
     }
 
     private static boolean dontCollectStatistics() {

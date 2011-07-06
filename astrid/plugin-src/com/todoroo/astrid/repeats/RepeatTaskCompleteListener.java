@@ -54,7 +54,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 return;
             }
 
-            StatisticsService.reportEvent("task-repeated"); //$NON-NLS-1$
+            StatisticsService.reportEvent("v2-task-repeat"); //$NON-NLS-1$
 
             long hideUntil = task.getValue(Task.HIDE_UNTIL);
             if(hideUntil > 0 && task.getValue(Task.DUE_DATE) > 0) {

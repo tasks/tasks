@@ -178,8 +178,8 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
     // ----------------------------------------------------------------------
 
     protected void performSync() {
-        StatisticsService.reportEvent("pdv-started");
         preferences.recordSyncStart();
+        boolean syncSuccess = false;
 
         try {
             // load user information
@@ -242,11 +242,14 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             // notification/activities stuff
             processNotifications();
 
-            StatisticsService.reportEvent("pdv-sync-finished"); //$NON-NLS-1$
+            syncSuccess = true;
         } catch (IllegalStateException e) {
         	// occurs when application was closed
         } catch (Exception e) {
             handleException("pdv-sync", e, true); //$NON-NLS-1$
+        } finally {
+            StatisticsService.reportEvent("pdv-sync-finished",
+                    "success", Boolean.toString(syncSuccess)); //$NON-NLS-1$
         }
     }
 
