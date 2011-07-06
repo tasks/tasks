@@ -1,66 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="astrid-test" default="help">
 
-    <!-- The local.properties file is created and updated by the 'android' tool.
-         It contains the path to the SDK. It should *NOT* be checked in in Version
-         Control Systems. -->
+<!-- The local.properties file is created and updated by the 'android'
+     tool.
+     It contains the path to the SDK. It should *NOT* be checked into
+     Version Control Systems. -->
     <property file="local.properties" />
 
     <!-- The build.properties file can be created by you and is never touched
-         by the 'android' tool. This is the place to change some of the default property values
-         used by the Ant rules.
+         by the 'android' tool. This is the place to change some of the
+         default property values used by the Ant rules.
          Here are some properties you may want to change/update:
 
-         application.package
-             the name of your application package as defined in the manifest. Used by the
-             'uninstall' rule.
          source.dir
-             the name of the source directory. Default is 'src'.
+             The name of the source directory. Default is 'src'.
          out.dir
-             the name of the output directory. Default is 'bin'.
+             The name of the output directory. Default is 'bin'.
 
-         Properties related to the SDK location or the project target should be updated
-          using the 'android' tool with the 'update' action.
+         Properties related to the SDK location or the project target should
+         be updated using the 'android' tool with the 'update' action.
 
-         This file is an integral part of the build system for your application and
-         should be checked in in Version Control Systems.
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems.
 
          -->
     <property file="build.properties" />
 
-    <!-- The default.properties file is created and updated by the 'android' tool, as well
-         as ADT.
-         This file is an integral part of the build system for your application and
-         should be checked in in Version Control Systems. -->
+    <!-- The default.properties file is created and updated by the 'android'
+         tool, as well as ADT.
+         This file is an integral part of the build system for your
+         application and should be checked into Version Control Systems. -->
     <property file="default.properties" />
 
-    <!-- Custom Android task to deal with the project target, and import the proper rules.
-         This requires ant 1.6.0 or above. -->
-    <path id="android.antlibs">
-        <pathelement path="${sdk.dir}/tools/lib/anttasks.jar" />
-        <pathelement path="${sdk.dir}/tools/lib/sdklib.jar" />
-        <pathelement path="${sdk.dir}/tools/lib/androidprefs.jar" />
-        <pathelement path="${sdk.dir}/tools/lib/apkbuilder.jar" />
-        <pathelement path="${sdk.dir}/tools/lib/jarutils.jar" />
-    </path>
 
-    <taskdef name="setup"
-        classname="com.android.ant.SetupTask"
-        classpathref="android.antlibs" />
+    <!-- Required pre-setup import -->
+    <import file="${sdk.dir}/tools/ant/pre_setup.xml" />
 
-    <!-- Execute the Android Setup task that will setup some properties specific to the target,
-         and import the build rules files.
+    <!-- Execute the Android Setup task that will setup some properties
+         specific to the target, and import the build rules files.
 
          The rules file is imported from
-            <SDK>/platforms/<target_platform>/templates/android_rules.xml
+            <SDK>/tools/ant/
+         Depending on the project type it can be either:
+         - main_rules.xml
+         - lib_rules.xml
+         - test_rules.xml
 
-         To customize some build steps for your project:
-         - copy the content of the main node <project> from android_rules.xml
-         - paste it in this build.xml below the <setup /> task.
-         - disable the import by changing the setup task below to <setup import="false" />
-
-         This will ensure that the properties are setup correctly but that your customized
-         build steps are used.
+         To customize existing targets, there are two options:
+         - Customize only one target:
+             - copy/paste the target into this file, *before* the
+               <setup> task.
+             - customize it to your needs.
+         - Customize the whole script.
+             - copy/paste the content of the rules files (minus the top node)
+               into this file, *after* the <setup> task
+             - disable the import of the rules by changing the setup task
+               below to <setup import="false" />.
+             - customize to your needs.
     -->
     <setup />
 
@@ -71,15 +67,13 @@
       <echo>   coverage:  Run tests and dump emma coverage reports.</echo>
     </target>
     
-    <target name="coverage" depends="-prepare-coverage-source">
-      <antcall target="android-coverage">
-        <param name="source.dir" value="bin/source" />
-      </antcall>
+    <target name="coverage" depends="android_test_rules.coverage">
+      <antcall target="pull-emma-reports" />
       <antcall target="pull-junit" />
     </target>
 
     <target name="-prepare-coverage-source">
-      <subant target="help">
+      <subant target="copy-sources">
         <fileset file="${tested.project.absolute.dir}/build.xml" />
       </subant>
       <copy todir="${tested.project.absolute.dir}/bin/source">
@@ -102,67 +96,32 @@
       </exec>
     </target>
 
-    <!-- clone of android coverage target with extra purposes:
-         1. generate emma xml report
-         2. use adb device arg to pull coverage file
-      -->
-    <target name="android-coverage" depends="-set-coverage-classpath, -install-instrumented, install"
-                description="Runs the tests against the instrumented code and generates
-                            code coverage report">
-        <run-tests-helper emma.enabled="true">
-            <extra-instrument-args>
-                <arg value="-e" />
-                   <arg value="coverageFile" />
-                   <arg value="${emma.dump.file}" />
-            </extra-instrument-args>
-        </run-tests-helper>
-        <echo>Downloading coverage file into project directory...</echo>
-        <exec executable="${adb}" failonerror="true">
-          <arg line="${adb.device.arg}"/>
-          <arg value="pull" />
-          <arg value="${emma.dump.file}" />
-          <arg value="coverage.ec" />
-        </exec>
-        <echo>Extracting coverage report...</echo>
-        <mkdir dir="${reports.dir}" />
-        <emma>
-            <report sourcepath="${tested.project.absolute.dir}/${source.dir}"
-                              verbosity="${verbosity}">
-                <!-- TODO: report.dir or something like should be introduced if necessary -->
-                <infileset dir=".">
-                    <include name="coverage.ec" />
-                    <include name="coverage.em" />
-                </infileset>
-                <!-- TODO: reports in other, indicated by user formats -->
-                <html outfile="${reports.dir}/coverage.html" encoding="UTF-8" />
-                <xml outfile="${reports.dir}/coverage.xml" />
-           </report>
-        </emma>
-        <echo>Cleaning up temporary files...</echo>
-        <delete dir="${instrumentation.absolute.dir}" />
-        <delete file="coverage.ec" />
-        <delete file="coverage.em" />
-        <echo>Saving the report file in ${basedir}/coverage/coverage.html</echo>
+    <target name="pull-emma-repots" depends="-prepare-coverage-source">
+      <echo>Downloading coverage file into project directory...</echo>
+      <exec executable="${adb}" failonerror="true">
+        <arg line="${adb.device.arg}"/>
+        <arg value="pull" />
+        <arg value="${emma.dump.file}" />
+        <arg value="coverage.ec" />
+      </exec>
+      <echo>Extracting coverage report...</echo>
+      <mkdir dir="${reports.dir}" />
+      <emma>
+        <report sourcepath="${tested.project.absolute.dir}/${source.dir}"
+                verbosity="${verbosity}">
+          <infileset dir=".">
+            <include name="coverage.ec" />
+            <include name="coverage.em" />
+          </infileset>
+          <html outfile="coverage.html" encoding="UTF-8" />
+          <xml outfile="${reports.dir}/coverage.xml" />
+        </report>
+      </emma>
+      <echo>Cleaning up temporary files...</echo>
+      <delete dir="${instrumentation.absolute.dir}" />
+      <delete file="coverage.ec" />
+      <delete file="coverage.em" />
+      <echo>Saving the report file in ${basedir}/coverage/coverage.[html/xml]</echo>
     </target>
-
-    <macrodef name="run-tests-helper">
-        <attribute name="emma.enabled" default="false" />
-        <element name="extra-instrument-args" optional="yes" />
-        <sequential>
-            <echo>Running tests ...</echo>
-            <exec executable="${adb}" failonerror="true">
-              <arg line="${adb.device.arg}"/>
-                <arg value="shell" />
-                <arg value="am" />
-                   <arg value="instrument" />
-                <arg value="-w" />
-                <arg value="-e" />
-                   <arg value="coverage" />
-                   <arg value="@{emma.enabled}" />
-                <extra-instrument-args />
-                <arg value="${manifest.package}/${test.runner}" />
-            </exec>
-        </sequential>
-    </macrodef>
-
+    
 </project>
