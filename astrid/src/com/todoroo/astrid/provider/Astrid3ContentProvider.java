@@ -31,7 +31,6 @@ import com.todoroo.astrid.data.StoreObject;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.TaskApiDao;
 import com.todoroo.astrid.service.AstridDependencyInjector;
-import com.todoroo.astrid.service.StatisticsService;
 
 /**
  * Astrid 3 Content Provider. There are two ways to use this content provider:
@@ -325,10 +324,6 @@ public class Astrid3ContentProvider extends ContentProvider {
                 helper.model.setId(id);
                 helper.update();
                 helper.model.clear();
-
-                if(values.containsKey(Task.COMPLETION_DATE.name) &&
-                        values.getAsLong(Task.COMPLETION_DATE.name) > 0)
-                    StatisticsService.reportEvent("task-completed-api3");
             }
 
             getContext().getContentResolver().notifyChange(uri, null);
