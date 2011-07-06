@@ -10,6 +10,7 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.todoroo.andlib.data.TodorooCursor;
@@ -29,7 +30,6 @@ import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
-import com.todoroo.astrid.core.CoreFilterExposer;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
@@ -69,16 +69,79 @@ public class C2DMReceiver extends BroadcastReceiver {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
-                    handleMessage(intent);
+                    if(intent.hasExtra("web_update"))
+                        handleWebUpdate(intent);
+                    else
+                        handleMessage(intent);
                 }
             }).start();
          }
      }
 
+    // --- web update handling
+
+    /** Handle web task or list changed */
+    protected void handleWebUpdate(Intent intent) {
+        try {
+            if(intent.hasExtra("tag_id")) {
+                TodorooCursor<TagData> cursor = tagDataService.query(
+                        Query.select(TagData.PROPERTIES).where(TagData.REMOTE_ID.eq(
+                                intent.getStringExtra("tag_id"))));
+                try {
+                    TagData tagData = new TagData();
+                    if(cursor.getCount() == 0) {
+                        tagData.setValue(Task.REMOTE_ID, Long.parseLong(intent.getStringExtra("tag_id")));
+                        Flags.set(Flags.SUPPRESS_SYNC);
+                        tagDataService.save(tagData);
+                    } else {
+                        cursor.moveToNext();
+                        tagData.readFromCursor(cursor);
+                    }
+
+                    actFmSyncService.fetchTag(tagData);
+                } finally {
+                    cursor.close();
+                }
+            } else if(intent.hasExtra("task_id")) {
+                TodorooCursor<Task> cursor = taskService.query(
+                        Query.select(Task.PROPERTIES).where(Task.REMOTE_ID.eq(
+                                intent.getStringExtra("task_id"))));
+                try {
+                    final Task task = new Task();
+                    if(cursor.getCount() == 0) {
+                        task.setValue(Task.REMOTE_ID, Long.parseLong(intent.getStringExtra("task_id")));
+                        Flags.set(Flags.SUPPRESS_SYNC);
+                        taskService.save(task);
+                    } else {
+                        cursor.moveToNext();
+                        task.readFromCursor(cursor);
+                    }
+
+                    actFmSyncService.fetchTask(task);
+                } finally {
+                    cursor.close();
+                }
+            }
+
+            Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
+            ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
+
+        } catch (IOException e) {
+            Log.e("c2dm-tag-rx", "io-exception", e);
+            return;
+        } catch (JSONException e) {
+            Log.e("c2dm-tag-rx", "json-exception", e);
+        }
+    }
+
+    // --- message handling
+
     /** Handle message. Run on separate thread. */
     private void handleMessage(Intent intent) {
         String message = intent.getStringExtra("alert");
         Context context = ContextManager.getContext();
+        if(TextUtils.isEmpty(message))
+            return;
 
         long lastNotification = Preferences.getLong(PREF_LAST_C2DM, 0);
         if(DateUtilities.now() - lastNotification < 5000L)
@@ -95,11 +158,8 @@ public class C2DMReceiver extends BroadcastReceiver {
             notifyIntent = createTaskIntent(intent);
             notifId = (int) Long.parseLong(intent.getStringExtra("task_id"));
         } else {
-            notifId = Constants.NOTIFICATION_ACTFM;
+            return;
         }
-
-        if(notifyIntent == null)
-            notifyIntent = ShortcutActivity.createIntent(CoreFilterExposer.buildInboxFilter(context.getResources()));
 
         notifyIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         notifyIntent.putExtra(TaskListActivity.TOKEN_SOURCE, Constants.SOURCE_C2DM);
@@ -125,7 +185,6 @@ public class C2DMReceiver extends BroadcastReceiver {
             notification.defaults |= Notification.DEFAULT_SOUND;
             notification.defaults |= Notification.DEFAULT_VIBRATE;
         }
-
         nm.notify(notifId, notification);
 
         if(intent.hasExtra("tag_id")) {
@@ -154,9 +213,9 @@ public class C2DMReceiver extends BroadcastReceiver {
                         try {
                             actFmSyncService.fetchTask(task);
                         } catch (IOException e) {
-                            Log.e("c2dm-tag-rx", "io-exception", e);
+                            Log.e("c2dm-task-rx", "io-exception", e);
                         } catch (JSONException e) {
-                            Log.e("c2dm-tag-rx", "json-exception", e);
+                            Log.e("c2dm-task-rx", "json-exception", e);
                         }
                     }
                 }).start();
