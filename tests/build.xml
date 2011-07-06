@@ -64,6 +64,13 @@
     -->
     <setup />
 
+    <target name="help">
+      <echo>Astrid Unit Test Build. Available targets:</echo>
+      <echo>   help:      Displays this help.</echo>
+      <echo>   run-tests: Run unit tests.</echo>
+      <echo>   coverage:  Run tests and dump emma coverage reports.</echo>
+    </target>
+    
     <target name="coverage" depends="-prepare-coverage-source">
       <antcall target="android-coverage">
         <param name="source.dir" value="bin/source" />
