@@ -323,9 +323,10 @@ public final class Task extends RemoteModel {
     public static final int URGENCY_TOMORROW = 2;
     public static final int URGENCY_DAY_AFTER = 3;
     public static final int URGENCY_NEXT_WEEK = 4;
-    public static final int URGENCY_NEXT_MONTH = 5;
-    public static final int URGENCY_SPECIFIC_DAY = 6;
-    public static final int URGENCY_SPECIFIC_DAY_TIME = 7;
+    public static final int URGENCY_IN_TWO_WEEKS = 5;
+    public static final int URGENCY_NEXT_MONTH = 6;
+    public static final int URGENCY_SPECIFIC_DAY = 7;
+    public static final int URGENCY_SPECIFIC_DAY_TIME = 8;
 
     /** hide until array index -> significance */
     public static final int HIDE_UNTIL_NONE = 0;
@@ -344,7 +345,7 @@ public final class Task extends RemoteModel {
      * @param customDate
      *            if specific day or day & time is set, this value
      */
-    public long createDueDate(int setting, long customDate) {
+    public static long createDueDate(int setting, long customDate) {
         long date;
 
         switch(setting) {
@@ -362,6 +363,9 @@ public final class Task extends RemoteModel {
             break;
         case URGENCY_NEXT_WEEK:
             date = DateUtilities.now() + DateUtilities.ONE_WEEK;
+            break;
+        case URGENCY_IN_TWO_WEEKS:
+            date = DateUtilities.now() + 2 * DateUtilities.ONE_WEEK;
             break;
         case URGENCY_NEXT_MONTH:
             date = DateUtilities.oneMonthFromNow();
@@ -455,7 +459,7 @@ public final class Task extends RemoteModel {
      * Checks whether provided due date has a due time or only a date
      */
     public static boolean hasDueTime(long dueDate) {
-        return !isEndOfDay(new Date(dueDate));
+        return dueDate > 0 && !isEndOfDay(new Date(dueDate));
     }
 
 }

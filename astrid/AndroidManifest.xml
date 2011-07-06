@@ -433,9 +433,6 @@
     <activity android:name="com.todoroo.astrid.actfm.TagViewActivity"
               android:windowSoftInputMode="stateHidden"
               android:theme="@style/Theme" />
-    <activity android:name="com.todoroo.astrid.actfm.EditPeopleActivity"
-              android:windowSoftInputMode="stateHidden"
-              android:theme="@style/Theme" />            
     <receiver android:name="com.todoroo.astrid.actfm.EditPeopleExposer">
       <intent-filter>
         <action android:name="com.todoroo.astrid.REQUEST_ACTIONS" />

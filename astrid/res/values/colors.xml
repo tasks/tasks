@@ -21,6 +21,8 @@
     <color name="view_header_done">#ff44bb66</color>
     <color name="view_table_values">#ffbbbbbb</color>    
     <color name="view_table_overdue">#ffff0000</color>
+    
+    <color name="task_edit_selected">#438cb6</color>
 
 </resources>
 

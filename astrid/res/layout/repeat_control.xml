@@ -2,15 +2,11 @@
 <!-- See the file "LICENSE" for the full license governing this code. -->
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
     
-  <View
-      android:layout_width="fill_parent"
-      android:layout_height="1dip"
-      android:padding="5dip"
-      android:background="@android:drawable/divider_horizontal_dark" />
-  
   <CheckBox android:id="@+id/repeatEnabled"
       android:layout_width="fill_parent"
       android:layout_height="wrap_content"
+      android:layout_marginLeft="5dip"
+      android:button="@drawable/btn_check_small"
       android:text="@string/repeat_enabled"/>
       
   <LinearLayout android:id="@+id/repeatContainer"

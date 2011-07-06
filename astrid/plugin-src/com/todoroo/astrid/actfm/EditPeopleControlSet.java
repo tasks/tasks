@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -37,6 +36,7 @@ import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.actfm.sync.ActFmSyncService.JsonHelper;
+import com.todoroo.astrid.activity.TaskEditActivity.TaskEditControlSet;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.data.Metadata;
@@ -47,17 +47,14 @@ import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
-import com.todoroo.astrid.service.ThemeService;
 import com.todoroo.astrid.tags.TagService;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.ui.PeopleContainer.OnAddNewPersonListener;
 import com.todoroo.astrid.utility.Flags;
 
-public class EditPeopleActivity extends Activity {
+public class EditPeopleControlSet implements TaskEditControlSet {
 
     public static final String EXTRA_TASK_ID = "task"; //$NON-NLS-1$
-
-    private static final int REQUEST_LOG_IN = 0;
 
     private Task task;
 
@@ -87,41 +84,39 @@ public class EditPeopleActivity extends Activity {
 
     private final ArrayList<AssignedToUser> spinnerValues = new ArrayList<AssignedToUser>();
 
+    private Activity activity;
+
+    private String saveToast = null;
+
+    private int loginRequestCode;
+
     static {
         AstridDependencyInjector.initialize();
     }
 
-    public EditPeopleActivity() {
+    public EditPeopleControlSet() {
         DependencyInjectionService.getInstance().inject(this);
     }
 
     // --- UI initialization
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public EditPeopleControlSet(Activity activity, int loginRequestCode) {
+        this.activity = activity;
+        this.loginRequestCode = loginRequestCode;
 
-        setContentView(R.layout.edit_people_activity);
-        setTitle(getString(R.string.actfm_EPA_title));
-        ThemeService.applyTheme(this);
-
-        task = taskService.fetchById(
-                getIntent().getLongExtra(EXTRA_TASK_ID, 41L), Task.ID, Task.REMOTE_ID,
-                Task.TITLE, Task.USER, Task.USER_ID, Task.SHARED_WITH, Task.FLAGS);
-        if(task == null) {
-            finish();
-            return;
-        }
-
-        ((TextView) findViewById(R.id.title)).setText(task.getValue(Task.TITLE));
-        sharedWithContainer = (PeopleContainer) findViewById(R.id.share_container);
-        assignedCustom = (EditText) findViewById(R.id.assigned_custom);
-        assignedSpinner = (Spinner) findViewById(R.id.assigned_spinner);
-        cbFacebook = (CheckBox) findViewById(R.id.checkbox_facebook);
-        cbTwitter = (CheckBox) findViewById(R.id.checkbox_twitter);
+        sharedWithContainer = (PeopleContainer) activity.findViewById(R.id.share_container);
+        assignedCustom = (EditText) activity.findViewById(R.id.assigned_custom);
+        assignedSpinner = (Spinner) activity.findViewById(R.id.assigned_spinner);
+        cbFacebook = (CheckBox) activity.findViewById(R.id.checkbox_facebook);
+        cbTwitter = (CheckBox) activity.findViewById(R.id.checkbox_twitter);
 
         sharedWithContainer.addPerson(""); //$NON-NLS-1$
         setUpListeners();
+    }
+
+    @Override
+    public void readFromTask(Task sourceTask) {
+        task = sourceTask;
         setUpData();
     }
 
@@ -159,7 +154,7 @@ public class EditPeopleActivity extends Activity {
                             final String tag = metadata.getValue(TagService.TAG);
                             TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
                             if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0) {
-                                runOnUiThread(new Runnable() {
+                                activity.runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         TextView textView = sharedWithContainer.addPerson("#" + tag);
@@ -238,7 +233,7 @@ public class EditPeopleActivity extends Activity {
 
             String name = person.optString("name");
             if(id == 0)
-                name = getString(R.string.actfm_EPA_assign_me);
+                name = activity.getString(R.string.actfm_EPA_assign_me);
             AssignedToUser atu = new AssignedToUser(name, person);
             spinnerValues.add(atu);
             if(names.containsKey(name)) {
@@ -258,13 +253,13 @@ public class EditPeopleActivity extends Activity {
                 names.put(name, atu);
         }
 
-        spinnerValues.add(new AssignedToUser(getString(R.string.actfm_EPA_assign_custom), null));
+        spinnerValues.add(new AssignedToUser(activity.getString(R.string.actfm_EPA_assign_custom), null));
 
-        final ArrayAdapter<AssignedToUser> usersAdapter = new ArrayAdapter<AssignedToUser>(this,
+        final ArrayAdapter<AssignedToUser> usersAdapter = new ArrayAdapter<AssignedToUser>(activity,
                 android.R.layout.simple_spinner_item, spinnerValues);
         usersAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
-        runOnUiThread(new Runnable() {
+        activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 assignedSpinner.setAdapter(usersAdapter);
@@ -273,7 +268,7 @@ public class EditPeopleActivity extends Activity {
     }
 
     private void setUpListeners() {
-        final View assignedClear = findViewById(R.id.assigned_clear);
+        final View assignedClear = activity.findViewById(R.id.assigned_clear);
 
         assignedSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
             @Override
@@ -291,20 +286,6 @@ public class EditPeopleActivity extends Activity {
                 //
             }
         });
-        findViewById(R.id.discard).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        findViewById(R.id.discard).requestFocus();
-
-        findViewById(R.id.save).setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                save();
-            }
-        });
 
         assignedClear.setOnClickListener(new OnClickListener() {
             @Override
@@ -320,10 +301,10 @@ public class EditPeopleActivity extends Activity {
         sharedWithContainer.setOnAddNewPerson(new OnAddNewPersonListener() {
             @Override
             public void textChanged(String text) {
-                findViewById(R.id.share_additional).setVisibility(View.VISIBLE);
+                activity.findViewById(R.id.share_additional).setVisibility(View.VISIBLE);
                 if(text.indexOf('@') > -1) {
-                    findViewById(R.id.tag_label).setVisibility(View.VISIBLE);
-                    findViewById(R.id.tag_name).setVisibility(View.VISIBLE);
+                    activity.findViewById(R.id.tag_label).setVisibility(View.VISIBLE);
+                    activity.findViewById(R.id.tag_name).setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -331,48 +312,71 @@ public class EditPeopleActivity extends Activity {
 
     // --- events
 
-    /** Save sharing settings */
-    @SuppressWarnings("nls")
-    private void save() {
-        if(!actFmPreferenceService.isLoggedIn()) {
-            startActivityForResult(new Intent(this, ActFmLoginActivity.class),
-                    REQUEST_LOG_IN);
-            return;
-        }
+    @Override
+    public String writeToModel(Task model) {
+        // do nothing, we use a separate method
+        return null;
+    }
 
-        setResult(RESULT_OK);
-        Flags.set(Flags.REFRESH);
+    /**
+     * Save sharing settings
+     * @param toast toast to show after saving is finished
+     * @return false if login is required & save should be halted
+     */
+    @SuppressWarnings("nls")
+    public boolean saveSharingSettings(String toast) {
+        saveToast = toast;
+        boolean dirty = false;
         try {
             JSONObject userJson;
             if(assignedCustom.getVisibility() == View.VISIBLE)
                 userJson = PeopleContainer.createUserJson(assignedCustom);
             else
                 userJson = ((AssignedToUser) assignedSpinner.getSelectedItem()).user;
+
             if(userJson == null || userJson.optLong("id", -1) == 0) {
+                dirty = task.getValue(Task.USER_ID) == 0L ? dirty : true;
                 task.setValue(Task.USER_ID, 0L);
                 task.setValue(Task.USER, "{}");
             } else {
+                String user = userJson.toString();
+                dirty = task.getValue(Task.USER).equals(user) ? dirty : true;
                 task.setValue(Task.USER_ID, userJson.optLong("id", -1));
-                task.setValue(Task.USER, userJson.toString());
+                task.setValue(Task.USER, user);
             }
 
-            ArrayList<Metadata> metadata = new ArrayList<Metadata>(nonSharedTags);
-            JSONObject sharedWith = parseSharedWithAndTags(metadata);
+            JSONObject sharedWith = parseSharedWithAndTags();
+            dirty = sharedWith.has("p");
             task.setValue(Task.SHARED_WITH, sharedWith.toString());
 
-            metadataService.synchronizeMetadata(task.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
+            if(dirty)
+                taskService.save(task);
 
-            Flags.set(Flags.SUPPRESS_SYNC);
-            taskService.save(task);
-            shareTask(sharedWith, metadata);
+            if(dirty && !actFmPreferenceService.isLoggedIn()) {
+                activity.startActivityForResult(new Intent(activity, ActFmLoginActivity.class),
+                        loginRequestCode);
+                return false;
+            }
+
+            if(dirty)
+                shareTask(sharedWith);
+            else
+                showSaveToast();
+
+            return true;
         } catch (JSONException e) {
-            exceptionService.displayAndReportError(this, "save-people", e);
+            exceptionService.displayAndReportError(activity, "save-people", e);
         } catch (ParseSharedException e) {
             e.view.setTextColor(Color.RED);
             e.view.requestFocus();
-            System.err.println(e.message);
-            DialogUtilities.okDialog(this, e.message, null);
+            DialogUtilities.okDialog(activity, e.message, null);
         }
+        return false;
+    }
+
+    private void showSaveToast() {
+        int length = saveToast.indexOf('\n') > -1 ? Toast.LENGTH_LONG : Toast.LENGTH_SHORT;
+        Toast.makeText(activity, saveToast, length).show();
     }
 
     private class ParseSharedException extends Exception {
@@ -387,7 +391,7 @@ public class EditPeopleActivity extends Activity {
     }
 
     @SuppressWarnings("nls")
-    private JSONObject parseSharedWithAndTags(ArrayList<Metadata> metadata) throws
+    private JSONObject parseSharedWithAndTags() throws
             JSONException, ParseSharedException {
         JSONObject sharedWith = new JSONObject();
         if(cbFacebook.isChecked())
@@ -398,41 +402,29 @@ public class EditPeopleActivity extends Activity {
         JSONArray peopleList = new JSONArray();
         for(int i = 0; i < sharedWithContainer.getChildCount(); i++) {
             TextView textView = sharedWithContainer.getTextView(i);
-            textView.setTextAppearance(this, android.R.style.TextAppearance_Medium_Inverse);
+            textView.setTextAppearance(activity, android.R.style.TextAppearance_Medium_Inverse);
             String text = textView.getText().toString();
 
             if(text.length() == 0)
                 continue;
-            if(text.startsWith("#")) {
-                text = text.substring(1);
-                TagData tagData = tagDataService.getTag(text, TagData.REMOTE_ID);
-                if(tagData == null)
-                    throw new ParseSharedException(textView,
-                            getString(R.string.actfm_EPA_invalid_tag, text));
-                Metadata tag = new Metadata();
-                tag.setValue(Metadata.KEY, TagService.KEY);
-                tag.setValue(TagService.TAG, text);
-                tag.setValue(TagService.REMOTE_ID, tagData.getValue(TagData.REMOTE_ID));
-                metadata.add(tag);
 
-            } else {
-                if(text.indexOf('@') == -1)
-                    throw new ParseSharedException(textView,
-                            getString(R.string.actfm_EPA_invalid_email, text));
-                peopleList.put(text);
-            }
+            if(text.indexOf('@') == -1)
+                throw new ParseSharedException(textView,
+                        activity.getString(R.string.actfm_EPA_invalid_email, text));
+            peopleList.put(text);
         }
-        sharedWith.put("p", peopleList);
+        if(peopleList.length() > 0)
+            sharedWith.put("p", peopleList);
 
         return sharedWith;
     }
 
     @SuppressWarnings("nls")
-    private void shareTask(final JSONObject sharedWith, final ArrayList<Metadata> metadata) {
+    private void shareTask(final JSONObject sharedWith) {
         final JSONArray emails = sharedWith.optJSONArray("p");
 
-        final ProgressDialog pd = DialogUtilities.progressDialog(this,
-                getString(R.string.DLG_please_wait));
+        final ProgressDialog pd = DialogUtilities.progressDialog(activity,
+                activity.getString(R.string.DLG_please_wait));
         new Thread() {
             @Override
             public void run() {
@@ -444,12 +436,12 @@ public class EditPeopleActivity extends Activity {
                                 Task.REMOTE_ID).getValue(Task.REMOTE_ID));
                     }
                     if(task.getValue(Task.REMOTE_ID) == 0) {
-                        DialogUtilities.okDialog(EditPeopleActivity.this, "We had an error saving " +
+                        DialogUtilities.okDialog(activity, "We had an error saving " +
                                 "this task to Astrid.com. Could you let us know why this happened?", null);
                         return;
                     }
 
-                    Object[] args = buildSharingArgs(emails, metadata);
+                    Object[] args = buildSharingArgs(emails);
                     JSONObject result = invoker.invoke("task_share", args);
 
                     sharedWith.remove("p");
@@ -463,31 +455,32 @@ public class EditPeopleActivity extends Activity {
                     taskService.save(task);
 
                     int count = result.optInt("shared", 0);
-                    final String toast;
                     if(count > 0) {
-                        toast = getString(R.string.actfm_EPA_emailed_toast,
-                            getResources().getQuantityString(R.plurals.Npeople, count, count));
+                        saveToast += "\n" +
+                            activity.getString(R.string.actfm_EPA_emailed_toast,
+                            activity.getResources().getQuantityString(R.plurals.Npeople, count, count));
                         StatisticsService.reportEvent("actfm-task-shared"); //$NON-NLS-1$
-                    } else
-                        toast = getString(R.string.actfm_EPA_saved_toast);
+                    }
 
                     Intent broadcastIntent = new Intent(AstridApiConstants.BROADCAST_EVENT_REFRESH);
                     ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
 
-                    runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         public void run() {
-                            Toast.makeText(EditPeopleActivity.this, toast, Toast.LENGTH_LONG).show();
-                            finish();
+                            showSaveToast();
+                            activity.finish();
                         }
                     });
                 } catch (IOException e) {
-                    DialogUtilities.okDialog(EditPeopleActivity.this, getString(R.string.SyP_ioerror),
+                    DialogUtilities.okDialog(activity,
+                            activity.getString(R.string.SyP_ioerror),
                             android.R.drawable.ic_dialog_alert, e.toString(), null);
                 } catch (JSONException e) {
-                    DialogUtilities.okDialog(EditPeopleActivity.this, getString(R.string.SyP_ioerror),
+                    DialogUtilities.okDialog(activity,
+                            activity.getString(R.string.SyP_ioerror),
                             android.R.drawable.ic_dialog_alert, e.toString(), null);
                 } finally {
-                    runOnUiThread(new Runnable() {
+                    activity.runOnUiThread(new Runnable() {
                         public void run() {
                             pd.dismiss();
                         }
@@ -520,30 +513,19 @@ public class EditPeopleActivity extends Activity {
     }
 
     @SuppressWarnings("nls")
-    protected Object[] buildSharingArgs(JSONArray emails, ArrayList<Metadata>
-            tags) throws JSONException {
+    protected Object[] buildSharingArgs(JSONArray emails) throws JSONException {
         ArrayList<Object> values = new ArrayList<Object>();
         long currentTaskID = task.getValue(Task.REMOTE_ID);
         values.add("id");
         values.add(currentTaskID);
 
-        for(int i = 0; i < emails.length(); i++) {
-            String email = emails.optString(i);
-            if(email == null || email.indexOf('@') == -1)
-                continue;
-            values.add("emails[]");
-            values.add(email);
-        }
-
-        for(int i = 0; i < tags.size(); i++) {
-            Metadata tag = tags.get(i);
-            if(tag.containsNonNullValue(TagService.REMOTE_ID) &&
-                    tag.getValue(TagService.REMOTE_ID) > 0) {
-                values.add("tag_ids[]");
-                values.add(tag.getValue(TagService.REMOTE_ID));
-            } else {
-                values.add("tags[]");
-                values.add(tag.getValue(TagService.TAG));
+        if(emails != null) {
+            for(int i = 0; i < emails.length(); i++) {
+                String email = emails.optString(i);
+                if(email == null || email.indexOf('@') == -1)
+                    continue;
+                values.add("emails[]");
+                values.add(email);
             }
         }
 
@@ -559,13 +541,13 @@ public class EditPeopleActivity extends Activity {
             }
         }
 
-        String message = ((TextView) findViewById(R.id.message)).getText().toString();
-        if(!TextUtils.isEmpty(message) && findViewById(R.id.share_additional).getVisibility() == View.VISIBLE) {
+        String message = ((TextView) activity.findViewById(R.id.message)).getText().toString();
+        if(!TextUtils.isEmpty(message) && activity.findViewById(R.id.share_additional).getVisibility() == View.VISIBLE) {
             values.add("message");
             values.add(message);
         }
 
-        String tag = ((TextView) findViewById(R.id.tag_name)).getText().toString();
+        String tag = ((TextView) activity.findViewById(R.id.tag_name)).getText().toString();
         if(!TextUtils.isEmpty(tag)) {
             values.add("tag");
             values.add(tag);
@@ -574,14 +556,12 @@ public class EditPeopleActivity extends Activity {
         return values.toArray(new Object[values.size()]);
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_LOG_IN) {
-            if(resultCode == RESULT_OK)
-                save();
-            return;
+    /** Resume save
+     * @param data */
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == loginRequestCode) {
+            if(resultCode == Activity.RESULT_OK)
+                saveSharingSettings(saveToast);
         }
-
-        super.onActivityResult(requestCode, resultCode, data);
     }
 }

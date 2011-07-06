@@ -68,11 +68,20 @@ public class ContactListAdapter extends CursorAdapter {
 
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
-        TextView text = (TextView) view.findViewById(android.R.id.text1);
+        TextView text1 = (TextView) view.findViewById(android.R.id.text1);
+        TextView text2 = (TextView) view.findViewById(android.R.id.text2);
         ImageView imageView = (ImageView) view.findViewById(android.R.id.icon);
 
         if(cursor.getColumnNames().length == PEOPLE_PROJECTION.length) {
-            text.setText(convertToString(cursor));
+            int name = cursor.getColumnIndexOrThrow(ContactsContract.Contacts.DISPLAY_NAME);
+            int email = cursor.getColumnIndexOrThrow(Email.DATA);
+            if(cursor.isNull(name)) {
+                text1.setText(cursor.getString(email));
+                text2.setText("");
+            } else {
+                text1.setText(cursor.getString(name));
+                text2.setText(cursor.getString(email));
+            }
             imageView.setImageResource(android.R.drawable.ic_menu_gallery);
             Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, cursor.getLong(0));
             imageView.setTag(uri);
@@ -80,7 +89,7 @@ public class ContactListAdapter extends CursorAdapter {
             ciTask.execute(uri);
         } else {
             int name = cursor.getColumnIndexOrThrow(TagData.NAME.name);
-            text.setText(cursor.getString(name));
+            text1.setText(cursor.getString(name));
             imageView.setImageResource(R.drawable.med_tag);
         }
     }

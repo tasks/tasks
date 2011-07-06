@@ -230,10 +230,13 @@
   <string name="TEA_tab_basic">Basic</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">Advanced</string>
+  <string name="TEA_tab_share">Share</string>
+  
+  <!-- Second Tab - extra details -->
+  <string name="TEA_tab_alarms">Alarms</string>
   
   <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_addons">Add-ons</string>
+  <string name="TEA_tab_more">More</string>
   
   <!-- Task title label -->
   <string name="TEA_title_label">Title</string>
@@ -251,7 +254,7 @@
   <string name="TEA_urgency_specific_time">At specific time?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Time Set</string>
+  <string name="TEA_urgency_none">None</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Hide Until</string>
@@ -294,12 +297,14 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
+      <item>No Deadline</item>
       <item>Specific Day/Time</item>
       <item>Today</item>
       <item>Tomorrow</item>
       <item>(day after)</item>
       <item>Next Week</item>
-      <item>No Deadline</item>
+      <item>In Two Weeks</item>
+      <item>Next Month</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">

@@ -30,13 +30,10 @@
         android:layout_height="wrap_content"/>
         
     <ImageButton android:id="@+id/button1"
-        style="?android:attr/buttonStyleInset"
-        android:src="@android:drawable/ic_delete"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="2dip"
-        android:layout_marginRight="2dip"
-        android:layout_marginBottom="2dip"
-        android:gravity="center_vertical"
+        android:background="@drawable/btn_dismiss"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_gravity="center"
+        android:layout_margin="4dip"
     />
 </LinearLayout>

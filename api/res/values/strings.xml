@@ -106,6 +106,9 @@
   <!-- error dialog title -->
   <string name="DLG_error_title">Error!</string>
   
+  <!-- general dialog save-->
+  <string name="DLG_save">Save</string>
+  
   <!-- general dialog yes-->
   <string name="DLG_yes">Yes</string>
   

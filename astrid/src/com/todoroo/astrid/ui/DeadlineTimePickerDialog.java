@@ -126,7 +126,7 @@ public class DeadlineTimePickerDialog extends AlertDialog implements OnClickList
                 if(isChecked)
                     updateTitle();
                 else
-                    setTitle(R.string.TEA_urgency_time_none);
+                    setTitle(R.string.TEA_urgency_none);
             }
         };
         mHasTime.setOnCheckedChangeListener(listener);

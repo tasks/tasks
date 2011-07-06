@@ -18,6 +18,8 @@
         android:id="@+id/add_to_calendar"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="5dip"
+        android:button="@drawable/btn_check_small"       
         android:text="@string/gcal_TEA_addToCalendar_label" />
         
       <Spinner
@@ -34,12 +36,6 @@
         android:visibility="gone" />
 
     </LinearLayout>
-
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:padding="5dip"
-        android:background="@android:drawable/divider_horizontal_dark" />
   
 </merge>
 

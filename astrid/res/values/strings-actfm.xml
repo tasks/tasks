@@ -88,7 +88,7 @@
   <string name="actfm_EPA_assign_custom">Custom...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Shared With:</string>
+  <string name="actfm_EPA_share_with">Add Collaborators:</string>
   
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_EPA_assigned_hint">Contact Name</string>
