@@ -69,25 +69,50 @@
       <echo>   run-tests: Run unit tests.</echo>
       <echo>   coverage:  Run tests and dump emma coverage reports.</echo>
     </target>
-    
-    <target name="coverage" depends="android_test_rules.coverage">
-      <antcall target="pull-emma-reports" />
-      <antcall target="pull-junit" />
-    </target>
 
-    <target name="-prepare-coverage-source">
-      <subant target="copy-sources">
-        <fileset file="${tested.project.absolute.dir}/build.xml" />
-      </subant>
-      <copy todir="${tested.project.absolute.dir}/bin/source">
-        <fileset dir="../api/src" includes="**/*.java" />
-        <fileset dir="src" includes="**/*.java" />
-      </copy>      
-      <!-- copy our own sources to source dir -->
-      <mkdir dir="${source.dir}" />
-      <copy todir="${source.dir}">
-        <fileset dir="src" />
-      </copy>
+    <!-- override coverage target with custom reporting and rules -->    
+    <target name="coverage" depends="-set-coverage-classpath, -install-instrumented, install"
+                description="Runs the tests against the instrumented code and generates
+                            code coverage report">
+        <run-tests-helper emma.enabled="true">
+            <extra-instrument-args>
+                <arg value="-e" />
+                   <arg value="coverageFile" />
+                   <arg value="${emma.dump.file}" />
+            </extra-instrument-args>
+        </run-tests-helper>
+
+        <echo>Downloading coverage file into project directory...</echo>
+        <exec executable="${adb}" failonerror="true">
+            <arg line="${adb.device.arg}" />
+            <arg value="pull" />
+            <arg value="${emma.dump.file}" />
+            <arg value="coverage.ec" />
+        </exec>
+
+        <echo>Extracting coverage report...</echo>
+        <copy todir="${tested.project.absolute.dir}/src-combined">
+          <fileset dir="../api/src" includes="**/*.java" />
+        </copy>      
+        <mkdir dir="${reports.dir}" />
+        <emma>
+          <report sourcepath="${tested.project.absolute.dir}/src-combined"
+                  verbosity="${verbosity}">
+            <infileset dir=".">
+              <include name="coverage.ec" />
+              <include name="coverage.em" />
+            </infileset>
+            <html outfile="coverage.html" encoding="UTF-8" />
+            <xml outfile="${reports.dir}/coverage.xml" />
+          </report>
+        </emma>
+        <echo>Cleaning up temporary files...</echo>
+        <delete dir="${instrumentation.absolute.dir}" />
+        <delete file="coverage.ec" />
+        <delete file="coverage.em" />
+        <echo>Saving the report file in ${basedir}/coverage/coverage.html</echo>
+
+        <antcall target="pull-junit" />      
     </target>
 
     <target name="pull-junit">
@@ -97,34 +122,6 @@
         <arg value="/data/data/${tested.manifest.package}/files/junit-report.xml" />
         <arg value="${reports.dir}/junit-report.xml" />
       </exec>
-    </target>
-
-    <target name="pull-emma-repots" depends="-prepare-coverage-source">
-      <echo>Downloading coverage file into project directory...</echo>
-      <exec executable="${adb}" failonerror="true">
-        <arg line="${adb.device.arg}"/>
-        <arg value="pull" />
-        <arg value="${emma.dump.file}" />
-        <arg value="coverage.ec" />
-      </exec>
-      <echo>Extracting coverage report...</echo>
-      <mkdir dir="${reports.dir}" />
-      <emma>
-        <report sourcepath="${tested.project.absolute.dir}/${source.dir}"
-                verbosity="${verbosity}">
-          <infileset dir=".">
-            <include name="coverage.ec" />
-            <include name="coverage.em" />
-          </infileset>
-          <html outfile="coverage.html" encoding="UTF-8" />
-          <xml outfile="${reports.dir}/coverage.xml" />
-        </report>
-      </emma>
-      <echo>Cleaning up temporary files...</echo>
-      <delete dir="${instrumentation.absolute.dir}" />
-      <delete file="coverage.ec" />
-      <delete file="coverage.em" />
-      <echo>Saving the report file in ${basedir}/coverage/coverage.[html/xml]</echo>
     </target>
 
 </project>
