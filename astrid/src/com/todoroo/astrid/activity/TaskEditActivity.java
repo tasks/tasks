@@ -58,7 +58,6 @@ import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.EditPeopleControlSet;
 import com.todoroo.astrid.alarms.AlarmControlSet;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -491,12 +490,7 @@ public final class TaskEditActivity extends TabActivity {
         if(title.getText().length() > 0)
             model.setValue(Task.DELETION_DATE, 0L);
 
-        if(!taskService.save(model)) {
-            DialogUtilities.okDialog(this, getString(R.string.DLG_error,
-                    "Error saving task. Please restart the app!"), null); //$NON-NLS-1$
-            return;
-        }
-
+        taskService.save(model);
         if(title.getText().length() == 0)
             return;
 
@@ -566,8 +560,7 @@ public final class TaskEditActivity extends TabActivity {
      * ====================================================================== */
 
     protected void saveButtonClick() {
-        setResult(RESULT_OK);
-        finish();
+        save();
     }
 
     /**
@@ -695,7 +688,7 @@ public final class TaskEditActivity extends TabActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == REQUEST_VOICE_RECOG) {
+        if(requestCode == REQUEST_VOICE_RECOG && resultCode == RESULT_OK) {
             // handle the result of voice recognition, put it into the appropiate textfield
             voiceNoteAssistant.handleActivityResult(requestCode, resultCode, data);
 

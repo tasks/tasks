@@ -72,35 +72,32 @@ public class EditPeopleControlSet implements TaskEditControlSet {
 
     @Autowired TagDataService tagDataService;
 
-    private PeopleContainer sharedWithContainer;
+    private final PeopleContainer sharedWithContainer;
 
-    private CheckBox cbFacebook;
+    private final CheckBox cbFacebook;
 
-    private CheckBox cbTwitter;
+    private final CheckBox cbTwitter;
 
-    private Spinner assignedSpinner;
+    private final Spinner assignedSpinner;
 
-    private EditText assignedCustom;
+    private final EditText assignedCustom;
 
     private final ArrayList<AssignedToUser> spinnerValues = new ArrayList<AssignedToUser>();
 
-    private Activity activity;
+    private final Activity activity;
 
     private String saveToast = null;
 
-    private int loginRequestCode;
+    private final int loginRequestCode;
 
     static {
         AstridDependencyInjector.initialize();
     }
 
-    public EditPeopleControlSet() {
-        DependencyInjectionService.getInstance().inject(this);
-    }
-
     // --- UI initialization
 
     public EditPeopleControlSet(Activity activity, int loginRequestCode) {
+        DependencyInjectionService.getInstance().inject(this);
         this.activity = activity;
         this.loginRequestCode = loginRequestCode;
 
@@ -325,6 +322,9 @@ public class EditPeopleControlSet implements TaskEditControlSet {
      */
     @SuppressWarnings("nls")
     public boolean saveSharingSettings(String toast) {
+        if(task == null)
+            return false;
+
         saveToast = toast;
         boolean dirty = false;
         try {
@@ -559,9 +559,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
     /** Resume save
      * @param data */
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == loginRequestCode) {
-            if(resultCode == Activity.RESULT_OK)
-                saveSharingSettings(saveToast);
-        }
+        if(requestCode == loginRequestCode && resultCode == Activity.RESULT_OK)
+            saveSharingSettings(saveToast);
     }
 }

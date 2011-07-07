@@ -82,7 +82,7 @@ public class ContactListAdapter extends CursorAdapter {
                 text1.setText(cursor.getString(name));
                 text2.setText(cursor.getString(email));
             }
-            imageView.setImageResource(android.R.drawable.ic_menu_gallery);
+            imageView.setImageResource(R.drawable.ic_contact_picture_2);
             Uri uri = ContentUris.withAppendedId(ContactsContract.Contacts.CONTENT_URI, cursor.getLong(0));
             imageView.setTag(uri);
             ContactImageTask ciTask = new ContactImageTask(imageView);
