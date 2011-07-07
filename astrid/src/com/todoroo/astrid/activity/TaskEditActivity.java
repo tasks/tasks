@@ -477,7 +477,7 @@ public final class TaskEditActivity extends TabActivity {
     }
 
     /** Save task model from values in UI components */
-    private void save() {
+    private void save(boolean onPause) {
         StringBuilder toast = new StringBuilder();
         synchronized(controls) {
             for(TaskEditControlSet controlSet : controls) {
@@ -495,7 +495,7 @@ public final class TaskEditActivity extends TabActivity {
             return;
 
         String processedToast = addDueTimeToToast(toast.toString());
-        if(!peopleControlSet.saveSharingSettings(processedToast))
+        if(!onPause && !peopleControlSet.saveSharingSettings(processedToast))
             return;
 
         finish();
@@ -504,7 +504,7 @@ public final class TaskEditActivity extends TabActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            save();
+            save(false);
             return true;
         }
         return super.onKeyDown(keyCode, event);
@@ -560,7 +560,7 @@ public final class TaskEditActivity extends TabActivity {
      * ====================================================================== */
 
     protected void saveButtonClick() {
-        save();
+        save(false);
     }
 
     /**
@@ -675,7 +675,7 @@ public final class TaskEditActivity extends TabActivity {
         unregisterReceiver(controlReceiver);
 
         if(shouldSaveState)
-            save();
+            save(true);
     }
 
     @Override
