@@ -20,8 +20,10 @@ import com.todoroo.astrid.dao.MetadataDao;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
+import com.todoroo.astrid.data.TagData;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.service.MetadataService;
+import com.todoroo.astrid.service.TagDataService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.utility.Flags;
 
@@ -57,11 +59,11 @@ public final class TagService {
 
     // --- implementation details
 
-    @Autowired
-    private MetadataDao metadataDao;
+    @Autowired MetadataDao metadataDao;
 
-    @Autowired
-    private TaskService taskService;
+    @Autowired TaskService taskService;
+
+    @Autowired TagDataService tagDataService;
 
     public TagService() {
         DependencyInjectionService.getInstance().inject(this);
@@ -207,6 +209,10 @@ public final class TagService {
             Metadata item = new Metadata();
             item.setValue(Metadata.KEY, KEY);
             item.setValue(TAG, tag);
+            TagData tagData = tagDataService.getTag(tag, TagData.REMOTE_ID);
+            if(tagData != null)
+                item.setValue(REMOTE_ID, tagData.getValue(TagData.REMOTE_ID));
+
             metadata.add(item);
         }
 

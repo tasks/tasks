@@ -2,6 +2,7 @@ package com.todoroo.astrid.service;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Map.Entry;
 
 import android.content.ContentValues;
 
@@ -101,7 +102,13 @@ public class MetadataService {
         for(Metadata metadatum : metadata) {
             metadatum.setValue(Metadata.TASK, taskId);
             metadatum.clearValue(Metadata.ID);
-            newMetadataValues.add(metadatum.getMergedValues());
+
+            ContentValues values = metadatum.getMergedValues();
+            for(Entry<String, Object> entry : values.valueSet()) {
+                if(entry.getKey().startsWith("value")) //$NON-NLS-1$
+                    values.put(entry.getKey(), entry.getValue().toString());
+            }
+            newMetadataValues.add(values);
         }
 
         Metadata item = new Metadata();
@@ -117,6 +124,7 @@ public class MetadataService {
                 item.clearValue(Metadata.ID);
                 item.clearValue(Metadata.CREATION_DATE);
                 ContentValues itemMergedValues = item.getMergedValues();
+
                 if(newMetadataValues.contains(itemMergedValues)) {
                     newMetadataValues.remove(itemMergedValues);
                     continue;
