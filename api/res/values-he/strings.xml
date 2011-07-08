@@ -76,6 +76,21 @@
     <!-- plurals: tasks -->
     <item quantity="other">%d משימות</item>
   </plurals>
+  <plurals name="Npeople">
+    <!-- plurals: people -->
+    <item quantity="one">1 person</item>
+    <!-- plurals: people -->
+    <item quantity="other">%d people</item>
+  </plurals>
+  
+  <!-- today -->
+  <string name="today">היום</string>
+  
+  <!-- tomorrow -->
+  <string name="tomorrow">מחר</string>
+  
+  <!-- today -->
+  <string name="yesterday">Yesterday</string>
   
   <!-- ================================================== Generic Dialogs == -->
   
@@ -90,6 +105,9 @@
   
   <!-- error dialog title -->
   <string name="DLG_error_title">Error!</string>
+  
+  <!-- general dialog save-->
+  <string name="DLG_save">Save</string>
   
   <!-- general dialog yes-->
   <string name="DLG_yes">כן</string>
@@ -137,8 +155,10 @@
   <string name="sync_status_ongoing">Sync Ongoing...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
   <string name="sync_status_success">Last Sync: %s</string>
-  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
+  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Failed On: %s</string>
+  <!-- Sync Status: error status (%s -> last sync date) -->    
+  <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Last Successful Sync: %s</string>
   <!-- Sync Status: never sync'd -->    

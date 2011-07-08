@@ -3,9 +3,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- ==================================================== Generic Units == -->
-    <string name="yesterday">i går</string>
-    <string name="today">i dag</string>
-    <string name="tomorrow">i morgen</string>
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
@@ -33,7 +30,7 @@
   </plurals>
   <plurals name="DUt_weekdays">
     <!-- plurals: days -->
-    <item quantity="one">1 Weekday</item>
+    <item quantity="one">1 ukesdag</item>
     <!-- plurals: days -->
     <item quantity="other">%d Weekdays</item>
   </plurals>
@@ -79,6 +76,21 @@
     <!-- plurals: tasks -->
     <item quantity="other">%d oppgaver</item>
   </plurals>
+  <plurals name="Npeople">
+    <!-- plurals: people -->
+    <item quantity="one">1 person</item>
+    <!-- plurals: people -->
+    <item quantity="other">%d people</item>
+  </plurals>
+  
+  <!-- today -->
+  <string name="today">I dag</string>
+  
+  <!-- tomorrow -->
+  <string name="tomorrow">I morgen</string>
+  
+  <!-- today -->
+  <string name="yesterday">I går</string>
   
   <!-- ================================================== Generic Dialogs == -->
   
@@ -93,6 +105,9 @@
   
   <!-- error dialog title -->
   <string name="DLG_error_title">Feil!</string>
+  
+  <!-- general dialog save-->
+  <string name="DLG_save">Lagre</string>
   
   <!-- general dialog yes-->
   <string name="DLG_yes">Ja</string>
@@ -140,8 +155,10 @@
   <string name="sync_status_ongoing">Synkronisering pågår...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
   <string name="sync_status_success">Siste synkronisering: %s</string>
-  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
+  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Mislykket: %s</string>
+  <!-- Sync Status: error status (%s -> last sync date) -->    
+  <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Siste vellykkede synkronisering: %s</string>
   <!-- Sync Status: never sync'd -->    

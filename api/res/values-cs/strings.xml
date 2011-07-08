@@ -3,10 +3,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- ==================================================== Generic Units == -->
-
-    <string name="yesterday">Včera</string>
-    <string name="today">Dnes</string>
-    <string name="tomorrow">Zítra</string>
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
@@ -80,6 +76,21 @@
     <!-- plurals: tasks -->
     <item quantity="other">%d úkolů</item>
   </plurals>
+  <plurals name="Npeople">
+    <!-- plurals: people -->
+    <item quantity="one">1 person</item>
+    <!-- plurals: people -->
+    <item quantity="other">%d people</item>
+  </plurals>
+  
+  <!-- today -->
+  <string name="today">Dnes</string>
+  
+  <!-- tomorrow -->
+  <string name="tomorrow">Zítra</string>
+  
+  <!-- today -->
+  <string name="yesterday">Včera</string>
   
   <!-- ================================================== Generic Dialogs == -->
   
@@ -95,6 +106,9 @@
   <!-- error dialog title -->
   <string name="DLG_error_title">Chyba!</string>
   
+  <!-- general dialog save-->
+  <string name="DLG_save">Uložit</string>
+  
   <!-- general dialog yes-->
   <string name="DLG_yes">Ano</string>
   
@@ -108,10 +122,10 @@
   <string name="DLG_done">Hotovo</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
+  <string name="DLG_error">Jejda, vypadá to, že se vyskytla chyba! Tady je co se stalo:\n\n%s</string>
   
   <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
+  <string name="DLG_error_generic">Jejda, vypadá to, že se vyskytla chyba!</string>
   
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">Prosím čekejte...</string>
@@ -141,10 +155,12 @@
   <string name="sync_status_ongoing">Probíhá synchronizace...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
   <string name="sync_status_success">Poslední synchronizace: %s</string>
-  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
+  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Selhalo: %s</string>
+  <!-- Sync Status: error status (%s -> last sync date) -->    
+  <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace %s</string>
+  <string name="sync_status_failed_subtitle">Poslední úspěšná synchronizace: %s</string>
   <!-- Sync Status: never sync'd -->    
   <string name="sync_status_never">Nikdo nesynchronizováno!</string>
 

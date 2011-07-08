@@ -3,9 +3,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- ==================================================== Generic Units == -->
-    <string name="yesterday">hier</string>
-    <string name="today">aujourd\'hui</string>
-    <string name="tomorrow">demain</string>
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
@@ -33,9 +30,9 @@
   </plurals>
   <plurals name="DUt_weekdays">
     <!-- plurals: days -->
-    <item quantity="one">1 Weekday</item>
+    <item quantity="one">1 jour de la semaine</item>
     <!-- plurals: days -->
-    <item quantity="other">%d Weekdays</item>
+    <item quantity="other">%d jours de la semaine</item>
   </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
@@ -79,6 +76,21 @@
     <!-- plurals: tasks -->
     <item quantity="other">%d tâches</item>
   </plurals>
+  <plurals name="Npeople">
+    <!-- plurals: people -->
+    <item quantity="one">1 person</item>
+    <!-- plurals: people -->
+    <item quantity="other">%d people</item>
+  </plurals>
+  
+  <!-- today -->
+  <string name="today">Aujourd\'hui</string>
+  
+  <!-- tomorrow -->
+  <string name="tomorrow">Demain</string>
+  
+  <!-- today -->
+  <string name="yesterday">Hier</string>
   
   <!-- ================================================== Generic Dialogs == -->
   
@@ -93,6 +105,9 @@
   
   <!-- error dialog title -->
   <string name="DLG_error_title">Erreur !</string>
+  
+  <!-- general dialog save-->
+  <string name="DLG_save">Enregistrer</string>
   
   <!-- general dialog yes-->
   <string name="DLG_yes">Oui</string>
@@ -140,8 +155,10 @@
   <string name="sync_status_ongoing">Synchronisation en cours...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
   <string name="sync_status_success">Dernière synchro. : %s</string>
-  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
+  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Échec sur : %s</string>
+  <!-- Sync Status: error status (%s -> last sync date) -->    
+  <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Dernière synchro. réussie : %s</string>
   <!-- Sync Status: never sync'd -->    

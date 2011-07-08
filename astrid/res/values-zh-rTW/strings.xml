@@ -832,7 +832,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="CFA_type_intersect">也</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">% 含條件</string>
+    <string name="CFA_context_chain">%s 含條件</string>
     
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">刪除列</string>

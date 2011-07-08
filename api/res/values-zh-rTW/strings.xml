@@ -3,10 +3,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- ==================================================== Generic Units == -->
-
-    <string name="yesterday">昨天</string>
-    <string name="today">今天</string>
-    <string name="tomorrow">明天</string>
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
@@ -18,7 +14,7 @@
     <!-- plurals: months -->
     <item quantity="one">1 個月</item>
     <!-- plurals: months -->
-    <item quantity="other">%d 月</item>
+    <item quantity="other">%d 個月</item>
   </plurals>
   <plurals name="DUt_weeks">
     <!-- plurals: days -->
@@ -34,9 +30,9 @@
   </plurals>
   <plurals name="DUt_weekdays">
     <!-- plurals: days -->
-    <item quantity="one">1 Weekday</item>
+    <item quantity="one">1 個工作天</item>
     <!-- plurals: days -->
-    <item quantity="other">%d Weekdays</item>
+    <item quantity="other">%d 個工作天</item>
   </plurals>
   <plurals name="DUt_hours">
     <!-- plurals: hours -->
@@ -80,6 +76,21 @@
     <!-- plurals: tasks -->
     <item quantity="other">%d 個工作</item>
   </plurals>
+  <plurals name="Npeople">
+    <!-- plurals: people -->
+    <item quantity="one">1 person</item>
+    <!-- plurals: people -->
+    <item quantity="other">%d people</item>
+  </plurals>
+  
+  <!-- today -->
+  <string name="today">今天</string>
+  
+  <!-- tomorrow -->
+  <string name="tomorrow">明天</string>
+  
+  <!-- today -->
+  <string name="yesterday">昨天</string>
   
   <!-- ================================================== Generic Dialogs == -->
   
@@ -93,7 +104,10 @@
   <string name="DLG_information_title">資訊</string>
   
   <!-- error dialog title -->
-  <string name="DLG_error_title">Error!</string>
+  <string name="DLG_error_title">錯誤！</string>
+  
+  <!-- general dialog save-->
+  <string name="DLG_save">儲存</string>
   
   <!-- general dialog yes-->
   <string name="DLG_yes">確定</string>
@@ -108,10 +122,10 @@
   <string name="DLG_done">完成</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">Oops, looks like an error occurred! Here\'s what happened:\n\n%s</string>
+  <string name="DLG_error">糟糕，發生錯誤! 狀況是:\n\n%s</string>
   
   <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">Oops, looks like an error occurred!</string>
+  <string name="DLG_error_generic">糟糕，發生錯誤!</string>
   
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">請稍候...</string>
@@ -119,7 +133,7 @@
  <!-- ====================================================== SyncProvider == -->
           
   <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">同步工作中...</string>
+  <string name="SyP_progress">工作同步中...</string>
   
   <!-- Sync Notification: toast when sync activated from activity -->
   <string name="SyP_progress_toast">正在同步中...</string>
@@ -141,8 +155,10 @@
   <string name="sync_status_ongoing">同步中...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
   <string name="sync_status_success">上次同步: %s</string>
-  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
+  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">失敗: %s</string>
+  <!-- Sync Status: error status (%s -> last sync date) -->    
+  <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">上次成功同步: %s</string>
   <!-- Sync Status: never sync'd -->    
@@ -154,9 +170,9 @@
   <!-- Preference: Synchronization Interval Title -->    
   <string name="sync_SPr_interval_title">背景同步</string>
   <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">背景同步關閉</string>    
+  <string name="sync_SPr_interval_desc_disabled">背景同步已關閉</string>    
   <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">目前同步設定: %s</string>
+  <string name="sync_SPr_interval_desc">目前同步間隔設定: %s</string>
   
   <!-- Preference: Background Wifi Title -->  
   <string name="sync_SPr_bgwifi_title">Wifi 才可使用之設定</string>    
@@ -184,8 +200,8 @@
   <string-array name="sync_SPr_interval_entries">
       <!-- sync_SPr_interval_entries: Synchronization Intervals -->
       <item>停用</item>
-      <item>每15分</item>
-      <item>每30分</item>
+      <item>每15分鐘</item>
+      <item>每30分鐘</item>
       <item>每小時</item>
       <item>每3小時</item>
       <item>每6小時</item>

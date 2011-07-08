@@ -3,9 +3,6 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
   <!-- ==================================================== Generic Units == -->
-    <string name="yesterday">ayer</string>
-    <string name="today">hoy</string>
-    <string name="tomorrow">mañana</string>
   
   <plurals name="DUt_years">
     <!-- plurals: years -->
@@ -79,6 +76,21 @@
     <!-- plurals: tasks -->
     <item quantity="other">%d tareas</item>
   </plurals>
+  <plurals name="Npeople">
+    <!-- plurals: people -->
+    <item quantity="one">1 person</item>
+    <!-- plurals: people -->
+    <item quantity="other">%d people</item>
+  </plurals>
+  
+  <!-- today -->
+  <string name="today">Hoy</string>
+  
+  <!-- tomorrow -->
+  <string name="tomorrow">Mañana</string>
+  
+  <!-- today -->
+  <string name="yesterday">Ayer</string>
   
   <!-- ================================================== Generic Dialogs == -->
   
@@ -93,6 +105,9 @@
   
   <!-- error dialog title -->
   <string name="DLG_error_title">¡Error!</string>
+  
+  <!-- general dialog save-->
+  <string name="DLG_save">Guardar</string>
   
   <!-- general dialog yes-->
   <string name="DLG_yes">Sí</string>
@@ -140,8 +155,10 @@
   <string name="sync_status_ongoing">Sincronización en curso...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
   <string name="sync_status_success">Última sincronización: %s</string>
-  <!-- Sync Status: error status (%s -> last attempted sync date) -->    
+  <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
   <string name="sync_status_failed">Falló el: %s</string>
+  <!-- Sync Status: error status (%s -> last sync date) -->    
+  <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
   <string name="sync_status_failed_subtitle">Última sincronización exitosa: %s</string>
   <!-- Sync Status: never sync'd -->    

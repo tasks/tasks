@@ -218,7 +218,7 @@
     <string name="backup_BPr_group_status">Estat</string>
     
     <!-- Backup Status: last backup was a success (%s -> last date). Keep it short! -->    
-    <string name="backup_status_success">Més recent:</string>
+    <string name="backup_status_success">Més recent: %s</string>
     <!-- Backup Status: last error failed. Keep it short! -->    
     <string name="backup_status_failed">Còpia de seguretat Fallida</string>
     <!-- Backup Status: error subtitle -->    

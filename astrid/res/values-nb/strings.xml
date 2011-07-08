@@ -936,7 +936,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_FEx_list">Etter liste</string>
     
     <!-- filter title for GTasks lists (%s => list name) -->
-    <string name="gtasks_FEx_title">Google Tasks</string>
+    <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
     <!-- short help title for Gtasks -->
     <string name="gtasks_help_title">Velkommen til Google Tasks!</string>

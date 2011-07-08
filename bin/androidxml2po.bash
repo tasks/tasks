@@ -46,7 +46,7 @@ launchpad_pot_file_dir="translations"
 folder="astrid"
 if [ "$2" != "" ]; then
     echo "Operating on folder $2"
-    folder="../$2"
+    folder="$2"
 fi
 android_xml_files_res_dir="${folder}/res/values"
 
