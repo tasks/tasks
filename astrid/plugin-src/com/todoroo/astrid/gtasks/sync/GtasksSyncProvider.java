@@ -80,6 +80,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
     /** tasks to read id for */
     ArrayList<GtasksTaskContainer> createdWithoutId;
+    ArrayList<GtasksTaskContainer> createdWithoutParent;
     Semaphore pushedTaskSemaphore = new Semaphore(0);
     AtomicInteger pushedTaskCount = new AtomicInteger(0);
 
@@ -160,6 +161,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         if(Constants.DEBUG)
             Log.e("gtasks-debug", "- -------- SYNC STARTED");
         createdWithoutId = new ArrayList<GtasksTaskContainer>();
+        createdWithoutParent = new ArrayList<GtasksTaskContainer>();
         try {
             TaskLists allTaskLists = taskService.allGtaskLists();
 
@@ -229,28 +231,47 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             return;
         }
 
+
         // first, pull all tasks. then we can write them
         // include deleted tasks so we can delete them in astrid
         data.remoteUpdated = readAllRemoteTasks(true);
 
         // match remote tasks to locally created tasks
         HashMap<String, GtasksTaskContainer> locals = new HashMap<String, GtasksTaskContainer>();
+        HashMap<Long, String> localIdsToRemoteIds = new HashMap<Long, String>();
         for(GtasksTaskContainer task : createdWithoutId) {
-            locals.put(task.task.getValue(Task.TITLE), task);
+            locals.put(task.gtaskMetadata.getValue(GtasksMetadata.ID), task);
+            localIdsToRemoteIds.put(task.task.getId(), task.gtaskMetadata.getValue(GtasksMetadata.ID));
         }
+
+        verifyCreatedOrder(locals, localIdsToRemoteIds);
 
         for(GtasksTaskContainer remote : data.remoteUpdated) {
             if(remote.task.getId() < 1) {
-                GtasksTaskContainer local = locals.get(remote.task.getValue(Task.TITLE));
+                GtasksTaskContainer local = locals.get(remote.gtaskMetadata.getValue(GtasksMetadata.ID));
                 if(local != null) {
                     if(Constants.DEBUG)
-                        Log.e("gtasks-debug", "FOUND LOCAL - " + remote.task.getValue(Task.TITLE));
+                        Log.e("gtasks-debug", "FOUND LOCAL - " + remote.task.getId());
                     remote.task.setId(local.task.getId());
                 }
             }
         }
 
         super.readRemotelyUpdated(data);
+    }
+
+    private void verifyCreatedOrder(HashMap<String, GtasksTaskContainer> locals,
+            HashMap<Long, String> localIdsToRemoteIds) throws IOException {
+        for (GtasksTaskContainer t : createdWithoutParent) {
+            String toMove = t.gtaskMetadata.getValue(GtasksMetadata.ID);
+            String listId = t.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
+            long parentTask = t.gtaskMetadata.getValue(GtasksMetadata.PARENT_TASK);
+            if (parentTask > 0) {
+                String remoteParent = localIdsToRemoteIds.get(parentTask);
+                MoveRequest move = new MoveRequest(taskService, toMove, listId, remoteParent, null);
+                move.executePush();
+            }
+        }
     }
 
 
@@ -395,10 +416,12 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         local.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, listId);
 
         createdWithoutId.add(local);
+        if (local.gtaskMetadata.containsNonNullValue(GtasksMetadata.PARENT_TASK)) {
+            createdWithoutParent.add(local);
+        }
         com.google.api.services.tasks.v1.model.Task createdTask = new com.google.api.services.tasks.v1.model.Task();
-        createdTask.parent = local.parentId;
 
-        CreateRequest createRequest = new CreateRequest(taskService, listId, createdTask);
+        CreateRequest createRequest = new CreateRequest(taskService, listId, createdTask, local.parentId, local.priorSiblingId);
         updateTaskHelper(local, null, createRequest);
         return local;
     }//*/
@@ -443,16 +466,23 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    String newIdTask = idTask;
                     try {
-                        if(!TextUtils.isEmpty(idTask) && (remote == null || local.parentId != remote.parentId ||
+                        if (request instanceof CreateRequest) {
+                            com.google.api.services.tasks.v1.model.Task createResult = request.executePush();
+                            newIdTask = createResult.id;
+                            local.gtaskMetadata.setValue(GtasksMetadata.ID, newIdTask);
+                        }
+                        if(!TextUtils.isEmpty(newIdTask) && (remote == null || local.parentId != remote.parentId ||
                                 local.priorSiblingId != remote.priorSiblingId)) {
                             if(Constants.DEBUG)
-                                Log.e("gtasks-debug", "ACTION: move(1) - " + idTask + ", " + local.parentId + ", " + local.priorSiblingId);
+                                Log.e("gtasks-debug", "ACTION: move(1) - " + newIdTask + ", " + local.parentId + ", " + local.priorSiblingId);
                             //This case basically defaults to whatever local settings are. Future versions could try and merge better
-                            MoveRequest moveRequest = new MoveRequest(taskService, idTask, idList, local.parentId, local.priorSiblingId);
+                            MoveRequest moveRequest = new MoveRequest(taskService, newIdTask, idList, local.parentId, local.priorSiblingId);
                             moveRequest.executePush();
 
-                        } else {
+                        }
+                        if (request instanceof UpdateRequest) {
                             request.executePush();
                         }
 
@@ -460,9 +490,9 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                         if(remote != null && !idList.equals(remote.gtaskMetadata.getValue(
                                 GtasksMetadata.LIST_ID))) {
                             if(Constants.DEBUG)
-                                Log.e("gtasks-debug", "ACTION: moveTask(5), " + idTask + ", " + idList + " to " +
+                                Log.e("gtasks-debug", "ACTION: moveTask(5), " + newIdTask + ", " + idList + " to " +
                                     remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID));
-                            MoveListRequest moveList = new MoveListRequest(taskService, idTask, remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), idList, null);
+                            MoveListRequest moveList = new MoveListRequest(taskService, newIdTask, remote.gtaskMetadata.getValue(GtasksMetadata.LIST_ID), idList, null);
                             com.google.api.services.tasks.v1.model.Task result = moveList.executePush();
                             local.gtaskMetadata.setValue(GtasksMetadata.ID, result.id);
                             remote.gtaskMetadata.setValue(GtasksMetadata.ID, result.id);

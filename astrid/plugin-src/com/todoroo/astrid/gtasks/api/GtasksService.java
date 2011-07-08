@@ -6,6 +6,7 @@ import com.google.api.client.extensions.android2.AndroidHttp;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
+import com.google.api.services.tasks.v1.Tasks.TasksOperations.Insert;
 import com.google.api.services.tasks.v1.Tasks.TasksOperations.List;
 import com.google.api.services.tasks.v1.Tasks.TasksOperations.Move;
 import com.google.api.services.tasks.v1.model.Task;
@@ -135,11 +136,19 @@ public class GtasksService {
     }
 
     public Task createGtask(String listId, Task task) throws IOException {
+        return createGtask(listId, task, null, null);
+    }
+
+    public Task createGtask(String listId, Task task, String parent, String priorSiblingId) throws IOException {
+        Insert insertOp = service.tasks.insert(listId, task);
+        insertOp.parent = parent;
+        insertOp.previous = priorSiblingId;
+
         Task toReturn;
         try {
-            toReturn = service.tasks.insert(listId, task).execute();
+            toReturn = insertOp.execute();
         } catch (IOException e) {
-            toReturn = service.tasks.insert(listId, task).execute();
+            toReturn = insertOp.execute();
         }
         return toReturn;
     }
