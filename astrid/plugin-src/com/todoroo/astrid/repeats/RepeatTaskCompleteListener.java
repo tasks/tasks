@@ -165,7 +165,7 @@ public class RepeatTaskCompleteListener extends BroadcastReceiver {
                 // detect if we finished
                 if(newDueDate > DateUtilities.now()) {
                     // if byDay is set and interval > 1, we need to run again
-                    if(rrule.getByDay().size() > 0 && rrule.getInterval() > 0) {
+                    if(rrule.getByDay().size() > 0 && rrule.getInterval() > 1) {
                         if(newDueDate - repeatFromDate.getTime() > DateUtilities.ONE_WEEK)
                             break;
                     } else if(newDueDate > repeatFromDate.getTime())

@@ -88,4 +88,32 @@ public class AdvancedRepeatTests extends TodorooTestCase {
         }
     }
 
+    /** test multiple days per week */
+    public void testMultipleDaysPerWeek() throws Exception {
+        Task task = new Task();
+        long originalDueDate = (DateUtilities.now() - 1 * DateUtilities.ONE_DAY) / 1000L * 1000L;
+        task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, DateUtilities.now()));
+
+        RRule rrule = new RRule();
+        rrule.setInterval(1);
+        rrule.setFreq(Frequency.WEEKLY);
+        ArrayList<WeekdayNum> days = new ArrayList<WeekdayNum>();
+
+        days.add(new WeekdayNum(0, Weekday.MO));
+        days.add(new WeekdayNum(0, Weekday.TH));
+        rrule.setByDay(days);
+
+        long nextDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
+        assertTrue("Due date is '" + new Date(nextDueDate) + "', expected no more than '" +
+                new Date(DateUtilities.now() + DateUtilities.ONE_WEEK) + "'",
+                nextDueDate - DateUtilities.now() < DateUtilities.ONE_WEEK);
+
+        task.setValue(Task.DUE_DATE, nextDueDate);
+
+        long subsequentDueDate = RepeatTaskCompleteListener.computeNextDueDate(task, rrule.toIcal());
+        assertTrue("Due date is '" + new Date(subsequentDueDate) + "', expected no more than '" +
+                new Date(DateUtilities.now() + 5 * DateUtilities.ONE_DAY) + "'",
+                nextDueDate - DateUtilities.now() < 5 * DateUtilities.ONE_DAY);
+    }
+
 }
