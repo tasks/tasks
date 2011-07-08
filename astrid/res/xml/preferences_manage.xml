@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:title="@string/EPr_manage_header">
+    
+    <PreferenceScreen
+        android:title="@string/EPr_manage_delete_completed"
+        android:key="@string/EPr_manage_delete_completed" 
+        android:summary="@string/EPr_manage_delete_completed_summary"/>
+        
+    <PreferenceScreen
+        android:title="@string/EPr_manage_purge_deleted"
+        android:key="@string/EPr_manage_purge_deleted" 
+        android:summary="@string/EPr_manage_purge_deleted_summary"/>
+        
+</PreferenceScreen>

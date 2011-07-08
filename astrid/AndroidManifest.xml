@@ -215,6 +215,14 @@
         <category android:name="android.intent.category.DEFAULT" />
       </intent-filter>
     </activity>
+    <activity android:name="com.todoroo.astrid.core.OldTaskPreferences"
+              android:theme="@android:style/Theme" 
+              android:label="@string/EPr_manage_header">
+      <intent-filter>
+        <action android:name="com.todoroo.astrid.SETTINGS" />
+        <category android:name="android.intent.category.DEFAULT" />
+      </intent-filter>
+    </activity>
     
     <!-- custom filters -->
     <receiver android:name="com.todoroo.astrid.core.CustomFilterExposer">
