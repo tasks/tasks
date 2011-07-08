@@ -50,6 +50,15 @@
         android:key="@string/p_statistics"
         android:title="@string/EPr_statistics_title"
         android:defaultValue="true" />
+    <PreferenceCategory
+        android:title="@string/EPr_extended_header">
+        <PreferenceScreen
+            android:title="@string/EPr_extended_delete_completed"
+            android:key="@string/EPr_extended_delete_completed" android:summary="@string/EPr_extended_delete_completed_summary"/>
+        <PreferenceScreen
+            android:title="@string/EPr_extended_purge_deleted"
+            android:key="@string/EPr_extended_purge_deleted" android:summary="@string/EPr_extended_purge_deleted_summary"/>
+    </PreferenceCategory>
     
 
 </PreferenceScreen>

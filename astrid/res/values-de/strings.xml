@@ -723,6 +723,17 @@
       <item>Am Stichtag oder überfällig</item>
   </string-array>
   
+  <string name="EPr_extended_header">Erweitert</string>
+  <string name="EPr_extended_delete_completed">Alle erledigten Aufgaben löschen</string>
+  <string name="EPr_extended_delete_completed_message">Wollen Sie wirklich alle erledigten Aufgaben löschen?</string>
+  <string name="EPr_extended_delete_completed_summary">Hiermit gelöschte Aufgaben können einzeln wiederhergestellt werden</string>
+  <string name="EPr_extended_delete_completed_status">Es wurden %d erledigte Aufgaben gelöscht!</string>
+  <string name="EPr_extended_purge_deleted">Alle gelöschten Aufgaben endgültig entfernen</string>
+  <string name="EPr_extended_purge_deleted_message">Wollen Sie wirklich alle gelöschten Aufgaben endgültig entfernen?\n
+Achtung: diese Aufgaben sind unwiederbringlich verloren, wenn Sie kein Backup gemacht haben!</string>
+  <string name="EPr_extended_purge_deleted_summary">Achtung: diese Aufgaben können nur mit der Backupfunktion wiederhergestellt werden!</string>
+  <string name="EPr_extended_purge_deleted_status">Es wurden %d gelöschte Aufgaben endgültig entfernt!</string>
+
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->

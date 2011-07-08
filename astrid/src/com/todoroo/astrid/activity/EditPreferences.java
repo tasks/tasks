@@ -32,6 +32,7 @@ import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.utility.AndroidUtilities;
+import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.andlib.utility.TodorooPreferenceActivity;
@@ -40,6 +41,7 @@ import com.todoroo.astrid.dao.Database;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.helper.MetadataHelper;
 import com.todoroo.astrid.service.AddOnService;
+import com.todoroo.astrid.service.MetadataService;
 import com.todoroo.astrid.service.StartupService;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.ui.ContactListAdapter;
@@ -61,7 +63,8 @@ public class EditPreferences extends TodorooPreferenceActivity {
 
     // --- instance variables
 
-    @Autowired private TaskService taskService; // for debugging
+    @Autowired private TaskService taskService;
+    @Autowired private MetadataService metadataService;
     @Autowired private AddOnService addOnService;
 
     @Autowired
@@ -102,6 +105,26 @@ public class EditPreferences extends TodorooPreferenceActivity {
             }
         });
 
+//        PreferenceGroup extended = (PreferenceGroup) screen.findPreference(r.getString(R.string.EPr_extended_header));
+//        extended.setOrder(screen.getPreferenceCount());
+
+        // Extended prefs
+        Preference extpreference_completed = screen.findPreference(r.getString(R.string.EPr_extended_delete_completed));
+        extpreference_completed.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference p) {
+                showDeleteCompletedDialog();
+                return true;
+            }
+        });
+
+        Preference extpreference_purged = screen.findPreference(r.getString(R.string.EPr_extended_purge_deleted));
+        extpreference_purged.setOnPreferenceClickListener(new OnPreferenceClickListener() {
+            public boolean onPreferenceClick(Preference p) {
+                showPurgeDeletedDialog();
+                return true;
+            }
+        });
+
         addDebugPreferences();
 
         addPreferenceListeners();
@@ -116,6 +139,61 @@ public class EditPreferences extends TodorooPreferenceActivity {
             // sadness
         }
         About.showAbout(this, version);
+    }
+
+    /** Show the dialog to delete completed tasks */
+    private void showDeleteCompletedDialog () {
+        DialogUtilities.okCancelDialog(this,
+                getResources().getString(R.string.EPr_extended_delete_completed_message),
+                new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Task template = new Task();
+                        template.setValue(Task.DELETION_DATE, DateUtilities.now());
+                        int result = taskService.update(Task.COMPLETION_DATE.gt(0), template);
+                        DialogUtilities.okDialog(EditPreferences.this,
+                                getResources().getString(R.string.EPr_extended_delete_completed_status, result),
+                                new OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                    }
+                },
+                new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+    }
+
+    /** Show the dialog to purge deleted tasks */
+    private void showPurgeDeletedDialog () {
+        DialogUtilities.okCancelDialog(this,
+                getResources().getString(R.string.EPr_extended_purge_deleted_message),
+                new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        int result = taskService.deleteWhere(Task.DELETION_DATE.gt(0));
+                        metadataService.cleanup();
+                        DialogUtilities.okDialog(EditPreferences.this,
+                                getResources().getString(R.string.EPr_extended_purge_deleted_status, result),
+                                new OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        dialog.dismiss();
+                                    }
+                                });
+                    }
+                },
+                new OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
     }
 
     private void addPluginPreferences(PreferenceScreen screen) {

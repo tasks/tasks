@@ -495,5 +495,17 @@ Astrid might not let you know when your tasks are due.\n
 Astrid is the much loved open-source todo list / task manager designed to help 
 you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget and more. 
   </string>
+  
+  <!-- ============================================================= Extended Settings == -->
+  <string name="EPr_extended_header">Extended</string>
+  <string name="EPr_extended_delete_completed">Delete completed tasks</string>
+  <string name="EPr_extended_delete_completed_message">Do you really want to delete all your completed tasks?</string>
+  <string name="EPr_extended_delete_completed_summary">This deleted tasks can be undeleted individually</string>
+  <string name="EPr_extended_delete_completed_status">Deleted %d tasks!</string>
+  <string name="EPr_extended_purge_deleted">Purge deleted tasks</string>
+  <string name="EPr_extended_purge_deleted_message">Do you really want to purge all your deleted tasks?\n
+Attention: these tasks will be lost forever, if you did not create a recent backup!</string>
+  <string name="EPr_extended_purge_deleted_status">Purged %d tasks!</string>
+  <string name="EPr_extended_purge_deleted_summary">Attention: these purged tasks can\'t be recovered without a backup!</string>
     
 </resources>
