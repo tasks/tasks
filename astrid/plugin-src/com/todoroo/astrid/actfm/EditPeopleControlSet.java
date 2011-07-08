@@ -1,5 +1,7 @@
 package com.todoroo.astrid.actfm;
 
+import greendroid.widget.AsyncImageView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +23,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -143,6 +146,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
             new Thread(new Runnable() {
                 @Override
                 public void run() {
+                    ArrayList<JSONObject> collaborators = new ArrayList<JSONObject>();
                     TodorooCursor<Metadata> tags = TagService.getInstance().getTags(task.getId());
                     try {
                         Metadata metadata = new Metadata();
@@ -151,23 +155,26 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                             final String tag = metadata.getValue(TagService.TAG);
                             TagData tagData = tagDataService.getTag(tag, TagData.MEMBER_COUNT, TagData.MEMBERS, TagData.USER);
                             if(tagData != null && tagData.getValue(TagData.MEMBER_COUNT) > 0) {
-                                activity.runOnUiThread(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        TextView textView = sharedWithContainer.addPerson("#" + tag);
-                                        textView.setEnabled(false);
-                                    }
-                                });
                                 JSONArray members = new JSONArray(tagData.getValue(TagData.MEMBERS));
-                                for(int i = 0; i < members.length(); i++)
-                                    sharedPeople.add(members.getJSONObject(i));
-                                if(!TextUtils.isEmpty(tagData.getValue(TagData.USER)))
-                                    sharedPeople.add(new JSONObject(tagData.getValue(TagData.USER)));
+                                for(int i = 0; i < members.length(); i++) {
+                                    JSONObject user = members.getJSONObject(i);
+                                    user.put("tag", tag);
+                                    sharedPeople.add(user);
+                                    collaborators.add(user);
+                                }
+                                if(!TextUtils.isEmpty(tagData.getValue(TagData.USER))) {
+                                    JSONObject user = new JSONObject(tagData.getValue(TagData.USER));
+                                    user.put("tag", tag);
+                                    sharedPeople.add(user);
+                                    collaborators.add(user);
+                                }
                             } else {
                                 nonSharedTags.add((Metadata) metadata.clone());
                             }
                         }
 
+                        if(collaborators.size() > 0)
+                            buildCollaborators(collaborators);
                         buildAssignedToSpinner(sharedPeople);
                     } catch (JSONException e) {
                         exceptionService.reportError("json-reading-data", e);
@@ -180,6 +187,41 @@ public class EditPeopleControlSet implements TaskEditControlSet {
         } catch (JSONException e) {
             exceptionService.reportError("json-reading-data", e);
         }
+    }
+
+    @SuppressWarnings("nls")
+    private void buildCollaborators(final ArrayList<JSONObject> sharedPeople) throws JSONException {
+
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                HashSet<Long> userIds = new HashSet<Long>();
+                LinearLayout collaborators = (LinearLayout) activity.findViewById(R.id.collaborators);
+
+                for(JSONObject person : sharedPeople) {
+                    if(person == null)
+                        continue;
+                    long id = person.optLong("id", -1);
+                    if(id == 0 || id == ActFmPreferenceService.userId() || (id > -1 && userIds.contains(id)))
+                        continue;
+                    userIds.add(id);
+
+                    System.err.println("inflated person: " + person);
+                    View contact = activity.getLayoutInflater().inflate(R.layout.contact_adapter_row, collaborators, false);
+                    AsyncImageView icon = (AsyncImageView) contact.findViewById(android.R.id.icon);
+                    TextView name = (TextView) contact.findViewById(android.R.id.text1);
+                    TextView tag = (TextView) contact.findViewById(android.R.id.text2);
+
+                    icon.setUrl(person.optString("picture"));
+                    name.setText(person.optString("name"));
+                    name.setTextAppearance(activity, android.R.style.TextAppearance_Medium);
+                    tag.setText(activity.getString(R.string.actfm_EPA_list, person.optString("tag")));
+                    tag.setTextAppearance(activity, android.R.style.TextAppearance);
+
+                    collaborators.addView(contact);
+                }
+            }
+        });
     }
 
     private class AssignedToUser {
@@ -204,13 +246,14 @@ public class EditPeopleControlSet implements TaskEditControlSet {
         HashSet<String> emails = new HashSet<String>();
         HashMap<String, AssignedToUser> names = new HashMap<String, AssignedToUser>();
 
-        JSONObject myself = new JSONObject();
-        myself.put("id", 0L);
-        sharedPeople.add(0, myself);
         if(task.getValue(Task.USER_ID) != 0) {
             JSONObject user = new JSONObject(task.getValue(Task.USER));
             sharedPeople.add(0, user);
         }
+
+        JSONObject myself = new JSONObject();
+        myself.put("id", 0L);
+        sharedPeople.add(0, myself);
 
         // de-duplicate by user id and/or email
         spinnerValues.clear();

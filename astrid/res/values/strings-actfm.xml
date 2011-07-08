@@ -90,6 +90,9 @@
   <!-- task sharing dialog: shared with label -->
   <string name="actfm_EPA_share_with">Add Collaborators:</string>
   
+  <!-- task sharing dialog: collaborator list name (%s => name of list) -->
+  <string name="actfm_EPA_list">List: %s</string>
+  
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_EPA_assigned_hint">Contact Name</string>
   
