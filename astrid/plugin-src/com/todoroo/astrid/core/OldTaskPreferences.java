@@ -118,6 +118,9 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
             public void run() {
                 try {
                     runnable.run();
+                } catch (Exception e) {
+                    DialogUtilities.okDialog(OldTaskPreferences.this,
+                            getString(R.string.DLG_error, e.toString()), null);
                 } finally {
                     DialogUtilities.dismissDialog(OldTaskPreferences.this, pd);
                 }
