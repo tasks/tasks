@@ -437,13 +437,12 @@
   <string name="EPr_manage_header">Manage Old Tasks</string>
   <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
   <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
-  <string name="EPr_manage_delete_completed_summary">This deleted tasks can be undeleted individually</string>
+  <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
   <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
   <string name="EPr_manage_purge_deleted">Purge Deleted Tasks</string>
-  <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n
-Attention: these tasks will be lost forever, if you did not create a recent backup!</string>
+  <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
   <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
-  <string name="EPr_manage_purge_deleted_summary">Attention: these purged tasks can\'t be recovered without a backup!</string>
+  <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
       
   <!-- ==================================================== AddOnActivity == -->
   

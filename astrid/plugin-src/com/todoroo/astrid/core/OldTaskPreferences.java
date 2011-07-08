@@ -34,7 +34,7 @@ public class OldTaskPreferences extends TodorooPreferenceActivity {
 
     @Override
     public int getPreferenceResource() {
-        return R.xml.preferences_manage;
+        return R.xml.preferences_oldtasks;
     }
 
     @Override
