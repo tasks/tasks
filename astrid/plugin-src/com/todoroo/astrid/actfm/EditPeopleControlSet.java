@@ -510,6 +510,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
 
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
+                            DialogUtilities.dismissDialog(activity, pd);
                             showSaveToast();
                             activity.finish();
                         }
@@ -525,7 +526,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                 } finally {
                     activity.runOnUiThread(new Runnable() {
                         public void run() {
-                            pd.dismiss();
+                            DialogUtilities.dismissDialog(activity, pd);
                         }
                     });
                 }
