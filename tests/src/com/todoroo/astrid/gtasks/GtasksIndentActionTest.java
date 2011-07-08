@@ -1,12 +1,17 @@
 package com.todoroo.astrid.gtasks;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.api.services.tasks.v1.model.TaskList;
+import com.google.api.services.tasks.v1.model.TaskLists;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.gtasks.GoogleTaskListInfo;
 
+@SuppressWarnings("nls")
 public class GtasksIndentActionTest extends DatabaseTestCase {
 
     @Autowired private GtasksMetadataService gtasksMetadataService;
@@ -124,9 +129,13 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
     protected void setUp() throws Exception {
         super.setUp();
 
-        GoogleTaskListInfo[] lists = new GoogleTaskListInfo[1];
-        GoogleTaskListInfo list = new GoogleTaskListInfo("list", "Test Tasks");
-        lists[0] = list;
+        TaskLists lists = new TaskLists();
+        List<TaskList> items = new ArrayList<TaskList>();
+        TaskList list = new TaskList();
+        list.id = "list";
+        list.title = "Test Tasks";
+        items.add(list);
+        lists.items = items;
         gtasksListService.updateLists(lists);
     }
 
@@ -164,4 +173,4 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         return task;
     }
 
-}
+}//*/

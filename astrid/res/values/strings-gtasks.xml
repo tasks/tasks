@@ -32,6 +32,8 @@
     <!-- Instructions: Gtasks login -->    
     <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps
     accounts are currently unsupported.</string>
+    
+    <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
 
     <!-- Instructions: Gtasks further help -->    
     <string name="gtasks_GLA_further_help">To view your tasks with indentation
@@ -46,6 +48,9 @@
 
     <!-- Password Label -->    
     <string name="gtasks_GLA_password">Password</string>
+    
+    <!--  Authenticating toast -->
+    <string name="gtasks_GLA_authenticating">Authenticating...</string>
     
     <!-- Google Apps for Domain checkbox -->
     <string name="gtasks_GLA_domain">Google Apps for Domain account</string>

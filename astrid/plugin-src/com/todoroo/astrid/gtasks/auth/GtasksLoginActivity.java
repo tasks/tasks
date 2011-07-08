@@ -19,53 +19,50 @@
  */
 package com.todoroo.astrid.gtasks.auth;
 
-import java.io.IOException;
+import java.util.ArrayList;
 
-import org.json.JSONException;
-
-import android.app.Activity;
-import android.app.ProgressDialog;
+import android.accounts.Account;
+import android.accounts.AccountManager;
+import android.accounts.AccountManagerCallback;
+import android.accounts.AccountManagerFuture;
+import android.app.ListActivity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.Html;
-import android.text.method.LinkMovementMethod;
-import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.TextView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
-import com.google.android.googlelogin.GoogleLoginServiceConstants;
-import com.google.android.googlelogin.GoogleLoginServiceHelper;
+import com.google.api.client.googleapis.extensions.android2.auth.GoogleAccountManager;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
-import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.gtasks.GtasksBackgroundService;
 import com.todoroo.astrid.gtasks.GtasksPreferenceService;
+import com.todoroo.astrid.gtasks.api.GtasksService;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
-import com.todoroo.gtasks.GoogleConnectionManager;
-import com.todoroo.gtasks.GoogleLoginException;
-import com.todoroo.gtasks.GoogleTasksException;
 
 /**
- * This activity allows users to sign in or log in to Producteev
+ * This activity allows users to sign in or log in to Google Tasks
+ * through the Android account manager
  *
- * @author arne.jans
+ * @author Sam Bosley
  *
  */
-public class GtasksLoginActivity extends Activity {
+public class GtasksLoginActivity extends ListActivity {
 
     @Autowired private GtasksPreferenceService gtasksPreferenceService;
 
     // --- ui initialization
+
+    private GoogleAccountManager accountManager;
+    private String[] nameArray;
+
+    private String authToken;
+    private String accountName;
 
     static {
         AstridDependencyInjector.initialize();
@@ -81,104 +78,53 @@ public class GtasksLoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         ContextManager.setContext(this);
 
-        setContentView(R.layout.gtasks_login_activity);
         setTitle(R.string.gtasks_GLA_title);
+        accountManager = new GoogleAccountManager(this);
+        Account[] accounts = accountManager.getAccounts();
+        ArrayList<String> accountNames = new ArrayList<String>();
+        for (Account a : accounts) {
+            accountNames.add(a.name);
+        }
 
-        final TextView errors = (TextView) findViewById(R.id.error);
-        final EditText emailEditText = (EditText) findViewById(R.id.email);
-        final EditText passwordEditText = (EditText) findViewById(R.id.password);
-        final CheckBox isDomain = (CheckBox) findViewById(R.id.isDomain);
+        nameArray = accountNames.toArray(new String[accountNames.size()]);
 
-        Button signIn = (Button) findViewById(R.id.signIn);
-        signIn.setOnClickListener(new OnClickListener() {
-            public void onClick(View v) {
-                errors.setVisibility(View.GONE);
-                Editable email = emailEditText.getText();
-                Editable password = passwordEditText.getText();
-                if(email.length() == 0 || password.length() == 0) {
-                    errors.setVisibility(View.VISIBLE);
-                    errors.setText(R.string.producteev_PLA_errorEmpty);
-                    return;
-                }
-
-                performLogin(email.toString(), password.toString(), isDomain.isChecked());
-            }
-
-        });
-
-        getCredentials(new OnGetCredentials() {
-            @Override
-            public void getCredentials(String[] accounts) {
-                if(accounts != null && accounts.length > 0)
-                    emailEditText.setText(accounts[0]);
-            }
-        });
-
+        setListAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameArray));
     }
 
-    private int loginTries = 0;
-
-    private void performLogin(final String email, final String password, final boolean isDomain) {
-        final ProgressDialog dialog = DialogUtilities.progressDialog(this,
-                getString(R.string.DLG_wait));
-        final TextView errors = (TextView) findViewById(R.id.error);
-        dialog.show();
-        new Thread() {
-            @SuppressWarnings("nls")
-            @Override
-            public void run() {
-                final StringBuilder errorMessage = new StringBuilder();
-                GoogleConnectionManager gcm = new GoogleConnectionManager(email.toString(),
-                        password.toString(), !isDomain);
-
-                loginTries++;
-
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        super.onListItemClick(l, v, position, id);
+        Toast.makeText(this, R.string.gtasks_GLA_authenticating, Toast.LENGTH_LONG);
+        final Account a = accountManager.getAccountByName(nameArray[position]);
+        accountName = a.name;
+        AccountManagerCallback<Bundle> callback = new AccountManagerCallback<Bundle>() {
+            public void run(AccountManagerFuture<Bundle> future) {
                 try {
-                    gcm.authenticate(false);
-                    gcm.get();
-                    String token = gcm.getToken();
-                    gtasksPreferenceService.setToken(token);
-                    StatisticsService.reportEvent("gtasks-login");
-                    Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, email);
-                    Preferences.setString(GtasksPreferenceService.PREF_PASSWORD, password);
-                    Preferences.setBoolean(GtasksPreferenceService.PREF_IS_DOMAIN, isDomain);
-
-                    synchronize();
-                } catch (GoogleLoginException e) {
-                    errorMessage.append(getString(R.string.gtasks_GLA_errorAuth));
-
-                    if(loginTries > 1) {
-                        errorMessage.append("<br/><br/>").append(getString(
-                                R.string.gtasks_GLA_errorAuth_captcha)).append(
-                                        "<br/><a href='https://www.google.com/accounts/ServiceLogin'>Google Sign In</a>");
+                    Bundle bundle = future.getResult();
+                    if (bundle.containsKey(AccountManager.KEY_INTENT)) {
+                        Intent i = (Intent) bundle.get(AccountManager.KEY_INTENT);
+                        startActivityForResult(i, REQUEST_AUTHENTICATE);
+                    } else if (bundle.containsKey(AccountManager.KEY_AUTHTOKEN)) {
+                        authToken = bundle.getString(AccountManager.KEY_AUTHTOKEN);
+                        onAuthTokenSuccess();
                     }
-
-                    Log.e("gtasks", "login-auth", e);
-                    return;
-                } catch (GoogleTasksException e) {
-                    errorMessage.append(getString(R.string.gtasks_GLA_errorAuth));
-                    Log.e("gtasks", "login-gtasks", e);
-                } catch (JSONException e) {
-                    errorMessage.append(getString(R.string.gtasks_GLA_errorAuth));
-                    Log.e("gtasks", "login-json", e);
-                } catch (IOException e) {
-                    errorMessage.append(getString(R.string.SyP_ioerror));
-                    Log.e("gtasks", "login-io", e);
-                    return;
-                } finally {
-                    runOnUiThread(new Runnable() {
-                        public void run() {
-                            dialog.dismiss();
-                            if(errorMessage.length() > 0) {
-                                errors.setVisibility(View.VISIBLE);
-                                errors.setText(Html.fromHtml(errorMessage.toString()));
-                                errors.setMovementMethod(LinkMovementMethod.getInstance());
-                            }
-                        }
-                    });
+                } catch (Exception e) {
+                    onAuthCancel();
                 }
             }
-        }.start();
+        };
+        accountManager.manager.getAuthToken(a, GtasksService.AUTH_TOKEN_TYPE, true, callback, null);
+    }
+
+    private void onAuthCancel() {
+        setResult(RESULT_CANCELED);
+        finish();
+    }
+
+    private void onAuthTokenSuccess() {
+        gtasksPreferenceService.setToken(authToken);
+        Preferences.setString(GtasksPreferenceService.PREF_USER_NAME, accountName);
+        synchronize();
     }
 
     /**
@@ -202,31 +148,18 @@ public class GtasksLoginActivity extends Activity {
         StatisticsService.sessionStop(this);
     }
 
-    // --- account management
-
-
-    private static final int REQUEST_CODE_GOOGLE = 1;
+    private static final int REQUEST_AUTHENTICATE = 0;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUEST_CODE_GOOGLE){
-            String accounts[] = data.getExtras().getStringArray(GoogleLoginServiceConstants.ACCOUNTS_KEY);
-            credentialsListener.getCredentials(accounts);
+        if(requestCode == REQUEST_AUTHENTICATE && resultCode == RESULT_OK){
+            //User gave permission--huzzah!
+
+        } else {
+            //User didn't give permission--cancel
+            onAuthCancel();
         }
-    }
-    public interface OnGetCredentials {
-        public void getCredentials(String[] accounts);
-    }
-
-    private OnGetCredentials credentialsListener;
-
-    public void getCredentials(OnGetCredentials onGetCredentials) {
-        credentialsListener = onGetCredentials;
-        if(Integer.parseInt(Build.VERSION.SDK) >= 7)
-            credentialsListener.getCredentials(ModernAuthManager.getAccounts(this));
-        else
-            GoogleLoginServiceHelper.getAccount(this, REQUEST_CODE_GOOGLE, false);
     }
 
 }

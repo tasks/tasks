@@ -30,9 +30,6 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
     /** GTasks user name */
     public static final String PREF_USER_NAME = IDENTIFIER + "_user"; //$NON-NLS-1$
 
-    /** GTasks user password */
-    public static final String PREF_PASSWORD = IDENTIFIER + "_password"; //$NON-NLS-1$
-
     /** GTasks is apps for domain boolean */
     public static final String PREF_IS_DOMAIN = IDENTIFIER + "_domain"; //$NON-NLS-1$
 

@@ -1,10 +1,15 @@
 package com.todoroo.astrid.gtasks;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+import com.google.api.services.tasks.v1.model.TaskList;
+import com.google.api.services.tasks.v1.model.TaskLists;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
@@ -12,13 +17,12 @@ import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.gtasks.GoogleTaskListInfo;
 
 public class GtasksDetailExposerTest extends DatabaseTestCase {
 
     @Autowired private GtasksListService gtasksListService;
-    private GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();
-    private DetailListener detailListener = new DetailListener();
+    private final GtasksTestPreferenceService preferences = new GtasksTestPreferenceService();
+    private final DetailListener detailListener = new DetailListener();
 
     private Task task;
     private String detail;
@@ -86,12 +90,18 @@ public class GtasksDetailExposerTest extends DatabaseTestCase {
     }
 
     private void givenTwoListSetup() {
-        GoogleTaskListInfo[] newLists = new GoogleTaskListInfo[2];
-        GoogleTaskListInfo list = new GoogleTaskListInfo("listone-id", "List One");
-        newLists[0] = list;
-        list = new GoogleTaskListInfo("listtwo-id", "List Two");
-        newLists[1] = list;
-        gtasksListService.updateLists(newLists);
+        TaskLists lists = new TaskLists();
+        List<TaskList> newLists = new ArrayList<TaskList>();
+        TaskList list = new TaskList();
+        list.id = "listone-id";
+        list.title = "List One"; //new GoogleTaskListInfo("listone-id", "List One");
+        newLists.add(list);
+        list = new TaskList();
+        list.id = "listtwo-id";
+        list.title = "List Two"; //("listtwo-id", "List Two");
+        newLists.add(list);
+        lists.items = newLists;
+        gtasksListService.updateLists(lists);
     }
 
     private Task givenTaskWithList(String list) {
@@ -142,4 +152,4 @@ public class GtasksDetailExposerTest extends DatabaseTestCase {
         }
     }
 
-}
+}//*/

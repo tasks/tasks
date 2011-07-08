@@ -1,4 +1,4 @@
-package com.todoroo.astrid.gtasks;
+/*package com.todoroo.astrid.gtasks;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,13 +9,6 @@ import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.gtasks.sync.GtasksSyncProvider;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.test.DatabaseTestCase;
-import com.todoroo.gtasks.GoogleConnectionManager;
-import com.todoroo.gtasks.GoogleTaskListInfo;
-import com.todoroo.gtasks.GoogleTaskService;
-import com.todoroo.gtasks.GoogleTaskTask;
-import com.todoroo.gtasks.GoogleTaskView;
-import com.todoroo.gtasks.actions.ListAction;
-import com.todoroo.gtasks.actions.ListActions;
 
 
 public class GtasksSyncTest extends DatabaseTestCase {
@@ -135,4 +128,4 @@ public class GtasksSyncTest extends DatabaseTestCase {
 
 
 
-}
+}//*/

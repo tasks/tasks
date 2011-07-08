@@ -152,13 +152,15 @@ public abstract class SyncProvider<TYPE extends SyncContainer> {
     public void synchronize(final Context context) {
         // display toast
         if(context instanceof Activity) {
-            ((Activity) context).runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    Toast.makeText(context, R.string.SyP_progress_toast,
-                            Toast.LENGTH_LONG).show();
-                }
-            });
+            if(getUtilities().isLoggedIn()) {
+                ((Activity) context).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        Toast.makeText(context, R.string.SyP_progress_toast,
+                                Toast.LENGTH_LONG).show();
+                    }
+                });
+            }
             initiateManual((Activity)context);
         } else if(context instanceof Service) {
             // display notification
