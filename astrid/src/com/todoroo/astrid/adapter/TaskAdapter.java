@@ -23,6 +23,7 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
@@ -104,6 +105,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         Task.IMPORTANCE,
         Task.DUE_DATE,
         Task.COMPLETION_DATE,
+        Task.MODIFICATION_DATE,
         Task.HIDE_UNTIL,
         Task.DELETION_DATE,
         Task.DETAILS,
@@ -138,6 +140,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
     private DetailLoaderThread detailLoader;
     private int fontSize;
     protected boolean applyListenersToRowBody = false;
+    private long mostRecentlyMade = -1;
 
     private final AtomicReference<String> query;
 
@@ -389,6 +392,9 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 drawDetails(viewHolder, details, dueDateTextWidth);
             }
         }
+
+        if(Math.abs(DateUtilities.now() - task.getValue(Task.MODIFICATION_DATE)) < 2000L)
+            mostRecentlyMade = task.getId();
 
         // details and decorations, expanded
         decorationManager.request(viewHolder);
@@ -760,7 +766,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
                 }
                 viewHolder.decorations = null;
             }
-            viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
+            if(viewHolder.task.getId() == mostRecentlyMade)
+                viewHolder.view.setBackgroundColor(Color.argb(20, 255, 255, 255));
+            else
+                viewHolder.view.setBackgroundResource(android.R.drawable.list_selector_background);
         }
 
         @Override
