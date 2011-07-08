@@ -365,9 +365,9 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
 
         long dueDate = ApiUtilities.producteevToUnixTime(remoteTask.getString("deadline"), 0);
         if(remoteTask.optInt("all_day", 0) == 1)
-            task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate));
+            task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, dueDate));
         else
-            task.setValue(Task.DUE_DATE, task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueDate));
+            task.setValue(Task.DUE_DATE, Task.createDueDate(Task.URGENCY_SPECIFIC_DAY_TIME, dueDate));
         task.setValue(Task.IMPORTANCE, 5 - remoteTask.getInt("star"));
 
         JSONArray labels = remoteTask.getJSONArray("labels");

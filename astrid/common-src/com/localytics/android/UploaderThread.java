@@ -16,7 +16,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -37,16 +36,17 @@ import android.util.Log;
  * The thread which handles uploading Localytics data.
  * @author Localytics
  */
+@SuppressWarnings("nls")
 public class UploaderThread extends Thread
 {
-	private Runnable _completeCallback;
-	private File     _localyticsDir;
-	private String   _sessionFilePrefix;
-	private String   _uploaderFilePrefix;
-	private String   _closeFilePrefix;
+	private final Runnable _completeCallback;
+	private final File     _localyticsDir;
+	private final String   _sessionFilePrefix;
+	private final String   _uploaderFilePrefix;
+	private final String   _closeFilePrefix;
 
 	// The Tag used in logging.
-	private final static String LOG_TAG = "Localytics_uploader";
+    private final static String LOG_TAG = "Localytics_uploader";
 
 	// The URL to send Localytics session data to
 	private final static String ANALYTICS_URL = "http://analytics.localytics.com/api/datapoints/bulk";
@@ -85,7 +85,8 @@ public class UploaderThread extends Thread
 	 * Renames all the session files (so that other threads can keep writing
 	 * datapoints without affecting the upload.  And then uploads them.
 	 */
-	public void run()
+	@Override
+    public void run()
 	{
 		int numFilesToUpload = 0;
 
@@ -278,7 +279,7 @@ public class UploaderThread extends Thread
 			{
                 BufferedReader reader = new BufferedReader(
                                             new InputStreamReader(
-                                                new FileInputStream(inputFile), 
+                                                new FileInputStream(inputFile),
                                                 "UTF-8"),
                                             UploaderThread.BUFFER_SIZE);
 				char[] buf = new char[1024];

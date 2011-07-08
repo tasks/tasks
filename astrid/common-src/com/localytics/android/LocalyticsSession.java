@@ -11,26 +11,25 @@
 
 package com.localytics.android;
 
-import android.content.Context;
-import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.os.Build;
-
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.OutputStream;
-
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
-import java.util.Arrays;
+
+import android.content.Context;
+import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.util.Log;
 
 /**
  * The class which manages creating, collecting, & uploading a Localytics session.
@@ -70,6 +69,7 @@ import java.util.Arrays;
  * @author Localytics
  * @version 1.5
  */
+@SuppressWarnings("nls")
 public final class LocalyticsSession
 {
     ////////////////////////////////////////
@@ -217,7 +217,7 @@ public final class LocalyticsSession
                 {
                     fp.createNewFile();
                 }
-                catch (IOException e) { }
+                catch (IOException e) { /**/ }
 
                 createOptEvent(false);
             }
@@ -473,7 +473,7 @@ public final class LocalyticsSession
                     DatapointHelper.PARAM_SESSION_UUID, this._sessionUUID, 3));
             eventString.append(DatapointHelper.formatYAMLLine(
                     DatapointHelper.PARAM_CLIENT_TIME, DatapointHelper.getTimeAsDatetime(), 3));
-            
+
             eventString.append(DatapointHelper.formatYAMLLine(
                     DatapointHelper.PARAM_EVENT_NAME, event, 3));
 
@@ -508,7 +508,7 @@ public final class LocalyticsSession
      * divisible by step size, the method guarantees only the minimum and the
      * step size to be accurate to specification, with the new maximum will be
      * moved to the next regular step.
-     * 
+     *
      * @param actualValue The int value to be sorted.
      * @param minValue The int value representing the inclusive minimum interval.
      * @param maxValue The int value representing the inclusive maximum interval.
@@ -534,16 +534,16 @@ public final class LocalyticsSession
         for (int currentStep = 0; currentStep <= stepQuantity; currentStep++)
         {
             steps[currentStep] = minValue + (currentStep) * step;
-        }            
+        }
         return createRangedAttribute(actualValue, steps);
     }
 
-    /**  
+    /**
      * Sorts an int value into a predefined, pre-sorted set of intervals, returning a string representing the
      * new expected value.  The array must be sorted in ascending order, with the first element representing
      * the inclusive lower bound and the last element representing the exclusive upper bound.  For instance,
      * the array [0,1,3,10] will provide the following buckets: less than 0, 0, 1-2, 3-9, 10 or greater.
-     * 
+     *
      * @param actualValue The int value to be bucketed.
      * @param steps The sorted int array representing the bucketing intervals.
      */
@@ -559,7 +559,7 @@ public final class LocalyticsSession
         // if greater than largest value
         else if (actualValue >= steps[steps.length - 1])
         {
-            bucket = steps[steps.length - 1] + " and above";            
+            bucket = steps[steps.length - 1] + " and above";
         }
         else
         {
@@ -567,7 +567,7 @@ public final class LocalyticsSession
             int bucketIndex = Arrays.binarySearch(steps, actualValue);
             if (bucketIndex < 0)
             {
-                // if the index wasn't found, then we want the value before the insertion point as the lower end 
+                // if the index wasn't found, then we want the value before the insertion point as the lower end
                 // the special case where the insertion point is 0 is covered above, so we don't have to worry about it here
                 bucketIndex = (- bucketIndex) - 2;
             }
@@ -932,7 +932,7 @@ public final class LocalyticsSession
      * Runnable which gets passed to the uploader thread so it can
      * notify the library when uploads are complete.
      */
-    private Runnable uploadComplete = new Runnable()
+    private final Runnable uploadComplete = new Runnable()
     {
         public void run()
         {

@@ -191,7 +191,7 @@ public class TaskDao extends DatabaseDao<Task> {
         if(!item.containsValue(Task.DUE_DATE)) {
             int setting = Preferences.getIntegerFromString(R.string.p_default_urgency_key,
                     Task.URGENCY_NONE);
-            item.setValue(Task.DUE_DATE, item.createDueDate(setting, 0));
+            item.setValue(Task.DUE_DATE, Task.createDueDate(setting, 0));
         }
         if(!item.containsValue(Task.HIDE_UNTIL)) {
             int setting = Preferences.getIntegerFromString(R.string.p_default_hideUntil_key,

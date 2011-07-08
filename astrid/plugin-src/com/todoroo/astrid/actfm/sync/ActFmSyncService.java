@@ -819,7 +819,7 @@ public final class ActFmSyncService {
             model.setValue(Task.TITLE, json.getString("title"));
             model.setValue(Task.IMPORTANCE, json.getInt("importance"));
             model.setValue(Task.DUE_DATE,
-                    model.createDueDate(Task.URGENCY_SPECIFIC_DAY, readDate(json, "due")));
+                    Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, readDate(json, "due")));
             model.setValue(Task.COMPLETION_DATE, readDate(json, "completed_at"));
             model.setValue(Task.CREATION_DATE, readDate(json, "created_at"));
             model.setValue(Task.DELETION_DATE, readDate(json, "deleted_at"));
