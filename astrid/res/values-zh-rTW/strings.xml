@@ -5,13 +5,13 @@
   <!-- ================================================== general terms == -->
 
   <!-- People Editing Activity -->    
-  <string name="EPE_action">Share</string>
+  <string name="EPE_action">分享</string>
   
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_person_hint">Contact Name</string>
   
   <!-- task sharing dialog: shared with hint -->
-  <string name="actfm_person_or_tag_hint">Contact or Shared Tag</string>
+  <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
 
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">Saved on Server</string>
@@ -20,7 +20,7 @@
   <string name="actfm_toast_error">Save Unsuccessful</string>
 
   <!-- can't rename or delete shared tag message -->
-  <string name="actfm_tag_operation_disabled">Please view shared tags to rename or delete them.</string>
+  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
 
   <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">Take a Picture</string>
@@ -29,9 +29,9 @@
   <string name="actfm_picture_gallery">Pick from Gallery</string>
 
   <!-- filter list activity: refresh tags -->
-  <string name="actfm_FLA_menu_refresh">Refresh Tags</string>
-  
-  <!-- =============================================== ProjectViewActivity == -->
+  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
+
+  <!-- ================================================== TagViewActivity == -->  
 
   <!-- Tag View Activity: Add Comment hint -->    
   <string name="TVA_add_comment">Add a comment...</string>
@@ -53,10 +53,10 @@
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
   <!-- Tag Members: tag name label -->
-  <string name="actfm_TVA_tag_label">Tag Name:</string>
+  <string name="actfm_TVA_tag_label">List Name:</string>
 
   <!-- Tag Members: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">Tag Owner:</string>
+  <string name="actfm_TVA_tag_owner_label">List Owner:</string>
 
   <!-- Tag Members: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">none</string>
@@ -65,12 +65,18 @@
   <string name="actfm_TVA_members_label">Team Members:</string>
 
   <!-- Tag Members: tag picture -->
-  <string name="actfm_TVA_tag_picture">Tag Picture</string>
+  <string name="actfm_TVA_tag_picture">List Picture</string>
 
   <!-- ============================================ edit people dialog == -->
-  
+
+  <!-- task sharing dialog: intro -->
+  <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
+    
   <!-- task sharing dialog: window title -->
   <string name="actfm_EPA_title">Share / Assign</string>
+    
+  <!-- task sharing dialog: save button -->
+  <string name="actfm_EPA_save">Save &amp; Share</string>
   
   <!-- task sharing dialog: assigned label -->
   <string name="actfm_EPA_assign_label">Assigned to:</string>
@@ -82,7 +88,10 @@
   <string name="actfm_EPA_assign_custom">Custom...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Shared With:</string>
+  <string name="actfm_EPA_share_with">Add Collaborators:</string>
+  
+  <!-- task sharing dialog: collaborator list name (%s => name of list) -->
+  <string name="actfm_EPA_list">List: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_EPA_assigned_hint">Contact Name</string>
@@ -115,7 +124,7 @@
   <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  <string name="actfm_EPA_invalid_tag">Tag Not Found: %s</string>
+  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
 
   <!-- ========================================= sharing login activity == -->
 
@@ -127,13 +136,16 @@
   share, and delegate with others. Perfect for personal use, friends, family, and coworkers!</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Login with Facebook</string>
+  <string name="actfm_ALA_fb_login">Facebook</string>
+
+  <!-- share login: Sharing Login GG Prompt -->
+  <string name="actfm_ALA_gg_login">Google</string>
 
   <!-- share login: Sharing Login Password Prompt -->
   <string name="actfm_ALA_pw_login">Login</string>
 
   <!-- share login: Sharing Sign Up Prompt -->
-  <string name="actfm_ALA_pw_signup">Sign Up</string>
+  <string name="actfm_ALA_pw_signup">Join Now</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
@@ -152,6 +164,9 @@
 
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>
+
+  <!-- share login: OAUTH Login Prompt -->
+  <string name="actfm_OLA_prompt">Please connect to Google:</string>
 
   <!-- share login: Sharing notice -->
   <string name="actfm_ALA_notice">We promise not to post messages or send
@@ -229,7 +244,7 @@
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">備份</string>
+  <string name="backup_BAc_label">Manage Backups</string>
 
   <!-- backup activity title -->
   <string name="backup_BAc_title">管理備份</string>
@@ -247,7 +262,7 @@
     
   <string name="export_toast">備份 %1$s 至 %2$s.</string>
     
-  <string name="export_toast_no_tasks">No Tasks to Export.</string>
+  <string name="export_toast_no_tasks">沒有工作需匯出</string>
   
   <!-- Progress Dialog Title for exporting -->    
   <string name="export_progress_title">匯出中...</string>
@@ -350,7 +365,10 @@
   <string name="ENE_label_comments">Comments</string>
   
   <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">No Comments</string>
+  <string name="ENA_no_comments">Nothing To Show</string>
+  
+  <!-- EditNoteActivity - loading -->
+  <string name="ENA_loading">載入中...</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Refresh Comments</string>
@@ -417,7 +435,7 @@
   <string name="TAd_contextUndeleteTask">還原工作刪除</string>
 
   <!-- Context Item: purge task -->
-  <string name="TAd_contextPurgeTask">Purge Task</string>
+  <string name="TAd_contextPurgeTask">清除工作</string>
   
   <!-- ============================================== SortSelectionDialog == -->
   
@@ -504,10 +522,13 @@
   <string name="TEA_tab_basic">一般</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">進階</string>
+  <string name="TEA_tab_share">分享</string>
+  
+  <!-- Second Tab - extra details -->
+  <string name="TEA_tab_alarms">警示</string>
   
   <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_addons">附加程式</string>
+  <string name="TEA_tab_more">更多</string>
   
   <!-- Task title label -->
   <string name="TEA_title_label">主旨</string>
@@ -522,10 +543,10 @@
   <string name="TEA_urgency_label">截止日期</string>
   
   <!-- Task urgency specific time checkbox -->
-  <string name="TEA_urgency_specific_time">At specific time?</string>
+  <string name="TEA_urgency_specific_time">指定時間?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">No Time Set</string>
+  <string name="TEA_urgency_none">None</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">隱藏到</string>
@@ -555,7 +576,7 @@
   <string name="TEA_menu_delete">刪除工作</string>
   
    <!-- Toast: task saved with deadline (%s => preposition + time units) -->
-  <string name="TEA_onTaskSave_due">Task Saved: due %s</string>
+  <string name="TEA_onTaskSave_due">工作已儲存: %s 到期</string>
   
   <!-- Toast: task saved without deadlines -->
   <string name="TEA_onTaskSave_notDue">工作已儲存</string>
@@ -568,12 +589,14 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
+      <item>無截止日</item>
       <item>指定日期/時間</item>
       <item>今天</item>
       <item>明天</item>
       <item>(天之後)</item>
       <item>下週</item>
-      <item>無截止日</item>
+      <item>In Two Weeks</item>
+      <item>下個月</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
@@ -586,10 +609,10 @@
   </string-array>
   
   <!-- Add Ons tab when no add-ons found -->
-  <string name="TEA_addons_text">Looking for more features?</string>
+  <string name="TEA_addons_text">尋找更多功能嗎?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Get the Power Pack!</string>
+  <string name="TEA_addons_button">取得強化套件</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -613,7 +636,7 @@
   <string name="UpS_changelog_title">Astrid 有哪些最新消息?</string>
   
   <!-- Updates Window Title -->
-  <string name="UpS_updates_title">Latest Astrid News</string>
+  <string name="UpS_updates_title">Astrid 最新消息</string>
   
   <!-- ================================================== EditPreferences == -->
     
@@ -650,22 +673,22 @@
   <!-- Preference: Default Urgency Title -->
   <string name="EPr_default_urgency_title">預設嚴重性</string>
   <!-- Preference: Default Urgency Description (%s => setting) -->
-  <string name="EPr_default_urgency_desc">Currently: %s</string>
+  <string name="EPr_default_urgency_desc">目前設定: %s</string>
   
   <!-- Preference: Default Importance Title -->
   <string name="EPr_default_importance_title">預設重要性</string>
   <!-- Preference: Default Importance Description (%s => setting) -->
-  <string name="EPr_default_importance_desc">Currently: %s</string>
+  <string name="EPr_default_importance_desc">目前設定: %s</string>
   
   <!-- Preference: Default Hide Until Title -->
   <string name="EPr_default_hideUntil_title">預設隱藏直到...</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_hideUntil_desc">Currently: %s</string>
+  <string name="EPr_default_hideUntil_desc">目前設定: %s</string>
   
   <!-- Preference: Default Reminders Title -->
-  <string name="EPr_default_reminders_title">Default Reminders</string>
+  <string name="EPr_default_reminders_title">預設提醒</string>
   <!-- Preference: Default Hide Until Description (%s => setting) -->
-  <string name="EPr_default_reminders_desc">Currently: %s</string>
+  <string name="EPr_default_reminders_desc">目前設定: %s</string>
   
   <string-array name="EPr_default_importance">
       <!-- importance: labels for "Task Defaults" preference item. -->
@@ -694,10 +717,10 @@
   
   <string-array name="EPr_default_reminders">
       <!-- reminders: labels for "Task Defaults" preference item. -->
-      <item>No deadline reminders</item>
-      <item>At deadline</item>
-      <item>When overdue</item>
-      <item>At deadline or overdue</item>
+      <item>無截止期限提醒</item>
+      <item>在截止期限時</item>
+      <item>當過期時</item>
+      <item>在截止期限或過期時</item>
   </string-array>
   
   <!-- ==================================================== AddOnActivity == -->
@@ -724,7 +747,7 @@
   <string name="AOA_visit_market">Android市集</string>
   
   <!-- Add-on Activity - when list is empty -->
-  <string name="AOA_no_addons">Empty List!</string>
+  <string name="AOA_no_addons">空的清單!</string>
   
   <!-- ====================================================== TasksWidget == -->
 
@@ -809,7 +832,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="CFA_type_intersect">也</string>
     
     <!-- Filter Criteria Context Menu: chaining (%s chain type as above) -->
-    <string name="CFA_context_chain">%s has criteria</string>
+    <string name="CFA_context_chain">% 含條件</string>
     
     <!-- Filter Criteria Context Menu: delete -->
     <string name="CFA_context_delete">刪除列</string>
@@ -840,7 +863,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
         <item>明天</item>
         <item>後天</item>
         <item>下週</item>
-        <item>Next Month</item>
+        <item>下個月</item>
     </string-array>
     
     <!-- Criteria: importance - display text (? -> user input)-->
@@ -849,19 +872,19 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="CFC_importance_name">重要性...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">標籤: ?</string>
+    <string name="CFC_tag_text">List: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">標籤...</string>
+    <string name="CFC_tag_name">List...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Tag contains...</string>
+    <string name="CFC_tag_contains_name">List name contains...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Tag contains: ?</string>
+    <string name="CFC_tag_contains_text">List name contains: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
-    <string name="CFC_title_contains_name">Title contains...</string>
+    <string name="CFC_title_contains_name">主旨含...</string>
     <!-- Criteria: title_contains - text (? -> user input) -->
-    <string name="CFC_title_contains_text">Title contains: ?</string>
+    <string name="CFC_title_contains_text">主旨含: ?</string>
     
 
 
@@ -888,7 +911,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="gcal_TEA_calendar_error">事件開啟錯誤!</string>
   
   <!-- Toast when calendar event updated because task changed -->
-  <string name="gcal_TEA_calendar_updated">Calendar event also updated!</string>
+  <string name="gcal_TEA_calendar_updated">行事曆事件也更新了!</string>
   
   <!-- ======================================================== Calendars == -->
   
@@ -910,17 +933,16 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_FEx_header">Google Tasks</string>
     
     <!-- filter category for GTasks lists -->
-    <string name="gtasks_FEx_list">By List</string>
+    <string name="gtasks_FEx_list">依清單</string>
     
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
     <!-- short help title for Gtasks -->
-    <string name="gtasks_help_title">Welcome to Google Tasks!</string>
+    <string name="gtasks_help_title">歡迎使用Google Tasks!</string>
     
     <!-- short help for GTasks list activity -->
-    <string name="gtasks_help_body">Drag the grabber on the left side of a task 
-    to rearrange it. Swipe the grabber left or right to change indentation.</string>
+    <string name="gtasks_help_body">拖曳工作左側的直條以重新排列。向左或向右滑動則可變更縮排。</string>
 
     <string name="CFC_gtasks_list_text">In List: ?</string>
 
@@ -929,16 +951,14 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- ============================================ GtasksLoginActivity == -->
     
     <!-- Activity Title: Gtasks Login -->    
-    <string name="gtasks_GLA_title">Log In to Google Tasks</string>
+    <string name="gtasks_GLA_title">登入Google Tasks</string>
 
     <!-- Instructions: Gtasks login -->    
     <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps
     accounts are currently unsupported.</string>
 
     <!-- Instructions: Gtasks further help -->    
-    <string name="gtasks_GLA_further_help">To view your tasks with indentation
-    and order preserved, go to the Filters page and select a Google Tasks list.
-    By default, Astrid uses its own sort settings for tasks.</string>
+    <string name="gtasks_GLA_further_help">檢視工作時若想保留縮排與排序，請到篩選頁面選擇Google Tasks的工作清單。Astrid預設採用自有的工作排序。</string>
 
     <!-- Sign In Button -->    
     <string name="gtasks_GLA_signIn">登入</string>
@@ -950,7 +970,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_GLA_password">密碼</string>
     
     <!-- Google Apps for Domain checkbox -->
-    <string name="gtasks_GLA_domain">Google Apps for Domain account</string>
+    <string name="gtasks_GLA_domain">Google Apps for Domain帳號</string>
 
     <!-- Error Message when fields aren't filled out -->    
     <string name="gtasks_GLA_errorEmpty">錯誤: 所有欄位需要填寫!</string>
@@ -959,13 +979,12 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_GLA_errorAuth">錯誤: 電子郵件或密碼不正確!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
-    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
-    Try logging in from the browser, then come back to try again:</string>
+    <string name="gtasks_GLA_errorAuth_captcha">您可能需要輸入captcha(驗證碼)。嘗試從瀏覽器登入後再回來重試:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
     <!-- GTasks Preferences Title -->    
-    <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
+    <string name="gtasks_GPr_header">Google Tasks (測試中!)</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -981,23 +1000,16 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see notes</string>
+  <string name="intro_click_prompt">簡介: 按我閱讀記事</string>
   
   <!-- Task 1 Summary  -->
-  <string name="intro_task_1_summary">Create your first task</string>
+  <string name="intro_task_1_summary">建立ˋ您的第一個工作</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Just type the task into the quick entry box and press the + 
-  button that appears on the left.\n\n
-  
-  2) Regular add: Press the button to the right of the quick entry box. 
-  Add basic details (due date, tags, notes) or set more advanced options. 
-  Save the task with the save button or your phone\'s back button.\n\n
-  </string>
+  <string name="intro_task_1_note">兩種新增工作的方式:\n 1)快速新增:只要在快速輸入框中輸入工作並按下左側的+按鈕。\n\n 2)一般新增:按下快速輸入框右側的按鈕。加入一般細節(到期日、標籤、備註)或設定更多進階選項。按下儲存按鈕或是手機上的返回鍵將工作儲存。</string>
   
   <!-- Task 2 Summary  -->
-  <string name="intro_task_2_summary">Add a widget to your desktop</string>
+  <string name="intro_task_2_summary">新增小工具到桌面</string>
 
   <!-- Task 2 Note -->
   <string name="intro_task_2_note">A desktop widget is a great way to keep 
@@ -1005,7 +1017,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   	tasks.\n\n
 	How to add a widget:\n
 	1) Long press on your phone\'s desktop.\n
-	2) Choose \"Widget\" form resulting menu\n
+	2) Choose \"Widget\" from resulting menu\n
 	3) Choose the Astrid widget.\n
 	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
 	tasks\n\n
@@ -1013,13 +1025,11 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 	Bonus: Use the widget to add a task!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Setup sync with Gmail Tasks or 
-  Producteev</string>
+  <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
 
   <!-- Task 3 Note -->
   <string name="intro_task_3_note">Astrid makes it possible for you to sync 
-  	your tasks with the simple task list provided by Gmail. For more advanced 
-  	task features we recommend synchronization with Producteev.\n\n
+  	your tasks with Astrid.com, Google Tasks, and Producteev.\n\n
 
 	To enable sync from Astrid press \"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and 
 	choose the sync provider you prefer.
@@ -1079,10 +1089,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="opencrx_FEx_responsible_title">指派給 \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="opencrx_PDE_task_from">from %s</string>
+    <string name="opencrx_PDE_task_from">來自 %s</string>
     
     <!-- replacement string for task edit "Notes" when using OpenCRX -->
-    <string name="opencrx_TEA_notes">Add a Comment</string>
+    <string name="opencrx_TEA_notes">新增註解</string>
     
     <string name="opencrx_creator_input_hint">Creator</string>
 
@@ -1168,7 +1178,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="opencrx_notification_title">OpenCRX</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="opencrx_notification_text">%s tasks updated / click for more details</string>
+    <string name="opencrx_notification_text">%s 工作已更新/點選檢視細節</string>
     
     <!-- Error msg when io exception  -->
     <string name="opencrx_ioerror">連結錯誤! 檢查您的網際網路連線.</string>
@@ -1193,13 +1203,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Spinner-item for default dashboard on taskeditactivity -->
     <string name="opencrx_TEA_dashboard_default">預設</string>
 
-    <string name="CFC_opencrx_in_workspace_text">In workspace: ?</string>
+    <string name="CFC_opencrx_in_workspace_text">在工作區: ?</string>
 
-    <string name="CFC_opencrx_in_workspace_name">In workspace...</string>
+    <string name="CFC_opencrx_in_workspace_name">在工作區...</string>
 
-    <string name="CFC_opencrx_assigned_to_text">Assigned to: ?</string>
+    <string name="CFC_opencrx_assigned_to_text">指派改: ?</string>
 
-    <string name="CFC_opencrx_assigned_to_name">Assigned to...</string>
+    <string name="CFC_opencrx_assigned_to_name">指派給...</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1208,14 +1218,14 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- ================================================== EditPreferences == -->
     
   <!-- Preference Category: Power Pack -->
-  <string name="EPr_powerpack_header">Astrid Power Pack</string>
+  <string name="EPr_powerpack_header">Astrid強化套件</string>
   
   <!-- Preference: Anonymous User Statistics -->
-  <string name="EPr_statistics_title">Anonymous Usage Stats</string>
+  <string name="EPr_statistics_title">匿名使用統計</string>
   <!-- Preference: User Statistics (disabled) -->
-  <string name="EPr_statistics_desc_disabled">No usage data will be reported</string>  
+  <string name="EPr_statistics_desc_disabled">沒有使用資料會被回傳</string>  
   <!-- Preference: User Statistics (enabled) -->
-  <string name="EPr_statistics_desc_enabled">Help us make Astrid better by sending anonymous usage data</string>
+  <string name="EPr_statistics_desc_enabled">傳送匿名使用資料以協助我們改進Astrid</string>
       
 
 
@@ -1240,10 +1250,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="producteev_FEx_responsible_title">指派給 \'%s\'</string>
     
     <!-- detail for showing tasks created by someone else (%s => person name) -->
-    <string name="producteev_PDE_task_from">from %s</string>
+    <string name="producteev_PDE_task_from">來自 %s</string>
     
     <!-- replacement string for task edit "Notes" when using Producteev -->
-    <string name="producteev_TEA_notes">Add a Comment</string>
+    <string name="producteev_TEA_notes">新增註解</string>
 
     <!-- ==================================================== Preferences == -->
 
@@ -1257,10 +1267,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="producteev_no_dashboard">不要同步</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard">Add new Workspace...</string>
+    <string name="producteev_create_dashboard">新增工作區</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
-    <string name="producteev_create_dashboard_name">Name for new Workspace</string>
+    <string name="producteev_create_dashboard_name">命名新工作區</string>
 
 	<!-- preference title for default dashboard -->
     <string name="producteev_PPr_defaultdash_title">預設工作區</string>
@@ -1295,7 +1305,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="producteev_PLA_password">密碼</string>
     
     <!-- Timezone Spinner -->
-    <string name="producteev_PLA_timezone">Timezone</string>
+    <string name="producteev_PLA_timezone">時區</string>
 
     <!-- Confirm Password Label -->    
     <string name="producteev_PLA_confirmPassword">確認密碼</string>
@@ -1321,7 +1331,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="producteev_notification_title">Producteev</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
+    <string name="producteev_notification_text">%s 工作已更新/點選檢視細節</string>
     
     <!-- Error msg when io exception  -->
     <string name="producteev_ioerror">連結錯誤! 檢查您的網際網路連線.</string>
@@ -1346,13 +1356,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Spinner-item for default dashboard on taskeditactivity -->
     <string name="producteev_TEA_dashboard_default">預設</string>
 
-    <string name="CFC_producteev_in_workspace_text">In workspace: ?</string>
+    <string name="CFC_producteev_in_workspace_text">在工作區: ?</string>
 
-    <string name="CFC_producteev_in_workspace_name">In workspace...</string>
+    <string name="CFC_producteev_in_workspace_name">在工作區...</string>
 
-    <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
+    <string name="CFC_producteev_assigned_to_text">指派改: ?</string>
 
-    <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
+    <string name="CFC_producteev_assigned_to_name">指派給...</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1363,16 +1373,16 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">提醒我...</string>
+  <string name="TEA_reminder_label">Remind Me:</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">...當工作到期</string>
+  <string name="TEA_reminder_due">When task is due</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">...當工作過期</string>
+  <string name="TEA_reminder_overdue">When task is overdue</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">...隨機提醒一次</string>
+  <string name="TEA_reminder_random">Randomly once</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">鈴響/震動類型:</string>
@@ -1402,17 +1412,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="rmd_NoA_filter">提醒！</string>
   
   <!-- Reminder: Task was already done -->
-  <string name="rmd_NoA_done">Already Done!</string>
+  <string name="rmd_NoA_done">已完成!</string>
   
   <!-- Reminder: Snooze button (remind again later) -->
   <string name="rmd_NoA_snooze">晚點提醒...</string>
   
   <!-- Reminder: Cancel reminder -->
   <string name="rmd_NoA_goAway">別再提醒!</string>
-
-  <!--  Reminder: save toast for changing the past default due reminder for today -->    
-
-
   
   <!-- ============================================= reminder preferences == -->
   
@@ -1472,11 +1478,11 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="rmd_EPr_nagging_desc_false">Astrid停止傳送任何鼓勵訊息</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
-  <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
+  <string name="rmd_EPr_snooze_dialog_title">晚點提醒對話框 小時:分鐘</string>
   <!-- Reminder Preference: Snooze Dialog Description (true) -->
-  <string name="rmd_EPr_snooze_dialog_desc_true">Snooze by selecting new snooze time (HH:MM)</string>
+  <string name="rmd_EPr_snooze_dialog_desc_true">選擇晚點提醒的時間 (小時:分鐘)</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_snooze_dialog_desc_false">Snooze by selecting # days/hours to snooze</string>
+  <string name="rmd_EPr_snooze_dialog_desc_false">選擇幾天/小時後再提醒</string>
   
   <!-- Reminder Preference: Default Reminders Title -->
   <string name="rmd_EPr_defaultRemind_title">隨機提醒</string>
@@ -1778,26 +1784,37 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- =============================================== Task Edit Controls == -->
 
   <!-- Tags label -->
-  <string name="TEA_tags_label">標籤:</string>
+  <string name="TEA_tags_label">Add to List:</string>
   
   <!-- Tags hint -->
-  <string name="TEA_tag_hint">標籤名稱</string>
+  <string name="TEA_tag_hint">List Name</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">選擇標籤</string>
+  <string name="TEA_tag_dropdown">Select a list</string>
     
+  <!-- =============================================== Task List Controls == -->
+  
+  <!-- menu item for tags -->
+  <string name="tag_TLA_menu">清單</string>
+  
   <!-- ========================================================== Extras == -->
   
     <!-- Context Item: show tag -->
-  <string name="TAd_contextFilterByTag">Show Tag</string>
+  <string name="TAd_contextFilterByTag">Show List</string>
+  
+    <!-- Dialog: new list -->
+  <string name="tag_new_list">New List Name:</string>
   
   <!-- ========================================================== Filters == -->
   
+  <!-- filter button to add tag -->
+  <string name="tag_FEx_add_new">New</string>
+  
   <!-- filter header for tags -->
-  <string name="tag_FEx_header">標籤</string>
+  <string name="tag_FEx_header">清單</string>
   
   <!-- filter header for tags user created -->
-  <string name="tag_FEx_category_mine">My Tags</string>
+  <string name="tag_FEx_category_mine">My Lists</string>
   
   <!-- filter header for tags, shared with user -->
   <string name="tag_FEx_category_shared">Shared With Me</string>
@@ -1806,31 +1823,31 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="tag_FEx_category_inactive">Inactive</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">無標籤</string>
+  <string name="tag_FEx_untagged">Not In Any List</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">\'%s\'</string>
+  <string name="tag_FEx_name">List: %s</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Rename Tag</string>
+  <string name="tag_cm_rename">Rename List</string>
 
   <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">刪除標籤</string>
+  <string name="tag_cm_delete">Delete List</string>
 
   <!-- Dialog to confirm deletion of a tag -->
-  <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
+  <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
 
   <!-- Dialog to rename tag -->
-  <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
+  <string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
 
   <!-- Toast notification that no changes have been made -->
-  <string name="TEA_no_tags_modified">No changes made</string>
+  <string name="TEA_no_tags_modified">沒有變更</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
+  <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
+  <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
 
 
 
@@ -1840,10 +1857,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task List: Start Timer button -->
-    <string name="TAE_startTimer">啟動計時器</string>
+    <string name="TAE_startTimer">Timer</string>
     
     <!-- Task List: Stop Timer button -->
-    <string name="TAE_stopTimer">關閉計時器</string>
+    <string name="TAE_stopTimer">Stop</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">%s 啟動計時!</string>
@@ -1860,37 +1877,37 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
     
   <!-- Voice Add Prompt Text -->
-  <string name="voice_create_prompt">Speak to create a task</string>
-  <string name="voice_edit_title_prompt">Speak to set task title</string>
-  <string name="voice_edit_note_prompt">Speak to set task notes</string>
+  <string name="voice_create_prompt">請說話以建立工作</string>
+  <string name="voice_edit_title_prompt">請說話以設定工作主旨</string>
+  <string name="voice_edit_note_prompt">請說話以設定工作備註</string>
     
   <!-- Preference: Task List recognition-service is not installed, but available -->
-  <string name="EPr_voiceInputInstall_dlg">Voice-input is not installed.\nDo you want to go to the market and install it?</string>
+  <string name="EPr_voiceInputInstall_dlg">語音輸入功能尚未安裝。您要連上市集並安裝嗎?</string>
   <!-- Preference: Task List recognition-service is not available for this system -->
-  <string name="EPr_voiceInputUnavailable_dlg">Unfortunately voice-input is not available for your system.\nIf possible, please update Android to 2.1 or later.</string>
+  <string name="EPr_voiceInputUnavailable_dlg">很抱歉語音輸入功能不支援您的系統。\n如果可能，請升級至Android 2.1或更新的版本。</string>
   <!-- Preference: Market is not available for this system -->
-  <string name="EPr_marketUnavailable_dlg">Unfortunately the market is not available for your system.\nIf possible, try downloading voice search from another source.</string>
+  <string name="EPr_marketUnavailable_dlg">很抱歉您的系統無法使用市集。\n如果可能，請嘗試從其他來源下載語音搜尋功能。</string>
   <!-- Preference: Task List Show Voice-button if recognition-service is available -->
-  <string name="EPr_voiceInputEnabled_title">Voice Input</string>
+  <string name="EPr_voiceInputEnabled_title">語音輸入</string>
   <!-- Preference: voice button description (true) -->
-  <string name="EPr_voiceInputEnabled_desc_enabled">Voice input button will be displayed in task list page</string>
+  <string name="EPr_voiceInputEnabled_desc_enabled">語音輸入按鍵會在工作清單畫面上顯示。</string>
   <!-- Preference: voice button description (false) -->
-  <string name="EPr_voiceInputEnabled_desc_disabled">Voice input button will be hidden on task list page</string>
+  <string name="EPr_voiceInputEnabled_desc_disabled">語音輸入按鍵會在工作清單畫面上隱藏。</string>
   <!-- Preference: Task List Voice-button directly creates tasks -->
-  <string name="EPr_voiceInputCreatesTask_title">Directly Create Tasks</string>
+  <string name="EPr_voiceInputCreatesTask_title">直接建立工作</string>
   <!-- Preference: Task List Voice-creation description (true) -->
-  <string name="EPr_voiceInputCreatesTask_desc_enabled">Tasks will automatically be created from voice input</string>
+  <string name="EPr_voiceInputCreatesTask_desc_enabled">工作將會自動從語音輸入建立。</string>
   <!-- Preference: Task List Voice-creation description (false) -->
-  <string name="EPr_voiceInputCreatesTask_desc_disabled">You can edit the task title after voice input finishes</string>
+  <string name="EPr_voiceInputCreatesTask_desc_disabled">語音輸入結束後您可以編輯工作主旨。</string>
   <!-- Preference: Voice reminders if TTS-service is available -->
-  <string name="EPr_voiceRemindersEnabled_title">Voice Reminders</string>
+  <string name="EPr_voiceRemindersEnabled_title">語音提醒</string>
   <!-- Preference: Voice reminders description (true) -->
-  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid will speak task names during task reminders</string>
+  <string name="EPr_voiceRemindersEnabled_desc_enabled">Astrid在工作提醒時會以語音說出工作名稱</string>
   <!-- Preference: Voice reminders description (false) -->
-  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid will sound a ringtone during task reminders</string>    
+  <string name="EPr_voiceRemindersEnabled_desc_disabled">Astrid在工作提醒時將會播放鈴聲</string>    
   
   <!-- Preference Category: Voice Title -->
-  <string name="EPr_voice_header">Voice Input Settings</string>
+  <string name="EPr_voice_header">語音輸入設定</string>
     
 
 </resources>

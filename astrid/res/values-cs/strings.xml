@@ -5,13 +5,13 @@
   <!-- ================================================== general terms == -->
 
   <!-- People Editing Activity -->    
-  <string name="EPE_action">Share</string>
+  <string name="EPE_action">Sdílet</string>
   
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_person_hint">Contact Name</string>
   
   <!-- task sharing dialog: shared with hint -->
-  <string name="actfm_person_or_tag_hint">Contact or Shared Tag</string>
+  <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
 
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">Saved on Server</string>
@@ -20,7 +20,7 @@
   <string name="actfm_toast_error">Save Unsuccessful</string>
 
   <!-- can't rename or delete shared tag message -->
-  <string name="actfm_tag_operation_disabled">Please view shared tags to rename or delete them.</string>
+  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
 
   <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">Take a Picture</string>
@@ -29,9 +29,9 @@
   <string name="actfm_picture_gallery">Pick from Gallery</string>
 
   <!-- filter list activity: refresh tags -->
-  <string name="actfm_FLA_menu_refresh">Refresh Tags</string>
-  
-  <!-- =============================================== ProjectViewActivity == -->
+  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
+
+  <!-- ================================================== TagViewActivity == -->  
 
   <!-- Tag View Activity: Add Comment hint -->    
   <string name="TVA_add_comment">Add a comment...</string>
@@ -53,10 +53,10 @@
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
   <!-- Tag Members: tag name label -->
-  <string name="actfm_TVA_tag_label">Tag Name:</string>
+  <string name="actfm_TVA_tag_label">List Name:</string>
 
   <!-- Tag Members: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">Tag Owner:</string>
+  <string name="actfm_TVA_tag_owner_label">List Owner:</string>
 
   <!-- Tag Members: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">none</string>
@@ -65,12 +65,18 @@
   <string name="actfm_TVA_members_label">Team Members:</string>
 
   <!-- Tag Members: tag picture -->
-  <string name="actfm_TVA_tag_picture">Tag Picture</string>
+  <string name="actfm_TVA_tag_picture">List Picture</string>
 
   <!-- ============================================ edit people dialog == -->
-  
+
+  <!-- task sharing dialog: intro -->
+  <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
+    
   <!-- task sharing dialog: window title -->
   <string name="actfm_EPA_title">Share / Assign</string>
+    
+  <!-- task sharing dialog: save button -->
+  <string name="actfm_EPA_save">Save &amp; Share</string>
   
   <!-- task sharing dialog: assigned label -->
   <string name="actfm_EPA_assign_label">Assigned to:</string>
@@ -82,7 +88,10 @@
   <string name="actfm_EPA_assign_custom">Custom...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Shared With:</string>
+  <string name="actfm_EPA_share_with">Add Collaborators:</string>
+  
+  <!-- task sharing dialog: collaborator list name (%s => name of list) -->
+  <string name="actfm_EPA_list">List: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_EPA_assigned_hint">Contact Name</string>
@@ -115,7 +124,7 @@
   <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  <string name="actfm_EPA_invalid_tag">Tag Not Found: %s</string>
+  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
 
   <!-- ========================================= sharing login activity == -->
 
@@ -127,13 +136,16 @@
   share, and delegate with others. Perfect for personal use, friends, family, and coworkers!</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Login with Facebook</string>
+  <string name="actfm_ALA_fb_login">Facebook</string>
+
+  <!-- share login: Sharing Login GG Prompt -->
+  <string name="actfm_ALA_gg_login">Google</string>
 
   <!-- share login: Sharing Login Password Prompt -->
   <string name="actfm_ALA_pw_login">Login</string>
 
   <!-- share login: Sharing Sign Up Prompt -->
-  <string name="actfm_ALA_pw_signup">Sign Up</string>
+  <string name="actfm_ALA_pw_signup">Join Now</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
@@ -152,6 +164,9 @@
 
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>
+
+  <!-- share login: OAUTH Login Prompt -->
+  <string name="actfm_OLA_prompt">Please connect to Google:</string>
 
   <!-- share login: Sharing notice -->
   <string name="actfm_ALA_notice">We promise not to post messages or send
@@ -256,7 +271,7 @@
   <string name="import_summary_title">Souhrn obnovy</string>
     
   <!-- Backup: Summary message for import. (%s => file name, %s => total # tasks, %s => imported, %s => skipped, %s => errors) -->
-  <string name="import_summary_message">Soubor %1$s obsahoval %2$s.\n\n %3$s importováno,\n %4$s již existuje\n %5$s obsahovalo chyby\n</string>
+  <string name="import_summary_message">Soubor %1$s obsahuje %2$s.\n\n %3$s importováno,\n %4$s již existuje\n %5$s je chybných\n</string>
   
   <!-- Progress Dialog Title for importing -->    
   <string name="import_progress_title">Probíhá import...</string>
@@ -350,7 +365,10 @@
   <string name="ENE_label_comments">Comments</string>
   
   <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">No Comments</string>
+  <string name="ENA_no_comments">Nothing To Show</string>
+  
+  <!-- EditNoteActivity - loading -->
+  <string name="ENA_loading">Nahrávám...</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Refresh Comments</string>
@@ -504,10 +522,13 @@
   <string name="TEA_tab_basic">Obecné</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">Pokročilé</string>
+  <string name="TEA_tab_share">Sdílet</string>
+  
+  <!-- Second Tab - extra details -->
+  <string name="TEA_tab_alarms">Alarmy</string>
   
   <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_addons">Doplňky</string>
+  <string name="TEA_tab_more">Více</string>
   
   <!-- Task title label -->
   <string name="TEA_title_label">Název</string>
@@ -525,7 +546,7 @@
   <string name="TEA_urgency_specific_time">V přesně daný čas?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">Čas není nastaven</string>
+  <string name="TEA_urgency_none">None</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Skrýt do</string>
@@ -568,12 +589,14 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
+      <item>Žádný termín</item>
       <item>Určitý den/čas</item>
       <item>Dnes</item>
       <item>Zítra</item>
       <item>(den po)</item>
       <item>Příští týden</item>
-      <item>Žádný termín</item>
+      <item>In Two Weeks</item>
+      <item>Příští měsíc</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
@@ -589,7 +612,7 @@
   <string name="TEA_addons_text">Rádi byste více funkcí?</string>
   
   <!-- Add Ons button -->
-  <string name="TEA_addons_button">Získat \"Power Pack\"</string>
+  <string name="TEA_addons_button">Získat \"Power pack\"</string>
   
   <!-- ============================================= IntroductionActivity == -->
   
@@ -958,8 +981,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_GLA_errorAuth">Chyba: Nesprávný e-mail, nebo heslo!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
-    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
-    Try logging in from the browser, then come back to try again:</string>
+    <string name="gtasks_GLA_errorAuth_captcha">Pravděpodobně jste narazili na stránky chráněné Captchou. Zkuste se přihlásit pomocí prohlížeče a poté se vraťte sem a zkuste to znovu:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
@@ -980,7 +1002,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see notes</string>
+  <string name="intro_click_prompt">Úvod: Stiskni mne pro zobrazení poznámek</string>
   
   <!-- Task 1 Summary  -->
   <string name="intro_task_1_summary">Vytvoř svůj první úkol</string>
@@ -997,7 +1019,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   	tasks.\n\n
 	How to add a widget:\n
 	1) Long press on your phone\'s desktop.\n
-	2) Choose \"Widget\" form resulting menu\n
+	2) Choose \"Widget\" from resulting menu\n
 	3) Choose the Astrid widget.\n
 	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
 	tasks\n\n
@@ -1005,12 +1027,11 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 	Bonus: Use the widget to add a task!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Nastavení Google úkolů, nebo Producteev</string>
+  <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
 
   <!-- Task 3 Note -->
   <string name="intro_task_3_note">Astrid makes it possible for you to sync 
-  	your tasks with the simple task list provided by Gmail. For more advanced 
-  	task features we recommend synchronization with Producteev.\n\n
+  	your tasks with Astrid.com, Google Tasks, and Producteev.\n\n
 
 	To enable sync from Astrid press \"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and 
 	choose the sync provider you prefer.
@@ -1061,7 +1082,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="opencrx_FEx_header">OpenCRX</string>
     
     <!-- filter category for OpenCRX ActivityCreators -->
-    <string name="opencrx_FEx_dashboard">Workspaces</string>
+    <string name="opencrx_FEx_dashboard">Pracovní plochy</string>
     
     <!-- filter category for OpenCRX responsible person -->
     <string name="opencrx_FEx_responsible">Přiřazeno k</string>
@@ -1084,7 +1105,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="opencrx_PPr_header">OpenCRX</string>
 
     <!-- creator title for tasks that are not synchronized -->
-    <string name="opencrx_no_creator">(Do Not Synchronize)</string>
+    <string name="opencrx_no_creator">(Nesynchronizovat)</string>
 
 	<!-- preference title for default creator -->
     <string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
@@ -1159,7 +1180,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="opencrx_notification_title">OpenCRX</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="opencrx_notification_text">%s tasks updated / click for more details</string>
+    <string name="opencrx_notification_text">%s úkolů zálohováno /pro více detailů klikněte</string>
     
     <!-- Error msg when io exception  -->
     <string name="opencrx_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.</string>
@@ -1173,24 +1194,24 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- ================================================ labels for layout-elements == -->
     
     <!-- label for task-assignment spinner on taskeditactivity -->
-    <string name="opencrx_TEA_task_assign_label">Assign this task to this person:</string>
+    <string name="opencrx_TEA_task_assign_label">Přiřadit úkol k této osobě:</string>
     
     <!-- Spinner-item for unassigned tasks on taskeditactivity -->
-    <string name="opencrx_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    <string name="opencrx_TEA_task_unassigned">&lt;Nepřiřazeno&gt;</string>
     
     <!-- label for dashboard-assignment spinner on taskeditactivity -->
     <string name="opencrx_TEA_creator_assign_label">Assign this task to this creator:</string>
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
-    <string name="opencrx_TEA_dashboard_default">&lt;Default&gt;</string>
+    <string name="opencrx_TEA_dashboard_default">&lt;Výchozí&gt;</string>
 
     <string name="CFC_opencrx_in_workspace_text">Na pracovní ploše: ?</string>
 
     <string name="CFC_opencrx_in_workspace_name">Na pracovní ploše...</string>
 
-    <string name="CFC_opencrx_assigned_to_text">Assigned to: ?</string>
+    <string name="CFC_opencrx_assigned_to_text">Přiřazeno k: ?</string>
 
-    <string name="CFC_opencrx_assigned_to_name">Assigned to...</string>
+    <string name="CFC_opencrx_assigned_to_name">Přiřazeno k ...</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1219,10 +1240,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="producteev_FEx_header">Producteev</string>
     
     <!-- filter category for Producteev dashboards -->
-    <string name="producteev_FEx_dashboard">Workspaces</string>
+    <string name="producteev_FEx_dashboard">Pracovní plochy</string>
     
     <!-- filter category for Producteev responsible person -->
-    <string name="producteev_FEx_responsible_byme">Přiřazeno k</string>
+    <string name="producteev_FEx_responsible_byme">Assigned by me to</string>
     
     <!-- filter category for Producteev responsible person -->
     <string name="producteev_FEx_responsible_byothers">Assigned by others to</string>
@@ -1245,7 +1266,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="producteev_default_dashboard">Výchozí pracovní plocha</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">(Do Not Synchronize)</string>
+    <string name="producteev_no_dashboard">(Nesynchronizovat)</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
     <string name="producteev_create_dashboard">Přidat novou pracovní plochu...</string>
@@ -1265,14 +1286,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- ================================================= Login Activity == -->
 
     <!-- Activity Title: Producteev Login -->    
-    <string name="producteev_PLA_title">Log In to Producteev</string>
+    <string name="producteev_PLA_title">Přihlaste se k Producteev</string>
 
     <!-- Instructions: Producteev login -->    
-    <string name="producteev_PLA_body">Sign in with your existing
-    Producteev account, or create a new account!</string>
+    <string name="producteev_PLA_body">Přihlašte se pomocí existujícího účtu Producteev nebo vytvořte nový!</string>
 
     <!-- Producteev Terms Link -->    
-    <string name="producteev_PLA_terms">Terms &amp; Conditions</string>
+    <string name="producteev_PLA_terms">Podmínky používání</string>
 
     <!-- Sign In Button -->    
     <string name="producteev_PLA_signIn">Přihlásit se</string>
@@ -1313,7 +1333,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="producteev_notification_title">Producteev</string>
     
     <!-- text for notification tray when synchronizing -->
-    <string name="producteev_notification_text">%s tasks updated / click for more details</string>
+    <string name="producteev_notification_text">%s úkolů zálohováno /pro více detailů klikněte</string>
     
     <!-- Error msg when io exception  -->
     <string name="producteev_ioerror">Chyba připojení! Zkontrolujte vaše internetové připojení.</string>
@@ -1327,24 +1347,24 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- ================================================ labels for layout-elements == -->
     
     <!-- label for task-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_task_assign_label">Assign this task to this person:</string>
+    <string name="producteev_TEA_task_assign_label">Přiřadit úkol k této osobě:</string>
     
     <!-- Spinner-item for unassigned tasks on taskeditactivity -->
-    <string name="producteev_TEA_task_unassigned">&lt;Unassigned&gt;</string>
+    <string name="producteev_TEA_task_unassigned">&lt;Nepřiřazeno&gt;</string>
     
     <!-- label for dashboard-assignment spinner on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_assign_label">Assign this task to this workspace:</string>
+    <string name="producteev_TEA_dashboard_assign_label">Přiřadit úkol k této pracovní ploše:</string>
 
     <!-- Spinner-item for default dashboard on taskeditactivity -->
-    <string name="producteev_TEA_dashboard_default">&lt;Default&gt;</string>
+    <string name="producteev_TEA_dashboard_default">&lt;Výchozí&gt;</string>
 
     <string name="CFC_producteev_in_workspace_text">Na pracovní ploše: ?</string>
 
     <string name="CFC_producteev_in_workspace_name">Na pracovní ploše...</string>
 
-    <string name="CFC_producteev_assigned_to_text">Assigned to: ?</string>
+    <string name="CFC_producteev_assigned_to_text">Přiřazeno k: ?</string>
 
-    <string name="CFC_producteev_assigned_to_name">Assigned to...</string>
+    <string name="CFC_producteev_assigned_to_name">Přiřazeno k ...</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1358,13 +1378,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="TEA_reminder_label">Upozorni mě...</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">... when task is due</string>
+  <string name="TEA_reminder_due">When task is due</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">... when task is overdue</string>
+  <string name="TEA_reminder_overdue">When task is overdue</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">... náhodně jednou</string>
+  <string name="TEA_reminder_random">Randomly once</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Typ vyzvánění/vybrací:</string>
@@ -1401,10 +1421,6 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   
   <!-- Reminder: Cancel reminder -->
   <string name="rmd_NoA_goAway">Jdi pryč!</string>
-
-  <!--  Reminder: save toast for changing the past default due reminder for today -->    
-
-
   
   <!-- ============================================= reminder preferences == -->
   
@@ -1621,33 +1637,33 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
       <item>Mám pro Tebe něco!</item> 
       <item>Ready to put this in the past?</item>
       <item>Proč tohle nedokončís?</item>
-      <item>How about it? Ready tiger?</item>
+      <item>Tak co borče? Jdeme do toho?</item>
       <item>Jsi připraven(a) tohle udělat?</item>
       <item>Můžes tohle zvládnout?</item>
       <item>Můžeš výt šťastná/ý! Jen tohle dokonči!</item>
       <item>Slibuji Ti, že se budeš cítit lépe, když tohle dokončíš!</item>
       <item>Neuděláš tohle dnes?</item>
-      <item>Please finish this, I\'m sick of it!</item>
+      <item>Tak to konečně dodělej. Už mě to unavuje!</item>
       <item>Můžes tohle dokončit?</item>
       <item>Plánuješ tohle vůbec někdy udělat?</item>
-      <item>Feel good about yourself! Let\'s go!</item>
+      <item>Měj ze sebe radost! Jdeme na to!</item>
       <item>Jsem na Tebe pyšný! Pojď to dokončit!</item>
       <item>A little snack after you finish this?</item>
       <item>Jen tenhle úkol? Prosím?</item>
-      <item>Time to shorten your todo list!</item>
+      <item>Je čas zkrátit Tvůj seznam úkolů!</item>
   </string-array>
 
   <string-array name="postpone_nags">
       <!-- Astrid's nagging when user clicks postpone -->
       <item>Prosím řekni mi, že není pravda, že jsi prokrastinátor!</item>
       <item>Doesn\'t being lazy get old sometimes?</item>
-      <item>Somewhere, someone is depending on you to finish this!</item>
+      <item>Někdo někde čeká až tohle dokončíš!</item>
       <item>Když jsi řekl odložit, ve skutečnosti jsi myslel \'Já to udělám\', že?</item>
       <item>Tohle je naposledy co to odkládáš, že?</item>
       <item>Jen to dodělej, nikomu to neřeknu!</item>
       <item>Proč odkládat, když můžes hmm... neodkládat!</item>
       <item>Nakonec to doděláš, že?</item>
-      <item>I think you\'re really great! How about not putting this off?</item>
+      <item>Myslím, že jsi opravdu úžasný. Co takhle tohle neodkládat?</item>
       <item>Will you be able to achieve your goals if you do that?</item>
       <item>Odkládat, odkládat, odkládat. Kdy se změníš!</item>
       <item>Mám dost tvých omluv! Jen to dodělej!</item>
@@ -1686,7 +1702,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   
   <string-array name="repeat_type">
     <!-- repeat type (date to repeat from) -->
-    <item>from due date</item>
+    <item>od data splnění</item>
     <item>od data dokončení</item>
   </string-array>
   
@@ -1697,7 +1713,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="repeat_detail_duedate">Každý %s</string>
   
   <!-- task detail for repeat from completion date (%s -> interval) -->
-  <string name="repeat_detail_completion">%s after completion</string>
+  <string name="repeat_detail_completion">%s po dokončení</string>
   
 
 
@@ -1776,17 +1792,31 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="TEA_tag_hint">Název značky</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Select a tag</string>
+  <string name="TEA_tag_dropdown">Select a list</string>
     
+  <!-- =============================================== Task List Controls == -->
+  
+  <!-- menu item for tags -->
+  <string name="tag_TLA_menu">Seznamy</string>
+  
   <!-- ========================================================== Extras == -->
   
     <!-- Context Item: show tag -->
-  <string name="TAd_contextFilterByTag">Show Tag</string>
+  <string name="TAd_contextFilterByTag">Show List</string>
+  
+    <!-- Dialog: new list -->
+  <string name="tag_new_list">New List Name:</string>
   
   <!-- ========================================================== Filters == -->
   
+  <!-- filter button to add tag -->
+  <string name="tag_FEx_add_new">New</string>
+  
   <!-- filter header for tags -->
   <string name="tag_FEx_header">Značky</string>
+  
+  <!-- filter header for tags user created -->
+  <string name="tag_FEx_category_mine">My Lists</string>
   
   <!-- filter header for tags, shared with user -->
   <string name="tag_FEx_category_shared">Shared With Me</string>
@@ -1801,25 +1831,25 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="tag_FEx_name">Označené \'%s\'</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Rename Tag</string>
+  <string name="tag_cm_rename">Rename List</string>
 
   <!-- context menu option to delete a tag -->
   <string name="tag_cm_delete">Smazat značku</string>
 
   <!-- Dialog to confirm deletion of a tag -->
-  <string name="DLG_delete_this_tag_question">Delete this tag: %s? (No tasks will be deleted.)</string>
+  <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
 
   <!-- Dialog to rename tag -->
-  <string name="DLG_rename_this_tag_header">Rename the tag %s to:</string>
+  <string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
 
   <!-- Toast notification that no changes have been made -->
-  <string name="TEA_no_tags_modified">No changes made</string>
+  <string name="TEA_no_tags_modified">Nebyly provedeny žádné změny.</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
+  <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
+  <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
 
 
 
@@ -1829,10 +1859,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task List: Start Timer button -->
-    <string name="TAE_startTimer">Spustit časovač</string>
+    <string name="TAE_startTimer">Timer</string>
     
     <!-- Task List: Stop Timer button -->
-    <string name="TAE_stopTimer">Zastavit časovač</string>
+    <string name="TAE_stopTimer">Stop</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">Aktivní časovače pro %s!</string>
@@ -1849,7 +1879,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
     
   <!-- Voice Add Prompt Text -->
-  <string name="voice_create_prompt">Speak to create a task</string>
+  <string name="voice_create_prompt">Mluvte pro vytvoření úkolu</string>
   <string name="voice_edit_title_prompt">Speak to set task title</string>
   <string name="voice_edit_note_prompt">Speak to set task notes</string>
     

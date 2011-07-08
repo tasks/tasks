@@ -5,13 +5,13 @@
   <!-- ================================================== general terms == -->
 
   <!-- People Editing Activity -->    
-  <string name="EPE_action">Share</string>
+  <string name="EPE_action">Dela ut</string>
   
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_person_hint">Contact Name</string>
   
   <!-- task sharing dialog: shared with hint -->
-  <string name="actfm_person_or_tag_hint">Contact or Shared Tag</string>
+  <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
 
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">Saved on Server</string>
@@ -20,7 +20,7 @@
   <string name="actfm_toast_error">Save Unsuccessful</string>
 
   <!-- can't rename or delete shared tag message -->
-  <string name="actfm_tag_operation_disabled">Please view shared tags to rename or delete them.</string>
+  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
 
   <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">Take a Picture</string>
@@ -29,9 +29,9 @@
   <string name="actfm_picture_gallery">Pick from Gallery</string>
 
   <!-- filter list activity: refresh tags -->
-  <string name="actfm_FLA_menu_refresh">Refresh Tags</string>
-  
-  <!-- =============================================== ProjectViewActivity == -->
+  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
+
+  <!-- ================================================== TagViewActivity == -->  
 
   <!-- Tag View Activity: Add Comment hint -->    
   <string name="TVA_add_comment">Add a comment...</string>
@@ -53,10 +53,10 @@
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
   <!-- Tag Members: tag name label -->
-  <string name="actfm_TVA_tag_label">Tag Name:</string>
+  <string name="actfm_TVA_tag_label">List Name:</string>
 
   <!-- Tag Members: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">Tag Owner:</string>
+  <string name="actfm_TVA_tag_owner_label">List Owner:</string>
 
   <!-- Tag Members: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">none</string>
@@ -65,12 +65,18 @@
   <string name="actfm_TVA_members_label">Team Members:</string>
 
   <!-- Tag Members: tag picture -->
-  <string name="actfm_TVA_tag_picture">Tag Picture</string>
+  <string name="actfm_TVA_tag_picture">List Picture</string>
 
   <!-- ============================================ edit people dialog == -->
-  
+
+  <!-- task sharing dialog: intro -->
+  <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
+    
   <!-- task sharing dialog: window title -->
   <string name="actfm_EPA_title">Share / Assign</string>
+    
+  <!-- task sharing dialog: save button -->
+  <string name="actfm_EPA_save">Save &amp; Share</string>
   
   <!-- task sharing dialog: assigned label -->
   <string name="actfm_EPA_assign_label">Assigned to:</string>
@@ -82,7 +88,10 @@
   <string name="actfm_EPA_assign_custom">Custom...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Shared With:</string>
+  <string name="actfm_EPA_share_with">Add Collaborators:</string>
+  
+  <!-- task sharing dialog: collaborator list name (%s => name of list) -->
+  <string name="actfm_EPA_list">List: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_EPA_assigned_hint">Contact Name</string>
@@ -115,7 +124,7 @@
   <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  <string name="actfm_EPA_invalid_tag">Tag Not Found: %s</string>
+  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
 
   <!-- ========================================= sharing login activity == -->
 
@@ -127,13 +136,16 @@
   share, and delegate with others. Perfect for personal use, friends, family, and coworkers!</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Login with Facebook</string>
+  <string name="actfm_ALA_fb_login">Facebook</string>
+
+  <!-- share login: Sharing Login GG Prompt -->
+  <string name="actfm_ALA_gg_login">Google</string>
 
   <!-- share login: Sharing Login Password Prompt -->
   <string name="actfm_ALA_pw_login">Login</string>
 
   <!-- share login: Sharing Sign Up Prompt -->
-  <string name="actfm_ALA_pw_signup">Sign Up</string>
+  <string name="actfm_ALA_pw_signup">Join Now</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
@@ -152,6 +164,9 @@
 
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>
+
+  <!-- share login: OAUTH Login Prompt -->
+  <string name="actfm_OLA_prompt">Please connect to Google:</string>
 
   <!-- share login: Sharing notice -->
   <string name="actfm_ALA_notice">We promise not to post messages or send
@@ -229,7 +244,7 @@
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Säkerhetskopior</string>
+  <string name="backup_BAc_label">Manage Backups</string>
 
   <!-- backup activity title -->
   <string name="backup_BAc_title">Hantera dina säkerhetskopior</string>
@@ -350,7 +365,10 @@
   <string name="ENE_label_comments">Comments</string>
   
   <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">No Comments</string>
+  <string name="ENA_no_comments">Nothing To Show</string>
+  
+  <!-- EditNoteActivity - loading -->
+  <string name="ENA_loading">Laddar...</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Refresh Comments</string>
@@ -504,10 +522,13 @@
   <string name="TEA_tab_basic">Enkelt</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">Avancerat</string>
+  <string name="TEA_tab_share">Dela ut</string>
+  
+  <!-- Second Tab - extra details -->
+  <string name="TEA_tab_alarms">Alarm</string>
   
   <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_addons">Tillägg</string>
+  <string name="TEA_tab_more">Mer</string>
   
   <!-- Task title label -->
   <string name="TEA_title_label">Titel</string>
@@ -525,7 +546,7 @@
   <string name="TEA_urgency_specific_time">Vid bestämd tid?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">Ingen tid ställdes</string>
+  <string name="TEA_urgency_none">None</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Dölj tills</string>
@@ -568,12 +589,14 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
+      <item>Ingen frist</item>
       <item>Specifik dag/tid</item>
       <item>Idag</item>
       <item>Imorgon</item>
       <item>(dagen efter)</item>
       <item>Nästa vecka</item>
-      <item>Ingen frist</item>
+      <item>In Two Weeks</item>
+      <item>Nästa månad</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
@@ -849,14 +872,14 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="CFC_importance_name">Viktighetsgrad...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">Taggad: ?</string>
+    <string name="CFC_tag_text">List: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">Taggad...</string>
+    <string name="CFC_tag_name">List...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">Taggen innehåller...</string>
+    <string name="CFC_tag_contains_name">List name contains...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">Taggen innehåller: ?</string>
+    <string name="CFC_tag_contains_text">List name contains: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
     <string name="CFC_title_contains_name">Titeln innehåller...</string>
@@ -955,8 +978,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_GLA_errorAuth">Fel: fel e-post eller lösenord!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
-    <string name="gtasks_GLA_errorAuth_captcha">You may have encountered a captcha. 
-    Try logging in from the browser, then come back to try again:</string>
+    <string name="gtasks_GLA_errorAuth_captcha">Du kan ha stött på en captcha. Prova att logga in från webbläsaren, kom sedan tillbaka och försök igen:</string>
         
     <!-- ============================================== GtasksPreferences == -->
 
@@ -977,32 +999,40 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Resources initial tasks added -->
   
    <!-- Intro Tag or click prompt -->
-  <string name="intro_click_prompt">Intro: Press me to see notes</string>
+  <string name="intro_click_prompt">Intro: Klicka på mig för anteckningar</string>
   
   <!-- Task 1 Summary  -->
   <string name="intro_task_1_summary">Skapa din första aktivitet</string>
 
   <!-- Task 1 Note -->
-  <string name="intro_task_1_note">Two ways to add a task:\n
-  1) Quick Add: Just type the task into the quick entry box and press the + 
-  button that appears on the left.\n\n
-  
-  2) Regular add: Press the button to the right of the quick entry box. 
-  Add basic details (due date, tags, notes) or set more advanced options. 
-  Save the task with the save button or your phone\'s back button.\n\n
-  </string>
+  <string name="intro_task_1_note">Två sätt att lägga till en uppgift:\n 1) Snabbtillägg: Skriv bara uppgiften i snabbinmatningsrutan och klicka på +-knappen som visas till vänster.\n\n 2) Vanligt tillägg: Klicka på knappen till höger om snabbinmatningsrutan. Lägg till grundläggande detaljer (deadline, etiketter, anteckningar) eller ange mer avancerade alternativ. Spara uppgiften med spara-knappen eller din telefons bakåtknapp.\n\n</string>
   
   <!-- Task 2 Summary  -->
   <string name="intro_task_2_summary">Lägg till en widget på skrivbordet</string>
 
   <!-- Task 2 Note -->
-  <string name="intro_task_2_note">En skrivbordswidget är ett bra sätt att hålla koll på vad du har att göra, samtidigt som att göra det enkelt att lägga till nya uppgifter.\n\n Hur man lägger till en widget:\n 1) Gör ett långt tryck på skrivbordet.\n 2) Välj \"widget\" i menyn.\n 3) Välj \"Astrid uppgifter\".\n 4) Välj vilka uppgifter som skall visas. \n\n Bonus: Använd widgeten för att lägga till nya uppgifter.</string>
+  <string name="intro_task_2_note">A desktop widget is a great way to keep 
+  	track of your what you have to do as well as a way to quickly add new 
+  	tasks.\n\n
+	How to add a widget:\n
+	1) Long press on your phone\'s desktop.\n
+	2) Choose \"Widget\" from resulting menu\n
+	3) Choose the Astrid widget.\n
+	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
+	tasks\n\n
+
+	Bonus: Use the widget to add a task!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Ställa in synkronisering med Gmail Tasks eller Producteev</string>
+  <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">Astrid gör det möjligt för dig att synkronisera uppgifter med Gmail. För mer avancerade funktioner rekommenderar vi synkronisering med Producteev \n\n För att synkronisera Astrid tryck på \"Meny\" -.&gt; \"Inställningar\" -&gt; \"Synkronisering\" och välj den synkroniserings leverantör du föredrar.</string>
+  <string name="intro_task_3_note">Astrid makes it possible for you to sync 
+  	your tasks with Astrid.com, Google Tasks, and Producteev.\n\n
+
+	To enable sync from Astrid press \"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and 
+	choose the sync provider you prefer.
+	</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1072,7 +1102,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="opencrx_PPr_header">OpenCRX</string>
 
     <!-- creator title for tasks that are not synchronized -->
-    <string name="opencrx_no_creator">(Do Not Synchronize)</string>
+    <string name="opencrx_no_creator">(synkronisera inte)</string>
 
 	<!-- preference title for default creator -->
     <string name="opencrx_PPr_defaultcreator_title">Default ActivityCreator</string>
@@ -1233,7 +1263,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="producteev_default_dashboard">Standardarbetsytan</string>
 
     <!-- dashboard title for tasks that are not synchronized -->
-    <string name="producteev_no_dashboard">(Do Not Synchronize)</string>
+    <string name="producteev_no_dashboard">(synkronisera inte)</string>
 
     <!-- dashboard spinner entry on TEA for adding a new dashboard -->
     <string name="producteev_create_dashboard">Lägg till ny arbetsyta</string>
@@ -1388,10 +1418,6 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   
   <!-- Reminder: Cancel reminder -->
   <string name="rmd_NoA_goAway">Försvinn!</string>
-
-  <!--  Reminder: save toast for changing the past default due reminder for today -->    
-
-
   
   <!-- ============================================= reminder preferences == -->
   
@@ -1757,26 +1783,37 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- =============================================== Task Edit Controls == -->
 
   <!-- Tags label -->
-  <string name="TEA_tags_label">Taggar:</string>
+  <string name="TEA_tags_label">Add to List:</string>
   
   <!-- Tags hint -->
-  <string name="TEA_tag_hint">Taggnamn</string>
+  <string name="TEA_tag_hint">List Name</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Välj en tagg</string>
+  <string name="TEA_tag_dropdown">Select a list</string>
     
+  <!-- =============================================== Task List Controls == -->
+  
+  <!-- menu item for tags -->
+  <string name="tag_TLA_menu">Listor</string>
+  
   <!-- ========================================================== Extras == -->
   
     <!-- Context Item: show tag -->
-  <string name="TAd_contextFilterByTag">Show Tag</string>
+  <string name="TAd_contextFilterByTag">Show List</string>
+  
+    <!-- Dialog: new list -->
+  <string name="tag_new_list">New List Name:</string>
   
   <!-- ========================================================== Filters == -->
   
+  <!-- filter button to add tag -->
+  <string name="tag_FEx_add_new">New</string>
+  
   <!-- filter header for tags -->
-  <string name="tag_FEx_header">Taggar</string>
+  <string name="tag_FEx_header">Listor</string>
   
   <!-- filter header for tags user created -->
-  <string name="tag_FEx_category_mine">My Tags</string>
+  <string name="tag_FEx_category_mine">My Lists</string>
   
   <!-- filter header for tags, shared with user -->
   <string name="tag_FEx_category_shared">Shared With Me</string>
@@ -1785,31 +1822,31 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="tag_FEx_category_inactive">Inactive</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Otaggade</string>
+  <string name="tag_FEx_untagged">Not In Any List</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">Taggad \'%s\'</string>
+  <string name="tag_FEx_name">List: %s</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Döp om tagg</string>
+  <string name="tag_cm_rename">Rename List</string>
 
   <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">Radera tagg</string>
+  <string name="tag_cm_delete">Delete List</string>
 
   <!-- Dialog to confirm deletion of a tag -->
-  <string name="DLG_delete_this_tag_question">Radera denna tagg: %s? (Inga uppgifter kommer att raderas.)</string>
+  <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
 
   <!-- Dialog to rename tag -->
-  <string name="DLG_rename_this_tag_header">Döp om taggen %s till:</string>
+  <string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
 
   <!-- Toast notification that no changes have been made -->
   <string name="TEA_no_tags_modified">Inga ändringar gjordes</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Taggen %1$s togs bort från %2$d uppgifter</string>
+  <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Ersatte %1$s med %2$s i %3$d uppgifter</string>
+  <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
 
 
 
@@ -1819,10 +1856,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task List: Start Timer button -->
-    <string name="TAE_startTimer">Starta tidtagarur</string>
+    <string name="TAE_startTimer">Timer</string>
     
     <!-- Task List: Stop Timer button -->
-    <string name="TAE_stopTimer">Stoppa tidtagarur</string>
+    <string name="TAE_stopTimer">Stop</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">Tidtagarur aktivt för %s!</string>

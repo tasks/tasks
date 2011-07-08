@@ -11,7 +11,7 @@
   <string name="actfm_person_hint">Contact Name</string>
   
   <!-- task sharing dialog: shared with hint -->
-  <string name="actfm_person_or_tag_hint">Contact or Shared Tag</string>
+  <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
 
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">Saved on Server</string>
@@ -20,7 +20,7 @@
   <string name="actfm_toast_error">Save Unsuccessful</string>
 
   <!-- can't rename or delete shared tag message -->
-  <string name="actfm_tag_operation_disabled">Please view shared tags to rename or delete them.</string>
+  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
 
   <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">Take a Picture</string>
@@ -29,9 +29,9 @@
   <string name="actfm_picture_gallery">Pick from Gallery</string>
 
   <!-- filter list activity: refresh tags -->
-  <string name="actfm_FLA_menu_refresh">Refresh Tags</string>
-  
-  <!-- =============================================== ProjectViewActivity == -->
+  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
+
+  <!-- ================================================== TagViewActivity == -->  
 
   <!-- Tag View Activity: Add Comment hint -->    
   <string name="TVA_add_comment">Add a comment...</string>
@@ -53,10 +53,10 @@
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
   <!-- Tag Members: tag name label -->
-  <string name="actfm_TVA_tag_label">Tag Name:</string>
+  <string name="actfm_TVA_tag_label">List Name:</string>
 
   <!-- Tag Members: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">Tag Owner:</string>
+  <string name="actfm_TVA_tag_owner_label">List Owner:</string>
 
   <!-- Tag Members: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">none</string>
@@ -65,12 +65,18 @@
   <string name="actfm_TVA_members_label">Team Members:</string>
 
   <!-- Tag Members: tag picture -->
-  <string name="actfm_TVA_tag_picture">Tag Picture</string>
+  <string name="actfm_TVA_tag_picture">List Picture</string>
 
   <!-- ============================================ edit people dialog == -->
-  
+
+  <!-- task sharing dialog: intro -->
+  <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
+    
   <!-- task sharing dialog: window title -->
   <string name="actfm_EPA_title">Share / Assign</string>
+    
+  <!-- task sharing dialog: save button -->
+  <string name="actfm_EPA_save">Save &amp; Share</string>
   
   <!-- task sharing dialog: assigned label -->
   <string name="actfm_EPA_assign_label">Assigned to:</string>
@@ -82,7 +88,10 @@
   <string name="actfm_EPA_assign_custom">Custom...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Shared With:</string>
+  <string name="actfm_EPA_share_with">Add Collaborators:</string>
+  
+  <!-- task sharing dialog: collaborator list name (%s => name of list) -->
+  <string name="actfm_EPA_list">List: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_EPA_assigned_hint">Contact Name</string>
@@ -115,7 +124,7 @@
   <string name="actfm_EPA_invalid_email">Invalid E-mail: %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  <string name="actfm_EPA_invalid_tag">Tag Not Found: %s</string>
+  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
 
   <!-- ========================================= sharing login activity == -->
 
@@ -127,13 +136,16 @@
   share, and delegate with others. Perfect for personal use, friends, family, and coworkers!</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Login with Facebook</string>
+  <string name="actfm_ALA_fb_login">Facebook</string>
+
+  <!-- share login: Sharing Login GG Prompt -->
+  <string name="actfm_ALA_gg_login">Google</string>
 
   <!-- share login: Sharing Login Password Prompt -->
   <string name="actfm_ALA_pw_login">Login</string>
 
   <!-- share login: Sharing Sign Up Prompt -->
-  <string name="actfm_ALA_pw_signup">Sign Up</string>
+  <string name="actfm_ALA_pw_signup">Join Now</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
@@ -152,6 +164,9 @@
 
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>
+
+  <!-- share login: OAUTH Login Prompt -->
+  <string name="actfm_OLA_prompt">Please connect to Google:</string>
 
   <!-- share login: Sharing notice -->
   <string name="actfm_ALA_notice">We promise not to post messages or send
@@ -352,7 +367,10 @@
   <string name="ENE_label_comments">Comments</string>
   
   <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">No Comments</string>
+  <string name="ENA_no_comments">Nothing To Show</string>
+  
+  <!-- EditNoteActivity - loading -->
+  <string name="ENA_loading">読み込み中...</string>
   
   <!-- EditNoteActivity - refresh comments -->
   <string name="ENA_refresh_comments">Refresh Comments</string>
@@ -410,7 +428,7 @@
   <string name="TAd_contextEditTask">タスクを編集</string>
 
   <!-- Context Item: copy task -->
-  <string name="TAd_contextCopyTask">Copy Task</string>
+  <string name="TAd_contextCopyTask">タスクをコピー</string>
 
   <!-- Context Item: delete task -->
   <string name="TAd_contextDeleteTask">タスクを削除</string>
@@ -506,10 +524,13 @@
   <string name="TEA_tab_basic">基本</string>
   
   <!-- Second Tab - extra details -->
-  <string name="TEA_tab_extra">詳細</string>
+  <string name="TEA_tab_share">Share</string>
+  
+  <!-- Second Tab - extra details -->
+  <string name="TEA_tab_alarms">アラーム</string>
   
   <!-- Third Tab - add-ons -->
-  <string name="TEA_tab_addons">アドオン</string>
+  <string name="TEA_tab_more">さらに</string>
   
   <!-- Task title label -->
   <string name="TEA_title_label">タスク名</string>
@@ -527,7 +548,7 @@
   <string name="TEA_urgency_specific_time">時刻を設定する</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_time_none">時刻未指定</string>
+  <string name="TEA_urgency_none">None</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">タスクを表示する期間</string>
@@ -570,12 +591,14 @@
   
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
+      <item>期限なし</item>
       <item>日時を指定</item>
       <item>今日</item>
       <item>明日</item>
       <item>日後</item>
       <item>来週</item>
-      <item>期限なし</item>
+      <item>In Two Weeks</item>
+      <item>来月</item>
   </string-array>
   
   <string-array name="TEA_hideUntil">
@@ -638,11 +661,11 @@
   <string name="EPr_showNotes_desc_enabled">メモは常に表示されます</string>
   
   <!-- Preference: Transparent -->
-  <string name="EPr_transparent_title">Transparency</string>
+  <string name="EPr_transparent_title">半透明</string>
   <!-- Preference: Transparent Description (disabled) -->
-  <string name="EPr_transparent_desc_disabled">Desktop wallpaper will not be shown</string>  
+  <string name="EPr_transparent_desc_disabled">ホーム画面の壁紙は表示されません</string>  
   <!-- Preference: Transparent Description (enabled) -->
-  <string name="EPr_transparent_desc_enabled">Desktop wallpaper will be shown</string>
+  <string name="EPr_transparent_desc_enabled">ホーム画面の壁紙が表示されます</string>
   <!-- Preference: Transparent Description (android 1.6) -->
   <string name="EPr_transparent_desc_unsupported">Setting requires Android 2.0+</string>
   
@@ -1001,7 +1024,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   	tasks.\n\n
 	How to add a widget:\n
 	1) Long press on your phone\'s desktop.\n
-	2) Choose \"Widget\" form resulting menu\n
+	2) Choose \"Widget\" from resulting menu\n
 	3) Choose the Astrid widget.\n
 	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
 	tasks\n\n
@@ -1009,7 +1032,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
 	Bonus: Use the widget to add a task!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">同期の設定</string>
+  <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
 
   <!-- Task 3 Note -->
   <string name="intro_task_3_note">Astrid は Google Task のシンプルなタスクリストと同期することができます。より高度な機能が必要な場合は、Producteev と同期することをお勧めします。\n\n 同期を有効にするには、Astrid の画面から「メニューキー」→「設定」→「同期」を開き、利用したいサービスを選んでください。</string>
@@ -1399,10 +1422,6 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
   
   <!-- Reminder: Cancel reminder -->
   <string name="rmd_NoA_goAway">なくなれ!</string>
-
-  <!--  Reminder: save toast for changing the past default due reminder for today -->    
-
-
   
   <!-- ============================================= reminder preferences == -->
   
@@ -1597,7 +1616,7 @@ you get stuff done. It features reminders, tags, sync, Locale plug-in, a widget 
       <item>おしごとの時間だよ!</item>
       <item>Due date is here!</item>
       <item>もう始められる?</item>
-      <item>こるするって言ったでしょ:</item>
+      <item>これするって言ったでしょ:</item>
       <item>始めるはずでしょ:</item>
       <item>これ はじめよう:</item>
       <item>時間だよ!</item>
@@ -1780,18 +1799,29 @@ Error Message: %s
   <!-- Tags dropdown -->
   <string name="TEA_tag_dropdown">既存タグを追加</string>
     
+  <!-- =============================================== Task List Controls == -->
+  
+  <!-- menu item for tags -->
+  <string name="tag_TLA_menu">リスト</string>
+  
   <!-- ========================================================== Extras == -->
   
     <!-- Context Item: show tag -->
-  <string name="TAd_contextFilterByTag">Show Tag</string>
+  <string name="TAd_contextFilterByTag">Show List</string>
+  
+    <!-- Dialog: new list -->
+  <string name="tag_new_list">New List Name:</string>
   
   <!-- ========================================================== Filters == -->
   
+  <!-- filter button to add tag -->
+  <string name="tag_FEx_add_new">New</string>
+  
   <!-- filter header for tags -->
-  <string name="tag_FEx_header">タグ</string>
+  <string name="tag_FEx_header">リスト</string>
   
   <!-- filter header for tags user created -->
-  <string name="tag_FEx_category_mine">My Tags</string>
+  <string name="tag_FEx_category_mine">My Lists</string>
   
   <!-- filter header for tags, shared with user -->
   <string name="tag_FEx_category_shared">Shared With Me</string>
@@ -1806,7 +1836,7 @@ Error Message: %s
   <string name="tag_FEx_name">%s タグ</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Rename Tag</string>
+  <string name="tag_cm_rename">Rename List</string>
 
   <!-- context menu option to delete a tag -->
   <string name="tag_cm_delete">タグ削除</string>
@@ -1821,10 +1851,10 @@ Error Message: %s
   <string name="TEA_no_tags_modified">変更されませんでした</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">Tag %1$s removed from %2$d tasks</string>
+  <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Replaced %1$s with %2$s on %3$d tasks</string>
+  <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
 
 
 
@@ -1834,10 +1864,10 @@ Error Message: %s
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task List: Start Timer button -->
-    <string name="TAE_startTimer">タイマーを開始</string>
+    <string name="TAE_startTimer">タイマーを</string>
     
     <!-- Task List: Stop Timer button -->
-    <string name="TAE_stopTimer">タイマーを停止</string>
+    <string name="TAE_stopTimer">停止</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">Timers Active for %s!</string>
