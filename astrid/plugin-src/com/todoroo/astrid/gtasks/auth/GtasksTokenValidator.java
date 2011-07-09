@@ -15,8 +15,6 @@ import com.todoroo.astrid.gtasks.api.GtasksService;
 
 public class GtasksTokenValidator {
 
-    private static GoogleAccountManager accountManager = new GoogleAccountManager(ContextManager.getContext());
-
     /**
      * Invalidates and then revalidates the auth token for the currently logged in user
      * Shouldn't be called from the main thread--will block on network calls
@@ -24,6 +22,8 @@ public class GtasksTokenValidator {
      * @return valid token on success, null on failure
      */
     public static String validateAuthToken(String token) {
+        GoogleAccountManager accountManager = new GoogleAccountManager(ContextManager.getContext());
+
         GtasksService testService = new GtasksService(token);
         try {
             testService.ping();

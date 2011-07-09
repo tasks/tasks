@@ -33,8 +33,7 @@ public class GtasksLegacyMigrator {
     @Autowired TaskService taskService;
     @Autowired MetadataService metadataService;
     @Autowired GtasksListService gtasksListService;
-
-    private static final String MIGRATION_HAS_OCCURRED = "gtasksLegacySyncMigrated"; //$NON-NLS-1$
+    @Autowired GtasksPreferenceService gtasksPreferenceService;
 
     private final GtasksService gtasksService;
     private final GtasksListService listService;
@@ -52,7 +51,7 @@ public class GtasksLegacyMigrator {
     }
 
     public void checkAndMigrateLegacy() throws IOException {
-        if (!Preferences.getBoolean(MIGRATION_HAS_OCCURRED, false)) {
+        if (!gtasksPreferenceService.migrationHasOccurred()) {
 
             listService.migrateListIds(allLists);
 
@@ -107,13 +106,16 @@ public class GtasksLegacyMigrator {
                             }
                         }
                     }
-                    if (defaultListId == null) defaultListId = "@default"; //$NON-NLS-1$
+                    if (defaultListId == null) {
+                        com.google.api.services.tasks.v1.model.TaskList defaultList = gtasksService.getGtaskList("@default"); //$NON-NLS-1$
+                        defaultListId = defaultList.id;
+                    }
                     Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, defaultListId);
                 }
             } finally {
                 allTasksWithGtaskData.close();
             }
-            Preferences.setBoolean(MIGRATION_HAS_OCCURRED, true); //Record successful migration
+            Preferences.setBoolean(GtasksPreferenceService.PREF_MIGRATION_HAS_OCCURRED, true); //Record successful migration
         }
     }
 

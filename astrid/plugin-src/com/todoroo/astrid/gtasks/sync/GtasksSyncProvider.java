@@ -121,6 +121,9 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         try {
             String authToken = gtasksPreferenceService.getToken();
             authToken = GtasksTokenValidator.validateAuthToken(authToken);
+            if (authToken == null) {
+                throw new GoogleTasksException(ContextManager.getContext().getString(R.string.gtasks_GLA_errorAuth));
+            }
             gtasksPreferenceService.setToken(authToken);
 
             taskService = new GtasksService(authToken);
