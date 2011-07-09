@@ -139,7 +139,7 @@ public class GtasksIndentActionTest extends DatabaseTestCase {
         gtasksListService.updateLists(lists);
     }
 
-    private Task taskWithMetadata(int order, int indentation) {
+    private Task taskWithMetadata(long order, int indentation) {
         Task task = new Task();
         PluginServices.getTaskService().save(task);
         Metadata metadata = GtasksMetadata.createEmptyMetadata(task.getId());

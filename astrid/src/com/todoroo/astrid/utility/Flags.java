@@ -22,14 +22,20 @@ public class Flags {
     public static final int TOAST_ON_SAVE = 1 << 2;
 
     /**
-     * If set, indicates sync service sync this change
+     * If set, indicates to suppress the next act.fm sync attempt
      */
-    public static final int SUPPRESS_SYNC = 1 << 3;
+    public static final int ACTFM_SUPPRESS_SYNC = 1 << 3;
 
     /**
      * If set, indicates save hooks should be suppressed
      */
     public static final int SUPPRESS_HOOKS = 1 << 4;
+
+    /**
+     * If set, indicates to suppress the next gtasks sync attempt
+     */
+
+    public static final int GTASKS_SUPPRESS_SYNC = 1 << 5;
 
     public static boolean checkAndClear(int flag) {
         boolean set = (state & flag) > 0;

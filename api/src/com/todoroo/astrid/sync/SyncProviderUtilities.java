@@ -30,7 +30,7 @@ abstract public class SyncProviderUtilities {
 
     protected static final String PREF_LAST_ATTEMPTED_SYNC = "_last_attempted"; //$NON-NLS-1$
 
-    protected static final String PREF_LAST_ERROR = "_last_error"; //$NON-NLS-1$
+    protected static final String PREF_LAST_ERROR = "_last_err"; //$NON-NLS-1$
 
     protected static final String PREF_ONGOING = "_ongoing"; //$NON-NLS-1$
 
@@ -70,7 +70,7 @@ abstract public class SyncProviderUtilities {
 
     /** @return Last Error, or null if no last error */
     public String getLastError() {
-        return getPrefs().getString(PREF_LAST_ERROR, null);
+        return getPrefs().getString(getIdentifier() + PREF_LAST_ERROR, null);
     }
 
     /** @return Last Error, or null if no last error */
@@ -112,7 +112,7 @@ abstract public class SyncProviderUtilities {
         Editor editor = getPrefs().edit();
         editor.putLong(getIdentifier() + PREF_LAST_ATTEMPTED_SYNC,
                 DateUtilities.now());
-        editor.putString(getIdentifier() + PREF_LAST_ERROR, null);
+        editor.remove(getIdentifier() + PREF_LAST_ERROR);
         editor.putBoolean(getIdentifier() + PREF_ONGOING, true);
         editor.commit();
     }

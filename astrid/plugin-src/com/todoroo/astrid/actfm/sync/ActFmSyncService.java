@@ -88,7 +88,7 @@ public final class ActFmSyncService {
         taskDao.addListener(new ModelUpdateListener<Task>() {
             @Override
             public void onModelUpdated(final Task model) {
-                if(Flags.checkAndClear(Flags.SUPPRESS_SYNC))
+                if(Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC))
                     return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
@@ -108,7 +108,7 @@ public final class ActFmSyncService {
         updateDao.addListener(new ModelUpdateListener<Update>() {
             @Override
             public void onModelUpdated(final Update model) {
-                if(Flags.checkAndClear(Flags.SUPPRESS_SYNC))
+                if(Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC))
                     return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || model.getValue(Update.REMOTE_ID) > 0)
@@ -126,7 +126,7 @@ public final class ActFmSyncService {
         tagDataDao.addListener(new ModelUpdateListener<TagData>() {
             @Override
             public void onModelUpdated(final TagData model) {
-                if(Flags.checkAndClear(Flags.SUPPRESS_SYNC))
+                if(Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC))
                     return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken() || setValues.containsKey(RemoteModel.REMOTE_ID_PROPERTY_NAME))
@@ -265,7 +265,7 @@ public final class ActFmSyncService {
             JsonHelper.taskFromJson(result, task, metadata);
             task.setValue(Task.MODIFICATION_DATE, DateUtilities.now());
             task.setValue(Task.LAST_SYNC, DateUtilities.now());
-            Flags.set(Flags.SUPPRESS_SYNC);
+            Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
             taskDao.saveExisting(task);
         } catch (JSONException e) {
             handleException("task-save-json", e);
@@ -355,7 +355,7 @@ public final class ActFmSyncService {
             JSONObject result = actFmInvoker.invoke("tag_save", params.toArray(new Object[params.size()]));
             if(newlyCreated) {
                 tagData.setValue(TagData.REMOTE_ID, result.optLong("id"));
-                Flags.set(Flags.SUPPRESS_SYNC);
+                Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                 tagDataDao.saveExisting(tagData);
             }
             success = true;
@@ -395,7 +395,7 @@ public final class ActFmSyncService {
                     JSONObject item = list.getJSONObject(i);
                     readIds(locals, item, remote);
                     JsonHelper.tagFromJson(item, remote);
-                    Flags.set(Flags.SUPPRESS_SYNC);
+                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     tagDataService.save(remote);
                 }
             }
@@ -431,7 +431,7 @@ public final class ActFmSyncService {
                     "token", token);
 
         JsonHelper.tagFromJson(result, tagData);
-        Flags.set(Flags.SUPPRESS_SYNC);
+        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
         tagDataService.save(tagData);
     }
 
@@ -453,7 +453,7 @@ public final class ActFmSyncService {
 
         ArrayList<Metadata> metadata = new ArrayList<Metadata>();
         JsonHelper.taskFromJson(result, task, metadata);
-        Flags.set(Flags.SUPPRESS_SYNC);
+        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
         taskService.save(task);
         metadataService.synchronizeMetadata(task.getId(), metadata, Metadata.KEY.eq(TagService.KEY));
     }
@@ -505,7 +505,7 @@ public final class ActFmSyncService {
                     }
 
 
-                    Flags.set(Flags.SUPPRESS_SYNC);
+                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     taskService.save(remote);
                     metadataService.synchronizeMetadata(remote.getId(), metadata, MetadataCriteria.withKey(TagService.KEY));
                     remote.clear();
@@ -543,7 +543,7 @@ public final class ActFmSyncService {
                     readIds(locals, item, remote);
                     JsonHelper.updateFromJson(item, remote);
 
-                    Flags.set(Flags.SUPPRESS_SYNC);
+                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     if(remote.getId() == AbstractModel.NO_ID)
                         updateDao.createNew(remote);
                     else
@@ -578,7 +578,7 @@ public final class ActFmSyncService {
                     readIds(locals, item, remote);
                     JsonHelper.updateFromJson(item, remote);
 
-                    Flags.set(Flags.SUPPRESS_SYNC);
+                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     if(remote.getId() == AbstractModel.NO_ID)
                         updateDao.createNew(remote);
                     else

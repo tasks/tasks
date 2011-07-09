@@ -26,6 +26,7 @@ import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
 import com.todoroo.astrid.api.FilterWithCustomIntent;
+import com.todoroo.astrid.api.PermaSql;
 import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.MetadataApiDao.MetadataCriteria;
@@ -56,13 +57,14 @@ public class GtasksFilterExposer extends BroadcastReceiver {
         values.putAll(GtasksMetadata.createEmptyMetadata(AbstractModel.NO_ID).getMergedValues());
         values.remove(Metadata.TASK.name);
         values.put(GtasksMetadata.LIST_ID.name, list.getValue(GtasksList.REMOTE_ID));
+        values.put(GtasksMetadata.ORDER.name, PermaSql.VALUE_NOW);
         FilterWithCustomIntent filter = new FilterWithCustomIntent(listName,
                 ContextManager.getString(R.string.gtasks_FEx_title, listName), new QueryTemplate().join(
                 Join.left(Metadata.TABLE, Task.ID.eq(Metadata.TASK))).where(Criterion.and(
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                         TaskCriteria.activeAndVisible(),
                         GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
-                                Order.asc(Functions.cast(GtasksMetadata.ORDER, "INTEGER"))), //$NON-NLS-1$
+                                Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG"))), //$NON-NLS-1$
                 values);
         filter.listingIcon = ((BitmapDrawable)context.getResources().getDrawable(R.drawable.gtasks_icon)).getBitmap();
         filter.customTaskList = new ComponentName(ContextManager.getContext(), GtasksListActivity.class);

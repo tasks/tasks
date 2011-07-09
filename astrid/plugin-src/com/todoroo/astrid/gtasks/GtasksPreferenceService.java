@@ -24,6 +24,10 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
         return R.string.gtasks_GPr_interval_key;
     }
 
+    public int getSyncOnSaveKey() {
+        return R.string.gtasks_GPr_sync_on_save_key;
+    }
+
     /** GTasks user's default list id */
     public static final String PREF_DEFAULT_LIST = IDENTIFIER + "_defaultlist"; //$NON-NLS-1$
 

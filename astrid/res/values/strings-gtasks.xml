@@ -70,6 +70,10 @@
     <!-- GTasks Preferences Title -->    
     <string name="gtasks_GPr_header">Google Tasks (Beta!)</string>
     
+    <string name="gtasks_GPr_sync_on_save">Sync on Save</string>
+    
+    <string name="gtasks_GPr_sync_on_save_summary">Sync individual tasks as they are saved</string>
+    
     <!-- ================================================ Synchronization == -->    
     
     <!-- title for notification tray when synchronizing -->

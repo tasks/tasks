@@ -273,6 +273,9 @@
   
     <string name="gtasks_GPr_interval_key">gtasks_sync_freq</string>
     
+    
+    <string name="gtasks_GPr_sync_on_save_key">gtasks_sync_on_save</string>
+    
   <!-- ========================================================== SHARING == -->
   
     <string name="actfm_APr_interval_key">actfm_sync_freq</string>
