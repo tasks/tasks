@@ -165,8 +165,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         try {
             TaskLists allTaskLists = taskService.allGtaskLists();
 
-            //TODO: do something with result of migration check?
-            new GtasksLegacyMigrator(taskService, gtasksListService, allTaskLists).checkAndMigrateLegacy();
+            new GtasksLegacyMigrator(taskService, gtasksListService,
+                    allTaskLists).checkAndMigrateLegacy();
 
             getActiveList(allTaskLists);
 
@@ -244,7 +244,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             localIdsToRemoteIds.put(task.task.getId(), task.gtaskMetadata.getValue(GtasksMetadata.ID));
         }
 
-        verifyCreatedOrder(locals, localIdsToRemoteIds);
+        verifyCreatedOrder(localIdsToRemoteIds);
 
         for(GtasksTaskContainer remote : data.remoteUpdated) {
             if(remote.task.getId() < 1) {
@@ -260,8 +260,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         super.readRemotelyUpdated(data);
     }
 
-    private void verifyCreatedOrder(HashMap<String, GtasksTaskContainer> locals,
-            HashMap<Long, String> localIdsToRemoteIds) throws IOException {
+    private void verifyCreatedOrder(HashMap<Long, String> localIdsToRemoteIds) throws IOException {
         for (GtasksTaskContainer t : createdWithoutParent) {
             String toMove = t.gtaskMetadata.getValue(GtasksMetadata.ID);
             String listId = t.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
@@ -280,16 +279,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     // ----------------------------------------------------------------------
 
     // all synchronized properties
-    private static final Property<?>[] PROPERTIES = new Property<?>[] {
-            Task.ID,
-            Task.TITLE,
-            Task.DUE_DATE,
-            Task.CREATION_DATE,
-            Task.COMPLETION_DATE,
-            Task.DELETION_DATE,
-            Task.REMINDER_FLAGS,
-            Task.NOTES,
-    };
+    private static final Property<?>[] PROPERTIES = Task.PROPERTIES;
 
     /**
      * Populate SyncData data structure
@@ -351,7 +341,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         if (remoteTasks != null) {
             int order = 0;
-            //HashMap<String, List<String>> children = new HashMap<String, List<String>>();
             HashMap<String, com.google.api.services.tasks.v1.model.Task> idsToTasks = new HashMap<String, com.google.api.services.tasks.v1.model.Task>();
             HashMap<String, Integer> indentation = new HashMap<String, Integer>();
             HashMap<String, String> parentToPriorSiblingMap = new HashMap<String, String>();

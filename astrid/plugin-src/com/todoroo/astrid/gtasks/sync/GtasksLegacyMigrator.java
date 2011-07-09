@@ -51,7 +51,7 @@ public class GtasksLegacyMigrator {
         this.allLists = allLists;
     }
 
-    public boolean checkAndMigrateLegacy() {
+    public void checkAndMigrateLegacy() throws IOException {
         if (!Preferences.getBoolean(MIGRATION_HAS_OCCURRED, false)) {
 
             listService.migrateListIds(allLists);
@@ -64,8 +64,6 @@ public class GtasksLegacyMigrator {
                     where(Task.ID.in(
                             Query.select(Metadata.TASK).from(Metadata.TABLE).
                             where(Metadata.KEY.eq(GtasksMetadata.METADATA_KEY)))));
-
-
 
             try {
                 if (allTasksWithGtaskData.getCount() > 0) {
@@ -112,14 +110,11 @@ public class GtasksLegacyMigrator {
                     if (defaultListId == null) defaultListId = "@default"; //$NON-NLS-1$
                     Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, defaultListId);
                 }
-            } catch (IOException e) {
-                return false;
             } finally {
                 allTasksWithGtaskData.close();
             }
             Preferences.setBoolean(MIGRATION_HAS_OCCURRED, true); //Record successful migration
         }
-        return true;
     }
 
     private String constructKeyFromTitles(String taskTitle, String listTitle) {

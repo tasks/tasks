@@ -23,9 +23,9 @@ import com.google.api.services.tasks.v1.model.TaskLists;
 public class GtasksService {
     private Tasks service;
 
-    private static final String API_KEY = "AIzaSyCIYZTBo6haRHxmiplZsfYdagFEpaiFnAk"; //Dummy
+    private static final String API_KEY = "AIzaSyCIYZTBo6haRHxmiplZsfYdagFEpaiFnAk"; // non-production API key
 
-    public static final String AUTH_TOKEN_TYPE = "oauth2:https://www.googleapis.com/auth/tasks"; //$NON-NLS-1$
+    public static final String AUTH_TOKEN_TYPE = "oauth2:https://www.googleapis.com/auth/tasks";
 
     public GtasksService(String authToken) {
         try {

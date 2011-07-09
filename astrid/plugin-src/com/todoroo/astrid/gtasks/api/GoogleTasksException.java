@@ -5,10 +5,6 @@ import java.io.IOException;
 public class GoogleTasksException extends IOException {
     private static final long serialVersionUID = -5585448790574862510L;
 
-    public GoogleTasksException() {
-
-    }
-
     public GoogleTasksException(String message) {
         super(message);
     }
