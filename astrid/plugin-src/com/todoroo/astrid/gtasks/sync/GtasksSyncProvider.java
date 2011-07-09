@@ -231,11 +231,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             return;
         }
 
-
-        // first, pull all tasks. then we can write them
-        // include deleted tasks so we can delete them in astrid
-        data.remoteUpdated = readAllRemoteTasks(true);
-
         // match remote tasks to locally created tasks
         HashMap<String, GtasksTaskContainer> locals = new HashMap<String, GtasksTaskContainer>();
         HashMap<Long, String> localIdsToRemoteIds = new HashMap<Long, String>();
@@ -245,6 +240,10 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         }
 
         verifyCreatedOrder(localIdsToRemoteIds);
+
+        // first, pull all tasks. then we can write them
+        // include deleted tasks so we can delete them in astrid
+        data.remoteUpdated = readAllRemoteTasks(true);
 
         for(GtasksTaskContainer remote : data.remoteUpdated) {
             if(remote.task.getId() < 1) {
