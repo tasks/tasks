@@ -36,6 +36,7 @@ import com.todoroo.astrid.utility.AstridPreferences;
 
 public final class UpgradeService {
 
+    public static final int V3_8_0_RC7 = 185;
     public static final int V3_7_7 = 184;
     public static final int V3_7_6 = 182;
     public static final int V3_7_5 = 179;
@@ -143,6 +144,15 @@ public final class UpgradeService {
             });
         } else {
             // current message
+            if(from < V3_8_0_RC7) {
+                newVersionString(changeLog, "3.8.0 beta RC7", new String[] {
+                        "Welcome to the Astrid 3.8 Beta Program!",
+                        "Astrid.com sync & task sharing!",
+                        "GTasks Sync using Google's official task API! You will need to sync once manually to authorize it",
+                        "New style for \"Task Edit\" page!",
+                        "Purge completed or deleted tasks!",
+                });
+            }
             if(from < V3_7_7) {
                 newVersionString(changeLog, "3.7.7 (6/22/11, bug fixes, usability, cosmetic)", new String[] {
                         "Moved note viewing into quick action bar based on usability feedback",
