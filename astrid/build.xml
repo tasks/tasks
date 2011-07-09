@@ -131,6 +131,9 @@
       <replaceregexp file="${source.dir}/com/todoroo/astrid/actfm/sync/ActFmInvoker.java"
                      match="APP_SECRET = .*"
                      replace="APP_SECRET = &quot;${apikey.actfm.secret}&quot;;" />
+      <replaceregexp file="${source.dir}/com/todoroo/astrid/gtasks/api/GtasksService.java"
+                     match="API_KEY = .*"
+                     replace="API_KEY = &quot;${apikey.gtasks}&quot;;" />
     </target>
 
     <!-- update api keys that require release signing -->
