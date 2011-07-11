@@ -22,6 +22,10 @@
         android:key="@string/p_rmd_persistent"
         android:title="@string/rmd_EPr_persistent_title"/>
     <CheckBoxPreference
+        android:key="@string/p_rmd_maxvolume"
+        android:title="@string/rmd_EPr_multiple_maxvolume_title"
+        android:defaultValue="false"  />
+    <CheckBoxPreference
         android:key="@string/p_rmd_vibrate"
         android:title="@string/rmd_EPr_vibrate_title"
         android:defaultValue="true"  />

@@ -68,6 +68,11 @@ public class ReminderPreferences extends TodorooPreferenceActivity {
                 preference.setSummary(r.getString(R.string.rmd_EPr_persistent_desc_true));
             else
                 preference.setSummary(r.getString(R.string.rmd_EPr_persistent_desc_false));
+        } else if(r.getString(R.string.p_rmd_maxvolume).equals(preference.getKey())) {
+            if((Boolean)value)
+                preference.setSummary(r.getString(R.string.rmd_EPr_multiple_maxvolume_desc_true));
+            else
+                preference.setSummary(r.getString(R.string.rmd_EPr_multiple_maxvolume_desc_false));
         } else if(r.getString(R.string.p_rmd_vibrate).equals(preference.getKey())) {
             if((Boolean)value)
                 preference.setSummary(r.getString(R.string.rmd_EPr_vibrate_desc_true));

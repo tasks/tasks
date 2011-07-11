@@ -1472,12 +1472,19 @@ Achtung: diese Aufgaben sind unwiederbringlich verloren, wenn Sie kein Backup ge
   <!-- Reminder Preference: Notification Icon Description -->
   <string name="rmd_Epr_notificon_desc">Astrid\'s Notification Bar Icon auswählen</string>
 
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
+  <string name="rmd_EPr_multiple_maxvolume_title">Lautstärke hoch bei wdh. Alarm</string>
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid wird bei mehrfach alarmierenden Aufgaben laut sein</string>
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
+  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid verwendet die Lautstärke der Systemeinstellung</string>
+
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">Vibrieren beim Alarm</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
   <string name="rmd_EPr_vibrate_desc_true">Astrid wird bei Benachrichtigungen vibrieren</string>
   <!-- Reminder Preference: Vibrate Description (false) -->
-  <string name="rmd_EPr_vibrate_desc_false">Astrid wird bei Erinnerungen nicht vibrieren</string>
+  <string name="rmd_EPr_vibrate_desc_false">Astrid wird bei Benachrichtigungen nicht vibrieren</string>
 
   <!-- Reminder Preference: Nagging Title -->  
   <string name="rmd_EPr_nagging_title">Astrid Ermutigungen</string>
