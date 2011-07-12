@@ -111,6 +111,30 @@ public class GtasksListService {
         clearListCache();
     }
 
+    public StoreObject addNewList(com.google.api.services.tasks.v1.model.TaskList newList) {
+        readLists();
+
+        if (lists != null) {
+            for (StoreObject list : lists) {
+                if (list.getValue(GtasksList.REMOTE_ID).equals(newList.id)) //Sanity check--make sure it's actually a new list
+                    return null;
+            }
+        }
+        StoreObject local = new StoreObject();
+
+        local.setValue(StoreObject.TYPE, GtasksList.TYPE);
+        local.setValue(GtasksList.REMOTE_ID, newList.id);
+        local.setValue(GtasksList.NAME, newList.title);
+
+        int order = lists == null ? 0 : lists.length;
+        local.setValue(GtasksList.ORDER, order);
+
+        storeObjectDao.persist(local);
+
+        clearListCache();
+        return local;
+    }
+
     private void clearListCache() {
         lists = null;
     }

@@ -35,6 +35,7 @@ import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
 import com.todoroo.astrid.api.FilterListHeader;
 import com.todoroo.astrid.api.FilterListItem;
+import com.todoroo.astrid.gtasks.GtasksListAdder;
 import com.todoroo.astrid.service.TaskService;
 import com.todoroo.astrid.tags.TagsPlugin;
 
@@ -431,11 +432,12 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             viewHolder.selected.setVisibility(View.GONE);
 
         updateForActFm(viewHolder);
+        updateForGtasks(viewHolder);
     }
 
-    private void updateForActFm(ViewHolder viewHolder) {
+    private void setupCustomHeader(ViewHolder viewHolder, String forTitle, View.OnClickListener buttonListener) {
         if(viewHolder.item instanceof FilterListHeader &&
-                viewHolder.item.listingTitle.equals(activity.getString(R.string.tag_FEx_header))) {
+                viewHolder.item.listingTitle.equals(forTitle)) {
             Button add = new Button(activity);
             add.setText(R.string.tag_FEx_add_new);
             add.setBackgroundResource(android.R.drawable.btn_default_small);
@@ -444,13 +446,30 @@ public class FilterAdapter extends BaseExpandableListAdapter {
             add.setHeight((int)(35 * metrics.density));
             ((ViewGroup)viewHolder.view).addView(add);
 
-            add.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    new TagsPlugin().showNewTagDialog(activity);
-                }
-            });
+            add.setOnClickListener(buttonListener);
         }
+    }
+
+    private void updateForActFm(ViewHolder viewHolder) {
+        setupCustomHeader(viewHolder,
+                activity.getString(R.string.tag_FEx_header),
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new TagsPlugin().showNewTagDialog(activity);
+                    }
+                });
+    }
+
+    private void updateForGtasks(ViewHolder viewHolder) {
+        setupCustomHeader(viewHolder,
+                activity.getString(R.string.gtasks_FEx_header),
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new GtasksListAdder().showNewListDialog(activity);
+                    }
+                });
     }
 
 }
