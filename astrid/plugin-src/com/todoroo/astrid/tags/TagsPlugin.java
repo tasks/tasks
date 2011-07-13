@@ -52,6 +52,7 @@ public class TagsPlugin extends BroadcastReceiver {
         frame.addView(editText);
         frame.setPadding(10, 0, 10, 0);
 
+        // todo make me open directly
         DialogUtilities.viewDialog(activity,
                 activity.getString(R.string.tag_new_list),
                 frame, new DialogInterface.OnClickListener() {
@@ -59,7 +60,7 @@ public class TagsPlugin extends BroadcastReceiver {
                     public void onClick(DialogInterface dialog, int which) {
                         Tag tag = new Tag(editText.getText().toString(), 0, 0);
                         FilterWithCustomIntent filter = TagFilterExposer.filterFromTag(activity,
-                                tag, TaskCriteria.isActive(), actFmPreferenceService.isLoggedIn());
+                                tag, TaskCriteria.isActive());
                         filter.start(activity);
                     }
                 }, null);

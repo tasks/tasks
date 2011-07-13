@@ -32,8 +32,6 @@ import com.todoroo.andlib.sql.QueryTemplate;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.actfm.TagViewActivity;
-import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
-import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.api.FilterCategory;
@@ -60,13 +58,11 @@ public class TagFilterExposer extends BroadcastReceiver {
 
     @Autowired TagDataService tagDataService;
 
-    @Autowired ActFmPreferenceService actFmPreferenceService;
-
     private TagService tagService;
 
     /** Create filter from new tag object */
     @SuppressWarnings("nls")
-    public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion, boolean useTagViewActivity) {
+    public static FilterWithCustomIntent filterFromTag(Context context, Tag tag, Criterion criterion) {
         String listTitle = tag.tag + " (" + tag.count + ")";
         String title = context.getString(R.string.tag_FEx_name, tag.tag);
         QueryTemplate tagTemplate = tag.queryTemplate(criterion);
@@ -88,15 +84,11 @@ public class TagFilterExposer extends BroadcastReceiver {
                 newTagIntent(context, RenameTagActivity.class, tag),
                 newTagIntent(context, DeleteTagActivity.class, tag)
         };
-        if(useTagViewActivity) {
-            filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewActivity.class);
-            Bundle extras = new Bundle();
-            extras.putString(TagViewActivity.EXTRA_TAG_NAME, tag.tag);
-            extras.putLong(TagViewActivity.EXTRA_TAG_REMOTE_ID, tag.remoteId);
-            filter.customExtras = extras;
-        } else {
-            filter.customTaskList = new ComponentName(ContextManager.getContext(), TaskListActivity.class);
-        }
+        filter.customTaskList = new ComponentName(ContextManager.getContext(), TagViewActivity.class);
+        Bundle extras = new Bundle();
+        extras.putString(TagViewActivity.EXTRA_TAG_NAME, tag.tag);
+        extras.putLong(TagViewActivity.EXTRA_TAG_REMOTE_ID, tag.remoteId);
+        filter.customExtras = extras;
 
         return filter;
     }
@@ -106,7 +98,7 @@ public class TagFilterExposer extends BroadcastReceiver {
         Tag tag = new Tag(tagData.getValue(TagData.NAME),
                 tagData.getValue(TagData.TASK_COUNT),
                 tagData.getValue(TagData.REMOTE_ID));
-        return filterFromTag(context, tag, TaskCriteria.activeAndVisible(), true);
+        return filterFromTag(context, tag, TaskCriteria.activeAndVisible());
     }
 
     private static Intent newTagIntent(Context context, Class<? extends Activity> activity, Tag tag) {
@@ -199,8 +191,7 @@ public class TagFilterExposer extends BroadcastReceiver {
         Filter[] filters = new Filter[tags.length];
         Context context = ContextManager.getContext();
         for(int i = 0; i < tags.length; i++)
-            filters[i] = filterFromTag(context, tags[i], TaskCriteria.activeAndVisible(),
-                    actFmPreferenceService.isLoggedIn());
+            filters[i] = filterFromTag(context, tags[i], TaskCriteria.activeAndVisible());
         return new FilterCategory(context.getString(name), filters);
     }
 

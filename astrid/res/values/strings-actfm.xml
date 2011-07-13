@@ -46,26 +46,29 @@
     <!-- Tab for showing comments & updates -->
     <item>Activity</item>
     <!-- Tab for showing setting -->
-    <item>Members</item>
+    <item>List Settings</item>
   </string-array>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
-  <!-- Tag Members: tag name label -->
+  <!-- Tag Settings: tag name label -->
   <string name="actfm_TVA_tag_label">List Name:</string>
 
-  <!-- Tag Members: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">List Owner:</string>
+  <!-- Tag Settings: tag owner label -->
+  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
 
-  <!-- Tag Members: tag owner value when there is no owner -->
+  <!-- Tag Settings: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">none</string>
 
-  <!-- Tag Members: team members label -->
-  <string name="actfm_TVA_members_label">Team Members:</string>
+  <!-- Tag Settings: list collaborators label -->
+  <string name="actfm_TVA_members_label">Collaborators:</string>
 
-  <!-- Tag Members: tag picture -->
+  <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
+
+  <!-- Tag Settings: silence notifications label -->
+  <string name="actfm_TVA_silence_label">Silence Notifications</string>
 
   <!-- ============================================ edit people dialog == -->
 

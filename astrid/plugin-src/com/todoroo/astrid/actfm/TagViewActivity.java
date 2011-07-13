@@ -92,6 +92,8 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
     @Autowired ActFmSyncService actFmSyncService;
 
+    @Autowired ActFmPreferenceService actFmPreferenceService;
+
     @Autowired UpdateDao updateDao;
 
     private TabHost tabHost;
@@ -140,7 +142,8 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         View taskList = super.getListBody(parent);
         tabContent.addView(taskList);
         addTab(tabWidget, taskList.getId(), "tasks", tabLabels[0]);
-        addTab(tabWidget, R.id.tab_updates, "updates", tabLabels[1]);
+        if(actFmPreferenceService.isLoggedIn())
+            addTab(tabWidget, R.id.tab_updates, "updates", tabLabels[1]);
         addTab(tabWidget, R.id.tab_settings, "members", tabLabels[2]);
 
         tabHost.setOnTabChangedListener(this);
@@ -212,10 +215,13 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         return true;
     }
 
-    protected void setUpMemberPage() {
+    protected void setUpSettingsPage() {
         tagMembers = (PeopleContainer) findViewById(R.id.members_container);
         tagName = (EditText) findViewById(R.id.tag_name);
         picture = (AsyncImageView) findViewById(R.id.picture);
+
+        if(actFmPreferenceService.isLoggedIn())
+            findViewById(R.id.listSettingsMore).setVisibility(View.VISIBLE);
 
         picture.setOnClickListener(new OnClickListener() {
             @Override
@@ -338,7 +344,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         }
 
         setUpUpdateList();
-        setUpMemberPage();
+        setUpSettingsPage();
     }
 
     private void refreshUpdatesList() {

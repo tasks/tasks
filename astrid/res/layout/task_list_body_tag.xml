@@ -81,19 +81,6 @@
                           
                     </RelativeLayout>
                   
-                    <TextView 
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dip"
-                        android:text="@string/actfm_TVA_tag_owner_label" />
-                      
-                    <TextView
-                        android:id="@+id/tag_owner"
-                        android:layout_width="fill_parent"
-                        android:layout_height="wrap_content" 
-                        android:layout_marginBottom="10dip" 
-                        android:textSize="20sp"/>
-                          
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="1dip"
@@ -111,6 +98,41 @@
                         android:orientation="vertical"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content" />
+                  
+      
+                    <!-- Footer -->
+                    <LinearLayout
+                        android:id="@+id/listSettingsMore"
+                        android:layout_width="fill_parent" 
+                        android:layout_height="wrap_content"
+                        android:visibility="gone">
+                        
+                        <View
+                            android:layout_width="fill_parent"
+                            android:layout_height="1dip"
+                            android:background="@android:drawable/divider_horizontal_dark" />
+                
+                        <TextView 
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dip"
+                            android:text="@string/actfm_TVA_tag_owner_label" />
+                          
+                        <TextView
+                            android:id="@+id/tag_owner"
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content" 
+                            android:layout_marginBottom="10dip" 
+                            android:textSize="20sp"/>
+                
+                        <CheckBox 
+                            android:layout_width="fill_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dip"
+                            android:layout_marginLeft="5dip"
+                            android:text="@string/actfm_TVA_silence_label" />
+                            
+                    </LinearLayout>
                                         
                 </LinearLayout>
               
