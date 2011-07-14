@@ -143,18 +143,31 @@ public class DateUtilities {
      * @return yesterday, today, tomorrow, or null
      */
     public static String getRelativeDay(Context context, long date) {
-        Date today = new Date();
-        if(Math.abs(today.getTime() - date) > DateUtilities.ONE_DAY)
-            return null;
-        int todayDate = today.getDate();
-        int otherDate = unixtimeToDate(date).getDate();
+        long today = clearTime(new Date());
+        long input = clearTime(new Date(date));
 
-        if(todayDate == otherDate)
+        if(today == input)
             return context.getString(R.string.today);
-        if(today.getTime() > date)
-            return context.getString(R.string.yesterday);
-        return context.getString(R.string.tomorrow);
 
+        if(today + ONE_DAY == input)
+            return context.getString(R.string.yesterday);
+
+        if(today == input + ONE_DAY)
+            return context.getString(R.string.tomorrow);
+
+        if(today + DateUtilities.ONE_WEEK <= input &&
+                today - DateUtilities.ONE_WEEK >= input)
+            return DateUtilities.getWeekday(new Date(date));
+
+        return DateUtilities.getDateString(context, new Date(date));
+    }
+
+    private static long clearTime(Date date) {
+        date.setTime(date.getTime() / 1000L * 1000);
+        date.setHours(0);
+        date.setMinutes(0);
+        date.setSeconds(0);
+        return date.getTime();
     }
 
 }

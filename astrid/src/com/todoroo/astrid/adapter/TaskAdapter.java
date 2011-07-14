@@ -34,7 +34,6 @@ import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextUtils;
-import android.text.format.DateUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -318,13 +317,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         final TextView dueDateView = viewHolder.dueDate; {
             if(!task.isCompleted() && task.hasDueDate()) {
                 long dueDate = task.getValue(Task.DUE_DATE);
-                long secondsLeft = dueDate - DateUtilities.now();
-                if(secondsLeft > 0) {
+                if(dueDate > DateUtilities.now())
                     dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate);
-                } else {
+                else
                     dueDateView.setTextAppearance(activity, R.style.TextAppearance_TAd_ItemDueDate_Overdue);
-                }
-
                 String dateValue = formatDate(dueDate);
                 dueDateView.setText(dateValue);
                 dueDateTextWidth = paint.measureText(dateValue);
@@ -495,23 +491,10 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if(dateCache.containsKey(date))
             return dateCache.get(date);
 
-        String string;
-
-        if(Math.abs(date - DateUtilities.now()) < DateUtilities.ONE_DAY) {
-            if(Task.hasDueTime(date))
-                string = DateUtils.getRelativeTimeSpanString(activity, date, true).toString();
-            else
-                string = DateUtilities.getRelativeDay(activity, date).toLowerCase();
-        } else {
-            if(Task.hasDueTime(date))
-                string = DateUtils.getRelativeDateTimeString(activity, date,
-                        DateUtils.MINUTE_IN_MILLIS, DateUtils.WEEK_IN_MILLIS, 0).toString();
-            else if(Math.abs(date - DateUtilities.now()) < DateUtilities.ONE_WEEK)
-                string = DateUtilities.getWeekday(new Date(date));
-            else
-                string = DateUtilities.getDateString(activity, new Date(date));
-
-        }
+        String string = DateUtilities.getRelativeDay(activity, date).toLowerCase();
+        if(Task.hasDueTime(date))
+            string = String.format("%s, %s", string, //$NON-NLS-1$
+                    DateUtilities.getTimeString(activity, new Date(date)));
 
         dateCache.put(date, string);
         return string;
