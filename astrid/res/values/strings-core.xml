@@ -298,7 +298,7 @@
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
       <item>No Deadline</item>
-      <item>Specific Day/Time</item>
+      <item>Specific Day</item>
       <item>Today</item>
       <item>Tomorrow</item>
       <item>(day after)</item>

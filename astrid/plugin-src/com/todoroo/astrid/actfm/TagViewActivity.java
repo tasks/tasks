@@ -122,6 +122,8 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
     private boolean dataLoaded = false;
 
+    private boolean updatesTabAdded = false;
+
 
     // --- UI initialization
 
@@ -302,9 +304,6 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     }
 
     protected void setUpUpdateList() {
-        if(actFmPreferenceService.isLoggedIn() && tagData.getValue(Task.REMOTE_ID) > 0)
-            addTab(R.id.tab_updates, "updates", tabLabels[1]); //$NON-NLS-1$
-
         final ImageButton quickAddButton = (ImageButton) findViewById(R.id.commentButton);
         addCommentField = (EditText) findViewById(R.id.commentField);
         addCommentField.setOnEditorActionListener(new OnEditorActionListener() {
@@ -392,8 +391,14 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     }
 
     private void refreshUpdatesList() {
-        if(tagData.getValue(TagData.REMOTE_ID) == 0)
+        if(!actFmPreferenceService.isLoggedIn() || tagData.getValue(Task.REMOTE_ID) <= 0)
             return;
+
+        if(!updatesTabAdded ) {
+            updatesTabAdded = true;
+            addTab(R.id.tab_updates, "updates", tabLabels[1]); //$NON-NLS-1$
+        }
+
         if(updateAdapter == null) {
             TodorooCursor<Update> currentCursor = tagDataService.getUpdates(tagData);
             startManagingCursor(currentCursor);
