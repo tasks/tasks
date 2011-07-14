@@ -150,11 +150,11 @@
   <!-- share login: Sharing Password Link -->
   <string name="actfm_ALA_pw_link">Sign In Here</string>
 
-  <!-- share login: Password New User -->
-  <string name="actfm_ALA_pw_new">New User</string>
+  <!-- share login: Password Are you a New User? -->
+  <string name="actfm_ALA_pw_new">Create a new account?</string>
 
-  <!-- share login: Password Returning User -->
-  <string name="actfm_ALA_pw_returning">Returning</string>
+  <!-- share login: Password Are you a Returning User? -->
+  <string name="actfm_ALA_pw_returning">Already have an account?</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
@@ -167,9 +167,6 @@
 
   <!-- share login: Password -->
   <string name="actfm_ALA_password_label">Password</string>
-
-  <!-- share login: Sign Up Title -->
-  <string name="actfm_ALA_signup_title">Create New Account</string>
 
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>

@@ -45,10 +45,12 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
@@ -158,7 +160,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
             @Override
             public void updateDrawState(TextPaint ds) {
                 ds.setUnderlineText(true);
-                ds.linkColor = Color.rgb(255, 96, 0);
+                ds.setColor(Color.rgb(255, 96, 0));
             }
         };
         link.setSpan(linkSpan, pwLoginBase.length() + 1, link.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -187,21 +189,25 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     private final OnClickListener signUpListener = new OnClickListener() {
         @Override
         public void onClick(View arg0) {
-            LinearLayout body = new LinearLayout(ActFmLoginActivity.this);
+            final LinearLayout body = new LinearLayout(ActFmLoginActivity.this);
             body.setOrientation(LinearLayout.VERTICAL);
             body.setPadding(10, 0, 10, 0);
 
             final EditText name = addEditField(body, R.string.actfm_ALA_name_label);
 
-            final ToggleButton toggle = new ToggleButton(ActFmLoginActivity.this);
-            toggle.setTextOff(getString(R.string.actfm_ALA_pw_returning));
-            toggle.setTextOn(getString(R.string.actfm_ALA_pw_new));
-            toggle.setOnClickListener(new OnClickListener() {
+            final CheckBox toggle = new CheckBox(ActFmLoginActivity.this);
+            toggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
                 @Override
-                public void onClick(View v) {
-                    name.setVisibility(toggle.isChecked() ? View.VISIBLE : View.GONE);
+                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                    int nameIndex = body.indexOfChild(name);
+                    int visibility = isChecked ? View.VISIBLE : View.GONE;
+                    toggle.setText(isChecked ? R.string.actfm_ALA_pw_returning :
+                        R.string.actfm_ALA_pw_new);
+                    body.getChildAt(nameIndex - 1).setVisibility(visibility);
+                    body.getChildAt(nameIndex).setVisibility(visibility);
                 }
             });
+            toggle.setChecked(true);
             body.addView(toggle, 0);
 
             final EditText email = addEditField(body, R.string.actfm_ALA_email_label);
@@ -217,7 +223,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
             password.setTransformationMethod(new PasswordTransformationMethod());
 
             new AlertDialog.Builder(ActFmLoginActivity.this)
-            .setTitle(R.string.actfm_ALA_signup_title)
+            .setTitle(R.string.actfm_ALA_login_title)
             .setView(body)
             .setIcon(R.drawable.icon_32)
             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
