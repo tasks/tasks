@@ -3,6 +3,8 @@
  */
 package com.todoroo.astrid.notes;
 
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.widget.RemoteViews;
 
 import com.timsu.astrid.R;
@@ -27,9 +29,17 @@ public class NotesDecorationExposer implements TaskDecorationExposer {
         if(task == null || !NotesPlugin.hasNotes(task))
             return null;
 
+        Intent intent = new Intent(ContextManager.getContext(), EditNoteActivity.class);
+        intent.setAction(EditNoteActivity.class.getName());
+        intent.putExtra(EditNoteActivity.EXTRA_TASK_ID, task.getId());
+        PendingIntent pi  = PendingIntent.getActivity(ContextManager.getContext(),
+                (int)task.getId(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
         TaskDecoration decoration;
         RemoteViews remoteViews = new RemoteViews(ContextManager.getContext().getPackageName(),
                 R.layout.note_decoration);
+        remoteViews.setOnClickPendingIntent(R.id.icon, pi);
+
         decoration = new TaskDecoration(remoteViews, TaskDecoration.POSITION_RIGHT, 0);
 
         return decoration;

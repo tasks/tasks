@@ -230,6 +230,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         viewHolder.nameView = (TextView)view.findViewById(R.id.title);
         viewHolder.picture = (AsyncImageView)view.findViewById(R.id.picture);
         viewHolder.completeBox = (CheckBox)view.findViewById(R.id.completeBox);
+        viewHolder.completeArea = view.findViewById(R.id.completeArea);
         viewHolder.dueDate = (TextView)view.findViewById(R.id.dueDate);
         viewHolder.details1 = (TextView)view.findViewById(R.id.details1);
         viewHolder.details2 = (TextView)view.findViewById(R.id.details2);
@@ -285,6 +286,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         public ViewGroup rowBody;
         public TextView nameView;
         public CheckBox completeBox;
+        public View completeArea;
         public AsyncImageView picture;
         public TextView dueDate;
         public TextView details1, details2;
@@ -447,10 +449,16 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
      * created.
      */
     protected void addListeners(final View container) {
-        ViewHolder viewHolder = (ViewHolder)container.getTag();
+        final ViewHolder viewHolder = (ViewHolder)container.getTag();
 
         // check box listener
         viewHolder.completeBox.setOnClickListener(completeBoxListener);
+        viewHolder.completeArea.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                viewHolder.completeBox.performClick();
+            }
+        });
 
         if(applyListenersToRowBody) {
             viewHolder.rowBody.setOnCreateContextMenuListener(listener);
