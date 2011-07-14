@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.service.DependencyInjectionService;
+import com.todoroo.andlib.service.ExceptionService.ErrorReporter;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -56,8 +57,8 @@ public class ProducteevControlSet implements TaskEditControlSet {
     private ArrayList<ProducteevUser> users = null;
     private ArrayList<ProducteevDashboard> dashboards = null;
 
-    @Autowired
-    MetadataService metadataService;
+    @Autowired MetadataService metadataService;
+    @Autowired ErrorReporter errorReporter;
 
     private int lastDashboardSelection = 0;
 
@@ -112,13 +113,8 @@ public class ProducteevControlSet implements TaskEditControlSet {
                                     DialogUtilities.dismissDialog(context, progressDialog);
                                     DialogUtilities.okDialog(context,
                                             context.getString(R.string.DLG_error, e.getMessage()),
-                                            new OnClickListener() {
-                                                @Override
-                                                public void onClick(DialogInterface theDialog, int theWhich) {
-                                                    theDialog.dismiss();
-                                                }
-                                            });
-                                    e.printStackTrace();
+                                            null);
+                                    errorReporter.handleError("pdv-create-dashboard", e);
                                     dashSelector.setSelection(0);
                                 }
                             }

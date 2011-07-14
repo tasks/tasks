@@ -32,6 +32,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.astrid.api.AstridApiConstants;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
@@ -152,8 +153,8 @@ public class TasksXmlImporter {
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(progressDialog != null && progressDialog.isShowing())
-                        progressDialog.dismiss();
+                    if(progressDialog.isShowing() && context instanceof Activity)
+                       DialogUtilities.dismissDialog((Activity) context, progressDialog);
                     showSummary();
                 }
             });

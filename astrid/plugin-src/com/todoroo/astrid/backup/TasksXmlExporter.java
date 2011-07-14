@@ -23,6 +23,7 @@ import com.todoroo.andlib.service.ExceptionService;
 import com.todoroo.andlib.sql.Order;
 import com.todoroo.andlib.sql.Query;
 import com.todoroo.andlib.utility.DateUtilities;
+import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.dao.MetadataDao.MetadataCriteria;
@@ -298,8 +299,8 @@ public class TasksXmlExporter {
                             context.getResources().getQuantityString(R.plurals.Ntasks, exportCount,
                                     exportCount), outputFile);
                     Toast.makeText(context, text, Toast.LENGTH_LONG).show();
-                    if(progressDialog.isShowing())
-                        progressDialog.dismiss();
+                    if(progressDialog.isShowing() && context instanceof Activity)
+                        DialogUtilities.dismissDialog((Activity) context, progressDialog);
                 }
             }
         });

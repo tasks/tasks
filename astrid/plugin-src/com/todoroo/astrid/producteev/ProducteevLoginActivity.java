@@ -167,7 +167,7 @@ public class ProducteevLoginActivity extends Activity {
                 } finally {
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            dialog.dismiss();
+                            DialogUtilities.dismissDialog(ProducteevLoginActivity.this, dialog);
                             if(errorMessage.length() > 0) {
                                 errors.setVisibility(View.VISIBLE);
                                 errors.setText(errorMessage);
@@ -206,7 +206,7 @@ public class ProducteevLoginActivity extends Activity {
                 } finally {
                     runOnUiThread(new Runnable() {
                         public void run() {
-                            dialog.dismiss();
+                            DialogUtilities.dismissDialog(ProducteevLoginActivity.this, dialog);
                             if(errorMessage.length() > 0) {
                                 errors.setVisibility(View.VISIBLE);
                                 errors.setText(errorMessage);

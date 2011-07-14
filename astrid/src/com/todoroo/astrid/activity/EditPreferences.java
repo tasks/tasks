@@ -335,7 +335,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                             public void onClick(DialogInterface dialog,
                                     int which) {
                                 ((CheckBoxPreference)preference).setChecked(false);
-                                dialog.dismiss();
                             }
                         });
             } else {
@@ -346,7 +345,6 @@ public class EditPreferences extends TodorooPreferenceActivity {
                             public void onClick(DialogInterface dialog1,
                                     int which1) {
                                 ((CheckBoxPreference)preference).setChecked(false);
-                                dialog1.dismiss();
                             }
                         });
             }

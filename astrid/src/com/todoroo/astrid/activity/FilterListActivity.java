@@ -421,7 +421,7 @@ public class FilterListActivity extends ExpandableListActivity {
                 } catch (JSONException e) {
                     exceptionService.displayAndReportError(FilterListActivity.this, "refresh-tags-json", e);
                 } finally {
-                    progressDialog.dismiss();
+                    DialogUtilities.dismissDialog(FilterListActivity.this, progressDialog);
                 }
             }
         }).start();
@@ -469,7 +469,7 @@ public class FilterListActivity extends ExpandableListActivity {
             }
         })
         .setNegativeButton(android.R.string.cancel, null)
-        .show();
+        .show().setOwnerActivity(this);
     }
 
     @Override
