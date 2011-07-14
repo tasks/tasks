@@ -36,6 +36,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -94,6 +95,8 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     protected static final int REQUEST_CODE_PICTURE = 2;
     protected static final int REQUEST_ACTFM_LOGIN = 3;
 
+    private static final String MEMBERS_IN_PROGRESS = "members"; //$NON-NLS-1$
+
     private TagData tagData;
 
     @Autowired TagDataService tagDataService;
@@ -110,6 +113,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     private AsyncImageView picture;
     private EditText tagName;
     private View taskListView;
+    private CheckBox isSilent;
 
     private TabHost tabHost;
     private TabWidget tabWidget;
@@ -139,6 +143,12 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
         if(getIntent().hasExtra(EXTRA_START_TAB))
             tabHost.setCurrentTabByTag(getIntent().getStringExtra(EXTRA_START_TAB));
+
+        if(savedInstanceState != null && savedInstanceState.containsKey(MEMBERS_IN_PROGRESS)) {
+            String members = savedInstanceState.getString(MEMBERS_IN_PROGRESS);
+            if(members != null)
+                updateMembers(members);
+        }
     }
 
     @SuppressWarnings("nls")
@@ -231,6 +241,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         tagMembers = (PeopleContainer) findViewById(R.id.members_container);
         tagName = (EditText) findViewById(R.id.tag_name);
         picture = (AsyncImageView) findViewById(R.id.picture);
+        isSilent = (CheckBox) findViewById(R.id.tag_silenced);
 
         if(actFmPreferenceService.isLoggedIn()) {
             picture.setVisibility(View.VISIBLE);
@@ -422,8 +433,13 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             System.err.println(tagData.getValue(TagData.USER));
         }
 
-        tagMembers.removeAllViews();
         String peopleJson = tagData.getValue(TagData.MEMBERS);
+        updateMembers(peopleJson);
+    }
+
+    @SuppressWarnings("nls")
+    private void updateMembers(String peopleJson) {
+        tagMembers.removeAllViews();
         System.err.println("gotta grab ppl - " + peopleJson);
         Log.e("GAH", "gaga", new Throwable());
         if(!TextUtils.isEmpty(peopleJson)) {
@@ -567,6 +583,16 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         unregisterReceiver(notifyReceiver);
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        if(tagMembers.getChildCount() > 1) {
+            JSONArray members = tagMembers.toJSONArray();
+            outState.putString(MEMBERS_IN_PROGRESS, members.toString());
+        }
+    }
+
     // --- events
 
     private void saveSettings() {
@@ -593,6 +619,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
         tagData.setValue(TagData.MEMBERS, members.toString());
         tagData.setValue(TagData.MEMBER_COUNT, members.length());
+        tagData.setFlag(TagData.FLAGS, TagData.FLAG_SILENT, isSilent.isChecked());
 
         if(actFmPreferenceService.isLoggedIn())
             Flags.set(Flags.TOAST_ON_SAVE);

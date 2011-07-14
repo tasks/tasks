@@ -336,6 +336,12 @@ public final class ActFmSyncService {
             }
         }
 
+        if(values.containsKey(TagData.FLAGS.name)) {
+            params.add("is_silent");
+            boolean silenced = tagData.getFlag(TagData.FLAGS, TagData.FLAG_SILENT);
+            params.add(silenced ? "1" : "0");
+        }
+
         if(params.size() == 0 || !checkForToken())
             return;
 

@@ -106,6 +106,8 @@
                         android:id="@+id/listSettingsMore"
                         android:layout_width="fill_parent" 
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="10dip"
+                        android:orientation="vertical"
                         android:visibility="gone">
                         
                         <View
@@ -127,6 +129,7 @@
                             android:textSize="20sp"/>
                 
                         <CheckBox 
+                            android:id="@+id/tag_silenced"
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dip"
