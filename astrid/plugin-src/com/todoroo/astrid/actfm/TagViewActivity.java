@@ -302,7 +302,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             }
         });
 
-        refreshMembersPage();
+        refreshSettingsPage();
     }
 
     protected void setUpUpdateList() {
@@ -428,9 +428,10 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     }
 
     @SuppressWarnings("nls")
-    private void refreshMembersPage() {
+    private void refreshSettingsPage() {
         tagName.setText(tagData.getValue(TagData.NAME));
         picture.setUrl(tagData.getValue(TagData.PICTURE));
+        setTitle(getString(R.string.tag_FEx_name, tagData.getValue(TagData.NAME)));
 
         TextView ownerLabel = (TextView) findViewById(R.id.tag_owner);
         try {
@@ -492,7 +493,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                             @Override
                             public void run() {
                                 refreshUpdatesList();
-                                refreshMembersPage();
+                                refreshSettingsPage();
                             }
                         });
                     }
@@ -626,7 +627,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
         tagDataService.save(tagData);
 
-        refreshMembersPage();
+        refreshSettingsPage();
     }
 
     @Override
