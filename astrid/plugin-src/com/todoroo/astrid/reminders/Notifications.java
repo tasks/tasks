@@ -226,13 +226,18 @@ public class Notifications extends BroadcastReceiver {
 
         boolean voiceReminder = Preferences.getBoolean(R.string.p_voiceRemindersEnabled, false);
 
-        // if multi-ring is activated, set up the flags for insistent
+        // if multi-ring is activated and the setting p_rmd_maxvolume allows it, set up the flags for insistent
         // notification, and increase the volume to full volume, so the user
         // will actually pay attention to the alarm
-        if(ringTimes != 1 && (type != ReminderService.TYPE_RANDOM)) {
+        boolean maxOutVolumeForMultipleRingReminders = Preferences.getBoolean(R.string.p_rmd_maxvolume, true);
+        // remember it to set it to the old value after the alarm
+        int previousAlarmVolume = audioManager.getStreamVolume(AudioManager.STREAM_ALARM);
+        if (ringTimes != 1 && (type != ReminderService.TYPE_RANDOM)) {
             notification.audioStreamType = AudioManager.STREAM_ALARM;
-            audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
-                    audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
+            if (maxOutVolumeForMultipleRingReminders) {
+                audioManager.setStreamVolume(AudioManager.STREAM_ALARM,
+                        audioManager.getStreamMaxVolume(AudioManager.STREAM_ALARM), 0);
+            }
 
             // insistent rings until notification is disabled
             if(ringTimes < 0) {
@@ -251,7 +256,7 @@ public class Notifications extends BroadcastReceiver {
             voiceReminder = false;
         } else {
             String notificationPreference = Preferences.getStringValue(R.string.p_rmd_ringtone);
-            if(audioManager.getStreamVolume(AudioManager.STREAM_RING) == 0) {
+            if(audioManager.getStreamVolume(AudioManager.STREAM_NOTIFICATION) == 0) {
                 notification.sound = null;
                 voiceReminder = false;
             } else if(notificationPreference != null) {
@@ -288,7 +293,7 @@ public class Notifications extends BroadcastReceiver {
             AndroidUtilities.sleepDeep(500);
         }
 
-        if (voiceReminder) {
+        if (voiceReminder || maxOutVolumeForMultipleRingReminders) {
             AndroidUtilities.sleepDeep(2000);
             for(int i = 0; i < 50; i++) {
                 AndroidUtilities.sleepDeep(500);
@@ -296,7 +301,11 @@ public class Notifications extends BroadcastReceiver {
                     break;
             }
             try {
-                VoiceOutputService.getVoiceOutputInstance().queueSpeak(text);
+                // first reset the Alarm-volume to the value before it was eventually maxed out
+                if (maxOutVolumeForMultipleRingReminders)
+                    audioManager.setStreamVolume(AudioManager.STREAM_ALARM, previousAlarmVolume, 0);
+                if (voiceReminder)
+                    VoiceOutputService.getVoiceOutputInstance().queueSpeak(text);
             } catch (VerifyError e) {
                 // unavailable
             }
