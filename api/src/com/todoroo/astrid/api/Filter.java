@@ -164,10 +164,11 @@ public class Filter extends FilterListItem {
     };
 
     /**
+     * @param title
      * @return a filter that matches nothing
      */
-    public static Filter emptyFilter() {
-        return new Filter("", "",  //$NON-NLS-1$ //$NON-NLS-2$
+    public static Filter emptyFilter(String title) {
+        return new Filter(title, title,
                 new QueryTemplate().where(Criterion.none), null);
     }
 }

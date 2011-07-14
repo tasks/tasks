@@ -358,11 +358,8 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         if(tag == null && remoteId == 0 && !newTag)
             return;
 
-        if(newTag) {
-            getIntent().putExtra(TOKEN_FILTER, Filter.emptyFilter());
-            setTitle(getString(R.string.tag_new_list));
-            findViewById(R.id.taskListFooter).setVisibility(View.GONE);
-        }
+        if(newTag)
+            getIntent().putExtra(TOKEN_FILTER, Filter.emptyFilter(getString(R.string.tag_new_list)));
 
         TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.or(TagData.NAME.eq(tag),
                 Criterion.and(TagData.REMOTE_ID.gt(0), TagData.REMOTE_ID.eq(remoteId)))));
