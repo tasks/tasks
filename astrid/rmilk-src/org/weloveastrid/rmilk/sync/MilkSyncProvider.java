@@ -479,7 +479,7 @@ public class MilkSyncProvider extends SyncProvider<MilkTaskContainer> {
         task.setValue(Task.DELETION_DATE, DateUtilities.dateToUnixtime(rtmTask.getDeleted()));
         if(rtmTask.getDue() != null) {
             task.setValue(Task.DUE_DATE,
-                    task.createDueDate(rtmTask.getHasDueTime() ? Task.URGENCY_SPECIFIC_DAY_TIME :
+                    Task.createDueDate(rtmTask.getHasDueTime() ? Task.URGENCY_SPECIFIC_DAY_TIME :
                         Task.URGENCY_SPECIFIC_DAY, DateUtilities.dateToUnixtime(rtmTask.getDue())));
         } else {
             task.setValue(Task.DUE_DATE, 0L);

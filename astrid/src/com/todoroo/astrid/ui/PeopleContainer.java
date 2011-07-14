@@ -55,7 +55,6 @@ public class PeopleContainer extends LinearLayout {
 
     /** Adds a tag to the tag field */
     public TextView addPerson(String person) {
-        System.err.println("ADD PERSON: " + person);
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // check if already exists

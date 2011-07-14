@@ -147,16 +147,16 @@ public class DateUtilities {
         long input = clearTime(new Date(date));
 
         if(today == input)
-            return context.getString(R.string.today);
+            return context.getString(R.string.today).toLowerCase();
 
         if(today + ONE_DAY == input)
-            return context.getString(R.string.yesterday);
+            return context.getString(R.string.yesterday).toLowerCase();
 
         if(today == input + ONE_DAY)
-            return context.getString(R.string.tomorrow);
+            return context.getString(R.string.tomorrow).toLowerCase();
 
-        if(today + DateUtilities.ONE_WEEK <= input &&
-                today - DateUtilities.ONE_WEEK >= input)
+        if(today + DateUtilities.ONE_WEEK >= input &&
+                today - DateUtilities.ONE_WEEK <= input)
             return DateUtilities.getWeekday(new Date(date));
 
         return DateUtilities.getDateString(context, new Date(date));

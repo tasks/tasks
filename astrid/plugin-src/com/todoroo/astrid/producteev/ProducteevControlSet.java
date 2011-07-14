@@ -114,7 +114,7 @@ public class ProducteevControlSet implements TaskEditControlSet {
                                     DialogUtilities.okDialog(context,
                                             context.getString(R.string.DLG_error, e.getMessage()),
                                             null);
-                                    errorReporter.handleError("pdv-create-dashboard", e);
+                                    errorReporter.handleError("pdv-create-dashboard", e); //$NON-NLS-1$
                                     dashSelector.setSelection(0);
                                 }
                             }

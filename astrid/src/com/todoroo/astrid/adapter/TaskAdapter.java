@@ -491,7 +491,7 @@ public class TaskAdapter extends CursorAdapter implements Filterable {
         if(dateCache.containsKey(date))
             return dateCache.get(date);
 
-        String string = DateUtilities.getRelativeDay(activity, date).toLowerCase();
+        String string = DateUtilities.getRelativeDay(activity, date);
         if(Task.hasDueTime(date))
             string = String.format("%s, %s", string, //$NON-NLS-1$
                     DateUtilities.getTimeString(activity, new Date(date)));
