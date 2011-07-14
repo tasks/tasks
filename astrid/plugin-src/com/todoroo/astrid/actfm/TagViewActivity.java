@@ -238,9 +238,11 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                 R.string.TLA_menu_sort);
         item.setIcon(android.R.drawable.ic_menu_sort_by_size);
 
-        item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
-                R.string.actfm_TVA_menu_refresh);
-        item.setIcon(R.drawable.ic_menu_refresh);
+        if(actFmPreferenceService.isLoggedIn()) {
+            item = menu.add(Menu.NONE, MENU_REFRESH_ID, Menu.NONE,
+                    R.string.actfm_TVA_menu_refresh);
+            item.setIcon(R.drawable.ic_menu_refresh);
+        }
 
         item = menu.add(Menu.NONE, MENU_HELP_ID, Menu.NONE,
                 R.string.TLA_menu_help);
