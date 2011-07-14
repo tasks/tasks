@@ -108,6 +108,11 @@
       </exec>
     </target>
 
+    <target name="debug" depends="android_rules.debug"
+                description="Builds the application and signs it with a debug key.">
+      <delete file="${out.debug.unaligned.file}" />
+    </target>
+
     <!-- post build: rename apk -->
     <target name="release" depends="android_rules.release">
       <mkdir dir="../release" />
