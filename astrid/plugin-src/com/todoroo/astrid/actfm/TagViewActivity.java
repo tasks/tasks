@@ -55,6 +55,7 @@ import com.todoroo.andlib.service.NotificationManager;
 import com.todoroo.andlib.service.NotificationManager.AndroidNotificationManager;
 import com.todoroo.andlib.sql.Criterion;
 import com.todoroo.andlib.sql.Query;
+import com.todoroo.andlib.utility.AndroidUtilities;
 import com.todoroo.andlib.utility.DateUtilities;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
@@ -125,7 +126,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     // --- UI initialization
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         getListView().setOnKeyListener(null);
@@ -145,9 +146,19 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             tabHost.setCurrentTabByTag(getIntent().getStringExtra(EXTRA_START_TAB));
 
         if(savedInstanceState != null && savedInstanceState.containsKey(MEMBERS_IN_PROGRESS)) {
-            String members = savedInstanceState.getString(MEMBERS_IN_PROGRESS);
-            if(members != null)
-                updateMembers(members);
+            final String members = savedInstanceState.getString(MEMBERS_IN_PROGRESS);
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    AndroidUtilities.sleepDeep(500);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            updateMembers(members);
+                        }
+                    });
+                }
+            }).start();
         }
     }
 
@@ -440,27 +451,10 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     @SuppressWarnings("nls")
     private void updateMembers(String peopleJson) {
         tagMembers.removeAllViews();
-        System.err.println("gotta grab ppl - " + peopleJson);
-        Log.e("GAH", "gaga", new Throwable());
         if(!TextUtils.isEmpty(peopleJson)) {
             try {
                 JSONArray people = new JSONArray(peopleJson);
-                for(int i = 0; i < people.length(); i++) {
-                    JSONObject person = people.getJSONObject(i);
-                    TextView textView = null;
-
-                    if(person.has("id") && person.getLong("id") == ActFmPreferenceService.userId())
-                        textView = tagMembers.addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME));
-                    else if(!TextUtils.isEmpty(person.optString("name")))
-                        textView = tagMembers.addPerson(person.getString("name"));
-                    else if(!TextUtils.isEmpty(person.optString("email")))
-                        textView = tagMembers.addPerson(person.getString("email"));
-
-                    if(textView != null) {
-                        textView.setTag(person);
-                        textView.setEnabled(false);
-                    }
-                }
+                tagMembers.fromJSONArray(people);
             } catch (JSONException e) {
                 System.err.println(peopleJson);
                 Log.e("tag-view-activity", "json error refresh members", e);

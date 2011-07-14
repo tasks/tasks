@@ -133,7 +133,7 @@
                             android:layout_width="fill_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dip"
-                            android:layout_marginLeft="5dip"
+                            android:paddingLeft="45dip"
                             android:text="@string/actfm_TVA_silence_label" />
                             
                     </LinearLayout>

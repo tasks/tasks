@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
@@ -19,6 +20,8 @@ import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
 import com.timsu.astrid.R;
+import com.todoroo.andlib.utility.Preferences;
+import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
 
 public class PeopleContainer extends LinearLayout {
 
@@ -52,6 +55,7 @@ public class PeopleContainer extends LinearLayout {
 
     /** Adds a tag to the tag field */
     public TextView addPerson(String person) {
+        System.err.println("ADD PERSON: " + person);
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
         // check if already exists
@@ -64,7 +68,7 @@ public class PeopleContainer extends LinearLayout {
 
         final View tagItem = inflater.inflate(R.layout.contact_edit_row, null);
         if(person.length() == 0)
-            addView(tagItem, 0);
+            addView(tagItem, getChildCount());
         else
             addView(tagItem);
         final ContactsAutoComplete textView = (ContactsAutoComplete)tagItem.
@@ -135,7 +139,7 @@ public class PeopleContainer extends LinearLayout {
      * @return
      */
     private TextView getLastTextView() {
-        for(int i = 0; i < getChildCount(); i++) {
+        for(int i = getChildCount() - 1; i >= 0; i--) {
             View lastItem = getChildAt(i);
             TextView lastText = (TextView) lastItem.findViewById(R.id.text1);
             if(lastText.isEnabled())
@@ -162,6 +166,30 @@ public class PeopleContainer extends LinearLayout {
                 people.put(person);
         }
         return people;
+    }
+
+    /**
+     * Add people from JSON Array
+     * @param people
+     */
+    @SuppressWarnings("nls")
+    public void fromJSONArray(JSONArray people) throws JSONException {
+        for(int i = 0; i < people.length(); i++) {
+            JSONObject person = people.getJSONObject(i);
+            TextView textView = null;
+
+            if(person.has("id") && person.getLong("id") == ActFmPreferenceService.userId())
+                textView = addPerson(Preferences.getStringValue(ActFmPreferenceService.PREF_NAME));
+            else if(!TextUtils.isEmpty(person.optString("name")))
+                textView = addPerson(person.getString("name"));
+            else if(!TextUtils.isEmpty(person.optString("email")))
+                textView = addPerson(person.getString("email"));
+
+            if(textView != null) {
+                textView.setTag(person);
+                textView.setEnabled(false);
+            }
+        }
     }
 
     @SuppressWarnings("nls")
