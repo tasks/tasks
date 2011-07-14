@@ -166,9 +166,11 @@ public class C2DMReceiver extends BroadcastReceiver {
         PendingIntent pendingIntent = PendingIntent.getActivity(context,
                 notifId, notifyIntent, 0);
 
+        int icon = calculateIcon(intent);
+
         // create notification
         NotificationManager nm = new AndroidNotificationManager(ContextManager.getContext());
-        Notification notification = new Notification(R.drawable.notif_pink_alarm,
+        Notification notification = new Notification(icon,
                 message, System.currentTimeMillis());
         String title;
         if(intent.hasExtra("title"))
@@ -192,6 +194,27 @@ public class C2DMReceiver extends BroadcastReceiver {
             broadcastIntent.putExtras(intent);
             ContextManager.getContext().sendBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
         }
+    }
+
+    private int calculateIcon(Intent intent) {
+        if(intent.hasExtra("type")) {
+            String type = intent.getStringExtra("type");
+            if("f".equals(type))
+                return R.drawable.notif_c2dm_done;
+            if("s".equals(type))
+                return R.drawable.notif_c2dm_assign;
+            if("l".equals(type))
+                return R.drawable.notif_c2dm_assign;
+        } else {
+            String message = intent.getStringExtra("alert");
+            if(message.contains(" finished "))
+                return R.drawable.notif_c2dm_done;
+            if(message.contains(" invited you to "))
+                return R.drawable.notif_c2dm_assign;
+            if(message.contains(" sent you "))
+                return R.drawable.notif_c2dm_assign;
+        }
+        return R.drawable.notif_c2dm_msg;
     }
 
     private Intent createTaskIntent(Intent intent) {
