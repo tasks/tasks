@@ -8,6 +8,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.BroadcastReceiver;
@@ -43,6 +44,7 @@ import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabWidget;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.data.TodorooCursor;
@@ -60,13 +62,18 @@ import com.todoroo.astrid.actfm.sync.ActFmSyncService;
 import com.todoroo.astrid.activity.TaskListActivity;
 import com.todoroo.astrid.adapter.UpdateAdapter;
 import com.todoroo.astrid.api.AstridApiConstants;
+import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.SortHelper;
+import com.todoroo.astrid.dao.TaskDao.TaskCriteria;
 import com.todoroo.astrid.dao.UpdateDao;
 import com.todoroo.astrid.data.TagData;
+import com.todoroo.astrid.data.Task;
 import com.todoroo.astrid.data.Update;
 import com.todoroo.astrid.service.StatisticsService;
 import com.todoroo.astrid.service.TagDataService;
+import com.todoroo.astrid.tags.TagFilterExposer;
 import com.todoroo.astrid.tags.TagService;
+import com.todoroo.astrid.tags.TagService.Tag;
 import com.todoroo.astrid.ui.PeopleContainer;
 import com.todoroo.astrid.utility.Flags;
 
@@ -79,12 +86,13 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     public static final String EXTRA_TAG_NAME = "tag"; //$NON-NLS-1$
     public static final String EXTRA_TAG_REMOTE_ID = "remoteId"; //$NON-NLS-1$
     public static final String EXTRA_START_TAB = "tab"; //$NON-NLS-1$
+    public static final String EXTRA_NEW_TAG = "new"; //$NON-NLS-1$
 
     protected static final int MENU_REFRESH_ID = MENU_SYNC_ID;
 
     protected static final int REQUEST_CODE_CAMERA = 1;
     protected static final int REQUEST_CODE_PICTURE = 2;
-
+    protected static final int REQUEST_ACTFM_LOGIN = 3;
 
     private TagData tagData;
 
@@ -96,13 +104,19 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
     @Autowired UpdateDao updateDao;
 
-    private TabHost tabHost;
     private UpdateAdapter updateAdapter;
     private PeopleContainer tagMembers;
     private EditText addCommentField;
     private AsyncImageView picture;
     private EditText tagName;
+    private View taskListView;
+
+    private TabHost tabHost;
+    private TabWidget tabWidget;
+    private String[] tabLabels;
+
     private boolean dataLoaded = false;
+
 
     // --- UI initialization
 
@@ -124,7 +138,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         ((EditText) findViewById(R.id.commentField)).setOnTouchListener(onTouch);
 
         if(getIntent().hasExtra(EXTRA_START_TAB))
-            tabHost.setCurrentTab(getIntent().getIntExtra(EXTRA_START_TAB, 0));
+            tabHost.setCurrentTabByTag(getIntent().getStringExtra(EXTRA_START_TAB));
     }
 
     @SuppressWarnings("nls")
@@ -133,25 +147,22 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         ViewGroup parent = (ViewGroup) getLayoutInflater().inflate(R.layout.task_list_body_tag, root, false);
         ViewGroup tabContent = (ViewGroup) parent.findViewById(android.R.id.tabcontent);
 
-        String[] tabLabels = getResources().getStringArray(R.array.TVA_tabs);
+        tabLabels = getResources().getStringArray(R.array.TVA_tabs);
         tabHost = (TabHost) parent.findViewById(android.R.id.tabhost);
-        TabWidget tabWidget = (TabWidget) parent.findViewById(android.R.id.tabs);
+        tabWidget = (TabWidget) parent.findViewById(android.R.id.tabs);
         tabHost.setup();
 
-        // set up tabs
-        View taskList = super.getListBody(parent);
-        tabContent.addView(taskList);
-        addTab(tabWidget, taskList.getId(), "tasks", tabLabels[0]);
-        if(actFmPreferenceService.isLoggedIn())
-            addTab(tabWidget, R.id.tab_updates, "updates", tabLabels[1]);
-        addTab(tabWidget, R.id.tab_settings, "members", tabLabels[2]);
+        taskListView = super.getListBody(parent);
+        tabContent.addView(taskListView);
+
+        addTab(taskListView.getId(), "tasks", tabLabels[0]);
 
         tabHost.setOnTabChangedListener(this);
 
         return parent;
     }
 
-    private void addTab(TabWidget tabWidget, int contentId, String id, String label) {
+    private void addTab(int contentId, String id, String label) {
         TabHost.TabSpec spec = tabHost.newTabSpec(id);
         spec.setContent(contentId);
         TextView textIndicator = (TextView) getLayoutInflater().inflate(R.layout.gd_tab_indicator, tabWidget, false);
@@ -173,7 +184,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         else
             findViewById(R.id.updatesFooter).setVisibility(View.GONE);
 
-        if(tabId.equals("members"))
+        if(tabId.equals("settings"))
             findViewById(R.id.membersFooter).setVisibility(View.VISIBLE);
         else
             findViewById(R.id.membersFooter).setVisibility(View.GONE);
@@ -216,12 +227,15 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     }
 
     protected void setUpSettingsPage() {
+        addTab(R.id.tab_settings, "settings", tabLabels[2]); //$NON-NLS-1$
         tagMembers = (PeopleContainer) findViewById(R.id.members_container);
         tagName = (EditText) findViewById(R.id.tag_name);
         picture = (AsyncImageView) findViewById(R.id.picture);
 
-        if(actFmPreferenceService.isLoggedIn())
+        if(actFmPreferenceService.isLoggedIn()) {
+            picture.setVisibility(View.VISIBLE);
             findViewById(R.id.listSettingsMore).setVisibility(View.VISIBLE);
+        }
 
         picture.setOnClickListener(new OnClickListener() {
             @Override
@@ -266,6 +280,9 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
     }
 
     protected void setUpUpdateList() {
+        if(actFmPreferenceService.isLoggedIn() && tagData.getValue(Task.REMOTE_ID) > 0)
+            addTab(R.id.tab_updates, "updates", tabLabels[1]); //$NON-NLS-1$
+
         final ImageButton quickAddButton = (ImageButton) findViewById(R.id.commentButton);
         addCommentField = (EditText) findViewById(R.id.commentField);
         addCommentField.setOnEditorActionListener(new OnEditorActionListener() {
@@ -306,8 +323,6 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
     @Override
     protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-
         synchronized(this) {
             if(dataLoaded)
                 return;
@@ -316,9 +331,16 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
         String tag = getIntent().getStringExtra(EXTRA_TAG_NAME);
         long remoteId = getIntent().getLongExtra(EXTRA_TAG_REMOTE_ID, 0);
+        boolean newTag = getIntent().getBooleanExtra(EXTRA_NEW_TAG, false);
 
-        if(tag == null && remoteId == 0)
+        if(tag == null && remoteId == 0 && !newTag)
             return;
+
+        if(newTag) {
+            getIntent().putExtra(TOKEN_FILTER, Filter.emptyFilter());
+            setTitle(getString(R.string.tag_new_list));
+            findViewById(R.id.taskListFooter).setVisibility(View.GONE);
+        }
 
         TodorooCursor<TagData> cursor = tagDataService.query(Query.select(TagData.PROPERTIES).where(Criterion.or(TagData.NAME.eq(tag),
                 Criterion.and(TagData.REMOTE_ID.gt(0), TagData.REMOTE_ID.eq(remoteId)))));
@@ -336,13 +358,16 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             cursor.close();
         }
 
-        String fetchKey = LAST_FETCH_KEY + tagData.getId();
-        long lastFetchDate = Preferences.getLong(fetchKey, 0);
-        if(DateUtilities.now() > lastFetchDate + 300000L) {
-            refreshData(false, false);
-            Preferences.setLong(fetchKey, DateUtilities.now());
+        if(tagData.getValue(TagData.REMOTE_ID) > 0) {
+            String fetchKey = LAST_FETCH_KEY + tagData.getId();
+            long lastFetchDate = Preferences.getLong(fetchKey, 0);
+            if(DateUtilities.now() > lastFetchDate + 300000L) {
+                refreshData(false, false);
+                Preferences.setLong(fetchKey, DateUtilities.now());
+            }
         }
 
+        super.onNewIntent(intent);
         setUpUpdateList();
         setUpSettingsPage();
     }
@@ -399,6 +424,8 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
 
         tagMembers.removeAllViews();
         String peopleJson = tagData.getValue(TagData.MEMBERS);
+        System.err.println("gotta grab ppl - " + peopleJson);
+        Log.e("GAH", "gaga", new Throwable());
         if(!TextUtils.isEmpty(peopleJson)) {
             try {
                 JSONArray people = new JSONArray(peopleJson);
@@ -507,19 +534,14 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         @SuppressWarnings("nls")
         @Override
         public void onReceive(Context context, Intent intent) {
-            System.err.println("TVA thug hustlin - ");
-
             if(!intent.hasExtra("tag_id"))
                 return;
-            System.err.println(Long.toString(tagData.getValue(TagData.REMOTE_ID)) +
-                    " VS " + intent.getStringExtra("tag_id"));
             if(!Long.toString(tagData.getValue(TagData.REMOTE_ID)).equals(intent.getStringExtra("tag_id")))
                 return;
 
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    System.err.println("REFRESH updates list pa-pa-pa");
                     refreshUpdatesList();
                 }
             });
@@ -557,13 +579,45 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
             tagData.setFlag(TagData.FLAGS, TagData.FLAG_EMERGENT, false);
         }
 
+        if(newName.length() > 0 && oldName.length() == 0) {
+            tagDataService.save(tagData);
+            setUpNewTag(newName);
+        }
+
         JSONArray members = tagMembers.toJSONArray();
+        if(members.length() > 0 && !actFmPreferenceService.isLoggedIn()) {
+            startActivityForResult(new Intent(this, ActFmLoginActivity.class),
+                        REQUEST_ACTFM_LOGIN);
+            return;
+        }
+
         tagData.setValue(TagData.MEMBERS, members.toString());
         tagData.setValue(TagData.MEMBER_COUNT, members.length());
-        Flags.set(Flags.TOAST_ON_SAVE);
+
+        if(actFmPreferenceService.isLoggedIn())
+            Flags.set(Flags.TOAST_ON_SAVE);
+        else
+            Toast.makeText(this, R.string.tag_list_saved, Toast.LENGTH_LONG).show();
+
         tagDataService.save(tagData);
 
         refreshMembersPage();
+    }
+
+    @Override
+    protected Task quickAddTask(String title, boolean selectNewTask) {
+        if(tagData.getValue(TagData.NAME).length() == 0) {
+            DialogUtilities.okDialog(this, getString(R.string.tag_no_title_error), null);
+            return null;
+        }
+        return super.quickAddTask(title, selectNewTask);
+    }
+
+    private void setUpNewTag(String name) {
+        filter = TagFilterExposer.filterFromTag(this, new Tag(name, 0, 0),
+                TaskCriteria.activeAndVisible());
+        getIntent().putExtra(TOKEN_FILTER, filter);
+        super.onNewIntent(getIntent());
     }
 
     @SuppressWarnings("nls")
@@ -599,7 +653,8 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                 picture.setImageBitmap(bitmap);
                 uploadTagPicture(bitmap);
             }
-        }
+        } else if(requestCode == REQUEST_ACTFM_LOGIN && resultCode == Activity.RESULT_OK)
+            saveSettings();
     }
 
     private void uploadTagPicture(final Bitmap bitmap) {

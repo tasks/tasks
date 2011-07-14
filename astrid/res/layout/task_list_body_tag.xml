@@ -60,6 +60,7 @@
                             android:layout_alignParentTop="true"
                             android:scaleType="fitCenter"
                             android:paddingRight="10dip"
+                            android:visibility="gone"
                             astrid:defaultSrc="@android:drawable/ic_menu_gallery" />
                       
                         <TextView 

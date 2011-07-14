@@ -387,10 +387,10 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         // set listener for quick add button
         quickAddButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                if(quickAddBox.getText().length() > 0) {
-                    quickAddTask(quickAddBox.getText().toString(), true);
-                } else {
+                Task task = quickAddTask(quickAddBox.getText().toString(), true);
+                if(task != null && task.getValue(Task.TITLE).length() == 0) {
                     Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
+                    intent.putExtra(TaskEditActivity.TOKEN_ID, task.getId());
                     startActivityForResult(intent, ACTIVITY_EDIT_TASK);
                 }
             }
@@ -409,6 +409,8 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
             @Override
             public boolean onLongClick(View v) {
                 Task task = quickAddTask(quickAddBox.getText().toString(), false);
+                if(task == null)
+                    return true;
                 Intent intent = new Intent(TaskListActivity.this, TaskEditActivity.class);
                 intent.putExtra(TaskEditActivity.TOKEN_ID, task.getId());
                 startActivityForResult(intent, ACTIVITY_EDIT_TASK);
@@ -648,6 +650,11 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
      * @param requery
      */
     public void loadTaskListContent(boolean requery) {
+        if(taskAdapter == null) {
+            setUpTaskList();
+            return;
+        }
+
         int oldListItemSelected = getListView().getSelectedItemPosition();
         Cursor taskCursor = taskAdapter.getCursor();
 
@@ -668,14 +675,22 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         sendOrderedBroadcast(broadcastIntent, AstridApiConstants.PERMISSION_READ);
     }
 
+    @Override
+    public void setTitle(CharSequence title) {
+        ((TextView)findViewById(R.id.listLabel)).setText(title);
+    }
+
     /**
      * Fill in the Task List with current items
      * @param withCustomId force task with given custom id to be part of list
      */
     protected void setUpTaskList() {
+        if(filter == null)
+            return;
+
         sqlQueryTemplate.set(SortHelper.adjustQueryForFlagsAndSort(filter.sqlQuery,
                 sortFlags, sortSort));
-        ((TextView)findViewById(R.id.listLabel)).setText(filter.title);
+        setTitle(filter.title);
 
         // perform query
         TodorooCursor<Task> currentCursor = taskService.fetchFiltered(
