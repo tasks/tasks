@@ -136,19 +136,25 @@
 
   <!-- share login: Sharing Description -->
   <string name="actfm_ALA_body">Astrid.com lets you access your tasks online,
-  share, and delegate with others. Perfect for personal use, friends, family, and coworkers!</string>
+  share, and delegate with others.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Facebook</string>
+  <string name="actfm_ALA_fb_login">Sign in with Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Google</string>
+  <string name="actfm_ALA_gg_login">Sign in with Google</string>
 
-  <!-- share login: Sharing Login Password Prompt -->
-  <string name="actfm_ALA_pw_login">Login</string>
+  <!-- share login: Sharing Footer Password Label -->
+  <string name="actfm_ALA_pw_login">Don\'t have a Google or Facebook Account?</string>
 
-  <!-- share login: Sharing Sign Up Prompt -->
-  <string name="actfm_ALA_pw_signup">Join Now</string>
+  <!-- share login: Sharing Password Link -->
+  <string name="actfm_ALA_pw_link">Sign In Here</string>
+
+  <!-- share login: Password New User -->
+  <string name="actfm_ALA_pw_new">New User</string>
+
+  <!-- share login: Password Returning User -->
+  <string name="actfm_ALA_pw_returning">Returning</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
@@ -172,8 +178,7 @@
   <string name="actfm_OLA_prompt">Please connect to Google:</string>
 
   <!-- share login: Sharing notice -->
-  <string name="actfm_ALA_notice">We promise not to post messages or send
-  e-mails without your permission.</string>
+  <string name="actfm_ALA_notice">Astrid won\'t send messages e-mails without permission.</string>
 
   <!-- ================================================ Synchronization == -->
       

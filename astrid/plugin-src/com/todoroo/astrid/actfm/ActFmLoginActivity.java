@@ -33,16 +33,22 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.PasswordTransformationMethod;
+import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
@@ -126,9 +132,7 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                 "publish_stream"
         });
 
-        findViewById(R.id.gg_login).setOnClickListener(googleListener);
-        findViewById(R.id.pw_signup).setOnClickListener(signUpListener);
-        findViewById(R.id.pw_login).setOnClickListener(loginListener);
+        initializeUI();
 
         getWindow().setFormat(PixelFormat.RGBA_8888);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_DITHER);
@@ -136,6 +140,29 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         StatisticsService.reportEvent("actfm-login-show"); //$NON-NLS-1$
 
         setResult(RESULT_CANCELED);
+    }
+
+    private void initializeUI() {
+        findViewById(R.id.gg_login).setOnClickListener(googleListener);
+        TextView pwLogin = (TextView) findViewById(R.id.pw_login);
+        pwLogin.setOnClickListener(signUpListener);
+
+        String pwLoginBase = getString(R.string.actfm_ALA_pw_login);
+        SpannableString link = new SpannableString(String.format("%s %s", //$NON-NLS-1$
+                pwLoginBase, getString(R.string.actfm_ALA_pw_link)));
+        ClickableSpan linkSpan = new ClickableSpan() {
+            @Override
+            public void onClick(View widget) {
+                signUpListener.onClick(widget);
+            }
+            @Override
+            public void updateDrawState(TextPaint ds) {
+                ds.setUnderlineText(true);
+                ds.linkColor = Color.rgb(255, 96, 0);
+            }
+        };
+        link.setSpan(linkSpan, pwLoginBase.length() + 1, link.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        pwLogin.setText(link);
     }
 
     // --- event handler
@@ -166,6 +193,17 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
             final EditText name = addEditField(body, R.string.actfm_ALA_name_label);
 
+            final ToggleButton toggle = new ToggleButton(ActFmLoginActivity.this);
+            toggle.setTextOff(getString(R.string.actfm_ALA_pw_returning));
+            toggle.setTextOn(getString(R.string.actfm_ALA_pw_new));
+            toggle.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    name.setVisibility(toggle.isChecked() ? View.VISIBLE : View.GONE);
+                }
+            });
+            body.addView(toggle, 0);
+
             final EditText email = addEditField(body, R.string.actfm_ALA_email_label);
             getCredentials(new OnGetCredentials() {
                 @Override
@@ -185,45 +223,15 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    authenticate(email.getText().toString(), name.getText().toString(),
+                    boolean isNew = toggle.isChecked();
+                    String nameString = isNew ? name.getText().toString() : null;
+                    authenticate(email.getText().toString(), nameString,
                             ActFmInvoker.PROVIDER_PASSWORD, password.getText().toString());
-                    StatisticsService.reportEvent("actfm-signup-pw"); //$NON-NLS-1$
-                }
-            })
-            .setNegativeButton(android.R.string.cancel, null)
-            .show().setOwnerActivity(ActFmLoginActivity.this);
-        }
-    };
 
-    private final OnClickListener loginListener = new OnClickListener() {
-        @Override
-        public void onClick(View arg0) {
-            LinearLayout body = new LinearLayout(ActFmLoginActivity.this);
-            body.setOrientation(LinearLayout.VERTICAL);
-            body.setPadding(10, 0, 10, 0);
-
-            final EditText email = addEditField(body, R.string.actfm_ALA_username_email_label);
-            getCredentials(new OnGetCredentials() {
-                @Override
-                public void getCredentials(String[] accounts) {
-                    if(accounts != null && accounts.length > 0)
-                        email.setText(accounts[0]);
-                }
-            });
-
-            final EditText password = addEditField(body, R.string.actfm_ALA_password_label);
-            password.setTransformationMethod(new PasswordTransformationMethod());
-
-            new AlertDialog.Builder(ActFmLoginActivity.this)
-            .setTitle(R.string.actfm_ALA_login_title)
-            .setView(body)
-            .setIcon(R.drawable.icon_32)
-            .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    authenticate(email.getText().toString(), null,
-                            ActFmInvoker.PROVIDER_PASSWORD, password.getText().toString());
-                    StatisticsService.reportEvent("actfm-login-pw"); //$NON-NLS-1$
+                    if(isNew)
+                        StatisticsService.reportEvent("actfm-login-pw"); //$NON-NLS-1$
+                    else
+                        StatisticsService.reportEvent("actfm-signup-pw"); //$NON-NLS-1$
                 }
             })
             .setNegativeButton(android.R.string.cancel, null)
