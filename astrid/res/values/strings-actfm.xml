@@ -168,6 +168,9 @@
   <!-- share login: Password -->
   <string name="actfm_ALA_password_label">Password</string>
 
+  <!-- share login: Sign Up Title -->
+  <string name="actfm_ALA_signup_title">Create New Account</string>
+
   <!-- share login: Login Title -->
   <string name="actfm_ALA_login_title">Login to Astrid.com</string>
 

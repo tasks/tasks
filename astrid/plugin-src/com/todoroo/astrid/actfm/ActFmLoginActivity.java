@@ -24,6 +24,8 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.MalformedURLException;
 import java.security.NoSuchAlgorithmException;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,9 +47,7 @@ import android.text.style.ClickableSpan;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -195,20 +195,25 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
 
             final EditText name = addEditField(body, R.string.actfm_ALA_name_label);
 
-            final CheckBox toggle = new CheckBox(ActFmLoginActivity.this);
-            toggle.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+            final AtomicReference<AlertDialog> dialog = new AtomicReference<AlertDialog>();
+            final AtomicBoolean isNew = new AtomicBoolean(true);
+            final Button toggleNew = new Button(ActFmLoginActivity.this);
+            toggleNew.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                public void onClick(View v) {
+                    isNew.set(!isNew.get());
                     int nameIndex = body.indexOfChild(name);
-                    int visibility = isChecked ? View.VISIBLE : View.GONE;
-                    toggle.setText(isChecked ? R.string.actfm_ALA_pw_returning :
+                    int visibility = isNew.get() ? View.VISIBLE : View.GONE;
+                    toggleNew.setText(isNew.get() ? R.string.actfm_ALA_pw_returning :
                         R.string.actfm_ALA_pw_new);
+                    dialog.get().setTitle(isNew.get() ? R.string.actfm_ALA_signup_title :
+                        R.string.actfm_ALA_login_title);
                     body.getChildAt(nameIndex - 1).setVisibility(visibility);
                     body.getChildAt(nameIndex).setVisibility(visibility);
                 }
             });
-            toggle.setChecked(true);
-            body.addView(toggle, 0);
+            toggleNew.setText(R.string.actfm_ALA_pw_returning);
+            body.addView(toggleNew, 0);
 
             final EditText email = addEditField(body, R.string.actfm_ALA_email_label);
             getCredentials(new OnGetCredentials() {
@@ -222,26 +227,28 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
             final EditText password = addEditField(body, R.string.actfm_ALA_password_label);
             password.setTransformationMethod(new PasswordTransformationMethod());
 
-            new AlertDialog.Builder(ActFmLoginActivity.this)
-            .setTitle(R.string.actfm_ALA_login_title)
+
+            dialog.set(new AlertDialog.Builder(ActFmLoginActivity.this)
             .setView(body)
             .setIcon(R.drawable.icon_32)
+            .setTitle(R.string.actfm_ALA_signup_title)
             .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    boolean isNew = toggle.isChecked();
-                    String nameString = isNew ? name.getText().toString() : null;
+                public void onClick(DialogInterface dlg, int which) {
+                    String nameString = isNew.get() ? name.getText().toString() : null;
                     authenticate(email.getText().toString(), nameString,
                             ActFmInvoker.PROVIDER_PASSWORD, password.getText().toString());
 
-                    if(isNew)
+                    if(isNew.get())
                         StatisticsService.reportEvent("actfm-login-pw"); //$NON-NLS-1$
                     else
                         StatisticsService.reportEvent("actfm-signup-pw"); //$NON-NLS-1$
                 }
             })
             .setNegativeButton(android.R.string.cancel, null)
-            .show().setOwnerActivity(ActFmLoginActivity.this);
+            .show());
+
+            dialog.get().setOwnerActivity(ActFmLoginActivity.this);
         }
     };
 
