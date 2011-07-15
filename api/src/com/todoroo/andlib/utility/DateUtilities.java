@@ -150,10 +150,10 @@ public class DateUtilities {
             return context.getString(R.string.today).toLowerCase();
 
         if(today + ONE_DAY == input)
-            return context.getString(R.string.yesterday).toLowerCase();
+            return context.getString(R.string.tomorrow).toLowerCase();
 
         if(today == input + ONE_DAY)
-            return context.getString(R.string.tomorrow).toLowerCase();
+            return context.getString(R.string.yesterday).toLowerCase();
 
         if(today + DateUtilities.ONE_WEEK >= input &&
                 today - DateUtilities.ONE_WEEK <= input)
