@@ -592,8 +592,6 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
             mergeDates(task.task, local);
             if(task.task.isCompleted() && !local.isCompleted())
                 StatisticsService.reportEvent("gtasks-task-completed"); //$NON-NLS-1$
-        } else {
-            StatisticsService.reportEvent("gtasks-task-created"); //$NON-NLS-1$
         }
         gtasksMetadataService.saveTaskAndMetadata(task);
     }

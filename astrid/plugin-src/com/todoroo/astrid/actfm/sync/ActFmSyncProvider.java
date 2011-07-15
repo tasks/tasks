@@ -287,8 +287,6 @@ public class ActFmSyncProvider extends SyncProvider<ActFmTaskContainer> {
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE);
             if(task.task.isCompleted() && !local.isCompleted())
                 StatisticsService.reportEvent("actfm-task-completed"); //$NON-NLS-1$
-        } else {
-            StatisticsService.reportEvent("actfm-task-created"); //$NON-NLS-1$
         }
         actFmDataService.saveTaskAndMetadata(task);
     }

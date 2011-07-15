@@ -596,8 +596,6 @@ public class ProducteevSyncProvider extends SyncProvider<ProducteevTaskContainer
             Task local = PluginServices.getTaskService().fetchById(task.task.getId(), Task.COMPLETION_DATE);
             if(task.task.isCompleted() && !local.isCompleted())
                 StatisticsService.reportEvent("pdv-task-completed"); //$NON-NLS-1$
-        } else {
-            StatisticsService.reportEvent("pdv-task-created"); //$NON-NLS-1$
         }
         dataService.saveTaskAndMetadata(task);
     }
