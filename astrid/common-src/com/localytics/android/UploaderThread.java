@@ -298,6 +298,11 @@ public class UploaderThread extends Thread
 			{
 				Log.v(LOG_TAG, "IOException: " + e.getMessage());
 			}
+            catch (OutOfMemoryError e)
+            {
+                e.printStackTrace();
+                Log.v(LOG_TAG, "OutOfMemoryError: " + e.getMessage());
+            }
 		}
 
 		return postBody.toString();
