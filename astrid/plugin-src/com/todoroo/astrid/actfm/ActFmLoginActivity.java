@@ -71,6 +71,7 @@ import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.actfm.sync.ActFmInvoker;
 import com.todoroo.astrid.actfm.sync.ActFmPreferenceService;
+import com.todoroo.astrid.actfm.sync.ActFmSyncProvider;
 import com.todoroo.astrid.gtasks.auth.ModernAuthManager;
 import com.todoroo.astrid.service.AstridDependencyInjector;
 import com.todoroo.astrid.service.StatisticsService;
@@ -366,8 +367,9 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
         setResult(RESULT_OK);
         finish();
 
-        if(!noSync)
-            synchronize();
+        if(!noSync) {
+            new ActFmSyncProvider().synchronize(this);
+        }
 
         try {
             C2DMReceiver.register();
@@ -388,11 +390,6 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
                 errors.setVisibility(View.VISIBLE);
             }
         });
-    }
-
-    public void synchronize() {
-        startService(new Intent(null, null,
-                this, ActFmBackgroundService.class));
     }
 
     // --- google account manager

@@ -79,14 +79,12 @@ public class OAuthLoginActivity extends Activity {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                System.err.println("page finished loading: " + url);
-
                 String data;
                 try {
                     data = restClient.get(url);
-                    System.err.println("DATA: " + data);
 
-                    if(data.startsWith("{")) { //$NON-NLS-1$
+                    if(data.startsWith("<!-- success -->")) { //$NON-NLS-1$
+                        data = data.substring(data.indexOf('{'), data.lastIndexOf('}') + 1);
                         Intent intent = new Intent();
                         intent.putExtra(DATA_RESPONSE, data);
                         setResult(RESULT_OK, intent);
