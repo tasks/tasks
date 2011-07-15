@@ -2,6 +2,7 @@ package com.todoroo.astrid.gtasks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
@@ -9,12 +10,9 @@ import java.util.concurrent.atomic.AtomicReference;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.todoroo.andlib.data.TodorooCursor;
 import com.todoroo.andlib.service.Autowired;
-import com.todoroo.andlib.service.ContextManager;
 import com.todoroo.andlib.service.DependencyInjectionService;
 import com.todoroo.andlib.utility.DateUtilities;
-import com.todoroo.astrid.api.Filter;
 import com.todoroo.astrid.core.PluginServices;
 import com.todoroo.astrid.data.Metadata;
 import com.todoroo.astrid.data.StoreObject;
@@ -57,8 +55,9 @@ public class GtasksTaskListUpdater {
         final AtomicInteger targetTaskIndent = new AtomicInteger(-1);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
         final AtomicLong previousTask = new AtomicLong(-1);
+        final AtomicReference<StoreObject> listRef = new AtomicReference<StoreObject>(list);
 
-        iterateThroughList(list, new ListIterator() {
+        gtasksMetadataService.iterateThroughList(list, new GtasksMetadataService.ListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 int indent = metadata.getValue(GtasksMetadata.INDENT);
@@ -68,13 +67,14 @@ public class GtasksTaskListUpdater {
                     if(indent + delta <= previousIndent.get() + 1 && indent + delta >= 0) {
                         targetTaskIndent.set(indent);
                         metadata.setValue(GtasksMetadata.INDENT, indent + delta);
-                        if(delta > 0)
-                            metadata.setValue(GtasksMetadata.PARENT_TASK, previousTask.get());
-                        else if(parents.containsKey(taskId))
-                            metadata.setValue(GtasksMetadata.PARENT_TASK,
-                                    parents.get(parents.get(taskId)));
-                        else
+
+                        long newParent = computeNewParent(listRef.get(), taskId, indent + delta - 1);
+                        if (newParent == taskId) {
+                            System.err.println("Tried to set parent to self");
                             metadata.setValue(GtasksMetadata.PARENT_TASK, Task.NO_ID);
+                        } else {
+                            metadata.setValue(GtasksMetadata.PARENT_TASK, newParent);
+                        }
                         saveAndUpdateModifiedDate(metadata, taskId);
                     }
                 } else if(targetTaskIndent.get() > -1) {
@@ -92,6 +92,39 @@ public class GtasksTaskListUpdater {
             }
 
         });
+    }
+
+    /**
+     * Helper function to iterate through a list and compute a new parent for the target task
+     * based on the target parent's indent
+     * @param list
+     * @param targetTaskId
+     * @param newIndent
+     * @return
+     */
+    private long computeNewParent(StoreObject list, long targetTaskId, int targetParentIndent) {
+        final AtomicInteger desiredParentIndent = new AtomicInteger(targetParentIndent);
+        final AtomicLong targetTask = new AtomicLong(targetTaskId);
+        final AtomicLong lastPotentialParent = new AtomicLong(-1);
+        final AtomicBoolean computedParent = new AtomicBoolean(false);
+
+        GtasksMetadataService.ListIterator iterator = new GtasksMetadataService.ListIterator() {
+            @Override
+            public void processTask(long taskId, Metadata metadata) {
+                if (targetTask.get() == taskId) {
+                    computedParent.set(true);
+                }
+
+                int indent = metadata.getValue(GtasksMetadata.INDENT);
+                if (!computedParent.get() && indent == desiredParentIndent.get()) {
+                    lastPotentialParent.set(taskId);
+                }
+            }
+        };
+
+        gtasksMetadataService.iterateThroughList(list, iterator);
+        if (lastPotentialParent.get() == -1) return Task.NO_ID;
+        return lastPotentialParent.get();
     }
 
     // --- task moving
@@ -138,10 +171,10 @@ public class GtasksTaskListUpdater {
             }
         }
 
-        traverseTreeAndWriteValues(root, new AtomicInteger(0), -1);
+        traverseTreeAndWriteValues(root, new AtomicLong(0), -1);
     }
 
-    private void traverseTreeAndWriteValues(Node node, AtomicInteger order, int indent) {
+    private void traverseTreeAndWriteValues(Node node, AtomicLong order, int indent) {
         if(node.taskId != -1) {
             Metadata metadata = gtasksMetadataService.getTaskMetadata(node.taskId);
             if(metadata == null)
@@ -173,7 +206,7 @@ public class GtasksTaskListUpdater {
         final AtomicInteger previoustIndent = new AtomicInteger(-1);
         final AtomicReference<Node> currentNode = new AtomicReference<Node>(root);
 
-        iterateThroughList(list, new ListIterator() {
+        gtasksMetadataService.iterateThroughList(list, new GtasksMetadataService.ListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 int indent = metadata.getValue(GtasksMetadata.INDENT);
@@ -208,7 +241,7 @@ public class GtasksTaskListUpdater {
         if(list == GtasksListService.LIST_NOT_FOUND_OBJECT)
             return;
 
-        iterateThroughList(list, new ListIterator() {
+        gtasksMetadataService.iterateThroughList(list, new GtasksMetadataService.ListIterator() {
             public void processTask(long taskId, Metadata metadata) {
                 System.err.format("id %d: order %d, indent:%d, parent:%d\n", taskId, //$NON-NLS-1$
                         metadata.getValue(GtasksMetadata.ORDER),
@@ -252,10 +285,10 @@ public class GtasksTaskListUpdater {
 
         updateParentSiblingMapsFor(list);
 
-        final AtomicInteger order = new AtomicInteger(0);
+        final AtomicLong order = new AtomicLong(0);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
 
-        iterateThroughList(list, new ListIterator() {
+        gtasksMetadataService.iterateThroughList(list, new GtasksMetadataService.ListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 metadata.setValue(GtasksMetadata.ORDER, order.getAndAdd(1));
@@ -288,7 +321,7 @@ public class GtasksTaskListUpdater {
         final AtomicLong previousTask = new AtomicLong(-1L);
         final AtomicInteger previousIndent = new AtomicInteger(-1);
 
-        iterateThroughList(list, new ListIterator() {
+        gtasksMetadataService.iterateThroughList(list, new GtasksMetadataService.ListIterator() {
             @Override
             public void processTask(long taskId, Metadata metadata) {
                 int indent = metadata.getValue(GtasksMetadata.INDENT);
@@ -349,28 +382,6 @@ public class GtasksTaskListUpdater {
         localToRemoteIdMap.put(id, remoteId);
     }
 
-    // --- private helpers
-
-    private interface ListIterator {
-        public void processTask(long taskId, Metadata metadata);
-    }
-
-    private void iterateThroughList(StoreObject list, ListIterator iterator) {
-        Filter filter = GtasksFilterExposer.filterFromList(ContextManager.getContext(), list);
-        TodorooCursor<Task> cursor = PluginServices.getTaskService().fetchFiltered(filter.sqlQuery, null, Task.ID);
-        try {
-            for(cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-                long taskId = cursor.getLong(0);
-                Metadata metadata = gtasksMetadataService.getTaskMetadata(taskId);
-                if(metadata == null)
-                    continue;
-                iterator.processTask(taskId, metadata);
-            }
-
-        } finally {
-            cursor.close();
-        }
-    }
 
 }
 

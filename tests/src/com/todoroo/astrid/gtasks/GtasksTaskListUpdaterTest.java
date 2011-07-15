@@ -79,10 +79,10 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
 
     // --- helpers
 
-    private void thenExpectMetadataIndentAndOrder(Task task, int order, int indent) {
+    private void thenExpectMetadataIndentAndOrder(Task task, long order, int indent) {
         Metadata metadata = gtasksMetadataService.getTaskMetadata(task.getId());
         assertNotNull("metadata was found", metadata);
-        assertEquals("order", order, (int)metadata.getValue(GtasksMetadata.ORDER));
+        assertEquals("order", order, metadata.getValue(GtasksMetadata.ORDER).longValue());
         assertEquals("indentation", indent, (int)metadata.getValue(GtasksMetadata.INDENT));
     }
 
@@ -156,7 +156,7 @@ public class GtasksTaskListUpdaterTest extends DatabaseTestCase {
     }
 
 
-    private Task createTask(String title, int order, int indent) {
+    private Task createTask(String title, long order, int indent) {
         Task task = new Task();
         task.setValue(Task.TITLE, title);
         PluginServices.getTaskService().save(task);

@@ -494,7 +494,7 @@ public class EditPeopleControlSet implements TaskEditControlSet {
                     readTagData(result.getJSONArray("tags"));
                     JsonHelper.readUser(result.getJSONObject("assignee"),
                             task, Task.USER_ID, Task.USER);
-                    Flags.set(Flags.SUPPRESS_SYNC);
+                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     taskService.save(task);
 
                     int count = result.optInt("shared", 0);

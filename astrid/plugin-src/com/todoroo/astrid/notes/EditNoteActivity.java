@@ -255,7 +255,7 @@ public class EditNoteActivity extends ListActivity {
         update.setValue(Update.USER_ID, 0L);
         update.setValue(Update.TASK, task.getValue(Task.REMOTE_ID));
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
-        Flags.checkAndClear(Flags.SUPPRESS_SYNC);
+        Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC);
         updateDao.createNew(update);
 
         commentField.setText(""); //$NON-NLS-1$

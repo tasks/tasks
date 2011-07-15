@@ -5,6 +5,8 @@ package com.todoroo.astrid.gtasks.sync;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -80,7 +82,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
     /** tasks to read id for */
     ArrayList<GtasksTaskContainer> createdWithoutId;
-    ArrayList<GtasksTaskContainer> createdWithoutParent;
+    ArrayList<GtasksTaskContainer> createdWithoutOrder;
     Semaphore pushedTaskSemaphore = new Semaphore(0);
     AtomicInteger pushedTaskCount = new AtomicInteger(0);
 
@@ -161,7 +163,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         if(Constants.DEBUG)
             Log.e("gtasks-debug", "- -------- SYNC STARTED");
         createdWithoutId = new ArrayList<GtasksTaskContainer>();
-        createdWithoutParent = new ArrayList<GtasksTaskContainer>();
+        createdWithoutOrder = new ArrayList<GtasksTaskContainer>();
         try {
             TaskLists allTaskLists = taskService.allGtaskLists();
 
@@ -213,7 +215,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         } else if (Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST) != null) {
             listId = Preferences.getStringValue(GtasksPreferenceService.PREF_DEFAULT_LIST);
         } else {
-            listId = "@default";
+            listId = taskService.getGtaskList("@default").id;
         }
 
         Preferences.setString(GtasksPreferenceService.PREF_DEFAULT_LIST, listId);
@@ -233,13 +235,11 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
         // match remote tasks to locally created tasks
         HashMap<String, GtasksTaskContainer> locals = new HashMap<String, GtasksTaskContainer>();
-        HashMap<Long, String> localIdsToRemoteIds = new HashMap<Long, String>();
         for(GtasksTaskContainer task : createdWithoutId) {
             locals.put(task.gtaskMetadata.getValue(GtasksMetadata.ID), task);
-            localIdsToRemoteIds.put(task.task.getId(), task.gtaskMetadata.getValue(GtasksMetadata.ID));
         }
 
-        verifyCreatedOrder(localIdsToRemoteIds);
+        verifyCreatedOrder();
 
         // first, pull all tasks. then we can write them
         // include deleted tasks so we can delete them in astrid
@@ -259,16 +259,27 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         super.readRemotelyUpdated(data);
     }
 
-    private void verifyCreatedOrder(HashMap<Long, String> localIdsToRemoteIds) throws IOException {
-        for (GtasksTaskContainer t : createdWithoutParent) {
+    private void verifyCreatedOrder() throws IOException {
+        Collections.sort(createdWithoutOrder, new Comparator<GtasksTaskContainer>() {
+            @Override
+            public int compare(GtasksTaskContainer arg0, GtasksTaskContainer arg1) {
+                long order0 = arg0.gtaskMetadata.getValue(GtasksMetadata.ORDER);
+                long order1 = arg1.gtaskMetadata.getValue(GtasksMetadata.ORDER);
+
+                if (order0 == order1) return 0;
+                if (order0 < order1) return -1;
+                else return 1;
+            }
+
+        });
+        for (GtasksTaskContainer t : createdWithoutOrder) {
             String toMove = t.gtaskMetadata.getValue(GtasksMetadata.ID);
             String listId = t.gtaskMetadata.getValue(GtasksMetadata.LIST_ID);
-            long parentTask = t.gtaskMetadata.getValue(GtasksMetadata.PARENT_TASK);
-            if (parentTask > 0) {
-                String remoteParent = localIdsToRemoteIds.get(parentTask);
-                MoveRequest move = new MoveRequest(taskService, toMove, listId, remoteParent, null);
-                move.executePush();
-            }
+            String remoteParent = gtasksMetadataService.getRemoteParentId(t.gtaskMetadata);
+            String remoteSibling = gtasksMetadataService.getRemoteSiblingId(listId, t.gtaskMetadata);
+
+            MoveRequest move = new MoveRequest(taskService, toMove, listId, remoteParent, remoteSibling);
+            move.executePush();
         }
     }
 
@@ -303,7 +314,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
     // ----------------------------------------------------------------------
 
     private ArrayList<GtasksTaskContainer> readAllRemoteTasks(final boolean includeDeleted) {
-        final ArrayList<GtasksTaskContainer> remoteTasks = new ArrayList<GtasksTaskContainer>();
+        final ArrayList<GtasksTaskContainer> list = new ArrayList<GtasksTaskContainer>();
         final Semaphore listsFinished = new Semaphore(0);
 
         // launch threads
@@ -316,8 +327,8 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                         String listId = dashboard.getValue(GtasksList.REMOTE_ID);
                         if(Constants.DEBUG)
                             Log.e("gtasks-debug", "ACTION: getTasks, " + listId);
-                        List<com.google.api.services.tasks.v1.model.Task> list = taskService.getAllGtasksFromListId(listId, includeDeleted).items;
-                        addRemoteTasksToList(list, remoteTasks);
+                        List<com.google.api.services.tasks.v1.model.Task> remoteTasks = taskService.getAllGtasksFromListId(listId, includeDeleted).items;
+                        addRemoteTasksToList(remoteTasks, list);
                     } catch (Exception e) {
                         handleException("read-remotes", e, false);
                     } finally {
@@ -332,14 +343,14 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         } catch (InterruptedException e) {
             handleException("wait-for-remotes", e, false);
         }
-        return remoteTasks;
+        return list;
     }
 
     private void addRemoteTasksToList(List<com.google.api.services.tasks.v1.model.Task> remoteTasks,
             ArrayList<GtasksTaskContainer> list) {
 
         if (remoteTasks != null) {
-            int order = 0;
+            long order = 0;
             HashMap<String, com.google.api.services.tasks.v1.model.Task> idsToTasks = new HashMap<String, com.google.api.services.tasks.v1.model.Task>();
             HashMap<String, Integer> indentation = new HashMap<String, Integer>();
             HashMap<String, String> parentToPriorSiblingMap = new HashMap<String, String>();
@@ -385,6 +396,7 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
 
     private int findIndentation(HashMap<String, com.google.api.services.tasks.v1.model.Task> idsToTasks,
             HashMap<String, Integer> indentation, com.google.api.services.tasks.v1.model.Task task) {
+        if (task == null) return 0; //TODO: Not sure why this is happening...
         if(indentation.containsKey(task.id))
             return indentation.get(task.id);
 
@@ -404,13 +416,17 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
         local.gtaskMetadata.setValue(GtasksMetadata.LIST_ID, listId);
 
         createdWithoutId.add(local);
-        if (local.gtaskMetadata.containsNonNullValue(GtasksMetadata.PARENT_TASK)) {
-            createdWithoutParent.add(local);
-        }
+        createdWithoutOrder.add(local);
+
         com.google.api.services.tasks.v1.model.Task createdTask = new com.google.api.services.tasks.v1.model.Task();
 
         CreateRequest createRequest = new CreateRequest(taskService, listId, createdTask, local.parentId, local.priorSiblingId);
-        updateTaskHelper(local, null, createRequest);
+        //updateTaskHelper(local, null, createRequest);
+        localPropertiesToModel(local, null, createRequest.getToPush());
+        com.google.api.services.tasks.v1.model.Task createResult = createRequest.executePush();
+        String newIdTask = createResult.id;
+        local.gtaskMetadata.setValue(GtasksMetadata.ID, newIdTask);
+
         return local;
     }//*/
 
@@ -456,12 +472,13 @@ public class GtasksSyncProvider extends SyncProvider<GtasksTaskContainer> {
                 public void run() {
                     String newIdTask = idTask;
                     try {
-                        if (request instanceof CreateRequest) {
+                        /*if (request instanceof CreateRequest) { //This is commented out until bugs with multithreaded task creation are resolved
                             com.google.api.services.tasks.v1.model.Task createResult = request.executePush();
                             newIdTask = createResult.id;
+                            System.err.println("Created " + createResult.title + " successfully, remote id: " + createResult.id);
                             local.gtaskMetadata.setValue(GtasksMetadata.ID, newIdTask);
-                        }
-                        if(!TextUtils.isEmpty(newIdTask) && (remote == null || local.parentId != remote.parentId ||
+                        }//*/
+                        if(!TextUtils.isEmpty(newIdTask) && remote != null && (local.parentId != remote.parentId ||
                                 local.priorSiblingId != remote.priorSiblingId)) {
                             if(Constants.DEBUG)
                                 Log.e("gtasks-debug", "ACTION: move(1) - " + newIdTask + ", " + local.parentId + ", " + local.priorSiblingId);

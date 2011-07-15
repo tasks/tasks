@@ -44,6 +44,16 @@ public class GtasksService {
         service.setApplicationName("Astrid");
     }
 
+    /**
+     * A simple service query that will throw an exception if anything goes wrong.
+     * Useful for checking if token needs revalidating or if there are network problems--
+     * no exception means all is well
+     * @throws IOException
+     */
+    public void ping() throws IOException {
+        service.tasklists.get("@default").execute();
+    }
+
     public TaskLists allGtaskLists() throws IOException {
         TaskLists toReturn;
         try {

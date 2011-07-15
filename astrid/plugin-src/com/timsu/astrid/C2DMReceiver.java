@@ -91,7 +91,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                     TagData tagData = new TagData();
                     if(cursor.getCount() == 0) {
                         tagData.setValue(Task.REMOTE_ID, Long.parseLong(intent.getStringExtra("tag_id")));
-                        Flags.set(Flags.SUPPRESS_SYNC);
+                        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                         tagDataService.save(tagData);
                     } else {
                         cursor.moveToNext();
@@ -110,7 +110,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                     final Task task = new Task();
                     if(cursor.getCount() == 0) {
                         task.setValue(Task.REMOTE_ID, Long.parseLong(intent.getStringExtra("task_id")));
-                        Flags.set(Flags.SUPPRESS_SYNC);
+                        Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                         taskService.save(task);
                     } else {
                         cursor.moveToNext();
@@ -227,7 +227,7 @@ public class C2DMReceiver extends BroadcastReceiver {
                 task.setValue(Task.TITLE, intent.getStringExtra("title"));
                 task.setValue(Task.REMOTE_ID, Long.parseLong(intent.getStringExtra("task_id")));
                 task.setValue(Task.USER_ID, -1L); // set it to invalid number because we don't know whose it is
-                Flags.set(Flags.SUPPRESS_SYNC);
+                Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                 taskService.save(task);
 
                 new Thread(new Runnable() {
@@ -267,7 +267,7 @@ public class C2DMReceiver extends BroadcastReceiver {
             if(cursor.getCount() == 0) {
                 tagData.setValue(TagData.NAME, intent.getStringExtra("title"));
                 tagData.setValue(TagData.REMOTE_ID, Long.parseLong(intent.getStringExtra("tag_id")));
-                Flags.set(Flags.SUPPRESS_SYNC);
+                Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                 tagDataService.save(tagData);
 
                 new Thread(new Runnable() {

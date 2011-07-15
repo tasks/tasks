@@ -690,7 +690,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
                 try {
                     String url = actFmSyncService.setTagPicture(tagData.getValue(TagData.REMOTE_ID), bitmap);
                     tagData.setValue(TagData.PICTURE, url);
-                    Flags.set(Flags.SUPPRESS_SYNC);
+                    Flags.set(Flags.ACTFM_SUPPRESS_SYNC);
                     tagDataService.save(tagData);
                 } catch (IOException e) {
                     DialogUtilities.okDialog(TagViewActivity.this, e.toString(), null);
@@ -710,7 +710,7 @@ public class TagViewActivity extends TaskListActivity implements OnTabChangeList
         update.setValue(Update.USER_ID, 0L);
         update.setValue(Update.TAGS, "," + tagData.getValue(TagData.REMOTE_ID) + ",");
         update.setValue(Update.CREATION_DATE, DateUtilities.now());
-        Flags.checkAndClear(Flags.SUPPRESS_SYNC);
+        Flags.checkAndClear(Flags.ACTFM_SUPPRESS_SYNC);
         updateDao.createNew(update);
 
         addCommentField.setText(""); //$NON-NLS-1$

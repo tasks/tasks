@@ -36,7 +36,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
     private static boolean initialized = false;
 
     private static String DEFAULT_LIST = "@default";
-    private static final String TEST_ACCOUNT = "sync_tester@astrid.com";
+    private static final String TEST_ACCOUNT = "sync_tester2@astrid.com";
     private static final long TIME_BETWEEN_SYNCS = 3000l;
 
     @Autowired TaskService taskService;
@@ -497,6 +497,7 @@ public class GtasksNewSyncTest extends DatabaseTestCase {
         }
         String authToken = authTokenBundle.getString(AccountManager.KEY_AUTHTOKEN);
         authToken = GtasksTokenValidator.validateAuthToken(authToken);
+        gtasksPreferenceService.setToken(authToken);
 
         gtasksService = new GtasksService(authToken);
 

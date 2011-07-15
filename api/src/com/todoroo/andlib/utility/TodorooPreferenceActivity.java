@@ -71,12 +71,14 @@ abstract public class TodorooPreferenceActivity extends PreferenceActivity {
 
             updatePreferences(preference, value);
 
-            preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
-                public boolean onPreferenceChange(Preference myPreference, Object newValue) {
-                    updatePreferences(myPreference, newValue);
-                    return true;
-                }
-            });
+            if (preference.getOnPreferenceChangeListener() == null) {
+                preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                    public boolean onPreferenceChange(Preference myPreference, Object newValue) {
+                        updatePreferences(myPreference, newValue);
+                        return true;
+                    }
+                });
+            }
         }
     }
 

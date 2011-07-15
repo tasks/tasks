@@ -34,7 +34,13 @@
         android:background="@android:drawable/list_selector_background"
         android:paddingTop="1dip"
         android:paddingLeft="5dip"
-        android:paddingBottom="1dip">
+        android:paddingBottom="1dip">        
+                
+        <!-- completion area -->
+        <View android:id="@+id/completeArea"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"/>
         
         <!-- completion check-box -->
         <CheckBox android:id="@+id/completeBox"

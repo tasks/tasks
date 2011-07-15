@@ -1,6 +1,9 @@
 package com.todoroo.astrid.gtasks;
 
+import android.content.res.Resources;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceChangeListener;
 
 import com.timsu.astrid.R;
 import com.todoroo.andlib.service.Autowired;
@@ -55,6 +58,26 @@ public class GtasksPreferences extends SyncProviderPreferences {
     protected void onPause() {
         super.onPause();
         new GtasksBackgroundService().scheduleService();
+    }
+
+    @Override
+    public void updatePreferences(Preference preference, Object value) {
+        final Resources r = getResources();
+
+        if (r.getString(R.string.gtasks_GPr_sync_on_save_key).equals(preference.getKey())) {
+            preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
+                @Override
+                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                    if (((Boolean) newValue).booleanValue()) {
+                        startSync();
+                    }
+                    return true;
+                }
+
+            });
+        } else {
+            super.updatePreferences(preference, value);
+        }
     }
 
 }

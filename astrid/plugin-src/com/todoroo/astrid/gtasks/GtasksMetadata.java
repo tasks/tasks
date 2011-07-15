@@ -34,7 +34,7 @@ public class GtasksMetadata {
     public static final IntegerProperty INDENT = new IntegerProperty(Metadata.TABLE,
             Metadata.VALUE4.name);
 
-    public static final IntegerProperty ORDER = new IntegerProperty(Metadata.TABLE,
+    public static final LongProperty ORDER = new LongProperty(Metadata.TABLE,
             Metadata.VALUE5.name);
 
     /**
@@ -52,9 +52,9 @@ public class GtasksMetadata {
             defaultList = ""; //$NON-NLS-1$
 
         metadata.setValue(LIST_ID, defaultList);
-        metadata.setValue(PARENT_TASK, (long)VALUE_UNSET);
+        metadata.setValue(PARENT_TASK, AbstractModel.NO_ID);
         metadata.setValue(INDENT, 0);
-        metadata.setValue(ORDER, (int)(DateUtilities.now() / 1000L));
+        metadata.setValue(ORDER, DateUtilities.now());
         if(taskId > AbstractModel.NO_ID)
             metadata.setValue(Metadata.TASK, taskId);
         return metadata;
