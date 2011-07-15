@@ -138,12 +138,8 @@ public class StartupService {
         // invoke upgrade service
         boolean justUpgraded = latestSetVersion != version;
         if(justUpgraded && version > 0) {
-            if(latestSetVersion > 0) {
+            if(latestSetVersion > 0)
                 upgradeService.performUpgrade(context, latestSetVersion);
-                if (!gtasksPreferenceService.migrationHasOccurred()) {
-                    gtasksPreferenceService.setToken(null);
-                }
-            }
             AstridPreferences.setCurrentVersion(version);
         }
         if(latestSetVersion == 0) {
