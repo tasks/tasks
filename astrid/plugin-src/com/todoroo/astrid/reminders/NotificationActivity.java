@@ -199,7 +199,7 @@ public class NotificationActivity extends TaskListActivity implements OnTimeSetL
      * Snooze and re-trigger this alarm
      */
     private void snooze() {
-        if(Preferences.getBoolean(R.string.p_rmd_snooze_dialog, true)) {
+        if(Preferences.getBoolean(R.string.p_rmd_snooze_dialog, false)) {
             Date now = new Date();
             now.setHours(now.getHours() + 1);
             int hour = now.getHours();
