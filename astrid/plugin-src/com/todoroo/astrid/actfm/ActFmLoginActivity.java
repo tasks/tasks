@@ -355,9 +355,6 @@ public class ActFmLoginActivity extends Activity implements AuthListener {
     private void postAuthenticate(JSONObject result, String token) {
         actFmPreferenceService.setToken(token);
 
-        if(Preferences.getStringValue(R.string.actfm_APr_interval_key) == null)
-            Preferences.setStringFromInteger(R.string.actfm_APr_interval_key, 3600);
-
         Preferences.setLong(ActFmPreferenceService.PREF_USER_ID,
                 result.optLong("id"));
         Preferences.setString(ActFmPreferenceService.PREF_NAME, result.optString("name"));
