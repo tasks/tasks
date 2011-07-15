@@ -145,10 +145,10 @@ public final class UpgradeService {
         } else {
             // current message
             if(from < V3_8_0) {
-                newVersionString(changeLog, "3.8.0 beta RC7", new String[] {
-                        "Welcome to the Astrid 3.8 Beta Program!",
-                        "Astrid.com sync & task sharing!",
-                        "GTasks Sync using Google's official task API! You will need to sync once manually to authorize it",
+                newVersionString(changeLog, "3.8.0 (7/15/11)", new String[] {
+                        "Astrid.com: sync & share tasks / lists with others!",
+                        "GTasks Sync using Google's official task API! Gtasks users" +
+                            "will need to perform a manual sync to set everything up.",
                         "New style for \"Task Edit\" page!",
                         "Purge completed or deleted tasks!",
                 });
