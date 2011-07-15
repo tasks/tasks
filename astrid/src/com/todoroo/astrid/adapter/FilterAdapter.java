@@ -14,6 +14,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -288,8 +289,9 @@ public class FilterAdapter extends BaseExpandableListAdapter {
         @Override
         public void onReceive(Context context, Intent intent) {
             try {
-                final Parcelable[] filters = intent.getExtras().
-                    getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
+                Bundle extras = intent.getExtras();
+                extras.setClassLoader(FilterListHeader.class.getClassLoader());
+                final Parcelable[] filters = extras.getParcelableArray(AstridApiConstants.EXTRAS_RESPONSE);
                 for (Parcelable item : filters) {
                     FilterListItem filter = (FilterListItem) item;
                     if(skipIntentFilters && !(filter instanceof Filter ||
