@@ -64,7 +64,7 @@ public class GtasksFilterExposer extends BroadcastReceiver {
                         MetadataCriteria.withKey(GtasksMetadata.METADATA_KEY),
                         TaskCriteria.activeAndVisible(),
                         GtasksMetadata.LIST_ID.eq(list.getValue(GtasksList.REMOTE_ID)))).orderBy(
-                                Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG"))), //$NON-NLS-1$
+                                Order.asc(Functions.cast(GtasksMetadata.ORDER, "LONG"))).groupBy(Task.ID), //$NON-NLS-1$
                 values);
         filter.listingIcon = ((BitmapDrawable)context.getResources().getDrawable(R.drawable.gtasks_icon)).getBitmap();
         filter.customTaskList = new ComponentName(ContextManager.getContext(), GtasksListActivity.class);

@@ -1,7 +1,7 @@
 package com.todoroo.astrid.gtasks.sync;
 
 import java.io.IOException;
-import java.util.concurrent.Semaphore;
+import java.util.concurrent.LinkedBlockingQueue;
 
 import android.content.ContentValues;
 import android.text.TextUtils;
@@ -42,93 +42,70 @@ public final class GtasksSyncOnSaveService {
         DependencyInjectionService.getInstance().inject(this);
     }
 
-    private final Semaphore syncOnSaveSema = new Semaphore(1);
+    private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<SyncOnSaveOperation>();
+
+    private abstract class SyncOnSaveOperation {}
+
+    private class TaskPushOp extends SyncOnSaveOperation {
+        protected Task model;
+
+        public TaskPushOp(Task model) {
+            this.model = model;
+        }
+    }
+
+    class MoveOp extends SyncOnSaveOperation {
+        protected Metadata metadata;
+
+        public MoveOp(Metadata metadata) {
+            this.metadata = metadata;
+        }
+    }
+
 
     public void initialize() {
+        new Thread(new Runnable() {
+           public void run() {
+               while (true) {
+                   SyncOnSaveOperation op;
+                   try {
+                       op = operationQueue.take();
+                   } catch (InterruptedException e) {
+                       continue;
+                   }
+                   try {
+                       if (syncOnSaveEnabled() && !gtasksPreferenceService.isOngoing()) {
+                           if (op instanceof TaskPushOp) {
+                               TaskPushOp taskPush = (TaskPushOp)op;
+                               pushTaskOnSave(taskPush.model, taskPush.model.getSetValues());
+                           } else if (op instanceof MoveOp) {
+                               MoveOp move = (MoveOp)op;
+                               pushMetadataOnSave(move.metadata);
+                           }
+                       }
+                   } catch (IOException e){
+                       System.err.println("Sync on save failed"); //$NON-NLS-1$
+                   }
+               }
+           }
+        }).start();
+
         taskDao.addListener(new ModelUpdateListener<Task>() {
             public void onModelUpdated(final Task model) {
                 if (!syncOnSaveEnabled())
                     return;
                 if (gtasksPreferenceService.isOngoing()) //Don't try and sync changes that occur during a normal sync
                     return;
-                if(Flags.checkAndClear(Flags.GTASKS_SUPPRESS_SYNC))
-                    return;
                 final ContentValues setValues = model.getSetValues();
                 if(setValues == null || !checkForToken())
                     return;
                 if (!checkValuesForProperties(setValues, TASK_PROPERTIES)) //None of the properties we sync were updated
                     return;
+                if(Flags.checkAndClear(Flags.GTASKS_SUPPRESS_SYNC))
+                    return;
 
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        // sleep so metadata associated with task is saved
-                        AndroidUtilities.sleepDeep(1000L);
-                        outer:
-                        try {
-                            try {
-                                syncOnSaveSema.acquire();
-                            } catch (InterruptedException ingored) {
-                                break outer;
-                            }
-                            pushTaskOnSave(model, setValues);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            System.err.println("Sync on save failed"); //$NON-NLS-1$
-                            return;
-                        } finally {
-                            syncOnSaveSema.release();
-                        }
-                    }
-                }).start();
-
+                operationQueue.offer(new TaskPushOp((Task)model.clone()));
             }
-        });//*/
-
-        metadataDao.addListener(new ModelUpdateListener<Metadata>() {
-            public void onModelUpdated(final Metadata model) {
-                if (!syncOnSaveEnabled())
-                    return;
-                if (!model.getValue(Metadata.KEY).equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
-                    return;
-                if (gtasksPreferenceService.isOngoing()) //Don't try and sync changes that occur during a normal sync
-                    return;
-                final ContentValues setValues = model.getSetValues();
-                if (setValues == null || !checkForToken())
-                    return;
-
-                if (checkValuesForProperties(setValues, METADATA_IGNORE_PROPERTIES)) // don't sync the move cases we don't handle
-                    return;
-                if (!checkValuesForProperties(setValues, METADATA_PROPERTIES))
-                    return;
-
-                if (Flags.checkAndClear(Flags.GTASKS_SUPPRESS_SYNC))
-                    return;
-
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                     // sleep so metadata associated with task is saved
-                        AndroidUtilities.sleepDeep(1000L);
-                        outer:
-                        try {
-                            try {
-                                syncOnSaveSema.acquire();
-                            } catch (InterruptedException ignored) {
-                                break outer;
-                            }
-                            pushMetadataOnSave(model);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            System.err.println("Sync on save failed"); //$NON-NLS-1$
-                            return;
-                        } finally {
-                            syncOnSaveSema.release();
-                        }
-                    }
-                }).start();
-            }
-
         });
     }
 
@@ -138,14 +115,6 @@ public final class GtasksSyncOnSaveService {
           Task.DUE_DATE,
           Task.COMPLETION_DATE,
           Task.DELETION_DATE };
-
-    private static final Property<?>[] METADATA_PROPERTIES =
-        { GtasksMetadata.INDENT,
-          GtasksMetadata.PARENT_TASK };
-
-    private static final Property<?>[] METADATA_IGNORE_PROPERTIES =
-        { GtasksMetadata.ORDER,
-          GtasksMetadata.LIST_ID };
 
     /**
      * Checks to see if any of the values changed are among the properties we sync
@@ -162,10 +131,27 @@ public final class GtasksSyncOnSaveService {
     }
 
 
+    public void triggerMoveForMetadata(final Metadata metadata) {
+        if (!syncOnSaveEnabled())
+            return;
+        if (!metadata.getValue(Metadata.KEY).equals(GtasksMetadata.METADATA_KEY)) //Don't care about non-gtasks metadata
+            return;
+        if (gtasksPreferenceService.isOngoing()) //Don't try and sync changes that occur during a normal sync
+            return;
+        if (!checkForToken())
+            return;
+        if (Flags.checkAndClear(Flags.GTASKS_SUPPRESS_SYNC))
+            return;
+
+        operationQueue.offer(new MoveOp(metadata));
+    }
+
     /**
      * Synchronize with server when data changes
      */
     private void pushTaskOnSave(Task task, ContentValues values) throws IOException {
+        AndroidUtilities.sleepDeep(1000L); //Wait for metadata to be saved
+
         Metadata gtasksMetadata = gtasksMetadataService.getTaskMetadata(task.getId());
         com.google.api.services.tasks.v1.model.Task remoteModel = null;
         boolean newlyCreated = false;
@@ -276,6 +262,7 @@ public final class GtasksSyncOnSaveService {
     }
 
     private void pushMetadataOnSave(Metadata model) throws IOException {
+        AndroidUtilities.sleepDeep(1000L);
         //Initialize the gtasks api service
         String token = gtasksPreferenceService.getToken();
         token = GtasksTokenValidator.validateAuthToken(token);

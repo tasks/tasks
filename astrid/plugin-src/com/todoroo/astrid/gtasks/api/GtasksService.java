@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import com.google.api.client.extensions.android2.AndroidHttp;
 import com.google.api.client.googleapis.auth.oauth2.draft10.GoogleAccessProtectedResource;
+import com.google.api.client.http.HttpResponseException;
 import com.google.api.client.json.jackson.JacksonFactory;
 import com.google.api.services.tasks.v1.Tasks;
 import com.google.api.services.tasks.v1.Tasks.TasksOperations.Insert;
@@ -12,6 +13,7 @@ import com.google.api.services.tasks.v1.Tasks.TasksOperations.Move;
 import com.google.api.services.tasks.v1.model.Task;
 import com.google.api.services.tasks.v1.model.TaskList;
 import com.google.api.services.tasks.v1.model.TaskLists;
+import com.todoroo.astrid.gtasks.auth.GtasksTokenValidator;
 
 /**
  * Wrapper around the official Google Tasks API to simplify common operations. In the case
@@ -22,26 +24,37 @@ import com.google.api.services.tasks.v1.model.TaskLists;
 @SuppressWarnings("nls")
 public class GtasksService {
     private Tasks service;
+    private GoogleAccessProtectedResource accessProtectedResource;
+    private String token;
 
     private static final String API_KEY = "AIzaSyCIYZTBo6haRHxmiplZsfYdagFEpaiFnAk"; // non-production API key
 
     public static final String AUTH_TOKEN_TYPE = "oauth2:https://www.googleapis.com/auth/tasks";
 
     public GtasksService(String authToken) {
-        try {
-            authenticate(authToken);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        authenticate(authToken);
     }
 
-    public void authenticate(String authToken) throws IOException {
-
-        GoogleAccessProtectedResource accessProtectedResource = new GoogleAccessProtectedResource(authToken);
+    public void authenticate(String authToken) {
+        this.token = authToken;
+        accessProtectedResource = new GoogleAccessProtectedResource(authToken);
 
         service = new Tasks(AndroidHttp.newCompatibleTransport(), accessProtectedResource, new JacksonFactory());
         service.accessKey = API_KEY;
         service.setApplicationName("Astrid");
+    }
+
+    //If we get a 401 or 403, try revalidating the auth token before bailing
+    private synchronized void handleException(IOException e) {
+        if (e instanceof HttpResponseException) {
+            HttpResponseException h = (HttpResponseException)e;
+            if (h.response.statusCode == 401 || h.response.statusCode == 403) {
+                token = GtasksTokenValidator.validateAuthToken(token);
+                if (token != null) {
+                    accessProtectedResource.setAccessToken(token);
+                }
+            }
+        }
     }
 
     /**
@@ -59,6 +72,7 @@ public class GtasksService {
         try {
             toReturn = service.tasklists.list().execute();
         } catch (IOException e) {
+            handleException(e);
             toReturn = service.tasklists.list().execute();
         }
         return toReturn;
@@ -69,6 +83,7 @@ public class GtasksService {
         try {
             toReturn = service.tasklists.get(id).execute();
         } catch (IOException e) {
+            handleException(e);
             toReturn = service.tasklists.get(id).execute();
         }
         return toReturn;
@@ -81,6 +96,7 @@ public class GtasksService {
         try {
             toReturn = service.tasklists.insert(newList).execute();
         } catch (IOException e) {
+            handleException(e);
             toReturn = service.tasklists.insert(newList).execute();
         }
         return toReturn;
@@ -91,6 +107,7 @@ public class GtasksService {
         try {
             toReturn = service.tasklists.update(list.id, list).execute();
         } catch (IOException e) {
+            handleException(e);
             toReturn = service.tasklists.update(list.id, list).execute();
         }
         return toReturn;
@@ -100,7 +117,8 @@ public class GtasksService {
         try {
             service.tasklists.delete(listId).execute();
         } catch (IOException e) {
-            service.tasks.clear(listId).execute();
+            handleException(e);
+            service.tasklists.delete(listId).execute();
         }
     }
 
@@ -109,6 +127,7 @@ public class GtasksService {
         try {
             toReturn = getAllGtasksFromListId(list.id, includeDeleted);
         } catch (IOException e) {
+            handleException(e);
             toReturn = getAllGtasksFromListId(list.id, includeDeleted);
         }
         return toReturn;
@@ -121,6 +140,7 @@ public class GtasksService {
         try {
             toReturn = request.execute();
         } catch (IOException e) {
+            handleException(e);
             toReturn = request.execute();
         }
         return toReturn;
@@ -131,6 +151,7 @@ public class GtasksService {
         try {
             toReturn = service.tasks.get(listId, taskId).execute();
         } catch (IOException e) {
+            handleException(e);
             toReturn = service.tasks.get(listId, taskId).execute();
         }
         return toReturn;
@@ -158,6 +179,7 @@ public class GtasksService {
         try {
             toReturn = insertOp.execute();
         } catch (IOException e) {
+            handleException(e);
             toReturn = insertOp.execute();
         }
         return toReturn;
@@ -168,6 +190,7 @@ public class GtasksService {
         try {
             toReturn = service.tasks.update(listId, task.id, task).execute();
         } catch (IOException e) {
+            handleException(e);
             toReturn = service.tasks.update(listId, task.id, task).execute();
         }
         return toReturn;
@@ -182,6 +205,7 @@ public class GtasksService {
         try {
             toReturn = move.execute();
         } catch (IOException e) {
+            handleException(e);
             toReturn = move.execute();
         }
         return toReturn;
@@ -191,6 +215,7 @@ public class GtasksService {
         try {
             service.tasks.delete(listId, taskId).execute();
         } catch (IOException e) {
+            handleException(e);
             service.tasks.delete(listId, taskId).execute();
         }
     }
@@ -199,6 +224,7 @@ public class GtasksService {
         try {
             service.tasks.clear(listId).execute();
         } catch (IOException e) {
+            handleException(e);
             service.tasks.clear(listId).execute();
         }
     }
