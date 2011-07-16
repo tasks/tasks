@@ -22,6 +22,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -36,7 +37,7 @@ import com.cyrilmottier.android.greendroid.R;
  * displayed on top of the user interface (it overlaps all UI elements but the
  * notification bar). Clients may listen to user actions using a
  * {@link OnQuickActionClickListener} .
- * 
+ *
  * @author Benjamin Fellous
  * @author Cyril Mottier
  */
@@ -66,7 +67,7 @@ public abstract class QuickActionWidget extends PopupWindow {
 
     /**
      * Interface that may be used to listen to clicks on quick actions.
-     * 
+     *
      * @author Benjamin Fellous
      * @author Cyril Mottier
      */
@@ -74,7 +75,7 @@ public abstract class QuickActionWidget extends PopupWindow {
         /**
          * Clients may implement this method to be notified of a click on a
          * particular quick action.
-         * 
+         *
          * @param position Position of the quick action that have been clicked.
          */
         void onQuickActionClicked(QuickActionWidget widget, int position);
@@ -82,7 +83,7 @@ public abstract class QuickActionWidget extends PopupWindow {
 
     /**
      * Creates a new QuickActionWidget for the given context.
-     * 
+     *
      * @param context The context in which the QuickActionWidget is running in
      */
     public QuickActionWidget(Context context) {
@@ -106,7 +107,7 @@ public abstract class QuickActionWidget extends PopupWindow {
     /**
      * Equivalent to {@link PopupWindow#setContentView(View)} but with a layout
      * identifier.
-     * 
+     *
      * @param layoutId The layout identifier of the view to use.
      */
     public void setContentView(int layoutId) {
@@ -120,7 +121,7 @@ public abstract class QuickActionWidget extends PopupWindow {
 
     /**
      * Returns the arrow offset for the Y axis.
-     * 
+     *
      * @see {@link #setArrowOffsetY(int)}
      * @return The arrow offset.
      */
@@ -133,7 +134,7 @@ public abstract class QuickActionWidget extends PopupWindow {
      * particular useful to warn which view the QuickActionWidget is related to.
      * By setting a positive offset, the arrow will overlap the view given by
      * {@link #show(View)}. The default value is 5dp.
-     * 
+     *
      * @param offsetY The offset for the Y axis
      */
     public void setArrowOffsetY(int offsetY) {
@@ -142,7 +143,7 @@ public abstract class QuickActionWidget extends PopupWindow {
 
     /**
      * Returns the width of the screen.
-     * 
+     *
      * @return The width of the screen
      */
     protected int getScreenWidth() {
@@ -151,7 +152,7 @@ public abstract class QuickActionWidget extends PopupWindow {
 
     /**
      * Returns the height of the screen.
-     * 
+     *
      * @return The height of the screen
      */
     protected int getScreenHeight() {
@@ -162,7 +163,7 @@ public abstract class QuickActionWidget extends PopupWindow {
      * By default, a {@link QuickActionWidget} is dismissed once the user
      * clicked on a {@link QuickAction}. This behavior can be changed using this
      * method.
-     * 
+     *
      * @param dismissOnClick True if you want the {@link QuickActionWidget} to
      *            be dismissed on click else false.
      */
@@ -186,7 +187,7 @@ public abstract class QuickActionWidget extends PopupWindow {
      * {@link QuickAction} while the {@link QuickActionWidget} is currently
      * being shown does nothing. The new {@link QuickAction} will be displayed
      * on the next call to {@link #show(View)}.
-     * 
+     *
      * @param action The new {@link QuickAction} to add
      */
     public void addQuickAction(QuickAction action) {
@@ -209,7 +210,7 @@ public abstract class QuickActionWidget extends PopupWindow {
     /**
      * Call that method to display the {@link QuickActionWidget} anchored to the
      * given view.
-     * 
+     *
      * @param anchor The view the {@link QuickActionWidget} will be anchored to.
      */
     public void show(View anchor) {
@@ -241,7 +242,12 @@ public abstract class QuickActionWidget extends PopupWindow {
 
         showArrow();
         prepareAnimationStyle();
-        showAtLocation(anchor, Gravity.NO_GRAVITY, 0, mPopupY);
+
+        try {
+            showAtLocation(anchor, Gravity.NO_GRAVITY, 0, mPopupY);
+        } catch (Exception e) {
+            Log.w("quick-action-show", e);
+        }
     }
 
     protected void clearQuickActions() {

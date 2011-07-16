@@ -283,8 +283,10 @@ public class TagFilterExposer extends BroadcastReceiver {
         protected boolean ok() {
             int deleted = tagService.delete(tag);
             TagData tagData = PluginServices.getTagDataService().getTag(tag, TagData.ID, TagData.DELETION_DATE);
-            tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
-            PluginServices.getTagDataService().save(tagData);
+            if(tagData != null) {
+                tagData.setValue(TagData.DELETION_DATE, DateUtilities.now());
+                PluginServices.getTagDataService().save(tagData);
+            }
             Toast.makeText(this, getString(R.string.TEA_tags_deleted, tag, deleted),
                     Toast.LENGTH_SHORT).show();
             return true;
