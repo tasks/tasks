@@ -250,9 +250,6 @@ public final class ActFmSyncService {
         if(params.size() == 0 || !checkForToken())
             return;
 
-        System.err.println("PUSHN ON SAVE: " + task.getMergedValues());
-        System.err.println("SETVALUES: " + values);
-
         if(!newlyCreated) {
             params.add("id"); params.add(remoteId);
         } else if(!params.contains(Task.TITLE.name))

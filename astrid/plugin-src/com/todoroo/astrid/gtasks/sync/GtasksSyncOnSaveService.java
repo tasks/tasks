@@ -44,7 +44,7 @@ public final class GtasksSyncOnSaveService {
 
     private final LinkedBlockingQueue<SyncOnSaveOperation> operationQueue = new LinkedBlockingQueue<SyncOnSaveOperation>();
 
-    private abstract class SyncOnSaveOperation {}
+    private abstract class SyncOnSaveOperation { /**/ }
 
     private class TaskPushOp extends SyncOnSaveOperation {
         protected Task model;

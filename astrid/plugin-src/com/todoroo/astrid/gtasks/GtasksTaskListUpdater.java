@@ -254,6 +254,7 @@ public class GtasksTaskListUpdater {
         });
     }
 
+    @SuppressWarnings("nls")
     public void debugPrint(Node root, int depth) {
         for(int i = 0; i < depth; i++) System.err.print(" + ");
         System.err.format("%03d", root.taskId);

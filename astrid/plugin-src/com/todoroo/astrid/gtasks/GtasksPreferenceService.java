@@ -45,6 +45,7 @@ public class GtasksPreferenceService extends SyncProviderUtilities {
     /** GTasks whether we have shown list help boolean */
     public static final String PREF_SHOWN_LIST_HELP = IDENTIFIER + "_list_help"; //$NON-NLS-1$
 
-    public static final String PREF_MIGRATION_HAS_OCCURRED = IDENTIFIER + "_migrated";
+    /** Pref that is set once migration to new GTasks API has occurred */
+    public static final String PREF_MIGRATION_HAS_OCCURRED = IDENTIFIER + "_migrated"; //$NON-NLS-1$
 
 }

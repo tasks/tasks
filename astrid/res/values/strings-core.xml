@@ -257,7 +257,7 @@
   <string name="TEA_urgency_none">None</string>
   
   <!-- Task hide until label -->
-  <string name="TEA_hideUntil_label">Hide Until</string>
+  <string name="TEA_hideUntil_label">Hide Task From List Until:</string>
   
   <!-- Task editing data being loaded label -->
   <string-array name="TEA_loading"><item>Loading...</item></string-array>

@@ -67,7 +67,7 @@ public class GtasksPreferences extends SyncProviderPreferences {
         if (r.getString(R.string.gtasks_GPr_sync_on_save_key).equals(preference.getKey())) {
             preference.setOnPreferenceChangeListener(new OnPreferenceChangeListener() {
                 @Override
-                public boolean onPreferenceChange(Preference preference, Object newValue) {
+                public boolean onPreferenceChange(Preference changed, Object newValue) {
                     if (((Boolean) newValue).booleanValue()) {
                         startSync();
                     }

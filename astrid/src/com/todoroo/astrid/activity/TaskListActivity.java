@@ -221,8 +221,6 @@ public class TaskListActivity extends ListActivity implements OnScrollListener,
         setUpUiComponents();
         onNewIntent(getIntent());
 
-        AndroidUtilities.copyDatabases(this, "/sdcard/astrid");
-
         Eula.showEula(this);
 
         if(getIntent().hasExtra(TOKEN_SOURCE)) {
