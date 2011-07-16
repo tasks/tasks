@@ -824,8 +824,8 @@ public final class ActFmSyncService {
             model.setValue(Task.COMMENT_COUNT, json.getInt("comment_count"));
             model.setValue(Task.TITLE, json.getString("title"));
             model.setValue(Task.IMPORTANCE, json.getInt("importance"));
-            model.setValue(Task.DUE_DATE,
-                    Task.createDueDate(Task.URGENCY_SPECIFIC_DAY, readDate(json, "due")));
+            int urgency = json.getBoolean("has_due_time") ? Task.URGENCY_SPECIFIC_DAY_TIME : Task.URGENCY_SPECIFIC_DAY;
+            model.setValue(Task.DUE_DATE, Task.createDueDate(urgency, readDate(json, "due")));
             model.setValue(Task.COMPLETION_DATE, readDate(json, "completed_at"));
             model.setValue(Task.CREATION_DATE, readDate(json, "created_at"));
             model.setValue(Task.DELETION_DATE, readDate(json, "deleted_at"));
