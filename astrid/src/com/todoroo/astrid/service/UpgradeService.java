@@ -147,11 +147,11 @@ public final class UpgradeService {
             if(from < V3_8_0) {
                 newVersionString(changeLog, "3.8.0 (7/15/11)", new String[] {
                         "Astrid.com: sync & share tasks / lists with others!",
-                        "GTasks Sync using Google's official task API! Gtasks users" +
+                        "GTasks Sync using Google's official task API! Gtasks users " +
                             "will need to perform a manual sync to set everything up.",
                         "Renamed \"Tags\" to \"Lists\" (see blog.astrid.com for details)",
                         "New style for \"Task Edit\" page!",
-                        "Purge completed or deleted tasks!",
+                        "Purge completed or deleted tasks from settings menu!",
                 });
 
                 // clear gtasks token info because of new gtasks api
