@@ -180,7 +180,7 @@ public class TouchListView extends ListView {
 			for (int i = 0;; i++) {
 					View v = getChildAt(i);
 					if (v == null) {
-							if (deletion) {
+							if (deletion && getCount() > 0) {
 									// HACK force update of mItemCount
 									int position = getFirstVisiblePosition();
 									int y = getChildAt(0).getTop();

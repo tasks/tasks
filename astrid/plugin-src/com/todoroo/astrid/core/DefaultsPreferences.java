@@ -73,7 +73,7 @@ public class DefaultsPreferences extends TodorooPreferenceActivity {
                 setting));
 
         // if user changed the value, refresh task defaults
-        if(!value.equals(Preferences.getStringValue(preference.getKey()))) {
+        if(!AndroidUtilities.equals(value, Preferences.getStringValue(preference.getKey()))) {
             Editor editor = Preferences.getPrefs(this).edit();
             editor.putString(preference.getKey(), (String)value);
             editor.commit();

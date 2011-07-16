@@ -86,7 +86,7 @@ public class FilterListActivity extends ExpandableListActivity {
     @Autowired ActFmPreferenceService actFmPreferenceService;
     @Autowired ActFmSyncService actFmSyncService;
 
-    FilterAdapter adapter = null;
+    protected FilterAdapter adapter = null;
 
     /* ======================================================================
      * ======================================================= initialization

@@ -146,6 +146,7 @@ public class FilterAdapter extends BaseExpandableListAdapter {
 
     public void clear() {
         items.clear();
+        notifyDataSetInvalidated();
     }
 
     /**

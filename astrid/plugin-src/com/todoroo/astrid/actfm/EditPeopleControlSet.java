@@ -371,10 +371,10 @@ public class EditPeopleControlSet implements TaskEditControlSet {
         saveToast = toast;
         boolean dirty = false;
         try {
-            JSONObject userJson;
+            JSONObject userJson = null;
             if(assignedCustom.getVisibility() == View.VISIBLE)
                 userJson = PeopleContainer.createUserJson(assignedCustom);
-            else
+            else if(assignedSpinner.getSelectedItem() != null)
                 userJson = ((AssignedToUser) assignedSpinner.getSelectedItem()).user;
 
             if(userJson == null || userJson.optLong("id", -1) == 0) {

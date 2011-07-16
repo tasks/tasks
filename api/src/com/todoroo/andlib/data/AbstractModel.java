@@ -184,15 +184,19 @@ public abstract class AbstractModel implements Parcelable, Cloneable {
                 "Model Error: Did not read property " + property.name); //$NON-NLS-1$
 
         // resolve properties that were retrieved with a different type than accessed
-        if(value instanceof String && property instanceof LongProperty)
-            return (TYPE) Long.valueOf((String)value);
-        else if(value instanceof String && property instanceof IntegerProperty)
-            return (TYPE) Integer.valueOf((String)value);
-        else if(value instanceof String && property instanceof DoubleProperty)
-            return (TYPE) Double.valueOf((String)value);
-        else if(value instanceof Integer && property instanceof LongProperty)
-            return (TYPE) Long.valueOf(((Number)value).longValue());
-        return (TYPE) value;
+        try {
+            if(value instanceof String && property instanceof LongProperty)
+                return (TYPE) Long.valueOf((String)value);
+            else if(value instanceof String && property instanceof IntegerProperty)
+                return (TYPE) Integer.valueOf((String)value);
+            else if(value instanceof String && property instanceof DoubleProperty)
+                return (TYPE) Double.valueOf((String)value);
+            else if(value instanceof Integer && property instanceof LongProperty)
+                return (TYPE) Long.valueOf(((Number)value).longValue());
+            return (TYPE) value;
+        } catch (NumberFormatException e) {
+            return (TYPE) getDefaultValues().get(property.name);
+        }
     }
 
     /**
