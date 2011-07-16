@@ -11,10 +11,15 @@ import com.todoroo.andlib.service.Autowired;
 import com.todoroo.andlib.utility.DialogUtilities;
 import com.todoroo.andlib.utility.Preferences;
 import com.todoroo.astrid.activity.DraggableTaskListActivity;
+import com.todoroo.astrid.gtasks.sync.GtasksSyncOnSaveService;
 
 public class GtasksListActivity extends DraggableTaskListActivity {
 
     @Autowired private GtasksTaskListUpdater gtasksTaskListUpdater;
+
+    @Autowired private GtasksSyncOnSaveService gtasksSyncOnSaveService;
+
+    @Autowired private GtasksMetadataService gtasksMetadataService;
 
     @Override
     protected IntegerProperty getIndentProperty() {
@@ -42,7 +47,12 @@ public class GtasksListActivity extends DraggableTaskListActivity {
         public void drop(int from, int to) {
             long targetTaskId = taskAdapter.getItemId(from);
             long destinationTaskId = taskAdapter.getItemId(to);
-            gtasksTaskListUpdater.moveTo(targetTaskId, destinationTaskId);
+
+            if(to == getListView().getCount() - 1)
+                gtasksTaskListUpdater.moveTo(targetTaskId, -1);
+            else
+                gtasksTaskListUpdater.moveTo(targetTaskId, destinationTaskId);
+            gtasksSyncOnSaveService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
             loadTaskListContent(true);
         }
     };
@@ -52,6 +62,7 @@ public class GtasksListActivity extends DraggableTaskListActivity {
         public void swipeRight(int which) {
             long targetTaskId = taskAdapter.getItemId(which);
             gtasksTaskListUpdater.indent(targetTaskId, 1);
+            gtasksSyncOnSaveService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
             loadTaskListContent(true);
         }
 
@@ -59,6 +70,7 @@ public class GtasksListActivity extends DraggableTaskListActivity {
         public void swipeLeft(int which) {
             long targetTaskId = taskAdapter.getItemId(which);
             gtasksTaskListUpdater.indent(targetTaskId, -1);
+            gtasksSyncOnSaveService.triggerMoveForMetadata(gtasksMetadataService.getTaskMetadata(targetTaskId));
             loadTaskListContent(true);
         }
     };

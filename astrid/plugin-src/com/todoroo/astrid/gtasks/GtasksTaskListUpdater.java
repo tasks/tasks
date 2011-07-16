@@ -70,7 +70,6 @@ public class GtasksTaskListUpdater {
 
                         long newParent = computeNewParent(listRef.get(), taskId, indent + delta - 1);
                         if (newParent == taskId) {
-                            System.err.println("Tried to set parent to self");
                             metadata.setValue(GtasksMetadata.PARENT_TASK, Task.NO_ID);
                         } else {
                             metadata.setValue(GtasksMetadata.PARENT_TASK, newParent);
@@ -131,7 +130,7 @@ public class GtasksTaskListUpdater {
 
     private static class Node {
         public final long taskId;
-        public final Node parent;
+        public Node parent;
         public final ArrayList<Node> children = new ArrayList<Node>();
 
         public Node(long taskId, Node parent) {
@@ -161,12 +160,14 @@ public class GtasksTaskListUpdater {
             if(moveBeforeTaskId == -1) {
                 target.parent.children.remove(target);
                 root.children.add(target);
+                target.parent = root;
             } else {
                 Node sibling = findNode(root, moveBeforeTaskId);
                 if(sibling != null) {
                     int index = sibling.parent.children.indexOf(sibling);
                     target.parent.children.remove(target);
                     sibling.parent.children.add(index, target);
+                    target.parent = sibling.parent;
                 }
             }
         }
@@ -224,6 +225,8 @@ public class GtasksTaskListUpdater {
                     Node node = currentNode.get().parent;
                     for(int i = indent; i < previousIndentValue; i++)
                         node = node.parent;
+                    if(node == null)
+                        node = root;
                     currentNode.set(new Node(taskId, node));
                     node.children.add(currentNode.get());
                 }
@@ -249,6 +252,15 @@ public class GtasksTaskListUpdater {
                         metadata.getValue(GtasksMetadata.PARENT_TASK));
             }
         });
+    }
+
+    public void debugPrint(Node root, int depth) {
+        for(int i = 0; i < depth; i++) System.err.print(" + ");
+        System.err.format("%03d", root.taskId);
+        System.err.print("\n");
+
+        for(int i = 0; i < root.children.size(); i++)
+            debugPrint(root.children.get(i), depth + 1);
     }
 
     private final Task taskContainer = new Task();
