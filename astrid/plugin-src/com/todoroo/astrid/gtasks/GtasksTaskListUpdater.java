@@ -154,7 +154,6 @@ public class GtasksTaskListUpdater {
             return;
 
         Node root = buildTreeModel(list);
-        debugPrint(root, 0);
         Node target = findNode(root, targetTaskId);
 
         if(target != null && target.parent != null) {
@@ -173,7 +172,6 @@ public class GtasksTaskListUpdater {
             }
         }
 
-        debugPrint(root, 0);
         traverseTreeAndWriteValues(root, new AtomicLong(0), -1);
     }
 
