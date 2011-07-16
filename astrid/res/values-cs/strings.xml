@@ -46,26 +46,29 @@
     <!-- Tab for showing comments & updates -->
     <item>Activity</item>
     <!-- Tab for showing setting -->
-    <item>Members</item>
+    <item>List Settings</item>
   </string-array>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
-  <!-- Tag Members: tag name label -->
+  <!-- Tag Settings: tag name label -->
   <string name="actfm_TVA_tag_label">List Name:</string>
 
-  <!-- Tag Members: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">List Owner:</string>
+  <!-- Tag Settings: tag owner label -->
+  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
 
-  <!-- Tag Members: tag owner value when there is no owner -->
+  <!-- Tag Settings: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">none</string>
 
-  <!-- Tag Members: team members label -->
-  <string name="actfm_TVA_members_label">Team Members:</string>
+  <!-- Tag Settings: list collaborators label -->
+  <string name="actfm_TVA_members_label">Collaborators:</string>
 
-  <!-- Tag Members: tag picture -->
+  <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
+
+  <!-- Tag Settings: silence notifications label -->
+  <string name="actfm_TVA_silence_label">Silence Notifications</string>
 
   <!-- ============================================ edit people dialog == -->
 
@@ -133,19 +136,25 @@
 
   <!-- share login: Sharing Description -->
   <string name="actfm_ALA_body">Astrid.com lets you access your tasks online,
-  share, and delegate with others. Perfect for personal use, friends, family, and coworkers!</string>
+  share, and delegate with others.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Facebook</string>
+  <string name="actfm_ALA_fb_login">Sign in with Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Google</string>
+  <string name="actfm_ALA_gg_login">Sign in with Google</string>
 
-  <!-- share login: Sharing Login Password Prompt -->
-  <string name="actfm_ALA_pw_login">Login</string>
+  <!-- share login: Sharing Footer Password Label -->
+  <string name="actfm_ALA_pw_login">Don\'t have a Google or Facebook Account?</string>
 
-  <!-- share login: Sharing Sign Up Prompt -->
-  <string name="actfm_ALA_pw_signup">Join Now</string>
+  <!-- share login: Sharing Password Link -->
+  <string name="actfm_ALA_pw_link">Sign In Here</string>
+
+  <!-- share login: Password Are you a New User? -->
+  <string name="actfm_ALA_pw_new">Create a new account?</string>
+
+  <!-- share login: Password Are you a Returning User? -->
+  <string name="actfm_ALA_pw_returning">Already have an account?</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
@@ -169,8 +178,7 @@
   <string name="actfm_OLA_prompt">Please connect to Google:</string>
 
   <!-- share login: Sharing notice -->
-  <string name="actfm_ALA_notice">We promise not to post messages or send
-  e-mails without your permission.</string>
+  <string name="actfm_ALA_notice">Astrid won\'t send messages e-mails without permission.</string>
 
   <!-- ================================================ Synchronization == -->
       
@@ -590,7 +598,7 @@
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
       <item>Žádný termín</item>
-      <item>Určitý den/čas</item>
+      <item>Určitý den</item>
       <item>Dnes</item>
       <item>Zítra</item>
       <item>(den po)</item>
@@ -654,7 +662,7 @@
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">Zobrazit poznámky v úkolu</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">Poznámky budou zobrazeny, když kliknete na úkol</string>  
+  <string name="EPr_showNotes_desc_disabled">Notes will be displayed in quick action bar</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">Poznámky budou vždy zobrazeny</string>
   
@@ -723,6 +731,19 @@
       <item>V termínu nebo po něm</item>
   </string-array>
   
+  <!-- ========================================== Task Management Settings == -->
+
+  <!-- Preference Screen Header: Old Task Management -->
+  <string name="EPr_manage_header">Manage Old Tasks</string>
+  <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
+  <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
+  <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
+  <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
+  <string name="EPr_manage_purge_deleted">Purge Deleted Tasks</string>
+  <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
+  <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
+  <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
+      
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
@@ -780,7 +801,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">Astrid je vysoce oceňovaný open source úkolovník, jednoduše ovladatelný a přesto velice výkonný, aby Vám pomohl mít vše hotovo. Značky, připomenutí, synchronizace s Remember The Milk, lokalizace a další.</string>
-    
+  
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -938,6 +959,12 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google úkoly: %s</string>
     
+    <!-- dialog prompt for creating a new gtasks list -->
+    <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
+    
+    <!-- error to show when list creation fails -->
+    <string name="gtasks_FEx_create_list_error">Error creating new list</string>
+    
     <!-- short help title for Gtasks -->
     <string name="gtasks_help_title">Vítejte v Google úkolech!</string>
     
@@ -955,7 +982,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_GLA_title">Přihlašte se do Google úkolů</string>
 
     <!-- Instructions: Gtasks login -->    
-    <string name="gtasks_GLA_body">Prosím, přihlaste se do Google úkolů. Účty Google Apps nejsou prozatím podporované, pracujeme na tom!</string>
+    <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps
+    accounts are currently unsupported.</string>
+    
+    <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
 
     <!-- Instructions: Gtasks further help -->    
     <string name="gtasks_GLA_further_help">To view your tasks with indentation
@@ -970,6 +1000,9 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
     <!-- Password Label -->    
     <string name="gtasks_GLA_password">Heslo</string>
+    
+    <!--  Authenticating toast -->
+    <string name="gtasks_GLA_authenticating">Authenticating...</string>
     
     <!-- Google Apps for Domain checkbox -->
     <string name="gtasks_GLA_domain">Účet Google Apps</string>
@@ -987,6 +1020,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
     <!-- GTasks Preferences Title -->    
     <string name="gtasks_GPr_header">Google Úkoly (Beta!)</string>
+    
+    <string name="gtasks_GPr_sync_on_save">Sync on Save</string>
+    
+    <string name="gtasks_GPr_sync_on_save_summary">Sync individual tasks as they are saved</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -1430,14 +1467,14 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- Reminder Preference: Quiet Hours Start Title -->
   <string name="rmd_EPr_quiet_hours_start_title">Nerušit od</string>
   <!-- Reminder Preference: Quiet Hours Start Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_start_desc">Žádné upozornění po %s</string>
+  <string name="rmd_EPr_quiet_hours_start_desc">Notifications will be silent after %s.\nNote: vibrations are controlled by the setting below! </string>
   <!-- Reminder Preference: Quiet Hours Start/End Description (disabled) -->
   <string name="rmd_EPr_quiet_hours_desc_none">Tichý režim zakázán</string>
   
   <!-- Reminder Preference: Quiet Hours End Title -->
   <string name="rmd_EPr_quiet_hours_end_title">Nerušit do</string>
   <!-- Reminder Preference: Quiet Hours End Description (%s => time set) -->
-  <string name="rmd_EPr_quiet_hours_end_desc">Upozornění začnou %s</string>
+  <string name="rmd_EPr_quiet_hours_end_desc">Notifications will stop being silent starting at %s</string>
 
   <!-- Reminder Preference: Default Reminder Title -->
   <string name="rmd_EPr_rmd_time_title">Default Reminder</string>
@@ -1465,6 +1502,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- Reminder Preference: Notification Icon Description -->
   <string name="rmd_Epr_notificon_desc">Vybrat ikonu upozornění</string>
 
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
+  <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
+  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system-setting for the volume</string>
+
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">Vibruj při upozornění</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
@@ -1473,11 +1517,11 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="rmd_EPr_vibrate_desc_false">Astrid nebude vibrovat při odesílání upozornění</string>
 
   <!-- Reminder Preference: Nagging Title -->  
-  <string name="rmd_EPr_nagging_title">Astrid upozornění</string>
+  <string name="rmd_EPr_nagging_title">Astrid Encouragements</string>
   <!-- Reminder Preference: Nagging Description (true) -->
   <string name="rmd_EPr_nagging_desc_true">Astrid bude vypisovat povzbuzující zprávy během upozornění</string>
   <!-- Reminder Preference: Nagging Description (false) -->
-  <string name="rmd_EPr_nagging_desc_false">Astrid nebude vypisovat žádné povzbuzující zprávy</string>
+  <string name="rmd_EPr_nagging_desc_false">Astrid will not give you any encouragement messages</string>
 
   <!-- Reminder Preference: Snooze Dialog Title -->  
   <string name="rmd_EPr_snooze_dialog_title">Snooze Dialog HH:MM</string>
@@ -1805,7 +1849,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="TAd_contextFilterByTag">Show List</string>
   
     <!-- Dialog: new list -->
-  <string name="tag_new_list">New List Name:</string>
+  <string name="tag_new_list">New List</string>
+  
+    <!-- Dialog: list saved -->
+  <string name="tag_list_saved">List Saved</string>
+  
+    <!-- Dialog: task created without title -->
+  <string name="tag_no_title_error">Please enter a name for this list first!</string>
   
   <!-- ========================================================== Filters == -->
   
@@ -1813,7 +1863,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="tag_FEx_add_new">New</string>
   
   <!-- filter header for tags -->
-  <string name="tag_FEx_header">Značky</string>
+  <string name="tag_FEx_header">Seznamy</string>
   
   <!-- filter header for tags user created -->
   <string name="tag_FEx_category_mine">My Lists</string>
@@ -1825,16 +1875,16 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="tag_FEx_category_inactive">Inactive</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Neoznačené</string>
+  <string name="tag_FEx_untagged">Not In Any List</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">Označené \'%s\'</string>
+  <string name="tag_FEx_name">List: %s</string>
 
   <!-- context menu option to rename a tag -->
   <string name="tag_cm_rename">Rename List</string>
 
   <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">Smazat značku</string>
+  <string name="tag_cm_delete">Delete List</string>
 
   <!-- Dialog to confirm deletion of a tag -->
   <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>

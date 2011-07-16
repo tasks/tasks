@@ -46,26 +46,29 @@
     <!-- Tab for showing comments & updates -->
     <item>Activity</item>
     <!-- Tab for showing setting -->
-    <item>Members</item>
+    <item>List Settings</item>
   </string-array>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Refresh</string>
 
-  <!-- Tag Members: tag name label -->
+  <!-- Tag Settings: tag name label -->
   <string name="actfm_TVA_tag_label">List Name:</string>
 
-  <!-- Tag Members: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">List Owner:</string>
+  <!-- Tag Settings: tag owner label -->
+  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
 
-  <!-- Tag Members: tag owner value when there is no owner -->
+  <!-- Tag Settings: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">none</string>
 
-  <!-- Tag Members: team members label -->
-  <string name="actfm_TVA_members_label">Team Members:</string>
+  <!-- Tag Settings: list collaborators label -->
+  <string name="actfm_TVA_members_label">Collaborators:</string>
 
-  <!-- Tag Members: tag picture -->
+  <!-- Tag Settings: tag picture -->
   <string name="actfm_TVA_tag_picture">List Picture</string>
+
+  <!-- Tag Settings: silence notifications label -->
+  <string name="actfm_TVA_silence_label">Silence Notifications</string>
 
   <!-- ============================================ edit people dialog == -->
 
@@ -133,19 +136,25 @@
 
   <!-- share login: Sharing Description -->
   <string name="actfm_ALA_body">Astrid.com lets you access your tasks online,
-  share, and delegate with others. Perfect for personal use, friends, family, and coworkers!</string>
+  share, and delegate with others.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Facebook</string>
+  <string name="actfm_ALA_fb_login">Sign in with Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Google</string>
+  <string name="actfm_ALA_gg_login">Sign in with Google</string>
 
-  <!-- share login: Sharing Login Password Prompt -->
-  <string name="actfm_ALA_pw_login">Login</string>
+  <!-- share login: Sharing Footer Password Label -->
+  <string name="actfm_ALA_pw_login">Don\'t have a Google or Facebook Account?</string>
 
-  <!-- share login: Sharing Sign Up Prompt -->
-  <string name="actfm_ALA_pw_signup">Join Now</string>
+  <!-- share login: Sharing Password Link -->
+  <string name="actfm_ALA_pw_link">Sign In Here</string>
+
+  <!-- share login: Password Are you a New User? -->
+  <string name="actfm_ALA_pw_new">Create a new account?</string>
+
+  <!-- share login: Password Are you a Returning User? -->
+  <string name="actfm_ALA_pw_returning">Already have an account?</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Name</string>
@@ -169,8 +178,7 @@
   <string name="actfm_OLA_prompt">Please connect to Google:</string>
 
   <!-- share login: Sharing notice -->
-  <string name="actfm_ALA_notice">We promise not to post messages or send
-  e-mails without your permission.</string>
+  <string name="actfm_ALA_notice">Astrid won\'t send messages e-mails without permission.</string>
 
   <!-- ================================================ Synchronization == -->
       
@@ -590,7 +598,7 @@
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
       <item>無截止日</item>
-      <item>指定日期/時間</item>
+      <item>指定哪天</item>
       <item>今天</item>
       <item>明天</item>
       <item>(天之後)</item>
@@ -654,7 +662,7 @@
   <!-- Preference: Task List Show Notes -->
   <string name="EPr_showNotes_title">在工作顯示備註</string>
   <!-- Preference: Task List Show Notes Description (disabled) -->
-  <string name="EPr_showNotes_desc_disabled">當您點選工作時會顯示備註</string>  
+  <string name="EPr_showNotes_desc_disabled">Notes will be displayed in quick action bar</string>  
   <!-- Preference: Task List Show Notes Description (enabled) -->
   <string name="EPr_showNotes_desc_enabled">總是顯示備註</string>
   
@@ -723,6 +731,19 @@
       <item>在截止期限或過期時</item>
   </string-array>
   
+  <!-- ========================================== Task Management Settings == -->
+
+  <!-- Preference Screen Header: Old Task Management -->
+  <string name="EPr_manage_header">Manage Old Tasks</string>
+  <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
+  <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
+  <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
+  <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
+  <string name="EPr_manage_purge_deleted">Purge Deleted Tasks</string>
+  <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
+  <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
+  <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
+      
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
@@ -780,7 +801,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">Astrid工作管理是受到高度喜愛的開放源碼應用程式且可以非常簡單的完成工作。內含工作標籤、提醒、同步 、本地端插件、widget和其他功能。</string>
-    
+  
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -938,6 +959,12 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google Tasks: %s</string>
     
+    <!-- dialog prompt for creating a new gtasks list -->
+    <string name="gtasks_FEx_create_list_dialog">New List Name:</string>
+    
+    <!-- error to show when list creation fails -->
+    <string name="gtasks_FEx_create_list_error">Error creating new list</string>
+    
     <!-- short help title for Gtasks -->
     <string name="gtasks_help_title">歡迎使用Google Tasks!</string>
     
@@ -956,6 +983,8 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Instructions: Gtasks login -->    
     <string name="gtasks_GLA_body">Please log in to Google Tasks Sync (Beta!). Non-migrated Google Apps
     accounts are currently unsupported.</string>
+    
+    <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
 
     <!-- Instructions: Gtasks further help -->    
     <string name="gtasks_GLA_further_help">檢視工作時若想保留縮排與排序，請到篩選頁面選擇Google Tasks的工作清單。Astrid預設採用自有的工作排序。</string>
@@ -969,6 +998,9 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <!-- Password Label -->    
     <string name="gtasks_GLA_password">密碼</string>
     
+    <!--  Authenticating toast -->
+    <string name="gtasks_GLA_authenticating">Authenticating...</string>
+    
     <!-- Google Apps for Domain checkbox -->
     <string name="gtasks_GLA_domain">Google Apps for Domain帳號</string>
 
@@ -976,7 +1008,7 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
     <string name="gtasks_GLA_errorEmpty">錯誤: 所有欄位需要填寫!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="gtasks_GLA_errorAuth">錯誤: 電子郵件或密碼不正確!</string>
+    <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
     <string name="gtasks_GLA_errorAuth_captcha">您可能需要輸入captcha(驗證碼)。嘗試從瀏覽器登入後再回來重試:</string>
@@ -985,6 +1017,10 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
 
     <!-- GTasks Preferences Title -->    
     <string name="gtasks_GPr_header">Google Tasks (測試中!)</string>
+    
+    <string name="gtasks_GPr_sync_on_save">Sync on Save</string>
+    
+    <string name="gtasks_GPr_sync_on_save_summary">Sync individual tasks as they are saved</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -1463,6 +1499,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <!-- Reminder Preference: Notification Icon Description -->
   <string name="rmd_Epr_notificon_desc">選擇Astrid通知列圖示</string>
 
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
+  <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
+  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system-setting for the volume</string>
+
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">震動提醒</string>
   <!-- Reminder Preference: Vibrate Description (true) -->
@@ -1803,7 +1846,13 @@ Astrid is open-source and proudly maintained by Todoroo, Inc.</string>
   <string name="TAd_contextFilterByTag">Show List</string>
   
     <!-- Dialog: new list -->
-  <string name="tag_new_list">New List Name:</string>
+  <string name="tag_new_list">New List</string>
+  
+    <!-- Dialog: list saved -->
+  <string name="tag_list_saved">List Saved</string>
+  
+    <!-- Dialog: task created without title -->
+  <string name="tag_no_title_error">Please enter a name for this list first!</string>
   
   <!-- ========================================================== Filters == -->
   

@@ -11,7 +11,7 @@
   <string name="actfm_person_hint">Naam contactpersoon</string>
   
   <!-- task sharing dialog: shared with hint -->
-  <string name="actfm_person_or_tag_hint">Contact or Shared List</string>
+  <string name="actfm_person_or_tag_hint">Contacten of gedeelde lijst</string>
 
   <!-- toast on transmit success -->
   <string name="actfm_toast_success">Op server opgeslagen</string>
@@ -20,7 +20,7 @@
   <string name="actfm_toast_error">Opslaan mislukt</string>
 
   <!-- can't rename or delete shared tag message -->
-  <string name="actfm_tag_operation_disabled">Sorry, this operation is not yet supported for shared tags.</string>
+  <string name="actfm_tag_operation_disabled">Deze opdracht wordt nog niet ondersteund voor gedeelde labels.</string>
 
   <!-- menu item to take a picture -->
   <string name="actfm_picture_camera">Een foto maken</string>
@@ -29,7 +29,7 @@
   <string name="actfm_picture_gallery">Uit galerij halen</string>
 
   <!-- filter list activity: refresh tags -->
-  <string name="actfm_FLA_menu_refresh">Refresh Lists</string>
+  <string name="actfm_FLA_menu_refresh">Lijsten vernieuwen</string>
 
   <!-- ================================================== TagViewActivity == -->  
 
@@ -46,37 +46,40 @@
     <!-- Tab for showing comments & updates -->
     <item>Activiteit</item>
     <!-- Tab for showing setting -->
-    <item>Deelnemers</item>
+    <item>List Settings</item>
   </string-array>
 
   <!-- Tag View Menu: refresh -->
   <string name="actfm_TVA_menu_refresh">Vernieuwen</string>
 
-  <!-- Tag Members: tag name label -->
-  <string name="actfm_TVA_tag_label">List Name:</string>
+  <!-- Tag Settings: tag name label -->
+  <string name="actfm_TVA_tag_label">Lijst naam:</string>
 
-  <!-- Tag Members: tag owner label -->
-  <string name="actfm_TVA_tag_owner_label">List Owner:</string>
+  <!-- Tag Settings: tag owner label -->
+  <string name="actfm_TVA_tag_owner_label">List Creator:</string>
 
-  <!-- Tag Members: tag owner value when there is no owner -->
+  <!-- Tag Settings: tag owner value when there is no owner -->
   <string name="actfm_TVA_tag_owner_none">geen</string>
 
-  <!-- Tag Members: team members label -->
-  <string name="actfm_TVA_members_label">Teamleden</string>
+  <!-- Tag Settings: list collaborators label -->
+  <string name="actfm_TVA_members_label">Collaborators:</string>
 
-  <!-- Tag Members: tag picture -->
-  <string name="actfm_TVA_tag_picture">List Picture</string>
+  <!-- Tag Settings: tag picture -->
+  <string name="actfm_TVA_tag_picture">Lijst afbeelding:</string>
+
+  <!-- Tag Settings: silence notifications label -->
+  <string name="actfm_TVA_silence_label">Silence Notifications</string>
 
   <!-- ============================================ edit people dialog == -->
 
   <!-- task sharing dialog: intro -->
-  <string name="actfm_EPA_intro">Use Astrid to share shopping lists, party plans, or team projects and instantly see when people get stuff done!</string>
+  <string name="actfm_EPA_intro">Gebruik Astrid om boodschappenlijsten, feestplanningen, of team projecten te delen en zie direct als personen taken hebben voltooid!</string>
     
   <!-- task sharing dialog: window title -->
   <string name="actfm_EPA_title">Delen/toewijzen</string>
     
   <!-- task sharing dialog: save button -->
-  <string name="actfm_EPA_save">Save &amp; Share</string>
+  <string name="actfm_EPA_save">Opslaan &amp; Delen</string>
   
   <!-- task sharing dialog: assigned label -->
   <string name="actfm_EPA_assign_label">Toegewezen aan:</string>
@@ -88,10 +91,10 @@
   <string name="actfm_EPA_assign_custom">Aangepast...</string>
   
   <!-- task sharing dialog: shared with label -->
-  <string name="actfm_EPA_share_with">Add Collaborators:</string>
+  <string name="actfm_EPA_share_with">Medewerkers toevoegen</string>
   
   <!-- task sharing dialog: collaborator list name (%s => name of list) -->
-  <string name="actfm_EPA_list">List: %s</string>
+  <string name="actfm_EPA_list">Lijst: %s</string>
   
   <!-- task sharing dialog: assigned hint -->
   <string name="actfm_EPA_assigned_hint">Naam contactpersoon</string>
@@ -124,7 +127,7 @@
   <string name="actfm_EPA_invalid_email">Ongeldig e-mailadres: %s</string>
 
   <!-- task sharing dialog: tag not found (%s => tag) -->
-  <string name="actfm_EPA_invalid_tag">List Not Found: %s</string>
+  <string name="actfm_EPA_invalid_tag">Lijst niet gevonden: %s</string>
 
   <!-- ========================================= sharing login activity == -->
 
@@ -132,19 +135,26 @@
   <string name="actfm_ALA_title">Welkom bij Astrid.com!</string>
 
   <!-- share login: Sharing Description -->
-  <string name="actfm_ALA_body">Met Astrid.com kunnen taken online worden benaderd, gedeeld en aan andere gedelegeerd. Perfect voor persoonlijk gebruik, vrienden, familie en collega\'s!</string>
+  <string name="actfm_ALA_body">Astrid.com lets you access your tasks online,
+  share, and delegate with others.</string>
 
   <!-- share login: Sharing Login FB Prompt -->
-  <string name="actfm_ALA_fb_login">Facebook</string>
+  <string name="actfm_ALA_fb_login">Sign in with Facebook</string>
 
   <!-- share login: Sharing Login GG Prompt -->
-  <string name="actfm_ALA_gg_login">Google</string>
+  <string name="actfm_ALA_gg_login">Sign in with Google</string>
 
-  <!-- share login: Sharing Login Password Prompt -->
-  <string name="actfm_ALA_pw_login">Aanmelden</string>
+  <!-- share login: Sharing Footer Password Label -->
+  <string name="actfm_ALA_pw_login">Don\'t have a Google or Facebook Account?</string>
 
-  <!-- share login: Sharing Sign Up Prompt -->
-  <string name="actfm_ALA_pw_signup">Join Now</string>
+  <!-- share login: Sharing Password Link -->
+  <string name="actfm_ALA_pw_link">Sign In Here</string>
+
+  <!-- share login: Password Are you a New User? -->
+  <string name="actfm_ALA_pw_new">Create a new account?</string>
+
+  <!-- share login: Password Are you a Returning User? -->
+  <string name="actfm_ALA_pw_returning">Already have an account?</string>
 
   <!-- share login: Name -->
   <string name="actfm_ALA_name_label">Naam</string>
@@ -165,10 +175,10 @@
   <string name="actfm_ALA_login_title">Aanmelden bij Astrid.com</string>
 
   <!-- share login: OAUTH Login Prompt -->
-  <string name="actfm_OLA_prompt">Please connect to Google:</string>
+  <string name="actfm_OLA_prompt">A.u.b. met Google verbinden:</string>
 
   <!-- share login: Sharing notice -->
-  <string name="actfm_ALA_notice">Wij beloven geen berichten te sturen of e-mails te verzenden zonder uw toestemming.</string>
+  <string name="actfm_ALA_notice">Astrid won\'t send messages e-mails without permission.</string>
 
   <!-- ================================================ Synchronization == -->
       
@@ -242,7 +252,7 @@
   <!-- ================================================= BackupActivity == -->
 
   <!-- backup activity label -->
-  <string name="backup_BAc_label">Manage Backups</string>
+  <string name="backup_BAc_label">Back-ups beheren</string>
 
   <!-- backup activity title -->
   <string name="backup_BAc_title">Mijn backups beheren</string>
@@ -363,7 +373,7 @@
   <string name="ENE_label_comments">Opmerkingen</string>
   
   <!-- EditNoteActivity - no comments -->
-  <string name="ENA_no_comments">Nothing To Show</string>
+  <string name="ENA_no_comments">Niets om weer te geven</string>
   
   <!-- EditNoteActivity - loading -->
   <string name="ENA_loading">Laden…</string>
@@ -544,7 +554,7 @@
   <string name="TEA_urgency_specific_time">Specifieke tijd?</string>
   
   <!-- Task urgency specific time title when specific time false -->
-  <string name="TEA_urgency_none">None</string>
+  <string name="TEA_urgency_none">Geen</string>
   
   <!-- Task hide until label -->
   <string name="TEA_hideUntil_label">Verbergen tot</string>
@@ -588,12 +598,12 @@
   <string-array name="TEA_urgency">
       <!-- urgency: labels for edit page. item #4 -> auto filled -->
       <item>Geen einddatum</item>
-      <item>Specifieke dag/tijd</item>
+      <item>Specifieke dag</item>
       <item>Vandaag</item>
       <item>Morgen</item>
       <item>(volgende dag)</item>
       <item>Volgende week</item>
-      <item>In Two Weeks</item>
+      <item>Binnen 2 weken</item>
       <item>Volgende maand</item>
   </string-array>
   
@@ -721,6 +731,19 @@
       <item>Op of na de einddatum</item>
   </string-array>
   
+  <!-- ========================================== Task Management Settings == -->
+
+  <!-- Preference Screen Header: Old Task Management -->
+  <string name="EPr_manage_header">Manage Old Tasks</string>
+  <string name="EPr_manage_delete_completed">Delete Completed Tasks</string>
+  <string name="EPr_manage_delete_completed_message">Do you really want to delete all your completed tasks?</string>
+  <string name="EPr_manage_delete_completed_summary">Deleted tasks can be undeleted one-by-one</string>
+  <string name="EPr_manage_delete_completed_status">Deleted %d tasks!</string>
+  <string name="EPr_manage_purge_deleted">Purge Deleted Tasks</string>
+  <string name="EPr_manage_purge_deleted_message">Do you really want to purge all your deleted tasks?\n\nThese tasks will be gone forever!</string>
+  <string name="EPr_manage_purge_deleted_status">Purged %d tasks!</string>
+  <string name="EPr_manage_purge_deleted_summary">Caution! Purged tasks can\'t be recovered without backup file!</string>
+      
   <!-- ==================================================== AddOnActivity == -->
   
   <!-- Add Ons Activity Title -->
@@ -776,7 +799,7 @@
   
   <!-- Astrid's Android Marketplace description. It never appears in the app itself. -->
   <string name="marketplace_description">Astrid is de geliefde open-source Takenbeheerder, ontworpen om je taken gedaan te krijgen. Astrid heeft functies als herinneringen, bundelen van taken, synchronisatie, LBS plug-ins, widgets en nog veel meer!</string>
-    
+  
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -868,14 +891,14 @@
     <string name="CFC_importance_name">Prioriteit...</string>        
     
     <!-- Criteria: tag - display text (? -> user input) -->
-    <string name="CFC_tag_text">List: ?</string>
+    <string name="CFC_tag_text">Lijst: ?</string>
     <!-- Criteria: tag - name of criteria -->
-    <string name="CFC_tag_name">List...</string>
+    <string name="CFC_tag_name">Lijst...</string>
     
     <!-- Criteria: tag_contains - name of criteria -->
-    <string name="CFC_tag_contains_name">List name contains...</string>
+    <string name="CFC_tag_contains_name">Lijstnaam bevat...</string>
     <!-- Criteria: tag_contains - text (? -> user input) -->
-    <string name="CFC_tag_contains_text">List name contains: ?</string>
+    <string name="CFC_tag_contains_text">Lijstnaam bevat: ?</string>
     
     <!-- Criteria: title_contains - name of criteria -->
     <string name="CFC_title_contains_name">Naam bevat...</string>
@@ -934,6 +957,12 @@
     <!-- filter title for GTasks lists (%s => list name) -->
     <string name="gtasks_FEx_title">Google Taken: %s</string>
     
+    <!-- dialog prompt for creating a new gtasks list -->
+    <string name="gtasks_FEx_create_list_dialog">Naam nieuwe lijst:</string>
+    
+    <!-- error to show when list creation fails -->
+    <string name="gtasks_FEx_create_list_error">Error creating new list</string>
+    
     <!-- short help title for Gtasks -->
     <string name="gtasks_help_title">Welkom bij Google Taken!</string>
     
@@ -951,6 +980,8 @@
 
     <!-- Instructions: Gtasks login -->    
     <string name="gtasks_GLA_body">Aanmelden bij Google Taken is vereist om te synchroniseren. Google Apps voor Domeinen is op dit moment nog niet ondersteund, daar wordt aan gewerkt!</string>
+    
+    <string name="gtasks_GLA_noaccounts">No available Google accounts to sync with.</string>
 
     <!-- Instructions: Gtasks further help -->    
     <string name="gtasks_GLA_further_help">Om je taken met inspring en behoud van volgorde te bekijken, gebruik daarvoor de Filters pagina en selecteer een Google Takenlijst. Astrid maakt normaliter gebruik van eigen instellingen.</string>
@@ -964,6 +995,9 @@
     <!-- Password Label -->    
     <string name="gtasks_GLA_password">Wachtwoord</string>
     
+    <!--  Authenticating toast -->
+    <string name="gtasks_GLA_authenticating">Authenticating...</string>
+    
     <!-- Google Apps for Domain checkbox -->
     <string name="gtasks_GLA_domain">Google Apps voor Domeinen account</string>
 
@@ -971,7 +1005,7 @@
     <string name="gtasks_GLA_errorEmpty">Fout: vul alle velden in!</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized -->    
-    <string name="gtasks_GLA_errorAuth">Fout: e-mail of wachtwoord verkeerd ingevuld!</string>
+    <string name="gtasks_GLA_errorAuth">Error authenticating! Please check your username and password in your phone\'s account manager</string>
 
     <!-- Error Message when we receive a HTTP 401 Unauthorized multiple times -->    
     <string name="gtasks_GLA_errorAuth_captcha">Er kan een captcha zijn getoond. Probeer in te loggen via de browser, kom dan terug en probeer het opnieuw:</string>
@@ -980,6 +1014,10 @@
 
     <!-- GTasks Preferences Title -->    
     <string name="gtasks_GPr_header">Google Taken (Beta!)</string>
+    
+    <string name="gtasks_GPr_sync_on_save">Sync on Save</string>
+    
+    <string name="gtasks_GPr_sync_on_save_summary">Sync individual tasks as they are saved</string>
     
     <!-- ================================================ Synchronization == -->    
     
@@ -1007,28 +1045,13 @@
   <string name="intro_task_2_summary">Voeg een widget toe aan je hoofdscherm</string>
 
   <!-- Task 2 Note -->
-  <string name="intro_task_2_note">A desktop widget is a great way to keep 
-  	track of your what you have to do as well as a way to quickly add new 
-  	tasks.\n\n
-	How to add a widget:\n
-	1) Long press on your phone\'s desktop.\n
-	2) Choose \"Widget\" from resulting menu\n
-	3) Choose the Astrid widget.\n
-	4) You can select a Astrid filter. Choose \"Active Tasks\" for all your 
-	tasks\n\n
-
-	Bonus: Use the widget to add a task!</string>
+  <string name="intro_task_2_note">Een bureaublad widget is een geweldige manier om de te doen taken bij te houden en een manier om snel nieuwe taken toe te voegen.\n\n Hoe een widget toevoegen?:\n 1) Druk lang op het bureaublad.\n 2) Kies \"Widget\" uit het menu\n 3) Selecteer de Astrid widget.\n 4) Selecteer een Astrid filter. Selecteer \"Actieve taken\" voor alle taken\n\n Bonus: Gebruik de widget om een taak toe te voegen!</string>
   
     <!-- Task 3 Summary  -->
-  <string name="intro_task_3_summary">Setup sync with Astrid.com</string>
+  <string name="intro_task_3_summary">Instellingen synchroniseren met Astrid.com</string>
 
   <!-- Task 3 Note -->
-  <string name="intro_task_3_note">Astrid makes it possible for you to sync 
-  	your tasks with Astrid.com, Google Tasks, and Producteev.\n\n
-
-	To enable sync from Astrid press \"Menu\" -&gt; \"Settings\" -&gt; \"Synchronization\" and 
-	choose the sync provider you prefer.
-	</string>
+  <string name="intro_task_3_note">Astrid maakt het mogelijk de taken te synchroniseren met Astrid.com, Google Taken en Producteev.\n\n Om synchroniseren vanuit Astrid in te schakelen, druk \"Menu\"-&gt; \"Instellingen\" -&gt; \"Synchronisatie\" en selecteer de gewenste provider.</string>
 
 
 <!-- See the file "LICENSE" for the full license governing this code. -->
@@ -1368,16 +1391,16 @@
   <!-- =============================================== task edit activity == -->
 
   <!-- Task Edit: Reminder header label -->  
-  <string name="TEA_reminder_label">Remind Me:</string>
+  <string name="TEA_reminder_label">Herinneren:</string>
 
   <!-- Task Edit: Reminder @ deadline -->  
-  <string name="TEA_reminder_due">When task is due</string>
+  <string name="TEA_reminder_due">op einddatum taak</string>
 
   <!-- Task Edit: Reminder after deadline -->  
-  <string name="TEA_reminder_overdue">When task is overdue</string>
+  <string name="TEA_reminder_overdue">op of na einddatum taak</string>
 
   <!-- Task Edit: Reminder at random times (%s => time plural)-->
-  <string name="TEA_reminder_random">Randomly once</string>
+  <string name="TEA_reminder_random">eenmalig willekeurig</string>
 
   <!-- Task Edit: Reminder alarm clock label -->  
   <string name="TEA_reminder_alarm_label">Audio / Trilstand:</string>
@@ -1457,6 +1480,13 @@
   <string name="rmd_EPr_notificon_title">Icoon voor herinnering</string>
   <!-- Reminder Preference: Notification Icon Description -->
   <string name="rmd_Epr_notificon_desc">Kies het icoon voor Astrid in de notificatiebalk</string>
+
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Title -->
+  <string name="rmd_EPr_multiple_maxvolume_title">Max volume for multiple-ring reminders</string>
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (true) -->
+  <string name="rmd_EPr_multiple_maxvolume_desc_true">Astrid will max out the volume for multiple-ring reminders</string>
+  <!-- Reminder Preference: Max Volume for Multiple-Ring reminders Description (false) -->
+  <string name="rmd_EPr_multiple_maxvolume_desc_false">Astrid will use the system-setting for the volume</string>
 
   <!-- Reminder Preference: Vibrate Title -->
   <string name="rmd_EPr_vibrate_title">Trilstand bij herinnering aan</string>
@@ -1779,13 +1809,13 @@
   <!-- =============================================== Task Edit Controls == -->
 
   <!-- Tags label -->
-  <string name="TEA_tags_label">Add to List:</string>
+  <string name="TEA_tags_label">Aan lijst toevoegen:</string>
   
   <!-- Tags hint -->
-  <string name="TEA_tag_hint">List Name</string>
+  <string name="TEA_tag_hint">Lijst naam</string>
   
   <!-- Tags dropdown -->
-  <string name="TEA_tag_dropdown">Select a list</string>
+  <string name="TEA_tag_dropdown">Selecteer een lijst</string>
     
   <!-- =============================================== Task List Controls == -->
   
@@ -1795,21 +1825,27 @@
   <!-- ========================================================== Extras == -->
   
     <!-- Context Item: show tag -->
-  <string name="TAd_contextFilterByTag">Show List</string>
+  <string name="TAd_contextFilterByTag">Lijst weergeven</string>
   
     <!-- Dialog: new list -->
-  <string name="tag_new_list">New List Name:</string>
+  <string name="tag_new_list">New List</string>
+  
+    <!-- Dialog: list saved -->
+  <string name="tag_list_saved">List Saved</string>
+  
+    <!-- Dialog: task created without title -->
+  <string name="tag_no_title_error">Please enter a name for this list first!</string>
   
   <!-- ========================================================== Filters == -->
   
   <!-- filter button to add tag -->
-  <string name="tag_FEx_add_new">New</string>
+  <string name="tag_FEx_add_new">Nieuw</string>
   
   <!-- filter header for tags -->
   <string name="tag_FEx_header">Lijsten</string>
   
   <!-- filter header for tags user created -->
-  <string name="tag_FEx_category_mine">My Lists</string>
+  <string name="tag_FEx_category_mine">Lijsten</string>
   
   <!-- filter header for tags, shared with user -->
   <string name="tag_FEx_category_shared">Met mij gedeeld</string>
@@ -1818,31 +1854,31 @@
   <string name="tag_FEx_category_inactive">Niet actief</string>
   
   <!-- filter for untagged tasks -->
-  <string name="tag_FEx_untagged">Not In Any List</string>
+  <string name="tag_FEx_untagged">In geen enkele lijst</string>
   
   <!-- %s => tag name -->
-  <string name="tag_FEx_name">List: %s</string>
+  <string name="tag_FEx_name">Lijst: %s</string>
 
   <!-- context menu option to rename a tag -->
-  <string name="tag_cm_rename">Rename List</string>
+  <string name="tag_cm_rename">Lijst hernoemen</string>
 
   <!-- context menu option to delete a tag -->
-  <string name="tag_cm_delete">Delete List</string>
+  <string name="tag_cm_delete">Lijst verwijderen</string>
 
   <!-- Dialog to confirm deletion of a tag -->
-  <string name="DLG_delete_this_tag_question">Delete this list: %s? (No tasks will be deleted.)</string>
+  <string name="DLG_delete_this_tag_question">De lijst %s verwijderen? (Taken blijven behouden.)</string>
 
   <!-- Dialog to rename tag -->
-  <string name="DLG_rename_this_tag_header">Rename the list %s to:</string>
+  <string name="DLG_rename_this_tag_header">De lijst %s hernoemen naar:</string>
 
   <!-- Toast notification that no changes have been made -->
   <string name="TEA_no_tags_modified">Niets gewijzigd</string>
 
   <!-- Toast notification that a tag has been deleted -->
-  <string name="TEA_tags_deleted">List %1$s was deleted, affecting %2$d tasks</string>
+  <string name="TEA_tags_deleted">De lijst %1 is verwijderd, van invloed op %2$d taken</string>
 
   <!-- Toast notification that a tag has been renamed -->
-  <string name="TEA_tags_renamed">Renamed %1$s with %2$s for %3$d tasks</string>
+  <string name="TEA_tags_renamed">Taak %1$s hernoemd naar %2$s voor %3$d taken</string>
 
 
 
@@ -1852,10 +1888,10 @@
     <!-- Resources for built-in timers plug-in -->
     
     <!-- Task List: Start Timer button -->
-    <string name="TAE_startTimer">Timer</string>
+    <string name="TAE_startTimer">Klok starten</string>
     
     <!-- Task List: Stop Timer button -->
-    <string name="TAE_stopTimer">Stop</string>
+    <string name="TAE_stopTimer">Klok stoppen</string>
     
     <!-- Android Notification Title (%s => # tasks) -->
     <string name="TPl_notification">Timers actief voor %s!</string>

@@ -72,15 +72,15 @@
   </plurals>
   <plurals name="Ntasks">
     <!-- plurals: tasks -->
-    <item quantity="one">1 个工作</item>
+    <item quantity="one">1 个任务</item>
     <!-- plurals: tasks -->
-    <item quantity="other">%d 个工作</item>
+    <item quantity="other">%d 个任务</item>
   </plurals>
   <plurals name="Npeople">
     <!-- plurals: people -->
-    <item quantity="one">1 person</item>
+    <item quantity="one">一个人</item>
     <!-- plurals: people -->
-    <item quantity="other">%d people</item>
+    <item quantity="other">%d 个人</item>
   </plurals>
   
   <!-- today -->
@@ -101,13 +101,13 @@
   <string name="DLG_question_title">问题：</string>
   
   <!-- information dialog title -->
-  <string name="DLG_information_title">资讯</string>
+  <string name="DLG_information_title">信息</string>
   
   <!-- error dialog title -->
   <string name="DLG_error_title">错误！</string>
   
   <!-- general dialog save-->
-  <string name="DLG_save">储存</string>
+  <string name="DLG_save">保存</string>
   
   <!-- general dialog yes-->
   <string name="DLG_yes">确定</string>
@@ -122,10 +122,10 @@
   <string name="DLG_done">完成</string>
   
   <!-- error dialog (%s => error message)-->
-  <string name="DLG_error">糟糕，发生错误! 状况是:\n\n%s</string>
+  <string name="DLG_error">糟糕，发生错误！状况是:\n\n%s</string>
   
   <!-- error dialog (no message indicated)-->
-  <string name="DLG_error_generic">糟糕，发生错误!</string>
+  <string name="DLG_error_generic">糟糕，发生错误！</string>
   
   <!-- Progress dialog shown when doing something slow -->
   <string name="DLG_wait">请稍候...</string>
@@ -133,7 +133,7 @@
  <!-- ====================================================== SyncProvider == -->
           
   <!-- Sync Notification: message when sync service active -->
-  <string name="SyP_progress">工作同步中...</string>
+  <string name="SyP_progress">任务同步中...</string>
   
   <!-- Sync Notification: toast when sync activated from activity -->
   <string name="SyP_progress_toast">正在同步中...</string>
@@ -142,7 +142,7 @@
   <string name="SyP_label">同步</string>  
 
   <!-- Error msg when io exception  -->
-  <string name="SyP_ioerror">连结错误! 检查您的网际网路连线.</string>
+  <string name="SyP_ioerror">连接错误！请检查您的因特网连接。</string>
 
   <!-- ================================================== SyncPreferences == -->
   
@@ -150,44 +150,44 @@
   <string name="sync_SPr_group_status">状态</string>
   
   <!-- Sync Status: log in -->    
-  <string name="sync_status_loggedout">未登入!</string>
+  <string name="sync_status_loggedout">未登陆!</string>
   <!-- Status: ongoing -->    
   <string name="sync_status_ongoing">同步中...</string>
   <!-- Sync Status: success status (%s -> last sync date). Keep it short!-->    
-  <string name="sync_status_success">上次同步: %s</string>
+  <string name="sync_status_success">上次同步：%s</string>
   <!-- Sync Status: failure status (%s -> last attempted sync date) -->    
-  <string name="sync_status_failed">失败: %s</string>
+  <string name="sync_status_failed">失败：%s</string>
   <!-- Sync Status: error status (%s -> last sync date) -->    
   <string name="sync_status_errors">Sync w/ Errors: %s</string>
   <!-- Sync Status: error subtitle (%s -> last successful sync date) -->    
-  <string name="sync_status_failed_subtitle">上次成功同步: %s</string>
+  <string name="sync_status_failed_subtitle">上次成功同步：%s</string>
   <!-- Sync Status: never sync'd -->    
-  <string name="sync_status_never">未同步过!</string>
+  <string name="sync_status_never">未同步过！</string>
 
   <!-- Options Group Label -->    
   <string name="sync_SPr_group_options">选项</string>
 
   <!-- Preference: Synchronization Interval Title -->    
-  <string name="sync_SPr_interval_title">背景同步</string>
+  <string name="sync_SPr_interval_title">后台同步</string>
   <!-- Preference: Synchronization Interval Description (when disabled) -->
-  <string name="sync_SPr_interval_desc_disabled">背景同步已关闭</string>    
+  <string name="sync_SPr_interval_desc_disabled">后台同步已关闭</string>    
   <!-- Preference: Synchronization Interval Description (%s => setting) -->
-  <string name="sync_SPr_interval_desc">目前同步间隔设定: %s</string>
+  <string name="sync_SPr_interval_desc">目前同步间隔：%s</string>
   
   <!-- Preference: Background Wifi Title -->  
-  <string name="sync_SPr_bgwifi_title">Wifi 才可使用之设定</string>    
+  <string name="sync_SPr_bgwifi_title">Wifi 才可使用的设置</string>    
   <!-- Preference: Background Wifi Description (enabled) -->
-  <string name="sync_SPr_bgwifi_desc_enabled">使用Wifi才启动背景同步</string>    
+  <string name="sync_SPr_bgwifi_desc_enabled">使用 Wifi 才启动后台同步</string>    
   <!-- Preference: Background Wifi Description (disabled) -->
-  <string name="sync_SPr_bgwifi_desc_disabled">总是使用背景同步</string>
+  <string name="sync_SPr_bgwifi_desc_disabled">总是使用后台同步</string>
   
   <!-- Actions Group Label  -->
   <string name="sync_SPr_group_actions">动作</string>
 
   <!-- Synchronize Now Button -->    
-  <string name="sync_SPr_sync">现在同步!</string>
+  <string name="sync_SPr_sync">现在同步！</string>
   <!-- Synchronize Now Button if not logged in-->    
-  <string name="sync_SPr_sync_log_in">登入并同步!</string>
+  <string name="sync_SPr_sync_log_in">登陆并同步！</string>
   
   <!-- Sync: Clear Data Title -->
   <string name="sync_SPr_forget">登出</string>
@@ -195,7 +195,7 @@
   <string name="sync_SPr_forget_description">清除所有同步资料</string>
 
   <!-- confirmation dialog for sync log out -->
-  <string name="sync_forget_confirm">登出 / 清除同步资料?</string>
+  <string name="sync_forget_confirm">登出/清除同步资料?</string>
   
   <string-array name="sync_SPr_interval_entries">
       <!-- sync_SPr_interval_entries: Synchronization Intervals -->
