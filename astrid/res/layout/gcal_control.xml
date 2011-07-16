@@ -34,6 +34,12 @@
         android:layout_height="wrap_content"
         android:text="@string/gcal_TEA_showCalendar_label"
         android:visibility="gone" />
+  
+      <View
+          android:layout_width="fill_parent"
+          android:layout_height="1dip"
+          android:padding="5dip"
+          android:background="@android:drawable/divider_horizontal_dark" />
 
     </LinearLayout>
   
